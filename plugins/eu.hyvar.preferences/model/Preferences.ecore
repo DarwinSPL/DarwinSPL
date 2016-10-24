@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ecore:EPackage xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="preferences" nsURI="http://hyvar-project.eu/feature/preferences/1.0"
+    nsPrefix="preferences">
+  <eClassifiers xsi:type="ecore:EClass" name="HyPreferenceModel">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="preferences" upperBound="-1"
+        eType="#//HyPreference" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="featureModel" lowerBound="1"
+        eType="ecore:EClass ../../eu.hyvar.feature/model/Feature.ecore#//HyFeatureModel"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="contextModel" eType="ecore:EClass ../../eu.hyvar.context.information/model/ContextInformation.ecore#//HyContextModel"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="HyPreference" eSuperTypes="../../eu.hyvar.evolution/model/Evolution.ecore#//HyTemporalElement">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="rootExpression" lowerBound="1"
+        eType="ecore:EClass ../../eu.hyvar.feature.expression/model/Expression.ecore#//HyExpression"
+        containment="true"/>
+  </eClassifiers>
+</ecore:EPackage>
