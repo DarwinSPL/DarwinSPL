@@ -1,0 +1,25 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: EMFText Parser Plugin: hydatavalue
+Bundle-SymbolicName: eu.hyvar.dataValues.resource.hydatavalue;singleton:=true
+Bundle-Version: 1.0.0
+Bundle-Vendor: Software Technology Group - TU Dresden Germany
+Require-Bundle: org.eclipse.core.runtime;resolution:=optional,
+  org.eclipse.core.resources;resolution:=optional,
+  org.eclipse.emf.ecore,
+  org.eclipse.emf.ecore.change,
+  org.eclipse.emf.validation;resolution:=optional,
+  org.emftext.access;resolution:=optional,
+  org.emftext.commons.antlr3_4_0,
+  eu.hyvar.feature.data,
+  eu.hyvar.evolution
+Bundle-ActivationPolicy: lazy
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Export-Package: eu.hyvar.dataValues.resource.hydatavalue,
+  eu.hyvar.dataValues.resource.hydatavalue.analysis,
+  eu.hyvar.dataValues.resource.hydatavalue.mopp,
+  eu.hyvar.dataValues.resource.hydatavalue.debug,
+  eu.hyvar.dataValues.resource.hydatavalue.launch,
+  eu.hyvar.dataValues.resource.hydatavalue.grammar,
+  eu.hyvar.dataValues.resource.hydatavalue.util
+Bundle-Activator: eu.hyvar.dataValues.resource.hydatavalue.mopp.HydatavaluePlugin

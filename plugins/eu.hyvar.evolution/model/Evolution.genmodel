@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<genmodel:GenModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore"
+    xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" modelDirectory="/eu.hyvar.evolution/src-gen" editDirectory="/eu.hyvar.evolution.edit/src-gen"
+    editorDirectory="/eu.hyvar.evolution.editor/src-gen" modelPluginID="eu.hyvar.evolution"
+    modelName="Evol" rootExtendsClass="org.eclipse.emf.ecore.impl.MinimalEObjectImpl$Container"
+    testsDirectory="/eu.hyvar.evolution.tests/src-gen" importerID="org.eclipse.emf.importer.ecore"
+    complianceLevel="8.0" copyrightFields="false" operationReflection="true" importOrganizing="true">
+  <foreignModel>Evolution.ecore</foreignModel>
+  <genPackages prefix="HyEvolution" basePackage="eu.hyvar" resource="XMI" disposableProviderFactory="true"
+      ecorePackage="Evolution.ecore#/">
+    <genClasses image="false" ecoreClass="Evolution.ecore#//HyTemporalElement">
+      <genFeatures createChild="false" propertyCategory="" propertyDescription="ssd"
+          ecoreFeature="ecore:EAttribute Evolution.ecore#//HyTemporalElement/validSince"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Evolution.ecore#//HyTemporalElement/validUntil"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Evolution.ecore#//HyTemporalElement/id"/>
+      <genOperations ecoreOperation="Evolution.ecore#//HyTemporalElement/createId"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="Evolution.ecore#//HyLinearTemporalElement">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Evolution.ecore#//HyLinearTemporalElement/supersedingElement"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Evolution.ecore#//HyLinearTemporalElement/supersededElement"/>
+    </genClasses>
+    <genClasses ecoreClass="Evolution.ecore#//HyNamedElement">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Evolution.ecore#//HyNamedElement/names"/>
+    </genClasses>
+    <genClasses ecoreClass="Evolution.ecore#//HyName">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Evolution.ecore#//HyName/name"/>
+    </genClasses>
+  </genPackages>
+</genmodel:GenModel>

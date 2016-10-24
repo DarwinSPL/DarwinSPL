@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ecore:EPackage xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="evolution" nsURI="http://hyvar-project.eu/evolution/1.0" nsPrefix="evolution">
+  <eClassifiers xsi:type="ecore:EClass" name="HyTemporalElement" abstract="true" interface="true">
+    <eOperations name="createId" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="body" value="if(this.id == null || this.id.equals(&quot;&quot;)) {&#xD;&#xA;   String newIdentifier = &quot;_&quot;+java.util.UUID.randomUUID().toString();&#xD;&#xA;   setId(newIdentifier);&#xD;&#xA;}&#xD;&#xA;return getId();"/>
+      </eAnnotations>
+    </eOperations>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="validSince" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDate">
+      <eAnnotations source="documentation">
+        <details key="documentation" value="validSince is inclusive Meaning if a object is valid since 2015/03/03 and a predecessor is valid until 2015/03/03, the object is the valid one"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="validUntil" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDate">
+      <eAnnotations source="documentation">
+        <details key="documentation" value="validUntil is exclusive. Meaning if a object is valid until 2015/03/03 it is not valid at 2015/03/03"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="id" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
+        defaultValueLiteral="" derived="true" iD="true">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="automatically generated in the factory"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="HyLinearTemporalElement" abstract="true"
+      interface="true" eSuperTypes="#//HyTemporalElement">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="supersedingElement" eType="#//HyLinearTemporalElement"
+        eOpposite="#//HyLinearTemporalElement/supersededElement"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="supersededElement" eType="#//HyLinearTemporalElement"
+        eOpposite="#//HyLinearTemporalElement/supersedingElement"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="HyNamedElement">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="names" lowerBound="1" upperBound="-1"
+        eType="#//HyName" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="HyName" eSuperTypes="#//HyLinearTemporalElement">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+</ecore:EPackage>

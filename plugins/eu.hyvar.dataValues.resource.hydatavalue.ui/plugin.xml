@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.2"?>
+<plugin>
+	<extension point="org.emftext.access.syntax.ui">
+		<metaInformationProvider class="eu.hyvar.dataValues.resource.hydatavalue.ui.HydatavalueUIMetaInformation" id="eu.hyvar.dataValues.resource.hydatavalue.ui.HydatavalueUIMetaInformation">
+		</metaInformationProvider>
+	</extension>
+	
+	<extension point="org.eclipse.ui.editors">
+		<editor class="eu.hyvar.dataValues.resource.hydatavalue.ui.HydatavalueEditor" contributorClass="org.eclipse.ui.texteditor.BasicTextEditorActionContributor" extensions="hydatavalue" icon="icons/editor_icon.gif" id="eu.hyvar.dataValues.resource.hydatavalue.ui.HydatavalueEditor" name="EMFText hydatavalue Editor">
+			<contentTypeBinding contentTypeId="eu.hyvar.dataValues.resource.hydatavalue">
+			</contentTypeBinding>
+		</editor>
+	</extension>
+	
+	<extension point="org.eclipse.core.runtime.preferences">
+		<initializer class="eu.hyvar.dataValues.resource.hydatavalue.ui.HydatavaluePreferenceInitializer">
+		</initializer>
+	</extension>
+	
+	<extension point="org.eclipse.ui.preferencePages">
+		<page name="Hydatavalue Text Editor" id="eu.hyvar.dataValues.resource.hydatavalue.ui.HydatavaluePreferencePage" class="eu.hyvar.dataValues.resource.hydatavalue.ui.HydatavaluePreferencePage" category="org.eclipse.ui.preferencePages.GeneralTextEditor">
+		</page>
+		<page name="Syntax Coloring" id="eu.hyvar.dataValues.resource.hydatavalue.ui.HydatavalueSyntaxColoringPreferencePage" class="eu.hyvar.dataValues.resource.hydatavalue.ui.HydatavalueSyntaxColoringPreferencePage" category="eu.hyvar.dataValues.resource.hydatavalue.ui.HydatavaluePreferencePage">
+		</page>
+		<page name="Brackets" id="eu.hyvar.dataValues.resource.hydatavalue.ui.HydatavalueBracketPreferencePage" class="eu.hyvar.dataValues.resource.hydatavalue.ui.HydatavalueBracketPreferencePage" category="eu.hyvar.dataValues.resource.hydatavalue.ui.HydatavaluePreferencePage">
+		</page>
+		<page name="Content Assist" id="eu.hyvar.dataValues.resource.hydatavalue.ui.HydatavalueContentAssistPreferencePage" class="eu.hyvar.dataValues.resource.hydatavalue.ui.HydatavalueContentAssistPreferencePage" category="eu.hyvar.dataValues.resource.hydatavalue.ui.HydatavaluePreferencePage">
+		</page>
+	</extension>
+	
+	<extension point="org.eclipse.ui.newWizards">
+		<category id="org.emftext.runtime.ui.EMFTextFileCategory" name="EMFText File">
+		</category>
+		<wizard category="org.emftext.runtime.ui.EMFTextFileCategory" icon="/icons/default_new_icon.gif" class="eu.hyvar.dataValues.resource.hydatavalue.ui.HydatavalueNewFileWizard" id="eu.hyvar.dataValues.resource.hydatavalue.ui.HydatavalueNewFileWizard" name="EMFText .hydatavalue file">
+		</wizard>
+	</extension>
+	
+	<extension point="org.eclipse.ui.ide.markerResolution">
+		<markerResolutionGenerator class="eu.hyvar.dataValues.resource.hydatavalue.ui.HydatavalueMarkerResolutionGenerator" markerType="eu.hyvar.dataValues.resource.hydatavalue.problem">
+		</markerResolutionGenerator>
+	</extension>
+	
+	<extension point="org.eclipse.core.filebuffers.annotationModelCreation">
+		<factory class="eu.hyvar.dataValues.resource.hydatavalue.ui.HydatavalueAnnotationModelFactory" extensions="hydatavalue">
+		</factory>
+	</extension>
+	
+	<extension point="org.eclipse.core.contenttype.contentTypes">
+		<content-type id="eu.hyvar.dataValues.resource.hydatavalue" name=".hydatavalue File" base-type="org.eclipse.core.runtime.text" file-extensions="hydatavalue">
+		</content-type>
+	</extension>
+	
+	<extension point="org.eclipse.ui.editors.documentProviders">
+		<provider class="org.eclipse.ui.editors.text.TextFileDocumentProvider" extensions="hydatavalue" id="eu.hyvar.dataValues.resource.hydatavalue.ui.provider">
+		</provider>
+	</extension>
+	
+	<extension point="org.eclipse.ui.editors.annotationTypes">
+		<type name="eu.hyvar.dataValues.resource.hydatavalue.ui.occurences">
+		</type>
+		<type name="eu.hyvar.dataValues.resource.hydatavalue.ui.occurences.declaration" super="eu.hyvar.dataValues.resource.hydatavalue.ui.occurences">
+		</type>
+	</extension>
+	
+	<extension point="org.eclipse.ui.editors.markerAnnotationSpecification">
+		<specification annotationType="eu.hyvar.dataValues.resource.hydatavalue.ui.occurences" label="Occurrences (in .hydatavalue files)" icon="/icons/occurrence_icon.gif" textPreferenceKey="hydatavalue.occurrenceIndication" textPreferenceValue="false" highlightPreferenceKey="hydatavalue.occurrenceHighlighting" highlightPreferenceValue="true" contributesToHeader="false" overviewRulerPreferenceKey="hydatavalue.occurrenceIndicationInOverviewRuler" overviewRulerPreferenceValue="true" verticalRulerPreferenceKey="hydatavalue.occurrenceIndicationInVerticalRuler" verticalRulerPreferenceValue="false" colorPreferenceKey="hydatavalue.occurrenceIndicationColor" colorPreferenceValue="212,212,212" presentationLayer="4" showInNextPrevDropdownToolbarActionKey="hydatavalue.showOccurrenceInNextPrevDropdownToolbarAction" showInNextPrevDropdownToolbarAction="true" isGoToNextNavigationTargetKey="hydatavalue.isOccurrenceGoToNextNavigationTarget" isGoToNextNavigationTarget="false" isGoToPreviousNavigationTargetKey="hydatavalue.isOccurrenceGoToPreviousNavigationTarget" isGoToPreviousNavigationTarget="false" textStylePreferenceKey="hydatavalue.occurrenceTextStyle" textStylePreferenceValue="NONE">
+		</specification>
+		<specification annotationType="eu.hyvar.dataValues.resource.hydatavalue.ui.occurences.declaration" label="Declarations (in .hydatavalue files)" textPreferenceKey="hydatavalue.declarationIndication" textPreferenceValue="false" highlightPreferenceKey="hydatavalue.declarationHighlighting" highlightPreferenceValue="true" overviewRulerPreferenceKey="hydatavalue.declarationIndicationInOverviewRuler" overviewRulerPreferenceValue="true" verticalRulerPreferenceKey="hydatavalue.declarationIndicationInVerticalRuler" verticalRulerPreferenceValue="false" colorPreferenceKey="hydatavalue.declarationIndicationColor" colorPreferenceValue="240,216,168" presentationLayer="4" textStylePreferenceKey="hydatavalue.declarationTextStyle" textStylePreferenceValue="NONE">
+		</specification>
+	</extension>
+	
+	<extension point="org.eclipse.ui.commands">
+		<category description="All commands belonging to Hydatavalue" id="eu.hyvar.dataValues.resource.hydatavalue.ui.command.category" name="Hydatavalue">
+		</category>
+		<command categoryId="eu.hyvar.dataValues.resource.hydatavalue.ui.command.category" description="Toggle comment of the selected lines" id="eu.hyvar.dataValues.resource.hydatavalue.ui.command.togglecomment" name="Toggle Comment">
+		</command>
+	</extension>
+	
+	<extension point="org.eclipse.ui.handlers">
+		<handler class="eu.hyvar.dataValues.resource.hydatavalue.ui.HydatavalueToggleCommentHandler" commandId="eu.hyvar.dataValues.resource.hydatavalue.ui.command.togglecomment">
+		</handler>
+	</extension>
+	
+	<extension point="org.eclipse.ui.contexts">
+		<context name="Editing Hydatavalue Files" description="Editing Hydatavalue Files Context" parentId="org.eclipse.ui.textEditorScope" id="eu.hyvar.dataValues.resource.hydatavalue.EditorScope">
+		</context>
+	</extension>
+	
+	<extension point="org.eclipse.ui.bindings">
+		<key sequence="M1+7" commandId="eu.hyvar.dataValues.resource.hydatavalue.ui.command.togglecomment" schemeId="org.eclipse.ui.defaultAcceleratorConfiguration" contextId="eu.hyvar.dataValues.resource.hydatavalue.EditorScope">
+		</key>
+	</extension>
+	
+</plugin>

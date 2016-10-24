@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+
+<!--
+-->
+
+<plugin>
+
+   <extension point="org.eclipse.emf.ecore.generated_package">
+      <!-- @generated Evolution -->
+      <package
+            uri="http://hyvar-project.eu/evolution/1.0"
+            class="eu.hyvar.evolution.HyEvolutionPackage"
+            genModel="model/Evolution.genmodel"/>
+   </extension>
+
+   <extension point="org.eclipse.emf.ecore.extension_parser">
+      <!-- @generated Evolution -->
+      <parser
+            type="hyevolution"
+            class="eu.hyvar.evolution.util.HyEvolutionResourceFactoryImpl"/>
+   </extension>
+   <extension
+         point="org.eclipse.emf.ecore.factory_override">
+      <factory
+            class="eu.hyvar.evolution.factory.HyEvolutionFactoryWithIds"
+            uri="http://hyvar-project.eu/evolution/1.0">
+      </factory>
+   </extension>
+
+</plugin>
