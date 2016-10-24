@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   <extension
+         point="org.eclipse.ui.editors">
+      <editor
+            class="eu.hyvar.feature.graphical.editor.editor.GraphicalEvolutionFeatureModelEditor"
+            default="false"
+            extensions="hyfeature"
+            id="eu.hyvar.feature.graphical.editor.evolution.editor"
+            name="HyFeatureModel Graphical Editor with Evolution">
+      </editor>
+   </extension>
+   <extension
+         point="eu.hyvar.feature.expression.FeatureModelEditor">
+      <client
+            class="eu.hyvar.feature.graphical.editor.eclipse.ActiveFeatureModelEditorSolver">
+      </client>
+   </extension>
+
+</plugin>
