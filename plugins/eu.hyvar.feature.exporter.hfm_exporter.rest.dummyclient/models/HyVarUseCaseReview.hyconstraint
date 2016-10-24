@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="ASCII"?>
+<constraint:HyConstraintModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:constraint="http://hyvar-project.eu/feature/constraint/1.0" xmlns:expression="http://hyvar-project.eu/feature/expression/1.0">
+  <constraints>
+    <rootExpression xsi:type="expression:HyEquivalenceExpression">
+      <operand1 xsi:type="expression:HyFeatureReferenceExpression">
+        <feature href="HyVarUseCaseReview.hyfeature#//@features.6"/>
+      </operand1>
+      <operand2 xsi:type="expression:HyFeatureReferenceExpression">
+        <feature href="HyVarUseCaseReview.hyfeature#//@features.7"/>
+      </operand2>
+    </rootExpression>
+  </constraints>
+  <constraints>
+    <rootExpression xsi:type="expression:HyImpliesExpression">
+      <operand1 xsi:type="expression:HyFeatureReferenceExpression">
+        <feature href="HyVarUseCaseReview.hyfeature#//@features.6"/>
+      </operand1>
+      <operand2 xsi:type="expression:HyFeatureReferenceExpression">
+        <feature href="HyVarUseCaseReview.hyfeature#//@features.4"/>
+      </operand2>
+    </rootExpression>
+  </constraints>
+  <constraints>
+    <rootExpression xsi:type="expression:HyEquivalenceExpression">
+      <operand1 xsi:type="expression:HyFeatureReferenceExpression">
+        <feature href="HyVarUseCaseReview.hyfeature#//@features.5"/>
+      </operand1>
+      <operand2 xsi:type="expression:HyFeatureReferenceExpression">
+        <feature href="HyVarUseCaseReview.hyfeature#//@features.8"/>
+      </operand2>
+    </rootExpression>
+  </constraints>
+  <constraints>
+    <rootExpression xsi:type="expression:HyImpliesExpression">
+      <operand1 xsi:type="expression:HyFeatureReferenceExpression">
+        <feature href="HyVarUseCaseReview.hyfeature#//@features.5"/>
+      </operand1>
+      <operand2 xsi:type="expression:HyFeatureReferenceExpression">
+        <feature href="HyVarUseCaseReview.hyfeature#//@features.9"/>
+      </operand2>
+    </rootExpression>
+  </constraints>
+  <constraints>
+    <rootExpression xsi:type="expression:HyImpliesExpression">
+      <operand1 xsi:type="expression:HyFeatureReferenceExpression">
+        <feature href="HyVarUseCaseReview.hyfeature#//@features.6"/>
+      </operand1>
+      <operand2 xsi:type="expression:HyFeatureReferenceExpression">
+        <feature href="HyVarUseCaseReview.hyfeature#//@features.10"/>
+      </operand2>
+    </rootExpression>
+  </constraints>
+</constraint:HyConstraintModel>

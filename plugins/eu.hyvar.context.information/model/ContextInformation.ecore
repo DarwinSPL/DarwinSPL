@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ecore:EPackage xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="context" nsURI="http://hyvar-project.eu/feature/context/1.0"
+    nsPrefix="context">
+  <eClassifiers xsi:type="ecore:EClass" name="HyContextModel">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="contextualInformations"
+        upperBound="-1" eType="#//HyContextualInformation" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="enums" upperBound="-1"
+        eType="ecore:EClass ../../eu.hyvar.feature.data/model/DataValues.ecore#//HyEnum"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="HyContextualInformationEnum" eSuperTypes="#//HyContextualInformation">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="enumType" lowerBound="1"
+        eType="ecore:EClass ../../eu.hyvar.feature.data/model/DataValues.ecore#//HyEnum"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="HyContextualInformation" abstract="true"
+      interface="true" eSuperTypes="../../eu.hyvar.evolution/model/Evolution.ecore#//HyTemporalElement">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="HyContextualInformationNumber" eSuperTypes="#//HyContextualInformation">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="min" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="max" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="HyContextualInformationBoolean" eSuperTypes="#//HyContextualInformation"/>
+</ecore:EPackage>

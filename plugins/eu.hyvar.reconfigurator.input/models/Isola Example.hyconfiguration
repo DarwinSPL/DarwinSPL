@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="ASCII"?>
+<configuration:HyConfiguration xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:configuration="http://hyvar-project.eu/feature/configuration/1.0" xmlns:dataValues="http://hyvar-project.eu/feature/dataValues/1.0" xmlns:feature="http://hyvar-project.eu/feature/1.0" id="_467b43e7-86c6-4127-9257-a182fb168fb3">
+  <names id="_1721a5f8-176f-4afd-b0fd-0ee078c7f56f" name="old Configuration"/>
+  <elements xsi:type="configuration:HyFeatureSelected" id="_693b0bd4-6778-4aa0-beb8-0352ec1d77db">
+    <selectedFeature href="Isola%20Example.hyfeature#_616fa9e4-8916-4ab8-b392-922582f0e5d3"/>
+  </elements>
+  <elements xsi:type="configuration:HyFeatureSelected" id="_a9c8f61b-b3e9-41de-9577-4b11d0dc8ae8">
+    <selectedFeature href="Isola%20Example.hyfeature#_33424de3-179b-43d8-89fd-9774365b13c4"/>
+  </elements>
+  <elements xsi:type="configuration:HyFeatureSelected" id="_e517b1b3-13f7-41f7-9c19-78e83566721f">
+    <selectedFeature href="Isola%20Example.hyfeature#_b9014758-b98f-49ff-a002-a6f195e2ffa2"/>
+  </elements>
+  <elements xsi:type="configuration:HyFeatureSelected" id="_fa57c45c-24a6-4e60-8df9-5a7b717b240f">
+    <selectedFeature href="Isola%20Example.hyfeature#_a153f888-668a-49ee-bf99-d77413920ff2"/>
+  </elements>
+  <elements xsi:type="configuration:HyFeatureSelected" id="_11807e22-2b24-4adb-8557-b680ec408089">
+    <selectedFeature href="Isola%20Example.hyfeature#_3c220692-a1ab-4b55-bf99-ce6e47e5f8b3"/>
+  </elements>
+  <elements xsi:type="configuration:HyFeatureSelected" id="_81c59493-88b8-445b-9582-90df7b397a55">
+    <selectedFeature href="Isola%20Example.hyfeature#_afbc9c63-d075-43b5-90de-1bc90db5abef"/>
+  </elements>
+  <elements xsi:type="configuration:HyFeatureSelected" id="_4f37905a-a8c3-48ef-9c69-70366582ddf7">
+    <selectedFeature href="Isola%20Example.hyfeature#_84cca31a-8357-42df-bb07-4d11e1dc0df1"/>
+  </elements>
+  <elements xsi:type="configuration:HyFeatureSelected" id="_6b0b55b9-a5af-47c4-9272-626019b2d672">
+    <selectedFeature href="Isola%20Example.hyfeature#_3c37d2c7-a85b-4bb0-b75f-af1b7b78a103"/>
+  </elements>
+  <elements xsi:type="configuration:HyVersionSelected" id="_5dc66a85-881b-4c8f-a293-34223b125591">
+    <selectedVersion href="Isola%20Example.hyfeature#_04802ee9-feda-4663-bf39-494ee4f1a1f7"/>
+  </elements>
+  <elements xsi:type="configuration:HyAttributeValueAssignment" id="_c99d4e0b-8006-413f-ac3e-b1fda9596e5c">
+    <attribute xsi:type="feature:HyBooleanAttribute" href="Isola%20Example.hyfeature#_97470be4-d449-4848-80d7-6c3ea8300527"/>
+    <value xsi:type="dataValues:HyBooleanValue"/>
+  </elements>
+  <featureModel href="Isola%20Example.hyfeature#/"/>
+</configuration:HyConfiguration>

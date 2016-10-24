@@ -1,0 +1,12 @@
+{
+  "selectedFeatures": [
+    "feature[_1]",
+    "feature[_2]"
+  ],
+  "attribute_values": [
+    {
+      "id": "attribute[_123]",
+      "value": 3
+    }
+  ]
+}

@@ -1,0 +1,15 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: ReconfiguratorInput
+Bundle-SymbolicName: eu.hyvar.reconfigurator.input
+Bundle-Version: 0.0.1
+Bundle-RequiredExecutionEnvironment: JavaSE-1.7
+Export-Package: eu.hyvar.reconfigurator.input.exporter,
+ eu.hyvar.reconfigurator.input.exporter.example
+Require-Bundle: eu.hyvar.context.validity_formulas,
+ eu.hyvar.feature.configuration,
+ eu.hyvar.feature.constraint,
+ eu.hyvar.preferences,
+ eu.hyvar.context.information.value
+Bundle-ClassPath: .,
+ libs/gson-2.6.1.jar

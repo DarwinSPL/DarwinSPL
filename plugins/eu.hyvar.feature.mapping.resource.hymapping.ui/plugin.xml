@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.2"?>
+<plugin>
+	<extension point="org.emftext.access.syntax.ui">
+		<metaInformationProvider class="eu.hyvar.feature.mapping.resource.hymapping.ui.HymappingUIMetaInformation" id="eu.hyvar.feature.mapping.resource.hymapping.ui.HymappingUIMetaInformation">
+		</metaInformationProvider>
+	</extension>
+	
+	<extension point="org.eclipse.ui.editors">
+		<editor class="eu.hyvar.feature.mapping.resource.hymapping.ui.HymappingEditor" contributorClass="org.eclipse.ui.texteditor.BasicTextEditorActionContributor" extensions="hymapping" icon="icons/editor_icon.gif" id="eu.hyvar.feature.mapping.resource.hymapping.ui.HymappingEditor" name="Feature Mapping Editor (HyVar)">
+			<contentTypeBinding contentTypeId="eu.hyvar.feature.mapping.resource.hymapping">
+			</contentTypeBinding>
+		</editor>
+	</extension>
+	
+	<extension point="org.eclipse.core.runtime.preferences">
+		<initializer class="eu.hyvar.feature.mapping.resource.hymapping.ui.HymappingPreferenceInitializer">
+		</initializer>
+	</extension>
+	
+	<extension point="org.eclipse.ui.preferencePages">
+		<page name="Feature Mapping Editor (HyVar)" id="eu.hyvar.feature.mapping.resource.hymapping.ui.HymappingPreferencePage" class="eu.hyvar.feature.mapping.resource.hymapping.ui.HymappingPreferencePage" category="org.eclipse.ui.preferencePages.GeneralTextEditor">
+		</page>
+		<page name="Syntax Coloring" id="eu.hyvar.feature.mapping.resource.hymapping.ui.HymappingSyntaxColoringPreferencePage" class="eu.hyvar.feature.mapping.resource.hymapping.ui.HymappingSyntaxColoringPreferencePage" category="eu.hyvar.feature.mapping.resource.hymapping.ui.HymappingPreferencePage">
+		</page>
+		<page name="Brackets" id="eu.hyvar.feature.mapping.resource.hymapping.ui.HymappingBracketPreferencePage" class="eu.hyvar.feature.mapping.resource.hymapping.ui.HymappingBracketPreferencePage" category="eu.hyvar.feature.mapping.resource.hymapping.ui.HymappingPreferencePage">
+		</page>
+		<page name="Content Assist" id="eu.hyvar.feature.mapping.resource.hymapping.ui.HymappingContentAssistPreferencePage" class="eu.hyvar.feature.mapping.resource.hymapping.ui.HymappingContentAssistPreferencePage" category="eu.hyvar.feature.mapping.resource.hymapping.ui.HymappingPreferencePage">
+		</page>
+	</extension>
+	
+	<extension point="org.eclipse.ui.newWizards">
+		<wizard category="org.hyvar.newwizards.Category" icon="/icons/default_new_icon.gif" class="eu.hyvar.feature.mapping.resource.hymapping.ui.HymappingNewFileWizard" id="eu.hyvar.feature.mapping.resource.hymapping.ui.HymappingNewFileWizard" name="HyVar Feature Mapping (*.hymapping)">
+		</wizard>
+	</extension>
+	
+	<extension point="org.eclipse.ui.ide.markerResolution">
+		<markerResolutionGenerator class="eu.hyvar.feature.mapping.resource.hymapping.ui.HymappingMarkerResolutionGenerator" markerType="eu.hyvar.feature.mapping.resource.hymapping.problem">
+		</markerResolutionGenerator>
+	</extension>
+	
+	<extension point="org.eclipse.core.filebuffers.annotationModelCreation">
+		<factory class="eu.hyvar.feature.mapping.resource.hymapping.ui.HymappingAnnotationModelFactory" extensions="hymapping">
+		</factory>
+	</extension>
+	
+	<extension point="org.eclipse.core.contenttype.contentTypes">
+		<content-type id="eu.hyvar.feature.mapping.resource.hymapping" name=".hymapping File" base-type="org.eclipse.core.runtime.text" file-extensions="hymapping">
+		</content-type>
+	</extension>
+	
+	<extension point="org.eclipse.ui.editors.documentProviders">
+		<provider class="org.eclipse.ui.editors.text.TextFileDocumentProvider" extensions="hymapping" id="eu.hyvar.feature.mapping.resource.hymapping.ui.provider">
+		</provider>
+	</extension>
+	
+	<extension point="org.eclipse.ui.editors.annotationTypes">
+		<type name="eu.hyvar.feature.mapping.resource.hymapping.ui.occurences">
+		</type>
+		<type name="eu.hyvar.feature.mapping.resource.hymapping.ui.occurences.declaration" super="eu.hyvar.feature.mapping.resource.hymapping.ui.occurences">
+		</type>
+	</extension>
+	
+	<extension point="org.eclipse.ui.editors.markerAnnotationSpecification">
+		<specification annotationType="eu.hyvar.feature.mapping.resource.hymapping.ui.occurences" label="Occurrences (in .hymapping files)" icon="/icons/occurrence_icon.gif" textPreferenceKey="hymapping.occurrenceIndication" textPreferenceValue="false" highlightPreferenceKey="hymapping.occurrenceHighlighting" highlightPreferenceValue="true" contributesToHeader="false" overviewRulerPreferenceKey="hymapping.occurrenceIndicationInOverviewRuler" overviewRulerPreferenceValue="true" verticalRulerPreferenceKey="hymapping.occurrenceIndicationInVerticalRuler" verticalRulerPreferenceValue="false" colorPreferenceKey="hymapping.occurrenceIndicationColor" colorPreferenceValue="212,212,212" presentationLayer="4" showInNextPrevDropdownToolbarActionKey="hymapping.showOccurrenceInNextPrevDropdownToolbarAction" showInNextPrevDropdownToolbarAction="true" isGoToNextNavigationTargetKey="hymapping.isOccurrenceGoToNextNavigationTarget" isGoToNextNavigationTarget="false" isGoToPreviousNavigationTargetKey="hymapping.isOccurrenceGoToPreviousNavigationTarget" isGoToPreviousNavigationTarget="false" textStylePreferenceKey="hymapping.occurrenceTextStyle" textStylePreferenceValue="NONE">
+		</specification>
+		<specification annotationType="eu.hyvar.feature.mapping.resource.hymapping.ui.occurences.declaration" label="Declarations (in .hymapping files)" textPreferenceKey="hymapping.declarationIndication" textPreferenceValue="false" highlightPreferenceKey="hymapping.declarationHighlighting" highlightPreferenceValue="true" overviewRulerPreferenceKey="hymapping.declarationIndicationInOverviewRuler" overviewRulerPreferenceValue="true" verticalRulerPreferenceKey="hymapping.declarationIndicationInVerticalRuler" verticalRulerPreferenceValue="false" colorPreferenceKey="hymapping.declarationIndicationColor" colorPreferenceValue="240,216,168" presentationLayer="4" textStylePreferenceKey="hymapping.declarationTextStyle" textStylePreferenceValue="NONE">
+		</specification>
+	</extension>
+	
+	<extension point="org.eclipse.ui.commands">
+		<category description="All commands belonging to Hymapping" id="eu.hyvar.feature.mapping.resource.hymapping.ui.command.category" name="Hymapping">
+		</category>
+		<command categoryId="eu.hyvar.feature.mapping.resource.hymapping.ui.command.category" description="Toggle comment of the selected lines" id="eu.hyvar.feature.mapping.resource.hymapping.ui.command.togglecomment" name="Toggle Comment">
+		</command>
+	</extension>
+	
+	<extension point="org.eclipse.ui.handlers">
+		<handler class="eu.hyvar.feature.mapping.resource.hymapping.ui.HymappingToggleCommentHandler" commandId="eu.hyvar.feature.mapping.resource.hymapping.ui.command.togglecomment">
+		</handler>
+	</extension>
+	
+	<extension point="org.eclipse.ui.contexts">
+		<context name="Editing Hymapping Files" description="Editing Hymapping Files Context" parentId="org.eclipse.ui.textEditorScope" id="eu.hyvar.feature.mapping.resource.hymapping.EditorScope">
+		</context>
+	</extension>
+	
+	<extension point="org.eclipse.ui.bindings">
+		<key sequence="M1+7" commandId="eu.hyvar.feature.mapping.resource.hymapping.ui.command.togglecomment" schemeId="org.eclipse.ui.defaultAcceleratorConfiguration" contextId="eu.hyvar.feature.mapping.resource.hymapping.EditorScope">
+		</key>
+	</extension>
+	
+</plugin>

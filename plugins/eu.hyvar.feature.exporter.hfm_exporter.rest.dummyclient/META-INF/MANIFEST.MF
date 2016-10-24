@@ -1,0 +1,19 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Dummyclient for HyVarToDeltaEcore
+Bundle-SymbolicName: eu.hyvar.feature.exporter.hfm_exporter.rest.dummyclient;singleton:=true
+Bundle-Version: 1.0.0.qualifier
+Bundle-RequiredExecutionEnvironment: JavaSE-1.7
+Require-Bundle: org.eclipse.core.resources,
+ com.google.gson,
+ org.eclipse.equinox.registry,
+ org.eclipse.emf.ecore,
+ org.eclipse.equinox.app,
+ org.eclipse.jetty.http,
+ de.christophseidl.util.ecore,
+ org.eclipse.jetty.util,
+ org.eclipse.jetty.io,
+ org.deltaecore.feature,
+ org.deltaecore.feature.configuration
+Bundle-ClassPath: .,
+ lib/jetty-client-9.2.13.v20150730.jar

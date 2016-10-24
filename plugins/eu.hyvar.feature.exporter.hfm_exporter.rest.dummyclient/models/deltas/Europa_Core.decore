@@ -1,0 +1,13 @@
+delta "Europa_Comb"
+	dialect <http://www.yakindu.org/sct/sgraph/2.0.0>
+	modifies <../core/eCall.sct>
+{
+
+}
+ 
+dialect <http://eu/hyvar/metadata>
+{
+	preMetadata();
+	setVariantName("europa_gps", "1.0");
+	postMetadata();
+}  

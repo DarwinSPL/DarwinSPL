@@ -1,0 +1,31 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: EMFText Parser Plugin: hyvalidityformula
+Bundle-SymbolicName: eu.hyvar.context.contextValidity.resource.hyvalidityformula;singleton:=true
+Bundle-Version: 1.0.0
+Bundle-Vendor: Software Technology Group - TU Dresden Germany
+Require-Bundle: org.eclipse.core.runtime;resolution:=optional,
+  org.eclipse.core.resources;resolution:=optional,
+  org.eclipse.emf.ecore,
+  org.eclipse.emf.ecore.change,
+  org.eclipse.emf.validation;resolution:=optional,
+  org.emftext.access;resolution:=optional,
+  org.emftext.commons.antlr3_4_0,
+  eu.hyvar.context.validity_formulas,
+  eu.hyvar.context.information,
+  eu.hyvar.feature.data,
+  eu.hyvar.evolution,
+  eu.hyvar.feature.expression,
+  eu.hyvar.feature,
+  eu.hyvar.feature.expression.resource.hyexpression,
+  eu.hyvar.dataValues.resource.hydatavalue
+Bundle-ActivationPolicy: lazy
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Export-Package: eu.hyvar.context.contextValidity.resource.hyvalidityformula,
+  eu.hyvar.context.contextValidity.resource.hyvalidityformula.analysis,
+  eu.hyvar.context.contextValidity.resource.hyvalidityformula.mopp,
+  eu.hyvar.context.contextValidity.resource.hyvalidityformula.debug,
+  eu.hyvar.context.contextValidity.resource.hyvalidityformula.launch,
+  eu.hyvar.context.contextValidity.resource.hyvalidityformula.grammar,
+  eu.hyvar.context.contextValidity.resource.hyvalidityformula.util
+Bundle-Activator: eu.hyvar.context.contextValidity.resource.hyvalidityformula.mopp.HyvalidityformulaPlugin

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+
+<!--
+-->
+
+<plugin>
+
+   <extension point="org.eclipse.emf.ecore.generated_package">
+      <!-- @generated ContextValue -->
+      <package
+            uri="http://hyvar-project.eu/feature/context/value/1.0"
+            class="eu.hyvar.context.information.contextValue.ContextValuePackage"
+            genModel="model/ContextValue.genmodel"/>
+   </extension>
+
+</plugin>

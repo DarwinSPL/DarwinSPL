@@ -1,0 +1,50 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "properties": {
+    "selectedFeatures": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "attribute_values": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "value": {
+            "type": "integer"
+          }
+        },
+        "required": [
+          "id",
+          "value"
+        ]
+      }
+    },
+    "feature_model": {
+      "type": "object",
+      "properties": {
+        "filename": {
+          "type": "string"
+        },
+        "specification": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "filename",
+        "specification"
+      ]
+    }
+  },
+  "required": [
+    "selectedFeatures",
+    "attribute_values",
+    "feature_model"
+  ]
+}

@@ -1,0 +1,12 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: HyVarRec Output To Configuration Translation
+Bundle-SymbolicName: eu.hyvar.reconfigurator.output.translation
+Bundle-Version: 1.0.0
+Bundle-RequiredExecutionEnvironment: JavaSE-1.7
+Require-Bundle: eu.hyvar.feature.configuration,
+ eu.hyvar.reconfigurator.input,
+ eu.hyvar.context.information,
+ com.google.gson
+Export-Package: eu.hyvar.reconfigurator.output.translation,
+ eu.hyvar.reconfigurator.output.translation.format

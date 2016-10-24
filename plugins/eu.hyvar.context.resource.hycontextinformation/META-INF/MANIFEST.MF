@@ -1,0 +1,27 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: EMFText Parser Plugin: hycontextinformation
+Bundle-SymbolicName: eu.hyvar.context.resource.hycontextinformation;singleton:=true
+Bundle-Version: 1.0.0
+Bundle-Vendor: Software Technology Group - TU Dresden Germany
+Require-Bundle: org.eclipse.core.runtime;resolution:=optional,
+  org.eclipse.core.resources;resolution:=optional,
+  org.eclipse.emf.ecore,
+  org.eclipse.emf.ecore.change,
+  org.eclipse.emf.validation;resolution:=optional,
+  org.emftext.access;resolution:=optional,
+  org.emftext.commons.antlr3_4_0,
+  eu.hyvar.context.information,
+  eu.hyvar.feature.data,
+  eu.hyvar.evolution,
+  eu.hyvar.dataValues.resource.hydatavalue
+Bundle-ActivationPolicy: lazy
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Export-Package: eu.hyvar.context.resource.hycontextinformation,
+  eu.hyvar.context.resource.hycontextinformation.analysis,
+  eu.hyvar.context.resource.hycontextinformation.mopp,
+  eu.hyvar.context.resource.hycontextinformation.debug,
+  eu.hyvar.context.resource.hycontextinformation.launch,
+  eu.hyvar.context.resource.hycontextinformation.grammar,
+  eu.hyvar.context.resource.hycontextinformation.util
+Bundle-Activator: eu.hyvar.context.resource.hycontextinformation.mopp.HycontextinformationPlugin

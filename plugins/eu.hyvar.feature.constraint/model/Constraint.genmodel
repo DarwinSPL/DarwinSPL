@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<genmodel:GenModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore"
+    xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" modelDirectory="/eu.hyvar.feature.constraint/src-gen" editDirectory="/eu.hyvar.feature.constraint.edit/src-gen"
+    editorDirectory="/eu.hyvar.feature.constraint.editor/src-gen" modelPluginID="eu.hyvar.feature.constraint"
+    modelName="Constraint" rootExtendsClass="org.eclipse.emf.ecore.impl.MinimalEObjectImpl$Container"
+    testsDirectory="/eu.hyvar.feature.constraint.tests/src-gen" importerID="org.eclipse.emf.importer.ecore"
+    complianceLevel="7.0" copyrightFields="false" usedGenPackages="../../eu.hyvar.evolution/model/Evolution.genmodel#//evolution ../../eu.hyvar.feature.expression/model/Expression.genmodel#//expression ../../eu.hyvar.feature/model/Feature.genmodel#//feature ../../eu.hyvar.feature.data/model/DataValues.genmodel#//dataValues ../../eu.hyvar.context.information/model/ContextInformation.genmodel#//context"
+    operationReflection="true" importOrganizing="true">
+  <foreignModel>Constraint.ecore</foreignModel>
+  <genPackages prefix="HyConstraint" basePackage="eu.hyvar.feature" disposableProviderFactory="true"
+      ecorePackage="Constraint.ecore#/">
+    <genClasses ecoreClass="Constraint.ecore#//HyConstraint">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Constraint.ecore#//HyConstraint/rootExpression"/>
+    </genClasses>
+    <genClasses ecoreClass="Constraint.ecore#//HyConstraintModel">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Constraint.ecore#//HyConstraintModel/constraints"/>
+    </genClasses>
+  </genPackages>
+</genmodel:GenModel>

@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.2"?>
+<plugin>
+	<extension point="org.emftext.access.syntax.ui">
+		<metaInformationProvider class="eu.hyvar.feature.constraint.resource.hyconstraints.ui.HyconstraintsUIMetaInformation" id="eu.hyvar.feature.constraint.resource.hyconstraints.ui.HyconstraintsUIMetaInformation">
+		</metaInformationProvider>
+	</extension>
+	
+	<extension point="org.eclipse.ui.editors">
+		<editor class="eu.hyvar.feature.constraint.resource.hyconstraints.ui.HyconstraintsEditor" contributorClass="org.eclipse.ui.texteditor.BasicTextEditorActionContributor" extensions="hyconstraints" icon="icons/editor_icon.gif" id="eu.hyvar.feature.constraint.resource.hyconstraints.ui.HyconstraintsEditor" name="Constraints Editor (HyVar)">
+			<contentTypeBinding contentTypeId="eu.hyvar.feature.constraint.resource.hyconstraints">
+			</contentTypeBinding>
+		</editor>
+	</extension>
+	
+	<extension point="org.eclipse.core.runtime.preferences">
+		<initializer class="eu.hyvar.feature.constraint.resource.hyconstraints.ui.HyconstraintsPreferenceInitializer">
+		</initializer>
+	</extension>
+	
+	<extension point="org.eclipse.ui.preferencePages">
+		<page name="Constraints Editor (HyVar)" id="eu.hyvar.feature.constraint.resource.hyconstraints.ui.HyconstraintsPreferencePage" class="eu.hyvar.feature.constraint.resource.hyconstraints.ui.HyconstraintsPreferencePage" category="org.eclipse.ui.preferencePages.GeneralTextEditor">
+		</page>
+		<page name="Syntax Coloring" id="eu.hyvar.feature.constraint.resource.hyconstraints.ui.HyconstraintsSyntaxColoringPreferencePage" class="eu.hyvar.feature.constraint.resource.hyconstraints.ui.HyconstraintsSyntaxColoringPreferencePage" category="eu.hyvar.feature.constraint.resource.hyconstraints.ui.HyconstraintsPreferencePage">
+		</page>
+		<page name="Brackets" id="eu.hyvar.feature.constraint.resource.hyconstraints.ui.HyconstraintsBracketPreferencePage" class="eu.hyvar.feature.constraint.resource.hyconstraints.ui.HyconstraintsBracketPreferencePage" category="eu.hyvar.feature.constraint.resource.hyconstraints.ui.HyconstraintsPreferencePage">
+		</page>
+		<page name="Content Assist" id="eu.hyvar.feature.constraint.resource.hyconstraints.ui.HyconstraintsContentAssistPreferencePage" class="eu.hyvar.feature.constraint.resource.hyconstraints.ui.HyconstraintsContentAssistPreferencePage" category="eu.hyvar.feature.constraint.resource.hyconstraints.ui.HyconstraintsPreferencePage">
+		</page>
+	</extension>
+	
+	<extension point="org.eclipse.ui.newWizards">
+		<wizard category="eu.hyvar.newwizards.Category" icon="/icons/default_new_icon.gif" class="eu.hyvar.feature.constraint.resource.hyconstraints.ui.HyconstraintsNewFileWizard" id="eu.hyvar.feature.constraint.resource.hyconstraints.ui.HyconstraintsNewFileWizard" name="HyVar Feature Model Constraints (*.hyconstraints)">
+		</wizard>
+	</extension>
+	
+	<extension point="org.eclipse.ui.ide.markerResolution">
+		<markerResolutionGenerator class="eu.hyvar.feature.constraint.resource.hyconstraints.ui.HyconstraintsMarkerResolutionGenerator" markerType="eu.hyvar.feature.constraint.resource.hyconstraints.problem">
+		</markerResolutionGenerator>
+	</extension>
+	
+	<extension point="org.eclipse.core.filebuffers.annotationModelCreation">
+		<factory class="eu.hyvar.feature.constraint.resource.hyconstraints.ui.HyconstraintsAnnotationModelFactory" extensions="hyconstraints">
+		</factory>
+	</extension>
+	
+	<extension point="org.eclipse.core.contenttype.contentTypes">
+		<content-type id="eu.hyvar.feature.constraint.resource.hyconstraints" name=".hyconstraints File" base-type="org.eclipse.core.runtime.text" file-extensions="hyconstraints">
+		</content-type>
+	</extension>
+	
+	<extension point="org.eclipse.ui.editors.documentProviders">
+		<provider class="org.eclipse.ui.editors.text.TextFileDocumentProvider" extensions="hyconstraints" id="eu.hyvar.feature.constraint.resource.hyconstraints.ui.provider">
+		</provider>
+	</extension>
+	
+	<extension point="org.eclipse.ui.editors.annotationTypes">
+		<type name="eu.hyvar.feature.constraint.resource.hyconstraints.ui.occurences">
+		</type>
+		<type name="eu.hyvar.feature.constraint.resource.hyconstraints.ui.occurences.declaration" super="eu.hyvar.feature.constraint.resource.hyconstraints.ui.occurences">
+		</type>
+	</extension>
+	
+	<extension point="org.eclipse.ui.editors.markerAnnotationSpecification">
+		<specification annotationType="eu.hyvar.feature.constraint.resource.hyconstraints.ui.occurences" label="Occurrences (in .hyconstraints files)" icon="/icons/occurrence_icon.gif" textPreferenceKey="hyconstraints.occurrenceIndication" textPreferenceValue="false" highlightPreferenceKey="hyconstraints.occurrenceHighlighting" highlightPreferenceValue="true" contributesToHeader="false" overviewRulerPreferenceKey="hyconstraints.occurrenceIndicationInOverviewRuler" overviewRulerPreferenceValue="true" verticalRulerPreferenceKey="hyconstraints.occurrenceIndicationInVerticalRuler" verticalRulerPreferenceValue="false" colorPreferenceKey="hyconstraints.occurrenceIndicationColor" colorPreferenceValue="212,212,212" presentationLayer="4" showInNextPrevDropdownToolbarActionKey="hyconstraints.showOccurrenceInNextPrevDropdownToolbarAction" showInNextPrevDropdownToolbarAction="true" isGoToNextNavigationTargetKey="hyconstraints.isOccurrenceGoToNextNavigationTarget" isGoToNextNavigationTarget="false" isGoToPreviousNavigationTargetKey="hyconstraints.isOccurrenceGoToPreviousNavigationTarget" isGoToPreviousNavigationTarget="false" textStylePreferenceKey="hyconstraints.occurrenceTextStyle" textStylePreferenceValue="NONE">
+		</specification>
+		<specification annotationType="eu.hyvar.feature.constraint.resource.hyconstraints.ui.occurences.declaration" label="Declarations (in .hyconstraints files)" textPreferenceKey="hyconstraints.declarationIndication" textPreferenceValue="false" highlightPreferenceKey="hyconstraints.declarationHighlighting" highlightPreferenceValue="true" overviewRulerPreferenceKey="hyconstraints.declarationIndicationInOverviewRuler" overviewRulerPreferenceValue="true" verticalRulerPreferenceKey="hyconstraints.declarationIndicationInVerticalRuler" verticalRulerPreferenceValue="false" colorPreferenceKey="hyconstraints.declarationIndicationColor" colorPreferenceValue="240,216,168" presentationLayer="4" textStylePreferenceKey="hyconstraints.declarationTextStyle" textStylePreferenceValue="NONE">
+		</specification>
+	</extension>
+	
+	<extension point="org.eclipse.ui.commands">
+		<category description="All commands belonging to Hyconstraints" id="eu.hyvar.feature.constraint.resource.hyconstraints.ui.command.category" name="Hyconstraints">
+		</category>
+		<command categoryId="eu.hyvar.feature.constraint.resource.hyconstraints.ui.command.category" description="Toggle comment of the selected lines" id="eu.hyvar.feature.constraint.resource.hyconstraints.ui.command.togglecomment" name="Toggle Comment">
+		</command>
+	</extension>
+	
+	<extension point="org.eclipse.ui.handlers">
+		<handler class="eu.hyvar.feature.constraint.resource.hyconstraints.ui.HyconstraintsToggleCommentHandler" commandId="eu.hyvar.feature.constraint.resource.hyconstraints.ui.command.togglecomment">
+		</handler>
+	</extension>
+	
+	<extension point="org.eclipse.ui.contexts">
+		<context name="Editing Hyconstraints Files" description="Editing Hyconstraints Files Context" parentId="org.eclipse.ui.textEditorScope" id="eu.hyvar.feature.constraint.resource.hyconstraints.EditorScope">
+		</context>
+	</extension>
+	
+	<extension point="org.eclipse.ui.bindings">
+		<key sequence="M1+7" commandId="eu.hyvar.feature.constraint.resource.hyconstraints.ui.command.togglecomment" schemeId="org.eclipse.ui.defaultAcceleratorConfiguration" contextId="eu.hyvar.feature.constraint.resource.hyconstraints.EditorScope">
+		</key>
+	</extension>
+	
+</plugin>

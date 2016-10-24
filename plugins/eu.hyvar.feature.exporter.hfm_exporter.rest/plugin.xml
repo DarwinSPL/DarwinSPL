@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   <extension
+         id="server"
+         point="org.eclipse.core.runtime.applications">
+      <application>
+         <run
+               class="eu.hyvar.feature.exporter.hfm_exporter.rest.WebServer">
+         </run>
+      </application>
+   </extension>
+   <extension
+         id="server"
+         point="org.eclipse.core.runtime.products">
+      <product
+            application="eu.hyvar.feature.exporter.hfm_exporter.rest.server"
+            name="HyVar to DeltaEcore REST Web Service">
+         <property
+               name="appName"
+               value="HyVar to DeltaEcore REST Web Service">
+         </property>
+      </product>
+   </extension>
+
+</plugin>

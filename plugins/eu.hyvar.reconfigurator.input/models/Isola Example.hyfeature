@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="ASCII"?>
+<feature:HyFeatureModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:feature="http://hyvar-project.eu/feature/1.0">
+  <rootFeature id="_e591d08b-8188-4178-b716-2c945e02817b" feature="_616fa9e4-8916-4ab8-b392-922582f0e5d3"/>
+  <features id="_616fa9e4-8916-4ab8-b392-922582f0e5d3">
+    <cardinality id="_04cc52be-d680-4949-805d-4303ad685652" minCardinality="1" maxCardinality="1"/>
+    <names id="_450a3c9c-b842-4999-af71-1960afa84c79" name="Car"/>
+    <parentOf id="_8ae8c0c0-5538-45bb-9204-8f1ed231f26c" childGroup="_c8ddf72c-8655-4740-a8f0-46868d6e6116"/>
+  </features>
+  <features id="_33424de3-179b-43d8-89fd-9774365b13c4" groupMembership="_89fc0b10-3ea6-4b19-9049-b7e833a4e030">
+    <cardinality id="_6560a1e6-b041-42e1-8609-8f6c40ab7178" minCardinality="1" maxCardinality="1"/>
+    <names id="_0df14ccf-d381-409e-9ab5-a9d4e165b639" name="Engine Profile"/>
+    <parentOf id="_e5637d31-0f47-43df-b53d-c3792a172f38" childGroup="_d5965180-ade8-4769-b602-0d2017d60bb8"/>
+  </features>
+  <features id="_a153f888-668a-49ee-bf99-d77413920ff2" groupMembership="_89fc0b10-3ea6-4b19-9049-b7e833a4e030">
+    <cardinality id="_f2bd1132-c6b0-4a38-83c8-936499678301" minCardinality="1" maxCardinality="1"/>
+    <names id="_7b3552a9-f0ca-4c98-b83f-64a4146f925c" name="Gear Shift"/>
+    <parentOf id="_f27f6c88-3430-430b-93b7-e8ff325395e5" childGroup="_f041542e-3eb4-4958-bcc3-5178ed38f501"/>
+  </features>
+  <features id="_af353284-08aa-4125-beb8-c67a96b835a6" groupMembership="_89fc0b10-3ea6-4b19-9049-b7e833a4e030">
+    <cardinality id="_ad91fad1-8dd8-492e-8501-abebe5e06a2f" maxCardinality="1"/>
+    <names id="_c4819886-b4ba-4ecd-b41c-fa39b482877f" name="Cruise Control"/>
+    <attributes xsi:type="feature:HyNumberAttribute" id="_c4a59b27-bfde-4736-9f45-17b861342184" max="300">
+      <names id="_c4b40108-a8da-4260-bbcb-3d77c80ec267" name="maxSpeed"/>
+    </attributes>
+  </features>
+  <features id="_baad7b37-c456-4cc3-81d0-43f151b2df4c" groupMembership="_89fc0b10-3ea6-4b19-9049-b7e833a4e030">
+    <cardinality id="_6980a81c-afde-4e46-907b-2944f7ee9f62" maxCardinality="1"/>
+    <names id="_4f1f74d4-cf8c-46e6-a10e-908dd228c7c5" name="Lane Assist"/>
+    <versions id="_10be2213-4831-4f9f-bf30-134affbfd4f6" number="1.0" supersedingVersions="_9decc168-5e9a-4b66-9a57-6bccc360e880"/>
+    <versions id="_9decc168-5e9a-4b66-9a57-6bccc360e880" number="2.0" supersededVersion="_10be2213-4831-4f9f-bf30-134affbfd4f6"/>
+  </features>
+  <features id="_b3f7c9ae-19fe-41d9-be69-307e0d24096c" groupMembership="_89fc0b10-3ea6-4b19-9049-b7e833a4e030">
+    <cardinality id="_5f1fcb38-89ed-47f6-9714-3755e4a00f6c" maxCardinality="1"/>
+    <names id="_e3223951-73d6-424f-89bc-95e3e06ba761" name="Parking Spot Detector"/>
+  </features>
+  <features id="_3c37d2c7-a85b-4bb0-b75f-af1b7b78a103" groupMembership="_89fc0b10-3ea6-4b19-9049-b7e833a4e030">
+    <cardinality id="_c660e139-9c09-4802-88bd-c2fff23c78a7" maxCardinality="1"/>
+    <names id="_22162bea-d581-4d2a-a2f4-b82a175d6d90" name="Heads Up Display"/>
+    <versions id="_9a0f85fd-a96c-4bc1-afb4-c5ec3fdc5c76" number="1.0" supersedingVersions="_04802ee9-feda-4663-bf39-494ee4f1a1f7"/>
+    <versions id="_04802ee9-feda-4663-bf39-494ee4f1a1f7" number="1.1" supersedingVersions="_c0af50b9-6db7-448e-8e1e-67d8a384ead7" supersededVersion="_9a0f85fd-a96c-4bc1-afb4-c5ec3fdc5c76"/>
+    <versions id="_c0af50b9-6db7-448e-8e1e-67d8a384ead7" number="2.0" supersededVersion="_04802ee9-feda-4663-bf39-494ee4f1a1f7"/>
+    <attributes xsi:type="feature:HyBooleanAttribute" id="_97470be4-d449-4848-80d7-6c3ea8300527">
+      <names id="_de752c97-5949-4bd5-a819-c2a8f406a57e" name="nightMode"/>
+    </attributes>
+  </features>
+  <features id="_afbc9c63-d075-43b5-90de-1bc90db5abef" groupMembership="_89fc0b10-3ea6-4b19-9049-b7e833a4e030">
+    <cardinality id="_689a71f8-dcaa-471e-9d3c-575fe6868d1c" maxCardinality="1"/>
+    <names id="_48d924f4-ea33-409a-a524-5dc904feee6c" name="Ambient Lighting"/>
+    <parentOf id="_f2eb6148-e882-437d-a80a-1e8d0e1a8c82" childGroup="_9512cb20-3cdb-4f13-b1f2-c29bb23b68e9"/>
+  </features>
+  <features id="_1f602aa3-5280-404e-95af-651a0f409b6d" groupMembership="_b3544078-be9a-4ee1-aa6d-ec18094db35c">
+    <cardinality id="_93ae26ae-50b1-47e2-b5b0-c7d7becee055" maxCardinality="1"/>
+    <names id="_1488d067-3701-43f1-bf4a-e839d9ccb38c" name="Conservative"/>
+  </features>
+  <features id="_cf0cd77e-d753-4fc8-b0d0-e9a24be2f4f7" groupMembership="_b3544078-be9a-4ee1-aa6d-ec18094db35c">
+    <cardinality id="_a4f5c157-794f-457a-8095-8011b9dafe21" maxCardinality="1"/>
+    <names id="_11ff0d09-9bed-46f3-b945-c71b96c9ee0c" name="Neutral"/>
+  </features>
+  <features id="_b9014758-b98f-49ff-a002-a6f195e2ffa2" groupMembership="_b3544078-be9a-4ee1-aa6d-ec18094db35c">
+    <cardinality id="_83bfa712-a733-4751-81af-fb3c9482a486" maxCardinality="1"/>
+    <names id="_7ef0b27f-e763-40c5-8aff-f40eec855332" name="Progressive"/>
+  </features>
+  <features id="_bc9ea8a3-7232-43f5-8e6e-2a977ee3f87f" groupMembership="_157e2c4d-4631-41c5-9ea1-bd56fe1dd3b7">
+    <cardinality id="_91345244-37c3-4f18-8101-27698d878ada" maxCardinality="1"/>
+    <names id="_6f40974a-8793-4193-b914-abf76d8b4ac1" name="Manual"/>
+  </features>
+  <features id="_3c220692-a1ab-4b55-bf99-ce6e47e5f8b3" groupMembership="_157e2c4d-4631-41c5-9ea1-bd56fe1dd3b7">
+    <cardinality id="_14b7a22d-e9df-4f35-9624-bdda50019dd8" maxCardinality="1"/>
+    <names id="_4b9642f0-65b3-46d5-89d5-258393ed84c8" name="Automatic"/>
+  </features>
+  <features id="_53a622f3-103d-4248-b2ce-7d7ac3c1cdd6" groupMembership="_f090c355-fceb-41e6-a19b-5f9f19d89bf3">
+    <cardinality id="_21257215-c9ed-4a54-b4df-7093f28c9807" maxCardinality="1"/>
+    <names id="_9fadb092-69e8-4f7b-9e9d-3e4a9ddeb8b7" name="Green"/>
+  </features>
+  <features id="_8a3250d1-4643-4439-8a81-aeda5e703888" groupMembership="_f090c355-fceb-41e6-a19b-5f9f19d89bf3">
+    <cardinality id="_378b1f82-fc9e-4cc8-8548-0e25ba13e2d2" maxCardinality="1"/>
+    <names id="_c4caee09-197a-4571-b504-74ada4926e4e" name="White"/>
+  </features>
+  <features id="_84cca31a-8357-42df-bb07-4d11e1dc0df1" groupMembership="_f090c355-fceb-41e6-a19b-5f9f19d89bf3">
+    <cardinality id="_493a8451-caa4-474d-b78c-14d5e4a89a08" maxCardinality="1"/>
+    <names id="_157ed37e-d090-4758-a12b-bdd4899a603f" name="Red"/>
+  </features>
+  <groups id="_c8ddf72c-8655-4740-a8f0-46868d6e6116" childOf="_8ae8c0c0-5538-45bb-9204-8f1ed231f26c">
+    <cardinality id="_a3c0cec4-fceb-443e-b104-e99c5f594a8a" minCardinality="2" maxCardinality="7"/>
+    <parentOf id="_89fc0b10-3ea6-4b19-9049-b7e833a4e030" features="_33424de3-179b-43d8-89fd-9774365b13c4 _a153f888-668a-49ee-bf99-d77413920ff2 _af353284-08aa-4125-beb8-c67a96b835a6 _baad7b37-c456-4cc3-81d0-43f151b2df4c _b3f7c9ae-19fe-41d9-be69-307e0d24096c _3c37d2c7-a85b-4bb0-b75f-af1b7b78a103 _afbc9c63-d075-43b5-90de-1bc90db5abef"/>
+  </groups>
+  <groups id="_d5965180-ade8-4769-b602-0d2017d60bb8" childOf="_e5637d31-0f47-43df-b53d-c3792a172f38">
+    <cardinality id="_4e8a3ce0-937f-4189-abf8-4cdb3a923681" minCardinality="1" maxCardinality="1"/>
+    <parentOf id="_b3544078-be9a-4ee1-aa6d-ec18094db35c" features="_1f602aa3-5280-404e-95af-651a0f409b6d _cf0cd77e-d753-4fc8-b0d0-e9a24be2f4f7 _b9014758-b98f-49ff-a002-a6f195e2ffa2"/>
+  </groups>
+  <groups id="_f041542e-3eb4-4958-bcc3-5178ed38f501" childOf="_f27f6c88-3430-430b-93b7-e8ff325395e5">
+    <cardinality id="_dfb39ad8-f23d-412e-9776-d138eebd9668" minCardinality="1" maxCardinality="1"/>
+    <parentOf id="_157e2c4d-4631-41c5-9ea1-bd56fe1dd3b7" features="_bc9ea8a3-7232-43f5-8e6e-2a977ee3f87f _3c220692-a1ab-4b55-bf99-ce6e47e5f8b3"/>
+  </groups>
+  <groups id="_9512cb20-3cdb-4f13-b1f2-c29bb23b68e9" childOf="_f2eb6148-e882-437d-a80a-1e8d0e1a8c82">
+    <cardinality id="_26250065-fcd0-4c3b-a264-9b3d0aa520b1" minCardinality="1" maxCardinality="1"/>
+    <parentOf id="_f090c355-fceb-41e6-a19b-5f9f19d89bf3" features="_53a622f3-103d-4248-b2ce-7d7ac3c1cdd6 _8a3250d1-4643-4439-8a81-aeda5e703888 _84cca31a-8357-42df-bb07-4d11e1dc0df1"/>
+  </groups>
+</feature:HyFeatureModel>

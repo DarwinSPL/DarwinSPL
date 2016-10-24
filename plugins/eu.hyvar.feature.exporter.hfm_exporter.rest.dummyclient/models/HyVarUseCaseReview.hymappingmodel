@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="ASCII"?>
+<mapping:HyMappingModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:expression="http://hyvar-project.eu/feature/expression/1.0" xmlns:mapping="http://hyvar-project.eu/feature/mapping/1.0">
+  <mappings>
+    <expression xsi:type="expression:HyAndExpression">
+      <operand1 xsi:type="expression:HyFeatureReferenceExpression">
+        <feature href="HyVarUseCaseReview.hyfeature#//@features.5"/>
+      </operand1>
+      <operand2 xsi:type="expression:HyFeatureReferenceExpression">
+        <feature href="HyVarUseCaseReview.hyfeature#//@features.8"/>
+      </operand2>
+    </expression>
+    <deltaInvokations>
+      <delta href="deltas/Europa_Comb.decore#/"/>
+    </deltaInvokations>
+  </mappings>
+  <mappings>
+    <expression xsi:type="expression:HyAndExpression">
+      <operand1 xsi:type="expression:HyFeatureReferenceExpression">
+        <feature href="HyVarUseCaseReview.hyfeature#//@features.4"/>
+      </operand1>
+      <operand2 xsi:type="expression:HyAndExpression">
+        <operand1 xsi:type="expression:HyFeatureReferenceExpression">
+          <feature href="HyVarUseCaseReview.hyfeature#//@features.6"/>
+        </operand1>
+        <operand2 xsi:type="expression:HyFeatureReferenceExpression">
+          <feature href="HyVarUseCaseReview.hyfeature#//@features.7"/>
+        </operand2>
+      </operand2>
+    </expression>
+    <deltaInvokations>
+      <delta href="deltas/Russia_comb.decore#/"/>
+    </deltaInvokations>
+  </mappings>
+  <mappings>
+    <expression xsi:type="expression:HyAndExpression">
+      <operand1 xsi:type="expression:HyFeatureReferenceExpression">
+        <feature href="HyVarUseCaseReview.hyfeature#//@features.5"/>
+      </operand1>
+      <operand2 xsi:type="expression:HyAndExpression">
+        <operand1 xsi:type="expression:HyFeatureReferenceExpression">
+          <feature href="HyVarUseCaseReview.hyfeature#//@features.8"/>
+        </operand1>
+        <operand2 xsi:type="expression:HyFeatureReferenceExpression">
+          <feature href="HyVarUseCaseReview.hyfeature#//@features.4"/>
+        </operand2>
+      </operand2>
+    </expression>
+    <deltaInvokations>
+      <delta href="deltas/Europa_Diag_Comb.decore#/"/>
+    </deltaInvokations>
+  </mappings>
+  <mappings>
+    <expression xsi:type="expression:HyAndExpression">
+      <operand1 xsi:type="expression:HyFeatureReferenceExpression">
+        <feature href="HyVarUseCaseReview.hyfeature#//@features.6"/>
+      </operand1>
+      <operand2 xsi:type="expression:HyAndExpression">
+        <operand1 xsi:type="expression:HyFeatureReferenceExpression">
+          <feature href="HyVarUseCaseReview.hyfeature#//@features.7"/>
+        </operand1>
+        <operand2 xsi:type="expression:HyAndExpression">
+          <operand1 xsi:type="expression:HyFeatureReferenceExpression">
+            <feature href="HyVarUseCaseReview.hyfeature#//@features.4"/>
+          </operand1>
+          <operand2 xsi:type="expression:HyFeatureReferenceExpression">
+            <feature href="HyVarUseCaseReview.hyfeature#//@features.10"/>
+          </operand2>
+        </operand2>
+      </operand2>
+    </expression>
+    <deltaInvokations>
+      <delta href="deltas/Russia_Glonass.decore#/"/>
+    </deltaInvokations>
+  </mappings>
+  <mappings>
+    <expression xsi:type="expression:HyAndExpression">
+      <operand1 xsi:type="expression:HyFeatureReferenceExpression">
+        <feature href="HyVarUseCaseReview.hyfeature#//@features.5"/>
+      </operand1>
+      <operand2 xsi:type="expression:HyAndExpression">
+        <operand1 xsi:type="expression:HyFeatureReferenceExpression">
+          <feature href="HyVarUseCaseReview.hyfeature#//@features.8"/>
+        </operand1>
+        <operand2 xsi:type="expression:HyAndExpression">
+          <operand1 xsi:type="expression:HyFeatureReferenceExpression">
+            <feature href="HyVarUseCaseReview.hyfeature#//@features.9"/>
+          </operand1>
+          <operand2 xsi:type="expression:HyFeatureReferenceExpression">
+            <feature href="HyVarUseCaseReview.hyfeature#//@features.10"/>
+          </operand2>
+        </operand2>
+      </operand2>
+    </expression>
+    <deltaInvokations>
+      <delta href="deltas/Europa_Diag_GPS.decore#/"/>
+    </deltaInvokations>
+  </mappings>
+</mapping:HyMappingModel>

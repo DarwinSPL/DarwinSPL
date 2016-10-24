@@ -1,0 +1,16 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: HFM_Exporter
+Bundle-SymbolicName: eu.hyvar.feature.exporter.hfm_exporter;singleton:=true
+Bundle-Version: 0.0.1
+Bundle-RequiredExecutionEnvironment: JavaSE-1.7
+Require-Bundle: eu.hyvar.feature.constraint,
+ org.deltaecore.feature.constraint,
+ eu.hyvar.feature.mapping,
+ eu.hyvar.feature.configuration,
+ org.deltaecore.feature.configuration,
+ eu.hyvar.feature.expression,
+ eu.hyvar.feature
+Export-Package: eu.hyvar.feature.exporter.hfm_exporter,
+ eu.hyvar.feature.exporter.hfm_exporter.util
+Bundle-ActivationPolicy: lazy

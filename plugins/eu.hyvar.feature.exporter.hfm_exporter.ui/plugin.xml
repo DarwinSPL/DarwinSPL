@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+<extension
+         point="org.eclipse.ui.menus">
+      <menuContribution locationURI="popup:org.eclipse.jdt.ui.PackageExplorer?after=additions">
+         <menu
+               id="eu.hyvar.export.menu"
+               label="Hybrid Feature Model Exports">
+            <command
+                  commandId="eu.hyvar.feature.exporter.hfm"
+                  label="Export to DeltaEcore">
+            </command>
+         </menu>
+      </menuContribution>
+   </extension>
+<extension
+      point="org.eclipse.ui.commands">
+   <command
+         defaultHandler="eu.hyvar.feature.exporter.hfm_exporter.ui.ExportToHFMCommandHandler"
+         id="eu.hyvar.feature.exporter.hfm"
+         name="Export to DeltaEcore">
+   </command>
+</extension>
+</plugin>

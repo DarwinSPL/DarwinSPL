@@ -1,0 +1,67 @@
+{
+  "preferences": [
+    
+  ],
+  "amountOfFeatures": 11,
+  "amountOfContexts": 1,
+  "attributeDomains": [
+    
+  ],
+  "attributesPerFeature": [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0
+  ],
+  "contextDomains": [
+    {
+      "max": 1,
+      "min": 0
+    }
+  ],
+  "configuration": {
+    "selectedFeatures": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      0,
+      0,
+      1,
+      1,
+      1
+    ],
+    "attributeValues": [
+      
+    ],
+    "contextValues": [
+      
+    ]
+  },
+  "constraints": [
+    "feature[0] = 1",
+    "feature[0] = 1 impl (feature[1] = 1 and feature[2] = 1 and feature[3] = 1)",
+    "(feature[5] = 1 or feature[6] = 1) impl feature[1] = 1",
+    "feature[1] = 1 impl (feature[5] + feature[6] = 1)",
+    "(feature[7] = 1 or feature[8] = 1) impl feature[2] = 1",
+    "feature[2] = 1 impl (feature[7] + feature[8] = 1)",
+    "(feature[9] = 1 or feature[10] = 1) impl feature[3] = 1",
+    "feature[3] = 1 impl (feature[9] = 1 or feature[10] = 1)",
+    "(feature[6] = 1 iff feature[7] = 1)",
+    "(feature[6] = 1 impl feature[4] = 1)",
+    "(feature[5] = 1 impl feature[8] = 1)",
+    "(feature[5] = 1 impl feature[9] = 1)",
+    "(feature[6] = 1 impl feature[10] = 1)",
+    "(context[0] =  1 )"
+  ]
+}
+

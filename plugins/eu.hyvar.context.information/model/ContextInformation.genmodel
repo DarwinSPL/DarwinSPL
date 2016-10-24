@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<genmodel:GenModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore"
+    xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" modelDirectory="/eu.hyvar.context.information/src-gen" editDirectory="/eu.hyvar.context.information.edit/src-gen"
+    editorDirectory="/eu.hyvar.context.information.editor/src-gen" modelPluginID="eu.hyvar.context.information"
+    modelName="ContextInformation" rootExtendsClass="org.eclipse.emf.ecore.impl.MinimalEObjectImpl$Container"
+    testsDirectory="/eu.hyvar.context.information.tests/src-gen" importerID="org.eclipse.emf.importer.ecore"
+    complianceLevel="7.0" copyrightFields="false" usedGenPackages="../../eu.hyvar.feature.data/model/DataValues.genmodel#//dataValues ../../eu.hyvar.evolution/model/Evolution.genmodel#//evolution"
+    operationReflection="true" importOrganizing="true">
+  <foreignModel>ContextInformation.ecore</foreignModel>
+  <genPackages prefix="HyContextInformation" basePackage="eu.hyvar" disposableProviderFactory="true"
+      fileExtensions="hycontextmodel" ecorePackage="ContextInformation.ecore#/">
+    <genClasses ecoreClass="ContextInformation.ecore#//HyContextModel">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ContextInformation.ecore#//HyContextModel/contextualInformations"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ContextInformation.ecore#//HyContextModel/enums"/>
+    </genClasses>
+    <genClasses ecoreClass="ContextInformation.ecore#//HyContextualInformationEnum">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ContextInformation.ecore#//HyContextualInformationEnum/enumType"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="ContextInformation.ecore#//HyContextualInformation">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ContextInformation.ecore#//HyContextualInformation/name"/>
+    </genClasses>
+    <genClasses ecoreClass="ContextInformation.ecore#//HyContextualInformationNumber">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ContextInformation.ecore#//HyContextualInformationNumber/min"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ContextInformation.ecore#//HyContextualInformationNumber/max"/>
+    </genClasses>
+    <genClasses ecoreClass="ContextInformation.ecore#//HyContextualInformationBoolean"/>
+  </genPackages>
+</genmodel:GenModel>

@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="ASCII"?>
+<feature:HyFeatureModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:feature="http://hyvar-project.eu/feature/1.0">
+  <rootFeature feature="//@features.0"/>
+  <features>
+    <cardinality minCardinality="1" maxCardinality="1"/>
+    <names name="EmergencyCall"/>
+    <parentOf childGroup="//@groups.0"/>
+  </features>
+  <features groupMembership="//@groups.0/@parentOf.0">
+    <cardinality minCardinality="1" maxCardinality="1"/>
+    <names name="Base"/>
+    <parentOf childGroup="//@groups.1"/>
+  </features>
+  <features groupMembership="//@groups.0/@parentOf.0">
+    <cardinality minCardinality="1" maxCardinality="1"/>
+    <names name="Languages"/>
+    <parentOf childGroup="//@groups.2"/>
+  </features>
+  <features groupMembership="//@groups.0/@parentOf.0">
+    <cardinality minCardinality="1" maxCardinality="1"/>
+    <names name="GNSS"/>
+    <parentOf childGroup="//@groups.3"/>
+  </features>
+  <features groupMembership="//@groups.0/@parentOf.0">
+    <cardinality maxCardinality="1"/>
+    <names name="Diagnostic"/>
+  </features>
+  <features groupMembership="//@groups.1/@parentOf.0">
+    <cardinality maxCardinality="1"/>
+    <names name="eCall"/>
+  </features>
+  <features groupMembership="//@groups.1/@parentOf.0">
+    <cardinality maxCardinality="1"/>
+    <names name="EraGlonass"/>
+  </features>
+  <features groupMembership="//@groups.2/@parentOf.0">
+    <cardinality maxCardinality="1"/>
+    <names name="Russian"/>
+  </features>
+  <features groupMembership="//@groups.2/@parentOf.0">
+    <cardinality maxCardinality="1"/>
+    <names name="EU_Languages"/>
+  </features>
+  <features groupMembership="//@groups.3/@parentOf.0">
+    <cardinality maxCardinality="1"/>
+    <names name="GPS"/>
+  </features>
+  <features groupMembership="//@groups.3/@parentOf.0">
+    <cardinality maxCardinality="1"/>
+    <names name="Glonass"/>
+  </features>
+  <groups childOf="//@features.0/@parentOf.0">
+    <cardinality minCardinality="3" maxCardinality="4"/>
+    <parentOf features="//@features.1 //@features.2 //@features.3 //@features.4"/>
+  </groups>
+  <groups childOf="//@features.1/@parentOf.0">
+    <cardinality minCardinality="1" maxCardinality="1"/>
+    <parentOf features="//@features.5 //@features.6"/>
+  </groups>
+  <groups childOf="//@features.2/@parentOf.0">
+    <cardinality minCardinality="1" maxCardinality="2"/>
+    <parentOf features="//@features.7 //@features.8"/>
+  </groups>
+  <groups childOf="//@features.3/@parentOf.0">
+    <cardinality minCardinality="1" maxCardinality="2"/>
+    <parentOf features="//@features.9 //@features.10"/>
+  </groups>
+</feature:HyFeatureModel>

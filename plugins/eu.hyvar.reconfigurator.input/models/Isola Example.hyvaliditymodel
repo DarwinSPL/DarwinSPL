@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="ASCII"?>
+<contextValidity:HyValidityModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://hyvar-project.eu/feature/context/1.0" xmlns:contextValidity="http://hyvar-project.eu/context/validity/1.0" xmlns:dataValues="http://hyvar-project.eu/feature/dataValues/1.0" xmlns:expression="http://hyvar-project.eu/feature/expression/1.0" xmlns:feature="http://hyvar-project.eu/feature/1.0">
+  <validityFormulas xsi:type="contextValidity:HyAttributeValidityFormula" id="_87779eec-44ba-4c15-8df9-65922834859b">
+    <validityFormula xsi:type="expression:HyImpliesExpression">
+      <operand1 xsi:type="expression:HyEqualExpression">
+        <operand1 xsi:type="expression:HyContextInformationReferenceExpression">
+          <contextInformation xsi:type="context:HyContextualInformationEnum" href="Isola%20Example.hycontextmodel#_3d8d1b1a-fdc2-411c-9b55-6384eb5a0db6"/>
+        </operand1>
+        <operand2 xsi:type="expression:HyValueExpression">
+          <value xsi:type="dataValues:HyEnumValue">
+            <enumLiteral href="Isola%20Example.hycontextmodel#_2cb993f5-c502-4fbf-a6e4-bb7be8e344ba"/>
+          </value>
+        </operand2>
+      </operand1>
+      <operand2 xsi:type="expression:HyLessOrEqualExpression">
+        <operand1 xsi:type="expression:HyAttributeReferenceExpression">
+          <attribute xsi:type="feature:HyNumberAttribute" href="Isola%20Example.hyfeature#_c4a59b27-bfde-4736-9f45-17b861342184"/>
+        </operand1>
+        <operand2 xsi:type="expression:HyValueExpression">
+          <value xsi:type="dataValues:HyNumberValue" value="80"/>
+        </operand2>
+      </operand2>
+    </validityFormula>
+    <attribute xsi:type="feature:HyNumberAttribute" href="Isola%20Example.hyfeature#_c4a59b27-bfde-4736-9f45-17b861342184"/>
+    <feature href="Isola%20Example.hyfeature#_af353284-08aa-4125-beb8-c67a96b835a6"/>
+  </validityFormulas>
+  <validityFormulas xsi:type="contextValidity:HyFeatureValidityFormula" id="_18419557-b514-4131-a27d-c1ddb363ee15">
+    <validityFormula xsi:type="expression:HyLessExpression">
+      <operand1 xsi:type="expression:HyContextInformationReferenceExpression">
+        <contextInformation xsi:type="context:HyContextualInformationNumber" href="Isola%20Example.hycontextmodel#_da1782d0-162e-46ca-8dca-4feb3798cc1c"/>
+      </operand1>
+      <operand2 xsi:type="expression:HyValueExpression">
+        <value xsi:type="dataValues:HyNumberValue" value="50"/>
+      </operand2>
+    </validityFormula>
+    <feature href="Isola%20Example.hyfeature#_cf0cd77e-d753-4fc8-b0d0-e9a24be2f4f7"/>
+  </validityFormulas>
+  <validityFormulas xsi:type="contextValidity:HyFeatureValidityFormula" id="_21914fe2-be9d-47df-aafe-172d80b41701">
+    <validityFormula xsi:type="expression:HyLessExpression">
+      <operand1 xsi:type="expression:HyContextInformationReferenceExpression">
+        <contextInformation xsi:type="context:HyContextualInformationNumber" href="Isola%20Example.hycontextmodel#_da1782d0-162e-46ca-8dca-4feb3798cc1c"/>
+      </operand1>
+      <operand2 xsi:type="expression:HyValueExpression">
+        <value xsi:type="dataValues:HyNumberValue" value="50"/>
+      </operand2>
+    </validityFormula>
+    <feature href="Isola%20Example.hyfeature#_b9014758-b98f-49ff-a002-a6f195e2ffa2"/>
+  </validityFormulas>
+  <validityFormulas xsi:type="contextValidity:HyFeatureValidityFormula" id="_6f184b91-bbca-437e-b895-f334a6f49535">
+    <validityFormula xsi:type="expression:HyLessExpression">
+      <operand1 xsi:type="expression:HyContextInformationReferenceExpression">
+        <contextInformation xsi:type="context:HyContextualInformationNumber" href="Isola%20Example.hycontextmodel#_da1782d0-162e-46ca-8dca-4feb3798cc1c"/>
+      </operand1>
+      <operand2 xsi:type="expression:HyValueExpression">
+        <value xsi:type="dataValues:HyNumberValue" value="50"/>
+      </operand2>
+    </validityFormula>
+    <feature href="Isola%20Example.hyfeature#_8a3250d1-4643-4439-8a81-aeda5e703888"/>
+  </validityFormulas>
+  <validityFormulas xsi:type="contextValidity:HyFeatureValidityFormula" id="_2cb6b514-2f4b-4518-b10b-2f9c8a2b9472">
+    <validityFormula xsi:type="expression:HyLessExpression">
+      <operand1 xsi:type="expression:HyContextInformationReferenceExpression">
+        <contextInformation xsi:type="context:HyContextualInformationNumber" href="Isola%20Example.hycontextmodel#_da1782d0-162e-46ca-8dca-4feb3798cc1c"/>
+      </operand1>
+      <operand2 xsi:type="expression:HyValueExpression">
+        <value xsi:type="dataValues:HyNumberValue" value="50"/>
+      </operand2>
+    </validityFormula>
+    <feature href="Isola%20Example.hyfeature#_84cca31a-8357-42df-bb07-4d11e1dc0df1"/>
+  </validityFormulas>
+  <validityFormulas xsi:type="contextValidity:HyFeatureValidityFormula" id="_77f30a5d-6299-459c-b6f2-9aa227038af8">
+    <validityFormula xsi:type="expression:HyLessExpression">
+      <operand1 xsi:type="expression:HyContextInformationReferenceExpression">
+        <contextInformation xsi:type="context:HyContextualInformationNumber" href="Isola%20Example.hycontextmodel#_da1782d0-162e-46ca-8dca-4feb3798cc1c"/>
+      </operand1>
+      <operand2 xsi:type="expression:HyValueExpression">
+        <value xsi:type="dataValues:HyNumberValue" value="50"/>
+      </operand2>
+    </validityFormula>
+    <feature href="Isola%20Example.hyfeature#_bc9ea8a3-7232-43f5-8e6e-2a977ee3f87f"/>
+  </validityFormulas>
+  <validityFormulas xsi:type="contextValidity:HyAttributeValidityFormula" id="_0840f49c-65e0-4052-83df-a340eefe391d">
+    <validityFormula xsi:type="expression:HyImpliesExpression">
+      <operand1 xsi:type="expression:HyGreaterOrEqualExpression">
+        <operand1 xsi:type="expression:HyContextInformationReferenceExpression">
+          <contextInformation xsi:type="context:HyContextualInformationNumber" href="Isola%20Example.hycontextmodel#_f2d0acf7-3ddb-41cc-bfa6-a805df6f0cbb"/>
+        </operand1>
+        <operand2 xsi:type="expression:HyValueExpression">
+          <value xsi:type="dataValues:HyNumberValue" value="18"/>
+        </operand2>
+      </operand1>
+      <operand2 xsi:type="expression:HyEqualExpression">
+        <operand1 xsi:type="expression:HyAttributeReferenceExpression">
+          <attribute xsi:type="feature:HyBooleanAttribute" href="Isola%20Example.hyfeature#_97470be4-d449-4848-80d7-6c3ea8300527"/>
+        </operand1>
+        <operand2 xsi:type="expression:HyValueExpression">
+          <value xsi:type="dataValues:HyBooleanValue" value="true"/>
+        </operand2>
+      </operand2>
+    </validityFormula>
+    <attribute xsi:type="feature:HyBooleanAttribute" href="Isola%20Example.hyfeature#_97470be4-d449-4848-80d7-6c3ea8300527"/>
+  </validityFormulas>
+</contextValidity:HyValidityModel>

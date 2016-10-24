@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="ASCII"?>
+<context:HyContextModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://hyvar-project.eu/feature/context/1.0">
+  <contextualInformations xsi:type="context:HyContextualInformationEnum" id="GPS_Positions" enumType="GPS_Position_enum"/>
+  <enums id="GPS_Position_enum">
+    <literals name="GPS_Position_Russia"/>
+    <literals name="GPS_Position_Europe" value="1"/>
+  </enums>
+</context:HyContextModel>

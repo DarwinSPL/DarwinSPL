@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   <extension
+         id="client"
+         point="org.eclipse.core.runtime.applications">
+      <application>
+         <run
+               class="eu.hyvar.feature.exporter.hfm_exporter.rest.dummyclient.Application">
+         </run>
+      </application>
+   </extension>
+   <extension
+         id="client"
+         point="org.eclipse.core.runtime.products">
+      <product
+            application="eu.hyvar.feature.exporter.hfm_exporter.rest.dummyclient.client"
+            name="HyVar to DeltaEcore REST Dummyclient">
+         <property
+               name="appName"
+               value="HyVar to DeltaEcore REST Dummyclient">
+         </property>
+         <property
+               name="appName"
+               value="HyVar to DeltaEcore REST Dummyclient">
+         </property>
+      </product>
+   </extension>
+
+</plugin>

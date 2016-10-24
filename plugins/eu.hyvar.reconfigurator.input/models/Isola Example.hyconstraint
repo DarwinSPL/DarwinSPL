@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="ASCII"?>
+<constraint:HyConstraintModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:constraint="http://hyvar-project.eu/feature/constraint/1.0" xmlns:expression="http://hyvar-project.eu/feature/expression/1.0">
+  <constraints id="_bf2dcf79-9c29-498c-9741-f7ca5d3faed1">
+    <rootExpression xsi:type="expression:HyImpliesExpression">
+      <operand1 xsi:type="expression:HyFeatureReferenceExpression">
+        <feature href="Isola%20Example.hyfeature#_1f602aa3-5280-404e-95af-651a0f409b6d"/>
+      </operand1>
+      <operand2 xsi:type="expression:HyFeatureReferenceExpression">
+        <feature href="Isola%20Example.hyfeature#_3c220692-a1ab-4b55-bf99-ce6e47e5f8b3"/>
+      </operand2>
+    </rootExpression>
+  </constraints>
+  <constraints id="_6eac37a7-9d12-4053-aaf5-b3c25754ff01">
+    <rootExpression xsi:type="expression:HyImpliesExpression">
+      <operand1 xsi:type="expression:HyFeatureReferenceExpression">
+        <feature href="Isola%20Example.hyfeature#_b3f7c9ae-19fe-41d9-be69-307e0d24096c"/>
+      </operand1>
+      <operand2 xsi:type="expression:HyFeatureReferenceExpression">
+        <versionRestriction xsi:type="expression:HyRelativeVersionRestriction" operator="greaterThanOrEqual">
+          <version href="Isola%20Example.hyfeature#_c0af50b9-6db7-448e-8e1e-67d8a384ead7"/>
+        </versionRestriction>
+        <feature href="Isola%20Example.hyfeature#_3c37d2c7-a85b-4bb0-b75f-af1b7b78a103"/>
+      </operand2>
+    </rootExpression>
+  </constraints>
+  <constraints id="_666c4586-f173-49be-af6c-839249f9cd6d">
+    <rootExpression xsi:type="expression:HyImpliesExpression">
+      <operand1 xsi:type="expression:HyFeatureReferenceExpression">
+        <versionRestriction xsi:type="expression:HyRelativeVersionRestriction" operator="greaterThanOrEqual">
+          <version href="Isola%20Example.hyfeature#_9decc168-5e9a-4b66-9a57-6bccc360e880"/>
+        </versionRestriction>
+        <feature href="Isola%20Example.hyfeature#_baad7b37-c456-4cc3-81d0-43f151b2df4c"/>
+      </operand1>
+      <operand2 xsi:type="expression:HyFeatureReferenceExpression">
+        <versionRestriction xsi:type="expression:HyRelativeVersionRestriction" operator="greaterThanOrEqual">
+          <version href="Isola%20Example.hyfeature#_c0af50b9-6db7-448e-8e1e-67d8a384ead7"/>
+        </versionRestriction>
+        <feature href="Isola%20Example.hyfeature#_3c37d2c7-a85b-4bb0-b75f-af1b7b78a103"/>
+      </operand2>
+    </rootExpression>
+  </constraints>
+</constraint:HyConstraintModel>

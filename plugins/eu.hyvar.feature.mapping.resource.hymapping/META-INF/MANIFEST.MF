@@ -1,0 +1,34 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: EMFText Parser Plugin: hymapping
+Bundle-SymbolicName: eu.hyvar.feature.mapping.resource.hymapping;singleton:=true
+Bundle-Version: 1.0.0
+Bundle-Vendor: Software Technology Group - TU Dresden Germany
+Require-Bundle: org.eclipse.core.runtime;resolution:=optional,
+  org.eclipse.core.resources;resolution:=optional,
+  org.eclipse.emf.ecore,
+  org.eclipse.emf.ecore.change,
+  org.eclipse.emf.validation;resolution:=optional,
+  org.emftext.access;resolution:=optional,
+  org.emftext.commons.antlr3_4_0,
+  eu.hyvar.feature.mapping,
+  eu.hyvar.context.information,
+  eu.hyvar.feature.data,
+  org.deltaecore.core.decorebase,
+  org.deltaecore.core.decoredialect,
+  org.deltaecore.core.decore,
+  eu.hyvar.evolution,
+  eu.hyvar.feature.expression,
+  eu.hyvar.feature,
+  eu.hyvar.feature.expression.resource.hyexpression,
+  eu.hyvar.dataValues.resource.hydatavalue
+Bundle-ActivationPolicy: lazy
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Export-Package: eu.hyvar.feature.mapping.resource.hymapping,
+  eu.hyvar.feature.mapping.resource.hymapping.analysis,
+  eu.hyvar.feature.mapping.resource.hymapping.mopp,
+  eu.hyvar.feature.mapping.resource.hymapping.debug,
+  eu.hyvar.feature.mapping.resource.hymapping.launch,
+  eu.hyvar.feature.mapping.resource.hymapping.grammar,
+  eu.hyvar.feature.mapping.resource.hymapping.util
+Bundle-Activator: eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingPlugin

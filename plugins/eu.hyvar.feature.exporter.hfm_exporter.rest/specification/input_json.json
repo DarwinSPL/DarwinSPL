@@ -1,0 +1,42 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "properties": {
+    "msg_type": {
+      "type": "string"
+    },
+    "feature_model": {
+      "type": "object",
+      "properties" : {
+        "filename" : {
+          "type" : "string"
+        },
+        "specification" : {
+          "type" : "string"
+        }
+      }
+    },
+    "mapping": {
+      "type": "object",
+      "properties" : {
+        "filename" : {
+          "type" : "string"
+        },
+        "specification" : {
+          "type" : "string"
+        }
+      }
+    },
+    "configuration": {
+      "type": "object",
+      "properties" : {
+        "filename" : {
+          "type" : "string"
+        },
+        "specification" : {
+          "type" : "string"
+        }
+      }
+    }  
+  }
+}

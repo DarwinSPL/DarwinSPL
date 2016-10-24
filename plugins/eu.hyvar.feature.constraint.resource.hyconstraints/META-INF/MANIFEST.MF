@@ -1,0 +1,31 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: EMFText Parser Plugin: hyconstraints
+Bundle-SymbolicName: eu.hyvar.feature.constraint.resource.hyconstraints;singleton:=true
+Bundle-Version: 1.0.0
+Bundle-Vendor: Software Technology Group - TU Dresden Germany
+Require-Bundle: org.eclipse.core.runtime;resolution:=optional,
+  org.eclipse.core.resources;resolution:=optional,
+  org.eclipse.emf.ecore,
+  org.eclipse.emf.ecore.change,
+  org.eclipse.emf.validation;resolution:=optional,
+  org.emftext.access;resolution:=optional,
+  org.emftext.commons.antlr3_4_0,
+  eu.hyvar.feature.constraint,
+  eu.hyvar.evolution,
+  eu.hyvar.feature.expression,
+  eu.hyvar.feature,
+  eu.hyvar.feature.data,
+  eu.hyvar.context.information,
+  eu.hyvar.feature.expression.resource.hyexpression,
+  eu.hyvar.dataValues.resource.hydatavalue
+Bundle-ActivationPolicy: lazy
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Export-Package: eu.hyvar.feature.constraint.resource.hyconstraints,
+  eu.hyvar.feature.constraint.resource.hyconstraints.analysis,
+  eu.hyvar.feature.constraint.resource.hyconstraints.mopp,
+  eu.hyvar.feature.constraint.resource.hyconstraints.debug,
+  eu.hyvar.feature.constraint.resource.hyconstraints.launch,
+  eu.hyvar.feature.constraint.resource.hyconstraints.grammar,
+  eu.hyvar.feature.constraint.resource.hyconstraints.util
+Bundle-Activator: eu.hyvar.feature.constraint.resource.hyconstraints.mopp.HyconstraintsPlugin

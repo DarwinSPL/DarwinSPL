@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="ASCII"?>
+<context:HyContextModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://hyvar-project.eu/feature/context/1.0">
+  <contextualInformations xsi:type="context:HyContextualInformationEnum" id="_3d8d1b1a-fdc2-411c-9b55-6384eb5a0db6" name="Weather" enumType="WeatherEnum"/>
+  <contextualInformations xsi:type="context:HyContextualInformationNumber" id="_da1782d0-162e-46ca-8dca-4feb3798cc1c" name="Pollution Level" max="100"/>
+  <contextualInformations xsi:type="context:HyContextualInformationNumber" id="_68323812-198f-4e76-99ce-cc467b3d5ff0" name="Number of Passengers" max="10"/>
+  <contextualInformations xsi:type="context:HyContextualInformationNumber" id="_f2d0acf7-3ddb-41cc-bfa6-a805df6f0cbb" name="Hour of the Day" max="23"/>
+  <enums id="WeatherEnum">
+    <literals id="_1aefe853-3ef3-4d91-bb66-5fa4b9a1daca" name="Sunny"/>
+    <literals id="_2cb993f5-c502-4fbf-a6e4-bb7be8e344ba" name="Rainy" value="1"/>
+  </enums>
+</context:HyContextModel>

@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<genmodel:GenModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore"
+    xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" modelDirectory="/eu.hyvar.feature/src-gen" editDirectory="/eu.hyvar.feature.edit/src-gen"
+    editorDirectory="/eu.hyvar.feature.editor/src-gen" modelPluginID="eu.hyvar.feature"
+    modelName="Feature" rootExtendsClass="org.eclipse.emf.ecore.impl.MinimalEObjectImpl$Container"
+    testsDirectory="/eu.hyvar.feature.tests/src-gen" importerID="org.eclipse.emf.importer.ecore"
+    complianceLevel="7.0" copyrightFields="false" usedGenPackages="../../eu.hyvar.feature.data/model/DataValues.genmodel#//dataValues ../../eu.hyvar.evolution/model/Evolution.genmodel#//evolution"
+    operationReflection="true" importOrganizing="true">
+  <foreignModel>Feature.ecore</foreignModel>
+  <genPackages prefix="HyFeature" basePackage="eu.hyvar" disposableProviderFactory="true"
+      ecorePackage="Feature.ecore#/">
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="Feature.ecore#//HyFeatureTypeEnum">
+      <genEnumLiterals ecoreEnumLiteral="Feature.ecore#//HyFeatureTypeEnum/OPTIONAL"/>
+      <genEnumLiterals ecoreEnumLiteral="Feature.ecore#//HyFeatureTypeEnum/MANDATORY"/>
+    </genEnums>
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="Feature.ecore#//HyGroupTypeEnum">
+      <genEnumLiterals ecoreEnumLiteral="Feature.ecore#//HyGroupTypeEnum/AND"/>
+      <genEnumLiterals ecoreEnumLiteral="Feature.ecore#//HyGroupTypeEnum/OR"/>
+      <genEnumLiterals ecoreEnumLiteral="Feature.ecore#//HyGroupTypeEnum/ALTERNATIVE"/>
+    </genEnums>
+    <genClasses ecoreClass="Feature.ecore#//HyFeatureModel">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Feature.ecore#//HyFeatureModel/rootFeature"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Feature.ecore#//HyFeatureModel/features"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Feature.ecore#//HyFeatureModel/groups"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Feature.ecore#//HyFeatureModel/enums"/>
+    </genClasses>
+    <genClasses ecoreClass="Feature.ecore#//HyFeature">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Feature.ecore#//HyFeature/versions"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Feature.ecore#//HyFeature/groupMembership"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Feature.ecore#//HyFeature/parentOf"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Feature.ecore#//HyFeature/deprecatedSince"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Feature.ecore#//HyFeature/attributes"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Feature.ecore#//HyFeature/types"/>
+      <genOperations ecoreOperation="Feature.ecore#//HyFeature/isOptional">
+        <genParameters ecoreParameter="Feature.ecore#//HyFeature/isOptional/date"/>
+      </genOperations>
+      <genOperations ecoreOperation="Feature.ecore#//HyFeature/isMandatory">
+        <genParameters ecoreParameter="Feature.ecore#//HyFeature/isMandatory/date"/>
+      </genOperations>
+    </genClasses>
+    <genClasses ecoreClass="Feature.ecore#//HyGroup">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Feature.ecore#//HyGroup/parentOf"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Feature.ecore#//HyGroup/childOf"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Feature.ecore#//HyGroup/types"/>
+      <genOperations ecoreOperation="Feature.ecore#//HyGroup/isAlternative">
+        <genParameters ecoreParameter="Feature.ecore#//HyGroup/isAlternative/date"/>
+      </genOperations>
+      <genOperations ecoreOperation="Feature.ecore#//HyGroup/isOr">
+        <genParameters ecoreParameter="Feature.ecore#//HyGroup/isOr/date"/>
+      </genOperations>
+      <genOperations ecoreOperation="Feature.ecore#//HyGroup/isAnd">
+        <genParameters ecoreParameter="Feature.ecore#//HyGroup/isAnd/date"/>
+      </genOperations>
+    </genClasses>
+    <genClasses ecoreClass="Feature.ecore#//HyVersion">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Feature.ecore#//HyVersion/number"/>
+      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference Feature.ecore#//HyVersion/feature"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Feature.ecore#//HyVersion/supersedingVersions"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Feature.ecore#//HyVersion/supersededVersion"/>
+    </genClasses>
+    <genClasses ecoreClass="Feature.ecore#//HyNumberAttribute">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Feature.ecore#//HyNumberAttribute/min"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Feature.ecore#//HyNumberAttribute/max"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Feature.ecore#//HyNumberAttribute/default"/>
+    </genClasses>
+    <genClasses ecoreClass="Feature.ecore#//HyBooleanAttribute">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Feature.ecore#//HyBooleanAttribute/default"/>
+    </genClasses>
+    <genClasses ecoreClass="Feature.ecore#//HyStringAttribute">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Feature.ecore#//HyStringAttribute/default"/>
+    </genClasses>
+    <genClasses ecoreClass="Feature.ecore#//HyEnumAttribute">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Feature.ecore#//HyEnumAttribute/enumType"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Feature.ecore#//HyEnumAttribute/default"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="Feature.ecore#//HyFeatureAttribute">
+      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference Feature.ecore#//HyFeatureAttribute/feature"/>
+    </genClasses>
+    <genClasses ecoreClass="Feature.ecore#//HyRootFeature">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Feature.ecore#//HyRootFeature/feature"/>
+    </genClasses>
+    <genClasses ecoreClass="Feature.ecore#//HyGroupComposition">
+      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference Feature.ecore#//HyGroupComposition/compositionOf"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Feature.ecore#//HyGroupComposition/features"/>
+    </genClasses>
+    <genClasses ecoreClass="Feature.ecore#//HyFeatureChild">
+      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference Feature.ecore#//HyFeatureChild/parent"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Feature.ecore#//HyFeatureChild/childGroup"/>
+    </genClasses>
+    <genClasses ecoreClass="Feature.ecore#//HyFeatureType">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Feature.ecore#//HyFeatureType/type"/>
+    </genClasses>
+    <genClasses ecoreClass="Feature.ecore#//HyGroupType">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Feature.ecore#//HyGroupType/type"/>
+    </genClasses>
+  </genPackages>
+</genmodel:GenModel>

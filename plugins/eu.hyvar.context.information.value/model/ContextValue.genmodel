@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<genmodel:GenModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore"
+    xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" modelDirectory="/eu.hyvar.context.information.value/src-gen" editDirectory="/eu.hyvar.context.information.value.edit/src-gen"
+    editorDirectory="/eu.hyvar.context.information.value.editor/src-gen" modelPluginID="eu.hyvar.context.information.value"
+    modelName="ContextValue" rootExtendsClass="org.eclipse.emf.ecore.impl.MinimalEObjectImpl$Container"
+    testsDirectory="/eu.hyvar.context.information.value.tests/src-gen" importerID="org.eclipse.emf.importer.ecore"
+    complianceLevel="7.0" copyrightFields="false" usedGenPackages="../../eu.hyvar.context.information/model/ContextInformation.genmodel#//context ../../eu.hyvar.feature.data/model/DataValues.genmodel#//dataValues ../../eu.hyvar.evolution/model/Evolution.genmodel#//evolution"
+    operationReflection="true" importOrganizing="true">
+  <foreignModel>ContextValue.ecore</foreignModel>
+  <genPackages prefix="ContextValue" basePackage="eu.hyvar.context.information" disposableProviderFactory="true"
+      fileExtensions="hycontextvalue" ecorePackage="ContextValue.ecore#/">
+    <genClasses ecoreClass="ContextValue.ecore#//HyContextValueModel">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ContextValue.ecore#//HyContextValueModel/values"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="ContextValue.ecore#//HyContextValue">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ContextValue.ecore#//HyContextValue/context"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ContextValue.ecore#//HyContextValue/value"/>
+    </genClasses>
+  </genPackages>
+</genmodel:GenModel>

@@ -1,0 +1,29 @@
+feature[_30b856f6-ca1a-41d1-a8fa-61585bf077fb] : Heads Up Display
+attribute[_ab969b78-6e33-4d8e-84d7-4165f1f477cd] : nightMode
+feature[_30b856f6-ca1a-41d1-a8fa-61585bf077fb] : 1.0
+feature[_30b856f6-ca1a-41d1-a8fa-61585bf077fb] : 1.1
+feature[_30b856f6-ca1a-41d1-a8fa-61585bf077fb] : 2.0
+feature[_6875e845-97ca-4c9a-8e6c-f5f30af3e8ac] : Green
+feature[_ea4017ce-9482-4c43-87b2-43c761682288] : White
+feature[_df53ee6e-f0a0-4966-9897-cf334b74b1b1] : Manual
+feature[_4de835a5-62c7-4a65-b411-aa88c55f344e] : Gear Shift
+feature[_2b0ae9ec-8291-4478-b716-3a8555e5de60] : Cruise Control
+attribute[_1737895b-d316-4c26-9dcc-0836aae4a22c] : maxSpeed
+feature[_eff9862b-7b54-4c57-8175-efbbe61f0625] : Ambient Lighting
+feature[_bfbdf53e-e47c-4832-ae6c-949178c65ecb] : Automatic
+feature[_71554364-c885-4ed8-9539-5b3e23e07620] : Progressive
+feature[_33fd64d8-d0e7-4a58-b972-dd5426a75759] : Conservative
+feature[_820df7f7-0d06-4e96-a61f-886a197c7847] : Lane Assist
+feature[_820df7f7-0d06-4e96-a61f-886a197c7847] : 1.0
+feature[_820df7f7-0d06-4e96-a61f-886a197c7847] : 2.0
+feature[_a15d9621-a5ab-43c4-b7ab-5d31eeeb7419] : Car
+feature[_8f0bfe7f-d6ab-4e3a-a066-21ddfdd34f7f] : Red
+feature[_3081144a-a938-498a-948a-c4e89bb5d759] : Engine Profile
+feature[_1e2e2178-8834-4d8e-879f-33d311d4f470] : Neutral
+feature[_7cc2b4eb-1ffc-421b-8639-89372e5c2983] : Parking Spot Detector
+context[_b47d6fce-0a76-40e6-886e-9cf74dd01bfa] : Weather
+0 : Sunny
+1 : Rainy
+context[_0256d7a8-b4b9-412e-8ecd-62cee8b06cb6] : Pollution Level
+context[_7160ece8-d36c-4d97-9806-87d562873f3e] : Number of Passengers
+context[_c5b1ce33-6630-422c-9452-314ccc14e7f9] : Hour of the Day

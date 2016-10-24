@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ecore:EPackage xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="configuration" nsURI="http://hyvar-project.eu/feature/configuration/1.0"
+    nsPrefix="configuration">
+  <eClassifiers xsi:type="ecore:EClass" name="HyFeatureSelection" abstract="true"
+      interface="true" eSuperTypes="#//HyConfigurationElement">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="selectedFeature" lowerBound="1"
+        eType="ecore:EClass ../../eu.hyvar.feature/model/Feature.ecore#//HyFeature"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="HyConfiguration" eSuperTypes="../../eu.hyvar.evolution/model/Evolution.ecore#//HyTemporalElement ../../eu.hyvar.evolution/model/Evolution.ecore#//HyNamedElement">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="elements" lowerBound="1"
+        upperBound="-1" eType="#//HyConfigurationElement" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="basedOn" eType="#//HyConfiguration"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="isPreconfigured" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"
+        defaultValueLiteral="false"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="variantsGenerated" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"
+        defaultValueLiteral="0"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="featureModel" eType="ecore:EClass ../../eu.hyvar.feature/model/Feature.ecore#//HyFeatureModel"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="HyAttributeValueAssignment" eSuperTypes="#//HyConfigurationElement">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="attribute" lowerBound="1"
+        eType="ecore:EClass ../../eu.hyvar.feature/model/Feature.ecore#//HyFeatureAttribute"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="value" lowerBound="1" eType="ecore:EClass ../../eu.hyvar.feature.data/model/DataValues.ecore#//HyValue"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="HyConfigurationElement" abstract="true"
+      interface="true" eSuperTypes="../../eu.hyvar.evolution/model/Evolution.ecore#//HyTemporalElement"/>
+  <eClassifiers xsi:type="ecore:EClass" name="HyFeatureSelected" eSuperTypes="#//HyFeatureSelection"/>
+  <eClassifiers xsi:type="ecore:EClass" name="HyFeatureDeselected" eSuperTypes="#//HyFeatureSelection"/>
+  <eClassifiers xsi:type="ecore:EClass" name="HyVersionSelection" abstract="true"
+      interface="true" eSuperTypes="#//HyConfigurationElement">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="selectedVersion" lowerBound="1"
+        eType="ecore:EClass ../../eu.hyvar.feature/model/Feature.ecore#//HyVersion"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="HyVersionSelected" eSuperTypes="#//HyVersionSelection"/>
+  <eClassifiers xsi:type="ecore:EClass" name="HyVersionDeselected" eSuperTypes="#//HyVersionSelection"/>
+</ecore:EPackage>

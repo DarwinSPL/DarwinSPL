@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+<extension
+         point="org.eclipse.ui.menus">
+      <menuContribution locationURI="popup:org.eclipse.jdt.ui.PackageExplorer?after=additions">
+         <menu
+               id="hybridFeatureModelExampleMenuId"
+               label="Hybrid Feature Model Example">
+            <command
+                  commandId="eu.hyvar.feature.example_creation.CreateExample"
+                  label="Create Example">
+            </command>
+         </menu>
+      </menuContribution>
+   </extension>
+<extension
+      point="org.eclipse.ui.commands">
+   <command
+         defaultHandler="eu.hyvar.feature.example_creation.ExampleCreationCommandHandler"
+         id="eu.hyvar.feature.example_creation.CreateExample"
+         name="Create Example">
+   </command>
+</extension>
+</plugin>

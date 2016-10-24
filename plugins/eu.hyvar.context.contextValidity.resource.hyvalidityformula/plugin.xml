@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.2"?>
+<plugin>
+	<extension point="org.emftext.access.syntax">
+		<metaInformationProvider class="eu.hyvar.context.contextValidity.resource.hyvalidityformula.mopp.HyvalidityformulaMetaInformation" id="eu.hyvar.context.contextValidity.resource.hyvalidityformula.mopp.HyvalidityformulaMetaInformation">
+		</metaInformationProvider>
+	</extension>
+	
+	<extension id="eu.hyvar.context.contextValidity.resource.hyvalidityformula.problem" name="EMFText Problem" point="org.eclipse.core.resources.markers">
+		<persistent value="true">
+		</persistent>
+		<super type="org.eclipse.core.resources.problemmarker">
+		</super>
+		<super type="org.eclipse.core.resources.textmarker">
+		</super>
+		<super type="org.eclipse.emf.ecore.diagnostic">
+		</super>
+	</extension>
+	
+	<extension id="eu.hyvar.context.contextValidity.resource.hyvalidityformula.problem.syntax_error" name="EMFText Problem" point="org.eclipse.core.resources.markers">
+		<persistent value="true">
+		</persistent>
+		<super type="eu.hyvar.context.contextValidity.resource.hyvalidityformula.problem">
+		</super>
+	</extension>
+	
+	<extension id="eu.hyvar.context.contextValidity.resource.hyvalidityformula.problem.print_problem" name="EMFText Problem" point="org.eclipse.core.resources.markers">
+		<persistent value="true">
+		</persistent>
+		<super type="eu.hyvar.context.contextValidity.resource.hyvalidityformula.problem">
+		</super>
+	</extension>
+	
+	<extension id="eu.hyvar.context.contextValidity.resource.hyvalidityformula.problem.unresolved_reference" name="EMFText Problem" point="org.eclipse.core.resources.markers">
+		<persistent value="true">
+		</persistent>
+		<super type="eu.hyvar.context.contextValidity.resource.hyvalidityformula.problem">
+		</super>
+	</extension>
+	
+	<extension id="eu.hyvar.context.contextValidity.resource.hyvalidityformula.problem.analysis_problem" name="EMFText Problem" point="org.eclipse.core.resources.markers">
+		<persistent value="true">
+		</persistent>
+		<super type="eu.hyvar.context.contextValidity.resource.hyvalidityformula.problem">
+		</super>
+	</extension>
+	
+	<extension id="eu.hyvar.context.contextValidity.resource.hyvalidityformula.problem.batch_constraint_problem" name="EMFText Problem" point="org.eclipse.core.resources.markers">
+		<persistent value="true">
+		</persistent>
+		<super type="eu.hyvar.context.contextValidity.resource.hyvalidityformula.problem">
+		</super>
+	</extension>
+	
+	<extension id="eu.hyvar.context.contextValidity.resource.hyvalidityformula.problem.live_constraint_problem" name="EMFText Problem" point="org.eclipse.core.resources.markers">
+		<persistent value="true">
+		</persistent>
+		<super type="eu.hyvar.context.contextValidity.resource.hyvalidityformula.problem">
+		</super>
+	</extension>
+	
+	<extension id="eu.hyvar.context.contextValidity.resource.hyvalidityformula.problem.builder_error" name="EMFText Problem" point="org.eclipse.core.resources.markers">
+		<persistent value="true">
+		</persistent>
+		<super type="eu.hyvar.context.contextValidity.resource.hyvalidityformula.problem">
+		</super>
+	</extension>
+	
+	<extension id="eu.hyvar.context.contextValidity.resource.hyvalidityformula.nature" name="hyvalidityformula nature" point="org.eclipse.core.resources.natures">
+		<runtime>
+			<run class="eu.hyvar.context.contextValidity.resource.hyvalidityformula.mopp.HyvalidityformulaNature">
+			</run>
+		</runtime>
+		<builder id="eu.hyvar.context.contextValidity.resource.hyvalidityformula.builder">
+		</builder>
+	</extension>
+	
+	<extension point="org.eclipse.core.resources.builders" id="eu.hyvar.context.contextValidity.resource.hyvalidityformula.builder" name="hyvalidityformula Builder">
+		<builder hasNature="true">
+			<run class="eu.hyvar.context.contextValidity.resource.hyvalidityformula.mopp.HyvalidityformulaBuilderAdapter">
+			</run>
+		</builder>
+	</extension>
+	
+	<extension-point id="eu.hyvar.context.contextValidity.resource.hyvalidityformula.default_load_options" name="Default Load Options" schema="schema/default_load_options.exsd">
+	</extension-point>
+	
+	<extension point="org.eclipse.emf.ecore.extension_parser">
+		<parser class="eu.hyvar.context.contextValidity.resource.hyvalidityformula.mopp.HyvalidityformulaResourceFactoryDelegator" type="hyvalidityformula">
+		</parser>
+	</extension>
+	
+	<extension-point id="eu.hyvar.context.contextValidity.resource.hyvalidityformula.additional_extension_parser" name="Additional Extension Parser" schema="schema/additional_extension_parser.exsd">
+	</extension-point>
+	
+</plugin>

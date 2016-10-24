@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ecore:EPackage xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="mapping" nsURI="http://hyvar-project.eu/feature/mapping/1.0"
+    nsPrefix="mapping">
+  <eClassifiers xsi:type="ecore:EClass" name="HyMappingModel">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="mappings" upperBound="-1"
+        eType="#//HyMapping" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="HyMapping" eSuperTypes="../../eu.hyvar.evolution/model/Evolution.ecore#//HyTemporalElement">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="expression" lowerBound="1"
+        eType="ecore:EClass ../../eu.hyvar.feature.expression/model/Expression.ecore#//HyExpression"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="deltaInvokations" lowerBound="1"
+        upperBound="-1" eType="ecore:EClass ../../org.deltaecore.core.decore/model/DEcore.ecore#//DEDeltaInvokation"
+        containment="true"/>
+  </eClassifiers>
+</ecore:EPackage>

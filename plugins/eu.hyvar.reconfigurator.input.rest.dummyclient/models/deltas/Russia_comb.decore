@@ -1,0 +1,79 @@
+delta "Russia_Comb"
+		dialect <http://www.yakindu.org/sct/sgraph/2.0.0>
+	modifies <../core/eCall.sct>
+{
+	//TODO: Call delta operations defined in dialect
+	State initEraGlonassDataState = new State(name: "Init_eraGlonass_data");
+	addState(initEraGlonassDataState, <eCall.main region.InitData.InitData>);
+	
+	modifySpecificationOfState("entry / Data.GNSS = 0 // COMBINED
+entry / Func.SetGnssSystem()", <eCall.main region.SetGnssSystem>);
+	
+	modifySpecificationOfState("entry / Func.Init_eraGlonass_data()", <eCall.main region.InitData.InitData.Init_eraGlonass_data>);
+	
+	State initAdditionalDataState = new State(name: "init_additionaldata");
+	addState(initAdditionalDataState, <eCall.main region.init_ecallmessage.InitEcallMessage>);
+	addTransition(<eCall.main region.init_ecallmessage.InitEcallMessage.init_ecallmessage>,<eCall.main region.init_ecallmessage.InitEcallMessage.init_additionaldata>,"always");
+	modifySpecificationOfState("entry / Func.init_additionaldata()", <eCall.main region.init_ecallmessage.InitEcallMessage.init_additionaldata>);
+	
+	modifySourceOfTransitionToExitState(<eCall.main region.init_ecallmessage.InitEcallMessage>,<eCall.main region.init_ecallmessage.InitEcallMessage.init_ecallmessage>,"always",<eCall.main region.init_ecallmessage.InitEcallMessage.init_additionaldata>);
+		
+	
+	
+	modifySpecificationOfStatechart("interface Func :
+	var proxy : integer
+	var buffer : integer
+	operation ATB2init() : integer
+	operation init_ecallmessage() : integer
+	operation init_additionaldata() : integer
+	operation Init_eraGlonass_data() : integer
+	operation Init_eCall_data() : integer
+	operation SetGnssSystem() : integer
+	operation SetLanguage() : integer
+	operation encode_ecallmessage() : integer
+	operation encode_optionaldata() : integer
+	operation play_prompt() : integer
+	operation send_msd() : integer
+	operation EmergencyCall() : integer
+	
+	interface Data :
+	
+	var GNSS : integer
+	var Language : string",
+	 <eCall>);
+	
+	addTransitionFromInitialState(<eCall.main region.InitData.InitData>,<eCall.main region.InitData.InitData.Init_eraGlonass_data>,"");
+	
+	modifySourceOfTransitionFromInitialState(<eCall.main region.InitData.InitData>,<eCall.main region.InitData.InitData.Init_eCall_data>,"",<eCall.main region.InitData.InitData.Init_eraGlonass_data>);
+	
+	modifySpecificationOfTransition(<eCall.main region.InitData.InitData.Init_eraGlonass_data>, <eCall.main region.InitData.InitData.Init_eCall_data>, "", "always");
+	
+	State encodeOptionalDataState = new State(name: "encode_optionaldata");
+	addState(encodeOptionalDataState, <eCall.main region.FormatMSD.FormatMSD>);
+	//entry / Func.encode_optionaldata()
+	modifySpecificationOfState("entry / Func.encode_optionaldata()",<eCall.main region.FormatMSD.FormatMSD.encode_optionaldata>);
+	
+	modifySpecificationOfState("entry / Data.Language = 'Russian'
+entry / Func.SetLanguage()",<eCall.main region.SetLanguage>);
+	
+	//addTransition(<eCall.main region.FormatMSD.FormatMSD.encode_ecall_message>,<eCall.main region.FormatMSD.FormatMSD.encode_optionaldata>,"always");
+	modifyTargetOfTransition(<eCall.main region.FormatMSD.FormatMSD.encode_ecall_message>,<eCall.main region.FormatMSD.FormatMSD.play_prompt>,"always",<eCall.main region.FormatMSD.FormatMSD.encode_optionaldata>);
+	addTransition(<eCall.main region.FormatMSD.FormatMSD.encode_optionaldata>,<eCall.main region.FormatMSD.FormatMSD.play_prompt>,"always");
+	
+
+	
+}
+
+dialect <http://eu/hyvar/metadata>
+{
+	preMetadata(); 
+	addSourceFile("encode_optionaldata.c");
+	addSourceFile("init_eraGlonass_data.c");
+	addSourceFile("init_additionaldata.c");
+	addFeature("GPS");
+	addFeature("GLONASS");
+	addFeature("ERAGLONASS");
+	addFeature("Diagnostic");
+	setVariantName("russia_comb", "1.0");
+	postMetadata();
+}

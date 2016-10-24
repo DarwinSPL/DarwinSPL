@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.2"?>
+<plugin>
+	<extension point="org.emftext.access.syntax.ui">
+		<metaInformationProvider class="eu.hyvar.feature.expression.resource.hyexpression.ui.HyexpressionUIMetaInformation" id="eu.hyvar.feature.expression.resource.hyexpression.ui.HyexpressionUIMetaInformation">
+		</metaInformationProvider>
+	</extension>
+	
+	<extension point="org.eclipse.ui.editors">
+		<editor class="eu.hyvar.feature.expression.resource.hyexpression.ui.HyexpressionEditor" contributorClass="org.eclipse.ui.texteditor.BasicTextEditorActionContributor" extensions="hyexpression" icon="icons/editor_icon.gif" id="eu.hyvar.feature.expression.resource.hyexpression.ui.HyexpressionEditor" name="EMFText hyexpression Editor">
+			<contentTypeBinding contentTypeId="eu.hyvar.feature.expression.resource.hyexpression">
+			</contentTypeBinding>
+		</editor>
+	</extension>
+	
+	<extension point="org.eclipse.core.runtime.preferences">
+		<initializer class="eu.hyvar.feature.expression.resource.hyexpression.ui.HyexpressionPreferenceInitializer">
+		</initializer>
+	</extension>
+	
+	<extension point="org.eclipse.ui.preferencePages">
+		<page name="Hyexpression Text Editor" id="eu.hyvar.feature.expression.resource.hyexpression.ui.HyexpressionPreferencePage" class="eu.hyvar.feature.expression.resource.hyexpression.ui.HyexpressionPreferencePage" category="org.eclipse.ui.preferencePages.GeneralTextEditor">
+		</page>
+		<page name="Syntax Coloring" id="eu.hyvar.feature.expression.resource.hyexpression.ui.HyexpressionSyntaxColoringPreferencePage" class="eu.hyvar.feature.expression.resource.hyexpression.ui.HyexpressionSyntaxColoringPreferencePage" category="eu.hyvar.feature.expression.resource.hyexpression.ui.HyexpressionPreferencePage">
+		</page>
+		<page name="Brackets" id="eu.hyvar.feature.expression.resource.hyexpression.ui.HyexpressionBracketPreferencePage" class="eu.hyvar.feature.expression.resource.hyexpression.ui.HyexpressionBracketPreferencePage" category="eu.hyvar.feature.expression.resource.hyexpression.ui.HyexpressionPreferencePage">
+		</page>
+		<page name="Content Assist" id="eu.hyvar.feature.expression.resource.hyexpression.ui.HyexpressionContentAssistPreferencePage" class="eu.hyvar.feature.expression.resource.hyexpression.ui.HyexpressionContentAssistPreferencePage" category="eu.hyvar.feature.expression.resource.hyexpression.ui.HyexpressionPreferencePage">
+		</page>
+	</extension>
+	
+	<extension point="org.eclipse.ui.newWizards">
+		<category id="org.emftext.runtime.ui.EMFTextFileCategory" name="EMFText File">
+		</category>
+		<wizard category="org.emftext.runtime.ui.EMFTextFileCategory" icon="/icons/default_new_icon.gif" class="eu.hyvar.feature.expression.resource.hyexpression.ui.HyexpressionNewFileWizard" id="eu.hyvar.feature.expression.resource.hyexpression.ui.HyexpressionNewFileWizard" name="EMFText .hyexpression file">
+		</wizard>
+	</extension>
+	
+	<extension point="org.eclipse.ui.ide.markerResolution">
+		<markerResolutionGenerator class="eu.hyvar.feature.expression.resource.hyexpression.ui.HyexpressionMarkerResolutionGenerator" markerType="eu.hyvar.feature.expression.resource.hyexpression.problem">
+		</markerResolutionGenerator>
+	</extension>
+	
+	<extension point="org.eclipse.core.filebuffers.annotationModelCreation">
+		<factory class="eu.hyvar.feature.expression.resource.hyexpression.ui.HyexpressionAnnotationModelFactory" extensions="hyexpression">
+		</factory>
+	</extension>
+	
+	<extension point="org.eclipse.core.contenttype.contentTypes">
+		<content-type id="eu.hyvar.feature.expression.resource.hyexpression" name=".hyexpression File" base-type="org.eclipse.core.runtime.text" file-extensions="hyexpression">
+		</content-type>
+	</extension>
+	
+	<extension point="org.eclipse.ui.editors.documentProviders">
+		<provider class="org.eclipse.ui.editors.text.TextFileDocumentProvider" extensions="hyexpression" id="eu.hyvar.feature.expression.resource.hyexpression.ui.provider">
+		</provider>
+	</extension>
+	
+	<extension point="org.eclipse.ui.editors.annotationTypes">
+		<type name="eu.hyvar.feature.expression.resource.hyexpression.ui.occurences">
+		</type>
+		<type name="eu.hyvar.feature.expression.resource.hyexpression.ui.occurences.declaration" super="eu.hyvar.feature.expression.resource.hyexpression.ui.occurences">
+		</type>
+	</extension>
+	
+	<extension point="org.eclipse.ui.editors.markerAnnotationSpecification">
+		<specification annotationType="eu.hyvar.feature.expression.resource.hyexpression.ui.occurences" label="Occurrences (in .hyexpression files)" icon="/icons/occurrence_icon.gif" textPreferenceKey="hyexpression.occurrenceIndication" textPreferenceValue="false" highlightPreferenceKey="hyexpression.occurrenceHighlighting" highlightPreferenceValue="true" contributesToHeader="false" overviewRulerPreferenceKey="hyexpression.occurrenceIndicationInOverviewRuler" overviewRulerPreferenceValue="true" verticalRulerPreferenceKey="hyexpression.occurrenceIndicationInVerticalRuler" verticalRulerPreferenceValue="false" colorPreferenceKey="hyexpression.occurrenceIndicationColor" colorPreferenceValue="212,212,212" presentationLayer="4" showInNextPrevDropdownToolbarActionKey="hyexpression.showOccurrenceInNextPrevDropdownToolbarAction" showInNextPrevDropdownToolbarAction="true" isGoToNextNavigationTargetKey="hyexpression.isOccurrenceGoToNextNavigationTarget" isGoToNextNavigationTarget="false" isGoToPreviousNavigationTargetKey="hyexpression.isOccurrenceGoToPreviousNavigationTarget" isGoToPreviousNavigationTarget="false" textStylePreferenceKey="hyexpression.occurrenceTextStyle" textStylePreferenceValue="NONE">
+		</specification>
+		<specification annotationType="eu.hyvar.feature.expression.resource.hyexpression.ui.occurences.declaration" label="Declarations (in .hyexpression files)" textPreferenceKey="hyexpression.declarationIndication" textPreferenceValue="false" highlightPreferenceKey="hyexpression.declarationHighlighting" highlightPreferenceValue="true" overviewRulerPreferenceKey="hyexpression.declarationIndicationInOverviewRuler" overviewRulerPreferenceValue="true" verticalRulerPreferenceKey="hyexpression.declarationIndicationInVerticalRuler" verticalRulerPreferenceValue="false" colorPreferenceKey="hyexpression.declarationIndicationColor" colorPreferenceValue="240,216,168" presentationLayer="4" textStylePreferenceKey="hyexpression.declarationTextStyle" textStylePreferenceValue="NONE">
+		</specification>
+	</extension>
+	
+	<extension point="org.eclipse.ui.commands">
+		<category description="All commands belonging to Hyexpression" id="eu.hyvar.feature.expression.resource.hyexpression.ui.command.category" name="Hyexpression">
+		</category>
+		<command categoryId="eu.hyvar.feature.expression.resource.hyexpression.ui.command.category" description="Toggle comment of the selected lines" id="eu.hyvar.feature.expression.resource.hyexpression.ui.command.togglecomment" name="Toggle Comment">
+		</command>
+	</extension>
+	
+	<extension point="org.eclipse.ui.handlers">
+		<handler class="eu.hyvar.feature.expression.resource.hyexpression.ui.HyexpressionToggleCommentHandler" commandId="eu.hyvar.feature.expression.resource.hyexpression.ui.command.togglecomment">
+		</handler>
+	</extension>
+	
+	<extension point="org.eclipse.ui.contexts">
+		<context name="Editing Hyexpression Files" description="Editing Hyexpression Files Context" parentId="org.eclipse.ui.textEditorScope" id="eu.hyvar.feature.expression.resource.hyexpression.EditorScope">
+		</context>
+	</extension>
+	
+	<extension point="org.eclipse.ui.bindings">
+		<key sequence="M1+7" commandId="eu.hyvar.feature.expression.resource.hyexpression.ui.command.togglecomment" schemeId="org.eclipse.ui.defaultAcceleratorConfiguration" contextId="eu.hyvar.feature.expression.resource.hyexpression.EditorScope">
+		</key>
+	</extension>
+	
+</plugin>

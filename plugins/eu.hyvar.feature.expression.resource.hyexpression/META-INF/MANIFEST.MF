@@ -1,0 +1,29 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: EMFText Parser Plugin: hyexpression
+Bundle-SymbolicName: eu.hyvar.feature.expression.resource.hyexpression;singleton:=true
+Bundle-Version: 1.0.0
+Bundle-Vendor: Software Technology Group - TU Dresden Germany
+Require-Bundle: org.eclipse.core.runtime;resolution:=optional,
+  org.eclipse.core.resources;resolution:=optional,
+  org.eclipse.emf.ecore,
+  org.eclipse.emf.ecore.change,
+  org.eclipse.emf.validation;resolution:=optional,
+  org.emftext.access;resolution:=optional,
+  org.emftext.commons.antlr3_4_0,
+  eu.hyvar.feature.expression,
+  eu.hyvar.context.information,
+  eu.hyvar.feature.data,
+  eu.hyvar.evolution,
+  eu.hyvar.feature,
+  eu.hyvar.dataValues.resource.hydatavalue
+Bundle-ActivationPolicy: lazy
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Export-Package: eu.hyvar.feature.expression.resource.hyexpression,
+  eu.hyvar.feature.expression.resource.hyexpression.analysis,
+  eu.hyvar.feature.expression.resource.hyexpression.mopp,
+  eu.hyvar.feature.expression.resource.hyexpression.debug,
+  eu.hyvar.feature.expression.resource.hyexpression.launch,
+  eu.hyvar.feature.expression.resource.hyexpression.grammar,
+  eu.hyvar.feature.expression.resource.hyexpression.util
+Bundle-Activator: eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionPlugin

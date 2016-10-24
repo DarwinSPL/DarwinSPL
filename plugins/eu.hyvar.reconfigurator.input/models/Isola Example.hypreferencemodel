@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="ASCII"?>
+<preferences:HyPreferenceModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://hyvar-project.eu/feature/context/1.0" xmlns:dataValues="http://hyvar-project.eu/feature/dataValues/1.0" xmlns:expression="http://hyvar-project.eu/feature/expression/1.0" xmlns:feature="http://hyvar-project.eu/feature/1.0" xmlns:preferences="http://hyvar-project.eu/feature/preferences/1.0">
+  <preferences id="_ad5428a1-9e03-438f-aa19-617a944bd703">
+    <rootExpression xsi:type="expression:HyImpliesExpression">
+      <operand1 xsi:type="expression:HyFeatureReferenceExpression">
+        <feature href="Isola%20Example.hyfeature#_3c37d2c7-a85b-4bb0-b75f-af1b7b78a103"/>
+      </operand1>
+      <operand2 xsi:type="expression:HyNestedExpression">
+        <operand xsi:type="expression:HyImpliesExpression">
+          <operand1 xsi:type="expression:HyGreaterOrEqualExpression">
+            <operand1 xsi:type="expression:HyContextInformationReferenceExpression">
+              <contextInformation xsi:type="context:HyContextualInformationNumber" href="Isola%20Example.hycontextmodel#_f2d0acf7-3ddb-41cc-bfa6-a805df6f0cbb"/>
+            </operand1>
+            <operand2 xsi:type="expression:HyValueExpression">
+              <value xsi:type="dataValues:HyNumberValue" value="16"/>
+            </operand2>
+          </operand1>
+          <operand2 xsi:type="expression:HyEqualExpression">
+            <operand1 xsi:type="expression:HyAttributeReferenceExpression">
+              <attribute xsi:type="feature:HyBooleanAttribute" href="Isola%20Example.hyfeature#_97470be4-d449-4848-80d7-6c3ea8300527"/>
+            </operand1>
+            <operand2 xsi:type="expression:HyValueExpression">
+              <value xsi:type="dataValues:HyBooleanValue" value="true"/>
+            </operand2>
+          </operand2>
+        </operand>
+      </operand2>
+    </rootExpression>
+  </preferences>
+  <preferences id="_c90b71d3-1052-4d64-b3ee-2f6166d86d53">
+    <rootExpression xsi:type="expression:HyIfPossibleExpression">
+      <operands xsi:type="expression:HyFeatureReferenceExpression">
+        <feature href="Isola%20Example.hyfeature#_1f602aa3-5280-404e-95af-651a0f409b6d"/>
+      </operands>
+      <operands xsi:type="expression:HyFeatureReferenceExpression">
+        <feature href="Isola%20Example.hyfeature#_3c220692-a1ab-4b55-bf99-ce6e47e5f8b3"/>
+      </operands>
+      <operands xsi:type="expression:HyFeatureReferenceExpression">
+        <feature href="Isola%20Example.hyfeature#_53a622f3-103d-4248-b2ce-7d7ac3c1cdd6"/>
+      </operands>
+    </rootExpression>
+  </preferences>
+  <preferences id="_5260fd36-eefc-4624-bace-a33480ff8fb1">
+    <rootExpression xsi:type="expression:HyFeatureReferenceExpression">
+      <feature href="Isola%20Example.hyfeature#_b3f7c9ae-19fe-41d9-be69-307e0d24096c"/>
+    </rootExpression>
+  </preferences>
+  <preferences id="_63c7ea79-fa5f-4555-9c18-dd55273c3266">
+    <rootExpression xsi:type="expression:HyFeatureReferenceExpression">
+      <versionRestriction xsi:type="expression:HyRelativeVersionRestriction" operator="greaterThanOrEqual">
+        <version href="Isola%20Example.hyfeature#_c0af50b9-6db7-448e-8e1e-67d8a384ead7"/>
+      </versionRestriction>
+      <feature href="Isola%20Example.hyfeature#_3c37d2c7-a85b-4bb0-b75f-af1b7b78a103"/>
+    </rootExpression>
+  </preferences>
+  <preferences id="_a0805b41-6984-4b7c-a322-241b69e014b9">
+    <rootExpression xsi:type="expression:HyFeatureReferenceExpression">
+      <feature href="Isola%20Example.hyfeature#_af353284-08aa-4125-beb8-c67a96b835a6"/>
+    </rootExpression>
+  </preferences>
+  <preferences id="_9832db44-f47e-461d-a544-861a47ef95fe">
+    <rootExpression xsi:type="expression:HyFeatureReferenceExpression">
+      <versionRestriction xsi:type="expression:HyRelativeVersionRestriction" operator="greaterThanOrEqual">
+        <version href="Isola%20Example.hyfeature#_9decc168-5e9a-4b66-9a57-6bccc360e880"/>
+      </versionRestriction>
+      <feature href="Isola%20Example.hyfeature#_baad7b37-c456-4cc3-81d0-43f151b2df4c"/>
+    </rootExpression>
+  </preferences>
+  <preferences id="_0e53c117-1cc0-4a0b-b7b7-638f06670dc0">
+    <rootExpression xsi:type="expression:HyFeatureReferenceExpression">
+      <feature href="Isola%20Example.hyfeature#_baad7b37-c456-4cc3-81d0-43f151b2df4c"/>
+    </rootExpression>
+  </preferences>
+  <preferences id="_7e40d7d3-31de-474e-9082-e0466569476c">
+    <rootExpression xsi:type="expression:HyMaximumExpression">
+      <operand xsi:type="expression:HyAttributeReferenceExpression">
+        <attribute xsi:type="feature:HyNumberAttribute" href="Isola%20Example.hyfeature#_c4a59b27-bfde-4736-9f45-17b861342184"/>
+      </operand>
+    </rootExpression>
+  </preferences>
+  <featureModel href="Isola%20Example.hyfeature#/"/>
+  <contextModel href="Isola%20Example.hycontextmodel#/"/>
+</preferences:HyPreferenceModel>

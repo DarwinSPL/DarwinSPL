@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ecore:EPackage xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="expression" nsURI="http://hyvar-project.eu/feature/expression/1.0"
+    nsPrefix="expression">
+  <eClassifiers xsi:type="ecore:EClass" name="HyAndExpression" eSuperTypes="#//HyBinaryExpression"/>
+  <eClassifiers xsi:type="ecore:EClass" name="HyOrExpression" eSuperTypes="#//HyBinaryExpression"/>
+  <eClassifiers xsi:type="ecore:EClass" name="HyNotExpression" eSuperTypes="#//HyUnaryExpression"/>
+  <eClassifiers xsi:type="ecore:EClass" name="HyEquivalenceExpression" eSuperTypes="#//HyBinaryExpression"/>
+  <eClassifiers xsi:type="ecore:EClass" name="HyImpliesExpression" eSuperTypes="#//HyBinaryExpression"/>
+  <eClassifiers xsi:type="ecore:EClass" name="HyExpression" abstract="true"/>
+  <eClassifiers xsi:type="ecore:EClass" name="HyBinaryExpression" abstract="true"
+      eSuperTypes="#//HyExpression">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="operand1" lowerBound="1"
+        eType="#//HyExpression" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="operand2" lowerBound="1"
+        eType="#//HyExpression" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="HyUnaryExpression" abstract="true" eSuperTypes="#//HyExpression">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="operand" lowerBound="1"
+        eType="#//HyExpression" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="HyAtomicExpression" abstract="true"
+      eSuperTypes="#//HyExpression"/>
+  <eClassifiers xsi:type="ecore:EClass" name="HyNestedExpression" eSuperTypes="#//HyUnaryExpression"/>
+  <eClassifiers xsi:type="ecore:EClass" name="HyFeatureReferenceExpression" eSuperTypes="#//HyAbstractFeatureReferenceExpression"/>
+  <eClassifiers xsi:type="ecore:EClass" name="HyVersionRestriction" abstract="true">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="restrictedFeatureReferenceExpression"
+        lowerBound="1" eType="#//HyAbstractFeatureReferenceExpression" eOpposite="#//HyAbstractFeatureReferenceExpression/versionRestriction"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="HyVersionRangeRestriction" eSuperTypes="#//HyVersionRestriction">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="lowerIncluded" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="upperIncluded" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="lowerVersion" lowerBound="1"
+        eType="ecore:EClass ../../eu.hyvar.feature/model/Feature.ecore#//HyVersion"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="upperVersion" lowerBound="1"
+        eType="ecore:EClass ../../eu.hyvar.feature/model/Feature.ecore#//HyVersion"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="HyRelativeVersionRestriction" eSuperTypes="#//HyVersionRestriction">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="version" lowerBound="1"
+        eType="ecore:EClass ../../eu.hyvar.feature/model/Feature.ecore#//HyVersion"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="operator" lowerBound="1"
+        eType="#//HyRelativeVersionRestrictionOperator"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="HyRelativeVersionRestrictionOperator">
+    <eLiterals name="lessThan" value="-2"/>
+    <eLiterals name="lessThanOrEqual" value="-1" literal="lessThanOrEqual"/>
+    <eLiterals name="equal"/>
+    <eLiterals name="implicitEqual" value="3"/>
+    <eLiterals name="greaterThanOrEqual" value="1"/>
+    <eLiterals name="greaterThan" value="2"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="HyBooleanValueExpression" eSuperTypes="#//HyAtomicExpression">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="value" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="HyConditionalFeatureReferenceExpression"
+      eSuperTypes="#//HyAbstractFeatureReferenceExpression"/>
+  <eClassifiers xsi:type="ecore:EClass" name="HyAbstractFeatureReferenceExpression"
+      abstract="true" eSuperTypes="#//HyAtomicExpression">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="versionRestriction" eType="#//HyVersionRestriction"
+        containment="true" eOpposite="#//HyVersionRestriction/restrictedFeatureReferenceExpression"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="feature" lowerBound="1"
+        eType="ecore:EClass ../../eu.hyvar.feature/model/Feature.ecore#//HyFeature"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="HyValueExpression" eSuperTypes="#//HyAtomicExpression">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="value" lowerBound="1" eType="ecore:EClass ../../eu.hyvar.feature.data/model/DataValues.ecore#//HyValue"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="HyAttributeReferenceExpression" eSuperTypes="#//HyAtomicExpression">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="attribute" lowerBound="1"
+        eType="ecore:EClass ../../eu.hyvar.feature/model/Feature.ecore#//HyFeatureAttribute"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="feature" eType="ecore:EClass ../../eu.hyvar.feature/model/Feature.ecore#//HyFeature"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="HyGreaterExpression" eSuperTypes="#//HyBinaryExpression"/>
+  <eClassifiers xsi:type="ecore:EClass" name="HyLessExpression" eSuperTypes="#//HyBinaryExpression"/>
+  <eClassifiers xsi:type="ecore:EClass" name="HyLessOrEqualExpression" eSuperTypes="#//HyBinaryExpression"/>
+  <eClassifiers xsi:type="ecore:EClass" name="HyGreaterOrEqualExpression" eSuperTypes="#//HyBinaryExpression"/>
+  <eClassifiers xsi:type="ecore:EClass" name="HyEqualExpression" eSuperTypes="#//HyBinaryExpression"/>
+  <eClassifiers xsi:type="ecore:EClass" name="HyNotEqualExpression" eSuperTypes="#//HyBinaryExpression"/>
+  <eClassifiers xsi:type="ecore:EClass" name="HyAdditionExpression" eSuperTypes="#//HyBinaryExpression"/>
+  <eClassifiers xsi:type="ecore:EClass" name="HySubtractionExpression" eSuperTypes="#//HyBinaryExpression"/>
+  <eClassifiers xsi:type="ecore:EClass" name="HyMultiplicationExpression" eSuperTypes="#//HyBinaryExpression"/>
+  <eClassifiers xsi:type="ecore:EClass" name="HyDivisionExpression" eSuperTypes="#//HyBinaryExpression"/>
+  <eClassifiers xsi:type="ecore:EClass" name="HyModuloExpression" eSuperTypes="#//HyBinaryExpression"/>
+  <eClassifiers xsi:type="ecore:EClass" name="HyNegationExpression" eSuperTypes="#//HyUnaryExpression"/>
+  <eClassifiers xsi:type="ecore:EClass" name="HyContextInformationReferenceExpression"
+      eSuperTypes="#//HyAtomicExpression">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="contextInformation" lowerBound="1"
+        eType="ecore:EClass ../../eu.hyvar.context.information/model/ContextInformation.ecore#//HyContextualInformation"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="HyMaximumExpression" eSuperTypes="#//HyUnaryExpression"/>
+  <eClassifiers xsi:type="ecore:EClass" name="HyMinimumExpression" eSuperTypes="#//HyUnaryExpression"/>
+  <eClassifiers xsi:type="ecore:EClass" name="HyIfPossibleExpression" eSuperTypes="#//HySetExpression"/>
+  <eClassifiers xsi:type="ecore:EClass" name="HySetExpression" abstract="true" eSuperTypes="#//HyExpression">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="operands" lowerBound="1"
+        upperBound="-1" eType="#//HyExpression" containment="true"/>
+  </eClassifiers>
+</ecore:EPackage>

@@ -1,0 +1,43 @@
+{
+  "attributes": [
+    {
+      "id": "attribute[_xfg-34h]",
+      "min": 0,
+      "max": 200,
+      "featureId": "feature[_abx-cds]"
+    }
+  ],
+  "contexts": [
+    {
+      "id": "context[_887-27h]",
+      "min": 1,
+      "max": 2
+    }
+  ],
+  "configuration": {
+    "selectedFeatures": [
+      "feature[_abx-cds]",
+      "feature[_abx-cdf]"
+    ],
+    "attribute_values": [
+      {
+        "id": "attribute[_xfg-34h]",
+        "value": 10
+      }
+    ],
+    "context_values": [
+      {
+        "id": "context[_887-27h]",
+        "value": 1
+      }
+    ]
+  },
+  "constraints": [
+    "feature[_abx-cds] -> feature[_abx-cdf]",
+    "feature[_abx-cds] = feature[_abx-xba]"
+  ],
+  "preferences": [
+    "context[_887-27h] -> feature[_abx-cds]",
+    "feature[_abx-cdf]"
+  ]
+}

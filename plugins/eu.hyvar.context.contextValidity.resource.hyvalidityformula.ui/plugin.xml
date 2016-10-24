@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.2"?>
+<plugin>
+	<extension point="org.emftext.access.syntax.ui">
+		<metaInformationProvider class="eu.hyvar.context.contextValidity.resource.hyvalidityformula.ui.HyvalidityformulaUIMetaInformation" id="eu.hyvar.context.contextValidity.resource.hyvalidityformula.ui.HyvalidityformulaUIMetaInformation">
+		</metaInformationProvider>
+	</extension>
+	
+	<extension point="org.eclipse.ui.editors">
+		<editor class="eu.hyvar.context.contextValidity.resource.hyvalidityformula.ui.HyvalidityformulaEditor" contributorClass="org.eclipse.ui.texteditor.BasicTextEditorActionContributor" extensions="hyvalidityformula" icon="icons/editor_icon.gif" id="eu.hyvar.context.contextValidity.resource.hyvalidityformula.ui.HyvalidityformulaEditor" name="Validity Formula Editor (HyVar)">
+			<contentTypeBinding contentTypeId="eu.hyvar.context.contextValidity.resource.hyvalidityformula">
+			</contentTypeBinding>
+		</editor>
+	</extension>
+	
+	<extension point="org.eclipse.core.runtime.preferences">
+		<initializer class="eu.hyvar.context.contextValidity.resource.hyvalidityformula.ui.HyvalidityformulaPreferenceInitializer">
+		</initializer>
+	</extension>
+	
+	<extension point="org.eclipse.ui.preferencePages">
+		<page name="Validity Formula Editor (HyVar)" id="eu.hyvar.context.contextValidity.resource.hyvalidityformula.ui.HyvalidityformulaPreferencePage" class="eu.hyvar.context.contextValidity.resource.hyvalidityformula.ui.HyvalidityformulaPreferencePage" category="org.eclipse.ui.preferencePages.GeneralTextEditor">
+		</page>
+		<page name="Syntax Coloring" id="eu.hyvar.context.contextValidity.resource.hyvalidityformula.ui.HyvalidityformulaSyntaxColoringPreferencePage" class="eu.hyvar.context.contextValidity.resource.hyvalidityformula.ui.HyvalidityformulaSyntaxColoringPreferencePage" category="eu.hyvar.context.contextValidity.resource.hyvalidityformula.ui.HyvalidityformulaPreferencePage">
+		</page>
+		<page name="Brackets" id="eu.hyvar.context.contextValidity.resource.hyvalidityformula.ui.HyvalidityformulaBracketPreferencePage" class="eu.hyvar.context.contextValidity.resource.hyvalidityformula.ui.HyvalidityformulaBracketPreferencePage" category="eu.hyvar.context.contextValidity.resource.hyvalidityformula.ui.HyvalidityformulaPreferencePage">
+		</page>
+		<page name="Content Assist" id="eu.hyvar.context.contextValidity.resource.hyvalidityformula.ui.HyvalidityformulaContentAssistPreferencePage" class="eu.hyvar.context.contextValidity.resource.hyvalidityformula.ui.HyvalidityformulaContentAssistPreferencePage" category="eu.hyvar.context.contextValidity.resource.hyvalidityformula.ui.HyvalidityformulaPreferencePage">
+		</page>
+	</extension>
+	
+	<extension point="org.eclipse.ui.newWizards">
+		<wizard category="eu.hyvar.newwizards.Category" icon="/icons/default_new_icon.gif" class="eu.hyvar.context.contextValidity.resource.hyvalidityformula.ui.HyvalidityformulaNewFileWizard" id="eu.hyvar.context.contextValidity.resource.hyvalidityformula.ui.HyvalidityformulaNewFileWizard" name="HyVar Validity Formulas (*.hyvalidityformula)">
+		</wizard>
+	</extension>
+	
+	<extension point="org.eclipse.ui.ide.markerResolution">
+		<markerResolutionGenerator class="eu.hyvar.context.contextValidity.resource.hyvalidityformula.ui.HyvalidityformulaMarkerResolutionGenerator" markerType="eu.hyvar.context.contextValidity.resource.hyvalidityformula.problem">
+		</markerResolutionGenerator>
+	</extension>
+	
+	<extension point="org.eclipse.core.filebuffers.annotationModelCreation">
+		<factory class="eu.hyvar.context.contextValidity.resource.hyvalidityformula.ui.HyvalidityformulaAnnotationModelFactory" extensions="hyvalidityformula">
+		</factory>
+	</extension>
+	
+	<extension point="org.eclipse.core.contenttype.contentTypes">
+		<content-type id="eu.hyvar.context.contextValidity.resource.hyvalidityformula" name=".hyvalidityformula File" base-type="org.eclipse.core.runtime.text" file-extensions="hyvalidityformula">
+		</content-type>
+	</extension>
+	
+	<extension point="org.eclipse.ui.editors.documentProviders">
+		<provider class="org.eclipse.ui.editors.text.TextFileDocumentProvider" extensions="hyvalidityformula" id="eu.hyvar.context.contextValidity.resource.hyvalidityformula.ui.provider">
+		</provider>
+	</extension>
+	
+	<extension point="org.eclipse.ui.editors.annotationTypes">
+		<type name="eu.hyvar.context.contextValidity.resource.hyvalidityformula.ui.occurences">
+		</type>
+		<type name="eu.hyvar.context.contextValidity.resource.hyvalidityformula.ui.occurences.declaration" super="eu.hyvar.context.contextValidity.resource.hyvalidityformula.ui.occurences">
+		</type>
+	</extension>
+	
+	<extension point="org.eclipse.ui.editors.markerAnnotationSpecification">
+		<specification annotationType="eu.hyvar.context.contextValidity.resource.hyvalidityformula.ui.occurences" label="Occurrences (in .hyvalidityformula files)" icon="/icons/occurrence_icon.gif" textPreferenceKey="hyvalidityformula.occurrenceIndication" textPreferenceValue="false" highlightPreferenceKey="hyvalidityformula.occurrenceHighlighting" highlightPreferenceValue="true" contributesToHeader="false" overviewRulerPreferenceKey="hyvalidityformula.occurrenceIndicationInOverviewRuler" overviewRulerPreferenceValue="true" verticalRulerPreferenceKey="hyvalidityformula.occurrenceIndicationInVerticalRuler" verticalRulerPreferenceValue="false" colorPreferenceKey="hyvalidityformula.occurrenceIndicationColor" colorPreferenceValue="212,212,212" presentationLayer="4" showInNextPrevDropdownToolbarActionKey="hyvalidityformula.showOccurrenceInNextPrevDropdownToolbarAction" showInNextPrevDropdownToolbarAction="true" isGoToNextNavigationTargetKey="hyvalidityformula.isOccurrenceGoToNextNavigationTarget" isGoToNextNavigationTarget="false" isGoToPreviousNavigationTargetKey="hyvalidityformula.isOccurrenceGoToPreviousNavigationTarget" isGoToPreviousNavigationTarget="false" textStylePreferenceKey="hyvalidityformula.occurrenceTextStyle" textStylePreferenceValue="NONE">
+		</specification>
+		<specification annotationType="eu.hyvar.context.contextValidity.resource.hyvalidityformula.ui.occurences.declaration" label="Declarations (in .hyvalidityformula files)" textPreferenceKey="hyvalidityformula.declarationIndication" textPreferenceValue="false" highlightPreferenceKey="hyvalidityformula.declarationHighlighting" highlightPreferenceValue="true" overviewRulerPreferenceKey="hyvalidityformula.declarationIndicationInOverviewRuler" overviewRulerPreferenceValue="true" verticalRulerPreferenceKey="hyvalidityformula.declarationIndicationInVerticalRuler" verticalRulerPreferenceValue="false" colorPreferenceKey="hyvalidityformula.declarationIndicationColor" colorPreferenceValue="240,216,168" presentationLayer="4" textStylePreferenceKey="hyvalidityformula.declarationTextStyle" textStylePreferenceValue="NONE">
+		</specification>
+	</extension>
+	
+	<extension point="org.eclipse.ui.commands">
+		<category description="All commands belonging to Hyvalidityformula" id="eu.hyvar.context.contextValidity.resource.hyvalidityformula.ui.command.category" name="Hyvalidityformula">
+		</category>
+		<command categoryId="eu.hyvar.context.contextValidity.resource.hyvalidityformula.ui.command.category" description="Toggle comment of the selected lines" id="eu.hyvar.context.contextValidity.resource.hyvalidityformula.ui.command.togglecomment" name="Toggle Comment">
+		</command>
+	</extension>
+	
+	<extension point="org.eclipse.ui.handlers">
+		<handler class="eu.hyvar.context.contextValidity.resource.hyvalidityformula.ui.HyvalidityformulaToggleCommentHandler" commandId="eu.hyvar.context.contextValidity.resource.hyvalidityformula.ui.command.togglecomment">
+		</handler>
+	</extension>
+	
+	<extension point="org.eclipse.ui.contexts">
+		<context name="Editing Hyvalidityformula Files" description="Editing Hyvalidityformula Files Context" parentId="org.eclipse.ui.textEditorScope" id="eu.hyvar.context.contextValidity.resource.hyvalidityformula.EditorScope">
+		</context>
+	</extension>
+	
+	<extension point="org.eclipse.ui.bindings">
+		<key sequence="M1+7" commandId="eu.hyvar.context.contextValidity.resource.hyvalidityformula.ui.command.togglecomment" schemeId="org.eclipse.ui.defaultAcceleratorConfiguration" contextId="eu.hyvar.context.contextValidity.resource.hyvalidityformula.EditorScope">
+		</key>
+	</extension>
+	
+</plugin>

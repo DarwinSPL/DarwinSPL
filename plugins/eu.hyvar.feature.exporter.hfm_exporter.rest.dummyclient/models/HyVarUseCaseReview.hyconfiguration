@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="ASCII"?>
+<configuration:HyConfiguration xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:configuration="http://hyvar-project.eu/feature/configuration/1.0">
+  <elements xsi:type="configuration:HyFeatureSelected">
+    <selectedFeature href="HyVarUseCaseReview.hyfeature#//@features.5"/>
+  </elements>
+  <elements xsi:type="configuration:HyFeatureSelected">
+    <selectedFeature href="HyVarUseCaseReview.hyfeature#//@features.2"/>
+  </elements>
+  <elements xsi:type="configuration:HyFeatureSelected">
+    <selectedFeature href="HyVarUseCaseReview.hyfeature#//@features.3"/>
+  </elements>
+  <elements xsi:type="configuration:HyFeatureSelected">
+    <selectedFeature href="HyVarUseCaseReview.hyfeature#//@features.0"/>
+  </elements>
+  <elements xsi:type="configuration:HyFeatureSelected">
+    <selectedFeature href="HyVarUseCaseReview.hyfeature#//@features.4"/>
+  </elements>
+  <elements xsi:type="configuration:HyFeatureSelected">
+    <selectedFeature href="HyVarUseCaseReview.hyfeature#//@features.9"/>
+  </elements>
+  <elements xsi:type="configuration:HyFeatureSelected">
+    <selectedFeature href="HyVarUseCaseReview.hyfeature#//@features.8"/>
+  </elements>
+  <elements xsi:type="configuration:HyFeatureSelected">
+    <selectedFeature href="HyVarUseCaseReview.hyfeature#//@features.10"/>
+  </elements>
+  <elements xsi:type="configuration:HyFeatureSelected">
+    <selectedFeature href="HyVarUseCaseReview.hyfeature#//@features.1"/>
+  </elements>
+  <featureModel href="HyVarUseCaseReview.hyfeature#/"/>
+</configuration:HyConfiguration>

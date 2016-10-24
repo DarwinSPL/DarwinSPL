@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<genmodel:GenModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore"
+    xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" modelDirectory="/eu.hyvar.feature.configuration/src-gen" editDirectory="/eu.hyvar.feature.configuration.edit/src-gen"
+    editorDirectory="/eu.hyvar.feature.configuration.editor/src-gen" modelPluginID="eu.hyvar.feature.configuration"
+    modelName="Configuration" rootExtendsClass="org.eclipse.emf.ecore.impl.MinimalEObjectImpl$Container"
+    testsDirectory="/eu.hyvar.feature.configuration.tests/src-gen" importerID="org.eclipse.emf.importer.ecore"
+    complianceLevel="7.0" copyrightFields="false" usedGenPackages="../../eu.hyvar.evolution/model/Evolution.genmodel#//evolution ../../eu.hyvar.feature/model/Feature.genmodel#//feature ../../eu.hyvar.feature.data/model/DataValues.genmodel#//dataValues"
+    operationReflection="true" importOrganizing="true">
+  <foreignModel>Configuration.ecore</foreignModel>
+  <genPackages prefix="HyConfiguration" basePackage="eu.hyvar.feature" disposableProviderFactory="true"
+      fileExtensions="hyconfigurationmodel" ecorePackage="Configuration.ecore#/">
+    <genClasses image="false" ecoreClass="Configuration.ecore#//HyFeatureSelection">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Configuration.ecore#//HyFeatureSelection/selectedFeature"/>
+    </genClasses>
+    <genClasses ecoreClass="Configuration.ecore#//HyConfiguration">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Configuration.ecore#//HyConfiguration/elements"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Configuration.ecore#//HyConfiguration/basedOn"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Configuration.ecore#//HyConfiguration/isPreconfigured"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Configuration.ecore#//HyConfiguration/variantsGenerated"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Configuration.ecore#//HyConfiguration/featureModel"/>
+    </genClasses>
+    <genClasses ecoreClass="Configuration.ecore#//HyAttributeValueAssignment">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Configuration.ecore#//HyAttributeValueAssignment/attribute"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Configuration.ecore#//HyAttributeValueAssignment/value"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="Configuration.ecore#//HyConfigurationElement"/>
+    <genClasses ecoreClass="Configuration.ecore#//HyFeatureSelected"/>
+    <genClasses ecoreClass="Configuration.ecore#//HyFeatureDeselected"/>
+    <genClasses image="false" ecoreClass="Configuration.ecore#//HyVersionSelection">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Configuration.ecore#//HyVersionSelection/selectedVersion"/>
+    </genClasses>
+    <genClasses ecoreClass="Configuration.ecore#//HyVersionSelected"/>
+    <genClasses ecoreClass="Configuration.ecore#//HyVersionDeselected"/>
+  </genPackages>
+</genmodel:GenModel>

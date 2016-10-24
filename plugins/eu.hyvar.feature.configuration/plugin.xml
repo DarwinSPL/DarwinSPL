@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+
+<!--
+-->
+
+<plugin>
+
+   <extension point="org.eclipse.emf.ecore.generated_package">
+      <!-- @generated Configuration -->
+      <package
+            uri="http://hyvar-project.eu/feature/configuration/1.0"
+            class="eu.hyvar.feature.configuration.HyConfigurationPackage"
+            genModel="model/Configuration.genmodel"/>
+   </extension>
+   <extension
+         point="org.eclipse.emf.ecore.factory_override">
+      <factory
+            class="eu.hyvar.feature.configuration.factory.HyConfigurationFactoryWithIds"
+            uri="http://hyvar-project.eu/feature/configuration/1.0">
+      </factory>
+   </extension>
+
+</plugin>

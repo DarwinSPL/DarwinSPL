@@ -1,0 +1,52 @@
+delta "Europa_Diag_GPS"
+		dialect <http://www.yakindu.org/sct/sgraph/2.0.0>
+	modifies <../core/eCall.sct>
+{
+	//TODO: Call delta operations defined in dialect
+	State initEraGlonassDataState = new State(name: "Init_eraGlonass_data");
+	addState(initEraGlonassDataState, <eCall.main region.InitData.InitData>);
+	modifySpecificationOfState("entry / Func.Init_eraGlonass_data ()", <eCall.main region.InitData.InitData.Init_eraGlonass_data>);
+	
+		
+	modifySpecificationOfStatechart("interface Func :
+	var proxy : integer
+	var buffer : integer
+	operation ATB2init () : integer
+	operation init_ecallmessage () : integer
+	operation Init_eCall_data () : integer
+	operation SetGnssSystem () : integer
+	operation SetLanguage () : integer
+	operation encode_ecallmessage () : integer
+	operation play_prompt () : integer
+	operation send_msd () : integer
+	operation EmergencyCall () : integer
+	operation Init_eraGlonass_data () : integer
+	
+	interface Data :
+	var GNSS : integer
+	var Language : string",
+	 <eCall>);
+	
+//	addState("encode_optionaldata", <eCall.main region.FormatMSD.FormatMSD>);
+//	//entry / Func.encode_optionaldata()
+//	modifySpecificationOfState("entry / Func.encode_optionaldata()",<eCall.main region.FormatMSD.FormatMSD.encode_optionaldata>);
+//	
+	
+	addTransitionFromInitialState(<eCall.main region.InitData.InitData>,<eCall.main region.InitData.InitData.Init_eraGlonass_data>,"");
+	
+	modifySourceOfTransitionFromInitialState(<eCall.main region.InitData.InitData>,<eCall.main region.InitData.InitData.Init_eCall_data>,"",<eCall.main region.InitData.InitData.Init_eraGlonass_data>);
+	
+	modifySpecificationOfTransition(<eCall.main region.InitData.InitData.Init_eraGlonass_data>, <eCall.main region.InitData.InitData.Init_eCall_data>, "", "always");
+	
+	
+}
+
+dialect <http://eu/hyvar/metadata>
+{
+	preMetadata(); 
+	addSourceFile("init_eraGlonass_data.c");
+	addFeature("GPS");
+	addFeature("Diagnostic");
+	setVariantName("europa_diag_gps", "1.0");
+	postMetadata();
+} 
