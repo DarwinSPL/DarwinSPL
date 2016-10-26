@@ -9,13 +9,9 @@ import org.deltaecore.feature.graphical.base.util.DEGraphicalEditorTheme;
 import org.eclipse.draw2d.ConnectionAnchor;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.gef.ConnectionEditPart;
-import org.eclipse.gef.EditPart;
-import org.eclipse.gef.EditPolicy;
 import org.eclipse.gef.NodeEditPart;
 import org.eclipse.gef.Request;
 import org.eclipse.gef.editparts.AbstractConnectionEditPart;
-import org.eclipse.gef.editpolicies.ConnectionEndpointEditPolicy;
-import org.eclipse.gef.editpolicies.SelectionEditPolicy;
 
 import eu.hyvar.feature.graphical.base.editor.GraphicalFeatureModelEditor;
 import eu.hyvar.feature.graphical.base.figures.HyParentChildConnectionFigure;
@@ -39,10 +35,6 @@ public class HyParentChildConnectionEditPart extends AbstractConnectionEditPart 
 		return new HyParentChildConnectionFigure();
 	}
 
-	@Override
-	public void setParent(EditPart parent){
-		super.setParent(parent);
-	}
 
 	@Override 
 	public void activate() {
@@ -81,21 +73,37 @@ public class HyParentChildConnectionEditPart extends AbstractConnectionEditPart 
 
 	@Override
 	public ConnectionAnchor getSourceConnectionAnchor(ConnectionEditPart connection) {
+		if(!figure.isVisible()){
+			return null;
+		}
+		
 		return ((HyParentChildConnectionFigure)getFigure()).getAnchor();
 	}
 
 	@Override
 	public ConnectionAnchor getTargetConnectionAnchor(ConnectionEditPart connection) {
+		if(!figure.isVisible()){
+			return null;
+		}
+		
 		return ((HyParentChildConnectionFigure)getFigure()).getAnchor();
 	}
 
 	@Override
 	public ConnectionAnchor getSourceConnectionAnchor(Request request) {
+		if(!figure.isVisible()){
+			return null;
+		}
+		
 		return ((HyParentChildConnectionFigure)getFigure()).getAnchor();
 	}
 
 	@Override
 	public ConnectionAnchor getTargetConnectionAnchor(Request request) {
+		if(!figure.isVisible()){
+			return null;
+		}
+		
 		return ((HyParentChildConnectionFigure)getFigure()).getAnchor();
 	}
 
@@ -103,16 +111,17 @@ public class HyParentChildConnectionEditPart extends AbstractConnectionEditPart 
 	
 	@Override
 	public void refreshVisuals(){
-		((HyParentChildConnectionFigure)this.getFigure()).layout();
 		Date date = editor.getCurrentSelectedDate();
-		
 		HyParentChildConnection connection = (HyParentChildConnection)getModel();
 		boolean sourceValid = connection.getSource().isValid(date);
 		boolean targetValid = connection.getTarget().isValid(date);
 		
-		HyParentChildConnectionFigure figure = (HyParentChildConnectionFigure)this.getFigure();
-		figure.setVisible(sourceValid && targetValid);
-		figure.layout();
+		if(sourceValid && targetValid){
+			figure.setVisible(true);
+			((HyParentChildConnectionFigure)this.getFigure()).layout();
+		}else{
+			figure.setVisible(false);
+		}
 	}
 
 }

@@ -10,7 +10,6 @@ import eu.hyvar.feature.HyGroup;
 import eu.hyvar.feature.HyGroupComposition;
 import eu.hyvar.feature.HyGroupType;
 import eu.hyvar.feature.graphical.base.editor.GraphicalFeatureModelEditor;
-import eu.hyvar.feature.graphical.base.model.HyFeatureModelEvolutionWrapped;
 import eu.hyvar.feature.graphical.base.model.HyFeatureWrapped;
 import eu.hyvar.feature.graphical.base.model.HyGroupWrapped;
 import eu.hyvar.feature.graphical.base.model.HyParentChildConnection;
@@ -22,8 +21,6 @@ public class HyParentChildConnectionEvolutionReconnectCommand extends HyParentCh
 	}
 
 	private HyGroupComposition splitComposition(HyGroupComposition composition, HyFeatureWrapped feature){
-		HyFeatureModelEvolutionWrapped featureModel = (HyFeatureModelEvolutionWrapped)this.featureModel;
-
 		Date date = featureModel.getSelectedDate();
 
 
@@ -60,8 +57,6 @@ public class HyParentChildConnectionEvolutionReconnectCommand extends HyParentCh
 	@Override
 	public void execute(){
 		HyFeatureWrapped oldTarget = connection.getTarget();
-
-		HyFeatureModelEvolutionWrapped featureModel = (HyFeatureModelEvolutionWrapped)this.featureModel;
 		Date date = featureModel.getSelectedDate();
 		
 		if(target instanceof HyFeatureWrapped){

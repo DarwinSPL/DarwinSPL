@@ -224,7 +224,7 @@ public class HydatavalueResourceUtil {
 			return null;
 		}
 		EObject root = contents.get(0);
-		return (EObject) root;
+		return root;
 	}
 	
 	public static void saveResource(File file, Resource resource) throws IOException {

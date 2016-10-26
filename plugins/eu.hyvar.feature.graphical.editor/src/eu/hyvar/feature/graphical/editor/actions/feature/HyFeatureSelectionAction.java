@@ -1,17 +1,19 @@
 package eu.hyvar.feature.graphical.editor.actions.feature;
 
 import org.eclipse.gef.Request;
-import org.eclipse.gef.ui.actions.SelectionAction;
 import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.ui.IWorkbenchPart;
 
+import eu.hyvar.feature.graphical.base.editor.GraphicalFeatureModelEditor;
 import eu.hyvar.feature.graphical.base.editparts.HyFeatureEditPart;
 import eu.hyvar.feature.graphical.base.editparts.HyRootFeatureEditPart;
 import eu.hyvar.feature.graphical.base.model.HyFeatureWrapped;
-public abstract class HyFeatureSelectionAction extends SelectionAction {
+import eu.hyvar.feature.graphical.editor.actions.HyCommandAction;
 
-	public HyFeatureSelectionAction(IWorkbenchPart part) {
-		super(part);
+public abstract class HyFeatureSelectionAction extends HyCommandAction {
+
+	public HyFeatureSelectionAction(IWorkbenchPart part, GraphicalFeatureModelEditor editor) {
+		super(part, editor);
 	}
 	
 	protected Request request;

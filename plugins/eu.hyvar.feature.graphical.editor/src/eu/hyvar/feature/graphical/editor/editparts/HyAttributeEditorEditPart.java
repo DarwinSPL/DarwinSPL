@@ -1,6 +1,5 @@
 package eu.hyvar.feature.graphical.editor.editparts;
 
-import org.eclipse.draw2d.Label;
 import org.eclipse.emf.common.notify.Adapter;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.Notifier;
@@ -14,7 +13,6 @@ import eu.hyvar.feature.HyFeatureChild;
 import eu.hyvar.feature.HyVersion;
 import eu.hyvar.feature.graphical.base.editor.GraphicalFeatureModelEditor;
 import eu.hyvar.feature.graphical.base.editparts.HyAttributeEditPart;
-import eu.hyvar.feature.graphical.base.figures.HyAttributeFigure;
 import eu.hyvar.feature.graphical.base.model.HyFeatureModelWrapped;
 import eu.hyvar.feature.graphical.editor.editor.GraphicalEvolutionFeatureModelEditor;
 import eu.hyvar.feature.graphical.editor.policies.HyAttributeDirectEditPolicy;
@@ -42,7 +40,7 @@ public class HyAttributeEditorEditPart extends HyAttributeEditPart {
 
 			refreshVisuals();
 			
-			editor.setDirty(true);
+			//editor.setDirty(true);
 		}
 
 		@Override 
@@ -94,7 +92,7 @@ public class HyAttributeEditorEditPart extends HyAttributeEditPart {
 		}
 	}
 	private void performDirectEditing() {
-		Label label = ((HyAttributeFigure)getFigure()).getLabel();
+		//Label label = ((HyAttributeFigure)getFigure()).getLabel();
 		
 		// TODO
 		//HyAttributeDirectEditManager manager = new HyAttributeDirectEditManager(this, TextCellEditor.class, new HyAttributeCellEditorLocator(label), label);

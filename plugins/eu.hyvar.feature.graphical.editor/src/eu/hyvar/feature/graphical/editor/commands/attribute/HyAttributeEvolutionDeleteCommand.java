@@ -49,5 +49,8 @@ public class HyAttributeEvolutionDeleteCommand extends Command{
 		
 		for(Adapter adapter : attribute.getFeature().eAdapters())
 			adapter.notifyChanged(new AttributeTemporalDeleteNotification(0, date, date));
+		
+		editor.getModelWrapped().rearrangeFeatures();
+		editor.refreshView();
 	}
 }

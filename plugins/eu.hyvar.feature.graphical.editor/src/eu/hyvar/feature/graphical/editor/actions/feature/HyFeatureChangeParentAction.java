@@ -7,6 +7,7 @@ import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.gef.Request;
+import org.eclipse.gef.commands.Command;
 import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.IWorkbenchPart;
@@ -24,8 +25,8 @@ public class HyFeatureChangeParentAction extends HyFeatureSelectionAction {
 	public static final String FEATURE__CHANGE_PARENT = "ChangeParent";
 	public static final String REQ_FEATURE__CHANGE_PARENT = "ChangeParent";
 	
-	public HyFeatureChangeParentAction(IWorkbenchPart part) {
-		super(part);
+	public HyFeatureChangeParentAction(IWorkbenchPart part, GraphicalFeatureModelEditor editor) {
+		super(part, editor);
 		
 		setId(FEATURE__CHANGE_PARENT);
 		setText("Change Parent Feature/Group");
@@ -69,5 +70,11 @@ public class HyFeatureChangeParentAction extends HyFeatureSelectionAction {
 		dialog.setFeatures(features);
 		dialog.open();
 		
+	}
+
+	@Override
+	protected Command createCommand(Object acceptedModel) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

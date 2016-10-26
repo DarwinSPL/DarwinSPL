@@ -29,7 +29,7 @@ public class HydatavalueExpectedCsString extends eu.hyvar.dataValues.resource.hy
 	/**
 	 * Returns the expected keyword.
 	 */
-	public eu.hyvar.dataValues.resource.hydatavalue.grammar.HydatavalueSyntaxElement getSymtaxElement() {
+	public eu.hyvar.dataValues.resource.hydatavalue.grammar.HydatavalueSyntaxElement getSyntaxElement() {
 		return keyword;
 	}
 	

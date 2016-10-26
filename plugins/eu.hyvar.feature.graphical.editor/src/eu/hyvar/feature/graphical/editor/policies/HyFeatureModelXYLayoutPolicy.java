@@ -41,7 +41,7 @@ public class HyFeatureModelXYLayoutPolicy extends XYLayoutEditPolicy{
 
 	@Override
 	protected Command getCreateCommand(CreateRequest request) {
-
+/*
 		if(request.getNewObject() instanceof HyFeatureWrapped){
 			HyFeatureCreateCommand command = new HyFeatureCreateCommand();
 			command.setNewFeature((HyFeatureWrapped)(request.getNewObject()));
@@ -49,7 +49,7 @@ public class HyFeatureModelXYLayoutPolicy extends XYLayoutEditPolicy{
 			command.setParent((HyFeatureModelWrapped)getHost().getModel());
 			return command;
 		}
-
+*/
 		return null;		
 	}	
 

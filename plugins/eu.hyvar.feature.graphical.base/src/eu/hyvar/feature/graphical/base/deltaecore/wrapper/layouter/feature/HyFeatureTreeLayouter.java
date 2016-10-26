@@ -14,7 +14,7 @@ import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
 
 import eu.hyvar.feature.HyFeature;
-import eu.hyvar.feature.graphical.base.model.HyFeatureModelEvolutionWrapped;
+import eu.hyvar.feature.graphical.base.model.HyFeatureModelWrapped;
 
 public class HyFeatureTreeLayouter {
 	private TreeLayout<HyFeature> treeLayout;
@@ -35,7 +35,7 @@ public class HyFeatureTreeLayouter {
 		return 100; //theme.getFeatureVariationTypeExtent() + theme.getFeatureNameAreaHeight() + theme.getPrimaryMargin();
 	}
 	
-	public HyFeatureTreeLayouter(HyFeatureModelEvolutionWrapped featureModel) {
+	public HyFeatureTreeLayouter(HyFeatureModelWrapped featureModel) {
 		DEGraphicalEditorTheme theme = DEGraphicalEditor.getTheme();
 		HyFeature initialVersion = featureModel.getModel().getRootFeature().get(0).getFeature();
 		

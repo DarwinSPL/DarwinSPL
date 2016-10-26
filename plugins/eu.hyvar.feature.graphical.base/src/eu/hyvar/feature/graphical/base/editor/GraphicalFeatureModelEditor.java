@@ -2,30 +2,13 @@ package eu.hyvar.feature.graphical.base.editor;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
-import java.io.ByteArrayInputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.Date;
-import java.util.EventObject;
 import java.util.List;
 
 import org.deltaecore.feature.graphical.base.util.DEGraphicalEditorTheme;
 import org.eclipse.core.resources.IFile;
-import org.eclipse.core.resources.IResource;
-import org.eclipse.core.resources.IWorkspace;
-import org.eclipse.core.resources.IWorkspaceRoot;
-import org.eclipse.core.resources.ResourcesPlugin;
-import org.eclipse.core.runtime.CoreException;
-import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
-import org.eclipse.e4.ui.model.application.ui.MUIElement;
-import org.eclipse.e4.ui.model.application.ui.advanced.MArea;
-import org.eclipse.e4.ui.model.application.ui.basic.MPart;
-import org.eclipse.e4.ui.model.application.ui.basic.MPartSashContainerElement;
-import org.eclipse.e4.ui.model.application.ui.basic.MPartStack;
-import org.eclipse.e4.ui.model.application.ui.basic.MStackElement;
-import org.eclipse.e4.ui.model.application.ui.basic.impl.BasicFactoryImpl;
-import org.eclipse.e4.ui.workbench.modeling.EModelService;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
@@ -54,29 +37,21 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Scale;
 import org.eclipse.swt.widgets.Spinner;
-import org.eclipse.ui.IEditorDescriptor;
 import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.IEditorReference;
 import org.eclipse.ui.IFileEditorInput;
-import org.eclipse.ui.IWorkbench;
-import org.eclipse.ui.IWorkbenchPage;
-import org.eclipse.ui.IWorkbenchWindow;
-import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.PlatformUI;
-import org.eclipse.ui.part.FileEditorInput;
 
 import eu.hyvar.evolution.HyEvolutionUtil;
 import eu.hyvar.feature.HyFeatureModel;
-import eu.hyvar.feature.HyFeaturePackage;
 import eu.hyvar.feature.expression.extensionpoints.IFeatureModelEditor;
 import eu.hyvar.feature.graphical.base.dialogs.DateDialog;
 import eu.hyvar.feature.graphical.base.editparts.HyFeatureModelEditPart;
 import eu.hyvar.feature.graphical.base.factory.HyFeatureModelEditPartFactory;
-import eu.hyvar.feature.graphical.base.model.HyFeatureModelEvolutionWrapped;
 import eu.hyvar.feature.graphical.base.model.HyFeatureModelWrapped;
 
-@SuppressWarnings("restriction")
+
 public class GraphicalFeatureModelEditor extends GraphicalEditor implements IFeatureModelEditor, PropertyChangeListener{
 	// UI components
 	Spinner currentState;
@@ -91,13 +66,18 @@ public class GraphicalFeatureModelEditor extends GraphicalEditor implements IFea
 	protected boolean dirty = false;
 
 
-	private MPartStack secondEditor;
+	
 
 	public Date getCurrentSelectedDate() {
 		return currentSelectedDate;
 	}
 
-
+	
+	public void executeCommand(Command command) {
+		CommandStack commandStack = getCommandStack();
+		commandStack.execute(command);
+	}
+	
 
 	public boolean isDirty() {
 		return dirty;
@@ -105,18 +85,20 @@ public class GraphicalFeatureModelEditor extends GraphicalEditor implements IFea
 	public void setDirty(boolean value) {
 		dirty = value;
 
-		firePropertyChange(PROP_DIRTY);
+		if(value)
+			firePropertyChange(PROP_DIRTY);
+		else
+			firePropertyChange(PROP_INPUT);
 	}	
 
 	public void setCurrentSelectedDate(Date currentSelectedDate) {
 		this.currentSelectedDate = currentSelectedDate;
 
-		HyFeatureModelEvolutionWrapped model = (HyFeatureModelEvolutionWrapped)modelWrapped;
 		if(currentSelectedDate.getTime() == Long.MIN_VALUE){
-			currentDate.setText("before "+ model.getDates().get(1).toString());
+			currentDate.setText("before "+ modelWrapped.getDates().get(1).toString());
 		}
 		else if(currentSelectedDate.getTime() == Long.MAX_VALUE){
-			currentDate.setText("after "+ model.getDates().get(model.getDates().size()-2).toString());
+			currentDate.setText("after "+ modelWrapped.getDates().get(modelWrapped.getDates().size()-2).toString());
 		}
 		else
 		{
@@ -124,7 +106,7 @@ public class GraphicalFeatureModelEditor extends GraphicalEditor implements IFea
 		}
 
 
-		((HyFeatureModelEvolutionWrapped)modelWrapped).setSelectedDate(currentSelectedDate);
+		modelWrapped.setSelectedDate(currentSelectedDate);
 
 		refreshView();
 	}
@@ -148,11 +130,6 @@ public class GraphicalFeatureModelEditor extends GraphicalEditor implements IFea
 
 	public HyFeatureModelWrapped getModelWrapped() {
 		return modelWrapped;
-	}
-
-	public void executeCommand(Command command) {
-		CommandStack commandStack = getCommandStack();
-		commandStack.execute(command);
 	}
 
 	public void setModelWrapped(HyFeatureModelWrapped modelWrapped) {
@@ -211,87 +188,12 @@ public class GraphicalFeatureModelEditor extends GraphicalEditor implements IFea
 		}
 	}
 
-	public void insertEditor(float ratio, int where, MPart containerEditor, MPart editorToInsert) {
-		IWorkbenchWindow window = PlatformUI.getWorkbench().getActiveWorkbenchWindow();
-
-		EModelService service = window.getService(EModelService.class);
-
-		if(secondEditor == null){
-			secondEditor = getPartStack(editorToInsert);
-
-			MArea area = getArea(containerEditor);
-
-			MPartSashContainerElement relToElement = area.getChildren().get(0);
-			service.insert(secondEditor, relToElement, where, ratio);
-		}else{
-			secondEditor.getChildren().add(editorToInsert);
-		}
-	}
-
-	private MPartStack getPartStack(MPart childPart) {
-		MStackElement stackElement = childPart;
-		MPartStack newStack = BasicFactoryImpl.eINSTANCE.createPartStack();
-		newStack.getChildren().add(stackElement);
-		newStack.setSelectedElement(stackElement);
-		return newStack;				
-	}
-
-	private MArea getArea(MPart containerPart) {
-		MUIElement targetParent = containerPart.getParent();
-		while (!(targetParent instanceof MArea))
-			targetParent = targetParent.getParent();
-		MArea area = (MArea) targetParent;
-		return area;
-	}	
 
 
-	protected void openEditorForFileExtension(String fileExtension){
-		IWorkbench workbench = PlatformUI.getWorkbench();
-		IWorkbenchWindow workbenchWindow = workbench.getActiveWorkbenchWindow();
-		IWorkbenchPage workbenchPage = workbenchWindow.getActivePage();
-		IWorkspace workspace = ResourcesPlugin.getWorkspace();
-		IWorkspaceRoot workspaceRoot = workspace.getRoot();
 
-		IPath path = ((IPath)file.getFullPath().clone()).removeFileExtension().addFileExtension(fileExtension);
 
-		IFile file = workspaceRoot.getFile(path);
-		if(!file.exists()){
-			InputStream source = new ByteArrayInputStream("".getBytes());
-			try {
-				file.create(source, IResource.NONE, null);
-			} catch (CoreException e) {
-				e.printStackTrace();
-			}
-		}
 
-		// only open editor if a file exist with the same name as the feature model in same directory
-		if(workspaceRoot.exists(path)){
-			IFile constraintFile = workspaceRoot.getFile(path);
 
-			IEditorDescriptor desc = PlatformUI.getWorkbench().
-					getEditorRegistry().getDefaultEditor(constraintFile.getName());
-
-			if(desc == null){
-				System.err.println("No editor for file extension "+fileExtension+" exist");
-				return;
-			}
-
-			try {
-				IEditorPart editor = workbenchPage.openEditor(new FileEditorInput(constraintFile), desc.getId());
-
-				MPart constraintEditorPart = editor.getSite().getService(MPart.class);
-				MPart editorPart = this.getSite().getService(MPart.class);
-
-				if (editorPart == null) {
-					return;
-				}
-
-				insertEditor(0.3f, EModelService.RIGHT_OF, editorPart, constraintEditorPart);
-			} catch (PartInitException e) {
-				e.printStackTrace();
-			}
-		}
-	}
 
 	/**
 	 * Tries to load a feature model from a given file
@@ -306,7 +208,7 @@ public class GraphicalFeatureModelEditor extends GraphicalEditor implements IFea
 		try{
 			resource.load(null);
 
-			modelWrapped = new HyFeatureModelEvolutionWrapped((HyFeatureModel)resource.getContents().get(0));
+			modelWrapped = new HyFeatureModelWrapped((HyFeatureModel)resource.getContents().get(0));
 			//modelWrapped.addPropertyChangeListener(this);
 
 			List<Date> dates = HyEvolutionUtil.collectDates(modelWrapped.getModel());
@@ -332,12 +234,8 @@ public class GraphicalFeatureModelEditor extends GraphicalEditor implements IFea
 
 
 	protected void setInput(IEditorInput input) {
-		HyFeaturePackage.eINSTANCE.eClass();
-
 		super.setInput(input);
 		loadModelFromFile(((IFileEditorInput) input).getFile());
-
-		setDirty(false);
 	}
 
 
@@ -353,15 +251,8 @@ public class GraphicalFeatureModelEditor extends GraphicalEditor implements IFea
 		viewer.setRootEditPart(new ScalableFreeformRootEditPart());
 	}
 
-	@Override
-	public void commandStackChanged(EventObject event){
-		firePropertyChange(PROP_DIRTY);
-		super.commandStackChanged(event);
-	}
-
-
 	public void createSliderControl(Composite parent){
-		List<Date> dates = ((HyFeatureModelEvolutionWrapped)modelWrapped).getDates();
+		List<Date> dates = modelWrapped.getDates();
 
 		int size = dates.size(); 
 		buttonGroup = new Composite(parent, SWT.NONE);
@@ -426,7 +317,7 @@ public class GraphicalFeatureModelEditor extends GraphicalEditor implements IFea
 				scale.setMaximum(index);
 			}
 		});
-
+				
 		scale = new Scale(buttonGroup, SWT.FILL);
 		scale.setMinimum(0);
 		scale.setMaximum(size-1);
@@ -435,7 +326,7 @@ public class GraphicalFeatureModelEditor extends GraphicalEditor implements IFea
 
 		scale.addListener(SWT.Selection, new Listener() {
 			public void handleEvent(Event event) {
-				List<Date> dates = ((HyFeatureModelEvolutionWrapped)modelWrapped).getDates();
+				List<Date> dates = modelWrapped.getDates();
 				int index = scale.getSelection();
 				currentState.setSelection(index+1);
 
@@ -452,10 +343,11 @@ public class GraphicalFeatureModelEditor extends GraphicalEditor implements IFea
 				Date value = dialog.getValue();
 
 				if(value != null){
-					((HyFeatureModelEvolutionWrapped)modelWrapped).addDate(value);
+					modelWrapped.addDate(value);
 					
-					int size = ((HyFeatureModelEvolutionWrapped)modelWrapped).getDates().size()-1;
-					scale.setMaximum(size);
+					int size = modelWrapped.getDates().size();
+					System.out.println(size);
+					scale.setMaximum(size-1);
 					scale.setEnabled(size > 2);
 				}				
 			}	
@@ -480,7 +372,7 @@ public class GraphicalFeatureModelEditor extends GraphicalEditor implements IFea
 			this.setCurrentSelectedDate(dates.get(0));
 		else{
 			Date now = new Date();
-			((HyFeatureModelEvolutionWrapped)modelWrapped).addDate(now);
+			modelWrapped.addDate(now);
 			this.setCurrentSelectedDate(now);
 		}		
 	}
@@ -519,8 +411,9 @@ public class GraphicalFeatureModelEditor extends GraphicalEditor implements IFea
 
 	@Override
 	public void propertyChange(PropertyChangeEvent arg) {
-		if(arg.getPropertyName() == HyFeatureModelEvolutionWrapped.PROPERTY_DATES_COUNT){
-			List<Date> dates = ((HyFeatureModelEvolutionWrapped)modelWrapped).getDates();
+		System.out.println(arg);
+		if(arg.getPropertyName() == HyFeatureModelWrapped.PROPERTY_DATES_COUNT){
+			List<Date> dates = modelWrapped.getDates();
 			int size = dates.size();
 			boolean enabled = size > 1;
 			scale.setMaximum(size-1);

@@ -9,7 +9,6 @@ import eu.hyvar.feature.HyFeature;
 import eu.hyvar.feature.HyFeatureFactory;
 import eu.hyvar.feature.HyGroup;
 import eu.hyvar.feature.HyGroupComposition;
-import eu.hyvar.feature.graphical.base.model.HyFeatureModelEvolutionWrapped;
 import eu.hyvar.feature.graphical.base.model.HyFeatureModelWrapped;
 import eu.hyvar.feature.graphical.base.model.HyFeatureWrapped;
 import eu.hyvar.feature.graphical.editor.editor.GraphicalEvolutionFeatureModelEditor;
@@ -24,14 +23,13 @@ public class FeatureConnectionChangeCommand extends Command {
 
 	
 	protected HyGroupComposition findComposition(HyFeatureWrapped oldSource, HyFeatureWrapped oldTarget){
-		HyFeatureModelEvolutionWrapped featureModel = (HyFeatureModelEvolutionWrapped)this.featureModel;
 		Date date = featureModel.getSelectedDate();
 		// find composition of selected date
 		HyGroupComposition composition = HyEvolutionUtil.getValidTemporalElement(oldTarget.getWrappedModelElement().getGroupMembership(), date);
 		return composition;
 	}
 	protected HyGroupComposition splitComposition(HyGroupComposition composition, HyFeatureWrapped feature){
-		HyFeatureModelEvolutionWrapped featureModel = (HyFeatureModelEvolutionWrapped)this.featureModel;
+
 
 		Date date = featureModel.getSelectedDate();
 

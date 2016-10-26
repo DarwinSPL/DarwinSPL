@@ -30,11 +30,28 @@ public class HyVersionEvolutionDeleteCommand extends Command{
 	public HyVersionEvolutionDeleteCommand(GraphicalEvolutionFeatureModelEditor editor) {
 		this.editor = editor;
 	}
+	
+	private void deleteVersionAndChildrenTemporarily(HyVersion version){
+		Date date = editor.getCurrentSelectedDate();
+		
+		version.setValidUntil(date);
+		for(HyVersion child : version.getSupersedingVersions()){
+			child.setValidUntil(date);
+			
+			deleteVersionAndChildrenTemporarily(child);
+		}
+	}
 
 	
 	@Override
 	public void execute(){
 		Date date = editor.getCurrentSelectedDate();
-		version.setValidUntil(date);
+		
+		deleteVersionAndChildrenTemporarily(version);
+		
+		editor.getModelWrapped().getWrappedFeature(version.getFeature()).getListeners().firePropertyChange("versions", 0, 1);
+		
+		editor.getModelWrapped().rearrangeFeatures();
+		editor.refreshView();
 	}
 }

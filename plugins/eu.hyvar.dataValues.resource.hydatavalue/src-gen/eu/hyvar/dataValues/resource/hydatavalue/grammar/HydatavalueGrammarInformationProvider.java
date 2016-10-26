@@ -39,6 +39,10 @@ public class HydatavalueGrammarInformationProvider {
 		return new eu.hyvar.dataValues.resource.hydatavalue.grammar.HydatavalueChoice(eu.hyvar.dataValues.resource.hydatavalue.grammar.HydatavalueCardinality.ONE, HYDATAVALUE_0_0_0);
 	}
 	
+	/**
+	 * This constant refers to the definition of the syntax for meta class
+	 * HyNumberValue
+	 */
 	public final static eu.hyvar.dataValues.resource.hydatavalue.grammar.HydatavalueRule HYDATAVALUE_0 = INSTANCE.getHYDATAVALUE_0();
 	private eu.hyvar.dataValues.resource.hydatavalue.grammar.HydatavalueRule getHYDATAVALUE_0() {
 		return new eu.hyvar.dataValues.resource.hydatavalue.grammar.HydatavalueRule(eu.hyvar.dataValues.HyDataValuesPackage.eINSTANCE.getHyNumberValue(), HYDATAVALUE_0_0, eu.hyvar.dataValues.resource.hydatavalue.grammar.HydatavalueCardinality.ONE);
@@ -59,6 +63,10 @@ public class HydatavalueGrammarInformationProvider {
 		return new eu.hyvar.dataValues.resource.hydatavalue.grammar.HydatavalueChoice(eu.hyvar.dataValues.resource.hydatavalue.grammar.HydatavalueCardinality.ONE, HYDATAVALUE_1_0_0);
 	}
 	
+	/**
+	 * This constant refers to the definition of the syntax for meta class
+	 * HyBooleanValue
+	 */
 	public final static eu.hyvar.dataValues.resource.hydatavalue.grammar.HydatavalueRule HYDATAVALUE_1 = INSTANCE.getHYDATAVALUE_1();
 	private eu.hyvar.dataValues.resource.hydatavalue.grammar.HydatavalueRule getHYDATAVALUE_1() {
 		return new eu.hyvar.dataValues.resource.hydatavalue.grammar.HydatavalueRule(eu.hyvar.dataValues.HyDataValuesPackage.eINSTANCE.getHyBooleanValue(), HYDATAVALUE_1_0, eu.hyvar.dataValues.resource.hydatavalue.grammar.HydatavalueCardinality.ONE);
@@ -94,6 +102,9 @@ public class HydatavalueGrammarInformationProvider {
 		return new eu.hyvar.dataValues.resource.hydatavalue.grammar.HydatavalueChoice(eu.hyvar.dataValues.resource.hydatavalue.grammar.HydatavalueCardinality.ONE, HYDATAVALUE_2_0_0);
 	}
 	
+	/**
+	 * This constant refers to the definition of the syntax for meta class HyEnumValue
+	 */
 	public final static eu.hyvar.dataValues.resource.hydatavalue.grammar.HydatavalueRule HYDATAVALUE_2 = INSTANCE.getHYDATAVALUE_2();
 	private eu.hyvar.dataValues.resource.hydatavalue.grammar.HydatavalueRule getHYDATAVALUE_2() {
 		return new eu.hyvar.dataValues.resource.hydatavalue.grammar.HydatavalueRule(eu.hyvar.dataValues.HyDataValuesPackage.eINSTANCE.getHyEnumValue(), HYDATAVALUE_2_0, eu.hyvar.dataValues.resource.hydatavalue.grammar.HydatavalueCardinality.ONE);
@@ -269,6 +280,9 @@ public class HydatavalueGrammarInformationProvider {
 		return new eu.hyvar.dataValues.resource.hydatavalue.grammar.HydatavalueChoice(eu.hyvar.dataValues.resource.hydatavalue.grammar.HydatavalueCardinality.ONE, HYDATAVALUE_3_0_0);
 	}
 	
+	/**
+	 * This constant refers to the definition of the syntax for meta class HyEnum
+	 */
 	public final static eu.hyvar.dataValues.resource.hydatavalue.grammar.HydatavalueRule HYDATAVALUE_3 = INSTANCE.getHYDATAVALUE_3();
 	private eu.hyvar.dataValues.resource.hydatavalue.grammar.HydatavalueRule getHYDATAVALUE_3() {
 		return new eu.hyvar.dataValues.resource.hydatavalue.grammar.HydatavalueRule(eu.hyvar.dataValues.HyDataValuesPackage.eINSTANCE.getHyEnum(), HYDATAVALUE_3_0, eu.hyvar.dataValues.resource.hydatavalue.grammar.HydatavalueCardinality.ONE);
@@ -404,6 +418,10 @@ public class HydatavalueGrammarInformationProvider {
 		return new eu.hyvar.dataValues.resource.hydatavalue.grammar.HydatavalueChoice(eu.hyvar.dataValues.resource.hydatavalue.grammar.HydatavalueCardinality.ONE, HYDATAVALUE_4_0_0);
 	}
 	
+	/**
+	 * This constant refers to the definition of the syntax for meta class
+	 * HyEnumLiteral
+	 */
 	public final static eu.hyvar.dataValues.resource.hydatavalue.grammar.HydatavalueRule HYDATAVALUE_4 = INSTANCE.getHYDATAVALUE_4();
 	private eu.hyvar.dataValues.resource.hydatavalue.grammar.HydatavalueRule getHYDATAVALUE_4() {
 		return new eu.hyvar.dataValues.resource.hydatavalue.grammar.HydatavalueRule(eu.hyvar.dataValues.HyDataValuesPackage.eINSTANCE.getHyEnumLiteral(), HYDATAVALUE_4_0, eu.hyvar.dataValues.resource.hydatavalue.grammar.HydatavalueCardinality.ONE);

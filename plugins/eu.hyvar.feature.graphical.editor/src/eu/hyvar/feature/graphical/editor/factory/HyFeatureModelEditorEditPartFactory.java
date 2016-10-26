@@ -7,7 +7,6 @@ import eu.hyvar.feature.HyFeatureAttribute;
 import eu.hyvar.feature.HyVersion;
 import eu.hyvar.feature.graphical.base.editor.GraphicalFeatureModelEditor;
 import eu.hyvar.feature.graphical.base.editparts.HyFeatureModelEditPart;
-import eu.hyvar.feature.graphical.base.editparts.HyRootFeatureEditPart;
 import eu.hyvar.feature.graphical.base.factory.HyFeatureModelEditPartFactory;
 import eu.hyvar.feature.graphical.base.model.HyFeatureModelWrapped;
 import eu.hyvar.feature.graphical.base.model.HyFeatureWrapped;
@@ -19,6 +18,7 @@ import eu.hyvar.feature.graphical.editor.editparts.HyFeatureEditorEditPart;
 import eu.hyvar.feature.graphical.editor.editparts.HyFeatureModelEditorEditPart;
 import eu.hyvar.feature.graphical.editor.editparts.HyGroupEditorEditPart;
 import eu.hyvar.feature.graphical.editor.editparts.HyParentChildConnectionEditorEditPart;
+import eu.hyvar.feature.graphical.editor.editparts.HyRootFeatureEditorEditPart;
 import eu.hyvar.feature.graphical.editor.editparts.HyVersionEditorEditPart;
 
 public class HyFeatureModelEditorEditPartFactory extends HyFeatureModelEditPartFactory{
@@ -38,7 +38,7 @@ public class HyFeatureModelEditorEditPartFactory extends HyFeatureModelEditPartF
 			
 			featureModel = (HyFeatureModelWrapped)model;
 		}else if(model instanceof HyRootFeatureWrapped){
-			part = new HyRootFeatureEditPart(editor, featureModel);
+			part = new HyRootFeatureEditorEditPart(editor, featureModel);
 		}else if(model instanceof HyFeatureWrapped){
 			part = new HyFeatureEditorEditPart(editor, featureModel);
 		}else if(model instanceof HyGroupWrapped){

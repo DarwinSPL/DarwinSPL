@@ -5,6 +5,7 @@
          point="org.eclipse.ui.editors">
       <editor
             class="eu.hyvar.feature.graphical.editor.editor.GraphicalEvolutionFeatureModelEditor"
+            contributorClass="eu.hyvar.feature.graphical.editor.editor.HyGraphicalFeatureModelEditorActionBarContributor"
             default="false"
             extensions="hyfeature"
             id="eu.hyvar.feature.graphical.editor.evolution.editor"

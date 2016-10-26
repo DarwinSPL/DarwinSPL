@@ -87,5 +87,8 @@ public class HyVersionCreateVersionAction extends SelectionAction{
 				feature.getVersions().add(version);		
 			}
 		}
+		
+		editor.getModelWrapped().rearrangeFeatures();
+		editor.refreshView();
 	}
 }

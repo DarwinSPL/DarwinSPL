@@ -5,6 +5,7 @@ import org.eclipse.gef.commands.Command;
 import eu.hyvar.feature.HyFeature;
 import eu.hyvar.feature.HyVersion;
 import eu.hyvar.feature.graphical.base.deltaecore.wrapper.layouter.version.HyVersionUtil;
+import eu.hyvar.feature.graphical.base.editor.GraphicalFeatureModelEditor;
 
 public class HyVersionCreateCommand  extends Command {
 	private HyVersion version;
@@ -13,24 +14,15 @@ public class HyVersionCreateCommand  extends Command {
 	private boolean wireAndAddAfter;
 	private boolean useSameBranch;
 	
-	public HyVersionCreateCommand(HyVersion version, Object parentObject)  {
-		initialize(version, parentObject, true, true);
-	}
+	private GraphicalFeatureModelEditor editor;
 	
-	public HyVersionCreateCommand(HyVersion version, HyVersion parentVersion, boolean wireAndAddAfter) {
-		initialize(version, parentVersion, wireAndAddAfter, true);
-	}
-	
-	public HyVersionCreateCommand(HyVersion version, HyVersion parentVersion, boolean wireAndAddAfter, boolean useNewBranch) {
-		initialize(version, parentVersion, wireAndAddAfter, useNewBranch);
-	}
-	
-	private void initialize(HyVersion version, Object parentObject, boolean wireAndAddAfter, boolean useSameBranch) {
+	public HyVersionCreateCommand(HyVersion version, Object parentObject, GraphicalFeatureModelEditor editor)  {
 		this.version = version;
 		this.parentObject = parentObject;
-		this.wireAndAddAfter = wireAndAddAfter;
-		this.useSameBranch = useSameBranch;
+		this.editor = editor;
 	}
+	
+
 	
 	@Override
 	public void execute() {
@@ -44,6 +36,9 @@ public class HyVersionCreateCommand  extends Command {
 			version.setSupersededVersion((HyVersion)parentObject);
 			((HyVersion)parentObject).getSupersedingVersions().add(version);
 		}
+		
+		editor.getModelWrapped().rearrangeFeatures();
+		editor.refreshView();
 	}
 
 	@Override

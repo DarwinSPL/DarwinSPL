@@ -7,6 +7,7 @@ import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.gef.Request;
+import org.eclipse.gef.commands.Command;
 import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.IWorkbenchPart;
@@ -15,6 +16,7 @@ import eu.hyvar.feature.HyFeature;
 import eu.hyvar.feature.HyFeatureChild;
 import eu.hyvar.feature.HyGroup;
 import eu.hyvar.feature.HyGroupComposition;
+import eu.hyvar.feature.graphical.base.editor.GraphicalFeatureModelEditor;
 import eu.hyvar.feature.graphical.base.editparts.HyFeatureEditPart;
 import eu.hyvar.feature.graphical.base.model.HyFeatureWrapped;
 import eu.hyvar.feature.graphical.editor.dialogs.ParentChangeDialog;
@@ -24,8 +26,8 @@ public class HyFeatureEvolutionChangeParentAction extends HyFeatureSelectionActi
 	public static final String FEATURE_EVOLUTION_CHANGE_PARENT = "ChangeParentEvolution";
 	public static final String REQ_FEATURE_EVOLUTION_CHANGE_PARENT = "ChangeParentEvolution";
 	
-	public HyFeatureEvolutionChangeParentAction(IWorkbenchPart part) {
-		super(part);
+	public HyFeatureEvolutionChangeParentAction(IWorkbenchPart part, GraphicalFeatureModelEditor editor) {
+		super(part, editor);
 		
 		setId(FEATURE_EVOLUTION_CHANGE_PARENT);
 		setText("Change Parent Feature/Group");
@@ -69,5 +71,11 @@ public class HyFeatureEvolutionChangeParentAction extends HyFeatureSelectionActi
 		dialog.setFeatures(features);
 		dialog.open();
 		
+	}
+
+	@Override
+	protected Command createCommand(Object acceptedModel) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

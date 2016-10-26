@@ -67,5 +67,8 @@ public abstract class HyAttributeCreateAction extends SelectionAction{
 				feature.getAttributes().add(createNewAttribute());
 			}
 		}
+		
+		this.editor.getModelWrapped().rearrangeFeatures();
+		this.editor.refreshView();
 	}
 }

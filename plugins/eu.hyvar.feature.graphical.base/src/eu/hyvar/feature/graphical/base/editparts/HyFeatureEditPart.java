@@ -39,7 +39,7 @@ import eu.hyvar.feature.graphical.base.model.HyFeatureModelWrapped;
 import eu.hyvar.feature.graphical.base.model.HyFeatureWrapped;
 import eu.hyvar.feature.graphical.base.model.HyParentChildConnection;
 
-public class HyFeatureEditPart extends HyAbstractEditPart implements PropertyChangeListener, NodeEditPart{
+public class HyFeatureEditPart extends HyAbstractEditPart implements NodeEditPart{
 	protected int heightWithoutAttributes = 0;
 	
 	public class HyFeatureAdapter implements Adapter {
@@ -47,17 +47,16 @@ public class HyFeatureEditPart extends HyAbstractEditPart implements PropertyCha
 		// Adapter interface
 		@Override 
 		public void notifyChanged(Notification notification) {
+			
 			if(notification.getEventType() == Notification.REMOVE && notification.getOldValue() instanceof HyVersion){
 			}
 			if(notification.getEventType() == Notification.ADD && notification.getNewValue() instanceof HyFeatureChild){
-
 			}
 			
+			System.out.println(notification);
 			// mandatory update of version layouter before refresh children
 			refreshChildren();
 			refreshVisuals();
-			
-			editor.setDirty(true);
 		}
 
 		@Override 
@@ -100,6 +99,7 @@ public class HyFeatureEditPart extends HyAbstractEditPart implements PropertyCha
 
 
 	@Override public void activate() {
+		//super.activate();
 		if(!isActive()) {
 			HyFeatureWrapped model = ((HyFeatureWrapped)getModel());
 			model.addPropertyChangeListener(this);
@@ -109,6 +109,7 @@ public class HyFeatureEditPart extends HyAbstractEditPart implements PropertyCha
 	}
 
 	@Override public void deactivate() {
+		//super.deactivate();
 		if(isActive()) {
 			HyFeatureWrapped model = ((HyFeatureWrapped)getModel());
 			model.removePropertyChangeListener(this);
@@ -122,7 +123,7 @@ public class HyFeatureEditPart extends HyAbstractEditPart implements PropertyCha
 
 	@Override
 	public void propertyChange(PropertyChangeEvent evt) {
-		editor.setDirty(true);
+		super.propertyChange(evt);
 		
 		refreshVisuals();
 
@@ -212,17 +213,21 @@ public class HyFeatureEditPart extends HyAbstractEditPart implements PropertyCha
 		HyFeatureWrapped wrappedFeature = (HyFeatureWrapped)this.getModel();
 
 		figure.setVisible(wrappedFeature.isValid(date));
+		
 
 		setSize();
+		figure.update();
+		
+		
 		refreshVisualsOfChildren();
-
+/*
 		for(Object part : this.getSourceConnections()){
 			((GraphicalEditPart)part).refresh();
 		}
 		for(Object part : this.getTargetConnections()){
 			((GraphicalEditPart)part).refresh();
 		}
-
+*/
 	}
 	
 	@Override
@@ -257,7 +262,6 @@ public class HyFeatureEditPart extends HyAbstractEditPart implements PropertyCha
 		parent.setLayoutConstraint(this, figure, layout);	
 		
 		feature.setSize(newFeatureSize);
-		figure.updateLabelSize();
 	}
 	
 

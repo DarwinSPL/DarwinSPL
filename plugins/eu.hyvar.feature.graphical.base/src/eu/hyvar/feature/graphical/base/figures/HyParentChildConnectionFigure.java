@@ -63,6 +63,5 @@ public class HyParentChildConnectionFigure extends PolylineConnection {
 		graphics.setForegroundColor(color);
 		graphics.setLineWidth(theme.getLineWidth());
 		graphics.drawPolyline(getPoints());
-	}
-	
+	}	
 }

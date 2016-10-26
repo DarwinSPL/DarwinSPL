@@ -39,7 +39,7 @@ public class HyConfiguratorFeatureModelFigure extends FreeformLayer {
 	
 	private void paintFeatureAndGroupMarks(Graphics graphics) {
 
-		for (HyFeatureWrapped feature : featureModel.getFeatures()) {
+		for (HyFeatureWrapped feature : featureModel.getFeatures(null)) {
 
 				Rectangle featureMarkRectangle = getFeatureMarkRectangle(feature);
 				

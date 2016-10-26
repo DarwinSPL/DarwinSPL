@@ -30,7 +30,7 @@ public class HydatavalueExpectedStructuralFeature extends eu.hyvar.dataValues.re
 	/**
 	 * Returns the expected placeholder.
 	 */
-	public eu.hyvar.dataValues.resource.hydatavalue.grammar.HydatavalueSyntaxElement getSymtaxElement() {
+	public eu.hyvar.dataValues.resource.hydatavalue.grammar.HydatavalueSyntaxElement getSyntaxElement() {
 		return placeholder;
 	}
 	

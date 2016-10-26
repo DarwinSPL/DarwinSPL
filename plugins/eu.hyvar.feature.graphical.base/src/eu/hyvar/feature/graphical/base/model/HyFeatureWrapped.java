@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.deltaecore.feature.graphical.base.util.DEGraphicalEditorTheme;
 import org.eclipse.draw2d.geometry.Dimension;
+import org.eclipse.emf.common.notify.Notifier;
 import org.eclipse.emf.ecore.EObject;
 
 import eu.hyvar.evolution.HyEvolutionUtil;
@@ -31,6 +32,9 @@ public class HyFeatureWrapped extends HyEditorChangeableElement{
 	private List<HyParentChildConnection> parentConnections;
 	private List<HyParentChildConnection> childrenConnections;
 
+	private Date date;
+	
+	
 
 	/*
 	 * Needed to track changes of the original model and reallocate connections if necessary

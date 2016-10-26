@@ -182,6 +182,16 @@ public class HydatavalueParser extends HydatavalueANTLRParserBase {
     		addErrorToResource(message.getMessage(), message.getColumn(), message.getLine(), message.getCharStart(), message.getCharEnd());
     	}
     	
+    	public void addExpectedElement(EClass eClass, int expectationStartIndex, int expectationEndIndex) {
+    		for (int expectationIndex = expectationStartIndex; expectationIndex <= expectationEndIndex; expectationIndex++) {
+    			addExpectedElement(eClass, eu.hyvar.dataValues.resource.hydatavalue.mopp.HydatavalueExpectationConstants.EXPECTATIONS[expectationIndex]);
+    		}
+    	}
+    	
+    	public void addExpectedElement(EClass eClass, int expectationIndex) {
+    		addExpectedElement(eClass, eu.hyvar.dataValues.resource.hydatavalue.mopp.HydatavalueExpectationConstants.EXPECTATIONS[expectationIndex]);
+    	}
+    	
     	public void addExpectedElement(EClass eClass, int[] ids) {
     		if (!this.rememberExpectedElements) {
     			return;
@@ -198,11 +208,6 @@ public class HydatavalueParser extends HydatavalueANTLRParserBase {
     		eu.hyvar.dataValues.resource.hydatavalue.mopp.HydatavalueExpectedTerminal expectedElement = new eu.hyvar.dataValues.resource.hydatavalue.mopp.HydatavalueExpectedTerminal(container, terminal, followSetID, containmentTrace);
     		setPosition(expectedElement, input.index());
     		int startIncludingHiddenTokens = expectedElement.getStartIncludingHiddenTokens();
-    		if (lastStartIncludingHidden >= 0 && lastStartIncludingHidden < startIncludingHiddenTokens && cursorOffset > startIncludingHiddenTokens) {
-    			// clear list of expected elements
-    			this.expectedElements.clear();
-    			this.expectedElementsIndexOfLastCompleteElement = 0;
-    		}
     		lastStartIncludingHidden = startIncludingHiddenTokens;
     		this.expectedElements.add(expectedElement);
     	}
@@ -400,8 +405,6 @@ public class HydatavalueParser extends HydatavalueANTLRParserBase {
     				command.execute(dummyResource);
     			}
     		}
-    		// remove all expected elements that were added after the last complete element
-    		expectedElements = expectedElements.subList(0, expectedElementsIndexOfLastCompleteElement + 1);
     		int lastFollowSetID = expectedElements.get(expectedElementsIndexOfLastCompleteElement).getFollowSetID();
     		Set<eu.hyvar.dataValues.resource.hydatavalue.mopp.HydatavalueExpectedTerminal> currentFollowSet = new LinkedHashSet<eu.hyvar.dataValues.resource.hydatavalue.mopp.HydatavalueExpectedTerminal>();
     		List<eu.hyvar.dataValues.resource.hydatavalue.mopp.HydatavalueExpectedTerminal> newFollowSet = new ArrayList<eu.hyvar.dataValues.resource.hydatavalue.mopp.HydatavalueExpectedTerminal>();
@@ -492,9 +495,7 @@ public class HydatavalueParser extends HydatavalueANTLRParserBase {
     	
     	private void completedElement(Object object, boolean isContainment) {
     		if (isContainment && !this.incompleteObjects.isEmpty()) {
-    			boolean exists = this.incompleteObjects.remove(object);
-    			if (!exists) {
-    			}
+    			this.incompleteObjects.remove(object);
     		}
     		if (object instanceof EObject) {
     			this.tokenIndexOfLastCompleteElement = getTokenStream().index();
@@ -513,7 +514,7 @@ public class HydatavalueParser extends HydatavalueANTLRParserBase {
 
 
     // $ANTLR start "start"
-    // Hydatavalue.g:484:1: start returns [ EObject element = null] : (c0= parse_eu_hyvar_dataValues_HyValue |c1= parse_eu_hyvar_dataValues_HyEnum |c2= parse_eu_hyvar_dataValues_HyEnumLiteral ) EOF ;
+    // Hydatavalue.g:485:1: start returns [ EObject element = null] : (c0= parse_eu_hyvar_dataValues_HyValue |c1= parse_eu_hyvar_dataValues_HyEnum |c2= parse_eu_hyvar_dataValues_HyEnumLiteral ) EOF ;
     public final EObject start() throws RecognitionException {
         EObject element =  null;
 
@@ -529,20 +530,16 @@ public class HydatavalueParser extends HydatavalueANTLRParserBase {
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 1) ) { return element; }
 
-            // Hydatavalue.g:485:2: ( (c0= parse_eu_hyvar_dataValues_HyValue |c1= parse_eu_hyvar_dataValues_HyEnum |c2= parse_eu_hyvar_dataValues_HyEnumLiteral ) EOF )
-            // Hydatavalue.g:486:2: (c0= parse_eu_hyvar_dataValues_HyValue |c1= parse_eu_hyvar_dataValues_HyEnum |c2= parse_eu_hyvar_dataValues_HyEnumLiteral ) EOF
+            // Hydatavalue.g:486:2: ( (c0= parse_eu_hyvar_dataValues_HyValue |c1= parse_eu_hyvar_dataValues_HyEnum |c2= parse_eu_hyvar_dataValues_HyEnumLiteral ) EOF )
+            // Hydatavalue.g:487:2: (c0= parse_eu_hyvar_dataValues_HyValue |c1= parse_eu_hyvar_dataValues_HyEnum |c2= parse_eu_hyvar_dataValues_HyEnumLiteral ) EOF
             {
             if ( state.backtracking==0 ) {
             		// follow set for start rule(s)
-            		addExpectedElement(null, eu.hyvar.dataValues.resource.hydatavalue.mopp.HydatavalueExpectationConstants.EXPECTATIONS[0]);
-            		addExpectedElement(null, eu.hyvar.dataValues.resource.hydatavalue.mopp.HydatavalueExpectationConstants.EXPECTATIONS[1]);
-            		addExpectedElement(null, eu.hyvar.dataValues.resource.hydatavalue.mopp.HydatavalueExpectationConstants.EXPECTATIONS[2]);
-            		addExpectedElement(null, eu.hyvar.dataValues.resource.hydatavalue.mopp.HydatavalueExpectationConstants.EXPECTATIONS[3]);
-            		addExpectedElement(null, eu.hyvar.dataValues.resource.hydatavalue.mopp.HydatavalueExpectationConstants.EXPECTATIONS[4]);
-            		expectedElementsIndexOfLastCompleteElement = 0;
+            		addExpectedElement(null, 0, 4);
+            		expectedElementsIndexOfLastCompleteElement = 4;
             	}
 
-            // Hydatavalue.g:495:2: (c0= parse_eu_hyvar_dataValues_HyValue |c1= parse_eu_hyvar_dataValues_HyEnum |c2= parse_eu_hyvar_dataValues_HyEnumLiteral )
+            // Hydatavalue.g:492:2: (c0= parse_eu_hyvar_dataValues_HyValue |c1= parse_eu_hyvar_dataValues_HyEnum |c2= parse_eu_hyvar_dataValues_HyEnumLiteral )
             int alt1=3;
             switch ( input.LA(1) ) {
             case INTEGER_LITERAL:
@@ -574,7 +571,7 @@ public class HydatavalueParser extends HydatavalueANTLRParserBase {
 
             switch (alt1) {
                 case 1 :
-                    // Hydatavalue.g:496:3: c0= parse_eu_hyvar_dataValues_HyValue
+                    // Hydatavalue.g:493:3: c0= parse_eu_hyvar_dataValues_HyValue
                     {
                     pushFollow(FOLLOW_parse_eu_hyvar_dataValues_HyValue_in_start82);
                     c0=parse_eu_hyvar_dataValues_HyValue();
@@ -587,7 +584,7 @@ public class HydatavalueParser extends HydatavalueANTLRParserBase {
                     }
                     break;
                 case 2 :
-                    // Hydatavalue.g:497:8: c1= parse_eu_hyvar_dataValues_HyEnum
+                    // Hydatavalue.g:494:8: c1= parse_eu_hyvar_dataValues_HyEnum
                     {
                     pushFollow(FOLLOW_parse_eu_hyvar_dataValues_HyEnum_in_start96);
                     c1=parse_eu_hyvar_dataValues_HyEnum();
@@ -600,7 +597,7 @@ public class HydatavalueParser extends HydatavalueANTLRParserBase {
                     }
                     break;
                 case 3 :
-                    // Hydatavalue.g:498:8: c2= parse_eu_hyvar_dataValues_HyEnumLiteral
+                    // Hydatavalue.g:495:8: c2= parse_eu_hyvar_dataValues_HyEnumLiteral
                     {
                     pushFollow(FOLLOW_parse_eu_hyvar_dataValues_HyEnumLiteral_in_start110);
                     c2=parse_eu_hyvar_dataValues_HyEnumLiteral();
@@ -642,7 +639,7 @@ public class HydatavalueParser extends HydatavalueANTLRParserBase {
 
 
     // $ANTLR start "parse_eu_hyvar_dataValues_HyEnum"
-    // Hydatavalue.g:506:1: parse_eu_hyvar_dataValues_HyEnum returns [eu.hyvar.dataValues.HyEnum element = null] : a0= 'Enum(' (a1= IDENTIFIER_TOKEN ) a2= ',' ( ( (a3_0= parse_eu_hyvar_dataValues_HyEnumLiteral ) ( (a4= ',' (a5_0= parse_eu_hyvar_dataValues_HyEnumLiteral ) ) )* ) )? a6= ')' ( (a7= '[' ( (a8= DATE ) a9= '-' (a10= DATE ) | (a11= DATE ) a12= '-' a13= 'null' |a14= 'null' a15= '-' (a16= DATE ) ) a17= ']' ) )? ;
+    // Hydatavalue.g:503:1: parse_eu_hyvar_dataValues_HyEnum returns [eu.hyvar.dataValues.HyEnum element = null] : a0= 'Enum(' (a1= IDENTIFIER_TOKEN ) a2= ',' ( ( (a3_0= parse_eu_hyvar_dataValues_HyEnumLiteral ) ( (a4= ',' (a5_0= parse_eu_hyvar_dataValues_HyEnumLiteral ) ) )* ) )? a6= ')' ( (a7= '[' ( (a8= DATE ) a9= '-' (a10= DATE ) | (a11= DATE ) a12= '-' a13= 'null' |a14= 'null' a15= '-' (a16= DATE ) ) a17= ']' ) )? ;
     public final eu.hyvar.dataValues.HyEnum parse_eu_hyvar_dataValues_HyEnum() throws RecognitionException {
         eu.hyvar.dataValues.HyEnum element =  null;
 
@@ -674,8 +671,8 @@ public class HydatavalueParser extends HydatavalueANTLRParserBase {
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 2) ) { return element; }
 
-            // Hydatavalue.g:509:2: (a0= 'Enum(' (a1= IDENTIFIER_TOKEN ) a2= ',' ( ( (a3_0= parse_eu_hyvar_dataValues_HyEnumLiteral ) ( (a4= ',' (a5_0= parse_eu_hyvar_dataValues_HyEnumLiteral ) ) )* ) )? a6= ')' ( (a7= '[' ( (a8= DATE ) a9= '-' (a10= DATE ) | (a11= DATE ) a12= '-' a13= 'null' |a14= 'null' a15= '-' (a16= DATE ) ) a17= ']' ) )? )
-            // Hydatavalue.g:510:2: a0= 'Enum(' (a1= IDENTIFIER_TOKEN ) a2= ',' ( ( (a3_0= parse_eu_hyvar_dataValues_HyEnumLiteral ) ( (a4= ',' (a5_0= parse_eu_hyvar_dataValues_HyEnumLiteral ) ) )* ) )? a6= ')' ( (a7= '[' ( (a8= DATE ) a9= '-' (a10= DATE ) | (a11= DATE ) a12= '-' a13= 'null' |a14= 'null' a15= '-' (a16= DATE ) ) a17= ']' ) )?
+            // Hydatavalue.g:506:2: (a0= 'Enum(' (a1= IDENTIFIER_TOKEN ) a2= ',' ( ( (a3_0= parse_eu_hyvar_dataValues_HyEnumLiteral ) ( (a4= ',' (a5_0= parse_eu_hyvar_dataValues_HyEnumLiteral ) ) )* ) )? a6= ')' ( (a7= '[' ( (a8= DATE ) a9= '-' (a10= DATE ) | (a11= DATE ) a12= '-' a13= 'null' |a14= 'null' a15= '-' (a16= DATE ) ) a17= ']' ) )? )
+            // Hydatavalue.g:507:2: a0= 'Enum(' (a1= IDENTIFIER_TOKEN ) a2= ',' ( ( (a3_0= parse_eu_hyvar_dataValues_HyEnumLiteral ) ( (a4= ',' (a5_0= parse_eu_hyvar_dataValues_HyEnumLiteral ) ) )* ) )? a6= ')' ( (a7= '[' ( (a8= DATE ) a9= '-' (a10= DATE ) | (a11= DATE ) a12= '-' a13= 'null' |a14= 'null' a15= '-' (a16= DATE ) ) a17= ']' ) )?
             {
             a0=(Token)match(input,15,FOLLOW_15_in_parse_eu_hyvar_dataValues_HyEnum143); if (state.failed) return element;
 
@@ -691,11 +688,11 @@ public class HydatavalueParser extends HydatavalueANTLRParserBase {
 
             if ( state.backtracking==0 ) {
             		// expected elements (follow set)
-            		addExpectedElement(null, eu.hyvar.dataValues.resource.hydatavalue.mopp.HydatavalueExpectationConstants.EXPECTATIONS[5]);
+            		addExpectedElement(null, 5);
             	}
 
-            // Hydatavalue.g:524:2: (a1= IDENTIFIER_TOKEN )
-            // Hydatavalue.g:525:3: a1= IDENTIFIER_TOKEN
+            // Hydatavalue.g:521:2: (a1= IDENTIFIER_TOKEN )
+            // Hydatavalue.g:522:3: a1= IDENTIFIER_TOKEN
             {
             a1=(Token)match(input,IDENTIFIER_TOKEN,FOLLOW_IDENTIFIER_TOKEN_in_parse_eu_hyvar_dataValues_HyEnum161); if (state.failed) return element;
 
@@ -733,7 +730,7 @@ public class HydatavalueParser extends HydatavalueANTLRParserBase {
 
             if ( state.backtracking==0 ) {
             		// expected elements (follow set)
-            		addExpectedElement(null, eu.hyvar.dataValues.resource.hydatavalue.mopp.HydatavalueExpectationConstants.EXPECTATIONS[6]);
+            		addExpectedElement(null, 6);
             	}
 
             a2=(Token)match(input,12,FOLLOW_12_in_parse_eu_hyvar_dataValues_HyEnum182); if (state.failed) return element;
@@ -750,11 +747,11 @@ public class HydatavalueParser extends HydatavalueANTLRParserBase {
 
             if ( state.backtracking==0 ) {
             		// expected elements (follow set)
-            		addExpectedElement(eu.hyvar.dataValues.HyDataValuesPackage.eINSTANCE.getHyEnum(), eu.hyvar.dataValues.resource.hydatavalue.mopp.HydatavalueExpectationConstants.EXPECTATIONS[7]);
-            		addExpectedElement(null, eu.hyvar.dataValues.resource.hydatavalue.mopp.HydatavalueExpectationConstants.EXPECTATIONS[8]);
+            		addExpectedElement(eu.hyvar.dataValues.HyDataValuesPackage.eINSTANCE.getHyEnum(), 7);
+            		addExpectedElement(null, 8);
             	}
 
-            // Hydatavalue.g:575:2: ( ( (a3_0= parse_eu_hyvar_dataValues_HyEnumLiteral ) ( (a4= ',' (a5_0= parse_eu_hyvar_dataValues_HyEnumLiteral ) ) )* ) )?
+            // Hydatavalue.g:572:2: ( ( (a3_0= parse_eu_hyvar_dataValues_HyEnumLiteral ) ( (a4= ',' (a5_0= parse_eu_hyvar_dataValues_HyEnumLiteral ) ) )* ) )?
             int alt3=2;
             int LA3_0 = input.LA(1);
 
@@ -763,13 +760,13 @@ public class HydatavalueParser extends HydatavalueANTLRParserBase {
             }
             switch (alt3) {
                 case 1 :
-                    // Hydatavalue.g:576:3: ( (a3_0= parse_eu_hyvar_dataValues_HyEnumLiteral ) ( (a4= ',' (a5_0= parse_eu_hyvar_dataValues_HyEnumLiteral ) ) )* )
+                    // Hydatavalue.g:573:3: ( (a3_0= parse_eu_hyvar_dataValues_HyEnumLiteral ) ( (a4= ',' (a5_0= parse_eu_hyvar_dataValues_HyEnumLiteral ) ) )* )
                     {
-                    // Hydatavalue.g:576:3: ( (a3_0= parse_eu_hyvar_dataValues_HyEnumLiteral ) ( (a4= ',' (a5_0= parse_eu_hyvar_dataValues_HyEnumLiteral ) ) )* )
-                    // Hydatavalue.g:577:4: (a3_0= parse_eu_hyvar_dataValues_HyEnumLiteral ) ( (a4= ',' (a5_0= parse_eu_hyvar_dataValues_HyEnumLiteral ) ) )*
+                    // Hydatavalue.g:573:3: ( (a3_0= parse_eu_hyvar_dataValues_HyEnumLiteral ) ( (a4= ',' (a5_0= parse_eu_hyvar_dataValues_HyEnumLiteral ) ) )* )
+                    // Hydatavalue.g:574:4: (a3_0= parse_eu_hyvar_dataValues_HyEnumLiteral ) ( (a4= ',' (a5_0= parse_eu_hyvar_dataValues_HyEnumLiteral ) ) )*
                     {
-                    // Hydatavalue.g:577:4: (a3_0= parse_eu_hyvar_dataValues_HyEnumLiteral )
-                    // Hydatavalue.g:578:5: a3_0= parse_eu_hyvar_dataValues_HyEnumLiteral
+                    // Hydatavalue.g:574:4: (a3_0= parse_eu_hyvar_dataValues_HyEnumLiteral )
+                    // Hydatavalue.g:575:5: a3_0= parse_eu_hyvar_dataValues_HyEnumLiteral
                     {
                     pushFollow(FOLLOW_parse_eu_hyvar_dataValues_HyEnumLiteral_in_parse_eu_hyvar_dataValues_HyEnum211);
                     a3_0=parse_eu_hyvar_dataValues_HyEnumLiteral();
@@ -802,11 +799,10 @@ public class HydatavalueParser extends HydatavalueANTLRParserBase {
 
                     if ( state.backtracking==0 ) {
                     				// expected elements (follow set)
-                    				addExpectedElement(null, eu.hyvar.dataValues.resource.hydatavalue.mopp.HydatavalueExpectationConstants.EXPECTATIONS[9]);
-                    				addExpectedElement(null, eu.hyvar.dataValues.resource.hydatavalue.mopp.HydatavalueExpectationConstants.EXPECTATIONS[10]);
+                    				addExpectedElement(null, 9, 10);
                     			}
 
-                    // Hydatavalue.g:604:4: ( (a4= ',' (a5_0= parse_eu_hyvar_dataValues_HyEnumLiteral ) ) )*
+                    // Hydatavalue.g:600:4: ( (a4= ',' (a5_0= parse_eu_hyvar_dataValues_HyEnumLiteral ) ) )*
                     loop2:
                     do {
                         int alt2=2;
@@ -819,10 +815,10 @@ public class HydatavalueParser extends HydatavalueANTLRParserBase {
 
                         switch (alt2) {
                     	case 1 :
-                    	    // Hydatavalue.g:605:5: (a4= ',' (a5_0= parse_eu_hyvar_dataValues_HyEnumLiteral ) )
+                    	    // Hydatavalue.g:601:5: (a4= ',' (a5_0= parse_eu_hyvar_dataValues_HyEnumLiteral ) )
                     	    {
-                    	    // Hydatavalue.g:605:5: (a4= ',' (a5_0= parse_eu_hyvar_dataValues_HyEnumLiteral ) )
-                    	    // Hydatavalue.g:606:6: a4= ',' (a5_0= parse_eu_hyvar_dataValues_HyEnumLiteral )
+                    	    // Hydatavalue.g:601:5: (a4= ',' (a5_0= parse_eu_hyvar_dataValues_HyEnumLiteral ) )
+                    	    // Hydatavalue.g:602:6: a4= ',' (a5_0= parse_eu_hyvar_dataValues_HyEnumLiteral )
                     	    {
                     	    a4=(Token)match(input,12,FOLLOW_12_in_parse_eu_hyvar_dataValues_HyEnum252); if (state.failed) return element;
 
@@ -838,11 +834,11 @@ public class HydatavalueParser extends HydatavalueANTLRParserBase {
 
                     	    if ( state.backtracking==0 ) {
                     	    						// expected elements (follow set)
-                    	    						addExpectedElement(eu.hyvar.dataValues.HyDataValuesPackage.eINSTANCE.getHyEnum(), eu.hyvar.dataValues.resource.hydatavalue.mopp.HydatavalueExpectationConstants.EXPECTATIONS[11]);
+                    	    						addExpectedElement(eu.hyvar.dataValues.HyDataValuesPackage.eINSTANCE.getHyEnum(), 11);
                     	    					}
 
-                    	    // Hydatavalue.g:620:6: (a5_0= parse_eu_hyvar_dataValues_HyEnumLiteral )
-                    	    // Hydatavalue.g:621:7: a5_0= parse_eu_hyvar_dataValues_HyEnumLiteral
+                    	    // Hydatavalue.g:616:6: (a5_0= parse_eu_hyvar_dataValues_HyEnumLiteral )
+                    	    // Hydatavalue.g:617:7: a5_0= parse_eu_hyvar_dataValues_HyEnumLiteral
                     	    {
                     	    pushFollow(FOLLOW_parse_eu_hyvar_dataValues_HyEnumLiteral_in_parse_eu_hyvar_dataValues_HyEnum286);
                     	    a5_0=parse_eu_hyvar_dataValues_HyEnumLiteral();
@@ -875,8 +871,7 @@ public class HydatavalueParser extends HydatavalueANTLRParserBase {
 
                     	    if ( state.backtracking==0 ) {
                     	    						// expected elements (follow set)
-                    	    						addExpectedElement(null, eu.hyvar.dataValues.resource.hydatavalue.mopp.HydatavalueExpectationConstants.EXPECTATIONS[12]);
-                    	    						addExpectedElement(null, eu.hyvar.dataValues.resource.hydatavalue.mopp.HydatavalueExpectationConstants.EXPECTATIONS[13]);
+                    	    						addExpectedElement(null, 12, 13);
                     	    					}
 
                     	    }
@@ -893,8 +888,7 @@ public class HydatavalueParser extends HydatavalueANTLRParserBase {
 
                     if ( state.backtracking==0 ) {
                     				// expected elements (follow set)
-                    				addExpectedElement(null, eu.hyvar.dataValues.resource.hydatavalue.mopp.HydatavalueExpectationConstants.EXPECTATIONS[14]);
-                    				addExpectedElement(null, eu.hyvar.dataValues.resource.hydatavalue.mopp.HydatavalueExpectationConstants.EXPECTATIONS[15]);
+                    				addExpectedElement(null, 14, 15);
                     			}
 
                     }
@@ -908,7 +902,7 @@ public class HydatavalueParser extends HydatavalueANTLRParserBase {
 
             if ( state.backtracking==0 ) {
             		// expected elements (follow set)
-            		addExpectedElement(null, eu.hyvar.dataValues.resource.hydatavalue.mopp.HydatavalueExpectationConstants.EXPECTATIONS[16]);
+            		addExpectedElement(null, 16);
             	}
 
             a6=(Token)match(input,11,FOLLOW_11_in_parse_eu_hyvar_dataValues_HyEnum360); if (state.failed) return element;
@@ -925,10 +919,10 @@ public class HydatavalueParser extends HydatavalueANTLRParserBase {
 
             if ( state.backtracking==0 ) {
             		// expected elements (follow set)
-            		addExpectedElement(null, eu.hyvar.dataValues.resource.hydatavalue.mopp.HydatavalueExpectationConstants.EXPECTATIONS[17]);
+            		addExpectedElement(null, 17);
             	}
 
-            // Hydatavalue.g:676:2: ( (a7= '[' ( (a8= DATE ) a9= '-' (a10= DATE ) | (a11= DATE ) a12= '-' a13= 'null' |a14= 'null' a15= '-' (a16= DATE ) ) a17= ']' ) )?
+            // Hydatavalue.g:670:2: ( (a7= '[' ( (a8= DATE ) a9= '-' (a10= DATE ) | (a11= DATE ) a12= '-' a13= 'null' |a14= 'null' a15= '-' (a16= DATE ) ) a17= ']' ) )?
             int alt5=2;
             int LA5_0 = input.LA(1);
 
@@ -937,10 +931,10 @@ public class HydatavalueParser extends HydatavalueANTLRParserBase {
             }
             switch (alt5) {
                 case 1 :
-                    // Hydatavalue.g:677:3: (a7= '[' ( (a8= DATE ) a9= '-' (a10= DATE ) | (a11= DATE ) a12= '-' a13= 'null' |a14= 'null' a15= '-' (a16= DATE ) ) a17= ']' )
+                    // Hydatavalue.g:671:3: (a7= '[' ( (a8= DATE ) a9= '-' (a10= DATE ) | (a11= DATE ) a12= '-' a13= 'null' |a14= 'null' a15= '-' (a16= DATE ) ) a17= ']' )
                     {
-                    // Hydatavalue.g:677:3: (a7= '[' ( (a8= DATE ) a9= '-' (a10= DATE ) | (a11= DATE ) a12= '-' a13= 'null' |a14= 'null' a15= '-' (a16= DATE ) ) a17= ']' )
-                    // Hydatavalue.g:678:4: a7= '[' ( (a8= DATE ) a9= '-' (a10= DATE ) | (a11= DATE ) a12= '-' a13= 'null' |a14= 'null' a15= '-' (a16= DATE ) ) a17= ']'
+                    // Hydatavalue.g:671:3: (a7= '[' ( (a8= DATE ) a9= '-' (a10= DATE ) | (a11= DATE ) a12= '-' a13= 'null' |a14= 'null' a15= '-' (a16= DATE ) ) a17= ']' )
+                    // Hydatavalue.g:672:4: a7= '[' ( (a8= DATE ) a9= '-' (a10= DATE ) | (a11= DATE ) a12= '-' a13= 'null' |a14= 'null' a15= '-' (a16= DATE ) ) a17= ']'
                     {
                     a7=(Token)match(input,17,FOLLOW_17_in_parse_eu_hyvar_dataValues_HyEnum383); if (state.failed) return element;
 
@@ -956,12 +950,10 @@ public class HydatavalueParser extends HydatavalueANTLRParserBase {
 
                     if ( state.backtracking==0 ) {
                     				// expected elements (follow set)
-                    				addExpectedElement(null, eu.hyvar.dataValues.resource.hydatavalue.mopp.HydatavalueExpectationConstants.EXPECTATIONS[18]);
-                    				addExpectedElement(null, eu.hyvar.dataValues.resource.hydatavalue.mopp.HydatavalueExpectationConstants.EXPECTATIONS[19]);
-                    				addExpectedElement(null, eu.hyvar.dataValues.resource.hydatavalue.mopp.HydatavalueExpectationConstants.EXPECTATIONS[20]);
+                    				addExpectedElement(null, 18, 20);
                     			}
 
-                    // Hydatavalue.g:694:4: ( (a8= DATE ) a9= '-' (a10= DATE ) | (a11= DATE ) a12= '-' a13= 'null' |a14= 'null' a15= '-' (a16= DATE ) )
+                    // Hydatavalue.g:686:4: ( (a8= DATE ) a9= '-' (a10= DATE ) | (a11= DATE ) a12= '-' a13= 'null' |a14= 'null' a15= '-' (a16= DATE ) )
                     int alt4=3;
                     int LA4_0 = input.LA(1);
 
@@ -1008,10 +1000,10 @@ public class HydatavalueParser extends HydatavalueANTLRParserBase {
                     }
                     switch (alt4) {
                         case 1 :
-                            // Hydatavalue.g:695:5: (a8= DATE ) a9= '-' (a10= DATE )
+                            // Hydatavalue.g:687:5: (a8= DATE ) a9= '-' (a10= DATE )
                             {
-                            // Hydatavalue.g:695:5: (a8= DATE )
-                            // Hydatavalue.g:696:6: a8= DATE
+                            // Hydatavalue.g:687:5: (a8= DATE )
+                            // Hydatavalue.g:688:6: a8= DATE
                             {
                             a8=(Token)match(input,DATE,FOLLOW_DATE_in_parse_eu_hyvar_dataValues_HyEnum416); if (state.failed) return element;
 
@@ -1049,7 +1041,7 @@ public class HydatavalueParser extends HydatavalueANTLRParserBase {
 
                             if ( state.backtracking==0 ) {
                             					// expected elements (follow set)
-                            					addExpectedElement(null, eu.hyvar.dataValues.resource.hydatavalue.mopp.HydatavalueExpectationConstants.EXPECTATIONS[21]);
+                            					addExpectedElement(null, 21);
                             				}
 
                             a9=(Token)match(input,13,FOLLOW_13_in_parse_eu_hyvar_dataValues_HyEnum455); if (state.failed) return element;
@@ -1066,11 +1058,11 @@ public class HydatavalueParser extends HydatavalueANTLRParserBase {
 
                             if ( state.backtracking==0 ) {
                             					// expected elements (follow set)
-                            					addExpectedElement(null, eu.hyvar.dataValues.resource.hydatavalue.mopp.HydatavalueExpectationConstants.EXPECTATIONS[22]);
+                            					addExpectedElement(null, 22);
                             				}
 
-                            // Hydatavalue.g:745:5: (a10= DATE )
-                            // Hydatavalue.g:746:6: a10= DATE
+                            // Hydatavalue.g:737:5: (a10= DATE )
+                            // Hydatavalue.g:738:6: a10= DATE
                             {
                             a10=(Token)match(input,DATE,FOLLOW_DATE_in_parse_eu_hyvar_dataValues_HyEnum485); if (state.failed) return element;
 
@@ -1108,16 +1100,16 @@ public class HydatavalueParser extends HydatavalueANTLRParserBase {
 
                             if ( state.backtracking==0 ) {
                             					// expected elements (follow set)
-                            					addExpectedElement(null, eu.hyvar.dataValues.resource.hydatavalue.mopp.HydatavalueExpectationConstants.EXPECTATIONS[23]);
+                            					addExpectedElement(null, 23);
                             				}
 
                             }
                             break;
                         case 2 :
-                            // Hydatavalue.g:782:10: (a11= DATE ) a12= '-' a13= 'null'
+                            // Hydatavalue.g:774:10: (a11= DATE ) a12= '-' a13= 'null'
                             {
-                            // Hydatavalue.g:782:10: (a11= DATE )
-                            // Hydatavalue.g:783:6: a11= DATE
+                            // Hydatavalue.g:774:10: (a11= DATE )
+                            // Hydatavalue.g:775:6: a11= DATE
                             {
                             a11=(Token)match(input,DATE,FOLLOW_DATE_in_parse_eu_hyvar_dataValues_HyEnum541); if (state.failed) return element;
 
@@ -1155,7 +1147,7 @@ public class HydatavalueParser extends HydatavalueANTLRParserBase {
 
                             if ( state.backtracking==0 ) {
                             					// expected elements (follow set)
-                            					addExpectedElement(null, eu.hyvar.dataValues.resource.hydatavalue.mopp.HydatavalueExpectationConstants.EXPECTATIONS[24]);
+                            					addExpectedElement(null, 24);
                             				}
 
                             a12=(Token)match(input,13,FOLLOW_13_in_parse_eu_hyvar_dataValues_HyEnum580); if (state.failed) return element;
@@ -1172,7 +1164,7 @@ public class HydatavalueParser extends HydatavalueANTLRParserBase {
 
                             if ( state.backtracking==0 ) {
                             					// expected elements (follow set)
-                            					addExpectedElement(null, eu.hyvar.dataValues.resource.hydatavalue.mopp.HydatavalueExpectationConstants.EXPECTATIONS[25]);
+                            					addExpectedElement(null, 25);
                             				}
 
                             a13=(Token)match(input,21,FOLLOW_21_in_parse_eu_hyvar_dataValues_HyEnum603); if (state.failed) return element;
@@ -1189,13 +1181,13 @@ public class HydatavalueParser extends HydatavalueANTLRParserBase {
 
                             if ( state.backtracking==0 ) {
                             					// expected elements (follow set)
-                            					addExpectedElement(null, eu.hyvar.dataValues.resource.hydatavalue.mopp.HydatavalueExpectationConstants.EXPECTATIONS[26]);
+                            					addExpectedElement(null, 26);
                             				}
 
                             }
                             break;
                         case 3 :
-                            // Hydatavalue.g:847:10: a14= 'null' a15= '-' (a16= DATE )
+                            // Hydatavalue.g:839:10: a14= 'null' a15= '-' (a16= DATE )
                             {
                             a14=(Token)match(input,21,FOLLOW_21_in_parse_eu_hyvar_dataValues_HyEnum636); if (state.failed) return element;
 
@@ -1211,7 +1203,7 @@ public class HydatavalueParser extends HydatavalueANTLRParserBase {
 
                             if ( state.backtracking==0 ) {
                             					// expected elements (follow set)
-                            					addExpectedElement(null, eu.hyvar.dataValues.resource.hydatavalue.mopp.HydatavalueExpectationConstants.EXPECTATIONS[27]);
+                            					addExpectedElement(null, 27);
                             				}
 
                             a15=(Token)match(input,13,FOLLOW_13_in_parse_eu_hyvar_dataValues_HyEnum659); if (state.failed) return element;
@@ -1228,11 +1220,11 @@ public class HydatavalueParser extends HydatavalueANTLRParserBase {
 
                             if ( state.backtracking==0 ) {
                             					// expected elements (follow set)
-                            					addExpectedElement(null, eu.hyvar.dataValues.resource.hydatavalue.mopp.HydatavalueExpectationConstants.EXPECTATIONS[28]);
+                            					addExpectedElement(null, 28);
                             				}
 
-                            // Hydatavalue.g:875:5: (a16= DATE )
-                            // Hydatavalue.g:876:6: a16= DATE
+                            // Hydatavalue.g:867:5: (a16= DATE )
+                            // Hydatavalue.g:868:6: a16= DATE
                             {
                             a16=(Token)match(input,DATE,FOLLOW_DATE_in_parse_eu_hyvar_dataValues_HyEnum689); if (state.failed) return element;
 
@@ -1270,7 +1262,7 @@ public class HydatavalueParser extends HydatavalueANTLRParserBase {
 
                             if ( state.backtracking==0 ) {
                             					// expected elements (follow set)
-                            					addExpectedElement(null, eu.hyvar.dataValues.resource.hydatavalue.mopp.HydatavalueExpectationConstants.EXPECTATIONS[29]);
+                            					addExpectedElement(null, 29);
                             				}
 
                             }
@@ -1281,7 +1273,7 @@ public class HydatavalueParser extends HydatavalueANTLRParserBase {
 
                     if ( state.backtracking==0 ) {
                     				// expected elements (follow set)
-                    				addExpectedElement(null, eu.hyvar.dataValues.resource.hydatavalue.mopp.HydatavalueExpectationConstants.EXPECTATIONS[30]);
+                    				addExpectedElement(null, 30);
                     			}
 
                     a17=(Token)match(input,18,FOLLOW_18_in_parse_eu_hyvar_dataValues_HyEnum741); if (state.failed) return element;
@@ -1298,6 +1290,9 @@ public class HydatavalueParser extends HydatavalueANTLRParserBase {
 
                     if ( state.backtracking==0 ) {
                     				// expected elements (follow set)
+                    				// We've found the last token for this rule. The constructed EObject is now
+                    				// complete.
+                    				completedElement(element, true);
                     			}
 
                     }
@@ -1311,6 +1306,9 @@ public class HydatavalueParser extends HydatavalueANTLRParserBase {
 
             if ( state.backtracking==0 ) {
             		// expected elements (follow set)
+            		// We've found the last token for this rule. The constructed EObject is now
+            		// complete.
+            		completedElement(element, true);
             	}
 
             }
@@ -1333,7 +1331,7 @@ public class HydatavalueParser extends HydatavalueANTLRParserBase {
 
 
     // $ANTLR start "parse_eu_hyvar_dataValues_HyEnumLiteral"
-    // Hydatavalue.g:938:1: parse_eu_hyvar_dataValues_HyEnumLiteral returns [eu.hyvar.dataValues.HyEnumLiteral element = null] : a0= 'EnumLiteral(' (a1= IDENTIFIER_TOKEN ) a2= ',' (a3= INTEGER_LITERAL ) a4= ')' ( (a5= '[' ( (a6= DATE ) a7= '-' (a8= DATE ) | (a9= DATE ) a10= '-' a11= 'null' |a12= 'null' a13= '-' (a14= DATE ) ) a15= ']' ) )? ;
+    // Hydatavalue.g:936:1: parse_eu_hyvar_dataValues_HyEnumLiteral returns [eu.hyvar.dataValues.HyEnumLiteral element = null] : a0= 'EnumLiteral(' (a1= IDENTIFIER_TOKEN ) a2= ',' (a3= INTEGER_LITERAL ) a4= ')' ( (a5= '[' ( (a6= DATE ) a7= '-' (a8= DATE ) | (a9= DATE ) a10= '-' a11= 'null' |a12= 'null' a13= '-' (a14= DATE ) ) a15= ']' ) )? ;
     public final eu.hyvar.dataValues.HyEnumLiteral parse_eu_hyvar_dataValues_HyEnumLiteral() throws RecognitionException {
         eu.hyvar.dataValues.HyEnumLiteral element =  null;
 
@@ -1361,8 +1359,8 @@ public class HydatavalueParser extends HydatavalueANTLRParserBase {
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 3) ) { return element; }
 
-            // Hydatavalue.g:941:2: (a0= 'EnumLiteral(' (a1= IDENTIFIER_TOKEN ) a2= ',' (a3= INTEGER_LITERAL ) a4= ')' ( (a5= '[' ( (a6= DATE ) a7= '-' (a8= DATE ) | (a9= DATE ) a10= '-' a11= 'null' |a12= 'null' a13= '-' (a14= DATE ) ) a15= ']' ) )? )
-            // Hydatavalue.g:942:2: a0= 'EnumLiteral(' (a1= IDENTIFIER_TOKEN ) a2= ',' (a3= INTEGER_LITERAL ) a4= ')' ( (a5= '[' ( (a6= DATE ) a7= '-' (a8= DATE ) | (a9= DATE ) a10= '-' a11= 'null' |a12= 'null' a13= '-' (a14= DATE ) ) a15= ']' ) )?
+            // Hydatavalue.g:939:2: (a0= 'EnumLiteral(' (a1= IDENTIFIER_TOKEN ) a2= ',' (a3= INTEGER_LITERAL ) a4= ')' ( (a5= '[' ( (a6= DATE ) a7= '-' (a8= DATE ) | (a9= DATE ) a10= '-' a11= 'null' |a12= 'null' a13= '-' (a14= DATE ) ) a15= ']' ) )? )
+            // Hydatavalue.g:940:2: a0= 'EnumLiteral(' (a1= IDENTIFIER_TOKEN ) a2= ',' (a3= INTEGER_LITERAL ) a4= ')' ( (a5= '[' ( (a6= DATE ) a7= '-' (a8= DATE ) | (a9= DATE ) a10= '-' a11= 'null' |a12= 'null' a13= '-' (a14= DATE ) ) a15= ']' ) )?
             {
             a0=(Token)match(input,16,FOLLOW_16_in_parse_eu_hyvar_dataValues_HyEnumLiteral789); if (state.failed) return element;
 
@@ -1378,11 +1376,11 @@ public class HydatavalueParser extends HydatavalueANTLRParserBase {
 
             if ( state.backtracking==0 ) {
             		// expected elements (follow set)
-            		addExpectedElement(null, eu.hyvar.dataValues.resource.hydatavalue.mopp.HydatavalueExpectationConstants.EXPECTATIONS[31]);
+            		addExpectedElement(null, 31);
             	}
 
-            // Hydatavalue.g:956:2: (a1= IDENTIFIER_TOKEN )
-            // Hydatavalue.g:957:3: a1= IDENTIFIER_TOKEN
+            // Hydatavalue.g:954:2: (a1= IDENTIFIER_TOKEN )
+            // Hydatavalue.g:955:3: a1= IDENTIFIER_TOKEN
             {
             a1=(Token)match(input,IDENTIFIER_TOKEN,FOLLOW_IDENTIFIER_TOKEN_in_parse_eu_hyvar_dataValues_HyEnumLiteral807); if (state.failed) return element;
 
@@ -1420,7 +1418,7 @@ public class HydatavalueParser extends HydatavalueANTLRParserBase {
 
             if ( state.backtracking==0 ) {
             		// expected elements (follow set)
-            		addExpectedElement(null, eu.hyvar.dataValues.resource.hydatavalue.mopp.HydatavalueExpectationConstants.EXPECTATIONS[32]);
+            		addExpectedElement(null, 32);
             	}
 
             a2=(Token)match(input,12,FOLLOW_12_in_parse_eu_hyvar_dataValues_HyEnumLiteral828); if (state.failed) return element;
@@ -1437,11 +1435,11 @@ public class HydatavalueParser extends HydatavalueANTLRParserBase {
 
             if ( state.backtracking==0 ) {
             		// expected elements (follow set)
-            		addExpectedElement(null, eu.hyvar.dataValues.resource.hydatavalue.mopp.HydatavalueExpectationConstants.EXPECTATIONS[33]);
+            		addExpectedElement(null, 33);
             	}
 
-            // Hydatavalue.g:1006:2: (a3= INTEGER_LITERAL )
-            // Hydatavalue.g:1007:3: a3= INTEGER_LITERAL
+            // Hydatavalue.g:1004:2: (a3= INTEGER_LITERAL )
+            // Hydatavalue.g:1005:3: a3= INTEGER_LITERAL
             {
             a3=(Token)match(input,INTEGER_LITERAL,FOLLOW_INTEGER_LITERAL_in_parse_eu_hyvar_dataValues_HyEnumLiteral846); if (state.failed) return element;
 
@@ -1479,7 +1477,7 @@ public class HydatavalueParser extends HydatavalueANTLRParserBase {
 
             if ( state.backtracking==0 ) {
             		// expected elements (follow set)
-            		addExpectedElement(null, eu.hyvar.dataValues.resource.hydatavalue.mopp.HydatavalueExpectationConstants.EXPECTATIONS[34]);
+            		addExpectedElement(null, 34);
             	}
 
             a4=(Token)match(input,11,FOLLOW_11_in_parse_eu_hyvar_dataValues_HyEnumLiteral867); if (state.failed) return element;
@@ -1496,12 +1494,10 @@ public class HydatavalueParser extends HydatavalueANTLRParserBase {
 
             if ( state.backtracking==0 ) {
             		// expected elements (follow set)
-            		addExpectedElement(null, eu.hyvar.dataValues.resource.hydatavalue.mopp.HydatavalueExpectationConstants.EXPECTATIONS[35]);
-            		addExpectedElement(null, eu.hyvar.dataValues.resource.hydatavalue.mopp.HydatavalueExpectationConstants.EXPECTATIONS[36]);
-            		addExpectedElement(null, eu.hyvar.dataValues.resource.hydatavalue.mopp.HydatavalueExpectationConstants.EXPECTATIONS[37]);
+            		addExpectedElement(null, 35, 37);
             	}
 
-            // Hydatavalue.g:1058:2: ( (a5= '[' ( (a6= DATE ) a7= '-' (a8= DATE ) | (a9= DATE ) a10= '-' a11= 'null' |a12= 'null' a13= '-' (a14= DATE ) ) a15= ']' ) )?
+            // Hydatavalue.g:1054:2: ( (a5= '[' ( (a6= DATE ) a7= '-' (a8= DATE ) | (a9= DATE ) a10= '-' a11= 'null' |a12= 'null' a13= '-' (a14= DATE ) ) a15= ']' ) )?
             int alt7=2;
             int LA7_0 = input.LA(1);
 
@@ -1510,10 +1506,10 @@ public class HydatavalueParser extends HydatavalueANTLRParserBase {
             }
             switch (alt7) {
                 case 1 :
-                    // Hydatavalue.g:1059:3: (a5= '[' ( (a6= DATE ) a7= '-' (a8= DATE ) | (a9= DATE ) a10= '-' a11= 'null' |a12= 'null' a13= '-' (a14= DATE ) ) a15= ']' )
+                    // Hydatavalue.g:1055:3: (a5= '[' ( (a6= DATE ) a7= '-' (a8= DATE ) | (a9= DATE ) a10= '-' a11= 'null' |a12= 'null' a13= '-' (a14= DATE ) ) a15= ']' )
                     {
-                    // Hydatavalue.g:1059:3: (a5= '[' ( (a6= DATE ) a7= '-' (a8= DATE ) | (a9= DATE ) a10= '-' a11= 'null' |a12= 'null' a13= '-' (a14= DATE ) ) a15= ']' )
-                    // Hydatavalue.g:1060:4: a5= '[' ( (a6= DATE ) a7= '-' (a8= DATE ) | (a9= DATE ) a10= '-' a11= 'null' |a12= 'null' a13= '-' (a14= DATE ) ) a15= ']'
+                    // Hydatavalue.g:1055:3: (a5= '[' ( (a6= DATE ) a7= '-' (a8= DATE ) | (a9= DATE ) a10= '-' a11= 'null' |a12= 'null' a13= '-' (a14= DATE ) ) a15= ']' )
+                    // Hydatavalue.g:1056:4: a5= '[' ( (a6= DATE ) a7= '-' (a8= DATE ) | (a9= DATE ) a10= '-' a11= 'null' |a12= 'null' a13= '-' (a14= DATE ) ) a15= ']'
                     {
                     a5=(Token)match(input,17,FOLLOW_17_in_parse_eu_hyvar_dataValues_HyEnumLiteral890); if (state.failed) return element;
 
@@ -1529,12 +1525,10 @@ public class HydatavalueParser extends HydatavalueANTLRParserBase {
 
                     if ( state.backtracking==0 ) {
                     				// expected elements (follow set)
-                    				addExpectedElement(null, eu.hyvar.dataValues.resource.hydatavalue.mopp.HydatavalueExpectationConstants.EXPECTATIONS[38]);
-                    				addExpectedElement(null, eu.hyvar.dataValues.resource.hydatavalue.mopp.HydatavalueExpectationConstants.EXPECTATIONS[39]);
-                    				addExpectedElement(null, eu.hyvar.dataValues.resource.hydatavalue.mopp.HydatavalueExpectationConstants.EXPECTATIONS[40]);
+                    				addExpectedElement(null, 38, 40);
                     			}
 
-                    // Hydatavalue.g:1076:4: ( (a6= DATE ) a7= '-' (a8= DATE ) | (a9= DATE ) a10= '-' a11= 'null' |a12= 'null' a13= '-' (a14= DATE ) )
+                    // Hydatavalue.g:1070:4: ( (a6= DATE ) a7= '-' (a8= DATE ) | (a9= DATE ) a10= '-' a11= 'null' |a12= 'null' a13= '-' (a14= DATE ) )
                     int alt6=3;
                     int LA6_0 = input.LA(1);
 
@@ -1581,10 +1575,10 @@ public class HydatavalueParser extends HydatavalueANTLRParserBase {
                     }
                     switch (alt6) {
                         case 1 :
-                            // Hydatavalue.g:1077:5: (a6= DATE ) a7= '-' (a8= DATE )
+                            // Hydatavalue.g:1071:5: (a6= DATE ) a7= '-' (a8= DATE )
                             {
-                            // Hydatavalue.g:1077:5: (a6= DATE )
-                            // Hydatavalue.g:1078:6: a6= DATE
+                            // Hydatavalue.g:1071:5: (a6= DATE )
+                            // Hydatavalue.g:1072:6: a6= DATE
                             {
                             a6=(Token)match(input,DATE,FOLLOW_DATE_in_parse_eu_hyvar_dataValues_HyEnumLiteral923); if (state.failed) return element;
 
@@ -1622,7 +1616,7 @@ public class HydatavalueParser extends HydatavalueANTLRParserBase {
 
                             if ( state.backtracking==0 ) {
                             					// expected elements (follow set)
-                            					addExpectedElement(null, eu.hyvar.dataValues.resource.hydatavalue.mopp.HydatavalueExpectationConstants.EXPECTATIONS[41]);
+                            					addExpectedElement(null, 41);
                             				}
 
                             a7=(Token)match(input,13,FOLLOW_13_in_parse_eu_hyvar_dataValues_HyEnumLiteral962); if (state.failed) return element;
@@ -1639,11 +1633,11 @@ public class HydatavalueParser extends HydatavalueANTLRParserBase {
 
                             if ( state.backtracking==0 ) {
                             					// expected elements (follow set)
-                            					addExpectedElement(null, eu.hyvar.dataValues.resource.hydatavalue.mopp.HydatavalueExpectationConstants.EXPECTATIONS[42]);
+                            					addExpectedElement(null, 42);
                             				}
 
-                            // Hydatavalue.g:1127:5: (a8= DATE )
-                            // Hydatavalue.g:1128:6: a8= DATE
+                            // Hydatavalue.g:1121:5: (a8= DATE )
+                            // Hydatavalue.g:1122:6: a8= DATE
                             {
                             a8=(Token)match(input,DATE,FOLLOW_DATE_in_parse_eu_hyvar_dataValues_HyEnumLiteral992); if (state.failed) return element;
 
@@ -1681,16 +1675,16 @@ public class HydatavalueParser extends HydatavalueANTLRParserBase {
 
                             if ( state.backtracking==0 ) {
                             					// expected elements (follow set)
-                            					addExpectedElement(null, eu.hyvar.dataValues.resource.hydatavalue.mopp.HydatavalueExpectationConstants.EXPECTATIONS[43]);
+                            					addExpectedElement(null, 43);
                             				}
 
                             }
                             break;
                         case 2 :
-                            // Hydatavalue.g:1164:10: (a9= DATE ) a10= '-' a11= 'null'
+                            // Hydatavalue.g:1158:10: (a9= DATE ) a10= '-' a11= 'null'
                             {
-                            // Hydatavalue.g:1164:10: (a9= DATE )
-                            // Hydatavalue.g:1165:6: a9= DATE
+                            // Hydatavalue.g:1158:10: (a9= DATE )
+                            // Hydatavalue.g:1159:6: a9= DATE
                             {
                             a9=(Token)match(input,DATE,FOLLOW_DATE_in_parse_eu_hyvar_dataValues_HyEnumLiteral1048); if (state.failed) return element;
 
@@ -1728,7 +1722,7 @@ public class HydatavalueParser extends HydatavalueANTLRParserBase {
 
                             if ( state.backtracking==0 ) {
                             					// expected elements (follow set)
-                            					addExpectedElement(null, eu.hyvar.dataValues.resource.hydatavalue.mopp.HydatavalueExpectationConstants.EXPECTATIONS[44]);
+                            					addExpectedElement(null, 44);
                             				}
 
                             a10=(Token)match(input,13,FOLLOW_13_in_parse_eu_hyvar_dataValues_HyEnumLiteral1087); if (state.failed) return element;
@@ -1745,7 +1739,7 @@ public class HydatavalueParser extends HydatavalueANTLRParserBase {
 
                             if ( state.backtracking==0 ) {
                             					// expected elements (follow set)
-                            					addExpectedElement(null, eu.hyvar.dataValues.resource.hydatavalue.mopp.HydatavalueExpectationConstants.EXPECTATIONS[45]);
+                            					addExpectedElement(null, 45);
                             				}
 
                             a11=(Token)match(input,21,FOLLOW_21_in_parse_eu_hyvar_dataValues_HyEnumLiteral1110); if (state.failed) return element;
@@ -1762,13 +1756,13 @@ public class HydatavalueParser extends HydatavalueANTLRParserBase {
 
                             if ( state.backtracking==0 ) {
                             					// expected elements (follow set)
-                            					addExpectedElement(null, eu.hyvar.dataValues.resource.hydatavalue.mopp.HydatavalueExpectationConstants.EXPECTATIONS[46]);
+                            					addExpectedElement(null, 46);
                             				}
 
                             }
                             break;
                         case 3 :
-                            // Hydatavalue.g:1229:10: a12= 'null' a13= '-' (a14= DATE )
+                            // Hydatavalue.g:1223:10: a12= 'null' a13= '-' (a14= DATE )
                             {
                             a12=(Token)match(input,21,FOLLOW_21_in_parse_eu_hyvar_dataValues_HyEnumLiteral1143); if (state.failed) return element;
 
@@ -1784,7 +1778,7 @@ public class HydatavalueParser extends HydatavalueANTLRParserBase {
 
                             if ( state.backtracking==0 ) {
                             					// expected elements (follow set)
-                            					addExpectedElement(null, eu.hyvar.dataValues.resource.hydatavalue.mopp.HydatavalueExpectationConstants.EXPECTATIONS[47]);
+                            					addExpectedElement(null, 47);
                             				}
 
                             a13=(Token)match(input,13,FOLLOW_13_in_parse_eu_hyvar_dataValues_HyEnumLiteral1166); if (state.failed) return element;
@@ -1801,11 +1795,11 @@ public class HydatavalueParser extends HydatavalueANTLRParserBase {
 
                             if ( state.backtracking==0 ) {
                             					// expected elements (follow set)
-                            					addExpectedElement(null, eu.hyvar.dataValues.resource.hydatavalue.mopp.HydatavalueExpectationConstants.EXPECTATIONS[48]);
+                            					addExpectedElement(null, 48);
                             				}
 
-                            // Hydatavalue.g:1257:5: (a14= DATE )
-                            // Hydatavalue.g:1258:6: a14= DATE
+                            // Hydatavalue.g:1251:5: (a14= DATE )
+                            // Hydatavalue.g:1252:6: a14= DATE
                             {
                             a14=(Token)match(input,DATE,FOLLOW_DATE_in_parse_eu_hyvar_dataValues_HyEnumLiteral1196); if (state.failed) return element;
 
@@ -1843,7 +1837,7 @@ public class HydatavalueParser extends HydatavalueANTLRParserBase {
 
                             if ( state.backtracking==0 ) {
                             					// expected elements (follow set)
-                            					addExpectedElement(null, eu.hyvar.dataValues.resource.hydatavalue.mopp.HydatavalueExpectationConstants.EXPECTATIONS[49]);
+                            					addExpectedElement(null, 49);
                             				}
 
                             }
@@ -1854,7 +1848,7 @@ public class HydatavalueParser extends HydatavalueANTLRParserBase {
 
                     if ( state.backtracking==0 ) {
                     				// expected elements (follow set)
-                    				addExpectedElement(null, eu.hyvar.dataValues.resource.hydatavalue.mopp.HydatavalueExpectationConstants.EXPECTATIONS[50]);
+                    				addExpectedElement(null, 50);
                     			}
 
                     a15=(Token)match(input,18,FOLLOW_18_in_parse_eu_hyvar_dataValues_HyEnumLiteral1248); if (state.failed) return element;
@@ -1871,8 +1865,10 @@ public class HydatavalueParser extends HydatavalueANTLRParserBase {
 
                     if ( state.backtracking==0 ) {
                     				// expected elements (follow set)
-                    				addExpectedElement(null, eu.hyvar.dataValues.resource.hydatavalue.mopp.HydatavalueExpectationConstants.EXPECTATIONS[51]);
-                    				addExpectedElement(null, eu.hyvar.dataValues.resource.hydatavalue.mopp.HydatavalueExpectationConstants.EXPECTATIONS[52]);
+                    				// We've found the last token for this rule. The constructed EObject is now
+                    				// complete.
+                    				completedElement(element, true);
+                    				addExpectedElement(null, 51, 52);
                     			}
 
                     }
@@ -1886,8 +1882,10 @@ public class HydatavalueParser extends HydatavalueANTLRParserBase {
 
             if ( state.backtracking==0 ) {
             		// expected elements (follow set)
-            		addExpectedElement(null, eu.hyvar.dataValues.resource.hydatavalue.mopp.HydatavalueExpectationConstants.EXPECTATIONS[53]);
-            		addExpectedElement(null, eu.hyvar.dataValues.resource.hydatavalue.mopp.HydatavalueExpectationConstants.EXPECTATIONS[54]);
+            		// We've found the last token for this rule. The constructed EObject is now
+            		// complete.
+            		completedElement(element, true);
+            		addExpectedElement(null, 53, 54);
             	}
 
             }
@@ -1910,7 +1908,7 @@ public class HydatavalueParser extends HydatavalueANTLRParserBase {
 
 
     // $ANTLR start "parseop_HyValue_level_15"
-    // Hydatavalue.g:1324:1: parseop_HyValue_level_15 returns [eu.hyvar.dataValues.HyValue element = null] : (c0= parse_eu_hyvar_dataValues_HyNumberValue |c1= parse_eu_hyvar_dataValues_HyBooleanValue |c2= parse_eu_hyvar_dataValues_HyEnumValue );
+    // Hydatavalue.g:1322:1: parseop_HyValue_level_15 returns [eu.hyvar.dataValues.HyValue element = null] : (c0= parse_eu_hyvar_dataValues_HyNumberValue |c1= parse_eu_hyvar_dataValues_HyBooleanValue |c2= parse_eu_hyvar_dataValues_HyEnumValue );
     public final eu.hyvar.dataValues.HyValue parseop_HyValue_level_15() throws RecognitionException {
         eu.hyvar.dataValues.HyValue element =  null;
 
@@ -1928,7 +1926,7 @@ public class HydatavalueParser extends HydatavalueANTLRParserBase {
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 4) ) { return element; }
 
-            // Hydatavalue.g:1327:2: (c0= parse_eu_hyvar_dataValues_HyNumberValue |c1= parse_eu_hyvar_dataValues_HyBooleanValue |c2= parse_eu_hyvar_dataValues_HyEnumValue )
+            // Hydatavalue.g:1325:2: (c0= parse_eu_hyvar_dataValues_HyNumberValue |c1= parse_eu_hyvar_dataValues_HyBooleanValue |c2= parse_eu_hyvar_dataValues_HyEnumValue )
             int alt8=3;
             switch ( input.LA(1) ) {
             case INTEGER_LITERAL:
@@ -1958,7 +1956,7 @@ public class HydatavalueParser extends HydatavalueANTLRParserBase {
 
             switch (alt8) {
                 case 1 :
-                    // Hydatavalue.g:1328:2: c0= parse_eu_hyvar_dataValues_HyNumberValue
+                    // Hydatavalue.g:1326:2: c0= parse_eu_hyvar_dataValues_HyNumberValue
                     {
                     pushFollow(FOLLOW_parse_eu_hyvar_dataValues_HyNumberValue_in_parseop_HyValue_level_151296);
                     c0=parse_eu_hyvar_dataValues_HyNumberValue();
@@ -1971,7 +1969,7 @@ public class HydatavalueParser extends HydatavalueANTLRParserBase {
                     }
                     break;
                 case 2 :
-                    // Hydatavalue.g:1329:4: c1= parse_eu_hyvar_dataValues_HyBooleanValue
+                    // Hydatavalue.g:1327:4: c1= parse_eu_hyvar_dataValues_HyBooleanValue
                     {
                     pushFollow(FOLLOW_parse_eu_hyvar_dataValues_HyBooleanValue_in_parseop_HyValue_level_151306);
                     c1=parse_eu_hyvar_dataValues_HyBooleanValue();
@@ -1984,7 +1982,7 @@ public class HydatavalueParser extends HydatavalueANTLRParserBase {
                     }
                     break;
                 case 3 :
-                    // Hydatavalue.g:1330:4: c2= parse_eu_hyvar_dataValues_HyEnumValue
+                    // Hydatavalue.g:1328:4: c2= parse_eu_hyvar_dataValues_HyEnumValue
                     {
                     pushFollow(FOLLOW_parse_eu_hyvar_dataValues_HyEnumValue_in_parseop_HyValue_level_151316);
                     c2=parse_eu_hyvar_dataValues_HyEnumValue();
@@ -2016,7 +2014,7 @@ public class HydatavalueParser extends HydatavalueANTLRParserBase {
 
 
     // $ANTLR start "parse_eu_hyvar_dataValues_HyNumberValue"
-    // Hydatavalue.g:1333:1: parse_eu_hyvar_dataValues_HyNumberValue returns [eu.hyvar.dataValues.HyNumberValue element = null] : (a0= INTEGER_LITERAL ) ;
+    // Hydatavalue.g:1331:1: parse_eu_hyvar_dataValues_HyNumberValue returns [eu.hyvar.dataValues.HyNumberValue element = null] : (a0= INTEGER_LITERAL ) ;
     public final eu.hyvar.dataValues.HyNumberValue parse_eu_hyvar_dataValues_HyNumberValue() throws RecognitionException {
         eu.hyvar.dataValues.HyNumberValue element =  null;
 
@@ -2029,11 +2027,11 @@ public class HydatavalueParser extends HydatavalueANTLRParserBase {
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 5) ) { return element; }
 
-            // Hydatavalue.g:1336:2: ( (a0= INTEGER_LITERAL ) )
-            // Hydatavalue.g:1337:2: (a0= INTEGER_LITERAL )
+            // Hydatavalue.g:1334:2: ( (a0= INTEGER_LITERAL ) )
+            // Hydatavalue.g:1335:2: (a0= INTEGER_LITERAL )
             {
-            // Hydatavalue.g:1337:2: (a0= INTEGER_LITERAL )
-            // Hydatavalue.g:1338:3: a0= INTEGER_LITERAL
+            // Hydatavalue.g:1335:2: (a0= INTEGER_LITERAL )
+            // Hydatavalue.g:1336:3: a0= INTEGER_LITERAL
             {
             a0=(Token)match(input,INTEGER_LITERAL,FOLLOW_INTEGER_LITERAL_in_parse_eu_hyvar_dataValues_HyNumberValue1343); if (state.failed) return element;
 
@@ -2071,6 +2069,9 @@ public class HydatavalueParser extends HydatavalueANTLRParserBase {
 
             if ( state.backtracking==0 ) {
             		// expected elements (follow set)
+            		// We've found the last token for this rule. The constructed EObject is now
+            		// complete.
+            		completedElement(element, true);
             	}
 
             }
@@ -2093,7 +2094,7 @@ public class HydatavalueParser extends HydatavalueANTLRParserBase {
 
 
     // $ANTLR start "parse_eu_hyvar_dataValues_HyBooleanValue"
-    // Hydatavalue.g:1374:1: parse_eu_hyvar_dataValues_HyBooleanValue returns [eu.hyvar.dataValues.HyBooleanValue element = null] : ( (a0= 'true' |a1= 'false' ) ) ;
+    // Hydatavalue.g:1375:1: parse_eu_hyvar_dataValues_HyBooleanValue returns [eu.hyvar.dataValues.HyBooleanValue element = null] : ( (a0= 'true' |a1= 'false' ) ) ;
     public final eu.hyvar.dataValues.HyBooleanValue parse_eu_hyvar_dataValues_HyBooleanValue() throws RecognitionException {
         eu.hyvar.dataValues.HyBooleanValue element =  null;
 
@@ -2107,13 +2108,13 @@ public class HydatavalueParser extends HydatavalueANTLRParserBase {
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 6) ) { return element; }
 
-            // Hydatavalue.g:1377:2: ( ( (a0= 'true' |a1= 'false' ) ) )
-            // Hydatavalue.g:1378:2: ( (a0= 'true' |a1= 'false' ) )
+            // Hydatavalue.g:1378:2: ( ( (a0= 'true' |a1= 'false' ) ) )
+            // Hydatavalue.g:1379:2: ( (a0= 'true' |a1= 'false' ) )
             {
-            // Hydatavalue.g:1378:2: ( (a0= 'true' |a1= 'false' ) )
-            // Hydatavalue.g:1379:3: (a0= 'true' |a1= 'false' )
+            // Hydatavalue.g:1379:2: ( (a0= 'true' |a1= 'false' ) )
+            // Hydatavalue.g:1380:3: (a0= 'true' |a1= 'false' )
             {
-            // Hydatavalue.g:1379:3: (a0= 'true' |a1= 'false' )
+            // Hydatavalue.g:1380:3: (a0= 'true' |a1= 'false' )
             int alt9=2;
             int LA9_0 = input.LA(1);
 
@@ -2133,7 +2134,7 @@ public class HydatavalueParser extends HydatavalueANTLRParserBase {
             }
             switch (alt9) {
                 case 1 :
-                    // Hydatavalue.g:1380:4: a0= 'true'
+                    // Hydatavalue.g:1381:4: a0= 'true'
                     {
                     a0=(Token)match(input,22,FOLLOW_22_in_parse_eu_hyvar_dataValues_HyBooleanValue1388); if (state.failed) return element;
 
@@ -2154,7 +2155,7 @@ public class HydatavalueParser extends HydatavalueANTLRParserBase {
                     }
                     break;
                 case 2 :
-                    // Hydatavalue.g:1393:8: a1= 'false'
+                    // Hydatavalue.g:1394:8: a1= 'false'
                     {
                     a1=(Token)match(input,20,FOLLOW_20_in_parse_eu_hyvar_dataValues_HyBooleanValue1403); if (state.failed) return element;
 
@@ -2183,6 +2184,9 @@ public class HydatavalueParser extends HydatavalueANTLRParserBase {
 
             if ( state.backtracking==0 ) {
             		// expected elements (follow set)
+            		// We've found the last token for this rule. The constructed EObject is now
+            		// complete.
+            		completedElement(element, true);
             	}
 
             }
@@ -2205,7 +2209,7 @@ public class HydatavalueParser extends HydatavalueANTLRParserBase {
 
 
     // $ANTLR start "parse_eu_hyvar_dataValues_HyEnumValue"
-    // Hydatavalue.g:1414:1: parse_eu_hyvar_dataValues_HyEnumValue returns [eu.hyvar.dataValues.HyEnumValue element = null] : a0= 'enum:' (a1= IDENTIFIER_TOKEN ) a2= '.' (a3= IDENTIFIER_TOKEN ) ;
+    // Hydatavalue.g:1418:1: parse_eu_hyvar_dataValues_HyEnumValue returns [eu.hyvar.dataValues.HyEnumValue element = null] : a0= 'enum:' (a1= IDENTIFIER_TOKEN ) a2= '.' (a3= IDENTIFIER_TOKEN ) ;
     public final eu.hyvar.dataValues.HyEnumValue parse_eu_hyvar_dataValues_HyEnumValue() throws RecognitionException {
         eu.hyvar.dataValues.HyEnumValue element =  null;
 
@@ -2221,8 +2225,8 @@ public class HydatavalueParser extends HydatavalueANTLRParserBase {
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 7) ) { return element; }
 
-            // Hydatavalue.g:1417:2: (a0= 'enum:' (a1= IDENTIFIER_TOKEN ) a2= '.' (a3= IDENTIFIER_TOKEN ) )
-            // Hydatavalue.g:1418:2: a0= 'enum:' (a1= IDENTIFIER_TOKEN ) a2= '.' (a3= IDENTIFIER_TOKEN )
+            // Hydatavalue.g:1421:2: (a0= 'enum:' (a1= IDENTIFIER_TOKEN ) a2= '.' (a3= IDENTIFIER_TOKEN ) )
+            // Hydatavalue.g:1422:2: a0= 'enum:' (a1= IDENTIFIER_TOKEN ) a2= '.' (a3= IDENTIFIER_TOKEN )
             {
             a0=(Token)match(input,19,FOLLOW_19_in_parse_eu_hyvar_dataValues_HyEnumValue1439); if (state.failed) return element;
 
@@ -2238,11 +2242,11 @@ public class HydatavalueParser extends HydatavalueANTLRParserBase {
 
             if ( state.backtracking==0 ) {
             		// expected elements (follow set)
-            		addExpectedElement(null, eu.hyvar.dataValues.resource.hydatavalue.mopp.HydatavalueExpectationConstants.EXPECTATIONS[55]);
+            		addExpectedElement(null, 55);
             	}
 
-            // Hydatavalue.g:1432:2: (a1= IDENTIFIER_TOKEN )
-            // Hydatavalue.g:1433:3: a1= IDENTIFIER_TOKEN
+            // Hydatavalue.g:1436:2: (a1= IDENTIFIER_TOKEN )
+            // Hydatavalue.g:1437:3: a1= IDENTIFIER_TOKEN
             {
             a1=(Token)match(input,IDENTIFIER_TOKEN,FOLLOW_IDENTIFIER_TOKEN_in_parse_eu_hyvar_dataValues_HyEnumValue1457); if (state.failed) return element;
 
@@ -2284,7 +2288,7 @@ public class HydatavalueParser extends HydatavalueANTLRParserBase {
 
             if ( state.backtracking==0 ) {
             		// expected elements (follow set)
-            		addExpectedElement(null, eu.hyvar.dataValues.resource.hydatavalue.mopp.HydatavalueExpectationConstants.EXPECTATIONS[56]);
+            		addExpectedElement(null, 56);
             	}
 
             a2=(Token)match(input,14,FOLLOW_14_in_parse_eu_hyvar_dataValues_HyEnumValue1478); if (state.failed) return element;
@@ -2301,11 +2305,11 @@ public class HydatavalueParser extends HydatavalueANTLRParserBase {
 
             if ( state.backtracking==0 ) {
             		// expected elements (follow set)
-            		addExpectedElement(null, eu.hyvar.dataValues.resource.hydatavalue.mopp.HydatavalueExpectationConstants.EXPECTATIONS[57]);
+            		addExpectedElement(null, 57);
             	}
 
-            // Hydatavalue.g:1486:2: (a3= IDENTIFIER_TOKEN )
-            // Hydatavalue.g:1487:3: a3= IDENTIFIER_TOKEN
+            // Hydatavalue.g:1490:2: (a3= IDENTIFIER_TOKEN )
+            // Hydatavalue.g:1491:3: a3= IDENTIFIER_TOKEN
             {
             a3=(Token)match(input,IDENTIFIER_TOKEN,FOLLOW_IDENTIFIER_TOKEN_in_parse_eu_hyvar_dataValues_HyEnumValue1496); if (state.failed) return element;
 
@@ -2347,6 +2351,9 @@ public class HydatavalueParser extends HydatavalueANTLRParserBase {
 
             if ( state.backtracking==0 ) {
             		// expected elements (follow set)
+            		// We've found the last token for this rule. The constructed EObject is now
+            		// complete.
+            		completedElement(element, true);
             	}
 
             }
@@ -2369,7 +2376,7 @@ public class HydatavalueParser extends HydatavalueANTLRParserBase {
 
 
     // $ANTLR start "parse_eu_hyvar_dataValues_HyValue"
-    // Hydatavalue.g:1527:1: parse_eu_hyvar_dataValues_HyValue returns [eu.hyvar.dataValues.HyValue element = null] : c= parseop_HyValue_level_15 ;
+    // Hydatavalue.g:1534:1: parse_eu_hyvar_dataValues_HyValue returns [eu.hyvar.dataValues.HyValue element = null] : c= parseop_HyValue_level_15 ;
     public final eu.hyvar.dataValues.HyValue parse_eu_hyvar_dataValues_HyValue() throws RecognitionException {
         eu.hyvar.dataValues.HyValue element =  null;
 
@@ -2381,8 +2388,8 @@ public class HydatavalueParser extends HydatavalueANTLRParserBase {
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 8) ) { return element; }
 
-            // Hydatavalue.g:1528:2: (c= parseop_HyValue_level_15 )
-            // Hydatavalue.g:1529:2: c= parseop_HyValue_level_15
+            // Hydatavalue.g:1535:2: (c= parseop_HyValue_level_15 )
+            // Hydatavalue.g:1536:2: c= parseop_HyValue_level_15
             {
             pushFollow(FOLLOW_parseop_HyValue_level_15_in_parse_eu_hyvar_dataValues_HyValue1528);
             c=parseop_HyValue_level_15();

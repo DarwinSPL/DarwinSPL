@@ -9,8 +9,9 @@ import eu.hyvar.feature.graphical.base.editor.GraphicalFeatureModelEditor;
 import eu.hyvar.feature.graphical.base.editparts.HyParentChildConnectionEditPart;
 import eu.hyvar.feature.graphical.base.figures.HyParentChildConnectionFigure;
 import eu.hyvar.feature.graphical.base.model.HyFeatureModelWrapped;
+import eu.hyvar.feature.graphical.base.model.HyFeatureWrapped;
+import eu.hyvar.feature.graphical.base.model.HyParentChildConnection;
 import eu.hyvar.feature.graphical.editor.policies.HyFeatureEvolutionGraphicalNodeEditPolicy;
-import eu.hyvar.feature.graphical.editor.policies.HyFeatureGraphicalNodeEditPolicy;
 import eu.hyvar.feature.graphical.editor.policies.HyParentChildConnectionEditPolicy;
 
 public class HyParentChildConnectionEditorEditPart extends HyParentChildConnectionEditPart {
@@ -19,6 +20,26 @@ public class HyParentChildConnectionEditorEditPart extends HyParentChildConnecti
 	public HyParentChildConnectionEditorEditPart(GraphicalFeatureModelEditor editor, HyFeatureModelWrapped featureModel){
 		super(editor, featureModel);
 		this.editor = editor;
+	}
+	
+	@Override public void activate() {
+		//super.activate();
+		if(!isActive()) {
+			HyParentChildConnection model = ((HyParentChildConnection)getModel());
+			model.getSource().addPropertyChangeListener(this);
+			model.getTarget().addPropertyChangeListener(this);
+		}
+		super.activate();
+	}
+
+	@Override public void deactivate() {
+		//super.deactivate();
+		if(isActive()) {
+			HyParentChildConnection model = ((HyParentChildConnection)getModel());
+			model.getSource().removePropertyChangeListener(this);
+			model.getTarget().removePropertyChangeListener(this);
+		}
+		super.deactivate();
 	}
 	
 	@Override

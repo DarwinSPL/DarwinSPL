@@ -57,7 +57,7 @@ public class HyParentChildConnectionReconnectCommand extends Command{
 			((HyFeatureWrapped)target).addParentToChildConnection(connection);
 			
 			
-			featureModel.addConnection(connection);
+			featureModel.addConnection(connection, featureModel.getSelectedDate());
 			featureModel.rearrangeFeatures();	
 			
 			/*

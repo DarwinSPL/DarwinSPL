@@ -19,6 +19,14 @@ import java.util.Map;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
 
+/**
+ * This class provides an implementation of the
+ * eu.hyvar.dataValues.resource.hydatavalue.IHydatavalueTextDiagnostic interface.
+ * However, it is recommended to use the
+ * eu.hyvar.dataValues.resource.hydatavalue.mopp.HydatavaluePrinter2 instead,
+ * because it provides advanced printing features. There are even some features
+ * (e.g., printing enumeration terminals) which are only supported by that class.
+ */
 public class HydatavaluePrinter implements eu.hyvar.dataValues.resource.hydatavalue.IHydatavalueTextPrinter {
 	
 	protected eu.hyvar.dataValues.resource.hydatavalue.IHydatavalueTokenResolverFactory tokenResolverFactory = new eu.hyvar.dataValues.resource.hydatavalue.mopp.HydatavalueTokenResolverFactory();

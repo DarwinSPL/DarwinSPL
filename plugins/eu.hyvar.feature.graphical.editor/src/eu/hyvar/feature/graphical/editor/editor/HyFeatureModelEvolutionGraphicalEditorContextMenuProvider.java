@@ -17,7 +17,6 @@ import eu.hyvar.feature.graphical.editor.actions.attribute.HyAttributeCreateStri
 import eu.hyvar.feature.graphical.editor.actions.feature.HyFeatureCreateSiblingAction;
 import eu.hyvar.feature.graphical.editor.actions.feature.HyFeatureEditCardinalitiesAction;
 import eu.hyvar.feature.graphical.editor.actions.feature.HyFeatureEditNamesAction;
-import eu.hyvar.feature.graphical.editor.actions.feature.HyFeatureEvolutionChangeParentAction;
 import eu.hyvar.feature.graphical.editor.actions.feature.HyFeatureEvolutionCreateChildAction;
 import eu.hyvar.feature.graphical.editor.actions.version.HyVersionCreateSuccessorAction;
 import eu.hyvar.feature.graphical.editor.actions.version.HyVersionCreateVersionAction;
@@ -42,8 +41,6 @@ public class HyFeatureModelEvolutionGraphicalEditorContextMenuProvider extends H
         action = getActionRegistry().getAction(ActionFactory.DELETE.getId());
         menu.appendToGroup(GEFActionConstants.GROUP_UNDO, action);
         
-        action = getActionRegistry().getAction(HyFeatureEvolutionChangeParentAction.FEATURE_EVOLUTION_CHANGE_PARENT);
-        menu.appendToGroup(GEFActionConstants.GROUP_EDIT, action);
         action = getActionRegistry().getAction(HyLinearTemporalElementChangeValidityAction.FEATURE_CHANGE_VALIDITY);
         menu.appendToGroup(GEFActionConstants.GROUP_EDIT, action);
         

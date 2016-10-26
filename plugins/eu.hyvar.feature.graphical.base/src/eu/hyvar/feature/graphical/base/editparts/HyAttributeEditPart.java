@@ -1,5 +1,6 @@
 package eu.hyvar.feature.graphical.base.editparts;
 
+import java.beans.PropertyChangeEvent;
 import java.util.Date;
 
 import org.deltaecore.feature.graphical.base.editor.DEGraphicalEditor;
@@ -15,7 +16,6 @@ import eu.hyvar.feature.HyFeatureAttribute;
 import eu.hyvar.feature.graphical.base.editor.GraphicalFeatureModelEditor;
 import eu.hyvar.feature.graphical.base.figures.HyAttributeFigure;
 import eu.hyvar.feature.graphical.base.figures.HyFeatureFigure;
-import eu.hyvar.feature.graphical.base.model.HyFeatureModelEvolutionWrapped;
 import eu.hyvar.feature.graphical.base.model.HyFeatureModelWrapped;
 import eu.hyvar.feature.graphical.base.model.HyFeatureWrapped;
 
@@ -44,7 +44,7 @@ public class HyAttributeEditPart  extends HyAbstractEditPart{
 		HyAttributeFigure figure = (HyAttributeFigure)getFigure();
 		HyFeatureFigure parentFigure = (HyFeatureFigure)figure.getParent();
 		HyFeatureWrapped feature = (HyFeatureWrapped)parent.getModel();
-		Date date = ((HyFeatureModelEvolutionWrapped)featureModel).getSelectedDate();
+		Date date = featureModel.getSelectedDate();
 		
 		HyFeatureAttribute attribute = (HyFeatureAttribute)getModel();
 		int index = HyEvolutionUtil.getValidTemporalElements(attribute.getFeature().getAttributes(), date).indexOf(attribute);
@@ -82,7 +82,8 @@ public class HyAttributeEditPart  extends HyAbstractEditPart{
 		((HyAttributeFigure)getFigure()).update();
 	
 	}
-	
+
+
 	/*
 	 * TODO
 	@Override

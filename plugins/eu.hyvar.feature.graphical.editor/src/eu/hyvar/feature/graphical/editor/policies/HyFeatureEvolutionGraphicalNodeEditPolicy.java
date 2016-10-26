@@ -7,13 +7,11 @@ import org.eclipse.gef.requests.ReconnectRequest;
 import eu.hyvar.feature.graphical.base.editor.GraphicalFeatureModelEditor;
 import eu.hyvar.feature.graphical.base.editparts.HyFeatureEditPart;
 import eu.hyvar.feature.graphical.base.editparts.HyParentChildConnectionEditPart;
-import eu.hyvar.feature.graphical.base.model.HyFeatureModelEvolutionWrapped;
 import eu.hyvar.feature.graphical.base.model.HyFeatureModelWrapped;
 import eu.hyvar.feature.graphical.base.model.HyFeatureWrapped;
 import eu.hyvar.feature.graphical.base.model.HyGroupWrapped;
 import eu.hyvar.feature.graphical.base.model.HyParentChildConnection;
 import eu.hyvar.feature.graphical.editor.commands.HyParentChildConnectionEvolutionReconnectCommand;
-import eu.hyvar.feature.graphical.editor.editor.GraphicalEvolutionFeatureModelEditor;
 
 public class HyFeatureEvolutionGraphicalNodeEditPolicy extends HyFeatureGraphicalNodeEditPolicy {
 	private GraphicalFeatureModelEditor editor;
@@ -29,7 +27,7 @@ public class HyFeatureEvolutionGraphicalNodeEditPolicy extends HyFeatureGraphica
 		EditPart part = (EditPart)getHost();
 		
 		if(part instanceof HyFeatureEditPart){
-			HyFeatureModelEvolutionWrapped featureModel = (HyFeatureModelEvolutionWrapped)((HyFeatureEditPart)getHost()).getFeatureModel();
+			HyFeatureModelWrapped featureModel = (HyFeatureModelWrapped)((HyFeatureEditPart)getHost()).getFeatureModel();
 			
 			HyParentChildConnectionEvolutionReconnectCommand command = new HyParentChildConnectionEvolutionReconnectCommand(editor);
 			

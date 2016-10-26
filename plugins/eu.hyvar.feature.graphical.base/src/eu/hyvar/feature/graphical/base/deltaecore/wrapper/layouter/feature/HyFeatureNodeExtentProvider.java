@@ -4,11 +4,11 @@ import org.abego.treelayout.NodeExtentProvider;
 
 import eu.hyvar.feature.HyFeature;
 import eu.hyvar.feature.graphical.base.deltaecore.wrapper.HyGeometryUtil;
-import eu.hyvar.feature.graphical.base.model.HyFeatureModelEvolutionWrapped;
+import eu.hyvar.feature.graphical.base.model.HyFeatureModelWrapped;
 
 public class HyFeatureNodeExtentProvider implements NodeExtentProvider<HyFeature> {
-	private HyFeatureModelEvolutionWrapped featureModel;
-	public HyFeatureNodeExtentProvider(HyFeatureModelEvolutionWrapped featureModel){
+	private HyFeatureModelWrapped featureModel;
+	public HyFeatureNodeExtentProvider(HyFeatureModelWrapped featureModel){
 		this.featureModel = featureModel;
 	}
 	@Override

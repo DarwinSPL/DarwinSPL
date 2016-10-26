@@ -2,6 +2,7 @@ package eu.hyvar.feature.graphical.editor.actions.feature;
 
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.gef.Request;
+import org.eclipse.gef.commands.Command;
 import org.eclipse.ui.IWorkbenchPart;
 
 import eu.hyvar.evolution.HyEvolutionFactory;
@@ -21,8 +22,8 @@ public class HyFeatureCreateSiblingAction extends HyFeatureSelectionAction{
 
 	Request request;
 	
-	public HyFeatureCreateSiblingAction(IWorkbenchPart part){
-		super(part);
+	public HyFeatureCreateSiblingAction(IWorkbenchPart part, GraphicalFeatureModelEditor editor){
+		super(part, editor);
 		
 		setId(FEATURE_CREATE_SIBLING);
 		setText("Create Sibling");
@@ -64,10 +65,10 @@ public class HyFeatureCreateSiblingAction extends HyFeatureSelectionAction{
 		selectedFeature.addParentToChildConnection(connection);
 		newFeature.addChildToParentConnection(connection);
 		
-		featureModel.addConnection(connection);		
+		featureModel.addConnection(connection, featureModel.getSelectedDate());		
 		featureModel.rearrangeFeatures();
 		
-		editor.setDirty(true);
+		//editor.setDirty(true);
 	}
 
 	@Override
@@ -82,6 +83,12 @@ public class HyFeatureCreateSiblingAction extends HyFeatureSelectionAction{
 		}
 		
 		return true;
+	}
+
+	@Override
+	protected Command createCommand(Object acceptedModel) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
 	

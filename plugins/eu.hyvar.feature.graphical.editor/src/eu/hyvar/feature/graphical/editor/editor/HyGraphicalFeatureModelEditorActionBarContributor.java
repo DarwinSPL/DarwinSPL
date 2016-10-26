@@ -7,7 +7,6 @@ import org.eclipse.jface.action.IToolBarManager;
 import org.eclipse.ui.actions.ActionFactory;
 
 import eu.hyvar.feature.graphical.editor.actions.layout.HyFeatureModelAutoLayoutAction;
-import eu.hyvar.feature.graphical.editor.actions.layout.HyFeatureModelSaveLayoutAction;
 
 /**
  * Adds buttons to the eclipse toolbar
@@ -20,7 +19,7 @@ public class HyGraphicalFeatureModelEditorActionBarContributor extends ActionBar
 	protected void buildActions() {
 		addRetargetAction(new DeleteRetargetAction());
 		addRetargetAction(new HyFeatureModelAutoLayoutAction());
-		addRetargetAction(new HyFeatureModelSaveLayoutAction());
+		//addRetargetAction(new HyFeatureModelSaveLayoutAction());
 	}
 
 	@Override
@@ -28,7 +27,6 @@ public class HyGraphicalFeatureModelEditorActionBarContributor extends ActionBar
 		super.contributeToToolBar(toolBarManager);
 		toolBarManager.add(getAction(ActionFactory.DELETE.getId()));
 		toolBarManager.add(getAction(HyFeatureModelAutoLayoutAction.ID));
-		toolBarManager.add(getAction(HyFeatureModelSaveLayoutAction.ID));
 		toolBarManager.add(new ZoomComboContributionItem(getPage()));
 		
 	}	

@@ -15,7 +15,6 @@ import eu.hyvar.feature.HyFeature;
 import eu.hyvar.feature.HyFeatureChild;
 import eu.hyvar.feature.graphical.base.editor.GraphicalFeatureModelEditor;
 import eu.hyvar.feature.graphical.base.figures.HyGroupFigure;
-import eu.hyvar.feature.graphical.base.model.HyFeatureModelEvolutionWrapped;
 import eu.hyvar.feature.graphical.base.model.HyFeatureModelWrapped;
 import eu.hyvar.feature.graphical.base.model.HyGroupWrapped;
 
@@ -83,7 +82,6 @@ public class HyGroupEditPart extends HyAbstractEditPart{
 	
 	private void refreshVisibillity(){
 		HyGroupWrapped model = (HyGroupWrapped)getModel();
-		HyFeatureModelEvolutionWrapped featureModel = (HyFeatureModelEvolutionWrapped)this.featureModel;
 		Date date = featureModel.getSelectedDate();
 		
 		// check if group as at a valid parent feature and show/hide the group accordingly

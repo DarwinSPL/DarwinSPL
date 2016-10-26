@@ -44,7 +44,7 @@ public class HydatavalueExpectedEnumerationTerminal extends eu.hyvar.dataValues.
 	/**
 	 * Returns the expected enumeration terminal.
 	 */
-	public eu.hyvar.dataValues.resource.hydatavalue.grammar.HydatavalueSyntaxElement getSymtaxElement() {
+	public eu.hyvar.dataValues.resource.hydatavalue.grammar.HydatavalueSyntaxElement getSyntaxElement() {
 		return enumerationTerminal;
 	}
 	

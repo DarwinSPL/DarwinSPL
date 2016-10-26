@@ -13,7 +13,7 @@ public class HyParentChildConnection{
 	private PropertyChangeSupport changes = new PropertyChangeSupport( this );
 	private boolean highlight = false;
 	private boolean visible = true;
-	
+
 	Date validSince;
 	Date validUntil;
 
@@ -42,35 +42,38 @@ public class HyParentChildConnection{
 	HyFeatureWrapped target;
 
 	HyFeatureModelWrapped model;
-	
+
 	public HyParentChildConnection clone(){
 		HyParentChildConnection connection = new HyParentChildConnection();
 		connection.setHighlight(highlight);
 		connection.setTarget(target);
 		connection.setSource(source);
-		
+
 		return connection;
 	}
-	
+
 	public void setVisible(boolean visible) {
 		boolean old = this.visible;
 		this.visible = visible;
-		
+
 		changes.firePropertyChange(PROPERTY_HIGHLIGHTED, old, visible);
 	}
 	public boolean isVisible(Date date){
+		if(!target.isValid(date) || !source.isValid(date))
+			return false;
+
+
 		HyGroupComposition composition = HyEvolutionUtil.getValidTemporalElement(target.getWrappedModelElement().getGroupMembership(), date);
 		if(composition == null) return false;
-		
+
 		HyFeatureChild child = HyEvolutionUtil.getValidTemporalElement(composition.getCompositionOf().getChildOf(), date);
-		
+
 		HyFeatureChild sourceChild = HyEvolutionUtil.getValidTemporalElement(source.getWrappedModelElement().getParentOf(), date);
 		
 		
-		boolean equals = sourceChild.equals(child);
-		return equals;
+		return sourceChild.equals(child);
 	}
-	
+
 	public boolean isVisible(){
 		return visible;
 	}
@@ -116,11 +119,11 @@ public class HyParentChildConnection{
 	public void removePropertyChangeListener(PropertyChangeListener listener){
 		changes.removePropertyChangeListener(listener);
 	}
-	
+
 	public HyGroupComposition getComposition(){
 		HyFeature parentFeature = source.getWrappedModelElement();
 		HyFeature childFeature = target.getWrappedModelElement();
-		
+
 		for(HyFeatureChild child : parentFeature.getParentOf()){
 			for(HyGroupComposition composition : child.getChildGroup().getParentOf()){
 				if(childFeature.getGroupMembership().contains(composition)){
@@ -128,7 +131,7 @@ public class HyParentChildConnection{
 				}
 			}
 		}
-		
+
 		return null;
 	}
 }

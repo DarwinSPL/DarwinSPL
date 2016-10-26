@@ -168,7 +168,8 @@ public class HydatavalueEditor extends TextEditor implements IEditingDomainProvi
 						}
 						int deltaKind = delta.getKind();
 						if (deltaKind == IResourceDelta.CHANGED && delta.getFlags() != IResourceDelta.MARKERS) {
-							Resource changedResource = resourceSet.getResource(URI.createURI(delta.getFullPath().toString()), false);
+							URI platformURI = URI.createPlatformResourceURI(delta.getFullPath().toString(), true);
+							Resource changedResource = resourceSet.getResource(platformURI, false);
 							if (changedResource != null) {
 								changedResource.unload();
 								eu.hyvar.dataValues.resource.hydatavalue.IHydatavalueTextResource currentResource = getResource();
