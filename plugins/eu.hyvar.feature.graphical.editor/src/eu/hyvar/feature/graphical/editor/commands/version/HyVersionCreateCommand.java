@@ -1,50 +1,75 @@
 package eu.hyvar.feature.graphical.editor.commands.version;
 
+import java.util.Date;
+
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.gef.commands.Command;
 
 import eu.hyvar.feature.HyFeature;
+import eu.hyvar.feature.HyFeatureFactory;
 import eu.hyvar.feature.HyVersion;
 import eu.hyvar.feature.graphical.base.deltaecore.wrapper.layouter.version.HyVersionUtil;
 import eu.hyvar.feature.graphical.base.editor.GraphicalFeatureModelEditor;
 
 public class HyVersionCreateCommand  extends Command {
 	private HyVersion version;
-	private Object parentObject;
 	
 	private boolean wireAndAddAfter;
 	private boolean useSameBranch;
 	
 	private GraphicalFeatureModelEditor editor;
+	private Object parent; 
 	
-	public HyVersionCreateCommand(HyVersion version, Object parentObject, GraphicalFeatureModelEditor editor)  {
-		this.version = version;
-		this.parentObject = parentObject;
+	public HyVersionCreateCommand(Object parent, GraphicalFeatureModelEditor editor)  {
 		this.editor = editor;
+		this.parent = parent;
 	}
 	
 
 	
 	@Override
 	public void execute() {
+		if (parent instanceof HyFeature) {
+			HyFeature parentAsFeature = (HyFeature)parent;
+			version = HyFeatureFactory.eINSTANCE.createHyVersion();
+			version.setNumber("V"+ (parentAsFeature.getVersions().size()));
+			version.setFeature(parentAsFeature);
+			version.setValidSince(editor.getCurrentSelectedDate());
+			parentAsFeature.getVersions().add(version);
+		}
+				
 		
-		if (parentObject instanceof HyFeature) {
+		
+
+		/*
+		if (parent instanceof HyFeature) {
 			HyFeature parentFeature = (HyFeature) parentObject;
 			addToParentFeature(parentFeature);
 		}
 		
-		if (parentObject instanceof HyVersion) {
+		if (parent instanceof HyVersion) {
 			version.setSupersededVersion((HyVersion)parentObject);
-			((HyVersion)parentObject).getSupersedingVersions().add(version);
+			((HyVersion)parent).getSupersedingVersions().add(version);
 		}
 		
 		editor.getModelWrapped().rearrangeFeatures();
 		editor.refreshView();
+		*/
 	}
+	
+	@Override
+	public void undo() {
+		version.getFeature().getVersions().remove(version);
+	}
+	
+	
 
+	/*
 	@Override
 	public void undo() {
 		HyVersionUtil.unwireAndRemoveVersion(version);
 	}
+	*/
 	
 	protected void addToParentFeature(HyFeature parentFeature) {
 		HyVersion selectedVersion = HyVersionUtil.getLastVersionOnMostRecentBranch(parentFeature);
@@ -57,8 +82,10 @@ public class HyVersionCreateCommand  extends Command {
 	}
 
 	protected void doAddToParentFeature(HyFeature parentFeature, HyVersion selectedVersion) {
+		Date date = editor.getCurrentSelectedDate();
+		
 		if (selectedVersion == null) {
-			HyVersionUtil.wireVersionAsRoot(version, parentFeature);
+			HyVersionUtil.wireVersionAsRoot(version, parentFeature, date);
 		} else {
 			if (wireAndAddAfter) {
 				if (useSameBranch) {
@@ -68,13 +95,14 @@ public class HyVersionCreateCommand  extends Command {
 				}
 			} else {
 				if (useSameBranch) {
-					HyVersionUtil.wireVersionBefore(version, selectedVersion);
+					HyVersionUtil.wireVersionBefore(version, selectedVersion, date);
 				} else {
-					HyVersionUtil.wireVersionBefore(version, selectedVersion, true);
+					HyVersionUtil.wireVersionBefore(version, selectedVersion, true, date);
 				}
 			}
 		}
 		
-		HyVersionUtil.addVersion(version, parentFeature);
+		HyVersionUtil.addVersion(version, parentFeature, date);
 	}
+	
 }

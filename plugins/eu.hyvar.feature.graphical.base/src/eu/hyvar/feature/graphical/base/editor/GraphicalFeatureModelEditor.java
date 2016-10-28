@@ -1,7 +1,5 @@
 package eu.hyvar.feature.graphical.base.editor;
 
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
 import java.io.IOException;
 import java.util.Date;
 import java.util.List;
@@ -52,7 +50,7 @@ import eu.hyvar.feature.graphical.base.factory.HyFeatureModelEditPartFactory;
 import eu.hyvar.feature.graphical.base.model.HyFeatureModelWrapped;
 
 
-public class GraphicalFeatureModelEditor extends GraphicalEditor implements IFeatureModelEditor, PropertyChangeListener{
+public class GraphicalFeatureModelEditor extends GraphicalEditor implements IFeatureModelEditor{
 	// UI components
 	Spinner currentState;
 	Label currentDate;
@@ -79,17 +77,6 @@ public class GraphicalFeatureModelEditor extends GraphicalEditor implements IFea
 	}
 	
 
-	public boolean isDirty() {
-		return dirty;
-	}
-	public void setDirty(boolean value) {
-		dirty = value;
-
-		if(value)
-			firePropertyChange(PROP_DIRTY);
-		else
-			firePropertyChange(PROP_INPUT);
-	}	
 
 	public void setCurrentSelectedDate(Date currentSelectedDate) {
 		this.currentSelectedDate = currentSelectedDate;
@@ -155,7 +142,6 @@ public class GraphicalFeatureModelEditor extends GraphicalEditor implements IFea
 	@Override
 	public void doSave(IProgressMonitor monitor) {
 		if(resource == null) return;
-		setDirty(false);
 
 		try{
 			resource.save(null);
@@ -187,7 +173,6 @@ public class GraphicalFeatureModelEditor extends GraphicalEditor implements IFea
 			}
 		}
 	}
-
 
 
 
@@ -381,6 +366,7 @@ public class GraphicalFeatureModelEditor extends GraphicalEditor implements IFea
 	/**
 	 * Creates the editor and adds a control bar to switch between dates
 	 */
+	
 	public void createPartControl(Composite parent){
 		parent.setLayout(new GridLayout(2, false));
 
@@ -408,8 +394,10 @@ public class GraphicalFeatureModelEditor extends GraphicalEditor implements IFea
 		hookGraphicalViewer();
 		initializeGraphicalViewer();
 	}
+	
 
-	@Override
+	//@Override
+	/*
 	public void propertyChange(PropertyChangeEvent arg) {
 		System.out.println(arg);
 		if(arg.getPropertyName() == HyFeatureModelWrapped.PROPERTY_DATES_COUNT){
@@ -431,14 +419,11 @@ public class GraphicalFeatureModelEditor extends GraphicalEditor implements IFea
 	}
 
 
+*/
 
 
-	@Override
-	public EObject getInternalFeatureModel() {
-		return modelWrapped.getModel();
-	}
 
-	@Override
+	//@Override
 	public Object getAdapter(@SuppressWarnings("rawtypes") Class type) {
 		if(type == ZoomManager.class)
 			return getGraphicalViewer().getProperty(ZoomManager.class.toString());
@@ -446,6 +431,10 @@ public class GraphicalFeatureModelEditor extends GraphicalEditor implements IFea
 			return super.getAdapter(type);
 
 	}
+	
 
-
+	//@Override
+	public EObject getInternalFeatureModel() {
+		return modelWrapped.getModel();
+	}
 }

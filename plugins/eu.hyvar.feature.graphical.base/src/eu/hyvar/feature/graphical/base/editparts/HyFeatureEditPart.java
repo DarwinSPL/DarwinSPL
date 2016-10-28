@@ -1,13 +1,11 @@
 package eu.hyvar.feature.graphical.base.editparts;
 
 import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 import org.deltaecore.feature.graphical.base.editor.DEGraphicalEditor;
-import org.deltaecore.feature.graphical.base.util.DEGeometryUtil;
 import org.deltaecore.feature.graphical.base.util.DEGraphicalEditorTheme;
 import org.eclipse.draw2d.ConnectionAnchor;
 import org.eclipse.draw2d.IFigure;
@@ -19,11 +17,8 @@ import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.Notifier;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.gef.ConnectionEditPart;
-import org.eclipse.gef.EditPolicy;
-import org.eclipse.gef.GraphicalEditPart;
 import org.eclipse.gef.NodeEditPart;
 import org.eclipse.gef.Request;
-import org.eclipse.gef.RequestConstants;
 
 import eu.hyvar.evolution.HyEvolutionUtil;
 import eu.hyvar.feature.HyFeature;
@@ -32,7 +27,6 @@ import eu.hyvar.feature.HyFeatureChild;
 import eu.hyvar.feature.HyVersion;
 import eu.hyvar.feature.graphical.base.deltaecore.wrapper.HyGeometryUtil;
 import eu.hyvar.feature.graphical.base.deltaecore.wrapper.layouter.version.HyVersionLayouterManager;
-import eu.hyvar.feature.graphical.base.deltaecore.wrapper.layouter.version.HyVersionTreeLayouter;
 import eu.hyvar.feature.graphical.base.editor.GraphicalFeatureModelEditor;
 import eu.hyvar.feature.graphical.base.figures.HyFeatureFigure;
 import eu.hyvar.feature.graphical.base.model.HyFeatureModelWrapped;
@@ -53,8 +47,6 @@ public class HyFeatureEditPart extends HyAbstractEditPart implements NodeEditPar
 			if(notification.getEventType() == Notification.ADD && notification.getNewValue() instanceof HyFeatureChild){
 			}
 			
-			System.out.println(notification);
-			// mandatory update of version layouter before refresh children
 			refreshChildren();
 			refreshVisuals();
 		}
@@ -220,14 +212,6 @@ public class HyFeatureEditPart extends HyAbstractEditPart implements NodeEditPar
 		
 		
 		refreshVisualsOfChildren();
-/*
-		for(Object part : this.getSourceConnections()){
-			((GraphicalEditPart)part).refresh();
-		}
-		for(Object part : this.getTargetConnections()){
-			((GraphicalEditPart)part).refresh();
-		}
-*/
 	}
 	
 	@Override

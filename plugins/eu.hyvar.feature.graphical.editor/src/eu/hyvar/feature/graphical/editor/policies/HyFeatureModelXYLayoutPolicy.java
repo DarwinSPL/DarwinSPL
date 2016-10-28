@@ -9,11 +9,8 @@ import org.eclipse.gef.requests.CreateRequest;
 
 import eu.hyvar.feature.graphical.base.editparts.HyFeatureEditPart;
 import eu.hyvar.feature.graphical.base.editparts.HyGroupEditPart;
-import eu.hyvar.feature.graphical.base.model.HyFeatureModelWrapped;
 import eu.hyvar.feature.graphical.base.model.HyFeatureWrapped;
-import eu.hyvar.feature.graphical.base.model.HyGroupWrapped;
 import eu.hyvar.feature.graphical.editor.commands.feature.HyFeatureChangeConstraintCommand;
-import eu.hyvar.feature.graphical.editor.commands.feature.HyFeatureCreateCommand;
 
 public class HyFeatureModelXYLayoutPolicy extends XYLayoutEditPolicy{
 
@@ -27,12 +24,14 @@ public class HyFeatureModelXYLayoutPolicy extends XYLayoutEditPolicy{
 			command.setPosition(r.getTopLeft());
 			return command;
 		}else if(child instanceof HyGroupEditPart){
+			/*
 			HyFeatureChangeConstraintCommand command = new HyFeatureChangeConstraintCommand();
 			command.setModel(((HyGroupWrapped) child.getModel()).getParentFeature());
 
 			Rectangle r = (Rectangle)constraint;
 			command.setPosition(r.getTopLeft());
 			return command;
+			*/
 		}else{
 		}
 

@@ -30,9 +30,7 @@ public class HyAttributeCreateNumberAction extends HyAttributeCreateAction{
 		HyName name = HyEvolutionFactory.eINSTANCE.createHyName();
 		name.setName("New Number Attribute");
 		attribute.getNames().add(name);
-		
-		editor.getModelWrapped().rearrangeFeatures();
-		
+				
 		return attribute;
 	}
 }

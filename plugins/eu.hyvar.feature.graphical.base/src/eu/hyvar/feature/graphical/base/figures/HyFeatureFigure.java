@@ -394,7 +394,7 @@ public class HyFeatureFigure extends Figure{
 		if (versionAreaIsVisible()) {
 			paintVersionAreaBackground(graphics);
 			
-			paintConnection(graphics, feature.getWrappedModelElement().getVersions().get(0));
+			paintConnection(graphics, HyEvolutionUtil.getValidTemporalElements(feature.getWrappedModelElement().getVersions(), date).get(0));
 		}
 		
 		

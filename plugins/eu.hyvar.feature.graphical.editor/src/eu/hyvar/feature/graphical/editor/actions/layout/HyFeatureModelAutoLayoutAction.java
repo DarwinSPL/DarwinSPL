@@ -37,10 +37,8 @@ public class HyFeatureModelAutoLayoutAction extends RetargetAction {
         	
         	GraphicalFeatureModelEditor editor = (GraphicalFeatureModelEditor)this.getActivePart();
         	
-        	boolean isAutoLayoutActive = editor.getModelWrapped().isAutoLayoutActive();
         	editor.getModelWrapped().setAutoLayoutActive(true);
         	editor.getModelWrapped().rearrangeFeatures();
-        	editor.getModelWrapped().setAutoLayoutActive(isAutoLayoutActive);
         	editor.refreshView();
         }
     }

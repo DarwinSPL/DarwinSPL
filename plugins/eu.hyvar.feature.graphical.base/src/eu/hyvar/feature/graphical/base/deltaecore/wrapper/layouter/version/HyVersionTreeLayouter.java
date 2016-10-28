@@ -54,7 +54,7 @@ public class HyVersionTreeLayouter {
 
 	public HyVersionTreeLayouter(HyFeature feature, Date date) {
 		DEGraphicalEditorTheme theme = DEGraphicalEditor.getTheme();
-		HyVersion initialVersion = HyVersionUtil.getRootVersion(feature);
+		HyVersion initialVersion = HyVersionUtil.getRootVersion(feature, date);
 		
 		TreeForTreeLayout<HyVersion> tree = new HyVersionTreeForTreeLayout(initialVersion, date);
 		HyVersionNodeExtentProvider extentProvider = new HyVersionNodeExtentProvider();

@@ -3,15 +3,18 @@ package eu.hyvar.feature.graphical.base.deltaecore.wrapper.layouter.version;
 import java.security.InvalidParameterException;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
+
+import eu.hyvar.evolution.HyEvolutionUtil;
 import eu.hyvar.feature.HyFeature;
 import eu.hyvar.feature.HyVersion;
 
 public class HyVersionUtil {
-	
-	public static HyVersion getRootVersion(HyFeature feature) {
+
+	public static HyVersion getRootVersion(HyFeature feature, Date date) {
 		//Make sure that it is the initial version not just the one declared first in the model
-		List<HyVersion> versions = feature.getVersions();
+		List<HyVersion> versions = HyEvolutionUtil.getValidTemporalElements(feature.getVersions(), date);
 		
 		for (HyVersion version : versions) {
 			if (isRootVersion(version)) {
@@ -27,6 +30,7 @@ public class HyVersionUtil {
 	}
 	
 	
+	
 	public static HyVersion getLastVersionOnMostRecentBranch(HyFeature feature) {
 		List<HyVersion> versions = feature.getVersions();
 		HyVersion lastVersion = null;
@@ -40,48 +44,48 @@ public class HyVersionUtil {
 		return lastVersion;
 	}
 
-	public static void wireAndAddVersionAsRoot(HyVersion version, HyFeature parentFeature) {
+	public static void wireAndAddVersionAsRoot(HyVersion version, HyFeature parentFeature, Date date) {
 		if (version == null || parentFeature == null) {
 			throw new InvalidParameterException();
 		}
 		
 		//NOTE: Order mandatory for possible notifications.
-		wireVersionAsRoot(version, parentFeature);
-		addVersion(version, parentFeature);
+		wireVersionAsRoot(version, parentFeature, date);
+		addVersion(version, parentFeature, date);
 	}
 	
-	public static void wireAndAddVersionAfter(HyVersion version, HyVersion addAfterVersion) {
+	public static void wireAndAddVersionAfter(HyVersion version, HyVersion addAfterVersion, Date date) {
 		if (version == null || addAfterVersion == null) {
 			throw new InvalidParameterException();
 		}
 		
 		//NOTE: Order mandatory for possible notifications.
 		wireVersionAfter(version, addAfterVersion);
-		addVersionAfter(version, addAfterVersion);
+		addVersionAfter(version, addAfterVersion, date);
 	}
 	
-	public static void wireAndAddVersionAfterOnNewBranch(HyVersion version, HyVersion addAfterVersion) {
+	public static void wireAndAddVersionAfterOnNewBranch(HyVersion version, HyVersion addAfterVersion, Date date) {
 		if (version == null || addAfterVersion == null) {
 			throw new InvalidParameterException();
 		}
 		
 		//NOTE: Order mandatory for possible notifications.
 		wireVersionAfterOnNewBranch(version, addAfterVersion);
-		addVersionAfter(version, addAfterVersion);
+		addVersionAfter(version, addAfterVersion, date);
 	}
 	
-	public static void wireAndAddVersionBefore(HyVersion version, HyVersion addBeforeVersion) {
+	public static void wireAndAddVersionBefore(HyVersion version, HyVersion addBeforeVersion, Date date) {
 		if (version == null || addBeforeVersion == null) {
 			throw new InvalidParameterException();
 		}
 		
 		//NOTE: Order mandatory for possible notifications.
-		wireVersionBefore(version, addBeforeVersion);
-		addVersionBefore(version, addBeforeVersion);
+		wireVersionBefore(version, addBeforeVersion, date);
+		addVersionBefore(version, addBeforeVersion, date);
 	}
 	
 	
-	public static void addVersionAfter(HyVersion version, HyVersion addAfterVersion) {
+	public static void addVersionAfter(HyVersion version, HyVersion addAfterVersion, Date date) {
 		if (version == null || addAfterVersion == null) {
 			throw new InvalidParameterException();
 		}
@@ -89,10 +93,10 @@ public class HyVersionUtil {
 		HyFeature parentFeature = addAfterVersion.getFeature();
 		List<HyVersion> versions = parentFeature.getVersions();
 		int index = versions.indexOf(addAfterVersion) + 1;
-		addVersion(version, parentFeature, index);
+		addVersion(version, parentFeature, index, date);
 	}
 	
-	public static void addVersionBefore(HyVersion version, HyVersion addBeforeVersion) {
+	public static void addVersionBefore(HyVersion version, HyVersion addBeforeVersion, Date date) {
 		if (version == null || addBeforeVersion == null) {
 			throw new InvalidParameterException();
 		}
@@ -100,14 +104,14 @@ public class HyVersionUtil {
 		HyFeature parentFeature = addBeforeVersion.getFeature();
 		List<HyVersion> versions = parentFeature.getVersions();
 		int index = versions.indexOf(addBeforeVersion);
-		addVersion(version, parentFeature, index);
+		addVersion(version, parentFeature, index, date);
 	}
 	
-	public static void addVersion(HyVersion version, HyFeature parentFeature) {
-		addVersion(version, parentFeature, -1);
+	public static void addVersion(HyVersion version, HyFeature parentFeature, Date date) {
+		addVersion(version, parentFeature, -1, date);
 	}
 	
-	public static void addVersion(HyVersion version, HyFeature parentFeature, int index) {
+	public static void addVersion(HyVersion version, HyFeature parentFeature, int index, Date date) {
 		List<HyVersion> versions = parentFeature.getVersions();
 		
 		if (index == -1) {
@@ -133,13 +137,13 @@ public class HyVersionUtil {
 		versions.remove(version);
 		return index;
 	}
-	
-	public static void wireVersionAsRoot(HyVersion version, HyFeature parentFeature) {
+
+	public static void wireVersionAsRoot(HyVersion version, HyFeature parentFeature, Date date) {
 		if (version == null || parentFeature == null) {
 			throw new InvalidParameterException();
 		}
 		
-		HyVersion oldRootVersion = getRootVersion(parentFeature);
+		HyVersion oldRootVersion = getRootVersion(parentFeature, date);
 		
 		if (oldRootVersion != null) {
 			oldRootVersion.setSupersededVersion(version);
@@ -166,11 +170,11 @@ public class HyVersionUtil {
 		rewireVersion(version, predecessor, null);
 	}
 	
-	public static void wireVersionBefore(HyVersion version, HyVersion insertBeforeVersion) {
-		wireVersionBefore(version, insertBeforeVersion, false);
+	public static void wireVersionBefore(HyVersion version, HyVersion insertBeforeVersion, Date date) {
+		wireVersionBefore(version, insertBeforeVersion, false, date);
 	}
 	
-	public static void wireVersionBefore(HyVersion version, HyVersion insertBeforeVersion, boolean insertBeforeBranching) {
+	public static void wireVersionBefore(HyVersion version, HyVersion insertBeforeVersion, boolean insertBeforeBranching, Date date) {
 		if (version == null || insertBeforeVersion == null) {
 			throw new InvalidParameterException();
 		}
@@ -179,7 +183,7 @@ public class HyVersionUtil {
 		
 		if (predecessor == null) {
 			HyFeature parentFeature = insertBeforeVersion.getFeature();
-			wireVersionAsRoot(version, parentFeature);
+			wireVersionAsRoot(version, parentFeature, date);
 		} else {
 			List<HyVersion> successors = insertBeforeBranching ? predecessor.getSupersedingVersions() : Collections.singletonList(insertBeforeVersion);
 			rewireVersion(version, predecessor, successors);
@@ -228,5 +232,4 @@ public class HyVersionUtil {
 		List<HyVersion> successors = version.getSupersedingVersions();
 		return successors.isEmpty();
 	}
-	
 }

@@ -18,6 +18,9 @@ import eu.hyvar.feature.graphical.editor.actions.feature.HyFeatureCreateSiblingA
 import eu.hyvar.feature.graphical.editor.actions.feature.HyFeatureEditCardinalitiesAction;
 import eu.hyvar.feature.graphical.editor.actions.feature.HyFeatureEditNamesAction;
 import eu.hyvar.feature.graphical.editor.actions.feature.HyFeatureEvolutionCreateChildAction;
+import eu.hyvar.feature.graphical.editor.actions.group.HyGroupChangeGroupTypeToAlternativeTypeAction;
+import eu.hyvar.feature.graphical.editor.actions.group.HyGroupChangeGroupTypeToAndTypeAction;
+import eu.hyvar.feature.graphical.editor.actions.group.HyGroupChangeGroupTypeToOrTypeAction;
 import eu.hyvar.feature.graphical.editor.actions.version.HyVersionCreateSuccessorAction;
 import eu.hyvar.feature.graphical.editor.actions.version.HyVersionCreateVersionAction;
 
@@ -52,9 +55,19 @@ public class HyFeatureModelEvolutionGraphicalEditorContextMenuProvider extends H
         menu.appendToGroup(GEFActionConstants.GROUP_EDIT, action);
         action = getActionRegistry().getAction(HyFeatureEditNamesAction.FEATURE_EDIT_NAMES);
         menu.appendToGroup(GEFActionConstants.GROUP_EDIT, action);      
-        action = getActionRegistry().getAction(HyGroupEditCardinalitiesAction.GROUP_EDIT_CARDINALITIES);
         menu.appendToGroup(GEFActionConstants.GROUP_EDIT, new Separator());
+        
+        action = getActionRegistry().getAction(HyGroupEditCardinalitiesAction.GROUP_EDIT_CARDINALITIES);
         menu.appendToGroup(GEFActionConstants.GROUP_EDIT, action);
+        action = getActionRegistry().getAction(HyGroupChangeGroupTypeToAlternativeTypeAction.CHANGE_GROUP_TYPE_TO_ALTERNATIVE);
+        menu.appendToGroup(GEFActionConstants.GROUP_EDIT, action);
+        action = getActionRegistry().getAction(HyGroupChangeGroupTypeToAndTypeAction.CHANGE_GROUP_TYPE_TO_AND);
+        menu.appendToGroup(GEFActionConstants.GROUP_EDIT, action);
+        action = getActionRegistry().getAction(HyGroupChangeGroupTypeToOrTypeAction.CHANGE_GROUP_TYPE_TO_OR);
+        menu.appendToGroup(GEFActionConstants.GROUP_EDIT, action);
+        
+        menu.appendToGroup(GEFActionConstants.GROUP_EDIT, new Separator());
+        
         action = getActionRegistry().getAction(HyLinearTemporalElementChangeValidityAction.FEATURE_CHANGE_VALIDITY);
         
         menu.appendToGroup(GEFActionConstants.GROUP_EDIT, new Separator());

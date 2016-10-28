@@ -30,9 +30,7 @@ public abstract class HyAbstractEditPart extends AbstractGraphicalEditPart imple
 		return editor;
 	}
 
-	/**
-	 * @see org.eclipse.gef.EditPart#activate()
-	 */
+
 	public void activate() {
 		if(getModel() instanceof HyEditorChangeableElement){
 			super.activate();
@@ -41,9 +39,7 @@ public abstract class HyAbstractEditPart extends AbstractGraphicalEditPart imple
 		}
 	}
 
-	/**
-	 * @see org.eclipse.gef.EditPart#deactivate()
-	 */
+
 	public void deactivate() {
 		if(getModel() instanceof HyEditorChangeableElement){
 			super.deactivate();

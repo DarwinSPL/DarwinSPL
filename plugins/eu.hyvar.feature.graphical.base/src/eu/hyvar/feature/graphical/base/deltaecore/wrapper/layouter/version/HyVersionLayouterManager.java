@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import eu.hyvar.evolution.HyEvolutionUtil;
 import eu.hyvar.feature.HyFeature;
 import eu.hyvar.feature.HyVersion;
 
@@ -57,7 +58,7 @@ public class HyVersionLayouterManager {
 	}
 
 	private void doUpdateLayouter(HyFeature feature, Date date) {
-		List<HyVersion> versions = feature.getVersions();
+		List<HyVersion> versions = HyEvolutionUtil.getValidTemporalElements(feature.getVersions(), date);
 		
 		if (!versions.isEmpty()) {
 			featureToLayouterMap.put(feature, new HyVersionTreeLayouter(feature, date));

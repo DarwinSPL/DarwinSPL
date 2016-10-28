@@ -9,6 +9,7 @@ import eu.hyvar.feature.HyFeatureFactory;
 import eu.hyvar.feature.HyGroup;
 import eu.hyvar.feature.HyGroupComposition;
 import eu.hyvar.feature.HyGroupType;
+import eu.hyvar.feature.HyGroupTypeEnum;
 import eu.hyvar.feature.graphical.base.editor.GraphicalFeatureModelEditor;
 import eu.hyvar.feature.graphical.base.model.HyFeatureWrapped;
 import eu.hyvar.feature.graphical.base.model.HyGroupWrapped;
@@ -54,6 +55,19 @@ public class HyParentChildConnectionEvolutionReconnectCommand extends HyParentCh
 		return newComposition;
 
 	}
+	
+	
+	protected void splitGroupType(HyGroup group){
+		Date date = featureModel.getSelectedDate();
+		
+		HyGroupType type = HyEvolutionUtil.getValidTemporalElement(group.getTypes(), date);
+		HyGroupType newType = HyFeatureFactory.eINSTANCE.createHyGroupType();
+		newType.setValidSince(date);
+		newType.setType(HyGroupTypeEnum.AND);
+		type.setValidUntil(date);
+		
+		group.getTypes().add(newType);
+	}
 	@Override
 	public void execute(){
 		HyFeatureWrapped oldTarget = connection.getTarget();
@@ -71,7 +85,7 @@ public class HyParentChildConnectionEvolutionReconnectCommand extends HyParentCh
 			HyGroupComposition newComposition = null;
 			boolean hasComposition = false;
 
-
+			
 			// new target doesn't have a child, we have to add one
 			if(child == null){
 				child = HyFeatureFactory.eINSTANCE.createHyFeatureChild();
@@ -85,14 +99,18 @@ public class HyParentChildConnectionEvolutionReconnectCommand extends HyParentCh
 
 				HyGroupWrapped groupWrapped = new HyGroupWrapped(group);
 				featureModel.addGroup(groupWrapped);
-
-				//featureModel.getModel().getGroups().add(group);
 			}else{
 				// check if there is a valid composition at selected date
 				newComposition = HyEvolutionUtil.getValidTemporalElement(child.getChildGroup().getParentOf(), date);
 
 				if(newComposition != null){ 
 					newComposition = splitComposition(newComposition, null);
+					
+					System.out.println("SIZE === "+HyEvolutionUtil.getValidTemporalElements(newComposition.getFeatures(), date).size());
+					if(HyEvolutionUtil.getValidTemporalElements(newComposition.getFeatures(), date).size() == 1 &&
+					   HyEvolutionUtil.getValidTemporalElement(newComposition.getCompositionOf().getTypes(), date).getType() != HyGroupTypeEnum.AND){
+						splitGroupType(newComposition.getCompositionOf());
+					}
 					hasComposition = true;
 				}
 			}
@@ -120,7 +138,7 @@ public class HyParentChildConnectionEvolutionReconnectCommand extends HyParentCh
 
 			editor.getModelWrapped().rearrangeFeatures();
 			editor.refreshView();
-			editor.setDirty(true);
+			//editor.setDirty(true);
 		}
 		else if(target instanceof HyParentChildConnection){
 		}

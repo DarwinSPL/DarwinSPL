@@ -43,6 +43,7 @@ public class HyParentChildConnectionReconnectCommand extends Command{
 	
 	@Override
 	public void execute(){
+		/*
 		HyFeatureWrapped changedConnectionSource = connection.getSource();
 		HyFeatureWrapped changedConnectionTarget = connection.getTarget();
 		
@@ -60,7 +61,7 @@ public class HyParentChildConnectionReconnectCommand extends Command{
 			featureModel.addConnection(connection, featureModel.getSelectedDate());
 			featureModel.rearrangeFeatures();	
 			
-			/*
+			
 			// show cardinality if it was hidden before
 			if(changedConnectionTarget.isWithoutModifier(null)){
 				HyCardinality cardinality = changedConnectionTarget.getCardinality(0);
@@ -69,7 +70,7 @@ public class HyParentChildConnectionReconnectCommand extends Command{
 				
 				changedConnectionTarget.setCardinailtyAtIndex(cardinality, 0);
 			}
-			*/
+			
 		}
 		
 		if(target instanceof HyParentChildConnection){
@@ -97,24 +98,25 @@ public class HyParentChildConnectionReconnectCommand extends Command{
 			HyGroupWrapped group = newConnectionTarget.getParentGroup(null);
 			// hide modifier
 			if(!group.isAnd(null)){
-				/*
+				
 				HyCardinality cardinality = changedConnectionTarget.getCardinality(0);
 				cardinality.setMinCardinality(0);
 				cardinality.setMaxCardinality(1);
 				
 				changedConnectionTarget.setCardinailtyAtIndex(cardinality, 0);
-				*/
+				
 			}else{
-				/*
+				
 				if(changedConnectionTarget.isWithoutModifier(null)){
 					HyCardinality cardinality = changedConnectionTarget.getCardinality(0);
 					cardinality.setMinCardinality(0);
 					cardinality.setMaxCardinality(0);
 					changedConnectionTarget.setCardinality(cardinality);
 				}
-				*/
+				
 			}
 			
 		}
+		*/
 	}
 }

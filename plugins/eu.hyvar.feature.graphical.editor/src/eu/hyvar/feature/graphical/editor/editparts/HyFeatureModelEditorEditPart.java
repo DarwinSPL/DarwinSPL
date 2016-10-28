@@ -6,7 +6,7 @@ import eu.hyvar.feature.graphical.base.editor.GraphicalFeatureModelEditor;
 import eu.hyvar.feature.graphical.base.editparts.HyFeatureModelEditPart;
 import eu.hyvar.feature.graphical.editor.policies.HyFeatureModelXYLayoutPolicy;
 
-public class HyFeatureModelEditorEditPart extends HyFeatureModelEditPart {
+public class HyFeatureModelEditorEditPart extends HyFeatureModelEditPart{
 	public HyFeatureModelEditorEditPart(GraphicalFeatureModelEditor editor) {
 		super(editor);
 	}

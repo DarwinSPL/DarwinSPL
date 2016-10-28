@@ -2,6 +2,7 @@ package eu.hyvar.feature.graphical.editor.editor;
 
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
+import java.util.EventObject;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IResource;
@@ -21,6 +22,8 @@ import org.eclipse.e4.ui.workbench.modeling.EModelService;
 import org.eclipse.gef.GraphicalViewer;
 import org.eclipse.gef.KeyHandler;
 import org.eclipse.gef.KeyStroke;
+import org.eclipse.gef.commands.Command;
+import org.eclipse.gef.commands.CommandStack;
 import org.eclipse.gef.ui.parts.GraphicalViewerKeyHandler;
 import org.eclipse.swt.SWT;
 import org.eclipse.ui.IEditorDescriptor;
@@ -45,13 +48,26 @@ import eu.hyvar.feature.graphical.editor.actions.feature.HyFeatureCreateSiblingA
 import eu.hyvar.feature.graphical.editor.actions.feature.HyFeatureEditCardinalitiesAction;
 import eu.hyvar.feature.graphical.editor.actions.feature.HyFeatureEditNamesAction;
 import eu.hyvar.feature.graphical.editor.actions.feature.HyFeatureEvolutionCreateChildAction;
+import eu.hyvar.feature.graphical.editor.actions.group.HyGroupChangeGroupTypeToAlternativeTypeAction;
+import eu.hyvar.feature.graphical.editor.actions.group.HyGroupChangeGroupTypeToAndTypeAction;
+import eu.hyvar.feature.graphical.editor.actions.group.HyGroupChangeGroupTypeToOrTypeAction;
 import eu.hyvar.feature.graphical.editor.actions.version.HyVersionCreateSuccessorAction;
 import eu.hyvar.feature.graphical.editor.actions.version.HyVersionCreateVersionAction;
 import eu.hyvar.feature.graphical.editor.factory.HyFeatureModelEditorEditPartFactory;
 
 @SuppressWarnings("restriction")
 public class GraphicalEvolutionFeatureModelEditor extends GraphicalFeatureModelEditor{
-
+	@Override
+	public void commandStackChanged(EventObject event) {
+		firePropertyChange(IEditorPart.PROP_DIRTY);
+		super.commandStackChanged(event);
+	}
+	
+	public void executeCommand(Command command) {
+		CommandStack commandStack = getCommandStack();
+		commandStack.execute(command);
+	}
+	
 
 	KeyHandler sharedKeyHandler;
 	protected KeyHandler getCommonKeyHandler() {
@@ -85,6 +101,25 @@ public class GraphicalEvolutionFeatureModelEditor extends GraphicalFeatureModelE
 		openEditorForFileExtension("hyconstraints");
 		openEditorForFileExtension("hycontextinformation");
 		openEditorForFileExtension("hyvalidityformula");
+	}
+	
+	@SuppressWarnings("unchecked")
+	protected void createGroupActions(){
+		HyGroupEditCardinalitiesAction groupTypeAction = new HyGroupEditCardinalitiesAction(this);
+		getActionRegistry().registerAction(groupTypeAction);
+		getSelectionActions().add(groupTypeAction.getId());
+		
+		HyGroupChangeGroupTypeToAlternativeTypeAction groupChangeTypeToAlternativeAction = new HyGroupChangeGroupTypeToAlternativeTypeAction(this);
+		getActionRegistry().registerAction(groupChangeTypeToAlternativeAction);
+		getSelectionActions().add(groupChangeTypeToAlternativeAction.getId());
+		
+		HyGroupChangeGroupTypeToAndTypeAction groupChangeTypeToAndAction = new HyGroupChangeGroupTypeToAndTypeAction(this);
+		getActionRegistry().registerAction(groupChangeTypeToAndAction);
+		getSelectionActions().add(groupChangeTypeToAndAction.getId());
+		
+		HyGroupChangeGroupTypeToOrTypeAction groupChangeTypeToOrAction = new HyGroupChangeGroupTypeToOrTypeAction(this);
+		getActionRegistry().registerAction(groupChangeTypeToOrAction);
+		getSelectionActions().add(groupChangeTypeToOrAction.getId());
 	}
 
 	@SuppressWarnings("unchecked")
@@ -136,13 +171,11 @@ public class GraphicalEvolutionFeatureModelEditor extends GraphicalFeatureModelE
 		getActionRegistry().registerAction(featureNameAction);
 		getSelectionActions().add(featureNameAction.getId());	
 		
-		HyGroupEditCardinalitiesAction groupTypeAction = new HyGroupEditCardinalitiesAction(this);
-		getActionRegistry().registerAction(groupTypeAction);
-		getSelectionActions().add(groupTypeAction.getId());
-		
 		HyAttributeRenameAction renameAttributeAction = new HyAttributeRenameAction(this);
 		getActionRegistry().registerAction(renameAttributeAction);
 		getSelectionActions().add(renameAttributeAction.getId());
+		
+		createGroupActions();
 		
 		super.createActions();
 	}

@@ -30,9 +30,7 @@ public class HyAttributeCreateStringAction extends HyAttributeCreateAction{
 		HyName name = HyEvolutionFactory.eINSTANCE.createHyName();
 		name.setName("New String Attribute");
 		attribute.getNames().add(name);
-		
-		editor.getModelWrapped().rearrangeFeatures();
-		
+				
 		return attribute;
 	}
 

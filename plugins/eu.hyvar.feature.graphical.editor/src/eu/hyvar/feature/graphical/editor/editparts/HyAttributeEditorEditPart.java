@@ -32,15 +32,9 @@ public class HyAttributeEditorEditPart extends HyAttributeEditPart {
 		// Adapter interface
 		@Override 
 		public void notifyChanged(Notification notification) {
-			if(notification.getEventType() == Notification.REMOVE && notification.getOldValue() instanceof HyVersion){
+			if(!(notification.getEventType() == Notification.SET && notification.getPosition() == -1)){
+				refreshVisuals();
 			}
-			if(notification.getEventType() == Notification.ADD && notification.getNewValue() instanceof HyFeatureChild){
-
-			}
-
-			refreshVisuals();
-			
-			//editor.setDirty(true);
 		}
 
 		@Override 

@@ -624,12 +624,10 @@ public class HyFeatureModelWrapped implements PropertyChangeListener {
 		return null;
 	}
 	public void addGroup(HyGroupWrapped group) {
-		//groups.add(group);
 		model.getGroups().add(group.getWrappedModelElement());
 	}
 	@Override
 	public void propertyChange(PropertyChangeEvent evt) {
-		System.out.println(evt);
 		if(evt.getPropertyName().equals(HyFeatureWrapped.PROPERTY_POSITION)){
 			HyFeatureTreeLayouter layouter = HyFeatureLayouterManager.getLayouter(this);
 			HyFeatureWrapped feature = (HyFeatureWrapped)evt.getSource();

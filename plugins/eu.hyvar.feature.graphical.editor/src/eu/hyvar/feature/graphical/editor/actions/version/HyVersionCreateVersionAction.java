@@ -14,6 +14,7 @@ import eu.hyvar.feature.graphical.base.editparts.HyFeatureEditPart;
 import eu.hyvar.feature.graphical.base.editparts.HyRootFeatureEditPart;
 import eu.hyvar.feature.graphical.base.model.HyFeatureWrapped;
 import eu.hyvar.feature.graphical.base.model.HyRootFeatureWrapped;
+import eu.hyvar.feature.graphical.editor.commands.version.HyVersionCreateCommand;
 
 public class HyVersionCreateVersionAction extends SelectionAction{
 	public static final String FEATURE_ADD_VERSION = "AddFeatureVersion";
@@ -63,29 +64,24 @@ public class HyVersionCreateVersionAction extends SelectionAction{
 
 	@Override
 	public void run(){
+		
 		Date date = editor.getCurrentSelectedDate();
 		for(Object o : getSelectedObjects()){
+			HyFeature feature = null;
 			if(o instanceof HyRootFeatureEditPart){
 				HyRootFeatureEditPart p = (HyRootFeatureEditPart)o;
 				HyFeatureWrapped model = (HyFeatureWrapped)p.getModel();
-				HyFeature feature = model.getWrappedModelElement();
+				feature = model.getWrappedModelElement();
 
-				HyVersion version = HyFeatureFactory.eINSTANCE.createHyVersion();
-				version.setNumber("V"+ (feature.getVersions().size()));
-				version.setFeature(feature);
-				version.setValidSince(date);
-				feature.getVersions().add(version);
 			}else if(o instanceof HyFeatureEditPart){
 				HyFeatureEditPart p = (HyFeatureEditPart)o;
 				HyFeatureWrapped model = (HyFeatureWrapped)p.getModel();
-				HyFeature feature = model.getWrappedModelElement();
+				feature = model.getWrappedModelElement();
 
-				HyVersion version = HyFeatureFactory.eINSTANCE.createHyVersion();
-				version.setNumber("V"+ (feature.getVersions().size()));
-				version.setFeature(feature);
-				version.setValidSince(date);
-				feature.getVersions().add(version);		
 			}
+			
+			HyVersionCreateCommand command = new HyVersionCreateCommand(feature, editor);
+			editor.executeCommand(command);
 		}
 		
 		editor.getModelWrapped().rearrangeFeatures();
