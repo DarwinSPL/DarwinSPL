@@ -7,6 +7,7 @@ import java.util.List;
 import org.deltaecore.util.DEIOUtil;
 import org.eclipse.emf.ecore.EObject;
 
+import eu.hyvar.dataValues.HyEnum;
 import eu.hyvar.feature.HyFeature;
 import eu.hyvar.feature.HyFeatureAttribute;
 import eu.hyvar.feature.HyFeatureModel;
@@ -65,6 +66,29 @@ public class HyFeatureResolverUtil {
 //				}
 //			}
 //		}
+		
+		return null;
+	}
+	
+	
+	public static HyEnum resolveEnum(String identifier, HyFeatureModel featureModel, Date date) {
+		if(identifier == null || featureModel == null) {
+			return null;
+		}
+		
+		// TODO incorporate Evolution
+		List<HyEnum> matchingEnums = new ArrayList<HyEnum>();
+		for(HyEnum hyEnum: featureModel.getEnums()) {
+			if(hyEnum.getName().equals(identifier)) {
+				matchingEnums.add(hyEnum);
+			}
+		}
+		
+		if(matchingEnums.size() > 1) {
+			// TODO error: more than one valid element
+		} else if(matchingEnums.size() == 1) {
+			return matchingEnums.get(0);
+		}
 		
 		return null;
 	}
