@@ -10,6 +10,7 @@ import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Point;
 
 import eu.hyvar.feature.HyBooleanAttribute;
+import eu.hyvar.feature.HyEnumAttribute;
 import eu.hyvar.feature.HyFeatureAttribute;
 import eu.hyvar.feature.HyNumberAttribute;
 import eu.hyvar.feature.HyStringAttribute;
@@ -39,6 +40,8 @@ public class HyAttributeFigure extends Figure{
 				return "Number";
 			if(attribute instanceof HyStringAttribute)
 				return "String";
+			if(attribute instanceof HyEnumAttribute)
+				return "Enum ["+((HyEnumAttribute)attribute).getEnumType().getName()+"]";
 
 			// no supported attribute
 			return "Unsupported Attribute Type";

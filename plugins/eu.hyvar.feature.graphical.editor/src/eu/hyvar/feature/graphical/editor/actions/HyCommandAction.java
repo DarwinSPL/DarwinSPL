@@ -4,15 +4,14 @@ import org.eclipse.gef.commands.Command;
 import org.eclipse.gef.editparts.AbstractGraphicalEditPart;
 import org.eclipse.gef.ui.actions.SelectionAction;
 import org.eclipse.jface.viewers.StructuredSelection;
-import org.eclipse.ui.IWorkbenchPart;
 
 import eu.hyvar.feature.graphical.base.editor.GraphicalFeatureModelEditor;
 
 public abstract class HyCommandAction extends SelectionAction {
-	GraphicalFeatureModelEditor editor;
+	protected GraphicalFeatureModelEditor editor;
 	
-	public HyCommandAction(IWorkbenchPart part, GraphicalFeatureModelEditor editor) {
-		super(part);
+	public HyCommandAction(GraphicalFeatureModelEditor editor) {
+		super(editor);
 		
 		this.editor = editor;
 	}

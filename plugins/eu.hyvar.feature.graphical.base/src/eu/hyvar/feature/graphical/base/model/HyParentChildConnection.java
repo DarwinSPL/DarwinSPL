@@ -134,4 +134,8 @@ public class HyParentChildConnection{
 
 		return null;
 	}
+
+	public void notifyChange() {
+		changes.firePropertyChange("SomeConnectedElementHasChanged", 1, 2);
+	}
 }

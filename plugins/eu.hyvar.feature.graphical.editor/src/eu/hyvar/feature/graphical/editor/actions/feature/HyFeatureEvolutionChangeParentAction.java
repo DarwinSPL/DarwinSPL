@@ -10,7 +10,6 @@ import org.eclipse.gef.Request;
 import org.eclipse.gef.commands.Command;
 import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.swt.widgets.Shell;
-import org.eclipse.ui.IWorkbenchPart;
 
 import eu.hyvar.feature.HyFeature;
 import eu.hyvar.feature.HyFeatureChild;
@@ -26,8 +25,8 @@ public class HyFeatureEvolutionChangeParentAction extends HyFeatureSelectionActi
 	public static final String FEATURE_EVOLUTION_CHANGE_PARENT = "ChangeParentEvolution";
 	public static final String REQ_FEATURE_EVOLUTION_CHANGE_PARENT = "ChangeParentEvolution";
 	
-	public HyFeatureEvolutionChangeParentAction(IWorkbenchPart part, GraphicalFeatureModelEditor editor) {
-		super(part, editor);
+	public HyFeatureEvolutionChangeParentAction(GraphicalFeatureModelEditor editor) {
+		super(editor);
 		
 		setId(FEATURE_EVOLUTION_CHANGE_PARENT);
 		setText("Change Parent Feature/Group");

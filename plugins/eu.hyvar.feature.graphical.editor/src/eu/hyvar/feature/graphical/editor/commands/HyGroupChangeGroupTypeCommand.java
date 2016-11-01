@@ -11,6 +11,7 @@ import eu.hyvar.feature.HyGroup;
 import eu.hyvar.feature.HyGroupType;
 import eu.hyvar.feature.HyGroupTypeEnum;
 import eu.hyvar.feature.graphical.base.editor.GraphicalFeatureModelEditor;
+import eu.hyvar.feature.graphical.editor.util.HyGroupEditorUtil;
 
 public class HyGroupChangeGroupTypeCommand extends Command{
 	private HyGroup group;
@@ -56,5 +57,7 @@ public class HyGroupChangeGroupTypeCommand extends Command{
 		type.setValidUntil(date);
 		
 		group.getTypes().add(newType);
+		
+		HyGroupEditorUtil.cleanGroupTypes(group);
 	}
 }

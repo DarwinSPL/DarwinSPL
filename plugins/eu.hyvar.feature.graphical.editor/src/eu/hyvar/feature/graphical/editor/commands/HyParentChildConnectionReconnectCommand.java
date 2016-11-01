@@ -1,12 +1,10 @@
 package eu.hyvar.feature.graphical.editor.commands;
 
-import java.util.Date;
 
 import org.eclipse.gef.commands.Command;
 
 import eu.hyvar.feature.graphical.base.model.HyFeatureModelWrapped;
 import eu.hyvar.feature.graphical.base.model.HyFeatureWrapped;
-import eu.hyvar.feature.graphical.base.model.HyGroupWrapped;
 import eu.hyvar.feature.graphical.base.model.HyParentChildConnection;
 
 public class HyParentChildConnectionReconnectCommand extends Command{

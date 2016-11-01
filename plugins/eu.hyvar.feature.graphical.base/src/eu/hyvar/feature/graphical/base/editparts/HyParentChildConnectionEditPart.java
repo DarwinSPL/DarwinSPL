@@ -66,6 +66,8 @@ public class HyParentChildConnectionEditPart extends AbstractConnectionEditPart 
 		if(evt.getPropertyName().equals(HyParentChildConnection.PROPERTY_VISIBLE)){
 			connectionFigure.setVisible((boolean)evt.getNewValue());
 		}
+		
+		
 
 		refreshVisuals();
 	}

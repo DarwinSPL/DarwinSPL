@@ -45,8 +45,6 @@ public class HyVersionEvolutionDeleteCommand extends Command{
 	
 	@Override
 	public void execute(){
-		Date date = editor.getCurrentSelectedDate();
-		
 		deleteVersionAndChildrenTemporarily(version);
 		
 		editor.getModelWrapped().getWrappedFeature(version.getFeature()).getListeners().firePropertyChange("versions", 0, 1);

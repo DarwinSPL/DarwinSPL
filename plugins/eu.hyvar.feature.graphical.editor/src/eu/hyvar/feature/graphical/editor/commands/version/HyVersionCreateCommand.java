@@ -2,7 +2,6 @@ package eu.hyvar.feature.graphical.editor.commands.version;
 
 import java.util.Date;
 
-import org.eclipse.emf.ecore.EObject;
 import org.eclipse.gef.commands.Command;
 
 import eu.hyvar.feature.HyFeature;

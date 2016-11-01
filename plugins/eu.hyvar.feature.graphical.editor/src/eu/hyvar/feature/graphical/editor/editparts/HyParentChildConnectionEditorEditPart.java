@@ -1,4 +1,5 @@
 package eu.hyvar.feature.graphical.editor.editparts;
+
 import org.deltaecore.feature.graphical.base.editor.DEGraphicalEditor;
 import org.deltaecore.feature.graphical.base.util.DEGraphicalEditorTheme;
 import org.eclipse.gef.EditPolicy;
@@ -9,7 +10,6 @@ import eu.hyvar.feature.graphical.base.editor.GraphicalFeatureModelEditor;
 import eu.hyvar.feature.graphical.base.editparts.HyParentChildConnectionEditPart;
 import eu.hyvar.feature.graphical.base.figures.HyParentChildConnectionFigure;
 import eu.hyvar.feature.graphical.base.model.HyFeatureModelWrapped;
-import eu.hyvar.feature.graphical.base.model.HyFeatureWrapped;
 import eu.hyvar.feature.graphical.base.model.HyParentChildConnection;
 import eu.hyvar.feature.graphical.editor.policies.HyFeatureEvolutionGraphicalNodeEditPolicy;
 import eu.hyvar.feature.graphical.editor.policies.HyParentChildConnectionEditPolicy;

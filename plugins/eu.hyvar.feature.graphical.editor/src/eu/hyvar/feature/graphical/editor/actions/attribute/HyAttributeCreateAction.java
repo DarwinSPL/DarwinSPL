@@ -3,16 +3,13 @@ package eu.hyvar.feature.graphical.editor.actions.attribute;
 import org.eclipse.gef.Request;
 import org.eclipse.gef.ui.actions.SelectionAction;
 
-import eu.hyvar.evolution.HyEvolutionFactory;
 import eu.hyvar.feature.HyFeature;
 import eu.hyvar.feature.HyFeatureAttribute;
-import eu.hyvar.feature.HyFeatureFactory;
 import eu.hyvar.feature.graphical.base.editor.GraphicalFeatureModelEditor;
 import eu.hyvar.feature.graphical.base.editparts.HyFeatureEditPart;
 import eu.hyvar.feature.graphical.base.editparts.HyRootFeatureEditPart;
 import eu.hyvar.feature.graphical.base.model.HyFeatureWrapped;
 import eu.hyvar.feature.graphical.editor.commands.attribute.HyAttributeCreateCommand;
-import eu.hyvar.feature.graphical.editor.editor.GraphicalEvolutionFeatureModelEditor;
 
 public abstract class HyAttributeCreateAction extends SelectionAction{
 	public static final String FEATURE_ADD_ATTRIBUTE = "AddFeatureAttribute";
@@ -24,7 +21,7 @@ public abstract class HyAttributeCreateAction extends SelectionAction{
 	
 	protected GraphicalFeatureModelEditor editor;
 	
-	public HyAttributeCreateAction(GraphicalEvolutionFeatureModelEditor editor) {
+	public HyAttributeCreateAction(GraphicalFeatureModelEditor editor) {
 		super(editor);
 		
 		setId(FEATURE_ADD_ATTRIBUTE);

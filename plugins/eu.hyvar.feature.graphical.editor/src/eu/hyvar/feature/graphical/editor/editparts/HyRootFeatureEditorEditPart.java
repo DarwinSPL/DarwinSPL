@@ -45,7 +45,7 @@ public class HyRootFeatureEditorEditPart extends HyRootFeatureEditPart{
 	
 	@Override
 	public void propertyChange(PropertyChangeEvent evt) {
-		this.setSize();
+		//this.setSize();
 		this.refreshVisuals();
 	}
 	

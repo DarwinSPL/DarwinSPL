@@ -1,14 +1,10 @@
 package eu.hyvar.feature.graphical.editor.actions.version;
 
-import java.util.Date;
-
 import org.eclipse.gef.Request;
 import org.eclipse.gef.ui.actions.SelectionAction;
 
 import eu.hyvar.evolution.HyEvolutionUtil;
 import eu.hyvar.feature.HyFeature;
-import eu.hyvar.feature.HyFeatureFactory;
-import eu.hyvar.feature.HyVersion;
 import eu.hyvar.feature.graphical.base.editor.GraphicalFeatureModelEditor;
 import eu.hyvar.feature.graphical.base.editparts.HyFeatureEditPart;
 import eu.hyvar.feature.graphical.base.editparts.HyRootFeatureEditPart;
@@ -64,8 +60,6 @@ public class HyVersionCreateVersionAction extends SelectionAction{
 
 	@Override
 	public void run(){
-		
-		Date date = editor.getCurrentSelectedDate();
 		for(Object o : getSelectedObjects()){
 			HyFeature feature = null;
 			if(o instanceof HyRootFeatureEditPart){

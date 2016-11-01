@@ -52,8 +52,8 @@ import eu.hyvar.feature.graphical.base.model.HyFeatureModelWrapped;
 
 public class GraphicalFeatureModelEditor extends GraphicalEditor implements IFeatureModelEditor{
 	// UI components
-	Spinner currentState;
-	Label currentDate;
+	//Spinner currentState;
+	Button currentDate;
 	Scale scale;
 	Spinner minState;
 	Spinner maxState;
@@ -247,16 +247,32 @@ public class GraphicalFeatureModelEditor extends GraphicalEditor implements IFea
 
 
 
-
-
-		currentDate = new Label(buttonGroup, SWT.NATIVE);
+		
+		
+		currentDate = new Button(buttonGroup, SWT.PUSH);
+		currentDate.addListener(SWT.Selection, new Listener(){
+			public void handleEvent(Event event){
+				DateDialog dialog = new DateDialog(getEditorSite().getShell(), getCurrentSelectedDate());
+				dialog.open();
+				
+				Date newDate = dialog.getValue();
+				if(modelWrapped.addDate(newDate)){
+					int size = modelWrapped.getDates().size();
+					scale.setMaximum(size-1);
+					scale.setEnabled(size > 2);
+					
+					scale.setSelection(modelWrapped.getDates().indexOf(newDate));
+					dateChanged(newDate);
+				}
+			}
+		});
 		if(dates.size() > 0)
 			currentDate.setText(dates.get(0).toString());
 		else{
 			currentDate.setText((new Date()).toString());
 		}
 
-
+		/*
 		currentState = new Spinner (buttonGroup, SWT.NATIVE);
 		currentState.setMinimum(1);
 		currentState.setMaximum(size);
@@ -272,13 +288,14 @@ public class GraphicalFeatureModelEditor extends GraphicalEditor implements IFea
 					scale.setSelection(index);
 			}
 		});
+		*/
 
 		Label minStateLabel = new Label(buttonGroup, SWT.CENTER);
 		minStateLabel.setText("Date range from ");
 		minState = new Spinner (buttonGroup, SWT.NATIVE);
 		minState.setMinimum(1);
 		minState.setMaximum(size);
-		minState.setSelection(currentState.getSelection());
+		minState.setSelection(1);
 		minState.setIncrement(1);
 		minState.setEnabled(size > 2);
 		minState.addListener(SWT.Selection, new Listener(){
@@ -313,7 +330,7 @@ public class GraphicalFeatureModelEditor extends GraphicalEditor implements IFea
 			public void handleEvent(Event event) {
 				List<Date> dates = modelWrapped.getDates();
 				int index = scale.getSelection();
-				currentState.setSelection(index+1);
+				//currentState.setSelection(index+1);
 
 				dateChanged(dates.get(index));
 			}	
@@ -331,7 +348,6 @@ public class GraphicalFeatureModelEditor extends GraphicalEditor implements IFea
 					modelWrapped.addDate(value);
 					
 					int size = modelWrapped.getDates().size();
-					System.out.println(size);
 					scale.setMaximum(size-1);
 					scale.setEnabled(size > 2);
 				}				
@@ -354,11 +370,11 @@ public class GraphicalFeatureModelEditor extends GraphicalEditor implements IFea
 		});	
 
 		if(dates.size() > 0)
-			this.setCurrentSelectedDate(dates.get(0));
+			setCurrentSelectedDate(dates.get(0));
 		else{
 			Date now = new Date();
 			modelWrapped.addDate(now);
-			this.setCurrentSelectedDate(now);
+			setCurrentSelectedDate(now);
 		}		
 	}
 

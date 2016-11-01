@@ -3,7 +3,6 @@ package eu.hyvar.feature.graphical.editor.actions.feature;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.gef.Request;
 import org.eclipse.gef.commands.Command;
-import org.eclipse.ui.IWorkbenchPart;
 
 import eu.hyvar.evolution.HyEvolutionFactory;
 import eu.hyvar.evolution.HyName;
@@ -22,8 +21,8 @@ public class HyFeatureCreateSiblingAction extends HyFeatureSelectionAction{
 
 	Request request;
 	
-	public HyFeatureCreateSiblingAction(IWorkbenchPart part, GraphicalFeatureModelEditor editor){
-		super(part, editor);
+	public HyFeatureCreateSiblingAction(GraphicalFeatureModelEditor editor){
+		super(editor);
 		
 		setId(FEATURE_CREATE_SIBLING);
 		setText("Create Sibling");

@@ -143,8 +143,8 @@ public class HyFeatureModelWrapped implements PropertyChangeListener {
 		this.dates = dates;
 	}
 
-	public void addDate(Date date){
-		if(dates.contains(date)) return;
+	public boolean addDate(Date date){
+		if(dates.contains(date)) return false;
 		
 		int old = dates.size();
 		dates.add(dates.size(), date);
@@ -153,6 +153,8 @@ public class HyFeatureModelWrapped implements PropertyChangeListener {
 		
 		
 		changes.firePropertyChange(PROPERTY_DATES_COUNT, old, dates.size());
+		
+		return true;
 	}
 	
 	public Date getSelectedDate() {
@@ -177,6 +179,8 @@ public class HyFeatureModelWrapped implements PropertyChangeListener {
 				
 		dates.add(0, new Date(Long.MIN_VALUE));
 		dates.add(dates.size(), new Date(Long.MAX_VALUE));
+		
+		System.out.println(new Date(Long.MIN_VALUE));
 
 		features = new ArrayList<HyFeatureWrapped>();
 		groups = new HashSet<HyGroupWrapped>();
@@ -645,6 +649,9 @@ public class HyFeatureModelWrapped implements PropertyChangeListener {
 				this.removeGroup(newGroup);
 			}
 		}
+		
+		changes.firePropertyChange(evt);
+		
 	}
 
 

@@ -10,7 +10,6 @@ import eu.hyvar.feature.HyFeature;
 import eu.hyvar.feature.HyFeatureFactory;
 import eu.hyvar.feature.HyFeatureType;
 import eu.hyvar.feature.HyFeatureTypeEnum;
-import eu.hyvar.feature.HyGroupType;
 import eu.hyvar.feature.graphical.base.editor.GraphicalFeatureModelEditor;
 
 public class HyFeatureChangeTypeCommand extends Command{
@@ -55,6 +54,7 @@ public class HyFeatureChangeTypeCommand extends Command{
 		newType.setType(newGroupTypeEnum);
 		newType.setValidSince(date);
 		type.setValidUntil(date);
+		
 		
 		feature.getTypes().add(newType);
 	}

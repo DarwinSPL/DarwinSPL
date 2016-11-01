@@ -10,6 +10,8 @@ import eu.hyvar.evolution.HyTemporalElement;
 import eu.hyvar.feature.HyFeatureAttribute;
 import eu.hyvar.feature.HyVersion;
 import eu.hyvar.feature.graphical.base.editparts.HyAttributeEditPart;
+import eu.hyvar.feature.graphical.base.editparts.HyEnumEditPart;
+import eu.hyvar.feature.graphical.base.editparts.HyEnumLiteralEditPart;
 import eu.hyvar.feature.graphical.base.editparts.HyFeatureEditPart;
 import eu.hyvar.feature.graphical.base.editparts.HyGroupEditPart;
 import eu.hyvar.feature.graphical.base.model.HyFeatureWrapped;
@@ -39,6 +41,7 @@ public class HyLinearTemporalElementChangeValidityAction extends SelectionAction
 		StructuredSelection selection = (StructuredSelection)this.getSelection();
 		Object selectedElement = selection.getFirstElement();
 		HyTemporalElement model = null;
+		
 		if(selectedElement instanceof HyFeatureEditPart){
 			HyFeatureEditPart editPart = (HyFeatureEditPart)selectedElement;
 			model = (HyTemporalElement)((HyFeatureWrapped)editPart.getModel()).getWrappedModelElement();
@@ -55,6 +58,15 @@ public class HyLinearTemporalElementChangeValidityAction extends SelectionAction
 			HyAttributeEditPart editPart = (HyAttributeEditPart)selectedElement;
 			model = (HyTemporalElement)((HyFeatureAttribute)editPart.getModel());			
 		}
+		if(selectedElement instanceof HyEnumEditPart){
+			HyEnumEditPart editPart = (HyEnumEditPart)selectedElement;
+			model = (HyTemporalElement)editPart.getModel();
+		}
+		if(selectedElement instanceof HyEnumLiteralEditPart){
+			HyEnumLiteralEditPart editPart = (HyEnumLiteralEditPart)selectedElement;
+			model = (HyTemporalElement)editPart.getModel();
+		}
+		
 		ValidityDialog dialog = new ValidityDialog(shell);
 		dialog.setElement(model);
 		dialog.open();
@@ -66,10 +78,12 @@ public class HyLinearTemporalElementChangeValidityAction extends SelectionAction
 			return false;
 
 		for(Object selectedObject : getSelectedObjects()){
-			if(!((selectedObject instanceof HyFeatureEditPart) || 
-				 (selectedObject instanceof HyGroupEditPart) ||
-				 (selectedObject instanceof HyAttributeEditPart) || 
-				 (selectedObject instanceof HyVersionEditorEditPart))){
+			if(!((selectedObject instanceof HyFeatureEditPart) 			|| 
+				 (selectedObject instanceof HyGroupEditPart) 	 		||
+				 (selectedObject instanceof HyAttributeEditPart) 		|| 
+				 (selectedObject instanceof HyVersionEditorEditPart)	||
+				 (selectedObject instanceof HyEnumEditPart)				||
+				 (selectedObject instanceof HyEnumLiteralEditPart))){
 				return false;
 			}
 		}

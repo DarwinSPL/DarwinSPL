@@ -34,7 +34,6 @@ public class HyFeatureEditorEditPart extends HyFeatureEditPart{
 	@Override
 	protected void createEditPolicies(){
 		installEditPolicy(EditPolicy.COMPONENT_ROLE, new HyFeatureComponentEditPolicy());
-		//installEditPolicy(EditPolicy.GRAPHICAL_NODE_ROLE, new HyFeatureGraphicalNodeEditPolicy(featureModel));
 		installEditPolicy(EditPolicy.GRAPHICAL_NODE_ROLE, new HyFeatureEvolutionGraphicalNodeEditPolicy(featureModel, (GraphicalEvolutionFeatureModelEditor)editor));
 		installEditPolicy(EditPolicy.DIRECT_EDIT_ROLE, new HyFeatureDirectEditPolicy());
 		

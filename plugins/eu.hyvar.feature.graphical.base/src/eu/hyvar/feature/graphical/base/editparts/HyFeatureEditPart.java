@@ -23,7 +23,6 @@ import org.eclipse.gef.Request;
 import eu.hyvar.evolution.HyEvolutionUtil;
 import eu.hyvar.feature.HyFeature;
 import eu.hyvar.feature.HyFeatureAttribute;
-import eu.hyvar.feature.HyFeatureChild;
 import eu.hyvar.feature.HyVersion;
 import eu.hyvar.feature.graphical.base.deltaecore.wrapper.HyGeometryUtil;
 import eu.hyvar.feature.graphical.base.deltaecore.wrapper.layouter.version.HyVersionLayouterManager;
@@ -38,15 +37,8 @@ public class HyFeatureEditPart extends HyAbstractEditPart implements NodeEditPar
 	
 	public class HyFeatureAdapter implements Adapter {
 
-		// Adapter interface
 		@Override 
 		public void notifyChanged(Notification notification) {
-			
-			if(notification.getEventType() == Notification.REMOVE && notification.getOldValue() instanceof HyVersion){
-			}
-			if(notification.getEventType() == Notification.ADD && notification.getNewValue() instanceof HyFeatureChild){
-			}
-			
 			refreshChildren();
 			refreshVisuals();
 		}
@@ -210,14 +202,15 @@ public class HyFeatureEditPart extends HyAbstractEditPart implements NodeEditPar
 		setSize();
 		figure.update();
 		
-		
+		for(HyParentChildConnection connection : this.getModelSourceConnections()){
+			connection.notifyChange();
+		}
 		refreshVisualsOfChildren();
 	}
 	
 	@Override
 	protected void refreshChildren() {
 		super.refreshChildren();
-		
 		
 		HyFeature feature = ((HyFeatureWrapped)getModel()).getWrappedModelElement();
 		

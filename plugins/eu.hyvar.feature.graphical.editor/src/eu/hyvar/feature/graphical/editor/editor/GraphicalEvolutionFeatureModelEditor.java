@@ -38,14 +38,15 @@ import org.eclipse.ui.part.FileEditorInput;
 
 import eu.hyvar.feature.graphical.base.editor.GraphicalFeatureModelEditor;
 import eu.hyvar.feature.graphical.base.model.HyFeatureWrapped;
-import eu.hyvar.feature.graphical.editor.actions.HyGroupEditCardinalitiesAction;
 import eu.hyvar.feature.graphical.editor.actions.HyLinearTemporalElementChangeValidityAction;
 import eu.hyvar.feature.graphical.editor.actions.attribute.HyAttributeCreateBooleanAction;
+import eu.hyvar.feature.graphical.editor.actions.attribute.HyAttributeCreateEnumAction;
 import eu.hyvar.feature.graphical.editor.actions.attribute.HyAttributeCreateNumberAction;
 import eu.hyvar.feature.graphical.editor.actions.attribute.HyAttributeCreateStringAction;
 import eu.hyvar.feature.graphical.editor.actions.attribute.HyAttributeRenameAction;
+import eu.hyvar.feature.graphical.editor.actions.enumeration.HyFeatureAttributeEnumCreateEnumAction;
+import eu.hyvar.feature.graphical.editor.actions.enumeration.HyFeatureAttributeEnumCreateLiteralAction;
 import eu.hyvar.feature.graphical.editor.actions.feature.HyFeatureCreateSiblingAction;
-import eu.hyvar.feature.graphical.editor.actions.feature.HyFeatureEditCardinalitiesAction;
 import eu.hyvar.feature.graphical.editor.actions.feature.HyFeatureEditNamesAction;
 import eu.hyvar.feature.graphical.editor.actions.feature.HyFeatureEvolutionCreateChildAction;
 import eu.hyvar.feature.graphical.editor.actions.group.HyGroupChangeGroupTypeToAlternativeTypeAction;
@@ -105,9 +106,11 @@ public class GraphicalEvolutionFeatureModelEditor extends GraphicalFeatureModelE
 	
 	@SuppressWarnings("unchecked")
 	protected void createGroupActions(){
+		/*
 		HyGroupEditCardinalitiesAction groupTypeAction = new HyGroupEditCardinalitiesAction(this);
 		getActionRegistry().registerAction(groupTypeAction);
 		getSelectionActions().add(groupTypeAction.getId());
+		*/
 		
 		HyGroupChangeGroupTypeToAlternativeTypeAction groupChangeTypeToAlternativeAction = new HyGroupChangeGroupTypeToAlternativeTypeAction(this);
 		getActionRegistry().registerAction(groupChangeTypeToAlternativeAction);
@@ -120,6 +123,17 @@ public class GraphicalEvolutionFeatureModelEditor extends GraphicalFeatureModelE
 		HyGroupChangeGroupTypeToOrTypeAction groupChangeTypeToOrAction = new HyGroupChangeGroupTypeToOrTypeAction(this);
 		getActionRegistry().registerAction(groupChangeTypeToOrAction);
 		getSelectionActions().add(groupChangeTypeToOrAction.getId());
+	}
+	
+	@SuppressWarnings("unchecked")
+	protected void createEnumActions(){
+		HyFeatureAttributeEnumCreateEnumAction createEnumAction = new HyFeatureAttributeEnumCreateEnumAction(this);
+		getActionRegistry().registerAction(createEnumAction);
+		getSelectionActions().add(createEnumAction.getId());
+		
+		HyFeatureAttributeEnumCreateLiteralAction createLiteralAction = new HyFeatureAttributeEnumCreateLiteralAction(this);
+		getActionRegistry().registerAction(createLiteralAction);
+		getSelectionActions().add(createLiteralAction.getId());
 	}
 
 	@SuppressWarnings("unchecked")
@@ -137,11 +151,15 @@ public class GraphicalEvolutionFeatureModelEditor extends GraphicalFeatureModelE
 		getActionRegistry().registerAction(attributeCreateBooleanAction);
 		getSelectionActions().add(attributeCreateBooleanAction.getId());
 		
-		HyFeatureEvolutionCreateChildAction childAction = new HyFeatureEvolutionCreateChildAction(this, this);
+		HyAttributeCreateEnumAction attributeCreateEnumAction = new HyAttributeCreateEnumAction(this);
+		getActionRegistry().registerAction(attributeCreateEnumAction);
+		getSelectionActions().add(attributeCreateEnumAction.getId());		
+		
+		HyFeatureEvolutionCreateChildAction childAction = new HyFeatureEvolutionCreateChildAction(this);
 		getActionRegistry().registerAction(childAction);
 		getSelectionActions().add(childAction.getId());
 		
-		HyFeatureCreateSiblingAction siblingAction = new HyFeatureCreateSiblingAction(this, this);
+		HyFeatureCreateSiblingAction siblingAction = new HyFeatureCreateSiblingAction(this);
 		getActionRegistry().registerAction(siblingAction);
 		getSelectionActions().add(siblingAction.getId());		
 		
@@ -163,9 +181,13 @@ public class GraphicalEvolutionFeatureModelEditor extends GraphicalFeatureModelE
 		getActionRegistry().registerAction(visibilityAction);
 		getSelectionActions().add(visibilityAction.getId());
 		
+		
+		
+		/*
 		HyFeatureEditCardinalitiesAction featureTypeAction = new HyFeatureEditCardinalitiesAction(this);
 		getActionRegistry().registerAction(featureTypeAction);
 		getSelectionActions().add(featureTypeAction.getId());
+		*/
 		
 		HyFeatureEditNamesAction featureNameAction = new HyFeatureEditNamesAction(this);
 		getActionRegistry().registerAction(featureNameAction);
@@ -176,6 +198,7 @@ public class GraphicalEvolutionFeatureModelEditor extends GraphicalFeatureModelE
 		getSelectionActions().add(renameAttributeAction.getId());
 		
 		createGroupActions();
+		createEnumActions();
 		
 		super.createActions();
 	}

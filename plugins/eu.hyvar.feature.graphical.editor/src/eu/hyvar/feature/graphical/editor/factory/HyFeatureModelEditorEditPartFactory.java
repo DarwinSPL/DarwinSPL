@@ -3,6 +3,8 @@ package eu.hyvar.feature.graphical.editor.factory;
 import org.eclipse.gef.EditPart;
 import org.eclipse.gef.GraphicalViewer;
 
+import eu.hyvar.dataValues.HyEnum;
+import eu.hyvar.dataValues.HyEnumLiteral;
 import eu.hyvar.feature.HyFeatureAttribute;
 import eu.hyvar.feature.HyVersion;
 import eu.hyvar.feature.graphical.base.editor.GraphicalFeatureModelEditor;
@@ -14,9 +16,11 @@ import eu.hyvar.feature.graphical.base.model.HyGroupWrapped;
 import eu.hyvar.feature.graphical.base.model.HyParentChildConnection;
 import eu.hyvar.feature.graphical.base.model.HyRootFeatureWrapped;
 import eu.hyvar.feature.graphical.editor.editparts.HyAttributeEditorEditPart;
+import eu.hyvar.feature.graphical.editor.editparts.HyEnumEditorEditPart;
 import eu.hyvar.feature.graphical.editor.editparts.HyFeatureEditorEditPart;
 import eu.hyvar.feature.graphical.editor.editparts.HyFeatureModelEditorEditPart;
 import eu.hyvar.feature.graphical.editor.editparts.HyGroupEditorEditPart;
+import eu.hyvar.feature.graphical.editor.editparts.HyEnumLiteralEditorEditPart;
 import eu.hyvar.feature.graphical.editor.editparts.HyParentChildConnectionEditorEditPart;
 import eu.hyvar.feature.graphical.editor.editparts.HyRootFeatureEditorEditPart;
 import eu.hyvar.feature.graphical.editor.editparts.HyVersionEditorEditPart;
@@ -49,6 +53,10 @@ public class HyFeatureModelEditorEditPartFactory extends HyFeatureModelEditPartF
 			part = new HyVersionEditorEditPart(editor, featureModel);
 		}else if(model instanceof HyFeatureAttribute){
 			part = new HyAttributeEditorEditPart(editor, featureModel);
+		}else if(model instanceof HyEnum){
+			part = new HyEnumEditorEditPart(editor, featureModel);
+		}else if(model instanceof HyEnumLiteral){
+			part = new HyEnumLiteralEditorEditPart(editor, featureModel);
 		}
 
 		if(context != null && model != null && !(model instanceof HyParentChildConnection)){
@@ -56,7 +64,8 @@ public class HyFeatureModelEditorEditPartFactory extends HyFeatureModelEditPartF
 		}
 		if(part != null){
 			part.setModel(model);
-		}		
+		}	
+
 		
 		return part;
 	}

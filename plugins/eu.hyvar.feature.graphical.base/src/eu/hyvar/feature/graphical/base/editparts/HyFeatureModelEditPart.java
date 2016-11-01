@@ -47,8 +47,11 @@ public class HyFeatureModelEditPart extends AbstractGraphicalEditPart implements
 		HyFeatureModelWrapped model = (HyFeatureModelWrapped) getModel();
 		
 		GraphicalFeatureModelEditor editor = (GraphicalFeatureModelEditor)this.editor;
-
+		
 		List<Object> objects = new ArrayList<Object>();
+		
+		objects.addAll(model.getModel().getEnums());
+		
 		objects.addAll(model.getFeatures(editor.getCurrentSelectedDate()));
 		objects.addAll(model.getGroups());
 		return objects;
@@ -77,11 +80,13 @@ public class HyFeatureModelEditPart extends AbstractGraphicalEditPart implements
 	}
 
 	@Override
-	public void controlMoved(ControlEvent e) {		
+	public void controlMoved(ControlEvent e) {	
+		refresh();
 	}
 
 	@Override
-	public void controlResized(ControlEvent e) {		
+	public void controlResized(ControlEvent e) {	
+		refresh();
 	}
 	 
 	@Override
