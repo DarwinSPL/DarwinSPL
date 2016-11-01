@@ -50,7 +50,7 @@ Package feature <http://hyvar-project.eu/feature/1.0>
 
   Class HyEnumAttribute -> HyFeatureAttribute
     Reference enumType : HyEnum<<1..1>>
-    Reference default : HyEnumValue<<1..1>>
+    Reference default : HyEnumLiteral<<1..1>>
 
   Class HyFeatureAttribute -> HyTemporalElement, HyNamedElement
     Reference feature : HyFeature<<1..1>>

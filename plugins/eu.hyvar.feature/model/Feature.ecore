@@ -91,7 +91,7 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="enumType" lowerBound="1"
         eType="ecore:EClass ../../eu.hyvar.feature.data/model/DataValues.ecore#//HyEnum"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="default" lowerBound="1"
-        eType="ecore:EClass ../../eu.hyvar.feature.data/model/DataValues.ecore#//HyEnumValue"/>
+        eType="ecore:EClass ../../eu.hyvar.feature.data/model/DataValues.ecore#//HyEnumLiteral"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="HyFeatureAttribute" abstract="true"
       interface="true" eSuperTypes="../../eu.hyvar.evolution/model/Evolution.ecore#//HyTemporalElement ../../eu.hyvar.evolution/model/Evolution.ecore#//HyNamedElement">

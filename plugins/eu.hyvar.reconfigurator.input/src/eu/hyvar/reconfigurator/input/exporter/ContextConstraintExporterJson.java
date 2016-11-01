@@ -371,7 +371,7 @@ public class ContextConstraintExporterJson {
 						intValue = ((HyNumberAttribute) attribute).getDefault();
 					} else if (attribute instanceof HyEnumAttribute) {
 						HyEnumAttribute enumAttribute = (HyEnumAttribute) attribute;
-						intValue = enumAttribute.getDefault().getEnumLiteral().getValue();
+						intValue = enumAttribute.getDefault().getValue();
 					} else if (attribute instanceof HyBooleanAttribute) {
 						if (((HyBooleanAttribute) attribute).isDefault()) {
 							intValue = 1;
