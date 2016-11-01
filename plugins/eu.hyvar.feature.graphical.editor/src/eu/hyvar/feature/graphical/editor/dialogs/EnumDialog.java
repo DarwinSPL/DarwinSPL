@@ -119,7 +119,7 @@ public class EnumDialog extends Dialog implements Listener{
 	@Override
 	protected void configureShell(Shell newShell) {
 		super.configureShell(newShell);
-		newShell.setText("Select Date");
+		newShell.setText("Select Enum");
 	}
 
 	@Override
