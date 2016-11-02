@@ -66,8 +66,6 @@ public class HyAttributeEditPart  extends HyAbstractEditPart{
 		parent.setLayoutConstraint(this, figure, layout);	
 		
 		
-		
-		
 
 		
 

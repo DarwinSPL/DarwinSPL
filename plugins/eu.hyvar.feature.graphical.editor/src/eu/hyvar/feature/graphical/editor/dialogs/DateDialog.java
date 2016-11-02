@@ -61,7 +61,6 @@ public class DateDialog extends Dialog implements Listener{
 
 			@Override
 			public void keyReleased(KeyEvent e) {				
-				//System.out.println(timeWidget.getChildren().length);
 				//dateChanged();
 			}
 	    });

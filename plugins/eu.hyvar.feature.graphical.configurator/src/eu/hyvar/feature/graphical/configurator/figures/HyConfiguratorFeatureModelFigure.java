@@ -18,6 +18,7 @@ import eu.hyvar.feature.configuration.util.HyConfigurationUtil;
 import eu.hyvar.feature.graphical.base.model.HyFeatureModelWrapped;
 import eu.hyvar.feature.graphical.base.model.HyFeatureWrapped;
 import eu.hyvar.feature.graphical.configurator.editor.HyFeatureModelDeltaModuleConfiguratorEditor;
+import eu.hyvar.feature.graphical.base.util.HyFeatureUtil;
 
 public class HyConfiguratorFeatureModelFigure extends FreeformLayer {
 	private HyFeatureModelWrapped featureModel;
@@ -41,9 +42,9 @@ public class HyConfiguratorFeatureModelFigure extends FreeformLayer {
 
 		for (HyFeatureWrapped feature : featureModel.getFeatures(null)) {
 
-				Rectangle featureMarkRectangle = getFeatureMarkRectangle(feature);
+				//Rectangle featureMarkRectangle = getFeatureMarkRectangle(feature);
 				
-				drawFeatureMarks(feature, graphics);
+				//drawFeatureMarks(feature, graphics);
 				
 				/*
 				boolean featureHasError = graphicalEditor.hasError(feature);
@@ -94,7 +95,7 @@ public class HyConfiguratorFeatureModelFigure extends FreeformLayer {
 		Rectangle featureMarkRectangle = new Rectangle(feature.getPosition(date), feature.getSize());
 		
 		
-		if(!feature.isWithoutModifier(date)) {
+		if(HyFeatureUtil.isWithModifier(feature.getWrappedModelElement(), date)) {
 			int increment = (theme.getFeatureVariationTypeExtent() - 1);
 			featureMarkRectangle.y += increment;
 			featureMarkRectangle.height -= increment;

@@ -1,14 +1,11 @@
 package eu.hyvar.feature.graphical.base.figures;
 
 import java.util.Date;
-import java.util.List;
 
 import org.deltaecore.feature.graphical.base.editor.DEGraphicalEditor;
 import org.deltaecore.feature.graphical.base.util.DEDrawingUtil;
-import org.deltaecore.feature.graphical.base.util.DEGeometryUtil;
 import org.deltaecore.feature.graphical.base.util.DEGraphicalEditorTheme;
 import org.eclipse.draw2d.AbstractConnectionAnchor;
-import org.eclipse.draw2d.ColorConstants;
 import org.eclipse.draw2d.ConnectionAnchor;
 import org.eclipse.draw2d.Figure;
 import org.eclipse.draw2d.Graphics;
@@ -85,7 +82,6 @@ public class HyFeatureFigure extends Figure{
 
 	private void createChildFigures() {
 		DEGraphicalEditorTheme theme = DEGraphicalEditor.getTheme();
-		
 		label = new Label();
 		label.setFont(theme.getFeatureFont());
 		label.setForegroundColor(theme.getFeatureFontColor());
@@ -246,9 +242,12 @@ public class HyFeatureFigure extends Figure{
 		DEGraphicalEditorTheme theme = DEGraphicalEditor.getTheme();
 		
 		
+		
 		int index = HyEvolutionUtil.getValidTemporalElements(attribute.getFeature().getAttributes(), editor.getCurrentSelectedDate()).indexOf(attribute);
 		int height = theme.getFeatureNameAreaHeight()+theme.getLineWidth();
 		int y = getHeightWithoutAttributes();
+		
+
 		
 		return new Rectangle(new Point(theme.getLineWidth(), y + index*height), 
 				 new Dimension(feature.getSize().width-theme.getLineWidth()*2, height));

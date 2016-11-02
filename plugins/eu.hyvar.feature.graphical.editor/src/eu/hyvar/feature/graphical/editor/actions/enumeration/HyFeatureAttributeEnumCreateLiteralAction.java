@@ -22,6 +22,9 @@ public class HyFeatureAttributeEnumCreateLiteralAction extends HyCommandAction{
 
 	@Override
 	protected boolean calculateEnabled() {
+		if(getSelectedObjects().size() == 0)
+			return false;
+		
 		if(this.getSelectedObjects().get(0) instanceof HyEnumEditPart){
 			return true;
 		}

@@ -58,7 +58,9 @@ public class HyConfiguratorAttributeEditPart extends HyAttributeEditPart {
 					if(attributeValue != null){
 						HyConfiguratorEditorUtil.addAttributeToConfiguration(configuration, attribute, attributeValue, editor.getCurrentSelectedDate());	
 					}
-				}			
+				}	
+				
+				editor.refreshView();
 			}
 		}
 	}

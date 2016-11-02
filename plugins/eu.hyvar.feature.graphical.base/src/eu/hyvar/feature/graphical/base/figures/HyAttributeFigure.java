@@ -30,6 +30,8 @@ public class HyAttributeFigure extends Figure{
 		createChildFigures();
 	}
 	
+	
+	
 	private String getType(){
 		if(attribute == null)
 			return "No Attribute specified";

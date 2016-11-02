@@ -41,6 +41,8 @@ public class HyConfiguratorVersionEditPart extends HyVersionEditPart{
 					HyConfiguratorEditorUtil.addFeatureToConfiguration(selectedConfiguration, version.getFeature(), editor.getCurrentSelectedDate());				
 				}				
 			}
+			
+			editor.refreshView();
 		}
 	}	
 }

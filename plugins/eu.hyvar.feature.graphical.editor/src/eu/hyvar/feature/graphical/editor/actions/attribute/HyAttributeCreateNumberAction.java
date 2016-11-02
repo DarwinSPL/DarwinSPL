@@ -6,6 +6,7 @@ import eu.hyvar.evolution.HyEvolutionFactory;
 import eu.hyvar.evolution.HyName;
 import eu.hyvar.feature.HyFeatureAttribute;
 import eu.hyvar.feature.HyFeatureFactory;
+import eu.hyvar.feature.HyNumberAttribute;
 import eu.hyvar.feature.graphical.editor.editor.GraphicalEvolutionFeatureModelEditor;
 
 public class HyAttributeCreateNumberAction extends HyAttributeCreateAction{
@@ -25,7 +26,7 @@ public class HyAttributeCreateNumberAction extends HyAttributeCreateAction{
 
 	@Override
 	protected HyFeatureAttribute createNewAttribute(){
-		HyFeatureAttribute attribute = HyFeatureFactory.eINSTANCE.createHyNumberAttribute();
+		HyNumberAttribute attribute = HyFeatureFactory.eINSTANCE.createHyNumberAttribute();
 		attribute.setValidSince(editor.getCurrentSelectedDate());
 		HyName name = HyEvolutionFactory.eINSTANCE.createHyName();
 		name.setName("New Number Attribute");

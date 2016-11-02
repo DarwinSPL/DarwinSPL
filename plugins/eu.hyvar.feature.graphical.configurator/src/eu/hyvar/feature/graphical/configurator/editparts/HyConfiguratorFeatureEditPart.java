@@ -44,5 +44,7 @@ public class HyConfiguratorFeatureEditPart extends HyFeatureEditPart{
 				HyConfiguratorEditorUtil.removeChildrenFeaturesFromConfiguration(configuration, feature.getWrappedModelElement(), editor.getCurrentSelectedDate());
 			}
 		}
+		
+		editor.refreshView();
 	}	
 }

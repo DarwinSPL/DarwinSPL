@@ -19,7 +19,6 @@ public class HyVersionTreeForTreeLayout extends AbstractTreeForTreeLayout<HyVers
 
 	@Override
 	public List<HyVersion> getChildrenList(HyVersion version) {
-		System.out.println(version);
 		List<HyVersion> children =  HyEvolutionUtil.getValidTemporalElements(version.getSupersedingVersions(), date);
 		
 		return children;

@@ -71,13 +71,12 @@ public class HyGroupEditPart extends HyAbstractEditPart{
 		Point parentPosition = model.getParentFeature().getPosition(null).getCopy();
 		parentPosition.x += model.getParentFeature().getSize().width() / 2.0 - theme.getGroupSymbolRadius();
 		parentPosition.y += theme.getFeatureNameAreaHeight() + 
-				theme.getFeatureVariationTypeExtent() + theme.getLineWidth() * 2;
+				theme.getFeatureVariationTypeExtent() + theme.getLineWidth() * 2 + 50;
 
 		int size = theme.getLineWidth() * 2 + theme.getGroupSymbolRadius() * 2;
 		
 		HyFeatureModelEditPart parent = (HyFeatureModelEditPart)getParent();
 		parent.setLayoutConstraint(this, figure, new Rectangle(parentPosition, new Dimension(size, size)));
-		
 	}
 	
 	private void refreshVisibillity(){

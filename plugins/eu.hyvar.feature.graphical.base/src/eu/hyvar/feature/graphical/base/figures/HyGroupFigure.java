@@ -153,12 +153,17 @@ public class HyGroupFigure extends HyAbstractFigure{
 		GraphicalFeatureModelEditor editor = (GraphicalFeatureModelEditor)this.editor;
 		Date date = editor.getCurrentSelectedDate();
 
-		Point parentPosition = group.getParentFeature().getPosition(null).getCopy();
+		HyFeatureWrapped wrappedFeature = group.getParentFeature();
+		Point parentPosition = wrappedFeature.getPosition(date).getCopy();
+		parentPosition.y += wrappedFeature.getSize().height;
 		parentPosition.x += group.getParentFeature().getSize().width() / 2.0 - theme.getGroupSymbolRadius();
-		parentPosition.y += theme.getFeatureNameAreaHeight() + 
-				theme.getFeatureVariationTypeExtent() + theme.getLineWidth() * 2;
+		//parentPosition.y += theme.getFeatureNameAreaHeight() + 
+		//		theme.getFeatureVariationTypeExtent() + theme.getLineWidth() * 2 + 50;
 
+		
 		int size = theme.getLineWidth() * 2 + theme.getGroupSymbolRadius() * 2;
+		
+		
 		this.setBounds(new Rectangle(parentPosition, new Dimension(size, size)));
 
 		

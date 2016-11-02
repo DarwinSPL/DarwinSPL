@@ -23,4 +23,5 @@ Export-Package: eu.hyvar.feature.graphical.base.anchors,
  eu.hyvar.feature.graphical.base.editparts,
  eu.hyvar.feature.graphical.base.factory,
  eu.hyvar.feature.graphical.base.figures,
- eu.hyvar.feature.graphical.base.model
+ eu.hyvar.feature.graphical.base.model,
+ eu.hyvar.feature.graphical.base.util

@@ -63,21 +63,12 @@ public class HyParentChildConnectionEvolutionReconnectCommand extends HyParentCh
 			}else{
 				newComposition.getFeatures().add(f);
 				f.getGroupMembership().add(newComposition);
-			}
-			
-			System.out.println(f.getNames().get(0).getName()+" ==> "+f.getGroupMembership().size());
+			}			
 		}
 
 		group.getParentOf().add(newComposition);
 		
 		removeUnlogicalComposition(composition);
-		
-		for(HyFeature f : composition.getFeatures()){
-			System.out.println(f.getNames().get(0).getName()+" ====> "+f.getGroupMembership().size());
-			for(HyGroupComposition c : f.getGroupMembership()){
-				System.out.println(c.getValidSince()+"  "+c.getValidUntil());
-			}
-		}
 
 		return newComposition;
 

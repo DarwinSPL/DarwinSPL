@@ -40,7 +40,6 @@ public class HyFeatureModelXYLayoutPolicy extends XYLayoutEditPolicy{
 
 	@Override
 	protected Command getCreateCommand(CreateRequest request) {
-		System.out.println(request);
 /*
 		if(request.getNewObject() instanceof HyFeatureWrapped){
 			HyFeatureCreateCommand command = new HyFeatureCreateCommand();

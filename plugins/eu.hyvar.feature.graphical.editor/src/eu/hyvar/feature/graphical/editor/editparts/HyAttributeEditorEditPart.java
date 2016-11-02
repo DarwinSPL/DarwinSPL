@@ -15,8 +15,10 @@ import eu.hyvar.feature.graphical.base.editor.GraphicalFeatureModelEditor;
 import eu.hyvar.feature.graphical.base.editparts.HyAttributeEditPart;
 import eu.hyvar.feature.graphical.base.figures.HyAttributeFigure;
 import eu.hyvar.feature.graphical.base.model.HyFeatureModelWrapped;
+import eu.hyvar.feature.graphical.editor.editor.GraphicalEvolutionFeatureModelEditor;
 import eu.hyvar.feature.graphical.editor.locators.HyAttributeCellEditorLocator;
 import eu.hyvar.feature.graphical.editor.managers.HyAttributeDirectEditManager;
+import eu.hyvar.feature.graphical.editor.policies.HyAttributeComponentPolicy;
 import eu.hyvar.feature.graphical.editor.policies.HyAttributeDirectEditPolicy;
 
 public class HyAttributeEditorEditPart extends HyAttributeEditPart {
@@ -56,8 +58,8 @@ public class HyAttributeEditorEditPart extends HyAttributeEditPart {
 
 	@Override
 	protected void createEditPolicies() {		
-		//installEditPolicy(EditPolicy.COMPONENT_ROLE, new HyAttributeComponentPolicy(featureModel, (GraphicalEvolutionFeatureModelEditor)editor));
-		//installEditPolicy(EditPolicy.DIRECT_EDIT_ROLE, new HyAttributeDirectEditPolicy());
+		installEditPolicy(EditPolicy.COMPONENT_ROLE, new HyAttributeComponentPolicy(featureModel, editor));
+		installEditPolicy(EditPolicy.DIRECT_EDIT_ROLE, new HyAttributeDirectEditPolicy());
 	}
 
 

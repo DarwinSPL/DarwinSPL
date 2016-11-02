@@ -1,12 +1,25 @@
 package eu.hyvar.feature.graphical.base.editor;
 
+import java.io.ByteArrayInputStream;
+import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
+import java.nio.charset.Charset;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.Date;
 import java.util.List;
 
 import org.deltaecore.feature.graphical.base.util.DEGraphicalEditorTheme;
 import org.eclipse.core.resources.IFile;
+import org.eclipse.core.resources.IResource;
+import org.eclipse.core.resources.IWorkspace;
+import org.eclipse.core.resources.IWorkspaceRoot;
+import org.eclipse.core.resources.ResourcesPlugin;
+import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
@@ -39,6 +52,9 @@ import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.IEditorReference;
 import org.eclipse.ui.IFileEditorInput;
+import org.eclipse.ui.IWorkbench;
+import org.eclipse.ui.IWorkbenchPage;
+import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.PlatformUI;
 
 import eu.hyvar.evolution.HyEvolutionUtil;
@@ -48,6 +64,7 @@ import eu.hyvar.feature.graphical.base.dialogs.DateDialog;
 import eu.hyvar.feature.graphical.base.editparts.HyFeatureModelEditPart;
 import eu.hyvar.feature.graphical.base.factory.HyFeatureModelEditPartFactory;
 import eu.hyvar.feature.graphical.base.model.HyFeatureModelWrapped;
+import eu.hyvar.feature.graphical.base.model.HyFeatureWrapped;
 
 
 public class GraphicalFeatureModelEditor extends GraphicalEditor implements IFeatureModelEditor{
@@ -64,18 +81,18 @@ public class GraphicalFeatureModelEditor extends GraphicalEditor implements IFea
 	protected boolean dirty = false;
 
 
-	
+
 
 	public Date getCurrentSelectedDate() {
 		return currentSelectedDate;
 	}
 
-	
+
 	public void executeCommand(Command command) {
 		CommandStack commandStack = getCommandStack();
 		commandStack.execute(command);
 	}
-	
+
 
 
 	public void setCurrentSelectedDate(Date currentSelectedDate) {
@@ -138,6 +155,13 @@ public class GraphicalFeatureModelEditor extends GraphicalEditor implements IFea
 	public GraphicalFeatureModelEditor(){
 		setEditDomain(new DefaultEditDomain(this));	
 	}
+	
+	
+
+	public IFile getFile() {
+		return file;
+	}
+
 
 	@Override
 	public void doSave(IProgressMonitor monitor) {
@@ -146,6 +170,8 @@ public class GraphicalFeatureModelEditor extends GraphicalEditor implements IFea
 		try{
 			resource.save(null);
 			getCommandStack().markSaveLocation();
+
+			saveLayout();
 		}catch(IOException e){
 			e.printStackTrace();
 			resource = null;
@@ -190,6 +216,7 @@ public class GraphicalFeatureModelEditor extends GraphicalEditor implements IFea
 
 		ResourceSet resourceSet = new ResourceSetImpl();
 		resource = resourceSet.createResource(URI.createURI(file.getLocationURI().toString()));
+
 		try{
 			resource.load(null);
 
@@ -201,8 +228,9 @@ public class GraphicalFeatureModelEditor extends GraphicalEditor implements IFea
 
 
 			setEditorTabText(file.getName());
-			//modelWrapped = new HyFeatureModelWrapped((HyFeatureModel)resource.getContents().get(0));
-			//modelWrapped.rearrangeFeatures();
+
+
+			loadLayout(file);
 		}catch(IOException e){
 			e.printStackTrace();
 			resource = null;
@@ -247,20 +275,20 @@ public class GraphicalFeatureModelEditor extends GraphicalEditor implements IFea
 
 
 
-		
-		
+
+
 		currentDate = new Button(buttonGroup, SWT.PUSH);
 		currentDate.addListener(SWT.Selection, new Listener(){
 			public void handleEvent(Event event){
 				DateDialog dialog = new DateDialog(getEditorSite().getShell(), getCurrentSelectedDate());
 				dialog.open();
-				
+
 				Date newDate = dialog.getValue();
 				if(modelWrapped.addDate(newDate)){
 					int size = modelWrapped.getDates().size();
 					scale.setMaximum(size-1);
 					scale.setEnabled(size > 2);
-					
+
 					scale.setSelection(modelWrapped.getDates().indexOf(newDate));
 					dateChanged(newDate);
 				}
@@ -288,7 +316,7 @@ public class GraphicalFeatureModelEditor extends GraphicalEditor implements IFea
 					scale.setSelection(index);
 			}
 		});
-		*/
+		 */
 
 		Label minStateLabel = new Label(buttonGroup, SWT.CENTER);
 		minStateLabel.setText("Date range from ");
@@ -319,7 +347,7 @@ public class GraphicalFeatureModelEditor extends GraphicalEditor implements IFea
 				scale.setMaximum(index);
 			}
 		});
-				
+
 		scale = new Scale(buttonGroup, SWT.FILL);
 		scale.setMinimum(0);
 		scale.setMaximum(size-1);
@@ -346,7 +374,7 @@ public class GraphicalFeatureModelEditor extends GraphicalEditor implements IFea
 
 				if(value != null){
 					modelWrapped.addDate(value);
-					
+
 					int size = modelWrapped.getDates().size();
 					scale.setMaximum(size-1);
 					scale.setEnabled(size > 2);
@@ -382,7 +410,7 @@ public class GraphicalFeatureModelEditor extends GraphicalEditor implements IFea
 	/**
 	 * Creates the editor and adds a control bar to switch between dates
 	 */
-	
+
 	public void createPartControl(Composite parent){
 		parent.setLayout(new GridLayout(2, false));
 
@@ -410,32 +438,6 @@ public class GraphicalFeatureModelEditor extends GraphicalEditor implements IFea
 		hookGraphicalViewer();
 		initializeGraphicalViewer();
 	}
-	
-
-	//@Override
-	/*
-	public void propertyChange(PropertyChangeEvent arg) {
-		System.out.println(arg);
-		if(arg.getPropertyName() == HyFeatureModelWrapped.PROPERTY_DATES_COUNT){
-			List<Date> dates = modelWrapped.getDates();
-			int size = dates.size();
-			boolean enabled = size > 1;
-			scale.setMaximum(size-1);
-			scale.setEnabled(enabled);
-
-			currentState.setMaximum(size);
-			currentState.setEnabled(enabled);
-
-			maxState.setMaximum(size);
-			maxState.setEnabled(enabled);
-
-			minState.setMaximum(size);
-			minState.setEnabled(enabled);
-		}
-	}
-
-
-*/
 
 
 
@@ -447,10 +449,80 @@ public class GraphicalFeatureModelEditor extends GraphicalEditor implements IFea
 			return super.getAdapter(type);
 
 	}
-	
+
 
 	//@Override
 	public EObject getInternalFeatureModel() {
 		return modelWrapped.getModel();
 	}
+
+	private void loadLayout(IFile file){
+
+		IWorkspace workspace = ResourcesPlugin.getWorkspace();
+		IWorkspaceRoot workspaceRoot = workspace.getRoot();
+
+		IPath path = ((IPath)file.getFullPath().clone()).removeFileExtension().addFileExtension("hylayout");
+		IResource resourceInRuntimeWorkspace = workspaceRoot.findMember(path.toString());
+
+		if(resourceInRuntimeWorkspace != null){
+			File cfile = new File(resourceInRuntimeWorkspace.getLocationURI());
+
+			if(cfile.exists()){
+				try {
+					List<String> lines = Files.readAllLines(Paths.get(cfile.getPath()), Charset.defaultCharset());
+					for(String line : lines){
+						String[] parts = line.split(",");
+						if(parts.length != 3){
+							System.err.println("Layout file is corrupt at some point");
+							continue;
+						}
+
+						String id = parts[0];
+						int x = Integer.parseInt(parts[1]);
+						int y = Integer.parseInt(parts[2]);
+
+						modelWrapped.setAutoLayoutActive(false);
+						for(HyFeatureWrapped featureWrapped : this.getModelWrapped().getFeatures(null)){
+							if(id.equals(featureWrapped.getWrappedModelElement().getId())){
+								featureWrapped.setPosition(new Point(x, y));
+							}
+						}
+
+						this.refreshView();
+					}
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}	
+		}
+	}
+
+	private void saveLayout(){
+
+		IWorkspace workspace = ResourcesPlugin.getWorkspace();
+		IWorkspaceRoot workspaceRoot = workspace.getRoot();
+
+		IPath path = ((IPath)file.getFullPath().clone()).removeFileExtension().addFileExtension("hylayout");
+
+		String fileContent = "";
+		for(HyFeatureWrapped feature : this.getModelWrapped().getFeatures(null)){
+			fileContent += feature.getWrappedModelElement().getId()+","+feature.getPosition(null).x()+","+feature.getPosition(null).y()+"\n";
+		}
+
+		IFile file = workspaceRoot.getFile(path);
+
+		InputStream source = new ByteArrayInputStream(fileContent.getBytes());
+		try {
+			if(!file.exists()){
+				file.create(source, IResource.NONE, null);
+			}else{
+				file.setContents(source, IResource.FORCE, null);
+			}
+		} catch (CoreException e) {
+			e.printStackTrace();
+		}
+	}
+
+
 }

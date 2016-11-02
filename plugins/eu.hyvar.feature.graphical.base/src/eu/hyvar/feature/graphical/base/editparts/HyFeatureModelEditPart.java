@@ -95,8 +95,15 @@ public class HyFeatureModelEditPart extends AbstractGraphicalEditPart implements
 		
 		super.refresh();
 		
-		for(Object children : this.getChildren()){
-			((EditPart)children).refresh();
+		for(Object child : this.getChildren()){
+			if(child instanceof HyParentChildConnectionEditPart)
+				((EditPart)child).refresh();
+			if(child instanceof HyFeatureEditPart){
+				((EditPart)child).refresh();
+			}
+			if(child instanceof HyEnumEditPart){
+				((EditPart)child).refresh();
+			}
 		}
 		
 	}

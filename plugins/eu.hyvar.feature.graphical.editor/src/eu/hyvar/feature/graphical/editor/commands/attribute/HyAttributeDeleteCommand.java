@@ -7,9 +7,10 @@ import org.eclipse.emf.common.notify.impl.NotificationImpl;
 import org.eclipse.gef.commands.Command;
 
 import eu.hyvar.feature.HyFeatureAttribute;
+import eu.hyvar.feature.graphical.base.editor.GraphicalFeatureModelEditor;
 import eu.hyvar.feature.graphical.editor.editor.GraphicalEvolutionFeatureModelEditor;
 
-public class HyAttributeEvolutionDeleteCommand extends Command{
+public class HyAttributeDeleteCommand extends Command{
 	private class AttributeTemporalDeleteNotification extends NotificationImpl{
 
 		public AttributeTemporalDeleteNotification(int eventType, Object oldValue, Object newValue) {
@@ -18,16 +19,10 @@ public class HyAttributeEvolutionDeleteCommand extends Command{
 
 	
 	}
-	private GraphicalEvolutionFeatureModelEditor editor;
+	private GraphicalFeatureModelEditor editor;
 	private HyFeatureAttribute attribute;
 	
-	public GraphicalEvolutionFeatureModelEditor getEditor() {
-		return editor;
-	}
 
-	public void setEditor(GraphicalEvolutionFeatureModelEditor editor) {
-		this.editor = editor;
-	}
 
 	public HyFeatureAttribute getAttribute() {
 		return attribute;
@@ -37,7 +32,7 @@ public class HyAttributeEvolutionDeleteCommand extends Command{
 		this.attribute = attribute;
 	}
 		
-	public HyAttributeEvolutionDeleteCommand(GraphicalEvolutionFeatureModelEditor editor) {
+	public HyAttributeDeleteCommand(GraphicalFeatureModelEditor editor) {
 		this.editor = editor;
 	}
 

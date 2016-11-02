@@ -1,8 +1,10 @@
 package eu.hyvar.feature.graphical.editor.editor;
 
 import java.io.ByteArrayInputStream;
+import java.io.IOException;
 import java.io.InputStream;
 import java.util.EventObject;
+import java.util.Iterator;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IResource;
@@ -11,6 +13,7 @@ import org.eclipse.core.resources.IWorkspaceRoot;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
+import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.e4.ui.model.application.ui.MUIElement;
 import org.eclipse.e4.ui.model.application.ui.advanced.MArea;
 import org.eclipse.e4.ui.model.application.ui.basic.MPart;
@@ -24,8 +27,13 @@ import org.eclipse.gef.KeyHandler;
 import org.eclipse.gef.KeyStroke;
 import org.eclipse.gef.commands.Command;
 import org.eclipse.gef.commands.CommandStack;
+import org.eclipse.gef.ui.actions.ActionRegistry;
+import org.eclipse.gef.ui.actions.SaveAction;
+import org.eclipse.gef.ui.actions.UpdateAction;
 import org.eclipse.gef.ui.parts.GraphicalViewerKeyHandler;
+import org.eclipse.jface.action.IAction;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.widgets.List;
 import org.eclipse.ui.IEditorDescriptor;
 import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.IWorkbench;
@@ -38,6 +46,7 @@ import org.eclipse.ui.part.FileEditorInput;
 
 import eu.hyvar.feature.graphical.base.editor.GraphicalFeatureModelEditor;
 import eu.hyvar.feature.graphical.base.model.HyFeatureWrapped;
+import eu.hyvar.feature.graphical.editor.actions.HyFeatureModelCreateOverviewAction;
 import eu.hyvar.feature.graphical.editor.actions.HyLinearTemporalElementChangeValidityAction;
 import eu.hyvar.feature.graphical.editor.actions.attribute.HyAttributeCreateBooleanAction;
 import eu.hyvar.feature.graphical.editor.actions.attribute.HyAttributeCreateEnumAction;
@@ -103,6 +112,8 @@ public class GraphicalEvolutionFeatureModelEditor extends GraphicalFeatureModelE
 		openEditorForFileExtension("hycontextinformation");
 		openEditorForFileExtension("hyvalidityformula");
 	}
+	
+
 	
 	@SuppressWarnings("unchecked")
 	protected void createGroupActions(){
@@ -205,50 +216,10 @@ public class GraphicalEvolutionFeatureModelEditor extends GraphicalFeatureModelE
 
 
 	
-	private void saveLayout(){
-		//IWorkbench workbench = PlatformUI.getWorkbench();
-		//IWorkbenchWindow workbenchWindow = workbench.getActiveWorkbenchWindow();
-		//IWorkbenchPage workbenchPage = workbenchWindow.getActivePage();
-		IWorkspace workspace = ResourcesPlugin.getWorkspace();
-		IWorkspaceRoot workspaceRoot = workspace.getRoot();
 
-		IPath path = ((IPath)file.getFullPath().clone()).removeFileExtension().addFileExtension("hylayout");
-		
-		String fileContent = "";
-		for(HyFeatureWrapped feature : this.getModelWrapped().getFeatures(null)){
-			fileContent += feature.getWrappedModelElement().getId()+","+feature.getPosition(null).x()+","+feature.getPosition(null).y()+"\n";
-		}
-		
-		IFile file = workspaceRoot.getFile(path);
-		if(!file.exists()){
-		    InputStream source = new ByteArrayInputStream(fileContent.getBytes());
-			try {
-				file.create(source, IResource.NONE, null);
-			} catch (CoreException e) {
-				e.printStackTrace();
-			}
-		}
-	}
 	
-	/*
+
 	
-	@SuppressWarnings("rawtypes")
-	@Override
-	protected void updateActions(List actionIds) {
-		ActionRegistry registry = getActionRegistry();
-		Iterator iter = actionIds.iterator();
-		while (iter.hasNext()) {
-			IAction action = registry.getAction(iter.next());
-			if (action instanceof UpdateAction)
-				((UpdateAction) action).update();
-			if (action instanceof SaveAction){				
-				((SaveAction) action).run();
-				saveLayout();
-			}
-		}
-	}	
-	
-	*/
 	
 	private MPartStack secondEditor;	
 	
