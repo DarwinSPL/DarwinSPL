@@ -225,7 +225,7 @@ public class EValidatorAdapter extends EObjectValidator {
 		}
 		
 		// Attribute Constraint
-		for(int i = 0; i < attributes.size(); i++){
+		for(int i = 0; i < dates.size(); i++){
 			Date date = dates.get(i);
 			
 			int count = 0;
@@ -378,6 +378,7 @@ public class EValidatorAdapter extends EObjectValidator {
 	private void checkHyGroupCompositionConstraints(EClass eClass, EObject eObject, DiagnosticChain diagnostics,
 			Map<Object, Object> context) {
 		
+		//FIXME date = null?!
 		HyGroupComposition composition = (HyGroupComposition) eObject;
 		
 		EList<HyFeature> features = composition.getFeatures();

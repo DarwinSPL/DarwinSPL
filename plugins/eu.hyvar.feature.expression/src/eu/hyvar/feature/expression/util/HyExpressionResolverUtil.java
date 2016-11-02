@@ -85,27 +85,28 @@ public class HyExpressionResolverUtil {
 	
 	public static HyEnum resolveEnum(String identifier, EObject elementFromAccompanyingResource) {
 		
+		HyEnum resolved = null;
 		
 		if (identifier == null) {
 			return null;
 		}
-		
+		// TODO: Ambiguity between Enums in FM and ContextModel
+		// TODO evolution
 		HyContextModel contextModel = ContextInformationResolverUtil.getAccompanyingContextModel(elementFromAccompanyingResource);
 		
-		if(contextModel == null) {
-			return null;
+		if(contextModel != null) {
+			resolved =  ContextInformationResolverUtil.resolveEnum(identifier, contextModel, new Date());
 		}
 		
-		// TODO incorporate evolution!
-//		try {
-			return ContextInformationResolverUtil.resolveEnum(identifier, contextModel, new Date());
-//		} catch (HyFeatureModelWellFormednessException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//			return null;
-//		}
+		if(resolved == null) {
+			HyFeatureModel featureModel = HyFeatureResolverUtil.getAccompanyingFeatureModel(elementFromAccompanyingResource);
+			
+			if(featureModel != null) {
+				resolved = HyFeatureResolverUtil.resolveEnum(identifier, featureModel, new Date());				
+			}
+		}
 		
-//		return null;
+		return resolved;
 	}
 	
 	
