@@ -17,8 +17,9 @@ Require-Bundle: org.eclipse.ui,
  org.eclipse.swt,
  eu.hyvar.feature.graphical.base,
  org.eclipse.e4.ui.model.workbench,
- eu.hyvar.feature.data,
- org.jboss.ide.eclipse.freemarker;bundle-version="1.5.1"
+ eu.hyvar.feature.data
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Bundle-ActivationPolicy: lazy
+Bundle-ClassPath: .,
+ libraries/freemarker.jar
 
