@@ -1929,7 +1929,7 @@ public class HymappingPrinter implements eu.hyvar.feature.mapping.resource.hymap
 		// DEFINITION PART BEGINS (CsString)
 		out.print("enum:");
 		out.print(" ");
-		// DEFINITION PART BEGINS (PlaceholderUsingDefaultToken)
+		// DEFINITION PART BEGINS (PlaceholderUsingSpecifiedToken)
 		count = printCountingMap.get("enum");
 		if (count > 0) {
 			Object o = element.eGet(element.eClass().getEStructuralFeature(eu.hyvar.dataValues.HyDataValuesPackage.HY_ENUM_VALUE__ENUM));
@@ -1944,7 +1944,7 @@ public class HymappingPrinter implements eu.hyvar.feature.mapping.resource.hymap
 		// DEFINITION PART BEGINS (CsString)
 		out.print(".");
 		out.print(" ");
-		// DEFINITION PART BEGINS (PlaceholderUsingDefaultToken)
+		// DEFINITION PART BEGINS (PlaceholderUsingSpecifiedToken)
 		count = printCountingMap.get("enumLiteral");
 		if (count > 0) {
 			Object o = element.eGet(element.eClass().getEStructuralFeature(eu.hyvar.dataValues.HyDataValuesPackage.HY_ENUM_VALUE__ENUM_LITERAL));
@@ -1984,17 +1984,17 @@ public class HymappingPrinter implements eu.hyvar.feature.mapping.resource.hymap
 		// DEFINITION PART BEGINS (CsString)
 		out.print("Enum(");
 		out.print(" ");
-		// DEFINITION PART BEGINS (PlaceholderUsingDefaultToken)
-		count = printCountingMap.get("id");
+		// DEFINITION PART BEGINS (PlaceholderUsingSpecifiedToken)
+		count = printCountingMap.get("name");
 		if (count > 0) {
-			Object o = element.eGet(element.eClass().getEStructuralFeature(eu.hyvar.dataValues.HyDataValuesPackage.HY_ENUM__ID));
+			Object o = element.eGet(element.eClass().getEStructuralFeature(eu.hyvar.dataValues.HyDataValuesPackage.HY_ENUM__NAME));
 			if (o != null) {
 				eu.hyvar.feature.mapping.resource.hymapping.IHymappingTokenResolver resolver = tokenResolverFactory.createTokenResolver("IDENTIFIER_TOKEN");
 				resolver.setOptions(getOptions());
-				out.print(resolver.deResolve((Object) o, element.eClass().getEStructuralFeature(eu.hyvar.dataValues.HyDataValuesPackage.HY_ENUM__ID), element));
+				out.print(resolver.deResolve((Object) o, element.eClass().getEStructuralFeature(eu.hyvar.dataValues.HyDataValuesPackage.HY_ENUM__NAME), element));
 				out.print(" ");
 			}
-			printCountingMap.put("id", count - 1);
+			printCountingMap.put("name", count - 1);
 		}
 		// DEFINITION PART BEGINS (CsString)
 		out.print(",");
@@ -2226,7 +2226,7 @@ public class HymappingPrinter implements eu.hyvar.feature.mapping.resource.hymap
 		// DEFINITION PART BEGINS (CsString)
 		out.print("EnumLiteral(");
 		out.print(" ");
-		// DEFINITION PART BEGINS (PlaceholderUsingDefaultToken)
+		// DEFINITION PART BEGINS (PlaceholderUsingSpecifiedToken)
 		count = printCountingMap.get("name");
 		if (count > 0) {
 			Object o = element.eGet(element.eClass().getEStructuralFeature(eu.hyvar.dataValues.HyDataValuesPackage.HY_ENUM_LITERAL__NAME));
@@ -2241,12 +2241,12 @@ public class HymappingPrinter implements eu.hyvar.feature.mapping.resource.hymap
 		// DEFINITION PART BEGINS (CsString)
 		out.print(",");
 		out.print(" ");
-		// DEFINITION PART BEGINS (PlaceholderUsingDefaultToken)
+		// DEFINITION PART BEGINS (PlaceholderUsingSpecifiedToken)
 		count = printCountingMap.get("value");
 		if (count > 0) {
 			Object o = element.eGet(element.eClass().getEStructuralFeature(eu.hyvar.dataValues.HyDataValuesPackage.HY_ENUM_LITERAL__VALUE));
 			if (o != null) {
-				eu.hyvar.feature.mapping.resource.hymapping.IHymappingTokenResolver resolver = tokenResolverFactory.createTokenResolver("IDENTIFIER_TOKEN");
+				eu.hyvar.feature.mapping.resource.hymapping.IHymappingTokenResolver resolver = tokenResolverFactory.createTokenResolver("INTEGER_LITERAL");
 				resolver.setOptions(getOptions());
 				out.print(resolver.deResolve((Object) o, element.eClass().getEStructuralFeature(eu.hyvar.dataValues.HyDataValuesPackage.HY_ENUM_LITERAL__VALUE), element));
 				out.print(" ");

@@ -1009,11 +1009,11 @@ public class HymappingLexer extends Lexer {
         try {
             int _type = IDENTIFIER_TOKEN;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // Hymapping.g:5190:17: ( ( ( 'A' .. 'Z' | 'a' .. 'z' | '_' ) ( 'A' .. 'Z' | 'a' .. 'z' | '_' | '0' .. '9' )* ) )
-            // Hymapping.g:5191:2: ( ( 'A' .. 'Z' | 'a' .. 'z' | '_' ) ( 'A' .. 'Z' | 'a' .. 'z' | '_' | '0' .. '9' )* )
+            // Hymapping.g:5190:17: ( ( ( 'A' .. 'Z' | 'a' .. 'z' | '_' ) ( 'A' .. 'Z' | 'a' .. 'z' | '_' | '0' .. '9' )* ( '@' ( ( '-' )? ( '0' .. '9' )+ '/' ( '-' )? ( '0' .. '9' )+ '/' ( '-' )? ( '0' .. '9' )+ ( 'T' ( '-' )? ( '0' .. '9' )+ ':' ( '-' )? ( '0' .. '9' )+ ( ':' ( '-' )? ( '0' .. '9' )+ )? )? ) )? ) )
+            // Hymapping.g:5191:2: ( ( 'A' .. 'Z' | 'a' .. 'z' | '_' ) ( 'A' .. 'Z' | 'a' .. 'z' | '_' | '0' .. '9' )* ( '@' ( ( '-' )? ( '0' .. '9' )+ '/' ( '-' )? ( '0' .. '9' )+ '/' ( '-' )? ( '0' .. '9' )+ ( 'T' ( '-' )? ( '0' .. '9' )+ ':' ( '-' )? ( '0' .. '9' )+ ( ':' ( '-' )? ( '0' .. '9' )+ )? )? ) )? )
             {
-            // Hymapping.g:5191:2: ( ( 'A' .. 'Z' | 'a' .. 'z' | '_' ) ( 'A' .. 'Z' | 'a' .. 'z' | '_' | '0' .. '9' )* )
-            // Hymapping.g:5191:2: ( 'A' .. 'Z' | 'a' .. 'z' | '_' ) ( 'A' .. 'Z' | 'a' .. 'z' | '_' | '0' .. '9' )*
+            // Hymapping.g:5191:2: ( ( 'A' .. 'Z' | 'a' .. 'z' | '_' ) ( 'A' .. 'Z' | 'a' .. 'z' | '_' | '0' .. '9' )* ( '@' ( ( '-' )? ( '0' .. '9' )+ '/' ( '-' )? ( '0' .. '9' )+ '/' ( '-' )? ( '0' .. '9' )+ ( 'T' ( '-' )? ( '0' .. '9' )+ ':' ( '-' )? ( '0' .. '9' )+ ( ':' ( '-' )? ( '0' .. '9' )+ )? )? ) )? )
+            // Hymapping.g:5191:2: ( 'A' .. 'Z' | 'a' .. 'z' | '_' ) ( 'A' .. 'Z' | 'a' .. 'z' | '_' | '0' .. '9' )* ( '@' ( ( '-' )? ( '0' .. '9' )+ '/' ( '-' )? ( '0' .. '9' )+ '/' ( '-' )? ( '0' .. '9' )+ ( 'T' ( '-' )? ( '0' .. '9' )+ ':' ( '-' )? ( '0' .. '9' )+ ( ':' ( '-' )? ( '0' .. '9' )+ )? )? ) )?
             {
             if ( (input.LA(1) >= 'A' && input.LA(1) <= 'Z')||input.LA(1)=='_'||(input.LA(1) >= 'a' && input.LA(1) <= 'z') ) {
                 input.consume();
@@ -1059,169 +1059,102 @@ public class HymappingLexer extends Lexer {
             } while (true);
 
 
+            // Hymapping.g:5191:59: ( '@' ( ( '-' )? ( '0' .. '9' )+ '/' ( '-' )? ( '0' .. '9' )+ '/' ( '-' )? ( '0' .. '9' )+ ( 'T' ( '-' )? ( '0' .. '9' )+ ':' ( '-' )? ( '0' .. '9' )+ ( ':' ( '-' )? ( '0' .. '9' )+ )? )? ) )?
+            int alt18=2;
+            int LA18_0 = input.LA(1);
+
+            if ( (LA18_0=='@') ) {
+                alt18=1;
             }
-
-
-            }
-
-            state.type = _type;
-            state.channel = _channel;
-        }
-        finally {
-        	// do for sure before leaving
-        }
-    }
-    // $ANTLR end "IDENTIFIER_TOKEN"
-
-    // $ANTLR start "DATE"
-    public final void mDATE() throws RecognitionException {
-        try {
-            int _type = DATE;
-            int _channel = DEFAULT_TOKEN_CHANNEL;
-            // Hymapping.g:5193:5: ( ( ( ( '0' .. '9' )+ '/' ( '0' .. '9' )+ '/' ( '0' .. '9' )+ ( 'T' ( '0' .. '9' )+ ':' ( '0' .. '9' )+ ( ':' ( '0' .. '9' )+ )? )? ) ) )
-            // Hymapping.g:5194:2: ( ( ( '0' .. '9' )+ '/' ( '0' .. '9' )+ '/' ( '0' .. '9' )+ ( 'T' ( '0' .. '9' )+ ':' ( '0' .. '9' )+ ( ':' ( '0' .. '9' )+ )? )? ) )
-            {
-            // Hymapping.g:5194:2: ( ( ( '0' .. '9' )+ '/' ( '0' .. '9' )+ '/' ( '0' .. '9' )+ ( 'T' ( '0' .. '9' )+ ':' ( '0' .. '9' )+ ( ':' ( '0' .. '9' )+ )? )? ) )
-            // Hymapping.g:5194:2: ( ( '0' .. '9' )+ '/' ( '0' .. '9' )+ '/' ( '0' .. '9' )+ ( 'T' ( '0' .. '9' )+ ':' ( '0' .. '9' )+ ( ':' ( '0' .. '9' )+ )? )? )
-            {
-            // Hymapping.g:5194:2: ( ( '0' .. '9' )+ '/' ( '0' .. '9' )+ '/' ( '0' .. '9' )+ ( 'T' ( '0' .. '9' )+ ':' ( '0' .. '9' )+ ( ':' ( '0' .. '9' )+ )? )? )
-            // Hymapping.g:5194:4: ( '0' .. '9' )+ '/' ( '0' .. '9' )+ '/' ( '0' .. '9' )+ ( 'T' ( '0' .. '9' )+ ':' ( '0' .. '9' )+ ( ':' ( '0' .. '9' )+ )? )?
-            {
-            // Hymapping.g:5194:4: ( '0' .. '9' )+
-            int cnt4=0;
-            loop4:
-            do {
-                int alt4=2;
-                int LA4_0 = input.LA(1);
-
-                if ( ((LA4_0 >= '0' && LA4_0 <= '9')) ) {
-                    alt4=1;
-                }
-
-
-                switch (alt4) {
-            	case 1 :
-            	    // Hymapping.g:
-            	    {
-            	    if ( (input.LA(1) >= '0' && input.LA(1) <= '9') ) {
-            	        input.consume();
-            	    }
-            	    else {
-            	        MismatchedSetException mse = new MismatchedSetException(null,input);
-            	        recover(mse);
-            	        throw mse;
-            	    }
-
-
-            	    }
-            	    break;
-
-            	default :
-            	    if ( cnt4 >= 1 ) break loop4;
-                        EarlyExitException eee =
-                            new EarlyExitException(4, input);
-                        throw eee;
-                }
-                cnt4++;
-            } while (true);
-
-
-            match('/'); 
-
-            // Hymapping.g:5194:20: ( '0' .. '9' )+
-            int cnt5=0;
-            loop5:
-            do {
-                int alt5=2;
-                int LA5_0 = input.LA(1);
-
-                if ( ((LA5_0 >= '0' && LA5_0 <= '9')) ) {
-                    alt5=1;
-                }
-
-
-                switch (alt5) {
-            	case 1 :
-            	    // Hymapping.g:
-            	    {
-            	    if ( (input.LA(1) >= '0' && input.LA(1) <= '9') ) {
-            	        input.consume();
-            	    }
-            	    else {
-            	        MismatchedSetException mse = new MismatchedSetException(null,input);
-            	        recover(mse);
-            	        throw mse;
-            	    }
-
-
-            	    }
-            	    break;
-
-            	default :
-            	    if ( cnt5 >= 1 ) break loop5;
-                        EarlyExitException eee =
-                            new EarlyExitException(5, input);
-                        throw eee;
-                }
-                cnt5++;
-            } while (true);
-
-
-            match('/'); 
-
-            // Hymapping.g:5194:36: ( '0' .. '9' )+
-            int cnt6=0;
-            loop6:
-            do {
-                int alt6=2;
-                int LA6_0 = input.LA(1);
-
-                if ( ((LA6_0 >= '0' && LA6_0 <= '9')) ) {
-                    alt6=1;
-                }
-
-
-                switch (alt6) {
-            	case 1 :
-            	    // Hymapping.g:
-            	    {
-            	    if ( (input.LA(1) >= '0' && input.LA(1) <= '9') ) {
-            	        input.consume();
-            	    }
-            	    else {
-            	        MismatchedSetException mse = new MismatchedSetException(null,input);
-            	        recover(mse);
-            	        throw mse;
-            	    }
-
-
-            	    }
-            	    break;
-
-            	default :
-            	    if ( cnt6 >= 1 ) break loop6;
-                        EarlyExitException eee =
-                            new EarlyExitException(6, input);
-                        throw eee;
-                }
-                cnt6++;
-            } while (true);
-
-
-            // Hymapping.g:5194:48: ( 'T' ( '0' .. '9' )+ ':' ( '0' .. '9' )+ ( ':' ( '0' .. '9' )+ )? )?
-            int alt11=2;
-            int LA11_0 = input.LA(1);
-
-            if ( (LA11_0=='T') ) {
-                alt11=1;
-            }
-            switch (alt11) {
+            switch (alt18) {
                 case 1 :
-                    // Hymapping.g:5194:50: 'T' ( '0' .. '9' )+ ':' ( '0' .. '9' )+ ( ':' ( '0' .. '9' )+ )?
+                    // Hymapping.g:5191:60: '@' ( ( '-' )? ( '0' .. '9' )+ '/' ( '-' )? ( '0' .. '9' )+ '/' ( '-' )? ( '0' .. '9' )+ ( 'T' ( '-' )? ( '0' .. '9' )+ ':' ( '-' )? ( '0' .. '9' )+ ( ':' ( '-' )? ( '0' .. '9' )+ )? )? )
                     {
-                    match('T'); 
+                    match('@'); 
 
-                    // Hymapping.g:5194:54: ( '0' .. '9' )+
+                    // Hymapping.g:5191:63: ( ( '-' )? ( '0' .. '9' )+ '/' ( '-' )? ( '0' .. '9' )+ '/' ( '-' )? ( '0' .. '9' )+ ( 'T' ( '-' )? ( '0' .. '9' )+ ':' ( '-' )? ( '0' .. '9' )+ ( ':' ( '-' )? ( '0' .. '9' )+ )? )? )
+                    // Hymapping.g:5191:64: ( '-' )? ( '0' .. '9' )+ '/' ( '-' )? ( '0' .. '9' )+ '/' ( '-' )? ( '0' .. '9' )+ ( 'T' ( '-' )? ( '0' .. '9' )+ ':' ( '-' )? ( '0' .. '9' )+ ( ':' ( '-' )? ( '0' .. '9' )+ )? )?
+                    {
+                    // Hymapping.g:5191:64: ( '-' )?
+                    int alt4=2;
+                    int LA4_0 = input.LA(1);
+
+                    if ( (LA4_0=='-') ) {
+                        alt4=1;
+                    }
+                    switch (alt4) {
+                        case 1 :
+                            // Hymapping.g:5191:65: '-'
+                            {
+                            match('-'); 
+
+                            }
+                            break;
+
+                    }
+
+
+                    // Hymapping.g:5191:71: ( '0' .. '9' )+
+                    int cnt5=0;
+                    loop5:
+                    do {
+                        int alt5=2;
+                        int LA5_0 = input.LA(1);
+
+                        if ( ((LA5_0 >= '0' && LA5_0 <= '9')) ) {
+                            alt5=1;
+                        }
+
+
+                        switch (alt5) {
+                    	case 1 :
+                    	    // Hymapping.g:
+                    	    {
+                    	    if ( (input.LA(1) >= '0' && input.LA(1) <= '9') ) {
+                    	        input.consume();
+                    	    }
+                    	    else {
+                    	        MismatchedSetException mse = new MismatchedSetException(null,input);
+                    	        recover(mse);
+                    	        throw mse;
+                    	    }
+
+
+                    	    }
+                    	    break;
+
+                    	default :
+                    	    if ( cnt5 >= 1 ) break loop5;
+                                EarlyExitException eee =
+                                    new EarlyExitException(5, input);
+                                throw eee;
+                        }
+                        cnt5++;
+                    } while (true);
+
+
+                    match('/'); 
+
+                    // Hymapping.g:5191:86: ( '-' )?
+                    int alt6=2;
+                    int LA6_0 = input.LA(1);
+
+                    if ( (LA6_0=='-') ) {
+                        alt6=1;
+                    }
+                    switch (alt6) {
+                        case 1 :
+                            // Hymapping.g:5191:87: '-'
+                            {
+                            match('-'); 
+
+                            }
+                            break;
+
+                    }
+
+
+                    // Hymapping.g:5191:93: ( '0' .. '9' )+
                     int cnt7=0;
                     loop7:
                     do {
@@ -1260,21 +1193,40 @@ public class HymappingLexer extends Lexer {
                     } while (true);
 
 
-                    match(':'); 
+                    match('/'); 
 
-                    // Hymapping.g:5194:70: ( '0' .. '9' )+
-                    int cnt8=0;
-                    loop8:
+                    // Hymapping.g:5191:108: ( '-' )?
+                    int alt8=2;
+                    int LA8_0 = input.LA(1);
+
+                    if ( (LA8_0=='-') ) {
+                        alt8=1;
+                    }
+                    switch (alt8) {
+                        case 1 :
+                            // Hymapping.g:5191:109: '-'
+                            {
+                            match('-'); 
+
+                            }
+                            break;
+
+                    }
+
+
+                    // Hymapping.g:5191:115: ( '0' .. '9' )+
+                    int cnt9=0;
+                    loop9:
                     do {
-                        int alt8=2;
-                        int LA8_0 = input.LA(1);
+                        int alt9=2;
+                        int LA9_0 = input.LA(1);
 
-                        if ( ((LA8_0 >= '0' && LA8_0 <= '9')) ) {
-                            alt8=1;
+                        if ( ((LA9_0 >= '0' && LA9_0 <= '9')) ) {
+                            alt9=1;
                         }
 
 
-                        switch (alt8) {
+                        switch (alt9) {
                     	case 1 :
                     	    // Hymapping.g:
                     	    {
@@ -1292,41 +1244,60 @@ public class HymappingLexer extends Lexer {
                     	    break;
 
                     	default :
-                    	    if ( cnt8 >= 1 ) break loop8;
+                    	    if ( cnt9 >= 1 ) break loop9;
                                 EarlyExitException eee =
-                                    new EarlyExitException(8, input);
+                                    new EarlyExitException(9, input);
                                 throw eee;
                         }
-                        cnt8++;
+                        cnt9++;
                     } while (true);
 
 
-                    // Hymapping.g:5194:82: ( ':' ( '0' .. '9' )+ )?
-                    int alt10=2;
-                    int LA10_0 = input.LA(1);
+                    // Hymapping.g:5191:127: ( 'T' ( '-' )? ( '0' .. '9' )+ ':' ( '-' )? ( '0' .. '9' )+ ( ':' ( '-' )? ( '0' .. '9' )+ )? )?
+                    int alt17=2;
+                    int LA17_0 = input.LA(1);
 
-                    if ( (LA10_0==':') ) {
-                        alt10=1;
+                    if ( (LA17_0=='T') ) {
+                        alt17=1;
                     }
-                    switch (alt10) {
+                    switch (alt17) {
                         case 1 :
-                            // Hymapping.g:5194:83: ':' ( '0' .. '9' )+
+                            // Hymapping.g:5191:129: 'T' ( '-' )? ( '0' .. '9' )+ ':' ( '-' )? ( '0' .. '9' )+ ( ':' ( '-' )? ( '0' .. '9' )+ )?
                             {
-                            match(':'); 
+                            match('T'); 
 
-                            // Hymapping.g:5194:88: ( '0' .. '9' )+
-                            int cnt9=0;
-                            loop9:
+                            // Hymapping.g:5191:132: ( '-' )?
+                            int alt10=2;
+                            int LA10_0 = input.LA(1);
+
+                            if ( (LA10_0=='-') ) {
+                                alt10=1;
+                            }
+                            switch (alt10) {
+                                case 1 :
+                                    // Hymapping.g:5191:133: '-'
+                                    {
+                                    match('-'); 
+
+                                    }
+                                    break;
+
+                            }
+
+
+                            // Hymapping.g:5191:139: ( '0' .. '9' )+
+                            int cnt11=0;
+                            loop11:
                             do {
-                                int alt9=2;
-                                int LA9_0 = input.LA(1);
+                                int alt11=2;
+                                int LA11_0 = input.LA(1);
 
-                                if ( ((LA9_0 >= '0' && LA9_0 <= '9')) ) {
-                                    alt9=1;
+                                if ( ((LA11_0 >= '0' && LA11_0 <= '9')) ) {
+                                    alt11=1;
                                 }
 
 
-                                switch (alt9) {
+                                switch (alt11) {
                             	case 1 :
                             	    // Hymapping.g:
                             	    {
@@ -1344,12 +1315,572 @@ public class HymappingLexer extends Lexer {
                             	    break;
 
                             	default :
-                            	    if ( cnt9 >= 1 ) break loop9;
+                            	    if ( cnt11 >= 1 ) break loop11;
                                         EarlyExitException eee =
-                                            new EarlyExitException(9, input);
+                                            new EarlyExitException(11, input);
                                         throw eee;
                                 }
-                                cnt9++;
+                                cnt11++;
+                            } while (true);
+
+
+                            match(':'); 
+
+                            // Hymapping.g:5191:154: ( '-' )?
+                            int alt12=2;
+                            int LA12_0 = input.LA(1);
+
+                            if ( (LA12_0=='-') ) {
+                                alt12=1;
+                            }
+                            switch (alt12) {
+                                case 1 :
+                                    // Hymapping.g:5191:155: '-'
+                                    {
+                                    match('-'); 
+
+                                    }
+                                    break;
+
+                            }
+
+
+                            // Hymapping.g:5191:161: ( '0' .. '9' )+
+                            int cnt13=0;
+                            loop13:
+                            do {
+                                int alt13=2;
+                                int LA13_0 = input.LA(1);
+
+                                if ( ((LA13_0 >= '0' && LA13_0 <= '9')) ) {
+                                    alt13=1;
+                                }
+
+
+                                switch (alt13) {
+                            	case 1 :
+                            	    // Hymapping.g:
+                            	    {
+                            	    if ( (input.LA(1) >= '0' && input.LA(1) <= '9') ) {
+                            	        input.consume();
+                            	    }
+                            	    else {
+                            	        MismatchedSetException mse = new MismatchedSetException(null,input);
+                            	        recover(mse);
+                            	        throw mse;
+                            	    }
+
+
+                            	    }
+                            	    break;
+
+                            	default :
+                            	    if ( cnt13 >= 1 ) break loop13;
+                                        EarlyExitException eee =
+                                            new EarlyExitException(13, input);
+                                        throw eee;
+                                }
+                                cnt13++;
+                            } while (true);
+
+
+                            // Hymapping.g:5191:173: ( ':' ( '-' )? ( '0' .. '9' )+ )?
+                            int alt16=2;
+                            int LA16_0 = input.LA(1);
+
+                            if ( (LA16_0==':') ) {
+                                alt16=1;
+                            }
+                            switch (alt16) {
+                                case 1 :
+                                    // Hymapping.g:5191:174: ':' ( '-' )? ( '0' .. '9' )+
+                                    {
+                                    match(':'); 
+
+                                    // Hymapping.g:5191:178: ( '-' )?
+                                    int alt14=2;
+                                    int LA14_0 = input.LA(1);
+
+                                    if ( (LA14_0=='-') ) {
+                                        alt14=1;
+                                    }
+                                    switch (alt14) {
+                                        case 1 :
+                                            // Hymapping.g:5191:179: '-'
+                                            {
+                                            match('-'); 
+
+                                            }
+                                            break;
+
+                                    }
+
+
+                                    // Hymapping.g:5191:185: ( '0' .. '9' )+
+                                    int cnt15=0;
+                                    loop15:
+                                    do {
+                                        int alt15=2;
+                                        int LA15_0 = input.LA(1);
+
+                                        if ( ((LA15_0 >= '0' && LA15_0 <= '9')) ) {
+                                            alt15=1;
+                                        }
+
+
+                                        switch (alt15) {
+                                    	case 1 :
+                                    	    // Hymapping.g:
+                                    	    {
+                                    	    if ( (input.LA(1) >= '0' && input.LA(1) <= '9') ) {
+                                    	        input.consume();
+                                    	    }
+                                    	    else {
+                                    	        MismatchedSetException mse = new MismatchedSetException(null,input);
+                                    	        recover(mse);
+                                    	        throw mse;
+                                    	    }
+
+
+                                    	    }
+                                    	    break;
+
+                                    	default :
+                                    	    if ( cnt15 >= 1 ) break loop15;
+                                                EarlyExitException eee =
+                                                    new EarlyExitException(15, input);
+                                                throw eee;
+                                        }
+                                        cnt15++;
+                                    } while (true);
+
+
+                                    }
+                                    break;
+
+                            }
+
+
+                            }
+                            break;
+
+                    }
+
+
+                    }
+
+
+                    }
+                    break;
+
+            }
+
+
+            }
+
+
+            }
+
+            state.type = _type;
+            state.channel = _channel;
+        }
+        finally {
+        	// do for sure before leaving
+        }
+    }
+    // $ANTLR end "IDENTIFIER_TOKEN"
+
+    // $ANTLR start "DATE"
+    public final void mDATE() throws RecognitionException {
+        try {
+            int _type = DATE;
+            int _channel = DEFAULT_TOKEN_CHANNEL;
+            // Hymapping.g:5193:5: ( ( ( ( '-' )? ( '0' .. '9' )+ '/' ( '-' )? ( '0' .. '9' )+ '/' ( '-' )? ( '0' .. '9' )+ ( 'T' ( '-' )? ( '0' .. '9' )+ ':' ( '-' )? ( '0' .. '9' )+ ( ':' ( '-' )? ( '0' .. '9' )+ )? )? ) ) )
+            // Hymapping.g:5194:2: ( ( ( '-' )? ( '0' .. '9' )+ '/' ( '-' )? ( '0' .. '9' )+ '/' ( '-' )? ( '0' .. '9' )+ ( 'T' ( '-' )? ( '0' .. '9' )+ ':' ( '-' )? ( '0' .. '9' )+ ( ':' ( '-' )? ( '0' .. '9' )+ )? )? ) )
+            {
+            // Hymapping.g:5194:2: ( ( ( '-' )? ( '0' .. '9' )+ '/' ( '-' )? ( '0' .. '9' )+ '/' ( '-' )? ( '0' .. '9' )+ ( 'T' ( '-' )? ( '0' .. '9' )+ ':' ( '-' )? ( '0' .. '9' )+ ( ':' ( '-' )? ( '0' .. '9' )+ )? )? ) )
+            // Hymapping.g:5194:2: ( ( '-' )? ( '0' .. '9' )+ '/' ( '-' )? ( '0' .. '9' )+ '/' ( '-' )? ( '0' .. '9' )+ ( 'T' ( '-' )? ( '0' .. '9' )+ ':' ( '-' )? ( '0' .. '9' )+ ( ':' ( '-' )? ( '0' .. '9' )+ )? )? )
+            {
+            // Hymapping.g:5194:2: ( ( '-' )? ( '0' .. '9' )+ '/' ( '-' )? ( '0' .. '9' )+ '/' ( '-' )? ( '0' .. '9' )+ ( 'T' ( '-' )? ( '0' .. '9' )+ ':' ( '-' )? ( '0' .. '9' )+ ( ':' ( '-' )? ( '0' .. '9' )+ )? )? )
+            // Hymapping.g:5194:3: ( '-' )? ( '0' .. '9' )+ '/' ( '-' )? ( '0' .. '9' )+ '/' ( '-' )? ( '0' .. '9' )+ ( 'T' ( '-' )? ( '0' .. '9' )+ ':' ( '-' )? ( '0' .. '9' )+ ( ':' ( '-' )? ( '0' .. '9' )+ )? )?
+            {
+            // Hymapping.g:5194:3: ( '-' )?
+            int alt19=2;
+            int LA19_0 = input.LA(1);
+
+            if ( (LA19_0=='-') ) {
+                alt19=1;
+            }
+            switch (alt19) {
+                case 1 :
+                    // Hymapping.g:5194:4: '-'
+                    {
+                    match('-'); 
+
+                    }
+                    break;
+
+            }
+
+
+            // Hymapping.g:5194:10: ( '0' .. '9' )+
+            int cnt20=0;
+            loop20:
+            do {
+                int alt20=2;
+                int LA20_0 = input.LA(1);
+
+                if ( ((LA20_0 >= '0' && LA20_0 <= '9')) ) {
+                    alt20=1;
+                }
+
+
+                switch (alt20) {
+            	case 1 :
+            	    // Hymapping.g:
+            	    {
+            	    if ( (input.LA(1) >= '0' && input.LA(1) <= '9') ) {
+            	        input.consume();
+            	    }
+            	    else {
+            	        MismatchedSetException mse = new MismatchedSetException(null,input);
+            	        recover(mse);
+            	        throw mse;
+            	    }
+
+
+            	    }
+            	    break;
+
+            	default :
+            	    if ( cnt20 >= 1 ) break loop20;
+                        EarlyExitException eee =
+                            new EarlyExitException(20, input);
+                        throw eee;
+                }
+                cnt20++;
+            } while (true);
+
+
+            match('/'); 
+
+            // Hymapping.g:5194:25: ( '-' )?
+            int alt21=2;
+            int LA21_0 = input.LA(1);
+
+            if ( (LA21_0=='-') ) {
+                alt21=1;
+            }
+            switch (alt21) {
+                case 1 :
+                    // Hymapping.g:5194:26: '-'
+                    {
+                    match('-'); 
+
+                    }
+                    break;
+
+            }
+
+
+            // Hymapping.g:5194:32: ( '0' .. '9' )+
+            int cnt22=0;
+            loop22:
+            do {
+                int alt22=2;
+                int LA22_0 = input.LA(1);
+
+                if ( ((LA22_0 >= '0' && LA22_0 <= '9')) ) {
+                    alt22=1;
+                }
+
+
+                switch (alt22) {
+            	case 1 :
+            	    // Hymapping.g:
+            	    {
+            	    if ( (input.LA(1) >= '0' && input.LA(1) <= '9') ) {
+            	        input.consume();
+            	    }
+            	    else {
+            	        MismatchedSetException mse = new MismatchedSetException(null,input);
+            	        recover(mse);
+            	        throw mse;
+            	    }
+
+
+            	    }
+            	    break;
+
+            	default :
+            	    if ( cnt22 >= 1 ) break loop22;
+                        EarlyExitException eee =
+                            new EarlyExitException(22, input);
+                        throw eee;
+                }
+                cnt22++;
+            } while (true);
+
+
+            match('/'); 
+
+            // Hymapping.g:5194:47: ( '-' )?
+            int alt23=2;
+            int LA23_0 = input.LA(1);
+
+            if ( (LA23_0=='-') ) {
+                alt23=1;
+            }
+            switch (alt23) {
+                case 1 :
+                    // Hymapping.g:5194:48: '-'
+                    {
+                    match('-'); 
+
+                    }
+                    break;
+
+            }
+
+
+            // Hymapping.g:5194:54: ( '0' .. '9' )+
+            int cnt24=0;
+            loop24:
+            do {
+                int alt24=2;
+                int LA24_0 = input.LA(1);
+
+                if ( ((LA24_0 >= '0' && LA24_0 <= '9')) ) {
+                    alt24=1;
+                }
+
+
+                switch (alt24) {
+            	case 1 :
+            	    // Hymapping.g:
+            	    {
+            	    if ( (input.LA(1) >= '0' && input.LA(1) <= '9') ) {
+            	        input.consume();
+            	    }
+            	    else {
+            	        MismatchedSetException mse = new MismatchedSetException(null,input);
+            	        recover(mse);
+            	        throw mse;
+            	    }
+
+
+            	    }
+            	    break;
+
+            	default :
+            	    if ( cnt24 >= 1 ) break loop24;
+                        EarlyExitException eee =
+                            new EarlyExitException(24, input);
+                        throw eee;
+                }
+                cnt24++;
+            } while (true);
+
+
+            // Hymapping.g:5194:66: ( 'T' ( '-' )? ( '0' .. '9' )+ ':' ( '-' )? ( '0' .. '9' )+ ( ':' ( '-' )? ( '0' .. '9' )+ )? )?
+            int alt32=2;
+            int LA32_0 = input.LA(1);
+
+            if ( (LA32_0=='T') ) {
+                alt32=1;
+            }
+            switch (alt32) {
+                case 1 :
+                    // Hymapping.g:5194:68: 'T' ( '-' )? ( '0' .. '9' )+ ':' ( '-' )? ( '0' .. '9' )+ ( ':' ( '-' )? ( '0' .. '9' )+ )?
+                    {
+                    match('T'); 
+
+                    // Hymapping.g:5194:71: ( '-' )?
+                    int alt25=2;
+                    int LA25_0 = input.LA(1);
+
+                    if ( (LA25_0=='-') ) {
+                        alt25=1;
+                    }
+                    switch (alt25) {
+                        case 1 :
+                            // Hymapping.g:5194:72: '-'
+                            {
+                            match('-'); 
+
+                            }
+                            break;
+
+                    }
+
+
+                    // Hymapping.g:5194:78: ( '0' .. '9' )+
+                    int cnt26=0;
+                    loop26:
+                    do {
+                        int alt26=2;
+                        int LA26_0 = input.LA(1);
+
+                        if ( ((LA26_0 >= '0' && LA26_0 <= '9')) ) {
+                            alt26=1;
+                        }
+
+
+                        switch (alt26) {
+                    	case 1 :
+                    	    // Hymapping.g:
+                    	    {
+                    	    if ( (input.LA(1) >= '0' && input.LA(1) <= '9') ) {
+                    	        input.consume();
+                    	    }
+                    	    else {
+                    	        MismatchedSetException mse = new MismatchedSetException(null,input);
+                    	        recover(mse);
+                    	        throw mse;
+                    	    }
+
+
+                    	    }
+                    	    break;
+
+                    	default :
+                    	    if ( cnt26 >= 1 ) break loop26;
+                                EarlyExitException eee =
+                                    new EarlyExitException(26, input);
+                                throw eee;
+                        }
+                        cnt26++;
+                    } while (true);
+
+
+                    match(':'); 
+
+                    // Hymapping.g:5194:93: ( '-' )?
+                    int alt27=2;
+                    int LA27_0 = input.LA(1);
+
+                    if ( (LA27_0=='-') ) {
+                        alt27=1;
+                    }
+                    switch (alt27) {
+                        case 1 :
+                            // Hymapping.g:5194:94: '-'
+                            {
+                            match('-'); 
+
+                            }
+                            break;
+
+                    }
+
+
+                    // Hymapping.g:5194:100: ( '0' .. '9' )+
+                    int cnt28=0;
+                    loop28:
+                    do {
+                        int alt28=2;
+                        int LA28_0 = input.LA(1);
+
+                        if ( ((LA28_0 >= '0' && LA28_0 <= '9')) ) {
+                            alt28=1;
+                        }
+
+
+                        switch (alt28) {
+                    	case 1 :
+                    	    // Hymapping.g:
+                    	    {
+                    	    if ( (input.LA(1) >= '0' && input.LA(1) <= '9') ) {
+                    	        input.consume();
+                    	    }
+                    	    else {
+                    	        MismatchedSetException mse = new MismatchedSetException(null,input);
+                    	        recover(mse);
+                    	        throw mse;
+                    	    }
+
+
+                    	    }
+                    	    break;
+
+                    	default :
+                    	    if ( cnt28 >= 1 ) break loop28;
+                                EarlyExitException eee =
+                                    new EarlyExitException(28, input);
+                                throw eee;
+                        }
+                        cnt28++;
+                    } while (true);
+
+
+                    // Hymapping.g:5194:112: ( ':' ( '-' )? ( '0' .. '9' )+ )?
+                    int alt31=2;
+                    int LA31_0 = input.LA(1);
+
+                    if ( (LA31_0==':') ) {
+                        alt31=1;
+                    }
+                    switch (alt31) {
+                        case 1 :
+                            // Hymapping.g:5194:113: ':' ( '-' )? ( '0' .. '9' )+
+                            {
+                            match(':'); 
+
+                            // Hymapping.g:5194:117: ( '-' )?
+                            int alt29=2;
+                            int LA29_0 = input.LA(1);
+
+                            if ( (LA29_0=='-') ) {
+                                alt29=1;
+                            }
+                            switch (alt29) {
+                                case 1 :
+                                    // Hymapping.g:5194:118: '-'
+                                    {
+                                    match('-'); 
+
+                                    }
+                                    break;
+
+                            }
+
+
+                            // Hymapping.g:5194:124: ( '0' .. '9' )+
+                            int cnt30=0;
+                            loop30:
+                            do {
+                                int alt30=2;
+                                int LA30_0 = input.LA(1);
+
+                                if ( ((LA30_0 >= '0' && LA30_0 <= '9')) ) {
+                                    alt30=1;
+                                }
+
+
+                                switch (alt30) {
+                            	case 1 :
+                            	    // Hymapping.g:
+                            	    {
+                            	    if ( (input.LA(1) >= '0' && input.LA(1) <= '9') ) {
+                            	        input.consume();
+                            	    }
+                            	    else {
+                            	        MismatchedSetException mse = new MismatchedSetException(null,input);
+                            	        recover(mse);
+                            	        throw mse;
+                            	    }
+
+
+                            	    }
+                            	    break;
+
+                            	default :
+                            	    if ( cnt30 >= 1 ) break loop30;
+                                        EarlyExitException eee =
+                                            new EarlyExitException(30, input);
+                                        throw eee;
+                                }
+                                cnt30++;
                             } while (true);
 
 
@@ -1387,25 +1918,44 @@ public class HymappingLexer extends Lexer {
         try {
             int _type = INTEGER_LITERAL;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // Hymapping.g:5196:16: ( ( ( '0' .. '9' )+ ) )
-            // Hymapping.g:5197:3: ( ( '0' .. '9' )+ )
+            // Hymapping.g:5196:16: ( ( ( '-' )? ( '0' .. '9' )+ ) )
+            // Hymapping.g:5197:2: ( ( '-' )? ( '0' .. '9' )+ )
             {
-            // Hymapping.g:5197:3: ( ( '0' .. '9' )+ )
-            // Hymapping.g:5197:3: ( '0' .. '9' )+
+            // Hymapping.g:5197:2: ( ( '-' )? ( '0' .. '9' )+ )
+            // Hymapping.g:5197:2: ( '-' )? ( '0' .. '9' )+
             {
-            // Hymapping.g:5197:3: ( '0' .. '9' )+
-            int cnt12=0;
-            loop12:
-            do {
-                int alt12=2;
-                int LA12_0 = input.LA(1);
+            // Hymapping.g:5197:2: ( '-' )?
+            int alt33=2;
+            int LA33_0 = input.LA(1);
 
-                if ( ((LA12_0 >= '0' && LA12_0 <= '9')) ) {
-                    alt12=1;
+            if ( (LA33_0=='-') ) {
+                alt33=1;
+            }
+            switch (alt33) {
+                case 1 :
+                    // Hymapping.g:5197:3: '-'
+                    {
+                    match('-'); 
+
+                    }
+                    break;
+
+            }
+
+
+            // Hymapping.g:5197:9: ( '0' .. '9' )+
+            int cnt34=0;
+            loop34:
+            do {
+                int alt34=2;
+                int LA34_0 = input.LA(1);
+
+                if ( ((LA34_0 >= '0' && LA34_0 <= '9')) ) {
+                    alt34=1;
                 }
 
 
-                switch (alt12) {
+                switch (alt34) {
             	case 1 :
             	    // Hymapping.g:
             	    {
@@ -1423,12 +1973,12 @@ public class HymappingLexer extends Lexer {
             	    break;
 
             	default :
-            	    if ( cnt12 >= 1 ) break loop12;
+            	    if ( cnt34 >= 1 ) break loop34;
                         EarlyExitException eee =
-                            new EarlyExitException(12, input);
+                            new EarlyExitException(34, input);
                         throw eee;
                 }
-                cnt12++;
+                cnt34++;
             } while (true);
 
 
@@ -1462,17 +2012,17 @@ public class HymappingLexer extends Lexer {
 
 
             // Hymapping.g:5200:6: (~ ( '\\n' | '\\r' | '\\uffff' ) )*
-            loop13:
+            loop35:
             do {
-                int alt13=2;
-                int LA13_0 = input.LA(1);
+                int alt35=2;
+                int LA35_0 = input.LA(1);
 
-                if ( ((LA13_0 >= '\u0000' && LA13_0 <= '\t')||(LA13_0 >= '\u000B' && LA13_0 <= '\f')||(LA13_0 >= '\u000E' && LA13_0 <= '\uFFFE')) ) {
-                    alt13=1;
+                if ( ((LA35_0 >= '\u0000' && LA35_0 <= '\t')||(LA35_0 >= '\u000B' && LA35_0 <= '\f')||(LA35_0 >= '\u000E' && LA35_0 <= '\uFFFE')) ) {
+                    alt35=1;
                 }
 
 
-                switch (alt13) {
+                switch (alt35) {
             	case 1 :
             	    // Hymapping.g:
             	    {
@@ -1490,7 +2040,7 @@ public class HymappingLexer extends Lexer {
             	    break;
 
             	default :
-            	    break loop13;
+            	    break loop35;
                 }
             } while (true);
 
@@ -1527,29 +2077,29 @@ public class HymappingLexer extends Lexer {
 
 
             // Hymapping.g:5204:6: ( . )*
-            loop14:
+            loop36:
             do {
-                int alt14=2;
-                int LA14_0 = input.LA(1);
+                int alt36=2;
+                int LA36_0 = input.LA(1);
 
-                if ( (LA14_0=='*') ) {
-                    int LA14_1 = input.LA(2);
+                if ( (LA36_0=='*') ) {
+                    int LA36_1 = input.LA(2);
 
-                    if ( (LA14_1=='/') ) {
-                        alt14=2;
+                    if ( (LA36_1=='/') ) {
+                        alt36=2;
                     }
-                    else if ( ((LA14_1 >= '\u0000' && LA14_1 <= '.')||(LA14_1 >= '0' && LA14_1 <= '\uFFFF')) ) {
-                        alt14=1;
+                    else if ( ((LA36_1 >= '\u0000' && LA36_1 <= '.')||(LA36_1 >= '0' && LA36_1 <= '\uFFFF')) ) {
+                        alt36=1;
                     }
 
 
                 }
-                else if ( ((LA14_0 >= '\u0000' && LA14_0 <= ')')||(LA14_0 >= '+' && LA14_0 <= '\uFFFF')) ) {
-                    alt14=1;
+                else if ( ((LA36_0 >= '\u0000' && LA36_0 <= ')')||(LA36_0 >= '+' && LA36_0 <= '\uFFFF')) ) {
+                    alt36=1;
                 }
 
 
-                switch (alt14) {
+                switch (alt36) {
             	case 1 :
             	    // Hymapping.g:5204:6: .
             	    {
@@ -1559,7 +2109,7 @@ public class HymappingLexer extends Lexer {
             	    break;
 
             	default :
-            	    break loop14;
+            	    break loop36;
                 }
             } while (true);
 
@@ -1596,30 +2146,30 @@ public class HymappingLexer extends Lexer {
             // Hymapping.g:5208:2: ( '\\r\\n' | '\\r' | '\\n' )
             {
             // Hymapping.g:5208:2: ( '\\r\\n' | '\\r' | '\\n' )
-            int alt15=3;
-            int LA15_0 = input.LA(1);
+            int alt37=3;
+            int LA37_0 = input.LA(1);
 
-            if ( (LA15_0=='\r') ) {
-                int LA15_1 = input.LA(2);
+            if ( (LA37_0=='\r') ) {
+                int LA37_1 = input.LA(2);
 
-                if ( (LA15_1=='\n') ) {
-                    alt15=1;
+                if ( (LA37_1=='\n') ) {
+                    alt37=1;
                 }
                 else {
-                    alt15=2;
+                    alt37=2;
                 }
             }
-            else if ( (LA15_0=='\n') ) {
-                alt15=3;
+            else if ( (LA37_0=='\n') ) {
+                alt37=3;
             }
             else {
                 NoViableAltException nvae =
-                    new NoViableAltException("", 15, 0, input);
+                    new NoViableAltException("", 37, 0, input);
 
                 throw nvae;
 
             }
-            switch (alt15) {
+            switch (alt37) {
                 case 1 :
                     // Hymapping.g:5208:3: '\\r\\n'
                     {
@@ -1696,9 +2246,9 @@ public class HymappingLexer extends Lexer {
 
     public void mTokens() throws RecognitionException {
         // Hymapping.g:1:8: ( T__13 | T__14 | T__15 | T__16 | T__17 | T__18 | T__19 | T__20 | T__21 | T__22 | T__23 | T__24 | T__25 | T__26 | T__27 | T__28 | T__29 | T__30 | T__31 | T__32 | T__33 | T__34 | T__35 | T__36 | T__37 | T__38 | T__39 | T__40 | T__41 | T__42 | T__43 | T__44 | T__45 | T__46 | T__47 | QUOTED_60_62 | QUOTED_34_34 | IDENTIFIER_TOKEN | DATE | INTEGER_LITERAL | SL_COMMENT | ML_COMMENT | LINEBREAK | WHITESPACE )
-        int alt16=44;
-        alt16 = dfa16.predict(input);
-        switch (alt16) {
+        int alt38=44;
+        alt38 = dfa38.predict(input);
+        switch (alt38) {
             case 1 :
                 // Hymapping.g:1:10: T__13
                 {
@@ -2057,23 +2607,23 @@ public class HymappingLexer extends Lexer {
     }
 
 
-    protected DFA16 dfa16 = new DFA16(this);
-    static final String DFA16_eotS =
+    protected DFA38 dfa38 = new DFA38(this);
+    static final String DFA38_eotS =
         "\1\uffff\1\43\6\uffff\1\45\1\uffff\1\50\1\uffff\1\53\1\uffff\1\56"+
         "\1\uffff\1\36\4\uffff\7\36\3\uffff\1\71\12\uffff\1\73\4\uffff\11"+
         "\36\4\uffff\11\36\1\uffff\5\36\2\uffff\1\125\1\126\1\uffff\2\36"+
         "\1\uffff\1\131\1\36\2\uffff\2\36\1\uffff\5\36\1\uffff\6\36\2\uffff";
-    static final String DFA16_eofS =
+    static final String DFA38_eofS =
         "\150\uffff";
-    static final String DFA16_minS =
-        "\1\11\1\75\6\uffff\1\76\1\uffff\1\52\1\uffff\1\0\1\uffff\1\75\1"+
+    static final String DFA38_minS =
+        "\1\11\1\75\6\uffff\1\60\1\uffff\1\52\1\uffff\1\0\1\uffff\1\75\1"+
         "\uffff\1\156\4\uffff\1\157\1\156\1\141\1\146\1\141\1\165\1\162\3"+
         "\uffff\1\57\11\uffff\2\0\4\uffff\1\165\1\156\1\165\1\154\1\120\1"+
         "\170\1\156\1\154\1\165\4\uffff\1\155\1\164\1\155\1\163\1\157\2\50"+
         "\1\154\1\145\1\uffff\1\50\1\145\1\72\1\145\1\163\2\uffff\2\60\1"+
         "\uffff\1\151\1\170\1\uffff\1\60\1\163\2\uffff\2\164\1\uffff\1\151"+
         "\1\145\1\72\1\142\1\162\1\uffff\1\154\1\141\1\145\1\154\2\50\2\uffff";
-    static final String DFA16_maxS =
+    static final String DFA38_maxS =
         "\1\174\1\75\6\uffff\1\76\1\uffff\1\57\1\uffff\1\uffff\1\uffff\1"+
         "\75\1\uffff\1\156\4\uffff\1\157\1\156\1\141\1\146\1\151\1\165\1"+
         "\162\3\uffff\1\71\11\uffff\2\uffff\4\uffff\1\165\1\156\1\165\1\154"+
@@ -2082,16 +2632,16 @@ public class HymappingLexer extends Lexer {
         "\2\172\1\uffff\1\151\1\170\1\uffff\1\172\1\163\2\uffff\2\164\1\uffff"+
         "\1\151\1\145\1\72\1\142\1\162\1\uffff\1\154\1\141\1\145\1\154\2"+
         "\50\2\uffff";
-    static final String DFA16_acceptS =
+    static final String DFA38_acceptS =
         "\2\uffff\1\3\1\4\1\5\1\6\1\7\1\10\1\uffff\1\13\1\uffff\1\15\1\uffff"+
         "\1\21\1\uffff\1\24\1\uffff\1\27\1\30\1\31\1\32\7\uffff\1\43\1\45"+
         "\1\46\1\uffff\1\53\1\54\1\2\1\1\1\12\1\11\1\51\1\52\1\14\2\uffff"+
         "\1\16\1\44\1\23\1\22\11\uffff\1\47\1\50\1\17\1\20\11\uffff\1\17"+
         "\5\uffff\1\37\1\40\2\uffff\1\25\2\uffff\1\34\2\uffff\1\41\1\42\2"+
         "\uffff\1\35\5\uffff\1\33\6\uffff\1\36\1\26";
-    static final String DFA16_specialS =
-        "\14\uffff\1\0\34\uffff\1\1\1\2\75\uffff}>";
-    static final String[] DFA16_transitionS = {
+    static final String DFA38_specialS =
+        "\14\uffff\1\2\34\uffff\1\0\1\1\75\uffff}>";
+    static final String[] DFA38_transitionS = {
             "\1\41\1\40\1\uffff\1\41\1\40\22\uffff\1\41\1\1\1\35\2\uffff"+
             "\1\22\1\2\1\uffff\1\3\1\4\1\5\1\6\1\7\1\10\1\11\1\12\12\37\1"+
             "\13\1\uffff\1\14\1\15\1\16\1\17\1\uffff\4\36\1\20\25\36\1\21"+
@@ -2104,7 +2654,7 @@ public class HymappingLexer extends Lexer {
             "",
             "",
             "",
-            "\1\44",
+            "\12\37\4\uffff\1\44",
             "",
             "\1\47\4\uffff\1\46",
             "",
@@ -2173,13 +2723,13 @@ public class HymappingLexer extends Lexer {
             "\1\124",
             "",
             "",
-            "\12\36\7\uffff\32\36\4\uffff\1\36\1\uffff\32\36",
-            "\12\36\7\uffff\32\36\4\uffff\1\36\1\uffff\32\36",
+            "\12\36\6\uffff\33\36\4\uffff\1\36\1\uffff\32\36",
+            "\12\36\6\uffff\33\36\4\uffff\1\36\1\uffff\32\36",
             "",
             "\1\127",
             "\1\130",
             "",
-            "\12\36\7\uffff\32\36\4\uffff\1\36\1\uffff\32\36",
+            "\12\36\6\uffff\33\36\4\uffff\1\36\1\uffff\32\36",
             "\1\132",
             "",
             "",
@@ -2202,34 +2752,34 @@ public class HymappingLexer extends Lexer {
             ""
     };
 
-    static final short[] DFA16_eot = DFA.unpackEncodedString(DFA16_eotS);
-    static final short[] DFA16_eof = DFA.unpackEncodedString(DFA16_eofS);
-    static final char[] DFA16_min = DFA.unpackEncodedStringToUnsignedChars(DFA16_minS);
-    static final char[] DFA16_max = DFA.unpackEncodedStringToUnsignedChars(DFA16_maxS);
-    static final short[] DFA16_accept = DFA.unpackEncodedString(DFA16_acceptS);
-    static final short[] DFA16_special = DFA.unpackEncodedString(DFA16_specialS);
-    static final short[][] DFA16_transition;
+    static final short[] DFA38_eot = DFA.unpackEncodedString(DFA38_eotS);
+    static final short[] DFA38_eof = DFA.unpackEncodedString(DFA38_eofS);
+    static final char[] DFA38_min = DFA.unpackEncodedStringToUnsignedChars(DFA38_minS);
+    static final char[] DFA38_max = DFA.unpackEncodedStringToUnsignedChars(DFA38_maxS);
+    static final short[] DFA38_accept = DFA.unpackEncodedString(DFA38_acceptS);
+    static final short[] DFA38_special = DFA.unpackEncodedString(DFA38_specialS);
+    static final short[][] DFA38_transition;
 
     static {
-        int numStates = DFA16_transitionS.length;
-        DFA16_transition = new short[numStates][];
+        int numStates = DFA38_transitionS.length;
+        DFA38_transition = new short[numStates][];
         for (int i=0; i<numStates; i++) {
-            DFA16_transition[i] = DFA.unpackEncodedString(DFA16_transitionS[i]);
+            DFA38_transition[i] = DFA.unpackEncodedString(DFA38_transitionS[i]);
         }
     }
 
-    class DFA16 extends DFA {
+    class DFA38 extends DFA {
 
-        public DFA16(BaseRecognizer recognizer) {
+        public DFA38(BaseRecognizer recognizer) {
             this.recognizer = recognizer;
-            this.decisionNumber = 16;
-            this.eot = DFA16_eot;
-            this.eof = DFA16_eof;
-            this.min = DFA16_min;
-            this.max = DFA16_max;
-            this.accept = DFA16_accept;
-            this.special = DFA16_special;
-            this.transition = DFA16_transition;
+            this.decisionNumber = 38;
+            this.eot = DFA38_eot;
+            this.eof = DFA38_eof;
+            this.min = DFA38_min;
+            this.max = DFA38_max;
+            this.accept = DFA38_accept;
+            this.special = DFA38_special;
+            this.transition = DFA38_transition;
         }
         public String getDescription() {
             return "1:1: Tokens : ( T__13 | T__14 | T__15 | T__16 | T__17 | T__18 | T__19 | T__20 | T__21 | T__22 | T__23 | T__24 | T__25 | T__26 | T__27 | T__28 | T__29 | T__30 | T__31 | T__32 | T__33 | T__34 | T__35 | T__36 | T__37 | T__38 | T__39 | T__40 | T__41 | T__42 | T__43 | T__44 | T__45 | T__46 | T__47 | QUOTED_60_62 | QUOTED_34_34 | IDENTIFIER_TOKEN | DATE | INTEGER_LITERAL | SL_COMMENT | ML_COMMENT | LINEBREAK | WHITESPACE );";
@@ -2239,42 +2789,42 @@ public class HymappingLexer extends Lexer {
         	int _s = s;
             switch ( s ) {
                     case 0 : 
-                        int LA16_12 = input.LA(1);
+                        int LA38_41 = input.LA(1);
 
                         s = -1;
-                        if ( (LA16_12=='-') ) {s = 41;}
+                        if ( (LA38_41=='>') ) {s = 58;}
 
-                        else if ( (LA16_12=='=') ) {s = 42;}
-
-                        else if ( ((LA16_12 >= '\u0000' && LA16_12 <= ',')||(LA16_12 >= '.' && LA16_12 <= '<')||(LA16_12 >= '>' && LA16_12 <= '\uFFFF')) ) {s = 44;}
-
-                        else s = 43;
+                        else if ( ((LA38_41 >= '\u0000' && LA38_41 <= '=')||(LA38_41 >= '?' && LA38_41 <= '\uFFFF')) ) {s = 44;}
 
                         if ( s>=0 ) return s;
                         break;
                     case 1 : 
-                        int LA16_41 = input.LA(1);
+                        int LA38_42 = input.LA(1);
 
                         s = -1;
-                        if ( (LA16_41=='>') ) {s = 58;}
-
-                        else if ( ((LA16_41 >= '\u0000' && LA16_41 <= '=')||(LA16_41 >= '?' && LA16_41 <= '\uFFFF')) ) {s = 44;}
-
-                        if ( s>=0 ) return s;
-                        break;
-                    case 2 : 
-                        int LA16_42 = input.LA(1);
-
-                        s = -1;
-                        if ( ((LA16_42 >= '\u0000' && LA16_42 <= '\uFFFF')) ) {s = 44;}
+                        if ( ((LA38_42 >= '\u0000' && LA38_42 <= '\uFFFF')) ) {s = 44;}
 
                         else s = 59;
 
                         if ( s>=0 ) return s;
                         break;
+                    case 2 : 
+                        int LA38_12 = input.LA(1);
+
+                        s = -1;
+                        if ( (LA38_12=='-') ) {s = 41;}
+
+                        else if ( (LA38_12=='=') ) {s = 42;}
+
+                        else if ( ((LA38_12 >= '\u0000' && LA38_12 <= ',')||(LA38_12 >= '.' && LA38_12 <= '<')||(LA38_12 >= '>' && LA38_12 <= '\uFFFF')) ) {s = 44;}
+
+                        else s = 43;
+
+                        if ( s>=0 ) return s;
+                        break;
             }
             NoViableAltException nvae =
-                new NoViableAltException(getDescription(), 16, _s, input);
+                new NoViableAltException(getDescription(), 38, _s, input);
             error(nvae);
             throw nvae;
         }

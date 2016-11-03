@@ -9,96 +9,130 @@ package eu.hyvar.feature.mapping.resource.hymapping.analysis;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Map;
+
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
 
-public class HyEnumValueEnumLiteralReferenceResolver implements eu.hyvar.feature.mapping.resource.hymapping.IHymappingReferenceResolver<eu.hyvar.dataValues.HyEnumValue, eu.hyvar.dataValues.HyEnumLiteral> {
-	
-	private eu.hyvar.dataValues.resource.hydatavalue.analysis.HyEnumValueEnumLiteralReferenceResolver delegate = new eu.hyvar.dataValues.resource.hydatavalue.analysis.HyEnumValueEnumLiteralReferenceResolver();
-	
-	public void resolve(String identifier, eu.hyvar.dataValues.HyEnumValue container, EReference reference, int position, boolean resolveFuzzy, final eu.hyvar.feature.mapping.resource.hymapping.IHymappingReferenceResolveResult<eu.hyvar.dataValues.HyEnumLiteral> result) {
-		delegate.resolve(identifier, container, reference, position, resolveFuzzy, new eu.hyvar.dataValues.resource.hydatavalue.IHydatavalueReferenceResolveResult<eu.hyvar.dataValues.HyEnumLiteral>() {
-			
-			public boolean wasResolvedUniquely() {
-				return result.wasResolvedUniquely();
-			}
-			
-			public boolean wasResolvedMultiple() {
-				return result.wasResolvedMultiple();
-			}
-			
-			public boolean wasResolved() {
-				return result.wasResolved();
-			}
-			
-			public void setErrorMessage(String message) {
-				result.setErrorMessage(message);
-			}
-			
-			public Collection<eu.hyvar.dataValues.resource.hydatavalue.IHydatavalueReferenceMapping<eu.hyvar.dataValues.HyEnumLiteral>> getMappings() {
-				throw new UnsupportedOperationException();
-			}
-			
-			public String getErrorMessage() {
-				return result.getErrorMessage();
-			}
-			
-			public void addMapping(String identifier, URI newIdentifier) {
-				result.addMapping(identifier, newIdentifier);
-			}
-			
-			public void addMapping(String identifier, URI newIdentifier, String warning) {
-				result.addMapping(identifier, newIdentifier, warning);
-			}
-			
-			public void addMapping(String identifier, eu.hyvar.dataValues.HyEnumLiteral target) {
-				result.addMapping(identifier, target);
-			}
-			
-			public void addMapping(String identifier, eu.hyvar.dataValues.HyEnumLiteral target, String warning) {
-				result.addMapping(identifier, target, warning);
-			}
-			
-			public Collection<eu.hyvar.dataValues.resource.hydatavalue.IHydatavalueQuickFix> getQuickFixes() {
-				return Collections.emptySet();
-			}
-			
-			public void addQuickFix(final eu.hyvar.dataValues.resource.hydatavalue.IHydatavalueQuickFix quickFix) {
-				result.addQuickFix(new eu.hyvar.feature.mapping.resource.hymapping.IHymappingQuickFix() {
-					
-					public String getImageKey() {
-						return quickFix.getImageKey();
+import eu.hyvar.dataValues.HyEnumLiteral;
+import eu.hyvar.feature.expression.resource.hyexpression.IHyexpressionQuickFix;
+import eu.hyvar.feature.expression.resource.hyexpression.IHyexpressionReferenceMapping;
+import eu.hyvar.feature.expression.resource.hyexpression.IHyexpressionReferenceResolveResult;
+import eu.hyvar.feature.mapping.resource.hymapping.IHymappingQuickFix;
+
+public class HyEnumValueEnumLiteralReferenceResolver implements
+		eu.hyvar.feature.mapping.resource.hymapping.IHymappingReferenceResolver<eu.hyvar.dataValues.HyEnumValue, eu.hyvar.dataValues.HyEnumLiteral> {
+
+	private eu.hyvar.feature.expression.resource.hyexpression.analysis.HyEnumValueEnumLiteralReferenceResolver delegate = new eu.hyvar.feature.expression.resource.hyexpression.analysis.HyEnumValueEnumLiteralReferenceResolver();
+
+	// private
+	// eu.hyvar.dataValues.resource.hydatavalue.analysis.HyEnumValueEnumLiteralReferenceResolver
+	// delegate = new
+	// eu.hyvar.dataValues.resource.hydatavalue.analysis.HyEnumValueEnumLiteralReferenceResolver();
+
+	public void resolve(String identifier, eu.hyvar.dataValues.HyEnumValue container, EReference reference,
+			int position, boolean resolveFuzzy,
+			final eu.hyvar.feature.mapping.resource.hymapping.IHymappingReferenceResolveResult<eu.hyvar.dataValues.HyEnumLiteral> result) {
+		delegate.resolve(identifier, container, reference, position, resolveFuzzy,
+				new IHyexpressionReferenceResolveResult<HyEnumLiteral>() {
+
+					@Override
+					public boolean wasResolvedUniquely() {
+						return result.wasResolvedUniquely();
 					}
-					
-					public String getDisplayString() {
-						return quickFix.getDisplayString();
+
+					@Override
+					public boolean wasResolvedMultiple() {
+						return result.wasResolvedMultiple();
 					}
-					
-					public Collection<EObject> getContextObjects() {
-						return quickFix.getContextObjects();
+
+					@Override
+					public boolean wasResolved() {
+						return result.wasResolved();
 					}
-					
-					public String getContextAsString() {
-						return quickFix.getContextAsString();
+
+					@Override
+					public void setErrorMessage(String message) {
+						result.setErrorMessage(message);
 					}
-					
-					public String apply(String currentText) {
-						return quickFix.apply(currentText);
+
+					@Override
+					public Collection<IHyexpressionQuickFix> getQuickFixes() {
+						// TODO add QuickFixes
+						return Collections.emptySet();
+					}
+
+					@Override
+					public Collection<IHyexpressionReferenceMapping<HyEnumLiteral>> getMappings() {
+						// TODO Auto-generated method stub
+						throw new UnsupportedOperationException();
+					}
+
+					@Override
+					public String getErrorMessage() {
+						return result.getErrorMessage();
+					}
+
+					@Override
+					public void addQuickFix(IHyexpressionQuickFix quickFix) {
+						result.addQuickFix(new IHymappingQuickFix() {
+
+							public String getImageKey() {
+								return quickFix.getImageKey();
+							}
+
+							public String getDisplayString() {
+								return quickFix.getDisplayString();
+							}
+
+							public Collection<EObject> getContextObjects() {
+								return quickFix.getContextObjects();
+							}
+
+							public String getContextAsString() {
+								return quickFix.getContextAsString();
+							}
+
+							public String apply(String currentText) {
+								return quickFix.apply(currentText);
+							}
+
+						});
+					}
+
+					@Override
+					public void addMapping(String identifier, URI newIdentifier) {
+						result.addMapping(identifier, newIdentifier);
+					}
+
+					@Override
+					public void addMapping(String identifier, URI newIdentifier, String warning) {
+						result.addMapping(identifier, newIdentifier, warning);
+					}
+
+					@Override
+					public void addMapping(String identifier, HyEnumLiteral target) {
+						result.addMapping(identifier, target);
+
+					}
+
+					@Override
+					public void addMapping(String identifier, HyEnumLiteral target, String warning) {
+						result.addMapping(identifier, target, warning);
 					}
 				});
-			}
-		});
-		
+
 	}
-	
-	public String deResolve(eu.hyvar.dataValues.HyEnumLiteral element, eu.hyvar.dataValues.HyEnumValue container, EReference reference) {
+
+	public String deResolve(eu.hyvar.dataValues.HyEnumLiteral element, eu.hyvar.dataValues.HyEnumValue container,
+			EReference reference) {
 		return delegate.deResolve(element, container, reference);
 	}
-	
-	public void setOptions(Map<?,?> options) {
-		// save options in a field or leave method empty if this resolver does not depend
+
+	public void setOptions(Map<?, ?> options) {
+		// save options in a field or leave method empty if this resolver does
+		// not depend
 		// on any option
 	}
-	
+
 }

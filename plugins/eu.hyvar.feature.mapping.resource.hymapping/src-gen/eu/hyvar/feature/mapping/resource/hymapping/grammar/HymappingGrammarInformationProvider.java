@@ -1326,7 +1326,7 @@ public class HymappingGrammarInformationProvider {
 	
 	public final static eu.hyvar.feature.mapping.resource.hymapping.grammar.HymappingPlaceholder HYDATAVALUE_3_0_0_1 = INSTANCE.getHYDATAVALUE_3_0_0_1();
 	private eu.hyvar.feature.mapping.resource.hymapping.grammar.HymappingPlaceholder getHYDATAVALUE_3_0_0_1() {
-		return new eu.hyvar.feature.mapping.resource.hymapping.grammar.HymappingPlaceholder(eu.hyvar.dataValues.HyDataValuesPackage.eINSTANCE.getHyEnum().getEStructuralFeature(eu.hyvar.dataValues.HyDataValuesPackage.HY_ENUM__ID), "IDENTIFIER_TOKEN", eu.hyvar.feature.mapping.resource.hymapping.grammar.HymappingCardinality.ONE, 0);
+		return new eu.hyvar.feature.mapping.resource.hymapping.grammar.HymappingPlaceholder(eu.hyvar.dataValues.HyDataValuesPackage.eINSTANCE.getHyEnum().getEStructuralFeature(eu.hyvar.dataValues.HyDataValuesPackage.HY_ENUM__NAME), "IDENTIFIER_TOKEN", eu.hyvar.feature.mapping.resource.hymapping.grammar.HymappingCardinality.ONE, 0);
 	}
 	
 	public final static eu.hyvar.feature.mapping.resource.hymapping.grammar.HymappingKeyword HYDATAVALUE_3_0_0_2 = INSTANCE.getHYDATAVALUE_3_0_0_2();
@@ -1511,7 +1511,7 @@ public class HymappingGrammarInformationProvider {
 	
 	public final static eu.hyvar.feature.mapping.resource.hymapping.grammar.HymappingPlaceholder HYDATAVALUE_4_0_0_3 = INSTANCE.getHYDATAVALUE_4_0_0_3();
 	private eu.hyvar.feature.mapping.resource.hymapping.grammar.HymappingPlaceholder getHYDATAVALUE_4_0_0_3() {
-		return new eu.hyvar.feature.mapping.resource.hymapping.grammar.HymappingPlaceholder(eu.hyvar.dataValues.HyDataValuesPackage.eINSTANCE.getHyEnumLiteral().getEStructuralFeature(eu.hyvar.dataValues.HyDataValuesPackage.HY_ENUM_LITERAL__VALUE), "IDENTIFIER_TOKEN", eu.hyvar.feature.mapping.resource.hymapping.grammar.HymappingCardinality.ONE, 0);
+		return new eu.hyvar.feature.mapping.resource.hymapping.grammar.HymappingPlaceholder(eu.hyvar.dataValues.HyDataValuesPackage.eINSTANCE.getHyEnumLiteral().getEStructuralFeature(eu.hyvar.dataValues.HyDataValuesPackage.HY_ENUM_LITERAL__VALUE), "INTEGER_LITERAL", eu.hyvar.feature.mapping.resource.hymapping.grammar.HymappingCardinality.ONE, 0);
 	}
 	
 	public final static eu.hyvar.feature.mapping.resource.hymapping.grammar.HymappingKeyword HYDATAVALUE_4_0_0_4 = INSTANCE.getHYDATAVALUE_4_0_0_4();
