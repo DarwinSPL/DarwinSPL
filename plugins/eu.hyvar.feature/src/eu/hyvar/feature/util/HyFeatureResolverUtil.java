@@ -36,7 +36,7 @@ public class HyFeatureResolverUtil {
 		List<HyFeature> validFeatures = new ArrayList<HyFeature>();
 		for(HyFeature feature: featureModel.getFeatures()) {
 			String name = HyFeatureEvolutionUtil.getValidName(feature.getNames(), date).getName();
-			if(name.equals(identifier)) {
+			if(name != null && name.equals(identifier)) {
 				validFeatures.add(feature);
 			}
 		}
