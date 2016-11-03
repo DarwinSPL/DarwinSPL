@@ -25,124 +25,130 @@ import eu.hyvar.feature.expression.HyVersionRestriction;
 import eu.hyvar.feature.util.HyFeatureModelWellFormednessException;
 import eu.hyvar.feature.util.HyFeatureResolverUtil;
 
-
 public class HyExpressionResolverUtil {
 	private final static String FEATUREMODEL_EDITOR_EXTENSIONPOINT_ID = "eu.hyvar.feature.expression.FeatureModelEditor";
-	
-	public static HyFeature resolveFeature(String identifier, EObject elementFromAccompanyingResource) {	
-		HyFeatureModel featureModel = HyFeatureResolverUtil.getAccompanyingFeatureModel(elementFromAccompanyingResource);	
+
+	public static HyFeature resolveFeature(String identifier, EObject elementFromAccompanyingResource) {
+		HyFeatureModel featureModel = HyFeatureResolverUtil
+				.getAccompanyingFeatureModel(elementFromAccompanyingResource);
 
 		if (identifier == null) {
 			return null;
 		}
-		
+
 		Tuple<String, Date> identifierAndDate = IdentifierWithDateUtil.getIdentifierAndDate(identifier);
-		if(identifierAndDate.getSecondEntry() == null) {
+		if (identifierAndDate.getSecondEntry() == null) {
 			identifierAndDate.setSecondEntry(new Date());
 		}
-		
-		
+
 		try {
-			return HyFeatureResolverUtil.resolveFeature(identifierAndDate.getFirstEntry(), featureModel, identifierAndDate.getSecondEntry());
+			return HyFeatureResolverUtil.resolveFeature(identifierAndDate.getFirstEntry(), featureModel,
+					identifierAndDate.getSecondEntry());
 		} catch (HyFeatureModelWellFormednessException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 			return null;
 		}
 	}
-	
+
 	public static HyVersion resolveVersion(String identifier, HyVersionRestriction container) {
 		// TODO?
-		
+
 		HyAbstractFeatureReferenceExpression featureReference = container.getRestrictedFeatureReferenceExpression();
 		HyFeature feature = featureReference.getFeature();
-		
+
 		return HyFeatureResolverUtil.resolveVersion(identifier, feature);
 	}
-	
-	
-	public static HyFeatureAttribute resolveFeatureAttribute(String identifier, EObject elementFromAccompanyingResource, HyFeature containingFeature) {
-//		HyFeatureModel featureModel = HyFeatureResolverUtil.getAccompanyingFeatureModel(elementFromAccompanyingResource);
+
+	public static HyFeatureAttribute resolveFeatureAttribute(String identifier, EObject elementFromAccompanyingResource,
+			HyFeature containingFeature) {
+		// HyFeatureModel featureModel =
+		// HyFeatureResolverUtil.getAccompanyingFeatureModel(elementFromAccompanyingResource);
 
 		if (identifier == null || containingFeature == null) {
 			return null;
 		}
-		
+
 		Tuple<String, Date> identifierAndDate = IdentifierWithDateUtil.getIdentifierAndDate(identifier);
-		if(identifierAndDate.getSecondEntry() == null) {
+		if (identifierAndDate.getSecondEntry() == null) {
 			identifierAndDate.setSecondEntry(new Date());
 		}
-		
+
 		try {
-			return HyFeatureResolverUtil.resolveFeatureAttribute(identifierAndDate.getFirstEntry(), containingFeature, identifierAndDate.getSecondEntry());
+			return HyFeatureResolverUtil.resolveFeatureAttribute(identifierAndDate.getFirstEntry(), containingFeature,
+					identifierAndDate.getSecondEntry());
 		} catch (HyFeatureModelWellFormednessException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 			return null;
 		}
 	}
-	
-	
+
 	public static HyEnum resolveEnum(String identifier, EObject elementFromAccompanyingResource) {
-		
+
 		HyEnum resolved = null;
-		
+
 		if (identifier == null) {
 			return null;
 		}
 		// TODO: Ambiguity between Enums in FM and ContextModel
 		// TODO evolution
-		HyContextModel contextModel = ContextInformationResolverUtil.getAccompanyingContextModel(elementFromAccompanyingResource);
-		
-		if(contextModel != null) {
-			resolved =  ContextInformationResolverUtil.resolveEnum(identifier, contextModel, new Date());
+
+		HyContextModel contextModel = ContextInformationResolverUtil
+				.getAccompanyingContextModel(elementFromAccompanyingResource);
+
+		if (contextModel != null) {
+			resolved = ContextInformationResolverUtil.resolveEnum(identifier, contextModel, new Date());
 		}
-		
-		if(resolved == null) {
-			HyFeatureModel featureModel = HyFeatureResolverUtil.getAccompanyingFeatureModel(elementFromAccompanyingResource);
-			
-			if(featureModel != null) {
-				resolved = HyFeatureResolverUtil.resolveEnum(identifier, featureModel, new Date());				
+
+		if (resolved == null) {
+			HyFeatureModel featureModel = HyFeatureResolverUtil
+					.getAccompanyingFeatureModel(elementFromAccompanyingResource);
+
+			if (featureModel != null) {
+				resolved = HyFeatureResolverUtil.resolveEnum(identifier, featureModel, new Date());
 			}
 		}
-		
+
 		return resolved;
 	}
-	
-	
+
 	public static String deresolveEnum(HyEnum hyEnum) {
-		if(hyEnum == null) {
+		if (hyEnum == null) {
 			return "";
 		}
 		return ContextInformationResolverUtil.deresolveEnum(hyEnum);
 	}
-	
-	public static HyContextualInformation resolveContextualInformation(String identifier, EObject elementFromAccompanyingResource) {
-		
+
+	public static HyContextualInformation resolveContextualInformation(String identifier,
+			EObject elementFromAccompanyingResource) {
+
 		if (identifier == null) {
 			return null;
 		}
-		
-		HyContextModel contextModel = ContextInformationResolverUtil.getAccompanyingContextModel(elementFromAccompanyingResource);
-		
-		if(contextModel == null) {
+
+		HyContextModel contextModel = ContextInformationResolverUtil
+				.getAccompanyingContextModel(elementFromAccompanyingResource);
+
+		if (contextModel == null) {
 			return null;
 		}
-		
+
 		Tuple<String, Date> identifierAndDate = IdentifierWithDateUtil.getIdentifierAndDate(identifier);
-		if(identifierAndDate.getSecondEntry() == null) {
+		if (identifierAndDate.getSecondEntry() == null) {
 			identifierAndDate.setSecondEntry(new Date());
 		}
-		
-		return ContextInformationResolverUtil.resolveContextualInformation(identifierAndDate.getFirstEntry(), contextModel, identifierAndDate.getSecondEntry());
-		
+
+		return ContextInformationResolverUtil.resolveContextualInformation(identifierAndDate.getFirstEntry(),
+				contextModel, identifierAndDate.getSecondEntry());
+
 	}
-	
+
 	public static String deresolveContextualInformation(HyContextualInformation contextInfo) {
-		if(contextInfo == null) {
+		if (contextInfo == null) {
 			return "";
 		}
 		return contextInfo.getId();
 	}
-	
+
 }
