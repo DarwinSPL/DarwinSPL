@@ -1,2 +1,2 @@
 DarwinSPL
-Copyright 2016 Istitut für Softwaretechnik und Fahrzeuginformatik, Technische Universität Braunshweig.
+Copyright 2016 Institut fÃ¼r Softwaretechnik und Fahrzeuginformatik, Technische UniversitÃ¤t Braunschweig.
