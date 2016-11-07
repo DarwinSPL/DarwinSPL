@@ -11,3 +11,6 @@ Usage:
 Create Model and Edit Code for each *.genmodel file.
 
 Generate TextResources of all *.cs file (currently not necessary or possible due to a EMFText bug)
+
+See the Wiki for more detailed information:
+https://github.com/HyVar/DarwinSPL/wiki
