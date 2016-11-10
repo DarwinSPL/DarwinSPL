@@ -33,7 +33,7 @@ import java.util.HashMap;
 @SuppressWarnings({"all", "warnings", "unchecked"})
 public class HycontextinformationParser extends HycontextinformationANTLRParserBase {
     public static final String[] tokenNames = new String[] {
-        "<invalid>", "<EOR>", "<DOWN>", "<UP>", "DATE", "IDENTIFIER_TOKEN", "INTEGER_LITERAL", "LINEBREAK", "ML_COMMENT", "SL_COMMENT", "WHITESPACE", "')'", "','", "'-'", "'.'", "'BooleanContext('", "'Enum('", "'EnumContext('", "'EnumLiteral('", "'NumberContext('", "'['", "']'", "'enum:'", "'false'", "'null'", "'true'"
+        "<invalid>", "<EOR>", "<DOWN>", "<UP>", "DATE", "IDENTIFIER_TOKEN", "INTEGER_LITERAL", "LINEBREAK", "ML_COMMENT", "SL_COMMENT", "WHITESPACE", "')'", "','", "'-'", "'.'", "'BooleanContext('", "'Enum('", "'EnumContext('", "'EnumLiteral('", "'NumberContext('", "'['", "']'", "'enum:'", "'eternity'", "'false'", "'true'"
     };
 
     public static final int EOF=-1;
@@ -428,7 +428,7 @@ public class HycontextinformationParser extends HycontextinformationANTLRParserB
     				break;
     			}
     		}
-    		int followSetID = 103;
+    		int followSetID = 102;
     		int i;
     		for (i = tokenIndexOfLastCompleteElement; i < tokenStream.size(); i++) {
     			CommonToken nextToken = (CommonToken) tokenStream.get(i);
@@ -758,7 +758,7 @@ public class HycontextinformationParser extends HycontextinformationANTLRParserB
 
 
     // $ANTLR start "parse_eu_hyvar_context_HyContextualInformationNumber"
-    // Hycontextinformation.g:582:1: parse_eu_hyvar_context_HyContextualInformationNumber returns [eu.hyvar.context.HyContextualInformationNumber element = null] : a0= 'NumberContext(' (a1= IDENTIFIER_TOKEN ) a2= ',' (a3= INTEGER_LITERAL ) a4= ',' (a5= INTEGER_LITERAL ) a6= ')' ( (a7= '[' ( (a8= DATE ) a9= '-' (a10= DATE ) | (a11= DATE ) a12= '-' a13= 'null' |a14= 'null' a15= '-' (a16= DATE ) ) a17= ']' ) )? ;
+    // Hycontextinformation.g:582:1: parse_eu_hyvar_context_HyContextualInformationNumber returns [eu.hyvar.context.HyContextualInformationNumber element = null] : a0= 'NumberContext(' (a1= IDENTIFIER_TOKEN ) a2= ',' (a3= INTEGER_LITERAL ) a4= ',' (a5= INTEGER_LITERAL ) a6= ')' ( (a7= '[' ( (a8= DATE ) a9= '-' (a10= DATE ) | (a11= DATE ) a12= '-' a13= 'eternity' |a14= 'eternity' a15= '-' (a16= DATE ) ) a17= ']' ) )? ;
     public final eu.hyvar.context.HyContextualInformationNumber parse_eu_hyvar_context_HyContextualInformationNumber() throws RecognitionException {
         eu.hyvar.context.HyContextualInformationNumber element =  null;
 
@@ -788,8 +788,8 @@ public class HycontextinformationParser extends HycontextinformationANTLRParserB
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 3) ) { return element; }
 
-            // Hycontextinformation.g:585:2: (a0= 'NumberContext(' (a1= IDENTIFIER_TOKEN ) a2= ',' (a3= INTEGER_LITERAL ) a4= ',' (a5= INTEGER_LITERAL ) a6= ')' ( (a7= '[' ( (a8= DATE ) a9= '-' (a10= DATE ) | (a11= DATE ) a12= '-' a13= 'null' |a14= 'null' a15= '-' (a16= DATE ) ) a17= ']' ) )? )
-            // Hycontextinformation.g:586:2: a0= 'NumberContext(' (a1= IDENTIFIER_TOKEN ) a2= ',' (a3= INTEGER_LITERAL ) a4= ',' (a5= INTEGER_LITERAL ) a6= ')' ( (a7= '[' ( (a8= DATE ) a9= '-' (a10= DATE ) | (a11= DATE ) a12= '-' a13= 'null' |a14= 'null' a15= '-' (a16= DATE ) ) a17= ']' ) )?
+            // Hycontextinformation.g:585:2: (a0= 'NumberContext(' (a1= IDENTIFIER_TOKEN ) a2= ',' (a3= INTEGER_LITERAL ) a4= ',' (a5= INTEGER_LITERAL ) a6= ')' ( (a7= '[' ( (a8= DATE ) a9= '-' (a10= DATE ) | (a11= DATE ) a12= '-' a13= 'eternity' |a14= 'eternity' a15= '-' (a16= DATE ) ) a17= ']' ) )? )
+            // Hycontextinformation.g:586:2: a0= 'NumberContext(' (a1= IDENTIFIER_TOKEN ) a2= ',' (a3= INTEGER_LITERAL ) a4= ',' (a5= INTEGER_LITERAL ) a6= ')' ( (a7= '[' ( (a8= DATE ) a9= '-' (a10= DATE ) | (a11= DATE ) a12= '-' a13= 'eternity' |a14= 'eternity' a15= '-' (a16= DATE ) ) a17= ']' ) )?
             {
             a0=(Token)match(input,19,FOLLOW_19_in_parse_eu_hyvar_context_HyContextualInformationNumber200); if (state.failed) return element;
 
@@ -988,7 +988,7 @@ public class HycontextinformationParser extends HycontextinformationANTLRParserB
             		addExpectedElement(eu.hyvar.context.HyContextInformationPackage.eINSTANCE.getHyContextModel(), eu.hyvar.context.resource.hycontextinformation.mopp.HycontextinformationExpectationConstants.EXPECTATIONS[20]);
             	}
 
-            // Hycontextinformation.g:753:2: ( (a7= '[' ( (a8= DATE ) a9= '-' (a10= DATE ) | (a11= DATE ) a12= '-' a13= 'null' |a14= 'null' a15= '-' (a16= DATE ) ) a17= ']' ) )?
+            // Hycontextinformation.g:753:2: ( (a7= '[' ( (a8= DATE ) a9= '-' (a10= DATE ) | (a11= DATE ) a12= '-' a13= 'eternity' |a14= 'eternity' a15= '-' (a16= DATE ) ) a17= ']' ) )?
             int alt4=2;
             int LA4_0 = input.LA(1);
 
@@ -997,10 +997,10 @@ public class HycontextinformationParser extends HycontextinformationANTLRParserB
             }
             switch (alt4) {
                 case 1 :
-                    // Hycontextinformation.g:754:3: (a7= '[' ( (a8= DATE ) a9= '-' (a10= DATE ) | (a11= DATE ) a12= '-' a13= 'null' |a14= 'null' a15= '-' (a16= DATE ) ) a17= ']' )
+                    // Hycontextinformation.g:754:3: (a7= '[' ( (a8= DATE ) a9= '-' (a10= DATE ) | (a11= DATE ) a12= '-' a13= 'eternity' |a14= 'eternity' a15= '-' (a16= DATE ) ) a17= ']' )
                     {
-                    // Hycontextinformation.g:754:3: (a7= '[' ( (a8= DATE ) a9= '-' (a10= DATE ) | (a11= DATE ) a12= '-' a13= 'null' |a14= 'null' a15= '-' (a16= DATE ) ) a17= ']' )
-                    // Hycontextinformation.g:755:4: a7= '[' ( (a8= DATE ) a9= '-' (a10= DATE ) | (a11= DATE ) a12= '-' a13= 'null' |a14= 'null' a15= '-' (a16= DATE ) ) a17= ']'
+                    // Hycontextinformation.g:754:3: (a7= '[' ( (a8= DATE ) a9= '-' (a10= DATE ) | (a11= DATE ) a12= '-' a13= 'eternity' |a14= 'eternity' a15= '-' (a16= DATE ) ) a17= ']' )
+                    // Hycontextinformation.g:755:4: a7= '[' ( (a8= DATE ) a9= '-' (a10= DATE ) | (a11= DATE ) a12= '-' a13= 'eternity' |a14= 'eternity' a15= '-' (a16= DATE ) ) a17= ']'
                     {
                     a7=(Token)match(input,20,FOLLOW_20_in_parse_eu_hyvar_context_HyContextualInformationNumber340); if (state.failed) return element;
 
@@ -1021,7 +1021,7 @@ public class HycontextinformationParser extends HycontextinformationANTLRParserB
                     				addExpectedElement(null, eu.hyvar.context.resource.hycontextinformation.mopp.HycontextinformationExpectationConstants.EXPECTATIONS[23]);
                     			}
 
-                    // Hycontextinformation.g:771:4: ( (a8= DATE ) a9= '-' (a10= DATE ) | (a11= DATE ) a12= '-' a13= 'null' |a14= 'null' a15= '-' (a16= DATE ) )
+                    // Hycontextinformation.g:771:4: ( (a8= DATE ) a9= '-' (a10= DATE ) | (a11= DATE ) a12= '-' a13= 'eternity' |a14= 'eternity' a15= '-' (a16= DATE ) )
                     int alt3=3;
                     int LA3_0 = input.LA(1);
 
@@ -1034,7 +1034,7 @@ public class HycontextinformationParser extends HycontextinformationANTLRParserB
                             if ( (LA3_3==DATE) ) {
                                 alt3=1;
                             }
-                            else if ( (LA3_3==24) ) {
+                            else if ( (LA3_3==23) ) {
                                 alt3=2;
                             }
                             else {
@@ -1055,7 +1055,7 @@ public class HycontextinformationParser extends HycontextinformationANTLRParserB
 
                         }
                     }
-                    else if ( (LA3_0==24) ) {
+                    else if ( (LA3_0==23) ) {
                         alt3=3;
                     }
                     else {
@@ -1174,7 +1174,7 @@ public class HycontextinformationParser extends HycontextinformationANTLRParserB
                             }
                             break;
                         case 2 :
-                            // Hycontextinformation.g:859:10: (a11= DATE ) a12= '-' a13= 'null'
+                            // Hycontextinformation.g:859:10: (a11= DATE ) a12= '-' a13= 'eternity'
                             {
                             // Hycontextinformation.g:859:10: (a11= DATE )
                             // Hycontextinformation.g:860:6: a11= DATE
@@ -1235,7 +1235,7 @@ public class HycontextinformationParser extends HycontextinformationANTLRParserB
                             					addExpectedElement(null, eu.hyvar.context.resource.hycontextinformation.mopp.HycontextinformationExpectationConstants.EXPECTATIONS[28]);
                             				}
 
-                            a13=(Token)match(input,24,FOLLOW_24_in_parse_eu_hyvar_context_HyContextualInformationNumber560); if (state.failed) return element;
+                            a13=(Token)match(input,23,FOLLOW_23_in_parse_eu_hyvar_context_HyContextualInformationNumber560); if (state.failed) return element;
 
                             if ( state.backtracking==0 ) {
                             					if (element == null) {
@@ -1255,9 +1255,9 @@ public class HycontextinformationParser extends HycontextinformationANTLRParserB
                             }
                             break;
                         case 3 :
-                            // Hycontextinformation.g:924:10: a14= 'null' a15= '-' (a16= DATE )
+                            // Hycontextinformation.g:924:10: a14= 'eternity' a15= '-' (a16= DATE )
                             {
-                            a14=(Token)match(input,24,FOLLOW_24_in_parse_eu_hyvar_context_HyContextualInformationNumber593); if (state.failed) return element;
+                            a14=(Token)match(input,23,FOLLOW_23_in_parse_eu_hyvar_context_HyContextualInformationNumber593); if (state.failed) return element;
 
                             if ( state.backtracking==0 ) {
                             					if (element == null) {
@@ -1399,7 +1399,7 @@ public class HycontextinformationParser extends HycontextinformationANTLRParserB
 
 
     // $ANTLR start "parse_eu_hyvar_context_HyContextualInformationBoolean"
-    // Hycontextinformation.g:1021:1: parse_eu_hyvar_context_HyContextualInformationBoolean returns [eu.hyvar.context.HyContextualInformationBoolean element = null] : a0= 'BooleanContext(' (a1= IDENTIFIER_TOKEN ) a2= ')' ( (a3= '[' ( (a4= DATE ) a5= '-' (a6= DATE ) | (a7= DATE ) a8= '-' a9= 'null' |a10= 'null' a11= '-' (a12= DATE ) ) a13= ']' ) )? ;
+    // Hycontextinformation.g:1021:1: parse_eu_hyvar_context_HyContextualInformationBoolean returns [eu.hyvar.context.HyContextualInformationBoolean element = null] : a0= 'BooleanContext(' (a1= IDENTIFIER_TOKEN ) a2= ')' ( (a3= '[' ( (a4= DATE ) a5= '-' (a6= DATE ) | (a7= DATE ) a8= '-' a9= 'eternity' |a10= 'eternity' a11= '-' (a12= DATE ) ) a13= ']' ) )? ;
     public final eu.hyvar.context.HyContextualInformationBoolean parse_eu_hyvar_context_HyContextualInformationBoolean() throws RecognitionException {
         eu.hyvar.context.HyContextualInformationBoolean element =  null;
 
@@ -1425,8 +1425,8 @@ public class HycontextinformationParser extends HycontextinformationANTLRParserB
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 4) ) { return element; }
 
-            // Hycontextinformation.g:1024:2: (a0= 'BooleanContext(' (a1= IDENTIFIER_TOKEN ) a2= ')' ( (a3= '[' ( (a4= DATE ) a5= '-' (a6= DATE ) | (a7= DATE ) a8= '-' a9= 'null' |a10= 'null' a11= '-' (a12= DATE ) ) a13= ']' ) )? )
-            // Hycontextinformation.g:1025:2: a0= 'BooleanContext(' (a1= IDENTIFIER_TOKEN ) a2= ')' ( (a3= '[' ( (a4= DATE ) a5= '-' (a6= DATE ) | (a7= DATE ) a8= '-' a9= 'null' |a10= 'null' a11= '-' (a12= DATE ) ) a13= ']' ) )?
+            // Hycontextinformation.g:1024:2: (a0= 'BooleanContext(' (a1= IDENTIFIER_TOKEN ) a2= ')' ( (a3= '[' ( (a4= DATE ) a5= '-' (a6= DATE ) | (a7= DATE ) a8= '-' a9= 'eternity' |a10= 'eternity' a11= '-' (a12= DATE ) ) a13= ']' ) )? )
+            // Hycontextinformation.g:1025:2: a0= 'BooleanContext(' (a1= IDENTIFIER_TOKEN ) a2= ')' ( (a3= '[' ( (a4= DATE ) a5= '-' (a6= DATE ) | (a7= DATE ) a8= '-' a9= 'eternity' |a10= 'eternity' a11= '-' (a12= DATE ) ) a13= ']' ) )?
             {
             a0=(Token)match(input,15,FOLLOW_15_in_parse_eu_hyvar_context_HyContextualInformationBoolean746); if (state.failed) return element;
 
@@ -1507,7 +1507,7 @@ public class HycontextinformationParser extends HycontextinformationANTLRParserB
             		addExpectedElement(eu.hyvar.context.HyContextInformationPackage.eINSTANCE.getHyContextModel(), eu.hyvar.context.resource.hycontextinformation.mopp.HycontextinformationExpectationConstants.EXPECTATIONS[45]);
             	}
 
-            // Hycontextinformation.g:1092:2: ( (a3= '[' ( (a4= DATE ) a5= '-' (a6= DATE ) | (a7= DATE ) a8= '-' a9= 'null' |a10= 'null' a11= '-' (a12= DATE ) ) a13= ']' ) )?
+            // Hycontextinformation.g:1092:2: ( (a3= '[' ( (a4= DATE ) a5= '-' (a6= DATE ) | (a7= DATE ) a8= '-' a9= 'eternity' |a10= 'eternity' a11= '-' (a12= DATE ) ) a13= ']' ) )?
             int alt6=2;
             int LA6_0 = input.LA(1);
 
@@ -1516,10 +1516,10 @@ public class HycontextinformationParser extends HycontextinformationANTLRParserB
             }
             switch (alt6) {
                 case 1 :
-                    // Hycontextinformation.g:1093:3: (a3= '[' ( (a4= DATE ) a5= '-' (a6= DATE ) | (a7= DATE ) a8= '-' a9= 'null' |a10= 'null' a11= '-' (a12= DATE ) ) a13= ']' )
+                    // Hycontextinformation.g:1093:3: (a3= '[' ( (a4= DATE ) a5= '-' (a6= DATE ) | (a7= DATE ) a8= '-' a9= 'eternity' |a10= 'eternity' a11= '-' (a12= DATE ) ) a13= ']' )
                     {
-                    // Hycontextinformation.g:1093:3: (a3= '[' ( (a4= DATE ) a5= '-' (a6= DATE ) | (a7= DATE ) a8= '-' a9= 'null' |a10= 'null' a11= '-' (a12= DATE ) ) a13= ']' )
-                    // Hycontextinformation.g:1094:4: a3= '[' ( (a4= DATE ) a5= '-' (a6= DATE ) | (a7= DATE ) a8= '-' a9= 'null' |a10= 'null' a11= '-' (a12= DATE ) ) a13= ']'
+                    // Hycontextinformation.g:1093:3: (a3= '[' ( (a4= DATE ) a5= '-' (a6= DATE ) | (a7= DATE ) a8= '-' a9= 'eternity' |a10= 'eternity' a11= '-' (a12= DATE ) ) a13= ']' )
+                    // Hycontextinformation.g:1094:4: a3= '[' ( (a4= DATE ) a5= '-' (a6= DATE ) | (a7= DATE ) a8= '-' a9= 'eternity' |a10= 'eternity' a11= '-' (a12= DATE ) ) a13= ']'
                     {
                     a3=(Token)match(input,20,FOLLOW_20_in_parse_eu_hyvar_context_HyContextualInformationBoolean808); if (state.failed) return element;
 
@@ -1540,7 +1540,7 @@ public class HycontextinformationParser extends HycontextinformationANTLRParserB
                     				addExpectedElement(null, eu.hyvar.context.resource.hycontextinformation.mopp.HycontextinformationExpectationConstants.EXPECTATIONS[48]);
                     			}
 
-                    // Hycontextinformation.g:1110:4: ( (a4= DATE ) a5= '-' (a6= DATE ) | (a7= DATE ) a8= '-' a9= 'null' |a10= 'null' a11= '-' (a12= DATE ) )
+                    // Hycontextinformation.g:1110:4: ( (a4= DATE ) a5= '-' (a6= DATE ) | (a7= DATE ) a8= '-' a9= 'eternity' |a10= 'eternity' a11= '-' (a12= DATE ) )
                     int alt5=3;
                     int LA5_0 = input.LA(1);
 
@@ -1553,7 +1553,7 @@ public class HycontextinformationParser extends HycontextinformationANTLRParserB
                             if ( (LA5_3==DATE) ) {
                                 alt5=1;
                             }
-                            else if ( (LA5_3==24) ) {
+                            else if ( (LA5_3==23) ) {
                                 alt5=2;
                             }
                             else {
@@ -1574,7 +1574,7 @@ public class HycontextinformationParser extends HycontextinformationANTLRParserB
 
                         }
                     }
-                    else if ( (LA5_0==24) ) {
+                    else if ( (LA5_0==23) ) {
                         alt5=3;
                     }
                     else {
@@ -1693,7 +1693,7 @@ public class HycontextinformationParser extends HycontextinformationANTLRParserB
                             }
                             break;
                         case 2 :
-                            // Hycontextinformation.g:1198:10: (a7= DATE ) a8= '-' a9= 'null'
+                            // Hycontextinformation.g:1198:10: (a7= DATE ) a8= '-' a9= 'eternity'
                             {
                             // Hycontextinformation.g:1198:10: (a7= DATE )
                             // Hycontextinformation.g:1199:6: a7= DATE
@@ -1754,7 +1754,7 @@ public class HycontextinformationParser extends HycontextinformationANTLRParserB
                             					addExpectedElement(null, eu.hyvar.context.resource.hycontextinformation.mopp.HycontextinformationExpectationConstants.EXPECTATIONS[53]);
                             				}
 
-                            a9=(Token)match(input,24,FOLLOW_24_in_parse_eu_hyvar_context_HyContextualInformationBoolean1028); if (state.failed) return element;
+                            a9=(Token)match(input,23,FOLLOW_23_in_parse_eu_hyvar_context_HyContextualInformationBoolean1028); if (state.failed) return element;
 
                             if ( state.backtracking==0 ) {
                             					if (element == null) {
@@ -1774,9 +1774,9 @@ public class HycontextinformationParser extends HycontextinformationANTLRParserB
                             }
                             break;
                         case 3 :
-                            // Hycontextinformation.g:1263:10: a10= 'null' a11= '-' (a12= DATE )
+                            // Hycontextinformation.g:1263:10: a10= 'eternity' a11= '-' (a12= DATE )
                             {
-                            a10=(Token)match(input,24,FOLLOW_24_in_parse_eu_hyvar_context_HyContextualInformationBoolean1061); if (state.failed) return element;
+                            a10=(Token)match(input,23,FOLLOW_23_in_parse_eu_hyvar_context_HyContextualInformationBoolean1061); if (state.failed) return element;
 
                             if ( state.backtracking==0 ) {
                             					if (element == null) {
@@ -1918,7 +1918,7 @@ public class HycontextinformationParser extends HycontextinformationANTLRParserB
 
 
     // $ANTLR start "parse_eu_hyvar_context_HyContextualInformationEnum"
-    // Hycontextinformation.g:1360:1: parse_eu_hyvar_context_HyContextualInformationEnum returns [eu.hyvar.context.HyContextualInformationEnum element = null] : a0= 'EnumContext(' (a1= IDENTIFIER_TOKEN ) a2= ',' (a3= IDENTIFIER_TOKEN ) a4= ')' ( (a5= '[' ( (a6= DATE ) a7= '-' (a8= DATE ) | (a9= DATE ) a10= '-' a11= 'null' |a12= 'null' a13= '-' (a14= DATE ) ) a15= ']' ) )? ;
+    // Hycontextinformation.g:1360:1: parse_eu_hyvar_context_HyContextualInformationEnum returns [eu.hyvar.context.HyContextualInformationEnum element = null] : a0= 'EnumContext(' (a1= IDENTIFIER_TOKEN ) a2= ',' (a3= IDENTIFIER_TOKEN ) a4= ')' ( (a5= '[' ( (a6= DATE ) a7= '-' (a8= DATE ) | (a9= DATE ) a10= '-' a11= 'eternity' |a12= 'eternity' a13= '-' (a14= DATE ) ) a15= ']' ) )? ;
     public final eu.hyvar.context.HyContextualInformationEnum parse_eu_hyvar_context_HyContextualInformationEnum() throws RecognitionException {
         eu.hyvar.context.HyContextualInformationEnum element =  null;
 
@@ -1946,8 +1946,8 @@ public class HycontextinformationParser extends HycontextinformationANTLRParserB
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 5) ) { return element; }
 
-            // Hycontextinformation.g:1363:2: (a0= 'EnumContext(' (a1= IDENTIFIER_TOKEN ) a2= ',' (a3= IDENTIFIER_TOKEN ) a4= ')' ( (a5= '[' ( (a6= DATE ) a7= '-' (a8= DATE ) | (a9= DATE ) a10= '-' a11= 'null' |a12= 'null' a13= '-' (a14= DATE ) ) a15= ']' ) )? )
-            // Hycontextinformation.g:1364:2: a0= 'EnumContext(' (a1= IDENTIFIER_TOKEN ) a2= ',' (a3= IDENTIFIER_TOKEN ) a4= ')' ( (a5= '[' ( (a6= DATE ) a7= '-' (a8= DATE ) | (a9= DATE ) a10= '-' a11= 'null' |a12= 'null' a13= '-' (a14= DATE ) ) a15= ']' ) )?
+            // Hycontextinformation.g:1363:2: (a0= 'EnumContext(' (a1= IDENTIFIER_TOKEN ) a2= ',' (a3= IDENTIFIER_TOKEN ) a4= ')' ( (a5= '[' ( (a6= DATE ) a7= '-' (a8= DATE ) | (a9= DATE ) a10= '-' a11= 'eternity' |a12= 'eternity' a13= '-' (a14= DATE ) ) a15= ']' ) )? )
+            // Hycontextinformation.g:1364:2: a0= 'EnumContext(' (a1= IDENTIFIER_TOKEN ) a2= ',' (a3= IDENTIFIER_TOKEN ) a4= ')' ( (a5= '[' ( (a6= DATE ) a7= '-' (a8= DATE ) | (a9= DATE ) a10= '-' a11= 'eternity' |a12= 'eternity' a13= '-' (a14= DATE ) ) a15= ']' ) )?
             {
             a0=(Token)match(input,17,FOLLOW_17_in_parse_eu_hyvar_context_HyContextualInformationEnum1214); if (state.failed) return element;
 
@@ -2091,7 +2091,7 @@ public class HycontextinformationParser extends HycontextinformationANTLRParserB
             		addExpectedElement(eu.hyvar.context.HyContextInformationPackage.eINSTANCE.getHyContextModel(), eu.hyvar.context.resource.hycontextinformation.mopp.HycontextinformationExpectationConstants.EXPECTATIONS[72]);
             	}
 
-            // Hycontextinformation.g:1485:2: ( (a5= '[' ( (a6= DATE ) a7= '-' (a8= DATE ) | (a9= DATE ) a10= '-' a11= 'null' |a12= 'null' a13= '-' (a14= DATE ) ) a15= ']' ) )?
+            // Hycontextinformation.g:1485:2: ( (a5= '[' ( (a6= DATE ) a7= '-' (a8= DATE ) | (a9= DATE ) a10= '-' a11= 'eternity' |a12= 'eternity' a13= '-' (a14= DATE ) ) a15= ']' ) )?
             int alt8=2;
             int LA8_0 = input.LA(1);
 
@@ -2100,10 +2100,10 @@ public class HycontextinformationParser extends HycontextinformationANTLRParserB
             }
             switch (alt8) {
                 case 1 :
-                    // Hycontextinformation.g:1486:3: (a5= '[' ( (a6= DATE ) a7= '-' (a8= DATE ) | (a9= DATE ) a10= '-' a11= 'null' |a12= 'null' a13= '-' (a14= DATE ) ) a15= ']' )
+                    // Hycontextinformation.g:1486:3: (a5= '[' ( (a6= DATE ) a7= '-' (a8= DATE ) | (a9= DATE ) a10= '-' a11= 'eternity' |a12= 'eternity' a13= '-' (a14= DATE ) ) a15= ']' )
                     {
-                    // Hycontextinformation.g:1486:3: (a5= '[' ( (a6= DATE ) a7= '-' (a8= DATE ) | (a9= DATE ) a10= '-' a11= 'null' |a12= 'null' a13= '-' (a14= DATE ) ) a15= ']' )
-                    // Hycontextinformation.g:1487:4: a5= '[' ( (a6= DATE ) a7= '-' (a8= DATE ) | (a9= DATE ) a10= '-' a11= 'null' |a12= 'null' a13= '-' (a14= DATE ) ) a15= ']'
+                    // Hycontextinformation.g:1486:3: (a5= '[' ( (a6= DATE ) a7= '-' (a8= DATE ) | (a9= DATE ) a10= '-' a11= 'eternity' |a12= 'eternity' a13= '-' (a14= DATE ) ) a15= ']' )
+                    // Hycontextinformation.g:1487:4: a5= '[' ( (a6= DATE ) a7= '-' (a8= DATE ) | (a9= DATE ) a10= '-' a11= 'eternity' |a12= 'eternity' a13= '-' (a14= DATE ) ) a15= ']'
                     {
                     a5=(Token)match(input,20,FOLLOW_20_in_parse_eu_hyvar_context_HyContextualInformationEnum1315); if (state.failed) return element;
 
@@ -2124,7 +2124,7 @@ public class HycontextinformationParser extends HycontextinformationANTLRParserB
                     				addExpectedElement(null, eu.hyvar.context.resource.hycontextinformation.mopp.HycontextinformationExpectationConstants.EXPECTATIONS[75]);
                     			}
 
-                    // Hycontextinformation.g:1503:4: ( (a6= DATE ) a7= '-' (a8= DATE ) | (a9= DATE ) a10= '-' a11= 'null' |a12= 'null' a13= '-' (a14= DATE ) )
+                    // Hycontextinformation.g:1503:4: ( (a6= DATE ) a7= '-' (a8= DATE ) | (a9= DATE ) a10= '-' a11= 'eternity' |a12= 'eternity' a13= '-' (a14= DATE ) )
                     int alt7=3;
                     int LA7_0 = input.LA(1);
 
@@ -2137,7 +2137,7 @@ public class HycontextinformationParser extends HycontextinformationANTLRParserB
                             if ( (LA7_3==DATE) ) {
                                 alt7=1;
                             }
-                            else if ( (LA7_3==24) ) {
+                            else if ( (LA7_3==23) ) {
                                 alt7=2;
                             }
                             else {
@@ -2158,7 +2158,7 @@ public class HycontextinformationParser extends HycontextinformationANTLRParserB
 
                         }
                     }
-                    else if ( (LA7_0==24) ) {
+                    else if ( (LA7_0==23) ) {
                         alt7=3;
                     }
                     else {
@@ -2277,7 +2277,7 @@ public class HycontextinformationParser extends HycontextinformationANTLRParserB
                             }
                             break;
                         case 2 :
-                            // Hycontextinformation.g:1591:10: (a9= DATE ) a10= '-' a11= 'null'
+                            // Hycontextinformation.g:1591:10: (a9= DATE ) a10= '-' a11= 'eternity'
                             {
                             // Hycontextinformation.g:1591:10: (a9= DATE )
                             // Hycontextinformation.g:1592:6: a9= DATE
@@ -2338,7 +2338,7 @@ public class HycontextinformationParser extends HycontextinformationANTLRParserB
                             					addExpectedElement(null, eu.hyvar.context.resource.hycontextinformation.mopp.HycontextinformationExpectationConstants.EXPECTATIONS[80]);
                             				}
 
-                            a11=(Token)match(input,24,FOLLOW_24_in_parse_eu_hyvar_context_HyContextualInformationEnum1535); if (state.failed) return element;
+                            a11=(Token)match(input,23,FOLLOW_23_in_parse_eu_hyvar_context_HyContextualInformationEnum1535); if (state.failed) return element;
 
                             if ( state.backtracking==0 ) {
                             					if (element == null) {
@@ -2358,9 +2358,9 @@ public class HycontextinformationParser extends HycontextinformationANTLRParserB
                             }
                             break;
                         case 3 :
-                            // Hycontextinformation.g:1656:10: a12= 'null' a13= '-' (a14= DATE )
+                            // Hycontextinformation.g:1656:10: a12= 'eternity' a13= '-' (a14= DATE )
                             {
-                            a12=(Token)match(input,24,FOLLOW_24_in_parse_eu_hyvar_context_HyContextualInformationEnum1568); if (state.failed) return element;
+                            a12=(Token)match(input,23,FOLLOW_23_in_parse_eu_hyvar_context_HyContextualInformationEnum1568); if (state.failed) return element;
 
                             if ( state.backtracking==0 ) {
                             					if (element == null) {
@@ -2502,7 +2502,7 @@ public class HycontextinformationParser extends HycontextinformationANTLRParserB
 
 
     // $ANTLR start "parse_eu_hyvar_dataValues_HyEnum"
-    // Hycontextinformation.g:1753:1: parse_eu_hyvar_dataValues_HyEnum returns [eu.hyvar.dataValues.HyEnum element = null] : a0= 'Enum(' (a1= IDENTIFIER_TOKEN ) a2= ',' ( ( (a3_0= parse_eu_hyvar_dataValues_HyEnumLiteral ) ( (a4= ',' (a5_0= parse_eu_hyvar_dataValues_HyEnumLiteral ) ) )* ) )? a6= ')' ( (a7= '[' ( (a8= DATE ) a9= '-' (a10= DATE ) | (a11= DATE ) a12= '-' a13= 'null' |a14= 'null' a15= '-' (a16= DATE ) ) a17= ']' ) )? ;
+    // Hycontextinformation.g:1753:1: parse_eu_hyvar_dataValues_HyEnum returns [eu.hyvar.dataValues.HyEnum element = null] : a0= 'Enum(' (a1= IDENTIFIER_TOKEN ) a2= ',' ( ( (a3_0= parse_eu_hyvar_dataValues_HyEnumLiteral ) ( (a4= ',' (a5_0= parse_eu_hyvar_dataValues_HyEnumLiteral ) ) )* ) )? a6= ')' ( (a7= '[' ( (a8= DATE ) a9= '-' (a10= DATE ) | (a11= DATE ) a12= '-' |a13= 'eternity' a14= '-' (a15= DATE ) ) a16= ']' ) )? ;
     public final eu.hyvar.dataValues.HyEnum parse_eu_hyvar_dataValues_HyEnum() throws RecognitionException {
         eu.hyvar.dataValues.HyEnum element =  null;
 
@@ -2523,7 +2523,6 @@ public class HycontextinformationParser extends HycontextinformationANTLRParserB
         Token a14=null;
         Token a15=null;
         Token a16=null;
-        Token a17=null;
         eu.hyvar.dataValues.HyEnumLiteral a3_0 =null;
 
         eu.hyvar.dataValues.HyEnumLiteral a5_0 =null;
@@ -2534,8 +2533,8 @@ public class HycontextinformationParser extends HycontextinformationANTLRParserB
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 6) ) { return element; }
 
-            // Hycontextinformation.g:1756:2: (a0= 'Enum(' (a1= IDENTIFIER_TOKEN ) a2= ',' ( ( (a3_0= parse_eu_hyvar_dataValues_HyEnumLiteral ) ( (a4= ',' (a5_0= parse_eu_hyvar_dataValues_HyEnumLiteral ) ) )* ) )? a6= ')' ( (a7= '[' ( (a8= DATE ) a9= '-' (a10= DATE ) | (a11= DATE ) a12= '-' a13= 'null' |a14= 'null' a15= '-' (a16= DATE ) ) a17= ']' ) )? )
-            // Hycontextinformation.g:1757:2: a0= 'Enum(' (a1= IDENTIFIER_TOKEN ) a2= ',' ( ( (a3_0= parse_eu_hyvar_dataValues_HyEnumLiteral ) ( (a4= ',' (a5_0= parse_eu_hyvar_dataValues_HyEnumLiteral ) ) )* ) )? a6= ')' ( (a7= '[' ( (a8= DATE ) a9= '-' (a10= DATE ) | (a11= DATE ) a12= '-' a13= 'null' |a14= 'null' a15= '-' (a16= DATE ) ) a17= ']' ) )?
+            // Hycontextinformation.g:1756:2: (a0= 'Enum(' (a1= IDENTIFIER_TOKEN ) a2= ',' ( ( (a3_0= parse_eu_hyvar_dataValues_HyEnumLiteral ) ( (a4= ',' (a5_0= parse_eu_hyvar_dataValues_HyEnumLiteral ) ) )* ) )? a6= ')' ( (a7= '[' ( (a8= DATE ) a9= '-' (a10= DATE ) | (a11= DATE ) a12= '-' |a13= 'eternity' a14= '-' (a15= DATE ) ) a16= ']' ) )? )
+            // Hycontextinformation.g:1757:2: a0= 'Enum(' (a1= IDENTIFIER_TOKEN ) a2= ',' ( ( (a3_0= parse_eu_hyvar_dataValues_HyEnumLiteral ) ( (a4= ',' (a5_0= parse_eu_hyvar_dataValues_HyEnumLiteral ) ) )* ) )? a6= ')' ( (a7= '[' ( (a8= DATE ) a9= '-' (a10= DATE ) | (a11= DATE ) a12= '-' |a13= 'eternity' a14= '-' (a15= DATE ) ) a16= ']' ) )?
             {
             a0=(Token)match(input,16,FOLLOW_16_in_parse_eu_hyvar_dataValues_HyEnum1721); if (state.failed) return element;
 
@@ -2792,7 +2791,7 @@ public class HycontextinformationParser extends HycontextinformationANTLRParserB
             		addExpectedElement(eu.hyvar.context.HyContextInformationPackage.eINSTANCE.getHyContextModel(), eu.hyvar.context.resource.hycontextinformation.mopp.HycontextinformationExpectationConstants.EXPECTATIONS[108]);
             	}
 
-            // Hycontextinformation.g:1927:2: ( (a7= '[' ( (a8= DATE ) a9= '-' (a10= DATE ) | (a11= DATE ) a12= '-' a13= 'null' |a14= 'null' a15= '-' (a16= DATE ) ) a17= ']' ) )?
+            // Hycontextinformation.g:1927:2: ( (a7= '[' ( (a8= DATE ) a9= '-' (a10= DATE ) | (a11= DATE ) a12= '-' |a13= 'eternity' a14= '-' (a15= DATE ) ) a16= ']' ) )?
             int alt12=2;
             int LA12_0 = input.LA(1);
 
@@ -2801,10 +2800,10 @@ public class HycontextinformationParser extends HycontextinformationANTLRParserB
             }
             switch (alt12) {
                 case 1 :
-                    // Hycontextinformation.g:1928:3: (a7= '[' ( (a8= DATE ) a9= '-' (a10= DATE ) | (a11= DATE ) a12= '-' a13= 'null' |a14= 'null' a15= '-' (a16= DATE ) ) a17= ']' )
+                    // Hycontextinformation.g:1928:3: (a7= '[' ( (a8= DATE ) a9= '-' (a10= DATE ) | (a11= DATE ) a12= '-' |a13= 'eternity' a14= '-' (a15= DATE ) ) a16= ']' )
                     {
-                    // Hycontextinformation.g:1928:3: (a7= '[' ( (a8= DATE ) a9= '-' (a10= DATE ) | (a11= DATE ) a12= '-' a13= 'null' |a14= 'null' a15= '-' (a16= DATE ) ) a17= ']' )
-                    // Hycontextinformation.g:1929:4: a7= '[' ( (a8= DATE ) a9= '-' (a10= DATE ) | (a11= DATE ) a12= '-' a13= 'null' |a14= 'null' a15= '-' (a16= DATE ) ) a17= ']'
+                    // Hycontextinformation.g:1928:3: (a7= '[' ( (a8= DATE ) a9= '-' (a10= DATE ) | (a11= DATE ) a12= '-' |a13= 'eternity' a14= '-' (a15= DATE ) ) a16= ']' )
+                    // Hycontextinformation.g:1929:4: a7= '[' ( (a8= DATE ) a9= '-' (a10= DATE ) | (a11= DATE ) a12= '-' |a13= 'eternity' a14= '-' (a15= DATE ) ) a16= ']'
                     {
                     a7=(Token)match(input,20,FOLLOW_20_in_parse_eu_hyvar_dataValues_HyEnum1961); if (state.failed) return element;
 
@@ -2825,7 +2824,7 @@ public class HycontextinformationParser extends HycontextinformationANTLRParserB
                     				addExpectedElement(null, eu.hyvar.context.resource.hycontextinformation.mopp.HycontextinformationExpectationConstants.EXPECTATIONS[111]);
                     			}
 
-                    // Hycontextinformation.g:1945:4: ( (a8= DATE ) a9= '-' (a10= DATE ) | (a11= DATE ) a12= '-' a13= 'null' |a14= 'null' a15= '-' (a16= DATE ) )
+                    // Hycontextinformation.g:1945:4: ( (a8= DATE ) a9= '-' (a10= DATE ) | (a11= DATE ) a12= '-' |a13= 'eternity' a14= '-' (a15= DATE ) )
                     int alt11=3;
                     int LA11_0 = input.LA(1);
 
@@ -2838,7 +2837,7 @@ public class HycontextinformationParser extends HycontextinformationANTLRParserB
                             if ( (LA11_3==DATE) ) {
                                 alt11=1;
                             }
-                            else if ( (LA11_3==24) ) {
+                            else if ( (LA11_3==21) ) {
                                 alt11=2;
                             }
                             else {
@@ -2859,7 +2858,7 @@ public class HycontextinformationParser extends HycontextinformationANTLRParserB
 
                         }
                     }
-                    else if ( (LA11_0==24) ) {
+                    else if ( (LA11_0==23) ) {
                         alt11=3;
                     }
                     else {
@@ -2978,7 +2977,7 @@ public class HycontextinformationParser extends HycontextinformationANTLRParserB
                             }
                             break;
                         case 2 :
-                            // Hycontextinformation.g:2033:10: (a11= DATE ) a12= '-' a13= 'null'
+                            // Hycontextinformation.g:2033:10: (a11= DATE ) a12= '-'
                             {
                             // Hycontextinformation.g:2033:10: (a11= DATE )
                             // Hycontextinformation.g:2034:6: a11= DATE
@@ -3039,29 +3038,12 @@ public class HycontextinformationParser extends HycontextinformationANTLRParserB
                             					addExpectedElement(null, eu.hyvar.context.resource.hycontextinformation.mopp.HycontextinformationExpectationConstants.EXPECTATIONS[116]);
                             				}
 
-                            a13=(Token)match(input,24,FOLLOW_24_in_parse_eu_hyvar_dataValues_HyEnum2181); if (state.failed) return element;
-
-                            if ( state.backtracking==0 ) {
-                            					if (element == null) {
-                            						element = eu.hyvar.dataValues.HyDataValuesFactory.eINSTANCE.createHyEnum();
-                            						startIncompleteElement(element);
-                            					}
-                            					collectHiddenTokens(element);
-                            					retrieveLayoutInformation(element, eu.hyvar.context.resource.hycontextinformation.grammar.HycontextinformationGrammarInformationProvider.HYDATAVALUE_3_0_0_5_0_0_1_0_1_2, null, true);
-                            					copyLocalizationInfos((CommonToken)a13, element);
-                            				}
-
-                            if ( state.backtracking==0 ) {
-                            					// expected elements (follow set)
-                            					addExpectedElement(null, eu.hyvar.context.resource.hycontextinformation.mopp.HycontextinformationExpectationConstants.EXPECTATIONS[117]);
-                            				}
-
                             }
                             break;
                         case 3 :
-                            // Hycontextinformation.g:2098:10: a14= 'null' a15= '-' (a16= DATE )
+                            // Hycontextinformation.g:2084:10: a13= 'eternity' a14= '-' (a15= DATE )
                             {
-                            a14=(Token)match(input,24,FOLLOW_24_in_parse_eu_hyvar_dataValues_HyEnum2214); if (state.failed) return element;
+                            a13=(Token)match(input,23,FOLLOW_23_in_parse_eu_hyvar_dataValues_HyEnum2191); if (state.failed) return element;
 
                             if ( state.backtracking==0 ) {
                             					if (element == null) {
@@ -3070,15 +3052,15 @@ public class HycontextinformationParser extends HycontextinformationANTLRParserB
                             					}
                             					collectHiddenTokens(element);
                             					retrieveLayoutInformation(element, eu.hyvar.context.resource.hycontextinformation.grammar.HycontextinformationGrammarInformationProvider.HYDATAVALUE_3_0_0_5_0_0_1_0_2_0, null, true);
-                            					copyLocalizationInfos((CommonToken)a14, element);
+                            					copyLocalizationInfos((CommonToken)a13, element);
                             				}
 
                             if ( state.backtracking==0 ) {
                             					// expected elements (follow set)
-                            					addExpectedElement(null, eu.hyvar.context.resource.hycontextinformation.mopp.HycontextinformationExpectationConstants.EXPECTATIONS[118]);
+                            					addExpectedElement(null, eu.hyvar.context.resource.hycontextinformation.mopp.HycontextinformationExpectationConstants.EXPECTATIONS[117]);
                             				}
 
-                            a15=(Token)match(input,13,FOLLOW_13_in_parse_eu_hyvar_dataValues_HyEnum2237); if (state.failed) return element;
+                            a14=(Token)match(input,13,FOLLOW_13_in_parse_eu_hyvar_dataValues_HyEnum2214); if (state.failed) return element;
 
                             if ( state.backtracking==0 ) {
                             					if (element == null) {
@@ -3087,18 +3069,18 @@ public class HycontextinformationParser extends HycontextinformationANTLRParserB
                             					}
                             					collectHiddenTokens(element);
                             					retrieveLayoutInformation(element, eu.hyvar.context.resource.hycontextinformation.grammar.HycontextinformationGrammarInformationProvider.HYDATAVALUE_3_0_0_5_0_0_1_0_2_1, null, true);
-                            					copyLocalizationInfos((CommonToken)a15, element);
+                            					copyLocalizationInfos((CommonToken)a14, element);
                             				}
 
                             if ( state.backtracking==0 ) {
                             					// expected elements (follow set)
-                            					addExpectedElement(null, eu.hyvar.context.resource.hycontextinformation.mopp.HycontextinformationExpectationConstants.EXPECTATIONS[119]);
+                            					addExpectedElement(null, eu.hyvar.context.resource.hycontextinformation.mopp.HycontextinformationExpectationConstants.EXPECTATIONS[118]);
                             				}
 
-                            // Hycontextinformation.g:2126:5: (a16= DATE )
-                            // Hycontextinformation.g:2127:6: a16= DATE
+                            // Hycontextinformation.g:2112:5: (a15= DATE )
+                            // Hycontextinformation.g:2113:6: a15= DATE
                             {
-                            a16=(Token)match(input,DATE,FOLLOW_DATE_in_parse_eu_hyvar_dataValues_HyEnum2267); if (state.failed) return element;
+                            a15=(Token)match(input,DATE,FOLLOW_DATE_in_parse_eu_hyvar_dataValues_HyEnum2244); if (state.failed) return element;
 
                             if ( state.backtracking==0 ) {
                             						if (terminateParsing) {
@@ -3108,14 +3090,14 @@ public class HycontextinformationParser extends HycontextinformationANTLRParserB
                             							element = eu.hyvar.dataValues.HyDataValuesFactory.eINSTANCE.createHyEnum();
                             							startIncompleteElement(element);
                             						}
-                            						if (a16 != null) {
+                            						if (a15 != null) {
                             							eu.hyvar.context.resource.hycontextinformation.IHycontextinformationTokenResolver tokenResolver = tokenResolverFactory.createTokenResolver("DATE");
                             							tokenResolver.setOptions(getOptions());
                             							eu.hyvar.context.resource.hycontextinformation.IHycontextinformationTokenResolveResult result = getFreshTokenResolveResult();
-                            							tokenResolver.resolve(a16.getText(), element.eClass().getEStructuralFeature(eu.hyvar.dataValues.HyDataValuesPackage.HY_ENUM__VALID_UNTIL), result);
+                            							tokenResolver.resolve(a15.getText(), element.eClass().getEStructuralFeature(eu.hyvar.dataValues.HyDataValuesPackage.HY_ENUM__VALID_UNTIL), result);
                             							Object resolvedObject = result.getResolvedToken();
                             							if (resolvedObject == null) {
-                            								addErrorToResource(result.getErrorMessage(), ((CommonToken) a16).getLine(), ((CommonToken) a16).getCharPositionInLine(), ((CommonToken) a16).getStartIndex(), ((CommonToken) a16).getStopIndex());
+                            								addErrorToResource(result.getErrorMessage(), ((CommonToken) a15).getLine(), ((CommonToken) a15).getCharPositionInLine(), ((CommonToken) a15).getStartIndex(), ((CommonToken) a15).getStopIndex());
                             							}
                             							java.util.Date resolved = (java.util.Date) resolvedObject;
                             							if (resolved != null) {
@@ -3125,7 +3107,7 @@ public class HycontextinformationParser extends HycontextinformationANTLRParserB
                             							}
                             							collectHiddenTokens(element);
                             							retrieveLayoutInformation(element, eu.hyvar.context.resource.hycontextinformation.grammar.HycontextinformationGrammarInformationProvider.HYDATAVALUE_3_0_0_5_0_0_1_0_2_2, resolved, true);
-                            							copyLocalizationInfos((CommonToken) a16, element);
+                            							copyLocalizationInfos((CommonToken) a15, element);
                             						}
                             					}
 
@@ -3134,7 +3116,7 @@ public class HycontextinformationParser extends HycontextinformationANTLRParserB
 
                             if ( state.backtracking==0 ) {
                             					// expected elements (follow set)
-                            					addExpectedElement(null, eu.hyvar.context.resource.hycontextinformation.mopp.HycontextinformationExpectationConstants.EXPECTATIONS[120]);
+                            					addExpectedElement(null, eu.hyvar.context.resource.hycontextinformation.mopp.HycontextinformationExpectationConstants.EXPECTATIONS[119]);
                             				}
 
                             }
@@ -3145,10 +3127,10 @@ public class HycontextinformationParser extends HycontextinformationANTLRParserB
 
                     if ( state.backtracking==0 ) {
                     				// expected elements (follow set)
-                    				addExpectedElement(null, eu.hyvar.context.resource.hycontextinformation.mopp.HycontextinformationExpectationConstants.EXPECTATIONS[121]);
+                    				addExpectedElement(null, eu.hyvar.context.resource.hycontextinformation.mopp.HycontextinformationExpectationConstants.EXPECTATIONS[120]);
                     			}
 
-                    a17=(Token)match(input,21,FOLLOW_21_in_parse_eu_hyvar_dataValues_HyEnum2319); if (state.failed) return element;
+                    a16=(Token)match(input,21,FOLLOW_21_in_parse_eu_hyvar_dataValues_HyEnum2296); if (state.failed) return element;
 
                     if ( state.backtracking==0 ) {
                     				if (element == null) {
@@ -3157,15 +3139,15 @@ public class HycontextinformationParser extends HycontextinformationANTLRParserB
                     				}
                     				collectHiddenTokens(element);
                     				retrieveLayoutInformation(element, eu.hyvar.context.resource.hycontextinformation.grammar.HycontextinformationGrammarInformationProvider.HYDATAVALUE_3_0_0_5_0_0_2, null, true);
-                    				copyLocalizationInfos((CommonToken)a17, element);
+                    				copyLocalizationInfos((CommonToken)a16, element);
                     			}
 
                     if ( state.backtracking==0 ) {
                     				// expected elements (follow set)
+                    				addExpectedElement(eu.hyvar.context.HyContextInformationPackage.eINSTANCE.getHyContextModel(), eu.hyvar.context.resource.hycontextinformation.mopp.HycontextinformationExpectationConstants.EXPECTATIONS[121]);
                     				addExpectedElement(eu.hyvar.context.HyContextInformationPackage.eINSTANCE.getHyContextModel(), eu.hyvar.context.resource.hycontextinformation.mopp.HycontextinformationExpectationConstants.EXPECTATIONS[122]);
                     				addExpectedElement(eu.hyvar.context.HyContextInformationPackage.eINSTANCE.getHyContextModel(), eu.hyvar.context.resource.hycontextinformation.mopp.HycontextinformationExpectationConstants.EXPECTATIONS[123]);
                     				addExpectedElement(eu.hyvar.context.HyContextInformationPackage.eINSTANCE.getHyContextModel(), eu.hyvar.context.resource.hycontextinformation.mopp.HycontextinformationExpectationConstants.EXPECTATIONS[124]);
-                    				addExpectedElement(eu.hyvar.context.HyContextInformationPackage.eINSTANCE.getHyContextModel(), eu.hyvar.context.resource.hycontextinformation.mopp.HycontextinformationExpectationConstants.EXPECTATIONS[125]);
                     			}
 
                     }
@@ -3179,10 +3161,10 @@ public class HycontextinformationParser extends HycontextinformationANTLRParserB
 
             if ( state.backtracking==0 ) {
             		// expected elements (follow set)
+            		addExpectedElement(eu.hyvar.context.HyContextInformationPackage.eINSTANCE.getHyContextModel(), eu.hyvar.context.resource.hycontextinformation.mopp.HycontextinformationExpectationConstants.EXPECTATIONS[125]);
             		addExpectedElement(eu.hyvar.context.HyContextInformationPackage.eINSTANCE.getHyContextModel(), eu.hyvar.context.resource.hycontextinformation.mopp.HycontextinformationExpectationConstants.EXPECTATIONS[126]);
             		addExpectedElement(eu.hyvar.context.HyContextInformationPackage.eINSTANCE.getHyContextModel(), eu.hyvar.context.resource.hycontextinformation.mopp.HycontextinformationExpectationConstants.EXPECTATIONS[127]);
             		addExpectedElement(eu.hyvar.context.HyContextInformationPackage.eINSTANCE.getHyContextModel(), eu.hyvar.context.resource.hycontextinformation.mopp.HycontextinformationExpectationConstants.EXPECTATIONS[128]);
-            		addExpectedElement(eu.hyvar.context.HyContextInformationPackage.eINSTANCE.getHyContextModel(), eu.hyvar.context.resource.hycontextinformation.mopp.HycontextinformationExpectationConstants.EXPECTATIONS[129]);
             	}
 
             }
@@ -3205,7 +3187,7 @@ public class HycontextinformationParser extends HycontextinformationANTLRParserB
 
 
     // $ANTLR start "parse_eu_hyvar_dataValues_HyEnumLiteral"
-    // Hycontextinformation.g:2197:1: parse_eu_hyvar_dataValues_HyEnumLiteral returns [eu.hyvar.dataValues.HyEnumLiteral element = null] : a0= 'EnumLiteral(' (a1= IDENTIFIER_TOKEN ) a2= ',' (a3= INTEGER_LITERAL ) a4= ')' ( (a5= '[' ( (a6= DATE ) a7= '-' (a8= DATE ) | (a9= DATE ) a10= '-' a11= 'null' |a12= 'null' a13= '-' (a14= DATE ) ) a15= ']' ) )? ;
+    // Hycontextinformation.g:2183:1: parse_eu_hyvar_dataValues_HyEnumLiteral returns [eu.hyvar.dataValues.HyEnumLiteral element = null] : a0= 'EnumLiteral(' (a1= IDENTIFIER_TOKEN ) a2= ',' (a3= INTEGER_LITERAL ) a4= ')' ( (a5= '[' ( (a6= DATE ) a7= '-' (a8= DATE ) | (a9= DATE ) a10= '-' a11= 'eternity' |a12= 'eternity' a13= '-' (a14= DATE ) ) a15= ']' ) )? ;
     public final eu.hyvar.dataValues.HyEnumLiteral parse_eu_hyvar_dataValues_HyEnumLiteral() throws RecognitionException {
         eu.hyvar.dataValues.HyEnumLiteral element =  null;
 
@@ -3233,10 +3215,10 @@ public class HycontextinformationParser extends HycontextinformationANTLRParserB
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 7) ) { return element; }
 
-            // Hycontextinformation.g:2200:2: (a0= 'EnumLiteral(' (a1= IDENTIFIER_TOKEN ) a2= ',' (a3= INTEGER_LITERAL ) a4= ')' ( (a5= '[' ( (a6= DATE ) a7= '-' (a8= DATE ) | (a9= DATE ) a10= '-' a11= 'null' |a12= 'null' a13= '-' (a14= DATE ) ) a15= ']' ) )? )
-            // Hycontextinformation.g:2201:2: a0= 'EnumLiteral(' (a1= IDENTIFIER_TOKEN ) a2= ',' (a3= INTEGER_LITERAL ) a4= ')' ( (a5= '[' ( (a6= DATE ) a7= '-' (a8= DATE ) | (a9= DATE ) a10= '-' a11= 'null' |a12= 'null' a13= '-' (a14= DATE ) ) a15= ']' ) )?
+            // Hycontextinformation.g:2186:2: (a0= 'EnumLiteral(' (a1= IDENTIFIER_TOKEN ) a2= ',' (a3= INTEGER_LITERAL ) a4= ')' ( (a5= '[' ( (a6= DATE ) a7= '-' (a8= DATE ) | (a9= DATE ) a10= '-' a11= 'eternity' |a12= 'eternity' a13= '-' (a14= DATE ) ) a15= ']' ) )? )
+            // Hycontextinformation.g:2187:2: a0= 'EnumLiteral(' (a1= IDENTIFIER_TOKEN ) a2= ',' (a3= INTEGER_LITERAL ) a4= ')' ( (a5= '[' ( (a6= DATE ) a7= '-' (a8= DATE ) | (a9= DATE ) a10= '-' a11= 'eternity' |a12= 'eternity' a13= '-' (a14= DATE ) ) a15= ']' ) )?
             {
-            a0=(Token)match(input,18,FOLLOW_18_in_parse_eu_hyvar_dataValues_HyEnumLiteral2367); if (state.failed) return element;
+            a0=(Token)match(input,18,FOLLOW_18_in_parse_eu_hyvar_dataValues_HyEnumLiteral2344); if (state.failed) return element;
 
             if ( state.backtracking==0 ) {
             		if (element == null) {
@@ -3250,13 +3232,13 @@ public class HycontextinformationParser extends HycontextinformationANTLRParserB
 
             if ( state.backtracking==0 ) {
             		// expected elements (follow set)
-            		addExpectedElement(null, eu.hyvar.context.resource.hycontextinformation.mopp.HycontextinformationExpectationConstants.EXPECTATIONS[130]);
+            		addExpectedElement(null, eu.hyvar.context.resource.hycontextinformation.mopp.HycontextinformationExpectationConstants.EXPECTATIONS[129]);
             	}
 
-            // Hycontextinformation.g:2215:2: (a1= IDENTIFIER_TOKEN )
-            // Hycontextinformation.g:2216:3: a1= IDENTIFIER_TOKEN
+            // Hycontextinformation.g:2201:2: (a1= IDENTIFIER_TOKEN )
+            // Hycontextinformation.g:2202:3: a1= IDENTIFIER_TOKEN
             {
-            a1=(Token)match(input,IDENTIFIER_TOKEN,FOLLOW_IDENTIFIER_TOKEN_in_parse_eu_hyvar_dataValues_HyEnumLiteral2385); if (state.failed) return element;
+            a1=(Token)match(input,IDENTIFIER_TOKEN,FOLLOW_IDENTIFIER_TOKEN_in_parse_eu_hyvar_dataValues_HyEnumLiteral2362); if (state.failed) return element;
 
             if ( state.backtracking==0 ) {
             			if (terminateParsing) {
@@ -3292,10 +3274,10 @@ public class HycontextinformationParser extends HycontextinformationANTLRParserB
 
             if ( state.backtracking==0 ) {
             		// expected elements (follow set)
-            		addExpectedElement(null, eu.hyvar.context.resource.hycontextinformation.mopp.HycontextinformationExpectationConstants.EXPECTATIONS[131]);
+            		addExpectedElement(null, eu.hyvar.context.resource.hycontextinformation.mopp.HycontextinformationExpectationConstants.EXPECTATIONS[130]);
             	}
 
-            a2=(Token)match(input,12,FOLLOW_12_in_parse_eu_hyvar_dataValues_HyEnumLiteral2406); if (state.failed) return element;
+            a2=(Token)match(input,12,FOLLOW_12_in_parse_eu_hyvar_dataValues_HyEnumLiteral2383); if (state.failed) return element;
 
             if ( state.backtracking==0 ) {
             		if (element == null) {
@@ -3309,13 +3291,13 @@ public class HycontextinformationParser extends HycontextinformationANTLRParserB
 
             if ( state.backtracking==0 ) {
             		// expected elements (follow set)
-            		addExpectedElement(null, eu.hyvar.context.resource.hycontextinformation.mopp.HycontextinformationExpectationConstants.EXPECTATIONS[132]);
+            		addExpectedElement(null, eu.hyvar.context.resource.hycontextinformation.mopp.HycontextinformationExpectationConstants.EXPECTATIONS[131]);
             	}
 
-            // Hycontextinformation.g:2265:2: (a3= INTEGER_LITERAL )
-            // Hycontextinformation.g:2266:3: a3= INTEGER_LITERAL
+            // Hycontextinformation.g:2251:2: (a3= INTEGER_LITERAL )
+            // Hycontextinformation.g:2252:3: a3= INTEGER_LITERAL
             {
-            a3=(Token)match(input,INTEGER_LITERAL,FOLLOW_INTEGER_LITERAL_in_parse_eu_hyvar_dataValues_HyEnumLiteral2424); if (state.failed) return element;
+            a3=(Token)match(input,INTEGER_LITERAL,FOLLOW_INTEGER_LITERAL_in_parse_eu_hyvar_dataValues_HyEnumLiteral2401); if (state.failed) return element;
 
             if ( state.backtracking==0 ) {
             			if (terminateParsing) {
@@ -3351,10 +3333,10 @@ public class HycontextinformationParser extends HycontextinformationANTLRParserB
 
             if ( state.backtracking==0 ) {
             		// expected elements (follow set)
-            		addExpectedElement(null, eu.hyvar.context.resource.hycontextinformation.mopp.HycontextinformationExpectationConstants.EXPECTATIONS[133]);
+            		addExpectedElement(null, eu.hyvar.context.resource.hycontextinformation.mopp.HycontextinformationExpectationConstants.EXPECTATIONS[132]);
             	}
 
-            a4=(Token)match(input,11,FOLLOW_11_in_parse_eu_hyvar_dataValues_HyEnumLiteral2445); if (state.failed) return element;
+            a4=(Token)match(input,11,FOLLOW_11_in_parse_eu_hyvar_dataValues_HyEnumLiteral2422); if (state.failed) return element;
 
             if ( state.backtracking==0 ) {
             		if (element == null) {
@@ -3368,12 +3350,12 @@ public class HycontextinformationParser extends HycontextinformationANTLRParserB
 
             if ( state.backtracking==0 ) {
             		// expected elements (follow set)
+            		addExpectedElement(null, eu.hyvar.context.resource.hycontextinformation.mopp.HycontextinformationExpectationConstants.EXPECTATIONS[133]);
             		addExpectedElement(null, eu.hyvar.context.resource.hycontextinformation.mopp.HycontextinformationExpectationConstants.EXPECTATIONS[134]);
             		addExpectedElement(null, eu.hyvar.context.resource.hycontextinformation.mopp.HycontextinformationExpectationConstants.EXPECTATIONS[135]);
-            		addExpectedElement(null, eu.hyvar.context.resource.hycontextinformation.mopp.HycontextinformationExpectationConstants.EXPECTATIONS[136]);
             	}
 
-            // Hycontextinformation.g:2317:2: ( (a5= '[' ( (a6= DATE ) a7= '-' (a8= DATE ) | (a9= DATE ) a10= '-' a11= 'null' |a12= 'null' a13= '-' (a14= DATE ) ) a15= ']' ) )?
+            // Hycontextinformation.g:2303:2: ( (a5= '[' ( (a6= DATE ) a7= '-' (a8= DATE ) | (a9= DATE ) a10= '-' a11= 'eternity' |a12= 'eternity' a13= '-' (a14= DATE ) ) a15= ']' ) )?
             int alt14=2;
             int LA14_0 = input.LA(1);
 
@@ -3382,12 +3364,12 @@ public class HycontextinformationParser extends HycontextinformationANTLRParserB
             }
             switch (alt14) {
                 case 1 :
-                    // Hycontextinformation.g:2318:3: (a5= '[' ( (a6= DATE ) a7= '-' (a8= DATE ) | (a9= DATE ) a10= '-' a11= 'null' |a12= 'null' a13= '-' (a14= DATE ) ) a15= ']' )
+                    // Hycontextinformation.g:2304:3: (a5= '[' ( (a6= DATE ) a7= '-' (a8= DATE ) | (a9= DATE ) a10= '-' a11= 'eternity' |a12= 'eternity' a13= '-' (a14= DATE ) ) a15= ']' )
                     {
-                    // Hycontextinformation.g:2318:3: (a5= '[' ( (a6= DATE ) a7= '-' (a8= DATE ) | (a9= DATE ) a10= '-' a11= 'null' |a12= 'null' a13= '-' (a14= DATE ) ) a15= ']' )
-                    // Hycontextinformation.g:2319:4: a5= '[' ( (a6= DATE ) a7= '-' (a8= DATE ) | (a9= DATE ) a10= '-' a11= 'null' |a12= 'null' a13= '-' (a14= DATE ) ) a15= ']'
+                    // Hycontextinformation.g:2304:3: (a5= '[' ( (a6= DATE ) a7= '-' (a8= DATE ) | (a9= DATE ) a10= '-' a11= 'eternity' |a12= 'eternity' a13= '-' (a14= DATE ) ) a15= ']' )
+                    // Hycontextinformation.g:2305:4: a5= '[' ( (a6= DATE ) a7= '-' (a8= DATE ) | (a9= DATE ) a10= '-' a11= 'eternity' |a12= 'eternity' a13= '-' (a14= DATE ) ) a15= ']'
                     {
-                    a5=(Token)match(input,20,FOLLOW_20_in_parse_eu_hyvar_dataValues_HyEnumLiteral2468); if (state.failed) return element;
+                    a5=(Token)match(input,20,FOLLOW_20_in_parse_eu_hyvar_dataValues_HyEnumLiteral2445); if (state.failed) return element;
 
                     if ( state.backtracking==0 ) {
                     				if (element == null) {
@@ -3401,12 +3383,12 @@ public class HycontextinformationParser extends HycontextinformationANTLRParserB
 
                     if ( state.backtracking==0 ) {
                     				// expected elements (follow set)
+                    				addExpectedElement(null, eu.hyvar.context.resource.hycontextinformation.mopp.HycontextinformationExpectationConstants.EXPECTATIONS[136]);
                     				addExpectedElement(null, eu.hyvar.context.resource.hycontextinformation.mopp.HycontextinformationExpectationConstants.EXPECTATIONS[137]);
                     				addExpectedElement(null, eu.hyvar.context.resource.hycontextinformation.mopp.HycontextinformationExpectationConstants.EXPECTATIONS[138]);
-                    				addExpectedElement(null, eu.hyvar.context.resource.hycontextinformation.mopp.HycontextinformationExpectationConstants.EXPECTATIONS[139]);
                     			}
 
-                    // Hycontextinformation.g:2335:4: ( (a6= DATE ) a7= '-' (a8= DATE ) | (a9= DATE ) a10= '-' a11= 'null' |a12= 'null' a13= '-' (a14= DATE ) )
+                    // Hycontextinformation.g:2321:4: ( (a6= DATE ) a7= '-' (a8= DATE ) | (a9= DATE ) a10= '-' a11= 'eternity' |a12= 'eternity' a13= '-' (a14= DATE ) )
                     int alt13=3;
                     int LA13_0 = input.LA(1);
 
@@ -3419,7 +3401,7 @@ public class HycontextinformationParser extends HycontextinformationANTLRParserB
                             if ( (LA13_3==DATE) ) {
                                 alt13=1;
                             }
-                            else if ( (LA13_3==24) ) {
+                            else if ( (LA13_3==23) ) {
                                 alt13=2;
                             }
                             else {
@@ -3440,7 +3422,7 @@ public class HycontextinformationParser extends HycontextinformationANTLRParserB
 
                         }
                     }
-                    else if ( (LA13_0==24) ) {
+                    else if ( (LA13_0==23) ) {
                         alt13=3;
                     }
                     else {
@@ -3453,12 +3435,12 @@ public class HycontextinformationParser extends HycontextinformationANTLRParserB
                     }
                     switch (alt13) {
                         case 1 :
-                            // Hycontextinformation.g:2336:5: (a6= DATE ) a7= '-' (a8= DATE )
+                            // Hycontextinformation.g:2322:5: (a6= DATE ) a7= '-' (a8= DATE )
                             {
-                            // Hycontextinformation.g:2336:5: (a6= DATE )
-                            // Hycontextinformation.g:2337:6: a6= DATE
+                            // Hycontextinformation.g:2322:5: (a6= DATE )
+                            // Hycontextinformation.g:2323:6: a6= DATE
                             {
-                            a6=(Token)match(input,DATE,FOLLOW_DATE_in_parse_eu_hyvar_dataValues_HyEnumLiteral2501); if (state.failed) return element;
+                            a6=(Token)match(input,DATE,FOLLOW_DATE_in_parse_eu_hyvar_dataValues_HyEnumLiteral2478); if (state.failed) return element;
 
                             if ( state.backtracking==0 ) {
                             						if (terminateParsing) {
@@ -3494,10 +3476,10 @@ public class HycontextinformationParser extends HycontextinformationANTLRParserB
 
                             if ( state.backtracking==0 ) {
                             					// expected elements (follow set)
-                            					addExpectedElement(null, eu.hyvar.context.resource.hycontextinformation.mopp.HycontextinformationExpectationConstants.EXPECTATIONS[140]);
+                            					addExpectedElement(null, eu.hyvar.context.resource.hycontextinformation.mopp.HycontextinformationExpectationConstants.EXPECTATIONS[139]);
                             				}
 
-                            a7=(Token)match(input,13,FOLLOW_13_in_parse_eu_hyvar_dataValues_HyEnumLiteral2540); if (state.failed) return element;
+                            a7=(Token)match(input,13,FOLLOW_13_in_parse_eu_hyvar_dataValues_HyEnumLiteral2517); if (state.failed) return element;
 
                             if ( state.backtracking==0 ) {
                             					if (element == null) {
@@ -3511,13 +3493,13 @@ public class HycontextinformationParser extends HycontextinformationANTLRParserB
 
                             if ( state.backtracking==0 ) {
                             					// expected elements (follow set)
-                            					addExpectedElement(null, eu.hyvar.context.resource.hycontextinformation.mopp.HycontextinformationExpectationConstants.EXPECTATIONS[141]);
+                            					addExpectedElement(null, eu.hyvar.context.resource.hycontextinformation.mopp.HycontextinformationExpectationConstants.EXPECTATIONS[140]);
                             				}
 
-                            // Hycontextinformation.g:2386:5: (a8= DATE )
-                            // Hycontextinformation.g:2387:6: a8= DATE
+                            // Hycontextinformation.g:2372:5: (a8= DATE )
+                            // Hycontextinformation.g:2373:6: a8= DATE
                             {
-                            a8=(Token)match(input,DATE,FOLLOW_DATE_in_parse_eu_hyvar_dataValues_HyEnumLiteral2570); if (state.failed) return element;
+                            a8=(Token)match(input,DATE,FOLLOW_DATE_in_parse_eu_hyvar_dataValues_HyEnumLiteral2547); if (state.failed) return element;
 
                             if ( state.backtracking==0 ) {
                             						if (terminateParsing) {
@@ -3553,18 +3535,18 @@ public class HycontextinformationParser extends HycontextinformationANTLRParserB
 
                             if ( state.backtracking==0 ) {
                             					// expected elements (follow set)
-                            					addExpectedElement(null, eu.hyvar.context.resource.hycontextinformation.mopp.HycontextinformationExpectationConstants.EXPECTATIONS[142]);
+                            					addExpectedElement(null, eu.hyvar.context.resource.hycontextinformation.mopp.HycontextinformationExpectationConstants.EXPECTATIONS[141]);
                             				}
 
                             }
                             break;
                         case 2 :
-                            // Hycontextinformation.g:2423:10: (a9= DATE ) a10= '-' a11= 'null'
+                            // Hycontextinformation.g:2409:10: (a9= DATE ) a10= '-' a11= 'eternity'
                             {
-                            // Hycontextinformation.g:2423:10: (a9= DATE )
-                            // Hycontextinformation.g:2424:6: a9= DATE
+                            // Hycontextinformation.g:2409:10: (a9= DATE )
+                            // Hycontextinformation.g:2410:6: a9= DATE
                             {
-                            a9=(Token)match(input,DATE,FOLLOW_DATE_in_parse_eu_hyvar_dataValues_HyEnumLiteral2626); if (state.failed) return element;
+                            a9=(Token)match(input,DATE,FOLLOW_DATE_in_parse_eu_hyvar_dataValues_HyEnumLiteral2603); if (state.failed) return element;
 
                             if ( state.backtracking==0 ) {
                             						if (terminateParsing) {
@@ -3600,10 +3582,10 @@ public class HycontextinformationParser extends HycontextinformationANTLRParserB
 
                             if ( state.backtracking==0 ) {
                             					// expected elements (follow set)
-                            					addExpectedElement(null, eu.hyvar.context.resource.hycontextinformation.mopp.HycontextinformationExpectationConstants.EXPECTATIONS[143]);
+                            					addExpectedElement(null, eu.hyvar.context.resource.hycontextinformation.mopp.HycontextinformationExpectationConstants.EXPECTATIONS[142]);
                             				}
 
-                            a10=(Token)match(input,13,FOLLOW_13_in_parse_eu_hyvar_dataValues_HyEnumLiteral2665); if (state.failed) return element;
+                            a10=(Token)match(input,13,FOLLOW_13_in_parse_eu_hyvar_dataValues_HyEnumLiteral2642); if (state.failed) return element;
 
                             if ( state.backtracking==0 ) {
                             					if (element == null) {
@@ -3617,10 +3599,10 @@ public class HycontextinformationParser extends HycontextinformationANTLRParserB
 
                             if ( state.backtracking==0 ) {
                             					// expected elements (follow set)
-                            					addExpectedElement(null, eu.hyvar.context.resource.hycontextinformation.mopp.HycontextinformationExpectationConstants.EXPECTATIONS[144]);
+                            					addExpectedElement(null, eu.hyvar.context.resource.hycontextinformation.mopp.HycontextinformationExpectationConstants.EXPECTATIONS[143]);
                             				}
 
-                            a11=(Token)match(input,24,FOLLOW_24_in_parse_eu_hyvar_dataValues_HyEnumLiteral2688); if (state.failed) return element;
+                            a11=(Token)match(input,23,FOLLOW_23_in_parse_eu_hyvar_dataValues_HyEnumLiteral2665); if (state.failed) return element;
 
                             if ( state.backtracking==0 ) {
                             					if (element == null) {
@@ -3634,15 +3616,15 @@ public class HycontextinformationParser extends HycontextinformationANTLRParserB
 
                             if ( state.backtracking==0 ) {
                             					// expected elements (follow set)
-                            					addExpectedElement(null, eu.hyvar.context.resource.hycontextinformation.mopp.HycontextinformationExpectationConstants.EXPECTATIONS[145]);
+                            					addExpectedElement(null, eu.hyvar.context.resource.hycontextinformation.mopp.HycontextinformationExpectationConstants.EXPECTATIONS[144]);
                             				}
 
                             }
                             break;
                         case 3 :
-                            // Hycontextinformation.g:2488:10: a12= 'null' a13= '-' (a14= DATE )
+                            // Hycontextinformation.g:2474:10: a12= 'eternity' a13= '-' (a14= DATE )
                             {
-                            a12=(Token)match(input,24,FOLLOW_24_in_parse_eu_hyvar_dataValues_HyEnumLiteral2721); if (state.failed) return element;
+                            a12=(Token)match(input,23,FOLLOW_23_in_parse_eu_hyvar_dataValues_HyEnumLiteral2698); if (state.failed) return element;
 
                             if ( state.backtracking==0 ) {
                             					if (element == null) {
@@ -3656,10 +3638,10 @@ public class HycontextinformationParser extends HycontextinformationANTLRParserB
 
                             if ( state.backtracking==0 ) {
                             					// expected elements (follow set)
-                            					addExpectedElement(null, eu.hyvar.context.resource.hycontextinformation.mopp.HycontextinformationExpectationConstants.EXPECTATIONS[146]);
+                            					addExpectedElement(null, eu.hyvar.context.resource.hycontextinformation.mopp.HycontextinformationExpectationConstants.EXPECTATIONS[145]);
                             				}
 
-                            a13=(Token)match(input,13,FOLLOW_13_in_parse_eu_hyvar_dataValues_HyEnumLiteral2744); if (state.failed) return element;
+                            a13=(Token)match(input,13,FOLLOW_13_in_parse_eu_hyvar_dataValues_HyEnumLiteral2721); if (state.failed) return element;
 
                             if ( state.backtracking==0 ) {
                             					if (element == null) {
@@ -3673,13 +3655,13 @@ public class HycontextinformationParser extends HycontextinformationANTLRParserB
 
                             if ( state.backtracking==0 ) {
                             					// expected elements (follow set)
-                            					addExpectedElement(null, eu.hyvar.context.resource.hycontextinformation.mopp.HycontextinformationExpectationConstants.EXPECTATIONS[147]);
+                            					addExpectedElement(null, eu.hyvar.context.resource.hycontextinformation.mopp.HycontextinformationExpectationConstants.EXPECTATIONS[146]);
                             				}
 
-                            // Hycontextinformation.g:2516:5: (a14= DATE )
-                            // Hycontextinformation.g:2517:6: a14= DATE
+                            // Hycontextinformation.g:2502:5: (a14= DATE )
+                            // Hycontextinformation.g:2503:6: a14= DATE
                             {
-                            a14=(Token)match(input,DATE,FOLLOW_DATE_in_parse_eu_hyvar_dataValues_HyEnumLiteral2774); if (state.failed) return element;
+                            a14=(Token)match(input,DATE,FOLLOW_DATE_in_parse_eu_hyvar_dataValues_HyEnumLiteral2751); if (state.failed) return element;
 
                             if ( state.backtracking==0 ) {
                             						if (terminateParsing) {
@@ -3715,7 +3697,7 @@ public class HycontextinformationParser extends HycontextinformationANTLRParserB
 
                             if ( state.backtracking==0 ) {
                             					// expected elements (follow set)
-                            					addExpectedElement(null, eu.hyvar.context.resource.hycontextinformation.mopp.HycontextinformationExpectationConstants.EXPECTATIONS[148]);
+                            					addExpectedElement(null, eu.hyvar.context.resource.hycontextinformation.mopp.HycontextinformationExpectationConstants.EXPECTATIONS[147]);
                             				}
 
                             }
@@ -3726,10 +3708,10 @@ public class HycontextinformationParser extends HycontextinformationANTLRParserB
 
                     if ( state.backtracking==0 ) {
                     				// expected elements (follow set)
-                    				addExpectedElement(null, eu.hyvar.context.resource.hycontextinformation.mopp.HycontextinformationExpectationConstants.EXPECTATIONS[149]);
+                    				addExpectedElement(null, eu.hyvar.context.resource.hycontextinformation.mopp.HycontextinformationExpectationConstants.EXPECTATIONS[148]);
                     			}
 
-                    a15=(Token)match(input,21,FOLLOW_21_in_parse_eu_hyvar_dataValues_HyEnumLiteral2826); if (state.failed) return element;
+                    a15=(Token)match(input,21,FOLLOW_21_in_parse_eu_hyvar_dataValues_HyEnumLiteral2803); if (state.failed) return element;
 
                     if ( state.backtracking==0 ) {
                     				if (element == null) {
@@ -3743,8 +3725,8 @@ public class HycontextinformationParser extends HycontextinformationANTLRParserB
 
                     if ( state.backtracking==0 ) {
                     				// expected elements (follow set)
+                    				addExpectedElement(null, eu.hyvar.context.resource.hycontextinformation.mopp.HycontextinformationExpectationConstants.EXPECTATIONS[149]);
                     				addExpectedElement(null, eu.hyvar.context.resource.hycontextinformation.mopp.HycontextinformationExpectationConstants.EXPECTATIONS[150]);
-                    				addExpectedElement(null, eu.hyvar.context.resource.hycontextinformation.mopp.HycontextinformationExpectationConstants.EXPECTATIONS[151]);
                     			}
 
                     }
@@ -3758,8 +3740,8 @@ public class HycontextinformationParser extends HycontextinformationANTLRParserB
 
             if ( state.backtracking==0 ) {
             		// expected elements (follow set)
+            		addExpectedElement(null, eu.hyvar.context.resource.hycontextinformation.mopp.HycontextinformationExpectationConstants.EXPECTATIONS[151]);
             		addExpectedElement(null, eu.hyvar.context.resource.hycontextinformation.mopp.HycontextinformationExpectationConstants.EXPECTATIONS[152]);
-            		addExpectedElement(null, eu.hyvar.context.resource.hycontextinformation.mopp.HycontextinformationExpectationConstants.EXPECTATIONS[153]);
             	}
 
             }
@@ -3782,7 +3764,7 @@ public class HycontextinformationParser extends HycontextinformationANTLRParserB
 
 
     // $ANTLR start "parseop_HyValue_level_15"
-    // Hycontextinformation.g:2583:1: parseop_HyValue_level_15 returns [eu.hyvar.dataValues.HyValue element = null] : (c0= parse_eu_hyvar_dataValues_HyNumberValue |c1= parse_eu_hyvar_dataValues_HyBooleanValue |c2= parse_eu_hyvar_dataValues_HyEnumValue );
+    // Hycontextinformation.g:2569:1: parseop_HyValue_level_15 returns [eu.hyvar.dataValues.HyValue element = null] : (c0= parse_eu_hyvar_dataValues_HyNumberValue |c1= parse_eu_hyvar_dataValues_HyBooleanValue |c2= parse_eu_hyvar_dataValues_HyEnumValue );
     public final eu.hyvar.dataValues.HyValue parseop_HyValue_level_15() throws RecognitionException {
         eu.hyvar.dataValues.HyValue element =  null;
 
@@ -3800,7 +3782,7 @@ public class HycontextinformationParser extends HycontextinformationANTLRParserB
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 8) ) { return element; }
 
-            // Hycontextinformation.g:2586:2: (c0= parse_eu_hyvar_dataValues_HyNumberValue |c1= parse_eu_hyvar_dataValues_HyBooleanValue |c2= parse_eu_hyvar_dataValues_HyEnumValue )
+            // Hycontextinformation.g:2572:2: (c0= parse_eu_hyvar_dataValues_HyNumberValue |c1= parse_eu_hyvar_dataValues_HyBooleanValue |c2= parse_eu_hyvar_dataValues_HyEnumValue )
             int alt15=3;
             switch ( input.LA(1) ) {
             case INTEGER_LITERAL:
@@ -3808,7 +3790,7 @@ public class HycontextinformationParser extends HycontextinformationANTLRParserB
                 alt15=1;
                 }
                 break;
-            case 23:
+            case 24:
             case 25:
                 {
                 alt15=2;
@@ -3830,9 +3812,9 @@ public class HycontextinformationParser extends HycontextinformationANTLRParserB
 
             switch (alt15) {
                 case 1 :
-                    // Hycontextinformation.g:2587:2: c0= parse_eu_hyvar_dataValues_HyNumberValue
+                    // Hycontextinformation.g:2573:2: c0= parse_eu_hyvar_dataValues_HyNumberValue
                     {
-                    pushFollow(FOLLOW_parse_eu_hyvar_dataValues_HyNumberValue_in_parseop_HyValue_level_152874);
+                    pushFollow(FOLLOW_parse_eu_hyvar_dataValues_HyNumberValue_in_parseop_HyValue_level_152851);
                     c0=parse_eu_hyvar_dataValues_HyNumberValue();
 
                     state._fsp--;
@@ -3843,9 +3825,9 @@ public class HycontextinformationParser extends HycontextinformationANTLRParserB
                     }
                     break;
                 case 2 :
-                    // Hycontextinformation.g:2588:4: c1= parse_eu_hyvar_dataValues_HyBooleanValue
+                    // Hycontextinformation.g:2574:4: c1= parse_eu_hyvar_dataValues_HyBooleanValue
                     {
-                    pushFollow(FOLLOW_parse_eu_hyvar_dataValues_HyBooleanValue_in_parseop_HyValue_level_152884);
+                    pushFollow(FOLLOW_parse_eu_hyvar_dataValues_HyBooleanValue_in_parseop_HyValue_level_152861);
                     c1=parse_eu_hyvar_dataValues_HyBooleanValue();
 
                     state._fsp--;
@@ -3856,9 +3838,9 @@ public class HycontextinformationParser extends HycontextinformationANTLRParserB
                     }
                     break;
                 case 3 :
-                    // Hycontextinformation.g:2589:4: c2= parse_eu_hyvar_dataValues_HyEnumValue
+                    // Hycontextinformation.g:2575:4: c2= parse_eu_hyvar_dataValues_HyEnumValue
                     {
-                    pushFollow(FOLLOW_parse_eu_hyvar_dataValues_HyEnumValue_in_parseop_HyValue_level_152894);
+                    pushFollow(FOLLOW_parse_eu_hyvar_dataValues_HyEnumValue_in_parseop_HyValue_level_152871);
                     c2=parse_eu_hyvar_dataValues_HyEnumValue();
 
                     state._fsp--;
@@ -3888,7 +3870,7 @@ public class HycontextinformationParser extends HycontextinformationANTLRParserB
 
 
     // $ANTLR start "parse_eu_hyvar_dataValues_HyNumberValue"
-    // Hycontextinformation.g:2592:1: parse_eu_hyvar_dataValues_HyNumberValue returns [eu.hyvar.dataValues.HyNumberValue element = null] : (a0= INTEGER_LITERAL ) ;
+    // Hycontextinformation.g:2578:1: parse_eu_hyvar_dataValues_HyNumberValue returns [eu.hyvar.dataValues.HyNumberValue element = null] : (a0= INTEGER_LITERAL ) ;
     public final eu.hyvar.dataValues.HyNumberValue parse_eu_hyvar_dataValues_HyNumberValue() throws RecognitionException {
         eu.hyvar.dataValues.HyNumberValue element =  null;
 
@@ -3901,13 +3883,13 @@ public class HycontextinformationParser extends HycontextinformationANTLRParserB
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 9) ) { return element; }
 
-            // Hycontextinformation.g:2595:2: ( (a0= INTEGER_LITERAL ) )
-            // Hycontextinformation.g:2596:2: (a0= INTEGER_LITERAL )
+            // Hycontextinformation.g:2581:2: ( (a0= INTEGER_LITERAL ) )
+            // Hycontextinformation.g:2582:2: (a0= INTEGER_LITERAL )
             {
-            // Hycontextinformation.g:2596:2: (a0= INTEGER_LITERAL )
-            // Hycontextinformation.g:2597:3: a0= INTEGER_LITERAL
+            // Hycontextinformation.g:2582:2: (a0= INTEGER_LITERAL )
+            // Hycontextinformation.g:2583:3: a0= INTEGER_LITERAL
             {
-            a0=(Token)match(input,INTEGER_LITERAL,FOLLOW_INTEGER_LITERAL_in_parse_eu_hyvar_dataValues_HyNumberValue2921); if (state.failed) return element;
+            a0=(Token)match(input,INTEGER_LITERAL,FOLLOW_INTEGER_LITERAL_in_parse_eu_hyvar_dataValues_HyNumberValue2898); if (state.failed) return element;
 
             if ( state.backtracking==0 ) {
             			if (terminateParsing) {
@@ -3965,7 +3947,7 @@ public class HycontextinformationParser extends HycontextinformationANTLRParserB
 
 
     // $ANTLR start "parse_eu_hyvar_dataValues_HyBooleanValue"
-    // Hycontextinformation.g:2633:1: parse_eu_hyvar_dataValues_HyBooleanValue returns [eu.hyvar.dataValues.HyBooleanValue element = null] : ( (a0= 'true' |a1= 'false' ) ) ;
+    // Hycontextinformation.g:2619:1: parse_eu_hyvar_dataValues_HyBooleanValue returns [eu.hyvar.dataValues.HyBooleanValue element = null] : ( (a0= 'true' |a1= 'false' ) ) ;
     public final eu.hyvar.dataValues.HyBooleanValue parse_eu_hyvar_dataValues_HyBooleanValue() throws RecognitionException {
         eu.hyvar.dataValues.HyBooleanValue element =  null;
 
@@ -3979,20 +3961,20 @@ public class HycontextinformationParser extends HycontextinformationANTLRParserB
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 10) ) { return element; }
 
-            // Hycontextinformation.g:2636:2: ( ( (a0= 'true' |a1= 'false' ) ) )
-            // Hycontextinformation.g:2637:2: ( (a0= 'true' |a1= 'false' ) )
+            // Hycontextinformation.g:2622:2: ( ( (a0= 'true' |a1= 'false' ) ) )
+            // Hycontextinformation.g:2623:2: ( (a0= 'true' |a1= 'false' ) )
             {
-            // Hycontextinformation.g:2637:2: ( (a0= 'true' |a1= 'false' ) )
-            // Hycontextinformation.g:2638:3: (a0= 'true' |a1= 'false' )
+            // Hycontextinformation.g:2623:2: ( (a0= 'true' |a1= 'false' ) )
+            // Hycontextinformation.g:2624:3: (a0= 'true' |a1= 'false' )
             {
-            // Hycontextinformation.g:2638:3: (a0= 'true' |a1= 'false' )
+            // Hycontextinformation.g:2624:3: (a0= 'true' |a1= 'false' )
             int alt16=2;
             int LA16_0 = input.LA(1);
 
             if ( (LA16_0==25) ) {
                 alt16=1;
             }
-            else if ( (LA16_0==23) ) {
+            else if ( (LA16_0==24) ) {
                 alt16=2;
             }
             else {
@@ -4005,9 +3987,9 @@ public class HycontextinformationParser extends HycontextinformationANTLRParserB
             }
             switch (alt16) {
                 case 1 :
-                    // Hycontextinformation.g:2639:4: a0= 'true'
+                    // Hycontextinformation.g:2625:4: a0= 'true'
                     {
-                    a0=(Token)match(input,25,FOLLOW_25_in_parse_eu_hyvar_dataValues_HyBooleanValue2966); if (state.failed) return element;
+                    a0=(Token)match(input,25,FOLLOW_25_in_parse_eu_hyvar_dataValues_HyBooleanValue2943); if (state.failed) return element;
 
                     if ( state.backtracking==0 ) {
                     				if (element == null) {
@@ -4026,9 +4008,9 @@ public class HycontextinformationParser extends HycontextinformationANTLRParserB
                     }
                     break;
                 case 2 :
-                    // Hycontextinformation.g:2652:8: a1= 'false'
+                    // Hycontextinformation.g:2638:8: a1= 'false'
                     {
-                    a1=(Token)match(input,23,FOLLOW_23_in_parse_eu_hyvar_dataValues_HyBooleanValue2981); if (state.failed) return element;
+                    a1=(Token)match(input,24,FOLLOW_24_in_parse_eu_hyvar_dataValues_HyBooleanValue2958); if (state.failed) return element;
 
                     if ( state.backtracking==0 ) {
                     				if (element == null) {
@@ -4077,7 +4059,7 @@ public class HycontextinformationParser extends HycontextinformationANTLRParserB
 
 
     // $ANTLR start "parse_eu_hyvar_dataValues_HyEnumValue"
-    // Hycontextinformation.g:2673:1: parse_eu_hyvar_dataValues_HyEnumValue returns [eu.hyvar.dataValues.HyEnumValue element = null] : a0= 'enum:' (a1= IDENTIFIER_TOKEN ) a2= '.' (a3= IDENTIFIER_TOKEN ) ;
+    // Hycontextinformation.g:2659:1: parse_eu_hyvar_dataValues_HyEnumValue returns [eu.hyvar.dataValues.HyEnumValue element = null] : a0= 'enum:' (a1= IDENTIFIER_TOKEN ) a2= '.' (a3= IDENTIFIER_TOKEN ) ;
     public final eu.hyvar.dataValues.HyEnumValue parse_eu_hyvar_dataValues_HyEnumValue() throws RecognitionException {
         eu.hyvar.dataValues.HyEnumValue element =  null;
 
@@ -4093,10 +4075,10 @@ public class HycontextinformationParser extends HycontextinformationANTLRParserB
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 11) ) { return element; }
 
-            // Hycontextinformation.g:2676:2: (a0= 'enum:' (a1= IDENTIFIER_TOKEN ) a2= '.' (a3= IDENTIFIER_TOKEN ) )
-            // Hycontextinformation.g:2677:2: a0= 'enum:' (a1= IDENTIFIER_TOKEN ) a2= '.' (a3= IDENTIFIER_TOKEN )
+            // Hycontextinformation.g:2662:2: (a0= 'enum:' (a1= IDENTIFIER_TOKEN ) a2= '.' (a3= IDENTIFIER_TOKEN ) )
+            // Hycontextinformation.g:2663:2: a0= 'enum:' (a1= IDENTIFIER_TOKEN ) a2= '.' (a3= IDENTIFIER_TOKEN )
             {
-            a0=(Token)match(input,22,FOLLOW_22_in_parse_eu_hyvar_dataValues_HyEnumValue3017); if (state.failed) return element;
+            a0=(Token)match(input,22,FOLLOW_22_in_parse_eu_hyvar_dataValues_HyEnumValue2994); if (state.failed) return element;
 
             if ( state.backtracking==0 ) {
             		if (element == null) {
@@ -4110,13 +4092,13 @@ public class HycontextinformationParser extends HycontextinformationANTLRParserB
 
             if ( state.backtracking==0 ) {
             		// expected elements (follow set)
-            		addExpectedElement(null, eu.hyvar.context.resource.hycontextinformation.mopp.HycontextinformationExpectationConstants.EXPECTATIONS[154]);
+            		addExpectedElement(null, eu.hyvar.context.resource.hycontextinformation.mopp.HycontextinformationExpectationConstants.EXPECTATIONS[153]);
             	}
 
-            // Hycontextinformation.g:2691:2: (a1= IDENTIFIER_TOKEN )
-            // Hycontextinformation.g:2692:3: a1= IDENTIFIER_TOKEN
+            // Hycontextinformation.g:2677:2: (a1= IDENTIFIER_TOKEN )
+            // Hycontextinformation.g:2678:3: a1= IDENTIFIER_TOKEN
             {
-            a1=(Token)match(input,IDENTIFIER_TOKEN,FOLLOW_IDENTIFIER_TOKEN_in_parse_eu_hyvar_dataValues_HyEnumValue3035); if (state.failed) return element;
+            a1=(Token)match(input,IDENTIFIER_TOKEN,FOLLOW_IDENTIFIER_TOKEN_in_parse_eu_hyvar_dataValues_HyEnumValue3012); if (state.failed) return element;
 
             if ( state.backtracking==0 ) {
             			if (terminateParsing) {
@@ -4156,10 +4138,10 @@ public class HycontextinformationParser extends HycontextinformationANTLRParserB
 
             if ( state.backtracking==0 ) {
             		// expected elements (follow set)
-            		addExpectedElement(null, eu.hyvar.context.resource.hycontextinformation.mopp.HycontextinformationExpectationConstants.EXPECTATIONS[155]);
+            		addExpectedElement(null, eu.hyvar.context.resource.hycontextinformation.mopp.HycontextinformationExpectationConstants.EXPECTATIONS[154]);
             	}
 
-            a2=(Token)match(input,14,FOLLOW_14_in_parse_eu_hyvar_dataValues_HyEnumValue3056); if (state.failed) return element;
+            a2=(Token)match(input,14,FOLLOW_14_in_parse_eu_hyvar_dataValues_HyEnumValue3033); if (state.failed) return element;
 
             if ( state.backtracking==0 ) {
             		if (element == null) {
@@ -4173,13 +4155,13 @@ public class HycontextinformationParser extends HycontextinformationANTLRParserB
 
             if ( state.backtracking==0 ) {
             		// expected elements (follow set)
-            		addExpectedElement(null, eu.hyvar.context.resource.hycontextinformation.mopp.HycontextinformationExpectationConstants.EXPECTATIONS[156]);
+            		addExpectedElement(null, eu.hyvar.context.resource.hycontextinformation.mopp.HycontextinformationExpectationConstants.EXPECTATIONS[155]);
             	}
 
-            // Hycontextinformation.g:2745:2: (a3= IDENTIFIER_TOKEN )
-            // Hycontextinformation.g:2746:3: a3= IDENTIFIER_TOKEN
+            // Hycontextinformation.g:2731:2: (a3= IDENTIFIER_TOKEN )
+            // Hycontextinformation.g:2732:3: a3= IDENTIFIER_TOKEN
             {
-            a3=(Token)match(input,IDENTIFIER_TOKEN,FOLLOW_IDENTIFIER_TOKEN_in_parse_eu_hyvar_dataValues_HyEnumValue3074); if (state.failed) return element;
+            a3=(Token)match(input,IDENTIFIER_TOKEN,FOLLOW_IDENTIFIER_TOKEN_in_parse_eu_hyvar_dataValues_HyEnumValue3051); if (state.failed) return element;
 
             if ( state.backtracking==0 ) {
             			if (terminateParsing) {
@@ -4241,7 +4223,7 @@ public class HycontextinformationParser extends HycontextinformationANTLRParserB
 
 
     // $ANTLR start "parse_eu_hyvar_context_HyContextualInformation"
-    // Hycontextinformation.g:2786:1: parse_eu_hyvar_context_HyContextualInformation returns [eu.hyvar.context.HyContextualInformation element = null] : (c0= parse_eu_hyvar_context_HyContextualInformationNumber |c1= parse_eu_hyvar_context_HyContextualInformationBoolean |c2= parse_eu_hyvar_context_HyContextualInformationEnum );
+    // Hycontextinformation.g:2772:1: parse_eu_hyvar_context_HyContextualInformation returns [eu.hyvar.context.HyContextualInformation element = null] : (c0= parse_eu_hyvar_context_HyContextualInformationNumber |c1= parse_eu_hyvar_context_HyContextualInformationBoolean |c2= parse_eu_hyvar_context_HyContextualInformationEnum );
     public final eu.hyvar.context.HyContextualInformation parse_eu_hyvar_context_HyContextualInformation() throws RecognitionException {
         eu.hyvar.context.HyContextualInformation element =  null;
 
@@ -4257,7 +4239,7 @@ public class HycontextinformationParser extends HycontextinformationANTLRParserB
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 12) ) { return element; }
 
-            // Hycontextinformation.g:2787:2: (c0= parse_eu_hyvar_context_HyContextualInformationNumber |c1= parse_eu_hyvar_context_HyContextualInformationBoolean |c2= parse_eu_hyvar_context_HyContextualInformationEnum )
+            // Hycontextinformation.g:2773:2: (c0= parse_eu_hyvar_context_HyContextualInformationNumber |c1= parse_eu_hyvar_context_HyContextualInformationBoolean |c2= parse_eu_hyvar_context_HyContextualInformationEnum )
             int alt17=3;
             switch ( input.LA(1) ) {
             case 19:
@@ -4286,9 +4268,9 @@ public class HycontextinformationParser extends HycontextinformationANTLRParserB
 
             switch (alt17) {
                 case 1 :
-                    // Hycontextinformation.g:2788:2: c0= parse_eu_hyvar_context_HyContextualInformationNumber
+                    // Hycontextinformation.g:2774:2: c0= parse_eu_hyvar_context_HyContextualInformationNumber
                     {
-                    pushFollow(FOLLOW_parse_eu_hyvar_context_HyContextualInformationNumber_in_parse_eu_hyvar_context_HyContextualInformation3106);
+                    pushFollow(FOLLOW_parse_eu_hyvar_context_HyContextualInformationNumber_in_parse_eu_hyvar_context_HyContextualInformation3083);
                     c0=parse_eu_hyvar_context_HyContextualInformationNumber();
 
                     state._fsp--;
@@ -4299,9 +4281,9 @@ public class HycontextinformationParser extends HycontextinformationANTLRParserB
                     }
                     break;
                 case 2 :
-                    // Hycontextinformation.g:2789:4: c1= parse_eu_hyvar_context_HyContextualInformationBoolean
+                    // Hycontextinformation.g:2775:4: c1= parse_eu_hyvar_context_HyContextualInformationBoolean
                     {
-                    pushFollow(FOLLOW_parse_eu_hyvar_context_HyContextualInformationBoolean_in_parse_eu_hyvar_context_HyContextualInformation3116);
+                    pushFollow(FOLLOW_parse_eu_hyvar_context_HyContextualInformationBoolean_in_parse_eu_hyvar_context_HyContextualInformation3093);
                     c1=parse_eu_hyvar_context_HyContextualInformationBoolean();
 
                     state._fsp--;
@@ -4312,9 +4294,9 @@ public class HycontextinformationParser extends HycontextinformationANTLRParserB
                     }
                     break;
                 case 3 :
-                    // Hycontextinformation.g:2790:4: c2= parse_eu_hyvar_context_HyContextualInformationEnum
+                    // Hycontextinformation.g:2776:4: c2= parse_eu_hyvar_context_HyContextualInformationEnum
                     {
-                    pushFollow(FOLLOW_parse_eu_hyvar_context_HyContextualInformationEnum_in_parse_eu_hyvar_context_HyContextualInformation3126);
+                    pushFollow(FOLLOW_parse_eu_hyvar_context_HyContextualInformationEnum_in_parse_eu_hyvar_context_HyContextualInformation3103);
                     c2=parse_eu_hyvar_context_HyContextualInformationEnum();
 
                     state._fsp--;
@@ -4357,28 +4339,28 @@ public class HycontextinformationParser extends HycontextinformationANTLRParserB
     public static final BitSet FOLLOW_12_in_parse_eu_hyvar_context_HyContextualInformationNumber278 = new BitSet(new long[]{0x0000000000000040L});
     public static final BitSet FOLLOW_INTEGER_LITERAL_in_parse_eu_hyvar_context_HyContextualInformationNumber296 = new BitSet(new long[]{0x0000000000000800L});
     public static final BitSet FOLLOW_11_in_parse_eu_hyvar_context_HyContextualInformationNumber317 = new BitSet(new long[]{0x0000000000100002L});
-    public static final BitSet FOLLOW_20_in_parse_eu_hyvar_context_HyContextualInformationNumber340 = new BitSet(new long[]{0x0000000001000010L});
+    public static final BitSet FOLLOW_20_in_parse_eu_hyvar_context_HyContextualInformationNumber340 = new BitSet(new long[]{0x0000000000800010L});
     public static final BitSet FOLLOW_DATE_in_parse_eu_hyvar_context_HyContextualInformationNumber373 = new BitSet(new long[]{0x0000000000002000L});
     public static final BitSet FOLLOW_13_in_parse_eu_hyvar_context_HyContextualInformationNumber412 = new BitSet(new long[]{0x0000000000000010L});
     public static final BitSet FOLLOW_DATE_in_parse_eu_hyvar_context_HyContextualInformationNumber442 = new BitSet(new long[]{0x0000000000200000L});
     public static final BitSet FOLLOW_DATE_in_parse_eu_hyvar_context_HyContextualInformationNumber498 = new BitSet(new long[]{0x0000000000002000L});
-    public static final BitSet FOLLOW_13_in_parse_eu_hyvar_context_HyContextualInformationNumber537 = new BitSet(new long[]{0x0000000001000000L});
-    public static final BitSet FOLLOW_24_in_parse_eu_hyvar_context_HyContextualInformationNumber560 = new BitSet(new long[]{0x0000000000200000L});
-    public static final BitSet FOLLOW_24_in_parse_eu_hyvar_context_HyContextualInformationNumber593 = new BitSet(new long[]{0x0000000000002000L});
+    public static final BitSet FOLLOW_13_in_parse_eu_hyvar_context_HyContextualInformationNumber537 = new BitSet(new long[]{0x0000000000800000L});
+    public static final BitSet FOLLOW_23_in_parse_eu_hyvar_context_HyContextualInformationNumber560 = new BitSet(new long[]{0x0000000000200000L});
+    public static final BitSet FOLLOW_23_in_parse_eu_hyvar_context_HyContextualInformationNumber593 = new BitSet(new long[]{0x0000000000002000L});
     public static final BitSet FOLLOW_13_in_parse_eu_hyvar_context_HyContextualInformationNumber616 = new BitSet(new long[]{0x0000000000000010L});
     public static final BitSet FOLLOW_DATE_in_parse_eu_hyvar_context_HyContextualInformationNumber646 = new BitSet(new long[]{0x0000000000200000L});
     public static final BitSet FOLLOW_21_in_parse_eu_hyvar_context_HyContextualInformationNumber698 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_15_in_parse_eu_hyvar_context_HyContextualInformationBoolean746 = new BitSet(new long[]{0x0000000000000020L});
     public static final BitSet FOLLOW_IDENTIFIER_TOKEN_in_parse_eu_hyvar_context_HyContextualInformationBoolean764 = new BitSet(new long[]{0x0000000000000800L});
     public static final BitSet FOLLOW_11_in_parse_eu_hyvar_context_HyContextualInformationBoolean785 = new BitSet(new long[]{0x0000000000100002L});
-    public static final BitSet FOLLOW_20_in_parse_eu_hyvar_context_HyContextualInformationBoolean808 = new BitSet(new long[]{0x0000000001000010L});
+    public static final BitSet FOLLOW_20_in_parse_eu_hyvar_context_HyContextualInformationBoolean808 = new BitSet(new long[]{0x0000000000800010L});
     public static final BitSet FOLLOW_DATE_in_parse_eu_hyvar_context_HyContextualInformationBoolean841 = new BitSet(new long[]{0x0000000000002000L});
     public static final BitSet FOLLOW_13_in_parse_eu_hyvar_context_HyContextualInformationBoolean880 = new BitSet(new long[]{0x0000000000000010L});
     public static final BitSet FOLLOW_DATE_in_parse_eu_hyvar_context_HyContextualInformationBoolean910 = new BitSet(new long[]{0x0000000000200000L});
     public static final BitSet FOLLOW_DATE_in_parse_eu_hyvar_context_HyContextualInformationBoolean966 = new BitSet(new long[]{0x0000000000002000L});
-    public static final BitSet FOLLOW_13_in_parse_eu_hyvar_context_HyContextualInformationBoolean1005 = new BitSet(new long[]{0x0000000001000000L});
-    public static final BitSet FOLLOW_24_in_parse_eu_hyvar_context_HyContextualInformationBoolean1028 = new BitSet(new long[]{0x0000000000200000L});
-    public static final BitSet FOLLOW_24_in_parse_eu_hyvar_context_HyContextualInformationBoolean1061 = new BitSet(new long[]{0x0000000000002000L});
+    public static final BitSet FOLLOW_13_in_parse_eu_hyvar_context_HyContextualInformationBoolean1005 = new BitSet(new long[]{0x0000000000800000L});
+    public static final BitSet FOLLOW_23_in_parse_eu_hyvar_context_HyContextualInformationBoolean1028 = new BitSet(new long[]{0x0000000000200000L});
+    public static final BitSet FOLLOW_23_in_parse_eu_hyvar_context_HyContextualInformationBoolean1061 = new BitSet(new long[]{0x0000000000002000L});
     public static final BitSet FOLLOW_13_in_parse_eu_hyvar_context_HyContextualInformationBoolean1084 = new BitSet(new long[]{0x0000000000000010L});
     public static final BitSet FOLLOW_DATE_in_parse_eu_hyvar_context_HyContextualInformationBoolean1114 = new BitSet(new long[]{0x0000000000200000L});
     public static final BitSet FOLLOW_21_in_parse_eu_hyvar_context_HyContextualInformationBoolean1166 = new BitSet(new long[]{0x0000000000000002L});
@@ -4387,14 +4369,14 @@ public class HycontextinformationParser extends HycontextinformationANTLRParserB
     public static final BitSet FOLLOW_12_in_parse_eu_hyvar_context_HyContextualInformationEnum1253 = new BitSet(new long[]{0x0000000000000020L});
     public static final BitSet FOLLOW_IDENTIFIER_TOKEN_in_parse_eu_hyvar_context_HyContextualInformationEnum1271 = new BitSet(new long[]{0x0000000000000800L});
     public static final BitSet FOLLOW_11_in_parse_eu_hyvar_context_HyContextualInformationEnum1292 = new BitSet(new long[]{0x0000000000100002L});
-    public static final BitSet FOLLOW_20_in_parse_eu_hyvar_context_HyContextualInformationEnum1315 = new BitSet(new long[]{0x0000000001000010L});
+    public static final BitSet FOLLOW_20_in_parse_eu_hyvar_context_HyContextualInformationEnum1315 = new BitSet(new long[]{0x0000000000800010L});
     public static final BitSet FOLLOW_DATE_in_parse_eu_hyvar_context_HyContextualInformationEnum1348 = new BitSet(new long[]{0x0000000000002000L});
     public static final BitSet FOLLOW_13_in_parse_eu_hyvar_context_HyContextualInformationEnum1387 = new BitSet(new long[]{0x0000000000000010L});
     public static final BitSet FOLLOW_DATE_in_parse_eu_hyvar_context_HyContextualInformationEnum1417 = new BitSet(new long[]{0x0000000000200000L});
     public static final BitSet FOLLOW_DATE_in_parse_eu_hyvar_context_HyContextualInformationEnum1473 = new BitSet(new long[]{0x0000000000002000L});
-    public static final BitSet FOLLOW_13_in_parse_eu_hyvar_context_HyContextualInformationEnum1512 = new BitSet(new long[]{0x0000000001000000L});
-    public static final BitSet FOLLOW_24_in_parse_eu_hyvar_context_HyContextualInformationEnum1535 = new BitSet(new long[]{0x0000000000200000L});
-    public static final BitSet FOLLOW_24_in_parse_eu_hyvar_context_HyContextualInformationEnum1568 = new BitSet(new long[]{0x0000000000002000L});
+    public static final BitSet FOLLOW_13_in_parse_eu_hyvar_context_HyContextualInformationEnum1512 = new BitSet(new long[]{0x0000000000800000L});
+    public static final BitSet FOLLOW_23_in_parse_eu_hyvar_context_HyContextualInformationEnum1535 = new BitSet(new long[]{0x0000000000200000L});
+    public static final BitSet FOLLOW_23_in_parse_eu_hyvar_context_HyContextualInformationEnum1568 = new BitSet(new long[]{0x0000000000002000L});
     public static final BitSet FOLLOW_13_in_parse_eu_hyvar_context_HyContextualInformationEnum1591 = new BitSet(new long[]{0x0000000000000010L});
     public static final BitSet FOLLOW_DATE_in_parse_eu_hyvar_context_HyContextualInformationEnum1621 = new BitSet(new long[]{0x0000000000200000L});
     public static final BitSet FOLLOW_21_in_parse_eu_hyvar_context_HyContextualInformationEnum1673 = new BitSet(new long[]{0x0000000000000002L});
@@ -4405,45 +4387,44 @@ public class HycontextinformationParser extends HycontextinformationANTLRParserB
     public static final BitSet FOLLOW_12_in_parse_eu_hyvar_dataValues_HyEnum1830 = new BitSet(new long[]{0x0000000000040000L});
     public static final BitSet FOLLOW_parse_eu_hyvar_dataValues_HyEnumLiteral_in_parse_eu_hyvar_dataValues_HyEnum1864 = new BitSet(new long[]{0x0000000000001800L});
     public static final BitSet FOLLOW_11_in_parse_eu_hyvar_dataValues_HyEnum1938 = new BitSet(new long[]{0x0000000000100002L});
-    public static final BitSet FOLLOW_20_in_parse_eu_hyvar_dataValues_HyEnum1961 = new BitSet(new long[]{0x0000000001000010L});
+    public static final BitSet FOLLOW_20_in_parse_eu_hyvar_dataValues_HyEnum1961 = new BitSet(new long[]{0x0000000000800010L});
     public static final BitSet FOLLOW_DATE_in_parse_eu_hyvar_dataValues_HyEnum1994 = new BitSet(new long[]{0x0000000000002000L});
     public static final BitSet FOLLOW_13_in_parse_eu_hyvar_dataValues_HyEnum2033 = new BitSet(new long[]{0x0000000000000010L});
     public static final BitSet FOLLOW_DATE_in_parse_eu_hyvar_dataValues_HyEnum2063 = new BitSet(new long[]{0x0000000000200000L});
     public static final BitSet FOLLOW_DATE_in_parse_eu_hyvar_dataValues_HyEnum2119 = new BitSet(new long[]{0x0000000000002000L});
-    public static final BitSet FOLLOW_13_in_parse_eu_hyvar_dataValues_HyEnum2158 = new BitSet(new long[]{0x0000000001000000L});
-    public static final BitSet FOLLOW_24_in_parse_eu_hyvar_dataValues_HyEnum2181 = new BitSet(new long[]{0x0000000000200000L});
-    public static final BitSet FOLLOW_24_in_parse_eu_hyvar_dataValues_HyEnum2214 = new BitSet(new long[]{0x0000000000002000L});
-    public static final BitSet FOLLOW_13_in_parse_eu_hyvar_dataValues_HyEnum2237 = new BitSet(new long[]{0x0000000000000010L});
-    public static final BitSet FOLLOW_DATE_in_parse_eu_hyvar_dataValues_HyEnum2267 = new BitSet(new long[]{0x0000000000200000L});
-    public static final BitSet FOLLOW_21_in_parse_eu_hyvar_dataValues_HyEnum2319 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_18_in_parse_eu_hyvar_dataValues_HyEnumLiteral2367 = new BitSet(new long[]{0x0000000000000020L});
-    public static final BitSet FOLLOW_IDENTIFIER_TOKEN_in_parse_eu_hyvar_dataValues_HyEnumLiteral2385 = new BitSet(new long[]{0x0000000000001000L});
-    public static final BitSet FOLLOW_12_in_parse_eu_hyvar_dataValues_HyEnumLiteral2406 = new BitSet(new long[]{0x0000000000000040L});
-    public static final BitSet FOLLOW_INTEGER_LITERAL_in_parse_eu_hyvar_dataValues_HyEnumLiteral2424 = new BitSet(new long[]{0x0000000000000800L});
-    public static final BitSet FOLLOW_11_in_parse_eu_hyvar_dataValues_HyEnumLiteral2445 = new BitSet(new long[]{0x0000000000100002L});
-    public static final BitSet FOLLOW_20_in_parse_eu_hyvar_dataValues_HyEnumLiteral2468 = new BitSet(new long[]{0x0000000001000010L});
-    public static final BitSet FOLLOW_DATE_in_parse_eu_hyvar_dataValues_HyEnumLiteral2501 = new BitSet(new long[]{0x0000000000002000L});
-    public static final BitSet FOLLOW_13_in_parse_eu_hyvar_dataValues_HyEnumLiteral2540 = new BitSet(new long[]{0x0000000000000010L});
-    public static final BitSet FOLLOW_DATE_in_parse_eu_hyvar_dataValues_HyEnumLiteral2570 = new BitSet(new long[]{0x0000000000200000L});
-    public static final BitSet FOLLOW_DATE_in_parse_eu_hyvar_dataValues_HyEnumLiteral2626 = new BitSet(new long[]{0x0000000000002000L});
-    public static final BitSet FOLLOW_13_in_parse_eu_hyvar_dataValues_HyEnumLiteral2665 = new BitSet(new long[]{0x0000000001000000L});
-    public static final BitSet FOLLOW_24_in_parse_eu_hyvar_dataValues_HyEnumLiteral2688 = new BitSet(new long[]{0x0000000000200000L});
-    public static final BitSet FOLLOW_24_in_parse_eu_hyvar_dataValues_HyEnumLiteral2721 = new BitSet(new long[]{0x0000000000002000L});
-    public static final BitSet FOLLOW_13_in_parse_eu_hyvar_dataValues_HyEnumLiteral2744 = new BitSet(new long[]{0x0000000000000010L});
-    public static final BitSet FOLLOW_DATE_in_parse_eu_hyvar_dataValues_HyEnumLiteral2774 = new BitSet(new long[]{0x0000000000200000L});
-    public static final BitSet FOLLOW_21_in_parse_eu_hyvar_dataValues_HyEnumLiteral2826 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_parse_eu_hyvar_dataValues_HyNumberValue_in_parseop_HyValue_level_152874 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_parse_eu_hyvar_dataValues_HyBooleanValue_in_parseop_HyValue_level_152884 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_parse_eu_hyvar_dataValues_HyEnumValue_in_parseop_HyValue_level_152894 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_INTEGER_LITERAL_in_parse_eu_hyvar_dataValues_HyNumberValue2921 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_25_in_parse_eu_hyvar_dataValues_HyBooleanValue2966 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_23_in_parse_eu_hyvar_dataValues_HyBooleanValue2981 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_22_in_parse_eu_hyvar_dataValues_HyEnumValue3017 = new BitSet(new long[]{0x0000000000000020L});
-    public static final BitSet FOLLOW_IDENTIFIER_TOKEN_in_parse_eu_hyvar_dataValues_HyEnumValue3035 = new BitSet(new long[]{0x0000000000004000L});
-    public static final BitSet FOLLOW_14_in_parse_eu_hyvar_dataValues_HyEnumValue3056 = new BitSet(new long[]{0x0000000000000020L});
-    public static final BitSet FOLLOW_IDENTIFIER_TOKEN_in_parse_eu_hyvar_dataValues_HyEnumValue3074 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_parse_eu_hyvar_context_HyContextualInformationNumber_in_parse_eu_hyvar_context_HyContextualInformation3106 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_parse_eu_hyvar_context_HyContextualInformationBoolean_in_parse_eu_hyvar_context_HyContextualInformation3116 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_parse_eu_hyvar_context_HyContextualInformationEnum_in_parse_eu_hyvar_context_HyContextualInformation3126 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_13_in_parse_eu_hyvar_dataValues_HyEnum2158 = new BitSet(new long[]{0x0000000000200000L});
+    public static final BitSet FOLLOW_23_in_parse_eu_hyvar_dataValues_HyEnum2191 = new BitSet(new long[]{0x0000000000002000L});
+    public static final BitSet FOLLOW_13_in_parse_eu_hyvar_dataValues_HyEnum2214 = new BitSet(new long[]{0x0000000000000010L});
+    public static final BitSet FOLLOW_DATE_in_parse_eu_hyvar_dataValues_HyEnum2244 = new BitSet(new long[]{0x0000000000200000L});
+    public static final BitSet FOLLOW_21_in_parse_eu_hyvar_dataValues_HyEnum2296 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_18_in_parse_eu_hyvar_dataValues_HyEnumLiteral2344 = new BitSet(new long[]{0x0000000000000020L});
+    public static final BitSet FOLLOW_IDENTIFIER_TOKEN_in_parse_eu_hyvar_dataValues_HyEnumLiteral2362 = new BitSet(new long[]{0x0000000000001000L});
+    public static final BitSet FOLLOW_12_in_parse_eu_hyvar_dataValues_HyEnumLiteral2383 = new BitSet(new long[]{0x0000000000000040L});
+    public static final BitSet FOLLOW_INTEGER_LITERAL_in_parse_eu_hyvar_dataValues_HyEnumLiteral2401 = new BitSet(new long[]{0x0000000000000800L});
+    public static final BitSet FOLLOW_11_in_parse_eu_hyvar_dataValues_HyEnumLiteral2422 = new BitSet(new long[]{0x0000000000100002L});
+    public static final BitSet FOLLOW_20_in_parse_eu_hyvar_dataValues_HyEnumLiteral2445 = new BitSet(new long[]{0x0000000000800010L});
+    public static final BitSet FOLLOW_DATE_in_parse_eu_hyvar_dataValues_HyEnumLiteral2478 = new BitSet(new long[]{0x0000000000002000L});
+    public static final BitSet FOLLOW_13_in_parse_eu_hyvar_dataValues_HyEnumLiteral2517 = new BitSet(new long[]{0x0000000000000010L});
+    public static final BitSet FOLLOW_DATE_in_parse_eu_hyvar_dataValues_HyEnumLiteral2547 = new BitSet(new long[]{0x0000000000200000L});
+    public static final BitSet FOLLOW_DATE_in_parse_eu_hyvar_dataValues_HyEnumLiteral2603 = new BitSet(new long[]{0x0000000000002000L});
+    public static final BitSet FOLLOW_13_in_parse_eu_hyvar_dataValues_HyEnumLiteral2642 = new BitSet(new long[]{0x0000000000800000L});
+    public static final BitSet FOLLOW_23_in_parse_eu_hyvar_dataValues_HyEnumLiteral2665 = new BitSet(new long[]{0x0000000000200000L});
+    public static final BitSet FOLLOW_23_in_parse_eu_hyvar_dataValues_HyEnumLiteral2698 = new BitSet(new long[]{0x0000000000002000L});
+    public static final BitSet FOLLOW_13_in_parse_eu_hyvar_dataValues_HyEnumLiteral2721 = new BitSet(new long[]{0x0000000000000010L});
+    public static final BitSet FOLLOW_DATE_in_parse_eu_hyvar_dataValues_HyEnumLiteral2751 = new BitSet(new long[]{0x0000000000200000L});
+    public static final BitSet FOLLOW_21_in_parse_eu_hyvar_dataValues_HyEnumLiteral2803 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_parse_eu_hyvar_dataValues_HyNumberValue_in_parseop_HyValue_level_152851 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_parse_eu_hyvar_dataValues_HyBooleanValue_in_parseop_HyValue_level_152861 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_parse_eu_hyvar_dataValues_HyEnumValue_in_parseop_HyValue_level_152871 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_INTEGER_LITERAL_in_parse_eu_hyvar_dataValues_HyNumberValue2898 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_25_in_parse_eu_hyvar_dataValues_HyBooleanValue2943 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_24_in_parse_eu_hyvar_dataValues_HyBooleanValue2958 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_22_in_parse_eu_hyvar_dataValues_HyEnumValue2994 = new BitSet(new long[]{0x0000000000000020L});
+    public static final BitSet FOLLOW_IDENTIFIER_TOKEN_in_parse_eu_hyvar_dataValues_HyEnumValue3012 = new BitSet(new long[]{0x0000000000004000L});
+    public static final BitSet FOLLOW_14_in_parse_eu_hyvar_dataValues_HyEnumValue3033 = new BitSet(new long[]{0x0000000000000020L});
+    public static final BitSet FOLLOW_IDENTIFIER_TOKEN_in_parse_eu_hyvar_dataValues_HyEnumValue3051 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_parse_eu_hyvar_context_HyContextualInformationNumber_in_parse_eu_hyvar_context_HyContextualInformation3083 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_parse_eu_hyvar_context_HyContextualInformationBoolean_in_parse_eu_hyvar_context_HyContextualInformation3093 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_parse_eu_hyvar_context_HyContextualInformationEnum_in_parse_eu_hyvar_context_HyContextualInformation3103 = new BitSet(new long[]{0x0000000000000002L});
 
 }

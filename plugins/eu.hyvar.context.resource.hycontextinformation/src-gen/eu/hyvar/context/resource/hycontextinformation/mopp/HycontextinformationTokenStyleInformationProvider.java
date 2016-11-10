@@ -21,7 +21,7 @@ public class HycontextinformationTokenStyleInformationProvider {
 		if ("enum:".equals(tokenName)) {
 			return new eu.hyvar.context.resource.hycontextinformation.mopp.HycontextinformationTokenStyle(new int[] {0x80, 0x00, 0x55}, null, true, false, false, false);
 		}
-		if ("null".equals(tokenName)) {
+		if ("eternity".equals(tokenName)) {
 			return new eu.hyvar.context.resource.hycontextinformation.mopp.HycontextinformationTokenStyle(new int[] {0x80, 0x00, 0x55}, null, true, false, false, false);
 		}
 		if ("ML_COMMENT".equals(tokenName)) {

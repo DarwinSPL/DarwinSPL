@@ -23,13 +23,13 @@ TOKENS {
 	DEFINE DATE $($ + INTEGER_LITERAL + $'/'$ + INTEGER_LITERAL + $'/'$ + INTEGER_LITERAL + $( 'T'$ + INTEGER_LITERAL + $':'$ + INTEGER_LITERAL + $(':' $ + INTEGER_LITERAL + $)?$ + $)?)$;
 	DEFINE INTEGER_LITERAL $('-')? ('0'..'9')+ $;
 	
-	
 	DEFINE SL_COMMENT $'//'(~('\n'|'\r'|'\uffff'))*$;
 	DEFINE ML_COMMENT $'/*'.*'*/'$;
 	
 	DEFINE LINEBREAK $('\r\n'|'\r'|'\n')$;
 	DEFINE WHITESPACE $(' '|'\t'|'\f')$;
 }
+
 
 RULES {
 	// syntax definition for class 'HyNumberValue'
@@ -45,7 +45,7 @@ RULES {
 	HyEnumValue ::= "enum:"enum[IDENTIFIER_TOKEN] "." enumLiteral[IDENTIFIER_TOKEN];
 	
 	@SuppressWarnings(explicitSyntaxChoice)
-	HyEnum ::= "Enum(" name[IDENTIFIER_TOKEN]"," (literals ("," literals)*)? ")" ("[" (validSince[DATE] "-" validUntil[DATE] | validSince[DATE] "-" "eternity" | "eternity" "-" validUntil[DATE])  "]")?;
+	HyEnum ::= "Enum(" name[IDENTIFIER_TOKEN]"," (literals ("," literals)*)? ")" ("[" (validSince[DATE] "-" validUntil[DATE] | validSince[DATE] "-"  | "eternity" "-" validUntil[DATE])  "]")?;
 	
 	@SuppressWarnings(explicitSyntaxChoice)
 	HyEnumLiteral ::= "EnumLiteral(" name[IDENTIFIER_TOKEN] "," value[INTEGER_LITERAL] ")" ("[" (validSince[DATE] "-" validUntil[DATE] | validSince[DATE] "-" "eternity" | "eternity" "-" validUntil[DATE])  "]")?;

@@ -381,13 +381,13 @@ public class HyconstraintsPrinter implements eu.hyvar.feature.constraint.resourc
 				out.print("-");
 				out.print(" ");
 				// DEFINITION PART BEGINS (CsString)
-				out.print("null");
+				out.print("eternity");
 				out.print(" ");
 			}
 			break;
 			case 2:			{
 				// DEFINITION PART BEGINS (CsString)
-				out.print("null");
+				out.print("eternity");
 				out.print(" ");
 				// DEFINITION PART BEGINS (CsString)
 				out.print("-");
@@ -1970,9 +1970,6 @@ public class HyconstraintsPrinter implements eu.hyvar.feature.constraint.resourc
 				}
 				// DEFINITION PART BEGINS (CsString)
 				out.print("-");
-				out.print(" ");
-				// DEFINITION PART BEGINS (CsString)
-				out.print("eternity");
 				out.print(" ");
 			}
 			break;

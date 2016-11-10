@@ -14,7 +14,7 @@ import org.eclipse.emf.ecore.EStructuralFeature;
  */
 public class HymappingFollowSetProvider {
 	
-	public final static eu.hyvar.feature.mapping.resource.hymapping.IHymappingExpectedElement TERMINALS[] = new eu.hyvar.feature.mapping.resource.hymapping.IHymappingExpectedElement[101];
+	public final static eu.hyvar.feature.mapping.resource.hymapping.IHymappingExpectedElement TERMINALS[] = new eu.hyvar.feature.mapping.resource.hymapping.IHymappingExpectedElement[100];
 	
 	public final static EStructuralFeature[] FEATURES = new EStructuralFeature[10];
 	
@@ -98,32 +98,31 @@ public class HymappingFollowSetProvider {
 		TERMINALS[72] = new eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectedStructuralFeature(eu.hyvar.feature.mapping.resource.hymapping.grammar.HymappingGrammarInformationProvider.HYDATAVALUE_3_0_0_5_0_0_1_0_0_2);
 		TERMINALS[73] = new eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectedCsString(eu.hyvar.feature.mapping.resource.hymapping.grammar.HymappingGrammarInformationProvider.HYDATAVALUE_3_0_0_5_0_0_2);
 		TERMINALS[74] = new eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectedCsString(eu.hyvar.feature.mapping.resource.hymapping.grammar.HymappingGrammarInformationProvider.HYDATAVALUE_3_0_0_5_0_0_1_0_1_1);
-		TERMINALS[75] = new eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectedCsString(eu.hyvar.feature.mapping.resource.hymapping.grammar.HymappingGrammarInformationProvider.HYDATAVALUE_3_0_0_5_0_0_1_0_1_2);
-		TERMINALS[76] = new eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectedCsString(eu.hyvar.feature.mapping.resource.hymapping.grammar.HymappingGrammarInformationProvider.HYDATAVALUE_3_0_0_5_0_0_1_0_2_1);
-		TERMINALS[77] = new eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectedStructuralFeature(eu.hyvar.feature.mapping.resource.hymapping.grammar.HymappingGrammarInformationProvider.HYDATAVALUE_3_0_0_5_0_0_1_0_2_2);
-		TERMINALS[78] = new eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectedStructuralFeature(eu.hyvar.feature.mapping.resource.hymapping.grammar.HymappingGrammarInformationProvider.HYDATAVALUE_4_0_0_1);
-		TERMINALS[79] = new eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectedCsString(eu.hyvar.feature.mapping.resource.hymapping.grammar.HymappingGrammarInformationProvider.HYDATAVALUE_4_0_0_2);
-		TERMINALS[80] = new eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectedStructuralFeature(eu.hyvar.feature.mapping.resource.hymapping.grammar.HymappingGrammarInformationProvider.HYDATAVALUE_4_0_0_3);
-		TERMINALS[81] = new eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectedCsString(eu.hyvar.feature.mapping.resource.hymapping.grammar.HymappingGrammarInformationProvider.HYDATAVALUE_4_0_0_4);
-		TERMINALS[82] = new eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectedCsString(eu.hyvar.feature.mapping.resource.hymapping.grammar.HymappingGrammarInformationProvider.HYDATAVALUE_4_0_0_5_0_0_0);
-		TERMINALS[83] = new eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectedStructuralFeature(eu.hyvar.feature.mapping.resource.hymapping.grammar.HymappingGrammarInformationProvider.HYDATAVALUE_4_0_0_5_0_0_1_0_0_0);
-		TERMINALS[84] = new eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectedStructuralFeature(eu.hyvar.feature.mapping.resource.hymapping.grammar.HymappingGrammarInformationProvider.HYDATAVALUE_4_0_0_5_0_0_1_0_1_0);
-		TERMINALS[85] = new eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectedCsString(eu.hyvar.feature.mapping.resource.hymapping.grammar.HymappingGrammarInformationProvider.HYDATAVALUE_4_0_0_5_0_0_1_0_2_0);
-		TERMINALS[86] = new eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectedCsString(eu.hyvar.feature.mapping.resource.hymapping.grammar.HymappingGrammarInformationProvider.HYDATAVALUE_4_0_0_5_0_0_1_0_0_1);
-		TERMINALS[87] = new eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectedStructuralFeature(eu.hyvar.feature.mapping.resource.hymapping.grammar.HymappingGrammarInformationProvider.HYDATAVALUE_4_0_0_5_0_0_1_0_0_2);
-		TERMINALS[88] = new eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectedCsString(eu.hyvar.feature.mapping.resource.hymapping.grammar.HymappingGrammarInformationProvider.HYDATAVALUE_4_0_0_5_0_0_2);
-		TERMINALS[89] = new eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectedCsString(eu.hyvar.feature.mapping.resource.hymapping.grammar.HymappingGrammarInformationProvider.HYDATAVALUE_4_0_0_5_0_0_1_0_1_1);
-		TERMINALS[90] = new eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectedCsString(eu.hyvar.feature.mapping.resource.hymapping.grammar.HymappingGrammarInformationProvider.HYDATAVALUE_4_0_0_5_0_0_1_0_1_2);
-		TERMINALS[91] = new eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectedCsString(eu.hyvar.feature.mapping.resource.hymapping.grammar.HymappingGrammarInformationProvider.HYDATAVALUE_4_0_0_5_0_0_1_0_2_1);
-		TERMINALS[92] = new eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectedStructuralFeature(eu.hyvar.feature.mapping.resource.hymapping.grammar.HymappingGrammarInformationProvider.HYDATAVALUE_4_0_0_5_0_0_1_0_2_2);
-		TERMINALS[93] = new eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectedStructuralFeature(eu.hyvar.feature.mapping.resource.hymapping.grammar.HymappingGrammarInformationProvider.HYEXPRESSION_8_0_0_1_0_0_0);
-		TERMINALS[94] = new eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectedStructuralFeature(eu.hyvar.feature.mapping.resource.hymapping.grammar.HymappingGrammarInformationProvider.HYEXPRESSION_8_0_0_1_0_1_0);
-		TERMINALS[95] = new eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectedStructuralFeature(eu.hyvar.feature.mapping.resource.hymapping.grammar.HymappingGrammarInformationProvider.HYEXPRESSION_9_0_0_1);
-		TERMINALS[96] = new eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectedCsString(eu.hyvar.feature.mapping.resource.hymapping.grammar.HymappingGrammarInformationProvider.HYEXPRESSION_10_0_0_1);
-		TERMINALS[97] = new eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectedStructuralFeature(eu.hyvar.feature.mapping.resource.hymapping.grammar.HymappingGrammarInformationProvider.HYEXPRESSION_10_0_0_2);
-		TERMINALS[98] = new eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectedStructuralFeature(eu.hyvar.feature.mapping.resource.hymapping.grammar.HymappingGrammarInformationProvider.HYDATAVALUE_2_0_0_1);
-		TERMINALS[99] = new eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectedCsString(eu.hyvar.feature.mapping.resource.hymapping.grammar.HymappingGrammarInformationProvider.HYDATAVALUE_2_0_0_2);
-		TERMINALS[100] = new eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectedStructuralFeature(eu.hyvar.feature.mapping.resource.hymapping.grammar.HymappingGrammarInformationProvider.HYDATAVALUE_2_0_0_3);
+		TERMINALS[75] = new eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectedCsString(eu.hyvar.feature.mapping.resource.hymapping.grammar.HymappingGrammarInformationProvider.HYDATAVALUE_3_0_0_5_0_0_1_0_2_1);
+		TERMINALS[76] = new eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectedStructuralFeature(eu.hyvar.feature.mapping.resource.hymapping.grammar.HymappingGrammarInformationProvider.HYDATAVALUE_3_0_0_5_0_0_1_0_2_2);
+		TERMINALS[77] = new eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectedStructuralFeature(eu.hyvar.feature.mapping.resource.hymapping.grammar.HymappingGrammarInformationProvider.HYDATAVALUE_4_0_0_1);
+		TERMINALS[78] = new eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectedCsString(eu.hyvar.feature.mapping.resource.hymapping.grammar.HymappingGrammarInformationProvider.HYDATAVALUE_4_0_0_2);
+		TERMINALS[79] = new eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectedStructuralFeature(eu.hyvar.feature.mapping.resource.hymapping.grammar.HymappingGrammarInformationProvider.HYDATAVALUE_4_0_0_3);
+		TERMINALS[80] = new eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectedCsString(eu.hyvar.feature.mapping.resource.hymapping.grammar.HymappingGrammarInformationProvider.HYDATAVALUE_4_0_0_4);
+		TERMINALS[81] = new eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectedCsString(eu.hyvar.feature.mapping.resource.hymapping.grammar.HymappingGrammarInformationProvider.HYDATAVALUE_4_0_0_5_0_0_0);
+		TERMINALS[82] = new eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectedStructuralFeature(eu.hyvar.feature.mapping.resource.hymapping.grammar.HymappingGrammarInformationProvider.HYDATAVALUE_4_0_0_5_0_0_1_0_0_0);
+		TERMINALS[83] = new eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectedStructuralFeature(eu.hyvar.feature.mapping.resource.hymapping.grammar.HymappingGrammarInformationProvider.HYDATAVALUE_4_0_0_5_0_0_1_0_1_0);
+		TERMINALS[84] = new eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectedCsString(eu.hyvar.feature.mapping.resource.hymapping.grammar.HymappingGrammarInformationProvider.HYDATAVALUE_4_0_0_5_0_0_1_0_2_0);
+		TERMINALS[85] = new eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectedCsString(eu.hyvar.feature.mapping.resource.hymapping.grammar.HymappingGrammarInformationProvider.HYDATAVALUE_4_0_0_5_0_0_1_0_0_1);
+		TERMINALS[86] = new eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectedStructuralFeature(eu.hyvar.feature.mapping.resource.hymapping.grammar.HymappingGrammarInformationProvider.HYDATAVALUE_4_0_0_5_0_0_1_0_0_2);
+		TERMINALS[87] = new eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectedCsString(eu.hyvar.feature.mapping.resource.hymapping.grammar.HymappingGrammarInformationProvider.HYDATAVALUE_4_0_0_5_0_0_2);
+		TERMINALS[88] = new eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectedCsString(eu.hyvar.feature.mapping.resource.hymapping.grammar.HymappingGrammarInformationProvider.HYDATAVALUE_4_0_0_5_0_0_1_0_1_1);
+		TERMINALS[89] = new eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectedCsString(eu.hyvar.feature.mapping.resource.hymapping.grammar.HymappingGrammarInformationProvider.HYDATAVALUE_4_0_0_5_0_0_1_0_1_2);
+		TERMINALS[90] = new eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectedCsString(eu.hyvar.feature.mapping.resource.hymapping.grammar.HymappingGrammarInformationProvider.HYDATAVALUE_4_0_0_5_0_0_1_0_2_1);
+		TERMINALS[91] = new eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectedStructuralFeature(eu.hyvar.feature.mapping.resource.hymapping.grammar.HymappingGrammarInformationProvider.HYDATAVALUE_4_0_0_5_0_0_1_0_2_2);
+		TERMINALS[92] = new eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectedStructuralFeature(eu.hyvar.feature.mapping.resource.hymapping.grammar.HymappingGrammarInformationProvider.HYEXPRESSION_8_0_0_1_0_0_0);
+		TERMINALS[93] = new eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectedStructuralFeature(eu.hyvar.feature.mapping.resource.hymapping.grammar.HymappingGrammarInformationProvider.HYEXPRESSION_8_0_0_1_0_1_0);
+		TERMINALS[94] = new eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectedStructuralFeature(eu.hyvar.feature.mapping.resource.hymapping.grammar.HymappingGrammarInformationProvider.HYEXPRESSION_9_0_0_1);
+		TERMINALS[95] = new eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectedCsString(eu.hyvar.feature.mapping.resource.hymapping.grammar.HymappingGrammarInformationProvider.HYEXPRESSION_10_0_0_1);
+		TERMINALS[96] = new eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectedStructuralFeature(eu.hyvar.feature.mapping.resource.hymapping.grammar.HymappingGrammarInformationProvider.HYEXPRESSION_10_0_0_2);
+		TERMINALS[97] = new eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectedStructuralFeature(eu.hyvar.feature.mapping.resource.hymapping.grammar.HymappingGrammarInformationProvider.HYDATAVALUE_2_0_0_1);
+		TERMINALS[98] = new eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectedCsString(eu.hyvar.feature.mapping.resource.hymapping.grammar.HymappingGrammarInformationProvider.HYDATAVALUE_2_0_0_2);
+		TERMINALS[99] = new eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectedStructuralFeature(eu.hyvar.feature.mapping.resource.hymapping.grammar.HymappingGrammarInformationProvider.HYDATAVALUE_2_0_0_3);
 	}
 	
 	public static void initializeTerminals() {

@@ -99,9 +99,6 @@ public class HyconstraintsTokenStyleInformationProvider {
 		if ("QUOTED_34_34".equals(tokenName)) {
 			return new eu.hyvar.feature.constraint.resource.hyconstraints.mopp.HyconstraintsTokenStyle(new int[] {0x2A, 0x00, 0xFF}, null, false, false, false, false);
 		}
-		if ("null".equals(tokenName)) {
-			return new eu.hyvar.feature.constraint.resource.hyconstraints.mopp.HyconstraintsTokenStyle(new int[] {0x80, 0x00, 0x55}, null, true, false, false, false);
-		}
 		return null;
 	}
 	

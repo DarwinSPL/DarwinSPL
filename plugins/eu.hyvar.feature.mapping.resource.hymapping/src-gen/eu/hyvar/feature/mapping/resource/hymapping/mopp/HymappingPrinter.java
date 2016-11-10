@@ -552,13 +552,13 @@ public class HymappingPrinter implements eu.hyvar.feature.mapping.resource.hymap
 				out.print("-");
 				out.print(" ");
 				// DEFINITION PART BEGINS (CsString)
-				out.print("null");
+				out.print("eternity");
 				out.print(" ");
 			}
 			break;
 			case 2:			{
 				// DEFINITION PART BEGINS (CsString)
-				out.print("null");
+				out.print("eternity");
 				out.print(" ");
 				// DEFINITION PART BEGINS (CsString)
 				out.print("-");
@@ -2141,9 +2141,6 @@ public class HymappingPrinter implements eu.hyvar.feature.mapping.resource.hymap
 				}
 				// DEFINITION PART BEGINS (CsString)
 				out.print("-");
-				out.print(" ");
-				// DEFINITION PART BEGINS (CsString)
-				out.print("eternity");
 				out.print(" ");
 			}
 			break;

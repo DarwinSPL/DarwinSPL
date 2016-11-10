@@ -1784,9 +1784,6 @@ public class HyexpressionPrinter implements eu.hyvar.feature.expression.resource
 				// DEFINITION PART BEGINS (CsString)
 				out.print("-");
 				out.print(" ");
-				// DEFINITION PART BEGINS (CsString)
-				out.print("eternity");
-				out.print(" ");
 			}
 			break;
 			case 2:			{

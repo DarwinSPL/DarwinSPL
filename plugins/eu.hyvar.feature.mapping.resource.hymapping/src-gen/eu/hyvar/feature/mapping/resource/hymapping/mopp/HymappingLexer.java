@@ -51,7 +51,6 @@ public class HymappingLexer extends Lexer {
     public static final int T__45=45;
     public static final int T__46=46;
     public static final int T__47=47;
-    public static final int T__48=48;
     public static final int DATE=4;
     public static final int IDENTIFIER_TOKEN=5;
     public static final int INTEGER_LITERAL=6;
@@ -814,10 +813,10 @@ public class HymappingLexer extends Lexer {
         try {
             int _type = T__46;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // Hymapping.g:53:7: ( 'null' )
-            // Hymapping.g:53:9: 'null'
+            // Hymapping.g:53:7: ( 'true' )
+            // Hymapping.g:53:9: 'true'
             {
-            match("null"); 
+            match("true"); 
 
 
 
@@ -837,31 +836,8 @@ public class HymappingLexer extends Lexer {
         try {
             int _type = T__47;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // Hymapping.g:54:7: ( 'true' )
-            // Hymapping.g:54:9: 'true'
-            {
-            match("true"); 
-
-
-
-            }
-
-            state.type = _type;
-            state.channel = _channel;
-        }
-        finally {
-        	// do for sure before leaving
-        }
-    }
-    // $ANTLR end "T__47"
-
-    // $ANTLR start "T__48"
-    public final void mT__48() throws RecognitionException {
-        try {
-            int _type = T__48;
-            int _channel = DEFAULT_TOKEN_CHANNEL;
-            // Hymapping.g:55:7: ( '||' )
-            // Hymapping.g:55:9: '||'
+            // Hymapping.g:54:7: ( '||' )
+            // Hymapping.g:54:9: '||'
             {
             match("||"); 
 
@@ -876,28 +852,28 @@ public class HymappingLexer extends Lexer {
         	// do for sure before leaving
         }
     }
-    // $ANTLR end "T__48"
+    // $ANTLR end "T__47"
 
     // $ANTLR start "QUOTED_60_62"
     public final void mQUOTED_60_62() throws RecognitionException {
         try {
             int _type = QUOTED_60_62;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // Hymapping.g:5184:13: ( ( ( '<' ) (~ ( '>' ) )* ( '>' ) ) )
-            // Hymapping.g:5185:2: ( ( '<' ) (~ ( '>' ) )* ( '>' ) )
+            // Hymapping.g:5170:13: ( ( ( '<' ) (~ ( '>' ) )* ( '>' ) ) )
+            // Hymapping.g:5171:2: ( ( '<' ) (~ ( '>' ) )* ( '>' ) )
             {
-            // Hymapping.g:5185:2: ( ( '<' ) (~ ( '>' ) )* ( '>' ) )
-            // Hymapping.g:5185:2: ( '<' ) (~ ( '>' ) )* ( '>' )
+            // Hymapping.g:5171:2: ( ( '<' ) (~ ( '>' ) )* ( '>' ) )
+            // Hymapping.g:5171:2: ( '<' ) (~ ( '>' ) )* ( '>' )
             {
-            // Hymapping.g:5185:2: ( '<' )
-            // Hymapping.g:5185:3: '<'
+            // Hymapping.g:5171:2: ( '<' )
+            // Hymapping.g:5171:3: '<'
             {
             match('<'); 
 
             }
 
 
-            // Hymapping.g:5185:7: (~ ( '>' ) )*
+            // Hymapping.g:5171:7: (~ ( '>' ) )*
             loop1:
             do {
                 int alt1=2;
@@ -931,8 +907,8 @@ public class HymappingLexer extends Lexer {
             } while (true);
 
 
-            // Hymapping.g:5185:16: ( '>' )
-            // Hymapping.g:5185:17: '>'
+            // Hymapping.g:5171:16: ( '>' )
+            // Hymapping.g:5171:17: '>'
             {
             match('>'); 
 
@@ -958,21 +934,21 @@ public class HymappingLexer extends Lexer {
         try {
             int _type = QUOTED_34_34;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // Hymapping.g:5187:13: ( ( ( '\"' ) (~ ( '\"' ) )* ( '\"' ) ) )
-            // Hymapping.g:5188:2: ( ( '\"' ) (~ ( '\"' ) )* ( '\"' ) )
+            // Hymapping.g:5173:13: ( ( ( '\"' ) (~ ( '\"' ) )* ( '\"' ) ) )
+            // Hymapping.g:5174:2: ( ( '\"' ) (~ ( '\"' ) )* ( '\"' ) )
             {
-            // Hymapping.g:5188:2: ( ( '\"' ) (~ ( '\"' ) )* ( '\"' ) )
-            // Hymapping.g:5188:2: ( '\"' ) (~ ( '\"' ) )* ( '\"' )
+            // Hymapping.g:5174:2: ( ( '\"' ) (~ ( '\"' ) )* ( '\"' ) )
+            // Hymapping.g:5174:2: ( '\"' ) (~ ( '\"' ) )* ( '\"' )
             {
-            // Hymapping.g:5188:2: ( '\"' )
-            // Hymapping.g:5188:3: '\"'
+            // Hymapping.g:5174:2: ( '\"' )
+            // Hymapping.g:5174:3: '\"'
             {
             match('\"'); 
 
             }
 
 
-            // Hymapping.g:5188:7: (~ ( '\"' ) )*
+            // Hymapping.g:5174:7: (~ ( '\"' ) )*
             loop2:
             do {
                 int alt2=2;
@@ -1006,8 +982,8 @@ public class HymappingLexer extends Lexer {
             } while (true);
 
 
-            // Hymapping.g:5188:16: ( '\"' )
-            // Hymapping.g:5188:17: '\"'
+            // Hymapping.g:5174:16: ( '\"' )
+            // Hymapping.g:5174:17: '\"'
             {
             match('\"'); 
 
@@ -1033,11 +1009,11 @@ public class HymappingLexer extends Lexer {
         try {
             int _type = IDENTIFIER_TOKEN;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // Hymapping.g:5190:17: ( ( ( 'A' .. 'Z' | 'a' .. 'z' | '_' ) ( 'A' .. 'Z' | 'a' .. 'z' | '_' | '0' .. '9' )* ( '@' ( ( '-' )? ( '0' .. '9' )+ '/' ( '-' )? ( '0' .. '9' )+ '/' ( '-' )? ( '0' .. '9' )+ ( 'T' ( '-' )? ( '0' .. '9' )+ ':' ( '-' )? ( '0' .. '9' )+ ( ':' ( '-' )? ( '0' .. '9' )+ )? )? ) )? ) )
-            // Hymapping.g:5191:2: ( ( 'A' .. 'Z' | 'a' .. 'z' | '_' ) ( 'A' .. 'Z' | 'a' .. 'z' | '_' | '0' .. '9' )* ( '@' ( ( '-' )? ( '0' .. '9' )+ '/' ( '-' )? ( '0' .. '9' )+ '/' ( '-' )? ( '0' .. '9' )+ ( 'T' ( '-' )? ( '0' .. '9' )+ ':' ( '-' )? ( '0' .. '9' )+ ( ':' ( '-' )? ( '0' .. '9' )+ )? )? ) )? )
+            // Hymapping.g:5176:17: ( ( ( 'A' .. 'Z' | 'a' .. 'z' | '_' ) ( 'A' .. 'Z' | 'a' .. 'z' | '_' | '0' .. '9' )* ( '@' ( ( '-' )? ( '0' .. '9' )+ '/' ( '-' )? ( '0' .. '9' )+ '/' ( '-' )? ( '0' .. '9' )+ ( 'T' ( '-' )? ( '0' .. '9' )+ ':' ( '-' )? ( '0' .. '9' )+ ( ':' ( '-' )? ( '0' .. '9' )+ )? )? ) )? ) )
+            // Hymapping.g:5177:2: ( ( 'A' .. 'Z' | 'a' .. 'z' | '_' ) ( 'A' .. 'Z' | 'a' .. 'z' | '_' | '0' .. '9' )* ( '@' ( ( '-' )? ( '0' .. '9' )+ '/' ( '-' )? ( '0' .. '9' )+ '/' ( '-' )? ( '0' .. '9' )+ ( 'T' ( '-' )? ( '0' .. '9' )+ ':' ( '-' )? ( '0' .. '9' )+ ( ':' ( '-' )? ( '0' .. '9' )+ )? )? ) )? )
             {
-            // Hymapping.g:5191:2: ( ( 'A' .. 'Z' | 'a' .. 'z' | '_' ) ( 'A' .. 'Z' | 'a' .. 'z' | '_' | '0' .. '9' )* ( '@' ( ( '-' )? ( '0' .. '9' )+ '/' ( '-' )? ( '0' .. '9' )+ '/' ( '-' )? ( '0' .. '9' )+ ( 'T' ( '-' )? ( '0' .. '9' )+ ':' ( '-' )? ( '0' .. '9' )+ ( ':' ( '-' )? ( '0' .. '9' )+ )? )? ) )? )
-            // Hymapping.g:5191:2: ( 'A' .. 'Z' | 'a' .. 'z' | '_' ) ( 'A' .. 'Z' | 'a' .. 'z' | '_' | '0' .. '9' )* ( '@' ( ( '-' )? ( '0' .. '9' )+ '/' ( '-' )? ( '0' .. '9' )+ '/' ( '-' )? ( '0' .. '9' )+ ( 'T' ( '-' )? ( '0' .. '9' )+ ':' ( '-' )? ( '0' .. '9' )+ ( ':' ( '-' )? ( '0' .. '9' )+ )? )? ) )?
+            // Hymapping.g:5177:2: ( ( 'A' .. 'Z' | 'a' .. 'z' | '_' ) ( 'A' .. 'Z' | 'a' .. 'z' | '_' | '0' .. '9' )* ( '@' ( ( '-' )? ( '0' .. '9' )+ '/' ( '-' )? ( '0' .. '9' )+ '/' ( '-' )? ( '0' .. '9' )+ ( 'T' ( '-' )? ( '0' .. '9' )+ ':' ( '-' )? ( '0' .. '9' )+ ( ':' ( '-' )? ( '0' .. '9' )+ )? )? ) )? )
+            // Hymapping.g:5177:2: ( 'A' .. 'Z' | 'a' .. 'z' | '_' ) ( 'A' .. 'Z' | 'a' .. 'z' | '_' | '0' .. '9' )* ( '@' ( ( '-' )? ( '0' .. '9' )+ '/' ( '-' )? ( '0' .. '9' )+ '/' ( '-' )? ( '0' .. '9' )+ ( 'T' ( '-' )? ( '0' .. '9' )+ ':' ( '-' )? ( '0' .. '9' )+ ( ':' ( '-' )? ( '0' .. '9' )+ )? )? ) )?
             {
             if ( (input.LA(1) >= 'A' && input.LA(1) <= 'Z')||input.LA(1)=='_'||(input.LA(1) >= 'a' && input.LA(1) <= 'z') ) {
                 input.consume();
@@ -1049,7 +1025,7 @@ public class HymappingLexer extends Lexer {
             }
 
 
-            // Hymapping.g:5191:25: ( 'A' .. 'Z' | 'a' .. 'z' | '_' | '0' .. '9' )*
+            // Hymapping.g:5177:25: ( 'A' .. 'Z' | 'a' .. 'z' | '_' | '0' .. '9' )*
             loop3:
             do {
                 int alt3=2;
@@ -1083,7 +1059,7 @@ public class HymappingLexer extends Lexer {
             } while (true);
 
 
-            // Hymapping.g:5191:59: ( '@' ( ( '-' )? ( '0' .. '9' )+ '/' ( '-' )? ( '0' .. '9' )+ '/' ( '-' )? ( '0' .. '9' )+ ( 'T' ( '-' )? ( '0' .. '9' )+ ':' ( '-' )? ( '0' .. '9' )+ ( ':' ( '-' )? ( '0' .. '9' )+ )? )? ) )?
+            // Hymapping.g:5177:59: ( '@' ( ( '-' )? ( '0' .. '9' )+ '/' ( '-' )? ( '0' .. '9' )+ '/' ( '-' )? ( '0' .. '9' )+ ( 'T' ( '-' )? ( '0' .. '9' )+ ':' ( '-' )? ( '0' .. '9' )+ ( ':' ( '-' )? ( '0' .. '9' )+ )? )? ) )?
             int alt18=2;
             int LA18_0 = input.LA(1);
 
@@ -1092,14 +1068,14 @@ public class HymappingLexer extends Lexer {
             }
             switch (alt18) {
                 case 1 :
-                    // Hymapping.g:5191:60: '@' ( ( '-' )? ( '0' .. '9' )+ '/' ( '-' )? ( '0' .. '9' )+ '/' ( '-' )? ( '0' .. '9' )+ ( 'T' ( '-' )? ( '0' .. '9' )+ ':' ( '-' )? ( '0' .. '9' )+ ( ':' ( '-' )? ( '0' .. '9' )+ )? )? )
+                    // Hymapping.g:5177:60: '@' ( ( '-' )? ( '0' .. '9' )+ '/' ( '-' )? ( '0' .. '9' )+ '/' ( '-' )? ( '0' .. '9' )+ ( 'T' ( '-' )? ( '0' .. '9' )+ ':' ( '-' )? ( '0' .. '9' )+ ( ':' ( '-' )? ( '0' .. '9' )+ )? )? )
                     {
                     match('@'); 
 
-                    // Hymapping.g:5191:63: ( ( '-' )? ( '0' .. '9' )+ '/' ( '-' )? ( '0' .. '9' )+ '/' ( '-' )? ( '0' .. '9' )+ ( 'T' ( '-' )? ( '0' .. '9' )+ ':' ( '-' )? ( '0' .. '9' )+ ( ':' ( '-' )? ( '0' .. '9' )+ )? )? )
-                    // Hymapping.g:5191:64: ( '-' )? ( '0' .. '9' )+ '/' ( '-' )? ( '0' .. '9' )+ '/' ( '-' )? ( '0' .. '9' )+ ( 'T' ( '-' )? ( '0' .. '9' )+ ':' ( '-' )? ( '0' .. '9' )+ ( ':' ( '-' )? ( '0' .. '9' )+ )? )?
+                    // Hymapping.g:5177:63: ( ( '-' )? ( '0' .. '9' )+ '/' ( '-' )? ( '0' .. '9' )+ '/' ( '-' )? ( '0' .. '9' )+ ( 'T' ( '-' )? ( '0' .. '9' )+ ':' ( '-' )? ( '0' .. '9' )+ ( ':' ( '-' )? ( '0' .. '9' )+ )? )? )
+                    // Hymapping.g:5177:64: ( '-' )? ( '0' .. '9' )+ '/' ( '-' )? ( '0' .. '9' )+ '/' ( '-' )? ( '0' .. '9' )+ ( 'T' ( '-' )? ( '0' .. '9' )+ ':' ( '-' )? ( '0' .. '9' )+ ( ':' ( '-' )? ( '0' .. '9' )+ )? )?
                     {
-                    // Hymapping.g:5191:64: ( '-' )?
+                    // Hymapping.g:5177:64: ( '-' )?
                     int alt4=2;
                     int LA4_0 = input.LA(1);
 
@@ -1108,7 +1084,7 @@ public class HymappingLexer extends Lexer {
                     }
                     switch (alt4) {
                         case 1 :
-                            // Hymapping.g:5191:65: '-'
+                            // Hymapping.g:5177:65: '-'
                             {
                             match('-'); 
 
@@ -1118,7 +1094,7 @@ public class HymappingLexer extends Lexer {
                     }
 
 
-                    // Hymapping.g:5191:71: ( '0' .. '9' )+
+                    // Hymapping.g:5177:71: ( '0' .. '9' )+
                     int cnt5=0;
                     loop5:
                     do {
@@ -1159,7 +1135,7 @@ public class HymappingLexer extends Lexer {
 
                     match('/'); 
 
-                    // Hymapping.g:5191:86: ( '-' )?
+                    // Hymapping.g:5177:86: ( '-' )?
                     int alt6=2;
                     int LA6_0 = input.LA(1);
 
@@ -1168,7 +1144,7 @@ public class HymappingLexer extends Lexer {
                     }
                     switch (alt6) {
                         case 1 :
-                            // Hymapping.g:5191:87: '-'
+                            // Hymapping.g:5177:87: '-'
                             {
                             match('-'); 
 
@@ -1178,7 +1154,7 @@ public class HymappingLexer extends Lexer {
                     }
 
 
-                    // Hymapping.g:5191:93: ( '0' .. '9' )+
+                    // Hymapping.g:5177:93: ( '0' .. '9' )+
                     int cnt7=0;
                     loop7:
                     do {
@@ -1219,7 +1195,7 @@ public class HymappingLexer extends Lexer {
 
                     match('/'); 
 
-                    // Hymapping.g:5191:108: ( '-' )?
+                    // Hymapping.g:5177:108: ( '-' )?
                     int alt8=2;
                     int LA8_0 = input.LA(1);
 
@@ -1228,7 +1204,7 @@ public class HymappingLexer extends Lexer {
                     }
                     switch (alt8) {
                         case 1 :
-                            // Hymapping.g:5191:109: '-'
+                            // Hymapping.g:5177:109: '-'
                             {
                             match('-'); 
 
@@ -1238,7 +1214,7 @@ public class HymappingLexer extends Lexer {
                     }
 
 
-                    // Hymapping.g:5191:115: ( '0' .. '9' )+
+                    // Hymapping.g:5177:115: ( '0' .. '9' )+
                     int cnt9=0;
                     loop9:
                     do {
@@ -1277,7 +1253,7 @@ public class HymappingLexer extends Lexer {
                     } while (true);
 
 
-                    // Hymapping.g:5191:127: ( 'T' ( '-' )? ( '0' .. '9' )+ ':' ( '-' )? ( '0' .. '9' )+ ( ':' ( '-' )? ( '0' .. '9' )+ )? )?
+                    // Hymapping.g:5177:127: ( 'T' ( '-' )? ( '0' .. '9' )+ ':' ( '-' )? ( '0' .. '9' )+ ( ':' ( '-' )? ( '0' .. '9' )+ )? )?
                     int alt17=2;
                     int LA17_0 = input.LA(1);
 
@@ -1286,11 +1262,11 @@ public class HymappingLexer extends Lexer {
                     }
                     switch (alt17) {
                         case 1 :
-                            // Hymapping.g:5191:129: 'T' ( '-' )? ( '0' .. '9' )+ ':' ( '-' )? ( '0' .. '9' )+ ( ':' ( '-' )? ( '0' .. '9' )+ )?
+                            // Hymapping.g:5177:129: 'T' ( '-' )? ( '0' .. '9' )+ ':' ( '-' )? ( '0' .. '9' )+ ( ':' ( '-' )? ( '0' .. '9' )+ )?
                             {
                             match('T'); 
 
-                            // Hymapping.g:5191:132: ( '-' )?
+                            // Hymapping.g:5177:132: ( '-' )?
                             int alt10=2;
                             int LA10_0 = input.LA(1);
 
@@ -1299,7 +1275,7 @@ public class HymappingLexer extends Lexer {
                             }
                             switch (alt10) {
                                 case 1 :
-                                    // Hymapping.g:5191:133: '-'
+                                    // Hymapping.g:5177:133: '-'
                                     {
                                     match('-'); 
 
@@ -1309,7 +1285,7 @@ public class HymappingLexer extends Lexer {
                             }
 
 
-                            // Hymapping.g:5191:139: ( '0' .. '9' )+
+                            // Hymapping.g:5177:139: ( '0' .. '9' )+
                             int cnt11=0;
                             loop11:
                             do {
@@ -1350,7 +1326,7 @@ public class HymappingLexer extends Lexer {
 
                             match(':'); 
 
-                            // Hymapping.g:5191:154: ( '-' )?
+                            // Hymapping.g:5177:154: ( '-' )?
                             int alt12=2;
                             int LA12_0 = input.LA(1);
 
@@ -1359,7 +1335,7 @@ public class HymappingLexer extends Lexer {
                             }
                             switch (alt12) {
                                 case 1 :
-                                    // Hymapping.g:5191:155: '-'
+                                    // Hymapping.g:5177:155: '-'
                                     {
                                     match('-'); 
 
@@ -1369,7 +1345,7 @@ public class HymappingLexer extends Lexer {
                             }
 
 
-                            // Hymapping.g:5191:161: ( '0' .. '9' )+
+                            // Hymapping.g:5177:161: ( '0' .. '9' )+
                             int cnt13=0;
                             loop13:
                             do {
@@ -1408,7 +1384,7 @@ public class HymappingLexer extends Lexer {
                             } while (true);
 
 
-                            // Hymapping.g:5191:173: ( ':' ( '-' )? ( '0' .. '9' )+ )?
+                            // Hymapping.g:5177:173: ( ':' ( '-' )? ( '0' .. '9' )+ )?
                             int alt16=2;
                             int LA16_0 = input.LA(1);
 
@@ -1417,11 +1393,11 @@ public class HymappingLexer extends Lexer {
                             }
                             switch (alt16) {
                                 case 1 :
-                                    // Hymapping.g:5191:174: ':' ( '-' )? ( '0' .. '9' )+
+                                    // Hymapping.g:5177:174: ':' ( '-' )? ( '0' .. '9' )+
                                     {
                                     match(':'); 
 
-                                    // Hymapping.g:5191:178: ( '-' )?
+                                    // Hymapping.g:5177:178: ( '-' )?
                                     int alt14=2;
                                     int LA14_0 = input.LA(1);
 
@@ -1430,7 +1406,7 @@ public class HymappingLexer extends Lexer {
                                     }
                                     switch (alt14) {
                                         case 1 :
-                                            // Hymapping.g:5191:179: '-'
+                                            // Hymapping.g:5177:179: '-'
                                             {
                                             match('-'); 
 
@@ -1440,7 +1416,7 @@ public class HymappingLexer extends Lexer {
                                     }
 
 
-                                    // Hymapping.g:5191:185: ( '0' .. '9' )+
+                                    // Hymapping.g:5177:185: ( '0' .. '9' )+
                                     int cnt15=0;
                                     loop15:
                                     do {
@@ -1519,16 +1495,16 @@ public class HymappingLexer extends Lexer {
         try {
             int _type = DATE;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // Hymapping.g:5193:5: ( ( ( ( '-' )? ( '0' .. '9' )+ '/' ( '-' )? ( '0' .. '9' )+ '/' ( '-' )? ( '0' .. '9' )+ ( 'T' ( '-' )? ( '0' .. '9' )+ ':' ( '-' )? ( '0' .. '9' )+ ( ':' ( '-' )? ( '0' .. '9' )+ )? )? ) ) )
-            // Hymapping.g:5194:2: ( ( ( '-' )? ( '0' .. '9' )+ '/' ( '-' )? ( '0' .. '9' )+ '/' ( '-' )? ( '0' .. '9' )+ ( 'T' ( '-' )? ( '0' .. '9' )+ ':' ( '-' )? ( '0' .. '9' )+ ( ':' ( '-' )? ( '0' .. '9' )+ )? )? ) )
+            // Hymapping.g:5179:5: ( ( ( ( '-' )? ( '0' .. '9' )+ '/' ( '-' )? ( '0' .. '9' )+ '/' ( '-' )? ( '0' .. '9' )+ ( 'T' ( '-' )? ( '0' .. '9' )+ ':' ( '-' )? ( '0' .. '9' )+ ( ':' ( '-' )? ( '0' .. '9' )+ )? )? ) ) )
+            // Hymapping.g:5180:2: ( ( ( '-' )? ( '0' .. '9' )+ '/' ( '-' )? ( '0' .. '9' )+ '/' ( '-' )? ( '0' .. '9' )+ ( 'T' ( '-' )? ( '0' .. '9' )+ ':' ( '-' )? ( '0' .. '9' )+ ( ':' ( '-' )? ( '0' .. '9' )+ )? )? ) )
             {
-            // Hymapping.g:5194:2: ( ( ( '-' )? ( '0' .. '9' )+ '/' ( '-' )? ( '0' .. '9' )+ '/' ( '-' )? ( '0' .. '9' )+ ( 'T' ( '-' )? ( '0' .. '9' )+ ':' ( '-' )? ( '0' .. '9' )+ ( ':' ( '-' )? ( '0' .. '9' )+ )? )? ) )
-            // Hymapping.g:5194:2: ( ( '-' )? ( '0' .. '9' )+ '/' ( '-' )? ( '0' .. '9' )+ '/' ( '-' )? ( '0' .. '9' )+ ( 'T' ( '-' )? ( '0' .. '9' )+ ':' ( '-' )? ( '0' .. '9' )+ ( ':' ( '-' )? ( '0' .. '9' )+ )? )? )
+            // Hymapping.g:5180:2: ( ( ( '-' )? ( '0' .. '9' )+ '/' ( '-' )? ( '0' .. '9' )+ '/' ( '-' )? ( '0' .. '9' )+ ( 'T' ( '-' )? ( '0' .. '9' )+ ':' ( '-' )? ( '0' .. '9' )+ ( ':' ( '-' )? ( '0' .. '9' )+ )? )? ) )
+            // Hymapping.g:5180:2: ( ( '-' )? ( '0' .. '9' )+ '/' ( '-' )? ( '0' .. '9' )+ '/' ( '-' )? ( '0' .. '9' )+ ( 'T' ( '-' )? ( '0' .. '9' )+ ':' ( '-' )? ( '0' .. '9' )+ ( ':' ( '-' )? ( '0' .. '9' )+ )? )? )
             {
-            // Hymapping.g:5194:2: ( ( '-' )? ( '0' .. '9' )+ '/' ( '-' )? ( '0' .. '9' )+ '/' ( '-' )? ( '0' .. '9' )+ ( 'T' ( '-' )? ( '0' .. '9' )+ ':' ( '-' )? ( '0' .. '9' )+ ( ':' ( '-' )? ( '0' .. '9' )+ )? )? )
-            // Hymapping.g:5194:3: ( '-' )? ( '0' .. '9' )+ '/' ( '-' )? ( '0' .. '9' )+ '/' ( '-' )? ( '0' .. '9' )+ ( 'T' ( '-' )? ( '0' .. '9' )+ ':' ( '-' )? ( '0' .. '9' )+ ( ':' ( '-' )? ( '0' .. '9' )+ )? )?
+            // Hymapping.g:5180:2: ( ( '-' )? ( '0' .. '9' )+ '/' ( '-' )? ( '0' .. '9' )+ '/' ( '-' )? ( '0' .. '9' )+ ( 'T' ( '-' )? ( '0' .. '9' )+ ':' ( '-' )? ( '0' .. '9' )+ ( ':' ( '-' )? ( '0' .. '9' )+ )? )? )
+            // Hymapping.g:5180:3: ( '-' )? ( '0' .. '9' )+ '/' ( '-' )? ( '0' .. '9' )+ '/' ( '-' )? ( '0' .. '9' )+ ( 'T' ( '-' )? ( '0' .. '9' )+ ':' ( '-' )? ( '0' .. '9' )+ ( ':' ( '-' )? ( '0' .. '9' )+ )? )?
             {
-            // Hymapping.g:5194:3: ( '-' )?
+            // Hymapping.g:5180:3: ( '-' )?
             int alt19=2;
             int LA19_0 = input.LA(1);
 
@@ -1537,7 +1513,7 @@ public class HymappingLexer extends Lexer {
             }
             switch (alt19) {
                 case 1 :
-                    // Hymapping.g:5194:4: '-'
+                    // Hymapping.g:5180:4: '-'
                     {
                     match('-'); 
 
@@ -1547,7 +1523,7 @@ public class HymappingLexer extends Lexer {
             }
 
 
-            // Hymapping.g:5194:10: ( '0' .. '9' )+
+            // Hymapping.g:5180:10: ( '0' .. '9' )+
             int cnt20=0;
             loop20:
             do {
@@ -1588,7 +1564,7 @@ public class HymappingLexer extends Lexer {
 
             match('/'); 
 
-            // Hymapping.g:5194:25: ( '-' )?
+            // Hymapping.g:5180:25: ( '-' )?
             int alt21=2;
             int LA21_0 = input.LA(1);
 
@@ -1597,7 +1573,7 @@ public class HymappingLexer extends Lexer {
             }
             switch (alt21) {
                 case 1 :
-                    // Hymapping.g:5194:26: '-'
+                    // Hymapping.g:5180:26: '-'
                     {
                     match('-'); 
 
@@ -1607,7 +1583,7 @@ public class HymappingLexer extends Lexer {
             }
 
 
-            // Hymapping.g:5194:32: ( '0' .. '9' )+
+            // Hymapping.g:5180:32: ( '0' .. '9' )+
             int cnt22=0;
             loop22:
             do {
@@ -1648,7 +1624,7 @@ public class HymappingLexer extends Lexer {
 
             match('/'); 
 
-            // Hymapping.g:5194:47: ( '-' )?
+            // Hymapping.g:5180:47: ( '-' )?
             int alt23=2;
             int LA23_0 = input.LA(1);
 
@@ -1657,7 +1633,7 @@ public class HymappingLexer extends Lexer {
             }
             switch (alt23) {
                 case 1 :
-                    // Hymapping.g:5194:48: '-'
+                    // Hymapping.g:5180:48: '-'
                     {
                     match('-'); 
 
@@ -1667,7 +1643,7 @@ public class HymappingLexer extends Lexer {
             }
 
 
-            // Hymapping.g:5194:54: ( '0' .. '9' )+
+            // Hymapping.g:5180:54: ( '0' .. '9' )+
             int cnt24=0;
             loop24:
             do {
@@ -1706,7 +1682,7 @@ public class HymappingLexer extends Lexer {
             } while (true);
 
 
-            // Hymapping.g:5194:66: ( 'T' ( '-' )? ( '0' .. '9' )+ ':' ( '-' )? ( '0' .. '9' )+ ( ':' ( '-' )? ( '0' .. '9' )+ )? )?
+            // Hymapping.g:5180:66: ( 'T' ( '-' )? ( '0' .. '9' )+ ':' ( '-' )? ( '0' .. '9' )+ ( ':' ( '-' )? ( '0' .. '9' )+ )? )?
             int alt32=2;
             int LA32_0 = input.LA(1);
 
@@ -1715,11 +1691,11 @@ public class HymappingLexer extends Lexer {
             }
             switch (alt32) {
                 case 1 :
-                    // Hymapping.g:5194:68: 'T' ( '-' )? ( '0' .. '9' )+ ':' ( '-' )? ( '0' .. '9' )+ ( ':' ( '-' )? ( '0' .. '9' )+ )?
+                    // Hymapping.g:5180:68: 'T' ( '-' )? ( '0' .. '9' )+ ':' ( '-' )? ( '0' .. '9' )+ ( ':' ( '-' )? ( '0' .. '9' )+ )?
                     {
                     match('T'); 
 
-                    // Hymapping.g:5194:71: ( '-' )?
+                    // Hymapping.g:5180:71: ( '-' )?
                     int alt25=2;
                     int LA25_0 = input.LA(1);
 
@@ -1728,7 +1704,7 @@ public class HymappingLexer extends Lexer {
                     }
                     switch (alt25) {
                         case 1 :
-                            // Hymapping.g:5194:72: '-'
+                            // Hymapping.g:5180:72: '-'
                             {
                             match('-'); 
 
@@ -1738,7 +1714,7 @@ public class HymappingLexer extends Lexer {
                     }
 
 
-                    // Hymapping.g:5194:78: ( '0' .. '9' )+
+                    // Hymapping.g:5180:78: ( '0' .. '9' )+
                     int cnt26=0;
                     loop26:
                     do {
@@ -1779,7 +1755,7 @@ public class HymappingLexer extends Lexer {
 
                     match(':'); 
 
-                    // Hymapping.g:5194:93: ( '-' )?
+                    // Hymapping.g:5180:93: ( '-' )?
                     int alt27=2;
                     int LA27_0 = input.LA(1);
 
@@ -1788,7 +1764,7 @@ public class HymappingLexer extends Lexer {
                     }
                     switch (alt27) {
                         case 1 :
-                            // Hymapping.g:5194:94: '-'
+                            // Hymapping.g:5180:94: '-'
                             {
                             match('-'); 
 
@@ -1798,7 +1774,7 @@ public class HymappingLexer extends Lexer {
                     }
 
 
-                    // Hymapping.g:5194:100: ( '0' .. '9' )+
+                    // Hymapping.g:5180:100: ( '0' .. '9' )+
                     int cnt28=0;
                     loop28:
                     do {
@@ -1837,7 +1813,7 @@ public class HymappingLexer extends Lexer {
                     } while (true);
 
 
-                    // Hymapping.g:5194:112: ( ':' ( '-' )? ( '0' .. '9' )+ )?
+                    // Hymapping.g:5180:112: ( ':' ( '-' )? ( '0' .. '9' )+ )?
                     int alt31=2;
                     int LA31_0 = input.LA(1);
 
@@ -1846,11 +1822,11 @@ public class HymappingLexer extends Lexer {
                     }
                     switch (alt31) {
                         case 1 :
-                            // Hymapping.g:5194:113: ':' ( '-' )? ( '0' .. '9' )+
+                            // Hymapping.g:5180:113: ':' ( '-' )? ( '0' .. '9' )+
                             {
                             match(':'); 
 
-                            // Hymapping.g:5194:117: ( '-' )?
+                            // Hymapping.g:5180:117: ( '-' )?
                             int alt29=2;
                             int LA29_0 = input.LA(1);
 
@@ -1859,7 +1835,7 @@ public class HymappingLexer extends Lexer {
                             }
                             switch (alt29) {
                                 case 1 :
-                                    // Hymapping.g:5194:118: '-'
+                                    // Hymapping.g:5180:118: '-'
                                     {
                                     match('-'); 
 
@@ -1869,7 +1845,7 @@ public class HymappingLexer extends Lexer {
                             }
 
 
-                            // Hymapping.g:5194:124: ( '0' .. '9' )+
+                            // Hymapping.g:5180:124: ( '0' .. '9' )+
                             int cnt30=0;
                             loop30:
                             do {
@@ -1942,13 +1918,13 @@ public class HymappingLexer extends Lexer {
         try {
             int _type = INTEGER_LITERAL;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // Hymapping.g:5196:16: ( ( ( '-' )? ( '0' .. '9' )+ ) )
-            // Hymapping.g:5197:2: ( ( '-' )? ( '0' .. '9' )+ )
+            // Hymapping.g:5182:16: ( ( ( '-' )? ( '0' .. '9' )+ ) )
+            // Hymapping.g:5183:2: ( ( '-' )? ( '0' .. '9' )+ )
             {
-            // Hymapping.g:5197:2: ( ( '-' )? ( '0' .. '9' )+ )
-            // Hymapping.g:5197:2: ( '-' )? ( '0' .. '9' )+
+            // Hymapping.g:5183:2: ( ( '-' )? ( '0' .. '9' )+ )
+            // Hymapping.g:5183:2: ( '-' )? ( '0' .. '9' )+
             {
-            // Hymapping.g:5197:2: ( '-' )?
+            // Hymapping.g:5183:2: ( '-' )?
             int alt33=2;
             int LA33_0 = input.LA(1);
 
@@ -1957,7 +1933,7 @@ public class HymappingLexer extends Lexer {
             }
             switch (alt33) {
                 case 1 :
-                    // Hymapping.g:5197:3: '-'
+                    // Hymapping.g:5183:3: '-'
                     {
                     match('-'); 
 
@@ -1967,7 +1943,7 @@ public class HymappingLexer extends Lexer {
             }
 
 
-            // Hymapping.g:5197:9: ( '0' .. '9' )+
+            // Hymapping.g:5183:9: ( '0' .. '9' )+
             int cnt34=0;
             loop34:
             do {
@@ -2025,17 +2001,17 @@ public class HymappingLexer extends Lexer {
         try {
             int _type = SL_COMMENT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // Hymapping.g:5199:11: ( ( '//' (~ ( '\\n' | '\\r' | '\\uffff' ) )* ) )
-            // Hymapping.g:5200:2: ( '//' (~ ( '\\n' | '\\r' | '\\uffff' ) )* )
+            // Hymapping.g:5185:11: ( ( '//' (~ ( '\\n' | '\\r' | '\\uffff' ) )* ) )
+            // Hymapping.g:5186:2: ( '//' (~ ( '\\n' | '\\r' | '\\uffff' ) )* )
             {
-            // Hymapping.g:5200:2: ( '//' (~ ( '\\n' | '\\r' | '\\uffff' ) )* )
-            // Hymapping.g:5200:2: '//' (~ ( '\\n' | '\\r' | '\\uffff' ) )*
+            // Hymapping.g:5186:2: ( '//' (~ ( '\\n' | '\\r' | '\\uffff' ) )* )
+            // Hymapping.g:5186:2: '//' (~ ( '\\n' | '\\r' | '\\uffff' ) )*
             {
             match("//"); 
 
 
 
-            // Hymapping.g:5200:6: (~ ( '\\n' | '\\r' | '\\uffff' ) )*
+            // Hymapping.g:5186:6: (~ ( '\\n' | '\\r' | '\\uffff' ) )*
             loop35:
             do {
                 int alt35=2;
@@ -2090,17 +2066,17 @@ public class HymappingLexer extends Lexer {
         try {
             int _type = ML_COMMENT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // Hymapping.g:5203:11: ( ( '/*' ( . )* '*/' ) )
-            // Hymapping.g:5204:2: ( '/*' ( . )* '*/' )
+            // Hymapping.g:5189:11: ( ( '/*' ( . )* '*/' ) )
+            // Hymapping.g:5190:2: ( '/*' ( . )* '*/' )
             {
-            // Hymapping.g:5204:2: ( '/*' ( . )* '*/' )
-            // Hymapping.g:5204:2: '/*' ( . )* '*/'
+            // Hymapping.g:5190:2: ( '/*' ( . )* '*/' )
+            // Hymapping.g:5190:2: '/*' ( . )* '*/'
             {
             match("/*"); 
 
 
 
-            // Hymapping.g:5204:6: ( . )*
+            // Hymapping.g:5190:6: ( . )*
             loop36:
             do {
                 int alt36=2;
@@ -2125,7 +2101,7 @@ public class HymappingLexer extends Lexer {
 
                 switch (alt36) {
             	case 1 :
-            	    // Hymapping.g:5204:6: .
+            	    // Hymapping.g:5190:6: .
             	    {
             	    matchAny(); 
 
@@ -2163,13 +2139,13 @@ public class HymappingLexer extends Lexer {
         try {
             int _type = LINEBREAK;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // Hymapping.g:5207:10: ( ( ( '\\r\\n' | '\\r' | '\\n' ) ) )
-            // Hymapping.g:5208:2: ( ( '\\r\\n' | '\\r' | '\\n' ) )
+            // Hymapping.g:5193:10: ( ( ( '\\r\\n' | '\\r' | '\\n' ) ) )
+            // Hymapping.g:5194:2: ( ( '\\r\\n' | '\\r' | '\\n' ) )
             {
-            // Hymapping.g:5208:2: ( ( '\\r\\n' | '\\r' | '\\n' ) )
-            // Hymapping.g:5208:2: ( '\\r\\n' | '\\r' | '\\n' )
+            // Hymapping.g:5194:2: ( ( '\\r\\n' | '\\r' | '\\n' ) )
+            // Hymapping.g:5194:2: ( '\\r\\n' | '\\r' | '\\n' )
             {
-            // Hymapping.g:5208:2: ( '\\r\\n' | '\\r' | '\\n' )
+            // Hymapping.g:5194:2: ( '\\r\\n' | '\\r' | '\\n' )
             int alt37=3;
             int LA37_0 = input.LA(1);
 
@@ -2195,7 +2171,7 @@ public class HymappingLexer extends Lexer {
             }
             switch (alt37) {
                 case 1 :
-                    // Hymapping.g:5208:3: '\\r\\n'
+                    // Hymapping.g:5194:3: '\\r\\n'
                     {
                     match("\r\n"); 
 
@@ -2204,14 +2180,14 @@ public class HymappingLexer extends Lexer {
                     }
                     break;
                 case 2 :
-                    // Hymapping.g:5208:10: '\\r'
+                    // Hymapping.g:5194:10: '\\r'
                     {
                     match('\r'); 
 
                     }
                     break;
                 case 3 :
-                    // Hymapping.g:5208:15: '\\n'
+                    // Hymapping.g:5194:15: '\\n'
                     {
                     match('\n'); 
 
@@ -2242,8 +2218,8 @@ public class HymappingLexer extends Lexer {
         try {
             int _type = WHITESPACE;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // Hymapping.g:5211:11: ( ( ( ' ' | '\\t' | '\\f' ) ) )
-            // Hymapping.g:5212:2: ( ( ' ' | '\\t' | '\\f' ) )
+            // Hymapping.g:5197:11: ( ( ( ' ' | '\\t' | '\\f' ) ) )
+            // Hymapping.g:5198:2: ( ( ' ' | '\\t' | '\\f' ) )
             {
             if ( input.LA(1)=='\t'||input.LA(1)=='\f'||input.LA(1)==' ' ) {
                 input.consume();
@@ -2269,8 +2245,8 @@ public class HymappingLexer extends Lexer {
     // $ANTLR end "WHITESPACE"
 
     public void mTokens() throws RecognitionException {
-        // Hymapping.g:1:8: ( T__13 | T__14 | T__15 | T__16 | T__17 | T__18 | T__19 | T__20 | T__21 | T__22 | T__23 | T__24 | T__25 | T__26 | T__27 | T__28 | T__29 | T__30 | T__31 | T__32 | T__33 | T__34 | T__35 | T__36 | T__37 | T__38 | T__39 | T__40 | T__41 | T__42 | T__43 | T__44 | T__45 | T__46 | T__47 | T__48 | QUOTED_60_62 | QUOTED_34_34 | IDENTIFIER_TOKEN | DATE | INTEGER_LITERAL | SL_COMMENT | ML_COMMENT | LINEBREAK | WHITESPACE )
-        int alt38=45;
+        // Hymapping.g:1:8: ( T__13 | T__14 | T__15 | T__16 | T__17 | T__18 | T__19 | T__20 | T__21 | T__22 | T__23 | T__24 | T__25 | T__26 | T__27 | T__28 | T__29 | T__30 | T__31 | T__32 | T__33 | T__34 | T__35 | T__36 | T__37 | T__38 | T__39 | T__40 | T__41 | T__42 | T__43 | T__44 | T__45 | T__46 | T__47 | QUOTED_60_62 | QUOTED_34_34 | IDENTIFIER_TOKEN | DATE | INTEGER_LITERAL | SL_COMMENT | ML_COMMENT | LINEBREAK | WHITESPACE )
+        int alt38=44;
         alt38 = dfa38.predict(input);
         switch (alt38) {
             case 1 :
@@ -2554,79 +2530,71 @@ public class HymappingLexer extends Lexer {
                 }
                 break;
             case 36 :
-                // Hymapping.g:1:220: T__48
-                {
-                mT__48(); 
-
-
-                }
-                break;
-            case 37 :
-                // Hymapping.g:1:226: QUOTED_60_62
+                // Hymapping.g:1:220: QUOTED_60_62
                 {
                 mQUOTED_60_62(); 
 
 
                 }
                 break;
-            case 38 :
-                // Hymapping.g:1:239: QUOTED_34_34
+            case 37 :
+                // Hymapping.g:1:233: QUOTED_34_34
                 {
                 mQUOTED_34_34(); 
 
 
                 }
                 break;
-            case 39 :
-                // Hymapping.g:1:252: IDENTIFIER_TOKEN
+            case 38 :
+                // Hymapping.g:1:246: IDENTIFIER_TOKEN
                 {
                 mIDENTIFIER_TOKEN(); 
 
 
                 }
                 break;
-            case 40 :
-                // Hymapping.g:1:269: DATE
+            case 39 :
+                // Hymapping.g:1:263: DATE
                 {
                 mDATE(); 
 
 
                 }
                 break;
-            case 41 :
-                // Hymapping.g:1:274: INTEGER_LITERAL
+            case 40 :
+                // Hymapping.g:1:268: INTEGER_LITERAL
                 {
                 mINTEGER_LITERAL(); 
 
 
                 }
                 break;
-            case 42 :
-                // Hymapping.g:1:290: SL_COMMENT
+            case 41 :
+                // Hymapping.g:1:284: SL_COMMENT
                 {
                 mSL_COMMENT(); 
 
 
                 }
                 break;
-            case 43 :
-                // Hymapping.g:1:301: ML_COMMENT
+            case 42 :
+                // Hymapping.g:1:295: ML_COMMENT
                 {
                 mML_COMMENT(); 
 
 
                 }
                 break;
-            case 44 :
-                // Hymapping.g:1:312: LINEBREAK
+            case 43 :
+                // Hymapping.g:1:306: LINEBREAK
                 {
                 mLINEBREAK(); 
 
 
                 }
                 break;
-            case 45 :
-                // Hymapping.g:1:322: WHITESPACE
+            case 44 :
+                // Hymapping.g:1:316: WHITESPACE
                 {
                 mWHITESPACE(); 
 
@@ -2641,78 +2609,76 @@ public class HymappingLexer extends Lexer {
 
     protected DFA38 dfa38 = new DFA38(this);
     static final String DFA38_eotS =
-        "\1\uffff\1\43\6\uffff\1\45\1\uffff\1\50\1\uffff\1\53\1\uffff\1\56"+
-        "\1\uffff\1\36\4\uffff\7\36\3\uffff\1\72\12\uffff\1\74\4\uffff\12"+
-        "\36\4\uffff\12\36\1\uffff\6\36\2\uffff\1\131\1\132\1\uffff\2\36"+
-        "\1\uffff\1\36\1\136\1\36\2\uffff\3\36\1\uffff\6\36\1\uffff\1\151"+
-        "\2\36\1\uffff\4\36\2\uffff";
+        "\1\uffff\1\42\6\uffff\1\44\1\uffff\1\47\1\uffff\1\52\1\uffff\1\55"+
+        "\1\uffff\1\35\4\uffff\6\35\3\uffff\1\70\12\uffff\1\72\4\uffff\11"+
+        "\35\4\uffff\11\35\1\uffff\6\35\2\uffff\1\125\1\uffff\2\35\1\uffff"+
+        "\1\35\1\131\1\35\1\uffff\3\35\1\uffff\6\35\1\uffff\1\144\2\35\1"+
+        "\uffff\4\35\2\uffff";
     static final String DFA38_eofS =
-        "\160\uffff";
+        "\153\uffff";
     static final String DFA38_minS =
         "\1\11\1\75\6\uffff\1\60\1\uffff\1\52\1\uffff\1\0\1\uffff\1\75\1"+
-        "\uffff\1\156\4\uffff\1\157\1\156\1\141\1\146\1\141\1\165\1\162\3"+
-        "\uffff\1\57\11\uffff\2\0\4\uffff\1\165\1\156\1\165\1\145\1\154\1"+
-        "\120\1\170\1\156\1\154\1\165\4\uffff\1\155\1\164\1\155\1\162\1\163"+
-        "\1\157\2\50\1\154\1\145\1\uffff\1\50\1\145\1\72\1\156\1\145\1\163"+
-        "\2\uffff\2\60\1\uffff\1\151\1\170\1\uffff\1\151\1\60\1\163\2\uffff"+
-        "\3\164\1\uffff\1\151\1\145\1\72\1\171\1\142\1\162\1\uffff\1\60\1"+
-        "\154\1\141\1\uffff\1\145\1\154\2\50\2\uffff";
+        "\uffff\1\156\4\uffff\1\157\1\156\1\141\1\146\1\141\1\162\3\uffff"+
+        "\1\57\11\uffff\2\0\4\uffff\1\165\1\156\1\165\1\145\1\154\1\120\1"+
+        "\170\1\156\1\165\4\uffff\1\155\1\164\1\155\1\162\1\163\1\157\2\50"+
+        "\1\145\1\uffff\1\50\1\145\1\72\1\156\1\145\1\163\2\uffff\1\60\1"+
+        "\uffff\1\151\1\170\1\uffff\1\151\1\60\1\163\1\uffff\3\164\1\uffff"+
+        "\1\151\1\145\1\72\1\171\1\142\1\162\1\uffff\1\60\1\154\1\141\1\uffff"+
+        "\1\145\1\154\2\50\2\uffff";
     static final String DFA38_maxS =
         "\1\174\1\75\6\uffff\1\76\1\uffff\1\57\1\uffff\1\uffff\1\uffff\1"+
-        "\75\1\uffff\1\156\4\uffff\1\157\1\164\1\141\1\146\1\151\1\165\1"+
-        "\162\3\uffff\1\71\11\uffff\2\uffff\4\uffff\1\165\1\156\1\165\1\145"+
-        "\1\154\1\120\1\170\1\156\1\154\1\165\4\uffff\1\155\1\164\1\155\1"+
-        "\162\1\163\1\157\2\50\1\154\1\145\1\uffff\1\114\1\145\1\72\1\156"+
-        "\1\145\1\163\2\uffff\2\172\1\uffff\1\151\1\170\1\uffff\1\151\1\172"+
-        "\1\163\2\uffff\3\164\1\uffff\1\151\1\145\1\72\1\171\1\142\1\162"+
-        "\1\uffff\1\172\1\154\1\141\1\uffff\1\145\1\154\2\50\2\uffff";
+        "\75\1\uffff\1\156\4\uffff\1\157\1\164\1\141\1\146\1\151\1\162\3"+
+        "\uffff\1\71\11\uffff\2\uffff\4\uffff\1\165\1\156\1\165\1\145\1\154"+
+        "\1\120\1\170\1\156\1\165\4\uffff\1\155\1\164\1\155\1\162\1\163\1"+
+        "\157\2\50\1\145\1\uffff\1\114\1\145\1\72\1\156\1\145\1\163\2\uffff"+
+        "\1\172\1\uffff\1\151\1\170\1\uffff\1\151\1\172\1\163\1\uffff\3\164"+
+        "\1\uffff\1\151\1\145\1\72\1\171\1\142\1\162\1\uffff\1\172\1\154"+
+        "\1\141\1\uffff\1\145\1\154\2\50\2\uffff";
     static final String DFA38_acceptS =
         "\2\uffff\1\3\1\4\1\5\1\6\1\7\1\10\1\uffff\1\13\1\uffff\1\15\1\uffff"+
-        "\1\21\1\uffff\1\24\1\uffff\1\27\1\30\1\31\1\32\7\uffff\1\44\1\46"+
-        "\1\47\1\uffff\1\54\1\55\1\2\1\1\1\12\1\11\1\52\1\53\1\14\2\uffff"+
-        "\1\16\1\45\1\23\1\22\12\uffff\1\50\1\51\1\17\1\20\12\uffff\1\17"+
-        "\6\uffff\1\40\1\41\2\uffff\1\25\2\uffff\1\34\3\uffff\1\42\1\43\3"+
-        "\uffff\1\36\6\uffff\1\33\3\uffff\1\35\4\uffff\1\37\1\26";
+        "\1\21\1\uffff\1\24\1\uffff\1\27\1\30\1\31\1\32\6\uffff\1\43\1\45"+
+        "\1\46\1\uffff\1\53\1\54\1\2\1\1\1\12\1\11\1\51\1\52\1\14\2\uffff"+
+        "\1\16\1\44\1\23\1\22\11\uffff\1\47\1\50\1\17\1\20\11\uffff\1\17"+
+        "\6\uffff\1\40\1\41\1\uffff\1\25\2\uffff\1\34\3\uffff\1\42\3\uffff"+
+        "\1\36\6\uffff\1\33\3\uffff\1\35\4\uffff\1\37\1\26";
     static final String DFA38_specialS =
-        "\14\uffff\1\0\34\uffff\1\1\1\2\105\uffff}>";
+        "\14\uffff\1\0\33\uffff\1\1\1\2\101\uffff}>";
     static final String[] DFA38_transitionS = {
-            "\1\41\1\40\1\uffff\1\41\1\40\22\uffff\1\41\1\1\1\35\2\uffff"+
-            "\1\22\1\2\1\uffff\1\3\1\4\1\5\1\6\1\7\1\10\1\11\1\12\12\37\1"+
-            "\13\1\uffff\1\14\1\15\1\16\1\17\1\uffff\4\36\1\20\25\36\1\21"+
-            "\1\uffff\1\23\1\24\1\36\1\uffff\2\36\1\25\1\36\1\26\1\27\2\36"+
-            "\1\30\3\36\1\31\1\32\5\36\1\33\6\36\1\uffff\1\34",
-            "\1\42",
+            "\1\40\1\37\1\uffff\1\40\1\37\22\uffff\1\40\1\1\1\34\2\uffff"+
+            "\1\22\1\2\1\uffff\1\3\1\4\1\5\1\6\1\7\1\10\1\11\1\12\12\36\1"+
+            "\13\1\uffff\1\14\1\15\1\16\1\17\1\uffff\4\35\1\20\25\35\1\21"+
+            "\1\uffff\1\23\1\24\1\35\1\uffff\2\35\1\25\1\35\1\26\1\27\2\35"+
+            "\1\30\3\35\1\31\6\35\1\32\6\35\1\uffff\1\33",
+            "\1\41",
             "",
             "",
             "",
             "",
             "",
             "",
-            "\12\37\4\uffff\1\44",
+            "\12\36\4\uffff\1\43",
             "",
-            "\1\47\4\uffff\1\46",
+            "\1\46\4\uffff\1\45",
             "",
-            "\55\54\1\51\17\54\1\52\uffc2\54",
+            "\55\53\1\50\17\53\1\51\uffc2\53",
             "",
-            "\1\55",
+            "\1\54",
+            "",
+            "\1\56",
+            "",
+            "",
+            "",
             "",
             "\1\57",
-            "",
-            "",
-            "",
-            "",
-            "\1\60",
-            "\1\61\5\uffff\1\62",
+            "\1\60\5\uffff\1\61",
+            "\1\62",
             "\1\63",
-            "\1\64",
-            "\1\65\7\uffff\1\66",
-            "\1\67",
-            "\1\70",
+            "\1\64\7\uffff\1\65",
+            "\1\66",
             "",
             "",
             "",
-            "\1\71\12\37",
-            "",
+            "\1\67\12\36",
             "",
             "",
             "",
@@ -2721,12 +2687,15 @@ public class HymappingLexer extends Lexer {
             "",
             "",
             "",
-            "\76\54\1\73\uffc1\54",
-            "\0\54",
+            "",
+            "\76\53\1\71\uffc1\53",
+            "\0\53",
             "",
             "",
             "",
             "",
+            "\1\73",
+            "\1\74",
             "\1\75",
             "\1\76",
             "\1\77",
@@ -2734,62 +2703,56 @@ public class HymappingLexer extends Lexer {
             "\1\101",
             "\1\102",
             "\1\103",
-            "\1\104",
+            "",
+            "",
+            "",
+            "",
             "\1\105",
             "\1\106",
-            "",
-            "",
-            "",
-            "",
+            "\1\107",
             "\1\110",
             "\1\111",
             "\1\112",
             "\1\113",
             "\1\114",
             "\1\115",
-            "\1\116",
-            "\1\117",
+            "",
+            "\1\116\43\uffff\1\117",
             "\1\120",
             "\1\121",
-            "",
-            "\1\122\43\uffff\1\123",
+            "\1\122",
+            "\1\123",
             "\1\124",
-            "\1\125",
+            "",
+            "",
+            "\12\35\6\uffff\33\35\4\uffff\1\35\1\uffff\32\35",
+            "",
             "\1\126",
             "\1\127",
+            "",
             "\1\130",
-            "",
-            "",
-            "\12\36\6\uffff\33\36\4\uffff\1\36\1\uffff\32\36",
-            "\12\36\6\uffff\33\36\4\uffff\1\36\1\uffff\32\36",
+            "\12\35\6\uffff\33\35\4\uffff\1\35\1\uffff\32\35",
+            "\1\132",
             "",
             "\1\133",
             "\1\134",
-            "",
             "\1\135",
-            "\12\36\6\uffff\33\36\4\uffff\1\36\1\uffff\32\36",
+            "",
+            "\1\136",
             "\1\137",
-            "",
-            "",
             "\1\140",
             "\1\141",
             "\1\142",
-            "",
             "\1\143",
-            "\1\144",
+            "",
+            "\12\35\6\uffff\33\35\4\uffff\1\35\1\uffff\32\35",
             "\1\145",
             "\1\146",
+            "",
             "\1\147",
             "\1\150",
-            "",
-            "\12\36\6\uffff\33\36\4\uffff\1\36\1\uffff\32\36",
+            "\1\151",
             "\1\152",
-            "\1\153",
-            "",
-            "\1\154",
-            "\1\155",
-            "\1\156",
-            "\1\157",
             "",
             ""
     };
@@ -2824,7 +2787,7 @@ public class HymappingLexer extends Lexer {
             this.transition = DFA38_transition;
         }
         public String getDescription() {
-            return "1:1: Tokens : ( T__13 | T__14 | T__15 | T__16 | T__17 | T__18 | T__19 | T__20 | T__21 | T__22 | T__23 | T__24 | T__25 | T__26 | T__27 | T__28 | T__29 | T__30 | T__31 | T__32 | T__33 | T__34 | T__35 | T__36 | T__37 | T__38 | T__39 | T__40 | T__41 | T__42 | T__43 | T__44 | T__45 | T__46 | T__47 | T__48 | QUOTED_60_62 | QUOTED_34_34 | IDENTIFIER_TOKEN | DATE | INTEGER_LITERAL | SL_COMMENT | ML_COMMENT | LINEBREAK | WHITESPACE );";
+            return "1:1: Tokens : ( T__13 | T__14 | T__15 | T__16 | T__17 | T__18 | T__19 | T__20 | T__21 | T__22 | T__23 | T__24 | T__25 | T__26 | T__27 | T__28 | T__29 | T__30 | T__31 | T__32 | T__33 | T__34 | T__35 | T__36 | T__37 | T__38 | T__39 | T__40 | T__41 | T__42 | T__43 | T__44 | T__45 | T__46 | T__47 | QUOTED_60_62 | QUOTED_34_34 | IDENTIFIER_TOKEN | DATE | INTEGER_LITERAL | SL_COMMENT | ML_COMMENT | LINEBREAK | WHITESPACE );";
         }
         public int specialStateTransition(int s, IntStream _input) throws NoViableAltException {
             IntStream input = _input;
@@ -2834,33 +2797,33 @@ public class HymappingLexer extends Lexer {
                         int LA38_12 = input.LA(1);
 
                         s = -1;
-                        if ( (LA38_12=='-') ) {s = 41;}
+                        if ( (LA38_12=='-') ) {s = 40;}
 
-                        else if ( (LA38_12=='=') ) {s = 42;}
+                        else if ( (LA38_12=='=') ) {s = 41;}
 
-                        else if ( ((LA38_12 >= '\u0000' && LA38_12 <= ',')||(LA38_12 >= '.' && LA38_12 <= '<')||(LA38_12 >= '>' && LA38_12 <= '\uFFFF')) ) {s = 44;}
+                        else if ( ((LA38_12 >= '\u0000' && LA38_12 <= ',')||(LA38_12 >= '.' && LA38_12 <= '<')||(LA38_12 >= '>' && LA38_12 <= '\uFFFF')) ) {s = 43;}
 
-                        else s = 43;
+                        else s = 42;
 
                         if ( s>=0 ) return s;
                         break;
                     case 1 : 
-                        int LA38_41 = input.LA(1);
+                        int LA38_40 = input.LA(1);
 
                         s = -1;
-                        if ( (LA38_41=='>') ) {s = 59;}
+                        if ( (LA38_40=='>') ) {s = 57;}
 
-                        else if ( ((LA38_41 >= '\u0000' && LA38_41 <= '=')||(LA38_41 >= '?' && LA38_41 <= '\uFFFF')) ) {s = 44;}
+                        else if ( ((LA38_40 >= '\u0000' && LA38_40 <= '=')||(LA38_40 >= '?' && LA38_40 <= '\uFFFF')) ) {s = 43;}
 
                         if ( s>=0 ) return s;
                         break;
                     case 2 : 
-                        int LA38_42 = input.LA(1);
+                        int LA38_41 = input.LA(1);
 
                         s = -1;
-                        if ( ((LA38_42 >= '\u0000' && LA38_42 <= '\uFFFF')) ) {s = 44;}
+                        if ( ((LA38_41 >= '\u0000' && LA38_41 <= '\uFFFF')) ) {s = 43;}
 
-                        else s = 60;
+                        else s = 58;
 
                         if ( s>=0 ) return s;
                         break;

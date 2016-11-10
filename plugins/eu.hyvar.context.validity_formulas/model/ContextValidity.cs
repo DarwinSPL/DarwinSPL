@@ -27,7 +27,7 @@ RULES {
 	
 	@SuppressWarnings(explicitSyntaxChoice)
 	@Operator(type="primitive", weight="15", superclass="HyValidityFormula")
-	HyFeatureValidityFormula ::= (feature['"', '"'] | feature[]) ":" validityFormula ("[" (validSince[DATE] "-" validUntil[DATE] | validSince[DATE] "-" "null" | "null" "-" validUntil[DATE])  "]")?;
+	HyFeatureValidityFormula ::= (feature['"', '"'] | feature[]) ":" validityFormula ("[" (validSince[DATE] "-" validUntil[DATE] | validSince[DATE] "-" "eternity" | "eternity" "-" validUntil[DATE])  "]")?;
 	
 //	@Operator(type="primitive",  weight="15", superclass="HyValidityFormula")
 //	HyAttributeValidityFormula ::= attribute[] ":" validityFormula ;
@@ -36,5 +36,5 @@ RULES {
 	@SuppressWarnings(explicitSyntaxChoice)
 	@SuppressWarnings(minOccurenceMismatch)
 	@Operator(type="primitive",  weight="15", superclass="HyValidityFormula")
-	HyAttributeValidityFormula ::= (feature['"', '"'] | feature[]) "." attribute[] ":" validityFormula ("[" (validSince[DATE] "-" validUntil[DATE] | validSince[DATE] "-" "null" | "null" "-" validUntil[DATE])  "]")?;
+	HyAttributeValidityFormula ::= (feature['"', '"'] | feature[]) "." attribute[] ":" validityFormula ("[" (validSince[DATE] "-" validUntil[DATE] | validSince[DATE] "-" "eternity" | "eternity" "-" validUntil[DATE])  "]")?;
 }

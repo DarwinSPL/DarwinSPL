@@ -1169,14 +1169,9 @@ public class HyexpressionGrammarInformationProvider {
 		return new eu.hyvar.feature.expression.resource.hyexpression.grammar.HyexpressionKeyword("-", eu.hyvar.feature.expression.resource.hyexpression.grammar.HyexpressionCardinality.ONE);
 	}
 	
-	public final static eu.hyvar.feature.expression.resource.hyexpression.grammar.HyexpressionKeyword HYDATAVALUE_3_0_0_5_0_0_1_0_1_2 = INSTANCE.getHYDATAVALUE_3_0_0_5_0_0_1_0_1_2();
-	private eu.hyvar.feature.expression.resource.hyexpression.grammar.HyexpressionKeyword getHYDATAVALUE_3_0_0_5_0_0_1_0_1_2() {
-		return new eu.hyvar.feature.expression.resource.hyexpression.grammar.HyexpressionKeyword("eternity", eu.hyvar.feature.expression.resource.hyexpression.grammar.HyexpressionCardinality.ONE);
-	}
-	
 	public final static eu.hyvar.feature.expression.resource.hyexpression.grammar.HyexpressionSequence HYDATAVALUE_3_0_0_5_0_0_1_0_1 = INSTANCE.getHYDATAVALUE_3_0_0_5_0_0_1_0_1();
 	private eu.hyvar.feature.expression.resource.hyexpression.grammar.HyexpressionSequence getHYDATAVALUE_3_0_0_5_0_0_1_0_1() {
-		return new eu.hyvar.feature.expression.resource.hyexpression.grammar.HyexpressionSequence(eu.hyvar.feature.expression.resource.hyexpression.grammar.HyexpressionCardinality.ONE, HYDATAVALUE_3_0_0_5_0_0_1_0_1_0, HYDATAVALUE_3_0_0_5_0_0_1_0_1_1, HYDATAVALUE_3_0_0_5_0_0_1_0_1_2);
+		return new eu.hyvar.feature.expression.resource.hyexpression.grammar.HyexpressionSequence(eu.hyvar.feature.expression.resource.hyexpression.grammar.HyexpressionCardinality.ONE, HYDATAVALUE_3_0_0_5_0_0_1_0_1_0, HYDATAVALUE_3_0_0_5_0_0_1_0_1_1);
 	}
 	
 	public final static eu.hyvar.feature.expression.resource.hyexpression.grammar.HyexpressionKeyword HYDATAVALUE_3_0_0_5_0_0_1_0_2_0 = INSTANCE.getHYDATAVALUE_3_0_0_5_0_0_1_0_2_0();
