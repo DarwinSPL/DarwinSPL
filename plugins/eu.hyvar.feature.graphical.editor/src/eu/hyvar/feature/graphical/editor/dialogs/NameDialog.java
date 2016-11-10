@@ -144,7 +144,7 @@ public class NameDialog extends TableDialog{
 	@Override
 	protected void configureShell(Shell newShell) {
 		super.configureShell(newShell);
-		newShell.setText("Edit Names Dialog");
+		newShell.setText("Name History");
 	}
 
 	@Override
