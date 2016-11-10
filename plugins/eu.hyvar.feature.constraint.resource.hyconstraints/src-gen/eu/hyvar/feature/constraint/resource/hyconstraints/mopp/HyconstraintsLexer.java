@@ -50,6 +50,7 @@ public class HyconstraintsLexer extends Lexer {
     public static final int T__43=43;
     public static final int T__44=44;
     public static final int T__45=45;
+    public static final int T__46=46;
     public static final int DATE=4;
     public static final int IDENTIFIER_TOKEN=5;
     public static final int INTEGER_LITERAL=6;
@@ -675,10 +676,10 @@ public class HyconstraintsLexer extends Lexer {
         try {
             int _type = T__39;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // Hyconstraints.g:47:7: ( 'false' )
-            // Hyconstraints.g:47:9: 'false'
+            // Hyconstraints.g:47:7: ( 'eternity' )
+            // Hyconstraints.g:47:9: 'eternity'
             {
-            match("false"); 
+            match("eternity"); 
 
 
 
@@ -698,10 +699,10 @@ public class HyconstraintsLexer extends Lexer {
         try {
             int _type = T__40;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // Hyconstraints.g:48:7: ( 'ifPossible(' )
-            // Hyconstraints.g:48:9: 'ifPossible('
+            // Hyconstraints.g:48:7: ( 'false' )
+            // Hyconstraints.g:48:9: 'false'
             {
-            match("ifPossible("); 
+            match("false"); 
 
 
 
@@ -721,10 +722,10 @@ public class HyconstraintsLexer extends Lexer {
         try {
             int _type = T__41;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // Hyconstraints.g:49:7: ( 'max(' )
-            // Hyconstraints.g:49:9: 'max('
+            // Hyconstraints.g:49:7: ( 'ifPossible(' )
+            // Hyconstraints.g:49:9: 'ifPossible('
             {
-            match("max("); 
+            match("ifPossible("); 
 
 
 
@@ -744,10 +745,10 @@ public class HyconstraintsLexer extends Lexer {
         try {
             int _type = T__42;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // Hyconstraints.g:50:7: ( 'min(' )
-            // Hyconstraints.g:50:9: 'min('
+            // Hyconstraints.g:50:7: ( 'max(' )
+            // Hyconstraints.g:50:9: 'max('
             {
-            match("min("); 
+            match("max("); 
 
 
 
@@ -767,10 +768,10 @@ public class HyconstraintsLexer extends Lexer {
         try {
             int _type = T__43;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // Hyconstraints.g:51:7: ( 'null' )
-            // Hyconstraints.g:51:9: 'null'
+            // Hyconstraints.g:51:7: ( 'min(' )
+            // Hyconstraints.g:51:9: 'min('
             {
-            match("null"); 
+            match("min("); 
 
 
 
@@ -790,10 +791,10 @@ public class HyconstraintsLexer extends Lexer {
         try {
             int _type = T__44;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // Hyconstraints.g:52:7: ( 'true' )
-            // Hyconstraints.g:52:9: 'true'
+            // Hyconstraints.g:52:7: ( 'null' )
+            // Hyconstraints.g:52:9: 'null'
             {
-            match("true"); 
+            match("null"); 
 
 
 
@@ -813,8 +814,31 @@ public class HyconstraintsLexer extends Lexer {
         try {
             int _type = T__45;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // Hyconstraints.g:53:7: ( '||' )
-            // Hyconstraints.g:53:9: '||'
+            // Hyconstraints.g:53:7: ( 'true' )
+            // Hyconstraints.g:53:9: 'true'
+            {
+            match("true"); 
+
+
+
+            }
+
+            state.type = _type;
+            state.channel = _channel;
+        }
+        finally {
+        	// do for sure before leaving
+        }
+    }
+    // $ANTLR end "T__45"
+
+    // $ANTLR start "T__46"
+    public final void mT__46() throws RecognitionException {
+        try {
+            int _type = T__46;
+            int _channel = DEFAULT_TOKEN_CHANNEL;
+            // Hyconstraints.g:54:7: ( '||' )
+            // Hyconstraints.g:54:9: '||'
             {
             match("||"); 
 
@@ -829,7 +853,7 @@ public class HyconstraintsLexer extends Lexer {
         	// do for sure before leaving
         }
     }
-    // $ANTLR end "T__45"
+    // $ANTLR end "T__46"
 
     // $ANTLR start "QUOTED_34_34"
     public final void mQUOTED_34_34() throws RecognitionException {
@@ -2147,8 +2171,8 @@ public class HyconstraintsLexer extends Lexer {
     // $ANTLR end "WHITESPACE"
 
     public void mTokens() throws RecognitionException {
-        // Hyconstraints.g:1:8: ( T__12 | T__13 | T__14 | T__15 | T__16 | T__17 | T__18 | T__19 | T__20 | T__21 | T__22 | T__23 | T__24 | T__25 | T__26 | T__27 | T__28 | T__29 | T__30 | T__31 | T__32 | T__33 | T__34 | T__35 | T__36 | T__37 | T__38 | T__39 | T__40 | T__41 | T__42 | T__43 | T__44 | T__45 | QUOTED_34_34 | IDENTIFIER_TOKEN | DATE | INTEGER_LITERAL | SL_COMMENT | ML_COMMENT | LINEBREAK | WHITESPACE )
-        int alt37=42;
+        // Hyconstraints.g:1:8: ( T__12 | T__13 | T__14 | T__15 | T__16 | T__17 | T__18 | T__19 | T__20 | T__21 | T__22 | T__23 | T__24 | T__25 | T__26 | T__27 | T__28 | T__29 | T__30 | T__31 | T__32 | T__33 | T__34 | T__35 | T__36 | T__37 | T__38 | T__39 | T__40 | T__41 | T__42 | T__43 | T__44 | T__45 | T__46 | QUOTED_34_34 | IDENTIFIER_TOKEN | DATE | INTEGER_LITERAL | SL_COMMENT | ML_COMMENT | LINEBREAK | WHITESPACE )
+        int alt37=43;
         alt37 = dfa37.predict(input);
         switch (alt37) {
             case 1 :
@@ -2424,63 +2448,71 @@ public class HyconstraintsLexer extends Lexer {
                 }
                 break;
             case 35 :
-                // Hyconstraints.g:1:214: QUOTED_34_34
+                // Hyconstraints.g:1:214: T__46
+                {
+                mT__46(); 
+
+
+                }
+                break;
+            case 36 :
+                // Hyconstraints.g:1:220: QUOTED_34_34
                 {
                 mQUOTED_34_34(); 
 
 
                 }
                 break;
-            case 36 :
-                // Hyconstraints.g:1:227: IDENTIFIER_TOKEN
+            case 37 :
+                // Hyconstraints.g:1:233: IDENTIFIER_TOKEN
                 {
                 mIDENTIFIER_TOKEN(); 
 
 
                 }
                 break;
-            case 37 :
-                // Hyconstraints.g:1:244: DATE
+            case 38 :
+                // Hyconstraints.g:1:250: DATE
                 {
                 mDATE(); 
 
 
                 }
                 break;
-            case 38 :
-                // Hyconstraints.g:1:249: INTEGER_LITERAL
+            case 39 :
+                // Hyconstraints.g:1:255: INTEGER_LITERAL
                 {
                 mINTEGER_LITERAL(); 
 
 
                 }
                 break;
-            case 39 :
-                // Hyconstraints.g:1:265: SL_COMMENT
+            case 40 :
+                // Hyconstraints.g:1:271: SL_COMMENT
                 {
                 mSL_COMMENT(); 
 
 
                 }
                 break;
-            case 40 :
-                // Hyconstraints.g:1:276: ML_COMMENT
+            case 41 :
+                // Hyconstraints.g:1:282: ML_COMMENT
                 {
                 mML_COMMENT(); 
 
 
                 }
                 break;
-            case 41 :
-                // Hyconstraints.g:1:287: LINEBREAK
+            case 42 :
+                // Hyconstraints.g:1:293: LINEBREAK
                 {
                 mLINEBREAK(); 
 
 
                 }
                 break;
-            case 42 :
-                // Hyconstraints.g:1:297: WHITESPACE
+            case 43 :
+                // Hyconstraints.g:1:303: WHITESPACE
                 {
                 mWHITESPACE(); 
 
@@ -2496,36 +2528,38 @@ public class HyconstraintsLexer extends Lexer {
     protected DFA37 dfa37 = new DFA37(this);
     static final String DFA37_eotS =
         "\1\uffff\1\42\6\uffff\1\44\1\uffff\1\47\1\52\1\uffff\1\54\1\uffff"+
-        "\1\35\4\uffff\7\35\3\uffff\1\67\16\uffff\11\35\2\uffff\16\35\2\uffff"+
-        "\1\120\1\121\1\uffff\2\35\1\uffff\1\124\1\35\2\uffff\2\35\1\uffff"+
-        "\5\35\1\uffff\6\35\2\uffff";
+        "\1\35\4\uffff\7\35\3\uffff\1\70\16\uffff\12\35\2\uffff\20\35\2\uffff"+
+        "\1\124\1\125\1\uffff\2\35\1\uffff\1\35\1\131\1\35\2\uffff\3\35\1"+
+        "\uffff\6\35\1\uffff\1\144\2\35\1\uffff\4\35\2\uffff";
     static final String DFA37_eofS =
-        "\143\uffff";
+        "\153\uffff";
     static final String DFA37_minS =
         "\1\11\1\75\6\uffff\1\60\1\uffff\1\52\1\55\1\uffff\1\75\1\uffff\1"+
         "\156\4\uffff\1\157\1\156\1\141\1\146\1\141\1\165\1\162\3\uffff\1"+
-        "\57\16\uffff\1\165\1\156\1\165\1\154\1\120\1\170\1\156\1\154\1\165"+
-        "\2\uffff\1\155\1\164\1\155\1\163\1\157\2\50\1\154\1\145\1\50\1\145"+
-        "\1\72\1\145\1\163\2\uffff\2\60\1\uffff\1\151\1\170\1\uffff\1\60"+
-        "\1\163\2\uffff\2\164\1\uffff\1\151\1\145\1\72\1\142\1\162\1\uffff"+
-        "\1\154\1\141\1\145\1\154\2\50\2\uffff";
+        "\57\16\uffff\1\165\1\156\1\165\1\145\1\154\1\120\1\170\1\156\1\154"+
+        "\1\165\2\uffff\1\155\1\164\1\155\1\162\1\163\1\157\2\50\1\154\1"+
+        "\145\1\50\1\145\1\72\1\156\1\145\1\163\2\uffff\2\60\1\uffff\1\151"+
+        "\1\170\1\uffff\1\151\1\60\1\163\2\uffff\3\164\1\uffff\1\151\1\145"+
+        "\1\72\1\171\1\142\1\162\1\uffff\1\60\1\154\1\141\1\uffff\1\145\1"+
+        "\154\2\50\2\uffff";
     static final String DFA37_maxS =
         "\1\174\1\75\6\uffff\1\76\1\uffff\1\57\1\75\1\uffff\1\75\1\uffff"+
-        "\1\156\4\uffff\1\157\1\156\1\141\1\146\1\151\1\165\1\162\3\uffff"+
-        "\1\71\16\uffff\1\165\1\156\1\165\1\154\1\120\1\170\1\156\1\154\1"+
-        "\165\2\uffff\1\155\1\164\1\155\1\163\1\157\2\50\1\154\1\145\1\114"+
-        "\1\145\1\72\1\145\1\163\2\uffff\2\172\1\uffff\1\151\1\170\1\uffff"+
-        "\1\172\1\163\2\uffff\2\164\1\uffff\1\151\1\145\1\72\1\142\1\162"+
-        "\1\uffff\1\154\1\141\1\145\1\154\2\50\2\uffff";
+        "\1\156\4\uffff\1\157\1\164\1\141\1\146\1\151\1\165\1\162\3\uffff"+
+        "\1\71\16\uffff\1\165\1\156\1\165\1\145\1\154\1\120\1\170\1\156\1"+
+        "\154\1\165\2\uffff\1\155\1\164\1\155\1\162\1\163\1\157\2\50\1\154"+
+        "\1\145\1\114\1\145\1\72\1\156\1\145\1\163\2\uffff\2\172\1\uffff"+
+        "\1\151\1\170\1\uffff\1\151\1\172\1\163\2\uffff\3\164\1\uffff\1\151"+
+        "\1\145\1\72\1\171\1\142\1\162\1\uffff\1\172\1\154\1\141\1\uffff"+
+        "\1\145\1\154\2\50\2\uffff";
     static final String DFA37_acceptS =
         "\2\uffff\1\3\1\4\1\5\1\6\1\7\1\10\1\uffff\1\13\2\uffff\1\20\1\uffff"+
-        "\1\23\1\uffff\1\26\1\27\1\30\1\31\7\uffff\1\42\1\43\1\44\1\uffff"+
-        "\1\51\1\52\1\2\1\1\1\12\1\11\1\47\1\50\1\14\1\16\1\17\1\15\1\22"+
-        "\1\21\11\uffff\1\45\1\46\16\uffff\1\36\1\37\2\uffff\1\24\2\uffff"+
-        "\1\33\2\uffff\1\40\1\41\2\uffff\1\34\5\uffff\1\32\6\uffff\1\35\1"+
-        "\25";
+        "\1\23\1\uffff\1\26\1\27\1\30\1\31\7\uffff\1\43\1\44\1\45\1\uffff"+
+        "\1\52\1\53\1\2\1\1\1\12\1\11\1\50\1\51\1\14\1\16\1\17\1\15\1\22"+
+        "\1\21\12\uffff\1\46\1\47\20\uffff\1\37\1\40\2\uffff\1\24\2\uffff"+
+        "\1\33\3\uffff\1\41\1\42\3\uffff\1\35\6\uffff\1\32\3\uffff\1\34\4"+
+        "\uffff\1\36\1\25";
     static final String DFA37_specialS =
-        "\143\uffff}>";
+        "\153\uffff}>";
     static final String[] DFA37_transitionS = {
             "\1\40\1\37\1\uffff\1\40\1\37\22\uffff\1\40\1\1\1\34\2\uffff"+
             "\1\21\1\2\1\uffff\1\3\1\4\1\5\1\6\1\7\1\10\1\11\1\12\12\36\2"+
@@ -2552,21 +2586,16 @@ public class HyconstraintsLexer extends Lexer {
             "",
             "",
             "\1\56",
-            "\1\57",
-            "\1\60",
+            "\1\57\5\uffff\1\60",
             "\1\61",
-            "\1\62\7\uffff\1\63",
-            "\1\64",
+            "\1\62",
+            "\1\63\7\uffff\1\64",
             "\1\65",
+            "\1\66",
             "",
             "",
             "",
-            "\1\66\12\36",
-            "",
-            "",
-            "",
-            "",
-            "",
+            "\1\67\12\36",
             "",
             "",
             "",
@@ -2576,7 +2605,11 @@ public class HyconstraintsLexer extends Lexer {
             "",
             "",
             "",
-            "\1\70",
+            "",
+            "",
+            "",
+            "",
+            "",
             "\1\71",
             "\1\72",
             "\1\73",
@@ -2585,10 +2618,10 @@ public class HyconstraintsLexer extends Lexer {
             "\1\76",
             "\1\77",
             "\1\100",
-            "",
-            "",
             "\1\101",
             "\1\102",
+            "",
+            "",
             "\1\103",
             "\1\104",
             "\1\105",
@@ -2596,38 +2629,47 @@ public class HyconstraintsLexer extends Lexer {
             "\1\107",
             "\1\110",
             "\1\111",
-            "\1\112\43\uffff\1\113",
+            "\1\112",
+            "\1\113",
             "\1\114",
-            "\1\115",
-            "\1\116",
+            "\1\115\43\uffff\1\116",
             "\1\117",
-            "",
-            "",
-            "\12\35\6\uffff\33\35\4\uffff\1\35\1\uffff\32\35",
-            "\12\35\6\uffff\33\35\4\uffff\1\35\1\uffff\32\35",
-            "",
+            "\1\120",
+            "\1\121",
             "\1\122",
             "\1\123",
             "",
-            "\12\35\6\uffff\33\35\4\uffff\1\35\1\uffff\32\35",
-            "\1\125",
             "",
+            "\12\35\6\uffff\33\35\4\uffff\1\35\1\uffff\32\35",
+            "\12\35\6\uffff\33\35\4\uffff\1\35\1\uffff\32\35",
             "",
             "\1\126",
             "\1\127",
             "",
             "\1\130",
-            "\1\131",
+            "\12\35\6\uffff\33\35\4\uffff\1\35\1\uffff\32\35",
             "\1\132",
+            "",
+            "",
             "\1\133",
             "\1\134",
-            "",
             "\1\135",
+            "",
             "\1\136",
             "\1\137",
             "\1\140",
             "\1\141",
             "\1\142",
+            "\1\143",
+            "",
+            "\12\35\6\uffff\33\35\4\uffff\1\35\1\uffff\32\35",
+            "\1\145",
+            "\1\146",
+            "",
+            "\1\147",
+            "\1\150",
+            "\1\151",
+            "\1\152",
             "",
             ""
     };
@@ -2662,7 +2704,7 @@ public class HyconstraintsLexer extends Lexer {
             this.transition = DFA37_transition;
         }
         public String getDescription() {
-            return "1:1: Tokens : ( T__12 | T__13 | T__14 | T__15 | T__16 | T__17 | T__18 | T__19 | T__20 | T__21 | T__22 | T__23 | T__24 | T__25 | T__26 | T__27 | T__28 | T__29 | T__30 | T__31 | T__32 | T__33 | T__34 | T__35 | T__36 | T__37 | T__38 | T__39 | T__40 | T__41 | T__42 | T__43 | T__44 | T__45 | QUOTED_34_34 | IDENTIFIER_TOKEN | DATE | INTEGER_LITERAL | SL_COMMENT | ML_COMMENT | LINEBREAK | WHITESPACE );";
+            return "1:1: Tokens : ( T__12 | T__13 | T__14 | T__15 | T__16 | T__17 | T__18 | T__19 | T__20 | T__21 | T__22 | T__23 | T__24 | T__25 | T__26 | T__27 | T__28 | T__29 | T__30 | T__31 | T__32 | T__33 | T__34 | T__35 | T__36 | T__37 | T__38 | T__39 | T__40 | T__41 | T__42 | T__43 | T__44 | T__45 | T__46 | QUOTED_34_34 | IDENTIFIER_TOKEN | DATE | INTEGER_LITERAL | SL_COMMENT | ML_COMMENT | LINEBREAK | WHITESPACE );";
         }
     }
  

@@ -45,8 +45,8 @@ RULES {
 	HyEnumValue ::= "enum:"enum[IDENTIFIER_TOKEN] "." enumLiteral[IDENTIFIER_TOKEN];
 	
 	@SuppressWarnings(explicitSyntaxChoice)
-	HyEnum ::= "Enum(" name[IDENTIFIER_TOKEN]"," (literals ("," literals)*)? ")" ("[" (validSince[DATE] "-" validUntil[DATE] | validSince[DATE] "-" "null" | "null" "-" validUntil[DATE])  "]")?;
+	HyEnum ::= "Enum(" name[IDENTIFIER_TOKEN]"," (literals ("," literals)*)? ")" ("[" (validSince[DATE] "-" validUntil[DATE] | validSince[DATE] "-" "eternity" | "eternity" "-" validUntil[DATE])  "]")?;
 	
 	@SuppressWarnings(explicitSyntaxChoice)
-	HyEnumLiteral ::= "EnumLiteral(" name[IDENTIFIER_TOKEN] "," value[INTEGER_LITERAL] ")" ("[" (validSince[DATE] "-" validUntil[DATE] | validSince[DATE] "-" "null" | "null" "-" validUntil[DATE])  "]")?;
+	HyEnumLiteral ::= "EnumLiteral(" name[IDENTIFIER_TOKEN] "," value[INTEGER_LITERAL] ")" ("[" (validSince[DATE] "-" validUntil[DATE] | validSince[DATE] "-" "eternity" | "eternity" "-" validUntil[DATE])  "]")?;
 }

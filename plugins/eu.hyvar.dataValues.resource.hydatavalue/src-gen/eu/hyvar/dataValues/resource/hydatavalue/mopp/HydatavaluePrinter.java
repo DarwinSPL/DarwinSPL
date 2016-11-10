@@ -415,13 +415,13 @@ public class HydatavaluePrinter implements eu.hyvar.dataValues.resource.hydatava
 				out.print("-");
 				out.print(" ");
 				// DEFINITION PART BEGINS (CsString)
-				out.print("null");
+				out.print("eternity");
 				out.print(" ");
 			}
 			break;
 			case 2:			{
 				// DEFINITION PART BEGINS (CsString)
-				out.print("null");
+				out.print("eternity");
 				out.print(" ");
 				// DEFINITION PART BEGINS (CsString)
 				out.print("-");
@@ -590,13 +590,13 @@ public class HydatavaluePrinter implements eu.hyvar.dataValues.resource.hydatava
 				out.print("-");
 				out.print(" ");
 				// DEFINITION PART BEGINS (CsString)
-				out.print("null");
+				out.print("eternity");
 				out.print(" ");
 			}
 			break;
 			case 2:			{
 				// DEFINITION PART BEGINS (CsString)
-				out.print("null");
+				out.print("eternity");
 				out.print(" ");
 				// DEFINITION PART BEGINS (CsString)
 				out.print("-");

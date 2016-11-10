@@ -260,10 +260,10 @@ public class HydatavalueLexer extends Lexer {
         try {
             int _type = T__20;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // Hydatavalue.g:29:7: ( 'false' )
-            // Hydatavalue.g:29:9: 'false'
+            // Hydatavalue.g:29:7: ( 'eternity' )
+            // Hydatavalue.g:29:9: 'eternity'
             {
-            match("false"); 
+            match("eternity"); 
 
 
 
@@ -283,10 +283,10 @@ public class HydatavalueLexer extends Lexer {
         try {
             int _type = T__21;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // Hydatavalue.g:30:7: ( 'null' )
-            // Hydatavalue.g:30:9: 'null'
+            // Hydatavalue.g:30:7: ( 'false' )
+            // Hydatavalue.g:30:9: 'false'
             {
-            match("null"); 
+            match("false"); 
 
 
 
@@ -1729,81 +1729,85 @@ public class HydatavalueLexer extends Lexer {
 
     protected DFA36 dfa36 = new DFA36(this);
     static final String DFA36_eotS =
-        "\3\uffff\1\21\1\uffff\1\14\2\uffff\4\14\1\uffff\1\30\4\uffff\5\14"+
-        "\4\uffff\10\14\1\51\1\52\1\uffff\1\14\1\uffff\1\54\2\uffff\1\14"+
-        "\1\uffff\5\14\1\uffff";
+        "\3\uffff\1\20\1\uffff\1\13\2\uffff\3\13\1\uffff\1\27\4\uffff\5\13"+
+        "\4\uffff\11\13\1\51\1\uffff\1\13\1\uffff\1\13\1\54\1\uffff\2\13"+
+        "\1\uffff\3\13\1\62\1\13\1\uffff\2\13\1\uffff";
     static final String DFA36_eofS =
-        "\63\uffff";
+        "\66\uffff";
     static final String DFA36_minS =
-        "\1\11\2\uffff\1\60\1\uffff\1\156\2\uffff\1\156\1\141\1\165\1\162"+
-        "\1\uffff\1\57\1\52\3\uffff\2\165\2\154\1\165\4\uffff\2\155\1\163"+
-        "\1\154\1\145\1\50\1\72\1\145\2\60\1\uffff\1\151\1\uffff\1\60\2\uffff"+
-        "\1\164\1\uffff\1\145\1\162\1\141\1\154\1\50\1\uffff";
+        "\1\11\2\uffff\1\60\1\uffff\1\156\2\uffff\1\156\1\141\1\162\1\uffff"+
+        "\1\57\1\52\3\uffff\2\165\1\145\1\154\1\165\4\uffff\2\155\1\162\1"+
+        "\163\1\145\1\50\1\72\1\156\1\145\1\60\1\uffff\1\151\1\uffff\1\151"+
+        "\1\60\1\uffff\2\164\1\uffff\1\145\1\171\1\162\1\60\1\141\1\uffff"+
+        "\1\154\1\50\1\uffff";
     static final String DFA36_maxS =
-        "\1\172\2\uffff\1\71\1\uffff\1\156\2\uffff\1\156\1\141\1\165\1\162"+
-        "\1\uffff\1\71\1\57\3\uffff\2\165\2\154\1\165\4\uffff\2\155\1\163"+
-        "\1\154\1\145\1\114\1\72\1\145\2\172\1\uffff\1\151\1\uffff\1\172"+
-        "\2\uffff\1\164\1\uffff\1\145\1\162\1\141\1\154\1\50\1\uffff";
+        "\1\172\2\uffff\1\71\1\uffff\1\156\2\uffff\1\164\1\141\1\162\1\uffff"+
+        "\1\71\1\57\3\uffff\2\165\1\145\1\154\1\165\4\uffff\2\155\1\162\1"+
+        "\163\1\145\1\114\1\72\1\156\1\145\1\172\1\uffff\1\151\1\uffff\1"+
+        "\151\1\172\1\uffff\2\164\1\uffff\1\145\1\171\1\162\1\172\1\141\1"+
+        "\uffff\1\154\1\50\1\uffff";
     static final String DFA36_acceptS =
-        "\1\uffff\1\1\1\2\1\uffff\1\4\1\uffff\1\7\1\10\4\uffff\1\15\2\uffff"+
+        "\1\uffff\1\1\1\2\1\uffff\1\4\1\uffff\1\7\1\10\3\uffff\1\15\2\uffff"+
         "\1\22\1\23\1\3\5\uffff\1\16\1\17\1\20\1\21\12\uffff\1\5\1\uffff"+
-        "\1\11\1\uffff\1\13\1\14\1\uffff\1\12\5\uffff\1\6";
+        "\1\11\2\uffff\1\14\2\uffff\1\13\5\uffff\1\12\2\uffff\1\6";
     static final String DFA36_specialS =
-        "\63\uffff}>";
+        "\66\uffff}>";
     static final String[] DFA36_transitionS = {
-            "\1\20\1\17\1\uffff\1\20\1\17\22\uffff\1\20\10\uffff\1\1\2\uffff"+
-            "\1\2\1\3\1\4\1\16\12\15\7\uffff\4\14\1\5\25\14\1\6\1\uffff\1"+
-            "\7\1\uffff\1\14\1\uffff\4\14\1\10\1\11\7\14\1\12\5\14\1\13\6"+
-            "\14",
+            "\1\17\1\16\1\uffff\1\17\1\16\22\uffff\1\17\10\uffff\1\1\2\uffff"+
+            "\1\2\1\3\1\4\1\15\12\14\7\uffff\4\13\1\5\25\13\1\6\1\uffff\1"+
+            "\7\1\uffff\1\13\1\uffff\4\13\1\10\1\11\15\13\1\12\6\13",
             "",
             "",
-            "\12\15",
+            "\12\14",
             "",
-            "\1\22",
+            "\1\21",
             "",
             "",
-            "\1\23",
+            "\1\22\5\uffff\1\23",
             "\1\24",
             "\1\25",
-            "\1\26",
             "",
-            "\1\27\12\15",
-            "\1\32\4\uffff\1\31",
-            "",
+            "\1\26\12\14",
+            "\1\31\4\uffff\1\30",
             "",
             "",
+            "",
+            "\1\32",
             "\1\33",
             "\1\34",
             "\1\35",
             "\1\36",
+            "",
+            "",
+            "",
+            "",
             "\1\37",
-            "",
-            "",
-            "",
-            "",
             "\1\40",
             "\1\41",
             "\1\42",
             "\1\43",
-            "\1\44",
-            "\1\45\43\uffff\1\46",
+            "\1\44\43\uffff\1\45",
+            "\1\46",
             "\1\47",
             "\1\50",
-            "\12\14\6\uffff\33\14\4\uffff\1\14\1\uffff\32\14",
-            "\12\14\6\uffff\33\14\4\uffff\1\14\1\uffff\32\14",
+            "\12\13\6\uffff\33\13\4\uffff\1\13\1\uffff\32\13",
+            "",
+            "\1\52",
             "",
             "\1\53",
-            "",
-            "\12\14\6\uffff\33\14\4\uffff\1\14\1\uffff\32\14",
-            "",
+            "\12\13\6\uffff\33\13\4\uffff\1\13\1\uffff\32\13",
             "",
             "\1\55",
-            "",
             "\1\56",
+            "",
             "\1\57",
             "\1\60",
             "\1\61",
-            "\1\62",
+            "\12\13\6\uffff\33\13\4\uffff\1\13\1\uffff\32\13",
+            "\1\63",
+            "",
+            "\1\64",
+            "\1\65",
             ""
     };
 

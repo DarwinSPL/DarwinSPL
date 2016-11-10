@@ -1421,7 +1421,7 @@ public class HymappingGrammarInformationProvider {
 	
 	public final static eu.hyvar.feature.mapping.resource.hymapping.grammar.HymappingKeyword HYDATAVALUE_3_0_0_5_0_0_1_0_1_2 = INSTANCE.getHYDATAVALUE_3_0_0_5_0_0_1_0_1_2();
 	private eu.hyvar.feature.mapping.resource.hymapping.grammar.HymappingKeyword getHYDATAVALUE_3_0_0_5_0_0_1_0_1_2() {
-		return new eu.hyvar.feature.mapping.resource.hymapping.grammar.HymappingKeyword("null", eu.hyvar.feature.mapping.resource.hymapping.grammar.HymappingCardinality.ONE);
+		return new eu.hyvar.feature.mapping.resource.hymapping.grammar.HymappingKeyword("eternity", eu.hyvar.feature.mapping.resource.hymapping.grammar.HymappingCardinality.ONE);
 	}
 	
 	public final static eu.hyvar.feature.mapping.resource.hymapping.grammar.HymappingSequence HYDATAVALUE_3_0_0_5_0_0_1_0_1 = INSTANCE.getHYDATAVALUE_3_0_0_5_0_0_1_0_1();
@@ -1431,7 +1431,7 @@ public class HymappingGrammarInformationProvider {
 	
 	public final static eu.hyvar.feature.mapping.resource.hymapping.grammar.HymappingKeyword HYDATAVALUE_3_0_0_5_0_0_1_0_2_0 = INSTANCE.getHYDATAVALUE_3_0_0_5_0_0_1_0_2_0();
 	private eu.hyvar.feature.mapping.resource.hymapping.grammar.HymappingKeyword getHYDATAVALUE_3_0_0_5_0_0_1_0_2_0() {
-		return new eu.hyvar.feature.mapping.resource.hymapping.grammar.HymappingKeyword("null", eu.hyvar.feature.mapping.resource.hymapping.grammar.HymappingCardinality.ONE);
+		return new eu.hyvar.feature.mapping.resource.hymapping.grammar.HymappingKeyword("eternity", eu.hyvar.feature.mapping.resource.hymapping.grammar.HymappingCardinality.ONE);
 	}
 	
 	public final static eu.hyvar.feature.mapping.resource.hymapping.grammar.HymappingKeyword HYDATAVALUE_3_0_0_5_0_0_1_0_2_1 = INSTANCE.getHYDATAVALUE_3_0_0_5_0_0_1_0_2_1();
@@ -1556,7 +1556,7 @@ public class HymappingGrammarInformationProvider {
 	
 	public final static eu.hyvar.feature.mapping.resource.hymapping.grammar.HymappingKeyword HYDATAVALUE_4_0_0_5_0_0_1_0_1_2 = INSTANCE.getHYDATAVALUE_4_0_0_5_0_0_1_0_1_2();
 	private eu.hyvar.feature.mapping.resource.hymapping.grammar.HymappingKeyword getHYDATAVALUE_4_0_0_5_0_0_1_0_1_2() {
-		return new eu.hyvar.feature.mapping.resource.hymapping.grammar.HymappingKeyword("null", eu.hyvar.feature.mapping.resource.hymapping.grammar.HymappingCardinality.ONE);
+		return new eu.hyvar.feature.mapping.resource.hymapping.grammar.HymappingKeyword("eternity", eu.hyvar.feature.mapping.resource.hymapping.grammar.HymappingCardinality.ONE);
 	}
 	
 	public final static eu.hyvar.feature.mapping.resource.hymapping.grammar.HymappingSequence HYDATAVALUE_4_0_0_5_0_0_1_0_1 = INSTANCE.getHYDATAVALUE_4_0_0_5_0_0_1_0_1();
@@ -1566,7 +1566,7 @@ public class HymappingGrammarInformationProvider {
 	
 	public final static eu.hyvar.feature.mapping.resource.hymapping.grammar.HymappingKeyword HYDATAVALUE_4_0_0_5_0_0_1_0_2_0 = INSTANCE.getHYDATAVALUE_4_0_0_5_0_0_1_0_2_0();
 	private eu.hyvar.feature.mapping.resource.hymapping.grammar.HymappingKeyword getHYDATAVALUE_4_0_0_5_0_0_1_0_2_0() {
-		return new eu.hyvar.feature.mapping.resource.hymapping.grammar.HymappingKeyword("null", eu.hyvar.feature.mapping.resource.hymapping.grammar.HymappingCardinality.ONE);
+		return new eu.hyvar.feature.mapping.resource.hymapping.grammar.HymappingKeyword("eternity", eu.hyvar.feature.mapping.resource.hymapping.grammar.HymappingCardinality.ONE);
 	}
 	
 	public final static eu.hyvar.feature.mapping.resource.hymapping.grammar.HymappingKeyword HYDATAVALUE_4_0_0_5_0_0_1_0_2_1 = INSTANCE.getHYDATAVALUE_4_0_0_5_0_0_1_0_2_1();
