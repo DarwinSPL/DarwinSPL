@@ -2,15 +2,14 @@ package eu.hyvar.feature.graphical.editor.commands.feature;
 
 import java.util.Date;
 
-import org.eclipse.gef.commands.Command;
-
 import eu.hyvar.evolution.HyEvolutionFactory;
 import eu.hyvar.evolution.HyEvolutionUtil;
 import eu.hyvar.evolution.HyName;
 import eu.hyvar.feature.graphical.base.model.HyFeatureWrapped;
+import eu.hyvar.feature.graphical.editor.commands.HyLinearTemporalElementCommand;
 import eu.hyvar.feature.graphical.editor.editor.GraphicalEvolutionFeatureModelEditor;
 
-public class HyFeatureEvolutionRenameCommand extends Command {
+public class HyFeatureEvolutionRenameCommand extends HyLinearTemporalElementCommand {
 	private HyName oldName;
 	private HyName newName;
 
@@ -41,9 +40,8 @@ public class HyFeatureEvolutionRenameCommand extends Command {
 		Date date = editor.getCurrentSelectedDate();
 
 		oldName =  HyEvolutionUtil.getValidTemporalElement(feature.getWrappedModelElement().getNames(), date);
-		oldName.setValidUntil(date);
 		
-		newName.setValidSince(date);
+		changeVisibilities(oldName, newName, date);
 		feature.getWrappedModelElement().getNames().add(newName);
 	}
 	

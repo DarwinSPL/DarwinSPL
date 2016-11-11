@@ -6,8 +6,6 @@ import org.eclipse.gef.Request;
 import org.eclipse.gef.RequestConstants;
 import org.eclipse.jface.viewers.TextCellEditor;
 
-import eu.hyvar.dataValues.HyEnumLiteral;
-import eu.hyvar.feature.HyFeatureAttribute;
 import eu.hyvar.feature.graphical.base.editor.GraphicalFeatureModelEditor;
 import eu.hyvar.feature.graphical.base.editparts.HyEnumLiteralEditPart;
 import eu.hyvar.feature.graphical.base.figures.HyEnumLiteralFigure;
