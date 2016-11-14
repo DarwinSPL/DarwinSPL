@@ -157,10 +157,7 @@ public class HyGroupFigure extends HyAbstractFigure{
 		Point parentPosition = wrappedFeature.getPosition(date).getCopy();
 		parentPosition.y += wrappedFeature.getSize().height;
 		parentPosition.x += group.getParentFeature().getSize().width() / 2.0 - theme.getGroupSymbolRadius();
-		//parentPosition.y += theme.getFeatureNameAreaHeight() + 
-		//		theme.getFeatureVariationTypeExtent() + theme.getLineWidth() * 2 + 50;
 
-		
 		int size = theme.getLineWidth() * 2 + theme.getGroupSymbolRadius() * 2;
 		
 		
@@ -188,8 +185,4 @@ public class HyGroupFigure extends HyAbstractFigure{
 		}
 	}
 
-	@Override
-	protected boolean useLocalCoordinates(){
-		return true;
-	}	
 }

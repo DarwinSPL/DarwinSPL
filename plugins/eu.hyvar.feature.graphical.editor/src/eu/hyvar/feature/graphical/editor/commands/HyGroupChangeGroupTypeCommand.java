@@ -3,7 +3,6 @@ package eu.hyvar.feature.graphical.editor.commands;
 import java.util.Date;
 
 import org.eclipse.emf.ecore.util.EcoreUtil;
-import org.eclipse.gef.commands.Command;
 
 import eu.hyvar.evolution.HyEvolutionUtil;
 import eu.hyvar.feature.HyFeatureFactory;
@@ -13,7 +12,7 @@ import eu.hyvar.feature.HyGroupTypeEnum;
 import eu.hyvar.feature.graphical.base.editor.GraphicalFeatureModelEditor;
 import eu.hyvar.feature.graphical.editor.util.HyGroupEditorUtil;
 
-public class HyGroupChangeGroupTypeCommand extends Command{
+public class HyGroupChangeGroupTypeCommand extends HyLinearTemporalElementCommand{
 	private HyGroup group;
 	private HyGroupTypeEnum newGroupTypeEnum;
 	private GraphicalFeatureModelEditor editor;
@@ -33,6 +32,11 @@ public class HyGroupChangeGroupTypeCommand extends Command{
 		redo();
 	}
 	
+	/**
+	 * TODO undo not working properly. Example case: the group type was changed at since == Long.MIN_VALUE then the preccessor type
+	 * was deleted due to invalid date(since == until == null/Long.MIN_VALUE). Therefore the old type has to be added again to the
+	 * group 
+	 */
 	@Override
 	public void undo() {	
 		for(HyGroupType type : group.getTypes()){
@@ -53,9 +57,13 @@ public class HyGroupChangeGroupTypeCommand extends Command{
 		oldType = EcoreUtil.copy(type);
 		newType = HyFeatureFactory.eINSTANCE.createHyGroupType();
 		newType.setType(newGroupTypeEnum);
-		newType.setValidSince(date);
-		type.setValidUntil(date);
 		
+		if(date.equals(new Date(Long.MIN_VALUE)))
+			date = null;
+		
+		changeVisibilities(type, newType, date);
+		
+
 		group.getTypes().add(newType);
 		
 		HyGroupEditorUtil.cleanGroupTypes(group);

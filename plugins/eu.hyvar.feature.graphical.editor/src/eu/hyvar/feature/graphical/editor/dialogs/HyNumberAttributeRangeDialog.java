@@ -23,12 +23,12 @@ public class HyNumberAttributeRangeDialog extends SelectionDialog{
 	int maximum;
 	
 	public int getMinimum() {
-		return Integer.parseInt(textMinimum.getText());
+		return minimum;
 	}
 
 
 	public int getMaximum() {
-		return Integer.parseInt(textMaximum.getText());
+		return maximum;
 	}
 
 

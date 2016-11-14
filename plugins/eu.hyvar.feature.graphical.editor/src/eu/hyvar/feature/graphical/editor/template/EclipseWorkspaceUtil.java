@@ -49,11 +49,7 @@ public class EclipseWorkspaceUtil {
 		
 		if(!oFile.mkdir()){
 		}
-
-		System.out.println(oFile.getAbsolutePath());
-				
 	
-		
 		return path;
 	}
 	

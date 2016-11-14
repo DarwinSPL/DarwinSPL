@@ -16,6 +16,7 @@ import eu.hyvar.feature.HyFeatureChild;
 import eu.hyvar.feature.graphical.base.editor.GraphicalFeatureModelEditor;
 import eu.hyvar.feature.graphical.base.figures.HyGroupFigure;
 import eu.hyvar.feature.graphical.base.model.HyFeatureModelWrapped;
+import eu.hyvar.feature.graphical.base.model.HyFeatureWrapped;
 import eu.hyvar.feature.graphical.base.model.HyGroupWrapped;
 
 public class HyGroupEditPart extends HyAbstractEditPart{
@@ -66,13 +67,13 @@ public class HyGroupEditPart extends HyAbstractEditPart{
 	
 	private void refreshLayoutConstraint(){
 		HyGroupWrapped model = (HyGroupWrapped)getModel();
+		HyFeatureWrapped feature = model.getParentFeature();
 		DEGraphicalEditorTheme theme = DEGraphicalEditor.getTheme();
 		
-		Point parentPosition = model.getParentFeature().getPosition(null).getCopy();
-		parentPosition.x += model.getParentFeature().getSize().width() / 2.0 - theme.getGroupSymbolRadius();
-		parentPosition.y += theme.getFeatureNameAreaHeight() + 
-				theme.getFeatureVariationTypeExtent() + theme.getLineWidth() * 2 + 50;
-
+		Point parentPosition = feature.getPosition(null).getCopy();
+		parentPosition.x += feature.getSize().width() / 2.0 - theme.getGroupSymbolRadius();
+		parentPosition.y += feature.getSize(editor.getCurrentSelectedDate()).height; 
+		
 		int size = theme.getLineWidth() * 2 + theme.getGroupSymbolRadius() * 2;
 		
 		HyFeatureModelEditPart parent = (HyFeatureModelEditPart)getParent();

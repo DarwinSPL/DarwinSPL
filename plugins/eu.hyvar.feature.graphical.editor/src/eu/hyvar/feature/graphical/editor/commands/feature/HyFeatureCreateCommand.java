@@ -27,6 +27,10 @@ public class HyFeatureCreateCommand extends Command {
 	private void createNewFeature(){		
 		HyFeatureModelWrapped featureModel = editor.getModelWrapped();
 		Date date = editor.getCurrentSelectedDate();
+		if(date.equals(new Date(Long.MIN_VALUE))){
+			date = null;
+		}		
+		
 		
 		// Create a new feature model and editor representation
 		HyFeature feature = HyFeatureFactory.eINSTANCE.createHyFeature();

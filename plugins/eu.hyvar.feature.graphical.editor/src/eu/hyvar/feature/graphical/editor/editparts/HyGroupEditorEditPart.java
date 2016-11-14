@@ -50,10 +50,21 @@ public class HyGroupEditorEditPart extends HyGroupEditPart {
 		super(editor, featureModel);
 	}
 	
+	@Override
+	public void propertyChange(PropertyChangeEvent evt) {
+		refreshVisuals();
+	}
+
+	
 	@Override 
 	public void activate() {
 		if(!isActive()) {
 			HyGroupWrapped model = ((HyGroupWrapped)getModel());
+			model.getParentFeature().addPropertyChangeListener(this);
+			for(HyFeatureWrapped child : model.getFeatures()){
+				child.addPropertyChangeListener(this);
+			}
+			
 			model.addPropertyChangeListener(this);
 			model.getWrappedModelElement().eAdapters().add(adapter);
 		}
@@ -64,8 +75,12 @@ public class HyGroupEditorEditPart extends HyGroupEditPart {
 	public void deactivate() {
 		if(isActive()) {
 			HyGroupWrapped model = ((HyGroupWrapped)getModel());
+			model.getParentFeature().removePropertyChangeListener(this);
+			for(HyFeatureWrapped child : model.getFeatures()){
+				child.removePropertyChangeListener(this);
+			}
+			
 			model.removePropertyChangeListener(this);
-
 			model.getWrappedModelElement().eAdapters().remove(adapter);
 		}
 		super.deactivate();

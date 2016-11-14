@@ -6,46 +6,48 @@ import eu.hyvar.evolution.HyEvolutionFactory;
 import eu.hyvar.evolution.HyEvolutionUtil;
 import eu.hyvar.evolution.HyName;
 import eu.hyvar.feature.HyFeatureAttribute;
+import eu.hyvar.feature.graphical.base.editor.GraphicalFeatureModelEditor;
 import eu.hyvar.feature.graphical.editor.commands.HyLinearTemporalElementCommand;
-import eu.hyvar.feature.graphical.editor.editor.GraphicalEvolutionFeatureModelEditor;
 
 public class HyAttributeRenameCommand extends HyLinearTemporalElementCommand {
-	private String oldName;
-	private String newName;
-	
+	private HyName oldName;
+	private HyName newName;
+	private Date changeDate;
+
 	private HyFeatureAttribute attribute;
-	private GraphicalEvolutionFeatureModelEditor editor;
-	
-	public HyAttributeRenameCommand(HyFeatureAttribute attribute, GraphicalEvolutionFeatureModelEditor editor){
+	private GraphicalFeatureModelEditor editor;
+
+	public HyAttributeRenameCommand(HyFeatureAttribute attribute, GraphicalFeatureModelEditor editor){
 		this.attribute = attribute;
 		this.editor = editor;
 	}
-	
+
 	@Override 
 	public void execute(){
-		Date date = editor.getCurrentSelectedDate();
+		redo();
+	}
+
+	/**
+	 * Undo renaming the feature.
+	 */
+	@Override
+	public void undo() {
+		removeElementFromLinkedList(newName);
+		attribute.getNames().remove(newName);
+	}
+
+	@Override
+	public void redo() {
+		changeDate = editor.getCurrentSelectedDate();
+
+		oldName =  HyEvolutionUtil.getValidTemporalElement(attribute.getNames(), changeDate);
 		
-		HyName name =  HyEvolutionUtil.getValidTemporalElement(attribute.getNames(), date);
-		oldName = name.getName();
-		
-		HyName newName = HyEvolutionFactory.eINSTANCE.createHyName();
-		newName.setName(this.newName);	
-		
-		changeVisibilities(name, newName, date);
-		
+		changeVisibilities(oldName, newName, changeDate);
 		attribute.getNames().add(newName);
 	}
 	
-	public String getOldName() {
-		return oldName;
-	}
-	public void setOldName(String oldName) {
-		this.oldName = oldName;
-	}
-	public String getNewName() {
-		return newName;
-	}
 	public void setNewName(String newName) {
-		this.newName = newName;
+		this.newName = HyEvolutionFactory.eINSTANCE.createHyName();
+		this.newName.setName(newName);
 	}
 }

@@ -12,6 +12,7 @@ import eu.hyvar.feature.graphical.editor.editor.GraphicalEvolutionFeatureModelEd
 public class HyFeatureEvolutionRenameCommand extends HyLinearTemporalElementCommand {
 	private HyName oldName;
 	private HyName newName;
+	private Date changeDate;
 
 	private HyFeatureWrapped feature;
 	private GraphicalEvolutionFeatureModelEditor editor;
@@ -31,17 +32,17 @@ public class HyFeatureEvolutionRenameCommand extends HyLinearTemporalElementComm
 	 */
 	@Override
 	public void undo() {
+		removeElementFromLinkedList(newName);
 		feature.getWrappedModelElement().getNames().remove(newName);
-		oldName.setValidUntil(null);
 	}
 
 	@Override
 	public void redo() {
-		Date date = editor.getCurrentSelectedDate();
+		changeDate = editor.getCurrentSelectedDate();
 
-		oldName =  HyEvolutionUtil.getValidTemporalElement(feature.getWrappedModelElement().getNames(), date);
+		oldName =  HyEvolutionUtil.getValidTemporalElement(feature.getWrappedModelElement().getNames(), changeDate);
 		
-		changeVisibilities(oldName, newName, date);
+		changeVisibilities(oldName, newName, changeDate);
 		feature.getWrappedModelElement().getNames().add(newName);
 	}
 	

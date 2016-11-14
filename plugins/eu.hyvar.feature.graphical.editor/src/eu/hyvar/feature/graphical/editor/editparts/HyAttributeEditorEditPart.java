@@ -1,5 +1,7 @@
 package eu.hyvar.feature.graphical.editor.editparts;
 
+import java.beans.PropertyChangeEvent;
+
 import org.eclipse.draw2d.Label;
 import org.eclipse.emf.common.notify.Adapter;
 import org.eclipse.emf.common.notify.Notification;
@@ -8,6 +10,7 @@ import org.eclipse.gef.EditPolicy;
 import org.eclipse.gef.Request;
 import org.eclipse.gef.RequestConstants;
 import org.eclipse.jface.viewers.TextCellEditor;
+import org.eclipse.swt.graphics.Rectangle;
 
 import eu.hyvar.feature.HyFeature;
 import eu.hyvar.feature.HyFeatureAttribute;
@@ -25,7 +28,6 @@ public class HyAttributeEditorEditPart extends HyAttributeEditPart {
 
 	public HyAttributeEditorEditPart(GraphicalFeatureModelEditor editor, HyFeatureModelWrapped featureModel) {
 		super(editor, featureModel);
-
 		adapter = new HyAttributeAdapter();
 	}
 
@@ -34,8 +36,13 @@ public class HyAttributeEditorEditPart extends HyAttributeEditPart {
 		// Adapter interface
 		@Override 
 		public void notifyChanged(Notification notification) {
+			
 			if(!(notification.getEventType() == Notification.SET && notification.getPosition() == -1)){
+				((HyFeatureEditorEditPart)getParent()).propertyChange(new PropertyChangeEvent(this, "AttributeSizeChanged", figure.getBounds(), new Rectangle(0, 0, 0, 0)));
 				refreshVisuals();
+				
+				featureModel.rearrangeFeatures();
+				
 			}
 		}
 
@@ -82,9 +89,6 @@ public class HyAttributeEditorEditPart extends HyAttributeEditPart {
 	 * This method is used to enable direct name editing in the feature
 	 */
 	@Override public void performRequest(Request req) {
-		if(req.getType() == RequestConstants.REQ_DIRECT_EDIT) {
-
-		}
 		if(req.getType() == RequestConstants.REQ_OPEN){
 			performDirectEditing();
 		}
@@ -96,5 +100,4 @@ public class HyAttributeEditorEditPart extends HyAttributeEditPart {
 		HyAttributeDirectEditManager manager = new HyAttributeDirectEditManager(this, TextCellEditor.class, new HyAttributeCellEditorLocator(label), label);
 		manager.show();
 	}   
-
 }

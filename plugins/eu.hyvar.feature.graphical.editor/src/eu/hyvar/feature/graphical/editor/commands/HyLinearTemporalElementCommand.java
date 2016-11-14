@@ -21,20 +21,43 @@ public class HyLinearTemporalElementCommand extends Command{
 		previousElement.setValidUntil(date);
 		newElement.setValidSince(date);
 		
-		
-		
-		HyLinearTemporalElement supersedingElement = previousElement.getSupersedingElement();
-		if(supersedingElement == null){			
+		HyLinearTemporalElement successor = previousElement.getSupersedingElement();
+		if(successor == null){			
 			previousElement.setSupersedingElement(newElement);
 		}else{
-			newElement.setSupersedingElement(supersedingElement);
-			supersedingElement.setSupersededElement(newElement);
+			newElement.setSupersedingElement(successor);
+			
+			successor.setSupersededElement(newElement);
 			previousElement.setSupersedingElement(newElement);
 			
-			newElement.setValidUntil(supersedingElement.getValidSince());
+			newElement.setValidUntil(successor.getValidSince());
 		}
 		
-		newElement.setSupersededElement(previousElement);
-				
+		newElement.setSupersededElement(previousElement);		
+	}
+	
+	protected void removeElementFromLinkedList(HyLinearTemporalElement element){
+		HyLinearTemporalElement successor = element.getSupersedingElement();
+		HyLinearTemporalElement predecessor = element.getSupersededElement();
+		
+		if(predecessor != null && successor != null){
+			predecessor.setSupersedingElement(successor);
+			predecessor.setValidUntil(successor.getValidSince());
+			successor.setSupersededElement(predecessor);
+		}
+		
+		if(predecessor != null && successor == null){
+			predecessor.setSupersedingElement(null);
+			predecessor.setValidUntil(null);
+		}
+		
+		if(predecessor == null && successor != null){
+			successor.setSupersededElement(null);
+			successor.setValidUntil(null);
+		}
+		
+		if(predecessor == null && successor == null){
+			// ERROR, cannot delete only and unique element
+		}
 	}
 }

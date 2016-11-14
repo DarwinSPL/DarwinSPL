@@ -9,7 +9,6 @@ import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.emf.common.notify.Adapter;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.Notifier;
-import org.eclipse.gef.EditPart;
 
 import eu.hyvar.dataValues.HyEnumLiteral;
 import eu.hyvar.feature.graphical.base.editor.GraphicalFeatureModelEditor;

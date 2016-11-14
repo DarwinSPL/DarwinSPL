@@ -33,7 +33,13 @@ public class HyAttributeCreateCommand extends Command {
 	public void redo() {
 		Date date = editor.getCurrentSelectedDate();
 		
-		attribute.setValidSince(date);
+		if(date.equals(new Date(Long.MIN_VALUE))){
+			attribute.setValidSince(null);
+		}else{
+			attribute.setValidSince(date);
+		}
+		
+		
 		feature.getAttributes().add(attribute);
 	}
 }

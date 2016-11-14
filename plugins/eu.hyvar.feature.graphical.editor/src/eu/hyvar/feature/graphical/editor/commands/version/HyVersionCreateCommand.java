@@ -29,11 +29,17 @@ public class HyVersionCreateCommand  extends Command {
 	@Override
 	public void execute() {
 		if (parent instanceof HyFeature) {
+			Date date = editor.getCurrentSelectedDate();
+			if(date.equals(new Date(Long.MIN_VALUE))){
+				date = null;
+			}		
+			
+			
 			HyFeature parentAsFeature = (HyFeature)parent;
 			version = HyFeatureFactory.eINSTANCE.createHyVersion();
 			version.setNumber("V"+ (parentAsFeature.getVersions().size()));
 			version.setFeature(parentAsFeature);
-			version.setValidSince(editor.getCurrentSelectedDate());
+			version.setValidSince(date);
 			parentAsFeature.getVersions().add(version);
 		}
 				

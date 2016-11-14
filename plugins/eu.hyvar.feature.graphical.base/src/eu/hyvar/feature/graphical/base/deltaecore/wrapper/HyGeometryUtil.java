@@ -66,10 +66,11 @@ public class HyGeometryUtil {
 		featureHeight += (theme.getFeatureNameAreaHeight()+theme.getLineWidth()) * visibleAttributes; 
 
 		if(visibleAttributes > 0 && versionAreaHeight > 0)
-			featureHeight -= 12;
+			featureHeight -= 8;
 		else if(visibleAttributes > 0){
-			featureHeight -= 3;
+			featureHeight += 1;
 		}
+		
 		return featureHeight;
 	}
 

@@ -193,7 +193,7 @@ public class HyFeatureEditPart extends HyAbstractEditPart implements NodeEditPar
 		Date date = editor.getCurrentSelectedDate();
 
 		HyFeatureFigure figure = (HyFeatureFigure)getFigure();
-		figure.setSeperatorLocation(new Point(0, figure.getHeightWithoutAttributes()));
+		figure.setSeperatorLocation(new Point(0, ((HyFeatureWrapped)getModel()).getHeightWithoutAttributes(date)));
 		HyFeatureWrapped wrappedFeature = (HyFeatureWrapped)this.getModel();
 
 		figure.setVisible(wrappedFeature.isValid(date));

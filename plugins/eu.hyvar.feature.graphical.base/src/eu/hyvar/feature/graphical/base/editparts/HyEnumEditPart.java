@@ -15,15 +15,11 @@ import org.eclipse.gef.EditPart;
 
 import eu.hyvar.dataValues.HyEnum;
 import eu.hyvar.dataValues.HyEnumLiteral;
-import eu.hyvar.evolution.HyEvolutionUtil;
 import eu.hyvar.feature.HyFeature;
 import eu.hyvar.feature.HyFeatureModel;
-import eu.hyvar.feature.graphical.base.deltaecore.wrapper.HyGeometryUtil;
 import eu.hyvar.feature.graphical.base.editor.GraphicalFeatureModelEditor;
 import eu.hyvar.feature.graphical.base.figures.HyEnumFigure;
-import eu.hyvar.feature.graphical.base.figures.HyFeatureFigure;
 import eu.hyvar.feature.graphical.base.model.HyFeatureModelWrapped;
-import eu.hyvar.feature.graphical.base.model.HyFeatureWrapped;
 import eu.hyvar.feature.graphical.base.util.HyEnumEditorUtil;
 
 
@@ -117,9 +113,7 @@ public class HyEnumEditPart  extends HyAbstractEditPart{
 	protected void setSize(){
 
 		HyFeatureModelEditPart parent = (HyFeatureModelEditPart)getParent();
-		GraphicalFeatureModelEditor editor = (GraphicalFeatureModelEditor)this.editor;
-		Date date = editor.getCurrentSelectedDate();
-		
+	
 		Rectangle layout = new Rectangle(0, 0, 200, 200);
 		parent.setLayoutConstraint(this, figure, layout);	
 	}	

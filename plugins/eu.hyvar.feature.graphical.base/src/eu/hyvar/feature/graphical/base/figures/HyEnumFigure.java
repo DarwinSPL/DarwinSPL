@@ -44,8 +44,6 @@ public class HyEnumFigure extends HyAbstractFigure{
 	@Override 
 	public void paintFigure(Graphics graphics) {
 		
-		System.out.println("Paint HyEnumFigure");
-		
 		DEGraphicalEditorTheme theme = DEGraphicalEditor.getTheme();
 		int lineWidth = theme.getLineWidth();
 		graphics.setLineWidth(theme.getLineWidth());
