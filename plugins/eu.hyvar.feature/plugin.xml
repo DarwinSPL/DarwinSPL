@@ -16,7 +16,7 @@
    <extension
          point="org.eclipse.emf.ecore.factory_override">
       <factory
-            class="eu.hyvar.feature.factory.HyFeatureFactoryWithIds"
+            class="eu.hyvar.feature.impl.custom.HyFeatureFactoryWithIds"
             uri="http://hyvar-project.eu/feature/1.0">
       </factory>
    </extension>
