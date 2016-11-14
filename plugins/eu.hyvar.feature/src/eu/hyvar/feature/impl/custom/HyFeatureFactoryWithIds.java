@@ -1,4 +1,4 @@
-package eu.hyvar.feature.factory;
+package eu.hyvar.feature.impl.custom;
 
 import eu.hyvar.feature.HyBooleanAttribute;
 import eu.hyvar.feature.HyEnumAttribute;
@@ -47,7 +47,7 @@ public class HyFeatureFactoryWithIds extends HyFeatureFactoryImpl {
 	
 	@Override
 	public HyFeature createHyFeature() {
-		HyFeature hyFeature = super.createHyFeature();
+		HyFeature hyFeature = new HyFeatureImplCustom();
 		hyFeature.createId();
 		return hyFeature;
 	}
@@ -61,7 +61,7 @@ public class HyFeatureFactoryWithIds extends HyFeatureFactoryImpl {
 	
 	@Override
 	public HyGroup createHyGroup() {
-		HyGroup hyGroup = super.createHyGroup();
+		HyGroup hyGroup = new HyGroupImplCustom();
 		hyGroup.createId();
 		return hyGroup;
 	}

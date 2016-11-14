@@ -14,15 +14,9 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="HyFeature" eSuperTypes="../../eu.hyvar.evolution/model/Evolution.ecore#//HyTemporalElement ../../eu.hyvar.evolution/model/Evolution.ecore#//HyNamedElement">
     <eOperations name="isOptional" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean">
-      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="body" value="HyFeatureType type = HyEvolutionUtil.getValidTemporalElement(getTypes(), date);&#xD;&#xA;if(type.getType() == HyFeatureTypeEnum.OPTIONAL) {&#xD;&#xA;&#x9;return true;&#xD;&#xA;} else {&#xD;&#xA;&#x9;return false;&#xD;&#xA;}"/>
-      </eAnnotations>
       <eParameters name="date" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDate"/>
     </eOperations>
     <eOperations name="isMandatory" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean">
-      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="body" value="HyFeatureType type = HyEvolutionUtil.getValidTemporalElement(getTypes(), date);&#xD;&#xA;if(type.getType() == HyFeatureTypeEnum.MANDATORY) {&#xD;&#xA;&#x9;return true;&#xD;&#xA;} else {&#xD;&#xA;&#x9;return false;&#xD;&#xA;}"/>
-      </eAnnotations>
       <eParameters name="date" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDate"/>
     </eOperations>
     <eStructuralFeatures xsi:type="ecore:EReference" name="versions" upperBound="-1"
@@ -39,21 +33,12 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="HyGroup" eSuperTypes="../../eu.hyvar.evolution/model/Evolution.ecore#//HyTemporalElement">
     <eOperations name="isAlternative" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean">
-      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="body" value="HyGroupType type = HyEvolutionUtil.getValidTemporalElement(getTypes(), date);&#xD;&#xA;if(type.getType() == HyGroupTypeEnum.ALTERNATIVE) {&#xD;&#xA;&#x9;return true;&#xD;&#xA;} else {&#xD;&#xA;&#x9;return false;&#xD;&#xA;}"/>
-      </eAnnotations>
       <eParameters name="date" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDate"/>
     </eOperations>
     <eOperations name="isOr" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean">
-      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="body" value="HyGroupType type = HyEvolutionUtil.getValidTemporalElement(getTypes(), date);&#xD;&#xA;if(type.getType() == HyGroupTypeEnum.OR) {&#xD;&#xA;&#x9;return true;&#xD;&#xA;} else {&#xD;&#xA;&#x9;return false;&#xD;&#xA;}"/>
-      </eAnnotations>
       <eParameters name="date" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDate"/>
     </eOperations>
     <eOperations name="isAnd" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean">
-      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="body" value="HyGroupType type = HyEvolutionUtil.getValidTemporalElement(getTypes(), date);&#xD;&#xA;if(type.getType() == HyGroupTypeEnum.AND) {&#xD;&#xA;&#x9;return true;&#xD;&#xA;} else {&#xD;&#xA;&#x9;return false;&#xD;&#xA;}"/>
-      </eAnnotations>
       <eParameters name="date" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDate"/>
     </eOperations>
     <eStructuralFeatures xsi:type="ecore:EReference" name="parentOf" lowerBound="1"
