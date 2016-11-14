@@ -201,7 +201,7 @@ public class GraphicalEvolutionFeatureModelEditor extends GraphicalFeatureModelE
 		
 		HyNumberAttributeSetNumberRangeAction rangeAttributeAction = new HyNumberAttributeSetNumberRangeAction(this);
 		getActionRegistry().registerAction(rangeAttributeAction);
-		getSelectionActions().add(rangeAttributeAction);
+		getSelectionActions().add(rangeAttributeAction.getId());
 		
 		createGroupActions();
 		createEnumActions();
