@@ -1,10 +1,8 @@
 package eu.hyvar.feature.graphical.editor.editor;
 
 import java.io.ByteArrayInputStream;
-import java.io.IOException;
 import java.io.InputStream;
 import java.util.EventObject;
-import java.util.Iterator;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IResource;
@@ -13,7 +11,6 @@ import org.eclipse.core.resources.IWorkspaceRoot;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
-import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.e4.ui.model.application.ui.MUIElement;
 import org.eclipse.e4.ui.model.application.ui.advanced.MArea;
 import org.eclipse.e4.ui.model.application.ui.basic.MPart;
@@ -27,13 +24,8 @@ import org.eclipse.gef.KeyHandler;
 import org.eclipse.gef.KeyStroke;
 import org.eclipse.gef.commands.Command;
 import org.eclipse.gef.commands.CommandStack;
-import org.eclipse.gef.ui.actions.ActionRegistry;
-import org.eclipse.gef.ui.actions.SaveAction;
-import org.eclipse.gef.ui.actions.UpdateAction;
 import org.eclipse.gef.ui.parts.GraphicalViewerKeyHandler;
-import org.eclipse.jface.action.IAction;
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.widgets.List;
 import org.eclipse.ui.IEditorDescriptor;
 import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.IWorkbench;
@@ -45,14 +37,13 @@ import org.eclipse.ui.actions.ActionFactory;
 import org.eclipse.ui.part.FileEditorInput;
 
 import eu.hyvar.feature.graphical.base.editor.GraphicalFeatureModelEditor;
-import eu.hyvar.feature.graphical.base.model.HyFeatureWrapped;
-import eu.hyvar.feature.graphical.editor.actions.HyFeatureModelCreateOverviewAction;
 import eu.hyvar.feature.graphical.editor.actions.HyLinearTemporalElementChangeValidityAction;
 import eu.hyvar.feature.graphical.editor.actions.attribute.HyAttributeCreateBooleanAction;
 import eu.hyvar.feature.graphical.editor.actions.attribute.HyAttributeCreateEnumAction;
 import eu.hyvar.feature.graphical.editor.actions.attribute.HyAttributeCreateNumberAction;
 import eu.hyvar.feature.graphical.editor.actions.attribute.HyAttributeCreateStringAction;
 import eu.hyvar.feature.graphical.editor.actions.attribute.HyAttributeRenameAction;
+import eu.hyvar.feature.graphical.editor.actions.attribute.HyNumberAttributeSetNumberRangeAction;
 import eu.hyvar.feature.graphical.editor.actions.enumeration.HyFeatureAttributeEnumCreateEnumAction;
 import eu.hyvar.feature.graphical.editor.actions.enumeration.HyFeatureAttributeEnumCreateLiteralAction;
 import eu.hyvar.feature.graphical.editor.actions.feature.HyFeatureCreateSiblingAction;
@@ -207,6 +198,10 @@ public class GraphicalEvolutionFeatureModelEditor extends GraphicalFeatureModelE
 		HyAttributeRenameAction renameAttributeAction = new HyAttributeRenameAction(this);
 		getActionRegistry().registerAction(renameAttributeAction);
 		getSelectionActions().add(renameAttributeAction.getId());
+		
+		HyNumberAttributeSetNumberRangeAction rangeAttributeAction = new HyNumberAttributeSetNumberRangeAction(this);
+		getActionRegistry().registerAction(rangeAttributeAction);
+		getSelectionActions().add(rangeAttributeAction);
 		
 		createGroupActions();
 		createEnumActions();

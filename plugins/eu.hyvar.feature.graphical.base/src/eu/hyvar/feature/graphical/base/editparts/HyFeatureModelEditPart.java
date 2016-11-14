@@ -89,9 +89,11 @@ public class HyFeatureModelEditPart extends AbstractGraphicalEditPart implements
 		refresh();
 	}
 	 
+	
 	@Override
 	public void refresh() {
 		//HyFeatureModelEvolutionWrapped model = (HyFeatureModelEvolutionWrapped) getModel();
+		
 		
 		super.refresh();
 		
@@ -105,6 +107,6 @@ public class HyFeatureModelEditPart extends AbstractGraphicalEditPart implements
 				((EditPart)child).refresh();
 			}
 		}
-		
 	}
+	
 }

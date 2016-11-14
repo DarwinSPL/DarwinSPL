@@ -14,6 +14,7 @@ import eu.hyvar.feature.graphical.editor.actions.attribute.HyAttributeCreateEnum
 import eu.hyvar.feature.graphical.editor.actions.attribute.HyAttributeCreateNumberAction;
 import eu.hyvar.feature.graphical.editor.actions.attribute.HyAttributeCreateStringAction;
 import eu.hyvar.feature.graphical.editor.actions.attribute.HyAttributeRenameAction;
+import eu.hyvar.feature.graphical.editor.actions.attribute.HyNumberAttributeSetNumberRangeAction;
 import eu.hyvar.feature.graphical.editor.actions.enumeration.HyFeatureAttributeEnumCreateEnumAction;
 import eu.hyvar.feature.graphical.editor.actions.enumeration.HyFeatureAttributeEnumCreateLiteralAction;
 import eu.hyvar.feature.graphical.editor.actions.feature.HyFeatureCreateSiblingAction;
@@ -94,8 +95,12 @@ public class HyFeatureModelEvolutionGraphicalEditorContextMenuProvider extends H
         action = getActionRegistry().getAction(HyAttributeCreateEnumAction.FEATURE_ADD_ENUM_ATTRIBUTE);     
         menu.appendToGroup(GEFActionConstants.GROUP_EDIT, action);    
 
+
         action = getActionRegistry().getAction(HyAttributeRenameAction.ATTRIBUTE_EDIT_NAMES);
         menu.appendToGroup(GEFActionConstants.GROUP_EDIT, action);
+        
+        action = getActionRegistry().getAction(HyNumberAttributeSetNumberRangeAction.ATTRIBUTE_EDIT_MIN_AND_MAX);     
+        menu.appendToGroup(GEFActionConstants.GROUP_EDIT, action);    
         
         action = getActionRegistry().getAction(HyFeatureAttributeEnumCreateLiteralAction.ATTRIBUTE_CREATE_LITERAL);
         menu.appendToGroup(GEFActionConstants.GROUP_EDIT, action);

@@ -3,9 +3,13 @@ package eu.hyvar.feature.graphical.configurator.factory;
 import org.eclipse.gef.EditPart;
 import org.eclipse.gef.GraphicalViewer;
 
+import eu.hyvar.dataValues.HyEnum;
+import eu.hyvar.dataValues.HyEnumLiteral;
 import eu.hyvar.feature.HyFeatureAttribute;
 import eu.hyvar.feature.HyVersion;
 import eu.hyvar.feature.graphical.base.editor.GraphicalFeatureModelEditor;
+import eu.hyvar.feature.graphical.base.editparts.HyEnumEditPart;
+import eu.hyvar.feature.graphical.base.editparts.HyEnumLiteralEditPart;
 import eu.hyvar.feature.graphical.base.editparts.HyGroupEditPart;
 import eu.hyvar.feature.graphical.base.editparts.HyParentChildConnectionEditPart;
 import eu.hyvar.feature.graphical.base.factory.HyFeatureModelEditPartFactory;
@@ -47,6 +51,10 @@ public class HyConfiguratorEditPartFactory extends HyFeatureModelEditPartFactory
 			part = new HyConfiguratorVersionEditPart(editor, featureModel);
 		}else if(model instanceof HyFeatureAttribute){
 			part = new HyConfiguratorAttributeEditPart(editor, featureModel);
+		}else if(model instanceof HyEnum){
+			part = new HyEnumEditPart(editor, featureModel);
+		}else if(model instanceof HyEnumLiteral){
+			part = new HyEnumLiteralEditPart(editor, featureModel);
 		}
 
 		if(context != null && model != null && !(model instanceof HyParentChildConnection)){

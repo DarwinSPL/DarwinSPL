@@ -1,6 +1,8 @@
 package eu.hyvar.feature.graphical.editor.commands.feature;
 
 
+import java.util.Date;
+
 import org.eclipse.gef.commands.Command;
 
 import eu.hyvar.evolution.HyEvolutionFactory;
@@ -24,14 +26,16 @@ public class HyFeatureCreateCommand extends Command {
 	
 	private void createNewFeature(){		
 		HyFeatureModelWrapped featureModel = editor.getModelWrapped();
+		Date date = editor.getCurrentSelectedDate();
 		
 		// Create a new feature model and editor representation
 		HyFeature feature = HyFeatureFactory.eINSTANCE.createHyFeature();
-		feature.setValidSince(editor.getCurrentSelectedDate());
+		feature.setValidSince(date);
 		HyFeatureWrapped newFeature = new HyFeatureWrapped(feature, featureModel);
 		
 		HyName name = HyEvolutionFactory.eINSTANCE.createHyName();
 		name.setName(featureModel.getValidNewFeatureName());
+		name.setValidSince(date);
 		feature.getNames().add(name);
 
 		HyFeatureType type = HyFeatureFactory.eINSTANCE.createHyFeatureType();

@@ -2,12 +2,22 @@
 <head>
   	<title>${title}</title>
   	<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-	<link rel="stylesheet" href="https://code.getmdl.io/1.2.1/material.indigo-pink.min.css">
-	<script defer src="https://code.getmdl.io/1.2.1/material.min.js"></script>
+	<link rel="stylesheet" href="material.min.css">
+	<script defer src="material.min.js"></script>
+	  <script>
+	    function extractDates(){
+	
+	      var dates = document.body.getElementsByTagName("h2");
+	      console.log(dates);
+	      for(var i=0; i<dates.length; i++){
+	        console.log(dates[i]);
+	      }
+    }
+  </script>
 </head>
-<body>
+<body onload="extractDates()">
 
-
+	
   <h1>${title}</h1>
   
   <ul>

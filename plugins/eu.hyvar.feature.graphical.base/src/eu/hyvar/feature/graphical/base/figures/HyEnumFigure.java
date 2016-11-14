@@ -43,11 +43,14 @@ public class HyEnumFigure extends HyAbstractFigure{
 
 	@Override 
 	public void paintFigure(Graphics graphics) {
+		
+		System.out.println("Paint HyEnumFigure");
+		
 		DEGraphicalEditorTheme theme = DEGraphicalEditor.getTheme();
 		int lineWidth = theme.getLineWidth();
 		graphics.setLineWidth(theme.getLineWidth());
 		graphics.setForegroundColor(theme.getLineColor());
-		graphics.drawRectangle(this.getBounds().expand(new Insets(-lineWidth, -lineWidth, -lineWidth, -lineWidth)));
+		graphics.drawRectangle(this.getBounds().getCopy().expand(new Insets(-lineWidth, -lineWidth, -lineWidth, -lineWidth)));
 
 		resizeToContent();
 	}
@@ -59,6 +62,11 @@ public class HyEnumFigure extends HyAbstractFigure{
 	@Override
 	protected boolean useLocalCoordinates(){
 		return true;
+	}
+
+	public void update() {
+		resizeToContent();
+		repaint();
 	}
 
 }

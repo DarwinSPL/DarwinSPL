@@ -8,7 +8,6 @@ import org.eclipse.gef.commands.Command;
 
 import eu.hyvar.feature.HyFeatureAttribute;
 import eu.hyvar.feature.graphical.base.editor.GraphicalFeatureModelEditor;
-import eu.hyvar.feature.graphical.editor.editor.GraphicalEvolutionFeatureModelEditor;
 
 public class HyAttributeDeleteCommand extends Command{
 	private class AttributeTemporalDeleteNotification extends NotificationImpl{
