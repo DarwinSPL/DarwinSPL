@@ -32,8 +32,9 @@ public abstract class HyAbstractEditPart extends AbstractGraphicalEditPart imple
 
 
 	public void activate() {
+		super.activate();
 		if(getModel() instanceof HyEditorChangeableElement){
-			super.activate();
+			
 			HyEditorChangeableElement propertyAwareObject = (HyEditorChangeableElement) getModel();
 			propertyAwareObject.addPropertyChangeListener(this);
 		}
@@ -41,8 +42,9 @@ public abstract class HyAbstractEditPart extends AbstractGraphicalEditPart imple
 
 
 	public void deactivate() {
+		super.deactivate();
 		if(getModel() instanceof HyEditorChangeableElement){
-			super.deactivate();
+			
 			HyEditorChangeableElement propertyAwareObject = (HyEditorChangeableElement) getModel();
 			propertyAwareObject.removePropertyChangeListener(this);
 		}

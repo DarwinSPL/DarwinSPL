@@ -178,9 +178,6 @@ public class HyFeatureModelWrapped implements PropertyChangeListener {
 		dates = HyEvolutionUtil.collectDates(model);
 				
 		dates.add(0, new Date(Long.MIN_VALUE));
-		dates.add(dates.size(), new Date(Long.MAX_VALUE));
-		
-		System.out.println(new Date(Long.MIN_VALUE));
 
 		features = new ArrayList<HyFeatureWrapped>();
 		groups = new HashSet<HyGroupWrapped>();

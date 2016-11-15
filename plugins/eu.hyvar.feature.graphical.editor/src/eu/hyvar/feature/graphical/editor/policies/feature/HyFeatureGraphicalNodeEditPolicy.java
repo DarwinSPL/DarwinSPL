@@ -1,4 +1,4 @@
-package eu.hyvar.feature.graphical.editor.policies;
+package eu.hyvar.feature.graphical.editor.policies.feature;
 
 import java.util.HashSet;
 

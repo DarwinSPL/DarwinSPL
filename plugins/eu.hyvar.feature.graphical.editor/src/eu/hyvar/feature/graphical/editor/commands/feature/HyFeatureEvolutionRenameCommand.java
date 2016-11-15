@@ -1,6 +1,7 @@
 package eu.hyvar.feature.graphical.editor.commands.feature;
 
 import java.util.Date;
+import java.util.List;
 
 import eu.hyvar.evolution.HyEvolutionFactory;
 import eu.hyvar.evolution.HyEvolutionUtil;
@@ -8,6 +9,7 @@ import eu.hyvar.evolution.HyName;
 import eu.hyvar.feature.graphical.base.model.HyFeatureWrapped;
 import eu.hyvar.feature.graphical.editor.commands.HyLinearTemporalElementCommand;
 import eu.hyvar.feature.graphical.editor.editor.GraphicalEvolutionFeatureModelEditor;
+import eu.hyvar.feature.graphical.editor.util.HyElementEditorUtil;
 
 public class HyFeatureEvolutionRenameCommand extends HyLinearTemporalElementCommand {
 	private HyName oldName;
@@ -32,8 +34,12 @@ public class HyFeatureEvolutionRenameCommand extends HyLinearTemporalElementComm
 	 */
 	@Override
 	public void undo() {
+		List<HyName> names = feature.getWrappedModelElement().getNames();
 		removeElementFromLinkedList(newName);
-		feature.getWrappedModelElement().getNames().remove(newName);
+		names.remove(newName);
+		
+		if(!names.contains(oldName))
+			names.add(oldName);
 	}
 
 	@Override
@@ -41,9 +47,14 @@ public class HyFeatureEvolutionRenameCommand extends HyLinearTemporalElementComm
 		changeDate = editor.getCurrentSelectedDate();
 
 		oldName =  HyEvolutionUtil.getValidTemporalElement(feature.getWrappedModelElement().getNames(), changeDate);
+		if(changeDate.equals(new Date(Long.MIN_VALUE))){
+			feature.getWrappedModelElement().getNames().remove(oldName);
+		}
 		
 		changeVisibilities(oldName, newName, changeDate);
 		feature.getWrappedModelElement().getNames().add(newName);
+		
+		HyElementEditorUtil.cleanNames(feature.getWrappedModelElement());
 	}
 	
 	public void setNewName(String newName) {

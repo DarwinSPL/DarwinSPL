@@ -8,6 +8,7 @@ import eu.hyvar.evolution.HyName;
 import eu.hyvar.feature.HyFeatureAttribute;
 import eu.hyvar.feature.graphical.base.editor.GraphicalFeatureModelEditor;
 import eu.hyvar.feature.graphical.editor.commands.HyLinearTemporalElementCommand;
+import eu.hyvar.feature.graphical.editor.util.HyElementEditorUtil;
 
 public class HyAttributeRenameCommand extends HyLinearTemporalElementCommand {
 	private HyName oldName;
@@ -41,9 +42,15 @@ public class HyAttributeRenameCommand extends HyLinearTemporalElementCommand {
 		changeDate = editor.getCurrentSelectedDate();
 
 		oldName =  HyEvolutionUtil.getValidTemporalElement(attribute.getNames(), changeDate);
+
+		if(changeDate.equals(new Date(Long.MIN_VALUE))){
+			attribute.getNames().remove(oldName);
+		}
 		
 		changeVisibilities(oldName, newName, changeDate);
-		attribute.getNames().add(newName);
+		attribute.getNames().add(newName);		
+		
+		HyElementEditorUtil.cleanNames(attribute);
 	}
 	
 	public void setNewName(String newName) {

@@ -12,8 +12,8 @@ import eu.hyvar.feature.graphical.base.figures.HyEnumFigure;
 import eu.hyvar.feature.graphical.base.model.HyFeatureModelWrapped;
 import eu.hyvar.feature.graphical.editor.locators.HyFeatureCellEditorLocator;
 import eu.hyvar.feature.graphical.editor.managers.HyFeatureDirectEditManager;
-import eu.hyvar.feature.graphical.editor.policies.HyEnumComponentEditPolicy;
-import eu.hyvar.feature.graphical.editor.policies.HyEnumDirectEditPolicy;
+import eu.hyvar.feature.graphical.editor.policies.enums.HyEnumComponentEditPolicy;
+import eu.hyvar.feature.graphical.editor.policies.enums.HyEnumDirectEditPolicy;
 public class HyEnumEditorEditPart extends HyEnumEditPart{
 
 	public HyEnumEditorEditPart(GraphicalFeatureModelEditor editor, HyFeatureModelWrapped featureModel) {

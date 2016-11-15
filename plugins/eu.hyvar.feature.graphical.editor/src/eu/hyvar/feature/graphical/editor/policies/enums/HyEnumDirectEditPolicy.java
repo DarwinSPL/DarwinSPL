@@ -1,4 +1,4 @@
-package eu.hyvar.feature.graphical.editor.policies;
+package eu.hyvar.feature.graphical.editor.policies.enums;
 
 import org.eclipse.gef.commands.Command;
 import org.eclipse.gef.editpolicies.DirectEditPolicy;

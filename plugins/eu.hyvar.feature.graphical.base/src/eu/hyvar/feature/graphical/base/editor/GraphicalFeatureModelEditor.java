@@ -10,7 +10,6 @@ import java.nio.file.Paths;
 import java.util.Date;
 import java.util.List;
 
-import org.deltaecore.feature.graphical.base.util.DEGraphicalEditorTheme;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.IWorkspace;
@@ -34,20 +33,18 @@ import org.eclipse.gef.editparts.ZoomManager;
 import org.eclipse.gef.ui.parts.GraphicalEditor;
 import org.eclipse.gef.ui.parts.ScrollingGraphicalViewer;
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.events.ModifyEvent;
-import org.eclipse.swt.events.ModifyListener;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.layout.RowData;
 import org.eclipse.swt.layout.RowLayout;
 import org.eclipse.swt.widgets.Button;
+import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Scale;
-import org.eclipse.swt.widgets.Spinner;
 import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.IEditorReference;
@@ -66,20 +63,21 @@ import eu.hyvar.feature.graphical.base.model.HyFeatureWrapped;
 
 public class GraphicalFeatureModelEditor extends GraphicalEditor implements IFeatureModelEditor{
 	// UI components
-	//Spinner currentState;
 	Button currentDate;
+	Button addDate;
 	Scale scale;
-	Spinner minState;
-	Spinner maxState;
+	Combo minState;
+	Combo maxState;
 	Composite buttonGroup;
 
 	Date currentSelectedDate;	
 
-	protected boolean dirty = false;
+	protected Resource resource;
 
-
-
-
+	protected IFile file;
+	
+	protected HyFeatureModelWrapped modelWrapped;
+	
 	public Date getCurrentSelectedDate() {
 		return currentSelectedDate;
 	}
@@ -96,7 +94,8 @@ public class GraphicalFeatureModelEditor extends GraphicalEditor implements IFea
 		this.currentSelectedDate = currentSelectedDate;
 
 		if(currentSelectedDate.getTime() == Long.MIN_VALUE){
-			currentDate.setText("before "+ modelWrapped.getDates().get(1).toString());
+			if(modelWrapped.getDates().size() > 1)
+				currentDate.setText("before "+ modelWrapped.getDates().get(1).toString());
 		}
 		else if(currentSelectedDate.getTime() == Long.MAX_VALUE){
 			currentDate.setText("after "+ modelWrapped.getDates().get(modelWrapped.getDates().size()-2).toString());
@@ -137,23 +136,11 @@ public class GraphicalFeatureModelEditor extends GraphicalEditor implements IFea
 		this.modelWrapped = modelWrapped;
 	}
 
-	protected Resource resource;
-
-	protected IFile file;
-	// Use the theme editor from DeltaEcore for consistency
-	private static DEGraphicalEditorTheme theme = new DEGraphicalEditorTheme();
-
-	public static DEGraphicalEditorTheme getTheme() {
-		return theme;
-	}	
-
-	protected HyFeatureModelWrapped modelWrapped;
-
 	public GraphicalFeatureModelEditor(){
 		setEditDomain(new DefaultEditDomain(this));	
 	}
-	
-	
+
+
 
 	public IFile getFile() {
 		return file;
@@ -196,12 +183,8 @@ public class GraphicalFeatureModelEditor extends GraphicalEditor implements IFea
 			}
 		}
 	}
-
-
-
-
-
-
+	
+	
 
 	/**
 	 * Tries to load a feature model from a given file
@@ -234,6 +217,8 @@ public class GraphicalFeatureModelEditor extends GraphicalEditor implements IFea
 		}
 	}
 
+	
+	
 	/**
 	 * Sets the name of the tab related to the editor which will shown to the user in Eclipse
 	 * @param text
@@ -248,7 +233,8 @@ public class GraphicalFeatureModelEditor extends GraphicalEditor implements IFea
 		loadModelFromFile(((IFileEditorInput) input).getFile());
 	}
 
-
+	
+	
 	/**
 	 * Hook the evolution factory into the editor logic and override the standard edit part factory
 	 */
@@ -260,97 +246,45 @@ public class GraphicalFeatureModelEditor extends GraphicalEditor implements IFea
 		viewer.setEditPartFactory(new HyFeatureModelEditPartFactory(viewer, this));
 		viewer.setRootEditPart(new ScalableFreeformRootEditPart());
 	}
-
-	public void createSliderControl(Composite parent){
-		List<Date> dates = modelWrapped.getDates();
-
-		int size = dates.size(); 
-		buttonGroup = new Composite(parent, SWT.NONE);
-		RowLayout rowLayout = new RowLayout(SWT.HORIZONTAL);
-		rowLayout.justify = true;
-		buttonGroup.setLayout(rowLayout);
-
-
-
-
-
-		currentDate = new Button(buttonGroup, SWT.PUSH);
+	
+	public void registerControlListeners(){
+		
+		// Left button to select an individual date
 		currentDate.addListener(SWT.Selection, new Listener(){
 			public void handleEvent(Event event){
 				DateDialog dialog = new DateDialog(getEditorSite().getShell(), getCurrentSelectedDate());
 				dialog.open();
+				if(dialog.getReturnCode()==0){
+					Date newDate = dialog.getValue();
+					if(modelWrapped.addDate(newDate)){
+						int size = modelWrapped.getDates().size();
+						scale.setMaximum(size-1);
+						scale.setEnabled(size > 1);
 
-				Date newDate = dialog.getValue();
-				if(modelWrapped.addDate(newDate)){
-					int size = modelWrapped.getDates().size();
-					scale.setMaximum(size-1);
-					scale.setEnabled(size > 2);
-
-					scale.setSelection(modelWrapped.getDates().indexOf(newDate));
-					dateChanged(newDate);
+						scale.setSelection(modelWrapped.getDates().indexOf(newDate));
+						dateChanged(newDate);
+					}
 				}
 			}
 		});
-		if(dates.size() > 0)
-			currentDate.setText(dates.get(0).toString());
-		else{
-			currentDate.setText((new Date()).toString());
-		}
-
-		/*
-		currentState = new Spinner (buttonGroup, SWT.NATIVE);
-		currentState.setMinimum(1);
-		currentState.setMaximum(size);
-		currentState.setSelection(1);
-		currentState.setIncrement(1);
-		currentState.setLayoutData(new RowData(60, SWT.DEFAULT));
-		currentState.setEnabled(size > 0);
-		currentState.addModifyListener(new ModifyListener(){
-			@Override
-			public void modifyText(ModifyEvent e) {
-				int index = ((Spinner)e.widget).getSelection()-1;
-				if(index >= minState.getSelection())
-					scale.setSelection(index);
-			}
-		});
-		 */
-
-		Label minStateLabel = new Label(buttonGroup, SWT.CENTER);
-		minStateLabel.setText("Date range from ");
-		minState = new Spinner (buttonGroup, SWT.NATIVE);
-		minState.setMinimum(1);
-		minState.setMaximum(size);
-		minState.setSelection(1);
-		minState.setIncrement(1);
-		minState.setEnabled(size > 2);
+		
+		// Mininimum value for range restriction for the slider
 		minState.addListener(SWT.Selection, new Listener(){
 			public void handleEvent(Event event){
-				int index = ((Spinner)event.widget).getSelection()-1;
+				int index = ((Combo)event.widget).getSelectionIndex();
 				scale.setMinimum(index);
 			}
 		});
-
-		Label maxStateLabel = new Label(buttonGroup, SWT.NATIVE);
-		maxStateLabel.setText(" to ");		
-		maxState = new Spinner (buttonGroup, SWT.NATIVE);
-		maxState.setMinimum(minState.getSelection());
-		maxState.setMaximum(size);
-		maxState.setSelection(1);
-		maxState.setIncrement(1);
-		maxState.setEnabled(size > 2);
+		
+		// Maximum value for range restriction for the slider
 		maxState.addListener(SWT.Selection, new Listener(){
 			public void handleEvent(Event event){
-				int index = ((Spinner)event.widget).getSelection()-1;
+				int index = ((Combo)event.widget).getSelectionIndex();
 				scale.setMaximum(index);
 			}
 		});
-
-		scale = new Scale(buttonGroup, SWT.FILL);
-		scale.setMinimum(0);
-		scale.setMaximum(size-1);
-		scale.setLayoutData(new RowData(300, SWT.DEFAULT));
-		scale.setEnabled(size > 2);
-
+		
+		// Slider to select a given date
 		scale.addListener(SWT.Selection, new Listener() {
 			public void handleEvent(Event event) {
 				List<Date> dates = modelWrapped.getDates();
@@ -360,9 +294,8 @@ public class GraphicalFeatureModelEditor extends GraphicalEditor implements IFea
 				dateChanged(dates.get(index));
 			}	
 		});
-
-		Button addDate = new Button(buttonGroup, SWT.PUSH);
-		addDate.setText("Add Date");
+		
+		// Button that adds a new date to the model
 		addDate.addListener(SWT.Selection, new Listener() {
 			public void handleEvent(Event event) {
 				DateDialog dialog = new DateDialog(null, new Date());
@@ -374,25 +307,62 @@ public class GraphicalFeatureModelEditor extends GraphicalEditor implements IFea
 
 					int size = modelWrapped.getDates().size();
 					scale.setMaximum(size-1);
-					scale.setEnabled(size > 2);
+					scale.setEnabled(size > 1);
 				}				
 			}	
 		});
+	}
 
-		minState.addModifyListener(new ModifyListener(){
-			@Override
-			public void modifyText(ModifyEvent e) {
+	public void createSliderControl(Composite parent){
+		List<Date> dates = modelWrapped.getDates();
 
-				scale.setMinimum(((Spinner)e.widget).getSelection());
-			}
-		});
-		maxState.addModifyListener(new ModifyListener(){
+		int size = dates.size(); 
+		buttonGroup = new Composite(parent, SWT.NONE);
+		RowLayout rowLayout = new RowLayout(SWT.HORIZONTAL);
+		rowLayout.justify = true;
+		buttonGroup.setLayout(rowLayout);
 
-			@Override
-			public void modifyText(ModifyEvent e) {
-				scale.setMaximum(((Spinner)e.widget).getSelection());
-			}
-		});	
+		currentDate = new Button(buttonGroup, SWT.PUSH);
+
+		
+		if(dates.size() > 0)
+			currentDate.setText(dates.get(0).toString());
+		else{
+			currentDate.setText((new Date()).toString());
+		}
+
+		Label minStateLabel = new Label(buttonGroup, SWT.CENTER);
+		minStateLabel.setText("Date range from ");
+		minState = new Combo (buttonGroup, SWT.READ_ONLY);
+		for(Date date : dates){
+			minState.add(date.toString());
+		}
+		minState.select(0);
+		minState.setEnabled(size > 1);
+
+
+		Label maxStateLabel = new Label(buttonGroup, SWT.NATIVE);
+		maxStateLabel.setText(" to ");		
+		maxState = new Combo (buttonGroup, SWT.NATIVE);
+
+		for(Date date : dates){
+			maxState.add(date.toString());
+		}
+		maxState.select(dates.size()-1);
+		maxState.setEnabled(size > 1);
+
+
+		scale = new Scale(buttonGroup, SWT.FILL);
+		scale.setMinimum(0);
+		scale.setMaximum(size-1);
+		scale.setLayoutData(new RowData(300, SWT.DEFAULT));
+		scale.setEnabled(size > 1);
+
+
+
+		addDate = new Button(buttonGroup, SWT.PUSH);
+		addDate.setText("Add Date");
+
 
 		if(dates.size() > 0)
 			setCurrentSelectedDate(dates.get(0));
@@ -403,16 +373,18 @@ public class GraphicalFeatureModelEditor extends GraphicalEditor implements IFea
 		}		
 	}
 
-	@Override
+	
+		
 	/**
 	 * Creates the editor and adds a control bar to switch between dates
 	 */
-
+	@Override
 	public void createPartControl(Composite parent){
 		parent.setLayout(new GridLayout(2, false));
 
 		createEditor(parent);
 		createSliderControl(parent);
+		registerControlListeners();
 		((HyFeatureModelEditPart)getGraphicalViewer().getContents()).refresh();
 	}
 
@@ -438,7 +410,7 @@ public class GraphicalFeatureModelEditor extends GraphicalEditor implements IFea
 
 
 
-	//@Override
+	@Override
 	public Object getAdapter(@SuppressWarnings("rawtypes") Class type) {
 		if(type == ZoomManager.class)
 			return getGraphicalViewer().getProperty(ZoomManager.class.toString());
@@ -448,7 +420,7 @@ public class GraphicalFeatureModelEditor extends GraphicalEditor implements IFea
 	}
 
 
-	//@Override
+	@Override
 	public EObject getInternalFeatureModel() {
 		return modelWrapped.getModel();
 	}

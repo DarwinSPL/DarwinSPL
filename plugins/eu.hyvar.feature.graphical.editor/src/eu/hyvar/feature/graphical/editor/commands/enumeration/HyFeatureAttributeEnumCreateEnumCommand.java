@@ -29,6 +29,8 @@ public class HyFeatureAttributeEnumCreateEnumCommand extends Command {
 	@Override
 	public void redo() {
 		Date date = editor.getCurrentSelectedDate();
+		if(date.equals(new Date(Long.MIN_VALUE)))
+			date = null;
 		
 		featureEnum = HyDataValuesFactory.eINSTANCE.createHyEnum();
 		featureEnum.setValidSince(date);

@@ -14,7 +14,7 @@ import eu.hyvar.feature.graphical.base.editor.GraphicalFeatureModelEditor;
 import eu.hyvar.feature.graphical.base.model.HyFeatureWrapped;
 import eu.hyvar.feature.graphical.base.model.HyGroupWrapped;
 import eu.hyvar.feature.graphical.base.model.HyParentChildConnection;
-import eu.hyvar.feature.graphical.editor.util.HyGroupEditorUtil;
+import eu.hyvar.feature.graphical.editor.util.HyElementEditorUtil;
 
 public class HyParentChildConnectionEvolutionReconnectCommand extends HyParentChildConnectionReconnectCommand{
 	private GraphicalFeatureModelEditor editor;
@@ -102,7 +102,7 @@ public class HyParentChildConnectionEvolutionReconnectCommand extends HyParentCh
 			splitComposition(composition, oldTarget);
 			
 			if(composition.getCompositionOf() != null)
-			HyGroupEditorUtil.cleanGroupCompositions(composition.getCompositionOf());
+			HyElementEditorUtil.cleanGroupCompositions(composition.getCompositionOf());
 
 			HyFeatureWrapped newTarget = (HyFeatureWrapped)target;
 			HyFeatureChild child = HyEvolutionUtil.getValidTemporalElement(newTarget.getWrappedModelElement().getParentOf(), date);

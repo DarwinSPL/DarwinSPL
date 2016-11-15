@@ -18,6 +18,9 @@ public class HyLinearTemporalElementCommand extends Command{
 	}
 	
 	protected void changeVisibilities(HyLinearTemporalElement previousElement, HyLinearTemporalElement newElement, Date date){
+		if(date.equals(new Date(Long.MIN_VALUE)))
+			date = null;
+		
 		previousElement.setValidUntil(date);
 		newElement.setValidSince(date);
 		

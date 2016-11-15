@@ -5,8 +5,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import org.deltaecore.feature.graphical.base.editor.DEGraphicalEditor;
-import org.deltaecore.feature.graphical.base.util.DEGraphicalEditorTheme;
 import org.eclipse.draw2d.ConnectionAnchor;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.geometry.Dimension;
@@ -20,7 +18,6 @@ import org.eclipse.gef.ConnectionEditPart;
 import org.eclipse.gef.NodeEditPart;
 import org.eclipse.gef.Request;
 
-import eu.hyvar.evolution.HyEvolutionUtil;
 import eu.hyvar.feature.HyFeature;
 import eu.hyvar.feature.HyFeatureAttribute;
 import eu.hyvar.feature.HyVersion;
@@ -82,7 +79,8 @@ public class HyFeatureEditPart extends HyAbstractEditPart implements NodeEditPar
 
 
 
-	@Override public void activate() {
+	@Override 
+	public void activate() {
 		//super.activate();
 		if(!isActive()) {
 			HyFeatureWrapped model = ((HyFeatureWrapped)getModel());
@@ -92,7 +90,8 @@ public class HyFeatureEditPart extends HyAbstractEditPart implements NodeEditPar
 		super.activate();
 	}
 
-	@Override public void deactivate() {
+	@Override 
+	public void deactivate() {
 		//super.deactivate();
 		if(isActive()) {
 			HyFeatureWrapped model = ((HyFeatureWrapped)getModel());
@@ -172,23 +171,12 @@ public class HyFeatureEditPart extends HyAbstractEditPart implements NodeEditPar
 		return feature.isWithoutModifier(date);
 	}
 
-	/**
-	 * Calculates the height of all attributes at the currently selected date and returns its height
-	 */
-	protected int getAttributeHeight(){
-		DEGraphicalEditorTheme theme = DEGraphicalEditor.getTheme();
-		HyFeatureWrapped model = (HyFeatureWrapped)getModel();
-		GraphicalFeatureModelEditor editor = (GraphicalFeatureModelEditor)this.editor;
-		Date date = editor.getCurrentSelectedDate();
-
-		int attributeCount = HyEvolutionUtil.getValidTemporalElements(model.getWrappedModelElement().getAttributes(), date).size();
-
-		return theme.getFeatureNameAreaHeight() * attributeCount;
-	}
-
-
+	
 	@Override
 	public void refreshVisuals(){
+		refreshChildren();
+		super.refreshVisuals();
+		
 		GraphicalFeatureModelEditor editor = (GraphicalFeatureModelEditor)this.editor;
 		Date date = editor.getCurrentSelectedDate();
 
@@ -205,8 +193,10 @@ public class HyFeatureEditPart extends HyAbstractEditPart implements NodeEditPar
 		for(HyParentChildConnection connection : this.getModelSourceConnections()){
 			connection.notifyChange();
 		}
+		
 		refreshVisualsOfChildren();
 	}
+	
 	
 	@Override
 	protected void refreshChildren() {
@@ -217,7 +207,6 @@ public class HyFeatureEditPart extends HyAbstractEditPart implements NodeEditPar
 		GraphicalFeatureModelEditor editor = (GraphicalFeatureModelEditor)this.editor;
 		Date date = editor.getCurrentSelectedDate();
 		HyVersionLayouterManager.updateLayouter(feature, date);
-		
 	}
 	
 	/**
@@ -271,6 +260,7 @@ public class HyFeatureEditPart extends HyAbstractEditPart implements NodeEditPar
 	 * Refresh the visual representation of all versions and attributes releated to this feature
 	 */
 	protected void refreshVisualsOfChildren(){
+		
 		for(Object o : this.getChildren()){
 			if(o instanceof HyVersionEditPart){
 				HyVersionEditPart edit = (HyVersionEditPart)o;

@@ -11,8 +11,8 @@ import eu.hyvar.feature.graphical.base.editparts.HyParentChildConnectionEditPart
 import eu.hyvar.feature.graphical.base.figures.HyParentChildConnectionFigure;
 import eu.hyvar.feature.graphical.base.model.HyFeatureModelWrapped;
 import eu.hyvar.feature.graphical.base.model.HyParentChildConnection;
-import eu.hyvar.feature.graphical.editor.policies.HyFeatureEvolutionGraphicalNodeEditPolicy;
-import eu.hyvar.feature.graphical.editor.policies.HyParentChildConnectionEditPolicy;
+import eu.hyvar.feature.graphical.editor.policies.feature.HyFeatureEvolutionGraphicalNodeEditPolicy;
+import eu.hyvar.feature.graphical.editor.policies.feature.HyParentChildConnectionEditPolicy;
 
 public class HyParentChildConnectionEditorEditPart extends HyParentChildConnectionEditPart {
 	private GraphicalFeatureModelEditor editor;

@@ -40,18 +40,10 @@ public class HyFeatureModelXYLayoutPolicy extends XYLayoutEditPolicy{
 
 	@Override
 	protected Command getCreateCommand(CreateRequest request) {
-/*
-		if(request.getNewObject() instanceof HyFeatureWrapped){
-			HyFeatureCreateCommand command = new HyFeatureCreateCommand();
-			command.setNewFeature((HyFeatureWrapped)(request.getNewObject()));
-
-			command.setParent((HyFeatureModelWrapped)getHost().getModel());
-			return command;
-		}
-*/
-		return null;		
+		return null;
 	}	
 
+	
 	@Override 
 	protected EditPolicy createChildEditPolicy(EditPart child) {
 		return new HyFeatureModelResizablePolicy();

@@ -6,8 +6,8 @@ import eu.hyvar.feature.graphical.base.editor.GraphicalFeatureModelEditor;
 import eu.hyvar.feature.graphical.base.editparts.HyVersionEditPart;
 import eu.hyvar.feature.graphical.base.model.HyFeatureModelWrapped;
 import eu.hyvar.feature.graphical.editor.editor.GraphicalEvolutionFeatureModelEditor;
-import eu.hyvar.feature.graphical.editor.policies.HyVersionComponentPolicy;
-import eu.hyvar.feature.graphical.editor.policies.HyVersionSelectionHandlesPolicy;
+import eu.hyvar.feature.graphical.editor.policies.version.HyVersionComponentPolicy;
+import eu.hyvar.feature.graphical.editor.policies.version.HyVersionSelectionHandlesPolicy;
 
 
 public class HyVersionEditorEditPart extends HyVersionEditPart{
@@ -20,12 +20,5 @@ public class HyVersionEditorEditPart extends HyVersionEditPart{
 	protected void createEditPolicies() {
 		installEditPolicy(EditPolicy.SELECTION_FEEDBACK_ROLE, new HyVersionSelectionHandlesPolicy());
 		installEditPolicy(EditPolicy.COMPONENT_ROLE, new HyVersionComponentPolicy((GraphicalEvolutionFeatureModelEditor)editor, featureModel));
-	}
-	
-	@Override
-	public void setSelected(int value){
-		super.setSelected(value);
-		
-		refreshVisuals();
 	}
 }

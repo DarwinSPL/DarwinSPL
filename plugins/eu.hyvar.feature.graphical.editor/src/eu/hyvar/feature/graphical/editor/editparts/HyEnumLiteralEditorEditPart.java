@@ -12,7 +12,7 @@ import eu.hyvar.feature.graphical.base.figures.HyEnumLiteralFigure;
 import eu.hyvar.feature.graphical.base.model.HyFeatureModelWrapped;
 import eu.hyvar.feature.graphical.editor.locators.HyFeatureCellEditorLocator;
 import eu.hyvar.feature.graphical.editor.managers.HyFeatureDirectEditManager;
-import eu.hyvar.feature.graphical.editor.policies.HyEnumLiteralDirectEditPolicy;
+import eu.hyvar.feature.graphical.editor.policies.enums.HyEnumLiteralDirectEditPolicy;
 
 public class HyEnumLiteralEditorEditPart extends HyEnumLiteralEditPart{
 

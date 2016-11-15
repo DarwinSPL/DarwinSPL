@@ -1,4 +1,4 @@
-package eu.hyvar.feature.graphical.editor.policies;
+package eu.hyvar.feature.graphical.editor.policies.version;
 
 import org.deltaecore.feature.graphical.base.editor.DEGraphicalEditor;
 import org.deltaecore.feature.graphical.base.util.DEGraphicalEditorTheme;

@@ -32,6 +32,8 @@ public class HyFeatureAttributeEnumCreateLiteralCommand extends Command {
 	@Override
 	public void redo() {
 		Date date = editor.getCurrentSelectedDate();
+		if(date.equals(new Date(Long.MIN_VALUE)))
+			date = null;
 		
 		literal = HyDataValuesFactory.eINSTANCE.createHyEnumLiteral();
 		literal.setName("New Literal");

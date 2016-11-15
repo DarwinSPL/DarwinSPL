@@ -34,7 +34,6 @@ public class HyVersionCreateCommand  extends Command {
 				date = null;
 			}		
 			
-			
 			HyFeature parentAsFeature = (HyFeature)parent;
 			version = HyFeatureFactory.eINSTANCE.createHyVersion();
 			version.setNumber("V"+ (parentAsFeature.getVersions().size()));
@@ -67,14 +66,6 @@ public class HyVersionCreateCommand  extends Command {
 		version.getFeature().getVersions().remove(version);
 	}
 	
-	
-
-	/*
-	@Override
-	public void undo() {
-		HyVersionUtil.unwireAndRemoveVersion(version);
-	}
-	*/
 	
 	protected void addToParentFeature(HyFeature parentFeature) {
 		HyVersion selectedVersion = HyVersionUtil.getLastVersionOnMostRecentBranch(parentFeature);

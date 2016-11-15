@@ -29,17 +29,18 @@ public class HyVersionEditPart extends HyAbstractEditPart{
 
 	@Override
 	protected void createEditPolicies() {
-		// TODO
-		//installEditPolicy(EditPolicy.SELECTION_FEEDBACK_ROLE, new HyVersionSelectionHandlesPolicy());
 	}
 
 	@Override
 	public void refreshVisuals(){
+		
 		DEGraphicalEditorTheme theme = DEGraphicalEditor.getTheme();
 		Date date = ((GraphicalFeatureModelEditor)editor).getCurrentSelectedDate();
 
 		HyVersionFigure figure = (HyVersionFigure)getFigure();
 		HyVersion model = (HyVersion)getModel();
+		
+		
 
 		figure.setVisible(HyEvolutionUtil.isValid(model, date));
 		((HyVersionFigure)getFigure()).update();
@@ -56,6 +57,8 @@ public class HyVersionEditPart extends HyAbstractEditPart{
 			bounds.setY(bounds.y - offset);
 			bounds.setWidth(bounds.width+offset*2);
 			bounds.setHeight(bounds.height+offset*2);
+			
+			System.out.println(model.getNumber()+"   "+bounds);
 
 			HyFeatureEditPart parent = (HyFeatureEditPart)getParent();
 			parent.setLayoutConstraint(this, figure, bounds);	

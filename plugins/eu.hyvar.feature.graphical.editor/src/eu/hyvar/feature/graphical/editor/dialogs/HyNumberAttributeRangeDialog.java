@@ -12,6 +12,7 @@ import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
 
+import eu.hyvar.feature.HyFeatureAttribute;
 import eu.hyvar.feature.HyNumberAttribute;
 
 public class HyNumberAttributeRangeDialog extends SelectionDialog{
@@ -53,6 +54,14 @@ public class HyNumberAttributeRangeDialog extends SelectionDialog{
 				}
 			}			
 		}
+	}
+	
+	@Override
+	public void setElement(Object element){
+		minimum = ((HyNumberAttribute)element).getMin();
+		maximum = ((HyNumberAttribute)element).getMax();
+		
+		this.element = element;
 	}
 
 	@Override
@@ -100,9 +109,8 @@ public class HyNumberAttributeRangeDialog extends SelectionDialog{
 			@Override
 			public void handleEvent(Event event) {
 				if(!textMinimum.getText().isEmpty())
-					maximum = Integer.parseInt(textMinimum.getText());
+					maximum = Integer.parseInt(textMaximum.getText());
 			}
-			
 		});
 	}
 }

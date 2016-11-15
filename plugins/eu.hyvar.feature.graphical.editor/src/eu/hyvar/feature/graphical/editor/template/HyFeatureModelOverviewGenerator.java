@@ -71,7 +71,9 @@ public class HyFeatureModelOverviewGenerator {
 			}	
 
 			if(name.getValidSince() != null && name.getValidSince().equals(date)){
-				changes.add(new HyFeatureModelOverviewChangeDataObject(identifier+" ", elementName, " changed name", oldName.getName(), name.getName()));
+				if(oldName != null){
+					changes.add(new HyFeatureModelOverviewChangeDataObject(identifier+" ", elementName, " changed name", oldName.getName(), name.getName()));
+				}
 			}	
 		}		
 	}

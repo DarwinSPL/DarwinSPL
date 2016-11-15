@@ -6,6 +6,7 @@ import org.deltaecore.feature.graphical.base.editor.DEGraphicalEditor;
 import org.deltaecore.feature.graphical.base.util.DEGraphicalEditorTheme;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.geometry.Dimension;
+import org.eclipse.draw2d.geometry.Insets;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
 
@@ -36,6 +37,7 @@ public class HyAttributeEditPart extends HyAbstractEditPart{
 	@Override
 	public void refreshVisuals(){
 		DEGraphicalEditorTheme theme = DEGraphicalEditor.getTheme();
+		int lineWidth = theme.getLineWidth();
 		
 		HyFeatureEditPart parent = (HyFeatureEditPart)getParent();
 		HyAttributeFigure figure = (HyAttributeFigure)getFigure();
@@ -48,13 +50,14 @@ public class HyAttributeEditPart extends HyAbstractEditPart{
 		
 		int y = feature.getHeightWithoutAttributes(date);
 		if(feature.hasVersionsAtDate(date)){
-			y = parentFigure.calculateVersionAreaBounds().height - theme.getVersionExtentY();
+			y += theme.getVersionExtentY()+lineWidth;
 		}
 
-		int height = theme.getFeatureNameAreaHeight()+theme.getLineWidth();
+		int height = theme.getFeatureNameAreaHeight()+lineWidth;
 		
 		
 		Rectangle layout = new Rectangle(new Point(0, y+ index*height), new Dimension(feature.getSize().width, height));
+		layout.shrink(new Insets(0, lineWidth*2, 0, lineWidth*2));
 		parent.setLayoutConstraint(this, figure, layout);	
 		
 		

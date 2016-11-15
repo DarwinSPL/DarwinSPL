@@ -31,8 +31,6 @@ public class HyVersionFigure extends Figure{
 
 		createChildFigures();
 		update();
-
-
 	}
 
 

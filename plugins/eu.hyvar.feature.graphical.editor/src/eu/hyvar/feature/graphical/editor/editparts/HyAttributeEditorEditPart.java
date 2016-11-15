@@ -16,12 +16,13 @@ import eu.hyvar.feature.HyFeature;
 import eu.hyvar.feature.HyFeatureAttribute;
 import eu.hyvar.feature.graphical.base.editor.GraphicalFeatureModelEditor;
 import eu.hyvar.feature.graphical.base.editparts.HyAttributeEditPart;
+import eu.hyvar.feature.graphical.base.editparts.HyFeatureEditPart;
 import eu.hyvar.feature.graphical.base.figures.HyAttributeFigure;
 import eu.hyvar.feature.graphical.base.model.HyFeatureModelWrapped;
 import eu.hyvar.feature.graphical.editor.locators.HyAttributeCellEditorLocator;
 import eu.hyvar.feature.graphical.editor.managers.HyAttributeDirectEditManager;
-import eu.hyvar.feature.graphical.editor.policies.HyAttributeComponentPolicy;
-import eu.hyvar.feature.graphical.editor.policies.HyAttributeDirectEditPolicy;
+import eu.hyvar.feature.graphical.editor.policies.attribute.HyAttributeComponentPolicy;
+import eu.hyvar.feature.graphical.editor.policies.attribute.HyAttributeDirectEditPolicy;
 
 public class HyAttributeEditorEditPart extends HyAttributeEditPart {
 	private HyAttributeAdapter adapter;
@@ -38,7 +39,7 @@ public class HyAttributeEditorEditPart extends HyAttributeEditPart {
 		public void notifyChanged(Notification notification) {
 			
 			if(!(notification.getEventType() == Notification.SET && notification.getPosition() == -1)){
-				((HyFeatureEditorEditPart)getParent()).propertyChange(new PropertyChangeEvent(this, "AttributeSizeChanged", figure.getBounds(), new Rectangle(0, 0, 0, 0)));
+				((HyFeatureEditPart)getParent()).propertyChange(new PropertyChangeEvent(this, "AttributeSizeChanged", figure.getBounds(), new Rectangle(0, 0, 0, 0)));
 				refreshVisuals();
 				
 				featureModel.rearrangeFeatures();
@@ -89,6 +90,7 @@ public class HyAttributeEditorEditPart extends HyAttributeEditPart {
 	 * This method is used to enable direct name editing in the feature
 	 */
 	@Override public void performRequest(Request req) {
+		super.performRequest(req);
 		if(req.getType() == RequestConstants.REQ_OPEN){
 			performDirectEditing();
 		}

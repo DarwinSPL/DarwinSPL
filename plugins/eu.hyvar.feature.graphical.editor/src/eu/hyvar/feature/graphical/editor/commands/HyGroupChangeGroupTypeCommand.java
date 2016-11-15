@@ -10,7 +10,7 @@ import eu.hyvar.feature.HyGroup;
 import eu.hyvar.feature.HyGroupType;
 import eu.hyvar.feature.HyGroupTypeEnum;
 import eu.hyvar.feature.graphical.base.editor.GraphicalFeatureModelEditor;
-import eu.hyvar.feature.graphical.editor.util.HyGroupEditorUtil;
+import eu.hyvar.feature.graphical.editor.util.HyElementEditorUtil;
 
 public class HyGroupChangeGroupTypeCommand extends HyLinearTemporalElementCommand{
 	private HyGroup group;
@@ -66,6 +66,6 @@ public class HyGroupChangeGroupTypeCommand extends HyLinearTemporalElementComman
 
 		group.getTypes().add(newType);
 		
-		HyGroupEditorUtil.cleanGroupTypes(group);
+		HyElementEditorUtil.cleanGroupTypes(group);
 	}
 }
