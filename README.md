@@ -4,6 +4,7 @@ DarwinSPL is a software project to model evolving context-aware software product
 It strongly depends on DeltaEcore (www.deltaecore.org) which is necessary to run DarwinSPL.
 
 Prerequisites:
+- Eclipse (e.g. Eclipse for Java and DSL Developers); Probably not fully working with Neon. So Mars is recommended
 - EMFText Nightly
 - DeltaEcore
 
