@@ -17,7 +17,7 @@ import eu.hyvar.dataValues.HyEnum;
 import eu.hyvar.dataValues.HyEnumLiteral;
 import eu.hyvar.feature.HyFeature;
 import eu.hyvar.feature.HyFeatureModel;
-import eu.hyvar.feature.graphical.base.editor.GraphicalFeatureModelEditor;
+import eu.hyvar.feature.graphical.base.editor.HyGraphicalFeatureModelViewer;
 import eu.hyvar.feature.graphical.base.figures.HyEnumFigure;
 import eu.hyvar.feature.graphical.base.model.HyFeatureModelWrapped;
 import eu.hyvar.feature.graphical.base.util.HyEnumEditorUtil;
@@ -49,7 +49,7 @@ public class HyEnumEditPart  extends HyAbstractEditPart{
 
 	private HyEnumAdapter adapter = new HyEnumAdapter();
 
-	public HyEnumEditPart(GraphicalFeatureModelEditor editor, HyFeatureModelWrapped featureModel) {
+	public HyEnumEditPart(HyGraphicalFeatureModelViewer editor, HyFeatureModelWrapped featureModel) {
 		super(editor, featureModel);
 	}
 

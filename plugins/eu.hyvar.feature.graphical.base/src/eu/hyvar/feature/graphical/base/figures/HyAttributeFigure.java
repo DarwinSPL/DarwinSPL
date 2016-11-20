@@ -16,7 +16,7 @@ import eu.hyvar.feature.HyEnumAttribute;
 import eu.hyvar.feature.HyFeatureAttribute;
 import eu.hyvar.feature.HyNumberAttribute;
 import eu.hyvar.feature.HyStringAttribute;
-import eu.hyvar.feature.graphical.base.editor.GraphicalFeatureModelEditor;
+import eu.hyvar.feature.graphical.base.editor.HyGraphicalFeatureModelViewer;
 
 public class HyAttributeFigure extends Figure{
 	private HyFeatureAttribute attribute;
@@ -24,7 +24,7 @@ public class HyAttributeFigure extends Figure{
 	private Label typeLabel;
 	private Label valueLabel;
 	
-	public HyAttributeFigure(GraphicalFeatureModelEditor editor, HyFeatureAttribute attribute) {
+	public HyAttributeFigure(HyGraphicalFeatureModelViewer editor, HyFeatureAttribute attribute) {
 		setLayoutManager(new XYLayout());
 		
 		this.attribute = attribute;

@@ -7,13 +7,13 @@ import org.eclipse.gef.requests.GroupRequest;
 import eu.hyvar.feature.HyVersion;
 import eu.hyvar.feature.graphical.base.model.HyFeatureModelWrapped;
 import eu.hyvar.feature.graphical.editor.commands.version.HyVersionEvolutionDeleteCommand;
-import eu.hyvar.feature.graphical.editor.editor.GraphicalEvolutionFeatureModelEditor;
+import eu.hyvar.feature.graphical.editor.editor.HyGraphicalFeatureModelEditor;
 
 public class HyVersionComponentPolicy extends ComponentEditPolicy {
-	private GraphicalEvolutionFeatureModelEditor editor;
+	private HyGraphicalFeatureModelEditor editor;
 	protected HyFeatureModelWrapped featureModel;
 
-	public HyVersionComponentPolicy(GraphicalEvolutionFeatureModelEditor editor, HyFeatureModelWrapped featureModel) {
+	public HyVersionComponentPolicy(HyGraphicalFeatureModelEditor editor, HyFeatureModelWrapped featureModel) {
 		this.featureModel = featureModel;
 		this.editor = editor;
 	}

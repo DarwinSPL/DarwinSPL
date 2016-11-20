@@ -5,15 +5,15 @@ import org.eclipse.gef.editpolicies.ComponentEditPolicy;
 import org.eclipse.gef.requests.GroupRequest;
 
 import eu.hyvar.feature.HyFeatureAttribute;
-import eu.hyvar.feature.graphical.base.editor.GraphicalFeatureModelEditor;
+import eu.hyvar.feature.graphical.base.editor.HyGraphicalFeatureModelViewer;
 import eu.hyvar.feature.graphical.base.model.HyFeatureModelWrapped;
 import eu.hyvar.feature.graphical.editor.commands.attribute.HyAttributeDeleteCommand;
 
 public class HyAttributeComponentPolicy extends ComponentEditPolicy {
-	private GraphicalFeatureModelEditor editor;
+	private HyGraphicalFeatureModelViewer editor;
 	protected HyFeatureModelWrapped featureModel;
 	
-	public HyAttributeComponentPolicy(HyFeatureModelWrapped featureModel, GraphicalFeatureModelEditor editor) {
+	public HyAttributeComponentPolicy(HyFeatureModelWrapped featureModel, HyGraphicalFeatureModelViewer editor) {
 		this.featureModel = featureModel;
 		this.editor = editor;
 	}

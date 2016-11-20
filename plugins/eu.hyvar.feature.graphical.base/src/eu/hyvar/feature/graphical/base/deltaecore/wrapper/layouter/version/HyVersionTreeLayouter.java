@@ -14,7 +14,11 @@ import org.deltaecore.feature.graphical.base.util.DEGraphicalEditorTheme;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
 
+import eu.hyvar.evolution.HyEvolutionUtil;
 import eu.hyvar.feature.HyFeature;
+import eu.hyvar.feature.HyGroupComposition;
+import eu.hyvar.feature.HyGroupType;
+import eu.hyvar.feature.HyGroupTypeEnum;
 import eu.hyvar.feature.HyVersion;
 
 /**
@@ -28,22 +32,33 @@ import eu.hyvar.feature.HyVersion;
  */
 public class HyVersionTreeLayouter {
 	private TreeLayout<HyVersion> treeLayout;
+	private HyFeature feature;
+	private Date date;
 	
-	private static final int offsetX = calculateOffsetX();
-	private static final int offsetY = calculateOffsetY();
+	//private static final int offsetX = calculateOffsetX();
+	//private static final int offsetY = calculateOffsetY();
 	
-	private static int calculateOffsetX() {
+	private int calculateOffsetX() {
 		DEGraphicalEditorTheme theme = DEGraphicalEditor.getTheme();
 		return theme.getPrimaryMargin();
 	}
 	
-	private static int calculateOffsetY() {
+	private int calculateOffsetY() {
+		HyGroupComposition composition = HyEvolutionUtil.getValidTemporalElement(feature.getGroupMembership(), date);
+		
+		boolean hasModifier = false;
+		if(composition != null){
+			HyGroupType type = HyEvolutionUtil.getValidTemporalElement(composition.getCompositionOf().getTypes(), date);
+			hasModifier = (type.getType() == HyGroupTypeEnum.AND);
+		}
+		
+		
 		DEGraphicalEditorTheme theme = DEGraphicalEditor.getTheme();
-		return theme.getFeatureVariationTypeExtent() + theme.getFeatureNameAreaHeight() + theme.getPrimaryMargin();
+		return (hasModifier ? theme.getFeatureVariationTypeExtent() : 0) + theme.getFeatureNameAreaHeight() + theme.getPrimaryMargin();
 	}
 	
 	
-	
+	/*
 	public static int getOffsetX() {
 		return offsetX;
 	}
@@ -51,8 +66,12 @@ public class HyVersionTreeLayouter {
 	public static int getOffsetY() {
 		return offsetY;
 	}
+	*/
 
 	public HyVersionTreeLayouter(HyFeature feature, Date date) {
+		this.feature = feature;
+		this.date = date;
+		
 		DEGraphicalEditorTheme theme = DEGraphicalEditor.getTheme();
 		HyVersion initialVersion = HyVersionUtil.getRootVersion(feature, date);
 		
@@ -86,8 +105,8 @@ public class HyVersionTreeLayouter {
 	private Rectangle2D.Double adjustNodeBounds(Rectangle2D.Double nodeBounds, HyVersion version) {
 		Rectangle2D.Double adjustedNodeBounds = (Rectangle2D.Double) nodeBounds.clone();
 		
-		adjustedNodeBounds.x += offsetX;
-		adjustedNodeBounds.y += offsetY;
+		adjustedNodeBounds.x += calculateOffsetX();
+		adjustedNodeBounds.y += calculateOffsetY();
 		
 	
 		return adjustedNodeBounds;

@@ -10,18 +10,18 @@ import eu.hyvar.feature.HyFeature;
 import eu.hyvar.feature.HyFeatureFactory;
 import eu.hyvar.feature.HyFeatureType;
 import eu.hyvar.feature.HyFeatureTypeEnum;
-import eu.hyvar.feature.graphical.base.editor.GraphicalFeatureModelEditor;
+import eu.hyvar.feature.graphical.base.editor.HyGraphicalFeatureModelViewer;
 
 public class HyFeatureChangeTypeCommand extends Command{
 	private HyFeature feature;
 	private HyFeatureTypeEnum newGroupTypeEnum;
-	private GraphicalFeatureModelEditor editor;
+	private HyGraphicalFeatureModelViewer editor;
 	
 	HyFeatureType newType;
 	HyFeatureType oldType;
 	HyFeatureType changedType;
 	
-	public HyFeatureChangeTypeCommand(HyFeature feature, HyFeatureTypeEnum newFeatureTypeEnum, GraphicalFeatureModelEditor editor){
+	public HyFeatureChangeTypeCommand(HyFeature feature, HyFeatureTypeEnum newFeatureTypeEnum, HyGraphicalFeatureModelViewer editor){
 		this.feature = feature;
 		this.newGroupTypeEnum = newFeatureTypeEnum;
 		this.editor = editor;

@@ -1,11 +1,26 @@
 package eu.hyvar.feature.graphical.base.figures;
 
-import eu.hyvar.feature.graphical.base.editor.GraphicalFeatureModelEditor;
+import org.deltaecore.feature.graphical.base.editor.DEGraphicalEditor;
+import org.deltaecore.feature.graphical.base.util.DEGraphicalEditorTheme;
+import org.eclipse.draw2d.geometry.Rectangle;
+
+import eu.hyvar.feature.graphical.base.editor.HyGraphicalFeatureModelViewer;
 import eu.hyvar.feature.graphical.base.model.HyFeatureWrapped;
 
 public class HyRootFeatureFigure extends HyFeatureFigure{
 
-	public HyRootFeatureFigure(GraphicalFeatureModelEditor editor, HyFeatureWrapped feature) {
+	public HyRootFeatureFigure(HyGraphicalFeatureModelViewer editor, HyFeatureWrapped feature) {
 		super(editor, feature);
+	}
+	
+	public Rectangle calculateVariationTypeCircleBounds() {
+		DEGraphicalEditorTheme theme = DEGraphicalEditor.getTheme();
+
+		Rectangle bounds = getBounds();
+
+		int x = bounds.x + (bounds.width - theme.getFeatureVariationTypeExtent()) / 2;
+		int y = bounds.y;
+
+		return new Rectangle(x, y, 0, 0);
 	}
 }

@@ -10,12 +10,12 @@ import org.eclipse.draw2d.geometry.Insets;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
 
-import eu.hyvar.feature.graphical.base.editor.GraphicalFeatureModelEditor;
+import eu.hyvar.feature.graphical.base.editor.HyGraphicalFeatureModelViewer;
 
 public class HyEnumFigure extends HyAbstractFigure{
 	private Label label;
 
-	public HyEnumFigure(GraphicalFeatureModelEditor editor) {
+	public HyEnumFigure(HyGraphicalFeatureModelViewer editor) {
 		super(editor);
 
 		createChildFigures();

@@ -7,11 +7,11 @@ import org.eclipse.gef.commands.Command;
 import org.eclipse.jface.viewers.StructuredSelection;
 
 import eu.hyvar.feature.HyNumberAttribute;
-import eu.hyvar.feature.graphical.base.editor.GraphicalFeatureModelEditor;
+import eu.hyvar.feature.graphical.base.editor.HyGraphicalFeatureModelViewer;
 import eu.hyvar.feature.graphical.base.editparts.HyAttributeEditPart;
 import eu.hyvar.feature.graphical.editor.actions.HyCommandAction;
 import eu.hyvar.feature.graphical.editor.commands.attribute.HyNumberAttributeSetNumberRangeCommand;
-import eu.hyvar.feature.graphical.editor.editor.GraphicalEvolutionFeatureModelEditor;
+import eu.hyvar.feature.graphical.editor.editor.HyGraphicalFeatureModelEditor;
 import eu.hyvar.feature.graphical.editor.editparts.HyAttributeEditorEditPart;
 
 public class HyNumberAttributeSetNumberRangeAction  extends HyCommandAction{
@@ -20,7 +20,7 @@ public class HyNumberAttributeSetNumberRangeAction  extends HyCommandAction{
 
 	Request request;
 
-	public HyNumberAttributeSetNumberRangeAction(GraphicalFeatureModelEditor editor){
+	public HyNumberAttributeSetNumberRangeAction(HyGraphicalFeatureModelViewer editor){
 		super(editor);
 
 		setId(ATTRIBUTE_EDIT_MIN_AND_MAX);
@@ -51,7 +51,7 @@ public class HyNumberAttributeSetNumberRangeAction  extends HyCommandAction{
 	protected Command createCommand(Object acceptedModel) {
 		StructuredSelection selection = (StructuredSelection)this.getSelection();
 		
-		GraphicalEvolutionFeatureModelEditor editor = (GraphicalEvolutionFeatureModelEditor)this.getWorkbenchPart();
+		HyGraphicalFeatureModelEditor editor = (HyGraphicalFeatureModelEditor)this.getWorkbenchPart();
 		
 		HyAttributeEditorEditPart editPart = (HyAttributeEditorEditPart)selection.getFirstElement();
 		HyNumberAttributeSetNumberRangeCommand command = new HyNumberAttributeSetNumberRangeCommand((HyNumberAttribute)editPart.getModel(), editor);

@@ -6,7 +6,7 @@ import eu.hyvar.evolution.HyEvolutionFactory;
 import eu.hyvar.evolution.HyName;
 import eu.hyvar.feature.HyFeatureAttribute;
 import eu.hyvar.feature.HyFeatureFactory;
-import eu.hyvar.feature.graphical.editor.editor.GraphicalEvolutionFeatureModelEditor;
+import eu.hyvar.feature.graphical.editor.editor.HyGraphicalFeatureModelEditor;
 
 public class HyAttributeCreateStringAction extends HyAttributeCreateAction{
 	
@@ -14,7 +14,7 @@ public class HyAttributeCreateStringAction extends HyAttributeCreateAction{
 	public static final String REQ_FEATURE_ADD_STRING_ATTRIBUTE = "AddFeatureStringAttribute";
 	
 
-	public HyAttributeCreateStringAction(GraphicalEvolutionFeatureModelEditor editor) {
+	public HyAttributeCreateStringAction(HyGraphicalFeatureModelEditor editor) {
 		super(editor);
 
 		setId(FEATURE_ADD_STRING_ATTRIBUTE);

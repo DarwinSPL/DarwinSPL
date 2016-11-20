@@ -8,14 +8,14 @@ import eu.hyvar.feature.HyFeatureAttribute;
 import eu.hyvar.feature.graphical.base.editparts.HyAttributeEditPart;
 import eu.hyvar.feature.graphical.base.figures.HyAttributeFigure;
 import eu.hyvar.feature.graphical.editor.commands.attribute.HyAttributeRenameCommand;
-import eu.hyvar.feature.graphical.editor.editor.GraphicalEvolutionFeatureModelEditor;
+import eu.hyvar.feature.graphical.editor.editor.HyGraphicalFeatureModelEditor;
 
 public class HyAttributeDirectEditPolicy extends DirectEditPolicy {
 
 	@Override
 	protected Command getDirectEditCommand(DirectEditRequest request) {
 		HyAttributeEditPart editPart = (HyAttributeEditPart)getHost();
-		HyAttributeRenameCommand command = new HyAttributeRenameCommand((HyFeatureAttribute)editPart.getModel(), (GraphicalEvolutionFeatureModelEditor)editPart.getEditor());
+		HyAttributeRenameCommand command = new HyAttributeRenameCommand((HyFeatureAttribute)editPart.getModel(), (HyGraphicalFeatureModelEditor)editPart.getEditor());
 		command.setNewName((String)request.getCellEditor().getValue());
 		
 		return command;

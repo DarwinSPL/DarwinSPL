@@ -19,12 +19,12 @@ import org.eclipse.swt.widgets.Composite;
 import eu.hyvar.feature.HyFeatureModel;
 import eu.hyvar.feature.configuration.HyConfiguration;
 import eu.hyvar.feature.configuration.HyConfigurationFactory;
-import eu.hyvar.feature.graphical.base.editor.GraphicalFeatureModelEditor;
+import eu.hyvar.feature.graphical.base.editor.HyGraphicalFeatureModelViewer;
 import eu.hyvar.feature.graphical.configurator.composites.HySelectedConfigurationComposite;
 import eu.hyvar.feature.graphical.configurator.factory.HyConfiguratorEditPartFactory;
 import eu.hyvar.feature.graphical.configurator.output.IHyConfigurationDerivation;
 
-public class HyFeatureModelDeltaModuleConfiguratorEditor extends GraphicalFeatureModelEditor implements IHyConfigurationDerivation{
+public class HyFeatureModelDeltaModuleConfiguratorEditor extends HyGraphicalFeatureModelViewer implements IHyConfigurationDerivation{
 	private Button validateButton;
 	private Button numberOfPossibleConfigurationsButton;
 	private HySelectedConfigurationComposite selectedConfigurationComposite;

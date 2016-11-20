@@ -3,7 +3,7 @@ package eu.hyvar.feature.graphical.editor.actions.group;
 import org.eclipse.gef.Request;
 
 import eu.hyvar.feature.HyGroupTypeEnum;
-import eu.hyvar.feature.graphical.base.editor.GraphicalFeatureModelEditor;
+import eu.hyvar.feature.graphical.base.editor.HyGraphicalFeatureModelViewer;
 
 public class HyGroupChangeGroupTypeToAndTypeAction extends HyGroupChangeGroupTypeAction {
 	public static final String CHANGE_GROUP_TYPE_TO_AND = "ChangeGroupTypeToAnd";
@@ -11,7 +11,7 @@ public class HyGroupChangeGroupTypeToAndTypeAction extends HyGroupChangeGroupTyp
 
 
 	
-	public HyGroupChangeGroupTypeToAndTypeAction(GraphicalFeatureModelEditor editor) {
+	public HyGroupChangeGroupTypeToAndTypeAction(HyGraphicalFeatureModelViewer editor) {
 		super(editor);
 		
 		setId(CHANGE_GROUP_TYPE_TO_AND);

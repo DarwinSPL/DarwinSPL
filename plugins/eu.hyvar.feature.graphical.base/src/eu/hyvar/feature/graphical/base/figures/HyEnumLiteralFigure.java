@@ -9,12 +9,12 @@ import org.eclipse.draw2d.XYLayout;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
 
-import eu.hyvar.feature.graphical.base.editor.GraphicalFeatureModelEditor;
+import eu.hyvar.feature.graphical.base.editor.HyGraphicalFeatureModelViewer;
 
 public class HyEnumLiteralFigure extends Figure{
 	private Label label;
 	
-	public HyEnumLiteralFigure(GraphicalFeatureModelEditor editor) {
+	public HyEnumLiteralFigure(HyGraphicalFeatureModelViewer editor) {
 		setLayoutManager(new XYLayout());
 		
 		createChildFigures();

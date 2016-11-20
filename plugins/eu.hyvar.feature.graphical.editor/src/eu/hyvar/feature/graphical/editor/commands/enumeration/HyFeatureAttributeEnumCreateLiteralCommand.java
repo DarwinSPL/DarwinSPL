@@ -7,14 +7,14 @@ import org.eclipse.gef.commands.Command;
 import eu.hyvar.dataValues.HyDataValuesFactory;
 import eu.hyvar.dataValues.HyEnum;
 import eu.hyvar.dataValues.HyEnumLiteral;
-import eu.hyvar.feature.graphical.base.editor.GraphicalFeatureModelEditor;
+import eu.hyvar.feature.graphical.base.editor.HyGraphicalFeatureModelViewer;
 
 public class HyFeatureAttributeEnumCreateLiteralCommand extends Command {
-	private GraphicalFeatureModelEditor editor;
+	private HyGraphicalFeatureModelViewer editor;
 	private HyEnum featureEnum;
 	private HyEnumLiteral literal;
 	
-	public HyFeatureAttributeEnumCreateLiteralCommand(HyEnum featureEnum, GraphicalFeatureModelEditor editor){
+	public HyFeatureAttributeEnumCreateLiteralCommand(HyEnum featureEnum, HyGraphicalFeatureModelViewer editor){
 		this.editor = editor;
 		this.featureEnum = featureEnum;
 	}

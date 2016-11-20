@@ -11,13 +11,13 @@ import eu.hyvar.feature.HyGroup;
 import eu.hyvar.feature.HyGroupComposition;
 import eu.hyvar.feature.graphical.base.model.HyFeatureModelWrapped;
 import eu.hyvar.feature.graphical.base.model.HyFeatureWrapped;
-import eu.hyvar.feature.graphical.editor.editor.GraphicalEvolutionFeatureModelEditor;
+import eu.hyvar.feature.graphical.editor.editor.HyGraphicalFeatureModelEditor;
 
 public class FeatureConnectionChangeCommand extends Command {
 	protected HyFeatureModelWrapped featureModel;
 	
-	protected GraphicalEvolutionFeatureModelEditor editor;
-	public FeatureConnectionChangeCommand(GraphicalEvolutionFeatureModelEditor editor){
+	protected HyGraphicalFeatureModelEditor editor;
+	public FeatureConnectionChangeCommand(HyGraphicalFeatureModelEditor editor){
 		this.editor = editor;
 	}
 
@@ -30,10 +30,7 @@ public class FeatureConnectionChangeCommand extends Command {
 	}
 
 	protected HyGroupComposition splitComposition(HyGroupComposition composition, HyFeatureWrapped feature){
-
-
 		Date date = featureModel.getSelectedDate();
-
 
 		HyGroup group = composition.getCompositionOf();
 
@@ -45,6 +42,8 @@ public class FeatureConnectionChangeCommand extends Command {
 		
 
 		// update validation of old composition (until) and new composition (since) selected date
+		
+
 		composition.setValidUntil(date);
 		newComposition.setValidSince(date);
 

@@ -4,17 +4,17 @@ package eu.hyvar.feature.graphical.editor.commands.attribute;
 import org.eclipse.gef.commands.Command;
 
 import eu.hyvar.feature.HyNumberAttribute;
-import eu.hyvar.feature.graphical.base.editor.GraphicalFeatureModelEditor;
+import eu.hyvar.feature.graphical.base.editor.HyGraphicalFeatureModelViewer;
 import eu.hyvar.feature.graphical.editor.dialogs.HyNumberAttributeRangeDialog;
 
 public class HyNumberAttributeSetNumberRangeCommand  extends Command {
 	private HyNumberAttribute attribute;
-	private GraphicalFeatureModelEditor editor;
+	private HyGraphicalFeatureModelViewer editor;
 	
 	private int oldMinimum;
 	private int oldMaximum;
 	
-	public HyNumberAttributeSetNumberRangeCommand(HyNumberAttribute attribute, GraphicalFeatureModelEditor editor){
+	public HyNumberAttributeSetNumberRangeCommand(HyNumberAttribute attribute, HyGraphicalFeatureModelViewer editor){
 		this.attribute = attribute;
 		this.editor = editor;
 	}

@@ -13,7 +13,7 @@ import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.PlatformUI;
 
 import eu.hyvar.feature.expression.extensionpoints.IFeatureModelEditor;
-import eu.hyvar.feature.graphical.base.editor.GraphicalFeatureModelEditor;
+import eu.hyvar.feature.graphical.base.editor.HyGraphicalFeatureModelViewer;
 
 public class ActiveFeatureModelEditorSolver implements IFeatureModelEditor, GraphicalFeatureModelEditorFoundListener {
 	EObject editorObj;
@@ -43,8 +43,8 @@ public class ActiveFeatureModelEditorSolver implements IFeatureModelEditor, Grap
     			IEditorPart editor = reference.getEditor(true);
 
     			
-    			if(editor instanceof GraphicalFeatureModelEditor){
-    				EObject obj = ((GraphicalFeatureModelEditor)editor).getInternalFeatureModel();
+    			if(editor instanceof HyGraphicalFeatureModelViewer){
+    				EObject obj = ((HyGraphicalFeatureModelViewer)editor).getInternalFeatureModel();
     				for(GraphicalFeatureModelEditorFoundListener l : listeners)
     					l.found(obj);
     			}

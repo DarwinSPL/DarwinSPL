@@ -13,14 +13,11 @@ public class HyFeatureXYLayoutPolicy extends XYLayoutEditPolicy{
 
 	@Override
 	protected Command getCreateCommand(CreateRequest request) {
-		System.out.println("Add children to me");
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	protected Command getMoveChildrenCommand(Request request) {
-		System.out.println("Move Children");
 		return null; 
 	}
 

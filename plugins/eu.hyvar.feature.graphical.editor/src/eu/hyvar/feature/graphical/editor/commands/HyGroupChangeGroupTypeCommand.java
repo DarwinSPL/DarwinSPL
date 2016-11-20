@@ -9,19 +9,19 @@ import eu.hyvar.feature.HyFeatureFactory;
 import eu.hyvar.feature.HyGroup;
 import eu.hyvar.feature.HyGroupType;
 import eu.hyvar.feature.HyGroupTypeEnum;
-import eu.hyvar.feature.graphical.base.editor.GraphicalFeatureModelEditor;
+import eu.hyvar.feature.graphical.base.editor.HyGraphicalFeatureModelViewer;
 import eu.hyvar.feature.graphical.editor.util.HyElementEditorUtil;
 
 public class HyGroupChangeGroupTypeCommand extends HyLinearTemporalElementCommand{
 	private HyGroup group;
 	private HyGroupTypeEnum newGroupTypeEnum;
-	private GraphicalFeatureModelEditor editor;
+	private HyGraphicalFeatureModelViewer editor;
 	
 	HyGroupType newType;
 	HyGroupType oldType;
 	HyGroupType changedType;
 	
-	public HyGroupChangeGroupTypeCommand(HyGroup group, HyGroupTypeEnum newGroupTypeEnum, GraphicalFeatureModelEditor editor){
+	public HyGroupChangeGroupTypeCommand(HyGroup group, HyGroupTypeEnum newGroupTypeEnum, HyGraphicalFeatureModelViewer editor){
 		this.group = group;
 		this.newGroupTypeEnum = newGroupTypeEnum;
 		this.editor = editor;
@@ -62,9 +62,13 @@ public class HyGroupChangeGroupTypeCommand extends HyLinearTemporalElementComman
 			date = null;
 		
 		changeVisibilities(type, newType, date);
+
 		
 
 		group.getTypes().add(newType);
+		if(date == null){
+			group.getTypes().remove(type);
+		}
 		
 		HyElementEditorUtil.cleanGroupTypes(group);
 	}

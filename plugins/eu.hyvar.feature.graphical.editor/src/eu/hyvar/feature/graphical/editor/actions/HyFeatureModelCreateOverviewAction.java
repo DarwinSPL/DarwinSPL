@@ -4,7 +4,7 @@ import org.eclipse.gef.Request;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.ui.actions.RetargetAction;
 
-import eu.hyvar.feature.graphical.base.editor.GraphicalFeatureModelEditor;
+import eu.hyvar.feature.graphical.base.editor.HyGraphicalFeatureModelViewer;
 import eu.hyvar.feature.graphical.editor.template.HyFeatureModelOverviewGenerator;
 
 
@@ -25,7 +25,7 @@ public class HyFeatureModelCreateOverviewAction extends RetargetAction{
 
 	@Override
 	public void runWithEvent(Event event) {
-		if(this.getActivePart() instanceof GraphicalFeatureModelEditor){
+		if(this.getActivePart() instanceof HyGraphicalFeatureModelViewer){
 
 			HyFeatureModelOverviewGenerator generator = new HyFeatureModelOverviewGenerator();
 

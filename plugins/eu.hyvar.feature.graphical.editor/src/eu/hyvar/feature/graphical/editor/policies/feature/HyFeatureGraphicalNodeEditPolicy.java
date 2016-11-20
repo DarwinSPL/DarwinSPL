@@ -9,6 +9,7 @@ import org.eclipse.gef.requests.CreateConnectionRequest;
 import org.eclipse.gef.requests.DropRequest;
 import org.eclipse.gef.requests.ReconnectRequest;
 
+import eu.hyvar.feature.graphical.base.editor.HyGraphicalFeatureModelViewer;
 import eu.hyvar.feature.graphical.base.editparts.HyFeatureEditPart;
 import eu.hyvar.feature.graphical.base.editparts.HyParentChildConnectionEditPart;
 import eu.hyvar.feature.graphical.base.model.HyFeatureModelWrapped;
@@ -19,13 +20,14 @@ import eu.hyvar.feature.graphical.editor.commands.HyParentChildConnectionCreateC
 import eu.hyvar.feature.graphical.editor.commands.HyParentChildConnectionReconnectCommand;
 
 public class HyFeatureGraphicalNodeEditPolicy extends GraphicalNodeEditPolicy{
-	
+	private HyGraphicalFeatureModelViewer viewer;
 	protected HyFeatureModelWrapped featureModel;
 	
 	protected HashSet<HyFeatureWrapped> highlightedFeatures;
 	
-	public HyFeatureGraphicalNodeEditPolicy(HyFeatureModelWrapped featureModel) {
+	public HyFeatureGraphicalNodeEditPolicy(HyGraphicalFeatureModelViewer viewer, HyFeatureModelWrapped featureModel) {
 		this.featureModel = featureModel;
+		this.viewer = viewer;
 	}
 
 	@Override
@@ -74,7 +76,7 @@ public class HyFeatureGraphicalNodeEditPolicy extends GraphicalNodeEditPolicy{
 		if(part instanceof HyFeatureEditPart){
 			HyFeatureModelWrapped featureModel = ((HyFeatureEditPart)getHost()).getFeatureModel();
 			
-			HyParentChildConnectionReconnectCommand command = new HyParentChildConnectionReconnectCommand();
+			HyParentChildConnectionReconnectCommand command = new HyParentChildConnectionReconnectCommand(viewer);
 			
 			HyParentChildConnection connection = (HyParentChildConnection)((HyParentChildConnectionEditPart)request.getConnectionEditPart()).getModel();
 			command.setConnection(connection);
@@ -97,7 +99,7 @@ public class HyFeatureGraphicalNodeEditPolicy extends GraphicalNodeEditPolicy{
 			HyParentChildConnection targetConnection = (HyParentChildConnection)part.getModel();
 			HyParentChildConnection connection = (HyParentChildConnection)((HyParentChildConnectionEditPart)request.getConnectionEditPart()).getModel();
 			
-			HyParentChildConnectionReconnectCommand command = new HyParentChildConnectionReconnectCommand();
+			HyParentChildConnectionReconnectCommand command = new HyParentChildConnectionReconnectCommand(viewer);
 			
 			command.setConnection(connection);
 			command.setSource(connection.getTarget());
@@ -117,7 +119,7 @@ public class HyFeatureGraphicalNodeEditPolicy extends GraphicalNodeEditPolicy{
 		if(part instanceof HyFeatureEditPart){
 			HyFeatureModelWrapped featureModel = ((HyFeatureEditPart)getHost()).getFeatureModel();
 			
-			HyParentChildConnectionReconnectCommand command = new HyParentChildConnectionReconnectCommand();
+			HyParentChildConnectionReconnectCommand command = new HyParentChildConnectionReconnectCommand(viewer);
 			
 			HyParentChildConnection connection = (HyParentChildConnection)((HyParentChildConnectionEditPart)request.getConnectionEditPart()).getModel();
 			command.setConnection(connection);
@@ -131,7 +133,7 @@ public class HyFeatureGraphicalNodeEditPolicy extends GraphicalNodeEditPolicy{
 		}else if(part instanceof HyParentChildConnectionEditPart){
 			HyParentChildConnection targetConnection = (HyParentChildConnection)part.getModel();
 			HyParentChildConnection connection = (HyParentChildConnection)((HyParentChildConnectionEditPart)request.getConnectionEditPart()).getModel();
-			HyParentChildConnectionReconnectCommand command = new HyParentChildConnectionReconnectCommand();
+			HyParentChildConnectionReconnectCommand command = new HyParentChildConnectionReconnectCommand(viewer);
 		
 			command.setConnection(connection);
 			command.setSource(connection.getSource());

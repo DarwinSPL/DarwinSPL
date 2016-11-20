@@ -5,17 +5,17 @@ import java.util.Date;
 import org.eclipse.gef.commands.Command;
 
 import eu.hyvar.feature.HyVersion;
-import eu.hyvar.feature.graphical.editor.editor.GraphicalEvolutionFeatureModelEditor;
+import eu.hyvar.feature.graphical.editor.editor.HyGraphicalFeatureModelEditor;
 
 public class HyVersionEvolutionDeleteCommand extends Command{
-	private GraphicalEvolutionFeatureModelEditor editor;
+	private HyGraphicalFeatureModelEditor editor;
 	private HyVersion version;
 	
-	public GraphicalEvolutionFeatureModelEditor getEditor() {
+	public HyGraphicalFeatureModelEditor getEditor() {
 		return editor;
 	}
 
-	public void setEditor(GraphicalEvolutionFeatureModelEditor editor) {
+	public void setEditor(HyGraphicalFeatureModelEditor editor) {
 		this.editor = editor;
 	}
 		
@@ -27,7 +27,7 @@ public class HyVersionEvolutionDeleteCommand extends Command{
 		this.version = version;
 	}
 
-	public HyVersionEvolutionDeleteCommand(GraphicalEvolutionFeatureModelEditor editor) {
+	public HyVersionEvolutionDeleteCommand(HyGraphicalFeatureModelEditor editor) {
 		this.editor = editor;
 	}
 	

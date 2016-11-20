@@ -5,7 +5,7 @@ import org.eclipse.ui.ISharedImages;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.actions.RetargetAction;
 
-import eu.hyvar.feature.graphical.base.editor.GraphicalFeatureModelEditor;
+import eu.hyvar.feature.graphical.base.editor.HyGraphicalFeatureModelViewer;
 
 public class HyFeatureModelSaveLayoutAction extends RetargetAction {
 	public static final String ID = "eu.hyvar.feature.graphical.editor.actions.savelayout";
@@ -30,7 +30,7 @@ public class HyFeatureModelSaveLayoutAction extends RetargetAction {
 
     @Override
 	public void runWithEvent(Event event) {
-        if(this.getActivePart() instanceof GraphicalFeatureModelEditor){
+        if(this.getActivePart() instanceof HyGraphicalFeatureModelViewer){
         	//GraphicalEvolutionFeatureModelEditor editor = (GraphicalEvolutionFeatureModelEditor)this.getActivePart();
         }
     }

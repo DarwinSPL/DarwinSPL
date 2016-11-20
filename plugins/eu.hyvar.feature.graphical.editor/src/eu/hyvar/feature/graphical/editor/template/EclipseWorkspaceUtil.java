@@ -16,7 +16,7 @@ import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.PlatformUI;
 
-import eu.hyvar.feature.graphical.base.editor.GraphicalFeatureModelEditor;
+import eu.hyvar.feature.graphical.base.editor.HyGraphicalFeatureModelViewer;
 
 public class EclipseWorkspaceUtil {
 	private static IPath getPathWithFilenameFromCurrentOpenEditorFile(){
@@ -24,7 +24,7 @@ public class EclipseWorkspaceUtil {
 		IWorkbenchWindow win = wb.getActiveWorkbenchWindow();
 		IWorkbenchPage page = win.getActivePage();
 		
-		GraphicalFeatureModelEditor editor = (GraphicalFeatureModelEditor)page.getActiveEditor();
+		HyGraphicalFeatureModelViewer editor = (HyGraphicalFeatureModelViewer)page.getActiveEditor();
 		return editor.getFile().getFullPath();
 	}
 	public static IPath getPathFromCurrentOpenEditorFile(){

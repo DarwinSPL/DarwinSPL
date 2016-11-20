@@ -61,7 +61,7 @@ import eu.hyvar.feature.graphical.base.model.HyFeatureModelWrapped;
 import eu.hyvar.feature.graphical.base.model.HyFeatureWrapped;
 
 
-public class GraphicalFeatureModelEditor extends GraphicalEditor implements IFeatureModelEditor{
+public class HyGraphicalFeatureModelViewer extends GraphicalEditor implements IFeatureModelEditor{
 	// UI components
 	Button currentDate;
 	Button addDate;
@@ -136,7 +136,7 @@ public class GraphicalFeatureModelEditor extends GraphicalEditor implements IFea
 		this.modelWrapped = modelWrapped;
 	}
 
-	public GraphicalFeatureModelEditor(){
+	public HyGraphicalFeatureModelViewer(){
 		setEditDomain(new DefaultEditDomain(this));	
 	}
 
@@ -152,13 +152,18 @@ public class GraphicalFeatureModelEditor extends GraphicalEditor implements IFea
 		if(resource == null) return;
 
 		try{
+			saveLayout();
+			
 			resource.save(null);
+	        file.touch(null);
 			getCommandStack().markSaveLocation();
 
-			saveLayout();
+			
 		}catch(IOException e){
 			e.printStackTrace();
 			resource = null;
+		}catch(CoreException e){
+			e.printStackTrace();
 		}
 	}
 

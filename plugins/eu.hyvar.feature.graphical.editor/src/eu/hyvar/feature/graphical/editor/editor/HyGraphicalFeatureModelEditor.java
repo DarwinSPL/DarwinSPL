@@ -36,7 +36,7 @@ import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.actions.ActionFactory;
 import org.eclipse.ui.part.FileEditorInput;
 
-import eu.hyvar.feature.graphical.base.editor.GraphicalFeatureModelEditor;
+import eu.hyvar.feature.graphical.base.editor.HyGraphicalFeatureModelViewer;
 import eu.hyvar.feature.graphical.editor.actions.HyLinearTemporalElementChangeValidityAction;
 import eu.hyvar.feature.graphical.editor.actions.attribute.HyAttributeCreateBooleanAction;
 import eu.hyvar.feature.graphical.editor.actions.attribute.HyAttributeCreateEnumAction;
@@ -57,7 +57,7 @@ import eu.hyvar.feature.graphical.editor.actions.version.HyVersionCreateVersionA
 import eu.hyvar.feature.graphical.editor.factory.HyFeatureModelEditorEditPartFactory;
 
 @SuppressWarnings("restriction")
-public class GraphicalEvolutionFeatureModelEditor extends GraphicalFeatureModelEditor{
+public class HyGraphicalFeatureModelEditor extends HyGraphicalFeatureModelViewer{
 	@Override
 	public void commandStackChanged(EventObject event) {
 		firePropertyChange(IEditorPart.PROP_DIRTY);

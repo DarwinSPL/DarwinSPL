@@ -7,15 +7,15 @@ import org.eclipse.gef.requests.DirectEditRequest;
 import eu.hyvar.feature.graphical.base.editparts.HyFeatureEditPart;
 import eu.hyvar.feature.graphical.base.figures.HyFeatureFigure;
 import eu.hyvar.feature.graphical.base.model.HyFeatureWrapped;
-import eu.hyvar.feature.graphical.editor.commands.feature.HyFeatureEvolutionRenameCommand;
-import eu.hyvar.feature.graphical.editor.editor.GraphicalEvolutionFeatureModelEditor;
+import eu.hyvar.feature.graphical.editor.commands.feature.HyFeatureRenameCommand;
+import eu.hyvar.feature.graphical.editor.editor.HyGraphicalFeatureModelEditor;
 
 public class HyFeatureDirectEditPolicy extends DirectEditPolicy {
 
 	@Override
 	protected Command getDirectEditCommand(DirectEditRequest request) {
 		HyFeatureEditPart editPart = (HyFeatureEditPart)getHost();
-		HyFeatureEvolutionRenameCommand command = new HyFeatureEvolutionRenameCommand((HyFeatureWrapped)editPart.getModel(), (GraphicalEvolutionFeatureModelEditor)editPart.getEditor());
+		HyFeatureRenameCommand command = new HyFeatureRenameCommand((HyFeatureWrapped)editPart.getModel(), (HyGraphicalFeatureModelEditor)editPart.getEditor());
 		command.setNewName((String)request.getCellEditor().getValue());
 		
 		return command;

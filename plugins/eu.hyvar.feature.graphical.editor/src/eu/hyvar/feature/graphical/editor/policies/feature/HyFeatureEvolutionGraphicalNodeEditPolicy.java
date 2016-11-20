@@ -4,19 +4,19 @@ import org.eclipse.gef.EditPart;
 import org.eclipse.gef.commands.Command;
 import org.eclipse.gef.requests.ReconnectRequest;
 
-import eu.hyvar.feature.graphical.base.editor.GraphicalFeatureModelEditor;
+import eu.hyvar.feature.graphical.base.editor.HyGraphicalFeatureModelViewer;
 import eu.hyvar.feature.graphical.base.editparts.HyFeatureEditPart;
 import eu.hyvar.feature.graphical.base.editparts.HyParentChildConnectionEditPart;
 import eu.hyvar.feature.graphical.base.model.HyFeatureModelWrapped;
 import eu.hyvar.feature.graphical.base.model.HyFeatureWrapped;
 import eu.hyvar.feature.graphical.base.model.HyGroupWrapped;
 import eu.hyvar.feature.graphical.base.model.HyParentChildConnection;
-import eu.hyvar.feature.graphical.editor.commands.HyParentChildConnectionEvolutionReconnectCommand;
+import eu.hyvar.feature.graphical.editor.commands.HyParentChildConnectionReconnectCommand;
 
 public class HyFeatureEvolutionGraphicalNodeEditPolicy extends HyFeatureGraphicalNodeEditPolicy {
-	private GraphicalFeatureModelEditor editor;
-	public HyFeatureEvolutionGraphicalNodeEditPolicy(HyFeatureModelWrapped featureModel, GraphicalFeatureModelEditor editor) {
-		super(featureModel);
+	private HyGraphicalFeatureModelViewer editor;
+	public HyFeatureEvolutionGraphicalNodeEditPolicy(HyFeatureModelWrapped featureModel, HyGraphicalFeatureModelViewer editor) {
+		super(editor, featureModel);
 		
 		this.editor = editor;
 	}
@@ -29,7 +29,7 @@ public class HyFeatureEvolutionGraphicalNodeEditPolicy extends HyFeatureGraphica
 		if(part instanceof HyFeatureEditPart){
 			HyFeatureModelWrapped featureModel = (HyFeatureModelWrapped)((HyFeatureEditPart)getHost()).getFeatureModel();
 			
-			HyParentChildConnectionEvolutionReconnectCommand command = new HyParentChildConnectionEvolutionReconnectCommand(editor);
+			HyParentChildConnectionReconnectCommand command = new HyParentChildConnectionReconnectCommand(editor);
 			
 			HyParentChildConnection connection = (HyParentChildConnection)((HyParentChildConnectionEditPart)request.getConnectionEditPart()).getModel();
 			command.setConnection(connection);
@@ -49,7 +49,7 @@ public class HyFeatureEvolutionGraphicalNodeEditPolicy extends HyFeatureGraphica
 			HyParentChildConnection targetConnection = (HyParentChildConnection)part.getModel();
 			HyParentChildConnection connection = (HyParentChildConnection)((HyParentChildConnectionEditPart)request.getConnectionEditPart()).getModel();
 			
-			HyParentChildConnectionEvolutionReconnectCommand command = new HyParentChildConnectionEvolutionReconnectCommand(editor);
+			HyParentChildConnectionReconnectCommand command = new HyParentChildConnectionReconnectCommand(editor);
 			
 			command.setConnection(connection);
 			command.setSource(connection.getTarget());
@@ -70,7 +70,7 @@ public class HyFeatureEvolutionGraphicalNodeEditPolicy extends HyFeatureGraphica
 		if(part instanceof HyFeatureEditPart){
 			HyFeatureModelWrapped featureModel = ((HyFeatureEditPart)getHost()).getFeatureModel();
 			
-			HyParentChildConnectionEvolutionReconnectCommand command = new HyParentChildConnectionEvolutionReconnectCommand(editor);
+			HyParentChildConnectionReconnectCommand command = new HyParentChildConnectionReconnectCommand(editor);
 			
 			HyParentChildConnection con = (HyParentChildConnection)((HyParentChildConnectionEditPart)request.getConnectionEditPart()).getModel();
 			//HyParentChildConnection connection = con.clone();
@@ -85,7 +85,7 @@ public class HyFeatureEvolutionGraphicalNodeEditPolicy extends HyFeatureGraphica
 		}else if(part instanceof HyParentChildConnectionEditPart){
 			HyParentChildConnection targetConnection = (HyParentChildConnection)part.getModel();
 			HyParentChildConnection connection = (HyParentChildConnection)((HyParentChildConnectionEditPart)request.getConnectionEditPart()).getModel();
-			HyParentChildConnectionEvolutionReconnectCommand command = new HyParentChildConnectionEvolutionReconnectCommand(editor);
+			HyParentChildConnectionReconnectCommand command = new HyParentChildConnectionReconnectCommand(editor);
 		
 			command.setConnection(connection);
 			command.setSource(connection.getSource());

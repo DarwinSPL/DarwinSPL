@@ -6,7 +6,7 @@ import eu.hyvar.evolution.HyEvolutionFactory;
 import eu.hyvar.evolution.HyEvolutionUtil;
 import eu.hyvar.evolution.HyName;
 import eu.hyvar.feature.HyFeatureAttribute;
-import eu.hyvar.feature.graphical.base.editor.GraphicalFeatureModelEditor;
+import eu.hyvar.feature.graphical.base.editor.HyGraphicalFeatureModelViewer;
 import eu.hyvar.feature.graphical.editor.commands.HyLinearTemporalElementCommand;
 import eu.hyvar.feature.graphical.editor.util.HyElementEditorUtil;
 
@@ -16,9 +16,9 @@ public class HyAttributeRenameCommand extends HyLinearTemporalElementCommand {
 	private Date changeDate;
 
 	private HyFeatureAttribute attribute;
-	private GraphicalFeatureModelEditor editor;
+	private HyGraphicalFeatureModelViewer editor;
 
-	public HyAttributeRenameCommand(HyFeatureAttribute attribute, GraphicalFeatureModelEditor editor){
+	public HyAttributeRenameCommand(HyFeatureAttribute attribute, HyGraphicalFeatureModelViewer editor){
 		this.attribute = attribute;
 		this.editor = editor;
 	}

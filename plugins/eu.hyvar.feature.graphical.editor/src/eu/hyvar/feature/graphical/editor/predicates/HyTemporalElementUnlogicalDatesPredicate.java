@@ -16,9 +16,7 @@ public class HyTemporalElementUnlogicalDatesPredicate<Object> implements Predica
 			   element.getValidSince().equals(element.getValidUntil())){
 				return true;
 			}
-			if(element.getValidUntil() != null)
-			System.out.println(element.getValidUntil().compareTo(new Date(Long.MIN_VALUE)));
-			
+
 			if(element.getValidUntil() != null && element.getValidUntil().equals(new Date(Long.MIN_VALUE))){
 				return true;
 			}

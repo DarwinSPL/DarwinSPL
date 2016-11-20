@@ -2,7 +2,7 @@ package eu.hyvar.feature.graphical.editor.actions.enumeration;
 
 import org.eclipse.gef.commands.Command;
 
-import eu.hyvar.feature.graphical.base.editor.GraphicalFeatureModelEditor;
+import eu.hyvar.feature.graphical.base.editor.HyGraphicalFeatureModelViewer;
 import eu.hyvar.feature.graphical.editor.actions.HyCommandAction;
 import eu.hyvar.feature.graphical.editor.commands.enumeration.HyFeatureAttributeEnumCreateEnumCommand;
 import eu.hyvar.feature.graphical.editor.editparts.HyFeatureModelEditorEditPart;
@@ -11,7 +11,7 @@ public class HyFeatureAttributeEnumCreateEnumAction extends HyCommandAction{
 	public static final String ATTRIBUTE_CREATE_ENUM = "CreateEnum";
 	public static final String REQ_ATTRIBUTE_CREATE_ENUM = "CreateEnum";
 	
-	public HyFeatureAttributeEnumCreateEnumAction(GraphicalFeatureModelEditor editor) {
+	public HyFeatureAttributeEnumCreateEnumAction(HyGraphicalFeatureModelViewer editor) {
 		super(editor);
 		
 		setId(REQ_ATTRIBUTE_CREATE_ENUM);

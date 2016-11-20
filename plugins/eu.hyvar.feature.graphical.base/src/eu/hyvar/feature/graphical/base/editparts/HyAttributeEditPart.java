@@ -13,15 +13,14 @@ import org.eclipse.draw2d.geometry.Rectangle;
 import eu.hyvar.evolution.HyEvolutionUtil;
 import eu.hyvar.evolution.HyName;
 import eu.hyvar.feature.HyFeatureAttribute;
-import eu.hyvar.feature.graphical.base.editor.GraphicalFeatureModelEditor;
+import eu.hyvar.feature.graphical.base.editor.HyGraphicalFeatureModelViewer;
 import eu.hyvar.feature.graphical.base.figures.HyAttributeFigure;
-import eu.hyvar.feature.graphical.base.figures.HyFeatureFigure;
 import eu.hyvar.feature.graphical.base.model.HyFeatureModelWrapped;
 import eu.hyvar.feature.graphical.base.model.HyFeatureWrapped;
 
 public class HyAttributeEditPart extends HyAbstractEditPart{
 
-	public HyAttributeEditPart(GraphicalFeatureModelEditor editor, HyFeatureModelWrapped featureModel) {
+	public HyAttributeEditPart(HyGraphicalFeatureModelViewer editor, HyFeatureModelWrapped featureModel) {
 		super(editor, featureModel);
 	}
 
@@ -41,7 +40,6 @@ public class HyAttributeEditPart extends HyAbstractEditPart{
 		
 		HyFeatureEditPart parent = (HyFeatureEditPart)getParent();
 		HyAttributeFigure figure = (HyAttributeFigure)getFigure();
-		HyFeatureFigure parentFigure = (HyFeatureFigure)figure.getParent();
 		HyFeatureWrapped feature = (HyFeatureWrapped)parent.getModel();
 		Date date = featureModel.getSelectedDate();
 		

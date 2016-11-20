@@ -6,7 +6,7 @@ import org.eclipse.gef.EditPolicy;
 import org.eclipse.gef.editpolicies.ConnectionEndpointEditPolicy;
 import org.eclipse.gef.editpolicies.SelectionEditPolicy;
 
-import eu.hyvar.feature.graphical.base.editor.GraphicalFeatureModelEditor;
+import eu.hyvar.feature.graphical.base.editor.HyGraphicalFeatureModelViewer;
 import eu.hyvar.feature.graphical.base.editparts.HyParentChildConnectionEditPart;
 import eu.hyvar.feature.graphical.base.figures.HyParentChildConnectionFigure;
 import eu.hyvar.feature.graphical.base.model.HyFeatureModelWrapped;
@@ -15,9 +15,9 @@ import eu.hyvar.feature.graphical.editor.policies.feature.HyFeatureEvolutionGrap
 import eu.hyvar.feature.graphical.editor.policies.feature.HyParentChildConnectionEditPolicy;
 
 public class HyParentChildConnectionEditorEditPart extends HyParentChildConnectionEditPart {
-	private GraphicalFeatureModelEditor editor;
+	private HyGraphicalFeatureModelViewer editor;
 	
-	public HyParentChildConnectionEditorEditPart(GraphicalFeatureModelEditor editor, HyFeatureModelWrapped featureModel){
+	public HyParentChildConnectionEditorEditPart(HyGraphicalFeatureModelViewer editor, HyFeatureModelWrapped featureModel){
 		super(editor, featureModel);
 		this.editor = editor;
 	}

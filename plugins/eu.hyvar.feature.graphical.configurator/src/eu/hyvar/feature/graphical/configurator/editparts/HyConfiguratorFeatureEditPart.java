@@ -5,7 +5,7 @@ import org.eclipse.gef.Request;
 import org.eclipse.gef.RequestConstants;
 
 import eu.hyvar.feature.configuration.HyConfiguration;
-import eu.hyvar.feature.graphical.base.editor.GraphicalFeatureModelEditor;
+import eu.hyvar.feature.graphical.base.editor.HyGraphicalFeatureModelViewer;
 import eu.hyvar.feature.graphical.base.editparts.HyFeatureEditPart;
 import eu.hyvar.feature.graphical.base.model.HyFeatureModelWrapped;
 import eu.hyvar.feature.graphical.base.model.HyFeatureWrapped;
@@ -16,7 +16,7 @@ import eu.hyvar.feature.graphical.configurator.util.HyConfiguratorEditorUtil;
 
 public class HyConfiguratorFeatureEditPart extends HyFeatureEditPart{
 
-	public HyConfiguratorFeatureEditPart(GraphicalFeatureModelEditor editor, HyFeatureModelWrapped featureModel) {
+	public HyConfiguratorFeatureEditPart(HyGraphicalFeatureModelViewer editor, HyFeatureModelWrapped featureModel) {
 		super(editor, featureModel);
 	}
 	

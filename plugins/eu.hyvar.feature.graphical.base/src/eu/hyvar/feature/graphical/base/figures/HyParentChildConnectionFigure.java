@@ -10,15 +10,15 @@ import org.eclipse.swt.graphics.Color;
 
 import eu.hyvar.feature.graphical.base.anchors.HyFeatureModelPositionAnchor;
 import eu.hyvar.feature.graphical.base.anchors.HyFeatureParentAnchor;
-import eu.hyvar.feature.graphical.base.editor.GraphicalFeatureModelEditor;
+import eu.hyvar.feature.graphical.base.editor.HyGraphicalFeatureModelViewer;
 
 public class HyParentChildConnectionFigure extends PolylineConnection {
 	Color color;
 	protected HyFeatureParentAnchor anchor;
 
-	private GraphicalFeatureModelEditor editor;
+	private HyGraphicalFeatureModelViewer editor;
 	
-	public HyParentChildConnectionFigure(GraphicalFeatureModelEditor editor){
+	public HyParentChildConnectionFigure(HyGraphicalFeatureModelViewer editor){
 		this.editor = editor;
 	}
 

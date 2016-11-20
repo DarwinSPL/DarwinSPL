@@ -8,7 +8,7 @@ import org.eclipse.gef.editpolicies.NonResizableEditPolicy;
 import java.beans.PropertyChangeEvent;
 
 import eu.hyvar.feature.HyGroup;
-import eu.hyvar.feature.graphical.base.editor.GraphicalFeatureModelEditor;
+import eu.hyvar.feature.graphical.base.editor.HyGraphicalFeatureModelViewer;
 import eu.hyvar.feature.graphical.base.editparts.HyGroupEditPart;
 import eu.hyvar.feature.graphical.base.model.HyFeatureModelWrapped;
 import eu.hyvar.feature.graphical.base.model.HyFeatureWrapped;
@@ -20,13 +20,15 @@ public class HyGroupEditorEditPart extends HyGroupEditPart {
 
 		@Override 
 		public void notifyChanged(Notification notification) {
-			HyGroupWrapped groupWrapped = (HyGroupWrapped)getModel();
-			for(HyFeatureWrapped featureWrapped : groupWrapped.getFeatures()){
-				// notify all children about the change
-				featureWrapped.getListeners().firePropertyChange(new PropertyChangeEvent(groupWrapped.getWrappedModelElement(), GROUP_MODEL_CHANGED, notification.getOldValue(), notification.getNewValue()));
+			if(notification.getEventType() != Notification.REMOVING_ADAPTER){
+				HyGroupWrapped groupWrapped = (HyGroupWrapped)getModel();
+				for(HyFeatureWrapped featureWrapped : groupWrapped.getFeatures()){
+					// notify all children about the change
+					featureWrapped.getListeners().firePropertyChange(new PropertyChangeEvent(groupWrapped.getWrappedModelElement(), GROUP_MODEL_CHANGED, notification.getOldValue(), notification.getNewValue()));
+				}
+				
+				refreshVisuals();
 			}
-			
-			refreshVisuals();
 		}
 
 		@Override 
@@ -46,7 +48,7 @@ public class HyGroupEditorEditPart extends HyGroupEditPart {
 	
 	HyGroupAdapter adapter = new HyGroupAdapter();
 	
-	public HyGroupEditorEditPart(GraphicalFeatureModelEditor editor, HyFeatureModelWrapped featureModel) {
+	public HyGroupEditorEditPart(HyGraphicalFeatureModelViewer editor, HyFeatureModelWrapped featureModel) {
 		super(editor, featureModel);
 	}
 	
