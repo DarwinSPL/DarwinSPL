@@ -1,9 +1,9 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
-Bundle-Name: HyVarRecIOConversionRestAPI
+Bundle-Name: DarwinSPL HyVarRecIOConversionRestAPI
 Bundle-SymbolicName: eu.hyvar.reconfigurator.io.rest;singleton:=true
 Bundle-Version: 1.0.0
-Bundle-Vendor: TUB
+Bundle-Vendor: www.darwinspl.de
 Bundle-RequiredExecutionEnvironment: JavaSE-1.7
 Require-Bundle: com.google.gson,
  org.eclipse.jetty.server,
