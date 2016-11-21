@@ -8,14 +8,14 @@ import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
 
-import eu.hyvar.feature.graphical.base.editor.GraphicalFeatureModelEditor;
+import eu.hyvar.feature.graphical.base.editor.HyGraphicalFeatureModelViewer;
 import eu.hyvar.feature.graphical.base.figures.HyFeatureFigure;
 import eu.hyvar.feature.graphical.base.model.HyFeatureWrapped;
 
 public class HyFeatureModelPositionAnchor extends AbstractConnectionAnchor {
-	protected GraphicalFeatureModelEditor editor;
+	protected HyGraphicalFeatureModelViewer editor;
 	
-	public HyFeatureModelPositionAnchor(IFigure owner, GraphicalFeatureModelEditor editor) {
+	public HyFeatureModelPositionAnchor(IFigure owner, HyGraphicalFeatureModelViewer editor) {
 		super(owner);
 		
 		this.editor = editor;
@@ -34,13 +34,14 @@ public class HyFeatureModelPositionAnchor extends AbstractConnectionAnchor {
 			HyFeatureFigure figure = (HyFeatureFigure)getOwner();
 			DEGraphicalEditorTheme theme = DEGraphicalEditor.getTheme();
 			
-			GraphicalFeatureModelEditor editor = (GraphicalFeatureModelEditor)figure.getEditor();
+			HyGraphicalFeatureModelViewer editor = (HyGraphicalFeatureModelViewer)figure.getEditor();
 			
 			if(figure.getFeature().isWithoutModifier(editor.getCurrentSelectedDate())){
 				location.y += theme.getFeatureVariationTypeExtent() - theme.getLineWidth();
 			}
+			
+			location.y = figure.getBounds().y;
 		}
-		
 		return location; 
 	}
 

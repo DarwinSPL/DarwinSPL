@@ -9,10 +9,9 @@ import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.emf.common.notify.Adapter;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.Notifier;
-import org.eclipse.gef.EditPart;
 
 import eu.hyvar.dataValues.HyEnumLiteral;
-import eu.hyvar.feature.graphical.base.editor.GraphicalFeatureModelEditor;
+import eu.hyvar.feature.graphical.base.editor.HyGraphicalFeatureModelViewer;
 import eu.hyvar.feature.graphical.base.figures.HyEnumLiteralFigure;
 import eu.hyvar.feature.graphical.base.model.HyFeatureModelWrapped;
 
@@ -42,7 +41,7 @@ public class HyEnumLiteralEditPart  extends HyAbstractEditPart{
 
 	private HyEnumLiteralAdapter adapter = new HyEnumLiteralAdapter();
 
-	public HyEnumLiteralEditPart(GraphicalFeatureModelEditor editor, HyFeatureModelWrapped featureModel) {
+	public HyEnumLiteralEditPart(HyGraphicalFeatureModelViewer editor, HyFeatureModelWrapped featureModel) {
 		super(editor, featureModel);
 		
 	}

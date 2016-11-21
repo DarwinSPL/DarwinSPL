@@ -6,19 +6,17 @@ import org.eclipse.gef.Request;
 import org.eclipse.gef.RequestConstants;
 import org.eclipse.jface.viewers.TextCellEditor;
 
-import eu.hyvar.dataValues.HyEnumLiteral;
-import eu.hyvar.feature.HyFeatureAttribute;
-import eu.hyvar.feature.graphical.base.editor.GraphicalFeatureModelEditor;
+import eu.hyvar.feature.graphical.base.editor.HyGraphicalFeatureModelViewer;
 import eu.hyvar.feature.graphical.base.editparts.HyEnumLiteralEditPart;
 import eu.hyvar.feature.graphical.base.figures.HyEnumLiteralFigure;
 import eu.hyvar.feature.graphical.base.model.HyFeatureModelWrapped;
 import eu.hyvar.feature.graphical.editor.locators.HyFeatureCellEditorLocator;
 import eu.hyvar.feature.graphical.editor.managers.HyFeatureDirectEditManager;
-import eu.hyvar.feature.graphical.editor.policies.HyEnumLiteralDirectEditPolicy;
+import eu.hyvar.feature.graphical.editor.policies.enums.HyEnumLiteralDirectEditPolicy;
 
 public class HyEnumLiteralEditorEditPart extends HyEnumLiteralEditPart{
 
-	public HyEnumLiteralEditorEditPart(GraphicalFeatureModelEditor editor, HyFeatureModelWrapped featureModel) {
+	public HyEnumLiteralEditorEditPart(HyGraphicalFeatureModelViewer editor, HyFeatureModelWrapped featureModel) {
 		super(editor, featureModel);
 	}
 

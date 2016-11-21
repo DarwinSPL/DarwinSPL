@@ -4,9 +4,11 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import org.deltaecore.feature.graphical.base.editor.DEGraphicalEditor;
 import org.deltaecore.feature.graphical.base.util.DEGraphicalEditorTheme;
 import org.eclipse.draw2d.geometry.Dimension;
-import org.eclipse.emf.common.notify.Notifier;
+import org.eclipse.draw2d.geometry.Point;
+import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.emf.ecore.EObject;
 
 import eu.hyvar.evolution.HyEvolutionUtil;
@@ -16,8 +18,12 @@ import eu.hyvar.feature.HyFeatureType;
 import eu.hyvar.feature.HyFeatureTypeEnum;
 import eu.hyvar.feature.HyGroup;
 import eu.hyvar.feature.HyGroupComposition;
+import eu.hyvar.feature.HyGroupType;
+import eu.hyvar.feature.HyGroupTypeEnum;
 import eu.hyvar.feature.HyRootFeature;
 import eu.hyvar.feature.graphical.base.adapters.HyFeatureWrappedAdapter;
+import eu.hyvar.feature.graphical.base.deltaecore.wrapper.layouter.version.HyVersionLayouterManager;
+import eu.hyvar.feature.graphical.base.deltaecore.wrapper.layouter.version.HyVersionTreeLayouter;
 
 public class HyFeatureWrapped extends HyEditorChangeableElement{
 	public final static String PROPERTY_CARDINALITY = "PropertyCardinality";
@@ -32,8 +38,86 @@ public class HyFeatureWrapped extends HyEditorChangeableElement{
 	private List<HyParentChildConnection> parentConnections;
 	private List<HyParentChildConnection> childrenConnections;
 
-	private Date date;
+	private Dimension size;
 	
+	
+	public int getHeightWithoutAttributes(Date date) {
+		HyFeature feature = getWrappedModelElement();
+		DEGraphicalEditorTheme theme = DEGraphicalEditor.getTheme();
+		
+		
+		int height = (hasModfierAtDate(date) ? theme.getFeatureVariationTypeExtent() : 0) + theme.getFeatureNameAreaHeight() + theme.getLineWidth() * 2;
+		if(HyEvolutionUtil.getValidTemporalElements(feature.getVersions(), date).isEmpty()){
+			return height;
+		}
+		
+		HyVersionTreeLayouter versionTreeLayouter = HyVersionLayouterManager.getLayouter(feature, date);
+		if(versionTreeLayouter != null){
+			Rectangle versionTreeBounds = versionTreeLayouter.getTreeBounds();
+			height += versionTreeBounds.height;
+		}
+		
+		return height;
+	}
+	
+	public Dimension getSize(Date date){
+		Dimension size = new Dimension();
+		
+		HyFeature feature = getWrappedModelElement();
+		
+		HyVersionTreeLayouter versionTreeLayouter = HyVersionLayouterManager.getLayouter(feature, date);
+		if(versionTreeLayouter != null){
+			size.expand(0, versionTreeLayouter.getTreeBounds().height);
+			//Rectangle versionTreeBounds = versionTreeLayouter.getTreeBounds();			
+		}
+		
+		DEGraphicalEditorTheme theme = DEGraphicalEditor.getTheme();
+
+		//int visibleAttributes = HyEvolutionUtil.getValidTemporalElements(feature.getAttributes(), date).size();
+
+		int height = calculateAttributeAreaBounds(date).height;
+		
+		size.expand(0, theme.getFeatureNameAreaHeight());
+		size.expand(0, (hasModfierAtDate(date) ? theme.getFeatureVariationTypeExtent() : 0));
+		size.expand(0, height);
+		size.expand(0, theme.getLineWidth()*2);
+		return size;
+	}
+	
+	public boolean hasModfierAtDate(Date date){
+		HyGroupComposition composition = HyEvolutionUtil.getValidTemporalElement(getWrappedModelElement().getGroupMembership(), date);
+		
+		if(composition != null){
+			HyGroupType type = HyEvolutionUtil.getValidTemporalElement(composition.getCompositionOf().getTypes(), date);
+			return type.getType() == HyGroupTypeEnum.AND;
+		}
+		
+		return false;
+	}
+	
+	public boolean hasVersionsAtDate(Date date) {
+		return !HyEvolutionUtil.getValidTemporalElements(getWrappedModelElement().getVersions(), date).isEmpty();
+	}
+	
+	public boolean hasAttributesAtDate(Date date) {
+		return !HyEvolutionUtil.getValidTemporalElements(getWrappedModelElement().getAttributes(), date).isEmpty();
+	}
+	public Rectangle calculateAttributeAreaBounds(Date date) {
+		DEGraphicalEditorTheme theme = DEGraphicalEditor.getTheme();
+
+		int visibleAttributes = HyEvolutionUtil.getValidTemporalElements(getWrappedModelElement().getAttributes(), date).size();
+
+		int y = getHeightWithoutAttributes(date);
+		if(hasVersionsAtDate(date)){
+			y += theme.getFeatureNameAreaHeight() / 2;
+		}
+		int height = visibleAttributes * (theme.getFeatureNameAreaHeight()+theme.getLineWidth());
+
+		Point location = position;
+		return new Rectangle(new Point(location.x, location.y+y), 
+				 new Dimension(getSize().width, height));
+	}
+
 	
 
 	/*

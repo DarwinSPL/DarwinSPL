@@ -2,15 +2,13 @@ package eu.hyvar.feature.graphical.base.model;
 
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
-import java.io.Serializable;
 import java.util.Date;
 
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Point;
-import org.eclipse.emf.common.notify.Notifier;
 import org.eclipse.emf.ecore.EObject;
 
-public class HyEditorChangeableElement implements Serializable {
+public class HyEditorChangeableElement{
 	public final static String PROPERTY_POSITION = "PropertyPosition";
 	public static final String PROPERTY_CARDINALITY = "PropertyCardinality";
 	protected EObject wrappedModelElement;

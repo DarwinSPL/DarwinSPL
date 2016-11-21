@@ -122,7 +122,6 @@ public class HyGroupWrapped extends HyEditorChangeableElement {
 
 	public HyGroup getGroup() {
 		if(features.iterator().next().getWrappedModelElement().getGroupMembership().size() == 0){
-			System.out.println("HyGroupWrapped.getGruop() :(");
 			return null;
 		}
 

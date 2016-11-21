@@ -4,12 +4,12 @@
    <extension
          point="org.eclipse.ui.editors">
       <editor
-            class="eu.hyvar.feature.graphical.editor.editor.GraphicalEvolutionFeatureModelEditor"
+            class="eu.hyvar.feature.graphical.editor.editor.HyGraphicalFeatureModelEditor"
             contributorClass="eu.hyvar.feature.graphical.editor.editor.HyGraphicalFeatureModelEditorActionBarContributor"
-            default="false"
-            extensions="hyfeature"
+            default="true"
+            extensions="hyfeature, dwfeaturemodel"
             id="eu.hyvar.feature.graphical.editor.evolution.editor"
-            name="HyFeatureModel Graphical Editor with Evolution">
+            name="DarwinSPL Feature Model Editor">
       </editor>
    </extension>
    <extension
@@ -17,6 +17,15 @@
       <client
             class="eu.hyvar.feature.graphical.editor.eclipse.ActiveFeatureModelEditorSolver">
       </client>
+   </extension>
+   <extension
+         point="org.eclipse.ui.newWizards">
+      <wizard
+            category="de.darwinspl.wizards"
+            class="eu.hyvar.feature.graphical.editor.wizard.FeatureModelWizard"
+            id="eu.hyvar.feature.graphical.editor.new_fm_wizard"
+            name="DarwinSPL Feature Model">
+      </wizard>
    </extension>
 
 </plugin>

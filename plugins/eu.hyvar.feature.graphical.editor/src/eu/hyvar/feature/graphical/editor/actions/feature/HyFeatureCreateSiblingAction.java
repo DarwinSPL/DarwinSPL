@@ -9,7 +9,7 @@ import eu.hyvar.evolution.HyName;
 import eu.hyvar.feature.HyFeature;
 import eu.hyvar.feature.HyFeatureFactory;
 import eu.hyvar.feature.HyFeatureType;
-import eu.hyvar.feature.graphical.base.editor.GraphicalFeatureModelEditor;
+import eu.hyvar.feature.graphical.base.editor.HyGraphicalFeatureModelViewer;
 import eu.hyvar.feature.graphical.base.editparts.HyFeatureEditPart;
 import eu.hyvar.feature.graphical.base.model.HyFeatureModelWrapped;
 import eu.hyvar.feature.graphical.base.model.HyFeatureWrapped;
@@ -21,7 +21,7 @@ public class HyFeatureCreateSiblingAction extends HyFeatureSelectionAction{
 
 	Request request;
 	
-	public HyFeatureCreateSiblingAction(GraphicalFeatureModelEditor editor){
+	public HyFeatureCreateSiblingAction(HyGraphicalFeatureModelViewer editor){
 		super(editor);
 		
 		setId(FEATURE_CREATE_SIBLING);
@@ -37,7 +37,7 @@ public class HyFeatureCreateSiblingAction extends HyFeatureSelectionAction{
 		
 		Point position = selectedFeature.getPosition(null);
 		
-		GraphicalFeatureModelEditor editor = (GraphicalFeatureModelEditor)this.getWorkbenchPart();
+		HyGraphicalFeatureModelViewer editor = (HyGraphicalFeatureModelViewer)this.getWorkbenchPart();
 		HyFeatureModelWrapped featureModel = editor.getModelWrapped();
 		
 		// Create a new feature model and editor representation

@@ -3,7 +3,7 @@ package eu.hyvar.feature.graphical.editor.actions.group;
 import org.eclipse.gef.Request;
 
 import eu.hyvar.feature.HyGroupTypeEnum;
-import eu.hyvar.feature.graphical.base.editor.GraphicalFeatureModelEditor;
+import eu.hyvar.feature.graphical.base.editor.HyGraphicalFeatureModelViewer;
 
 public class HyGroupChangeGroupTypeToOrTypeAction extends HyGroupChangeGroupTypeAction {
 	public static final String CHANGE_GROUP_TYPE_TO_OR = "ChangeGroupTypeToOr";
@@ -11,7 +11,7 @@ public class HyGroupChangeGroupTypeToOrTypeAction extends HyGroupChangeGroupType
 
 
 	
-	public HyGroupChangeGroupTypeToOrTypeAction(GraphicalFeatureModelEditor editor) {
+	public HyGroupChangeGroupTypeToOrTypeAction(HyGraphicalFeatureModelViewer editor) {
 		super(editor);
 		
 		setId(CHANGE_GROUP_TYPE_TO_OR);

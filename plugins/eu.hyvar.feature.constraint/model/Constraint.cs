@@ -24,5 +24,5 @@ RULES {
 	HyConstraintModel ::= constraints*;
 
 	@SuppressWarnings(explicitSyntaxChoice)
-	HyConstraint ::= rootExpression ("[" (validSince[DATE] "-" validUntil[DATE] | validSince[DATE] "-" "null" | "null" "-" validUntil[DATE])  "]")?;
+	HyConstraint ::= rootExpression ("[" (validSince[DATE] "-" validUntil[DATE] | validSince[DATE] "-" "eternity" | "eternity" "-" validUntil[DATE])  "]")?;
 }

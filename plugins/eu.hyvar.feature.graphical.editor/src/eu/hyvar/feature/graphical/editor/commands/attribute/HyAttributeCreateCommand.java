@@ -6,14 +6,14 @@ import org.eclipse.gef.commands.Command;
 
 import eu.hyvar.feature.HyFeature;
 import eu.hyvar.feature.HyFeatureAttribute;
-import eu.hyvar.feature.graphical.base.editor.GraphicalFeatureModelEditor;
+import eu.hyvar.feature.graphical.base.editor.HyGraphicalFeatureModelViewer;
 
 public class HyAttributeCreateCommand extends Command {
 	private HyFeature feature;
 	private HyFeatureAttribute attribute;
-	private GraphicalFeatureModelEditor editor;
+	private HyGraphicalFeatureModelViewer editor;
 	
-	public HyAttributeCreateCommand(HyFeature feature, HyFeatureAttribute attribute, GraphicalFeatureModelEditor editor){
+	public HyAttributeCreateCommand(HyFeature feature, HyFeatureAttribute attribute, HyGraphicalFeatureModelViewer editor){
 		this.feature = feature;
 		this.attribute = attribute;
 		this.editor = editor;
@@ -33,7 +33,13 @@ public class HyAttributeCreateCommand extends Command {
 	public void redo() {
 		Date date = editor.getCurrentSelectedDate();
 		
-		attribute.setValidSince(date);
+		if(date.equals(new Date(Long.MIN_VALUE))){
+			attribute.setValidSince(null);
+		}else{
+			attribute.setValidSince(date);
+		}
+		
+		
 		feature.getAttributes().add(attribute);
 	}
 }

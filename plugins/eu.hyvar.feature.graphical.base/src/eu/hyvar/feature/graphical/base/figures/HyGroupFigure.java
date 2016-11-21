@@ -20,7 +20,7 @@ import eu.hyvar.evolution.HyEvolutionUtil;
 import eu.hyvar.feature.HyFeature;
 import eu.hyvar.feature.HyGroup;
 import eu.hyvar.feature.HyGroupComposition;
-import eu.hyvar.feature.graphical.base.editor.GraphicalFeatureModelEditor;
+import eu.hyvar.feature.graphical.base.editor.HyGraphicalFeatureModelViewer;
 import eu.hyvar.feature.graphical.base.model.HyFeatureModelWrapped;
 import eu.hyvar.feature.graphical.base.model.HyFeatureWrapped;
 import eu.hyvar.feature.graphical.base.model.HyGroupWrapped;
@@ -31,7 +31,7 @@ public class HyGroupFigure extends HyAbstractFigure{
 	protected Path groupTypeArc;
 	protected HyGroupWrapped group;
 
-	public HyGroupFigure(GraphicalFeatureModelEditor editor, HyGroupWrapped group) {
+	public HyGroupFigure(HyGraphicalFeatureModelViewer editor, HyGroupWrapped group) {
 		super(editor);
 
 		this.group = group;
@@ -91,11 +91,11 @@ public class HyGroupFigure extends HyAbstractFigure{
 
 			Point leftLineEndPoint = firstFeature.getPosition(null).getCopy();
 			leftLineEndPoint.x+=firstFeature.getSize().width / 2;
-			leftLineEndPoint.y+=theme.getFeatureVariationTypeExtent();
+			//leftLineEndPoint.y+=theme.getFeatureVariationTypeExtent()-4;
 
 			Point rightLineEndPoint = lastFeature.getPosition(null).getCopy();
 			rightLineEndPoint.x+=lastFeature.getSize().width / 2;
-			rightLineEndPoint.y+=theme.getFeatureVariationTypeExtent();
+			//rightLineEndPoint.y+=theme.getFeatureVariationTypeExtent();
 
 			Point intersectionPointOfLeftLineAndCircle = scaleLineEndPoint(originPoint, leftLineEndPoint, theme.getGroupSymbolRadius());
 
@@ -150,17 +150,14 @@ public class HyGroupFigure extends HyAbstractFigure{
 	@Override 
 	public void paintFigure(Graphics graphics) {
 		DEGraphicalEditorTheme theme = DEGraphicalEditor.getTheme();
-		GraphicalFeatureModelEditor editor = (GraphicalFeatureModelEditor)this.editor;
+		HyGraphicalFeatureModelViewer editor = (HyGraphicalFeatureModelViewer)this.editor;
 		Date date = editor.getCurrentSelectedDate();
 
 		HyFeatureWrapped wrappedFeature = group.getParentFeature();
 		Point parentPosition = wrappedFeature.getPosition(date).getCopy();
 		parentPosition.y += wrappedFeature.getSize().height;
 		parentPosition.x += group.getParentFeature().getSize().width() / 2.0 - theme.getGroupSymbolRadius();
-		//parentPosition.y += theme.getFeatureNameAreaHeight() + 
-		//		theme.getFeatureVariationTypeExtent() + theme.getLineWidth() * 2 + 50;
 
-		
 		int size = theme.getLineWidth() * 2 + theme.getGroupSymbolRadius() * 2;
 		
 		
@@ -188,8 +185,4 @@ public class HyGroupFigure extends HyAbstractFigure{
 		}
 	}
 
-	@Override
-	protected boolean useLocalCoordinates(){
-		return true;
-	}	
 }

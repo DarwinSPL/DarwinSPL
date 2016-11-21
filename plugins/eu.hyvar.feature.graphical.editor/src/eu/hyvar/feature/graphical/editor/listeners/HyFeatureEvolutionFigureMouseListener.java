@@ -11,7 +11,7 @@ import eu.hyvar.feature.HyFeatureFactory;
 import eu.hyvar.feature.HyFeatureType;
 import eu.hyvar.feature.HyFeatureTypeEnum;
 import eu.hyvar.feature.graphical.base.figures.HyFeatureFigure;
-import eu.hyvar.feature.graphical.editor.editor.GraphicalEvolutionFeatureModelEditor;
+import eu.hyvar.feature.graphical.editor.editor.HyGraphicalFeatureModelEditor;
 
 public class HyFeatureEvolutionFigureMouseListener implements MouseListener{
 	HyFeatureFigure figure;
@@ -25,7 +25,7 @@ public class HyFeatureEvolutionFigureMouseListener implements MouseListener{
 	public void mousePressed(MouseEvent me) {
 		Rectangle variationTypeCircleBounds = figure.calculateVariationTypeCircleBounds();
 		if(variationTypeCircleBounds.contains(me.getLocation())){
-			Date date = ((GraphicalEvolutionFeatureModelEditor)figure.getEditor()).getCurrentSelectedDate();
+			Date date = ((HyGraphicalFeatureModelEditor)figure.getEditor()).getCurrentSelectedDate();
 			HyFeatureType type = HyEvolutionUtil.getValidTemporalElement(figure.getFeature().getWrappedModelElement().getTypes(), date);
 			type.setValidUntil(date);
 			

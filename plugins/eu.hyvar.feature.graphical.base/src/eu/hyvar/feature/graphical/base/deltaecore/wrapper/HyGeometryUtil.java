@@ -12,6 +12,9 @@ import eu.hyvar.evolution.HyEvolutionUtil;
 import eu.hyvar.evolution.HyName;
 import eu.hyvar.feature.HyFeature;
 import eu.hyvar.feature.HyFeatureAttribute;
+import eu.hyvar.feature.HyGroupComposition;
+import eu.hyvar.feature.HyGroupType;
+import eu.hyvar.feature.HyGroupTypeEnum;
 import eu.hyvar.feature.HyVersion;
 import eu.hyvar.feature.graphical.base.deltaecore.wrapper.layouter.version.HyVersionLayouterManager;
 import eu.hyvar.feature.graphical.base.deltaecore.wrapper.layouter.version.HyVersionTreeLayouter;
@@ -36,17 +39,20 @@ public class HyGeometryUtil {
 
 			if(versionTreeLayouter != null){
 				Rectangle versionTreeBounds = versionTreeLayouter.getTreeBounds();
-				int versionTreeWidth = versionTreeBounds.width + HyVersionTreeLayouter.getOffsetX();
+				int versionTreeWidth = versionTreeBounds.width; // + HyVersionTreeLayouter.getOffsetX();
 				rawFeatureWidth = Math.max(rawFeatureWidth, versionTreeWidth);
 			}
 		}
 
 
 		for(HyFeatureAttribute attribute : HyEvolutionUtil.getValidTemporalElements(feature.getAttributes(), date)){
-			int nameWidth = DEGeometryUtil.getTextWidth(HyEvolutionUtil.getValidTemporalElement(attribute.getNames(), date).getName(), theme.getFeatureFont());
-			int typeWidth = DEGeometryUtil.getTextWidth("Boolean", theme.getFeatureFont());
+			HyName attributeName = HyEvolutionUtil.getValidTemporalElement(attribute.getNames(), date);
+			if(attributeName != null){
+				int nameWidth = DEGeometryUtil.getTextWidth(name.getName(), theme.getFeatureFont());
+				int typeWidth = DEGeometryUtil.getTextWidth("Boolean", theme.getFeatureFont());
 
-			rawFeatureWidth = Math.max(rawFeatureWidth, nameWidth + typeWidth + 30);
+				rawFeatureWidth = Math.max(rawFeatureWidth, nameWidth + typeWidth + 30);
+			}
 		}
 
 		return rawFeatureWidth + 2 * theme.getPrimaryMargin();
@@ -60,16 +66,27 @@ public class HyGeometryUtil {
 
 		int featureHeight = theme.getFeatureNameAreaHeight() + versionAreaHeight;
 
-		featureHeight += theme.getFeatureVariationTypeExtent() + theme.getLineWidth() * 2;
+		int variationHeight = 0;
+		HyGroupComposition composition = HyEvolutionUtil.getValidTemporalElement(feature.getGroupMembership(), date);
+		if(composition != null){
+			HyGroupType type = HyEvolutionUtil.getValidTemporalElement(composition.getCompositionOf().getTypes(), date);
+			
+			if(type != null)
+				variationHeight = (type.getType() == HyGroupTypeEnum.AND ? theme.getFeatureVariationTypeExtent() : 0);
+		}else{
+			variationHeight = 4;
+		}
+		featureHeight += variationHeight + theme.getLineWidth() * 2;
 
 		int visibleAttributes = HyEvolutionUtil.getValidTemporalElements(feature.getAttributes(), date).size();
 		featureHeight += (theme.getFeatureNameAreaHeight()+theme.getLineWidth()) * visibleAttributes; 
 
 		if(visibleAttributes > 0 && versionAreaHeight > 0)
-			featureHeight -= 12;
+			featureHeight -= 8;
 		else if(visibleAttributes > 0){
-			featureHeight -= 3;
+			featureHeight += 1;
 		}
+		
 		return featureHeight;
 	}
 

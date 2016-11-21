@@ -41,17 +41,31 @@ public class DateDialog extends Dialog implements Listener{
 	protected Control createDialogArea(Composite parent) {
 		Composite container = (Composite) super.createDialogArea(parent);
 	    container.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
-	    GridLayout layout = new GridLayout(1, false);
+	    GridLayout layout = new GridLayout(1, true);
+	    GridData gridData = new GridData();
+		gridData.horizontalSpan = 2;
+		gridData.horizontalAlignment = SWT.FILL;
+		gridData.grabExcessHorizontalSpace = true;
+		gridData.verticalAlignment = SWT.FILL;
+		gridData.grabExcessVerticalSpace = true;
 	    container.setLayout(layout);
 	    
 	    Calendar calendar = Calendar.getInstance();
 	    calendar.setTime(value);
 	    
 	    calendarWidget = new DateTime (container, SWT.CALENDAR);
+	    calendarWidget.setLayoutData(gridData);
 	    calendarWidget.addListener(SWT.Selection, this);
 	    calendarWidget.setDate(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
 
+	    gridData = new GridData();
+		gridData.horizontalSpan = 2;
+		gridData.horizontalAlignment = SWT.FILL;
+		gridData.grabExcessHorizontalSpace = true;
+		gridData.verticalAlignment = SWT.FILL;
+		gridData.grabExcessVerticalSpace = false;
 	    timeWidget = new DateTime (container, SWT.TIME);
+	    timeWidget.setLayoutData(gridData);
 	    timeWidget.addListener(SWT.Selection, this);
 	    timeWidget.addKeyListener(new KeyListener(){
 
@@ -87,7 +101,7 @@ public class DateDialog extends Dialog implements Listener{
 
 	@Override
 	protected Point getInitialSize() {
-		return new Point(220, 300);
+		return new Point(220, 340);
 	}
 	
 	public void dateChanged(){
@@ -108,4 +122,11 @@ public class DateDialog extends Dialog implements Listener{
 	public void handleEvent(Event event) {
 		dateChanged();
 	}	
+	
+	@Override
+	protected void cancelPressed(){
+		value = null;
+		
+		super.cancelPressed();
+	}
 }

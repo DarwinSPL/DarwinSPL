@@ -27,9 +27,9 @@ RULES {
 	HyContextModel ::= enums* contextualInformations*;
 	
 	
-	HyContextualInformationNumber ::= "NumberContext(" name[IDENTIFIER_TOKEN] "," min[INTEGER_LITERAL] "," max[INTEGER_LITERAL]  ")" ("[" (validSince[DATE] "-" validUntil[DATE] | validSince[DATE] "-" "null" | "null" "-" validUntil[DATE])  "]")?; 
+	HyContextualInformationNumber ::= "NumberContext(" name[IDENTIFIER_TOKEN] "," min[INTEGER_LITERAL] "," max[INTEGER_LITERAL]  ")" ("[" (validSince[DATE] "-" validUntil[DATE] | validSince[DATE] "-" "eternity" | "eternity" "-" validUntil[DATE])  "]")?; 
 	
-	HyContextualInformationBoolean ::= "BooleanContext(" name[IDENTIFIER_TOKEN] ")" ("[" (validSince[DATE] "-" validUntil[DATE] | validSince[DATE] "-" "null" | "null" "-" validUntil[DATE])  "]")?;
+	HyContextualInformationBoolean ::= "BooleanContext(" name[IDENTIFIER_TOKEN] ")" ("[" (validSince[DATE] "-" validUntil[DATE] | validSince[DATE] "-" "eternity" | "eternity" "-" validUntil[DATE])  "]")?;
 	
-	HyContextualInformationEnum ::= "EnumContext(" name[IDENTIFIER_TOKEN] "," enumType[IDENTIFIER_TOKEN] ")" ("[" (validSince[DATE] "-" validUntil[DATE] | validSince[DATE] "-" "null" | "null" "-" validUntil[DATE])  "]")?;
+	HyContextualInformationEnum ::= "EnumContext(" name[IDENTIFIER_TOKEN] "," enumType[IDENTIFIER_TOKEN] ")" ("[" (validSince[DATE] "-" validUntil[DATE] | validSince[DATE] "-" "eternity" | "eternity" "-" validUntil[DATE])  "]")?;
 }

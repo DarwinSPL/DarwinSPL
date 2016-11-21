@@ -2,54 +2,59 @@ package eu.hyvar.feature.graphical.editor.commands.attribute;
 
 import java.util.Date;
 
-import org.eclipse.gef.commands.Command;
-
 import eu.hyvar.evolution.HyEvolutionFactory;
 import eu.hyvar.evolution.HyEvolutionUtil;
 import eu.hyvar.evolution.HyName;
 import eu.hyvar.feature.HyFeatureAttribute;
-import eu.hyvar.feature.graphical.editor.editor.GraphicalEvolutionFeatureModelEditor;
+import eu.hyvar.feature.graphical.base.editor.HyGraphicalFeatureModelViewer;
+import eu.hyvar.feature.graphical.editor.commands.HyLinearTemporalElementCommand;
+import eu.hyvar.feature.graphical.editor.util.HyElementEditorUtil;
 
-public class HyAttributeRenameCommand extends Command {
-	private String oldName;
-	private String newName;
-	
+public class HyAttributeRenameCommand extends HyLinearTemporalElementCommand {
+	private HyName oldName;
+	private HyName newName;
+	private Date changeDate;
+
 	private HyFeatureAttribute attribute;
-	private GraphicalEvolutionFeatureModelEditor editor;
-	
-	public HyAttributeRenameCommand(HyFeatureAttribute attribute, GraphicalEvolutionFeatureModelEditor editor){
+	private HyGraphicalFeatureModelViewer editor;
+
+	public HyAttributeRenameCommand(HyFeatureAttribute attribute, HyGraphicalFeatureModelViewer editor){
 		this.attribute = attribute;
 		this.editor = editor;
 	}
-	
+
 	@Override 
 	public void execute(){
-		Date date = editor.getCurrentSelectedDate();
+		redo();
+	}
+
+	/**
+	 * Undo renaming the feature.
+	 */
+	@Override
+	public void undo() {
+		removeElementFromLinkedList(newName);
+		attribute.getNames().remove(newName);
+	}
+
+	@Override
+	public void redo() {
+		changeDate = editor.getCurrentSelectedDate();
+
+		oldName =  HyEvolutionUtil.getValidTemporalElement(attribute.getNames(), changeDate);
+
+		if(changeDate.equals(new Date(Long.MIN_VALUE))){
+			attribute.getNames().remove(oldName);
+		}
 		
-		HyName name =  HyEvolutionUtil.getValidTemporalElement(attribute.getNames(), date);
-		name.setValidUntil(date);
+		changeVisibilities(oldName, newName, changeDate);
+		attribute.getNames().add(newName);		
 		
-		
-		oldName = name.getName();
-		
-		
-		HyName newName = HyEvolutionFactory.eINSTANCE.createHyName();
-		newName.setValidSince(date);
-		newName.setName(this.newName);	
-		
-		attribute.getNames().add(newName);
+		HyElementEditorUtil.cleanNames(attribute);
 	}
 	
-	public String getOldName() {
-		return oldName;
-	}
-	public void setOldName(String oldName) {
-		this.oldName = oldName;
-	}
-	public String getNewName() {
-		return newName;
-	}
 	public void setNewName(String newName) {
-		this.newName = newName;
+		this.newName = HyEvolutionFactory.eINSTANCE.createHyName();
+		this.newName.setName(newName);
 	}
 }

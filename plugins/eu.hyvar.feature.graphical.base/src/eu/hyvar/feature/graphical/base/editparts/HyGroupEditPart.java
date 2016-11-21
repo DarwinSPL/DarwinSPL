@@ -13,9 +13,10 @@ import org.eclipse.draw2d.geometry.Rectangle;
 import eu.hyvar.evolution.HyEvolutionUtil;
 import eu.hyvar.feature.HyFeature;
 import eu.hyvar.feature.HyFeatureChild;
-import eu.hyvar.feature.graphical.base.editor.GraphicalFeatureModelEditor;
+import eu.hyvar.feature.graphical.base.editor.HyGraphicalFeatureModelViewer;
 import eu.hyvar.feature.graphical.base.figures.HyGroupFigure;
 import eu.hyvar.feature.graphical.base.model.HyFeatureModelWrapped;
+import eu.hyvar.feature.graphical.base.model.HyFeatureWrapped;
 import eu.hyvar.feature.graphical.base.model.HyGroupWrapped;
 
 public class HyGroupEditPart extends HyAbstractEditPart{
@@ -40,16 +41,16 @@ public class HyGroupEditPart extends HyAbstractEditPart{
 		this.temporaryElementIndex = temporaryElementIndex;
 	}
 
-	public HyGroupEditPart(GraphicalFeatureModelEditor editor, HyFeatureModelWrapped featureModel){
+	public HyGroupEditPart(HyGraphicalFeatureModelViewer editor, HyFeatureModelWrapped featureModel){
 		super(editor, featureModel);
 		children = new ArrayList<HyFeature>();
-		
+
 
 	}
 
 	@Override
 	protected IFigure createFigure() {
-		GraphicalFeatureModelEditor editor = (GraphicalFeatureModelEditor) getEditor();
+		HyGraphicalFeatureModelViewer editor = (HyGraphicalFeatureModelViewer) getEditor();
 		HyGroupWrapped model = (HyGroupWrapped)getModel();
 		return new HyGroupFigure(editor, model);
 	}
@@ -63,34 +64,38 @@ public class HyGroupEditPart extends HyAbstractEditPart{
 	@Override
 	protected void createEditPolicies() {		
 	}
-	
+
 	private void refreshLayoutConstraint(){
 		HyGroupWrapped model = (HyGroupWrapped)getModel();
+		HyFeatureWrapped feature = model.getParentFeature();
 		DEGraphicalEditorTheme theme = DEGraphicalEditor.getTheme();
-		
-		Point parentPosition = model.getParentFeature().getPosition(null).getCopy();
-		parentPosition.x += model.getParentFeature().getSize().width() / 2.0 - theme.getGroupSymbolRadius();
-		parentPosition.y += theme.getFeatureNameAreaHeight() + 
-				theme.getFeatureVariationTypeExtent() + theme.getLineWidth() * 2 + 50;
+
+		Point parentPosition = feature.getPosition(null).getCopy();
+		parentPosition.x += feature.getSize().width() / 2.0 - theme.getGroupSymbolRadius();
+		parentPosition.y += feature.getSize(editor.getCurrentSelectedDate()).height; 
 
 		int size = theme.getLineWidth() * 2 + theme.getGroupSymbolRadius() * 2;
-		
+
 		HyFeatureModelEditPart parent = (HyFeatureModelEditPart)getParent();
-		parent.setLayoutConstraint(this, figure, new Rectangle(parentPosition, new Dimension(size, size)));
+		
+		if(parent != null)
+			parent.setLayoutConstraint(this, figure, new Rectangle(parentPosition, new Dimension(size, size)));
 	}
-	
+
 	private void refreshVisibillity(){
 		HyGroupWrapped model = (HyGroupWrapped)getModel();
 		Date date = featureModel.getSelectedDate();
-		
+
 		// check if group as at a valid parent feature and show/hide the group accordingly
 		boolean isVisible = HyEvolutionUtil.isValid(model.getWrappedModelElement(), date);
 		boolean hasValidParentFeature = false;
 		for(HyFeatureChild child : model.getWrappedModelElement().getChildOf()){
-			if(HyEvolutionUtil.isValid(child.getParent(), date))
-				hasValidParentFeature = true;			
+			if(child.getParent() != null){
+				if(HyEvolutionUtil.isValid(child.getParent(), date))
+					hasValidParentFeature = true;		
+			}
 		}
-		
+
 
 		figure.setVisible(isVisible && hasValidParentFeature);
 	}

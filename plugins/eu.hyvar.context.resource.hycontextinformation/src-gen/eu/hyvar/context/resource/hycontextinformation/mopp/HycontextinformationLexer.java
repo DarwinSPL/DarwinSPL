@@ -332,10 +332,10 @@ public class HycontextinformationLexer extends Lexer {
         try {
             int _type = T__23;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // Hycontextinformation.g:32:7: ( 'false' )
-            // Hycontextinformation.g:32:9: 'false'
+            // Hycontextinformation.g:32:7: ( 'eternity' )
+            // Hycontextinformation.g:32:9: 'eternity'
             {
-            match("false"); 
+            match("eternity"); 
 
 
 
@@ -355,10 +355,10 @@ public class HycontextinformationLexer extends Lexer {
         try {
             int _type = T__24;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // Hycontextinformation.g:33:7: ( 'null' )
-            // Hycontextinformation.g:33:9: 'null'
+            // Hycontextinformation.g:33:7: ( 'false' )
+            // Hycontextinformation.g:33:9: 'false'
             {
-            match("null"); 
+            match("false"); 
 
 
 
@@ -401,11 +401,11 @@ public class HycontextinformationLexer extends Lexer {
         try {
             int _type = IDENTIFIER_TOKEN;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // Hycontextinformation.g:2794:17: ( ( ( 'A' .. 'Z' | 'a' .. 'z' | '_' ) ( 'A' .. 'Z' | 'a' .. 'z' | '_' | '0' .. '9' )* ( '@' ( ( '-' )? ( '0' .. '9' )+ '/' ( '-' )? ( '0' .. '9' )+ '/' ( '-' )? ( '0' .. '9' )+ ( 'T' ( '-' )? ( '0' .. '9' )+ ':' ( '-' )? ( '0' .. '9' )+ ( ':' ( '-' )? ( '0' .. '9' )+ )? )? ) )? ) )
-            // Hycontextinformation.g:2795:2: ( ( 'A' .. 'Z' | 'a' .. 'z' | '_' ) ( 'A' .. 'Z' | 'a' .. 'z' | '_' | '0' .. '9' )* ( '@' ( ( '-' )? ( '0' .. '9' )+ '/' ( '-' )? ( '0' .. '9' )+ '/' ( '-' )? ( '0' .. '9' )+ ( 'T' ( '-' )? ( '0' .. '9' )+ ':' ( '-' )? ( '0' .. '9' )+ ( ':' ( '-' )? ( '0' .. '9' )+ )? )? ) )? )
+            // Hycontextinformation.g:2780:17: ( ( ( 'A' .. 'Z' | 'a' .. 'z' | '_' ) ( 'A' .. 'Z' | 'a' .. 'z' | '_' | '0' .. '9' )* ( '@' ( ( '-' )? ( '0' .. '9' )+ '/' ( '-' )? ( '0' .. '9' )+ '/' ( '-' )? ( '0' .. '9' )+ ( 'T' ( '-' )? ( '0' .. '9' )+ ':' ( '-' )? ( '0' .. '9' )+ ( ':' ( '-' )? ( '0' .. '9' )+ )? )? ) )? ) )
+            // Hycontextinformation.g:2781:2: ( ( 'A' .. 'Z' | 'a' .. 'z' | '_' ) ( 'A' .. 'Z' | 'a' .. 'z' | '_' | '0' .. '9' )* ( '@' ( ( '-' )? ( '0' .. '9' )+ '/' ( '-' )? ( '0' .. '9' )+ '/' ( '-' )? ( '0' .. '9' )+ ( 'T' ( '-' )? ( '0' .. '9' )+ ':' ( '-' )? ( '0' .. '9' )+ ( ':' ( '-' )? ( '0' .. '9' )+ )? )? ) )? )
             {
-            // Hycontextinformation.g:2795:2: ( ( 'A' .. 'Z' | 'a' .. 'z' | '_' ) ( 'A' .. 'Z' | 'a' .. 'z' | '_' | '0' .. '9' )* ( '@' ( ( '-' )? ( '0' .. '9' )+ '/' ( '-' )? ( '0' .. '9' )+ '/' ( '-' )? ( '0' .. '9' )+ ( 'T' ( '-' )? ( '0' .. '9' )+ ':' ( '-' )? ( '0' .. '9' )+ ( ':' ( '-' )? ( '0' .. '9' )+ )? )? ) )? )
-            // Hycontextinformation.g:2795:3: ( 'A' .. 'Z' | 'a' .. 'z' | '_' ) ( 'A' .. 'Z' | 'a' .. 'z' | '_' | '0' .. '9' )* ( '@' ( ( '-' )? ( '0' .. '9' )+ '/' ( '-' )? ( '0' .. '9' )+ '/' ( '-' )? ( '0' .. '9' )+ ( 'T' ( '-' )? ( '0' .. '9' )+ ':' ( '-' )? ( '0' .. '9' )+ ( ':' ( '-' )? ( '0' .. '9' )+ )? )? ) )?
+            // Hycontextinformation.g:2781:2: ( ( 'A' .. 'Z' | 'a' .. 'z' | '_' ) ( 'A' .. 'Z' | 'a' .. 'z' | '_' | '0' .. '9' )* ( '@' ( ( '-' )? ( '0' .. '9' )+ '/' ( '-' )? ( '0' .. '9' )+ '/' ( '-' )? ( '0' .. '9' )+ ( 'T' ( '-' )? ( '0' .. '9' )+ ':' ( '-' )? ( '0' .. '9' )+ ( ':' ( '-' )? ( '0' .. '9' )+ )? )? ) )? )
+            // Hycontextinformation.g:2781:3: ( 'A' .. 'Z' | 'a' .. 'z' | '_' ) ( 'A' .. 'Z' | 'a' .. 'z' | '_' | '0' .. '9' )* ( '@' ( ( '-' )? ( '0' .. '9' )+ '/' ( '-' )? ( '0' .. '9' )+ '/' ( '-' )? ( '0' .. '9' )+ ( 'T' ( '-' )? ( '0' .. '9' )+ ':' ( '-' )? ( '0' .. '9' )+ ( ':' ( '-' )? ( '0' .. '9' )+ )? )? ) )?
             {
             if ( (input.LA(1) >= 'A' && input.LA(1) <= 'Z')||input.LA(1)=='_'||(input.LA(1) >= 'a' && input.LA(1) <= 'z') ) {
                 input.consume();
@@ -417,7 +417,7 @@ public class HycontextinformationLexer extends Lexer {
             }
 
 
-            // Hycontextinformation.g:2795:26: ( 'A' .. 'Z' | 'a' .. 'z' | '_' | '0' .. '9' )*
+            // Hycontextinformation.g:2781:26: ( 'A' .. 'Z' | 'a' .. 'z' | '_' | '0' .. '9' )*
             loop1:
             do {
                 int alt1=2;
@@ -451,7 +451,7 @@ public class HycontextinformationLexer extends Lexer {
             } while (true);
 
 
-            // Hycontextinformation.g:2795:60: ( '@' ( ( '-' )? ( '0' .. '9' )+ '/' ( '-' )? ( '0' .. '9' )+ '/' ( '-' )? ( '0' .. '9' )+ ( 'T' ( '-' )? ( '0' .. '9' )+ ':' ( '-' )? ( '0' .. '9' )+ ( ':' ( '-' )? ( '0' .. '9' )+ )? )? ) )?
+            // Hycontextinformation.g:2781:60: ( '@' ( ( '-' )? ( '0' .. '9' )+ '/' ( '-' )? ( '0' .. '9' )+ '/' ( '-' )? ( '0' .. '9' )+ ( 'T' ( '-' )? ( '0' .. '9' )+ ':' ( '-' )? ( '0' .. '9' )+ ( ':' ( '-' )? ( '0' .. '9' )+ )? )? ) )?
             int alt16=2;
             int LA16_0 = input.LA(1);
 
@@ -460,14 +460,14 @@ public class HycontextinformationLexer extends Lexer {
             }
             switch (alt16) {
                 case 1 :
-                    // Hycontextinformation.g:2795:61: '@' ( ( '-' )? ( '0' .. '9' )+ '/' ( '-' )? ( '0' .. '9' )+ '/' ( '-' )? ( '0' .. '9' )+ ( 'T' ( '-' )? ( '0' .. '9' )+ ':' ( '-' )? ( '0' .. '9' )+ ( ':' ( '-' )? ( '0' .. '9' )+ )? )? )
+                    // Hycontextinformation.g:2781:61: '@' ( ( '-' )? ( '0' .. '9' )+ '/' ( '-' )? ( '0' .. '9' )+ '/' ( '-' )? ( '0' .. '9' )+ ( 'T' ( '-' )? ( '0' .. '9' )+ ':' ( '-' )? ( '0' .. '9' )+ ( ':' ( '-' )? ( '0' .. '9' )+ )? )? )
                     {
                     match('@'); 
 
-                    // Hycontextinformation.g:2795:64: ( ( '-' )? ( '0' .. '9' )+ '/' ( '-' )? ( '0' .. '9' )+ '/' ( '-' )? ( '0' .. '9' )+ ( 'T' ( '-' )? ( '0' .. '9' )+ ':' ( '-' )? ( '0' .. '9' )+ ( ':' ( '-' )? ( '0' .. '9' )+ )? )? )
-                    // Hycontextinformation.g:2795:65: ( '-' )? ( '0' .. '9' )+ '/' ( '-' )? ( '0' .. '9' )+ '/' ( '-' )? ( '0' .. '9' )+ ( 'T' ( '-' )? ( '0' .. '9' )+ ':' ( '-' )? ( '0' .. '9' )+ ( ':' ( '-' )? ( '0' .. '9' )+ )? )?
+                    // Hycontextinformation.g:2781:64: ( ( '-' )? ( '0' .. '9' )+ '/' ( '-' )? ( '0' .. '9' )+ '/' ( '-' )? ( '0' .. '9' )+ ( 'T' ( '-' )? ( '0' .. '9' )+ ':' ( '-' )? ( '0' .. '9' )+ ( ':' ( '-' )? ( '0' .. '9' )+ )? )? )
+                    // Hycontextinformation.g:2781:65: ( '-' )? ( '0' .. '9' )+ '/' ( '-' )? ( '0' .. '9' )+ '/' ( '-' )? ( '0' .. '9' )+ ( 'T' ( '-' )? ( '0' .. '9' )+ ':' ( '-' )? ( '0' .. '9' )+ ( ':' ( '-' )? ( '0' .. '9' )+ )? )?
                     {
-                    // Hycontextinformation.g:2795:65: ( '-' )?
+                    // Hycontextinformation.g:2781:65: ( '-' )?
                     int alt2=2;
                     int LA2_0 = input.LA(1);
 
@@ -476,7 +476,7 @@ public class HycontextinformationLexer extends Lexer {
                     }
                     switch (alt2) {
                         case 1 :
-                            // Hycontextinformation.g:2795:66: '-'
+                            // Hycontextinformation.g:2781:66: '-'
                             {
                             match('-'); 
 
@@ -486,7 +486,7 @@ public class HycontextinformationLexer extends Lexer {
                     }
 
 
-                    // Hycontextinformation.g:2795:72: ( '0' .. '9' )+
+                    // Hycontextinformation.g:2781:72: ( '0' .. '9' )+
                     int cnt3=0;
                     loop3:
                     do {
@@ -527,7 +527,7 @@ public class HycontextinformationLexer extends Lexer {
 
                     match('/'); 
 
-                    // Hycontextinformation.g:2795:87: ( '-' )?
+                    // Hycontextinformation.g:2781:87: ( '-' )?
                     int alt4=2;
                     int LA4_0 = input.LA(1);
 
@@ -536,7 +536,7 @@ public class HycontextinformationLexer extends Lexer {
                     }
                     switch (alt4) {
                         case 1 :
-                            // Hycontextinformation.g:2795:88: '-'
+                            // Hycontextinformation.g:2781:88: '-'
                             {
                             match('-'); 
 
@@ -546,7 +546,7 @@ public class HycontextinformationLexer extends Lexer {
                     }
 
 
-                    // Hycontextinformation.g:2795:94: ( '0' .. '9' )+
+                    // Hycontextinformation.g:2781:94: ( '0' .. '9' )+
                     int cnt5=0;
                     loop5:
                     do {
@@ -587,7 +587,7 @@ public class HycontextinformationLexer extends Lexer {
 
                     match('/'); 
 
-                    // Hycontextinformation.g:2795:109: ( '-' )?
+                    // Hycontextinformation.g:2781:109: ( '-' )?
                     int alt6=2;
                     int LA6_0 = input.LA(1);
 
@@ -596,7 +596,7 @@ public class HycontextinformationLexer extends Lexer {
                     }
                     switch (alt6) {
                         case 1 :
-                            // Hycontextinformation.g:2795:110: '-'
+                            // Hycontextinformation.g:2781:110: '-'
                             {
                             match('-'); 
 
@@ -606,7 +606,7 @@ public class HycontextinformationLexer extends Lexer {
                     }
 
 
-                    // Hycontextinformation.g:2795:116: ( '0' .. '9' )+
+                    // Hycontextinformation.g:2781:116: ( '0' .. '9' )+
                     int cnt7=0;
                     loop7:
                     do {
@@ -645,7 +645,7 @@ public class HycontextinformationLexer extends Lexer {
                     } while (true);
 
 
-                    // Hycontextinformation.g:2795:128: ( 'T' ( '-' )? ( '0' .. '9' )+ ':' ( '-' )? ( '0' .. '9' )+ ( ':' ( '-' )? ( '0' .. '9' )+ )? )?
+                    // Hycontextinformation.g:2781:128: ( 'T' ( '-' )? ( '0' .. '9' )+ ':' ( '-' )? ( '0' .. '9' )+ ( ':' ( '-' )? ( '0' .. '9' )+ )? )?
                     int alt15=2;
                     int LA15_0 = input.LA(1);
 
@@ -654,11 +654,11 @@ public class HycontextinformationLexer extends Lexer {
                     }
                     switch (alt15) {
                         case 1 :
-                            // Hycontextinformation.g:2795:130: 'T' ( '-' )? ( '0' .. '9' )+ ':' ( '-' )? ( '0' .. '9' )+ ( ':' ( '-' )? ( '0' .. '9' )+ )?
+                            // Hycontextinformation.g:2781:130: 'T' ( '-' )? ( '0' .. '9' )+ ':' ( '-' )? ( '0' .. '9' )+ ( ':' ( '-' )? ( '0' .. '9' )+ )?
                             {
                             match('T'); 
 
-                            // Hycontextinformation.g:2795:133: ( '-' )?
+                            // Hycontextinformation.g:2781:133: ( '-' )?
                             int alt8=2;
                             int LA8_0 = input.LA(1);
 
@@ -667,7 +667,7 @@ public class HycontextinformationLexer extends Lexer {
                             }
                             switch (alt8) {
                                 case 1 :
-                                    // Hycontextinformation.g:2795:134: '-'
+                                    // Hycontextinformation.g:2781:134: '-'
                                     {
                                     match('-'); 
 
@@ -677,7 +677,7 @@ public class HycontextinformationLexer extends Lexer {
                             }
 
 
-                            // Hycontextinformation.g:2795:140: ( '0' .. '9' )+
+                            // Hycontextinformation.g:2781:140: ( '0' .. '9' )+
                             int cnt9=0;
                             loop9:
                             do {
@@ -718,7 +718,7 @@ public class HycontextinformationLexer extends Lexer {
 
                             match(':'); 
 
-                            // Hycontextinformation.g:2795:155: ( '-' )?
+                            // Hycontextinformation.g:2781:155: ( '-' )?
                             int alt10=2;
                             int LA10_0 = input.LA(1);
 
@@ -727,7 +727,7 @@ public class HycontextinformationLexer extends Lexer {
                             }
                             switch (alt10) {
                                 case 1 :
-                                    // Hycontextinformation.g:2795:156: '-'
+                                    // Hycontextinformation.g:2781:156: '-'
                                     {
                                     match('-'); 
 
@@ -737,7 +737,7 @@ public class HycontextinformationLexer extends Lexer {
                             }
 
 
-                            // Hycontextinformation.g:2795:162: ( '0' .. '9' )+
+                            // Hycontextinformation.g:2781:162: ( '0' .. '9' )+
                             int cnt11=0;
                             loop11:
                             do {
@@ -776,7 +776,7 @@ public class HycontextinformationLexer extends Lexer {
                             } while (true);
 
 
-                            // Hycontextinformation.g:2795:174: ( ':' ( '-' )? ( '0' .. '9' )+ )?
+                            // Hycontextinformation.g:2781:174: ( ':' ( '-' )? ( '0' .. '9' )+ )?
                             int alt14=2;
                             int LA14_0 = input.LA(1);
 
@@ -785,11 +785,11 @@ public class HycontextinformationLexer extends Lexer {
                             }
                             switch (alt14) {
                                 case 1 :
-                                    // Hycontextinformation.g:2795:175: ':' ( '-' )? ( '0' .. '9' )+
+                                    // Hycontextinformation.g:2781:175: ':' ( '-' )? ( '0' .. '9' )+
                                     {
                                     match(':'); 
 
-                                    // Hycontextinformation.g:2795:179: ( '-' )?
+                                    // Hycontextinformation.g:2781:179: ( '-' )?
                                     int alt12=2;
                                     int LA12_0 = input.LA(1);
 
@@ -798,7 +798,7 @@ public class HycontextinformationLexer extends Lexer {
                                     }
                                     switch (alt12) {
                                         case 1 :
-                                            // Hycontextinformation.g:2795:180: '-'
+                                            // Hycontextinformation.g:2781:180: '-'
                                             {
                                             match('-'); 
 
@@ -808,7 +808,7 @@ public class HycontextinformationLexer extends Lexer {
                                     }
 
 
-                                    // Hycontextinformation.g:2795:186: ( '0' .. '9' )+
+                                    // Hycontextinformation.g:2781:186: ( '0' .. '9' )+
                                     int cnt13=0;
                                     loop13:
                                     do {
@@ -887,16 +887,16 @@ public class HycontextinformationLexer extends Lexer {
         try {
             int _type = DATE;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // Hycontextinformation.g:2797:5: ( ( ( ( '-' )? ( '0' .. '9' )+ '/' ( '-' )? ( '0' .. '9' )+ '/' ( '-' )? ( '0' .. '9' )+ ( 'T' ( '-' )? ( '0' .. '9' )+ ':' ( '-' )? ( '0' .. '9' )+ ( ':' ( '-' )? ( '0' .. '9' )+ )? )? ) ) )
-            // Hycontextinformation.g:2798:2: ( ( ( '-' )? ( '0' .. '9' )+ '/' ( '-' )? ( '0' .. '9' )+ '/' ( '-' )? ( '0' .. '9' )+ ( 'T' ( '-' )? ( '0' .. '9' )+ ':' ( '-' )? ( '0' .. '9' )+ ( ':' ( '-' )? ( '0' .. '9' )+ )? )? ) )
+            // Hycontextinformation.g:2783:5: ( ( ( ( '-' )? ( '0' .. '9' )+ '/' ( '-' )? ( '0' .. '9' )+ '/' ( '-' )? ( '0' .. '9' )+ ( 'T' ( '-' )? ( '0' .. '9' )+ ':' ( '-' )? ( '0' .. '9' )+ ( ':' ( '-' )? ( '0' .. '9' )+ )? )? ) ) )
+            // Hycontextinformation.g:2784:2: ( ( ( '-' )? ( '0' .. '9' )+ '/' ( '-' )? ( '0' .. '9' )+ '/' ( '-' )? ( '0' .. '9' )+ ( 'T' ( '-' )? ( '0' .. '9' )+ ':' ( '-' )? ( '0' .. '9' )+ ( ':' ( '-' )? ( '0' .. '9' )+ )? )? ) )
             {
-            // Hycontextinformation.g:2798:2: ( ( ( '-' )? ( '0' .. '9' )+ '/' ( '-' )? ( '0' .. '9' )+ '/' ( '-' )? ( '0' .. '9' )+ ( 'T' ( '-' )? ( '0' .. '9' )+ ':' ( '-' )? ( '0' .. '9' )+ ( ':' ( '-' )? ( '0' .. '9' )+ )? )? ) )
-            // Hycontextinformation.g:2798:3: ( ( '-' )? ( '0' .. '9' )+ '/' ( '-' )? ( '0' .. '9' )+ '/' ( '-' )? ( '0' .. '9' )+ ( 'T' ( '-' )? ( '0' .. '9' )+ ':' ( '-' )? ( '0' .. '9' )+ ( ':' ( '-' )? ( '0' .. '9' )+ )? )? )
+            // Hycontextinformation.g:2784:2: ( ( ( '-' )? ( '0' .. '9' )+ '/' ( '-' )? ( '0' .. '9' )+ '/' ( '-' )? ( '0' .. '9' )+ ( 'T' ( '-' )? ( '0' .. '9' )+ ':' ( '-' )? ( '0' .. '9' )+ ( ':' ( '-' )? ( '0' .. '9' )+ )? )? ) )
+            // Hycontextinformation.g:2784:3: ( ( '-' )? ( '0' .. '9' )+ '/' ( '-' )? ( '0' .. '9' )+ '/' ( '-' )? ( '0' .. '9' )+ ( 'T' ( '-' )? ( '0' .. '9' )+ ':' ( '-' )? ( '0' .. '9' )+ ( ':' ( '-' )? ( '0' .. '9' )+ )? )? )
             {
-            // Hycontextinformation.g:2798:3: ( ( '-' )? ( '0' .. '9' )+ '/' ( '-' )? ( '0' .. '9' )+ '/' ( '-' )? ( '0' .. '9' )+ ( 'T' ( '-' )? ( '0' .. '9' )+ ':' ( '-' )? ( '0' .. '9' )+ ( ':' ( '-' )? ( '0' .. '9' )+ )? )? )
-            // Hycontextinformation.g:2798:4: ( '-' )? ( '0' .. '9' )+ '/' ( '-' )? ( '0' .. '9' )+ '/' ( '-' )? ( '0' .. '9' )+ ( 'T' ( '-' )? ( '0' .. '9' )+ ':' ( '-' )? ( '0' .. '9' )+ ( ':' ( '-' )? ( '0' .. '9' )+ )? )?
+            // Hycontextinformation.g:2784:3: ( ( '-' )? ( '0' .. '9' )+ '/' ( '-' )? ( '0' .. '9' )+ '/' ( '-' )? ( '0' .. '9' )+ ( 'T' ( '-' )? ( '0' .. '9' )+ ':' ( '-' )? ( '0' .. '9' )+ ( ':' ( '-' )? ( '0' .. '9' )+ )? )? )
+            // Hycontextinformation.g:2784:4: ( '-' )? ( '0' .. '9' )+ '/' ( '-' )? ( '0' .. '9' )+ '/' ( '-' )? ( '0' .. '9' )+ ( 'T' ( '-' )? ( '0' .. '9' )+ ':' ( '-' )? ( '0' .. '9' )+ ( ':' ( '-' )? ( '0' .. '9' )+ )? )?
             {
-            // Hycontextinformation.g:2798:4: ( '-' )?
+            // Hycontextinformation.g:2784:4: ( '-' )?
             int alt17=2;
             int LA17_0 = input.LA(1);
 
@@ -905,7 +905,7 @@ public class HycontextinformationLexer extends Lexer {
             }
             switch (alt17) {
                 case 1 :
-                    // Hycontextinformation.g:2798:5: '-'
+                    // Hycontextinformation.g:2784:5: '-'
                     {
                     match('-'); 
 
@@ -915,7 +915,7 @@ public class HycontextinformationLexer extends Lexer {
             }
 
 
-            // Hycontextinformation.g:2798:11: ( '0' .. '9' )+
+            // Hycontextinformation.g:2784:11: ( '0' .. '9' )+
             int cnt18=0;
             loop18:
             do {
@@ -956,7 +956,7 @@ public class HycontextinformationLexer extends Lexer {
 
             match('/'); 
 
-            // Hycontextinformation.g:2798:26: ( '-' )?
+            // Hycontextinformation.g:2784:26: ( '-' )?
             int alt19=2;
             int LA19_0 = input.LA(1);
 
@@ -965,7 +965,7 @@ public class HycontextinformationLexer extends Lexer {
             }
             switch (alt19) {
                 case 1 :
-                    // Hycontextinformation.g:2798:27: '-'
+                    // Hycontextinformation.g:2784:27: '-'
                     {
                     match('-'); 
 
@@ -975,7 +975,7 @@ public class HycontextinformationLexer extends Lexer {
             }
 
 
-            // Hycontextinformation.g:2798:33: ( '0' .. '9' )+
+            // Hycontextinformation.g:2784:33: ( '0' .. '9' )+
             int cnt20=0;
             loop20:
             do {
@@ -1016,7 +1016,7 @@ public class HycontextinformationLexer extends Lexer {
 
             match('/'); 
 
-            // Hycontextinformation.g:2798:48: ( '-' )?
+            // Hycontextinformation.g:2784:48: ( '-' )?
             int alt21=2;
             int LA21_0 = input.LA(1);
 
@@ -1025,7 +1025,7 @@ public class HycontextinformationLexer extends Lexer {
             }
             switch (alt21) {
                 case 1 :
-                    // Hycontextinformation.g:2798:49: '-'
+                    // Hycontextinformation.g:2784:49: '-'
                     {
                     match('-'); 
 
@@ -1035,7 +1035,7 @@ public class HycontextinformationLexer extends Lexer {
             }
 
 
-            // Hycontextinformation.g:2798:55: ( '0' .. '9' )+
+            // Hycontextinformation.g:2784:55: ( '0' .. '9' )+
             int cnt22=0;
             loop22:
             do {
@@ -1074,7 +1074,7 @@ public class HycontextinformationLexer extends Lexer {
             } while (true);
 
 
-            // Hycontextinformation.g:2798:67: ( 'T' ( '-' )? ( '0' .. '9' )+ ':' ( '-' )? ( '0' .. '9' )+ ( ':' ( '-' )? ( '0' .. '9' )+ )? )?
+            // Hycontextinformation.g:2784:67: ( 'T' ( '-' )? ( '0' .. '9' )+ ':' ( '-' )? ( '0' .. '9' )+ ( ':' ( '-' )? ( '0' .. '9' )+ )? )?
             int alt30=2;
             int LA30_0 = input.LA(1);
 
@@ -1083,11 +1083,11 @@ public class HycontextinformationLexer extends Lexer {
             }
             switch (alt30) {
                 case 1 :
-                    // Hycontextinformation.g:2798:69: 'T' ( '-' )? ( '0' .. '9' )+ ':' ( '-' )? ( '0' .. '9' )+ ( ':' ( '-' )? ( '0' .. '9' )+ )?
+                    // Hycontextinformation.g:2784:69: 'T' ( '-' )? ( '0' .. '9' )+ ':' ( '-' )? ( '0' .. '9' )+ ( ':' ( '-' )? ( '0' .. '9' )+ )?
                     {
                     match('T'); 
 
-                    // Hycontextinformation.g:2798:72: ( '-' )?
+                    // Hycontextinformation.g:2784:72: ( '-' )?
                     int alt23=2;
                     int LA23_0 = input.LA(1);
 
@@ -1096,7 +1096,7 @@ public class HycontextinformationLexer extends Lexer {
                     }
                     switch (alt23) {
                         case 1 :
-                            // Hycontextinformation.g:2798:73: '-'
+                            // Hycontextinformation.g:2784:73: '-'
                             {
                             match('-'); 
 
@@ -1106,7 +1106,7 @@ public class HycontextinformationLexer extends Lexer {
                     }
 
 
-                    // Hycontextinformation.g:2798:79: ( '0' .. '9' )+
+                    // Hycontextinformation.g:2784:79: ( '0' .. '9' )+
                     int cnt24=0;
                     loop24:
                     do {
@@ -1147,7 +1147,7 @@ public class HycontextinformationLexer extends Lexer {
 
                     match(':'); 
 
-                    // Hycontextinformation.g:2798:94: ( '-' )?
+                    // Hycontextinformation.g:2784:94: ( '-' )?
                     int alt25=2;
                     int LA25_0 = input.LA(1);
 
@@ -1156,7 +1156,7 @@ public class HycontextinformationLexer extends Lexer {
                     }
                     switch (alt25) {
                         case 1 :
-                            // Hycontextinformation.g:2798:95: '-'
+                            // Hycontextinformation.g:2784:95: '-'
                             {
                             match('-'); 
 
@@ -1166,7 +1166,7 @@ public class HycontextinformationLexer extends Lexer {
                     }
 
 
-                    // Hycontextinformation.g:2798:101: ( '0' .. '9' )+
+                    // Hycontextinformation.g:2784:101: ( '0' .. '9' )+
                     int cnt26=0;
                     loop26:
                     do {
@@ -1205,7 +1205,7 @@ public class HycontextinformationLexer extends Lexer {
                     } while (true);
 
 
-                    // Hycontextinformation.g:2798:113: ( ':' ( '-' )? ( '0' .. '9' )+ )?
+                    // Hycontextinformation.g:2784:113: ( ':' ( '-' )? ( '0' .. '9' )+ )?
                     int alt29=2;
                     int LA29_0 = input.LA(1);
 
@@ -1214,11 +1214,11 @@ public class HycontextinformationLexer extends Lexer {
                     }
                     switch (alt29) {
                         case 1 :
-                            // Hycontextinformation.g:2798:114: ':' ( '-' )? ( '0' .. '9' )+
+                            // Hycontextinformation.g:2784:114: ':' ( '-' )? ( '0' .. '9' )+
                             {
                             match(':'); 
 
-                            // Hycontextinformation.g:2798:118: ( '-' )?
+                            // Hycontextinformation.g:2784:118: ( '-' )?
                             int alt27=2;
                             int LA27_0 = input.LA(1);
 
@@ -1227,7 +1227,7 @@ public class HycontextinformationLexer extends Lexer {
                             }
                             switch (alt27) {
                                 case 1 :
-                                    // Hycontextinformation.g:2798:119: '-'
+                                    // Hycontextinformation.g:2784:119: '-'
                                     {
                                     match('-'); 
 
@@ -1237,7 +1237,7 @@ public class HycontextinformationLexer extends Lexer {
                             }
 
 
-                            // Hycontextinformation.g:2798:125: ( '0' .. '9' )+
+                            // Hycontextinformation.g:2784:125: ( '0' .. '9' )+
                             int cnt28=0;
                             loop28:
                             do {
@@ -1310,13 +1310,13 @@ public class HycontextinformationLexer extends Lexer {
         try {
             int _type = INTEGER_LITERAL;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // Hycontextinformation.g:2800:16: ( ( ( '-' )? ( '0' .. '9' )+ ) )
-            // Hycontextinformation.g:2801:2: ( ( '-' )? ( '0' .. '9' )+ )
+            // Hycontextinformation.g:2786:16: ( ( ( '-' )? ( '0' .. '9' )+ ) )
+            // Hycontextinformation.g:2787:2: ( ( '-' )? ( '0' .. '9' )+ )
             {
-            // Hycontextinformation.g:2801:2: ( ( '-' )? ( '0' .. '9' )+ )
-            // Hycontextinformation.g:2801:3: ( '-' )? ( '0' .. '9' )+
+            // Hycontextinformation.g:2787:2: ( ( '-' )? ( '0' .. '9' )+ )
+            // Hycontextinformation.g:2787:3: ( '-' )? ( '0' .. '9' )+
             {
-            // Hycontextinformation.g:2801:3: ( '-' )?
+            // Hycontextinformation.g:2787:3: ( '-' )?
             int alt31=2;
             int LA31_0 = input.LA(1);
 
@@ -1325,7 +1325,7 @@ public class HycontextinformationLexer extends Lexer {
             }
             switch (alt31) {
                 case 1 :
-                    // Hycontextinformation.g:2801:4: '-'
+                    // Hycontextinformation.g:2787:4: '-'
                     {
                     match('-'); 
 
@@ -1335,7 +1335,7 @@ public class HycontextinformationLexer extends Lexer {
             }
 
 
-            // Hycontextinformation.g:2801:10: ( '0' .. '9' )+
+            // Hycontextinformation.g:2787:10: ( '0' .. '9' )+
             int cnt32=0;
             loop32:
             do {
@@ -1393,17 +1393,17 @@ public class HycontextinformationLexer extends Lexer {
         try {
             int _type = SL_COMMENT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // Hycontextinformation.g:2803:11: ( ( '//' (~ ( '\\n' | '\\r' | '\\uffff' ) )* ) )
-            // Hycontextinformation.g:2804:2: ( '//' (~ ( '\\n' | '\\r' | '\\uffff' ) )* )
+            // Hycontextinformation.g:2789:11: ( ( '//' (~ ( '\\n' | '\\r' | '\\uffff' ) )* ) )
+            // Hycontextinformation.g:2790:2: ( '//' (~ ( '\\n' | '\\r' | '\\uffff' ) )* )
             {
-            // Hycontextinformation.g:2804:2: ( '//' (~ ( '\\n' | '\\r' | '\\uffff' ) )* )
-            // Hycontextinformation.g:2804:3: '//' (~ ( '\\n' | '\\r' | '\\uffff' ) )*
+            // Hycontextinformation.g:2790:2: ( '//' (~ ( '\\n' | '\\r' | '\\uffff' ) )* )
+            // Hycontextinformation.g:2790:3: '//' (~ ( '\\n' | '\\r' | '\\uffff' ) )*
             {
             match("//"); 
 
 
 
-            // Hycontextinformation.g:2804:7: (~ ( '\\n' | '\\r' | '\\uffff' ) )*
+            // Hycontextinformation.g:2790:7: (~ ( '\\n' | '\\r' | '\\uffff' ) )*
             loop33:
             do {
                 int alt33=2;
@@ -1458,17 +1458,17 @@ public class HycontextinformationLexer extends Lexer {
         try {
             int _type = ML_COMMENT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // Hycontextinformation.g:2807:11: ( ( '/*' ( . )* '*/' ) )
-            // Hycontextinformation.g:2808:2: ( '/*' ( . )* '*/' )
+            // Hycontextinformation.g:2793:11: ( ( '/*' ( . )* '*/' ) )
+            // Hycontextinformation.g:2794:2: ( '/*' ( . )* '*/' )
             {
-            // Hycontextinformation.g:2808:2: ( '/*' ( . )* '*/' )
-            // Hycontextinformation.g:2808:3: '/*' ( . )* '*/'
+            // Hycontextinformation.g:2794:2: ( '/*' ( . )* '*/' )
+            // Hycontextinformation.g:2794:3: '/*' ( . )* '*/'
             {
             match("/*"); 
 
 
 
-            // Hycontextinformation.g:2808:7: ( . )*
+            // Hycontextinformation.g:2794:7: ( . )*
             loop34:
             do {
                 int alt34=2;
@@ -1493,7 +1493,7 @@ public class HycontextinformationLexer extends Lexer {
 
                 switch (alt34) {
             	case 1 :
-            	    // Hycontextinformation.g:2808:7: .
+            	    // Hycontextinformation.g:2794:7: .
             	    {
             	    matchAny(); 
 
@@ -1531,13 +1531,13 @@ public class HycontextinformationLexer extends Lexer {
         try {
             int _type = LINEBREAK;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // Hycontextinformation.g:2811:10: ( ( ( '\\r\\n' | '\\r' | '\\n' ) ) )
-            // Hycontextinformation.g:2812:2: ( ( '\\r\\n' | '\\r' | '\\n' ) )
+            // Hycontextinformation.g:2797:10: ( ( ( '\\r\\n' | '\\r' | '\\n' ) ) )
+            // Hycontextinformation.g:2798:2: ( ( '\\r\\n' | '\\r' | '\\n' ) )
             {
-            // Hycontextinformation.g:2812:2: ( ( '\\r\\n' | '\\r' | '\\n' ) )
-            // Hycontextinformation.g:2812:3: ( '\\r\\n' | '\\r' | '\\n' )
+            // Hycontextinformation.g:2798:2: ( ( '\\r\\n' | '\\r' | '\\n' ) )
+            // Hycontextinformation.g:2798:3: ( '\\r\\n' | '\\r' | '\\n' )
             {
-            // Hycontextinformation.g:2812:3: ( '\\r\\n' | '\\r' | '\\n' )
+            // Hycontextinformation.g:2798:3: ( '\\r\\n' | '\\r' | '\\n' )
             int alt35=3;
             int LA35_0 = input.LA(1);
 
@@ -1563,7 +1563,7 @@ public class HycontextinformationLexer extends Lexer {
             }
             switch (alt35) {
                 case 1 :
-                    // Hycontextinformation.g:2812:4: '\\r\\n'
+                    // Hycontextinformation.g:2798:4: '\\r\\n'
                     {
                     match("\r\n"); 
 
@@ -1572,14 +1572,14 @@ public class HycontextinformationLexer extends Lexer {
                     }
                     break;
                 case 2 :
-                    // Hycontextinformation.g:2812:11: '\\r'
+                    // Hycontextinformation.g:2798:11: '\\r'
                     {
                     match('\r'); 
 
                     }
                     break;
                 case 3 :
-                    // Hycontextinformation.g:2812:16: '\\n'
+                    // Hycontextinformation.g:2798:16: '\\n'
                     {
                     match('\n'); 
 
@@ -1610,8 +1610,8 @@ public class HycontextinformationLexer extends Lexer {
         try {
             int _type = WHITESPACE;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // Hycontextinformation.g:2815:11: ( ( ( ' ' | '\\t' | '\\f' ) ) )
-            // Hycontextinformation.g:2816:2: ( ( ' ' | '\\t' | '\\f' ) )
+            // Hycontextinformation.g:2801:11: ( ( ( ' ' | '\\t' | '\\f' ) ) )
+            // Hycontextinformation.g:2802:2: ( ( ' ' | '\\t' | '\\f' ) )
             {
             if ( input.LA(1)=='\t'||input.LA(1)=='\f'||input.LA(1)==' ' ) {
                 input.consume();
@@ -1825,69 +1825,71 @@ public class HycontextinformationLexer extends Lexer {
 
     protected DFA36 dfa36 = new DFA36(this);
     static final String DFA36_eotS =
-        "\3\uffff\1\23\1\uffff\3\16\2\uffff\4\16\1\uffff\1\34\4\uffff\7\16"+
-        "\4\uffff\14\16\1\64\1\65\1\16\1\uffff\3\16\1\uffff\1\72\2\uffff"+
-        "\4\16\1\uffff\25\16\2\uffff\4\16\2\uffff";
+        "\3\uffff\1\22\1\uffff\3\15\2\uffff\3\15\1\uffff\1\33\4\uffff\7\15"+
+        "\4\uffff\15\15\1\64\1\15\1\uffff\3\15\1\uffff\1\15\1\72\1\uffff"+
+        "\5\15\1\uffff\11\15\1\111\4\15\1\uffff\11\15\2\uffff\4\15\2\uffff";
     static final String DFA36_eofS =
-        "\130\uffff";
+        "\133\uffff";
     static final String DFA36_minS =
         "\1\11\2\uffff\1\60\1\uffff\1\157\1\156\1\165\2\uffff\1\156\1\141"+
-        "\1\165\1\162\1\uffff\1\57\1\52\3\uffff\1\157\1\165\1\155\1\165\2"+
-        "\154\1\165\4\uffff\1\154\1\155\1\142\1\155\1\163\1\154\2\145\1\50"+
-        "\1\145\1\72\1\145\2\60\1\141\1\uffff\1\157\1\151\1\162\1\uffff\1"+
-        "\60\2\uffff\2\156\1\164\1\103\1\uffff\1\103\1\164\1\145\2\157\1"+
-        "\145\1\162\2\156\1\170\1\141\3\164\1\154\2\145\2\50\2\170\2\uffff"+
-        "\2\164\2\50\2\uffff";
+        "\1\162\1\uffff\1\57\1\52\3\uffff\1\157\1\165\1\155\1\165\1\145\1"+
+        "\154\1\165\4\uffff\1\154\1\155\1\142\1\155\1\162\1\163\2\145\1\50"+
+        "\1\145\1\72\1\156\1\145\1\60\1\141\1\uffff\1\157\1\151\1\162\1\uffff"+
+        "\1\151\1\60\1\uffff\2\156\1\164\1\103\1\164\1\uffff\1\103\1\164"+
+        "\1\145\1\157\1\171\1\157\1\145\1\162\1\156\1\60\1\156\1\170\1\141"+
+        "\1\164\1\uffff\2\164\1\154\2\145\2\50\2\170\2\uffff\2\164\2\50\2"+
+        "\uffff";
     static final String DFA36_maxS =
-        "\1\172\2\uffff\1\71\1\uffff\1\157\1\156\1\165\2\uffff\1\156\1\141"+
-        "\1\165\1\162\1\uffff\1\71\1\57\3\uffff\1\157\1\165\1\155\1\165\2"+
-        "\154\1\165\4\uffff\1\154\1\155\1\142\1\155\1\163\1\154\2\145\1\114"+
-        "\1\145\1\72\1\145\2\172\1\141\1\uffff\1\157\1\151\1\162\1\uffff"+
-        "\1\172\2\uffff\2\156\1\164\1\103\1\uffff\1\103\1\164\1\145\2\157"+
-        "\1\145\1\162\2\156\1\170\1\141\3\164\1\154\2\145\2\50\2\170\2\uffff"+
-        "\2\164\2\50\2\uffff";
+        "\1\172\2\uffff\1\71\1\uffff\1\157\1\156\1\165\2\uffff\1\164\1\141"+
+        "\1\162\1\uffff\1\71\1\57\3\uffff\1\157\1\165\1\155\1\165\1\145\1"+
+        "\154\1\165\4\uffff\1\154\1\155\1\142\1\155\1\162\1\163\2\145\1\114"+
+        "\1\145\1\72\1\156\1\145\1\172\1\141\1\uffff\1\157\1\151\1\162\1"+
+        "\uffff\1\151\1\172\1\uffff\2\156\1\164\1\103\1\164\1\uffff\1\103"+
+        "\1\164\1\145\1\157\1\171\1\157\1\145\1\162\1\156\1\172\1\156\1\170"+
+        "\1\141\1\164\1\uffff\2\164\1\154\2\145\2\50\2\170\2\uffff\2\164"+
+        "\2\50\2\uffff";
     static final String DFA36_acceptS =
-        "\1\uffff\1\1\1\2\1\uffff\1\4\3\uffff\1\12\1\13\4\uffff\1\20\2\uffff"+
+        "\1\uffff\1\1\1\2\1\uffff\1\4\3\uffff\1\12\1\13\3\uffff\1\20\2\uffff"+
         "\1\25\1\26\1\3\7\uffff\1\21\1\22\1\23\1\24\17\uffff\1\6\3\uffff"+
-        "\1\14\1\uffff\1\16\1\17\4\uffff\1\15\25\uffff\1\7\1\10\4\uffff\1"+
-        "\11\1\5";
+        "\1\14\2\uffff\1\17\5\uffff\1\16\16\uffff\1\15\11\uffff\1\7\1\10"+
+        "\4\uffff\1\11\1\5";
     static final String DFA36_specialS =
-        "\130\uffff}>";
+        "\133\uffff}>";
     static final String[] DFA36_transitionS = {
-            "\1\22\1\21\1\uffff\1\22\1\21\22\uffff\1\22\10\uffff\1\1\2\uffff"+
-            "\1\2\1\3\1\4\1\20\12\17\7\uffff\1\16\1\5\2\16\1\6\10\16\1\7"+
-            "\14\16\1\10\1\uffff\1\11\1\uffff\1\16\1\uffff\4\16\1\12\1\13"+
-            "\7\16\1\14\5\16\1\15\6\16",
+            "\1\21\1\20\1\uffff\1\21\1\20\22\uffff\1\21\10\uffff\1\1\2\uffff"+
+            "\1\2\1\3\1\4\1\17\12\16\7\uffff\1\15\1\5\2\15\1\6\10\15\1\7"+
+            "\14\15\1\10\1\uffff\1\11\1\uffff\1\15\1\uffff\4\15\1\12\1\13"+
+            "\15\15\1\14\6\15",
             "",
             "",
-            "\12\17",
+            "\12\16",
             "",
+            "\1\23",
             "\1\24",
             "\1\25",
-            "\1\26",
             "",
             "",
-            "\1\27",
+            "\1\26\5\uffff\1\27",
             "\1\30",
             "\1\31",
-            "\1\32",
             "",
-            "\1\33\12\17",
-            "\1\36\4\uffff\1\35",
-            "",
+            "\1\32\12\16",
+            "\1\35\4\uffff\1\34",
             "",
             "",
+            "",
+            "\1\36",
             "\1\37",
             "\1\40",
             "\1\41",
             "\1\42",
             "\1\43",
             "\1\44",
+            "",
+            "",
+            "",
+            "",
             "\1\45",
-            "",
-            "",
-            "",
-            "",
             "\1\46",
             "\1\47",
             "\1\50",
@@ -1895,28 +1897,27 @@ public class HycontextinformationLexer extends Lexer {
             "\1\52",
             "\1\53",
             "\1\54",
-            "\1\55",
-            "\1\56\32\uffff\1\57\10\uffff\1\60",
+            "\1\55\32\uffff\1\56\10\uffff\1\57",
+            "\1\60",
             "\1\61",
             "\1\62",
             "\1\63",
-            "\12\16\6\uffff\33\16\4\uffff\1\16\1\uffff\32\16",
-            "\12\16\6\uffff\33\16\4\uffff\1\16\1\uffff\32\16",
-            "\1\66",
+            "\12\15\6\uffff\33\15\4\uffff\1\15\1\uffff\32\15",
+            "\1\65",
             "",
+            "\1\66",
             "\1\67",
             "\1\70",
+            "",
             "\1\71",
-            "",
-            "\12\16\6\uffff\33\16\4\uffff\1\16\1\uffff\32\16",
-            "",
+            "\12\15\6\uffff\33\15\4\uffff\1\15\1\uffff\32\15",
             "",
             "\1\73",
             "\1\74",
             "\1\75",
             "\1\76",
-            "",
             "\1\77",
+            "",
             "\1\100",
             "\1\101",
             "\1\102",
@@ -1926,23 +1927,27 @@ public class HycontextinformationLexer extends Lexer {
             "\1\106",
             "\1\107",
             "\1\110",
-            "\1\111",
+            "\12\15\6\uffff\33\15\4\uffff\1\15\1\uffff\32\15",
             "\1\112",
             "\1\113",
             "\1\114",
             "\1\115",
+            "",
             "\1\116",
             "\1\117",
             "\1\120",
             "\1\121",
             "\1\122",
             "\1\123",
-            "",
-            "",
             "\1\124",
             "\1\125",
             "\1\126",
+            "",
+            "",
             "\1\127",
+            "\1\130",
+            "\1\131",
+            "\1\132",
             "",
             ""
     };

@@ -72,7 +72,7 @@ public class HyFeatureTreeLayouter {
 		Rectangle2D.Double nodeBounds = getNodeBounds(feature);
 		
 		try{
-		Rectangle result = DEGeometryUtil.rectangle2DToDraw2DRectangle(nodeBounds);
+			Rectangle result = DEGeometryUtil.rectangle2DToDraw2DRectangle(nodeBounds);
 			return result;
 		}catch(NullPointerException e){
 			e.printStackTrace();

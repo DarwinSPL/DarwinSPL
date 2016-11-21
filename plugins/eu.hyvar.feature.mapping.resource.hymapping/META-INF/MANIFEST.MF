@@ -3,7 +3,7 @@ Bundle-ManifestVersion: 2
 Bundle-Name: EMFText Parser Plugin: hymapping
 Bundle-SymbolicName: eu.hyvar.feature.mapping.resource.hymapping;singleton:=true
 Bundle-Version: 1.0.0
-Bundle-Vendor: Software Technology Group - TU Dresden Germany
+Bundle-Vendor: www.darwinspl.de
 Require-Bundle: org.eclipse.core.runtime;resolution:=optional,
   org.eclipse.core.resources;resolution:=optional,
   org.eclipse.emf.ecore,

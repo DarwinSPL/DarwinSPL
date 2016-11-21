@@ -5,12 +5,12 @@ import java.beans.PropertyChangeListener;
 
 import org.eclipse.gef.editparts.AbstractGraphicalEditPart;
 
-import eu.hyvar.feature.graphical.base.editor.GraphicalFeatureModelEditor;
+import eu.hyvar.feature.graphical.base.editor.HyGraphicalFeatureModelViewer;
 import eu.hyvar.feature.graphical.base.model.HyEditorChangeableElement;
 import eu.hyvar.feature.graphical.base.model.HyFeatureModelWrapped;
 
 public abstract class HyAbstractEditPart extends AbstractGraphicalEditPart implements PropertyChangeListener{
-	protected GraphicalFeatureModelEditor editor;
+	protected HyGraphicalFeatureModelViewer editor;
 	protected HyFeatureModelWrapped featureModel;
 
 	public HyFeatureModelWrapped getFeatureModel() {
@@ -21,19 +21,20 @@ public abstract class HyAbstractEditPart extends AbstractGraphicalEditPart imple
 		this.featureModel = featureModel;
 	}
 
-	public HyAbstractEditPart(GraphicalFeatureModelEditor editor, HyFeatureModelWrapped featureModel) {
+	public HyAbstractEditPart(HyGraphicalFeatureModelViewer editor, HyFeatureModelWrapped featureModel) {
 		this.editor = editor;
 		this.featureModel = featureModel;
 	}
 
-	public GraphicalFeatureModelEditor getEditor() {
+	public HyGraphicalFeatureModelViewer getEditor() {
 		return editor;
 	}
 
 
 	public void activate() {
+		super.activate();
 		if(getModel() instanceof HyEditorChangeableElement){
-			super.activate();
+			
 			HyEditorChangeableElement propertyAwareObject = (HyEditorChangeableElement) getModel();
 			propertyAwareObject.addPropertyChangeListener(this);
 		}
@@ -41,8 +42,9 @@ public abstract class HyAbstractEditPart extends AbstractGraphicalEditPart imple
 
 
 	public void deactivate() {
+		super.deactivate();
 		if(getModel() instanceof HyEditorChangeableElement){
-			super.deactivate();
+			
 			HyEditorChangeableElement propertyAwareObject = (HyEditorChangeableElement) getModel();
 			propertyAwareObject.removePropertyChangeListener(this);
 		}
@@ -50,8 +52,6 @@ public abstract class HyAbstractEditPart extends AbstractGraphicalEditPart imple
 
 	@Override
 	public void propertyChange(PropertyChangeEvent evt) {
-		//System.out.println(evt);
-
 	}
 
 }

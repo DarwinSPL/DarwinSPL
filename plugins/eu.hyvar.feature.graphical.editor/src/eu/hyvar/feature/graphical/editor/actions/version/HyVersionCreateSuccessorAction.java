@@ -5,7 +5,8 @@ import org.eclipse.gef.ui.actions.SelectionAction;
 
 import eu.hyvar.feature.HyFeatureFactory;
 import eu.hyvar.feature.HyVersion;
-import eu.hyvar.feature.graphical.base.editor.GraphicalFeatureModelEditor;
+import eu.hyvar.feature.graphical.base.editor.HyGraphicalFeatureModelViewer;
+import eu.hyvar.feature.graphical.base.editparts.HyFeatureEditPart;
 import eu.hyvar.feature.graphical.base.editparts.HyVersionEditPart;
 
 public class HyVersionCreateSuccessorAction extends SelectionAction{
@@ -14,9 +15,9 @@ public class HyVersionCreateSuccessorAction extends SelectionAction{
 
 	Request request;
 
-	GraphicalFeatureModelEditor editor;
+	HyGraphicalFeatureModelViewer editor;
 
-	public HyVersionCreateSuccessorAction(GraphicalFeatureModelEditor editor){
+	public HyVersionCreateSuccessorAction(HyGraphicalFeatureModelViewer editor){
 		super(editor);
 
 		setId(FEATURE_CREATE_SUCCESSOR_VERSION);
@@ -45,8 +46,13 @@ public class HyVersionCreateSuccessorAction extends SelectionAction{
 				
 				model.getFeature().getVersions().add(version);
 				version.setFeature(model.getFeature());
+				
+				((HyFeatureEditPart)p.getParent()).refreshVisuals();
 			}
 		}
+		
+		editor.getModelWrapped().rearrangeFeatures();
+		editor.refreshView();
 	}
 
 	@Override

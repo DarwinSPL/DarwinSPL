@@ -86,7 +86,7 @@ public class HyconstraintsGrammarInformationProvider {
 	
 	public final static eu.hyvar.feature.constraint.resource.hyconstraints.grammar.HyconstraintsKeyword HYCONSTRAINTS_1_0_0_1_0_0_1_0_1_2 = INSTANCE.getHYCONSTRAINTS_1_0_0_1_0_0_1_0_1_2();
 	private eu.hyvar.feature.constraint.resource.hyconstraints.grammar.HyconstraintsKeyword getHYCONSTRAINTS_1_0_0_1_0_0_1_0_1_2() {
-		return new eu.hyvar.feature.constraint.resource.hyconstraints.grammar.HyconstraintsKeyword("null", eu.hyvar.feature.constraint.resource.hyconstraints.grammar.HyconstraintsCardinality.ONE);
+		return new eu.hyvar.feature.constraint.resource.hyconstraints.grammar.HyconstraintsKeyword("eternity", eu.hyvar.feature.constraint.resource.hyconstraints.grammar.HyconstraintsCardinality.ONE);
 	}
 	
 	public final static eu.hyvar.feature.constraint.resource.hyconstraints.grammar.HyconstraintsSequence HYCONSTRAINTS_1_0_0_1_0_0_1_0_1 = INSTANCE.getHYCONSTRAINTS_1_0_0_1_0_0_1_0_1();
@@ -96,7 +96,7 @@ public class HyconstraintsGrammarInformationProvider {
 	
 	public final static eu.hyvar.feature.constraint.resource.hyconstraints.grammar.HyconstraintsKeyword HYCONSTRAINTS_1_0_0_1_0_0_1_0_2_0 = INSTANCE.getHYCONSTRAINTS_1_0_0_1_0_0_1_0_2_0();
 	private eu.hyvar.feature.constraint.resource.hyconstraints.grammar.HyconstraintsKeyword getHYCONSTRAINTS_1_0_0_1_0_0_1_0_2_0() {
-		return new eu.hyvar.feature.constraint.resource.hyconstraints.grammar.HyconstraintsKeyword("null", eu.hyvar.feature.constraint.resource.hyconstraints.grammar.HyconstraintsCardinality.ONE);
+		return new eu.hyvar.feature.constraint.resource.hyconstraints.grammar.HyconstraintsKeyword("eternity", eu.hyvar.feature.constraint.resource.hyconstraints.grammar.HyconstraintsCardinality.ONE);
 	}
 	
 	public final static eu.hyvar.feature.constraint.resource.hyconstraints.grammar.HyconstraintsKeyword HYCONSTRAINTS_1_0_0_1_0_0_1_0_2_1 = INSTANCE.getHYCONSTRAINTS_1_0_0_1_0_0_1_0_2_1();
@@ -1304,19 +1304,14 @@ public class HyconstraintsGrammarInformationProvider {
 		return new eu.hyvar.feature.constraint.resource.hyconstraints.grammar.HyconstraintsKeyword("-", eu.hyvar.feature.constraint.resource.hyconstraints.grammar.HyconstraintsCardinality.ONE);
 	}
 	
-	public final static eu.hyvar.feature.constraint.resource.hyconstraints.grammar.HyconstraintsKeyword HYDATAVALUE_3_0_0_5_0_0_1_0_1_2 = INSTANCE.getHYDATAVALUE_3_0_0_5_0_0_1_0_1_2();
-	private eu.hyvar.feature.constraint.resource.hyconstraints.grammar.HyconstraintsKeyword getHYDATAVALUE_3_0_0_5_0_0_1_0_1_2() {
-		return new eu.hyvar.feature.constraint.resource.hyconstraints.grammar.HyconstraintsKeyword("null", eu.hyvar.feature.constraint.resource.hyconstraints.grammar.HyconstraintsCardinality.ONE);
-	}
-	
 	public final static eu.hyvar.feature.constraint.resource.hyconstraints.grammar.HyconstraintsSequence HYDATAVALUE_3_0_0_5_0_0_1_0_1 = INSTANCE.getHYDATAVALUE_3_0_0_5_0_0_1_0_1();
 	private eu.hyvar.feature.constraint.resource.hyconstraints.grammar.HyconstraintsSequence getHYDATAVALUE_3_0_0_5_0_0_1_0_1() {
-		return new eu.hyvar.feature.constraint.resource.hyconstraints.grammar.HyconstraintsSequence(eu.hyvar.feature.constraint.resource.hyconstraints.grammar.HyconstraintsCardinality.ONE, HYDATAVALUE_3_0_0_5_0_0_1_0_1_0, HYDATAVALUE_3_0_0_5_0_0_1_0_1_1, HYDATAVALUE_3_0_0_5_0_0_1_0_1_2);
+		return new eu.hyvar.feature.constraint.resource.hyconstraints.grammar.HyconstraintsSequence(eu.hyvar.feature.constraint.resource.hyconstraints.grammar.HyconstraintsCardinality.ONE, HYDATAVALUE_3_0_0_5_0_0_1_0_1_0, HYDATAVALUE_3_0_0_5_0_0_1_0_1_1);
 	}
 	
 	public final static eu.hyvar.feature.constraint.resource.hyconstraints.grammar.HyconstraintsKeyword HYDATAVALUE_3_0_0_5_0_0_1_0_2_0 = INSTANCE.getHYDATAVALUE_3_0_0_5_0_0_1_0_2_0();
 	private eu.hyvar.feature.constraint.resource.hyconstraints.grammar.HyconstraintsKeyword getHYDATAVALUE_3_0_0_5_0_0_1_0_2_0() {
-		return new eu.hyvar.feature.constraint.resource.hyconstraints.grammar.HyconstraintsKeyword("null", eu.hyvar.feature.constraint.resource.hyconstraints.grammar.HyconstraintsCardinality.ONE);
+		return new eu.hyvar.feature.constraint.resource.hyconstraints.grammar.HyconstraintsKeyword("eternity", eu.hyvar.feature.constraint.resource.hyconstraints.grammar.HyconstraintsCardinality.ONE);
 	}
 	
 	public final static eu.hyvar.feature.constraint.resource.hyconstraints.grammar.HyconstraintsKeyword HYDATAVALUE_3_0_0_5_0_0_1_0_2_1 = INSTANCE.getHYDATAVALUE_3_0_0_5_0_0_1_0_2_1();
@@ -1441,7 +1436,7 @@ public class HyconstraintsGrammarInformationProvider {
 	
 	public final static eu.hyvar.feature.constraint.resource.hyconstraints.grammar.HyconstraintsKeyword HYDATAVALUE_4_0_0_5_0_0_1_0_1_2 = INSTANCE.getHYDATAVALUE_4_0_0_5_0_0_1_0_1_2();
 	private eu.hyvar.feature.constraint.resource.hyconstraints.grammar.HyconstraintsKeyword getHYDATAVALUE_4_0_0_5_0_0_1_0_1_2() {
-		return new eu.hyvar.feature.constraint.resource.hyconstraints.grammar.HyconstraintsKeyword("null", eu.hyvar.feature.constraint.resource.hyconstraints.grammar.HyconstraintsCardinality.ONE);
+		return new eu.hyvar.feature.constraint.resource.hyconstraints.grammar.HyconstraintsKeyword("eternity", eu.hyvar.feature.constraint.resource.hyconstraints.grammar.HyconstraintsCardinality.ONE);
 	}
 	
 	public final static eu.hyvar.feature.constraint.resource.hyconstraints.grammar.HyconstraintsSequence HYDATAVALUE_4_0_0_5_0_0_1_0_1 = INSTANCE.getHYDATAVALUE_4_0_0_5_0_0_1_0_1();
@@ -1451,7 +1446,7 @@ public class HyconstraintsGrammarInformationProvider {
 	
 	public final static eu.hyvar.feature.constraint.resource.hyconstraints.grammar.HyconstraintsKeyword HYDATAVALUE_4_0_0_5_0_0_1_0_2_0 = INSTANCE.getHYDATAVALUE_4_0_0_5_0_0_1_0_2_0();
 	private eu.hyvar.feature.constraint.resource.hyconstraints.grammar.HyconstraintsKeyword getHYDATAVALUE_4_0_0_5_0_0_1_0_2_0() {
-		return new eu.hyvar.feature.constraint.resource.hyconstraints.grammar.HyconstraintsKeyword("null", eu.hyvar.feature.constraint.resource.hyconstraints.grammar.HyconstraintsCardinality.ONE);
+		return new eu.hyvar.feature.constraint.resource.hyconstraints.grammar.HyconstraintsKeyword("eternity", eu.hyvar.feature.constraint.resource.hyconstraints.grammar.HyconstraintsCardinality.ONE);
 	}
 	
 	public final static eu.hyvar.feature.constraint.resource.hyconstraints.grammar.HyconstraintsKeyword HYDATAVALUE_4_0_0_5_0_0_1_0_2_1 = INSTANCE.getHYDATAVALUE_4_0_0_5_0_0_1_0_2_1();

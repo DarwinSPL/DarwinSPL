@@ -395,7 +395,7 @@ import org.eclipse.emf.ecore.EReference;
 				break;
 			}
 		}
-		int followSetID = 103;
+		int followSetID = 102;
 		int i;
 		for (i = tokenIndexOfLastCompleteElement; i < tokenStream.size(); i++) {
 			CommonToken nextToken = (CommonToken) tokenStream.get(i);
@@ -906,7 +906,7 @@ parse_eu_hyvar_context_HyContextualInformationNumber returns [eu.hyvar.context.H
 					addExpectedElement(null, eu.hyvar.context.resource.hycontextinformation.mopp.HycontextinformationExpectationConstants.EXPECTATIONS[28]);
 				}
 				
-				a13 = 'null' {
+				a13 = 'eternity' {
 					if (element == null) {
 						element = eu.hyvar.context.HyContextInformationFactory.eINSTANCE.createHyContextualInformationNumber();
 						startIncompleteElement(element);
@@ -921,7 +921,7 @@ parse_eu_hyvar_context_HyContextualInformationNumber returns [eu.hyvar.context.H
 				}
 				
 				
-				|				a14 = 'null' {
+				|				a14 = 'eternity' {
 					if (element == null) {
 						element = eu.hyvar.context.HyContextInformationFactory.eINSTANCE.createHyContextualInformationNumber();
 						startIncompleteElement(element);
@@ -1245,7 +1245,7 @@ parse_eu_hyvar_context_HyContextualInformationBoolean returns [eu.hyvar.context.
 					addExpectedElement(null, eu.hyvar.context.resource.hycontextinformation.mopp.HycontextinformationExpectationConstants.EXPECTATIONS[53]);
 				}
 				
-				a9 = 'null' {
+				a9 = 'eternity' {
 					if (element == null) {
 						element = eu.hyvar.context.HyContextInformationFactory.eINSTANCE.createHyContextualInformationBoolean();
 						startIncompleteElement(element);
@@ -1260,7 +1260,7 @@ parse_eu_hyvar_context_HyContextualInformationBoolean returns [eu.hyvar.context.
 				}
 				
 				
-				|				a10 = 'null' {
+				|				a10 = 'eternity' {
 					if (element == null) {
 						element = eu.hyvar.context.HyContextInformationFactory.eINSTANCE.createHyContextualInformationBoolean();
 						startIncompleteElement(element);
@@ -1638,7 +1638,7 @@ parse_eu_hyvar_context_HyContextualInformationEnum returns [eu.hyvar.context.HyC
 					addExpectedElement(null, eu.hyvar.context.resource.hycontextinformation.mopp.HycontextinformationExpectationConstants.EXPECTATIONS[80]);
 				}
 				
-				a11 = 'null' {
+				a11 = 'eternity' {
 					if (element == null) {
 						element = eu.hyvar.context.HyContextInformationFactory.eINSTANCE.createHyContextualInformationEnum();
 						startIncompleteElement(element);
@@ -1653,7 +1653,7 @@ parse_eu_hyvar_context_HyContextualInformationEnum returns [eu.hyvar.context.HyC
 				}
 				
 				
-				|				a12 = 'null' {
+				|				a12 = 'eternity' {
 					if (element == null) {
 						element = eu.hyvar.context.HyContextInformationFactory.eINSTANCE.createHyContextualInformationEnum();
 						startIncompleteElement(element);
@@ -2080,13 +2080,14 @@ parse_eu_hyvar_dataValues_HyEnum returns [eu.hyvar.dataValues.HyEnum element = n
 					addExpectedElement(null, eu.hyvar.context.resource.hycontextinformation.mopp.HycontextinformationExpectationConstants.EXPECTATIONS[116]);
 				}
 				
-				a13 = 'null' {
+				
+				|				a13 = 'eternity' {
 					if (element == null) {
 						element = eu.hyvar.dataValues.HyDataValuesFactory.eINSTANCE.createHyEnum();
 						startIncompleteElement(element);
 					}
 					collectHiddenTokens(element);
-					retrieveLayoutInformation(element, eu.hyvar.context.resource.hycontextinformation.grammar.HycontextinformationGrammarInformationProvider.HYDATAVALUE_3_0_0_5_0_0_1_0_1_2, null, true);
+					retrieveLayoutInformation(element, eu.hyvar.context.resource.hycontextinformation.grammar.HycontextinformationGrammarInformationProvider.HYDATAVALUE_3_0_0_5_0_0_1_0_2_0, null, true);
 					copyLocalizationInfos((CommonToken)a13, element);
 				}
 				{
@@ -2094,14 +2095,13 @@ parse_eu_hyvar_dataValues_HyEnum returns [eu.hyvar.dataValues.HyEnum element = n
 					addExpectedElement(null, eu.hyvar.context.resource.hycontextinformation.mopp.HycontextinformationExpectationConstants.EXPECTATIONS[117]);
 				}
 				
-				
-				|				a14 = 'null' {
+				a14 = '-' {
 					if (element == null) {
 						element = eu.hyvar.dataValues.HyDataValuesFactory.eINSTANCE.createHyEnum();
 						startIncompleteElement(element);
 					}
 					collectHiddenTokens(element);
-					retrieveLayoutInformation(element, eu.hyvar.context.resource.hycontextinformation.grammar.HycontextinformationGrammarInformationProvider.HYDATAVALUE_3_0_0_5_0_0_1_0_2_0, null, true);
+					retrieveLayoutInformation(element, eu.hyvar.context.resource.hycontextinformation.grammar.HycontextinformationGrammarInformationProvider.HYDATAVALUE_3_0_0_5_0_0_1_0_2_1, null, true);
 					copyLocalizationInfos((CommonToken)a14, element);
 				}
 				{
@@ -2109,22 +2109,8 @@ parse_eu_hyvar_dataValues_HyEnum returns [eu.hyvar.dataValues.HyEnum element = n
 					addExpectedElement(null, eu.hyvar.context.resource.hycontextinformation.mopp.HycontextinformationExpectationConstants.EXPECTATIONS[118]);
 				}
 				
-				a15 = '-' {
-					if (element == null) {
-						element = eu.hyvar.dataValues.HyDataValuesFactory.eINSTANCE.createHyEnum();
-						startIncompleteElement(element);
-					}
-					collectHiddenTokens(element);
-					retrieveLayoutInformation(element, eu.hyvar.context.resource.hycontextinformation.grammar.HycontextinformationGrammarInformationProvider.HYDATAVALUE_3_0_0_5_0_0_1_0_2_1, null, true);
-					copyLocalizationInfos((CommonToken)a15, element);
-				}
-				{
-					// expected elements (follow set)
-					addExpectedElement(null, eu.hyvar.context.resource.hycontextinformation.mopp.HycontextinformationExpectationConstants.EXPECTATIONS[119]);
-				}
-				
 				(
-					a16 = DATE					
+					a15 = DATE					
 					{
 						if (terminateParsing) {
 							throw new eu.hyvar.context.resource.hycontextinformation.mopp.HycontextinformationTerminateParsingException();
@@ -2133,14 +2119,14 @@ parse_eu_hyvar_dataValues_HyEnum returns [eu.hyvar.dataValues.HyEnum element = n
 							element = eu.hyvar.dataValues.HyDataValuesFactory.eINSTANCE.createHyEnum();
 							startIncompleteElement(element);
 						}
-						if (a16 != null) {
+						if (a15 != null) {
 							eu.hyvar.context.resource.hycontextinformation.IHycontextinformationTokenResolver tokenResolver = tokenResolverFactory.createTokenResolver("DATE");
 							tokenResolver.setOptions(getOptions());
 							eu.hyvar.context.resource.hycontextinformation.IHycontextinformationTokenResolveResult result = getFreshTokenResolveResult();
-							tokenResolver.resolve(a16.getText(), element.eClass().getEStructuralFeature(eu.hyvar.dataValues.HyDataValuesPackage.HY_ENUM__VALID_UNTIL), result);
+							tokenResolver.resolve(a15.getText(), element.eClass().getEStructuralFeature(eu.hyvar.dataValues.HyDataValuesPackage.HY_ENUM__VALID_UNTIL), result);
 							Object resolvedObject = result.getResolvedToken();
 							if (resolvedObject == null) {
-								addErrorToResource(result.getErrorMessage(), ((CommonToken) a16).getLine(), ((CommonToken) a16).getCharPositionInLine(), ((CommonToken) a16).getStartIndex(), ((CommonToken) a16).getStopIndex());
+								addErrorToResource(result.getErrorMessage(), ((CommonToken) a15).getLine(), ((CommonToken) a15).getCharPositionInLine(), ((CommonToken) a15).getStartIndex(), ((CommonToken) a15).getStopIndex());
 							}
 							java.util.Date resolved = (java.util.Date) resolvedObject;
 							if (resolved != null) {
@@ -2150,46 +2136,46 @@ parse_eu_hyvar_dataValues_HyEnum returns [eu.hyvar.dataValues.HyEnum element = n
 							}
 							collectHiddenTokens(element);
 							retrieveLayoutInformation(element, eu.hyvar.context.resource.hycontextinformation.grammar.HycontextinformationGrammarInformationProvider.HYDATAVALUE_3_0_0_5_0_0_1_0_2_2, resolved, true);
-							copyLocalizationInfos((CommonToken) a16, element);
+							copyLocalizationInfos((CommonToken) a15, element);
 						}
 					}
 				)
 				{
 					// expected elements (follow set)
-					addExpectedElement(null, eu.hyvar.context.resource.hycontextinformation.mopp.HycontextinformationExpectationConstants.EXPECTATIONS[120]);
+					addExpectedElement(null, eu.hyvar.context.resource.hycontextinformation.mopp.HycontextinformationExpectationConstants.EXPECTATIONS[119]);
 				}
 				
 			)
 			{
 				// expected elements (follow set)
-				addExpectedElement(null, eu.hyvar.context.resource.hycontextinformation.mopp.HycontextinformationExpectationConstants.EXPECTATIONS[121]);
+				addExpectedElement(null, eu.hyvar.context.resource.hycontextinformation.mopp.HycontextinformationExpectationConstants.EXPECTATIONS[120]);
 			}
 			
-			a17 = ']' {
+			a16 = ']' {
 				if (element == null) {
 					element = eu.hyvar.dataValues.HyDataValuesFactory.eINSTANCE.createHyEnum();
 					startIncompleteElement(element);
 				}
 				collectHiddenTokens(element);
 				retrieveLayoutInformation(element, eu.hyvar.context.resource.hycontextinformation.grammar.HycontextinformationGrammarInformationProvider.HYDATAVALUE_3_0_0_5_0_0_2, null, true);
-				copyLocalizationInfos((CommonToken)a17, element);
+				copyLocalizationInfos((CommonToken)a16, element);
 			}
 			{
 				// expected elements (follow set)
+				addExpectedElement(eu.hyvar.context.HyContextInformationPackage.eINSTANCE.getHyContextModel(), eu.hyvar.context.resource.hycontextinformation.mopp.HycontextinformationExpectationConstants.EXPECTATIONS[121]);
 				addExpectedElement(eu.hyvar.context.HyContextInformationPackage.eINSTANCE.getHyContextModel(), eu.hyvar.context.resource.hycontextinformation.mopp.HycontextinformationExpectationConstants.EXPECTATIONS[122]);
 				addExpectedElement(eu.hyvar.context.HyContextInformationPackage.eINSTANCE.getHyContextModel(), eu.hyvar.context.resource.hycontextinformation.mopp.HycontextinformationExpectationConstants.EXPECTATIONS[123]);
 				addExpectedElement(eu.hyvar.context.HyContextInformationPackage.eINSTANCE.getHyContextModel(), eu.hyvar.context.resource.hycontextinformation.mopp.HycontextinformationExpectationConstants.EXPECTATIONS[124]);
-				addExpectedElement(eu.hyvar.context.HyContextInformationPackage.eINSTANCE.getHyContextModel(), eu.hyvar.context.resource.hycontextinformation.mopp.HycontextinformationExpectationConstants.EXPECTATIONS[125]);
 			}
 			
 		)
 		
 	)?	{
 		// expected elements (follow set)
+		addExpectedElement(eu.hyvar.context.HyContextInformationPackage.eINSTANCE.getHyContextModel(), eu.hyvar.context.resource.hycontextinformation.mopp.HycontextinformationExpectationConstants.EXPECTATIONS[125]);
 		addExpectedElement(eu.hyvar.context.HyContextInformationPackage.eINSTANCE.getHyContextModel(), eu.hyvar.context.resource.hycontextinformation.mopp.HycontextinformationExpectationConstants.EXPECTATIONS[126]);
 		addExpectedElement(eu.hyvar.context.HyContextInformationPackage.eINSTANCE.getHyContextModel(), eu.hyvar.context.resource.hycontextinformation.mopp.HycontextinformationExpectationConstants.EXPECTATIONS[127]);
 		addExpectedElement(eu.hyvar.context.HyContextInformationPackage.eINSTANCE.getHyContextModel(), eu.hyvar.context.resource.hycontextinformation.mopp.HycontextinformationExpectationConstants.EXPECTATIONS[128]);
-		addExpectedElement(eu.hyvar.context.HyContextInformationPackage.eINSTANCE.getHyContextModel(), eu.hyvar.context.resource.hycontextinformation.mopp.HycontextinformationExpectationConstants.EXPECTATIONS[129]);
 	}
 	
 ;
@@ -2209,7 +2195,7 @@ parse_eu_hyvar_dataValues_HyEnumLiteral returns [eu.hyvar.dataValues.HyEnumLiter
 	}
 	{
 		// expected elements (follow set)
-		addExpectedElement(null, eu.hyvar.context.resource.hycontextinformation.mopp.HycontextinformationExpectationConstants.EXPECTATIONS[130]);
+		addExpectedElement(null, eu.hyvar.context.resource.hycontextinformation.mopp.HycontextinformationExpectationConstants.EXPECTATIONS[129]);
 	}
 	
 	(
@@ -2245,7 +2231,7 @@ parse_eu_hyvar_dataValues_HyEnumLiteral returns [eu.hyvar.dataValues.HyEnumLiter
 	)
 	{
 		// expected elements (follow set)
-		addExpectedElement(null, eu.hyvar.context.resource.hycontextinformation.mopp.HycontextinformationExpectationConstants.EXPECTATIONS[131]);
+		addExpectedElement(null, eu.hyvar.context.resource.hycontextinformation.mopp.HycontextinformationExpectationConstants.EXPECTATIONS[130]);
 	}
 	
 	a2 = ',' {
@@ -2259,7 +2245,7 @@ parse_eu_hyvar_dataValues_HyEnumLiteral returns [eu.hyvar.dataValues.HyEnumLiter
 	}
 	{
 		// expected elements (follow set)
-		addExpectedElement(null, eu.hyvar.context.resource.hycontextinformation.mopp.HycontextinformationExpectationConstants.EXPECTATIONS[132]);
+		addExpectedElement(null, eu.hyvar.context.resource.hycontextinformation.mopp.HycontextinformationExpectationConstants.EXPECTATIONS[131]);
 	}
 	
 	(
@@ -2295,7 +2281,7 @@ parse_eu_hyvar_dataValues_HyEnumLiteral returns [eu.hyvar.dataValues.HyEnumLiter
 	)
 	{
 		// expected elements (follow set)
-		addExpectedElement(null, eu.hyvar.context.resource.hycontextinformation.mopp.HycontextinformationExpectationConstants.EXPECTATIONS[133]);
+		addExpectedElement(null, eu.hyvar.context.resource.hycontextinformation.mopp.HycontextinformationExpectationConstants.EXPECTATIONS[132]);
 	}
 	
 	a4 = ')' {
@@ -2309,9 +2295,9 @@ parse_eu_hyvar_dataValues_HyEnumLiteral returns [eu.hyvar.dataValues.HyEnumLiter
 	}
 	{
 		// expected elements (follow set)
+		addExpectedElement(null, eu.hyvar.context.resource.hycontextinformation.mopp.HycontextinformationExpectationConstants.EXPECTATIONS[133]);
 		addExpectedElement(null, eu.hyvar.context.resource.hycontextinformation.mopp.HycontextinformationExpectationConstants.EXPECTATIONS[134]);
 		addExpectedElement(null, eu.hyvar.context.resource.hycontextinformation.mopp.HycontextinformationExpectationConstants.EXPECTATIONS[135]);
-		addExpectedElement(null, eu.hyvar.context.resource.hycontextinformation.mopp.HycontextinformationExpectationConstants.EXPECTATIONS[136]);
 	}
 	
 	(
@@ -2327,9 +2313,9 @@ parse_eu_hyvar_dataValues_HyEnumLiteral returns [eu.hyvar.dataValues.HyEnumLiter
 			}
 			{
 				// expected elements (follow set)
+				addExpectedElement(null, eu.hyvar.context.resource.hycontextinformation.mopp.HycontextinformationExpectationConstants.EXPECTATIONS[136]);
 				addExpectedElement(null, eu.hyvar.context.resource.hycontextinformation.mopp.HycontextinformationExpectationConstants.EXPECTATIONS[137]);
 				addExpectedElement(null, eu.hyvar.context.resource.hycontextinformation.mopp.HycontextinformationExpectationConstants.EXPECTATIONS[138]);
-				addExpectedElement(null, eu.hyvar.context.resource.hycontextinformation.mopp.HycontextinformationExpectationConstants.EXPECTATIONS[139]);
 			}
 			
 			(
@@ -2366,7 +2352,7 @@ parse_eu_hyvar_dataValues_HyEnumLiteral returns [eu.hyvar.dataValues.HyEnumLiter
 				)
 				{
 					// expected elements (follow set)
-					addExpectedElement(null, eu.hyvar.context.resource.hycontextinformation.mopp.HycontextinformationExpectationConstants.EXPECTATIONS[140]);
+					addExpectedElement(null, eu.hyvar.context.resource.hycontextinformation.mopp.HycontextinformationExpectationConstants.EXPECTATIONS[139]);
 				}
 				
 				a7 = '-' {
@@ -2380,7 +2366,7 @@ parse_eu_hyvar_dataValues_HyEnumLiteral returns [eu.hyvar.dataValues.HyEnumLiter
 				}
 				{
 					// expected elements (follow set)
-					addExpectedElement(null, eu.hyvar.context.resource.hycontextinformation.mopp.HycontextinformationExpectationConstants.EXPECTATIONS[141]);
+					addExpectedElement(null, eu.hyvar.context.resource.hycontextinformation.mopp.HycontextinformationExpectationConstants.EXPECTATIONS[140]);
 				}
 				
 				(
@@ -2416,7 +2402,7 @@ parse_eu_hyvar_dataValues_HyEnumLiteral returns [eu.hyvar.dataValues.HyEnumLiter
 				)
 				{
 					// expected elements (follow set)
-					addExpectedElement(null, eu.hyvar.context.resource.hycontextinformation.mopp.HycontextinformationExpectationConstants.EXPECTATIONS[142]);
+					addExpectedElement(null, eu.hyvar.context.resource.hycontextinformation.mopp.HycontextinformationExpectationConstants.EXPECTATIONS[141]);
 				}
 				
 				
@@ -2453,7 +2439,7 @@ parse_eu_hyvar_dataValues_HyEnumLiteral returns [eu.hyvar.dataValues.HyEnumLiter
 				)
 				{
 					// expected elements (follow set)
-					addExpectedElement(null, eu.hyvar.context.resource.hycontextinformation.mopp.HycontextinformationExpectationConstants.EXPECTATIONS[143]);
+					addExpectedElement(null, eu.hyvar.context.resource.hycontextinformation.mopp.HycontextinformationExpectationConstants.EXPECTATIONS[142]);
 				}
 				
 				a10 = '-' {
@@ -2467,10 +2453,10 @@ parse_eu_hyvar_dataValues_HyEnumLiteral returns [eu.hyvar.dataValues.HyEnumLiter
 				}
 				{
 					// expected elements (follow set)
-					addExpectedElement(null, eu.hyvar.context.resource.hycontextinformation.mopp.HycontextinformationExpectationConstants.EXPECTATIONS[144]);
+					addExpectedElement(null, eu.hyvar.context.resource.hycontextinformation.mopp.HycontextinformationExpectationConstants.EXPECTATIONS[143]);
 				}
 				
-				a11 = 'null' {
+				a11 = 'eternity' {
 					if (element == null) {
 						element = eu.hyvar.dataValues.HyDataValuesFactory.eINSTANCE.createHyEnumLiteral();
 						startIncompleteElement(element);
@@ -2481,11 +2467,11 @@ parse_eu_hyvar_dataValues_HyEnumLiteral returns [eu.hyvar.dataValues.HyEnumLiter
 				}
 				{
 					// expected elements (follow set)
-					addExpectedElement(null, eu.hyvar.context.resource.hycontextinformation.mopp.HycontextinformationExpectationConstants.EXPECTATIONS[145]);
+					addExpectedElement(null, eu.hyvar.context.resource.hycontextinformation.mopp.HycontextinformationExpectationConstants.EXPECTATIONS[144]);
 				}
 				
 				
-				|				a12 = 'null' {
+				|				a12 = 'eternity' {
 					if (element == null) {
 						element = eu.hyvar.dataValues.HyDataValuesFactory.eINSTANCE.createHyEnumLiteral();
 						startIncompleteElement(element);
@@ -2496,7 +2482,7 @@ parse_eu_hyvar_dataValues_HyEnumLiteral returns [eu.hyvar.dataValues.HyEnumLiter
 				}
 				{
 					// expected elements (follow set)
-					addExpectedElement(null, eu.hyvar.context.resource.hycontextinformation.mopp.HycontextinformationExpectationConstants.EXPECTATIONS[146]);
+					addExpectedElement(null, eu.hyvar.context.resource.hycontextinformation.mopp.HycontextinformationExpectationConstants.EXPECTATIONS[145]);
 				}
 				
 				a13 = '-' {
@@ -2510,7 +2496,7 @@ parse_eu_hyvar_dataValues_HyEnumLiteral returns [eu.hyvar.dataValues.HyEnumLiter
 				}
 				{
 					// expected elements (follow set)
-					addExpectedElement(null, eu.hyvar.context.resource.hycontextinformation.mopp.HycontextinformationExpectationConstants.EXPECTATIONS[147]);
+					addExpectedElement(null, eu.hyvar.context.resource.hycontextinformation.mopp.HycontextinformationExpectationConstants.EXPECTATIONS[146]);
 				}
 				
 				(
@@ -2546,13 +2532,13 @@ parse_eu_hyvar_dataValues_HyEnumLiteral returns [eu.hyvar.dataValues.HyEnumLiter
 				)
 				{
 					// expected elements (follow set)
-					addExpectedElement(null, eu.hyvar.context.resource.hycontextinformation.mopp.HycontextinformationExpectationConstants.EXPECTATIONS[148]);
+					addExpectedElement(null, eu.hyvar.context.resource.hycontextinformation.mopp.HycontextinformationExpectationConstants.EXPECTATIONS[147]);
 				}
 				
 			)
 			{
 				// expected elements (follow set)
-				addExpectedElement(null, eu.hyvar.context.resource.hycontextinformation.mopp.HycontextinformationExpectationConstants.EXPECTATIONS[149]);
+				addExpectedElement(null, eu.hyvar.context.resource.hycontextinformation.mopp.HycontextinformationExpectationConstants.EXPECTATIONS[148]);
 			}
 			
 			a15 = ']' {
@@ -2566,16 +2552,16 @@ parse_eu_hyvar_dataValues_HyEnumLiteral returns [eu.hyvar.dataValues.HyEnumLiter
 			}
 			{
 				// expected elements (follow set)
+				addExpectedElement(null, eu.hyvar.context.resource.hycontextinformation.mopp.HycontextinformationExpectationConstants.EXPECTATIONS[149]);
 				addExpectedElement(null, eu.hyvar.context.resource.hycontextinformation.mopp.HycontextinformationExpectationConstants.EXPECTATIONS[150]);
-				addExpectedElement(null, eu.hyvar.context.resource.hycontextinformation.mopp.HycontextinformationExpectationConstants.EXPECTATIONS[151]);
 			}
 			
 		)
 		
 	)?	{
 		// expected elements (follow set)
+		addExpectedElement(null, eu.hyvar.context.resource.hycontextinformation.mopp.HycontextinformationExpectationConstants.EXPECTATIONS[151]);
 		addExpectedElement(null, eu.hyvar.context.resource.hycontextinformation.mopp.HycontextinformationExpectationConstants.EXPECTATIONS[152]);
-		addExpectedElement(null, eu.hyvar.context.resource.hycontextinformation.mopp.HycontextinformationExpectationConstants.EXPECTATIONS[153]);
 	}
 	
 ;
@@ -2685,7 +2671,7 @@ parse_eu_hyvar_dataValues_HyEnumValue returns [eu.hyvar.dataValues.HyEnumValue e
 	}
 	{
 		// expected elements (follow set)
-		addExpectedElement(null, eu.hyvar.context.resource.hycontextinformation.mopp.HycontextinformationExpectationConstants.EXPECTATIONS[154]);
+		addExpectedElement(null, eu.hyvar.context.resource.hycontextinformation.mopp.HycontextinformationExpectationConstants.EXPECTATIONS[153]);
 	}
 	
 	(
@@ -2725,7 +2711,7 @@ parse_eu_hyvar_dataValues_HyEnumValue returns [eu.hyvar.dataValues.HyEnumValue e
 	)
 	{
 		// expected elements (follow set)
-		addExpectedElement(null, eu.hyvar.context.resource.hycontextinformation.mopp.HycontextinformationExpectationConstants.EXPECTATIONS[155]);
+		addExpectedElement(null, eu.hyvar.context.resource.hycontextinformation.mopp.HycontextinformationExpectationConstants.EXPECTATIONS[154]);
 	}
 	
 	a2 = '.' {
@@ -2739,7 +2725,7 @@ parse_eu_hyvar_dataValues_HyEnumValue returns [eu.hyvar.dataValues.HyEnumValue e
 	}
 	{
 		// expected elements (follow set)
-		addExpectedElement(null, eu.hyvar.context.resource.hycontextinformation.mopp.HycontextinformationExpectationConstants.EXPECTATIONS[156]);
+		addExpectedElement(null, eu.hyvar.context.resource.hycontextinformation.mopp.HycontextinformationExpectationConstants.EXPECTATIONS[155]);
 	}
 	
 	(

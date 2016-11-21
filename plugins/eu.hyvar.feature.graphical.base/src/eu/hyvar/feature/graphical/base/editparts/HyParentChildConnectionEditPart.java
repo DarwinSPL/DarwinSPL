@@ -13,16 +13,16 @@ import org.eclipse.gef.NodeEditPart;
 import org.eclipse.gef.Request;
 import org.eclipse.gef.editparts.AbstractConnectionEditPart;
 
-import eu.hyvar.feature.graphical.base.editor.GraphicalFeatureModelEditor;
+import eu.hyvar.feature.graphical.base.editor.HyGraphicalFeatureModelViewer;
 import eu.hyvar.feature.graphical.base.figures.HyParentChildConnectionFigure;
 import eu.hyvar.feature.graphical.base.model.HyFeatureModelWrapped;
 import eu.hyvar.feature.graphical.base.model.HyParentChildConnection;
 
 public class HyParentChildConnectionEditPart extends AbstractConnectionEditPart implements PropertyChangeListener, NodeEditPart {
 	protected HyFeatureModelWrapped model;
-	protected GraphicalFeatureModelEditor editor;
+	protected HyGraphicalFeatureModelViewer editor;
 	
-	public HyParentChildConnectionEditPart(GraphicalFeatureModelEditor editor, HyFeatureModelWrapped model){
+	public HyParentChildConnectionEditPart(HyGraphicalFeatureModelViewer editor, HyFeatureModelWrapped model){
 		this.model = model;
 		this.editor = editor;
 	}

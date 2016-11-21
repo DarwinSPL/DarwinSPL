@@ -7,7 +7,7 @@ import eu.hyvar.evolution.HyName;
 import eu.hyvar.feature.HyFeatureAttribute;
 import eu.hyvar.feature.HyFeatureFactory;
 import eu.hyvar.feature.HyNumberAttribute;
-import eu.hyvar.feature.graphical.editor.editor.GraphicalEvolutionFeatureModelEditor;
+import eu.hyvar.feature.graphical.editor.editor.HyGraphicalFeatureModelEditor;
 
 public class HyAttributeCreateNumberAction extends HyAttributeCreateAction{
 	public static final String FEATURE_ADD_NUMBER_ATTRIBUTE = "AddFeatureNumberAttribute";
@@ -15,7 +15,7 @@ public class HyAttributeCreateNumberAction extends HyAttributeCreateAction{
 
 	Request request;
 	
-	public HyAttributeCreateNumberAction(GraphicalEvolutionFeatureModelEditor editor) {
+	public HyAttributeCreateNumberAction(HyGraphicalFeatureModelEditor editor) {
 		super(editor);
 
 		setId(FEATURE_ADD_NUMBER_ATTRIBUTE);

@@ -1,14 +1,15 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
-Bundle-Name: %pluginName
+Bundle-Name: DarwinSPL Feature Model
 Bundle-SymbolicName: eu.hyvar.feature;singleton:=true
 Bundle-Version: 1.0.0.qualifier
 Bundle-ClassPath: .
-Bundle-Vendor: %providerName
+Bundle-Vendor: www.darwinspl.de
 Bundle-Localization: plugin
 Bundle-RequiredExecutionEnvironment: JavaSE-1.7
 Export-Package: eu.hyvar.feature,
  eu.hyvar.feature.impl,
+ eu.hyvar.feature.impl.custom,
  eu.hyvar.feature.util,
  eu.hyvar.feature.util.exporter
 Require-Bundle: org.eclipse.core.runtime,

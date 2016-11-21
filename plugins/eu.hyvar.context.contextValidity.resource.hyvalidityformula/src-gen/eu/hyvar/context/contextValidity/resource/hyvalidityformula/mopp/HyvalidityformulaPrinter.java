@@ -434,13 +434,13 @@ public class HyvalidityformulaPrinter implements eu.hyvar.context.contextValidit
 				out.print("-");
 				out.print(" ");
 				// DEFINITION PART BEGINS (CsString)
-				out.print("null");
+				out.print("eternity");
 				out.print(" ");
 			}
 			break;
 			case 2:			{
 				// DEFINITION PART BEGINS (CsString)
-				out.print("null");
+				out.print("eternity");
 				out.print(" ");
 				// DEFINITION PART BEGINS (CsString)
 				out.print("-");
@@ -647,13 +647,13 @@ public class HyvalidityformulaPrinter implements eu.hyvar.context.contextValidit
 				out.print("-");
 				out.print(" ");
 				// DEFINITION PART BEGINS (CsString)
-				out.print("null");
+				out.print("eternity");
 				out.print(" ");
 			}
 			break;
 			case 2:			{
 				// DEFINITION PART BEGINS (CsString)
-				out.print("null");
+				out.print("eternity");
 				out.print(" ");
 				// DEFINITION PART BEGINS (CsString)
 				out.print("-");
@@ -2237,14 +2237,11 @@ public class HyvalidityformulaPrinter implements eu.hyvar.context.contextValidit
 				// DEFINITION PART BEGINS (CsString)
 				out.print("-");
 				out.print(" ");
-				// DEFINITION PART BEGINS (CsString)
-				out.print("null");
-				out.print(" ");
 			}
 			break;
 			case 2:			{
 				// DEFINITION PART BEGINS (CsString)
-				out.print("null");
+				out.print("eternity");
 				out.print(" ");
 				// DEFINITION PART BEGINS (CsString)
 				out.print("-");
@@ -2413,13 +2410,13 @@ public class HyvalidityformulaPrinter implements eu.hyvar.context.contextValidit
 				out.print("-");
 				out.print(" ");
 				// DEFINITION PART BEGINS (CsString)
-				out.print("null");
+				out.print("eternity");
 				out.print(" ");
 			}
 			break;
 			case 2:			{
 				// DEFINITION PART BEGINS (CsString)
-				out.print("null");
+				out.print("eternity");
 				out.print(" ");
 				// DEFINITION PART BEGINS (CsString)
 				out.print("-");

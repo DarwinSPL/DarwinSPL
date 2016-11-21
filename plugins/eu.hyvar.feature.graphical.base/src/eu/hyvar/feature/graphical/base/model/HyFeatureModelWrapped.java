@@ -178,9 +178,6 @@ public class HyFeatureModelWrapped implements PropertyChangeListener {
 		dates = HyEvolutionUtil.collectDates(model);
 				
 		dates.add(0, new Date(Long.MIN_VALUE));
-		dates.add(dates.size(), new Date(Long.MAX_VALUE));
-		
-		System.out.println(new Date(Long.MIN_VALUE));
 
 		features = new ArrayList<HyFeatureWrapped>();
 		groups = new HashSet<HyGroupWrapped>();
@@ -467,9 +464,12 @@ public class HyFeatureModelWrapped implements PropertyChangeListener {
 		HyFeatureTreeLayouter layouter = HyFeatureLayouterManager.getLayouter(this);
 		
 		for(HyFeature feature : HyEvolutionUtil.getValidTemporalElements(model.getFeatures(), this.selectedDate)){
-			Rectangle rectangle = layouter.getBounds(feature);
 			
-			getWrappedFeature(feature).setPosition(rectangle.getTopLeft());	
+			if(HyEvolutionUtil.getValidTemporalElements(feature.getGroupMembership(), selectedDate).size() > 0 || isRootFeature(feature)){
+				Rectangle rectangle = layouter.getBounds(feature);
+			
+				getWrappedFeature(feature).setPosition(rectangle.getTopLeft());	
+			}
 		}	
 	}
 

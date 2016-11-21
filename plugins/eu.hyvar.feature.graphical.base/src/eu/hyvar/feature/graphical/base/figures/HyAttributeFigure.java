@@ -4,9 +4,11 @@ import org.deltaecore.feature.graphical.base.editor.DEGraphicalEditor;
 import org.deltaecore.feature.graphical.base.util.DEGraphicalEditorTheme;
 import org.eclipse.draw2d.ColorConstants;
 import org.eclipse.draw2d.Figure;
+import org.eclipse.draw2d.Graphics;
 import org.eclipse.draw2d.Label;
 import org.eclipse.draw2d.XYLayout;
 import org.eclipse.draw2d.geometry.Dimension;
+import org.eclipse.draw2d.geometry.Insets;
 import org.eclipse.draw2d.geometry.Point;
 
 import eu.hyvar.feature.HyBooleanAttribute;
@@ -14,7 +16,7 @@ import eu.hyvar.feature.HyEnumAttribute;
 import eu.hyvar.feature.HyFeatureAttribute;
 import eu.hyvar.feature.HyNumberAttribute;
 import eu.hyvar.feature.HyStringAttribute;
-import eu.hyvar.feature.graphical.base.editor.GraphicalFeatureModelEditor;
+import eu.hyvar.feature.graphical.base.editor.HyGraphicalFeatureModelViewer;
 
 public class HyAttributeFigure extends Figure{
 	private HyFeatureAttribute attribute;
@@ -22,7 +24,7 @@ public class HyAttributeFigure extends Figure{
 	private Label typeLabel;
 	private Label valueLabel;
 	
-	public HyAttributeFigure(GraphicalFeatureModelEditor editor, HyFeatureAttribute attribute) {
+	public HyAttributeFigure(HyGraphicalFeatureModelViewer editor, HyFeatureAttribute attribute) {
 		setLayoutManager(new XYLayout());
 		
 		this.attribute = attribute;
@@ -73,15 +75,13 @@ public class HyAttributeFigure extends Figure{
 	public void setName(String text){
 		valueLabel.setText(text);
 	}
-	//@Override
+
 	public void update() {
 		DEGraphicalEditorTheme theme = DEGraphicalEditor.getTheme();
 		
 		int width = getParent().getBounds().width;
 		int height = theme.getFeatureNameAreaHeight();
 		setSize(width, height);
-
-		
 	
 		typeLabel.setSize(new Dimension(typeLabel.getTextBounds().width, height));
 		typeLabel.setLocation(new Point(10, 0));

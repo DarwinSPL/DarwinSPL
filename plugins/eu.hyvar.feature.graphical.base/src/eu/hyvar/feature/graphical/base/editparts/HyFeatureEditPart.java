@@ -5,8 +5,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import org.deltaecore.feature.graphical.base.editor.DEGraphicalEditor;
-import org.deltaecore.feature.graphical.base.util.DEGraphicalEditorTheme;
 import org.eclipse.draw2d.ConnectionAnchor;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.geometry.Dimension;
@@ -20,13 +18,12 @@ import org.eclipse.gef.ConnectionEditPart;
 import org.eclipse.gef.NodeEditPart;
 import org.eclipse.gef.Request;
 
-import eu.hyvar.evolution.HyEvolutionUtil;
 import eu.hyvar.feature.HyFeature;
 import eu.hyvar.feature.HyFeatureAttribute;
 import eu.hyvar.feature.HyVersion;
 import eu.hyvar.feature.graphical.base.deltaecore.wrapper.HyGeometryUtil;
 import eu.hyvar.feature.graphical.base.deltaecore.wrapper.layouter.version.HyVersionLayouterManager;
-import eu.hyvar.feature.graphical.base.editor.GraphicalFeatureModelEditor;
+import eu.hyvar.feature.graphical.base.editor.HyGraphicalFeatureModelViewer;
 import eu.hyvar.feature.graphical.base.figures.HyFeatureFigure;
 import eu.hyvar.feature.graphical.base.model.HyFeatureModelWrapped;
 import eu.hyvar.feature.graphical.base.model.HyFeatureWrapped;
@@ -69,7 +66,7 @@ public class HyFeatureEditPart extends HyAbstractEditPart implements NodeEditPar
 		this.changeMode = changeMode;
 	}
 
-	public HyFeatureEditPart(GraphicalFeatureModelEditor editor, HyFeatureModelWrapped featureModel){
+	public HyFeatureEditPart(HyGraphicalFeatureModelViewer editor, HyFeatureModelWrapped featureModel){
 		super(editor, featureModel);
 
 		adapter = new HyFeatureAdapter();
@@ -82,7 +79,8 @@ public class HyFeatureEditPart extends HyAbstractEditPart implements NodeEditPar
 
 
 
-	@Override public void activate() {
+	@Override 
+	public void activate() {
 		//super.activate();
 		if(!isActive()) {
 			HyFeatureWrapped model = ((HyFeatureWrapped)getModel());
@@ -92,7 +90,8 @@ public class HyFeatureEditPart extends HyAbstractEditPart implements NodeEditPar
 		super.activate();
 	}
 
-	@Override public void deactivate() {
+	@Override 
+	public void deactivate() {
 		//super.deactivate();
 		if(isActive()) {
 			HyFeatureWrapped model = ((HyFeatureWrapped)getModel());
@@ -165,35 +164,24 @@ public class HyFeatureEditPart extends HyAbstractEditPart implements NodeEditPar
 	
 	
 	protected boolean hasModifier(HyFeatureWrapped feature){
-		Date date = ((GraphicalFeatureModelEditor)this.editor).getCurrentSelectedDate();
+		Date date = ((HyGraphicalFeatureModelViewer)this.editor).getCurrentSelectedDate();
 		if(date == null)
 			date = new Date();
 
 		return feature.isWithoutModifier(date);
 	}
 
-	/**
-	 * Calculates the height of all attributes at the currently selected date and returns its height
-	 */
-	protected int getAttributeHeight(){
-		DEGraphicalEditorTheme theme = DEGraphicalEditor.getTheme();
-		HyFeatureWrapped model = (HyFeatureWrapped)getModel();
-		GraphicalFeatureModelEditor editor = (GraphicalFeatureModelEditor)this.editor;
-		Date date = editor.getCurrentSelectedDate();
-
-		int attributeCount = HyEvolutionUtil.getValidTemporalElements(model.getWrappedModelElement().getAttributes(), date).size();
-
-		return theme.getFeatureNameAreaHeight() * attributeCount;
-	}
-
-
+	
 	@Override
 	public void refreshVisuals(){
-		GraphicalFeatureModelEditor editor = (GraphicalFeatureModelEditor)this.editor;
+		refreshChildren();
+		super.refreshVisuals();
+		
+		HyGraphicalFeatureModelViewer editor = (HyGraphicalFeatureModelViewer)this.editor;
 		Date date = editor.getCurrentSelectedDate();
 
 		HyFeatureFigure figure = (HyFeatureFigure)getFigure();
-		figure.setSeperatorLocation(new Point(0, figure.getHeightWithoutAttributes()));
+		figure.setSeperatorLocation(new Point(0, ((HyFeatureWrapped)getModel()).getHeightWithoutAttributes(date)));
 		HyFeatureWrapped wrappedFeature = (HyFeatureWrapped)this.getModel();
 
 		figure.setVisible(wrappedFeature.isValid(date));
@@ -205,8 +193,10 @@ public class HyFeatureEditPart extends HyAbstractEditPart implements NodeEditPar
 		for(HyParentChildConnection connection : this.getModelSourceConnections()){
 			connection.notifyChange();
 		}
+		
 		refreshVisualsOfChildren();
 	}
+	
 	
 	@Override
 	protected void refreshChildren() {
@@ -214,10 +204,9 @@ public class HyFeatureEditPart extends HyAbstractEditPart implements NodeEditPar
 		
 		HyFeature feature = ((HyFeatureWrapped)getModel()).getWrappedModelElement();
 		
-		GraphicalFeatureModelEditor editor = (GraphicalFeatureModelEditor)this.editor;
+		HyGraphicalFeatureModelViewer editor = (HyGraphicalFeatureModelViewer)this.editor;
 		Date date = editor.getCurrentSelectedDate();
 		HyVersionLayouterManager.updateLayouter(feature, date);
-		
 	}
 	
 	/**
@@ -227,13 +216,14 @@ public class HyFeatureEditPart extends HyAbstractEditPart implements NodeEditPar
 		HyFeatureWrapped feature = (HyFeatureWrapped)getModel();
 		HyFeatureModelEditPart parent = (HyFeatureModelEditPart)getParent();
 		HyFeatureFigure figure = (HyFeatureFigure)getFigure();
-		GraphicalFeatureModelEditor editor = (GraphicalFeatureModelEditor)this.editor;
+		HyGraphicalFeatureModelViewer editor = (HyGraphicalFeatureModelViewer)this.editor;
 		Date date = editor.getCurrentSelectedDate();
 		
 		int width = HyGeometryUtil.calculateFeatureWidth(feature.getWrappedModelElement(), date);
 		int height = HyGeometryUtil.calculateFeatureHeight(feature.getWrappedModelElement(), date);
 
 		Dimension newFeatureSize = new Dimension(width, height);
+		
 		
 		Rectangle layout = new Rectangle(feature.getPosition(date), newFeatureSize);
 		parent.setLayoutConstraint(this, figure, layout);	
@@ -253,7 +243,7 @@ public class HyFeatureEditPart extends HyAbstractEditPart implements NodeEditPar
 	protected List<HyParentChildConnection> getModelSourceConnections() {
 		HyFeatureWrapped model = (HyFeatureWrapped)getModel();
 
-		GraphicalFeatureModelEditor editor = (GraphicalFeatureModelEditor)this.editor;
+		HyGraphicalFeatureModelViewer editor = (HyGraphicalFeatureModelViewer)this.editor;
 		Date date = editor.getCurrentSelectedDate();
 		return model.getChildrenConnections(date);
 	}
@@ -262,7 +252,7 @@ public class HyFeatureEditPart extends HyAbstractEditPart implements NodeEditPar
 	protected List<HyParentChildConnection> getModelTargetConnections() {
 		HyFeatureWrapped model = (HyFeatureWrapped)getModel();
 
-		GraphicalFeatureModelEditor editor = (GraphicalFeatureModelEditor)this.editor;
+		HyGraphicalFeatureModelViewer editor = (HyGraphicalFeatureModelViewer)this.editor;
 		Date date = editor.getCurrentSelectedDate();
 		return model.getParentConnections(date);
 	}
@@ -271,6 +261,7 @@ public class HyFeatureEditPart extends HyAbstractEditPart implements NodeEditPar
 	 * Refresh the visual representation of all versions and attributes releated to this feature
 	 */
 	protected void refreshVisualsOfChildren(){
+		
 		for(Object o : this.getChildren()){
 			if(o instanceof HyVersionEditPart){
 				HyVersionEditPart edit = (HyVersionEditPart)o;

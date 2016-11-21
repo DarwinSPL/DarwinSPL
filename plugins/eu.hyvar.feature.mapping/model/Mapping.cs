@@ -27,5 +27,5 @@ RULES {
 	DEDeltaInvokation ::= delta['<','>'];
 	
 	@SuppressWarnings(explicitSyntaxChoice)
-	HyMapping ::= expression #1 ":" !1 deltaInvokations ("," !0 deltaInvokations)* ("[" (validSince[DATE] "-" validUntil[DATE] | validSince[DATE] "-" "null" | "null" "-" validUntil[DATE])  "]")?;
+	HyMapping ::= expression #1 ":" !1 deltaInvokations ("," !0 deltaInvokations)* ("[" (validSince[DATE] "-" validUntil[DATE] | validSince[DATE] "-" "eternity" | "eternity" "-" validUntil[DATE])  "]")?;
 }

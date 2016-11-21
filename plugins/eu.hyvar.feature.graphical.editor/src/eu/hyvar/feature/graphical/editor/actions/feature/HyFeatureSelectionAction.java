@@ -3,7 +3,7 @@ package eu.hyvar.feature.graphical.editor.actions.feature;
 import org.eclipse.gef.Request;
 import org.eclipse.jface.viewers.StructuredSelection;
 
-import eu.hyvar.feature.graphical.base.editor.GraphicalFeatureModelEditor;
+import eu.hyvar.feature.graphical.base.editor.HyGraphicalFeatureModelViewer;
 import eu.hyvar.feature.graphical.base.editparts.HyFeatureEditPart;
 import eu.hyvar.feature.graphical.base.editparts.HyRootFeatureEditPart;
 import eu.hyvar.feature.graphical.base.model.HyFeatureWrapped;
@@ -11,7 +11,7 @@ import eu.hyvar.feature.graphical.editor.actions.HyCommandAction;
 
 public abstract class HyFeatureSelectionAction extends HyCommandAction {
 
-	public HyFeatureSelectionAction(GraphicalFeatureModelEditor editor) {
+	public HyFeatureSelectionAction(HyGraphicalFeatureModelViewer editor) {
 		super(editor);
 	}
 	

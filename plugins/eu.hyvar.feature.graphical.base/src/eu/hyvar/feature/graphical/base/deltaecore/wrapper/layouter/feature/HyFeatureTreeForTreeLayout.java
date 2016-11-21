@@ -33,7 +33,7 @@ public class HyFeatureTreeForTreeLayout extends AbstractTreeForTreeLayout<HyFeat
 			HyGroup group = child.getChildGroup();
 			
 			for(HyGroupComposition composition : HyEvolutionUtil.getValidTemporalElements(group.getParentOf(), date)){
-				children.addAll(composition.getFeatures());
+				children.addAll(HyEvolutionUtil.getValidTemporalElements(composition.getFeatures(), date));
 			}
 		}
 

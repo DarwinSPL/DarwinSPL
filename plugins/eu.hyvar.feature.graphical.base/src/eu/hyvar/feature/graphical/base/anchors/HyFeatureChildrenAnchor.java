@@ -4,12 +4,12 @@ import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
 
-import eu.hyvar.feature.graphical.base.editor.GraphicalFeatureModelEditor;
+import eu.hyvar.feature.graphical.base.editor.HyGraphicalFeatureModelViewer;
 import eu.hyvar.feature.graphical.base.figures.HyFeatureFigure;
 
 public class HyFeatureChildrenAnchor extends HyFeatureModelPositionAnchor {
 	
-	public HyFeatureChildrenAnchor(IFigure owner, GraphicalFeatureModelEditor editor) {
+	public HyFeatureChildrenAnchor(IFigure owner, HyGraphicalFeatureModelViewer editor) {
 		super(owner, editor);
 
 	}

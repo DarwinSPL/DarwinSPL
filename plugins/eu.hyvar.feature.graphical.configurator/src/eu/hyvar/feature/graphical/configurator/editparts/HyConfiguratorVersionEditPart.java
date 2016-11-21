@@ -8,7 +8,7 @@ import eu.hyvar.feature.configuration.HyConfiguration;
 import eu.hyvar.feature.configuration.HyConfigurationFactory;
 import eu.hyvar.feature.configuration.HyVersionSelected;
 import eu.hyvar.feature.configuration.util.HyConfigurationUtil;
-import eu.hyvar.feature.graphical.base.editor.GraphicalFeatureModelEditor;
+import eu.hyvar.feature.graphical.base.editor.HyGraphicalFeatureModelViewer;
 import eu.hyvar.feature.graphical.base.editparts.HyVersionEditPart;
 import eu.hyvar.feature.graphical.base.model.HyFeatureModelWrapped;
 import eu.hyvar.feature.graphical.configurator.editor.HyFeatureModelDeltaModuleConfiguratorEditor;
@@ -17,7 +17,7 @@ import eu.hyvar.feature.graphical.configurator.util.HyConfiguratorEditorUtil;
 
 public class HyConfiguratorVersionEditPart extends HyVersionEditPart{
 
-	public HyConfiguratorVersionEditPart(GraphicalFeatureModelEditor editor, HyFeatureModelWrapped featureModel) {
+	public HyConfiguratorVersionEditPart(HyGraphicalFeatureModelViewer editor, HyFeatureModelWrapped featureModel) {
 		super(editor, featureModel);
 	}
 

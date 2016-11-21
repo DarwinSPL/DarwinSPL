@@ -6,13 +6,13 @@ import org.eclipse.gef.commands.Command;
 
 import eu.hyvar.dataValues.HyDataValuesFactory;
 import eu.hyvar.dataValues.HyEnum;
-import eu.hyvar.feature.graphical.base.editor.GraphicalFeatureModelEditor;
+import eu.hyvar.feature.graphical.base.editor.HyGraphicalFeatureModelViewer;
 
 public class HyFeatureAttributeEnumCreateEnumCommand extends Command {
-	private GraphicalFeatureModelEditor editor;
+	private HyGraphicalFeatureModelViewer editor;
 	private HyEnum featureEnum;
 	
-	public HyFeatureAttributeEnumCreateEnumCommand(GraphicalFeatureModelEditor editor){
+	public HyFeatureAttributeEnumCreateEnumCommand(HyGraphicalFeatureModelViewer editor){
 		this.editor = editor;
 	}
 	
@@ -29,6 +29,8 @@ public class HyFeatureAttributeEnumCreateEnumCommand extends Command {
 	@Override
 	public void redo() {
 		Date date = editor.getCurrentSelectedDate();
+		if(date.equals(new Date(Long.MIN_VALUE)))
+			date = null;
 		
 		featureEnum = HyDataValuesFactory.eINSTANCE.createHyEnum();
 		featureEnum.setValidSince(date);

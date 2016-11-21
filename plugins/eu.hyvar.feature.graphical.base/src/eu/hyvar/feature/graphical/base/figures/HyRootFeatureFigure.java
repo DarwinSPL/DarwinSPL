@@ -1,47 +1,26 @@
 package eu.hyvar.feature.graphical.base.figures;
 
-import eu.hyvar.feature.graphical.base.editor.GraphicalFeatureModelEditor;
+import org.deltaecore.feature.graphical.base.editor.DEGraphicalEditor;
+import org.deltaecore.feature.graphical.base.util.DEGraphicalEditorTheme;
+import org.eclipse.draw2d.geometry.Rectangle;
+
+import eu.hyvar.feature.graphical.base.editor.HyGraphicalFeatureModelViewer;
 import eu.hyvar.feature.graphical.base.model.HyFeatureWrapped;
 
 public class HyRootFeatureFigure extends HyFeatureFigure{
 
-	public HyRootFeatureFigure(GraphicalFeatureModelEditor editor, HyFeatureWrapped feature) {
+	public HyRootFeatureFigure(HyGraphicalFeatureModelViewer editor, HyFeatureWrapped feature) {
 		super(editor, feature);
 	}
-
-	/*
-	@Override 
-	protected void paintFigure(Graphics graphics) {
-		paintNameAreaBackground( graphics);
-		
-		Rectangle r = getBounds().getCopy();
-		setConstraint(label, new Rectangle(0, 0, r.width, r.height));
-
+	
+	public Rectangle calculateVariationTypeCircleBounds() {
 		DEGraphicalEditorTheme theme = DEGraphicalEditor.getTheme();
-		Rectangle nameAreaBounds = calculateNameAreaBounds();
-		Dimension preferredLabelSize = label.getPreferredSize();
 
-		int labelWidth = nameAreaBounds.width;
-		int labelHeight = preferredLabelSize.height;
-		int labelX = 0;
-		int labelY = theme.getFeatureVariationTypeExtent() + (theme.getFeatureNameAreaHeight() - labelHeight) / 2;
+		Rectangle bounds = getBounds();
 
-		Rectangle labelBounds = new Rectangle(labelX, labelY, labelWidth, labelHeight);
-		label.setBounds(labelBounds);
+		int x = bounds.x + (bounds.width - theme.getFeatureVariationTypeExtent()) / 2;
+		int y = bounds.y;
 
-		if(isOpaque()){
-			graphics.setBackgroundColor(getBackgroundColor());
-			graphics.fillRectangle(getBounds());
-		}
-
-	    setConstraint(label, new Rectangle(0, 0, r.width, r.height));
-
-		HyFeatureWrapped feature = getFeature();
-		if (versionAreaIsVisible(feature.getWrappedModelElement())) {
-			paintFigureAreaBackground(graphics);
-			//paintVersionConnections(graphics);
-			paintConnection(graphics, feature.getWrappedModelElement().getVersions().get(0));
-		}
+		return new Rectangle(x, y, 0, 0);
 	}
-	*/
 }

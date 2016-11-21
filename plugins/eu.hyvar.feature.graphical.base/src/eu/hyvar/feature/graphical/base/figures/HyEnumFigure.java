@@ -10,12 +10,12 @@ import org.eclipse.draw2d.geometry.Insets;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
 
-import eu.hyvar.feature.graphical.base.editor.GraphicalFeatureModelEditor;
+import eu.hyvar.feature.graphical.base.editor.HyGraphicalFeatureModelViewer;
 
 public class HyEnumFigure extends HyAbstractFigure{
 	private Label label;
 
-	public HyEnumFigure(GraphicalFeatureModelEditor editor) {
+	public HyEnumFigure(HyGraphicalFeatureModelViewer editor) {
 		super(editor);
 
 		createChildFigures();
@@ -43,11 +43,12 @@ public class HyEnumFigure extends HyAbstractFigure{
 
 	@Override 
 	public void paintFigure(Graphics graphics) {
+		
 		DEGraphicalEditorTheme theme = DEGraphicalEditor.getTheme();
 		int lineWidth = theme.getLineWidth();
 		graphics.setLineWidth(theme.getLineWidth());
 		graphics.setForegroundColor(theme.getLineColor());
-		graphics.drawRectangle(this.getBounds().expand(new Insets(-lineWidth, -lineWidth, -lineWidth, -lineWidth)));
+		graphics.drawRectangle(this.getBounds().getCopy().expand(new Insets(-lineWidth, -lineWidth, -lineWidth, -lineWidth)));
 
 		resizeToContent();
 	}
@@ -59,6 +60,11 @@ public class HyEnumFigure extends HyAbstractFigure{
 	@Override
 	protected boolean useLocalCoordinates(){
 		return true;
+	}
+
+	public void update() {
+		resizeToContent();
+		repaint();
 	}
 
 }

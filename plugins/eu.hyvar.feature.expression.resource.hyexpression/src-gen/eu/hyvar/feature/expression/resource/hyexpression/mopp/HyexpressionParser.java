@@ -33,7 +33,7 @@ import java.util.HashMap;
 @SuppressWarnings({"all", "warnings", "unchecked"})
 public class HyexpressionParser extends HyexpressionANTLRParserBase {
     public static final String[] tokenNames = new String[] {
-        "<invalid>", "<EOR>", "<DOWN>", "<UP>", "DATE", "IDENTIFIER_TOKEN", "INTEGER_LITERAL", "LINEBREAK", "ML_COMMENT", "QUOTED_34_34", "SL_COMMENT", "WHITESPACE", "'!'", "'!='", "'&&'", "'('", "')'", "'*'", "'+'", "','", "'-'", "'->'", "'.'", "'/'", "'<'", "'<->'", "'<='", "'='", "'>'", "'>='", "'?'", "'Enum('", "'EnumLiteral('", "'['", "'\\u0025'", "']'", "'^'", "'context:'", "'enum:'", "'false'", "'ifPossible('", "'max('", "'min('", "'null'", "'true'", "'||'"
+        "<invalid>", "<EOR>", "<DOWN>", "<UP>", "DATE", "IDENTIFIER_TOKEN", "INTEGER_LITERAL", "LINEBREAK", "ML_COMMENT", "QUOTED_34_34", "SL_COMMENT", "WHITESPACE", "'!'", "'!='", "'&&'", "'('", "')'", "'*'", "'+'", "','", "'-'", "'->'", "'.'", "'/'", "'<'", "'<->'", "'<='", "'='", "'>'", "'>='", "'?'", "'Enum('", "'EnumLiteral('", "'['", "'\\u0025'", "']'", "'^'", "'context:'", "'enum:'", "'eternity'", "'false'", "'ifPossible('", "'max('", "'min('", "'true'", "'||'"
     };
 
     public static final int EOF=-1;
@@ -442,7 +442,7 @@ public class HyexpressionParser extends HyexpressionANTLRParserBase {
     				break;
     			}
     		}
-    		int followSetID = 109;
+    		int followSetID = 108;
     		int i;
     		for (i = tokenIndexOfLastCompleteElement; i < tokenStream.size(); i++) {
     			CommonToken nextToken = (CommonToken) tokenStream.get(i);
@@ -1539,7 +1539,7 @@ public class HyexpressionParser extends HyexpressionANTLRParserBase {
 
 
     // $ANTLR start "parse_eu_hyvar_dataValues_HyEnum"
-    // Hyexpression.g:1212:1: parse_eu_hyvar_dataValues_HyEnum returns [eu.hyvar.dataValues.HyEnum element = null] : a0= 'Enum(' (a1= IDENTIFIER_TOKEN ) a2= ',' ( ( (a3_0= parse_eu_hyvar_dataValues_HyEnumLiteral ) ( (a4= ',' (a5_0= parse_eu_hyvar_dataValues_HyEnumLiteral ) ) )* ) )? a6= ')' ( (a7= '[' ( (a8= DATE ) a9= '-' (a10= DATE ) | (a11= DATE ) a12= '-' a13= 'null' |a14= 'null' a15= '-' (a16= DATE ) ) a17= ']' ) )? ;
+    // Hyexpression.g:1212:1: parse_eu_hyvar_dataValues_HyEnum returns [eu.hyvar.dataValues.HyEnum element = null] : a0= 'Enum(' (a1= IDENTIFIER_TOKEN ) a2= ',' ( ( (a3_0= parse_eu_hyvar_dataValues_HyEnumLiteral ) ( (a4= ',' (a5_0= parse_eu_hyvar_dataValues_HyEnumLiteral ) ) )* ) )? a6= ')' ( (a7= '[' ( (a8= DATE ) a9= '-' (a10= DATE ) | (a11= DATE ) a12= '-' |a13= 'eternity' a14= '-' (a15= DATE ) ) a16= ']' ) )? ;
     public final eu.hyvar.dataValues.HyEnum parse_eu_hyvar_dataValues_HyEnum() throws RecognitionException {
         eu.hyvar.dataValues.HyEnum element =  null;
 
@@ -1560,7 +1560,6 @@ public class HyexpressionParser extends HyexpressionANTLRParserBase {
         Token a14=null;
         Token a15=null;
         Token a16=null;
-        Token a17=null;
         eu.hyvar.dataValues.HyEnumLiteral a3_0 =null;
 
         eu.hyvar.dataValues.HyEnumLiteral a5_0 =null;
@@ -1571,8 +1570,8 @@ public class HyexpressionParser extends HyexpressionANTLRParserBase {
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 4) ) { return element; }
 
-            // Hyexpression.g:1215:2: (a0= 'Enum(' (a1= IDENTIFIER_TOKEN ) a2= ',' ( ( (a3_0= parse_eu_hyvar_dataValues_HyEnumLiteral ) ( (a4= ',' (a5_0= parse_eu_hyvar_dataValues_HyEnumLiteral ) ) )* ) )? a6= ')' ( (a7= '[' ( (a8= DATE ) a9= '-' (a10= DATE ) | (a11= DATE ) a12= '-' a13= 'null' |a14= 'null' a15= '-' (a16= DATE ) ) a17= ']' ) )? )
-            // Hyexpression.g:1216:2: a0= 'Enum(' (a1= IDENTIFIER_TOKEN ) a2= ',' ( ( (a3_0= parse_eu_hyvar_dataValues_HyEnumLiteral ) ( (a4= ',' (a5_0= parse_eu_hyvar_dataValues_HyEnumLiteral ) ) )* ) )? a6= ')' ( (a7= '[' ( (a8= DATE ) a9= '-' (a10= DATE ) | (a11= DATE ) a12= '-' a13= 'null' |a14= 'null' a15= '-' (a16= DATE ) ) a17= ']' ) )?
+            // Hyexpression.g:1215:2: (a0= 'Enum(' (a1= IDENTIFIER_TOKEN ) a2= ',' ( ( (a3_0= parse_eu_hyvar_dataValues_HyEnumLiteral ) ( (a4= ',' (a5_0= parse_eu_hyvar_dataValues_HyEnumLiteral ) ) )* ) )? a6= ')' ( (a7= '[' ( (a8= DATE ) a9= '-' (a10= DATE ) | (a11= DATE ) a12= '-' |a13= 'eternity' a14= '-' (a15= DATE ) ) a16= ']' ) )? )
+            // Hyexpression.g:1216:2: a0= 'Enum(' (a1= IDENTIFIER_TOKEN ) a2= ',' ( ( (a3_0= parse_eu_hyvar_dataValues_HyEnumLiteral ) ( (a4= ',' (a5_0= parse_eu_hyvar_dataValues_HyEnumLiteral ) ) )* ) )? a6= ')' ( (a7= '[' ( (a8= DATE ) a9= '-' (a10= DATE ) | (a11= DATE ) a12= '-' |a13= 'eternity' a14= '-' (a15= DATE ) ) a16= ']' ) )?
             {
             a0=(Token)match(input,31,FOLLOW_31_in_parse_eu_hyvar_dataValues_HyEnum440); if (state.failed) return element;
 
@@ -1825,7 +1824,7 @@ public class HyexpressionParser extends HyexpressionANTLRParserBase {
             		addExpectedElement(null, eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[319]);
             	}
 
-            // Hyexpression.g:1382:2: ( (a7= '[' ( (a8= DATE ) a9= '-' (a10= DATE ) | (a11= DATE ) a12= '-' a13= 'null' |a14= 'null' a15= '-' (a16= DATE ) ) a17= ']' ) )?
+            // Hyexpression.g:1382:2: ( (a7= '[' ( (a8= DATE ) a9= '-' (a10= DATE ) | (a11= DATE ) a12= '-' |a13= 'eternity' a14= '-' (a15= DATE ) ) a16= ']' ) )?
             int alt7=2;
             int LA7_0 = input.LA(1);
 
@@ -1834,10 +1833,10 @@ public class HyexpressionParser extends HyexpressionANTLRParserBase {
             }
             switch (alt7) {
                 case 1 :
-                    // Hyexpression.g:1383:3: (a7= '[' ( (a8= DATE ) a9= '-' (a10= DATE ) | (a11= DATE ) a12= '-' a13= 'null' |a14= 'null' a15= '-' (a16= DATE ) ) a17= ']' )
+                    // Hyexpression.g:1383:3: (a7= '[' ( (a8= DATE ) a9= '-' (a10= DATE ) | (a11= DATE ) a12= '-' |a13= 'eternity' a14= '-' (a15= DATE ) ) a16= ']' )
                     {
-                    // Hyexpression.g:1383:3: (a7= '[' ( (a8= DATE ) a9= '-' (a10= DATE ) | (a11= DATE ) a12= '-' a13= 'null' |a14= 'null' a15= '-' (a16= DATE ) ) a17= ']' )
-                    // Hyexpression.g:1384:4: a7= '[' ( (a8= DATE ) a9= '-' (a10= DATE ) | (a11= DATE ) a12= '-' a13= 'null' |a14= 'null' a15= '-' (a16= DATE ) ) a17= ']'
+                    // Hyexpression.g:1383:3: (a7= '[' ( (a8= DATE ) a9= '-' (a10= DATE ) | (a11= DATE ) a12= '-' |a13= 'eternity' a14= '-' (a15= DATE ) ) a16= ']' )
+                    // Hyexpression.g:1384:4: a7= '[' ( (a8= DATE ) a9= '-' (a10= DATE ) | (a11= DATE ) a12= '-' |a13= 'eternity' a14= '-' (a15= DATE ) ) a16= ']'
                     {
                     a7=(Token)match(input,33,FOLLOW_33_in_parse_eu_hyvar_dataValues_HyEnum680); if (state.failed) return element;
 
@@ -1858,7 +1857,7 @@ public class HyexpressionParser extends HyexpressionANTLRParserBase {
                     				addExpectedElement(null, eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[322]);
                     			}
 
-                    // Hyexpression.g:1400:4: ( (a8= DATE ) a9= '-' (a10= DATE ) | (a11= DATE ) a12= '-' a13= 'null' |a14= 'null' a15= '-' (a16= DATE ) )
+                    // Hyexpression.g:1400:4: ( (a8= DATE ) a9= '-' (a10= DATE ) | (a11= DATE ) a12= '-' |a13= 'eternity' a14= '-' (a15= DATE ) )
                     int alt6=3;
                     int LA6_0 = input.LA(1);
 
@@ -1871,7 +1870,7 @@ public class HyexpressionParser extends HyexpressionANTLRParserBase {
                             if ( (LA6_3==DATE) ) {
                                 alt6=1;
                             }
-                            else if ( (LA6_3==43) ) {
+                            else if ( (LA6_3==35) ) {
                                 alt6=2;
                             }
                             else {
@@ -1892,7 +1891,7 @@ public class HyexpressionParser extends HyexpressionANTLRParserBase {
 
                         }
                     }
-                    else if ( (LA6_0==43) ) {
+                    else if ( (LA6_0==39) ) {
                         alt6=3;
                     }
                     else {
@@ -2011,7 +2010,7 @@ public class HyexpressionParser extends HyexpressionANTLRParserBase {
                             }
                             break;
                         case 2 :
-                            // Hyexpression.g:1488:10: (a11= DATE ) a12= '-' a13= 'null'
+                            // Hyexpression.g:1488:10: (a11= DATE ) a12= '-'
                             {
                             // Hyexpression.g:1488:10: (a11= DATE )
                             // Hyexpression.g:1489:6: a11= DATE
@@ -2072,29 +2071,12 @@ public class HyexpressionParser extends HyexpressionANTLRParserBase {
                             					addExpectedElement(null, eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[327]);
                             				}
 
-                            a13=(Token)match(input,43,FOLLOW_43_in_parse_eu_hyvar_dataValues_HyEnum900); if (state.failed) return element;
-
-                            if ( state.backtracking==0 ) {
-                            					if (element == null) {
-                            						element = eu.hyvar.dataValues.HyDataValuesFactory.eINSTANCE.createHyEnum();
-                            						startIncompleteElement(element);
-                            					}
-                            					collectHiddenTokens(element);
-                            					retrieveLayoutInformation(element, eu.hyvar.feature.expression.resource.hyexpression.grammar.HyexpressionGrammarInformationProvider.HYDATAVALUE_3_0_0_5_0_0_1_0_1_2, null, true);
-                            					copyLocalizationInfos((CommonToken)a13, element);
-                            				}
-
-                            if ( state.backtracking==0 ) {
-                            					// expected elements (follow set)
-                            					addExpectedElement(null, eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[328]);
-                            				}
-
                             }
                             break;
                         case 3 :
-                            // Hyexpression.g:1553:10: a14= 'null' a15= '-' (a16= DATE )
+                            // Hyexpression.g:1539:10: a13= 'eternity' a14= '-' (a15= DATE )
                             {
-                            a14=(Token)match(input,43,FOLLOW_43_in_parse_eu_hyvar_dataValues_HyEnum933); if (state.failed) return element;
+                            a13=(Token)match(input,39,FOLLOW_39_in_parse_eu_hyvar_dataValues_HyEnum910); if (state.failed) return element;
 
                             if ( state.backtracking==0 ) {
                             					if (element == null) {
@@ -2103,15 +2085,15 @@ public class HyexpressionParser extends HyexpressionANTLRParserBase {
                             					}
                             					collectHiddenTokens(element);
                             					retrieveLayoutInformation(element, eu.hyvar.feature.expression.resource.hyexpression.grammar.HyexpressionGrammarInformationProvider.HYDATAVALUE_3_0_0_5_0_0_1_0_2_0, null, true);
-                            					copyLocalizationInfos((CommonToken)a14, element);
+                            					copyLocalizationInfos((CommonToken)a13, element);
                             				}
 
                             if ( state.backtracking==0 ) {
                             					// expected elements (follow set)
-                            					addExpectedElement(null, eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[329]);
+                            					addExpectedElement(null, eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[328]);
                             				}
 
-                            a15=(Token)match(input,20,FOLLOW_20_in_parse_eu_hyvar_dataValues_HyEnum956); if (state.failed) return element;
+                            a14=(Token)match(input,20,FOLLOW_20_in_parse_eu_hyvar_dataValues_HyEnum933); if (state.failed) return element;
 
                             if ( state.backtracking==0 ) {
                             					if (element == null) {
@@ -2120,18 +2102,18 @@ public class HyexpressionParser extends HyexpressionANTLRParserBase {
                             					}
                             					collectHiddenTokens(element);
                             					retrieveLayoutInformation(element, eu.hyvar.feature.expression.resource.hyexpression.grammar.HyexpressionGrammarInformationProvider.HYDATAVALUE_3_0_0_5_0_0_1_0_2_1, null, true);
-                            					copyLocalizationInfos((CommonToken)a15, element);
+                            					copyLocalizationInfos((CommonToken)a14, element);
                             				}
 
                             if ( state.backtracking==0 ) {
                             					// expected elements (follow set)
-                            					addExpectedElement(null, eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[330]);
+                            					addExpectedElement(null, eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[329]);
                             				}
 
-                            // Hyexpression.g:1581:5: (a16= DATE )
-                            // Hyexpression.g:1582:6: a16= DATE
+                            // Hyexpression.g:1567:5: (a15= DATE )
+                            // Hyexpression.g:1568:6: a15= DATE
                             {
-                            a16=(Token)match(input,DATE,FOLLOW_DATE_in_parse_eu_hyvar_dataValues_HyEnum986); if (state.failed) return element;
+                            a15=(Token)match(input,DATE,FOLLOW_DATE_in_parse_eu_hyvar_dataValues_HyEnum963); if (state.failed) return element;
 
                             if ( state.backtracking==0 ) {
                             						if (terminateParsing) {
@@ -2141,14 +2123,14 @@ public class HyexpressionParser extends HyexpressionANTLRParserBase {
                             							element = eu.hyvar.dataValues.HyDataValuesFactory.eINSTANCE.createHyEnum();
                             							startIncompleteElement(element);
                             						}
-                            						if (a16 != null) {
+                            						if (a15 != null) {
                             							eu.hyvar.feature.expression.resource.hyexpression.IHyexpressionTokenResolver tokenResolver = tokenResolverFactory.createTokenResolver("DATE");
                             							tokenResolver.setOptions(getOptions());
                             							eu.hyvar.feature.expression.resource.hyexpression.IHyexpressionTokenResolveResult result = getFreshTokenResolveResult();
-                            							tokenResolver.resolve(a16.getText(), element.eClass().getEStructuralFeature(eu.hyvar.dataValues.HyDataValuesPackage.HY_ENUM__VALID_UNTIL), result);
+                            							tokenResolver.resolve(a15.getText(), element.eClass().getEStructuralFeature(eu.hyvar.dataValues.HyDataValuesPackage.HY_ENUM__VALID_UNTIL), result);
                             							Object resolvedObject = result.getResolvedToken();
                             							if (resolvedObject == null) {
-                            								addErrorToResource(result.getErrorMessage(), ((CommonToken) a16).getLine(), ((CommonToken) a16).getCharPositionInLine(), ((CommonToken) a16).getStartIndex(), ((CommonToken) a16).getStopIndex());
+                            								addErrorToResource(result.getErrorMessage(), ((CommonToken) a15).getLine(), ((CommonToken) a15).getCharPositionInLine(), ((CommonToken) a15).getStartIndex(), ((CommonToken) a15).getStopIndex());
                             							}
                             							java.util.Date resolved = (java.util.Date) resolvedObject;
                             							if (resolved != null) {
@@ -2158,7 +2140,7 @@ public class HyexpressionParser extends HyexpressionANTLRParserBase {
                             							}
                             							collectHiddenTokens(element);
                             							retrieveLayoutInformation(element, eu.hyvar.feature.expression.resource.hyexpression.grammar.HyexpressionGrammarInformationProvider.HYDATAVALUE_3_0_0_5_0_0_1_0_2_2, resolved, true);
-                            							copyLocalizationInfos((CommonToken) a16, element);
+                            							copyLocalizationInfos((CommonToken) a15, element);
                             						}
                             					}
 
@@ -2167,7 +2149,7 @@ public class HyexpressionParser extends HyexpressionANTLRParserBase {
 
                             if ( state.backtracking==0 ) {
                             					// expected elements (follow set)
-                            					addExpectedElement(null, eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[331]);
+                            					addExpectedElement(null, eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[330]);
                             				}
 
                             }
@@ -2178,10 +2160,10 @@ public class HyexpressionParser extends HyexpressionANTLRParserBase {
 
                     if ( state.backtracking==0 ) {
                     				// expected elements (follow set)
-                    				addExpectedElement(null, eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[332]);
+                    				addExpectedElement(null, eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[331]);
                     			}
 
-                    a17=(Token)match(input,35,FOLLOW_35_in_parse_eu_hyvar_dataValues_HyEnum1038); if (state.failed) return element;
+                    a16=(Token)match(input,35,FOLLOW_35_in_parse_eu_hyvar_dataValues_HyEnum1015); if (state.failed) return element;
 
                     if ( state.backtracking==0 ) {
                     				if (element == null) {
@@ -2190,7 +2172,7 @@ public class HyexpressionParser extends HyexpressionANTLRParserBase {
                     				}
                     				collectHiddenTokens(element);
                     				retrieveLayoutInformation(element, eu.hyvar.feature.expression.resource.hyexpression.grammar.HyexpressionGrammarInformationProvider.HYDATAVALUE_3_0_0_5_0_0_2, null, true);
-                    				copyLocalizationInfos((CommonToken)a17, element);
+                    				copyLocalizationInfos((CommonToken)a16, element);
                     			}
 
                     if ( state.backtracking==0 ) {
@@ -2230,7 +2212,7 @@ public class HyexpressionParser extends HyexpressionANTLRParserBase {
 
 
     // $ANTLR start "parse_eu_hyvar_dataValues_HyEnumLiteral"
-    // Hyexpression.g:1644:1: parse_eu_hyvar_dataValues_HyEnumLiteral returns [eu.hyvar.dataValues.HyEnumLiteral element = null] : a0= 'EnumLiteral(' (a1= IDENTIFIER_TOKEN ) a2= ',' (a3= INTEGER_LITERAL ) a4= ')' ( (a5= '[' ( (a6= DATE ) a7= '-' (a8= DATE ) | (a9= DATE ) a10= '-' a11= 'null' |a12= 'null' a13= '-' (a14= DATE ) ) a15= ']' ) )? ;
+    // Hyexpression.g:1630:1: parse_eu_hyvar_dataValues_HyEnumLiteral returns [eu.hyvar.dataValues.HyEnumLiteral element = null] : a0= 'EnumLiteral(' (a1= IDENTIFIER_TOKEN ) a2= ',' (a3= INTEGER_LITERAL ) a4= ')' ( (a5= '[' ( (a6= DATE ) a7= '-' (a8= DATE ) | (a9= DATE ) a10= '-' a11= 'eternity' |a12= 'eternity' a13= '-' (a14= DATE ) ) a15= ']' ) )? ;
     public final eu.hyvar.dataValues.HyEnumLiteral parse_eu_hyvar_dataValues_HyEnumLiteral() throws RecognitionException {
         eu.hyvar.dataValues.HyEnumLiteral element =  null;
 
@@ -2258,10 +2240,10 @@ public class HyexpressionParser extends HyexpressionANTLRParserBase {
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 5) ) { return element; }
 
-            // Hyexpression.g:1647:2: (a0= 'EnumLiteral(' (a1= IDENTIFIER_TOKEN ) a2= ',' (a3= INTEGER_LITERAL ) a4= ')' ( (a5= '[' ( (a6= DATE ) a7= '-' (a8= DATE ) | (a9= DATE ) a10= '-' a11= 'null' |a12= 'null' a13= '-' (a14= DATE ) ) a15= ']' ) )? )
-            // Hyexpression.g:1648:2: a0= 'EnumLiteral(' (a1= IDENTIFIER_TOKEN ) a2= ',' (a3= INTEGER_LITERAL ) a4= ')' ( (a5= '[' ( (a6= DATE ) a7= '-' (a8= DATE ) | (a9= DATE ) a10= '-' a11= 'null' |a12= 'null' a13= '-' (a14= DATE ) ) a15= ']' ) )?
+            // Hyexpression.g:1633:2: (a0= 'EnumLiteral(' (a1= IDENTIFIER_TOKEN ) a2= ',' (a3= INTEGER_LITERAL ) a4= ')' ( (a5= '[' ( (a6= DATE ) a7= '-' (a8= DATE ) | (a9= DATE ) a10= '-' a11= 'eternity' |a12= 'eternity' a13= '-' (a14= DATE ) ) a15= ']' ) )? )
+            // Hyexpression.g:1634:2: a0= 'EnumLiteral(' (a1= IDENTIFIER_TOKEN ) a2= ',' (a3= INTEGER_LITERAL ) a4= ')' ( (a5= '[' ( (a6= DATE ) a7= '-' (a8= DATE ) | (a9= DATE ) a10= '-' a11= 'eternity' |a12= 'eternity' a13= '-' (a14= DATE ) ) a15= ']' ) )?
             {
-            a0=(Token)match(input,32,FOLLOW_32_in_parse_eu_hyvar_dataValues_HyEnumLiteral1086); if (state.failed) return element;
+            a0=(Token)match(input,32,FOLLOW_32_in_parse_eu_hyvar_dataValues_HyEnumLiteral1063); if (state.failed) return element;
 
             if ( state.backtracking==0 ) {
             		if (element == null) {
@@ -2275,13 +2257,13 @@ public class HyexpressionParser extends HyexpressionANTLRParserBase {
 
             if ( state.backtracking==0 ) {
             		// expected elements (follow set)
-            		addExpectedElement(null, eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[333]);
+            		addExpectedElement(null, eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[332]);
             	}
 
-            // Hyexpression.g:1662:2: (a1= IDENTIFIER_TOKEN )
-            // Hyexpression.g:1663:3: a1= IDENTIFIER_TOKEN
+            // Hyexpression.g:1648:2: (a1= IDENTIFIER_TOKEN )
+            // Hyexpression.g:1649:3: a1= IDENTIFIER_TOKEN
             {
-            a1=(Token)match(input,IDENTIFIER_TOKEN,FOLLOW_IDENTIFIER_TOKEN_in_parse_eu_hyvar_dataValues_HyEnumLiteral1104); if (state.failed) return element;
+            a1=(Token)match(input,IDENTIFIER_TOKEN,FOLLOW_IDENTIFIER_TOKEN_in_parse_eu_hyvar_dataValues_HyEnumLiteral1081); if (state.failed) return element;
 
             if ( state.backtracking==0 ) {
             			if (terminateParsing) {
@@ -2317,10 +2299,10 @@ public class HyexpressionParser extends HyexpressionANTLRParserBase {
 
             if ( state.backtracking==0 ) {
             		// expected elements (follow set)
-            		addExpectedElement(null, eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[334]);
+            		addExpectedElement(null, eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[333]);
             	}
 
-            a2=(Token)match(input,19,FOLLOW_19_in_parse_eu_hyvar_dataValues_HyEnumLiteral1125); if (state.failed) return element;
+            a2=(Token)match(input,19,FOLLOW_19_in_parse_eu_hyvar_dataValues_HyEnumLiteral1102); if (state.failed) return element;
 
             if ( state.backtracking==0 ) {
             		if (element == null) {
@@ -2334,13 +2316,13 @@ public class HyexpressionParser extends HyexpressionANTLRParserBase {
 
             if ( state.backtracking==0 ) {
             		// expected elements (follow set)
-            		addExpectedElement(null, eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[335]);
+            		addExpectedElement(null, eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[334]);
             	}
 
-            // Hyexpression.g:1712:2: (a3= INTEGER_LITERAL )
-            // Hyexpression.g:1713:3: a3= INTEGER_LITERAL
+            // Hyexpression.g:1698:2: (a3= INTEGER_LITERAL )
+            // Hyexpression.g:1699:3: a3= INTEGER_LITERAL
             {
-            a3=(Token)match(input,INTEGER_LITERAL,FOLLOW_INTEGER_LITERAL_in_parse_eu_hyvar_dataValues_HyEnumLiteral1143); if (state.failed) return element;
+            a3=(Token)match(input,INTEGER_LITERAL,FOLLOW_INTEGER_LITERAL_in_parse_eu_hyvar_dataValues_HyEnumLiteral1120); if (state.failed) return element;
 
             if ( state.backtracking==0 ) {
             			if (terminateParsing) {
@@ -2376,10 +2358,10 @@ public class HyexpressionParser extends HyexpressionANTLRParserBase {
 
             if ( state.backtracking==0 ) {
             		// expected elements (follow set)
-            		addExpectedElement(null, eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[336]);
+            		addExpectedElement(null, eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[335]);
             	}
 
-            a4=(Token)match(input,16,FOLLOW_16_in_parse_eu_hyvar_dataValues_HyEnumLiteral1164); if (state.failed) return element;
+            a4=(Token)match(input,16,FOLLOW_16_in_parse_eu_hyvar_dataValues_HyEnumLiteral1141); if (state.failed) return element;
 
             if ( state.backtracking==0 ) {
             		if (element == null) {
@@ -2393,12 +2375,12 @@ public class HyexpressionParser extends HyexpressionANTLRParserBase {
 
             if ( state.backtracking==0 ) {
             		// expected elements (follow set)
+            		addExpectedElement(null, eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[336]);
             		addExpectedElement(null, eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[337]);
             		addExpectedElement(null, eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[338]);
-            		addExpectedElement(null, eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[339]);
             	}
 
-            // Hyexpression.g:1764:2: ( (a5= '[' ( (a6= DATE ) a7= '-' (a8= DATE ) | (a9= DATE ) a10= '-' a11= 'null' |a12= 'null' a13= '-' (a14= DATE ) ) a15= ']' ) )?
+            // Hyexpression.g:1750:2: ( (a5= '[' ( (a6= DATE ) a7= '-' (a8= DATE ) | (a9= DATE ) a10= '-' a11= 'eternity' |a12= 'eternity' a13= '-' (a14= DATE ) ) a15= ']' ) )?
             int alt9=2;
             int LA9_0 = input.LA(1);
 
@@ -2407,12 +2389,12 @@ public class HyexpressionParser extends HyexpressionANTLRParserBase {
             }
             switch (alt9) {
                 case 1 :
-                    // Hyexpression.g:1765:3: (a5= '[' ( (a6= DATE ) a7= '-' (a8= DATE ) | (a9= DATE ) a10= '-' a11= 'null' |a12= 'null' a13= '-' (a14= DATE ) ) a15= ']' )
+                    // Hyexpression.g:1751:3: (a5= '[' ( (a6= DATE ) a7= '-' (a8= DATE ) | (a9= DATE ) a10= '-' a11= 'eternity' |a12= 'eternity' a13= '-' (a14= DATE ) ) a15= ']' )
                     {
-                    // Hyexpression.g:1765:3: (a5= '[' ( (a6= DATE ) a7= '-' (a8= DATE ) | (a9= DATE ) a10= '-' a11= 'null' |a12= 'null' a13= '-' (a14= DATE ) ) a15= ']' )
-                    // Hyexpression.g:1766:4: a5= '[' ( (a6= DATE ) a7= '-' (a8= DATE ) | (a9= DATE ) a10= '-' a11= 'null' |a12= 'null' a13= '-' (a14= DATE ) ) a15= ']'
+                    // Hyexpression.g:1751:3: (a5= '[' ( (a6= DATE ) a7= '-' (a8= DATE ) | (a9= DATE ) a10= '-' a11= 'eternity' |a12= 'eternity' a13= '-' (a14= DATE ) ) a15= ']' )
+                    // Hyexpression.g:1752:4: a5= '[' ( (a6= DATE ) a7= '-' (a8= DATE ) | (a9= DATE ) a10= '-' a11= 'eternity' |a12= 'eternity' a13= '-' (a14= DATE ) ) a15= ']'
                     {
-                    a5=(Token)match(input,33,FOLLOW_33_in_parse_eu_hyvar_dataValues_HyEnumLiteral1187); if (state.failed) return element;
+                    a5=(Token)match(input,33,FOLLOW_33_in_parse_eu_hyvar_dataValues_HyEnumLiteral1164); if (state.failed) return element;
 
                     if ( state.backtracking==0 ) {
                     				if (element == null) {
@@ -2426,12 +2408,12 @@ public class HyexpressionParser extends HyexpressionANTLRParserBase {
 
                     if ( state.backtracking==0 ) {
                     				// expected elements (follow set)
+                    				addExpectedElement(null, eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[339]);
                     				addExpectedElement(null, eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[340]);
                     				addExpectedElement(null, eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[341]);
-                    				addExpectedElement(null, eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[342]);
                     			}
 
-                    // Hyexpression.g:1782:4: ( (a6= DATE ) a7= '-' (a8= DATE ) | (a9= DATE ) a10= '-' a11= 'null' |a12= 'null' a13= '-' (a14= DATE ) )
+                    // Hyexpression.g:1768:4: ( (a6= DATE ) a7= '-' (a8= DATE ) | (a9= DATE ) a10= '-' a11= 'eternity' |a12= 'eternity' a13= '-' (a14= DATE ) )
                     int alt8=3;
                     int LA8_0 = input.LA(1);
 
@@ -2444,7 +2426,7 @@ public class HyexpressionParser extends HyexpressionANTLRParserBase {
                             if ( (LA8_3==DATE) ) {
                                 alt8=1;
                             }
-                            else if ( (LA8_3==43) ) {
+                            else if ( (LA8_3==39) ) {
                                 alt8=2;
                             }
                             else {
@@ -2465,7 +2447,7 @@ public class HyexpressionParser extends HyexpressionANTLRParserBase {
 
                         }
                     }
-                    else if ( (LA8_0==43) ) {
+                    else if ( (LA8_0==39) ) {
                         alt8=3;
                     }
                     else {
@@ -2478,12 +2460,12 @@ public class HyexpressionParser extends HyexpressionANTLRParserBase {
                     }
                     switch (alt8) {
                         case 1 :
-                            // Hyexpression.g:1783:5: (a6= DATE ) a7= '-' (a8= DATE )
+                            // Hyexpression.g:1769:5: (a6= DATE ) a7= '-' (a8= DATE )
                             {
-                            // Hyexpression.g:1783:5: (a6= DATE )
-                            // Hyexpression.g:1784:6: a6= DATE
+                            // Hyexpression.g:1769:5: (a6= DATE )
+                            // Hyexpression.g:1770:6: a6= DATE
                             {
-                            a6=(Token)match(input,DATE,FOLLOW_DATE_in_parse_eu_hyvar_dataValues_HyEnumLiteral1220); if (state.failed) return element;
+                            a6=(Token)match(input,DATE,FOLLOW_DATE_in_parse_eu_hyvar_dataValues_HyEnumLiteral1197); if (state.failed) return element;
 
                             if ( state.backtracking==0 ) {
                             						if (terminateParsing) {
@@ -2519,10 +2501,10 @@ public class HyexpressionParser extends HyexpressionANTLRParserBase {
 
                             if ( state.backtracking==0 ) {
                             					// expected elements (follow set)
-                            					addExpectedElement(null, eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[343]);
+                            					addExpectedElement(null, eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[342]);
                             				}
 
-                            a7=(Token)match(input,20,FOLLOW_20_in_parse_eu_hyvar_dataValues_HyEnumLiteral1259); if (state.failed) return element;
+                            a7=(Token)match(input,20,FOLLOW_20_in_parse_eu_hyvar_dataValues_HyEnumLiteral1236); if (state.failed) return element;
 
                             if ( state.backtracking==0 ) {
                             					if (element == null) {
@@ -2536,13 +2518,13 @@ public class HyexpressionParser extends HyexpressionANTLRParserBase {
 
                             if ( state.backtracking==0 ) {
                             					// expected elements (follow set)
-                            					addExpectedElement(null, eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[344]);
+                            					addExpectedElement(null, eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[343]);
                             				}
 
-                            // Hyexpression.g:1833:5: (a8= DATE )
-                            // Hyexpression.g:1834:6: a8= DATE
+                            // Hyexpression.g:1819:5: (a8= DATE )
+                            // Hyexpression.g:1820:6: a8= DATE
                             {
-                            a8=(Token)match(input,DATE,FOLLOW_DATE_in_parse_eu_hyvar_dataValues_HyEnumLiteral1289); if (state.failed) return element;
+                            a8=(Token)match(input,DATE,FOLLOW_DATE_in_parse_eu_hyvar_dataValues_HyEnumLiteral1266); if (state.failed) return element;
 
                             if ( state.backtracking==0 ) {
                             						if (terminateParsing) {
@@ -2578,18 +2560,18 @@ public class HyexpressionParser extends HyexpressionANTLRParserBase {
 
                             if ( state.backtracking==0 ) {
                             					// expected elements (follow set)
-                            					addExpectedElement(null, eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[345]);
+                            					addExpectedElement(null, eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[344]);
                             				}
 
                             }
                             break;
                         case 2 :
-                            // Hyexpression.g:1870:10: (a9= DATE ) a10= '-' a11= 'null'
+                            // Hyexpression.g:1856:10: (a9= DATE ) a10= '-' a11= 'eternity'
                             {
-                            // Hyexpression.g:1870:10: (a9= DATE )
-                            // Hyexpression.g:1871:6: a9= DATE
+                            // Hyexpression.g:1856:10: (a9= DATE )
+                            // Hyexpression.g:1857:6: a9= DATE
                             {
-                            a9=(Token)match(input,DATE,FOLLOW_DATE_in_parse_eu_hyvar_dataValues_HyEnumLiteral1345); if (state.failed) return element;
+                            a9=(Token)match(input,DATE,FOLLOW_DATE_in_parse_eu_hyvar_dataValues_HyEnumLiteral1322); if (state.failed) return element;
 
                             if ( state.backtracking==0 ) {
                             						if (terminateParsing) {
@@ -2625,10 +2607,10 @@ public class HyexpressionParser extends HyexpressionANTLRParserBase {
 
                             if ( state.backtracking==0 ) {
                             					// expected elements (follow set)
-                            					addExpectedElement(null, eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[346]);
+                            					addExpectedElement(null, eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[345]);
                             				}
 
-                            a10=(Token)match(input,20,FOLLOW_20_in_parse_eu_hyvar_dataValues_HyEnumLiteral1384); if (state.failed) return element;
+                            a10=(Token)match(input,20,FOLLOW_20_in_parse_eu_hyvar_dataValues_HyEnumLiteral1361); if (state.failed) return element;
 
                             if ( state.backtracking==0 ) {
                             					if (element == null) {
@@ -2642,10 +2624,10 @@ public class HyexpressionParser extends HyexpressionANTLRParserBase {
 
                             if ( state.backtracking==0 ) {
                             					// expected elements (follow set)
-                            					addExpectedElement(null, eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[347]);
+                            					addExpectedElement(null, eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[346]);
                             				}
 
-                            a11=(Token)match(input,43,FOLLOW_43_in_parse_eu_hyvar_dataValues_HyEnumLiteral1407); if (state.failed) return element;
+                            a11=(Token)match(input,39,FOLLOW_39_in_parse_eu_hyvar_dataValues_HyEnumLiteral1384); if (state.failed) return element;
 
                             if ( state.backtracking==0 ) {
                             					if (element == null) {
@@ -2659,15 +2641,15 @@ public class HyexpressionParser extends HyexpressionANTLRParserBase {
 
                             if ( state.backtracking==0 ) {
                             					// expected elements (follow set)
-                            					addExpectedElement(null, eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[348]);
+                            					addExpectedElement(null, eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[347]);
                             				}
 
                             }
                             break;
                         case 3 :
-                            // Hyexpression.g:1935:10: a12= 'null' a13= '-' (a14= DATE )
+                            // Hyexpression.g:1921:10: a12= 'eternity' a13= '-' (a14= DATE )
                             {
-                            a12=(Token)match(input,43,FOLLOW_43_in_parse_eu_hyvar_dataValues_HyEnumLiteral1440); if (state.failed) return element;
+                            a12=(Token)match(input,39,FOLLOW_39_in_parse_eu_hyvar_dataValues_HyEnumLiteral1417); if (state.failed) return element;
 
                             if ( state.backtracking==0 ) {
                             					if (element == null) {
@@ -2681,10 +2663,10 @@ public class HyexpressionParser extends HyexpressionANTLRParserBase {
 
                             if ( state.backtracking==0 ) {
                             					// expected elements (follow set)
-                            					addExpectedElement(null, eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[349]);
+                            					addExpectedElement(null, eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[348]);
                             				}
 
-                            a13=(Token)match(input,20,FOLLOW_20_in_parse_eu_hyvar_dataValues_HyEnumLiteral1463); if (state.failed) return element;
+                            a13=(Token)match(input,20,FOLLOW_20_in_parse_eu_hyvar_dataValues_HyEnumLiteral1440); if (state.failed) return element;
 
                             if ( state.backtracking==0 ) {
                             					if (element == null) {
@@ -2698,13 +2680,13 @@ public class HyexpressionParser extends HyexpressionANTLRParserBase {
 
                             if ( state.backtracking==0 ) {
                             					// expected elements (follow set)
-                            					addExpectedElement(null, eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[350]);
+                            					addExpectedElement(null, eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[349]);
                             				}
 
-                            // Hyexpression.g:1963:5: (a14= DATE )
-                            // Hyexpression.g:1964:6: a14= DATE
+                            // Hyexpression.g:1949:5: (a14= DATE )
+                            // Hyexpression.g:1950:6: a14= DATE
                             {
-                            a14=(Token)match(input,DATE,FOLLOW_DATE_in_parse_eu_hyvar_dataValues_HyEnumLiteral1493); if (state.failed) return element;
+                            a14=(Token)match(input,DATE,FOLLOW_DATE_in_parse_eu_hyvar_dataValues_HyEnumLiteral1470); if (state.failed) return element;
 
                             if ( state.backtracking==0 ) {
                             						if (terminateParsing) {
@@ -2740,7 +2722,7 @@ public class HyexpressionParser extends HyexpressionANTLRParserBase {
 
                             if ( state.backtracking==0 ) {
                             					// expected elements (follow set)
-                            					addExpectedElement(null, eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[351]);
+                            					addExpectedElement(null, eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[350]);
                             				}
 
                             }
@@ -2751,10 +2733,10 @@ public class HyexpressionParser extends HyexpressionANTLRParserBase {
 
                     if ( state.backtracking==0 ) {
                     				// expected elements (follow set)
-                    				addExpectedElement(null, eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[352]);
+                    				addExpectedElement(null, eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[351]);
                     			}
 
-                    a15=(Token)match(input,35,FOLLOW_35_in_parse_eu_hyvar_dataValues_HyEnumLiteral1545); if (state.failed) return element;
+                    a15=(Token)match(input,35,FOLLOW_35_in_parse_eu_hyvar_dataValues_HyEnumLiteral1522); if (state.failed) return element;
 
                     if ( state.backtracking==0 ) {
                     				if (element == null) {
@@ -2768,8 +2750,8 @@ public class HyexpressionParser extends HyexpressionANTLRParserBase {
 
                     if ( state.backtracking==0 ) {
                     				// expected elements (follow set)
+                    				addExpectedElement(null, eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[352]);
                     				addExpectedElement(null, eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[353]);
-                    				addExpectedElement(null, eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[354]);
                     			}
 
                     }
@@ -2783,8 +2765,8 @@ public class HyexpressionParser extends HyexpressionANTLRParserBase {
 
             if ( state.backtracking==0 ) {
             		// expected elements (follow set)
+            		addExpectedElement(null, eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[354]);
             		addExpectedElement(null, eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[355]);
-            		addExpectedElement(null, eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[356]);
             	}
 
             }
@@ -2807,7 +2789,7 @@ public class HyexpressionParser extends HyexpressionANTLRParserBase {
 
 
     // $ANTLR start "parseop_HyExpression_level_0"
-    // Hyexpression.g:2030:1: parseop_HyExpression_level_0 returns [eu.hyvar.feature.expression.HyExpression element = null] : leftArg= parseop_HyExpression_level_1 ( ( () a0= '<->' rightArg= parseop_HyExpression_level_1 )+ |) ;
+    // Hyexpression.g:2016:1: parseop_HyExpression_level_0 returns [eu.hyvar.feature.expression.HyExpression element = null] : leftArg= parseop_HyExpression_level_1 ( ( () a0= '<->' rightArg= parseop_HyExpression_level_1 )+ |) ;
     public final eu.hyvar.feature.expression.HyExpression parseop_HyExpression_level_0() throws RecognitionException {
         eu.hyvar.feature.expression.HyExpression element =  null;
 
@@ -2824,16 +2806,16 @@ public class HyexpressionParser extends HyexpressionANTLRParserBase {
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 6) ) { return element; }
 
-            // Hyexpression.g:2033:2: (leftArg= parseop_HyExpression_level_1 ( ( () a0= '<->' rightArg= parseop_HyExpression_level_1 )+ |) )
-            // Hyexpression.g:2034:2: leftArg= parseop_HyExpression_level_1 ( ( () a0= '<->' rightArg= parseop_HyExpression_level_1 )+ |)
+            // Hyexpression.g:2019:2: (leftArg= parseop_HyExpression_level_1 ( ( () a0= '<->' rightArg= parseop_HyExpression_level_1 )+ |) )
+            // Hyexpression.g:2020:2: leftArg= parseop_HyExpression_level_1 ( ( () a0= '<->' rightArg= parseop_HyExpression_level_1 )+ |)
             {
-            pushFollow(FOLLOW_parseop_HyExpression_level_1_in_parseop_HyExpression_level_01593);
+            pushFollow(FOLLOW_parseop_HyExpression_level_1_in_parseop_HyExpression_level_01570);
             leftArg=parseop_HyExpression_level_1();
 
             state._fsp--;
             if (state.failed) return element;
 
-            // Hyexpression.g:2034:41: ( ( () a0= '<->' rightArg= parseop_HyExpression_level_1 )+ |)
+            // Hyexpression.g:2020:41: ( ( () a0= '<->' rightArg= parseop_HyExpression_level_1 )+ |)
             int alt11=2;
             int LA11_0 = input.LA(1);
 
@@ -2853,9 +2835,9 @@ public class HyexpressionParser extends HyexpressionANTLRParserBase {
             }
             switch (alt11) {
                 case 1 :
-                    // Hyexpression.g:2034:42: ( () a0= '<->' rightArg= parseop_HyExpression_level_1 )+
+                    // Hyexpression.g:2020:42: ( () a0= '<->' rightArg= parseop_HyExpression_level_1 )+
                     {
-                    // Hyexpression.g:2034:42: ( () a0= '<->' rightArg= parseop_HyExpression_level_1 )+
+                    // Hyexpression.g:2020:42: ( () a0= '<->' rightArg= parseop_HyExpression_level_1 )+
                     int cnt10=0;
                     loop10:
                     do {
@@ -2869,17 +2851,17 @@ public class HyexpressionParser extends HyexpressionANTLRParserBase {
 
                         switch (alt10) {
                     	case 1 :
-                    	    // Hyexpression.g:2035:3: () a0= '<->' rightArg= parseop_HyExpression_level_1
+                    	    // Hyexpression.g:2021:3: () a0= '<->' rightArg= parseop_HyExpression_level_1
                     	    {
-                    	    // Hyexpression.g:2035:3: ()
-                    	    // Hyexpression.g:2035:4: 
+                    	    // Hyexpression.g:2021:3: ()
+                    	    // Hyexpression.g:2021:4: 
                     	    {
                     	    }
 
 
                     	    if ( state.backtracking==0 ) { element = null; }
 
-                    	    a0=(Token)match(input,25,FOLLOW_25_in_parseop_HyExpression_level_01613); if (state.failed) return element;
+                    	    a0=(Token)match(input,25,FOLLOW_25_in_parseop_HyExpression_level_01590); if (state.failed) return element;
 
                     	    if ( state.backtracking==0 ) {
                     	    			if (element == null) {
@@ -2893,6 +2875,7 @@ public class HyexpressionParser extends HyexpressionANTLRParserBase {
 
                     	    if ( state.backtracking==0 ) {
                     	    			// expected elements (follow set)
+                    	    			addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyEquivalenceExpression(), eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[356]);
                     	    			addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyEquivalenceExpression(), eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[357]);
                     	    			addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyEquivalenceExpression(), eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[358]);
                     	    			addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyEquivalenceExpression(), eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[359]);
@@ -2908,10 +2891,9 @@ public class HyexpressionParser extends HyexpressionANTLRParserBase {
                     	    			addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyEquivalenceExpression(), eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[369]);
                     	    			addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyEquivalenceExpression(), eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[370]);
                     	    			addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyEquivalenceExpression(), eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[371]);
-                    	    			addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyEquivalenceExpression(), eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[372]);
                     	    		}
 
-                    	    pushFollow(FOLLOW_parseop_HyExpression_level_1_in_parseop_HyExpression_level_01630);
+                    	    pushFollow(FOLLOW_parseop_HyExpression_level_1_in_parseop_HyExpression_level_01607);
                     	    rightArg=parseop_HyExpression_level_1();
 
                     	    state._fsp--;
@@ -2976,7 +2958,7 @@ public class HyexpressionParser extends HyexpressionANTLRParserBase {
                     }
                     break;
                 case 2 :
-                    // Hyexpression.g:2105:21: 
+                    // Hyexpression.g:2091:21: 
                     {
                     if ( state.backtracking==0 ) { element = leftArg; }
 
@@ -3006,7 +2988,7 @@ public class HyexpressionParser extends HyexpressionANTLRParserBase {
 
 
     // $ANTLR start "parseop_HyExpression_level_1"
-    // Hyexpression.g:2110:1: parseop_HyExpression_level_1 returns [eu.hyvar.feature.expression.HyExpression element = null] : leftArg= parseop_HyExpression_level_4 ( ( () a0= '->' rightArg= parseop_HyExpression_level_4 )+ |) ;
+    // Hyexpression.g:2096:1: parseop_HyExpression_level_1 returns [eu.hyvar.feature.expression.HyExpression element = null] : leftArg= parseop_HyExpression_level_4 ( ( () a0= '->' rightArg= parseop_HyExpression_level_4 )+ |) ;
     public final eu.hyvar.feature.expression.HyExpression parseop_HyExpression_level_1() throws RecognitionException {
         eu.hyvar.feature.expression.HyExpression element =  null;
 
@@ -3023,16 +3005,16 @@ public class HyexpressionParser extends HyexpressionANTLRParserBase {
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 7) ) { return element; }
 
-            // Hyexpression.g:2113:9: (leftArg= parseop_HyExpression_level_4 ( ( () a0= '->' rightArg= parseop_HyExpression_level_4 )+ |) )
-            // Hyexpression.g:2114:9: leftArg= parseop_HyExpression_level_4 ( ( () a0= '->' rightArg= parseop_HyExpression_level_4 )+ |)
+            // Hyexpression.g:2099:9: (leftArg= parseop_HyExpression_level_4 ( ( () a0= '->' rightArg= parseop_HyExpression_level_4 )+ |) )
+            // Hyexpression.g:2100:9: leftArg= parseop_HyExpression_level_4 ( ( () a0= '->' rightArg= parseop_HyExpression_level_4 )+ |)
             {
-            pushFollow(FOLLOW_parseop_HyExpression_level_4_in_parseop_HyExpression_level_11676);
+            pushFollow(FOLLOW_parseop_HyExpression_level_4_in_parseop_HyExpression_level_11653);
             leftArg=parseop_HyExpression_level_4();
 
             state._fsp--;
             if (state.failed) return element;
 
-            // Hyexpression.g:2114:39: ( ( () a0= '->' rightArg= parseop_HyExpression_level_4 )+ |)
+            // Hyexpression.g:2100:39: ( ( () a0= '->' rightArg= parseop_HyExpression_level_4 )+ |)
             int alt13=2;
             int LA13_0 = input.LA(1);
 
@@ -3052,9 +3034,9 @@ public class HyexpressionParser extends HyexpressionANTLRParserBase {
             }
             switch (alt13) {
                 case 1 :
-                    // Hyexpression.g:2114:40: ( () a0= '->' rightArg= parseop_HyExpression_level_4 )+
+                    // Hyexpression.g:2100:40: ( () a0= '->' rightArg= parseop_HyExpression_level_4 )+
                     {
-                    // Hyexpression.g:2114:40: ( () a0= '->' rightArg= parseop_HyExpression_level_4 )+
+                    // Hyexpression.g:2100:40: ( () a0= '->' rightArg= parseop_HyExpression_level_4 )+
                     int cnt12=0;
                     loop12:
                     do {
@@ -3068,17 +3050,17 @@ public class HyexpressionParser extends HyexpressionANTLRParserBase {
 
                         switch (alt12) {
                     	case 1 :
-                    	    // Hyexpression.g:2115:2: () a0= '->' rightArg= parseop_HyExpression_level_4
+                    	    // Hyexpression.g:2101:2: () a0= '->' rightArg= parseop_HyExpression_level_4
                     	    {
-                    	    // Hyexpression.g:2115:2: ()
-                    	    // Hyexpression.g:2115:3: 
+                    	    // Hyexpression.g:2101:2: ()
+                    	    // Hyexpression.g:2101:3: 
                     	    {
                     	    }
 
 
                     	    if ( state.backtracking==0 ) { element = null; }
 
-                    	    a0=(Token)match(input,21,FOLLOW_21_in_parseop_HyExpression_level_11692); if (state.failed) return element;
+                    	    a0=(Token)match(input,21,FOLLOW_21_in_parseop_HyExpression_level_11669); if (state.failed) return element;
 
                     	    if ( state.backtracking==0 ) {
                     	    		if (element == null) {
@@ -3092,6 +3074,7 @@ public class HyexpressionParser extends HyexpressionANTLRParserBase {
 
                     	    if ( state.backtracking==0 ) {
                     	    		// expected elements (follow set)
+                    	    		addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyImpliesExpression(), eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[372]);
                     	    		addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyImpliesExpression(), eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[373]);
                     	    		addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyImpliesExpression(), eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[374]);
                     	    		addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyImpliesExpression(), eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[375]);
@@ -3107,10 +3090,9 @@ public class HyexpressionParser extends HyexpressionANTLRParserBase {
                     	    		addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyImpliesExpression(), eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[385]);
                     	    		addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyImpliesExpression(), eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[386]);
                     	    		addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyImpliesExpression(), eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[387]);
-                    	    		addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyImpliesExpression(), eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[388]);
                     	    	}
 
-                    	    pushFollow(FOLLOW_parseop_HyExpression_level_4_in_parseop_HyExpression_level_11706);
+                    	    pushFollow(FOLLOW_parseop_HyExpression_level_4_in_parseop_HyExpression_level_11683);
                     	    rightArg=parseop_HyExpression_level_4();
 
                     	    state._fsp--;
@@ -3175,7 +3157,7 @@ public class HyexpressionParser extends HyexpressionANTLRParserBase {
                     }
                     break;
                 case 2 :
-                    // Hyexpression.g:2185:20: 
+                    // Hyexpression.g:2171:20: 
                     {
                     if ( state.backtracking==0 ) { element = leftArg; }
 
@@ -3205,7 +3187,7 @@ public class HyexpressionParser extends HyexpressionANTLRParserBase {
 
 
     // $ANTLR start "parseop_HyExpression_level_4"
-    // Hyexpression.g:2190:1: parseop_HyExpression_level_4 returns [eu.hyvar.feature.expression.HyExpression element = null] : leftArg= parseop_HyExpression_level_5 ( ( () a0= '||' rightArg= parseop_HyExpression_level_5 )+ |) ;
+    // Hyexpression.g:2176:1: parseop_HyExpression_level_4 returns [eu.hyvar.feature.expression.HyExpression element = null] : leftArg= parseop_HyExpression_level_5 ( ( () a0= '||' rightArg= parseop_HyExpression_level_5 )+ |) ;
     public final eu.hyvar.feature.expression.HyExpression parseop_HyExpression_level_4() throws RecognitionException {
         eu.hyvar.feature.expression.HyExpression element =  null;
 
@@ -3222,16 +3204,16 @@ public class HyexpressionParser extends HyexpressionANTLRParserBase {
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 8) ) { return element; }
 
-            // Hyexpression.g:2193:9: (leftArg= parseop_HyExpression_level_5 ( ( () a0= '||' rightArg= parseop_HyExpression_level_5 )+ |) )
-            // Hyexpression.g:2194:9: leftArg= parseop_HyExpression_level_5 ( ( () a0= '||' rightArg= parseop_HyExpression_level_5 )+ |)
+            // Hyexpression.g:2179:9: (leftArg= parseop_HyExpression_level_5 ( ( () a0= '||' rightArg= parseop_HyExpression_level_5 )+ |) )
+            // Hyexpression.g:2180:9: leftArg= parseop_HyExpression_level_5 ( ( () a0= '||' rightArg= parseop_HyExpression_level_5 )+ |)
             {
-            pushFollow(FOLLOW_parseop_HyExpression_level_5_in_parseop_HyExpression_level_41747);
+            pushFollow(FOLLOW_parseop_HyExpression_level_5_in_parseop_HyExpression_level_41724);
             leftArg=parseop_HyExpression_level_5();
 
             state._fsp--;
             if (state.failed) return element;
 
-            // Hyexpression.g:2194:39: ( ( () a0= '||' rightArg= parseop_HyExpression_level_5 )+ |)
+            // Hyexpression.g:2180:39: ( ( () a0= '||' rightArg= parseop_HyExpression_level_5 )+ |)
             int alt15=2;
             int LA15_0 = input.LA(1);
 
@@ -3251,9 +3233,9 @@ public class HyexpressionParser extends HyexpressionANTLRParserBase {
             }
             switch (alt15) {
                 case 1 :
-                    // Hyexpression.g:2194:40: ( () a0= '||' rightArg= parseop_HyExpression_level_5 )+
+                    // Hyexpression.g:2180:40: ( () a0= '||' rightArg= parseop_HyExpression_level_5 )+
                     {
-                    // Hyexpression.g:2194:40: ( () a0= '||' rightArg= parseop_HyExpression_level_5 )+
+                    // Hyexpression.g:2180:40: ( () a0= '||' rightArg= parseop_HyExpression_level_5 )+
                     int cnt14=0;
                     loop14:
                     do {
@@ -3267,17 +3249,17 @@ public class HyexpressionParser extends HyexpressionANTLRParserBase {
 
                         switch (alt14) {
                     	case 1 :
-                    	    // Hyexpression.g:2195:0: () a0= '||' rightArg= parseop_HyExpression_level_5
+                    	    // Hyexpression.g:2181:0: () a0= '||' rightArg= parseop_HyExpression_level_5
                     	    {
-                    	    // Hyexpression.g:2195:2: ()
-                    	    // Hyexpression.g:2195:2: 
+                    	    // Hyexpression.g:2181:2: ()
+                    	    // Hyexpression.g:2181:2: 
                     	    {
                     	    }
 
 
                     	    if ( state.backtracking==0 ) { element = null; }
 
-                    	    a0=(Token)match(input,45,FOLLOW_45_in_parseop_HyExpression_level_41760); if (state.failed) return element;
+                    	    a0=(Token)match(input,45,FOLLOW_45_in_parseop_HyExpression_level_41737); if (state.failed) return element;
 
                     	    if ( state.backtracking==0 ) {
                     	    	if (element == null) {
@@ -3291,6 +3273,7 @@ public class HyexpressionParser extends HyexpressionANTLRParserBase {
 
                     	    if ( state.backtracking==0 ) {
                     	    	// expected elements (follow set)
+                    	    	addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyOrExpression(), eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[388]);
                     	    	addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyOrExpression(), eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[389]);
                     	    	addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyOrExpression(), eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[390]);
                     	    	addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyOrExpression(), eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[391]);
@@ -3306,10 +3289,9 @@ public class HyexpressionParser extends HyexpressionANTLRParserBase {
                     	    	addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyOrExpression(), eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[401]);
                     	    	addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyOrExpression(), eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[402]);
                     	    	addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyOrExpression(), eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[403]);
-                    	    	addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyOrExpression(), eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[404]);
                     	    }
 
-                    	    pushFollow(FOLLOW_parseop_HyExpression_level_5_in_parseop_HyExpression_level_41771);
+                    	    pushFollow(FOLLOW_parseop_HyExpression_level_5_in_parseop_HyExpression_level_41748);
                     	    rightArg=parseop_HyExpression_level_5();
 
                     	    state._fsp--;
@@ -3374,7 +3356,7 @@ public class HyexpressionParser extends HyexpressionANTLRParserBase {
                     }
                     break;
                 case 2 :
-                    // Hyexpression.g:2265:20: 
+                    // Hyexpression.g:2251:20: 
                     {
                     if ( state.backtracking==0 ) { element = leftArg; }
 
@@ -3404,7 +3386,7 @@ public class HyexpressionParser extends HyexpressionANTLRParserBase {
 
 
     // $ANTLR start "parseop_HyExpression_level_5"
-    // Hyexpression.g:2270:1: parseop_HyExpression_level_5 returns [eu.hyvar.feature.expression.HyExpression element = null] : leftArg= parseop_HyExpression_level_9 ( ( () a0= '&&' rightArg= parseop_HyExpression_level_9 )+ |) ;
+    // Hyexpression.g:2256:1: parseop_HyExpression_level_5 returns [eu.hyvar.feature.expression.HyExpression element = null] : leftArg= parseop_HyExpression_level_9 ( ( () a0= '&&' rightArg= parseop_HyExpression_level_9 )+ |) ;
     public final eu.hyvar.feature.expression.HyExpression parseop_HyExpression_level_5() throws RecognitionException {
         eu.hyvar.feature.expression.HyExpression element =  null;
 
@@ -3421,16 +3403,16 @@ public class HyexpressionParser extends HyexpressionANTLRParserBase {
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 9) ) { return element; }
 
-            // Hyexpression.g:2273:9: (leftArg= parseop_HyExpression_level_9 ( ( () a0= '&&' rightArg= parseop_HyExpression_level_9 )+ |) )
-            // Hyexpression.g:2274:9: leftArg= parseop_HyExpression_level_9 ( ( () a0= '&&' rightArg= parseop_HyExpression_level_9 )+ |)
+            // Hyexpression.g:2259:9: (leftArg= parseop_HyExpression_level_9 ( ( () a0= '&&' rightArg= parseop_HyExpression_level_9 )+ |) )
+            // Hyexpression.g:2260:9: leftArg= parseop_HyExpression_level_9 ( ( () a0= '&&' rightArg= parseop_HyExpression_level_9 )+ |)
             {
-            pushFollow(FOLLOW_parseop_HyExpression_level_9_in_parseop_HyExpression_level_51809);
+            pushFollow(FOLLOW_parseop_HyExpression_level_9_in_parseop_HyExpression_level_51786);
             leftArg=parseop_HyExpression_level_9();
 
             state._fsp--;
             if (state.failed) return element;
 
-            // Hyexpression.g:2274:39: ( ( () a0= '&&' rightArg= parseop_HyExpression_level_9 )+ |)
+            // Hyexpression.g:2260:39: ( ( () a0= '&&' rightArg= parseop_HyExpression_level_9 )+ |)
             int alt17=2;
             int LA17_0 = input.LA(1);
 
@@ -3450,9 +3432,9 @@ public class HyexpressionParser extends HyexpressionANTLRParserBase {
             }
             switch (alt17) {
                 case 1 :
-                    // Hyexpression.g:2274:40: ( () a0= '&&' rightArg= parseop_HyExpression_level_9 )+
+                    // Hyexpression.g:2260:40: ( () a0= '&&' rightArg= parseop_HyExpression_level_9 )+
                     {
-                    // Hyexpression.g:2274:40: ( () a0= '&&' rightArg= parseop_HyExpression_level_9 )+
+                    // Hyexpression.g:2260:40: ( () a0= '&&' rightArg= parseop_HyExpression_level_9 )+
                     int cnt16=0;
                     loop16:
                     do {
@@ -3466,17 +3448,17 @@ public class HyexpressionParser extends HyexpressionANTLRParserBase {
 
                         switch (alt16) {
                     	case 1 :
-                    	    // Hyexpression.g:2275:0: () a0= '&&' rightArg= parseop_HyExpression_level_9
+                    	    // Hyexpression.g:2261:0: () a0= '&&' rightArg= parseop_HyExpression_level_9
                     	    {
-                    	    // Hyexpression.g:2275:2: ()
-                    	    // Hyexpression.g:2275:2: 
+                    	    // Hyexpression.g:2261:2: ()
+                    	    // Hyexpression.g:2261:2: 
                     	    {
                     	    }
 
 
                     	    if ( state.backtracking==0 ) { element = null; }
 
-                    	    a0=(Token)match(input,14,FOLLOW_14_in_parseop_HyExpression_level_51822); if (state.failed) return element;
+                    	    a0=(Token)match(input,14,FOLLOW_14_in_parseop_HyExpression_level_51799); if (state.failed) return element;
 
                     	    if ( state.backtracking==0 ) {
                     	    if (element == null) {
@@ -3490,6 +3472,7 @@ public class HyexpressionParser extends HyexpressionANTLRParserBase {
 
                     	    if ( state.backtracking==0 ) {
                     	    // expected elements (follow set)
+                    	    addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyAndExpression(), eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[404]);
                     	    addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyAndExpression(), eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[405]);
                     	    addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyAndExpression(), eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[406]);
                     	    addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyAndExpression(), eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[407]);
@@ -3505,10 +3488,9 @@ public class HyexpressionParser extends HyexpressionANTLRParserBase {
                     	    addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyAndExpression(), eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[417]);
                     	    addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyAndExpression(), eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[418]);
                     	    addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyAndExpression(), eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[419]);
-                    	    addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyAndExpression(), eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[420]);
                     	    }
 
-                    	    pushFollow(FOLLOW_parseop_HyExpression_level_9_in_parseop_HyExpression_level_51833);
+                    	    pushFollow(FOLLOW_parseop_HyExpression_level_9_in_parseop_HyExpression_level_51810);
                     	    rightArg=parseop_HyExpression_level_9();
 
                     	    state._fsp--;
@@ -3573,7 +3555,7 @@ public class HyexpressionParser extends HyexpressionANTLRParserBase {
                     }
                     break;
                 case 2 :
-                    // Hyexpression.g:2345:20: 
+                    // Hyexpression.g:2331:20: 
                     {
                     if ( state.backtracking==0 ) { element = leftArg; }
 
@@ -3603,7 +3585,7 @@ public class HyexpressionParser extends HyexpressionANTLRParserBase {
 
 
     // $ANTLR start "parseop_HyExpression_level_9"
-    // Hyexpression.g:2350:1: parseop_HyExpression_level_9 returns [eu.hyvar.feature.expression.HyExpression element = null] : leftArg= parseop_HyExpression_level_12 ( ( () a0= '<' rightArg= parseop_HyExpression_level_12 | () a0= '<=' rightArg= parseop_HyExpression_level_12 | () a0= '>' rightArg= parseop_HyExpression_level_12 | () a0= '>=' rightArg= parseop_HyExpression_level_12 | () a0= '=' rightArg= parseop_HyExpression_level_12 | () a0= '!=' rightArg= parseop_HyExpression_level_12 )+ |) ;
+    // Hyexpression.g:2336:1: parseop_HyExpression_level_9 returns [eu.hyvar.feature.expression.HyExpression element = null] : leftArg= parseop_HyExpression_level_12 ( ( () a0= '<' rightArg= parseop_HyExpression_level_12 | () a0= '<=' rightArg= parseop_HyExpression_level_12 | () a0= '>' rightArg= parseop_HyExpression_level_12 | () a0= '>=' rightArg= parseop_HyExpression_level_12 | () a0= '=' rightArg= parseop_HyExpression_level_12 | () a0= '!=' rightArg= parseop_HyExpression_level_12 )+ |) ;
     public final eu.hyvar.feature.expression.HyExpression parseop_HyExpression_level_9() throws RecognitionException {
         eu.hyvar.feature.expression.HyExpression element =  null;
 
@@ -3620,16 +3602,16 @@ public class HyexpressionParser extends HyexpressionANTLRParserBase {
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 10) ) { return element; }
 
-            // Hyexpression.g:2353:9: (leftArg= parseop_HyExpression_level_12 ( ( () a0= '<' rightArg= parseop_HyExpression_level_12 | () a0= '<=' rightArg= parseop_HyExpression_level_12 | () a0= '>' rightArg= parseop_HyExpression_level_12 | () a0= '>=' rightArg= parseop_HyExpression_level_12 | () a0= '=' rightArg= parseop_HyExpression_level_12 | () a0= '!=' rightArg= parseop_HyExpression_level_12 )+ |) )
-            // Hyexpression.g:2354:9: leftArg= parseop_HyExpression_level_12 ( ( () a0= '<' rightArg= parseop_HyExpression_level_12 | () a0= '<=' rightArg= parseop_HyExpression_level_12 | () a0= '>' rightArg= parseop_HyExpression_level_12 | () a0= '>=' rightArg= parseop_HyExpression_level_12 | () a0= '=' rightArg= parseop_HyExpression_level_12 | () a0= '!=' rightArg= parseop_HyExpression_level_12 )+ |)
+            // Hyexpression.g:2339:9: (leftArg= parseop_HyExpression_level_12 ( ( () a0= '<' rightArg= parseop_HyExpression_level_12 | () a0= '<=' rightArg= parseop_HyExpression_level_12 | () a0= '>' rightArg= parseop_HyExpression_level_12 | () a0= '>=' rightArg= parseop_HyExpression_level_12 | () a0= '=' rightArg= parseop_HyExpression_level_12 | () a0= '!=' rightArg= parseop_HyExpression_level_12 )+ |) )
+            // Hyexpression.g:2340:9: leftArg= parseop_HyExpression_level_12 ( ( () a0= '<' rightArg= parseop_HyExpression_level_12 | () a0= '<=' rightArg= parseop_HyExpression_level_12 | () a0= '>' rightArg= parseop_HyExpression_level_12 | () a0= '>=' rightArg= parseop_HyExpression_level_12 | () a0= '=' rightArg= parseop_HyExpression_level_12 | () a0= '!=' rightArg= parseop_HyExpression_level_12 )+ |)
             {
-            pushFollow(FOLLOW_parseop_HyExpression_level_12_in_parseop_HyExpression_level_91871);
+            pushFollow(FOLLOW_parseop_HyExpression_level_12_in_parseop_HyExpression_level_91848);
             leftArg=parseop_HyExpression_level_12();
 
             state._fsp--;
             if (state.failed) return element;
 
-            // Hyexpression.g:2354:40: ( ( () a0= '<' rightArg= parseop_HyExpression_level_12 | () a0= '<=' rightArg= parseop_HyExpression_level_12 | () a0= '>' rightArg= parseop_HyExpression_level_12 | () a0= '>=' rightArg= parseop_HyExpression_level_12 | () a0= '=' rightArg= parseop_HyExpression_level_12 | () a0= '!=' rightArg= parseop_HyExpression_level_12 )+ |)
+            // Hyexpression.g:2340:40: ( ( () a0= '<' rightArg= parseop_HyExpression_level_12 | () a0= '<=' rightArg= parseop_HyExpression_level_12 | () a0= '>' rightArg= parseop_HyExpression_level_12 | () a0= '>=' rightArg= parseop_HyExpression_level_12 | () a0= '=' rightArg= parseop_HyExpression_level_12 | () a0= '!=' rightArg= parseop_HyExpression_level_12 )+ |)
             int alt19=2;
             int LA19_0 = input.LA(1);
 
@@ -3649,9 +3631,9 @@ public class HyexpressionParser extends HyexpressionANTLRParserBase {
             }
             switch (alt19) {
                 case 1 :
-                    // Hyexpression.g:2354:41: ( () a0= '<' rightArg= parseop_HyExpression_level_12 | () a0= '<=' rightArg= parseop_HyExpression_level_12 | () a0= '>' rightArg= parseop_HyExpression_level_12 | () a0= '>=' rightArg= parseop_HyExpression_level_12 | () a0= '=' rightArg= parseop_HyExpression_level_12 | () a0= '!=' rightArg= parseop_HyExpression_level_12 )+
+                    // Hyexpression.g:2340:41: ( () a0= '<' rightArg= parseop_HyExpression_level_12 | () a0= '<=' rightArg= parseop_HyExpression_level_12 | () a0= '>' rightArg= parseop_HyExpression_level_12 | () a0= '>=' rightArg= parseop_HyExpression_level_12 | () a0= '=' rightArg= parseop_HyExpression_level_12 | () a0= '!=' rightArg= parseop_HyExpression_level_12 )+
                     {
-                    // Hyexpression.g:2354:41: ( () a0= '<' rightArg= parseop_HyExpression_level_12 | () a0= '<=' rightArg= parseop_HyExpression_level_12 | () a0= '>' rightArg= parseop_HyExpression_level_12 | () a0= '>=' rightArg= parseop_HyExpression_level_12 | () a0= '=' rightArg= parseop_HyExpression_level_12 | () a0= '!=' rightArg= parseop_HyExpression_level_12 )+
+                    // Hyexpression.g:2340:41: ( () a0= '<' rightArg= parseop_HyExpression_level_12 | () a0= '<=' rightArg= parseop_HyExpression_level_12 | () a0= '>' rightArg= parseop_HyExpression_level_12 | () a0= '>=' rightArg= parseop_HyExpression_level_12 | () a0= '=' rightArg= parseop_HyExpression_level_12 | () a0= '!=' rightArg= parseop_HyExpression_level_12 )+
                     int cnt18=0;
                     loop18:
                     do {
@@ -3692,17 +3674,17 @@ public class HyexpressionParser extends HyexpressionANTLRParserBase {
 
                         switch (alt18) {
                     	case 1 :
-                    	    // Hyexpression.g:2355:0: () a0= '<' rightArg= parseop_HyExpression_level_12
+                    	    // Hyexpression.g:2341:0: () a0= '<' rightArg= parseop_HyExpression_level_12
                     	    {
-                    	    // Hyexpression.g:2355:2: ()
-                    	    // Hyexpression.g:2355:2: 
+                    	    // Hyexpression.g:2341:2: ()
+                    	    // Hyexpression.g:2341:2: 
                     	    {
                     	    }
 
 
                     	    if ( state.backtracking==0 ) { element = null; }
 
-                    	    a0=(Token)match(input,24,FOLLOW_24_in_parseop_HyExpression_level_91884); if (state.failed) return element;
+                    	    a0=(Token)match(input,24,FOLLOW_24_in_parseop_HyExpression_level_91861); if (state.failed) return element;
 
                     	    if ( state.backtracking==0 ) {
                     	    if (element == null) {
@@ -3716,6 +3698,7 @@ public class HyexpressionParser extends HyexpressionANTLRParserBase {
 
                     	    if ( state.backtracking==0 ) {
                     	    // expected elements (follow set)
+                    	    addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyLessExpression(), eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[420]);
                     	    addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyLessExpression(), eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[421]);
                     	    addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyLessExpression(), eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[422]);
                     	    addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyLessExpression(), eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[423]);
@@ -3731,10 +3714,9 @@ public class HyexpressionParser extends HyexpressionANTLRParserBase {
                     	    addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyLessExpression(), eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[433]);
                     	    addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyLessExpression(), eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[434]);
                     	    addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyLessExpression(), eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[435]);
-                    	    addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyLessExpression(), eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[436]);
                     	    }
 
-                    	    pushFollow(FOLLOW_parseop_HyExpression_level_12_in_parseop_HyExpression_level_91895);
+                    	    pushFollow(FOLLOW_parseop_HyExpression_level_12_in_parseop_HyExpression_level_91872);
                     	    rightArg=parseop_HyExpression_level_12();
 
                     	    state._fsp--;
@@ -3785,17 +3767,17 @@ public class HyexpressionParser extends HyexpressionANTLRParserBase {
                     	    }
                     	    break;
                     	case 2 :
-                    	    // Hyexpression.g:2426:0: () a0= '<=' rightArg= parseop_HyExpression_level_12
+                    	    // Hyexpression.g:2412:0: () a0= '<=' rightArg= parseop_HyExpression_level_12
                     	    {
-                    	    // Hyexpression.g:2426:2: ()
-                    	    // Hyexpression.g:2426:2: 
+                    	    // Hyexpression.g:2412:2: ()
+                    	    // Hyexpression.g:2412:2: 
                     	    {
                     	    }
 
 
                     	    if ( state.backtracking==0 ) { element = null; }
 
-                    	    a0=(Token)match(input,26,FOLLOW_26_in_parseop_HyExpression_level_91913); if (state.failed) return element;
+                    	    a0=(Token)match(input,26,FOLLOW_26_in_parseop_HyExpression_level_91890); if (state.failed) return element;
 
                     	    if ( state.backtracking==0 ) {
                     	    if (element == null) {
@@ -3809,6 +3791,7 @@ public class HyexpressionParser extends HyexpressionANTLRParserBase {
 
                     	    if ( state.backtracking==0 ) {
                     	    // expected elements (follow set)
+                    	    addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyLessOrEqualExpression(), eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[436]);
                     	    addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyLessOrEqualExpression(), eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[437]);
                     	    addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyLessOrEqualExpression(), eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[438]);
                     	    addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyLessOrEqualExpression(), eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[439]);
@@ -3824,10 +3807,9 @@ public class HyexpressionParser extends HyexpressionANTLRParserBase {
                     	    addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyLessOrEqualExpression(), eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[449]);
                     	    addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyLessOrEqualExpression(), eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[450]);
                     	    addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyLessOrEqualExpression(), eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[451]);
-                    	    addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyLessOrEqualExpression(), eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[452]);
                     	    }
 
-                    	    pushFollow(FOLLOW_parseop_HyExpression_level_12_in_parseop_HyExpression_level_91924);
+                    	    pushFollow(FOLLOW_parseop_HyExpression_level_12_in_parseop_HyExpression_level_91901);
                     	    rightArg=parseop_HyExpression_level_12();
 
                     	    state._fsp--;
@@ -3878,17 +3860,17 @@ public class HyexpressionParser extends HyexpressionANTLRParserBase {
                     	    }
                     	    break;
                     	case 3 :
-                    	    // Hyexpression.g:2497:0: () a0= '>' rightArg= parseop_HyExpression_level_12
+                    	    // Hyexpression.g:2483:0: () a0= '>' rightArg= parseop_HyExpression_level_12
                     	    {
-                    	    // Hyexpression.g:2497:2: ()
-                    	    // Hyexpression.g:2497:2: 
+                    	    // Hyexpression.g:2483:2: ()
+                    	    // Hyexpression.g:2483:2: 
                     	    {
                     	    }
 
 
                     	    if ( state.backtracking==0 ) { element = null; }
 
-                    	    a0=(Token)match(input,28,FOLLOW_28_in_parseop_HyExpression_level_91942); if (state.failed) return element;
+                    	    a0=(Token)match(input,28,FOLLOW_28_in_parseop_HyExpression_level_91919); if (state.failed) return element;
 
                     	    if ( state.backtracking==0 ) {
                     	    if (element == null) {
@@ -3902,6 +3884,7 @@ public class HyexpressionParser extends HyexpressionANTLRParserBase {
 
                     	    if ( state.backtracking==0 ) {
                     	    // expected elements (follow set)
+                    	    addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyGreaterExpression(), eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[452]);
                     	    addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyGreaterExpression(), eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[453]);
                     	    addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyGreaterExpression(), eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[454]);
                     	    addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyGreaterExpression(), eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[455]);
@@ -3917,10 +3900,9 @@ public class HyexpressionParser extends HyexpressionANTLRParserBase {
                     	    addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyGreaterExpression(), eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[465]);
                     	    addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyGreaterExpression(), eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[466]);
                     	    addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyGreaterExpression(), eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[467]);
-                    	    addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyGreaterExpression(), eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[468]);
                     	    }
 
-                    	    pushFollow(FOLLOW_parseop_HyExpression_level_12_in_parseop_HyExpression_level_91953);
+                    	    pushFollow(FOLLOW_parseop_HyExpression_level_12_in_parseop_HyExpression_level_91930);
                     	    rightArg=parseop_HyExpression_level_12();
 
                     	    state._fsp--;
@@ -3971,17 +3953,17 @@ public class HyexpressionParser extends HyexpressionANTLRParserBase {
                     	    }
                     	    break;
                     	case 4 :
-                    	    // Hyexpression.g:2568:0: () a0= '>=' rightArg= parseop_HyExpression_level_12
+                    	    // Hyexpression.g:2554:0: () a0= '>=' rightArg= parseop_HyExpression_level_12
                     	    {
-                    	    // Hyexpression.g:2568:2: ()
-                    	    // Hyexpression.g:2568:2: 
+                    	    // Hyexpression.g:2554:2: ()
+                    	    // Hyexpression.g:2554:2: 
                     	    {
                     	    }
 
 
                     	    if ( state.backtracking==0 ) { element = null; }
 
-                    	    a0=(Token)match(input,29,FOLLOW_29_in_parseop_HyExpression_level_91971); if (state.failed) return element;
+                    	    a0=(Token)match(input,29,FOLLOW_29_in_parseop_HyExpression_level_91948); if (state.failed) return element;
 
                     	    if ( state.backtracking==0 ) {
                     	    if (element == null) {
@@ -3995,6 +3977,7 @@ public class HyexpressionParser extends HyexpressionANTLRParserBase {
 
                     	    if ( state.backtracking==0 ) {
                     	    // expected elements (follow set)
+                    	    addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyGreaterOrEqualExpression(), eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[468]);
                     	    addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyGreaterOrEqualExpression(), eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[469]);
                     	    addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyGreaterOrEqualExpression(), eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[470]);
                     	    addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyGreaterOrEqualExpression(), eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[471]);
@@ -4010,10 +3993,9 @@ public class HyexpressionParser extends HyexpressionANTLRParserBase {
                     	    addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyGreaterOrEqualExpression(), eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[481]);
                     	    addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyGreaterOrEqualExpression(), eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[482]);
                     	    addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyGreaterOrEqualExpression(), eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[483]);
-                    	    addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyGreaterOrEqualExpression(), eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[484]);
                     	    }
 
-                    	    pushFollow(FOLLOW_parseop_HyExpression_level_12_in_parseop_HyExpression_level_91982);
+                    	    pushFollow(FOLLOW_parseop_HyExpression_level_12_in_parseop_HyExpression_level_91959);
                     	    rightArg=parseop_HyExpression_level_12();
 
                     	    state._fsp--;
@@ -4064,17 +4046,17 @@ public class HyexpressionParser extends HyexpressionANTLRParserBase {
                     	    }
                     	    break;
                     	case 5 :
-                    	    // Hyexpression.g:2639:0: () a0= '=' rightArg= parseop_HyExpression_level_12
+                    	    // Hyexpression.g:2625:0: () a0= '=' rightArg= parseop_HyExpression_level_12
                     	    {
-                    	    // Hyexpression.g:2639:2: ()
-                    	    // Hyexpression.g:2639:2: 
+                    	    // Hyexpression.g:2625:2: ()
+                    	    // Hyexpression.g:2625:2: 
                     	    {
                     	    }
 
 
                     	    if ( state.backtracking==0 ) { element = null; }
 
-                    	    a0=(Token)match(input,27,FOLLOW_27_in_parseop_HyExpression_level_92000); if (state.failed) return element;
+                    	    a0=(Token)match(input,27,FOLLOW_27_in_parseop_HyExpression_level_91977); if (state.failed) return element;
 
                     	    if ( state.backtracking==0 ) {
                     	    if (element == null) {
@@ -4088,6 +4070,7 @@ public class HyexpressionParser extends HyexpressionANTLRParserBase {
 
                     	    if ( state.backtracking==0 ) {
                     	    // expected elements (follow set)
+                    	    addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyEqualExpression(), eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[484]);
                     	    addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyEqualExpression(), eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[485]);
                     	    addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyEqualExpression(), eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[486]);
                     	    addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyEqualExpression(), eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[487]);
@@ -4103,10 +4086,9 @@ public class HyexpressionParser extends HyexpressionANTLRParserBase {
                     	    addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyEqualExpression(), eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[497]);
                     	    addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyEqualExpression(), eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[498]);
                     	    addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyEqualExpression(), eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[499]);
-                    	    addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyEqualExpression(), eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[500]);
                     	    }
 
-                    	    pushFollow(FOLLOW_parseop_HyExpression_level_12_in_parseop_HyExpression_level_92011);
+                    	    pushFollow(FOLLOW_parseop_HyExpression_level_12_in_parseop_HyExpression_level_91988);
                     	    rightArg=parseop_HyExpression_level_12();
 
                     	    state._fsp--;
@@ -4157,17 +4139,17 @@ public class HyexpressionParser extends HyexpressionANTLRParserBase {
                     	    }
                     	    break;
                     	case 6 :
-                    	    // Hyexpression.g:2710:0: () a0= '!=' rightArg= parseop_HyExpression_level_12
+                    	    // Hyexpression.g:2696:0: () a0= '!=' rightArg= parseop_HyExpression_level_12
                     	    {
-                    	    // Hyexpression.g:2710:2: ()
-                    	    // Hyexpression.g:2710:2: 
+                    	    // Hyexpression.g:2696:2: ()
+                    	    // Hyexpression.g:2696:2: 
                     	    {
                     	    }
 
 
                     	    if ( state.backtracking==0 ) { element = null; }
 
-                    	    a0=(Token)match(input,13,FOLLOW_13_in_parseop_HyExpression_level_92029); if (state.failed) return element;
+                    	    a0=(Token)match(input,13,FOLLOW_13_in_parseop_HyExpression_level_92006); if (state.failed) return element;
 
                     	    if ( state.backtracking==0 ) {
                     	    if (element == null) {
@@ -4181,6 +4163,7 @@ public class HyexpressionParser extends HyexpressionANTLRParserBase {
 
                     	    if ( state.backtracking==0 ) {
                     	    // expected elements (follow set)
+                    	    addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyNotEqualExpression(), eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[500]);
                     	    addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyNotEqualExpression(), eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[501]);
                     	    addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyNotEqualExpression(), eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[502]);
                     	    addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyNotEqualExpression(), eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[503]);
@@ -4196,10 +4179,9 @@ public class HyexpressionParser extends HyexpressionANTLRParserBase {
                     	    addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyNotEqualExpression(), eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[513]);
                     	    addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyNotEqualExpression(), eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[514]);
                     	    addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyNotEqualExpression(), eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[515]);
-                    	    addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyNotEqualExpression(), eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[516]);
                     	    }
 
-                    	    pushFollow(FOLLOW_parseop_HyExpression_level_12_in_parseop_HyExpression_level_92040);
+                    	    pushFollow(FOLLOW_parseop_HyExpression_level_12_in_parseop_HyExpression_level_92017);
                     	    rightArg=parseop_HyExpression_level_12();
 
                     	    state._fsp--;
@@ -4264,7 +4246,7 @@ public class HyexpressionParser extends HyexpressionANTLRParserBase {
                     }
                     break;
                 case 2 :
-                    // Hyexpression.g:2780:20: 
+                    // Hyexpression.g:2766:20: 
                     {
                     if ( state.backtracking==0 ) { element = leftArg; }
 
@@ -4294,7 +4276,7 @@ public class HyexpressionParser extends HyexpressionANTLRParserBase {
 
 
     // $ANTLR start "parseop_HyExpression_level_12"
-    // Hyexpression.g:2785:1: parseop_HyExpression_level_12 returns [eu.hyvar.feature.expression.HyExpression element = null] : leftArg= parseop_HyExpression_level_13 ( ( () a0= '-' rightArg= parseop_HyExpression_level_13 | () a0= '+' rightArg= parseop_HyExpression_level_13 )+ |) ;
+    // Hyexpression.g:2771:1: parseop_HyExpression_level_12 returns [eu.hyvar.feature.expression.HyExpression element = null] : leftArg= parseop_HyExpression_level_13 ( ( () a0= '-' rightArg= parseop_HyExpression_level_13 | () a0= '+' rightArg= parseop_HyExpression_level_13 )+ |) ;
     public final eu.hyvar.feature.expression.HyExpression parseop_HyExpression_level_12() throws RecognitionException {
         eu.hyvar.feature.expression.HyExpression element =  null;
 
@@ -4311,16 +4293,16 @@ public class HyexpressionParser extends HyexpressionANTLRParserBase {
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 11) ) { return element; }
 
-            // Hyexpression.g:2788:9: (leftArg= parseop_HyExpression_level_13 ( ( () a0= '-' rightArg= parseop_HyExpression_level_13 | () a0= '+' rightArg= parseop_HyExpression_level_13 )+ |) )
-            // Hyexpression.g:2789:9: leftArg= parseop_HyExpression_level_13 ( ( () a0= '-' rightArg= parseop_HyExpression_level_13 | () a0= '+' rightArg= parseop_HyExpression_level_13 )+ |)
+            // Hyexpression.g:2774:9: (leftArg= parseop_HyExpression_level_13 ( ( () a0= '-' rightArg= parseop_HyExpression_level_13 | () a0= '+' rightArg= parseop_HyExpression_level_13 )+ |) )
+            // Hyexpression.g:2775:9: leftArg= parseop_HyExpression_level_13 ( ( () a0= '-' rightArg= parseop_HyExpression_level_13 | () a0= '+' rightArg= parseop_HyExpression_level_13 )+ |)
             {
-            pushFollow(FOLLOW_parseop_HyExpression_level_13_in_parseop_HyExpression_level_122078);
+            pushFollow(FOLLOW_parseop_HyExpression_level_13_in_parseop_HyExpression_level_122055);
             leftArg=parseop_HyExpression_level_13();
 
             state._fsp--;
             if (state.failed) return element;
 
-            // Hyexpression.g:2789:40: ( ( () a0= '-' rightArg= parseop_HyExpression_level_13 | () a0= '+' rightArg= parseop_HyExpression_level_13 )+ |)
+            // Hyexpression.g:2775:40: ( ( () a0= '-' rightArg= parseop_HyExpression_level_13 | () a0= '+' rightArg= parseop_HyExpression_level_13 )+ |)
             int alt21=2;
             int LA21_0 = input.LA(1);
 
@@ -4340,9 +4322,9 @@ public class HyexpressionParser extends HyexpressionANTLRParserBase {
             }
             switch (alt21) {
                 case 1 :
-                    // Hyexpression.g:2789:41: ( () a0= '-' rightArg= parseop_HyExpression_level_13 | () a0= '+' rightArg= parseop_HyExpression_level_13 )+
+                    // Hyexpression.g:2775:41: ( () a0= '-' rightArg= parseop_HyExpression_level_13 | () a0= '+' rightArg= parseop_HyExpression_level_13 )+
                     {
-                    // Hyexpression.g:2789:41: ( () a0= '-' rightArg= parseop_HyExpression_level_13 | () a0= '+' rightArg= parseop_HyExpression_level_13 )+
+                    // Hyexpression.g:2775:41: ( () a0= '-' rightArg= parseop_HyExpression_level_13 | () a0= '+' rightArg= parseop_HyExpression_level_13 )+
                     int cnt20=0;
                     loop20:
                     do {
@@ -4359,17 +4341,17 @@ public class HyexpressionParser extends HyexpressionANTLRParserBase {
 
                         switch (alt20) {
                     	case 1 :
-                    	    // Hyexpression.g:2790:0: () a0= '-' rightArg= parseop_HyExpression_level_13
+                    	    // Hyexpression.g:2776:0: () a0= '-' rightArg= parseop_HyExpression_level_13
                     	    {
-                    	    // Hyexpression.g:2790:2: ()
-                    	    // Hyexpression.g:2790:2: 
+                    	    // Hyexpression.g:2776:2: ()
+                    	    // Hyexpression.g:2776:2: 
                     	    {
                     	    }
 
 
                     	    if ( state.backtracking==0 ) { element = null; }
 
-                    	    a0=(Token)match(input,20,FOLLOW_20_in_parseop_HyExpression_level_122091); if (state.failed) return element;
+                    	    a0=(Token)match(input,20,FOLLOW_20_in_parseop_HyExpression_level_122068); if (state.failed) return element;
 
                     	    if ( state.backtracking==0 ) {
                     	    if (element == null) {
@@ -4383,6 +4365,7 @@ public class HyexpressionParser extends HyexpressionANTLRParserBase {
 
                     	    if ( state.backtracking==0 ) {
                     	    // expected elements (follow set)
+                    	    addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHySubtractionExpression(), eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[516]);
                     	    addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHySubtractionExpression(), eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[517]);
                     	    addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHySubtractionExpression(), eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[518]);
                     	    addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHySubtractionExpression(), eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[519]);
@@ -4398,10 +4381,9 @@ public class HyexpressionParser extends HyexpressionANTLRParserBase {
                     	    addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHySubtractionExpression(), eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[529]);
                     	    addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHySubtractionExpression(), eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[530]);
                     	    addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHySubtractionExpression(), eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[531]);
-                    	    addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHySubtractionExpression(), eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[532]);
                     	    }
 
-                    	    pushFollow(FOLLOW_parseop_HyExpression_level_13_in_parseop_HyExpression_level_122102);
+                    	    pushFollow(FOLLOW_parseop_HyExpression_level_13_in_parseop_HyExpression_level_122079);
                     	    rightArg=parseop_HyExpression_level_13();
 
                     	    state._fsp--;
@@ -4452,17 +4434,17 @@ public class HyexpressionParser extends HyexpressionANTLRParserBase {
                     	    }
                     	    break;
                     	case 2 :
-                    	    // Hyexpression.g:2861:0: () a0= '+' rightArg= parseop_HyExpression_level_13
+                    	    // Hyexpression.g:2847:0: () a0= '+' rightArg= parseop_HyExpression_level_13
                     	    {
-                    	    // Hyexpression.g:2861:2: ()
-                    	    // Hyexpression.g:2861:2: 
+                    	    // Hyexpression.g:2847:2: ()
+                    	    // Hyexpression.g:2847:2: 
                     	    {
                     	    }
 
 
                     	    if ( state.backtracking==0 ) { element = null; }
 
-                    	    a0=(Token)match(input,18,FOLLOW_18_in_parseop_HyExpression_level_122120); if (state.failed) return element;
+                    	    a0=(Token)match(input,18,FOLLOW_18_in_parseop_HyExpression_level_122097); if (state.failed) return element;
 
                     	    if ( state.backtracking==0 ) {
                     	    if (element == null) {
@@ -4476,6 +4458,7 @@ public class HyexpressionParser extends HyexpressionANTLRParserBase {
 
                     	    if ( state.backtracking==0 ) {
                     	    // expected elements (follow set)
+                    	    addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyAdditionExpression(), eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[532]);
                     	    addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyAdditionExpression(), eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[533]);
                     	    addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyAdditionExpression(), eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[534]);
                     	    addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyAdditionExpression(), eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[535]);
@@ -4491,10 +4474,9 @@ public class HyexpressionParser extends HyexpressionANTLRParserBase {
                     	    addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyAdditionExpression(), eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[545]);
                     	    addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyAdditionExpression(), eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[546]);
                     	    addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyAdditionExpression(), eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[547]);
-                    	    addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyAdditionExpression(), eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[548]);
                     	    }
 
-                    	    pushFollow(FOLLOW_parseop_HyExpression_level_13_in_parseop_HyExpression_level_122131);
+                    	    pushFollow(FOLLOW_parseop_HyExpression_level_13_in_parseop_HyExpression_level_122108);
                     	    rightArg=parseop_HyExpression_level_13();
 
                     	    state._fsp--;
@@ -4559,7 +4541,7 @@ public class HyexpressionParser extends HyexpressionANTLRParserBase {
                     }
                     break;
                 case 2 :
-                    // Hyexpression.g:2931:20: 
+                    // Hyexpression.g:2917:20: 
                     {
                     if ( state.backtracking==0 ) { element = leftArg; }
 
@@ -4589,7 +4571,7 @@ public class HyexpressionParser extends HyexpressionANTLRParserBase {
 
 
     // $ANTLR start "parseop_HyExpression_level_13"
-    // Hyexpression.g:2936:1: parseop_HyExpression_level_13 returns [eu.hyvar.feature.expression.HyExpression element = null] : leftArg= parseop_HyExpression_level_14 ( ( () a0= '\\u0025' rightArg= parseop_HyExpression_level_14 | () a0= '*' rightArg= parseop_HyExpression_level_14 | () a0= '/' rightArg= parseop_HyExpression_level_14 )+ |) ;
+    // Hyexpression.g:2922:1: parseop_HyExpression_level_13 returns [eu.hyvar.feature.expression.HyExpression element = null] : leftArg= parseop_HyExpression_level_14 ( ( () a0= '\\u0025' rightArg= parseop_HyExpression_level_14 | () a0= '*' rightArg= parseop_HyExpression_level_14 | () a0= '/' rightArg= parseop_HyExpression_level_14 )+ |) ;
     public final eu.hyvar.feature.expression.HyExpression parseop_HyExpression_level_13() throws RecognitionException {
         eu.hyvar.feature.expression.HyExpression element =  null;
 
@@ -4606,16 +4588,16 @@ public class HyexpressionParser extends HyexpressionANTLRParserBase {
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 12) ) { return element; }
 
-            // Hyexpression.g:2939:9: (leftArg= parseop_HyExpression_level_14 ( ( () a0= '\\u0025' rightArg= parseop_HyExpression_level_14 | () a0= '*' rightArg= parseop_HyExpression_level_14 | () a0= '/' rightArg= parseop_HyExpression_level_14 )+ |) )
-            // Hyexpression.g:2940:9: leftArg= parseop_HyExpression_level_14 ( ( () a0= '\\u0025' rightArg= parseop_HyExpression_level_14 | () a0= '*' rightArg= parseop_HyExpression_level_14 | () a0= '/' rightArg= parseop_HyExpression_level_14 )+ |)
+            // Hyexpression.g:2925:9: (leftArg= parseop_HyExpression_level_14 ( ( () a0= '\\u0025' rightArg= parseop_HyExpression_level_14 | () a0= '*' rightArg= parseop_HyExpression_level_14 | () a0= '/' rightArg= parseop_HyExpression_level_14 )+ |) )
+            // Hyexpression.g:2926:9: leftArg= parseop_HyExpression_level_14 ( ( () a0= '\\u0025' rightArg= parseop_HyExpression_level_14 | () a0= '*' rightArg= parseop_HyExpression_level_14 | () a0= '/' rightArg= parseop_HyExpression_level_14 )+ |)
             {
-            pushFollow(FOLLOW_parseop_HyExpression_level_14_in_parseop_HyExpression_level_132169);
+            pushFollow(FOLLOW_parseop_HyExpression_level_14_in_parseop_HyExpression_level_132146);
             leftArg=parseop_HyExpression_level_14();
 
             state._fsp--;
             if (state.failed) return element;
 
-            // Hyexpression.g:2940:40: ( ( () a0= '\\u0025' rightArg= parseop_HyExpression_level_14 | () a0= '*' rightArg= parseop_HyExpression_level_14 | () a0= '/' rightArg= parseop_HyExpression_level_14 )+ |)
+            // Hyexpression.g:2926:40: ( ( () a0= '\\u0025' rightArg= parseop_HyExpression_level_14 | () a0= '*' rightArg= parseop_HyExpression_level_14 | () a0= '/' rightArg= parseop_HyExpression_level_14 )+ |)
             int alt23=2;
             int LA23_0 = input.LA(1);
 
@@ -4635,9 +4617,9 @@ public class HyexpressionParser extends HyexpressionANTLRParserBase {
             }
             switch (alt23) {
                 case 1 :
-                    // Hyexpression.g:2940:41: ( () a0= '\\u0025' rightArg= parseop_HyExpression_level_14 | () a0= '*' rightArg= parseop_HyExpression_level_14 | () a0= '/' rightArg= parseop_HyExpression_level_14 )+
+                    // Hyexpression.g:2926:41: ( () a0= '\\u0025' rightArg= parseop_HyExpression_level_14 | () a0= '*' rightArg= parseop_HyExpression_level_14 | () a0= '/' rightArg= parseop_HyExpression_level_14 )+
                     {
-                    // Hyexpression.g:2940:41: ( () a0= '\\u0025' rightArg= parseop_HyExpression_level_14 | () a0= '*' rightArg= parseop_HyExpression_level_14 | () a0= '/' rightArg= parseop_HyExpression_level_14 )+
+                    // Hyexpression.g:2926:41: ( () a0= '\\u0025' rightArg= parseop_HyExpression_level_14 | () a0= '*' rightArg= parseop_HyExpression_level_14 | () a0= '/' rightArg= parseop_HyExpression_level_14 )+
                     int cnt22=0;
                     loop22:
                     do {
@@ -4663,17 +4645,17 @@ public class HyexpressionParser extends HyexpressionANTLRParserBase {
 
                         switch (alt22) {
                     	case 1 :
-                    	    // Hyexpression.g:2941:0: () a0= '\\u0025' rightArg= parseop_HyExpression_level_14
+                    	    // Hyexpression.g:2927:0: () a0= '\\u0025' rightArg= parseop_HyExpression_level_14
                     	    {
-                    	    // Hyexpression.g:2941:2: ()
-                    	    // Hyexpression.g:2941:2: 
+                    	    // Hyexpression.g:2927:2: ()
+                    	    // Hyexpression.g:2927:2: 
                     	    {
                     	    }
 
 
                     	    if ( state.backtracking==0 ) { element = null; }
 
-                    	    a0=(Token)match(input,34,FOLLOW_34_in_parseop_HyExpression_level_132182); if (state.failed) return element;
+                    	    a0=(Token)match(input,34,FOLLOW_34_in_parseop_HyExpression_level_132159); if (state.failed) return element;
 
                     	    if ( state.backtracking==0 ) {
                     	    if (element == null) {
@@ -4687,6 +4669,7 @@ public class HyexpressionParser extends HyexpressionANTLRParserBase {
 
                     	    if ( state.backtracking==0 ) {
                     	    // expected elements (follow set)
+                    	    addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyModuloExpression(), eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[548]);
                     	    addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyModuloExpression(), eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[549]);
                     	    addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyModuloExpression(), eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[550]);
                     	    addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyModuloExpression(), eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[551]);
@@ -4702,10 +4685,9 @@ public class HyexpressionParser extends HyexpressionANTLRParserBase {
                     	    addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyModuloExpression(), eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[561]);
                     	    addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyModuloExpression(), eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[562]);
                     	    addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyModuloExpression(), eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[563]);
-                    	    addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyModuloExpression(), eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[564]);
                     	    }
 
-                    	    pushFollow(FOLLOW_parseop_HyExpression_level_14_in_parseop_HyExpression_level_132193);
+                    	    pushFollow(FOLLOW_parseop_HyExpression_level_14_in_parseop_HyExpression_level_132170);
                     	    rightArg=parseop_HyExpression_level_14();
 
                     	    state._fsp--;
@@ -4756,17 +4738,17 @@ public class HyexpressionParser extends HyexpressionANTLRParserBase {
                     	    }
                     	    break;
                     	case 2 :
-                    	    // Hyexpression.g:3012:0: () a0= '*' rightArg= parseop_HyExpression_level_14
+                    	    // Hyexpression.g:2998:0: () a0= '*' rightArg= parseop_HyExpression_level_14
                     	    {
-                    	    // Hyexpression.g:3012:2: ()
-                    	    // Hyexpression.g:3012:2: 
+                    	    // Hyexpression.g:2998:2: ()
+                    	    // Hyexpression.g:2998:2: 
                     	    {
                     	    }
 
 
                     	    if ( state.backtracking==0 ) { element = null; }
 
-                    	    a0=(Token)match(input,17,FOLLOW_17_in_parseop_HyExpression_level_132211); if (state.failed) return element;
+                    	    a0=(Token)match(input,17,FOLLOW_17_in_parseop_HyExpression_level_132188); if (state.failed) return element;
 
                     	    if ( state.backtracking==0 ) {
                     	    if (element == null) {
@@ -4780,6 +4762,7 @@ public class HyexpressionParser extends HyexpressionANTLRParserBase {
 
                     	    if ( state.backtracking==0 ) {
                     	    // expected elements (follow set)
+                    	    addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyMultiplicationExpression(), eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[564]);
                     	    addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyMultiplicationExpression(), eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[565]);
                     	    addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyMultiplicationExpression(), eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[566]);
                     	    addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyMultiplicationExpression(), eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[567]);
@@ -4795,10 +4778,9 @@ public class HyexpressionParser extends HyexpressionANTLRParserBase {
                     	    addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyMultiplicationExpression(), eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[577]);
                     	    addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyMultiplicationExpression(), eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[578]);
                     	    addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyMultiplicationExpression(), eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[579]);
-                    	    addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyMultiplicationExpression(), eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[580]);
                     	    }
 
-                    	    pushFollow(FOLLOW_parseop_HyExpression_level_14_in_parseop_HyExpression_level_132222);
+                    	    pushFollow(FOLLOW_parseop_HyExpression_level_14_in_parseop_HyExpression_level_132199);
                     	    rightArg=parseop_HyExpression_level_14();
 
                     	    state._fsp--;
@@ -4849,17 +4831,17 @@ public class HyexpressionParser extends HyexpressionANTLRParserBase {
                     	    }
                     	    break;
                     	case 3 :
-                    	    // Hyexpression.g:3083:0: () a0= '/' rightArg= parseop_HyExpression_level_14
+                    	    // Hyexpression.g:3069:0: () a0= '/' rightArg= parseop_HyExpression_level_14
                     	    {
-                    	    // Hyexpression.g:3083:2: ()
-                    	    // Hyexpression.g:3083:2: 
+                    	    // Hyexpression.g:3069:2: ()
+                    	    // Hyexpression.g:3069:2: 
                     	    {
                     	    }
 
 
                     	    if ( state.backtracking==0 ) { element = null; }
 
-                    	    a0=(Token)match(input,23,FOLLOW_23_in_parseop_HyExpression_level_132240); if (state.failed) return element;
+                    	    a0=(Token)match(input,23,FOLLOW_23_in_parseop_HyExpression_level_132217); if (state.failed) return element;
 
                     	    if ( state.backtracking==0 ) {
                     	    if (element == null) {
@@ -4873,6 +4855,7 @@ public class HyexpressionParser extends HyexpressionANTLRParserBase {
 
                     	    if ( state.backtracking==0 ) {
                     	    // expected elements (follow set)
+                    	    addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyDivisionExpression(), eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[580]);
                     	    addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyDivisionExpression(), eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[581]);
                     	    addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyDivisionExpression(), eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[582]);
                     	    addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyDivisionExpression(), eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[583]);
@@ -4888,10 +4871,9 @@ public class HyexpressionParser extends HyexpressionANTLRParserBase {
                     	    addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyDivisionExpression(), eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[593]);
                     	    addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyDivisionExpression(), eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[594]);
                     	    addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyDivisionExpression(), eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[595]);
-                    	    addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyDivisionExpression(), eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[596]);
                     	    }
 
-                    	    pushFollow(FOLLOW_parseop_HyExpression_level_14_in_parseop_HyExpression_level_132251);
+                    	    pushFollow(FOLLOW_parseop_HyExpression_level_14_in_parseop_HyExpression_level_132228);
                     	    rightArg=parseop_HyExpression_level_14();
 
                     	    state._fsp--;
@@ -4956,7 +4938,7 @@ public class HyexpressionParser extends HyexpressionANTLRParserBase {
                     }
                     break;
                 case 2 :
-                    // Hyexpression.g:3153:20: 
+                    // Hyexpression.g:3139:20: 
                     {
                     if ( state.backtracking==0 ) { element = leftArg; }
 
@@ -4986,7 +4968,7 @@ public class HyexpressionParser extends HyexpressionANTLRParserBase {
 
 
     // $ANTLR start "parseop_HyExpression_level_14"
-    // Hyexpression.g:3158:1: parseop_HyExpression_level_14 returns [eu.hyvar.feature.expression.HyExpression element = null] : (a0= '!' arg= parseop_HyExpression_level_15 |a2= '-' arg= parseop_HyExpression_level_15 |arg= parseop_HyExpression_level_15 );
+    // Hyexpression.g:3144:1: parseop_HyExpression_level_14 returns [eu.hyvar.feature.expression.HyExpression element = null] : (a0= '!' arg= parseop_HyExpression_level_15 |a2= '-' arg= parseop_HyExpression_level_15 |arg= parseop_HyExpression_level_15 );
     public final eu.hyvar.feature.expression.HyExpression parseop_HyExpression_level_14() throws RecognitionException {
         eu.hyvar.feature.expression.HyExpression element =  null;
 
@@ -5002,7 +4984,7 @@ public class HyexpressionParser extends HyexpressionANTLRParserBase {
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 13) ) { return element; }
 
-            // Hyexpression.g:3161:0: (a0= '!' arg= parseop_HyExpression_level_15 |a2= '-' arg= parseop_HyExpression_level_15 |arg= parseop_HyExpression_level_15 )
+            // Hyexpression.g:3147:0: (a0= '!' arg= parseop_HyExpression_level_15 |a2= '-' arg= parseop_HyExpression_level_15 |arg= parseop_HyExpression_level_15 )
             int alt24=3;
             switch ( input.LA(1) ) {
             case 12:
@@ -5022,10 +5004,10 @@ public class HyexpressionParser extends HyexpressionANTLRParserBase {
             case 30:
             case 37:
             case 38:
-            case 39:
             case 40:
             case 41:
             case 42:
+            case 43:
             case 44:
                 {
                 alt24=3;
@@ -5042,9 +5024,9 @@ public class HyexpressionParser extends HyexpressionANTLRParserBase {
 
             switch (alt24) {
                 case 1 :
-                    // Hyexpression.g:3162:0: a0= '!' arg= parseop_HyExpression_level_15
+                    // Hyexpression.g:3148:0: a0= '!' arg= parseop_HyExpression_level_15
                     {
-                    a0=(Token)match(input,12,FOLLOW_12_in_parseop_HyExpression_level_142289); if (state.failed) return element;
+                    a0=(Token)match(input,12,FOLLOW_12_in_parseop_HyExpression_level_142266); if (state.failed) return element;
 
                     if ( state.backtracking==0 ) {
                     if (element == null) {
@@ -5058,6 +5040,7 @@ public class HyexpressionParser extends HyexpressionANTLRParserBase {
 
                     if ( state.backtracking==0 ) {
                     // expected elements (follow set)
+                    addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyNotExpression(), eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[596]);
                     addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyNotExpression(), eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[597]);
                     addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyNotExpression(), eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[598]);
                     addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyNotExpression(), eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[599]);
@@ -5073,10 +5056,9 @@ public class HyexpressionParser extends HyexpressionANTLRParserBase {
                     addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyNotExpression(), eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[609]);
                     addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyNotExpression(), eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[610]);
                     addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyNotExpression(), eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[611]);
-                    addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyNotExpression(), eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[612]);
                     }
 
-                    pushFollow(FOLLOW_parseop_HyExpression_level_15_in_parseop_HyExpression_level_142300);
+                    pushFollow(FOLLOW_parseop_HyExpression_level_15_in_parseop_HyExpression_level_142277);
                     arg=parseop_HyExpression_level_15();
 
                     state._fsp--;
@@ -5105,9 +5087,9 @@ public class HyexpressionParser extends HyexpressionANTLRParserBase {
                     }
                     break;
                 case 2 :
-                    // Hyexpression.g:3211:0: a2= '-' arg= parseop_HyExpression_level_15
+                    // Hyexpression.g:3197:0: a2= '-' arg= parseop_HyExpression_level_15
                     {
-                    a2=(Token)match(input,20,FOLLOW_20_in_parseop_HyExpression_level_142309); if (state.failed) return element;
+                    a2=(Token)match(input,20,FOLLOW_20_in_parseop_HyExpression_level_142286); if (state.failed) return element;
 
                     if ( state.backtracking==0 ) {
                     if (element == null) {
@@ -5121,6 +5103,7 @@ public class HyexpressionParser extends HyexpressionANTLRParserBase {
 
                     if ( state.backtracking==0 ) {
                     // expected elements (follow set)
+                    addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyNegationExpression(), eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[612]);
                     addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyNegationExpression(), eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[613]);
                     addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyNegationExpression(), eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[614]);
                     addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyNegationExpression(), eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[615]);
@@ -5136,10 +5119,9 @@ public class HyexpressionParser extends HyexpressionANTLRParserBase {
                     addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyNegationExpression(), eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[625]);
                     addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyNegationExpression(), eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[626]);
                     addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyNegationExpression(), eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[627]);
-                    addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyNegationExpression(), eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[628]);
                     }
 
-                    pushFollow(FOLLOW_parseop_HyExpression_level_15_in_parseop_HyExpression_level_142320);
+                    pushFollow(FOLLOW_parseop_HyExpression_level_15_in_parseop_HyExpression_level_142297);
                     arg=parseop_HyExpression_level_15();
 
                     state._fsp--;
@@ -5168,9 +5150,9 @@ public class HyexpressionParser extends HyexpressionANTLRParserBase {
                     }
                     break;
                 case 3 :
-                    // Hyexpression.g:3261:5: arg= parseop_HyExpression_level_15
+                    // Hyexpression.g:3247:5: arg= parseop_HyExpression_level_15
                     {
-                    pushFollow(FOLLOW_parseop_HyExpression_level_15_in_parseop_HyExpression_level_142330);
+                    pushFollow(FOLLOW_parseop_HyExpression_level_15_in_parseop_HyExpression_level_142307);
                     arg=parseop_HyExpression_level_15();
 
                     state._fsp--;
@@ -5200,7 +5182,7 @@ public class HyexpressionParser extends HyexpressionANTLRParserBase {
 
 
     // $ANTLR start "parseop_HyExpression_level_15"
-    // Hyexpression.g:3264:1: parseop_HyExpression_level_15 returns [eu.hyvar.feature.expression.HyExpression element = null] : (c0= parse_eu_hyvar_feature_expression_HyNestedExpression |c1= parse_eu_hyvar_feature_expression_HyFeatureReferenceExpression |c2= parse_eu_hyvar_feature_expression_HyConditionalFeatureReferenceExpression |c3= parse_eu_hyvar_feature_expression_HyContextInformationReferenceExpression |c4= parse_eu_hyvar_feature_expression_HyAttributeReferenceExpression |c5= parse_eu_hyvar_feature_expression_HyValueExpression |c6= parse_eu_hyvar_feature_expression_HyBooleanValueExpression |c7= parse_eu_hyvar_feature_expression_HyMinimumExpression |c8= parse_eu_hyvar_feature_expression_HyMaximumExpression |c9= parse_eu_hyvar_feature_expression_HyIfPossibleExpression );
+    // Hyexpression.g:3250:1: parseop_HyExpression_level_15 returns [eu.hyvar.feature.expression.HyExpression element = null] : (c0= parse_eu_hyvar_feature_expression_HyNestedExpression |c1= parse_eu_hyvar_feature_expression_HyFeatureReferenceExpression |c2= parse_eu_hyvar_feature_expression_HyConditionalFeatureReferenceExpression |c3= parse_eu_hyvar_feature_expression_HyContextInformationReferenceExpression |c4= parse_eu_hyvar_feature_expression_HyAttributeReferenceExpression |c5= parse_eu_hyvar_feature_expression_HyValueExpression |c6= parse_eu_hyvar_feature_expression_HyBooleanValueExpression |c7= parse_eu_hyvar_feature_expression_HyMinimumExpression |c8= parse_eu_hyvar_feature_expression_HyMaximumExpression |c9= parse_eu_hyvar_feature_expression_HyIfPossibleExpression );
     public final eu.hyvar.feature.expression.HyExpression parseop_HyExpression_level_15() throws RecognitionException {
         eu.hyvar.feature.expression.HyExpression element =  null;
 
@@ -5232,7 +5214,7 @@ public class HyexpressionParser extends HyexpressionANTLRParserBase {
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 14) ) { return element; }
 
-            // Hyexpression.g:3267:0: (c0= parse_eu_hyvar_feature_expression_HyNestedExpression |c1= parse_eu_hyvar_feature_expression_HyFeatureReferenceExpression |c2= parse_eu_hyvar_feature_expression_HyConditionalFeatureReferenceExpression |c3= parse_eu_hyvar_feature_expression_HyContextInformationReferenceExpression |c4= parse_eu_hyvar_feature_expression_HyAttributeReferenceExpression |c5= parse_eu_hyvar_feature_expression_HyValueExpression |c6= parse_eu_hyvar_feature_expression_HyBooleanValueExpression |c7= parse_eu_hyvar_feature_expression_HyMinimumExpression |c8= parse_eu_hyvar_feature_expression_HyMaximumExpression |c9= parse_eu_hyvar_feature_expression_HyIfPossibleExpression )
+            // Hyexpression.g:3253:0: (c0= parse_eu_hyvar_feature_expression_HyNestedExpression |c1= parse_eu_hyvar_feature_expression_HyFeatureReferenceExpression |c2= parse_eu_hyvar_feature_expression_HyConditionalFeatureReferenceExpression |c3= parse_eu_hyvar_feature_expression_HyContextInformationReferenceExpression |c4= parse_eu_hyvar_feature_expression_HyAttributeReferenceExpression |c5= parse_eu_hyvar_feature_expression_HyValueExpression |c6= parse_eu_hyvar_feature_expression_HyBooleanValueExpression |c7= parse_eu_hyvar_feature_expression_HyMinimumExpression |c8= parse_eu_hyvar_feature_expression_HyMaximumExpression |c9= parse_eu_hyvar_feature_expression_HyIfPossibleExpression )
             int alt25=10;
             switch ( input.LA(1) ) {
             case 15:
@@ -5316,7 +5298,7 @@ public class HyexpressionParser extends HyexpressionANTLRParserBase {
                 }
                 }
                 break;
-            case 39:
+            case 40:
                 {
                 int LA25_8 = input.LA(2);
 
@@ -5336,17 +5318,17 @@ public class HyexpressionParser extends HyexpressionANTLRParserBase {
                 }
                 }
                 break;
-            case 42:
+            case 43:
                 {
                 alt25=8;
                 }
                 break;
-            case 41:
+            case 42:
                 {
                 alt25=9;
                 }
                 break;
-            case 40:
+            case 41:
                 {
                 alt25=10;
                 }
@@ -5362,9 +5344,9 @@ public class HyexpressionParser extends HyexpressionANTLRParserBase {
 
             switch (alt25) {
                 case 1 :
-                    // Hyexpression.g:3268:0: c0= parse_eu_hyvar_feature_expression_HyNestedExpression
+                    // Hyexpression.g:3254:0: c0= parse_eu_hyvar_feature_expression_HyNestedExpression
                     {
-                    pushFollow(FOLLOW_parse_eu_hyvar_feature_expression_HyNestedExpression_in_parseop_HyExpression_level_152352);
+                    pushFollow(FOLLOW_parse_eu_hyvar_feature_expression_HyNestedExpression_in_parseop_HyExpression_level_152329);
                     c0=parse_eu_hyvar_feature_expression_HyNestedExpression();
 
                     state._fsp--;
@@ -5375,9 +5357,9 @@ public class HyexpressionParser extends HyexpressionANTLRParserBase {
                     }
                     break;
                 case 2 :
-                    // Hyexpression.g:3269:2: c1= parse_eu_hyvar_feature_expression_HyFeatureReferenceExpression
+                    // Hyexpression.g:3255:2: c1= parse_eu_hyvar_feature_expression_HyFeatureReferenceExpression
                     {
-                    pushFollow(FOLLOW_parse_eu_hyvar_feature_expression_HyFeatureReferenceExpression_in_parseop_HyExpression_level_152360);
+                    pushFollow(FOLLOW_parse_eu_hyvar_feature_expression_HyFeatureReferenceExpression_in_parseop_HyExpression_level_152337);
                     c1=parse_eu_hyvar_feature_expression_HyFeatureReferenceExpression();
 
                     state._fsp--;
@@ -5388,9 +5370,9 @@ public class HyexpressionParser extends HyexpressionANTLRParserBase {
                     }
                     break;
                 case 3 :
-                    // Hyexpression.g:3270:2: c2= parse_eu_hyvar_feature_expression_HyConditionalFeatureReferenceExpression
+                    // Hyexpression.g:3256:2: c2= parse_eu_hyvar_feature_expression_HyConditionalFeatureReferenceExpression
                     {
-                    pushFollow(FOLLOW_parse_eu_hyvar_feature_expression_HyConditionalFeatureReferenceExpression_in_parseop_HyExpression_level_152368);
+                    pushFollow(FOLLOW_parse_eu_hyvar_feature_expression_HyConditionalFeatureReferenceExpression_in_parseop_HyExpression_level_152345);
                     c2=parse_eu_hyvar_feature_expression_HyConditionalFeatureReferenceExpression();
 
                     state._fsp--;
@@ -5401,9 +5383,9 @@ public class HyexpressionParser extends HyexpressionANTLRParserBase {
                     }
                     break;
                 case 4 :
-                    // Hyexpression.g:3271:2: c3= parse_eu_hyvar_feature_expression_HyContextInformationReferenceExpression
+                    // Hyexpression.g:3257:2: c3= parse_eu_hyvar_feature_expression_HyContextInformationReferenceExpression
                     {
-                    pushFollow(FOLLOW_parse_eu_hyvar_feature_expression_HyContextInformationReferenceExpression_in_parseop_HyExpression_level_152376);
+                    pushFollow(FOLLOW_parse_eu_hyvar_feature_expression_HyContextInformationReferenceExpression_in_parseop_HyExpression_level_152353);
                     c3=parse_eu_hyvar_feature_expression_HyContextInformationReferenceExpression();
 
                     state._fsp--;
@@ -5414,9 +5396,9 @@ public class HyexpressionParser extends HyexpressionANTLRParserBase {
                     }
                     break;
                 case 5 :
-                    // Hyexpression.g:3272:2: c4= parse_eu_hyvar_feature_expression_HyAttributeReferenceExpression
+                    // Hyexpression.g:3258:2: c4= parse_eu_hyvar_feature_expression_HyAttributeReferenceExpression
                     {
-                    pushFollow(FOLLOW_parse_eu_hyvar_feature_expression_HyAttributeReferenceExpression_in_parseop_HyExpression_level_152384);
+                    pushFollow(FOLLOW_parse_eu_hyvar_feature_expression_HyAttributeReferenceExpression_in_parseop_HyExpression_level_152361);
                     c4=parse_eu_hyvar_feature_expression_HyAttributeReferenceExpression();
 
                     state._fsp--;
@@ -5427,9 +5409,9 @@ public class HyexpressionParser extends HyexpressionANTLRParserBase {
                     }
                     break;
                 case 6 :
-                    // Hyexpression.g:3273:2: c5= parse_eu_hyvar_feature_expression_HyValueExpression
+                    // Hyexpression.g:3259:2: c5= parse_eu_hyvar_feature_expression_HyValueExpression
                     {
-                    pushFollow(FOLLOW_parse_eu_hyvar_feature_expression_HyValueExpression_in_parseop_HyExpression_level_152392);
+                    pushFollow(FOLLOW_parse_eu_hyvar_feature_expression_HyValueExpression_in_parseop_HyExpression_level_152369);
                     c5=parse_eu_hyvar_feature_expression_HyValueExpression();
 
                     state._fsp--;
@@ -5440,9 +5422,9 @@ public class HyexpressionParser extends HyexpressionANTLRParserBase {
                     }
                     break;
                 case 7 :
-                    // Hyexpression.g:3274:2: c6= parse_eu_hyvar_feature_expression_HyBooleanValueExpression
+                    // Hyexpression.g:3260:2: c6= parse_eu_hyvar_feature_expression_HyBooleanValueExpression
                     {
-                    pushFollow(FOLLOW_parse_eu_hyvar_feature_expression_HyBooleanValueExpression_in_parseop_HyExpression_level_152400);
+                    pushFollow(FOLLOW_parse_eu_hyvar_feature_expression_HyBooleanValueExpression_in_parseop_HyExpression_level_152377);
                     c6=parse_eu_hyvar_feature_expression_HyBooleanValueExpression();
 
                     state._fsp--;
@@ -5453,9 +5435,9 @@ public class HyexpressionParser extends HyexpressionANTLRParserBase {
                     }
                     break;
                 case 8 :
-                    // Hyexpression.g:3275:2: c7= parse_eu_hyvar_feature_expression_HyMinimumExpression
+                    // Hyexpression.g:3261:2: c7= parse_eu_hyvar_feature_expression_HyMinimumExpression
                     {
-                    pushFollow(FOLLOW_parse_eu_hyvar_feature_expression_HyMinimumExpression_in_parseop_HyExpression_level_152408);
+                    pushFollow(FOLLOW_parse_eu_hyvar_feature_expression_HyMinimumExpression_in_parseop_HyExpression_level_152385);
                     c7=parse_eu_hyvar_feature_expression_HyMinimumExpression();
 
                     state._fsp--;
@@ -5466,9 +5448,9 @@ public class HyexpressionParser extends HyexpressionANTLRParserBase {
                     }
                     break;
                 case 9 :
-                    // Hyexpression.g:3276:2: c8= parse_eu_hyvar_feature_expression_HyMaximumExpression
+                    // Hyexpression.g:3262:2: c8= parse_eu_hyvar_feature_expression_HyMaximumExpression
                     {
-                    pushFollow(FOLLOW_parse_eu_hyvar_feature_expression_HyMaximumExpression_in_parseop_HyExpression_level_152416);
+                    pushFollow(FOLLOW_parse_eu_hyvar_feature_expression_HyMaximumExpression_in_parseop_HyExpression_level_152393);
                     c8=parse_eu_hyvar_feature_expression_HyMaximumExpression();
 
                     state._fsp--;
@@ -5479,9 +5461,9 @@ public class HyexpressionParser extends HyexpressionANTLRParserBase {
                     }
                     break;
                 case 10 :
-                    // Hyexpression.g:3277:2: c9= parse_eu_hyvar_feature_expression_HyIfPossibleExpression
+                    // Hyexpression.g:3263:2: c9= parse_eu_hyvar_feature_expression_HyIfPossibleExpression
                     {
-                    pushFollow(FOLLOW_parse_eu_hyvar_feature_expression_HyIfPossibleExpression_in_parseop_HyExpression_level_152424);
+                    pushFollow(FOLLOW_parse_eu_hyvar_feature_expression_HyIfPossibleExpression_in_parseop_HyExpression_level_152401);
                     c9=parse_eu_hyvar_feature_expression_HyIfPossibleExpression();
 
                     state._fsp--;
@@ -5511,7 +5493,7 @@ public class HyexpressionParser extends HyexpressionANTLRParserBase {
 
 
     // $ANTLR start "parse_eu_hyvar_feature_expression_HyNestedExpression"
-    // Hyexpression.g:3280:1: parse_eu_hyvar_feature_expression_HyNestedExpression returns [eu.hyvar.feature.expression.HyNestedExpression element = null] : a0= '(' (a1_0= parse_eu_hyvar_feature_expression_HyExpression ) a2= ')' ;
+    // Hyexpression.g:3266:1: parse_eu_hyvar_feature_expression_HyNestedExpression returns [eu.hyvar.feature.expression.HyNestedExpression element = null] : a0= '(' (a1_0= parse_eu_hyvar_feature_expression_HyExpression ) a2= ')' ;
     public final eu.hyvar.feature.expression.HyNestedExpression parse_eu_hyvar_feature_expression_HyNestedExpression() throws RecognitionException {
         eu.hyvar.feature.expression.HyNestedExpression element =  null;
 
@@ -5527,10 +5509,10 @@ public class HyexpressionParser extends HyexpressionANTLRParserBase {
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 15) ) { return element; }
 
-            // Hyexpression.g:3283:4: (a0= '(' (a1_0= parse_eu_hyvar_feature_expression_HyExpression ) a2= ')' )
-            // Hyexpression.g:3284:4: a0= '(' (a1_0= parse_eu_hyvar_feature_expression_HyExpression ) a2= ')'
+            // Hyexpression.g:3269:4: (a0= '(' (a1_0= parse_eu_hyvar_feature_expression_HyExpression ) a2= ')' )
+            // Hyexpression.g:3270:4: a0= '(' (a1_0= parse_eu_hyvar_feature_expression_HyExpression ) a2= ')'
             {
-            a0=(Token)match(input,15,FOLLOW_15_in_parse_eu_hyvar_feature_expression_HyNestedExpression2446); if (state.failed) return element;
+            a0=(Token)match(input,15,FOLLOW_15_in_parse_eu_hyvar_feature_expression_HyNestedExpression2423); if (state.failed) return element;
 
             if ( state.backtracking==0 ) {
             if (element == null) {
@@ -5544,6 +5526,7 @@ public class HyexpressionParser extends HyexpressionANTLRParserBase {
 
             if ( state.backtracking==0 ) {
             // expected elements (follow set)
+            addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyNestedExpression(), eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[628]);
             addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyNestedExpression(), eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[629]);
             addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyNestedExpression(), eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[630]);
             addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyNestedExpression(), eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[631]);
@@ -5559,13 +5542,12 @@ public class HyexpressionParser extends HyexpressionANTLRParserBase {
             addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyNestedExpression(), eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[641]);
             addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyNestedExpression(), eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[642]);
             addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyNestedExpression(), eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[643]);
-            addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyNestedExpression(), eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[644]);
             }
 
-            // Hyexpression.g:3313:6: (a1_0= parse_eu_hyvar_feature_expression_HyExpression )
-            // Hyexpression.g:3314:6: a1_0= parse_eu_hyvar_feature_expression_HyExpression
+            // Hyexpression.g:3299:6: (a1_0= parse_eu_hyvar_feature_expression_HyExpression )
+            // Hyexpression.g:3300:6: a1_0= parse_eu_hyvar_feature_expression_HyExpression
             {
-            pushFollow(FOLLOW_parse_eu_hyvar_feature_expression_HyExpression_in_parse_eu_hyvar_feature_expression_HyNestedExpression2459);
+            pushFollow(FOLLOW_parse_eu_hyvar_feature_expression_HyExpression_in_parse_eu_hyvar_feature_expression_HyNestedExpression2436);
             a1_0=parse_eu_hyvar_feature_expression_HyExpression();
 
             state._fsp--;
@@ -5596,10 +5578,10 @@ public class HyexpressionParser extends HyexpressionANTLRParserBase {
 
             if ( state.backtracking==0 ) {
             // expected elements (follow set)
-            addExpectedElement(null, eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[645]);
+            addExpectedElement(null, eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[644]);
             }
 
-            a2=(Token)match(input,16,FOLLOW_16_in_parse_eu_hyvar_feature_expression_HyNestedExpression2471); if (state.failed) return element;
+            a2=(Token)match(input,16,FOLLOW_16_in_parse_eu_hyvar_feature_expression_HyNestedExpression2448); if (state.failed) return element;
 
             if ( state.backtracking==0 ) {
             if (element == null) {
@@ -5613,6 +5595,7 @@ public class HyexpressionParser extends HyexpressionANTLRParserBase {
 
             if ( state.backtracking==0 ) {
             // expected elements (follow set)
+            addExpectedElement(null, eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[645]);
             addExpectedElement(null, eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[646]);
             addExpectedElement(null, eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[647]);
             addExpectedElement(null, eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[648]);
@@ -5632,7 +5615,6 @@ public class HyexpressionParser extends HyexpressionANTLRParserBase {
             addExpectedElement(null, eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[662]);
             addExpectedElement(null, eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[663]);
             addExpectedElement(null, eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[664]);
-            addExpectedElement(null, eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[665]);
             }
 
             }
@@ -5655,7 +5637,7 @@ public class HyexpressionParser extends HyexpressionANTLRParserBase {
 
 
     // $ANTLR start "parse_eu_hyvar_feature_expression_HyFeatureReferenceExpression"
-    // Hyexpression.g:3374:1: parse_eu_hyvar_feature_expression_HyFeatureReferenceExpression returns [eu.hyvar.feature.expression.HyFeatureReferenceExpression element = null] : ( (a0= QUOTED_34_34 ) | (a1= IDENTIFIER_TOKEN ) ) ( ( (a2_0= parse_eu_hyvar_feature_expression_HyVersionRestriction ) ) )? ;
+    // Hyexpression.g:3360:1: parse_eu_hyvar_feature_expression_HyFeatureReferenceExpression returns [eu.hyvar.feature.expression.HyFeatureReferenceExpression element = null] : ( (a0= QUOTED_34_34 ) | (a1= IDENTIFIER_TOKEN ) ) ( ( (a2_0= parse_eu_hyvar_feature_expression_HyVersionRestriction ) ) )? ;
     public final eu.hyvar.feature.expression.HyFeatureReferenceExpression parse_eu_hyvar_feature_expression_HyFeatureReferenceExpression() throws RecognitionException {
         eu.hyvar.feature.expression.HyFeatureReferenceExpression element =  null;
 
@@ -5671,10 +5653,10 @@ public class HyexpressionParser extends HyexpressionANTLRParserBase {
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 16) ) { return element; }
 
-            // Hyexpression.g:3377:0: ( ( (a0= QUOTED_34_34 ) | (a1= IDENTIFIER_TOKEN ) ) ( ( (a2_0= parse_eu_hyvar_feature_expression_HyVersionRestriction ) ) )? )
-            // Hyexpression.g:3378:0: ( (a0= QUOTED_34_34 ) | (a1= IDENTIFIER_TOKEN ) ) ( ( (a2_0= parse_eu_hyvar_feature_expression_HyVersionRestriction ) ) )?
+            // Hyexpression.g:3363:0: ( ( (a0= QUOTED_34_34 ) | (a1= IDENTIFIER_TOKEN ) ) ( ( (a2_0= parse_eu_hyvar_feature_expression_HyVersionRestriction ) ) )? )
+            // Hyexpression.g:3364:0: ( (a0= QUOTED_34_34 ) | (a1= IDENTIFIER_TOKEN ) ) ( ( (a2_0= parse_eu_hyvar_feature_expression_HyVersionRestriction ) ) )?
             {
-            // Hyexpression.g:3378:0: ( (a0= QUOTED_34_34 ) | (a1= IDENTIFIER_TOKEN ) )
+            // Hyexpression.g:3364:0: ( (a0= QUOTED_34_34 ) | (a1= IDENTIFIER_TOKEN ) )
             int alt26=2;
             int LA26_0 = input.LA(1);
 
@@ -5694,12 +5676,12 @@ public class HyexpressionParser extends HyexpressionANTLRParserBase {
             }
             switch (alt26) {
                 case 1 :
-                    // Hyexpression.g:3379:0: (a0= QUOTED_34_34 )
+                    // Hyexpression.g:3365:0: (a0= QUOTED_34_34 )
                     {
-                    // Hyexpression.g:3379:4: (a0= QUOTED_34_34 )
-                    // Hyexpression.g:3380:4: a0= QUOTED_34_34
+                    // Hyexpression.g:3365:4: (a0= QUOTED_34_34 )
+                    // Hyexpression.g:3366:4: a0= QUOTED_34_34
                     {
-                    a0=(Token)match(input,QUOTED_34_34,FOLLOW_QUOTED_34_34_in_parse_eu_hyvar_feature_expression_HyFeatureReferenceExpression2501); if (state.failed) return element;
+                    a0=(Token)match(input,QUOTED_34_34,FOLLOW_QUOTED_34_34_in_parse_eu_hyvar_feature_expression_HyFeatureReferenceExpression2478); if (state.failed) return element;
 
                     if ( state.backtracking==0 ) {
                     if (terminateParsing) {
@@ -5739,8 +5721,9 @@ public class HyexpressionParser extends HyexpressionANTLRParserBase {
 
                     if ( state.backtracking==0 ) {
                     // expected elements (follow set)
+                    addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyFeatureReferenceExpression(), eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[665]);
                     addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyFeatureReferenceExpression(), eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[666]);
-                    addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyFeatureReferenceExpression(), eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[667]);
+                    addExpectedElement(null, eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[667]);
                     addExpectedElement(null, eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[668]);
                     addExpectedElement(null, eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[669]);
                     addExpectedElement(null, eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[670]);
@@ -5760,18 +5743,17 @@ public class HyexpressionParser extends HyexpressionANTLRParserBase {
                     addExpectedElement(null, eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[684]);
                     addExpectedElement(null, eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[685]);
                     addExpectedElement(null, eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[686]);
-                    addExpectedElement(null, eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[687]);
                     }
 
                     }
                     break;
                 case 2 :
-                    // Hyexpression.g:3441:2: (a1= IDENTIFIER_TOKEN )
+                    // Hyexpression.g:3427:2: (a1= IDENTIFIER_TOKEN )
                     {
-                    // Hyexpression.g:3441:2: (a1= IDENTIFIER_TOKEN )
-                    // Hyexpression.g:3442:4: a1= IDENTIFIER_TOKEN
+                    // Hyexpression.g:3427:2: (a1= IDENTIFIER_TOKEN )
+                    // Hyexpression.g:3428:4: a1= IDENTIFIER_TOKEN
                     {
-                    a1=(Token)match(input,IDENTIFIER_TOKEN,FOLLOW_IDENTIFIER_TOKEN_in_parse_eu_hyvar_feature_expression_HyFeatureReferenceExpression2518); if (state.failed) return element;
+                    a1=(Token)match(input,IDENTIFIER_TOKEN,FOLLOW_IDENTIFIER_TOKEN_in_parse_eu_hyvar_feature_expression_HyFeatureReferenceExpression2495); if (state.failed) return element;
 
                     if ( state.backtracking==0 ) {
                     if (terminateParsing) {
@@ -5811,8 +5793,9 @@ public class HyexpressionParser extends HyexpressionANTLRParserBase {
 
                     if ( state.backtracking==0 ) {
                     // expected elements (follow set)
+                    addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyFeatureReferenceExpression(), eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[687]);
                     addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyFeatureReferenceExpression(), eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[688]);
-                    addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyFeatureReferenceExpression(), eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[689]);
+                    addExpectedElement(null, eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[689]);
                     addExpectedElement(null, eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[690]);
                     addExpectedElement(null, eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[691]);
                     addExpectedElement(null, eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[692]);
@@ -5832,7 +5815,6 @@ public class HyexpressionParser extends HyexpressionANTLRParserBase {
                     addExpectedElement(null, eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[706]);
                     addExpectedElement(null, eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[707]);
                     addExpectedElement(null, eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[708]);
-                    addExpectedElement(null, eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[709]);
                     }
 
                     }
@@ -5843,8 +5825,9 @@ public class HyexpressionParser extends HyexpressionANTLRParserBase {
 
             if ( state.backtracking==0 ) {
             // expected elements (follow set)
+            addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyFeatureReferenceExpression(), eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[709]);
             addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyFeatureReferenceExpression(), eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[710]);
-            addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyFeatureReferenceExpression(), eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[711]);
+            addExpectedElement(null, eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[711]);
             addExpectedElement(null, eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[712]);
             addExpectedElement(null, eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[713]);
             addExpectedElement(null, eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[714]);
@@ -5864,10 +5847,9 @@ public class HyexpressionParser extends HyexpressionANTLRParserBase {
             addExpectedElement(null, eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[728]);
             addExpectedElement(null, eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[729]);
             addExpectedElement(null, eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[730]);
-            addExpectedElement(null, eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[731]);
             }
 
-            // Hyexpression.g:3529:0: ( ( (a2_0= parse_eu_hyvar_feature_expression_HyVersionRestriction ) ) )?
+            // Hyexpression.g:3515:0: ( ( (a2_0= parse_eu_hyvar_feature_expression_HyVersionRestriction ) ) )?
             int alt27=2;
             int LA27_0 = input.LA(1);
 
@@ -5876,15 +5858,15 @@ public class HyexpressionParser extends HyexpressionANTLRParserBase {
             }
             switch (alt27) {
                 case 1 :
-                    // Hyexpression.g:3530:0: ( (a2_0= parse_eu_hyvar_feature_expression_HyVersionRestriction ) )
+                    // Hyexpression.g:3516:0: ( (a2_0= parse_eu_hyvar_feature_expression_HyVersionRestriction ) )
                     {
-                    // Hyexpression.g:3530:6: ( (a2_0= parse_eu_hyvar_feature_expression_HyVersionRestriction ) )
-                    // Hyexpression.g:3531:6: (a2_0= parse_eu_hyvar_feature_expression_HyVersionRestriction )
+                    // Hyexpression.g:3516:6: ( (a2_0= parse_eu_hyvar_feature_expression_HyVersionRestriction ) )
+                    // Hyexpression.g:3517:6: (a2_0= parse_eu_hyvar_feature_expression_HyVersionRestriction )
                     {
-                    // Hyexpression.g:3531:6: (a2_0= parse_eu_hyvar_feature_expression_HyVersionRestriction )
-                    // Hyexpression.g:3532:6: a2_0= parse_eu_hyvar_feature_expression_HyVersionRestriction
+                    // Hyexpression.g:3517:6: (a2_0= parse_eu_hyvar_feature_expression_HyVersionRestriction )
+                    // Hyexpression.g:3518:6: a2_0= parse_eu_hyvar_feature_expression_HyVersionRestriction
                     {
-                    pushFollow(FOLLOW_parse_eu_hyvar_feature_expression_HyVersionRestriction_in_parse_eu_hyvar_feature_expression_HyFeatureReferenceExpression2542);
+                    pushFollow(FOLLOW_parse_eu_hyvar_feature_expression_HyVersionRestriction_in_parse_eu_hyvar_feature_expression_HyFeatureReferenceExpression2519);
                     a2_0=parse_eu_hyvar_feature_expression_HyVersionRestriction();
 
                     state._fsp--;
@@ -5915,6 +5897,7 @@ public class HyexpressionParser extends HyexpressionANTLRParserBase {
 
                     if ( state.backtracking==0 ) {
                     // expected elements (follow set)
+                    addExpectedElement(null, eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[731]);
                     addExpectedElement(null, eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[732]);
                     addExpectedElement(null, eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[733]);
                     addExpectedElement(null, eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[734]);
@@ -5934,7 +5917,6 @@ public class HyexpressionParser extends HyexpressionANTLRParserBase {
                     addExpectedElement(null, eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[748]);
                     addExpectedElement(null, eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[749]);
                     addExpectedElement(null, eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[750]);
-                    addExpectedElement(null, eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[751]);
                     }
 
                     }
@@ -5948,6 +5930,7 @@ public class HyexpressionParser extends HyexpressionANTLRParserBase {
 
             if ( state.backtracking==0 ) {
             // expected elements (follow set)
+            addExpectedElement(null, eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[751]);
             addExpectedElement(null, eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[752]);
             addExpectedElement(null, eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[753]);
             addExpectedElement(null, eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[754]);
@@ -5967,7 +5950,6 @@ public class HyexpressionParser extends HyexpressionANTLRParserBase {
             addExpectedElement(null, eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[768]);
             addExpectedElement(null, eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[769]);
             addExpectedElement(null, eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[770]);
-            addExpectedElement(null, eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[771]);
             }
 
             }
@@ -5990,7 +5972,7 @@ public class HyexpressionParser extends HyexpressionANTLRParserBase {
 
 
     // $ANTLR start "parse_eu_hyvar_feature_expression_HyConditionalFeatureReferenceExpression"
-    // Hyexpression.g:3604:1: parse_eu_hyvar_feature_expression_HyConditionalFeatureReferenceExpression returns [eu.hyvar.feature.expression.HyConditionalFeatureReferenceExpression element = null] : a0= '?' ( (a1= QUOTED_34_34 ) | (a2= IDENTIFIER_TOKEN ) ) (a3_0= parse_eu_hyvar_feature_expression_HyVersionRestriction ) ;
+    // Hyexpression.g:3590:1: parse_eu_hyvar_feature_expression_HyConditionalFeatureReferenceExpression returns [eu.hyvar.feature.expression.HyConditionalFeatureReferenceExpression element = null] : a0= '?' ( (a1= QUOTED_34_34 ) | (a2= IDENTIFIER_TOKEN ) ) (a3_0= parse_eu_hyvar_feature_expression_HyVersionRestriction ) ;
     public final eu.hyvar.feature.expression.HyConditionalFeatureReferenceExpression parse_eu_hyvar_feature_expression_HyConditionalFeatureReferenceExpression() throws RecognitionException {
         eu.hyvar.feature.expression.HyConditionalFeatureReferenceExpression element =  null;
 
@@ -6007,10 +5989,10 @@ public class HyexpressionParser extends HyexpressionANTLRParserBase {
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 17) ) { return element; }
 
-            // Hyexpression.g:3607:4: (a0= '?' ( (a1= QUOTED_34_34 ) | (a2= IDENTIFIER_TOKEN ) ) (a3_0= parse_eu_hyvar_feature_expression_HyVersionRestriction ) )
-            // Hyexpression.g:3608:4: a0= '?' ( (a1= QUOTED_34_34 ) | (a2= IDENTIFIER_TOKEN ) ) (a3_0= parse_eu_hyvar_feature_expression_HyVersionRestriction )
+            // Hyexpression.g:3593:4: (a0= '?' ( (a1= QUOTED_34_34 ) | (a2= IDENTIFIER_TOKEN ) ) (a3_0= parse_eu_hyvar_feature_expression_HyVersionRestriction ) )
+            // Hyexpression.g:3594:4: a0= '?' ( (a1= QUOTED_34_34 ) | (a2= IDENTIFIER_TOKEN ) ) (a3_0= parse_eu_hyvar_feature_expression_HyVersionRestriction )
             {
-            a0=(Token)match(input,30,FOLLOW_30_in_parse_eu_hyvar_feature_expression_HyConditionalFeatureReferenceExpression2577); if (state.failed) return element;
+            a0=(Token)match(input,30,FOLLOW_30_in_parse_eu_hyvar_feature_expression_HyConditionalFeatureReferenceExpression2554); if (state.failed) return element;
 
             if ( state.backtracking==0 ) {
             if (element == null) {
@@ -6024,11 +6006,11 @@ public class HyexpressionParser extends HyexpressionANTLRParserBase {
 
             if ( state.backtracking==0 ) {
             // expected elements (follow set)
+            addExpectedElement(null, eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[771]);
             addExpectedElement(null, eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[772]);
-            addExpectedElement(null, eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[773]);
             }
 
-            // Hyexpression.g:3623:0: ( (a1= QUOTED_34_34 ) | (a2= IDENTIFIER_TOKEN ) )
+            // Hyexpression.g:3609:0: ( (a1= QUOTED_34_34 ) | (a2= IDENTIFIER_TOKEN ) )
             int alt28=2;
             int LA28_0 = input.LA(1);
 
@@ -6048,12 +6030,12 @@ public class HyexpressionParser extends HyexpressionANTLRParserBase {
             }
             switch (alt28) {
                 case 1 :
-                    // Hyexpression.g:3624:0: (a1= QUOTED_34_34 )
+                    // Hyexpression.g:3610:0: (a1= QUOTED_34_34 )
                     {
-                    // Hyexpression.g:3624:4: (a1= QUOTED_34_34 )
-                    // Hyexpression.g:3625:4: a1= QUOTED_34_34
+                    // Hyexpression.g:3610:4: (a1= QUOTED_34_34 )
+                    // Hyexpression.g:3611:4: a1= QUOTED_34_34
                     {
-                    a1=(Token)match(input,QUOTED_34_34,FOLLOW_QUOTED_34_34_in_parse_eu_hyvar_feature_expression_HyConditionalFeatureReferenceExpression2592); if (state.failed) return element;
+                    a1=(Token)match(input,QUOTED_34_34,FOLLOW_QUOTED_34_34_in_parse_eu_hyvar_feature_expression_HyConditionalFeatureReferenceExpression2569); if (state.failed) return element;
 
                     if ( state.backtracking==0 ) {
                     if (terminateParsing) {
@@ -6093,19 +6075,19 @@ public class HyexpressionParser extends HyexpressionANTLRParserBase {
 
                     if ( state.backtracking==0 ) {
                     // expected elements (follow set)
+                    addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyConditionalFeatureReferenceExpression(), eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[773]);
                     addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyConditionalFeatureReferenceExpression(), eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[774]);
-                    addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyConditionalFeatureReferenceExpression(), eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[775]);
                     }
 
                     }
                     break;
                 case 2 :
-                    // Hyexpression.g:3666:2: (a2= IDENTIFIER_TOKEN )
+                    // Hyexpression.g:3652:2: (a2= IDENTIFIER_TOKEN )
                     {
-                    // Hyexpression.g:3666:2: (a2= IDENTIFIER_TOKEN )
-                    // Hyexpression.g:3667:4: a2= IDENTIFIER_TOKEN
+                    // Hyexpression.g:3652:2: (a2= IDENTIFIER_TOKEN )
+                    // Hyexpression.g:3653:4: a2= IDENTIFIER_TOKEN
                     {
-                    a2=(Token)match(input,IDENTIFIER_TOKEN,FOLLOW_IDENTIFIER_TOKEN_in_parse_eu_hyvar_feature_expression_HyConditionalFeatureReferenceExpression2609); if (state.failed) return element;
+                    a2=(Token)match(input,IDENTIFIER_TOKEN,FOLLOW_IDENTIFIER_TOKEN_in_parse_eu_hyvar_feature_expression_HyConditionalFeatureReferenceExpression2586); if (state.failed) return element;
 
                     if ( state.backtracking==0 ) {
                     if (terminateParsing) {
@@ -6145,8 +6127,8 @@ public class HyexpressionParser extends HyexpressionANTLRParserBase {
 
                     if ( state.backtracking==0 ) {
                     // expected elements (follow set)
+                    addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyConditionalFeatureReferenceExpression(), eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[775]);
                     addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyConditionalFeatureReferenceExpression(), eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[776]);
-                    addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyConditionalFeatureReferenceExpression(), eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[777]);
                     }
 
                     }
@@ -6157,14 +6139,14 @@ public class HyexpressionParser extends HyexpressionANTLRParserBase {
 
             if ( state.backtracking==0 ) {
             // expected elements (follow set)
+            addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyConditionalFeatureReferenceExpression(), eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[777]);
             addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyConditionalFeatureReferenceExpression(), eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[778]);
-            addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyConditionalFeatureReferenceExpression(), eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[779]);
             }
 
-            // Hyexpression.g:3714:6: (a3_0= parse_eu_hyvar_feature_expression_HyVersionRestriction )
-            // Hyexpression.g:3715:6: a3_0= parse_eu_hyvar_feature_expression_HyVersionRestriction
+            // Hyexpression.g:3700:6: (a3_0= parse_eu_hyvar_feature_expression_HyVersionRestriction )
+            // Hyexpression.g:3701:6: a3_0= parse_eu_hyvar_feature_expression_HyVersionRestriction
             {
-            pushFollow(FOLLOW_parse_eu_hyvar_feature_expression_HyVersionRestriction_in_parse_eu_hyvar_feature_expression_HyConditionalFeatureReferenceExpression2629);
+            pushFollow(FOLLOW_parse_eu_hyvar_feature_expression_HyVersionRestriction_in_parse_eu_hyvar_feature_expression_HyConditionalFeatureReferenceExpression2606);
             a3_0=parse_eu_hyvar_feature_expression_HyVersionRestriction();
 
             state._fsp--;
@@ -6195,6 +6177,7 @@ public class HyexpressionParser extends HyexpressionANTLRParserBase {
 
             if ( state.backtracking==0 ) {
             // expected elements (follow set)
+            addExpectedElement(null, eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[779]);
             addExpectedElement(null, eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[780]);
             addExpectedElement(null, eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[781]);
             addExpectedElement(null, eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[782]);
@@ -6214,7 +6197,6 @@ public class HyexpressionParser extends HyexpressionANTLRParserBase {
             addExpectedElement(null, eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[796]);
             addExpectedElement(null, eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[797]);
             addExpectedElement(null, eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[798]);
-            addExpectedElement(null, eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[799]);
             }
 
             }
@@ -6237,7 +6219,7 @@ public class HyexpressionParser extends HyexpressionANTLRParserBase {
 
 
     // $ANTLR start "parse_eu_hyvar_feature_expression_HyContextInformationReferenceExpression"
-    // Hyexpression.g:3761:1: parse_eu_hyvar_feature_expression_HyContextInformationReferenceExpression returns [eu.hyvar.feature.expression.HyContextInformationReferenceExpression element = null] : a0= 'context:' (a1= IDENTIFIER_TOKEN ) ;
+    // Hyexpression.g:3747:1: parse_eu_hyvar_feature_expression_HyContextInformationReferenceExpression returns [eu.hyvar.feature.expression.HyContextInformationReferenceExpression element = null] : a0= 'context:' (a1= IDENTIFIER_TOKEN ) ;
     public final eu.hyvar.feature.expression.HyContextInformationReferenceExpression parse_eu_hyvar_feature_expression_HyContextInformationReferenceExpression() throws RecognitionException {
         eu.hyvar.feature.expression.HyContextInformationReferenceExpression element =  null;
 
@@ -6251,10 +6233,10 @@ public class HyexpressionParser extends HyexpressionANTLRParserBase {
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 18) ) { return element; }
 
-            // Hyexpression.g:3764:4: (a0= 'context:' (a1= IDENTIFIER_TOKEN ) )
-            // Hyexpression.g:3765:4: a0= 'context:' (a1= IDENTIFIER_TOKEN )
+            // Hyexpression.g:3750:4: (a0= 'context:' (a1= IDENTIFIER_TOKEN ) )
+            // Hyexpression.g:3751:4: a0= 'context:' (a1= IDENTIFIER_TOKEN )
             {
-            a0=(Token)match(input,37,FOLLOW_37_in_parse_eu_hyvar_feature_expression_HyContextInformationReferenceExpression2656); if (state.failed) return element;
+            a0=(Token)match(input,37,FOLLOW_37_in_parse_eu_hyvar_feature_expression_HyContextInformationReferenceExpression2633); if (state.failed) return element;
 
             if ( state.backtracking==0 ) {
             if (element == null) {
@@ -6268,13 +6250,13 @@ public class HyexpressionParser extends HyexpressionANTLRParserBase {
 
             if ( state.backtracking==0 ) {
             // expected elements (follow set)
-            addExpectedElement(null, eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[800]);
+            addExpectedElement(null, eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[799]);
             }
 
-            // Hyexpression.g:3779:4: (a1= IDENTIFIER_TOKEN )
-            // Hyexpression.g:3780:4: a1= IDENTIFIER_TOKEN
+            // Hyexpression.g:3765:4: (a1= IDENTIFIER_TOKEN )
+            // Hyexpression.g:3766:4: a1= IDENTIFIER_TOKEN
             {
-            a1=(Token)match(input,IDENTIFIER_TOKEN,FOLLOW_IDENTIFIER_TOKEN_in_parse_eu_hyvar_feature_expression_HyContextInformationReferenceExpression2669); if (state.failed) return element;
+            a1=(Token)match(input,IDENTIFIER_TOKEN,FOLLOW_IDENTIFIER_TOKEN_in_parse_eu_hyvar_feature_expression_HyContextInformationReferenceExpression2646); if (state.failed) return element;
 
             if ( state.backtracking==0 ) {
             if (terminateParsing) {
@@ -6314,6 +6296,7 @@ public class HyexpressionParser extends HyexpressionANTLRParserBase {
 
             if ( state.backtracking==0 ) {
             // expected elements (follow set)
+            addExpectedElement(null, eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[800]);
             addExpectedElement(null, eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[801]);
             addExpectedElement(null, eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[802]);
             addExpectedElement(null, eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[803]);
@@ -6333,7 +6316,6 @@ public class HyexpressionParser extends HyexpressionANTLRParserBase {
             addExpectedElement(null, eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[817]);
             addExpectedElement(null, eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[818]);
             addExpectedElement(null, eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[819]);
-            addExpectedElement(null, eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[820]);
             }
 
             }
@@ -6356,7 +6338,7 @@ public class HyexpressionParser extends HyexpressionANTLRParserBase {
 
 
     // $ANTLR start "parse_eu_hyvar_feature_expression_HyAttributeReferenceExpression"
-    // Hyexpression.g:3840:1: parse_eu_hyvar_feature_expression_HyAttributeReferenceExpression returns [eu.hyvar.feature.expression.HyAttributeReferenceExpression element = null] : ( (a0= QUOTED_34_34 ) | (a1= IDENTIFIER_TOKEN ) ) a2= '.' (a3= IDENTIFIER_TOKEN ) ;
+    // Hyexpression.g:3826:1: parse_eu_hyvar_feature_expression_HyAttributeReferenceExpression returns [eu.hyvar.feature.expression.HyAttributeReferenceExpression element = null] : ( (a0= QUOTED_34_34 ) | (a1= IDENTIFIER_TOKEN ) ) a2= '.' (a3= IDENTIFIER_TOKEN ) ;
     public final eu.hyvar.feature.expression.HyAttributeReferenceExpression parse_eu_hyvar_feature_expression_HyAttributeReferenceExpression() throws RecognitionException {
         eu.hyvar.feature.expression.HyAttributeReferenceExpression element =  null;
 
@@ -6372,10 +6354,10 @@ public class HyexpressionParser extends HyexpressionANTLRParserBase {
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 19) ) { return element; }
 
-            // Hyexpression.g:3843:0: ( ( (a0= QUOTED_34_34 ) | (a1= IDENTIFIER_TOKEN ) ) a2= '.' (a3= IDENTIFIER_TOKEN ) )
-            // Hyexpression.g:3844:0: ( (a0= QUOTED_34_34 ) | (a1= IDENTIFIER_TOKEN ) ) a2= '.' (a3= IDENTIFIER_TOKEN )
+            // Hyexpression.g:3829:0: ( ( (a0= QUOTED_34_34 ) | (a1= IDENTIFIER_TOKEN ) ) a2= '.' (a3= IDENTIFIER_TOKEN ) )
+            // Hyexpression.g:3830:0: ( (a0= QUOTED_34_34 ) | (a1= IDENTIFIER_TOKEN ) ) a2= '.' (a3= IDENTIFIER_TOKEN )
             {
-            // Hyexpression.g:3844:0: ( (a0= QUOTED_34_34 ) | (a1= IDENTIFIER_TOKEN ) )
+            // Hyexpression.g:3830:0: ( (a0= QUOTED_34_34 ) | (a1= IDENTIFIER_TOKEN ) )
             int alt29=2;
             int LA29_0 = input.LA(1);
 
@@ -6395,12 +6377,12 @@ public class HyexpressionParser extends HyexpressionANTLRParserBase {
             }
             switch (alt29) {
                 case 1 :
-                    // Hyexpression.g:3845:0: (a0= QUOTED_34_34 )
+                    // Hyexpression.g:3831:0: (a0= QUOTED_34_34 )
                     {
-                    // Hyexpression.g:3845:4: (a0= QUOTED_34_34 )
-                    // Hyexpression.g:3846:4: a0= QUOTED_34_34
+                    // Hyexpression.g:3831:4: (a0= QUOTED_34_34 )
+                    // Hyexpression.g:3832:4: a0= QUOTED_34_34
                     {
-                    a0=(Token)match(input,QUOTED_34_34,FOLLOW_QUOTED_34_34_in_parse_eu_hyvar_feature_expression_HyAttributeReferenceExpression2701); if (state.failed) return element;
+                    a0=(Token)match(input,QUOTED_34_34,FOLLOW_QUOTED_34_34_in_parse_eu_hyvar_feature_expression_HyAttributeReferenceExpression2678); if (state.failed) return element;
 
                     if ( state.backtracking==0 ) {
                     if (terminateParsing) {
@@ -6440,18 +6422,18 @@ public class HyexpressionParser extends HyexpressionANTLRParserBase {
 
                     if ( state.backtracking==0 ) {
                     // expected elements (follow set)
-                    addExpectedElement(null, eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[821]);
+                    addExpectedElement(null, eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[820]);
                     }
 
                     }
                     break;
                 case 2 :
-                    // Hyexpression.g:3886:2: (a1= IDENTIFIER_TOKEN )
+                    // Hyexpression.g:3872:2: (a1= IDENTIFIER_TOKEN )
                     {
-                    // Hyexpression.g:3886:2: (a1= IDENTIFIER_TOKEN )
-                    // Hyexpression.g:3887:4: a1= IDENTIFIER_TOKEN
+                    // Hyexpression.g:3872:2: (a1= IDENTIFIER_TOKEN )
+                    // Hyexpression.g:3873:4: a1= IDENTIFIER_TOKEN
                     {
-                    a1=(Token)match(input,IDENTIFIER_TOKEN,FOLLOW_IDENTIFIER_TOKEN_in_parse_eu_hyvar_feature_expression_HyAttributeReferenceExpression2718); if (state.failed) return element;
+                    a1=(Token)match(input,IDENTIFIER_TOKEN,FOLLOW_IDENTIFIER_TOKEN_in_parse_eu_hyvar_feature_expression_HyAttributeReferenceExpression2695); if (state.failed) return element;
 
                     if ( state.backtracking==0 ) {
                     if (terminateParsing) {
@@ -6491,7 +6473,7 @@ public class HyexpressionParser extends HyexpressionANTLRParserBase {
 
                     if ( state.backtracking==0 ) {
                     // expected elements (follow set)
-                    addExpectedElement(null, eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[822]);
+                    addExpectedElement(null, eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[821]);
                     }
 
                     }
@@ -6502,10 +6484,10 @@ public class HyexpressionParser extends HyexpressionANTLRParserBase {
 
             if ( state.backtracking==0 ) {
             // expected elements (follow set)
-            addExpectedElement(null, eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[823]);
+            addExpectedElement(null, eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[822]);
             }
 
-            a2=(Token)match(input,22,FOLLOW_22_in_parse_eu_hyvar_feature_expression_HyAttributeReferenceExpression2736); if (state.failed) return element;
+            a2=(Token)match(input,22,FOLLOW_22_in_parse_eu_hyvar_feature_expression_HyAttributeReferenceExpression2713); if (state.failed) return element;
 
             if ( state.backtracking==0 ) {
             if (element == null) {
@@ -6519,13 +6501,13 @@ public class HyexpressionParser extends HyexpressionANTLRParserBase {
 
             if ( state.backtracking==0 ) {
             // expected elements (follow set)
-            addExpectedElement(null, eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[824]);
+            addExpectedElement(null, eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[823]);
             }
 
-            // Hyexpression.g:3946:4: (a3= IDENTIFIER_TOKEN )
-            // Hyexpression.g:3947:4: a3= IDENTIFIER_TOKEN
+            // Hyexpression.g:3932:4: (a3= IDENTIFIER_TOKEN )
+            // Hyexpression.g:3933:4: a3= IDENTIFIER_TOKEN
             {
-            a3=(Token)match(input,IDENTIFIER_TOKEN,FOLLOW_IDENTIFIER_TOKEN_in_parse_eu_hyvar_feature_expression_HyAttributeReferenceExpression2749); if (state.failed) return element;
+            a3=(Token)match(input,IDENTIFIER_TOKEN,FOLLOW_IDENTIFIER_TOKEN_in_parse_eu_hyvar_feature_expression_HyAttributeReferenceExpression2726); if (state.failed) return element;
 
             if ( state.backtracking==0 ) {
             if (terminateParsing) {
@@ -6565,6 +6547,7 @@ public class HyexpressionParser extends HyexpressionANTLRParserBase {
 
             if ( state.backtracking==0 ) {
             // expected elements (follow set)
+            addExpectedElement(null, eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[824]);
             addExpectedElement(null, eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[825]);
             addExpectedElement(null, eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[826]);
             addExpectedElement(null, eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[827]);
@@ -6584,7 +6567,6 @@ public class HyexpressionParser extends HyexpressionANTLRParserBase {
             addExpectedElement(null, eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[841]);
             addExpectedElement(null, eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[842]);
             addExpectedElement(null, eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[843]);
-            addExpectedElement(null, eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[844]);
             }
 
             }
@@ -6607,7 +6589,7 @@ public class HyexpressionParser extends HyexpressionANTLRParserBase {
 
 
     // $ANTLR start "parse_eu_hyvar_feature_expression_HyValueExpression"
-    // Hyexpression.g:4007:1: parse_eu_hyvar_feature_expression_HyValueExpression returns [eu.hyvar.feature.expression.HyValueExpression element = null] : (a0_0= parse_eu_hyvar_dataValues_HyValue ) ;
+    // Hyexpression.g:3993:1: parse_eu_hyvar_feature_expression_HyValueExpression returns [eu.hyvar.feature.expression.HyValueExpression element = null] : (a0_0= parse_eu_hyvar_dataValues_HyValue ) ;
     public final eu.hyvar.feature.expression.HyValueExpression parse_eu_hyvar_feature_expression_HyValueExpression() throws RecognitionException {
         eu.hyvar.feature.expression.HyValueExpression element =  null;
 
@@ -6621,13 +6603,13 @@ public class HyexpressionParser extends HyexpressionANTLRParserBase {
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 20) ) { return element; }
 
-            // Hyexpression.g:4010:6: ( (a0_0= parse_eu_hyvar_dataValues_HyValue ) )
-            // Hyexpression.g:4011:6: (a0_0= parse_eu_hyvar_dataValues_HyValue )
+            // Hyexpression.g:3996:6: ( (a0_0= parse_eu_hyvar_dataValues_HyValue ) )
+            // Hyexpression.g:3997:6: (a0_0= parse_eu_hyvar_dataValues_HyValue )
             {
-            // Hyexpression.g:4011:6: (a0_0= parse_eu_hyvar_dataValues_HyValue )
-            // Hyexpression.g:4012:6: a0_0= parse_eu_hyvar_dataValues_HyValue
+            // Hyexpression.g:3997:6: (a0_0= parse_eu_hyvar_dataValues_HyValue )
+            // Hyexpression.g:3998:6: a0_0= parse_eu_hyvar_dataValues_HyValue
             {
-            pushFollow(FOLLOW_parse_eu_hyvar_dataValues_HyValue_in_parse_eu_hyvar_feature_expression_HyValueExpression2779);
+            pushFollow(FOLLOW_parse_eu_hyvar_dataValues_HyValue_in_parse_eu_hyvar_feature_expression_HyValueExpression2756);
             a0_0=parse_eu_hyvar_dataValues_HyValue();
 
             state._fsp--;
@@ -6658,6 +6640,7 @@ public class HyexpressionParser extends HyexpressionANTLRParserBase {
 
             if ( state.backtracking==0 ) {
             // expected elements (follow set)
+            addExpectedElement(null, eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[844]);
             addExpectedElement(null, eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[845]);
             addExpectedElement(null, eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[846]);
             addExpectedElement(null, eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[847]);
@@ -6677,7 +6660,6 @@ public class HyexpressionParser extends HyexpressionANTLRParserBase {
             addExpectedElement(null, eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[861]);
             addExpectedElement(null, eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[862]);
             addExpectedElement(null, eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[863]);
-            addExpectedElement(null, eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[864]);
             }
 
             }
@@ -6700,7 +6682,7 @@ public class HyexpressionParser extends HyexpressionANTLRParserBase {
 
 
     // $ANTLR start "parse_eu_hyvar_feature_expression_HyBooleanValueExpression"
-    // Hyexpression.g:4058:1: parse_eu_hyvar_feature_expression_HyBooleanValueExpression returns [eu.hyvar.feature.expression.HyBooleanValueExpression element = null] : ( (a0= 'true' |a1= 'false' ) ) ;
+    // Hyexpression.g:4044:1: parse_eu_hyvar_feature_expression_HyBooleanValueExpression returns [eu.hyvar.feature.expression.HyBooleanValueExpression element = null] : ( (a0= 'true' |a1= 'false' ) ) ;
     public final eu.hyvar.feature.expression.HyBooleanValueExpression parse_eu_hyvar_feature_expression_HyBooleanValueExpression() throws RecognitionException {
         eu.hyvar.feature.expression.HyBooleanValueExpression element =  null;
 
@@ -6714,20 +6696,20 @@ public class HyexpressionParser extends HyexpressionANTLRParserBase {
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 21) ) { return element; }
 
-            // Hyexpression.g:4061:0: ( ( (a0= 'true' |a1= 'false' ) ) )
-            // Hyexpression.g:4062:0: ( (a0= 'true' |a1= 'false' ) )
+            // Hyexpression.g:4047:0: ( ( (a0= 'true' |a1= 'false' ) ) )
+            // Hyexpression.g:4048:0: ( (a0= 'true' |a1= 'false' ) )
             {
-            // Hyexpression.g:4062:0: ( (a0= 'true' |a1= 'false' ) )
-            // Hyexpression.g:4063:0: (a0= 'true' |a1= 'false' )
+            // Hyexpression.g:4048:0: ( (a0= 'true' |a1= 'false' ) )
+            // Hyexpression.g:4049:0: (a0= 'true' |a1= 'false' )
             {
-            // Hyexpression.g:4063:0: (a0= 'true' |a1= 'false' )
+            // Hyexpression.g:4049:0: (a0= 'true' |a1= 'false' )
             int alt30=2;
             int LA30_0 = input.LA(1);
 
             if ( (LA30_0==44) ) {
                 alt30=1;
             }
-            else if ( (LA30_0==39) ) {
+            else if ( (LA30_0==40) ) {
                 alt30=2;
             }
             else {
@@ -6740,9 +6722,9 @@ public class HyexpressionParser extends HyexpressionANTLRParserBase {
             }
             switch (alt30) {
                 case 1 :
-                    // Hyexpression.g:4064:0: a0= 'true'
+                    // Hyexpression.g:4050:0: a0= 'true'
                     {
-                    a0=(Token)match(input,44,FOLLOW_44_in_parse_eu_hyvar_feature_expression_HyBooleanValueExpression2810); if (state.failed) return element;
+                    a0=(Token)match(input,44,FOLLOW_44_in_parse_eu_hyvar_feature_expression_HyBooleanValueExpression2787); if (state.failed) return element;
 
                     if ( state.backtracking==0 ) {
                     if (element == null) {
@@ -6761,9 +6743,9 @@ public class HyexpressionParser extends HyexpressionANTLRParserBase {
                     }
                     break;
                 case 2 :
-                    // Hyexpression.g:4077:2: a1= 'false'
+                    // Hyexpression.g:4063:2: a1= 'false'
                     {
-                    a1=(Token)match(input,39,FOLLOW_39_in_parse_eu_hyvar_feature_expression_HyBooleanValueExpression2819); if (state.failed) return element;
+                    a1=(Token)match(input,40,FOLLOW_40_in_parse_eu_hyvar_feature_expression_HyBooleanValueExpression2796); if (state.failed) return element;
 
                     if ( state.backtracking==0 ) {
                     if (element == null) {
@@ -6790,6 +6772,7 @@ public class HyexpressionParser extends HyexpressionANTLRParserBase {
 
             if ( state.backtracking==0 ) {
             // expected elements (follow set)
+            addExpectedElement(null, eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[864]);
             addExpectedElement(null, eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[865]);
             addExpectedElement(null, eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[866]);
             addExpectedElement(null, eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[867]);
@@ -6809,7 +6792,6 @@ public class HyexpressionParser extends HyexpressionANTLRParserBase {
             addExpectedElement(null, eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[881]);
             addExpectedElement(null, eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[882]);
             addExpectedElement(null, eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[883]);
-            addExpectedElement(null, eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[884]);
             }
 
             }
@@ -6832,7 +6814,7 @@ public class HyexpressionParser extends HyexpressionANTLRParserBase {
 
 
     // $ANTLR start "parse_eu_hyvar_feature_expression_HyMinimumExpression"
-    // Hyexpression.g:4118:1: parse_eu_hyvar_feature_expression_HyMinimumExpression returns [eu.hyvar.feature.expression.HyMinimumExpression element = null] : a0= 'min(' (a1_0= parse_eu_hyvar_feature_expression_HyExpression ) a2= ')' ;
+    // Hyexpression.g:4104:1: parse_eu_hyvar_feature_expression_HyMinimumExpression returns [eu.hyvar.feature.expression.HyMinimumExpression element = null] : a0= 'min(' (a1_0= parse_eu_hyvar_feature_expression_HyExpression ) a2= ')' ;
     public final eu.hyvar.feature.expression.HyMinimumExpression parse_eu_hyvar_feature_expression_HyMinimumExpression() throws RecognitionException {
         eu.hyvar.feature.expression.HyMinimumExpression element =  null;
 
@@ -6848,10 +6830,10 @@ public class HyexpressionParser extends HyexpressionANTLRParserBase {
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 22) ) { return element; }
 
-            // Hyexpression.g:4121:4: (a0= 'min(' (a1_0= parse_eu_hyvar_feature_expression_HyExpression ) a2= ')' )
-            // Hyexpression.g:4122:4: a0= 'min(' (a1_0= parse_eu_hyvar_feature_expression_HyExpression ) a2= ')'
+            // Hyexpression.g:4107:4: (a0= 'min(' (a1_0= parse_eu_hyvar_feature_expression_HyExpression ) a2= ')' )
+            // Hyexpression.g:4108:4: a0= 'min(' (a1_0= parse_eu_hyvar_feature_expression_HyExpression ) a2= ')'
             {
-            a0=(Token)match(input,42,FOLLOW_42_in_parse_eu_hyvar_feature_expression_HyMinimumExpression2849); if (state.failed) return element;
+            a0=(Token)match(input,43,FOLLOW_43_in_parse_eu_hyvar_feature_expression_HyMinimumExpression2826); if (state.failed) return element;
 
             if ( state.backtracking==0 ) {
             if (element == null) {
@@ -6865,6 +6847,7 @@ public class HyexpressionParser extends HyexpressionANTLRParserBase {
 
             if ( state.backtracking==0 ) {
             // expected elements (follow set)
+            addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyMinimumExpression(), eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[884]);
             addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyMinimumExpression(), eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[885]);
             addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyMinimumExpression(), eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[886]);
             addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyMinimumExpression(), eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[887]);
@@ -6880,13 +6863,12 @@ public class HyexpressionParser extends HyexpressionANTLRParserBase {
             addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyMinimumExpression(), eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[897]);
             addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyMinimumExpression(), eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[898]);
             addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyMinimumExpression(), eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[899]);
-            addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyMinimumExpression(), eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[900]);
             }
 
-            // Hyexpression.g:4151:6: (a1_0= parse_eu_hyvar_feature_expression_HyExpression )
-            // Hyexpression.g:4152:6: a1_0= parse_eu_hyvar_feature_expression_HyExpression
+            // Hyexpression.g:4137:6: (a1_0= parse_eu_hyvar_feature_expression_HyExpression )
+            // Hyexpression.g:4138:6: a1_0= parse_eu_hyvar_feature_expression_HyExpression
             {
-            pushFollow(FOLLOW_parse_eu_hyvar_feature_expression_HyExpression_in_parse_eu_hyvar_feature_expression_HyMinimumExpression2862);
+            pushFollow(FOLLOW_parse_eu_hyvar_feature_expression_HyExpression_in_parse_eu_hyvar_feature_expression_HyMinimumExpression2839);
             a1_0=parse_eu_hyvar_feature_expression_HyExpression();
 
             state._fsp--;
@@ -6917,10 +6899,10 @@ public class HyexpressionParser extends HyexpressionANTLRParserBase {
 
             if ( state.backtracking==0 ) {
             // expected elements (follow set)
-            addExpectedElement(null, eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[901]);
+            addExpectedElement(null, eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[900]);
             }
 
-            a2=(Token)match(input,16,FOLLOW_16_in_parse_eu_hyvar_feature_expression_HyMinimumExpression2874); if (state.failed) return element;
+            a2=(Token)match(input,16,FOLLOW_16_in_parse_eu_hyvar_feature_expression_HyMinimumExpression2851); if (state.failed) return element;
 
             if ( state.backtracking==0 ) {
             if (element == null) {
@@ -6934,6 +6916,7 @@ public class HyexpressionParser extends HyexpressionANTLRParserBase {
 
             if ( state.backtracking==0 ) {
             // expected elements (follow set)
+            addExpectedElement(null, eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[901]);
             addExpectedElement(null, eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[902]);
             addExpectedElement(null, eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[903]);
             addExpectedElement(null, eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[904]);
@@ -6953,7 +6936,6 @@ public class HyexpressionParser extends HyexpressionANTLRParserBase {
             addExpectedElement(null, eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[918]);
             addExpectedElement(null, eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[919]);
             addExpectedElement(null, eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[920]);
-            addExpectedElement(null, eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[921]);
             }
 
             }
@@ -6976,7 +6958,7 @@ public class HyexpressionParser extends HyexpressionANTLRParserBase {
 
 
     // $ANTLR start "parse_eu_hyvar_feature_expression_HyMaximumExpression"
-    // Hyexpression.g:4212:1: parse_eu_hyvar_feature_expression_HyMaximumExpression returns [eu.hyvar.feature.expression.HyMaximumExpression element = null] : a0= 'max(' (a1_0= parse_eu_hyvar_feature_expression_HyExpression ) a2= ')' ;
+    // Hyexpression.g:4198:1: parse_eu_hyvar_feature_expression_HyMaximumExpression returns [eu.hyvar.feature.expression.HyMaximumExpression element = null] : a0= 'max(' (a1_0= parse_eu_hyvar_feature_expression_HyExpression ) a2= ')' ;
     public final eu.hyvar.feature.expression.HyMaximumExpression parse_eu_hyvar_feature_expression_HyMaximumExpression() throws RecognitionException {
         eu.hyvar.feature.expression.HyMaximumExpression element =  null;
 
@@ -6992,10 +6974,10 @@ public class HyexpressionParser extends HyexpressionANTLRParserBase {
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 23) ) { return element; }
 
-            // Hyexpression.g:4215:4: (a0= 'max(' (a1_0= parse_eu_hyvar_feature_expression_HyExpression ) a2= ')' )
-            // Hyexpression.g:4216:4: a0= 'max(' (a1_0= parse_eu_hyvar_feature_expression_HyExpression ) a2= ')'
+            // Hyexpression.g:4201:4: (a0= 'max(' (a1_0= parse_eu_hyvar_feature_expression_HyExpression ) a2= ')' )
+            // Hyexpression.g:4202:4: a0= 'max(' (a1_0= parse_eu_hyvar_feature_expression_HyExpression ) a2= ')'
             {
-            a0=(Token)match(input,41,FOLLOW_41_in_parse_eu_hyvar_feature_expression_HyMaximumExpression2900); if (state.failed) return element;
+            a0=(Token)match(input,42,FOLLOW_42_in_parse_eu_hyvar_feature_expression_HyMaximumExpression2877); if (state.failed) return element;
 
             if ( state.backtracking==0 ) {
             if (element == null) {
@@ -7009,6 +6991,7 @@ public class HyexpressionParser extends HyexpressionANTLRParserBase {
 
             if ( state.backtracking==0 ) {
             // expected elements (follow set)
+            addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyMaximumExpression(), eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[921]);
             addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyMaximumExpression(), eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[922]);
             addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyMaximumExpression(), eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[923]);
             addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyMaximumExpression(), eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[924]);
@@ -7024,13 +7007,12 @@ public class HyexpressionParser extends HyexpressionANTLRParserBase {
             addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyMaximumExpression(), eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[934]);
             addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyMaximumExpression(), eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[935]);
             addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyMaximumExpression(), eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[936]);
-            addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyMaximumExpression(), eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[937]);
             }
 
-            // Hyexpression.g:4245:6: (a1_0= parse_eu_hyvar_feature_expression_HyExpression )
-            // Hyexpression.g:4246:6: a1_0= parse_eu_hyvar_feature_expression_HyExpression
+            // Hyexpression.g:4231:6: (a1_0= parse_eu_hyvar_feature_expression_HyExpression )
+            // Hyexpression.g:4232:6: a1_0= parse_eu_hyvar_feature_expression_HyExpression
             {
-            pushFollow(FOLLOW_parse_eu_hyvar_feature_expression_HyExpression_in_parse_eu_hyvar_feature_expression_HyMaximumExpression2913);
+            pushFollow(FOLLOW_parse_eu_hyvar_feature_expression_HyExpression_in_parse_eu_hyvar_feature_expression_HyMaximumExpression2890);
             a1_0=parse_eu_hyvar_feature_expression_HyExpression();
 
             state._fsp--;
@@ -7061,10 +7043,10 @@ public class HyexpressionParser extends HyexpressionANTLRParserBase {
 
             if ( state.backtracking==0 ) {
             // expected elements (follow set)
-            addExpectedElement(null, eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[938]);
+            addExpectedElement(null, eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[937]);
             }
 
-            a2=(Token)match(input,16,FOLLOW_16_in_parse_eu_hyvar_feature_expression_HyMaximumExpression2925); if (state.failed) return element;
+            a2=(Token)match(input,16,FOLLOW_16_in_parse_eu_hyvar_feature_expression_HyMaximumExpression2902); if (state.failed) return element;
 
             if ( state.backtracking==0 ) {
             if (element == null) {
@@ -7078,6 +7060,7 @@ public class HyexpressionParser extends HyexpressionANTLRParserBase {
 
             if ( state.backtracking==0 ) {
             // expected elements (follow set)
+            addExpectedElement(null, eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[938]);
             addExpectedElement(null, eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[939]);
             addExpectedElement(null, eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[940]);
             addExpectedElement(null, eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[941]);
@@ -7097,7 +7080,6 @@ public class HyexpressionParser extends HyexpressionANTLRParserBase {
             addExpectedElement(null, eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[955]);
             addExpectedElement(null, eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[956]);
             addExpectedElement(null, eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[957]);
-            addExpectedElement(null, eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[958]);
             }
 
             }
@@ -7120,7 +7102,7 @@ public class HyexpressionParser extends HyexpressionANTLRParserBase {
 
 
     // $ANTLR start "parse_eu_hyvar_feature_expression_HyIfPossibleExpression"
-    // Hyexpression.g:4306:1: parse_eu_hyvar_feature_expression_HyIfPossibleExpression returns [eu.hyvar.feature.expression.HyIfPossibleExpression element = null] : a0= 'ifPossible(' (a1_0= parse_eu_hyvar_feature_expression_HyExpression ) ( (a2= ',' (a3_0= parse_eu_hyvar_feature_expression_HyExpression ) ) )* a4= ')' ;
+    // Hyexpression.g:4292:1: parse_eu_hyvar_feature_expression_HyIfPossibleExpression returns [eu.hyvar.feature.expression.HyIfPossibleExpression element = null] : a0= 'ifPossible(' (a1_0= parse_eu_hyvar_feature_expression_HyExpression ) ( (a2= ',' (a3_0= parse_eu_hyvar_feature_expression_HyExpression ) ) )* a4= ')' ;
     public final eu.hyvar.feature.expression.HyIfPossibleExpression parse_eu_hyvar_feature_expression_HyIfPossibleExpression() throws RecognitionException {
         eu.hyvar.feature.expression.HyIfPossibleExpression element =  null;
 
@@ -7139,10 +7121,10 @@ public class HyexpressionParser extends HyexpressionANTLRParserBase {
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 24) ) { return element; }
 
-            // Hyexpression.g:4309:4: (a0= 'ifPossible(' (a1_0= parse_eu_hyvar_feature_expression_HyExpression ) ( (a2= ',' (a3_0= parse_eu_hyvar_feature_expression_HyExpression ) ) )* a4= ')' )
-            // Hyexpression.g:4310:4: a0= 'ifPossible(' (a1_0= parse_eu_hyvar_feature_expression_HyExpression ) ( (a2= ',' (a3_0= parse_eu_hyvar_feature_expression_HyExpression ) ) )* a4= ')'
+            // Hyexpression.g:4295:4: (a0= 'ifPossible(' (a1_0= parse_eu_hyvar_feature_expression_HyExpression ) ( (a2= ',' (a3_0= parse_eu_hyvar_feature_expression_HyExpression ) ) )* a4= ')' )
+            // Hyexpression.g:4296:4: a0= 'ifPossible(' (a1_0= parse_eu_hyvar_feature_expression_HyExpression ) ( (a2= ',' (a3_0= parse_eu_hyvar_feature_expression_HyExpression ) ) )* a4= ')'
             {
-            a0=(Token)match(input,40,FOLLOW_40_in_parse_eu_hyvar_feature_expression_HyIfPossibleExpression2951); if (state.failed) return element;
+            a0=(Token)match(input,41,FOLLOW_41_in_parse_eu_hyvar_feature_expression_HyIfPossibleExpression2928); if (state.failed) return element;
 
             if ( state.backtracking==0 ) {
             if (element == null) {
@@ -7156,6 +7138,7 @@ public class HyexpressionParser extends HyexpressionANTLRParserBase {
 
             if ( state.backtracking==0 ) {
             // expected elements (follow set)
+            addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyIfPossibleExpression(), eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[958]);
             addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyIfPossibleExpression(), eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[959]);
             addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyIfPossibleExpression(), eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[960]);
             addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyIfPossibleExpression(), eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[961]);
@@ -7171,13 +7154,12 @@ public class HyexpressionParser extends HyexpressionANTLRParserBase {
             addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyIfPossibleExpression(), eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[971]);
             addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyIfPossibleExpression(), eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[972]);
             addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyIfPossibleExpression(), eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[973]);
-            addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyIfPossibleExpression(), eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[974]);
             }
 
-            // Hyexpression.g:4339:6: (a1_0= parse_eu_hyvar_feature_expression_HyExpression )
-            // Hyexpression.g:4340:6: a1_0= parse_eu_hyvar_feature_expression_HyExpression
+            // Hyexpression.g:4325:6: (a1_0= parse_eu_hyvar_feature_expression_HyExpression )
+            // Hyexpression.g:4326:6: a1_0= parse_eu_hyvar_feature_expression_HyExpression
             {
-            pushFollow(FOLLOW_parse_eu_hyvar_feature_expression_HyExpression_in_parse_eu_hyvar_feature_expression_HyIfPossibleExpression2964);
+            pushFollow(FOLLOW_parse_eu_hyvar_feature_expression_HyExpression_in_parse_eu_hyvar_feature_expression_HyIfPossibleExpression2941);
             a1_0=parse_eu_hyvar_feature_expression_HyExpression();
 
             state._fsp--;
@@ -7208,11 +7190,11 @@ public class HyexpressionParser extends HyexpressionANTLRParserBase {
 
             if ( state.backtracking==0 ) {
             // expected elements (follow set)
+            addExpectedElement(null, eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[974]);
             addExpectedElement(null, eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[975]);
-            addExpectedElement(null, eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[976]);
             }
 
-            // Hyexpression.g:4366:0: ( (a2= ',' (a3_0= parse_eu_hyvar_feature_expression_HyExpression ) ) )*
+            // Hyexpression.g:4352:0: ( (a2= ',' (a3_0= parse_eu_hyvar_feature_expression_HyExpression ) ) )*
             loop31:
             do {
                 int alt31=2;
@@ -7225,12 +7207,12 @@ public class HyexpressionParser extends HyexpressionANTLRParserBase {
 
                 switch (alt31) {
             	case 1 :
-            	    // Hyexpression.g:4367:0: (a2= ',' (a3_0= parse_eu_hyvar_feature_expression_HyExpression ) )
+            	    // Hyexpression.g:4353:0: (a2= ',' (a3_0= parse_eu_hyvar_feature_expression_HyExpression ) )
             	    {
-            	    // Hyexpression.g:4367:4: (a2= ',' (a3_0= parse_eu_hyvar_feature_expression_HyExpression ) )
-            	    // Hyexpression.g:4368:4: a2= ',' (a3_0= parse_eu_hyvar_feature_expression_HyExpression )
+            	    // Hyexpression.g:4353:4: (a2= ',' (a3_0= parse_eu_hyvar_feature_expression_HyExpression ) )
+            	    // Hyexpression.g:4354:4: a2= ',' (a3_0= parse_eu_hyvar_feature_expression_HyExpression )
             	    {
-            	    a2=(Token)match(input,19,FOLLOW_19_in_parse_eu_hyvar_feature_expression_HyIfPossibleExpression2980); if (state.failed) return element;
+            	    a2=(Token)match(input,19,FOLLOW_19_in_parse_eu_hyvar_feature_expression_HyIfPossibleExpression2957); if (state.failed) return element;
 
             	    if ( state.backtracking==0 ) {
             	    if (element == null) {
@@ -7244,6 +7226,7 @@ public class HyexpressionParser extends HyexpressionANTLRParserBase {
 
             	    if ( state.backtracking==0 ) {
             	    // expected elements (follow set)
+            	    addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyIfPossibleExpression(), eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[976]);
             	    addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyIfPossibleExpression(), eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[977]);
             	    addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyIfPossibleExpression(), eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[978]);
             	    addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyIfPossibleExpression(), eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[979]);
@@ -7259,13 +7242,12 @@ public class HyexpressionParser extends HyexpressionANTLRParserBase {
             	    addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyIfPossibleExpression(), eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[989]);
             	    addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyIfPossibleExpression(), eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[990]);
             	    addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyIfPossibleExpression(), eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[991]);
-            	    addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyIfPossibleExpression(), eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[992]);
             	    }
 
-            	    // Hyexpression.g:4397:6: (a3_0= parse_eu_hyvar_feature_expression_HyExpression )
-            	    // Hyexpression.g:4398:6: a3_0= parse_eu_hyvar_feature_expression_HyExpression
+            	    // Hyexpression.g:4383:6: (a3_0= parse_eu_hyvar_feature_expression_HyExpression )
+            	    // Hyexpression.g:4384:6: a3_0= parse_eu_hyvar_feature_expression_HyExpression
             	    {
-            	    pushFollow(FOLLOW_parse_eu_hyvar_feature_expression_HyExpression_in_parse_eu_hyvar_feature_expression_HyIfPossibleExpression2993);
+            	    pushFollow(FOLLOW_parse_eu_hyvar_feature_expression_HyExpression_in_parse_eu_hyvar_feature_expression_HyIfPossibleExpression2970);
             	    a3_0=parse_eu_hyvar_feature_expression_HyExpression();
 
             	    state._fsp--;
@@ -7296,8 +7278,8 @@ public class HyexpressionParser extends HyexpressionANTLRParserBase {
 
             	    if ( state.backtracking==0 ) {
             	    // expected elements (follow set)
+            	    addExpectedElement(null, eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[992]);
             	    addExpectedElement(null, eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[993]);
-            	    addExpectedElement(null, eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[994]);
             	    }
 
             	    }
@@ -7314,11 +7296,11 @@ public class HyexpressionParser extends HyexpressionANTLRParserBase {
 
             if ( state.backtracking==0 ) {
             // expected elements (follow set)
+            addExpectedElement(null, eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[994]);
             addExpectedElement(null, eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[995]);
-            addExpectedElement(null, eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[996]);
             }
 
-            a4=(Token)match(input,16,FOLLOW_16_in_parse_eu_hyvar_feature_expression_HyIfPossibleExpression3013); if (state.failed) return element;
+            a4=(Token)match(input,16,FOLLOW_16_in_parse_eu_hyvar_feature_expression_HyIfPossibleExpression2990); if (state.failed) return element;
 
             if ( state.backtracking==0 ) {
             if (element == null) {
@@ -7332,6 +7314,7 @@ public class HyexpressionParser extends HyexpressionANTLRParserBase {
 
             if ( state.backtracking==0 ) {
             // expected elements (follow set)
+            addExpectedElement(null, eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[996]);
             addExpectedElement(null, eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[997]);
             addExpectedElement(null, eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[998]);
             addExpectedElement(null, eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[999]);
@@ -7351,7 +7334,6 @@ public class HyexpressionParser extends HyexpressionANTLRParserBase {
             addExpectedElement(null, eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[1013]);
             addExpectedElement(null, eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[1014]);
             addExpectedElement(null, eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[1015]);
-            addExpectedElement(null, eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[1016]);
             }
 
             }
@@ -7374,7 +7356,7 @@ public class HyexpressionParser extends HyexpressionANTLRParserBase {
 
 
     // $ANTLR start "parseop_HyValue_level_15"
-    // Hyexpression.g:4467:1: parseop_HyValue_level_15 returns [eu.hyvar.dataValues.HyValue element = null] : (c0= parse_eu_hyvar_dataValues_HyNumberValue |c1= parse_eu_hyvar_dataValues_HyBooleanValue |c2= parse_eu_hyvar_dataValues_HyEnumValue );
+    // Hyexpression.g:4453:1: parseop_HyValue_level_15 returns [eu.hyvar.dataValues.HyValue element = null] : (c0= parse_eu_hyvar_dataValues_HyNumberValue |c1= parse_eu_hyvar_dataValues_HyBooleanValue |c2= parse_eu_hyvar_dataValues_HyEnumValue );
     public final eu.hyvar.dataValues.HyValue parseop_HyValue_level_15() throws RecognitionException {
         eu.hyvar.dataValues.HyValue element =  null;
 
@@ -7392,7 +7374,7 @@ public class HyexpressionParser extends HyexpressionANTLRParserBase {
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 25) ) { return element; }
 
-            // Hyexpression.g:4470:0: (c0= parse_eu_hyvar_dataValues_HyNumberValue |c1= parse_eu_hyvar_dataValues_HyBooleanValue |c2= parse_eu_hyvar_dataValues_HyEnumValue )
+            // Hyexpression.g:4456:0: (c0= parse_eu_hyvar_dataValues_HyNumberValue |c1= parse_eu_hyvar_dataValues_HyBooleanValue |c2= parse_eu_hyvar_dataValues_HyEnumValue )
             int alt32=3;
             switch ( input.LA(1) ) {
             case INTEGER_LITERAL:
@@ -7400,7 +7382,7 @@ public class HyexpressionParser extends HyexpressionANTLRParserBase {
                 alt32=1;
                 }
                 break;
-            case 39:
+            case 40:
             case 44:
                 {
                 alt32=2;
@@ -7422,9 +7404,9 @@ public class HyexpressionParser extends HyexpressionANTLRParserBase {
 
             switch (alt32) {
                 case 1 :
-                    // Hyexpression.g:4471:0: c0= parse_eu_hyvar_dataValues_HyNumberValue
+                    // Hyexpression.g:4457:0: c0= parse_eu_hyvar_dataValues_HyNumberValue
                     {
-                    pushFollow(FOLLOW_parse_eu_hyvar_dataValues_HyNumberValue_in_parseop_HyValue_level_153039);
+                    pushFollow(FOLLOW_parse_eu_hyvar_dataValues_HyNumberValue_in_parseop_HyValue_level_153016);
                     c0=parse_eu_hyvar_dataValues_HyNumberValue();
 
                     state._fsp--;
@@ -7435,9 +7417,9 @@ public class HyexpressionParser extends HyexpressionANTLRParserBase {
                     }
                     break;
                 case 2 :
-                    // Hyexpression.g:4472:2: c1= parse_eu_hyvar_dataValues_HyBooleanValue
+                    // Hyexpression.g:4458:2: c1= parse_eu_hyvar_dataValues_HyBooleanValue
                     {
-                    pushFollow(FOLLOW_parse_eu_hyvar_dataValues_HyBooleanValue_in_parseop_HyValue_level_153047);
+                    pushFollow(FOLLOW_parse_eu_hyvar_dataValues_HyBooleanValue_in_parseop_HyValue_level_153024);
                     c1=parse_eu_hyvar_dataValues_HyBooleanValue();
 
                     state._fsp--;
@@ -7448,9 +7430,9 @@ public class HyexpressionParser extends HyexpressionANTLRParserBase {
                     }
                     break;
                 case 3 :
-                    // Hyexpression.g:4473:2: c2= parse_eu_hyvar_dataValues_HyEnumValue
+                    // Hyexpression.g:4459:2: c2= parse_eu_hyvar_dataValues_HyEnumValue
                     {
-                    pushFollow(FOLLOW_parse_eu_hyvar_dataValues_HyEnumValue_in_parseop_HyValue_level_153055);
+                    pushFollow(FOLLOW_parse_eu_hyvar_dataValues_HyEnumValue_in_parseop_HyValue_level_153032);
                     c2=parse_eu_hyvar_dataValues_HyEnumValue();
 
                     state._fsp--;
@@ -7480,7 +7462,7 @@ public class HyexpressionParser extends HyexpressionANTLRParserBase {
 
 
     // $ANTLR start "parse_eu_hyvar_dataValues_HyNumberValue"
-    // Hyexpression.g:4476:1: parse_eu_hyvar_dataValues_HyNumberValue returns [eu.hyvar.dataValues.HyNumberValue element = null] : (a0= INTEGER_LITERAL ) ;
+    // Hyexpression.g:4462:1: parse_eu_hyvar_dataValues_HyNumberValue returns [eu.hyvar.dataValues.HyNumberValue element = null] : (a0= INTEGER_LITERAL ) ;
     public final eu.hyvar.dataValues.HyNumberValue parse_eu_hyvar_dataValues_HyNumberValue() throws RecognitionException {
         eu.hyvar.dataValues.HyNumberValue element =  null;
 
@@ -7493,13 +7475,13 @@ public class HyexpressionParser extends HyexpressionANTLRParserBase {
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 26) ) { return element; }
 
-            // Hyexpression.g:4479:4: ( (a0= INTEGER_LITERAL ) )
-            // Hyexpression.g:4480:4: (a0= INTEGER_LITERAL )
+            // Hyexpression.g:4465:4: ( (a0= INTEGER_LITERAL ) )
+            // Hyexpression.g:4466:4: (a0= INTEGER_LITERAL )
             {
-            // Hyexpression.g:4480:4: (a0= INTEGER_LITERAL )
-            // Hyexpression.g:4481:4: a0= INTEGER_LITERAL
+            // Hyexpression.g:4466:4: (a0= INTEGER_LITERAL )
+            // Hyexpression.g:4467:4: a0= INTEGER_LITERAL
             {
-            a0=(Token)match(input,INTEGER_LITERAL,FOLLOW_INTEGER_LITERAL_in_parse_eu_hyvar_dataValues_HyNumberValue3079); if (state.failed) return element;
+            a0=(Token)match(input,INTEGER_LITERAL,FOLLOW_INTEGER_LITERAL_in_parse_eu_hyvar_dataValues_HyNumberValue3056); if (state.failed) return element;
 
             if ( state.backtracking==0 ) {
             if (terminateParsing) {
@@ -7535,6 +7517,7 @@ public class HyexpressionParser extends HyexpressionANTLRParserBase {
 
             if ( state.backtracking==0 ) {
             // expected elements (follow set)
+            addExpectedElement(null, eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[1016]);
             addExpectedElement(null, eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[1017]);
             addExpectedElement(null, eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[1018]);
             addExpectedElement(null, eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[1019]);
@@ -7554,7 +7537,6 @@ public class HyexpressionParser extends HyexpressionANTLRParserBase {
             addExpectedElement(null, eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[1033]);
             addExpectedElement(null, eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[1034]);
             addExpectedElement(null, eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[1035]);
-            addExpectedElement(null, eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[1036]);
             }
 
             }
@@ -7577,7 +7559,7 @@ public class HyexpressionParser extends HyexpressionANTLRParserBase {
 
 
     // $ANTLR start "parse_eu_hyvar_dataValues_HyBooleanValue"
-    // Hyexpression.g:4537:1: parse_eu_hyvar_dataValues_HyBooleanValue returns [eu.hyvar.dataValues.HyBooleanValue element = null] : ( (a0= 'true' |a1= 'false' ) ) ;
+    // Hyexpression.g:4523:1: parse_eu_hyvar_dataValues_HyBooleanValue returns [eu.hyvar.dataValues.HyBooleanValue element = null] : ( (a0= 'true' |a1= 'false' ) ) ;
     public final eu.hyvar.dataValues.HyBooleanValue parse_eu_hyvar_dataValues_HyBooleanValue() throws RecognitionException {
         eu.hyvar.dataValues.HyBooleanValue element =  null;
 
@@ -7591,20 +7573,20 @@ public class HyexpressionParser extends HyexpressionANTLRParserBase {
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 27) ) { return element; }
 
-            // Hyexpression.g:4540:0: ( ( (a0= 'true' |a1= 'false' ) ) )
-            // Hyexpression.g:4541:0: ( (a0= 'true' |a1= 'false' ) )
+            // Hyexpression.g:4526:0: ( ( (a0= 'true' |a1= 'false' ) ) )
+            // Hyexpression.g:4527:0: ( (a0= 'true' |a1= 'false' ) )
             {
-            // Hyexpression.g:4541:0: ( (a0= 'true' |a1= 'false' ) )
-            // Hyexpression.g:4542:0: (a0= 'true' |a1= 'false' )
+            // Hyexpression.g:4527:0: ( (a0= 'true' |a1= 'false' ) )
+            // Hyexpression.g:4528:0: (a0= 'true' |a1= 'false' )
             {
-            // Hyexpression.g:4542:0: (a0= 'true' |a1= 'false' )
+            // Hyexpression.g:4528:0: (a0= 'true' |a1= 'false' )
             int alt33=2;
             int LA33_0 = input.LA(1);
 
             if ( (LA33_0==44) ) {
                 alt33=1;
             }
-            else if ( (LA33_0==39) ) {
+            else if ( (LA33_0==40) ) {
                 alt33=2;
             }
             else {
@@ -7617,9 +7599,9 @@ public class HyexpressionParser extends HyexpressionANTLRParserBase {
             }
             switch (alt33) {
                 case 1 :
-                    // Hyexpression.g:4543:0: a0= 'true'
+                    // Hyexpression.g:4529:0: a0= 'true'
                     {
-                    a0=(Token)match(input,44,FOLLOW_44_in_parse_eu_hyvar_dataValues_HyBooleanValue3111); if (state.failed) return element;
+                    a0=(Token)match(input,44,FOLLOW_44_in_parse_eu_hyvar_dataValues_HyBooleanValue3088); if (state.failed) return element;
 
                     if ( state.backtracking==0 ) {
                     if (element == null) {
@@ -7638,9 +7620,9 @@ public class HyexpressionParser extends HyexpressionANTLRParserBase {
                     }
                     break;
                 case 2 :
-                    // Hyexpression.g:4556:2: a1= 'false'
+                    // Hyexpression.g:4542:2: a1= 'false'
                     {
-                    a1=(Token)match(input,39,FOLLOW_39_in_parse_eu_hyvar_dataValues_HyBooleanValue3120); if (state.failed) return element;
+                    a1=(Token)match(input,40,FOLLOW_40_in_parse_eu_hyvar_dataValues_HyBooleanValue3097); if (state.failed) return element;
 
                     if ( state.backtracking==0 ) {
                     if (element == null) {
@@ -7667,6 +7649,7 @@ public class HyexpressionParser extends HyexpressionANTLRParserBase {
 
             if ( state.backtracking==0 ) {
             // expected elements (follow set)
+            addExpectedElement(null, eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[1036]);
             addExpectedElement(null, eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[1037]);
             addExpectedElement(null, eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[1038]);
             addExpectedElement(null, eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[1039]);
@@ -7686,7 +7669,6 @@ public class HyexpressionParser extends HyexpressionANTLRParserBase {
             addExpectedElement(null, eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[1053]);
             addExpectedElement(null, eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[1054]);
             addExpectedElement(null, eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[1055]);
-            addExpectedElement(null, eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[1056]);
             }
 
             }
@@ -7709,7 +7691,7 @@ public class HyexpressionParser extends HyexpressionANTLRParserBase {
 
 
     // $ANTLR start "parse_eu_hyvar_dataValues_HyEnumValue"
-    // Hyexpression.g:4597:1: parse_eu_hyvar_dataValues_HyEnumValue returns [eu.hyvar.dataValues.HyEnumValue element = null] : a0= 'enum:' (a1= IDENTIFIER_TOKEN ) a2= '.' (a3= IDENTIFIER_TOKEN ) ;
+    // Hyexpression.g:4583:1: parse_eu_hyvar_dataValues_HyEnumValue returns [eu.hyvar.dataValues.HyEnumValue element = null] : a0= 'enum:' (a1= IDENTIFIER_TOKEN ) a2= '.' (a3= IDENTIFIER_TOKEN ) ;
     public final eu.hyvar.dataValues.HyEnumValue parse_eu_hyvar_dataValues_HyEnumValue() throws RecognitionException {
         eu.hyvar.dataValues.HyEnumValue element =  null;
 
@@ -7725,10 +7707,10 @@ public class HyexpressionParser extends HyexpressionANTLRParserBase {
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 28) ) { return element; }
 
-            // Hyexpression.g:4600:4: (a0= 'enum:' (a1= IDENTIFIER_TOKEN ) a2= '.' (a3= IDENTIFIER_TOKEN ) )
-            // Hyexpression.g:4601:4: a0= 'enum:' (a1= IDENTIFIER_TOKEN ) a2= '.' (a3= IDENTIFIER_TOKEN )
+            // Hyexpression.g:4586:4: (a0= 'enum:' (a1= IDENTIFIER_TOKEN ) a2= '.' (a3= IDENTIFIER_TOKEN ) )
+            // Hyexpression.g:4587:4: a0= 'enum:' (a1= IDENTIFIER_TOKEN ) a2= '.' (a3= IDENTIFIER_TOKEN )
             {
-            a0=(Token)match(input,38,FOLLOW_38_in_parse_eu_hyvar_dataValues_HyEnumValue3150); if (state.failed) return element;
+            a0=(Token)match(input,38,FOLLOW_38_in_parse_eu_hyvar_dataValues_HyEnumValue3127); if (state.failed) return element;
 
             if ( state.backtracking==0 ) {
             if (element == null) {
@@ -7742,13 +7724,13 @@ public class HyexpressionParser extends HyexpressionANTLRParserBase {
 
             if ( state.backtracking==0 ) {
             // expected elements (follow set)
-            addExpectedElement(null, eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[1057]);
+            addExpectedElement(null, eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[1056]);
             }
 
-            // Hyexpression.g:4615:4: (a1= IDENTIFIER_TOKEN )
-            // Hyexpression.g:4616:4: a1= IDENTIFIER_TOKEN
+            // Hyexpression.g:4601:4: (a1= IDENTIFIER_TOKEN )
+            // Hyexpression.g:4602:4: a1= IDENTIFIER_TOKEN
             {
-            a1=(Token)match(input,IDENTIFIER_TOKEN,FOLLOW_IDENTIFIER_TOKEN_in_parse_eu_hyvar_dataValues_HyEnumValue3163); if (state.failed) return element;
+            a1=(Token)match(input,IDENTIFIER_TOKEN,FOLLOW_IDENTIFIER_TOKEN_in_parse_eu_hyvar_dataValues_HyEnumValue3140); if (state.failed) return element;
 
             if ( state.backtracking==0 ) {
             if (terminateParsing) {
@@ -7788,10 +7770,10 @@ public class HyexpressionParser extends HyexpressionANTLRParserBase {
 
             if ( state.backtracking==0 ) {
             // expected elements (follow set)
-            addExpectedElement(null, eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[1058]);
+            addExpectedElement(null, eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[1057]);
             }
 
-            a2=(Token)match(input,22,FOLLOW_22_in_parse_eu_hyvar_dataValues_HyEnumValue3176); if (state.failed) return element;
+            a2=(Token)match(input,22,FOLLOW_22_in_parse_eu_hyvar_dataValues_HyEnumValue3153); if (state.failed) return element;
 
             if ( state.backtracking==0 ) {
             if (element == null) {
@@ -7805,13 +7787,13 @@ public class HyexpressionParser extends HyexpressionANTLRParserBase {
 
             if ( state.backtracking==0 ) {
             // expected elements (follow set)
-            addExpectedElement(null, eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[1059]);
+            addExpectedElement(null, eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[1058]);
             }
 
-            // Hyexpression.g:4669:4: (a3= IDENTIFIER_TOKEN )
-            // Hyexpression.g:4670:4: a3= IDENTIFIER_TOKEN
+            // Hyexpression.g:4655:4: (a3= IDENTIFIER_TOKEN )
+            // Hyexpression.g:4656:4: a3= IDENTIFIER_TOKEN
             {
-            a3=(Token)match(input,IDENTIFIER_TOKEN,FOLLOW_IDENTIFIER_TOKEN_in_parse_eu_hyvar_dataValues_HyEnumValue3189); if (state.failed) return element;
+            a3=(Token)match(input,IDENTIFIER_TOKEN,FOLLOW_IDENTIFIER_TOKEN_in_parse_eu_hyvar_dataValues_HyEnumValue3166); if (state.failed) return element;
 
             if ( state.backtracking==0 ) {
             if (terminateParsing) {
@@ -7851,6 +7833,7 @@ public class HyexpressionParser extends HyexpressionANTLRParserBase {
 
             if ( state.backtracking==0 ) {
             // expected elements (follow set)
+            addExpectedElement(null, eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[1059]);
             addExpectedElement(null, eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[1060]);
             addExpectedElement(null, eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[1061]);
             addExpectedElement(null, eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[1062]);
@@ -7870,7 +7853,6 @@ public class HyexpressionParser extends HyexpressionANTLRParserBase {
             addExpectedElement(null, eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[1076]);
             addExpectedElement(null, eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[1077]);
             addExpectedElement(null, eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[1078]);
-            addExpectedElement(null, eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectationConstants.EXPECTATIONS[1079]);
             }
 
             }
@@ -7893,7 +7875,7 @@ public class HyexpressionParser extends HyexpressionANTLRParserBase {
 
 
     // $ANTLR start "parse_eu_hyvar_feature_expression_HyExpression"
-    // Hyexpression.g:4730:1: parse_eu_hyvar_feature_expression_HyExpression returns [eu.hyvar.feature.expression.HyExpression element = null] : c= parseop_HyExpression_level_0 ;
+    // Hyexpression.g:4716:1: parse_eu_hyvar_feature_expression_HyExpression returns [eu.hyvar.feature.expression.HyExpression element = null] : c= parseop_HyExpression_level_0 ;
     public final eu.hyvar.feature.expression.HyExpression parse_eu_hyvar_feature_expression_HyExpression() throws RecognitionException {
         eu.hyvar.feature.expression.HyExpression element =  null;
 
@@ -7905,10 +7887,10 @@ public class HyexpressionParser extends HyexpressionANTLRParserBase {
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 29) ) { return element; }
 
-            // Hyexpression.g:4731:3: (c= parseop_HyExpression_level_0 )
-            // Hyexpression.g:4732:3: c= parseop_HyExpression_level_0
+            // Hyexpression.g:4717:3: (c= parseop_HyExpression_level_0 )
+            // Hyexpression.g:4718:3: c= parseop_HyExpression_level_0
             {
-            pushFollow(FOLLOW_parseop_HyExpression_level_0_in_parse_eu_hyvar_feature_expression_HyExpression3213);
+            pushFollow(FOLLOW_parseop_HyExpression_level_0_in_parse_eu_hyvar_feature_expression_HyExpression3190);
             c=parseop_HyExpression_level_0();
 
             state._fsp--;
@@ -7936,7 +7918,7 @@ public class HyexpressionParser extends HyexpressionANTLRParserBase {
 
 
     // $ANTLR start "parse_eu_hyvar_feature_expression_HyVersionRestriction"
-    // Hyexpression.g:4736:1: parse_eu_hyvar_feature_expression_HyVersionRestriction returns [eu.hyvar.feature.expression.HyVersionRestriction element = null] : (c0= parse_eu_hyvar_feature_expression_HyRelativeVersionRestriction |c1= parse_eu_hyvar_feature_expression_HyVersionRangeRestriction );
+    // Hyexpression.g:4722:1: parse_eu_hyvar_feature_expression_HyVersionRestriction returns [eu.hyvar.feature.expression.HyVersionRestriction element = null] : (c0= parse_eu_hyvar_feature_expression_HyRelativeVersionRestriction |c1= parse_eu_hyvar_feature_expression_HyVersionRangeRestriction );
     public final eu.hyvar.feature.expression.HyVersionRestriction parse_eu_hyvar_feature_expression_HyVersionRestriction() throws RecognitionException {
         eu.hyvar.feature.expression.HyVersionRestriction element =  null;
 
@@ -7950,7 +7932,7 @@ public class HyexpressionParser extends HyexpressionANTLRParserBase {
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 30) ) { return element; }
 
-            // Hyexpression.g:4737:0: (c0= parse_eu_hyvar_feature_expression_HyRelativeVersionRestriction |c1= parse_eu_hyvar_feature_expression_HyVersionRangeRestriction )
+            // Hyexpression.g:4723:0: (c0= parse_eu_hyvar_feature_expression_HyRelativeVersionRestriction |c1= parse_eu_hyvar_feature_expression_HyVersionRangeRestriction )
             int alt34=2;
             int LA34_0 = input.LA(1);
 
@@ -8010,9 +7992,9 @@ public class HyexpressionParser extends HyexpressionANTLRParserBase {
             }
             switch (alt34) {
                 case 1 :
-                    // Hyexpression.g:4738:0: c0= parse_eu_hyvar_feature_expression_HyRelativeVersionRestriction
+                    // Hyexpression.g:4724:0: c0= parse_eu_hyvar_feature_expression_HyRelativeVersionRestriction
                     {
-                    pushFollow(FOLLOW_parse_eu_hyvar_feature_expression_HyRelativeVersionRestriction_in_parse_eu_hyvar_feature_expression_HyVersionRestriction3232);
+                    pushFollow(FOLLOW_parse_eu_hyvar_feature_expression_HyRelativeVersionRestriction_in_parse_eu_hyvar_feature_expression_HyVersionRestriction3209);
                     c0=parse_eu_hyvar_feature_expression_HyRelativeVersionRestriction();
 
                     state._fsp--;
@@ -8023,9 +8005,9 @@ public class HyexpressionParser extends HyexpressionANTLRParserBase {
                     }
                     break;
                 case 2 :
-                    // Hyexpression.g:4739:2: c1= parse_eu_hyvar_feature_expression_HyVersionRangeRestriction
+                    // Hyexpression.g:4725:2: c1= parse_eu_hyvar_feature_expression_HyVersionRangeRestriction
                     {
-                    pushFollow(FOLLOW_parse_eu_hyvar_feature_expression_HyVersionRangeRestriction_in_parse_eu_hyvar_feature_expression_HyVersionRestriction3240);
+                    pushFollow(FOLLOW_parse_eu_hyvar_feature_expression_HyVersionRangeRestriction_in_parse_eu_hyvar_feature_expression_HyVersionRestriction3217);
                     c1=parse_eu_hyvar_feature_expression_HyVersionRangeRestriction();
 
                     state._fsp--;
@@ -8055,7 +8037,7 @@ public class HyexpressionParser extends HyexpressionANTLRParserBase {
 
 
     // $ANTLR start "parse_eu_hyvar_dataValues_HyValue"
-    // Hyexpression.g:4743:1: parse_eu_hyvar_dataValues_HyValue returns [eu.hyvar.dataValues.HyValue element = null] : c= parseop_HyValue_level_15 ;
+    // Hyexpression.g:4729:1: parse_eu_hyvar_dataValues_HyValue returns [eu.hyvar.dataValues.HyValue element = null] : c= parseop_HyValue_level_15 ;
     public final eu.hyvar.dataValues.HyValue parse_eu_hyvar_dataValues_HyValue() throws RecognitionException {
         eu.hyvar.dataValues.HyValue element =  null;
 
@@ -8067,10 +8049,10 @@ public class HyexpressionParser extends HyexpressionANTLRParserBase {
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 31) ) { return element; }
 
-            // Hyexpression.g:4744:3: (c= parseop_HyValue_level_15 )
-            // Hyexpression.g:4745:3: c= parseop_HyValue_level_15
+            // Hyexpression.g:4730:3: (c= parseop_HyValue_level_15 )
+            // Hyexpression.g:4731:3: c= parseop_HyValue_level_15
             {
-            pushFollow(FOLLOW_parseop_HyValue_level_15_in_parse_eu_hyvar_dataValues_HyValue3259);
+            pushFollow(FOLLOW_parseop_HyValue_level_15_in_parse_eu_hyvar_dataValues_HyValue3236);
             c=parseop_HyValue_level_15();
 
             state._fsp--;
@@ -8100,10 +8082,10 @@ public class HyexpressionParser extends HyexpressionANTLRParserBase {
         eu.hyvar.feature.expression.HyValueExpression c5 =null;
 
 
-        // Hyexpression.g:3273:2: (c5= parse_eu_hyvar_feature_expression_HyValueExpression )
-        // Hyexpression.g:3273:2: c5= parse_eu_hyvar_feature_expression_HyValueExpression
+        // Hyexpression.g:3259:2: (c5= parse_eu_hyvar_feature_expression_HyValueExpression )
+        // Hyexpression.g:3259:2: c5= parse_eu_hyvar_feature_expression_HyValueExpression
         {
-        pushFollow(FOLLOW_parse_eu_hyvar_feature_expression_HyValueExpression_in_synpred45_Hyexpression2392);
+        pushFollow(FOLLOW_parse_eu_hyvar_feature_expression_HyValueExpression_in_synpred45_Hyexpression2369);
         c5=parse_eu_hyvar_feature_expression_HyValueExpression();
 
         state._fsp--;
@@ -8119,10 +8101,10 @@ public class HyexpressionParser extends HyexpressionANTLRParserBase {
         eu.hyvar.feature.expression.HyBooleanValueExpression c6 =null;
 
 
-        // Hyexpression.g:3274:2: (c6= parse_eu_hyvar_feature_expression_HyBooleanValueExpression )
-        // Hyexpression.g:3274:2: c6= parse_eu_hyvar_feature_expression_HyBooleanValueExpression
+        // Hyexpression.g:3260:2: (c6= parse_eu_hyvar_feature_expression_HyBooleanValueExpression )
+        // Hyexpression.g:3260:2: c6= parse_eu_hyvar_feature_expression_HyBooleanValueExpression
         {
-        pushFollow(FOLLOW_parse_eu_hyvar_feature_expression_HyBooleanValueExpression_in_synpred46_Hyexpression2400);
+        pushFollow(FOLLOW_parse_eu_hyvar_feature_expression_HyBooleanValueExpression_in_synpred46_Hyexpression2377);
         c6=parse_eu_hyvar_feature_expression_HyBooleanValueExpression();
 
         state._fsp--;
@@ -8191,130 +8173,129 @@ public class HyexpressionParser extends HyexpressionANTLRParserBase {
     public static final BitSet FOLLOW_19_in_parse_eu_hyvar_dataValues_HyEnum549 = new BitSet(new long[]{0x0000000100000000L});
     public static final BitSet FOLLOW_parse_eu_hyvar_dataValues_HyEnumLiteral_in_parse_eu_hyvar_dataValues_HyEnum583 = new BitSet(new long[]{0x0000000000090000L});
     public static final BitSet FOLLOW_16_in_parse_eu_hyvar_dataValues_HyEnum657 = new BitSet(new long[]{0x0000000200000002L});
-    public static final BitSet FOLLOW_33_in_parse_eu_hyvar_dataValues_HyEnum680 = new BitSet(new long[]{0x0000080000000010L});
+    public static final BitSet FOLLOW_33_in_parse_eu_hyvar_dataValues_HyEnum680 = new BitSet(new long[]{0x0000008000000010L});
     public static final BitSet FOLLOW_DATE_in_parse_eu_hyvar_dataValues_HyEnum713 = new BitSet(new long[]{0x0000000000100000L});
     public static final BitSet FOLLOW_20_in_parse_eu_hyvar_dataValues_HyEnum752 = new BitSet(new long[]{0x0000000000000010L});
     public static final BitSet FOLLOW_DATE_in_parse_eu_hyvar_dataValues_HyEnum782 = new BitSet(new long[]{0x0000000800000000L});
     public static final BitSet FOLLOW_DATE_in_parse_eu_hyvar_dataValues_HyEnum838 = new BitSet(new long[]{0x0000000000100000L});
-    public static final BitSet FOLLOW_20_in_parse_eu_hyvar_dataValues_HyEnum877 = new BitSet(new long[]{0x0000080000000000L});
-    public static final BitSet FOLLOW_43_in_parse_eu_hyvar_dataValues_HyEnum900 = new BitSet(new long[]{0x0000000800000000L});
-    public static final BitSet FOLLOW_43_in_parse_eu_hyvar_dataValues_HyEnum933 = new BitSet(new long[]{0x0000000000100000L});
-    public static final BitSet FOLLOW_20_in_parse_eu_hyvar_dataValues_HyEnum956 = new BitSet(new long[]{0x0000000000000010L});
-    public static final BitSet FOLLOW_DATE_in_parse_eu_hyvar_dataValues_HyEnum986 = new BitSet(new long[]{0x0000000800000000L});
-    public static final BitSet FOLLOW_35_in_parse_eu_hyvar_dataValues_HyEnum1038 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_32_in_parse_eu_hyvar_dataValues_HyEnumLiteral1086 = new BitSet(new long[]{0x0000000000000020L});
-    public static final BitSet FOLLOW_IDENTIFIER_TOKEN_in_parse_eu_hyvar_dataValues_HyEnumLiteral1104 = new BitSet(new long[]{0x0000000000080000L});
-    public static final BitSet FOLLOW_19_in_parse_eu_hyvar_dataValues_HyEnumLiteral1125 = new BitSet(new long[]{0x0000000000000040L});
-    public static final BitSet FOLLOW_INTEGER_LITERAL_in_parse_eu_hyvar_dataValues_HyEnumLiteral1143 = new BitSet(new long[]{0x0000000000010000L});
-    public static final BitSet FOLLOW_16_in_parse_eu_hyvar_dataValues_HyEnumLiteral1164 = new BitSet(new long[]{0x0000000200000002L});
-    public static final BitSet FOLLOW_33_in_parse_eu_hyvar_dataValues_HyEnumLiteral1187 = new BitSet(new long[]{0x0000080000000010L});
-    public static final BitSet FOLLOW_DATE_in_parse_eu_hyvar_dataValues_HyEnumLiteral1220 = new BitSet(new long[]{0x0000000000100000L});
-    public static final BitSet FOLLOW_20_in_parse_eu_hyvar_dataValues_HyEnumLiteral1259 = new BitSet(new long[]{0x0000000000000010L});
-    public static final BitSet FOLLOW_DATE_in_parse_eu_hyvar_dataValues_HyEnumLiteral1289 = new BitSet(new long[]{0x0000000800000000L});
-    public static final BitSet FOLLOW_DATE_in_parse_eu_hyvar_dataValues_HyEnumLiteral1345 = new BitSet(new long[]{0x0000000000100000L});
-    public static final BitSet FOLLOW_20_in_parse_eu_hyvar_dataValues_HyEnumLiteral1384 = new BitSet(new long[]{0x0000080000000000L});
-    public static final BitSet FOLLOW_43_in_parse_eu_hyvar_dataValues_HyEnumLiteral1407 = new BitSet(new long[]{0x0000000800000000L});
-    public static final BitSet FOLLOW_43_in_parse_eu_hyvar_dataValues_HyEnumLiteral1440 = new BitSet(new long[]{0x0000000000100000L});
-    public static final BitSet FOLLOW_20_in_parse_eu_hyvar_dataValues_HyEnumLiteral1463 = new BitSet(new long[]{0x0000000000000010L});
-    public static final BitSet FOLLOW_DATE_in_parse_eu_hyvar_dataValues_HyEnumLiteral1493 = new BitSet(new long[]{0x0000000800000000L});
-    public static final BitSet FOLLOW_35_in_parse_eu_hyvar_dataValues_HyEnumLiteral1545 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_parseop_HyExpression_level_1_in_parseop_HyExpression_level_01593 = new BitSet(new long[]{0x0000000002000002L});
-    public static final BitSet FOLLOW_25_in_parseop_HyExpression_level_01613 = new BitSet(new long[]{0x000017E040109260L});
-    public static final BitSet FOLLOW_parseop_HyExpression_level_1_in_parseop_HyExpression_level_01630 = new BitSet(new long[]{0x0000000002000002L});
-    public static final BitSet FOLLOW_parseop_HyExpression_level_4_in_parseop_HyExpression_level_11676 = new BitSet(new long[]{0x0000000000200002L});
-    public static final BitSet FOLLOW_21_in_parseop_HyExpression_level_11692 = new BitSet(new long[]{0x000017E040109260L});
-    public static final BitSet FOLLOW_parseop_HyExpression_level_4_in_parseop_HyExpression_level_11706 = new BitSet(new long[]{0x0000000000200002L});
-    public static final BitSet FOLLOW_parseop_HyExpression_level_5_in_parseop_HyExpression_level_41747 = new BitSet(new long[]{0x0000200000000002L});
-    public static final BitSet FOLLOW_45_in_parseop_HyExpression_level_41760 = new BitSet(new long[]{0x000017E040109260L});
-    public static final BitSet FOLLOW_parseop_HyExpression_level_5_in_parseop_HyExpression_level_41771 = new BitSet(new long[]{0x0000200000000002L});
-    public static final BitSet FOLLOW_parseop_HyExpression_level_9_in_parseop_HyExpression_level_51809 = new BitSet(new long[]{0x0000000000004002L});
-    public static final BitSet FOLLOW_14_in_parseop_HyExpression_level_51822 = new BitSet(new long[]{0x000017E040109260L});
-    public static final BitSet FOLLOW_parseop_HyExpression_level_9_in_parseop_HyExpression_level_51833 = new BitSet(new long[]{0x0000000000004002L});
-    public static final BitSet FOLLOW_parseop_HyExpression_level_12_in_parseop_HyExpression_level_91871 = new BitSet(new long[]{0x000000003D002002L});
-    public static final BitSet FOLLOW_24_in_parseop_HyExpression_level_91884 = new BitSet(new long[]{0x000017E040109260L});
-    public static final BitSet FOLLOW_parseop_HyExpression_level_12_in_parseop_HyExpression_level_91895 = new BitSet(new long[]{0x000000003D002002L});
-    public static final BitSet FOLLOW_26_in_parseop_HyExpression_level_91913 = new BitSet(new long[]{0x000017E040109260L});
-    public static final BitSet FOLLOW_parseop_HyExpression_level_12_in_parseop_HyExpression_level_91924 = new BitSet(new long[]{0x000000003D002002L});
-    public static final BitSet FOLLOW_28_in_parseop_HyExpression_level_91942 = new BitSet(new long[]{0x000017E040109260L});
-    public static final BitSet FOLLOW_parseop_HyExpression_level_12_in_parseop_HyExpression_level_91953 = new BitSet(new long[]{0x000000003D002002L});
-    public static final BitSet FOLLOW_29_in_parseop_HyExpression_level_91971 = new BitSet(new long[]{0x000017E040109260L});
-    public static final BitSet FOLLOW_parseop_HyExpression_level_12_in_parseop_HyExpression_level_91982 = new BitSet(new long[]{0x000000003D002002L});
-    public static final BitSet FOLLOW_27_in_parseop_HyExpression_level_92000 = new BitSet(new long[]{0x000017E040109260L});
-    public static final BitSet FOLLOW_parseop_HyExpression_level_12_in_parseop_HyExpression_level_92011 = new BitSet(new long[]{0x000000003D002002L});
-    public static final BitSet FOLLOW_13_in_parseop_HyExpression_level_92029 = new BitSet(new long[]{0x000017E040109260L});
-    public static final BitSet FOLLOW_parseop_HyExpression_level_12_in_parseop_HyExpression_level_92040 = new BitSet(new long[]{0x000000003D002002L});
-    public static final BitSet FOLLOW_parseop_HyExpression_level_13_in_parseop_HyExpression_level_122078 = new BitSet(new long[]{0x0000000000140002L});
-    public static final BitSet FOLLOW_20_in_parseop_HyExpression_level_122091 = new BitSet(new long[]{0x000017E040109260L});
-    public static final BitSet FOLLOW_parseop_HyExpression_level_13_in_parseop_HyExpression_level_122102 = new BitSet(new long[]{0x0000000000140002L});
-    public static final BitSet FOLLOW_18_in_parseop_HyExpression_level_122120 = new BitSet(new long[]{0x000017E040109260L});
-    public static final BitSet FOLLOW_parseop_HyExpression_level_13_in_parseop_HyExpression_level_122131 = new BitSet(new long[]{0x0000000000140002L});
-    public static final BitSet FOLLOW_parseop_HyExpression_level_14_in_parseop_HyExpression_level_132169 = new BitSet(new long[]{0x0000000400820002L});
-    public static final BitSet FOLLOW_34_in_parseop_HyExpression_level_132182 = new BitSet(new long[]{0x000017E040109260L});
-    public static final BitSet FOLLOW_parseop_HyExpression_level_14_in_parseop_HyExpression_level_132193 = new BitSet(new long[]{0x0000000400820002L});
-    public static final BitSet FOLLOW_17_in_parseop_HyExpression_level_132211 = new BitSet(new long[]{0x000017E040109260L});
-    public static final BitSet FOLLOW_parseop_HyExpression_level_14_in_parseop_HyExpression_level_132222 = new BitSet(new long[]{0x0000000400820002L});
-    public static final BitSet FOLLOW_23_in_parseop_HyExpression_level_132240 = new BitSet(new long[]{0x000017E040109260L});
-    public static final BitSet FOLLOW_parseop_HyExpression_level_14_in_parseop_HyExpression_level_132251 = new BitSet(new long[]{0x0000000400820002L});
-    public static final BitSet FOLLOW_12_in_parseop_HyExpression_level_142289 = new BitSet(new long[]{0x000017E040008260L});
-    public static final BitSet FOLLOW_parseop_HyExpression_level_15_in_parseop_HyExpression_level_142300 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_20_in_parseop_HyExpression_level_142309 = new BitSet(new long[]{0x000017E040008260L});
-    public static final BitSet FOLLOW_parseop_HyExpression_level_15_in_parseop_HyExpression_level_142320 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_parseop_HyExpression_level_15_in_parseop_HyExpression_level_142330 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_parse_eu_hyvar_feature_expression_HyNestedExpression_in_parseop_HyExpression_level_152352 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_parse_eu_hyvar_feature_expression_HyFeatureReferenceExpression_in_parseop_HyExpression_level_152360 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_parse_eu_hyvar_feature_expression_HyConditionalFeatureReferenceExpression_in_parseop_HyExpression_level_152368 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_parse_eu_hyvar_feature_expression_HyContextInformationReferenceExpression_in_parseop_HyExpression_level_152376 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_parse_eu_hyvar_feature_expression_HyAttributeReferenceExpression_in_parseop_HyExpression_level_152384 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_parse_eu_hyvar_feature_expression_HyValueExpression_in_parseop_HyExpression_level_152392 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_parse_eu_hyvar_feature_expression_HyBooleanValueExpression_in_parseop_HyExpression_level_152400 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_parse_eu_hyvar_feature_expression_HyMinimumExpression_in_parseop_HyExpression_level_152408 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_parse_eu_hyvar_feature_expression_HyMaximumExpression_in_parseop_HyExpression_level_152416 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_parse_eu_hyvar_feature_expression_HyIfPossibleExpression_in_parseop_HyExpression_level_152424 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_15_in_parse_eu_hyvar_feature_expression_HyNestedExpression2446 = new BitSet(new long[]{0x000017E040109260L});
-    public static final BitSet FOLLOW_parse_eu_hyvar_feature_expression_HyExpression_in_parse_eu_hyvar_feature_expression_HyNestedExpression2459 = new BitSet(new long[]{0x0000000000010000L});
-    public static final BitSet FOLLOW_16_in_parse_eu_hyvar_feature_expression_HyNestedExpression2471 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_QUOTED_34_34_in_parse_eu_hyvar_feature_expression_HyFeatureReferenceExpression2501 = new BitSet(new long[]{0x0000000200000002L});
-    public static final BitSet FOLLOW_IDENTIFIER_TOKEN_in_parse_eu_hyvar_feature_expression_HyFeatureReferenceExpression2518 = new BitSet(new long[]{0x0000000200000002L});
-    public static final BitSet FOLLOW_parse_eu_hyvar_feature_expression_HyVersionRestriction_in_parse_eu_hyvar_feature_expression_HyFeatureReferenceExpression2542 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_30_in_parse_eu_hyvar_feature_expression_HyConditionalFeatureReferenceExpression2577 = new BitSet(new long[]{0x0000000000000220L});
-    public static final BitSet FOLLOW_QUOTED_34_34_in_parse_eu_hyvar_feature_expression_HyConditionalFeatureReferenceExpression2592 = new BitSet(new long[]{0x0000000200000000L});
-    public static final BitSet FOLLOW_IDENTIFIER_TOKEN_in_parse_eu_hyvar_feature_expression_HyConditionalFeatureReferenceExpression2609 = new BitSet(new long[]{0x0000000200000000L});
-    public static final BitSet FOLLOW_parse_eu_hyvar_feature_expression_HyVersionRestriction_in_parse_eu_hyvar_feature_expression_HyConditionalFeatureReferenceExpression2629 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_37_in_parse_eu_hyvar_feature_expression_HyContextInformationReferenceExpression2656 = new BitSet(new long[]{0x0000000000000020L});
-    public static final BitSet FOLLOW_IDENTIFIER_TOKEN_in_parse_eu_hyvar_feature_expression_HyContextInformationReferenceExpression2669 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_QUOTED_34_34_in_parse_eu_hyvar_feature_expression_HyAttributeReferenceExpression2701 = new BitSet(new long[]{0x0000000000400000L});
-    public static final BitSet FOLLOW_IDENTIFIER_TOKEN_in_parse_eu_hyvar_feature_expression_HyAttributeReferenceExpression2718 = new BitSet(new long[]{0x0000000000400000L});
-    public static final BitSet FOLLOW_22_in_parse_eu_hyvar_feature_expression_HyAttributeReferenceExpression2736 = new BitSet(new long[]{0x0000000000000020L});
-    public static final BitSet FOLLOW_IDENTIFIER_TOKEN_in_parse_eu_hyvar_feature_expression_HyAttributeReferenceExpression2749 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_parse_eu_hyvar_dataValues_HyValue_in_parse_eu_hyvar_feature_expression_HyValueExpression2779 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_44_in_parse_eu_hyvar_feature_expression_HyBooleanValueExpression2810 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_39_in_parse_eu_hyvar_feature_expression_HyBooleanValueExpression2819 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_42_in_parse_eu_hyvar_feature_expression_HyMinimumExpression2849 = new BitSet(new long[]{0x000017E040109260L});
-    public static final BitSet FOLLOW_parse_eu_hyvar_feature_expression_HyExpression_in_parse_eu_hyvar_feature_expression_HyMinimumExpression2862 = new BitSet(new long[]{0x0000000000010000L});
-    public static final BitSet FOLLOW_16_in_parse_eu_hyvar_feature_expression_HyMinimumExpression2874 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_41_in_parse_eu_hyvar_feature_expression_HyMaximumExpression2900 = new BitSet(new long[]{0x000017E040109260L});
-    public static final BitSet FOLLOW_parse_eu_hyvar_feature_expression_HyExpression_in_parse_eu_hyvar_feature_expression_HyMaximumExpression2913 = new BitSet(new long[]{0x0000000000010000L});
-    public static final BitSet FOLLOW_16_in_parse_eu_hyvar_feature_expression_HyMaximumExpression2925 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_40_in_parse_eu_hyvar_feature_expression_HyIfPossibleExpression2951 = new BitSet(new long[]{0x000017E040109260L});
-    public static final BitSet FOLLOW_parse_eu_hyvar_feature_expression_HyExpression_in_parse_eu_hyvar_feature_expression_HyIfPossibleExpression2964 = new BitSet(new long[]{0x0000000000090000L});
-    public static final BitSet FOLLOW_19_in_parse_eu_hyvar_feature_expression_HyIfPossibleExpression2980 = new BitSet(new long[]{0x000017E040109260L});
-    public static final BitSet FOLLOW_parse_eu_hyvar_feature_expression_HyExpression_in_parse_eu_hyvar_feature_expression_HyIfPossibleExpression2993 = new BitSet(new long[]{0x0000000000090000L});
-    public static final BitSet FOLLOW_16_in_parse_eu_hyvar_feature_expression_HyIfPossibleExpression3013 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_parse_eu_hyvar_dataValues_HyNumberValue_in_parseop_HyValue_level_153039 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_parse_eu_hyvar_dataValues_HyBooleanValue_in_parseop_HyValue_level_153047 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_parse_eu_hyvar_dataValues_HyEnumValue_in_parseop_HyValue_level_153055 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_INTEGER_LITERAL_in_parse_eu_hyvar_dataValues_HyNumberValue3079 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_44_in_parse_eu_hyvar_dataValues_HyBooleanValue3111 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_39_in_parse_eu_hyvar_dataValues_HyBooleanValue3120 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_38_in_parse_eu_hyvar_dataValues_HyEnumValue3150 = new BitSet(new long[]{0x0000000000000020L});
-    public static final BitSet FOLLOW_IDENTIFIER_TOKEN_in_parse_eu_hyvar_dataValues_HyEnumValue3163 = new BitSet(new long[]{0x0000000000400000L});
-    public static final BitSet FOLLOW_22_in_parse_eu_hyvar_dataValues_HyEnumValue3176 = new BitSet(new long[]{0x0000000000000020L});
-    public static final BitSet FOLLOW_IDENTIFIER_TOKEN_in_parse_eu_hyvar_dataValues_HyEnumValue3189 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_parseop_HyExpression_level_0_in_parse_eu_hyvar_feature_expression_HyExpression3213 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_parse_eu_hyvar_feature_expression_HyRelativeVersionRestriction_in_parse_eu_hyvar_feature_expression_HyVersionRestriction3232 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_parse_eu_hyvar_feature_expression_HyVersionRangeRestriction_in_parse_eu_hyvar_feature_expression_HyVersionRestriction3240 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_parseop_HyValue_level_15_in_parse_eu_hyvar_dataValues_HyValue3259 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_parse_eu_hyvar_feature_expression_HyValueExpression_in_synpred45_Hyexpression2392 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_parse_eu_hyvar_feature_expression_HyBooleanValueExpression_in_synpred46_Hyexpression2400 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_20_in_parse_eu_hyvar_dataValues_HyEnum877 = new BitSet(new long[]{0x0000000800000000L});
+    public static final BitSet FOLLOW_39_in_parse_eu_hyvar_dataValues_HyEnum910 = new BitSet(new long[]{0x0000000000100000L});
+    public static final BitSet FOLLOW_20_in_parse_eu_hyvar_dataValues_HyEnum933 = new BitSet(new long[]{0x0000000000000010L});
+    public static final BitSet FOLLOW_DATE_in_parse_eu_hyvar_dataValues_HyEnum963 = new BitSet(new long[]{0x0000000800000000L});
+    public static final BitSet FOLLOW_35_in_parse_eu_hyvar_dataValues_HyEnum1015 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_32_in_parse_eu_hyvar_dataValues_HyEnumLiteral1063 = new BitSet(new long[]{0x0000000000000020L});
+    public static final BitSet FOLLOW_IDENTIFIER_TOKEN_in_parse_eu_hyvar_dataValues_HyEnumLiteral1081 = new BitSet(new long[]{0x0000000000080000L});
+    public static final BitSet FOLLOW_19_in_parse_eu_hyvar_dataValues_HyEnumLiteral1102 = new BitSet(new long[]{0x0000000000000040L});
+    public static final BitSet FOLLOW_INTEGER_LITERAL_in_parse_eu_hyvar_dataValues_HyEnumLiteral1120 = new BitSet(new long[]{0x0000000000010000L});
+    public static final BitSet FOLLOW_16_in_parse_eu_hyvar_dataValues_HyEnumLiteral1141 = new BitSet(new long[]{0x0000000200000002L});
+    public static final BitSet FOLLOW_33_in_parse_eu_hyvar_dataValues_HyEnumLiteral1164 = new BitSet(new long[]{0x0000008000000010L});
+    public static final BitSet FOLLOW_DATE_in_parse_eu_hyvar_dataValues_HyEnumLiteral1197 = new BitSet(new long[]{0x0000000000100000L});
+    public static final BitSet FOLLOW_20_in_parse_eu_hyvar_dataValues_HyEnumLiteral1236 = new BitSet(new long[]{0x0000000000000010L});
+    public static final BitSet FOLLOW_DATE_in_parse_eu_hyvar_dataValues_HyEnumLiteral1266 = new BitSet(new long[]{0x0000000800000000L});
+    public static final BitSet FOLLOW_DATE_in_parse_eu_hyvar_dataValues_HyEnumLiteral1322 = new BitSet(new long[]{0x0000000000100000L});
+    public static final BitSet FOLLOW_20_in_parse_eu_hyvar_dataValues_HyEnumLiteral1361 = new BitSet(new long[]{0x0000008000000000L});
+    public static final BitSet FOLLOW_39_in_parse_eu_hyvar_dataValues_HyEnumLiteral1384 = new BitSet(new long[]{0x0000000800000000L});
+    public static final BitSet FOLLOW_39_in_parse_eu_hyvar_dataValues_HyEnumLiteral1417 = new BitSet(new long[]{0x0000000000100000L});
+    public static final BitSet FOLLOW_20_in_parse_eu_hyvar_dataValues_HyEnumLiteral1440 = new BitSet(new long[]{0x0000000000000010L});
+    public static final BitSet FOLLOW_DATE_in_parse_eu_hyvar_dataValues_HyEnumLiteral1470 = new BitSet(new long[]{0x0000000800000000L});
+    public static final BitSet FOLLOW_35_in_parse_eu_hyvar_dataValues_HyEnumLiteral1522 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_parseop_HyExpression_level_1_in_parseop_HyExpression_level_01570 = new BitSet(new long[]{0x0000000002000002L});
+    public static final BitSet FOLLOW_25_in_parseop_HyExpression_level_01590 = new BitSet(new long[]{0x00001F6040109260L});
+    public static final BitSet FOLLOW_parseop_HyExpression_level_1_in_parseop_HyExpression_level_01607 = new BitSet(new long[]{0x0000000002000002L});
+    public static final BitSet FOLLOW_parseop_HyExpression_level_4_in_parseop_HyExpression_level_11653 = new BitSet(new long[]{0x0000000000200002L});
+    public static final BitSet FOLLOW_21_in_parseop_HyExpression_level_11669 = new BitSet(new long[]{0x00001F6040109260L});
+    public static final BitSet FOLLOW_parseop_HyExpression_level_4_in_parseop_HyExpression_level_11683 = new BitSet(new long[]{0x0000000000200002L});
+    public static final BitSet FOLLOW_parseop_HyExpression_level_5_in_parseop_HyExpression_level_41724 = new BitSet(new long[]{0x0000200000000002L});
+    public static final BitSet FOLLOW_45_in_parseop_HyExpression_level_41737 = new BitSet(new long[]{0x00001F6040109260L});
+    public static final BitSet FOLLOW_parseop_HyExpression_level_5_in_parseop_HyExpression_level_41748 = new BitSet(new long[]{0x0000200000000002L});
+    public static final BitSet FOLLOW_parseop_HyExpression_level_9_in_parseop_HyExpression_level_51786 = new BitSet(new long[]{0x0000000000004002L});
+    public static final BitSet FOLLOW_14_in_parseop_HyExpression_level_51799 = new BitSet(new long[]{0x00001F6040109260L});
+    public static final BitSet FOLLOW_parseop_HyExpression_level_9_in_parseop_HyExpression_level_51810 = new BitSet(new long[]{0x0000000000004002L});
+    public static final BitSet FOLLOW_parseop_HyExpression_level_12_in_parseop_HyExpression_level_91848 = new BitSet(new long[]{0x000000003D002002L});
+    public static final BitSet FOLLOW_24_in_parseop_HyExpression_level_91861 = new BitSet(new long[]{0x00001F6040109260L});
+    public static final BitSet FOLLOW_parseop_HyExpression_level_12_in_parseop_HyExpression_level_91872 = new BitSet(new long[]{0x000000003D002002L});
+    public static final BitSet FOLLOW_26_in_parseop_HyExpression_level_91890 = new BitSet(new long[]{0x00001F6040109260L});
+    public static final BitSet FOLLOW_parseop_HyExpression_level_12_in_parseop_HyExpression_level_91901 = new BitSet(new long[]{0x000000003D002002L});
+    public static final BitSet FOLLOW_28_in_parseop_HyExpression_level_91919 = new BitSet(new long[]{0x00001F6040109260L});
+    public static final BitSet FOLLOW_parseop_HyExpression_level_12_in_parseop_HyExpression_level_91930 = new BitSet(new long[]{0x000000003D002002L});
+    public static final BitSet FOLLOW_29_in_parseop_HyExpression_level_91948 = new BitSet(new long[]{0x00001F6040109260L});
+    public static final BitSet FOLLOW_parseop_HyExpression_level_12_in_parseop_HyExpression_level_91959 = new BitSet(new long[]{0x000000003D002002L});
+    public static final BitSet FOLLOW_27_in_parseop_HyExpression_level_91977 = new BitSet(new long[]{0x00001F6040109260L});
+    public static final BitSet FOLLOW_parseop_HyExpression_level_12_in_parseop_HyExpression_level_91988 = new BitSet(new long[]{0x000000003D002002L});
+    public static final BitSet FOLLOW_13_in_parseop_HyExpression_level_92006 = new BitSet(new long[]{0x00001F6040109260L});
+    public static final BitSet FOLLOW_parseop_HyExpression_level_12_in_parseop_HyExpression_level_92017 = new BitSet(new long[]{0x000000003D002002L});
+    public static final BitSet FOLLOW_parseop_HyExpression_level_13_in_parseop_HyExpression_level_122055 = new BitSet(new long[]{0x0000000000140002L});
+    public static final BitSet FOLLOW_20_in_parseop_HyExpression_level_122068 = new BitSet(new long[]{0x00001F6040109260L});
+    public static final BitSet FOLLOW_parseop_HyExpression_level_13_in_parseop_HyExpression_level_122079 = new BitSet(new long[]{0x0000000000140002L});
+    public static final BitSet FOLLOW_18_in_parseop_HyExpression_level_122097 = new BitSet(new long[]{0x00001F6040109260L});
+    public static final BitSet FOLLOW_parseop_HyExpression_level_13_in_parseop_HyExpression_level_122108 = new BitSet(new long[]{0x0000000000140002L});
+    public static final BitSet FOLLOW_parseop_HyExpression_level_14_in_parseop_HyExpression_level_132146 = new BitSet(new long[]{0x0000000400820002L});
+    public static final BitSet FOLLOW_34_in_parseop_HyExpression_level_132159 = new BitSet(new long[]{0x00001F6040109260L});
+    public static final BitSet FOLLOW_parseop_HyExpression_level_14_in_parseop_HyExpression_level_132170 = new BitSet(new long[]{0x0000000400820002L});
+    public static final BitSet FOLLOW_17_in_parseop_HyExpression_level_132188 = new BitSet(new long[]{0x00001F6040109260L});
+    public static final BitSet FOLLOW_parseop_HyExpression_level_14_in_parseop_HyExpression_level_132199 = new BitSet(new long[]{0x0000000400820002L});
+    public static final BitSet FOLLOW_23_in_parseop_HyExpression_level_132217 = new BitSet(new long[]{0x00001F6040109260L});
+    public static final BitSet FOLLOW_parseop_HyExpression_level_14_in_parseop_HyExpression_level_132228 = new BitSet(new long[]{0x0000000400820002L});
+    public static final BitSet FOLLOW_12_in_parseop_HyExpression_level_142266 = new BitSet(new long[]{0x00001F6040008260L});
+    public static final BitSet FOLLOW_parseop_HyExpression_level_15_in_parseop_HyExpression_level_142277 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_20_in_parseop_HyExpression_level_142286 = new BitSet(new long[]{0x00001F6040008260L});
+    public static final BitSet FOLLOW_parseop_HyExpression_level_15_in_parseop_HyExpression_level_142297 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_parseop_HyExpression_level_15_in_parseop_HyExpression_level_142307 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_parse_eu_hyvar_feature_expression_HyNestedExpression_in_parseop_HyExpression_level_152329 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_parse_eu_hyvar_feature_expression_HyFeatureReferenceExpression_in_parseop_HyExpression_level_152337 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_parse_eu_hyvar_feature_expression_HyConditionalFeatureReferenceExpression_in_parseop_HyExpression_level_152345 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_parse_eu_hyvar_feature_expression_HyContextInformationReferenceExpression_in_parseop_HyExpression_level_152353 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_parse_eu_hyvar_feature_expression_HyAttributeReferenceExpression_in_parseop_HyExpression_level_152361 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_parse_eu_hyvar_feature_expression_HyValueExpression_in_parseop_HyExpression_level_152369 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_parse_eu_hyvar_feature_expression_HyBooleanValueExpression_in_parseop_HyExpression_level_152377 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_parse_eu_hyvar_feature_expression_HyMinimumExpression_in_parseop_HyExpression_level_152385 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_parse_eu_hyvar_feature_expression_HyMaximumExpression_in_parseop_HyExpression_level_152393 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_parse_eu_hyvar_feature_expression_HyIfPossibleExpression_in_parseop_HyExpression_level_152401 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_15_in_parse_eu_hyvar_feature_expression_HyNestedExpression2423 = new BitSet(new long[]{0x00001F6040109260L});
+    public static final BitSet FOLLOW_parse_eu_hyvar_feature_expression_HyExpression_in_parse_eu_hyvar_feature_expression_HyNestedExpression2436 = new BitSet(new long[]{0x0000000000010000L});
+    public static final BitSet FOLLOW_16_in_parse_eu_hyvar_feature_expression_HyNestedExpression2448 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_QUOTED_34_34_in_parse_eu_hyvar_feature_expression_HyFeatureReferenceExpression2478 = new BitSet(new long[]{0x0000000200000002L});
+    public static final BitSet FOLLOW_IDENTIFIER_TOKEN_in_parse_eu_hyvar_feature_expression_HyFeatureReferenceExpression2495 = new BitSet(new long[]{0x0000000200000002L});
+    public static final BitSet FOLLOW_parse_eu_hyvar_feature_expression_HyVersionRestriction_in_parse_eu_hyvar_feature_expression_HyFeatureReferenceExpression2519 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_30_in_parse_eu_hyvar_feature_expression_HyConditionalFeatureReferenceExpression2554 = new BitSet(new long[]{0x0000000000000220L});
+    public static final BitSet FOLLOW_QUOTED_34_34_in_parse_eu_hyvar_feature_expression_HyConditionalFeatureReferenceExpression2569 = new BitSet(new long[]{0x0000000200000000L});
+    public static final BitSet FOLLOW_IDENTIFIER_TOKEN_in_parse_eu_hyvar_feature_expression_HyConditionalFeatureReferenceExpression2586 = new BitSet(new long[]{0x0000000200000000L});
+    public static final BitSet FOLLOW_parse_eu_hyvar_feature_expression_HyVersionRestriction_in_parse_eu_hyvar_feature_expression_HyConditionalFeatureReferenceExpression2606 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_37_in_parse_eu_hyvar_feature_expression_HyContextInformationReferenceExpression2633 = new BitSet(new long[]{0x0000000000000020L});
+    public static final BitSet FOLLOW_IDENTIFIER_TOKEN_in_parse_eu_hyvar_feature_expression_HyContextInformationReferenceExpression2646 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_QUOTED_34_34_in_parse_eu_hyvar_feature_expression_HyAttributeReferenceExpression2678 = new BitSet(new long[]{0x0000000000400000L});
+    public static final BitSet FOLLOW_IDENTIFIER_TOKEN_in_parse_eu_hyvar_feature_expression_HyAttributeReferenceExpression2695 = new BitSet(new long[]{0x0000000000400000L});
+    public static final BitSet FOLLOW_22_in_parse_eu_hyvar_feature_expression_HyAttributeReferenceExpression2713 = new BitSet(new long[]{0x0000000000000020L});
+    public static final BitSet FOLLOW_IDENTIFIER_TOKEN_in_parse_eu_hyvar_feature_expression_HyAttributeReferenceExpression2726 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_parse_eu_hyvar_dataValues_HyValue_in_parse_eu_hyvar_feature_expression_HyValueExpression2756 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_44_in_parse_eu_hyvar_feature_expression_HyBooleanValueExpression2787 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_40_in_parse_eu_hyvar_feature_expression_HyBooleanValueExpression2796 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_43_in_parse_eu_hyvar_feature_expression_HyMinimumExpression2826 = new BitSet(new long[]{0x00001F6040109260L});
+    public static final BitSet FOLLOW_parse_eu_hyvar_feature_expression_HyExpression_in_parse_eu_hyvar_feature_expression_HyMinimumExpression2839 = new BitSet(new long[]{0x0000000000010000L});
+    public static final BitSet FOLLOW_16_in_parse_eu_hyvar_feature_expression_HyMinimumExpression2851 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_42_in_parse_eu_hyvar_feature_expression_HyMaximumExpression2877 = new BitSet(new long[]{0x00001F6040109260L});
+    public static final BitSet FOLLOW_parse_eu_hyvar_feature_expression_HyExpression_in_parse_eu_hyvar_feature_expression_HyMaximumExpression2890 = new BitSet(new long[]{0x0000000000010000L});
+    public static final BitSet FOLLOW_16_in_parse_eu_hyvar_feature_expression_HyMaximumExpression2902 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_41_in_parse_eu_hyvar_feature_expression_HyIfPossibleExpression2928 = new BitSet(new long[]{0x00001F6040109260L});
+    public static final BitSet FOLLOW_parse_eu_hyvar_feature_expression_HyExpression_in_parse_eu_hyvar_feature_expression_HyIfPossibleExpression2941 = new BitSet(new long[]{0x0000000000090000L});
+    public static final BitSet FOLLOW_19_in_parse_eu_hyvar_feature_expression_HyIfPossibleExpression2957 = new BitSet(new long[]{0x00001F6040109260L});
+    public static final BitSet FOLLOW_parse_eu_hyvar_feature_expression_HyExpression_in_parse_eu_hyvar_feature_expression_HyIfPossibleExpression2970 = new BitSet(new long[]{0x0000000000090000L});
+    public static final BitSet FOLLOW_16_in_parse_eu_hyvar_feature_expression_HyIfPossibleExpression2990 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_parse_eu_hyvar_dataValues_HyNumberValue_in_parseop_HyValue_level_153016 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_parse_eu_hyvar_dataValues_HyBooleanValue_in_parseop_HyValue_level_153024 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_parse_eu_hyvar_dataValues_HyEnumValue_in_parseop_HyValue_level_153032 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_INTEGER_LITERAL_in_parse_eu_hyvar_dataValues_HyNumberValue3056 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_44_in_parse_eu_hyvar_dataValues_HyBooleanValue3088 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_40_in_parse_eu_hyvar_dataValues_HyBooleanValue3097 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_38_in_parse_eu_hyvar_dataValues_HyEnumValue3127 = new BitSet(new long[]{0x0000000000000020L});
+    public static final BitSet FOLLOW_IDENTIFIER_TOKEN_in_parse_eu_hyvar_dataValues_HyEnumValue3140 = new BitSet(new long[]{0x0000000000400000L});
+    public static final BitSet FOLLOW_22_in_parse_eu_hyvar_dataValues_HyEnumValue3153 = new BitSet(new long[]{0x0000000000000020L});
+    public static final BitSet FOLLOW_IDENTIFIER_TOKEN_in_parse_eu_hyvar_dataValues_HyEnumValue3166 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_parseop_HyExpression_level_0_in_parse_eu_hyvar_feature_expression_HyExpression3190 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_parse_eu_hyvar_feature_expression_HyRelativeVersionRestriction_in_parse_eu_hyvar_feature_expression_HyVersionRestriction3209 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_parse_eu_hyvar_feature_expression_HyVersionRangeRestriction_in_parse_eu_hyvar_feature_expression_HyVersionRestriction3217 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_parseop_HyValue_level_15_in_parse_eu_hyvar_dataValues_HyValue3236 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_parse_eu_hyvar_feature_expression_HyValueExpression_in_synpred45_Hyexpression2369 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_parse_eu_hyvar_feature_expression_HyBooleanValueExpression_in_synpred46_Hyexpression2377 = new BitSet(new long[]{0x0000000000000002L});
 
 }

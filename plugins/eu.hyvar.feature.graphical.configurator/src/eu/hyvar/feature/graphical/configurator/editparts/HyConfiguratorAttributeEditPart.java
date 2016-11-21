@@ -11,7 +11,7 @@ import eu.hyvar.feature.HyFeatureAttribute;
 import eu.hyvar.feature.HyNumberAttribute;
 import eu.hyvar.feature.HyStringAttribute;
 import eu.hyvar.feature.configuration.HyConfiguration;
-import eu.hyvar.feature.graphical.base.editor.GraphicalFeatureModelEditor;
+import eu.hyvar.feature.graphical.base.editor.HyGraphicalFeatureModelViewer;
 import eu.hyvar.feature.graphical.base.editparts.HyAttributeEditPart;
 import eu.hyvar.feature.graphical.base.model.HyFeatureModelWrapped;
 import eu.hyvar.feature.graphical.configurator.editor.HyFeatureModelDeltaModuleConfiguratorEditor;
@@ -21,7 +21,7 @@ import eu.hyvar.feature.graphical.configurator.util.HyConfiguratorEditorUtil;
 public class HyConfiguratorAttributeEditPart extends HyAttributeEditPart {
 	HyValue attributeValue = null;
 	
-	public HyConfiguratorAttributeEditPart(GraphicalFeatureModelEditor editor, HyFeatureModelWrapped featureModel) {
+	public HyConfiguratorAttributeEditPart(HyGraphicalFeatureModelViewer editor, HyFeatureModelWrapped featureModel) {
 		super(editor, featureModel);
 	}
 

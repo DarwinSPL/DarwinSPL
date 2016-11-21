@@ -17,7 +17,7 @@ import eu.hyvar.feature.graphical.base.model.HyEditorChangeableElement;
 import eu.hyvar.feature.graphical.base.model.HyGroupWrapped;
 import eu.hyvar.feature.graphical.base.model.HyParentChildConnection;
 import eu.hyvar.feature.graphical.editor.dialogs.HyGroupTypeDialog;
-import eu.hyvar.feature.graphical.editor.editor.GraphicalEvolutionFeatureModelEditor;
+import eu.hyvar.feature.graphical.editor.editor.HyGraphicalFeatureModelEditor;
 
 
 public class HyGroupEditCardinalitiesAction extends SelectionAction{
@@ -42,7 +42,7 @@ public class HyGroupEditCardinalitiesAction extends SelectionAction{
 		StructuredSelection selection = (StructuredSelection)this.getSelection();
 		Object selectedObject = selection.getFirstElement();
 		
-		GraphicalEvolutionFeatureModelEditor editor = (GraphicalEvolutionFeatureModelEditor)this.getWorkbenchPart();
+		HyGraphicalFeatureModelEditor editor = (HyGraphicalFeatureModelEditor)this.getWorkbenchPart();
 
 		
 		EList<HyGroupType> types = null;

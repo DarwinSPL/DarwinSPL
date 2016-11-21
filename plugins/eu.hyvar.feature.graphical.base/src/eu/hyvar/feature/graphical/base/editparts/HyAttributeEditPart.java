@@ -1,27 +1,26 @@
 package eu.hyvar.feature.graphical.base.editparts;
 
-import java.beans.PropertyChangeEvent;
 import java.util.Date;
 
 import org.deltaecore.feature.graphical.base.editor.DEGraphicalEditor;
 import org.deltaecore.feature.graphical.base.util.DEGraphicalEditorTheme;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.geometry.Dimension;
+import org.eclipse.draw2d.geometry.Insets;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
 
 import eu.hyvar.evolution.HyEvolutionUtil;
 import eu.hyvar.evolution.HyName;
 import eu.hyvar.feature.HyFeatureAttribute;
-import eu.hyvar.feature.graphical.base.editor.GraphicalFeatureModelEditor;
+import eu.hyvar.feature.graphical.base.editor.HyGraphicalFeatureModelViewer;
 import eu.hyvar.feature.graphical.base.figures.HyAttributeFigure;
-import eu.hyvar.feature.graphical.base.figures.HyFeatureFigure;
 import eu.hyvar.feature.graphical.base.model.HyFeatureModelWrapped;
 import eu.hyvar.feature.graphical.base.model.HyFeatureWrapped;
 
-public class HyAttributeEditPart  extends HyAbstractEditPart{
+public class HyAttributeEditPart extends HyAbstractEditPart{
 
-	public HyAttributeEditPart(GraphicalFeatureModelEditor editor, HyFeatureModelWrapped featureModel) {
+	public HyAttributeEditPart(HyGraphicalFeatureModelViewer editor, HyFeatureModelWrapped featureModel) {
 		super(editor, featureModel);
 	}
 
@@ -32,37 +31,31 @@ public class HyAttributeEditPart  extends HyAbstractEditPart{
 
 	@Override
 	protected void createEditPolicies() {
-		// TODO
-		//installEditPolicy(EditPolicy.SELECTION_FEEDBACK_ROLE, new HyVersionSelectionHandlesPolicy());
 	}
 	
 	@Override
 	public void refreshVisuals(){
 		DEGraphicalEditorTheme theme = DEGraphicalEditor.getTheme();
+		int lineWidth = theme.getLineWidth();
 		
 		HyFeatureEditPart parent = (HyFeatureEditPart)getParent();
 		HyAttributeFigure figure = (HyAttributeFigure)getFigure();
-		HyFeatureFigure parentFigure = (HyFeatureFigure)figure.getParent();
 		HyFeatureWrapped feature = (HyFeatureWrapped)parent.getModel();
 		Date date = featureModel.getSelectedDate();
 		
 		HyFeatureAttribute attribute = (HyFeatureAttribute)getModel();
 		int index = HyEvolutionUtil.getValidTemporalElements(attribute.getFeature().getAttributes(), date).indexOf(attribute);
 		
-		boolean versionsVisible = parentFigure.versionAreaIsVisible();
-		int y = parentFigure.getHeightWithoutAttributes()+theme.getLineWidth();
-		if(versionsVisible){
-			y += theme.getFeatureNameAreaHeight() / 2;
+		int y = feature.getHeightWithoutAttributes(date);
+		if(feature.hasVersionsAtDate(date)){
+			y += theme.getVersionExtentY()+lineWidth;
 		}
-		int height = theme.getFeatureNameAreaHeight()+theme.getLineWidth();
+
+		int height = theme.getFeatureNameAreaHeight()+lineWidth;
 		
-		int offset = 0;
-		if(this.getSelected() != SELECTED_PRIMARY){
-			offset = theme.getLineWidth();
-		}
 		
-		Rectangle layout = new Rectangle(new Point(theme.getLineWidth()+offset, y + index*height+offset), 
-										 new Dimension(feature.getSize().width-theme.getLineWidth()*2-offset*2, height));
+		Rectangle layout = new Rectangle(new Point(0, y+ index*height), new Dimension(feature.getSize().width, height));
+		layout.shrink(new Insets(0, lineWidth*2, 0, lineWidth*2));
 		parent.setLayoutConstraint(this, figure, layout);	
 		
 		
@@ -80,16 +73,4 @@ public class HyAttributeEditPart  extends HyAbstractEditPart{
 		((HyAttributeFigure)getFigure()).update();
 	
 	}
-
-
-	/*
-	 * TODO
-	@Override
-	public void setSelected(int value){
-		super.setSelected(value);
-		
-		refreshVisuals();
-	}
-	
-*/
 }

@@ -15,10 +15,9 @@ import org.eclipse.gef.EditPart;
 
 import eu.hyvar.dataValues.HyEnum;
 import eu.hyvar.dataValues.HyEnumLiteral;
-import eu.hyvar.evolution.HyEvolutionUtil;
 import eu.hyvar.feature.HyFeature;
 import eu.hyvar.feature.HyFeatureModel;
-import eu.hyvar.feature.graphical.base.editor.GraphicalFeatureModelEditor;
+import eu.hyvar.feature.graphical.base.editor.HyGraphicalFeatureModelViewer;
 import eu.hyvar.feature.graphical.base.figures.HyEnumFigure;
 import eu.hyvar.feature.graphical.base.model.HyFeatureModelWrapped;
 import eu.hyvar.feature.graphical.base.util.HyEnumEditorUtil;
@@ -50,7 +49,7 @@ public class HyEnumEditPart  extends HyAbstractEditPart{
 
 	private HyEnumAdapter adapter = new HyEnumAdapter();
 
-	public HyEnumEditPart(GraphicalFeatureModelEditor editor, HyFeatureModelWrapped featureModel) {
+	public HyEnumEditPart(HyGraphicalFeatureModelViewer editor, HyFeatureModelWrapped featureModel) {
 		super(editor, featureModel);
 	}
 
@@ -108,19 +107,24 @@ public class HyEnumEditPart  extends HyAbstractEditPart{
 
 
 
+	/**
+	 * Calculates and sets the size needed to display all versions and attributes for this feature at the selected date
+	 */
+	protected void setSize(){
+
+		HyFeatureModelEditPart parent = (HyFeatureModelEditPart)getParent();
+	
+		Rectangle layout = new Rectangle(0, 0, 200, 200);
+		parent.setLayoutConstraint(this, figure, layout);	
+	}	
 
 	@Override
 	public void refreshVisuals(){
+		
 		HyFeatureModelEditPart parent = (HyFeatureModelEditPart)getParent();
 		HyEnum model = (HyEnum)getModel();
 
 		Date date = editor.getCurrentSelectedDate();
-
-		if(HyEvolutionUtil.isValid(model, editor.getCurrentSelectedDate())){
-			figure.setVisible(true);
-		}else{
-			figure.setVisible(false);
-		}
 
 		IFigure parentFigure = parent.getFigure();
 
@@ -133,8 +137,8 @@ public class HyEnumEditPart  extends HyAbstractEditPart{
 
 		int width = 300;
 		Rectangle layout = new Rectangle(new Point(parentFigure.getSize().width()-(width+20), 20+topOffset), 
-				new Dimension(width, HyEnumEditorUtil.getEnumHeight(model, date)));
-
+										 new Dimension(width, HyEnumEditorUtil.getEnumHeight(model, date)));
+		
 
 		parent.setLayoutConstraint(this, figure, layout);
 
@@ -145,9 +149,11 @@ public class HyEnumEditPart  extends HyAbstractEditPart{
 		HyEnumFigure figure = (HyEnumFigure)getFigure();
 		figure.setVisible(true);
 		figure.setText(model.getName());
+		
 
 
 		refreshVisualsOfChildren();
+		
 	}
 
 	/**

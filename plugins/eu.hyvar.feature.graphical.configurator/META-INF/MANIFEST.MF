@@ -1,6 +1,6 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
-Bundle-Name: HyFeatureModel DeltaModule Configurator
+Bundle-Name: DarwinSPL Graphical Configurator
 Bundle-SymbolicName: eu.hyvar.feature.graphical.configurator;singleton:=true
 Bundle-Version: 1.0.0.qualifier
 Bundle-Activator: eu.hyvar.feature.graphical.configurator.Activator
@@ -19,3 +19,4 @@ Require-Bundle: org.eclipse.ui,
  eu.hyvar.feature.configuration
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Bundle-ActivationPolicy: lazy
+Bundle-Vendor: www.darwinspl.de

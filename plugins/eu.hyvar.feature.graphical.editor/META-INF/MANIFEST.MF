@@ -1,8 +1,8 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
-Bundle-Name: HyFeatureModel Editor
+Bundle-Name: DarwinSPL Feature Model Editor
 Bundle-SymbolicName: eu.hyvar.feature.graphical.editor;singleton:=true
-Bundle-Version: 1.0.0.qualifier
+Bundle-Version: 1.0.0
 Bundle-Activator: eu.hyvar.feature.graphical.editor.evolution.Activator
 Require-Bundle: org.eclipse.ui,
  org.eclipse.core.runtime,
@@ -22,4 +22,5 @@ Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Bundle-ActivationPolicy: lazy
 Bundle-ClassPath: .,
  libraries/freemarker.jar
+Bundle-Vendor: www.darwinspl.de
 

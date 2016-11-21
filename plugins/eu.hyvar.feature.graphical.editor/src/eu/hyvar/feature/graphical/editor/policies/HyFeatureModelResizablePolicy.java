@@ -24,6 +24,8 @@ public class HyFeatureModelResizablePolicy extends NonResizableEditPolicy{
 		removeSelectionHandles();
 		IFigure layer = getLayer(LayerConstants.HANDLE_LAYER);
 		
+	
+		
 		DEGraphicalEditorTheme theme = DEGraphicalEditor.getTheme();
 		LineBorder border = new LineBorder();
 		border.setColor(theme.getSelectionSecondaryColor());

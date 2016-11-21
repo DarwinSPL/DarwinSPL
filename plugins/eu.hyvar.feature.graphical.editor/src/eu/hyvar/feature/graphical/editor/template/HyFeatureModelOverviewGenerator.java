@@ -13,10 +13,6 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
-import org.eclipse.core.resources.IFile;
-import org.eclipse.core.resources.IWorkspace;
-import org.eclipse.core.resources.IWorkspaceRoot;
-import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.FileLocator;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Platform;
@@ -39,7 +35,7 @@ import eu.hyvar.feature.HyGroupComposition;
 import eu.hyvar.feature.HyGroupType;
 import eu.hyvar.feature.HyGroupTypeEnum;
 import eu.hyvar.feature.HyVersion;
-import eu.hyvar.feature.graphical.base.editor.GraphicalFeatureModelEditor;
+import eu.hyvar.feature.graphical.base.editor.HyGraphicalFeatureModelViewer;
 import freemarker.core.ParseException;
 import freemarker.template.Configuration;
 import freemarker.template.MalformedTemplateNameException;
@@ -52,7 +48,7 @@ public class HyFeatureModelOverviewGenerator {
 	private HyFeature getParentFeature(HyGroupComposition composition, Date date){
 		return HyEvolutionUtil.getValidTemporalElement(composition.getCompositionOf().getChildOf(), date).getParent();		
 	}
-	
+
 	private String getGroupTypeEnumString(HyGroupTypeEnum groupEnum){
 		if(groupEnum == HyGroupTypeEnum.ALTERNATIVE){
 			return "alternative";
@@ -64,7 +60,7 @@ public class HyFeatureModelOverviewGenerator {
 			return "invalid enum";
 		}
 	}
-	
+
 	private void addNameChanges(String identifier, String elementName, HyNamedElement element, Date date, List<HyFeatureModelOverviewChangeDataObject> changes){
 		HyName oldName = null;
 		for(HyName name : element.getNames()){
@@ -73,29 +69,31 @@ public class HyFeatureModelOverviewGenerator {
 			else if(name.getValidUntil() != null && name.getValidUntil() == date){
 				oldName = name;
 			}	
-			
+
 			if(name.getValidSince() != null && name.getValidSince().equals(date)){
-				changes.add(new HyFeatureModelOverviewChangeDataObject(identifier+" ", elementName, " changed name", oldName.getName(), name.getName()));
+				if(oldName != null){
+					changes.add(new HyFeatureModelOverviewChangeDataObject(identifier+" ", elementName, " changed name", oldName.getName(), name.getName()));
+				}
 			}	
 		}		
 	}
 	private Map<String, Object> fillOverviewFile(){
 		Map<String, Object> input = new HashMap<String, Object>();
 
-		
+
 
 		IWorkbench wb = PlatformUI.getWorkbench();
 		IWorkbenchWindow win = wb.getActiveWorkbenchWindow();
 		IWorkbenchPage page = win.getActivePage();
-		GraphicalFeatureModelEditor editor = (GraphicalFeatureModelEditor)page.getActiveEditor();
+		HyGraphicalFeatureModelViewer editor = (HyGraphicalFeatureModelViewer)page.getActiveEditor();
 		List<Date> dates = HyEvolutionUtil.collectDates(editor.getModelWrapped().getModel());
 		List<HyFeatureModelOverviewDataObject> templateDates = new ArrayList<HyFeatureModelOverviewDataObject>();
 
 		HyFeatureModel model = editor.getModelWrapped().getModel();
-		
+
 		for(Date date : dates){
 			List<HyFeatureModelOverviewChangeDataObject> changes = new ArrayList<HyFeatureModelOverviewChangeDataObject>();
-			
+
 			for(HyFeature feature : model.getFeatures()){
 				String featureName = HyEvolutionUtil.getValidTemporalElement(feature.getNames(), date).getName();
 				for(HyVersion version : feature.getVersions()){
@@ -106,23 +104,23 @@ public class HyFeatureModelOverviewGenerator {
 						changes.add(new HyFeatureModelOverviewChangeDataObject(featureName+".", version.getNumber(), " changed validity", "valid", "invalid"));
 					}
 				}
-				
+
 				for(HyFeatureAttribute attribute : feature.getAttributes()){
 					String attributeName = HyEvolutionUtil.getValidTemporalElement(attribute.getNames(), date).getName();
-					
+
 					if(attribute.getValidSince() != null && attribute.getValidSince().equals(date)){
 						changes.add(new HyFeatureModelOverviewChangeDataObject(featureName+".", attributeName, " changed validity", "invalid", "valid"));
 					}
 					if(attribute.getValidUntil() != null && attribute.getValidUntil() == date){
 						changes.add(new HyFeatureModelOverviewChangeDataObject(featureName+".", attributeName, " changed validity", "valid", "invalid"));
 					}		
-					
+
 					addNameChanges("Attribute", attributeName, attribute, date, changes);
 				}
-				
+
 				addNameChanges("Feature", featureName, feature, date, changes);
 
-				
+
 				HyFeatureType oldType = null;
 				for(HyFeatureType type : feature.getTypes()){
 					if(type.getValidSince() == null)
@@ -130,13 +128,13 @@ public class HyFeatureModelOverviewGenerator {
 					else if(type.getValidUntil() != null && type.getValidUntil() == date){
 						oldType = type;
 					}	
-					
+
 					if(type.getValidSince() != null && type.getValidSince().equals(date)){
 						changes.add(new HyFeatureModelOverviewChangeDataObject("Feature ", featureName, " changed type", oldType.getType() == HyFeatureTypeEnum.MANDATORY ? "mandatory": "optional",
-																												 type.getType() == HyFeatureTypeEnum.MANDATORY ? "mandatory": "optional"));
+								type.getType() == HyFeatureTypeEnum.MANDATORY ? "mandatory": "optional"));
 					}	
 				}
-				
+
 				HyFeature oldParentFeature = null;;
 				for(HyGroupComposition composition : feature.getGroupMembership()){
 					if(composition.getValidSince() == null){
@@ -144,7 +142,7 @@ public class HyFeatureModelOverviewGenerator {
 					}else if(composition.getValidUntil() != null && composition.getValidUntil() == date){
 						oldParentFeature = getParentFeature(composition, date);
 					}	
-					
+
 					if(composition.getValidSince() != null && composition.getValidSince().equals(date)){
 						changes.add(new HyFeatureModelOverviewChangeDataObject("Feature ", featureName, " moved", 
 								HyEvolutionUtil.getValidTemporalElement(oldParentFeature.getNames(), date).getName(),
@@ -152,9 +150,9 @@ public class HyFeatureModelOverviewGenerator {
 					}	
 				}
 			}
-			
-			
-			
+
+
+
 			for(HyGroup group : model.getGroups()){
 				if(group.getValidSince() != null && group.getValidSince() == date){					
 					changes.add(new HyFeatureModelOverviewChangeDataObject("Group", group.getId(), " changed validity", "invalid", "valid"));
@@ -162,7 +160,7 @@ public class HyFeatureModelOverviewGenerator {
 				if(group.getValidUntil() != null && group.getValidUntil() == date){
 					changes.add(new HyFeatureModelOverviewChangeDataObject("Group", group.getId(), " changed validity", "valid", "invalid"));
 				}
-				
+
 				HyGroupType oldType = null;
 				for(HyGroupType type : group.getTypes()){
 					if(type.getValidSince() == null)
@@ -170,15 +168,15 @@ public class HyFeatureModelOverviewGenerator {
 					else if(type.getValidUntil() != null && type.getValidUntil() == date){
 						oldType = type;
 					}	
-					
+
 					if(type.getValidSince() != null && type.getValidSince().equals(date)){
 						changes.add(new HyFeatureModelOverviewChangeDataObject("Group ", group.getId(), " changed type", getGroupTypeEnumString(oldType.getType()),
 								getGroupTypeEnumString(type.getType())));
 					}	
 				}
 			}
-			
-			
+
+
 			templateDates.add(new HyFeatureModelOverviewDataObject(date, changes));
 
 		}
@@ -189,52 +187,82 @@ public class HyFeatureModelOverviewGenerator {
 
 		return input;
 	}
-	public void createOverviewFile(Date since, Date until) throws TemplateNotFoundException, MalformedTemplateNameException, ParseException, IOException, TemplateException, URISyntaxException{
+
+	private Configuration initializeConfiguration() throws URISyntaxException, TemplateNotFoundException, MalformedTemplateNameException, ParseException, IOException, TemplateException{
 		Configuration cfg = new Configuration(Configuration.VERSION_2_3_23);
 		cfg.setClassForTemplateLoading(HyFeatureModelOverviewGenerator.class, "templates");
 		cfg.setDefaultEncoding("UTF-8");
 		cfg.setLocale(Locale.US);
 		cfg.setTemplateExceptionHandler(TemplateExceptionHandler.RETHROW_HANDLER);
 
-
-		Map<String, Object> input = fillOverviewFile();
-		Template template = null;
-
 		Bundle bundle = Platform.getBundle("eu.hyvar.feature.graphical.editor");
 		URL fileURL = bundle.getEntry("templates/");
-		
-		
-
 
 		File file = new File(FileLocator.resolve(fileURL).toURI());
 		cfg.setDirectoryForTemplateLoading(file);
-		template = cfg.getTemplate("overview.ftl");
+
+		return cfg;
+	}
+	
+	private void copyOverviewStyleFiles(){
+		IPath overviewPath = EclipseWorkspaceUtil.createFolderInPathFromCurrentOpenEditorFile("overview");
+		
+		try{
+			Bundle bundle = Platform.getBundle("eu.hyvar.feature.graphical.editor");
+			URL fileURL = bundle.getEntry("templates/style/material.min.js");
+
+			EclipseWorkspaceUtil.copyFile(new File(FileLocator.resolve(fileURL).toURI()), 
+											EclipseWorkspaceUtil.createFileInPath("material.min.js", overviewPath));
+			
+			fileURL = bundle.getEntry("templates/style/material.min.css");
+			EclipseWorkspaceUtil.copyFile(new File(FileLocator.resolve(fileURL).toURI()), 
+					EclipseWorkspaceUtil.createFileInPath("material.min.css", overviewPath));			
+			
+
+		}catch(IOException ex){
+			ex.printStackTrace();
+		}catch(URISyntaxException ex){
+			ex.printStackTrace();
+		}	
+	}
+
+	public void createOverviewFile(Date since, Date until){
+		Template template = null;
+		try{
+			Configuration cfg = initializeConfiguration();
+
+			template = cfg.getTemplate("overview.ftl");
+		}catch(Exception ex){
+
+			return;
+		}
 
 
-		Writer fileWriter = null;
+		String modelName = EclipseWorkspaceUtil.getFilenameFromCurrentOpenEditorFile();
 
-		IWorkbench wb = PlatformUI.getWorkbench();
-		IWorkbenchWindow win = wb.getActiveWorkbenchWindow();
-		IWorkbenchPage page = win.getActivePage();
-		IWorkspace workspace = ResourcesPlugin.getWorkspace();
-		IWorkspaceRoot workspaceRoot = workspace.getRoot();
+		// create the folder where the overview file will be generated and
+		// all style related files will copied
+		IPath overviewPath = EclipseWorkspaceUtil.createFolderInPathFromCurrentOpenEditorFile("overview");
 
-		GraphicalFeatureModelEditor editor = (GraphicalFeatureModelEditor)page.getActiveEditor();
+		// copy all style files into the new directory
+		copyOverviewStyleFiles();
+		
 
+		
 
-		IPath path = ((IPath)editor.getFile().getFullPath().clone()).removeFileExtension().addFileExtension("html");
+		try{
+			File oFile = EclipseWorkspaceUtil.createFileInPath(modelName+".html", overviewPath);
+			Writer fileWriter = new FileWriter(oFile);
 
-		IFile outputFile = workspaceRoot.getFile(path);
-		File oFile = new File(outputFile.getLocationURI());
-		if(!oFile.exists())
-			oFile.createNewFile();
+			Map<String, Object> input = fillOverviewFile();
+			input.put("title", modelName+" Change Overview");
+			template.process(input, fileWriter);
 
-
-		fileWriter = new FileWriter(oFile);
-
-		input.put("title", path.removeFileExtension().lastSegment()+" Change Overview");
-		template.process(input, fileWriter);
-
-		fileWriter.close();
+			fileWriter.close();
+		}catch(IOException ex){
+			ex.printStackTrace();
+		}catch(TemplateException ex){
+			ex.printStackTrace();
+		}
 	}
 }

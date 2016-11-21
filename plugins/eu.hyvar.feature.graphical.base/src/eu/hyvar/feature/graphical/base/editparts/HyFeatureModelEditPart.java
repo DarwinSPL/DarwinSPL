@@ -16,14 +16,14 @@ import org.eclipse.gef.editpolicies.RootComponentEditPolicy;
 import org.eclipse.swt.events.ControlEvent;
 import org.eclipse.swt.events.ControlListener;
 
-import eu.hyvar.feature.graphical.base.editor.GraphicalFeatureModelEditor;
+import eu.hyvar.feature.graphical.base.editor.HyGraphicalFeatureModelViewer;
 import eu.hyvar.feature.graphical.base.model.HyFeatureModelWrapped;
 
 public class HyFeatureModelEditPart extends AbstractGraphicalEditPart implements PropertyChangeListener, ControlListener{
-	protected GraphicalFeatureModelEditor editor;
+	protected HyGraphicalFeatureModelViewer editor;
 	
 	
-	public HyFeatureModelEditPart(GraphicalFeatureModelEditor editor) {
+	public HyFeatureModelEditPart(HyGraphicalFeatureModelViewer editor) {
 		this.editor = editor;
 	}
 	 
@@ -46,7 +46,7 @@ public class HyFeatureModelEditPart extends AbstractGraphicalEditPart implements
 	protected List<Object> getModelChildren() {
 		HyFeatureModelWrapped model = (HyFeatureModelWrapped) getModel();
 		
-		GraphicalFeatureModelEditor editor = (GraphicalFeatureModelEditor)this.editor;
+		HyGraphicalFeatureModelViewer editor = (HyGraphicalFeatureModelViewer)this.editor;
 		
 		List<Object> objects = new ArrayList<Object>();
 		
@@ -75,6 +75,7 @@ public class HyFeatureModelEditPart extends AbstractGraphicalEditPart implements
 
 	@Override
 	public void propertyChange(PropertyChangeEvent evt) {
+		System.out.println(evt);
 		refreshChildren();
 		refreshVisuals();
 	}
@@ -89,9 +90,11 @@ public class HyFeatureModelEditPart extends AbstractGraphicalEditPart implements
 		refresh();
 	}
 	 
+	
 	@Override
 	public void refresh() {
 		//HyFeatureModelEvolutionWrapped model = (HyFeatureModelEvolutionWrapped) getModel();
+		
 		
 		super.refresh();
 		
@@ -105,6 +108,6 @@ public class HyFeatureModelEditPart extends AbstractGraphicalEditPart implements
 				((EditPart)child).refresh();
 			}
 		}
-		
 	}
+	
 }

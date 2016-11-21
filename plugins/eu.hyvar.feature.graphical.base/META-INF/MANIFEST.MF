@@ -1,8 +1,8 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
-Bundle-Name: Base
+Bundle-Name: DarwinSPL Common Graphical Editor
 Bundle-SymbolicName: eu.hyvar.feature.graphical.base
-Bundle-Version: 1.0.0.qualifier
+Bundle-Version: 1.0.0
 Bundle-Activator: eu.hyvar.feature.graphical.base.Activator
 Require-Bundle: org.eclipse.ui,
  org.eclipse.core.runtime,
@@ -25,3 +25,4 @@ Export-Package: eu.hyvar.feature.graphical.base.anchors,
  eu.hyvar.feature.graphical.base.figures,
  eu.hyvar.feature.graphical.base.model,
  eu.hyvar.feature.graphical.base.util
+Bundle-Vendor: www.darwinspl.de

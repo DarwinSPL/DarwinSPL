@@ -14,7 +14,7 @@ import org.eclipse.emf.ecore.EStructuralFeature;
  */
 public class HycontextinformationFollowSetProvider {
 	
-	public final static eu.hyvar.context.resource.hycontextinformation.IHycontextinformationExpectedElement TERMINALS[] = new eu.hyvar.context.resource.hycontextinformation.IHycontextinformationExpectedElement[86];
+	public final static eu.hyvar.context.resource.hycontextinformation.IHycontextinformationExpectedElement TERMINALS[] = new eu.hyvar.context.resource.hycontextinformation.IHycontextinformationExpectedElement[85];
 	
 	public final static EStructuralFeature[] FEATURES = new EStructuralFeature[3];
 	
@@ -85,30 +85,29 @@ public class HycontextinformationFollowSetProvider {
 		TERMINALS[59] = new eu.hyvar.context.resource.hycontextinformation.mopp.HycontextinformationExpectedStructuralFeature(eu.hyvar.context.resource.hycontextinformation.grammar.HycontextinformationGrammarInformationProvider.HYDATAVALUE_3_0_0_5_0_0_1_0_0_2);
 		TERMINALS[60] = new eu.hyvar.context.resource.hycontextinformation.mopp.HycontextinformationExpectedCsString(eu.hyvar.context.resource.hycontextinformation.grammar.HycontextinformationGrammarInformationProvider.HYDATAVALUE_3_0_0_5_0_0_2);
 		TERMINALS[61] = new eu.hyvar.context.resource.hycontextinformation.mopp.HycontextinformationExpectedCsString(eu.hyvar.context.resource.hycontextinformation.grammar.HycontextinformationGrammarInformationProvider.HYDATAVALUE_3_0_0_5_0_0_1_0_1_1);
-		TERMINALS[62] = new eu.hyvar.context.resource.hycontextinformation.mopp.HycontextinformationExpectedCsString(eu.hyvar.context.resource.hycontextinformation.grammar.HycontextinformationGrammarInformationProvider.HYDATAVALUE_3_0_0_5_0_0_1_0_1_2);
-		TERMINALS[63] = new eu.hyvar.context.resource.hycontextinformation.mopp.HycontextinformationExpectedCsString(eu.hyvar.context.resource.hycontextinformation.grammar.HycontextinformationGrammarInformationProvider.HYDATAVALUE_3_0_0_5_0_0_1_0_2_1);
-		TERMINALS[64] = new eu.hyvar.context.resource.hycontextinformation.mopp.HycontextinformationExpectedStructuralFeature(eu.hyvar.context.resource.hycontextinformation.grammar.HycontextinformationGrammarInformationProvider.HYDATAVALUE_3_0_0_5_0_0_1_0_2_2);
-		TERMINALS[65] = new eu.hyvar.context.resource.hycontextinformation.mopp.HycontextinformationExpectedStructuralFeature(eu.hyvar.context.resource.hycontextinformation.grammar.HycontextinformationGrammarInformationProvider.HYDATAVALUE_4_0_0_1);
-		TERMINALS[66] = new eu.hyvar.context.resource.hycontextinformation.mopp.HycontextinformationExpectedCsString(eu.hyvar.context.resource.hycontextinformation.grammar.HycontextinformationGrammarInformationProvider.HYDATAVALUE_4_0_0_2);
-		TERMINALS[67] = new eu.hyvar.context.resource.hycontextinformation.mopp.HycontextinformationExpectedStructuralFeature(eu.hyvar.context.resource.hycontextinformation.grammar.HycontextinformationGrammarInformationProvider.HYDATAVALUE_4_0_0_3);
-		TERMINALS[68] = new eu.hyvar.context.resource.hycontextinformation.mopp.HycontextinformationExpectedCsString(eu.hyvar.context.resource.hycontextinformation.grammar.HycontextinformationGrammarInformationProvider.HYDATAVALUE_4_0_0_4);
-		TERMINALS[69] = new eu.hyvar.context.resource.hycontextinformation.mopp.HycontextinformationExpectedCsString(eu.hyvar.context.resource.hycontextinformation.grammar.HycontextinformationGrammarInformationProvider.HYDATAVALUE_4_0_0_5_0_0_0);
-		TERMINALS[70] = new eu.hyvar.context.resource.hycontextinformation.mopp.HycontextinformationExpectedStructuralFeature(eu.hyvar.context.resource.hycontextinformation.grammar.HycontextinformationGrammarInformationProvider.HYDATAVALUE_4_0_0_5_0_0_1_0_0_0);
-		TERMINALS[71] = new eu.hyvar.context.resource.hycontextinformation.mopp.HycontextinformationExpectedStructuralFeature(eu.hyvar.context.resource.hycontextinformation.grammar.HycontextinformationGrammarInformationProvider.HYDATAVALUE_4_0_0_5_0_0_1_0_1_0);
-		TERMINALS[72] = new eu.hyvar.context.resource.hycontextinformation.mopp.HycontextinformationExpectedCsString(eu.hyvar.context.resource.hycontextinformation.grammar.HycontextinformationGrammarInformationProvider.HYDATAVALUE_4_0_0_5_0_0_1_0_2_0);
-		TERMINALS[73] = new eu.hyvar.context.resource.hycontextinformation.mopp.HycontextinformationExpectedCsString(eu.hyvar.context.resource.hycontextinformation.grammar.HycontextinformationGrammarInformationProvider.HYDATAVALUE_4_0_0_5_0_0_1_0_0_1);
-		TERMINALS[74] = new eu.hyvar.context.resource.hycontextinformation.mopp.HycontextinformationExpectedStructuralFeature(eu.hyvar.context.resource.hycontextinformation.grammar.HycontextinformationGrammarInformationProvider.HYDATAVALUE_4_0_0_5_0_0_1_0_0_2);
-		TERMINALS[75] = new eu.hyvar.context.resource.hycontextinformation.mopp.HycontextinformationExpectedCsString(eu.hyvar.context.resource.hycontextinformation.grammar.HycontextinformationGrammarInformationProvider.HYDATAVALUE_4_0_0_5_0_0_2);
-		TERMINALS[76] = new eu.hyvar.context.resource.hycontextinformation.mopp.HycontextinformationExpectedCsString(eu.hyvar.context.resource.hycontextinformation.grammar.HycontextinformationGrammarInformationProvider.HYDATAVALUE_4_0_0_5_0_0_1_0_1_1);
-		TERMINALS[77] = new eu.hyvar.context.resource.hycontextinformation.mopp.HycontextinformationExpectedCsString(eu.hyvar.context.resource.hycontextinformation.grammar.HycontextinformationGrammarInformationProvider.HYDATAVALUE_4_0_0_5_0_0_1_0_1_2);
-		TERMINALS[78] = new eu.hyvar.context.resource.hycontextinformation.mopp.HycontextinformationExpectedCsString(eu.hyvar.context.resource.hycontextinformation.grammar.HycontextinformationGrammarInformationProvider.HYDATAVALUE_4_0_0_5_0_0_1_0_2_1);
-		TERMINALS[79] = new eu.hyvar.context.resource.hycontextinformation.mopp.HycontextinformationExpectedStructuralFeature(eu.hyvar.context.resource.hycontextinformation.grammar.HycontextinformationGrammarInformationProvider.HYDATAVALUE_4_0_0_5_0_0_1_0_2_2);
-		TERMINALS[80] = new eu.hyvar.context.resource.hycontextinformation.mopp.HycontextinformationExpectedStructuralFeature(eu.hyvar.context.resource.hycontextinformation.grammar.HycontextinformationGrammarInformationProvider.HYDATAVALUE_0_0_0_0);
-		TERMINALS[81] = new eu.hyvar.context.resource.hycontextinformation.mopp.HycontextinformationExpectedBooleanTerminal(eu.hyvar.context.resource.hycontextinformation.grammar.HycontextinformationGrammarInformationProvider.HYDATAVALUE_1_0_0_0);
-		TERMINALS[82] = new eu.hyvar.context.resource.hycontextinformation.mopp.HycontextinformationExpectedCsString(eu.hyvar.context.resource.hycontextinformation.grammar.HycontextinformationGrammarInformationProvider.HYDATAVALUE_2_0_0_0);
-		TERMINALS[83] = new eu.hyvar.context.resource.hycontextinformation.mopp.HycontextinformationExpectedStructuralFeature(eu.hyvar.context.resource.hycontextinformation.grammar.HycontextinformationGrammarInformationProvider.HYDATAVALUE_2_0_0_1);
-		TERMINALS[84] = new eu.hyvar.context.resource.hycontextinformation.mopp.HycontextinformationExpectedCsString(eu.hyvar.context.resource.hycontextinformation.grammar.HycontextinformationGrammarInformationProvider.HYDATAVALUE_2_0_0_2);
-		TERMINALS[85] = new eu.hyvar.context.resource.hycontextinformation.mopp.HycontextinformationExpectedStructuralFeature(eu.hyvar.context.resource.hycontextinformation.grammar.HycontextinformationGrammarInformationProvider.HYDATAVALUE_2_0_0_3);
+		TERMINALS[62] = new eu.hyvar.context.resource.hycontextinformation.mopp.HycontextinformationExpectedCsString(eu.hyvar.context.resource.hycontextinformation.grammar.HycontextinformationGrammarInformationProvider.HYDATAVALUE_3_0_0_5_0_0_1_0_2_1);
+		TERMINALS[63] = new eu.hyvar.context.resource.hycontextinformation.mopp.HycontextinformationExpectedStructuralFeature(eu.hyvar.context.resource.hycontextinformation.grammar.HycontextinformationGrammarInformationProvider.HYDATAVALUE_3_0_0_5_0_0_1_0_2_2);
+		TERMINALS[64] = new eu.hyvar.context.resource.hycontextinformation.mopp.HycontextinformationExpectedStructuralFeature(eu.hyvar.context.resource.hycontextinformation.grammar.HycontextinformationGrammarInformationProvider.HYDATAVALUE_4_0_0_1);
+		TERMINALS[65] = new eu.hyvar.context.resource.hycontextinformation.mopp.HycontextinformationExpectedCsString(eu.hyvar.context.resource.hycontextinformation.grammar.HycontextinformationGrammarInformationProvider.HYDATAVALUE_4_0_0_2);
+		TERMINALS[66] = new eu.hyvar.context.resource.hycontextinformation.mopp.HycontextinformationExpectedStructuralFeature(eu.hyvar.context.resource.hycontextinformation.grammar.HycontextinformationGrammarInformationProvider.HYDATAVALUE_4_0_0_3);
+		TERMINALS[67] = new eu.hyvar.context.resource.hycontextinformation.mopp.HycontextinformationExpectedCsString(eu.hyvar.context.resource.hycontextinformation.grammar.HycontextinformationGrammarInformationProvider.HYDATAVALUE_4_0_0_4);
+		TERMINALS[68] = new eu.hyvar.context.resource.hycontextinformation.mopp.HycontextinformationExpectedCsString(eu.hyvar.context.resource.hycontextinformation.grammar.HycontextinformationGrammarInformationProvider.HYDATAVALUE_4_0_0_5_0_0_0);
+		TERMINALS[69] = new eu.hyvar.context.resource.hycontextinformation.mopp.HycontextinformationExpectedStructuralFeature(eu.hyvar.context.resource.hycontextinformation.grammar.HycontextinformationGrammarInformationProvider.HYDATAVALUE_4_0_0_5_0_0_1_0_0_0);
+		TERMINALS[70] = new eu.hyvar.context.resource.hycontextinformation.mopp.HycontextinformationExpectedStructuralFeature(eu.hyvar.context.resource.hycontextinformation.grammar.HycontextinformationGrammarInformationProvider.HYDATAVALUE_4_0_0_5_0_0_1_0_1_0);
+		TERMINALS[71] = new eu.hyvar.context.resource.hycontextinformation.mopp.HycontextinformationExpectedCsString(eu.hyvar.context.resource.hycontextinformation.grammar.HycontextinformationGrammarInformationProvider.HYDATAVALUE_4_0_0_5_0_0_1_0_2_0);
+		TERMINALS[72] = new eu.hyvar.context.resource.hycontextinformation.mopp.HycontextinformationExpectedCsString(eu.hyvar.context.resource.hycontextinformation.grammar.HycontextinformationGrammarInformationProvider.HYDATAVALUE_4_0_0_5_0_0_1_0_0_1);
+		TERMINALS[73] = new eu.hyvar.context.resource.hycontextinformation.mopp.HycontextinformationExpectedStructuralFeature(eu.hyvar.context.resource.hycontextinformation.grammar.HycontextinformationGrammarInformationProvider.HYDATAVALUE_4_0_0_5_0_0_1_0_0_2);
+		TERMINALS[74] = new eu.hyvar.context.resource.hycontextinformation.mopp.HycontextinformationExpectedCsString(eu.hyvar.context.resource.hycontextinformation.grammar.HycontextinformationGrammarInformationProvider.HYDATAVALUE_4_0_0_5_0_0_2);
+		TERMINALS[75] = new eu.hyvar.context.resource.hycontextinformation.mopp.HycontextinformationExpectedCsString(eu.hyvar.context.resource.hycontextinformation.grammar.HycontextinformationGrammarInformationProvider.HYDATAVALUE_4_0_0_5_0_0_1_0_1_1);
+		TERMINALS[76] = new eu.hyvar.context.resource.hycontextinformation.mopp.HycontextinformationExpectedCsString(eu.hyvar.context.resource.hycontextinformation.grammar.HycontextinformationGrammarInformationProvider.HYDATAVALUE_4_0_0_5_0_0_1_0_1_2);
+		TERMINALS[77] = new eu.hyvar.context.resource.hycontextinformation.mopp.HycontextinformationExpectedCsString(eu.hyvar.context.resource.hycontextinformation.grammar.HycontextinformationGrammarInformationProvider.HYDATAVALUE_4_0_0_5_0_0_1_0_2_1);
+		TERMINALS[78] = new eu.hyvar.context.resource.hycontextinformation.mopp.HycontextinformationExpectedStructuralFeature(eu.hyvar.context.resource.hycontextinformation.grammar.HycontextinformationGrammarInformationProvider.HYDATAVALUE_4_0_0_5_0_0_1_0_2_2);
+		TERMINALS[79] = new eu.hyvar.context.resource.hycontextinformation.mopp.HycontextinformationExpectedStructuralFeature(eu.hyvar.context.resource.hycontextinformation.grammar.HycontextinformationGrammarInformationProvider.HYDATAVALUE_0_0_0_0);
+		TERMINALS[80] = new eu.hyvar.context.resource.hycontextinformation.mopp.HycontextinformationExpectedBooleanTerminal(eu.hyvar.context.resource.hycontextinformation.grammar.HycontextinformationGrammarInformationProvider.HYDATAVALUE_1_0_0_0);
+		TERMINALS[81] = new eu.hyvar.context.resource.hycontextinformation.mopp.HycontextinformationExpectedCsString(eu.hyvar.context.resource.hycontextinformation.grammar.HycontextinformationGrammarInformationProvider.HYDATAVALUE_2_0_0_0);
+		TERMINALS[82] = new eu.hyvar.context.resource.hycontextinformation.mopp.HycontextinformationExpectedStructuralFeature(eu.hyvar.context.resource.hycontextinformation.grammar.HycontextinformationGrammarInformationProvider.HYDATAVALUE_2_0_0_1);
+		TERMINALS[83] = new eu.hyvar.context.resource.hycontextinformation.mopp.HycontextinformationExpectedCsString(eu.hyvar.context.resource.hycontextinformation.grammar.HycontextinformationGrammarInformationProvider.HYDATAVALUE_2_0_0_2);
+		TERMINALS[84] = new eu.hyvar.context.resource.hycontextinformation.mopp.HycontextinformationExpectedStructuralFeature(eu.hyvar.context.resource.hycontextinformation.grammar.HycontextinformationGrammarInformationProvider.HYDATAVALUE_2_0_0_3);
 	}
 	
 	public static void initializeTerminals() {
@@ -271,39 +270,38 @@ public class HycontextinformationFollowSetProvider {
 		TERMINALS[58].addFollower(TERMINALS[59], EMPTY_LINK_ARRAY);
 		TERMINALS[59].addFollower(TERMINALS[60], EMPTY_LINK_ARRAY);
 		TERMINALS[56].addFollower(TERMINALS[61], EMPTY_LINK_ARRAY);
-		TERMINALS[61].addFollower(TERMINALS[62], EMPTY_LINK_ARRAY);
-		TERMINALS[62].addFollower(TERMINALS[60], EMPTY_LINK_ARRAY);
-		TERMINALS[57].addFollower(TERMINALS[63], EMPTY_LINK_ARRAY);
-		TERMINALS[63].addFollower(TERMINALS[64], EMPTY_LINK_ARRAY);
-		TERMINALS[64].addFollower(TERMINALS[60], EMPTY_LINK_ARRAY);
+		TERMINALS[61].addFollower(TERMINALS[60], EMPTY_LINK_ARRAY);
+		TERMINALS[57].addFollower(TERMINALS[62], EMPTY_LINK_ARRAY);
+		TERMINALS[62].addFollower(TERMINALS[63], EMPTY_LINK_ARRAY);
+		TERMINALS[63].addFollower(TERMINALS[60], EMPTY_LINK_ARRAY);
 		TERMINALS[60].addFollower(TERMINALS[0], new eu.hyvar.context.resource.hycontextinformation.mopp.HycontextinformationContainedFeature[] {new eu.hyvar.context.resource.hycontextinformation.mopp.HycontextinformationContainedFeature(eu.hyvar.dataValues.HyDataValuesPackage.eINSTANCE.getHyEnum(), FEATURES[2]), });
 		TERMINALS[60].addFollower(TERMINALS[1], new eu.hyvar.context.resource.hycontextinformation.mopp.HycontextinformationContainedFeature[] {new eu.hyvar.context.resource.hycontextinformation.mopp.HycontextinformationContainedFeature(eu.hyvar.context.HyContextInformationPackage.eINSTANCE.getHyContextualInformationNumber(), FEATURES[0]), });
 		TERMINALS[60].addFollower(TERMINALS[2], new eu.hyvar.context.resource.hycontextinformation.mopp.HycontextinformationContainedFeature[] {new eu.hyvar.context.resource.hycontextinformation.mopp.HycontextinformationContainedFeature(eu.hyvar.context.HyContextInformationPackage.eINSTANCE.getHyContextualInformationBoolean(), FEATURES[0]), });
 		TERMINALS[60].addFollower(TERMINALS[3], new eu.hyvar.context.resource.hycontextinformation.mopp.HycontextinformationContainedFeature[] {new eu.hyvar.context.resource.hycontextinformation.mopp.HycontextinformationContainedFeature(eu.hyvar.context.HyContextInformationPackage.eINSTANCE.getHyContextualInformationEnum(), FEATURES[0]), });
-		TERMINALS[51].addFollower(TERMINALS[65], EMPTY_LINK_ARRAY);
+		TERMINALS[51].addFollower(TERMINALS[64], EMPTY_LINK_ARRAY);
+		TERMINALS[64].addFollower(TERMINALS[65], EMPTY_LINK_ARRAY);
 		TERMINALS[65].addFollower(TERMINALS[66], EMPTY_LINK_ARRAY);
 		TERMINALS[66].addFollower(TERMINALS[67], EMPTY_LINK_ARRAY);
 		TERMINALS[67].addFollower(TERMINALS[68], EMPTY_LINK_ARRAY);
+		TERMINALS[67].addFollower(TERMINALS[53], EMPTY_LINK_ARRAY);
+		TERMINALS[67].addFollower(TERMINALS[52], EMPTY_LINK_ARRAY);
 		TERMINALS[68].addFollower(TERMINALS[69], EMPTY_LINK_ARRAY);
-		TERMINALS[68].addFollower(TERMINALS[53], EMPTY_LINK_ARRAY);
-		TERMINALS[68].addFollower(TERMINALS[52], EMPTY_LINK_ARRAY);
-		TERMINALS[69].addFollower(TERMINALS[70], EMPTY_LINK_ARRAY);
-		TERMINALS[69].addFollower(TERMINALS[71], EMPTY_LINK_ARRAY);
+		TERMINALS[68].addFollower(TERMINALS[70], EMPTY_LINK_ARRAY);
+		TERMINALS[68].addFollower(TERMINALS[71], EMPTY_LINK_ARRAY);
 		TERMINALS[69].addFollower(TERMINALS[72], EMPTY_LINK_ARRAY);
-		TERMINALS[70].addFollower(TERMINALS[73], EMPTY_LINK_ARRAY);
+		TERMINALS[72].addFollower(TERMINALS[73], EMPTY_LINK_ARRAY);
 		TERMINALS[73].addFollower(TERMINALS[74], EMPTY_LINK_ARRAY);
-		TERMINALS[74].addFollower(TERMINALS[75], EMPTY_LINK_ARRAY);
-		TERMINALS[71].addFollower(TERMINALS[76], EMPTY_LINK_ARRAY);
-		TERMINALS[76].addFollower(TERMINALS[77], EMPTY_LINK_ARRAY);
-		TERMINALS[77].addFollower(TERMINALS[75], EMPTY_LINK_ARRAY);
-		TERMINALS[72].addFollower(TERMINALS[78], EMPTY_LINK_ARRAY);
-		TERMINALS[78].addFollower(TERMINALS[79], EMPTY_LINK_ARRAY);
-		TERMINALS[79].addFollower(TERMINALS[75], EMPTY_LINK_ARRAY);
-		TERMINALS[75].addFollower(TERMINALS[53], EMPTY_LINK_ARRAY);
-		TERMINALS[75].addFollower(TERMINALS[52], EMPTY_LINK_ARRAY);
+		TERMINALS[70].addFollower(TERMINALS[75], EMPTY_LINK_ARRAY);
+		TERMINALS[75].addFollower(TERMINALS[76], EMPTY_LINK_ARRAY);
+		TERMINALS[76].addFollower(TERMINALS[74], EMPTY_LINK_ARRAY);
+		TERMINALS[71].addFollower(TERMINALS[77], EMPTY_LINK_ARRAY);
+		TERMINALS[77].addFollower(TERMINALS[78], EMPTY_LINK_ARRAY);
+		TERMINALS[78].addFollower(TERMINALS[74], EMPTY_LINK_ARRAY);
+		TERMINALS[74].addFollower(TERMINALS[53], EMPTY_LINK_ARRAY);
+		TERMINALS[74].addFollower(TERMINALS[52], EMPTY_LINK_ARRAY);
+		TERMINALS[81].addFollower(TERMINALS[82], EMPTY_LINK_ARRAY);
 		TERMINALS[82].addFollower(TERMINALS[83], EMPTY_LINK_ARRAY);
 		TERMINALS[83].addFollower(TERMINALS[84], EMPTY_LINK_ARRAY);
-		TERMINALS[84].addFollower(TERMINALS[85], EMPTY_LINK_ARRAY);
 	}
 	
 	public static void wire() {
