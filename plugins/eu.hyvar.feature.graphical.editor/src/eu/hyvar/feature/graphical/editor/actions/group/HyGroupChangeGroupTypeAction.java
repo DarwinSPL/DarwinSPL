@@ -8,7 +8,7 @@ import eu.hyvar.feature.HyGroupTypeEnum;
 import eu.hyvar.feature.graphical.base.editor.HyGraphicalFeatureModelViewer;
 import eu.hyvar.feature.graphical.base.editparts.HyGroupEditPart;
 import eu.hyvar.feature.graphical.base.model.HyGroupWrapped;
-import eu.hyvar.feature.graphical.editor.commands.HyGroupChangeGroupTypeCommand;
+import eu.hyvar.feature.graphical.editor.commands.group.HyGroupChangeGroupTypeCommand;
 
 public abstract class HyGroupChangeGroupTypeAction extends SelectionAction{
 	protected HyGraphicalFeatureModelViewer editor;

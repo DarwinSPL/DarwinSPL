@@ -1,4 +1,4 @@
-package eu.hyvar.feature.graphical.editor.commands;
+package eu.hyvar.feature.graphical.editor.commands.group;
 
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.emf.common.util.EList;

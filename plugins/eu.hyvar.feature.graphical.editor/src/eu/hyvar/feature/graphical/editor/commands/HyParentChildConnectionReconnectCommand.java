@@ -132,14 +132,19 @@ public class HyParentChildConnectionReconnectCommand extends Command{
 	public void execute(){
 		HyFeatureWrapped oldTarget = connection.getTarget();
 		Date date = featureModel.getSelectedDate();
+		if(date == new Date(Long.MIN_VALUE))
+			date = null;
+		
 
 		if(target instanceof HyFeatureWrapped){
 
 			HyGroupComposition composition = HyEvolutionUtil.getValidTemporalElement(oldTarget.getWrappedModelElement().getGroupMembership(), date);
-			splitComposition(composition, oldTarget);
+			
+			if(date != null)
+				splitComposition(composition, oldTarget);
 			
 			if(composition.getCompositionOf() != null)
-			HyElementEditorUtil.cleanGroupCompositions(composition.getCompositionOf());
+				HyElementEditorUtil.cleanGroupCompositions(composition.getCompositionOf());
 
 			HyFeatureWrapped newTarget = (HyFeatureWrapped)target;
 			HyFeatureChild child = HyEvolutionUtil.getValidTemporalElement(newTarget.getWrappedModelElement().getParentOf(), date);

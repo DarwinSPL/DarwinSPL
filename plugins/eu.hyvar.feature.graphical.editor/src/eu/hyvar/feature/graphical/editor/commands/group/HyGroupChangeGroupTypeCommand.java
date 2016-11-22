@@ -1,4 +1,4 @@
-package eu.hyvar.feature.graphical.editor.commands;
+package eu.hyvar.feature.graphical.editor.commands.group;
 
 import java.util.Date;
 
@@ -10,6 +10,7 @@ import eu.hyvar.feature.HyGroup;
 import eu.hyvar.feature.HyGroupType;
 import eu.hyvar.feature.HyGroupTypeEnum;
 import eu.hyvar.feature.graphical.base.editor.HyGraphicalFeatureModelViewer;
+import eu.hyvar.feature.graphical.editor.commands.HyLinearTemporalElementCommand;
 import eu.hyvar.feature.graphical.editor.util.HyElementEditorUtil;
 
 public class HyGroupChangeGroupTypeCommand extends HyLinearTemporalElementCommand{
