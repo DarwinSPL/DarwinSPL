@@ -1,8 +1,8 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
-Bundle-Name: ReconfiguratorInput
+Bundle-Name: DarwinSPL HyVarRec Export
 Bundle-SymbolicName: eu.hyvar.reconfigurator.input
-Bundle-Version: 0.0.1
+Bundle-Version: 1.0.0
 Bundle-RequiredExecutionEnvironment: JavaSE-1.7
 Export-Package: eu.hyvar.reconfigurator.input.exporter,
  eu.hyvar.reconfigurator.input.exporter.example
@@ -13,3 +13,4 @@ Require-Bundle: eu.hyvar.context.validity_formulas,
  eu.hyvar.context.information.value
 Bundle-ClassPath: .,
  libs/gson-2.6.1.jar
+Bundle-Vendor: www.darwinspl.de

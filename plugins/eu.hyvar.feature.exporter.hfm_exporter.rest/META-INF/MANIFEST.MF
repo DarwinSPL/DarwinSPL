@@ -18,3 +18,4 @@ Require-Bundle: org.eclipse.equinox.app,
  eu.hyvar.feature.exporter.hfm_exporter,
  org.deltaecore.feature,
  org.deltaecore.feature.configuration
+Bundle-Vendor: www.darwinspl.de

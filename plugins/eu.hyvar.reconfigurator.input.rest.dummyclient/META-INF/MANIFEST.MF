@@ -1,6 +1,6 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
-Bundle-Name: FM For HyVarRec REST API Dummyclient
+Bundle-Name: DarwinSPL FM For HyVarRec REST API Dummyclient
 Bundle-SymbolicName: eu.hyvar.reconfigurator.input.rest.dummyclient;singleton:=true
 Bundle-Version: 1.0.0
 Bundle-RequiredExecutionEnvironment: JavaSE-1.7
@@ -19,3 +19,4 @@ Require-Bundle: org.eclipse.equinox.app,
  eu.hyvar.context.validity_formulas
 Bundle-ClassPath: .,
  lib/jetty-client-9.2.13.v20150730.jar
+Bundle-Vendor: www.darwinspl.de
