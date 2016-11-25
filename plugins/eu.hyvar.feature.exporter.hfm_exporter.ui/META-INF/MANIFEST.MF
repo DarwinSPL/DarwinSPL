@@ -16,5 +16,10 @@ Require-Bundle: org.deltaecore.feature,
  eu.hyvar.feature.mapping,
  org.deltaecore.feature.configuration,
  org.deltaecore.feature.mapping,
- org.deltaecore.feature.constraint
+ org.deltaecore.feature.constraint,
+ eu.hyvar.reconfigurator.input,
+ eu.hyvar.context.information.value,
+ eu.hyvar.preferences,
+ eu.hyvar.context.validity_formulas,
+ eu.hyvar.context.information
 Bundle-Vendor: www.darwinspl.de

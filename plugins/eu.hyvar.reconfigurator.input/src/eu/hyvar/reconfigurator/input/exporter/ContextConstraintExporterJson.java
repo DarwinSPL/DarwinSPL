@@ -182,97 +182,96 @@ public class ContextConstraintExporterJson {
 
 
 		// File output. Not necessary for HyVar in the end. Only for Isola Paper
-		BufferedWriter writer = null;
-		try {
-			// create a temporary file
-			File inputForHyVarRecJsonFile = new File("InputForHyVarRec.json");
-
-			// This will output the full path where the file will be written
-			// to...
-			System.out.println(inputForHyVarRecJsonFile.getCanonicalPath());
-			System.out.println(gson.toJson(input));
-
-			writer = new BufferedWriter(new FileWriter(inputForHyVarRecJsonFile));
-			writer.write(gson.toJson(input));
-		} catch (IOException e) {
-			e.printStackTrace();
-		} finally {
-			try {
-				// Close the writer regardless of what happens.
-				writer.close();
-			} catch (IOException e) {
-			}
-		}
+//		BufferedWriter writer = null;
+//		try {
+//			// create a temporary file
+//			File inputForHyVarRecJsonFile = new File("InputForHyVarRec.json");
+//
+//			// This will output the full path where the file will be written
+//			// to...
+//			System.out.println(inputForHyVarRecJsonFile.getCanonicalPath());
+//			System.out.println(gson.toJson(input));
+//
+//			writer = new BufferedWriter(new FileWriter(inputForHyVarRecJsonFile));
+//			writer.write(gson.toJson(input));
+//		} catch (IOException e) {
+//			e.printStackTrace();
+//		} finally {
+//			try {
+//				// Close the writer regardless of what happens.
+//				writer.close();
+//			} catch (IOException e) {
+//			}
+//		}
 
 		// DEBUG output
 
-		try {
-			// create a temporary file
-			File debugFile = new File("Debug.log");
-
-			StringBuilder sb = new StringBuilder();
-
-			for (HyFeature feature : featureReconfiguratorIdMapping.keySet()) {
-
-				sb.append(featureReconfiguratorIdMapping.get(feature));
-				sb.append(" : ");
-				sb.append(HyEvolutionUtil.getValidTemporalElement(feature.getNames(), date).getName());
-				sb.append(System.lineSeparator());
-
-				for (HyFeatureAttribute attribute : feature.getAttributes()) {
-
-					sb.append(attributeReconfiguratorIdMapping.get(attribute));
-					sb.append(" : ");
-					sb.append(HyEvolutionUtil.getValidTemporalElement(attribute.getNames(), date).getName());
-					sb.append(System.lineSeparator());
-
-					if (attribute instanceof HyEnumAttribute) {
-						for (HyEnumLiteral literal : ((HyEnumAttribute) attribute).getEnumType().getLiterals()) {
-							sb.append(literal.getValue());
-							sb.append(" : ");
-							sb.append(literal.getName());
-							sb.append(System.lineSeparator());
-						}
-					}
-				}
-				
-				for(HyVersion version: feature.getVersions()) {
-					sb.append(versionReconfiguratorIdMapping.get(version));
-					sb.append(" : ");
-					sb.append(version.getNumber());
-					sb.append(System.lineSeparator());
-				}
-			}
-
-			for (HyContextualInformation context : contextModel.getContextualInformations()) {
-				sb.append(contextReconfiguratorIdMapping.get(context));
-				sb.append(" : ");
-				sb.append(context.getName());
-				sb.append(System.lineSeparator());
-
-				if (context instanceof HyContextualInformationEnum) {
-					for (HyEnumLiteral literal : ((HyContextualInformationEnum) context).getEnumType().getLiterals()) {
-						sb.append(literal.getValue());
-						sb.append(" : ");
-						sb.append(literal.getName());
-						sb.append(System.lineSeparator());
-					}
-				}
-			}
-
-			writer = new BufferedWriter(new FileWriter(debugFile));
-			writer.write(sb.toString());
-
-		} catch (IOException e) {
-			e.printStackTrace();
-		} finally {
-			try {
-				// Close the writer regardless of what happens.
-				writer.close();
-			} catch (IOException e) {
-			}
-		}
-		// TODO
+//		try {
+//			// create a temporary file
+//			File debugFile = new File("Debug.log");
+//
+//			StringBuilder sb = new StringBuilder();
+//
+//			for (HyFeature feature : featureReconfiguratorIdMapping.keySet()) {
+//
+//				sb.append(featureReconfiguratorIdMapping.get(feature));
+//				sb.append(" : ");
+//				sb.append(HyEvolutionUtil.getValidTemporalElement(feature.getNames(), date).getName());
+//				sb.append(System.lineSeparator());
+//
+//				for (HyFeatureAttribute attribute : feature.getAttributes()) {
+//
+//					sb.append(attributeReconfiguratorIdMapping.get(attribute));
+//					sb.append(" : ");
+//					sb.append(HyEvolutionUtil.getValidTemporalElement(attribute.getNames(), date).getName());
+//					sb.append(System.lineSeparator());
+//
+//					if (attribute instanceof HyEnumAttribute) {
+//						for (HyEnumLiteral literal : ((HyEnumAttribute) attribute).getEnumType().getLiterals()) {
+//							sb.append(literal.getValue());
+//							sb.append(" : ");
+//							sb.append(literal.getName());
+//							sb.append(System.lineSeparator());
+//						}
+//					}
+//				}
+//				
+//				for(HyVersion version: feature.getVersions()) {
+//					sb.append(versionReconfiguratorIdMapping.get(version));
+//					sb.append(" : ");
+//					sb.append(version.getNumber());
+//					sb.append(System.lineSeparator());
+//				}
+//			}
+//
+//			for (HyContextualInformation context : contextModel.getContextualInformations()) {
+//				sb.append(contextReconfiguratorIdMapping.get(context));
+//				sb.append(" : ");
+//				sb.append(context.getName());
+//				sb.append(System.lineSeparator());
+//
+//				if (context instanceof HyContextualInformationEnum) {
+//					for (HyEnumLiteral literal : ((HyContextualInformationEnum) context).getEnumType().getLiterals()) {
+//						sb.append(literal.getValue());
+//						sb.append(" : ");
+//						sb.append(literal.getName());
+//						sb.append(System.lineSeparator());
+//					}
+//				}
+//			}
+//
+//			writer = new BufferedWriter(new FileWriter(debugFile));
+//			writer.write(sb.toString());
+//
+//		} catch (IOException e) {
+//			e.printStackTrace();
+//		} finally {
+//			try {
+//				// Close the writer regardless of what happens.
+//				writer.close();
+//			} catch (IOException e) {
+//			}
+//		}
 
 		return gson.toJson(input);
 	}
