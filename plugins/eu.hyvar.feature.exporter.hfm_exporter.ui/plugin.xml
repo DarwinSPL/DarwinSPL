@@ -11,6 +11,11 @@
                   commandId="eu.hyvar.feature.exporter.hfm"
                   label="Export to DeltaEcore">
             </command>
+            <command
+                  commandId="eu.hyvar.feature.exporter.hyvarrec"
+                  label="Export to HyVarRec"
+                  style="push">
+            </command>
          </menu>
       </menuContribution>
    </extension>
@@ -20,6 +25,11 @@
          defaultHandler="eu.hyvar.feature.exporter.hfm_exporter.ui.ExportToHFMCommandHandler"
          id="eu.hyvar.feature.exporter.hfm"
          name="Export to DeltaEcore">
+   </command>
+   <command
+         defaultHandler="eu.hyvar.feature.exporter.hfm_exporter.ui.ExportToHyVarRecCommandHandler"
+         id="eu.hyvar.feature.exporter.hyvarrec"
+         name="Export to HyVarRec">
    </command>
 </extension>
 </plugin>

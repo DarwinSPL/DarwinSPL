@@ -10,9 +10,7 @@ import org.deltaecore.feature.mapping.DEMappingModel;
 import org.eclipse.core.commands.AbstractHandler;
 import org.eclipse.core.commands.ExecutionEvent;
 import org.eclipse.core.commands.ExecutionException;
-import org.eclipse.core.resources.IContainer;
 import org.eclipse.core.resources.IFile;
-import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.runtime.MultiStatus;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.jface.dialogs.ErrorDialog;
@@ -31,6 +29,7 @@ import eu.hyvar.feature.exporter.hfm_exporter.util.HyVarToDeltaEcoreModelExporte
 import eu.hyvar.feature.mapping.HyMappingModel;
 import eu.hyvar.feature.mapping.util.HyMappingModelUtil;
 import eu.hyvar.feature.util.HyFeatureModelWellFormednessException;
+import eu.hyvar.feature.util.HyFeatureUtil;
 
 public class ExportToHFMCommandHandler extends AbstractHandler {
 	
@@ -38,7 +37,7 @@ public class ExportToHFMCommandHandler extends AbstractHandler {
 	@Override
 	public Object execute(ExecutionEvent event) throws ExecutionException {
 		
-		IFile featureModelFile = SelectionUtil.getFirstSelectedIFileWithExtension("hyfeature");
+		IFile featureModelFile = SelectionUtil.getFirstSelectedIFileWithExtension(HyFeatureUtil.getFeatureModelFileExtensionForXmi());
 		
 		List<IFile> modelFiles = new ArrayList<IFile>();
 		if(featureModelFile == null || !featureModelFile.exists()) {
