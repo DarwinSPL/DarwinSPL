@@ -163,8 +163,12 @@ public class ContextConstraintExporterJson {
 		gson = new GsonBuilder().disableHtmlEscaping().create();
 
 		input.setAttributes(getExportedAttributes(featureModel, date));
-		input.setContexts(getExportedContexts(contextModel, date));
-		input.setConfiguration(getExportedConfiguration(oldConfiguration, contextValues));
+		if(contextModel != null) {
+			input.setContexts(getExportedContexts(contextModel, date));			
+		}
+		if(oldConfiguration != null) {
+			input.setConfiguration(getExportedConfiguration(oldConfiguration, contextValues));			
+		}
 
 		input.setConstraints(getFeatureModelConstraints(featureModel, date));
 
