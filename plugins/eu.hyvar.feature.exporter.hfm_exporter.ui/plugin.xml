@@ -6,10 +6,10 @@
       <menuContribution locationURI="popup:org.eclipse.jdt.ui.PackageExplorer?after=additions">
          <menu
                id="eu.hyvar.export.menu"
-               label="Hybrid Feature Model Exports">
+               label="DarwinSPL Exports">
             <command
                   commandId="eu.hyvar.feature.exporter.hfm"
-                  label="Export to DeltaEcore">
+                  label="Export Feature Model to DeltaEcore">
             </command>
             <command
                   commandId="eu.hyvar.feature.exporter.hyvarrec"
@@ -24,7 +24,7 @@
    <command
          defaultHandler="eu.hyvar.feature.exporter.hfm_exporter.ui.ExportToHFMCommandHandler"
          id="eu.hyvar.feature.exporter.hfm"
-         name="Export to DeltaEcore">
+         name="Export Feature Model to DeltaEcore">
    </command>
    <command
          defaultHandler="eu.hyvar.feature.exporter.hfm_exporter.ui.ExportToHyVarRecCommandHandler"
