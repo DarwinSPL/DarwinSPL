@@ -3,6 +3,7 @@ package eu.hyvar.feature.exporter.hfm_exporter.ui;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -14,6 +15,8 @@ import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.swt.widgets.Display;
+import org.eclipse.swt.widgets.Shell;
 
 import de.christophseidl.util.eclipse.ResourceUtil;
 import de.christophseidl.util.eclipse.ui.SelectionUtil;
@@ -28,6 +31,7 @@ import eu.hyvar.feature.configuration.HyConfiguration;
 import eu.hyvar.feature.configuration.util.HyConfigurationUtil;
 import eu.hyvar.feature.constraint.HyConstraintModel;
 import eu.hyvar.feature.constraint.util.HyConstraintUtil;
+import eu.hyvar.feature.graphical.base.dialogs.DateDialog;
 import eu.hyvar.feature.util.HyFeatureUtil;
 import eu.hyvar.preferences.HyPreferenceModel;
 import eu.hyvar.preferences.util.HyPreferenceModelUtil;
@@ -76,10 +80,8 @@ public class ExportToHyVarRecCommandHandler extends AbstractHandler {
 					modelFiles.add(constraintModelFile);
 				}
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			} catch (CoreException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
@@ -90,10 +92,8 @@ public class ExportToHyVarRecCommandHandler extends AbstractHandler {
 					modelFiles.add(contextModelFile);
 				}
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			} catch (CoreException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
@@ -104,10 +104,8 @@ public class ExportToHyVarRecCommandHandler extends AbstractHandler {
 					modelFiles.add(validityModelFile);
 				}
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			} catch (CoreException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
@@ -118,10 +116,8 @@ public class ExportToHyVarRecCommandHandler extends AbstractHandler {
 					modelFiles.add(preferenceModelFile);
 				}
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			} catch (CoreException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
@@ -132,10 +128,8 @@ public class ExportToHyVarRecCommandHandler extends AbstractHandler {
 					modelFiles.add(configurationFile);
 				}
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			} catch (CoreException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
@@ -146,10 +140,8 @@ public class ExportToHyVarRecCommandHandler extends AbstractHandler {
 					modelFiles.add(contextValueModelFile);
 				}
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			} catch (CoreException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
@@ -183,23 +175,41 @@ public class ExportToHyVarRecCommandHandler extends AbstractHandler {
 		}
 
 		ContextConstraintExporterJson hyvarrecExporter = new ContextConstraintExporterJson();
-		// TODO allow date selection somehow
 
+		Display display = Display.getDefault();
+	    Shell shell = display.getActiveShell();
+
+		DateDialog datePicker = new DateDialog(shell, new Date());
+		datePicker.open();
+		
 		String hyVarRecString = hyvarrecExporter.exportContextMappingModel(contextModel, validityModel, featureModel,
-				constraintModel, configuration, preferenceModel, contextValueModel, new Date());
+				constraintModel, configuration, preferenceModel, contextValueModel, datePicker.getValue());
 
-		IFile hyVarRecOutputFile = ResourceUtil.getFileInSameContainer(featureModelFile,
-				ResourceUtil.getBaseFilename(featureModelFile) + "_HyVarRecOutput.json");
+		String baseFileName = ResourceUtil.getBaseFilename(featureModelFile) + "_HyVarRecOutput";
+		
+		IFile hyVarRecOutputFile = ResourceUtil.getFileInSameContainer(featureModelFile,baseFileName+".json");
+		
+		if(hyVarRecOutputFile.exists()) {
+			SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMddHHmmss");
+			
+			Date date = new Date();
+			hyVarRecOutputFile = ResourceUtil.getFileInSameContainer(featureModelFile,baseFileName+"_"+dateFormat.format(date)+".json");
+		}
+		
+		int counter = 1;
+		while(hyVarRecOutputFile.exists()) {
+			hyVarRecOutputFile = ResourceUtil.getFileInSameContainer(featureModelFile,baseFileName+"_"+counter+".json");
+			counter++;
+		}
+		
 
 		InputStream source = new ByteArrayInputStream(hyVarRecString.getBytes());
 		try {
-			hyVarRecOutputFile.create(source, IResource.REPLACE, null);
+			hyVarRecOutputFile.create(source, IResource.FORCE, null);
 		} catch (CoreException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
-		// TODO Save HyVarRec String
 		return null;
 	}
 

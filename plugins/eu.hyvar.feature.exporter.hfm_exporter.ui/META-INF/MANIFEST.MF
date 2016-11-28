@@ -21,5 +21,6 @@ Require-Bundle: org.deltaecore.feature,
  eu.hyvar.context.information.value,
  eu.hyvar.preferences,
  eu.hyvar.context.validity_formulas,
- eu.hyvar.context.information
+ eu.hyvar.context.information,
+ eu.hyvar.feature.graphical.base
 Bundle-Vendor: www.darwinspl.de
