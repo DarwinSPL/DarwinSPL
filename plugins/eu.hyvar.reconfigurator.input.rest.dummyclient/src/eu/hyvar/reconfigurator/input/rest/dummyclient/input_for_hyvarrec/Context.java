@@ -1,22 +1,32 @@
 
-package eu.hyvar.reconfigurator.input.rest.dummyclient.answer;
+package eu.hyvar.reconfigurator.input.rest.dummyclient.input_for_hyvarrec;
 
 import javax.annotation.Generated;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 @Generated("org.jsonschema2pojo")
-public class ContextDomain {
+public class Context {
 
     /**
-     * minimal value that the context can take
+     * 
+     * (Required)
+     * 
+     */
+    @SerializedName("id")
+    @Expose
+    private String id;
+    /**
+     * 
+     * (Required)
      * 
      */
     @SerializedName("min")
     @Expose
     private Integer min;
     /**
-     * maximal value that the context can take
+     * 
+     * (Required)
      * 
      */
     @SerializedName("max")
@@ -24,7 +34,30 @@ public class ContextDomain {
     private Integer max;
 
     /**
-     * minimal value that the context can take
+     * 
+     * (Required)
+     * 
+     * @return
+     *     The id
+     */
+    public String getId() {
+        return id;
+    }
+
+    /**
+     * 
+     * (Required)
+     * 
+     * @param id
+     *     The id
+     */
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    /**
+     * 
+     * (Required)
      * 
      * @return
      *     The min
@@ -34,7 +67,8 @@ public class ContextDomain {
     }
 
     /**
-     * minimal value that the context can take
+     * 
+     * (Required)
      * 
      * @param min
      *     The min
@@ -44,7 +78,8 @@ public class ContextDomain {
     }
 
     /**
-     * maximal value that the context can take
+     * 
+     * (Required)
      * 
      * @return
      *     The max
@@ -54,7 +89,8 @@ public class ContextDomain {
     }
 
     /**
-     * maximal value that the context can take
+     * 
+     * (Required)
      * 
      * @param max
      *     The max

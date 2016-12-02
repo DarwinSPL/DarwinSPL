@@ -34,10 +34,10 @@ import com.google.gson.GsonBuilder;
 import de.christophseidl.util.ecore.EcoreIOUtil;
 import eu.hyvar.feature.HyFeatureModel;
 import eu.hyvar.feature.configuration.HyConfiguration;
-import eu.hyvar.reconfigurator.input.rest.dummyclient.answer.InputForHyVarRec;
 import eu.hyvar.reconfigurator.input.rest.dummyclient.hyconfig.HyConfigurationJson;
 import eu.hyvar.reconfigurator.input.rest.dummyclient.hyvar_rec_answer.HyVarRecAnswer;
 import eu.hyvar.reconfigurator.input.rest.dummyclient.hyvarrec_config.HyVarRecOutputAndFM;
+import eu.hyvar.reconfigurator.input.rest.dummyclient.input_for_hyvarrec.InputForHyVarRec;
 import eu.hyvar.reconfigurator.input.rest.dummyclient.output.Configuration;
 import eu.hyvar.reconfigurator.input.rest.dummyclient.output.Constraints;
 import eu.hyvar.reconfigurator.input.rest.dummyclient.output.Context;
@@ -65,7 +65,7 @@ public class Application implements IApplication {
 	@Override
 	public Object start(IApplicationContext context) throws Exception {
 		
-		Scenario scenario = Scenario.RAW_HYVARREC_2_HYVARREC;
+		Scenario scenario = Scenario.HYVARREC_CONFIG_2_HYCONFIG;
 		
 		HttpClient client;
 		URI uri;
@@ -194,7 +194,7 @@ public class Application implements IApplication {
 			HyConfigurationJson hyvarConfig = gson.fromJson(answerString, HyConfigurationJson.class);
 			System.out.println("HyConfig answer: "+answerString);
 			
-			PrintWriter printWriter = new PrintWriter("C:/Users/mnieke/Desktop/files/HyVarUseCaseReview.hyconfiguration");
+			PrintWriter printWriter = new PrintWriter("D:/HyVar/Implementations/_ExampleInputOutput/_Initial Data/models/HyVarUseCaseReview.hyconfigurationmodel");
 			printWriter.write(hyvarConfig.getConfiguration().getSpecification());
 			printWriter.flush();
 			printWriter.close();
@@ -286,7 +286,7 @@ public class Application implements IApplication {
 		
 		// Read Feature Model
 		File fmFile = new File(
-				"D:/workspaces/HyVar/eu.hyvar.reconfigurator.input.rest.dummyclient/models/"+FILENAME+".hyfeature");
+				"D:/HyVar/Implementations/_ExampleInputOutput/_Initial Data/models/"+FILENAME+".hyfeature");
 		fileReader = new FileInputStream(fmFile);
 		scanner = new Scanner(fileReader, "UTF-8");
 		scanner.useDelimiter("\\A");
@@ -413,7 +413,7 @@ public class Application implements IApplication {
 
 		// Read configuration
 		File configFile = new File(
-				"D:/HyVar/Implementations/_ExampleInputOutput/_Initial Data/models/"+FILENAME+".hyconfiguration");
+				"D:/HyVar/Implementations/_ExampleInputOutput/_Initial Data/models/"+FILENAME+".hyconfigurationmodel");
 		fileReader = new FileInputStream(configFile);
 		scanner = new Scanner(fileReader, "UTF-8");
 		scanner.useDelimiter("\\A");
