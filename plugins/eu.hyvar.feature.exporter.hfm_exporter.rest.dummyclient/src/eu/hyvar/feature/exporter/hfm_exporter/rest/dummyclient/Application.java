@@ -68,7 +68,7 @@ public class Application implements IApplication {
 
 		String json = gson.toJson(createOutput());
 
-		FileWriter out = new FileWriter("D:/workspaces/HyVar/eu.hyvar.feature.exporter.hfm_exporter.rest.dummyclient/models/output.json");
+		FileWriter out = new FileWriter("D:/repositories/DarwinSPL/plugins/eu.hyvar.feature.exporter.hfm_exporter.rest.dummyclient/models/output.json");
 		out.write(json);
 		out.flush();
 		out.close();
@@ -103,7 +103,7 @@ public class Application implements IApplication {
 		System.out.println("Try to parse answer. Result " + parseDeltaEcoreAnswer(deltaEcoreAnswer));
 		
 
-		FileWriter out2 = new FileWriter("D:/workspaces/HyVar/eu.hyvar.feature.exporter.hfm_exporter.rest.dummyclient/models/answer.json");
+		FileWriter out2 = new FileWriter("D:/repositories/DarwinSPL/plugins/eu.hyvar.feature.exporter.hfm_exporter.rest.dummyclient/models/answer.json");
 		out2.write(answerString);
 		out2.flush();
 		out2.close();
@@ -138,7 +138,7 @@ public class Application implements IApplication {
 			
 			// Read Configuration
 			File configFile = new File("D:/HyVar/Implementations/_ExampleInputOutput/_Initial Data/models/"
-					+ FILENAME + ".hyconfiguration");
+					+ FILENAME + ".hyconfigurationmodel");
 			fileReader = new FileInputStream(configFile);
 			scanner = new Scanner(fileReader, "UTF-8");
 			scanner.useDelimiter("\\A");

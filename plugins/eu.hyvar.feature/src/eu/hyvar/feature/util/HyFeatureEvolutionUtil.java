@@ -100,24 +100,19 @@ public class HyFeatureEvolutionUtil {
 
 
 
-	public static boolean isDeprecated(HyFeature feature, Date date) {
-		if (feature == null) {
-			System.err.println(
-					"Something bad happened. Could not determine deprecation status of feature as feature given to isDeprecated(...) was null");
-			return false;
-		}
-		if (date == null) {
-			System.err.println("Something bad happened. Could not determine deprecation status of feature " + feature
-					+ ". Date given to isDeprecated(...) was null");
-			return false;
-		}
-
-		if (feature.getDeprecatedSince() != null && (feature.getDeprecatedSince().compareTo(date) <= 0)) {
-			return true;
-		}
-
-		return false;
-	}
+//	public static boolean isDeprecated(HyFeature feature, Date date) {
+//		if (feature == null) {
+//			System.err.println(
+//					"Something bad happened. Could not determine deprecation status of feature as feature given to isDeprecated(...) was null");
+//			return false;
+//		}
+//
+//		if (feature.getDeprecatedSince() != null && (feature.getDeprecatedSince().compareTo(date) <= 0)) {
+//			return true;
+//		}
+//
+//		return false;
+//	}
 
 
 	// public static HyLinearTemporalElement
@@ -221,7 +216,7 @@ public class HyFeatureEvolutionUtil {
 
 		if (validGroupCompositionTemporalElement == null) {
 			System.err
-					.println("Something Bad Happened. Group: " + group + " has no valid composition at date: " + date);
+					.println("Something Bad Happened. Group: " + group + " has no or multiple valid compositions at date: " + date);
 
 			return null;
 		}
@@ -235,46 +230,14 @@ public class HyFeatureEvolutionUtil {
 	}
 
 	public static boolean isAlternative(HyGroup group, Date date) {
-		if (group == null) {
-			System.err.println("Something bad happened. Group was null during isAlternative check");
-			return false;
-		}
-
-		if (date == null) {
-			System.err.println("Something bad happened. Date was null during isAlternative check");
-			return false;
-		}
-		
 		return group.isAlternative(date);
 	}
 
 	public static boolean isOr(HyGroup group, Date date) {
-		if (group == null) {
-			System.err.println("Something bad happened. Group was null during isOr check");
-			return false;
-		}
-
-		if (date == null) {
-			System.err.println("Something bad happened. Date was null during isOr check");
-			return false;
-		}
-
-
 		return group.isOr(date);
 	}
 
 	public static boolean isAnd(HyGroup group, Date date) {
-		if (group == null) {
-			System.err.println("Something bad happened. Group was null during isAnd check");
-			return false;
-		}
-
-		if (date == null) {
-			System.err.println("Something bad happened. Date was null during isAnd check");
-			return false;
-		}
-
-
 		return group.isAnd(date);
 	}
 	
@@ -282,7 +245,7 @@ public class HyFeatureEvolutionUtil {
 	
 
 	public static HyGroup getParentGroupOfFeature(HyFeature feature, Date date) {
-		if (feature == null || date == null) {
+		if (feature == null) {
 			return null;
 		}
 
@@ -290,7 +253,7 @@ public class HyFeatureEvolutionUtil {
 
 		if (validGroupComposition == null) {
 			System.err.println(
-					"Something bad happened. Feature " + feature + " is not member of any group at date " + date);
+					"Something bad happened. Feature " + feature + " is not member of any group or member of multiple groups at date " + date);
 			return null;
 		}
 
@@ -308,14 +271,14 @@ public class HyFeatureEvolutionUtil {
 	}
 
 	public static HyFeature getParentOfGroup(HyGroup group, Date date) {
-		if (group == null || date == null) {
+		if (group == null) {
 			return null;
 		}
 
 		HyTemporalElement validFeatureChild = HyEvolutionUtil.getValidTemporalElement(group.getChildOf(), date);
 
 		if (validFeatureChild == null) {
-			System.err.println("Something bad happened. Group " + group + " has no parent at date " + date);
+			System.err.println("Something bad happened. Group " + group + " has no or multiple parent at date " + date);
 			return null;
 		}
 
@@ -329,46 +292,16 @@ public class HyFeatureEvolutionUtil {
 	}
 
 	
-	public static HyFeatureType getValidType(HyFeature feature, Date date) {
-		if (feature == null) {
-			System.err.println("Something bad happened. Feature was null in getValidCardinality(...) of Class HyFeatureEvolutionUtil");
-			return null;
-		}
-
-		if (date == null) {
-			System.err.println("Something bad happened. Date was null in getValidCardinality(...) of Class HyFeatureEvolutionUtil");
-			return null;
-		}
-		
+	public static HyFeatureType getValidType(HyFeature feature, Date date) {		
 		return HyEvolutionUtil.getValidTemporalElement(feature.getTypes(), date);
 	}
 
 	public static boolean isMandatory(HyFeature feature, Date date) {
-		if (feature == null) {
-			System.err.println("Something bad happened. Feature was null during isMandatory check");
-			return false;
-		}
-
-		if (date == null) {
-			System.err.println("Something bad happened. Date was null during isMandatory check");
-			return false;
-		}
-
 		return feature.isMandatory(date);
 
 	}
 
 	public static boolean isOptional(HyFeature feature, Date date) {
-		if (feature == null) {
-			System.err.println("Something bad happened. Feature was null during isOptional check");
-			return false;
-		}
-
-		if (date == null) {
-			System.err.println("Something bad happened. Date was null during isOptional check");
-			return false;
-		}
-
 		return feature.isOptional(date);
 	}
 }
