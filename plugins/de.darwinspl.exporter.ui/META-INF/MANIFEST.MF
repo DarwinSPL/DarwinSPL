@@ -22,5 +22,9 @@ Require-Bundle: org.deltaecore.feature,
  eu.hyvar.preferences,
  eu.hyvar.context.validity_formulas,
  eu.hyvar.context.information,
- eu.hyvar.feature.graphical.base
+ eu.hyvar.feature.graphical.base,
+ de.darwinspl.common.eclipse.util
 Bundle-Vendor: www.darwinspl.de
+Bundle-ClassPath: .,
+ libs/gson-2.6.1.jar
+Export-Package: de.darwinspl.exporter.ui

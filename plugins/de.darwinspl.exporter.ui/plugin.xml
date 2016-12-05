@@ -8,12 +8,17 @@
                id="eu.hyvar.export.menu"
                label="DarwinSPL Exports">
             <command
-                  commandId="eu.hyvar.feature.exporter.hfm"
+                  commandId="de.darwinspl.exporter.ui.hfm"
                   label="Export Feature Model to DeltaEcore">
             </command>
             <command
-                  commandId="eu.hyvar.feature.exporter.hyvarrec"
+                  commandId="de.darwinspl.exporter.ui.hyvarrec"
                   label="Export to HyVarRec"
+                  style="push">
+            </command>
+            <command
+                  commandId="de.darwinspl.exporter.ui.json"
+                  label="Export as Json"
                   style="push">
             </command>
          </menu>
@@ -22,14 +27,19 @@
 <extension
       point="org.eclipse.ui.commands">
    <command
-         defaultHandler="eu.hyvar.feature.exporter.hfm_exporter.ui.ExportToHFMCommandHandler"
-         id="eu.hyvar.feature.exporter.hfm"
+         defaultHandler="de.darwinspl.exporter.ui.ExportToHFMCommandHandler"
+         id="de.darwinspl.exporter.ui.hfm"
          name="Export Feature Model to DeltaEcore">
    </command>
    <command
-         defaultHandler="eu.hyvar.feature.exporter.hfm_exporter.ui.ExportToHyVarRecCommandHandler"
-         id="eu.hyvar.feature.exporter.hyvarrec"
+         defaultHandler="de.darwinspl.exporter.ui.ExportToHyVarRecCommandHandler"
+         id="de.darwinspl.exporter.ui.hyvarrec"
          name="Export to HyVarRec">
+   </command>
+   <command
+         defaultHandler="de.darwinspl.exporter.ui.ExportToJsonCommandHandler"
+         id="de.darwinspl.exporter.ui.json"
+         name="Export as Json">
    </command>
 </extension>
 </plugin>
