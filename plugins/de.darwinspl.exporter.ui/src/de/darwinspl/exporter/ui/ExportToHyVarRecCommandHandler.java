@@ -1,4 +1,4 @@
-package eu.hyvar.feature.exporter.hfm_exporter.ui;
+package de.darwinspl.exporter.ui;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
