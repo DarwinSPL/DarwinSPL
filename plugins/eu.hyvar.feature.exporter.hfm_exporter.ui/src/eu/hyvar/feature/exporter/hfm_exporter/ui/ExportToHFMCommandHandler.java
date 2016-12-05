@@ -60,8 +60,9 @@ public class ExportToHFMCommandHandler extends AbstractHandler {
 //			filename = filename.substring(0, filename.length()-featureModelFile.getFileExtension().length());
 			
 		IFile constraintModelFile = ResourceUtil.deriveFile(featureModelFile, HyConstraintUtil.getConstraintModelFileExtensionForXmi());
-		IFile mappingFile = ResourceUtil.deriveFile(featureModelFile, HyMappingModelUtil.getMappingModelFileExtensionForXmi());
+		IFile mappingFile = ResourceUtil.deriveFile(featureModelFile, HyMappingModelUtil.getMappingModelFileExtensionForConcreteSyntax());
 		IFile configurationFile = ResourceUtil.deriveFile(featureModelFile, HyConfigurationUtil.getConfigurationModelFileExtensionForXmi());
+		
 //		}
 		
 		
@@ -120,7 +121,7 @@ public class ExportToHFMCommandHandler extends AbstractHandler {
 					EcoreIOUtil.saveModelAs((DEConfiguration) object, deConfigurationFile);
 				}
 				else if(object instanceof DEMappingModel) {
-					IFile deMappingFile = ResourceUtil.deriveFile(featureModelFile, "mapping_model");
+					IFile deMappingFile = ResourceUtil.deriveFile(featureModelFile, "demapping");
 					EcoreIOUtil.saveModelAs((DEMappingModel) object, deMappingFile);
 				}
 			}
