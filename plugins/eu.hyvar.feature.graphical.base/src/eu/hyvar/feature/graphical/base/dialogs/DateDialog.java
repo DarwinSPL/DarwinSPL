@@ -35,6 +35,10 @@ public class DateDialog extends Dialog implements Listener{
 		return value;
 	}
 	
+	@Override
+	protected boolean isResizable() {
+	    return true;
+	}
 
 
 	@Override

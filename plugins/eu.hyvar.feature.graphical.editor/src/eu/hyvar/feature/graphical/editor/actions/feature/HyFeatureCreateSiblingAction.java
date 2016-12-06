@@ -1,19 +1,19 @@
 package eu.hyvar.feature.graphical.editor.actions.feature;
 
-import org.eclipse.draw2d.geometry.Point;
+import java.util.Date;
+
 import org.eclipse.gef.Request;
 import org.eclipse.gef.commands.Command;
 
-import eu.hyvar.evolution.HyEvolutionFactory;
-import eu.hyvar.evolution.HyName;
-import eu.hyvar.feature.HyFeature;
-import eu.hyvar.feature.HyFeatureFactory;
-import eu.hyvar.feature.HyFeatureType;
+import eu.hyvar.evolution.HyEvolutionUtil;
+import eu.hyvar.feature.HyFeatureChild;
+import eu.hyvar.feature.HyGroupComposition;
 import eu.hyvar.feature.graphical.base.editor.HyGraphicalFeatureModelViewer;
 import eu.hyvar.feature.graphical.base.editparts.HyFeatureEditPart;
-import eu.hyvar.feature.graphical.base.model.HyFeatureModelWrapped;
+import eu.hyvar.feature.graphical.base.editparts.HyRootFeatureEditPart;
 import eu.hyvar.feature.graphical.base.model.HyFeatureWrapped;
-import eu.hyvar.feature.graphical.base.model.HyParentChildConnection;
+import eu.hyvar.feature.graphical.editor.commands.feature.HyFeatureCreateCommand;
+import eu.hyvar.feature.graphical.editor.editor.HyGraphicalFeatureModelEditor;
 
 public class HyFeatureCreateSiblingAction extends HyFeatureSelectionAction{
 	public static final String FEATURE_CREATE_SIBLING = "CreateSibling";
@@ -31,64 +31,34 @@ public class HyFeatureCreateSiblingAction extends HyFeatureSelectionAction{
 	}
 	
 	@Override
-	public void run(){
-		HyFeatureWrapped selectedFeature = getSelectedFeature();
-		selectedFeature = selectedFeature.getChildrenConnections(null).get(0).getSource();
-		
-		Point position = selectedFeature.getPosition(null);
-		
-		HyGraphicalFeatureModelViewer editor = (HyGraphicalFeatureModelViewer)this.getWorkbenchPart();
-		HyFeatureModelWrapped featureModel = editor.getModelWrapped();
-		
-		// Create a new feature model and editor representation
-		HyFeature feature = HyFeatureFactory.eINSTANCE.createHyFeature();		
-		HyFeatureWrapped newFeature = new HyFeatureWrapped(feature, featureModel);
-		
-		HyName name = HyEvolutionFactory.eINSTANCE.createHyName();
-		name.setName(featureModel.getValidNewFeatureName());
-		feature.getNames().add(name);
-		
-		HyFeatureType type = HyFeatureFactory.eINSTANCE.createHyFeatureType();
-		feature.getTypes().add(type);
-		
-		newFeature.setPosition(new Point(position.x, position.y+100));
-		newFeature.setWrappedModelElement(feature);
-		featureModel.addFeature(newFeature);
-		
-		
-		HyParentChildConnection connection = new HyParentChildConnection();
-		connection.setSource(selectedFeature);
-		connection.setTarget(newFeature);
-		connection.setModel(featureModel);
-		
-		selectedFeature.addParentToChildConnection(connection);
-		newFeature.addChildToParentConnection(connection);
-		
-		featureModel.addConnection(connection, featureModel.getSelectedDate());		
-		featureModel.rearrangeFeatures();
-		
-		//editor.setDirty(true);
-	}
-
-	@Override
 	protected boolean calculateEnabled() {
 		if(getSelectedObjects().isEmpty())
 			return false;
-		
+
 		for(Object selectedObject : getSelectedObjects()){
+			if(selectedObject instanceof HyRootFeatureEditPart)
+				return false;
+			
 			if(!(selectedObject instanceof HyFeatureEditPart)){
 				return false;
 			}
 		}
-		
-		return true;
-	}
 
+		return true;
+	}	
+	
 	@Override
 	protected Command createCommand(Object acceptedModel) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	
-	
+		HyFeatureWrapped selectedFeature = getSelectedFeature();		
+		HyGraphicalFeatureModelEditor editor = (HyGraphicalFeatureModelEditor)this.getWorkbenchPart();
+		
+		Date date = editor.getCurrentSelectedDate();
+		
+		HyGroupComposition composition = HyEvolutionUtil.getValidTemporalElement(selectedFeature.getWrappedModelElement().getGroupMembership(), date);
+		HyFeatureChild child = HyEvolutionUtil.getValidTemporalElement(composition.getCompositionOf().getChildOf(), date);
+		
+		HyFeatureCreateCommand command = new HyFeatureCreateCommand(editor.getModelWrapped().getWrappedFeature(child.getParent()), (HyGraphicalFeatureModelViewer)editor);
+		return command;
+	}	
 }
+

@@ -32,7 +32,7 @@ public class HyParentChildConnectionEditPart extends AbstractConnectionEditPart 
 
 	@Override 
 	protected IFigure createFigure(){
-		return new HyParentChildConnectionFigure();
+		return new HyParentChildConnectionFigure(editor, ((HyParentChildConnection)getModel()).getSource());
 	}
 
 
@@ -68,7 +68,9 @@ public class HyParentChildConnectionEditPart extends AbstractConnectionEditPart 
 		}
 		
 		
-
+		if(evt.getPropertyName().equals(HyParentChildConnection.PROPERTY_HIGHLIGHTED) && ((boolean)evt.getNewValue()) == true)
+			connectionFigure.setColor(theme.getSelectionLineColor());
+		
 		refreshVisuals();
 	}
 
@@ -113,6 +115,8 @@ public class HyParentChildConnectionEditPart extends AbstractConnectionEditPart 
 	
 	@Override
 	public void refreshVisuals(){
+		HyParentChildConnection model = ((HyParentChildConnection)getModel());
+
 		Date date = editor.getCurrentSelectedDate();
 		HyParentChildConnection connection = (HyParentChildConnection)getModel();
 		boolean sourceValid = connection.getSource().isValid(date);
@@ -124,6 +128,6 @@ public class HyParentChildConnectionEditPart extends AbstractConnectionEditPart 
 		}else{
 			figure.setVisible(false);
 		}
+		
 	}
-
 }

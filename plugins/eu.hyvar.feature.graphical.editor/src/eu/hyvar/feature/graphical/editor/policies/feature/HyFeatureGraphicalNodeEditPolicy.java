@@ -20,14 +20,14 @@ import eu.hyvar.feature.graphical.editor.commands.HyParentChildConnectionCreateC
 import eu.hyvar.feature.graphical.editor.commands.HyParentChildConnectionReconnectCommand;
 
 public class HyFeatureGraphicalNodeEditPolicy extends GraphicalNodeEditPolicy{
-	private HyGraphicalFeatureModelViewer viewer;
+	private HyGraphicalFeatureModelViewer editor;
 	protected HyFeatureModelWrapped featureModel;
 	
 	protected HashSet<HyFeatureWrapped> highlightedFeatures;
 	
-	public HyFeatureGraphicalNodeEditPolicy(HyGraphicalFeatureModelViewer viewer, HyFeatureModelWrapped featureModel) {
+	public HyFeatureGraphicalNodeEditPolicy(HyGraphicalFeatureModelViewer editor, HyFeatureModelWrapped featureModel) {
 		this.featureModel = featureModel;
-		this.viewer = viewer;
+		this.editor = editor;
 	}
 
 	@Override
@@ -74,18 +74,15 @@ public class HyFeatureGraphicalNodeEditPolicy extends GraphicalNodeEditPolicy{
 		EditPart part = (EditPart)getHost();
 		
 		if(part instanceof HyFeatureEditPart){
-			HyFeatureModelWrapped featureModel = ((HyFeatureEditPart)getHost()).getFeatureModel();
+			HyFeatureModelWrapped featureModel = (HyFeatureModelWrapped)((HyFeatureEditPart)getHost()).getFeatureModel();
 			
-			HyParentChildConnectionReconnectCommand command = new HyParentChildConnectionReconnectCommand(viewer);
+			HyParentChildConnectionReconnectCommand command = new HyParentChildConnectionReconnectCommand(editor);
 			
 			HyParentChildConnection connection = (HyParentChildConnection)((HyParentChildConnectionEditPart)request.getConnectionEditPart()).getModel();
 			command.setConnection(connection);
-			
 			command.setSource(connection.getSource());
 			command.setTarget(request.getTarget().getModel());
 			command.setFeatureModel(featureModel);
-			
-			
 			return command;
 		}else if(part instanceof HyParentChildConnectionEditPart){
 			HyParentChildConnection hoveredParentChildConnection = (HyParentChildConnection)part.getModel();
@@ -99,7 +96,7 @@ public class HyFeatureGraphicalNodeEditPolicy extends GraphicalNodeEditPolicy{
 			HyParentChildConnection targetConnection = (HyParentChildConnection)part.getModel();
 			HyParentChildConnection connection = (HyParentChildConnection)((HyParentChildConnectionEditPart)request.getConnectionEditPart()).getModel();
 			
-			HyParentChildConnectionReconnectCommand command = new HyParentChildConnectionReconnectCommand(viewer);
+			HyParentChildConnectionReconnectCommand command = new HyParentChildConnectionReconnectCommand(editor);
 			
 			command.setConnection(connection);
 			command.setSource(connection.getTarget());
@@ -111,6 +108,8 @@ public class HyFeatureGraphicalNodeEditPolicy extends GraphicalNodeEditPolicy{
 			return null;
 		}
 	}
+	
+	
 
 	@Override
 	protected Command getReconnectSourceCommand(ReconnectRequest request) {
@@ -119,12 +118,13 @@ public class HyFeatureGraphicalNodeEditPolicy extends GraphicalNodeEditPolicy{
 		if(part instanceof HyFeatureEditPart){
 			HyFeatureModelWrapped featureModel = ((HyFeatureEditPart)getHost()).getFeatureModel();
 			
-			HyParentChildConnectionReconnectCommand command = new HyParentChildConnectionReconnectCommand(viewer);
+			HyParentChildConnectionReconnectCommand command = new HyParentChildConnectionReconnectCommand(editor);
 			
-			HyParentChildConnection connection = (HyParentChildConnection)((HyParentChildConnectionEditPart)request.getConnectionEditPart()).getModel();
-			command.setConnection(connection);
+			HyParentChildConnection con = (HyParentChildConnection)((HyParentChildConnectionEditPart)request.getConnectionEditPart()).getModel();
+			//HyParentChildConnection connection = con.clone();
+			command.setConnection(con);
 			
-			command.setSource(connection.getSource());
+			command.setSource(con.getSource());
 			command.setTarget(request.getTarget().getModel());
 			command.setFeatureModel(featureModel);
 			
@@ -133,7 +133,7 @@ public class HyFeatureGraphicalNodeEditPolicy extends GraphicalNodeEditPolicy{
 		}else if(part instanceof HyParentChildConnectionEditPart){
 			HyParentChildConnection targetConnection = (HyParentChildConnection)part.getModel();
 			HyParentChildConnection connection = (HyParentChildConnection)((HyParentChildConnectionEditPart)request.getConnectionEditPart()).getModel();
-			HyParentChildConnectionReconnectCommand command = new HyParentChildConnectionReconnectCommand(viewer);
+			HyParentChildConnectionReconnectCommand command = new HyParentChildConnectionReconnectCommand(editor);
 		
 			command.setConnection(connection);
 			command.setSource(connection.getSource());

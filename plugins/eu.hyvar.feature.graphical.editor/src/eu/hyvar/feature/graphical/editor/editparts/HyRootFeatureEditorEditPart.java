@@ -19,12 +19,10 @@ import eu.hyvar.feature.graphical.base.editparts.HyRootFeatureEditPart;
 import eu.hyvar.feature.graphical.base.figures.HyFeatureFigure;
 import eu.hyvar.feature.graphical.base.model.HyFeatureModelWrapped;
 import eu.hyvar.feature.graphical.base.model.HyFeatureWrapped;
-import eu.hyvar.feature.graphical.editor.editor.HyGraphicalFeatureModelEditor;
 import eu.hyvar.feature.graphical.editor.locators.HyFeatureCellEditorLocator;
 import eu.hyvar.feature.graphical.editor.managers.HyFeatureDirectEditManager;
 import eu.hyvar.feature.graphical.editor.policies.feature.HyFeatureComponentEditPolicy;
 import eu.hyvar.feature.graphical.editor.policies.feature.HyFeatureDirectEditPolicy;
-import eu.hyvar.feature.graphical.editor.policies.feature.HyFeatureEvolutionGraphicalNodeEditPolicy;
 import eu.hyvar.feature.graphical.editor.policies.feature.HyFeatureGraphicalNodeEditPolicy;
 import eu.hyvar.feature.graphical.editor.policies.feature.HyFeatureXYLayoutPolicy;
 
@@ -38,7 +36,7 @@ public class HyRootFeatureEditorEditPart extends HyRootFeatureEditPart{
 	protected void createEditPolicies(){
 		super.createEditPolicies();
 		installEditPolicy(EditPolicy.COMPONENT_ROLE, new HyFeatureComponentEditPolicy());
-		installEditPolicy(EditPolicy.GRAPHICAL_NODE_ROLE, new HyFeatureEvolutionGraphicalNodeEditPolicy(featureModel, (HyGraphicalFeatureModelEditor)editor));
+		installEditPolicy(EditPolicy.GRAPHICAL_NODE_ROLE, new HyFeatureGraphicalNodeEditPolicy(editor, featureModel));
 		installEditPolicy(EditPolicy.DIRECT_EDIT_ROLE, new HyFeatureDirectEditPolicy());
 		installEditPolicy(EditPolicy.LAYOUT_ROLE, new HyFeatureXYLayoutPolicy());
 		

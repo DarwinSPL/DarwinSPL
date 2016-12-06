@@ -1,8 +1,10 @@
 package eu.hyvar.feature.graphical.base.figures;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.List;
 
 import org.deltaecore.feature.graphical.base.editor.DEGraphicalEditor;
 import org.deltaecore.feature.graphical.base.util.DEDrawingUtil;
@@ -42,7 +44,7 @@ public class HyGroupFigure extends HyAbstractFigure{
 	}
 
 	// copied from delta ecore DEGroupFigure
-	private static Point scaleLineEndPoint(Point startPoint, Point endPoint, double targetLength) {
+	public static Point scaleLineEndPoint(Point startPoint, Point endPoint, double targetLength) {
 		double vectorX = endPoint.x - startPoint.x;
 		double vectorY = endPoint.y - startPoint.y;
 		double currentLength = Math.sqrt(vectorX * vectorX + vectorY * vectorY);
@@ -57,7 +59,7 @@ public class HyGroupFigure extends HyAbstractFigure{
 
 	protected void createGroupTypeArc(Date date) {
 		groupTypeArc = null;
-
+		
 		DEGraphicalEditorTheme theme = DEGraphicalEditor.getTheme();
 		HashSet<HyFeatureWrapped> features = new HashSet<HyFeatureWrapped>();
 		

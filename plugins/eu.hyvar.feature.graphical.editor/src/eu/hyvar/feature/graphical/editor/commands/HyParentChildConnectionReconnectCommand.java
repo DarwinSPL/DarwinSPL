@@ -25,13 +25,13 @@ public class HyParentChildConnectionReconnectCommand extends Command{
 	private Object target;
 	private HyParentChildConnection connection;
 	private HyFeatureModelWrapped featureModel;
-	
+
 	private HyGraphicalFeatureModelViewer editor;
 	public HyParentChildConnectionReconnectCommand(HyGraphicalFeatureModelViewer editor){
 		this.editor = editor;
 	}
 
-	
+
 	public HyFeatureModelWrapped getFeatureModel() {
 		return featureModel;
 	}
@@ -44,7 +44,7 @@ public class HyParentChildConnectionReconnectCommand extends Command{
 	public boolean canExecute(){
 		return source != null && target != null && connection != null;
 	}
-	
+
 	public void setSource(HyFeatureWrapped source) {
 		this.source = source;
 	}
@@ -56,16 +56,16 @@ public class HyParentChildConnectionReconnectCommand extends Command{
 	public void setConnection(HyParentChildConnection connection) {
 		this.connection = connection;
 	}	
-	
-	
+
+
 
 	private void removeUnlogicalComposition(HyGroupComposition composition){
 		if(composition.getValidSince() != null && 
 				composition.getValidUntil() != null &&
 				composition.getValidSince().equals(composition.getValidUntil())){
-			
+
 			composition.getFeatures().clear();
-			
+
 			composition.getCompositionOf().getParentOf().remove(composition);
 		}		
 	}
@@ -85,10 +85,6 @@ public class HyParentChildConnectionReconnectCommand extends Command{
 
 		// update validation of old composition (until) and new composition (since) selected date
 		composition.setValidUntil(date);
-
-		
-
-
 		newComposition.setValidSince(date);
 
 		for(HyFeature f : composition.getFeatures()){
@@ -104,47 +100,68 @@ public class HyParentChildConnectionReconnectCommand extends Command{
 		}
 
 		group.getParentOf().add(newComposition);
-		
+
 		removeUnlogicalComposition(composition);
 
 		return newComposition;
 
 	}
-	
+
+	private void addConnection(HyFeatureWrapped source, HyFeatureWrapped target){
+		// Create the connection for editing in editor
+		HyParentChildConnection newConnection = connection.clone();
+		newConnection.setSource(source);
+		newConnection.setTarget(target);
+
+		source.addParentToChildConnection(newConnection);
+		target.addChildToParentConnection(newConnection);		
+	}
+
 	protected void splitGroupType(HyGroup group){
 		Date date = featureModel.getSelectedDate();
-	
+
 		HyGroupType type = HyEvolutionUtil.getValidTemporalElement(group.getTypes(), date);
 		HyGroupType newType = HyFeatureFactory.eINSTANCE.createHyGroupType();
 		newType.setValidSince(date);
 		newType.setType(HyGroupTypeEnum.AND);
 		type.setValidUntil(date);
-		
+
 		if(type.getValidSince() != null &&
-		   type.getValidUntil() != null &&
-		   type.getValidSince().equals(type.getValidUntil())){
+				type.getValidUntil() != null &&
+				type.getValidSince().equals(type.getValidUntil())){
 			group.getTypes().remove(type);
 		}
 
 		group.getTypes().add(newType);
 	}
+
+
 	@Override
 	public void execute(){
 		HyFeatureWrapped oldTarget = connection.getTarget();
 		Date date = featureModel.getSelectedDate();
 		if(date == new Date(Long.MIN_VALUE))
 			date = null;
-		
+
 
 		if(target instanceof HyFeatureWrapped){
 
 			HyGroupComposition composition = HyEvolutionUtil.getValidTemporalElement(oldTarget.getWrappedModelElement().getGroupMembership(), date);
+
+			if(date != null && !date.equals(new Date(Long.MIN_VALUE)))
+				composition = splitComposition(composition, oldTarget);
+			else{
+				composition.getFeatures().remove(oldTarget.getWrappedModelElement());
+			}
 			
-			if(date != null)
-				splitComposition(composition, oldTarget);
+			connection.getSource().removeParentToChildConnection(connection);
+			connection.getTarget().removeChildToParentConnection(connection);
 			
-			if(composition.getCompositionOf() != null)
+			
+
+			if(composition.getCompositionOf() != null){
 				HyElementEditorUtil.cleanGroupCompositions(composition.getCompositionOf());
+			}
 
 			HyFeatureWrapped newTarget = (HyFeatureWrapped)target;
 			HyFeatureChild child = HyEvolutionUtil.getValidTemporalElement(newTarget.getWrappedModelElement().getParentOf(), date);
@@ -157,7 +174,9 @@ public class HyParentChildConnectionReconnectCommand extends Command{
 			if(child == null){
 				child = HyFeatureFactory.eINSTANCE.createHyFeatureChild();
 				group = HyFeatureFactory.eINSTANCE.createHyGroup();
-				group.setValidSince(date);
+
+				if(!date.equals(new Date(Long.MIN_VALUE)))
+					group.setValidSince(date);
 
 				HyGroupType type = HyFeatureFactory.eINSTANCE.createHyGroupType();
 				group.getTypes().add(type);
@@ -165,7 +184,7 @@ public class HyParentChildConnectionReconnectCommand extends Command{
 				child.setChildGroup(group);
 
 				HyGroupWrapped groupWrapped = new HyGroupWrapped(group);
-				featureModel.addGroup(groupWrapped);
+				featureModel.addGroup(groupWrapped);				
 			}else{
 				// check if there is a valid composition at selected date
 				newComposition = HyEvolutionUtil.getValidTemporalElement(child.getChildGroup().getParentOf(), date);
@@ -184,7 +203,10 @@ public class HyParentChildConnectionReconnectCommand extends Command{
 			// create a new composition in case there isn't one at selected date
 			if(!hasComposition){
 				newComposition = HyFeatureFactory.eINSTANCE.createHyGroupComposition();
-				newComposition.setValidSince(date);
+
+				if(!date.equals(new Date(Long.MIN_VALUE)))
+					newComposition.setValidSince(date);
+
 				newComposition.setCompositionOf(group);
 				group.getParentOf().add(newComposition);
 			}
@@ -192,100 +214,51 @@ public class HyParentChildConnectionReconnectCommand extends Command{
 			newComposition.getFeatures().add(oldTarget.getWrappedModelElement());
 
 
-			// Create the connection for editing in editor
-			HyParentChildConnection newConnection = connection.clone();
-			newConnection.setSource(newTarget);
-			newConnection.setTarget(oldTarget);
-
-			newTarget.addParentToChildConnection(newConnection);
-			oldTarget.addChildToParentConnection(newConnection);
+			addConnection(newTarget, oldTarget);
 
 			oldTarget.getWrappedModelElement().getGroupMembership().add(newComposition);
-	
-			editor.getModelWrapped().rearrangeFeatures();
-			editor.refreshView();
-		}
-		else if(target instanceof HyParentChildConnection){
-		}
-	}
-	
-	
-	//@Override
-	//public void execute(){
-		/*
-		HyFeatureWrapped changedConnectionSource = connection.getSource();
-		HyFeatureWrapped changedConnectionTarget = connection.getTarget();
-		
-		if(target instanceof HyFeatureWrapped){
-			
-			changedConnectionSource.removeParentToChildConnection(connection);
-			
-			featureModel.removeConnection(connection, new Date());
-			connection.setTarget(changedConnectionTarget);
-			connection.setSource((HyFeatureWrapped) target);
-			
-			((HyFeatureWrapped)target).addParentToChildConnection(connection);
-			
-			
-			featureModel.addConnection(connection, featureModel.getSelectedDate());
-			featureModel.rearrangeFeatures();	
-			
-			
-			// show cardinality if it was hidden before
-			if(changedConnectionTarget.isWithoutModifier(null)){
-				HyCardinality cardinality = changedConnectionTarget.getCardinality(0);
-				cardinality.setMinCardinality(0);
-				cardinality.setMaxCardinality(0);
-				
-				changedConnectionTarget.setCardinailtyAtIndex(cardinality, 0);
-			}
-			
-		}
-		
-		if(target instanceof HyParentChildConnection){
-			
-			featureModel.removeConnection(connection, new Date());
-			
-			((HyParentChildConnection) target).setHighlight(true);
 
-			HyFeatureWrapped newConnectionSource = ((HyParentChildConnection) target).getSource();
-			HyFeatureWrapped newConnectionTarget = ((HyParentChildConnection) target).getTarget();
-			
-			//changedConnectionTarget.removeParentGroup();
-			
-			newConnectionTarget.getParentGroup(null).addChildFeature(changedConnectionTarget);
-					
-			
-			changedConnectionSource.removeParentToChildConnection(connection);
-			
-			
-			// only for readability, not necessary
-			connection.setTarget(changedConnectionTarget);
-			connection.setSource(newConnectionSource);
-			newConnectionSource.addParentToChildConnection(connection);
-			
-			HyGroupWrapped group = newConnectionTarget.getParentGroup(null);
-			// hide modifier
-			if(!group.isAnd(null)){
-				
-				HyCardinality cardinality = changedConnectionTarget.getCardinality(0);
-				cardinality.setMinCardinality(0);
-				cardinality.setMaxCardinality(1);
-				
-				changedConnectionTarget.setCardinailtyAtIndex(cardinality, 0);
-				
-			}else{
-				
-				if(changedConnectionTarget.isWithoutModifier(null)){
-					HyCardinality cardinality = changedConnectionTarget.getCardinality(0);
-					cardinality.setMinCardinality(0);
-					cardinality.setMaxCardinality(0);
-					changedConnectionTarget.setCardinality(cardinality);
+
+
+		}
+		else if(target instanceof HyParentChildConnection){			
+			HyParentChildConnection connection = (HyParentChildConnection)target;
+
+			HyFeatureWrapped tempTargetFeature = connection.getTarget();
+			HyGroupComposition composition = HyEvolutionUtil.getValidTemporalElement(tempTargetFeature.getWrappedModelElement().getGroupMembership(), date);
+
+			HyGroupComposition oldComposition = HyEvolutionUtil.getValidTemporalElement(oldTarget.getWrappedModelElement().getGroupMembership(), date);
+			oldComposition.getFeatures().remove(oldTarget.getWrappedModelElement());
+			oldTarget.getWrappedModelElement().getGroupMembership().remove(oldComposition);
+
+			// old composition is empty and has to be removed
+			if(oldComposition.getFeatures().isEmpty()){
+				HyGroup oldGroup = oldComposition.getCompositionOf();
+
+				oldGroup.getParentOf().remove(oldComposition);
+
+				// old group has no composition and has to be removed
+				if(oldGroup.getParentOf().isEmpty()){
+					for(HyFeatureChild oldChild : oldGroup.getChildOf()){
+						oldChild.getParent().getParentOf().remove(oldChild);
+					}
 				}
-				
+
+				// remove the old group from the model
+				editor.getModelWrapped().getModel().getGroups().remove(oldGroup);
 			}
+
+
+
+			addConnection(connection.getSource(), oldTarget);
+
+			HyGroupWrapped wrappedGroup = editor.getModelWrapped().getWrappedGroup(composition.getCompositionOf());
+			wrappedGroup.addChildFeature(oldTarget);
 			
 		}
-		*/
-	//}
+
+
+		editor.getModelWrapped().rearrangeFeatures();
+		editor.refreshView();
+	}
 }

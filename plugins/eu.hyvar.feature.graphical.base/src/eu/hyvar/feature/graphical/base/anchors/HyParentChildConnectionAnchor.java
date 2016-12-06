@@ -22,6 +22,8 @@ public class HyParentChildConnectionAnchor extends HyFeatureModelPositionAnchor 
 		position.x = r.x + r.width() / 2;
 		position.y = r.y + r.height() / 2;
 		
+		getOwner().translateToAbsolute(position);
+		
 		return position;
 	}	
 	
