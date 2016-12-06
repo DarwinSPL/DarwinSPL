@@ -1,12 +1,10 @@
 
-package eu.hyvar.reconfigurator.output.translation.format;
+package eu.hyvar.reconfigurator.input.rest.dummyclient.hyvar_rec_answer;
 
-import javax.annotation.Generated;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-@Generated("org.jsonschema2pojo")
-public class AttributeValue {
+public class Attribute {
 
     /**
      * 

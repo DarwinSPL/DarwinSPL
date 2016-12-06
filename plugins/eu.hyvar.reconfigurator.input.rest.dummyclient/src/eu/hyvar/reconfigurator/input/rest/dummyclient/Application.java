@@ -11,6 +11,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+import javax.servlet.http.HttpServletResponse;
+
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;
@@ -36,7 +38,7 @@ import eu.hyvar.feature.HyFeatureModel;
 import eu.hyvar.feature.configuration.HyConfiguration;
 import eu.hyvar.reconfigurator.input.rest.dummyclient.hyconfig.HyConfigurationJson;
 import eu.hyvar.reconfigurator.input.rest.dummyclient.hyvar_rec_answer.HyVarRecAnswer;
-import eu.hyvar.reconfigurator.input.rest.dummyclient.hyvarrec_config.HyVarRecOutputAndFM;
+import eu.hyvar.reconfigurator.input.rest.dummyclient.hyvarrec_config.OutputOfHyVarRecAndFm;
 import eu.hyvar.reconfigurator.input.rest.dummyclient.input_for_hyvarrec.InputForHyVarRec;
 import eu.hyvar.reconfigurator.input.rest.dummyclient.output.Configuration;
 import eu.hyvar.reconfigurator.input.rest.dummyclient.output.Constraints;
@@ -65,7 +67,7 @@ public class Application implements IApplication {
 	@Override
 	public Object start(IApplicationContext context) throws Exception {
 		
-		Scenario scenario = Scenario.HYVARREC_CONFIG_2_HYCONFIG;
+		Scenario scenario = Scenario.RAW_HYVARREC_2_HYVARREC;
 		
 		HttpClient client;
 		URI uri;
@@ -81,46 +83,47 @@ public class Application implements IApplication {
 		String answerString;
 		
 		switch(scenario) {
-		case HYVARREC_CONFIG_2_HYCONFIG:
-			
-			HyVarRecOutputAndFM hyVarRecOutputAndFM;
-			
-			try {
-				hyVarRecOutputAndFM = createHyVarRecOutputAndFM();
-			} catch (IOException e) {
-				e.printStackTrace();
-				return IApplication.EXIT_OK;
-			}
-			
-			client = new HttpClient();
-			client.start();
-			
-
-
-
-//			uri = URI.create("http://192.168.99.100:8080/new_hyvarrec_config");
-			uri = URI.create("http://127.0.0.1:8080/new_hyvarrec_config");
-	
-
-			json = gson.toJson(hyVarRecOutputAndFM);
-			
-			System.out.println(json);
-
-			request = client.POST(uri);
-			request.header(HttpHeader.CONTENT_TYPE, "application/json");
-			request.content(new StringContentProvider(json), "application/json");
-
-			response = request.send();
-			System.out.println(response);
-			answerString = response.getContentAsString();
-			HyConfigurationJson config = gson.fromJson(answerString, HyConfigurationJson.class);
-			System.out.println("HyConfig answer: "+answerString);
-			
-			// Write to file and read
-			saveAndReadConfigFile(config, hyVarRecOutputAndFM);
-			
-			
-			break;
+//		case HYVARREC_CONFIG_2_HYCONFIG:
+//			
+//			OutputOfHyVarRecAndFm hyVarRecOutputAndFM;
+//			
+//			try {
+//				hyVarRecOutputAndFM = createHyVarRecOutputAndFM();
+//			} catch (IOException e) {
+//				e.printStackTrace();
+//				return IApplication.EXIT_OK;
+//			}
+//			
+//			client = new HttpClient();
+//			client.start();
+//			
+//
+//
+//
+////			uri = URI.create("http://192.168.99.100:8080/new_hyvarrec_config");
+//			uri = URI.create("http://127.0.0.1:8080/new_hyvarrec_config");
+//	
+//
+//			json = gson.toJson(hyVarRecOutputAndFM);
+//			
+//			System.out.println(json);
+//
+//			request = client.POST(uri);
+//			request.header(HttpHeader.CONTENT_TYPE, "application/json");
+//			request.content(new StringContentProvider(json), "application/json");
+//
+//			response = request.send();
+//			System.out.println(response);
+//			answerString = response.getContentAsString();
+//			HyConfigurationJson config = gson.fromJson(answerString, HyConfigurationJson.class);
+//			System.out.println("HyConfig answer: "+answerString);
+//			
+//			// Write to file and read
+//			saveAndReadConfigFile(config, hyVarRecOutputAndFM);
+//			
+//			
+//			break;
+		
 		case RAW_HYVARREC_2_HYVARREC:
 			
 			RawInputForHyVarRec output;	
@@ -136,7 +139,7 @@ public class Application implements IApplication {
 
 			uri = URI.create("http://localhost:8080/fm_for_hyvarrec");
 //			uri = URI.create("http://192.168.99.100:8081/fm_for_hyvarrec");
-//			uri = URI.create("http://hyvar-fmtohyvarrec.eu-west-1.elasticbeanstalk.com:80/fm_for_hyvarrec");
+//			uri = URI.create("http://hyvarfmtohyvarrec-env.eu-west-1.elasticbeanstalk.com/fm_for_hyvarrec");
 
 			
 			json = "";
@@ -151,6 +154,11 @@ public class Application implements IApplication {
 
 			response = request.send();
 			System.out.println(response);
+			if(response.getStatus() != HttpServletResponse.SC_OK)
+			{
+				System.out.println("Could not connect to fm for hyvarrec service. Terminating");
+				return IApplication.EXIT_OK;
+			}
 			answerString = response.getContentAsString();
 			InputForHyVarRec answer = gson.fromJson(answerString, InputForHyVarRec.class);
 			System.out.println("Input for HyVarRec: "+answerString);
@@ -159,7 +167,7 @@ public class Application implements IApplication {
 			String hyvarrecJson = gson.toJson(answer);
 			HttpClient hyvarrecClient = new HttpClient();
 			hyvarrecClient.start();
-			URI hyvarrecUri = URI.create("http://hyvartestinghyvarrec2-env.eu-west-1.elasticbeanstalk.com:80/process");
+			URI hyvarrecUri = URI.create("http://hyvarhyvarrec-env.eu-west-1.elasticbeanstalk.com/process");
 			Request hyvarrecRequest = hyvarrecClient.POST(hyvarrecUri);
 			hyvarrecRequest.header(HttpHeader.CONTENT_TYPE, "application/json");
 			hyvarrecRequest.content(new StringContentProvider(hyvarrecJson), "application/json");
@@ -169,15 +177,15 @@ public class Application implements IApplication {
 			
 			
 			// redirect the answer of hyvarrec again to fm_to_hyvarrec
-			HyVarRecOutputAndFM outputAndFm = createHyVarRecOutputAndFMFromHyVarRecAnswer(hyvarrecAnswerString);
+			OutputOfHyVarRecAndFm outputAndFm = createHyVarRecOutputAndFMFromHyVarRecAnswer(hyvarrecAnswerString);
 			
 
 			HttpClient configClient = new HttpClient();
 			configClient.start();
 
-//			URI configUri = URI.create("http://192.168.99.100:8081/new_hyvarrec_config");
 			URI configUri = URI.create("http://localhost:8080/new_hyvarrec_config");
-//			URI configUri = URI.create("http://hyvar-fmtohyvarrec.eu-west-1.elasticbeanstalk.com:80/new_hyvarrec_config");
+//			URI configUri = URI.create("http://192.168.99.100:8081/new_hyvarrec_config");
+//			URI configUri = URI.create("http://hyvarfmtohyvarrec-env.eu-west-1.elasticbeanstalk.com/new_hyvarrec_config");
 	
 
 			String configString = gson.toJson(outputAndFm);
@@ -189,6 +197,11 @@ public class Application implements IApplication {
 			configRequest.content(new StringContentProvider(configString), "application/json");
 
 			ContentResponse configResponse = configRequest.send();
+			if(configResponse.getStatus() != HttpServletResponse.SC_OK)
+			{
+				System.out.println("Could not connect to fm to hyvarrec service. Terminating");
+				return IApplication.EXIT_OK;
+			}
 			System.out.println(configResponse);
 			answerString = configResponse.getContentAsString();
 			HyConfigurationJson hyvarConfig = gson.fromJson(answerString, HyConfigurationJson.class);
@@ -212,7 +225,7 @@ public class Application implements IApplication {
 	}
 	
 
-	private void saveAndReadConfigFile(HyConfigurationJson config, HyVarRecOutputAndFM hyVarRecOutputAndFM) {
+	private void saveAndReadConfigFile(HyConfigurationJson config, OutputOfHyVarRecAndFm hyVarRecOutputAndFM) {
 
 		IProgressMonitor progressMonitor = new NullProgressMonitor();
 		IWorkspaceRoot workspaceRoot = ResourcesPlugin.getWorkspace().getRoot();
@@ -271,13 +284,13 @@ public class Application implements IApplication {
 		
 	}
 	
-	private HyVarRecOutputAndFM createHyVarRecOutputAndFMFromHyVarRecAnswer(String hyVarRecAnswer) throws IOException {
+	private OutputOfHyVarRecAndFm createHyVarRecOutputAndFMFromHyVarRecAnswer(String hyVarRecAnswer) throws IOException {
 		GsonBuilder gsonBuilder = new GsonBuilder();
 		Gson gson = gsonBuilder.create();
 		HyVarRecAnswer hyvarrecAnswer = gson.fromJson(hyVarRecAnswer, HyVarRecAnswer.class);
 		
 		
-		HyVarRecOutputAndFM hyVarRecOutputAndFM = new HyVarRecOutputAndFM();
+		OutputOfHyVarRecAndFm hyVarRecOutputAndFM = new OutputOfHyVarRecAndFm();
 		eu.hyvar.reconfigurator.input.rest.dummyclient.hyvarrec_config.FeatureModel fm = new eu.hyvar.reconfigurator.input.rest.dummyclient.hyvarrec_config.FeatureModel();
 		
 		
@@ -301,81 +314,89 @@ public class Application implements IApplication {
 		
 		hyVarRecOutputAndFM.setMsgType(MSG_TYPE_HYVARREC_CONFIG_2_HYCONFIG);
 		
-		hyVarRecOutputAndFM.setSelectedFeatures(hyvarrecAnswer.getSelectedFeatures());
-		hyVarRecOutputAndFM.setAttributeValues(hyvarrecAnswer.getAttributeValues());
+		hyVarRecOutputAndFM.setFeatures(hyvarrecAnswer.getFeatures());
+		List<eu.hyvar.reconfigurator.input.rest.dummyclient.hyvarrec_config.Attribute> newAttributes = new ArrayList<eu.hyvar.reconfigurator.input.rest.dummyclient.hyvarrec_config.Attribute>();
+		if(hyvarrecAnswer.getAttributes()!=null) {
+			for(eu.hyvar.reconfigurator.input.rest.dummyclient.hyvar_rec_answer.Attribute attribute: hyvarrecAnswer.getAttributes()) {
+				eu.hyvar.reconfigurator.input.rest.dummyclient.hyvarrec_config.Attribute newAttribute = new eu.hyvar.reconfigurator.input.rest.dummyclient.hyvarrec_config.Attribute();
+				newAttribute.setId(attribute.getId());
+				newAttribute.setValue(attribute.getValue());
+			}
+		}
+		hyVarRecOutputAndFM.setAttributes(newAttributes);			
 		
 		return hyVarRecOutputAndFM;
 	}
 	
-	private HyVarRecOutputAndFM createHyVarRecOutputAndFM() throws IOException {
-
-		HyVarRecOutputAndFM hyVarRecOutputAndFM = new HyVarRecOutputAndFM();
-		eu.hyvar.reconfigurator.input.rest.dummyclient.hyvarrec_config.FeatureModel fm = new eu.hyvar.reconfigurator.input.rest.dummyclient.hyvarrec_config.FeatureModel();
-		
-		
-		FileInputStream fileReader;
-		Scanner scanner;
-
-		
-		// Read Feature Model
-		File fmFile = new File(
-				"D:/HyVar/Implementations/_ExampleInputOutput/_Initial Data/models/HyVarUseCaseReview.hyfeature");
-		fileReader = new FileInputStream(fmFile);
-		scanner = new Scanner(fileReader, "UTF-8");
-		scanner.useDelimiter("\\A");
-		String featureModelString = scanner.next();
-		scanner.close();
-		fileReader.close();
-		
-		fm.setFilename(FILENAME);
-		fm.setSpecification(featureModelString);
-		
-		hyVarRecOutputAndFM.setFeatureModel(fm);
-		
-		hyVarRecOutputAndFM.setMsgType(MSG_TYPE_HYVARREC_CONFIG_2_HYCONFIG);
-		
-		 //{"selectedFeatures": [1, 1, 1, 1, 1, 0, 1, 1, 0, 1, 1], "optimality": 1, "attributeValues": null}
-		
-		List<Integer> featureSelection = new ArrayList<Integer>();
-		featureSelection.add(1);
-		featureSelection.add(1);
-		featureSelection.add(1);
-		featureSelection.add(1);
-		featureSelection.add(1);
-		featureSelection.add(0);
-		featureSelection.add(1);
-		featureSelection.add(1);
-		featureSelection.add(0);
-		featureSelection.add(1);
-		featureSelection.add(1);
-//		featureSelection.add(0);
-//		featureSelection.add(0);
-//		featureSelection.add(0);
+//	private OutputOfHyVarRecAndFm createHyVarRecOutputAndFM() throws IOException {
+//
+//		OutputOfHyVarRecAndFm hyVarRecOutputAndFM = new OutputOfHyVarRecAndFm();
+//		eu.hyvar.reconfigurator.input.rest.dummyclient.hyvarrec_config.FeatureModel fm = new eu.hyvar.reconfigurator.input.rest.dummyclient.hyvarrec_config.FeatureModel();
+//		
+//		
+//		FileInputStream fileReader;
+//		Scanner scanner;
+//
+//		
+//		// Read Feature Model
+//		File fmFile = new File(
+//				"D:/HyVar/Implementations/_ExampleInputOutput/_Initial Data/models/HyVarUseCaseReview.hyfeature");
+//		fileReader = new FileInputStream(fmFile);
+//		scanner = new Scanner(fileReader, "UTF-8");
+//		scanner.useDelimiter("\\A");
+//		String featureModelString = scanner.next();
+//		scanner.close();
+//		fileReader.close();
+//		
+//		fm.setFilename(FILENAME);
+//		fm.setSpecification(featureModelString);
+//		
+//		hyVarRecOutputAndFM.setFeatureModel(fm);
+//		
+//		hyVarRecOutputAndFM.setMsgType(MSG_TYPE_HYVARREC_CONFIG_2_HYCONFIG);
+//		
+//		 //{"selectedFeatures": [1, 1, 1, 1, 1, 0, 1, 1, 0, 1, 1], "optimality": 1, "attributeValues": null}
+//		
+//		List<Integer> featureSelection = new ArrayList<Integer>();
+//		featureSelection.add(1);
+//		featureSelection.add(1);
+//		featureSelection.add(1);
+//		featureSelection.add(1);
 //		featureSelection.add(1);
 //		featureSelection.add(0);
 //		featureSelection.add(1);
-//		featureSelection.add(0);
-//		featureSelection.add(1);
-//		featureSelection.add(0);
-//		featureSelection.add(0);
 //		featureSelection.add(1);
 //		featureSelection.add(0);
 //		featureSelection.add(1);
-//		featureSelection.add(0);
-//		featureSelection.add(0);
 //		featureSelection.add(1);
-		
-		hyVarRecOutputAndFM.setSelectedFeatures(featureSelection);
-		
-		// TODO test enum, boolean, int?
-//		List<Integer> attributeValueAssignment = new ArrayList<Integer>();
-//		attributeValueAssignment.add(200);
-//		attributeValueAssignment.add(1);
-		
-//		hyVarRecOutputAndFM.setAttributeValues(attributeValueAssignment);
-		
-		return hyVarRecOutputAndFM;
-	}
+////		featureSelection.add(0);
+////		featureSelection.add(0);
+////		featureSelection.add(0);
+////		featureSelection.add(1);
+////		featureSelection.add(0);
+////		featureSelection.add(1);
+////		featureSelection.add(0);
+////		featureSelection.add(1);
+////		featureSelection.add(0);
+////		featureSelection.add(0);
+////		featureSelection.add(1);
+////		featureSelection.add(0);
+////		featureSelection.add(1);
+////		featureSelection.add(0);
+////		featureSelection.add(0);
+////		featureSelection.add(1);
+//		
+//		hyVarRecOutputAndFM.setSelectedFeatures(featureSelection);
+//		
+//		// TODO test enum, boolean, int?
+////		List<Integer> attributeValueAssignment = new ArrayList<Integer>();
+////		attributeValueAssignment.add(200);
+////		attributeValueAssignment.add(1);
+//		
+////		hyVarRecOutputAndFM.setAttributeValues(attributeValueAssignment);
+//		
+//		return hyVarRecOutputAndFM;
+//	}
 	
 
 	private RawInputForHyVarRec createRawHyVarRecOutput() throws IOException {

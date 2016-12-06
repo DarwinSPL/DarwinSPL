@@ -1,27 +1,23 @@
 
-package eu.hyvar.reconfigurator.input.rest.dummyclient.hyvar_rec_answer;
+package eu.hyvar.reconfigurator.input.rest.dummyclient.hyvarrec_config;
 
 import java.util.List;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-
-/**
- * Final configuration
- * 
- */
-public class HyVarRecAnswer {
+public class OutputOfHyVarRecAndFm {
 
     /**
-     * The result may be sat or unsat
+     * 
      * (Required)
      * 
      */
-    @SerializedName("result")
+    @SerializedName("msg_type")
     @Expose
-    private String result;
+    private String msgType;
     /**
      * list representing which features are selected
+     * (Required)
      * 
      */
     @SerializedName("features")
@@ -29,36 +25,46 @@ public class HyVarRecAnswer {
     private List<String> features = null;
     /**
      * list representing the values of the attributes
+     * (Required)
      * 
      */
     @SerializedName("attributes")
     @Expose
     private List<Attribute> attributes = null;
+    /**
+     * 
+     * (Required)
+     * 
+     */
+    @SerializedName("feature_model")
+    @Expose
+    private FeatureModel featureModel;
 
     /**
-     * The result may be sat or unsat
+     * 
      * (Required)
      * 
      * @return
-     *     The result
+     *     The msgType
      */
-    public String getResult() {
-        return result;
+    public String getMsgType() {
+        return msgType;
     }
 
     /**
-     * The result may be sat or unsat
+     * 
      * (Required)
      * 
-     * @param result
-     *     The result
+     * @param msgType
+     *     The msg_type
      */
-    public void setResult(String result) {
-        this.result = result;
+    public void setMsgType(String msgType) {
+        this.msgType = msgType;
     }
 
     /**
      * list representing which features are selected
+     * (Required)
      * 
      * @return
      *     The features
@@ -69,6 +75,7 @@ public class HyVarRecAnswer {
 
     /**
      * list representing which features are selected
+     * (Required)
      * 
      * @param features
      *     The features
@@ -79,6 +86,7 @@ public class HyVarRecAnswer {
 
     /**
      * list representing the values of the attributes
+     * (Required)
      * 
      * @return
      *     The attributes
@@ -89,12 +97,35 @@ public class HyVarRecAnswer {
 
     /**
      * list representing the values of the attributes
+     * (Required)
      * 
      * @param attributes
      *     The attributes
      */
     public void setAttributes(List<Attribute> attributes) {
         this.attributes = attributes;
+    }
+
+    /**
+     * 
+     * (Required)
+     * 
+     * @return
+     *     The featureModel
+     */
+    public FeatureModel getFeatureModel() {
+        return featureModel;
+    }
+
+    /**
+     * 
+     * (Required)
+     * 
+     * @param featureModel
+     *     The feature_model
+     */
+    public void setFeatureModel(FeatureModel featureModel) {
+        this.featureModel = featureModel;
     }
 
 }

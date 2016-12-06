@@ -2,30 +2,35 @@
   "$schema": "http://json-schema.org/draft-04/schema#",
   "type": "object",
   "properties": {
-    "selectedFeatures": {
-      "type": "array",
-      "items": {
-        "type": "string"
+    "msg_type" : {
+     "type" : "string"   
+    },
+	"features":{
+      "description":"list representing which features are selected",
+      "type":"array",
+      "items":{
+        "type":"string"
       }
     },
-    "attribute_values": {
-      "type": "array",
-      "items": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string"
+    "attributes":{
+      "description":"list representing the values of the attributes",
+      "type":"array",
+      "items":{
+        "type":"object",
+        "properties":{
+          "id":{
+            "type":"string"
           },
-          "value": {
-            "type": "integer"
+          "value":{
+            "type":"integer"
           }
         },
-        "required": [
+        "required":[
           "id",
           "value"
         ]
-      }
-    },
+	  }
+	},
     "feature_model": {
       "type": "object",
       "properties": {
@@ -43,8 +48,9 @@
     }
   },
   "required": [
-    "selectedFeatures",
-    "attribute_values",
+    "msg_type",
+    "features",
+    "attributes",
     "feature_model"
   ]
 }
