@@ -138,7 +138,6 @@ public class Application implements IApplication {
 			client.start();
 
 			uri = URI.create("http://localhost:8080/fm_for_hyvarrec");
-//			uri = URI.create("http://192.168.99.100:8081/fm_for_hyvarrec");
 //			uri = URI.create("http://hyvarfmtohyvarrec-env.eu-west-1.elasticbeanstalk.com/fm_for_hyvarrec");
 
 			
@@ -167,6 +166,7 @@ public class Application implements IApplication {
 			String hyvarrecJson = gson.toJson(answer);
 			HttpClient hyvarrecClient = new HttpClient();
 			hyvarrecClient.start();
+			// Current HyVarRec URI
 			URI hyvarrecUri = URI.create("http://hyvarhyvarrec-env.eu-west-1.elasticbeanstalk.com/process");
 			Request hyvarrecRequest = hyvarrecClient.POST(hyvarrecUri);
 			hyvarrecRequest.header(HttpHeader.CONTENT_TYPE, "application/json");
@@ -184,7 +184,6 @@ public class Application implements IApplication {
 			configClient.start();
 
 			URI configUri = URI.create("http://localhost:8080/new_hyvarrec_config");
-//			URI configUri = URI.create("http://192.168.99.100:8081/new_hyvarrec_config");
 //			URI configUri = URI.create("http://hyvarfmtohyvarrec-env.eu-west-1.elasticbeanstalk.com/new_hyvarrec_config");
 	
 
