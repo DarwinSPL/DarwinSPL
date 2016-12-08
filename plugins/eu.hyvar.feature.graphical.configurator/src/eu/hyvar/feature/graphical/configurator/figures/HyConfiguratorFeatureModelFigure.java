@@ -39,38 +39,11 @@ public class HyConfiguratorFeatureModelFigure extends FreeformLayer {
 	}
 	
 	private void paintFeatureAndGroupMarks(Graphics graphics) {
-
 		for (HyFeatureWrapped feature : featureModel.getFeatures(null)) {
 
-				//Rectangle featureMarkRectangle = getFeatureMarkRectangle(feature);
+			Rectangle featureMarkRectangle = getFeatureMarkRectangle(feature);
 				
-				//drawFeatureMarks(feature, graphics);
-				
-				/*
-				boolean featureHasError = graphicalEditor.hasError(feature);
-				boolean featureHasWarning = graphicalEditor.hasWarning(feature);
-				
-				if (featureHasError) {
-					DEDrawingUtil.drawProblem(graphics, featureMarkRectangle, this, true);
-				} else if (featureHasWarning) {
-					DEDrawingUtil.drawProblem(graphics, featureMarkRectangle, this, false);
-				}
-				*/
-			
-			
-			
-			/*
-			if (element instanceof DEGroup) {
-				DEGroup group = (DEGroup) element;
-				Rectangle groupMarkRectangle = getGroupMarkRectangle(group);
-				
-				//It might be that the figure never was visible
-				//so there is no rectangle around it either.
-				if (groupMarkRectangle != null) {
-
-				}
-			}
-			*/
+			drawFeatureMarks(feature, graphics);
 		}
 	}
 	

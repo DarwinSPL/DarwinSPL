@@ -7,6 +7,7 @@ import org.eclipse.jface.action.IToolBarManager;
 import org.eclipse.ui.actions.ActionFactory;
 
 import eu.hyvar.feature.graphical.editor.actions.HyFeatureModelCreateOverviewAction;
+import eu.hyvar.feature.graphical.editor.actions.HyFeatureModelCreateSVGAction;
 import eu.hyvar.feature.graphical.editor.actions.layout.HyFeatureModelAutoLayoutAction;
 
 /**
@@ -21,7 +22,7 @@ public class HyGraphicalFeatureModelEditorActionBarContributor extends ActionBar
 		addRetargetAction(new DeleteRetargetAction());
 		addRetargetAction(new HyFeatureModelAutoLayoutAction());
 		addRetargetAction(new HyFeatureModelCreateOverviewAction());
-		//addRetargetAction(new HyFeatureModelSaveLayoutAction());
+		addRetargetAction(new HyFeatureModelCreateSVGAction());
 	}
 
 	@Override
@@ -30,6 +31,7 @@ public class HyGraphicalFeatureModelEditorActionBarContributor extends ActionBar
 		toolBarManager.add(getAction(ActionFactory.DELETE.getId()));
 		toolBarManager.add(getAction(HyFeatureModelAutoLayoutAction.ID));
 		toolBarManager.add(getAction(HyFeatureModelCreateOverviewAction.FEATUREMODEL_CREATE_OVERVIEW));
+		toolBarManager.add(getAction(HyFeatureModelCreateSVGAction.FEATUREMODEL_CREATE_SVG));
 		toolBarManager.add(new ZoomComboContributionItem(getPage()));
 		
 	}	

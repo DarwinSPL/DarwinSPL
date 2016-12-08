@@ -19,6 +19,10 @@ public class HyFeatureChildrenAnchor extends HyFeatureModelPositionAnchor {
 		HyFeatureFigure figure = ((HyFeatureFigure)getOwner());
 		
 		Rectangle parentBounds = figure.getBounds();
-		return new Point(parentBounds.getTopLeft().x+parentBounds.width() / 2, parentBounds.getBottom().y);
+		Point location = new Point(parentBounds.getTopLeft().x+parentBounds.width() / 2, parentBounds.getBottom().y);
+		
+		getOwner().translateToAbsolute(location);
+		
+		return location;
 	}	
 }

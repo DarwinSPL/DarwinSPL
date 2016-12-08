@@ -45,11 +45,9 @@ public class HyFeatureCreateCommand extends Command {
 		HyFeatureType type = HyFeatureFactory.eINSTANCE.createHyFeatureType();
 		feature.getTypes().add(type);
 		
-		newFeature.setWrappedModelElement(feature);
-		featureModel.addFeature(newFeature);
+
 		
 		
-		featureModel.createConnection(parent, newFeature);
 		
 		HyParentChildConnection connection = new HyParentChildConnection();
 		connection.setSource(parent);
@@ -61,7 +59,8 @@ public class HyFeatureCreateCommand extends Command {
 		parent.addParentToChildConnection(connection);
 		newFeature.addChildToParentConnection(connection);
 		
-		
+		newFeature.setWrappedModelElement(feature);
+		featureModel.addFeature(newFeature);
 		
 		featureModel.rearrangeFeatures();
 		editor.refreshView();	

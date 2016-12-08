@@ -26,10 +26,16 @@ import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.gef.DefaultEditDomain;
 import org.eclipse.gef.GraphicalViewer;
+import org.eclipse.gef.KeyHandler;
+import org.eclipse.gef.KeyStroke;
+import org.eclipse.gef.MouseWheelHandler;
+import org.eclipse.gef.MouseWheelZoomHandler;
 import org.eclipse.gef.commands.Command;
 import org.eclipse.gef.commands.CommandStack;
 import org.eclipse.gef.editparts.ScalableFreeformRootEditPart;
 import org.eclipse.gef.editparts.ZoomManager;
+import org.eclipse.gef.ui.actions.ZoomInAction;
+import org.eclipse.gef.ui.actions.ZoomOutAction;
 import org.eclipse.gef.ui.parts.GraphicalEditor;
 import org.eclipse.gef.ui.parts.ScrollingGraphicalViewer;
 import org.eclipse.swt.SWT;
@@ -77,6 +83,8 @@ public class HyGraphicalFeatureModelViewer extends GraphicalEditor implements IF
 	protected IFile file;
 	
 	protected HyFeatureModelWrapped modelWrapped;
+	
+	protected KeyHandler sharedKeyHandler;
 	
 	public Date getCurrentSelectedDate() {
 		return currentSelectedDate;
@@ -174,6 +182,35 @@ public class HyGraphicalFeatureModelViewer extends GraphicalEditor implements IF
 	protected void initializeGraphicalViewer() {
 		GraphicalViewer viewer = getGraphicalViewer();
 		viewer.setContents(modelWrapped);
+		enableZoomWithMouseWheel();
+	}
+	
+	
+	protected KeyHandler getCommonKeyHandler() {
+		ZoomManager manager = (ZoomManager) getGraphicalViewer().getProperty(ZoomManager.class.toString());
+		
+		if (sharedKeyHandler == null) {
+			sharedKeyHandler = new KeyHandler();
+			sharedKeyHandler.put(KeyStroke.getPressed('+', SWT.KEYPAD_ADD, SWT.CONTROL),
+					new ZoomInAction(manager));
+			sharedKeyHandler.put(KeyStroke.getPressed('-', SWT.KEYPAD_SUBTRACT, SWT.CONTROL),
+					new ZoomOutAction(manager));
+		}
+		
+		return sharedKeyHandler;
+	}
+	protected void enableZoomWithMouseWheel() {
+		// Zoom
+		ZoomManager manager = (ZoomManager) getGraphicalViewer().getProperty(
+				ZoomManager.class.toString());
+		if (manager != null)
+			manager.setZoom(1);
+		
+		
+		// Scroll-wheel Zoom
+		getGraphicalViewer().setProperty(
+				MouseWheelHandler.KeyGenerator.getKey(SWT.MOD1),
+				MouseWheelZoomHandler.SINGLETON);
 	}
 
 
@@ -189,7 +226,21 @@ public class HyGraphicalFeatureModelViewer extends GraphicalEditor implements IF
 		}
 	}
 	
+	private void setCurrentSelectedDateToMostActualDate(){
+		List<Date> dates = HyEvolutionUtil.collectDates(modelWrapped.getModel());
+		Date currentDate = new Date();
+		Date closestDate = new Date(Long.MIN_VALUE);
+		for(Date date : dates){
+			if(date.before(currentDate)){
+				if(date.after(closestDate))
+					closestDate = date;
+			}
+		}
+		
+		currentSelectedDate = closestDate;	
+	}
 	
+
 
 	/**
 	 * Tries to load a feature model from a given file
@@ -206,12 +257,8 @@ public class HyGraphicalFeatureModelViewer extends GraphicalEditor implements IF
 			resource.load(null);
 
 			modelWrapped = new HyFeatureModelWrapped((HyFeatureModel)resource.getContents().get(0));
-			//modelWrapped.addPropertyChangeListener(this);
 
-			List<Date> dates = HyEvolutionUtil.collectDates(modelWrapped.getModel());
-			currentSelectedDate = (dates.size() == 0) ? new Date() : dates.get(0);
-
-
+			setCurrentSelectedDateToMostActualDate();
 			setEditorTabText(file.getName());
 
 
@@ -250,6 +297,13 @@ public class HyGraphicalFeatureModelViewer extends GraphicalEditor implements IF
 		GraphicalViewer viewer = getGraphicalViewer();
 		viewer.setEditPartFactory(new HyFeatureModelEditPartFactory(viewer, this));
 		viewer.setRootEditPart(new ScalableFreeformRootEditPart());
+		
+		
+		ZoomManager manager = (ZoomManager) getGraphicalViewer().getProperty(ZoomManager.class.toString());
+		
+		getActionRegistry().registerAction(new ZoomInAction(manager));
+		getActionRegistry().registerAction(new ZoomOutAction(manager));
+		
 	}
 	
 	public void registerControlListeners(){
@@ -362,6 +416,7 @@ public class HyGraphicalFeatureModelViewer extends GraphicalEditor implements IF
 		scale.setMaximum(size-1);
 		scale.setLayoutData(new RowData(300, SWT.DEFAULT));
 		scale.setEnabled(size > 1);
+		scale.setSelection(dates.indexOf(currentSelectedDate));
 
 
 
@@ -370,7 +425,7 @@ public class HyGraphicalFeatureModelViewer extends GraphicalEditor implements IF
 
 
 		if(dates.size() > 0)
-			setCurrentSelectedDate(dates.get(0));
+			setCurrentSelectedDate(currentSelectedDate);
 		else{
 			Date now = new Date();
 			modelWrapped.addDate(now);

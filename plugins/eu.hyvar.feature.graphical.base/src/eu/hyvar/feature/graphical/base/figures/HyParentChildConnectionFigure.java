@@ -9,25 +9,43 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Color;
 
 import eu.hyvar.feature.graphical.base.anchors.HyFeatureModelPositionAnchor;
-import eu.hyvar.feature.graphical.base.anchors.HyFeatureParentAnchor;
+import eu.hyvar.feature.graphical.base.anchors.HyParentChildConnectionAnchor;
 import eu.hyvar.feature.graphical.base.editor.HyGraphicalFeatureModelViewer;
+import eu.hyvar.feature.graphical.base.model.HyFeatureWrapped;
 
 public class HyParentChildConnectionFigure extends PolylineConnection {
 	Color color;
-	protected HyFeatureParentAnchor anchor;
+	protected HyParentChildConnectionAnchor anchor;
 
 	private HyGraphicalFeatureModelViewer editor;
-	
-	public HyParentChildConnectionFigure(HyGraphicalFeatureModelViewer editor){
+	private HyFeatureWrapped source;
+		
+	public HyParentChildConnectionFigure(HyGraphicalFeatureModelViewer editor, HyFeatureWrapped source){
 		this.editor = editor;
+		this.source = source;
+		
+		setTolerance(10);
+		
+		DEGraphicalEditorTheme theme = DEGraphicalEditor.getTheme();
+		color = theme.getLineColor();
+		
+		anchor = new HyParentChildConnectionAnchor(this, editor);
 	}
+			
 
 	public HyFeatureModelPositionAnchor getAnchor() {
 		return anchor;
 	}
 	
+	public HyGraphicalFeatureModelViewer getEditor() {
+		return editor;
+	}
 
-	public void setAnchor(HyFeatureParentAnchor anchor) {
+	public HyFeatureWrapped getSource() {
+		return source;
+	}
+
+	public void setAnchor(HyParentChildConnectionAnchor anchor) {
 		this.anchor = anchor;
 	}
 
@@ -39,15 +57,7 @@ public class HyParentChildConnectionFigure extends PolylineConnection {
 		this.color = color;
 	}
 
-	public HyParentChildConnectionFigure(){
-		setTolerance(10);
-		
-		DEGraphicalEditorTheme theme = DEGraphicalEditor.getTheme();
-		color = theme.getLineColor();
-		
-		anchor = new HyFeatureParentAnchor(this, editor);
-	}
-			
+
 	@Override
 	public void paintFigure(Graphics graphics) {
 		super.paintFigure(graphics);

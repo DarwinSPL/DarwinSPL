@@ -70,14 +70,16 @@ public class HyGraphicalFeatureModelEditor extends HyGraphicalFeatureModelViewer
 	}
 	
 
-	KeyHandler sharedKeyHandler;
 	protected KeyHandler getCommonKeyHandler() {
+		sharedKeyHandler = super.getCommonKeyHandler();
+		
 		if (sharedKeyHandler == null) {
 			sharedKeyHandler = new KeyHandler();
 			sharedKeyHandler.put(KeyStroke.getPressed(SWT.DEL, 127, 0), 
 					getActionRegistry().getAction(
 							ActionFactory.DELETE.getId()));
 		}
+		
 		return sharedKeyHandler;
 	}
 
