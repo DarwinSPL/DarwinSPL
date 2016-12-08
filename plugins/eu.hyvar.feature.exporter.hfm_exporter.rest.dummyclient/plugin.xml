@@ -26,5 +26,13 @@
          </property>
       </product>
    </extension>
+   <extension
+         id="HyVarToDeltaEcoreDummyclient"
+         point="org.eclipse.core.runtime.products">
+      <product
+            application="eu.hyvar.feature.exporter.hfm_exporter.rest.dummyclient.client"
+            name="HyVar to DeltaEcore REST Dummyclient">
+      </product>
+   </extension>
 
 </plugin>

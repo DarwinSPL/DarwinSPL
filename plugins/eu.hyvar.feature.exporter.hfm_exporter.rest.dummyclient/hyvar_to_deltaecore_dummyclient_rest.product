@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?pde version="3.5"?>
 
-<product name="HyVar to DeltaEcore REST Dummyclient" id="eu.hyvar.feature.exporter.hfm_exporter.rest.dummyclient.client" application="eu.hyvar.feature.exporter.hfm_exporter.rest.dummyclient.client" version="1.0.0" useFeatures="false" includeLaunchers="true">
+<product name="HyVar to DeltaEcore REST Dummyclient" id="eu.hyvar.feature.exporter.hfm_exporter.rest.dummyclient.HyVarToDeltaEcoreDummyclient" application="eu.hyvar.feature.exporter.hfm_exporter.rest.dummyclient.client" version="1.0.0" useFeatures="false" includeLaunchers="true">
 
    <configIni use="default">
    </configIni>
@@ -17,6 +17,7 @@
       <plugin id="de.christophseidl.util.eclipse"/>
       <plugin id="de.christophseidl.util.ecore"/>
       <plugin id="de.christophseidl.util.java"/>
+      <plugin id="de.darwinspl.common.util"/>
       <plugin id="eu.hyvar.feature.exporter.hfm_exporter.rest.dummyclient"/>
       <plugin id="javax.servlet"/>
       <plugin id="javax.xml"/>
@@ -62,7 +63,10 @@
       <plugin id="org.eclipse.equinox.app"/>
       <plugin id="org.eclipse.equinox.common"/>
       <plugin id="org.eclipse.equinox.preferences"/>
+      <plugin id="org.eclipse.equinox.region" fragment="true"/>
       <plugin id="org.eclipse.equinox.registry"/>
+      <plugin id="org.eclipse.equinox.transforms.hook" fragment="true"/>
+      <plugin id="org.eclipse.equinox.weaving.hook" fragment="true"/>
       <plugin id="org.eclipse.jdt.compiler.apt" fragment="true"/>
       <plugin id="org.eclipse.jdt.compiler.tool" fragment="true"/>
       <plugin id="org.eclipse.jdt.core"/>

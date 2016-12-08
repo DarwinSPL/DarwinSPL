@@ -37,6 +37,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 import de.christophseidl.util.ecore.EcoreIOUtil;
+import de.darwinspl.common.util.FileUtil;
 import eu.hyvar.feature.exporter.hfm_exporter.rest.dummyclient.answer.DeltaEcoreAnswer;
 import eu.hyvar.feature.exporter.hfm_exporter.rest.dummyclient.output.Configuration;
 import eu.hyvar.feature.exporter.hfm_exporter.rest.dummyclient.output.FeatureModel;
@@ -66,7 +67,10 @@ public class Application implements IApplication {
 		GsonBuilder builder = new GsonBuilder();
 		Gson gson = builder.create();
 
-		String json = gson.toJson(createOutput());
+//		String json = gson.toJson(createOutput());
+		
+		File jsonFile = new File("C:/Users/mnieke/Desktop/input_10.1.json");
+		String json = FileUtil.readFileContent(jsonFile);
 
 		FileWriter out = new FileWriter("D:/repositories/DarwinSPL/plugins/eu.hyvar.feature.exporter.hfm_exporter.rest.dummyclient/models/output.json");
 		out.write(json);
@@ -112,6 +116,7 @@ public class Application implements IApplication {
 		return IApplication.EXIT_OK;
 	}
 
+	
 	private HyVarOutput createOutput() {
 
 		FileInputStream fileReader;
