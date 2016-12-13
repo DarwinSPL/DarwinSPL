@@ -1,0 +1,11 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Splot Importer for DarwinSPL
+Bundle-SymbolicName: de.darwinspl.importer.splot;singleton:=true
+Bundle-Version: 1.0.0
+Bundle-RequiredExecutionEnvironment: JavaSE-1.7
+Require-Bundle: de.darwinspl.importer,
+ eu.hyvar.feature
+Export-Package: de.darwinspl.importer.splot
+Bundle-ClassPath: .,
+ libs/sxfm.jar
