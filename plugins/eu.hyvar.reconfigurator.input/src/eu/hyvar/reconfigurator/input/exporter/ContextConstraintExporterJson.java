@@ -1,9 +1,5 @@
 package eu.hyvar.reconfigurator.input.exporter;
 
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -38,7 +34,6 @@ import eu.hyvar.feature.HyFeature;
 import eu.hyvar.feature.HyFeatureAttribute;
 import eu.hyvar.feature.HyFeatureChild;
 import eu.hyvar.feature.HyFeatureModel;
-import eu.hyvar.feature.HyFeatureTypeEnum;
 import eu.hyvar.feature.HyGroup;
 import eu.hyvar.feature.HyGroupComposition;
 import eu.hyvar.feature.HyGroupType;
@@ -59,6 +54,8 @@ import eu.hyvar.feature.expression.util.HyExpressionStringExporter;
 import eu.hyvar.feature.expression.util.HyExpressionStringExporter.BooleanRepresentationOption;
 import eu.hyvar.feature.expression.util.HyExpressionStringExporter.FeatureSelectionRepresentationOption;
 import eu.hyvar.feature.expression.util.HyExpressionStringExporter.VersionRepresentation;
+import eu.hyvar.feature.util.HyFeatureModelWellFormednessException;
+import eu.hyvar.feature.util.HyFeatureUtil;
 import eu.hyvar.preferences.HyPreference;
 import eu.hyvar.preferences.HyPreferenceModel;
 import eu.hyvar.reconfigurator.input.format.InputForHyVarRec;
@@ -170,7 +167,13 @@ public class ContextConstraintExporterJson {
 			input.setConfiguration(getExportedConfiguration(oldConfiguration, contextValues));			
 		}
 
-		input.setConstraints(getFeatureModelConstraints(featureModel, date));
+		try {
+			input.setConstraints(getFeatureModelConstraints(featureModel, date));
+		} catch (HyFeatureModelWellFormednessException e) {
+			System.err.println("Could not create constraints of FM, as FM is not well-formed");
+			e.printStackTrace();
+			return null;
+		}
 
 		if (constraintModel != null) {
 			input.getConstraints().addAll(getConstraints(constraintModel, date));
@@ -508,7 +511,7 @@ public class ContextConstraintExporterJson {
 		return domain;
 	}
 
-	private List<String> getFeatureModelConstraints(HyFeatureModel featureModel, Date date) {
+	private List<String> getFeatureModelConstraints(HyFeatureModel featureModel, Date date) throws HyFeatureModelWellFormednessException {
 		List<String> featureModelConstraints = new ArrayList<String>();
 
 		StringBuilder rootFeatureConstraint = new StringBuilder();
@@ -560,7 +563,7 @@ public class ContextConstraintExporterJson {
 		return versionConstraints;
 	}
 
-	private List<String> getFeatureConstraints(HyFeature feature, boolean isRoot, Date date) {
+	private List<String> getFeatureConstraints(HyFeature feature, boolean isRoot, Date date) throws HyFeatureModelWellFormednessException {
 		List<String> featureModelConstraints = new ArrayList<String>();
 
 		List<HyFeatureChild> featureChildren = HyEvolutionUtil.getValidTemporalElements(feature.getParentOf(), date);
@@ -572,7 +575,7 @@ public class ContextConstraintExporterJson {
 		return featureModelConstraints;
 	}
 
-	private List<String> getGroupConstraints(HyGroup group, String parentFeatureId, boolean parentIsRoot, Date date) {
+	private List<String> getGroupConstraints(HyGroup group, String parentFeatureId, boolean parentIsRoot, Date date) throws HyFeatureModelWellFormednessException {
 		List<String> featureModelConstraints = new ArrayList<String>();
 
 		StringBuilder groupConstraintsStringBuilder = new StringBuilder();
@@ -643,6 +646,11 @@ public class ContextConstraintExporterJson {
 				break;
 			case AND:
 				
+				// Check if only optional features are in groups -> no constraint necessary
+				if(HyFeatureUtil.getNumberOfMandatoryFeatures(validFeaturesOfGroupComposition, date) == 0) {
+					break;
+				}
+				
 				groupConstraintsStringBuilder.append(parentFeatureId);
 				groupConstraintsStringBuilder.append(EQUALS);
 				groupConstraintsStringBuilder.append(1);
@@ -653,8 +661,7 @@ public class ContextConstraintExporterJson {
 
 				for (HyFeature feature : validFeaturesOfGroupComposition) {
 					// Constraints for mandatory features
-					if (HyEvolutionUtil.getValidTemporalElement(feature.getTypes(), date)
-							.getType().equals(HyFeatureTypeEnum.MANDATORY)) {
+					if (HyFeatureUtil.isMandatory(feature, date)) {
 						if (!firstChildAnd) {
 							groupConstraintsStringBuilder.append(AND);
 						} else {
@@ -703,7 +710,7 @@ public class ContextConstraintExporterJson {
 		} 
 		else {
 			for (HyFeature feature : validFeaturesOfGroupComposition) {
-				if (HyEvolutionUtil.getValidTemporalElement(feature.getTypes(), date).getType().equals(HyFeatureTypeEnum.MANDATORY)) {
+				if (HyFeatureUtil.isMandatory(feature, date)) {
 					// groupConstraintsStringBuilder.append(TABULATOR);
 					// Mandatory Constraint (Parent => Child)
 					groupConstraintsStringBuilder.append(parentFeatureId);
