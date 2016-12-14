@@ -56,8 +56,10 @@ public class JsonHandler extends AbstractHandler {
 	
 	private static final String PROJECT_NAME = "hyvar_to_deltaecore";
 	
-	private static final String HYVAR_FOLDER = "hyvar_models";
-	private static final String DELTAECORE_FOLDER = "deltaecore_models";
+	// folders have to be the same. Otherwise the path in the mapping will point to different folders than the variant generator expects them to be
+	private static final String MODELS_FOLDER = "models";
+	private static final String HYVAR_FOLDER = MODELS_FOLDER;
+	private static final String DELTAECORE_FOLDER = MODELS_FOLDER;
 	
 	private static final String MSG_TYPE_JSON_HYVAR_TO_DELTAECORE_INPUT = "hyvar2deltaecore";
 	
@@ -107,7 +109,8 @@ public class JsonHandler extends AbstractHandler {
 			}
 			
 			if(featureModelTranslated && configurationTranslated && mappingTranslated) {
-				String outputJson =createOutputJson(deltaEcoreModels);
+				String outputJson = createOutputJson(deltaEcoreModels);
+				System.out.println(outputJson);
 				
 				response.setContentType("application/json; charset=utf-8");
 				PrintWriter out = response.getWriter();

@@ -69,7 +69,7 @@ public class Application implements IApplication {
 
 //		String json = gson.toJson(createOutput());
 		
-		File jsonFile = new File("C:/Users/mnieke/Desktop/input_10.1.json");
+		File jsonFile = new File("D:\\HyVar\\Implementations\\_ExampleInputOutput\\Input 10.1\\input_10_1.txt");
 		String json = FileUtil.readFileContent(jsonFile);
 
 		FileWriter out = new FileWriter("D:/repositories/DarwinSPL/plugins/eu.hyvar.feature.exporter.hfm_exporter.rest.dummyclient/models/output.json");
