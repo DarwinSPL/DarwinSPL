@@ -2,26 +2,17 @@
 <?eclipse version="3.4"?>
 <plugin>
    <extension
-         point="org.eclipse.ui.menus">
-      <menuContribution
-            allPopups="false"
-            locationURI="popup:org.eclipse.jdt.ui.PackageExplorer?after=additions">
-         <menu
-               id="eu.hyvar.import.menu"
-               label="DarwinSPL Imports">
-         </menu>
-      </menuContribution>
-      <menuContribution
-            allPopups="false"
-            locationURI="popup:org.eclipse.jdt.ui.PackageExplorer?after=additions">
-         <menu
-               label="DarwinSPL Exports">
-         </menu>
-      </menuContribution>
-      <menuContribution
-            allPopups="false"
-            locationURI="popup:org.eclipse.jdt.ui.PackageExplorer?after=additions">
-      </menuContribution>
+         point="org.eclipse.ui.importWizards">
+      <category
+            id="de.darwinspl.importer.ui.category"
+            name="DarwinSPL">
+      </category>
+      <wizard
+            category="de.darwinspl.importer.ui.category"
+            class="de.darwinspl.importer.ui.wizards.featureide.FeatureIDEFeatureModelImporterWizard"
+            id="de.darwinspl.importer.ui.featureidewizard"
+            name="Import FeatureIDE Feature Model">
+      </wizard>
    </extension>
 
 </plugin>

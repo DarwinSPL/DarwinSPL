@@ -1,4 +1,4 @@
-package eu.hyvar.feature.graphical.editor.wizard;
+package de.darwinspl.importer.ui.wizards;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.runtime.IPath;
@@ -8,13 +8,13 @@ import org.eclipse.ui.dialogs.WizardNewFileCreationPage;
 import de.christophseidl.util.eclipse.ResourceUtil;
 import eu.hyvar.feature.util.HyFeatureUtil;
 
-public class DwFeatureModelWizardNewFileCreationPage extends WizardNewFileCreationPage {
+public class DwFeatureModelWizardImportedFilePage extends WizardNewFileCreationPage {
 
-	public DwFeatureModelWizardNewFileCreationPage(String pageName, IStructuredSelection selection) {
+	public DwFeatureModelWizardImportedFilePage(String pageName, IStructuredSelection selection) {
 		super(pageName, selection);
 		
 		setTitle("New DarwinSPL Feature Model Wizard");
-		setDescription("Select a File where to store the new DarwinSPL Feature Model");
+		setDescription("Select a File where to store the imported DarwinSPL Feature Model");
 		setFileName("FeatureModel.hyfeature");
 	}
 

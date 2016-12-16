@@ -17,6 +17,7 @@ import de.ovgu.featureide.fm.core.io.manager.FileHandler;
 import de.ovgu.featureide.fm.core.io.xml.XmlFeatureModelFormat;
 import eu.hyvar.evolution.HyEvolutionFactory;
 import eu.hyvar.evolution.HyName;
+import eu.hyvar.evolution.factory.HyEvolutionFactoryWithIds;
 import eu.hyvar.feature.HyFeature;
 import eu.hyvar.feature.HyFeatureChild;
 import eu.hyvar.feature.HyFeatureFactory;
@@ -28,10 +29,14 @@ import eu.hyvar.feature.HyGroupComposition;
 import eu.hyvar.feature.HyGroupType;
 import eu.hyvar.feature.HyGroupTypeEnum;
 import eu.hyvar.feature.HyRootFeature;
+import eu.hyvar.feature.impl.custom.HyFeatureFactoryWithIds;
 
 public class FeatureIDEFeatureModelImporter implements DarwinSPLFeatureModelImporter<IFeatureModel> {
 
 	private Map<IFeature, HyFeature> featureMap;
+	
+	private static final HyFeatureFactory featureFactory = HyFeatureFactoryWithIds.eINSTANCE;
+	private static final HyEvolutionFactory evolutionFactory = HyEvolutionFactoryWithIds.eINSTANCE;
 	
 	public HyFeatureModel importFeatureModel(String pathToFile) {
 		XmlFeatureModelFormat format = new XmlFeatureModelFormat();
@@ -81,7 +86,7 @@ public class FeatureIDEFeatureModelImporter implements DarwinSPLFeatureModelImpo
 
 		featureMap = new HashMap<IFeature, HyFeature>();
 		
-		HyFeatureModel hyFeatureModel = HyFeatureFactory.eINSTANCE.createHyFeatureModel();
+		HyFeatureModel hyFeatureModel = featureFactory.createHyFeatureModel();
 
 		IFeature rootFeature = featureModel.getStructure().getRoot().getFeature();
 		
@@ -99,15 +104,15 @@ public class FeatureIDEFeatureModelImporter implements DarwinSPLFeatureModelImpo
 	 * @return
 	 */
 	private HyFeature processRoot(HyFeatureModel hyFeatureModel, IFeature rootFeature) {
-		HyRootFeature hyRootFeature = HyFeatureFactory.eINSTANCE.createHyRootFeature();
+		HyRootFeature hyRootFeature = featureFactory.createHyRootFeature();
 		hyFeatureModel.getRootFeature().add(hyRootFeature);
-		HyFeature hyRootFeatureFeature = HyFeatureFactory.eINSTANCE.createHyFeature();
+		HyFeature hyRootFeatureFeature = featureFactory.createHyFeature();
 		
-		HyName rootFeatureName = HyEvolutionFactory.eINSTANCE.createHyName();
+		HyName rootFeatureName = evolutionFactory.createHyName();
 		rootFeatureName.setName(rootFeature.getName());
 		hyRootFeatureFeature.getNames().add(rootFeatureName);
 		
-		HyFeatureType featureType = HyFeatureFactory.eINSTANCE.createHyFeatureType();
+		HyFeatureType featureType = featureFactory.createHyFeatureType();
 		featureType.setType(HyFeatureTypeEnum.MANDATORY);
 		hyRootFeatureFeature.getTypes().add(featureType);
 		
@@ -131,17 +136,17 @@ public class FeatureIDEFeatureModelImporter implements DarwinSPLFeatureModelImpo
 			return;
 		}
 		
-		HyGroup group = HyFeatureFactory.eINSTANCE.createHyGroup();
+		HyGroup group = featureFactory.createHyGroup();
 		hyFeatureModel.getGroups().add(group);
 		
-		HyFeatureChild featureChild = HyFeatureFactory.eINSTANCE.createHyFeatureChild();
+		HyFeatureChild featureChild = featureFactory.createHyFeatureChild();
 		featureChild.setChildGroup(group);
 		featureChild.setParent(hyFeature);
 		
-		HyGroupComposition groupComposition = HyFeatureFactory.eINSTANCE.createHyGroupComposition();
+		HyGroupComposition groupComposition = featureFactory.createHyGroupComposition();
 		groupComposition.setCompositionOf(group);
 		
-		HyGroupType groupType = HyFeatureFactory.eINSTANCE.createHyGroupType();
+		HyGroupType groupType = featureFactory.createHyGroupType();
 		group.getTypes().add(groupType);
 		
 		
@@ -164,15 +169,15 @@ public class FeatureIDEFeatureModelImporter implements DarwinSPLFeatureModelImpo
 			
 			IFeature childFeature = childFeatureStructure.getFeature();
 			
-			HyFeature hyChildFeature = HyFeatureFactory.eINSTANCE.createHyFeature();
+			HyFeature hyChildFeature = featureFactory.createHyFeature();
 			hyFeatureModel.getFeatures().add(hyChildFeature);
 			groupComposition.getFeatures().add(hyChildFeature);
 			
-			HyName childFeatureName = HyEvolutionFactory.eINSTANCE.createHyName();
+			HyName childFeatureName = evolutionFactory.createHyName();
 			childFeatureName.setName(childFeature.getName());
 			hyChildFeature.getNames().add(childFeatureName);
 			
-			HyFeatureType featureType = HyFeatureFactory.eINSTANCE.createHyFeatureType();
+			HyFeatureType featureType = featureFactory.createHyFeatureType();
 			
 			if(childFeatureStructure.isMandatory()) {
 				featureType.setType(HyFeatureTypeEnum.MANDATORY);				
