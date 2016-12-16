@@ -17,7 +17,6 @@ import de.ovgu.featureide.fm.core.io.manager.FileHandler;
 import de.ovgu.featureide.fm.core.io.xml.XmlFeatureModelFormat;
 import eu.hyvar.evolution.HyEvolutionFactory;
 import eu.hyvar.evolution.HyName;
-import eu.hyvar.evolution.factory.HyEvolutionFactoryWithIds;
 import eu.hyvar.feature.HyFeature;
 import eu.hyvar.feature.HyFeatureChild;
 import eu.hyvar.feature.HyFeatureFactory;
@@ -29,14 +28,13 @@ import eu.hyvar.feature.HyGroupComposition;
 import eu.hyvar.feature.HyGroupType;
 import eu.hyvar.feature.HyGroupTypeEnum;
 import eu.hyvar.feature.HyRootFeature;
-import eu.hyvar.feature.impl.custom.HyFeatureFactoryWithIds;
 
 public class FeatureIDEFeatureModelImporter implements DarwinSPLFeatureModelImporter<IFeatureModel> {
 
 	private Map<IFeature, HyFeature> featureMap;
 	
-	private static final HyFeatureFactory featureFactory = HyFeatureFactoryWithIds.eINSTANCE;
-	private static final HyEvolutionFactory evolutionFactory = HyEvolutionFactoryWithIds.eINSTANCE;
+	private static final HyFeatureFactory featureFactory = HyFeatureFactory.eINSTANCE;
+	private static final HyEvolutionFactory evolutionFactory = HyEvolutionFactory.eINSTANCE;
 	
 	public HyFeatureModel importFeatureModel(String pathToFile) {
 		XmlFeatureModelFormat format = new XmlFeatureModelFormat();
