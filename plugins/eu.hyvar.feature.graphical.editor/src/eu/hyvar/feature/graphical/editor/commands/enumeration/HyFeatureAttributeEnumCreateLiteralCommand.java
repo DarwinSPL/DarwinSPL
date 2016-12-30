@@ -40,7 +40,6 @@ public class HyFeatureAttributeEnumCreateLiteralCommand extends Command {
 		literal.setValidSince(date);
 		
 		featureEnum.getLiterals().add(literal);		
-		
 		editor.refreshView();
 	}
 }

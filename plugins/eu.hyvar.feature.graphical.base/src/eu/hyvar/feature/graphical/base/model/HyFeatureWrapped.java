@@ -298,6 +298,12 @@ public class HyFeatureWrapped extends HyEditorChangeableElement{
 	public List<HyParentChildConnection> getParentConnections(Date date) {
 		return filterConnections(parentConnections, date);
 	}
+	public void clearParentConnections(){
+		parentConnections.clear();
+	}
+	public void clearChildrenConnections(){
+		childrenConnections.clear();
+	}
 	public void addParentToChildConnection(HyParentChildConnection connection){
 		int old = childrenConnections.size();
 

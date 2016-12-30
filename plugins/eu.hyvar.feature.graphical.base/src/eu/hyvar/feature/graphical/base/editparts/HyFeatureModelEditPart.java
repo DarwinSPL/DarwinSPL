@@ -75,7 +75,6 @@ public class HyFeatureModelEditPart extends AbstractGraphicalEditPart implements
 
 	@Override
 	public void propertyChange(PropertyChangeEvent evt) {
-		System.out.println(evt);
 		refreshChildren();
 		refreshVisuals();
 	}

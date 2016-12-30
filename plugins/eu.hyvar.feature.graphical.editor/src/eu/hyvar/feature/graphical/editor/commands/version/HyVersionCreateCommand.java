@@ -40,25 +40,7 @@ public class HyVersionCreateCommand  extends Command {
 			version.setFeature(parentAsFeature);
 			version.setValidSince(date);
 			parentAsFeature.getVersions().add(version);
-		}
-				
-		
-		
-
-		/*
-		if (parent instanceof HyFeature) {
-			HyFeature parentFeature = (HyFeature) parentObject;
-			addToParentFeature(parentFeature);
-		}
-		
-		if (parent instanceof HyVersion) {
-			version.setSupersededVersion((HyVersion)parentObject);
-			((HyVersion)parent).getSupersedingVersions().add(version);
-		}
-		
-		editor.getModelWrapped().rearrangeFeatures();
-		editor.refreshView();
-		*/
+		}		
 	}
 	
 	@Override

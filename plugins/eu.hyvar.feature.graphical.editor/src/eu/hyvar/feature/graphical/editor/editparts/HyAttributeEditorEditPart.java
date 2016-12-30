@@ -40,6 +40,8 @@ public class HyAttributeEditorEditPart extends HyAttributeEditPart {
 			
 			if(!(notification.getEventType() == Notification.SET && notification.getPosition() == -1)){
 				((HyFeatureEditPart)getParent()).propertyChange(new PropertyChangeEvent(this, "AttributeSizeChanged", figure.getBounds(), new Rectangle(0, 0, 0, 0)));
+				
+			
 				refreshVisuals();
 				
 				featureModel.rearrangeFeatures();

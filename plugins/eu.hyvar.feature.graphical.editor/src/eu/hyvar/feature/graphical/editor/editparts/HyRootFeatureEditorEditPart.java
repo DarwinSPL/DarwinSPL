@@ -35,16 +35,15 @@ public class HyRootFeatureEditorEditPart extends HyRootFeatureEditPart{
 	@Override
 	protected void createEditPolicies(){
 		super.createEditPolicies();
+
 		installEditPolicy(EditPolicy.COMPONENT_ROLE, new HyFeatureComponentEditPolicy());
 		installEditPolicy(EditPolicy.GRAPHICAL_NODE_ROLE, new HyFeatureGraphicalNodeEditPolicy(editor, featureModel));
 		installEditPolicy(EditPolicy.DIRECT_EDIT_ROLE, new HyFeatureDirectEditPolicy());
-		installEditPolicy(EditPolicy.LAYOUT_ROLE, new HyFeatureXYLayoutPolicy());
-		
+		installEditPolicy(EditPolicy.LAYOUT_ROLE, new HyFeatureXYLayoutPolicy());		
 	}
 	
 	@Override
 	public void propertyChange(PropertyChangeEvent evt) {
-		//this.setSize();
 		this.refreshVisuals();
 	}
 	

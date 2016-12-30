@@ -86,6 +86,7 @@ public class HyEnumLiteralEditPart  extends HyAbstractEditPart{
 		IFigure parentFigure = parent.getFigure();
 
 		DEGraphicalEditorTheme theme = DEGraphicalEditor.getTheme();
+		if(literal.getEnum() == null) return;
 		int index = literal.getEnum().getLiterals().indexOf(literal);
 
 

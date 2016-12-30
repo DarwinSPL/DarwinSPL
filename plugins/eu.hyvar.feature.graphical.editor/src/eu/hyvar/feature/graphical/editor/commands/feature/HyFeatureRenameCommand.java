@@ -49,9 +49,11 @@ public class HyFeatureRenameCommand extends HyLinearTemporalElementCommand {
 		oldName =  HyEvolutionUtil.getValidTemporalElement(feature.getWrappedModelElement().getNames(), changeDate);
 		if(changeDate.equals(new Date(Long.MIN_VALUE))){
 			feature.getWrappedModelElement().getNames().remove(oldName);
+		}else{
+			changeVisibilities(oldName, newName, changeDate);
 		}
 		
-		changeVisibilities(oldName, newName, changeDate);
+		
 		feature.getWrappedModelElement().getNames().add(newName);
 		
 		HyElementEditorUtil.cleanNames(feature.getWrappedModelElement());

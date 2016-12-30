@@ -34,7 +34,7 @@ public class HyParentChildConnectionCreateCommand extends Command{
 		source.addParentToChildConnection(connection);
 		target.addChildToParentConnection(connection);
 		
-		featureModel.addConnection(connection, featureModel.getSelectedDate());	
+		featureModel.addConnection(connection, featureModel.getSelectedDate(), null);	
 	}
 
 	public void setSource(HyFeatureWrapped source) {

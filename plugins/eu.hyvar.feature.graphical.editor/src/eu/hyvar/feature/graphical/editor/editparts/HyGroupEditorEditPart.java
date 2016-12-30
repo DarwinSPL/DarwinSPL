@@ -4,7 +4,8 @@ import org.eclipse.emf.common.notify.Adapter;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.Notifier;
 import org.eclipse.gef.EditPolicy;
-import org.eclipse.gef.editpolicies.NonResizableEditPolicy;
+
+
 import java.beans.PropertyChangeEvent;
 
 import eu.hyvar.feature.HyGroup;
@@ -62,7 +63,9 @@ public class HyGroupEditorEditPart extends HyGroupEditPart {
 	public void activate() {
 		if(!isActive()) {
 			HyGroupWrapped model = ((HyGroupWrapped)getModel());
-			model.getParentFeature().addPropertyChangeListener(this);
+			
+			HyFeatureWrapped parentFeature = featureModel.getParentFeatureForGroup((HyGroupWrapped)getModel(), featureModel.getSelectedDate());
+			parentFeature.addPropertyChangeListener(this);
 			for(HyFeatureWrapped child : model.getFeatures()){
 				child.addPropertyChangeListener(this);
 			}
@@ -77,7 +80,8 @@ public class HyGroupEditorEditPart extends HyGroupEditPart {
 	public void deactivate() {
 		if(isActive()) {
 			HyGroupWrapped model = ((HyGroupWrapped)getModel());
-			model.getParentFeature().removePropertyChangeListener(this);
+			HyFeatureWrapped parentFeature = featureModel.getParentFeatureForGroup((HyGroupWrapped)getModel(), featureModel.getSelectedDate());
+			//parentFeature.removePropertyChangeListener(this);
 			for(HyFeatureWrapped child : model.getFeatures()){
 				child.removePropertyChangeListener(this);
 			}
@@ -92,7 +96,7 @@ public class HyGroupEditorEditPart extends HyGroupEditPart {
 	protected void createEditPolicies() {
 		installEditPolicy(EditPolicy.GRAPHICAL_NODE_ROLE, null);
 		installEditPolicy(EditPolicy.NODE_ROLE, null);
-		installEditPolicy(EditPolicy.PRIMARY_DRAG_ROLE, new	NonResizableEditPolicy());
+
 	}
 	
 

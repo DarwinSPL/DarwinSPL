@@ -1,5 +1,7 @@
 package eu.hyvar.feature.graphical.editor.actions.attribute;
 
+import java.util.Date;
+
 import org.eclipse.gef.Request;
 
 import eu.hyvar.evolution.HyEvolutionFactory;
@@ -26,9 +28,14 @@ public class HyAttributeCreateBooleanAction extends HyAttributeCreateAction{
 
 	@Override
 	protected HyFeatureAttribute createNewAttribute(){
+		Date date = editor.getCurrentSelectedDate();
+		if(date.equals(new Date(Long.MIN_VALUE)))
+			date = null;
+		
 		HyFeatureAttribute attribute = HyFeatureFactory.eINSTANCE.createHyBooleanAttribute();
-		attribute.setValidSince(editor.getCurrentSelectedDate());
+		attribute.setValidSince(date);
 		HyName name = HyEvolutionFactory.eINSTANCE.createHyName();
+		name.setValidSince(date);
 		name.setName("New Boolean Attribute");
 		attribute.getNames().add(name);
 				

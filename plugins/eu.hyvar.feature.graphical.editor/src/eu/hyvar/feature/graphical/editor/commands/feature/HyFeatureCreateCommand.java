@@ -17,16 +17,36 @@ import eu.hyvar.feature.graphical.base.model.HyParentChildConnection;
 
 public class HyFeatureCreateCommand extends Command {
 	private HyFeatureWrapped parent;
+	private HyFeatureWrapped newFeature;
 	private HyGraphicalFeatureModelViewer editor;
+	private HyParentChildConnection connection;
+	private Date date;
 	
 	public HyFeatureCreateCommand(HyFeatureWrapped parent, HyGraphicalFeatureModelViewer editor){
 		this.parent = parent;
 		this.editor = editor;
 	}
-	
-	private void createNewFeature(){		
+
+	/**
+	 * Undo creating a new feature
+	 */
+	@Override
+	public void undo() {
+		
 		HyFeatureModelWrapped featureModel = editor.getModelWrapped();
-		Date date = editor.getCurrentSelectedDate();
+		featureModel.removeConnection(connection, date);
+		
+		featureModel.getModel().getFeatures().remove(newFeature.getWrappedModelElement());
+		
+		featureModel.rearrangeFeatures();
+		editor.refreshView();
+		
+	}
+
+	@Override
+	public void redo() {
+		HyFeatureModelWrapped featureModel = editor.getModelWrapped();
+		date = editor.getCurrentSelectedDate();
 		if(date.equals(new Date(Long.MIN_VALUE))){
 			date = null;
 		}		
@@ -35,7 +55,7 @@ public class HyFeatureCreateCommand extends Command {
 		// Create a new feature model and editor representation
 		HyFeature feature = HyFeatureFactory.eINSTANCE.createHyFeature();
 		feature.setValidSince(date);
-		HyFeatureWrapped newFeature = new HyFeatureWrapped(feature, featureModel);
+		newFeature = new HyFeatureWrapped(feature, featureModel);
 		
 		HyName name = HyEvolutionFactory.eINSTANCE.createHyName();
 		name.setName(featureModel.getValidNewFeatureName());
@@ -45,16 +65,12 @@ public class HyFeatureCreateCommand extends Command {
 		HyFeatureType type = HyFeatureFactory.eINSTANCE.createHyFeatureType();
 		feature.getTypes().add(type);
 		
-
-		
-		
-		
-		HyParentChildConnection connection = new HyParentChildConnection();
+		connection = new HyParentChildConnection();
 		connection.setSource(parent);
 		connection.setTarget(newFeature);
 		connection.setModel(featureModel);
 		
-		featureModel.addConnection(connection, featureModel.getSelectedDate());
+		featureModel.addConnection(connection, featureModel.getSelectedDate(), null);
 		
 		parent.addParentToChildConnection(connection);
 		newFeature.addChildToParentConnection(connection);
@@ -64,10 +80,10 @@ public class HyFeatureCreateCommand extends Command {
 		
 		featureModel.rearrangeFeatures();
 		editor.refreshView();	
-	}
+	}	
 	
 	@Override 
 	public void execute(){
-		createNewFeature();
+		redo();
 	}
 }

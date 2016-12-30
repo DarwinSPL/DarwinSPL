@@ -132,7 +132,7 @@ public class HyFeatureModelSVGGenerator {
 				if(HyEvolutionUtil.getValidTemporalElements(HyEvolutionUtil.getValidTemporalElement(group.getWrappedModelElement().getParentOf(), date).getFeatures(), date).size() > 1){
 					DEGraphicalEditorTheme theme = DEGraphicalEditor.getTheme();
 					
-					HyFeatureWrapped parentFeature = group.getParentFeature();
+					HyFeatureWrapped parentFeature = featureModelWrapped.getParentFeatureForGroup(group, featureModelWrapped.getSelectedDate());
 					Point position = parentFeature.getPosition(date).getCopy();
 					position.x += parentFeature.getSize().width() / 2;
 					position.y += HyGeometryUtil.calculateFeatureHeight(parentFeature.getWrappedModelElement(), date) - theme.getFeatureVariationTypeExtent() / 2+1;

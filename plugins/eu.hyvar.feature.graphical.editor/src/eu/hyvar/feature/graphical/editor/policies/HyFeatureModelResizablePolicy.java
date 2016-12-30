@@ -20,6 +20,7 @@ public class HyFeatureModelResizablePolicy extends NonResizableEditPolicy{
 		return list;
 	}
 	
+	
 	protected void addSelectionHandles() {
 		removeSelectionHandles();
 		IFigure layer = getLayer(LayerConstants.HANDLE_LAYER);
@@ -40,4 +41,5 @@ public class HyFeatureModelResizablePolicy extends NonResizableEditPolicy{
 			layer.add(figure);
 		}
 	}
+	
 }

@@ -46,6 +46,7 @@ import eu.hyvar.feature.graphical.editor.actions.attribute.HyAttributeRenameActi
 import eu.hyvar.feature.graphical.editor.actions.attribute.HyNumberAttributeSetNumberRangeAction;
 import eu.hyvar.feature.graphical.editor.actions.enumeration.HyFeatureAttributeEnumCreateEnumAction;
 import eu.hyvar.feature.graphical.editor.actions.enumeration.HyFeatureAttributeEnumCreateLiteralAction;
+import eu.hyvar.feature.graphical.editor.actions.feature.HyFeatureChangeTypeAction;
 import eu.hyvar.feature.graphical.editor.actions.feature.HyFeatureCreateSiblingAction;
 import eu.hyvar.feature.graphical.editor.actions.feature.HyFeatureEditNamesAction;
 import eu.hyvar.feature.graphical.editor.actions.feature.HyFeatureEvolutionCreateChildAction;
@@ -65,6 +66,7 @@ public class HyGraphicalFeatureModelEditor extends HyGraphicalFeatureModelViewer
 	}
 	
 	public void executeCommand(Command command) {
+		System.out.println(command);
 		CommandStack commandStack = getCommandStack();
 		commandStack.execute(command);
 	}
@@ -110,12 +112,6 @@ public class HyGraphicalFeatureModelEditor extends HyGraphicalFeatureModelViewer
 	
 	@SuppressWarnings("unchecked")
 	protected void createGroupActions(){
-		/*
-		HyGroupEditCardinalitiesAction groupTypeAction = new HyGroupEditCardinalitiesAction(this);
-		getActionRegistry().registerAction(groupTypeAction);
-		getSelectionActions().add(groupTypeAction.getId());
-		*/
-		
 		HyGroupChangeGroupTypeToAlternativeTypeAction groupChangeTypeToAlternativeAction = new HyGroupChangeGroupTypeToAlternativeTypeAction(this);
 		getActionRegistry().registerAction(groupChangeTypeToAlternativeAction);
 		getSelectionActions().add(groupChangeTypeToAlternativeAction.getId());
@@ -167,11 +163,9 @@ public class HyGraphicalFeatureModelEditor extends HyGraphicalFeatureModelViewer
 		getActionRegistry().registerAction(siblingAction);
 		getSelectionActions().add(siblingAction.getId());		
 		
-		/*
-		HyFeatureEvolutionChangeParentAction parentChangeAction = new HyFeatureEvolutionChangeParentAction(this);
-		getActionRegistry().registerAction(parentChangeAction);
-		getSelectionActions().add(parentChangeAction.getId());
-		*/
+		HyFeatureChangeTypeAction changeAction = new HyFeatureChangeTypeAction(this);
+		getActionRegistry().registerAction(changeAction);
+		getSelectionActions().add(changeAction.getId());	
 		
 		HyVersionCreateVersionAction featureCreateVersionAction = new HyVersionCreateVersionAction(this);
 		getActionRegistry().registerAction(featureCreateVersionAction);
@@ -184,14 +178,6 @@ public class HyGraphicalFeatureModelEditor extends HyGraphicalFeatureModelViewer
 		HyLinearTemporalElementChangeValidityAction visibilityAction = new HyLinearTemporalElementChangeValidityAction(this);
 		getActionRegistry().registerAction(visibilityAction);
 		getSelectionActions().add(visibilityAction.getId());
-		
-		
-		
-		/*
-		HyFeatureEditCardinalitiesAction featureTypeAction = new HyFeatureEditCardinalitiesAction(this);
-		getActionRegistry().registerAction(featureTypeAction);
-		getSelectionActions().add(featureTypeAction.getId());
-		*/
 		
 		HyFeatureEditNamesAction featureNameAction = new HyFeatureEditNamesAction(this);
 		getActionRegistry().registerAction(featureNameAction);
