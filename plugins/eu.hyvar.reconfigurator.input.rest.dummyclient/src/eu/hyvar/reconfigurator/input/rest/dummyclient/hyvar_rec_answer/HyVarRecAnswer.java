@@ -1,9 +1,7 @@
 
 package eu.hyvar.reconfigurator.input.rest.dummyclient.hyvar_rec_answer;
 
-import java.util.ArrayList;
 import java.util.List;
-import javax.annotation.Generated;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
@@ -12,98 +10,91 @@ import com.google.gson.annotations.SerializedName;
  * Final configuration
  * 
  */
-@Generated("org.jsonschema2pojo")
 public class HyVarRecAnswer {
 
     /**
-     * list representing wich features are selected
+     * The result may be sat or unsat
      * (Required)
      * 
      */
-    @SerializedName("selectedFeatures")
+    @SerializedName("result")
     @Expose
-    private List<Integer> selectedFeatures = new ArrayList<Integer>();
+    private String result;
     /**
-     * list representing the intial values of the attributes. The values of the attributes of non selected features are set to a value within their domain.
-     * (Required)
+     * list representing which features are selected
      * 
      */
-    @SerializedName("attributeValues")
+    @SerializedName("features")
     @Expose
-    private List<Integer> attributeValues = new ArrayList<Integer>();
+    private List<String> features = null;
     /**
-     * is the solution optimal or not.
-     * (Required)
+     * list representing the values of the attributes
      * 
      */
-    @SerializedName("optimality")
+    @SerializedName("attributes")
     @Expose
-    private Integer optimality;
+    private List<Attribute> attributes = null;
 
     /**
-     * list representing wich features are selected
+     * The result may be sat or unsat
      * (Required)
      * 
      * @return
-     *     The selectedFeatures
+     *     The result
      */
-    public List<Integer> getSelectedFeatures() {
-        return selectedFeatures;
+    public String getResult() {
+        return result;
     }
 
     /**
-     * list representing wich features are selected
+     * The result may be sat or unsat
      * (Required)
      * 
-     * @param selectedFeatures
-     *     The selectedFeatures
+     * @param result
+     *     The result
      */
-    public void setSelectedFeatures(List<Integer> selectedFeatures) {
-        this.selectedFeatures = selectedFeatures;
+    public void setResult(String result) {
+        this.result = result;
     }
 
     /**
-     * list representing the intial values of the attributes. The values of the attributes of non selected features are set to a value within their domain.
-     * (Required)
-     * 
-     * @return
-     *     The attributeValues
-     */
-    public List<Integer> getAttributeValues() {
-        return attributeValues;
-    }
-
-    /**
-     * list representing the intial values of the attributes. The values of the attributes of non selected features are set to a value within their domain.
-     * (Required)
-     * 
-     * @param attributeValues
-     *     The attributeValues
-     */
-    public void setAttributeValues(List<Integer> attributeValues) {
-        this.attributeValues = attributeValues;
-    }
-
-    /**
-     * is the solution optimal or not.
-     * (Required)
+     * list representing which features are selected
      * 
      * @return
-     *     The optimality
+     *     The features
      */
-    public Integer getOptimality() {
-        return optimality;
+    public List<String> getFeatures() {
+        return features;
     }
 
     /**
-     * is the solution optimal or not.
-     * (Required)
+     * list representing which features are selected
      * 
-     * @param optimality
-     *     The optimality
+     * @param features
+     *     The features
      */
-    public void setOptimality(Integer optimality) {
-        this.optimality = optimality;
+    public void setFeatures(List<String> features) {
+        this.features = features;
+    }
+
+    /**
+     * list representing the values of the attributes
+     * 
+     * @return
+     *     The attributes
+     */
+    public List<Attribute> getAttributes() {
+        return attributes;
+    }
+
+    /**
+     * list representing the values of the attributes
+     * 
+     * @param attributes
+     *     The attributes
+     */
+    public void setAttributes(List<Attribute> attributes) {
+        this.attributes = attributes;
     }
 
 }

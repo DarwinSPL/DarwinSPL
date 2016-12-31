@@ -90,12 +90,36 @@ public class JsonHandler extends AbstractHandler {
 
 			List<EObject> deltaEcoreModels = translateHyVarModelsToDeltaEcore(hyVarModels);
 			
-			String outputJson =createOutputJson(deltaEcoreModels);
+			boolean featureModelTranslated = false;
+			boolean configurationTranslated = false;
+			boolean mappingTranslated = false;
 			
-			response.setContentType("application/json; charset=utf-8");
-			PrintWriter out = response.getWriter();
-			out.write(outputJson);
-			response.setStatus(HttpServletResponse.SC_OK);
+			for(EObject deModel: deltaEcoreModels) {
+				if(deModel != null) {
+					if(deModel instanceof DEFeatureModel) {
+						featureModelTranslated = true;
+					} else if(deModel instanceof DEConfiguration) {
+						configurationTranslated = true;
+					} else if(deModel instanceof DEMappingModel) {
+						mappingTranslated = true;
+					}
+				}
+			}
+			
+			if(featureModelTranslated && configurationTranslated && mappingTranslated) {
+				String outputJson =createOutputJson(deltaEcoreModels);
+				
+				response.setContentType("application/json; charset=utf-8");
+				PrintWriter out = response.getWriter();
+				out.write(outputJson);
+				response.setStatus(HttpServletResponse.SC_OK);				
+			}
+			else {
+				PrintWriter out = response.getWriter();
+				out.write("Some models could not be translated");
+				response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);			
+			}
+			
 			baseRequest.setHandled(true);
 		}
 		

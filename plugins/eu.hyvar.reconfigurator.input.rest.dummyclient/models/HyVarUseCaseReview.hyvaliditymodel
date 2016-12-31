@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="ASCII"?>
 <contextValidity:HyValidityModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://hyvar-project.eu/feature/context/1.0" xmlns:contextValidity="http://hyvar-project.eu/context/validity/1.0" xmlns:dataValues="http://hyvar-project.eu/feature/dataValues/1.0" xmlns:expression="http://hyvar-project.eu/feature/expression/1.0">
-  <validityFormulas xsi:type="contextValidity:HyFeatureValidityFormula">
+  <validityFormulas xsi:type="contextValidity:HyFeatureValidityFormula" id="_e1c1cbf5-3ece-465b-a4d9-089e1320a6fb">
     <validityFormula xsi:type="expression:HyEqualExpression">
       <operand1 xsi:type="expression:HyContextInformationReferenceExpression">
-        <contextInformation xsi:type="context:HyContextualInformationEnum" href="HyVarUseCaseReview.hycontextmodel#GPS_Positions"/>
+        <contextInformation xsi:type="context:HyContextualInformationEnum" href="HyVarUseCaseReview.hycontextmodel#_6784a54f-4de6-4daf-a3b7-3017d0b9698d"/>
       </operand1>
       <operand2 xsi:type="expression:HyValueExpression">
         <value xsi:type="dataValues:HyEnumValue">
-          <enumLiteral href="HyVarUseCaseReview.hycontextmodel#//@enums.0/@literals.1"/>
+          <enumLiteral href="HyVarUseCaseReview.hycontextmodel#_695ccd54-1822-40fa-bcb8-fddcf90c67fb"/>
           <enum href="HyVarUseCaseReview.hycontextmodel#GPS_Position_enum"/>
         </value>
       </operand2>
     </validityFormula>
-    <feature href="HyVarUseCaseReview.hyfeature#//@features.5"/>
+    <feature href="HyVarUseCaseReview.hyfeature#_452a10db-021b-4a04-92cf-0bd4ec6076b5"/>
   </validityFormulas>
 </contextValidity:HyValidityModel>

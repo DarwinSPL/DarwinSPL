@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+<extension
+         point="org.eclipse.ui.menus">
+      <menuContribution locationURI="popup:org.eclipse.jdt.ui.PackageExplorer?after=additions">
+         <menu
+               id="eu.hyvar.export.menu"
+               label="DarwinSPL Exports">
+            <command
+                  commandId="de.darwinspl.exporter.ui.hfm"
+                  label="Export Feature Model to DeltaEcore">
+            </command>
+            <command
+                  commandId="de.darwinspl.exporter.ui.hyvarrec"
+                  label="Export to HyVarRec"
+                  style="push">
+            </command>
+            <command
+                  commandId="de.darwinspl.exporter.ui.json"
+                  label="Export as Json"
+                  style="push">
+            </command>
+         </menu>
+      </menuContribution>
+   </extension>
+<extension
+      point="org.eclipse.ui.commands">
+   <command
+         defaultHandler="de.darwinspl.exporter.ui.ExportToHFMCommandHandler"
+         id="de.darwinspl.exporter.ui.hfm"
+         name="Export Feature Model to DeltaEcore">
+   </command>
+   <command
+         defaultHandler="de.darwinspl.exporter.ui.ExportToHyVarRecCommandHandler"
+         id="de.darwinspl.exporter.ui.hyvarrec"
+         name="Export to HyVarRec">
+   </command>
+   <command
+         defaultHandler="de.darwinspl.exporter.ui.ExportToJsonCommandHandler"
+         id="de.darwinspl.exporter.ui.json"
+         name="Export as Json">
+   </command>
+</extension>
+</plugin>

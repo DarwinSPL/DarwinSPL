@@ -14,7 +14,7 @@ import eu.hyvar.dataValues.HyEnum;
 
 public class ContextInformationResolverUtil {
 
-	public static final String[] FILE_EXTENSIONS = {"hycontextinformation"};
+	public static final String[] FILE_EXTENSIONS = {HyContextInformationUtil.getContextModelFileExtensionForXmi(), HyContextInformationUtil.getContextModelFileExtensionForConcreteSyntax()};
 	
 	// TODO incorporate evolution
 	

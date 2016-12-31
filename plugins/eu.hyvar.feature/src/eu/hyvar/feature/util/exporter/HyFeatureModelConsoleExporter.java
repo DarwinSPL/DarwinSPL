@@ -37,9 +37,9 @@ public class HyFeatureModelConsoleExporter extends HyFeatureExporter<String> {
 			output.append("Root Feature: ");
 		} else {
 			output.append(" ");
-			if(HyFeatureUtil.isOptional(feature)) {
+			if(HyFeatureUtil.isOptional(feature, date)) {
 				output.append("(optional) ");
-			} else if(HyFeatureUtil.isMandatory(feature)) {
+			} else if(HyFeatureUtil.isMandatory(feature, date)) {
 				output.append("(mandatory) ");
 			}
 		}
@@ -112,11 +112,11 @@ public class HyFeatureModelConsoleExporter extends HyFeatureExporter<String> {
 	protected void visitGroup(HyGroup group, HyGroupType groupType, HyFeature parent, Date date) throws HyFeatureModelWellFormednessException {
 		output.append(endl);
 		
-		if(HyFeatureUtil.isAnd(group)) {
+		if(HyFeatureUtil.isAnd(group, date)) {
 			output.append("And Group");
-		} else if(HyFeatureUtil.isOr(group)) {
+		} else if(HyFeatureUtil.isOr(group, date)) {
 			output.append("Or Group");
-		} else if(HyFeatureUtil.isAlternative(group)) {
+		} else if(HyFeatureUtil.isAlternative(group, date)) {
 			output.append("Alternative Group");
 		}
 		

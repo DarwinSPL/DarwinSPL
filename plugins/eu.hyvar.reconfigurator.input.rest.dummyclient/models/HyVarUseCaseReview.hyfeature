@@ -1,68 +1,68 @@
 <?xml version="1.0" encoding="ASCII"?>
 <feature:HyFeatureModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:feature="http://hyvar-project.eu/feature/1.0">
-  <rootFeature feature="//@features.0"/>
-  <features>
-    <cardinality minCardinality="1" maxCardinality="1"/>
-    <names name="EmergencyCall"/>
-    <parentOf childGroup="//@groups.0"/>
+  <rootFeature id="_c8937f23-cc2b-45e8-95aa-31c483c30250" feature="_b85ff688-e750-4c90-af5a-d4d1a5b36d81"/>
+  <features id="_b85ff688-e750-4c90-af5a-d4d1a5b36d81">
+    <names id="_0fc6ca68-117e-463e-9c77-65c106d50c38" name="EmergencyCall"/>
+    <parentOf id="_d29091c1-c561-4d05-9c59-79735f66d11e" childGroup="_ab4995f1-b91b-4178-82a5-e11e7ae17de9"/>
+    <types id="_52e207b8-1ad9-4919-96a3-b0688b44b935" type="MANDATORY"/>
   </features>
-  <features groupMembership="//@groups.0/@parentOf.0">
-    <cardinality minCardinality="1" maxCardinality="1"/>
-    <names name="Base"/>
-    <parentOf childGroup="//@groups.1"/>
+  <features id="_a73d56b5-099e-44ef-ba63-1cf9628bbac5" groupMembership="_dc5b3545-b74e-449f-98ad-1229dab9e9db">
+    <names id="_b503451d-7981-4bb7-a1ca-b02152ba3e58" name="Base"/>
+    <parentOf id="_426e893d-09dc-476a-9f2c-8a03dbb88d64" childGroup="_b3c2cd89-3e87-434d-93e2-b2e146b9cd16"/>
+    <types id="_9b1420b7-88ca-43a5-ace6-522cf2714bc8" type="MANDATORY"/>
   </features>
-  <features groupMembership="//@groups.0/@parentOf.0">
-    <cardinality minCardinality="1" maxCardinality="1"/>
-    <names name="Languages"/>
-    <parentOf childGroup="//@groups.2"/>
+  <features id="_39f5918d-e1fc-4557-a873-bc819cbe6edd" groupMembership="_dc5b3545-b74e-449f-98ad-1229dab9e9db">
+    <names id="_ded72527-d08b-4037-a8ef-8bf0dbac5441" name="Languages"/>
+    <parentOf id="_e688b4eb-abf1-4fdf-9ea9-326bc6254c29" childGroup="_43622816-0e33-4cdf-b02e-95c639857e81"/>
+    <types id="_a3f3642b-1546-466a-9c14-619462f4f6a2" type="MANDATORY"/>
   </features>
-  <features groupMembership="//@groups.0/@parentOf.0">
-    <cardinality minCardinality="1" maxCardinality="1"/>
-    <names name="GNSS"/>
-    <parentOf childGroup="//@groups.3"/>
+  <features id="_e7ceedc9-ed51-49f6-a5f4-291340591a67" groupMembership="_dc5b3545-b74e-449f-98ad-1229dab9e9db">
+    <names id="_34dfbf82-df60-4a99-98b5-98eba7298bf3" name="GNSS"/>
+    <parentOf id="_2769e3df-9a5b-4d52-a8f4-cf8dfde17726" childGroup="_e1c23b90-9a29-4499-b614-5d26743a7ad9"/>
+    <types id="_b59c77f7-d708-45b8-b873-21603b2d7377" type="MANDATORY"/>
   </features>
-  <features groupMembership="//@groups.0/@parentOf.0">
-    <cardinality maxCardinality="1"/>
-    <names name="Diagnostic"/>
+  <features id="_d83625cb-c42a-41f6-8d83-10dcab2117b7" groupMembership="_dc5b3545-b74e-449f-98ad-1229dab9e9db">
+    <names id="_883e72d2-5dfe-42cc-9228-3d1a0947b054" name="Diagnostic"/>
+    <types id="_da0f4dcf-12ee-4115-af5d-bdd4db7c421e"/>
   </features>
-  <features groupMembership="//@groups.1/@parentOf.0">
-    <cardinality maxCardinality="1"/>
-    <names name="eCall"/>
+  <features id="_452a10db-021b-4a04-92cf-0bd4ec6076b5" groupMembership="_0737cf04-9ea0-44cb-ae44-d44b14f0bfdd">
+    <names id="_b02e468b-205d-4313-8bed-06751e4aa2a9" name="eCall"/>
+    <types id="_7770a2af-651b-4bbe-9112-49e5afbfbbc8"/>
   </features>
-  <features groupMembership="//@groups.1/@parentOf.0">
-    <cardinality maxCardinality="1"/>
-    <names name="EraGlonass"/>
+  <features id="_1976a4ed-ccb7-4677-85b3-7d0dc4fa27d5" groupMembership="_0737cf04-9ea0-44cb-ae44-d44b14f0bfdd">
+    <names id="_d0551dc4-5b87-4f66-b3da-6b7fff7df7da" name="EraGlonass"/>
+    <types id="_b978cf48-8b78-40a8-a2c8-88557985f98a"/>
   </features>
-  <features groupMembership="//@groups.2/@parentOf.0">
-    <cardinality maxCardinality="1"/>
-    <names name="Russian"/>
+  <features id="_38e8aec8-9e8a-4c31-a892-e2fe9dd9c9db" groupMembership="_181797c0-3276-4494-9bb9-59eddf77d64a">
+    <names id="_d3bb354d-cdfc-4787-aacd-807cf406b708" name="Russian"/>
+    <types id="_c4af5fee-7310-4814-b8f6-c938a42d1147"/>
   </features>
-  <features groupMembership="//@groups.2/@parentOf.0">
-    <cardinality maxCardinality="1"/>
-    <names name="EU_Languages"/>
+  <features id="_fb0273a8-8041-4504-bf72-2b20cbf3f9e4" groupMembership="_181797c0-3276-4494-9bb9-59eddf77d64a">
+    <names id="_eb1020d4-7f39-4183-b243-cf5f2eab62dd" name="EU_Languages"/>
+    <types id="_ac44db86-da9c-486a-8a8f-dda4de54f88e"/>
   </features>
-  <features groupMembership="//@groups.3/@parentOf.0">
-    <cardinality maxCardinality="1"/>
-    <names name="GPS"/>
+  <features id="_be85417f-17c0-47ae-b245-910849ed472e" groupMembership="_7bb9c9a2-ea74-4dae-9a1e-ee38312067e6">
+    <names id="_2742e557-c113-40b4-9705-e993144049f5" name="GPS"/>
+    <types id="_bde0acbe-953d-49aa-afda-0a1cb983d002"/>
   </features>
-  <features groupMembership="//@groups.3/@parentOf.0">
-    <cardinality maxCardinality="1"/>
-    <names name="Glonass"/>
+  <features id="_c5e5ca42-00f3-4385-adf1-688a6bcde90a" groupMembership="_7bb9c9a2-ea74-4dae-9a1e-ee38312067e6">
+    <names id="_a21f3f2d-4ad1-4eaa-8593-e971b63919b5" name="Glonass"/>
+    <types id="_55a2b72e-d53a-4b51-a31d-9be4dc5ed7bd"/>
   </features>
-  <groups childOf="//@features.0/@parentOf.0">
-    <cardinality minCardinality="3" maxCardinality="4"/>
-    <parentOf features="//@features.1 //@features.2 //@features.3 //@features.4"/>
+  <groups id="_ab4995f1-b91b-4178-82a5-e11e7ae17de9" childOf="_d29091c1-c561-4d05-9c59-79735f66d11e">
+    <parentOf id="_dc5b3545-b74e-449f-98ad-1229dab9e9db" features="_a73d56b5-099e-44ef-ba63-1cf9628bbac5 _39f5918d-e1fc-4557-a873-bc819cbe6edd _e7ceedc9-ed51-49f6-a5f4-291340591a67 _d83625cb-c42a-41f6-8d83-10dcab2117b7"/>
+    <types id="_26fe097c-9ac4-4eca-babb-dfdee2a86088"/>
   </groups>
-  <groups childOf="//@features.1/@parentOf.0">
-    <cardinality minCardinality="1" maxCardinality="1"/>
-    <parentOf features="//@features.5 //@features.6"/>
+  <groups id="_b3c2cd89-3e87-434d-93e2-b2e146b9cd16" childOf="_426e893d-09dc-476a-9f2c-8a03dbb88d64">
+    <parentOf id="_0737cf04-9ea0-44cb-ae44-d44b14f0bfdd" features="_452a10db-021b-4a04-92cf-0bd4ec6076b5 _1976a4ed-ccb7-4677-85b3-7d0dc4fa27d5"/>
+    <types id="_1c89881b-a0e9-4d6a-9302-35c1f782305c" type="ALTERNATIVE"/>
   </groups>
-  <groups childOf="//@features.2/@parentOf.0">
-    <cardinality minCardinality="1" maxCardinality="2"/>
-    <parentOf features="//@features.7 //@features.8"/>
+  <groups id="_43622816-0e33-4cdf-b02e-95c639857e81" childOf="_e688b4eb-abf1-4fdf-9ea9-326bc6254c29">
+    <parentOf id="_181797c0-3276-4494-9bb9-59eddf77d64a" features="_38e8aec8-9e8a-4c31-a892-e2fe9dd9c9db _fb0273a8-8041-4504-bf72-2b20cbf3f9e4"/>
+    <types id="_4e81fcdc-175c-40b6-bff4-4e77f729005a" type="ALTERNATIVE"/>
   </groups>
-  <groups childOf="//@features.3/@parentOf.0">
-    <cardinality minCardinality="1" maxCardinality="2"/>
-    <parentOf features="//@features.9 //@features.10"/>
+  <groups id="_e1c23b90-9a29-4499-b614-5d26743a7ad9" childOf="_2769e3df-9a5b-4d52-a8f4-cf8dfde17726">
+    <parentOf id="_7bb9c9a2-ea74-4dae-9a1e-ee38312067e6" features="_be85417f-17c0-47ae-b245-910849ed472e _c5e5ca42-00f3-4385-adf1-688a6bcde90a"/>
+    <types id="_674fd32b-7698-44c4-88b9-ed82ea895716" type="OR"/>
   </groups>
 </feature:HyFeatureModel>

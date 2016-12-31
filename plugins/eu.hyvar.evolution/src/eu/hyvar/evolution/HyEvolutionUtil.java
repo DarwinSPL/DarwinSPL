@@ -211,8 +211,9 @@ public class HyEvolutionUtil {
 	// TODO assumption only one valid temporal element at a time, check that?
 	public static <T extends HyTemporalElement> T getValidTemporalElement(EList<T> elements, Date date) {
 		if (elements == null || elements.isEmpty()) {
-			System.err.println(
-					"Something bad happened. EList<?> given to getValidTemporalElement(...) in HyEvolutionUtil.java was null or empty");
+			// TODO proper logging
+//			System.err.println(
+//					"Something bad happened. EList<?> given to getValidTemporalElement(...) in HyEvolutionUtil.java was null or empty");
 			return null;
 		}
 

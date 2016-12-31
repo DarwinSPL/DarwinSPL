@@ -1,21 +1,31 @@
 
 package eu.hyvar.reconfigurator.input.rest.dummyclient.hyvarrec_config;
 
-import javax.annotation.Generated;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-@Generated("org.jsonschema2pojo")
 public class FeatureModel {
 
+    /**
+     * 
+     * (Required)
+     * 
+     */
     @SerializedName("filename")
     @Expose
     private String filename;
+    /**
+     * 
+     * (Required)
+     * 
+     */
     @SerializedName("specification")
     @Expose
     private String specification;
 
     /**
+     * 
+     * (Required)
      * 
      * @return
      *     The filename
@@ -26,6 +36,8 @@ public class FeatureModel {
 
     /**
      * 
+     * (Required)
+     * 
      * @param filename
      *     The filename
      */
@@ -35,6 +47,8 @@ public class FeatureModel {
 
     /**
      * 
+     * (Required)
+     * 
      * @return
      *     The specification
      */
@@ -43,6 +57,8 @@ public class FeatureModel {
     }
 
     /**
+     * 
+     * (Required)
      * 
      * @param specification
      *     The specification

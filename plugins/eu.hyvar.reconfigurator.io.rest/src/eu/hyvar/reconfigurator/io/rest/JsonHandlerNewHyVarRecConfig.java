@@ -34,7 +34,6 @@ import eu.hyvar.feature.HyFeatureModel;
 import eu.hyvar.feature.configuration.HyConfiguration;
 import eu.hyvar.reconfigurator.io.rest.hyconfiguration.Configuration;
 import eu.hyvar.reconfigurator.io.rest.hyconfiguration.HyConfigurationJson;
-import eu.hyvar.reconfigurator.io.rest.input.hyvarrec_config_and_fm.AttributeValue;
 import eu.hyvar.reconfigurator.io.rest.input.hyvarrec_config_and_fm.OutputOfHyVarRecAndFm;
 import eu.hyvar.reconfigurator.output.translation.HyVarRecOutputTranslator;
 import eu.hyvar.reconfigurator.output.translation.format.OutputOfHyVarRec;
@@ -126,18 +125,20 @@ public class JsonHandlerNewHyVarRecConfig extends AbstractHandler {
 		HyFeatureModel featureModel = EcoreIOUtil.loadModel(fmFile);
 		
 		OutputOfHyVarRec hyVarRecOutput = new OutputOfHyVarRec();
-		hyVarRecOutput.setSelectedFeatures(hyvarrecConfig.getSelectedFeatures());
+		hyVarRecOutput.setFeatures(hyvarrecConfig.getFeatures());
 		
-		List<eu.hyvar.reconfigurator.output.translation.format.AttributeValue> newAttributeValues = new ArrayList<eu.hyvar.reconfigurator.output.translation.format.AttributeValue>();
+		List<eu.hyvar.reconfigurator.output.translation.format.Attribute> newAttributeValues = new ArrayList<eu.hyvar.reconfigurator.output.translation.format.Attribute>();
 		
-		for(AttributeValue attributeValue : hyvarrecConfig.getAttributeValues()) {
-			eu.hyvar.reconfigurator.output.translation.format.AttributeValue newAttributeValue = new eu.hyvar.reconfigurator.output.translation.format.AttributeValue();
-			newAttributeValue.setId(attributeValue.getId());
-			newAttributeValue.setValue(attributeValue.getValue());
-			newAttributeValues.add(newAttributeValue);
+		if(hyvarrecConfig.getAttributes() != null) {
+			for(eu.hyvar.reconfigurator.io.rest.input.hyvarrec_config_and_fm.Attribute attributeValue : hyvarrecConfig.getAttributes()) {
+				eu.hyvar.reconfigurator.output.translation.format.Attribute newAttributeValue = new eu.hyvar.reconfigurator.output.translation.format.Attribute();
+				newAttributeValue.setId(attributeValue.getId());
+				newAttributeValue.setValue(attributeValue.getValue());
+				newAttributeValues.add(newAttributeValue);
+			}			
 		}
 		
-		hyVarRecOutput.setAttributeValues(newAttributeValues);
+		hyVarRecOutput.setAttributes(newAttributeValues);
 			
 		HyConfiguration configuration = HyVarRecOutputTranslator.translateConfiguration(featureModel, hyVarRecOutput);
 		

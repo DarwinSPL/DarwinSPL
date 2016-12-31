@@ -1,5 +1,7 @@
 package eu.hyvar.feature.example_creation.examples;
 
+import org.deltaecore.core.decore.DEDeltaInvokation;
+import org.deltaecore.core.decore.DEcoreFactory;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 
 import eu.hyvar.context.HyContextInformationFactory;
