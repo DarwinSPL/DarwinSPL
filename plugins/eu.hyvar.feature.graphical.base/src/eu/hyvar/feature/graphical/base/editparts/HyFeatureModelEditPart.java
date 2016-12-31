@@ -53,7 +53,7 @@ public class HyFeatureModelEditPart extends AbstractGraphicalEditPart implements
 		objects.addAll(model.getModel().getEnums());
 		
 		objects.addAll(model.getFeatures(editor.getCurrentSelectedDate()));
-		objects.addAll(model.getGroups());
+		objects.addAll(model.getGroups(editor.getCurrentSelectedDate()));
 		return objects;
 	}
 

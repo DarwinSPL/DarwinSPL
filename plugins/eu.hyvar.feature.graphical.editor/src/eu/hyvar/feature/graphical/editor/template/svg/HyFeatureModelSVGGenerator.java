@@ -127,8 +127,7 @@ public class HyFeatureModelSVGGenerator {
 	 */
 	private List<HyFeatureModelSVGGroupDataObject> convertGroups(HyFeatureModelWrapped featureModelWrapped){		
 		List<HyFeatureModelSVGGroupDataObject> groups = new ArrayList<HyFeatureModelSVGGroupDataObject>();
-		for(HyGroupWrapped group : featureModelWrapped.getGroups()){
-			if(HyEvolutionUtil.isValid(group.getWrappedModelElement(), date)){
+		for(HyGroupWrapped group : featureModelWrapped.getGroups(date)){
 				if(HyEvolutionUtil.getValidTemporalElements(HyEvolutionUtil.getValidTemporalElement(group.getWrappedModelElement().getParentOf(), date).getFeatures(), date).size() > 1){
 					DEGraphicalEditorTheme theme = DEGraphicalEditor.getTheme();
 					
@@ -173,7 +172,7 @@ public class HyFeatureModelSVGGenerator {
 
 					}
 				}
-			}
+			
 		}
 
 		return groups;
@@ -363,7 +362,7 @@ public class HyFeatureModelSVGGenerator {
 		IPath overviewPath = EclipseWorkspaceUtil.createFolderInPathFromCurrentOpenEditorFile("overview");
 
 		try{
-			File oFile = EclipseWorkspaceUtil.createFileInPath(modelName+".html", overviewPath);
+			File oFile = EclipseWorkspaceUtil.createFileInPath(modelName+".svg", overviewPath);
 			Writer fileWriter = new FileWriter(oFile);
 
 			Map<String, Object> input = prepareDataForExportFile();

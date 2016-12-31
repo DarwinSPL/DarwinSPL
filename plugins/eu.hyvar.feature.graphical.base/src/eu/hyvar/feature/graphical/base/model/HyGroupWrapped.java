@@ -26,19 +26,19 @@ public class HyGroupWrapped extends HyEditorChangeableElement {
 
 	public boolean isAnd(Date date){
 		HyGroupType type = HyEvolutionUtil.getValidTemporalElement(getWrappedModelElement().getTypes(), date);
-		
+
 		return type.getType() == HyGroupTypeEnum.AND;		
 	}
 
 	public boolean isOr(Date date){
 		HyGroupType type = HyEvolutionUtil.getValidTemporalElement(getWrappedModelElement().getTypes(), date);
-		
+
 		return type.getType() == HyGroupTypeEnum.OR;			
 	}
 
 	public boolean isAlternative(Date date){
 		HyGroupType type = HyEvolutionUtil.getValidTemporalElement(getWrappedModelElement().getTypes(), date);
-		
+
 		return type.getType() == HyGroupTypeEnum.ALTERNATIVE;			
 	}
 
@@ -51,12 +51,12 @@ public class HyGroupWrapped extends HyEditorChangeableElement {
 	public HyFeatureWrapped getParentFeature(Date date) {
 		return parentFeature;
 	}
-	*/
+	 */
 	/*
 	public void setParentFeature(HyFeatureWrapped parentFeature) {
 		this.parentFeature = parentFeature;
 	}
-	*/
+	 */
 	public void setFeatures(HashSet<HyFeatureWrapped> features) {
 		this.features = features;
 	}
@@ -67,6 +67,10 @@ public class HyGroupWrapped extends HyEditorChangeableElement {
 		features = new HashSet<HyFeatureWrapped>();
 	}
 
+	public HyGroupComposition getComposition(Date date){
+		return HyEvolutionUtil.getValidTemporalElement(this.getWrappedModelElement().getParentOf(), date);
+
+	}
 	public EList<HyFeature> getFeatures(Date date){
 		if(date == null){
 			if(this.getWrappedModelElement().getParentOf().size() > 0)
@@ -74,8 +78,8 @@ public class HyGroupWrapped extends HyEditorChangeableElement {
 			else 
 				return null;
 		}
-		
-		HyGroupComposition composition = HyEvolutionUtil.getValidTemporalElement(this.getWrappedModelElement().getParentOf(), date);
+
+		HyGroupComposition composition = getComposition(date);
 		if(composition == null)
 			return new BasicEList<HyFeature>();
 		else
@@ -90,10 +94,10 @@ public class HyGroupWrapped extends HyEditorChangeableElement {
 			if(featureWrapped.isValid(date))
 				set.add(featureWrapped);
 		}
-		
+
 		return set;
 	}
-	
+
 
 	/**
 	 * This function is only needed to display the relation between a group and its features. 
@@ -125,27 +129,49 @@ public class HyGroupWrapped extends HyEditorChangeableElement {
 		return deepCopy;
 	}
 
+	/**
+	 * Removes a feature which is child of this group. Use this function to delete the feature temporarily since the selected date.
+	 * @param childFeature the feature to remove
+	 * @param date
+	 */
 	public void removeChildFeature(HyFeatureWrapped childFeature, Date date){
+		if(date != null && date.equals(new Date(Long.MIN_VALUE)))
+			date = null;
+
 		HyGroupWrapped old = clone();
 
-		// delete the feature in the wrapped model and inform the feature model instance about the change
-		// this may trigger a group delete and a rerendering if the deleted element was the last one in this group
-		if(features.remove(childFeature)){
-			HyGroupComposition composition = HyEvolutionUtil.getValidTemporalElement(getWrappedModelElement().getParentOf(), date);
-			if(composition != null){
-				composition.getFeatures().remove(childFeature.getWrappedModelElement());
-				
-				listeners.firePropertyChange(PROPERTY_CHILD_FEATURES, old, this);
+		HyGroupComposition composition = HyEvolutionUtil.getValidTemporalElement(getWrappedModelElement().getParentOf(), date);			
+		if(composition != null){
+			HyGroupType type = HyEvolutionUtil.getValidTemporalElement(getWrappedModelElement().getTypes(), date);
+			
+			// split composition to allow evolution
+			if(date != null){
+				composition = HyGroupWrapped.splitComposition(composition, null, date);
+
+				// split group types in case that no and type is selected at the selected date
+				if(composition.getFeatures().size() == 2 && type.getType() != HyGroupTypeEnum.AND){
+					splitGroupType(date, HyGroupTypeEnum.AND);
+				}
+			}else{	
+				if(composition.getFeatures().size() == 2)
+					type.setType(HyGroupTypeEnum.AND);
 			}
+			composition.getFeatures().remove(childFeature.getWrappedModelElement());
+
+			// Inform editparts about the changes made to the model
+			listeners.firePropertyChange(PROPERTY_CHILD_FEATURES, old, this);
 		}
 	}
 
 	public HyGroup getGroup() {
+		return this.getWrappedModelElement();
+		/*
 		if(features.iterator().next().getWrappedModelElement().getGroupMembership().size() == 0){
 			return null;
 		}
 
 		return features.iterator().next().getWrappedModelElement().getGroupMembership().get(0).getCompositionOf();
+		 */
 	}
 
 	/**
@@ -166,7 +192,12 @@ public class HyGroupWrapped extends HyEditorChangeableElement {
 
 		getWrappedModelElement().getParentOf().get(0).getFeatures().remove(feature);
 	}
-	
+
+	/**
+	 * Split the group type at a given date. The new group type is set with the variable @param newTypeEnum.
+	 * @param date
+	 * @param newTypeEnum
+	 */
 	protected void splitGroupType(Date date, HyGroupTypeEnum newTypeEnum){
 		HyGroupType type = HyEvolutionUtil.getValidTemporalElement(getWrappedModelElement().getTypes(), date);
 		HyGroupType newType = HyFeatureFactory.eINSTANCE.createHyGroupType();
@@ -182,7 +213,7 @@ public class HyGroupWrapped extends HyEditorChangeableElement {
 
 		getWrappedModelElement().getTypes().add(newType);
 	}
-	
+
 	public static HyGroupComposition splitComposition(HyGroupComposition composition, HyFeatureWrapped feature, Date date){
 		HyGroup group = composition.getCompositionOf();
 
@@ -216,7 +247,7 @@ public class HyGroupWrapped extends HyEditorChangeableElement {
 		return newComposition;
 
 	}
-	
+
 	private static void removeUnlogicalComposition(HyGroupComposition composition){
 		if(composition.getValidSince() != null && 
 				composition.getValidUntil() != null &&

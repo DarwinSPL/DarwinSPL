@@ -150,7 +150,7 @@ public class HyGroupFigure extends HyAbstractFigure{
 	}	
 
 	@Override 
-	public void paintFigure(Graphics graphics) {
+	public void paintFigure(Graphics graphics) {		
 		DEGraphicalEditorTheme theme = DEGraphicalEditor.getTheme();
 		Date date = editor.getCurrentSelectedDate();
 

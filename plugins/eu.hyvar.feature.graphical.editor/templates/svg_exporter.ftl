@@ -38,7 +38,7 @@
   		<text text-anchor="middle" style="<@cssFont theme.featureFont 1/>" <#t>
   			x="${data.x+data.width * 0.5}" <#t> 
   			y="${data.y+theme.featureNameAreaHeight * 0.5+theme.featureFont.fontData[0].height * 0.5}" <#t>
-  			fill=" <@cssRGBAColor color=theme.featureFontColor />">${data.name} <#t>
+  			fill="<@cssRGBAColor color=theme.featureFontColor />">${data.name} <#t>
   		</text>
   		
   		<@dataBackground data/>
@@ -185,62 +185,39 @@
 <svg width="820" height="640" version="1.1" xmlns="http://www.w3.org/2000/svg">
   	<defs>
     	<linearGradient id="feature" x1="0" x2="0" y1="0" y2="1">
-        	<stop class="feature_stop_1" offset="0%"/>
-        	<stop class="feature_stop_2" offset="100%"/>
+        	<stop offset="0%" stop-color="<@cssRGBAColor color=theme.featureNameAreaPrimaryColor />"/>
+        	<stop offset="100%" stop-color="<@cssRGBAColor color=theme.featureNameAreaSecondaryColor />"/>
       	</linearGradient>
       	
       	<linearGradient id="version" x1="0" x2="0" y1="0" y2="1">
-        	<stop class="version_stop_1" offset="0%"/>
-        	<stop class="version_stop_2" offset="100%"/>
+        	<stop offset="0%" stop-color="<@cssRGBAColor color=theme.versionTrianglePrimaryColor />"/>
+        	<stop offset="100%" stop-color="<@cssRGBAColor color=theme.versionTriangleSecondaryColor />"/>
       	</linearGradient>
       	
       	<linearGradient id="version_area" x1="0" x2="0" y1="0" y2="1">
-        	<stop class="version_area_stop_1" offset="0%"/>
-        	<stop class="version_area_stop_2" offset="100%"/>
+        	<stop offset="0%" stop-color="<@cssRGBAColor color=theme.featureVersionAreaPrimaryColor />"/>
+        	<stop offset="100%" stop-color="<@cssRGBAColor color=theme.featureVersionAreaSecondaryColor />"/>
       	</linearGradient>
       	
       	<linearGradient id="modifier_optional" x1="0" x2="0" y1="0" y2="1">
-        	<stop class="modifier_optional_stop_1" offset="0%"/>
-        	<stop class="modifier_optional_stop_2" offset="100%"/>
+        	<stop offset="0%" stop-color="<@cssRGBAColor color=theme.featureOptionalPrimaryColor />"/>
+        	<stop offset="100%" stop-color="<@cssRGBAColor color=theme.featureOptionalSecondaryColor />"/>
       	</linearGradient>
       	
       	<linearGradient id="modifier_mandatory" x1="0" x2="0" y1="0" y2="1">
-        	<stop class="modifier_mandatory_stop_1" offset="0%"/>
-        	<stop class="modifier_mandatory_stop_2" offset="100%"/>
+        	<stop offset="0%" stop-color="<@cssRGBAColor color=theme.featureMandatoryPrimaryColor />"/>
+        	<stop offset="100%" stop-color="<@cssRGBAColor color=theme.featureMandatorySecondaryColor />"/>
       	</linearGradient>
 
       	<linearGradient id="group_modifier" x1="0" x2="0" y1="0" y2="1">
-        	<stop class="group_modifier_stop_1" offset="0%"/>
-        	<stop class="group_modifier_stop_2" offset="100%"/>
+        	<stop offset="0%" stop-color="<@cssRGBAColor color=theme.groupOrPrimaryColor />"/>
+        	<stop offset="100%" stop-color="<@cssRGBAColor color=theme.groupOrSecondaryColor />"/>
       	</linearGradient>
       	
       	<linearGradient id="group_modifier_alternative" x1="0" x2="0" y1="0" y2="1">
-        	<stop class="group_alternative_modifier_stop_1" offset="0%"/>
-        	<stop class="group_alternative_modifier_stop_2" offset="100%"/>
+        	<stop offset="0%" stop-color="<@cssRGBAColor color=theme.groupAlternativePrimaryColor />"/>
+        	<stop offset="100%" stop-color="<@cssRGBAColor color=theme.groupAlternativeSecondaryColor />"/>
       	</linearGradient>
-
-
-      	<style type="text/css"><![CDATA[
-        	.feature_stop_1 { stop-color: <@cssRGBAColor color=theme.featureNameAreaPrimaryColor />; }
-        	.feature_stop_2 { stop-color: <@cssRGBAColor color=theme.featureNameAreaSecondaryColor />; }
-        	
-        	.version_stop_1 { stop-color: <@cssRGBAColor color=theme.versionTrianglePrimaryColor />; }
-        	.version_stop_2 { stop-color: <@cssRGBAColor color=theme.versionTriangleSecondaryColor />; }        	
-
-        	.version_area_stop_1 { stop-color: <@cssRGBAColor color=theme.featureVersionAreaPrimaryColor />; }
-        	.version_area_stop_2 { stop-color: <@cssRGBAColor color=theme.featureVersionAreaSecondaryColor />; }   
-
-        	.modifier_mandatory_stop_1 { stop-color: <@cssRGBAColor color=theme.featureMandatoryPrimaryColor />; }
-        	.modifier_mandatory_stop_2 { stop-color: <@cssRGBAColor color=theme.featureMandatorySecondaryColor />; }
-        	
-        	.modifier_optional_stop_1 { stop-color: <@cssRGBAColor color=theme.featureOptionalPrimaryColor />; }
-        	.modifier_optional_stop_2 { stop-color: <@cssRGBAColor color=theme.featureOptionalSecondaryColor />; }
-        	
-        	.group_modifier_stop_1 { stop-color: <@cssRGBAColor color=theme.groupOrPrimaryColor />; }
-        	.group_modifier_stop_2 { stop-color: <@cssRGBAColor color=theme.groupOrSecondaryColor />; }
-        	.group_alternative_modifier_stop_1 { stop-color: <@cssRGBAColor color=theme.groupAlternativePrimaryColor />; }
-        	.group_alternative_modifier_stop_2 { stop-color: <@cssRGBAColor color=theme.groupAlternativeSecondaryColor />; }
-      	]]></style>
  	</defs>
   
 	
