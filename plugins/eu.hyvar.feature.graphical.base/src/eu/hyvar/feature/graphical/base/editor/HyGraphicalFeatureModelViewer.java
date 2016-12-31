@@ -246,7 +246,7 @@ public class HyGraphicalFeatureModelViewer extends GraphicalEditor implements IF
 	 * Tries to load a feature model from a given file
 	 * @param file
 	 */
-	protected void loadModelFromFile(IFile file){
+	protected void loadModelFromFile(IFile file){		
 		// save location to the file
 		this.file = file;
 

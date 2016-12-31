@@ -1,10 +1,20 @@
 package eu.hyvar.feature.graphical.configurator.editor;
 
+import java.io.IOException;
 import java.util.Date;
+import java.util.Map;
 
-
+import org.eclipse.core.resources.IWorkspace;
+import org.eclipse.core.resources.IWorkspaceRoot;
+import org.eclipse.core.resources.ResourcesPlugin;
+import org.eclipse.core.runtime.IPath;
 import org.eclipse.emf.common.notify.Notification;
+import org.eclipse.emf.common.util.URI;
+import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.emf.ecore.resource.ResourceSet;
+import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.ecore.util.EContentAdapter;
+import org.eclipse.emf.ecore.xmi.impl.XMIResourceFactoryImpl;
 import org.eclipse.gef.GraphicalViewer;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.SashForm;
@@ -16,18 +26,24 @@ import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 
+import eu.hyvar.context.HyContextModel;
 import eu.hyvar.feature.HyFeatureModel;
 import eu.hyvar.feature.configuration.HyConfiguration;
 import eu.hyvar.feature.configuration.HyConfigurationFactory;
 import eu.hyvar.feature.graphical.base.editor.HyGraphicalFeatureModelViewer;
 import eu.hyvar.feature.graphical.configurator.composites.HySelectedConfigurationComposite;
+import eu.hyvar.feature.graphical.configurator.dialogs.HyContextInformationDialog;
 import eu.hyvar.feature.graphical.configurator.factory.HyConfiguratorEditPartFactory;
 import eu.hyvar.feature.graphical.configurator.output.IHyConfigurationDerivation;
 
 public class HyFeatureModelDeltaModuleConfiguratorEditor extends HyGraphicalFeatureModelViewer implements IHyConfigurationDerivation{
 	private Button validateButton;
 	private Button numberOfPossibleConfigurationsButton;
+	private Button setContextInformationsButton;
+	private Button simulateButton;
 	private HySelectedConfigurationComposite selectedConfigurationComposite;
+	
+	private HyContextModel model;
 
 	HyConfiguration selectedConfiguration;
 	
@@ -70,7 +86,34 @@ public class HyFeatureModelDeltaModuleConfiguratorEditor extends HyGraphicalFeat
 		viewer.setEditPartFactory(new HyConfiguratorEditPartFactory(viewer, this));
 	}
 
+	private HyContextModel loadContextInformationModel(){		
+		Resource.Factory.Registry reg = Resource.Factory.Registry.INSTANCE;
+        Map<String, Object> m = reg.getExtensionToFactoryMap();
+        m.put("hycontextinformation", new XMIResourceFactoryImpl());
+        
+        IWorkspace workspace = ResourcesPlugin.getWorkspace();
+		IWorkspaceRoot workspaceRoot = workspace.getRoot();
 
+		IPath path = ((IPath)file.getFullPath().clone()).removeFileExtension().addFileExtension("hycontextinformation");
+		System.out.println(path.toOSString());
+		
+		
+		ResourceSet resourceSet = new ResourceSetImpl();
+		Resource resource = resourceSet.createResource(URI.createPlatformResourceURI(path.toString(), false));
+		
+		try {
+			resource.load(null);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch(Exception e){
+			e.printStackTrace();
+		}
+		
+		return (HyContextModel)resource.getContents().get(0);
+		
+		
+	}
 
 	@Override
 	public void createPartControl(Composite parent) {
@@ -106,6 +149,15 @@ public class HyFeatureModelDeltaModuleConfiguratorEditor extends HyGraphicalFeat
 		validateButton.setText("Validate");
 		validateButton.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, false));
 		
+		setContextInformationsButton = new Button(configurationPanel, SWT.PUSH);
+		setContextInformationsButton.setText("Simulate Reconfiguration");
+		setContextInformationsButton.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, false));
+		
+		simulateButton = new Button(configurationPanel, SWT.PUSH);
+		simulateButton.setText("Simulate Reconfiguration with HyVarRec");
+		simulateButton.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, false));
+		
+		
 		numberOfPossibleConfigurationsButton = new Button(configurationPanel, SWT.PUSH);
 		numberOfPossibleConfigurationsButton.setText("Number of Possible Configurations");
 		numberOfPossibleConfigurationsButton.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, false));
@@ -134,6 +186,23 @@ public class HyFeatureModelDeltaModuleConfiguratorEditor extends HyGraphicalFeat
 			@Override
 			public void widgetSelected(SelectionEvent e) {
 				//validateFeatureModel();
+			}
+		});
+		
+		setContextInformationsButton.addSelectionListener(new SelectionAdapter() {
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+				model = loadContextInformationModel();
+				
+				HyContextInformationDialog dialog = new HyContextInformationDialog(getEditorSite().getShell(), model);
+				dialog.open();
+			}
+		});
+		
+		simulateButton.addSelectionListener(new SelectionAdapter() {
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+
 			}
 		});
 		
