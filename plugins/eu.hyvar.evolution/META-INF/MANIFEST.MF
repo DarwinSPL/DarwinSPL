@@ -10,8 +10,7 @@ Bundle-RequiredExecutionEnvironment: JavaSE-1.7
 Export-Package: eu.hyvar.evolution,
  eu.hyvar.evolution.factory,
  eu.hyvar.evolution.impl,
- eu.hyvar.evolution.util,
- eu.hyvar.evolution.validation
+ eu.hyvar.evolution.util
 Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.emf.ecore;visibility:=reexport,
  org.eclipse.emf.ecore.xmi;visibility:=reexport
