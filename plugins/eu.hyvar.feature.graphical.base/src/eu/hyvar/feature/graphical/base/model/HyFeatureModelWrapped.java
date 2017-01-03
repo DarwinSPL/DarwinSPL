@@ -48,12 +48,12 @@ public class HyFeatureModelWrapped implements PropertyChangeListener {
 	 */
 	private boolean autoLayoutActive = true;
 	
-	/*
+	/**
 	 * The real model
 	 */
 	protected HyFeatureModel model;
 
-	/*
+	/**
 	 * List of all features in the diagram. Connections etc. are all handled by the corresponding 
 	 * HyFeatureModel not by the items in this list
 	 */
@@ -61,6 +61,11 @@ public class HyFeatureModelWrapped implements PropertyChangeListener {
 
 	protected List<HyGroupWrapped> groups;	
 
+	/**
+	 * Returns all valid groups at a specific date
+	 * @param date
+	 * @return 
+	 */
 	public List<HyGroupWrapped> getGroups(Date date) {
 		if(date == null)
 			return groups;
@@ -135,18 +140,17 @@ public class HyFeatureModelWrapped implements PropertyChangeListener {
 	public String getValidNewFeatureName(){
 		int count = 1;
 		for(HyFeature modelFeature : getModel().getFeatures()){
-			String featureName = modelFeature.getNames().get(0).getName();
-			if(featureName.contains(NEW_FEATURE_NAME))
-				count++;
+			for(HyName name : modelFeature.getNames()){
+				String featureName = name.getName();
+				if(featureName.contains(NEW_FEATURE_NAME))
+					count++;				
+			}
 		}
 
 		return NEW_FEATURE_NAME+" "+count;
 	}
 
 
-
-	
-		
 	public boolean isAutoLayoutActive() {
 		return autoLayoutActive;
 	}
@@ -269,6 +273,15 @@ public class HyFeatureModelWrapped implements PropertyChangeListener {
 	}
 
 
+	private HyGroupWrapped groupAlreadyInList(HyGroup group){
+		for(HyGroupWrapped wrapped : groups){
+			if(wrapped.getGroup().equals(group))
+				return wrapped;
+		}
+
+		return null;
+	} 	
+	
 	public HyGroupWrapped createWrappedFeatureGroup(HyGroup group, HyParentChildConnection connection){
 
 		HyGroupWrapped wrappedGroup = groupAlreadyInList(group);
@@ -430,13 +443,16 @@ public class HyFeatureModelWrapped implements PropertyChangeListener {
 	}
 	
 	public void removeFeature(HyFeatureWrapped feature, Date date){
-		try{
-			feature.getParentGroup(date).removeChildFeature(feature, date);
-		}catch(Exception ex){
-			ex.printStackTrace();
+		feature.getParentGroup(date).removeChildFeature(feature, date);
+
+		
+		
+		if(date.equals(new Date(Long.MIN_VALUE))){
+			features.remove(feature);
+			
+			model.getFeatures().remove(feature.getWrappedModelElement());
 		}
-		features.remove(feature);
-		model.getFeatures().remove(feature.getWrappedModelElement());
+		
 		changes.firePropertyChange(PROPERTY_CHILDREN_SIZE, model.getFeatures().size()+1, model.getFeatures().size());
 	}
 
@@ -462,7 +478,7 @@ public class HyFeatureModelWrapped implements PropertyChangeListener {
 		return null;
 	}
 
-	public boolean isRootFeature(HyFeature feature){
+	private boolean isRootFeature(HyFeature feature){
 		for(HyRootFeature rootFeature : model.getRootFeature()){
 			if(rootFeature.getFeature().equals(feature))
 				return true;
@@ -472,7 +488,7 @@ public class HyFeatureModelWrapped implements PropertyChangeListener {
 	}
 
 
-	public void createConnection(HyFeatureWrapped parent, HyFeatureWrapped child){
+	private void createConnection(HyFeatureWrapped parent, HyFeatureWrapped child){
 		HyParentChildConnection connection = new HyParentChildConnection();
 		connection.setSource(parent);
 		connection.setTarget(child);
@@ -548,30 +564,26 @@ public class HyFeatureModelWrapped implements PropertyChangeListener {
 		return null;
 	}
 
+
+
+	public void addGroup(HyGroupWrapped group) {
+		groups.add(group);
+		model.getGroups().add(group.getWrappedModelElement());
+	}
+	
 	public void removeGroup(HyGroupWrapped group){
 		
 		HyFeatureChild child = group.getWrappedModelElement().getChildOf().get(0);
-
+	
 		if(child.getParent() != null){
 			child.getParent().getParentOf().remove(child);
 		}
 		
 		model.getGroups().remove(group.getWrappedModelElement());
-
+	
 		groups.remove(group);
 	}
-	public HyGroupWrapped groupAlreadyInList(HyGroup group){
-		for(HyGroupWrapped wrapped : groups){
-			if(wrapped.getGroup().equals(group))
-				return wrapped;
-		}
-
-		return null;
-	}
-	public void addGroup(HyGroupWrapped group) {
-		groups.add(group);
-		model.getGroups().add(group.getWrappedModelElement());
-	}
+	
 	@Override
 	public void propertyChange(PropertyChangeEvent evt) {
 		if(evt.getPropertyName().equals(HyFeatureWrapped.PROPERTY_POSITION)){
@@ -593,6 +605,5 @@ public class HyFeatureModelWrapped implements PropertyChangeListener {
 		}
 		
 		changes.firePropertyChange(evt);
-	
 	}
 }

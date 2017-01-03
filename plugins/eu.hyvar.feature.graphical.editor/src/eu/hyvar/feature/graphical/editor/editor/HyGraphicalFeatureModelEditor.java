@@ -1,6 +1,7 @@
 package eu.hyvar.feature.graphical.editor.editor;
 
 import java.io.ByteArrayInputStream;
+import java.io.IOException;
 import java.io.InputStream;
 import java.util.EventObject;
 
@@ -11,6 +12,7 @@ import org.eclipse.core.resources.IWorkspaceRoot;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
+import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.e4.ui.model.application.ui.MUIElement;
 import org.eclipse.e4.ui.model.application.ui.advanced.MArea;
 import org.eclipse.e4.ui.model.application.ui.basic.MPart;
@@ -37,6 +39,7 @@ import org.eclipse.ui.actions.ActionFactory;
 import org.eclipse.ui.part.FileEditorInput;
 
 import eu.hyvar.feature.graphical.base.editor.HyGraphicalFeatureModelViewer;
+import eu.hyvar.feature.graphical.base.model.HyFeatureWrapped;
 import eu.hyvar.feature.graphical.editor.actions.HyLinearTemporalElementChangeValidityAction;
 import eu.hyvar.feature.graphical.editor.actions.attribute.HyAttributeCreateBooleanAction;
 import eu.hyvar.feature.graphical.editor.actions.attribute.HyAttributeCreateEnumAction;
@@ -71,6 +74,29 @@ public class HyGraphicalFeatureModelEditor extends HyGraphicalFeatureModelViewer
 		commandStack.execute(command);
 	}
 	
+	@Override
+	public void doSave(IProgressMonitor monitor) {
+		if(resource == null) return;
+
+		try{
+			saveLayout();
+			
+			resource.save(null);
+	        file.touch(null);
+			getCommandStack().markSaveLocation();
+
+			
+		}catch(IOException e){
+			e.printStackTrace();
+			resource = null;
+		}catch(CoreException e){
+			e.printStackTrace();
+		}		
+	}
+
+
+
+	
 
 	protected KeyHandler getCommonKeyHandler() {
 		sharedKeyHandler = super.getCommonKeyHandler();
@@ -95,7 +121,7 @@ public class HyGraphicalFeatureModelEditor extends HyGraphicalFeatureModelViewer
 
 		GraphicalViewer viewer = getGraphicalViewer();
 		viewer.setEditPartFactory(new HyFeatureModelEditorEditPartFactory(viewer, this));
-		viewer.setContextMenu(new HyFeatureModelEvolutionGraphicalEditorContextMenuProvider(getGraphicalViewer(), getActionRegistry()));
+		viewer.setContextMenu(new HyGraphicalFeatureModelEditorContextMenuProvider(getGraphicalViewer(), getActionRegistry()));
 		viewer.setKeyHandler(new GraphicalViewerKeyHandler(viewer).setParent(getCommonKeyHandler()));
 	}
 	
@@ -108,6 +134,31 @@ public class HyGraphicalFeatureModelEditor extends HyGraphicalFeatureModelViewer
 		openEditorForFileExtension("hyvalidityformula");
 	}
 	
+	private void saveLayout(){
+
+		IWorkspace workspace = ResourcesPlugin.getWorkspace();
+		IWorkspaceRoot workspaceRoot = workspace.getRoot();
+
+		IPath path = ((IPath)file.getFullPath().clone()).removeFileExtension().addFileExtension("hylayout");
+
+		String fileContent = "";
+		for(HyFeatureWrapped feature : this.getModelWrapped().getFeatures(null)){
+			fileContent += feature.getWrappedModelElement().getId()+","+feature.getPosition(null).x()+","+feature.getPosition(null).y()+"\n";
+		}
+
+		IFile file = workspaceRoot.getFile(path);
+
+		InputStream source = new ByteArrayInputStream(fileContent.getBytes());
+		try {
+			if(!file.exists()){
+				file.create(source, IResource.NONE, null);
+			}else{
+				file.setContents(source, IResource.FORCE, null);
+			}
+		} catch (CoreException e) {
+			e.printStackTrace();
+		}
+	}
 
 	
 	@SuppressWarnings("unchecked")

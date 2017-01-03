@@ -1,5 +1,6 @@
 package eu.hyvar.feature.graphical.editor.editor;
 
+import org.eclipse.gef.ContextMenuProvider;
 import org.eclipse.gef.EditPartViewer;
 import org.eclipse.gef.ui.actions.ActionRegistry;
 import org.eclipse.gef.ui.actions.GEFActionConstants;
@@ -27,11 +28,13 @@ import eu.hyvar.feature.graphical.editor.actions.group.HyGroupChangeGroupTypeToO
 import eu.hyvar.feature.graphical.editor.actions.version.HyVersionCreateSuccessorAction;
 import eu.hyvar.feature.graphical.editor.actions.version.HyVersionCreateVersionAction;
 
-public class HyFeatureModelEvolutionGraphicalEditorContextMenuProvider extends HyFeatureModelGraphicalEditorContextMenuProvider	{
+public class HyGraphicalFeatureModelEditorContextMenuProvider extends ContextMenuProvider	{
+	private ActionRegistry actionRegistry;
 
-	public HyFeatureModelEvolutionGraphicalEditorContextMenuProvider(EditPartViewer viewer,
-			ActionRegistry actionRegistry) {
-		super(viewer, actionRegistry);
+	public HyGraphicalFeatureModelEditorContextMenuProvider(EditPartViewer viewer, final ActionRegistry actionRegistry) {
+		super(viewer);
+
+		setActionRegistry(actionRegistry);
 	}
 
 	@Override
@@ -106,4 +109,12 @@ public class HyFeatureModelEvolutionGraphicalEditorContextMenuProvider extends H
         action = getActionRegistry().getAction(HyLinearTemporalElementChangeValidityAction.FEATURE_CHANGE_VALIDITY);
         menu.appendToGroup(GEFActionConstants.GROUP_EDIT, action);
 	}
+	
+	public ActionRegistry getActionRegistry() {
+		return actionRegistry;
+	}
+	public void setActionRegistry(ActionRegistry actionRegistry) {
+		this.actionRegistry = actionRegistry;
+	}
+
 }

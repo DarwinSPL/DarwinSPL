@@ -1,9 +1,7 @@
 package eu.hyvar.feature.graphical.base.editor;
 
-import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -15,7 +13,6 @@ import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.IWorkspace;
 import org.eclipse.core.resources.IWorkspaceRoot;
 import org.eclipse.core.resources.ResourcesPlugin;
-import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.draw2d.geometry.Point;
@@ -54,11 +51,14 @@ import org.eclipse.swt.widgets.Scale;
 import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.IEditorReference;
+import org.eclipse.ui.IEditorSite;
 import org.eclipse.ui.IFileEditorInput;
+import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.PlatformUI;
 
 import eu.hyvar.evolution.HyEvolutionUtil;
 import eu.hyvar.feature.HyFeatureModel;
+import eu.hyvar.feature.HyFeaturePackage;
 import eu.hyvar.feature.expression.extensionpoints.IFeatureModelEditor;
 import eu.hyvar.feature.graphical.base.dialogs.DateDialog;
 import eu.hyvar.feature.graphical.base.editparts.HyFeatureModelEditPart;
@@ -148,6 +148,16 @@ public class HyGraphicalFeatureModelViewer extends GraphicalEditor implements IF
 		setEditDomain(new DefaultEditDomain(this));	
 	}
 
+	@Override
+	public void init(IEditorSite site, IEditorInput input) throws PartInitException {
+		  super.init(site, input);
+		   
+		  HyFeaturePackage.eINSTANCE.eClass();
+		  if(input instanceof IFileEditorInput) {
+			  IFileEditorInput fileInput = (IFileEditorInput) input;
+		    loadModelFromFile(fileInput.getFile());
+		  }
+		}
 
 
 	public IFile getFile() {
@@ -156,24 +166,7 @@ public class HyGraphicalFeatureModelViewer extends GraphicalEditor implements IF
 
 
 	@Override
-	public void doSave(IProgressMonitor monitor) {
-		if(resource == null) return;
-
-		try{
-			saveLayout();
-			
-			resource.save(null);
-	        file.touch(null);
-			getCommandStack().markSaveLocation();
-
-			
-		}catch(IOException e){
-			e.printStackTrace();
-			resource = null;
-		}catch(CoreException e){
-			e.printStackTrace();
-		}
-	}
+	public void doSave(IProgressMonitor monitor) {}
 
 
 
@@ -513,7 +506,7 @@ public class HyGraphicalFeatureModelViewer extends GraphicalEditor implements IF
 						modelWrapped.setAutoLayoutActive(false);
 						for(HyFeatureWrapped featureWrapped : this.getModelWrapped().getFeatures(null)){
 							if(id.equals(featureWrapped.getWrappedModelElement().getId())){
-								featureWrapped.setPosition(new Point(x, y));
+								featureWrapped.setPosition(new Point(x, y), false);
 							}
 						}
 
@@ -526,32 +519,4 @@ public class HyGraphicalFeatureModelViewer extends GraphicalEditor implements IF
 			}	
 		}
 	}
-
-	private void saveLayout(){
-
-		IWorkspace workspace = ResourcesPlugin.getWorkspace();
-		IWorkspaceRoot workspaceRoot = workspace.getRoot();
-
-		IPath path = ((IPath)file.getFullPath().clone()).removeFileExtension().addFileExtension("hylayout");
-
-		String fileContent = "";
-		for(HyFeatureWrapped feature : this.getModelWrapped().getFeatures(null)){
-			fileContent += feature.getWrappedModelElement().getId()+","+feature.getPosition(null).x()+","+feature.getPosition(null).y()+"\n";
-		}
-
-		IFile file = workspaceRoot.getFile(path);
-
-		InputStream source = new ByteArrayInputStream(fileContent.getBytes());
-		try {
-			if(!file.exists()){
-				file.create(source, IResource.NONE, null);
-			}else{
-				file.setContents(source, IResource.FORCE, null);
-			}
-		} catch (CoreException e) {
-			e.printStackTrace();
-		}
-	}
-
-
 }
