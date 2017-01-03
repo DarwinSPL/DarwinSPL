@@ -1,9 +1,11 @@
 package eu.hyvar.feature.graphical.configurator.editor;
 
 import java.io.IOException;
+import java.util.Collections;
 import java.util.Date;
 import java.util.Map;
 
+import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IWorkspace;
 import org.eclipse.core.resources.IWorkspaceRoot;
 import org.eclipse.core.resources.ResourcesPlugin;
@@ -11,6 +13,7 @@ import org.eclipse.core.runtime.IPath;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.emf.ecore.resource.Resource.IOWrappedException;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.ecore.util.EContentAdapter;
@@ -35,6 +38,7 @@ import eu.hyvar.feature.graphical.configurator.composites.HySelectedConfiguratio
 import eu.hyvar.feature.graphical.configurator.dialogs.HyContextInformationDialog;
 import eu.hyvar.feature.graphical.configurator.factory.HyConfiguratorEditPartFactory;
 import eu.hyvar.feature.graphical.configurator.output.IHyConfigurationDerivation;
+import eu.hyvar.feature.graphical.configurator.reconfigurator.HyReconfiguratorClient;
 
 public class HyFeatureModelDeltaModuleConfiguratorEditor extends HyGraphicalFeatureModelViewer implements IHyConfigurationDerivation{
 	private Button validateButton;
@@ -42,17 +46,19 @@ public class HyFeatureModelDeltaModuleConfiguratorEditor extends HyGraphicalFeat
 	private Button setContextInformationsButton;
 	private Button simulateButton;
 	private HySelectedConfigurationComposite selectedConfigurationComposite;
-	
+
 	private HyContextModel model;
 
 	HyConfiguration selectedConfiguration;
-	
+
 	IHyConfigurationDerivation configurationDerivation;
-	
+
+
+
 	public HyConfiguration getSelectedConfiguration() {
 		return selectedConfiguration;
 	}
-	
+
 	@Override
 	public HyConfiguration getConfiguration() {
 		return selectedConfiguration;
@@ -68,10 +74,13 @@ public class HyFeatureModelDeltaModuleConfiguratorEditor extends HyGraphicalFeat
 		return getCurrentSelectedDate();
 	}
 
-
 	public HyFeatureModelDeltaModuleConfiguratorEditor() {
 		super();
-		
+
+		Resource.Factory.Registry reg = Resource.Factory.Registry.INSTANCE;
+		Map<String, Object> m = reg.getExtensionToFactoryMap();
+		m.put("hycontextinformation", new XMIResourceFactoryImpl());
+
 		selectedConfiguration = HyConfigurationFactory.eINSTANCE.createHyConfiguration();
 	}
 
@@ -86,61 +95,88 @@ public class HyFeatureModelDeltaModuleConfiguratorEditor extends HyGraphicalFeat
 		viewer.setEditPartFactory(new HyConfiguratorEditPartFactory(viewer, this));
 	}
 
-	private HyContextModel loadContextInformationModel(){		
-		Resource.Factory.Registry reg = Resource.Factory.Registry.INSTANCE;
-        Map<String, Object> m = reg.getExtensionToFactoryMap();
-        m.put("hycontextinformation", new XMIResourceFactoryImpl());
-        
-        IWorkspace workspace = ResourcesPlugin.getWorkspace();
+	private boolean modelFileExists(String extension){
+		IPath path = ((IPath)file.getFullPath().clone()).removeFileExtension().addFileExtension(extension);
+
+		IWorkspaceRoot workspaceRoot = ResourcesPlugin.getWorkspace().getRoot();
+
+		IFile file = workspaceRoot.getFile(path);
+
+		return file.exists();		
+	}
+
+	private void saveConfigurationIntoFeatureModelFolder(){
+		IWorkspace workspace = ResourcesPlugin.getWorkspace();
 		IWorkspaceRoot workspaceRoot = workspace.getRoot();
 
-		IPath path = ((IPath)file.getFullPath().clone()).removeFileExtension().addFileExtension("hycontextinformation");
-		System.out.println(path.toOSString());
-		
-		
+		IPath path = ((IPath)file.getFullPath().clone()).removeFileExtension().addFileExtension("hyconfigurationmodel");
+
 		ResourceSet resourceSet = new ResourceSetImpl();
 		Resource resource = resourceSet.createResource(URI.createPlatformResourceURI(path.toString(), false));
 		
+		resource.getContents().add(selectedConfiguration);
+
+		// now save the content.
+		try {
+			resource.save(Collections.EMPTY_MAP);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	private HyContextModel loadContextInformationModel(){		
+
+
+		IWorkspace workspace = ResourcesPlugin.getWorkspace();
+		IWorkspaceRoot workspaceRoot = workspace.getRoot();
+
+		IPath path = ((IPath)file.getFullPath().clone()).removeFileExtension().addFileExtension("hycontextinformation");
+
+		ResourceSet resourceSet = new ResourceSetImpl();
+		Resource resource = resourceSet.createResource(URI.createPlatformResourceURI(path.toString(), false));
+
 		try {
 			resource.load(null);
+		} catch (IOWrappedException e){
+			return null;
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch(Exception e){
 			e.printStackTrace();
 		}
-		
+
 		return (HyContextModel)resource.getContents().get(0);
-		
-		
+
+
 	}
 
 	@Override
 	public void createPartControl(Composite parent) {
-	    Composite sash = new Composite(parent, SWT.NONE);
-	    sash.setLayout(new FillLayout());
-	    sash.setLayoutData(new GridData(GridData.FILL_BOTH));
-	    final SashForm sashForm = new SashForm(sash, SWT.HORIZONTAL);
+		Composite sash = new Composite(parent, SWT.NONE);
+		sash.setLayout(new FillLayout());
+		sash.setLayoutData(new GridData(GridData.FILL_BOTH));
+		final SashForm sashForm = new SashForm(sash, SWT.HORIZONTAL);
 
-	    // Left sash
-	    super.createEditor(sashForm);
+		// Left sash
+		super.createEditor(sashForm);
 
 		// Right sash
 		createConfigurationPanel(sashForm);
-	    sashForm.setWeights(new int[] { 4, 1});
-	    
-	    parent.setLayout(new GridLayout(1, false));
-	    super.createSliderControl(parent);
-	
-	    registerListeners();
+		sashForm.setWeights(new int[] { 4, 1});
+
+		parent.setLayout(new GridLayout(1, false));
+		super.createSliderControl(parent);
+
+		registerListeners();
 	}
-	
+
 	@Override
 	public void dateChanged(Date date){
 		selectedConfiguration.getElements().clear();
 		setCurrentSelectedDate(date);
 	}
-	
+
 	private Composite createConfigurationPanel(Composite parent) {
 		Composite configurationPanel = new Composite(parent, SWT.NONE);
 		configurationPanel.setLayout(new GridLayout(1, false));
@@ -148,78 +184,92 @@ public class HyFeatureModelDeltaModuleConfiguratorEditor extends HyGraphicalFeat
 		validateButton = new Button(configurationPanel, SWT.PUSH);
 		validateButton.setText("Validate");
 		validateButton.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, false));
-		
+
 		setContextInformationsButton = new Button(configurationPanel, SWT.PUSH);
 		setContextInformationsButton.setText("Simulate Reconfiguration");
 		setContextInformationsButton.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, false));
-		
+
 		simulateButton = new Button(configurationPanel, SWT.PUSH);
 		simulateButton.setText("Simulate Reconfiguration with HyVarRec");
 		simulateButton.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, false));
-		
-		
+
+
 		numberOfPossibleConfigurationsButton = new Button(configurationPanel, SWT.PUSH);
 		numberOfPossibleConfigurationsButton.setText("Number of Possible Configurations");
 		numberOfPossibleConfigurationsButton.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, false));
 		numberOfPossibleConfigurationsButton.setEnabled(false);
-		
+
 
 		selectedConfigurationComposite = new HySelectedConfigurationComposite(configurationPanel);
 		selectedConfigurationComposite.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
 
-	
+
 		return configurationPanel;
 	}
-	
+
 	private void registerListeners() {
-		
+
 		selectedConfiguration.eAdapters().add(new EContentAdapter() {
 			@Override
 			public void notifyChanged(Notification notification) {
 				super.notifyChanged(notification);
-				
+
 				selectedConfigurationComposite.setConfiguration(selectedConfiguration, getCurrentSelectedDate());
 			}
 		});
-		
+
 		validateButton.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
 				//validateFeatureModel();
 			}
 		});
-		
+
 		setContextInformationsButton.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
-				model = loadContextInformationModel();
-				
-				HyContextInformationDialog dialog = new HyContextInformationDialog(getEditorSite().getShell(), model);
-				dialog.open();
+				if(modelFileExists("hycontextinformation")){
+					model = loadContextInformationModel();
+
+					// only show the dialog if context information are available
+					if(model != null){
+						HyContextInformationDialog dialog = new HyContextInformationDialog(getEditorSite().getShell(), model);
+						dialog.open();
+					}
+				}
 			}
 		});
-		
+
 		simulateButton.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
+				IPath path = ((IPath)file.getFullPath().clone()).removeFileExtension();
+				
+				saveConfigurationIntoFeatureModelFolder();
+				
 
+				HyReconfiguratorClient client = new HyReconfiguratorClient();
+
+
+
+				client.start(java.net.URI.create("http://localhost:8080/fm_for_hyvarrec"), path);
 			}
 		});
-		
+
 		numberOfPossibleConfigurationsButton.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
 				//calculateNumberOfPossibleConfigurations();
 			}
 		});
-		
+
 		selectedConfigurationComposite.getCompleteButton().addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
 				//autoCompleteVersions();
 			}
 		});
-		
+
 		selectedConfigurationComposite.getUseButton().addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {

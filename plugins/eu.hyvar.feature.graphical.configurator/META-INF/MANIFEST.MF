@@ -16,7 +16,17 @@ Require-Bundle: org.eclipse.ui,
  org.eclipse.draw2d,
  org.eclipse.swt,
  eu.hyvar.feature.graphical.base,
- eu.hyvar.feature.configuration
+ eu.hyvar.feature.configuration,
+ com.google.gson;bundle-version="2.2.4",
+  javax.servlet,
+   org.eclipse.jetty.util,
+ org.eclipse.jetty.http,
+ org.eclipse.jetty.io,
+ de.christophseidl.util.eclipse,
+ de.christophseidl.util.ecore,
+ eu.hyvar.reconfigurator.input.rest.dummyclient
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Bundle-ActivationPolicy: lazy
 Bundle-Vendor: www.darwinspl.de
+Bundle-ClassPath: lib/jetty-client-9.2.13.v20150730.jar,
+ .
