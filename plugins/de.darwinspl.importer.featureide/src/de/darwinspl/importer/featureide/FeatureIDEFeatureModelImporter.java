@@ -33,6 +33,9 @@ public class FeatureIDEFeatureModelImporter implements DarwinSPLFeatureModelImpo
 
 	private Map<IFeature, HyFeature> featureMap;
 	
+	private IFeatureModel featureIDEfeatureModel;
+	private HyFeatureModel darwinSPLfeatureModel;
+	
 	private static final HyFeatureFactory featureFactory = HyFeatureFactory.eINSTANCE;
 	private static final HyEvolutionFactory evolutionFactory = HyEvolutionFactory.eINSTANCE;
 	
@@ -68,7 +71,7 @@ public class FeatureIDEFeatureModelImporter implements DarwinSPLFeatureModelImpo
 	
 	@Override
 	public HyFeatureModel importFeatureModel(IFeatureModel featureModel) {
-
+		this.featureIDEfeatureModel = featureModel;
 		
 		if (featureModel == null) {
 			// TODO proper logging
@@ -91,7 +94,9 @@ public class FeatureIDEFeatureModelImporter implements DarwinSPLFeatureModelImpo
 		HyFeature hyRootFeature = processRoot(hyFeatureModel, rootFeature);
 		
 		processSubTree(hyFeatureModel, hyRootFeature, featureModel, rootFeature);
-
+		
+		this.darwinSPLfeatureModel = hyFeatureModel;
+		
 		return hyFeatureModel;
 	}
 
@@ -191,5 +196,21 @@ public class FeatureIDEFeatureModelImporter implements DarwinSPLFeatureModelImpo
 			processSubTree(hyFeatureModel, hyChildFeature, featureModel, childFeature);
 		}
 	}
+
+	
+	
+	public Map<IFeature, HyFeature> getFeatureMap() {
+		return featureMap;
+	}
+
+	public IFeatureModel getFeatureIDEfeatureModel() {
+		return featureIDEfeatureModel;
+	}
+
+	public HyFeatureModel getDarwinSPLfeatureModel() {
+		return darwinSPLfeatureModel;
+	}
+	
+	
 	
 }
