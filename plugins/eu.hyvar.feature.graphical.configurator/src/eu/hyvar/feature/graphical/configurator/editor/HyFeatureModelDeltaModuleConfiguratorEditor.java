@@ -1,7 +1,11 @@
 package eu.hyvar.feature.graphical.configurator.editor;
 
 import java.io.IOException;
-import java.util.Collections;
+import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Date;
 import java.util.Map;
 
@@ -12,10 +16,9 @@ import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.util.URI;
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.Resource.IOWrappedException;
-import org.eclipse.emf.ecore.resource.ResourceSet;
-import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.ecore.util.EContentAdapter;
 import org.eclipse.emf.ecore.xmi.impl.XMIResourceFactoryImpl;
 import org.eclipse.gef.GraphicalViewer;
@@ -28,11 +31,16 @@ import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.ui.IEditorInput;
+import org.eclipse.ui.IEditorSite;
+import org.eclipse.ui.PartInitException;
 
+import de.christophseidl.util.ecore.EcoreIOUtil;
 import eu.hyvar.context.HyContextModel;
 import eu.hyvar.feature.HyFeatureModel;
 import eu.hyvar.feature.configuration.HyConfiguration;
 import eu.hyvar.feature.configuration.HyConfigurationFactory;
+import eu.hyvar.feature.configuration.util.HyConfigurationUtil;
 import eu.hyvar.feature.graphical.base.editor.HyGraphicalFeatureModelViewer;
 import eu.hyvar.feature.graphical.configurator.composites.HySelectedConfigurationComposite;
 import eu.hyvar.feature.graphical.configurator.dialogs.HyContextInformationDialog;
@@ -50,6 +58,7 @@ public class HyFeatureModelDeltaModuleConfiguratorEditor extends HyGraphicalFeat
 	private HyContextModel model;
 
 	HyConfiguration selectedConfiguration;
+	HyConfiguration suggestedConfiguration;
 
 	IHyConfigurationDerivation configurationDerivation;
 
@@ -81,7 +90,18 @@ public class HyFeatureModelDeltaModuleConfiguratorEditor extends HyGraphicalFeat
 		Map<String, Object> m = reg.getExtensionToFactoryMap();
 		m.put("hycontextinformation", new XMIResourceFactoryImpl());
 
-		selectedConfiguration = HyConfigurationFactory.eINSTANCE.createHyConfiguration();
+		selectedConfiguration = HyConfigurationFactory.eINSTANCE.createHyConfiguration();		
+	}
+
+	@Override
+	public void init(IEditorSite site, IEditorInput input) throws PartInitException {
+		super.init(site, input);
+
+		// load an existing configuration model
+		if(this.modelFileExists("hyconfigurationmodel"))
+			selectedConfiguration = this.loadConfigurationModel();
+		else
+			selectedConfiguration.setFeatureModel(this.modelWrapped.getModel());
 	}
 
 	/**
@@ -105,50 +125,60 @@ public class HyFeatureModelDeltaModuleConfiguratorEditor extends HyGraphicalFeat
 		return file.exists();		
 	}
 
+
 	private void saveConfigurationIntoFeatureModelFolder(){
-		IWorkspace workspace = ResourcesPlugin.getWorkspace();
-		IWorkspaceRoot workspaceRoot = workspace.getRoot();
-
-		IPath path = ((IPath)file.getFullPath().clone()).removeFileExtension().addFileExtension("hyconfigurationmodel");
-
-		ResourceSet resourceSet = new ResourceSetImpl();
-		Resource resource = resourceSet.createResource(URI.createPlatformResourceURI(path.toString(), false));
+		IPath path = ((IPath)file.getFullPath().clone()).removeFileExtension().addFileExtension(HyConfigurationUtil.getConfigurationModelFileExtensionForXmi());
+		IWorkspaceRoot workspaceRoot = ResourcesPlugin.getWorkspace().getRoot();
 		
-		resource.getContents().add(selectedConfiguration);
+		
+		EcoreIOUtil.saveModelAs(selectedConfiguration, workspaceRoot.getFile(path));		
 
-		// now save the content.
+		Path spath = Paths.get( workspaceRoot.getFile(path).getLocationURI().getPath());
+		Charset charset = StandardCharsets.UTF_8;
+
+		String content;
+		
+		String poiseningString = workspaceRoot.getFile(path).getLocationURI().toString().replace(path.lastSegment(), "");
 		try {
-			resource.save(Collections.EMPTY_MAP);
+			content = new String(Files.readAllBytes(spath), charset);
+			
+			content = content.replaceAll(poiseningString, "");
+			Files.write(spath, content.getBytes(charset));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+
 	}
-	private HyContextModel loadContextInformationModel(){		
+	private EObject loadResource(String extension){
+		IPath path = ((IPath)file.getFullPath().clone()).removeFileExtension().addFileExtension(extension);
 
-
-		IWorkspace workspace = ResourcesPlugin.getWorkspace();
-		IWorkspaceRoot workspaceRoot = workspace.getRoot();
-
-		IPath path = ((IPath)file.getFullPath().clone()).removeFileExtension().addFileExtension("hycontextinformation");
-
-		ResourceSet resourceSet = new ResourceSetImpl();
 		Resource resource = resourceSet.createResource(URI.createPlatformResourceURI(path.toString(), false));
 
 		try {
 			resource.load(null);
+
+
 		} catch (IOWrappedException e){
 			return null;
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			return null;
 		} catch(Exception e){
 			e.printStackTrace();
+			return null;
 		}
 
-		return (HyContextModel)resource.getContents().get(0);
+		return resource.getContents().get(0);
 
+	}
+	private HyContextModel loadContextInformationModel(){		
+		return (HyContextModel)loadResource("hycontextinformation");
+	}
 
+	private HyConfiguration loadConfigurationModel(){
+		return (HyConfiguration)loadResource("hyconfigurationmodel");
 	}
 
 	@Override
@@ -244,15 +274,20 @@ public class HyFeatureModelDeltaModuleConfiguratorEditor extends HyGraphicalFeat
 			@Override
 			public void widgetSelected(SelectionEvent e) {
 				IPath path = ((IPath)file.getFullPath().clone()).removeFileExtension();
-				
+
 				saveConfigurationIntoFeatureModelFolder();
-				
+
 
 				HyReconfiguratorClient client = new HyReconfiguratorClient();
 
 
 
-				client.start(java.net.URI.create("http://localhost:8080/fm_for_hyvarrec"), path);
+				if(client.start(java.net.URI.create("http://localhost:8080/fm_for_hyvarrec"), path)){
+					suggestedConfiguration = loadConfigurationModel();
+					selectedConfiguration = suggestedConfiguration;
+				}
+				
+			
 			}
 		});
 

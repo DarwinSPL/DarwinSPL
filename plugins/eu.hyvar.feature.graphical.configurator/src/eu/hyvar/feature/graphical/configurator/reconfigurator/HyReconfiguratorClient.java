@@ -46,10 +46,6 @@ public class HyReconfiguratorClient {
 
 	private static final String FILENAME = "HyVarUseCaseReview";
 
-	private static final String PROJECT_NAME = "HyVarRecIO";
-
-	private static final String HYVARREC_CONFIG_FOLDER_NAME = "configFolder";
-
 	HttpClient client;
 	URI uri;
 
@@ -63,12 +59,13 @@ public class HyReconfiguratorClient {
 	ContentResponse response;
 	String answerString;
 
-	public void start(URI uri, IPath path){
+	public boolean start(URI uri, IPath path){
 		RawInputForHyVarRec output = null;	
 		try {
 			output = createRawHyVarRecOutput(path);			
 		} catch(IOException e) {
 			e.printStackTrace();
+			return false;
 		}
 
 		client = new HttpClient();
@@ -94,11 +91,13 @@ public class HyReconfiguratorClient {
 		} catch (Exception e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
+			return false;
 		}
 		System.out.println(response);
 		if(response.getStatus() != HttpServletResponse.SC_OK)
 		{
 			System.err.println("Could not connect to fm for hyvarrec service. Terminating");
+			return false;
 		}
 		answerString = response.getContentAsString();
 		InputForHyVarRec answer = gson.fromJson(answerString, InputForHyVarRec.class);
@@ -112,6 +111,7 @@ public class HyReconfiguratorClient {
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			return false;
 		}
 		// Current HyVarRec URI
 		URI hyvarrecUri = URI.create("http://hyvarhyvarrec-env.eu-west-1.elasticbeanstalk.com/process");
@@ -126,11 +126,12 @@ public class HyReconfiguratorClient {
 		} catch (InterruptedException | TimeoutException | ExecutionException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			return false;
 		}
 
 		System.out.println("HyVarRec Answer: "+hyvarrecAnswerString);
 
-		/*
+		
 		// redirect the answer of hyvarrec again to fm_to_hyvarrec
 		OutputOfHyVarRecAndFm outputAndFm = null;
 		try {
@@ -138,6 +139,7 @@ public class HyReconfiguratorClient {
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			return false;
 		}
 
 
@@ -147,12 +149,10 @@ public class HyReconfiguratorClient {
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			
 		}
 
 		URI configUri = URI.create("http://localhost:8080/new_hyvarrec_config");
-//		URI configUri = URI.create("http://hyvarfmtohyvarrec-env.eu-west-1.elasticbeanstalk.com/new_hyvarrec_config");
-
-
 		String configString = gson.toJson(outputAndFm);
 
 		System.out.println(configString);
@@ -171,6 +171,7 @@ public class HyReconfiguratorClient {
 		if(configResponse.getStatus() != HttpServletResponse.SC_OK)
 		{
 			System.err.println("Could not connect to fm to hyvarrec service. Terminating");
+			return false;
 		}
 		System.out.println(configResponse);
 		answerString = configResponse.getContentAsString();
@@ -179,16 +180,18 @@ public class HyReconfiguratorClient {
 
 		PrintWriter printWriter;
 		try {
-			printWriter = new PrintWriter(path.addFileExtension("hyconfigurationmodel").toFile());
+			File fmFile = new File(getURIForFile(path, "hyconfigurationmodel"));
+			printWriter = new PrintWriter(fmFile);
 			printWriter.write(hyvarConfig.getConfiguration().getSpecification());
 			printWriter.flush();
 			printWriter.close();
+			
 		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
+			return false;
 		}
-		 */
-
+		
+		return true;
 	}
 
 	private URI getURIForFile(IPath path, String extension){
