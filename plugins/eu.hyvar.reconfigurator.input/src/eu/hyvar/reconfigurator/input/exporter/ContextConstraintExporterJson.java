@@ -1,9 +1,5 @@
 package eu.hyvar.reconfigurator.input.exporter;
 
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -38,7 +34,6 @@ import eu.hyvar.feature.HyFeature;
 import eu.hyvar.feature.HyFeatureAttribute;
 import eu.hyvar.feature.HyFeatureChild;
 import eu.hyvar.feature.HyFeatureModel;
-import eu.hyvar.feature.HyFeatureTypeEnum;
 import eu.hyvar.feature.HyGroup;
 import eu.hyvar.feature.HyGroupComposition;
 import eu.hyvar.feature.HyGroupType;
@@ -59,6 +54,8 @@ import eu.hyvar.feature.expression.util.HyExpressionStringExporter;
 import eu.hyvar.feature.expression.util.HyExpressionStringExporter.BooleanRepresentationOption;
 import eu.hyvar.feature.expression.util.HyExpressionStringExporter.FeatureSelectionRepresentationOption;
 import eu.hyvar.feature.expression.util.HyExpressionStringExporter.VersionRepresentation;
+import eu.hyvar.feature.util.HyFeatureModelWellFormednessException;
+import eu.hyvar.feature.util.HyFeatureUtil;
 import eu.hyvar.preferences.HyPreference;
 import eu.hyvar.preferences.HyPreferenceModel;
 import eu.hyvar.reconfigurator.input.format.InputForHyVarRec;
@@ -163,10 +160,20 @@ public class ContextConstraintExporterJson {
 		gson = new GsonBuilder().disableHtmlEscaping().create();
 
 		input.setAttributes(getExportedAttributes(featureModel, date));
-		input.setContexts(getExportedContexts(contextModel, date));
-		input.setConfiguration(getExportedConfiguration(oldConfiguration, contextValues));
+		if(contextModel != null) {
+			input.setContexts(getExportedContexts(contextModel, date));			
+		}
+		if(oldConfiguration != null) {
+			input.setConfiguration(getExportedConfiguration(oldConfiguration, contextValues));			
+		}
 
-		input.setConstraints(getFeatureModelConstraints(featureModel, date));
+		try {
+			input.setConstraints(getFeatureModelConstraints(featureModel, date));
+		} catch (HyFeatureModelWellFormednessException e) {
+			System.err.println("Could not create constraints of FM, as FM is not well-formed");
+			e.printStackTrace();
+			return null;
+		}
 
 		if (constraintModel != null) {
 			input.getConstraints().addAll(getConstraints(constraintModel, date));
@@ -182,97 +189,96 @@ public class ContextConstraintExporterJson {
 
 
 		// File output. Not necessary for HyVar in the end. Only for Isola Paper
-		BufferedWriter writer = null;
-		try {
-			// create a temporary file
-			File inputForHyVarRecJsonFile = new File("InputForHyVarRec.json");
-
-			// This will output the full path where the file will be written
-			// to...
-			System.out.println(inputForHyVarRecJsonFile.getCanonicalPath());
-			System.out.println(gson.toJson(input));
-
-			writer = new BufferedWriter(new FileWriter(inputForHyVarRecJsonFile));
-			writer.write(gson.toJson(input));
-		} catch (IOException e) {
-			e.printStackTrace();
-		} finally {
-			try {
-				// Close the writer regardless of what happens.
-				writer.close();
-			} catch (IOException e) {
-			}
-		}
+//		BufferedWriter writer = null;
+//		try {
+//			// create a temporary file
+//			File inputForHyVarRecJsonFile = new File("InputForHyVarRec.json");
+//
+//			// This will output the full path where the file will be written
+//			// to...
+//			System.out.println(inputForHyVarRecJsonFile.getCanonicalPath());
+//			System.out.println(gson.toJson(input));
+//
+//			writer = new BufferedWriter(new FileWriter(inputForHyVarRecJsonFile));
+//			writer.write(gson.toJson(input));
+//		} catch (IOException e) {
+//			e.printStackTrace();
+//		} finally {
+//			try {
+//				// Close the writer regardless of what happens.
+//				writer.close();
+//			} catch (IOException e) {
+//			}
+//		}
 
 		// DEBUG output
 
-		try {
-			// create a temporary file
-			File debugFile = new File("Debug.log");
-
-			StringBuilder sb = new StringBuilder();
-
-			for (HyFeature feature : featureReconfiguratorIdMapping.keySet()) {
-
-				sb.append(featureReconfiguratorIdMapping.get(feature));
-				sb.append(" : ");
-				sb.append(HyEvolutionUtil.getValidTemporalElement(feature.getNames(), date).getName());
-				sb.append(System.lineSeparator());
-
-				for (HyFeatureAttribute attribute : feature.getAttributes()) {
-
-					sb.append(attributeReconfiguratorIdMapping.get(attribute));
-					sb.append(" : ");
-					sb.append(HyEvolutionUtil.getValidTemporalElement(attribute.getNames(), date).getName());
-					sb.append(System.lineSeparator());
-
-					if (attribute instanceof HyEnumAttribute) {
-						for (HyEnumLiteral literal : ((HyEnumAttribute) attribute).getEnumType().getLiterals()) {
-							sb.append(literal.getValue());
-							sb.append(" : ");
-							sb.append(literal.getName());
-							sb.append(System.lineSeparator());
-						}
-					}
-				}
-				
-				for(HyVersion version: feature.getVersions()) {
-					sb.append(versionReconfiguratorIdMapping.get(version));
-					sb.append(" : ");
-					sb.append(version.getNumber());
-					sb.append(System.lineSeparator());
-				}
-			}
-
-			for (HyContextualInformation context : contextModel.getContextualInformations()) {
-				sb.append(contextReconfiguratorIdMapping.get(context));
-				sb.append(" : ");
-				sb.append(context.getName());
-				sb.append(System.lineSeparator());
-
-				if (context instanceof HyContextualInformationEnum) {
-					for (HyEnumLiteral literal : ((HyContextualInformationEnum) context).getEnumType().getLiterals()) {
-						sb.append(literal.getValue());
-						sb.append(" : ");
-						sb.append(literal.getName());
-						sb.append(System.lineSeparator());
-					}
-				}
-			}
-
-			writer = new BufferedWriter(new FileWriter(debugFile));
-			writer.write(sb.toString());
-
-		} catch (IOException e) {
-			e.printStackTrace();
-		} finally {
-			try {
-				// Close the writer regardless of what happens.
-				writer.close();
-			} catch (IOException e) {
-			}
-		}
-		// TODO
+//		try {
+//			// create a temporary file
+//			File debugFile = new File("Debug.log");
+//
+//			StringBuilder sb = new StringBuilder();
+//
+//			for (HyFeature feature : featureReconfiguratorIdMapping.keySet()) {
+//
+//				sb.append(featureReconfiguratorIdMapping.get(feature));
+//				sb.append(" : ");
+//				sb.append(HyEvolutionUtil.getValidTemporalElement(feature.getNames(), date).getName());
+//				sb.append(System.lineSeparator());
+//
+//				for (HyFeatureAttribute attribute : feature.getAttributes()) {
+//
+//					sb.append(attributeReconfiguratorIdMapping.get(attribute));
+//					sb.append(" : ");
+//					sb.append(HyEvolutionUtil.getValidTemporalElement(attribute.getNames(), date).getName());
+//					sb.append(System.lineSeparator());
+//
+//					if (attribute instanceof HyEnumAttribute) {
+//						for (HyEnumLiteral literal : ((HyEnumAttribute) attribute).getEnumType().getLiterals()) {
+//							sb.append(literal.getValue());
+//							sb.append(" : ");
+//							sb.append(literal.getName());
+//							sb.append(System.lineSeparator());
+//						}
+//					}
+//				}
+//				
+//				for(HyVersion version: feature.getVersions()) {
+//					sb.append(versionReconfiguratorIdMapping.get(version));
+//					sb.append(" : ");
+//					sb.append(version.getNumber());
+//					sb.append(System.lineSeparator());
+//				}
+//			}
+//
+//			for (HyContextualInformation context : contextModel.getContextualInformations()) {
+//				sb.append(contextReconfiguratorIdMapping.get(context));
+//				sb.append(" : ");
+//				sb.append(context.getName());
+//				sb.append(System.lineSeparator());
+//
+//				if (context instanceof HyContextualInformationEnum) {
+//					for (HyEnumLiteral literal : ((HyContextualInformationEnum) context).getEnumType().getLiterals()) {
+//						sb.append(literal.getValue());
+//						sb.append(" : ");
+//						sb.append(literal.getName());
+//						sb.append(System.lineSeparator());
+//					}
+//				}
+//			}
+//
+//			writer = new BufferedWriter(new FileWriter(debugFile));
+//			writer.write(sb.toString());
+//
+//		} catch (IOException e) {
+//			e.printStackTrace();
+//		} finally {
+//			try {
+//				// Close the writer regardless of what happens.
+//				writer.close();
+//			} catch (IOException e) {
+//			}
+//		}
 
 		return gson.toJson(input);
 	}
@@ -505,7 +511,7 @@ public class ContextConstraintExporterJson {
 		return domain;
 	}
 
-	private List<String> getFeatureModelConstraints(HyFeatureModel featureModel, Date date) {
+	private List<String> getFeatureModelConstraints(HyFeatureModel featureModel, Date date) throws HyFeatureModelWellFormednessException {
 		List<String> featureModelConstraints = new ArrayList<String>();
 
 		StringBuilder rootFeatureConstraint = new StringBuilder();
@@ -557,7 +563,7 @@ public class ContextConstraintExporterJson {
 		return versionConstraints;
 	}
 
-	private List<String> getFeatureConstraints(HyFeature feature, boolean isRoot, Date date) {
+	private List<String> getFeatureConstraints(HyFeature feature, boolean isRoot, Date date) throws HyFeatureModelWellFormednessException {
 		List<String> featureModelConstraints = new ArrayList<String>();
 
 		List<HyFeatureChild> featureChildren = HyEvolutionUtil.getValidTemporalElements(feature.getParentOf(), date);
@@ -569,7 +575,7 @@ public class ContextConstraintExporterJson {
 		return featureModelConstraints;
 	}
 
-	private List<String> getGroupConstraints(HyGroup group, String parentFeatureId, boolean parentIsRoot, Date date) {
+	private List<String> getGroupConstraints(HyGroup group, String parentFeatureId, boolean parentIsRoot, Date date) throws HyFeatureModelWellFormednessException {
 		List<String> featureModelConstraints = new ArrayList<String>();
 
 		StringBuilder groupConstraintsStringBuilder = new StringBuilder();
@@ -640,6 +646,11 @@ public class ContextConstraintExporterJson {
 				break;
 			case AND:
 				
+				// Check if only optional features are in groups -> no constraint necessary
+				if(HyFeatureUtil.getNumberOfMandatoryFeatures(validFeaturesOfGroupComposition, date) == 0) {
+					break;
+				}
+				
 				groupConstraintsStringBuilder.append(parentFeatureId);
 				groupConstraintsStringBuilder.append(EQUALS);
 				groupConstraintsStringBuilder.append(1);
@@ -650,8 +661,7 @@ public class ContextConstraintExporterJson {
 
 				for (HyFeature feature : validFeaturesOfGroupComposition) {
 					// Constraints for mandatory features
-					if (HyEvolutionUtil.getValidTemporalElement(feature.getTypes(), date)
-							.getType().equals(HyFeatureTypeEnum.MANDATORY)) {
+					if (HyFeatureUtil.isMandatory(feature, date)) {
 						if (!firstChildAnd) {
 							groupConstraintsStringBuilder.append(AND);
 						} else {
@@ -700,7 +710,7 @@ public class ContextConstraintExporterJson {
 		} 
 		else {
 			for (HyFeature feature : validFeaturesOfGroupComposition) {
-				if (HyEvolutionUtil.getValidTemporalElement(feature.getTypes(), date).getType().equals(HyFeatureTypeEnum.MANDATORY)) {
+				if (HyFeatureUtil.isMandatory(feature, date)) {
 					// groupConstraintsStringBuilder.append(TABULATOR);
 					// Mandatory Constraint (Parent => Child)
 					groupConstraintsStringBuilder.append(parentFeatureId);

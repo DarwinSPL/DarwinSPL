@@ -1,13 +1,10 @@
 
 package eu.hyvar.reconfigurator.io.rest.input.hyvarrec_config_and_fm;
 
-import java.util.ArrayList;
 import java.util.List;
-import javax.annotation.Generated;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-@Generated("org.jsonschema2pojo")
 public class OutputOfHyVarRecAndFm {
 
     /**
@@ -15,17 +12,25 @@ public class OutputOfHyVarRecAndFm {
      * (Required)
      * 
      */
-    @SerializedName("selectedFeatures")
+    @SerializedName("msg_type")
     @Expose
-    private List<String> selectedFeatures = new ArrayList<String>();
+    private String msgType;
     /**
-     * 
+     * list representing which features are selected
      * (Required)
      * 
      */
-    @SerializedName("attribute_values")
+    @SerializedName("features")
     @Expose
-    private List<AttributeValue> attributeValues = new ArrayList<AttributeValue>();
+    private List<String> features = null;
+    /**
+     * list representing the values of the attributes
+     * (Required)
+     * 
+     */
+    @SerializedName("attributes")
+    @Expose
+    private List<Attribute> attributes = null;
     /**
      * 
      * (Required)
@@ -40,43 +45,65 @@ public class OutputOfHyVarRecAndFm {
      * (Required)
      * 
      * @return
-     *     The selectedFeatures
+     *     The msgType
      */
-    public List<String> getSelectedFeatures() {
-        return selectedFeatures;
+    public String getMsgType() {
+        return msgType;
     }
 
     /**
      * 
      * (Required)
      * 
-     * @param selectedFeatures
-     *     The selectedFeatures
+     * @param msgType
+     *     The msg_type
      */
-    public void setSelectedFeatures(List<String> selectedFeatures) {
-        this.selectedFeatures = selectedFeatures;
+    public void setMsgType(String msgType) {
+        this.msgType = msgType;
     }
 
     /**
-     * 
+     * list representing which features are selected
      * (Required)
      * 
      * @return
-     *     The attributeValues
+     *     The features
      */
-    public List<AttributeValue> getAttributeValues() {
-        return attributeValues;
+    public List<String> getFeatures() {
+        return features;
     }
 
     /**
-     * 
+     * list representing which features are selected
      * (Required)
      * 
-     * @param attributeValues
-     *     The attribute_values
+     * @param features
+     *     The features
      */
-    public void setAttributeValues(List<AttributeValue> attributeValues) {
-        this.attributeValues = attributeValues;
+    public void setFeatures(List<String> features) {
+        this.features = features;
+    }
+
+    /**
+     * list representing the values of the attributes
+     * (Required)
+     * 
+     * @return
+     *     The attributes
+     */
+    public List<Attribute> getAttributes() {
+        return attributes;
+    }
+
+    /**
+     * list representing the values of the attributes
+     * (Required)
+     * 
+     * @param attributes
+     *     The attributes
+     */
+    public void setAttributes(List<Attribute> attributes) {
+        this.attributes = attributes;
     }
 
     /**

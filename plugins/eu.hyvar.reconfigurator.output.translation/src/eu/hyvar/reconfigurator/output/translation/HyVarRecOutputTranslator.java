@@ -27,7 +27,7 @@ import eu.hyvar.feature.configuration.HyFeatureSelected;
 import eu.hyvar.feature.configuration.HyFeatureSelection;
 import eu.hyvar.feature.configuration.HyVersionSelected;
 import eu.hyvar.reconfigurator.input.exporter.ReconfiguratorIdMapping;
-import eu.hyvar.reconfigurator.output.translation.format.AttributeValue;
+import eu.hyvar.reconfigurator.output.translation.format.Attribute;
 import eu.hyvar.reconfigurator.output.translation.format.OutputOfHyVarRec;
 
 public class HyVarRecOutputTranslator {
@@ -45,9 +45,9 @@ public class HyVarRecOutputTranslator {
 		HyConfiguration configuration = HyConfigurationFactory.eINSTANCE.createHyConfiguration();
 		configuration.setFeatureModel(featureModel);
 
-		configuration.getElements().addAll(getFeatureSelection(idMapper, hyvarrecOutput.getSelectedFeatures()));
+		configuration.getElements().addAll(getFeatureSelection(idMapper, hyvarrecOutput.getFeatures()));
 		
-		configuration.getElements().addAll(getAttributeValueAssignments(idMapper, hyvarrecOutput.getAttributeValues()));
+		configuration.getElements().addAll(getAttributeValueAssignments(idMapper, hyvarrecOutput.getAttributes()));
 
 		return configuration;
 	}
@@ -58,14 +58,16 @@ public class HyVarRecOutputTranslator {
 	 * @param attributeValues Integer representation for numberValues, booleanValues (0,1) and enumValues (value range)
 	 * @return List of attribute value assignments
 	 */
-	private static List<HyAttributeValueAssignment> getAttributeValueAssignments(ReconfiguratorIdMapping idMapper, List<AttributeValue> attributeValues) {
+	private static List<HyAttributeValueAssignment> getAttributeValueAssignments(ReconfiguratorIdMapping idMapper, List<Attribute> attributeValues) {
 		List<HyAttributeValueAssignment> attributeValueAssignments = new ArrayList<HyAttributeValueAssignment>();
 		
 		int processedValues = 0;
 		outerloop:
 		for(Map.Entry<HyFeatureAttribute, String> entry: idMapper.getAttributeIdMapping().entrySet()) {
-			for(AttributeValue attributeValue : attributeValues) {
-				if(attributeValue.getId().equals(entry.getValue())) {
+			for(Attribute attributeValue : attributeValues) {
+				String correctedId = "attribute["+attributeValue.getId()+"]";
+				
+				if(correctedId.equals(entry.getValue())) {
 					
 					HyFeatureAttribute featureAttribute = entry.getKey();
 					
@@ -133,18 +135,23 @@ public class HyVarRecOutputTranslator {
 	 * @return List of selected features and their version
 	 */	
 	private static List<HyFeatureSelection> getFeatureSelection(ReconfiguratorIdMapping idMapper, List<String> selectedFeatures) {
+		List<String> correctedIds = new ArrayList<String>();
+		for(String selectedFeature: selectedFeatures) {
+			correctedIds.add("feature["+selectedFeature+"]");
+		}
+		
 		List<HyFeatureSelection> featureSelections = new ArrayList<HyFeatureSelection>();
 		
 		Map<HyFeature, HyVersion> selectedFeaturesOrVersions = new HashMap<HyFeature, HyVersion>();
 
 		for(Map.Entry<HyFeature, String> entry: idMapper.getFeatureIdMapping().entrySet()) {
-			if(selectedFeatures.contains(entry.getValue())) {
+			if(correctedIds.contains(entry.getValue())) {
 				selectedFeaturesOrVersions.put(entry.getKey(), null);
 			}
 		}
 		
 		for(Map.Entry<HyVersion, String> entry: idMapper.getVersionIdMapping().entrySet()) {
-			if(selectedFeatures.contains(entry.getValue())) {
+			if(correctedIds.contains(entry.getValue())) {
 				selectedFeaturesOrVersions.put(entry.getKey().getFeature(), entry.getKey());
 			}
 		}

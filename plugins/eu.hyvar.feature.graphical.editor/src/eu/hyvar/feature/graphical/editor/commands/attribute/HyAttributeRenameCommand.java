@@ -44,6 +44,7 @@ public class HyAttributeRenameCommand extends HyLinearTemporalElementCommand {
 		oldName =  HyEvolutionUtil.getValidTemporalElement(attribute.getNames(), changeDate);
 
 		if(changeDate.equals(new Date(Long.MIN_VALUE))){
+			changeDate = null;
 			attribute.getNames().remove(oldName);
 		}
 		

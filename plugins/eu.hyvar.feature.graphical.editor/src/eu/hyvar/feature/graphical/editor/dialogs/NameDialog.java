@@ -69,7 +69,7 @@ public class NameDialog extends TableDialog{
 	}
 
 	@Override
-	protected void createEditorComponent(TableItem item, int index){
+	protected void createEditorComponent(TableItem item, final int index){
 		
 		// Clean up any previous editor control
 		Control oldEditor = editor.getEditor();

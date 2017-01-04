@@ -62,16 +62,19 @@ public class HyParentChildConnection{
 		if(!target.isValid(date) || !source.isValid(date))
 			return false;
 
-
 		HyGroupComposition composition = HyEvolutionUtil.getValidTemporalElement(target.getWrappedModelElement().getGroupMembership(), date);
-		if(composition == null) return false;
+		if(composition == null) 
+			return false;
 
-		HyFeatureChild child = HyEvolutionUtil.getValidTemporalElement(composition.getCompositionOf().getChildOf(), date);
-
+		// check if children match
 		HyFeatureChild sourceChild = HyEvolutionUtil.getValidTemporalElement(source.getWrappedModelElement().getParentOf(), date);
+		for(HyFeatureChild child : HyEvolutionUtil.getValidTemporalElements(source.getWrappedModelElement().getParentOf(), date)){
+			if(sourceChild.equals(child)){
+				return true;
+			}
+		}
 		
-		
-		return sourceChild.equals(child);
+		return false;
 	}
 
 	public boolean isVisible(){
@@ -84,8 +87,7 @@ public class HyParentChildConnection{
 		boolean old = this.highlight;
 
 		this.highlight = highlight;
-
-		changes.firePropertyChange(PROPERTY_HIGHLIGHTED, old, highlight);
+		changes.firePropertyChange(PROPERTY_HIGHLIGHTED, !highlight, highlight);
 	}
 
 	public HyFeatureModelWrapped getModel() {

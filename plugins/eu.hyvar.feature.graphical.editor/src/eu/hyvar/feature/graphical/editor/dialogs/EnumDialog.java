@@ -51,7 +51,7 @@ public class EnumDialog extends Dialog implements Listener{
 	    
 	    
 	    GridData gridData = new GridData(SWT.FILL, SWT.FILL, true, false);
-	    Combo enumDropdown = new Combo(container, SWT.DROP_DOWN | SWT.BORDER | SWT.READ_ONLY);
+	    final Combo enumDropdown = new Combo(container, SWT.DROP_DOWN | SWT.BORDER | SWT.READ_ONLY);
 	    enumDropdown.setLayoutData(gridData);
 	    for(HyEnum enumeration : featureModel.getEnums()){
 	    	enumDropdown.add(enumeration.getName());
@@ -62,7 +62,7 @@ public class EnumDialog extends Dialog implements Listener{
 	    }
 	    
 	    gridData = new GridData(SWT.FILL, SWT.FILL, true, true);
-	    List literalsList = new List(container, SWT.BORDER | SWT.V_SCROLL);
+	    final List literalsList = new List(container, SWT.BORDER | SWT.V_SCROLL);
 	    literalsList.setLayoutData(gridData);
 	    enumDropdown.addSelectionListener(new SelectionListener(){
 

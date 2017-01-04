@@ -163,12 +163,12 @@ public class HFMExporter extends HyFeatureExporter<DEFeatureModel> {
 			deGroup.setMaxCardinality(1);
 			break;
 		case AND:
-			deGroup.setMinCardinality(HyFeatureUtil.getAmountOfFeaturesOfGroup(group, HyFeatureTypeEnum.MANDATORY));
-			deGroup.setMaxCardinality(HyFeatureUtil.getAmountOfFeaturesOfGroup(group, null));
+			deGroup.setMinCardinality(HyFeatureUtil.getAmountOfFeaturesOfGroup(group, HyFeatureTypeEnum.MANDATORY, date));
+			deGroup.setMaxCardinality(HyFeatureUtil.getAmountOfFeaturesOfGroup(group, null, date));
 			break;
 		case OR:
 			deGroup.setMinCardinality(1);
-			deGroup.setMaxCardinality(HyFeatureUtil.getAmountOfFeaturesOfGroup(group, null));
+			deGroup.setMaxCardinality(HyFeatureUtil.getAmountOfFeaturesOfGroup(group, null, date));
 			break;		
 		}
 		

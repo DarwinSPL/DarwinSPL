@@ -31,7 +31,7 @@ public class ContextToModelMapper {
 	public static HyContextValue mapGPSToContextValue(double latitude, double longitude, HyContextModel contextModel) {
 		
 		for(HyContextualInformation contextInfo: contextModel.getContextualInformations()) {
-			if(contextInfo.getId().equals(POSITION_CONTEXT_NAME)) {
+			if(contextInfo.getName().equals(POSITION_CONTEXT_NAME)) {
 				for(HyEnum hyEnum: contextModel.getEnums()) {
 					if(hyEnum.getId().equals(POSITION_ENUM_NAME)) {
 						String positionId = "";

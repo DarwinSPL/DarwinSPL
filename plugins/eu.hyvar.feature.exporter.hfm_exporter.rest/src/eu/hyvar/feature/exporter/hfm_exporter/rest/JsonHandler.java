@@ -56,8 +56,10 @@ public class JsonHandler extends AbstractHandler {
 	
 	private static final String PROJECT_NAME = "hyvar_to_deltaecore";
 	
-	private static final String HYVAR_FOLDER = "hyvar_models";
-	private static final String DELTAECORE_FOLDER = "deltaecore_models";
+	// folders have to be the same. Otherwise the path in the mapping will point to different folders than the variant generator expects them to be
+	private static final String MODELS_FOLDER = "models";
+	private static final String HYVAR_FOLDER = MODELS_FOLDER;
+	private static final String DELTAECORE_FOLDER = MODELS_FOLDER;
 	
 	private static final String MSG_TYPE_JSON_HYVAR_TO_DELTAECORE_INPUT = "hyvar2deltaecore";
 	
@@ -90,12 +92,37 @@ public class JsonHandler extends AbstractHandler {
 
 			List<EObject> deltaEcoreModels = translateHyVarModelsToDeltaEcore(hyVarModels);
 			
-			String outputJson =createOutputJson(deltaEcoreModels);
+			boolean featureModelTranslated = false;
+			boolean configurationTranslated = false;
+			boolean mappingTranslated = false;
 			
-			response.setContentType("application/json; charset=utf-8");
-			PrintWriter out = response.getWriter();
-			out.write(outputJson);
-			response.setStatus(HttpServletResponse.SC_OK);
+			for(EObject deModel: deltaEcoreModels) {
+				if(deModel != null) {
+					if(deModel instanceof DEFeatureModel) {
+						featureModelTranslated = true;
+					} else if(deModel instanceof DEConfiguration) {
+						configurationTranslated = true;
+					} else if(deModel instanceof DEMappingModel) {
+						mappingTranslated = true;
+					}
+				}
+			}
+			
+			if(featureModelTranslated && configurationTranslated && mappingTranslated) {
+				String outputJson = createOutputJson(deltaEcoreModels);
+				System.out.println(outputJson);
+				
+				response.setContentType("application/json; charset=utf-8");
+				PrintWriter out = response.getWriter();
+				out.write(outputJson);
+				response.setStatus(HttpServletResponse.SC_OK);				
+			}
+			else {
+				PrintWriter out = response.getWriter();
+				out.write("Some models could not be translated");
+				response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);			
+			}
+			
 			baseRequest.setHandled(true);
 		}
 		

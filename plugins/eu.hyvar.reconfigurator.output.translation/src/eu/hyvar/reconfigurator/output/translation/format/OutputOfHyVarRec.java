@@ -1,74 +1,100 @@
 
 package eu.hyvar.reconfigurator.output.translation.format;
 
-import java.util.ArrayList;
 import java.util.List;
-import javax.annotation.Generated;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-@Generated("org.jsonschema2pojo")
+
+/**
+ * Final configuration
+ * 
+ */
 public class OutputOfHyVarRec {
 
     /**
-     * 
+     * The result may be sat or unsat
      * (Required)
      * 
      */
-    @SerializedName("selectedFeatures")
+    @SerializedName("result")
     @Expose
-    private List<String> selectedFeatures = new ArrayList<String>();
+    private String result;
     /**
-     * 
-     * (Required)
+     * list representing which features are selected
      * 
      */
-    @SerializedName("attribute_values")
+    @SerializedName("features")
     @Expose
-    private List<AttributeValue> attributeValues = new ArrayList<AttributeValue>();
+    private List<String> features = null;
+    /**
+     * list representing the values of the attributes
+     * 
+     */
+    @SerializedName("attributes")
+    @Expose
+    private List<Attribute> attributes = null;
 
     /**
-     * 
+     * The result may be sat or unsat
      * (Required)
      * 
      * @return
-     *     The selectedFeatures
+     *     The result
      */
-    public List<String> getSelectedFeatures() {
-        return selectedFeatures;
+    public String getResult() {
+        return result;
     }
 
     /**
-     * 
+     * The result may be sat or unsat
      * (Required)
      * 
-     * @param selectedFeatures
-     *     The selectedFeatures
+     * @param result
+     *     The result
      */
-    public void setSelectedFeatures(List<String> selectedFeatures) {
-        this.selectedFeatures = selectedFeatures;
+    public void setResult(String result) {
+        this.result = result;
     }
 
     /**
-     * 
-     * (Required)
+     * list representing which features are selected
      * 
      * @return
-     *     The attributeValues
+     *     The features
      */
-    public List<AttributeValue> getAttributeValues() {
-        return attributeValues;
+    public List<String> getFeatures() {
+        return features;
     }
 
     /**
+     * list representing which features are selected
      * 
-     * (Required)
-     * 
-     * @param attributeValues
-     *     The attribute_values
+     * @param features
+     *     The features
      */
-    public void setAttributeValues(List<AttributeValue> attributeValues) {
-        this.attributeValues = attributeValues;
+    public void setFeatures(List<String> features) {
+        this.features = features;
+    }
+
+    /**
+     * list representing the values of the attributes
+     * 
+     * @return
+     *     The attributes
+     */
+    public List<Attribute> getAttributes() {
+        return attributes;
+    }
+
+    /**
+     * list representing the values of the attributes
+     * 
+     * @param attributes
+     *     The attributes
+     */
+    public void setAttributes(List<Attribute> attributes) {
+        this.attributes = attributes;
     }
 
 }

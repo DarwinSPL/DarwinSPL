@@ -13,8 +13,8 @@ public class DwFeatureModelWizardNewFileCreationPage extends WizardNewFileCreati
 	public DwFeatureModelWizardNewFileCreationPage(String pageName, IStructuredSelection selection) {
 		super(pageName, selection);
 		
-		setTitle("TODO: Title");
-		setDescription("TODO: Description");
+		setTitle("New DarwinSPL Feature Model Wizard");
+		setDescription("Select a File where to store the new DarwinSPL Feature Model");
 		setFileName("FeatureModel.hyfeature");
 	}
 

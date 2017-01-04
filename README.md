@@ -9,7 +9,7 @@ Prerequisites:
 - DeltaEcore
 
 Installation:
-- Create Model and Edit Code for each *.genmodel file.
+- Create Model Code for each *.genmodel file.
 - Generate TextResources of all *.cs file (currently not necessary or possible due to a EMFText bug)
 
 

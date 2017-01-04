@@ -8,10 +8,14 @@ import java.util.List;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 
+import eu.hyvar.evolution.HyEvolutionUtil;
 import eu.hyvar.feature.HyFeature;
 import eu.hyvar.feature.HyFeatureModel;
+import eu.hyvar.feature.HyFeatureType;
 import eu.hyvar.feature.HyFeatureTypeEnum;
 import eu.hyvar.feature.HyGroup;
+import eu.hyvar.feature.HyGroupComposition;
+import eu.hyvar.feature.HyGroupType;
 import eu.hyvar.feature.HyGroupTypeEnum;
 import eu.hyvar.feature.HyVersion;
 
@@ -97,17 +101,15 @@ public class HyFeatureUtil {
 	 * @param groupChildren
 	 * @return
 	 */
-	public static boolean isAnd(HyGroup group) throws HyFeatureModelWellFormednessException {
+	public static boolean isAnd(HyGroup group, Date date) throws HyFeatureModelWellFormednessException {
 		if (group == null) {
 			System.err.println("Something bad happened. Group was null during isAnd check");
 			return false;
 		}
 		
-		if(group.getTypes().size()!=1) {
-			throw new HyFeatureModelWellFormednessException("Group", "Types", group.getTypes().size());
-		}
+		HyGroupType groupType = HyEvolutionUtil.getValidTemporalElement(group.getTypes(), date);
 		
-		return (group.getTypes().get(0).getType().equals(HyGroupTypeEnum.AND));
+		return (groupType.getType().equals(HyGroupTypeEnum.AND));
 	}
 	
 	/**
@@ -117,30 +119,27 @@ public class HyFeatureUtil {
 	 * @return
 	 * @throws HyFeatureModelWellFormednessException
 	 */
-	public static boolean isOr(HyGroup group) throws HyFeatureModelWellFormednessException {
+	public static boolean isOr(HyGroup group, Date date) throws HyFeatureModelWellFormednessException {
 		if (group == null) {
 			System.err.println("Something bad happened. Group was null during isOr check");
 			return false;
 		}
 
-		if(group.getTypes().size()!=1) {
-			throw new HyFeatureModelWellFormednessException("Group", "Types", group.getTypes().size());
-		}
+		HyGroupType groupType = HyEvolutionUtil.getValidTemporalElement(group.getTypes(), date);
 		
-		return (group.getTypes().get(0).getType().equals(HyGroupTypeEnum.OR));
+		return (groupType.getType().equals(HyGroupTypeEnum.OR));
 	}
 	
-	public static boolean isAlternative(HyGroup group) throws HyFeatureModelWellFormednessException {
+	public static boolean isAlternative(HyGroup group, Date date) throws HyFeatureModelWellFormednessException {
 		if (group == null) {
 			System.err.println("Something bad happened. Group was null during isAlternative check");
 			return false;
 		}
+		
 
-		if(group.getTypes().size()!=1) {
-			throw new HyFeatureModelWellFormednessException("Group", "Types", group.getTypes().size());
-		}
+		HyGroupType groupType = HyEvolutionUtil.getValidTemporalElement(group.getTypes(), date);
 		
-		return (group.getTypes().get(0).getType().equals(HyGroupTypeEnum.ALTERNATIVE));
+		return (groupType.getType().equals(HyGroupTypeEnum.ALTERNATIVE));
 	}
 	
 	/**
@@ -149,17 +148,14 @@ public class HyFeatureUtil {
 	 * @return
 	 * @throws HyFeatureModelWellFormednessException
 	 */
-	public static boolean isMandatory(HyFeature feature) throws HyFeatureModelWellFormednessException {
+	public static boolean isMandatory(HyFeature feature, Date date) throws HyFeatureModelWellFormednessException {
 		if(feature == null) {
 			System.err.println("Something bad happened. Feature was null during isMandatory check");
 			return false;
 		}
 		
-		if(feature.getTypes().size()!=1) {
-			throw new HyFeatureModelWellFormednessException("Feature", "Types", feature.getTypes().size());
-		}
-		
-		return (feature.getTypes().get(0).getType().equals(HyFeatureTypeEnum.MANDATORY));
+		HyFeatureType featureType = HyEvolutionUtil.getValidTemporalElement(feature.getTypes(), date);
+		return (featureType.getType().equals(HyFeatureTypeEnum.MANDATORY));
 	}
 	
 	/**
@@ -168,17 +164,14 @@ public class HyFeatureUtil {
 	 * @return
 	 * @throws HyFeatureModelWellFormednessException
 	 */
-	public static boolean isOptional(HyFeature feature) throws HyFeatureModelWellFormednessException {
+	public static boolean isOptional(HyFeature feature, Date date) throws HyFeatureModelWellFormednessException {
 		if(feature == null) {
 			System.err.println("Something bad happened. Feature was null during isMandatory check");
 			return false;
 		}
 		
-		if(feature.getTypes().size()!=1) {
-			throw new HyFeatureModelWellFormednessException("Feature", "Types", feature.getTypes().size());
-		}
-		
-		return (feature.getTypes().get(0).getType().equals(HyFeatureTypeEnum.OPTIONAL));
+		HyFeatureType featureType = HyEvolutionUtil.getValidTemporalElement(feature.getTypes(), date);
+		return (featureType.getType().equals(HyFeatureTypeEnum.OPTIONAL));
 	} 
 	
 	
@@ -188,16 +181,18 @@ public class HyFeatureUtil {
 	 * @param featureType null collects all features
 	 * @return
 	 */
-	public static int getAmountOfFeaturesOfGroup(HyGroup group, HyFeatureTypeEnum featureType) {
+	public static int getAmountOfFeaturesOfGroup(HyGroup group, HyFeatureTypeEnum featureType, Date date) {
+		HyGroupComposition validGroupCompotisition = HyEvolutionUtil.getValidTemporalElement(group.getParentOf(), date);
 		
 		if(featureType == null) {
-			return group.getParentOf().get(0).getFeatures().size();
+			return validGroupCompotisition.getFeatures().size();
 		}
 		
 		int features = 0;
 		
-		for(HyFeature feature: group.getParentOf().get(0).getFeatures()) {
-			if(feature.getTypes().get(0).equals(featureType)) {
+		for(HyFeature feature: validGroupCompotisition.getFeatures()) {
+			HyFeatureType validFeatureType = HyEvolutionUtil.getValidTemporalElement(feature.getTypes(), date);
+			if(validFeatureType.getType().equals(featureType)) {
 				features++;
 			}
 		}

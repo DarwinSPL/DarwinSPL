@@ -170,6 +170,23 @@ public class HyFeatureModelWrapped implements PropertyChangeListener {
 		
 		rearrangeFeatures();
 	}
+	
+	private void createRootFeature(){
+		HyRootFeature rootFeature = HyFeatureFactory.eINSTANCE.createHyRootFeature();
+		HyFeature feature = HyFeatureFactory.eINSTANCE.createHyFeature();
+		HyName name = HyEvolutionFactory.eINSTANCE.createHyName();
+		HyFeatureType type = HyFeatureFactory.eINSTANCE.createHyFeatureType();
+		type.setType(HyFeatureTypeEnum.MANDATORY);	
+		
+		name.setName("Root Feature");
+		feature.getNames().add(name);
+		feature.getTypes().add(type);
+		rootFeature.setFeature(feature);
+
+		model.getRootFeature().add(rootFeature);
+
+		model.getFeatures().add(feature);
+	}
 
 	public HyFeatureModelWrapped(HyFeatureModel model) {
 		this.model = model;
@@ -185,20 +202,7 @@ public class HyFeatureModelWrapped implements PropertyChangeListener {
 
 		// add a root feature to the model if the model is empty
 		if(model.getRootFeature().size() == 0){
-			HyRootFeature rootFeature = HyFeatureFactory.eINSTANCE.createHyRootFeature();
-			HyFeature feature = HyFeatureFactory.eINSTANCE.createHyFeature();
-			HyName name = HyEvolutionFactory.eINSTANCE.createHyName();
-			HyFeatureType type = HyFeatureFactory.eINSTANCE.createHyFeatureType();
-			type.setType(HyFeatureTypeEnum.MANDATORY);
-
-			name.setName("Root Feature");
-			feature.getNames().add(name);
-			feature.getTypes().add(type);
-			rootFeature.setFeature(feature);
-
-			model.getRootFeature().add(rootFeature);
-
-			model.getFeatures().add(feature);
+			createRootFeature();
 		}
 
 		HyFeature root = model.getRootFeature().get(0).getFeature();

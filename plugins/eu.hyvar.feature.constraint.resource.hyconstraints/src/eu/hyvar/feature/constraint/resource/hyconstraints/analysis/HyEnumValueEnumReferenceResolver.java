@@ -66,7 +66,7 @@ public class HyEnumValueEnumReferenceResolver implements eu.hyvar.feature.constr
 			}
 
 			@Override
-			public void addQuickFix(IHyexpressionQuickFix quickFix) {
+			public void addQuickFix(final IHyexpressionQuickFix quickFix) {
 				result.addQuickFix(new eu.hyvar.feature.constraint.resource.hyconstraints.IHyconstraintsQuickFix() {
 					
 					public String getImageKey() {

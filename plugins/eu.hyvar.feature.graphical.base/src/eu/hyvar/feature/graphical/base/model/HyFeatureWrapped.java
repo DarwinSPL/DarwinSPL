@@ -94,6 +94,16 @@ public class HyFeatureWrapped extends HyEditorChangeableElement{
 		
 		return false;
 	}
+	public HyGroupTypeEnum getModfierAtDate(Date date){
+		HyGroupComposition composition = HyEvolutionUtil.getValidTemporalElement(getWrappedModelElement().getGroupMembership(), date);
+		
+		if(composition != null){
+			HyGroupType type = HyEvolutionUtil.getValidTemporalElement(composition.getCompositionOf().getTypes(), date);
+			return type.getType();
+		}
+		
+		return null;
+	}
 	
 	public boolean hasVersionsAtDate(Date date) {
 		return !HyEvolutionUtil.getValidTemporalElements(getWrappedModelElement().getVersions(), date).isEmpty();

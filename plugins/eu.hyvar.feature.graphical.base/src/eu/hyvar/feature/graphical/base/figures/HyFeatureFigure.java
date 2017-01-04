@@ -319,6 +319,7 @@ public class HyFeatureFigure extends Figure{
 	private void updateContent(){
 		Date date = editor.getCurrentSelectedDate();
 		HyName name = HyEvolutionUtil.getValidTemporalElement(feature.getWrappedModelElement().getNames(), date);
+		
 		if(name != null){
 			getLabel().setText(name.getName());	
 		}else{
