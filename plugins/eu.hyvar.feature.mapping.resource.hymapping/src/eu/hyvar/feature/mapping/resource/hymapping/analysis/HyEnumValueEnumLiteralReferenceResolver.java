@@ -74,7 +74,7 @@ public class HyEnumValueEnumLiteralReferenceResolver implements
 					}
 
 					@Override
-					public void addQuickFix(IHyexpressionQuickFix quickFix) {
+					public void addQuickFix(final IHyexpressionQuickFix quickFix) {
 						result.addQuickFix(new IHymappingQuickFix() {
 
 							public String getImageKey() {
