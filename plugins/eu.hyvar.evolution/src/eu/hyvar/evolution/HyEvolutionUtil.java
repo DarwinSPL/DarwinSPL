@@ -347,4 +347,19 @@ public class HyEvolutionUtil {
 		return false;
 	}
 
+	
+
+	/**
+	 * Returns all LinearTemporalElements which follow element
+	 * @param element
+	 * @return
+	 */
+	public static List<HyLinearTemporalElement> getAllSupersedingElements(HyLinearTemporalElement element) {
+		List<HyLinearTemporalElement> linearTemporalElements = new ArrayList<HyLinearTemporalElement>();
+		
+		linearTemporalElements.add(element.getSupersedingElement());
+		linearTemporalElements.addAll(getAllSupersedingElements(element.getSupersedingElement()));
+		
+		return linearTemporalElements;
+	}
 }
