@@ -19,11 +19,7 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.draw2d.geometry.Point;
-import org.eclipse.emf.common.util.URI;
-import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
-import org.eclipse.emf.ecore.resource.ResourceSet;
-import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.gef.DefaultEditDomain;
 import org.eclipse.gef.GraphicalViewer;
 import org.eclipse.gef.KeyHandler;
@@ -57,6 +53,7 @@ import org.eclipse.ui.IEditorReference;
 import org.eclipse.ui.IFileEditorInput;
 import org.eclipse.ui.PlatformUI;
 
+import de.christophseidl.util.ecore.EcoreIOUtil;
 import eu.hyvar.evolution.HyEvolutionUtil;
 import eu.hyvar.feature.HyFeatureModel;
 import eu.hyvar.feature.expression.extensionpoints.IFeatureModelEditor;
@@ -250,23 +247,13 @@ public class HyGraphicalFeatureModelViewer extends GraphicalEditor implements IF
 		// save location to the file
 		this.file = file;
 
-		ResourceSet resourceSet = new ResourceSetImpl();
-		resource = resourceSet.createResource(URI.createURI(file.getLocationURI().toString()));
-
-		try{
-			resource.load(null);
-
-			modelWrapped = new HyFeatureModelWrapped((HyFeatureModel)resource.getContents().get(0));
-
-			setCurrentSelectedDateToMostActualDate();
-			setEditorTabText(file.getName());
-
-
-			loadLayout(file);
-		}catch(IOException e){
-			e.printStackTrace();
-			resource = null;
-		}
+		modelWrapped = new HyFeatureModelWrapped((HyFeatureModel)EcoreIOUtil.loadModel(file));
+		
+		setCurrentSelectedDateToMostActualDate();
+		
+		setEditorTabText(file.getName());
+		
+		loadLayout(file);
 	}
 
 	
@@ -481,7 +468,7 @@ public class HyGraphicalFeatureModelViewer extends GraphicalEditor implements IF
 
 
 	@Override
-	public EObject getInternalFeatureModel() {
+	public HyFeatureModel getInternalFeatureModel() {
 		return modelWrapped.getModel();
 	}
 
@@ -552,6 +539,5 @@ public class HyGraphicalFeatureModelViewer extends GraphicalEditor implements IF
 			e.printStackTrace();
 		}
 	}
-
 
 }
