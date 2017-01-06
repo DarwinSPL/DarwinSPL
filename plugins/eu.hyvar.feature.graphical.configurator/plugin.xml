@@ -8,7 +8,7 @@
             default="false"
             extensions="hyfeature"
             id="eu.hyvar.feature.graphical.configurator"
-            name="HyFeatureModel Graphical DeltaModule Configurator">
+            name="DarwinSPL Configurator">
       </editor>
    </extension>
 

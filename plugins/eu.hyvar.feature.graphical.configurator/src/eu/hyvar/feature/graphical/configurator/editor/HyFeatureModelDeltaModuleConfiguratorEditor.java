@@ -2,7 +2,6 @@ package eu.hyvar.feature.graphical.configurator.editor;
 
 import java.util.Date;
 
-
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.ecore.util.EContentAdapter;
 import org.eclipse.gef.GraphicalViewer;
@@ -15,39 +14,41 @@ import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Shell;
+import org.eclipse.ui.IEditorInput;
 
 import eu.hyvar.feature.HyFeatureModel;
 import eu.hyvar.feature.configuration.HyConfiguration;
 import eu.hyvar.feature.configuration.HyConfigurationFactory;
 import eu.hyvar.feature.graphical.base.editor.HyGraphicalFeatureModelViewer;
 import eu.hyvar.feature.graphical.configurator.composites.HySelectedConfigurationComposite;
+import eu.hyvar.feature.graphical.configurator.editor.listeners.DwDeriveVariantListener;
 import eu.hyvar.feature.graphical.configurator.factory.HyConfiguratorEditPartFactory;
-import eu.hyvar.feature.graphical.configurator.output.IHyConfigurationDerivation;
 
-public class HyFeatureModelDeltaModuleConfiguratorEditor extends HyGraphicalFeatureModelViewer implements IHyConfigurationDerivation{
+public class HyFeatureModelDeltaModuleConfiguratorEditor extends HyGraphicalFeatureModelViewer {
 	private Button validateButton;
 	private Button numberOfPossibleConfigurationsButton;
 	private HySelectedConfigurationComposite selectedConfigurationComposite;
 
-	HyConfiguration selectedConfiguration;
+	protected HyConfiguration selectedConfiguration;
 	
-	IHyConfigurationDerivation configurationDerivation;
+//	IHyConfigurationDerivation configurationDerivation;
 	
 	public HyConfiguration getSelectedConfiguration() {
 		return selectedConfiguration;
 	}
 	
-	@Override
 	public HyConfiguration getConfiguration() {
-		return selectedConfiguration;
+		return getSelectedConfiguration();
 	}
 
-	@Override
 	public HyFeatureModel getFeatureModel() {
-		return getFeatureModel();
+		if(getModelWrapped() == null) {
+			return null;
+		}
+		return getModelWrapped().getModel();			
 	}
 
-	@Override
 	public Date getDate() {
 		return getCurrentSelectedDate();
 	}
@@ -158,10 +159,16 @@ public class HyFeatureModelDeltaModuleConfiguratorEditor extends HyGraphicalFeat
 			}
 		});
 
-		selectedConfigurationComposite.getDeriveVariantButton().addSelectionListener(new SelectionAdapter() {
-			@Override
-			public void widgetSelected(SelectionEvent e) {
-			}
-		});
+		selectedConfigurationComposite.getDeriveVariantButton().addSelectionListener(new DwDeriveVariantListener(this));
+	}
+	
+	public Shell getShell() {
+		return this.getSite().getWorkbenchWindow().getShell();
+	}
+	
+	@Override
+	protected void setInput(IEditorInput input) {
+		super.setInput(input);
+		selectedConfiguration.setFeatureModel(getFeatureModel());
 	}
 }
