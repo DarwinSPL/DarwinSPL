@@ -9,5 +9,7 @@ Require-Bundle: org.deltaecore.feature,
  org.deltaecore.feature.configuration,
  eu.hyvar.feature,
  eu.hyvar.feature.exporter.hfm_exporter,
- eu.hyvar.feature.configuration
+ eu.hyvar.feature.configuration,
+ eu.hyvar.feature.mapping,
+ org.deltaecore.feature.mapping
 Export-Package: de.darwinspl.feature.configuration.variantgeneration
