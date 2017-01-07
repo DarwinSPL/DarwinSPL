@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<genmodel:GenModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore"
+    xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" modelDirectory="/de.evolution.framework.operations/src-gen" editDirectory="/de.evolution.framework.operations.edit/src-gen"
+    editorDirectory="/de.evolution.framework.operations.editor/src-gen" modelPluginID="de.evolution.framework.operations"
+    modelName="EvolutionOperation" rootExtendsClass="org.eclipse.emf.ecore.impl.MinimalEObjectImpl$Container"
+    testsDirectory="/de.evolution.framework.operations.tests/src-gen" importerID="org.eclipse.emf.importer.ecore"
+    complianceLevel="8.0" copyrightFields="false" operationReflection="true" importOrganizing="true">
+  <foreignModel>EvolutionOperation.ecore</foreignModel>
+  <genPackages prefix="EvolutionOperation" disposableProviderFactory="true" ecorePackage="EvolutionOperation.ecore#/">
+    <genClasses ecoreClass="EvolutionOperation.ecore#//AddName">
+      <genOperations ecoreOperation="EvolutionOperation.ecore#//AddName/execute">
+        <genParameters ecoreParameter="EvolutionOperation.ecore#//AddName/execute/name"/>
+        <genParameters ecoreParameter="EvolutionOperation.ecore#//AddName/execute/timestamp"/>
+      </genOperations>
+      <genOperations ecoreOperation="EvolutionOperation.ecore#//AddName/undo"/>
+    </genClasses>
+    <genClasses ecoreClass="EvolutionOperation.ecore#//EvoOp">
+      <genOperations ecoreOperation="EvolutionOperation.ecore#//EvoOp/execute"/>
+      <genOperations ecoreOperation="EvolutionOperation.ecore#//EvoOp/undo"/>
+    </genClasses>
+    <genClasses ecoreClass="EvolutionOperation.ecore#//ComplexOp">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute EvolutionOperation.ecore#//ComplexOp/name"/>
+      <genOperations ecoreOperation="EvolutionOperation.ecore#//ComplexOp/execute"/>
+      <genOperations ecoreOperation="EvolutionOperation.ecore#//ComplexOp/undo"/>
+      <genOperations ecoreOperation="EvolutionOperation.ecore#//ComplexOp/add">
+        <genParameters ecoreParameter="EvolutionOperation.ecore#//ComplexOp/add/operation"/>
+      </genOperations>
+      <genOperations ecoreOperation="EvolutionOperation.ecore#//ComplexOp/remove">
+        <genParameters ecoreParameter="EvolutionOperation.ecore#//ComplexOp/remove/operation"/>
+      </genOperations>
+    </genClasses>
+    <genClasses ecoreClass="EvolutionOperation.ecore#//AddFeatureTyp">
+      <genOperations ecoreOperation="EvolutionOperation.ecore#//AddFeatureTyp/execute">
+        <genParameters ecoreParameter="EvolutionOperation.ecore#//AddFeatureTyp/execute/timestamp"/>
+      </genOperations>
+      <genOperations ecoreOperation="EvolutionOperation.ecore#//AddFeatureTyp/undo"/>
+    </genClasses>
+    <genClasses ecoreClass="EvolutionOperation.ecore#//AddAttribute">
+      <genOperations ecoreOperation="EvolutionOperation.ecore#//AddAttribute/execute">
+        <genParameters ecoreParameter="EvolutionOperation.ecore#//AddAttribute/execute/timestamp"/>
+      </genOperations>
+      <genOperations ecoreOperation="EvolutionOperation.ecore#//AddAttribute/undo"/>
+    </genClasses>
+    <genClasses ecoreClass="EvolutionOperation.ecore#//AddFeature">
+      <genOperations ecoreOperation="EvolutionOperation.ecore#//AddFeature/execute">
+        <genParameters ecoreParameter="EvolutionOperation.ecore#//AddFeature/execute/name"/>
+        <genParameters ecoreParameter="EvolutionOperation.ecore#//AddFeature/execute/timestamp"/>
+      </genOperations>
+      <genOperations ecoreOperation="EvolutionOperation.ecore#//AddFeature/undo"/>
+    </genClasses>
+  </genPackages>
+</genmodel:GenModel>

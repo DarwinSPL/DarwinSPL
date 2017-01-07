@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ecore:EPackage xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="EvolutionOperation" nsURI="http://tu-bs.de/isf/evoOpFramework"
+    nsPrefix="EvolutionOperation">
+  <eClassifiers xsi:type="ecore:EClass" name="AddName">
+    <eOperations name="execute">
+      <eParameters name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eParameters name="timestamp" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDate"/>
+    </eOperations>
+    <eOperations name="undo"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="EvoOp">
+    <eOperations name="execute"/>
+    <eOperations name="undo"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ComplexOp">
+    <eOperations name="execute">
+      <eGenericType eClassifier="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EEList">
+        <eTypeArguments/>
+      </eGenericType>
+    </eOperations>
+    <eOperations name="undo"/>
+    <eOperations name="add">
+      <eParameters name="operation" eType="#//EvoOp"/>
+    </eOperations>
+    <eOperations name="remove">
+      <eParameters name="operation" eType="#//EvoOp"/>
+    </eOperations>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="AddFeatureTyp">
+    <eOperations name="execute">
+      <eParameters name="timestamp" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDate"/>
+    </eOperations>
+    <eOperations name="undo"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="AddAttribute">
+    <eOperations name="execute">
+      <eParameters name="timestamp" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDate"/>
+    </eOperations>
+    <eOperations name="undo"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="AddFeature">
+    <eOperations name="execute">
+      <eParameters name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eParameters name="timestamp" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDate"/>
+    </eOperations>
+    <eOperations name="undo"/>
+  </eClassifiers>
+</ecore:EPackage>
