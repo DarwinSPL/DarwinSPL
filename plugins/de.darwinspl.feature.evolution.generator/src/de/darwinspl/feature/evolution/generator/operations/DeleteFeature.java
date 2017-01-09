@@ -8,7 +8,7 @@ import eu.hyvar.feature.HyFeature;
 import eu.hyvar.feature.HyFeatureFactory;
 import eu.hyvar.feature.HyGroupComposition;
 
-public abstract class DeleteFeature implements EvolutionOperation {
+public class DeleteFeature implements EvolutionOperation {
 
 	protected HyFeature feature;
 	protected Date date;
@@ -25,6 +25,8 @@ public abstract class DeleteFeature implements EvolutionOperation {
 		}
 
 		feature.setValidUntil((Date) date.clone());
+		HyEvolutionUtil.getValidTemporalElement(feature.getNames(), date).setValidUntil((Date) date.clone());
+		HyEvolutionUtil.getValidTemporalElement(feature.getTypes(), date).setValidUntil((Date) date.clone());
 
 		// Remove feature from its old group
 

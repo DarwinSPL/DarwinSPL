@@ -8,11 +8,13 @@ import eu.hyvar.feature.HyFeature;
 import eu.hyvar.feature.HyFeatureChild;
 import eu.hyvar.feature.HyFeatureFactory;
 
-public class MergeFeatures extends DeleteFeature {
+public class MergeFeatures implements EvolutionOperation {
 
 	protected HyFeature source;
 	protected HyFeature target;
 	protected Date date;
+	
+	protected DeleteFeature deleteFeatureOperation;
 	
 	/**
 	 * The source feature is merged into the target feature at date @date . Children of source are moved under target
@@ -21,7 +23,7 @@ public class MergeFeatures extends DeleteFeature {
 	 * @param date
 	 */
 	public MergeFeatures(HyFeature source, HyFeature target, Date date) {
-		super(source, date);
+		deleteFeatureOperation = new DeleteFeature(source, date);
 		
 		this.source = source;
 		this.target = target;
@@ -34,11 +36,8 @@ public class MergeFeatures extends DeleteFeature {
 			throw new EvolutionOperationException();
 		}
 		
-		
-		// Delete source from model
-		super.applyOperation();
-		
-		
+		// Invalidate source in model
+		deleteFeatureOperation.applyOperation();		
 		
 		// Put old children of source to target
 		for(HyFeatureChild featureChild: HyEvolutionUtil.getValidTemporalElements(source.getParentOf(), date)) {
