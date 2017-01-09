@@ -15,6 +15,8 @@ import eu.hyvar.feature.HyFeatureType;
 import eu.hyvar.feature.HyFeatureTypeEnum;
 import eu.hyvar.feature.HyGroup;
 import eu.hyvar.feature.HyGroupComposition;
+import eu.hyvar.feature.HyGroupType;
+import eu.hyvar.feature.HyGroupTypeEnum;
 import eu.hyvar.feature.HyRootFeature;
 
 public class AddFeature implements EvolutionOperation {
@@ -107,13 +109,21 @@ public class AddFeature implements EvolutionOperation {
 		if (parentFeature != null) {
 			HyGroup group = HyFeatureFactory.eINSTANCE.createHyGroup();
 			group.setValidSince(date);
+			
+			HyGroupType groupType = HyFeatureFactory.eINSTANCE.createHyGroupType();
+			groupType.setValidSince(date);
+			groupType.setType(HyGroupTypeEnum.AND);
+			group.getTypes().add(groupType);
+			
 			HyFeatureChild featureChild = HyFeatureFactory.eINSTANCE.createHyFeatureChild();
 			featureChild.setValidSince(date);
 			featureChild.setChildGroup(group);
 			featureChild.setParent(parentFeature);
+			
 			HyGroupComposition groupComposition = HyFeatureFactory.eINSTANCE.createHyGroupComposition();
 			groupComposition.setValidSince(date);
 			groupComposition.setCompositionOf(group);
+			
 			featureModel.getGroups().add(group);
 			groupToAddTo = group;
 		}
