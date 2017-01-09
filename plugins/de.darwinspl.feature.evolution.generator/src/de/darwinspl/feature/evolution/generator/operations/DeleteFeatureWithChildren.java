@@ -11,17 +11,23 @@ import eu.hyvar.feature.HyFeatureChild;
 import eu.hyvar.feature.HyGroup;
 import eu.hyvar.feature.HyGroupComposition;
 
-public class DeleteFeatureWithChildren extends DeleteFeature {
+public class DeleteFeatureWithChildren implements EvolutionOperation {
+	
+	protected DeleteFeature deleteFeature;
+	protected HyFeature feature;
+	protected Date date;
 	
 	public DeleteFeatureWithChildren(HyFeature feature, Date date) {
-		super(feature, date);
+		this.feature = feature;
+		this.date = date;
+		deleteFeature = new DeleteFeature(feature, date);
 	}
 
 	@Override
 	public void applyOperation() throws EvolutionOperationException {
 		
 		// Invalidate feature itself
-		super.applyOperation();
+		deleteFeature.applyOperation();
 		
 		
 		invalidateSubElements(feature);
