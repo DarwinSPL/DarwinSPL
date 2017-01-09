@@ -5,9 +5,9 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="rootFeature" lowerBound="1"
         upperBound="-1" eType="#//HyRootFeature" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="features" upperBound="-1"
-        eType="#//HyFeature" containment="true"/>
+        eType="#//HyFeature" containment="true" eOpposite="#//HyFeature/featureModel"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="groups" upperBound="-1"
-        eType="#//HyGroup" containment="true"/>
+        eType="#//HyGroup" containment="true" eOpposite="#//HyGroup/featureModel"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="enums" upperBound="-1"
         eType="ecore:EClass ../../eu.hyvar.feature.data/model/DataValues.ecore#//HyEnum"
         containment="true"/>
@@ -30,6 +30,8 @@
         eType="#//HyFeatureAttribute" containment="true" eOpposite="#//HyFeatureAttribute/feature"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="types" lowerBound="1" upperBound="-1"
         eType="#//HyFeatureType" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="featureModel" lowerBound="1"
+        eType="#//HyFeatureModel" eOpposite="#//HyFeatureModel/features"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="HyGroup" eSuperTypes="../../eu.hyvar.evolution/model/Evolution.ecore#//HyTemporalElement">
     <eOperations name="isAlternative" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean">
@@ -47,6 +49,8 @@
         upperBound="-1" eType="#//HyFeatureChild" eOpposite="#//HyFeatureChild/childGroup"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="types" lowerBound="1" upperBound="-1"
         eType="#//HyGroupType" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="featureModel" lowerBound="1"
+        eType="#//HyFeatureModel" eOpposite="#//HyFeatureModel/groups"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="HyVersion" eSuperTypes="../../eu.hyvar.evolution/model/Evolution.ecore#//HyTemporalElement">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="number" lowerBound="1"
