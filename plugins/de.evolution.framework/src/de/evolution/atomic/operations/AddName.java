@@ -8,7 +8,6 @@ package de.evolution.atomic.operations;
 import de.evolution.framework.EvolutionOperation;
 
 /**
- * @author Marcel W
  *
  */
 public class AddName implements EvolutionOperation {

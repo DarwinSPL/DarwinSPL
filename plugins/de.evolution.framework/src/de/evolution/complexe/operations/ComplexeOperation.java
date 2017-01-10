@@ -8,7 +8,6 @@ import java.util.ArrayList;
 import de.evolution.framework.EvolutionOperation;
 
 /**
- * @author Marcel Wiertelorz
  *
  */
 public class ComplexeOperation implements EvolutionOperation {

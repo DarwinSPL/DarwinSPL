@@ -7,7 +7,6 @@ import de.evolution.framework.EvolutionOperation;
 //import eu.hyvar.feature.*;
 
 /**
- * @author Marcel Wiertelorz
  *
  */
 public class AddFeatureType implements EvolutionOperation {

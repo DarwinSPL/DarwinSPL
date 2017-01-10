@@ -6,7 +6,6 @@ package de.evolution.basis.operations;
 import de.evolution.framework.EvolutionOperation;
 
 /**
- * @author Marcel Wiertelorz
  *
  */
 public class AddFeature implements EvolutionOperation {
