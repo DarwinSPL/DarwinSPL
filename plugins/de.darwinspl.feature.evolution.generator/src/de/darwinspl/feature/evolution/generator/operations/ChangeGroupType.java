@@ -32,12 +32,12 @@ public class ChangeGroupType implements EvolutionOperation {
 		}
 		
 		HyGroupType newGroupType = HyFeatureFactory.eINSTANCE.createHyGroupType();
-		newGroupType.setValidSince(date);
+		newGroupType.setValidSince((Date)date.clone());
 
 		newGroupType.setType(newType);
 
 		HyGroupType oldGroupType = HyEvolutionUtil.getValidTemporalElement(group.getTypes(), date);
-		oldGroupType.setValidUntil(date);
+		oldGroupType.setValidUntil((Date)date.clone());
 
 //		newGroupType.setSupersedingElement(oldGroupType.getSupersedingElement());
 		

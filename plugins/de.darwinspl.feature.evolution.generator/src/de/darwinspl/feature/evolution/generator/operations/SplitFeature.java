@@ -81,23 +81,23 @@ public class SplitFeature implements EvolutionOperation {
 
 		if (groupOfSplittedFeatureType.equals(HyGroupTypeEnum.ALTERNATIVE)) {
 			HyGroup newGroup = HyFeatureFactory.eINSTANCE.createHyGroup();
-			newGroup.setValidSince(date);
+			newGroup.setValidSince((Date)date.clone());
 			featureToSplit.getFeatureModel().getGroups().add(newGroup);
 
 			HyFeature currentParentFeature = HyEvolutionUtil
 					.getValidTemporalElement(groupOfSplittedFeature.getChildOf(), date).getParent();
 			HyFeatureChild newFeatureChild = HyFeatureFactory.eINSTANCE.createHyFeatureChild();
-			newFeatureChild.setValidSince(date);
+			newFeatureChild.setValidSince((Date)date.clone());
 			newFeatureChild.setChildGroup(newGroup);
 			newFeatureChild.setParent(currentParentFeature);
 
 			HyGroupComposition newGroupComposition = HyFeatureFactory.eINSTANCE.createHyGroupComposition();
-			newGroupComposition.setValidSince(date);
+			newGroupComposition.setValidSince((Date)date.clone());
 			newGroupComposition.setCompositionOf(newGroup);
 			newGroupComposition.getFeatures().add(newlyAddedFeature);
 
 			HyGroupType newGroupType = HyFeatureFactory.eINSTANCE.createHyGroupType();
-			newGroupType.setValidSince(date);
+			newGroupType.setValidSince((Date)date.clone());
 			newGroupType.setType(HyGroupTypeEnum.AND);
 			newGroup.getTypes().add(newGroupType);
 		} 
@@ -105,8 +105,8 @@ public class SplitFeature implements EvolutionOperation {
 			// create new GC, add existing features, valid since
 			// date. Old GC valid until date, repair superseding
 			HyGroupComposition newGroupComposition = HyFeatureFactory.eINSTANCE.createHyGroupComposition();
-			newGroupComposition.setValidSince(date);
-			oldGroupComposition.setValidUntil(date);
+			newGroupComposition.setValidSince((Date)date.clone());
+			oldGroupComposition.setValidUntil((Date)date.clone());
 			groupOfSplittedFeature.getParentOf().add(newGroupComposition);
 
 			newGroupComposition.getFeatures().addAll(oldGroupComposition.getFeatures());

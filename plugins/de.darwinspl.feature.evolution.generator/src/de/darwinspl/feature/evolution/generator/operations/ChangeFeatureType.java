@@ -42,12 +42,12 @@ public class ChangeFeatureType implements EvolutionOperation {
 		}
 		
 		HyFeatureType newFeatureType = HyFeatureFactory.eINSTANCE.createHyFeatureType();
-		newFeatureType.setValidSince(date);
+		newFeatureType.setValidSince((Date)date.clone());
 		
 		newFeatureType.setType(newType);
 
 		HyFeatureType oldFeatureType = HyEvolutionUtil.getValidTemporalElement(feature.getTypes(), date);
-		oldFeatureType.setValidUntil(date);
+		oldFeatureType.setValidUntil((Date)date.clone());
 
 //		newFeatureType.setSupersedingElement(oldFeatureType.getSupersedingElement());
 		

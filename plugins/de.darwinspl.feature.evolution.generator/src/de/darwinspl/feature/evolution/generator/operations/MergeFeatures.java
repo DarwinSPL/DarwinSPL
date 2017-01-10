@@ -40,7 +40,7 @@ public class MergeFeatures implements EvolutionOperation {
 		
 		// Put old children of source to target
 		for(HyFeatureChild featureChild: HyEvolutionUtil.getValidTemporalElements(source.getParentOf(), date)) {
-			featureChild.setValidUntil(date);
+			featureChild.setValidUntil((Date)date.clone());
 			
 			HyFeatureChild newFeatureChild = HyFeatureFactory.eINSTANCE.createHyFeatureChild();
 			newFeatureChild.setParent(target);

@@ -36,21 +36,21 @@ public class MoveFeature implements EvolutionOperation {
 	public void applyOperation() throws EvolutionOperationException {
 		if(targetGroup == null) {
 			HyGroup newGroup = HyFeatureFactory.eINSTANCE.createHyGroup();
-			newGroup.setValidSince(date);
+			newGroup.setValidSince((Date)date.clone());
 			featureToMove.getFeatureModel().getGroups().add(newGroup);
 			
 			HyGroupType newGroupType = HyFeatureFactory.eINSTANCE.createHyGroupType();
-			newGroupType.setValidSince(date);
+			newGroupType.setValidSince((Date)date.clone());
 			newGroupType.setType(HyGroupTypeEnum.AND);
 			newGroup.getTypes().add(newGroupType);
 			
 			HyFeatureChild newFeatureChild = HyFeatureFactory.eINSTANCE.createHyFeatureChild();
-			newFeatureChild.setValidSince(date);
+			newFeatureChild.setValidSince((Date)date.clone());
 			newFeatureChild.setParent(newParentFeature);
 			newFeatureChild.setChildGroup(newGroup);
 			
 			HyGroupComposition newGroupComposition = HyFeatureFactory.eINSTANCE.createHyGroupComposition();
-			newGroupComposition.setValidSince(date);
+			newGroupComposition.setValidSince((Date)date.clone());
 			
 			targetGroup = newGroup;
 		}
@@ -59,10 +59,10 @@ public class MoveFeature implements EvolutionOperation {
 		if(!HyEvolutionUtil.getValidTemporalElement(targetGroup.getTypes(), date).getType().equals(HyGroupTypeEnum.AND)) {
 			HyFeatureType currentFeatureType = HyEvolutionUtil.getValidTemporalElement(featureToMove.getTypes(), date);
 			if(currentFeatureType.getType().equals(HyFeatureTypeEnum.MANDATORY)) {
-				currentFeatureType.setValidUntil(date);
+				currentFeatureType.setValidUntil((Date)date.clone());
 				
 				HyFeatureType newFeatureType = HyFeatureFactory.eINSTANCE.createHyFeatureType();
-				newFeatureType.setValidSince(date);
+				newFeatureType.setValidSince((Date)date.clone());
 				newFeatureType.setType(HyFeatureTypeEnum.OPTIONAL);
 				featureToMove.getTypes().add(newFeatureType);
 			}
@@ -73,10 +73,10 @@ public class MoveFeature implements EvolutionOperation {
 		HyGroupComposition currentMembership = HyEvolutionUtil.getValidTemporalElement(featureToMove.getGroupMembership(), date);
 		HyGroup currentGroup = currentMembership.getCompositionOf();
 		
-		currentMembership.setValidUntil(date);
+		currentMembership.setValidUntil((Date)date.clone());
 		
 		HyGroupComposition newCompositionOfOldGroup = HyFeatureFactory.eINSTANCE.createHyGroupComposition();
-		newCompositionOfOldGroup.setValidSince(date);
+		newCompositionOfOldGroup.setValidSince((Date)date.clone());
 		newCompositionOfOldGroup.setSupersededElement(currentMembership);
 		newCompositionOfOldGroup.setCompositionOf(currentGroup);
 		newCompositionOfOldGroup.getFeatures().addAll(currentMembership.getFeatures());
@@ -86,9 +86,9 @@ public class MoveFeature implements EvolutionOperation {
 		
 		// add feature to new group
 		HyGroupComposition currentTargetComposition = HyEvolutionUtil.getValidTemporalElement(targetGroup.getParentOf(), date);
-		currentTargetComposition.setValidUntil(date);
+		currentTargetComposition.setValidUntil((Date)date.clone());
 		HyGroupComposition newTargetComposition = HyFeatureFactory.eINSTANCE.createHyGroupComposition();
-		newTargetComposition.setValidSince(date);
+		newTargetComposition.setValidSince((Date)date.clone());
 		newTargetComposition.setSupersededElement(currentTargetComposition);
 		newTargetComposition.setCompositionOf(targetGroup);
 		newTargetComposition.getFeatures().addAll(currentTargetComposition.getFeatures());

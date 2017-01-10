@@ -28,10 +28,10 @@ public class MoveGroup implements EvolutionOperation {
 	@Override
 	public void applyOperation() throws EvolutionOperationException {
 		HyFeatureChild oldFeatureChild = HyEvolutionUtil.getValidTemporalElement(groupToMove.getChildOf(), date);
-		oldFeatureChild.setValidUntil(date);
+		oldFeatureChild.setValidUntil((Date)date.clone());
 		
 		HyFeatureChild newFeatureChild = HyFeatureFactory.eINSTANCE.createHyFeatureChild();
-		newFeatureChild.setValidSince(date);
+		newFeatureChild.setValidSince((Date)date.clone());
 		newFeatureChild.setChildGroup(groupToMove);
 		newFeatureChild.setParent(targetParent);
 		

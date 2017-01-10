@@ -108,20 +108,20 @@ public class AddFeature implements EvolutionOperation {
 
 		if (parentFeature != null) {
 			HyGroup group = HyFeatureFactory.eINSTANCE.createHyGroup();
-			group.setValidSince(date);
+			group.setValidSince((Date)date.clone());
 			
 			HyGroupType groupType = HyFeatureFactory.eINSTANCE.createHyGroupType();
-			groupType.setValidSince(date);
+			groupType.setValidSince((Date)date.clone());
 			groupType.setType(HyGroupTypeEnum.AND);
 			group.getTypes().add(groupType);
 			
 			HyFeatureChild featureChild = HyFeatureFactory.eINSTANCE.createHyFeatureChild();
-			featureChild.setValidSince(date);
+			featureChild.setValidSince((Date)date.clone());
 			featureChild.setChildGroup(group);
 			featureChild.setParent(parentFeature);
 			
 			HyGroupComposition groupComposition = HyFeatureFactory.eINSTANCE.createHyGroupComposition();
-			groupComposition.setValidSince(date);
+			groupComposition.setValidSince((Date)date.clone());
 			groupComposition.setCompositionOf(group);
 			
 			featureModel.getGroups().add(group);
@@ -130,11 +130,11 @@ public class AddFeature implements EvolutionOperation {
 
 		if (groupToAddTo != null) {
 			HyGroupComposition oldGroupComposition = HyEvolutionUtil.getValidTemporalElement(groupToAddTo.getParentOf(),
-					date);
-			oldGroupComposition.setValidUntil(date);
+					(Date)date.clone());
+			oldGroupComposition.setValidUntil((Date)date.clone());
 
 			HyGroupComposition newGroupComposition = HyFeatureFactory.eINSTANCE.createHyGroupComposition();
-			newGroupComposition.setValidSince(date);
+			newGroupComposition.setValidSince((Date)date.clone());
 			newGroupComposition.setCompositionOf(groupToAddTo);
 			newGroupComposition.getFeatures().addAll(oldGroupComposition.getFeatures());
 			newGroupComposition.getFeatures().add(addedFeature);
@@ -153,9 +153,9 @@ public class AddFeature implements EvolutionOperation {
 		}
 		// Root feature
 		else {
-			HyRootFeature oldRootFeature = HyEvolutionUtil.getValidTemporalElement(featureModel.getRootFeature(), date);
+			HyRootFeature oldRootFeature = HyEvolutionUtil.getValidTemporalElement(featureModel.getRootFeature(), (Date)date.clone());
 			HyRootFeature newRootFeature = HyFeatureFactory.eINSTANCE.createHyRootFeature();
-			newRootFeature.setValidSince(date);
+			newRootFeature.setValidSince((Date)date.clone());
 			featureModel.getRootFeature().add(newRootFeature);
 			newRootFeature.setFeature(addedFeature);
 

@@ -70,9 +70,9 @@ public class DeleteFeatureWithChildren implements EvolutionOperation {
 	
 	private void invalidateElement(HyTemporalElement element) {
 		if(element.getValidSince().after(date)) {
-			element.setValidSince(date);
+			element.setValidSince((Date)date.clone());
 		}
-		element.setValidUntil(date);
+		element.setValidUntil((Date)date.clone());
 	}
 	
 	

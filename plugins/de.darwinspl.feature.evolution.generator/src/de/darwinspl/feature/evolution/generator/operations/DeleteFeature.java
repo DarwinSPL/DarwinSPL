@@ -32,20 +32,19 @@ public class DeleteFeature implements EvolutionOperation {
 
 		// Remove feature from its old group
 
-		HyGroupComposition oldGroupComposition = HyEvolutionUtil.getValidTemporalElement(feature.getGroupMembership(),
-				date);
+		HyGroupComposition oldGroupComposition = HyEvolutionUtil.getValidTemporalElement(feature.getGroupMembership(),date);
 		Date oldValidUntilOfGroup = oldGroupComposition.getValidUntil();
-		oldGroupComposition.setValidUntil(date);
+		oldGroupComposition.setValidUntil((Date)date.clone());
 		
 		// if feature was the only one in the group, group can be invalidated and operation is finished.
 		if(oldGroupComposition.getFeatures().size() == 1) {
-			oldGroupComposition.getCompositionOf().setValidUntil(date);
+			oldGroupComposition.getCompositionOf().setValidUntil((Date)date.clone());
 			return;
 		}
 		
 
 		HyGroupComposition newGroupComposition = HyFeatureFactory.eINSTANCE.createHyGroupComposition();
-		newGroupComposition.setValidSince(date);
+		newGroupComposition.setValidSince((Date)date.clone());
 		newGroupComposition.setValidUntil(oldValidUntilOfGroup);
 
 		for (HyFeature groupFeature : oldGroupComposition.getFeatures()) {
