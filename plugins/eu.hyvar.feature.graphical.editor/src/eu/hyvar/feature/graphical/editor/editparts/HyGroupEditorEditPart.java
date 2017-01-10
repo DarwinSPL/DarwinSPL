@@ -91,7 +91,10 @@ public class HyGroupEditorEditPart extends HyGroupEditPart {
 			HyGroupWrapped model = ((HyGroupWrapped)getModel());
 			
 			HyFeatureWrapped parentFeature = featureModel.getParentFeatureForGroup((HyGroupWrapped)getModel(), featureModel.getSelectedDate());
-			parentFeature.addPropertyChangeListener(this);
+			
+			if(parentFeature != null)
+				parentFeature.addPropertyChangeListener(this);
+			
 			for(HyFeatureWrapped child : model.getFeatures()){
 				child.addPropertyChangeListener(this);
 			}
