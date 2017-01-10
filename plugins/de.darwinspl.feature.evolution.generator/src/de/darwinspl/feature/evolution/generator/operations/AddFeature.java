@@ -139,7 +139,7 @@ public class AddFeature implements EvolutionOperation {
 			newGroupComposition.getFeatures().addAll(oldGroupComposition.getFeatures());
 			newGroupComposition.getFeatures().add(addedFeature);
 
-			newGroupComposition.setSupersedingElement(oldGroupComposition.getSupersedingElement());
+//			newGroupComposition.setSupersedingElement(oldGroupComposition.getSupersedingElement());
 
 			// Check if old group composition can be deleted
 			if (oldGroupComposition.getValidSince().equals(oldGroupComposition.getValidUntil())) {

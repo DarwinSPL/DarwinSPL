@@ -3,7 +3,6 @@ package de.darwinspl.feature.evolution.generator.operations;
 import java.util.Date;
 
 import eu.hyvar.evolution.HyEvolutionUtil;
-import eu.hyvar.evolution.HyLinearTemporalElement;
 import eu.hyvar.feature.HyFeature;
 import eu.hyvar.feature.HyFeatureChild;
 import eu.hyvar.feature.HyFeatureFactory;
@@ -47,10 +46,8 @@ public class MergeFeatures implements EvolutionOperation {
 			newFeatureChild.setParent(target);
 			newFeatureChild.setChildGroup(featureChild.getChildGroup());
 			
-			// Repair superseding relation. I hope this is the right direction.
-			HyLinearTemporalElement oldSupersedingFeatureChild = featureChild.getSupersedingElement();
-			featureChild.setSupersedingElement(newFeatureChild);
-			newFeatureChild.setSupersedingElement(oldSupersedingFeatureChild);
+			newFeatureChild.setSupersededElement(featureChild);
+			
 		}
 		
 	}

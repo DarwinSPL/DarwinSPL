@@ -49,7 +49,7 @@ public class ChangeFeatureType implements EvolutionOperation {
 		HyFeatureType oldFeatureType = HyEvolutionUtil.getValidTemporalElement(feature.getTypes(), date);
 		oldFeatureType.setValidUntil(date);
 
-		newFeatureType.setSupersedingElement(oldFeatureType.getSupersedingElement());
+//		newFeatureType.setSupersedingElement(oldFeatureType.getSupersedingElement());
 		
 		// Check if old group composition can be deleted
 		if (oldFeatureType.getValidSince().equals(oldFeatureType.getValidUntil())) {

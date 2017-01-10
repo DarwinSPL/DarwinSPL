@@ -39,7 +39,7 @@ public class ChangeGroupType implements EvolutionOperation {
 		HyGroupType oldGroupType = HyEvolutionUtil.getValidTemporalElement(group.getTypes(), date);
 		oldGroupType.setValidUntil(date);
 
-		newGroupType.setSupersedingElement(oldGroupType.getSupersedingElement());
+//		newGroupType.setSupersedingElement(oldGroupType.getSupersedingElement());
 		
 		// Check if old group composition can be deleted
 		if (oldGroupType.getValidSince().equals(oldGroupType.getValidUntil())) {

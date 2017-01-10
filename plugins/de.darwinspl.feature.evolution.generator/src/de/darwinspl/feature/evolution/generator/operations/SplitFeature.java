@@ -112,8 +112,6 @@ public class SplitFeature implements EvolutionOperation {
 			newGroupComposition.getFeatures().addAll(oldGroupComposition.getFeatures());
 			newGroupComposition.getFeatures().add(newlyAddedFeature);
 
-			newGroupComposition.setSupersedingElement(oldGroupComposition.getSupersedingElement());
-
 			if (oldGroupComposition.getValidUntil().equals(oldGroupComposition.getValidSince())) {
 				// Check if old group composition can be deleted
 				HyLinearTemporalElement oldSupersededElement = oldGroupComposition.getSupersededElement();

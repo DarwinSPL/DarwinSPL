@@ -2,6 +2,8 @@ package de.darwinspl.feature.evolution.generator.operations;
 
 import java.util.Date;
 
+import org.eclipse.emf.ecore.util.EcoreUtil;
+
 import eu.hyvar.evolution.HyEvolutionUtil;
 import eu.hyvar.evolution.HyLinearTemporalElement;
 import eu.hyvar.feature.HyFeature;
@@ -55,9 +57,13 @@ public class DeleteFeature implements EvolutionOperation {
 		newGroupComposition.setCompositionOf(oldGroupComposition.getCompositionOf());
 
 		// Repair superseding relation. I hope this is the right direction.
-		HyLinearTemporalElement oldSupersedingGroupComposition = oldGroupComposition.getSupersedingElement();
-		oldGroupComposition.setSupersedingElement(newGroupComposition);
-		newGroupComposition.setSupersedingElement(oldSupersedingGroupComposition);
+		if (oldGroupComposition.getValidSince().equals(oldGroupComposition.getValidUntil())) {
+			HyLinearTemporalElement oldSupersededElement = oldGroupComposition.getSupersededElement();
+			EcoreUtil.delete(oldGroupComposition);
+			newGroupComposition.setSupersededElement(oldSupersededElement);
+		} else {
+			newGroupComposition.setSupersededElement(oldGroupComposition);
+		}
 	}
 
 }
