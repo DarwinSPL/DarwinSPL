@@ -1,7 +1,7 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Framework
-Bundle-SymbolicName: de.evolution.framework
+Bundle-SymbolicName: de.darwinspl.feature.evolution
 Bundle-Version: 1.0.0.qualifier
 Bundle-Activator: de.evolution.framework.Activator
 Require-Bundle: org.eclipse.ui,
