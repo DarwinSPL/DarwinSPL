@@ -35,7 +35,7 @@ public class HyFeatureResolverUtil {
 		
 		List<HyFeature> validFeatures = new ArrayList<HyFeature>();
 		for(HyFeature feature: featureModel.getFeatures()) {
-			String name = HyFeatureEvolutionUtil.getValidName(feature.getNames(), date).getName();
+			String name = HyFeatureEvolutionUtil.getName(feature.getNames(), date).getName();
 			if(name != null && name.equals(identifier)) {
 				validFeatures.add(feature);
 			}
@@ -95,7 +95,7 @@ public class HyFeatureResolverUtil {
 	
 	public static String deresolveFeature(HyFeature feature, Date date) {
 		// TODO incorporate evolution! For every element!
-		String identifier = HyFeatureEvolutionUtil.getValidName(feature.getNames(), date).getName();
+		String identifier = HyFeatureEvolutionUtil.getName(feature.getNames(), date).getName();
 		
 		//Standard TEXT token regular expression
 		String textTokenRegularExpression = "[A-Za-z_][A-Za-z0-9_]*";
@@ -137,7 +137,7 @@ public class HyFeatureResolverUtil {
 		
 		List<HyFeatureAttribute> validAttributes = new ArrayList<HyFeatureAttribute>();
 		for(HyFeatureAttribute attribute: containingFeature.getAttributes()) {
-			String name = HyFeatureEvolutionUtil.getValidName(attribute.getNames(), date).getName();
+			String name = HyFeatureEvolutionUtil.getName(attribute.getNames(), date).getName();
 			if(name.equals(identifier)) {
 				validAttributes.add(attribute);
 			}
@@ -206,9 +206,9 @@ public class HyFeatureResolverUtil {
 	public static String deresolveFeatureAttribute(HyFeatureAttribute attribute, Date date) {
 		String name = "";
 		HyFeature feature = attribute.getFeature();
-		name += HyFeatureEvolutionUtil.getValidName(feature.getNames(), date).getName();
+		name += HyFeatureEvolutionUtil.getName(feature.getNames(), date).getName();
 		name += ".";
-		name += HyFeatureEvolutionUtil.getValidName(attribute.getNames(), date).getName();
+		name += HyFeatureEvolutionUtil.getName(attribute.getNames(), date).getName();
 		return name;
 	}
 }

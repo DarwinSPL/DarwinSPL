@@ -20,6 +20,7 @@ import eu.hyvar.feature.HyFeatureModel;
 import eu.hyvar.feature.HyFeatureType;
 import eu.hyvar.feature.HyGroup;
 import eu.hyvar.feature.HyGroupComposition;
+import eu.hyvar.feature.HyGroupType;
 import eu.hyvar.feature.HyRootFeature;
 import eu.hyvar.feature.HyVersion;
 
@@ -38,7 +39,7 @@ public class HyFeatureEvolutionUtil {
 		return false;
 	}
 	
-	public static List<HyGroup> getValidChildsOfFeature(HyFeature feature, Date date) {
+	public static List<HyGroup> getChildsOfFeature(HyFeature feature, Date date) {
 		List<HyGroup> validGroups = new ArrayList<HyGroup>();
 
 		@SuppressWarnings("unchecked")
@@ -52,49 +53,49 @@ public class HyFeatureEvolutionUtil {
 		return validGroups;
 	}
 
-	public static List<HyFeature> getValidChildsOfGroup(HyGroup group, Date date) {
+	public static List<HyFeature> getChildsOfGroup(HyGroup group, Date date) {
 		// TODO Assumption: Feature validity >= GroupComposition validity
-		return getValidGroupComposition(group, date).getFeatures();
+		return getGroupComposition(group, date).getFeatures();
 	}
 
-	public static HyName getValidName(EList<HyName> names, Date date) {
+	public static HyName getName(EList<HyName> names, Date date) {
 		return (HyName) HyEvolutionUtil.getValidTemporalElement(names, date);
 	}
 
 	@SuppressWarnings("unchecked")
-	public static List<HyVersion> getValidFeatureVersions(HyFeature feature, Date date) {
+	public static List<HyVersion> getFeatureVersions(HyFeature feature, Date date) {
 		return (List<HyVersion>) (List<?>) HyEvolutionUtil.getValidTemporalElements(feature.getVersions(), date);
 	}
 
-	public static HyFeature getValidRootFeature(HyFeatureModel featureModel, Date date) {
+	public static HyFeature getRootFeature(HyFeatureModel featureModel, Date date) {
 		HyTemporalElement validTemporalElement = HyEvolutionUtil.getValidTemporalElement(featureModel.getRootFeature(), date);
 		HyRootFeature rootFeature = (HyRootFeature) validTemporalElement;
 		HyFeature rootFeatureFeature = rootFeature.getFeature();
 		return rootFeatureFeature;
 	}
 
-	public static HyGroupComposition getValidGroupComposition(HyGroup group, Date date) {
+	public static HyGroupComposition getGroupComposition(HyGroup group, Date date) {
 		// TODO assumption: only one valid GroupComposition at a time
 		return (HyGroupComposition) HyEvolutionUtil.getValidTemporalElement(group.getParentOf(), date);
 	}
 
-	public static HyFeatureChild getValidFeatureChild(HyGroup group, Date date) {
+	public static HyFeatureChild getFeatureChild(HyGroup group, Date date) {
 		// TODO assumption: only one valid FeatureChild of a group at a time
 		return (HyFeatureChild) HyEvolutionUtil.getValidTemporalElement(group.getChildOf(), date);
 	}
 
 	@SuppressWarnings("unchecked")
-	public static List<HyEnum> getValidEnums(HyFeatureModel featureModel, Date date) {
+	public static List<HyEnum> getEnums(HyFeatureModel featureModel, Date date) {
 		return (List<HyEnum>) (List<?>) HyEvolutionUtil.getValidTemporalElements(featureModel.getEnums(), date);
 	}
 
 	@SuppressWarnings({ "unchecked" })
-	public static List<HyFeatureAttribute> getValidAttributes(HyFeature feature, Date date) {
+	public static List<HyFeatureAttribute> getAttributes(HyFeature feature, Date date) {
 		return (List<HyFeatureAttribute>) (List<?>) HyEvolutionUtil.getValidTemporalElements(feature.getAttributes(), date);
 	}
 
 	@SuppressWarnings("unchecked")
-	public static List<HyEnumValue> getValidEnumLiterals(HyEnum hyEnum, Date date) {
+	public static List<HyEnumValue> getEnumLiterals(HyEnum hyEnum, Date date) {
 		return (List<HyEnumValue>) (List<?>) HyEvolutionUtil.getValidTemporalElements(hyEnum.getLiterals(), date);
 	}
 
@@ -292,8 +293,20 @@ public class HyFeatureEvolutionUtil {
 	}
 
 	
-	public static HyFeatureType getValidType(HyFeature feature, Date date) {		
+	public static HyFeatureType getType(HyFeature feature, Date date) {		
 		return HyEvolutionUtil.getValidTemporalElement(feature.getTypes(), date);
+	}
+	
+	public static HyGroupType getType(HyGroup group, Date date) {
+		return HyEvolutionUtil.getValidTemporalElement(group.getTypes(), date);
+	}
+	
+	public static List<HyFeature> getFeatures(HyFeatureModel featureModel, Date date) {
+		return HyEvolutionUtil.getValidTemporalElements(featureModel.getFeatures(), date);
+	}
+	
+	public static List<HyGroup> getGroups(HyFeatureModel featureModel, Date date) {
+		return HyEvolutionUtil.getValidTemporalElements(featureModel.getGroups(), date);
 	}
 
 	public static boolean isMandatory(HyFeature feature, Date date) {
@@ -303,5 +316,13 @@ public class HyFeatureEvolutionUtil {
 
 	public static boolean isOptional(HyFeature feature, Date date) {
 		return feature.isOptional(date);
+	}
+	
+	public static boolean isLeaf(HyFeature feature, Date date) {
+		return HyEvolutionUtil.getValidTemporalElements(feature.getParentOf(), date).isEmpty();
+	}
+	
+	public static boolean isInGroup(HyFeature feature, HyGroup group, Date date) {
+		return getFeaturesOfGroup(group, date).contains(feature);
 	}
 }
