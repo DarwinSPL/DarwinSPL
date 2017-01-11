@@ -414,9 +414,6 @@ public class HydatavaluePrinter implements eu.hyvar.dataValues.resource.hydatava
 				// DEFINITION PART BEGINS (CsString)
 				out.print("-");
 				out.print(" ");
-				// DEFINITION PART BEGINS (CsString)
-				out.print("eternity");
-				out.print(" ");
 			}
 			break;
 			case 2:			{

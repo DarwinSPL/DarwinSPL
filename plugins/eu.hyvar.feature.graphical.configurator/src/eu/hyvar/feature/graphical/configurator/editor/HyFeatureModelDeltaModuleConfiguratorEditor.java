@@ -34,9 +34,12 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.IEditorSite;
 import org.eclipse.ui.PartInitException;
+import org.eclipse.swt.widgets.Shell;
+import org.eclipse.ui.IEditorInput;
 
 import de.christophseidl.util.ecore.EcoreIOUtil;
 import eu.hyvar.context.HyContextModel;
+import eu.hyvar.context.information.util.HyContextInformationUtil;
 import eu.hyvar.feature.HyFeatureModel;
 import eu.hyvar.feature.configuration.HyConfiguration;
 import eu.hyvar.feature.configuration.HyConfigurationFactory;
@@ -44,11 +47,11 @@ import eu.hyvar.feature.configuration.util.HyConfigurationUtil;
 import eu.hyvar.feature.graphical.base.editor.HyGraphicalFeatureModelViewer;
 import eu.hyvar.feature.graphical.configurator.composites.HySelectedConfigurationComposite;
 import eu.hyvar.feature.graphical.configurator.dialogs.HyContextInformationDialog;
+import eu.hyvar.feature.graphical.configurator.editor.listeners.DwDeriveVariantListener;
 import eu.hyvar.feature.graphical.configurator.factory.HyConfiguratorEditPartFactory;
-import eu.hyvar.feature.graphical.configurator.output.IHyConfigurationDerivation;
 import eu.hyvar.feature.graphical.configurator.reconfigurator.HyReconfiguratorClient;
 
-public class HyFeatureModelDeltaModuleConfiguratorEditor extends HyGraphicalFeatureModelViewer implements IHyConfigurationDerivation{
+public class HyFeatureModelDeltaModuleConfiguratorEditor extends HyGraphicalFeatureModelViewer {
 	private Button validateButton;
 	private Button numberOfPossibleConfigurationsButton;
 	private Button setContextInformationsButton;
@@ -57,10 +60,10 @@ public class HyFeatureModelDeltaModuleConfiguratorEditor extends HyGraphicalFeat
 
 	private HyContextModel model;
 
-	HyConfiguration selectedConfiguration;
+	protected HyConfiguration selectedConfiguration;
 	HyConfiguration suggestedConfiguration;
 
-	IHyConfigurationDerivation configurationDerivation;
+//	IHyConfigurationDerivation configurationDerivation;
 
 
 
@@ -68,17 +71,17 @@ public class HyFeatureModelDeltaModuleConfiguratorEditor extends HyGraphicalFeat
 		return selectedConfiguration;
 	}
 
-	@Override
 	public HyConfiguration getConfiguration() {
-		return selectedConfiguration;
+		return getSelectedConfiguration();
 	}
 
-	@Override
 	public HyFeatureModel getFeatureModel() {
-		return getFeatureModel();
+		if(getModelWrapped() == null) {
+			return null;
+		}
+		return getModelWrapped().getModel();			
 	}
 
-	@Override
 	public Date getDate() {
 		return getCurrentSelectedDate();
 	}
@@ -86,9 +89,9 @@ public class HyFeatureModelDeltaModuleConfiguratorEditor extends HyGraphicalFeat
 	public HyFeatureModelDeltaModuleConfiguratorEditor() {
 		super();
 
-		Resource.Factory.Registry reg = Resource.Factory.Registry.INSTANCE;
-		Map<String, Object> m = reg.getExtensionToFactoryMap();
-		m.put("hycontextinformation", new XMIResourceFactoryImpl());
+//		Resource.Factory.Registry reg = Resource.Factory.Registry.INSTANCE;
+//		Map<String, Object> m = reg.getExtensionToFactoryMap();
+//		m.put("hycontextinformation", new XMIResourceFactoryImpl());
 
 		selectedConfiguration = HyConfigurationFactory.eINSTANCE.createHyConfiguration();		
 	}
@@ -133,52 +136,30 @@ public class HyFeatureModelDeltaModuleConfiguratorEditor extends HyGraphicalFeat
 		
 		EcoreIOUtil.saveModelAs(selectedConfiguration, workspaceRoot.getFile(path));		
 
-		Path spath = Paths.get( workspaceRoot.getFile(path).getLocationURI().getPath());
-		Charset charset = StandardCharsets.UTF_8;
+//		Path spath = Paths.get( workspaceRoot.getFile(path).getLocationURI().getPath());
+//		Charset charset = StandardCharsets.UTF_8;
 
-		String content;
-		
-		String poiseningString = workspaceRoot.getFile(path).getLocationURI().toString().replace(path.lastSegment(), "");
-		try {
-			content = new String(Files.readAllBytes(spath), charset);
-			
-			content = content.replaceAll(poiseningString, "");
-			Files.write(spath, content.getBytes(charset));
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
-	}
-	private EObject loadResource(String extension){
-		IPath path = ((IPath)file.getFullPath().clone()).removeFileExtension().addFileExtension(extension);
-
-		Resource resource = resourceSet.createResource(URI.createPlatformResourceURI(path.toString(), false));
-
-		try {
-			resource.load(null);
-
-
-		} catch (IOWrappedException e){
-			return null;
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			return null;
-		} catch(Exception e){
-			e.printStackTrace();
-			return null;
-		}
-
-		return resource.getContents().get(0);
+//		String content;
+//		
+//		String poiseningString = workspaceRoot.getFile(path).getLocationURI().toString().replace(path.lastSegment(), "");
+//		try {
+//			content = new String(Files.readAllBytes(spath), charset);
+//			
+//			content = content.replaceAll(poiseningString, "");
+//			Files.write(spath, content.getBytes(charset));
+//		} catch (IOException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
 
 	}
-	private HyContextModel loadContextInformationModel(){		
-		return (HyContextModel)loadResource("hycontextinformation");
+	
+	private HyContextModel loadContextInformationModel(){
+		return (HyContextModel) EcoreIOUtil.loadAccompanyingModel(modelWrapped.getModel(), HyContextInformationUtil.getContextModelFileExtensionForConcreteSyntax());
 	}
 
 	private HyConfiguration loadConfigurationModel(){
-		return (HyConfiguration)loadResource("hyconfigurationmodel");
+		return (HyConfiguration) EcoreIOUtil.loadAccompanyingModel(modelWrapped.getModel(), HyConfigurationUtil.getConfigurationModelFileExtensionForXmi());
 	}
 
 	@Override
@@ -312,10 +293,16 @@ public class HyFeatureModelDeltaModuleConfiguratorEditor extends HyGraphicalFeat
 			}
 		});
 
-		selectedConfigurationComposite.getDeriveVariantButton().addSelectionListener(new SelectionAdapter() {
-			@Override
-			public void widgetSelected(SelectionEvent e) {
-			}
-		});
+		selectedConfigurationComposite.getDeriveVariantButton().addSelectionListener(new DwDeriveVariantListener(this));
+	}
+	
+	public Shell getShell() {
+		return this.getSite().getWorkbenchWindow().getShell();
+	}
+	
+	@Override
+	protected void setInput(IEditorInput input) {
+		super.setInput(input);
+		selectedConfiguration.setFeatureModel(getFeatureModel());
 	}
 }

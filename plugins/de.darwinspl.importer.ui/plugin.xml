@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   <extension
+         point="org.eclipse.ui.importWizards">
+      <category
+            id="de.darwinspl.importer.ui.category"
+            name="DarwinSPL">
+      </category>
+      <wizard
+            category="de.darwinspl.importer.ui.category"
+            class="de.darwinspl.importer.ui.wizards.featureide.FeatureIDEFeatureModelImporterWizard"
+            id="de.darwinspl.importer.ui.featureidewizard"
+            name="Import FeatureIDE Feature Model">
+      </wizard>
+   </extension>
+
+</plugin>

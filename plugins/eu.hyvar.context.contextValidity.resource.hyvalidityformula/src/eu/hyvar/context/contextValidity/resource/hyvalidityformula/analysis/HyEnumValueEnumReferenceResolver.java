@@ -61,7 +61,7 @@ public class HyEnumValueEnumReferenceResolver implements eu.hyvar.context.contex
 			}
 
 			@Override
-			public void addQuickFix(IHyexpressionQuickFix quickFix) {
+			public void addQuickFix(final IHyexpressionQuickFix quickFix) {
 					result.addQuickFix(new eu.hyvar.context.contextValidity.resource.hyvalidityformula.IHyvalidityformulaQuickFix() {
 					
 					public String getImageKey() {

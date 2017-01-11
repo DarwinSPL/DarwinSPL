@@ -1,0 +1,15 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: DwVariantgeneration
+Bundle-SymbolicName: de.darwinspl.feature.configuration.variantgeneration
+Bundle-Version: 1.0.0
+Bundle-RequiredExecutionEnvironment: JavaSE-1.7
+Require-Bundle: org.deltaecore.feature,
+ org.deltaecore.core.decore,
+ org.deltaecore.feature.configuration,
+ eu.hyvar.feature,
+ eu.hyvar.feature.exporter.hfm_exporter,
+ eu.hyvar.feature.configuration,
+ eu.hyvar.feature.mapping,
+ org.deltaecore.feature.mapping
+Export-Package: de.darwinspl.feature.configuration.variantgeneration

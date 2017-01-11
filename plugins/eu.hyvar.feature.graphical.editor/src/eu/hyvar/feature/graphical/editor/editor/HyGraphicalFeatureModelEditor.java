@@ -300,7 +300,7 @@ public class HyGraphicalFeatureModelEditor extends HyGraphicalFeatureModelViewer
 		IPath path = ((IPath)file.getFullPath().clone()).removeFileExtension().addFileExtension(fileExtension);
 
 		IFile file = workspaceRoot.getFile(path);
-		/*
+		
 		if(!file.exists()){
 			InputStream source = new ByteArrayInputStream("".getBytes());
 			try {
@@ -309,7 +309,7 @@ public class HyGraphicalFeatureModelEditor extends HyGraphicalFeatureModelViewer
 				e.printStackTrace();
 			}
 		}
-		*/
+		
 
 		// only open editor if a file exist with the same name as the feature model in same directory
 		if(workspaceRoot.exists(path)){

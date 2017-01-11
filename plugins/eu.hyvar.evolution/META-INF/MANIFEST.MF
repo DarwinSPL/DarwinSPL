@@ -2,12 +2,13 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: DarwinSPL Common Evolution Models
 Bundle-SymbolicName: eu.hyvar.evolution;singleton:=true
-Bundle-Version: 1.0.0.qualifier
+Bundle-Version: 1.0.0
 Bundle-ClassPath: .
 Bundle-Vendor: www.darwinspl.de
 Bundle-Localization: plugin
 Bundle-RequiredExecutionEnvironment: JavaSE-1.7
 Export-Package: eu.hyvar.evolution,
+ eu.hyvar.evolution.factory,
  eu.hyvar.evolution.impl,
  eu.hyvar.evolution.util
 Require-Bundle: org.eclipse.core.runtime,

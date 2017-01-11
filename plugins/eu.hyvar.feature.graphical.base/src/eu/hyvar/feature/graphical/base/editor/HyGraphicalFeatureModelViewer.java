@@ -16,11 +16,7 @@ import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.draw2d.geometry.Point;
-import org.eclipse.emf.common.util.URI;
-import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
-import org.eclipse.emf.ecore.resource.ResourceSet;
-import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.gef.DefaultEditDomain;
 import org.eclipse.gef.GraphicalViewer;
 import org.eclipse.gef.KeyHandler;
@@ -56,6 +52,7 @@ import org.eclipse.ui.IFileEditorInput;
 import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.PlatformUI;
 
+import de.christophseidl.util.ecore.EcoreIOUtil;
 import eu.hyvar.evolution.HyEvolutionUtil;
 import eu.hyvar.feature.HyFeatureModel;
 import eu.hyvar.feature.HyFeaturePackage;
@@ -86,8 +83,6 @@ public class HyGraphicalFeatureModelViewer extends GraphicalEditor implements IF
 
 	protected KeyHandler sharedKeyHandler;
 	
-	protected ResourceSet resourceSet;
-
 	public Date getCurrentSelectedDate() {
 		return currentSelectedDate;
 	}
@@ -149,7 +144,7 @@ public class HyGraphicalFeatureModelViewer extends GraphicalEditor implements IF
 	public HyGraphicalFeatureModelViewer(){
 		setEditDomain(new DefaultEditDomain(this));	
 		
-		resourceSet = new ResourceSetImpl();
+//		resourceSet = new ResourceSetImpl();
 	}
 
 	@Override
@@ -222,6 +217,7 @@ public class HyGraphicalFeatureModelViewer extends GraphicalEditor implements IF
 			}
 		}
 	}
+	
 
 	private void setCurrentSelectedDateToMostActualDate(){
 		List<Date> dates = HyEvolutionUtil.collectDates(modelWrapped.getModel());
@@ -239,6 +235,7 @@ public class HyGraphicalFeatureModelViewer extends GraphicalEditor implements IF
 
 
 
+
 	/**
 	 * Tries to load a feature model from a given file
 	 * @param file
@@ -247,24 +244,15 @@ public class HyGraphicalFeatureModelViewer extends GraphicalEditor implements IF
 		// save location to the file
 		this.file = file;
 
+		modelWrapped = new HyFeatureModelWrapped((HyFeatureModel)EcoreIOUtil.loadModel(file));
 		
-		resource = resourceSet.createResource(URI.createURI(file.getLocationURI().toString()));
+		this.resource = modelWrapped.getModel().eResource();
 		
-
-		try{
-			resource.load(null);
-
-			modelWrapped = new HyFeatureModelWrapped((HyFeatureModel)resource.getContents().get(0));
-
-			setCurrentSelectedDateToMostActualDate();
-			setEditorTabText(file.getName());
-
-
-			loadLayout(file);
-		}catch(IOException e){
-			e.printStackTrace();
-			resource = null;
-		}
+		setCurrentSelectedDateToMostActualDate();
+		
+		setEditorTabText(file.getName());
+		
+		loadLayout(file);
 	}
 
 
@@ -479,7 +467,7 @@ public class HyGraphicalFeatureModelViewer extends GraphicalEditor implements IF
 
 
 	@Override
-	public EObject getInternalFeatureModel() {
+	public HyFeatureModel getInternalFeatureModel() {
 		return modelWrapped.getModel();
 	}
 
