@@ -43,7 +43,7 @@ import eu.hyvar.feature.HyFeaturePackage;
 import eu.hyvar.feature.configuration.HyConfiguration;
 import eu.hyvar.feature.constraint.HyConstraintModel;
 import eu.hyvar.feature.constraint.HyConstraintPackage;
-import eu.hyvar.reconfigurator.input.exporter.ContextConstraintExporterJson;
+import eu.hyvar.reconfigurator.input.exporter.HyVarRecExporter;
 import eu.hyvar.reconfigurator.io.rest.context.ContextToModelMapper;
 import eu.hyvar.reconfigurator.io.rest.input.raw_hyvarrec.RawInputForHyVarRec;
 
@@ -231,7 +231,7 @@ public class JsonHandlerFMForHyVarRec extends AbstractHandler {
 		}
 
 		
-		ContextConstraintExporterJson hyvarrecExporter = new ContextConstraintExporterJson();
+		HyVarRecExporter hyvarrecExporter = new HyVarRecExporter();
 		return hyvarrecExporter.exportContextMappingModel(contextModel, validityModel, featureModel, constraintModel,
 				configuration, null, contextValueModel, new Date());
 	}
@@ -309,7 +309,7 @@ public class JsonHandlerFMForHyVarRec extends AbstractHandler {
 			contextValueModel.getValues().add(positionValue);
 		}
 
-		ContextConstraintExporterJson hyvarrecExporter = new ContextConstraintExporterJson();
+		HyVarRecExporter hyvarrecExporter = new HyVarRecExporter();
 		return hyvarrecExporter.exportContextMappingModel(contextModel, validityModel, featureModel, constraintModel,
 				configuration, null, contextValueModel, new Date());
 	}

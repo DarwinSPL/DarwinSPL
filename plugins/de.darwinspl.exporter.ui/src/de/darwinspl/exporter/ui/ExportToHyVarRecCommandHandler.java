@@ -35,7 +35,7 @@ import eu.hyvar.feature.graphical.base.dialogs.DateDialog;
 import eu.hyvar.feature.util.HyFeatureUtil;
 import eu.hyvar.preferences.HyPreferenceModel;
 import eu.hyvar.preferences.util.HyPreferenceModelUtil;
-import eu.hyvar.reconfigurator.input.exporter.ContextConstraintExporterJson;
+import eu.hyvar.reconfigurator.input.exporter.HyVarRecExporter;
 
 public class ExportToHyVarRecCommandHandler extends AbstractHandler {
 
@@ -174,7 +174,7 @@ public class ExportToHyVarRecCommandHandler extends AbstractHandler {
 			}
 		}
 
-		ContextConstraintExporterJson hyvarrecExporter = new ContextConstraintExporterJson();
+		HyVarRecExporter hyvarrecExporter = new HyVarRecExporter();
 
 		Display display = Display.getDefault();
 	    Shell shell = display.getActiveShell();

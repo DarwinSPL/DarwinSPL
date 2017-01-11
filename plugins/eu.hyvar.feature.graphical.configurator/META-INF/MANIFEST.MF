@@ -18,8 +18,8 @@ Require-Bundle: org.eclipse.ui,
  eu.hyvar.feature.graphical.base,
  eu.hyvar.feature.configuration,
  com.google.gson;bundle-version="2.2.4",
-  javax.servlet,
-   org.eclipse.jetty.util,
+ javax.servlet,
+ org.eclipse.jetty.util,
  org.eclipse.jetty.http,
  org.eclipse.jetty.io,
  de.christophseidl.util.eclipse,
@@ -32,7 +32,13 @@ Require-Bundle: org.eclipse.ui,
  eu.hyvar.feature.mapping,
  eu.hyvar.feature.configuration,
  org.deltaecore.feature.configuration,
- eu.hyvar.feature.exporter.hfm_exporter
+ eu.hyvar.feature.exporter.hfm_exporter,
+ eu.hyvar.feature.constraint,
+ eu.hyvar.context.validity_formulas,
+ eu.hyvar.preferences,
+ eu.hyvar.context.information.value,
+ eu.hyvar.reconfigurator.input,
+ eu.hyvar.reconfigurator.output.translation
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Bundle-ActivationPolicy: lazy
 Bundle-Vendor: www.darwinspl.de
