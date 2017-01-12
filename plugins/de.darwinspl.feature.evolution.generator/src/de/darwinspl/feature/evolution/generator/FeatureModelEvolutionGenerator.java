@@ -19,7 +19,6 @@ import de.darwinspl.feature.evolution.generator.operations.MergeFeatures;
 import de.darwinspl.feature.evolution.generator.operations.MoveFeature;
 import de.darwinspl.feature.evolution.generator.operations.MoveGroup;
 import de.darwinspl.feature.evolution.generator.operations.SplitFeature;
-import eu.hyvar.evolution.HyEvolutionUtil;
 import eu.hyvar.feature.HyFeature;
 import eu.hyvar.feature.HyFeatureModel;
 import eu.hyvar.feature.HyGroup;
