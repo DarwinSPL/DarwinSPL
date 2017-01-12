@@ -1,13 +1,11 @@
 /**
  * 
  */
-package de.evolution.atomic.operations;
+package de.darwinspl.feature.evolution.atomic.operations;
 
 import java.util.Date;
 
-//import java.util.Date;
-
-import de.evolution.framework.EvolutionOperation;
+import de.darwinspl.feature.evolution.Invoker.EvolutionOperation;
 import eu.hyvar.evolution.HyEvolutionFactory;
 import eu.hyvar.evolution.HyName;
 import eu.hyvar.feature.HyFeature;
@@ -20,6 +18,7 @@ public class AddName implements EvolutionOperation {
 	private String name;
 	private HyFeature feature;
 	protected Date timestamp;
+	private HyName nameElement;
 	
 	private static final HyEvolutionFactory factory = HyEvolutionFactory.eINSTANCE;
 	
@@ -35,11 +34,17 @@ public class AddName implements EvolutionOperation {
 	@Override
 	public void execute() {	
 		
-		HyName nameElement = factory.createHyName();
+		nameElement = factory.createHyName();
 		nameElement.setName(name);
 		nameElement.setValidSince(timestamp);
 		nameElement.setValidUntil(null);
 		
+		//Get the latest name of the feature, if it exists, and set the until variable
+		if (!feature.getNames().isEmpty()) {
+			HyName oldName = feature.getNames().get(feature.getNames().size() - 1);
+			oldName.setValidUntil(timestamp);
+		}
+				
 		feature.getNames().add(nameElement);
 		
 	}
@@ -50,6 +55,12 @@ public class AddName implements EvolutionOperation {
 	@Override
 	public void undo() {
 		// TODO Auto-generated method stub
+		feature.getNames().remove(nameElement);
+		
+		if (!feature.getNames().isEmpty()) {
+			HyName oldName = feature.getNames().get(feature.getNames().size() - 1);
+			oldName.setValidUntil(null);
+		}
 
 	}
 

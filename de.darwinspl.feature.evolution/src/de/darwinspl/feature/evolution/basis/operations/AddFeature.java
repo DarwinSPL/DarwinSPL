@@ -1,13 +1,12 @@
 /**
  * 
  */
-package de.evolution.basis.operations;
+package de.darwinspl.feature.evolution.basis.operations;
 
 import java.util.Date;
 
-import de.evolution.atomic.operations.AddFeatureType;
-import de.evolution.atomic.operations.AddName;
-import de.evolution.framework.ComplexeOperation;
+import de.darwinspl.feature.evolution.atomic.operations.AddFeatureType;
+import de.darwinspl.feature.evolution.atomic.operations.AddName;
 import eu.hyvar.feature.HyFeature;
 import eu.hyvar.feature.HyFeatureFactory;
 import eu.hyvar.feature.HyFeatureModel;
@@ -22,6 +21,10 @@ public class AddFeature extends ComplexeOperation {
 
 	private String name;
 	private HyFeatureTypeEnum type;
+	
+	private HyFeature feature;
+	private AddName hyName;
+	private AddFeatureType hyFeatureType;
 
 	private static final HyFeatureFactory factory = HyFeatureFactory.eINSTANCE;
 	
@@ -38,11 +41,11 @@ public class AddFeature extends ComplexeOperation {
 	@Override
 	public void execute() {
 		
-		HyFeature feature = factory.createHyFeature();
+		feature = factory.createHyFeature();
 		
-		AddName hyName = new AddName(name, feature, timestamp);
+		hyName = new AddName(name, feature, timestamp);
 		
-		AddFeatureType hyFeatureType = new AddFeatureType(type, feature, timestamp);
+		hyFeatureType = new AddFeatureType(type, feature, timestamp);
 		
 		feature.setValidSince(timestamp);
 		feature.setValidUntil(null);
@@ -57,6 +60,9 @@ public class AddFeature extends ComplexeOperation {
 	@Override
 	public void undo() {
 		// TODO Auto-generated method stub
+		hyName.undo();
+		hyFeatureType.undo();
+		tfm.getFeatures().remove(feature);
 
 	}
 
