@@ -250,11 +250,11 @@ public class HyVarUseCases extends HyFMExample {
 		constraintModel.getConstraints().add(eraGlonassConstraint);
 		
 		
-		if(constraintModel != null) {
-			// TODO take folder selected in eclipse
-			IFile file = ResourceUtil.getLocalFile("Example/" + "HyVarUseCases" + ".hyconstraint");
-			EcoreIOUtil.saveModelAs(constraintModel, file);
-		}
+//		if(constraintModel != null) {
+//			// TODO take folder selected in eclipse
+//			IFile file = ResourceUtil.getLocalFile("Example/" + "HyVarUseCases" + ".hyconstraint");
+//			EcoreIOUtil.saveModelAs(constraintModel, file);
+//		}
 		
 		return featureModel;
 	}
