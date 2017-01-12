@@ -17,6 +17,8 @@ import de.darwinspl.feature.evolution.generator.operations.EvolutionOperation;
 import de.darwinspl.feature.evolution.generator.operations.EvolutionOperationException;
 import de.darwinspl.feature.evolution.generator.operations.MergeFeatures;
 import de.darwinspl.feature.evolution.generator.operations.MoveFeature;
+import de.darwinspl.feature.evolution.generator.operations.MoveGroup;
+import de.darwinspl.feature.evolution.generator.operations.SplitFeature;
 import eu.hyvar.evolution.HyEvolutionUtil;
 import eu.hyvar.feature.HyFeature;
 import eu.hyvar.feature.HyFeatureModel;
@@ -73,8 +75,10 @@ public class FeatureModelEvolutionGenerator {
 				evolutionOp = createMoveFeature(featureModel, date);
 				break;
 			case MOVE_GROUP:
+				evolutionOp = createMoveGroup(featureModel, date);
 				break;
 			case SPLIT_FEATURE:
+				evolutionOp = createSplitFeature(featureModel, date);
 				break;			
 			}
 			
@@ -102,7 +106,7 @@ public class FeatureModelEvolutionGenerator {
 		String featureName = "newFeature_"+UUID.randomUUID().toString();
 		
 		// Only consider valid groups at that point in time
-		HyGroup parentGroup = getRandomGroup(featureModel, date);
+		HyGroup parentGroup = HyFeatureEvolutionUtil.getRandomGroup(featureModel, date);
 		
 		boolean isMandatory = false;
 		
@@ -134,7 +138,7 @@ public class FeatureModelEvolutionGenerator {
 	
 	private ChangeGroupType createChangeGroupType(HyFeatureModel featureModel, Date date) {
 		
-		HyGroup group = getRandomGroup(featureModel, date);
+		HyGroup group = HyFeatureEvolutionUtil.getRandomGroup(featureModel, date);
 		
 		HyGroupTypeEnum currentGroupType = HyFeatureEvolutionUtil.getType(group, date).getType();
 		
@@ -179,7 +183,7 @@ public class FeatureModelEvolutionGenerator {
 	
 	private EvolutionOperation createDeleteFeature(HyFeatureModel featureModel, Date date) {
 		// select random feature to delete
-		HyFeature featureToDelete = getRandomNonRootFeature(featureModel, date);
+		HyFeature featureToDelete = HyFeatureEvolutionUtil.getRandomNonRootFeature(featureModel, date);
 		
 		EvolutionOperation evoOp;
 		
@@ -203,12 +207,9 @@ public class FeatureModelEvolutionGenerator {
 		
 		
 		// select source randomly
-		HyFeature source = getRandomNonRootFeature(featureModel, date);
-		
-		HyFeature target = getRandomFeature(featureModel, date);
-		while(target==source) {
-			target = getRandomFeature(featureModel, date);
-		}
+		HyFeature source = HyFeatureEvolutionUtil.getRandomNonRootFeature(featureModel, date);
+		// select target randomly
+		HyFeature target = HyFeatureEvolutionUtil.getRandomFeature(featureModel, source, date);
 		
 		return new MergeFeatures(source, target, date);
 	}
@@ -218,35 +219,37 @@ public class FeatureModelEvolutionGenerator {
 			return null;
 		}
 		
-		HyFeature featureToMove = getRandomNonRootFeature(featureModel, date);
-		HyGroup targetGroup = getRandomGroup(featureModel, date);
-		while(HyFeatureEvolutionUtil.isInGroup(featureToMove, targetGroup, date)) {
-			targetGroup = getRandomGroup(featureModel, date);
-		}
-		
+		HyFeature featureToMove = HyFeatureEvolutionUtil.getRandomNonRootFeature(featureModel, date);
+		HyGroup targetGroup = HyFeatureEvolutionUtil.getRandomGroup(featureModel, HyFeatureEvolutionUtil.getParentGroupOfFeature(featureToMove, date), date);
+
 		return new MoveFeature(featureToMove, targetGroup, date);
 	}
 	
 	private MoveGroup createMoveGroup(HyFeatureModel featureModel, Date date) {
+		if(HyFeatureEvolutionUtil.getGroups(featureModel, date).size()<2) {
+			return null;
+		}
+		
+		HyGroup group = HyFeatureEvolutionUtil.getRandomGroup(featureModel, date);
+		
+		List<HyFeature> subtreeFeaturesOfGroup = HyFeatureEvolutionUtil.getFeatureOfSubtree(group, date);
+		
+		// Check if there are at least two features which 
+		 if((HyFeatureEvolutionUtil.getFeatures(featureModel, date).size() - subtreeFeaturesOfGroup.size()) < 2) {
+			 return null;
+		 }
 		 
+		 HyFeature newParent = HyFeatureEvolutionUtil.getRandomFeature(featureModel, subtreeFeaturesOfGroup, date);
+		 
+		 return new MoveGroup(group, newParent, date);
 	}
 	
-	private HyGroup getRandomGroup(HyFeatureModel featureModel, Date date) {
-		List<HyGroup> validGroups = HyFeatureEvolutionUtil.getGroups(featureModel, date);
-		int groupIndex = rand.nextInt(validGroups.size());
-		return validGroups.get(groupIndex);
-	}
-	
-	private HyFeature getRandomFeature(HyFeatureModel featureModel, Date date) {
-		List<HyFeature> validFeatures = HyFeatureEvolutionUtil.getFeatures(featureModel, date);
-		int index = rand.nextInt(validFeatures.size());
-		return validFeatures.get(index);
-	}
-	
-	private HyFeature getRandomNonRootFeature(HyFeatureModel featureModel, Date date) {
-		List<HyFeature> validFeatures = HyFeatureEvolutionUtil.getFeatures(featureModel, date);
-		validFeatures.remove(HyFeatureEvolutionUtil.getRootFeature(featureModel, date));
-		int index = rand.nextInt(validFeatures.size());
-		return validFeatures.get(index);
+	private SplitFeature createSplitFeature(HyFeatureModel featureModel, Date date) {
+		HyFeature featureToSplit = HyFeatureEvolutionUtil.getRandomFeature(featureModel, date);
+		if(featureToSplit == null) {
+			return null;
+		}
+		
+		return new SplitFeature(featureToSplit, date);
 	}
 }

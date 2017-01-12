@@ -3,6 +3,7 @@ package eu.hyvar.feature.util;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Random;
 
 import org.eclipse.emf.common.util.EList;
 
@@ -324,5 +325,111 @@ public class HyFeatureEvolutionUtil {
 	
 	public static boolean isInGroup(HyFeature feature, HyGroup group, Date date) {
 		return getFeaturesOfGroup(group, date).contains(feature);
+	}
+	
+	/**
+	 * Get all features in the subtree under @feature
+	 * @param feature
+	 * @param date
+	 * @return
+	 */
+	public static List<HyFeature> getFeatureOfSubtree(HyFeature feature, Date date) {
+		List<HyFeature> features = new ArrayList<HyFeature>();
+		
+		for(HyGroup group: getChildsOfFeature(feature, date)) {
+			List<HyFeature> subFeatures = getFeaturesOfGroup(group, date);
+			features.addAll(subFeatures);
+			
+			for(HyFeature subFeature: subFeatures) {
+				features.addAll(getFeatureOfSubtree(subFeature, date));
+			}
+		}
+		
+		return features;
+	}
+	
+	
+	public static List<HyFeature> getFeatureOfSubtree(HyGroup group, Date date) {
+		List<HyFeature> features = new ArrayList<HyFeature>();
+		
+		for(HyFeature groupFeature: getFeaturesOfGroup(group, date)) {
+			features.add(groupFeature);
+			
+			features.addAll(getFeatureOfSubtree(groupFeature, date));
+		}
+		
+		return features;
+	}
+	
+
+	
+	public static HyGroup getRandomGroup(HyFeatureModel featureModel, Date date) {
+		List<HyGroup> validGroups = HyFeatureEvolutionUtil.getGroups(featureModel, date);
+		if(validGroups.size() < 1) {
+			return null;
+		}
+		Random rand = new Random();
+		int groupIndex = rand.nextInt(validGroups.size());
+		return validGroups.get(groupIndex);
+	}
+	
+	public static HyGroup getRandomGroup(HyFeatureModel featureModel, List<HyGroup> excludedGroups, Date date) {
+		List<HyGroup> validGroups = HyFeatureEvolutionUtil.getGroups(featureModel, date);
+		validGroups.removeAll(excludedGroups);
+		
+		if(validGroups.size() < 1) {
+			return null;
+		}
+		Random rand = new Random();
+		int groupIndex = rand.nextInt(validGroups.size());
+		return validGroups.get(groupIndex);
+	}
+
+	public static HyGroup getRandomGroup(HyFeatureModel featureModel, HyGroup excludedGroup, Date date) {
+		List<HyGroup> validGroups = HyFeatureEvolutionUtil.getGroups(featureModel, date);
+		validGroups.remove(excludedGroup);
+		
+		if(validGroups.size() < 1) {
+			return null;
+		}
+		Random rand = new Random();
+		int groupIndex = rand.nextInt(validGroups.size());
+		return validGroups.get(groupIndex);
+	}
+	
+	public static HyFeature getRandomFeature(HyFeatureModel featureModel, Date date) {
+		List<HyFeature> validFeatures = HyFeatureEvolutionUtil.getFeatures(featureModel, date);
+		if(validFeatures.size() < 1) {
+			return null;
+		}
+		Random rand = new Random();
+		int index = rand.nextInt(validFeatures.size());
+		return validFeatures.get(index);
+	}
+	
+	public static HyFeature getRandomFeature(HyFeatureModel featureModel, List<HyFeature> excludedFeatures, Date date) {
+		List<HyFeature> validFeatures = HyFeatureEvolutionUtil.getFeatures(featureModel, date);
+		validFeatures.removeAll(excludedFeatures);
+		if(validFeatures.size()<1) {
+			return null;
+		}
+		Random rand = new Random();
+		int index = rand.nextInt(validFeatures.size());
+		return validFeatures.get(index);
+	}
+	
+	public static HyFeature getRandomFeature(HyFeatureModel featureModel, HyFeature excludedFeature, Date date) {
+		List<HyFeature> validFeatures = HyFeatureEvolutionUtil.getFeatures(featureModel, date);
+		validFeatures.remove(excludedFeature);
+		if(validFeatures.size()<1) {
+			return null;
+		}
+		Random rand = new Random();
+		int index = rand.nextInt(validFeatures.size());
+		return validFeatures.get(index);
+	}
+	
+	public static HyFeature getRandomNonRootFeature(HyFeatureModel featureModel, Date date) {
+		return getRandomFeature(featureModel, HyFeatureEvolutionUtil.getRootFeature(featureModel, date), date);
 	}
 }

@@ -16,6 +16,7 @@ import eu.hyvar.feature.HyGroup;
 import eu.hyvar.feature.HyGroupComposition;
 import eu.hyvar.feature.HyGroupType;
 import eu.hyvar.feature.HyGroupTypeEnum;
+import eu.hyvar.feature.util.HyFeatureEvolutionUtil;
 
 public class SplitFeature implements EvolutionOperation {
 
@@ -72,55 +73,75 @@ public class SplitFeature implements EvolutionOperation {
 	public void applyOperation() throws EvolutionOperationException {
 		featureToSplit.getFeatureModel().getFeatures().add(newlyAddedFeature);
 
-		HyGroupComposition oldGroupComposition = HyEvolutionUtil
-				.getValidTemporalElement(featureToSplit.getGroupMembership(), date);
-		HyGroup groupOfSplittedFeature = oldGroupComposition.getCompositionOf();
-
-		HyGroupTypeEnum groupOfSplittedFeatureType = HyEvolutionUtil
-				.getValidTemporalElement(groupOfSplittedFeature.getTypes(), date).getType();
-
-		if (groupOfSplittedFeatureType.equals(HyGroupTypeEnum.ALTERNATIVE)) {
-			HyGroup newGroup = HyFeatureFactory.eINSTANCE.createHyGroup();
-			newGroup.setValidSince((Date)date.clone());
-			featureToSplit.getFeatureModel().getGroups().add(newGroup);
-
-			HyFeature currentParentFeature = HyEvolutionUtil
-					.getValidTemporalElement(groupOfSplittedFeature.getChildOf(), date).getParent();
-			HyFeatureChild newFeatureChild = HyFeatureFactory.eINSTANCE.createHyFeatureChild();
-			newFeatureChild.setValidSince((Date)date.clone());
-			newFeatureChild.setChildGroup(newGroup);
-			newFeatureChild.setParent(currentParentFeature);
-
-			HyGroupComposition newGroupComposition = HyFeatureFactory.eINSTANCE.createHyGroupComposition();
-			newGroupComposition.setValidSince((Date)date.clone());
-			newGroupComposition.setCompositionOf(newGroup);
-			newGroupComposition.getFeatures().add(newlyAddedFeature);
-
-			HyGroupType newGroupType = HyFeatureFactory.eINSTANCE.createHyGroupType();
-			newGroupType.setValidSince((Date)date.clone());
-			newGroupType.setType(HyGroupTypeEnum.AND);
-			newGroup.getTypes().add(newGroupType);
-		} 
+		
+		if(HyFeatureEvolutionUtil.isRootFeature(featureToSplit.getFeatureModel(), featureToSplit, date)) {
+			// feature to split is root: put splitted feature as mandatory feature in subgroup
+			HyGroup group = HyFeatureFactory.eINSTANCE.createHyGroup();
+			group.setValidSince(date);
+			
+			HyFeatureChild featureChild = HyFeatureFactory.eINSTANCE.createHyFeatureChild();
+			featureChild.setValidSince(date);
+			featureChild.setParent(featureToSplit);
+			featureChild.setChildGroup(group);
+			
+			HyGroupComposition groupComposition = HyFeatureFactory.eINSTANCE.createHyGroupComposition();
+			groupComposition.setValidSince(date);
+			groupComposition.setCompositionOf(group);
+			groupComposition.getFeatures().add(newlyAddedFeature);			
+			
+		}
 		else {
-			// create new GC, add existing features, valid since
-			// date. Old GC valid until date, repair superseding
-			HyGroupComposition newGroupComposition = HyFeatureFactory.eINSTANCE.createHyGroupComposition();
-			newGroupComposition.setValidSince((Date)date.clone());
-			oldGroupComposition.setValidUntil((Date)date.clone());
-			groupOfSplittedFeature.getParentOf().add(newGroupComposition);
+			HyGroupComposition oldGroupComposition = HyEvolutionUtil
+					.getValidTemporalElement(featureToSplit.getGroupMembership(), date);
+			HyGroup groupOfSplittedFeature = oldGroupComposition.getCompositionOf();
 
-			newGroupComposition.getFeatures().addAll(oldGroupComposition.getFeatures());
-			newGroupComposition.getFeatures().add(newlyAddedFeature);
+			HyGroupTypeEnum groupOfSplittedFeatureType = HyEvolutionUtil
+					.getValidTemporalElement(groupOfSplittedFeature.getTypes(), date).getType();
 
-			if (oldGroupComposition.getValidUntil().equals(oldGroupComposition.getValidSince())) {
-				// Check if old group composition can be deleted
-				HyLinearTemporalElement oldSupersededElement = oldGroupComposition.getSupersededElement();
-				EcoreUtil.delete(oldGroupComposition);
-				newGroupComposition.setSupersededElement(oldSupersededElement);
-			} else {
-				newGroupComposition.setSupersededElement(oldGroupComposition);
+			if (groupOfSplittedFeatureType.equals(HyGroupTypeEnum.ALTERNATIVE)) {
+				HyGroup newGroup = HyFeatureFactory.eINSTANCE.createHyGroup();
+				newGroup.setValidSince((Date)date.clone());
+				featureToSplit.getFeatureModel().getGroups().add(newGroup);
+
+				HyFeature currentParentFeature = HyEvolutionUtil
+						.getValidTemporalElement(groupOfSplittedFeature.getChildOf(), date).getParent();
+				HyFeatureChild newFeatureChild = HyFeatureFactory.eINSTANCE.createHyFeatureChild();
+				newFeatureChild.setValidSince((Date)date.clone());
+				newFeatureChild.setChildGroup(newGroup);
+				newFeatureChild.setParent(currentParentFeature);
+
+				HyGroupComposition newGroupComposition = HyFeatureFactory.eINSTANCE.createHyGroupComposition();
+				newGroupComposition.setValidSince((Date)date.clone());
+				newGroupComposition.setCompositionOf(newGroup);
+				newGroupComposition.getFeatures().add(newlyAddedFeature);
+
+				HyGroupType newGroupType = HyFeatureFactory.eINSTANCE.createHyGroupType();
+				newGroupType.setValidSince((Date)date.clone());
+				newGroupType.setType(HyGroupTypeEnum.AND);
+				newGroup.getTypes().add(newGroupType);
+			} 
+			else {
+				// create new GC, add existing features, valid since
+				// date. Old GC valid until date, repair superseding
+				HyGroupComposition newGroupComposition = HyFeatureFactory.eINSTANCE.createHyGroupComposition();
+				newGroupComposition.setValidSince((Date)date.clone());
+				oldGroupComposition.setValidUntil((Date)date.clone());
+				groupOfSplittedFeature.getParentOf().add(newGroupComposition);
+
+				newGroupComposition.getFeatures().addAll(oldGroupComposition.getFeatures());
+				newGroupComposition.getFeatures().add(newlyAddedFeature);
+
+				if (oldGroupComposition.getValidUntil().equals(oldGroupComposition.getValidSince())) {
+					// Check if old group composition can be deleted
+					HyLinearTemporalElement oldSupersededElement = oldGroupComposition.getSupersededElement();
+					EcoreUtil.delete(oldGroupComposition);
+					newGroupComposition.setSupersededElement(oldSupersededElement);
+				} else {
+					newGroupComposition.setSupersededElement(oldGroupComposition);
+				}
 			}
 		}
+		
 
 	}
 
