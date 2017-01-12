@@ -6,6 +6,7 @@ import eu.hyvar.evolution.HyEvolutionUtil;
 import eu.hyvar.feature.HyFeatureType;
 import eu.hyvar.feature.HyFeatureTypeEnum;
 import eu.hyvar.feature.impl.HyFeatureImpl;
+import eu.hyvar.feature.util.HyFeatureEvolutionUtil;
 
 public class HyFeatureImplCustom extends HyFeatureImpl {
 
@@ -15,22 +16,12 @@ public class HyFeatureImplCustom extends HyFeatureImpl {
 	
 	@Override
 	public boolean isMandatory(final Date date) {
-		HyFeatureType type = HyEvolutionUtil.getValidTemporalElement(getTypes(), date);
-		if(type.getType() == HyFeatureTypeEnum.MANDATORY) {
-			return true;
-		} else {
-			return false;
-		}
+		return HyFeatureEvolutionUtil.isMandatory(this, date);
 	}
 	
 	@Override
 	public boolean isOptional(final Date date) {
-		HyFeatureType type = HyEvolutionUtil.getValidTemporalElement(getTypes(), date);
-		if(type.getType() == HyFeatureTypeEnum.OPTIONAL) {
-			return true;
-		} else {
-			return false;
-		}
+		return HyFeatureEvolutionUtil.isOptional(this, date);
 	}
 	
 }
