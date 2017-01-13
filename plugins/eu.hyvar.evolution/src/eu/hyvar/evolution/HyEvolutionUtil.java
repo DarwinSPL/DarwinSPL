@@ -245,7 +245,7 @@ public class HyEvolutionUtil {
 	 * @return
 	 */
 	public static <T extends HyTemporalElement> List<T> getValidTemporalElements(List<T> elements, Date date) {
-		List<T> validElements = new ArrayList<T>();
+		List<T> validElements = new ArrayList<T>(elements.size());
 
 		if (elements == null || elements.isEmpty()) {
 			return validElements;
@@ -356,6 +356,10 @@ public class HyEvolutionUtil {
 	 */
 	public static List<HyLinearTemporalElement> getAllSupersedingElements(HyLinearTemporalElement element) {
 		List<HyLinearTemporalElement> linearTemporalElements = new ArrayList<HyLinearTemporalElement>();
+		
+		if(element == null) {
+			return linearTemporalElements;
+		}
 		
 		linearTemporalElements.add(element.getSupersedingElement());
 		linearTemporalElements.addAll(getAllSupersedingElements(element.getSupersedingElement()));

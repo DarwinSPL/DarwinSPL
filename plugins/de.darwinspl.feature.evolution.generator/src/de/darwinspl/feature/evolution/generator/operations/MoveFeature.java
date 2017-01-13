@@ -5,13 +5,13 @@ import java.util.Date;
 import eu.hyvar.evolution.HyEvolutionUtil;
 import eu.hyvar.feature.HyFeature;
 import eu.hyvar.feature.HyFeatureChild;
-import eu.hyvar.feature.HyFeatureFactory;
 import eu.hyvar.feature.HyFeatureType;
 import eu.hyvar.feature.HyFeatureTypeEnum;
 import eu.hyvar.feature.HyGroup;
 import eu.hyvar.feature.HyGroupComposition;
 import eu.hyvar.feature.HyGroupType;
 import eu.hyvar.feature.HyGroupTypeEnum;
+import eu.hyvar.feature.impl.custom.HyFeatureFactoryWithIds;
 
 public class MoveFeature implements EvolutionOperation {
 
@@ -35,23 +35,24 @@ public class MoveFeature implements EvolutionOperation {
 	@Override
 	public void applyOperation() throws EvolutionOperationException {
 		if(targetGroup == null) {
-			HyGroup newGroup = HyFeatureFactory.eINSTANCE.createHyGroup();
+			HyGroup newGroup = HyFeatureFactoryWithIds.eINSTANCE.createHyGroup();
 			newGroup.setValidSince((Date)date.clone());
 			featureToMove.getFeatureModel().getGroups().add(newGroup);
 			
-			HyGroupType newGroupType = HyFeatureFactory.eINSTANCE.createHyGroupType();
+			HyGroupType newGroupType = HyFeatureFactoryWithIds.eINSTANCE.createHyGroupType();
 			newGroupType.setValidSince((Date)date.clone());
 			newGroupType.setType(HyGroupTypeEnum.AND);
 			newGroup.getTypes().add(newGroupType);
 			
-			HyFeatureChild newFeatureChild = HyFeatureFactory.eINSTANCE.createHyFeatureChild();
+			HyFeatureChild newFeatureChild = HyFeatureFactoryWithIds.eINSTANCE.createHyFeatureChild();
 			newFeatureChild.setValidSince((Date)date.clone());
 			newFeatureChild.setParent(newParentFeature);
 			newFeatureChild.setChildGroup(newGroup);
 			
-			HyGroupComposition newGroupComposition = HyFeatureFactory.eINSTANCE.createHyGroupComposition();
+			HyGroupComposition newGroupComposition = HyFeatureFactoryWithIds.eINSTANCE.createHyGroupComposition();
 			newGroupComposition.setValidSince((Date)date.clone());
 			
+			featureToMove.getFeatureModel().getGroups().add(newGroup);
 			targetGroup = newGroup;
 		}
 		
@@ -61,7 +62,7 @@ public class MoveFeature implements EvolutionOperation {
 			if(currentFeatureType.getType().equals(HyFeatureTypeEnum.MANDATORY)) {
 				currentFeatureType.setValidUntil((Date)date.clone());
 				
-				HyFeatureType newFeatureType = HyFeatureFactory.eINSTANCE.createHyFeatureType();
+				HyFeatureType newFeatureType = HyFeatureFactoryWithIds.eINSTANCE.createHyFeatureType();
 				newFeatureType.setValidSince((Date)date.clone());
 				newFeatureType.setType(HyFeatureTypeEnum.OPTIONAL);
 				featureToMove.getTypes().add(newFeatureType);
@@ -75,24 +76,26 @@ public class MoveFeature implements EvolutionOperation {
 		
 		currentMembership.setValidUntil((Date)date.clone());
 		
-		HyGroupComposition newCompositionOfOldGroup = HyFeatureFactory.eINSTANCE.createHyGroupComposition();
+		HyGroupComposition newCompositionOfOldGroup = HyFeatureFactoryWithIds.eINSTANCE.createHyGroupComposition();
 		newCompositionOfOldGroup.setValidSince((Date)date.clone());
 		newCompositionOfOldGroup.setSupersededElement(currentMembership);
 		newCompositionOfOldGroup.setCompositionOf(currentGroup);
 		newCompositionOfOldGroup.getFeatures().addAll(currentMembership.getFeatures());
 		newCompositionOfOldGroup.getFeatures().remove(featureToMove);
-			// TODO not done: if operation was in between two other operations.
 		
 		
 		// add feature to new group
 		HyGroupComposition currentTargetComposition = HyEvolutionUtil.getValidTemporalElement(targetGroup.getParentOf(), date);
 		currentTargetComposition.setValidUntil((Date)date.clone());
-		HyGroupComposition newTargetComposition = HyFeatureFactory.eINSTANCE.createHyGroupComposition();
+		HyGroupComposition newTargetComposition = HyFeatureFactoryWithIds.eINSTANCE.createHyGroupComposition();
 		newTargetComposition.setValidSince((Date)date.clone());
 		newTargetComposition.setSupersededElement(currentTargetComposition);
 		newTargetComposition.setCompositionOf(targetGroup);
 		newTargetComposition.getFeatures().addAll(currentTargetComposition.getFeatures());
 		newTargetComposition.getFeatures().add(featureToMove);
+		
+		
+		// TODO check if old compositions can be removed
 	}
 
 }

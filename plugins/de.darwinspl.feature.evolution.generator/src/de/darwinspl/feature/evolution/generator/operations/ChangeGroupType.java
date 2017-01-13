@@ -6,10 +6,10 @@ import org.eclipse.emf.ecore.util.EcoreUtil;
 
 import eu.hyvar.evolution.HyEvolutionUtil;
 import eu.hyvar.evolution.HyLinearTemporalElement;
-import eu.hyvar.feature.HyFeatureFactory;
 import eu.hyvar.feature.HyGroup;
 import eu.hyvar.feature.HyGroupType;
 import eu.hyvar.feature.HyGroupTypeEnum;
+import eu.hyvar.feature.impl.custom.HyFeatureFactoryWithIds;
 
 public class ChangeGroupType implements EvolutionOperation {
 
@@ -31,18 +31,18 @@ public class ChangeGroupType implements EvolutionOperation {
 			return;
 		}
 		
-		HyGroupType newGroupType = HyFeatureFactory.eINSTANCE.createHyGroupType();
+		HyGroupType newGroupType = HyFeatureFactoryWithIds.eINSTANCE.createHyGroupType();
 		newGroupType.setValidSince((Date)date.clone());
-
 		newGroupType.setType(newType);
 
 		HyGroupType oldGroupType = HyEvolutionUtil.getValidTemporalElement(group.getTypes(), date);
 		oldGroupType.setValidUntil((Date)date.clone());
+		group.getTypes().add(newGroupType);
 
 //		newGroupType.setSupersedingElement(oldGroupType.getSupersedingElement());
 		
 		// Check if old group composition can be deleted
-		if (oldGroupType.getValidSince().equals(oldGroupType.getValidUntil())) {
+		if (oldGroupType.getValidSince() != null && oldGroupType.getValidSince().equals(oldGroupType.getValidUntil())) {
 			HyLinearTemporalElement oldSupersededElement = oldGroupType.getSupersededElement();
 			EcoreUtil.delete(oldGroupType);
 			newGroupType.setSupersededElement(oldSupersededElement);

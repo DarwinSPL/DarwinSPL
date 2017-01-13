@@ -5,7 +5,7 @@ import java.util.Date;
 import eu.hyvar.evolution.HyEvolutionUtil;
 import eu.hyvar.feature.HyFeature;
 import eu.hyvar.feature.HyFeatureChild;
-import eu.hyvar.feature.HyFeatureFactory;
+import eu.hyvar.feature.impl.custom.HyFeatureFactoryWithIds;
 
 public class MergeFeatures implements EvolutionOperation {
 
@@ -32,7 +32,7 @@ public class MergeFeatures implements EvolutionOperation {
 	@Override
 	public void applyOperation() throws EvolutionOperationException {
 		if(! HyEvolutionUtil.isValid(target, date)) {
-			throw new EvolutionOperationException();
+			throw new EvolutionOperationException("Target of merge feature was null");
 		}
 		
 		// Invalidate source in model
@@ -42,9 +42,10 @@ public class MergeFeatures implements EvolutionOperation {
 		for(HyFeatureChild featureChild: HyEvolutionUtil.getValidTemporalElements(source.getParentOf(), date)) {
 			featureChild.setValidUntil((Date)date.clone());
 			
-			HyFeatureChild newFeatureChild = HyFeatureFactory.eINSTANCE.createHyFeatureChild();
+			HyFeatureChild newFeatureChild = HyFeatureFactoryWithIds.eINSTANCE.createHyFeatureChild();
 			newFeatureChild.setParent(target);
 			newFeatureChild.setChildGroup(featureChild.getChildGroup());
+			newFeatureChild.setValidSince((Date)date.clone());
 			
 			newFeatureChild.setSupersededElement(featureChild);
 			

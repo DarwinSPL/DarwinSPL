@@ -2,9 +2,6 @@ package eu.hyvar.feature.impl.custom;
 
 import java.util.Date;
 
-import eu.hyvar.evolution.HyEvolutionUtil;
-import eu.hyvar.feature.HyFeatureType;
-import eu.hyvar.feature.HyFeatureTypeEnum;
 import eu.hyvar.feature.impl.HyFeatureImpl;
 import eu.hyvar.feature.util.HyFeatureEvolutionUtil;
 

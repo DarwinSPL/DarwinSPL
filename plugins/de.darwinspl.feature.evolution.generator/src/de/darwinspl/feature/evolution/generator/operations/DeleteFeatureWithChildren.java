@@ -40,9 +40,9 @@ public class DeleteFeatureWithChildren implements EvolutionOperation {
 		
 		for(HyFeatureChild validFeatureChild: validFeatureChildren) {
 			// Invalidate each Feature child which was valid for this group
-			for(HyLinearTemporalElement supersedingElement: HyEvolutionUtil.getAllSupersedingElements(validFeatureChild)) {
-				invalidateElement(supersedingElement);
-			}
+//			for(HyLinearTemporalElement supersedingElement: HyEvolutionUtil.getAllSupersedingElements(validFeatureChild)) {
+//				invalidateElement(supersedingElement);
+//			}
 			
 			invalidateElement(validFeatureChild);
 			
@@ -69,7 +69,7 @@ public class DeleteFeatureWithChildren implements EvolutionOperation {
 	}
 	
 	private void invalidateElement(HyTemporalElement element) {
-		if(element.getValidSince().after(date)) {
+		if(element.getValidSince() != null && element.getValidSince().after(date)) {
 			element.setValidSince((Date)date.clone());
 		}
 		element.setValidUntil((Date)date.clone());

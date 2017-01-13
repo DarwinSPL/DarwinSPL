@@ -9,7 +9,6 @@ import eu.hyvar.evolution.HyEvolutionUtil;
 import eu.hyvar.evolution.HyName;
 import eu.hyvar.feature.HyFeature;
 import eu.hyvar.feature.HyFeatureChild;
-import eu.hyvar.feature.HyFeatureFactory;
 import eu.hyvar.feature.HyFeatureModel;
 import eu.hyvar.feature.HyFeatureType;
 import eu.hyvar.feature.HyFeatureTypeEnum;
@@ -18,6 +17,7 @@ import eu.hyvar.feature.HyGroupComposition;
 import eu.hyvar.feature.HyGroupType;
 import eu.hyvar.feature.HyGroupTypeEnum;
 import eu.hyvar.feature.HyRootFeature;
+import eu.hyvar.feature.impl.custom.HyFeatureFactoryWithIds;
 
 public class AddFeature implements EvolutionOperation {
 
@@ -82,7 +82,7 @@ public class AddFeature implements EvolutionOperation {
 	}
 
 	private HyFeature createFeature(String featureName, boolean isMandatory, Date date) {
-		HyFeature feature = HyFeatureFactory.eINSTANCE.createHyFeature();
+		HyFeature feature = HyFeatureFactoryWithIds.eINSTANCE.createHyFeature();
 		feature.setValidSince(date);
 
 		HyName name = HyEvolutionFactory.eINSTANCE.createHyName();
@@ -90,7 +90,7 @@ public class AddFeature implements EvolutionOperation {
 		name.setValidSince(date);
 		feature.getNames().add(name);
 
-		HyFeatureType featureType = HyFeatureFactory.eINSTANCE.createHyFeatureType();
+		HyFeatureType featureType = HyFeatureFactoryWithIds.eINSTANCE.createHyFeatureType();
 		featureType.setValidSince(date);
 		if (isMandatory) {
 			featureType.setType(HyFeatureTypeEnum.MANDATORY);
@@ -106,34 +106,36 @@ public class AddFeature implements EvolutionOperation {
 	public void applyOperation() throws EvolutionOperationException {
 		featureModel.getFeatures().add(addedFeature);
 
+		System.out.println("Line109");
+		
 		if (parentFeature != null) {
-			HyGroup group = HyFeatureFactory.eINSTANCE.createHyGroup();
+			HyGroup group = HyFeatureFactoryWithIds.eINSTANCE.createHyGroup();
 			group.setValidSince((Date)date.clone());
 			
-			HyGroupType groupType = HyFeatureFactory.eINSTANCE.createHyGroupType();
+			HyGroupType groupType = HyFeatureFactoryWithIds.eINSTANCE.createHyGroupType();
 			groupType.setValidSince((Date)date.clone());
 			groupType.setType(HyGroupTypeEnum.AND);
 			group.getTypes().add(groupType);
 			
-			HyFeatureChild featureChild = HyFeatureFactory.eINSTANCE.createHyFeatureChild();
+			HyFeatureChild featureChild = HyFeatureFactoryWithIds.eINSTANCE.createHyFeatureChild();
 			featureChild.setValidSince((Date)date.clone());
 			featureChild.setChildGroup(group);
 			featureChild.setParent(parentFeature);
 			
-			HyGroupComposition groupComposition = HyFeatureFactory.eINSTANCE.createHyGroupComposition();
-			groupComposition.setValidSince((Date)date.clone());
+			HyGroupComposition groupComposition = HyFeatureFactoryWithIds.eINSTANCE.createHyGroupComposition();
 			groupComposition.setCompositionOf(group);
 			
 			featureModel.getGroups().add(group);
 			groupToAddTo = group;
 		}
 
-		if (groupToAddTo != null) {
+		if (groupToAddTo != null) {		System.out.println("Line132");
 			HyGroupComposition oldGroupComposition = HyEvolutionUtil.getValidTemporalElement(groupToAddTo.getParentOf(),
-					(Date)date.clone());
+					date);
+			
 			oldGroupComposition.setValidUntil((Date)date.clone());
 
-			HyGroupComposition newGroupComposition = HyFeatureFactory.eINSTANCE.createHyGroupComposition();
+			HyGroupComposition newGroupComposition = HyFeatureFactoryWithIds.eINSTANCE.createHyGroupComposition();
 			newGroupComposition.setValidSince((Date)date.clone());
 			newGroupComposition.setCompositionOf(groupToAddTo);
 			newGroupComposition.getFeatures().addAll(oldGroupComposition.getFeatures());
@@ -142,7 +144,7 @@ public class AddFeature implements EvolutionOperation {
 //			newGroupComposition.setSupersedingElement(oldGroupComposition.getSupersedingElement());
 
 			// Check if old group composition can be deleted
-			if (oldGroupComposition.getValidSince().equals(oldGroupComposition.getValidUntil())) {
+			if (oldGroupComposition.getValidSince()!= null && oldGroupComposition.getValidSince().equals(oldGroupComposition.getValidUntil())) {
 				HyGroupComposition oldSupersededElement = (HyGroupComposition) oldGroupComposition
 						.getSupersededElement();
 				EcoreUtil.delete(oldGroupComposition);
@@ -152,9 +154,9 @@ public class AddFeature implements EvolutionOperation {
 			}
 		}
 		// Root feature
-		else {
+		else {System.out.println("Line157");
 			HyRootFeature oldRootFeature = HyEvolutionUtil.getValidTemporalElement(featureModel.getRootFeature(), (Date)date.clone());
-			HyRootFeature newRootFeature = HyFeatureFactory.eINSTANCE.createHyRootFeature();
+			HyRootFeature newRootFeature = HyFeatureFactoryWithIds.eINSTANCE.createHyRootFeature();
 			newRootFeature.setValidSince((Date)date.clone());
 			featureModel.getRootFeature().add(newRootFeature);
 			newRootFeature.setFeature(addedFeature);
@@ -162,7 +164,7 @@ public class AddFeature implements EvolutionOperation {
 			newRootFeature.setSupersedingElement(oldRootFeature.getSupersedingElement());
 
 			// Check if old root feature can be deleted
-			if (newRootFeature.getValidSince().equals(newRootFeature.getValidUntil())) {
+			if (newRootFeature.getValidSince() != null && newRootFeature.getValidSince().equals(newRootFeature.getValidUntil())) {
 				HyRootFeature oldSupersededElement = (HyRootFeature) oldRootFeature.getSupersededElement();
 				EcoreUtil.delete(oldRootFeature);
 				newRootFeature.setSupersededElement(oldSupersededElement);

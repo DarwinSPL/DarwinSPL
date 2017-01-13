@@ -44,12 +44,13 @@ public class HyFeatureEvolutionUtil {
 	public static List<HyGroup> getChildsOfFeature(HyFeature feature, Date date) {
 		List<HyGroup> validGroups = new ArrayList<HyGroup>();
 
-		@SuppressWarnings("unchecked")
-		List<HyFeatureChild> validFeatureChilds = (List<HyFeatureChild>) (List<?>) HyEvolutionUtil
+		List<HyFeatureChild> validFeatureChilds = HyEvolutionUtil
 				.getValidTemporalElements(feature.getParentOf(), date);
 		for (HyFeatureChild featureChild : validFeatureChilds) {
-			// TODO Assumption: Group validity >= featureChild validity
-			validGroups.add(featureChild.getChildGroup());
+			HyGroup childGroup = featureChild.getChildGroup();
+			if(HyEvolutionUtil.isValid(childGroup, date)) {
+				validGroups.add(featureChild.getChildGroup());				
+			}
 		}
 
 		return validGroups;
@@ -70,9 +71,7 @@ public class HyFeatureEvolutionUtil {
 	}
 
 	public static HyFeature getRootFeature(HyFeatureModel featureModel, Date date) {
-		HyTemporalElement validTemporalElement = HyEvolutionUtil.getValidTemporalElement(featureModel.getRootFeature(),
-				date);
-		HyRootFeature rootFeature = (HyRootFeature) validTemporalElement;
+		HyRootFeature rootFeature = HyEvolutionUtil.getValidTemporalElement(featureModel.getRootFeature(), date);
 		HyFeature rootFeatureFeature = rootFeature.getFeature();
 		return rootFeatureFeature;
 	}
@@ -213,25 +212,20 @@ public class HyFeatureEvolutionUtil {
 
 	public static List<HyFeature> getFeaturesOfGroup(HyGroup group, Date date) {
 		if (group == null) {
-			return null;
+			return new ArrayList<HyFeature>();
 		}
 
-		HyTemporalElement validGroupCompositionTemporalElement = HyEvolutionUtil
+		HyGroupComposition validGroupComposition = HyEvolutionUtil
 				.getValidTemporalElement(group.getParentOf(), date);
 
-		if (validGroupCompositionTemporalElement == null) {
+		if (validGroupComposition == null) {
 			System.err.println("Something Bad Happened. Group: " + group
 					+ " has no or multiple valid compositions at date: " + date);
 
 			return null;
 		}
 
-		if (validGroupCompositionTemporalElement instanceof HyGroupComposition) {
-			HyGroupComposition validGroupComposition = (HyGroupComposition) validGroupCompositionTemporalElement;
-			return validGroupComposition.getFeatures();
-		}
-
-		return null;
+		return validGroupComposition.getFeatures();
 	}
 
 	public static boolean isAlternative(HyGroup group, Date date) {
@@ -345,7 +339,12 @@ public class HyFeatureEvolutionUtil {
 	}
 
 	public static boolean isLeaf(HyFeature feature, Date date) {
-		return HyEvolutionUtil.getValidTemporalElements(feature.getParentOf(), date).isEmpty();
+		List<HyFeatureChild> children = feature.getParentOf();
+
+		if (children == null || HyEvolutionUtil.getValidTemporalElements(children, date).isEmpty()) {
+			return true;
+		}
+		return false;
 	}
 
 	public static boolean isInGroup(HyFeature feature, HyGroup group, Date date) {
@@ -359,7 +358,7 @@ public class HyFeatureEvolutionUtil {
 	 * @param date
 	 * @return
 	 */
-	public static List<HyFeature> getFeatureOfSubtree(HyFeature feature, Date date) {
+	public static List<HyFeature> getFeaturesOfSubtree(HyFeature feature, Date date, int depth) {
 		List<HyFeature> features = new ArrayList<HyFeature>();
 
 		for (HyGroup group : getChildsOfFeature(feature, date)) {
@@ -367,20 +366,21 @@ public class HyFeatureEvolutionUtil {
 			features.addAll(subFeatures);
 
 			for (HyFeature subFeature : subFeatures) {
-				features.addAll(getFeatureOfSubtree(subFeature, date));
+				features.addAll(getFeaturesOfSubtree(subFeature, date, depth));	
 			}
 		}
 
 		return features;
 	}
 
-	public static List<HyFeature> getFeatureOfSubtree(HyGroup group, Date date) {
+	public static List<HyFeature> getFeatureOfSubtree(HyGroup group, Date date, int depth) {
+		depth++;
 		List<HyFeature> features = new ArrayList<HyFeature>();
-
+		
 		for (HyFeature groupFeature : getFeaturesOfGroup(group, date)) {
 			features.add(groupFeature);
 
-			features.addAll(getFeatureOfSubtree(groupFeature, date));
+			features.addAll(getFeaturesOfSubtree(groupFeature, date, depth));
 		}
 
 		return features;
@@ -438,6 +438,9 @@ public class HyFeatureEvolutionUtil {
 		}
 		Random rand = new Random();
 		int index = rand.nextInt(validFeatures.size());
+		if (validFeatures.get(index) == null) {
+			System.out.println("WTDF?");
+		}
 		return validFeatures.get(index);
 	}
 
@@ -449,6 +452,9 @@ public class HyFeatureEvolutionUtil {
 		}
 		Random rand = new Random();
 		int index = rand.nextInt(validFeatures.size());
+		if (validFeatures.get(index) == null) {
+			System.out.println("WTDF?");
+		}
 		return validFeatures.get(index);
 	}
 

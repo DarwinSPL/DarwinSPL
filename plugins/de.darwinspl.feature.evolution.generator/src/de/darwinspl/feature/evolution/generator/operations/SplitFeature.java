@@ -10,12 +10,12 @@ import eu.hyvar.evolution.HyLinearTemporalElement;
 import eu.hyvar.evolution.HyName;
 import eu.hyvar.feature.HyFeature;
 import eu.hyvar.feature.HyFeatureChild;
-import eu.hyvar.feature.HyFeatureFactory;
 import eu.hyvar.feature.HyFeatureType;
 import eu.hyvar.feature.HyGroup;
 import eu.hyvar.feature.HyGroupComposition;
 import eu.hyvar.feature.HyGroupType;
 import eu.hyvar.feature.HyGroupTypeEnum;
+import eu.hyvar.feature.impl.custom.HyFeatureFactoryWithIds;
 import eu.hyvar.feature.util.HyFeatureEvolutionUtil;
 
 public class SplitFeature implements EvolutionOperation {
@@ -45,14 +45,14 @@ public class SplitFeature implements EvolutionOperation {
 	 * @param date
 	 */
 	public SplitFeature(HyFeature featureToSplit, Date date) {
-		String newFeatureName = HyEvolutionUtil.getValidTemporalElement(featureToSplit.getNames(), date).getName();
+		String newFeatureName = HyEvolutionUtil.getValidTemporalElement(featureToSplit.getNames(), date).getName()+"_splitted";
 		this.featureToSplit = featureToSplit;
 		this.date = date;
 		this.newlyAddedFeature = createNewFeature(featureToSplit, newFeatureName, date);
 	}
 
 	private HyFeature createNewFeature(HyFeature featureToSplit, String newFeatureName, Date date) {
-		HyFeature newlyAddedFeature = HyFeatureFactory.eINSTANCE.createHyFeature();
+		HyFeature newlyAddedFeature = HyFeatureFactoryWithIds.eINSTANCE.createHyFeature();
 		newlyAddedFeature.setValidSince(date);
 
 		HyName featureName = HyEvolutionFactory.eINSTANCE.createHyName();
@@ -60,7 +60,7 @@ public class SplitFeature implements EvolutionOperation {
 		featureName.setName(newFeatureName);
 		newlyAddedFeature.getNames().add(featureName);
 
-		HyFeatureType featureType = HyFeatureFactory.eINSTANCE.createHyFeatureType();
+		HyFeatureType featureType = HyFeatureFactoryWithIds.eINSTANCE.createHyFeatureType();
 		featureType.setValidSince(date);
 		newlyAddedFeature.getTypes().add(featureType);
 
@@ -76,46 +76,58 @@ public class SplitFeature implements EvolutionOperation {
 		
 		if(HyFeatureEvolutionUtil.isRootFeature(featureToSplit.getFeatureModel(), featureToSplit, date)) {
 			// feature to split is root: put splitted feature as mandatory feature in subgroup
-			HyGroup group = HyFeatureFactory.eINSTANCE.createHyGroup();
+			HyGroup group = HyFeatureFactoryWithIds.eINSTANCE.createHyGroup();
 			group.setValidSince(date);
 			
-			HyFeatureChild featureChild = HyFeatureFactory.eINSTANCE.createHyFeatureChild();
+			HyGroupType groupType = HyFeatureFactoryWithIds.eINSTANCE.createHyGroupType();
+			groupType.setValidSince(date);
+			groupType.setType(HyGroupTypeEnum.AND);
+			group.getTypes().add(groupType);
+			featureToSplit.getFeatureModel().getGroups().add(group);
+			
+			HyFeatureChild featureChild = HyFeatureFactoryWithIds.eINSTANCE.createHyFeatureChild();
 			featureChild.setValidSince(date);
 			featureChild.setParent(featureToSplit);
 			featureChild.setChildGroup(group);
 			
-			HyGroupComposition groupComposition = HyFeatureFactory.eINSTANCE.createHyGroupComposition();
+			HyGroupComposition groupComposition = HyFeatureFactoryWithIds.eINSTANCE.createHyGroupComposition();
 			groupComposition.setValidSince(date);
 			groupComposition.setCompositionOf(group);
 			groupComposition.getFeatures().add(newlyAddedFeature);			
 			
 		}
 		else {
-			HyGroupComposition oldGroupComposition = HyEvolutionUtil
+			HyGroupComposition oldGroupComposition;
+			HyGroup groupOfSplittedFeature;
+			HyGroupTypeEnum groupOfSplittedFeatureType;
+			try {
+				
+			
+			oldGroupComposition = HyEvolutionUtil
 					.getValidTemporalElement(featureToSplit.getGroupMembership(), date);
-			HyGroup groupOfSplittedFeature = oldGroupComposition.getCompositionOf();
+			groupOfSplittedFeature = oldGroupComposition.getCompositionOf();
 
-			HyGroupTypeEnum groupOfSplittedFeatureType = HyEvolutionUtil
+			groupOfSplittedFeatureType = HyEvolutionUtil
 					.getValidTemporalElement(groupOfSplittedFeature.getTypes(), date).getType();
 
 			if (groupOfSplittedFeatureType.equals(HyGroupTypeEnum.ALTERNATIVE)) {
-				HyGroup newGroup = HyFeatureFactory.eINSTANCE.createHyGroup();
+				HyGroup newGroup = HyFeatureFactoryWithIds.eINSTANCE.createHyGroup();
 				newGroup.setValidSince((Date)date.clone());
 				featureToSplit.getFeatureModel().getGroups().add(newGroup);
 
 				HyFeature currentParentFeature = HyEvolutionUtil
 						.getValidTemporalElement(groupOfSplittedFeature.getChildOf(), date).getParent();
-				HyFeatureChild newFeatureChild = HyFeatureFactory.eINSTANCE.createHyFeatureChild();
+				HyFeatureChild newFeatureChild = HyFeatureFactoryWithIds.eINSTANCE.createHyFeatureChild();
 				newFeatureChild.setValidSince((Date)date.clone());
 				newFeatureChild.setChildGroup(newGroup);
 				newFeatureChild.setParent(currentParentFeature);
 
-				HyGroupComposition newGroupComposition = HyFeatureFactory.eINSTANCE.createHyGroupComposition();
+				HyGroupComposition newGroupComposition = HyFeatureFactoryWithIds.eINSTANCE.createHyGroupComposition();
 				newGroupComposition.setValidSince((Date)date.clone());
 				newGroupComposition.setCompositionOf(newGroup);
 				newGroupComposition.getFeatures().add(newlyAddedFeature);
 
-				HyGroupType newGroupType = HyFeatureFactory.eINSTANCE.createHyGroupType();
+				HyGroupType newGroupType = HyFeatureFactoryWithIds.eINSTANCE.createHyGroupType();
 				newGroupType.setValidSince((Date)date.clone());
 				newGroupType.setType(HyGroupTypeEnum.AND);
 				newGroup.getTypes().add(newGroupType);
@@ -123,7 +135,7 @@ public class SplitFeature implements EvolutionOperation {
 			else {
 				// create new GC, add existing features, valid since
 				// date. Old GC valid until date, repair superseding
-				HyGroupComposition newGroupComposition = HyFeatureFactory.eINSTANCE.createHyGroupComposition();
+				HyGroupComposition newGroupComposition = HyFeatureFactoryWithIds.eINSTANCE.createHyGroupComposition();
 				newGroupComposition.setValidSince((Date)date.clone());
 				oldGroupComposition.setValidUntil((Date)date.clone());
 				groupOfSplittedFeature.getParentOf().add(newGroupComposition);
@@ -131,7 +143,7 @@ public class SplitFeature implements EvolutionOperation {
 				newGroupComposition.getFeatures().addAll(oldGroupComposition.getFeatures());
 				newGroupComposition.getFeatures().add(newlyAddedFeature);
 
-				if (oldGroupComposition.getValidUntil().equals(oldGroupComposition.getValidSince())) {
+				if (oldGroupComposition.getValidUntil() != null && oldGroupComposition.getValidUntil().equals(oldGroupComposition.getValidSince())) {
 					// Check if old group composition can be deleted
 					HyLinearTemporalElement oldSupersededElement = oldGroupComposition.getSupersededElement();
 					EcoreUtil.delete(oldGroupComposition);
@@ -139,6 +151,9 @@ public class SplitFeature implements EvolutionOperation {
 				} else {
 					newGroupComposition.setSupersededElement(oldGroupComposition);
 				}
+			}
+			}catch(Exception ex) {
+				ex.printStackTrace();
 			}
 		}
 		

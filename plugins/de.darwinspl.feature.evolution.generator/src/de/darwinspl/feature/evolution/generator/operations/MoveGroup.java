@@ -8,8 +8,8 @@ import eu.hyvar.evolution.HyEvolutionUtil;
 import eu.hyvar.evolution.HyLinearTemporalElement;
 import eu.hyvar.feature.HyFeature;
 import eu.hyvar.feature.HyFeatureChild;
-import eu.hyvar.feature.HyFeatureFactory;
 import eu.hyvar.feature.HyGroup;
+import eu.hyvar.feature.impl.custom.HyFeatureFactoryWithIds;
 
 public class MoveGroup implements EvolutionOperation {
 
@@ -30,13 +30,13 @@ public class MoveGroup implements EvolutionOperation {
 		HyFeatureChild oldFeatureChild = HyEvolutionUtil.getValidTemporalElement(groupToMove.getChildOf(), date);
 		oldFeatureChild.setValidUntil((Date)date.clone());
 		
-		HyFeatureChild newFeatureChild = HyFeatureFactory.eINSTANCE.createHyFeatureChild();
+		HyFeatureChild newFeatureChild = HyFeatureFactoryWithIds.eINSTANCE.createHyFeatureChild();
 		newFeatureChild.setValidSince((Date)date.clone());
 		newFeatureChild.setChildGroup(groupToMove);
 		newFeatureChild.setParent(targetParent);
 		
 		
-		if(oldFeatureChild.getValidSince().equals(oldFeatureChild.getValidUntil())) {
+		if(oldFeatureChild.getValidSince() != null && oldFeatureChild.getValidSince().equals(oldFeatureChild.getValidUntil())) {
 			HyLinearTemporalElement oldSupersededElement = oldFeatureChild.getSupersededElement();
 			EcoreUtil.delete(oldFeatureChild);
 			newFeatureChild.setSupersededElement(oldSupersededElement);
