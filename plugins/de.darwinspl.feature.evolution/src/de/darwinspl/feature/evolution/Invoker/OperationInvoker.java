@@ -6,10 +6,9 @@ package de.darwinspl.feature.evolution.Invoker;
 import java.util.ArrayList;
 import java.util.Date;
 
-import de.darwinspl.feature.evolution.basis.operations.ComplexeOperation;
+import de.darwinspl.feature.evolution.basic.operations.*;
 import eu.hyvar.feature.HyFeatureModel;
 import eu.hyvar.feature.HyFeatureTypeEnum;
-import de.darwinspl.feature.evolution.basis.operations.*;
 
 /**
  * Get request from the editor and invoke the corresponding evoOp to execute the command.
@@ -46,7 +45,7 @@ public class OperationInvoker {
 	 */
 	public HyFeatureModel AddFeature(String name, HyFeatureTypeEnum type, Date timestamp, HyFeatureModel tfm) {
 		
-		ComplexeOperation addFeature = new AddFeature(name, type, timestamp, tfm);
+		ComplexOperation addFeature = new AddFeature(name, type, timestamp, tfm);
 		evoOps.add(addFeature);
 		addFeature.execute();
 		//add the operation as next command in the history

@@ -1,7 +1,7 @@
 /**
  * 
  */
-package de.darwinspl.feature.evolution.basis.operations;
+package de.darwinspl.feature.evolution.basic.operations;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -12,11 +12,11 @@ import eu.hyvar.feature.HyFeatureModel;
 /**
  *
  */
-public abstract class ComplexeOperation implements EvolutionOperation {
+public abstract class ComplexOperation implements EvolutionOperation {
 	
 	protected Date timestamp;
 	protected HyFeatureModel tfm;
-	private ArrayList<EvolutionOperation> evoOps = new ArrayList<EvolutionOperation>();
+	protected ArrayList<EvolutionOperation> evoOps = new ArrayList<EvolutionOperation>();
 
 	/* (non-Javadoc)
 	 * @see de.evolution.framework.EvolutionOperation#execute()

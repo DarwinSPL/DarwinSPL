@@ -44,7 +44,7 @@ public class AddFeatureType implements EvolutionOperation {
 		
 		//Get the latest featuretype of the feature, if it exists, and set the until variable
 		if (!feature.getTypes().isEmpty()) {
-			HyFeatureType oldFeatureType = feature.getTypes().get(feature.getTypes().size() - 1);
+			HyFeatureType oldFeatureType = feature.getTypes().get(feature.getTypes().size() - 1);	//Nicht zwingend der Fall
 			oldFeatureType.setValidUntil(timestamp);
 		}
 		
