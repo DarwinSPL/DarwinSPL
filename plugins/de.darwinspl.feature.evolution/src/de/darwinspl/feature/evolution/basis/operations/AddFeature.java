@@ -19,6 +19,10 @@ import eu.hyvar.feature.HyFeatureTypeEnum;
  */
 public class AddFeature extends ComplexeOperation {
 
+	// TODO du nutzt gar nicht @evoOps von ComplexeOperation
+	// TODO: complex wird ohne e am Ende geschrieben
+	// TODO: package name: basis = die Basis, der Stuetzpunkt. basic = grundlegende Basis.
+	
 	private String name;
 	private HyFeatureTypeEnum type;
 	
@@ -51,7 +55,7 @@ public class AddFeature extends ComplexeOperation {
 		feature.setValidUntil(null);
 		
 		tfm.getFeatures().add(feature);
-
+		// TODO: und wo ist dieses feature dann im Baum? Es muss ja entweder in irgendeiner Gruppe sein oder das Root Feature sein.
 	}
 
 	/* (non-Javadoc)
