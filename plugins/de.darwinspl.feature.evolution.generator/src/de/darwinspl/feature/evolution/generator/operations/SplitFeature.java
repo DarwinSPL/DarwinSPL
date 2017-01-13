@@ -100,8 +100,6 @@ public class SplitFeature implements EvolutionOperation {
 			HyGroupComposition oldGroupComposition;
 			HyGroup groupOfSplittedFeature;
 			HyGroupTypeEnum groupOfSplittedFeatureType;
-			try {
-				
 			
 			oldGroupComposition = HyEvolutionUtil
 					.getValidTemporalElement(featureToSplit.getGroupMembership(), date);
@@ -151,9 +149,6 @@ public class SplitFeature implements EvolutionOperation {
 				} else {
 					newGroupComposition.setSupersededElement(oldGroupComposition);
 				}
-			}
-			}catch(Exception ex) {
-				ex.printStackTrace();
 			}
 		}
 		

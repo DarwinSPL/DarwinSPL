@@ -60,7 +60,6 @@ public class FeatureModelEvolutionGenerator {
 			EvolutionOperationType evolutionOperationType = EvolutionOperationType.values()[randomEvoOpIndex];
 			
 			EvolutionOperation evolutionOp = null;
-			try {
 				
 			switch(evolutionOperationType) {
 			case ADD_FEATURE:
@@ -88,21 +87,14 @@ public class FeatureModelEvolutionGenerator {
 				evolutionOp = createSplitFeature(featureModel, date);
 				break;			
 			}
-			}catch(Exception e) {
-				e.printStackTrace();
-			}
 			
 			if(evolutionOp != null) {
-				try {
-					System.out.println(evolutionOperationType+" was applied!");
-					evolutionOp.applyOperation();
+					try {
+						evolutionOp.applyOperation();
+					} catch (EvolutionOperationException e) {
+						e.printStackTrace();
+					}
 					appliedEvolutionOperations.add(evolutionOp);
-				} catch (EvolutionOperationException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				} catch (Exception ex) {
-					ex.printStackTrace();
-				}
 			}
 			
 			GregorianCalendar c = new GregorianCalendar();
@@ -154,17 +146,12 @@ public class FeatureModelEvolutionGenerator {
 		boolean isMandatory = false;
 		
 		// If group is and group, randomize type of new feature
-		try {
-			
-		
 		if(HyFeatureEvolutionUtil.isAnd(parentGroup, date)) {
 			if(rand.nextInt(2)==0) {
 				isMandatory = true;
 			}
 		}
-		}catch(Exception ex) {
-			ex.printStackTrace();
-		}
+		
 		return new AddFeature(featureModel, featureName, isMandatory, parentGroup, date);
 	}
 	
