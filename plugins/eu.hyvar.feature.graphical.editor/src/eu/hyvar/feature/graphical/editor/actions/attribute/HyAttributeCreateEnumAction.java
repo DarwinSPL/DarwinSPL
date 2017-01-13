@@ -1,5 +1,7 @@
 package eu.hyvar.feature.graphical.editor.actions.attribute;
 
+import java.util.Date;
+
 import org.eclipse.gef.Request;
 
 import eu.hyvar.dataValues.HyEnumLiteral;
@@ -28,6 +30,10 @@ public class HyAttributeCreateEnumAction extends HyAttributeCreateAction{
 
 	@Override
 	protected HyFeatureAttribute createNewAttribute(){
+		Date date = editor.getCurrentSelectedDate();
+		if(date.equals(new Date(Long.MIN_VALUE)))
+			date = null;
+		
 		EnumDialog dialog = new EnumDialog(editor.getSite().getShell(), editor.getModelWrapped().getModel(), null, null);		
 		dialog.open();
 		HyEnumLiteral literal = dialog.getValue();
@@ -36,6 +42,7 @@ public class HyAttributeCreateEnumAction extends HyAttributeCreateAction{
 		attribute.setValidSince(editor.getCurrentSelectedDate());
 		HyName name = HyEvolutionFactory.eINSTANCE.createHyName();
 		name.setName("New Enumeration Attribute");
+		name.setValidSince(date);
 		attribute.getNames().add(name);
 		
 		attribute.setEnumType(literal.getEnum());

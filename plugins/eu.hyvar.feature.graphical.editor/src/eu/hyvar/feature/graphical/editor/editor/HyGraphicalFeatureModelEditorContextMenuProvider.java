@@ -1,5 +1,6 @@
 package eu.hyvar.feature.graphical.editor.editor;
 
+import org.eclipse.gef.ContextMenuProvider;
 import org.eclipse.gef.EditPartViewer;
 import org.eclipse.gef.ui.actions.ActionRegistry;
 import org.eclipse.gef.ui.actions.GEFActionConstants;
@@ -17,6 +18,7 @@ import eu.hyvar.feature.graphical.editor.actions.attribute.HyAttributeRenameActi
 import eu.hyvar.feature.graphical.editor.actions.attribute.HyNumberAttributeSetNumberRangeAction;
 import eu.hyvar.feature.graphical.editor.actions.enumeration.HyFeatureAttributeEnumCreateEnumAction;
 import eu.hyvar.feature.graphical.editor.actions.enumeration.HyFeatureAttributeEnumCreateLiteralAction;
+import eu.hyvar.feature.graphical.editor.actions.feature.HyFeatureChangeTypeAction;
 import eu.hyvar.feature.graphical.editor.actions.feature.HyFeatureCreateSiblingAction;
 import eu.hyvar.feature.graphical.editor.actions.feature.HyFeatureEditNamesAction;
 import eu.hyvar.feature.graphical.editor.actions.feature.HyFeatureEvolutionCreateChildAction;
@@ -26,11 +28,13 @@ import eu.hyvar.feature.graphical.editor.actions.group.HyGroupChangeGroupTypeToO
 import eu.hyvar.feature.graphical.editor.actions.version.HyVersionCreateSuccessorAction;
 import eu.hyvar.feature.graphical.editor.actions.version.HyVersionCreateVersionAction;
 
-public class HyFeatureModelEvolutionGraphicalEditorContextMenuProvider extends HyFeatureModelGraphicalEditorContextMenuProvider	{
+public class HyGraphicalFeatureModelEditorContextMenuProvider extends ContextMenuProvider	{
+	private ActionRegistry actionRegistry;
 
-	public HyFeatureModelEvolutionGraphicalEditorContextMenuProvider(EditPartViewer viewer,
-			ActionRegistry actionRegistry) {
-		super(viewer, actionRegistry);
+	public HyGraphicalFeatureModelEditorContextMenuProvider(EditPartViewer viewer, final ActionRegistry actionRegistry) {
+		super(viewer);
+
+		setActionRegistry(actionRegistry);
 	}
 
 	@Override
@@ -39,6 +43,7 @@ public class HyFeatureModelEvolutionGraphicalEditorContextMenuProvider extends H
 		
         IAction action;
         
+        // Basic operations: undo, redo, delete
         action = getActionRegistry().getAction(ActionFactory.UNDO.getId());
         menu.appendToGroup(GEFActionConstants.GROUP_UNDO, action);
         action = getActionRegistry().getAction(ActionFactory.REDO.getId());
@@ -46,28 +51,20 @@ public class HyFeatureModelEvolutionGraphicalEditorContextMenuProvider extends H
         action = getActionRegistry().getAction(ActionFactory.DELETE.getId());
         menu.appendToGroup(GEFActionConstants.GROUP_UNDO, action);
         
-        /*
-        action = getActionRegistry().getAction(HyLinearTemporalElementChangeValidityAction.FEATURE_CHANGE_VALIDITY);
-        menu.appendToGroup(GEFActionConstants.GROUP_EDIT, action);
-        */
-        
+ 
+        // Feature actions: create child, create sibling
         action = getActionRegistry().getAction(HyFeatureEvolutionCreateChildAction.FEATURE_EVOLUTION_CREATE_CHILD);
         menu.appendToGroup(GEFActionConstants.GROUP_EDIT, action);
         action = getActionRegistry().getAction(HyFeatureCreateSiblingAction.FEATURE_CREATE_SIBLING);
-        menu.appendToGroup(GEFActionConstants.GROUP_EDIT, action);
-        
-        /*
-        action = getActionRegistry().getAction(HyFeatureEditCardinalitiesAction.FEATURE_EDIT_CARDINALITIES);
-        menu.appendToGroup(GEFActionConstants.GROUP_EDIT, action);
-        */
+        menu.appendToGroup(GEFActionConstants.GROUP_EDIT, action);       
         action = getActionRegistry().getAction(HyFeatureEditNamesAction.FEATURE_EDIT_NAMES);
+        menu.appendToGroup(GEFActionConstants.GROUP_EDIT, action);      
+        action = getActionRegistry().getAction(HyFeatureChangeTypeAction.FEATURE_CHANGE_TYPE);
         menu.appendToGroup(GEFActionConstants.GROUP_EDIT, action);      
         menu.appendToGroup(GEFActionConstants.GROUP_EDIT, new Separator());
         
-        /*
-        action = getActionRegistry().getAction(HyGroupEditCardinalitiesAction.GROUP_EDIT_CARDINALITIES);
-        menu.appendToGroup(GEFActionConstants.GROUP_EDIT, action);
-        */
+        
+
         action = getActionRegistry().getAction(HyGroupChangeGroupTypeToAlternativeTypeAction.CHANGE_GROUP_TYPE_TO_ALTERNATIVE);
         menu.appendToGroup(GEFActionConstants.GROUP_EDIT, action);
         action = getActionRegistry().getAction(HyGroupChangeGroupTypeToAndTypeAction.CHANGE_GROUP_TYPE_TO_AND);
@@ -112,4 +109,12 @@ public class HyFeatureModelEvolutionGraphicalEditorContextMenuProvider extends H
         action = getActionRegistry().getAction(HyLinearTemporalElementChangeValidityAction.FEATURE_CHANGE_VALIDITY);
         menu.appendToGroup(GEFActionConstants.GROUP_EDIT, action);
 	}
+	
+	public ActionRegistry getActionRegistry() {
+		return actionRegistry;
+	}
+	public void setActionRegistry(ActionRegistry actionRegistry) {
+		this.actionRegistry = actionRegistry;
+	}
+
 }

@@ -26,11 +26,16 @@ public class HyEditorChangeableElement{
 		return position;
 	}
 	public void setPosition(Point position) {
+		setPosition(position, true);
+	}	
+	public void setPosition(Point position, boolean firePropertyChange) {
 		Point old = this.position;
 		this.position = position;
 
-		listeners.firePropertyChange(PROPERTY_POSITION, old, position);
+		if(firePropertyChange)
+			listeners.firePropertyChange(PROPERTY_POSITION, old, position);
 	}	
+	
 	
 	public EObject getWrappedModelElement() {
 		return wrappedModelElement;

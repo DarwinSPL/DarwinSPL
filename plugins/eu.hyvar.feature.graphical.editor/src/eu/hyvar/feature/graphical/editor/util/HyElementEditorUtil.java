@@ -24,6 +24,7 @@ public class HyElementEditorUtil {
 				HyLinearTemporalElement predecessor = element.getSupersededElement();
 				HyLinearTemporalElement successor = element.getSupersedingElement();
 				
+				
 				if(predecessor != null && successor != null){
 					predecessor.setSupersedingElement(successor);
 					successor.setSupersededElement(predecessor);

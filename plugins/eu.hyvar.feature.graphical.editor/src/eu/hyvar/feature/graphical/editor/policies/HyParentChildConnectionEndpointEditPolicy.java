@@ -62,6 +62,7 @@ public class HyParentChildConnectionEndpointEditPolicy extends ConnectionEndpoin
 	}
 	
 	
+	@SuppressWarnings("unchecked")
 	@Override
 	protected List createSelectionHandles(){
 		List list = new ArrayList();

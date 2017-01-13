@@ -40,7 +40,7 @@ public class HyGroupFigure extends HyAbstractFigure{
 
 
 
-		createGroupTypeArc(null);
+		createGroupTypeArc(editor.getCurrentSelectedDate());
 	}
 
 	// copied from delta ecore DEGroupFigure
@@ -150,15 +150,17 @@ public class HyGroupFigure extends HyAbstractFigure{
 	}	
 
 	@Override 
-	public void paintFigure(Graphics graphics) {
+	public void paintFigure(Graphics graphics) {		
 		DEGraphicalEditorTheme theme = DEGraphicalEditor.getTheme();
-		HyGraphicalFeatureModelViewer editor = (HyGraphicalFeatureModelViewer)this.editor;
 		Date date = editor.getCurrentSelectedDate();
 
-		HyFeatureWrapped wrappedFeature = group.getParentFeature();
-		Point parentPosition = wrappedFeature.getPosition(date).getCopy();
-		parentPosition.y += wrappedFeature.getSize().height;
-		parentPosition.x += group.getParentFeature().getSize().width() / 2.0 - theme.getGroupSymbolRadius();
+		HyFeatureWrapped parentFeatureWrapped = editor.getModelWrapped().getParentFeatureForGroup(group, date);
+		if(parentFeatureWrapped == null){
+			System.out.println("");
+		}
+		Point parentPosition = parentFeatureWrapped.getPosition(date).getCopy();
+		parentPosition.y += parentFeatureWrapped.getSize().height;
+		parentPosition.x += parentFeatureWrapped.getSize().width() / 2.0 - theme.getGroupSymbolRadius();
 
 		int size = theme.getLineWidth() * 2 + theme.getGroupSymbolRadius() * 2;
 		

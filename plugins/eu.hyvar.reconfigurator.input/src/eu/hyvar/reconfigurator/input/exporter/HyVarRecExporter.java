@@ -60,7 +60,7 @@ import eu.hyvar.preferences.HyPreference;
 import eu.hyvar.preferences.HyPreferenceModel;
 import eu.hyvar.reconfigurator.input.format.InputForHyVarRec;
 
-public class ContextConstraintExporterJson {
+public class HyVarRecExporter {
 
 	private Gson gson;
 
@@ -122,7 +122,7 @@ public class ContextConstraintExporterJson {
 
 	private ReconfiguratorIdMapping reconfiguratorIdMapping;
 
-	public ContextConstraintExporterJson() {
+	public HyVarRecExporter() {
 		// featureReconfiguratorIdMapping = new HashMap<HyFeature, String>();
 		// versionReconfiguratorIdMapping = new HashMap<HyVersion, String>();
 		// contextReconfiguratorIdMapping = new HashMap<HyContextualInformation,

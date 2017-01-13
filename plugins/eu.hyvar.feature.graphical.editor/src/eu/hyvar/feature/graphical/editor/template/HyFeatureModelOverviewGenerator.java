@@ -16,6 +16,7 @@ import java.util.Map;
 import org.eclipse.core.runtime.FileLocator;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Platform;
+import org.eclipse.osgi.framework.util.ArrayMap;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.IWorkbenchWindow;
@@ -37,6 +38,7 @@ import eu.hyvar.feature.HyGroupTypeEnum;
 import eu.hyvar.feature.HyVersion;
 import eu.hyvar.feature.graphical.base.editor.HyGraphicalFeatureModelViewer;
 import freemarker.core.ParseException;
+import freemarker.core.TemplateDateFormatFactory;
 import freemarker.template.Configuration;
 import freemarker.template.MalformedTemplateNameException;
 import freemarker.template.Template;
@@ -92,9 +94,27 @@ public class HyFeatureModelOverviewGenerator {
 		HyFeatureModel model = editor.getModelWrapped().getModel();
 
 		for(Date date : dates){
+			int index = dates.indexOf(date);
+
 			List<HyFeatureModelOverviewChangeDataObject> changes = new ArrayList<HyFeatureModelOverviewChangeDataObject>();
 
 			for(HyFeature feature : model.getFeatures()){
+				boolean featureIsValid = HyEvolutionUtil.isValid(feature, date);
+				if(index > 0){
+					if(featureIsValid && !HyEvolutionUtil.isValid(feature, dates.get(index - 1))){
+						changes.add(new HyFeatureModelOverviewChangeDataObject("Feature.", feature.getId(), " changed validity", "valid", "invalid"));
+					}
+				}
+
+				if(index < dates.size() - 1){
+					if(featureIsValid && !HyEvolutionUtil.isValid(feature, dates.get(index + 1))){
+						changes.add(new HyFeatureModelOverviewChangeDataObject("Feature.", feature.getId(), " changed validity", "invalid", "valid"));
+					}					
+				}
+
+				if(!featureIsValid)
+					continue;
+
 				String featureName = HyEvolutionUtil.getValidTemporalElement(feature.getNames(), date).getName();
 				for(HyVersion version : feature.getVersions()){
 					if(version.getValidSince() != null && version.getValidSince() == date){
@@ -144,9 +164,21 @@ public class HyFeatureModelOverviewGenerator {
 					}	
 
 					if(composition.getValidSince() != null && composition.getValidSince().equals(date)){
-						changes.add(new HyFeatureModelOverviewChangeDataObject("Feature ", featureName, " moved", 
-								HyEvolutionUtil.getValidTemporalElement(oldParentFeature.getNames(), date).getName(),
-								HyEvolutionUtil.getValidTemporalElement(getParentFeature(composition, date).getNames(), date).getName()));
+						if(oldParentFeature != null){
+							HyName oldName = HyEvolutionUtil.getValidTemporalElement(oldParentFeature.getNames(), date);
+							HyName newName = HyEvolutionUtil.getValidTemporalElement(getParentFeature(composition, date).getNames(), date);
+
+							String old = oldParentFeature.getId();
+							if(oldName != null)
+								old = oldName.getName();
+
+							String _new = getParentFeature(composition, date).getId();
+							if(newName != null)
+								_new = newName.getName();
+
+							changes.add(new HyFeatureModelOverviewChangeDataObject("Feature ", featureName, " moved", 
+									old, _new));
+						}
 					}	
 				}
 			}
@@ -169,7 +201,8 @@ public class HyFeatureModelOverviewGenerator {
 						oldType = type;
 					}	
 
-					if(type.getValidSince() != null && type.getValidSince().equals(date)){
+					if(oldType != null && type.getValidSince() != null && type.getValidSince().equals(date)){
+						
 						changes.add(new HyFeatureModelOverviewChangeDataObject("Group ", group.getId(), " changed type", getGroupTypeEnumString(oldType.getType()),
 								getGroupTypeEnumString(type.getType())));
 					}	
@@ -194,6 +227,12 @@ public class HyFeatureModelOverviewGenerator {
 		cfg.setDefaultEncoding("UTF-8");
 		cfg.setLocale(Locale.US);
 		cfg.setTemplateExceptionHandler(TemplateExceptionHandler.RETHROW_HANDLER);
+		
+		Map<String, TemplateDateFormatFactory> customDateFormats = new HashMap<String, TemplateDateFormatFactory>();
+		customDateFormats.put("simple", HySimpleTemplateDateFormatFactory.INSTANCE);
+		
+		cfg.setCustomDateFormats(customDateFormats);
+		cfg.setDateTimeFormat("@simle");
 
 		Bundle bundle = Platform.getBundle("eu.hyvar.feature.graphical.editor");
 		URL fileURL = bundle.getEntry("templates/");
@@ -203,21 +242,21 @@ public class HyFeatureModelOverviewGenerator {
 
 		return cfg;
 	}
-	
+
 	private void copyOverviewStyleFiles(){
 		IPath overviewPath = EclipseWorkspaceUtil.createFolderInPathFromCurrentOpenEditorFile("overview");
-		
+
 		try{
 			Bundle bundle = Platform.getBundle("eu.hyvar.feature.graphical.editor");
 			URL fileURL = bundle.getEntry("templates/style/material.min.js");
 
 			EclipseWorkspaceUtil.copyFile(new File(FileLocator.resolve(fileURL).toURI()), 
-											EclipseWorkspaceUtil.createFileInPath("material.min.js", overviewPath));
-			
+					EclipseWorkspaceUtil.createFileInPath("material.min.js", overviewPath));
+
 			fileURL = bundle.getEntry("templates/style/material.min.css");
 			EclipseWorkspaceUtil.copyFile(new File(FileLocator.resolve(fileURL).toURI()), 
 					EclipseWorkspaceUtil.createFileInPath("material.min.css", overviewPath));			
-			
+
 
 		}catch(IOException ex){
 			ex.printStackTrace();
@@ -246,9 +285,9 @@ public class HyFeatureModelOverviewGenerator {
 
 		// copy all style files into the new directory
 		copyOverviewStyleFiles();
-		
 
-		
+
+
 
 		try{
 			File oFile = EclipseWorkspaceUtil.createFileInPath(modelName+".html", overviewPath);

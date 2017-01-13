@@ -10,6 +10,7 @@ import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.util.EcoreUtil;
 
 import eu.hyvar.evolution.HyEvolutionUtil;
 import eu.hyvar.feature.HyFeature;
@@ -250,11 +251,15 @@ public class HyFeatureWrapped extends HyEditorChangeableElement{
 		// TODO throw an exception or something to inform that something got wrong
 		if(composition == null)	
 			return null;
-		if(composition.getCompositionOf().isAnd(date)){
+		// TODO remove add maybe breaks program
+		else
 			return featureModel.findWrappedGroup(composition.getCompositionOf());
-		}
+		
+		//if(composition.getCompositionOf().isAnd(date)){
+		//	return featureModel.findWrappedGroup(composition.getCompositionOf());
+		//}
 
-		return null;
+		//return null;
 	}
 	public void setParent(HyGroupWrapped parentGroup) {
 		this.parentGroup = parentGroup;
@@ -297,6 +302,12 @@ public class HyFeatureWrapped extends HyEditorChangeableElement{
 	}
 	public List<HyParentChildConnection> getParentConnections(Date date) {
 		return filterConnections(parentConnections, date);
+	}
+	public void clearParentConnections(){
+		parentConnections.clear();
+	}
+	public void clearChildrenConnections(){
+		childrenConnections.clear();
 	}
 	public void addParentToChildConnection(HyParentChildConnection connection){
 		int old = childrenConnections.size();
@@ -375,5 +386,12 @@ public class HyFeatureWrapped extends HyEditorChangeableElement{
 		}
 
 		return parents;
+	}
+	
+	public HyFeatureWrapped getParentFeature(Date date){
+		HyGroupComposition composition = HyEvolutionUtil.getValidTemporalElement(getWrappedModelElement().getGroupMembership(), date);
+		HyFeatureChild child = HyEvolutionUtil.getValidTemporalElement(composition.getCompositionOf().getChildOf(), date);
+		
+		return featureModel.getWrappedFeature(child.getParent());
 	}
 }

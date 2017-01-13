@@ -1,4 +1,4 @@
-package eu.hyvar.feature.graphical.editor.evolution;
+package eu.hyvar.feature.graphical.editor.activator;
 
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.osgi.framework.BundleContext;

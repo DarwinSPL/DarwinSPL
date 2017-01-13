@@ -22,6 +22,8 @@ public class HyGroupChangeGroupTypeCommand extends HyLinearTemporalElementComman
 	HyGroupType oldType;
 	HyGroupType changedType;
 	
+	HyGroup copy;
+	
 	public HyGroupChangeGroupTypeCommand(HyGroup group, HyGroupTypeEnum newGroupTypeEnum, HyGraphicalFeatureModelViewer editor){
 		this.group = group;
 		this.newGroupTypeEnum = newGroupTypeEnum;
@@ -40,13 +42,14 @@ public class HyGroupChangeGroupTypeCommand extends HyLinearTemporalElementComman
 	 */
 	@Override
 	public void undo() {	
-		for(HyGroupType type : group.getTypes()){
-			if(EcoreUtil.equals(type, newType)){
-				changedType.setValidUntil(oldType.getValidUntil());
-			}
-		}
+		removeElementFromLinkedList(newType);
 		
-		group.getTypes().remove(newType);	
+		// if the group type was changed at the first date, the old type is deleted. To overcome the missing type, the deleted group type, saved
+		// in a local variable, is added again to the group lists.
+		if(group.getTypes().size() == 1){
+			group.getTypes().add(oldType);
+		}
+		group.getTypes().remove(newType);
 	}
 
 	@Override
@@ -54,6 +57,7 @@ public class HyGroupChangeGroupTypeCommand extends HyLinearTemporalElementComman
 		Date date = editor.getCurrentSelectedDate();
 		
 		HyGroupType type = HyEvolutionUtil.getValidTemporalElement(group.getTypes(), date);
+		
 		changedType = type;
 		oldType = EcoreUtil.copy(type);
 		newType = HyFeatureFactory.eINSTANCE.createHyGroupType();
@@ -62,13 +66,11 @@ public class HyGroupChangeGroupTypeCommand extends HyLinearTemporalElementComman
 		if(date.equals(new Date(Long.MIN_VALUE)))
 			date = null;
 		
-		changeVisibilities(type, newType, date);
-
-		
-
 		group.getTypes().add(newType);
 		if(date == null){
 			group.getTypes().remove(type);
+		}else{
+			changeVisibilities(type, newType, date);
 		}
 		
 		HyElementEditorUtil.cleanGroupTypes(group);

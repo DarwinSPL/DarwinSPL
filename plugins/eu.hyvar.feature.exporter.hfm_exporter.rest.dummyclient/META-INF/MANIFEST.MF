@@ -19,3 +19,6 @@ Require-Bundle: org.eclipse.core.resources,
 Bundle-ClassPath: .,
  lib/jetty-client-9.2.13.v20150730.jar
 Bundle-Vendor: www.darwinspl.de
+Export-Package: eu.hyvar.feature.exporter.hfm_exporter.rest.dummyclient,
+ eu.hyvar.feature.exporter.hfm_exporter.rest.dummyclient.answer,
+ eu.hyvar.feature.exporter.hfm_exporter.rest.dummyclient.output

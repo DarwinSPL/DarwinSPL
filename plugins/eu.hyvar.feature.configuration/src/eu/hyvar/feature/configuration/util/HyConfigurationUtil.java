@@ -20,7 +20,7 @@ public class HyConfigurationUtil {
 
 	
 	private static final String CONFIGURATION_MODEL_FILE_EXTENSION_FOR_XMI = "hyconfigurationmodel";
-	private static final String CONFIGURATION_MODEL_FILE_EXTENSION_FOR_CONCRETE_SYNTAX = "hyconfiguration";
+//	private static final String CONFIGURATION_MODEL_FILE_EXTENSION_FOR_CONCRETE_SYNTAX = "hyconfiguration";
 	
 	
 	public static List<HyFeature> getSelectedFeatures(HyConfiguration configuration, Date date) {
@@ -139,9 +139,9 @@ public class HyConfigurationUtil {
 		return CONFIGURATION_MODEL_FILE_EXTENSION_FOR_XMI;
 	}
 
-	public static String getConfigurationModelFileExtensionForConcreteSyntax() {
-		return CONFIGURATION_MODEL_FILE_EXTENSION_FOR_CONCRETE_SYNTAX;
-	}
+//	public static String getConfigurationModelFileExtensionForConcreteSyntax() {
+//		return CONFIGURATION_MODEL_FILE_EXTENSION_FOR_CONCRETE_SYNTAX;
+//	}
 	
 	
 }

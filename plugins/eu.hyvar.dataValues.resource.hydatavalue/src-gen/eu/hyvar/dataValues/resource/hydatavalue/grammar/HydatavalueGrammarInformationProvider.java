@@ -199,14 +199,9 @@ public class HydatavalueGrammarInformationProvider {
 		return new eu.hyvar.dataValues.resource.hydatavalue.grammar.HydatavalueKeyword("-", eu.hyvar.dataValues.resource.hydatavalue.grammar.HydatavalueCardinality.ONE);
 	}
 	
-	public final static eu.hyvar.dataValues.resource.hydatavalue.grammar.HydatavalueKeyword HYDATAVALUE_3_0_0_5_0_0_1_0_1_2 = INSTANCE.getHYDATAVALUE_3_0_0_5_0_0_1_0_1_2();
-	private eu.hyvar.dataValues.resource.hydatavalue.grammar.HydatavalueKeyword getHYDATAVALUE_3_0_0_5_0_0_1_0_1_2() {
-		return new eu.hyvar.dataValues.resource.hydatavalue.grammar.HydatavalueKeyword("eternity", eu.hyvar.dataValues.resource.hydatavalue.grammar.HydatavalueCardinality.ONE);
-	}
-	
 	public final static eu.hyvar.dataValues.resource.hydatavalue.grammar.HydatavalueSequence HYDATAVALUE_3_0_0_5_0_0_1_0_1 = INSTANCE.getHYDATAVALUE_3_0_0_5_0_0_1_0_1();
 	private eu.hyvar.dataValues.resource.hydatavalue.grammar.HydatavalueSequence getHYDATAVALUE_3_0_0_5_0_0_1_0_1() {
-		return new eu.hyvar.dataValues.resource.hydatavalue.grammar.HydatavalueSequence(eu.hyvar.dataValues.resource.hydatavalue.grammar.HydatavalueCardinality.ONE, HYDATAVALUE_3_0_0_5_0_0_1_0_1_0, HYDATAVALUE_3_0_0_5_0_0_1_0_1_1, HYDATAVALUE_3_0_0_5_0_0_1_0_1_2);
+		return new eu.hyvar.dataValues.resource.hydatavalue.grammar.HydatavalueSequence(eu.hyvar.dataValues.resource.hydatavalue.grammar.HydatavalueCardinality.ONE, HYDATAVALUE_3_0_0_5_0_0_1_0_1_0, HYDATAVALUE_3_0_0_5_0_0_1_0_1_1);
 	}
 	
 	public final static eu.hyvar.dataValues.resource.hydatavalue.grammar.HydatavalueKeyword HYDATAVALUE_3_0_0_5_0_0_1_0_2_0 = INSTANCE.getHYDATAVALUE_3_0_0_5_0_0_1_0_2_0();

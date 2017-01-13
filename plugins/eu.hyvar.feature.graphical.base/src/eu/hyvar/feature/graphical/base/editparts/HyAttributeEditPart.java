@@ -40,6 +40,9 @@ public class HyAttributeEditPart extends HyAbstractEditPart{
 		
 		HyFeatureEditPart parent = (HyFeatureEditPart)getParent();
 		HyAttributeFigure figure = (HyAttributeFigure)getFigure();
+		
+		if(parent == null) return;
+		
 		HyFeatureWrapped feature = (HyFeatureWrapped)parent.getModel();
 		Date date = featureModel.getSelectedDate();
 		

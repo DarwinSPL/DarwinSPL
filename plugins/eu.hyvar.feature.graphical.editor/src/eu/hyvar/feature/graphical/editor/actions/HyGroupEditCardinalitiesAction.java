@@ -19,7 +19,7 @@ import eu.hyvar.feature.graphical.base.model.HyParentChildConnection;
 import eu.hyvar.feature.graphical.editor.dialogs.HyGroupTypeDialog;
 import eu.hyvar.feature.graphical.editor.editor.HyGraphicalFeatureModelEditor;
 
-
+// TODO not needed any longer
 public class HyGroupEditCardinalitiesAction extends SelectionAction{
 	public static final String GROUP_EDIT_CARDINALITIES = "EditGroupCardinalities";
 	public static final String REQ_GROUP_EDIT_CARDINALITIES = "EditGroupCardinalities";

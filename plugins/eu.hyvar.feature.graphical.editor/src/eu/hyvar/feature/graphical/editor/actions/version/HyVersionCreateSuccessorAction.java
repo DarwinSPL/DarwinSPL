@@ -1,13 +1,15 @@
 package eu.hyvar.feature.graphical.editor.actions.version;
 
+import java.util.Date;
+
 import org.eclipse.gef.Request;
 import org.eclipse.gef.ui.actions.SelectionAction;
 
-import eu.hyvar.feature.HyFeatureFactory;
 import eu.hyvar.feature.HyVersion;
 import eu.hyvar.feature.graphical.base.editor.HyGraphicalFeatureModelViewer;
 import eu.hyvar.feature.graphical.base.editparts.HyFeatureEditPart;
 import eu.hyvar.feature.graphical.base.editparts.HyVersionEditPart;
+import eu.hyvar.feature.graphical.editor.commands.version.HyVersionCreateSuccessorCommand;
 
 public class HyVersionCreateSuccessorAction extends SelectionAction{
 	public static final String FEATURE_CREATE_SUCCESSOR_VERSION = "AddSuccessorVersion";
@@ -30,24 +32,18 @@ public class HyVersionCreateSuccessorAction extends SelectionAction{
 
 	@Override
 	public void run(){
+		Date date = editor.getCurrentSelectedDate();
+		if(date.equals(new Date(Long.MIN_VALUE)))
+			date = null;		
+		
 		for(Object o : getSelectedObjects()){
-
 			if(o instanceof HyVersionEditPart){
-				
-				HyVersionEditPart p = (HyVersionEditPart)o;
-				HyVersion model = (HyVersion)p.getModel();
-				HyVersion version = HyFeatureFactory.eINSTANCE.createHyVersion();
-				version.setValidSince(editor.getCurrentSelectedDate());
+				HyVersionEditPart editPart = (HyVersionEditPart)o;
 
-				version.setNumber("C"+model.getSupersedingVersions().size());
-
-				model.getSupersedingVersions().add(version);
-				version.setSupersededVersion(model);
-				
-				model.getFeature().getVersions().add(version);
-				version.setFeature(model.getFeature());
-				
-				((HyFeatureEditPart)p.getParent()).refreshVisuals();
+				HyVersionCreateSuccessorCommand command = new HyVersionCreateSuccessorCommand((HyVersion)editPart.getModel(), editor);
+				editor.executeCommand(command);
+		
+				((HyFeatureEditPart)editPart.getParent()).refreshVisuals();
 			}
 		}
 		
