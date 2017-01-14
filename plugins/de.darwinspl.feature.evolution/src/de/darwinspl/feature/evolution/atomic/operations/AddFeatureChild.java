@@ -6,27 +6,28 @@ package de.darwinspl.feature.evolution.atomic.operations;
 import java.util.Date;
 
 import de.darwinspl.feature.evolution.Invoker.EvolutionOperation;
+import eu.hyvar.feature.HyFeature;
+import eu.hyvar.feature.HyFeatureChild;
 import eu.hyvar.feature.HyFeatureFactory;
 import eu.hyvar.feature.HyGroup;
-import eu.hyvar.feature.HyGroupType;
-import eu.hyvar.feature.HyGroupTypeEnum;
 
 /**
+ * @author Marcel W
  *
  */
-public class AddGroupType implements EvolutionOperation {
+public class AddFeatureChild implements EvolutionOperation {
 
-	private HyGroupTypeEnum type;
-	private Date timestamp;
+	private HyFeature parent;
 	private HyGroup group;
-	private HyGroupType groupTyp;
+	private Date timestamp;
 	
-
+	private HyFeatureChild featureChild;
+	
 	private static final HyFeatureFactory factory = HyFeatureFactory.eINSTANCE;
 	
-	public AddGroupType(HyGroupTypeEnum type, HyGroup group, Date timestamp) {
-		
-		this.type = type;
+	public AddFeatureChild(HyFeature parent, HyGroup group, Date timestamp) {
+
+		this.parent = parent;
 		this.group = group;
 		this.timestamp = timestamp;
 		
@@ -36,16 +37,17 @@ public class AddGroupType implements EvolutionOperation {
 	 */
 	@Override
 	public void execute() {
+
+		featureChild = factory.createHyFeatureChild();
+		featureChild.setParent(parent);
+		featureChild.setChildGroup(group);
+		featureChild.setValidSince(timestamp);
+		featureChild.setValidUntil(null);
+
+		parent.getParentOf().add(featureChild);
 		
-		groupTyp = factory.createHyGroupType();
-		
-		groupTyp.setType(type);
-		groupTyp.setValidSince(timestamp);
-		groupTyp.setValidUntil(null);
-		
-		//TODO: set until in the old groupType
-		
-		group.getTypes().add(groupTyp);
+		//TODO: set until in the old featureChild
+		group.getChildOf().add(featureChild);
 
 	}
 

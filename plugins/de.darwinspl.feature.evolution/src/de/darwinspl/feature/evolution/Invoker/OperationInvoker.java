@@ -7,6 +7,8 @@ import java.util.ArrayList;
 import java.util.Date;
 
 import de.darwinspl.feature.evolution.basic.operations.*;
+import de.darwinspl.feature.evolution.operations.AddFeatureWithGroup;
+import eu.hyvar.feature.HyFeature;
 import eu.hyvar.feature.HyFeatureModel;
 import eu.hyvar.feature.HyFeatureTypeEnum;
 
@@ -43,13 +45,13 @@ public class OperationInvoker {
 	 * @param timestamp since the feature is valid
 	 * @param tfm the corresponding model
 	 */
-	public HyFeatureModel AddFeature(String name, HyFeatureTypeEnum type, Date timestamp, HyFeatureModel tfm) {
+	public HyFeatureModel AddFeature(String name, HyFeatureTypeEnum type, HyFeature parent, Date timestamp, HyFeatureModel tfm) {
 		
-		ComplexOperation addFeature = new AddFeature(name, type, timestamp, tfm);
-		evoOps.add(addFeature);
-		addFeature.execute();
+		ComplexOperation addFeatureWithGroup = new AddFeatureWithGroup(name, type, parent, timestamp, tfm);
+		evoOps.add(addFeatureWithGroup);
+		addFeatureWithGroup.execute();
 		//add the operation as next command in the history
-		commandHistory.add(++counterOfExecuteCommands, addFeature);
+		commandHistory.add(++counterOfExecuteCommands, addFeatureWithGroup);
 		
 		return tfm;
 	}

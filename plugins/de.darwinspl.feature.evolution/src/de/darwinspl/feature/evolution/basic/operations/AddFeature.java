@@ -14,25 +14,21 @@ import eu.hyvar.feature.HyFeatureTypeEnum;
 
 
 /**
- *
+ * Create a new feature object, but don't add it to the model, because the location depends on the situation. (added it to an existing or new group) 
  */
 public class AddFeature extends ComplexOperation {
-
-	// TODO du nutzt gar nicht @evoOps von ComplexeOperation
 	
 	private String name;
 	private HyFeatureTypeEnum type;
-	
-	private HyFeature feature = factory.createHyFeature();
 
 	private static final HyFeatureFactory factory = HyFeatureFactory.eINSTANCE;
+	private HyFeature feature = factory.createHyFeature();
 	
-	public AddFeature(String name, HyFeatureTypeEnum type, Date timestamp, HyFeatureModel tfm) {
+	public AddFeature(String name, HyFeatureTypeEnum type, Date timestamp) {
 		
 		this.name = name;
 		this.type = type;
 		this.timestamp = timestamp;
-		this.tfm = tfm;
 		
 		//create objects of all operation which are used by this one and add them to the list
 		AddName hyName = new AddName(name, feature, timestamp);		
@@ -57,8 +53,6 @@ public class AddFeature extends ComplexOperation {
 		feature.setValidSince(timestamp);
 		feature.setValidUntil(null);
 		
-		tfm.getFeatures().add(feature);
-		// TODO: und wo ist dieses feature dann im Baum? Es muss ja entweder in irgendeiner Gruppe sein oder das Root Feature sein.
 	}
 
 	/* (non-Javadoc)
@@ -73,6 +67,14 @@ public class AddFeature extends ComplexOperation {
 		}
 		tfm.getFeatures().remove(feature);
 
+	}
+	
+	/**
+	 * To provide the creating feature for other operations.
+	 * @return the created feature
+	 */
+	public HyFeature getFeature() {
+		return this.feature;
 	}
 
 }
