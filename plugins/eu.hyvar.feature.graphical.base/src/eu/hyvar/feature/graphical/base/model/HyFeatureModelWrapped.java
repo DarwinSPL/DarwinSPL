@@ -130,6 +130,10 @@ public class HyFeatureModelWrapped implements PropertyChangeListener {
 		if(date == null) date = selectedDate;
 		
 		HyFeatureChild featureChild = HyEvolutionUtil.getValidTemporalElement(groupWrapped.getWrappedModelElement().getChildOf(), date);
+		
+		if(featureChild == null) 
+			return null;
+		
 		return getWrappedFeature(featureChild.getParent());		
 	}
 

@@ -6,9 +6,9 @@
       <editor
             class="eu.hyvar.feature.graphical.configurator.editor.HyFeatureModelDeltaModuleConfiguratorEditor"
             default="false"
-            extensions="hyfeature"
-            id="eu.hyvar.feature.graphical.configurator.editor"
-            name="DarwinSPL Configurator Editor">
+            extensions="hyconfigurationmodel"
+            id="eu.hyvar.feature.graphical.configurator.viewer"
+            name="DarwinSPL Configurator Viewer">
       </editor>
    </extension>
 

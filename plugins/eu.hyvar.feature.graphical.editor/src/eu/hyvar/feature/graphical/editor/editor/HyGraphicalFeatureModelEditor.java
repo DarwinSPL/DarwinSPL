@@ -30,6 +30,7 @@ import org.eclipse.gef.ui.parts.GraphicalViewerKeyHandler;
 import org.eclipse.swt.SWT;
 import org.eclipse.ui.IEditorDescriptor;
 import org.eclipse.ui.IEditorPart;
+import org.eclipse.ui.IEditorReference;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.IWorkbenchWindow;
@@ -69,7 +70,6 @@ public class HyGraphicalFeatureModelEditor extends HyGraphicalFeatureModelViewer
 	}
 	
 	public void executeCommand(Command command) {
-		System.out.println(command);
 		CommandStack commandStack = getCommandStack();
 		commandStack.execute(command);
 	}
@@ -252,7 +252,19 @@ public class HyGraphicalFeatureModelEditor extends HyGraphicalFeatureModelViewer
 	
 
 	
-
+	@Override
+	public void dispose(){
+		IEditorReference[] refs = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().getEditorReferences();
+		for(IEditorReference ref : refs){
+			IEditorPart part = ref.getEditor(false);
+			try{
+				if(part.getEditorInput().getName().contains(file.getName().split(".")[0])){
+					part.getSite().getPage().closeEditor(part, true);
+				}
+			}catch(Exception e){			
+			}
+		}
+	}
 	
 	
 	private MPartStack secondEditor;	

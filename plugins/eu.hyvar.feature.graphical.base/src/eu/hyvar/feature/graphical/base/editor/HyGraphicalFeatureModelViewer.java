@@ -206,20 +206,10 @@ public class HyGraphicalFeatureModelViewer extends GraphicalEditor implements IF
 	}
 
 
-	@Override
-	public void dispose(){
-		IEditorReference[] refs = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().getEditorReferences();
-		for(IEditorReference ref : refs){
-			IEditorPart part = ref.getEditor(false);
-			try{
-				part.getSite().getPage().closeEditor(part, true);
-			}catch(Exception e){			
-			}
-		}
-	}
+
 	
 
-	private void setCurrentSelectedDateToMostActualDate(){
+	protected void setCurrentSelectedDateToMostActualDate(){
 		List<Date> dates = HyEvolutionUtil.collectDates(modelWrapped.getModel());
 		Date currentDate = new Date();
 		Date closestDate = new Date(Long.MIN_VALUE);
@@ -471,7 +461,7 @@ public class HyGraphicalFeatureModelViewer extends GraphicalEditor implements IF
 		return modelWrapped.getModel();
 	}
 
-	private void loadLayout(IFile file){
+	protected void loadLayout(IFile file){
 
 		IWorkspace workspace = ResourcesPlugin.getWorkspace();
 		IWorkspaceRoot workspaceRoot = workspace.getRoot();
