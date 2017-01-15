@@ -25,9 +25,7 @@ public class AddGroup extends ComplexOperation {
 	private HyGroupTypeEnum type;
 	private HyFeature parent;
 	private List<HyFeature> features;
-	private Date timestamp;
-	
-	private HyFeatureModel tfm;	
+
 	private static final HyFeatureFactory factory = HyFeatureFactory.eINSTANCE;
 	private HyGroup group = factory.createHyGroup();
 	private HyGroupComposition groupComposition;

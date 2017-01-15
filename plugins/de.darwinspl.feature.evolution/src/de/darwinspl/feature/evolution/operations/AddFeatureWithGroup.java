@@ -32,6 +32,14 @@ public class AddFeatureWithGroup extends ComplexOperation {
 	private HyGroupComposition groupComposition;
 	private HyFeatureModel tfm;	
 	
+	/**
+	 * Add a feature to the model and create a new (AND-) group where the feature should be located
+	 * @param name of the new feature
+	 * @param featureType of the new feature
+	 * @param parent of the new group
+	 * @param timestamp from the execution of the evoOp
+	 * @param tfm
+	 */
 	public AddFeatureWithGroup(String name, HyFeatureTypeEnum featureType, HyFeature parent, Date timestamp, HyFeatureModel tfm) {
 		
 		this.name = name;
@@ -46,7 +54,7 @@ public class AddFeatureWithGroup extends ComplexOperation {
 		//Only the new created feature is member of the new group
 		features.add(feature);	
 		AddGroup newGroup = new AddGroup(groupType, parent, features, timestamp, tfm);
-		groupComposition = newGroup.getGroupComposition();
+		
 		add(newFeature);
 		add(newGroup);
 		
@@ -63,7 +71,7 @@ public class AddFeatureWithGroup extends ComplexOperation {
 			operation.execute();
 		}
 		
-		//build the last relation between feature and groupCompisition and add the feature to the modell
+		//set the last relation between feature and groupCompisition and add the feature to the model
 		feature.getGroupMembership().add(groupComposition);
 		tfm.getFeatures().add(feature);
 

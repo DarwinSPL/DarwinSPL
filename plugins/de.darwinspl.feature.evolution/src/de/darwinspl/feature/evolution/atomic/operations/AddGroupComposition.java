@@ -22,7 +22,6 @@ public class AddGroupComposition implements EvolutionOperation {
 	private Date timestamp;
 	
 	private HyGroupComposition groupComposition;
-	
 	private static final HyFeatureFactory factory = HyFeatureFactory.eINSTANCE;
 	
 	public AddGroupComposition(HyGroup group, List<HyFeature> features, Date timestamp) {
