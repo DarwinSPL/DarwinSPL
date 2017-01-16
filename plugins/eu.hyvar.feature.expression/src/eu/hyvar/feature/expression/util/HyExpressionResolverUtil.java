@@ -26,15 +26,17 @@ import eu.hyvar.feature.util.HyFeatureModelWellFormednessException;
 import eu.hyvar.feature.util.HyFeatureResolverUtil;
 
 public class HyExpressionResolverUtil {
-	private final static String FEATUREMODEL_EDITOR_EXTENSIONPOINT_ID = "eu.hyvar.feature.expression.FeatureModelEditor";
+//	private final static String FEATUREMODEL_EDITOR_EXTENSIONPOINT_ID = "eu.hyvar.feature.expression.FeatureModelEditor";
 
 	public static HyFeature resolveFeature(String identifier, EObject elementFromAccompanyingResource) {
-		HyFeatureModel featureModel = HyFeatureResolverUtil
-				.getAccompanyingFeatureModel(elementFromAccompanyingResource);
-
 		if (identifier == null) {
 			return null;
 		}
+		
+		identifier = removeQuotationMarks(identifier);
+		
+		HyFeatureModel featureModel = HyFeatureResolverUtil
+				.getAccompanyingFeatureModel(elementFromAccompanyingResource);
 
 		Tuple<String, Date> identifierAndDate = IdentifierWithDateUtil.getIdentifierAndDate(identifier);
 		if (identifierAndDate.getSecondEntry() == null) {
@@ -47,17 +49,46 @@ public class HyExpressionResolverUtil {
 		} catch (HyFeatureModelWellFormednessException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-			return null;
 		}
+		return null;
 	}
 
+	private static String removeQuotationMarks(String identifier) {
+		if (identifier.startsWith("\"") && identifier.endsWith("\"")) {
+			return identifier.substring(1, identifier.length() - 1);
+		}
+		return identifier;
+	}
+	
 	public static HyVersion resolveVersion(String identifier, HyVersionRestriction container) {
-		// TODO?
-
+		HyFeature feature = null;
+		
 		HyAbstractFeatureReferenceExpression featureReference = container.getRestrictedFeatureReferenceExpression();
-		HyFeature feature = featureReference.getFeature();
+		if(featureReference != null) {
+			feature = featureReference.getFeature();			
+		}
+		
+		
+		if(identifier == null || feature == null) {
+			return null;
+		}
+		
+		identifier = removeQuotationMarks(identifier);
+		
+		Tuple<String, Date> identifierAndDate = IdentifierWithDateUtil.getIdentifierAndDate(identifier);
+		if (identifierAndDate.getSecondEntry() == null) {
+			identifierAndDate.setSecondEntry(new Date());
+		}
+		
 
-		return HyFeatureResolverUtil.resolveVersion(identifier, feature);
+		try {
+			return HyFeatureResolverUtil.resolveVersion(identifierAndDate.getFirstEntry(), feature, identifierAndDate.getSecondEntry());
+		} catch (HyFeatureModelWellFormednessException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return null;
 	}
 
 	public static HyFeatureAttribute resolveFeatureAttribute(String identifier, EObject elementFromAccompanyingResource,
@@ -68,6 +99,8 @@ public class HyExpressionResolverUtil {
 		if (identifier == null || containingFeature == null) {
 			return null;
 		}
+		
+		identifier = removeQuotationMarks(identifier);
 
 		Tuple<String, Date> identifierAndDate = IdentifierWithDateUtil.getIdentifierAndDate(identifier);
 		if (identifierAndDate.getSecondEntry() == null) {
@@ -91,6 +124,8 @@ public class HyExpressionResolverUtil {
 		if (identifier == null) {
 			return null;
 		}
+		
+		identifier = removeQuotationMarks(identifier);
 		// TODO: Ambiguity between Enums in FM and ContextModel
 		// TODO evolution
 

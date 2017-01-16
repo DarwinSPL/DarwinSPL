@@ -12,7 +12,6 @@ import eu.hyvar.feature.HyFeature;
 import eu.hyvar.feature.HyFeatureAttribute;
 import eu.hyvar.feature.HyFeatureModel;
 import eu.hyvar.feature.HyVersion;
-import eu.hyvar.feature.data.util.IdentifierWithDateUtil;
 
 public class HyFeatureResolverUtil {
 	public static final String[] FILE_EXTENSIONS = {"hyfeature", "hyfeaturemodel"};
@@ -26,12 +25,9 @@ public class HyFeatureResolverUtil {
 	}
 	
 	public static HyFeature resolveFeature(String identifier, HyFeatureModel featureModel, Date date) throws HyFeatureModelWellFormednessException {
-		
-		if (identifier.startsWith("\"") && identifier.endsWith("\"")) {
-			identifier = identifier.substring(1, identifier.length() - 1);
+		if(identifier == null) {
+			return null;
 		}
-		
-		
 		
 		List<HyFeature> validFeatures = new ArrayList<HyFeature>();
 		for(HyFeature feature: featureModel.getFeatures()) {
@@ -50,28 +46,11 @@ public class HyFeatureResolverUtil {
 		}
 		
 		
-		
-		
-//		Iterator<EObject> iterator = featureModel.eAllContents();
-//		
-//		while(iterator.hasNext()) {
-//			EObject element = iterator.next();
-//			
-//			if (element instanceof HyFeature) {
-//				HyFeature feature = (HyFeature) element;
-//				String name = HyFeatureEvolutionUtil.getMostRecentFeatureName(feature).getName();
-//				
-//				if (identifier.equals(name)) {
-//					return feature;
-//				}
-//			}
-//		}
-		
 		return null;
 	}
 	
 	
-	public static HyEnum resolveEnum(String identifier, HyFeatureModel featureModel, Date date) {
+	public static HyEnum resolveEnum(String identifier, HyFeatureModel featureModel, Date date)  {
 		if(identifier == null || featureModel == null) {
 			return null;
 		}
@@ -107,34 +86,40 @@ public class HyFeatureResolverUtil {
 		return identifier;
 	}
 
-	// TODO versions and attributes
-	public static HyVersion resolveVersion(String identifier, HyFeature feature) {
+	public static HyVersion resolveVersion(String identifier, HyFeature feature, Date date) throws HyFeatureModelWellFormednessException {
 		if (identifier == null) {
 			return null;
 		}
 		
-		List<HyVersion> versions = feature.getVersions();
+		List<HyVersion> validVersions = HyFeatureEvolutionUtil.getVersionsOfFeature(feature, date);
 		
-		for (HyVersion version : versions) {
+		List<HyVersion> resolvedVersions = new ArrayList<HyVersion>(1);
+		
+		for (HyVersion version : validVersions) {
 			String number = version.getNumber();
 			
 			if (identifier.equals(number)) {
-				return version;
+				resolvedVersions.add(version);
 			}
 		}
 		
-		return null;
+		if(resolvedVersions.size()>1) {
+			throw new HyFeatureModelWellFormednessException("Identifier "+identifier+" is ambiguous and lead to more than one resolved version.");
+		}
+		
+		if(resolvedVersions.isEmpty()) {
+			return null;
+		} 
+		else {
+			return resolvedVersions.get(0);
+		}
 	}
 	
 	public static String deresolveVersion(HyVersion version, Date date) {
 		return version.getNumber();
 	}
 	
-	public static HyFeatureAttribute resolveFeatureAttribute(String identifier, HyFeature containingFeature, Date date) throws HyFeatureModelWellFormednessException {
-		if (identifier.startsWith("\"") && identifier.endsWith("\"")) {
-			identifier = identifier.substring(1, identifier.length() - 1);
-		}
-		
+	public static HyFeatureAttribute resolveFeatureAttribute(String identifier, HyFeature containingFeature, Date date) throws HyFeatureModelWellFormednessException {		
 		List<HyFeatureAttribute> validAttributes = new ArrayList<HyFeatureAttribute>();
 		for(HyFeatureAttribute attribute: containingFeature.getAttributes()) {
 			String name = HyFeatureEvolutionUtil.getName(attribute.getNames(), date).getName();
@@ -150,55 +135,6 @@ public class HyFeatureResolverUtil {
 		else if(validAttributes.size() == 1) {
 			return validAttributes.get(0);
 		}
-		
-		
-//		String featureString;
-//		String attributeString;
-//		
-//		String[] splits = identifier.split(".");
-//		if(splits.length > 2) {
-//			System.out.println("Warning: in the feature attribute referenced by "+identifier+", there are some dots in the name of the feature or the attribute. Please fix this");
-//			return null;
-//		} else if(splits.length < 2) {
-//			System.out.println("Warning: feature attributes are referenced as follows: featureName.attributeName");
-//			return null;
-//		}
-//		
-//		featureString = splits[0];
-//		attributeString = splits[1];
-//		
-//		List<HyFeature> validFeatures = new ArrayList<HyFeature>();
-//		HyFeature resolvedFeature;
-//		for(HyFeature feature: featureModel.getFeatures()) {
-//			String name = HyFeatureEvolutionUtil.getValidName(feature.getNames(), date).getName();
-//			if(name.equals(featureString)) {
-//				validFeatures.add(feature);
-//			}
-//		}
-//		
-//		if(validFeatures.size() > 1) {
-//			// More than one feature with that name at date date
-//			throw new HyFeatureModelWellFormednessException();
-//		} 
-//		else if(validFeatures.size() == 1) {
-//			resolvedFeature = validFeatures.get(0);
-//			
-//			
-//			for(HyFeatureAttribute attribute: resolvedFeature.getAttributes()) {
-//				String name = HyFeatureEvolutionUtil.getValidName(attribute.getNames(), date).getName();
-//				if(name.equals(attributeString)) {
-//					validAttributes.add(attribute);
-//				}
-//			}
-//			
-//			if(validAttributes.size() > 1) {
-//				// More than one attribute with that name at date date
-//				throw new HyFeatureModelWellFormednessException();
-//			} 
-//			else if(validAttributes.size() == 1) {
-//				return validAttributes.get(0);
-//			}
-//		}
 		
 		return null;
 	}
