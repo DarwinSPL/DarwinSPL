@@ -7,10 +7,12 @@ import java.util.ArrayList;
 import java.util.Date;
 
 import de.darwinspl.feature.evolution.basic.operations.*;
+import de.darwinspl.feature.evolution.operations.AddFeatureInGroup;
 import de.darwinspl.feature.evolution.operations.AddFeatureWithGroup;
 import eu.hyvar.feature.HyFeature;
 import eu.hyvar.feature.HyFeatureModel;
 import eu.hyvar.feature.HyFeatureTypeEnum;
+import eu.hyvar.feature.HyGroupComposition;
 
 /**
  * Get request from the editor and invoke the corresponding evoOp to execute the command.
@@ -52,6 +54,16 @@ public class OperationInvoker {
 		addFeatureWithGroup.execute();
 		//add the operation as next command in the history
 		commandHistory.add(++counterOfExecuteCommands, addFeatureWithGroup);
+		
+		return tfm;
+	}
+	
+	public HyFeatureModel AddFeature(String name, HyFeatureTypeEnum type, HyGroupComposition groupComposition, Date timestamp, HyFeatureModel tfm) {
+		
+		ComplexOperation addFeatureInGroup = new AddFeatureInGroup(name, type, groupComposition, timestamp, tfm);
+		evoOps.add(addFeatureInGroup);
+		addFeatureInGroup.execute();
+		commandHistory.add(++counterOfExecuteCommands, addFeatureInGroup);
 		
 		return tfm;
 	}
