@@ -17,7 +17,7 @@ import eu.hyvar.feature.configuration.util.HyConfigurationUtil;
 import eu.hyvar.feature.graphical.base.editor.HyGraphicalFeatureModelViewer;
 import eu.hyvar.feature.graphical.base.figures.HyFeatureFigure;
 import eu.hyvar.feature.graphical.base.model.HyFeatureWrapped;
-import eu.hyvar.feature.graphical.configurator.editor.HyFeatureModelDeltaModuleConfiguratorEditor;
+import eu.hyvar.feature.graphical.configurator.viewer.HyFeatureModelConfiguratorViewer;
 
 public class HyConfiguratorFeatureFigure extends HyFeatureFigure{
 
@@ -33,7 +33,7 @@ public class HyConfiguratorFeatureFigure extends HyFeatureFigure{
 		for (HyVersion version : versions) {
 			Rectangle versionMarkRectangle = getVersionMarkRectangle(version);
 			
-			HyConfiguration selectedConfiguration = ((HyFeatureModelDeltaModuleConfiguratorEditor)editor).getSelectedConfiguration();
+			HyConfiguration selectedConfiguration = ((HyFeatureModelConfiguratorViewer)editor).getSelectedConfiguration();
 			
 			if (HyConfigurationUtil.configurationSelectsVersion(selectedConfiguration, version)) {
 				DEDrawingUtil.drawSelection(graphics, versionMarkRectangle, this, false);
@@ -51,7 +51,7 @@ public class HyConfiguratorFeatureFigure extends HyFeatureFigure{
 		for (HyFeatureAttribute attribute : attributes) {
 			Rectangle attributeMarkRectangle = getAttributeMarkRectangle(attribute);
 			
-			HyConfiguration selectedConfiguration = ((HyFeatureModelDeltaModuleConfiguratorEditor)editor).getSelectedConfiguration();
+			HyConfiguration selectedConfiguration = ((HyFeatureModelConfiguratorViewer)editor).getSelectedConfiguration();
 			
 			for(HyConfigurationElement element : selectedConfiguration.getElements()){
 				if(element instanceof HyAttributeValueAssignment){

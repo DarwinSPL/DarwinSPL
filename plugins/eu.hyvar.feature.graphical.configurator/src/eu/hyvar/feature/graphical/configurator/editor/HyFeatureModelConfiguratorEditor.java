@@ -2,7 +2,6 @@ package eu.hyvar.feature.graphical.configurator.editor;
 
 import java.io.IOException;
 import java.util.Collections;
-import java.util.Date;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IWorkspaceRoot;
@@ -25,7 +24,6 @@ import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
-import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.IEditorDescriptor;
 import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.IEditorSite;
@@ -42,55 +40,26 @@ import eu.hyvar.context.contextValidity.HyValidityModel;
 import eu.hyvar.context.contextValidity.util.HyValidityModelUtil;
 import eu.hyvar.context.information.contextValue.HyContextValueModel;
 import eu.hyvar.context.information.util.HyContextInformationUtil;
-import eu.hyvar.feature.HyFeatureModel;
 import eu.hyvar.feature.configuration.HyConfiguration;
-import eu.hyvar.feature.configuration.HyConfigurationFactory;
 import eu.hyvar.feature.configuration.util.HyConfigurationUtil;
 import eu.hyvar.feature.constraint.HyConstraintModel;
 import eu.hyvar.feature.constraint.util.HyConstraintUtil;
-import eu.hyvar.feature.graphical.base.editor.HyGraphicalFeatureModelViewer;
 import eu.hyvar.feature.graphical.configurator.composites.HySelectedConfigurationComposite;
 import eu.hyvar.feature.graphical.configurator.dialogs.HyContextInformationDialog;
 import eu.hyvar.feature.graphical.configurator.editor.listeners.DwDeriveVariantListener;
-import eu.hyvar.feature.graphical.configurator.factory.HyConfiguratorEditPartFactory;
+import eu.hyvar.feature.graphical.configurator.factory.HyConfiguratorEditorEditPartFactory;
 import eu.hyvar.feature.graphical.configurator.reconfigurator.HyReconfiguratorClient;
+import eu.hyvar.feature.graphical.configurator.viewer.HyFeatureModelConfiguratorViewer;
 import eu.hyvar.preferences.HyPreferenceModel;
 import eu.hyvar.preferences.util.HyPreferenceModelUtil;
 
-public class HyFeatureModelDeltaModuleConfiguratorEditor extends HyGraphicalFeatureModelViewer {
+public class HyFeatureModelConfiguratorEditor extends HyFeatureModelConfiguratorViewer {
 	private Button validateButton;
 	private Button numberOfPossibleConfigurationsButton;
-	private Button setContextInformationsButton;
 	private Button simulateButton;
 	private HySelectedConfigurationComposite selectedConfigurationComposite;
 
-	protected HyConfiguration selectedConfiguration;
 	HyConfiguration suggestedConfiguration;
-
-	public HyConfiguration getSelectedConfiguration() {
-		return selectedConfiguration;
-	}
-
-	public HyConfiguration getConfiguration() {
-		return getSelectedConfiguration();
-	}
-
-	public HyFeatureModel getFeatureModel() {
-		if(getModelWrapped() == null) {
-			return null;
-		}
-		return getModelWrapped().getModel();			
-	}
-
-	public Date getDate() {
-		return getCurrentSelectedDate();
-	}
-
-	public HyFeatureModelDeltaModuleConfiguratorEditor() {
-		super();
-
-		selectedConfiguration = HyConfigurationFactory.eINSTANCE.createHyConfiguration();		
-	}
 
 	@Override
 	public void init(IEditorSite site, IEditorInput input) throws PartInitException {
@@ -111,7 +80,7 @@ public class HyFeatureModelDeltaModuleConfiguratorEditor extends HyGraphicalFeat
 		super.configureGraphicalViewer();
 
 		GraphicalViewer viewer = getGraphicalViewer();
-		viewer.setEditPartFactory(new HyConfiguratorEditPartFactory(viewer, this));
+		viewer.setEditPartFactory(new HyConfiguratorEditorEditPartFactory(viewer, this));
 	}
 
 	private boolean modelFileExists(String extension){
@@ -139,8 +108,6 @@ public class HyFeatureModelDeltaModuleConfiguratorEditor extends HyGraphicalFeat
 
 			@Override
 			public void run() {
-				System.out.println("SYNC");	
-
 				IEditorDescriptor desc = PlatformUI.getWorkbench().
 						getEditorRegistry().getDefaultEditor(name);
 
@@ -155,54 +122,13 @@ public class HyFeatureModelDeltaModuleConfiguratorEditor extends HyGraphicalFeat
 
 			}			
 		});
-		workbench.getDisplay().asyncExec(new Runnable(){
-
-			@Override
-			public void run() {
-				System.out.println("ASYNC");	
-
-				IEditorDescriptor desc = PlatformUI.getWorkbench().
-						getEditorRegistry().getDefaultEditor("a."+HyConfigurationUtil.getConfigurationModelFileExtensionForXmi());
-
-
-
-				try {
-					workbenchPage.openEditor(new FileEditorInput(file), desc.getId());
-				} catch (PartInitException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-
-			}			
-		});
-
-
-
 	}
 
 	private void saveConfigurationIntoFeatureModelFolder(){
 		IPath path = ((IPath)file.getFullPath().clone()).removeFileExtension().addFileExtension(HyConfigurationUtil.getConfigurationModelFileExtensionForXmi());
 		IWorkspaceRoot workspaceRoot = ResourcesPlugin.getWorkspace().getRoot();
 
-
 		EcoreIOUtil.saveModelAs(selectedConfiguration, workspaceRoot.getFile(path));		
-
-		//		Path spath = Paths.get( workspaceRoot.getFile(path).getLocationURI().getPath());
-		//		Charset charset = StandardCharsets.UTF_8;
-
-		//		String content;
-		//		
-		//		String poiseningString = workspaceRoot.getFile(path).getLocationURI().toString().replace(path.lastSegment(), "");
-		//		try {
-		//			content = new String(Files.readAllBytes(spath), charset);
-		//			
-		//			content = content.replaceAll(poiseningString, "");
-		//			Files.write(spath, content.getBytes(charset));
-		//		} catch (IOException e) {
-		//			// TODO Auto-generated catch block
-		//			e.printStackTrace();
-		//		}
-
 	}
 
 	private HyContextModel loadContextInformationModel(){
@@ -233,12 +159,6 @@ public class HyFeatureModelDeltaModuleConfiguratorEditor extends HyGraphicalFeat
 		registerListeners();
 	}
 
-	@Override
-	public void dateChanged(Date date){
-		selectedConfiguration.getElements().clear();
-		setCurrentSelectedDate(date);
-	}
-
 	private Composite createConfigurationPanel(Composite parent) {
 		Composite configurationPanel = new Composite(parent, SWT.NONE);
 		configurationPanel.setLayout(new GridLayout(1, false));
@@ -246,10 +166,6 @@ public class HyFeatureModelDeltaModuleConfiguratorEditor extends HyGraphicalFeat
 		validateButton = new Button(configurationPanel, SWT.PUSH);
 		validateButton.setText("Validate");
 		validateButton.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, false));
-
-		setContextInformationsButton = new Button(configurationPanel, SWT.PUSH);
-		setContextInformationsButton.setText("Simulate Reconfiguration");
-		setContextInformationsButton.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, false));
 
 		simulateButton = new Button(configurationPanel, SWT.PUSH);
 		simulateButton.setText("Simulate Reconfiguration with HyVarRec");
@@ -284,13 +200,6 @@ public class HyFeatureModelDeltaModuleConfiguratorEditor extends HyGraphicalFeat
 			@Override
 			public void widgetSelected(SelectionEvent e) {
 				//validateFeatureModel();
-			}
-		});
-
-		setContextInformationsButton.addSelectionListener(new SelectionAdapter() {
-			@Override
-			public void widgetSelected(SelectionEvent e) {
-
 			}
 		});
 
@@ -375,10 +284,6 @@ public class HyFeatureModelDeltaModuleConfiguratorEditor extends HyGraphicalFeat
 		});
 
 		selectedConfigurationComposite.getDeriveVariantButton().addSelectionListener(new DwDeriveVariantListener(this));
-	}
-
-	public Shell getShell() {
-		return this.getSite().getWorkbenchWindow().getShell();
 	}
 
 	@Override

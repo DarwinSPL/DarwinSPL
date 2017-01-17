@@ -8,7 +8,7 @@
             contributorClass="eu.hyvar.feature.graphical.editor.editor.HyGraphicalFeatureModelEditorActionBarContributor"
             default="true"
             extensions="hyfeature, dwfeaturemodel"
-            icon="icons/small.png"
+            icon="icons/standard.png"
             id="eu.hyvar.feature.graphical.editor.evolution.editor"
             name="DarwinSPL Feature Model Editor">
       </editor>

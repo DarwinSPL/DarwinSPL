@@ -8,8 +8,8 @@ import eu.hyvar.feature.graphical.base.editparts.HyEnumEditPart;
 import eu.hyvar.feature.graphical.base.editparts.HyFeatureEditPart;
 import eu.hyvar.feature.graphical.base.editparts.HyFeatureModelEditPart;
 import eu.hyvar.feature.graphical.base.editparts.HyParentChildConnectionEditPart;
-import eu.hyvar.feature.graphical.configurator.editor.HyFeatureModelDeltaModuleConfiguratorEditor;
 import eu.hyvar.feature.graphical.configurator.figures.HyConfiguratorFeatureModelFigure;
+import eu.hyvar.feature.graphical.configurator.viewer.HyFeatureModelConfiguratorViewer;
 
 public class HyConfiguratorFeatureModelEditPart extends HyFeatureModelEditPart{
 	public HyConfiguratorFeatureModelEditPart(HyGraphicalFeatureModelViewer editor) {
@@ -18,11 +18,12 @@ public class HyConfiguratorFeatureModelEditPart extends HyFeatureModelEditPart{
 
 	@Override
 	protected IFigure createFigure() {
-	    return new HyConfiguratorFeatureModelFigure(editor.getModelWrapped(), (HyFeatureModelDeltaModuleConfiguratorEditor)editor);
+	    return new HyConfiguratorFeatureModelFigure(editor.getModelWrapped(), (HyFeatureModelConfiguratorViewer)editor);
 	}
 	
 	@Override
 	public void refresh(){
+		this.figure.erase();
 		super.refresh();
 		
 		for(Object child : this.getChildren()){

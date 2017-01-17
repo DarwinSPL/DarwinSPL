@@ -11,13 +11,13 @@ import eu.hyvar.feature.configuration.util.HyConfigurationUtil;
 import eu.hyvar.feature.graphical.base.editor.HyGraphicalFeatureModelViewer;
 import eu.hyvar.feature.graphical.base.editparts.HyVersionEditPart;
 import eu.hyvar.feature.graphical.base.model.HyFeatureModelWrapped;
-import eu.hyvar.feature.graphical.configurator.editor.HyFeatureModelDeltaModuleConfiguratorEditor;
+import eu.hyvar.feature.graphical.configurator.editor.HyFeatureModelConfiguratorEditor;
 import eu.hyvar.feature.graphical.configurator.predicates.HyConfiguratorElementHasVersionPredicate;
 import eu.hyvar.feature.graphical.configurator.util.HyConfiguratorEditorUtil;
 
-public class HyConfiguratorVersionEditPart extends HyVersionEditPart{
+public class HyConfiguratorEditorVersionEditPart extends HyVersionEditPart{
 
-	public HyConfiguratorVersionEditPart(HyGraphicalFeatureModelViewer editor, HyFeatureModelWrapped featureModel) {
+	public HyConfiguratorEditorVersionEditPart(HyGraphicalFeatureModelViewer editor, HyFeatureModelWrapped featureModel) {
 		super(editor, featureModel);
 	}
 
@@ -27,7 +27,7 @@ public class HyConfiguratorVersionEditPart extends HyVersionEditPart{
 		if (request.getType() == RequestConstants.REQ_OPEN) {
 			HyVersion version = (HyVersion)getModel();
 
-			HyFeatureModelDeltaModuleConfiguratorEditor editor = (HyFeatureModelDeltaModuleConfiguratorEditor)getEditor();
+			HyFeatureModelConfiguratorEditor editor = (HyFeatureModelConfiguratorEditor)getEditor();
 			HyConfiguration selectedConfiguration = editor.getSelectedConfiguration();
 			
 			HyConfiguratorElementHasVersionPredicate<Object> predicate = new HyConfiguratorElementHasVersionPredicate<>();

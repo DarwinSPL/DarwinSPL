@@ -4,9 +4,10 @@
    <extension
          point="org.eclipse.ui.editors">
       <editor
-            class="eu.hyvar.feature.graphical.configurator.editor.HyFeatureModelDeltaModuleConfiguratorEditor"
+            class="eu.hyvar.feature.graphical.configurator.editor.HyFeatureModelConfiguratorEditor"
             default="false"
             extensions="hyfeature"
+            icon="icons/standard.png"
             id="eu.hyvar.feature.graphical.configurator.editor"
             name="DarwinSPL Configurator Editor">
       </editor>

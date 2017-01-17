@@ -17,15 +17,15 @@ import eu.hyvar.feature.HyFeatureModel;
 import eu.hyvar.feature.configuration.HyConfiguration;
 import eu.hyvar.feature.graphical.configurator.composites.DwVariantComposite;
 import eu.hyvar.feature.graphical.configurator.dialogs.DwVariantDerivationDialog;
-import eu.hyvar.feature.graphical.configurator.editor.HyFeatureModelDeltaModuleConfiguratorEditor;
+import eu.hyvar.feature.graphical.configurator.editor.HyFeatureModelConfiguratorEditor;
 import eu.hyvar.feature.mapping.HyMappingModel;
 import eu.hyvar.feature.mapping.util.HyMappingModelUtil;
 
 public class DwDeriveVariantListener extends SelectionAdapter {
 
-	private HyFeatureModelDeltaModuleConfiguratorEditor configurator;
+	private HyFeatureModelConfiguratorEditor configurator;
 
-	public DwDeriveVariantListener(HyFeatureModelDeltaModuleConfiguratorEditor configurator) {
+	public DwDeriveVariantListener(HyFeatureModelConfiguratorEditor configurator) {
 		super();
 		this.configurator = configurator;
 	}

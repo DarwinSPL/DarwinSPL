@@ -14,14 +14,14 @@ import eu.hyvar.feature.configuration.HyConfiguration;
 import eu.hyvar.feature.graphical.base.editor.HyGraphicalFeatureModelViewer;
 import eu.hyvar.feature.graphical.base.editparts.HyAttributeEditPart;
 import eu.hyvar.feature.graphical.base.model.HyFeatureModelWrapped;
-import eu.hyvar.feature.graphical.configurator.editor.HyFeatureModelDeltaModuleConfiguratorEditor;
+import eu.hyvar.feature.graphical.configurator.editor.HyFeatureModelConfiguratorEditor;
 import eu.hyvar.feature.graphical.configurator.predicates.HyConfiguratorElementHasAttributePredicate;
 import eu.hyvar.feature.graphical.configurator.util.HyConfiguratorEditorUtil;
 
-public class HyConfiguratorAttributeEditPart extends HyAttributeEditPart {
+public class HyConfiguratorEditorAttributeEditPart extends HyAttributeEditPart {
 	HyValue attributeValue = null;
 	
-	public HyConfiguratorAttributeEditPart(HyGraphicalFeatureModelViewer editor, HyFeatureModelWrapped featureModel) {
+	public HyConfiguratorEditorAttributeEditPart(HyGraphicalFeatureModelViewer editor, HyFeatureModelWrapped featureModel) {
 		super(editor, featureModel);
 	}
 
@@ -31,7 +31,7 @@ public class HyConfiguratorAttributeEditPart extends HyAttributeEditPart {
 		if (request.getType() == RequestConstants.REQ_OPEN) {
 			HyFeatureAttribute attribute = (HyFeatureAttribute)getModel();
 
-			HyFeatureModelDeltaModuleConfiguratorEditor editor = (HyFeatureModelDeltaModuleConfiguratorEditor)getEditor();
+			HyFeatureModelConfiguratorEditor editor = (HyFeatureModelConfiguratorEditor)getEditor();
 			HyConfiguration configuration = editor.getSelectedConfiguration();
 			
 

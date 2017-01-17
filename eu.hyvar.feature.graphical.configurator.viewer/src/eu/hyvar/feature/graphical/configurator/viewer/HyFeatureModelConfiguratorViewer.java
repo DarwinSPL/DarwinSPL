@@ -1,8 +1,9 @@
-package eu.hyvar.feature.graphical.configurator.editor;
+package eu.hyvar.feature.graphical.configurator.viewer;
 
 import java.util.Date;
 
 import org.eclipse.core.resources.IFile;
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.gef.GraphicalViewer;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.IEditorInput;
@@ -15,7 +16,7 @@ import eu.hyvar.feature.graphical.base.editor.HyGraphicalFeatureModelViewer;
 import eu.hyvar.feature.graphical.base.model.HyFeatureModelWrapped;
 import eu.hyvar.feature.graphical.configurator.factory.HyConfiguratorEditPartFactory;
 
-public class HyFeatureModelDeltaModuleConfiguratorEditor extends HyGraphicalFeatureModelViewer {
+public class HyFeatureModelConfiguratorViewer extends HyGraphicalFeatureModelViewer {
 	protected HyConfiguration selectedConfiguration;
 
 	public HyConfiguration getSelectedConfiguration() {
@@ -37,7 +38,7 @@ public class HyFeatureModelDeltaModuleConfiguratorEditor extends HyGraphicalFeat
 		return getCurrentSelectedDate();
 	}
 
-	public HyFeatureModelDeltaModuleConfiguratorEditor() {
+	public HyFeatureModelConfiguratorViewer() {
 		super();
 
 		selectedConfiguration = HyConfigurationFactory.eINSTANCE.createHyConfiguration();		
@@ -61,19 +62,20 @@ public class HyFeatureModelDeltaModuleConfiguratorEditor extends HyGraphicalFeat
 	protected void loadModelFromFile(IFile file){		
 		// save location to the file
 		this.file = file;
-
 		
-		selectedConfiguration = (HyConfiguration)EcoreIOUtil.loadModel(file);	
-		modelWrapped = new HyFeatureModelWrapped(selectedConfiguration.getFeatureModel());
+		EObject object = EcoreIOUtil.loadModel(file);
+		if(object instanceof HyConfiguration){
+			selectedConfiguration = (HyConfiguration)object;
+			modelWrapped = new HyFeatureModelWrapped(selectedConfiguration.getFeatureModel());
+			
+			this.resource = modelWrapped.getModel().eResource();
+		}else if(object instanceof HyFeatureModel){
+			modelWrapped = new HyFeatureModelWrapped((HyFeatureModel)object);
+		}
 		
-		this.resource = modelWrapped.getModel().eResource();
-		
-		setCurrentSelectedDateToMostActualDate();
-		
+		setCurrentSelectedDateToMostActualDate();	
 		setEditorTabText(file.getName());
-		
 		loadLayout(file);
-		
 	}
 
 
