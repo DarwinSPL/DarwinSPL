@@ -5,7 +5,7 @@
          point="org.eclipse.ui.editors">
       <editor
             class="eu.hyvar.feature.graphical.configurator.viewer.HyFeatureModelConfiguratorViewer"
-            default="false"
+            default="true"
             extensions="hyconfigurationmodel"
             icon="icons/configuration_viewer.png"
             id="eu.hyvar.feature.graphical.configurator.viewer"

@@ -6,7 +6,7 @@
       <editor
             class="eu.hyvar.feature.graphical.configurator.editor.HyFeatureModelConfiguratorEditor"
             default="false"
-            extensions="hyfeature"
+            extensions="hyfeature, hyconfigurationmodel"
             icon="icons/standard.png"
             id="eu.hyvar.feature.graphical.configurator.editor"
             name="DarwinSPL Configurator Editor">
