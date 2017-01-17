@@ -9,7 +9,8 @@ Bundle-Localization: plugin
 Bundle-RequiredExecutionEnvironment: JavaSE-1.7
 Export-Package: eu.hyvar.context.information.contextValue,
  eu.hyvar.context.information.contextValue.impl,
- eu.hyvar.context.information.contextValue.util
+ eu.hyvar.context.information.contextValue.util,
+ eu.hyvar.context.information.value.util
 Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.emf.ecore;visibility:=reexport,
  eu.hyvar.context.information;visibility:=reexport,

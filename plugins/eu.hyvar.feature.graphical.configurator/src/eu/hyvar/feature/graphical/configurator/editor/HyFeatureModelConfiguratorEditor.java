@@ -40,6 +40,7 @@ import eu.hyvar.context.contextValidity.HyValidityModel;
 import eu.hyvar.context.contextValidity.util.HyValidityModelUtil;
 import eu.hyvar.context.information.contextValue.HyContextValueModel;
 import eu.hyvar.context.information.util.HyContextInformationUtil;
+import eu.hyvar.context.information.value.util.ContextInformationUtil;
 import eu.hyvar.feature.configuration.HyConfiguration;
 import eu.hyvar.feature.configuration.util.HyConfigurationUtil;
 import eu.hyvar.feature.constraint.HyConstraintModel;
@@ -233,8 +234,9 @@ public class HyFeatureModelConfiguratorEditor extends HyFeatureModelConfigurator
 				}
 
 				HyContextValueModel contextValueModel = null;
-				if(modelFileExists(HyContextInformationUtil.getContextModelFileExtensionForConcreteSyntax())){
-					contextValueModel = EcoreIOUtil.loadAccompanyingModel(modelWrapped.getModel(), HyContextInformationUtil.getContextModelFileExtensionForConcreteSyntax());
+				if(modelFileExists(ContextInformationUtil.getContextValueModelFileExtensionForXmi())){
+					// TODO type check? other models, too?
+					contextValueModel = EcoreIOUtil.loadAccompanyingModel(modelWrapped.getModel(), ContextInformationUtil.getContextValueModelFileExtensionForXmi());
 				}
 
 				saveConfigurationIntoFeatureModelFolder();
