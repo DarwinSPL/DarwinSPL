@@ -24,6 +24,7 @@
       <wizard
             category="de.darwinspl.wizards"
             class="eu.hyvar.feature.graphical.editor.wizard.FeatureModelWizard"
+            icon="icons/standard.png"
             id="eu.hyvar.feature.graphical.editor.new_fm_wizard"
             name="DarwinSPL Feature Model">
       </wizard>
