@@ -1,13 +1,9 @@
 package eu.hyvar.feature.graphical.editor.editor;
 
 import java.io.ByteArrayInputStream;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.net.URI;
-import java.nio.file.Files;
-import java.nio.file.LinkOption;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.EventObject;
 import java.util.List;
@@ -269,29 +265,44 @@ public class HyGraphicalFeatureModelEditor extends HyGraphicalFeatureModelViewer
 				IEditorPart part = ref.getEditor(false);
 
 				if(part != null)
-				if(part.getEditorInput() instanceof FileEditorInput){
-					FileEditorInput editorInput = (FileEditorInput)part.getEditorInput();
+					if(part.getEditorInput() instanceof FileEditorInput){
+						FileEditorInput editorInput = (FileEditorInput)part.getEditorInput();
 
-					if(editorInput.getPath().equals(ResourcesPlugin.getWorkspace().getRoot().getLocation().append(path))){
-						if(part.getSite().getPage().closeEditor(part, true)){
-							openFiles.add(editorInput.getFile());
-							
-							
+						if(editorInput.getPath().equals(ResourcesPlugin.getWorkspace().getRoot().getLocation().append(path))){
+							if(part.getSite().getPage().closeEditor(part, true)){
+
+
+								try {
+									InputStream stream = editorInput.getFile().getContents();
+									if(stream instanceof FileInputStream){
+										FileInputStream fileStream = (FileInputStream)stream;
+										int length = 0;
+										while(fileStream.read() != -1){
+											length++;
+										}
+
+										if(length == 0){
+											openFiles.add(editorInput.getFile());
+										}
+									}
+								} catch (CoreException e) {
+									e.printStackTrace();
+								}catch (IOException e) {
+									e.printStackTrace();
+								}
+							}
 						}
-					}
-				}	
+					}	
 			}
 		}
-		
+
 		IWorkspace workspace = ResourcesPlugin.getWorkspace();
-		/*
 		try {
 			workspace.delete(openFiles.toArray(new IResource[0]), true, null);
 		} catch (CoreException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		*/
 	}
 
 	@Override
