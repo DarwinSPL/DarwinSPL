@@ -30,13 +30,6 @@ public class AddFeature extends ComplexOperation {
 		this.type = type;
 		this.timestamp = timestamp;
 		
-		//create objects of all operation which are used by this one and add them to the list
-		AddName hyName = new AddName(name, feature, timestamp);		
-		AddFeatureType hyFeatureType = new AddFeatureType(type, feature, timestamp);
-
-		add(hyName);
-		add(hyFeatureType);
-		
 	}
 	
 	/* (non-Javadoc)
@@ -44,6 +37,13 @@ public class AddFeature extends ComplexOperation {
 	 */
 	@Override
 	public void execute() {
+		
+		//create objects of all operation which are used by this one and add them to the list
+		AddName hyName = new AddName(name, feature, timestamp);		
+		AddFeatureType hyFeatureType = new AddFeatureType(type, feature, timestamp);
+
+		addToComposition(hyName);
+		addToComposition(hyFeatureType);
 		
 		//execute each atomic or complex operation which are used from this complex operation
 		for (EvolutionOperation operation : evoOps) {

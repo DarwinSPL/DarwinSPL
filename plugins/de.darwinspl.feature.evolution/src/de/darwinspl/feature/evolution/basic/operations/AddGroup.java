@@ -38,20 +38,20 @@ public class AddGroup extends ComplexOperation {
 		this.timestamp = timestamp;
 		this.tfm = tfm;
 		
-		AddGroupType groupType = new AddGroupType(type, group, timestamp);
-		AddFeatureChild featureChild = new AddFeatureChild(parent, group, timestamp);
-		AddGroupComposition groupComposition = new AddGroupComposition(group, features, timestamp);
-		
-		add(groupType);
-		add(featureChild);
-		add(groupComposition);
-		
 	}
 	/* (non-Javadoc)
 	 * @see de.darwinspl.feature.evolution.Invoker.EvolutionOperation#execute()
 	 */
 	@Override
 	public void execute() {
+		
+		AddGroupType groupType = new AddGroupType(type, group, timestamp);
+		AddFeatureChild featureChild = new AddFeatureChild(parent, group, timestamp);
+		AddGroupComposition groupComposition = new AddGroupComposition(group, features, timestamp);
+		
+		addToComposition(groupType);
+		addToComposition(featureChild);
+		addToComposition(groupComposition);
 		
 		//execute each atomic or complex operation which are used from this complex operation
 		for (EvolutionOperation operation : evoOps) {

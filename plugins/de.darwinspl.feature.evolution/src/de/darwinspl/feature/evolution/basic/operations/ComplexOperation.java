@@ -34,7 +34,7 @@ public abstract class ComplexOperation implements EvolutionOperation {
 	 * 
 	 * @param operation: Atomic or basis operation which should add to the complexe operation
 	 */
-	public void add(EvolutionOperation operation) {
+	public void addToComposition(EvolutionOperation operation) {
 		evoOps.add(operation);
 	}
 
@@ -42,7 +42,7 @@ public abstract class ComplexOperation implements EvolutionOperation {
 	 * 
 	 * @param operation: Atomic or basis operation which should remove to the complexe operation
 	 */
-	public void remove(EvolutionOperation operation) {
+	public void removeFromComposition(EvolutionOperation operation) {
 		evoOps.remove(operation);
 	}
 	

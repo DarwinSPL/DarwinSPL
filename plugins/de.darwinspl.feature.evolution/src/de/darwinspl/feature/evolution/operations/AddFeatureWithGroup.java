@@ -48,16 +48,6 @@ public class AddFeatureWithGroup extends ComplexOperation {
 		this.timestamp = timestamp;
 		this.tfm = tfm;
 		
-		AddFeature newFeature = new AddFeature(name, featureType, timestamp);
-		feature = newFeature.getFeature();
-		
-		//Only the new created feature is member of the new group
-		features.add(feature);	
-		AddGroup newGroup = new AddGroup(groupType, parent, features, timestamp, tfm);
-		
-		add(newFeature);
-		add(newGroup);
-		
 	}
 	
 	/* (non-Javadoc)
@@ -66,6 +56,16 @@ public class AddFeatureWithGroup extends ComplexOperation {
 	@Override
 	public void execute() {
 
+		AddFeature newFeature = new AddFeature(name, featureType, timestamp);
+		feature = newFeature.getFeature();
+		
+		//Only the new created feature is member of the new group
+		features.add(feature);	
+		AddGroup newGroup = new AddGroup(groupType, parent, features, timestamp, tfm);
+		
+		addToComposition(newFeature);
+		addToComposition(newGroup);
+		
 		//execute each atomic or complex operation which are used from this complex operation
 		for (EvolutionOperation operation : evoOps) {
 			operation.execute();
