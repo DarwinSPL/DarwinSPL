@@ -37,7 +37,7 @@ public class DwDeriveVariantListener extends SelectionAdapter {
 		
 		HyConfiguration configuration = configurator.getConfiguration();
 		HyFeatureModel featureModel = configurator.getFeatureModel();
-		EcoreIOUtil.getFile(featureModel);
+		EcoreIOUtil.getFile(featureModel);		
 		
 		EObject loadedObject = EcoreIOUtil.loadAccompanyingModel(featureModel, HyMappingModelUtil.getMappingModelFileExtensionForConcreteSyntax(), HyMappingModelUtil.getMappingModelFileExtensionForXmi());			
 		
