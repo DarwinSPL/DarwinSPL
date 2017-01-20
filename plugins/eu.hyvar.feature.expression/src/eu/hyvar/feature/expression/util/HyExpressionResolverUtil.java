@@ -26,7 +26,7 @@ import eu.hyvar.feature.util.HyFeatureModelWellFormednessException;
 import eu.hyvar.feature.util.HyFeatureResolverUtil;
 
 public class HyExpressionResolverUtil {
-	private final static String FEATUREMODEL_EDITOR_EXTENSIONPOINT_ID = "eu.hyvar.feature.expression.FeatureModelEditor";
+//	private final static String FEATUREMODEL_EDITOR_EXTENSIONPOINT_ID = "eu.hyvar.feature.expression.FeatureModelEditor";
 
 	public static HyFeature resolveFeature(String identifier, EObject elementFromAccompanyingResource) {
 		HyFeatureModel featureModel = HyFeatureResolverUtil
@@ -150,5 +150,5 @@ public class HyExpressionResolverUtil {
 		}
 		return contextInfo.getId();
 	}
-
+	
 }

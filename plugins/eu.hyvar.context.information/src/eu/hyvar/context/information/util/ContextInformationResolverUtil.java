@@ -10,6 +10,7 @@ import org.eclipse.emf.ecore.EObject;
 import eu.hyvar.context.HyContextModel;
 import eu.hyvar.context.HyContextualInformation;
 import eu.hyvar.dataValues.HyEnum;
+import eu.hyvar.evolution.HyEvolutionUtil;
 
 
 public class ContextInformationResolverUtil {
@@ -29,13 +30,24 @@ public class ContextInformationResolverUtil {
 			return null;
 		}
 		
-		// TODO incorporate Evolution
 		List<HyEnum> matchingEnums = new ArrayList<HyEnum>();
-		for(HyEnum hyEnum: ContextEvolutionUtil.getEnums(contextModel, date)) {
+		for(HyEnum hyEnum: contextModel.getEnums()) {
 			if(hyEnum.getName().equals(identifier)) {
 				matchingEnums.add(hyEnum);
 			}
 		}
+		
+		if(matchingEnums.size() > 1) {
+			// name is not unique
+			List<HyEnum> validEnumsWithEvolution = new ArrayList<HyEnum>(1);
+			for(HyEnum hyEnum: matchingEnums) {
+				if(HyEvolutionUtil.isValid(hyEnum, date)) {
+					validEnumsWithEvolution.add(hyEnum);
+				}				
+			}
+			matchingEnums = validEnumsWithEvolution;
+		}
+		
 		
 		if(matchingEnums.size() > 1) {
 			// TODO error: more than one valid element
@@ -54,14 +66,28 @@ public class ContextInformationResolverUtil {
 		if(identifier == null || contextModel == null) {
 			return null;
 		}
-		
-		// TODO incorporate Evolution
+
+		// Try if name is unique
 		List<HyContextualInformation> matchingContextualInformation = new ArrayList<HyContextualInformation>();
-		for(HyContextualInformation contextInfo: ContextEvolutionUtil.getContextualInformation(contextModel, date)) {
+		
+		for(HyContextualInformation contextInfo: contextModel.getContextualInformations()) {
 			if(contextInfo.getName().equals(identifier)) {
 				matchingContextualInformation.add(contextInfo);
 			}
 		}
+		
+		if(matchingContextualInformation.size() > 1) {
+			// name is not unique. incorporate evolution
+			matchingContextualInformation.clear();
+			
+			for(HyContextualInformation contextInfo: HyEvolutionUtil.getValidTemporalElements(matchingContextualInformation, date)) {
+				if(contextInfo.getName().equals(identifier)) {
+					matchingContextualInformation.add(contextInfo);
+				}
+			}
+		}
+		
+
 		
 		if(matchingContextualInformation.size() > 1) {
 			// TODO error: more than one valid element

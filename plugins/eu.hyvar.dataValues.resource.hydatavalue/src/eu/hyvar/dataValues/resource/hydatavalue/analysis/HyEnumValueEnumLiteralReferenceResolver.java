@@ -6,7 +6,6 @@
  */
 package eu.hyvar.dataValues.resource.hydatavalue.analysis;
 
-import java.util.Date;
 import java.util.Map;
 
 import org.eclipse.emf.ecore.EReference;
@@ -19,9 +18,8 @@ public class HyEnumValueEnumLiteralReferenceResolver implements eu.hyvar.dataVal
 	
 	public void resolve(String identifier, eu.hyvar.dataValues.HyEnumValue container, EReference reference, int position, boolean resolveFuzzy, final eu.hyvar.dataValues.resource.hydatavalue.IHydatavalueReferenceResolveResult<eu.hyvar.dataValues.HyEnumLiteral> result) {
 		HyEnum containingEnum = container.getEnum();
-		
 		if(containingEnum != null) {
-			HyEnumLiteral literal = DataValuesResolverUtil.resolveEnumLiteral(identifier, containingEnum, new Date());
+			HyEnumLiteral literal = DataValuesResolverUtil.resolveEnumLiteral(identifier, containingEnum);
 			if(literal != null) {
 				result.addMapping(identifier, literal);				
 			}
