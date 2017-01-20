@@ -461,4 +461,12 @@ public class HyFeatureEvolutionUtil {
 	public static HyFeature getRandomNonRootFeature(HyFeatureModel featureModel, Date date) {
 		return getRandomFeature(featureModel, HyFeatureEvolutionUtil.getRootFeature(featureModel, date), date);
 	}
+	
+	public static List<HyVersion> getVersionsOfFeature(HyFeature feature, Date date) {
+		List<HyVersion> versions = new ArrayList<HyVersion>(feature.getVersions().size());
+		
+		versions.addAll(HyEvolutionUtil.getValidTemporalElements(feature.getVersions(), date));
+		
+		return versions;
+	}
 }

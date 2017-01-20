@@ -15,6 +15,10 @@ public class HyFeatureModelWellFormednessException extends Exception {
 		messageString = new StringBuilder();
 	}
 	
+	public HyFeatureModelWellFormednessException(String message) {
+		messageString = new StringBuilder(message);
+	}
+	
 	public HyFeatureModelWellFormednessException(String sourceElement, String list, int amountOfElements) {
 		this();
 		messageString.append("The List of: ");

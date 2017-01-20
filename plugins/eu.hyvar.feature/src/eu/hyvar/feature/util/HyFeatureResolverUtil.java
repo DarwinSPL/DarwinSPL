@@ -29,6 +29,10 @@ public class HyFeatureResolverUtil {
 	public static HyFeature resolveFeature(String identifier, HyFeatureModel featureModel, Date date)
 			throws HyFeatureModelWellFormednessException {
 		
+		if(identifier == null) {
+			return null;
+		}
+		
 		List<HyFeature> validFeatures = new ArrayList<HyFeature>();
 
 		// try if name is unique over time
@@ -79,10 +83,12 @@ public class HyFeatureResolverUtil {
 		// }
 		// }
 
+		
+		
 		return null;
 	}
 
-	public static HyEnum resolveEnum(String identifier, HyFeatureModel featureModel, Date date) {
+	public static HyEnum resolveEnum(String identifier, HyFeatureModel featureModel, Date date)  {
 		if (identifier == null || featureModel == null) {
 			return null;
 		}
@@ -130,34 +136,41 @@ public class HyFeatureResolverUtil {
 		return identifier;
 	}
 
-	// TODO versions and attributes
-	public static HyVersion resolveVersion(String identifier, HyFeature feature) {
+	public static HyVersion resolveVersion(String identifier, HyFeature feature, Date date) throws HyFeatureModelWellFormednessException {
 		if (identifier == null) {
 			return null;
 		}
 
-		List<HyVersion> versions = feature.getVersions();
+		List<HyVersion> validVersions = HyFeatureEvolutionUtil.getVersionsOfFeature(feature, date);
+		
+		List<HyVersion> resolvedVersions = new ArrayList<HyVersion>(1);
 
-		for (HyVersion version : versions) {
+		for (HyVersion version : validVersions) {
 			String number = version.getNumber();
 
 			if (identifier.equals(number)) {
-				return version;
+				resolvedVersions.add(version);
 			}
 		}
 
-		return null;
+		if(resolvedVersions.size()>1) {
+			throw new HyFeatureModelWellFormednessException("Identifier "+identifier+" is ambiguous and lead to more than one resolved version.");
+		}
+		
+		if(resolvedVersions.isEmpty()) {
+			return null;
+		} 
+		else {
+			return resolvedVersions.get(0);
+		}
 	}
 
 	public static String deresolveVersion(HyVersion version, Date date) {
 		return version.getNumber();
 	}
-
-	public static HyFeatureAttribute resolveFeatureAttribute(String identifier, HyFeature containingFeature, Date date)
-			throws HyFeatureModelWellFormednessException {
-
+	
+	public static HyFeatureAttribute resolveFeatureAttribute(String identifier, HyFeature containingFeature, Date date) throws HyFeatureModelWellFormednessException {		
 		List<HyFeatureAttribute> validAttributes = new ArrayList<HyFeatureAttribute>();
-		
 		// try if name is unique
 		for (HyFeatureAttribute attribute : containingFeature.getAttributes()) {
 			for(HyName name: attribute.getNames()) {
@@ -244,6 +257,7 @@ public class HyFeatureResolverUtil {
 		// }
 		// }
 
+		
 		return null;
 	}
 

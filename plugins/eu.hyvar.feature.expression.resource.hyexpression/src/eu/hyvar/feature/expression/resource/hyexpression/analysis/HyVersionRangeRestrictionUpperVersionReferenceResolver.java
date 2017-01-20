@@ -9,12 +9,19 @@ package eu.hyvar.feature.expression.resource.hyexpression.analysis;
 import java.util.Map;
 import org.eclipse.emf.ecore.EReference;
 
+import eu.hyvar.feature.HyVersion;
+import eu.hyvar.feature.expression.util.HyExpressionResolverUtil;
+
 public class HyVersionRangeRestrictionUpperVersionReferenceResolver implements eu.hyvar.feature.expression.resource.hyexpression.IHyexpressionReferenceResolver<eu.hyvar.feature.expression.HyVersionRangeRestriction, eu.hyvar.feature.HyVersion> {
 	
 	private eu.hyvar.feature.expression.resource.hyexpression.analysis.HyexpressionDefaultResolverDelegate<eu.hyvar.feature.expression.HyVersionRangeRestriction, eu.hyvar.feature.HyVersion> delegate = new eu.hyvar.feature.expression.resource.hyexpression.analysis.HyexpressionDefaultResolverDelegate<eu.hyvar.feature.expression.HyVersionRangeRestriction, eu.hyvar.feature.HyVersion>();
 	
 	public void resolve(String identifier, eu.hyvar.feature.expression.HyVersionRangeRestriction container, EReference reference, int position, boolean resolveFuzzy, final eu.hyvar.feature.expression.resource.hyexpression.IHyexpressionReferenceResolveResult<eu.hyvar.feature.HyVersion> result) {
-		delegate.resolve(identifier, container, reference, position, resolveFuzzy, result);
+		HyVersion resolvedVersion = HyExpressionResolverUtil.resolveVersion(identifier, container);
+		
+		if(resolvedVersion != null) {
+			result.addMapping(identifier, resolvedVersion);
+		}
 	}
 	
 	public String deResolve(eu.hyvar.feature.HyVersion element, eu.hyvar.feature.expression.HyVersionRangeRestriction container, EReference reference) {
