@@ -31,7 +31,7 @@ public class ContextInformationResolverUtil {
 		
 		// TODO incorporate Evolution
 		List<HyEnum> matchingEnums = new ArrayList<HyEnum>();
-		for(HyEnum hyEnum: contextModel.getEnums()) {
+		for(HyEnum hyEnum: ContextEvolutionUtil.getEnums(contextModel, date)) {
 			if(hyEnum.getName().equals(identifier)) {
 				matchingEnums.add(hyEnum);
 			}
@@ -57,7 +57,7 @@ public class ContextInformationResolverUtil {
 		
 		// TODO incorporate Evolution
 		List<HyContextualInformation> matchingContextualInformation = new ArrayList<HyContextualInformation>();
-		for(HyContextualInformation contextInfo: contextModel.getContextualInformations()) {
+		for(HyContextualInformation contextInfo: ContextEvolutionUtil.getContextualInformation(contextModel, date)) {
 			if(contextInfo.getName().equals(identifier)) {
 				matchingContextualInformation.add(contextInfo);
 			}

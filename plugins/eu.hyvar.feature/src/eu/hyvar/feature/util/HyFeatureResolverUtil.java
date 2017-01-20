@@ -12,7 +12,6 @@ import eu.hyvar.feature.HyFeature;
 import eu.hyvar.feature.HyFeatureAttribute;
 import eu.hyvar.feature.HyFeatureModel;
 import eu.hyvar.feature.HyVersion;
-import eu.hyvar.feature.data.util.IdentifierWithDateUtil;
 
 public class HyFeatureResolverUtil {
 	public static final String[] FILE_EXTENSIONS = {"hyfeature", "hyfeaturemodel"};
@@ -34,7 +33,7 @@ public class HyFeatureResolverUtil {
 		
 		
 		List<HyFeature> validFeatures = new ArrayList<HyFeature>();
-		for(HyFeature feature: featureModel.getFeatures()) {
+		for(HyFeature feature: HyFeatureEvolutionUtil.getFeatures(featureModel, date)) {
 			String name = HyFeatureEvolutionUtil.getName(feature.getNames(), date).getName();
 			if(name != null && name.equals(identifier)) {
 				validFeatures.add(feature);
@@ -78,7 +77,7 @@ public class HyFeatureResolverUtil {
 		
 		// TODO incorporate Evolution
 		List<HyEnum> matchingEnums = new ArrayList<HyEnum>();
-		for(HyEnum hyEnum: featureModel.getEnums()) {
+		for(HyEnum hyEnum: HyFeatureEvolutionUtil.getEnums(featureModel, date)) {
 			if(hyEnum.getName().equals(identifier)) {
 				matchingEnums.add(hyEnum);
 			}
@@ -136,7 +135,7 @@ public class HyFeatureResolverUtil {
 		}
 		
 		List<HyFeatureAttribute> validAttributes = new ArrayList<HyFeatureAttribute>();
-		for(HyFeatureAttribute attribute: containingFeature.getAttributes()) {
+		for(HyFeatureAttribute attribute: HyFeatureEvolutionUtil.getAttributes(containingFeature, date)) {
 			String name = HyFeatureEvolutionUtil.getName(attribute.getNames(), date).getName();
 			if(name.equals(identifier)) {
 				validAttributes.add(attribute);
