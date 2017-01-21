@@ -44,7 +44,6 @@ public class AddGroupComposition implements EvolutionOperation {
 		groupComposition.setValidUntil(null);
 		groupComposition.setCompositionOf(group);
 		
-		//TODO: set until in the old groupComposition 
 		group.getParentOf().add(groupComposition);
 
 	}

@@ -38,13 +38,7 @@ public class AddName implements EvolutionOperation {
 		nameElement.setName(name);
 		nameElement.setValidSince(timestamp);
 		nameElement.setValidUntil(null);
-		
-		//Get the latest name of the feature, if it exists, and set the until variable
-		if (!feature.getNames().isEmpty()) {
-			HyName oldName = feature.getNames().get(feature.getNames().size() - 1);
-			oldName.setValidUntil(timestamp);
-		}
-				
+						
 		feature.getNames().add(nameElement);
 		
 	}

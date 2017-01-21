@@ -4,7 +4,8 @@
 package de.darwinspl.feature.evolution.operations;
 
 import java.util.Date;
-import java.util.List;
+
+import org.eclipse.emf.common.util.EList;
 
 import de.darwinspl.feature.evolution.Invoker.EvolutionOperation;
 import de.darwinspl.feature.evolution.basic.operations.AddFeature;
@@ -27,7 +28,7 @@ public class AddFeatureWithGroup extends ComplexOperation {
 	private Date timestamp;
 	
 	private HyFeature feature;
-	private List<HyFeature> features;
+	private EList<HyFeature> features;
 	private HyGroupTypeEnum groupType = HyGroupTypeEnum.AND;	//For a new group with only one feature the group must be AND
 	private HyGroupComposition groupComposition;
 	private HyFeatureModel tfm;	

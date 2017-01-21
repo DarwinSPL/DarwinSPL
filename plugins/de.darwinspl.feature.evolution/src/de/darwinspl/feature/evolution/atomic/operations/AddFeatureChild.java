@@ -46,7 +46,6 @@ public class AddFeatureChild implements EvolutionOperation {
 
 		parent.getParentOf().add(featureChild);
 		
-		//TODO: set until in the old featureChild
 		group.getChildOf().add(featureChild);
 
 	}

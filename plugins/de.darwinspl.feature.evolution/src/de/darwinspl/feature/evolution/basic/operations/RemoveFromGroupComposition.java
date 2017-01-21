@@ -51,8 +51,7 @@ public class RemoveFromGroupComposition extends ComplexOperation {
 		
 		DeleteGroupComposition deleteOldComposition = new DeleteGroupComposition(oldGroupComposition, timestamp);
 		AddGroupComposition addNewComposition = new AddGroupComposition(group, features , timestamp);
-		newGroupComposition = addNewComposition.getGroupComposition();
-				
+						
 		//the order of the append is important for the execute, so first delete then add
 		addToComposition(deleteOldComposition);
 		addToComposition(addNewComposition);
@@ -60,7 +59,9 @@ public class RemoveFromGroupComposition extends ComplexOperation {
 		for (EvolutionOperation operation : evoOps) {
 			operation.execute();
 		}
-
+		
+		newGroupComposition = addNewComposition.getGroupComposition();
+		
 	}
 
 	/* (non-Javadoc)

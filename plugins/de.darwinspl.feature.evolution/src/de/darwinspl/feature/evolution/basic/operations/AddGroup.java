@@ -4,7 +4,8 @@
 package de.darwinspl.feature.evolution.basic.operations;
 
 import java.util.Date;
-import java.util.List;
+
+import org.eclipse.emf.common.util.EList;
 
 import de.darwinspl.feature.evolution.Invoker.EvolutionOperation;
 import de.darwinspl.feature.evolution.atomic.operations.AddFeatureChild;
@@ -24,17 +25,17 @@ public class AddGroup extends ComplexOperation {
 
 	private HyGroupTypeEnum type;
 	private HyFeature parent;
-	private List<HyFeature> features;
+	private EList<HyFeature> features;
 
 	private static final HyFeatureFactory factory = HyFeatureFactory.eINSTANCE;
 	private HyGroup group = factory.createHyGroup();
 	private HyGroupComposition groupComposition;
 	
-	public AddGroup(HyGroupTypeEnum type, HyFeature parent, List<HyFeature> features, Date timestamp, HyFeatureModel tfm) {
+	public AddGroup(HyGroupTypeEnum type, HyFeature parent, EList<HyFeature> features, Date timestamp, HyFeatureModel tfm) {
 		
 		this.type = type;
 		this.parent = parent;
-		this.features.addAll(features);
+		this.features = features;
 		this.timestamp = timestamp;
 		this.tfm = tfm;
 		

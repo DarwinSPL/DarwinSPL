@@ -22,7 +22,7 @@ public class AddFeature extends ComplexOperation {
 	private HyFeatureTypeEnum type;
 
 	private static final HyFeatureFactory factory = HyFeatureFactory.eINSTANCE;
-	private HyFeature feature = factory.createHyFeature();
+	private HyFeature feature;
 	
 	public AddFeature(String name, HyFeatureTypeEnum type, Date timestamp) {
 		
@@ -37,7 +37,7 @@ public class AddFeature extends ComplexOperation {
 	 */
 	@Override
 	public void execute() {
-		
+		feature = factory.createHyFeature();
 		//create objects of all operation which are used by this one and add them to the list
 		AddName hyName = new AddName(name, feature, timestamp);		
 		AddFeatureType hyFeatureType = new AddFeatureType(type, feature, timestamp);

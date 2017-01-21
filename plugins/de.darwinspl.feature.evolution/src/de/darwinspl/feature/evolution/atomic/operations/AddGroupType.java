@@ -42,9 +42,7 @@ public class AddGroupType implements EvolutionOperation {
 		groupTyp.setType(type);
 		groupTyp.setValidSince(timestamp);
 		groupTyp.setValidUntil(null);
-		
-		//TODO: set until in the old groupType
-		
+				
 		group.getTypes().add(groupTyp);
 
 	}
