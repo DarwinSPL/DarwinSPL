@@ -1,6 +1,7 @@
 package eu.hyvar.feature.graphical.configurator.editor;
 
 import java.io.IOException;
+import java.nio.channels.UnresolvedAddressException;
 import java.util.Collections;
 
 import org.eclipse.core.resources.IFile;
@@ -8,6 +9,7 @@ import org.eclipse.core.resources.IWorkspaceRoot;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
+import org.eclipse.core.runtime.Status;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.Resource;
@@ -15,6 +17,9 @@ import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.ecore.util.EContentAdapter;
 import org.eclipse.gef.GraphicalViewer;
+import org.eclipse.jface.dialogs.Dialog;
+import org.eclipse.jface.dialogs.ErrorDialog;
+import org.eclipse.jface.window.Window;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.SashForm;
 import org.eclipse.swt.events.SelectionAdapter;
@@ -46,6 +51,7 @@ import eu.hyvar.feature.configuration.util.HyConfigurationUtil;
 import eu.hyvar.feature.constraint.HyConstraintModel;
 import eu.hyvar.feature.constraint.util.HyConstraintUtil;
 import eu.hyvar.feature.graphical.configurator.composites.HySelectedConfigurationComposite;
+import eu.hyvar.feature.graphical.configurator.dialogs.DwRESTServerSelectDialog;
 import eu.hyvar.feature.graphical.configurator.dialogs.HyContextInformationDialog;
 import eu.hyvar.feature.graphical.configurator.editor.listeners.DwDeriveVariantListener;
 import eu.hyvar.feature.graphical.configurator.factory.HyConfiguratorEditorEditPartFactory;
@@ -100,7 +106,7 @@ public class HyFeatureModelConfiguratorEditor extends HyFeatureModelConfigurator
 		IWorkbench workbench = PlatformUI.getWorkbench();
 		IWorkbenchWindow workbenchWindow = workbench.getActiveWorkbenchWindow();
 		IWorkbenchPage workbenchPage = workbenchWindow.getActivePage();
-		
+
 		IWorkspaceRoot workspaceRoot = ResourcesPlugin.getWorkspace().getRoot();
 
 		IFile file = workspaceRoot.getFile(Path.fromOSString(name));
@@ -186,6 +192,17 @@ public class HyFeatureModelConfiguratorEditor extends HyFeatureModelConfigurator
 		return configurationPanel;
 	}
 
+	private java.net.URI getURI(){
+		java.net.URI defaultURI = java.net.URI.create("http://hyvarhyvarrec-env.eu-west-1.elasticbeanstalk.com/process");
+		DwRESTServerSelectDialog dialog = new DwRESTServerSelectDialog(getEditorSite().getShell(), defaultURI);
+		int result = dialog.open();
+		if(result == Dialog.OK){
+			return dialog.getUri();
+		}
+
+		return defaultURI;
+	}
+
 	private void registerListeners() {
 
 		selectedConfiguration.eAdapters().add(new EContentAdapter() {
@@ -214,7 +231,9 @@ public class HyFeatureModelConfiguratorEditor extends HyFeatureModelConfigurator
 					// only show the dialog if context information are available
 					if(contextModel != null){
 						HyContextInformationDialog dialog = new HyContextInformationDialog(getEditorSite().getShell(), contextModel);
-						dialog.open();
+						if(dialog.open() == Window.CANCEL){
+							return;
+						}
 					}
 				}	
 
@@ -241,26 +260,32 @@ public class HyFeatureModelConfiguratorEditor extends HyFeatureModelConfigurator
 
 				saveConfigurationIntoFeatureModelFolder();
 
+				// allow to change the server uri
+				java.net.URI uri = getURI();
+
 
 				HyReconfiguratorClient client = new HyReconfiguratorClient();
 
-				HyConfiguration configuration = client.reconfigure(contextModel, validityModel, modelWrapped.getModel(), constraintModel, selectedConfiguration, preferenceModel, contextValueModel, modelWrapped.getSelectedDate());
-				String fileName = file.getFullPath().removeFileExtension().lastSegment();
-				
-				String name = file.getFullPath().removeFileExtension().removeLastSegments(1).append(fileName+"_Result").addFileExtension(HyConfigurationUtil.getConfigurationModelFileExtensionForXmi()).toString();
-						
-				ResourceSet resSet = new ResourceSetImpl();
-				Resource resource = resSet.createResource(URI.createURI(name));
-				resource.getContents().add(configuration);
+				HyConfiguration configuration = client.reconfigure(uri, contextModel, validityModel, modelWrapped.getModel(), constraintModel, selectedConfiguration, preferenceModel, contextValueModel, modelWrapped.getSelectedDate());
+				if(configuration != null){
+					String fileName = file.getFullPath().removeFileExtension().lastSegment();
 
-				try {
-					resource.save(Collections.EMPTY_MAP);
-				} catch (IOException e2) {
-					// TODO Auto-generated catch block
-					e2.printStackTrace();
+					String name = file.getFullPath().removeFileExtension().removeLastSegments(1).append(fileName+"_Result").addFileExtension(HyConfigurationUtil.getConfigurationModelFileExtensionForXmi()).toString();
+
+					// create a new resource for the result configuration
+					ResourceSet resSet = new ResourceSetImpl();
+					Resource resource = resSet.createResource(URI.createURI(name));
+					resource.getContents().add(configuration);
+
+					try {
+						resource.save(Collections.EMPTY_MAP);
+					} catch (IOException e2) {
+						e2.printStackTrace();
+					}				
+
+					// Show the result within a new viewer
+					openConfigurationViewer(name);
 				}
-				//EcoreIOUtil.saveModel(configuration);
-				openConfigurationViewer(name);
 			}
 		});
 

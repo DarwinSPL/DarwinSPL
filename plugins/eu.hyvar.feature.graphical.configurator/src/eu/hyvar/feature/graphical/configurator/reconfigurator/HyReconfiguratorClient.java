@@ -6,6 +6,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.URI;
+import java.nio.channels.UnresolvedAddressException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -24,6 +25,8 @@ import org.eclipse.jetty.client.api.ContentResponse;
 import org.eclipse.jetty.client.api.Request;
 import org.eclipse.jetty.client.util.StringContentProvider;
 import org.eclipse.jetty.http.HttpHeader;
+import org.eclipse.jface.dialogs.MessageDialog;
+import org.eclipse.ui.PlatformUI;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -70,7 +73,7 @@ public class HyReconfiguratorClient {
 	ContentResponse response;
 	String answerString;
 	
-	public HyConfiguration reconfigure(HyContextModel contextModel, HyValidityModel contextValidityModel,
+	public HyConfiguration reconfigure(URI uri, HyContextModel contextModel, HyValidityModel contextValidityModel,
 			HyFeatureModel featureModel, HyConstraintModel constraintModel, HyConfiguration oldConfiguration,
 			HyPreferenceModel preferenceModel, HyContextValueModel contextValues, Date date) {
 		
@@ -92,7 +95,7 @@ public class HyReconfiguratorClient {
 			return null;
 		}
 		// Current HyVarRec URI. TODO should be configurable
-		URI hyvarrecUri = URI.create("http://hyvarhyvarrec-env.eu-west-1.elasticbeanstalk.com/process");
+		URI hyvarrecUri = uri;
 		Request hyvarrecRequest = hyvarrecClient.POST(hyvarrecUri);
 		hyvarrecRequest.header(HttpHeader.CONTENT_TYPE, "application/json");
 		hyvarrecRequest.content(new StringContentProvider(messageForHyVarRec), "application/json");
@@ -101,10 +104,16 @@ public class HyReconfiguratorClient {
 		try {
 			hyvarrecResponse = hyvarrecRequest.send();
 			hyvarrecAnswerString = hyvarrecResponse.getContentAsString();
-		} catch (InterruptedException | TimeoutException | ExecutionException e) {
-			e.printStackTrace();
+		} catch (UnresolvedAddressException | ExecutionException e){
+			MessageDialog dialog = new MessageDialog(PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell(), "Unresolvable Server Adress", null,
+					"The adress '"+uri.toString()+"' could not be resolved. No configuration was generated.", MessageDialog.ERROR, new String[] { "Ok" }, 0);
+			dialog.open();
+			
 			return null;
-		}
+		} catch (InterruptedException | TimeoutException e) {
+			//e.printStackTrace();
+			return null;
+		} 
 
 		// Only for Debug
 		System.out.println("HyVarRec Answer: "+hyvarrecAnswerString);
