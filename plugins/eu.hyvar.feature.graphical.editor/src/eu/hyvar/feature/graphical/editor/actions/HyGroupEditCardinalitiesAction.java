@@ -52,7 +52,7 @@ public class HyGroupEditCardinalitiesAction extends SelectionAction{
 			HyParentChildConnectionEditPart part = (HyParentChildConnectionEditPart)selectedObject;
 			HyParentChildConnection	 model = (HyParentChildConnection)part.getModel();
 			
-			types = model.getTarget().getParentGroup(editor.getCurrentSelectedDate()).getGroup().getTypes();
+			types = model.getTarget().getParentGroup(editor.getCurrentSelectedDate()).getWrappedModelElement().getTypes();
 			element = model.getTarget().getParentGroup(editor.getCurrentSelectedDate());
 		}else if(selectedObject instanceof HyGroupEditPart){
 			HyGroupEditPart editPart = (HyGroupEditPart)selectedObject;

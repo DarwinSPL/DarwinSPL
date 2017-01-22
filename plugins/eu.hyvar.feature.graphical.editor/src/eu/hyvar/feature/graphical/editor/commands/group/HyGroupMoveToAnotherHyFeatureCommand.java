@@ -50,11 +50,18 @@ public class HyGroupMoveToAnotherHyFeatureCommand extends Command{
 		
 		newParentFeatureWrapped.getWrappedModelElement().getParentOf().add(featureChild);
 		featureChild.setChildGroup(group);
+		group.getChildOf().add(featureChild);
+		
+		if(date == null){
+			group.getChildOf().remove(oldParentFeatureChild);
+			oldParentFeatureChild.getParent().getParentOf().remove(oldParentFeatureChild);
+		}else{
+			oldParentFeatureChild.setValidUntil(date);
+		}
 		
 		
-		oldParentFeatureChild.setValidUntil(date);
 		
-		//groupWrapped.setParentFeature(newParentFeatureWrapped);
+		
 	
 		// remove all old connections
 		for(HyFeatureWrapped featureWrapped : groupWrapped.getFeaturesWrapped(date)){
@@ -76,6 +83,8 @@ public class HyGroupMoveToAnotherHyFeatureCommand extends Command{
 			featureWrapped.addChildToParentConnection(connection);
 			newParentFeatureWrapped.addParentToChildConnection(connection);
 		}
+		
+		
 		
 
 		featureModelWrapped.rearrangeFeatures();

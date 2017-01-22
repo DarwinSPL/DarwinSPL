@@ -101,6 +101,6 @@ public class HyGroupEditPart extends HyAbstractEditPart{
 		}
 
 
-		figure.setVisible(isVisible && hasValidParentFeature);
+		//figure.setVisible(isVisible && hasValidParentFeature);
 	}
 }

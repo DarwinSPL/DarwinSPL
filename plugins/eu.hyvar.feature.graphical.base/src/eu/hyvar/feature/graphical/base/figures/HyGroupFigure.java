@@ -1,10 +1,8 @@
 package eu.hyvar.feature.graphical.base.figures;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Iterator;
-import java.util.List;
 
 import org.deltaecore.feature.graphical.base.editor.DEGraphicalEditor;
 import org.deltaecore.feature.graphical.base.util.DEDrawingUtil;
@@ -14,6 +12,7 @@ import org.eclipse.draw2d.Graphics;
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.Path;
 import org.eclipse.swt.widgets.Display;
@@ -174,8 +173,8 @@ public class HyGroupFigure extends HyAbstractFigure{
 		boolean isAlternative = hygroup.isAlternative(date);
 		boolean isAnd = hygroup.isAnd(date);
 		
-		
-		if(!isAnd && group.getFeatures(editor.getCurrentSelectedDate()).size() > 1){
+		EList<HyFeature> children = group.getFeatures(editor.getCurrentSelectedDate());
+		if(!isAnd && children.size() > 1){
 			createGroupTypeArc(date);
 			//Draw group type
 			if (groupTypeVisible() && groupTypeArc != null) {

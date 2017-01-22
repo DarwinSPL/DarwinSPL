@@ -279,7 +279,7 @@ public class HyFeatureModelWrapped implements PropertyChangeListener {
 
 	private HyGroupWrapped groupAlreadyInList(HyGroup group){
 		for(HyGroupWrapped wrapped : groups){
-			if(wrapped.getGroup().equals(group))
+			if(wrapped.getWrappedModelElement().equals(group))
 				return wrapped;
 		}
 
@@ -562,7 +562,7 @@ public class HyFeatureModelWrapped implements PropertyChangeListener {
 			return null;
 
 		for(HyGroupWrapped wrappedGroup : groups){
-			if(wrappedGroup.getGroup().equals(group))
+			if(wrappedGroup.getWrappedModelElement().equals(group))
 				return wrappedGroup;
 		}
 		return null;
