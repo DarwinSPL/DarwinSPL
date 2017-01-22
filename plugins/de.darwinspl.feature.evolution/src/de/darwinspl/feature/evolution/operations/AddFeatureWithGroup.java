@@ -5,15 +5,16 @@ package de.darwinspl.feature.evolution.operations;
 
 import java.util.Date;
 
+import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.EList;
 
-import de.darwinspl.feature.evolution.Invoker.EvolutionOperation;
 import de.darwinspl.feature.evolution.basic.operations.AddFeature;
 import de.darwinspl.feature.evolution.basic.operations.AddGroup;
 import de.darwinspl.feature.evolution.basic.operations.ComplexOperation;
 import eu.hyvar.feature.HyFeature;
 import eu.hyvar.feature.HyFeatureModel;
 import eu.hyvar.feature.HyFeatureTypeEnum;
+import eu.hyvar.feature.HyGroup;
 import eu.hyvar.feature.HyGroupComposition;
 import eu.hyvar.feature.HyGroupTypeEnum;
 
@@ -28,9 +29,9 @@ public class AddFeatureWithGroup extends ComplexOperation {
 	private Date timestamp;
 	
 	private HyFeature feature;
-	private EList<HyFeature> features;
+	private EList<HyFeature> features = new BasicEList<HyFeature>();
 	private HyGroupTypeEnum groupType = HyGroupTypeEnum.AND;	//For a new group with only one feature the group must be AND
-	private HyGroupComposition groupComposition;
+	private HyGroup group;
 	private HyFeatureModel tfm;	
 	
 	/**
@@ -58,22 +59,27 @@ public class AddFeatureWithGroup extends ComplexOperation {
 	public void execute() {
 
 		AddFeature newFeature = new AddFeature(name, featureType, timestamp);
+		newFeature.execute();
 		feature = newFeature.getFeature();
 		
 		//Only the new created feature is member of the new group
 		features.add(feature);	
 		AddGroup newGroup = new AddGroup(groupType, parent, features, timestamp, tfm);
+		newGroup.execute();
 		
-		addToComposition(newFeature);
-		addToComposition(newGroup);
+		group = newGroup.getGroup();
+		
+		//addToComposition(newFeature);
+		//addToComposition(newGroup);
 		
 		//execute each atomic or complex operation which are used from this complex operation
-		for (EvolutionOperation operation : evoOps) {
+		/*for (EvolutionOperation operation : evoOps) {
 			operation.execute();
-		}
+		}*/
 		
-		//set the last relation between feature and groupCompisition and add the feature to the model
-		feature.getGroupMembership().add(groupComposition);
+		//set the last relation between feature and groupCompisition and add the feature to the model. Not necessary because of the bidirectional relation
+		//feature.getGroupMembership().add(groupComposition);
+		
 		tfm.getFeatures().add(feature);
 
 	}
@@ -86,5 +92,14 @@ public class AddFeatureWithGroup extends ComplexOperation {
 		// TODO Auto-generated method stub
 
 	}
+
+	public HyFeature getFeature() {
+		return feature;
+	}
+	
+	public HyGroup getGroup() {
+		return group;
+	}
+	
 
 }

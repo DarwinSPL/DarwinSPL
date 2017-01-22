@@ -4,7 +4,9 @@
 package de.darwinspl.feature.evolution.basic.operations;
 
 import java.util.Date;
-import java.util.List;
+
+import org.eclipse.emf.common.util.BasicEList;
+import org.eclipse.emf.common.util.EList;
 
 import de.darwinspl.feature.evolution.Invoker.EvolutionOperation;
 import de.darwinspl.feature.evolution.atomic.operations.AddGroupComposition;
@@ -47,7 +49,9 @@ public class AddToGroupComposition extends ComplexOperation{
 		//get the group and the containing features of the group composition 
 		this.group = oldGroupComposition.getCompositionOf();
 		
-		List<HyFeature> features = oldGroupComposition.getFeatures();
+		//create a new List and add all necessary elements
+		EList<HyFeature> features = new BasicEList<HyFeature>();
+		features.addAll(oldGroupComposition.getFeatures());
 		features.add(feature);
 		
 		DeleteGroupComposition deleteOldComposition = new DeleteGroupComposition(oldGroupComposition, timestamp);

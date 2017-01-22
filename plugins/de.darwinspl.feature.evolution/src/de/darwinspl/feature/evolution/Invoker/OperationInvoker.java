@@ -30,8 +30,11 @@ public class OperationInvoker {
 	 * undo the last command and decrease the counter of execute commands.
 	 */
 	public void undo() {
-		if (counterOfExecuteCommands > 0)
+		if (counterOfExecuteCommands > 0) {
 			commandHistory.get(counterOfExecuteCommands--).undo();
+			//remove the last undo operation from the history. (Clean up of history)
+			commandHistory.remove(counterOfExecuteCommands + 1);
+		}
 	}
 	
 	/**
@@ -54,7 +57,7 @@ public class OperationInvoker {
 		evoOps.add(addFeatureWithGroup);
 		addFeatureWithGroup.execute();
 		//add the operation as next command in the history
-		commandHistory.add(++counterOfExecuteCommands, addFeatureWithGroup);
+		commandHistory.add(counterOfExecuteCommands++, addFeatureWithGroup);
 		
 		return tfm;
 	}
@@ -64,7 +67,7 @@ public class OperationInvoker {
 		ComplexOperation addFeatureInGroup = new AddFeatureInGroup(name, type, group, timestamp, tfm);
 		evoOps.add(addFeatureInGroup);
 		addFeatureInGroup.execute();
-		commandHistory.add(++counterOfExecuteCommands, addFeatureInGroup);
+		commandHistory.add(counterOfExecuteCommands++, addFeatureInGroup);
 		
 		return tfm;
 	}

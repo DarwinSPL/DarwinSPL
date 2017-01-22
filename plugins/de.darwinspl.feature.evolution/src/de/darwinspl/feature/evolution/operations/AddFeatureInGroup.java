@@ -62,17 +62,21 @@ public class AddFeatureInGroup extends ComplexOperation {
 			}
 		}
 		
+		//newGroupComposition needed the new feature object, therefore it AddFeature must be executed before it, instead of the normal procedure with the evoOp-list 
+		newFeature.execute();
+		this.feature = newFeature.getFeature();
+		
 		//add the new created feature to the group composition		
 		AddToGroupComposition newGroupComposition = new AddToGroupComposition(groupComposition, feature , timestamp);
+		newGroupComposition.execute();
 		
-		addToComposition(newFeature);
+		/*addToComposition(newFeature);
 		addToComposition(newGroupComposition);	
 		
 		for (EvolutionOperation operation : evoOps) {
 			operation.execute();
-		}
+		}*/
 		
-		this.feature = newFeature.getFeature();
 		this.groupComposition = newGroupComposition.getGroupComposition();
 		//set the last relation between feature and groupCompisition and add the feature to the model
 		feature.getGroupMembership().add(groupComposition);
@@ -89,4 +93,11 @@ public class AddFeatureInGroup extends ComplexOperation {
 
 	}
 
+	public HyFeature getFeature() {
+		return feature;
+	}
+	
+	public HyGroupComposition getGroupComposition() {
+		return groupComposition;
+	}
 }

@@ -5,6 +5,7 @@ package de.darwinspl.feature.evolution.basic.operations;
 
 import java.util.Date;
 
+import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.EList;
 
 import de.darwinspl.feature.evolution.Invoker.EvolutionOperation;
@@ -35,7 +36,8 @@ public class AddGroup extends ComplexOperation {
 		
 		this.type = type;
 		this.parent = parent;
-		this.features = features;
+		this.features = new BasicEList<HyFeature>();
+		this.features.addAll(features);
 		this.timestamp = timestamp;
 		this.tfm = tfm;
 		
@@ -81,6 +83,10 @@ public class AddGroup extends ComplexOperation {
 	 */
 	public HyGroupComposition getGroupComposition() {
 		return groupComposition;
+	}
+	
+	public HyGroup getGroup() {
+		return group;
 	}
 
 

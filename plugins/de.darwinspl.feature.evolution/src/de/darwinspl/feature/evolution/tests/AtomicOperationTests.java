@@ -3,13 +3,14 @@
  */
 package de.darwinspl.feature.evolution.tests;
 
-import java.util.ArrayList;
+
 import java.util.Calendar;
 import java.util.Date;
-import java.util.List;
 
+import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.EList;
 
+import de.darwinspl.feature.evolution.Invoker.OperationInvoker;
 import de.darwinspl.feature.evolution.atomic.operations.AddFeatureChild;
 import de.darwinspl.feature.evolution.atomic.operations.AddFeatureType;
 import de.darwinspl.feature.evolution.atomic.operations.AddName;
@@ -18,6 +19,8 @@ import de.darwinspl.feature.evolution.basic.operations.AddFeature;
 import de.darwinspl.feature.evolution.basic.operations.AddGroup;
 import de.darwinspl.feature.evolution.basic.operations.AddToGroupComposition;
 import de.darwinspl.feature.evolution.basic.operations.RemoveFromGroupComposition;
+import de.darwinspl.feature.evolution.operations.AddFeatureInGroup;
+import de.darwinspl.feature.evolution.operations.AddFeatureWithGroup;
 import eu.hyvar.evolution.HyName;
 import eu.hyvar.feature.HyFeature;
 import eu.hyvar.feature.HyFeatureChild;
@@ -32,7 +35,6 @@ import eu.hyvar.feature.HyGroupTypeEnum;
 import eu.hyvar.feature.HyNumberAttribute;
 import eu.hyvar.feature.HyRootFeature;
 import eu.hyvar.feature.HyVersion;
-import eu.hyvar.feature.example_creation.examples.CarAssistanceExample;
 import eu.hyvar.feature.util.HyFeatureCreationUtil;
 
 /**
@@ -57,9 +59,9 @@ public class AtomicOperationTests {
 		Date timestamp = calendar.getTime();
 		
 		//----------------------------atomic Ops test area------------------------------------------
-		AddName name = new AddName("test", infotainmentFeature, timestamp);
-		AddFeatureType featureType = new AddFeatureType(HyFeatureTypeEnum.OPTIONAL, infotainmentFeature , timestamp);
 		
+		AddName name = new AddName("test", infotainmentFeature, timestamp);
+		AddFeatureType featureType = new AddFeatureType(HyFeatureTypeEnum.OPTIONAL, infotainmentFeature , timestamp);		
 		AddFeatureChild fc = new AddFeatureChild(infotainmentFeature, frontDistanceSensorsAlternativeGroup, timestamp);
 		DeleteGroupComposition dGC = new DeleteGroupComposition(frontDistanceSensorsAlternativeGroup.getParentOf().get(0), timestamp);
 				
@@ -73,7 +75,8 @@ public class AtomicOperationTests {
 		AddFeature addF = new AddFeature("test1", HyFeatureTypeEnum.OPTIONAL, timestamp);
 		addF.execute();
 		
-		EList<HyFeature> features = frontDistanceSensorsAlternativeGroup.getParentOf().get(0).getFeatures();
+		EList<HyFeature> features = new BasicEList<HyFeature>();
+		features.addAll(frontDistanceSensorsAlternativeGroup.getParentOf().get(0).getFeatures());
 		features.add(addF.getFeature());
 		AddGroup addG = new AddGroup(HyGroupTypeEnum.ALTERNATIVE, infotainmentFeature, features , timestamp, tfm);
 		addG.execute();
@@ -81,12 +84,25 @@ public class AtomicOperationTests {
 		AddToGroupComposition addGC = new AddToGroupComposition(frontDistanceSensorsAlternativeGroup.getParentOf().get(0), addF.getFeature(), timestamp);
 		addGC.execute();
 		
-		RemoveFromGroupComposition remGC = new RemoveFromGroupComposition(frontDistanceSensorsAlternativeGroup.getParentOf().get(0), addF.getFeature(), timestamp);
+		RemoveFromGroupComposition remGC = new RemoveFromGroupComposition(frontDistanceSensorsAlternativeGroup.getParentOf().get(1), addF.getFeature(), timestamp);
 		remGC.execute();
 		
 		//------------------------------------ complex evoOp test area------------------------------------------------
 
-
+		AddFeatureInGroup addFiG = new AddFeatureInGroup("test2", HyFeatureTypeEnum.MANDATORY , addG.getGroup(), timestamp, tfm);
+		addFiG.execute();
+		
+		AddFeatureWithGroup addFwG = new AddFeatureWithGroup("test3", HyFeatureTypeEnum.MANDATORY, addF.getFeature(), timestamp, tfm);
+		addFwG.execute();
+		
+		
+		//-------------------------------------------- operation invoker test area--------------------------------------------
+		
+		OperationInvoker invoker = new OperationInvoker();
+		for (int i = 0; i < 11; i++) {
+			invoker.AddFeature("test4", HyFeatureTypeEnum.MANDATORY , addG.getGroup(), timestamp, tfm);
+		}
+		
 	}
 
 public static HyFeatureModel createExample() {

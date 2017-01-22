@@ -3,8 +3,12 @@
  */
 package de.darwinspl.feature.evolution.atomic.operations;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+
+import org.eclipse.emf.common.util.BasicEList;
+import org.eclipse.emf.common.util.EList;
 
 import de.darwinspl.feature.evolution.Invoker.EvolutionOperation;
 import eu.hyvar.feature.HyFeature;
@@ -18,16 +22,22 @@ import eu.hyvar.feature.HyGroupComposition;
 public class AddGroupComposition implements EvolutionOperation {
 
 	private HyGroup group;
-	private List<HyFeature> features;
+	private List<HyFeature> features = new ArrayList<HyFeature>();
 	private Date timestamp;
 	
 	private HyGroupComposition groupComposition;
 	private static final HyFeatureFactory factory = HyFeatureFactory.eINSTANCE;
 	
-	public AddGroupComposition(HyGroup group, List<HyFeature> features, Date timestamp) {
+	public AddGroupComposition(HyGroup group, EList<HyFeature> features, Date timestamp) {
 		
 		this.group = group;
-		this.features = features;
+		//this.features.addAll(features);
+		for (HyFeature hyFeature : features) {
+			if (hyFeature != null) {
+				this.features.add(hyFeature);
+			}
+			
+		}
 		this.timestamp = timestamp;
 		
 	}
