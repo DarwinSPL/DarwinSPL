@@ -304,20 +304,20 @@ public class HyGraphicalFeatureModelViewer extends GraphicalEditor implements IF
 		});
 
 		// Mininimum value for range restriction for the slider
-		minState.addListener(SWT.Selection, new Listener(){
-			public void handleEvent(Event event){
-				int index = ((Combo)event.widget).getSelectionIndex();
-				scale.setMinimum(index);
-			}
-		});
-
-		// Maximum value for range restriction for the slider
-		maxState.addListener(SWT.Selection, new Listener(){
-			public void handleEvent(Event event){
-				int index = ((Combo)event.widget).getSelectionIndex();
-				scale.setMaximum(index);
-			}
-		});
+//		minState.addListener(SWT.Selection, new Listener(){
+//			public void handleEvent(Event event){
+//				int index = ((Combo)event.widget).getSelectionIndex();
+//				scale.setMinimum(index);
+//			}
+//		});
+//
+//		// Maximum value for range restriction for the slider
+//		maxState.addListener(SWT.Selection, new Listener(){
+//			public void handleEvent(Event event){
+//				int index = ((Combo)event.widget).getSelectionIndex();
+//				scale.setMaximum(index);
+//			}
+//		});
 
 		// Slider to select a given date
 		scale.addListener(SWT.Selection, new Listener() {
@@ -366,25 +366,25 @@ public class HyGraphicalFeatureModelViewer extends GraphicalEditor implements IF
 			currentDate.setText((new Date()).toString());
 		}
 
-		Label minStateLabel = new Label(buttonGroup, SWT.CENTER);
-		minStateLabel.setText("Date range from ");
-		minState = new Combo (buttonGroup, SWT.READ_ONLY);
-		for(Date date : dates){
-			minState.add(date.toString());
-		}
-		minState.select(0);
-		minState.setEnabled(size > 1);
-
-
-		Label maxStateLabel = new Label(buttonGroup, SWT.NATIVE);
-		maxStateLabel.setText(" to ");		
-		maxState = new Combo (buttonGroup, SWT.NATIVE);
-
-		for(Date date : dates){
-			maxState.add(date.toString());
-		}
-		maxState.select(dates.size()-1);
-		maxState.setEnabled(size > 1);
+//		Label minStateLabel = new Label(buttonGroup, SWT.CENTER);
+//		minStateLabel.setText("Date range from ");
+//		minState = new Combo (buttonGroup, SWT.READ_ONLY);
+//		for(Date date : dates){
+//			minState.add(date.toString());
+//		}
+//		minState.select(0);
+//		minState.setEnabled(size > 1);
+//
+//
+//		Label maxStateLabel = new Label(buttonGroup, SWT.NATIVE);
+//		maxStateLabel.setText(" to ");		
+//		maxState = new Combo (buttonGroup, SWT.NATIVE);
+//
+//		for(Date date : dates){
+//			maxState.add(date.toString());
+//		}
+//		maxState.select(dates.size()-1);
+//		maxState.setEnabled(size > 1);
 
 
 		scale = new Scale(buttonGroup, SWT.FILL);

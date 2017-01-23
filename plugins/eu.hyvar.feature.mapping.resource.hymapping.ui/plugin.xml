@@ -30,7 +30,7 @@
 	</extension>
 	
 	<extension point="org.eclipse.ui.newWizards">
-		<wizard category="de.darwinspl.wizards" icon="/icons/default_new_icon.gif" class="eu.hyvar.feature.mapping.resource.hymapping.ui.HymappingNewFileWizard" id="eu.hyvar.feature.mapping.resource.hymapping.ui.HymappingNewFileWizard" name="DarwinSPL Mapping  (*.hymapping)">
+		<wizard category="de.darwinspl.wizards" icon="icons/icon_mapping.png" class="eu.hyvar.feature.mapping.resource.hymapping.ui.HymappingNewFileWizard" id="eu.hyvar.feature.mapping.resource.hymapping.ui.HymappingNewFileWizard" name="DarwinSPL Mapping  (*.hymapping)">
 		</wizard>
 	</extension>
 	
