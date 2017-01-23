@@ -1,15 +1,15 @@
 package eu.hyvar.feature.graphical.configurator.editor;
 
 import java.io.IOException;
-import java.nio.channels.UnresolvedAddressException;
 import java.util.Collections;
+import java.util.Map;
+import java.util.Map.Entry;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IWorkspaceRoot;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
-import org.eclipse.core.runtime.Status;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.Resource;
@@ -18,7 +18,6 @@ import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.ecore.util.EContentAdapter;
 import org.eclipse.gef.GraphicalViewer;
 import org.eclipse.jface.dialogs.Dialog;
-import org.eclipse.jface.dialogs.ErrorDialog;
 import org.eclipse.jface.window.Window;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.SashForm;
@@ -41,11 +40,20 @@ import org.eclipse.ui.part.FileEditorInput;
 
 import de.christophseidl.util.ecore.EcoreIOUtil;
 import eu.hyvar.context.HyContextModel;
+import eu.hyvar.context.HyContextualInformationBoolean;
+import eu.hyvar.context.HyContextualInformationEnum;
+import eu.hyvar.context.HyContextualInformationNumber;
 import eu.hyvar.context.contextValidity.HyValidityModel;
 import eu.hyvar.context.contextValidity.util.HyValidityModelUtil;
+import eu.hyvar.context.information.contextValue.ContextValueFactory;
+import eu.hyvar.context.information.contextValue.HyContextValue;
 import eu.hyvar.context.information.contextValue.HyContextValueModel;
 import eu.hyvar.context.information.util.HyContextInformationUtil;
-import eu.hyvar.context.information.value.util.ContextInformationUtil;
+import eu.hyvar.dataValues.HyBooleanValue;
+import eu.hyvar.dataValues.HyDataValuesFactory;
+import eu.hyvar.dataValues.HyEnumLiteral;
+import eu.hyvar.dataValues.HyEnumValue;
+import eu.hyvar.dataValues.HyNumberValue;
 import eu.hyvar.feature.configuration.HyConfiguration;
 import eu.hyvar.feature.configuration.util.HyConfigurationUtil;
 import eu.hyvar.feature.constraint.HyConstraintModel;
@@ -67,13 +75,15 @@ public class HyFeatureModelConfiguratorEditor extends HyFeatureModelConfigurator
 	private HySelectedConfigurationComposite selectedConfigurationComposite;
 
 	HyConfiguration suggestedConfiguration;
+	
+	private static final String DEFAULT_HYVARREC_URI = "http://hyvarhyvarrec-env.eu-west-1.elasticbeanstalk.com/process";
 
 	@Override
 	public void init(IEditorSite site, IEditorInput input) throws PartInitException {
 		super.init(site, input);
 
 		// load an existing configuration model
-		if(this.modelFileExists("hyconfigurationmodel"))
+		if(this.modelFileExists(HyConfigurationUtil.getConfigurationModelFileExtensionForXmi()))
 			selectedConfiguration = this.loadConfigurationModel();
 		else
 			selectedConfiguration.setFeatureModel(this.modelWrapped.getModel());
@@ -193,7 +203,7 @@ public class HyFeatureModelConfiguratorEditor extends HyFeatureModelConfigurator
 	}
 
 	private java.net.URI getURI(){
-		java.net.URI defaultURI = java.net.URI.create("http://hyvarhyvarrec-env.eu-west-1.elasticbeanstalk.com/process");
+		java.net.URI defaultURI = java.net.URI.create(DEFAULT_HYVARREC_URI);
 		DwRESTServerSelectDialog dialog = new DwRESTServerSelectDialog(getEditorSite().getShell(), defaultURI);
 		int result = dialog.open();
 		if(result == Dialog.OK){
@@ -217,7 +227,7 @@ public class HyFeatureModelConfiguratorEditor extends HyFeatureModelConfigurator
 		validateButton.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
-				//validateFeatureModel();
+				//TODO validateFeatureModel();
 			}
 		});
 
@@ -225,26 +235,39 @@ public class HyFeatureModelConfiguratorEditor extends HyFeatureModelConfigurator
 			@Override
 			public void widgetSelected(SelectionEvent e) {
 				HyContextModel contextModel = null;
+				HyContextValueModel contextValueModel = null;
+				
 				if(modelFileExists(HyContextInformationUtil.getContextModelFileExtensionForConcreteSyntax())){
 					contextModel = loadContextInformationModel();
 
 					// only show the dialog if context information are available
 					if(contextModel != null){
-						HyContextInformationDialog dialog = new HyContextInformationDialog(getEditorSite().getShell(), contextModel);
+						HyContextInformationDialog dialog = new HyContextInformationDialog(getEditorSite().getShell(), contextModel, getDate());
 						if(dialog.open() == Window.CANCEL){
 							return;
+						} 
+						else {
+							contextValueModel = createContextValueModel(dialog);
 						}
 					}
-				}	
+				}
+				else {
+					// TODO inform user that no context model exists
+					return;
+				}
 
+				if(contextValueModel == null) {
+					return;
+				}
+				
 				HyValidityModel validityModel = null;
 				if(modelFileExists(HyValidityModelUtil.getValidityModelFileExtensionForConcreteSyntax())){
 					validityModel = EcoreIOUtil.loadAccompanyingModel(modelWrapped.getModel(), HyValidityModelUtil.getValidityModelFileExtensionForConcreteSyntax());
 				}
 
 				HyConstraintModel constraintModel = null;
-				if(modelFileExists(HyConstraintUtil.getConstraintModelFileExtensionForXmi())){
-					constraintModel = EcoreIOUtil.loadAccompanyingModel(modelWrapped.getModel(), HyConstraintUtil.getConstraintModelFileExtensionForXmi());
+				if(modelFileExists(HyConstraintUtil.getConstraintModelFileExtensionForConcreteSyntax())){
+					constraintModel = EcoreIOUtil.loadAccompanyingModel(modelWrapped.getModel(), HyConstraintUtil.getConstraintModelFileExtensionForConcreteSyntax());
 				}
 
 				HyPreferenceModel preferenceModel = null;
@@ -252,11 +275,11 @@ public class HyFeatureModelConfiguratorEditor extends HyFeatureModelConfigurator
 					preferenceModel = EcoreIOUtil.loadAccompanyingModel(modelWrapped.getModel(), HyPreferenceModelUtil.getPreferenceModelFileExtensionForConcreteSyntax());
 				}
 
-				HyContextValueModel contextValueModel = null;
-				if(modelFileExists(ContextInformationUtil.getContextValueModelFileExtensionForXmi())){
-					// TODO type check? other models, too?
-					contextValueModel = EcoreIOUtil.loadAccompanyingModel(modelWrapped.getModel(), ContextInformationUtil.getContextValueModelFileExtensionForXmi());
-				}
+				//
+//				if(modelFileExists(ContextInformationUtil.getContextValueModelFileExtensionForXmi())){
+//					// TODO type check? other models, too?
+//					contextValueModel = EcoreIOUtil.loadAccompanyingModel(modelWrapped.getModel(), ContextInformationUtil.getContextValueModelFileExtensionForXmi());
+//				}
 
 				saveConfigurationIntoFeatureModelFolder();
 
@@ -313,6 +336,67 @@ public class HyFeatureModelConfiguratorEditor extends HyFeatureModelConfigurator
 		selectedConfigurationComposite.getDeriveVariantButton().addSelectionListener(new DwDeriveVariantListener(this));
 	}
 
+	private static HyContextValueModel createContextValueModel(HyContextInformationDialog dialog) {
+		HyContextValueModel contextValueModel = ContextValueFactory.eINSTANCE.createHyContextValueModel();
+		
+		fillContextValueModelWithBooleanValues(contextValueModel, dialog.getBooleanValueMap());
+		
+		fillContextValueModelWithEnumValues(contextValueModel, dialog.getEnumValueMap());
+
+		fillContextValueModelWithNumberValues(contextValueModel, dialog.getNumberValueMap());
+		
+		return contextValueModel;
+	}
+	
+	private static void fillContextValueModelWithBooleanValues(HyContextValueModel contextValueModel, Map<HyContextualInformationBoolean, Boolean> map) {
+		for(Entry<HyContextualInformationBoolean, Boolean> entry: map.entrySet()) {
+			HyContextValue contextValue = ContextValueFactory.eINSTANCE.createHyContextValue();
+			contextValue.setContext(entry.getKey());
+			
+			HyBooleanValue value = HyDataValuesFactory.eINSTANCE.createHyBooleanValue();
+			value.setValue(entry.getValue().booleanValue());
+			
+			contextValue.setValue(value);
+			contextValueModel.getValues().add(contextValue);
+		}
+	}
+	
+	private static void fillContextValueModelWithEnumValues(HyContextValueModel contextValueModel, Map<HyContextualInformationEnum, String> map) {
+		for(Entry<HyContextualInformationEnum, String> entry: map.entrySet()) {
+			HyContextValue contextValue = ContextValueFactory.eINSTANCE.createHyContextValue();
+			contextValue.setContext(entry.getKey());
+			
+			HyEnumValue value = HyDataValuesFactory.eINSTANCE.createHyEnumValue();
+			value.setEnum(entry.getKey().getEnumType());
+			
+			for(HyEnumLiteral literal: entry.getKey().getEnumType().getLiterals()) {
+				if(literal.getName().equals(entry.getValue())) {
+					value.setEnumLiteral(literal);
+					break;
+				}
+			}
+			
+			contextValue.setValue(value);
+			contextValueModel.getValues().add(contextValue);
+		}
+	}
+		
+	private static void fillContextValueModelWithNumberValues(HyContextValueModel contextValueModel, Map<HyContextualInformationNumber, Integer> map) {
+		
+		for(Entry<HyContextualInformationNumber, Integer> entry: map.entrySet()) {
+			HyContextValue contextValue = ContextValueFactory.eINSTANCE.createHyContextValue();
+			contextValue.setContext(entry.getKey());
+			
+			HyNumberValue value = HyDataValuesFactory.eINSTANCE.createHyNumberValue();
+			
+			value.setValue(entry.getValue());
+			
+			contextValue.setValue(value);
+			contextValueModel.getValues().add(contextValue);
+		}
+	}
+	
+	
 	@Override
 	protected void setInput(IEditorInput input) {
 		super.setInput(input);

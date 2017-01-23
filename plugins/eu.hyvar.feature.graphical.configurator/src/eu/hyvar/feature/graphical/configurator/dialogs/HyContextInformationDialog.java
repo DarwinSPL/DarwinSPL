@@ -1,15 +1,27 @@
 package eu.hyvar.feature.graphical.configurator.dialogs;
 
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
+
 import org.eclipse.jface.dialogs.Dialog;
 import org.eclipse.jface.dialogs.IDialogConstants;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.CCombo;
 import org.eclipse.swt.custom.TableEditor;
+import org.eclipse.swt.events.ModifyEvent;
+import org.eclipse.swt.events.ModifyListener;
+import org.eclipse.swt.graphics.Color;
+import org.eclipse.swt.graphics.Device;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
+import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Shell;
@@ -23,15 +35,37 @@ import eu.hyvar.context.HyContextualInformation;
 import eu.hyvar.context.HyContextualInformationBoolean;
 import eu.hyvar.context.HyContextualInformationEnum;
 import eu.hyvar.context.HyContextualInformationNumber;
+import eu.hyvar.context.information.util.ContextEvolutionUtil;
 import eu.hyvar.dataValues.HyEnumLiteral;
 
-public class HyContextInformationDialog extends Dialog implements Listener{
+public class HyContextInformationDialog extends Dialog implements Listener, ModifyListener{
 	private HyContextModel model;
+	private Date date;
 	
-	public HyContextInformationDialog(Shell parentShell, HyContextModel model) {
+	private Map<HyContextualInformationBoolean, Boolean> booleanValueMap;
+	private Map<HyContextualInformationEnum, String> enumValueMap;
+	private Map<HyContextualInformationNumber, Integer> numberValueMap;
+	
+	private Map<HyContextualInformationBoolean, CCombo> booleanComboMap;
+	private Map<HyContextualInformationEnum, CCombo> enumComboMap;
+	private Map<HyContextualInformationNumber, Text> numberTextMap;
+	
+	private List<Text> onlyNumericTexts;
+	
+	public HyContextInformationDialog(Shell parentShell, HyContextModel model, Date date) {
 		super(parentShell);
 	
 		this.model = model;
+		this.date = date;
+		booleanComboMap = new HashMap<HyContextualInformationBoolean, CCombo>();
+		enumComboMap = new HashMap<HyContextualInformationEnum, CCombo>();
+		numberTextMap = new HashMap<HyContextualInformationNumber, Text>();
+		
+		booleanValueMap = new HashMap<HyContextualInformationBoolean, Boolean>();
+		enumValueMap = new HashMap<HyContextualInformationEnum, String>();
+		numberValueMap = new HashMap<HyContextualInformationNumber, Integer>();
+		
+		onlyNumericTexts = new ArrayList<Text>();
 	}
 
 
@@ -77,7 +111,7 @@ public class HyContextInformationDialog extends Dialog implements Listener{
 	    column.setWidth(100);
 	    column.pack();
 	      	      
-	    for(HyContextualInformation information : model.getContextualInformations()){
+	    for(HyContextualInformation information : ContextEvolutionUtil.getContextualInformation(model, date)){
 	    	TableItem item = new TableItem(table, SWT.NONE);
 	    	TableEditor editor = new TableEditor(table);
 
@@ -93,24 +127,38 @@ public class HyContextInformationDialog extends Dialog implements Listener{
 	    	    CCombo combo = new CCombo(table, SWT.NONE);
 	    	    combo.setText("CCombo");
 	    	    combo.add(Boolean.toString(true));
-	    	    combo.add(Boolean.toString(false));	
+	    	    combo.add(Boolean.toString(false));
+	    	    
+	    	    booleanComboMap.put((HyContextualInformationBoolean) information, combo);
+	    	    
 	    	    editor.grabHorizontal = true;
 	    	    editor.setEditor(combo, item, 1);
 	    	}else if(information instanceof HyContextualInformationEnum){
+	    		HyContextualInformationEnum enumContext = (HyContextualInformationEnum) information;
+	    		
 	    		editor = new TableEditor(table);
 	    	    CCombo combo = new CCombo(table, SWT.NONE);
-	    	    combo.setText(((HyContextualInformationEnum)information).getEnumType().getLiterals().get(0).getName());
-	    		for(HyEnumLiteral literal : ((HyContextualInformationEnum)information).getEnumType().getLiterals()){
+	    	    combo.setText(enumContext.getEnumType().getLiterals().get(0).getName());
+	    		for(HyEnumLiteral literal : enumContext.getEnumType().getLiterals()){
 	    			combo.add(literal.getName());
 	    		}
+	    		
+	    		enumComboMap.put(enumContext, combo);
 	    		
 	    		editor.grabHorizontal = true;
 	    	    editor.setEditor(combo, item, 1);
 	    	}else if(information instanceof HyContextualInformationNumber){
+	    		
+	    		HyContextualInformationNumber numberContext = (HyContextualInformationNumber) information;
+	    		
 	    		editor = new TableEditor(table);
 	    	    Text value = new Text(table, SWT.NONE);
 	    	    value.setEditable(true);
-	    	    value.setText(String.valueOf(((HyContextualInformationNumber)information).getMin()));
+	    	    value.setText(String.valueOf(numberContext.getMin()));
+	    	    value.addModifyListener(this);
+	    	    
+	    	    onlyNumericTexts.add(value);
+	    	    numberTextMap.put(numberContext, value);
 	    	    
 	    	    editor.grabHorizontal = true;
 	    	    editor.setEditor(value,item, 1);	
@@ -151,5 +199,85 @@ public class HyContextInformationDialog extends Dialog implements Listener{
 	protected void cancelPressed(){
 
 		super.cancelPressed();
+	}
+	
+	@Override
+	protected void okPressed() {
+		boolean isOk = true;
+		for(Text text: onlyNumericTexts) {
+			if(!isNumberic(text.getText())) {
+				isOk = false;
+			}
+		}
+		
+		if(isOk) {
+			for(Entry<HyContextualInformationBoolean, CCombo> entry: booleanComboMap.entrySet()) {
+				Boolean bool;
+				if(entry.getValue().getText().equals(Boolean.toString(true))) {
+					bool = new Boolean(true);
+				}
+				else {
+					bool = new Boolean(false);
+				}
+				
+				booleanValueMap.put(entry.getKey(), bool);
+			}
+			
+			for(Entry<HyContextualInformationEnum, CCombo> entry: enumComboMap.entrySet()) {
+				enumValueMap.put(entry.getKey(), entry.getValue().getText());
+			}
+			
+			for(Entry<HyContextualInformationNumber, Text> entry: numberTextMap.entrySet()) {
+				Integer i = Integer.parseInt(entry.getValue().getText());
+				numberValueMap.put(entry.getKey(), i);
+			}
+			
+			super.okPressed();
+		}
+	}
+
+
+	public Map<HyContextualInformationBoolean, Boolean> getBooleanValueMap() {
+		return booleanValueMap;
+	}
+
+
+	public Map<HyContextualInformationEnum, String> getEnumValueMap() {
+		return enumValueMap;
+	}
+
+
+	public Map<HyContextualInformationNumber, Integer> getNumberValueMap() {
+		return numberValueMap;
+	}
+	
+	private boolean isNumberic(String string) {
+		try {
+			Integer.parseInt(string);
+		}
+		catch(NumberFormatException nfe) {
+			return false;
+		}
+		return true;
+	}
+
+
+	@Override
+	public void modifyText(ModifyEvent e) {
+		if(onlyNumericTexts.contains(e.getSource())) {
+			Text text = (Text) e.getSource();
+			String tooltip = "";
+			Color background = null;
+			if(isNumberic(text.getText())) {
+				tooltip = "Only integer values allowed";
+				Device device = Display.getCurrent();
+				background = new Color(device, 255,0,0);
+			}
+			else {
+				tooltip = "";
+			}
+			text.setBackground(background);
+			text.setToolTipText(tooltip);
+		}
 	}
 }

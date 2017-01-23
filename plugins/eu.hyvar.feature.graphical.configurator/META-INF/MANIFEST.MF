@@ -39,9 +39,12 @@ Require-Bundle: org.eclipse.ui,
  eu.hyvar.reconfigurator.input,
  eu.hyvar.reconfigurator.output.translation,
  org.eclipse.e4.ui.model.workbench,
- eu.hyvar.feature.graphical.configurator.viewer
+ eu.hyvar.feature.graphical.configurator.viewer,
+ eu.hyvar.feature.data
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Bundle-ActivationPolicy: lazy
 Bundle-Vendor: www.darwinspl.de
 Bundle-ClassPath: lib/jetty-client-9.2.13.v20150730.jar,
  .
+Export-Package: eu.hyvar.feature.graphical.configurator.editor,
+ eu.hyvar.feature.graphical.configurator.reconfigurator
