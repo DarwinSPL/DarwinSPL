@@ -6,11 +6,35 @@
    xmlns:svg="http://www.w3.org/2000/svg"
    xmlns="http://www.w3.org/2000/svg"
    xmlns:xlink="http://www.w3.org/1999/xlink"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    version="1.1"
    id="svg4310"
    viewBox="0 0 446.91041 151.84425"
    height="42.853825mm"
-   width="126.12805mm">
+   width="126.12805mm"
+   sodipodi:docname="Logo_Original.svg"
+   inkscape:version="0.92.0 r15299">
+  <sodipodi:namedview
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1"
+     objecttolerance="10"
+     gridtolerance="10"
+     guidetolerance="10"
+     inkscape:pageopacity="0"
+     inkscape:pageshadow="2"
+     inkscape:window-width="1047"
+     inkscape:window-height="616"
+     id="namedview29"
+     showgrid="false"
+     inkscape:zoom="0.59995245"
+     inkscape:cx="238.35222"
+     inkscape:cy="80.983606"
+     inkscape:window-x="2227"
+     inkscape:window-y="73"
+     inkscape:window-maximized="0"
+     inkscape:current-layer="layer1" />
   <defs
      id="defs4312">
     <linearGradient
@@ -91,7 +115,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -111,7 +135,7 @@
            width="310.52048"
            id="rect5832-1-4-9-8-99" /></flowRegion><flowPara
          style="font-style:normal;font-variant:normal;font-weight:300;font-stretch:normal;font-size:50px;font-family:'Sansation Light';-inkscape-font-specification:'Sansation Light,  Light';fill:#000000;fill-opacity:1"
-         id="flowPara5836-0-2-3-9-5"> Darwin  SPL</flowPara></flowRoot>    <path
+         id="flowPara5836-0-2-3-9-5"> DarwinSPL</flowPara></flowRoot>    <path
        id="path5031-83"
        d="m 137.58477,547.30805 30.16085,-37.80542 -5.83059,25.15482 z"
        style="display:inline;fill:url(#linearGradient5096-4);fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
