@@ -91,11 +91,11 @@ public class HyGroupFigure extends HyAbstractFigure{
 			originPoint.x += this.getSize().width / 2 - theme.getLineWidth();	
 
 			Point leftLineEndPoint = firstFeature.getPosition(null).getCopy();
-			leftLineEndPoint.x+=firstFeature.getSize().width / 2;
+			leftLineEndPoint.x+=firstFeature.getSize(date).width / 2;
 			//leftLineEndPoint.y+=theme.getFeatureVariationTypeExtent()-4;
 
 			Point rightLineEndPoint = lastFeature.getPosition(null).getCopy();
-			rightLineEndPoint.x+=lastFeature.getSize().width / 2;
+			rightLineEndPoint.x+=lastFeature.getSize(date).width / 2;
 			//rightLineEndPoint.y+=theme.getFeatureVariationTypeExtent();
 
 			Point intersectionPointOfLeftLineAndCircle = scaleLineEndPoint(originPoint, leftLineEndPoint, theme.getGroupSymbolRadius());
@@ -158,8 +158,8 @@ public class HyGroupFigure extends HyAbstractFigure{
 			System.out.println("");
 		}
 		Point parentPosition = parentFeatureWrapped.getPosition(date).getCopy();
-		parentPosition.y += parentFeatureWrapped.getSize().height;
-		parentPosition.x += parentFeatureWrapped.getSize().width() / 2.0 - theme.getGroupSymbolRadius();
+		parentPosition.y += parentFeatureWrapped.getSize(date).height;
+		parentPosition.x += parentFeatureWrapped.getSize(date).width() / 2.0 - theme.getGroupSymbolRadius();
 
 		int size = theme.getLineWidth() * 2 + theme.getGroupSymbolRadius() * 2;
 		

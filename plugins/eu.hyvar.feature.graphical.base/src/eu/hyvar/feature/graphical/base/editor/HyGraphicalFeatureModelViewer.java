@@ -15,7 +15,10 @@ import org.eclipse.core.resources.IWorkspaceRoot;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.draw2d.FigureCanvas;
+import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Point;
+import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.gef.DefaultEditDomain;
 import org.eclipse.gef.GraphicalViewer;
@@ -41,16 +44,12 @@ import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Event;
-import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Scale;
 import org.eclipse.ui.IEditorInput;
-import org.eclipse.ui.IEditorPart;
-import org.eclipse.ui.IEditorReference;
 import org.eclipse.ui.IEditorSite;
 import org.eclipse.ui.IFileEditorInput;
 import org.eclipse.ui.PartInitException;
-import org.eclipse.ui.PlatformUI;
 
 import de.christophseidl.util.ecore.EcoreIOUtil;
 import eu.hyvar.evolution.HyEvolutionUtil;
@@ -116,7 +115,13 @@ public class HyGraphicalFeatureModelViewer extends GraphicalEditor implements IF
 		refreshView();
 	}
 
-
+	public Dimension getEditorGraphicalDimension(){
+		FigureCanvas c = ((FigureCanvas) getGraphicalViewer().getControl());
+		
+		Rectangle bounds = c.getContents().getBounds();
+		return new Dimension(bounds.width, bounds.height);
+	}
+	
 	public void refreshView(){
 		GraphicalViewer viewer = getGraphicalViewer();
 

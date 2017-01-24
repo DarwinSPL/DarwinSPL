@@ -92,55 +92,25 @@ public class HyFeatureFigure extends Figure{
 		add(label);	
 	}
 	
-	public Rectangle calculateNameAreaBounds() {
-		DEGraphicalEditorTheme theme = DEGraphicalEditor.getTheme();
-		Rectangle bounds = getBounds();
-		Rectangle nameAreaBounds = bounds.getCopy();
 
-
-		nameAreaBounds.height = theme.getFeatureNameAreaHeight();
-		if(bounds.height > 30)
-			nameAreaBounds.setHeight(30);
-
-		return nameAreaBounds;
-	}
-
-	public Rectangle calculateVariationTypeCircleBounds() {
-		DEGraphicalEditorTheme theme = DEGraphicalEditor.getTheme();
-
-		Rectangle bounds = getBounds();
-
-		int x = bounds.x + (bounds.width - theme.getFeatureVariationTypeExtent()) / 2;
-		int y = bounds.y;
-		
-		Date date = editor.getCurrentSelectedDate();
-		HyGroupComposition composition = HyEvolutionUtil.getValidTemporalElement(feature.getWrappedModelElement().getGroupMembership(), date);
-		
-		int height = 0;
-		if(composition != null){
-			HyGroupType type = HyEvolutionUtil.getValidTemporalElement(composition.getCompositionOf().getTypes(), date);
-			
-			height = (type.getType() == HyGroupTypeEnum.AND ? theme.getFeatureVariationTypeExtent() : 0);
-		}else{
-			height = 4;
-		}
-		int width = theme.getFeatureVariationTypeExtent();
-
-		return new Rectangle(x, y, width, height);
-	}
 
 	protected void paintNameAreaBackground(Graphics graphics) {
+		Date date = editor.getCurrentSelectedDate();
 		DEGraphicalEditorTheme theme = DEGraphicalEditor.getTheme();
-		Rectangle nameAreaBounds = calculateNameAreaBounds();
+		Rectangle nameAreaBounds = feature.calculateNameAreaBounds(date);
 
 		//Compensate for line width
 		int halfLineWidth = theme.getLineWidth() / 2;
-		nameAreaBounds.expand(-halfLineWidth, 0);
+		nameAreaBounds.expand(-halfLineWidth, -halfLineWidth);
 
-		Rectangle variationBounds = calculateVariationTypeCircleBounds();
+		Rectangle variationBounds = feature.calculateVariationTypeCircleBounds(date);
+		if(variationBounds.height > 0){
+			nameAreaBounds.setY(variationBounds.height+nameAreaBounds.getTop().y()-theme.getLineWidth());
+		}else{
+			nameAreaBounds.setY(variationBounds.height+nameAreaBounds.getTop().y());
+		}
 
-
-		nameAreaBounds.setY(variationBounds.height+nameAreaBounds.getTop().y());
+		
 
 		DEDrawingUtil.gradientFillRectangle(graphics, nameAreaBounds, theme.getFeatureNameAreaPrimaryColor(), theme.getFeatureNameAreaSecondaryColor());
 		DEDrawingUtil.outlineRectangle(graphics, nameAreaBounds, theme.getLineColor());
@@ -149,7 +119,7 @@ public class HyFeatureFigure extends Figure{
 
 	public void updateLabelSize(){
 		DEGraphicalEditorTheme theme = DEGraphicalEditor.getTheme();
-		Rectangle nameAreaBounds = calculateNameAreaBounds();
+		Rectangle nameAreaBounds = feature.calculateNameAreaBounds(editor.getCurrentSelectedDate());
 		Dimension preferredLabelSize = label.getPreferredSize();
 		
 		int labelWidth = nameAreaBounds.width;
@@ -166,7 +136,7 @@ public class HyFeatureFigure extends Figure{
 	protected void paintVersionAreaBackground(Graphics graphics) {
 		
 		DEGraphicalEditorTheme theme = DEGraphicalEditor.getTheme();
-		Rectangle versionAreaBounds = calculateVersionAreaBounds();
+		Rectangle versionAreaBounds = feature.calculateVersionAreaBounds(editor.getCurrentSelectedDate());
 
 		//Compensate for line width
 		int halfLineWidth = (int) Math.ceil(theme.getLineWidth() / 2);
@@ -181,10 +151,11 @@ public class HyFeatureFigure extends Figure{
 		
 	}
 	protected void paintAttributeAreaBackground(Graphics graphics) {
+		
 		DEGraphicalEditorTheme theme = DEGraphicalEditor.getTheme();
 		
 		Date date = editor.getCurrentSelectedDate();
-		Rectangle attributesAreaBounds = feature.calculateAttributeAreaBounds(date);
+		Rectangle attributesAreaBounds = feature.calculateAttributesAreaBounds(date);
 
 		//Compensate for line width
 		int halfLineWidth = (int) Math.ceil(theme.getLineWidth() / 2);
@@ -195,6 +166,7 @@ public class HyFeatureFigure extends Figure{
 		paintAttributeMarks(graphics);
 		
 		DEDrawingUtil.outlineRectangle(graphics, attributesAreaBounds, theme.getLineColor());
+		
 	}
 	
 	
@@ -221,22 +193,9 @@ public class HyFeatureFigure extends Figure{
 		int y = feature.getHeightWithoutAttributes(date);
 		
 		return new Rectangle(new Point(theme.getLineWidth(), y + index*height), 
-				 new Dimension(feature.getSize().width-theme.getLineWidth()*2, height));
+				 new Dimension(feature.getSize(date).width-theme.getLineWidth()*2, height));
 	}
 
-	public Rectangle calculateVersionAreaBounds() {
-		DEGraphicalEditorTheme theme = DEGraphicalEditor.getTheme();
-		Rectangle bounds = getBounds();
-		Rectangle versionAreaBounds = bounds.getCopy();
-
-	
-		int variationTypeAndNameAreaHeight = calculateVariationTypeCircleBounds().height + theme.getFeatureNameAreaHeight() + theme.getLineWidth() * 2 - 1;
-
-		versionAreaBounds.y += variationTypeAndNameAreaHeight;
-		versionAreaBounds.height -= variationTypeAndNameAreaHeight;
-
-		return versionAreaBounds;
-	}
 
 
 	
@@ -272,7 +231,7 @@ public class HyFeatureFigure extends Figure{
 
 
 	protected void paintVariationTypeCircle(Graphics graphics) {
-		Date date = ((HyGraphicalFeatureModelViewer)editor).getCurrentSelectedDate();
+		Date date = editor.getCurrentSelectedDate();
 		
 		DEGraphicalEditorTheme theme = DEGraphicalEditor.getTheme();
 
@@ -281,7 +240,7 @@ public class HyFeatureFigure extends Figure{
 		Color light = isMandatory ? theme.getFeatureMandatoryPrimaryColor() : theme.getFeatureOptionalPrimaryColor();
 		Color dark = isMandatory ? theme.getFeatureMandatorySecondaryColor() : theme.getFeatureOptionalSecondaryColor();
 
-		Rectangle variationTypeCircleBounds = calculateVariationTypeCircleBounds();
+		Rectangle variationTypeCircleBounds = feature.calculateVariationTypeCircleBounds(date);
 
 		//Compensate for line width
 		int lineWidth = theme.getLineWidth();
@@ -303,13 +262,13 @@ public class HyFeatureFigure extends Figure{
 		setSize(width, height);
 		
 		//Label size
-		Rectangle nameAreaBounds = calculateNameAreaBounds();
+		Rectangle nameAreaBounds = feature.calculateNameAreaBounds(date);
 		Dimension preferredLabelSize = label.getPreferredSize();
 		
 		int labelWidth = nameAreaBounds.width;
 		int labelHeight = preferredLabelSize.height;
 		int labelX = 0;
-		int labelY = this.calculateVariationTypeCircleBounds().height + (theme.getFeatureNameAreaHeight() - labelHeight) / 2;
+		int labelY = feature.calculateVariationTypeCircleBounds(date).height + (theme.getFeatureNameAreaHeight() - labelHeight) / 2;
 		
 		Rectangle labelBounds = new Rectangle(labelX, labelY, labelWidth, labelHeight);
 		label.setBounds(labelBounds);
@@ -351,7 +310,6 @@ public class HyFeatureFigure extends Figure{
 		if (feature.hasAttributesAtDate(date)) {
 			paintAttributeAreaBackground(graphics);
 		}		
-
 		
 		paintSeperatorLine(graphics);
 		paintNameAreaBackground(graphics);

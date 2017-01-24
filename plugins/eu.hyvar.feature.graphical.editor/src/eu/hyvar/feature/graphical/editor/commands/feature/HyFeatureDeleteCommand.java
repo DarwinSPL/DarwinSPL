@@ -45,56 +45,6 @@ public class HyFeatureDeleteCommand extends FeatureConnectionChangeCommand{
 		this.featureModel = model;
 	}
 
-	/*
-	private void deleteFeatureChildrenTemporarily(HyFeature feature){
-		Date date = editor.getCurrentSelectedDate();
-		if(date.equals(new Date(Long.MIN_VALUE)))
-			date = null;
-
-		if(date == null){
-			for(HyFeatureChild child : feature.getParentOf()){
-				featureModel.getGroups(null).remove(child.getChildGroup());
-
-				for(HyGroupComposition composition : child.getChildGroup().getParentOf()){
-					for(HyFeature childFeature : composition.getFeatures()){
-						featureModel.getModel().getFeatures().remove(childFeature);
-
-						deleteFeatureChildrenTemporarily(childFeature);
-					}
-
-				}
-			}	
-
-			featureModel.getModel().getFeatures().remove(feature);
-
-			
-			//for(HyGroupComposition composition : feature.getGroupMembership()){
-			//	if(composition.getFeatures().size() == 1){
-			//		HyGroup group = composition.getCompositionOf();
-			//		featureModel.removeGroup(featureModel.findWrappedGroup(group));
-			//	}
-			//}
-			
-
-			feature.getGroupMembership().clear();
-
-		}else{
-			List<HyFeatureChild> children = HyEvolutionUtil.getValidTemporalElements(feature.getParentOf(), date);
-			for(HyFeatureChild child : children){
-				List<HyGroupComposition> compositions = HyEvolutionUtil.getValidTemporalElements(child.getChildGroup().getParentOf(), date);
-
-				for(HyGroupComposition composition : compositions){
-					for(HyFeature childFeature : composition.getFeatures()){
-						childFeature.setValidUntil(date);
-
-						deleteFeatureChildrenTemporarily(childFeature);
-					}
-
-				}
-			}			
-		}
-	}
-*/
 	private void restrictHyLinearTemporalElementsToParentValidUntil(EList<HyTemporalElement> elements){
 		Date date = editor.getCurrentSelectedDate();
 		for(HyTemporalElement element : elements){

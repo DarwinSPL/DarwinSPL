@@ -55,13 +55,12 @@ public class HyRootFeatureEditorEditPart extends HyRootFeatureEditPart{
 			
 		}
 		if(req.getType() == RequestConstants.REQ_OPEN){
-			HyFeatureFigure figure = (HyFeatureFigure)getFigure();
-			if(figure.calculateVariationTypeCircleBounds().contains(((SelectionRequest)req).getLocation())){
-				HyFeatureWrapped feature = (HyFeatureWrapped)getModel();
-				Date date = editor.getCurrentSelectedDate();
+			HyFeatureWrapped feature = (HyFeatureWrapped)getModel();
+			Date date = editor.getCurrentSelectedDate();
+			
+			if(feature.calculateVariationTypeCircleBounds(date).contains(((SelectionRequest)req).getLocation())){
+
 				HyFeatureType type = HyEvolutionUtil.getValidTemporalElement(feature.getWrappedModelElement().getTypes(), date);
-				
-		
 				type.setValidUntil(date);
 				
 				HyFeatureType newType = HyFeatureFactory.eINSTANCE.createHyFeatureType();
