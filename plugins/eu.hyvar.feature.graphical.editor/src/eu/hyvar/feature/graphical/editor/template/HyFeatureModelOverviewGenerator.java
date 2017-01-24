@@ -103,7 +103,15 @@ public class HyFeatureModelOverviewGenerator {
 				
 				boolean featureAdded = false;
 				
-				String featureName = HyFeatureEvolutionUtil.getName(feature.getNames(), date).getName();
+				
+				HyName hyName = HyFeatureEvolutionUtil.getName(feature.getNames(), date);
+				
+				if(hyName == null) {
+					hyName = HyFeatureEvolutionUtil.getLastValidName(feature);
+				}
+				
+				
+				String featureName = hyName.getName();
 				
 				if(feature.getValidSince()!=null && feature.getValidSince().equals(date)) {
 					changes.add(new HyFeatureModelOverviewChangeDataObject("Feature.", featureName, " was added"));
@@ -113,9 +121,10 @@ public class HyFeatureModelOverviewGenerator {
 					changes.add(new HyFeatureModelOverviewChangeDataObject("Feature.", featureName, " was removed"));
 				}
 
-				if(!featureIsValid)
-					continue;
-
+				if(!featureIsValid) {
+					continue;					
+				}
+				
 				for(HyVersion version : feature.getVersions()){
 					if(version.getValidSince() != null && version.getValidSince().equals(date)){
 						changes.add(new HyFeatureModelOverviewChangeDataObject(featureName+".", version.getNumber(), " was added"));

@@ -1,8 +1,11 @@
 package eu.hyvar.feature.util;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
 
 import org.eclipse.emf.common.util.EList;
@@ -13,6 +16,7 @@ import eu.hyvar.evolution.HyEvolutionUtil;
 import eu.hyvar.evolution.HyLinearTemporalElement;
 import eu.hyvar.evolution.HyModelDiff;
 import eu.hyvar.evolution.HyName;
+import eu.hyvar.evolution.HyNamedElement;
 import eu.hyvar.evolution.HyTemporalElement;
 import eu.hyvar.feature.HyFeature;
 import eu.hyvar.feature.HyFeatureAttribute;
@@ -453,7 +457,7 @@ public class HyFeatureEvolutionUtil {
 		Random rand = new Random();
 		int index = rand.nextInt(validFeatures.size());
 		if (validFeatures.get(index) == null) {
-			System.out.println("WTDF?");
+			System.out.println("???");
 		}
 		return validFeatures.get(index);
 	}
@@ -468,5 +472,24 @@ public class HyFeatureEvolutionUtil {
 		versions.addAll(HyEvolutionUtil.getValidTemporalElements(feature.getVersions(), date));
 		
 		return versions;
+	}
+	
+	public static HyName getLastValidName(HyNamedElement namedElement) {
+		
+		Map<Date, HyName> nameDateMap = new HashMap<Date, HyName>();
+		
+		for(HyName hyName: namedElement.getNames()) {
+			if(hyName.getValidUntil() == null) {
+				return hyName;
+			}
+			else {
+				nameDateMap.put(hyName.getValidUntil(), hyName);
+			}
+		}
+		
+		List<Date> dateList = new ArrayList<Date>(nameDateMap.keySet());
+		Collections.sort(dateList);
+		Date lastDate = dateList.get(dateList.size()-1);
+		return nameDateMap.get(lastDate);
 	}
 }
