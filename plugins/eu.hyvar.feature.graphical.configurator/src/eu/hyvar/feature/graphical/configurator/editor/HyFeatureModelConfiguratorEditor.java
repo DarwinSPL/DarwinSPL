@@ -74,7 +74,7 @@ public class HyFeatureModelConfiguratorEditor extends HyFeatureModelConfigurator
 	private Button simulateButton;
 	private HySelectedConfigurationComposite selectedConfigurationComposite;
 
-	HyConfiguration suggestedConfiguration;
+	protected HyConfiguration suggestedConfiguration;
 	
 	private static final String DEFAULT_HYVARREC_URI = "http://hyvarhyvarrec-env.eu-west-1.elasticbeanstalk.com/process";
 
@@ -83,10 +83,12 @@ public class HyFeatureModelConfiguratorEditor extends HyFeatureModelConfigurator
 		super.init(site, input);
 
 		// load an existing configuration model
-		if(this.modelFileExists(HyConfigurationUtil.getConfigurationModelFileExtensionForXmi()))
+		if(this.modelFileExists(HyConfigurationUtil.getConfigurationModelFileExtensionForXmi())) {
 			selectedConfiguration = this.loadConfigurationModel();
-		else
-			selectedConfiguration.setFeatureModel(this.modelWrapped.getModel());
+		}
+		else {
+			selectedConfiguration.setFeatureModel(this.modelWrapped.getModel());			
+		}
 	}
 
 	/**
@@ -215,6 +217,8 @@ public class HyFeatureModelConfiguratorEditor extends HyFeatureModelConfigurator
 
 	private void registerListeners() {
 
+		super.registerControlListeners();
+		
 		selectedConfiguration.eAdapters().add(new EContentAdapter() {
 			@Override
 			public void notifyChanged(Notification notification) {

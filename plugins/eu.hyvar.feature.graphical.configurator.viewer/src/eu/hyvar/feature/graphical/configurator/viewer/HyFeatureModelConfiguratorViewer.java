@@ -20,7 +20,7 @@ public class HyFeatureModelConfiguratorViewer extends HyGraphicalFeatureModelVie
 	protected HyConfiguration selectedConfiguration;
 
 	public HyConfiguration getSelectedConfiguration() {
-		return selectedConfiguration;
+		return selectedConfiguration; 
 	}
 
 	public HyConfiguration getConfiguration() {

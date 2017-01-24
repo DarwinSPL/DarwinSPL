@@ -64,16 +64,16 @@ import eu.hyvar.feature.graphical.base.model.HyFeatureModelWrapped;
 import eu.hyvar.feature.graphical.base.model.HyFeatureWrapped;
 
 
-public class HyGraphicalFeatureModelViewer extends GraphicalEditor implements IFeatureModelEditor{
+public class HyGraphicalFeatureModelViewer extends GraphicalEditor implements IFeatureModelEditor, Listener{
 	// UI components
-	Button currentDate;
-	Button addDate;
-	Scale scale;
-	Combo minState;
-	Combo maxState;
-	Composite buttonGroup;
+	protected Button currentDate;
+	protected Button addDate;
+	protected Scale scale;
+	protected Combo minState;
+	protected Combo maxState;
+	protected Composite buttonGroup;
 
-	Date currentSelectedDate;	
+	protected Date currentSelectedDate;	
 
 	protected Resource resource;
 
@@ -320,15 +320,7 @@ public class HyGraphicalFeatureModelViewer extends GraphicalEditor implements IF
 //		});
 
 		// Slider to select a given date
-		scale.addListener(SWT.Selection, new Listener() {
-			public void handleEvent(Event event) {
-				List<Date> dates = modelWrapped.getDates();
-				int index = scale.getSelection();
-				//currentState.setSelection(index+1);
-
-				dateChanged(dates.get(index));
-			}	
-		});
+		scale.addListener(SWT.Selection, this);
 
 		// Button that adds a new date to the model
 		addDate.addListener(SWT.Selection, new Listener() {
@@ -500,6 +492,18 @@ public class HyGraphicalFeatureModelViewer extends GraphicalEditor implements IF
 					e.printStackTrace();
 				}
 			}	
+		}
+	}
+
+
+	@Override
+	public void handleEvent(Event event) {
+		if(event.widget.equals(scale)) {
+			List<Date> dates = modelWrapped.getDates();
+			int index = scale.getSelection();
+			//currentState.setSelection(index+1);
+			
+			dateChanged(dates.get(index));			
 		}
 	}
 }
