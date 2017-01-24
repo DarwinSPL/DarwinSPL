@@ -121,7 +121,7 @@ public class HyReconfiguratorClient {
 		OutputOfHyVarRec hyvarrecAnswer = gson.fromJson(hyvarrecAnswerString, OutputOfHyVarRec.class);
 //		hyvarrecAnswer.get
 		
-		HyConfiguration configuration = HyVarRecOutputTranslator.translateConfiguration(featureModel, hyvarrecAnswer);
+		HyConfiguration configuration = HyVarRecOutputTranslator.translateConfiguration(featureModel, hyvarrecAnswer, date);
 		
 		return configuration;
 	}

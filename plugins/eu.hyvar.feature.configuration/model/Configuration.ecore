@@ -16,6 +16,7 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="variantsGenerated" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"
         defaultValueLiteral="0"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="featureModel" eType="ecore:EClass ../../eu.hyvar.feature/model/Feature.ecore#//HyFeatureModel"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="creationDate" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDate"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="HyAttributeValueAssignment" eSuperTypes="#//HyConfigurationElement">
     <eStructuralFeatures xsi:type="ecore:EReference" name="attribute" lowerBound="1"

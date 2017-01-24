@@ -19,6 +19,7 @@ import org.eclipse.emf.ecore.util.EContentAdapter;
 import org.eclipse.gef.GraphicalViewer;
 import org.eclipse.jface.dialogs.Dialog;
 import org.eclipse.jface.window.Window;
+import org.eclipse.osgi.internal.framework.ContextFinder;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.SashForm;
 import org.eclipse.swt.events.SelectionAdapter;
@@ -39,6 +40,7 @@ import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.part.FileEditorInput;
 
 import de.christophseidl.util.ecore.EcoreIOUtil;
+import eu.hyvar.context.HyContextInformationFactory;
 import eu.hyvar.context.HyContextModel;
 import eu.hyvar.context.HyContextualInformationBoolean;
 import eu.hyvar.context.HyContextualInformationEnum;
@@ -114,6 +116,7 @@ public class HyFeatureModelConfiguratorEditor extends HyFeatureModelConfigurator
 
 
 
+	
 	protected void openConfigurationViewer(String name){
 		IWorkbench workbench = PlatformUI.getWorkbench();
 		IWorkbenchWindow workbenchWindow = workbench.getActiveWorkbenchWindow();
@@ -245,6 +248,10 @@ public class HyFeatureModelConfiguratorEditor extends HyFeatureModelConfigurator
 					contextModel = loadContextInformationModel();
 
 					// only show the dialog if context information are available
+					if(contextModel == null) {
+						contextModel = HyContextInformationFactory.eINSTANCE.createHyContextModel();
+					}
+					
 					if(contextModel != null){
 						HyContextInformationDialog dialog = new HyContextInformationDialog(getEditorSite().getShell(), contextModel, getDate());
 						if(dialog.open() == Window.CANCEL){

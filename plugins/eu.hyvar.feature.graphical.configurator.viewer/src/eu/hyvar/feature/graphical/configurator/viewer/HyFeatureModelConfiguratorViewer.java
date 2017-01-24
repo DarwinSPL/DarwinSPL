@@ -73,7 +73,12 @@ public class HyFeatureModelConfiguratorViewer extends HyGraphicalFeatureModelVie
 			modelWrapped = new HyFeatureModelWrapped((HyFeatureModel)object);
 		}
 		
-		setCurrentSelectedDateToMostActualDate();	
+		setCurrentSelectedDateToMostActualDate();
+		
+		if(selectedConfiguration != null && selectedConfiguration.getCreationDate()!=null) {
+			currentSelectedDate = selectedConfiguration.getCreationDate();
+		}
+		
 		setEditorTabText(file.getName());
 		loadLayout(file);
 	}
