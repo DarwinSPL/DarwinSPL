@@ -371,6 +371,7 @@ public class HyFeatureModelWrapped implements PropertyChangeListener {
 			childGroup.getTypes().add(type);
 
 			childChild.setChildGroup(childGroup);
+			childChild.setValidSince(date);
 
 
 			parentFeature.getParentOf().add(childChild);			
