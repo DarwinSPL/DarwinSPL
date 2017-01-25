@@ -1,9 +1,10 @@
 /**
  * 
  */
-package de.darwinspl.feature.evolution.basic.operations;
+package de.darwinspl.feature.evolution.complex.operations;
 
 import java.util.Date;
+import java.util.List;
 
 import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.EList;
@@ -11,6 +12,7 @@ import org.eclipse.emf.common.util.EList;
 import de.darwinspl.feature.evolution.Invoker.EvolutionOperation;
 import de.darwinspl.feature.evolution.atomic.operations.AddGroupComposition;
 import de.darwinspl.feature.evolution.atomic.operations.DeleteGroupComposition;
+import de.darwinspl.feature.evolution.basic.operations.ComplexOperation;
 import eu.hyvar.feature.HyFeature;
 import eu.hyvar.feature.HyGroup;
 import eu.hyvar.feature.HyGroupComposition;
@@ -18,8 +20,7 @@ import eu.hyvar.feature.HyGroupComposition;
 /**
  *
  */
-public class AddToGroupComposition extends ComplexOperation{
-
+public class RemoveFromGroupComposition extends ComplexOperation {
 
 	private HyGroupComposition oldGroupComposition;
 	private HyGroupComposition newGroupComposition;
@@ -27,12 +28,12 @@ public class AddToGroupComposition extends ComplexOperation{
 	private HyFeature feature;
 	
 	/**
-	 * Update a consisting group composition, where a feature should be add to the composition
+	 * Update a consisting group composition, where feature(s) should be removed from the composition
 	 * @param groupComposition which are affected
-	 * @param feature which should be add 
+	 * @param feature which should be removed
 	 * @param timestamp from the execution of the evoOp
 	 */
-	public AddToGroupComposition(HyGroupComposition groupComposition, HyFeature feature, Date timestamp) {
+	public RemoveFromGroupComposition(HyGroupComposition groupComposition, HyFeature feature, Date timestamp) {
 		
 		this.oldGroupComposition = groupComposition;
 		this.timestamp = timestamp;
@@ -49,10 +50,9 @@ public class AddToGroupComposition extends ComplexOperation{
 		//get the group and the containing features of the group composition 
 		this.group = oldGroupComposition.getCompositionOf();
 		
-		//create a new List and add all necessary elements
 		EList<HyFeature> features = new BasicEList<HyFeature>();
 		features.addAll(oldGroupComposition.getFeatures());
-		features.add(feature);
+		features.remove(feature);
 		
 		DeleteGroupComposition deleteOldComposition = new DeleteGroupComposition(oldGroupComposition, timestamp);
 		AddGroupComposition addNewComposition = new AddGroupComposition(group, features , timestamp);
@@ -64,8 +64,9 @@ public class AddToGroupComposition extends ComplexOperation{
 		for (EvolutionOperation operation : evoOps) {
 			operation.execute();
 		}
-
+		
 		newGroupComposition = addNewComposition.getGroupComposition();
+		
 	}
 
 	/* (non-Javadoc)

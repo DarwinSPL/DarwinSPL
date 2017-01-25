@@ -6,20 +6,19 @@ package de.darwinspl.feature.evolution.atomic.operations;
 import java.util.Date;
 
 import de.darwinspl.feature.evolution.Invoker.EvolutionOperation;
-import eu.hyvar.feature.HyGroupComposition;
+import eu.hyvar.feature.HyGroupType;
 
 /**
  *
  */
-public class DeleteGroupComposition implements EvolutionOperation {
+public class DeleteGroupType implements EvolutionOperation {
 
-
+	private HyGroupType groupType;
 	private Date timestamp;
-	private HyGroupComposition groupComposition;
 	
-	public DeleteGroupComposition(HyGroupComposition groupComposition, Date timestamp) {
+	public DeleteGroupType(HyGroupType groupType, Date timestamp) {
 		
-		this.groupComposition = groupComposition;
+		this.groupType = groupType;
 		this.timestamp = timestamp;
 		
 	}
@@ -29,7 +28,7 @@ public class DeleteGroupComposition implements EvolutionOperation {
 	@Override
 	public void execute() {
 		
-		groupComposition.setValidUntil(timestamp);
+		groupType.setValidUntil(timestamp);
 
 	}
 
@@ -41,8 +40,8 @@ public class DeleteGroupComposition implements EvolutionOperation {
 		// TODO Auto-generated method stub
 
 	}
-	public HyGroupComposition getGroupComposition() {
-		return groupComposition;
+	public HyGroupType getGroupType() {
+		return groupType;
 	}
 
 }

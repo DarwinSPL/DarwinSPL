@@ -1,16 +1,15 @@
 /**
  * 
  */
-package de.darwinspl.feature.evolution.operations;
+package de.darwinspl.feature.evolution.basic.operations;
 
 import java.util.Date;
 
 import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.EList;
 
-import de.darwinspl.feature.evolution.basic.operations.AddFeature;
-import de.darwinspl.feature.evolution.basic.operations.AddGroup;
-import de.darwinspl.feature.evolution.basic.operations.ComplexOperation;
+import de.darwinspl.feature.evolution.atomic.operations.AddFeature;
+import de.darwinspl.feature.evolution.atomic.operations.AddGroup;
 import eu.hyvar.feature.HyFeature;
 import eu.hyvar.feature.HyFeatureModel;
 import eu.hyvar.feature.HyFeatureTypeEnum;
