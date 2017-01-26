@@ -42,7 +42,7 @@ public class DeleteFeature extends ComplexOperation {
 			}
 		}
 		for (HyName name : feature.getNames()) {
-			if (name.getValidUntil() != null) {
+			if (name.getValidUntil() == null) {
 				this.name = name;
 			}
 		}
@@ -68,6 +68,8 @@ public class DeleteFeature extends ComplexOperation {
 		// TODO Auto-generated method stub
 
 	}
+	
+	//Getter
 	public HyFeature getFeature() {
 		return feature;
 	}

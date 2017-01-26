@@ -12,6 +12,7 @@ import eu.hyvar.feature.HyFeatureModel;
 import eu.hyvar.feature.HyFeatureTypeEnum;
 import eu.hyvar.feature.HyGroup;
 import eu.hyvar.feature.HyGroupComposition;
+import eu.hyvar.feature.HyGroupTypeEnum;
 
 /**
  * Get request from the editor and invoke the corresponding evoOp to execute the command.
@@ -36,20 +37,14 @@ public class OperationInvoker {
 	}
 	
 	/**
-	 * execute the last undo command, to recover the old state.
-	 */
-	/*public void redo() {
-		commandHistory.get(++counterOfExecuteCommands).execute();
-	}*/
-	
-	/**
-	 * provide addFeature operation as command for use
+	 * provide add(wG) operation as command for the extension
 	 * @param name of the new feature
 	 * @param type of the new feature
 	 * @param timestamp since the feature is valid
 	 * @param tfm the corresponding model
+	 * @return the tfm with the new feature
 	 */
-	public HyFeatureModel AddFeature(String name, HyFeatureTypeEnum type, HyFeature parent, Date timestamp, HyFeatureModel tfm) {
+	public HyFeatureModel addFeature(String name, HyFeatureTypeEnum type, HyFeature parent, Date timestamp, HyFeatureModel tfm) {
 		
 		ComplexOperation addFeatureWithGroup = new AddFeatureWithGroup(name, type, parent, timestamp, tfm);
 		evoOps.add(addFeatureWithGroup);
@@ -60,7 +55,16 @@ public class OperationInvoker {
 		return tfm;
 	}
 	
-	public HyFeatureModel AddFeature(String name, HyFeatureTypeEnum type, HyGroup group, Date timestamp, HyFeatureModel tfm) {
+	/**
+	 * provide add(iG) operation as command for the extension
+	 * @param name of the new feature
+	 * @param type of the new feature
+	 * @param group in which the feature should be added
+	 * @param timestamp since the feature is valid
+	 * @param tfm the corresponding model
+	 * @return the tfm with the new feature
+	 */
+	public HyFeatureModel addFeature(String name, HyFeatureTypeEnum type, HyGroup group, Date timestamp, HyFeatureModel tfm) {
 		
 		ComplexOperation addFeatureInGroup = new AddFeatureInGroup(name, type, group, timestamp, tfm);
 		evoOps.add(addFeatureInGroup);
@@ -70,4 +74,72 @@ public class OperationInvoker {
 		return tfm;
 	}
 	
+	/**
+	 * Delete a valid feature from a group, where the group are still existing after the remove of the feature
+	 * @param feature
+	 * @param timestamp
+	 */
+	public void deleteFeature(HyFeature feature, Date timestamp) {
+		
+		ComplexOperation deleteFeatureInGroup = new DeleteFeatureInGroup(feature, timestamp);
+		evoOps.add(deleteFeatureInGroup);
+		deleteFeatureInGroup.execute();
+		commandHistory.add(counterOfExecuteCommands++, deleteFeatureInGroup);
+	}
+	
+	/**
+	 * Delete a valid feature and the group of the feature
+	 * @param feature
+	 * @param group
+	 * @param timestamp
+	 */
+	public void deleteFeature(HyFeature feature, HyGroup group, Date timestamp) {
+		
+		ComplexOperation deleteFeatureWithGroup = new DeleteFeatureWithGroup(feature,group, timestamp);
+		evoOps.add(deleteFeatureWithGroup);
+		deleteFeatureWithGroup.execute();
+		commandHistory.add(counterOfExecuteCommands++, deleteFeatureWithGroup);
+	}
+	
+	/**
+	 * rename a feature
+	 * @param feature
+	 * @param name
+	 * @param timestamp
+	 */
+	public void rename(HyFeature feature, String name, Date timestamp) {
+		
+		ComplexOperation rename = new Rename(feature, name, timestamp);
+		evoOps.add(rename);
+		rename.execute();
+		commandHistory.add(counterOfExecuteCommands++, rename);
+	}
+	
+	/**
+	 * changeType from a feature
+	 * @param feature
+	 * @param type
+	 * @param timestamp
+	 */
+	public void changeType(HyFeature feature, HyFeatureTypeEnum type, Date timestamp) {
+		
+		ComplexOperation changeFeatureType = new ChangeFeatureType(feature, type, timestamp);
+		evoOps.add(changeFeatureType);
+		changeFeatureType.execute();
+		commandHistory.add(counterOfExecuteCommands++, changeFeatureType);
+	}
+	
+	/**
+	 * changeType from a group
+	 * @param group
+	 * @param type
+	 * @param timestamp
+	 */
+	public void changeType(HyGroup group, HyGroupTypeEnum type, Date timestamp) {
+		
+		ComplexOperation changeGroupType = new ChangeGroupType(group, type, timestamp);
+		evoOps.add(changeGroupType);
+		changeGroupType.execute();
+		commandHistory.add(counterOfExecuteCommands++, changeGroupType);
+	}
 }

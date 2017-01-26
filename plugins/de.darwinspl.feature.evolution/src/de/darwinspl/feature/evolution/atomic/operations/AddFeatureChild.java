@@ -58,5 +58,16 @@ public class AddFeatureChild implements EvolutionOperation {
 		// TODO Auto-generated method stub
 
 	}
+	
+	//Getter
+	public HyFeature getParent() {
+		return parent;
+	}
+	public HyGroup getGroup() {
+		return group;
+	}
+	public HyFeatureChild getFeatureChild() {
+		return featureChild;
+	}
 
 }

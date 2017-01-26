@@ -5,9 +5,11 @@ package de.darwinspl.feature.evolution.atomic.operations;
 
 import java.util.Date;import de.darwinspl.feature.evolution.Invoker.EvolutionOperation;
 import de.darwinspl.feature.evolution.basic.operations.ComplexOperation;
+import eu.hyvar.evolution.HyName;
 import eu.hyvar.feature.HyFeature;
 import eu.hyvar.feature.HyFeatureFactory;
 import eu.hyvar.feature.HyFeatureModel;
+import eu.hyvar.feature.HyFeatureType;
 import eu.hyvar.feature.HyFeatureTypeEnum;
 
 
@@ -17,15 +19,17 @@ import eu.hyvar.feature.HyFeatureTypeEnum;
  */
 public class AddFeature extends ComplexOperation {
 	
-	private String name;
+	private String featureName;
+	private HyName name;
 	private HyFeatureTypeEnum type;
+	private HyFeatureType featureType;
 
 	private static final HyFeatureFactory factory = HyFeatureFactory.eINSTANCE;
 	private HyFeature feature;
 	
 	public AddFeature(String name, HyFeatureTypeEnum type, Date timestamp) {
 		
-		this.name = name;
+		this.featureName = name;
 		this.type = type;
 		this.timestamp = timestamp;
 		
@@ -38,16 +42,18 @@ public class AddFeature extends ComplexOperation {
 	public void execute() {
 		feature = factory.createHyFeature();
 		//create objects of all operation which are used by this one and add them to the list
-		AddName hyName = new AddName(name, feature, timestamp);		
-		AddFeatureType hyFeatureType = new AddFeatureType(type, feature, timestamp);
+		AddName addName = new AddName(featureName, feature, timestamp);		
+		AddFeatureType addFeatureType = new AddFeatureType(type, feature, timestamp);
 
-		addToComposition(hyName);
-		addToComposition(hyFeatureType);
+		addToComposition(addName);
+		addToComposition(addFeatureType);
 		
 		//execute each atomic or complex operation which are used from this complex operation
 		for (EvolutionOperation operation : evoOps) {
 			operation.execute();
 		}
+		name = addName.getName();
+		featureType = addFeatureType.getFeatureTyp();
 		
 		feature.setValidSince(timestamp);
 		feature.setValidUntil(null);
@@ -74,6 +80,14 @@ public class AddFeature extends ComplexOperation {
 	 */
 	public HyFeature getFeature() {
 		return this.feature;
+	}
+
+	public HyName getName() {
+		return name;
+	}
+
+	public HyFeatureType getFeatureType() {
+		return featureType;
 	}
 
 }

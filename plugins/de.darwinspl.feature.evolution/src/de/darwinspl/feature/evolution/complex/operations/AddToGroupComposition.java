@@ -82,6 +82,10 @@ public class AddToGroupComposition extends ComplexOperation{
 		return newGroupComposition;
 	}
 	
+	public HyGroupComposition getOldGroupComposition() {
+		return oldGroupComposition;
+	}
+	
 	/**
 	 * In case of a move out of the group, the affected features are needed
 	 * @return

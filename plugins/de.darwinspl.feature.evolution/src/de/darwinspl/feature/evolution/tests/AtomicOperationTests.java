@@ -100,7 +100,7 @@ public class AtomicOperationTests {
 		
 		OperationInvoker invoker = new OperationInvoker();
 		for (int i = 0; i < 11; i++) {
-			invoker.AddFeature("test4", HyFeatureTypeEnum.MANDATORY , addG.getGroup(), timestamp, tfm);
+			invoker.addFeature("test4", HyFeatureTypeEnum.MANDATORY , addG.getGroup(), timestamp, tfm);
 		}
 		
 	}

@@ -86,6 +86,9 @@ public class AddGroup extends ComplexOperation {
 	public HyGroup getGroup() {
 		return group;
 	}
+	public HyFeature getParent() {
+		return parent;
+	}
 
 
 }

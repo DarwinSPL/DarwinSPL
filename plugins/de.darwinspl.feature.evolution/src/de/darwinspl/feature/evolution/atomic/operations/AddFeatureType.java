@@ -59,5 +59,13 @@ public class AddFeatureType implements EvolutionOperation {
 			oldFeatureType.setValidUntil(null);
 		}
 	}
+	
+	//Getter
+	public HyFeature getFeature() {
+		return feature;
+	}
+	public HyFeatureType getFeatureTyp() {
+		return featureTyp;
+	}
 
 }

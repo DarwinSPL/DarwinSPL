@@ -78,9 +78,14 @@ public class RemoveFromGroupComposition extends ComplexOperation {
 
 	}
 
-	public HyGroupComposition getGroupComposition() {
+	public HyGroupComposition getNewGroupComposition() {
 		return newGroupComposition;
 	}
+	
+	public HyGroupComposition getOldGroupComposition() {
+		return oldGroupComposition;
+	}
+	
 	
 	/**
 	 * In case of a move out of the group, the affected features are needed

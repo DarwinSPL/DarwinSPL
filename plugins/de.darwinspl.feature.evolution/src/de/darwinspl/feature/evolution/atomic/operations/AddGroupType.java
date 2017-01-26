@@ -55,5 +55,11 @@ public class AddGroupType implements EvolutionOperation {
 		// TODO Auto-generated method stub
 
 	}
+	public HyGroup getGroup() {
+		return group;
+	}
+	public HyGroupType getGroupTyp() {
+		return groupTyp;
+	}
 
 }

@@ -39,17 +39,17 @@ public class DeleteGroup extends ComplexOperation {
 		//not optimal especially for groups with huge quantity of entries
 		//get the valid object from grouptype, groupComposition and featureChild of the group
 		for (HyGroupType groupType : group.getTypes()) {
-			if (groupType.getValidUntil() != null) {
+			if (groupType.getValidUntil() == null) {
 				this.groupType = groupType;
 			}
 		}
 		for (HyGroupComposition composition : group.getParentOf()) {
-			if (composition.getValidUntil() != null) {
+			if (composition.getValidUntil() == null) {
 				this.groupComposition = composition;
 			}
 		}
 		for (HyFeatureChild child : group.getChildOf()) {
-			if (child.getValidUntil() != null) {
+			if (child.getValidUntil() == null) {
 				this.featureChild = child;
 			}
 		}
@@ -75,6 +75,19 @@ public class DeleteGroup extends ComplexOperation {
 	public void undo() {
 		// TODO Auto-generated method stub
 
+	}
+	//Getter
+	public HyGroup getGroup() {
+		return group;
+	}
+	public HyFeatureChild getFeatureChild() {
+		return featureChild;
+	}
+	public HyGroupType getGroupType() {
+		return groupType;
+	}
+	public HyGroupComposition getGroupComposition() {
+		return groupComposition;
 	}
 
 }

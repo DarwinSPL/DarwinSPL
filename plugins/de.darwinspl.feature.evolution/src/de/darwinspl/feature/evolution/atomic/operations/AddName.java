@@ -15,15 +15,15 @@ import eu.hyvar.feature.HyFeature;
  */
 public class AddName implements EvolutionOperation {
 
-	private String name;
+	private String featureName;
 	private HyFeature feature;
 	protected Date timestamp;
-	private HyName nameElement;
+	private HyName name;
 	
 	private static final HyEvolutionFactory factory = HyEvolutionFactory.eINSTANCE;
 	
 	public AddName(String name , HyFeature feature, Date timestamp) {
-		this.name = name;
+		this.featureName = name;
 		this.feature = feature;
 		this.timestamp = timestamp;
 	}
@@ -34,12 +34,12 @@ public class AddName implements EvolutionOperation {
 	@Override
 	public void execute() {	
 		
-		nameElement = factory.createHyName();
-		nameElement.setName(name);
-		nameElement.setValidSince(timestamp);
-		nameElement.setValidUntil(null);
+		name = factory.createHyName();
+		name.setName(featureName);
+		name.setValidSince(timestamp);
+		name.setValidUntil(null);
 						
-		feature.getNames().add(nameElement);
+		feature.getNames().add(name);
 		
 	}
 
@@ -49,13 +49,22 @@ public class AddName implements EvolutionOperation {
 	@Override
 	public void undo() {
 		// TODO Auto-generated method stub
-		feature.getNames().remove(nameElement);
+		feature.getNames().remove(name);
 		
 		if (!feature.getNames().isEmpty()) {
 			HyName oldName = feature.getNames().get(feature.getNames().size() - 1);
 			oldName.setValidUntil(null);
 		}
 
+	}
+
+	//Getter
+	public HyFeature getFeature() {
+		return feature;
+	}
+
+	public HyName getName() {
+		return name;
 	}
 
 }
