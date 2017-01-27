@@ -15,7 +15,10 @@ import org.eclipse.core.resources.IWorkspaceRoot;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.draw2d.FigureCanvas;
+import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Point;
+import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.gef.DefaultEditDomain;
 import org.eclipse.gef.GraphicalViewer;
@@ -41,16 +44,12 @@ import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Event;
-import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Scale;
 import org.eclipse.ui.IEditorInput;
-import org.eclipse.ui.IEditorPart;
-import org.eclipse.ui.IEditorReference;
 import org.eclipse.ui.IEditorSite;
 import org.eclipse.ui.IFileEditorInput;
 import org.eclipse.ui.PartInitException;
-import org.eclipse.ui.PlatformUI;
 
 import de.christophseidl.util.ecore.EcoreIOUtil;
 import eu.hyvar.evolution.HyEvolutionUtil;
@@ -64,16 +63,16 @@ import eu.hyvar.feature.graphical.base.model.HyFeatureModelWrapped;
 import eu.hyvar.feature.graphical.base.model.HyFeatureWrapped;
 
 
-public class HyGraphicalFeatureModelViewer extends GraphicalEditor implements IFeatureModelEditor{
+public class HyGraphicalFeatureModelViewer extends GraphicalEditor implements IFeatureModelEditor, Listener{
 	// UI components
-	Button currentDate;
-	Button addDate;
-	Scale scale;
-	Combo minState;
-	Combo maxState;
-	Composite buttonGroup;
+	protected Button currentDate;
+	protected Button addDate;
+	protected Scale scale;
+	protected Combo minState;
+	protected Combo maxState;
+	protected Composite buttonGroup;
 
-	Date currentSelectedDate;	
+	protected Date currentSelectedDate;	
 
 	protected Resource resource;
 
@@ -116,7 +115,13 @@ public class HyGraphicalFeatureModelViewer extends GraphicalEditor implements IF
 		refreshView();
 	}
 
-
+	public Dimension getEditorGraphicalDimension(){
+		FigureCanvas c = ((FigureCanvas) getGraphicalViewer().getControl());
+		
+		Rectangle bounds = c.getContents().getBounds();
+		return new Dimension(bounds.width, bounds.height);
+	}
+	
 	public void refreshView(){
 		GraphicalViewer viewer = getGraphicalViewer();
 
@@ -304,31 +309,23 @@ public class HyGraphicalFeatureModelViewer extends GraphicalEditor implements IF
 		});
 
 		// Mininimum value for range restriction for the slider
-		minState.addListener(SWT.Selection, new Listener(){
-			public void handleEvent(Event event){
-				int index = ((Combo)event.widget).getSelectionIndex();
-				scale.setMinimum(index);
-			}
-		});
-
-		// Maximum value for range restriction for the slider
-		maxState.addListener(SWT.Selection, new Listener(){
-			public void handleEvent(Event event){
-				int index = ((Combo)event.widget).getSelectionIndex();
-				scale.setMaximum(index);
-			}
-		});
+//		minState.addListener(SWT.Selection, new Listener(){
+//			public void handleEvent(Event event){
+//				int index = ((Combo)event.widget).getSelectionIndex();
+//				scale.setMinimum(index);
+//			}
+//		});
+//
+//		// Maximum value for range restriction for the slider
+//		maxState.addListener(SWT.Selection, new Listener(){
+//			public void handleEvent(Event event){
+//				int index = ((Combo)event.widget).getSelectionIndex();
+//				scale.setMaximum(index);
+//			}
+//		});
 
 		// Slider to select a given date
-		scale.addListener(SWT.Selection, new Listener() {
-			public void handleEvent(Event event) {
-				List<Date> dates = modelWrapped.getDates();
-				int index = scale.getSelection();
-				//currentState.setSelection(index+1);
-
-				dateChanged(dates.get(index));
-			}	
-		});
+		scale.addListener(SWT.Selection, this);
 
 		// Button that adds a new date to the model
 		addDate.addListener(SWT.Selection, new Listener() {
@@ -366,25 +363,25 @@ public class HyGraphicalFeatureModelViewer extends GraphicalEditor implements IF
 			currentDate.setText((new Date()).toString());
 		}
 
-		Label minStateLabel = new Label(buttonGroup, SWT.CENTER);
-		minStateLabel.setText("Date range from ");
-		minState = new Combo (buttonGroup, SWT.READ_ONLY);
-		for(Date date : dates){
-			minState.add(date.toString());
-		}
-		minState.select(0);
-		minState.setEnabled(size > 1);
-
-
-		Label maxStateLabel = new Label(buttonGroup, SWT.NATIVE);
-		maxStateLabel.setText(" to ");		
-		maxState = new Combo (buttonGroup, SWT.NATIVE);
-
-		for(Date date : dates){
-			maxState.add(date.toString());
-		}
-		maxState.select(dates.size()-1);
-		maxState.setEnabled(size > 1);
+//		Label minStateLabel = new Label(buttonGroup, SWT.CENTER);
+//		minStateLabel.setText("Date range from ");
+//		minState = new Combo (buttonGroup, SWT.READ_ONLY);
+//		for(Date date : dates){
+//			minState.add(date.toString());
+//		}
+//		minState.select(0);
+//		minState.setEnabled(size > 1);
+//
+//
+//		Label maxStateLabel = new Label(buttonGroup, SWT.NATIVE);
+//		maxStateLabel.setText(" to ");		
+//		maxState = new Combo (buttonGroup, SWT.NATIVE);
+//
+//		for(Date date : dates){
+//			maxState.add(date.toString());
+//		}
+//		maxState.select(dates.size()-1);
+//		maxState.setEnabled(size > 1);
 
 
 		scale = new Scale(buttonGroup, SWT.FILL);
@@ -500,6 +497,18 @@ public class HyGraphicalFeatureModelViewer extends GraphicalEditor implements IF
 					e.printStackTrace();
 				}
 			}	
+		}
+	}
+
+
+	@Override
+	public void handleEvent(Event event) {
+		if(event.widget.equals(scale)) {
+			List<Date> dates = modelWrapped.getDates();
+			int index = scale.getSelection();
+			//currentState.setSelection(index+1);
+			
+			dateChanged(dates.get(index));			
 		}
 	}
 }

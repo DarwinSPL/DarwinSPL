@@ -1,10 +1,8 @@
 package eu.hyvar.feature.graphical.base.figures;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Iterator;
-import java.util.List;
 
 import org.deltaecore.feature.graphical.base.editor.DEGraphicalEditor;
 import org.deltaecore.feature.graphical.base.util.DEDrawingUtil;
@@ -14,6 +12,7 @@ import org.eclipse.draw2d.Graphics;
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.Path;
 import org.eclipse.swt.widgets.Display;
@@ -92,11 +91,11 @@ public class HyGroupFigure extends HyAbstractFigure{
 			originPoint.x += this.getSize().width / 2 - theme.getLineWidth();	
 
 			Point leftLineEndPoint = firstFeature.getPosition(null).getCopy();
-			leftLineEndPoint.x+=firstFeature.getSize().width / 2;
+			leftLineEndPoint.x+=firstFeature.getSize(date).width / 2;
 			//leftLineEndPoint.y+=theme.getFeatureVariationTypeExtent()-4;
 
 			Point rightLineEndPoint = lastFeature.getPosition(null).getCopy();
-			rightLineEndPoint.x+=lastFeature.getSize().width / 2;
+			rightLineEndPoint.x+=lastFeature.getSize(date).width / 2;
 			//rightLineEndPoint.y+=theme.getFeatureVariationTypeExtent();
 
 			Point intersectionPointOfLeftLineAndCircle = scaleLineEndPoint(originPoint, leftLineEndPoint, theme.getGroupSymbolRadius());
@@ -159,8 +158,8 @@ public class HyGroupFigure extends HyAbstractFigure{
 			System.out.println("");
 		}
 		Point parentPosition = parentFeatureWrapped.getPosition(date).getCopy();
-		parentPosition.y += parentFeatureWrapped.getSize().height;
-		parentPosition.x += parentFeatureWrapped.getSize().width() / 2.0 - theme.getGroupSymbolRadius();
+		parentPosition.y += parentFeatureWrapped.getSize(date).height;
+		parentPosition.x += parentFeatureWrapped.getSize(date).width() / 2.0 - theme.getGroupSymbolRadius();
 
 		int size = theme.getLineWidth() * 2 + theme.getGroupSymbolRadius() * 2;
 		
@@ -174,8 +173,8 @@ public class HyGroupFigure extends HyAbstractFigure{
 		boolean isAlternative = hygroup.isAlternative(date);
 		boolean isAnd = hygroup.isAnd(date);
 		
-		
-		if(!isAnd && group.getFeatures(editor.getCurrentSelectedDate()).size() > 1){
+		EList<HyFeature> children = group.getFeatures(editor.getCurrentSelectedDate());
+		if(!isAnd && children.size() > 1){
 			createGroupTypeArc(date);
 			//Draw group type
 			if (groupTypeVisible() && groupTypeArc != null) {

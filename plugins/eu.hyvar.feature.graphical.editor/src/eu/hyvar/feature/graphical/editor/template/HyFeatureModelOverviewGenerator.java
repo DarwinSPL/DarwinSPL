@@ -16,7 +16,6 @@ import java.util.Map;
 import org.eclipse.core.runtime.FileLocator;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Platform;
-import org.eclipse.osgi.framework.util.ArrayMap;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.IWorkbenchWindow;
@@ -37,6 +36,7 @@ import eu.hyvar.feature.HyGroupType;
 import eu.hyvar.feature.HyGroupTypeEnum;
 import eu.hyvar.feature.HyVersion;
 import eu.hyvar.feature.graphical.base.editor.HyGraphicalFeatureModelViewer;
+import eu.hyvar.feature.util.HyFeatureEvolutionUtil;
 import freemarker.core.ParseException;
 import freemarker.core.TemplateDateFormatFactory;
 import freemarker.template.Configuration;
@@ -68,13 +68,13 @@ public class HyFeatureModelOverviewGenerator {
 		for(HyName name : element.getNames()){
 			if(name.getValidSince() == null)
 				oldName = name;
-			else if(name.getValidUntil() != null && name.getValidUntil() == date){
+			else if(name.getValidUntil() != null && name.getValidUntil() .equals(date)){
 				oldName = name;
 			}	
 
 			if(name.getValidSince() != null && name.getValidSince().equals(date)){
 				if(oldName != null){
-					changes.add(new HyFeatureModelOverviewChangeDataObject(identifier+" ", elementName, " changed name", oldName.getName(), name.getName()));
+					changes.add(new HyFeatureModelOverviewChangeDataObject(identifier+" ", elementName, " changed name from "+ oldName.getName() +" to "+ name.getName()));
 				}
 			}	
 		}		
@@ -94,34 +94,43 @@ public class HyFeatureModelOverviewGenerator {
 		HyFeatureModel model = editor.getModelWrapped().getModel();
 
 		for(Date date : dates){
-			int index = dates.indexOf(date);
+//			int index = dates.indexOf(date);
 
 			List<HyFeatureModelOverviewChangeDataObject> changes = new ArrayList<HyFeatureModelOverviewChangeDataObject>();
 
 			for(HyFeature feature : model.getFeatures()){
 				boolean featureIsValid = HyEvolutionUtil.isValid(feature, date);
-				if(index > 0){
-					if(featureIsValid && !HyEvolutionUtil.isValid(feature, dates.get(index - 1))){
-						changes.add(new HyFeatureModelOverviewChangeDataObject("Feature.", feature.getId(), " changed validity", "valid", "invalid"));
-					}
+				
+				boolean featureAdded = false;
+				
+				
+				HyName hyName = HyFeatureEvolutionUtil.getName(feature.getNames(), date);
+				
+				if(hyName == null) {
+					hyName = HyFeatureEvolutionUtil.getLastValidName(feature);
+				}
+				
+				
+				String featureName = hyName.getName();
+				
+				if(feature.getValidSince()!=null && feature.getValidSince().equals(date)) {
+					changes.add(new HyFeatureModelOverviewChangeDataObject("Feature.", featureName, " was added"));
+					featureAdded = true;
+				} 
+				else if(feature.getValidUntil()!=null && feature.getValidUntil().equals(date)) {
+					changes.add(new HyFeatureModelOverviewChangeDataObject("Feature.", featureName, " was removed"));
 				}
 
-				if(index < dates.size() - 1){
-					if(featureIsValid && !HyEvolutionUtil.isValid(feature, dates.get(index + 1))){
-						changes.add(new HyFeatureModelOverviewChangeDataObject("Feature.", feature.getId(), " changed validity", "invalid", "valid"));
-					}					
+				if(!featureIsValid) {
+					continue;					
 				}
-
-				if(!featureIsValid)
-					continue;
-
-				String featureName = HyEvolutionUtil.getValidTemporalElement(feature.getNames(), date).getName();
+				
 				for(HyVersion version : feature.getVersions()){
-					if(version.getValidSince() != null && version.getValidSince() == date){
-						changes.add(new HyFeatureModelOverviewChangeDataObject(featureName+".", version.getNumber(), " changed validity", "invalid", "valid"));
+					if(version.getValidSince() != null && version.getValidSince().equals(date)){
+						changes.add(new HyFeatureModelOverviewChangeDataObject(featureName+".", version.getNumber(), " was added"));
 					}
-					if(version.getValidUntil() != null && version.getValidUntil() == date){
-						changes.add(new HyFeatureModelOverviewChangeDataObject(featureName+".", version.getNumber(), " changed validity", "valid", "invalid"));
+					if(version.getValidUntil() != null && version.getValidUntil().equals(date)){
+						changes.add(new HyFeatureModelOverviewChangeDataObject(featureName+".", version.getNumber(), " was removed"));
 					}
 				}
 
@@ -129,10 +138,10 @@ public class HyFeatureModelOverviewGenerator {
 					String attributeName = HyEvolutionUtil.getValidTemporalElement(attribute.getNames(), date).getName();
 
 					if(attribute.getValidSince() != null && attribute.getValidSince().equals(date)){
-						changes.add(new HyFeatureModelOverviewChangeDataObject(featureName+".", attributeName, " changed validity", "invalid", "valid"));
+						changes.add(new HyFeatureModelOverviewChangeDataObject(featureName+".", attributeName, " was added"));
 					}
-					if(attribute.getValidUntil() != null && attribute.getValidUntil() == date){
-						changes.add(new HyFeatureModelOverviewChangeDataObject(featureName+".", attributeName, " changed validity", "valid", "invalid"));
+					if(attribute.getValidUntil() != null && attribute.getValidUntil().equals(date)){
+						changes.add(new HyFeatureModelOverviewChangeDataObject(featureName+".", attributeName, " was removed"));
 					}		
 
 					addNameChanges("Attribute", attributeName, attribute, date, changes);
@@ -140,71 +149,76 @@ public class HyFeatureModelOverviewGenerator {
 
 				addNameChanges("Feature", featureName, feature, date, changes);
 
-
-				HyFeatureType oldType = null;
-				for(HyFeatureType type : feature.getTypes()){
-					if(type.getValidSince() == null)
-						oldType = type;
-					else if(type.getValidUntil() != null && type.getValidUntil() == date){
-						oldType = type;
-					}	
-
-					if(type.getValidSince() != null && type.getValidSince().equals(date)){
-						changes.add(new HyFeatureModelOverviewChangeDataObject("Feature ", featureName, " changed type", oldType.getType() == HyFeatureTypeEnum.MANDATORY ? "mandatory": "optional",
-								type.getType() == HyFeatureTypeEnum.MANDATORY ? "mandatory": "optional"));
-					}	
-				}
-
-				HyFeature oldParentFeature = null;;
-				for(HyGroupComposition composition : feature.getGroupMembership()){
-					if(composition.getValidSince() == null){
-						oldParentFeature = getParentFeature(composition, date);
-					}else if(composition.getValidUntil() != null && composition.getValidUntil() == date){
-						oldParentFeature = getParentFeature(composition, date);
-					}	
-
-					if(composition.getValidSince() != null && composition.getValidSince().equals(date)){
-						if(oldParentFeature != null){
-							HyName oldName = HyEvolutionUtil.getValidTemporalElement(oldParentFeature.getNames(), date);
-							HyName newName = HyEvolutionUtil.getValidTemporalElement(getParentFeature(composition, date).getNames(), date);
-
-							String old = oldParentFeature.getId();
-							if(oldName != null)
-								old = oldName.getName();
-
-							String _new = getParentFeature(composition, date).getId();
-							if(newName != null)
-								_new = newName.getName();
-
-							changes.add(new HyFeatureModelOverviewChangeDataObject("Feature ", featureName, " moved", 
-									old, _new));
-						}
-					}	
+				// types and moves only interesting if feature was not new
+				if(!featureAdded) {			
+					HyFeatureType oldType = null;
+					for(HyFeatureType type : feature.getTypes()){
+						if(type.getValidSince() == null)
+							oldType = type;
+						else if(type.getValidUntil() != null && type.getValidUntil().equals(date)){
+							oldType = type;
+						}	
+						
+						if(type.getValidSince() != null && type.getValidSince().equals(date)){
+							String oldTypeString = oldType.getType() == HyFeatureTypeEnum.MANDATORY ? "mandatory": "optional";
+							String newTypeString = type.getType() == HyFeatureTypeEnum.MANDATORY ? "mandatory": "optional";
+							changes.add(new HyFeatureModelOverviewChangeDataObject("Feature ", featureName, " changed type from "+ oldTypeString + " to " + newTypeString));
+						}	
+					}
+					
+					HyFeature oldParentFeature = null;;
+					for(HyGroupComposition composition : feature.getGroupMembership()){
+						if(composition.getValidSince() == null){
+							oldParentFeature = getParentFeature(composition, date);
+						}else if(composition.getValidUntil() != null && composition.getValidUntil().equals(date)){
+							oldParentFeature = getParentFeature(composition, date);
+						}	
+						
+						if(composition.getValidSince() != null && composition.getValidSince().equals(date)){
+							if(oldParentFeature != null){
+								HyName oldName = HyEvolutionUtil.getValidTemporalElement(oldParentFeature.getNames(), date);
+								HyName newName = HyEvolutionUtil.getValidTemporalElement(getParentFeature(composition, date).getNames(), date);
+								
+								String old = oldParentFeature.getId();
+								if(oldName != null) {
+									old = oldName.getName();								
+								}
+								
+								String _new = getParentFeature(composition, date).getId();
+								if(newName != null) {
+									_new = newName.getName();								
+								}
+								
+								if(!newName.equals(oldName)) {
+									changes.add(new HyFeatureModelOverviewChangeDataObject("Feature ", featureName, " moved from " +	old + " to "+ _new));									
+								}
+							}
+						}	
+					}
 				}
 			}
 
 
 
 			for(HyGroup group : model.getGroups()){
-				if(group.getValidSince() != null && group.getValidSince() == date){					
-					changes.add(new HyFeatureModelOverviewChangeDataObject("Group", group.getId(), " changed validity", "invalid", "valid"));
-				}
-				if(group.getValidUntil() != null && group.getValidUntil() == date){
-					changes.add(new HyFeatureModelOverviewChangeDataObject("Group", group.getId(), " changed validity", "valid", "invalid"));
-				}
+//				if(group.getValidSince() != null && group.getValidSince() .equals(date)){					
+//					changes.add(new HyFeatureModelOverviewChangeDataObject("Group", group.getId(), " changed validity", "invalid", "valid"));
+//				}
+//				if(group.getValidUntil() != null && group.getValidUntil() .equals(date)){
+//					changes.add(new HyFeatureModelOverviewChangeDataObject("Group", group.getId(), " changed validity", "valid", "invalid"));
+//				}
 
 				HyGroupType oldType = null;
 				for(HyGroupType type : group.getTypes()){
 					if(type.getValidSince() == null)
 						oldType = type;
-					else if(type.getValidUntil() != null && type.getValidUntil() == date){
+					else if(type.getValidUntil() != null && type.getValidUntil() .equals(date)){
 						oldType = type;
 					}	
 
 					if(oldType != null && type.getValidSince() != null && type.getValidSince().equals(date)){
 						
-						changes.add(new HyFeatureModelOverviewChangeDataObject("Group ", group.getId(), " changed type", getGroupTypeEnumString(oldType.getType()),
-								getGroupTypeEnumString(type.getType())));
+						changes.add(new HyFeatureModelOverviewChangeDataObject("Group ", group.getId(), " changed type from " + getGroupTypeEnumString(oldType.getType()) + " to " +getGroupTypeEnumString(type.getType())));
 					}	
 				}
 			}

@@ -63,7 +63,7 @@ public class HyConfiguratorFeatureModelFigure extends FreeformLayer {
 		DEGraphicalEditorTheme theme = DEGraphicalEditor.getTheme();
 
 		Date date = graphicalEditor.getCurrentSelectedDate();
-		Rectangle featureMarkRectangle = new Rectangle(feature.getPosition(date), feature.getSize());
+		Rectangle featureMarkRectangle = new Rectangle(feature.getPosition(date), feature.getSize(date));
 
 		for(HyRootFeature root : feature.getWrappedModelElement().getFeatureModel().getRootFeature()){
 			if(EcoreUtil.equals(root.getFeature(), feature.getWrappedModelElement())){

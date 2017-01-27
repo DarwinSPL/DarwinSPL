@@ -57,15 +57,14 @@ public class HyFeatureEditorEditPart extends HyFeatureEditPart{
 			
 		}
 		if(req.getType() == RequestConstants.REQ_OPEN){
-			HyFeatureFigure figure = (HyFeatureFigure)getFigure();
-			if(figure.calculateVariationTypeCircleBounds().contains(((SelectionRequest)req).getLocation())){
+			HyFeatureWrapped feature = (HyFeatureWrapped)getModel();
+			Date date = editor.getCurrentSelectedDate();
+			
+			if(feature.calculateVariationTypeCircleBounds(date).contains(((SelectionRequest)req).getLocation())){
 				
-				HyFeatureWrapped feature = (HyFeatureWrapped)getModel();
-				Date date = editor.getCurrentSelectedDate();
 				HyFeatureType type = HyEvolutionUtil.getValidTemporalElement(feature.getWrappedModelElement().getTypes(), date);
 				
 				HyFeatureTypeEnum newType = type.getType() == HyFeatureTypeEnum.MANDATORY ? HyFeatureTypeEnum.OPTIONAL : HyFeatureTypeEnum.MANDATORY;
-				
 				
 				HyFeatureChangeTypeCommand command = new HyFeatureChangeTypeCommand(feature.getWrappedModelElement(), newType, editor);
 				editor.executeCommand(command);

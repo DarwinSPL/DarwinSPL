@@ -220,15 +220,16 @@ public class HyFeatureEditPart extends HyAbstractEditPart implements NodeEditPar
 		Date date = editor.getCurrentSelectedDate();
 		
 		int width = HyGeometryUtil.calculateFeatureWidth(feature.getWrappedModelElement(), date);
-		int height = HyGeometryUtil.calculateFeatureHeight(feature.getWrappedModelElement(), date);
+		int height = feature.getSize(date).height; //HyGeometryUtil.calculateFeatureHeight(feature.getWrappedModelElement(), date);
 
-		Dimension newFeatureSize = new Dimension(width, height);
 		
+		Dimension newFeatureSize = new Dimension(width, height);
+		feature.setSize(newFeatureSize);
 		
 		Rectangle layout = new Rectangle(feature.getPosition(date), newFeatureSize);
 		parent.setLayoutConstraint(this, figure, layout);	
 		
-		feature.setSize(newFeatureSize);
+		
 	}
 	
 

@@ -1,6 +1,7 @@
 package eu.hyvar.reconfigurator.output.translation;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -49,6 +50,12 @@ public class HyVarRecOutputTranslator {
 		
 		configuration.getElements().addAll(getAttributeValueAssignments(idMapper, hyvarrecOutput.getAttributes()));
 
+		return configuration;
+	}
+	
+	public static HyConfiguration translateConfiguration(HyFeatureModel featureModel, OutputOfHyVarRec hyvarrecOutput, Date date) {
+		HyConfiguration configuration = translateConfiguration(featureModel, hyvarrecOutput);
+		configuration.setCreationDate(date);
 		return configuration;
 	}
 

@@ -163,16 +163,6 @@ public class HyGroupWrapped extends HyEditorChangeableElement {
 		}
 	}
 
-	public HyGroup getGroup() {
-		return this.getWrappedModelElement();
-		/*
-		if(features.iterator().next().getWrappedModelElement().getGroupMembership().size() == 0){
-			return null;
-		}
-
-		return features.iterator().next().getWrappedModelElement().getGroupMembership().get(0).getCompositionOf();
-		 */
-	}
 
 	/**
 	 * Transfers a feature from this group to another. Use this function only to update the internal relationship

@@ -39,7 +39,8 @@ Require-Bundle: org.eclipse.ui,
  eu.hyvar.reconfigurator.input,
  eu.hyvar.reconfigurator.output.translation,
  org.eclipse.e4.ui.model.workbench,
- eu.hyvar.feature.graphical.configurator.viewer
+ eu.hyvar.feature.graphical.configurator.viewer,
+ eu.hyvar.feature.data
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Bundle-ActivationPolicy: lazy
 Bundle-Vendor: www.darwinspl.de

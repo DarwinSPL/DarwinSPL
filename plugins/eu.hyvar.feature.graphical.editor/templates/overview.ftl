@@ -107,7 +107,7 @@
     	<ul class="changeList">
     	<#list date.changes as change>
     		<li>    			
-				<b>${change.type}${change.name}</b> ${change.action} from <u>${change.oldValue}</u> to <u>${change.newValue}</u>
+				<b>${change.type}${change.name}</b> ${change.action}
 			</li>
     	</#list>
 		</ul>
