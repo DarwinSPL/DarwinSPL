@@ -76,7 +76,7 @@ public class AddFeatureInGroup extends ComplexOperation {
 			operation.execute();
 		}*/
 		
-		this.groupComposition = newGroupComposition.getGroupComposition();
+		this.groupComposition = newGroupComposition.getNewGroupComposition();
 		//set the last relation between feature and groupCompisition and add the feature to the model
 		feature.getGroupMembership().add(groupComposition);
 		tfm.getFeatures().add(feature);

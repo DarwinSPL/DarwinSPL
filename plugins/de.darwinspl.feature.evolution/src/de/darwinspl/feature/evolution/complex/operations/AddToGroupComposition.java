@@ -78,7 +78,7 @@ public class AddToGroupComposition extends ComplexOperation{
 
 	}
 
-	public HyGroupComposition getGroupComposition() {
+	public HyGroupComposition getNewGroupComposition() {
 		return newGroupComposition;
 	}
 	
@@ -90,7 +90,7 @@ public class AddToGroupComposition extends ComplexOperation{
 	 * In case of a move out of the group, the affected features are needed
 	 * @return
 	 */
-	public HyFeature getRemovedFeature() {
+	public HyFeature getAddedFeature() {
 		return feature;
 	}
 }

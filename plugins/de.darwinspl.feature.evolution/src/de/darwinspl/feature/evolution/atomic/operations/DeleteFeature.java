@@ -73,8 +73,6 @@ public class DeleteFeature extends ComplexOperation {
 	public HyFeature getFeature() {
 		return feature;
 	}
-	
-    //Is needed to find the right object in case to undo the operation
 	public HyFeatureType getFeatureType() {
 		return featureType;
 	}
