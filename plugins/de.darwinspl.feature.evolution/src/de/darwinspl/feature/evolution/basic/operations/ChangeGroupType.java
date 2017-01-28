@@ -18,7 +18,6 @@ import eu.hyvar.feature.HyGroupTypeEnum;
 public class ChangeGroupType extends ComplexOperation {
 	private HyGroup group;
 	private HyGroupTypeEnum type;
-	private Date timestamp;
 	
 	private HyGroupType oldGroupType, newGroupType;
 	

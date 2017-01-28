@@ -12,7 +12,6 @@ import eu.hyvar.feature.HyFeatureFactory;
 import eu.hyvar.feature.HyGroup;
 
 /**
- * @author Marcel W
  *
  */
 public class AddFeatureChild implements EvolutionOperation {
@@ -44,9 +43,9 @@ public class AddFeatureChild implements EvolutionOperation {
 		featureChild.setValidSince(timestamp);
 		featureChild.setValidUntil(null);
 
-		parent.getParentOf().add(featureChild);
+		//parent.getParentOf().add(featureChild);
 		
-		group.getChildOf().add(featureChild);
+		//group.getChildOf().add(featureChild);
 
 	}
 

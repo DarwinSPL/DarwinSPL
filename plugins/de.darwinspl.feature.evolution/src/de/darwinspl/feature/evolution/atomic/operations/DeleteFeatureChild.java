@@ -38,6 +38,8 @@ public class DeleteFeatureChild implements EvolutionOperation {
 		// TODO Auto-generated method stub
 
 	}
+	
+	//Getter
 	public HyFeatureChild getFeatureChild() {
 		return featureChild;
 	}

@@ -13,7 +13,6 @@ import eu.hyvar.feature.HyGroupComposition;
 import eu.hyvar.feature.HyGroupType;
 
 /**
- * @author Marcel W
  *
  */
 public class DeleteGroup extends ComplexOperation {
@@ -76,7 +75,7 @@ public class DeleteGroup extends ComplexOperation {
 		// TODO Auto-generated method stub
 
 	}
-	//Getter
+	//Getters
 	public HyGroup getGroup() {
 		return group;
 	}

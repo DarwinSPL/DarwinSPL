@@ -43,8 +43,8 @@ public class EvolutionOperationTests {
 
 	private static HyFeatureModel tfm;
 
-	static boolean testAtomic = true;
-	static boolean testBasic = false;
+	static boolean testAtomic = false;
+	static boolean testBasic = true;
 	static boolean testComplex = false;
 	static boolean testInvoker = false;
 
@@ -63,7 +63,10 @@ public class EvolutionOperationTests {
 
 		// --------------------------------------------basic Ops test area-----------------------------------
 		if (testBasic) {
-			BasicOpertationTests.basicOperationAddTest(tfm);
+			//BasicOpertationTests.basicOperationAddTest(tfm);
+			//BasicOpertationTests.basicOperationDeleteTest(tfm);
+			//BasicOpertationTests.basicOperationRenameTest(tfm);
+			BasicOpertationTests.basicOperationChangeTypeTest(tfm);
 		}
 
 		// ------------------------------------ complex evoOp test area------------------------------------------------

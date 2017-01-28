@@ -25,13 +25,11 @@ public class AddFeatureWithGroup extends ComplexOperation {
 	private String name;
 	private HyFeatureTypeEnum featureType;
 	private HyFeature parent;
-	private Date timestamp;
 	
 	private HyFeature feature;
 	private EList<HyFeature> features = new BasicEList<HyFeature>();
 	private HyGroupTypeEnum groupType = HyGroupTypeEnum.AND;	//For a new group with only one feature the group must be AND
 	private HyGroup group;
-	private HyFeatureModel tfm;	
 	
 	/**
 	 * Add a feature to the model and create a new (AND-) group where the feature should be located

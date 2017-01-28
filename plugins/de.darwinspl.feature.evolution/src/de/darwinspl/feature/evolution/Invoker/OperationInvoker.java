@@ -36,6 +36,8 @@ public class OperationInvoker {
 		}
 	}
 	
+	//Add all evolution operations for the extension
+	
 	/**
 	 * provide add(wG) operation as command for the extension
 	 * @param name of the new feature
@@ -141,5 +143,79 @@ public class OperationInvoker {
 		evoOps.add(changeGroupType);
 		changeGroupType.execute();
 		commandHistory.add(counterOfExecuteCommands++, changeGroupType);
+	}
+	
+	/**
+	 * On execute the operation will move a Feature from one group into another. The group, which are contains the feature before the evolution operation will still exist after the evolution.
+	 * @param feature which should be move 
+	 * @param groupComposition new group composition of the feature
+	 * @param timestamp
+	 */
+	public void move(HyFeature feature, HyGroupComposition groupComposition, Date timestamp) {
+		
+		ComplexOperation moveFeature = new MoveFeature(feature, groupComposition, timestamp);
+		evoOps.add(moveFeature);
+		moveFeature.execute();
+		commandHistory.add(counterOfExecuteCommands++, moveFeature);
+	}
+	
+	/**
+	 *  Move a feature from a group, which will still exist after the evolution, under a feature where no group exists or fit.
+	 * @param feature which should be move 
+	 * @param parent of the new group
+	 * @param timestamp
+	 * @param tfm the tfm is needed because a new group will be added.
+	 */
+	public void move(HyFeature feature, HyFeature parent, Date timestamp, HyFeatureModel tfm) {
+		
+		ComplexOperation moveFeatureAddGroup = new MoveFeatureAddGroup(feature, parent, timestamp, tfm);
+		evoOps.add(moveFeatureAddGroup);
+		moveFeatureAddGroup.execute();
+		commandHistory.add(counterOfExecuteCommands++, moveFeatureAddGroup);
+	}
+	
+	/**
+	 * Move a feature from a group which will have no features in his composition after the evolution, to another group.
+	 * @param feature which should be move 
+	 * @param group which will be deleted
+	 * @param groupComposition new groupComposition of the feature
+	 * @param timestamp
+	 */
+	public void move(HyFeature feature, HyGroup group, HyGroupComposition groupComposition, Date timestamp) {
+		
+		ComplexOperation moveFeatureDeleteGroup = new MoveFeatureDeleteGroup(feature, group, groupComposition, timestamp);
+		evoOps.add(moveFeatureDeleteGroup);
+		moveFeatureDeleteGroup.execute();
+		commandHistory.add(counterOfExecuteCommands++, moveFeatureDeleteGroup);
+	}
+	
+	/**
+	 * Move a feature from a group which will have no features in his composition after the evolution, under a feature where no group exists or fit.
+	 * @param feature which should be move
+	 * @param group which should be delete
+	 * @param parent of the new group
+	 * @param timestamp
+	 * @param tfm
+	 */
+	public void move(HyFeature feature, HyGroup group, HyFeature parent, Date timestamp, HyFeatureModel tfm) {
+		
+		ComplexOperation moveFeatureDeleteAndAddGroup = new MoveFeatureDeleteAndAddGroup(feature, group, parent, timestamp, tfm);
+		evoOps.add(moveFeatureDeleteAndAddGroup);
+		moveFeatureDeleteAndAddGroup.execute();
+		commandHistory.add(counterOfExecuteCommands++, moveFeatureDeleteAndAddGroup);
+	}
+	
+	/**
+	 * Move a group.
+	 * @param group which should be move
+	 * @param parent the new parent of the group
+	 * @param timestamp
+	 */
+	public void move(HyGroup group, HyFeature parent, Date timestamp) {
+		
+		ComplexOperation moveGroup = new MoveGroup(group, parent, timestamp);
+		evoOps.add(moveGroup);
+		moveGroup.execute();
+		commandHistory.add(counterOfExecuteCommands++, moveGroup);
 	}
 }

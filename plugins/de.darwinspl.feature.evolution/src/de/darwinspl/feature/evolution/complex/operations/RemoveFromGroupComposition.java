@@ -78,6 +78,7 @@ public class RemoveFromGroupComposition extends ComplexOperation {
 
 	}
 
+	//Getters
 	public HyGroupComposition getNewGroupComposition() {
 		return newGroupComposition;
 	}
@@ -86,12 +87,11 @@ public class RemoveFromGroupComposition extends ComplexOperation {
 		return oldGroupComposition;
 	}
 	
-	
-	/**
-	 * In case of a move out of the group, the affected features are needed
-	 * @return
-	 */
 	public HyFeature getRemovedFeature() {
 		return feature;
+	}
+	
+	public HyGroup getGroup() {
+		return group;
 	}
 }

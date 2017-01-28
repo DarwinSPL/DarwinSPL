@@ -75,10 +75,7 @@ public class AddGroup extends ComplexOperation {
 
 	}
 	
-	/**
-	 * This method is needed, to build the relation between the feature and the groupComposition
-	 * @return
-	 */
+	//Getters
 	public HyGroupComposition getGroupComposition() {
 		return groupComposition;
 	}

@@ -19,7 +19,6 @@ public class ChangeFeatureType extends ComplexOperation {
 
 	private HyFeature feature;
 	private HyFeatureTypeEnum type;
-	private Date timestamp;
 	
 	private HyFeatureType oldFeatureType, newFeatureType;
 	
