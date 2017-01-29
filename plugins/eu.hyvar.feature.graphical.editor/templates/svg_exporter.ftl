@@ -1,5 +1,5 @@
 
-<#macro cssRGBAColor color>rgba(${color.red}, ${color.green}, ${color.blue}, ${color.alpha})</#macro>
+<#macro cssRGBAColor color>#${color.red?string.@hex}${color.green?string.@hex}${color.blue?string.@hex}</#macro>
 <#macro cssStroke width>stroke="<@cssRGBAColor color=theme.lineColor />" stroke-width="${width}"</#macro>
 <#macro cssFont font modifier>
 	<#if font.fontData[0].style == 1>

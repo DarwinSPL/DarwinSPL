@@ -51,6 +51,7 @@ import eu.hyvar.feature.graphical.base.model.HyGroupWrapped;
 import eu.hyvar.feature.graphical.base.model.HyParentChildConnection;
 import eu.hyvar.feature.graphical.editor.template.EclipseWorkspaceUtil;
 import freemarker.core.ParseException;
+import freemarker.core.TemplateNumberFormatFactory;
 import freemarker.template.Configuration;
 import freemarker.template.MalformedTemplateNameException;
 import freemarker.template.Template;
@@ -338,6 +339,12 @@ public class HyFeatureModelSVGGenerator {
 
 		File file = new File(FileLocator.resolve(fileURL).toURI());
 		cfg.setDirectoryForTemplateLoading(file);
+		
+		Map<String, TemplateNumberFormatFactory> customNumberFormats = new HashMap<String, TemplateNumberFormatFactory>();
+
+		customNumberFormats.put("hex", DwHexTemplateNumberFormatFactory.INSTANCE);
+
+		cfg.setCustomNumberFormats(customNumberFormats);
 
 		return cfg;
 	}
