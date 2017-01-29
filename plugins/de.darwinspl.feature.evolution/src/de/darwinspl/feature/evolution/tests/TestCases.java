@@ -30,6 +30,9 @@ public abstract class TestCases {
 
 	protected static HyFeature infotainmentFeature;
 	protected static HyGroup frontDistanceSensorsAlternativeGroup;
+	protected static HyFeature frontDistanceSensorsFeature;
+	protected static HyFeature sideFeature;
+	protected static HyFeature carFeature ;
 	
 	protected static Calendar calendar = Calendar.getInstance();
 	protected static Date timestamp;
@@ -46,7 +49,7 @@ public abstract class TestCases {
 
 		HyFeatureType carType = HyFeatureCreationUtil.createFeatureType(HyFeatureTypeEnum.MANDATORY, null, null, null);
 		HyName carName = HyFeatureCreationUtil.createName("Car", null, null, null);
-		HyFeature carFeature = HyFeatureCreationUtil.createFeature(carType, carName, null, null);
+		carFeature = HyFeatureCreationUtil.createFeature(carType, carName, null, null);
 		featureModel.getFeatures().add(carFeature);
 
 		HyRootFeature rootFeature = HyFeatureCreationUtil.createRootFeature(carFeature, null, null, null);
@@ -137,7 +140,7 @@ public abstract class TestCases {
 		HyFeatureType sideType = HyFeatureCreationUtil.createFeatureType(HyFeatureTypeEnum.MANDATORY, null, firstDate,
 				null);
 		HyName sideName = HyFeatureCreationUtil.createName("Side Distance Sensor", null, null, null);
-		HyFeature sideFeature = HyFeatureCreationUtil.createFeature(sideType, sideName, null, null);
+		sideFeature = HyFeatureCreationUtil.createFeature(sideType, sideName, null, null);
 		featureModel.getFeatures().add(sideFeature);
 
 		parkAssistanceAndGroupComposition.getFeatures().add(sideFeature);
@@ -210,7 +213,7 @@ public abstract class TestCases {
 				firstDate, null, null);
 		HyName frontDistanceSensorsName = HyFeatureCreationUtil.createName("Front Distance Sensors", firstDate, null,
 				null);
-		HyFeature frontDistanceSensorsFeature = HyFeatureCreationUtil.createFeature(frontDistanceSensorsType,
+		frontDistanceSensorsFeature = HyFeatureCreationUtil.createFeature(frontDistanceSensorsType,
 				frontDistanceSensorsName, firstDate, null);
 		featureModel.getFeatures().add(frontDistanceSensorsFeature);
 

@@ -9,6 +9,11 @@ import de.darwinspl.feature.evolution.basic.operations.ChangeFeatureType;
 import de.darwinspl.feature.evolution.basic.operations.ChangeGroupType;
 import de.darwinspl.feature.evolution.basic.operations.DeleteFeatureInGroup;
 import de.darwinspl.feature.evolution.basic.operations.DeleteFeatureWithGroup;
+import de.darwinspl.feature.evolution.basic.operations.MoveFeature;
+import de.darwinspl.feature.evolution.basic.operations.MoveFeatureAddGroup;
+import de.darwinspl.feature.evolution.basic.operations.MoveFeatureDeleteAndAddGroup;
+import de.darwinspl.feature.evolution.basic.operations.MoveFeatureDeleteGroup;
+import de.darwinspl.feature.evolution.basic.operations.MoveGroup;
 import de.darwinspl.feature.evolution.basic.operations.Rename;
 import eu.hyvar.feature.HyFeatureModel;
 import eu.hyvar.feature.HyFeatureTypeEnum;
@@ -68,5 +73,39 @@ public class BasicOpertationTests extends TestCases {
 		
 		ChangeGroupType changeTypeG = new ChangeGroupType(frontDistanceSensorsAlternativeGroup, HyGroupTypeEnum.OR, timestamp);
 		changeTypeG.execute();
+	}
+	
+	public static void basicOperationMoveTest(HyFeatureModel tfm) {
+		
+		calendar.set(2016, 0, 20, 23, 59, 59);
+		timestamp = calendar.getTime();
+		
+		MoveFeature moveFeature = new MoveFeature(infotainmentFeature, frontDistanceSensorsAlternativeGroup.getParentOf().get(0), timestamp);
+		moveFeature.execute();
+		
+		calendar.set(2016, 1, 20, 23, 59, 59);
+		timestamp = calendar.getTime();
+		
+		MoveFeatureAddGroup moveFeatureAddGroup = new MoveFeatureAddGroup(infotainmentFeature, frontDistanceSensorsFeature, timestamp, tfm);
+		moveFeatureAddGroup.execute();
+		
+		calendar.set(2016, 2, 20, 23, 59, 59);
+		timestamp = calendar.getTime();
+		
+		MoveFeatureDeleteAndAddGroup moveFeatureDeleteAdd = new MoveFeatureDeleteAndAddGroup(infotainmentFeature, moveFeatureAddGroup.getGroup(), sideFeature, timestamp, tfm);
+		moveFeatureDeleteAdd.execute();
+		
+		calendar.set(2016, 3, 20, 23, 59, 59);
+		timestamp = calendar.getTime();
+		
+		MoveFeatureDeleteGroup movefeatureDeleteGroup = new MoveFeatureDeleteGroup(infotainmentFeature, moveFeatureDeleteAdd.getNewGroup(), frontDistanceSensorsAlternativeGroup.getParentOf().get(0), timestamp);
+		movefeatureDeleteGroup.execute();
+		
+		calendar.set(2016, 4, 20, 23, 59, 59);
+		timestamp = calendar.getTime();
+		
+		MoveGroup moveGroup = new MoveGroup(frontDistanceSensorsAlternativeGroup, carFeature, timestamp);
+		moveGroup.execute();
+		
 	}
 }

@@ -66,7 +66,8 @@ public class EvolutionOperationTests {
 			//BasicOpertationTests.basicOperationAddTest(tfm);
 			//BasicOpertationTests.basicOperationDeleteTest(tfm);
 			//BasicOpertationTests.basicOperationRenameTest(tfm);
-			BasicOpertationTests.basicOperationChangeTypeTest(tfm);
+			//BasicOpertationTests.basicOperationChangeTypeTest(tfm);
+			BasicOpertationTests.basicOperationMoveTest(tfm);
 		}
 
 		// ------------------------------------ complex evoOp test area------------------------------------------------
