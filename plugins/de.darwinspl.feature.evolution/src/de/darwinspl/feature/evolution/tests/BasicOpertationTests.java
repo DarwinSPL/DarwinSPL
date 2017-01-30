@@ -98,7 +98,7 @@ public class BasicOpertationTests extends TestCases {
 		calendar.set(2016, 3, 20, 23, 59, 59);
 		timestamp = calendar.getTime();
 		
-		MoveFeatureDeleteGroup movefeatureDeleteGroup = new MoveFeatureDeleteGroup(infotainmentFeature, moveFeatureDeleteAdd.getNewGroup(), frontDistanceSensorsAlternativeGroup.getParentOf().get(0), timestamp);
+		MoveFeatureDeleteGroup movefeatureDeleteGroup = new MoveFeatureDeleteGroup(infotainmentFeature, moveFeatureDeleteAdd.getNewGroup(), moveFeatureAddGroup.getOldGroupCompositionAfter(), timestamp);
 		movefeatureDeleteGroup.execute();
 		
 		calendar.set(2016, 4, 20, 23, 59, 59);

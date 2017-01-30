@@ -40,16 +40,19 @@ public class DeleteGroup extends ComplexOperation {
 		for (HyGroupType groupType : group.getTypes()) {
 			if (groupType.getValidUntil() == null) {
 				this.groupType = groupType;
+				break;
 			}
 		}
 		for (HyGroupComposition composition : group.getParentOf()) {
 			if (composition.getValidUntil() == null) {
 				this.groupComposition = composition;
+				break;
 			}
 		}
 		for (HyFeatureChild child : group.getChildOf()) {
 			if (child.getValidUntil() == null) {
 				this.featureChild = child;
+				break;
 			}
 		}
 		

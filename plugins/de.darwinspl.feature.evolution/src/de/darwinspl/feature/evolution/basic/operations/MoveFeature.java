@@ -41,6 +41,7 @@ public class MoveFeature extends ComplexOperation {
 		for (HyGroupComposition composition : feature.getGroupMembership()) {
 			if (composition.getValidUntil() == null) {
 				this.oldGroupCompositionBefore = composition;
+				break;
 			}
 		}
 		

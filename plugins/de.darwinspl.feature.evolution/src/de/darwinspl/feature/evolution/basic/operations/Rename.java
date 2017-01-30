@@ -40,6 +40,7 @@ public class Rename extends ComplexOperation {
 		for (HyName name : feature.getNames()) {
 			if (name.getValidUntil() == null) {
 				this.oldName = name;
+				break;
 			}
 		}
 		

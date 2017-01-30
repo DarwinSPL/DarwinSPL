@@ -39,6 +39,7 @@ public class ChangeFeatureType extends ComplexOperation {
 		for (HyFeatureType featureType : feature.getTypes()) {
 			if (featureType.getValidUntil() == null) {
 				this.oldFeatureType = featureType;
+				break;
 			}
 		}
 

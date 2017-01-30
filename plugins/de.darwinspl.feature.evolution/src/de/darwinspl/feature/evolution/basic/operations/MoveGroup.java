@@ -39,6 +39,7 @@ public class MoveGroup extends ComplexOperation {
 		for (HyFeatureChild featureChild : group.getChildOf()) {
 			if (featureChild.getValidUntil() == null) {
 				this.oldFeatureChild = featureChild;
+				break;
 			}
 		}
 		

@@ -38,6 +38,7 @@ public class ChangeGroupType extends ComplexOperation {
 		for (HyGroupType groupType : group.getTypes()) {
 			if (groupType.getValidUntil() == null) {
 				this.oldGroupType = groupType;
+				break;
 			}
 		}
 

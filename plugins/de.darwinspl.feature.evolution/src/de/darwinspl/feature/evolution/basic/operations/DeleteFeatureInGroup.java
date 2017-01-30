@@ -41,6 +41,7 @@ public class DeleteFeatureInGroup extends ComplexOperation {
 		for (HyGroupComposition membership : feature.getGroupMembership()) {
 			if (membership.getValidUntil() == null) {
 				this.oldGroupComposition = membership;
+				break;
 			}
 		}
 		

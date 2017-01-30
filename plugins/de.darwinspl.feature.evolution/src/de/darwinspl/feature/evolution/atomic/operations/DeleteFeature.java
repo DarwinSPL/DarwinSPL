@@ -44,6 +44,7 @@ public class DeleteFeature extends ComplexOperation {
 		for (HyName name : feature.getNames()) {
 			if (name.getValidUntil() == null) {
 				this.name = name;
+				break;
 			}
 		}
 		
