@@ -16,3 +16,6 @@ Installation:
 
 See the Wiki for more detailed information:
 https://github.com/HyVar/DarwinSPL/wiki
+
+Demo video:
+https://www.youtube.com/watch?v=qE-ep0FoguI
