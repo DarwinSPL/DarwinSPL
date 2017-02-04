@@ -54,7 +54,13 @@ public class AddFeatureChild implements EvolutionOperation {
 	 */
 	@Override
 	public void undo() {
-		// TODO Auto-generated method stub
+		//check if the execute method was executed, otherwise leave this method
+		if (featureChild == null) {
+			return;
+		}
+		parent.getParentOf().remove(featureChild);
+		group.getChildOf().remove(featureChild);
+		featureChild = null;
 
 	}
 	

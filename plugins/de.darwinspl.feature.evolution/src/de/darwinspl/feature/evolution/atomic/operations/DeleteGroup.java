@@ -66,6 +66,9 @@ public class DeleteGroup extends ComplexOperation {
 		for (EvolutionOperation evolutionOperation : evoOps) {
 			evolutionOperation.execute();
 		}
+		this.featureChild = deleteFeatureChild.getFeatureChild();
+		this.groupType = deleteGroupType.getGroupType();
+		this.groupComposition = deleteGroupComposition.getGroupComposition();
 		group.setValidUntil(timestamp);
 
 	}
@@ -75,8 +78,20 @@ public class DeleteGroup extends ComplexOperation {
 	 */
 	@Override
 	public void undo() {
-		// TODO Auto-generated method stub
-
+		//check if the execute method was executed, otherwise leave this method
+		if (group.getValidUntil().compareTo(timestamp) != 0) {
+			return;
+		}
+		
+		for (EvolutionOperation evolutionOperation : evoOps) {
+			evolutionOperation.undo();
+		}
+		groupType = null;
+		groupComposition = null;
+		featureChild = null;
+		
+		group.setValidUntil(null);
+		
 	}
 	//Getters
 	public HyGroup getGroup() {

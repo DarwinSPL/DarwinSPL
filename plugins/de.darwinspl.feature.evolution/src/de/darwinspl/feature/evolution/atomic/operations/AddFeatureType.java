@@ -51,13 +51,12 @@ public class AddFeatureType implements EvolutionOperation {
 	 */
 	@Override
 	public void undo() {
-		// TODO Auto-generated method stub
-		feature.getTypes().remove(featureTyp);
-		
-		if (!feature.getTypes().isEmpty()) {
-			HyFeatureType oldFeatureType = feature.getTypes().get(feature.getTypes().size() - 1);
-			oldFeatureType.setValidUntil(null);
+		//check if the execute method was executed, otherwise leave this method
+		if (featureTyp == null) {
+			return;
 		}
+		feature.getTypes().remove(featureTyp);
+		featureTyp = null;
 	}
 	
 	//Getter

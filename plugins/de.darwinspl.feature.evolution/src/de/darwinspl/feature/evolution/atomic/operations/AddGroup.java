@@ -11,10 +11,12 @@ import org.eclipse.emf.common.util.EList;
 import de.darwinspl.feature.evolution.basic.operations.ComplexOperation;
 import de.darwinspl.feature.evolution.invoker.EvolutionOperation;
 import eu.hyvar.feature.HyFeature;
+import eu.hyvar.feature.HyFeatureChild;
 import eu.hyvar.feature.HyFeatureFactory;
 import eu.hyvar.feature.HyFeatureModel;
 import eu.hyvar.feature.HyGroup;
 import eu.hyvar.feature.HyGroupComposition;
+import eu.hyvar.feature.HyGroupType;
 import eu.hyvar.feature.HyGroupTypeEnum;
 
 /**
@@ -27,8 +29,10 @@ public class AddGroup extends ComplexOperation {
 	private EList<HyFeature> features;
 
 	private static final HyFeatureFactory factory = HyFeatureFactory.eINSTANCE;
-	private HyGroup group = factory.createHyGroup();
+	private HyGroup group;
 	private HyGroupComposition groupComposition;
+	private HyGroupType groupType;
+	private HyFeatureChild featureChild;
 	
 	public AddGroup(HyGroupTypeEnum type, HyFeature parent, EList<HyFeature> features, Date timestamp, HyFeatureModel tfm) {
 		
@@ -46,6 +50,7 @@ public class AddGroup extends ComplexOperation {
 	@Override
 	public void execute() {
 		
+		group = factory.createHyGroup();
 		AddGroupType groupType = new AddGroupType(type, group, timestamp);
 		AddFeatureChild featureChild = new AddFeatureChild(parent, group, timestamp);
 		AddGroupComposition groupComposition = new AddGroupComposition(group, features, timestamp);
@@ -59,6 +64,10 @@ public class AddGroup extends ComplexOperation {
 			operation.execute();
 		}
 		
+		this.groupType = groupType.getGroupTyp();
+		this.featureChild = featureChild.getFeatureChild();
+		this.groupComposition = groupComposition.getGroupComposition();
+		
 		group.setValidSince(timestamp);
 		group.setValidUntil(null);
 		
@@ -71,8 +80,23 @@ public class AddGroup extends ComplexOperation {
 	 */
 	@Override
 	public void undo() {
-		// TODO Auto-generated method stub
+		//check if the execute method was executed, otherwise leave this method
+		if (group == null) {
+			return;
+		}
 
+		//undo each atomic or complex operation which are used from this complex operation
+		for (EvolutionOperation evolutionOperation : evoOps) {
+			evolutionOperation.undo();
+		}
+		
+		tfm.getGroups().remove(group);
+		
+		groupType = null;
+		featureChild = null;
+		groupComposition = null;
+		group = null;		
+		
 	}
 	
 	//Getters
@@ -85,6 +109,12 @@ public class AddGroup extends ComplexOperation {
 	}
 	public HyFeature getParent() {
 		return parent;
+	}
+	public HyGroupType getGroupType() {
+		return groupType;
+	}
+	public HyFeatureChild getFeatureChild() {
+		return featureChild;
 	}
 
 

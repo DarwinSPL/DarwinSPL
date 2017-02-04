@@ -22,7 +22,7 @@ import eu.hyvar.feature.HyGroupComposition;
 public class AddGroupComposition implements EvolutionOperation {
 
 	private HyGroup group;
-	private List<HyFeature> features = new ArrayList<HyFeature>();
+	private EList<HyFeature> features = new BasicEList<HyFeature>();
 	private Date timestamp;
 	
 	private HyGroupComposition groupComposition;
@@ -67,7 +67,8 @@ public class AddGroupComposition implements EvolutionOperation {
 		if (groupComposition == null) {
 			return;
 		}
-		
+		group.getParentOf().remove(groupComposition);
+		groupComposition = null;
 	}
 	
 	/**

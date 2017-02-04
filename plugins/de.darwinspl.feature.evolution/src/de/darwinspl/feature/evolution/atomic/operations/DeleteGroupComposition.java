@@ -38,7 +38,11 @@ public class DeleteGroupComposition implements EvolutionOperation {
 	 */
 	@Override
 	public void undo() {
-		// TODO Auto-generated method stub
+		//check if the execute method was executed, otherwise leave this method
+		if (groupComposition.getValidUntil().compareTo(timestamp) != 0) {
+			return;
+		}
+		groupComposition.setValidUntil(null);
 
 	}
 	public HyGroupComposition getGroupComposition() {

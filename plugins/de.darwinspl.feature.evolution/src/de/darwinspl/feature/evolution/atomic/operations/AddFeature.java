@@ -67,12 +67,18 @@ public class AddFeature extends ComplexOperation {
 	 */
 	@Override
 	public void undo() {
+		//check if the execute method was executed, otherwise leave this method
+		if (feature == null) {
+			return;
+		}
 		
 		//undo each atomic or complex operation which are used from this complex operation
 		for (EvolutionOperation operation : evoOps) {
 			operation.undo();
 		}
-		tfm.getFeatures().remove(feature);
+		name = null;
+		featureType = null;
+		feature = null;
 
 	}
 	

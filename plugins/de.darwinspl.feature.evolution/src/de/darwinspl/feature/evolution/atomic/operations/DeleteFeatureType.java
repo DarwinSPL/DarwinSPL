@@ -36,7 +36,11 @@ public class DeleteFeatureType implements EvolutionOperation {
 	 */
 	@Override
 	public void undo() {
-		// TODO Auto-generated method stub
+		//check if the execute method was executed, otherwise leave this method
+		if (featureType.getValidUntil().compareTo(timestamp) != 0) {
+			return;
+		}
+		featureType.setValidUntil(null);
 
 	}
 	public HyFeatureType getFeatureType() {

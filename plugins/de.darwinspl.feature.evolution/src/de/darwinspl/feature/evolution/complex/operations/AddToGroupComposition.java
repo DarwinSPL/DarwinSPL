@@ -74,7 +74,16 @@ public class AddToGroupComposition extends ComplexOperation{
 	 */
 	@Override
 	public void undo() {
-		// TODO Auto-generated method stub
+		//check if the execute method was executed, otherwise leave this method
+		if (newGroupComposition == null) {
+			return;
+		}
+		
+		for (EvolutionOperation evolutionOperation : evoOps) {
+			evolutionOperation.undo();
+		}
+		group = null;
+		newGroupComposition = null;
 
 	}
 

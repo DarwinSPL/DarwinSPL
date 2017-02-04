@@ -56,6 +56,9 @@ public class DeleteFeature extends ComplexOperation {
 		for (EvolutionOperation evolutionOperation : evoOps) {
 			evolutionOperation.execute();
 		}
+		
+		this.featureType = deleteFeatureType.getFeatureType();
+		this.name = deleteName.getName();
 		//set valid until from feature to the timestamp
 		feature.setValidUntil(timestamp);
 
@@ -66,7 +69,18 @@ public class DeleteFeature extends ComplexOperation {
 	 */
 	@Override
 	public void undo() {
-		// TODO Auto-generated method stub
+		//check if the execute method was executed, otherwise leave this method
+		if (feature.getValidUntil().compareTo(timestamp) != 0) {
+			return;
+		}
+		
+		for (EvolutionOperation evolutionOperation : evoOps) {
+			evolutionOperation.undo();
+		}
+		name = null;
+		featureType = null;
+		
+		feature.setValidUntil(null);
 
 	}
 	

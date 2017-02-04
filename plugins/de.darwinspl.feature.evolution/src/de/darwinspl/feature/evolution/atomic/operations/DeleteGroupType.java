@@ -37,7 +37,11 @@ public class DeleteGroupType implements EvolutionOperation {
 	 */
 	@Override
 	public void undo() {
-		// TODO Auto-generated method stub
+		//check if the execute method was executed, otherwise leave this method
+		if (groupType.getValidUntil().compareTo(timestamp) != 0) {
+			return;
+		}
+		groupType.setValidUntil(null);
 
 	}
 	public HyGroupType getGroupType() {
