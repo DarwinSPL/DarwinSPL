@@ -6,7 +6,7 @@ package de.darwinspl.feature.evolution.basic.operations;
 import java.util.ArrayList;
 import java.util.Date;
 
-import de.darwinspl.feature.evolution.Invoker.EvolutionOperation;
+import de.darwinspl.feature.evolution.invoker.EvolutionOperation;
 import eu.hyvar.feature.HyFeatureModel;
 
 /**

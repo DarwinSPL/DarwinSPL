@@ -84,4 +84,14 @@ public class AtomicOperationTests extends TestCases {
 		DeleteGroup deleteG = new DeleteGroup(addG.getGroup(), timestamp);
 		deleteG.execute();
 	}
+	
+	public static void atomicUndoTests(HyFeatureModel tfm) {
+		
+		calendar.set(2016, 0, 20, 23, 59, 59);
+		timestamp = calendar.getTime();
+		
+		AddName name = new AddName("test", infotainmentFeature, timestamp);
+		name.execute();
+		name.undo();
+	}
 }

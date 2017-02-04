@@ -1,4 +1,4 @@
-package de.darwinspl.feature.evolution.Invoker;
+package de.darwinspl.feature.evolution.invoker;
 
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.osgi.framework.BundleContext;

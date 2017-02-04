@@ -5,7 +5,7 @@ package de.darwinspl.feature.evolution.atomic.operations;
 
 import java.util.Date;
 
-import de.darwinspl.feature.evolution.Invoker.EvolutionOperation;
+import de.darwinspl.feature.evolution.invoker.EvolutionOperation;
 import eu.hyvar.evolution.HyEvolutionFactory;
 import eu.hyvar.evolution.HyName;
 import eu.hyvar.feature.HyFeature;
@@ -17,7 +17,7 @@ public class AddName implements EvolutionOperation {
 
 	private String featureName;
 	private HyFeature feature;
-	protected Date timestamp;
+	private Date timestamp;
 	private HyName name;
 	
 	private static final HyEvolutionFactory factory = HyEvolutionFactory.eINSTANCE;
@@ -48,13 +48,12 @@ public class AddName implements EvolutionOperation {
 	 */
 	@Override
 	public void undo() {
-		// TODO Auto-generated method stub
-		feature.getNames().remove(name);
-		
-		if (!feature.getNames().isEmpty()) {
-			HyName oldName = feature.getNames().get(feature.getNames().size() - 1);
-			oldName.setValidUntil(null);
+		//check if the execute method was executed, otherwise leave this method
+		if (name == null) {
+			return;
 		}
+		feature.getNames().remove(name);
+		name = null;
 
 	}
 

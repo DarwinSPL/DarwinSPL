@@ -5,9 +5,9 @@ package de.darwinspl.feature.evolution.basic.operations;
 
 import java.util.Date;
 
-import de.darwinspl.feature.evolution.Invoker.EvolutionOperation;
 import de.darwinspl.feature.evolution.atomic.operations.AddFeatureChild;
 import de.darwinspl.feature.evolution.atomic.operations.DeleteFeatureChild;
+import de.darwinspl.feature.evolution.invoker.EvolutionOperation;
 import eu.hyvar.feature.HyFeature;
 import eu.hyvar.feature.HyFeatureChild;
 import eu.hyvar.feature.HyGroup;

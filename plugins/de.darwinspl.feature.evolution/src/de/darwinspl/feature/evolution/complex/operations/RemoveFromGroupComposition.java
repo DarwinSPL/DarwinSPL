@@ -9,10 +9,10 @@ import java.util.List;
 import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.EList;
 
-import de.darwinspl.feature.evolution.Invoker.EvolutionOperation;
 import de.darwinspl.feature.evolution.atomic.operations.AddGroupComposition;
 import de.darwinspl.feature.evolution.atomic.operations.DeleteGroupComposition;
 import de.darwinspl.feature.evolution.basic.operations.ComplexOperation;
+import de.darwinspl.feature.evolution.invoker.EvolutionOperation;
 import eu.hyvar.feature.HyFeature;
 import eu.hyvar.feature.HyGroup;
 import eu.hyvar.feature.HyGroupComposition;

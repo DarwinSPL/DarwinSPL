@@ -5,9 +5,9 @@ package de.darwinspl.feature.evolution.basic.operations;
 
 import java.util.Date;
 
-import de.darwinspl.feature.evolution.Invoker.EvolutionOperation;
 import de.darwinspl.feature.evolution.atomic.operations.AddGroupType;
 import de.darwinspl.feature.evolution.atomic.operations.DeleteGroupType;
+import de.darwinspl.feature.evolution.invoker.EvolutionOperation;
 import eu.hyvar.feature.HyGroup;
 import eu.hyvar.feature.HyGroupType;
 import eu.hyvar.feature.HyGroupTypeEnum;

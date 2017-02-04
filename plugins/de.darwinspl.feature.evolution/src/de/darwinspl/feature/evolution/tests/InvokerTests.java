@@ -3,7 +3,7 @@
  */
 package de.darwinspl.feature.evolution.tests;
 
-import de.darwinspl.feature.evolution.Invoker.OperationInvoker;
+import de.darwinspl.feature.evolution.invoker.OperationInvoker;
 import eu.hyvar.feature.HyFeatureModel;
 import eu.hyvar.feature.HyFeatureTypeEnum;
 

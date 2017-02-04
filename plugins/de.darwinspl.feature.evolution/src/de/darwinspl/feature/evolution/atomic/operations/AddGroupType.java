@@ -5,7 +5,7 @@ package de.darwinspl.feature.evolution.atomic.operations;
 
 import java.util.Date;
 
-import de.darwinspl.feature.evolution.Invoker.EvolutionOperation;
+import de.darwinspl.feature.evolution.invoker.EvolutionOperation;
 import eu.hyvar.feature.HyFeatureFactory;
 import eu.hyvar.feature.HyGroup;
 import eu.hyvar.feature.HyGroupType;
@@ -52,7 +52,12 @@ public class AddGroupType implements EvolutionOperation {
 	 */
 	@Override
 	public void undo() {
-		// TODO Auto-generated method stub
+		//check if the execute method was executed, otherwise leave this method
+		if (groupTyp == null) {
+			return;
+		}
+		group.getTypes().remove(groupTyp);
+		groupTyp = null;
 
 	}
 	public HyGroup getGroup() {

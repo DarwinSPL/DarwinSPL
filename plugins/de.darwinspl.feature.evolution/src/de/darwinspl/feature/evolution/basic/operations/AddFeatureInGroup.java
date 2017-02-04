@@ -7,9 +7,9 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import de.darwinspl.feature.evolution.Invoker.EvolutionOperation;
 import de.darwinspl.feature.evolution.atomic.operations.AddFeature;
 import de.darwinspl.feature.evolution.complex.operations.AddToGroupComposition;
+import de.darwinspl.feature.evolution.invoker.EvolutionOperation;
 import eu.hyvar.feature.HyFeature;
 import eu.hyvar.feature.HyFeatureModel;
 import eu.hyvar.feature.HyFeatureTypeEnum;

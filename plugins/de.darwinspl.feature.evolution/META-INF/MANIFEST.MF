@@ -3,7 +3,7 @@ Bundle-ManifestVersion: 2
 Bundle-Name: Framework
 Bundle-SymbolicName: de.darwinspl.feature.evolution;singleton:=true
 Bundle-Version: 1.0.0.qualifier
-Bundle-Activator: de.darwinspl.feature.evolution.Invoker.Activator
+Bundle-Activator: de.darwinspl.feature.evolution.invoker.Activator
 Require-Bundle: org.eclipse.ui,
  org.eclipse.core.runtime,
  eu.hyvar.evolution;bundle-version="1.0.0",
