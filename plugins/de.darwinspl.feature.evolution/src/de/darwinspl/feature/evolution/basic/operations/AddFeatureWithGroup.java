@@ -10,6 +10,7 @@ import org.eclipse.emf.common.util.EList;
 
 import de.darwinspl.feature.evolution.atomic.operations.AddFeature;
 import de.darwinspl.feature.evolution.atomic.operations.AddGroup;
+import de.darwinspl.feature.evolution.invoker.EvolutionOperation;
 import eu.hyvar.feature.HyFeature;
 import eu.hyvar.feature.HyFeatureModel;
 import eu.hyvar.feature.HyFeatureTypeEnum;
@@ -28,7 +29,7 @@ public class AddFeatureWithGroup extends ComplexOperation {
 	
 	private HyFeature feature;
 	private EList<HyFeature> features = new BasicEList<HyFeature>();
-	private HyGroupTypeEnum groupType = HyGroupTypeEnum.AND;	//For a new group with only one feature the group must be AND
+	private HyGroupTypeEnum groupType = HyGroupTypeEnum.AND;	//For a new group with only one feature the group should be AND
 	private HyGroup group;
 	
 	/**
@@ -64,18 +65,10 @@ public class AddFeatureWithGroup extends ComplexOperation {
 		AddGroup newGroup = new AddGroup(groupType, parent, features, timestamp, tfm);
 		newGroup.execute();
 		
+		addToComposition(newFeature);
+		addToComposition(newGroup);
+		
 		group = newGroup.getGroup();
-		
-		//addToComposition(newFeature);
-		//addToComposition(newGroup);
-		
-		//execute each atomic or complex operation which are used from this complex operation
-		/*for (EvolutionOperation operation : evoOps) {
-			operation.execute();
-		}*/
-		
-		//set the last relation between feature and groupCompisition and add the feature to the model. Not necessary because of the bidirectional relation
-		//feature.getGroupMembership().add(groupComposition);
 		
 		tfm.getFeatures().add(feature);
 
@@ -86,7 +79,20 @@ public class AddFeatureWithGroup extends ComplexOperation {
 	 */
 	@Override
 	public void undo() {
-		// TODO Auto-generated method stub
+		if (group == null) {
+			return;
+		}
+		
+		tfm.getFeatures().remove(feature);
+		
+		for (EvolutionOperation evolutionOperation : evoOps) {
+			evolutionOperation.undo();
+		}
+		
+		features.remove(feature);
+		feature = null;
+		group = null;
+		
 
 	}
 

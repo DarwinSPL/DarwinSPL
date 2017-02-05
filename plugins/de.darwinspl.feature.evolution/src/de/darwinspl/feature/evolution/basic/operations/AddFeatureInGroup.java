@@ -25,7 +25,7 @@ public class AddFeatureInGroup extends ComplexOperation {
 	private HyFeatureTypeEnum featureType;
 	private HyGroup group;
 	private HyFeature feature;
-	private HyGroupComposition groupComposition;
+	private HyGroupComposition newGroupComposition, oldGroupComposition;
 
 	/**
 	 * Add a feature to the model and hang it into a consisting group
@@ -56,7 +56,7 @@ public class AddFeatureInGroup extends ComplexOperation {
 		//Iterate through the group composition list of the group and find the element where no until is that. This element must by the current valid composition
 		for (HyGroupComposition composition : group.getParentOf()) {
 			if (composition.getValidUntil() == null) {
-				groupComposition = composition; 
+				oldGroupComposition = composition; 
 				break;
 			}
 		}
@@ -66,19 +66,15 @@ public class AddFeatureInGroup extends ComplexOperation {
 		this.feature = newFeature.getFeature();
 		
 		//add the new created feature to the group composition		
-		AddToGroupComposition newGroupComposition = new AddToGroupComposition(groupComposition, feature , timestamp);
+		AddToGroupComposition newGroupComposition = new AddToGroupComposition(oldGroupComposition, feature , timestamp);
 		newGroupComposition.execute();
 		
-		/*addToComposition(newFeature);
-		addToComposition(newGroupComposition);	
-		
-		for (EvolutionOperation operation : evoOps) {
-			operation.execute();
-		}*/
-		
-		this.groupComposition = newGroupComposition.getNewGroupComposition();
+		addToComposition(newFeature);
+		addToComposition(newGroupComposition);
+				
+		this.newGroupComposition = newGroupComposition.getNewGroupComposition();
 		//set the last relation between feature and groupCompisition and add the feature to the model
-		feature.getGroupMembership().add(groupComposition);
+		feature.getGroupMembership().add(this.newGroupComposition);
 		tfm.getFeatures().add(feature);
 
 	}
@@ -88,7 +84,22 @@ public class AddFeatureInGroup extends ComplexOperation {
 	 */
 	@Override
 	public void undo() {
-		// TODO Auto-generated method stub
+		//check if the execute method was executed, otherwise leave this method
+		if (newGroupComposition == null) {
+			return;
+		}
+		
+		tfm.getFeatures().remove(feature);
+		feature.getGroupMembership().remove(newGroupComposition);
+		
+		for (EvolutionOperation evolutionOperation : evoOps) {
+			evolutionOperation.undo();
+		}
+		
+		oldGroupComposition = null;
+		feature = null;
+		newGroupComposition = null;
+		
 
 	}
 
@@ -96,7 +107,11 @@ public class AddFeatureInGroup extends ComplexOperation {
 		return feature;
 	}
 	
-	public HyGroupComposition getGroupComposition() {
-		return groupComposition;
+	public HyGroupComposition getNewGroupComposition() {
+		return newGroupComposition;
+	}
+	
+	public HyGroupComposition getOldGroupComposition() {
+		return oldGroupComposition;
 	}
 }
