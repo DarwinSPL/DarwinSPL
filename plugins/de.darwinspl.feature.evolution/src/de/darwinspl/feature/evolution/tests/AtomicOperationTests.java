@@ -10,6 +10,8 @@ import de.darwinspl.feature.evolution.atomic.operations.AddFeature;
 import de.darwinspl.feature.evolution.atomic.operations.AddFeatureChild;
 import de.darwinspl.feature.evolution.atomic.operations.AddFeatureType;
 import de.darwinspl.feature.evolution.atomic.operations.AddGroup;
+import de.darwinspl.feature.evolution.atomic.operations.AddGroupComposition;
+import de.darwinspl.feature.evolution.atomic.operations.AddGroupType;
 import de.darwinspl.feature.evolution.atomic.operations.AddName;
 import de.darwinspl.feature.evolution.atomic.operations.DeleteFeature;
 import de.darwinspl.feature.evolution.atomic.operations.DeleteFeatureChild;
@@ -29,6 +31,9 @@ import eu.hyvar.feature.HyGroupTypeEnum;
 public class AtomicOperationTests extends TestCases {
 
 	public static void atomicAddTests(HyFeatureModel tfm) {
+		
+		calendar.set(2016, 0, 20, 23, 59, 59);
+		timestamp = calendar.getTime();
 		
 		AddName name = new AddName("test", infotainmentFeature, timestamp);
 		AddFeatureType featureType = new AddFeatureType(HyFeatureTypeEnum.OPTIONAL, infotainmentFeature, timestamp);
@@ -91,7 +96,45 @@ public class AtomicOperationTests extends TestCases {
 		timestamp = calendar.getTime();
 		
 		AddName name = new AddName("test", infotainmentFeature, timestamp);
+		name.undo();    //Shouldn't do anything
 		name.execute();
 		name.undo();
+		
+		AddFeatureType featureType = new AddFeatureType(HyFeatureTypeEnum.OPTIONAL, infotainmentFeature, timestamp);
+		featureType.undo();    //Shouldn't do anything
+		featureType.execute();
+		featureType.undo();
+		
+		AddFeatureChild fc = new AddFeatureChild(infotainmentFeature, frontDistanceSensorsAlternativeGroup,
+				timestamp);
+		fc.undo();	//Shouldn't do anything
+		fc.execute();
+		fc.undo();
+		
+		AddFeature addF = new AddFeature("test1", HyFeatureTypeEnum.OPTIONAL, timestamp);
+		addF.undo();	//Shouldn't do anything
+		addF.execute();
+		addF.undo();
+		
+		
+		EList<HyFeature> features = new BasicEList<HyFeature>();
+		features.addAll(frontDistanceSensorsAlternativeGroup.getParentOf().get(0).getFeatures());
+		features.add(addF.getFeature());
+		
+		AddGroupType gt = new AddGroupType(HyGroupTypeEnum.ALTERNATIVE, frontDistanceSensorsAlternativeGroup, timestamp);
+		gt.undo();	//Shouldn't do anything
+		gt.execute();
+		gt.undo();
+		
+		AddGroupComposition gc = new AddGroupComposition(frontDistanceSensorsAlternativeGroup, features, timestamp);
+		gc.undo();	//Shouldn't do anything
+		gc.execute();
+		gt.undo();
+		
+		AddGroup addG = new AddGroup(HyGroupTypeEnum.ALTERNATIVE, infotainmentFeature, features, timestamp, tfm);
+		addG.undo();	//Shouldn't do anything
+		addG.execute();
+		addG.undo();
+		
 	}
 }

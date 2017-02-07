@@ -67,7 +67,18 @@ public class DeleteFeatureInGroup extends ComplexOperation {
 	 */
 	@Override
 	public void undo() {
-		// TODO Auto-generated method stub
+		if (newGroupComposition == null) {
+			return;
+		}
+		
+		for (EvolutionOperation evolutionOperation : evoOps) {
+			evolutionOperation.undo();
+		}
+		
+		featureType = null;
+		name = null;
+		oldGroupComposition = null;
+		newGroupComposition = null;
 
 	}
 	

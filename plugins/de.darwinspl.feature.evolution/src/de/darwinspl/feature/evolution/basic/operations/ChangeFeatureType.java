@@ -61,7 +61,16 @@ public class ChangeFeatureType extends ComplexOperation {
 	 */
 	@Override
 	public void undo() {
-		// TODO Auto-generated method stub
+		if (newFeatureType == null) {
+			return;
+		}
+		
+		for (EvolutionOperation evolutionOperation : evoOps) {
+			evolutionOperation.undo();
+		}
+		
+		oldFeatureType = null;
+		newFeatureType = null;
 
 	}
 	

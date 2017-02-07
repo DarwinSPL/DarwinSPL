@@ -17,7 +17,7 @@ public class ComplexOperationsTests extends TestCases{
 
 	public static void testTimestampAdjustment(HyFeatureModel tfm) {
 		
-		calendar.set(2016, 0, 31, 23, 59, 59);
+		calendar.set(2016, 0, 20, 23, 59, 59);
 		timestamp = calendar.getTime();
 		
 		AddFeatureWithGroup addFwG = new AddFeatureWithGroup("test3", HyFeatureTypeEnum.MANDATORY,
@@ -49,5 +49,22 @@ public class ComplexOperationsTests extends TestCases{
 		AddToGroupComposition addGC2 = new AddToGroupComposition(
 				remGC.getNewGroupComposition(), addFwG.getFeature(), timestamp);
 		addGC2.execute();
+	}
+	
+	public static void complexOperationUndoTests(HyFeatureModel tfm) {
+		
+		calendar.set(2016, 0, 20, 23, 59, 59);
+		timestamp = calendar.getTime();
+
+		AddToGroupComposition addGC = new AddToGroupComposition(frontDistanceSensorsAlternativeGroup.getParentOf().get(0), sideFeature, timestamp);
+		addGC.undo();
+		addGC.execute();
+		addGC.undo();
+		
+		RemoveFromGroupComposition rmGC = new RemoveFromGroupComposition(frontDistanceSensorsAlternativeGroup.getParentOf().get(0), sideFeature, timestamp);
+		rmGC.undo();
+		rmGC.execute();
+		rmGC.undo();
+		
 	}
 }

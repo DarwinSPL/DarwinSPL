@@ -63,7 +63,15 @@ public class Rename extends ComplexOperation {
 	 */
 	@Override
 	public void undo() {
-		// TODO Auto-generated method stub
+		if (newName == null) {
+			return;
+		}
+		
+		for (EvolutionOperation evolutionOperation : evoOps) {
+			evolutionOperation.undo();
+		}
+		oldName = null;
+		newName = null;
 
 	}
 	

@@ -27,11 +27,15 @@ public class BasicOpertationTests extends TestCases {
 	public static void basicOperationAddTest(HyFeatureModel tfm) {
 		AddFeatureInGroup addFiG = new AddFeatureInGroup("test2", HyFeatureTypeEnum.MANDATORY, frontDistanceSensorsAlternativeGroup,
 				timestamp, tfm);
+		addFiG.undo();
 		addFiG.execute();
+		addFiG.undo();
 
 		AddFeatureWithGroup addFwG = new AddFeatureWithGroup("test3", HyFeatureTypeEnum.MANDATORY,
 				infotainmentFeature, timestamp, tfm);
+		addFwG.undo();
 		addFwG.execute();
+		addFwG.undo();
 	}
 	
 	public static void basicOperationDeleteTest(HyFeatureModel tfm) {
@@ -40,7 +44,9 @@ public class BasicOpertationTests extends TestCases {
 		timestamp = calendar.getTime();
 		
 		DeleteFeatureInGroup deleteFiG = new DeleteFeatureInGroup(infotainmentFeature, timestamp);
+		deleteFiG.undo();
 		deleteFiG.execute();
+		deleteFiG.undo();
 		
 		calendar.set(2015, 0, 20, 23, 59, 59);
 		timestamp = calendar.getTime();
@@ -51,7 +57,9 @@ public class BasicOpertationTests extends TestCases {
 		calendar.set(2016, 0, 20, 23, 59, 59);
 		timestamp = calendar.getTime();
 		DeleteFeatureWithGroup deleteFwG = new DeleteFeatureWithGroup(addFwG.getFeature(), addFwG.getGroup(), timestamp);
+		deleteFwG.undo();
 		deleteFwG.execute();
+		deleteFwG.undo();
 	}
 	
 	public static void basicOperationRenameTest(HyFeatureModel tfm) {
@@ -60,7 +68,9 @@ public class BasicOpertationTests extends TestCases {
 		timestamp = calendar.getTime();
 		
 		Rename rename = new Rename(infotainmentFeature, "Test 123", timestamp);
+		rename.undo();
 		rename.execute();
+		rename.undo();
 	}
 	
 	public static void basicOperationChangeTypeTest(HyFeatureModel tfm) {
@@ -69,10 +79,14 @@ public class BasicOpertationTests extends TestCases {
 		timestamp = calendar.getTime();
 		
 		ChangeFeatureType changeTypeF = new ChangeFeatureType(infotainmentFeature, HyFeatureTypeEnum.OPTIONAL, timestamp);
+		changeTypeF.undo();
 		changeTypeF.execute();
+		changeTypeF.undo();
 		
 		ChangeGroupType changeTypeG = new ChangeGroupType(frontDistanceSensorsAlternativeGroup, HyGroupTypeEnum.OR, timestamp);
+		changeTypeG.undo();
 		changeTypeG.execute();
+		changeTypeG.undo();
 	}
 	
 	public static void basicOperationMoveTest(HyFeatureModel tfm) {
@@ -108,4 +122,5 @@ public class BasicOpertationTests extends TestCases {
 		moveGroup.execute();
 		
 	}
+
 }

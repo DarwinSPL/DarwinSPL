@@ -60,7 +60,16 @@ public class ChangeGroupType extends ComplexOperation {
 	 */
 	@Override
 	public void undo() {
-		// TODO Auto-generated method stub
+		if (newGroupType == null) {
+			return;
+		}
+		
+		for (EvolutionOperation evolutionOperation : evoOps) {
+			evolutionOperation.undo();
+		}
+		
+		oldGroupType = null;
+		newGroupType = null;
 
 	}
 	
