@@ -3,9 +3,7 @@
  */
 package de.darwinspl.feature.evolution.basic.operations;
 
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 import de.darwinspl.feature.evolution.atomic.operations.AddFeature;
 import de.darwinspl.feature.evolution.complex.operations.AddToGroupComposition;
