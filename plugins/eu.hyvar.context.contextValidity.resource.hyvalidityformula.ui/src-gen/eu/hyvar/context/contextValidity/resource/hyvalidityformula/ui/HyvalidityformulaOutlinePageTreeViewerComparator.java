@@ -74,7 +74,7 @@ public class HyvalidityformulaOutlinePageTreeViewerComparator extends ViewerComp
 		return packageID;
 	}
 	
-	public Comparator<?> getComparator() {
+	public Comparator<? super String> getComparator() {
 		return this.comparator;
 	}
 	
