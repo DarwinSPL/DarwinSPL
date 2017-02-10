@@ -8,8 +8,8 @@ import java.util.Date;
 import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.EList;
 
-import de.darwinspl.feature.evolution.atomic.operations.AddFeature;
-import de.darwinspl.feature.evolution.atomic.operations.AddGroup;
+import de.darwinspl.feature.evolution.complex.operations.AddFeatureWithNameAndType;
+import de.darwinspl.feature.evolution.complex.operations.AddGroupWithTypeChildAndComposition;
 import de.darwinspl.feature.evolution.invoker.EvolutionOperation;
 import eu.hyvar.feature.HyFeature;
 import eu.hyvar.feature.HyFeatureModel;
@@ -56,13 +56,13 @@ public class AddFeatureWithGroup extends ComplexOperation {
 	@Override
 	public void execute() {
 
-		AddFeature newFeature = new AddFeature(name, featureType, timestamp);
+		AddFeatureWithNameAndType newFeature = new AddFeatureWithNameAndType(name, featureType, timestamp);
 		newFeature.execute();
 		feature = newFeature.getFeature();
 		
 		//Only the new created feature is member of the new group
 		features.add(feature);	
-		AddGroup newGroup = new AddGroup(groupType, parent, features, timestamp, tfm);
+		AddGroupWithTypeChildAndComposition newGroup = new AddGroupWithTypeChildAndComposition(groupType, parent, features, timestamp, tfm);
 		newGroup.execute();
 		
 		addToComposition(newFeature);

@@ -8,8 +8,8 @@ import java.util.Date;
 import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.EList;
 
-import de.darwinspl.feature.evolution.atomic.operations.AddGroup;
-import de.darwinspl.feature.evolution.atomic.operations.DeleteGroup;
+import de.darwinspl.feature.evolution.complex.operations.AddGroupWithTypeChildAndComposition;
+import de.darwinspl.feature.evolution.complex.operations.DeleteGroupWithTypeChildAndComposition;
 import de.darwinspl.feature.evolution.invoker.EvolutionOperation;
 import eu.hyvar.feature.HyFeature;
 import eu.hyvar.feature.HyFeatureModel;
@@ -48,12 +48,12 @@ public class MoveFeatureDeleteAndAddGroup extends ComplexOperation {
 	@Override
 	public void execute() {
 		
-		DeleteGroup deleteGroup = new DeleteGroup(oldGroup, timestamp);
+		DeleteGroupWithTypeChildAndComposition deleteGroup = new DeleteGroupWithTypeChildAndComposition(oldGroup, timestamp);
 		
 		EList<HyFeature> features = new BasicEList<HyFeature>();
 		features.add(feature);
 		//add a new group for the feature und the parent. The group type must be AND because at this point the group will only have one feature in his composition
-		AddGroup addGroup = new AddGroup(HyGroupTypeEnum.AND, parent, features, timestamp, tfm);
+		AddGroupWithTypeChildAndComposition addGroup = new AddGroupWithTypeChildAndComposition(HyGroupTypeEnum.AND, parent, features, timestamp, tfm);
 		
 		addToComposition(deleteGroup);
 		addToComposition(addGroup);

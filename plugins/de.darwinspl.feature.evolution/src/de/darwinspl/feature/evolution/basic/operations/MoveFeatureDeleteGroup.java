@@ -5,8 +5,8 @@ package de.darwinspl.feature.evolution.basic.operations;
 
 import java.util.Date;
 
-import de.darwinspl.feature.evolution.atomic.operations.DeleteGroup;
 import de.darwinspl.feature.evolution.complex.operations.AddToGroupComposition;
+import de.darwinspl.feature.evolution.complex.operations.DeleteGroupWithTypeChildAndComposition;
 import de.darwinspl.feature.evolution.invoker.EvolutionOperation;
 import eu.hyvar.feature.HyFeature;
 import eu.hyvar.feature.HyGroup;
@@ -43,7 +43,7 @@ public class MoveFeatureDeleteGroup extends ComplexOperation {
 	public void execute() {
 		
 		//Delete the current Group of the feature
-		DeleteGroup deleteGroup = new DeleteGroup(group, timestamp);
+		DeleteGroupWithTypeChildAndComposition deleteGroup = new DeleteGroupWithTypeChildAndComposition(group, timestamp);
 		//add the feature to the groupcomposition
 		AddToGroupComposition updateGroupComposition = new AddToGroupComposition(newGroupCompositionBefore, feature, timestamp);
 		

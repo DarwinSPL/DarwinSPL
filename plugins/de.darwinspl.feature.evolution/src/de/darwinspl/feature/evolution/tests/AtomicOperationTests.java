@@ -6,20 +6,20 @@ package de.darwinspl.feature.evolution.tests;
 import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.EList;
 
-import de.darwinspl.feature.evolution.atomic.operations.AddFeature;
 import de.darwinspl.feature.evolution.atomic.operations.AddFeatureChild;
 import de.darwinspl.feature.evolution.atomic.operations.AddFeatureType;
-import de.darwinspl.feature.evolution.atomic.operations.AddGroup;
 import de.darwinspl.feature.evolution.atomic.operations.AddGroupComposition;
 import de.darwinspl.feature.evolution.atomic.operations.AddGroupType;
 import de.darwinspl.feature.evolution.atomic.operations.AddName;
-import de.darwinspl.feature.evolution.atomic.operations.DeleteFeature;
 import de.darwinspl.feature.evolution.atomic.operations.DeleteFeatureChild;
 import de.darwinspl.feature.evolution.atomic.operations.DeleteFeatureType;
-import de.darwinspl.feature.evolution.atomic.operations.DeleteGroup;
 import de.darwinspl.feature.evolution.atomic.operations.DeleteGroupComposition;
 import de.darwinspl.feature.evolution.atomic.operations.DeleteGroupType;
 import de.darwinspl.feature.evolution.atomic.operations.DeleteName;
+import de.darwinspl.feature.evolution.complex.operations.AddFeatureWithNameAndType;
+import de.darwinspl.feature.evolution.complex.operations.AddGroupWithTypeChildAndComposition;
+import de.darwinspl.feature.evolution.complex.operations.DeleteFeatureWithNameAndType;
+import de.darwinspl.feature.evolution.complex.operations.DeleteGroupWithTypeChildAndComposition;
 import eu.hyvar.feature.HyFeature;
 import eu.hyvar.feature.HyFeatureModel;
 import eu.hyvar.feature.HyFeatureTypeEnum;
@@ -44,13 +44,13 @@ public class AtomicOperationTests extends TestCases {
 		featureType.execute();
 		fc.execute();
 
-		AddFeature addF = new AddFeature("test1", HyFeatureTypeEnum.OPTIONAL, timestamp);
+		AddFeatureWithNameAndType addF = new AddFeatureWithNameAndType("test1", HyFeatureTypeEnum.OPTIONAL, timestamp);
 		addF.execute();
 
 		EList<HyFeature> features = new BasicEList<HyFeature>();
 		features.addAll(frontDistanceSensorsAlternativeGroup.getParentOf().get(0).getFeatures());
 		features.add(addF.getFeature());
-		AddGroup addG = new AddGroup(HyGroupTypeEnum.ALTERNATIVE, infotainmentFeature, features, timestamp, tfm);
+		AddGroupWithTypeChildAndComposition addG = new AddGroupWithTypeChildAndComposition(HyGroupTypeEnum.ALTERNATIVE, infotainmentFeature, features, timestamp, tfm);
 		addG.execute();
 	}
 	
@@ -76,17 +76,17 @@ public class AtomicOperationTests extends TestCases {
 		DeleteName deleteName = new DeleteName(infotainmentFeature.getNames().get(0), timestamp);
 		deleteName.execute();
 		
-		AddFeature addF = new AddFeature("test1", HyFeatureTypeEnum.OPTIONAL, timestamp);
+		AddFeatureWithNameAndType addF = new AddFeatureWithNameAndType("test1", HyFeatureTypeEnum.OPTIONAL, timestamp);
 		addF.execute();
-		DeleteFeature deleteF = new DeleteFeature(addF.getFeature(), timestamp);
+		DeleteFeatureWithNameAndType deleteF = new DeleteFeatureWithNameAndType(addF.getFeature(), timestamp);
 		deleteF.execute();
 		
 		EList<HyFeature> features = new BasicEList<HyFeature>();
 		features.addAll(frontDistanceSensorsAlternativeGroup.getParentOf().get(0).getFeatures());
 		features.add(addF.getFeature());
-		AddGroup addG = new AddGroup(HyGroupTypeEnum.ALTERNATIVE, infotainmentFeature, features, timestamp, tfm);
+		AddGroupWithTypeChildAndComposition addG = new AddGroupWithTypeChildAndComposition(HyGroupTypeEnum.ALTERNATIVE, infotainmentFeature, features, timestamp, tfm);
 		addG.execute();
-		DeleteGroup deleteG = new DeleteGroup(addG.getGroup(), timestamp);
+		DeleteGroupWithTypeChildAndComposition deleteG = new DeleteGroupWithTypeChildAndComposition(addG.getGroup(), timestamp);
 		deleteG.execute();
 	}
 	
@@ -111,7 +111,7 @@ public class AtomicOperationTests extends TestCases {
 		fc.execute();
 		fc.undo();
 		
-		AddFeature addF = new AddFeature("test1", HyFeatureTypeEnum.OPTIONAL, timestamp);
+		AddFeatureWithNameAndType addF = new AddFeatureWithNameAndType("test1", HyFeatureTypeEnum.OPTIONAL, timestamp);
 		addF.undo();	//Shouldn't do anything
 		addF.execute();
 		addF.undo();
@@ -131,7 +131,7 @@ public class AtomicOperationTests extends TestCases {
 		gc.execute();
 		gt.undo();
 		
-		AddGroup addG = new AddGroup(HyGroupTypeEnum.ALTERNATIVE, infotainmentFeature, features, timestamp, tfm);
+		AddGroupWithTypeChildAndComposition addG = new AddGroupWithTypeChildAndComposition(HyGroupTypeEnum.ALTERNATIVE, infotainmentFeature, features, timestamp, tfm);
 		addG.undo();	//Shouldn't do anything
 		addG.execute();
 		addG.undo();

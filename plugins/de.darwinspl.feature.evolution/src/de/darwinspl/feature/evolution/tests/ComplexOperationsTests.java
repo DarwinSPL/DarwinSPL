@@ -3,8 +3,8 @@
  */
 package de.darwinspl.feature.evolution.tests;
 
-import de.darwinspl.feature.evolution.atomic.operations.AddFeature;
 import de.darwinspl.feature.evolution.basic.operations.AddFeatureWithGroup;
+import de.darwinspl.feature.evolution.complex.operations.AddFeatureWithNameAndType;
 import de.darwinspl.feature.evolution.complex.operations.AddToGroupComposition;
 import de.darwinspl.feature.evolution.complex.operations.RemoveFromGroupComposition;
 import eu.hyvar.feature.HyFeatureModel;
@@ -24,7 +24,7 @@ public class ComplexOperationsTests extends TestCases{
 				infotainmentFeature, timestamp, tfm);
 		addFwG.execute();
 		
-		AddFeature addF = new AddFeature("test1", HyFeatureTypeEnum.OPTIONAL, timestamp);
+		AddFeatureWithNameAndType addF = new AddFeatureWithNameAndType("test1", HyFeatureTypeEnum.OPTIONAL, timestamp);
 		addF.execute();
 		
 		//Add new Feature to the group from the basic op add(wG)

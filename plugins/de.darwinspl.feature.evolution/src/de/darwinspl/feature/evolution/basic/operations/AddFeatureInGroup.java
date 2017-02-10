@@ -5,7 +5,7 @@ package de.darwinspl.feature.evolution.basic.operations;
 
 import java.util.Date;
 
-import de.darwinspl.feature.evolution.atomic.operations.AddFeature;
+import de.darwinspl.feature.evolution.complex.operations.AddFeatureWithNameAndType;
 import de.darwinspl.feature.evolution.complex.operations.AddToGroupComposition;
 import de.darwinspl.feature.evolution.invoker.EvolutionOperation;
 import eu.hyvar.feature.HyFeature;
@@ -50,7 +50,7 @@ public class AddFeatureInGroup extends ComplexOperation {
 	@Override
 	public void execute() {
 		
-		AddFeature newFeature = new AddFeature(name, featureType, timestamp);
+		AddFeatureWithNameAndType newFeature = new AddFeatureWithNameAndType(name, featureType, timestamp);
 		//Iterate through the group composition list of the group and find the element where no until is that. This element must by the current valid composition
 		for (HyGroupComposition composition : group.getParentOf()) {
 			if (composition.getValidUntil() == null) {

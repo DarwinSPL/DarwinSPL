@@ -31,7 +31,7 @@ public class Move extends ComplexOperation {
 	 */
 	@Override
 	public void execute() {
-		// TODO Auto-generated method stub
+		
 
 	}
 
