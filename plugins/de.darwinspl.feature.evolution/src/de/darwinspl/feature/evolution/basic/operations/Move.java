@@ -25,9 +25,9 @@ import eu.hyvar.feature.HyGroupTypeEnum;
 public class Move extends ComplexOperation {
 
 	private HyFeature feature, parent;
-	private HyGroup group;
+	private HyGroup newGroup;	//oldGroup,
 	private HyGroupComposition oldGroupCompositionBefore, newGroupCompositionBefore;	//group composition before the evolution
-	
+	//private HyGroupComposition oldGroupCompositionAfter, newGroupCompositionAfter;		//group composition after the evolution
 	/**
 	 * 
 	 * @param feature which should be move
@@ -40,7 +40,7 @@ public class Move extends ComplexOperation {
 		
 		this.feature = feature;
 		this.parent = parent;
-		this.group = group;
+		this.newGroup = group;
 		this.timestamp = timestamp;
 		this.tfm = tfm;
 		
@@ -72,7 +72,7 @@ public class Move extends ComplexOperation {
 		}
 		
 		//check if a targeting group was selected, otherwise a new group must be create.
-		if (group == null) {
+		if (newGroup == null) {
 			
 			EList<HyFeature> features = new BasicEList<HyFeature>();
 			features.add(feature);
@@ -83,7 +83,7 @@ public class Move extends ComplexOperation {
 			
 		} else {
 			
-			for (HyGroupComposition composition : group.getParentOf()) {
+			for (HyGroupComposition composition : newGroup.getParentOf()) {
 				if (composition.getValidUntil() == null) {
 					newGroupCompositionBefore = composition;
 				}
@@ -127,8 +127,8 @@ public class Move extends ComplexOperation {
 	public HyFeature getParent() {
 		return parent;
 	}
-	public HyGroup getGroup() {
-		return group;
+	public HyGroup getNewGroup() {
+		return newGroup;
 	}
 	public HyGroupComposition getOldGroupCompositionBefore() {
 		return oldGroupCompositionBefore;
