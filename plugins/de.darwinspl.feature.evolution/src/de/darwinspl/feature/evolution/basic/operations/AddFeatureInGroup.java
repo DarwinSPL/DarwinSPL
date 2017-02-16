@@ -50,7 +50,7 @@ public class AddFeatureInGroup extends ComplexOperation {
 	@Override
 	public void execute() {
 		
-		AddFeatureWithNameAndType newFeature = new AddFeatureWithNameAndType(name, featureType, timestamp);
+		AddFeatureWithNameAndType newFeature = new AddFeatureWithNameAndType(name, featureType, timestamp, tfm);
 		//Iterate through the group composition list of the group and find the element where no until is that. This element must by the current valid composition
 		for (HyGroupComposition composition : group.getParentOf()) {
 			if (composition.getValidUntil() == null) {

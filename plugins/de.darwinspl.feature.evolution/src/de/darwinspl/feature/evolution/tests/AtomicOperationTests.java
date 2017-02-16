@@ -44,14 +44,14 @@ public class AtomicOperationTests extends TestCases {
 		featureType.execute();
 		fc.execute();
 
-		AddFeatureWithNameAndType addF = new AddFeatureWithNameAndType("test1", HyFeatureTypeEnum.OPTIONAL, timestamp);
-		addF.execute();
-
-		EList<HyFeature> features = new BasicEList<HyFeature>();
-		features.addAll(frontDistanceSensorsAlternativeGroup.getParentOf().get(0).getFeatures());
-		features.add(addF.getFeature());
-		AddGroupWithTypeChildAndComposition addG = new AddGroupWithTypeChildAndComposition(HyGroupTypeEnum.ALTERNATIVE, infotainmentFeature, features, timestamp, tfm);
-		addG.execute();
+//		AddFeatureWithNameAndType addF = new AddFeatureWithNameAndType("test1", HyFeatureTypeEnum.OPTIONAL, timestamp);
+//		addF.execute();
+//
+//		EList<HyFeature> features = new BasicEList<HyFeature>();
+//		features.addAll(frontDistanceSensorsAlternativeGroup.getParentOf().get(0).getFeatures());
+//		features.add(addF.getFeature());
+//		AddGroupWithTypeChildAndComposition addG = new AddGroupWithTypeChildAndComposition(HyGroupTypeEnum.ALTERNATIVE, infotainmentFeature, features, timestamp, tfm);
+//		addG.execute();
 	}
 	
 	public static void atomicDeleteTests(HyFeatureModel tfm) {
@@ -76,7 +76,7 @@ public class AtomicOperationTests extends TestCases {
 		DeleteName deleteName = new DeleteName(infotainmentFeature.getNames().get(0), timestamp);
 		deleteName.execute();
 		
-		AddFeatureWithNameAndType addF = new AddFeatureWithNameAndType("test1", HyFeatureTypeEnum.OPTIONAL, timestamp);
+		AddFeatureWithNameAndType addF = new AddFeatureWithNameAndType("test1", HyFeatureTypeEnum.OPTIONAL, timestamp, tfm);
 		addF.execute();
 		DeleteFeatureWithNameAndType deleteF = new DeleteFeatureWithNameAndType(addF.getFeature(), timestamp);
 		deleteF.execute();
@@ -111,7 +111,7 @@ public class AtomicOperationTests extends TestCases {
 		fc.execute();
 		fc.undo();
 		
-		AddFeatureWithNameAndType addF = new AddFeatureWithNameAndType("test1", HyFeatureTypeEnum.OPTIONAL, timestamp);
+		AddFeatureWithNameAndType addF = new AddFeatureWithNameAndType("test1", HyFeatureTypeEnum.OPTIONAL, timestamp, tfm);
 		addF.undo();	//Shouldn't do anything
 		addF.execute();
 		addF.undo();

@@ -56,7 +56,7 @@ public class AddFeatureWithGroup extends ComplexOperation {
 	@Override
 	public void execute() {
 
-		AddFeatureWithNameAndType newFeature = new AddFeatureWithNameAndType(name, featureType, timestamp);
+		AddFeatureWithNameAndType newFeature = new AddFeatureWithNameAndType(name, featureType, timestamp, tfm);
 		newFeature.execute();
 		feature = newFeature.getFeature();
 		

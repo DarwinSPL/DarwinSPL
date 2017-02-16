@@ -15,8 +15,11 @@ import de.darwinspl.feature.evolution.complex.operations.RemoveFromGroupComposit
 import de.darwinspl.feature.evolution.invoker.EvolutionOperation;
 import eu.hyvar.feature.HyFeature;
 import eu.hyvar.feature.HyFeatureModel;
+import eu.hyvar.feature.HyFeatureType;
+import eu.hyvar.feature.HyFeatureTypeEnum;
 import eu.hyvar.feature.HyGroup;
 import eu.hyvar.feature.HyGroupComposition;
+import eu.hyvar.feature.HyGroupType;
 import eu.hyvar.feature.HyGroupTypeEnum;
 
 /**
@@ -93,7 +96,36 @@ public class Move extends ComplexOperation {
 			AddToGroupComposition addToGroupComposition = new AddToGroupComposition(newGroupCompositionBefore, feature, timestamp);
 			addToComposition(addToGroupComposition);
 			
-		}
+
+			/*check feature type, if the feature type is mandatory and the new group will be an alternative or an or group,
+			 *  the feature type has to be change into optional. Otherwise it would be end in conflicting configurations
+			*/
+			
+			HyFeatureType featureType = null;
+			//get valid feature type of the feature
+			for (HyFeatureType type : feature.getTypes()) {
+				if (type.getValidUntil() == null) {
+					featureType = type;
+					break;
+				}
+			}
+			
+			if (featureType.getType() == HyFeatureTypeEnum.MANDATORY) {
+			
+				HyGroupType groupType = null;
+				for (HyGroupType type : newGroup.getTypes()) {
+					if (type.getValidUntil() == null) {
+						groupType = type;
+						break;
+					}
+				}
+				
+				if (groupType.getType() != HyGroupTypeEnum.AND) {
+					ChangeFeatureType changeTypeToOptional = new ChangeFeatureType(feature, HyFeatureTypeEnum.OPTIONAL, timestamp);
+					addToComposition(changeTypeToOptional);
+				}
+			}
+		}		
 		
 		for (EvolutionOperation evolutionOperation : evoOps) {
 			evolutionOperation.execute();

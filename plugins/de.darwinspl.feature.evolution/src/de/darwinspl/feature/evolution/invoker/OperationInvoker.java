@@ -39,69 +39,39 @@ public class OperationInvoker {
 	//Add all evolution operations for the extension
 	
 	/**
-	 * provide add(wG) operation as command for the extension
+	 * provide add operation as command for the extension
 	 * @param name of the new feature
 	 * @param type of the new feature
+	 * @param parent is needed, when the new feature will be add in a new group
+	 * @param group is needed, if the feature should be add in an existing group, otherwise it must be null
 	 * @param timestamp since the feature is valid
 	 * @param tfm the corresponding model
 	 * @return the tfm with the new feature
 	 */
-	public HyFeatureModel addFeature(String name, HyFeatureTypeEnum type, HyFeature parent, Date timestamp, HyFeatureModel tfm) {
+	public HyFeatureModel addFeature(String name, HyFeatureTypeEnum type, HyFeature parent, HyGroup group, Date timestamp, HyFeatureModel tfm) {
 		
-		ComplexOperation addFeatureWithGroup = new AddFeatureWithGroup(name, type, parent, timestamp, tfm);
-		evoOps.add(addFeatureWithGroup);
-		addFeatureWithGroup.execute();
+		ComplexOperation addFeature = new Add(name, type, parent, group, timestamp, tfm);
+		evoOps.add(addFeature);
+		addFeature.execute();
 		//add the operation as next command in the history
-		commandHistory.add(counterOfExecuteCommands++, addFeatureWithGroup);
+		commandHistory.add(counterOfExecuteCommands++, addFeature);
 		
 		return tfm;
 	}
 	
 	/**
-	 * provide add(iG) operation as command for the extension
-	 * @param name of the new feature
-	 * @param type of the new feature
-	 * @param group in which the feature should be added
-	 * @param timestamp since the feature is valid
-	 * @param tfm the corresponding model
-	 * @return the tfm with the new feature
-	 */
-	public HyFeatureModel addFeature(String name, HyFeatureTypeEnum type, HyGroup group, Date timestamp, HyFeatureModel tfm) {
-		
-		ComplexOperation addFeatureInGroup = new AddFeatureInGroup(name, type, group, timestamp, tfm);
-		evoOps.add(addFeatureInGroup);
-		addFeatureInGroup.execute();
-		commandHistory.add(counterOfExecuteCommands++, addFeatureInGroup);
-		
-		return tfm;
-	}
-	
-	/**
-	 * Delete a valid feature from a group, where the group are still existing after the remove of the feature
+	 * Delete a valid feature.
 	 * @param feature
 	 * @param timestamp
 	 */
 	public void deleteFeature(HyFeature feature, Date timestamp) {
 		
-		ComplexOperation deleteFeatureInGroup = new DeleteFeatureInGroup(feature, timestamp);
-		evoOps.add(deleteFeatureInGroup);
-		deleteFeatureInGroup.execute();
-		commandHistory.add(counterOfExecuteCommands++, deleteFeatureInGroup);
+		ComplexOperation deleteFeature = new Delete(feature, timestamp);
+		evoOps.add(deleteFeature);
+		deleteFeature.execute();
+		commandHistory.add(counterOfExecuteCommands++, deleteFeature);
 	}
 	
-	/**
-	 * Delete a valid feature and the group of the feature
-	 * @param feature
-	 * @param group
-	 * @param timestamp
-	 */
-	public void deleteFeature(HyFeature feature, HyGroup group, Date timestamp) {
-		
-		ComplexOperation deleteFeatureWithGroup = new DeleteFeatureWithGroup(feature,group, timestamp);
-		evoOps.add(deleteFeatureWithGroup);
-		deleteFeatureWithGroup.execute();
-		commandHistory.add(counterOfExecuteCommands++, deleteFeatureWithGroup);
-	}
 	
 	/**
 	 * rename a feature
@@ -146,64 +116,21 @@ public class OperationInvoker {
 	}
 	
 	/**
-	 * On execute the operation will move a Feature from one group into another. The group, which are contains the feature before the evolution operation will still exist after the evolution.
+	 * On execute the operation will move a Feature from one group into another. 
 	 * @param feature which should be move 
-	 * @param groupComposition new group composition of the feature
+	 * @param parent of the new feature
+	 * @param group if the feature should be moved in an existing group, the group must be delivered, otherwise it's null
 	 * @param timestamp
 	 */
-	public void move(HyFeature feature, HyGroupComposition groupComposition, Date timestamp) {
+	public void move(HyFeature feature, HyFeature parent, HyGroup group, Date timestamp, HyFeatureModel tfm) {
 		
-		ComplexOperation moveFeature = new MoveFeature(feature, groupComposition, timestamp);
+		ComplexOperation moveFeature = new Move(feature, parent, group, timestamp, tfm);
 		evoOps.add(moveFeature);
 		moveFeature.execute();
 		commandHistory.add(counterOfExecuteCommands++, moveFeature);
+		
 	}
 	
-	/**
-	 *  Move a feature from a group, which will still exist after the evolution, under a feature where no group exists or fit.
-	 * @param feature which should be move 
-	 * @param parent of the new group
-	 * @param timestamp
-	 * @param tfm the tfm is needed because a new group will be added.
-	 */
-	public void move(HyFeature feature, HyFeature parent, Date timestamp, HyFeatureModel tfm) {
-		
-		ComplexOperation moveFeatureAddGroup = new MoveFeatureAddGroup(feature, parent, timestamp, tfm);
-		evoOps.add(moveFeatureAddGroup);
-		moveFeatureAddGroup.execute();
-		commandHistory.add(counterOfExecuteCommands++, moveFeatureAddGroup);
-	}
-	
-	/**
-	 * Move a feature from a group which will have no features in his composition after the evolution, to another group.
-	 * @param feature which should be move 
-	 * @param group which will be deleted
-	 * @param groupComposition new groupComposition of the feature
-	 * @param timestamp
-	 */
-	public void move(HyFeature feature, HyGroup group, HyGroupComposition groupComposition, Date timestamp) {
-		
-		ComplexOperation moveFeatureDeleteGroup = new MoveFeatureDeleteGroup(feature, group, groupComposition, timestamp);
-		evoOps.add(moveFeatureDeleteGroup);
-		moveFeatureDeleteGroup.execute();
-		commandHistory.add(counterOfExecuteCommands++, moveFeatureDeleteGroup);
-	}
-	
-	/**
-	 * Move a feature from a group which will have no features in his composition after the evolution, under a feature where no group exists or fit.
-	 * @param feature which should be move
-	 * @param group which should be delete
-	 * @param parent of the new group
-	 * @param timestamp
-	 * @param tfm
-	 */
-	public void move(HyFeature feature, HyGroup group, HyFeature parent, Date timestamp, HyFeatureModel tfm) {
-		
-		ComplexOperation moveFeatureDeleteAndAddGroup = new MoveFeatureDeleteAndAddGroup(feature, group, parent, timestamp, tfm);
-		evoOps.add(moveFeatureDeleteAndAddGroup);
-		moveFeatureDeleteAndAddGroup.execute();
-		commandHistory.add(counterOfExecuteCommands++, moveFeatureDeleteAndAddGroup);
-	}
 	
 	/**
 	 * Move a group.

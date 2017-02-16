@@ -31,11 +31,12 @@ public class AddFeatureWithNameAndType extends ComplexOperation {
 
 	private HyFeature feature;
 	
-	public AddFeatureWithNameAndType(String name, HyFeatureTypeEnum type, Date timestamp) {
+	public AddFeatureWithNameAndType(String name, HyFeatureTypeEnum type, Date timestamp, HyFeatureModel tfm) {
 		
 		this.featureName = name;
 		this.type = type;
 		this.timestamp = timestamp;
+		this.tfm = tfm;
 		
 	}
 	

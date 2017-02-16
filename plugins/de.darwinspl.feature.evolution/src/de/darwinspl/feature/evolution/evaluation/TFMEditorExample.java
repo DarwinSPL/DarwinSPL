@@ -34,7 +34,8 @@ public class TFMEditorExample {
 		HyFeatureModel tfm = factory.createHyFeatureModel();
 		
 		//create root feature
-		AddFeatureWithNameAndType car = new AddFeatureWithNameAndType("Car", HyFeatureTypeEnum.MANDATORY, timestamp);
+		AddFeatureWithNameAndType car = new AddFeatureWithNameAndType("Car", HyFeatureTypeEnum.MANDATORY, timestamp, tfm);
+		car.execute();
 		HyRootFeature root = HyFeatureCreationUtil.createRootFeature(car.getFeature(), timestamp, null, null);
 		tfm.getRootFeature().add(root);
 		
@@ -86,5 +87,10 @@ public class TFMEditorExample {
 		AddFeatureInGroup gearAdvice = new AddFeatureInGroup("GearAdvice", HyFeatureTypeEnum.MANDATORY, nav.getGroup(), timestamp, tfm);
 		gearAdvice.execute();
 		
+	}
+	
+	public static void main(String[] args) {
+		
+		createTFM();
 	}
 }

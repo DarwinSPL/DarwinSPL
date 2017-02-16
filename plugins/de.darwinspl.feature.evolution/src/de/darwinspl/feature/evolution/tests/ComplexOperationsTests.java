@@ -24,7 +24,7 @@ public class ComplexOperationsTests extends TestCases{
 				infotainmentFeature, timestamp, tfm);
 		addFwG.execute();
 		
-		AddFeatureWithNameAndType addF = new AddFeatureWithNameAndType("test1", HyFeatureTypeEnum.OPTIONAL, timestamp);
+		AddFeatureWithNameAndType addF = new AddFeatureWithNameAndType("test1", HyFeatureTypeEnum.OPTIONAL, timestamp, tfm);
 		addF.execute();
 		
 		//Add new Feature to the group from the basic op add(wG)

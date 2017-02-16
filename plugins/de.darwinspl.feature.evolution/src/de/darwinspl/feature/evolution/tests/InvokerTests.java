@@ -15,7 +15,7 @@ public class InvokerTests extends TestCases {
 	public static void invokerTests(HyFeatureModel tfm) {
 		OperationInvoker invoker = new OperationInvoker();
 		for (int i = 0; i < 11; i++) {
-			invoker.addFeature("test4", HyFeatureTypeEnum.MANDATORY, frontDistanceSensorsAlternativeGroup, timestamp, tfm);
+			//invoker.addFeature("test4", HyFeatureTypeEnum.MANDATORY, frontDistanceSensorsAlternativeGroup, timestamp, tfm);
 		}
 	}
 }
