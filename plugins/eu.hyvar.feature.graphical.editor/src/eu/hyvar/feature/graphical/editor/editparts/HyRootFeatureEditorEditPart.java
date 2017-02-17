@@ -35,16 +35,15 @@ public class HyRootFeatureEditorEditPart extends HyRootFeatureEditPart{
 	@Override
 	protected void createEditPolicies(){
 		super.createEditPolicies();
+
 		installEditPolicy(EditPolicy.COMPONENT_ROLE, new HyFeatureComponentEditPolicy());
 		installEditPolicy(EditPolicy.GRAPHICAL_NODE_ROLE, new HyFeatureGraphicalNodeEditPolicy(editor, featureModel));
 		installEditPolicy(EditPolicy.DIRECT_EDIT_ROLE, new HyFeatureDirectEditPolicy());
-		installEditPolicy(EditPolicy.LAYOUT_ROLE, new HyFeatureXYLayoutPolicy());
-		
+		installEditPolicy(EditPolicy.LAYOUT_ROLE, new HyFeatureXYLayoutPolicy());		
 	}
 	
 	@Override
 	public void propertyChange(PropertyChangeEvent evt) {
-		//this.setSize();
 		this.refreshVisuals();
 	}
 	
@@ -56,13 +55,12 @@ public class HyRootFeatureEditorEditPart extends HyRootFeatureEditPart{
 			
 		}
 		if(req.getType() == RequestConstants.REQ_OPEN){
-			HyFeatureFigure figure = (HyFeatureFigure)getFigure();
-			if(figure.calculateVariationTypeCircleBounds().contains(((SelectionRequest)req).getLocation())){
-				HyFeatureWrapped feature = (HyFeatureWrapped)getModel();
-				Date date = editor.getCurrentSelectedDate();
+			HyFeatureWrapped feature = (HyFeatureWrapped)getModel();
+			Date date = editor.getCurrentSelectedDate();
+			
+			if(feature.calculateVariationTypeCircleBounds(date).contains(((SelectionRequest)req).getLocation())){
+
 				HyFeatureType type = HyEvolutionUtil.getValidTemporalElement(feature.getWrappedModelElement().getTypes(), date);
-				
-		
 				type.setValidUntil(date);
 				
 				HyFeatureType newType = HyFeatureFactory.eINSTANCE.createHyFeatureType();

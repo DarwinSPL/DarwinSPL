@@ -79,16 +79,34 @@ public class IdentifierWithDateUtil {
 		
 		if(identifierWithDate.contains(DATE_SEPARATOR_TOKEN)) {
 			String[] split = splitByDateToken(identifierWithDate);
-			plainIdentifier = split[0];
-			String dateString = split[1];
+			String dateString;
+			if(split.length==1) {
+				plainIdentifier = "";
+				dateString = null;
+			} else {
+				plainIdentifier = split[0];
+				dateString = split[1];		
+			}
 			date = dateStringToDate(dateString);
 		} 
 		else {
 			plainIdentifier = identifierWithDate;
 		}
 		
+		plainIdentifier = removeQuotationMarks(plainIdentifier);
+		
 		Tuple<String, Date> identifierAndDate = new Tuple<String, Date>(plainIdentifier, date);
 		return identifierAndDate;
 	}
 	
+	
+
+	
+	public static String removeQuotationMarks(String string) {
+		if (string.startsWith("\"") && string.endsWith("\"")) {
+			return string.substring(1, string.length() - 1);
+		}
+		
+		return string;
+	}
 }

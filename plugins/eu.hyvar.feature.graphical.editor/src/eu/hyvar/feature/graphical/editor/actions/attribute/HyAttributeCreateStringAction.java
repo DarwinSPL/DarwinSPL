@@ -1,5 +1,7 @@
 package eu.hyvar.feature.graphical.editor.actions.attribute;
 
+import java.util.Date;
+
 import org.eclipse.gef.Request;
 
 import eu.hyvar.evolution.HyEvolutionFactory;
@@ -25,10 +27,15 @@ public class HyAttributeCreateStringAction extends HyAttributeCreateAction{
 
 	@Override
 	protected HyFeatureAttribute createNewAttribute(){
+		Date date = editor.getCurrentSelectedDate();
+		if(date.equals(new Date(Long.MIN_VALUE)))
+			date = null;
+		
 		HyFeatureAttribute attribute = HyFeatureFactory.eINSTANCE.createHyStringAttribute();
 		attribute.setValidSince(editor.getCurrentSelectedDate());
 		HyName name = HyEvolutionFactory.eINSTANCE.createHyName();
 		name.setName("New String Attribute");
+		name.setValidSince(date);
 		attribute.getNames().add(name);
 				
 		return attribute;

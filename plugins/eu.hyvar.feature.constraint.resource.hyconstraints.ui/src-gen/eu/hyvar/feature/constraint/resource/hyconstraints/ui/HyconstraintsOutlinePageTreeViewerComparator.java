@@ -74,7 +74,7 @@ public class HyconstraintsOutlinePageTreeViewerComparator extends ViewerComparat
 		return packageID;
 	}
 	
-	public Comparator<?> getComparator() {
+	public Comparator<? super String> getComparator() {
 		return this.comparator;
 	}
 	

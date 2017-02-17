@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   <extension
+         point="org.eclipse.ui.editors">
+      <editor
+            class="eu.hyvar.feature.graphical.configurator.viewer.HyFeatureModelConfiguratorViewer"
+            default="true"
+            extensions="hyconfigurationmodel"
+            icon="icons/icon_configuration.png"
+            id="eu.hyvar.feature.graphical.configurator.viewer"
+            name="DarwinSPL Configurator Viewer">
+      </editor>
+   </extension>
+
+</plugin>

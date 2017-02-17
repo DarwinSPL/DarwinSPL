@@ -24,6 +24,7 @@ import eu.hyvar.feature.graphical.editor.managers.HyFeatureDirectEditManager;
 import eu.hyvar.feature.graphical.editor.policies.feature.HyFeatureComponentEditPolicy;
 import eu.hyvar.feature.graphical.editor.policies.feature.HyFeatureDirectEditPolicy;
 import eu.hyvar.feature.graphical.editor.policies.feature.HyFeatureGraphicalNodeEditPolicy;
+import eu.hyvar.feature.graphical.editor.policies.feature.HyFeatureHighlightEditPolicy;
 import eu.hyvar.feature.graphical.editor.policies.feature.HyFeatureXYLayoutPolicy;
 
 public class HyFeatureEditorEditPart extends HyFeatureEditPart{
@@ -34,15 +35,16 @@ public class HyFeatureEditorEditPart extends HyFeatureEditPart{
 	@Override
 	protected void createEditPolicies(){
 		super.createEditPolicies();
+
 		installEditPolicy(EditPolicy.COMPONENT_ROLE, new HyFeatureComponentEditPolicy());
 		installEditPolicy(EditPolicy.GRAPHICAL_NODE_ROLE, new HyFeatureGraphicalNodeEditPolicy(editor, featureModel));
 		installEditPolicy(EditPolicy.DIRECT_EDIT_ROLE, new HyFeatureDirectEditPolicy());
+		installEditPolicy(EditPolicy.SELECTION_FEEDBACK_ROLE, new HyFeatureHighlightEditPolicy());
 		installEditPolicy(EditPolicy.LAYOUT_ROLE, new HyFeatureXYLayoutPolicy());
 	}
 	
 	@Override
 	public void propertyChange(PropertyChangeEvent evt) {
-		//super.propertyChange(evt);
 		this.setSize();
 		this.refreshVisuals();
 	}
@@ -55,15 +57,14 @@ public class HyFeatureEditorEditPart extends HyFeatureEditPart{
 			
 		}
 		if(req.getType() == RequestConstants.REQ_OPEN){
-			HyFeatureFigure figure = (HyFeatureFigure)getFigure();
-			if(figure.calculateVariationTypeCircleBounds().contains(((SelectionRequest)req).getLocation())){
+			HyFeatureWrapped feature = (HyFeatureWrapped)getModel();
+			Date date = editor.getCurrentSelectedDate();
+			
+			if(feature.calculateVariationTypeCircleBounds(date).contains(((SelectionRequest)req).getLocation())){
 				
-				HyFeatureWrapped feature = (HyFeatureWrapped)getModel();
-				Date date = editor.getCurrentSelectedDate();
 				HyFeatureType type = HyEvolutionUtil.getValidTemporalElement(feature.getWrappedModelElement().getTypes(), date);
 				
 				HyFeatureTypeEnum newType = type.getType() == HyFeatureTypeEnum.MANDATORY ? HyFeatureTypeEnum.OPTIONAL : HyFeatureTypeEnum.MANDATORY;
-				
 				
 				HyFeatureChangeTypeCommand command = new HyFeatureChangeTypeCommand(feature.getWrappedModelElement(), newType, editor);
 				editor.executeCommand(command);

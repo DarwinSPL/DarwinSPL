@@ -74,7 +74,7 @@ public class HycontextinformationOutlinePageTreeViewerComparator extends ViewerC
 		return packageID;
 	}
 	
-	public Comparator<?> getComparator() {
+	public Comparator<? super String> getComparator() {
 		return this.comparator;
 	}
 	

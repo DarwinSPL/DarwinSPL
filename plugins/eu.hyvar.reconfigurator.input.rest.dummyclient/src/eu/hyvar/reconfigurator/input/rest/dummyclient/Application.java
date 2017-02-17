@@ -167,7 +167,14 @@ public class Application implements IApplication {
 			HttpClient hyvarrecClient = new HttpClient();
 			hyvarrecClient.start();
 			// Current HyVarRec URI
-			URI hyvarrecUri = URI.create("http://hyvarhyvarrec-env.eu-west-1.elasticbeanstalk.com/process");
+			
+			
+			
+//			URI hyvarrecUri = URI.create("http://hyvarhyvarrec-env.eu-west-1.elasticbeanstalk.com/process");
+			URI hyvarrecUri = URI.create("http://localhost:9001/process");
+			
+			
+			
 			Request hyvarrecRequest = hyvarrecClient.POST(hyvarrecUri);
 			hyvarrecRequest.header(HttpHeader.CONTENT_TYPE, "application/json");
 			hyvarrecRequest.content(new StringContentProvider(hyvarrecJson), "application/json");

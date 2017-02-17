@@ -8,12 +8,14 @@ import org.eclipse.gef.editpolicies.XYLayoutEditPolicy;
 import org.eclipse.gef.requests.CreateRequest;
 
 import eu.hyvar.feature.graphical.base.editparts.HyFeatureEditPart;
-import eu.hyvar.feature.graphical.base.editparts.HyGroupEditPart;
 import eu.hyvar.feature.graphical.base.model.HyFeatureWrapped;
 import eu.hyvar.feature.graphical.editor.commands.feature.HyFeatureChangeConstraintCommand;
 
 public class HyFeatureModelXYLayoutPolicy extends XYLayoutEditPolicy{
 
+	/**
+	 * Allow features position modifications
+	 */
 	@Override 
 	protected Command createChangeConstraintCommand(EditPart child, Object constraint) {
 		if(child instanceof HyFeatureEditPart){
@@ -23,16 +25,6 @@ public class HyFeatureModelXYLayoutPolicy extends XYLayoutEditPolicy{
 			Rectangle r = (Rectangle)constraint;
 			command.setPosition(r.getTopLeft());
 			return command;
-		}else if(child instanceof HyGroupEditPart){
-			/*
-			HyFeatureChangeConstraintCommand command = new HyFeatureChangeConstraintCommand();
-			command.setModel(((HyGroupWrapped) child.getModel()).getParentFeature());
-
-			Rectangle r = (Rectangle)constraint;
-			command.setPosition(r.getTopLeft());
-			return command;
-			*/
-		}else{
 		}
 
 		return null;	

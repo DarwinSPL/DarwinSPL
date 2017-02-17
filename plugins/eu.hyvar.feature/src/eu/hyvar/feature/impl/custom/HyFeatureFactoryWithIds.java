@@ -4,6 +4,7 @@ import eu.hyvar.feature.HyBooleanAttribute;
 import eu.hyvar.feature.HyEnumAttribute;
 import eu.hyvar.feature.HyFeature;
 import eu.hyvar.feature.HyFeatureChild;
+import eu.hyvar.feature.HyFeatureFactory;
 import eu.hyvar.feature.HyFeatureType;
 import eu.hyvar.feature.HyGroup;
 import eu.hyvar.feature.HyGroupComposition;
@@ -16,6 +17,16 @@ import eu.hyvar.feature.impl.HyFeatureFactoryImpl;
 
 public class HyFeatureFactoryWithIds extends HyFeatureFactoryImpl {
 
+	public static HyFeatureFactory eINSTANCE = HyFeatureFactoryWithIds.init();
+	
+	public static HyFeatureFactory init() {
+		HyFeatureFactory featureFactory = HyFeatureFactoryImpl.init();
+		if(!(featureFactory instanceof HyFeatureFactoryWithIds)) {
+			featureFactory = new HyFeatureFactoryWithIds();
+		}
+		return featureFactory;
+	}
+	
 	@Override
 	public HyBooleanAttribute createHyBooleanAttribute() {
 		HyBooleanAttribute hyBooleanAttribute = super.createHyBooleanAttribute();

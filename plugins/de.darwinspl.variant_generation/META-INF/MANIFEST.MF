@@ -1,0 +1,12 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: DarwinSPL Variant Generation
+Bundle-SymbolicName: de.darwinspl.variant_generation
+Bundle-Version: 1.0.0
+Bundle-Vendor: ISF TUBS
+Bundle-RequiredExecutionEnvironment: JavaSE-1.7
+Require-Bundle: eu.hyvar.feature,
+ eu.hyvar.feature.configuration,
+ eu.hyvar.feature.mapping,
+ eu.hyvar.feature.constraint,
+ de.christophseidl.util.ecore

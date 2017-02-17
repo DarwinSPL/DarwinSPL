@@ -51,7 +51,7 @@ public class HyGeometryUtil {
 				int nameWidth = DEGeometryUtil.getTextWidth(name.getName(), theme.getFeatureFont());
 				int typeWidth = DEGeometryUtil.getTextWidth("Boolean", theme.getFeatureFont());
 
-				rawFeatureWidth = Math.max(rawFeatureWidth, nameWidth + typeWidth + 30);
+				rawFeatureWidth = Math.max(rawFeatureWidth, nameWidth + typeWidth + 80);
 			}
 		}
 
@@ -76,11 +76,13 @@ public class HyGeometryUtil {
 		}else{
 			variationHeight = 4;
 		}
-		featureHeight += variationHeight + theme.getLineWidth() * 2;
+		featureHeight += variationHeight; // + theme.getLineWidth() * 2;
 
+		
 		int visibleAttributes = HyEvolutionUtil.getValidTemporalElements(feature.getAttributes(), date).size();
-		featureHeight += (theme.getFeatureNameAreaHeight()+theme.getLineWidth()) * visibleAttributes; 
+		featureHeight += (theme.getFeatureNameAreaHeight()+theme.getLineWidth() * 3) * visibleAttributes; 
 
+		
 		if(visibleAttributes > 0 && versionAreaHeight > 0)
 			featureHeight -= 8;
 		else if(visibleAttributes > 0){

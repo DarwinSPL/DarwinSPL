@@ -58,7 +58,7 @@ public class HyGroupEditPart extends HyAbstractEditPart{
 	@Override 
 	protected void refreshVisuals() {
 		refreshVisibillity();
-		refreshLayoutConstraint();
+		refreshLayoutConstraint();		
 	}
 
 	@Override
@@ -67,11 +67,15 @@ public class HyGroupEditPart extends HyAbstractEditPart{
 
 	private void refreshLayoutConstraint(){
 		HyGroupWrapped model = (HyGroupWrapped)getModel();
-		HyFeatureWrapped feature = model.getParentFeature();
+		
+		HyFeatureWrapped feature = featureModel.getParentFeatureForGroup(model, featureModel.getSelectedDate());
+		if(feature == null)
+			return;
+		
 		DEGraphicalEditorTheme theme = DEGraphicalEditor.getTheme();
 
 		Point parentPosition = feature.getPosition(null).getCopy();
-		parentPosition.x += feature.getSize().width() / 2.0 - theme.getGroupSymbolRadius();
+		parentPosition.x += feature.getSize(editor.getCurrentSelectedDate()).width() / 2.0 - theme.getGroupSymbolRadius();
 		parentPosition.y += feature.getSize(editor.getCurrentSelectedDate()).height; 
 
 		int size = theme.getLineWidth() * 2 + theme.getGroupSymbolRadius() * 2;
@@ -97,6 +101,6 @@ public class HyGroupEditPart extends HyAbstractEditPart{
 		}
 
 
-		figure.setVisible(isVisible && hasValidParentFeature);
+		//figure.setVisible(isVisible && hasValidParentFeature);
 	}
 }

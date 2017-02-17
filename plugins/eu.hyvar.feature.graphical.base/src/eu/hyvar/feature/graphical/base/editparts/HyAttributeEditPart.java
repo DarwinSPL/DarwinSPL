@@ -40,6 +40,9 @@ public class HyAttributeEditPart extends HyAbstractEditPart{
 		
 		HyFeatureEditPart parent = (HyFeatureEditPart)getParent();
 		HyAttributeFigure figure = (HyAttributeFigure)getFigure();
+		
+		if(parent == null) return;
+		
 		HyFeatureWrapped feature = (HyFeatureWrapped)parent.getModel();
 		Date date = featureModel.getSelectedDate();
 		
@@ -54,7 +57,7 @@ public class HyAttributeEditPart extends HyAbstractEditPart{
 		int height = theme.getFeatureNameAreaHeight()+lineWidth;
 		
 		
-		Rectangle layout = new Rectangle(new Point(0, y+ index*height), new Dimension(feature.getSize().width, height));
+		Rectangle layout = new Rectangle(new Point(0, y+ index*height), new Dimension(feature.getSize(date).width, height));
 		layout.shrink(new Insets(0, lineWidth*2, 0, lineWidth*2));
 		parent.setLayoutConstraint(this, figure, layout);	
 		

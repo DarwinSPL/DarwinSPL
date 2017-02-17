@@ -115,14 +115,19 @@ public class HyParentChildConnectionEditPart extends AbstractConnectionEditPart 
 	
 	@Override
 	public void refreshVisuals(){
-		HyParentChildConnection model = ((HyParentChildConnection)getModel());
-
 		Date date = editor.getCurrentSelectedDate();
 		HyParentChildConnection connection = (HyParentChildConnection)getModel();
 		boolean sourceValid = connection.getSource().isValid(date);
 		boolean targetValid = connection.getTarget().isValid(date);
 		
-		if(sourceValid && targetValid){
+		boolean connectionValid = true;
+		
+		if(!connection.getTarget().isValid(date) || connection.getTarget().getParentFeature(date) == null)
+			connectionValid = false;
+		else
+			connectionValid = connection.getTarget().getParentFeature(date).equals(connection.getSource());
+		
+		if(sourceValid && targetValid && connectionValid){
 			figure.setVisible(true);
 			((HyParentChildConnectionFigure)this.getFigure()).layout();
 		}else{

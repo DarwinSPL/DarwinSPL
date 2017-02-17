@@ -23,10 +23,11 @@ import eu.hyvar.feature.HyNumberAttribute;
 import eu.hyvar.feature.HyRootFeature;
 import eu.hyvar.feature.HyStringAttribute;
 import eu.hyvar.feature.HyVersion;
+import eu.hyvar.feature.impl.custom.HyFeatureFactoryWithIds;
 
 public class HyFeatureCreationUtil {
 	
-	private static HyFeatureFactory factory = HyFeatureFactory.eINSTANCE;
+	private static HyFeatureFactory factory = HyFeatureFactoryWithIds.eINSTANCE;
 
 
 	public static HyFeature createFeature(HyFeatureType type ,HyName name,

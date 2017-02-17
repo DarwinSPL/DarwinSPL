@@ -3,7 +3,7 @@ Bundle-ManifestVersion: 2
 Bundle-Name: DarwinSPL Feature Model Editor
 Bundle-SymbolicName: eu.hyvar.feature.graphical.editor;singleton:=true
 Bundle-Version: 1.0.0
-Bundle-Activator: eu.hyvar.feature.graphical.editor.evolution.Activator
+Bundle-Activator: eu.hyvar.feature.graphical.editor.activator.Activator
 Require-Bundle: org.eclipse.ui,
  org.eclipse.core.runtime,
  org.eclipse.gef;bundle-version="3.10.1",
@@ -16,7 +16,10 @@ Require-Bundle: org.eclipse.ui,
  org.eclipse.swt,
  eu.hyvar.feature.graphical.base,
  org.eclipse.e4.ui.model.workbench,
- eu.hyvar.feature.data
+ org.eclipse.text,
+ eu.hyvar.feature.constraint,
+ eu.hyvar.context.validity_formulas,
+ eu.hyvar.feature.constraint.resource.hyconstraints
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Bundle-ActivationPolicy: lazy
 Bundle-ClassPath: .,

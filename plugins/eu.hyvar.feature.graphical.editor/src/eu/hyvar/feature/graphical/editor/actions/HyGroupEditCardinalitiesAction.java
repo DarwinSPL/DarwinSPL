@@ -19,7 +19,7 @@ import eu.hyvar.feature.graphical.base.model.HyParentChildConnection;
 import eu.hyvar.feature.graphical.editor.dialogs.HyGroupTypeDialog;
 import eu.hyvar.feature.graphical.editor.editor.HyGraphicalFeatureModelEditor;
 
-
+// TODO not needed any longer
 public class HyGroupEditCardinalitiesAction extends SelectionAction{
 	public static final String GROUP_EDIT_CARDINALITIES = "EditGroupCardinalities";
 	public static final String REQ_GROUP_EDIT_CARDINALITIES = "EditGroupCardinalities";
@@ -52,7 +52,7 @@ public class HyGroupEditCardinalitiesAction extends SelectionAction{
 			HyParentChildConnectionEditPart part = (HyParentChildConnectionEditPart)selectedObject;
 			HyParentChildConnection	 model = (HyParentChildConnection)part.getModel();
 			
-			types = model.getTarget().getParentGroup(editor.getCurrentSelectedDate()).getGroup().getTypes();
+			types = model.getTarget().getParentGroup(editor.getCurrentSelectedDate()).getWrappedModelElement().getTypes();
 			element = model.getTarget().getParentGroup(editor.getCurrentSelectedDate());
 		}else if(selectedObject instanceof HyGroupEditPart){
 			HyGroupEditPart editPart = (HyGroupEditPart)selectedObject;

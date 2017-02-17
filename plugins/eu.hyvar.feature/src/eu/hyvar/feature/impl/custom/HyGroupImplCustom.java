@@ -2,10 +2,8 @@ package eu.hyvar.feature.impl.custom;
 
 import java.util.Date;
 
-import eu.hyvar.evolution.HyEvolutionUtil;
-import eu.hyvar.feature.HyGroupType;
-import eu.hyvar.feature.HyGroupTypeEnum;
 import eu.hyvar.feature.impl.HyGroupImpl;
+import eu.hyvar.feature.util.HyFeatureEvolutionUtil;
 
 public class HyGroupImplCustom extends HyGroupImpl {
 	
@@ -15,31 +13,16 @@ public class HyGroupImplCustom extends HyGroupImpl {
 	
 	@Override
 	public boolean isAlternative(final Date date) {
-		HyGroupType type = HyEvolutionUtil.getValidTemporalElement(getTypes(), date);
-		if(type.getType() == HyGroupTypeEnum.ALTERNATIVE) {
-			return true;
-		} else {
-			return false;
-		}
+		return HyFeatureEvolutionUtil.isAlternative(this, date);
 	}
 
 	@Override
 	public boolean isOr(final Date date) {
-		HyGroupType type = HyEvolutionUtil.getValidTemporalElement(getTypes(), date);
-		if(type.getType() == HyGroupTypeEnum.OR) {
-			return true;
-		} else {
-			return false;
-		}
+		return HyFeatureEvolutionUtil.isOr(this, date);
 	}
 
 	@Override
 	public boolean isAnd(final Date date) {
-		HyGroupType type = HyEvolutionUtil.getValidTemporalElement(getTypes(), date);
-		if(type.getType() == HyGroupTypeEnum.AND) {
-			return true;
-		} else {
-			return false;
-		}
+		return HyFeatureEvolutionUtil.isAnd(this, date);
 	}
 }

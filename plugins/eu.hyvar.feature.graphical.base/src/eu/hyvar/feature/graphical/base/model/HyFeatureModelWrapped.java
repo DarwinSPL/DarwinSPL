@@ -7,7 +7,6 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
 import java.util.Date;
-import java.util.HashSet;
 import java.util.List;
 
 import org.eclipse.draw2d.geometry.Rectangle;
@@ -49,23 +48,42 @@ public class HyFeatureModelWrapped implements PropertyChangeListener {
 	 */
 	private boolean autoLayoutActive = true;
 	
-	/*
+	/**
 	 * The real model
 	 */
 	protected HyFeatureModel model;
 
-	/*
+	/**
 	 * List of all features in the diagram. Connections etc. are all handled by the corresponding 
 	 * HyFeatureModel not by the items in this list
 	 */
 	protected List<HyFeatureWrapped> features;
 
-	protected HashSet<HyGroupWrapped> groups;	
+	protected List<HyGroupWrapped> groups;	
 
-	public HashSet<HyGroupWrapped> getGroups() {
-		return groups;
+	/**
+	 * Returns all valid groups at a specific date
+	 * @param date
+	 * @return 
+	 */
+	public List<HyGroupWrapped> getGroups(Date date) {
+		if(date == null)
+			return groups;
+
+		ArrayList<HyGroupWrapped> filteredGroups = new ArrayList<HyGroupWrapped>();
+		for(HyGroupWrapped group : groups){
+
+
+			Date validSince = group.getWrappedModelElement().getValidSince();
+
+			if(validSince == null || validSince.compareTo(date) <= 0){
+				filteredGroups.add(group);
+			}
+		}
+
+		return filteredGroups;
 	}
-	public void setGroups(HashSet<HyGroupWrapped> groups) {
+	public void setGroups(List<HyGroupWrapped> groups) {
 		this.groups = groups;
 	}
 
@@ -107,6 +125,17 @@ public class HyFeatureModelWrapped implements PropertyChangeListener {
 	public void removePropertyChangeListener(PropertyChangeListener listener){
 		changes.removePropertyChangeListener(listener);
 	}
+	
+	public HyFeatureWrapped getParentFeatureForGroup(HyGroupWrapped groupWrapped, Date date){
+		if(date == null) date = selectedDate;
+		
+		HyFeatureChild featureChild = HyEvolutionUtil.getValidTemporalElement(groupWrapped.getWrappedModelElement().getChildOf(), date);
+		
+		if(featureChild == null) 
+			return null;
+		
+		return getWrappedFeature(featureChild.getParent());		
+	}
 
 	/**
 	 * Creates a new and valid name for a feature
@@ -115,18 +144,17 @@ public class HyFeatureModelWrapped implements PropertyChangeListener {
 	public String getValidNewFeatureName(){
 		int count = 1;
 		for(HyFeature modelFeature : getModel().getFeatures()){
-			String featureName = modelFeature.getNames().get(0).getName();
-			if(featureName.contains(NEW_FEATURE_NAME))
-				count++;
+			for(HyName name : modelFeature.getNames()){
+				String featureName = name.getName();
+				if(featureName.contains(NEW_FEATURE_NAME))
+					count++;				
+			}
 		}
 
 		return NEW_FEATURE_NAME+" "+count;
 	}
 
 
-
-	
-		
 	public boolean isAutoLayoutActive() {
 		return autoLayoutActive;
 	}
@@ -197,7 +225,7 @@ public class HyFeatureModelWrapped implements PropertyChangeListener {
 		dates.add(0, new Date(Long.MIN_VALUE));
 
 		features = new ArrayList<HyFeatureWrapped>();
-		groups = new HashSet<HyGroupWrapped>();
+		groups = new ArrayList<HyGroupWrapped>();
 		connections = new ArrayList<HyParentChildConnection>();
 
 		// add a root feature to the model if the model is empty
@@ -248,74 +276,23 @@ public class HyFeatureModelWrapped implements PropertyChangeListener {
 		}
 	}
 
-	/*
+
+	private HyGroupWrapped groupAlreadyInList(HyGroup group){
+		for(HyGroupWrapped wrapped : groups){
+			if(wrapped.getWrappedModelElement().equals(group))
+				return wrapped;
+		}
+
+		return null;
+	} 	
 	
-	public void addConnection(HyParentChildConnection connection){
-
-		HyFeature parentFeature = connection.getSource().getWrappedModelElement();
-		HyFeature childFeature = connection.getTarget().getWrappedModelElement();
-
-		HyGroup childGroup = null; 
-		HyGroupComposition childGroupComposition = null;
-		HyGroupWrapped wrappedGroup = null;
-		
-		// find an and group in order to add new features to that group
-		for(HyFeatureChild child : HyEvolutionUtil.getValidTemporalElements(parentFeature.getParentOf(), selectedDate)){
-			HyGroupType type = HyEvolutionUtil.getValidTemporalElement(child.getChildGroup().getTypes(), selectedDate);
-
-			if(type.getType() == HyGroupTypeEnum.AND){
-				List<HyGroupComposition> compositions = HyEvolutionUtil.getValidTemporalElements(child.getChildGroup().getParentOf(), selectedDate);
-				if(compositions.size() > 0){
-					childGroup = child.getChildGroup();
-					childGroupComposition = compositions.get(0);
-				}
-			}
-		}
-
-		// No and group was found, create a new one instead
-		if(childGroupComposition == null && childGroup == null){
-			HyFeatureChild childChild = HyFeatureFactory.eINSTANCE.createHyFeatureChild();
-
-			childGroupComposition = HyFeatureFactory.eINSTANCE.createHyGroupComposition();
-			childGroup = HyFeatureFactory.eINSTANCE.createHyGroup();
-
-			HyGroupType type = HyFeatureFactory.eINSTANCE.createHyGroupType();
-			type.setType(HyGroupTypeEnum.AND);
-
-			childGroup.getTypes().add(type);
-
-			childChild.setChildGroup(childGroup);
-
-
-			parentFeature.getParentOf().add(childChild);			
-
-
-			childGroup.getParentOf().add(childGroupComposition);
-
-			wrappedGroup = createWrappedFeatureGroup(childGroup, connection);
-			this.groups.add(wrappedGroup);
-			this.model.getGroups().add(childGroup);	
-			// the feature has an and group which will be used to add the feature into the group feature list
-		}else{	
-			wrappedGroup = findWrappedGroup(childGroup);
-
-			connection.getTarget().setParent(wrappedGroup);				
-		}
-
-		childFeature.getGroupMembership().add(childGroupComposition);
-		childGroupComposition.getFeatures().add(childFeature);
-		wrappedGroup.addChildFeature(connection.getTarget());
-
-	}	
-	*/
-
 	public HyGroupWrapped createWrappedFeatureGroup(HyGroup group, HyParentChildConnection connection){
 
 		HyGroupWrapped wrappedGroup = groupAlreadyInList(group);
 
 		if(wrappedGroup == null){
 			wrappedGroup = new HyGroupWrapped(group);
-			wrappedGroup.setParentFeature(connection.getSource());
+			//wrappedGroup.setParentFeature(connection.getSource());
 			wrappedGroup.addPropertyChangeListener(this);
 		}
 		// Create the group to enable visual editing and representation
@@ -337,42 +314,64 @@ public class HyFeatureModelWrapped implements PropertyChangeListener {
 		return null;
 	}
 
-	public void addConnection(HyParentChildConnection connection, Date date){
+	
+	
+	/**
+	 * Adds a new connection to the feature model. A connection connects two features and always have a parent and a child feature. 
+	 * The connection is added at model level meaning that needed elements like HyFeatureChild are created. 
+	 * @param connection Container that specifies the connection
+	 * @param date The date since the new connection is valid
+	 * @param childGroup specifies the group where child features are added. Be aware, that the group has to be a child of the source feature of the 
+	 * connection. If you don't specify the parameter an and group will be searched at the target feature and created if not available at the given date. 
+	 */
+	public void addConnection(HyParentChildConnection connection, Date date, HyGroup childGroup){
+		if(date != null && date.equals(new Date(Long.MIN_VALUE)))
+			date = null;
+		
 		HyFeature parentFeature = connection.getSource().getWrappedModelElement();
 		HyFeature childFeature = connection.getTarget().getWrappedModelElement();
 
-		HyGroup childGroup = null; 
 		HyGroupComposition childGroupComposition = null;
+		if(childGroup != null){
+			childGroupComposition = HyEvolutionUtil.getValidTemporalElement(childGroup.getParentOf(), date);
+		}
+		
 		HyGroupWrapped wrappedGroup = null;
 		
-		// find an and group in order to add new features to that group
-		for(HyFeatureChild child : HyEvolutionUtil.getValidTemporalElements(parentFeature.getParentOf(), selectedDate)){
-			HyGroupType type = HyEvolutionUtil.getValidTemporalElement(child.getChildGroup().getTypes(), selectedDate);
-
-			
-			if(type.getType() == HyGroupTypeEnum.AND){
-				List<HyGroupComposition> compositions = HyEvolutionUtil.getValidTemporalElements(child.getChildGroup().getParentOf(), selectedDate);
-
-				if(compositions.size() > 0){
+		if(childGroupComposition == null){
+			// find an and group in order to add new features to that group
+			for(HyFeatureChild child : HyEvolutionUtil.getValidTemporalElements(parentFeature.getParentOf(), selectedDate)){
+				HyGroupType type = HyEvolutionUtil.getValidTemporalElement(child.getChildGroup().getTypes(), selectedDate);		
+	
+				if(type.getType() == HyGroupTypeEnum.AND){
+					List<HyGroupComposition> compositions = HyEvolutionUtil.getValidTemporalElements(child.getChildGroup().getParentOf(), selectedDate);
+	
 					childGroup = child.getChildGroup();
 					childGroupComposition = compositions.get(0);
+					
+					if(date != null)
+					childGroupComposition = HyGroupWrapped.splitComposition(childGroupComposition, null, date);
 				}
 			}
 		}
-
+	
 		// No and group was found, create a new one instead
 		if(childGroupComposition == null && childGroup == null){
 			HyFeatureChild childChild = HyFeatureFactory.eINSTANCE.createHyFeatureChild();
 
 			childGroupComposition = HyFeatureFactory.eINSTANCE.createHyGroupComposition();
+			childGroupComposition.setValidSince(date);
 			childGroup = HyFeatureFactory.eINSTANCE.createHyGroup();
+			childGroup.setValidSince(date);
 
 			HyGroupType type = HyFeatureFactory.eINSTANCE.createHyGroupType();
 			type.setType(HyGroupTypeEnum.AND);
+			type.setValidSince(date);
 
 			childGroup.getTypes().add(type);
 
 			childChild.setChildGroup(childGroup);
+			childChild.setValidSince(date);
 
 
 			parentFeature.getParentOf().add(childChild);			
@@ -393,58 +392,14 @@ public class HyFeatureModelWrapped implements PropertyChangeListener {
 		childFeature.getGroupMembership().add(childGroupComposition);
 		childGroupComposition.getFeatures().add(childFeature);
 		wrappedGroup.addChildFeature(connection.getTarget());
-
-			
 		
-		/*
-		HyFeature parentFeature = connection.getSource().getWrappedModelElement();
-		HyFeature childFeature = connection.getTarget().getWrappedModelElement();
-
-		HyFeatureChild featureChild = HyEvolutionUtil.getValidTemporalElement(parentFeature.getParentOf(), date);
-
-		// new parent node has no children at selected date, create a new one
-		if(featureChild == null){
-			featureChild = HyFeatureFactory.eINSTANCE.createHyFeatureChild();
-			featureChild.setValidSince(date);
-
-			// with this values we create an and group because there is only one feature contained in it at this date
-			HyGroupType type = HyFeatureFactory.eINSTANCE.createHyGroupType();
-			type.setType(HyGroupTypeEnum.AND);
-
-			HyGroup group = HyFeatureFactory.eINSTANCE.createHyGroup();
-			group.getTypes().add(type);		
-
-			featureChild.setChildGroup(group);
-
-			HyGroupComposition composition = HyFeatureFactory.eINSTANCE.createHyGroupComposition();
-			group.getParentOf().add(composition);
-			
-			System.out.println("No");
-		}
-
-
-		HyGroup group = featureChild.getChildGroup();
-		HyGroupComposition composition = HyEvolutionUtil.getValidTemporalElement(group.getParentOf(), date);
-
-		// group has no valid composition at selected date, create one
-		if(composition == null){
-			System.out.println("No Composition");
-		}else{
-			// valid group at selected date is not an and group, create a new one
-			if(!(HyFeatureEvolutionUtil.isAnd(group, date))){
-				System.out.println("No And");
-			}else{
-				System.out.println("Found");
-				featureChild.setParent(parentFeature);
-				childFeature.getGroupMembership().add(composition);
-				composition.getFeatures().add(childFeature);
-			}
-
-		}
-		*/
+		connection.getSource().addParentToChildConnection(connection);
+		connection.getTarget().addChildToParentConnection(connection);
+		
+		connections.add(connection);
 	}
 	
-	
+
 
 
 	public void removeConnection(HyParentChildConnection connection, Date date) {
@@ -493,13 +448,16 @@ public class HyFeatureModelWrapped implements PropertyChangeListener {
 	}
 	
 	public void removeFeature(HyFeatureWrapped feature, Date date){
-		try{
-			feature.getParentGroup(date).removeChildFeature(feature, date);
-		}catch(Exception ex){
-			ex.printStackTrace();
+		feature.getParentGroup(date).removeChildFeature(feature, date);
+
+		
+		
+		if(date.equals(new Date(Long.MIN_VALUE))){
+			features.remove(feature);
+			
+			model.getFeatures().remove(feature.getWrappedModelElement());
 		}
-		features.remove(feature);
-		model.getFeatures().remove(feature.getWrappedModelElement());
+		
 		changes.firePropertyChange(PROPERTY_CHILDREN_SIZE, model.getFeatures().size()+1, model.getFeatures().size());
 	}
 
@@ -525,7 +483,7 @@ public class HyFeatureModelWrapped implements PropertyChangeListener {
 		return null;
 	}
 
-	public boolean isRootFeature(HyFeature feature){
+	private boolean isRootFeature(HyFeature feature){
 		for(HyRootFeature rootFeature : model.getRootFeature()){
 			if(rootFeature.getFeature().equals(feature))
 				return true;
@@ -535,7 +493,7 @@ public class HyFeatureModelWrapped implements PropertyChangeListener {
 	}
 
 
-	public void createConnection(HyFeatureWrapped parent, HyFeatureWrapped child){
+	private void createConnection(HyFeatureWrapped parent, HyFeatureWrapped child){
 		HyParentChildConnection connection = new HyParentChildConnection();
 		connection.setSource(parent);
 		connection.setTarget(child);
@@ -574,8 +532,6 @@ public class HyFeatureModelWrapped implements PropertyChangeListener {
 				HyGroup group = featureChild.getChildGroup();
 
 				HyGroupWrapped wrappedGroup = new HyGroupWrapped(group);
-				wrappedGroup.setParentFeature(target);
-
 
 				for(HyGroupComposition composition : group.getParentOf()){
 					for(HyFeature childFeature : composition.getFeatures()){
@@ -607,33 +563,32 @@ public class HyFeatureModelWrapped implements PropertyChangeListener {
 			return null;
 
 		for(HyGroupWrapped wrappedGroup : groups){
-			if(wrappedGroup.getGroup().equals(group))
+			if(wrappedGroup.getWrappedModelElement().equals(group))
 				return wrappedGroup;
 		}
 		return null;
 	}
 
-	public void removeGroup(HyGroupWrapped group){
-		HyFeatureChild child = group.getWrappedModelElement().getChildOf().get(0);
 
+
+	public void addGroup(HyGroupWrapped group) {
+		groups.add(group);
+		model.getGroups().add(group.getWrappedModelElement());
+	}
+	
+	public void removeGroup(HyGroupWrapped group){
+		
+		HyFeatureChild child = group.getWrappedModelElement().getChildOf().get(0);
+	
 		if(child.getParent() != null){
 			child.getParent().getParentOf().remove(child);
 		}
+		
 		model.getGroups().remove(group.getWrappedModelElement());
-
+	
 		groups.remove(group);
 	}
-	public HyGroupWrapped groupAlreadyInList(HyGroup group){
-		for(HyGroupWrapped wrapped : groups){
-			if(wrapped.getGroup().equals(group))
-				return wrapped;
-		}
-
-		return null;
-	}
-	public void addGroup(HyGroupWrapped group) {
-		model.getGroups().add(group.getWrappedModelElement());
-	}
+	
 	@Override
 	public void propertyChange(PropertyChangeEvent evt) {
 		if(evt.getPropertyName().equals(HyFeatureWrapped.PROPERTY_POSITION)){
@@ -655,14 +610,5 @@ public class HyFeatureModelWrapped implements PropertyChangeListener {
 		}
 		
 		changes.firePropertyChange(evt);
-		
 	}
-
-
-	
-	
-	
-	
-	
-	
 }

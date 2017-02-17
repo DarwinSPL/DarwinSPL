@@ -1,8 +1,12 @@
 package eu.hyvar.feature.graphical.editor.editor;
 
 import java.io.ByteArrayInputStream;
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.EventObject;
+import java.util.List;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IResource;
@@ -11,6 +15,7 @@ import org.eclipse.core.resources.IWorkspaceRoot;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
+import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.e4.ui.model.application.ui.MUIElement;
 import org.eclipse.e4.ui.model.application.ui.advanced.MArea;
 import org.eclipse.e4.ui.model.application.ui.basic.MPart;
@@ -28,6 +33,7 @@ import org.eclipse.gef.ui.parts.GraphicalViewerKeyHandler;
 import org.eclipse.swt.SWT;
 import org.eclipse.ui.IEditorDescriptor;
 import org.eclipse.ui.IEditorPart;
+import org.eclipse.ui.IEditorReference;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.IWorkbenchWindow;
@@ -36,7 +42,11 @@ import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.actions.ActionFactory;
 import org.eclipse.ui.part.FileEditorInput;
 
+import eu.hyvar.context.contextValidity.util.HyValidityModelUtil;
+import eu.hyvar.context.information.util.HyContextInformationUtil;
+import eu.hyvar.feature.constraint.util.HyConstraintUtil;
 import eu.hyvar.feature.graphical.base.editor.HyGraphicalFeatureModelViewer;
+import eu.hyvar.feature.graphical.base.model.HyFeatureWrapped;
 import eu.hyvar.feature.graphical.editor.actions.HyLinearTemporalElementChangeValidityAction;
 import eu.hyvar.feature.graphical.editor.actions.attribute.HyAttributeCreateBooleanAction;
 import eu.hyvar.feature.graphical.editor.actions.attribute.HyAttributeCreateEnumAction;
@@ -46,6 +56,7 @@ import eu.hyvar.feature.graphical.editor.actions.attribute.HyAttributeRenameActi
 import eu.hyvar.feature.graphical.editor.actions.attribute.HyNumberAttributeSetNumberRangeAction;
 import eu.hyvar.feature.graphical.editor.actions.enumeration.HyFeatureAttributeEnumCreateEnumAction;
 import eu.hyvar.feature.graphical.editor.actions.enumeration.HyFeatureAttributeEnumCreateLiteralAction;
+import eu.hyvar.feature.graphical.editor.actions.feature.HyFeatureChangeTypeAction;
 import eu.hyvar.feature.graphical.editor.actions.feature.HyFeatureCreateSiblingAction;
 import eu.hyvar.feature.graphical.editor.actions.feature.HyFeatureEditNamesAction;
 import eu.hyvar.feature.graphical.editor.actions.feature.HyFeatureEvolutionCreateChildAction;
@@ -58,28 +69,53 @@ import eu.hyvar.feature.graphical.editor.factory.HyFeatureModelEditorEditPartFac
 
 @SuppressWarnings("restriction")
 public class HyGraphicalFeatureModelEditor extends HyGraphicalFeatureModelViewer{
+	List<IPath> relatedEditorFiles = new ArrayList<IPath>();
+
 	@Override
 	public void commandStackChanged(EventObject event) {
 		firePropertyChange(IEditorPart.PROP_DIRTY);
 		super.commandStackChanged(event);
 	}
-	
+
 	public void executeCommand(Command command) {
 		CommandStack commandStack = getCommandStack();
 		commandStack.execute(command);
 	}
-	
+
+	@Override
+	public void doSave(IProgressMonitor monitor) {
+		if(resource == null) return;
+
+		try{
+			saveLayout();
+
+			resource.save(null);
+			file.touch(null);
+			getCommandStack().markSaveLocation();
+
+
+		}catch(IOException e){
+			e.printStackTrace();
+			resource = null;
+		}catch(CoreException e){
+			e.printStackTrace();
+		}		
+	}
+
+
+
+
 
 	protected KeyHandler getCommonKeyHandler() {
 		sharedKeyHandler = super.getCommonKeyHandler();
-		
+
 		if (sharedKeyHandler == null) {
 			sharedKeyHandler = new KeyHandler();
 			sharedKeyHandler.put(KeyStroke.getPressed(SWT.DEL, 127, 0), 
 					getActionRegistry().getAction(
 							ActionFactory.DELETE.getId()));
 		}
-		
+
 		return sharedKeyHandler;
 	}
 
@@ -93,48 +129,67 @@ public class HyGraphicalFeatureModelEditor extends HyGraphicalFeatureModelViewer
 
 		GraphicalViewer viewer = getGraphicalViewer();
 		viewer.setEditPartFactory(new HyFeatureModelEditorEditPartFactory(viewer, this));
-		viewer.setContextMenu(new HyFeatureModelEvolutionGraphicalEditorContextMenuProvider(getGraphicalViewer(), getActionRegistry()));
+		viewer.setContextMenu(new HyGraphicalFeatureModelEditorContextMenuProvider(getGraphicalViewer(), getActionRegistry()));
 		viewer.setKeyHandler(new GraphicalViewerKeyHandler(viewer).setParent(getCommonKeyHandler()));
 	}
-	
+
 	@Override
 	protected void loadModelFromFile(IFile file){
 		super.loadModelFromFile(file);
-		
-		openEditorForFileExtension("hyconstraints");
-		openEditorForFileExtension("hycontextinformation");
-		openEditorForFileExtension("hyvalidityformula");
-	}
-	
 
-	
+		openEditorForFileExtension(HyConstraintUtil.getConstraintModelFileExtensionForConcreteSyntax());
+		openEditorForFileExtension(HyContextInformationUtil.getContextModelFileExtensionForConcreteSyntax());
+		openEditorForFileExtension(HyValidityModelUtil.getValidityModelFileExtensionForConcreteSyntax());
+	}
+
+	private void saveLayout(){
+
+		IWorkspace workspace = ResourcesPlugin.getWorkspace();
+		IWorkspaceRoot workspaceRoot = workspace.getRoot();
+
+		IPath path = ((IPath)file.getFullPath().clone()).removeFileExtension().addFileExtension("hylayout");
+
+		String fileContent = "";
+		for(HyFeatureWrapped feature : this.getModelWrapped().getFeatures(null)){
+			fileContent += feature.getWrappedModelElement().getId()+","+feature.getPosition(null).x()+","+feature.getPosition(null).y()+"\n";
+		}
+
+		IFile file = workspaceRoot.getFile(path);
+
+		InputStream source = new ByteArrayInputStream(fileContent.getBytes());
+		try {
+			if(!file.exists()){
+				file.create(source, IResource.NONE, null);
+			}else{
+				file.setContents(source, IResource.FORCE, null);
+			}
+		} catch (CoreException e) {
+			e.printStackTrace();
+		}
+	}
+
+
 	@SuppressWarnings("unchecked")
 	protected void createGroupActions(){
-		/*
-		HyGroupEditCardinalitiesAction groupTypeAction = new HyGroupEditCardinalitiesAction(this);
-		getActionRegistry().registerAction(groupTypeAction);
-		getSelectionActions().add(groupTypeAction.getId());
-		*/
-		
 		HyGroupChangeGroupTypeToAlternativeTypeAction groupChangeTypeToAlternativeAction = new HyGroupChangeGroupTypeToAlternativeTypeAction(this);
 		getActionRegistry().registerAction(groupChangeTypeToAlternativeAction);
 		getSelectionActions().add(groupChangeTypeToAlternativeAction.getId());
-		
+
 		HyGroupChangeGroupTypeToAndTypeAction groupChangeTypeToAndAction = new HyGroupChangeGroupTypeToAndTypeAction(this);
 		getActionRegistry().registerAction(groupChangeTypeToAndAction);
 		getSelectionActions().add(groupChangeTypeToAndAction.getId());
-		
+
 		HyGroupChangeGroupTypeToOrTypeAction groupChangeTypeToOrAction = new HyGroupChangeGroupTypeToOrTypeAction(this);
 		getActionRegistry().registerAction(groupChangeTypeToOrAction);
 		getSelectionActions().add(groupChangeTypeToOrAction.getId());
 	}
-	
+
 	@SuppressWarnings("unchecked")
 	protected void createEnumActions(){
 		HyFeatureAttributeEnumCreateEnumAction createEnumAction = new HyFeatureAttributeEnumCreateEnumAction(this);
 		getActionRegistry().registerAction(createEnumAction);
 		getSelectionActions().add(createEnumAction.getId());
-		
+
 		HyFeatureAttributeEnumCreateLiteralAction createLiteralAction = new HyFeatureAttributeEnumCreateLiteralAction(this);
 		getActionRegistry().registerAction(createLiteralAction);
 		getSelectionActions().add(createLiteralAction.getId());
@@ -154,25 +209,23 @@ public class HyGraphicalFeatureModelEditor extends HyGraphicalFeatureModelViewer
 		HyAttributeCreateBooleanAction attributeCreateBooleanAction = new HyAttributeCreateBooleanAction(this);
 		getActionRegistry().registerAction(attributeCreateBooleanAction);
 		getSelectionActions().add(attributeCreateBooleanAction.getId());
-		
+
 		HyAttributeCreateEnumAction attributeCreateEnumAction = new HyAttributeCreateEnumAction(this);
 		getActionRegistry().registerAction(attributeCreateEnumAction);
 		getSelectionActions().add(attributeCreateEnumAction.getId());		
-		
+
 		HyFeatureEvolutionCreateChildAction childAction = new HyFeatureEvolutionCreateChildAction(this);
 		getActionRegistry().registerAction(childAction);
 		getSelectionActions().add(childAction.getId());
-		
+
 		HyFeatureCreateSiblingAction siblingAction = new HyFeatureCreateSiblingAction(this);
 		getActionRegistry().registerAction(siblingAction);
 		getSelectionActions().add(siblingAction.getId());		
-		
-		/*
-		HyFeatureEvolutionChangeParentAction parentChangeAction = new HyFeatureEvolutionChangeParentAction(this);
-		getActionRegistry().registerAction(parentChangeAction);
-		getSelectionActions().add(parentChangeAction.getId());
-		*/
-		
+
+		HyFeatureChangeTypeAction changeAction = new HyFeatureChangeTypeAction(this);
+		getActionRegistry().registerAction(changeAction);
+		getSelectionActions().add(changeAction.getId());	
+
 		HyVersionCreateVersionAction featureCreateVersionAction = new HyVersionCreateVersionAction(this);
 		getActionRegistry().registerAction(featureCreateVersionAction);
 		getSelectionActions().add(featureCreateVersionAction.getId());
@@ -180,46 +233,87 @@ public class HyGraphicalFeatureModelEditor extends HyGraphicalFeatureModelViewer
 		HyVersionCreateSuccessorAction versionCreateSuccessorAction = new HyVersionCreateSuccessorAction(this);
 		getActionRegistry().registerAction(versionCreateSuccessorAction);
 		getSelectionActions().add(versionCreateSuccessorAction.getId());
-		
+
 		HyLinearTemporalElementChangeValidityAction visibilityAction = new HyLinearTemporalElementChangeValidityAction(this);
 		getActionRegistry().registerAction(visibilityAction);
 		getSelectionActions().add(visibilityAction.getId());
-		
-		
-		
-		/*
-		HyFeatureEditCardinalitiesAction featureTypeAction = new HyFeatureEditCardinalitiesAction(this);
-		getActionRegistry().registerAction(featureTypeAction);
-		getSelectionActions().add(featureTypeAction.getId());
-		*/
-		
+
 		HyFeatureEditNamesAction featureNameAction = new HyFeatureEditNamesAction(this);
 		getActionRegistry().registerAction(featureNameAction);
 		getSelectionActions().add(featureNameAction.getId());	
-		
+
 		HyAttributeRenameAction renameAttributeAction = new HyAttributeRenameAction(this);
 		getActionRegistry().registerAction(renameAttributeAction);
 		getSelectionActions().add(renameAttributeAction.getId());
-		
+
 		HyNumberAttributeSetNumberRangeAction rangeAttributeAction = new HyNumberAttributeSetNumberRangeAction(this);
 		getActionRegistry().registerAction(rangeAttributeAction);
 		getSelectionActions().add(rangeAttributeAction.getId());
-		
+
 		createGroupActions();
 		createEnumActions();
-		
+
 		super.createActions();
 	}
 
+	private void closeRelatedEditors(){
+		IEditorReference[] refs = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().getEditorReferences();
 
-	
+		List<IResource> openFiles = new ArrayList<IResource>();
+		for(IPath path : relatedEditorFiles){
+			for(IEditorReference ref : refs){
+				IEditorPart part = ref.getEditor(false);
 
-	
+				if(part != null)
+					if(part.getEditorInput() instanceof FileEditorInput){
+						FileEditorInput editorInput = (FileEditorInput)part.getEditorInput();
 
-	
-	
+						if(editorInput.getPath().equals(ResourcesPlugin.getWorkspace().getRoot().getLocation().append(path))){
+							if(part.getSite().getPage().closeEditor(part, true)){
+
+
+								try {
+									InputStream stream = editorInput.getFile().getContents();
+									if(stream instanceof FileInputStream){
+										FileInputStream fileStream = (FileInputStream)stream;
+										int length = 0;
+										while(fileStream.read() != -1){
+											length++;
+										}
+
+										if(length == 0){
+											openFiles.add(editorInput.getFile());
+										}
+									}
+								} catch (CoreException e) {
+									e.printStackTrace();
+								}catch (IOException e) {
+									e.printStackTrace();
+								}
+							}
+						}
+					}	
+			}
+		}
+
+		IWorkspace workspace = ResourcesPlugin.getWorkspace();
+		try {
+			workspace.delete(openFiles.toArray(new IResource[0]), true, null);
+		} catch (CoreException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
+	@Override
+	public void dispose(){
+		resource.unload();
+		closeRelatedEditors();
+	}
+
+
 	private MPartStack secondEditor;	
-	
+
 	public void insertEditor(float ratio, int where, MPart containerEditor, MPart editorToInsert) {
 		IWorkbenchWindow window = PlatformUI.getWorkbench().getActiveWorkbenchWindow();
 
@@ -236,7 +330,7 @@ public class HyGraphicalFeatureModelEditor extends HyGraphicalFeatureModelViewer
 			secondEditor.getChildren().add(editorToInsert);
 		}
 	}
-	
+
 	private MPartStack getPartStack(MPart childPart) {
 		MStackElement stackElement = childPart;
 		MPartStack newStack = BasicFactoryImpl.eINSTANCE.createPartStack();
@@ -252,7 +346,7 @@ public class HyGraphicalFeatureModelEditor extends HyGraphicalFeatureModelViewer
 		MArea area = (MArea) targetParent;
 		return area;
 	}	
-	
+
 	protected void openEditorForFileExtension(String fileExtension){
 		IWorkbench workbench = PlatformUI.getWorkbench();
 		IWorkbenchWindow workbenchWindow = workbench.getActiveWorkbenchWindow();
@@ -263,6 +357,9 @@ public class HyGraphicalFeatureModelEditor extends HyGraphicalFeatureModelViewer
 		IPath path = ((IPath)file.getFullPath().clone()).removeFileExtension().addFileExtension(fileExtension);
 
 		IFile file = workspaceRoot.getFile(path);
+
+		relatedEditorFiles.add(path);
+
 		if(!file.exists()){
 			InputStream source = new ByteArrayInputStream("".getBytes());
 			try {
@@ -271,6 +368,7 @@ public class HyGraphicalFeatureModelEditor extends HyGraphicalFeatureModelViewer
 				e.printStackTrace();
 			}
 		}
+
 
 		// only open editor if a file exist with the same name as the feature model in same directory
 		if(workspaceRoot.exists(path)){

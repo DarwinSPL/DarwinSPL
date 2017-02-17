@@ -20,6 +20,7 @@ Package feature <http://hyvar-project.eu/feature/1.0>
     Attribute deprecatedSince : EDate
     Reference attributes : HyFeatureAttribute<<0..*>>
     Reference types : HyFeatureType<<1..*>>
+    Reference featureModel : HyFeatureModel<<1..1>>
     Operation isOptional(EDate<<1..1>>) : EBoolean<<1..1>>
     Operation isMandatory(EDate<<1..1>>) : EBoolean<<1..1>>
 
@@ -27,6 +28,7 @@ Package feature <http://hyvar-project.eu/feature/1.0>
     Reference parentOf : HyGroupComposition<<1..*>>
     Reference childOf : HyFeatureChild<<1..*>>
     Reference types : HyGroupType<<1..*>>
+    Reference featureModel : HyFeatureModel<<1..1>>
     Operation isAlternative(EDate<<1..1>>) : EBoolean<<1..1>>
     Operation isOr(EDate<<1..1>>) : EBoolean<<1..1>>
     Operation isAnd(EDate<<1..1>>) : EBoolean<<1..1>>

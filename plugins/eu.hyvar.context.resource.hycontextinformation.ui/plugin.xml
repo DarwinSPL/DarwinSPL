@@ -7,7 +7,7 @@
 	</extension>
 	
 	<extension point="org.eclipse.ui.editors">
-		<editor class="eu.hyvar.context.resource.hycontextinformation.ui.HycontextinformationEditor" contributorClass="org.eclipse.ui.texteditor.BasicTextEditorActionContributor" extensions="hycontextinformation" icon="icons/editor_icon.gif" id="eu.hyvar.context.resource.hycontextinformation.ui.HycontextinformationEditor" name="Contextual Information Editor (HyVar)">
+		<editor class="eu.hyvar.context.resource.hycontextinformation.ui.HycontextinformationEditor" contributorClass="org.eclipse.ui.texteditor.BasicTextEditorActionContributor" extensions="hycontextinformation" icon="icons/icon_context.png" id="eu.hyvar.context.resource.hycontextinformation.ui.HycontextinformationEditor" name="Contextual Information Editor (HyVar)">
 			<contentTypeBinding contentTypeId="eu.hyvar.context.resource.hycontextinformation">
 			</contentTypeBinding>
 		</editor>

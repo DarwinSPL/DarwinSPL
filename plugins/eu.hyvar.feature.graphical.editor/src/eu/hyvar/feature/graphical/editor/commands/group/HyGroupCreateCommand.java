@@ -1,5 +1,7 @@
 package eu.hyvar.feature.graphical.editor.commands.group;
 
+import java.util.Date;
+
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
@@ -10,6 +12,7 @@ import eu.hyvar.feature.HyFeatureChild;
 import eu.hyvar.feature.HyFeatureFactory;
 import eu.hyvar.feature.HyFeatureModel;
 import eu.hyvar.feature.HyGroup;
+import eu.hyvar.feature.graphical.base.editor.HyGraphicalFeatureModelViewer;
 
 public class HyGroupCreateCommand extends Command {
 
@@ -33,6 +36,11 @@ public class HyGroupCreateCommand extends Command {
 		this.parent = parent;
 	}
 
+	HyGraphicalFeatureModelViewer editor;
+	
+	public HyGroupCreateCommand(HyGraphicalFeatureModelViewer editor) {
+		this.editor = editor;
+	}
 
 	Point position;
 
@@ -49,6 +57,16 @@ public class HyGroupCreateCommand extends Command {
 			// empty compositions, add a composition to add the feature
 
 			HyFeatureChild child = HyFeatureFactory.eINSTANCE.createHyFeatureChild();
+			
+			Date date = editor.getCurrentSelectedDate();
+			if(date.equals(new Date(Long.MIN_VALUE))){
+				date = null;
+			}	
+			
+			if(date != null) {
+				child.setValidSince(date);
+			}
+			
 			child.setChildGroup(newGroup);
 			childs.add(child);
 

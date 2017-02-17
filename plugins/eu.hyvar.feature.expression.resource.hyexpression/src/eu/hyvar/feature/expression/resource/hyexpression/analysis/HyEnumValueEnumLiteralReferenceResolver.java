@@ -9,6 +9,7 @@ package eu.hyvar.feature.expression.resource.hyexpression.analysis;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Map;
+
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
@@ -18,6 +19,8 @@ public class HyEnumValueEnumLiteralReferenceResolver implements eu.hyvar.feature
 	private eu.hyvar.dataValues.resource.hydatavalue.analysis.HyEnumValueEnumLiteralReferenceResolver delegate = new eu.hyvar.dataValues.resource.hydatavalue.analysis.HyEnumValueEnumLiteralReferenceResolver();
 	
 	public void resolve(String identifier, eu.hyvar.dataValues.HyEnumValue container, EReference reference, int position, boolean resolveFuzzy, final eu.hyvar.feature.expression.resource.hyexpression.IHyexpressionReferenceResolveResult<eu.hyvar.dataValues.HyEnumLiteral> result) {
+		
+		
 		delegate.resolve(identifier, container, reference, position, resolveFuzzy, new eu.hyvar.dataValues.resource.hydatavalue.IHydatavalueReferenceResolveResult<eu.hyvar.dataValues.HyEnumLiteral>() {
 			
 			public boolean wasResolvedUniquely() {

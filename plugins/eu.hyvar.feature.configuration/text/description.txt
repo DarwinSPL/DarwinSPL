@@ -16,6 +16,7 @@ Package configuration <http://hyvar-project.eu/feature/configuration/1.0>
     Attribute isPreconfigured : EBoolean
     Attribute variantsGenerated : EInt
     Reference featureModel : HyFeatureModel
+    Attribute creationDate : EDate
 
   Class HyAttributeValueAssignment -> HyConfigurationElement
     Reference attribute : HyFeatureAttribute<<1..1>>

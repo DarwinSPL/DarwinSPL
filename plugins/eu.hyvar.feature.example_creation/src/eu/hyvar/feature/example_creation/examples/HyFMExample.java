@@ -5,13 +5,14 @@ import eu.hyvar.feature.HyFeatureFactory;
 import eu.hyvar.feature.HyFeatureModel;
 import eu.hyvar.feature.configuration.HyConfiguration;
 import eu.hyvar.feature.constraint.HyConstraintModel;
+import eu.hyvar.feature.impl.custom.HyFeatureFactoryWithIds;
 import eu.hyvar.feature.mapping.HyMappingModel;
 import eu.hyvar.preferences.HyPreferenceModel;
 import eu.hyvar.context.contextValidity.HyValidityModel;
 
 public abstract class HyFMExample {
 
-	protected HyFeatureFactory factory = HyFeatureFactory.eINSTANCE;
+	protected HyFeatureFactory factory = HyFeatureFactoryWithIds.eINSTANCE;
 	
 	public abstract HyFeatureModel createExample();
 	

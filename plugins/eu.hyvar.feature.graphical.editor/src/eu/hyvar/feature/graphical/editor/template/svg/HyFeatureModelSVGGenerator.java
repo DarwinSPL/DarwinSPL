@@ -42,7 +42,6 @@ import eu.hyvar.feature.HyGroupTypeEnum;
 import eu.hyvar.feature.HyNumberAttribute;
 import eu.hyvar.feature.HyRootFeature;
 import eu.hyvar.feature.HyVersion;
-import eu.hyvar.feature.graphical.base.deltaecore.wrapper.HyGeometryUtil;
 import eu.hyvar.feature.graphical.base.deltaecore.wrapper.layouter.version.HyVersionLayouterManager;
 import eu.hyvar.feature.graphical.base.deltaecore.wrapper.layouter.version.HyVersionTreeLayouter;
 import eu.hyvar.feature.graphical.base.editor.HyGraphicalFeatureModelViewer;
@@ -127,16 +126,19 @@ public class HyFeatureModelSVGGenerator {
 	 */
 	private List<HyFeatureModelSVGGroupDataObject> convertGroups(HyFeatureModelWrapped featureModelWrapped){		
 		List<HyFeatureModelSVGGroupDataObject> groups = new ArrayList<HyFeatureModelSVGGroupDataObject>();
-		for(HyGroupWrapped group : featureModelWrapped.getGroups()){
-			if(HyEvolutionUtil.isValid(group.getWrappedModelElement(), date)){
+		for(HyGroupWrapped group : featureModelWrapped.getGroups(date)){
 				if(HyEvolutionUtil.getValidTemporalElements(HyEvolutionUtil.getValidTemporalElement(group.getWrappedModelElement().getParentOf(), date).getFeatures(), date).size() > 1){
 					DEGraphicalEditorTheme theme = DEGraphicalEditor.getTheme();
 					
-					HyFeatureWrapped parentFeature = group.getParentFeature();
+					HyFeatureWrapped parentFeature = featureModelWrapped.getParentFeatureForGroup(group, featureModelWrapped.getSelectedDate());
 					Point position = parentFeature.getPosition(date).getCopy();
-					position.x += parentFeature.getSize().width() / 2;
-					position.y += HyGeometryUtil.calculateFeatureHeight(parentFeature.getWrappedModelElement(), date) - theme.getFeatureVariationTypeExtent() / 2+1;
+					position.x += parentFeature.getSize(date).width() / 2;
+					//position.y += parentFeature.getSize(date).height(); //(int) (Integer)HyGeometryUtil.calculateFeatureHeight(parentFeature.getWrappedModelElement(), date); // - theme.getFeatureVariationTypeExtent() * 1.5+theme.getLineWidth());
 
+					int size = HyEvolutionUtil.getValidTemporalElements(parentFeature.getWrappedModelElement().getAttributes(), date).size();
+					position.y += theme.getFeatureNameAreaHeight() * (size + 1) + parentFeature.calculateVersionAreaBounds(date).height;
+		
+							
 					HyFeatureWrapped leftest = null;
 					HyFeatureWrapped rightest = null;
 					for(HyFeature feature : group.getFeatures(date)){
@@ -161,10 +163,10 @@ public class HyFeatureModelSVGGenerator {
 
 					if(leftest != null && rightest != null){
 						Point leftestPosition = leftest.getPosition(date).getCopy();
-						leftestPosition.x += leftest.getSize().getCopy().width / 2;
+						leftestPosition.x += leftest.getSize(date).getCopy().width / 2;
 
 						Point rightestPosition = rightest.getPosition(date).getCopy();
-						rightestPosition.x += rightest.getSize().getCopy().width / 2;
+						rightestPosition.x += rightest.getSize(date).getCopy().width / 2;
 
 						int modifier = HyEvolutionUtil.getValidTemporalElement(group.getWrappedModelElement().getTypes(), date).getType().getValue();
 
@@ -173,7 +175,7 @@ public class HyFeatureModelSVGGenerator {
 
 					}
 				}
-			}
+			
 		}
 
 		return groups;
@@ -223,24 +225,24 @@ public class HyFeatureModelSVGGenerator {
 			modifier = (featureType.getType() == HyFeatureTypeEnum.OPTIONAL) ? 0 : 1;
 		}
 
-		Dimension dimension = featureWrapped.getSize();
+		Dimension dimension = featureWrapped.getSize(date);
 
 		HyVersionTreeLayouter versionTreeLayouter = HyVersionLayouterManager.getLayouter(featureWrapped.getWrappedModelElement(), date);
 
 		int versionAreaWidth = 0;
 		int versionAreaHeight = 0;
 		if(versionTreeLayouter != null){
-			DEGraphicalEditorTheme theme = DEGraphicalEditor.getTheme();
-			versionAreaWidth = versionTreeLayouter.getTreeBounds().width;
-			versionAreaHeight = versionTreeLayouter.getTreeBounds().height+theme.getVersionTriangleEdgeLength();
+			Rectangle versionArea = featureWrapped.calculateVersionAreaBounds(date);
+			versionAreaWidth = versionArea.width;
+			versionAreaHeight = versionArea.height;
 		}
-
+		
 		return new HyFeatureModelSVGFeatureDataObject(
 				name.getName(), 
 				position.x(), 
 				position.y(), 
 				dimension.width(), 
-				dimension.height, 
+				dimension.height(), 
 				versionAreaWidth,
 				versionAreaHeight,
 				modifier, 
@@ -306,7 +308,10 @@ public class HyFeatureModelSVGGenerator {
 		// add theme
 		DEGraphicalEditorTheme theme = DEGraphicalEditor.getTheme();
 		input.put("theme", theme);	
-
+		
+		Dimension editorDimension = editor.getEditorGraphicalDimension();
+		input.put("editorAreaWidth", editorDimension.width);
+		input.put("editorAreaHeight", editorDimension.height);
 
 		return input;
 	}
@@ -352,6 +357,7 @@ public class HyFeatureModelSVGGenerator {
 
 			template = cfg.getTemplate("svg_exporter.ftl");
 		}catch(Exception ex){
+			ex.printStackTrace();
 			return;
 		}
 
@@ -363,7 +369,7 @@ public class HyFeatureModelSVGGenerator {
 		IPath overviewPath = EclipseWorkspaceUtil.createFolderInPathFromCurrentOpenEditorFile("overview");
 
 		try{
-			File oFile = EclipseWorkspaceUtil.createFileInPath(modelName+".html", overviewPath);
+			File oFile = EclipseWorkspaceUtil.createFileInPath(modelName+".svg", overviewPath);
 			Writer fileWriter = new FileWriter(oFile);
 
 			Map<String, Object> input = prepareDataForExportFile();

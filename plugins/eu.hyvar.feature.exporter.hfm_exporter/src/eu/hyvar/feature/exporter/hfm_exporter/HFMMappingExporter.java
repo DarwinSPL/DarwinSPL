@@ -9,6 +9,7 @@ import org.deltaecore.feature.DEVersion;
 import org.deltaecore.feature.mapping.DEMapping;
 import org.deltaecore.feature.mapping.DEMappingFactory;
 import org.deltaecore.feature.mapping.DEMappingModel;
+import org.eclipse.emf.ecore.util.EcoreUtil;
 
 import eu.hyvar.evolution.HyEvolutionUtil;
 import eu.hyvar.feature.HyFeature;
@@ -40,7 +41,7 @@ public class HFMMappingExporter implements HyMappingExporter<DEMappingModel>{
 			DEMapping deMapping = DEMappingFactory.eINSTANCE.createDEMapping();
 			try {
 				deMapping.setExpression(expressionExporter.exportExpression(mapping.getExpression()));
-				deMapping.getDeltaInvokations().addAll(mapping.getDeltaInvokations());
+				deMapping.getDeltaInvokations().addAll(EcoreUtil.copyAll(mapping.getDeltaInvokations()));
 			}
 			catch(UnsupportedOperationException e) {
 				System.err.println("Could not translate expression of mapping!");
