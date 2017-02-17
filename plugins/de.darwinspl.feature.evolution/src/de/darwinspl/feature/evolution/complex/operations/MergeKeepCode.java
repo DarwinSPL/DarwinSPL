@@ -14,11 +14,12 @@ import eu.hyvar.feature.HyFeature;
  */
 public class MergeKeepCode extends ComplexOperation {
 
-	HyFeature feature;
+	HyFeature deleteFeature, targetFeature;
 	
-	public MergeKeepCode(HyFeature feature, Date timestamp) {
+	public MergeKeepCode(HyFeature deleteFeature, HyFeature targetFeature, Date timestamp) {
 		
-		this.feature = feature;
+		this.deleteFeature = deleteFeature;
+		this.targetFeature = targetFeature;
 		this.timestamp = timestamp;
 	}
 	/* (non-Javadoc)
@@ -27,8 +28,10 @@ public class MergeKeepCode extends ComplexOperation {
 	@Override
 	public void execute() {
 		 
-		DeleteButKeepCode deleteButKeepCode = new DeleteButKeepCode(feature, timestamp);
+		DeleteButKeepCode deleteButKeepCode = new DeleteButKeepCode(deleteFeature, timestamp);
 		addToComposition(deleteButKeepCode);
+		
+		//move code to the targetFeature
 
 		for (EvolutionOperation evolutionOperation : evoOps) {
 			evolutionOperation.execute();
@@ -42,6 +45,14 @@ public class MergeKeepCode extends ComplexOperation {
 	public void undo() {
 		
 
+	}
+	
+	//Getter
+	public HyFeature getDeleteFeature() {
+		return deleteFeature;
+	}
+	public HyFeature getTargetFeature() {
+		return targetFeature;
 	}
 
 }

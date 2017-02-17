@@ -98,5 +98,28 @@ public class SplitIntoFiveFeatures extends ComplexOperation {
 		newFeature5 = null;
 		group = null;
 	}
+	
+	//Getter
+	public HyFeature getOldFeature() {
+		return oldFeature;
+	}
+	public HyFeature getNewFeature1() {
+		return newFeature1;
+	}
+	public HyFeature getNewFeature2() {
+		return newFeature2;
+	}
+	public HyFeature getNewFeature3() {
+		return newFeature3;
+	}
+	public HyFeature getNewFeature4() {
+		return newFeature4;
+	}
+	public HyFeature getNewFeature5() {
+		return newFeature5;
+	}
+	public HyGroup getGroup() {
+		return group;
+	}
 
 }

@@ -6,8 +6,10 @@ package de.darwinspl.feature.evolution.tests;
 import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.EList;
 
+import de.darwinspl.feature.evolution.atomic.operations.AddFeature;
 import de.darwinspl.feature.evolution.atomic.operations.AddFeatureChild;
 import de.darwinspl.feature.evolution.atomic.operations.AddFeatureType;
+import de.darwinspl.feature.evolution.atomic.operations.AddGroup;
 import de.darwinspl.feature.evolution.atomic.operations.AddGroupComposition;
 import de.darwinspl.feature.evolution.atomic.operations.AddGroupType;
 import de.darwinspl.feature.evolution.atomic.operations.AddName;
@@ -35,14 +37,24 @@ public class AtomicOperationTests extends TestCases {
 		calendar.set(2016, 0, 20, 23, 59, 59);
 		timestamp = calendar.getTime();
 		
-		AddName name = new AddName("test", infotainmentFeature, timestamp);
-		AddFeatureType featureType = new AddFeatureType(HyFeatureTypeEnum.OPTIONAL, infotainmentFeature, timestamp);
-		AddFeatureChild fc = new AddFeatureChild(infotainmentFeature, frontDistanceSensorsAlternativeGroup,
-				timestamp);
+		AddFeature addF = new AddFeature(timestamp, tfm);
+		addF.undo();
+		addF.execute();
+		addF.undo();
 		
-		name.execute();
-		featureType.execute();
-		fc.execute();
+		AddGroup addG = new AddGroup(timestamp, tfm);
+		addG.undo();
+		addG.execute();
+		addG.undo();
+		
+//		AddName name = new AddName("test", infotainmentFeature, timestamp);
+//		AddFeatureType featureType = new AddFeatureType(HyFeatureTypeEnum.OPTIONAL, infotainmentFeature, timestamp);
+//		AddFeatureChild fc = new AddFeatureChild(infotainmentFeature, frontDistanceSensorsAlternativeGroup,
+//				timestamp);
+//		
+//		name.execute();
+//		featureType.execute();
+//		fc.execute();
 
 //		AddFeatureWithNameAndType addF = new AddFeatureWithNameAndType("test1", HyFeatureTypeEnum.OPTIONAL, timestamp);
 //		addF.execute();

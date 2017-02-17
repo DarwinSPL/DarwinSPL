@@ -80,5 +80,18 @@ public class Split extends ComplexOperation {
 		newFeature2 = null;
 		group = null;
 	}
+	//Getter
+	public HyFeature getOldFeature() {
+		return oldFeature;
+	}
+	public HyFeature getNewFeature1() {
+		return newFeature1;
+	}
+	public HyFeature getNewFeature2() {
+		return newFeature2;
+	}
+	public HyGroup getGroup() {
+		return group;
+	}
 
 }
