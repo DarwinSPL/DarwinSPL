@@ -1,25 +1,11 @@
 package eu.hyvar.feature.graphical.configurator.reconfigurator;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.PrintWriter;
 import java.net.URI;
 import java.nio.channels.UnresolvedAddressException;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
-import java.util.Scanner;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeoutException;
 
-import javax.servlet.http.HttpServletResponse;
-
-import org.eclipse.core.resources.IFile;
-import org.eclipse.core.resources.IWorkspaceRoot;
-import org.eclipse.core.resources.ResourcesPlugin;
-import org.eclipse.core.runtime.IPath;
 import org.eclipse.jetty.client.HttpClient;
 import org.eclipse.jetty.client.api.ContentResponse;
 import org.eclipse.jetty.client.api.Request;

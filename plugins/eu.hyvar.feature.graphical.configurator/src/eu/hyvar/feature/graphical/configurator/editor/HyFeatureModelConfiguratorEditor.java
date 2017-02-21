@@ -19,7 +19,6 @@ import org.eclipse.emf.ecore.util.EContentAdapter;
 import org.eclipse.gef.GraphicalViewer;
 import org.eclipse.jface.dialogs.Dialog;
 import org.eclipse.jface.window.Window;
-import org.eclipse.osgi.internal.framework.ContextFinder;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.SashForm;
 import org.eclipse.swt.events.SelectionAdapter;
