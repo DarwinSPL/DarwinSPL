@@ -17,6 +17,7 @@ public class Delete extends ComplexOperation {
 
 	private HyFeature feature;
 	private HyGroup group;
+	private HyGroupComposition newGroupComposition;
 	
 	public Delete(HyFeature feature, Date timestamp) {
 		
@@ -28,6 +29,9 @@ public class Delete extends ComplexOperation {
 	 */
 	@Override
 	public void execute() {
+		
+		//in case that this evo op will be execute to get the new group composition
+		DeleteFeatureInGroup deleteFeatureInGroup = null;
 		
 		HyGroupComposition groupComposition = null;
 		//find the current membership of the feature
@@ -42,7 +46,7 @@ public class Delete extends ComplexOperation {
 			DeleteFeatureWithGroup deleteFeatureWithGroup = new DeleteFeatureWithGroup(feature, group, timestamp);
 			addToComposition(deleteFeatureWithGroup);
 		} else {
-			DeleteFeatureInGroup deleteFeatureInGroup = new DeleteFeatureInGroup(feature, timestamp);
+			deleteFeatureInGroup = new DeleteFeatureInGroup(feature, timestamp);
 			addToComposition(deleteFeatureInGroup);
 		}
 		
@@ -50,6 +54,9 @@ public class Delete extends ComplexOperation {
 			evolutionOperation.execute();
 		}
 
+		if (deleteFeatureInGroup != null) {
+			newGroupComposition = deleteFeatureInGroup.getNewGroupComposition();
+		}
 	}
 
 	/* (non-Javadoc)
@@ -59,6 +66,17 @@ public class Delete extends ComplexOperation {
 	public void undo() {
 		// TODO Auto-generated method stub
 
+	}
+	
+	//Getter
+	public HyFeature getFeature() {
+		return feature;
+	}
+	public HyGroup getGroup() {
+		return group;
+	}
+	public HyGroupComposition getNewGroupComposition() {
+		return newGroupComposition;
 	}
 
 }

@@ -7,6 +7,7 @@ import java.util.Calendar;
 import java.util.Date;
 
 import de.darwinspl.feature.evolution.atomic.operations.AddName;
+import de.darwinspl.feature.evolution.basic.operations.Add;
 import de.darwinspl.feature.evolution.basic.operations.AddFeatureInGroup;
 import de.darwinspl.feature.evolution.basic.operations.AddFeatureWithGroup;
 import de.darwinspl.feature.evolution.basic.operations.ChangeFeatureType;
@@ -71,13 +72,13 @@ public class VamosExample {
 		calendar.set(2017, 2, 06, 12, 00, 00);
 		timestamp = calendar.getTime();
 		
-		AddFeatureInGroup distanceSensors = new AddFeatureInGroup("Distance Sensors", HyFeatureTypeEnum.OPTIONAL, assistanceSystems.getGroup(), timestamp, tfm);
-		distanceSensors.execute();
+		Add distanceSensors = new Add("Distance Sensors", HyFeatureTypeEnum.OPTIONAL, null, assistanceSystems.getGroup(), timestamp, tfm);
+		distanceSensors.execute(); 
 		
-		AddFeatureWithGroup frontDistanceSensors = new AddFeatureWithGroup("Front Distance Sensors", HyFeatureTypeEnum.OPTIONAL, distanceSensors.getFeature(), timestamp, tfm);
+		Add frontDistanceSensors = new Add("Front Distance Sensors", HyFeatureTypeEnum.OPTIONAL, distanceSensors.getFeature(), null, timestamp, tfm);
 		frontDistanceSensors.execute();
 		
-		AddFeatureWithGroup fastFrontDistanceSensor = new AddFeatureWithGroup("Fast Front Distance Sensor", HyFeatureTypeEnum.OPTIONAL, frontDistanceSensors.getFeature(), timestamp, tfm);
+		Add fastFrontDistanceSensor = new Add("Fast Front Distance Sensor", HyFeatureTypeEnum.OPTIONAL, frontDistanceSensors.getFeature(), null, timestamp, tfm);
 		fastFrontDistanceSensor.execute();
 		
 		Delete deleteConsumptionIndicator = new Delete(consumptionIndikator.getFeature(), timestamp);

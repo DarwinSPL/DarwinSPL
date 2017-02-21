@@ -6,6 +6,7 @@ package de.darwinspl.feature.evolution.evaluation;
 import java.util.Calendar;
 import java.util.Date;
 
+import de.darwinspl.feature.evolution.basic.operations.Add;
 import de.darwinspl.feature.evolution.basic.operations.AddFeatureInGroup;
 import de.darwinspl.feature.evolution.basic.operations.AddFeatureWithGroup;
 import de.darwinspl.feature.evolution.basic.operations.ChangeGroupType;
@@ -75,16 +76,16 @@ public class TFMEditorExample {
 		Rename gnss = new Rename(positioning.getFeature(), "GNSS", timestamp);
 		gnss.execute();
 		
-		AddFeatureWithGroup ecu_b = new AddFeatureWithGroup("ECU_B", HyFeatureTypeEnum.OPTIONAL, car.getFeature(), timestamp, tfm);
+		Add ecu_b = new Add("ECU_B", HyFeatureTypeEnum.OPTIONAL, car.getFeature(), null, timestamp, tfm);
 		ecu_b.execute();
 		
-		AddFeatureWithGroup nav = new AddFeatureWithGroup("Navigation System", HyFeatureTypeEnum.OPTIONAL, ecu_b.getFeature(), timestamp, tfm);
+		Add nav = new Add("Navigation System", HyFeatureTypeEnum.OPTIONAL, ecu_b.getFeature(), null, timestamp, tfm);
 		nav.execute();
 		
-		AddFeatureInGroup emergencyCallUI = new AddFeatureInGroup("Emergency Call UI", HyFeatureTypeEnum.OPTIONAL, nav.getGroup(), timestamp, tfm);
+		Add emergencyCallUI = new Add("Emergency Call UI", HyFeatureTypeEnum.OPTIONAL, null, nav.getGroup(), timestamp, tfm);
 		emergencyCallUI.execute();
 		
-		AddFeatureInGroup gearAdvice = new AddFeatureInGroup("GearAdvice", HyFeatureTypeEnum.MANDATORY, nav.getGroup(), timestamp, tfm);
+		Add gearAdvice = new Add("GearAdvice", HyFeatureTypeEnum.MANDATORY, null, nav.getGroup(), timestamp, tfm);
 		gearAdvice.execute();
 		
 	}

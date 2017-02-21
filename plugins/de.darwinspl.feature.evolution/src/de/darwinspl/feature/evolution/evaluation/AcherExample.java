@@ -28,7 +28,7 @@ import de.darwinspl.feature.evolution.invoker.OperationInvoker;
  */
 public class AcherExample {
 
-	public static void createTFM() {
+	public void createTFM() {
 		
 		HyFeatureFactory factory = HyFeatureFactory.eINSTANCE;
 
@@ -90,8 +90,4 @@ public class AcherExample {
 		
 	}
 	
-public static void main(String[] args) {
-		
-		createTFM();
-	}
 }

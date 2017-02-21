@@ -10,6 +10,7 @@ import eu.hyvar.feature.HyFeature;
 import eu.hyvar.feature.HyFeatureModel;
 import eu.hyvar.feature.HyFeatureTypeEnum;
 import eu.hyvar.feature.HyGroup;
+import eu.hyvar.feature.HyGroupComposition;
 
 /**
  *
@@ -19,7 +20,9 @@ public class Add extends ComplexOperation {
 	private String name;
 	private HyFeatureTypeEnum type;
 	private HyFeature parent;
-	private HyGroup group;
+	private HyGroup group, newGroup;
+	private HyGroupComposition newGroupComposition;
+	private HyFeature feature;
 	
 	public Add(String name, HyFeatureTypeEnum type, HyFeature parent, HyGroup group, Date timestamp, HyFeatureModel tfm) {
 		
@@ -37,15 +40,18 @@ public class Add extends ComplexOperation {
 	@Override
 	public void execute() {
 		
+		//declaration are here needed to set the global variables after the execution
+		AddFeatureInGroup addFeatureInGroup = null;
+		AddFeatureWithGroup addFeatureWithGroup = null;
 		/*call the needed basic op add(iG) or add(wG). If the group is null, the user hasn't a group which 
 		* the feature should be added. Therefore add(wG) is needed, otherwise the feature will be add 
 		* into the delivered group.
 		*/
 		if (group == null) {
-			AddFeatureWithGroup addFeatureWithGroup = new AddFeatureWithGroup(name, type, parent, timestamp, tfm);
+			addFeatureWithGroup = new AddFeatureWithGroup(name, type, parent, timestamp, tfm);
 			addToComposition(addFeatureWithGroup);
 		} else {
-			AddFeatureInGroup addFeatureInGroup = new AddFeatureInGroup(name, type, group, timestamp, tfm);
+			addFeatureInGroup = new AddFeatureInGroup(name, type, group, timestamp, tfm);
 			addToComposition(addFeatureInGroup);
 		}
 		
@@ -53,6 +59,14 @@ public class Add extends ComplexOperation {
 			evolutionOperation.execute();
 		}
 
+		newGroup = addFeatureWithGroup.getGroup();
+		newGroupComposition = addFeatureInGroup.getNewGroupComposition();
+		//get the new feature
+		if (group == null) {
+			feature = addFeatureWithGroup.getFeature();
+		} else {
+			feature = addFeatureInGroup.getFeature();
+		}
 	}
 
 	/* (non-Javadoc)
@@ -62,6 +76,25 @@ public class Add extends ComplexOperation {
 	public void undo() {
 		// TODO Auto-generated method stub
 
+	}
+	//Getter
+	public HyGroup getNewGroup() {
+		return newGroup;
+	}
+	public HyGroupComposition getNewGroupComposition() {
+		return newGroupComposition;
+	}
+	public HyGroup getGroup() {
+		return group;
+	}
+	public void setGroup(HyGroup group) {
+		this.group = group;
+	}
+	public HyFeature getParent() {
+		return parent;
+	}
+	public HyFeature getFeature() {
+		return feature;
 	}
 
 }
