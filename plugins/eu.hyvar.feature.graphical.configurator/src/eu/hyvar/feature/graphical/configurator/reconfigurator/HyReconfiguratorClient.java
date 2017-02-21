@@ -94,7 +94,6 @@ public class HyReconfiguratorClient {
 			e.printStackTrace();
 			return null;
 		}
-		// Current HyVarRec URI. TODO should be configurable
 		URI hyvarrecUri = uri;
 		Request hyvarrecRequest = hyvarrecClient.POST(hyvarrecUri);
 		hyvarrecRequest.header(HttpHeader.CONTENT_TYPE, "application/json");
