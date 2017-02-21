@@ -12,6 +12,8 @@ Installation:
 - Create Model Code for each *.genmodel file.
 - Generate TextResources of all *.cs file (currently not necessary or possible due to a EMFText bug)
 
+ATTENTION:
+In eu.hyvar.feature.graphical.configurator.editor and eu.hyvar.reconfigurator.input.rest.dummyclient, you have to ensure that the jetty client version in the build path matches _exactly_ the jetty version of your eclipse installation. If it is not matching, you have to add it to the "lib" folder, replace it in the build path of the project and replace it in the "Classpath" in the "Runtime" tab of the Manifest.MF. 
 
 
 See the Wiki for more detailed information:
