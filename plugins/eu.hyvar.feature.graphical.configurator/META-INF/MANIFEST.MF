@@ -40,8 +40,7 @@ Require-Bundle: org.eclipse.ui,
  org.eclipse.e4.ui.model.workbench,
  eu.hyvar.feature.graphical.configurator.viewer,
  eu.hyvar.feature.data,
- org.eclipse.jetty.server,
- eu.hyvar.reconfigurator.input.rest.dummyclient
+ org.eclipse.jetty.server
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Bundle-ActivationPolicy: lazy
 Bundle-Vendor: www.darwinspl.de
