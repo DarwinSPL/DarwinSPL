@@ -30,7 +30,7 @@ import de.darwinspl.feature.evolution.invoker.OperationInvoker;
  */
 public class VamosExample {
 	
-	public static void createTFM() {
+	public HyFeatureModel createTFM() {
 		
 		HyFeatureFactory factory = HyFeatureFactory.eINSTANCE;
 
@@ -98,13 +98,9 @@ public class VamosExample {
 		
 		ChangeGroupType fastDistanceSensorGroupToAlternative = new ChangeGroupType(fastFrontDistanceSensor.getGroup(), HyGroupTypeEnum.ALTERNATIVE, timestamp);
 		fastDistanceSensorGroupToAlternative.execute();
-
 		
-	}
-	
-	public static void main(String[] args) {
+		return tfm;
 		
-		createTFM();
 	}
 	
 }

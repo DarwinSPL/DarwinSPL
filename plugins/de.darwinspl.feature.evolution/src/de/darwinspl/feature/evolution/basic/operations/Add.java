@@ -58,14 +58,14 @@ public class Add extends ComplexOperation {
 		for (EvolutionOperation evolutionOperation : evoOps) {
 			evolutionOperation.execute();
 		}
-
-		newGroup = addFeatureWithGroup.getGroup();
-		newGroupComposition = addFeatureInGroup.getNewGroupComposition();
+	
 		//get the new feature
 		if (group == null) {
 			feature = addFeatureWithGroup.getFeature();
+			newGroup = addFeatureWithGroup.getGroup();
 		} else {
 			feature = addFeatureInGroup.getFeature();
+			newGroupComposition = addFeatureInGroup.getNewGroupComposition();
 		}
 	}
 
@@ -78,17 +78,12 @@ public class Add extends ComplexOperation {
 
 	}
 	//Getter
-	public HyGroup getNewGroup() {
-		return newGroup;
-	}
 	public HyGroupComposition getNewGroupComposition() {
 		return newGroupComposition;
 	}
+	//if the user want to know the group, it will return the group of the new feature. Doesn't matter if Add(iG) or Add(mG) was executed.
 	public HyGroup getGroup() {
-		return group;
-	}
-	public void setGroup(HyGroup group) {
-		this.group = group;
+		return (group == null) ?  newGroup :  group;
 	}
 	public HyFeature getParent() {
 		return parent;

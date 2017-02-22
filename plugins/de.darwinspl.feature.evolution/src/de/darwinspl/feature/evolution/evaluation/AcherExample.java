@@ -28,7 +28,8 @@ import de.darwinspl.feature.evolution.invoker.OperationInvoker;
  */
 public class AcherExample {
 
-	public void createTFM() {
+
+	public HyFeatureModel createTFM() {
 		
 		HyFeatureFactory factory = HyFeatureFactory.eINSTANCE;
 
@@ -87,7 +88,7 @@ public class AcherExample {
 //		invoker.move(init.getFeature(), applet.getFeature(), mustOverride.getGroup(), timestamp, tfm);
 //		invoker.move(destroy.getFeature(), init.getFeature(), null, timestamp, tfm);
 //		invoker.move(stop.getFeature(), init.getFeature(), destroyUnderInit.getNewGroup(), timestamp, tfm);
-		
+		return tfm;
 	}
 	
 }

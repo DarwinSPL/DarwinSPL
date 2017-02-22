@@ -27,7 +27,7 @@ import eu.hyvar.feature.util.HyFeatureCreationUtil;
  */
 public class CoEvolutionExample {
 
-	public static void createTFM() {
+	public HyFeatureModel createTFM() {
 		
 		HyFeatureFactory factory = HyFeatureFactory.eINSTANCE;
 
@@ -97,5 +97,7 @@ public class CoEvolutionExample {
 		
 		SplitIntoFiveFeatures splitMaps = new SplitIntoFiveFeatures(maps.getFeature(), "Europe", "NorthAmerica", "CentralAmerica", "SouthAmerica", "Asia", timestamp, tfm);
 		splitMaps.execute();
+		
+		return tfm;
 	}
 }
