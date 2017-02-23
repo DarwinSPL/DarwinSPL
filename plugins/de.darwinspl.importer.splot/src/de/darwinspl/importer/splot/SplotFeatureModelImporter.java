@@ -60,4 +60,11 @@ public class SplotFeatureModelImporter implements DarwinSPLFeatureModelImporter<
 		return importFeatureModel(file.getRawLocation().makeAbsolute().toOSString());
 	}
 
+	
+	public FeatureIDEFeatureModelImporter getFeatureIDEImporter() {
+		return featureIDEImporter;
+	}
+	
+	
+
 }
