@@ -12,5 +12,10 @@ Require-Bundle: org.eclipse.ui,
  eu.hyvar.feature,
  org.eclipse.core.runtime,
  de.christophseidl.util.eclipse,
+ de.christophseidl.util.ecore,
+ de.darwinspl.importer,
+ de.darwinspl.importer.splot,
  de.darwinspl.importer.featureide,
- de.christophseidl.util.ecore
+ eu.hyvar.feature.constraint
+Bundle-ClassPath: .,
+ libs/de.ovgu.featureide.lib.fm.jar

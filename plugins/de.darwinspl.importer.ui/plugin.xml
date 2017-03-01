@@ -13,6 +13,12 @@
             id="de.darwinspl.importer.ui.featureidewizard"
             name="Import FeatureIDE Feature Model">
       </wizard>
+      <wizard
+            category="de.darwinspl.importer.ui.category"
+            class="de.darwinspl.importer.ui.wizards.featureide.SplotFeatureModelImporterWizard"
+            id="de.darwinspl.importer.ui.splotwizard"
+            name="Import SPLOT Feature Model">
+      </wizard>
    </extension>
 
 </plugin>

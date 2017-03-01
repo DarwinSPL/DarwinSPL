@@ -1,0 +1,13 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: DarwinSPL DeltaEcore Importer
+Bundle-SymbolicName: de.darwinspl.importer.deltaecore
+Bundle-Version: 1.0.0
+Bundle-Vendor: www.darwinspl.de
+Bundle-RequiredExecutionEnvironment: JavaSE-1.7
+Require-Bundle: de.darwinspl.importer,
+ eu.hyvar.feature,
+ eu.hyvar.feature.constraint,
+ org.deltaecore.feature,
+ org.deltaecore.feature.constraint,
+ eu.hyvar.feature.expression

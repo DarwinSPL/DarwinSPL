@@ -6,7 +6,8 @@ import org.eclipse.ui.IImportWizard;
 import org.eclipse.ui.IWorkbench;
 
 import de.christophseidl.util.ecore.EcoreIOUtil;
-import de.darwinspl.importer.featureide.FeatureIDEFeatureModelImporter;
+import de.darwinspl.importer.FeatureModelConstraintsTuple;
+import de.darwinspl.importer.featureide.FeatureIDEFeatureModelAndConstraintsImporter;
 import de.darwinspl.importer.ui.wizards.DwFeatureModelWizardImportedFilePage;
 import de.darwinspl.importer.ui.wizards.FileSelectionWizardPage;
 import eu.hyvar.feature.HyFeatureModel;
@@ -20,7 +21,7 @@ public class FeatureIDEFeatureModelImporterWizard extends Wizard implements IImp
 	protected IWorkbench workbench;
 	
 	public FeatureIDEFeatureModelImporterWizard() {
-		// TODO Auto-generated constructor stub
+		super();
 	}
 
 	@Override
@@ -30,14 +31,16 @@ public class FeatureIDEFeatureModelImporterWizard extends Wizard implements IImp
 		
 		setWindowTitle("New Feature Model");
 		
-		featureIdeModelFileSelectionWizardPage = new FileSelectionWizardPage("FeatureIDE Feature Model Selection", "Please Select a FeatureIDE Feature Model for Import" , new String[] {"*.xml"});
+		featureIdeModelFileSelectionWizardPage = new FileSelectionWizardPage("FeatureIDE Feature Model Selection", "Please Select a FeatureIDE Feature Model for Import" , new String[] {"*.xml"}, "FeatureIDE Feature Model");
 		dwFeatureModelWizardImportedFilePage = new DwFeatureModelWizardImportedFilePage("Select new File to store the imported Feature Model", selection);
 	}
 
 	@Override
 	public boolean performFinish() {
-		FeatureIDEFeatureModelImporter importer = new FeatureIDEFeatureModelImporter();
-		HyFeatureModel featureModel = importer.importFeatureModel(featureIdeModelFileSelectionWizardPage.getSelectedFilePath());
+		FeatureIDEFeatureModelAndConstraintsImporter importer = new FeatureIDEFeatureModelAndConstraintsImporter();
+		
+		FeatureModelConstraintsTuple tuple = importer.importFeatureModel(featureIdeModelFileSelectionWizardPage.getSelectedFilePath());
+		HyFeatureModel featureModel = tuple.getFeatureModel();
 		
 		EcoreIOUtil.saveModelAs(featureModel, dwFeatureModelWizardImportedFilePage.getModelFile());
 		
