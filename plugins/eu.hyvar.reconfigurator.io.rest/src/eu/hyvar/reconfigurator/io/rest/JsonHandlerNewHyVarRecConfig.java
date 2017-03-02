@@ -8,6 +8,7 @@ import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+import java.util.UUID;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -48,7 +49,7 @@ public class JsonHandlerNewHyVarRecConfig extends AbstractHandler {
 	public static final String MSG_TYPE_JSON_HYCONFIG_OUTPUT = "hyconfig";
 	
 	private static final String PROJECT_NAME = "fmforhyvarrec";
-	private static final String HYVARREC_CONFIG_FOLDER_NAME = "hyvarrec_config";
+//	private static final String HYVARREC_CONFIG_FOLDER_NAME = "hyvarrec_config";
 
 	@Override
 	public void handle(String target, Request baseRequest, HttpServletRequest request, HttpServletResponse response)
@@ -99,7 +100,7 @@ public class JsonHandlerNewHyVarRecConfig extends AbstractHandler {
 			e.printStackTrace();
 		}
 
-		IFolder folder = project.getFolder(HYVARREC_CONFIG_FOLDER_NAME);
+		IFolder folder = project.getFolder(UUID.randomUUID().toString());
 		if (!folder.exists()) {
 			try {
 				folder.create(true, true, progressMonitor);
