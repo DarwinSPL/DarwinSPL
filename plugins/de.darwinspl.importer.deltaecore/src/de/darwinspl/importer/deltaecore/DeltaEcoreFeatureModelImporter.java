@@ -1,5 +1,6 @@
 package de.darwinspl.importer.deltaecore;
 
+import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -8,7 +9,10 @@ import org.deltaecore.feature.DEFeatureModel;
 import org.deltaecore.feature.DEGroup;
 import org.deltaecore.feature.DEVersion;
 import org.eclipse.core.resources.IFile;
+import org.eclipse.emf.ecore.EObject;
 
+import de.christophseidl.util.eclipse.ResourceUtil;
+import de.christophseidl.util.ecore.EcoreIOUtil;
 import de.darwinspl.importer.DarwinSPLFeatureModelImporter;
 import eu.hyvar.evolution.HyEvolutionFactory;
 import eu.hyvar.evolution.HyName;
@@ -60,13 +64,29 @@ public class DeltaEcoreFeatureModelImporter implements DarwinSPLFeatureModelImpo
 
 	@Override
 	public HyFeatureModel importFeatureModel(String pathToFile) {
-		// TODO Auto-generated method stub
+		File file = new File(pathToFile);
+		
+		if(file.exists()) {
+			IFile ifile = ResourceUtil.fileToFile(file);
+			
+			if(ifile != null) {
+				return importFeatureModel(ifile);
+			}			
+		}
+		
 		return null;
 	}
 
 	@Override
 	public HyFeatureModel importFeatureModel(IFile file) {
-		// TODO Auto-generated method stub
+		EObject loadedModel = EcoreIOUtil.loadModel(file);
+		
+		if(loadedModel != null && loadedModel instanceof DEFeatureModel) {
+			DEFeatureModel featureModel = (DEFeatureModel) loadedModel;
+			
+			return importFeatureModel(featureModel);
+		}
+		
 		return null;
 	}
 
@@ -150,4 +170,22 @@ public class DeltaEcoreFeatureModelImporter implements DarwinSPLFeatureModelImpo
 		
 		return dwFeature;
 	}
+
+	public Map<DEFeature, HyFeature> getFeatureMap() {
+		return featureMap;
+	}
+
+	public HyFeatureFactory getFactory() {
+		return factory;
+	}
+
+	public HyEvolutionFactory getEvoFactory() {
+		return evoFactory;
+	}
+
+	public Map<DEVersion, HyVersion> getVersionMap() {
+		return versionMap;
+	}
+	
+	
 }

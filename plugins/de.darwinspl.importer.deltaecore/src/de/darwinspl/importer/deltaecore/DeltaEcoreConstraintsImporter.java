@@ -104,6 +104,9 @@ public class DeltaEcoreConstraintsImporter implements DarwinSPLConstraintsImport
 		if(expression instanceof DENestedExpression) {
 			dwUnaryExpression = expressionFactory.createHyNestedExpression();
 		}
+		else if(expression instanceof DENotExpression) {
+			dwUnaryExpression = expressionFactory.createHyNotExpression();
+		}
 		
 		dwUnaryExpression.setOperand(translateExpression(expression.getOperand()));
 		
@@ -119,9 +122,6 @@ public class DeltaEcoreConstraintsImporter implements DarwinSPLConstraintsImport
 		}
 		else if(expression instanceof DEOrExpression) {
 			dwBinaryExpression = expressionFactory.createHyOrExpression();
-		}
-		else if(expression instanceof DENotExpression) {
-			dwBinaryExpression = expressionFactory.createHyNotEqualExpression();			
 		}
 		else if(expression instanceof DEEquivalenceExpression) {
 			dwBinaryExpression = expressionFactory.createHyEquivalenceExpression();
