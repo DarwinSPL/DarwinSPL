@@ -8,19 +8,16 @@ import java.util.Date;
 import de.darwinspl.feature.evolution.atomic.operations.AddFeature;
 import de.darwinspl.feature.evolution.atomic.operations.AddFeatureType;
 import de.darwinspl.feature.evolution.atomic.operations.AddName;
-import de.darwinspl.feature.evolution.basic.operations.ComplexOperation;
 import de.darwinspl.feature.evolution.invoker.EvolutionOperation;
 import eu.hyvar.evolution.HyName;
 import eu.hyvar.feature.HyFeature;
-import eu.hyvar.feature.HyFeatureFactory;
 import eu.hyvar.feature.HyFeatureModel;
 import eu.hyvar.feature.HyFeatureType;
 import eu.hyvar.feature.HyFeatureTypeEnum;
 
 
-
 /**
- * Create a new feature object, but don't add it to the model, because the location depends on the situation. (added it to an existing or new group) 
+ * Add a new feature with name and type
  */
 public class AddFeatureWithNameAndType extends ComplexOperation {
 	
@@ -28,8 +25,9 @@ public class AddFeatureWithNameAndType extends ComplexOperation {
 	private HyName name;
 	private HyFeatureTypeEnum type;
 	private HyFeatureType featureType;
-
 	private HyFeature feature;
+	
+	private HyFeatureModel tfm;
 	
 	public AddFeatureWithNameAndType(String name, HyFeatureTypeEnum type, Date timestamp, HyFeatureModel tfm) {
 		
@@ -88,6 +86,13 @@ public class AddFeatureWithNameAndType extends ComplexOperation {
 		featureType = null;
 		feature = null;
 
+		//remove each evo op to avoid that on a redo the evoOps list will contain the same evo op twice
+		for (EvolutionOperation evolutionOperation : evoOps) {
+			removeFromComposition(evolutionOperation);
+			if (evoOps.size() == 0) {
+				break;
+			}
+		}
 	}
 	
 	/**

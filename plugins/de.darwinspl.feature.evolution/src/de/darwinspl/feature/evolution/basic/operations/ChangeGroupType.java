@@ -7,13 +7,14 @@ import java.util.Date;
 
 import de.darwinspl.feature.evolution.atomic.operations.AddGroupType;
 import de.darwinspl.feature.evolution.atomic.operations.DeleteGroupType;
+import de.darwinspl.feature.evolution.complex.operations.ComplexOperation;
 import de.darwinspl.feature.evolution.invoker.EvolutionOperation;
 import eu.hyvar.feature.HyGroup;
 import eu.hyvar.feature.HyGroupType;
 import eu.hyvar.feature.HyGroupTypeEnum;
 
 /**
- *
+ * Basic evolution operation which change the type of a group
  */
 public class ChangeGroupType extends ComplexOperation {
 	private HyGroup group;
@@ -60,6 +61,7 @@ public class ChangeGroupType extends ComplexOperation {
 	 */
 	@Override
 	public void undo() {
+		//check if the execute method was executed, otherwise leave this method
 		if (newGroupType == null) {
 			return;
 		}
@@ -71,6 +73,13 @@ public class ChangeGroupType extends ComplexOperation {
 		oldGroupType = null;
 		newGroupType = null;
 
+		//remove each evo op to avoid that on a redo the evoOps list will contain the same evo op twice
+		for (EvolutionOperation evolutionOperation : evoOps) {
+			removeFromComposition(evolutionOperation);
+			if (evoOps.size() == 0) {
+				break;
+			}
+		}
 	}
 	
 	//Getter

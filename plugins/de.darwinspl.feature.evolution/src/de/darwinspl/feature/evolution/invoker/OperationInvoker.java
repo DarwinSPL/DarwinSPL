@@ -7,20 +7,19 @@ import java.util.ArrayList;
 import java.util.Date;
 
 import de.darwinspl.feature.evolution.basic.operations.*;
+import de.darwinspl.feature.evolution.complex.operations.ComplexOperation;
+import de.darwinspl.feature.evolution.complex.operations.MergeKeepCode;
+import de.darwinspl.feature.evolution.complex.operations.Split;
 import eu.hyvar.feature.HyFeature;
 import eu.hyvar.feature.HyFeatureModel;
 import eu.hyvar.feature.HyFeatureTypeEnum;
 import eu.hyvar.feature.HyGroup;
-import eu.hyvar.feature.HyGroupComposition;
 import eu.hyvar.feature.HyGroupTypeEnum;
 
 /**
  * Get request from the editor and invoke the corresponding evoOp to execute the command.
  */
 public class OperationInvoker {
-
-	//Catalog of all existing evoOps
-	protected ArrayList<EvolutionOperation> evoOps = new ArrayList<>();
 	
 	private ArrayList<EvolutionOperation> commandHistory = new ArrayList<>();
 	private int counterOfExecuteCommands = 0;
@@ -46,17 +45,14 @@ public class OperationInvoker {
 	 * @param group is needed, if the feature should be add in an existing group, otherwise it must be null
 	 * @param timestamp since the feature is valid
 	 * @param tfm the corresponding model
-	 * @return the tfm with the new feature
 	 */
-	public HyFeatureModel addFeature(String name, HyFeatureTypeEnum type, HyFeature parent, HyGroup group, Date timestamp, HyFeatureModel tfm) {
+	public void add(String name, HyFeatureTypeEnum type, HyFeature parent, HyGroup group, Date timestamp, HyFeatureModel tfm) {
 		
 		ComplexOperation addFeature = new Add(name, type, parent, group, timestamp, tfm);
-		evoOps.add(addFeature);
 		addFeature.execute();
 		//add the operation as next command in the history
 		commandHistory.add(counterOfExecuteCommands++, addFeature);
 		
-		return tfm;
 	}
 	
 	/**
@@ -64,11 +60,11 @@ public class OperationInvoker {
 	 * @param feature
 	 * @param timestamp
 	 */
-	public void deleteFeature(HyFeature feature, Date timestamp) {
+	public void delete(HyFeature feature, Date timestamp) {
 		
 		ComplexOperation deleteFeature = new Delete(feature, timestamp);
-		evoOps.add(deleteFeature);
 		deleteFeature.execute();
+		//add the operation as next command in the history
 		commandHistory.add(counterOfExecuteCommands++, deleteFeature);
 	}
 	
@@ -82,8 +78,8 @@ public class OperationInvoker {
 	public void rename(HyFeature feature, String name, Date timestamp) {
 		
 		ComplexOperation rename = new Rename(feature, name, timestamp);
-		evoOps.add(rename);
 		rename.execute();
+		//add the operation as next command in the history
 		commandHistory.add(counterOfExecuteCommands++, rename);
 	}
 	
@@ -96,8 +92,8 @@ public class OperationInvoker {
 	public void changeType(HyFeature feature, HyFeatureTypeEnum type, Date timestamp) {
 		
 		ComplexOperation changeFeatureType = new ChangeFeatureType(feature, type, timestamp);
-		evoOps.add(changeFeatureType);
 		changeFeatureType.execute();
+		//add the operation as next command in the history
 		commandHistory.add(counterOfExecuteCommands++, changeFeatureType);
 	}
 	
@@ -110,8 +106,8 @@ public class OperationInvoker {
 	public void changeType(HyGroup group, HyGroupTypeEnum type, Date timestamp) {
 		
 		ComplexOperation changeGroupType = new ChangeGroupType(group, type, timestamp);
-		evoOps.add(changeGroupType);
 		changeGroupType.execute();
+		//add the operation as next command in the history
 		commandHistory.add(counterOfExecuteCommands++, changeGroupType);
 	}
 	
@@ -125,8 +121,8 @@ public class OperationInvoker {
 	public void move(HyFeature feature, HyFeature parent, HyGroup group, Date timestamp, HyFeatureModel tfm) {
 		
 		ComplexOperation moveFeature = new Move(feature, parent, group, timestamp, tfm);
-		evoOps.add(moveFeature);
 		moveFeature.execute();
+		//add the operation as next command in the history
 		commandHistory.add(counterOfExecuteCommands++, moveFeature);
 		
 	}
@@ -141,8 +137,37 @@ public class OperationInvoker {
 	public void move(HyGroup group, HyFeature parent, Date timestamp) {
 		
 		ComplexOperation moveGroup = new MoveGroup(group, parent, timestamp);
-		evoOps.add(moveGroup);
 		moveGroup.execute();
+		//add the operation as next command in the history
 		commandHistory.add(counterOfExecuteCommands++, moveGroup);
+	}
+	
+	/**
+	 * Split a feature into two features. 
+	 * @param feature which should be split
+	 * @param name1: new name of the first feature
+	 * @param name2: new name of the second feature
+	 * @param timestamp
+	 * @param tfm
+	 */
+	public void split(HyFeature feature, String name1, String name2, Date timestamp, HyFeatureModel tfm) {
+		
+		ComplexOperation split = new Split(feature, name1, name2, timestamp, tfm);
+		split.execute();
+		//add the operation as next command in the history
+		commandHistory.add(counterOfExecuteCommands++, split);
+	}
+	
+	/**
+	 * merge a feature into another.
+	 * @param deleteFeature: Feature which should be removed
+	 * @param targetFeature: target feature of the merge.
+	 * @param timestamp
+	 */
+	public void merge(HyFeature deleteFeature, HyFeature targetFeature, Date timestamp){
+		
+		ComplexOperation merge = new MergeKeepCode(deleteFeature, targetFeature, timestamp);
+		merge.execute();
+		commandHistory.add(counterOfExecuteCommands++, merge);
 	}
 }

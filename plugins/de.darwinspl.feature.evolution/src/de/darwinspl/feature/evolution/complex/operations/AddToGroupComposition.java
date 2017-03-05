@@ -10,14 +10,13 @@ import org.eclipse.emf.common.util.EList;
 
 import de.darwinspl.feature.evolution.atomic.operations.AddGroupComposition;
 import de.darwinspl.feature.evolution.atomic.operations.DeleteGroupComposition;
-import de.darwinspl.feature.evolution.basic.operations.ComplexOperation;
 import de.darwinspl.feature.evolution.invoker.EvolutionOperation;
 import eu.hyvar.feature.HyFeature;
 import eu.hyvar.feature.HyGroup;
 import eu.hyvar.feature.HyGroupComposition;
 
 /**
- *
+ * Add a feature to a group composition
  */
 public class AddToGroupComposition extends ComplexOperation{
 
@@ -85,6 +84,13 @@ public class AddToGroupComposition extends ComplexOperation{
 		group = null;
 		newGroupComposition = null;
 
+		//remove each evo op to avoid that on a redo the evoOps list will contain the same evo op twice
+		for (EvolutionOperation evolutionOperation : evoOps) {
+			removeFromComposition(evolutionOperation);
+			if (evoOps.size() == 0) {
+				break;
+			}
+		}
 	}
 
 	//Getters
@@ -98,9 +104,5 @@ public class AddToGroupComposition extends ComplexOperation{
 	
 	public HyFeature getAddedFeature() {
 		return feature;
-	}
-	
-	public HyGroup getGroup() {
-		return group;
 	}
 }

@@ -7,13 +7,14 @@ import java.util.Date;
 
 import de.darwinspl.feature.evolution.atomic.operations.AddFeatureChild;
 import de.darwinspl.feature.evolution.atomic.operations.DeleteFeatureChild;
+import de.darwinspl.feature.evolution.complex.operations.ComplexOperation;
 import de.darwinspl.feature.evolution.invoker.EvolutionOperation;
 import eu.hyvar.feature.HyFeature;
 import eu.hyvar.feature.HyFeatureChild;
 import eu.hyvar.feature.HyGroup;
 
 /**
- *
+ * move a whole group.
  */
 public class MoveGroup extends ComplexOperation {
 
@@ -62,7 +63,25 @@ public class MoveGroup extends ComplexOperation {
 	 */
 	@Override
 	public void undo() {
-		// TODO Auto-generated method stub
+		//check if the execute method was executed, otherwise leave this method
+		if (newFeatureChild == null) {
+			return;
+		}
+		
+		for (EvolutionOperation evolutionOperation : evoOps) {
+			evolutionOperation.undo();
+		}
+		
+		oldFeatureChild = null;
+		newFeatureChild = null;
+
+		//remove each evo op to avoid that on a redo the evoOps list will contain the same evo op twice
+		for (EvolutionOperation evolutionOperation : evoOps) {
+			removeFromComposition(evolutionOperation);
+			if (evoOps.size() == 0) {
+				break;
+			}
+		}
 
 	}
 	
@@ -72,9 +91,6 @@ public class MoveGroup extends ComplexOperation {
 	}
 	public HyFeature getParent() {
 		return parent;
-	}
-	public HyFeatureChild getOldFeatureChild() {
-		return oldFeatureChild;
 	}
 	public HyFeatureChild getNewFeatureChild() {
 		return newFeatureChild;

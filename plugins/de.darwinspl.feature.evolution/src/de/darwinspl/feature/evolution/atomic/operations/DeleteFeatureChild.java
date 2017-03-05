@@ -9,7 +9,7 @@ import de.darwinspl.feature.evolution.invoker.EvolutionOperation;
 import eu.hyvar.feature.HyFeatureChild;
 
 /**
- *
+ * atomic operation which delete a feature child from a tfm
  */
 public class DeleteFeatureChild implements EvolutionOperation {
 

@@ -8,15 +8,13 @@ import java.util.Date;
 import de.darwinspl.feature.evolution.atomic.operations.DeleteFeature;
 import de.darwinspl.feature.evolution.atomic.operations.DeleteFeatureType;
 import de.darwinspl.feature.evolution.atomic.operations.DeleteName;
-import de.darwinspl.feature.evolution.basic.operations.ComplexOperation;
 import de.darwinspl.feature.evolution.invoker.EvolutionOperation;
 import eu.hyvar.evolution.HyName;
 import eu.hyvar.feature.HyFeature;
 import eu.hyvar.feature.HyFeatureType;
-import eu.hyvar.feature.HyGroupComposition;
 
 /**
- *
+ * Delete a feature with his name and type.
  */
 public class DeleteFeatureWithNameAndType extends ComplexOperation {
 
@@ -84,6 +82,13 @@ public class DeleteFeatureWithNameAndType extends ComplexOperation {
 		name = null;
 		featureType = null;
 
+		//remove each evo op to avoid that on a redo the evoOps list will contain the same evo op twice
+		for (EvolutionOperation evolutionOperation : evoOps) {
+			removeFromComposition(evolutionOperation);
+			if (evoOps.size() == 0) {
+				break;
+			}
+		}
 	}
 	
 	//Getter

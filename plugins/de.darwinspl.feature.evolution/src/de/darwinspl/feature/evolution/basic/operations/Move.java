@@ -10,6 +10,7 @@ import org.eclipse.emf.common.util.EList;
 
 import de.darwinspl.feature.evolution.complex.operations.AddGroupWithTypeChildAndComposition;
 import de.darwinspl.feature.evolution.complex.operations.AddToGroupComposition;
+import de.darwinspl.feature.evolution.complex.operations.ComplexOperation;
 import de.darwinspl.feature.evolution.complex.operations.DeleteGroupWithTypeChildAndComposition;
 import de.darwinspl.feature.evolution.complex.operations.RemoveFromGroupComposition;
 import de.darwinspl.feature.evolution.invoker.EvolutionOperation;
@@ -23,14 +24,16 @@ import eu.hyvar.feature.HyGroupType;
 import eu.hyvar.feature.HyGroupTypeEnum;
 
 /**
- *
+ * Basic evolution operation which move a feature. Make case analysis to do the right intention of the user.
  */
 public class Move extends ComplexOperation {
 
 	private HyFeature feature, parent;
-	private HyGroup newGroup;	//oldGroup,
+	private HyGroup newGroup;
 	private HyGroupComposition oldGroupCompositionBefore, newGroupCompositionBefore;	//group composition before the evolution
-	//private HyGroupComposition oldGroupCompositionAfter, newGroupCompositionAfter;		//group composition after the evolution
+
+	
+	private HyFeatureModel tfm;
 	/**
 	 * 
 	 * @param feature which should be move
@@ -109,7 +112,7 @@ public class Move extends ComplexOperation {
 					break;
 				}
 			}
-			
+			//if the feature type of the moved feature is mandatory it should be change to optional in case to prevent inconsistency
 			if (featureType.getType() == HyFeatureTypeEnum.MANDATORY) {
 			
 				HyGroupType groupType = null;
@@ -130,7 +133,7 @@ public class Move extends ComplexOperation {
 		for (EvolutionOperation evolutionOperation : evoOps) {
 			evolutionOperation.execute();
 		}
-
+		
 	}
 
 	/* (non-Javadoc)
@@ -138,6 +141,7 @@ public class Move extends ComplexOperation {
 	 */
 	@Override
 	public void undo() {
+		//check if the execute method was executed, otherwise leave this method
 		if (oldGroupCompositionBefore == null) {
 			return;
 		}
@@ -145,9 +149,15 @@ public class Move extends ComplexOperation {
 		for (EvolutionOperation evolutionOperation : evoOps) {
 			evolutionOperation.undo();
 		}
-		
-		if (newGroupCompositionBefore != null) {
-			newGroupCompositionBefore = null;
+	
+		newGroupCompositionBefore = null;
+
+		//remove each evo op to avoid that on a redo the evoOps list will contain the same evo op twice
+		for (EvolutionOperation evolutionOperation : evoOps) {
+			removeFromComposition(evolutionOperation);
+			if (evoOps.size() == 0) {
+				break;
+			}
 		}
 
 	}

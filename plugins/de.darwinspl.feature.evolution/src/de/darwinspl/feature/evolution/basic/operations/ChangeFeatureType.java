@@ -7,13 +7,14 @@ import java.util.Date;
 
 import de.darwinspl.feature.evolution.atomic.operations.AddFeatureType;
 import de.darwinspl.feature.evolution.atomic.operations.DeleteFeatureType;
+import de.darwinspl.feature.evolution.complex.operations.ComplexOperation;
 import de.darwinspl.feature.evolution.invoker.EvolutionOperation;
 import eu.hyvar.feature.HyFeature;
 import eu.hyvar.feature.HyFeatureType;
 import eu.hyvar.feature.HyFeatureTypeEnum;
 
 /**
- *
+ * Basic evolution operation which change the type of a feature
  */
 public class ChangeFeatureType extends ComplexOperation {
 
@@ -61,6 +62,7 @@ public class ChangeFeatureType extends ComplexOperation {
 	 */
 	@Override
 	public void undo() {
+		//check if the execute method was executed, otherwise leave this method
 		if (newFeatureType == null) {
 			return;
 		}
@@ -72,6 +74,13 @@ public class ChangeFeatureType extends ComplexOperation {
 		oldFeatureType = null;
 		newFeatureType = null;
 
+		//remove each evo op to avoid that on a redo the evoOps list will contain the same evo op twice
+		for (EvolutionOperation evolutionOperation : evoOps) {
+			removeFromComposition(evolutionOperation);
+			if (evoOps.size() == 0) {
+				break;
+			}
+		}
 	}
 	
 	//Getter

@@ -12,7 +12,7 @@ import eu.hyvar.feature.HyFeatureFactory;
 import eu.hyvar.feature.HyGroup;
 
 /**
- *
+ * atomic operation which add a feature child to a tfm
  */
 public class AddFeatureChild implements EvolutionOperation {
 
@@ -65,12 +65,6 @@ public class AddFeatureChild implements EvolutionOperation {
 	}
 	
 	//Getter
-	public HyFeature getParent() {
-		return parent;
-	}
-	public HyGroup getGroup() {
-		return group;
-	}
 	public HyFeatureChild getFeatureChild() {
 		return featureChild;
 	}

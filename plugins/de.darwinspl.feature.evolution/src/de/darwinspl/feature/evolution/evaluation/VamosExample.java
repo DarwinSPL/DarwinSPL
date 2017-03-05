@@ -61,7 +61,7 @@ public class VamosExample {
 		AddFeatureInGroup adaptiveCruiseControl = new AddFeatureInGroup("Adaptive Criuse Control", HyFeatureTypeEnum.OPTIONAL, parkingAssistance.getGroup(), timestamp, tfm);
 		adaptiveCruiseControl.execute();
 		
-		AddFeatureWithGroup consumptionIndikator = new AddFeatureWithGroup("Consumption Indikator", HyFeatureTypeEnum.OPTIONAL, infotainmentSystem.getFeature(), timestamp, tfm);
+		AddFeatureWithGroup consumptionIndikator = new AddFeatureWithGroup("Consumption Indicator", HyFeatureTypeEnum.OPTIONAL, infotainmentSystem.getFeature(), timestamp, tfm);
 		consumptionIndikator.execute();
 		
 		AddFeatureWithGroup sideDistanceSensor = new AddFeatureWithGroup("Side Distance Sensor", HyFeatureTypeEnum.MANDATORY, parkingAssistance.getFeature(), timestamp, tfm);
@@ -93,7 +93,7 @@ public class VamosExample {
 		ChangeFeatureType sideDistanceToOptional = new ChangeFeatureType(sideDistanceSensor.getFeature(), HyFeatureTypeEnum.OPTIONAL, timestamp);
 		sideDistanceToOptional.execute();
 		
-		Move moveSlowFrontSensor = new Move(slowFrontDistanceSensor.getFeature(), null, fastFrontDistanceSensor.getGroup(), timestamp, tfm);	//parent: frontDistanceSensors.getFeature()
+		Move moveSlowFrontSensor = new Move(slowFrontDistanceSensor.getFeature(), null, fastFrontDistanceSensor.getGroup(), timestamp, tfm);	//for the feature param also frontDistanceSensor.getFeature() is possible
 		moveSlowFrontSensor.execute();
 		
 		ChangeGroupType fastDistanceSensorGroupToAlternative = new ChangeGroupType(fastFrontDistanceSensor.getGroup(), HyGroupTypeEnum.ALTERNATIVE, timestamp);

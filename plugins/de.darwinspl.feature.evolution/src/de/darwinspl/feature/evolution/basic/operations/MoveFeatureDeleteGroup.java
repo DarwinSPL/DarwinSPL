@@ -6,6 +6,7 @@ package de.darwinspl.feature.evolution.basic.operations;
 import java.util.Date;
 
 import de.darwinspl.feature.evolution.complex.operations.AddToGroupComposition;
+import de.darwinspl.feature.evolution.complex.operations.ComplexOperation;
 import de.darwinspl.feature.evolution.complex.operations.DeleteGroupWithTypeChildAndComposition;
 import de.darwinspl.feature.evolution.invoker.EvolutionOperation;
 import eu.hyvar.feature.HyFeature;
@@ -62,7 +63,24 @@ public class MoveFeatureDeleteGroup extends ComplexOperation {
 	 */
 	@Override
 	public void undo() {
-		// TODO Auto-generated method stub
+		//check if the execute method was executed, otherwise leave this method
+		if (newGroupCompositionAfter == null) {
+			return;
+		}
+		
+		for (EvolutionOperation evolutionOperation : evoOps) {
+			evolutionOperation.undo();
+		}
+		
+		newGroupCompositionAfter = null;
+
+		//remove each evo op to avoid that on a redo the evoOps list will contain the same evo op twice
+		for (EvolutionOperation evolutionOperation : evoOps) {
+			removeFromComposition(evolutionOperation);
+			if (evoOps.size() == 0) {
+				break;
+			}
+		}
 
 	}
 

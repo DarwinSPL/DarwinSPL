@@ -5,6 +5,7 @@ package de.darwinspl.feature.evolution.basic.operations;
 
 import java.util.Date;
 
+import de.darwinspl.feature.evolution.complex.operations.ComplexOperation;
 import de.darwinspl.feature.evolution.invoker.EvolutionOperation;
 import eu.hyvar.feature.HyFeature;
 import eu.hyvar.feature.HyFeatureModel;
@@ -13,7 +14,7 @@ import eu.hyvar.feature.HyGroup;
 import eu.hyvar.feature.HyGroupComposition;
 
 /**
- *
+ * Basic operation which add a feature into a group or as a new child. The intention will be determined by the operation.
  */
 public class Add extends ComplexOperation {
 
@@ -23,6 +24,8 @@ public class Add extends ComplexOperation {
 	private HyGroup group, newGroup;
 	private HyGroupComposition newGroupComposition;
 	private HyFeature feature;
+	
+	private HyFeatureModel tfm;
 	
 	public Add(String name, HyFeatureTypeEnum type, HyFeature parent, HyGroup group, Date timestamp, HyFeatureModel tfm) {
 		
@@ -39,14 +42,18 @@ public class Add extends ComplexOperation {
 	 */
 	@Override
 	public void execute() {
+
 		
-		//declaration are here needed to set the global variables after the execution
+		// declaration are here needed to set the global variables after the
+		// execution
 		AddFeatureInGroup addFeatureInGroup = null;
 		AddFeatureWithGroup addFeatureWithGroup = null;
-		/*call the needed basic op add(iG) or add(wG). If the group is null, the user hasn't a group which 
-		* the feature should be added. Therefore add(wG) is needed, otherwise the feature will be add 
-		* into the delivered group.
-		*/
+		/*
+		 * call the needed basic op add(iG) or add(wG). If the group is
+		 * null, the user hasn't a group which the feature should be added.
+		 * Therefore add(wG) is needed, otherwise the feature will be add
+		 * into the delivered group.
+		 */
 		if (group == null) {
 			addFeatureWithGroup = new AddFeatureWithGroup(name, type, parent, timestamp, tfm);
 			addToComposition(addFeatureWithGroup);
@@ -54,7 +61,7 @@ public class Add extends ComplexOperation {
 			addFeatureInGroup = new AddFeatureInGroup(name, type, group, timestamp, tfm);
 			addToComposition(addFeatureInGroup);
 		}
-		
+			
 		for (EvolutionOperation evolutionOperation : evoOps) {
 			evolutionOperation.execute();
 		}
@@ -74,9 +81,29 @@ public class Add extends ComplexOperation {
 	 */
 	@Override
 	public void undo() {
-		// TODO Auto-generated method stub
-
+		if (feature == null) {
+			return;
+		}
+		
+		for (EvolutionOperation evolutionOperation : evoOps) {
+			evolutionOperation.undo();
+		}
+		
+		newGroup = null;
+		newGroupComposition = null;
+		feature = null;
+		
+		//remove each evo op to avoid that on a redo the evoOps list will contain the same evo op twice
+		for (EvolutionOperation evolutionOperation : evoOps) {
+			removeFromComposition(evolutionOperation);
+			if (evoOps.size() == 0) {
+				break;
+			}
+		}
+		
 	}
+	
+	
 	//Getter
 	public HyGroupComposition getNewGroupComposition() {
 		return newGroupComposition;

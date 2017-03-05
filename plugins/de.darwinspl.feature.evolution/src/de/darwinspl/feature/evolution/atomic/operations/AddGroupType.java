@@ -12,7 +12,7 @@ import eu.hyvar.feature.HyGroupType;
 import eu.hyvar.feature.HyGroupTypeEnum;
 
 /**
- *
+ * atomic operation which add a group type for a group to a tfm
  */
 public class AddGroupType implements EvolutionOperation {
 
@@ -60,9 +60,8 @@ public class AddGroupType implements EvolutionOperation {
 		groupTyp = null;
 
 	}
-	public HyGroup getGroup() {
-		return group;
-	}
+	
+	//Getter
 	public HyGroupType getGroupTyp() {
 		return groupTyp;
 	}

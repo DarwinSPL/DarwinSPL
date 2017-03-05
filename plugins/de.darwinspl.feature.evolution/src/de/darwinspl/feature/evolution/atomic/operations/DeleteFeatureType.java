@@ -9,7 +9,7 @@ import de.darwinspl.feature.evolution.invoker.EvolutionOperation;
 import eu.hyvar.feature.HyFeatureType;
 
 /**
- *
+ * atomic operation which delete a feature type from a tfm
  */
 public class DeleteFeatureType implements EvolutionOperation {
 
@@ -43,6 +43,8 @@ public class DeleteFeatureType implements EvolutionOperation {
 		featureType.setValidUntil(null);
 
 	}
+	
+	//Getter
 	public HyFeatureType getFeatureType() {
 		return featureType;
 	}

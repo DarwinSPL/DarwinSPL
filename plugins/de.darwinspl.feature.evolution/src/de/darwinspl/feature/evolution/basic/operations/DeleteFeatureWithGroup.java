@@ -5,6 +5,7 @@ package de.darwinspl.feature.evolution.basic.operations;
 
 import java.util.Date;
 
+import de.darwinspl.feature.evolution.complex.operations.ComplexOperation;
 import de.darwinspl.feature.evolution.complex.operations.DeleteFeatureWithNameAndType;
 import de.darwinspl.feature.evolution.complex.operations.DeleteGroupWithTypeChildAndComposition;
 import de.darwinspl.feature.evolution.invoker.EvolutionOperation;
@@ -17,7 +18,7 @@ import eu.hyvar.feature.HyGroupComposition;
 import eu.hyvar.feature.HyGroupType;
 
 /**
- *
+ *  represent the delete(iG) which delete a feature and his group
  */
 public class DeleteFeatureWithGroup extends ComplexOperation {
 	
@@ -65,6 +66,7 @@ public class DeleteFeatureWithGroup extends ComplexOperation {
 	 */
 	@Override
 	public void undo() {
+		//check if the execute method was executed, otherwise leave this method
 		if (groupComposition == null) {
 			return;
 		}
@@ -78,6 +80,14 @@ public class DeleteFeatureWithGroup extends ComplexOperation {
 		groupComposition = null;
 		featureChild = null;
 		groupType = null;
+
+		//remove each evo op to avoid that on a redo the evoOps list will contain the same evo op twice
+		for (EvolutionOperation evolutionOperation : evoOps) {
+			removeFromComposition(evolutionOperation);
+			if (evoOps.size() == 0) {
+				break;
+			}
+		}
 
 	}
 	

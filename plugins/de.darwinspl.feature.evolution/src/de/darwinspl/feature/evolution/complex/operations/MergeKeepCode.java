@@ -5,12 +5,11 @@ package de.darwinspl.feature.evolution.complex.operations;
 
 import java.util.Date;
 
-import de.darwinspl.feature.evolution.basic.operations.ComplexOperation;
 import de.darwinspl.feature.evolution.invoker.EvolutionOperation;
 import eu.hyvar.feature.HyFeature;
 
 /**
- *
+ * Merge a feature into another. The mapping evolution isn't implemented.
  */
 public class MergeKeepCode extends ComplexOperation {
 
@@ -43,8 +42,22 @@ public class MergeKeepCode extends ComplexOperation {
 	 */
 	@Override
 	public void undo() {
+		//check if the execute method was executed, otherwise leave this method
+		if (deleteFeature.getValidUntil().compareTo(timestamp) != 0) {
+			return;
+		}
 		
-
+		for (EvolutionOperation evolutionOperation : evoOps) {
+			evolutionOperation.undo();
+		}
+		
+		//remove each evo op to avoid that on a redo the evoOps list will contain the same evo op twice
+		for (EvolutionOperation evolutionOperation : evoOps) {
+			removeFromComposition(evolutionOperation);
+			if (evoOps.size() == 0) {
+				break;
+			}
+		}
 	}
 	
 	//Getter

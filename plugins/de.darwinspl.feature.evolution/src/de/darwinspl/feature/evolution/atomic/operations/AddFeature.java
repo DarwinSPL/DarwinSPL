@@ -5,14 +5,13 @@ package de.darwinspl.feature.evolution.atomic.operations;
 
 import java.util.Date;
 
-import de.darwinspl.feature.evolution.basic.operations.ComplexOperation;
 import de.darwinspl.feature.evolution.invoker.EvolutionOperation;
 import eu.hyvar.feature.HyFeature;
 import eu.hyvar.feature.HyFeatureFactory;
 import eu.hyvar.feature.HyFeatureModel;
 
 /**
- *
+ * atomic operation which add a feature to a tfm
  */
 public class AddFeature implements EvolutionOperation {
 
@@ -55,6 +54,8 @@ public class AddFeature implements EvolutionOperation {
 		feature = null;
 
 	}
+	
+	//Getter
 	public HyFeature getFeature() {
 		return feature;
 	}

@@ -13,7 +13,7 @@ import eu.hyvar.feature.HyFeatureTypeEnum;
 
 
 /**
- *
+ * atomic operation which add a feature type for a feature to a tfm
  */
 public class AddFeatureType implements EvolutionOperation {
 
@@ -60,9 +60,6 @@ public class AddFeatureType implements EvolutionOperation {
 	}
 	
 	//Getter
-	public HyFeature getFeature() {
-		return feature;
-	}
 	public HyFeatureType getFeatureTyp() {
 		return featureTyp;
 	}

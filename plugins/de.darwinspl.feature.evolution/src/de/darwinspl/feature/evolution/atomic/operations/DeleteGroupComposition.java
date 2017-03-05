@@ -9,7 +9,7 @@ import de.darwinspl.feature.evolution.invoker.EvolutionOperation;
 import eu.hyvar.feature.HyGroupComposition;
 
 /**
- *
+ * atomic operation which delete a group composition from a tfm
  */
 public class DeleteGroupComposition implements EvolutionOperation {
 
@@ -45,6 +45,8 @@ public class DeleteGroupComposition implements EvolutionOperation {
 		groupComposition.setValidUntil(null);
 
 	}
+	
+	//Getter
 	public HyGroupComposition getGroupComposition() {
 		return groupComposition;
 	}

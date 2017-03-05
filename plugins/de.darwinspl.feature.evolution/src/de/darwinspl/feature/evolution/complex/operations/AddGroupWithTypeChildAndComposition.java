@@ -12,11 +12,9 @@ import de.darwinspl.feature.evolution.atomic.operations.AddFeatureChild;
 import de.darwinspl.feature.evolution.atomic.operations.AddGroup;
 import de.darwinspl.feature.evolution.atomic.operations.AddGroupComposition;
 import de.darwinspl.feature.evolution.atomic.operations.AddGroupType;
-import de.darwinspl.feature.evolution.basic.operations.ComplexOperation;
 import de.darwinspl.feature.evolution.invoker.EvolutionOperation;
 import eu.hyvar.feature.HyFeature;
 import eu.hyvar.feature.HyFeatureChild;
-import eu.hyvar.feature.HyFeatureFactory;
 import eu.hyvar.feature.HyFeatureModel;
 import eu.hyvar.feature.HyGroup;
 import eu.hyvar.feature.HyGroupComposition;
@@ -24,7 +22,7 @@ import eu.hyvar.feature.HyGroupType;
 import eu.hyvar.feature.HyGroupTypeEnum;
 
 /**
- *
+ * Add a new group with type, feature child and group composition
  */
 public class AddGroupWithTypeChildAndComposition extends ComplexOperation {
 
@@ -36,6 +34,8 @@ public class AddGroupWithTypeChildAndComposition extends ComplexOperation {
 	private HyGroupComposition groupComposition;
 	private HyGroupType groupType;
 	private HyFeatureChild featureChild;
+	
+	private HyFeatureModel tfm;
 	
 	public AddGroupWithTypeChildAndComposition(HyGroupTypeEnum type, HyFeature parent, EList<HyFeature> features, Date timestamp, HyFeatureModel tfm) {
 		
@@ -99,20 +99,24 @@ public class AddGroupWithTypeChildAndComposition extends ComplexOperation {
 		featureChild = null;
 		groupComposition = null;
 		group = null;		
-		
+
+		//remove each evo op to avoid that on a redo the evoOps list will contain the same evo op twice
+		for (EvolutionOperation evolutionOperation : evoOps) {
+			removeFromComposition(evolutionOperation);
+			if (evoOps.size() == 0) {
+				break;
+			}
+		}
 	}
 	
 	//Getters
+	public HyGroup getGroup() {
+		return group;
+	}
 	public HyGroupComposition getGroupComposition() {
 		return groupComposition;
 	}
 	
-	public HyGroup getGroup() {
-		return group;
-	}
-	public HyFeature getParent() {
-		return parent;
-	}
 	public HyGroupType getGroupType() {
 		return groupType;
 	}

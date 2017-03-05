@@ -3,6 +3,10 @@
  */
 package de.darwinspl.feature.evolution.tests;
 
+import java.util.Calendar;
+import java.util.Date;
+
+import de.darwinspl.feature.evolution.basic.operations.Add;
 import de.darwinspl.feature.evolution.basic.operations.AddFeatureInGroup;
 import de.darwinspl.feature.evolution.basic.operations.AddFeatureWithGroup;
 import de.darwinspl.feature.evolution.basic.operations.ChangeFeatureType;
@@ -25,17 +29,27 @@ import eu.hyvar.feature.HyGroupTypeEnum;
 public class BasicOpertationTests extends TestCases {
 
 	public static void basicOperationAddTest(HyFeatureModel tfm) {
-		AddFeatureInGroup addFiG = new AddFeatureInGroup("test2", HyFeatureTypeEnum.MANDATORY, frontDistanceSensorsAlternativeGroup,
-				timestamp, tfm);
-		addFiG.undo();
-		addFiG.execute();
-		addFiG.undo();
-
-		AddFeatureWithGroup addFwG = new AddFeatureWithGroup("test3", HyFeatureTypeEnum.MANDATORY,
-				infotainmentFeature, timestamp, tfm);
-		addFwG.undo();
-		addFwG.execute();
-		addFwG.undo();
+		
+		Calendar calendar = Calendar.getInstance();
+		calendar.set(2015, 0, 31, 23, 59, 59);
+		Date timestamp = calendar.getTime();
+		
+		Add add = new Add("test2", HyFeatureTypeEnum.MANDATORY, null, frontDistanceSensorsAlternativeGroup, timestamp, tfm);
+		add.undo();
+		add.execute();
+		add.undo();
+		add.execute();
+//		AddFeatureInGroup addFiG = new AddFeatureInGroup("test2", HyFeatureTypeEnum.MANDATORY, frontDistanceSensorsAlternativeGroup,
+//				timestamp, tfm);
+//		addFiG.undo();
+//		addFiG.execute();
+//		addFiG.undo();
+//
+//		AddFeatureWithGroup addFwG = new AddFeatureWithGroup("test3", HyFeatureTypeEnum.MANDATORY,
+//				infotainmentFeature, timestamp, tfm);
+//		addFwG.undo();
+//		addFwG.execute();
+//		addFwG.undo();
 	}
 	
 	public static void basicOperationDeleteTest(HyFeatureModel tfm) {

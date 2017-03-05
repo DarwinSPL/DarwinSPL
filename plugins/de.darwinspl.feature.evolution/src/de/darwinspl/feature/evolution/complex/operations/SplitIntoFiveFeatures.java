@@ -8,7 +8,6 @@ import java.util.Date;
 import de.darwinspl.feature.evolution.basic.operations.AddFeatureInGroup;
 import de.darwinspl.feature.evolution.basic.operations.AddFeatureWithGroup;
 import de.darwinspl.feature.evolution.basic.operations.ChangeGroupType;
-import de.darwinspl.feature.evolution.basic.operations.ComplexOperation;
 import de.darwinspl.feature.evolution.invoker.EvolutionOperation;
 import eu.hyvar.feature.HyFeature;
 import eu.hyvar.feature.HyFeatureModel;
@@ -17,13 +16,15 @@ import eu.hyvar.feature.HyGroup;
 import eu.hyvar.feature.HyGroupTypeEnum;
 
 /**
- * Split a feature into five child features in an Or group
+ * Split a feature into five child features in an OR group
  */
 public class SplitIntoFiveFeatures extends ComplexOperation {
 
 	HyFeature oldFeature, newFeature1, newFeature2, newFeature3, newFeature4, newFeature5;
 	HyGroup group;
 	String nameOfFeature1, nameOfFeature2, nameOfFeature3, nameOfFeature4, nameOfFeature5;
+	
+	private HyFeatureModel tfm;
 	
 	public SplitIntoFiveFeatures(HyFeature feature, String name1, String name2, String name3, String name4, String name5, Date timestamp, HyFeatureModel tfm) {
 		
@@ -83,6 +84,7 @@ public class SplitIntoFiveFeatures extends ComplexOperation {
 	 */
 	@Override
 	public void undo() {
+		//check if the execute method was executed, otherwise leave this method
 		if (group == null) {
 			return;
 		}
@@ -96,7 +98,15 @@ public class SplitIntoFiveFeatures extends ComplexOperation {
 		newFeature3 = null;
 		newFeature4 = null;
 		newFeature5 = null;
-		group = null;
+		group = null;		
+
+		//remove each evo op to avoid that on a redo the evoOps list will contain the same evo op twice
+		for (EvolutionOperation evolutionOperation : evoOps) {
+			removeFromComposition(evolutionOperation);
+			if (evoOps.size() == 0) {
+				break;
+			}
+		}
 	}
 	
 	//Getter

@@ -4,21 +4,19 @@
 package de.darwinspl.feature.evolution.complex.operations;
 
 import java.util.Date;
-import java.util.List;
 
 import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.EList;
 
 import de.darwinspl.feature.evolution.atomic.operations.AddGroupComposition;
 import de.darwinspl.feature.evolution.atomic.operations.DeleteGroupComposition;
-import de.darwinspl.feature.evolution.basic.operations.ComplexOperation;
 import de.darwinspl.feature.evolution.invoker.EvolutionOperation;
 import eu.hyvar.feature.HyFeature;
 import eu.hyvar.feature.HyGroup;
 import eu.hyvar.feature.HyGroupComposition;
 
 /**
- *
+ * Remove a feature from a group composition
  */
 public class RemoveFromGroupComposition extends ComplexOperation {
 
@@ -85,6 +83,13 @@ public class RemoveFromGroupComposition extends ComplexOperation {
 		group = null;
 		newGroupComposition = null;
 
+		//remove each evo op to avoid that on a redo the evoOps list will contain the same evo op twice
+		for (EvolutionOperation evolutionOperation : evoOps) {
+			removeFromComposition(evolutionOperation);
+			if (evoOps.size() == 0) {
+				break;
+			}
+		}
 	}
 
 	//Getters
@@ -99,8 +104,5 @@ public class RemoveFromGroupComposition extends ComplexOperation {
 	public HyFeature getRemovedFeature() {
 		return feature;
 	}
-	
-	public HyGroup getGroup() {
-		return group;
-	}
+
 }

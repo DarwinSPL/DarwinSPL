@@ -5,19 +5,20 @@ package de.darwinspl.feature.evolution.basic.operations;
 
 import java.util.Date;
 
+import de.darwinspl.feature.evolution.complex.operations.ComplexOperation;
 import de.darwinspl.feature.evolution.invoker.EvolutionOperation;
 import eu.hyvar.feature.HyFeature;
 import eu.hyvar.feature.HyGroup;
 import eu.hyvar.feature.HyGroupComposition;
 
 /**
- *
+ * Basic evolution operation which delete a feature. Make case analysis to do the right intention of the user.
  */
 public class Delete extends ComplexOperation {
 
 	private HyFeature feature;
 	private HyGroup group;
-	private HyGroupComposition newGroupComposition;
+	private HyGroupComposition groupComposition;
 	
 	public Delete(HyFeature feature, Date timestamp) {
 		
@@ -33,11 +34,11 @@ public class Delete extends ComplexOperation {
 		//in case that this evo op will be execute to get the new group composition
 		DeleteFeatureInGroup deleteFeatureInGroup = null;
 		
-		HyGroupComposition groupComposition = null;
 		//find the current membership of the feature
 		for (HyGroupComposition membership : feature.getGroupMembership()) {
 			if (membership.getValidUntil() == null) {
 				groupComposition = membership;
+				break;
 			}
 		}
 		//if only the feature is a member of the groupCOmposition, the group must also be delete
@@ -54,9 +55,6 @@ public class Delete extends ComplexOperation {
 			evolutionOperation.execute();
 		}
 
-		if (deleteFeatureInGroup != null) {
-			newGroupComposition = deleteFeatureInGroup.getNewGroupComposition();
-		}
 	}
 
 	/* (non-Javadoc)
@@ -64,19 +62,36 @@ public class Delete extends ComplexOperation {
 	 */
 	@Override
 	public void undo() {
-		// TODO Auto-generated method stub
+		//check if the execute method was executed, otherwise leave this method
+		if (groupComposition == null) {
+			return;
+		}
+		
+		for (EvolutionOperation evolutionOperation : evoOps) {
+			evolutionOperation.undo();
+		}
+		
+		group = null;
+		groupComposition = null;
 
+		//remove each evo op to avoid that on a redo the evoOps list will contain the same evo op twice
+		for (EvolutionOperation evolutionOperation : evoOps) {
+			removeFromComposition(evolutionOperation);
+			if (evoOps.size() == 0) {
+				break;
+			}
+		}
+		
 	}
 	
 	//Getter
 	public HyFeature getFeature() {
 		return feature;
 	}
+	//in case that the group will also be delete
 	public HyGroup getGroup() {
 		return group;
 	}
-	public HyGroupComposition getNewGroupComposition() {
-		return newGroupComposition;
-	}
+
 
 }

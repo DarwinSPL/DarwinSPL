@@ -3,9 +3,7 @@
  */
 package de.darwinspl.feature.evolution.atomic.operations;
 
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.EList;
@@ -17,15 +15,15 @@ import eu.hyvar.feature.HyGroup;
 import eu.hyvar.feature.HyGroupComposition;
 
 /**
- *
+ * atomic operation which add a group compositionfor a group to a tfm
  */
 public class AddGroupComposition implements EvolutionOperation {
 
 	private HyGroup group;
 	private EList<HyFeature> features = new BasicEList<HyFeature>();
-	private Date timestamp;
-	
+	private Date timestamp;	
 	private HyGroupComposition groupComposition;
+	
 	private static final HyFeatureFactory factory = HyFeatureFactory.eINSTANCE;
 	
 	public AddGroupComposition(HyGroup group, EList<HyFeature> features, Date timestamp) {
@@ -71,10 +69,7 @@ public class AddGroupComposition implements EvolutionOperation {
 		groupComposition = null;
 	}
 	
-	/**
-	 * This method is needed, to build the relation between the feature and the groupComposition
-	 * @return
-	 */
+	//Getter
 	public HyGroupComposition getGroupComposition() {
 		return groupComposition;
 	}

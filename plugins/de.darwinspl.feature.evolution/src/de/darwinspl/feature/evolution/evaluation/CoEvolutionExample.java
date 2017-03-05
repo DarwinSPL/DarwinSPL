@@ -38,7 +38,7 @@ public class CoEvolutionExample {
 		HyFeatureModel tfm = factory.createHyFeatureModel();
 		
 		//create root feature
-		AddFeatureWithNameAndType automotiveMuldimedia = new AddFeatureWithNameAndType("AutomotiveMuldimedia", HyFeatureTypeEnum.MANDATORY, timestamp, tfm);
+		AddFeatureWithNameAndType automotiveMuldimedia = new AddFeatureWithNameAndType("AutomotiveMultimedia", HyFeatureTypeEnum.MANDATORY, timestamp, tfm);
 		automotiveMuldimedia.execute();
 		HyRootFeature root = HyFeatureCreationUtil.createRootFeature(automotiveMuldimedia.getFeature(), timestamp, null, null);
 		tfm.getRootFeature().add(root);

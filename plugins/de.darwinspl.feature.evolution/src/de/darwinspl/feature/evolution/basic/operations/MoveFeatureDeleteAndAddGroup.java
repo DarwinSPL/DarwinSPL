@@ -9,6 +9,7 @@ import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.EList;
 
 import de.darwinspl.feature.evolution.complex.operations.AddGroupWithTypeChildAndComposition;
+import de.darwinspl.feature.evolution.complex.operations.ComplexOperation;
 import de.darwinspl.feature.evolution.complex.operations.DeleteGroupWithTypeChildAndComposition;
 import de.darwinspl.feature.evolution.invoker.EvolutionOperation;
 import eu.hyvar.feature.HyFeature;
@@ -23,6 +24,8 @@ public class MoveFeatureDeleteAndAddGroup extends ComplexOperation {
 
 	private HyFeature feature, parent;
 	private HyGroup oldGroup, newGroup;
+	
+	private HyFeatureModel tfm;
 	
 	/**
 	 * 
@@ -71,7 +74,23 @@ public class MoveFeatureDeleteAndAddGroup extends ComplexOperation {
 	 */
 	@Override
 	public void undo() {
-		// TODO Auto-generated method stub
+		//check if the execute method was executed, otherwise leave this method
+		if (newGroup == null) {
+			return;
+		}
+		 for (EvolutionOperation evolutionOperation : evoOps) {
+			evolutionOperation.undo();
+		}
+		 
+		newGroup = null;
+		
+		//remove each evo op to avoid that on a redo the evoOps list will contain the same evo op twice
+		for (EvolutionOperation evolutionOperation : evoOps) {
+			removeFromComposition(evolutionOperation);
+			if (evoOps.size() == 0) {
+				break;
+			}
+		}
 
 	}
 
@@ -82,10 +101,6 @@ public class MoveFeatureDeleteAndAddGroup extends ComplexOperation {
 
 	public HyFeature getParent() {
 		return parent;
-	}
-
-	public HyGroup getOldGroup() {
-		return oldGroup;
 	}
 
 	public HyGroup getNewGroup() {

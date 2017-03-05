@@ -10,16 +10,16 @@ import org.eclipse.emf.common.util.EList;
 
 import de.darwinspl.feature.evolution.complex.operations.AddFeatureWithNameAndType;
 import de.darwinspl.feature.evolution.complex.operations.AddGroupWithTypeChildAndComposition;
+import de.darwinspl.feature.evolution.complex.operations.ComplexOperation;
 import de.darwinspl.feature.evolution.invoker.EvolutionOperation;
 import eu.hyvar.feature.HyFeature;
 import eu.hyvar.feature.HyFeatureModel;
 import eu.hyvar.feature.HyFeatureTypeEnum;
 import eu.hyvar.feature.HyGroup;
-import eu.hyvar.feature.HyGroupComposition;
 import eu.hyvar.feature.HyGroupTypeEnum;
 
 /**
- *
+ * represent the add(mG) which add a feature with a new group
  */
 public class AddFeatureWithGroup extends ComplexOperation {
 
@@ -31,6 +31,8 @@ public class AddFeatureWithGroup extends ComplexOperation {
 	private EList<HyFeature> features = new BasicEList<HyFeature>();
 	private HyGroupTypeEnum groupType = HyGroupTypeEnum.AND;	//For a new group with only one feature the group should be AND
 	private HyGroup group;
+	
+	private HyFeatureModel tfm;
 	
 	/**
 	 * Add a feature to the model and create a new (AND-) group where the feature should be located
@@ -79,6 +81,7 @@ public class AddFeatureWithGroup extends ComplexOperation {
 	 */
 	@Override
 	public void undo() {
+		//check if the execute method was executed, otherwise leave this method
 		if (group == null) {
 			return;
 		}
@@ -92,8 +95,14 @@ public class AddFeatureWithGroup extends ComplexOperation {
 		features.remove(feature);
 		feature = null;
 		group = null;
-		
 
+		//remove each evo op to avoid that on a redo the evoOps list will contain the same evo op twice
+		for (EvolutionOperation evolutionOperation : evoOps) {
+			removeFromComposition(evolutionOperation);
+			if (evoOps.size() == 0) {
+				break;
+			}
+		}
 	}
 
 	public HyFeature getFeature() {

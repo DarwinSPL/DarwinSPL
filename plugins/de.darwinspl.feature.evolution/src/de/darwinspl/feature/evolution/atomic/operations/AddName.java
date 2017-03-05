@@ -11,7 +11,7 @@ import eu.hyvar.evolution.HyName;
 import eu.hyvar.feature.HyFeature;
 
 /**
- *
+ * atomic operation which add a name for a feature to a tfm
  */
 public class AddName implements EvolutionOperation {
 
@@ -58,10 +58,6 @@ public class AddName implements EvolutionOperation {
 	}
 
 	//Getter
-	public HyFeature getFeature() {
-		return feature;
-	}
-
 	public HyName getName() {
 		return name;
 	}

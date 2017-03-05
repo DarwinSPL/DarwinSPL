@@ -9,7 +9,6 @@ import de.darwinspl.feature.evolution.atomic.operations.DeleteFeatureChild;
 import de.darwinspl.feature.evolution.atomic.operations.DeleteGroup;
 import de.darwinspl.feature.evolution.atomic.operations.DeleteGroupComposition;
 import de.darwinspl.feature.evolution.atomic.operations.DeleteGroupType;
-import de.darwinspl.feature.evolution.basic.operations.ComplexOperation;
 import de.darwinspl.feature.evolution.invoker.EvolutionOperation;
 import eu.hyvar.feature.HyFeatureChild;
 import eu.hyvar.feature.HyGroup;
@@ -17,7 +16,7 @@ import eu.hyvar.feature.HyGroupComposition;
 import eu.hyvar.feature.HyGroupType;
 
 /**
- *
+ * Delete a new group with type, feature child and group composition
  */
 public class DeleteGroupWithTypeChildAndComposition extends ComplexOperation {
 
@@ -96,6 +95,14 @@ public class DeleteGroupWithTypeChildAndComposition extends ComplexOperation {
 		groupType = null;
 		groupComposition = null;
 		featureChild = null;
+
+		//remove each evo op to avoid that on a redo the evoOps list will contain the same evo op twice
+		for (EvolutionOperation evolutionOperation : evoOps) {
+			removeFromComposition(evolutionOperation);
+			if (evoOps.size() == 0) {
+				break;
+			}
+		}
 		
 	}
 	//Getters

@@ -7,6 +7,7 @@ import java.util.Date;
 
 import de.darwinspl.feature.evolution.complex.operations.AddFeatureWithNameAndType;
 import de.darwinspl.feature.evolution.complex.operations.AddToGroupComposition;
+import de.darwinspl.feature.evolution.complex.operations.ComplexOperation;
 import de.darwinspl.feature.evolution.invoker.EvolutionOperation;
 import eu.hyvar.feature.HyFeature;
 import eu.hyvar.feature.HyFeatureModel;
@@ -15,7 +16,7 @@ import eu.hyvar.feature.HyGroup;
 import eu.hyvar.feature.HyGroupComposition;
 
 /**
- *
+ * represent the add(iG) evo op which add a feature in an existing group
  */
 public class AddFeatureInGroup extends ComplexOperation {
 
@@ -24,6 +25,8 @@ public class AddFeatureInGroup extends ComplexOperation {
 	private HyGroup group;
 	private HyFeature feature;
 	private HyGroupComposition newGroupComposition, oldGroupComposition;
+	
+	private HyFeatureModel tfm;
 
 	/**
 	 * Add a feature to the model and hang it into a consisting group
@@ -97,7 +100,14 @@ public class AddFeatureInGroup extends ComplexOperation {
 		oldGroupComposition = null;
 		feature = null;
 		newGroupComposition = null;
-		
+
+		//remove each evo op to avoid that on a redo the evoOps list will contain the same evo op twice
+		for (EvolutionOperation evolutionOperation : evoOps) {
+			removeFromComposition(evolutionOperation);
+			if (evoOps.size() == 0) {
+				break;
+			}
+		}
 
 	}
 

@@ -9,7 +9,7 @@ import de.darwinspl.feature.evolution.invoker.EvolutionOperation;
 import eu.hyvar.evolution.HyName;
 
 /**
- *
+ * atomic operation which delete a name from a tfm
  */
 public class DeleteName implements EvolutionOperation {
 
@@ -44,7 +44,7 @@ public class DeleteName implements EvolutionOperation {
 		name.setValidUntil(null);
 	}
 	
-		
+	//Getter	
 	public HyName getName() {
 		return name;
 	}

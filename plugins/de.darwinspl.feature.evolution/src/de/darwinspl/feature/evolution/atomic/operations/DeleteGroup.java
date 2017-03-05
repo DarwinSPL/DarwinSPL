@@ -9,7 +9,7 @@ import de.darwinspl.feature.evolution.invoker.EvolutionOperation;
 import eu.hyvar.feature.HyGroup;
 
 /**
- *
+ * atomic operation which delete a group from a tfm
  */
 public class DeleteGroup implements EvolutionOperation {
 
@@ -44,6 +44,11 @@ public class DeleteGroup implements EvolutionOperation {
 		
 		group.setValidUntil(null);
 
+	}
+	
+	//Getter
+	public HyGroup getGroup() {
+		return group;
 	}
 
 }

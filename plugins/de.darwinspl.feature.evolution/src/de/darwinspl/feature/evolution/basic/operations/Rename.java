@@ -7,12 +7,13 @@ import java.util.Date;
 
 import de.darwinspl.feature.evolution.atomic.operations.AddName;
 import de.darwinspl.feature.evolution.atomic.operations.DeleteName;
+import de.darwinspl.feature.evolution.complex.operations.ComplexOperation;
 import de.darwinspl.feature.evolution.invoker.EvolutionOperation;
 import eu.hyvar.evolution.HyName;
 import eu.hyvar.feature.HyFeature;
 
 /**
- *
+ * Basic evolution operation which rename a feature.
  */
 public class Rename extends ComplexOperation {
 
@@ -63,6 +64,7 @@ public class Rename extends ComplexOperation {
 	 */
 	@Override
 	public void undo() {
+		//check if the execute method was executed, otherwise leave this method
 		if (newName == null) {
 			return;
 		}
@@ -73,17 +75,21 @@ public class Rename extends ComplexOperation {
 		oldName = null;
 		newName = null;
 
+		//remove each evo op to avoid that on a redo the evoOps list will contain the same evo op twice
+		for (EvolutionOperation evolutionOperation : evoOps) {
+			removeFromComposition(evolutionOperation);
+			if (evoOps.size() == 0) {
+				break;
+			}
+		}
 	}
 	
 	//Getter
-	public HyFeature getFeature() {
-		return feature;
-	}
-	public HyName getOldName() {
-		return oldName;
-	}
 	public HyName getNewName() {
 		return newName;
+	}
+	public HyFeature getFeature() {
+		return feature;
 	}
 
 }
