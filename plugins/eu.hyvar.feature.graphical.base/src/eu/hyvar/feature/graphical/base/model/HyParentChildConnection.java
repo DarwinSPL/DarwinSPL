@@ -84,8 +84,6 @@ public class HyParentChildConnection{
 		return highlight;
 	}
 	public void setHighlight(boolean highlight) {
-		boolean old = this.highlight;
-
 		this.highlight = highlight;
 		changes.firePropertyChange(PROPERTY_HIGHLIGHTED, !highlight, highlight);
 	}

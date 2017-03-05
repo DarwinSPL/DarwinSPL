@@ -26,10 +26,6 @@ public class HyFeatureModelAutoLayoutAction extends RetargetAction {
 		
 		setEnabled(true);
 	}
-
-    @Override
-	public void run() {
-    }
     
     @Override
 	public void runWithEvent(Event event) {

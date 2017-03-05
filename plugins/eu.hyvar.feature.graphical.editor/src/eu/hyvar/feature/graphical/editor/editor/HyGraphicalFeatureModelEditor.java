@@ -5,6 +5,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.EventObject;
 import java.util.List;
 
@@ -44,8 +45,10 @@ import org.eclipse.ui.part.FileEditorInput;
 
 import eu.hyvar.context.contextValidity.util.HyValidityModelUtil;
 import eu.hyvar.context.information.util.HyContextInformationUtil;
+import eu.hyvar.evolution.HyEvolutionUtil;
 import eu.hyvar.feature.constraint.util.HyConstraintUtil;
 import eu.hyvar.feature.graphical.base.editor.HyGraphicalFeatureModelViewer;
+import eu.hyvar.feature.graphical.base.model.DwTemporalPosition;
 import eu.hyvar.feature.graphical.base.model.HyFeatureWrapped;
 import eu.hyvar.feature.graphical.editor.actions.HyLinearTemporalElementChangeValidityAction;
 import eu.hyvar.feature.graphical.editor.actions.attribute.HyAttributeCreateBooleanAction;
@@ -150,8 +153,15 @@ public class HyGraphicalFeatureModelEditor extends HyGraphicalFeatureModelViewer
 		IPath path = ((IPath)file.getFullPath().clone()).removeFileExtension().addFileExtension("hylayout");
 
 		String fileContent = "";
-		for(HyFeatureWrapped feature : this.getModelWrapped().getFeatures(null)){
-			fileContent += feature.getWrappedModelElement().getId()+","+feature.getPosition(null).x()+","+feature.getPosition(null).y()+"\n";
+		for(Date date : HyEvolutionUtil.collectDates(this.modelWrapped.getModel())){
+			for(HyFeatureWrapped feature : this.getModelWrapped().getFeatures(date)){
+				DwTemporalPosition position = feature.getPosition(date);
+				fileContent += feature.getWrappedModelElement().getId()+","+
+							   position.getValidSince()+","+
+							   position.getValidUntil()+","+
+							   position.getPosition().x()+","+
+							   position.getPosition().y()+"\n";
+			}
 		}
 
 		IFile file = workspaceRoot.getFile(path);

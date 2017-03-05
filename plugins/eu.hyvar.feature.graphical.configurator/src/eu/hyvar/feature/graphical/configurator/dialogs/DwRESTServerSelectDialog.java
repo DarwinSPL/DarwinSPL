@@ -1,7 +1,6 @@
 package eu.hyvar.feature.graphical.configurator.dialogs;
 
 import java.net.URI;
-import java.net.URISyntaxException;
 
 import org.eclipse.jface.dialogs.IDialogConstants;
 import org.eclipse.jface.dialogs.IMessageProvider;

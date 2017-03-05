@@ -486,7 +486,7 @@ public class HyGraphicalFeatureModelViewer extends GraphicalEditor implements IF
 						modelWrapped.setAutoLayoutActive(false);
 						for(HyFeatureWrapped featureWrapped : this.getModelWrapped().getFeatures(null)){
 							if(id.equals(featureWrapped.getWrappedModelElement().getId())){
-								featureWrapped.setPosition(new Point(x, y), false);
+								featureWrapped.addPosition(new Point(x, y), null, false);
 							}
 						}
 

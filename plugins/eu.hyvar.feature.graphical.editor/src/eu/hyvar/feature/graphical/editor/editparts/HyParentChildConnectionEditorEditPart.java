@@ -55,11 +55,13 @@ public class HyParentChildConnectionEditorEditPart extends HyParentChildConnecti
 			@Override
 			protected void hideSelection() {
 				((HyParentChildConnectionFigure)getFigure()).setColor(theme.getLineColor());
+				getFigure().repaint();
 			}
 
 			@Override
 			protected void showSelection() {
-				((HyParentChildConnectionFigure)getFigure()).setColor(theme.getSelectionLineColor());
+				((HyParentChildConnectionFigure)getFigure()).setColor(theme.getSelectionSecondaryColor());
+				getFigure().repaint();
 			}
 		});
 	}

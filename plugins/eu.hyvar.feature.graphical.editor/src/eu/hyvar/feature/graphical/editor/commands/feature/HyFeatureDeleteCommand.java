@@ -1,26 +1,17 @@
 package eu.hyvar.feature.graphical.editor.commands.feature;
 
 import java.util.Date;
-import java.util.List;
 
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.gef.EditPart;
 
-import eu.hyvar.evolution.HyEvolutionFactory;
-import eu.hyvar.evolution.HyEvolutionUtil;
-import eu.hyvar.evolution.HyName;
 import eu.hyvar.evolution.HyTemporalElement;
 import eu.hyvar.feature.HyFeature;
-import eu.hyvar.feature.HyFeatureChild;
-import eu.hyvar.feature.HyFeatureFactory;
-import eu.hyvar.feature.HyFeatureType;
-import eu.hyvar.feature.HyGroupComposition;
 import eu.hyvar.feature.graphical.base.editparts.HyFeatureEditPart;
 import eu.hyvar.feature.graphical.base.editparts.HyRootFeatureEditPart;
 import eu.hyvar.feature.graphical.base.model.HyFeatureModelWrapped;
 import eu.hyvar.feature.graphical.base.model.HyFeatureWrapped;
-import eu.hyvar.feature.graphical.base.model.HyGroupWrapped;
 import eu.hyvar.feature.graphical.base.model.HyParentChildConnection;
 import eu.hyvar.feature.graphical.editor.editor.HyGraphicalFeatureModelEditor;
 
@@ -65,6 +56,7 @@ public class HyFeatureDeleteCommand extends FeatureConnectionChangeCommand{
 	}
 
 
+	@SuppressWarnings("unchecked")
 	public void redo(){
 		
 		HyFeature feature = this.feature.getWrappedModelElement();

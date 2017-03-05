@@ -77,12 +77,13 @@ public class HyGroupFigure extends HyAbstractFigure{
 			HyFeatureWrapped firstFeature = features.iterator().next();
 			HyFeatureWrapped lastFeature = firstFeature;
 			Iterator<HyFeatureWrapped> it = features.iterator();
+			
 			while (it.hasNext()){
 				HyFeatureWrapped currentFeature = it.next();
-				if(currentFeature.getPosition(null).x < firstFeature.getPosition(null).x)
+				if(currentFeature.getPosition(date).getPosition().x < firstFeature.getPosition(date).getPosition().x)
 					firstFeature = currentFeature;
 
-				if(currentFeature.getPosition(null).x > lastFeature.getPosition(null).x)
+				if(currentFeature.getPosition(date).getPosition().x > lastFeature.getPosition(date).getPosition().x)
 					lastFeature = currentFeature;			
 			}
 
@@ -90,11 +91,11 @@ public class HyGroupFigure extends HyAbstractFigure{
 			Point originPoint = this.getLocation().getCopy();
 			originPoint.x += this.getSize().width / 2 - theme.getLineWidth();	
 
-			Point leftLineEndPoint = firstFeature.getPosition(null).getCopy();
+			Point leftLineEndPoint = firstFeature.getPosition(date).getPosition().getCopy();
 			leftLineEndPoint.x+=firstFeature.getSize(date).width / 2;
 			//leftLineEndPoint.y+=theme.getFeatureVariationTypeExtent()-4;
 
-			Point rightLineEndPoint = lastFeature.getPosition(null).getCopy();
+			Point rightLineEndPoint = lastFeature.getPosition(date).getPosition().getCopy();
 			rightLineEndPoint.x+=lastFeature.getSize(date).width / 2;
 			//rightLineEndPoint.y+=theme.getFeatureVariationTypeExtent();
 
@@ -149,7 +150,7 @@ public class HyGroupFigure extends HyAbstractFigure{
 	}	
 
 	@Override 
-	public void paintFigure(Graphics graphics) {		
+	public void paintFigure(Graphics graphics) {	
 		DEGraphicalEditorTheme theme = DEGraphicalEditor.getTheme();
 		Date date = editor.getCurrentSelectedDate();
 
@@ -157,7 +158,7 @@ public class HyGroupFigure extends HyAbstractFigure{
 		if(parentFeatureWrapped == null){
 			System.out.println("");
 		}
-		Point parentPosition = parentFeatureWrapped.getPosition(date).getCopy();
+		Point parentPosition = parentFeatureWrapped.getPosition(date).getPosition().getCopy();
 		parentPosition.y += parentFeatureWrapped.getSize(date).height;
 		parentPosition.x += parentFeatureWrapped.getSize(date).width() / 2.0 - theme.getGroupSymbolRadius();
 

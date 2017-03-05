@@ -63,8 +63,9 @@ public abstract class HyAttributeCreateAction extends SelectionAction{
 				feature = model.getWrappedModelElement();		
 			}
 			
-			if(feature != null){
-				HyAttributeCreateCommand command = new HyAttributeCreateCommand(feature, createNewAttribute(), editor);
+			HyFeatureAttribute newAttribute = createNewAttribute();
+			if(feature != null && newAttribute != null){
+				HyAttributeCreateCommand command = new HyAttributeCreateCommand(feature, newAttribute, editor);
 				this.editor.executeCommand(command);
 			}
 		}

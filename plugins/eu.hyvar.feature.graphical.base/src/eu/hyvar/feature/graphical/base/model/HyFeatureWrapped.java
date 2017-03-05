@@ -10,7 +10,6 @@ import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.emf.ecore.EObject;
-import org.eclipse.emf.ecore.util.EcoreUtil;
 
 import eu.hyvar.evolution.HyEvolutionUtil;
 import eu.hyvar.feature.HyFeature;
@@ -75,7 +74,7 @@ public class HyFeatureWrapped extends HyEditorChangeableElement{
 	}
 
 	public Rectangle calculateVersionAreaBounds(Date date) {
-		Rectangle bounds = new Rectangle(getPosition(date), size);
+		Rectangle bounds = new Rectangle(getPosition(date).getPosition(), size);
 		Rectangle versionAreaBounds = bounds.getCopy();
 
 		HyVersionTreeLayouter versionTree = HyVersionLayouterManager.getLayouter(getWrappedModelElement(), date);
@@ -104,7 +103,7 @@ public class HyFeatureWrapped extends HyEditorChangeableElement{
 
 	public Rectangle calculateNameAreaBounds(Date date) {
 		DEGraphicalEditorTheme theme = DEGraphicalEditor.getTheme();
-		Rectangle bounds = new Rectangle(getPosition(date), size);
+		Rectangle bounds = new Rectangle(getPosition(date).getPosition(), size);
 		Rectangle nameAreaBounds = bounds.getCopy();
 
 
@@ -113,7 +112,7 @@ public class HyFeatureWrapped extends HyEditorChangeableElement{
 	}
 
 	public Rectangle calculateAttributesAreaBounds(Date date) {
-		Point position = getPosition(date);
+		Point position = getPosition(date).getPosition();
 		DEGraphicalEditorTheme theme = DEGraphicalEditor.getTheme();
 
 		int visibleAttributes = HyEvolutionUtil.getValidTemporalElements(getWrappedModelElement().getAttributes(), date).size();
@@ -125,7 +124,7 @@ public class HyFeatureWrapped extends HyEditorChangeableElement{
 				new Dimension(size.width, height));		
 	}
 	public Rectangle calculateVariationTypeCircleBounds(Date date) {
-		Point position = getPosition(date);
+		Point position = getPosition(date).getPosition();
 		DEGraphicalEditorTheme theme = DEGraphicalEditor.getTheme();
 
 
@@ -182,6 +181,7 @@ public class HyFeatureWrapped extends HyEditorChangeableElement{
 	 */
 	private HyFeatureWrappedAdapter adapter;
 
+	
 	public boolean isValid(Date since, Date until){
 		HyFeature feature = (HyFeature)wrappedModelElement;
 		Date validSince = feature.getValidSince();
@@ -399,13 +399,6 @@ public class HyFeatureWrapped extends HyEditorChangeableElement{
 		return HyEvolutionUtil.getValidTemporalElements(this.getWrappedModelElement().getGroupMembership(), date);
 	}
 
-
-
-/*
-	public Dimension getSize() {
-		return size;
-	}
-	*/
 	public void setSize(Dimension size) {
 		this.size = size;
 	}

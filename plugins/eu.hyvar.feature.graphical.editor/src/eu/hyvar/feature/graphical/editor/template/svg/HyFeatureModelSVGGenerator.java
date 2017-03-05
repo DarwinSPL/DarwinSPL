@@ -132,7 +132,7 @@ public class HyFeatureModelSVGGenerator {
 					DEGraphicalEditorTheme theme = DEGraphicalEditor.getTheme();
 					
 					HyFeatureWrapped parentFeature = featureModelWrapped.getParentFeatureForGroup(group, featureModelWrapped.getSelectedDate());
-					Point position = parentFeature.getPosition(date).getCopy();
+					Point position = parentFeature.getPosition(date).getPosition().getCopy();
 					position.x += parentFeature.getSize(date).width() / 2;
 					//position.y += parentFeature.getSize(date).height(); //(int) (Integer)HyGeometryUtil.calculateFeatureHeight(parentFeature.getWrappedModelElement(), date); // - theme.getFeatureVariationTypeExtent() * 1.5+theme.getLineWidth());
 
@@ -152,21 +152,21 @@ public class HyFeatureModelSVGGenerator {
 								rightest = featureWrapped;
 							}
 
-							if(leftest.getPosition(date).x > featureWrapped.getPosition(date).x){
+							if(leftest.getPosition(date).getPosition().x > featureWrapped.getPosition(date).getPosition().x){
 								leftest = featureWrapped;
 							}
 
-							if(rightest.getPosition(date).x < featureWrapped.getPosition(date).x){
+							if(rightest.getPosition(date).getPosition().x < featureWrapped.getPosition(date).getPosition().x){
 								rightest = featureWrapped;
 							}
 						}
 					}
 
 					if(leftest != null && rightest != null){
-						Point leftestPosition = leftest.getPosition(date).getCopy();
+						Point leftestPosition = leftest.getPosition(date).getPosition().getCopy();
 						leftestPosition.x += leftest.getSize(date).getCopy().width / 2;
 
-						Point rightestPosition = rightest.getPosition(date).getCopy();
+						Point rightestPosition = rightest.getPosition(date).getPosition().getCopy();
 						rightestPosition.x += rightest.getSize(date).getCopy().width / 2;
 
 						int modifier = HyEvolutionUtil.getValidTemporalElement(group.getWrappedModelElement().getTypes(), date).getType().getValue();
@@ -188,7 +188,7 @@ public class HyFeatureModelSVGGenerator {
 	 * @return
 	 */
 	private HyFeatureModelSVGFeatureDataObject convertFeature(HyFeatureWrapped featureWrapped){
-		Point position = featureWrapped.getPosition(date);
+		Point position = featureWrapped.getPosition(date).getPosition();
 
 		HyName name = HyEvolutionUtil.getValidTemporalElement(featureWrapped.getWrappedModelElement().getNames(), date);
 

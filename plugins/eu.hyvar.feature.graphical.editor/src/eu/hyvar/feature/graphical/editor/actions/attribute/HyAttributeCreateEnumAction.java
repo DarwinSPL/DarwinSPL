@@ -3,6 +3,8 @@ package eu.hyvar.feature.graphical.editor.actions.attribute;
 import java.util.Date;
 
 import org.eclipse.gef.Request;
+import org.eclipse.swt.SWT;
+import org.eclipse.swt.widgets.MessageBox;
 
 import eu.hyvar.dataValues.HyEnumLiteral;
 import eu.hyvar.evolution.HyEvolutionFactory;
@@ -34,18 +36,35 @@ public class HyAttributeCreateEnumAction extends HyAttributeCreateAction{
 		if(date.equals(new Date(Long.MIN_VALUE)))
 			date = null;
 		
+		// check if enums exist and show a dialog otherwise
+		if(editor.getModelWrapped().getModel().getEnums().isEmpty()){
+			MessageBox dialog =
+			        new MessageBox(editor.getSite().getShell(), SWT.ERROR | SWT.OK);
+			dialog.setText("No existing enumerations");
+			dialog.setMessage("This feature model does not have any defined enumerations. Please create first one enumeration"
+					+ " before adding it to a feature.");
+
+			// open dialog and await user selection
+			dialog.open();
+			return null;
+		}
+		
 		EnumDialog dialog = new EnumDialog(editor.getSite().getShell(), editor.getModelWrapped().getModel(), null, null);		
 		dialog.open();
+		
 		HyEnumLiteral literal = dialog.getValue();
-		
-		HyEnumAttribute attribute = HyFeatureFactory.eINSTANCE.createHyEnumAttribute();
-		attribute.setValidSince(editor.getCurrentSelectedDate());
-		HyName name = HyEvolutionFactory.eINSTANCE.createHyName();
-		name.setName("New Enumeration Attribute");
-		name.setValidSince(date);
-		attribute.getNames().add(name);
-		
-		attribute.setEnumType(literal.getEnum());
-		return attribute;
+		if(literal != null){		
+			HyEnumAttribute attribute = HyFeatureFactory.eINSTANCE.createHyEnumAttribute();
+			attribute.setValidSince(editor.getCurrentSelectedDate());
+			HyName name = HyEvolutionFactory.eINSTANCE.createHyName();
+			name.setName("New Enumeration Attribute");
+			name.setValidSince(date);
+			attribute.getNames().add(name);
+			
+			attribute.setEnumType(literal.getEnum());
+			return attribute;
+		}else{
+			return null;
+		}
 	}
 }

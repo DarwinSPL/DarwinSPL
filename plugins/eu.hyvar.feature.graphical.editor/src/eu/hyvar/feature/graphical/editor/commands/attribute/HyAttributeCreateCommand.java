@@ -31,6 +31,9 @@ public class HyAttributeCreateCommand extends Command {
 
 	@Override
 	public void redo() {
+		// cancel redo if attribute is null
+		if(attribute == null) return;
+		
 		Date date = editor.getCurrentSelectedDate();
 		
 		if(date.equals(new Date(Long.MIN_VALUE))){

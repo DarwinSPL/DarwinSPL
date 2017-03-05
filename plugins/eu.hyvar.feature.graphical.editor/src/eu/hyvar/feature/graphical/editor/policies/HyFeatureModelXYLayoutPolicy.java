@@ -8,6 +8,7 @@ import org.eclipse.gef.editpolicies.XYLayoutEditPolicy;
 import org.eclipse.gef.requests.CreateRequest;
 
 import eu.hyvar.feature.graphical.base.editparts.HyFeatureEditPart;
+import eu.hyvar.feature.graphical.base.model.HyFeatureModelWrapped;
 import eu.hyvar.feature.graphical.base.model.HyFeatureWrapped;
 import eu.hyvar.feature.graphical.editor.commands.feature.HyFeatureChangeConstraintCommand;
 
@@ -19,8 +20,11 @@ public class HyFeatureModelXYLayoutPolicy extends XYLayoutEditPolicy{
 	@Override 
 	protected Command createChangeConstraintCommand(EditPart child, Object constraint) {
 		if(child instanceof HyFeatureEditPart){
+			HyFeatureModelWrapped featureModelWrapped = (HyFeatureModelWrapped)this.getHost().getModel();
+			
 			HyFeatureChangeConstraintCommand command = new HyFeatureChangeConstraintCommand();
 			command.setModel((HyFeatureWrapped) child.getModel());
+			command.setDate(featureModelWrapped.getSelectedDate());
 
 			Rectangle r = (Rectangle)constraint;
 			command.setPosition(r.getTopLeft());

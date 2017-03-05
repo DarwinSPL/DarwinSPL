@@ -3,10 +3,13 @@ package eu.hyvar.feature.graphical.base.model;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.util.Date;
+import java.util.LinkedList;
+import java.util.List;
 
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.emf.ecore.EObject;
+
 
 public class HyEditorChangeableElement{
 	public final static String PROPERTY_POSITION = "PropertyPosition";
@@ -18,24 +21,82 @@ public class HyEditorChangeableElement{
 	/*
 	 * Position needed for allow repositioning by the user
 	 */
-	protected Point position;
+	protected List<DwTemporalPosition> positions = new LinkedList<DwTemporalPosition>();
+	
 	
 	protected Dimension size;
 	
-	public Point getPosition(Date date) {
-		return position;
+	public DwTemporalPosition getPosition(Date date) {
+		if(date == null)
+			return positions.get(0);
+		
+		for(DwTemporalPosition position : positions){
+
+			Date since = position.getValidSince();
+			Date until = position.getValidUntil();
+			
+			if(since == null && until == null)
+				return position;
+			else if(since == null && until != null){
+				if(date.before(until))
+					return position;
+			}else if(since != null && until == null){
+				if(date.after(since) || date.equals(since))
+					return position;
+			}else if(since != null && until != null){
+				if((date.after(since) || date.equals(since)) && date.before(until)){
+					return position;
+				}
+			}
+		}
+		
+		return null;
 	}
-	public void setPosition(Point position) {
+	
+	/*
+	public void setPosition(DwTemporalPosition position) {
 		setPosition(position, true);
-	}	
-	public void setPosition(Point position, boolean firePropertyChange) {
-		Point old = this.position;
+	}
+	*/	
+	
+
+	public void addPosition(Point point, Date date, boolean firePropertyChange){
+		DwTemporalPosition predecessor;
+		if(date != null && date.equals(new Date(Long.MIN_VALUE))){
+			date = null;
+			
+			predecessor = getPosition(date);
+			positions.remove(predecessor);
+			predecessor = null;
+		}else{
+			predecessor = getPosition(date);
+			predecessor.setValidUntil(date);
+		}
+		
+		
+		DwTemporalPosition successor = new DwTemporalPosition(date, null, point);
+		int preIndex = positions.indexOf(predecessor);
+		
+		System.out.println("successor "+successor.getPosition()+ "  "+successor.getValidSince() 
+		 +"   "+successor.getValidUntil());
+		
+		if(preIndex != -1)
+			positions.add(positions.indexOf(predecessor), successor);
+		else
+			positions.add(successor);
+		
+		if(firePropertyChange)
+			listeners.firePropertyChange(PROPERTY_POSITION, predecessor, successor);
+	}
+	/*
+	public void setPosition(DwTemporalPosition position, boolean firePropertyChange) {
+		DwTemporalPosition old = this.position;
 		this.position = position;
 
 		if(firePropertyChange)
 			listeners.firePropertyChange(PROPERTY_POSITION, old, position);
 	}	
-	
+	*/
 	
 	public EObject getWrappedModelElement() {
 		return wrappedModelElement;
@@ -48,7 +109,7 @@ public class HyEditorChangeableElement{
 	public HyEditorChangeableElement(EObject wrappedModelElement){
 		this.wrappedModelElement = wrappedModelElement;
 		
-		position = new Point(0, 0);
+		positions.add(new DwTemporalPosition(null, null, new Point(0, 0)));
 		
 		listeners = new PropertyChangeSupport(this);
 	}

@@ -115,6 +115,7 @@ public class HyParentChildConnectionEditPart extends AbstractConnectionEditPart 
 	
 	@Override
 	public void refreshVisuals(){
+		System.out.println(this.getSelected());
 		Date date = editor.getCurrentSelectedDate();
 		HyParentChildConnection connection = (HyParentChildConnection)getModel();
 		boolean sourceValid = connection.getSource().isValid(date);

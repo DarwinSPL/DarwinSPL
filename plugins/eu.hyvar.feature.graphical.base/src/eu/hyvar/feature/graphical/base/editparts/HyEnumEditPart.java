@@ -113,14 +113,14 @@ public class HyEnumEditPart  extends HyAbstractEditPart{
 	protected void setSize(){
 
 		HyFeatureModelEditPart parent = (HyFeatureModelEditPart)getParent();
-	
+
 		Rectangle layout = new Rectangle(0, 0, 200, 200);
 		parent.setLayoutConstraint(this, figure, layout);	
 	}	
 
 	@Override
 	public void refreshVisuals(){
-		
+
 		HyFeatureModelEditPart parent = (HyFeatureModelEditPart)getParent();
 		HyEnum model = (HyEnum)getModel();
 
@@ -136,12 +136,15 @@ public class HyEnumEditPart  extends HyAbstractEditPart{
 		}
 
 		int width = 300;
-		Rectangle layout = new Rectangle(new Point(parentFigure.getSize().width()-(width+20), 20+topOffset), 
-										 new Dimension(width, HyEnumEditorUtil.getEnumHeight(model, date)));
-		
 
-		parent.setLayoutConstraint(this, figure, layout);
+		if(parentFigure.getSize().width() != 0){
 
+			Rectangle layout = new Rectangle(new Point(parentFigure.getSize().width()-(width+20), 20+topOffset), 
+					new Dimension(width, HyEnumEditorUtil.getEnumHeight(model, date)));
+
+
+			parent.setLayoutConstraint(this, figure, layout);
+		}
 
 
 
@@ -149,11 +152,11 @@ public class HyEnumEditPart  extends HyAbstractEditPart{
 		HyEnumFigure figure = (HyEnumFigure)getFigure();
 		figure.setVisible(true);
 		figure.setText(model.getName());
-		
+
 
 
 		refreshVisualsOfChildren();
-		
+
 	}
 
 	/**
@@ -165,7 +168,7 @@ public class HyEnumEditPart  extends HyAbstractEditPart{
 				HyEnumLiteralEditPart edit = (HyEnumLiteralEditPart)o;	
 				if(!edit.isActive())
 					edit.activate();
-				
+
 				edit.refreshVisuals();
 			}
 		}		

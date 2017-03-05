@@ -426,8 +426,10 @@ public class HyFeatureModelWrapped implements PropertyChangeListener {
 			
 			if(HyEvolutionUtil.getValidTemporalElements(feature.getGroupMembership(), selectedDate).size() > 0 || isRootFeature(feature)){
 				Rectangle rectangle = layouter.getBounds(feature);
-			
-				getWrappedFeature(feature).setPosition(rectangle.getTopLeft());	
+				
+				
+				getWrappedFeature(feature).addPosition(rectangle.getTopLeft(), selectedDate, true);
+				//getWrappedFeature(feature).setPosition(rectangle.getTopLeft());	
 			}
 		}	
 	}

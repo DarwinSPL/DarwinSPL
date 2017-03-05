@@ -5,10 +5,11 @@ import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.eclipse.draw2d.FreeformLayer;
 import org.eclipse.draw2d.FreeformLayout;
 import org.eclipse.draw2d.IFigure;
+import org.eclipse.draw2d.LayoutAnimator;
 import org.eclipse.draw2d.LineBorder;
+import org.eclipse.draw2d.ScalableFreeformLayeredPane;
 import org.eclipse.gef.EditPart;
 import org.eclipse.gef.EditPolicy;
 import org.eclipse.gef.editparts.AbstractGraphicalEditPart;
@@ -29,9 +30,11 @@ public class HyFeatureModelEditPart extends AbstractGraphicalEditPart implements
 	 
 	@Override
 	protected IFigure createFigure() {
-	    FreeformLayer layer = new FreeformLayer();
+		ScalableFreeformLayeredPane layer = new ScalableFreeformLayeredPane();
+	    //FreeformLayer layer = new FreeformLayer();
 	    layer.setLayoutManager(new FreeformLayout());
 	    layer.setBorder(new LineBorder(1));
+	    layer.addLayoutListener(LayoutAnimator.getDefault());
 	    return layer;
 	}
 	
@@ -95,7 +98,7 @@ public class HyFeatureModelEditPart extends AbstractGraphicalEditPart implements
 		//HyFeatureModelEvolutionWrapped model = (HyFeatureModelEvolutionWrapped) getModel();
 		
 		
-		super.refresh();
+		//super.refresh();
 		
 		for(Object child : this.getChildren()){
 			if(child instanceof HyParentChildConnectionEditPart)

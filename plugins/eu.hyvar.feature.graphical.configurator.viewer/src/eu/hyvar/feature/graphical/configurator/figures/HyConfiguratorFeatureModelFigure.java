@@ -1,11 +1,8 @@
 package eu.hyvar.feature.graphical.configurator.figures;
 
 import java.util.Date;
-import java.util.List;
 
-import org.deltaecore.feature.DEGroup;
 import org.deltaecore.feature.graphical.base.editor.DEGraphicalEditor;
-import org.deltaecore.feature.graphical.base.figures.DEGroupFigure;
 import org.deltaecore.feature.graphical.base.util.DEDrawingUtil;
 import org.deltaecore.feature.graphical.base.util.DEGraphicalEditorTheme;
 import org.eclipse.draw2d.FreeformLayer;
@@ -63,7 +60,7 @@ public class HyConfiguratorFeatureModelFigure extends FreeformLayer {
 		DEGraphicalEditorTheme theme = DEGraphicalEditor.getTheme();
 
 		Date date = graphicalEditor.getCurrentSelectedDate();
-		Rectangle featureMarkRectangle = new Rectangle(feature.getPosition(date), feature.getSize(date));
+		Rectangle featureMarkRectangle = new Rectangle(feature.getPosition(date).getPosition(), feature.getSize(date));
 
 		for(HyRootFeature root : feature.getWrappedModelElement().getFeatureModel().getRootFeature()){
 			if(EcoreUtil.equals(root.getFeature(), feature.getWrappedModelElement())){
@@ -87,6 +84,7 @@ public class HyConfiguratorFeatureModelFigure extends FreeformLayer {
 		return featureMarkRectangle;
 	}
 
+	/*
 	private Rectangle getGroupMarkRectangle(DEGroup searchedGroup) {
 		DEGraphicalEditorTheme theme = DEGraphicalEditor.getTheme();
 		List<?> children = getChildren();
@@ -106,4 +104,5 @@ public class HyConfiguratorFeatureModelFigure extends FreeformLayer {
 
 		return null;
 	}
+	*/
 }

@@ -62,10 +62,9 @@ public class HyParentChildConnectionEndpointEditPolicy extends ConnectionEndpoin
 	}
 	
 	
-	@SuppressWarnings("unchecked")
 	@Override
-	protected List createSelectionHandles(){
-		List list = new ArrayList();
+	protected List<Object> createSelectionHandles(){
+		List<Object> list = new ArrayList<Object>();
 		list.add(new ConnectionEndpointHandle((ConnectionEditPart) getHost(),
 				ConnectionLocator.SOURCE));
 		return list;

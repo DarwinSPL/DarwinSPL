@@ -225,11 +225,9 @@ public class HyFeatureEditPart extends HyAbstractEditPart implements NodeEditPar
 		
 		Dimension newFeatureSize = new Dimension(width, height);
 		feature.setSize(newFeatureSize);
-		
-		Rectangle layout = new Rectangle(feature.getPosition(date), newFeatureSize);
+
+		Rectangle layout = new Rectangle(feature.getPosition(date).getPosition(), newFeatureSize);
 		parent.setLayoutConstraint(this, figure, layout);	
-		
-		
 	}
 	
 

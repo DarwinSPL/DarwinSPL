@@ -21,9 +21,6 @@ import eu.hyvar.evolution.HyEvolutionUtil;
 import eu.hyvar.evolution.HyName;
 import eu.hyvar.feature.HyFeature;
 import eu.hyvar.feature.HyFeatureAttribute;
-import eu.hyvar.feature.HyGroupComposition;
-import eu.hyvar.feature.HyGroupType;
-import eu.hyvar.feature.HyGroupTypeEnum;
 import eu.hyvar.feature.HyVersion;
 import eu.hyvar.feature.graphical.base.anchors.HyFeatureChildrenAnchor;
 import eu.hyvar.feature.graphical.base.anchors.HyFeatureParentAnchor;
@@ -49,8 +46,13 @@ public class HyFeatureFigure extends Figure{
 		return feature;
 	}
 	
+	public void setConstraints(Rectangle constraint){
+		this.getLayoutManager().setConstraint(this, constraint);
+	}
+	
 	public HyFeatureFigure(HyGraphicalFeatureModelViewer editor, HyFeatureWrapped feature) {
 		setLayoutManager(new XYLayout());
+		
 		this.feature = feature;
 
 		createChildFigures();
@@ -78,6 +80,7 @@ public class HyFeatureFigure extends Figure{
 	public void setChildrenAnchor(AbstractConnectionAnchor childrenAnchor) {
 		this.childrenAnchor = childrenAnchor;
 	}
+
 
 	public void setText(String text){
 		label.setText(text);
@@ -294,6 +297,7 @@ public class HyFeatureFigure extends Figure{
 	
 	@Override 
 	protected void paintFigure(Graphics graphics) {
+		System.out.println("HyFeautreFigure.paintFigure");
 		Date date = editor.getCurrentSelectedDate();
 		
 		if(!feature.isWithoutModifier(date)){
