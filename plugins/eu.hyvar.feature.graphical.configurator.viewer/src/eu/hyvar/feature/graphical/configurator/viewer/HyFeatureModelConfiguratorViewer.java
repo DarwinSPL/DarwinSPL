@@ -14,6 +14,7 @@ import eu.hyvar.feature.configuration.HyConfiguration;
 import eu.hyvar.feature.configuration.HyConfigurationFactory;
 import eu.hyvar.feature.graphical.base.editor.HyGraphicalFeatureModelViewer;
 import eu.hyvar.feature.graphical.base.model.HyFeatureModelWrapped;
+import eu.hyvar.feature.graphical.base.util.DwFeatureModelLayoutFileUtil;
 import eu.hyvar.feature.graphical.configurator.factory.HyConfiguratorEditPartFactory;
 
 public class HyFeatureModelConfiguratorViewer extends HyGraphicalFeatureModelViewer {
@@ -60,15 +61,10 @@ public class HyFeatureModelConfiguratorViewer extends HyGraphicalFeatureModelVie
 	 * @param file
 	 */
 	protected void loadModelFromFile(IFile file){		
-		// save location to the file
-		this.file = file;
-		
 		EObject object = EcoreIOUtil.loadModel(file);
 		if(object instanceof HyConfiguration){
 			selectedConfiguration = (HyConfiguration)object;
 			modelWrapped = new HyFeatureModelWrapped(selectedConfiguration.getFeatureModel());
-			
-			this.resource = modelWrapped.getModel().eResource();
 		}else if(object instanceof HyFeatureModel){
 			modelWrapped = new HyFeatureModelWrapped((HyFeatureModel)object);
 		}
@@ -80,14 +76,15 @@ public class HyFeatureModelConfiguratorViewer extends HyGraphicalFeatureModelVie
 		}
 		
 		setEditorTabText(file.getName());
-		loadLayout(file);
+		DwFeatureModelLayoutFileUtil.loadLayoutFile(modelWrapped);
 	}
 
 
 	@Override
-	public void dateChanged(Date date){
+	public void setCurrentSelectedDate(Date date){
 		selectedConfiguration.getElements().clear();
-		setCurrentSelectedDate(date);
+		
+		super.setCurrentSelectedDate(date);
 	}
 
 	

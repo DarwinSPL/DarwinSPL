@@ -5,7 +5,6 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.EventObject;
 import java.util.List;
 
@@ -25,6 +24,7 @@ import org.eclipse.e4.ui.model.application.ui.basic.MPartStack;
 import org.eclipse.e4.ui.model.application.ui.basic.MStackElement;
 import org.eclipse.e4.ui.model.application.ui.basic.impl.BasicFactoryImpl;
 import org.eclipse.e4.ui.workbench.modeling.EModelService;
+import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.gef.GraphicalViewer;
 import org.eclipse.gef.KeyHandler;
 import org.eclipse.gef.KeyStroke;
@@ -45,11 +45,9 @@ import org.eclipse.ui.part.FileEditorInput;
 
 import eu.hyvar.context.contextValidity.util.HyValidityModelUtil;
 import eu.hyvar.context.information.util.HyContextInformationUtil;
-import eu.hyvar.evolution.HyEvolutionUtil;
 import eu.hyvar.feature.constraint.util.HyConstraintUtil;
 import eu.hyvar.feature.graphical.base.editor.HyGraphicalFeatureModelViewer;
-import eu.hyvar.feature.graphical.base.model.DwTemporalPosition;
-import eu.hyvar.feature.graphical.base.model.HyFeatureWrapped;
+import eu.hyvar.feature.graphical.base.util.DwFeatureModelLayoutFileUtil;
 import eu.hyvar.feature.graphical.editor.actions.HyLinearTemporalElementChangeValidityAction;
 import eu.hyvar.feature.graphical.editor.actions.attribute.HyAttributeCreateBooleanAction;
 import eu.hyvar.feature.graphical.editor.actions.attribute.HyAttributeCreateEnumAction;
@@ -87,13 +85,14 @@ public class HyGraphicalFeatureModelEditor extends HyGraphicalFeatureModelViewer
 
 	@Override
 	public void doSave(IProgressMonitor monitor) {
+		Resource resource = this.modelWrapped.getModel().eResource();
 		if(resource == null) return;
 
 		try{
-			saveLayout();
+			DwFeatureModelLayoutFileUtil.saveLayout(modelWrapped);
 
 			resource.save(null);
-			file.touch(null);
+			getFile().touch(null);
 			getCommandStack().markSaveLocation();
 
 
@@ -145,38 +144,7 @@ public class HyGraphicalFeatureModelEditor extends HyGraphicalFeatureModelViewer
 		openEditorForFileExtension(HyValidityModelUtil.getValidityModelFileExtensionForConcreteSyntax());
 	}
 
-	private void saveLayout(){
 
-		IWorkspace workspace = ResourcesPlugin.getWorkspace();
-		IWorkspaceRoot workspaceRoot = workspace.getRoot();
-
-		IPath path = ((IPath)file.getFullPath().clone()).removeFileExtension().addFileExtension("hylayout");
-
-		String fileContent = "";
-		for(Date date : HyEvolutionUtil.collectDates(this.modelWrapped.getModel())){
-			for(HyFeatureWrapped feature : this.getModelWrapped().getFeatures(date)){
-				DwTemporalPosition position = feature.getPosition(date);
-				fileContent += feature.getWrappedModelElement().getId()+","+
-							   position.getValidSince()+","+
-							   position.getValidUntil()+","+
-							   position.getPosition().x()+","+
-							   position.getPosition().y()+"\n";
-			}
-		}
-
-		IFile file = workspaceRoot.getFile(path);
-
-		InputStream source = new ByteArrayInputStream(fileContent.getBytes());
-		try {
-			if(!file.exists()){
-				file.create(source, IResource.NONE, null);
-			}else{
-				file.setContents(source, IResource.FORCE, null);
-			}
-		} catch (CoreException e) {
-			e.printStackTrace();
-		}
-	}
 
 
 	@SuppressWarnings("unchecked")
@@ -317,7 +285,7 @@ public class HyGraphicalFeatureModelEditor extends HyGraphicalFeatureModelViewer
 
 	@Override
 	public void dispose(){
-		resource.unload();
+		modelWrapped.getModel().eResource().unload();
 		closeRelatedEditors();
 	}
 
@@ -364,7 +332,7 @@ public class HyGraphicalFeatureModelEditor extends HyGraphicalFeatureModelViewer
 		IWorkspace workspace = ResourcesPlugin.getWorkspace();
 		IWorkspaceRoot workspaceRoot = workspace.getRoot();
 
-		IPath path = ((IPath)file.getFullPath().clone()).removeFileExtension().addFileExtension(fileExtension);
+		IPath path = ((IPath)getFile().getFullPath().clone()).removeFileExtension().addFileExtension(fileExtension);
 
 		IFile file = workspaceRoot.getFile(path);
 

@@ -184,11 +184,13 @@ public class HyFeatureEditPart extends HyAbstractEditPart implements NodeEditPar
 		figure.setSeperatorLocation(new Point(0, ((HyFeatureWrapped)getModel()).getHeightWithoutAttributes(date)));
 		HyFeatureWrapped wrappedFeature = (HyFeatureWrapped)this.getModel();
 
-		figure.setVisible(wrappedFeature.isValid(date));
+		boolean featureIsCurrentlyValid = wrappedFeature.isValid(date);
+		figure.setVisible(featureIsCurrentlyValid);
 		
-
-		setSize();
-		figure.update();
+		if(featureIsCurrentlyValid){
+			setSize();
+			figure.update();
+		}
 		
 		for(HyParentChildConnection connection : this.getModelSourceConnections()){
 			connection.notifyChange();

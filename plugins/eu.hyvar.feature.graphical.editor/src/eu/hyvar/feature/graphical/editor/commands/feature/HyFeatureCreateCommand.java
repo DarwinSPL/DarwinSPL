@@ -3,6 +3,7 @@ package eu.hyvar.feature.graphical.editor.commands.feature;
 
 import java.util.Date;
 
+import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.gef.commands.Command;
 
 import eu.hyvar.evolution.HyEvolutionFactory;
@@ -56,6 +57,7 @@ public class HyFeatureCreateCommand extends Command {
 		HyFeature feature = HyFeatureFactory.eINSTANCE.createHyFeature();
 		feature.setValidSince(date);
 		newFeature = new HyFeatureWrapped(feature, featureModel);
+		newFeature.addPosition(new Point(0, 0), date, false);
 		
 		HyName name = HyEvolutionFactory.eINSTANCE.createHyName();
 		name.setName(featureModel.getValidNewFeatureName());

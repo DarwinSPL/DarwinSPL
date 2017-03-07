@@ -1,38 +1,24 @@
 package eu.hyvar.feature.graphical.base.editor;
 
-import java.io.File;
-import java.io.IOException;
-import java.nio.charset.Charset;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.Date;
 import java.util.List;
 
 import org.eclipse.core.resources.IFile;
-import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.IWorkspace;
 import org.eclipse.core.resources.IWorkspaceRoot;
 import org.eclipse.core.resources.ResourcesPlugin;
-import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.core.runtime.Path;
 import org.eclipse.draw2d.FigureCanvas;
 import org.eclipse.draw2d.geometry.Dimension;
-import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.gef.DefaultEditDomain;
 import org.eclipse.gef.GraphicalViewer;
 import org.eclipse.gef.KeyHandler;
-import org.eclipse.gef.KeyStroke;
-import org.eclipse.gef.MouseWheelHandler;
-import org.eclipse.gef.MouseWheelZoomHandler;
 import org.eclipse.gef.commands.Command;
 import org.eclipse.gef.commands.CommandStack;
 import org.eclipse.gef.editparts.ScalableFreeformRootEditPart;
-import org.eclipse.gef.editparts.ZoomManager;
-import org.eclipse.gef.ui.actions.ZoomInAction;
-import org.eclipse.gef.ui.actions.ZoomOutAction;
-import org.eclipse.gef.ui.parts.GraphicalEditor;
 import org.eclipse.gef.ui.parts.ScrollingGraphicalViewer;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.GridData;
@@ -60,10 +46,10 @@ import eu.hyvar.feature.graphical.base.dialogs.DateDialog;
 import eu.hyvar.feature.graphical.base.editparts.HyFeatureModelEditPart;
 import eu.hyvar.feature.graphical.base.factory.HyFeatureModelEditPartFactory;
 import eu.hyvar.feature.graphical.base.model.HyFeatureModelWrapped;
-import eu.hyvar.feature.graphical.base.model.HyFeatureWrapped;
+import eu.hyvar.feature.graphical.base.util.DwFeatureModelLayoutFileUtil;
 
 
-public class HyGraphicalFeatureModelViewer extends GraphicalEditor implements IFeatureModelEditor, Listener{
+public class HyGraphicalFeatureModelViewer extends DwGraphicalViewerWithZoomSupport implements IFeatureModelEditor, Listener{
 	// UI components
 	protected Button currentDate;
 	protected Button addDate;
@@ -74,10 +60,6 @@ public class HyGraphicalFeatureModelViewer extends GraphicalEditor implements IF
 
 	protected Date currentSelectedDate;	
 
-	protected Resource resource;
-
-	protected IFile file;
-
 	protected HyFeatureModelWrapped modelWrapped;
 
 	protected KeyHandler sharedKeyHandler;
@@ -86,14 +68,23 @@ public class HyGraphicalFeatureModelViewer extends GraphicalEditor implements IF
 		return currentSelectedDate;
 	}
 
-
+	/**
+	 * Adds a command to the command stack and executes it. 
+	 * Use this function to hook custom commands into the GEF command queue.
+	 * 
+	 * @param command the command that should be executed
+	 */
 	public void executeCommand(Command command) {
 		CommandStack commandStack = getCommandStack();
 		commandStack.execute(command);
 	}
 
-
-
+	/**
+	 * Changes the selected date from the feature model and force a rerendering of the editor
+	 * to show the feature model at this date.
+	 * 
+	 * @param currentSelectedDate the desired date for displaying the feature model
+	 */
 	public void setCurrentSelectedDate(Date currentSelectedDate) {
 		this.currentSelectedDate = currentSelectedDate;
 
@@ -115,6 +106,12 @@ public class HyGraphicalFeatureModelViewer extends GraphicalEditor implements IF
 		refreshView();
 	}
 
+	/**
+	 * Gets the dimension of the editor window. 
+	 * Please be aware that this function returns the exact dimension that are visible to the user
+	 * rather than the dimension of the editor window content.
+	 * @return Size of the current visible editor area
+	 */
 	public Dimension getEditorGraphicalDimension(){
 		FigureCanvas c = ((FigureCanvas) getGraphicalViewer().getControl());
 		
@@ -122,21 +119,15 @@ public class HyGraphicalFeatureModelViewer extends GraphicalEditor implements IF
 		return new Dimension(bounds.width, bounds.height);
 	}
 	
+	/**
+	 * Refresh the view and rerender the feature model.
+	 */
 	public void refreshView(){
 		GraphicalViewer viewer = getGraphicalViewer();
 
 		if(viewer != null)
 			viewer.getContents().refresh();
 	}
-
-	/**
-	 * 
-	 * @param date
-	 */
-	public void dateChanged(Date date){
-		setCurrentSelectedDate(date);
-	}
-
 
 	public HyFeatureModelWrapped getModelWrapped() {
 		return modelWrapped;
@@ -148,8 +139,6 @@ public class HyGraphicalFeatureModelViewer extends GraphicalEditor implements IF
 
 	public HyGraphicalFeatureModelViewer(){
 		setEditDomain(new DefaultEditDomain(this));	
-		
-//		resourceSet = new ResourceSetImpl();
 	}
 
 	@Override
@@ -164,8 +153,12 @@ public class HyGraphicalFeatureModelViewer extends GraphicalEditor implements IF
 	}
 
 
+	
 	public IFile getFile() {
-		return file;
+		IWorkspace workspace = ResourcesPlugin.getWorkspace();
+		IWorkspaceRoot workspaceRoot = workspace.getRoot();
+		
+		return workspaceRoot.getFile(new Path(modelWrapped.getModel().eResource().getURI().toPlatformString(true)));
 	}
 
 
@@ -177,38 +170,14 @@ public class HyGraphicalFeatureModelViewer extends GraphicalEditor implements IF
 
 	@Override
 	protected void initializeGraphicalViewer() {
+		super.initializeGraphicalViewer();
+		
 		GraphicalViewer viewer = getGraphicalViewer();
 		viewer.setContents(modelWrapped);
-		enableZoomWithMouseWheel();
 	}
 
 
-	protected KeyHandler getCommonKeyHandler() {
-		ZoomManager manager = (ZoomManager) getGraphicalViewer().getProperty(ZoomManager.class.toString());
 
-		if (sharedKeyHandler == null) {
-			sharedKeyHandler = new KeyHandler();
-			sharedKeyHandler.put(KeyStroke.getPressed('+', SWT.KEYPAD_ADD, SWT.CONTROL),
-					new ZoomInAction(manager));
-			sharedKeyHandler.put(KeyStroke.getPressed('-', SWT.KEYPAD_SUBTRACT, SWT.CONTROL),
-					new ZoomOutAction(manager));
-		}
-
-		return sharedKeyHandler;
-	}
-	protected void enableZoomWithMouseWheel() {
-		// Zoom
-		ZoomManager manager = (ZoomManager) getGraphicalViewer().getProperty(
-				ZoomManager.class.toString());
-		if (manager != null)
-			manager.setZoom(1);
-
-
-		// Scroll-wheel Zoom
-		getGraphicalViewer().setProperty(
-				MouseWheelHandler.KeyGenerator.getKey(SWT.MOD1),
-				MouseWheelZoomHandler.SINGLETON);
-	}
 
 
 
@@ -236,18 +205,13 @@ public class HyGraphicalFeatureModelViewer extends GraphicalEditor implements IF
 	 * @param file
 	 */
 	protected void loadModelFromFile(IFile file){		
-		// save location to the file
-		this.file = file;
-
 		modelWrapped = new HyFeatureModelWrapped((HyFeatureModel)EcoreIOUtil.loadModel(file));
-		
-		this.resource = modelWrapped.getModel().eResource();
 		
 		setCurrentSelectedDateToMostActualDate();
 		
 		setEditorTabText(file.getName());
 		
-		loadLayout(file);
+		DwFeatureModelLayoutFileUtil.loadLayoutFile(modelWrapped);
 	}
 
 
@@ -278,13 +242,6 @@ public class HyGraphicalFeatureModelViewer extends GraphicalEditor implements IF
 		GraphicalViewer viewer = getGraphicalViewer();
 		viewer.setEditPartFactory(new HyFeatureModelEditPartFactory(viewer, this));
 		viewer.setRootEditPart(new ScalableFreeformRootEditPart());
-
-
-		ZoomManager manager = (ZoomManager) getGraphicalViewer().getProperty(ZoomManager.class.toString());
-
-		getActionRegistry().registerAction(new ZoomInAction(manager));
-		getActionRegistry().registerAction(new ZoomOutAction(manager));
-
 	}
 
 	public void registerControlListeners(){
@@ -302,27 +259,11 @@ public class HyGraphicalFeatureModelViewer extends GraphicalEditor implements IF
 						scale.setEnabled(size > 1);
 
 						scale.setSelection(modelWrapped.getDates().indexOf(newDate));
-						dateChanged(newDate);
+						setCurrentSelectedDate(newDate);
 					}
 				}
 			}
 		});
-
-		// Mininimum value for range restriction for the slider
-//		minState.addListener(SWT.Selection, new Listener(){
-//			public void handleEvent(Event event){
-//				int index = ((Combo)event.widget).getSelectionIndex();
-//				scale.setMinimum(index);
-//			}
-//		});
-//
-//		// Maximum value for range restriction for the slider
-//		maxState.addListener(SWT.Selection, new Listener(){
-//			public void handleEvent(Event event){
-//				int index = ((Combo)event.widget).getSelectionIndex();
-//				scale.setMaximum(index);
-//			}
-//		});
 
 		// Slider to select a given date
 		scale.addListener(SWT.Selection, this);
@@ -363,25 +304,6 @@ public class HyGraphicalFeatureModelViewer extends GraphicalEditor implements IF
 			currentDate.setText((new Date()).toString());
 		}
 
-//		Label minStateLabel = new Label(buttonGroup, SWT.CENTER);
-//		minStateLabel.setText("Date range from ");
-//		minState = new Combo (buttonGroup, SWT.READ_ONLY);
-//		for(Date date : dates){
-//			minState.add(date.toString());
-//		}
-//		minState.select(0);
-//		minState.setEnabled(size > 1);
-//
-//
-//		Label maxStateLabel = new Label(buttonGroup, SWT.NATIVE);
-//		maxStateLabel.setText(" to ");		
-//		maxState = new Combo (buttonGroup, SWT.NATIVE);
-//
-//		for(Date date : dates){
-//			maxState.add(date.toString());
-//		}
-//		maxState.select(dates.size()-1);
-//		maxState.setEnabled(size > 1);
 
 
 		scale = new Scale(buttonGroup, SWT.FILL);
@@ -443,72 +365,28 @@ public class HyGraphicalFeatureModelViewer extends GraphicalEditor implements IF
 
 
 
-	@Override
-	public Object getAdapter(@SuppressWarnings("rawtypes") Class type) {
-		if(type == ZoomManager.class)
-			return getGraphicalViewer().getProperty(ZoomManager.class.toString());
-		else
-			return super.getAdapter(type);
-
-	}
 
 
+	/**
+	 * Returns the underlying EMF based feature model. 
+	 * @see eu.hyvar.feature
+	 */
 	@Override
 	public HyFeatureModel getInternalFeatureModel() {
 		return modelWrapped.getModel();
 	}
 
-	protected void loadLayout(IFile file){
-
-		IWorkspace workspace = ResourcesPlugin.getWorkspace();
-		IWorkspaceRoot workspaceRoot = workspace.getRoot();
-
-		IPath path = ((IPath)file.getFullPath().clone()).removeFileExtension().addFileExtension("hylayout");
-		IResource resourceInRuntimeWorkspace = workspaceRoot.findMember(path.toString());
-
-		if(resourceInRuntimeWorkspace != null){
-			File cfile = new File(resourceInRuntimeWorkspace.getLocationURI());
-
-			if(cfile.exists()){
-				try {
-					List<String> lines = Files.readAllLines(Paths.get(cfile.getPath()), Charset.defaultCharset());
-					for(String line : lines){
-						String[] parts = line.split(",");
-						if(parts.length != 3){
-							System.err.println("Layout file is corrupt at some point");
-							continue;
-						}
-
-						String id = parts[0];
-						int x = Integer.parseInt(parts[1]);
-						int y = Integer.parseInt(parts[2]);
-
-						modelWrapped.setAutoLayoutActive(false);
-						for(HyFeatureWrapped featureWrapped : this.getModelWrapped().getFeatures(null)){
-							if(id.equals(featureWrapped.getWrappedModelElement().getId())){
-								featureWrapped.addPosition(new Point(x, y), null, false);
-							}
-						}
-
-						this.refreshView();
-					}
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-			}	
-		}
-	}
-
-
+	
+	/**
+	 * Handles the date slider change and causes a rerendering of the feature model at the new
+	 * date which is selected by using the slider.
+	 *
+	 * @param event the event which occurred
+	 */
 	@Override
 	public void handleEvent(Event event) {
 		if(event.widget.equals(scale)) {
-			List<Date> dates = modelWrapped.getDates();
-			int index = scale.getSelection();
-			//currentState.setSelection(index+1);
-			
-			dateChanged(dates.get(index));			
+			setCurrentSelectedDate(currentSelectedDate);
 		}
 	}
 }

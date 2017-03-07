@@ -297,7 +297,6 @@ public class HyFeatureFigure extends Figure{
 	
 	@Override 
 	protected void paintFigure(Graphics graphics) {
-		System.out.println("HyFeautreFigure.paintFigure");
 		Date date = editor.getCurrentSelectedDate();
 		
 		if(!feature.isWithoutModifier(date)){

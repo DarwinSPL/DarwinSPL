@@ -7,6 +7,9 @@ public class DwTemporalPosition {
 	Date validSince;
 	Date validUntil;
 	
+	DwTemporalPosition predecessor;
+	DwTemporalPosition successor;
+	
 	Point position;
 
 	public Date getValidSince() {
@@ -33,10 +36,33 @@ public class DwTemporalPosition {
 		this.position = position;
 	}
 
-	public DwTemporalPosition(Date validSince, Date validUntil, Point position) {
+	public DwTemporalPosition getPredecessor() {
+		return predecessor;
+	}
+
+	public void setPredecessor(DwTemporalPosition predecessor) {
+		this.predecessor = predecessor;
+	}
+
+	public DwTemporalPosition getSuccessor() {
+		return successor;
+	}
+
+	public void setSuccessor(DwTemporalPosition successor) {
+		this.successor = successor;
+	}
+
+	public DwTemporalPosition(){
+		position = new Point(0, 0);
+	}
+	
+	public DwTemporalPosition(Date validSince, Date validUntil, DwTemporalPosition predecessor,
+			DwTemporalPosition successor, Point position) {
 		super();
 		this.validSince = validSince;
 		this.validUntil = validUntil;
+		this.predecessor = predecessor;
+		this.successor = successor;
 		this.position = position;
 	}
 }

@@ -104,7 +104,7 @@ public class HyFeatureModelConfiguratorEditor extends HyFeatureModelConfigurator
 	}
 
 	private boolean modelFileExists(String extension){
-		IPath path = ((IPath)file.getFullPath().clone()).removeFileExtension().addFileExtension(extension);
+		IPath path = ((IPath)getFile().getFullPath().clone()).removeFileExtension().addFileExtension(extension);
 
 		IWorkspaceRoot workspaceRoot = ResourcesPlugin.getWorkspace().getRoot();
 
@@ -146,7 +146,7 @@ public class HyFeatureModelConfiguratorEditor extends HyFeatureModelConfigurator
 	}
 
 	private void saveConfigurationIntoFeatureModelFolder(){
-		IPath path = ((IPath)file.getFullPath().clone()).removeFileExtension().addFileExtension(HyConfigurationUtil.getConfigurationModelFileExtensionForXmi());
+		IPath path = ((IPath)getFile().getFullPath().clone()).removeFileExtension().addFileExtension(HyConfigurationUtil.getConfigurationModelFileExtensionForXmi());
 		IWorkspaceRoot workspaceRoot = ResourcesPlugin.getWorkspace().getRoot();
 
 		EcoreIOUtil.saveModelAs(selectedConfiguration, workspaceRoot.getFile(path));		
@@ -301,6 +301,7 @@ public class HyFeatureModelConfiguratorEditor extends HyFeatureModelConfigurator
 
 				HyConfiguration configuration = client.reconfigure(uri, contextModel, validityModel, modelWrapped.getModel(), constraintModel, selectedConfiguration, preferenceModel, contextValueModel, modelWrapped.getSelectedDate());
 				if(configuration != null){
+					IFile file = getFile();
 					String fileName = file.getFullPath().removeFileExtension().lastSegment();
 
 					String name = file.getFullPath().removeFileExtension().removeLastSegments(1).append(fileName+"_Result").addFileExtension(HyConfigurationUtil.getConfigurationModelFileExtensionForXmi()).toString();
