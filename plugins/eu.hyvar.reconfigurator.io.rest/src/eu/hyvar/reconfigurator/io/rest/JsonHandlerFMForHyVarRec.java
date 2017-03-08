@@ -8,6 +8,7 @@ import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -57,7 +58,7 @@ public class JsonHandlerFMForHyVarRec extends AbstractHandler {
 	
 	
 	private static final String PROJECT_NAME = "fmforhyvarrec";
-	private static final String HYVARREC_INPUT_FOLDER_NAME = "hyvarrec_input";
+//	private static final String HYVARREC_INPUT_FOLDER_NAME = "hyvarrec_input";
 
 	@Override
 	public void handle(String target, Request baseRequest, HttpServletRequest request, HttpServletResponse response)
@@ -106,7 +107,7 @@ public class JsonHandlerFMForHyVarRec extends AbstractHandler {
 			e.printStackTrace();
 		}
 
-		IFolder folder = project.getFolder(HYVARREC_INPUT_FOLDER_NAME);
+		IFolder folder = project.getFolder(UUID.randomUUID().toString());
 		if (!folder.exists()) {
 			try {
 				folder.create(true, true, progressMonitor);
