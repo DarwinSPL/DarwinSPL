@@ -9,6 +9,8 @@ package de.darwinspl.feature.evolution.invoker;
  */
 public interface EvolutionOperation {
 
+	// TODO integrate error message handling
+	// TODO should return boolean success
 	//Method to execute the evolution operation
 	public void execute();
 	//Method to undo an executed evolution operation

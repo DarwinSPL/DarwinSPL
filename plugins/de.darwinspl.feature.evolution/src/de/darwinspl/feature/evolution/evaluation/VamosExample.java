@@ -90,9 +90,9 @@ public class VamosExample {
 		Move moveSideDistance = new Move(sideDistanceSensor.getFeature(), distanceSensors.getFeature(), frontDistanceSensors.getGroup(), timestamp, tfm); //parent could also be null
 		moveSideDistance.execute();
 		
-		ChangeFeatureType sideDistanceToOptional = new ChangeFeatureType(sideDistanceSensor.getFeature(), HyFeatureTypeEnum.OPTIONAL, timestamp);
-		sideDistanceToOptional.execute();
-		
+//		ChangeFeatureType sideDistanceToOptional = new ChangeFeatureType(sideDistanceSensor.getFeature(), HyFeatureTypeEnum.OPTIONAL, timestamp);
+//		sideDistanceToOptional.execute();
+//		
 		Move moveSlowFrontSensor = new Move(slowFrontDistanceSensor.getFeature(), null, fastFrontDistanceSensor.getGroup(), timestamp, tfm);	//for the feature param also frontDistanceSensor.getFeature() is possible
 		moveSlowFrontSensor.execute();
 		

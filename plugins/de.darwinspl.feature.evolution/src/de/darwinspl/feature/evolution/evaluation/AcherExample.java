@@ -72,17 +72,17 @@ public class AcherExample {
 		calendar.set(2017, 2, 06, 12, 00, 00);
 		timestamp = calendar.getTime();
 		
-		Move initUnderApplet = new Move(init.getFeature(), applet.getFeature(), mustOverride.getGroup(), timestamp, tfm);
-		initUnderApplet.execute();
-		
-		Move destroyUnderInit = new Move(destroy.getFeature(), init.getFeature(), null, timestamp, tfm);
-		destroyUnderInit.execute();
-		
-		Move stopUnderInit = new Move(stop.getFeature(), init.getFeature(), destroyUnderInit.getNewGroup(), timestamp, tfm);
-		stopUnderInit.execute();
-		
-		ChangeFeatureType overrideToOptional = new ChangeFeatureType(mustOverride.getFeature(), HyFeatureTypeEnum.OPTIONAL, timestamp);
-		overrideToOptional.execute();
+//		Move initUnderApplet = new Move(init.getFeature(), applet.getFeature(), mustOverride.getGroup(), timestamp, tfm);
+//		initUnderApplet.execute();
+//		
+//		Move destroyUnderInit = new Move(destroy.getFeature(), init.getFeature(), null, timestamp, tfm);
+//		destroyUnderInit.execute();
+//		
+//		Move stopUnderInit = new Move(stop.getFeature(), init.getFeature(), destroyUnderInit.getNewGroup(), timestamp, tfm);
+//		stopUnderInit.execute();
+//		
+//		ChangeFeatureType overrideToOptional = new ChangeFeatureType(mustOverride.getFeature(), HyFeatureTypeEnum.OPTIONAL, timestamp);
+//		overrideToOptional.execute();
 		
 //		OperationInvoker invoker = new OperationInvoker();
 //		invoker.move(init.getFeature(), applet.getFeature(), mustOverride.getGroup(), timestamp, tfm);

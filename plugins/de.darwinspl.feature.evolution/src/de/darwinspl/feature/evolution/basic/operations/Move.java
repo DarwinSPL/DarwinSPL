@@ -16,11 +16,8 @@ import de.darwinspl.feature.evolution.complex.operations.RemoveFromGroupComposit
 import de.darwinspl.feature.evolution.invoker.EvolutionOperation;
 import eu.hyvar.feature.HyFeature;
 import eu.hyvar.feature.HyFeatureModel;
-import eu.hyvar.feature.HyFeatureType;
-import eu.hyvar.feature.HyFeatureTypeEnum;
 import eu.hyvar.feature.HyGroup;
 import eu.hyvar.feature.HyGroupComposition;
-import eu.hyvar.feature.HyGroupType;
 import eu.hyvar.feature.HyGroupTypeEnum;
 
 /**
@@ -104,30 +101,31 @@ public class Move extends ComplexOperation {
 			 *  the feature type has to be change into optional. Otherwise it would be end in conflicting configurations
 			*/
 			
-			HyFeatureType featureType = null;
-			//get valid feature type of the feature
-			for (HyFeatureType type : feature.getTypes()) {
-				if (type.getValidUntil() == null) {
-					featureType = type;
-					break;
-				}
-			}
-			//if the feature type of the moved feature is mandatory it should be change to optional in case to prevent inconsistency
-			if (featureType.getType() == HyFeatureTypeEnum.MANDATORY) {
+//			HyFeatureType featureType = null;
+//			//get valid feature type of the feature
+//			for (HyFeatureType type : feature.getTypes()) {
+//				if (type.getValidUntil() == null) {
+//					featureType = type;
+//					break;
+//				}
+//			}
 			
-				HyGroupType groupType = null;
-				for (HyGroupType type : newGroup.getTypes()) {
-					if (type.getValidUntil() == null) {
-						groupType = type;
-						break;
-					}
-				}
-				
-				if (groupType.getType() != HyGroupTypeEnum.AND) {
-					ChangeFeatureType changeTypeToOptional = new ChangeFeatureType(feature, HyFeatureTypeEnum.OPTIONAL, timestamp);
-					addToComposition(changeTypeToOptional);
-				}
-			}
+			//if the feature type of the moved feature is mandatory it should be change to optional in case to prevent inconsistency. Comment Michael: NO! mandatory and moved from and to and -> should stay mandatory!
+//			if (featureType.getType() == HyFeatureTypeEnum.MANDATORY) {
+//			
+//				HyGroupType groupType = null;
+//				for (HyGroupType type : newGroup.getTypes()) {
+//					if (type.getValidUntil() == null) {
+//						groupType = type;
+//						break;
+//					}
+//				}
+//				
+//				if (groupType.getType() != HyGroupTypeEnum.AND) {
+//					ChangeFeatureType changeTypeToOptional = new ChangeFeatureType(feature, HyFeatureTypeEnum.OPTIONAL, timestamp);
+//					addToComposition(changeTypeToOptional);
+//				}
+//			}
 		}		
 		
 		for (EvolutionOperation evolutionOperation : evoOps) {

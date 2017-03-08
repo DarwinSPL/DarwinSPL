@@ -8,7 +8,7 @@ import java.util.Date;
 
 import de.darwinspl.feature.evolution.basic.operations.*;
 import de.darwinspl.feature.evolution.complex.operations.ComplexOperation;
-import de.darwinspl.feature.evolution.complex.operations.MergeKeepCode;
+import de.darwinspl.feature.evolution.complex.operations.MergeFeatures;
 import de.darwinspl.feature.evolution.complex.operations.Split;
 import eu.hyvar.feature.HyFeature;
 import eu.hyvar.feature.HyFeatureModel;
@@ -89,9 +89,9 @@ public class OperationInvoker {
 	 * @param type
 	 * @param timestamp
 	 */
-	public void changeType(HyFeature feature, HyFeatureTypeEnum type, Date timestamp) {
+	public void changeType(HyFeature feature, Date timestamp) {
 		
-		ComplexOperation changeFeatureType = new ChangeFeatureType(feature, type, timestamp);
+		ComplexOperation changeFeatureType = new ChangeFeatureType(feature, timestamp);
 		changeFeatureType.execute();
 		//add the operation as next command in the history
 		commandHistory.add(counterOfExecuteCommands++, changeFeatureType);
@@ -166,7 +166,7 @@ public class OperationInvoker {
 	 */
 	public void merge(HyFeature deleteFeature, HyFeature targetFeature, Date timestamp){
 		
-		ComplexOperation merge = new MergeKeepCode(deleteFeature, targetFeature, timestamp);
+		ComplexOperation merge = new MergeFeatures(deleteFeature, targetFeature, timestamp);
 		merge.execute();
 		commandHistory.add(counterOfExecuteCommands++, merge);
 	}

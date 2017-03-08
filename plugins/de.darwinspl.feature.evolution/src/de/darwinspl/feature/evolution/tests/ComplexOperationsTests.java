@@ -6,7 +6,7 @@ package de.darwinspl.feature.evolution.tests;
 import de.darwinspl.feature.evolution.basic.operations.AddFeatureWithGroup;
 import de.darwinspl.feature.evolution.complex.operations.AddFeatureWithNameAndType;
 import de.darwinspl.feature.evolution.complex.operations.AddToGroupComposition;
-import de.darwinspl.feature.evolution.complex.operations.MergeKeepCode;
+import de.darwinspl.feature.evolution.complex.operations.MergeFeatures;
 import de.darwinspl.feature.evolution.complex.operations.RemoveFromGroupComposition;
 import de.darwinspl.feature.evolution.complex.operations.Split;
 import eu.hyvar.feature.HyFeatureModel;
@@ -78,7 +78,7 @@ public class ComplexOperationsTests extends TestCases{
 		Split split = new Split(infotainmentFeature, "infotainment 1", "infotainment 2", timestamp, tfm);
 		split.execute();
 		
-		MergeKeepCode merge = new MergeKeepCode(split.getNewFeature1(), infotainmentFeature, timestamp);
+		MergeFeatures merge = new MergeFeatures(split.getNewFeature1(), infotainmentFeature, timestamp);
 		merge.execute();
 		
 	}

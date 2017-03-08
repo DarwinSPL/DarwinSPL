@@ -57,6 +57,7 @@ public class DeleteFeatureInGroup extends ComplexOperation {
 		}
 		
 		//set the rest of global variables
+		// TODO those elements need to be invalidated!
 		this.newGroupComposition = updateGroupComposition.getNewGroupComposition();
 		this.featureType = deleteFeature.getFeatureType();
 		this.name = deleteFeature.getName();

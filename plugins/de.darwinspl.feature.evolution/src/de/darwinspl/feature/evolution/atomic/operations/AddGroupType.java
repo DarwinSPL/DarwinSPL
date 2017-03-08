@@ -62,7 +62,7 @@ public class AddGroupType implements EvolutionOperation {
 	}
 	
 	//Getter
-	public HyGroupType getGroupTyp() {
+	public HyGroupType getGroupType() {
 		return groupTyp;
 	}
 

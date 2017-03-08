@@ -10,15 +10,18 @@ import de.darwinspl.feature.evolution.complex.operations.ComplexOperation;
 import de.darwinspl.feature.evolution.complex.operations.RemoveFromGroupComposition;
 import de.darwinspl.feature.evolution.invoker.EvolutionOperation;
 import eu.hyvar.feature.HyFeature;
+import eu.hyvar.feature.HyGroup;
 import eu.hyvar.feature.HyGroupComposition;
+import eu.hyvar.feature.util.HyFeatureEvolutionUtil;
 
 /**
  * On execute the operation will move a Feature from one group into another. The group, which are contains the feature before the evolution operation will still exist after the evolution.
  */
 public class MoveFeature extends ComplexOperation {
 
-	private HyFeature feature;
-	private HyGroupComposition oldGroupCompositionBefore, newGroupCompositionBefore, oldGroupCompositionAfter, newGroupCompositionAfter;
+	protected HyFeature feature;
+	protected HyGroup targetGroup;
+	protected HyGroupComposition oldGroupCompositionBefore, oldGroupCompositionAfter, newGroupCompositionBefore, newGroupCompositionAfter;
 	
 	/**
 	 * 
@@ -26,10 +29,10 @@ public class MoveFeature extends ComplexOperation {
 	 * @param groupComposition new group composition of the feature
 	 * @param timestamp
 	 */
-	public MoveFeature(HyFeature feature, HyGroupComposition groupComposition, Date timestamp) {
+	public MoveFeature(HyFeature feature, HyGroup targetGroup, Date timestamp) {
 		
 		this.feature = feature;
-		this.newGroupCompositionBefore = groupComposition;
+		this.targetGroup = targetGroup;
 		this.timestamp = timestamp;
 		
 	}
@@ -45,6 +48,8 @@ public class MoveFeature extends ComplexOperation {
 				break;
 			}
 		}
+		
+		newGroupCompositionBefore = HyFeatureEvolutionUtil.getGroupComposition(targetGroup, timestamp);
 		
 		//remove the feature from the old group composition
 		RemoveFromGroupComposition updateOldGroupComposition = new RemoveFromGroupComposition(oldGroupCompositionBefore, feature, timestamp);

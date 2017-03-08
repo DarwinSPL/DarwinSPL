@@ -12,6 +12,7 @@ import de.darwinspl.feature.evolution.invoker.EvolutionOperation;
 import eu.hyvar.feature.HyFeature;
 import eu.hyvar.feature.HyFeatureType;
 import eu.hyvar.feature.HyFeatureTypeEnum;
+import eu.hyvar.feature.util.HyFeatureEvolutionUtil;
 
 /**
  * Basic evolution operation which change the type of a feature
@@ -19,14 +20,12 @@ import eu.hyvar.feature.HyFeatureTypeEnum;
 public class ChangeFeatureType extends ComplexOperation {
 
 	private HyFeature feature;
-	private HyFeatureTypeEnum type;
 	
 	private HyFeatureType oldFeatureType, newFeatureType;
 	
-	public ChangeFeatureType(HyFeature feature, HyFeatureTypeEnum type, Date timestamp) {
+	public ChangeFeatureType(HyFeature feature, Date timestamp) {
 		
 		this.feature = feature;
-		this.type = type;
 		this.timestamp = timestamp;
 		
 	}
@@ -35,6 +34,8 @@ public class ChangeFeatureType extends ComplexOperation {
 	 */
 	@Override
 	public void execute() {
+		
+		// TODO check for feature in groups -> should not become mandatory
 		
 		//get the valid featureType object
 		for (HyFeatureType featureType : feature.getTypes()) {
@@ -45,6 +46,15 @@ public class ChangeFeatureType extends ComplexOperation {
 		}
 
 		DeleteFeatureType deleteFeatureType = new DeleteFeatureType(oldFeatureType, timestamp);
+		
+		HyFeatureTypeEnum type;
+		
+		if(HyFeatureEvolutionUtil.isMandatory(feature, timestamp)) {
+			type = HyFeatureTypeEnum.OPTIONAL;
+		} else {
+			type = HyFeatureTypeEnum.MANDATORY;
+		}
+		
 		AddFeatureType addFeatureType = new AddFeatureType(type, feature, timestamp);
 		
 		addToComposition(deleteFeatureType);

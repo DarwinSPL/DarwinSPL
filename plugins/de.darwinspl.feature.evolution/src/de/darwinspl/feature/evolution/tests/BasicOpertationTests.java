@@ -89,51 +89,51 @@ public class BasicOpertationTests extends TestCases {
 	
 	public static void basicOperationChangeTypeTest(HyFeatureModel tfm) {
 		
-		calendar.set(2016, 3, 20, 23, 59, 59);
-		timestamp = calendar.getTime();
-		
-		ChangeFeatureType changeTypeF = new ChangeFeatureType(infotainmentFeature, HyFeatureTypeEnum.OPTIONAL, timestamp);
-		changeTypeF.undo();
-		changeTypeF.execute();
-		changeTypeF.undo();
-		
-		ChangeGroupType changeTypeG = new ChangeGroupType(frontDistanceSensorsAlternativeGroup, HyGroupTypeEnum.OR, timestamp);
-		changeTypeG.undo();
-		changeTypeG.execute();
-		changeTypeG.undo();
+//		calendar.set(2016, 3, 20, 23, 59, 59);
+//		timestamp = calendar.getTime();
+//		
+//		ChangeFeatureType changeTypeF = new ChangeFeatureType(infotainmentFeature, HyFeatureTypeEnum.OPTIONAL, timestamp);
+//		changeTypeF.undo();
+//		changeTypeF.execute();
+//		changeTypeF.undo();
+//		
+//		ChangeGroupType changeTypeG = new ChangeGroupType(frontDistanceSensorsAlternativeGroup, HyGroupTypeEnum.OR, timestamp);
+//		changeTypeG.undo();
+//		changeTypeG.execute();
+//		changeTypeG.undo();
 	}
 	
 	public static void basicOperationMoveTest(HyFeatureModel tfm) {
 		
-		calendar.set(2016, 0, 20, 23, 59, 59);
-		timestamp = calendar.getTime();
-		
-		MoveFeature moveFeature = new MoveFeature(infotainmentFeature, frontDistanceSensorsAlternativeGroup.getParentOf().get(0), timestamp);
-		moveFeature.execute();
-		
-		calendar.set(2016, 1, 20, 23, 59, 59);
-		timestamp = calendar.getTime();
-		
-		MoveFeatureAddGroup moveFeatureAddGroup = new MoveFeatureAddGroup(infotainmentFeature, frontDistanceSensorsFeature, timestamp, tfm);
-		moveFeatureAddGroup.execute();
-		
-		calendar.set(2016, 2, 20, 23, 59, 59);
-		timestamp = calendar.getTime();
-		
-		MoveFeatureDeleteAndAddGroup moveFeatureDeleteAdd = new MoveFeatureDeleteAndAddGroup(infotainmentFeature, moveFeatureAddGroup.getGroup(), sideFeature, timestamp, tfm);
-		moveFeatureDeleteAdd.execute();
-		
-		calendar.set(2016, 3, 20, 23, 59, 59);
-		timestamp = calendar.getTime();
-		
-		MoveFeatureDeleteGroup movefeatureDeleteGroup = new MoveFeatureDeleteGroup(infotainmentFeature, moveFeatureDeleteAdd.getNewGroup(), moveFeatureAddGroup.getOldGroupCompositionAfter(), timestamp);
-		movefeatureDeleteGroup.execute();
-		
-		calendar.set(2016, 4, 20, 23, 59, 59);
-		timestamp = calendar.getTime();
-		
-		MoveGroup moveGroup = new MoveGroup(frontDistanceSensorsAlternativeGroup, carFeature, timestamp);
-		moveGroup.execute();
+//		calendar.set(2016, 0, 20, 23, 59, 59);
+//		timestamp = calendar.getTime();
+//		
+//		MoveFeature moveFeature = new MoveFeature(infotainmentFeature, frontDistanceSensorsAlternativeGroup.getParentOf().get(0), timestamp);
+//		moveFeature.execute();
+//		
+//		calendar.set(2016, 1, 20, 23, 59, 59);
+//		timestamp = calendar.getTime();
+//		
+//		MoveFeatureAddGroup moveFeatureAddGroup = new MoveFeatureAddGroup(infotainmentFeature, frontDistanceSensorsFeature, timestamp, tfm);
+//		moveFeatureAddGroup.execute();
+//		
+//		calendar.set(2016, 2, 20, 23, 59, 59);
+//		timestamp = calendar.getTime();
+//		
+//		MoveFeatureDeleteAndAddGroup moveFeatureDeleteAdd = new MoveFeatureDeleteAndAddGroup(infotainmentFeature, moveFeatureAddGroup.getGroup(), sideFeature, timestamp, tfm);
+//		moveFeatureDeleteAdd.execute();
+//		
+//		calendar.set(2016, 3, 20, 23, 59, 59);
+//		timestamp = calendar.getTime();
+//		
+//		MoveFeatureDeleteGroup movefeatureDeleteGroup = new MoveFeatureDeleteGroup(infotainmentFeature, moveFeatureDeleteAdd.getNewGroup(), moveFeatureAddGroup.getOldGroupCompositionAfter(), timestamp);
+//		movefeatureDeleteGroup.execute();
+//		
+//		calendar.set(2016, 4, 20, 23, 59, 59);
+//		timestamp = calendar.getTime();
+//		
+//		MoveGroup moveGroup = new MoveGroup(frontDistanceSensorsAlternativeGroup, carFeature, timestamp);
+//		moveGroup.execute();
 		
 	}
 

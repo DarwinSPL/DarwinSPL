@@ -71,7 +71,7 @@ public class AddGroupWithTypeChildAndComposition extends ComplexOperation {
 			operation.execute();
 		}
 		
-		this.groupType = groupType.getGroupTyp();
+		this.groupType = groupType.getGroupType();
 		this.featureChild = featureChild.getFeatureChild();
 		this.groupComposition = groupComposition.getGroupComposition();
 		

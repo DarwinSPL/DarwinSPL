@@ -3,29 +3,36 @@
  */
 package de.darwinspl.feature.evolution.basic.operations;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import de.darwinspl.feature.evolution.atomic.operations.AddGroupType;
 import de.darwinspl.feature.evolution.atomic.operations.DeleteGroupType;
 import de.darwinspl.feature.evolution.complex.operations.ComplexOperation;
 import de.darwinspl.feature.evolution.invoker.EvolutionOperation;
+import eu.hyvar.feature.HyFeature;
+import eu.hyvar.feature.HyFeatureTypeEnum;
 import eu.hyvar.feature.HyGroup;
 import eu.hyvar.feature.HyGroupType;
 import eu.hyvar.feature.HyGroupTypeEnum;
+import eu.hyvar.feature.util.HyFeatureEvolutionUtil;
 
 /**
  * Basic evolution operation which change the type of a group
  */
 public class ChangeGroupType extends ComplexOperation {
 	private HyGroup group;
-	private HyGroupTypeEnum type;
+	private HyGroupTypeEnum newGroupTypeEnum;
 	
 	private HyGroupType oldGroupType, newGroupType;
 	
-	public ChangeGroupType(HyGroup group, HyGroupTypeEnum type, Date timestamp) {
-		
+	protected List<HyFeature> featuresChangedToOptional;
+	
+	public ChangeGroupType(HyGroup group, HyGroupTypeEnum newType, Date timestamp) {
+		this.featuresChangedToOptional = new ArrayList<HyFeature>();
 		this.group = group;
-		this.type = type;
+		this.newGroupTypeEnum = newType;
 		this.timestamp = timestamp;
 		
 	}
@@ -36,24 +43,33 @@ public class ChangeGroupType extends ComplexOperation {
 	public void execute() {
 		
 		//get the valid groupType object
-		for (HyGroupType groupType : group.getTypes()) {
-			if (groupType.getValidUntil() == null) {
-				this.oldGroupType = groupType;
-				break;
-			}
-		}
+		this.oldGroupType = HyFeatureEvolutionUtil.getType(group, timestamp);
 
 		DeleteGroupType deleteGroupType = new DeleteGroupType(oldGroupType, timestamp);
-		AddGroupType addGroupType = new AddGroupType(type, group, timestamp);
+		AddGroupType addGroupType = new AddGroupType(newGroupTypeEnum, group, timestamp);
 		
 		addToComposition(deleteGroupType);
 		addToComposition(addGroupType);
 		
-		for (EvolutionOperation evolutionOperation : evoOps) {
-			evolutionOperation.execute();
+		// If group was AND and is changed to OR or ALTERNATIVE, all mandatory child have to become optional
+		if(oldGroupType.getType().equals(HyGroupTypeEnum.AND) && (newGroupTypeEnum.equals(HyGroupTypeEnum.OR) || newGroupTypeEnum.equals(HyGroupTypeEnum.ALTERNATIVE))) {
+			for(HyFeature childFeature: HyFeatureEvolutionUtil.getFeaturesOfGroup(group, timestamp)) {
+				if(HyFeatureEvolutionUtil.getType(childFeature, timestamp).getType().equals(HyFeatureTypeEnum.MANDATORY)) {
+					ChangeFeatureType changeFeatureType = new ChangeFeatureType(childFeature, timestamp);
+					addToComposition(changeFeatureType);
+				}
+			}			
 		}
 		
-		newGroupType = addGroupType.getGroupTyp();
+		for (EvolutionOperation evolutionOperation : evoOps) {
+			evolutionOperation.execute();
+			
+			if(evolutionOperation instanceof ChangeFeatureType) {
+				featuresChangedToOptional.add(((ChangeFeatureType) evolutionOperation).getFeature());
+			}
+		}
+		
+		newGroupType = addGroupType.getGroupType();
 	}
 
 	/* (non-Javadoc)
@@ -92,5 +108,10 @@ public class ChangeGroupType extends ComplexOperation {
 	public HyGroupType getNewFeatureType() {
 		return newGroupType;
 	}
+	public List<HyFeature> getFeaturesChangedToOptional() {
+		return featuresChangedToOptional;
+	}
+	
+	
 
 }

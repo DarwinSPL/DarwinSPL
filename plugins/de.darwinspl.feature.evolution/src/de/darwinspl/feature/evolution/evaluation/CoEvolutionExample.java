@@ -12,7 +12,7 @@ import de.darwinspl.feature.evolution.basic.operations.ChangeGroupType;
 import de.darwinspl.feature.evolution.basic.operations.Delete;
 import de.darwinspl.feature.evolution.basic.operations.Move;
 import de.darwinspl.feature.evolution.complex.operations.AddFeatureWithNameAndType;
-import de.darwinspl.feature.evolution.complex.operations.MergeKeepCode;
+import de.darwinspl.feature.evolution.complex.operations.MergeFeatures;
 import de.darwinspl.feature.evolution.complex.operations.Split;
 import de.darwinspl.feature.evolution.complex.operations.SplitIntoFiveFeatures;
 import eu.hyvar.feature.HyFeatureFactory;
@@ -86,10 +86,10 @@ public class CoEvolutionExample {
 		calendar.set(2017, 2, 06, 12, 00, 00);
 		timestamp = calendar.getTime();
 		
-		MergeKeepCode mergeAudioCDInCDPlayer = new MergeKeepCode(splitCDPlayer.getNewFeature1(), cdPlayer.getFeature(), timestamp);
+		MergeFeatures mergeAudioCDInCDPlayer = new MergeFeatures(splitCDPlayer.getNewFeature1(), cdPlayer.getFeature(), timestamp);
 		mergeAudioCDInCDPlayer.execute();
 		
-		MergeKeepCode mergeMP3InCDPlayer = new MergeKeepCode(splitCDPlayer.getNewFeature2(), cdPlayer.getFeature(), timestamp);
+		MergeFeatures mergeMP3InCDPlayer = new MergeFeatures(splitCDPlayer.getNewFeature2(), cdPlayer.getFeature(), timestamp);
 		mergeMP3InCDPlayer.execute();
 		
 		Move moveVoiceInPersonal = new Move(voiceRecognition.getFeature(), null, personalNavigation.getGroup(), timestamp, tfm);
