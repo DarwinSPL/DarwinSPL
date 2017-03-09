@@ -21,7 +21,7 @@ import eu.hyvar.feature.HyGroupTypeEnum;
 /**
  * Get request from the editor and invoke the corresponding evoOp to execute the command.
  */
-public class OperationInvoker {
+public class EvolutionOperationInvoker {
 	
 	private ArrayList<EvolutionOperation> commandHistory = new ArrayList<>();
 	private int counterOfExecuteCommands = 0;
@@ -156,7 +156,8 @@ public class OperationInvoker {
 		invokeOperation(merge, targetFeature.getFeatureModel());
 	}
 	
-	private void invokeOperation(EvolutionOperation operation, HyFeatureModel featureModel) {
+	public void invokeOperation(EvolutionOperation operation, HyFeatureModel featureModel) {
+		// TODO check if IDs are preserved?!
 		operation.setCopyOfFeatureModelBeforeEvolution(EcoreUtil.copy(featureModel));
 		operation.execute();
 		commandHistory.add(counterOfExecuteCommands++, operation);

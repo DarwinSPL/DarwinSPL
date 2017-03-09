@@ -19,6 +19,7 @@ import de.darwinspl.feature.evolution.basic.operations.UngroupFeature;
 import de.darwinspl.feature.evolution.complex.operations.ExtractFeature;
 import de.darwinspl.feature.evolution.complex.operations.MergeFeatures;
 import de.darwinspl.feature.evolution.invoker.EvolutionOperation;
+import de.darwinspl.feature.evolution.invoker.EvolutionOperationInvoker;
 import eu.hyvar.feature.HyFeature;
 import eu.hyvar.feature.HyFeatureModel;
 import eu.hyvar.feature.HyGroup;
@@ -43,7 +44,7 @@ public class FeatureModelEvolutionGenerator {
 	 * @return
 	 */
 	public Map<EvolutionOperation, EvolutionOperationType> generateEvolutionOfFeatureModel(HyFeatureModel featureModel, int amountOfOperations, Date date) {
-		
+		EvolutionOperationInvoker evolutionInvoker = new EvolutionOperationInvoker();
 		
 		
 		Map<EvolutionOperation, EvolutionOperationType> appliedEvolutionOperations = new HashMap<EvolutionOperation, EvolutionOperationType>();
@@ -84,7 +85,7 @@ public class FeatureModelEvolutionGenerator {
 			}
 			
 			if(evolutionOp != null) {
-				evolutionOp.execute();
+				evolutionInvoker.invokeOperation(evolutionOp, featureModel);
 				appliedEvolutionOperations.put(evolutionOp, evolutionOperationType);
 			}
 			

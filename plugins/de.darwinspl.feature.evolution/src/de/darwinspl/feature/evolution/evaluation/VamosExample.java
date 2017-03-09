@@ -23,7 +23,7 @@ import eu.hyvar.feature.HyGroupTypeEnum;
 import eu.hyvar.feature.HyRootFeature;
 import eu.hyvar.feature.util.HyFeatureCreationUtil;
 
-import de.darwinspl.feature.evolution.invoker.OperationInvoker;
+import de.darwinspl.feature.evolution.invoker.EvolutionOperationInvoker;
 
 /**
  *
