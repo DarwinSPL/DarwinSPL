@@ -23,6 +23,8 @@ public class ChangeFeatureType extends ComplexOperation {
 	
 	private HyFeatureType oldFeatureType, newFeatureType;
 	
+	protected HyFeature parentBeforeEvolution;
+	
 	public ChangeFeatureType(HyFeature feature, Date timestamp) {
 		
 		this.feature = feature;
@@ -36,6 +38,8 @@ public class ChangeFeatureType extends ComplexOperation {
 	public void execute() {
 		
 		// TODO check for feature in groups -> should not become mandatory
+		
+		parentBeforeEvolution = HyFeatureEvolutionUtil.getParentFeatureOfFeature(feature, timestamp);
 		
 		//get the valid featureType object
 		for (HyFeatureType featureType : feature.getTypes()) {
@@ -103,5 +107,9 @@ public class ChangeFeatureType extends ComplexOperation {
 	public HyFeatureType getNewFeatureType() {
 		return newFeatureType;
 	}
+	public HyFeature getParentBeforeEvolution() {
+		return parentBeforeEvolution;
+	}
 
+	
 }
