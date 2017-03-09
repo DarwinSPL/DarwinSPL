@@ -67,7 +67,7 @@ public class DarwinExpressionGenerator {
 		
 		HyExpression expression = null;
 		
-		// TODO Will go bad if not types of according atomic expressions are not checked! Only interesting if nOL <= 3?
+		// TODO Will go bad if not types of according atomic expressions are not checked! Only interesting if number of literals <= 3?
 		
 		if(numberOfLiterals >= 2) {
 			HyBinaryExpression binaryExpression = null;
@@ -97,10 +97,10 @@ public class DarwinExpressionGenerator {
 				int rightHandLiteralNumber = (new Double(Math.floor(numberOfLiterals / 2.0))).intValue();
 				
 				// TODO this might take a VERY long time for bigger expressions
-				while(!checkSatisfiability(binaryExpression)) {
+				do {
 					binaryExpression.setOperand1(generateExpression(leftHandLiteralNumber, includeVersions, includeContexts, includeAttributes, date));			
 					binaryExpression.setOperand2(generateExpression(rightHandLiteralNumber, includeVersions, includeContexts, includeAttributes, date));					
-				}
+				} while(!checkSatisfiability(binaryExpression));
 				
 				expression = binaryExpression;
 			}

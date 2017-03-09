@@ -1,5 +1,7 @@
 package de.darwinspl.spl.generator;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -17,6 +19,11 @@ public class ArtifactWrapper {
 	protected List<HyConfiguration> configurations;
 	protected Map<EvolutionOperation, EvolutionOperationType> evoOps;
 	protected HyConstraintModel constraintModel;
+	
+	public ArtifactWrapper() {
+		configurations = new ArrayList<HyConfiguration>();
+		evoOps = new HashMap<EvolutionOperation, EvolutionOperationType>();
+	}
 	
 	
 	public HyFeatureModel getFeatureModel() {

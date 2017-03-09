@@ -14,7 +14,7 @@ import de.darwinspl.mapping.generator.DarwinMappingGenerator;
 import eu.hyvar.feature.HyFeatureModel;
 import eu.hyvar.feature.mapping.HyMappingModel;
 
-public class Generator {
+public class DarwinSPLGenerator {
 
 	// TODO constraints?!
 	
@@ -42,7 +42,8 @@ public class Generator {
 		
 		
 		DarwinConfigurationGenerator configurationGenerator = new DarwinConfigurationGenerator();
-		for(int i=0;i<20;i++) {
+		int configurationCount = 20;
+		for(int i=0;i<configurationCount;i++) {
 			wrapper.getConfigurations().add(configurationGenerator.generateConfiguration(generatedFeatureModel, null, null));
 		}
 		

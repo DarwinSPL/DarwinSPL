@@ -15,7 +15,7 @@ import eu.hyvar.feature.util.HyFeatureEvolutionUtil;
 
 public class DarwinConfigurationGenerator {
 
-	// TODO Yet very simple and not very good! Currently only regarding FM structure.
+	// TODO Yet very simple and not very good! Currently only regarding FM structure. Even for big FMs, configurations are rather small. Descending probability based on tree level?
 	// TODO incorporate versions
 	// TODO incorporate attributes
 	// TODO incorporate constraints
