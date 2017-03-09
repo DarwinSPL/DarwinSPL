@@ -13,10 +13,12 @@ import eu.hyvar.feature.HyFeatureTypeEnum;
 import eu.hyvar.feature.configuration.HyConfiguration;
 import eu.hyvar.feature.configuration.HyConfigurationElement;
 import eu.hyvar.feature.configuration.HyFeatureSelected;
+import eu.hyvar.feature.configuration.util.HyConfigurationUtil;
 import eu.hyvar.feature.expression.HyAbstractFeatureReferenceExpression;
 import eu.hyvar.feature.expression.HyBinaryExpression;
 import eu.hyvar.feature.expression.HyExpression;
 import eu.hyvar.feature.expression.HyUnaryExpression;
+import eu.hyvar.feature.expression.util.DarwinExpressionUtil;
 import eu.hyvar.feature.mapping.HyMapping;
 import eu.hyvar.feature.mapping.HyMappingModel;
 
@@ -37,7 +39,7 @@ public class Guidance {
 	}
 	
 	public void guide() {
-		for(Entry<EvolutionOperation, EvolutionOperationType> entry: evolutionOperations.entrySet()) {
+		for(Entry<EvolutionOperation, EvolutionOperationType> entry: evolutionOperations.entrySet()) {			
 			EvolutionOperation evolutionOperation = entry.getKey();
 			
 			switch(entry.getValue()) {
@@ -67,6 +69,8 @@ public class Guidance {
 				break;			
 			}
 		}
+		
+		// relate numbers of defects and behavioral changes to number of all evolution operations
 	}
 	
 	/**
@@ -83,7 +87,7 @@ public class Guidance {
 		}
 		
 		for(HyMapping mapping: mappingModel.getMappings()) {
-			if(featureInExpression(deleteOperation.getFeature(), mapping.getExpression())) {
+			if(DarwinExpressionUtil.containsFeature(mapping.getExpression(), deleteOperation.getFeature())) {
 				// TODO defect in Mapping 
 				
 				// TODO incorporate sat checker -> replace deleted feature with false. If mapping not satisfiable -> changed behavior
@@ -97,7 +101,7 @@ public class Guidance {
 							continue;
 						}
 						
-						if(featureInExpression(parent, mappingOfParent.getExpression())) {
+						if(DarwinExpressionUtil.containsFeature(mappingOfParent.getExpression(), parent)) {
 							// TODO Check if parent satisfies mapping. If yes -> warning that mappingOfParent may rely on mapping -> (behavioral change)
 						}
 					}
@@ -106,18 +110,18 @@ public class Guidance {
 		}
 		
 		for(HyConfiguration configuration: configurations) {
-			for(HyConfigurationElement configurationElement: configuration.getElements()) {
-				if(configurationElement instanceof HyFeatureSelected) {
-					if(((HyFeatureSelected) configurationElement).getSelectedFeature() == deleteOperation.getFeature()) {
-						// TODO -> defect in configuration
-					}
-				}
+			if(HyConfigurationUtil.configurationSelects(configuration, deleteOperation.getFeature())) {
+				// TODO -> defect in configuration				
 			}
 		}
 	}
 	
+	/**
+	 * see SPLC'17 paper Table 2
+	 * @param evolutionOperation
+	 */
 	protected void guideChangeFeatureType(EvolutionOperation evolutionOperation) {
-		ChangeFeatureType changeFeatureTypeOperation;
+		ChangeFeatureType changeFeatureTypeOperation = null;
 		
 		if(evolutionOperation instanceof ChangeFeatureType) {
 			changeFeatureTypeOperation = (ChangeFeatureType) evolutionOperation;
@@ -126,10 +130,33 @@ public class Guidance {
 			return;
 		}
 		
+		for(HyMapping mapping: mappingModel.getMappings()) {
+			if(changeFeatureTypeOperation.getOldFeatureType().getType().equals(HyFeatureTypeEnum.OPTIONAL) && changeFeatureTypeOperation.getNewFeatureType().getType().equals(HyFeatureTypeEnum.MANDATORY)) {
+				// TODO check if parent and not feature required to satisfy mapping -> dead mapping					
+			}
+			else if(changeFeatureTypeOperation.getOldFeatureType().getType().equals(HyFeatureTypeEnum.MANDATORY) && changeFeatureTypeOperation.getNewFeatureType().getType().equals(HyFeatureTypeEnum.OPTIONAL)) {
+				if(DarwinExpressionUtil.containsFeature(mapping.getExpression(), changeFeatureTypeOperation.getParentBeforeEvolution())) {
+					//TODO if(check if parent is required to satisfy mapping) {
+						for(HyMapping dependenceMapping: mappingModel.getMappings()) {
+							if(dependenceMapping == mapping) {
+								continue;
+							}
+							if(DarwinExpressionUtil.containsFeature(mapping.getExpression(), changeFeatureTypeOperation.getFeature())) {
+								// TODO check if f0 is required to satisfy dependence mapping -> warning change in behavior (id ii)
+							}
+						}
+					//}
+				}
+			}
+		}
 		
-		
-		// TODO mappings
-		// TODO configurations
+		for(HyConfiguration configuration: configurations) {
+			if(changeFeatureTypeOperation.getOldFeatureType().getType().equals(HyFeatureTypeEnum.OPTIONAL) && changeFeatureTypeOperation.getNewFeatureType().getType().equals(HyFeatureTypeEnum.MANDATORY)) {
+				if(HyConfigurationUtil.configurationSelects(configuration, changeFeatureTypeOperation.getFeature()) && !HyConfigurationUtil.configurationSelects(configuration, changeFeatureTypeOperation.getParentBeforeEvolution())) {
+					// // TODO defect (id iii)
+				}
+			}
+		}
 	}
 	
 	protected void guideChangeGroupType(EvolutionOperation evolutionOperation) {
@@ -180,27 +207,5 @@ public class Guidance {
 		// TODO configurations
 	}
 	
-	protected boolean featureInExpression(HyFeature feature, HyExpression expression) {
-		if(expression instanceof HyAbstractFeatureReferenceExpression) {
-			if(((HyAbstractFeatureReferenceExpression) expression).getFeature() == feature) {
-				return true;
-			}
-		}
-		else if(expression instanceof HyUnaryExpression) {
-			return featureInExpression(feature, ((HyUnaryExpression) expression).getOperand());
-		}
-		else if(expression instanceof HyBinaryExpression) {
-			HyBinaryExpression binaryExpression = (HyBinaryExpression) expression;
-			if(featureInExpression(feature, binaryExpression.getOperand1())) {
-				return true;
-			}
-			
-			if(featureInExpression(feature, binaryExpression.getOperand2())) {
-				return true;
-			}
-		}
-		
-		return false;
-	}
 	
 }
