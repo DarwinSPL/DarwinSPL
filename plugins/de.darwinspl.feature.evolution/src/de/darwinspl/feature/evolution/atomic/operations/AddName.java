@@ -13,11 +13,10 @@ import eu.hyvar.feature.HyFeature;
 /**
  * atomic operation which add a name for a feature to a tfm
  */
-public class AddName implements EvolutionOperation {
+public class AddName extends EvolutionOperation {
 
 	private String featureName;
 	private HyFeature feature;
-	private Date timestamp;
 	private HyName name;
 	
 	private static final HyEvolutionFactory factory = HyEvolutionFactory.eINSTANCE;

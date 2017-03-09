@@ -11,10 +11,9 @@ import eu.hyvar.feature.HyGroup;
 /**
  * atomic operation which delete a group from a tfm
  */
-public class DeleteGroup implements EvolutionOperation {
+public class DeleteGroup extends EvolutionOperation {
 
 	private HyGroup group;
-	private Date timestamp;
 	
 	public DeleteGroup(HyGroup group, Date timestamp) {
 		

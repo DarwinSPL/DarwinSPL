@@ -6,6 +6,8 @@ package de.darwinspl.feature.evolution.invoker;
 import java.util.ArrayList;
 import java.util.Date;
 
+import org.eclipse.emf.ecore.util.EcoreUtil;
+
 import de.darwinspl.feature.evolution.basic.operations.*;
 import de.darwinspl.feature.evolution.complex.operations.ComplexOperation;
 import de.darwinspl.feature.evolution.complex.operations.MergeFeatures;
@@ -49,9 +51,7 @@ public class OperationInvoker {
 	public void add(String name, HyFeatureTypeEnum type, HyFeature parent, HyGroup group, Date timestamp, HyFeatureModel tfm) {
 		
 		ComplexOperation addFeature = new Add(name, type, parent, group, timestamp, tfm);
-		addFeature.execute();
-		//add the operation as next command in the history
-		commandHistory.add(counterOfExecuteCommands++, addFeature);
+		invokeOperation(addFeature, tfm);
 		
 	}
 	
@@ -63,9 +63,7 @@ public class OperationInvoker {
 	public void delete(HyFeature feature, Date timestamp) {
 		
 		ComplexOperation deleteFeature = new Delete(feature, timestamp);
-		deleteFeature.execute();
-		//add the operation as next command in the history
-		commandHistory.add(counterOfExecuteCommands++, deleteFeature);
+		invokeOperation(deleteFeature, feature.getFeatureModel());
 	}
 	
 	
@@ -78,9 +76,7 @@ public class OperationInvoker {
 	public void rename(HyFeature feature, String name, Date timestamp) {
 		
 		ComplexOperation rename = new Rename(feature, name, timestamp);
-		rename.execute();
-		//add the operation as next command in the history
-		commandHistory.add(counterOfExecuteCommands++, rename);
+		invokeOperation(rename, feature.getFeatureModel());
 	}
 	
 	/**
@@ -92,9 +88,7 @@ public class OperationInvoker {
 	public void changeType(HyFeature feature, Date timestamp) {
 		
 		ComplexOperation changeFeatureType = new ChangeFeatureType(feature, timestamp);
-		changeFeatureType.execute();
-		//add the operation as next command in the history
-		commandHistory.add(counterOfExecuteCommands++, changeFeatureType);
+		invokeOperation(changeFeatureType, feature.getFeatureModel());
 	}
 	
 	/**
@@ -106,9 +100,7 @@ public class OperationInvoker {
 	public void changeType(HyGroup group, HyGroupTypeEnum type, Date timestamp) {
 		
 		ComplexOperation changeGroupType = new ChangeGroupType(group, type, timestamp);
-		changeGroupType.execute();
-		//add the operation as next command in the history
-		commandHistory.add(counterOfExecuteCommands++, changeGroupType);
+		invokeOperation(changeGroupType, group.getFeatureModel());
 	}
 	
 	/**
@@ -121,9 +113,7 @@ public class OperationInvoker {
 	public void move(HyFeature feature, HyFeature parent, HyGroup group, Date timestamp, HyFeatureModel tfm) {
 		
 		ComplexOperation moveFeature = new Move(feature, parent, group, timestamp, tfm);
-		moveFeature.execute();
-		//add the operation as next command in the history
-		commandHistory.add(counterOfExecuteCommands++, moveFeature);
+		invokeOperation(moveFeature, tfm);
 		
 	}
 	
@@ -137,9 +127,7 @@ public class OperationInvoker {
 	public void move(HyGroup group, HyFeature parent, Date timestamp) {
 		
 		ComplexOperation moveGroup = new MoveGroup(group, parent, timestamp);
-		moveGroup.execute();
-		//add the operation as next command in the history
-		commandHistory.add(counterOfExecuteCommands++, moveGroup);
+		invokeOperation(moveGroup, group.getFeatureModel());
 	}
 	
 	/**
@@ -153,9 +141,7 @@ public class OperationInvoker {
 	public void split(HyFeature feature, String name1, String name2, Date timestamp, HyFeatureModel tfm) {
 		
 		ComplexOperation split = new Split(feature, name1, name2, timestamp, tfm);
-		split.execute();
-		//add the operation as next command in the history
-		commandHistory.add(counterOfExecuteCommands++, split);
+		invokeOperation(split, tfm);
 	}
 	
 	/**
@@ -167,7 +153,12 @@ public class OperationInvoker {
 	public void merge(HyFeature deleteFeature, HyFeature targetFeature, Date timestamp){
 		
 		ComplexOperation merge = new MergeFeatures(deleteFeature, targetFeature, timestamp);
-		merge.execute();
-		commandHistory.add(counterOfExecuteCommands++, merge);
+		invokeOperation(merge, targetFeature.getFeatureModel());
+	}
+	
+	private void invokeOperation(EvolutionOperation operation, HyFeatureModel featureModel) {
+		operation.setCopyOfFeatureModelBeforeEvolution(EcoreUtil.copy(featureModel));
+		operation.execute();
+		commandHistory.add(counterOfExecuteCommands++, operation);
 	}
 }

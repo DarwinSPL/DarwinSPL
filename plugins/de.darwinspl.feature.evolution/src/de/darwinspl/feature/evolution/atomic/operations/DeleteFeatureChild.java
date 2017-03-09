@@ -11,10 +11,9 @@ import eu.hyvar.feature.HyFeatureChild;
 /**
  * atomic operation which delete a feature child from a tfm
  */
-public class DeleteFeatureChild implements EvolutionOperation {
+public class DeleteFeatureChild extends EvolutionOperation {
 
 	private HyFeatureChild featureChild;
-	private Date timestamp;
 	
 	public DeleteFeatureChild(HyFeatureChild featureChild, Date timestamp) {
 		

@@ -29,8 +29,11 @@ public class ChangeGroupType extends ComplexOperation {
 	
 	protected List<HyFeature> featuresChangedToOptional;
 	
+	protected List<HyFeature> groupMembersBeforeEvolution;
+	
 	public ChangeGroupType(HyGroup group, HyGroupTypeEnum newType, Date timestamp) {
 		this.featuresChangedToOptional = new ArrayList<HyFeature>();
+		this.groupMembersBeforeEvolution = new ArrayList<HyFeature>();
 		this.group = group;
 		this.newGroupTypeEnum = newType;
 		this.timestamp = timestamp;
@@ -44,6 +47,7 @@ public class ChangeGroupType extends ComplexOperation {
 		
 		//get the valid groupType object
 		this.oldGroupType = HyFeatureEvolutionUtil.getType(group, timestamp);
+		groupMembersBeforeEvolution.addAll(HyFeatureEvolutionUtil.getFeaturesOfGroup(group, timestamp));
 
 		DeleteGroupType deleteGroupType = new DeleteGroupType(oldGroupType, timestamp);
 		AddGroupType addGroupType = new AddGroupType(newGroupTypeEnum, group, timestamp);
@@ -99,17 +103,20 @@ public class ChangeGroupType extends ComplexOperation {
 	}
 	
 	//Getter
-	public HyGroup getFeature() {
+	public HyGroup getGroup() {
 		return group;
 	}
-	public HyGroupType getOldFeatureType() {
+	public HyGroupType getOldGroupType() {
 		return oldGroupType;
 	}
-	public HyGroupType getNewFeatureType() {
+	public HyGroupType getNewGroupType() {
 		return newGroupType;
 	}
 	public List<HyFeature> getFeaturesChangedToOptional() {
 		return featuresChangedToOptional;
+	}
+	public List<HyFeature> getGroupMembersBeforeEvolution() {
+		return groupMembersBeforeEvolution;
 	}
 	
 	

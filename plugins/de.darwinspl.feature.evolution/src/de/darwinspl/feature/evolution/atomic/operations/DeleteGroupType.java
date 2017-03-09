@@ -11,10 +11,9 @@ import eu.hyvar.feature.HyGroupType;
 /**
  * atomic operation which delete a group type from a tfm
  */
-public class DeleteGroupType implements EvolutionOperation {
+public class DeleteGroupType extends EvolutionOperation {
 
 	private HyGroupType groupType;
-	private Date timestamp;
 	
 	public DeleteGroupType(HyGroupType groupType, Date timestamp) {
 		

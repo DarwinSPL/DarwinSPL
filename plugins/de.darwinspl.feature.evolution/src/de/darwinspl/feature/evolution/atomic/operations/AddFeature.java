@@ -13,10 +13,9 @@ import eu.hyvar.feature.HyFeatureModel;
 /**
  * atomic operation which add a feature to a tfm
  */
-public class AddFeature implements EvolutionOperation {
+public class AddFeature extends EvolutionOperation {
 
 	private HyFeature feature;
-	private Date timestamp;
 	private HyFeatureModel tfm;
 	
 	private static final HyFeatureFactory factory = HyFeatureFactory.eINSTANCE;

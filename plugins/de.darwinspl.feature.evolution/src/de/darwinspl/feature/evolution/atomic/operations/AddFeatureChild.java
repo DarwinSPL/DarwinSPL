@@ -14,11 +14,10 @@ import eu.hyvar.feature.HyGroup;
 /**
  * atomic operation which add a feature child to a tfm
  */
-public class AddFeatureChild implements EvolutionOperation {
+public class AddFeatureChild extends EvolutionOperation {
 
 	private HyFeature parent;
 	private HyGroup group;
-	private Date timestamp;
 	
 	private HyFeatureChild featureChild;
 	

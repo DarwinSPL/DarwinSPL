@@ -13,12 +13,11 @@ import eu.hyvar.feature.HyGroup;
 /**
  * atomic operation which add a group to a tfm
  */
-public class AddGroup implements EvolutionOperation {
+public class AddGroup extends EvolutionOperation {
 
 	private static final HyFeatureFactory factory = HyFeatureFactory.eINSTANCE;
 	
 	private HyGroup group;
-	private Date timestamp;
 	private HyFeatureModel tfm;
 	
 	public AddGroup(Date timestamp, HyFeatureModel tfm) {

@@ -14,10 +14,9 @@ import eu.hyvar.feature.HyGroupTypeEnum;
 /**
  * atomic operation which add a group type for a group to a tfm
  */
-public class AddGroupType implements EvolutionOperation {
+public class AddGroupType extends EvolutionOperation {
 
 	private HyGroupTypeEnum type;
-	private Date timestamp;
 	private HyGroup group;
 	private HyGroupType groupTyp;
 	

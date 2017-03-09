@@ -1,10 +1,14 @@
 package de.darwinspl.expression.generator;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Random;
 
 import org.deltaecore.feature.DEFeatureModel;
+import org.deltaecore.feature.analysis.util.SatisfiabilityChecker;
+import org.deltaecore.feature.constraint.DEConstraintModel;
+import org.deltaecore.feature.expression.DEExpression;
 
 import eu.hyvar.context.HyContextModel;
 import eu.hyvar.context.HyContextualInformation;
@@ -12,7 +16,10 @@ import eu.hyvar.feature.HyFeature;
 import eu.hyvar.feature.HyFeatureAttribute;
 import eu.hyvar.feature.HyFeatureModel;
 import eu.hyvar.feature.HyVersion;
+import eu.hyvar.feature.constraint.HyConstraintModel;
+import eu.hyvar.feature.exporter.hfm_exporter.HFMConstraintModelExporter;
 import eu.hyvar.feature.exporter.hfm_exporter.HFMExporter;
+import eu.hyvar.feature.exporter.hfm_exporter.HFMExpressionExporter;
 import eu.hyvar.feature.expression.HyAtomicExpression;
 import eu.hyvar.feature.expression.HyBinaryExpression;
 import eu.hyvar.feature.expression.HyExpression;
@@ -26,18 +33,23 @@ public class DarwinExpressionGenerator {
 
 	
 	protected HyFeatureModel featureModel;
+	protected HyConstraintModel constraintModel;
 	protected HyContextModel contextModel;
 	protected HyExpressionFactory factory;
 	
 	protected DEFeatureModel deltaEcoreFeatureModel;
-	protected HFMExporter deltaEcoreExporter;
+	protected DEConstraintModel deltaEcoreConstraintModel;
 	
+	protected HFMExpressionExporter deltaEcoreExpressionExporter;
 	
 	private Random rand;
 	
-	public DarwinExpressionGenerator(HyFeatureModel featureModel, HyContextModel contextModel) {		
+	
+	
+	public DarwinExpressionGenerator(HyFeatureModel featureModel, HyContextModel contextModel, HyConstraintModel constraintModel) {		
 		this.featureModel = featureModel;
 		this.contextModel = contextModel;
+		this.constraintModel = constraintModel;
 		this.factory = HyExpressionFactory.eINSTANCE;
 		
 		
@@ -49,16 +61,24 @@ public class DarwinExpressionGenerator {
 	// TODO set expressions
 	// TODO equals with values and so on
 	
-	public HyExpression generateExpression(int numberOfLiterals, boolean includeVersions, boolean includeContexts, boolean includeAttributes, Date date) {
+	public HyExpression generateExpression(int numberOfLiterals, boolean includeVersions, boolean includeContexts, boolean includeAttributes, HyExpression parentExpression, Date date) {
 		
 		boolean exported = false;
 		
 		if(deltaEcoreFeatureModel == null) {
 			exported = true;
 			
-			deltaEcoreExporter = new HFMExporter();
+			HFMExporter deltaEcoreExporter = new HFMExporter();
 			try {
 				deltaEcoreFeatureModel = deltaEcoreExporter.exportFeatureModel(featureModel, date);
+
+				deltaEcoreExpressionExporter = new HFMExpressionExporter(deltaEcoreExporter.getFeatureMapping(), deltaEcoreExporter.getVersionMapping());
+				
+				if(constraintModel != null) {
+					HFMConstraintModelExporter constraintExporter = new HFMConstraintModelExporter(deltaEcoreExporter.getFeatureMapping(), deltaEcoreExporter.getVersionMapping());
+					deltaEcoreConstraintModel = constraintExporter.exportConstraintModel(constraintModel, date);					
+				}
+				
 			} catch (HyFeatureModelWellFormednessException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -72,7 +92,7 @@ public class DarwinExpressionGenerator {
 		if(numberOfLiterals >= 2) {
 			HyBinaryExpression binaryExpression = null;
 			
-			int binaryIndex = rand.nextInt(5);
+			int binaryIndex = rand.nextInt(4);
 			switch(binaryIndex) {
 			case 0:
 				binaryExpression = factory.createHyAndExpression();
@@ -80,26 +100,26 @@ public class DarwinExpressionGenerator {
 			case 1:
 				binaryExpression = factory.createHyOrExpression();
 				break;
+//			case 2:
+//				binaryExpression = factory.createHyEquivalenceExpression();
+//				break;
 			case 2:
-				binaryExpression = factory.createHyEquivalenceExpression();
-				break;
-			case 3:
 				binaryExpression = factory.createHyImpliesExpression();
 				break;
-			case 4:
+			case 3:
 				expression = generateUnaryExpression(numberOfLiterals, includeVersions, includeContexts, includeAttributes, date, false);
 				break;
 			}
 			
 			if(binaryExpression != null) {
 				
-				int leftHandLiteralNumber = (new Double(Math.ceil(numberOfLiterals / 2.0))).intValue();
-				int rightHandLiteralNumber = (new Double(Math.floor(numberOfLiterals / 2.0))).intValue();
+				int leftHandLiteralNumber = (int) Math.ceil(numberOfLiterals / 2.0);
+				int rightHandLiteralNumber = (int) Math.floor(numberOfLiterals / 2.0);
 				
 				// TODO this might take a VERY long time for bigger expressions
 				do {
-					binaryExpression.setOperand1(generateExpression(leftHandLiteralNumber, includeVersions, includeContexts, includeAttributes, date));			
-					binaryExpression.setOperand2(generateExpression(rightHandLiteralNumber, includeVersions, includeContexts, includeAttributes, date));					
+					binaryExpression.setOperand1(generateExpression(leftHandLiteralNumber, includeVersions, includeContexts, includeAttributes, binaryExpression, date));			
+					binaryExpression.setOperand2(generateExpression(rightHandLiteralNumber, includeVersions, includeContexts, includeAttributes, binaryExpression, date));					
 				} while(!checkSatisfiability(binaryExpression));
 				
 				expression = binaryExpression;
@@ -110,7 +130,7 @@ public class DarwinExpressionGenerator {
 		
 		else if(numberOfLiterals >= 1) {
 			// TODO too probable to create unary instead of atomic?!
-			if(rand.nextBoolean()) {
+			if(rand.nextInt(100) >= 20) {
 				expression = generateAtomicExpression(includeVersions, includeContexts, includeAttributes, date);				
 			} else {
 				expression = generateUnaryExpression(numberOfLiterals, includeVersions, includeContexts, includeAttributes, date, false);
@@ -125,9 +145,13 @@ public class DarwinExpressionGenerator {
 	}
 	
 	protected boolean checkSatisfiability(HyExpression expression) {
-		// TODO
-		// FIXME
-		return true;
+		
+		DEExpression deltaEcoreExpression = deltaEcoreExpressionExporter.exportExpression(expression);
+		List<DEExpression> expressionList = new ArrayList<DEExpression>(1);
+		expressionList.add(deltaEcoreExpression);
+		
+		SatisfiabilityChecker satChecker = new SatisfiabilityChecker();
+		return satChecker.isExpressionSatisfiableWithFeatureModelConstraints(deltaEcoreFeatureModel, deltaEcoreConstraintModel, expressionList, null);
 	}
 	
 	protected HyAtomicExpression generateAtomicExpression(boolean includeVersions, boolean includeContexts, boolean includeAttributes, Date date) {
@@ -190,7 +214,7 @@ public class DarwinExpressionGenerator {
 			unaryExpression = factory.createHyNestedExpression();
 		}
 		
-		unaryExpression.setOperand(generateExpression(numberOfLiterals, includeVersions, includeContexts, includeAttributes, date));
+		unaryExpression.setOperand(generateExpression(numberOfLiterals, includeVersions, includeContexts, includeAttributes, unaryExpression, date));
 		
 		return unaryExpression;
 	}

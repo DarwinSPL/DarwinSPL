@@ -17,11 +17,10 @@ import eu.hyvar.feature.HyGroupComposition;
 /**
  * atomic operation which add a group compositionfor a group to a tfm
  */
-public class AddGroupComposition implements EvolutionOperation {
+public class AddGroupComposition extends EvolutionOperation {
 
 	private HyGroup group;
 	private EList<HyFeature> features = new BasicEList<HyFeature>();
-	private Date timestamp;	
 	private HyGroupComposition groupComposition;
 	
 	private static final HyFeatureFactory factory = HyFeatureFactory.eINSTANCE;

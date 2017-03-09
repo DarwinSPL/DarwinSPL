@@ -1,23 +1,20 @@
 package de.darwinspl.evolution.guidance;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
 import de.darwinspl.feature.evolution.basic.operations.ChangeFeatureType;
+import de.darwinspl.feature.evolution.basic.operations.ChangeGroupType;
 import de.darwinspl.feature.evolution.basic.operations.Delete;
 import de.darwinspl.feature.evolution.invoker.EvolutionOperation;
 import eu.hyvar.feature.HyFeature;
 import eu.hyvar.feature.HyFeatureModel;
 import eu.hyvar.feature.HyFeatureTypeEnum;
+import eu.hyvar.feature.HyGroupTypeEnum;
 import eu.hyvar.feature.configuration.HyConfiguration;
-import eu.hyvar.feature.configuration.HyConfigurationElement;
-import eu.hyvar.feature.configuration.HyFeatureSelected;
 import eu.hyvar.feature.configuration.util.HyConfigurationUtil;
-import eu.hyvar.feature.expression.HyAbstractFeatureReferenceExpression;
-import eu.hyvar.feature.expression.HyBinaryExpression;
-import eu.hyvar.feature.expression.HyExpression;
-import eu.hyvar.feature.expression.HyUnaryExpression;
 import eu.hyvar.feature.expression.util.DarwinExpressionUtil;
 import eu.hyvar.feature.mapping.HyMapping;
 import eu.hyvar.feature.mapping.HyMappingModel;
@@ -160,7 +157,35 @@ public class Guidance {
 	}
 	
 	protected void guideChangeGroupType(EvolutionOperation evolutionOperation) {
+		ChangeGroupType changeGroupTypeOperation = null;
 		
+		if(evolutionOperation instanceof ChangeGroupType) {
+			changeGroupTypeOperation = (ChangeGroupType) evolutionOperation;
+		}
+		else {
+			return;
+		}
+		
+//		List<HyMapping> deadMappings = new ArrayList<HyMapping>();
+		
+		for(HyMapping mapping: mappingModel.getMappings()) {
+			if(changeGroupTypeOperation.getOldGroupType().getType().equals(HyGroupTypeEnum.OR) && changeGroupTypeOperation.getNewGroupType().getType().equals(HyGroupTypeEnum.ALTERNATIVE)) {
+				GroupMemberIteration:
+				for(int i=0;i<changeGroupTypeOperation.getGroupMembersBeforeEvolution().size()-1;i++) {
+					HyFeature groupMember1 = changeGroupTypeOperation.getGroupMembersBeforeEvolution().get(i);
+					
+					for(int j=i+1;j<changeGroupTypeOperation.getGroupMembersBeforeEvolution().size();j++) {
+						HyFeature groupMember2 = changeGroupTypeOperation.getGroupMembersBeforeEvolution().get(j);
+						
+						// TODO check if groupMember1 and groupMember2 are required to satisfy mapping. If yes -> add to deadMappings, warning. break GroupMemberIteration
+					}
+				}
+			}
+			else if(changeGroupTypeOperation.getOldGroupType().getType().equals(HyGroupTypeEnum.ALTERNATIVE) && changeGroupTypeOperation.getNewGroupType().getType().equals(HyGroupTypeEnum.OR)) {
+				
+			}
+			
+		}
 		
 		
 		// TODO mappings

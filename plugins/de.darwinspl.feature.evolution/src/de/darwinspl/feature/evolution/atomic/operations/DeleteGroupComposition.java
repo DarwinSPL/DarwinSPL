@@ -11,10 +11,9 @@ import eu.hyvar.feature.HyGroupComposition;
 /**
  * atomic operation which delete a group composition from a tfm
  */
-public class DeleteGroupComposition implements EvolutionOperation {
+public class DeleteGroupComposition extends EvolutionOperation {
 
 
-	private Date timestamp;
 	private HyGroupComposition groupComposition;
 	
 	public DeleteGroupComposition(HyGroupComposition groupComposition, Date timestamp) {

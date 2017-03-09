@@ -15,10 +15,9 @@ import eu.hyvar.feature.HyFeatureTypeEnum;
 /**
  * atomic operation which add a feature type for a feature to a tfm
  */
-public class AddFeatureType implements EvolutionOperation {
+public class AddFeatureType extends EvolutionOperation {
 
 	private HyFeatureTypeEnum type;
-	private Date timestamp;
 	private HyFeature feature;
 	private HyFeatureType featureTyp;
 	

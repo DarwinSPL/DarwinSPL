@@ -7,5 +7,6 @@ Bundle-RequiredExecutionEnvironment: JavaSE-1.7
 Require-Bundle: eu.hyvar.feature,
  org.deltaecore.core.decore,
  eu.hyvar.feature.mapping,
- de.darwinspl.expression.generator
+ de.darwinspl.expression.generator,
+ eu.hyvar.feature.constraint
 Export-Package: de.darwinspl.mapping.generator

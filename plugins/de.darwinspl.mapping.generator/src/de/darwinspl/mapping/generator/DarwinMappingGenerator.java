@@ -8,6 +8,7 @@ import org.deltaecore.core.decore.DEDelta;
 
 import de.darwinspl.expression.generator.DarwinExpressionGenerator;
 import eu.hyvar.feature.HyFeatureModel;
+import eu.hyvar.feature.constraint.HyConstraintModel;
 import eu.hyvar.feature.mapping.HyMapping;
 import eu.hyvar.feature.mapping.HyMappingModel;
 import eu.hyvar.feature.mapping.MappingFactory;
@@ -30,7 +31,7 @@ public class DarwinMappingGenerator {
 	 * @param featureModel
 	 * @param deltas may be empty or null
 	 */
-	public DarwinMappingGenerator(HyFeatureModel featureModel, List<DEDelta> deltas) {
+	public DarwinMappingGenerator(HyFeatureModel featureModel, HyConstraintModel constraintModel, List<DEDelta> deltas) {
 		this.featureModel = featureModel;
 		this.deltas = deltas;
 		
@@ -38,7 +39,7 @@ public class DarwinMappingGenerator {
 		
 		this.rand = new Random();
 		
-		expressionGenerator = new DarwinExpressionGenerator(featureModel, null);
+		expressionGenerator = new DarwinExpressionGenerator(featureModel, null, constraintModel);
 	}
 	
 	public HyMapping generateMapping(int maximumAmountOfFeaturesInApplicationCondition, Date date) {
@@ -49,7 +50,7 @@ public class DarwinMappingGenerator {
 		int amountOfFeaturesInApplicationCondition = rand.nextInt(maximumAmountOfFeaturesInApplicationCondition)+1;
 		
 		// TODO versions, attributes?
-		mapping.setExpression(expressionGenerator.generateExpression(amountOfFeaturesInApplicationCondition, false, false, false, date));
+		mapping.setExpression(expressionGenerator.generateExpression(amountOfFeaturesInApplicationCondition, false, false, false, null, date));
 		
 		return mapping;
 	}

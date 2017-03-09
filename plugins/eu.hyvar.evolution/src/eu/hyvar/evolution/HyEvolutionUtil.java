@@ -252,8 +252,8 @@ public class HyEvolutionUtil {
 		}
 
 		if (date == null) {
-			System.out.println(
-					"Date given to getValidTemporalElements(...) in HyEvolutionUtil.java was null. Returning all elements!");
+//			System.out.println(
+//					"Date given to getValidTemporalElements(...) in HyEvolutionUtil.java was null. Returning all elements!");
 			validElements.addAll(elements);
 			return validElements;
 		}

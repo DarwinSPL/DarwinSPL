@@ -11,9 +11,8 @@ import eu.hyvar.evolution.HyName;
 /**
  * atomic operation which delete a name from a tfm
  */
-public class DeleteName implements EvolutionOperation {
+public class DeleteName extends EvolutionOperation {
 
-	private Date timestamp;
 	private HyName name;
 
 
