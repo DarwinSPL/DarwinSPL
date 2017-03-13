@@ -11,7 +11,7 @@ import eu.hyvar.evolution.HyName;
 import eu.hyvar.feature.HyFeature;
 import eu.hyvar.feature.HyFeatureFactory;
 import eu.hyvar.feature.HyFeatureType;
-import eu.hyvar.feature.graphical.base.editor.HyGraphicalFeatureModelViewer;
+import eu.hyvar.feature.graphical.base.editor.DwGraphicalFeatureModelViewer;
 import eu.hyvar.feature.graphical.base.model.HyFeatureModelWrapped;
 import eu.hyvar.feature.graphical.base.model.HyFeatureWrapped;
 import eu.hyvar.feature.graphical.base.model.HyParentChildConnection;
@@ -19,11 +19,11 @@ import eu.hyvar.feature.graphical.base.model.HyParentChildConnection;
 public class HyFeatureCreateCommand extends Command {
 	private HyFeatureWrapped parent;
 	private HyFeatureWrapped newFeature;
-	private HyGraphicalFeatureModelViewer editor;
+	private DwGraphicalFeatureModelViewer editor;
 	private HyParentChildConnection connection;
 	private Date date;
 	
-	public HyFeatureCreateCommand(HyFeatureWrapped parent, HyGraphicalFeatureModelViewer editor){
+	public HyFeatureCreateCommand(HyFeatureWrapped parent, DwGraphicalFeatureModelViewer editor){
 		this.parent = parent;
 		this.editor = editor;
 	}

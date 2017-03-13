@@ -11,7 +11,7 @@ import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.Notifier;
 
 import eu.hyvar.dataValues.HyEnumLiteral;
-import eu.hyvar.feature.graphical.base.editor.HyGraphicalFeatureModelViewer;
+import eu.hyvar.feature.graphical.base.editor.DwGraphicalFeatureModelViewer;
 import eu.hyvar.feature.graphical.base.figures.HyEnumLiteralFigure;
 import eu.hyvar.feature.graphical.base.model.HyFeatureModelWrapped;
 
@@ -41,7 +41,7 @@ public class HyEnumLiteralEditPart  extends HyAbstractEditPart{
 
 	private HyEnumLiteralAdapter adapter = new HyEnumLiteralAdapter();
 
-	public HyEnumLiteralEditPart(HyGraphicalFeatureModelViewer editor, HyFeatureModelWrapped featureModel) {
+	public HyEnumLiteralEditPart(DwGraphicalFeatureModelViewer editor, HyFeatureModelWrapped featureModel) {
 		super(editor, featureModel);
 		
 	}

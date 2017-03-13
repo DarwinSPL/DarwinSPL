@@ -5,12 +5,12 @@ import java.beans.PropertyChangeListener;
 
 import org.eclipse.gef.editparts.AbstractGraphicalEditPart;
 
-import eu.hyvar.feature.graphical.base.editor.HyGraphicalFeatureModelViewer;
+import eu.hyvar.feature.graphical.base.editor.DwGraphicalFeatureModelViewer;
 import eu.hyvar.feature.graphical.base.model.HyEditorChangeableElement;
 import eu.hyvar.feature.graphical.base.model.HyFeatureModelWrapped;
 
 public abstract class HyAbstractEditPart extends AbstractGraphicalEditPart implements PropertyChangeListener{
-	protected HyGraphicalFeatureModelViewer editor;
+	protected DwGraphicalFeatureModelViewer editor;
 	protected HyFeatureModelWrapped featureModel;
 
 	public HyFeatureModelWrapped getFeatureModel() {
@@ -21,12 +21,12 @@ public abstract class HyAbstractEditPart extends AbstractGraphicalEditPart imple
 		this.featureModel = featureModel;
 	}
 
-	public HyAbstractEditPart(HyGraphicalFeatureModelViewer editor, HyFeatureModelWrapped featureModel) {
+	public HyAbstractEditPart(DwGraphicalFeatureModelViewer editor, HyFeatureModelWrapped featureModel) {
 		this.editor = editor;
 		this.featureModel = featureModel;
 	}
 
-	public HyGraphicalFeatureModelViewer getEditor() {
+	public DwGraphicalFeatureModelViewer getEditor() {
 		return editor;
 	}
 

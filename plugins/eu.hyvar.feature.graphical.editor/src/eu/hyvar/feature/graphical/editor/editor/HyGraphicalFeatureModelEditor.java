@@ -46,7 +46,7 @@ import org.eclipse.ui.part.FileEditorInput;
 import eu.hyvar.context.contextValidity.util.HyValidityModelUtil;
 import eu.hyvar.context.information.util.HyContextInformationUtil;
 import eu.hyvar.feature.constraint.util.HyConstraintUtil;
-import eu.hyvar.feature.graphical.base.editor.HyGraphicalFeatureModelViewer;
+import eu.hyvar.feature.graphical.base.editor.DwGraphicalFeatureModelViewer;
 import eu.hyvar.feature.graphical.base.util.DwFeatureModelLayoutFileUtil;
 import eu.hyvar.feature.graphical.editor.actions.HyLinearTemporalElementChangeValidityAction;
 import eu.hyvar.feature.graphical.editor.actions.attribute.HyAttributeCreateBooleanAction;
@@ -69,7 +69,7 @@ import eu.hyvar.feature.graphical.editor.actions.version.HyVersionCreateVersionA
 import eu.hyvar.feature.graphical.editor.factory.HyFeatureModelEditorEditPartFactory;
 
 @SuppressWarnings("restriction")
-public class HyGraphicalFeatureModelEditor extends HyGraphicalFeatureModelViewer{
+public class HyGraphicalFeatureModelEditor extends DwGraphicalFeatureModelViewer{
 	List<IPath> relatedEditorFiles = new ArrayList<IPath>();
 
 	@Override
@@ -334,6 +334,7 @@ public class HyGraphicalFeatureModelEditor extends HyGraphicalFeatureModelViewer
 
 		IPath path = ((IPath)getFile().getFullPath().clone()).removeFileExtension().addFileExtension(fileExtension);
 
+		System.out.println(path);
 		IFile file = workspaceRoot.getFile(path);
 
 		relatedEditorFiles.add(path);

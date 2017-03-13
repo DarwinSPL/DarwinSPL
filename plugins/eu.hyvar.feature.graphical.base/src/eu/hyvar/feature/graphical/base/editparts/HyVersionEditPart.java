@@ -12,13 +12,13 @@ import eu.hyvar.evolution.HyEvolutionUtil;
 import eu.hyvar.feature.HyVersion;
 import eu.hyvar.feature.graphical.base.deltaecore.wrapper.layouter.version.HyVersionLayouterManager;
 import eu.hyvar.feature.graphical.base.deltaecore.wrapper.layouter.version.HyVersionTreeLayouter;
-import eu.hyvar.feature.graphical.base.editor.HyGraphicalFeatureModelViewer;
+import eu.hyvar.feature.graphical.base.editor.DwGraphicalFeatureModelViewer;
 import eu.hyvar.feature.graphical.base.figures.HyVersionFigure;
 import eu.hyvar.feature.graphical.base.model.HyFeatureModelWrapped;
 
 public class HyVersionEditPart extends HyAbstractEditPart{
 
-	public HyVersionEditPart(HyGraphicalFeatureModelViewer editor, HyFeatureModelWrapped featureModel) {
+	public HyVersionEditPart(DwGraphicalFeatureModelViewer editor, HyFeatureModelWrapped featureModel) {
 		super(editor, featureModel);
 	}
 
@@ -35,7 +35,7 @@ public class HyVersionEditPart extends HyAbstractEditPart{
 	public void refreshVisuals(){
 		
 		DEGraphicalEditorTheme theme = DEGraphicalEditor.getTheme();
-		Date date = ((HyGraphicalFeatureModelViewer)editor).getCurrentSelectedDate();
+		Date date = ((DwGraphicalFeatureModelViewer)editor).getCurrentSelectedDate();
 
 		HyVersionFigure figure = (HyVersionFigure)getFigure();
 		HyVersion model = (HyVersion)getModel();

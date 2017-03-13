@@ -2,7 +2,7 @@ package eu.hyvar.feature.graphical.editor.editparts;
 
 import org.eclipse.gef.EditPolicy;
 
-import eu.hyvar.feature.graphical.base.editor.HyGraphicalFeatureModelViewer;
+import eu.hyvar.feature.graphical.base.editor.DwGraphicalFeatureModelViewer;
 import eu.hyvar.feature.graphical.base.editparts.HyVersionEditPart;
 import eu.hyvar.feature.graphical.base.model.HyFeatureModelWrapped;
 import eu.hyvar.feature.graphical.editor.editor.HyGraphicalFeatureModelEditor;
@@ -12,7 +12,7 @@ import eu.hyvar.feature.graphical.editor.policies.version.HyVersionSelectionHand
 
 public class HyVersionEditorEditPart extends HyVersionEditPart{
 
-	public HyVersionEditorEditPart(HyGraphicalFeatureModelViewer editor, HyFeatureModelWrapped featureModel) {
+	public HyVersionEditorEditPart(DwGraphicalFeatureModelViewer editor, HyFeatureModelWrapped featureModel) {
 		super(editor, featureModel);
 	}
 

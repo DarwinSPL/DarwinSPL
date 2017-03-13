@@ -10,7 +10,7 @@ import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
 
 import eu.hyvar.feature.HyFeature;
-import eu.hyvar.feature.graphical.base.editor.HyGraphicalFeatureModelViewer;
+import eu.hyvar.feature.graphical.base.editor.DwGraphicalFeatureModelViewer;
 import eu.hyvar.feature.graphical.base.figures.HyGroupFigure;
 import eu.hyvar.feature.graphical.base.model.HyFeatureModelWrapped;
 import eu.hyvar.feature.graphical.base.model.HyFeatureWrapped;
@@ -38,7 +38,7 @@ public class HyGroupEditPart extends HyAbstractEditPart{
 		this.temporaryElementIndex = temporaryElementIndex;
 	}
 
-	public HyGroupEditPart(HyGraphicalFeatureModelViewer editor, HyFeatureModelWrapped featureModel){
+	public HyGroupEditPart(DwGraphicalFeatureModelViewer editor, HyFeatureModelWrapped featureModel){
 		super(editor, featureModel);
 		children = new ArrayList<HyFeature>();
 
@@ -47,7 +47,7 @@ public class HyGroupEditPart extends HyAbstractEditPart{
 
 	@Override
 	protected IFigure createFigure() {
-		HyGraphicalFeatureModelViewer editor = (HyGraphicalFeatureModelViewer) getEditor();
+		DwGraphicalFeatureModelViewer editor = (DwGraphicalFeatureModelViewer) getEditor();
 		HyGroupWrapped model = (HyGroupWrapped)getModel();
 		return new HyGroupFigure(editor, model);
 	}

@@ -9,7 +9,7 @@ import eu.hyvar.evolution.HyEvolutionUtil;
 import eu.hyvar.feature.HyFeatureChild;
 import eu.hyvar.feature.HyGroup;
 import eu.hyvar.feature.HyGroupComposition;
-import eu.hyvar.feature.graphical.base.editor.HyGraphicalFeatureModelViewer;
+import eu.hyvar.feature.graphical.base.editor.DwGraphicalFeatureModelViewer;
 import eu.hyvar.feature.graphical.base.model.HyFeatureModelWrapped;
 import eu.hyvar.feature.graphical.base.model.HyFeatureWrapped;
 import eu.hyvar.feature.graphical.base.model.HyGroupWrapped;
@@ -21,8 +21,8 @@ public class HyParentChildConnectionReconnectCommand extends Command{
 	private HyParentChildConnection connection;
 	private HyFeatureModelWrapped featureModel;
 
-	private HyGraphicalFeatureModelViewer editor;
-	public HyParentChildConnectionReconnectCommand(HyGraphicalFeatureModelViewer editor){
+	private DwGraphicalFeatureModelViewer editor;
+	public HyParentChildConnectionReconnectCommand(DwGraphicalFeatureModelViewer editor){
 		this.editor = editor;
 	}
 
@@ -68,7 +68,6 @@ public class HyParentChildConnectionReconnectCommand extends Command{
 		newConnection.setSource(newTarget);
 		featureModel.addConnection(newConnection, date, null);
 
-		System.out.println(oldTarget.getWrappedModelElement().getNames().get(0).getName());
 		oldGroup.removeChildFeature(oldTarget, date);		
 	}
 	

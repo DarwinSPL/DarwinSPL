@@ -2,34 +2,27 @@ package eu.hyvar.feature.graphical.base.figures;
 
 import org.deltaecore.feature.graphical.base.editor.DEGraphicalEditor;
 import org.deltaecore.feature.graphical.base.util.DEGraphicalEditorTheme;
-import org.eclipse.draw2d.Figure;
 import org.eclipse.draw2d.Graphics;
 import org.eclipse.draw2d.Label;
-import org.eclipse.draw2d.XYLayout;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
 
-import eu.hyvar.feature.graphical.base.editor.HyGraphicalFeatureModelViewer;
+import eu.hyvar.feature.graphical.base.editor.DwGraphicalFeatureModelViewer;
 
-public class HyEnumLiteralFigure extends Figure{
-	private Label label;
-	
-	public HyEnumLiteralFigure(HyGraphicalFeatureModelViewer editor) {
-		setLayoutManager(new XYLayout());
+public class HyEnumLiteralFigure extends DwLabelFigure{
+
+	public HyEnumLiteralFigure(DwGraphicalFeatureModelViewer editor) {
+		super(editor);
 		
 		createChildFigures();
 	}
-
-	public Label getLabel(){
-		return label;
-	}
 	
-	private void createChildFigures() {
+	@Override
+	protected void createChildFigures() {
 		DEGraphicalEditorTheme theme = DEGraphicalEditor.getTheme();
 		
 		label = new Label();
 		label.setFont(theme.getFeatureFont());
-		//label.setForegroundColor(theme.getFeatureFontColor());
 
 		add(label);	
 	}
@@ -54,10 +47,6 @@ public class HyEnumLiteralFigure extends Figure{
 	@Override 
 	public void paintFigure(Graphics graphics) {	
 		resizeToContent();
-	}
-	
-	public void setText(String text){
-		label.setText(text);
 	}
 	
 	@Override

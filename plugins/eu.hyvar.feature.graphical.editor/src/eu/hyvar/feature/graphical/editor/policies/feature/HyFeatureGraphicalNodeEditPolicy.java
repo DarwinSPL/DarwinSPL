@@ -9,7 +9,7 @@ import org.eclipse.gef.requests.CreateConnectionRequest;
 import org.eclipse.gef.requests.DropRequest;
 import org.eclipse.gef.requests.ReconnectRequest;
 
-import eu.hyvar.feature.graphical.base.editor.HyGraphicalFeatureModelViewer;
+import eu.hyvar.feature.graphical.base.editor.DwGraphicalFeatureModelViewer;
 import eu.hyvar.feature.graphical.base.editparts.HyFeatureEditPart;
 import eu.hyvar.feature.graphical.base.editparts.HyParentChildConnectionEditPart;
 import eu.hyvar.feature.graphical.base.model.HyFeatureModelWrapped;
@@ -20,12 +20,12 @@ import eu.hyvar.feature.graphical.editor.commands.HyParentChildConnectionCreateC
 import eu.hyvar.feature.graphical.editor.commands.HyParentChildConnectionReconnectCommand;
 
 public class HyFeatureGraphicalNodeEditPolicy extends GraphicalNodeEditPolicy{
-	private HyGraphicalFeatureModelViewer editor;
+	private DwGraphicalFeatureModelViewer editor;
 	protected HyFeatureModelWrapped featureModel;
 	
 	protected HashSet<HyFeatureWrapped> highlightedFeatures;
 	
-	public HyFeatureGraphicalNodeEditPolicy(HyGraphicalFeatureModelViewer editor, HyFeatureModelWrapped featureModel) {
+	public HyFeatureGraphicalNodeEditPolicy(DwGraphicalFeatureModelViewer editor, HyFeatureModelWrapped featureModel) {
 		this.featureModel = featureModel;
 		this.editor = editor;
 	}

@@ -14,14 +14,14 @@ import eu.hyvar.feature.configuration.HyAttributeValueAssignment;
 import eu.hyvar.feature.configuration.HyConfiguration;
 import eu.hyvar.feature.configuration.HyConfigurationElement;
 import eu.hyvar.feature.configuration.util.HyConfigurationUtil;
-import eu.hyvar.feature.graphical.base.editor.HyGraphicalFeatureModelViewer;
+import eu.hyvar.feature.graphical.base.editor.DwGraphicalFeatureModelViewer;
 import eu.hyvar.feature.graphical.base.figures.HyFeatureFigure;
 import eu.hyvar.feature.graphical.base.model.HyFeatureWrapped;
 import eu.hyvar.feature.graphical.configurator.viewer.HyFeatureModelConfiguratorViewer;
 
 public class HyConfiguratorFeatureFigure extends HyFeatureFigure{
 
-	public HyConfiguratorFeatureFigure(HyGraphicalFeatureModelViewer editor, HyFeatureWrapped feature) {
+	public HyConfiguratorFeatureFigure(DwGraphicalFeatureModelViewer editor, HyFeatureWrapped feature) {
 		super(editor, feature);
 	}
 	

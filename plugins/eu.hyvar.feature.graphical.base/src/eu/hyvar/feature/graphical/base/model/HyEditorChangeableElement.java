@@ -92,7 +92,6 @@ public class HyEditorChangeableElement{
 				}
 			}
 			
-		
 			DwTemporalPosition newPosition = new DwTemporalPosition();
 			newPosition.setPosition(point);
 			newPosition.setValidSince(date);
@@ -114,37 +113,7 @@ public class HyEditorChangeableElement{
 			if(firePropertyChange)
 				listeners.firePropertyChange(PROPERTY_POSITION, currentPosition, newPosition);
 		}
-
-
-		/*
-		DwTemporalPosition successor = new DwTemporalPosition(date, null, point);
-		int preIndex = positions.indexOf(predecessor);
-
-		if(preIndex != -1){
-			// in case that the new position is equal to the previous one don't add the new position to
-			// the position list rather than change the date range of the previous position
-			if(positions.get(preIndex).getPosition().equals(point)){
-				if(predecessor)
-			}else{
-				positions.add(positions.indexOf(predecessor), successor);
-			}
-		}			
-		else
-			positions.add(successor);
-
-		System.out.println("=====> "+positions.size());
-		 */
-
 	}
-	/*
-	public void setPosition(DwTemporalPosition position, boolean firePropertyChange) {
-		DwTemporalPosition old = this.position;
-		this.position = position;
-
-		if(firePropertyChange)
-			listeners.firePropertyChange(PROPERTY_POSITION, old, position);
-	}	
-	 */
 
 	public EObject getWrappedModelElement() {
 		return wrappedModelElement;

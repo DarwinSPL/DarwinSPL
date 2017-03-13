@@ -8,7 +8,7 @@ import eu.hyvar.evolution.HyEvolutionUtil;
 import eu.hyvar.feature.HyFeatureChild;
 import eu.hyvar.feature.HyFeatureFactory;
 import eu.hyvar.feature.HyGroup;
-import eu.hyvar.feature.graphical.base.editor.HyGraphicalFeatureModelViewer;
+import eu.hyvar.feature.graphical.base.editor.DwGraphicalFeatureModelViewer;
 import eu.hyvar.feature.graphical.base.model.HyFeatureModelWrapped;
 import eu.hyvar.feature.graphical.base.model.HyFeatureWrapped;
 import eu.hyvar.feature.graphical.base.model.HyGroupWrapped;
@@ -18,11 +18,11 @@ public class HyGroupMoveToAnotherHyFeatureCommand extends Command{
 	HyGroupWrapped groupWrapped;
 	HyFeatureModelWrapped featureModelWrapped;
 	HyFeatureWrapped newParentFeatureWrapped;
-	HyGraphicalFeatureModelViewer viewer;
+	DwGraphicalFeatureModelViewer viewer;
 	public HyGroupMoveToAnotherHyFeatureCommand(HyGroupWrapped group, 
 												HyFeatureWrapped newParentFeatureWrapped, 
 												HyFeatureModelWrapped featureModelWrapped,
-												HyGraphicalFeatureModelViewer viewer){
+												DwGraphicalFeatureModelViewer viewer){
 		this.groupWrapped = group;
 		this.featureModelWrapped = featureModelWrapped;
 		this.newParentFeatureWrapped = newParentFeatureWrapped;

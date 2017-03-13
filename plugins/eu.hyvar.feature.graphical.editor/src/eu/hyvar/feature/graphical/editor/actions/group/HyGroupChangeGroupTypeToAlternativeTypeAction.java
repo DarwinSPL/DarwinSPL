@@ -3,7 +3,7 @@ package eu.hyvar.feature.graphical.editor.actions.group;
 import org.eclipse.gef.Request;
 
 import eu.hyvar.feature.HyGroupTypeEnum;
-import eu.hyvar.feature.graphical.base.editor.HyGraphicalFeatureModelViewer;
+import eu.hyvar.feature.graphical.base.editor.DwGraphicalFeatureModelViewer;
 
 public class HyGroupChangeGroupTypeToAlternativeTypeAction extends HyGroupChangeGroupTypeAction{
 	public static final String CHANGE_GROUP_TYPE_TO_ALTERNATIVE = "ChangeGroupTypeToAlternative";
@@ -12,7 +12,7 @@ public class HyGroupChangeGroupTypeToAlternativeTypeAction extends HyGroupChange
 	
 
 	
-	public HyGroupChangeGroupTypeToAlternativeTypeAction(HyGraphicalFeatureModelViewer editor) {
+	public HyGroupChangeGroupTypeToAlternativeTypeAction(DwGraphicalFeatureModelViewer editor) {
 		super(editor);
 		
 		setId(CHANGE_GROUP_TYPE_TO_ALTERNATIVE);

@@ -12,12 +12,12 @@ import de.christophseidl.util.ecore.EcoreIOUtil;
 import eu.hyvar.feature.HyFeatureModel;
 import eu.hyvar.feature.configuration.HyConfiguration;
 import eu.hyvar.feature.configuration.HyConfigurationFactory;
-import eu.hyvar.feature.graphical.base.editor.HyGraphicalFeatureModelViewer;
+import eu.hyvar.feature.graphical.base.editor.DwGraphicalFeatureModelViewer;
 import eu.hyvar.feature.graphical.base.model.HyFeatureModelWrapped;
 import eu.hyvar.feature.graphical.base.util.DwFeatureModelLayoutFileUtil;
 import eu.hyvar.feature.graphical.configurator.factory.HyConfiguratorEditPartFactory;
 
-public class HyFeatureModelConfiguratorViewer extends HyGraphicalFeatureModelViewer {
+public class HyFeatureModelConfiguratorViewer extends DwGraphicalFeatureModelViewer {
 	protected HyConfiguration selectedConfiguration;
 
 	public HyConfiguration getSelectedConfiguration() {

@@ -6,7 +6,7 @@ import org.eclipse.gef.Request;
 import org.eclipse.gef.ui.actions.SelectionAction;
 
 import eu.hyvar.feature.HyVersion;
-import eu.hyvar.feature.graphical.base.editor.HyGraphicalFeatureModelViewer;
+import eu.hyvar.feature.graphical.base.editor.DwGraphicalFeatureModelViewer;
 import eu.hyvar.feature.graphical.base.editparts.HyFeatureEditPart;
 import eu.hyvar.feature.graphical.base.editparts.HyVersionEditPart;
 import eu.hyvar.feature.graphical.editor.commands.version.HyVersionCreateSuccessorCommand;
@@ -17,9 +17,9 @@ public class HyVersionCreateSuccessorAction extends SelectionAction{
 
 	Request request;
 
-	HyGraphicalFeatureModelViewer editor;
+	DwGraphicalFeatureModelViewer editor;
 
-	public HyVersionCreateSuccessorAction(HyGraphicalFeatureModelViewer editor){
+	public HyVersionCreateSuccessorAction(DwGraphicalFeatureModelViewer editor){
 		super(editor);
 
 		setId(FEATURE_CREATE_SUCCESSOR_VERSION);

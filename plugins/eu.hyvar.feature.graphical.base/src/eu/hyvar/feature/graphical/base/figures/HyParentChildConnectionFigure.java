@@ -10,17 +10,17 @@ import org.eclipse.swt.graphics.Color;
 
 import eu.hyvar.feature.graphical.base.anchors.HyFeatureModelPositionAnchor;
 import eu.hyvar.feature.graphical.base.anchors.HyParentChildConnectionAnchor;
-import eu.hyvar.feature.graphical.base.editor.HyGraphicalFeatureModelViewer;
+import eu.hyvar.feature.graphical.base.editor.DwGraphicalFeatureModelViewer;
 import eu.hyvar.feature.graphical.base.model.HyFeatureWrapped;
 
 public class HyParentChildConnectionFigure extends PolylineConnection {
 	Color color;
 	protected HyParentChildConnectionAnchor anchor;
 
-	private HyGraphicalFeatureModelViewer editor;
+	private DwGraphicalFeatureModelViewer editor;
 	private HyFeatureWrapped source;
 		
-	public HyParentChildConnectionFigure(HyGraphicalFeatureModelViewer editor, HyFeatureWrapped source){
+	public HyParentChildConnectionFigure(DwGraphicalFeatureModelViewer editor, HyFeatureWrapped source){
 		this.editor = editor;
 		this.source = source;
 		
@@ -37,7 +37,7 @@ public class HyParentChildConnectionFigure extends PolylineConnection {
 		return anchor;
 	}
 	
-	public HyGraphicalFeatureModelViewer getEditor() {
+	public DwGraphicalFeatureModelViewer getEditor() {
 		return editor;
 	}
 

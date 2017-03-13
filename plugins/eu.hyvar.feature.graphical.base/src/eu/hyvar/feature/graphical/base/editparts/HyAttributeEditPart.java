@@ -13,14 +13,15 @@ import org.eclipse.draw2d.geometry.Rectangle;
 import eu.hyvar.evolution.HyEvolutionUtil;
 import eu.hyvar.evolution.HyName;
 import eu.hyvar.feature.HyFeatureAttribute;
-import eu.hyvar.feature.graphical.base.editor.HyGraphicalFeatureModelViewer;
+import eu.hyvar.feature.graphical.base.editor.DwGraphicalFeatureModelViewer;
 import eu.hyvar.feature.graphical.base.figures.HyAttributeFigure;
+import eu.hyvar.feature.graphical.base.model.DwTemporalPosition;
 import eu.hyvar.feature.graphical.base.model.HyFeatureModelWrapped;
 import eu.hyvar.feature.graphical.base.model.HyFeatureWrapped;
 
 public class HyAttributeEditPart extends HyAbstractEditPart{
 
-	public HyAttributeEditPart(HyGraphicalFeatureModelViewer editor, HyFeatureModelWrapped featureModel) {
+	public HyAttributeEditPart(DwGraphicalFeatureModelViewer editor, HyFeatureModelWrapped featureModel) {
 		super(editor, featureModel);
 	}
 
@@ -49,16 +50,13 @@ public class HyAttributeEditPart extends HyAbstractEditPart{
 		HyFeatureAttribute attribute = (HyFeatureAttribute)getModel();
 		int index = HyEvolutionUtil.getValidTemporalElements(attribute.getFeature().getAttributes(), date).indexOf(attribute);
 		
-		int y = feature.getHeightWithoutAttributes(date);
-		if(feature.hasVersionsAtDate(date)){
-			y += theme.getVersionExtentY()+lineWidth;
-		}
-
-		int height = theme.getFeatureNameAreaHeight()+lineWidth;
+		DwTemporalPosition parentPosition = feature.getPosition(date);
+		int featurePositionY = feature.calculateVersionAreaBounds(date).getBottomLeft().y - parentPosition.getPosition().y + (int)Math.floor(theme.getLineWidth() * 1.5);
+		int attributeHeight = theme.getFeatureNameAreaHeight();
 		
 		
-		Rectangle layout = new Rectangle(new Point(0, y+ index*height), new Dimension(feature.getSize(date).width, height));
-		layout.shrink(new Insets(0, lineWidth*2, 0, lineWidth*2));
+		Rectangle layout = new Rectangle(new Point(0, featurePositionY + index * attributeHeight), new Dimension(feature.getSize(date).width, attributeHeight));
+		layout = layout.shrink(new Insets(0, (int)Math.floor(lineWidth * 2.5), 0, (int)Math.floor(lineWidth * 2.5)));
 		parent.setLayoutConstraint(this, figure, layout);	
 		
 		

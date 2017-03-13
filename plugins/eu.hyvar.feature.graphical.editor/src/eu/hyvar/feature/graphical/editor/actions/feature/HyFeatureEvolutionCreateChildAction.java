@@ -4,7 +4,7 @@ import org.eclipse.gef.Request;
 import org.eclipse.gef.commands.Command;
 
 
-import eu.hyvar.feature.graphical.base.editor.HyGraphicalFeatureModelViewer;
+import eu.hyvar.feature.graphical.base.editor.DwGraphicalFeatureModelViewer;
 import eu.hyvar.feature.graphical.base.model.HyFeatureWrapped;
 import eu.hyvar.feature.graphical.editor.commands.feature.HyFeatureCreateCommand;
 import eu.hyvar.feature.graphical.editor.editor.HyGraphicalFeatureModelEditor;
@@ -13,7 +13,7 @@ public class HyFeatureEvolutionCreateChildAction extends HyFeatureSelectionActio
 	public static final String FEATURE_EVOLUTION_CREATE_CHILD = "CreateChildEvolution";
 	public static final String REQ_FEATURE_EVOLUTION_CREATE_CHILD = "CreateChildEvolution";
 		
-	public HyFeatureEvolutionCreateChildAction(HyGraphicalFeatureModelViewer editor) {
+	public HyFeatureEvolutionCreateChildAction(DwGraphicalFeatureModelViewer editor) {
 		super(editor);
 			
 		setId(FEATURE_EVOLUTION_CREATE_CHILD);
@@ -73,7 +73,7 @@ public class HyFeatureEvolutionCreateChildAction extends HyFeatureSelectionActio
 		HyFeatureWrapped selectedFeature = getSelectedFeature();		
 		HyGraphicalFeatureModelEditor editor = (HyGraphicalFeatureModelEditor)this.getWorkbenchPart();
 		
-		HyFeatureCreateCommand command = new HyFeatureCreateCommand(selectedFeature, (HyGraphicalFeatureModelViewer)editor);
+		HyFeatureCreateCommand command = new HyFeatureCreateCommand(selectedFeature, (DwGraphicalFeatureModelViewer)editor);
 		return command;
 	}	
 }

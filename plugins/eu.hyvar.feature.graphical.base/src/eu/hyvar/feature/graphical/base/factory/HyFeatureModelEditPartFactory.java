@@ -6,7 +6,7 @@ import org.eclipse.gef.GraphicalViewer;
 
 import eu.hyvar.feature.HyFeatureAttribute;
 import eu.hyvar.feature.HyVersion;
-import eu.hyvar.feature.graphical.base.editor.HyGraphicalFeatureModelViewer;
+import eu.hyvar.feature.graphical.base.editor.DwGraphicalFeatureModelViewer;
 import eu.hyvar.feature.graphical.base.editparts.HyAttributeEditPart;
 import eu.hyvar.feature.graphical.base.editparts.HyFeatureEditPart;
 import eu.hyvar.feature.graphical.base.editparts.HyFeatureModelEditPart;
@@ -24,9 +24,9 @@ public class HyFeatureModelEditPartFactory implements EditPartFactory{
 	protected HyFeatureModelWrapped featureModel;
 	protected GraphicalViewer viewer;
 	
-	protected HyGraphicalFeatureModelViewer editor;
+	protected DwGraphicalFeatureModelViewer editor;
 	
-	public HyFeatureModelEditPartFactory(GraphicalViewer viewer, HyGraphicalFeatureModelViewer editor){
+	public HyFeatureModelEditPartFactory(GraphicalViewer viewer, DwGraphicalFeatureModelViewer editor){
 		this.viewer = viewer;
 		this.editor = editor;
 	}

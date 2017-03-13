@@ -7,10 +7,8 @@ import org.deltaecore.feature.graphical.base.util.DEDrawingUtil;
 import org.deltaecore.feature.graphical.base.util.DEGraphicalEditorTheme;
 import org.eclipse.draw2d.AbstractConnectionAnchor;
 import org.eclipse.draw2d.ConnectionAnchor;
-import org.eclipse.draw2d.Figure;
 import org.eclipse.draw2d.Graphics;
 import org.eclipse.draw2d.Label;
-import org.eclipse.draw2d.XYLayout;
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Insets;
 import org.eclipse.draw2d.geometry.Point;
@@ -27,20 +25,14 @@ import eu.hyvar.feature.graphical.base.anchors.HyFeatureParentAnchor;
 import eu.hyvar.feature.graphical.base.deltaecore.wrapper.HyGeometryUtil;
 import eu.hyvar.feature.graphical.base.deltaecore.wrapper.layouter.version.HyVersionLayouterManager;
 import eu.hyvar.feature.graphical.base.deltaecore.wrapper.layouter.version.HyVersionTreeLayouter;
-import eu.hyvar.feature.graphical.base.editor.HyGraphicalFeatureModelViewer;
+import eu.hyvar.feature.graphical.base.editor.DwGraphicalFeatureModelViewer;
 import eu.hyvar.feature.graphical.base.model.HyFeatureWrapped;
 
-public class HyFeatureFigure extends Figure{
+public class HyFeatureFigure extends DwLabelFigure{
 	protected AbstractConnectionAnchor parentAnchor;
 	protected AbstractConnectionAnchor childrenAnchor;
 	
 	protected HyFeatureWrapped feature;
-	protected Label label;
-	protected HyGraphicalFeatureModelViewer editor;
-
-	public HyGraphicalFeatureModelViewer getEditor() {
-		return editor;
-	}
 
 	public HyFeatureWrapped getFeature() {
 		return feature;
@@ -50,8 +42,8 @@ public class HyFeatureFigure extends Figure{
 		this.getLayoutManager().setConstraint(this, constraint);
 	}
 	
-	public HyFeatureFigure(HyGraphicalFeatureModelViewer editor, HyFeatureWrapped feature) {
-		setLayoutManager(new XYLayout());
+	public HyFeatureFigure(DwGraphicalFeatureModelViewer editor, HyFeatureWrapped feature) {
+		super(editor);
 		
 		this.feature = feature;
 
@@ -61,8 +53,6 @@ public class HyFeatureFigure extends Figure{
 		
 		parentAnchor = new HyFeatureParentAnchor(this, editor);	
 		childrenAnchor = new HyFeatureChildrenAnchor(this, editor);
-		
-		seperatorLocation = new Point(0, 0);
 	}
 
 	public ConnectionAnchor getParentAnchor() {
@@ -81,12 +71,8 @@ public class HyFeatureFigure extends Figure{
 		this.childrenAnchor = childrenAnchor;
 	}
 
-
-	public void setText(String text){
-		label.setText(text);
-	}
-
-	private void createChildFigures() {
+	@Override
+	protected void createChildFigures() {
 		DEGraphicalEditorTheme theme = DEGraphicalEditor.getTheme();
 		label = new Label();
 		label.setFont(theme.getFeatureFont());
@@ -105,16 +91,7 @@ public class HyFeatureFigure extends Figure{
 		//Compensate for line width
 		int halfLineWidth = theme.getLineWidth() / 2;
 		nameAreaBounds.expand(-halfLineWidth, -halfLineWidth);
-
-		Rectangle variationBounds = feature.calculateVariationTypeCircleBounds(date);
-		if(variationBounds.height > 0){
-			nameAreaBounds.setY(variationBounds.height+nameAreaBounds.getTop().y()-theme.getLineWidth());
-		}else{
-			nameAreaBounds.setY(variationBounds.height+nameAreaBounds.getTop().y());
-		}
-
 		
-
 		DEDrawingUtil.gradientFillRectangle(graphics, nameAreaBounds, theme.getFeatureNameAreaPrimaryColor(), theme.getFeatureNameAreaSecondaryColor());
 		DEDrawingUtil.outlineRectangle(graphics, nameAreaBounds, theme.getLineColor());
 		
@@ -143,8 +120,9 @@ public class HyFeatureFigure extends Figure{
 
 		//Compensate for line width
 		int halfLineWidth = (int) Math.ceil(theme.getLineWidth() / 2);
-		versionAreaBounds.expand(new Insets(0, -halfLineWidth, -halfLineWidth, -halfLineWidth));
+		versionAreaBounds.expand(new Insets(halfLineWidth, -halfLineWidth, -halfLineWidth, -halfLineWidth));
 
+		
 		DEDrawingUtil.gradientFillRectangle(graphics, versionAreaBounds, theme.getFeatureVersionAreaPrimaryColor(), theme.getFeatureVersionAreaSecondaryColor());
 		
 		paintVersionMarks(graphics);
@@ -162,14 +140,13 @@ public class HyFeatureFigure extends Figure{
 
 		//Compensate for line width
 		int halfLineWidth = (int) Math.ceil(theme.getLineWidth() / 2);
-		attributesAreaBounds.expand(new Insets(0, -halfLineWidth, 0, -halfLineWidth));
+		attributesAreaBounds.expand(new Insets(halfLineWidth, -halfLineWidth, -halfLineWidth, -halfLineWidth));
 
 		DEDrawingUtil.gradientFillRectangle(graphics, attributesAreaBounds, theme.getFeatureVersionAreaPrimaryColor(), theme.getFeatureVersionAreaSecondaryColor());
 		
 		paintAttributeMarks(graphics);
 		
 		DEDrawingUtil.outlineRectangle(graphics, attributesAreaBounds, theme.getLineColor());
-		
 	}
 	
 	
@@ -206,31 +183,14 @@ public class HyFeatureFigure extends Figure{
 	protected boolean useLocalCoordinates(){
 		return true;
 	}
-
-	public Label getLabel() {
-		return label;
-	}
 	
 	
 	
 	
 	
-	
-	
-	
-	private Point seperatorLocation;
 	
 	
 
-	public Point getSeperatorLocation() {
-		return seperatorLocation;
-	}
-
-
-
-	public void setSeperatorLocation(Point seperatorLocation) {
-		this.seperatorLocation = seperatorLocation;
-	}
 
 
 	protected void paintVariationTypeCircle(Graphics graphics) {
@@ -246,7 +206,7 @@ public class HyFeatureFigure extends Figure{
 		Rectangle variationTypeCircleBounds = feature.calculateVariationTypeCircleBounds(date);
 
 		//Compensate for line width
-		int lineWidth = theme.getLineWidth();
+		int lineWidth = theme.getLineWidth() / 2;
 		variationTypeCircleBounds.expand(-lineWidth, -lineWidth);
 
 
@@ -314,29 +274,11 @@ public class HyFeatureFigure extends Figure{
 			paintAttributeAreaBackground(graphics);
 		}		
 		
-		paintSeperatorLine(graphics);
 		paintNameAreaBackground(graphics);
 	}
 	
-	private void paintSeperatorLine(Graphics graphics){
-		
-		Date date = ((HyGraphicalFeatureModelViewer)editor).getCurrentSelectedDate();
-		
-		// feature has attributes and versions at the selected date, we need to display a seperation line
-		if(HyEvolutionUtil.getValidTemporalElements(feature.getWrappedModelElement().getVersions(), date).size() > 0 &&
-		   HyEvolutionUtil.getValidTemporalElements(feature.getWrappedModelElement().getAttributes(), date).size() > 0){
-			DEGraphicalEditorTheme theme = DEGraphicalEditor.getTheme();
-
-			graphics.setForegroundColor(theme.getLineColor());
-			graphics.setLineWidth(theme.getLineWidth());
-			int x = this.getLocation().x;
-			int y = this.getLocation().y+theme.getFeatureVariationTypeExtent()+seperatorLocation.y-5;
-			graphics.drawLine(x, y, x+getSize().width, y);
-		}			
-	}
-	
 	protected void paintConnection(Graphics graphics, HyVersion superseded) {
-		Date date = ((HyGraphicalFeatureModelViewer)editor).getCurrentSelectedDate();
+		Date date = ((DwGraphicalFeatureModelViewer)editor).getCurrentSelectedDate();
 		HyFeature feature = superseded.getFeature();
 
 		HyVersionTreeLayouter versionTreeLayouter = HyVersionLayouterManager.getLayouter(feature, date);
@@ -355,6 +297,7 @@ public class HyFeatureFigure extends Figure{
 			DEGraphicalEditorTheme theme = DEGraphicalEditor.getTheme();
 			graphics.setForegroundColor(theme.getLineColor());
 			graphics.setLineWidth(theme.getLineWidth());
+		
 
 			graphics.setLineWidth(2);
 			Point start = new Point(supersedeedLocation.x + getLocation().x, supersedeedLocation.y + getLocation().y);

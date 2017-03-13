@@ -39,109 +39,87 @@ public class HyFeatureWrapped extends HyEditorChangeableElement{
 	private List<HyParentChildConnection> parentConnections;
 	private List<HyParentChildConnection> childrenConnections;
 
-	private Dimension size;
-
-
 	public int getHeightWithoutAttributes(Date date) {
-		HyFeature feature = getWrappedModelElement();
-		DEGraphicalEditorTheme theme = DEGraphicalEditor.getTheme();
-
-
-		int height = (hasModfierAtDate(date) ? theme.getFeatureVariationTypeExtent() : 0) + theme.getFeatureNameAreaHeight() + theme.getLineWidth() * 2;
-		if(HyEvolutionUtil.getValidTemporalElements(feature.getVersions(), date).isEmpty()){
-			return height;
-		}
-
-		HyVersionTreeLayouter versionTreeLayouter = HyVersionLayouterManager.getLayouter(feature, date);
-		if(versionTreeLayouter != null){
-			Rectangle versionTreeBounds = versionTreeLayouter.getTreeBounds();
-			height += versionTreeBounds.height;
-		}
-
-		return height;
+		Point position = this.getPosition(date).getPosition();
+		Point attributeAreaTopLeft = this.calculateAttributesAreaBounds(date).getTopLeft();
+		
+		return attributeAreaTopLeft.y - position.y;
 	}
 
 
 	public Dimension getSize(Date date){
 		Dimension size = new Dimension();
-
+		
 		size.width = HyGeometryUtil.calculateFeatureWidth(getWrappedModelElement(), date);
-		size.height = this.calculateVariationTypeCircleBounds(date).height+
+		int variationTypeCircleHeight = this.calculateVariationTypeCircleBounds(date).height;
+		size.height = variationTypeCircleHeight+
 					  this.calculateAttributesAreaBounds(date).height+
-					  this.calculateNameAreaBounds(date).height+
+					  this.calculateNameAreaBounds(date).height +
 					  this.calculateVersionAreaBounds(date).height;
+		
 		return size;
 	}
 
 	public Rectangle calculateVersionAreaBounds(Date date) {
-		Rectangle bounds = new Rectangle(getPosition(date).getPosition(), size);
-		Rectangle versionAreaBounds = bounds.getCopy();
-
-		HyVersionTreeLayouter versionTree = HyVersionLayouterManager.getLayouter(getWrappedModelElement(), date);
-
-
+		Rectangle variationAndNameBounds = calculateNameAreaBounds(date);
 		
-
+		Rectangle bounds = new Rectangle(variationAndNameBounds.getBottomLeft(), new Dimension(0, 0));
+		bounds.width = variationAndNameBounds.width;
+		
+		HyVersionTreeLayouter versionTree = HyVersionLayouterManager.getLayouter(getWrappedModelElement(), date);
 		if(versionTree != null){
 			DEGraphicalEditorTheme theme = DEGraphicalEditor.getTheme();
 			
 			int variationHeight = calculateVariationTypeCircleBounds(date).height;
-			versionAreaBounds.y += variationHeight + calculateNameAreaBounds(date).height;
+			variationHeight -= variationHeight == 0 ? 0 : theme.getLineWidth();
 			
-			if(variationHeight > 0){
-				versionAreaBounds.y -= theme.getLineWidth() * 2;
-			}
-			
-			versionAreaBounds.height = versionTree.getTreeBounds().height + theme.getPrimaryMargin() * 2 - theme.getLineWidth() - 1;
-
-			return versionAreaBounds;
-		}else{
-			return new Rectangle(0, 0, 0, 0);
+			bounds.setHeight(versionTree.getTreeBounds().height + theme.getPrimaryMargin() * 2);
 		}
+		
+		return bounds;
 	}
 
 
 	public Rectangle calculateNameAreaBounds(Date date) {
 		DEGraphicalEditorTheme theme = DEGraphicalEditor.getTheme();
-		Rectangle bounds = new Rectangle(getPosition(date).getPosition(), size);
-		Rectangle nameAreaBounds = bounds.getCopy();
-
-
-		nameAreaBounds.height = theme.getFeatureNameAreaHeight();
-		return nameAreaBounds;
+		int width = HyGeometryUtil.calculateFeatureWidth(getWrappedModelElement(), date);
+		Point position = getPosition(date).getPosition().getCopy();
+		if(hasModfierAtDate(date)){
+			position.y += theme.getFeatureVariationTypeExtent();
+		}
+		
+		return new Rectangle(position, new Dimension(width, theme.getFeatureNameAreaHeight()));
 	}
 
 	public Rectangle calculateAttributesAreaBounds(Date date) {
-		Point position = getPosition(date).getPosition();
+		Rectangle variationNameAndVersionsBounds = calculateVersionAreaBounds(date);
+
 		DEGraphicalEditorTheme theme = DEGraphicalEditor.getTheme();
 
+		Rectangle bounds = new Rectangle(variationNameAndVersionsBounds.getBottomLeft(), variationNameAndVersionsBounds.getSize());
 		int visibleAttributes = HyEvolutionUtil.getValidTemporalElements(getWrappedModelElement().getAttributes(), date).size();
-
-		int y = calculateVariationTypeCircleBounds(date).height + calculateNameAreaBounds(date).height + calculateVersionAreaBounds(date).height;
-		int height = visibleAttributes * (theme.getFeatureNameAreaHeight()+theme.getLineWidth());
-
-		return new Rectangle(new Point(position.x, position.y+y-1), 
-				new Dimension(size.width, height));		
+		int height = visibleAttributes * (theme.getFeatureNameAreaHeight());
+		
+		// add the line width offset in case this feature has at least one attribute
+		if(visibleAttributes > 0)
+			height += theme.getLineWidth() * 4;
+		bounds.setHeight(height);
+		
+		return bounds;
 	}
+	
 	public Rectangle calculateVariationTypeCircleBounds(Date date) {
-		Point position = getPosition(date).getPosition();
 		DEGraphicalEditorTheme theme = DEGraphicalEditor.getTheme();
-
-
-		int x = position.x + (size.width - theme.getFeatureVariationTypeExtent()) / 2;
-		int y = position.y;
-
-		HyGroupComposition composition = HyEvolutionUtil.getValidTemporalElement(getWrappedModelElement().getGroupMembership(), date);
-
-		int height = 0;
-		if(composition != null){
-			HyGroupType type = HyEvolutionUtil.getValidTemporalElement(composition.getCompositionOf().getTypes(), date);
-
-			height = (type.getType() == HyGroupTypeEnum.AND ? theme.getFeatureVariationTypeExtent() : 0);
+		Dimension size = new Dimension(0, 0);
+		if(hasModfierAtDate(date)){
+			size.setSize(theme.getFeatureVariationTypeExtent(), theme.getFeatureVariationTypeExtent());
 		}
-		int width = theme.getFeatureVariationTypeExtent();
-
-		return new Rectangle(x, y, width, height);
+		
+		Point position = getPosition(date).getPosition();
+		int width = HyGeometryUtil.calculateFeatureWidth(getWrappedModelElement(), date);
+		int x = position.x+width / 2 - theme.getFeatureVariationTypeExtent() / 2;
+		
+		return new Rectangle(new Point(x, position.y), size);
 	}	
 
 

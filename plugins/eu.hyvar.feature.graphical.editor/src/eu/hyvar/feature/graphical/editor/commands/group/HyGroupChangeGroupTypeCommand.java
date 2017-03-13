@@ -9,14 +9,14 @@ import eu.hyvar.feature.HyFeatureFactory;
 import eu.hyvar.feature.HyGroup;
 import eu.hyvar.feature.HyGroupType;
 import eu.hyvar.feature.HyGroupTypeEnum;
-import eu.hyvar.feature.graphical.base.editor.HyGraphicalFeatureModelViewer;
+import eu.hyvar.feature.graphical.base.editor.DwGraphicalFeatureModelViewer;
 import eu.hyvar.feature.graphical.editor.commands.HyLinearTemporalElementCommand;
 import eu.hyvar.feature.graphical.editor.util.HyElementEditorUtil;
 
 public class HyGroupChangeGroupTypeCommand extends HyLinearTemporalElementCommand{
 	private HyGroup group;
 	private HyGroupTypeEnum newGroupTypeEnum;
-	private HyGraphicalFeatureModelViewer editor;
+	private DwGraphicalFeatureModelViewer editor;
 	
 	HyGroupType newType;
 	HyGroupType oldType;
@@ -24,7 +24,7 @@ public class HyGroupChangeGroupTypeCommand extends HyLinearTemporalElementComman
 	
 	HyGroup copy;
 	
-	public HyGroupChangeGroupTypeCommand(HyGroup group, HyGroupTypeEnum newGroupTypeEnum, HyGraphicalFeatureModelViewer editor){
+	public HyGroupChangeGroupTypeCommand(HyGroup group, HyGroupTypeEnum newGroupTypeEnum, DwGraphicalFeatureModelViewer editor){
 		this.group = group;
 		this.newGroupTypeEnum = newGroupTypeEnum;
 		this.editor = editor;

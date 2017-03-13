@@ -23,7 +23,7 @@ import eu.hyvar.feature.HyFeatureAttribute;
 import eu.hyvar.feature.HyVersion;
 import eu.hyvar.feature.graphical.base.deltaecore.wrapper.HyGeometryUtil;
 import eu.hyvar.feature.graphical.base.deltaecore.wrapper.layouter.version.HyVersionLayouterManager;
-import eu.hyvar.feature.graphical.base.editor.HyGraphicalFeatureModelViewer;
+import eu.hyvar.feature.graphical.base.editor.DwGraphicalFeatureModelViewer;
 import eu.hyvar.feature.graphical.base.figures.HyFeatureFigure;
 import eu.hyvar.feature.graphical.base.model.HyFeatureModelWrapped;
 import eu.hyvar.feature.graphical.base.model.HyFeatureWrapped;
@@ -66,7 +66,7 @@ public class HyFeatureEditPart extends HyAbstractEditPart implements NodeEditPar
 		this.changeMode = changeMode;
 	}
 
-	public HyFeatureEditPart(HyGraphicalFeatureModelViewer editor, HyFeatureModelWrapped featureModel){
+	public HyFeatureEditPart(DwGraphicalFeatureModelViewer editor, HyFeatureModelWrapped featureModel){
 		super(editor, featureModel);
 
 		adapter = new HyFeatureAdapter();
@@ -164,7 +164,7 @@ public class HyFeatureEditPart extends HyAbstractEditPart implements NodeEditPar
 	
 	
 	protected boolean hasModifier(HyFeatureWrapped feature){
-		Date date = ((HyGraphicalFeatureModelViewer)this.editor).getCurrentSelectedDate();
+		Date date = ((DwGraphicalFeatureModelViewer)this.editor).getCurrentSelectedDate();
 		if(date == null)
 			date = new Date();
 
@@ -177,11 +177,10 @@ public class HyFeatureEditPart extends HyAbstractEditPart implements NodeEditPar
 		refreshChildren();
 		super.refreshVisuals();
 		
-		HyGraphicalFeatureModelViewer editor = (HyGraphicalFeatureModelViewer)this.editor;
+		DwGraphicalFeatureModelViewer editor = (DwGraphicalFeatureModelViewer)this.editor;
 		Date date = editor.getCurrentSelectedDate();
 
 		HyFeatureFigure figure = (HyFeatureFigure)getFigure();
-		figure.setSeperatorLocation(new Point(0, ((HyFeatureWrapped)getModel()).getHeightWithoutAttributes(date)));
 		HyFeatureWrapped wrappedFeature = (HyFeatureWrapped)this.getModel();
 
 		boolean featureIsCurrentlyValid = wrappedFeature.isValid(date);
@@ -206,7 +205,7 @@ public class HyFeatureEditPart extends HyAbstractEditPart implements NodeEditPar
 		
 		HyFeature feature = ((HyFeatureWrapped)getModel()).getWrappedModelElement();
 		
-		HyGraphicalFeatureModelViewer editor = (HyGraphicalFeatureModelViewer)this.editor;
+		DwGraphicalFeatureModelViewer editor = (DwGraphicalFeatureModelViewer)this.editor;
 		Date date = editor.getCurrentSelectedDate();
 		HyVersionLayouterManager.updateLayouter(feature, date);
 	}
@@ -218,12 +217,11 @@ public class HyFeatureEditPart extends HyAbstractEditPart implements NodeEditPar
 		HyFeatureWrapped feature = (HyFeatureWrapped)getModel();
 		HyFeatureModelEditPart parent = (HyFeatureModelEditPart)getParent();
 		HyFeatureFigure figure = (HyFeatureFigure)getFigure();
-		HyGraphicalFeatureModelViewer editor = (HyGraphicalFeatureModelViewer)this.editor;
+		DwGraphicalFeatureModelViewer editor = (DwGraphicalFeatureModelViewer)this.editor;
 		Date date = editor.getCurrentSelectedDate();
 		
 		int width = HyGeometryUtil.calculateFeatureWidth(feature.getWrappedModelElement(), date);
-		int height = feature.getSize(date).height; //HyGeometryUtil.calculateFeatureHeight(feature.getWrappedModelElement(), date);
-
+		int height = feature.getSize(date).height; 
 		
 		Dimension newFeatureSize = new Dimension(width, height);
 		feature.setSize(newFeatureSize);
@@ -244,7 +242,7 @@ public class HyFeatureEditPart extends HyAbstractEditPart implements NodeEditPar
 	protected List<HyParentChildConnection> getModelSourceConnections() {
 		HyFeatureWrapped model = (HyFeatureWrapped)getModel();
 
-		HyGraphicalFeatureModelViewer editor = (HyGraphicalFeatureModelViewer)this.editor;
+		DwGraphicalFeatureModelViewer editor = (DwGraphicalFeatureModelViewer)this.editor;
 		Date date = editor.getCurrentSelectedDate();
 		return model.getChildrenConnections(date);
 	}
@@ -253,7 +251,7 @@ public class HyFeatureEditPart extends HyAbstractEditPart implements NodeEditPar
 	protected List<HyParentChildConnection> getModelTargetConnections() {
 		HyFeatureWrapped model = (HyFeatureWrapped)getModel();
 
-		HyGraphicalFeatureModelViewer editor = (HyGraphicalFeatureModelViewer)this.editor;
+		DwGraphicalFeatureModelViewer editor = (DwGraphicalFeatureModelViewer)this.editor;
 		Date date = editor.getCurrentSelectedDate();
 		return model.getParentConnections(date);
 	}

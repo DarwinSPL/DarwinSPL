@@ -12,7 +12,7 @@ import eu.hyvar.feature.HyFeatureChild;
 import eu.hyvar.feature.HyFeatureFactory;
 import eu.hyvar.feature.HyFeatureModel;
 import eu.hyvar.feature.HyGroup;
-import eu.hyvar.feature.graphical.base.editor.HyGraphicalFeatureModelViewer;
+import eu.hyvar.feature.graphical.base.editor.DwGraphicalFeatureModelViewer;
 
 public class HyGroupCreateCommand extends Command {
 
@@ -36,9 +36,9 @@ public class HyGroupCreateCommand extends Command {
 		this.parent = parent;
 	}
 
-	HyGraphicalFeatureModelViewer editor;
+	DwGraphicalFeatureModelViewer editor;
 	
-	public HyGroupCreateCommand(HyGraphicalFeatureModelViewer editor) {
+	public HyGroupCreateCommand(DwGraphicalFeatureModelViewer editor) {
 		this.editor = editor;
 	}
 

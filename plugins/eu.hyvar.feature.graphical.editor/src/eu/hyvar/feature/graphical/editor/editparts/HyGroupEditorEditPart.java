@@ -11,7 +11,7 @@ import org.eclipse.gef.EditPolicy;
 
 import eu.hyvar.feature.HyFeature;
 import eu.hyvar.feature.HyGroup;
-import eu.hyvar.feature.graphical.base.editor.HyGraphicalFeatureModelViewer;
+import eu.hyvar.feature.graphical.base.editor.DwGraphicalFeatureModelViewer;
 import eu.hyvar.feature.graphical.base.editparts.HyGroupEditPart;
 import eu.hyvar.feature.graphical.base.model.HyFeatureModelWrapped;
 import eu.hyvar.feature.graphical.base.model.HyFeatureWrapped;
@@ -65,7 +65,7 @@ public class HyGroupEditorEditPart extends HyGroupEditPart {
 	
 	HyGroupAdapter adapter = new HyGroupAdapter();
 	
-	public HyGroupEditorEditPart(HyGraphicalFeatureModelViewer editor, HyFeatureModelWrapped featureModel) {
+	public HyGroupEditorEditPart(DwGraphicalFeatureModelViewer editor, HyFeatureModelWrapped featureModel) {
 		super(editor, featureModel);
 	}
 	
@@ -79,7 +79,6 @@ public class HyGroupEditorEditPart extends HyGroupEditPart {
 			if(features.size() == 0){
 				model.getWrappedModelElement().getParentOf().remove(model.getComposition(date));
 			}
-			//System.out.println("Children "+ .size());
 		}
 		refreshVisuals();
 	}

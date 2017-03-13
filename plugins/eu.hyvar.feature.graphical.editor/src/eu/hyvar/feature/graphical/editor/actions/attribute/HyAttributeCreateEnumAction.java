@@ -12,7 +12,7 @@ import eu.hyvar.evolution.HyName;
 import eu.hyvar.feature.HyEnumAttribute;
 import eu.hyvar.feature.HyFeatureAttribute;
 import eu.hyvar.feature.HyFeatureFactory;
-import eu.hyvar.feature.graphical.base.editor.HyGraphicalFeatureModelViewer;
+import eu.hyvar.feature.graphical.base.editor.DwGraphicalFeatureModelViewer;
 import eu.hyvar.feature.graphical.editor.dialogs.EnumDialog;
 
 public class HyAttributeCreateEnumAction extends HyAttributeCreateAction{
@@ -21,7 +21,7 @@ public class HyAttributeCreateEnumAction extends HyAttributeCreateAction{
 
 	Request request;
 	
-	public HyAttributeCreateEnumAction(HyGraphicalFeatureModelViewer editor) {
+	public HyAttributeCreateEnumAction(DwGraphicalFeatureModelViewer editor) {
 		super(editor);
 
 		setId(FEATURE_ADD_ENUM_ATTRIBUTE);

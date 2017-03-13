@@ -4,12 +4,12 @@ import org.deltaecore.feature.graphical.base.editor.DEGraphicalEditor;
 import org.deltaecore.feature.graphical.base.util.DEGraphicalEditorTheme;
 import org.eclipse.draw2d.geometry.Rectangle;
 
-import eu.hyvar.feature.graphical.base.editor.HyGraphicalFeatureModelViewer;
+import eu.hyvar.feature.graphical.base.editor.DwGraphicalFeatureModelViewer;
 import eu.hyvar.feature.graphical.base.model.HyFeatureWrapped;
 
 public class HyRootFeatureFigure extends HyFeatureFigure{
 
-	public HyRootFeatureFigure(HyGraphicalFeatureModelViewer editor, HyFeatureWrapped feature) {
+	public HyRootFeatureFigure(DwGraphicalFeatureModelViewer editor, HyFeatureWrapped feature) {
 		super(editor, feature);
 	}
 	

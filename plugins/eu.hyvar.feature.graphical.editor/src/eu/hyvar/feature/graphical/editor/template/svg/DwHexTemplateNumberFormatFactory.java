@@ -46,7 +46,6 @@ public class DwHexTemplateNumberFormatFactory extends TemplateNumberFormatFactor
                 	else
                 		number = number + number;
                 
-                System.out.println(number + "   "+NumberUtil.toIntExact(n));
                 return number;
             } catch (ArithmeticException e) {
                 throw new UnformattableValueException(n + " doesn't fit into an int");

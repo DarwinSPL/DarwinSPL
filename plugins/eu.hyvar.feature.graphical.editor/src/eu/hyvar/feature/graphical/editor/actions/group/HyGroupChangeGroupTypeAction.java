@@ -5,19 +5,19 @@ import org.eclipse.gef.ui.actions.SelectionAction;
 
 import eu.hyvar.feature.HyGroup;
 import eu.hyvar.feature.HyGroupTypeEnum;
-import eu.hyvar.feature.graphical.base.editor.HyGraphicalFeatureModelViewer;
+import eu.hyvar.feature.graphical.base.editor.DwGraphicalFeatureModelViewer;
 import eu.hyvar.feature.graphical.base.editparts.HyGroupEditPart;
 import eu.hyvar.feature.graphical.base.model.HyGroupWrapped;
 import eu.hyvar.feature.graphical.editor.commands.group.HyGroupChangeGroupTypeCommand;
 
 public abstract class HyGroupChangeGroupTypeAction extends SelectionAction{
-	protected HyGraphicalFeatureModelViewer editor;
+	protected DwGraphicalFeatureModelViewer editor;
 	
 	protected Request request;
 	
 	private HyGroupChangeGroupTypeCommand command;
 	
-	public HyGroupChangeGroupTypeAction(HyGraphicalFeatureModelViewer editor) {
+	public HyGroupChangeGroupTypeAction(DwGraphicalFeatureModelViewer editor) {
 		super(editor);
 		
 		this.editor = editor;

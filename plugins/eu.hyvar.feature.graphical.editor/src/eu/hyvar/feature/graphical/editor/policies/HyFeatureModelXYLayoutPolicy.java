@@ -42,6 +42,6 @@ public class HyFeatureModelXYLayoutPolicy extends XYLayoutEditPolicy{
 	
 	@Override 
 	protected EditPolicy createChildEditPolicy(EditPart child) {
-		return new HyFeatureModelResizablePolicy();
+		return new DwThemedNonResizableEditPolicy();
 	}
 }

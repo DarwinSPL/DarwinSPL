@@ -10,22 +10,17 @@ import org.eclipse.draw2d.geometry.Insets;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
 
-import eu.hyvar.feature.graphical.base.editor.HyGraphicalFeatureModelViewer;
+import eu.hyvar.feature.graphical.base.editor.DwGraphicalFeatureModelViewer;
 
-public class HyEnumFigure extends HyAbstractFigure{
-	private Label label;
-
-	public HyEnumFigure(HyGraphicalFeatureModelViewer editor) {
+public class HyEnumFigure extends DwLabelFigure{
+	public HyEnumFigure(DwGraphicalFeatureModelViewer editor) {
 		super(editor);
 
 		createChildFigures();
 	}
 
-	public Label getLabel(){
-		return label;
-	}
-
-	private void createChildFigures() {
+	@Override
+	protected void createChildFigures() {
 		DEGraphicalEditorTheme theme = DEGraphicalEditor.getTheme();
 
 		label = new Label();
@@ -51,10 +46,6 @@ public class HyEnumFigure extends HyAbstractFigure{
 		graphics.drawRectangle(this.getBounds().getCopy().expand(new Insets(-lineWidth, -lineWidth, -lineWidth, -lineWidth)));
 
 		resizeToContent();
-	}
-
-	public void setText(String text){
-		label.setText(text);
 	}
 
 	@Override

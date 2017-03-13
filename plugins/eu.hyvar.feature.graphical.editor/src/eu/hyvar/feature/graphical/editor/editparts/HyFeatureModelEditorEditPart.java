@@ -6,7 +6,7 @@ import org.eclipse.emf.common.notify.Notifier;
 import org.eclipse.gef.EditPolicy;
 
 import eu.hyvar.feature.HyFeatureModel;
-import eu.hyvar.feature.graphical.base.editor.HyGraphicalFeatureModelViewer;
+import eu.hyvar.feature.graphical.base.editor.DwGraphicalFeatureModelViewer;
 import eu.hyvar.feature.graphical.base.editparts.HyFeatureModelEditPart;
 import eu.hyvar.feature.graphical.base.model.HyFeatureModelWrapped;
 import eu.hyvar.feature.graphical.editor.policies.HyFeatureModelXYLayoutPolicy;
@@ -38,7 +38,7 @@ public class HyFeatureModelEditorEditPart extends HyFeatureModelEditPart{
 	
 	private HyFeatureModelAdapter adapter = new HyFeatureModelAdapter();
 	
-	public HyFeatureModelEditorEditPart(HyGraphicalFeatureModelViewer editor) {
+	public HyFeatureModelEditorEditPart(DwGraphicalFeatureModelViewer editor) {
 		super(editor);
 	}
 

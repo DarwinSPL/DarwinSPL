@@ -12,10 +12,8 @@ import org.eclipse.core.runtime.Path;
 import org.eclipse.draw2d.FigureCanvas;
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Rectangle;
-import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.gef.DefaultEditDomain;
 import org.eclipse.gef.GraphicalViewer;
-import org.eclipse.gef.KeyHandler;
 import org.eclipse.gef.commands.Command;
 import org.eclipse.gef.commands.CommandStack;
 import org.eclipse.gef.editparts.ScalableFreeformRootEditPart;
@@ -49,7 +47,7 @@ import eu.hyvar.feature.graphical.base.model.HyFeatureModelWrapped;
 import eu.hyvar.feature.graphical.base.util.DwFeatureModelLayoutFileUtil;
 
 
-public class HyGraphicalFeatureModelViewer extends DwGraphicalViewerWithZoomSupport implements IFeatureModelEditor, Listener{
+public class DwGraphicalFeatureModelViewer extends DwGraphicalViewerWithZoomSupport implements IFeatureModelEditor, Listener{
 	// UI components
 	protected Button currentDate;
 	protected Button addDate;
@@ -61,8 +59,6 @@ public class HyGraphicalFeatureModelViewer extends DwGraphicalViewerWithZoomSupp
 	protected Date currentSelectedDate;	
 
 	protected HyFeatureModelWrapped modelWrapped;
-
-	protected KeyHandler sharedKeyHandler;
 	
 	public Date getCurrentSelectedDate() {
 		return currentSelectedDate;
@@ -137,7 +133,7 @@ public class HyGraphicalFeatureModelViewer extends DwGraphicalViewerWithZoomSupp
 		this.modelWrapped = modelWrapped;
 	}
 
-	public HyGraphicalFeatureModelViewer(){
+	public DwGraphicalFeatureModelViewer(){
 		setEditDomain(new DefaultEditDomain(this));	
 	}
 
@@ -152,8 +148,6 @@ public class HyGraphicalFeatureModelViewer extends DwGraphicalViewerWithZoomSupp
 		}
 	}
 
-
-	
 	public IFile getFile() {
 		IWorkspace workspace = ResourcesPlugin.getWorkspace();
 		IWorkspaceRoot workspaceRoot = workspace.getRoot();
@@ -176,13 +170,10 @@ public class HyGraphicalFeatureModelViewer extends DwGraphicalViewerWithZoomSupp
 		viewer.setContents(modelWrapped);
 	}
 
-
-
-
-
-
-	
-
+	/**
+	 * Changes the date to the most actual date from now. 
+	 * Does not cause a rerendering of the feature model.
+	 */
 	protected void setCurrentSelectedDateToMostActualDate(){
 		List<Date> dates = HyEvolutionUtil.collectDates(modelWrapped.getModel());
 		Date currentDate = new Date();
@@ -196,9 +187,6 @@ public class HyGraphicalFeatureModelViewer extends DwGraphicalViewerWithZoomSupp
 
 		currentSelectedDate = closestDate;	
 	}
-
-
-
 
 	/**
 	 * Tries to load a feature model from a given file
@@ -214,8 +202,6 @@ public class HyGraphicalFeatureModelViewer extends DwGraphicalViewerWithZoomSupp
 		DwFeatureModelLayoutFileUtil.loadLayoutFile(modelWrapped);
 	}
 
-
-
 	/**
 	 * Sets the name of the tab related to the editor which will shown to the user in Eclipse
 	 * @param text
@@ -224,13 +210,15 @@ public class HyGraphicalFeatureModelViewer extends DwGraphicalViewerWithZoomSupp
 		this.setPartName(text);
 	}
 
-
+	/**
+	 * Extracts the file which correspond to the current editor instance and
+	 * loads the underlying feature model saved in that file. This method is called
+	 * during initialising the editor.
+	 */
 	protected void setInput(IEditorInput input) {
 		super.setInput(input);
 		loadModelFromFile(((IFileEditorInput) input).getFile());
 	}
-
-
 
 	/**
 	 * Hook the evolution factory into the editor logic and override the standard edit part factory
@@ -244,8 +232,11 @@ public class HyGraphicalFeatureModelViewer extends DwGraphicalViewerWithZoomSupp
 		viewer.setRootEditPart(new ScalableFreeformRootEditPart());
 	}
 
+	/**
+	 * Register listeners to react on widget changes from the time line like the date slider
+	 * or the add date dialog
+	 */
 	public void registerControlListeners(){
-
 		// Left button to select an individual date
 		currentDate.addListener(SWT.Selection, new Listener(){
 			public void handleEvent(Event event){
@@ -286,6 +277,10 @@ public class HyGraphicalFeatureModelViewer extends DwGraphicalViewerWithZoomSupp
 		});
 	}
 
+	/**
+	 * Creates all widgets (slider and add date button) to the editor to perform date changes.
+	 * @param parent
+	 */
 	public void createSliderControl(Composite parent){
 		List<Date> dates = modelWrapped.getDates();
 
@@ -297,14 +292,11 @@ public class HyGraphicalFeatureModelViewer extends DwGraphicalViewerWithZoomSupp
 
 		currentDate = new Button(buttonGroup, SWT.PUSH);
 
-
 		if(dates.size() > 0)
 			currentDate.setText(dates.get(0).toString());
 		else{
 			currentDate.setText((new Date()).toString());
 		}
-
-
 
 		scale = new Scale(buttonGroup, SWT.FILL);
 		scale.setMinimum(0);
@@ -313,11 +305,8 @@ public class HyGraphicalFeatureModelViewer extends DwGraphicalViewerWithZoomSupp
 		scale.setEnabled(size > 1);
 		scale.setSelection(dates.indexOf(currentSelectedDate));
 
-
-
 		addDate = new Button(buttonGroup, SWT.PUSH);
 		addDate.setText("Add Date");
-
 
 		if(dates.size() > 0)
 			setCurrentSelectedDate(currentSelectedDate);
@@ -327,8 +316,6 @@ public class HyGraphicalFeatureModelViewer extends DwGraphicalViewerWithZoomSupp
 			setCurrentSelectedDate(now);
 		}		
 	}
-
-
 
 	/**
 	 * Creates the editor and adds a control bar to switch between dates
@@ -343,6 +330,10 @@ public class HyGraphicalFeatureModelViewer extends DwGraphicalViewerWithZoomSupp
 		((HyFeatureModelEditPart)getGraphicalViewer().getContents()).refresh();
 	}
 
+	/**
+	 * Overrides the underlying editor widget to add the date slider to it.
+	 * @param parent
+	 */
 	public void createEditor(Composite parent){
 		GraphicalViewer viewer = new ScrollingGraphicalViewer();
 		Control control = viewer.createControl(parent);
@@ -363,10 +354,6 @@ public class HyGraphicalFeatureModelViewer extends DwGraphicalViewerWithZoomSupp
 		initializeGraphicalViewer();
 	}
 
-
-
-
-
 	/**
 	 * Returns the underlying EMF based feature model. 
 	 * @see eu.hyvar.feature
@@ -376,7 +363,6 @@ public class HyGraphicalFeatureModelViewer extends DwGraphicalViewerWithZoomSupp
 		return modelWrapped.getModel();
 	}
 
-	
 	/**
 	 * Handles the date slider change and causes a rerendering of the feature model at the new
 	 * date which is selected by using the slider.

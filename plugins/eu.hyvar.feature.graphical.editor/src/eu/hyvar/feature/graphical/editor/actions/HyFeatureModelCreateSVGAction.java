@@ -3,7 +3,7 @@ package eu.hyvar.feature.graphical.editor.actions;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.ui.actions.RetargetAction;
 
-import eu.hyvar.feature.graphical.base.editor.HyGraphicalFeatureModelViewer;
+import eu.hyvar.feature.graphical.base.editor.DwGraphicalFeatureModelViewer;
 import eu.hyvar.feature.graphical.editor.template.svg.HyFeatureModelSVGGenerator;
 
 /**
@@ -26,10 +26,10 @@ public class HyFeatureModelCreateSVGAction extends RetargetAction{
 	 */
 	@Override
 	public void runWithEvent(Event event) {
-		if(this.getActivePart() instanceof HyGraphicalFeatureModelViewer){
+		if(this.getActivePart() instanceof DwGraphicalFeatureModelViewer){
 			HyFeatureModelSVGGenerator generator = new HyFeatureModelSVGGenerator();
 
-			generator.createFile(((HyGraphicalFeatureModelViewer)this.getActivePart()).getCurrentSelectedDate());
+			generator.createFile(((DwGraphicalFeatureModelViewer)this.getActivePart()).getCurrentSelectedDate());
 		}
 	}
 

@@ -5,7 +5,7 @@ import org.eclipse.ui.ISharedImages;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.actions.RetargetAction;
 
-import eu.hyvar.feature.graphical.base.editor.HyGraphicalFeatureModelViewer;
+import eu.hyvar.feature.graphical.base.editor.DwGraphicalFeatureModelViewer;
 
 public class HyFeatureModelAutoLayoutAction extends RetargetAction {
 	public static final String ID = "eu.hyvar.feature.graphical.editor.actions.autolayout";
@@ -29,9 +29,9 @@ public class HyFeatureModelAutoLayoutAction extends RetargetAction {
     
     @Override
 	public void runWithEvent(Event event) {
-        if(this.getActivePart() instanceof HyGraphicalFeatureModelViewer){
+        if(this.getActivePart() instanceof DwGraphicalFeatureModelViewer){
         	
-        	HyGraphicalFeatureModelViewer editor = (HyGraphicalFeatureModelViewer)this.getActivePart();
+        	DwGraphicalFeatureModelViewer editor = (DwGraphicalFeatureModelViewer)this.getActivePart();
         	
         	editor.getModelWrapped().setAutoLayoutActive(true);
         	editor.getModelWrapped().rearrangeFeatures();

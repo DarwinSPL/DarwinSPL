@@ -17,14 +17,14 @@ import org.eclipse.gef.editpolicies.RootComponentEditPolicy;
 import org.eclipse.swt.events.ControlEvent;
 import org.eclipse.swt.events.ControlListener;
 
-import eu.hyvar.feature.graphical.base.editor.HyGraphicalFeatureModelViewer;
+import eu.hyvar.feature.graphical.base.editor.DwGraphicalFeatureModelViewer;
 import eu.hyvar.feature.graphical.base.model.HyFeatureModelWrapped;
 
 public class HyFeatureModelEditPart extends AbstractGraphicalEditPart implements PropertyChangeListener, ControlListener{
-	protected HyGraphicalFeatureModelViewer editor;
+	protected DwGraphicalFeatureModelViewer editor;
 	
 	
-	public HyFeatureModelEditPart(HyGraphicalFeatureModelViewer editor) {
+	public HyFeatureModelEditPart(DwGraphicalFeatureModelViewer editor) {
 		this.editor = editor;
 	}
 	 
@@ -49,7 +49,7 @@ public class HyFeatureModelEditPart extends AbstractGraphicalEditPart implements
 	protected List<Object> getModelChildren() {
 		HyFeatureModelWrapped model = (HyFeatureModelWrapped) getModel();
 		
-		HyGraphicalFeatureModelViewer editor = (HyGraphicalFeatureModelViewer)this.editor;
+		DwGraphicalFeatureModelViewer editor = (DwGraphicalFeatureModelViewer)this.editor;
 		
 		List<Object> objects = new ArrayList<Object>();
 		

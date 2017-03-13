@@ -21,18 +21,18 @@ import eu.hyvar.evolution.HyEvolutionUtil;
 import eu.hyvar.feature.HyFeature;
 import eu.hyvar.feature.HyGroup;
 import eu.hyvar.feature.HyGroupComposition;
-import eu.hyvar.feature.graphical.base.editor.HyGraphicalFeatureModelViewer;
+import eu.hyvar.feature.graphical.base.editor.DwGraphicalFeatureModelViewer;
 import eu.hyvar.feature.graphical.base.model.HyFeatureModelWrapped;
 import eu.hyvar.feature.graphical.base.model.HyFeatureWrapped;
 import eu.hyvar.feature.graphical.base.model.HyGroupWrapped;
 
 
-public class HyGroupFigure extends HyAbstractFigure{
+public class HyGroupFigure extends DwFeatureViewerReferencedFigure{
 
 	protected Path groupTypeArc;
 	protected HyGroupWrapped group;
 
-	public HyGroupFigure(HyGraphicalFeatureModelViewer editor, HyGroupWrapped group) {
+	public HyGroupFigure(DwGraphicalFeatureModelViewer editor, HyGroupWrapped group) {
 		super(editor);
 
 		this.group = group;
@@ -155,9 +155,7 @@ public class HyGroupFigure extends HyAbstractFigure{
 		Date date = editor.getCurrentSelectedDate();
 
 		HyFeatureWrapped parentFeatureWrapped = editor.getModelWrapped().getParentFeatureForGroup(group, date);
-		if(parentFeatureWrapped == null){
-			System.out.println("");
-		}
+
 		Point parentPosition = parentFeatureWrapped.getPosition(date).getPosition().getCopy();
 		parentPosition.y += parentFeatureWrapped.getSize(date).height;
 		parentPosition.x += parentFeatureWrapped.getSize(date).width() / 2.0 - theme.getGroupSymbolRadius();
