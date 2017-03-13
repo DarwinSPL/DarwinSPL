@@ -21,7 +21,7 @@ public class HyFeatureChangeConstraintCommand extends Command{
 	
 	@Override 
 	public void undo(){
-		//model.setPosition(oldPosition);
+		model.addPosition(oldPosition.getPosition(), date, true);
 	}
 	
 	@Override

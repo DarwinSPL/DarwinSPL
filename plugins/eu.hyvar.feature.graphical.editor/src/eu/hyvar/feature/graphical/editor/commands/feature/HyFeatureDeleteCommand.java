@@ -8,18 +8,19 @@ import org.eclipse.gef.EditPart;
 
 import eu.hyvar.evolution.HyTemporalElement;
 import eu.hyvar.feature.HyFeature;
+import eu.hyvar.feature.graphical.base.editor.DwGraphicalFeatureModelViewer;
 import eu.hyvar.feature.graphical.base.editparts.HyFeatureEditPart;
 import eu.hyvar.feature.graphical.base.editparts.HyRootFeatureEditPart;
 import eu.hyvar.feature.graphical.base.model.HyFeatureModelWrapped;
 import eu.hyvar.feature.graphical.base.model.HyFeatureWrapped;
 import eu.hyvar.feature.graphical.base.model.HyParentChildConnection;
-import eu.hyvar.feature.graphical.editor.editor.HyGraphicalFeatureModelEditor;
+import eu.hyvar.feature.graphical.editor.commands.DwFeatureModelEditorCommand;
 
-public class HyFeatureDeleteCommand extends FeatureConnectionChangeCommand{
+public class HyFeatureDeleteCommand extends DwFeatureModelEditorCommand{
 	EditPart host;
 
-	public HyFeatureDeleteCommand(HyGraphicalFeatureModelEditor editor, EditPart host) {
-		super(editor);
+	public HyFeatureDeleteCommand(DwGraphicalFeatureModelViewer viewer, EditPart host) {
+		super(viewer);
 
 		this.host = host;
 	}
@@ -32,12 +33,8 @@ public class HyFeatureDeleteCommand extends FeatureConnectionChangeCommand{
 		this.feature = feature;
 	}
 
-	public void setModel(HyFeatureModelWrapped model) {
-		this.featureModel = model;
-	}
-
 	private void restrictHyLinearTemporalElementsToParentValidUntil(EList<HyTemporalElement> elements){
-		Date date = editor.getCurrentSelectedDate();
+		Date date = viewer.getCurrentSelectedDate();
 		for(HyTemporalElement element : elements){
 			if(element.getValidUntil() == null || element.getValidUntil().after(date)){
 				element.setValidUntil(date);
@@ -60,7 +57,7 @@ public class HyFeatureDeleteCommand extends FeatureConnectionChangeCommand{
 	public void redo(){
 		
 		HyFeature feature = this.feature.getWrappedModelElement();
-		Date date = editor.getCurrentSelectedDate();
+		Date date = viewer.getCurrentSelectedDate();
 		if(date.equals(new Date(Long.MIN_VALUE)))
 			date = null;
 		//HyGroupComposition composition = HyEvolutionUtil.getValidTemporalElement(feature.getGroupMembership(), date);
@@ -81,17 +78,17 @@ public class HyFeatureDeleteCommand extends FeatureConnectionChangeCommand{
 		// delete the selection from the element
 		host.setSelected(0);
 
-		editor.getModelWrapped().rearrangeFeatures();
-		editor.refreshView();		
+		viewer.getModelWrapped().rearrangeFeatures();
+		viewer.refreshView();		
 	}
 	
 	public void undo(){
-		Date date = featureModel.getSelectedDate();
+		Date date = viewer.getModelWrapped().getSelectedDate();
 		HyParentChildConnection connection = new HyParentChildConnection();
 		
 		this.feature.setWrappedModelElement(oldFeature);
-		HyFeatureModelWrapped featureModel = editor.getModelWrapped();
-		date = editor.getCurrentSelectedDate();
+		HyFeatureModelWrapped featureModel = viewer.getModelWrapped();
+		date = viewer.getCurrentSelectedDate();
 		if(date.equals(new Date(Long.MIN_VALUE))){
 			date = null;
 		}		
@@ -107,7 +104,7 @@ public class HyFeatureDeleteCommand extends FeatureConnectionChangeCommand{
 		featureModel.addConnection(connection, featureModel.getSelectedDate(), null);
 		
 		featureModel.rearrangeFeatures();
-		editor.refreshView();	
+		viewer.refreshView();	
 	}
 	
 	@Override

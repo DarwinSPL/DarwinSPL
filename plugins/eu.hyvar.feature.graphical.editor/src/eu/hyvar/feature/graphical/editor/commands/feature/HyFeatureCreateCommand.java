@@ -4,7 +4,6 @@ package eu.hyvar.feature.graphical.editor.commands.feature;
 import java.util.Date;
 
 import org.eclipse.draw2d.geometry.Point;
-import org.eclipse.gef.commands.Command;
 
 import eu.hyvar.evolution.HyEvolutionFactory;
 import eu.hyvar.evolution.HyName;
@@ -15,17 +14,19 @@ import eu.hyvar.feature.graphical.base.editor.DwGraphicalFeatureModelViewer;
 import eu.hyvar.feature.graphical.base.model.HyFeatureModelWrapped;
 import eu.hyvar.feature.graphical.base.model.HyFeatureWrapped;
 import eu.hyvar.feature.graphical.base.model.HyParentChildConnection;
+import eu.hyvar.feature.graphical.editor.commands.DwFeatureModelEditorCommand;
 
-public class HyFeatureCreateCommand extends Command {
+public class HyFeatureCreateCommand extends DwFeatureModelEditorCommand {
 	private HyFeatureWrapped parent;
 	private HyFeatureWrapped newFeature;
-	private DwGraphicalFeatureModelViewer editor;
+	
 	private HyParentChildConnection connection;
 	private Date date;
 	
-	public HyFeatureCreateCommand(HyFeatureWrapped parent, DwGraphicalFeatureModelViewer editor){
+	public HyFeatureCreateCommand(HyFeatureWrapped parent, DwGraphicalFeatureModelViewer viewer){
+		super(viewer);
+		
 		this.parent = parent;
-		this.editor = editor;
 	}
 
 	/**
@@ -34,20 +35,19 @@ public class HyFeatureCreateCommand extends Command {
 	@Override
 	public void undo() {
 		
-		HyFeatureModelWrapped featureModel = editor.getModelWrapped();
+		HyFeatureModelWrapped featureModel = viewer.getModelWrapped();
 		featureModel.removeConnection(connection, date);
 		
 		featureModel.getModel().getFeatures().remove(newFeature.getWrappedModelElement());
 		
 		featureModel.rearrangeFeatures();
-		editor.refreshView();
-		
+		viewer.refreshView();
 	}
 
 	@Override
 	public void redo() {
-		HyFeatureModelWrapped featureModel = editor.getModelWrapped();
-		date = editor.getCurrentSelectedDate();
+		HyFeatureModelWrapped featureModel = viewer.getModelWrapped();
+		date = viewer.getCurrentSelectedDate();
 		if(date.equals(new Date(Long.MIN_VALUE))){
 			date = null;
 		}		
@@ -81,7 +81,7 @@ public class HyFeatureCreateCommand extends Command {
 		featureModel.addFeature(newFeature);
 		
 		featureModel.rearrangeFeatures();
-		editor.refreshView();	
+		viewer.refreshView();	
 	}	
 	
 	@Override 

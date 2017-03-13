@@ -38,18 +38,12 @@ public class HyFeatureFigure extends DwLabelFigure{
 		return feature;
 	}
 	
-	public void setConstraints(Rectangle constraint){
-		this.getLayoutManager().setConstraint(this, constraint);
-	}
-	
 	public HyFeatureFigure(DwGraphicalFeatureModelViewer editor, HyFeatureWrapped feature) {
 		super(editor);
 		
 		this.feature = feature;
 
 		createChildFigures();
-
-		this.editor = editor;
 		
 		parentAnchor = new HyFeatureParentAnchor(this, editor);	
 		childrenAnchor = new HyFeatureChildrenAnchor(this, editor);
@@ -184,15 +178,6 @@ public class HyFeatureFigure extends DwLabelFigure{
 		return true;
 	}
 	
-	
-	
-	
-	
-	
-	
-
-
-
 	protected void paintVariationTypeCircle(Graphics graphics) {
 		Date date = editor.getCurrentSelectedDate();
 		
@@ -213,7 +198,6 @@ public class HyFeatureFigure extends DwLabelFigure{
 		DEDrawingUtil.gradientFillEllipsis(graphics, variationTypeCircleBounds, light, dark);
 		DEDrawingUtil.outlineEllipsis(graphics, variationTypeCircleBounds, theme.getLineColor());
 	}	
-	
 	
 	private void resizeToContent() {
 		Date date = editor.getCurrentSelectedDate();

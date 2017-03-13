@@ -23,9 +23,9 @@ public class HyFeatureCreateChildAction extends HyFeatureSelectionAction {
 	@Override
 	protected Command createCommand(Object acceptedModel) {
 		HyFeatureWrapped selectedFeature = getSelectedFeature();		
-		HyGraphicalFeatureModelEditor editor = (HyGraphicalFeatureModelEditor)this.getWorkbenchPart();
+		DwGraphicalFeatureModelViewer viewer = (DwGraphicalFeatureModelViewer)this.getWorkbenchPart();
 		
-		HyFeatureCreateCommand command = new HyFeatureCreateCommand(selectedFeature, (DwGraphicalFeatureModelViewer)editor);
+		HyFeatureCreateCommand command = new HyFeatureCreateCommand(selectedFeature, viewer);
 		return command;
 	}	
 }

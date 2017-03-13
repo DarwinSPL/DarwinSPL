@@ -58,9 +58,9 @@ import eu.hyvar.feature.graphical.editor.actions.attribute.HyNumberAttributeSetN
 import eu.hyvar.feature.graphical.editor.actions.enumeration.HyFeatureAttributeEnumCreateEnumAction;
 import eu.hyvar.feature.graphical.editor.actions.enumeration.HyFeatureAttributeEnumCreateLiteralAction;
 import eu.hyvar.feature.graphical.editor.actions.feature.HyFeatureChangeTypeAction;
+import eu.hyvar.feature.graphical.editor.actions.feature.HyFeatureCreateChildAction;
 import eu.hyvar.feature.graphical.editor.actions.feature.HyFeatureCreateSiblingAction;
 import eu.hyvar.feature.graphical.editor.actions.feature.HyFeatureEditNamesAction;
-import eu.hyvar.feature.graphical.editor.actions.feature.HyFeatureEvolutionCreateChildAction;
 import eu.hyvar.feature.graphical.editor.actions.group.HyGroupChangeGroupTypeToAlternativeTypeAction;
 import eu.hyvar.feature.graphical.editor.actions.group.HyGroupChangeGroupTypeToAndTypeAction;
 import eu.hyvar.feature.graphical.editor.actions.group.HyGroupChangeGroupTypeToOrTypeAction;
@@ -192,7 +192,7 @@ public class HyGraphicalFeatureModelEditor extends DwGraphicalFeatureModelViewer
 		getActionRegistry().registerAction(attributeCreateEnumAction);
 		getSelectionActions().add(attributeCreateEnumAction.getId());		
 
-		HyFeatureEvolutionCreateChildAction childAction = new HyFeatureEvolutionCreateChildAction(this);
+		HyFeatureCreateChildAction childAction = new HyFeatureCreateChildAction(this);
 		getActionRegistry().registerAction(childAction);
 		getSelectionActions().add(childAction.getId());
 
@@ -232,55 +232,6 @@ public class HyGraphicalFeatureModelEditor extends DwGraphicalFeatureModelViewer
 		createEnumActions();
 
 		super.createActions();
-	}
-
-	private void closeRelatedEditors(){
-		IEditorReference[] refs = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().getEditorReferences();
-
-		List<IResource> openFiles = new ArrayList<IResource>();
-		for(IPath path : relatedEditorFiles){
-			for(IEditorReference ref : refs){
-				IEditorPart part = ref.getEditor(false);
-
-				if(part != null)
-					if(part.getEditorInput() instanceof FileEditorInput){
-						FileEditorInput editorInput = (FileEditorInput)part.getEditorInput();
-
-						if(editorInput.getPath().equals(ResourcesPlugin.getWorkspace().getRoot().getLocation().append(path))){
-							if(part.getSite().getPage().closeEditor(part, true)){
-
-
-								try {
-									InputStream stream = editorInput.getFile().getContents();
-									if(stream instanceof FileInputStream){
-										FileInputStream fileStream = (FileInputStream)stream;
-										int length = 0;
-										while(fileStream.read() != -1){
-											length++;
-										}
-
-										if(length == 0){
-											openFiles.add(editorInput.getFile());
-										}
-									}
-								} catch (CoreException e) {
-									e.printStackTrace();
-								}catch (IOException e) {
-									e.printStackTrace();
-								}
-							}
-						}
-					}	
-			}
-		}
-
-		IWorkspace workspace = ResourcesPlugin.getWorkspace();
-		try {
-			workspace.delete(openFiles.toArray(new IResource[0]), true, null);
-		} catch (CoreException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 	}
 
 	@Override
@@ -334,7 +285,6 @@ public class HyGraphicalFeatureModelEditor extends DwGraphicalFeatureModelViewer
 
 		IPath path = ((IPath)getFile().getFullPath().clone()).removeFileExtension().addFileExtension(fileExtension);
 
-		System.out.println(path);
 		IFile file = workspaceRoot.getFile(path);
 
 		relatedEditorFiles.add(path);
@@ -375,6 +325,55 @@ public class HyGraphicalFeatureModelEditor extends DwGraphicalFeatureModelViewer
 			} catch (PartInitException e) {
 				e.printStackTrace();
 			}
+		}
+	}
+	
+	private void closeRelatedEditors(){
+		IEditorReference[] refs = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().getEditorReferences();
+
+		List<IResource> openFiles = new ArrayList<IResource>();
+		for(IPath path : relatedEditorFiles){
+			for(IEditorReference ref : refs){
+				IEditorPart part = ref.getEditor(false);
+
+				if(part != null)
+					if(part.getEditorInput() instanceof FileEditorInput){
+						FileEditorInput editorInput = (FileEditorInput)part.getEditorInput();
+
+						if(editorInput.getPath().equals(ResourcesPlugin.getWorkspace().getRoot().getLocation().append(path))){
+							if(part.getSite().getPage().closeEditor(part, true)){
+
+
+								try {
+									InputStream stream = editorInput.getFile().getContents();
+									if(stream instanceof FileInputStream){
+										FileInputStream fileStream = (FileInputStream)stream;
+										int length = 0;
+										while(fileStream.read() != -1){
+											length++;
+										}
+
+										if(length == 0){
+											openFiles.add(editorInput.getFile());
+										}
+									}
+								} catch (CoreException e) {
+									e.printStackTrace();
+								}catch (IOException e) {
+									e.printStackTrace();
+								}
+							}
+						}
+					}	
+			}
+		}
+
+		IWorkspace workspace = ResourcesPlugin.getWorkspace();
+		try {
+			workspace.delete(openFiles.toArray(new IResource[0]), true, null);
+		} catch (CoreException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 	}
 }

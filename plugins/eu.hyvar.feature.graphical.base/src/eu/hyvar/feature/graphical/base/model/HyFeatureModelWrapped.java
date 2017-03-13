@@ -593,16 +593,6 @@ public class HyFeatureModelWrapped implements PropertyChangeListener {
 	
 	@Override
 	public void propertyChange(PropertyChangeEvent evt) {
-		if(evt.getPropertyName().equals(HyFeatureWrapped.PROPERTY_POSITION)){
-			HyFeatureTreeLayouter layouter = HyFeatureLayouterManager.getLayouter(this);
-			HyFeatureWrapped feature = (HyFeatureWrapped)evt.getSource();
-			Rectangle rectangle = layouter.getBounds(feature.getWrappedModelElement());
-		
-			// disable autolayout
-			if(isAutoLayoutActive() && !rectangle.getTopLeft().equals(feature.getPosition(selectedDate))){
-				setAutoLayoutActive(false);
-			}
-		}
 		if(evt.getPropertyName().equals(HyGroupWrapped.PROPERTY_CHILD_FEATURES)){
 			HyGroupWrapped newGroup = (HyGroupWrapped)evt.getNewValue();
 

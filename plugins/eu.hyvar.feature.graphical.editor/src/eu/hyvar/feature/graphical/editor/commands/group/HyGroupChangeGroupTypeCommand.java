@@ -10,10 +10,10 @@ import eu.hyvar.feature.HyGroup;
 import eu.hyvar.feature.HyGroupType;
 import eu.hyvar.feature.HyGroupTypeEnum;
 import eu.hyvar.feature.graphical.base.editor.DwGraphicalFeatureModelViewer;
-import eu.hyvar.feature.graphical.editor.commands.HyLinearTemporalElementCommand;
+import eu.hyvar.feature.graphical.editor.commands.DwLinearTemporalElementCommand;
 import eu.hyvar.feature.graphical.editor.util.HyElementEditorUtil;
 
-public class HyGroupChangeGroupTypeCommand extends HyLinearTemporalElementCommand{
+public class HyGroupChangeGroupTypeCommand extends DwLinearTemporalElementCommand{
 	private HyGroup group;
 	private HyGroupTypeEnum newGroupTypeEnum;
 	private DwGraphicalFeatureModelViewer editor;
