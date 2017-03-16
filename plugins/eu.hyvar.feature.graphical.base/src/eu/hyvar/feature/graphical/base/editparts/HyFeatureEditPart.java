@@ -8,7 +8,6 @@ import java.util.List;
 import org.eclipse.draw2d.ConnectionAnchor;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.geometry.Dimension;
-import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.emf.common.notify.Adapter;
 import org.eclipse.emf.common.notify.Notification;
@@ -30,7 +29,7 @@ import eu.hyvar.feature.graphical.base.model.HyFeatureWrapped;
 import eu.hyvar.feature.graphical.base.model.HyParentChildConnection;
 
 public class HyFeatureEditPart extends HyAbstractEditPart implements NodeEditPart{
-	protected int heightWithoutAttributes = 0;
+	private HyFeatureAdapter adapter;
 	
 	public class HyFeatureAdapter implements Adapter {
 
@@ -54,18 +53,6 @@ public class HyFeatureEditPart extends HyAbstractEditPart implements NodeEditPar
 		}
 	} 
 
-	private HyFeatureAdapter adapter;
-
-	private boolean changeMode;
-
-	public boolean isChangeMode() {
-		return changeMode;
-	}
-
-	public void setChangeMode(boolean changeMode) {
-		this.changeMode = changeMode;
-	}
-
 	public HyFeatureEditPart(DwGraphicalFeatureModelViewer editor, HyFeatureModelWrapped featureModel){
 		super(editor, featureModel);
 
@@ -81,18 +68,17 @@ public class HyFeatureEditPart extends HyAbstractEditPart implements NodeEditPar
 
 	@Override 
 	public void activate() {
-		//super.activate();
 		if(!isActive()) {
 			HyFeatureWrapped model = ((HyFeatureWrapped)getModel());
 			model.addPropertyChangeListener(this);
 			model.getWrappedModelElement().eAdapters().add(adapter);
 		}
+		
 		super.activate();
 	}
 
 	@Override 
 	public void deactivate() {
-		//super.deactivate();
 		if(isActive()) {
 			HyFeatureWrapped model = ((HyFeatureWrapped)getModel());
 			model.removePropertyChangeListener(this);
@@ -114,11 +100,6 @@ public class HyFeatureEditPart extends HyAbstractEditPart implements NodeEditPar
 		refreshSourceConnections();		
 	}
 
-
-
-
-
-
 	@Override
 	public ConnectionAnchor getSourceConnectionAnchor(ConnectionEditPart connection) {
 		return ((HyFeatureFigure)getFigure()).getChildrenAnchor();
@@ -126,21 +107,18 @@ public class HyFeatureEditPart extends HyAbstractEditPart implements NodeEditPar
 
 	@Override
 	public ConnectionAnchor getTargetConnectionAnchor(ConnectionEditPart connection) {
-		return ((HyFeatureFigure)getFigure()).getParentAnchor();
-		
+		return ((HyFeatureFigure)getFigure()).getParentAnchor();	
 	}
 
 	@Override
 	public ConnectionAnchor getSourceConnectionAnchor(Request request) {
 		return ((HyFeatureFigure)getFigure()).getChildrenAnchor();
-		
 	}
 
 	@Override
 	public ConnectionAnchor getTargetConnectionAnchor(Request request) {
 		return ((HyFeatureFigure)getFigure()).getParentAnchor();
 	}
-
 
 	/**
 	 * Fetch all versions related to the feature to display them as subfeatures

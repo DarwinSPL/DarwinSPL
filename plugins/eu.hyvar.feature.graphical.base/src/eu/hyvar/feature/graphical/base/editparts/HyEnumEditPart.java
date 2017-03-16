@@ -48,6 +48,34 @@ public class HyEnumEditPart  extends HyAbstractEditPart{
 	} 
 
 	private HyEnumAdapter adapter = new HyEnumAdapter();
+	
+	private Point position;
+	
+	public Point getPosition(){
+		if(position == null){
+			HyFeatureModelEditPart parent = (HyFeatureModelEditPart)getParent();
+			HyEnum model = (HyEnum)getModel();
+
+			int index = featureModel.getModel().getEnums().indexOf(model);
+
+			IFigure parentFigure = parent.getFigure();
+
+			int topOffset = 0;
+			for(int i=0; i<index; i++){
+				topOffset += HyEnumEditorUtil.getEnumHeight(featureModel.getModel().getEnums().get(i), featureModel.getSelectedDate());
+			}
+
+			int width = 300;
+			
+			position = new Point(parentFigure.getSize().width()-(width+20), 20+topOffset);			
+		}
+		
+		return position;
+	}
+	
+	public void setPosition(Point position){
+		this.position = position;
+	}
 
 	public HyEnumEditPart(DwGraphicalFeatureModelViewer editor, HyFeatureModelWrapped featureModel) {
 		super(editor, featureModel);
@@ -126,22 +154,14 @@ public class HyEnumEditPart  extends HyAbstractEditPart{
 
 		Date date = editor.getCurrentSelectedDate();
 
+		HyFeatureModel featureModel = editor.getModelWrapped().getModel();
+	
 		IFigure parentFigure = parent.getFigure();
 
-		HyFeatureModel featureModel = editor.getModelWrapped().getModel();
-		int index = featureModel.getEnums().indexOf(model);
-		int topOffset = 0;
-		for(int i=0; i<index; i++){
-			topOffset += HyEnumEditorUtil.getEnumHeight(featureModel.getEnums().get(i), date);
-		}
-
-		int width = 300;
-
+		
 		if(parentFigure.getSize().width() != 0){
-
-			Rectangle layout = new Rectangle(new Point(parentFigure.getSize().width()-(width+20), 20+topOffset), 
-					new Dimension(width, HyEnumEditorUtil.getEnumHeight(model, date)));
-
+			Rectangle layout = new Rectangle(getPosition(), 
+					new Dimension(300, HyEnumEditorUtil.getEnumHeight(model, date)));
 
 			parent.setLayoutConstraint(this, figure, layout);
 		}

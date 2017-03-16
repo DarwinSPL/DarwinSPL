@@ -1,7 +1,5 @@
 package eu.hyvar.feature.graphical.base.anchors;
 
-import org.deltaecore.feature.graphical.base.editor.DEGraphicalEditor;
-import org.deltaecore.feature.graphical.base.util.DEGraphicalEditorTheme;
 import org.eclipse.draw2d.AbstractConnectionAnchor;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.geometry.Point;
@@ -25,8 +23,6 @@ public class HyFeatureModelPositionAnchor extends AbstractConnectionAnchor {
 	
 	@Override
 	public Point getLocation(Point reference) {
-		DEGraphicalEditorTheme theme = DEGraphicalEditor.getTheme();
-		
 		Rectangle r = Rectangle.SINGLETON;
 		r.setBounds(getOwner().getBounds());
 		

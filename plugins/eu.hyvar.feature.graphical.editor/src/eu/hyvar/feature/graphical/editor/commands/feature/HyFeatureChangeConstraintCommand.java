@@ -47,7 +47,4 @@ public class HyFeatureChangeConstraintCommand extends Command{
 	public void setDate(Date date) {
 		this.date = date;
 	}
-	
-	
-	
 }

@@ -7,9 +7,11 @@ import org.eclipse.gef.commands.Command;
 import org.eclipse.gef.editpolicies.XYLayoutEditPolicy;
 import org.eclipse.gef.requests.CreateRequest;
 
+import eu.hyvar.feature.graphical.base.editparts.HyEnumEditPart;
 import eu.hyvar.feature.graphical.base.editparts.HyFeatureEditPart;
 import eu.hyvar.feature.graphical.base.model.HyFeatureModelWrapped;
 import eu.hyvar.feature.graphical.base.model.HyFeatureWrapped;
+import eu.hyvar.feature.graphical.editor.commands.enumeration.DwEnumChangeConstraintCommand;
 import eu.hyvar.feature.graphical.editor.commands.feature.HyFeatureChangeConstraintCommand;
 
 public class HyFeatureModelXYLayoutPolicy extends XYLayoutEditPolicy{
@@ -29,6 +31,15 @@ public class HyFeatureModelXYLayoutPolicy extends XYLayoutEditPolicy{
 			Rectangle r = (Rectangle)constraint;
 			command.setPosition(r.getTopLeft());
 			return command;
+		}
+		
+		if(child instanceof HyEnumEditPart){
+			DwEnumChangeConstraintCommand command = new DwEnumChangeConstraintCommand();
+			command.setEditPart((HyEnumEditPart)child);
+
+			Rectangle r = (Rectangle)constraint;
+			command.setPosition(r.getTopLeft());
+			return command;	
 		}
 
 		return null;	
