@@ -85,7 +85,20 @@ public class AnalysesClient {
 		return messageForHyVarRec;
 	}
 	
-	public void validateFeatureModel(String uriString, HyContextModel contextModel, HyValidityModel contextValidityModel,
+	/**
+	 * 
+	 * @param uriString
+	 * @param contextModel
+	 * @param contextValidityModel
+	 * @param featureModel
+	 * @param constraintModel
+	 * @param oldConfiguration
+	 * @param preferenceModel
+	 * @param contextValues
+	 * @param date
+	 * @return if the fm is satisfiable
+	 */
+	public boolean validateFeatureModel(String uriString, HyContextModel contextModel, HyValidityModel contextValidityModel,
 			HyFeatureModel featureModel, HyConstraintModel constraintModel, HyConfiguration oldConfiguration,
 			HyPreferenceModel preferenceModel, HyContextValueModel contextValues, Date date) {
 		
@@ -95,7 +108,15 @@ public class AnalysesClient {
 		String hyvarrecAnswerString = sendMessageToHyVarRec(messageForHyVarRec, uri);
 		
 		HyVarRecExplainAnswer hyVarRecAnswer = gson.fromJson(hyvarrecAnswerString, HyVarRecExplainAnswer.class);
+		// TODO do something with the answer
 		
+		if(hyVarRecAnswer.getResult().equals("sat")) {
+			return true;
+		}else if(hyVarRecAnswer.getResult().equals("unsat")) {
+			return false;
+		}
+		
+		return false;
 	}
 	
 	
@@ -110,7 +131,7 @@ public class AnalysesClient {
 	 * @param preferenceModel
 	 * @param contextValues
 	 * @param date
-	 * @return Context values for which the model is not satisfiable
+	 * @return Context values for which the model is not satisfiable. Null if satisfiable
 	 */
 	public HyContextValueModel validateFeatureModelWithContext(String uriString, HyContextModel contextModel, HyValidityModel contextValidityModel,
 			HyFeatureModel featureModel, HyConstraintModel constraintModel, HyConfiguration oldConfiguration,
