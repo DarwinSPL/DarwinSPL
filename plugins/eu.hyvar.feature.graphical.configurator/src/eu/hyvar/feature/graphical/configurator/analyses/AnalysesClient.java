@@ -36,6 +36,7 @@ import eu.hyvar.dataValues.HyValue;
 import eu.hyvar.feature.HyFeatureModel;
 import eu.hyvar.feature.configuration.HyConfiguration;
 import eu.hyvar.feature.constraint.HyConstraintModel;
+import eu.hyvar.feature.graphical.configurator.analyses.io.format.HyVarRecExplainAnswer;
 import eu.hyvar.feature.graphical.configurator.analyses.io.format.context.HyVarRecValidateAnswer;
 import eu.hyvar.preferences.HyPreferenceModel;
 import eu.hyvar.reconfigurator.input.exporter.HyVarRecExporter;
@@ -92,6 +93,8 @@ public class AnalysesClient {
 		URI uri = createUriWithPath(uriString, VALIDATE_FM_URI);
 		
 		String hyvarrecAnswerString = sendMessageToHyVarRec(messageForHyVarRec, uri);
+		
+		HyVarRecExplainAnswer hyVarRecAnswer = gson.fromJson(hyvarrecAnswerString, HyVarRecExplainAnswer.class);
 		
 	}
 	
