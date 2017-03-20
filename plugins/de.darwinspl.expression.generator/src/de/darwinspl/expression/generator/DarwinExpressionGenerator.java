@@ -61,11 +61,11 @@ public class DarwinExpressionGenerator {
 	// TODO set expressions
 	// TODO equals with values and so on
 	
-	public HyExpression generateExpression(int numberOfLiterals, boolean includeVersions, boolean includeContexts, boolean includeAttributes, HyExpression parentExpression, Date date) {
+	public HyExpression generateExpression(int numberOfLiterals, boolean includeVersions, boolean includeContexts, boolean includeAttributes, boolean ensureSatisfiability, HyExpression parentExpression, Date date) {
 		
 		boolean exported = false;
 		
-		if(deltaEcoreFeatureModel == null) {
+		if(ensureSatisfiability && deltaEcoreFeatureModel == null) {
 			exported = true;
 			
 			HFMExporter deltaEcoreExporter = new HFMExporter();
@@ -107,7 +107,7 @@ public class DarwinExpressionGenerator {
 				binaryExpression = factory.createHyImpliesExpression();
 				break;
 			case 3:
-				expression = generateUnaryExpression(numberOfLiterals, includeVersions, includeContexts, includeAttributes, date, false);
+				expression = generateUnaryExpression(numberOfLiterals, includeVersions, includeContexts, includeAttributes, ensureSatisfiability, date, false);
 				break;
 			}
 			
@@ -118,9 +118,9 @@ public class DarwinExpressionGenerator {
 				
 				// TODO this might take a VERY long time for bigger expressions
 				do {
-					binaryExpression.setOperand1(generateExpression(leftHandLiteralNumber, includeVersions, includeContexts, includeAttributes, binaryExpression, date));			
-					binaryExpression.setOperand2(generateExpression(rightHandLiteralNumber, includeVersions, includeContexts, includeAttributes, binaryExpression, date));					
-				} while(!checkSatisfiability(binaryExpression));
+					binaryExpression.setOperand1(generateExpression(leftHandLiteralNumber, includeVersions, includeContexts, includeAttributes, ensureSatisfiability, binaryExpression, date));			
+					binaryExpression.setOperand2(generateExpression(rightHandLiteralNumber, includeVersions, includeContexts, includeAttributes, ensureSatisfiability, binaryExpression, date));					
+				} while(!ensureSatisfiability || !checkSatisfiability(binaryExpression));
 				
 				expression = binaryExpression;
 			}
@@ -133,7 +133,7 @@ public class DarwinExpressionGenerator {
 			if(rand.nextInt(100) >= 20) {
 				expression = generateAtomicExpression(includeVersions, includeContexts, includeAttributes, date);				
 			} else {
-				expression = generateUnaryExpression(numberOfLiterals, includeVersions, includeContexts, includeAttributes, date, false);
+				expression = generateUnaryExpression(numberOfLiterals, includeVersions, includeContexts, includeAttributes, ensureSatisfiability, date, false);
 			}
 		}
 		
@@ -203,7 +203,7 @@ public class DarwinExpressionGenerator {
 		return featureReferenceExpression;
 	}
 	
-	protected HyUnaryExpression generateUnaryExpression(int numberOfLiterals, boolean includeVersions, boolean includeContexts, boolean includeAttributes, Date date, boolean nestedAllowed) {
+	protected HyUnaryExpression generateUnaryExpression(int numberOfLiterals, boolean includeVersions, boolean includeContexts, boolean includeAttributes, boolean ensureSatisfiability, Date date, boolean nestedAllowed) {
 		HyUnaryExpression unaryExpression = null;
 		
 		// TODO negation, maximum, minimum still missing
@@ -214,7 +214,7 @@ public class DarwinExpressionGenerator {
 			unaryExpression = factory.createHyNestedExpression();
 		}
 		
-		unaryExpression.setOperand(generateExpression(numberOfLiterals, includeVersions, includeContexts, includeAttributes, unaryExpression, date));
+		unaryExpression.setOperand(generateExpression(numberOfLiterals, includeVersions, includeContexts, includeAttributes, ensureSatisfiability, unaryExpression, date));
 		
 		return unaryExpression;
 	}

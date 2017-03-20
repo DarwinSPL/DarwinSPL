@@ -50,7 +50,7 @@ public class DarwinMappingGenerator {
 		int amountOfFeaturesInApplicationCondition = rand.nextInt(maximumAmountOfFeaturesInApplicationCondition)+1;
 		
 		// TODO versions, attributes?
-		mapping.setExpression(expressionGenerator.generateExpression(amountOfFeaturesInApplicationCondition, false, false, false, null, date));
+		mapping.setExpression(expressionGenerator.generateExpression(amountOfFeaturesInApplicationCondition, false, false, false, true, null, date));
 		
 		return mapping;
 	}

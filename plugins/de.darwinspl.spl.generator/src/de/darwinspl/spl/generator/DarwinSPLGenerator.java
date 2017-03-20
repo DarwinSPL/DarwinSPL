@@ -23,8 +23,8 @@ public class DarwinSPLGenerator {
 	
 	
 	
-	public ArtifactWrapper generateWithEvolution(Map<Date, Integer> evolutionStepsPerDate) {
-		ArtifactWrapper wrapper = generateWithoutEvolution();
+	public ArtifactWrapper generateWithEvolution(Map<Date, Integer> evolutionStepsPerDate, boolean satisfiable) {
+		ArtifactWrapper wrapper = generateWithoutEvolution(satisfiable);
 		FeatureModelEvolutionGenerator evoGenerator = new FeatureModelEvolutionGenerator();
 		
 		for(Entry<Date, Integer> entry: evolutionStepsPerDate.entrySet()) {
@@ -34,7 +34,7 @@ public class DarwinSPLGenerator {
 		return wrapper;
 	}
 	
-	public ArtifactWrapper generateWithoutEvolution() {
+	public ArtifactWrapper generateWithoutEvolution(boolean satisfiable) {
 		ArtifactWrapper wrapper = new ArtifactWrapper();
 		
 		DEFeatureModelGenerator fmGenerator = new DEFeatureModelGenerator();
