@@ -14,5 +14,6 @@ Require-Bundle: eu.hyvar.feature,
  de.darwinspl.configuration.generator,
  de.darwinspl.mapping.generator,
  de.darwinspl.feature.evolution.generator,
- de.darwinspl.evolution.guidance
+ de.darwinspl.evolution.guidance,
+ de.darwinspl.feature.generator
 Export-Package: de.darwinspl.spl.generator

@@ -5,14 +5,11 @@ import java.util.Date;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import org.deltaecore.feature.DEFeatureModel;
-import org.deltaecore.feature.generator.DEFeatureModelGenerator;
-
 import de.christophseidl.util.eclipse.ResourceUtil;
 import de.christophseidl.util.ecore.EcoreIOUtil;
 import de.darwinspl.configuration.generator.DarwinConfigurationGenerator;
 import de.darwinspl.feature.evolution.generator.FeatureModelEvolutionGenerator;
-import de.darwinspl.importer.deltaecore.DeltaEcoreFeatureModelImporter;
+import de.darwinspl.feature.generator.DarwinFeatureModelGenerator;
 import de.darwinspl.mapping.generator.DarwinMappingGenerator;
 import eu.hyvar.feature.HyFeatureModel;
 import eu.hyvar.feature.mapping.HyMappingModel;
@@ -37,11 +34,8 @@ public class DarwinSPLGenerator {
 	public ArtifactWrapper generateWithoutEvolution(boolean satisfiable) {
 		ArtifactWrapper wrapper = new ArtifactWrapper();
 		
-		DEFeatureModelGenerator fmGenerator = new DEFeatureModelGenerator();
-		DEFeatureModel generatedDEFM = fmGenerator.generateFeatureModel();
-		
-		DeltaEcoreFeatureModelImporter deltaEcoreImporter = new DeltaEcoreFeatureModelImporter();
-		HyFeatureModel generatedFeatureModel = deltaEcoreImporter.importFeatureModel(generatedDEFM);
+		DarwinFeatureModelGenerator featureModelGenerator = new DarwinFeatureModelGenerator();
+		HyFeatureModel generatedFeatureModel = featureModelGenerator.generateFeatureModel();
 		wrapper.setFeatureModel(generatedFeatureModel);
 		
 		

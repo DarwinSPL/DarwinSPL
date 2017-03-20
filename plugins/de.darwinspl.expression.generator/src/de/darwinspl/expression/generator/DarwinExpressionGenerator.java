@@ -120,7 +120,7 @@ public class DarwinExpressionGenerator {
 				do {
 					binaryExpression.setOperand1(generateExpression(leftHandLiteralNumber, includeVersions, includeContexts, includeAttributes, ensureSatisfiability, binaryExpression, date));			
 					binaryExpression.setOperand2(generateExpression(rightHandLiteralNumber, includeVersions, includeContexts, includeAttributes, ensureSatisfiability, binaryExpression, date));					
-				} while(!ensureSatisfiability || !checkSatisfiability(binaryExpression));
+				} while(ensureSatisfiability && !checkSatisfiability(binaryExpression));
 				
 				expression = binaryExpression;
 			}
