@@ -23,14 +23,14 @@ import org.eclipse.swt.widgets.Text;
 
 public class DwRESTServerSelectDialog extends TitleAreaDialog{
 	private Text uriText;
-	private URI uri;
+	private String uri;
 
-	public URI getUri() {
+	public String getUri() {
 		return uri;
 	}
 
 
-	public DwRESTServerSelectDialog(Shell parentShell, URI uri) {
+	public DwRESTServerSelectDialog(Shell parentShell, String uri) {
 		super(parentShell);
 		
 		this.uri = uri;
@@ -86,7 +86,7 @@ public class DwRESTServerSelectDialog extends TitleAreaDialog{
 			@Override
 			public void modifyText(ModifyEvent e) {
 				try{
-				uri = URI.create(uriText.getText());
+				uri = uriText.getText();
 				txtDecorator.hide();
 				}catch(Exception e1){
 					txtDecorator.show();

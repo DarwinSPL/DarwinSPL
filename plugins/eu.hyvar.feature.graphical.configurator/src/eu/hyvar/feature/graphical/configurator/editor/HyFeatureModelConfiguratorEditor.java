@@ -59,6 +59,7 @@ import eu.hyvar.feature.configuration.HyConfiguration;
 import eu.hyvar.feature.configuration.util.HyConfigurationUtil;
 import eu.hyvar.feature.constraint.HyConstraintModel;
 import eu.hyvar.feature.constraint.util.HyConstraintUtil;
+import eu.hyvar.feature.graphical.configurator.analyses.AnalysesClient;
 import eu.hyvar.feature.graphical.configurator.composites.HySelectedConfigurationComposite;
 import eu.hyvar.feature.graphical.configurator.dialogs.DwRESTServerSelectDialog;
 import eu.hyvar.feature.graphical.configurator.dialogs.HyContextInformationDialog;
@@ -70,14 +71,17 @@ import eu.hyvar.preferences.HyPreferenceModel;
 import eu.hyvar.preferences.util.HyPreferenceModelUtil;
 
 public class HyFeatureModelConfiguratorEditor extends HyFeatureModelConfiguratorViewer {
-	private Button validateButton;
+	private Button validateContextButton;
+	
+	private Button validateFmButton;
+	
 	private Button numberOfPossibleConfigurationsButton;
 	private Button simulateButton;
 	private HySelectedConfigurationComposite selectedConfigurationComposite;
 
 	protected HyConfiguration suggestedConfiguration;
 	
-	private static final String DEFAULT_HYVARREC_URI = "http://hyvarhyvarrec-env.eu-west-1.elasticbeanstalk.com/process";
+	private static final String DEFAULT_HYVARREC_URI = "http://hyvarhyvarrec-env.eu-west-1.elasticbeanstalk.com/";
 
 	@Override
 	public void init(IEditorSite site, IEditorInput input) throws PartInitException {
@@ -184,9 +188,13 @@ public class HyFeatureModelConfiguratorEditor extends HyFeatureModelConfigurator
 		Composite configurationPanel = new Composite(parent, SWT.NONE);
 		configurationPanel.setLayout(new GridLayout(1, false));
 
-		validateButton = new Button(configurationPanel, SWT.PUSH);
-		validateButton.setText("Validate");
-		validateButton.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, false));
+		validateFmButton = new Button(configurationPanel, SWT.PUSH);
+		validateFmButton.setText("Validate Feature Model with HyVarRec");
+		validateFmButton.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, false));
+		
+		validateContextButton = new Button(configurationPanel, SWT.PUSH);
+		validateContextButton.setText("Validate with Contexts with HyVarRec");
+		validateContextButton.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, false));
 
 		simulateButton = new Button(configurationPanel, SWT.PUSH);
 		simulateButton.setText("Simulate Reconfiguration with HyVarRec");
@@ -206,20 +214,21 @@ public class HyFeatureModelConfiguratorEditor extends HyFeatureModelConfigurator
 		return configurationPanel;
 	}
 
-	private java.net.URI getURI(){
-		java.net.URI defaultURI = java.net.URI.create(DEFAULT_HYVARREC_URI);
-		DwRESTServerSelectDialog dialog = new DwRESTServerSelectDialog(getEditorSite().getShell(), defaultURI);
+	private String getURI(){
+		DwRESTServerSelectDialog dialog = new DwRESTServerSelectDialog(getEditorSite().getShell(), DEFAULT_HYVARREC_URI);
 		int result = dialog.open();
 		if(result == Dialog.OK){
 			return dialog.getUri();
 		}
 
-		return defaultURI;
+		return DEFAULT_HYVARREC_URI;
 	}
 
 	private void registerListeners() {
 
 		super.registerControlListeners();
+		
+		ButtonListener buttonListener = new ButtonListener();
 		
 		selectedConfiguration.eAdapters().add(new EContentAdapter() {
 			@Override
@@ -230,97 +239,10 @@ public class HyFeatureModelConfiguratorEditor extends HyFeatureModelConfigurator
 			}
 		});
 
-		validateButton.addSelectionListener(new SelectionAdapter() {
-			@Override
-			public void widgetSelected(SelectionEvent e) {
-				//TODO validateFeatureModel();
-			}
-		});
+		validateContextButton.addSelectionListener(buttonListener);
+		validateFmButton.addSelectionListener(buttonListener);
 
-		simulateButton.addSelectionListener(new SelectionAdapter() {
-			@Override
-			public void widgetSelected(SelectionEvent e) {
-				HyContextModel contextModel = null;
-				HyContextValueModel contextValueModel = null;
-				
-				if(modelFileExists(HyContextInformationUtil.getContextModelFileExtensionForConcreteSyntax())){
-					contextModel = loadContextInformationModel();
-
-					// only show the dialog if context information are available
-					if(contextModel == null) {
-						contextModel = HyContextInformationFactory.eINSTANCE.createHyContextModel();
-					}
-					
-					if(contextModel != null){
-						HyContextInformationDialog dialog = new HyContextInformationDialog(getEditorSite().getShell(), contextModel, getDate());
-						if(dialog.open() == Window.CANCEL){
-							return;
-						} 
-						else {
-							contextValueModel = createContextValueModel(dialog);
-						}
-					}
-				}
-				else {
-					// TODO inform user that no context model exists
-					return;
-				}
-
-				if(contextValueModel == null) {
-					return;
-				}
-				
-				HyValidityModel validityModel = null;
-				if(modelFileExists(HyValidityModelUtil.getValidityModelFileExtensionForConcreteSyntax())){
-					validityModel = EcoreIOUtil.loadAccompanyingModel(modelWrapped.getModel(), HyValidityModelUtil.getValidityModelFileExtensionForConcreteSyntax());
-				}
-
-				HyConstraintModel constraintModel = null;
-				if(modelFileExists(HyConstraintUtil.getConstraintModelFileExtensionForConcreteSyntax())){
-					constraintModel = EcoreIOUtil.loadAccompanyingModel(modelWrapped.getModel(), HyConstraintUtil.getConstraintModelFileExtensionForConcreteSyntax());
-				}
-
-				HyPreferenceModel preferenceModel = null;
-				if(modelFileExists(HyPreferenceModelUtil.getPreferenceModelFileExtensionForConcreteSyntax())){
-					preferenceModel = EcoreIOUtil.loadAccompanyingModel(modelWrapped.getModel(), HyPreferenceModelUtil.getPreferenceModelFileExtensionForConcreteSyntax());
-				}
-
-				//
-//				if(modelFileExists(ContextInformationUtil.getContextValueModelFileExtensionForXmi())){
-//					// TODO type check? other models, too?
-//					contextValueModel = EcoreIOUtil.loadAccompanyingModel(modelWrapped.getModel(), ContextInformationUtil.getContextValueModelFileExtensionForXmi());
-//				}
-
-				saveConfigurationIntoFeatureModelFolder();
-
-				// allow to change the server uri
-				java.net.URI uri = getURI();
-
-
-				HyReconfiguratorClient client = new HyReconfiguratorClient();
-
-				HyConfiguration configuration = client.reconfigure(uri, contextModel, validityModel, modelWrapped.getModel(), constraintModel, selectedConfiguration, preferenceModel, contextValueModel, modelWrapped.getSelectedDate());
-				if(configuration != null){
-					String fileName = file.getFullPath().removeFileExtension().lastSegment();
-
-					String name = file.getFullPath().removeFileExtension().removeLastSegments(1).append(fileName+"_Result").addFileExtension(HyConfigurationUtil.getConfigurationModelFileExtensionForXmi()).toString();
-
-					// create a new resource for the result configuration
-					ResourceSet resSet = new ResourceSetImpl();
-					Resource resource = resSet.createResource(URI.createURI(name));
-					resource.getContents().add(configuration);
-
-					try {
-						resource.save(Collections.EMPTY_MAP);
-					} catch (IOException e2) {
-						e2.printStackTrace();
-					}				
-
-					// Show the result within a new viewer
-					openConfigurationViewer(name);
-				}
-			}
-		});
+		simulateButton.addSelectionListener(buttonListener);
 
 		numberOfPossibleConfigurationsButton.addSelectionListener(new SelectionAdapter() {
 			@Override
@@ -411,5 +333,101 @@ public class HyFeatureModelConfiguratorEditor extends HyFeatureModelConfigurator
 	protected void setInput(IEditorInput input) {
 		super.setInput(input);
 		selectedConfiguration.setFeatureModel(getFeatureModel());
+	}
+	
+	protected class ButtonListener extends SelectionAdapter {
+		@Override
+		public void widgetSelected(SelectionEvent e) {
+			HyContextModel contextModel = null;
+			HyContextValueModel contextValueModel = null;
+			
+			if(modelFileExists(HyContextInformationUtil.getContextModelFileExtensionForConcreteSyntax())){
+				contextModel = loadContextInformationModel();
+
+				// only show the dialog if context information are available
+				if(contextModel == null) {
+					contextModel = HyContextInformationFactory.eINSTANCE.createHyContextModel();
+				}
+				
+				if(contextModel != null && e.getSource() == simulateButton){
+					HyContextInformationDialog dialog = new HyContextInformationDialog(getEditorSite().getShell(), contextModel, getDate());
+					if(dialog.open() == Window.CANCEL){
+						return;
+					} 
+					else {
+						contextValueModel = createContextValueModel(dialog);
+					}
+				}
+			}
+			else {
+				// TODO inform user that no context model exists
+				return;
+			}
+
+			if(contextValueModel == null) {
+				contextValueModel = ContextValueFactory.eINSTANCE.createHyContextValueModel();
+			}
+			
+			HyValidityModel validityModel = null;
+			if(modelFileExists(HyValidityModelUtil.getValidityModelFileExtensionForConcreteSyntax())){
+				validityModel = EcoreIOUtil.loadAccompanyingModel(modelWrapped.getModel(), HyValidityModelUtil.getValidityModelFileExtensionForConcreteSyntax());
+			}
+
+			HyConstraintModel constraintModel = null;
+			if(modelFileExists(HyConstraintUtil.getConstraintModelFileExtensionForConcreteSyntax())){
+				constraintModel = EcoreIOUtil.loadAccompanyingModel(modelWrapped.getModel(), HyConstraintUtil.getConstraintModelFileExtensionForConcreteSyntax());
+			}
+
+//			HyPreferenceModel preferenceModel = null;
+//			if(modelFileExists(HyPreferenceModelUtil.getPreferenceModelFileExtensionForConcreteSyntax())){
+//				preferenceModel = EcoreIOUtil.loadAccompanyingModel(modelWrapped.getModel(), HyPreferenceModelUtil.getPreferenceModelFileExtensionForConcreteSyntax());
+//			}
+
+			//
+//			if(modelFileExists(ContextInformationUtil.getContextValueModelFileExtensionForXmi())){
+//				// TODO type check? other models, too?
+//				contextValueModel = EcoreIOUtil.loadAccompanyingModel(modelWrapped.getModel(), ContextInformationUtil.getContextValueModelFileExtensionForXmi());
+//			}
+
+			saveConfigurationIntoFeatureModelFolder();
+
+			// allow to change the server uri
+			String uri = getURI();
+
+
+			AnalysesClient client = new AnalysesClient();
+
+			
+			
+			
+			if(e.getSource() == validateContextButton) {
+				client.validateFeatureModelWithContext(uri, contextModel, validityModel, modelWrapped.getModel(), constraintModel, selectedConfiguration, null, contextValueModel, modelWrapped.getSelectedDate());
+			}
+			else if(e.getSource() == simulateButton) {
+				HyConfiguration configuration = client.reconfigure(uri, contextModel, validityModel, modelWrapped.getModel(), constraintModel, selectedConfiguration, null, contextValueModel, modelWrapped.getSelectedDate());
+				if(configuration != null){
+					String fileName = file.getFullPath().removeFileExtension().lastSegment();
+
+					String name = file.getFullPath().removeFileExtension().removeLastSegments(1).append(fileName+"_Result").addFileExtension(HyConfigurationUtil.getConfigurationModelFileExtensionForXmi()).toString();
+
+					// create a new resource for the result configuration
+					ResourceSet resSet = new ResourceSetImpl();
+					Resource resource = resSet.createResource(URI.createURI(name));
+					resource.getContents().add(configuration);
+
+					try {
+						resource.save(Collections.EMPTY_MAP);
+					} catch (IOException e2) {
+						e2.printStackTrace();
+					}				
+
+					// Show the result within a new viewer
+					openConfigurationViewer(name);
+				}
+			}
+			else if(e.getSource() == validateFmButton) {
+				client.validateFeatureModel(uri, contextModel, validityModel, modelWrapped.getModel(), constraintModel, selectedConfiguration, null, contextValueModel, modelWrapped.getSelectedDate());
+			}
+		}
 	}
 }
