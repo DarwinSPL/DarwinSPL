@@ -61,14 +61,12 @@ import eu.hyvar.feature.constraint.HyConstraintModel;
 import eu.hyvar.feature.constraint.util.HyConstraintUtil;
 import eu.hyvar.feature.graphical.configurator.analyses.AnalysesClient;
 import eu.hyvar.feature.graphical.configurator.composites.HySelectedConfigurationComposite;
+import eu.hyvar.feature.graphical.configurator.dialogs.DwInvalidContextInfoDialog;
 import eu.hyvar.feature.graphical.configurator.dialogs.DwRESTServerSelectDialog;
 import eu.hyvar.feature.graphical.configurator.dialogs.HyContextInformationDialog;
 import eu.hyvar.feature.graphical.configurator.editor.listeners.DwDeriveVariantListener;
 import eu.hyvar.feature.graphical.configurator.factory.HyConfiguratorEditorEditPartFactory;
-import eu.hyvar.feature.graphical.configurator.reconfigurator.HyReconfiguratorClient;
 import eu.hyvar.feature.graphical.configurator.viewer.HyFeatureModelConfiguratorViewer;
-import eu.hyvar.preferences.HyPreferenceModel;
-import eu.hyvar.preferences.util.HyPreferenceModelUtil;
 
 public class HyFeatureModelConfiguratorEditor extends HyFeatureModelConfiguratorViewer {
 	private Button validateContextButton;
@@ -220,8 +218,11 @@ public class HyFeatureModelConfiguratorEditor extends HyFeatureModelConfigurator
 		if(result == Dialog.OK){
 			return dialog.getUri();
 		}
+		else {
+			return null;
+		}
 
-		return DEFAULT_HYVARREC_URI;
+//		return DEFAULT_HYVARREC_URI;
 	}
 
 	private void registerListeners() {
@@ -393,6 +394,10 @@ public class HyFeatureModelConfiguratorEditor extends HyFeatureModelConfigurator
 
 			// allow to change the server uri
 			String uri = getURI();
+			
+			if(uri == null) {
+				return;
+			}
 
 
 			AnalysesClient client = new AnalysesClient();
@@ -401,7 +406,9 @@ public class HyFeatureModelConfiguratorEditor extends HyFeatureModelConfigurator
 			
 			
 			if(e.getSource() == validateContextButton) {
-				client.validateFeatureModelWithContext(uri, contextModel, validityModel, modelWrapped.getModel(), constraintModel, selectedConfiguration, null, contextValueModel, modelWrapped.getSelectedDate());
+				HyContextValueModel notSatisfiableContextValues = client.validateFeatureModelWithContext(uri, contextModel, validityModel, modelWrapped.getModel(), constraintModel, selectedConfiguration, null, contextValueModel, modelWrapped.getSelectedDate());
+				DwInvalidContextInfoDialog contextInfoDialog = new DwInvalidContextInfoDialog(getEditorSite().getShell(), notSatisfiableContextValues);
+				contextInfoDialog.open();
 			}
 			else if(e.getSource() == simulateButton) {
 				HyConfiguration configuration = client.reconfigure(uri, contextModel, validityModel, modelWrapped.getModel(), constraintModel, selectedConfiguration, null, contextValueModel, modelWrapped.getSelectedDate());
