@@ -45,9 +45,9 @@ import eu.hyvar.reconfigurator.output.translation.format.OutputOfHyVarRec;
 
 public class AnalysesClient {
 
-	private static final String MSG_TYPE_RAW_HYVARREC = "raw_hyvarrec_input";
-
-	private static final String MSG_TYPE_HYVARREC_CONFIG_2_HYCONFIG = "hyvarrec_config_plus_fm";
+//	private static final String MSG_TYPE_RAW_HYVARREC = "raw_hyvarrec_input";
+//
+//	private static final String MSG_TYPE_HYVARREC_CONFIG_2_HYCONFIG = "hyvarrec_config_plus_fm";
 
 	protected static final String RECONFIGURATION_URI = "process";
 	protected static final String VALIDATE_CONTEXT_URI = "validate";

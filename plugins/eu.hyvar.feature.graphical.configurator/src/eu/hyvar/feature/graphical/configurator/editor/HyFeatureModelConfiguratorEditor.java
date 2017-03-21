@@ -186,16 +186,17 @@ public class HyFeatureModelConfiguratorEditor extends HyFeatureModelConfigurator
 		Composite configurationPanel = new Composite(parent, SWT.NONE);
 		configurationPanel.setLayout(new GridLayout(1, false));
 
-		validateFmButton = new Button(configurationPanel, SWT.PUSH);
-		validateFmButton.setText("Validate Feature Model with HyVarRec");
-		validateFmButton.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, false));
 		
 		validateContextButton = new Button(configurationPanel, SWT.PUSH);
-		validateContextButton.setText("Validate with Contexts with HyVarRec");
+		validateContextButton.setText("Validate Feature Model and Contexts");
 		validateContextButton.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, false));
 
+		validateFmButton = new Button(configurationPanel, SWT.PUSH);
+		validateFmButton.setText("Explain Anomaly for Context");
+		validateFmButton.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, false));
+		
 		simulateButton = new Button(configurationPanel, SWT.PUSH);
-		simulateButton.setText("Simulate Reconfiguration with HyVarRec");
+		simulateButton.setText("Simulate Reconfiguration");
 		simulateButton.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, false));
 
 
