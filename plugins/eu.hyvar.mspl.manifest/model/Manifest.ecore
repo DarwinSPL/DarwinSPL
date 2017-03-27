@@ -17,7 +17,7 @@
   <eClassifiers xsi:type="ecore:EClass" name="HyTimedImplementations" eSuperTypes="../../eu.hyvar.evolution/model/Evolution.ecore#//HyTemporalElement">
     <eStructuralFeatures xsi:type="ecore:EReference" name="signature" lowerBound="1"
         eType="#//HySPLSignature"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="links" upperBound="-1"
+    <eStructuralFeatures xsi:type="ecore:EReference" name="associations" upperBound="-1"
         eType="#//HyTimedImplementationLink" containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="HyTimedImplementationLink" eSuperTypes="../../eu.hyvar.evolution/model/Evolution.ecore#//HyTemporalElement">
