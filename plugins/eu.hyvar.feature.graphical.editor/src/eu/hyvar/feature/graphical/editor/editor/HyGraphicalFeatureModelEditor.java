@@ -35,7 +35,6 @@ import org.eclipse.swt.SWT;
 import org.eclipse.ui.IEditorDescriptor;
 import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.IEditorReference;
-import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.PartInitException;
@@ -276,19 +275,19 @@ public class HyGraphicalFeatureModelEditor extends DwGraphicalFeatureModelViewer
 		return area;
 	}	
 
-	protected void openEditorForFileExtension(String fileExtension){
-		IWorkbench workbench = PlatformUI.getWorkbench();
-		IWorkbenchWindow workbenchWindow = workbench.getActiveWorkbenchWindow();
-		IWorkbenchPage workbenchPage = workbenchWindow.getActivePage();
+	protected IPath getPathFromEditorRelatedFile(){
+		return ((IPath)getFile().getFullPath().clone());
+	}
+	protected IPath getPathToEditorRelatedFileWithFileExtension(String fileExtension){
+		return getPathFromEditorRelatedFile().removeFileExtension().addFileExtension(fileExtension);
+	}
+	
+	protected void createFileWithFileExtension(String fileExtension){
 		IWorkspace workspace = ResourcesPlugin.getWorkspace();
 		IWorkspaceRoot workspaceRoot = workspace.getRoot();
-
-		IPath path = ((IPath)getFile().getFullPath().clone()).removeFileExtension().addFileExtension(fileExtension);
-
-		IFile file = workspaceRoot.getFile(path);
-
-		relatedEditorFiles.add(path);
-
+		
+		IFile file = workspaceRoot.getFile(getPathToEditorRelatedFileWithFileExtension(fileExtension));
+		
 		if(!file.exists()){
 			InputStream source = new ByteArrayInputStream("".getBytes());
 			try {
@@ -296,7 +295,16 @@ public class HyGraphicalFeatureModelEditor extends DwGraphicalFeatureModelViewer
 			} catch (CoreException e) {
 				e.printStackTrace();
 			}
-		}
+		}		
+	}
+	
+	protected void openEditorForFileExtension(String fileExtension){
+		IWorkspaceRoot workspaceRoot = ResourcesPlugin.getWorkspace().getRoot();
+
+		IPath path = getPathToEditorRelatedFileWithFileExtension(fileExtension);
+
+		createFileWithFileExtension(fileExtension);
+		relatedEditorFiles.add(path);
 
 
 		// only open editor if a file exist with the same name as the feature model in same directory
@@ -312,6 +320,7 @@ public class HyGraphicalFeatureModelEditor extends DwGraphicalFeatureModelViewer
 			}
 
 			try {
+				IWorkbenchPage workbenchPage = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage();
 				IEditorPart editor = workbenchPage.openEditor(new FileEditorInput(constraintFile), desc.getId());
 
 				MPart constraintEditorPart = editor.getSite().getService(MPart.class);

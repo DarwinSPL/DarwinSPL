@@ -372,6 +372,8 @@ public class DwGraphicalFeatureModelViewer extends DwGraphicalViewerWithZoomSupp
 	@Override
 	public void handleEvent(Event event) {
 		if(event.widget.equals(scale)) {
+			
+			currentSelectedDate = modelWrapped.getDates().get(scale.getSelection());
 			setCurrentSelectedDate(currentSelectedDate);
 		}
 	}

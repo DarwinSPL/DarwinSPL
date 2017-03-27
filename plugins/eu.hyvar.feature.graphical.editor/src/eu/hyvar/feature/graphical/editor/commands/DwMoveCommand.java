@@ -1,18 +1,19 @@
-package eu.hyvar.feature.graphical.editor.commands.feature;
+package eu.hyvar.feature.graphical.editor.commands;
 
 import java.util.Date;
 
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.gef.commands.Command;
 
+import eu.hyvar.feature.graphical.base.model.DwEvolutionaryPositionElement;
 import eu.hyvar.feature.graphical.base.model.DwTemporalPosition;
-import eu.hyvar.feature.graphical.base.model.HyFeatureWrapped;
 
-public class HyFeatureChangeConstraintCommand extends Command{
-	private DwTemporalPosition oldPosition;
-	private Point newPointPosition;
-	private HyFeatureWrapped model;
-	private Date date;
+public class DwMoveCommand extends Command {
+	protected DwEvolutionaryPositionElement model;
+	
+	protected DwTemporalPosition oldPosition;
+	protected Point newPosition;
+	protected Date date;
 	
 	@Override 
 	public void execute(){
@@ -29,14 +30,14 @@ public class HyFeatureChangeConstraintCommand extends Command{
 		if(oldPosition == null)
 			oldPosition = model.getPosition(date);
 		
-		model.addPosition(newPointPosition, date, true);
+		model.addPosition(newPosition, date, true);
 	}
 
 	public void setPosition(Point position) {
-		this.newPointPosition = position;
+		this.newPosition = position;
 	}
 
-	public void setModel(HyFeatureWrapped model) {
+	public void setModel(DwEvolutionaryPositionElement model) {
 		this.model = model;
 	}
 
@@ -47,4 +48,5 @@ public class HyFeatureChangeConstraintCommand extends Command{
 	public void setDate(Date date) {
 		this.date = date;
 	}
+	
 }

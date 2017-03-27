@@ -93,16 +93,14 @@ public class HyGroupFigure extends DwFeatureViewerReferencedFigure{
 
 			Point leftLineEndPoint = firstFeature.getPosition(date).getPosition().getCopy();
 			leftLineEndPoint.x+=firstFeature.getSize(date).width / 2;
-			//leftLineEndPoint.y+=theme.getFeatureVariationTypeExtent()-4;
 
 			Point rightLineEndPoint = lastFeature.getPosition(date).getPosition().getCopy();
 			rightLineEndPoint.x+=lastFeature.getSize(date).width / 2;
-			//rightLineEndPoint.y+=theme.getFeatureVariationTypeExtent();
 
 			Point intersectionPointOfLeftLineAndCircle = scaleLineEndPoint(originPoint, leftLineEndPoint, theme.getGroupSymbolRadius());
 
 
-			int circleX = originPoint.x - theme.getGroupSymbolRadius() +1;
+			int circleX = originPoint.x - theme.getGroupSymbolRadius() + 1;
 			int circleY = originPoint.y - theme.getGroupSymbolRadius();
 
 			int circleWidth = 2 * theme.getGroupSymbolRadius();

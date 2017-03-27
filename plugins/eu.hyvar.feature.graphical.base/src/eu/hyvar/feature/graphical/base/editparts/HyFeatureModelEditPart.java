@@ -18,6 +18,7 @@ import org.eclipse.swt.events.ControlEvent;
 import org.eclipse.swt.events.ControlListener;
 
 import eu.hyvar.feature.graphical.base.editor.DwGraphicalFeatureModelViewer;
+import eu.hyvar.feature.graphical.base.model.DwEnumContainerWrapped;
 import eu.hyvar.feature.graphical.base.model.HyFeatureModelWrapped;
 
 public class HyFeatureModelEditPart extends AbstractGraphicalEditPart implements PropertyChangeListener, ControlListener{
@@ -31,7 +32,6 @@ public class HyFeatureModelEditPart extends AbstractGraphicalEditPart implements
 	@Override
 	protected IFigure createFigure() {
 		ScalableFreeformLayeredPane layer = new ScalableFreeformLayeredPane();
-	    //FreeformLayer layer = new FreeformLayer();
 	    layer.setLayoutManager(new FreeformLayout());
 	    layer.setBorder(new LineBorder(1));
 	    layer.addLayoutListener(LayoutAnimator.getDefault());
@@ -53,10 +53,11 @@ public class HyFeatureModelEditPart extends AbstractGraphicalEditPart implements
 		
 		List<Object> objects = new ArrayList<Object>();
 		
-		objects.addAll(model.getModel().getEnums());
-		
 		objects.addAll(model.getFeatures(editor.getCurrentSelectedDate()));
 		objects.addAll(model.getGroups(editor.getCurrentSelectedDate()));
+		
+		//objects.addAll(model.getModel().getEnums());
+		objects.add(new DwEnumContainerWrapped(null));
 		return objects;
 	}
 
@@ -88,25 +89,21 @@ public class HyFeatureModelEditPart extends AbstractGraphicalEditPart implements
 	}
 
 	@Override
-	public void controlResized(ControlEvent e) {	
+	public void controlResized(ControlEvent e) {
 		refresh();
 	}
 	 
 	
 	@Override
 	public void refresh() {
-		//HyFeatureModelEvolutionWrapped model = (HyFeatureModelEvolutionWrapped) getModel();
-		
-		
-		//super.refresh();
-		
+			
 		for(Object child : this.getChildren()){
 			if(child instanceof HyParentChildConnectionEditPart)
 				((EditPart)child).refresh();
 			if(child instanceof HyFeatureEditPart){
 				((EditPart)child).refresh();
 			}
-			if(child instanceof HyEnumEditPart){
+			if(child instanceof DwEnumContainerEditPart){
 				((EditPart)child).refresh();
 			}
 		}

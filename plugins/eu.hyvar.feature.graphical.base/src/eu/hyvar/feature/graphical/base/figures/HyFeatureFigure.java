@@ -9,6 +9,7 @@ import org.eclipse.draw2d.AbstractConnectionAnchor;
 import org.eclipse.draw2d.ConnectionAnchor;
 import org.eclipse.draw2d.Graphics;
 import org.eclipse.draw2d.Label;
+import org.eclipse.draw2d.XYLayout;
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Insets;
 import org.eclipse.draw2d.geometry.Point;
@@ -41,7 +42,9 @@ public class HyFeatureFigure extends DwLabelFigure{
 	public HyFeatureFigure(DwGraphicalFeatureModelViewer editor, HyFeatureWrapped feature) {
 		super(editor);
 		
-		this.feature = feature;
+		this.feature = feature;		
+		
+		this.setLayoutManager(new XYLayout());
 
 		createChildFigures();
 		
@@ -75,7 +78,11 @@ public class HyFeatureFigure extends DwLabelFigure{
 		add(label);	
 	}
 	
-
+	@Override
+	protected boolean useLocalCoordinates(){
+		return true;
+	}
+	
 
 	protected void paintNameAreaBackground(Graphics graphics) {
 		Date date = editor.getCurrentSelectedDate();
@@ -91,18 +98,21 @@ public class HyFeatureFigure extends DwLabelFigure{
 		
 	}
 
-	public void updateLabelSize(){
+	public void resizeLabel(){
 		DEGraphicalEditorTheme theme = DEGraphicalEditor.getTheme();
-		Rectangle nameAreaBounds = feature.calculateNameAreaBounds(editor.getCurrentSelectedDate());
+		Date date = editor.getCurrentSelectedDate();
+		//Label size
+		Rectangle nameAreaBounds = feature.calculateNameAreaBounds(date);
 		Dimension preferredLabelSize = label.getPreferredSize();
 		
 		int labelWidth = nameAreaBounds.width;
 		int labelHeight = preferredLabelSize.height;
 		int labelX = 0;
-		int labelY = theme.getFeatureVariationTypeExtent() + (theme.getFeatureNameAreaHeight() - labelHeight) / 2+theme.getLineWidth();
-
+		int labelY = feature.calculateVariationTypeCircleBounds(date).height + (theme.getFeatureNameAreaHeight() - labelHeight) / 2;
+		
 		Rectangle labelBounds = new Rectangle(labelX, labelY, labelWidth, labelHeight);
 		label.setBounds(labelBounds);
+		setConstraint(label, labelBounds);
 	}
 	
 
@@ -170,14 +180,6 @@ public class HyFeatureFigure extends DwLabelFigure{
 				 new Dimension(feature.getSize(date).width-theme.getLineWidth()*2, height));
 	}
 
-
-
-	
-	@Override
-	protected boolean useLocalCoordinates(){
-		return true;
-	}
-	
 	protected void paintVariationTypeCircle(Graphics graphics) {
 		Date date = editor.getCurrentSelectedDate();
 		
@@ -201,25 +203,13 @@ public class HyFeatureFigure extends DwLabelFigure{
 	
 	private void resizeToContent() {
 		Date date = editor.getCurrentSelectedDate();
-		DEGraphicalEditorTheme theme = DEGraphicalEditor.getTheme();
 		
 		int width = HyGeometryUtil.calculateFeatureWidth(feature.getWrappedModelElement(), date);
 		int height = HyGeometryUtil.calculateFeatureHeight(feature.getWrappedModelElement(), date);
 		
 		setSize(width, height);
 		
-		//Label size
-		Rectangle nameAreaBounds = feature.calculateNameAreaBounds(date);
-		Dimension preferredLabelSize = label.getPreferredSize();
-		
-		int labelWidth = nameAreaBounds.width;
-		int labelHeight = preferredLabelSize.height;
-		int labelX = 0;
-		int labelY = feature.calculateVariationTypeCircleBounds(date).height + (theme.getFeatureNameAreaHeight() - labelHeight) / 2;
-		
-		Rectangle labelBounds = new Rectangle(labelX, labelY, labelWidth, labelHeight);
-		label.setBounds(labelBounds);
-		setConstraint(label, labelBounds);
+		resizeLabel();
 	}
 	
 	private void updateContent(){
@@ -259,6 +249,7 @@ public class HyFeatureFigure extends DwLabelFigure{
 		}		
 		
 		paintNameAreaBackground(graphics);
+
 	}
 	
 	protected void paintConnection(Graphics graphics, HyVersion superseded) {

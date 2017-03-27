@@ -179,6 +179,10 @@ public class HyFeatureModelWrapped implements PropertyChangeListener {
 		
 		Collections.sort(dates);
 		
+		for(Date d : dates){
+			System.out.println(d);
+		}
+		
 		
 		changes.firePropertyChange(PROPERTY_DATES_COUNT, old, dates.size());
 		

@@ -11,6 +11,7 @@ import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.Notifier;
 
 import eu.hyvar.dataValues.HyEnumLiteral;
+import eu.hyvar.evolution.HyEvolutionUtil;
 import eu.hyvar.feature.graphical.base.editor.DwGraphicalFeatureModelViewer;
 import eu.hyvar.feature.graphical.base.figures.HyEnumLiteralFigure;
 import eu.hyvar.feature.graphical.base.model.HyFeatureModelWrapped;
@@ -78,26 +79,29 @@ public class HyEnumLiteralEditPart  extends HyAbstractEditPart{
 	public void refresh(){
 		refreshVisuals();
 	}
+	
+	public void refreshVisibility(){
+		HyEnumLiteral literal = (HyEnumLiteral)getModel();
+		
+		if(HyEvolutionUtil.isValid(literal, featureModel.getSelectedDate())){
+			figure.setVisible(true);			
+		}else{			
+			figure.setVisible(false);			
+		}		
+	}
 
 	@Override
 	public void refreshVisuals() {
 		HyEnumEditPart parent = (HyEnumEditPart)getParent();
-		HyEnumLiteral literal = (HyEnumLiteral)getModel();
-		IFigure parentFigure = parent.getFigure();
 
 		DEGraphicalEditorTheme theme = DEGraphicalEditor.getTheme();
-		if(literal.getEnum() == null) return;
-		int index = literal.getEnum().getLiterals().indexOf(literal);
-
-
-		Rectangle layout = new Rectangle(new Point(1, theme.getFeatureNameAreaHeight()*(index + 1)), 
-				new Dimension(parentFigure.getSize().width, theme.getFeatureNameAreaHeight()));
-		parent.setLayoutConstraint(this, figure, layout);	
-
-
+		Dimension size = new Dimension(0, figure.isVisible() ? theme.getFeatureNameAreaHeight() : 0);
+		
 		HyEnumLiteralFigure figure = (HyEnumLiteralFigure)getFigure();
+		figure.setSize(size.width, size.height);
 		figure.setText(((HyEnumLiteral)getModel()).getName());
-		figure.setBounds(layout);
-		figure.update();
+		
+		Rectangle layout = new Rectangle(new Point(0, 0), size);
+		parent.setLayoutConstraint(this, figure, layout);	
 	}
 }
