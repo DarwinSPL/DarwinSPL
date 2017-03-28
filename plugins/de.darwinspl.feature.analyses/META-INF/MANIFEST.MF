@@ -1,0 +1,12 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: DarwinSPL FeatureModel Analyses
+Bundle-SymbolicName: de.darwinspl.feature.analyses
+Bundle-Version: 1.0.0
+Bundle-RequiredExecutionEnvironment: JavaSE-1.7
+Require-Bundle: org.deltaecore.feature.analysis,
+ eu.hyvar.feature,
+ eu.hyvar.feature.expression,
+ eu.hyvar.feature.constraint,
+ eu.hyvar.feature.exporter.hfm_exporter
+Export-Package: de.darwinspl.feature.analyses
