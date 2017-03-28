@@ -14,6 +14,7 @@ import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.Notifier;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.gef.ConnectionEditPart;
+import org.eclipse.gef.EditPartViewer;
 import org.eclipse.gef.NodeEditPart;
 import org.eclipse.gef.Request;
 
@@ -250,5 +251,17 @@ public class HyFeatureEditPart extends HyAbstractEditPart implements NodeEditPar
 				edit.refreshVisuals();
 			}
 		}		
+	}
+	
+	
+	@Override
+	protected void unregisterVisuals() {
+		EditPartViewer v = getViewer();
+		IFigure f = getFigure();
+		
+		if(v == null || f== null){
+			System.out.println("");
+		}
+		v.getVisualPartMap().remove(f);
 	}
 }

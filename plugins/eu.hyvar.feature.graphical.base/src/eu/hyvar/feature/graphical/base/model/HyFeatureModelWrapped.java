@@ -458,7 +458,7 @@ public class HyFeatureModelWrapped implements PropertyChangeListener {
 
 		
 		
-		if(date.equals(new Date(Long.MIN_VALUE))){
+		if(date == null || date.equals(new Date(Long.MIN_VALUE))){
 			features.remove(feature);
 			
 			model.getFeatures().remove(feature.getWrappedModelElement());

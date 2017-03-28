@@ -1,6 +1,8 @@
 package eu.hyvar.feature.graphical.editor.commands.feature;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.gef.commands.Command;
@@ -23,6 +25,8 @@ public class HyFeatureChangeTypeCommand extends Command{
 	HyFeatureType oldType;
 	HyFeatureType changedType;
 	
+	List<HyFeatureType> oldTypes;
+	
 	public HyFeatureChangeTypeCommand(HyFeature feature, HyFeatureTypeEnum newFeatureTypeEnum, DwGraphicalFeatureModelViewer editor){
 		this.feature = feature;
 		this.newGroupTypeEnum = newFeatureTypeEnum;
@@ -36,17 +40,25 @@ public class HyFeatureChangeTypeCommand extends Command{
 	
 	@Override
 	public void undo() {	
+		feature.getTypes().clear();
+		feature.getTypes().addAll(oldTypes);
+	}
+	
+	private List<HyFeatureType> backupTypes(){
+		List<HyFeatureType> types = new ArrayList<HyFeatureType>();
+		
 		for(HyFeatureType type : feature.getTypes()){
-			if(EcoreUtil.equals(type, newType)){
-				changedType.setValidUntil(oldType.getValidUntil());
-			}
+			types.add(EcoreUtil.copy(type));
 		}
 		
-		feature.getTypes().remove(newType);	
+		return types;
 	}
 
 	@Override
 	public void redo() {
+		oldTypes = backupTypes();
+		
+		
 		Date date = editor.getCurrentSelectedDate();
 		if(date.equals(new Date(Long.MIN_VALUE)))
 			date = null;

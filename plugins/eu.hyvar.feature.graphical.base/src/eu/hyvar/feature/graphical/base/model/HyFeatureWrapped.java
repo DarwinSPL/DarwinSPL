@@ -279,6 +279,7 @@ public class HyFeatureWrapped extends HyEditorChangeableElement{
 		else
 			return featureModel.findWrappedGroup(composition.getCompositionOf());
 
+		
 		//if(composition.getCompositionOf().isAnd(date)){
 		//	return featureModel.findWrappedGroup(composition.getCompositionOf());
 		//}

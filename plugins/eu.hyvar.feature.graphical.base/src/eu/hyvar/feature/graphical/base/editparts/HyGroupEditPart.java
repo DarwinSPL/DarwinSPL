@@ -1,6 +1,7 @@
 package eu.hyvar.feature.graphical.base.editparts;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 import org.deltaecore.feature.graphical.base.editor.DEGraphicalEditor;
 import org.deltaecore.feature.graphical.base.util.DEGraphicalEditorTheme;
@@ -9,7 +10,9 @@ import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
 
+import eu.hyvar.evolution.HyEvolutionUtil;
 import eu.hyvar.feature.HyFeature;
+import eu.hyvar.feature.HyFeatureChild;
 import eu.hyvar.feature.graphical.base.editor.DwGraphicalFeatureModelViewer;
 import eu.hyvar.feature.graphical.base.figures.HyGroupFigure;
 import eu.hyvar.feature.graphical.base.model.HyFeatureModelWrapped;
@@ -84,10 +87,10 @@ public class HyGroupEditPart extends HyAbstractEditPart{
 	}
 
 	private void refreshVisibillity(){
-		//HyGroupWrapped model = (HyGroupWrapped)getModel();
-		//Date date = featureModel.getSelectedDate();
+		HyGroupWrapped model = (HyGroupWrapped)getModel();
+		Date date = featureModel.getSelectedDate();
 
-		/*
+		
 		// check if group as at a valid parent feature and show/hide the group accordingly
 		boolean isVisible = HyEvolutionUtil.isValid(model.getWrappedModelElement(), date);
 		boolean hasValidParentFeature = false;
@@ -97,8 +100,8 @@ public class HyGroupEditPart extends HyAbstractEditPart{
 					hasValidParentFeature = true;		
 			}
 		}
-*/
 
-		//figure.setVisible(isVisible && hasValidParentFeature);
+
+		figure.setVisible(isVisible && hasValidParentFeature);
 	}
 }

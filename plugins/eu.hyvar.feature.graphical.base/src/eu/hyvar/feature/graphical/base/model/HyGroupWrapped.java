@@ -124,7 +124,6 @@ public class HyGroupWrapped extends HyEditorChangeableElement {
 	public HyGroupWrapped clone(){
 		HyGroupWrapped deepCopy = new HyGroupWrapped(EcoreUtil.copy(this.getWrappedModelElement()));
 		deepCopy.setFeatures(getFeatures());
-		//deepCopy.setParentFeature(parentFeature);
 
 		return deepCopy;
 	}

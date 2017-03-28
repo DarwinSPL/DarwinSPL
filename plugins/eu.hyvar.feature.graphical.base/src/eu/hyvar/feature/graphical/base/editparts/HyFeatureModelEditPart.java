@@ -11,6 +11,7 @@ import org.eclipse.draw2d.LayoutAnimator;
 import org.eclipse.draw2d.LineBorder;
 import org.eclipse.draw2d.ScalableFreeformLayeredPane;
 import org.eclipse.gef.EditPart;
+import org.eclipse.gef.EditPartViewer;
 import org.eclipse.gef.EditPolicy;
 import org.eclipse.gef.editparts.AbstractGraphicalEditPart;
 import org.eclipse.gef.editpolicies.RootComponentEditPolicy;
@@ -109,4 +110,14 @@ public class HyFeatureModelEditPart extends AbstractGraphicalEditPart implements
 		}
 	}
 	
+	@Override
+	protected void unregisterVisuals() {
+		EditPartViewer v = getViewer();
+		IFigure f = getFigure();
+		
+		if(v == null || f== null){
+			System.out.println("");
+		}
+		v.getVisualPartMap().remove(f);
+	}
 }
