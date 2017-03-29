@@ -253,4 +253,6 @@ public class HyConfigurationChecker {
 	public Map<EObject, String> getErrorMessages() {
 		return errorMessages;
 	}
+	
+
 }

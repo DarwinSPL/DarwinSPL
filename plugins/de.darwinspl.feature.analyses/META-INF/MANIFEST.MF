@@ -8,5 +8,6 @@ Require-Bundle: org.deltaecore.feature.analysis,
  eu.hyvar.feature,
  eu.hyvar.feature.expression,
  eu.hyvar.feature.constraint,
+ eu.hyvar.feature.configuration,
  eu.hyvar.feature.exporter.hfm_exporter
 Export-Package: de.darwinspl.feature.analyses

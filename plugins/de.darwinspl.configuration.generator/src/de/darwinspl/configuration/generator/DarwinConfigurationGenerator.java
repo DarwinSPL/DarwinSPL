@@ -1,15 +1,21 @@
 package de.darwinspl.configuration.generator;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Random;
 
+import de.darwinspl.feature.analyses.DwSatisfiabilityChecker;
 import eu.hyvar.feature.HyFeature;
 import eu.hyvar.feature.HyFeatureModel;
-import eu.hyvar.feature.HyGroup;
 import eu.hyvar.feature.configuration.HyConfiguration;
+import eu.hyvar.feature.configuration.HyConfigurationElement;
 import eu.hyvar.feature.configuration.HyConfigurationFactory;
 import eu.hyvar.feature.configuration.HyFeatureSelected;
+import eu.hyvar.feature.configuration.HyFeatureSelection;
+import eu.hyvar.feature.configuration.util.HyConfigurationCompleter;
+import eu.hyvar.feature.configuration.util.HyConfigurationUtil;
+import eu.hyvar.feature.configuration.util.HyConfigurationWellFormednessException;
 import eu.hyvar.feature.constraint.HyConstraintModel;
 import eu.hyvar.feature.util.HyFeatureEvolutionUtil;
 
@@ -31,76 +37,98 @@ public class DarwinConfigurationGenerator {
 		HyConfiguration configuration = factory.createHyConfiguration();
 		configuration.setFeatureModel(featureModel);
 		
+		
+		
 		HyFeature rootFeature = HyFeatureEvolutionUtil.getRootFeature(featureModel, date);
-		addFeatureSelectionAndProcessSubtree(rootFeature, configuration, date);
+		HyConfigurationUtil.selectFeature(rootFeature, configuration, date);
+		
+		List<HyFeature> possibleFeatures = new ArrayList<HyFeature>(HyFeatureEvolutionUtil.getFeatures(featureModel, date).size());
+		possibleFeatures.addAll(HyFeatureEvolutionUtil.getFeatures(featureModel, date));
+		possibleFeatures.remove(rootFeature);
+		
+		try {
+			configuration = HyConfigurationCompleter.completeConfiguration(configuration, date);
+		} catch (HyConfigurationWellFormednessException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		
+		removeFeaturesOfPossibleSelections(possibleFeatures, configuration);
+		
+		DwSatisfiabilityChecker satChecker = new DwSatisfiabilityChecker();
+		
+		
+		// TODO dead end possible?
+		while(possibleFeatures.size()>0) {
+			HyFeatureSelection selection = null;
+			
+			// select random feature
+			int index = rand.nextInt(possibleFeatures.size());		
+			HyFeature feature = possibleFeatures.get(index);
+			
+			// randomly decide about selection / deselection
+			int selected = rand.nextInt(2);
+			
+			boolean deselected = false;
+			
+			if(selected == 0) {
+				// not selected
+				deselected = true;
+				selection = HyConfigurationUtil.deselectFeature(feature, configuration, date);
+			} else {			
+				// selected
+				selection = HyConfigurationUtil.selectFeature(feature, configuration, date);
+			}
+			
+			boolean wasSat = true;
+			
+			if(!satChecker.isSatisfiable(configuration, constraintModel, date)) {
+				wasSat = false;
+				configuration.getElements().remove(selection);
+				
+				if(deselected) {
+					wasSat = true;
+					deselected = false;
+					
+					selection = factory.createHyFeatureSelected();
+					
+					selection.setSelectedFeature(feature);
+					
+					configuration.getElements().add(selection);
+				} else {
+					deselected = true;
+					
+					selection = factory.createHyFeatureDeselected();
+					
+					selection.setSelectedFeature(feature);
+					
+					configuration.getElements().add(selection);
+				}
+			}
+			
+			if(wasSat && selection instanceof HyFeatureSelected) {
+				try {
+					configuration = HyConfigurationCompleter.completeConfiguration(configuration, date);
+				} catch (HyConfigurationWellFormednessException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+			
+			// remove all newly selected / deselected features from set of possible configurations
+			removeFeaturesOfPossibleSelections(possibleFeatures, configuration);
+//			possibleFeatures.remove(index);
+		}
+		
 		
 		return configuration;
 	}
 	
-	
-	protected void processSubTree(HyFeature parent, HyConfiguration configuration, Date date) {
-		for(HyGroup group: HyFeatureEvolutionUtil.getChildsOfFeature(parent, date)) {
-			List<HyFeature> featureList = HyFeatureEvolutionUtil.getFeaturesOfGroup(group, date);
-			if(featureList.size()<=0) {
-				continue;
-			}
-			
-			switch(HyFeatureEvolutionUtil.getType(group, date).getType()) {
-			case ALTERNATIVE:
-				processAlternativeGroup(featureList, configuration, date);
-				break;
-			case AND:
-				processAndGroup(featureList, configuration, date);
-				break;
-			case OR:
-				processOrGroup(featureList, configuration, date);
-				break;				
+	protected void removeFeaturesOfPossibleSelections(List<HyFeature> possibleFeature, HyConfiguration configuration) {
+		for(HyConfigurationElement configEle: configuration.getElements()) {
+			if(configEle instanceof HyFeatureSelection) {
+				possibleFeature.remove(((HyFeatureSelection)configEle).getSelectedFeature());
 			}
 		}
-	}
-	
-	protected void processAlternativeGroup(List<HyFeature> featuresOfGroup, HyConfiguration configuration, Date date) {
-		int index = rand.nextInt(featuresOfGroup.size());
-		
-		addFeatureSelectionAndProcessSubtree(featuresOfGroup.get(index), configuration, date);
-	}
-	
-	protected void processOrGroup(List<HyFeature> featuresOfGroup,HyConfiguration configuration, Date date) {
-		int selectedFeatures = 0;
-		
-		while(selectedFeatures == 0) {
-			for(HyFeature feature: featuresOfGroup) {
-				if(rand.nextBoolean()) {
-					selectedFeatures++;
-					addFeatureSelectionAndProcessSubtree(feature, configuration, date);
-				}
-			}
-		}
-	}
-	
-	protected void processAndGroup(List<HyFeature> featuresOfGroup,HyConfiguration configuration, Date date) {
-		for(HyFeature feature: featuresOfGroup) {
-			switch (HyFeatureEvolutionUtil.getType(feature, date).getType()) {
-			case MANDATORY:
-				addFeatureSelectionAndProcessSubtree(feature, configuration, date);
-				break;
-			case OPTIONAL:
-				if(rand.nextBoolean()) {
-					addFeatureSelectionAndProcessSubtree(feature, configuration, date);
-				}
-				break;			
-			}
-		}
-	}
-	
-	protected void addFeatureSelectionAndProcessSubtree(HyFeature feature, HyConfiguration configuration, Date date) {
-		HyFeatureSelected featureSelected = factory.createHyFeatureSelected();
-		
-		// TODO sensible valid until?!
-		featureSelected.setValidSince(date);
-		featureSelected.setSelectedFeature(feature);
-		configuration.getElements().add(featureSelected);
-		
-		processSubTree(feature, configuration, date);
 	}
 }
