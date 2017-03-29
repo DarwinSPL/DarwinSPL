@@ -45,14 +45,15 @@ public class DarwinConfigurationGenerator {
 		possibleFeatures.addAll(HyFeatureEvolutionUtil.getFeatures(featureModel, date));
 		possibleFeatures.remove(rootFeature);
 		
-		try {
-			configuration = HyConfigurationCompleter.completeConfiguration(configuration, date);
-		} catch (HyConfigurationWellFormednessException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
+//		try {
+//			configuration = HyConfigurationCompleter.completeConfiguration(configuration, date);
+//		} catch (HyConfigurationWellFormednessException e1) {
+//			// TODO Auto-generated catch block
+//			e1.printStackTrace();
+//		}
 		
-		removeFeaturesOfPossibleSelections(possibleFeatures, configuration);
+		possibleFeatures.remove(rootFeature);
+//		removeFeaturesOfPossibleSelections(possibleFeatures, configuration);
 		
 		DwSatisfiabilityChecker satChecker = new DwSatisfiabilityChecker();
 		
@@ -79,14 +80,14 @@ public class DarwinConfigurationGenerator {
 				selection = HyConfigurationUtil.selectFeature(feature, configuration, date);
 			}
 			
-			boolean wasSat = true;
+//			boolean wasSat = true;
 			
 			if(!satChecker.isSatisfiable(configuration, constraintModel, date)) {
-				wasSat = false;
+//				wasSat = false;
 				configuration.getElements().remove(selection);
 				
 				if(deselected) {
-					wasSat = true;
+//					wasSat = true;
 					deselected = false;
 					
 					selection = factory.createHyFeatureSelected();
@@ -105,18 +106,18 @@ public class DarwinConfigurationGenerator {
 				}
 			}
 			
-			if(wasSat && selection instanceof HyFeatureSelected) {
-				try {
-					configuration = HyConfigurationCompleter.completeConfiguration(configuration, date);
-				} catch (HyConfigurationWellFormednessException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-			}
+//			if(wasSat && selection instanceof HyFeatureSelected) {
+//				try {
+//					configuration = HyConfigurationCompleter.completeConfiguration(configuration, date);
+//				} catch (HyConfigurationWellFormednessException e) {
+//					// TODO Auto-generated catch block
+//					e.printStackTrace();
+//				}
+//			}
 			
 			// remove all newly selected / deselected features from set of possible configurations
-			removeFeaturesOfPossibleSelections(possibleFeatures, configuration);
-//			possibleFeatures.remove(index);
+//			removeFeaturesOfPossibleSelections(possibleFeatures, configuration);
+			possibleFeatures.remove(index);
 		}
 		
 		
