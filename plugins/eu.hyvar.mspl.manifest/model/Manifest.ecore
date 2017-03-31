@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ecore:EPackage xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="manifest" nsURI="http://hyvar-project.eu/mspl/manifest/1.0"
+    nsPrefix="manifest">
+  <eClassifiers xsi:type="ecore:EClass" name="HyManifest" abstract="true" eSuperTypes="../../eu.hyvar.evolution/model/Evolution.ecore#//HyNamedElement"/>
+  <eClassifiers xsi:type="ecore:EClass" name="HySPLImplementation" eSuperTypes="#//HyManifest">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="dependencies" upperBound="-1"
+        eType="#//HyTimedDependencies" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="implementations" upperBound="-1"
+        eType="#//HyTimedImplementations" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="HySPLSignature" eSuperTypes="#//HyManifest"/>
+  <eClassifiers xsi:type="ecore:EClass" name="HyTimedDependencies" eSuperTypes="../../eu.hyvar.evolution/model/Evolution.ecore#//HyTemporalElement">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="signature" lowerBound="1"
+        eType="#//HySPLSignature"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="HyTimedImplementations" eSuperTypes="../../eu.hyvar.evolution/model/Evolution.ecore#//HyTemporalElement">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="signature" lowerBound="1"
+        eType="#//HySPLSignature"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="associations" upperBound="-1"
+        eType="#//HyTimedImplementationLink" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="HyTimedImplementationLink" eSuperTypes="../../eu.hyvar.evolution/model/Evolution.ecore#//HyTemporalElement">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="local" lowerBound="1" eType="ecore:EClass ../../eu.hyvar.feature/model/Feature.ecore#//HyFeature"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="signature" lowerBound="1"
+        eType="ecore:EClass ../../eu.hyvar.feature/model/Feature.ecore#//HyFeature"/>
+  </eClassifiers>
+</ecore:EPackage>
