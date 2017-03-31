@@ -1,4 +1,4 @@
-SYNTAXDEF hymanifest_text
+SYNTAXDEF hymanifest
 FOR <http://hyvar-project.eu/mspl/manifest/1.0> <Manifest.genmodel>
 START HySPLImplementation, HySPLSignature
 
@@ -28,7 +28,7 @@ TOKENSTYLES  {
 
 RULES {
 	// syntax definition for class 'HySPLImplementation'
-	HySPLImplementation ::= "Implementation"  names ("," names)*  ("(" dependencies ("," dependencies)* ")")? (":" implementations ("," implementations)* )?  ;
+	HySPLImplementation ::= "Implementation "  names ("," names)*  ("(" dependencies ("," dependencies)* ")")? (":" implementations ("," implementations)* )?  ;
 	HyTimedDependencies ::= signature['<','>'] ("@[" validSince[DATE] "-" validUntil[DATE] "]")? ;
 	HyTimedImplementations ::= signature['<','>'] ("@[" validSince[DATE] "-" validUntil[DATE] "]")? "{" (associations ("," associations)*)? "}";
 	
@@ -36,7 +36,7 @@ RULES {
 	HyTimedImplementationLink ::= (local['"','"'] | local[]) "->" (signature['"','"'] | signature[]) ("@[" validSince[DATE] "-" validUntil[DATE] "]")?;
 
 	// syntax definition for class 'HySPLSignature'
-	HySPLSignature ::= "Signature"  names ("," names)* ;
+	HySPLSignature ::= "Signature "  names ("," names)* ;
 
 	@SuppressWarnings(featureWithoutSyntax) 
 	HyName ::= name[IDENTIFIER_TOKEN] ("@[" validSince[DATE] "-" validUntil[DATE] "]")? ;
