@@ -5,9 +5,9 @@
   <eClassifiers xsi:type="ecore:EClass" name="HyManifest" abstract="true" eSuperTypes="../../eu.hyvar.evolution/model/Evolution.ecore#//HyNamedElement"/>
   <eClassifiers xsi:type="ecore:EClass" name="HySPLImplementation" eSuperTypes="#//HyManifest">
     <eStructuralFeatures xsi:type="ecore:EReference" name="dependencies" upperBound="-1"
-        eType="#//HyTimedDependencies"/>
+        eType="#//HyTimedDependencies" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="implementations" upperBound="-1"
-        eType="#//HyTimedImplementations"/>
+        eType="#//HyTimedImplementations" containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="HySPLSignature" eSuperTypes="#//HyManifest"/>
   <eClassifiers xsi:type="ecore:EClass" name="HyTimedDependencies" eSuperTypes="../../eu.hyvar.evolution/model/Evolution.ecore#//HyTemporalElement">
