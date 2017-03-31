@@ -11,11 +11,8 @@ import eu.hyvar.feature.HyFeatureModel;
 import eu.hyvar.feature.configuration.HyConfiguration;
 import eu.hyvar.feature.configuration.HyConfigurationElement;
 import eu.hyvar.feature.configuration.HyConfigurationFactory;
-import eu.hyvar.feature.configuration.HyFeatureSelected;
 import eu.hyvar.feature.configuration.HyFeatureSelection;
-import eu.hyvar.feature.configuration.util.HyConfigurationCompleter;
 import eu.hyvar.feature.configuration.util.HyConfigurationUtil;
-import eu.hyvar.feature.configuration.util.HyConfigurationWellFormednessException;
 import eu.hyvar.feature.constraint.HyConstraintModel;
 import eu.hyvar.feature.util.HyFeatureEvolutionUtil;
 
