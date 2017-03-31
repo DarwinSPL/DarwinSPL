@@ -2,6 +2,7 @@ package eu.hyvar.feature.graphical.configurator.editor;
 
 import java.io.IOException;
 import java.util.Collections;
+import java.util.Date;
 import java.util.Map;
 import java.util.Map.Entry;
 
@@ -17,6 +18,7 @@ import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.ecore.util.EContentAdapter;
 import org.eclipse.gef.GraphicalViewer;
+import org.eclipse.jdt.internal.compiler.ast.ExplicitConstructorCall;
 import org.eclipse.jface.dialogs.Dialog;
 import org.eclipse.jface.window.Window;
 import org.eclipse.swt.SWT;
@@ -28,6 +30,7 @@ import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.IEditorDescriptor;
 import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.IEditorSite;
@@ -71,7 +74,7 @@ import eu.hyvar.feature.graphical.configurator.viewer.HyFeatureModelConfigurator
 public class HyFeatureModelConfiguratorEditor extends HyFeatureModelConfiguratorViewer {
 	private Button validateContextButton;
 	
-	private Button validateFmButton;
+	private Button explainButton;
 	
 	private Button numberOfPossibleConfigurationsButton;
 	private Button simulateButton;
@@ -191,9 +194,9 @@ public class HyFeatureModelConfiguratorEditor extends HyFeatureModelConfigurator
 		validateContextButton.setText("Validate Feature Model and Contexts");
 		validateContextButton.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, false));
 
-		validateFmButton = new Button(configurationPanel, SWT.PUSH);
-		validateFmButton.setText("Explain Anomaly for Context");
-		validateFmButton.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, false));
+		explainButton = new Button(configurationPanel, SWT.PUSH);
+		explainButton.setText("Explain Anomaly for Context");
+		explainButton.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, false));
 		
 		simulateButton = new Button(configurationPanel, SWT.PUSH);
 		simulateButton.setText("Simulate Reconfiguration");
@@ -242,7 +245,7 @@ public class HyFeatureModelConfiguratorEditor extends HyFeatureModelConfigurator
 		});
 
 		validateContextButton.addSelectionListener(buttonListener);
-		validateFmButton.addSelectionListener(buttonListener);
+		explainButton.addSelectionListener(buttonListener);
 
 		simulateButton.addSelectionListener(buttonListener);
 
@@ -338,10 +341,13 @@ public class HyFeatureModelConfiguratorEditor extends HyFeatureModelConfigurator
 	}
 	
 	protected class ButtonListener extends SelectionAdapter {
+		
 		@Override
 		public void widgetSelected(SelectionEvent e) {
 			HyContextModel contextModel = null;
 			HyContextValueModel contextValueModel = null;
+			
+	
 			
 			if(modelFileExists(HyContextInformationUtil.getContextModelFileExtensionForConcreteSyntax())){
 				contextModel = loadContextInformationModel();
@@ -351,23 +357,45 @@ public class HyFeatureModelConfiguratorEditor extends HyFeatureModelConfigurator
 					contextModel = HyContextInformationFactory.eINSTANCE.createHyContextModel();
 				}
 				
-				if(contextModel != null && e.getSource() == simulateButton){
+				if(contextModel != null && (e.getSource() == simulateButton || e.getSource() == explainButton)){
 					HyContextInformationDialog dialog = new HyContextInformationDialog(getEditorSite().getShell(), contextModel, getDate());
 					if(dialog.open() == Window.CANCEL){
 						return;
 					} 
 					else {
-						contextValueModel = createContextValueModel(dialog);
+						contextValueModel =  createContextValueModel(dialog);
 					}
 				}
 			}
 			else {
-				// TODO inform user that no context model exists
 				return;
 			}
+			
+//			if(modelFileExists(HyContextInformationUtil.getContextModelFileExtensionForConcreteSyntax())){
+//				contextModel = loadContextInformationModel();
+//
+//				// only show the dialog if context information are available
+//				if(contextModel == null) {
+//					contextModel = HyContextInformationFactory.eINSTANCE.createHyContextModel();
+//				}
+//				
+//				if(contextModel != null && e.getSource() == simulateButton){
+//					HyContextInformationDialog dialog = new HyContextInformationDialog(getEditorSite().getShell(), contextModel, getDate());
+//					if(dialog.open() == Window.CANCEL){
+//						return;
+//					} 
+//					else {
+//						contextValueModel = createContextValueModel(dialog);
+//					}
+//				}
+//			}
+//			else {
+//				// TODO inform user that no context model exists
+//				return;
+//			}
 
 			if(contextValueModel == null) {
-				contextValueModel = ContextValueFactory.eINSTANCE.createHyContextValueModel();
+				contextValueModel = ContextValueFactory.eINSTANCE.createHyContextValueModel();;
 			}
 			
 			HyValidityModel validityModel = null;
@@ -433,7 +461,7 @@ public class HyFeatureModelConfiguratorEditor extends HyFeatureModelConfigurator
 					openConfigurationViewer(name);
 				}
 			}
-			else if(e.getSource() == validateFmButton) {
+			else if(e.getSource() == explainButton) {
 				client.validateFeatureModel(uri, contextModel, validityModel, modelWrapped.getModel(), constraintModel, selectedConfiguration, null, contextValueModel, modelWrapped.getSelectedDate());
 			}
 		}
