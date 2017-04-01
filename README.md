@@ -20,5 +20,8 @@ In eu.hyvar.feature.graphical.configurator.editor and eu.hyvar.reconfigurator.in
 See the Wiki for more detailed information:
 https://github.com/HyVar/DarwinSPL/wiki
 
+Publications:
+http://dl.acm.org/citation.cfm?id=3023962
+
 Demo video:
 https://www.youtube.com/watch?v=qE-ep0FoguI
