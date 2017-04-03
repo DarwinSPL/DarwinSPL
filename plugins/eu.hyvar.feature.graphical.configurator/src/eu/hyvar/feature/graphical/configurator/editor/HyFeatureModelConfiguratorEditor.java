@@ -76,7 +76,7 @@ public class HyFeatureModelConfiguratorEditor extends HyFeatureModelConfigurator
 	
 	private Button explainButton;
 	
-	private Button numberOfPossibleConfigurationsButton;
+//	private Button numberOfPossibleConfigurationsButton;
 	private Button simulateButton;
 	private HySelectedConfigurationComposite selectedConfigurationComposite;
 
@@ -191,11 +191,11 @@ public class HyFeatureModelConfiguratorEditor extends HyFeatureModelConfigurator
 
 		
 		validateContextButton = new Button(configurationPanel, SWT.PUSH);
-		validateContextButton.setText("Validate Feature Model and Contexts");
+		validateContextButton.setText("Detect Anomalies");
 		validateContextButton.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, false));
 
 		explainButton = new Button(configurationPanel, SWT.PUSH);
-		explainButton.setText("Explain Anomaly for Context");
+		explainButton.setText("Explain Anomalies");
 		explainButton.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, false));
 		
 		simulateButton = new Button(configurationPanel, SWT.PUSH);
@@ -203,10 +203,10 @@ public class HyFeatureModelConfiguratorEditor extends HyFeatureModelConfigurator
 		simulateButton.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, false));
 
 
-		numberOfPossibleConfigurationsButton = new Button(configurationPanel, SWT.PUSH);
-		numberOfPossibleConfigurationsButton.setText("Number of Possible Configurations");
-		numberOfPossibleConfigurationsButton.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, false));
-		numberOfPossibleConfigurationsButton.setEnabled(false);
+//		numberOfPossibleConfigurationsButton = new Button(configurationPanel, SWT.PUSH);
+//		numberOfPossibleConfigurationsButton.setText("Number of Possible Configurations");
+//		numberOfPossibleConfigurationsButton.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, false));
+//		numberOfPossibleConfigurationsButton.setEnabled(false);
 
 
 		selectedConfigurationComposite = new HySelectedConfigurationComposite(configurationPanel);
@@ -249,12 +249,12 @@ public class HyFeatureModelConfiguratorEditor extends HyFeatureModelConfigurator
 
 		simulateButton.addSelectionListener(buttonListener);
 
-		numberOfPossibleConfigurationsButton.addSelectionListener(new SelectionAdapter() {
-			@Override
-			public void widgetSelected(SelectionEvent e) {
-				//calculateNumberOfPossibleConfigurations();
-			}
-		});
+//		numberOfPossibleConfigurationsButton.addSelectionListener(new SelectionAdapter() {
+//			@Override
+//			public void widgetSelected(SelectionEvent e) {
+//				//calculateNumberOfPossibleConfigurations();
+//			}
+//		});
 
 		selectedConfigurationComposite.getCompleteButton().addSelectionListener(new SelectionAdapter() {
 			@Override
