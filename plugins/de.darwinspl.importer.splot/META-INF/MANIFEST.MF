@@ -1,0 +1,16 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: DarwinSPL Splot Importer
+Bundle-SymbolicName: de.darwinspl.importer.splot;singleton:=true
+Bundle-Version: 1.0.0
+Bundle-Vendor: www.darwinspl.de
+Bundle-RequiredExecutionEnvironment: JavaSE-1.7
+Bundle-ClassPath: .
+Require-Bundle: eu.hyvar.feature,
+ eu.hyvar.feature.constraint,
+ de.darwinspl.importer,
+ org.eclipse.core.resources,
+ org.eclipse.core.runtime,
+ org.deltaecore.integration.ie.feature.splot,
+ de.darwinspl.importer.deltaecore
+Export-Package: de.darwinspl.importer.splot

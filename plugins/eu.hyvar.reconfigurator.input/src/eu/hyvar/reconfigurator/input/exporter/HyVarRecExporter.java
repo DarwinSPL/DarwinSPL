@@ -58,6 +58,10 @@ import eu.hyvar.feature.util.HyFeatureModelWellFormednessException;
 import eu.hyvar.feature.util.HyFeatureUtil;
 import eu.hyvar.preferences.HyPreference;
 import eu.hyvar.preferences.HyPreferenceModel;
+import eu.hyvar.reconfigurator.input.format.Attribute;
+import eu.hyvar.reconfigurator.input.format.AttributeValue;
+import eu.hyvar.reconfigurator.input.format.Configuration;
+import eu.hyvar.reconfigurator.input.format.Context;
 import eu.hyvar.reconfigurator.input.format.InputForHyVarRec;
 
 public class HyVarRecExporter {
@@ -131,6 +135,24 @@ public class HyVarRecExporter {
 		// String>();
 		// expressionExporter = null;
 	}
+	
+	private static void initializeEmptyHyVarRecInput(InputForHyVarRec input) {
+		if(input == null) {
+			return;
+		}
+		
+		input.setAttributes(new ArrayList<Attribute>());
+		
+		Configuration emptyConfig = new Configuration();
+		emptyConfig.setAttributeValues(new ArrayList<AttributeValue>());
+		input.setConfiguration(emptyConfig);
+		
+		input.setConstraints(new ArrayList<String>());
+		
+		input.setContexts(new ArrayList<Context>());
+		
+		input.setPreferences(new ArrayList<String>());
+	}
 
 	public String exportContextMappingModel(HyContextModel contextModel, HyValidityModel contextValidityModel,
 			HyFeatureModel featureModel, HyConstraintModel constraintModel, HyConfiguration oldConfiguration,
@@ -155,6 +177,7 @@ public class HyVarRecExporter {
 				FeatureSelectionRepresentationOption.ONEZERO, VersionRepresentation.AS_ONEZERO_FEATURES, true, true);
 
 		InputForHyVarRec input = new InputForHyVarRec();
+		initializeEmptyHyVarRecInput(input);
 
 		// gson = new Gson();
 		gson = new GsonBuilder().disableHtmlEscaping().create();

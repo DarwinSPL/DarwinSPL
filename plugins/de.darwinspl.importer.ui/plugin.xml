@@ -13,6 +13,103 @@
             id="de.darwinspl.importer.ui.featureidewizard"
             name="Import FeatureIDE Feature Model">
       </wizard>
+      <wizard
+            category="de.darwinspl.importer.ui.category"
+            class="de.darwinspl.importer.ui.wizards.featureide.SplotFeatureModelImporterWizard"
+            id="de.darwinspl.importer.ui.splotwizard"
+            name="Import SPLOT Feature Model">
+      </wizard>
+   </extension>
+   <extension
+         point="org.eclipse.ui.commands">
+      <command
+            defaultHandler="de.darwinspl.importer.ui.commands.SplotImportCommandHandler"
+            id="de.darwinspl.importer.ui.splot.importSPLOTFeatureModelCommand"
+            name="Import SPLOT Feature Model">
+      </command>
+      <command
+            defaultHandler="de.darwinspl.importer.ui.commands.DeltaEcoreImportCommandHandler"
+            id="de.darwinspl.importer.ui.deltaecore.importDeltaEcoreFeatureModelCommand"
+            name="Import DeltaEcore Feature Model">
+      </command>
+   </extension>
+   <extension
+         point="org.eclipse.core.expressions.definitions">
+      <definition
+            id="de.darwinspl.eclipse.expressions.isSPLOTFeatureModelSelected">
+         <with
+               variable="selection">
+            <iterate
+                  ifEmpty="false"
+                  operator="or">
+               <adapt
+                     type="org.eclipse.core.resources.IResource">
+                  <or>
+                     <test
+                           property="org.eclipse.core.resources.extension"
+                           value="xml">
+                     </test>
+                  </or>
+               </adapt>
+            </iterate>
+         </with>
+      </definition>
+      <definition
+            id="de.darwinspl.eclipse.expressions.isDeltaEcoreFeatureModelSelected">
+         <with
+               variable="selection">
+            <iterate
+                  ifEmpty="false"
+                  operator="or">
+               <adapt
+                     type="org.eclipse.core.resources.IResource">
+                  <or>
+                     <test
+                           property="org.eclipse.core.resources.extension"
+                           value="defeaturemodel">
+                     </test>
+                     <test
+                           property="org.eclipse.core.resources.extension"
+                           value="feature">
+                     </test>
+                  </or>
+               </adapt>
+            </iterate>
+         </with>
+      </definition>
+   </extension>
+   <extension
+         point="org.eclipse.ui.menus">
+      <menuContribution
+            allPopups="false"
+            locationURI="popup:de.darwinspl.eclipse.ui.menu">
+         <menu
+               id="de.darwinspl.eclipse.ui.menu.import"
+               label="Import">
+            <command
+                  commandId="de.darwinspl.importer.ui.splot.importSPLOTFeatureModelCommand"
+                  label="Import SPLOT Feature Model"
+                  style="push">
+               <visibleWhen
+                     checkEnabled="true">
+                  <reference
+                        definitionId="de.darwinspl.eclipse.expressions.isSPLOTFeatureModelSelected">
+                  </reference>
+               </visibleWhen>
+            </command>
+            <command
+                  commandId="de.darwinspl.importer.ui.deltaecore.importDeltaEcoreFeatureModelCommand"
+                  label="Import DeltaEcore Feature Model"
+                  style="push">
+               <visibleWhen
+                     checkEnabled="true">
+                  <reference
+                        definitionId="de.darwinspl.eclipse.expressions.isDeltaEcoreFeatureModelSelected">
+                  </reference>
+               </visibleWhen>
+            </command>
+         </menu>
+      </menuContribution>
    </extension>
 
 </plugin>
