@@ -1,0 +1,10 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: DarwinSPL Feature Model Generator
+Bundle-SymbolicName: de.darwinspl.feature.generator
+Bundle-Version: 1.0.0
+Bundle-RequiredExecutionEnvironment: JavaSE-1.7
+Require-Bundle: eu.hyvar.feature,
+ org.deltaecore.feature.generator,
+ de.darwinspl.importer.deltaecore
+Export-Package: de.darwinspl.feature.generator
