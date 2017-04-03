@@ -13,7 +13,7 @@ import eu.hyvar.feature.HyEnumAttribute;
 import eu.hyvar.feature.HyFeatureAttribute;
 import eu.hyvar.feature.HyFeatureFactory;
 import eu.hyvar.feature.graphical.base.editor.DwGraphicalFeatureModelViewer;
-import eu.hyvar.feature.graphical.editor.dialogs.EnumDialog;
+import eu.hyvar.feature.graphical.editor.dialogs.DwEnumDialog;
 
 public class HyAttributeCreateEnumAction extends HyAttributeCreateAction{
 	public static final String FEATURE_ADD_ENUM_ATTRIBUTE = "AddFeatureEnumAttribute";
@@ -49,7 +49,7 @@ public class HyAttributeCreateEnumAction extends HyAttributeCreateAction{
 			return null;
 		}
 		
-		EnumDialog dialog = new EnumDialog(editor.getSite().getShell(), editor.getModelWrapped().getModel(), null, null);		
+		DwEnumDialog dialog = new DwEnumDialog(editor.getSite().getShell(), editor.getCurrentSelectedDate(), editor.getModelWrapped().getModel(), null, null);		
 		dialog.open();
 		
 		HyEnumLiteral literal = dialog.getValue();
