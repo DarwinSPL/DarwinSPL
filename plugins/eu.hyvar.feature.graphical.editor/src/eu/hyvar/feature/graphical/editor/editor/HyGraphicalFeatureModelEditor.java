@@ -56,6 +56,7 @@ import eu.hyvar.feature.graphical.editor.actions.attribute.HyAttributeRenameActi
 import eu.hyvar.feature.graphical.editor.actions.attribute.HyNumberAttributeSetNumberRangeAction;
 import eu.hyvar.feature.graphical.editor.actions.enumeration.HyFeatureAttributeEnumCreateEnumAction;
 import eu.hyvar.feature.graphical.editor.actions.enumeration.HyFeatureAttributeEnumCreateLiteralAction;
+import eu.hyvar.feature.graphical.editor.actions.feature.DwSetFeatureLinkAction;
 import eu.hyvar.feature.graphical.editor.actions.feature.HyFeatureChangeTypeAction;
 import eu.hyvar.feature.graphical.editor.actions.feature.HyFeatureCreateSiblingAction;
 import eu.hyvar.feature.graphical.editor.actions.feature.HyFeatureEditNamesAction;
@@ -250,6 +251,10 @@ public class HyGraphicalFeatureModelEditor extends HyGraphicalFeatureModelViewer
 		getActionRegistry().registerAction(rangeAttributeAction);
 		getSelectionActions().add(rangeAttributeAction.getId());
 
+		DwSetFeatureLinkAction setFeatureLinkAction = new DwSetFeatureLinkAction(this);
+		getActionRegistry().registerAction(setFeatureLinkAction);
+		getSelectionActions().add(setFeatureLinkAction.getId());
+		
 		createGroupActions();
 		createEnumActions();
 

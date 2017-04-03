@@ -18,6 +18,7 @@ import eu.hyvar.feature.graphical.editor.actions.attribute.HyAttributeRenameActi
 import eu.hyvar.feature.graphical.editor.actions.attribute.HyNumberAttributeSetNumberRangeAction;
 import eu.hyvar.feature.graphical.editor.actions.enumeration.HyFeatureAttributeEnumCreateEnumAction;
 import eu.hyvar.feature.graphical.editor.actions.enumeration.HyFeatureAttributeEnumCreateLiteralAction;
+import eu.hyvar.feature.graphical.editor.actions.feature.DwSetFeatureLinkAction;
 import eu.hyvar.feature.graphical.editor.actions.feature.HyFeatureChangeTypeAction;
 import eu.hyvar.feature.graphical.editor.actions.feature.HyFeatureCreateSiblingAction;
 import eu.hyvar.feature.graphical.editor.actions.feature.HyFeatureEditNamesAction;
@@ -107,6 +108,10 @@ public class HyGraphicalFeatureModelEditorContextMenuProvider extends ContextMen
         
         menu.appendToGroup(GEFActionConstants.GROUP_EDIT, new Separator());
         action = getActionRegistry().getAction(HyLinearTemporalElementChangeValidityAction.FEATURE_CHANGE_VALIDITY);
+        menu.appendToGroup(GEFActionConstants.GROUP_EDIT, action);
+        
+        menu.appendToGroup(GEFActionConstants.GROUP_EDIT, new Separator());
+        action = getActionRegistry().getAction(DwSetFeatureLinkAction.ID);
         menu.appendToGroup(GEFActionConstants.GROUP_EDIT, action);
 	}
 	
