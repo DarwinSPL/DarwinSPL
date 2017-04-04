@@ -34,15 +34,16 @@ public class HyAttributeEditPart extends HyAbstractEditPart{
 	protected void createEditPolicies() {
 	}
 	
-	@Override
-	public void refreshVisuals(){
+	
+	protected Rectangle getFigureConstraint(){
 		DEGraphicalEditorTheme theme = DEGraphicalEditor.getTheme();
 		int lineWidth = theme.getLineWidth();
 		
 		HyFeatureEditPart parent = (HyFeatureEditPart)getParent();
-		HyAttributeFigure figure = (HyAttributeFigure)getFigure();
 		
-		if(parent == null) return;
+		
+		if(parent == null) 
+			return new Rectangle(0, 0, 0, 0);
 		
 		HyFeatureWrapped feature = (HyFeatureWrapped)parent.getModel();
 		Date date = featureModel.getSelectedDate();
@@ -57,13 +58,19 @@ public class HyAttributeEditPart extends HyAbstractEditPart{
 		
 		Rectangle layout = new Rectangle(new Point(0, featurePositionY + index * attributeHeight), new Dimension(feature.getSize(date).width, attributeHeight));
 		layout = layout.shrink(new Insets(0, (int)Math.floor(lineWidth * 2.5), 0, (int)Math.floor(lineWidth * 2.5)));
-		parent.setLayoutConstraint(this, figure, layout);	
 		
+		return layout;
+	}
+	
+	@Override
+	public void refreshVisuals(){
+		super.refreshVisuals();
 		
-
+		HyAttributeFigure figure = (HyAttributeFigure)getFigure();
+		HyFeatureAttribute attribute = (HyFeatureAttribute)getModel();
 		
-
-		figure.setVisible(HyEvolutionUtil.isValid(attribute, date));
+		Date date = featureModel.getSelectedDate();
+		
 		HyName name = HyEvolutionUtil.getValidTemporalElement(attribute.getNames(), date);
 		if(name != null){
 			figure.setName(name.getName());

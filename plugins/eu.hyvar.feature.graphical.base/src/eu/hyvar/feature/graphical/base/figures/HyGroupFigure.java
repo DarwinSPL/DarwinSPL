@@ -184,5 +184,4 @@ public class HyGroupFigure extends DwFeatureViewerReferencedFigure{
 			}
 		}
 	}
-
 }

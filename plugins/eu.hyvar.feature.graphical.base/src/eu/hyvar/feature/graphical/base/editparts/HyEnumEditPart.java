@@ -4,6 +4,7 @@ import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 
 import org.eclipse.draw2d.IFigure;
+import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.emf.common.notify.Adapter;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.Notifier;
@@ -151,6 +152,13 @@ public class HyEnumEditPart extends HyAbstractEditPart{
 		super.addChildVisual(child, -1);
 	}
 
+	/**
+	 * The size of the corresponding figure is automatically set by the layout provided by the parent
+	 * figure. Therefore this function returns a constraint of zero size.
+	 */
+	protected Rectangle getFigureConstraint(){
+		return new Rectangle(0, 0, 0, 0);
+	}
 
 	/**
 	 * Refresh the visual representation of all versions and attributes releated to this feature

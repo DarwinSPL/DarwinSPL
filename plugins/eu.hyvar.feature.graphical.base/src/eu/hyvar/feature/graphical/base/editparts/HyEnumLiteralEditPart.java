@@ -11,12 +11,11 @@ import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.Notifier;
 
 import eu.hyvar.dataValues.HyEnumLiteral;
-import eu.hyvar.evolution.HyEvolutionUtil;
 import eu.hyvar.feature.graphical.base.editor.DwGraphicalFeatureModelViewer;
 import eu.hyvar.feature.graphical.base.figures.HyEnumLiteralFigure;
 import eu.hyvar.feature.graphical.base.model.HyFeatureModelWrapped;
 
-public class HyEnumLiteralEditPart  extends HyAbstractEditPart{
+public class HyEnumLiteralEditPart extends HyAbstractEditPart{
 	public class HyEnumLiteralAdapter implements Adapter {
 
 		// Adapter interface
@@ -80,28 +79,25 @@ public class HyEnumLiteralEditPart  extends HyAbstractEditPart{
 		refreshVisuals();
 	}
 	
-	public void refreshVisibility(){
-		HyEnumLiteral literal = (HyEnumLiteral)getModel();
-		
-		if(HyEvolutionUtil.isValid(literal, featureModel.getSelectedDate())){
-			figure.setVisible(true);			
-		}else{			
-			figure.setVisible(false);			
-		}		
-	}
-
-	@Override
-	public void refreshVisuals() {
-		HyEnumEditPart parent = (HyEnumEditPart)getParent();
-
+	protected Rectangle getFigureConstraint(){
 		DEGraphicalEditorTheme theme = DEGraphicalEditor.getTheme();
 		Dimension size = new Dimension(0, figure.isVisible() ? theme.getFeatureNameAreaHeight() : 0);
 		
+		return new Rectangle(new Point(0, 0), size);
+	}
+	
+	@Override
+	public void refreshVisuals() {
+		super.refreshVisuals();
+		//HyEnumEditPart parent = (HyEnumEditPart)getParent();
+
+		
+		
 		HyEnumLiteralFigure figure = (HyEnumLiteralFigure)getFigure();
-		figure.setSize(size.width, size.height);
+		//figure.setSize(size.width, size.height);
 		figure.setText(((HyEnumLiteral)getModel()).getName());
 		
-		Rectangle layout = new Rectangle(new Point(0, 0), size);
-		parent.setLayoutConstraint(this, figure, layout);	
+		
+		//parent.setLayoutConstraint(this, figure, layout);	
 	}
 }

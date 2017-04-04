@@ -107,8 +107,15 @@ public class DwEnumContainerEditPart extends HyAbstractEditPart{
 		
 		super.removeChild(child);
 	};
+
 	
-	private Rectangle getBounds(){
+	@Override 
+	public void refresh(){
+		this.refreshChildren();
+		refreshVisuals();
+	}
+
+	protected Rectangle getFigureConstraint(){
 		GraphicalEditPart parent = (GraphicalEditPart)getParent();
 		Rectangle parentVisibleBounds = parent.getFigure().getClientArea().getCopy();
 		
@@ -131,25 +138,15 @@ public class DwEnumContainerEditPart extends HyAbstractEditPart{
 		}	
 		
 		return bounds;
-	}
+	}	
 	
-	@Override 
-	public void refresh(){
-		this.refreshChildren();
-		refreshVisuals();
-	}
-
 	@Override
 	public void refreshVisuals(){	
 		GraphicalEditPart parent = (GraphicalEditPart)getParent();
 		if(parent != null){
-			Rectangle bounds = getBounds();
-			
 			int validEnums = HyEvolutionUtil.getValidTemporalElements(featureModel.getModel().getEnums(), featureModel.getSelectedDate()).size();
 			
 			figure.setVisible(validEnums != 0);
-			figure.setBounds(bounds);
-			parent.setLayoutConstraint(this, figure, bounds);
 		}
 	}
 	

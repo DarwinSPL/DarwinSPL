@@ -150,7 +150,7 @@ public class HyFeatureEditPart extends HyAbstractEditPart implements NodeEditPar
 		return feature.isWithoutModifier(date);
 	}
 
-	
+
 	@Override
 	public void refreshVisuals(){
 		refreshChildren();
@@ -163,10 +163,9 @@ public class HyFeatureEditPart extends HyAbstractEditPart implements NodeEditPar
 		HyFeatureWrapped wrappedFeature = (HyFeatureWrapped)this.getModel();
 
 		boolean featureIsCurrentlyValid = wrappedFeature.isValid(date);
-		figure.setVisible(featureIsCurrentlyValid);
 		
 		if(featureIsCurrentlyValid){
-			setSize();
+			//setSize();
 			figure.update();
 		}
 		
@@ -263,5 +262,21 @@ public class HyFeatureEditPart extends HyAbstractEditPart implements NodeEditPar
 			System.out.println("");
 		}
 		v.getVisualPartMap().remove(f);
+	}
+
+	@Override
+	protected Rectangle getFigureConstraint() {
+		HyFeatureWrapped feature = (HyFeatureWrapped)getModel();
+		DwGraphicalFeatureModelViewer editor = (DwGraphicalFeatureModelViewer)this.editor;
+		Date date = editor.getCurrentSelectedDate();
+		
+		int width = HyGeometryUtil.calculateFeatureWidth(feature.getWrappedModelElement(), date);
+		int height = feature.getSize(date).height; 
+		
+		Dimension newFeatureSize = new Dimension(width, height);
+		feature.setSize(newFeatureSize);
+
+		Rectangle layout = new Rectangle(feature.getPosition(date).getPosition(), newFeatureSize);
+		return layout;
 	}
 }

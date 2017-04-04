@@ -9,6 +9,7 @@ import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
+import org.eclipse.gef.editparts.AbstractGraphicalEditPart;
 
 import eu.hyvar.evolution.HyEvolutionUtil;
 import eu.hyvar.feature.HyFeature;
@@ -55,38 +56,31 @@ public class HyGroupEditPart extends HyAbstractEditPart{
 		return new HyGroupFigure(editor, model);
 	}
 
-	@Override 
-	protected void refreshVisuals() {
-		refreshVisibillity();
-		refreshLayoutConstraint();		
-	}
-
 	@Override
 	protected void createEditPolicies() {		
 	}
 
-	private void refreshLayoutConstraint(){
+
+	
+	protected Rectangle getFigureConstraint(){
+		DEGraphicalEditorTheme theme = DEGraphicalEditor.getTheme();
+		
 		HyGroupWrapped model = (HyGroupWrapped)getModel();
 		
 		HyFeatureWrapped feature = featureModel.getParentFeatureForGroup(model, featureModel.getSelectedDate());
-		if(feature == null)
-			return;
 		
-		DEGraphicalEditorTheme theme = DEGraphicalEditor.getTheme();
 
 		Point parentPosition = feature.getPosition(featureModel.getSelectedDate()).getPosition().getCopy();
 		parentPosition.x += feature.getSize(editor.getCurrentSelectedDate()).width() / 2.0 - theme.getGroupSymbolRadius();
 		parentPosition.y += feature.getSize(editor.getCurrentSelectedDate()).height; 
 
 		int size = theme.getLineWidth() * 2 + theme.getGroupSymbolRadius() * 2;
-
-		HyFeatureModelEditPart parent = (HyFeatureModelEditPart)getParent();
 		
-		if(parent != null)
-			parent.setLayoutConstraint(this, figure, new Rectangle(parentPosition, new Dimension(size, size)));
+		return new Rectangle(parentPosition, new Dimension(size, size));
 	}
 
-	private void refreshVisibillity(){
+	@Override
+	protected void refreshVisibility(){
 		HyGroupWrapped model = (HyGroupWrapped)getModel();
 		Date date = featureModel.getSelectedDate();
 
@@ -103,5 +97,8 @@ public class HyGroupEditPart extends HyAbstractEditPart{
 
 
 		figure.setVisible(isVisible && hasValidParentFeature);
+		
+		AbstractGraphicalEditPart parent = (AbstractGraphicalEditPart)getParent();
+		parent.setLayoutConstraint(this, figure, getFigureConstraint());
 	}
 }

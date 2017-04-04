@@ -8,7 +8,6 @@ import org.deltaecore.feature.graphical.base.util.DEGraphicalEditorTheme;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.geometry.Rectangle;
 
-import eu.hyvar.evolution.HyEvolutionUtil;
 import eu.hyvar.feature.HyVersion;
 import eu.hyvar.feature.graphical.base.deltaecore.wrapper.layouter.version.HyVersionLayouterManager;
 import eu.hyvar.feature.graphical.base.deltaecore.wrapper.layouter.version.HyVersionTreeLayouter;
@@ -31,24 +30,17 @@ public class HyVersionEditPart extends HyAbstractEditPart{
 	protected void createEditPolicies() {
 	}
 
-	@Override
-	public void refreshVisuals(){
-		
+	protected Rectangle getFigureConstraint(){
 		DEGraphicalEditorTheme theme = DEGraphicalEditor.getTheme();
 		Date date = ((DwGraphicalFeatureModelViewer)editor).getCurrentSelectedDate();
 
-		HyVersionFigure figure = (HyVersionFigure)getFigure();
 		HyVersion model = (HyVersion)getModel();
-		
-		
-
-		figure.setVisible(HyEvolutionUtil.isValid(model, date));
-		((HyVersionFigure)getFigure()).update();
 
 		int offset = 0;
 		if(this.getSelected() == SELECTED_PRIMARY){
 			offset = theme.getLineWidth();
 		}
+
 
 		HyVersionTreeLayouter versionTreeLayouter = HyVersionLayouterManager.getLayouter(model.getFeature(), date);
 		if(versionTreeLayouter != null){
@@ -57,9 +49,17 @@ public class HyVersionEditPart extends HyAbstractEditPart{
 			bounds.setY(bounds.y - offset);
 			bounds.setWidth(bounds.width+offset*2);
 			bounds.setHeight(bounds.height+offset*2);
-			
-			HyFeatureEditPart parent = (HyFeatureEditPart)getParent();
-			parent.setLayoutConstraint(this, figure, bounds);	
+
+			return bounds;	
 		}
+
+		return new Rectangle(0, 0, 0, 0);
+	}
+	
+	@Override
+	public void refreshVisuals(){
+		super.refreshVisuals();
+
+		((HyVersionFigure)getFigure()).update();
 	}
 }
