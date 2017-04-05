@@ -107,8 +107,10 @@ public class JsonHandlerFMForHyVarRec extends AbstractHandler {
 			e.printStackTrace();
 		}
 
-		IFolder folder = project.getFolder(UUID.randomUUID().toString());
-		if (!folder.exists()) {
+		IFolder folder = null;
+		while(folder == null || folder.exists()) {
+			folder = project.getFolder(UUID.randomUUID().toString());
+			
 			try {
 				folder.create(true, true, progressMonitor);
 			} catch (CoreException e) {
