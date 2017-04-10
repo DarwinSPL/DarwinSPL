@@ -32,18 +32,14 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
 import de.christophseidl.util.ecore.EcoreIOUtil;
-import eu.hyvar.context.HyContextInformationPackage;
 import eu.hyvar.context.HyContextModel;
-import eu.hyvar.context.contextValidity.HyContextValidityPackage;
 import eu.hyvar.context.contextValidity.HyValidityModel;
 import eu.hyvar.context.information.contextValue.ContextValueFactory;
 import eu.hyvar.context.information.contextValue.HyContextValue;
 import eu.hyvar.context.information.contextValue.HyContextValueModel;
 import eu.hyvar.feature.HyFeatureModel;
-import eu.hyvar.feature.HyFeaturePackage;
 import eu.hyvar.feature.configuration.HyConfiguration;
 import eu.hyvar.feature.constraint.HyConstraintModel;
-import eu.hyvar.feature.constraint.HyConstraintPackage;
 import eu.hyvar.reconfigurator.input.exporter.HyVarRecExporter;
 import eu.hyvar.reconfigurator.io.rest.context.ContextToModelMapper;
 import eu.hyvar.reconfigurator.io.rest.input.raw_hyvarrec.RawInputForHyVarRec;
@@ -91,6 +87,17 @@ public class JsonHandlerFMForHyVarRec extends AbstractHandler {
 		} 
 
 	}
+	
+	private static synchronized IFolder createFolder(IProject project) throws CoreException {
+		IFolder folder = null;
+		while (folder == null || folder.exists()) {
+			folder = project.getFolder(UUID.randomUUID().toString());
+			folder.create(true, true, null);
+
+		}
+
+		return folder;
+	}
 
 	private String loadModelsFromFiles(RawInputForHyVarRec rawInput) {
 
@@ -108,13 +115,11 @@ public class JsonHandlerFMForHyVarRec extends AbstractHandler {
 		}
 
 		IFolder folder = null;
-		while(folder == null || folder.exists()) {
-			folder = project.getFolder(UUID.randomUUID().toString());
-			try {
-				folder.create(true, true, progressMonitor);
-			} catch (CoreException e) {
-				e.printStackTrace();
-			}
+		try {
+			folder = createFolder(project);
+		} catch (CoreException e) {
+			e.printStackTrace();
+			return "Error when creating a new folder: "+e.getMessage();
 		}
 
 		IFile fmFile = folder.getFile(rawInput.getFeatureModel().getFilename() + ".hyfeature");
@@ -127,6 +132,7 @@ public class JsonHandlerFMForHyVarRec extends AbstractHandler {
 			}
 		} catch (CoreException e) {
 			e.printStackTrace();
+			return "Error when creating a new fm file: "+e.getMessage();
 		}
 
 		IFile contextFile = folder.getFile(rawInput.getContextModel().getFilename() + ".hycontextmodel");
@@ -140,6 +146,7 @@ public class JsonHandlerFMForHyVarRec extends AbstractHandler {
 			}
 		} catch (CoreException e) {
 			e.printStackTrace();
+			return "Error when creating a new context file: "+e.getMessage();
 		}
 
 		IFile constraintFile = folder.getFile(rawInput.getConstraints().getFilename() + ".hyconstraint");
@@ -153,6 +160,7 @@ public class JsonHandlerFMForHyVarRec extends AbstractHandler {
 			}
 		} catch (CoreException e) {
 			e.printStackTrace();
+			return "Error when creating a new constraint file: "+e.getMessage();
 		}
 
 		IFile configurationFile = folder.getFile(rawInput.getConfiguration().getFilename() + ".hyconfiguration");
@@ -166,6 +174,7 @@ public class JsonHandlerFMForHyVarRec extends AbstractHandler {
 			}
 		} catch (CoreException e) {
 			e.printStackTrace();
+			return "Error when creating a new configuration file: "+e.getMessage();
 		}
 
 		IFile validityFile = folder.getFile(rawInput.getValidityFormulas().getFilename() + ".hyvaliditymodel");
@@ -179,6 +188,7 @@ public class JsonHandlerFMForHyVarRec extends AbstractHandler {
 			}
 		} catch (CoreException e) {
 			e.printStackTrace();
+			return "Error when creating a new validity file: "+e.getMessage();
 		}
 
 		List<IFile> modelFiles = new ArrayList<IFile>();
@@ -196,11 +206,11 @@ public class JsonHandlerFMForHyVarRec extends AbstractHandler {
 		HyConstraintModel constraintModel = null;
 		HyConfiguration configuration = null;
 
-		try {
-			project.close(progressMonitor);
-		} catch (CoreException e) {
-			e.printStackTrace();
-		}
+//		try {
+//			project.close(progressMonitor);
+//		} catch (CoreException e) {
+//			e.printStackTrace();
+//		}
 		
 		for (EObject eobject : models) {
 			if (eobject instanceof HyContextModel) {
@@ -238,81 +248,81 @@ public class JsonHandlerFMForHyVarRec extends AbstractHandler {
 				configuration, null, contextValueModel, new Date());
 	}
 
-	private String loadModelsFromStrings(RawInputForHyVarRec rawInput) throws IOException {
-
-		// Load feature model from input string
-		HyFeatureModel featureModel = null;
-
-		try {
-			featureModel = (HyFeatureModel) EcoreIOUtil.loadModelFromString(
-					rawInput.getFeatureModel().getSpecification(), HyFeaturePackage.eINSTANCE, "hyfeature");
-		} catch (ClassCastException cce) {
-			// TODO proper error handling. Currently optimistic.
-			cce.printStackTrace();
-		}
-
-		System.out.println(featureModel);
-
-		// Load constraint model from input string
-		HyConstraintModel constraintModel = null;
-
-		try {
-			constraintModel = (HyConstraintModel) EcoreIOUtil.loadModelFromString(
-					rawInput.getConstraints().getSpecification(), HyConstraintPackage.eINSTANCE, "hyconstraints",
-					featureModel.eResource().getResourceSet());
-		} catch (ClassCastException cce) {
-			// TODO proper error handling. Currently optimistic.
-			cce.printStackTrace();
-		}
-
-		// Load context model from input string
-		HyContextModel contextModel = null;
-		try {
-			contextModel = (HyContextModel) EcoreIOUtil.loadModelFromString(
-					rawInput.getContextModel().getSpecification(), HyContextInformationPackage.eINSTANCE,
-					"hycontextmodel", featureModel.eResource().getResourceSet());
-		} catch (ClassCastException cce) {
-			// TODO proper error handling. Currently optimistic.
-			cce.printStackTrace();
-		}
-
-		// Load validity formulas from input string
-		HyValidityModel validityModel = null;
-		try {
-			validityModel = (HyValidityModel) EcoreIOUtil.loadModelFromString(
-					rawInput.getValidityFormulas().getSpecification(), HyContextValidityPackage.eINSTANCE,
-					"hyvaliditymodel", featureModel.eResource().getResourceSet());
-		} catch (ClassCastException cce) {
-			// TODO proper error handling. Currently optimistic.
-			cce.printStackTrace();
-		}
-
-		// Load old configuration from input string
-		HyConfiguration configuration = null;
-		try {
-			configuration = (HyConfiguration) EcoreIOUtil.loadModelFromString(
-					rawInput.getConfiguration().getSpecification(), HyContextValidityPackage.eINSTANCE,
-					"hyconfiguration", featureModel.eResource().getResourceSet());
-		} catch (ClassCastException cce) {
-			// TODO proper error handling. Currently optimistic.
-			cce.printStackTrace();
-		}
-
-		// Load context values (how to resolve to the contexts?)
-		HyContextValueModel contextValueModel = ContextValueFactory.eINSTANCE.createHyContextValueModel();
-
-		// TODO Optimistic -> error handling?
-		double latitude = Double.parseDouble(rawInput.getContext().getLat());
-		double longitude = Double.parseDouble(rawInput.getContext().getLng());
-		HyContextValue positionValue = ContextToModelMapper.mapGPSToContextValue(latitude, longitude, contextModel);
-
-		// TODO very optimistic.... catch null sensible like that?
-		if (positionValue != null) {
-			contextValueModel.getValues().add(positionValue);
-		}
-
-		HyVarRecExporter hyvarrecExporter = new HyVarRecExporter();
-		return hyvarrecExporter.exportContextMappingModel(contextModel, validityModel, featureModel, constraintModel,
-				configuration, null, contextValueModel, new Date());
-	}
+//	private String loadModelsFromStrings(RawInputForHyVarRec rawInput) throws IOException {
+//
+//		// Load feature model from input string
+//		HyFeatureModel featureModel = null;
+//
+//		try {
+//			featureModel = (HyFeatureModel) EcoreIOUtil.loadModelFromString(
+//					rawInput.getFeatureModel().getSpecification(), HyFeaturePackage.eINSTANCE, "hyfeature");
+//		} catch (ClassCastException cce) {
+//			// TODO proper error handling. Currently optimistic.
+//			cce.printStackTrace();
+//		}
+//
+//		System.out.println(featureModel);
+//
+//		// Load constraint model from input string
+//		HyConstraintModel constraintModel = null;
+//
+//		try {
+//			constraintModel = (HyConstraintModel) EcoreIOUtil.loadModelFromString(
+//					rawInput.getConstraints().getSpecification(), HyConstraintPackage.eINSTANCE, "hyconstraints",
+//					featureModel.eResource().getResourceSet());
+//		} catch (ClassCastException cce) {
+//			// TODO proper error handling. Currently optimistic.
+//			cce.printStackTrace();
+//		}
+//
+//		// Load context model from input string
+//		HyContextModel contextModel = null;
+//		try {
+//			contextModel = (HyContextModel) EcoreIOUtil.loadModelFromString(
+//					rawInput.getContextModel().getSpecification(), HyContextInformationPackage.eINSTANCE,
+//					"hycontextmodel", featureModel.eResource().getResourceSet());
+//		} catch (ClassCastException cce) {
+//			// TODO proper error handling. Currently optimistic.
+//			cce.printStackTrace();
+//		}
+//
+//		// Load validity formulas from input string
+//		HyValidityModel validityModel = null;
+//		try {
+//			validityModel = (HyValidityModel) EcoreIOUtil.loadModelFromString(
+//					rawInput.getValidityFormulas().getSpecification(), HyContextValidityPackage.eINSTANCE,
+//					"hyvaliditymodel", featureModel.eResource().getResourceSet());
+//		} catch (ClassCastException cce) {
+//			// TODO proper error handling. Currently optimistic.
+//			cce.printStackTrace();
+//		}
+//
+//		// Load old configuration from input string
+//		HyConfiguration configuration = null;
+//		try {
+//			configuration = (HyConfiguration) EcoreIOUtil.loadModelFromString(
+//					rawInput.getConfiguration().getSpecification(), HyContextValidityPackage.eINSTANCE,
+//					"hyconfiguration", featureModel.eResource().getResourceSet());
+//		} catch (ClassCastException cce) {
+//			// TODO proper error handling. Currently optimistic.
+//			cce.printStackTrace();
+//		}
+//
+//		// Load context values (how to resolve to the contexts?)
+//		HyContextValueModel contextValueModel = ContextValueFactory.eINSTANCE.createHyContextValueModel();
+//
+//		// TODO Optimistic -> error handling?
+//		double latitude = Double.parseDouble(rawInput.getContext().getLat());
+//		double longitude = Double.parseDouble(rawInput.getContext().getLng());
+//		HyContextValue positionValue = ContextToModelMapper.mapGPSToContextValue(latitude, longitude, contextModel);
+//
+//		// TODO very optimistic.... catch null sensible like that?
+//		if (positionValue != null) {
+//			contextValueModel.getValues().add(positionValue);
+//		}
+//
+//		HyVarRecExporter hyvarrecExporter = new HyVarRecExporter();
+//		return hyvarrecExporter.exportContextMappingModel(contextModel, validityModel, featureModel, constraintModel,
+//				configuration, null, contextValueModel, new Date());
+//	}
 }
