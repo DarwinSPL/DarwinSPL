@@ -34,5 +34,17 @@
          </property>
       </product>
    </extension>
+   <extension
+         id="fm_for_hyvarrec_rest_server_new"
+         point="org.eclipse.core.runtime.products">
+      <product
+            application="eu.hyvar.reconfigurator.io.rest.server"
+            name="FM for HyVarRec REST Web Service">
+         <property
+               name="appName"
+               value="FM for HyVarRec REST Web Service">
+         </property>
+      </product>
+   </extension>
 
 </plugin>
