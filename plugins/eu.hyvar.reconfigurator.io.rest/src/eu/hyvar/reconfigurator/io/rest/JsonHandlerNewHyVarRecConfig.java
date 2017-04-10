@@ -88,9 +88,9 @@ public class JsonHandlerNewHyVarRecConfig extends AbstractHandler {
 		IFolder folder = null;
 		while (folder == null || folder.exists()) {
 			folder = project.getFolder(UUID.randomUUID().toString());
-			folder.create(true, true, null);
-
 		}
+		
+		folder.create(true, true, null);
 
 		return folder;
 	}
@@ -191,6 +191,14 @@ public class JsonHandlerNewHyVarRecConfig extends AbstractHandler {
 //				e.printStackTrace();
 //			}
 
+			try {
+				folder.delete(true, progressMonitor);
+			} catch (CoreException e) {
+				e.printStackTrace();
+				return "Error when deleting folder: "+e.getMessage();
+			}
+			
+			
 			return gson.toJson(hyConfigJson);
 
 		} catch (CoreException e) {

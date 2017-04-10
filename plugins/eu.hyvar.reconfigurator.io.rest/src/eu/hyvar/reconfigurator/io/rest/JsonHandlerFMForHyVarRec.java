@@ -92,9 +92,9 @@ public class JsonHandlerFMForHyVarRec extends AbstractHandler {
 		IFolder folder = null;
 		while (folder == null || folder.exists()) {
 			folder = project.getFolder(UUID.randomUUID().toString());
-			folder.create(true, true, null);
-
 		}
+		
+		folder.create(true, true, null);
 
 		return folder;
 	}
@@ -244,8 +244,17 @@ public class JsonHandlerFMForHyVarRec extends AbstractHandler {
 
 		
 		HyVarRecExporter hyvarrecExporter = new HyVarRecExporter();
-		return hyvarrecExporter.exportContextMappingModel(contextModel, validityModel, featureModel, constraintModel,
+		String answer = hyvarrecExporter.exportContextMappingModel(contextModel, validityModel, featureModel, constraintModel,
 				configuration, null, contextValueModel, new Date());
+		
+		try {
+			folder.delete(true, progressMonitor);
+		} catch (CoreException e) {
+			e.printStackTrace();
+			return "Error when deleting folder: "+e.getMessage();
+		}
+		
+		return answer;
 	}
 
 //	private String loadModelsFromStrings(RawInputForHyVarRec rawInput) throws IOException {
