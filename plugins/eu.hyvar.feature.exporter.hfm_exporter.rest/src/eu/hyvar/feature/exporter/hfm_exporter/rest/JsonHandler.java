@@ -62,7 +62,7 @@ public class JsonHandler extends AbstractHandler {
 //	private static final String HYVAR_FOLDER = MODELS_FOLDER;
 //	private static final String DELTAECORE_FOLDER = MODELS_FOLDER;
 	
-	private final String FOLDER;
+	private IFolder folder;
 	
 	private static final String MSG_TYPE_JSON_HYVAR_TO_DELTAECORE_INPUT = "hyvar2deltaecore";
 	
@@ -70,14 +70,42 @@ public class JsonHandler extends AbstractHandler {
 	
 	private static final String FILENAME = "spl";
 	
-	public JsonHandler() {
-		FOLDER = UUID.randomUUID().toString();
+	private static synchronized IFolder createFolder(IProject openedProject) throws CoreException {
+		IFolder folder = null;
+		while (folder == null || folder.exists()) {
+			folder = openedProject.getFolder(UUID.randomUUID().toString());
+		}
+		
+		folder.create(true, true, null);
+
+		return folder;
 	}
-	
 	
 	@Override
 	public void handle(String target, Request baseRequest, HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
+		
+		IProgressMonitor progressMonitor = new NullProgressMonitor();
+		IWorkspaceRoot workspaceRoot = ResourcesPlugin.getWorkspace().getRoot();
+		IProject project = workspaceRoot.getProject(PROJECT_NAME);
+
+		try {
+			if (!project.exists()) {
+				project.create(progressMonitor);
+			}
+			if(!project.isOpen()) {
+				project.open(progressMonitor);				
+			}
+			
+		} catch (CoreException e) {
+			e.printStackTrace();
+		}
+		
+		try {
+			folder = createFolder(project);
+		} catch (CoreException e) {
+			e.printStackTrace();
+		}
 		
 		// TODO shared storage instead of strings?
 		
@@ -156,27 +184,27 @@ public class JsonHandler extends AbstractHandler {
 			}
 		}
 		
-		IProgressMonitor progressMonitor = new NullProgressMonitor();
-		IWorkspaceRoot workspaceRoot = ResourcesPlugin.getWorkspace().getRoot();
-		IProject project = workspaceRoot.getProject(PROJECT_NAME);
+//		IProgressMonitor progressMonitor = new NullProgressMonitor();
+//		IWorkspaceRoot workspaceRoot = ResourcesPlugin.getWorkspace().getRoot();
+//		IProject project = workspaceRoot.getProject(PROJECT_NAME);
 		
-		try {
-			if (!project.exists()) {
-				project.create(progressMonitor);
-			}
-			project.open(progressMonitor);
-		} catch (CoreException e) {
-			e.printStackTrace();
-		}
-		
-		IFolder folder = project.getFolder(FOLDER);
-		if (!folder.exists()) {
-			try {
-				folder.create(true, true, progressMonitor);
-			} catch (CoreException e) {
-				e.printStackTrace();
-			}
-		}
+//		try {
+//			if (!project.exists()) {
+//				project.create(progressMonitor);
+//			}
+//			project.open(progressMonitor);
+//		} catch (CoreException e) {
+//			e.printStackTrace();
+//		}
+//		
+//		IFolder folder = project.getFolder(FOLDER);
+//		if (!folder.exists()) {
+//			try {
+//				folder.create(true, true, progressMonitor);
+//			} catch (CoreException e) {
+//				e.printStackTrace();
+//			}
+//		}
 		
 		IFile fmFile = folder.getFile(FILENAME + ".defeature");		
 		EcoreIOUtil.saveModelAs(deFeatureModel, fmFile);
@@ -239,11 +267,6 @@ public class JsonHandler extends AbstractHandler {
 			GsonBuilder builder = new GsonBuilder();
 			Gson gson = builder.create();
 			
-			try {
-				project.close(progressMonitor);
-			} catch (CoreException e) {
-				e.printStackTrace();
-			}
 			
 			return gson.toJson(output);
 			
@@ -310,28 +333,28 @@ public class JsonHandler extends AbstractHandler {
 	 */
 	private List<EObject> getHyVarModels(HyVarInput input) {
 		IProgressMonitor progressMonitor = new NullProgressMonitor();
-		IWorkspaceRoot workspaceRoot = ResourcesPlugin.getWorkspace().getRoot();
-		IProject project = workspaceRoot.getProject(PROJECT_NAME);
-		
-		try {
-			if (!project.exists()) {
-				project.create(progressMonitor);
-			}
-			if(!project.isOpen()) {
-				project.open(progressMonitor);				
-			}
-		} catch (CoreException e) {
-			e.printStackTrace();
-		}
-		
-		IFolder folder = project.getFolder(FOLDER);
-		if (!folder.exists()) {
-			try {
-				folder.create(true, true, progressMonitor);
-			} catch (CoreException e) {
-				e.printStackTrace();
-			}
-		}
+//		IWorkspaceRoot workspaceRoot = ResourcesPlugin.getWorkspace().getRoot();
+//		IProject project = workspaceRoot.getProject(PROJECT_NAME);
+//		
+//		try {
+//			if (!project.exists()) {
+//				project.create(progressMonitor);
+//			}
+//			if(!project.isOpen()) {
+//				project.open(progressMonitor);				
+//			}
+//		} catch (CoreException e) {
+//			e.printStackTrace();
+//		}
+//		
+//		IFolder folder = project.getFolder(FOLDER);
+//		if (!folder.exists()) {
+//			try {
+//				folder.create(true, true, progressMonitor);
+//			} catch (CoreException e) {
+//				e.printStackTrace();
+//			}
+//		}
 		
 		IFile fmFile = folder.getFile(input.getFeatureModel().getFilename() + ".hyfeature");
 		InputStream inputStream = new ByteArrayInputStream(input.getFeatureModel().getSpecification().getBytes());
