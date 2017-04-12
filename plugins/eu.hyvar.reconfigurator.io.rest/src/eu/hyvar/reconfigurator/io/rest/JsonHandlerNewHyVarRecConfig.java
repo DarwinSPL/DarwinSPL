@@ -42,14 +42,15 @@ import eu.hyvar.reconfigurator.output.translation.format.OutputOfHyVarRec;
 public class JsonHandlerNewHyVarRecConfig extends AbstractHandler {
 
 	// TODO much duplicated code - improve!
-	
+
 	public static final String MSG_TYPE_JSON_INPUT = "raw_hyvarrec_input";
 	public static final String MSG_TYPE_JSON_HYVARREC_OUTPUT = "hyvarrec_config_plus_fm";
-	
+
 	public static final String MSG_TYPE_JSON_HYCONFIG_OUTPUT = "hyconfig";
-	
-	private static final String PROJECT_NAME = "fmforhyvarrec";
-//	private static final String HYVARREC_CONFIG_FOLDER_NAME = "hyvarrec_config";
+
+	private static final String PROJECT_NAME = "newhyvarrecconfig";
+	// private static final String HYVARREC_CONFIG_FOLDER_NAME =
+	// "hyvarrec_config";
 
 	@Override
 	public void handle(String target, Request baseRequest, HttpServletRequest request, HttpServletResponse response)
@@ -67,11 +68,11 @@ public class JsonHandlerNewHyVarRecConfig extends AbstractHandler {
 
 		GsonBuilder builder = new GsonBuilder();
 		Gson gson = builder.create();
-		
-		if(msgType.equals(MSG_TYPE_JSON_HYVARREC_OUTPUT)) {
-			
+
+		if (msgType.equals(MSG_TYPE_JSON_HYVARREC_OUTPUT)) {
+
 			OutputOfHyVarRecAndFm hyvarrecConfig = gson.fromJson(jsonInput, OutputOfHyVarRecAndFm.class);
-			
+
 			String outputJson = createConfigJson(hyvarrecConfig);
 
 			response.setContentType("application/json; charset=utf-8");
@@ -83,70 +84,89 @@ public class JsonHandlerNewHyVarRecConfig extends AbstractHandler {
 
 	}
 
-	private String createConfigJson(OutputOfHyVarRecAndFm hyvarrecConfig) {
+	private static synchronized IFolder createFolder(IProject project) throws CoreException {
+		IFolder folder = null;
+		while (folder == null || folder.exists()) {
+			folder = project.getFolder(UUID.randomUUID().toString());
+		}
 		
+		folder.create(true, true, null);
+
+		return folder;
+	}
+
+	private String createConfigJson(OutputOfHyVarRecAndFm hyvarrecConfig) {
+
 		IProgressMonitor progressMonitor = new NullProgressMonitor();
 		IWorkspaceRoot workspaceRoot = ResourcesPlugin.getWorkspace().getRoot();
 		IProject project = workspaceRoot.getProject(PROJECT_NAME);
-		
+
 		try {
 			if (!project.exists()) {
 				project.create(progressMonitor);
 			}
-			if(!project.isOpen()) {
-				project.open(progressMonitor);				
+			if (!project.isOpen()) {
+				project.open(progressMonitor);
 			}
 		} catch (CoreException e) {
 			e.printStackTrace();
 		}
 
-		IFolder folder = project.getFolder(UUID.randomUUID().toString());
-		if (!folder.exists()) {
-			try {
-				folder.create(true, true, progressMonitor);
-			} catch (CoreException e) {
-				e.printStackTrace();
-			}
-		}
-		
-		IFile fmFile = folder.getFile(hyvarrecConfig.getFeatureModel().getFilename() + ".hyfeature");
-		InputStream inputStream = new ByteArrayInputStream(hyvarrecConfig.getFeatureModel().getSpecification().getBytes());
+		IFolder folder = null;
 		try {
-			if(!fmFile.exists()) {
-				fmFile.create(inputStream, true, progressMonitor);				
+			folder = createFolder(project);
+		} catch (CoreException e) {
+			e.printStackTrace();
+			return "Error when creating a new folder: "+e.getMessage();
+		}
+		// while(folder == null || folder.exists()) {
+		// folder = project.getFolder(UUID.randomUUID().toString());
+		// try {
+		// folder.create(true, true, progressMonitor);
+		// } catch (CoreException e) {
+		// e.printStackTrace();
+		// }
+		// }
+
+		IFile fmFile = folder.getFile(hyvarrecConfig.getFeatureModel().getFilename() + ".hyfeature");
+		InputStream inputStream = new ByteArrayInputStream(
+				hyvarrecConfig.getFeatureModel().getSpecification().getBytes());
+		try {
+			if (!fmFile.exists()) {
+				fmFile.create(inputStream, true, progressMonitor);
 			} else {
-				 fmFile.setContents(inputStream, IFile.FORCE, progressMonitor);				
+				fmFile.setContents(inputStream, IFile.FORCE, progressMonitor);
 			}
 		} catch (CoreException e) {
 			e.printStackTrace();
+			return "Error when creating a new fm file: "+e.getMessage();
 		}
-		
-		
-		
+
 		HyFeatureModel featureModel = EcoreIOUtil.loadModel(fmFile);
-		
+
 		OutputOfHyVarRec hyVarRecOutput = new OutputOfHyVarRec();
 		hyVarRecOutput.setFeatures(hyvarrecConfig.getFeatures());
-		
+
 		List<eu.hyvar.reconfigurator.output.translation.format.Attribute> newAttributeValues = new ArrayList<eu.hyvar.reconfigurator.output.translation.format.Attribute>();
-		
-		if(hyvarrecConfig.getAttributes() != null) {
-			for(eu.hyvar.reconfigurator.io.rest.input.hyvarrec_config_and_fm.Attribute attributeValue : hyvarrecConfig.getAttributes()) {
+
+		if (hyvarrecConfig.getAttributes() != null) {
+			for (eu.hyvar.reconfigurator.io.rest.input.hyvarrec_config_and_fm.Attribute attributeValue : hyvarrecConfig
+					.getAttributes()) {
 				eu.hyvar.reconfigurator.output.translation.format.Attribute newAttributeValue = new eu.hyvar.reconfigurator.output.translation.format.Attribute();
 				newAttributeValue.setId(attributeValue.getId());
 				newAttributeValue.setValue(attributeValue.getValue());
 				newAttributeValues.add(newAttributeValue);
-			}			
+			}
 		}
-		
+
 		hyVarRecOutput.setAttributes(newAttributeValues);
-			
+
 		HyConfiguration configuration = HyVarRecOutputTranslator.translateConfiguration(featureModel, hyVarRecOutput);
-		
+
 		IFile configFile = folder.getFile(hyvarrecConfig.getFeatureModel().getFilename() + ".hyconfiguration");
-		
+
 		EcoreIOUtil.saveModelAs(configuration, configFile);
-		
+
 		try {
 			Scanner scanner;
 			scanner = new Scanner(configFile.getContents(), "UTF-8");
@@ -154,38 +174,46 @@ public class JsonHandlerNewHyVarRecConfig extends AbstractHandler {
 			String configString = scanner.next();
 			System.out.println(configString);
 			scanner.close();
-			
+
 			HyConfigurationJson hyConfigJson = new HyConfigurationJson();
 			hyConfigJson.setMsgType(MSG_TYPE_JSON_HYCONFIG_OUTPUT);
 			Configuration config = new Configuration();
 			config.setSpecification(configString);
 			config.setFilename(hyvarrecConfig.getFeatureModel().getFilename());
 			hyConfigJson.setConfiguration(config);
-			
+
 			GsonBuilder builder = new GsonBuilder();
 			Gson gson = builder.create();
-			
+
+//			try {
+//				project.close(progressMonitor);
+//			} catch (CoreException e) {
+//				e.printStackTrace();
+//			}
+
 			try {
-				project.close(progressMonitor);
+				folder.delete(true, progressMonitor);
 			} catch (CoreException e) {
 				e.printStackTrace();
+				return "Error when deleting folder: "+e.getMessage();
 			}
 			
-			return gson.toJson(hyConfigJson);
 			
-		} catch (CoreException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		try {
-			project.close(progressMonitor);
+			return gson.toJson(hyConfigJson);
+
 		} catch (CoreException e) {
 			e.printStackTrace();
+			return "Error when creating a new config file: "+e.getMessage();
 		}
-		
+
+//		try {
+//			project.close(progressMonitor);
+//		} catch (CoreException e) {
+//			e.printStackTrace();
+//		}
+
 		// TODO
-		return "";
+//		return "";
 	}
-	
+
 }
