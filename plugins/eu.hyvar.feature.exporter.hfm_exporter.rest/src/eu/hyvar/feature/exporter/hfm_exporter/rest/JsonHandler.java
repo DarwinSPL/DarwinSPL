@@ -162,6 +162,12 @@ public class JsonHandler extends AbstractHandler {
 			baseRequest.setHandled(true);
 		}
 		
+		try {
+			folder.delete(true, progressMonitor);
+		} catch (CoreException e) {
+			e.printStackTrace();
+		}
+		
 	}
 	
 	/**

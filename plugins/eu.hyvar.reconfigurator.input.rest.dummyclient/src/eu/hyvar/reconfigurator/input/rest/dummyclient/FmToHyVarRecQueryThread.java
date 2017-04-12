@@ -150,7 +150,7 @@ public class FmToHyVarRecQueryThread extends Thread {
 			}
 
 			uri = URI.create("http://localhost:8080/fm_for_hyvarrec");
-//			uri = URI.create("http://hyvarfmtohyvarrec-env.eu-west-1.elasticbeanstalk.com/fm_for_hyvarrec");
+//			uri = URI.create("http://hyvarfmtohyvarrec-env.eu-west-1.elasticbeanstalk.com/fm_for_hyvarrec/");
 
 			
 			json = "";
