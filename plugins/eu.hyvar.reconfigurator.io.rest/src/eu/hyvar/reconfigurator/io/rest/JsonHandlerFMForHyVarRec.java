@@ -34,12 +34,17 @@ import com.google.gson.JsonParser;
 import de.christophseidl.util.ecore.EcoreIOUtil;
 import eu.hyvar.context.HyContextModel;
 import eu.hyvar.context.contextValidity.HyValidityModel;
+import eu.hyvar.context.contextValidity.util.HyValidityModelUtil;
 import eu.hyvar.context.information.contextValue.ContextValueFactory;
 import eu.hyvar.context.information.contextValue.HyContextValue;
 import eu.hyvar.context.information.contextValue.HyContextValueModel;
+import eu.hyvar.context.information.util.HyContextInformationUtil;
 import eu.hyvar.feature.HyFeatureModel;
 import eu.hyvar.feature.configuration.HyConfiguration;
+import eu.hyvar.feature.configuration.util.HyConfigurationUtil;
 import eu.hyvar.feature.constraint.HyConstraintModel;
+import eu.hyvar.feature.constraint.util.HyConstraintUtil;
+import eu.hyvar.feature.util.HyFeatureUtil;
 import eu.hyvar.reconfigurator.input.exporter.HyVarRecExporter;
 import eu.hyvar.reconfigurator.io.rest.context.ContextToModelMapper;
 import eu.hyvar.reconfigurator.io.rest.input.raw_hyvarrec.RawInputForHyVarRec;
@@ -122,7 +127,7 @@ public class JsonHandlerFMForHyVarRec extends AbstractHandler {
 			return "Error when creating a new folder: "+e.getMessage();
 		}
 
-		IFile fmFile = folder.getFile(rawInput.getFeatureModel().getFilename() + ".hyfeature");
+		IFile fmFile = folder.getFile(rawInput.getFeatureModel().getFilename() + "." + HyFeatureUtil.getFeatureModelFileExtensionForXmi());
 		InputStream inputStream = new ByteArrayInputStream(rawInput.getFeatureModel().getSpecification().getBytes());
 		try {
 			if(!fmFile.exists()) {
@@ -135,7 +140,7 @@ public class JsonHandlerFMForHyVarRec extends AbstractHandler {
 			return "Error when creating a new fm file: "+e.getMessage();
 		}
 
-		IFile contextFile = folder.getFile(rawInput.getContextModel().getFilename() + ".hycontextmodel");
+		IFile contextFile = folder.getFile(rawInput.getContextModel().getFilename() + "." + HyContextInformationUtil.getContextModelFileExtensionForXmi());
 		inputStream = new ByteArrayInputStream(rawInput.getContextModel().getSpecification().getBytes());
 		try {
 			if(!contextFile.exists()) {
@@ -149,7 +154,7 @@ public class JsonHandlerFMForHyVarRec extends AbstractHandler {
 			return "Error when creating a new context file: "+e.getMessage();
 		}
 
-		IFile constraintFile = folder.getFile(rawInput.getConstraints().getFilename() + ".hyconstraint");
+		IFile constraintFile = folder.getFile(rawInput.getConstraints().getFilename() + "." + HyConstraintUtil.getConstraintModelFileExtensionForXmi());
 		inputStream = new ByteArrayInputStream(rawInput.getConstraints().getSpecification().getBytes());
 		try {
 			if(!constraintFile.exists()) {
@@ -163,7 +168,7 @@ public class JsonHandlerFMForHyVarRec extends AbstractHandler {
 			return "Error when creating a new constraint file: "+e.getMessage();
 		}
 
-		IFile configurationFile = folder.getFile(rawInput.getConfiguration().getFilename() + ".hyconfiguration");
+		IFile configurationFile = folder.getFile(rawInput.getConfiguration().getFilename() + "." + HyConfigurationUtil.getConfigurationModelFileExtensionForXmi());
 		inputStream = new ByteArrayInputStream(rawInput.getConfiguration().getSpecification().getBytes());
 		try {
 			if(!configurationFile.exists()) {
@@ -177,7 +182,7 @@ public class JsonHandlerFMForHyVarRec extends AbstractHandler {
 			return "Error when creating a new configuration file: "+e.getMessage();
 		}
 
-		IFile validityFile = folder.getFile(rawInput.getValidityFormulas().getFilename() + ".hyvaliditymodel");
+		IFile validityFile = folder.getFile(rawInput.getValidityFormulas().getFilename() + "." + HyValidityModelUtil.getValidityModelFileExtensionForXmi());
 		inputStream = new ByteArrayInputStream(rawInput.getValidityFormulas().getSpecification().getBytes());
 		try {
 			if(!validityFile.exists()) {
