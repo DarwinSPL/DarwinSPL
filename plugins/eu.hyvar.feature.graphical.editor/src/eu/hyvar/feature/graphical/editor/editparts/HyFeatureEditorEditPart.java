@@ -1,6 +1,5 @@
 package eu.hyvar.feature.graphical.editor.editparts;
 
-import java.beans.PropertyChangeEvent;
 import java.util.Date;
 
 import org.eclipse.draw2d.Label;
@@ -39,12 +38,6 @@ public class HyFeatureEditorEditPart extends HyFeatureEditPart{
 		installEditPolicy(EditPolicy.GRAPHICAL_NODE_ROLE, new HyFeatureGraphicalNodeEditPolicy(editor, featureModel));
 		installEditPolicy(EditPolicy.DIRECT_EDIT_ROLE, new HyFeatureDirectEditPolicy());
 		installEditPolicy(EditPolicy.LAYOUT_ROLE, new HyFeatureXYLayoutPolicy());
-	}
-	
-	@Override
-	public void propertyChange(PropertyChangeEvent evt) {
-		this.setSize();
-		this.refreshVisuals();
 	}
 	
 	/**

@@ -11,7 +11,6 @@ import org.eclipse.draw2d.LayoutAnimator;
 import org.eclipse.draw2d.LineBorder;
 import org.eclipse.draw2d.ScalableFreeformLayeredPane;
 import org.eclipse.gef.EditPart;
-import org.eclipse.gef.EditPartViewer;
 import org.eclipse.gef.EditPolicy;
 import org.eclipse.gef.editparts.AbstractGraphicalEditPart;
 import org.eclipse.gef.editpolicies.RootComponentEditPolicy;
@@ -44,8 +43,7 @@ public class HyFeatureModelEditPart extends AbstractGraphicalEditPart implements
 	protected void createEditPolicies() {
 		installEditPolicy(EditPolicy.COMPONENT_ROLE, new RootComponentEditPolicy());
 	}
-
-
+	
 	@Override 
 	protected List<Object> getModelChildren() {
 		HyFeatureModelWrapped model = (HyFeatureModelWrapped) getModel();
@@ -57,7 +55,6 @@ public class HyFeatureModelEditPart extends AbstractGraphicalEditPart implements
 		objects.addAll(model.getFeatures(editor.getCurrentSelectedDate()));
 		objects.addAll(model.getGroups(editor.getCurrentSelectedDate()));
 		
-		//objects.addAll(model.getModel().getEnums());
 		objects.add(new DwEnumContainerWrapped(null));
 		return objects;
 	}
@@ -83,7 +80,7 @@ public class HyFeatureModelEditPart extends AbstractGraphicalEditPart implements
 		refreshChildren();
 		refreshVisuals();
 	}
-
+	
 	@Override
 	public void controlMoved(ControlEvent e) {	
 		refresh();
@@ -96,8 +93,7 @@ public class HyFeatureModelEditPart extends AbstractGraphicalEditPart implements
 	 
 	
 	@Override
-	public void refresh() {
-			
+	public void refresh() {	
 		for(Object child : this.getChildren()){
 			if(child instanceof HyParentChildConnectionEditPart)
 				((EditPart)child).refresh();
@@ -108,16 +104,5 @@ public class HyFeatureModelEditPart extends AbstractGraphicalEditPart implements
 				((EditPart)child).refresh();
 			}
 		}
-	}
-	
-	@Override
-	protected void unregisterVisuals() {
-		EditPartViewer v = getViewer();
-		IFigure f = getFigure();
-		
-		if(v == null || f== null){
-			System.out.println("");
-		}
-		v.getVisualPartMap().remove(f);
 	}
 }

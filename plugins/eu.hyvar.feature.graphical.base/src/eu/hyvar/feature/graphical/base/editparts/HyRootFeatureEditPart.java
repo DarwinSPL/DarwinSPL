@@ -1,7 +1,6 @@
 package eu.hyvar.feature.graphical.base.editparts;
 
 import java.util.Date;
-import java.util.List;
 
 import org.eclipse.draw2d.IFigure;
 
@@ -11,7 +10,6 @@ import eu.hyvar.feature.graphical.base.editor.DwGraphicalFeatureModelViewer;
 import eu.hyvar.feature.graphical.base.figures.HyRootFeatureFigure;
 import eu.hyvar.feature.graphical.base.model.HyFeatureModelWrapped;
 import eu.hyvar.feature.graphical.base.model.HyFeatureWrapped;
-import eu.hyvar.feature.graphical.base.model.HyParentChildConnection;
 
 public class HyRootFeatureEditPart extends HyFeatureEditPart{
 
@@ -54,23 +52,5 @@ public class HyRootFeatureEditPart extends HyFeatureEditPart{
 				figure.setText(name.getName());
 			}
 		}
-	}
-	
-	@Override 
-	protected List<HyParentChildConnection> getModelSourceConnections() {
-		HyFeatureWrapped model = (HyFeatureWrapped)getModel();
-
-		DwGraphicalFeatureModelViewer editor = (DwGraphicalFeatureModelViewer)this.editor;
-		Date date = editor.getCurrentSelectedDate();
-		return model.getChildrenConnections(date);
-	}
-
-	@Override 
-	protected List<HyParentChildConnection> getModelTargetConnections() {
-		HyFeatureWrapped model = (HyFeatureWrapped)getModel();
-
-		DwGraphicalFeatureModelViewer editor = (DwGraphicalFeatureModelViewer)this.editor;
-		Date date = editor.getCurrentSelectedDate();
-		return model.getParentConnections(date);
 	}
 }

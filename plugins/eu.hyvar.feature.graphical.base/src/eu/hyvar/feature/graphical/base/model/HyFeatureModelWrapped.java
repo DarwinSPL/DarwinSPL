@@ -179,11 +179,6 @@ public class HyFeatureModelWrapped implements PropertyChangeListener {
 		
 		Collections.sort(dates);
 		
-		for(Date d : dates){
-			System.out.println(d);
-		}
-		
-		
 		changes.firePropertyChange(PROPERTY_DATES_COUNT, old, dates.size());
 		
 		return true;
@@ -353,8 +348,9 @@ public class HyFeatureModelWrapped implements PropertyChangeListener {
 					childGroup = child.getChildGroup();
 					childGroupComposition = compositions.get(0);
 					
+					// split composition to model evolution
 					if(date != null)
-					childGroupComposition = HyGroupWrapped.splitComposition(childGroupComposition, null, date);
+						childGroupComposition = HyGroupWrapped.splitComposition(childGroupComposition, null, date);
 				}
 			}
 		}
@@ -414,7 +410,7 @@ public class HyFeatureModelWrapped implements PropertyChangeListener {
 
 		HyFeatureWrapped oldTarget = connection.getTarget();
 
-		oldTarget.getParentGroup(date).removeChildFeature(oldTarget, date);
+		removeFeature(oldTarget, date);
 	}
 	
 	public void rearrangeFeatures(){
@@ -431,8 +427,9 @@ public class HyFeatureModelWrapped implements PropertyChangeListener {
 			if(HyEvolutionUtil.getValidTemporalElements(feature.getGroupMembership(), selectedDate).size() > 0 || isRootFeature(feature)){
 				Rectangle rectangle = layouter.getBounds(feature);
 				
-				
-				getWrappedFeature(feature).addPosition(rectangle.getTopLeft(), selectedDate, true);
+				HyFeatureWrapped featureWrapped = getWrappedFeature(feature);
+				if(featureWrapped.isVisible())
+					getWrappedFeature(feature).addPosition(rectangle.getTopLeft(), selectedDate, true);
 				//getWrappedFeature(feature).setPosition(rectangle.getTopLeft());	
 			}
 		}	
@@ -453,6 +450,7 @@ public class HyFeatureModelWrapped implements PropertyChangeListener {
 		return connections;
 	}
 	
+	/*
 	public void removeFeature(HyFeatureWrapped feature, Date date){
 		feature.getParentGroup(date).removeChildFeature(feature, date);
 
@@ -470,6 +468,64 @@ public class HyFeatureModelWrapped implements PropertyChangeListener {
 	public void removeFeature(HyFeatureWrapped feature) {
 		removeFeature(feature, new Date());
 	}
+	*/
+	
+	/**
+	 * Removes a feature which is child of this group. Use this function to delete the feature temporarily since the selected date.
+	 * @param childFeature the feature to remove
+	 * @param date
+	 */
+	public void removeFeature(HyFeatureWrapped childFeature, Date date){
+		if(date != null && date.equals(new Date(Long.MIN_VALUE)))
+			date = null;
+
+		HyGroupWrapped group = childFeature.getParentGroup(date);
+
+		HyGroupComposition composition = HyEvolutionUtil.getValidTemporalElement(group.getWrappedModelElement().getParentOf(), date);			
+		if(composition != null){
+			HyGroupType type = HyEvolutionUtil.getValidTemporalElement(group.getWrappedModelElement().getTypes(), date);
+			
+			// split composition to allow evolution
+			if(date != null){
+				composition = HyGroupWrapped.splitComposition(composition, null, date);
+
+				// split group types in case that no and type is selected at the selected date
+				if(composition.getFeatures().size() == 2 && type.getType() != HyGroupTypeEnum.AND){
+					group.splitGroupType(date, HyGroupTypeEnum.AND);
+				}
+			}else{	
+				if(composition.getFeatures().size() == 2)
+					type.setType(HyGroupTypeEnum.AND);
+			}
+			composition.getFeatures().remove(childFeature.getWrappedModelElement());
+
+			// Inform editparts about the changes made to the model
+			//listeners.firePropertyChange(PROPERTY_CHILD_FEATURES, old, this);
+		}
+	}
+	
+	public void removeFeaturePermanently(HyFeatureWrapped childFeature){
+		HyFeature feature = childFeature.getWrappedModelElement();
+		HyFeatureModel featureModel = feature.getFeatureModel();
+		
+		featureModel.getFeatures().remove(feature);
+
+		for(HyGroupComposition composition : feature.getGroupMembership()){
+			
+			
+			if(composition.getFeatures().size() == 1){
+				HyGroup group = composition.getCompositionOf();
+				
+				for(HyFeatureChild child : group.getChildOf()){
+					child.getParent().getParentOf().remove(child);
+				}
+				
+				featureModel.getGroups().remove(group);
+			}
+		}
+		
+		feature.getGroupMembership().clear();
+	}	
 
 	public HyFeatureWrapped getWrappedFeature(HyFeature feature){
 		for(HyFeatureWrapped wrapped : features){
@@ -498,7 +554,6 @@ public class HyFeatureModelWrapped implements PropertyChangeListener {
 		return false;
 	}
 
-
 	private void createConnection(HyFeatureWrapped parent, HyFeatureWrapped child){
 		HyParentChildConnection connection = new HyParentChildConnection();
 		connection.setSource(parent);
@@ -508,6 +563,7 @@ public class HyFeatureModelWrapped implements PropertyChangeListener {
 		parent.addParentToChildConnection(connection);
 		child.addChildToParentConnection(connection);	
 
+		if(!connections.contains(connection))
 		connections.add(connection);		
 
 		HyFeatureLayouterManager.updateLayouter(this);
@@ -547,7 +603,7 @@ public class HyFeatureModelWrapped implements PropertyChangeListener {
 							
 							addFeature(wrapped);
 						}
-
+						
 						createConnection(target, wrapped);
 
 						wrapped.setParent(wrappedGroup);
@@ -604,7 +660,5 @@ public class HyFeatureModelWrapped implements PropertyChangeListener {
 				this.removeGroup(newGroup);
 			}
 		}
-		
-		changes.firePropertyChange(evt);
 	}
 }

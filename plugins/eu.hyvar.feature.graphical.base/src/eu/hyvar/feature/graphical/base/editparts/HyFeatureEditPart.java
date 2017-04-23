@@ -13,8 +13,8 @@ import org.eclipse.emf.common.notify.Adapter;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.Notifier;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.gef.ConnectionEditPart;
-import org.eclipse.gef.EditPartViewer;
 import org.eclipse.gef.NodeEditPart;
 import org.eclipse.gef.Request;
 
@@ -36,8 +36,13 @@ public class HyFeatureEditPart extends HyAbstractEditPart implements NodeEditPar
 
 		@Override 
 		public void notifyChanged(Notification notification) {
-			refreshChildren();
-			refreshVisuals();
+			
+			if(notification.getEventType() == ENotificationImpl.REMOVE && notification.getNotifier() instanceof HyFeature){
+				// in case that the feature was deleted do nothing
+			}else{
+				refreshChildren();
+				refreshVisuals();
+			}
 		}
 
 		@Override 
@@ -65,13 +70,10 @@ public class HyFeatureEditPart extends HyAbstractEditPart implements NodeEditPar
 		return new HyFeatureFigure(editor, (HyFeatureWrapped)getModel());
 	}
 
-
-
 	@Override 
 	public void activate() {
 		if(!isActive()) {
 			HyFeatureWrapped model = ((HyFeatureWrapped)getModel());
-			model.addPropertyChangeListener(this);
 			model.getWrappedModelElement().eAdapters().add(adapter);
 		}
 		
@@ -82,7 +84,6 @@ public class HyFeatureEditPart extends HyAbstractEditPart implements NodeEditPar
 	public void deactivate() {
 		if(isActive()) {
 			HyFeatureWrapped model = ((HyFeatureWrapped)getModel());
-			model.removePropertyChangeListener(this);
 
 			model.getWrappedModelElement().eAdapters().remove(adapter);
 		}
@@ -92,13 +93,11 @@ public class HyFeatureEditPart extends HyAbstractEditPart implements NodeEditPar
 
 
 	@Override
-	public void propertyChange(PropertyChangeEvent evt) {
-		super.propertyChange(evt);
-		
+	public void propertyChange(PropertyChangeEvent evt) {		   
 		refreshVisuals();
 
 		refreshTargetConnections();
-		refreshSourceConnections();		
+		refreshSourceConnections();	
 	}
 
 	@Override
@@ -163,11 +162,13 @@ public class HyFeatureEditPart extends HyAbstractEditPart implements NodeEditPar
 		HyFeatureWrapped wrappedFeature = (HyFeatureWrapped)this.getModel();
 
 		boolean featureIsCurrentlyValid = wrappedFeature.isValid(date);
-		
+
 		if(featureIsCurrentlyValid){
-			//setSize();
 			figure.update();
 		}
+		
+		figure.setVisible(wrappedFeature.isVisible());
+			
 		
 		for(HyParentChildConnection connection : this.getModelSourceConnections()){
 			connection.notifyChange();
@@ -187,29 +188,6 @@ public class HyFeatureEditPart extends HyAbstractEditPart implements NodeEditPar
 		Date date = editor.getCurrentSelectedDate();
 		HyVersionLayouterManager.updateLayouter(feature, date);
 	}
-	
-	/**
-	 * Calculates and sets the size needed to display all versions and attributes for this feature at the selected date
-	 */
-	protected void setSize(){
-		HyFeatureWrapped feature = (HyFeatureWrapped)getModel();
-		HyFeatureModelEditPart parent = (HyFeatureModelEditPart)getParent();
-		HyFeatureFigure figure = (HyFeatureFigure)getFigure();
-		DwGraphicalFeatureModelViewer editor = (DwGraphicalFeatureModelViewer)this.editor;
-		Date date = editor.getCurrentSelectedDate();
-		
-		int width = HyGeometryUtil.calculateFeatureWidth(feature.getWrappedModelElement(), date);
-		int height = feature.getSize(date).height; 
-		
-		Dimension newFeatureSize = new Dimension(width, height);
-		feature.setSize(newFeatureSize);
-
-		Rectangle layout = new Rectangle(feature.getPosition(date).getPosition(), newFeatureSize);
-		parent.setLayoutConstraint(this, figure, layout);	
-	}
-	
-
-
 	
 	@Override
 	protected void createEditPolicies(){
@@ -235,7 +213,7 @@ public class HyFeatureEditPart extends HyAbstractEditPart implements NodeEditPar
 	}
 
 	/**
-	 * Refresh the visual representation of all versions and attributes releated to this feature
+	 * Refresh the visual representation of all versions and attributes related to this feature
 	 */
 	protected void refreshVisualsOfChildren(){
 		
@@ -252,18 +230,6 @@ public class HyFeatureEditPart extends HyAbstractEditPart implements NodeEditPar
 		}		
 	}
 	
-	
-	@Override
-	protected void unregisterVisuals() {
-		EditPartViewer v = getViewer();
-		IFigure f = getFigure();
-		
-		if(v == null || f== null){
-			System.out.println("");
-		}
-		v.getVisualPartMap().remove(f);
-	}
-
 	@Override
 	protected Rectangle getFigureConstraint() {
 		HyFeatureWrapped feature = (HyFeatureWrapped)getModel();
@@ -272,6 +238,7 @@ public class HyFeatureEditPart extends HyAbstractEditPart implements NodeEditPar
 		
 		int width = HyGeometryUtil.calculateFeatureWidth(feature.getWrappedModelElement(), date);
 		int height = feature.getSize(date).height; 
+		
 		
 		Dimension newFeatureSize = new Dimension(width, height);
 		feature.setSize(newFeatureSize);

@@ -68,7 +68,7 @@ public class HyParentChildConnectionReconnectCommand extends Command{
 		newConnection.setSource(newTarget);
 		featureModel.addConnection(newConnection, date, null);
 
-		oldGroup.removeChildFeature(oldTarget, date);		
+		featureModel.removeFeature(oldTarget, date);		
 	}
 	
 	private void redoForConnectionTarget(){
@@ -100,7 +100,7 @@ public class HyParentChildConnectionReconnectCommand extends Command{
 		
 		featureModel.addConnection(newConnection, date, composition.getCompositionOf());
 		
-		oldGroup.removeChildFeature(oldTarget, date);		
+		featureModel.removeFeature(oldTarget, date);		
 	}
 
 	@Override

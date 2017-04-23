@@ -149,11 +149,14 @@ public class HyGroupFigure extends DwFeatureViewerReferencedFigure{
 
 	@Override 
 	public void paintFigure(Graphics graphics) {	
-		DEGraphicalEditorTheme theme = DEGraphicalEditor.getTheme();
 		Date date = editor.getCurrentSelectedDate();
-
+		
 		HyFeatureWrapped parentFeatureWrapped = editor.getModelWrapped().getParentFeatureForGroup(group, date);
-
+		if(parentFeatureWrapped == null)
+			return;
+		
+		DEGraphicalEditorTheme theme = DEGraphicalEditor.getTheme();
+	
 		Point parentPosition = parentFeatureWrapped.getPosition(date).getPosition().getCopy();
 		parentPosition.y += parentFeatureWrapped.getSize(date).height;
 		parentPosition.x += parentFeatureWrapped.getSize(date).width() / 2.0 - theme.getGroupSymbolRadius();

@@ -41,6 +41,12 @@ public class HyAttributeDeleteCommand extends Command{
 		Date date = editor.getCurrentSelectedDate();
 		attribute.setValidUntil(date);
 		
+		// delete attribute permanently in case that valid since and valid until 
+		// would be equal
+		if(date.equals(attribute.getValidSince())){
+			attribute.getFeature().getAttributes().remove(attribute);
+		}
+			
 		for(Adapter adapter : attribute.getFeature().eAdapters())
 			adapter.notifyChanged(new AttributeTemporalDeleteNotification(0, date, date));
 		

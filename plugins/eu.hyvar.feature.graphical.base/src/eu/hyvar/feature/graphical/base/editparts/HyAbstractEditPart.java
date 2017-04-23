@@ -35,22 +35,28 @@ public abstract class HyAbstractEditPart extends AbstractGraphicalEditPart imple
 
 
 	public void activate() {
-		super.activate();
-		if(getModel() instanceof HyEditorChangeableElement){
-			
-			HyEditorChangeableElement propertyAwareObject = (HyEditorChangeableElement) getModel();
-			propertyAwareObject.addPropertyChangeListener(this);
+		if(!isActive()){
+			if(getModel() instanceof HyEditorChangeableElement){
+				
+				HyEditorChangeableElement propertyAwareObject = (HyEditorChangeableElement) getModel();
+				propertyAwareObject.addPropertyChangeListener(this);
+			}
 		}
+		
+		super.activate();
 	}
 
 
 	public void deactivate() {
-		super.deactivate();
-		if(getModel() instanceof HyEditorChangeableElement){
-			
-			HyEditorChangeableElement propertyAwareObject = (HyEditorChangeableElement) getModel();
-			propertyAwareObject.removePropertyChangeListener(this);
+		if(isActive()) {
+			if(getModel() instanceof HyEditorChangeableElement){
+				
+				HyEditorChangeableElement propertyAwareObject = (HyEditorChangeableElement) getModel();
+				propertyAwareObject.removePropertyChangeListener(this);
+			}
 		}
+		
+		super.deactivate();
 	}
 
 	@Override
@@ -85,6 +91,7 @@ public abstract class HyAbstractEditPart extends AbstractGraphicalEditPart imple
 				constraint = getFigureConstraint().setSize(0, 0);
 			}	
 			
+			if(parent != null)
 			parent.setLayoutConstraint(this, figure, constraint);
 		}
 	}

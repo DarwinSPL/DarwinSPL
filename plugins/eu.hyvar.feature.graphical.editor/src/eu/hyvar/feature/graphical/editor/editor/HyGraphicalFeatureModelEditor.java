@@ -298,13 +298,18 @@ public class HyGraphicalFeatureModelEditor extends DwGraphicalFeatureModelViewer
 		}		
 	}
 	
+	/**
+	 * Opens the default editor for the given file extension side by side with the currently
+	 * active editor
+	 * @param File extension
+	 */
 	protected void openEditorForFileExtension(String fileExtension){
 		IWorkspaceRoot workspaceRoot = ResourcesPlugin.getWorkspace().getRoot();
 
 		IPath path = getPathToEditorRelatedFileWithFileExtension(fileExtension);
 
-		createFileWithFileExtension(fileExtension);
-		relatedEditorFiles.add(path);
+		//createFileWithFileExtension(fileExtension);
+		//relatedEditorFiles.add(path);
 
 
 		// only open editor if a file exist with the same name as the feature model in same directory
@@ -375,14 +380,6 @@ public class HyGraphicalFeatureModelEditor extends DwGraphicalFeatureModelViewer
 						}
 					}	
 			}
-		}
-
-		IWorkspace workspace = ResourcesPlugin.getWorkspace();
-		try {
-			workspace.delete(openFiles.toArray(new IResource[0]), true, null);
-		} catch (CoreException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
 		}
 	}
 }

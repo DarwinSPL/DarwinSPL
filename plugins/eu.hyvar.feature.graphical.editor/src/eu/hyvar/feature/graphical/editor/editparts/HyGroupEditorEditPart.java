@@ -26,25 +26,43 @@ public class HyGroupEditorEditPart extends HyGroupEditPart {
 			if(notification.getEventType() != Notification.REMOVING_ADAPTER){
 				HyGroupWrapped groupWrapped = (HyGroupWrapped)getModel();
 				
-				if(notification.getEventType() == Notification.REMOVE){
+				switch(notification.getEventType()){
+				case Notification.REMOVE:
 					// check if the group has no compositions left
 					if(groupWrapped.getWrappedModelElement().getParentOf().isEmpty()){
 						featureModel.removeGroup((HyGroupWrapped)getModel());
 					}else{
 
 					}
+
+					// remove feature from the child list of the group
+					if(notification.getNotifier() instanceof HyFeature){
+						HyFeatureWrapped removedFeatureWrapped = featureModel.getWrappedFeature((HyFeature)notification.getNotifier());
+						groupWrapped.getFeatures().remove(removedFeatureWrapped);
+					}	
 					
+					Date date = featureModel.getSelectedDate();
 					
+					for(HyFeatureWrapped featureWrapped : groupWrapped.getFeaturesWrapped(date)){
+						// notify all children about the change
+						
+						featureWrapped.getListeners().firePropertyChange(new PropertyChangeEvent(groupWrapped.getWrappedModelElement(), GROUP_MODEL_CHANGED, notification.getOldValue(), notification.getNewValue()));
+					}					
+					
+					refreshVisuals(); 
+					
+					break;
+				case Notification.SET:
+					// group was deleted from feature model
+					if(notification.getPosition() == -1){
+						
+					}
+					break;
 				}
+	
+
 				
-				Date date = featureModel.getSelectedDate();
 				
-				for(HyFeatureWrapped featureWrapped : groupWrapped.getFeaturesWrapped(date)){
-					// notify all children about the change
-					featureWrapped.getListeners().firePropertyChange(new PropertyChangeEvent(groupWrapped.getWrappedModelElement(), GROUP_MODEL_CHANGED, notification.getOldValue(), notification.getNewValue()));
-				}
-				
-				refreshVisuals(); 
 			}
 		}
 

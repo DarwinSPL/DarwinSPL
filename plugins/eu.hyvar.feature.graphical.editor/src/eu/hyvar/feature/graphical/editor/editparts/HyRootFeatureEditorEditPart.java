@@ -41,12 +41,7 @@ public class HyRootFeatureEditorEditPart extends HyRootFeatureEditPart{
 		installEditPolicy(EditPolicy.DIRECT_EDIT_ROLE, new HyFeatureDirectEditPolicy());
 		installEditPolicy(EditPolicy.LAYOUT_ROLE, new HyFeatureXYLayoutPolicy());		
 	}
-	
-	@Override
-	public void propertyChange(PropertyChangeEvent evt) {
-		this.refreshVisuals();
-	}
-	
+
 	/**
 	 * This method is used to enable direct name editing in the feature
 	 */

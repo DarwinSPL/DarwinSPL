@@ -6,9 +6,12 @@ import org.deltaecore.feature.graphical.base.editor.DEGraphicalEditor;
 import org.deltaecore.feature.graphical.base.util.DEDrawingUtil;
 import org.deltaecore.feature.graphical.base.util.DEGraphicalEditorTheme;
 import org.eclipse.draw2d.AbstractConnectionAnchor;
+import org.eclipse.draw2d.ActionEvent;
+import org.eclipse.draw2d.ActionListener;
 import org.eclipse.draw2d.ConnectionAnchor;
 import org.eclipse.draw2d.Graphics;
 import org.eclipse.draw2d.Label;
+import org.eclipse.draw2d.Orientable;
 import org.eclipse.draw2d.XYLayout;
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Insets;
@@ -29,24 +32,35 @@ import eu.hyvar.feature.graphical.base.deltaecore.wrapper.layouter.version.HyVer
 import eu.hyvar.feature.graphical.base.editor.DwGraphicalFeatureModelViewer;
 import eu.hyvar.feature.graphical.base.model.HyFeatureWrapped;
 
+/**
+ * Handles the rendering of a feature and corresponding versions. 
+ * 
+ * @author Gil Engel
+ *
+ */
 public class HyFeatureFigure extends DwLabelFigure{
+	/**
+	 * Button to hide/show children
+	 */
+	private DwExpandButton expandButton;
+	
 	protected AbstractConnectionAnchor parentAnchor;
 	protected AbstractConnectionAnchor childrenAnchor;
 	
+	/**
+	 * The model that is represented by this figure
+	 */
 	protected HyFeatureWrapped feature;
 
-	public HyFeatureWrapped getFeature() {
-		return feature;
-	}
 	
 	public HyFeatureFigure(DwGraphicalFeatureModelViewer editor, HyFeatureWrapped feature) {
 		super(editor);
 		
-		this.feature = feature;		
+		this.feature = feature;	
+		
+		createExpandButton();
 		
 		this.setLayoutManager(new XYLayout());
-
-		createChildFigures();
 		
 		parentAnchor = new HyFeatureParentAnchor(this, editor);	
 		childrenAnchor = new HyFeatureChildrenAnchor(this, editor);
@@ -68,6 +82,9 @@ public class HyFeatureFigure extends DwLabelFigure{
 		this.childrenAnchor = childrenAnchor;
 	}
 
+	/**
+	 * Creates the label to render the feature name
+	 */
 	@Override
 	protected void createChildFigures() {
 		DEGraphicalEditorTheme theme = DEGraphicalEditor.getTheme();
@@ -78,12 +95,35 @@ public class HyFeatureFigure extends DwLabelFigure{
 		add(label);	
 	}
 	
+	/**
+	 * Creates the button to show/hide children
+	 */
+	private void createExpandButton(){
+		expandButton = new DwExpandButton();
+		add(expandButton);
+		
+		expandButton.setSize(new Dimension( 16, 16 ));
+		expandButton.setDirection(Orientable.NORTH);
+		expandButton.setVisible(false);
+		
+		expandButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent event) {
+				feature.setHideChildren(!feature.isHideChildren(), editor.getCurrentSelectedDate());
+			}
+		});		
+	}
+	
 	@Override
 	protected boolean useLocalCoordinates(){
 		return true;
 	}
 	
-
+	/**
+	 * Paints the background for the name area with the predefined style as defined by 
+	 * DeltaEcore
+	 * @param graphics
+	 */
 	protected void paintNameAreaBackground(Graphics graphics) {
 		Date date = editor.getCurrentSelectedDate();
 		DEGraphicalEditorTheme theme = DEGraphicalEditor.getTheme();
@@ -98,6 +138,10 @@ public class HyFeatureFigure extends DwLabelFigure{
 		
 	}
 
+	/**
+	 * Updates the label size after resizing the figure.
+	 * The figure uses XYLayout therefore the label size has to be updated manually. 
+	 */
 	public void resizeLabel(){
 		DEGraphicalEditorTheme theme = DEGraphicalEditor.getTheme();
 		Date date = editor.getCurrentSelectedDate();
@@ -115,8 +159,6 @@ public class HyFeatureFigure extends DwLabelFigure{
 		setConstraint(label, labelBounds);
 	}
 	
-
-
 	protected void paintVersionAreaBackground(Graphics graphics) {
 		
 		DEGraphicalEditorTheme theme = DEGraphicalEditor.getTheme();
@@ -155,7 +197,7 @@ public class HyFeatureFigure extends DwLabelFigure{
 	
 	
 	protected Rectangle getVersionMarkRectangle(HyVersion version) {
-		HyFeature feature = getFeature().getWrappedModelElement();
+		HyFeature feature = this.feature.getWrappedModelElement();
 		HyVersionTreeLayouter versionTree = HyVersionLayouterManager.getLayouter(feature, editor.getCurrentSelectedDate());
 		Rectangle versionBounds = versionTree.getBounds(version);
 		
@@ -210,6 +252,20 @@ public class HyFeatureFigure extends DwLabelFigure{
 		setSize(width, height);
 		
 		resizeLabel();
+		updateExpandButton();
+	}
+	
+	private void updateExpandButton(){
+		DEGraphicalEditorTheme theme = DEGraphicalEditor.getTheme();
+
+		Date date = editor.getCurrentSelectedDate();
+		
+		int width = feature.getSize(date).width;
+		
+		int positionY = theme.getFeatureNameAreaHeight() / 2-8;
+		positionY += feature.calculateVariationTypeCircleBounds(editor.getCurrentSelectedDate()).height;
+		
+		expandButton.setLocation(new Point(width-18, positionY));		
 	}
 	
 	private void updateContent(){
@@ -220,7 +276,12 @@ public class HyFeatureFigure extends DwLabelFigure{
 			getLabel().setText(name.getName());	
 		}else{
 			// TODO show error that specific feature has no name at current date
-		}		
+		}	
+		
+		boolean hasChildren = !HyEvolutionUtil.getValidTemporalElements(feature.getWrappedModelElement().getParentOf(), editor.getCurrentSelectedDate()).isEmpty();
+
+		expandButton.setDirection(feature.isHideChildren() ? Orientable.SOUTH : Orientable.NORTH);
+		expandButton.setVisible(hasChildren);
 	}
 	
 	public void update() {
@@ -231,7 +292,15 @@ public class HyFeatureFigure extends DwLabelFigure{
 	
 	@Override 
 	protected void paintFigure(Graphics graphics) {
+
 		Date date = editor.getCurrentSelectedDate();
+
+		HyFeature model = feature.getWrappedModelElement();
+		if(HyEvolutionUtil.getValidTemporalElement(model.getTypes(), date) == null ||
+				feature.getGroupMembership(date).isEmpty()){
+			return;
+		}
+		
 		
 		if(!feature.isWithoutModifier(date)){
 			paintVariationTypeCircle(graphics);

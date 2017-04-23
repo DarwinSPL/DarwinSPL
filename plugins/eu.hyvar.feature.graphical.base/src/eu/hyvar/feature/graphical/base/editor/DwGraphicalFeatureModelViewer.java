@@ -144,7 +144,7 @@ public class DwGraphicalFeatureModelViewer extends DwGraphicalViewerWithZoomSupp
 		HyFeaturePackage.eINSTANCE.eClass();
 		if(input instanceof IFileEditorInput) {
 			IFileEditorInput fileInput = (IFileEditorInput) input;
-			loadModelFromFile(fileInput.getFile());
+			//loadModelFromFile(fileInput.getFile());
 		}
 	}
 

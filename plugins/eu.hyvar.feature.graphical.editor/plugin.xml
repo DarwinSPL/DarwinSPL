@@ -14,12 +14,6 @@
       </editor>
    </extension>
    <extension
-         point="eu.hyvar.feature.expression.FeatureModelEditor">
-      <client
-            class="eu.hyvar.feature.graphical.editor.eclipse.ActiveFeatureModelEditorSolver">
-      </client>
-   </extension>
-   <extension
          point="org.eclipse.ui.newWizards">
       <wizard
             category="de.darwinspl.wizards"
@@ -29,5 +23,35 @@
             name="DarwinSPL Feature Model">
       </wizard>
    </extension>
-
+   <extension
+         point="org.eclipse.ui.menus">
+      <menuContribution
+            allPopups="false"
+            locationURI="toolbar:org.eclipse.ui.main.toolbar">
+         <toolbar
+               id="eu.hyvar.feature.graphical.editor.toolbar1">
+            <command
+                  commandId="eu.hyvar.feature.graphical.editor.command1"
+                  icon="icons/icon_standard.png"
+                  label="Create FM Constraints"
+                  style="push"
+                  tooltip="Create FM Constraints">
+            </command>
+            <command
+                  commandId="eu.hyvar.feature.graphical.editor.command2"
+                  icon="icons/icon_standard.png"
+                  label="Create FM Context Information"
+                  style="push"
+                  tooltip="Create FM Context Information">
+            </command>
+            <command
+                  commandId="eu.hyvar.feature.graphical.editor.command3"
+                  icon="icons/icon_standard.png"
+                  label="Create FM Validity Model"
+                  style="push"
+                  tooltip="Create FM Validity Model">
+            </command>
+         </toolbar>
+      </menuContribution>
+   </extension>
 </plugin>

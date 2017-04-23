@@ -27,7 +27,7 @@ public class HyConfiguratorFeatureFigure extends HyFeatureFigure{
 	
 	@Override
 	protected void paintVersionMarks(Graphics graphics) {
-		HyFeature feature = getFeature().getWrappedModelElement();
+		HyFeature feature = this.feature.getWrappedModelElement();
 		List<HyVersion> versions = feature.getVersions();
 
 		for (HyVersion version : versions) {
@@ -45,7 +45,7 @@ public class HyConfiguratorFeatureFigure extends HyFeatureFigure{
 	
 	@Override
 	protected void paintAttributeMarks(Graphics graphics) {
-		HyFeature feature = getFeature().getWrappedModelElement();
+		HyFeature feature = this.feature.getWrappedModelElement();
 		List<HyFeatureAttribute> attributes = feature.getAttributes();
 
 		for (HyFeatureAttribute attribute : attributes) {

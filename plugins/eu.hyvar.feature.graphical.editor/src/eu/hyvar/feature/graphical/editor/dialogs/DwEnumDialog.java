@@ -110,7 +110,8 @@ public class DwEnumDialog extends Dialog implements Listener{
 			public void widgetSelected(SelectionEvent e) {
 				int index = literalsList.getSelectionIndex();
 				
-				value = HyEvolutionUtil.getValidTemporalElements(enumeration.getLiterals(), date).get(index);
+				if(index != -1)
+					value = HyEvolutionUtil.getValidTemporalElements(enumeration.getLiterals(), date).get(index);
 			}
 
 			@Override

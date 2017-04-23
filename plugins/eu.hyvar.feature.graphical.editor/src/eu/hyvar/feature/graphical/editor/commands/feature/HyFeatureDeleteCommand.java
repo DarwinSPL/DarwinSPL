@@ -28,6 +28,7 @@ public class HyFeatureDeleteCommand extends DwFeatureModelEditorCommand{
 	private HyFeatureWrapped feature;
 	private HyFeatureWrapped oldParent;
 	private HyFeature oldFeature;
+	private Date executionDate;
 
 	public void setFeature(HyFeatureWrapped feature) {
 		this.feature = feature;
@@ -60,30 +61,40 @@ public class HyFeatureDeleteCommand extends DwFeatureModelEditorCommand{
 		Date date = viewer.getCurrentSelectedDate();
 		if(date.equals(new Date(Long.MIN_VALUE)))
 			date = null;
-		//HyGroupComposition composition = HyEvolutionUtil.getValidTemporalElement(feature.getGroupMembership(), date);
-		//splitComposition(composition, this.feature);
+		
+		executionDate = date;
 
 		oldFeature = EcoreUtil.copy(feature);
-		feature.setValidUntil(date);
-
-		restrictHyLinearTemporalElementsToParentValidUntil((EList<HyTemporalElement>)(EList<?>)feature.getNames());
-		restrictHyLinearTemporalElementsToParentValidUntil((EList<HyTemporalElement>)(EList<?>)feature.getAttributes());
-		restrictHyLinearTemporalElementsToParentValidUntil((EList<HyTemporalElement>)(EList<?>)feature.getVersions());
-
-		//oldGroup = this.feature.getParentGroup(date);
 		oldParent = this.feature.getParentFeature(date);
-		this.feature.getParentGroup(date).removeChildFeature(this.feature, date);
-		//deleteFeatureChildrenTemporarily(feature);
+		
+		if(date == null){
+			viewer.getModelWrapped().removeFeaturePermanently(this.feature);
+		}else{
+			feature.setValidUntil(date);
+
+			// restrict feature parameters to the date
+			restrictHyLinearTemporalElementsToParentValidUntil((EList<HyTemporalElement>)(EList<?>)feature.getNames());
+			restrictHyLinearTemporalElementsToParentValidUntil((EList<HyTemporalElement>)(EList<?>)feature.getAttributes());
+			restrictHyLinearTemporalElementsToParentValidUntil((EList<HyTemporalElement>)(EList<?>)feature.getVersions());
+		
+			viewer.getModelWrapped().removeFeature(this.feature, date);
+		}
+		
+
+		
+		
 
 		// delete the selection from the element
 		host.setSelected(0);
 
 		viewer.getModelWrapped().rearrangeFeatures();
-		viewer.refreshView();		
+		viewer.refreshView();
+		
 	}
 	
 	public void undo(){
-		Date date = viewer.getModelWrapped().getSelectedDate();
+		
+		Date date = executionDate;
 		HyParentChildConnection connection = new HyParentChildConnection();
 		
 		this.feature.setWrappedModelElement(oldFeature);
@@ -92,7 +103,6 @@ public class HyFeatureDeleteCommand extends DwFeatureModelEditorCommand{
 		if(date.equals(new Date(Long.MIN_VALUE))){
 			date = null;
 		}		
-		
 		
 
 		

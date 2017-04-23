@@ -30,14 +30,18 @@ public class HyFeatureWrapped extends HyEditorChangeableElement{
 	public final static String PROPERTY_CARDINALITY = "PropertyCardinality";
 	public final static String PROPERTY_PARENT_CONNECTIONS_SIZE_CHANGED = "PropertyParentConnectionsSize";
 	public final static String PROPERTY_CHILDREN_CONNECTIONS_SIZE_CHANGED = "PropertyChildrenConnectionsSize";
-
-
+	public final static String PROPERTY_VIEW_HIDE_CHILDREN = "PropertyHideChildren";
+	public final static String PROPERTY_VISIBILITY = "PropertyVisibility";
 
 	HyGroupWrapped parentGroup;
 	HyFeatureModelWrapped featureModel = null;
 
 	private List<HyParentChildConnection> parentConnections;
 	private List<HyParentChildConnection> childrenConnections;
+	
+	private boolean hideChildren = false;
+	
+	private boolean visible = true;
 
 	public int getHeightWithoutAttributes(Date date) {
 		Point position = this.getPosition(date).getPosition();
@@ -46,11 +50,11 @@ public class HyFeatureWrapped extends HyEditorChangeableElement{
 		return attributeAreaTopLeft.y - position.y;
 	}
 
-
 	public Dimension getSize(Date date){
 		Dimension size = new Dimension();
 		
 		size.width = HyGeometryUtil.calculateFeatureWidth(getWrappedModelElement(), date);
+
 		int variationTypeCircleHeight = this.calculateVariationTypeCircleBounds(date).height;
 		size.height = variationTypeCircleHeight+
 					  this.calculateAttributesAreaBounds(date).height+
@@ -58,6 +62,45 @@ public class HyFeatureWrapped extends HyEditorChangeableElement{
 					  this.calculateVersionAreaBounds(date).height;
 		
 		return size;
+	}
+	
+	
+
+	public boolean isHideChildren() {
+		return hideChildren;
+	}
+
+	public void setHideChildren(boolean hideChildren, Date date) {
+		boolean old = this.hideChildren;
+		
+		this.hideChildren = hideChildren;
+		
+		for(HyParentChildConnection connection : childrenConnections){
+			connection.getTarget().setVisible(!hideChildren, date);
+		}
+		
+		listeners.firePropertyChange(PROPERTY_VIEW_HIDE_CHILDREN, old, hideChildren);
+	}
+	
+	public boolean isVisible() {
+		return visible;
+	}
+
+	public void setVisible(boolean visible, Date date) {
+		boolean old = this.visible;
+		
+		this.visible = visible;
+		
+		for(HyParentChildConnection connection : childrenConnections){
+			if(visible){
+				if(!hideChildren)
+					connection.getTarget().setVisible(true, date);
+			}else{
+				connection.getTarget().setVisible(false, date);
+			}
+		}
+		
+		listeners.firePropertyChange(PROPERTY_VISIBILITY, old, visible);
 	}
 
 	public Rectangle calculateVersionAreaBounds(Date date) {
@@ -83,6 +126,7 @@ public class HyFeatureWrapped extends HyEditorChangeableElement{
 	public Rectangle calculateNameAreaBounds(Date date) {
 		DEGraphicalEditorTheme theme = DEGraphicalEditor.getTheme();
 		int width = HyGeometryUtil.calculateFeatureWidth(getWrappedModelElement(), date);
+
 		Point position = getPosition(date).getPosition().getCopy();
 		if(hasModfierAtDate(date)){
 			position.y += theme.getFeatureVariationTypeExtent();
@@ -117,6 +161,7 @@ public class HyFeatureWrapped extends HyEditorChangeableElement{
 		
 		Point position = getPosition(date).getPosition();
 		int width = HyGeometryUtil.calculateFeatureWidth(getWrappedModelElement(), date);
+		
 		int x = position.x+width / 2 - theme.getFeatureVariationTypeExtent() / 2;
 		
 		return new Rectangle(new Point(x, position.y), size);
@@ -336,10 +381,9 @@ public class HyFeatureWrapped extends HyEditorChangeableElement{
 	}
 	public void addParentToChildConnection(HyParentChildConnection connection){
 		int old = childrenConnections.size();
-
+		
 		if(!(childrenConnections.contains(connection))){
-			childrenConnections.add(connection);				
-		}else{
+			childrenConnections.add(connection);	
 		}
 
 		listeners.firePropertyChange(PROPERTY_PARENT_CONNECTIONS_SIZE_CHANGED, old, childrenConnections.size());

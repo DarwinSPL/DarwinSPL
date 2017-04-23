@@ -122,9 +122,10 @@ public class HyParentChildConnectionEditPart extends AbstractConnectionEditPart 
 		
 		boolean connectionValid = true;
 		
-		if(!connection.getTarget().isValid(date) || connection.getTarget().getParentFeature(date) == null)
+		if(!targetValid || connection.getTarget().getParentFeature(date) == null ||
+		   !connection.getSource().isVisible() || !connection.getTarget().isVisible()){
 			connectionValid = false;
-		else
+		}else
 			connectionValid = connection.getTarget().getParentFeature(date).equals(connection.getSource());
 		
 		if(sourceValid && targetValid && connectionValid){

@@ -80,6 +80,11 @@ public class HyFeatureCreateCommand extends DwFeatureModelEditorCommand {
 		newFeature.setWrappedModelElement(feature);
 		featureModel.addFeature(newFeature);
 		
+		// hide new feature if parent feature is in collapsed mode
+		if(parent.isHideChildren()){
+			newFeature.setVisible(false, date);
+		}
+		
 		featureModel.rearrangeFeatures();
 		viewer.refreshView();	
 	}	
