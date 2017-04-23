@@ -1,6 +1,6 @@
 package eu.hyvar.feature.graphical.configurator.dialogs;
 
-import org.deltaecore.eclipse.controls.DEVariantComposite;
+//import org.deltaecore.common.eclipse.controls.DEVariantComposite;
 import org.eclipse.jface.dialogs.Dialog;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Point;
