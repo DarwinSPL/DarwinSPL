@@ -246,6 +246,9 @@ public class HyGraphicalFeatureModelEditor extends DwGraphicalFeatureModelViewer
 		IWorkbenchWindow window = PlatformUI.getWorkbench().getActiveWorkbenchWindow();
 
 		EModelService service = window.getService(EModelService.class);
+		
+		if(secondEditor != null)
+		System.out.println("====> "+secondEditor.getChildren().size());
 
 		if(secondEditor == null){
 			secondEditor = getPartStack(editorToInsert);
@@ -255,7 +258,14 @@ public class HyGraphicalFeatureModelEditor extends DwGraphicalFeatureModelViewer
 			MPartSashContainerElement relToElement = area.getChildren().get(0);
 			service.insert(secondEditor, relToElement, where, ratio);
 		}else{
-			secondEditor.getChildren().add(editorToInsert);
+			if(secondEditor.getChildren().isEmpty()){
+				//secondEditor.getParent().getChildren().remove(secondEditor);
+				secondEditor = null;
+				
+				insertEditor(ratio, where, containerEditor, editorToInsert);
+			}else{
+				secondEditor.getChildren().add(editorToInsert);	
+			}
 		}
 	}
 
@@ -275,42 +285,24 @@ public class HyGraphicalFeatureModelEditor extends DwGraphicalFeatureModelViewer
 		return area;
 	}	
 
-	protected IPath getPathFromEditorRelatedFile(){
+	public IPath getPathFromEditorRelatedFile(){
 		return ((IPath)getFile().getFullPath().clone());
 	}
-	protected IPath getPathToEditorRelatedFileWithFileExtension(String fileExtension){
+	public IPath getPathToEditorRelatedFileWithFileExtension(String fileExtension){
 		return getPathFromEditorRelatedFile().removeFileExtension().addFileExtension(fileExtension);
 	}
 	
-	protected void createFileWithFileExtension(String fileExtension){
-		IWorkspace workspace = ResourcesPlugin.getWorkspace();
-		IWorkspaceRoot workspaceRoot = workspace.getRoot();
-		
-		IFile file = workspaceRoot.getFile(getPathToEditorRelatedFileWithFileExtension(fileExtension));
-		
-		if(!file.exists()){
-			InputStream source = new ByteArrayInputStream("".getBytes());
-			try {
-				file.create(source, IResource.NONE, null);
-			} catch (CoreException e) {
-				e.printStackTrace();
-			}
-		}		
-	}
+
 	
 	/**
 	 * Opens the default editor for the given file extension side by side with the currently
 	 * active editor
 	 * @param File extension
 	 */
-	protected void openEditorForFileExtension(String fileExtension){
+	public void openEditorForFileExtension(String fileExtension){
 		IWorkspaceRoot workspaceRoot = ResourcesPlugin.getWorkspace().getRoot();
 
 		IPath path = getPathToEditorRelatedFileWithFileExtension(fileExtension);
-
-		//createFileWithFileExtension(fileExtension);
-		//relatedEditorFiles.add(path);
-
 
 		// only open editor if a file exist with the same name as the feature model in same directory
 		if(workspaceRoot.exists(path)){
