@@ -26,7 +26,6 @@ import eu.hyvar.feature.expression.HyExpressionFactory;
 import eu.hyvar.feature.expression.HyFeatureReferenceExpression;
 import eu.hyvar.feature.expression.HyNotExpression;
 import eu.hyvar.feature.util.HyFeatureModelWellFormednessException;
-import solver.Solver;
 import solver.constraints.Constraint;
 
 public class DwSatisfiabilityChecker extends FeatureModelConverter{
@@ -127,13 +126,13 @@ public class DwSatisfiabilityChecker extends FeatureModelConverter{
 			return false;
 		}
 		
-		this.solver = new Solver();
+		createSolver();
 		
-		convertFeatureModel(featureModel, constraintModel, solver);
+		convertFeatureModel(featureModel, constraintModel, getSolver());
 		
 		encodeExpressionsAndFeatureSelection(expressions, partialFeatureSelection);
 		
-		return solver.findSolution();
+		return getSolver().findSolution();
 	}
 	
 	public boolean isExpressionSatisfiable(DEFeatureModel featureModel, List<DEExpression> expressions, List<DEFeature> partialFeatureSelection) {
@@ -141,19 +140,19 @@ public class DwSatisfiabilityChecker extends FeatureModelConverter{
 			return false;
 		}
 		
-		this.solver = new Solver();
+		createSolver();
 		
-		encodeFeatureVariables(featureModel);
+		convertFeatureModel(featureModel);
 		
 		encodeExpressionsAndFeatureSelection(expressions, partialFeatureSelection);
 		
-		return solver.findSolution();
+		return getSolver().findSolution();
 	}
 	
 	protected void encodeExpressionsAndFeatureSelection(List<DEExpression> expressions, List<DEFeature> partialFeatureSelection) {
 		if(expressions != null) {
 			for(DEExpression expression: expressions) {
-				encodeExpression(expression);
+				getSolver().post(expression(expression));
 			}			
 		}
 		
@@ -166,8 +165,8 @@ public class DwSatisfiabilityChecker extends FeatureModelConverter{
 
 	
 	protected void encodeFeatureSelection(DEFeature feature) {
-		Constraint<?,?> constraint = featureVariableEncoding.selected(feature);
-		solver.post(constraint);
+		Constraint<?,?> constraint = getFeatureVariableEncoding().selected(feature);
+		getSolver().post(constraint);
 	}
 	
 }

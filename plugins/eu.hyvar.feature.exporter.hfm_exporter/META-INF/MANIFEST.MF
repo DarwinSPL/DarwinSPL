@@ -9,6 +9,7 @@ Require-Bundle: eu.hyvar.feature.constraint,
  eu.hyvar.feature.mapping,
  eu.hyvar.feature.configuration,
  org.deltaecore.feature.configuration,
+ org.deltaecore.feature.constraint,
  eu.hyvar.feature.expression,
  eu.hyvar.feature,
  org.deltaecore.suite.mapping
