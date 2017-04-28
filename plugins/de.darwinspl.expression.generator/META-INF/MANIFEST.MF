@@ -11,5 +11,6 @@ Require-Bundle: eu.hyvar.context.information,
  eu.hyvar.feature.exporter.hfm_exporter,
  eu.hyvar.feature.constraint,
  org.deltaecore.feature.constraint,
- org.deltaecore.feature.analysis
+ org.deltaecore.feature.analysis,
+ de.darwinspl.feature.analyses
 Export-Package: de.darwinspl.expression.generator
