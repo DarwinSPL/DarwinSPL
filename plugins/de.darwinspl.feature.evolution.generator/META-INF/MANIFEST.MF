@@ -5,4 +5,7 @@ Bundle-SymbolicName: de.darwinspl.feature.evolution.generator
 Bundle-Version: 1.0.0
 Bundle-Vendor: www.darwinspl.de
 Bundle-RequiredExecutionEnvironment: JavaSE-1.7
-Require-Bundle: eu.hyvar.feature
+Require-Bundle: eu.hyvar.feature,
+ de.darwinspl.feature.evolution,
+ de.darwinspl.evolution.guidance
+Export-Package: de.darwinspl.feature.evolution.generator

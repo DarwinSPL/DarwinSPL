@@ -399,6 +399,33 @@ public class HyFeatureEvolutionUtil {
 		int groupIndex = rand.nextInt(validGroups.size());
 		return validGroups.get(groupIndex);
 	}
+	
+	public static HyGroup getRandomGroupWithType(HyFeatureModel featureModel, HyGroupTypeEnum allowedGroupType, Date date) {
+		List<HyGroupTypeEnum> groupTypes = new ArrayList<HyGroupTypeEnum>(1);
+		groupTypes.add(allowedGroupType);
+		
+		return getRandomGroupWithType(featureModel, groupTypes, date);
+	}
+	
+	public static HyGroup getRandomGroupWithType(HyFeatureModel featureModel, List<HyGroupTypeEnum> allowedGroupTypes, Date date) {
+		List<HyGroup> potentialGroups = new ArrayList<HyGroup>();
+
+		outerFor:
+		for(HyGroup group: HyFeatureEvolutionUtil.getGroups(featureModel, date)) {
+			HyGroupTypeEnum groupType = HyFeatureEvolutionUtil.getType(group, date).getType();
+			
+			for(HyGroupTypeEnum allowedType: allowedGroupTypes) {
+				if(groupType.equals(allowedType)) {
+					potentialGroups.add(group);
+					continue outerFor;
+				}
+			}
+		}
+		
+		Random rand = new Random();
+		int groupIndex = rand.nextInt(potentialGroups.size());
+		return potentialGroups.get(groupIndex);
+	}
 
 	public static HyGroup getRandomGroup(HyFeatureModel featureModel, List<HyGroup> excludedGroups, Date date) {
 		List<HyGroup> validGroups = HyFeatureEvolutionUtil.getGroups(featureModel, date);

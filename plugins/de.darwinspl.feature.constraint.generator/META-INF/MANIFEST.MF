@@ -1,0 +1,9 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: DarwinSPL Constraint Generator
+Bundle-SymbolicName: de.darwinspl.feature.constraint.generator
+Bundle-Version: 1.0.0
+Bundle-RequiredExecutionEnvironment: JavaSE-1.7
+Require-Bundle: eu.hyvar.feature.constraint,
+ de.darwinspl.expression.generator
+Export-Package: de.darwinspl.feature.constraint.generator

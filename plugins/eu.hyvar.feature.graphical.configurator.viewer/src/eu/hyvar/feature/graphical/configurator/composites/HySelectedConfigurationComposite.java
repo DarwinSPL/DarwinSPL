@@ -19,8 +19,8 @@ import eu.hyvar.feature.configuration.HyVersionSelected;
 
 public class HySelectedConfigurationComposite extends Group {
 	private Text textArea;
-	private Button completeButton;
-	private Button useButton;
+//	private Button completeButton;
+//	private Button useButton;
 	private Button deriveVariantButton;
 	
 	public HySelectedConfigurationComposite(Composite parent) {
@@ -40,13 +40,13 @@ public class HySelectedConfigurationComposite extends Group {
 		textArea.setEditable(false);
 		textArea.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
 
-		completeButton = new Button(this, SWT.PUSH);
-		completeButton.setText("Automatically Select Versions");
-		completeButton.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, false));
-		
-		useButton = new Button(this, SWT.PUSH);
-		useButton.setText("Use as Running Configuration");
-		useButton.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, false));
+//		completeButton = new Button(this, SWT.PUSH);
+//		completeButton.setText("Automatically Select Versions");
+//		completeButton.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, false));
+//		
+//		useButton = new Button(this, SWT.PUSH);
+//		useButton.setText("Use as Running Configuration");
+//		useButton.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, false));
 		
 		deriveVariantButton = new Button(this, SWT.PUSH);
 		deriveVariantButton.setText("Derive Variant");
@@ -78,13 +78,13 @@ public class HySelectedConfigurationComposite extends Group {
 		
 	}
 	
-	public Button getCompleteButton() {
-		return completeButton;
-	}
-
-	public Button getUseButton() {
-		return useButton;
-	}
+//	public Button getCompleteButton() {
+//		return completeButton;
+//	}
+//
+//	public Button getUseButton() {
+//		return useButton;
+//	}
 
 	public Button getDeriveVariantButton() {
 		return deriveVariantButton;

@@ -1,0 +1,16 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: DarwinSPL Expression Generator
+Bundle-SymbolicName: de.darwinspl.expression.generator
+Bundle-Version: 1.0.0
+Bundle-RequiredExecutionEnvironment: JavaSE-1.7
+Require-Bundle: eu.hyvar.context.information,
+ eu.hyvar.feature,
+ eu.hyvar.feature.expression,
+ org.deltaecore.feature,
+ eu.hyvar.feature.exporter.hfm_exporter,
+ eu.hyvar.feature.constraint,
+ org.deltaecore.feature.constraint,
+ org.deltaecore.feature.analysis,
+ de.darwinspl.feature.analyses
+Export-Package: de.darwinspl.expression.generator

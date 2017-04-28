@@ -6,7 +6,7 @@ import java.util.List;
 import org.deltaecore.feature.DEFeatureModel;
 import org.deltaecore.feature.configuration.DEConfiguration;
 import org.deltaecore.feature.constraint.DEConstraintModel;
-import org.deltaecore.feature.mapping.DEMappingModel;
+import org.deltaecore.suite.mapping.DEMappingModel;
 import org.eclipse.core.commands.AbstractHandler;
 import org.eclipse.core.commands.ExecutionEvent;
 import org.eclipse.core.commands.ExecutionException;
