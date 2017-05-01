@@ -44,6 +44,11 @@ public class HyFeatureFigure extends DwLabelFigure{
 	 */
 	private DwExpandButton expandButton;
 	
+	/**
+	 * Indicator to show the numbers of hidden features
+	 */
+	private DwHiddenChildrenIndicatorFigure hiddenChildrenIndicator;
+	
 	protected AbstractConnectionAnchor parentAnchor;
 	protected AbstractConnectionAnchor childrenAnchor;
 	
@@ -59,6 +64,7 @@ public class HyFeatureFigure extends DwLabelFigure{
 		this.feature = feature;	
 		
 		createExpandButton();
+		createHiddenChildrenIndicator();
 		
 		this.setLayoutManager(new XYLayout());
 		
@@ -112,6 +118,14 @@ public class HyFeatureFigure extends DwLabelFigure{
 				feature.setHideChildren(!feature.isHideChildren(), editor.getCurrentSelectedDate());
 			}
 		});		
+	}
+	
+	/**
+	 * Creates the figure to show the number of hidden children
+	 */
+	private void createHiddenChildrenIndicator(){
+		hiddenChildrenIndicator = new DwHiddenChildrenIndicatorFigure(feature, editor.getModelWrapped());
+		add(hiddenChildrenIndicator);
 	}
 	
 	@Override

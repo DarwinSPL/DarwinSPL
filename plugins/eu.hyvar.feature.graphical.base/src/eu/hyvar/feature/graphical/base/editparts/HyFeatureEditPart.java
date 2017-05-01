@@ -24,6 +24,7 @@ import eu.hyvar.feature.HyVersion;
 import eu.hyvar.feature.graphical.base.deltaecore.wrapper.HyGeometryUtil;
 import eu.hyvar.feature.graphical.base.deltaecore.wrapper.layouter.version.HyVersionLayouterManager;
 import eu.hyvar.feature.graphical.base.editor.DwGraphicalFeatureModelViewer;
+import eu.hyvar.feature.graphical.base.figures.DwHiddenChildrenIndicatorFigure;
 import eu.hyvar.feature.graphical.base.figures.HyFeatureFigure;
 import eu.hyvar.feature.graphical.base.model.HyFeatureModelWrapped;
 import eu.hyvar.feature.graphical.base.model.HyFeatureWrapped;
@@ -237,8 +238,11 @@ public class HyFeatureEditPart extends HyAbstractEditPart implements NodeEditPar
 		Date date = editor.getCurrentSelectedDate();
 		
 		int width = HyGeometryUtil.calculateFeatureWidth(feature.getWrappedModelElement(), date);
-		int height = feature.getSize(date).height; 
+		int height = feature.getSize(date).height;
 		
+		if(feature.isHideChildren()){
+			height += (int)(DwHiddenChildrenIndicatorFigure.HIDDEN_CHILDREN_INDICATOR_SIZE * 1.5); 
+		}
 		
 		Dimension newFeatureSize = new Dimension(width, height);
 		feature.setSize(newFeatureSize);
