@@ -17,7 +17,6 @@ import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Insets;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
-import org.eclipse.swt.graphics.Color;
 
 import eu.hyvar.evolution.HyEvolutionUtil;
 import eu.hyvar.evolution.HyName;
@@ -45,6 +44,11 @@ public class HyFeatureFigure extends DwLabelFigure{
 	private DwExpandButton expandButton;
 	
 	/**
+	 * Figure to indicate the type of the feature
+	 */
+	private DwFeatureTypeFigure typeFigure;
+	
+	/**
 	 * Indicator to show the numbers of hidden features
 	 */
 	private DwHiddenChildrenIndicatorFigure hiddenChildrenIndicator;
@@ -65,6 +69,7 @@ public class HyFeatureFigure extends DwLabelFigure{
 		
 		createExpandButton();
 		createHiddenChildrenIndicator();
+		createTypeFigure();
 		
 		this.setLayoutManager(new XYLayout());
 		
@@ -126,6 +131,14 @@ public class HyFeatureFigure extends DwLabelFigure{
 	private void createHiddenChildrenIndicator(){
 		hiddenChildrenIndicator = new DwHiddenChildrenIndicatorFigure(feature, editor.getModelWrapped());
 		add(hiddenChildrenIndicator);
+	}
+	
+	/**
+	 * Creates the figure to indicate the feature type if the figure has a type
+	 */
+	private void createTypeFigure(){
+		typeFigure = new DwFeatureTypeFigure(feature, editor.getModelWrapped());
+		add(typeFigure);
 	}
 	
 	@Override
@@ -236,27 +249,6 @@ public class HyFeatureFigure extends DwLabelFigure{
 				 new Dimension(feature.getSize(date).width-theme.getLineWidth()*2, height));
 	}
 
-	protected void paintVariationTypeCircle(Graphics graphics) {
-		Date date = editor.getCurrentSelectedDate();
-		
-		DEGraphicalEditorTheme theme = DEGraphicalEditor.getTheme();
-
-		boolean isMandatory = feature.isMandatory(date);
-		
-		Color light = isMandatory ? theme.getFeatureMandatoryPrimaryColor() : theme.getFeatureOptionalPrimaryColor();
-		Color dark = isMandatory ? theme.getFeatureMandatorySecondaryColor() : theme.getFeatureOptionalSecondaryColor();
-
-		Rectangle variationTypeCircleBounds = feature.calculateVariationTypeCircleBounds(date);
-
-		//Compensate for line width
-		int lineWidth = theme.getLineWidth() / 2;
-		variationTypeCircleBounds.expand(-lineWidth, -lineWidth);
-
-
-		DEDrawingUtil.gradientFillEllipsis(graphics, variationTypeCircleBounds, light, dark);
-		DEDrawingUtil.outlineEllipsis(graphics, variationTypeCircleBounds, theme.getLineColor());
-	}	
-	
 	private void resizeToContent() {
 		Date date = editor.getCurrentSelectedDate();
 		
@@ -302,6 +294,8 @@ public class HyFeatureFigure extends DwLabelFigure{
 		updateContent();
 		resizeToContent();
 		repaint();
+		
+		typeFigure.repaint();
 	}
 	
 	@Override 
@@ -313,11 +307,6 @@ public class HyFeatureFigure extends DwLabelFigure{
 		if(HyEvolutionUtil.getValidTemporalElement(model.getTypes(), date) == null ||
 				feature.getGroupMembership(date).isEmpty()){
 			return;
-		}
-		
-		
-		if(!feature.isWithoutModifier(date)){
-			paintVariationTypeCircle(graphics);
 		}
 		
 		if (feature.hasVersionsAtDate(date)) {
