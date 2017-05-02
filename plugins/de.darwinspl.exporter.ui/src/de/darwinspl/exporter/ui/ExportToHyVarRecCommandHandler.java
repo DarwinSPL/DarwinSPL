@@ -21,6 +21,7 @@ import org.eclipse.swt.widgets.Shell;
 import de.christophseidl.util.eclipse.ResourceUtil;
 import de.christophseidl.util.eclipse.ui.SelectionUtil;
 import de.christophseidl.util.ecore.EcoreIOUtil;
+import dw.darwinspl.feature.graphical.base.dialogs.DwDateDialog;
 import eu.hyvar.context.HyContextModel;
 import eu.hyvar.context.contextValidity.HyValidityModel;
 import eu.hyvar.context.contextValidity.util.HyValidityModelUtil;
@@ -31,7 +32,6 @@ import eu.hyvar.feature.configuration.HyConfiguration;
 import eu.hyvar.feature.configuration.util.HyConfigurationUtil;
 import eu.hyvar.feature.constraint.HyConstraintModel;
 import eu.hyvar.feature.constraint.util.HyConstraintUtil;
-import eu.hyvar.feature.graphical.base.dialogs.DateDialog;
 import eu.hyvar.feature.util.HyFeatureUtil;
 import eu.hyvar.preferences.HyPreferenceModel;
 import eu.hyvar.preferences.util.HyPreferenceModelUtil;
@@ -179,7 +179,7 @@ public class ExportToHyVarRecCommandHandler extends AbstractHandler {
 		Display display = Display.getDefault();
 	    Shell shell = display.getActiveShell();
 
-		DateDialog datePicker = new DateDialog(shell, new Date());
+		DwDateDialog datePicker = new DwDateDialog(shell, new Date());
 		datePicker.open();
 		
 		String hyVarRecString = hyvarrecExporter.exportContextMappingModel(contextModel, validityModel, featureModel,
