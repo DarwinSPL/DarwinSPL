@@ -4,7 +4,7 @@
    <extension
          point="org.eclipse.ui.editors">
       <editor
-            class="eu.hyvar.feature.graphical.configurator.editor.HyFeatureModelConfiguratorEditor"
+            class="dw.darwinspl.feature.graphical.configurator.editor.DwFeatureModelConfiguratorEditor"
             default="false"
             extensions="hyfeature, hyconfigurationmodel"
             icon="icons/icon_standard.png"

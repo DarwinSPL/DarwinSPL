@@ -1,9 +1,9 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: DarwinSPL Common Graphical Editor
-Bundle-SymbolicName: eu.hyvar.feature.graphical.base
+Bundle-SymbolicName: dw.darwinspl.feature.graphical.base
 Bundle-Version: 1.0.0
-Bundle-Activator: eu.hyvar.feature.graphical.base.Activator
+Bundle-Activator: dw.darwinspl.feature.graphical.base.Activator
 Require-Bundle: org.eclipse.ui,
  org.eclipse.core.runtime,
  org.deltaecore.feature.graphical.base,
@@ -15,15 +15,15 @@ Require-Bundle: org.eclipse.ui,
  org.eclipse.draw2d
 Bundle-RequiredExecutionEnvironment: JavaSE-1.7
 Bundle-ActivationPolicy: lazy
-Export-Package: eu.hyvar.feature.graphical.base.anchors,
- eu.hyvar.feature.graphical.base.deltaecore.wrapper,
- eu.hyvar.feature.graphical.base.deltaecore.wrapper.layouter.feature,
- eu.hyvar.feature.graphical.base.deltaecore.wrapper.layouter.version,
- eu.hyvar.feature.graphical.base.dialogs,
- eu.hyvar.feature.graphical.base.editor,
- eu.hyvar.feature.graphical.base.editparts,
- eu.hyvar.feature.graphical.base.factory,
- eu.hyvar.feature.graphical.base.figures,
- eu.hyvar.feature.graphical.base.model,
- eu.hyvar.feature.graphical.base.util
+Export-Package: dw.darwinspl.feature.graphical.base.anchors,
+ dw.darwinspl.feature.graphical.base.deltaecore.wrapper,
+ dw.darwinspl.feature.graphical.base.deltaecore.wrapper.layouter.feature,
+ dw.darwinspl.feature.graphical.base.deltaecore.wrapper.layouter.version,
+ dw.darwinspl.feature.graphical.base.dialogs,
+ dw.darwinspl.feature.graphical.base.editor,
+ dw.darwinspl.feature.graphical.base.editparts,
+ dw.darwinspl.feature.graphical.base.factory,
+ dw.darwinspl.feature.graphical.base.figures,
+ dw.darwinspl.feature.graphical.base.model,
+ dw.darwinspl.feature.graphical.base.util
 Bundle-Vendor: www.darwinspl.de

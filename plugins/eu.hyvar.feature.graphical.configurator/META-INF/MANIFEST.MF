@@ -1,9 +1,9 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: DarwinSPL Graphical Configurator
-Bundle-SymbolicName: eu.hyvar.feature.graphical.configurator.editor;singleton:=true
+Bundle-SymbolicName: dw.darwinspl.feature.graphical.configurator.editor;singleton:=true
 Bundle-Version: 1.0.0
-Bundle-Activator: eu.hyvar.feature.graphical.configurator.Activator
+Bundle-Activator: dw.darwinspl.feature.graphical.configurator.Activator
 Require-Bundle: org.eclipse.ui,
  org.eclipse.core.runtime,
  org.eclipse.gef;bundle-version="3.10.1",
@@ -15,7 +15,7 @@ Require-Bundle: org.eclipse.ui,
  org.eclipse.emf.ecore,
  org.eclipse.draw2d,
  org.eclipse.swt,
- eu.hyvar.feature.graphical.base,
+ dw.darwinspl.feature.graphical.base,
  eu.hyvar.feature.configuration,
  com.google.gson;bundle-version="2.2.4",
  javax.servlet,
@@ -39,7 +39,7 @@ Require-Bundle: org.eclipse.ui,
  eu.hyvar.reconfigurator.input,
  eu.hyvar.reconfigurator.output.translation,
  org.eclipse.e4.ui.model.workbench,
- eu.hyvar.feature.graphical.configurator.viewer,
+ dw.darwinspl.feature.graphical.configurator.viewer,
  eu.hyvar.feature.data
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Bundle-ActivationPolicy: lazy
