@@ -4,6 +4,8 @@ import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.eclipse.core.resources.IFile;
+
 import de.darwinspl.importer.DarwinSPLFeatureModelImporter;
 import de.ovgu.featureide.fm.core.ExtensionManager.NoSuchExtensionException;
 import de.ovgu.featureide.fm.core.base.IFeature;
@@ -39,6 +41,7 @@ public class FeatureIDEFeatureModelImporter implements DarwinSPLFeatureModelImpo
 	private static final HyFeatureFactory featureFactory = HyFeatureFactory.eINSTANCE;
 	private static final HyEvolutionFactory evolutionFactory = HyEvolutionFactory.eINSTANCE;
 	
+	@Override
 	public HyFeatureModel importFeatureModel(String pathToFile) {
 		XmlFeatureModelFormat format = new XmlFeatureModelFormat();
 		try {
@@ -209,6 +212,11 @@ public class FeatureIDEFeatureModelImporter implements DarwinSPLFeatureModelImpo
 
 	public HyFeatureModel getDarwinSPLfeatureModel() {
 		return darwinSPLfeatureModel;
+	}
+
+	@Override
+	public HyFeatureModel importFeatureModel(IFile file) {
+		return importFeatureModel(file.getRawLocation().makeAbsolute().toOSString());
 	}
 	
 	

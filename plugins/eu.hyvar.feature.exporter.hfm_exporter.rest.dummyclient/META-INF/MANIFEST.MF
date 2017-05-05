@@ -15,9 +15,10 @@ Require-Bundle: org.eclipse.core.resources,
  org.eclipse.jetty.io,
  org.deltaecore.feature,
  org.deltaecore.feature.configuration,
- de.darwinspl.common.util;bundle-version="1.0.0"
+ de.darwinspl.common.util;bundle-version="1.0.0",
+ org.deltaecore.suite.mapping
 Bundle-ClassPath: .,
- lib/jetty-client-9.2.13.v20150730.jar
+ lib/org.eclipse.jetty.client_9.3.9.v20160517.jar
 Bundle-Vendor: www.darwinspl.de
 Export-Package: eu.hyvar.feature.exporter.hfm_exporter.rest.dummyclient,
  eu.hyvar.feature.exporter.hfm_exporter.rest.dummyclient.answer,

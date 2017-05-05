@@ -31,10 +31,10 @@ import eu.hyvar.feature.expression.HyOrExpression;
 
 public class FeatureIDEConstraintsImporter {
 
-	private HyConstraintFactory constraintFactory;
-	private HyExpressionFactory expressionFactory;
+	protected HyConstraintFactory constraintFactory;
+	protected HyExpressionFactory expressionFactory;
 	
-	private Map<IFeature, HyFeature> featureMap;
+	protected Map<IFeature, HyFeature> featureMap;
 	
 	public HyConstraintModel importConstraints(List<IConstraint> featureIDEconstraints, HyFeatureModel featureModel, Map<IFeature, HyFeature> featureMap) {
 		

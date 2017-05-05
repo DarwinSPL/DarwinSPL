@@ -15,7 +15,7 @@ import java.util.Scanner;
 
 import org.deltaecore.feature.DEFeatureModel;
 import org.deltaecore.feature.configuration.DEConfiguration;
-import org.deltaecore.feature.mapping.DEMappingModel;
+import org.deltaecore.suite.mapping.DEMappingModel;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;
@@ -69,7 +69,7 @@ public class Application implements IApplication {
 
 //		String json = gson.toJson(createOutput());
 		
-		File jsonFile = new File("D:\\HyVar\\Implementations\\_ExampleInputOutput\\Input 10.1\\input_10_1_test.txt");
+		File jsonFile = new File("D:\\HyVar\\Implementations\\_ExampleInputOutput\\Input 10.1\\input_10_1.txt");
 		String json = FileUtil.readFileContent(jsonFile);
 
 		FileWriter out = new FileWriter("D:/repositories/DarwinSPL/plugins/eu.hyvar.feature.exporter.hfm_exporter.rest.dummyclient/models/output.json");

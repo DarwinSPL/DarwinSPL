@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
+import java.util.UUID;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -18,7 +19,7 @@ import org.deltaecore.feature.DEFeature;
 import org.deltaecore.feature.DEFeatureModel;
 import org.deltaecore.feature.DEVersion;
 import org.deltaecore.feature.configuration.DEConfiguration;
-import org.deltaecore.feature.mapping.DEMappingModel;
+import org.deltaecore.suite.mapping.DEMappingModel;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;
@@ -57,15 +58,22 @@ public class JsonHandler extends AbstractHandler {
 	private static final String PROJECT_NAME = "hyvar_to_deltaecore";
 	
 	// folders have to be the same. Otherwise the path in the mapping will point to different folders than the variant generator expects them to be
-	private static final String MODELS_FOLDER = "models";
-	private static final String HYVAR_FOLDER = MODELS_FOLDER;
-	private static final String DELTAECORE_FOLDER = MODELS_FOLDER;
+//	private static final String MODELS_FOLDER = "models";
+//	private static final String HYVAR_FOLDER = MODELS_FOLDER;
+//	private static final String DELTAECORE_FOLDER = MODELS_FOLDER;
+	
+	private final String FOLDER;
 	
 	private static final String MSG_TYPE_JSON_HYVAR_TO_DELTAECORE_INPUT = "hyvar2deltaecore";
 	
 	private static final String MSG_TYPE_JSON_OUTPUT = "variantgen_spl";
 	
 	private static final String FILENAME = "spl";
+	
+	public JsonHandler() {
+		FOLDER = UUID.randomUUID().toString();
+	}
+	
 	
 	@Override
 	public void handle(String target, Request baseRequest, HttpServletRequest request, HttpServletResponse response)
@@ -161,7 +169,7 @@ public class JsonHandler extends AbstractHandler {
 			e.printStackTrace();
 		}
 		
-		IFolder folder = project.getFolder(DELTAECORE_FOLDER);
+		IFolder folder = project.getFolder(FOLDER);
 		if (!folder.exists()) {
 			try {
 				folder.create(true, true, progressMonitor);
@@ -316,7 +324,7 @@ public class JsonHandler extends AbstractHandler {
 			e.printStackTrace();
 		}
 		
-		IFolder folder = project.getFolder(HYVAR_FOLDER);
+		IFolder folder = project.getFolder(FOLDER);
 		if (!folder.exists()) {
 			try {
 				folder.create(true, true, progressMonitor);

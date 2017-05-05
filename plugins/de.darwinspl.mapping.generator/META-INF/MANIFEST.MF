@@ -1,0 +1,12 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: DarwinSPL Mapping Generator
+Bundle-SymbolicName: de.darwinspl.mapping.generator
+Bundle-Version: 1.0.0
+Bundle-RequiredExecutionEnvironment: JavaSE-1.7
+Require-Bundle: eu.hyvar.feature,
+ org.deltaecore.core.decore,
+ eu.hyvar.feature.mapping,
+ de.darwinspl.expression.generator,
+ eu.hyvar.feature.constraint
+Export-Package: de.darwinspl.mapping.generator

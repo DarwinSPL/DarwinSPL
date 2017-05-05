@@ -17,5 +17,6 @@ Require-Bundle: org.eclipse.equinox.app,
  eu.hyvar.feature.mapping,
  eu.hyvar.feature.exporter.hfm_exporter,
  org.deltaecore.feature,
- org.deltaecore.feature.configuration
+ org.deltaecore.feature.configuration,
+ org.deltaecore.suite.mapping
 Bundle-Vendor: www.darwinspl.de

@@ -13,6 +13,8 @@ import org.eclipse.swt.widgets.Text;
 
 public class FileSelectionWizardPage extends WizardPage implements SelectionListener {
 
+	
+	protected String modelName;
 	protected Composite container;
 	
 	/**
@@ -33,11 +35,12 @@ public class FileSelectionWizardPage extends WizardPage implements SelectionList
 	 *            bundles are treated as directories. When no filter extension
 	 *            is set, bundles are treated as files.
 	 */
-	public FileSelectionWizardPage(String pageName, String description, String[] fileExtensionFilter) {
+	public FileSelectionWizardPage(String pageName, String description, String[] fileExtensionFilter, String modelName) {
 		super(pageName);
 		setDescription(description);
 		this.fileExtensionFilter = fileExtensionFilter;
 		
+		this.modelName = modelName;
 		// TODO Auto-generated constructor stub
 	}
 
@@ -57,7 +60,7 @@ public class FileSelectionWizardPage extends WizardPage implements SelectionList
 		
 		
 		selectedSourceFileLabel = new Label(container, SWT.LEFT);
-		selectedSourceFileLabel.setText("FeatureIDE Feature Model Selected:");
+		selectedSourceFileLabel.setText(modelName+" Selected:");
 
 		sourceFilePathText = new Text(container, SWT.BORDER | SWT.SINGLE);
 
