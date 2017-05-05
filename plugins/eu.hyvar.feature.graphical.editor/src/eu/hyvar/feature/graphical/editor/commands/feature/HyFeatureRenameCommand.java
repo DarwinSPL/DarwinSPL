@@ -7,11 +7,11 @@ import eu.hyvar.evolution.HyEvolutionFactory;
 import eu.hyvar.evolution.HyEvolutionUtil;
 import eu.hyvar.evolution.HyName;
 import eu.hyvar.feature.graphical.base.model.HyFeatureWrapped;
-import eu.hyvar.feature.graphical.editor.commands.HyLinearTemporalElementCommand;
+import eu.hyvar.feature.graphical.editor.commands.DwLinearTemporalElementCommand;
 import eu.hyvar.feature.graphical.editor.editor.HyGraphicalFeatureModelEditor;
 import eu.hyvar.feature.graphical.editor.util.HyElementEditorUtil;
 
-public class HyFeatureRenameCommand extends HyLinearTemporalElementCommand {
+public class HyFeatureRenameCommand extends DwLinearTemporalElementCommand {
 	private HyName oldName;
 	private HyName newName;
 	private Date changeDate;

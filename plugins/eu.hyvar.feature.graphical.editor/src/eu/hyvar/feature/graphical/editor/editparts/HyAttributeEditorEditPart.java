@@ -14,7 +14,7 @@ import org.eclipse.swt.graphics.Rectangle;
 
 import eu.hyvar.feature.HyFeature;
 import eu.hyvar.feature.HyFeatureAttribute;
-import eu.hyvar.feature.graphical.base.editor.HyGraphicalFeatureModelViewer;
+import eu.hyvar.feature.graphical.base.editor.DwGraphicalFeatureModelViewer;
 import eu.hyvar.feature.graphical.base.editparts.HyAttributeEditPart;
 import eu.hyvar.feature.graphical.base.editparts.HyFeatureEditPart;
 import eu.hyvar.feature.graphical.base.figures.HyAttributeFigure;
@@ -27,7 +27,7 @@ import eu.hyvar.feature.graphical.editor.policies.attribute.HyAttributeDirectEdi
 public class HyAttributeEditorEditPart extends HyAttributeEditPart {
 	private HyAttributeAdapter adapter;
 
-	public HyAttributeEditorEditPart(HyGraphicalFeatureModelViewer editor, HyFeatureModelWrapped featureModel) {
+	public HyAttributeEditorEditPart(DwGraphicalFeatureModelViewer editor, HyFeatureModelWrapped featureModel) {
 		super(editor, featureModel);
 		adapter = new HyAttributeAdapter();
 	}

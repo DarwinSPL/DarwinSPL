@@ -84,8 +84,6 @@ public class HyParentChildConnection{
 		return highlight;
 	}
 	public void setHighlight(boolean highlight) {
-		boolean old = this.highlight;
-
 		this.highlight = highlight;
 		changes.firePropertyChange(PROPERTY_HIGHLIGHTED, !highlight, highlight);
 	}
@@ -139,5 +137,13 @@ public class HyParentChildConnection{
 
 	public void notifyChange() {
 		changes.firePropertyChange("SomeConnectedElementHasChanged", 1, 2);
+	}
+	
+	@Override
+	public boolean equals(Object other){
+		HyParentChildConnection connection = (HyParentChildConnection)other;
+		
+		return (connection.getTarget().equals(getTarget()) &&
+		        connection.getSource().equals(getSource()));
 	}
 }

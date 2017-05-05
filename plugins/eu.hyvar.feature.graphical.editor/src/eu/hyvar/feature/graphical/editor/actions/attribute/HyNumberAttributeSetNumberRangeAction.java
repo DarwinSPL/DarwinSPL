@@ -7,7 +7,7 @@ import org.eclipse.gef.commands.Command;
 import org.eclipse.jface.viewers.StructuredSelection;
 
 import eu.hyvar.feature.HyNumberAttribute;
-import eu.hyvar.feature.graphical.base.editor.HyGraphicalFeatureModelViewer;
+import eu.hyvar.feature.graphical.base.editor.DwGraphicalFeatureModelViewer;
 import eu.hyvar.feature.graphical.base.editparts.HyAttributeEditPart;
 import eu.hyvar.feature.graphical.editor.actions.HyCommandAction;
 import eu.hyvar.feature.graphical.editor.commands.attribute.HyNumberAttributeSetNumberRangeCommand;
@@ -20,7 +20,7 @@ public class HyNumberAttributeSetNumberRangeAction  extends HyCommandAction{
 
 	Request request;
 
-	public HyNumberAttributeSetNumberRangeAction(HyGraphicalFeatureModelViewer editor){
+	public HyNumberAttributeSetNumberRangeAction(DwGraphicalFeatureModelViewer editor){
 		super(editor);
 
 		setId(ATTRIBUTE_EDIT_MIN_AND_MAX);

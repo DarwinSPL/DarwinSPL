@@ -6,13 +6,13 @@ import org.eclipse.gef.commands.Command;
 
 import eu.hyvar.dataValues.HyDataValuesFactory;
 import eu.hyvar.dataValues.HyEnum;
-import eu.hyvar.feature.graphical.base.editor.HyGraphicalFeatureModelViewer;
+import eu.hyvar.feature.graphical.base.editor.DwGraphicalFeatureModelViewer;
 
 public class HyFeatureAttributeEnumCreateEnumCommand extends Command {
-	private HyGraphicalFeatureModelViewer editor;
+	private DwGraphicalFeatureModelViewer editor;
 	private HyEnum featureEnum;
 	
-	public HyFeatureAttributeEnumCreateEnumCommand(HyGraphicalFeatureModelViewer editor){
+	public HyFeatureAttributeEnumCreateEnumCommand(DwGraphicalFeatureModelViewer editor){
 		this.editor = editor;
 	}
 	

@@ -8,7 +8,7 @@ import eu.hyvar.feature.HyFeature;
 import eu.hyvar.feature.HyFeatureFactory;
 import eu.hyvar.feature.HyVersion;
 import eu.hyvar.feature.graphical.base.deltaecore.wrapper.layouter.version.HyVersionUtil;
-import eu.hyvar.feature.graphical.base.editor.HyGraphicalFeatureModelViewer;
+import eu.hyvar.feature.graphical.base.editor.DwGraphicalFeatureModelViewer;
 
 public class HyVersionCreateCommand  extends Command {
 	private HyVersion version;
@@ -16,10 +16,10 @@ public class HyVersionCreateCommand  extends Command {
 	private boolean wireAndAddAfter;
 	private boolean useSameBranch;
 	
-	private HyGraphicalFeatureModelViewer editor;
+	private DwGraphicalFeatureModelViewer editor;
 	private Object parent; 
 	
-	public HyVersionCreateCommand(Object parent, HyGraphicalFeatureModelViewer editor)  {
+	public HyVersionCreateCommand(Object parent, DwGraphicalFeatureModelViewer editor)  {
 		this.editor = editor;
 		this.parent = parent;
 	}

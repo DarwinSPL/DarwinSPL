@@ -13,7 +13,7 @@ import eu.hyvar.feature.graphical.base.editparts.HyGroupEditPart;
 import eu.hyvar.feature.graphical.base.model.HyFeatureWrapped;
 import eu.hyvar.feature.graphical.base.model.HyGroupWrapped;
 import eu.hyvar.feature.graphical.editor.commands.group.HyGroupMoveToAnotherHyFeatureCommand;
-import eu.hyvar.feature.graphical.editor.policies.HyFeatureModelResizablePolicy;
+import eu.hyvar.feature.graphical.editor.policies.DwThemedNonResizableEditPolicy;
 
 public class HyFeatureXYLayoutPolicy extends XYLayoutEditPolicy{
 
@@ -30,7 +30,7 @@ public class HyFeatureXYLayoutPolicy extends XYLayoutEditPolicy{
 	
 	@Override 
 	protected EditPolicy createChildEditPolicy(EditPart child) {
-		return new HyFeatureModelResizablePolicy();
+		return new DwThemedNonResizableEditPolicy();
 	}
 	
 	/**

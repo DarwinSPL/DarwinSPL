@@ -8,7 +8,7 @@ import org.eclipse.gef.commands.Command;
 import eu.hyvar.evolution.HyEvolutionUtil;
 import eu.hyvar.feature.HyFeatureType;
 import eu.hyvar.feature.HyFeatureTypeEnum;
-import eu.hyvar.feature.graphical.base.editor.HyGraphicalFeatureModelViewer;
+import eu.hyvar.feature.graphical.base.editor.DwGraphicalFeatureModelViewer;
 import eu.hyvar.feature.graphical.base.model.HyFeatureWrapped;
 import eu.hyvar.feature.graphical.editor.commands.feature.HyFeatureChangeTypeCommand;
 
@@ -16,7 +16,7 @@ public class HyFeatureChangeTypeAction extends HyFeatureSelectionAction {
 	public static final String FEATURE_CHANGE_TYPE = "ChangeFeatureType";
 	public static final String REQ_FEATURE_CHANGE_TYPE = "ChangeFeatureType";
 		
-	public HyFeatureChangeTypeAction(HyGraphicalFeatureModelViewer editor) {
+	public HyFeatureChangeTypeAction(DwGraphicalFeatureModelViewer editor) {
 		super(editor);
 			
 		setId(FEATURE_CHANGE_TYPE);
@@ -27,7 +27,7 @@ public class HyFeatureChangeTypeAction extends HyFeatureSelectionAction {
 	@Override
 	protected Command createCommand(Object acceptedModel) {
 		HyFeatureWrapped selectedFeature = getSelectedFeature();		
-		HyGraphicalFeatureModelViewer editor = (HyGraphicalFeatureModelViewer)this.getWorkbenchPart();
+		DwGraphicalFeatureModelViewer editor = (DwGraphicalFeatureModelViewer)this.getWorkbenchPart();
 		Date date = editor.getCurrentSelectedDate();
 		
 		HyFeatureType type = HyEvolutionUtil.getValidTemporalElement(selectedFeature.getWrappedModelElement().getTypes(), date);

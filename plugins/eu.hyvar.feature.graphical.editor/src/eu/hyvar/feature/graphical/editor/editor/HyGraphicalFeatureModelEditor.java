@@ -24,6 +24,7 @@ import org.eclipse.e4.ui.model.application.ui.basic.MPartStack;
 import org.eclipse.e4.ui.model.application.ui.basic.MStackElement;
 import org.eclipse.e4.ui.model.application.ui.basic.impl.BasicFactoryImpl;
 import org.eclipse.e4.ui.workbench.modeling.EModelService;
+import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.gef.GraphicalViewer;
 import org.eclipse.gef.KeyHandler;
 import org.eclipse.gef.KeyStroke;
@@ -34,7 +35,6 @@ import org.eclipse.swt.SWT;
 import org.eclipse.ui.IEditorDescriptor;
 import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.IEditorReference;
-import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.PartInitException;
@@ -45,8 +45,8 @@ import org.eclipse.ui.part.FileEditorInput;
 import eu.hyvar.context.contextValidity.util.HyValidityModelUtil;
 import eu.hyvar.context.information.util.HyContextInformationUtil;
 import eu.hyvar.feature.constraint.util.HyConstraintUtil;
-import eu.hyvar.feature.graphical.base.editor.HyGraphicalFeatureModelViewer;
-import eu.hyvar.feature.graphical.base.model.HyFeatureWrapped;
+import eu.hyvar.feature.graphical.base.editor.DwGraphicalFeatureModelViewer;
+import eu.hyvar.feature.graphical.base.util.DwFeatureModelLayoutFileUtil;
 import eu.hyvar.feature.graphical.editor.actions.HyLinearTemporalElementChangeValidityAction;
 import eu.hyvar.feature.graphical.editor.actions.attribute.HyAttributeCreateBooleanAction;
 import eu.hyvar.feature.graphical.editor.actions.attribute.HyAttributeCreateEnumAction;
@@ -57,9 +57,9 @@ import eu.hyvar.feature.graphical.editor.actions.attribute.HyNumberAttributeSetN
 import eu.hyvar.feature.graphical.editor.actions.enumeration.HyFeatureAttributeEnumCreateEnumAction;
 import eu.hyvar.feature.graphical.editor.actions.enumeration.HyFeatureAttributeEnumCreateLiteralAction;
 import eu.hyvar.feature.graphical.editor.actions.feature.HyFeatureChangeTypeAction;
+import eu.hyvar.feature.graphical.editor.actions.feature.HyFeatureCreateChildAction;
 import eu.hyvar.feature.graphical.editor.actions.feature.HyFeatureCreateSiblingAction;
 import eu.hyvar.feature.graphical.editor.actions.feature.HyFeatureEditNamesAction;
-import eu.hyvar.feature.graphical.editor.actions.feature.HyFeatureEvolutionCreateChildAction;
 import eu.hyvar.feature.graphical.editor.actions.group.HyGroupChangeGroupTypeToAlternativeTypeAction;
 import eu.hyvar.feature.graphical.editor.actions.group.HyGroupChangeGroupTypeToAndTypeAction;
 import eu.hyvar.feature.graphical.editor.actions.group.HyGroupChangeGroupTypeToOrTypeAction;
@@ -68,7 +68,7 @@ import eu.hyvar.feature.graphical.editor.actions.version.HyVersionCreateVersionA
 import eu.hyvar.feature.graphical.editor.factory.HyFeatureModelEditorEditPartFactory;
 
 @SuppressWarnings("restriction")
-public class HyGraphicalFeatureModelEditor extends HyGraphicalFeatureModelViewer{
+public class HyGraphicalFeatureModelEditor extends DwGraphicalFeatureModelViewer{
 	List<IPath> relatedEditorFiles = new ArrayList<IPath>();
 
 	@Override
@@ -84,13 +84,14 @@ public class HyGraphicalFeatureModelEditor extends HyGraphicalFeatureModelViewer
 
 	@Override
 	public void doSave(IProgressMonitor monitor) {
+		Resource resource = this.modelWrapped.getModel().eResource();
 		if(resource == null) return;
 
 		try{
-			saveLayout();
+			DwFeatureModelLayoutFileUtil.saveLayout(modelWrapped);
 
 			resource.save(null);
-			file.touch(null);
+			getFile().touch(null);
 			getCommandStack().markSaveLocation();
 
 
@@ -142,31 +143,7 @@ public class HyGraphicalFeatureModelEditor extends HyGraphicalFeatureModelViewer
 		openEditorForFileExtension(HyValidityModelUtil.getValidityModelFileExtensionForConcreteSyntax());
 	}
 
-	private void saveLayout(){
 
-		IWorkspace workspace = ResourcesPlugin.getWorkspace();
-		IWorkspaceRoot workspaceRoot = workspace.getRoot();
-
-		IPath path = ((IPath)file.getFullPath().clone()).removeFileExtension().addFileExtension("hylayout");
-
-		String fileContent = "";
-		for(HyFeatureWrapped feature : this.getModelWrapped().getFeatures(null)){
-			fileContent += feature.getWrappedModelElement().getId()+","+feature.getPosition(null).x()+","+feature.getPosition(null).y()+"\n";
-		}
-
-		IFile file = workspaceRoot.getFile(path);
-
-		InputStream source = new ByteArrayInputStream(fileContent.getBytes());
-		try {
-			if(!file.exists()){
-				file.create(source, IResource.NONE, null);
-			}else{
-				file.setContents(source, IResource.FORCE, null);
-			}
-		} catch (CoreException e) {
-			e.printStackTrace();
-		}
-	}
 
 
 	@SuppressWarnings("unchecked")
@@ -214,7 +191,7 @@ public class HyGraphicalFeatureModelEditor extends HyGraphicalFeatureModelViewer
 		getActionRegistry().registerAction(attributeCreateEnumAction);
 		getSelectionActions().add(attributeCreateEnumAction.getId());		
 
-		HyFeatureEvolutionCreateChildAction childAction = new HyFeatureEvolutionCreateChildAction(this);
+		HyFeatureCreateChildAction childAction = new HyFeatureCreateChildAction(this);
 		getActionRegistry().registerAction(childAction);
 		getSelectionActions().add(childAction.getId());
 
@@ -256,6 +233,107 @@ public class HyGraphicalFeatureModelEditor extends HyGraphicalFeatureModelViewer
 		super.createActions();
 	}
 
+	@Override
+	public void dispose(){
+		modelWrapped.getModel().eResource().unload();
+		closeRelatedEditors();
+	}
+
+
+	private MPartStack secondEditor;	
+
+	public void insertEditor(float ratio, int where, MPart containerEditor, MPart editorToInsert) {
+		IWorkbenchWindow window = PlatformUI.getWorkbench().getActiveWorkbenchWindow();
+
+		EModelService service = window.getService(EModelService.class);
+		
+		if(secondEditor != null)
+		System.out.println("====> "+secondEditor.getChildren().size());
+
+		if(secondEditor == null){
+			secondEditor = getPartStack(editorToInsert);
+
+			MArea area = getArea(containerEditor);
+
+			MPartSashContainerElement relToElement = area.getChildren().get(0);
+			service.insert(secondEditor, relToElement, where, ratio);
+		}else{
+			if(secondEditor.getChildren().isEmpty()){
+				//secondEditor.getParent().getChildren().remove(secondEditor);
+				secondEditor = null;
+				
+				insertEditor(ratio, where, containerEditor, editorToInsert);
+			}else{
+				secondEditor.getChildren().add(editorToInsert);	
+			}
+		}
+	}
+
+	private MPartStack getPartStack(MPart childPart) {
+		MStackElement stackElement = childPart;
+		MPartStack newStack = BasicFactoryImpl.eINSTANCE.createPartStack();
+		newStack.getChildren().add(stackElement);
+		newStack.setSelectedElement(stackElement);
+		return newStack;				
+	}
+
+	private MArea getArea(MPart containerPart) {
+		MUIElement targetParent = containerPart.getParent();
+		while (!(targetParent instanceof MArea))
+			targetParent = targetParent.getParent();
+		MArea area = (MArea) targetParent;
+		return area;
+	}	
+
+	public IPath getPathFromEditorRelatedFile(){
+		return ((IPath)getFile().getFullPath().clone());
+	}
+	public IPath getPathToEditorRelatedFileWithFileExtension(String fileExtension){
+		return getPathFromEditorRelatedFile().removeFileExtension().addFileExtension(fileExtension);
+	}
+	
+
+	
+	/**
+	 * Opens the default editor for the given file extension side by side with the currently
+	 * active editor
+	 * @param File extension
+	 */
+	public void openEditorForFileExtension(String fileExtension){
+		IWorkspaceRoot workspaceRoot = ResourcesPlugin.getWorkspace().getRoot();
+
+		IPath path = getPathToEditorRelatedFileWithFileExtension(fileExtension);
+
+		// only open editor if a file exist with the same name as the feature model in same directory
+		if(workspaceRoot.exists(path)){
+			IFile constraintFile = workspaceRoot.getFile(path);
+
+			IEditorDescriptor desc = PlatformUI.getWorkbench().
+					getEditorRegistry().getDefaultEditor(constraintFile.getName());
+
+			if(desc == null){
+				System.err.println("No editor for file extension "+fileExtension+" exist");
+				return;
+			}
+
+			try {
+				IWorkbenchPage workbenchPage = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage();
+				IEditorPart editor = workbenchPage.openEditor(new FileEditorInput(constraintFile), desc.getId());
+
+				MPart constraintEditorPart = editor.getSite().getService(MPart.class);
+				MPart editorPart = this.getSite().getService(MPart.class);
+
+				if (editorPart == null) {
+					return;
+				}
+
+				insertEditor(0.3f, EModelService.RIGHT_OF, editorPart, constraintEditorPart);
+			} catch (PartInitException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+	
 	private void closeRelatedEditors(){
 		IEditorReference[] refs = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().getEditorReferences();
 
@@ -293,108 +371,6 @@ public class HyGraphicalFeatureModelEditor extends HyGraphicalFeatureModelViewer
 							}
 						}
 					}	
-			}
-		}
-
-		IWorkspace workspace = ResourcesPlugin.getWorkspace();
-		try {
-			workspace.delete(openFiles.toArray(new IResource[0]), true, null);
-		} catch (CoreException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
-
-	@Override
-	public void dispose(){
-		resource.unload();
-		closeRelatedEditors();
-	}
-
-
-	private MPartStack secondEditor;	
-
-	public void insertEditor(float ratio, int where, MPart containerEditor, MPart editorToInsert) {
-		IWorkbenchWindow window = PlatformUI.getWorkbench().getActiveWorkbenchWindow();
-
-		EModelService service = window.getService(EModelService.class);
-
-		if(secondEditor == null){
-			secondEditor = getPartStack(editorToInsert);
-
-			MArea area = getArea(containerEditor);
-
-			MPartSashContainerElement relToElement = area.getChildren().get(0);
-			service.insert(secondEditor, relToElement, where, ratio);
-		}else{
-			secondEditor.getChildren().add(editorToInsert);
-		}
-	}
-
-	private MPartStack getPartStack(MPart childPart) {
-		MStackElement stackElement = childPart;
-		MPartStack newStack = BasicFactoryImpl.eINSTANCE.createPartStack();
-		newStack.getChildren().add(stackElement);
-		newStack.setSelectedElement(stackElement);
-		return newStack;				
-	}
-
-	private MArea getArea(MPart containerPart) {
-		MUIElement targetParent = containerPart.getParent();
-		while (!(targetParent instanceof MArea))
-			targetParent = targetParent.getParent();
-		MArea area = (MArea) targetParent;
-		return area;
-	}	
-
-	protected void openEditorForFileExtension(String fileExtension){
-		IWorkbench workbench = PlatformUI.getWorkbench();
-		IWorkbenchWindow workbenchWindow = workbench.getActiveWorkbenchWindow();
-		IWorkbenchPage workbenchPage = workbenchWindow.getActivePage();
-		IWorkspace workspace = ResourcesPlugin.getWorkspace();
-		IWorkspaceRoot workspaceRoot = workspace.getRoot();
-
-		IPath path = ((IPath)file.getFullPath().clone()).removeFileExtension().addFileExtension(fileExtension);
-
-		IFile file = workspaceRoot.getFile(path);
-
-		relatedEditorFiles.add(path);
-
-		if(!file.exists()){
-			InputStream source = new ByteArrayInputStream("".getBytes());
-			try {
-				file.create(source, IResource.NONE, null);
-			} catch (CoreException e) {
-				e.printStackTrace();
-			}
-		}
-
-
-		// only open editor if a file exist with the same name as the feature model in same directory
-		if(workspaceRoot.exists(path)){
-			IFile constraintFile = workspaceRoot.getFile(path);
-
-			IEditorDescriptor desc = PlatformUI.getWorkbench().
-					getEditorRegistry().getDefaultEditor(constraintFile.getName());
-
-			if(desc == null){
-				System.err.println("No editor for file extension "+fileExtension+" exist");
-				return;
-			}
-
-			try {
-				IEditorPart editor = workbenchPage.openEditor(new FileEditorInput(constraintFile), desc.getId());
-
-				MPart constraintEditorPart = editor.getSite().getService(MPart.class);
-				MPart editorPart = this.getSite().getService(MPart.class);
-
-				if (editorPart == null) {
-					return;
-				}
-
-				insertEditor(0.3f, EModelService.RIGHT_OF, editorPart, constraintEditorPart);
-			} catch (PartInitException e) {
-				e.printStackTrace();
 			}
 		}
 	}

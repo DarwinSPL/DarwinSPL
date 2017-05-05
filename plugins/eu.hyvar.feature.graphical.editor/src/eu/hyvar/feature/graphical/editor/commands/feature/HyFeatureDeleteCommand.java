@@ -1,34 +1,26 @@
 package eu.hyvar.feature.graphical.editor.commands.feature;
 
 import java.util.Date;
-import java.util.List;
 
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.gef.EditPart;
 
-import eu.hyvar.evolution.HyEvolutionFactory;
-import eu.hyvar.evolution.HyEvolutionUtil;
-import eu.hyvar.evolution.HyName;
 import eu.hyvar.evolution.HyTemporalElement;
 import eu.hyvar.feature.HyFeature;
-import eu.hyvar.feature.HyFeatureChild;
-import eu.hyvar.feature.HyFeatureFactory;
-import eu.hyvar.feature.HyFeatureType;
-import eu.hyvar.feature.HyGroupComposition;
+import eu.hyvar.feature.graphical.base.editor.DwGraphicalFeatureModelViewer;
 import eu.hyvar.feature.graphical.base.editparts.HyFeatureEditPart;
 import eu.hyvar.feature.graphical.base.editparts.HyRootFeatureEditPart;
 import eu.hyvar.feature.graphical.base.model.HyFeatureModelWrapped;
 import eu.hyvar.feature.graphical.base.model.HyFeatureWrapped;
-import eu.hyvar.feature.graphical.base.model.HyGroupWrapped;
 import eu.hyvar.feature.graphical.base.model.HyParentChildConnection;
-import eu.hyvar.feature.graphical.editor.editor.HyGraphicalFeatureModelEditor;
+import eu.hyvar.feature.graphical.editor.commands.DwFeatureModelEditorCommand;
 
-public class HyFeatureDeleteCommand extends FeatureConnectionChangeCommand{
+public class HyFeatureDeleteCommand extends DwFeatureModelEditorCommand{
 	EditPart host;
 
-	public HyFeatureDeleteCommand(HyGraphicalFeatureModelEditor editor, EditPart host) {
-		super(editor);
+	public HyFeatureDeleteCommand(DwGraphicalFeatureModelViewer viewer, EditPart host) {
+		super(viewer);
 
 		this.host = host;
 	}
@@ -36,17 +28,14 @@ public class HyFeatureDeleteCommand extends FeatureConnectionChangeCommand{
 	private HyFeatureWrapped feature;
 	private HyFeatureWrapped oldParent;
 	private HyFeature oldFeature;
+	private Date executionDate;
 
 	public void setFeature(HyFeatureWrapped feature) {
 		this.feature = feature;
 	}
 
-	public void setModel(HyFeatureModelWrapped model) {
-		this.featureModel = model;
-	}
-
 	private void restrictHyLinearTemporalElementsToParentValidUntil(EList<HyTemporalElement> elements){
-		Date date = editor.getCurrentSelectedDate();
+		Date date = viewer.getCurrentSelectedDate();
 		for(HyTemporalElement element : elements){
 			if(element.getValidUntil() == null || element.getValidUntil().after(date)){
 				element.setValidUntil(date);
@@ -65,45 +54,55 @@ public class HyFeatureDeleteCommand extends FeatureConnectionChangeCommand{
 	}
 
 
+	@SuppressWarnings("unchecked")
 	public void redo(){
 		
 		HyFeature feature = this.feature.getWrappedModelElement();
-		Date date = editor.getCurrentSelectedDate();
+		Date date = viewer.getCurrentSelectedDate();
 		if(date.equals(new Date(Long.MIN_VALUE)))
 			date = null;
-		//HyGroupComposition composition = HyEvolutionUtil.getValidTemporalElement(feature.getGroupMembership(), date);
-		//splitComposition(composition, this.feature);
+		
+		executionDate = date;
 
 		oldFeature = EcoreUtil.copy(feature);
-		feature.setValidUntil(date);
-
-		restrictHyLinearTemporalElementsToParentValidUntil((EList<HyTemporalElement>)(EList<?>)feature.getNames());
-		restrictHyLinearTemporalElementsToParentValidUntil((EList<HyTemporalElement>)(EList<?>)feature.getAttributes());
-		restrictHyLinearTemporalElementsToParentValidUntil((EList<HyTemporalElement>)(EList<?>)feature.getVersions());
-
-		//oldGroup = this.feature.getParentGroup(date);
 		oldParent = this.feature.getParentFeature(date);
-		this.feature.getParentGroup(date).removeChildFeature(this.feature, date);
-		//deleteFeatureChildrenTemporarily(feature);
+		
+		if(date == null){
+			viewer.getModelWrapped().removeFeaturePermanently(this.feature);
+		}else{
+			feature.setValidUntil(date);
+
+			// restrict feature parameters to the date
+			restrictHyLinearTemporalElementsToParentValidUntil((EList<HyTemporalElement>)(EList<?>)feature.getNames());
+			restrictHyLinearTemporalElementsToParentValidUntil((EList<HyTemporalElement>)(EList<?>)feature.getAttributes());
+			restrictHyLinearTemporalElementsToParentValidUntil((EList<HyTemporalElement>)(EList<?>)feature.getVersions());
+		
+			viewer.getModelWrapped().removeFeature(this.feature, date);
+		}
+		
+
+		
+		
 
 		// delete the selection from the element
 		host.setSelected(0);
 
-		editor.getModelWrapped().rearrangeFeatures();
-		editor.refreshView();		
+		viewer.getModelWrapped().rearrangeFeatures();
+		viewer.refreshView();
+		
 	}
 	
 	public void undo(){
-		Date date = featureModel.getSelectedDate();
+		
+		Date date = executionDate;
 		HyParentChildConnection connection = new HyParentChildConnection();
 		
 		this.feature.setWrappedModelElement(oldFeature);
-		HyFeatureModelWrapped featureModel = editor.getModelWrapped();
-		date = editor.getCurrentSelectedDate();
+		HyFeatureModelWrapped featureModel = viewer.getModelWrapped();
+		date = viewer.getCurrentSelectedDate();
 		if(date.equals(new Date(Long.MIN_VALUE))){
 			date = null;
 		}		
-		
 		
 
 		
@@ -115,7 +114,7 @@ public class HyFeatureDeleteCommand extends FeatureConnectionChangeCommand{
 		featureModel.addConnection(connection, featureModel.getSelectedDate(), null);
 		
 		featureModel.rearrangeFeatures();
-		editor.refreshView();	
+		viewer.refreshView();	
 	}
 	
 	@Override

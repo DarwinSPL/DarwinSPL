@@ -7,7 +7,7 @@ import org.eclipse.gef.commands.Command;
 
 import eu.hyvar.evolution.HyLinearTemporalElement;
 
-public class HyLinearTemporalElementCommand extends Command{
+public class DwLinearTemporalElementCommand extends Command{
 	
 	protected HyLinearTemporalElement getLastHyLinearTemporalElement(HyLinearTemporalElement root){
 		while(root.getSupersedingElement() != null){

@@ -12,6 +12,8 @@ import eu.hyvar.evolution.HyEvolutionUtil;
 import eu.hyvar.evolution.HyName;
 import eu.hyvar.feature.HyFeature;
 import eu.hyvar.feature.HyFeatureAttribute;
+import eu.hyvar.feature.HyFeatureChild;
+import eu.hyvar.feature.HyGroup;
 import eu.hyvar.feature.HyGroupComposition;
 import eu.hyvar.feature.HyGroupType;
 import eu.hyvar.feature.HyGroupTypeEnum;
@@ -54,7 +56,24 @@ public class HyGeometryUtil {
 				rawFeatureWidth = Math.max(rawFeatureWidth, nameWidth + typeWidth + 80);
 			}
 		}
-
+		
+		
+		HyFeatureChild child = HyEvolutionUtil.getValidTemporalElement(feature.getParentOf(), date);
+		if(child != null){
+			HyGroup group = child.getChildGroup();
+			
+			if(group != null){
+				HyGroupComposition composition = HyEvolutionUtil.getValidTemporalElement(group.getParentOf(), date);
+				
+				if(composition != null){
+				List<HyFeature> children = HyEvolutionUtil.getValidTemporalElements(composition.getFeatures(), date);
+		
+				if(!children.isEmpty())
+					rawFeatureWidth += 18;
+				}
+			}
+		}
+		
 		return rawFeatureWidth + 2 * theme.getPrimaryMargin();
 	}
 

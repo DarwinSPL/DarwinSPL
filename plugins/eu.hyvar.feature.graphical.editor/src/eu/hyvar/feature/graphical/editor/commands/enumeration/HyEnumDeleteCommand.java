@@ -7,7 +7,7 @@ import org.eclipse.emf.common.notify.impl.NotificationImpl;
 import org.eclipse.gef.commands.Command;
 
 import eu.hyvar.dataValues.HyEnum;
-import eu.hyvar.feature.graphical.base.editor.HyGraphicalFeatureModelViewer;
+import eu.hyvar.feature.graphical.base.editor.DwGraphicalFeatureModelViewer;
 
 public class HyEnumDeleteCommand extends Command{
 	private class EnumTemporalDeleteNotification extends NotificationImpl{
@@ -18,14 +18,14 @@ public class HyEnumDeleteCommand extends Command{
 
 	
 	}
-	private HyGraphicalFeatureModelViewer editor;
+	private DwGraphicalFeatureModelViewer editor;
 	private HyEnum enumeration;
 	
-	public HyGraphicalFeatureModelViewer getEditor() {
+	public DwGraphicalFeatureModelViewer getEditor() {
 		return editor;
 	}
 
-	public void setEditor(HyGraphicalFeatureModelViewer editor) {
+	public void setEditor(DwGraphicalFeatureModelViewer editor) {
 		this.editor = editor;
 	}
 
@@ -37,7 +37,7 @@ public class HyEnumDeleteCommand extends Command{
 		this.enumeration = enumeration;
 	}
 		
-	public HyEnumDeleteCommand(HyGraphicalFeatureModelViewer editor) {
+	public HyEnumDeleteCommand(DwGraphicalFeatureModelViewer editor) {
 		this.editor = editor;
 	}
 

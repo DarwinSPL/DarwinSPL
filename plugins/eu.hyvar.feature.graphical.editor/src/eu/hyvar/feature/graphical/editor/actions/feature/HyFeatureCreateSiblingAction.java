@@ -8,7 +8,7 @@ import org.eclipse.gef.commands.Command;
 import eu.hyvar.evolution.HyEvolutionUtil;
 import eu.hyvar.feature.HyFeatureChild;
 import eu.hyvar.feature.HyGroupComposition;
-import eu.hyvar.feature.graphical.base.editor.HyGraphicalFeatureModelViewer;
+import eu.hyvar.feature.graphical.base.editor.DwGraphicalFeatureModelViewer;
 import eu.hyvar.feature.graphical.base.editparts.HyFeatureEditPart;
 import eu.hyvar.feature.graphical.base.editparts.HyRootFeatureEditPart;
 import eu.hyvar.feature.graphical.base.model.HyFeatureWrapped;
@@ -21,7 +21,7 @@ public class HyFeatureCreateSiblingAction extends HyFeatureSelectionAction{
 
 	Request request;
 	
-	public HyFeatureCreateSiblingAction(HyGraphicalFeatureModelViewer editor){
+	public HyFeatureCreateSiblingAction(DwGraphicalFeatureModelViewer editor){
 		super(editor);
 		
 		setId(FEATURE_CREATE_SIBLING);
@@ -57,7 +57,7 @@ public class HyFeatureCreateSiblingAction extends HyFeatureSelectionAction{
 		HyGroupComposition composition = HyEvolutionUtil.getValidTemporalElement(selectedFeature.getWrappedModelElement().getGroupMembership(), date);
 		HyFeatureChild child = HyEvolutionUtil.getValidTemporalElement(composition.getCompositionOf().getChildOf(), date);
 		
-		HyFeatureCreateCommand command = new HyFeatureCreateCommand(editor.getModelWrapped().getWrappedFeature(child.getParent()), (HyGraphicalFeatureModelViewer)editor);
+		HyFeatureCreateCommand command = new HyFeatureCreateCommand(editor.getModelWrapped().getWrappedFeature(child.getParent()), (DwGraphicalFeatureModelViewer)editor);
 		return command;
 	}	
 }

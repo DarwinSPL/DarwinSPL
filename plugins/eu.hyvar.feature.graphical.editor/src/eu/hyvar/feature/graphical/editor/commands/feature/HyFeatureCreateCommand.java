@@ -3,28 +3,30 @@ package eu.hyvar.feature.graphical.editor.commands.feature;
 
 import java.util.Date;
 
-import org.eclipse.gef.commands.Command;
+import org.eclipse.draw2d.geometry.Point;
 
 import eu.hyvar.evolution.HyEvolutionFactory;
 import eu.hyvar.evolution.HyName;
 import eu.hyvar.feature.HyFeature;
 import eu.hyvar.feature.HyFeatureFactory;
 import eu.hyvar.feature.HyFeatureType;
-import eu.hyvar.feature.graphical.base.editor.HyGraphicalFeatureModelViewer;
+import eu.hyvar.feature.graphical.base.editor.DwGraphicalFeatureModelViewer;
 import eu.hyvar.feature.graphical.base.model.HyFeatureModelWrapped;
 import eu.hyvar.feature.graphical.base.model.HyFeatureWrapped;
 import eu.hyvar.feature.graphical.base.model.HyParentChildConnection;
+import eu.hyvar.feature.graphical.editor.commands.DwFeatureModelEditorCommand;
 
-public class HyFeatureCreateCommand extends Command {
+public class HyFeatureCreateCommand extends DwFeatureModelEditorCommand {
 	private HyFeatureWrapped parent;
 	private HyFeatureWrapped newFeature;
-	private HyGraphicalFeatureModelViewer editor;
+	
 	private HyParentChildConnection connection;
 	private Date date;
 	
-	public HyFeatureCreateCommand(HyFeatureWrapped parent, HyGraphicalFeatureModelViewer editor){
+	public HyFeatureCreateCommand(HyFeatureWrapped parent, DwGraphicalFeatureModelViewer viewer){
+		super(viewer);
+		
 		this.parent = parent;
-		this.editor = editor;
 	}
 
 	/**
@@ -33,20 +35,19 @@ public class HyFeatureCreateCommand extends Command {
 	@Override
 	public void undo() {
 		
-		HyFeatureModelWrapped featureModel = editor.getModelWrapped();
+		HyFeatureModelWrapped featureModel = viewer.getModelWrapped();
 		featureModel.removeConnection(connection, date);
 		
 		featureModel.getModel().getFeatures().remove(newFeature.getWrappedModelElement());
 		
 		featureModel.rearrangeFeatures();
-		editor.refreshView();
-		
+		viewer.refreshView();
 	}
 
 	@Override
 	public void redo() {
-		HyFeatureModelWrapped featureModel = editor.getModelWrapped();
-		date = editor.getCurrentSelectedDate();
+		HyFeatureModelWrapped featureModel = viewer.getModelWrapped();
+		date = viewer.getCurrentSelectedDate();
 		if(date.equals(new Date(Long.MIN_VALUE))){
 			date = null;
 		}		
@@ -56,6 +57,7 @@ public class HyFeatureCreateCommand extends Command {
 		HyFeature feature = HyFeatureFactory.eINSTANCE.createHyFeature();
 		feature.setValidSince(date);
 		newFeature = new HyFeatureWrapped(feature, featureModel);
+		newFeature.addPosition(new Point(0, 0), date, false);
 		
 		HyName name = HyEvolutionFactory.eINSTANCE.createHyName();
 		name.setName(featureModel.getValidNewFeatureName());
@@ -78,8 +80,13 @@ public class HyFeatureCreateCommand extends Command {
 		newFeature.setWrappedModelElement(feature);
 		featureModel.addFeature(newFeature);
 		
+		// hide new feature if parent feature is in collapsed mode
+		if(parent.isHideChildren()){
+			newFeature.setVisible(false, date);
+		}
+		
 		featureModel.rearrangeFeatures();
-		editor.refreshView();	
+		viewer.refreshView();	
 	}	
 	
 	@Override 

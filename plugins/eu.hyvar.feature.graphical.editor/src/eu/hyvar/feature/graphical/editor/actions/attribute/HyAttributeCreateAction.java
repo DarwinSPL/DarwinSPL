@@ -5,7 +5,7 @@ import org.eclipse.gef.ui.actions.SelectionAction;
 
 import eu.hyvar.feature.HyFeature;
 import eu.hyvar.feature.HyFeatureAttribute;
-import eu.hyvar.feature.graphical.base.editor.HyGraphicalFeatureModelViewer;
+import eu.hyvar.feature.graphical.base.editor.DwGraphicalFeatureModelViewer;
 import eu.hyvar.feature.graphical.base.editparts.HyFeatureEditPart;
 import eu.hyvar.feature.graphical.base.editparts.HyRootFeatureEditPart;
 import eu.hyvar.feature.graphical.base.model.HyFeatureWrapped;
@@ -19,9 +19,9 @@ public abstract class HyAttributeCreateAction extends SelectionAction{
 
 	protected Request request;
 	
-	protected HyGraphicalFeatureModelViewer editor;
+	protected DwGraphicalFeatureModelViewer editor;
 	
-	public HyAttributeCreateAction(HyGraphicalFeatureModelViewer editor) {
+	public HyAttributeCreateAction(DwGraphicalFeatureModelViewer editor) {
 		super(editor);
 		
 		setId(FEATURE_ADD_ATTRIBUTE);
@@ -63,8 +63,9 @@ public abstract class HyAttributeCreateAction extends SelectionAction{
 				feature = model.getWrappedModelElement();		
 			}
 			
-			if(feature != null){
-				HyAttributeCreateCommand command = new HyAttributeCreateCommand(feature, createNewAttribute(), editor);
+			HyFeatureAttribute newAttribute = createNewAttribute();
+			if(feature != null && newAttribute != null){
+				HyAttributeCreateCommand command = new HyAttributeCreateCommand(feature, newAttribute, editor);
 				this.editor.executeCommand(command);
 			}
 		}

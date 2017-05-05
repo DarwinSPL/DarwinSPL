@@ -69,7 +69,10 @@ import eu.hyvar.feature.graphical.configurator.dialogs.DwRESTServerSelectDialog;
 import eu.hyvar.feature.graphical.configurator.dialogs.HyContextInformationDialog;
 import eu.hyvar.feature.graphical.configurator.editor.listeners.DwDeriveVariantListener;
 import eu.hyvar.feature.graphical.configurator.factory.HyConfiguratorEditorEditPartFactory;
+import eu.hyvar.feature.graphical.configurator.reconfigurator.HyReconfiguratorClient;
 import eu.hyvar.feature.graphical.configurator.viewer.HyFeatureModelConfiguratorViewer;
+import eu.hyvar.preferences.HyPreferenceModel;
+import eu.hyvar.preferences.util.HyPreferenceModelUtil;
 
 public class HyFeatureModelConfiguratorEditor extends HyFeatureModelConfiguratorViewer {
 	private Button validateContextButton;
@@ -109,7 +112,7 @@ public class HyFeatureModelConfiguratorEditor extends HyFeatureModelConfigurator
 	}
 
 	private boolean modelFileExists(String extension){
-		IPath path = ((IPath)file.getFullPath().clone()).removeFileExtension().addFileExtension(extension);
+		IPath path = ((IPath)getFile().getFullPath().clone()).removeFileExtension().addFileExtension(extension);
 
 		IWorkspaceRoot workspaceRoot = ResourcesPlugin.getWorkspace().getRoot();
 
@@ -151,7 +154,7 @@ public class HyFeatureModelConfiguratorEditor extends HyFeatureModelConfigurator
 	}
 
 	private void saveConfigurationIntoFeatureModelFolder(){
-		IPath path = ((IPath)file.getFullPath().clone()).removeFileExtension().addFileExtension(HyConfigurationUtil.getConfigurationModelFileExtensionForXmi());
+		IPath path = ((IPath)getFile().getFullPath().clone()).removeFileExtension().addFileExtension(HyConfigurationUtil.getConfigurationModelFileExtensionForXmi());
 		IWorkspaceRoot workspaceRoot = ResourcesPlugin.getWorkspace().getRoot();
 
 		EcoreIOUtil.saveModelAs(selectedConfiguration, workspaceRoot.getFile(path));		
@@ -442,9 +445,9 @@ public class HyFeatureModelConfiguratorEditor extends HyFeatureModelConfigurator
 			else if(e.getSource() == simulateButton) {
 				HyConfiguration configuration = client.reconfigure(uri, contextModel, validityModel, modelWrapped.getModel(), constraintModel, selectedConfiguration, null, contextValueModel, modelWrapped.getSelectedDate());
 				if(configuration != null){
-					String fileName = file.getFullPath().removeFileExtension().lastSegment();
+					String fileName = getFile().getFullPath().removeFileExtension().lastSegment();
 
-					String name = file.getFullPath().removeFileExtension().removeLastSegments(1).append(fileName+"_Result").addFileExtension(HyConfigurationUtil.getConfigurationModelFileExtensionForXmi()).toString();
+					String name = getFile().getFullPath().removeFileExtension().removeLastSegments(1).append(fileName+"_Result").addFileExtension(HyConfigurationUtil.getConfigurationModelFileExtensionForXmi()).toString();
 
 					// create a new resource for the result configuration
 					ResourceSet resSet = new ResourceSetImpl();

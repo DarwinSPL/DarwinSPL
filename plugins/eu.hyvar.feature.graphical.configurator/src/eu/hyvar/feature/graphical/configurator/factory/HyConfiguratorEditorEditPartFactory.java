@@ -7,12 +7,14 @@ import eu.hyvar.dataValues.HyEnum;
 import eu.hyvar.dataValues.HyEnumLiteral;
 import eu.hyvar.feature.HyFeatureAttribute;
 import eu.hyvar.feature.HyVersion;
-import eu.hyvar.feature.graphical.base.editor.HyGraphicalFeatureModelViewer;
+import eu.hyvar.feature.graphical.base.editor.DwGraphicalFeatureModelViewer;
+import eu.hyvar.feature.graphical.base.editparts.DwEnumContainerEditPart;
 import eu.hyvar.feature.graphical.base.editparts.HyEnumEditPart;
 import eu.hyvar.feature.graphical.base.editparts.HyEnumLiteralEditPart;
 import eu.hyvar.feature.graphical.base.editparts.HyGroupEditPart;
 import eu.hyvar.feature.graphical.base.editparts.HyParentChildConnectionEditPart;
 import eu.hyvar.feature.graphical.base.factory.HyFeatureModelEditPartFactory;
+import eu.hyvar.feature.graphical.base.model.DwEnumContainerWrapped;
 import eu.hyvar.feature.graphical.base.model.HyFeatureModelWrapped;
 import eu.hyvar.feature.graphical.base.model.HyFeatureWrapped;
 import eu.hyvar.feature.graphical.base.model.HyGroupWrapped;
@@ -25,7 +27,7 @@ import eu.hyvar.feature.graphical.configurator.editparts.HyConfiguratorEditorVer
 
 public class HyConfiguratorEditorEditPartFactory extends HyFeatureModelEditPartFactory{
 
-	public HyConfiguratorEditorEditPartFactory(GraphicalViewer viewer, HyGraphicalFeatureModelViewer editor) {
+	public HyConfiguratorEditorEditPartFactory(GraphicalViewer viewer, DwGraphicalFeatureModelViewer editor) {
 		super(viewer, editor);
 	}
 	
@@ -53,6 +55,10 @@ public class HyConfiguratorEditorEditPartFactory extends HyFeatureModelEditPartF
 			part = new HyConfiguratorEditorAttributeEditPart(editor, featureModel);
 		}else if(model instanceof HyEnum){
 			part = new HyEnumEditPart(editor, featureModel);
+		}else if(model instanceof DwEnumContainerWrapped){
+			part = new DwEnumContainerEditPart(editor, featureModel);
+		}else if(model instanceof HyEnum){
+			part = new HyEnumEditPart(editor, featureModel);			
 		}else if(model instanceof HyEnumLiteral){
 			part = new HyEnumLiteralEditPart(editor, featureModel);
 		}

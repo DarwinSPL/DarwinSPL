@@ -3,9 +3,7 @@ package eu.hyvar.feature.graphical.base.figures;
 import org.deltaecore.feature.graphical.base.editor.DEGraphicalEditor;
 import org.deltaecore.feature.graphical.base.util.DEGraphicalEditorTheme;
 import org.eclipse.draw2d.ColorConstants;
-import org.eclipse.draw2d.Figure;
 import org.eclipse.draw2d.Label;
-import org.eclipse.draw2d.XYLayout;
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Point;
 
@@ -14,24 +12,25 @@ import eu.hyvar.feature.HyEnumAttribute;
 import eu.hyvar.feature.HyFeatureAttribute;
 import eu.hyvar.feature.HyNumberAttribute;
 import eu.hyvar.feature.HyStringAttribute;
-import eu.hyvar.feature.graphical.base.editor.HyGraphicalFeatureModelViewer;
+import eu.hyvar.feature.graphical.base.editor.DwGraphicalFeatureModelViewer;
 
-public class HyAttributeFigure extends Figure{
+public class HyAttributeFigure extends DwLabelFigure{
 	private HyFeatureAttribute attribute;
 	
-	private Label typeLabel;
 	private Label valueLabel;
 	
-	public HyAttributeFigure(HyGraphicalFeatureModelViewer editor, HyFeatureAttribute attribute) {
-		setLayoutManager(new XYLayout());
+	public HyAttributeFigure(DwGraphicalFeatureModelViewer editor, HyFeatureAttribute attribute) {
+		super(editor);
 		
 		this.attribute = attribute;
-		
-		createChildFigures();
+		setText(getType(), attribute.getNames().get(0).getName());
 	}
 	
-	
-	
+	public void setText(String typeText, String valueText){
+		label.setText(typeText);
+		valueLabel.setText(valueText);
+	}
+
 	private String getType(){
 		if(attribute == null)
 			return "No Attribute specified";
@@ -50,23 +49,18 @@ public class HyAttributeFigure extends Figure{
 		}
 	}
 	
-	public Label getLabel(){
-		return valueLabel;
-	}
-	
 	public int getMinimalWidth(){
-		return typeLabel.getTextBounds().width + valueLabel.getTextBounds().width + 100;
+		return label.getTextBounds().width + valueLabel.getTextBounds().width + 100;
 	}
 	
-	private void createChildFigures() {
-		typeLabel = new Label();
-		typeLabel.setForegroundColor(ColorConstants.black);
-		typeLabel.setText(getType());
-		add(typeLabel);
+	@Override
+	protected void createChildFigures() {
+		label = new Label();
+		label.setForegroundColor(ColorConstants.black);
+		add(label);
 		
 		valueLabel = new Label();
 		valueLabel.setForegroundColor(ColorConstants.black);
-		valueLabel.setText(attribute.getNames().get(0).getName());
 		add(valueLabel);	
 	}
 	
@@ -81,11 +75,11 @@ public class HyAttributeFigure extends Figure{
 		int height = theme.getFeatureNameAreaHeight();
 		setSize(width, height);
 	
-		typeLabel.setSize(new Dimension(typeLabel.getTextBounds().width, height));
-		typeLabel.setLocation(new Point(10, 0));
+		label.setSize(new Dimension(label.getTextBounds().width, height));
+		label.setLocation(new Point(10, 0));
 		
 		valueLabel.setSize(new Dimension(valueLabel.getTextBounds().width, height));
-		valueLabel.setLocation(new Point(typeLabel.getTextBounds().width+20, 0));
+		valueLabel.setLocation(new Point(label.getTextBounds().width+20, 0));
 	}
 	
 	@Override

@@ -5,12 +5,12 @@ import org.eclipse.gef.editparts.AbstractGraphicalEditPart;
 import org.eclipse.gef.ui.actions.SelectionAction;
 import org.eclipse.jface.viewers.StructuredSelection;
 
-import eu.hyvar.feature.graphical.base.editor.HyGraphicalFeatureModelViewer;
+import eu.hyvar.feature.graphical.base.editor.DwGraphicalFeatureModelViewer;
 
 public abstract class HyCommandAction extends SelectionAction {
-	protected HyGraphicalFeatureModelViewer editor;
+	protected DwGraphicalFeatureModelViewer editor;
 	
-	public HyCommandAction(HyGraphicalFeatureModelViewer editor) {
+	public HyCommandAction(DwGraphicalFeatureModelViewer editor) {
 		super(editor);
 		
 		this.editor = editor;
