@@ -12,9 +12,11 @@ Require-Bundle: org.eclipse.ui,
  org.eclipse.emf.ecore;visibility:=reexport,
  eu.hyvar.feature.data;visibility:=reexport,
  eu.hyvar.evolution;visibility:=reexport,
- eu.hyvar.feature;visibility:=reexport
+ eu.hyvar.feature;bundle-version="1.0.0";visibility:=reexport,
+ org.deltaecore
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Export-Package: eu.hyvar.mspl.manifest,
  eu.hyvar.mspl.manifest.impl,
- eu.hyvar.mspl.manifest.util
+ eu.hyvar.mspl.manifest.util,
+ eu.hyvar.mspl.util
 Bundle-ActivationPolicy: lazy

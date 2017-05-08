@@ -18,6 +18,7 @@ OPTIONS {
 }
 
 
+
 TOKENSTYLES  {
 	"SL_COMMENT", "ML_COMMENT" COLOR #008000;
 		
@@ -29,15 +30,24 @@ TOKENSTYLES  {
 RULES {
 	// syntax definition for class 'HySPLImplementation'
 	HySPLImplementation ::= "Implementation "  names ("," names)*  ("(" dependencies ("," dependencies)* ")")? (":" implementations ("," implementations)* )?  ;
-	HyTimedDependencies ::= signature['<','>'] ("@[" validSince[DATE] "-" validUntil[DATE] "]")? ;
-	HyTimedImplementations ::= signature['<','>'] ("@[" validSince[DATE] "-" validUntil[DATE] "]")? "{" (associations ("," associations)*)? "}";
+
+	HyTimedDependencies ::= signature['<','>'] ("@[" (validSince[DATE] "-" validUntil[DATE] | validSince[DATE] "-" "eternity" | "eternity" "-" validUntil[DATE])  "]")? ;
+
+	HyTimedImplementations ::= signature['<','>'] ("@[" (validSince[DATE] "-" validUntil[DATE] | validSince[DATE] "-" "eternity" | "eternity" "-" validUntil[DATE])  "]")? "{" (associations ("," associations)*)? "}";
 	
 	@SuppressWarnings(explicitSyntaxChoice)
-	HyTimedImplementationLink ::= (local['"','"'] | local[]) "->" (signature['"','"'] | signature[]) ("@[" validSince[DATE] "-" validUntil[DATE] "]")?;
+	HyTimedImplementationLink ::= (local['"','"'] | local[]) "->" (signature['"','"'] | signature[]) ("@[" (validSince[DATE] "-" validUntil[DATE] | validSince[DATE] "-" "eternity" | "eternity" "-" validUntil[DATE])  "]")? ;
 
 	// syntax definition for class 'HySPLSignature'
 	HySPLSignature ::= "Signature "  names ("," names)* ;
 
 	@SuppressWarnings(featureWithoutSyntax) 
-	HyName ::= name[IDENTIFIER_TOKEN] ("@[" validSince[DATE] "-" validUntil[DATE] "]")? ;
+	HyName ::= name[IDENTIFIER_TOKEN] ("@[" (validSince[DATE] "-" validUntil[DATE] | validSince[DATE] "-" "eternity" | "eternity" "-" validUntil[DATE])  "]")? ;
+
+
+
+//  (validSince[DATE] "-" validUntil[DATE])
+//  (validSince[DATE] "-" validUntil[DATE] | validSince[DATE] "-" "eternity" | "eternity" "-" validUntil[DATE])
+
+	
 }
