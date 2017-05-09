@@ -1,6 +1,5 @@
 package eu.hyvar.feature.graphical.editor.editor;
 
-import java.io.ByteArrayInputStream;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -10,7 +9,6 @@ import java.util.List;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IResource;
-import org.eclipse.core.resources.IWorkspace;
 import org.eclipse.core.resources.IWorkspaceRoot;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
@@ -44,6 +42,7 @@ import org.eclipse.ui.part.FileEditorInput;
 
 import eu.hyvar.context.contextValidity.util.HyValidityModelUtil;
 import eu.hyvar.context.information.util.HyContextInformationUtil;
+import eu.hyvar.feature.analyses.DwFeatureModelAnalyses;
 import eu.hyvar.feature.constraint.util.HyConstraintUtil;
 import eu.hyvar.feature.graphical.base.editor.DwGraphicalFeatureModelViewer;
 import eu.hyvar.feature.graphical.base.util.DwFeatureModelLayoutFileUtil;
@@ -80,6 +79,10 @@ public class HyGraphicalFeatureModelEditor extends DwGraphicalFeatureModelViewer
 	public void executeCommand(Command command) {
 		CommandStack commandStack = getCommandStack();
 		commandStack.execute(command);
+		
+		
+		// TODO for Gil: visualize errors
+		DwFeatureModelAnalyses.checkFeatureModelValidity(getInternalFeatureModel());
 	}
 
 	@Override
