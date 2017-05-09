@@ -15,7 +15,8 @@ Require-Bundle: org.eclipse.core.runtime;resolution:=optional,
   eu.hyvar.feature.data,
   eu.hyvar.evolution,
   eu.hyvar.feature,
-  eu.hyvar.dataValues.resource.hydatavalue
+  eu.hyvar.dataValues.resource.hydatavalue,
+  eu.hyvar.feature.expression
 Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Export-Package: eu.hyvar.mspl.manifest.resource.hymanifest,
@@ -26,4 +27,3 @@ Export-Package: eu.hyvar.mspl.manifest.resource.hymanifest,
   eu.hyvar.mspl.manifest.resource.hymanifest.grammar,
   eu.hyvar.mspl.manifest.resource.hymanifest.util
 Bundle-Activator: eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestPlugin
-Import-Package: eu.hyvar.feature.expression.util

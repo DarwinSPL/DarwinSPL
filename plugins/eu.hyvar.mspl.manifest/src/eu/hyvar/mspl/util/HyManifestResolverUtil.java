@@ -122,9 +122,22 @@ public class HyManifestResolverUtil {
 				countAssoc++;
 				print("      ", countAssoc+") ");
 				print("        ", "local=");
-				visitHyFeature("        ", assoc.getLocal());
+
+				EList<HyFeature> features = assoc.getLocal();
+				int countFeature=0;
+				for (HyFeature feature: features) {
+					countFeature++;
+					print("        ", countFeature+") ");
+					visitHyFeature("        ", feature);
+				}
 				print("        ", "signature=");
-				visitHyFeature("        ", assoc.getSignature());
+				features = assoc.getSignature();
+				countFeature=0;
+				for (HyFeature feature: features) {
+					countFeature++;
+					print("        ", countFeature+") ");
+					visitHyFeature("        ", feature);
+				}
 				print("        ", "since="+assoc.getValidSince());
 				print("        ", "until="+assoc.getValidUntil());
 			}
