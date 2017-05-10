@@ -1,0 +1,29 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: EMFText Parser Plugin: hymanifest
+Bundle-SymbolicName: eu.hyvar.mspl.manifest.resource.hymanifest;singleton:=true
+Bundle-Version: 1.0.0
+Bundle-Vendor: Software Technology Group - TU Dresden Germany
+Require-Bundle: org.eclipse.core.runtime;resolution:=optional,
+  org.eclipse.core.resources;resolution:=optional,
+  org.eclipse.emf.ecore,
+  org.eclipse.emf.ecore.change,
+  org.eclipse.emf.validation;resolution:=optional,
+  org.emftext.access;resolution:=optional,
+  org.emftext.commons.antlr3_4_0,
+  eu.hyvar.mspl.manifest,
+  eu.hyvar.feature.data,
+  eu.hyvar.evolution,
+  eu.hyvar.feature,
+  eu.hyvar.dataValues.resource.hydatavalue,
+  eu.hyvar.feature.expression
+Bundle-ActivationPolicy: lazy
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Export-Package: eu.hyvar.mspl.manifest.resource.hymanifest,
+  eu.hyvar.mspl.manifest.resource.hymanifest.analysis,
+  eu.hyvar.mspl.manifest.resource.hymanifest.mopp,
+  eu.hyvar.mspl.manifest.resource.hymanifest.debug,
+  eu.hyvar.mspl.manifest.resource.hymanifest.launch,
+  eu.hyvar.mspl.manifest.resource.hymanifest.grammar,
+  eu.hyvar.mspl.manifest.resource.hymanifest.util
+Bundle-Activator: eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestPlugin
