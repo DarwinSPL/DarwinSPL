@@ -4,8 +4,8 @@
    <extension
          point="org.eclipse.ui.editors">
       <editor
-            class="dw.darwinspl.feature.graphical.editor.editor.DwGraphicalFeatureModelEditor"
-            contributorClass="dw.darwinspl.feature.graphical.editor.editor.DwGraphicalFeatureModelEditorActionBarContributor"
+            class="de.darwinspl.feature.graphical.editor.editor.DwGraphicalFeatureModelEditor"
+            contributorClass="de.darwinspl.feature.graphical.editor.editor.DwGraphicalFeatureModelEditorActionBarContributor"
             default="true"
             extensions="hyfeature, dwfeaturemodel"
             icon="icons/icon_standard.png"
@@ -17,7 +17,7 @@
          point="org.eclipse.ui.newWizards">
       <wizard
             category="de.darwinspl.wizards"
-            class="dw.darwinspl.feature.graphical.editor.wizard.DwFeatureModelWizard"
+            class="de.darwinspl.feature.graphical.editor.wizard.DwFeatureModelWizard"
             icon="icons/icon_standard.png"
             id="eu.hyvar.feature.graphical.editor.new_fm_wizard"
             name="DarwinSPL Feature Model">
@@ -57,17 +57,17 @@
    <extension
          point="org.eclipse.ui.commands">
       <command
-            defaultHandler="dw.darwinspl.feature.graphical.editor.commands.files.DwCreateConstraintCommand"
+            defaultHandler="de.darwinspl.feature.graphical.editor.commands.files.DwCreateConstraintCommand"
             id="eu.hyvar.feature.graphical.editor.createConstraintFileCommand"
             name="Create HyConstaint File">
       </command>
       <command
-            defaultHandler="dw.darwinspl.feature.graphical.editor.commands.files.DwCreateContextInformationCommand"
+            defaultHandler="de.darwinspl.feature.graphical.editor.commands.files.DwCreateContextInformationCommand"
             id="eu.hyvar.feature.graphical.editor.createContextInformationFileCommand"
             name="Create ContextInformation File">
       </command>
       <command
-            defaultHandler="dw.darwinspl.feature.graphical.editor.commands.files.DwCreateValidityModelCommand"
+            defaultHandler="de.darwinspl.feature.graphical.editor.commands.files.DwCreateValidityModelCommand"
             id="eu.hyvar.feature.graphical.editor.createValidityModelFile"
             name="Create ValidityModel File">
       </command>

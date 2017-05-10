@@ -21,7 +21,7 @@ import org.eclipse.swt.widgets.Shell;
 import de.christophseidl.util.eclipse.ResourceUtil;
 import de.christophseidl.util.eclipse.ui.SelectionUtil;
 import de.christophseidl.util.ecore.EcoreIOUtil;
-import dw.darwinspl.feature.graphical.base.dialogs.DwDateDialog;
+import de.darwinspl.feature.graphical.base.dialogs.DwDateDialog;
 import eu.hyvar.context.HyContextModel;
 import eu.hyvar.context.contextValidity.HyValidityModel;
 import eu.hyvar.context.contextValidity.util.HyValidityModelUtil;

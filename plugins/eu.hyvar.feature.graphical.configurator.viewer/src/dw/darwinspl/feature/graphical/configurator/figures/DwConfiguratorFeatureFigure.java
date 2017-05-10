@@ -7,9 +7,9 @@ import org.eclipse.draw2d.Graphics;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 
-import dw.darwinspl.feature.graphical.base.editor.DwGraphicalFeatureModelViewer;
-import dw.darwinspl.feature.graphical.base.figures.DwFeatureFigure;
-import dw.darwinspl.feature.graphical.base.model.DwFeatureWrapped;
+import de.darwinspl.feature.graphical.base.editor.DwGraphicalFeatureModelViewer;
+import de.darwinspl.feature.graphical.base.figures.DwFeatureFigure;
+import de.darwinspl.feature.graphical.base.model.DwFeatureWrapped;
 import dw.darwinspl.feature.graphical.configurator.viewer.DwFeatureModelConfiguratorViewer;
 import eu.hyvar.feature.HyFeature;
 import eu.hyvar.feature.HyFeatureAttribute;

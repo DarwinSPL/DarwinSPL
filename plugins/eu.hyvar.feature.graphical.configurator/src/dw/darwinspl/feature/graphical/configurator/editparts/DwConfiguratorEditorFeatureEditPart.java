@@ -4,10 +4,10 @@ import org.eclipse.draw2d.IFigure;
 import org.eclipse.gef.Request;
 import org.eclipse.gef.RequestConstants;
 
-import dw.darwinspl.feature.graphical.base.editor.DwGraphicalFeatureModelViewer;
-import dw.darwinspl.feature.graphical.base.editparts.DwFeatureEditPart;
-import dw.darwinspl.feature.graphical.base.model.DwFeatureModelWrapped;
-import dw.darwinspl.feature.graphical.base.model.DwFeatureWrapped;
+import de.darwinspl.feature.graphical.base.editor.DwGraphicalFeatureModelViewer;
+import de.darwinspl.feature.graphical.base.editparts.DwFeatureEditPart;
+import de.darwinspl.feature.graphical.base.model.DwFeatureModelWrapped;
+import de.darwinspl.feature.graphical.base.model.DwFeatureWrapped;
 import dw.darwinspl.feature.graphical.configurator.editor.DwFeatureModelConfiguratorEditor;
 import dw.darwinspl.feature.graphical.configurator.figures.DwConfiguratorFeatureFigure;
 import dw.darwinspl.feature.graphical.configurator.predicates.DwConfiguratorElementHasFeaturePredicate;

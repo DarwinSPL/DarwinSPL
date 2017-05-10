@@ -20,6 +20,12 @@ import eu.hyvar.feature.HyRootFeature;
 import eu.hyvar.feature.HyVersion;
 import eu.hyvar.feature.util.HyFeatureModelWellFormednessException;
 
+@Deprecated
+/**
+ * Use eu.hyvar.feature.analyses.DwFeatureModelAnalyses instead.
+ * @author Michael Nieke
+ *
+ */
 public class HyFeatureModelWellFormednessAnalysis {
 	// TODO superseding relations checked on correctness
 	

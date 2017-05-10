@@ -9,9 +9,9 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.IEditorInput;
 
 import de.christophseidl.util.ecore.EcoreIOUtil;
-import dw.darwinspl.feature.graphical.base.editor.DwGraphicalFeatureModelViewer;
-import dw.darwinspl.feature.graphical.base.model.DwFeatureModelWrapped;
-import dw.darwinspl.feature.graphical.base.util.DwFeatureModelLayoutFileUtil;
+import de.darwinspl.feature.graphical.base.editor.DwGraphicalFeatureModelViewer;
+import de.darwinspl.feature.graphical.base.model.DwFeatureModelWrapped;
+import de.darwinspl.feature.graphical.base.util.DwFeatureModelLayoutFileUtil;
 import dw.darwinspl.feature.graphical.configurator.factory.DwConfiguratorEditPartFactory;
 import eu.hyvar.feature.HyFeatureModel;
 import eu.hyvar.feature.configuration.HyConfiguration;

@@ -3,9 +3,9 @@ package dw.darwinspl.feature.graphical.configurator.editparts;
 import org.eclipse.gef.Request;
 import org.eclipse.gef.RequestConstants;
 
-import dw.darwinspl.feature.graphical.base.editor.DwGraphicalFeatureModelViewer;
-import dw.darwinspl.feature.graphical.base.editparts.DwVersionEditPart;
-import dw.darwinspl.feature.graphical.base.model.DwFeatureModelWrapped;
+import de.darwinspl.feature.graphical.base.editor.DwGraphicalFeatureModelViewer;
+import de.darwinspl.feature.graphical.base.editparts.DwVersionEditPart;
+import de.darwinspl.feature.graphical.base.model.DwFeatureModelWrapped;
 import dw.darwinspl.feature.graphical.configurator.editor.DwFeatureModelConfiguratorEditor;
 import dw.darwinspl.feature.graphical.configurator.predicates.DwConfiguratorElementHasVersionPredicate;
 import dw.darwinspl.feature.graphical.configurator.util.DwConfiguratorEditorUtil;
