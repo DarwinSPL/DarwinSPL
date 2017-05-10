@@ -6,9 +6,9 @@ import java.util.Map;
 
 import org.deltaecore.feature.DEFeature;
 import org.deltaecore.feature.DEVersion;
-import org.deltaecore.feature.mapping.DEMapping;
-import org.deltaecore.feature.mapping.DEMappingFactory;
-import org.deltaecore.feature.mapping.DEMappingModel;
+import org.deltaecore.suite.mapping.DEMapping;
+import org.deltaecore.suite.mapping.DEMappingFactory;
+import org.deltaecore.suite.mapping.DEMappingModel;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 
 import eu.hyvar.evolution.HyEvolutionUtil;

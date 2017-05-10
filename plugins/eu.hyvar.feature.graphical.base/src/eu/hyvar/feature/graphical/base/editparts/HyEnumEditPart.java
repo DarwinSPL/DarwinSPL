@@ -1,11 +1,9 @@
 package eu.hyvar.feature.graphical.base.editparts;
 
-
-import java.util.Date;
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
 
 import org.eclipse.draw2d.IFigure;
-import org.eclipse.draw2d.geometry.Dimension;
-import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.emf.common.notify.Adapter;
 import org.eclipse.emf.common.notify.Notification;
@@ -16,14 +14,17 @@ import org.eclipse.gef.EditPart;
 import eu.hyvar.dataValues.HyEnum;
 import eu.hyvar.dataValues.HyEnumLiteral;
 import eu.hyvar.feature.HyFeature;
-import eu.hyvar.feature.HyFeatureModel;
-import eu.hyvar.feature.graphical.base.editor.HyGraphicalFeatureModelViewer;
+import eu.hyvar.feature.graphical.base.editor.DwGraphicalFeatureModelViewer;
 import eu.hyvar.feature.graphical.base.figures.HyEnumFigure;
 import eu.hyvar.feature.graphical.base.model.HyFeatureModelWrapped;
-import eu.hyvar.feature.graphical.base.util.HyEnumEditorUtil;
 
+/**
+ * EditPart that handles an enumeration and all related literals.
+ * @author Gil Engel
+ *
+ */
+public class HyEnumEditPart extends HyAbstractEditPart{
 
-public class HyEnumEditPart  extends HyAbstractEditPart{
 	public class HyEnumAdapter implements Adapter {
 
 		// Adapter interface
@@ -31,6 +32,8 @@ public class HyEnumEditPart  extends HyAbstractEditPart{
 		public void notifyChanged(Notification notification) {
 			refreshChildren();
 			refreshVisuals();
+
+			changes.firePropertyChange(""+notification.getEventType(), notification.getOldValue(), notification.getNewValue());
 		}
 
 		@Override 
@@ -49,7 +52,21 @@ public class HyEnumEditPart  extends HyAbstractEditPart{
 
 	private HyEnumAdapter adapter = new HyEnumAdapter();
 
-	public HyEnumEditPart(HyGraphicalFeatureModelViewer editor, HyFeatureModelWrapped featureModel) {
+	/**
+	 * Used to inform the parent container in case a literal was added to the enumeration.
+	 */
+	private PropertyChangeSupport changes = new PropertyChangeSupport( this );
+
+	public void addPropertyChangeListener( PropertyChangeListener l ) {
+		changes.addPropertyChangeListener( l );
+	}
+
+	public void removePropertyChangeListener( PropertyChangeListener l ) {
+		changes.removePropertyChangeListener( l );
+	}
+
+
+	public HyEnumEditPart(DwGraphicalFeatureModelViewer editor, HyFeatureModelWrapped featureModel) {
 		super(editor, featureModel);
 	}
 
@@ -88,7 +105,7 @@ public class HyEnumEditPart  extends HyAbstractEditPart{
 
 
 	/**
-	 * Fetch all versions related to the feature to display them as subfeatures
+	 * Fetches all literals related to the enumeration. Needed to display them as children.
 	 */
 	@Override 
 	protected EList<HyEnumLiteral> getModelChildren() {
@@ -106,54 +123,41 @@ public class HyEnumEditPart  extends HyAbstractEditPart{
 	}
 
 
-
 	/**
-	 * Calculates and sets the size needed to display all versions and attributes for this feature at the selected date
+	 * Sets the text of the figure label to the name of the HyEnum enumeration
 	 */
-	protected void setSize(){
-
-		HyFeatureModelEditPart parent = (HyFeatureModelEditPart)getParent();
-	
-		Rectangle layout = new Rectangle(0, 0, 200, 200);
-		parent.setLayoutConstraint(this, figure, layout);	
-	}	
-
-	@Override
-	public void refreshVisuals(){
-		
-		HyFeatureModelEditPart parent = (HyFeatureModelEditPart)getParent();
+	protected void refreshLabel(){
 		HyEnum model = (HyEnum)getModel();
 
-		Date date = editor.getCurrentSelectedDate();
-
-		IFigure parentFigure = parent.getFigure();
-
-		HyFeatureModel featureModel = editor.getModelWrapped().getModel();
-		int index = featureModel.getEnums().indexOf(model);
-		int topOffset = 0;
-		for(int i=0; i<index; i++){
-			topOffset += HyEnumEditorUtil.getEnumHeight(featureModel.getEnums().get(i), date);
-		}
-
-		int width = 300;
-		Rectangle layout = new Rectangle(new Point(parentFigure.getSize().width()-(width+20), 20+topOffset), 
-										 new Dimension(width, HyEnumEditorUtil.getEnumHeight(model, date)));
-		
-
-		parent.setLayoutConstraint(this, figure, layout);
-
-
-
-
-
 		HyEnumFigure figure = (HyEnumFigure)getFigure();
-		figure.setVisible(true);
-		figure.setText(model.getName());
-		
+		figure.setText(model.getName());		
+	}
 
 
-		refreshVisualsOfChildren();
-		
+	/**
+	 * Refreshes the layout and label of the figure
+	 */
+	@Override
+	public void refreshVisuals(){
+		refreshLabel();	
+	}
+
+
+	/**
+	 * Sets the index where the child will be placed within the children list to -1. This causes the child to be added to the back to the list.
+	 * Otherwise the child would be inserted before the existing one causing a reverse draw order. 
+	 */
+	@Override
+	protected void addChildVisual(EditPart child, int index){
+		super.addChildVisual(child, -1);
+	}
+
+	/**
+	 * The size of the corresponding figure is automatically set by the layout provided by the parent
+	 * figure. Therefore this function returns a constraint of zero size.
+	 */
+	protected Rectangle getFigureConstraint(){
+		return new Rectangle(0, 0, 0, 0);
 	}
 
 	/**
@@ -165,9 +169,10 @@ public class HyEnumEditPart  extends HyAbstractEditPart{
 				HyEnumLiteralEditPart edit = (HyEnumLiteralEditPart)o;	
 				if(!edit.isActive())
 					edit.activate();
-				
+
 				edit.refreshVisuals();
 			}
 		}		
 	}
+
 }

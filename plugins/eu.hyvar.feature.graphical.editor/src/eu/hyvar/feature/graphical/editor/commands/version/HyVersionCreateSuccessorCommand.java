@@ -6,13 +6,13 @@ import org.eclipse.gef.commands.Command;
 
 import eu.hyvar.feature.HyFeatureFactory;
 import eu.hyvar.feature.HyVersion;
-import eu.hyvar.feature.graphical.base.editor.HyGraphicalFeatureModelViewer;
+import eu.hyvar.feature.graphical.base.editor.DwGraphicalFeatureModelViewer;
 
 public class HyVersionCreateSuccessorCommand extends Command {
-	private HyGraphicalFeatureModelViewer editor;
+	private DwGraphicalFeatureModelViewer editor;
 	private HyVersion parentVersion;
 	private HyVersion version;
-	public HyVersionCreateSuccessorCommand(HyVersion version, HyGraphicalFeatureModelViewer editor)  {
+	public HyVersionCreateSuccessorCommand(HyVersion version, DwGraphicalFeatureModelViewer editor)  {
 		this.editor = editor;
 		this.parentVersion = version;
 	}

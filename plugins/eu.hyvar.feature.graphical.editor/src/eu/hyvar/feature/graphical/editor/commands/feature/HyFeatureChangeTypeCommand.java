@@ -1,6 +1,8 @@
 package eu.hyvar.feature.graphical.editor.commands.feature;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.gef.commands.Command;
@@ -11,19 +13,21 @@ import eu.hyvar.feature.HyFeature;
 import eu.hyvar.feature.HyFeatureFactory;
 import eu.hyvar.feature.HyFeatureType;
 import eu.hyvar.feature.HyFeatureTypeEnum;
-import eu.hyvar.feature.graphical.base.editor.HyGraphicalFeatureModelViewer;
+import eu.hyvar.feature.graphical.base.editor.DwGraphicalFeatureModelViewer;
 import eu.hyvar.feature.graphical.editor.util.HyElementEditorUtil;
 
 public class HyFeatureChangeTypeCommand extends Command{
 	private HyFeature feature;
 	private HyFeatureTypeEnum newGroupTypeEnum;
-	private HyGraphicalFeatureModelViewer editor;
+	private DwGraphicalFeatureModelViewer editor;
 	
 	HyFeatureType newType;
 	HyFeatureType oldType;
 	HyFeatureType changedType;
 	
-	public HyFeatureChangeTypeCommand(HyFeature feature, HyFeatureTypeEnum newFeatureTypeEnum, HyGraphicalFeatureModelViewer editor){
+	List<HyFeatureType> oldTypes;
+	
+	public HyFeatureChangeTypeCommand(HyFeature feature, HyFeatureTypeEnum newFeatureTypeEnum, DwGraphicalFeatureModelViewer editor){
 		this.feature = feature;
 		this.newGroupTypeEnum = newFeatureTypeEnum;
 		this.editor = editor;
@@ -36,17 +40,25 @@ public class HyFeatureChangeTypeCommand extends Command{
 	
 	@Override
 	public void undo() {	
+		feature.getTypes().clear();
+		feature.getTypes().addAll(oldTypes);
+	}
+	
+	private List<HyFeatureType> backupTypes(){
+		List<HyFeatureType> types = new ArrayList<HyFeatureType>();
+		
 		for(HyFeatureType type : feature.getTypes()){
-			if(EcoreUtil.equals(type, newType)){
-				changedType.setValidUntil(oldType.getValidUntil());
-			}
+			types.add(EcoreUtil.copy(type));
 		}
 		
-		feature.getTypes().remove(newType);	
+		return types;
 	}
 
 	@Override
 	public void redo() {
+		oldTypes = backupTypes();
+		
+		
 		Date date = editor.getCurrentSelectedDate();
 		if(date.equals(new Date(Long.MIN_VALUE)))
 			date = null;

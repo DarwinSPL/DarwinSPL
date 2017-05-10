@@ -20,9 +20,9 @@ import eu.hyvar.feature.graphical.editor.actions.enumeration.HyFeatureAttributeE
 import eu.hyvar.feature.graphical.editor.actions.enumeration.HyFeatureAttributeEnumCreateLiteralAction;
 import eu.hyvar.feature.graphical.editor.actions.feature.DwSetFeatureLinkAction;
 import eu.hyvar.feature.graphical.editor.actions.feature.HyFeatureChangeTypeAction;
+import eu.hyvar.feature.graphical.editor.actions.feature.HyFeatureCreateChildAction;
 import eu.hyvar.feature.graphical.editor.actions.feature.HyFeatureCreateSiblingAction;
 import eu.hyvar.feature.graphical.editor.actions.feature.HyFeatureEditNamesAction;
-import eu.hyvar.feature.graphical.editor.actions.feature.HyFeatureEvolutionCreateChildAction;
 import eu.hyvar.feature.graphical.editor.actions.group.HyGroupChangeGroupTypeToAlternativeTypeAction;
 import eu.hyvar.feature.graphical.editor.actions.group.HyGroupChangeGroupTypeToAndTypeAction;
 import eu.hyvar.feature.graphical.editor.actions.group.HyGroupChangeGroupTypeToOrTypeAction;
@@ -54,7 +54,7 @@ public class HyGraphicalFeatureModelEditorContextMenuProvider extends ContextMen
         
  
         // Feature actions: create child, create sibling
-        action = getActionRegistry().getAction(HyFeatureEvolutionCreateChildAction.FEATURE_EVOLUTION_CREATE_CHILD);
+        action = getActionRegistry().getAction(HyFeatureCreateChildAction.FEATURE_CREATE_CHILD);
         menu.appendToGroup(GEFActionConstants.GROUP_EDIT, action);
         action = getActionRegistry().getAction(HyFeatureCreateSiblingAction.FEATURE_CREATE_SIBLING);
         menu.appendToGroup(GEFActionConstants.GROUP_EDIT, action);       

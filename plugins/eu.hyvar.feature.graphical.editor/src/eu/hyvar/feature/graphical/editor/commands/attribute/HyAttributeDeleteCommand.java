@@ -7,7 +7,7 @@ import org.eclipse.emf.common.notify.impl.NotificationImpl;
 import org.eclipse.gef.commands.Command;
 
 import eu.hyvar.feature.HyFeatureAttribute;
-import eu.hyvar.feature.graphical.base.editor.HyGraphicalFeatureModelViewer;
+import eu.hyvar.feature.graphical.base.editor.DwGraphicalFeatureModelViewer;
 
 public class HyAttributeDeleteCommand extends Command{
 	private class AttributeTemporalDeleteNotification extends NotificationImpl{
@@ -18,7 +18,7 @@ public class HyAttributeDeleteCommand extends Command{
 
 	
 	}
-	private HyGraphicalFeatureModelViewer editor;
+	private DwGraphicalFeatureModelViewer editor;
 	private HyFeatureAttribute attribute;
 	
 
@@ -31,7 +31,7 @@ public class HyAttributeDeleteCommand extends Command{
 		this.attribute = attribute;
 	}
 		
-	public HyAttributeDeleteCommand(HyGraphicalFeatureModelViewer editor) {
+	public HyAttributeDeleteCommand(DwGraphicalFeatureModelViewer editor) {
 		this.editor = editor;
 	}
 
@@ -41,6 +41,12 @@ public class HyAttributeDeleteCommand extends Command{
 		Date date = editor.getCurrentSelectedDate();
 		attribute.setValidUntil(date);
 		
+		// delete attribute permanently in case that valid since and valid until 
+		// would be equal
+		if(date.equals(attribute.getValidSince())){
+			attribute.getFeature().getAttributes().remove(attribute);
+		}
+			
 		for(Adapter adapter : attribute.getFeature().eAdapters())
 			adapter.notifyChanged(new AttributeTemporalDeleteNotification(0, date, date));
 		

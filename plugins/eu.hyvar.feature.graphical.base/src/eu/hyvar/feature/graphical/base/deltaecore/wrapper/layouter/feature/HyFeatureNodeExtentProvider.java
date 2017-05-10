@@ -13,7 +13,9 @@ public class HyFeatureNodeExtentProvider implements NodeExtentProvider<HyFeature
 	}
 	@Override
 	public double getWidth(HyFeature feature) {
-		return HyGeometryUtil.calculateFeatureWidth(feature, featureModel.getSelectedDate());
+		int width = HyGeometryUtil.calculateFeatureWidth(feature, featureModel.getSelectedDate());
+		
+		return width;
 	}
 
 	@Override

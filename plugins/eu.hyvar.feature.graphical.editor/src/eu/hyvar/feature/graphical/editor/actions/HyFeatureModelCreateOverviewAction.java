@@ -3,7 +3,7 @@ package eu.hyvar.feature.graphical.editor.actions;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.ui.actions.RetargetAction;
 
-import eu.hyvar.feature.graphical.base.editor.HyGraphicalFeatureModelViewer;
+import eu.hyvar.feature.graphical.base.editor.DwGraphicalFeatureModelViewer;
 import eu.hyvar.feature.graphical.editor.template.HyFeatureModelOverviewGenerator;
 
 /**
@@ -23,7 +23,7 @@ public class HyFeatureModelCreateOverviewAction extends RetargetAction{
 
 	@Override
 	public void runWithEvent(Event event) {
-		if(this.getActivePart() instanceof HyGraphicalFeatureModelViewer){
+		if(this.getActivePart() instanceof DwGraphicalFeatureModelViewer){
 
 			HyFeatureModelOverviewGenerator generator = new HyFeatureModelOverviewGenerator();
 			generator.createOverviewFile(null, null);

@@ -1,21 +1,19 @@
 package eu.hyvar.feature.graphical.base.editparts;
 
 import java.util.Date;
-import java.util.List;
 
 import org.eclipse.draw2d.IFigure;
 
 import eu.hyvar.evolution.HyEvolutionUtil;
 import eu.hyvar.evolution.HyName;
-import eu.hyvar.feature.graphical.base.editor.HyGraphicalFeatureModelViewer;
+import eu.hyvar.feature.graphical.base.editor.DwGraphicalFeatureModelViewer;
 import eu.hyvar.feature.graphical.base.figures.HyRootFeatureFigure;
 import eu.hyvar.feature.graphical.base.model.HyFeatureModelWrapped;
 import eu.hyvar.feature.graphical.base.model.HyFeatureWrapped;
-import eu.hyvar.feature.graphical.base.model.HyParentChildConnection;
 
 public class HyRootFeatureEditPart extends HyFeatureEditPart{
 
-	public HyRootFeatureEditPart(HyGraphicalFeatureModelViewer editor, HyFeatureModelWrapped featureModel) {
+	public HyRootFeatureEditPart(DwGraphicalFeatureModelViewer editor, HyFeatureModelWrapped featureModel) {
 		super(editor, featureModel);
 	}
 
@@ -43,7 +41,7 @@ public class HyRootFeatureEditPart extends HyFeatureEditPart{
 	public void refreshVisuals(){
 		super.refreshVisuals();
 		
-		HyGraphicalFeatureModelViewer editor = (HyGraphicalFeatureModelViewer)this.editor;
+		DwGraphicalFeatureModelViewer editor = (DwGraphicalFeatureModelViewer)this.editor;
 		Date date = editor.getCurrentSelectedDate();
 		
 		HyRootFeatureFigure figure = (HyRootFeatureFigure)getFigure();
@@ -54,23 +52,5 @@ public class HyRootFeatureEditPart extends HyFeatureEditPart{
 				figure.setText(name.getName());
 			}
 		}
-	}
-	
-	@Override 
-	protected List<HyParentChildConnection> getModelSourceConnections() {
-		HyFeatureWrapped model = (HyFeatureWrapped)getModel();
-
-		HyGraphicalFeatureModelViewer editor = (HyGraphicalFeatureModelViewer)this.editor;
-		Date date = editor.getCurrentSelectedDate();
-		return model.getChildrenConnections(date);
-	}
-
-	@Override 
-	protected List<HyParentChildConnection> getModelTargetConnections() {
-		HyFeatureWrapped model = (HyFeatureWrapped)getModel();
-
-		HyGraphicalFeatureModelViewer editor = (HyGraphicalFeatureModelViewer)this.editor;
-		Date date = editor.getCurrentSelectedDate();
-		return model.getParentConnections(date);
 	}
 }

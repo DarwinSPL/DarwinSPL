@@ -6,10 +6,10 @@ import java.util.List;
 import java.util.Random;
 
 import org.deltaecore.feature.DEFeatureModel;
-import org.deltaecore.feature.analysis.util.SatisfiabilityChecker;
 import org.deltaecore.feature.constraint.DEConstraintModel;
 import org.deltaecore.feature.expression.DEExpression;
 
+import de.darwinspl.feature.analyses.DwSatisfiabilityChecker;
 import eu.hyvar.context.HyContextModel;
 import eu.hyvar.context.HyContextualInformation;
 import eu.hyvar.feature.HyFeature;
@@ -150,7 +150,7 @@ public class DarwinExpressionGenerator {
 		List<DEExpression> expressionList = new ArrayList<DEExpression>(1);
 		expressionList.add(deltaEcoreExpression);
 		
-		SatisfiabilityChecker satChecker = new SatisfiabilityChecker();
+		DwSatisfiabilityChecker satChecker = new DwSatisfiabilityChecker();
 		return satChecker.isExpressionSatisfiableWithFeatureModelConstraints(deltaEcoreFeatureModel, deltaEcoreConstraintModel, expressionList, null);
 	}
 	

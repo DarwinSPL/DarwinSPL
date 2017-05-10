@@ -14,7 +14,7 @@ import eu.hyvar.evolution.HyEvolutionUtil;
 import eu.hyvar.feature.HyFeatureFactory;
 import eu.hyvar.feature.HyFeatureType;
 import eu.hyvar.feature.HyFeatureTypeEnum;
-import eu.hyvar.feature.graphical.base.editor.HyGraphicalFeatureModelViewer;
+import eu.hyvar.feature.graphical.base.editor.DwGraphicalFeatureModelViewer;
 import eu.hyvar.feature.graphical.base.editparts.HyRootFeatureEditPart;
 import eu.hyvar.feature.graphical.base.figures.HyFeatureFigure;
 import eu.hyvar.feature.graphical.base.model.HyFeatureModelWrapped;
@@ -28,7 +28,7 @@ import eu.hyvar.feature.graphical.editor.policies.feature.HyFeatureXYLayoutPolic
 
 public class HyRootFeatureEditorEditPart extends HyRootFeatureEditPart{
 
-	public HyRootFeatureEditorEditPart(HyGraphicalFeatureModelViewer editor, HyFeatureModelWrapped featureModel) {
+	public HyRootFeatureEditorEditPart(DwGraphicalFeatureModelViewer editor, HyFeatureModelWrapped featureModel) {
 		super(editor, featureModel);
 	}
 
@@ -41,12 +41,7 @@ public class HyRootFeatureEditorEditPart extends HyRootFeatureEditPart{
 		installEditPolicy(EditPolicy.DIRECT_EDIT_ROLE, new HyFeatureDirectEditPolicy());
 		installEditPolicy(EditPolicy.LAYOUT_ROLE, new HyFeatureXYLayoutPolicy());		
 	}
-	
-	@Override
-	public void propertyChange(PropertyChangeEvent evt) {
-		this.refreshVisuals();
-	}
-	
+
 	/**
 	 * This method is used to enable direct name editing in the feature
 	 */

@@ -9,8 +9,10 @@ Require-Bundle: eu.hyvar.feature.constraint,
  eu.hyvar.feature.mapping,
  eu.hyvar.feature.configuration,
  org.deltaecore.feature.configuration,
+ org.deltaecore.feature.constraint,
  eu.hyvar.feature.expression,
- eu.hyvar.feature
+ eu.hyvar.feature,
+ org.deltaecore.suite.mapping
 Export-Package: eu.hyvar.feature.exporter.hfm_exporter,
  eu.hyvar.feature.exporter.hfm_exporter.util
 Bundle-ActivationPolicy: lazy

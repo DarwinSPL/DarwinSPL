@@ -13,16 +13,16 @@ import org.eclipse.gef.NodeEditPart;
 import org.eclipse.gef.Request;
 import org.eclipse.gef.editparts.AbstractConnectionEditPart;
 
-import eu.hyvar.feature.graphical.base.editor.HyGraphicalFeatureModelViewer;
+import eu.hyvar.feature.graphical.base.editor.DwGraphicalFeatureModelViewer;
 import eu.hyvar.feature.graphical.base.figures.HyParentChildConnectionFigure;
 import eu.hyvar.feature.graphical.base.model.HyFeatureModelWrapped;
 import eu.hyvar.feature.graphical.base.model.HyParentChildConnection;
 
 public class HyParentChildConnectionEditPart extends AbstractConnectionEditPart implements PropertyChangeListener, NodeEditPart {
 	protected HyFeatureModelWrapped model;
-	protected HyGraphicalFeatureModelViewer editor;
+	protected DwGraphicalFeatureModelViewer editor;
 	
-	public HyParentChildConnectionEditPart(HyGraphicalFeatureModelViewer editor, HyFeatureModelWrapped model){
+	public HyParentChildConnectionEditPart(DwGraphicalFeatureModelViewer editor, HyFeatureModelWrapped model){
 		this.model = model;
 		this.editor = editor;
 	}
@@ -122,9 +122,10 @@ public class HyParentChildConnectionEditPart extends AbstractConnectionEditPart 
 		
 		boolean connectionValid = true;
 		
-		if(!connection.getTarget().isValid(date) || connection.getTarget().getParentFeature(date) == null)
+		if(!targetValid || connection.getTarget().getParentFeature(date) == null ||
+		   !connection.getSource().isVisible() || !connection.getTarget().isVisible()){
 			connectionValid = false;
-		else
+		}else
 			connectionValid = connection.getTarget().getParentFeature(date).equals(connection.getSource());
 		
 		if(sourceValid && targetValid && connectionValid){

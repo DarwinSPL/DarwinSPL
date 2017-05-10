@@ -13,7 +13,6 @@ Require-Bundle: org.eclipse.ui,
  eu.hyvar.feature.data;visibility:=reexport,
  eu.hyvar.evolution;visibility:=reexport,
  eu.hyvar.feature;bundle-version="1.0.0";visibility:=reexport,
- org.deltaecore,
  de.christophseidl.util.ecore,
  org.eclipse.core.resources
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8

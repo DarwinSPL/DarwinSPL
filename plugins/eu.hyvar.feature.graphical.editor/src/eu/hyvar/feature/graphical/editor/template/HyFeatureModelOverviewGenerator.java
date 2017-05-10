@@ -35,7 +35,7 @@ import eu.hyvar.feature.HyGroupComposition;
 import eu.hyvar.feature.HyGroupType;
 import eu.hyvar.feature.HyGroupTypeEnum;
 import eu.hyvar.feature.HyVersion;
-import eu.hyvar.feature.graphical.base.editor.HyGraphicalFeatureModelViewer;
+import eu.hyvar.feature.graphical.base.editor.DwGraphicalFeatureModelViewer;
 import eu.hyvar.feature.util.HyFeatureEvolutionUtil;
 import freemarker.core.ParseException;
 import freemarker.core.TemplateDateFormatFactory;
@@ -87,7 +87,7 @@ public class HyFeatureModelOverviewGenerator {
 		IWorkbench wb = PlatformUI.getWorkbench();
 		IWorkbenchWindow win = wb.getActiveWorkbenchWindow();
 		IWorkbenchPage page = win.getActivePage();
-		HyGraphicalFeatureModelViewer editor = (HyGraphicalFeatureModelViewer)page.getActiveEditor();
+		DwGraphicalFeatureModelViewer editor = (DwGraphicalFeatureModelViewer)page.getActiveEditor();
 		List<Date> dates = HyEvolutionUtil.collectDates(editor.getModelWrapped().getModel());
 		List<HyFeatureModelOverviewDataObject> templateDates = new ArrayList<HyFeatureModelOverviewDataObject>();
 

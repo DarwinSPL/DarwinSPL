@@ -21,18 +21,18 @@ import eu.hyvar.evolution.HyEvolutionUtil;
 import eu.hyvar.feature.HyFeature;
 import eu.hyvar.feature.HyGroup;
 import eu.hyvar.feature.HyGroupComposition;
-import eu.hyvar.feature.graphical.base.editor.HyGraphicalFeatureModelViewer;
+import eu.hyvar.feature.graphical.base.editor.DwGraphicalFeatureModelViewer;
 import eu.hyvar.feature.graphical.base.model.HyFeatureModelWrapped;
 import eu.hyvar.feature.graphical.base.model.HyFeatureWrapped;
 import eu.hyvar.feature.graphical.base.model.HyGroupWrapped;
 
 
-public class HyGroupFigure extends HyAbstractFigure{
+public class HyGroupFigure extends DwFeatureViewerReferencedFigure{
 
 	protected Path groupTypeArc;
 	protected HyGroupWrapped group;
 
-	public HyGroupFigure(HyGraphicalFeatureModelViewer editor, HyGroupWrapped group) {
+	public HyGroupFigure(DwGraphicalFeatureModelViewer editor, HyGroupWrapped group) {
 		super(editor);
 
 		this.group = group;
@@ -77,12 +77,13 @@ public class HyGroupFigure extends HyAbstractFigure{
 			HyFeatureWrapped firstFeature = features.iterator().next();
 			HyFeatureWrapped lastFeature = firstFeature;
 			Iterator<HyFeatureWrapped> it = features.iterator();
+			
 			while (it.hasNext()){
 				HyFeatureWrapped currentFeature = it.next();
-				if(currentFeature.getPosition(null).x < firstFeature.getPosition(null).x)
+				if(currentFeature.getPosition(date).getPosition().x < firstFeature.getPosition(date).getPosition().x)
 					firstFeature = currentFeature;
 
-				if(currentFeature.getPosition(null).x > lastFeature.getPosition(null).x)
+				if(currentFeature.getPosition(date).getPosition().x > lastFeature.getPosition(date).getPosition().x)
 					lastFeature = currentFeature;			
 			}
 
@@ -90,18 +91,16 @@ public class HyGroupFigure extends HyAbstractFigure{
 			Point originPoint = this.getLocation().getCopy();
 			originPoint.x += this.getSize().width / 2 - theme.getLineWidth();	
 
-			Point leftLineEndPoint = firstFeature.getPosition(null).getCopy();
+			Point leftLineEndPoint = firstFeature.getPosition(date).getPosition().getCopy();
 			leftLineEndPoint.x+=firstFeature.getSize(date).width / 2;
-			//leftLineEndPoint.y+=theme.getFeatureVariationTypeExtent()-4;
 
-			Point rightLineEndPoint = lastFeature.getPosition(null).getCopy();
+			Point rightLineEndPoint = lastFeature.getPosition(date).getPosition().getCopy();
 			rightLineEndPoint.x+=lastFeature.getSize(date).width / 2;
-			//rightLineEndPoint.y+=theme.getFeatureVariationTypeExtent();
 
 			Point intersectionPointOfLeftLineAndCircle = scaleLineEndPoint(originPoint, leftLineEndPoint, theme.getGroupSymbolRadius());
 
 
-			int circleX = originPoint.x - theme.getGroupSymbolRadius() +1;
+			int circleX = originPoint.x - theme.getGroupSymbolRadius() + 1;
 			int circleY = originPoint.y - theme.getGroupSymbolRadius();
 
 			int circleWidth = 2 * theme.getGroupSymbolRadius();
@@ -149,15 +148,16 @@ public class HyGroupFigure extends HyAbstractFigure{
 	}	
 
 	@Override 
-	public void paintFigure(Graphics graphics) {		
-		DEGraphicalEditorTheme theme = DEGraphicalEditor.getTheme();
+	public void paintFigure(Graphics graphics) {	
 		Date date = editor.getCurrentSelectedDate();
-
+		
 		HyFeatureWrapped parentFeatureWrapped = editor.getModelWrapped().getParentFeatureForGroup(group, date);
-		if(parentFeatureWrapped == null){
-			System.out.println("");
-		}
-		Point parentPosition = parentFeatureWrapped.getPosition(date).getCopy();
+		if(parentFeatureWrapped == null)
+			return;
+		
+		DEGraphicalEditorTheme theme = DEGraphicalEditor.getTheme();
+	
+		Point parentPosition = parentFeatureWrapped.getPosition(date).getPosition().getCopy();
 		parentPosition.y += parentFeatureWrapped.getSize(date).height;
 		parentPosition.x += parentFeatureWrapped.getSize(date).width() / 2.0 - theme.getGroupSymbolRadius();
 
@@ -187,5 +187,4 @@ public class HyGroupFigure extends HyAbstractFigure{
 			}
 		}
 	}
-
 }

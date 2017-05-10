@@ -1,6 +1,5 @@
 package eu.hyvar.feature.graphical.base.editparts;
 
-import java.util.ArrayList;
 import java.util.Date;
 
 import org.deltaecore.feature.graphical.base.editor.DEGraphicalEditor;
@@ -9,98 +8,74 @@ import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
+import org.eclipse.gef.editparts.AbstractGraphicalEditPart;
 
 import eu.hyvar.evolution.HyEvolutionUtil;
-import eu.hyvar.feature.HyFeature;
-import eu.hyvar.feature.HyFeatureChild;
-import eu.hyvar.feature.graphical.base.editor.HyGraphicalFeatureModelViewer;
+import eu.hyvar.feature.graphical.base.editor.DwGraphicalFeatureModelViewer;
 import eu.hyvar.feature.graphical.base.figures.HyGroupFigure;
 import eu.hyvar.feature.graphical.base.model.HyFeatureModelWrapped;
 import eu.hyvar.feature.graphical.base.model.HyFeatureWrapped;
 import eu.hyvar.feature.graphical.base.model.HyGroupWrapped;
 
 public class HyGroupEditPart extends HyAbstractEditPart{
-
-	private boolean changeMode;
-
-	public boolean isChangeMode() {
-		return changeMode;
-	}
-
-	public void setChangeMode(boolean changeMode) {
-		this.changeMode = changeMode;
-	}
-
-	private int temporaryElementIndex;
-
-	public int getTemporaryElementIndex() {
-		return temporaryElementIndex;
-	}
-
-	public void setTemporaryElementIndex(int temporaryElementIndex) {
-		this.temporaryElementIndex = temporaryElementIndex;
-	}
-
-	public HyGroupEditPart(HyGraphicalFeatureModelViewer editor, HyFeatureModelWrapped featureModel){
+	
+	public HyGroupEditPart(DwGraphicalFeatureModelViewer editor, HyFeatureModelWrapped featureModel){
 		super(editor, featureModel);
-		children = new ArrayList<HyFeature>();
-
-
 	}
 
 	@Override
 	protected IFigure createFigure() {
-		HyGraphicalFeatureModelViewer editor = (HyGraphicalFeatureModelViewer) getEditor();
+		DwGraphicalFeatureModelViewer editor = (DwGraphicalFeatureModelViewer) getEditor();
 		HyGroupWrapped model = (HyGroupWrapped)getModel();
 		return new HyGroupFigure(editor, model);
-	}
-
-	@Override 
-	protected void refreshVisuals() {
-		refreshVisibillity();
-		refreshLayoutConstraint();		
 	}
 
 	@Override
 	protected void createEditPolicies() {		
 	}
 
-	private void refreshLayoutConstraint(){
+
+	
+	protected Rectangle getFigureConstraint(){
+		DEGraphicalEditorTheme theme = DEGraphicalEditor.getTheme();
+		
 		HyGroupWrapped model = (HyGroupWrapped)getModel();
 		
 		HyFeatureWrapped feature = featureModel.getParentFeatureForGroup(model, featureModel.getSelectedDate());
-		if(feature == null)
-			return;
 		
-		DEGraphicalEditorTheme theme = DEGraphicalEditor.getTheme();
-
-		Point parentPosition = feature.getPosition(null).getCopy();
+		Point parentPosition = feature.getPosition(featureModel.getSelectedDate()).getPosition().getCopy();
 		parentPosition.x += feature.getSize(editor.getCurrentSelectedDate()).width() / 2.0 - theme.getGroupSymbolRadius();
 		parentPosition.y += feature.getSize(editor.getCurrentSelectedDate()).height; 
 
 		int size = theme.getLineWidth() * 2 + theme.getGroupSymbolRadius() * 2;
-
-		HyFeatureModelEditPart parent = (HyFeatureModelEditPart)getParent();
 		
-		if(parent != null)
-			parent.setLayoutConstraint(this, figure, new Rectangle(parentPosition, new Dimension(size, size)));
+		return new Rectangle(parentPosition, new Dimension(size, size));
 	}
 
-	private void refreshVisibillity(){
+	@Override
+	protected void refreshVisibility(){
 		HyGroupWrapped model = (HyGroupWrapped)getModel();
 		Date date = featureModel.getSelectedDate();
 
+		HyFeatureWrapped parentFeature = featureModel.getParentFeatureForGroup(model, date);
+		
 		// check if group as at a valid parent feature and show/hide the group accordingly
 		boolean isVisible = HyEvolutionUtil.isValid(model.getWrappedModelElement(), date);
+		
+		// hide group if parent feature is set to hide children
 		boolean hasValidParentFeature = false;
-		for(HyFeatureChild child : model.getWrappedModelElement().getChildOf()){
-			if(child.getParent() != null){
-				if(HyEvolutionUtil.isValid(child.getParent(), date))
-					hasValidParentFeature = true;		
-			}
+		if(parentFeature != null){
+			if(!parentFeature.isVisible() || parentFeature.isHideChildren())
+				isVisible = false;
+			
+			hasValidParentFeature = true;
 		}
 
 
-		//figure.setVisible(isVisible && hasValidParentFeature);
+		figure.setVisible(isVisible && hasValidParentFeature);
+		
+		AbstractGraphicalEditPart parent = (AbstractGraphicalEditPart)getParent();
+		if(figure.isVisible() && parent != null)
+			parent.setLayoutConstraint(this, figure, getFigureConstraint());
 	}
 }

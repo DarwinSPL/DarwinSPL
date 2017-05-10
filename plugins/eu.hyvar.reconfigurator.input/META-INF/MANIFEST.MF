@@ -6,11 +6,11 @@ Bundle-Version: 1.0.0
 Bundle-RequiredExecutionEnvironment: JavaSE-1.7
 Export-Package: eu.hyvar.reconfigurator.input.exporter,
  eu.hyvar.reconfigurator.input.exporter.example
-Require-Bundle: eu.hyvar.context.validity_formulas,
- eu.hyvar.feature.configuration,
- eu.hyvar.feature.constraint,
- eu.hyvar.preferences,
- eu.hyvar.context.information.value
+Require-Bundle: eu.hyvar.context.validity_formulas;visibility:=reexport,
+ eu.hyvar.feature.configuration;visibility:=reexport,
+ eu.hyvar.feature.constraint;visibility:=reexport,
+ eu.hyvar.preferences;visibility:=reexport,
+ eu.hyvar.context.information.value;visibility:=reexport
 Bundle-ClassPath: .,
  libs/gson-2.6.1.jar
 Bundle-Vendor: www.darwinspl.de

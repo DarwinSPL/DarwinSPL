@@ -15,7 +15,8 @@ Require-Bundle: org.eclipse.core.resources,
  org.eclipse.jetty.io,
  org.deltaecore.feature,
  org.deltaecore.feature.configuration,
- de.darwinspl.common.util;bundle-version="1.0.0"
+ de.darwinspl.common.util;bundle-version="1.0.0",
+ org.deltaecore.suite.mapping
 Bundle-ClassPath: .,
  lib/jetty-client-9.2.13.v20150730.jar
 Bundle-Vendor: www.darwinspl.de

@@ -47,16 +47,6 @@ public class HyGroupWrapped extends HyEditorChangeableElement {
 		return (HyGroup)wrappedModelElement;
 	}
 
-	/*
-	public HyFeatureWrapped getParentFeature(Date date) {
-		return parentFeature;
-	}
-	 */
-	/*
-	public void setParentFeature(HyFeatureWrapped parentFeature) {
-		this.parentFeature = parentFeature;
-	}
-	 */
 	public void setFeatures(HashSet<HyFeatureWrapped> features) {
 		this.features = features;
 	}
@@ -124,45 +114,9 @@ public class HyGroupWrapped extends HyEditorChangeableElement {
 	public HyGroupWrapped clone(){
 		HyGroupWrapped deepCopy = new HyGroupWrapped(EcoreUtil.copy(this.getWrappedModelElement()));
 		deepCopy.setFeatures(getFeatures());
-		//deepCopy.setParentFeature(parentFeature);
 
 		return deepCopy;
 	}
-
-	/**
-	 * Removes a feature which is child of this group. Use this function to delete the feature temporarily since the selected date.
-	 * @param childFeature the feature to remove
-	 * @param date
-	 */
-	public void removeChildFeature(HyFeatureWrapped childFeature, Date date){
-		if(date != null && date.equals(new Date(Long.MIN_VALUE)))
-			date = null;
-
-		HyGroupWrapped old = clone();
-
-		HyGroupComposition composition = HyEvolutionUtil.getValidTemporalElement(getWrappedModelElement().getParentOf(), date);			
-		if(composition != null){
-			HyGroupType type = HyEvolutionUtil.getValidTemporalElement(getWrappedModelElement().getTypes(), date);
-			
-			// split composition to allow evolution
-			if(date != null){
-				composition = HyGroupWrapped.splitComposition(composition, null, date);
-
-				// split group types in case that no and type is selected at the selected date
-				if(composition.getFeatures().size() == 2 && type.getType() != HyGroupTypeEnum.AND){
-					splitGroupType(date, HyGroupTypeEnum.AND);
-				}
-			}else{	
-				if(composition.getFeatures().size() == 2)
-					type.setType(HyGroupTypeEnum.AND);
-			}
-			composition.getFeatures().remove(childFeature.getWrappedModelElement());
-
-			// Inform editparts about the changes made to the model
-			listeners.firePropertyChange(PROPERTY_CHILD_FEATURES, old, this);
-		}
-	}
-
 
 	/**
 	 * Transfers a feature from this group to another. Use this function only to update the internal relationship

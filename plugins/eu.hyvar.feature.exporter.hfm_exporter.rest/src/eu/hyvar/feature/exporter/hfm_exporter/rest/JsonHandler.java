@@ -19,7 +19,7 @@ import org.deltaecore.feature.DEFeature;
 import org.deltaecore.feature.DEFeatureModel;
 import org.deltaecore.feature.DEVersion;
 import org.deltaecore.feature.configuration.DEConfiguration;
-import org.deltaecore.feature.mapping.DEMappingModel;
+import org.deltaecore.suite.mapping.DEMappingModel;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;

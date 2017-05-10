@@ -1,0 +1,16 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: DarwinSPL IO
+Bundle-SymbolicName: de.darwinspl.io.ui;singleton:=true
+Bundle-Version: 1.0.0
+Bundle-RequiredExecutionEnvironment: JavaSE-1.7
+Require-Bundle: de.darwinspl.importer.ui;bundle-version="1.0.0",
+ de.darwinspl.exporter.ui;bundle-version="1.0.0",
+ org.eclipse.ui,
+ org.eclipse.core.resources,
+ de.christophseidl.util.eclipse.ui,
+ de.darwinspl.importer.splot,
+ de.darwinspl.importer,
+ eu.hyvar.reconfigurator.input,
+ eu.hyvar.feature,
+ eu.hyvar.feature.constraint

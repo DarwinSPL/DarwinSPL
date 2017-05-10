@@ -3,15 +3,19 @@ package de.darwinspl.feature.configuration.variantgeneration;
 import java.util.Date;
 import java.util.List;
 
+import org.deltaecore.core.decore.DEDelta;
 import org.deltaecore.core.decore.util.DEDeltaRequirementsCycleException;
+import org.deltaecore.core.variant.DEVariantCreator;
+import org.deltaecore.core.variant.requirements.DEDeltaAbstractDeltasInInputException;
 import org.deltaecore.feature.DEFeatureModel;
 import org.deltaecore.feature.configuration.DEConfiguration;
-import org.deltaecore.feature.mapping.DEMappingModel;
-import org.deltaecore.interpretation.requirements.DEDeltaAbstractDeltasInInputException;
-import org.deltaecore.interpretation.variant.DEConfigurationVariantCreator;
+import org.deltaecore.suite.mapping.DEMappingModel;
+import org.deltaecore.suite.variant.DEConfigurationDeltaModuleVariantGenerator;
+import org.deltaecore.suite.variant.util.DEConfigurationEvaluator;
 import org.eclipse.core.resources.IFolder;
 import org.eclipse.emf.ecore.resource.Resource;
 
+import de.christophseidl.util.ecore.EcoreIOUtil;
 import eu.hyvar.feature.HyFeatureModel;
 import eu.hyvar.feature.configuration.HyConfiguration;
 import eu.hyvar.feature.exporter.hfm_exporter.HFMConfigurationExporter;
@@ -20,8 +24,14 @@ import eu.hyvar.feature.exporter.hfm_exporter.HFMMappingExporter;
 import eu.hyvar.feature.mapping.HyMappingModel;
 import eu.hyvar.feature.util.HyFeatureModelWellFormednessException;
 
-public class DwConfigurationVariantCreator extends DEConfigurationVariantCreator {
+public class DwConfigurationVariantCreator extends DEConfigurationDeltaModuleVariantGenerator {
 
+	private DEVariantCreator deltaVariantCreator;
+	
+	public DwConfigurationVariantCreator() {
+		deltaVariantCreator = new DEVariantCreator();
+	}
+	
 	public List<Resource> createVariantFromConfiguration(HyFeatureModel featureModel, HyConfiguration configuration,
 			HyMappingModel mapping, Date date) throws DEDeltaAbstractDeltasInInputException,
 			DEDeltaRequirementsCycleException, HyFeatureModelWellFormednessException {
@@ -30,8 +40,11 @@ public class DwConfigurationVariantCreator extends DEConfigurationVariantCreator
 			FeatureModelConfigurationMappingTriple deltaEcoreModels = exportToDeltaEcoreModels(featureModel,
 					configuration, mapping, date);
 
-			List<Resource> resourceList = super.createVariantFromConfiguration(deltaEcoreModels.getConfiguration(),
-					deltaEcoreModels.getMapping());
+			DEConfigurationEvaluator configurationEvaluator = new DEConfigurationEvaluator();
+			
+			List<DEDelta> deltasList = configurationEvaluator.evaluateConfiguration(deltaEcoreModels.getConfiguration(), deltaEcoreModels.getMapping());
+			
+			List<Resource> resourceList = deltaVariantCreator.createVariantFromDeltas(deltasList);
 
 			// deleteModels(deltaEcoreModels);
 
@@ -45,11 +58,10 @@ public class DwConfigurationVariantCreator extends DEConfigurationVariantCreator
 			HyMappingModel mapping, Date date, IFolder variantFolder) throws DEDeltaAbstractDeltasInInputException,
 			DEDeltaRequirementsCycleException, HyFeatureModelWellFormednessException {
 
-		try {
-			FeatureModelConfigurationMappingTriple deltaEcoreModels = exportToDeltaEcoreModels(featureModel,
-					configuration, mapping, date);
-			super.createAndSaveVariantFromConfiguration(deltaEcoreModels.getConfiguration(),
-					deltaEcoreModels.getMapping(), variantFolder);
+		try {			
+			List<Resource> affectedResources = createVariantFromConfiguration(featureModel, configuration, mapping, date);
+			
+			EcoreIOUtil.saveResourcesAs(affectedResources, variantFolder);
 		} catch (HyFeatureModelWellFormednessException e) {
 			throw e;
 		}

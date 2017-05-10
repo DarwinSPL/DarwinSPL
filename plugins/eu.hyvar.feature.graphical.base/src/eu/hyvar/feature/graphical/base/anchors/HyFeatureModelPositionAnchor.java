@@ -5,13 +5,13 @@ import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
 
-import eu.hyvar.feature.graphical.base.editor.HyGraphicalFeatureModelViewer;
+import eu.hyvar.feature.graphical.base.editor.DwGraphicalFeatureModelViewer;
 import eu.hyvar.feature.graphical.base.model.HyFeatureWrapped;
 
 public class HyFeatureModelPositionAnchor extends AbstractConnectionAnchor {
-	protected HyGraphicalFeatureModelViewer editor;
+	protected DwGraphicalFeatureModelViewer editor;
 	
-	public HyFeatureModelPositionAnchor(IFigure owner, HyGraphicalFeatureModelViewer editor) {
+	public HyFeatureModelPositionAnchor(IFigure owner, DwGraphicalFeatureModelViewer editor) {
 		super(owner);
 		
 		this.editor = editor;

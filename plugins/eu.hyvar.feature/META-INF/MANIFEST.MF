@@ -8,6 +8,7 @@ Bundle-Vendor: www.darwinspl.de
 Bundle-Localization: plugin
 Bundle-RequiredExecutionEnvironment: JavaSE-1.7
 Export-Package: eu.hyvar.feature,
+ eu.hyvar.feature.analyses,
  eu.hyvar.feature.impl,
  eu.hyvar.feature.impl.custom,
  eu.hyvar.feature.util,

@@ -20,6 +20,7 @@ Require-Bundle: org.eclipse.ui,
  eu.hyvar.feature.constraint,
  eu.hyvar.context.validity_formulas,
  eu.hyvar.feature.constraint.resource.hyconstraints,
+ eu.hyvar.feature.data,
  eu.hyvar.mspl.manifest
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Bundle-ActivationPolicy: lazy

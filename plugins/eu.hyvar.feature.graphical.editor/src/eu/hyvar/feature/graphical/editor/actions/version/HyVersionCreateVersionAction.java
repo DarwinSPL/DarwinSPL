@@ -5,7 +5,7 @@ import org.eclipse.gef.ui.actions.SelectionAction;
 
 import eu.hyvar.evolution.HyEvolutionUtil;
 import eu.hyvar.feature.HyFeature;
-import eu.hyvar.feature.graphical.base.editor.HyGraphicalFeatureModelViewer;
+import eu.hyvar.feature.graphical.base.editor.DwGraphicalFeatureModelViewer;
 import eu.hyvar.feature.graphical.base.editparts.HyFeatureEditPart;
 import eu.hyvar.feature.graphical.base.editparts.HyRootFeatureEditPart;
 import eu.hyvar.feature.graphical.base.model.HyFeatureWrapped;
@@ -18,12 +18,12 @@ public class HyVersionCreateVersionAction extends SelectionAction{
 
 	public static final String ID = "eu.hyvar.feature.graphical.editor.actions.hyversioncreateaction";
 
-	private HyGraphicalFeatureModelViewer editor;
+	private DwGraphicalFeatureModelViewer editor;
 	
 	@SuppressWarnings("unused")
 	private Request request;
 	
-	public HyVersionCreateVersionAction(HyGraphicalFeatureModelViewer editor) {
+	public HyVersionCreateVersionAction(DwGraphicalFeatureModelViewer editor) {
 		super(editor);
 
 		setId(FEATURE_ADD_VERSION);

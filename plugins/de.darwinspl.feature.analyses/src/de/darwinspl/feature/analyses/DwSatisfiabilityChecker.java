@@ -6,7 +6,7 @@ import java.util.List;
 
 import org.deltaecore.feature.DEFeature;
 import org.deltaecore.feature.DEFeatureModel;
-import org.deltaecore.feature.analysis.util.SatisfiabilityChecker;
+import org.deltaecore.feature.analysis.util.FeatureModelConverter;
 import org.deltaecore.feature.constraint.DEConstraintModel;
 import org.deltaecore.feature.expression.DEExpression;
 
@@ -26,13 +26,17 @@ import eu.hyvar.feature.expression.HyExpressionFactory;
 import eu.hyvar.feature.expression.HyFeatureReferenceExpression;
 import eu.hyvar.feature.expression.HyNotExpression;
 import eu.hyvar.feature.util.HyFeatureModelWellFormednessException;
+import solver.constraints.Constraint;
 
-public class DwSatisfiabilityChecker {
+public class DwSatisfiabilityChecker extends FeatureModelConverter{
 	
-	private SatisfiabilityChecker satChecker;
+//	private SatisfiabilityChecker satChecker;
+	
 	
 	public DwSatisfiabilityChecker() {
-		satChecker = new SatisfiabilityChecker();
+//		satChecker = new SatisfiabilityChecker();
+//		featureModelConverter = new FeatureModelConverter();
+		
 	}
 
 	public boolean isExpressionSatisfiableWithFeatureModelConstraints(HyFeatureModel featureModel, HyConstraintModel constraintModel, List<HyExpression> expressions, List<HyFeature> partialFeatureSelection, Date date) throws HyFeatureModelWellFormednessException {
@@ -68,7 +72,7 @@ public class DwSatisfiabilityChecker {
 			}
 		}
 		
-		return satChecker.isExpressionSatisfiableWithFeatureModelConstraints(deFeatureModel, deConstraintModel, deExpressions, dePartialFeatureSelection);
+		return isExpressionSatisfiableWithFeatureModelConstraints(deFeatureModel, deConstraintModel, deExpressions, dePartialFeatureSelection);
 	}
 	
 	public boolean isExpressionSatisfiable(HyFeatureModel featureModel, List<HyExpression> expressions, List<HyFeature> partialFeatureSelection, Date date) throws HyFeatureModelWellFormednessException {
@@ -85,7 +89,7 @@ public class DwSatisfiabilityChecker {
 	public boolean isSatisfiable(HyConfiguration partialConfiguration, HyConstraintModel constraintModel, Date date) {
 		HyFeatureModel featureModel = partialConfiguration.getFeatureModel();
 		
-		DwSatisfiabilityChecker satChecker = new DwSatisfiabilityChecker();
+//		DwSatisfiabilityChecker satChecker = new DwSatisfiabilityChecker();
 		
 		List<HyFeature> partialFeatureSelection = new ArrayList<HyFeature>();
 		
@@ -108,12 +112,61 @@ public class DwSatisfiabilityChecker {
 		
 		
 		try {
-			return satChecker.isExpressionSatisfiableWithFeatureModelConstraints(featureModel, constraintModel, deselectedExpressions, partialFeatureSelection, date);
+			return isExpressionSatisfiableWithFeatureModelConstraints(featureModel, constraintModel, deselectedExpressions, partialFeatureSelection, date);
 		} catch (HyFeatureModelWellFormednessException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return false;
+	}
+	
+	
+	public boolean isExpressionSatisfiableWithFeatureModelConstraints(DEFeatureModel featureModel, DEConstraintModel constraintModel, List<DEExpression> expressions, List<DEFeature> partialFeatureSelection) {
+		if(featureModel == null) {
+			return false;
+		}
+		
+		createSolver();
+		
+		convertFeatureModel(featureModel, constraintModel, getSolver());
+		
+		encodeExpressionsAndFeatureSelection(expressions, partialFeatureSelection);
+		
+		return getSolver().findSolution();
+	}
+	
+	public boolean isExpressionSatisfiable(DEFeatureModel featureModel, List<DEExpression> expressions, List<DEFeature> partialFeatureSelection) {
+		if(featureModel == null) {
+			return false;
+		}
+		
+		createSolver();
+		
+		convertFeatureModel(featureModel);
+		
+		encodeExpressionsAndFeatureSelection(expressions, partialFeatureSelection);
+		
+		return getSolver().findSolution();
+	}
+	
+	protected void encodeExpressionsAndFeatureSelection(List<DEExpression> expressions, List<DEFeature> partialFeatureSelection) {
+		if(expressions != null) {
+			for(DEExpression expression: expressions) {
+				getSolver().post(expression(expression));
+			}			
+		}
+		
+		if(partialFeatureSelection != null) {
+			for(DEFeature feature: partialFeatureSelection) {
+				encodeFeatureSelection(feature);
+			}
+		}
+	}
+
+	
+	protected void encodeFeatureSelection(DEFeature feature) {
+		Constraint<?,?> constraint = getFeatureVariableEncoding().selected(feature);
+		getSolver().post(constraint);
 	}
 	
 }

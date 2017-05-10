@@ -44,13 +44,14 @@ import eu.hyvar.feature.HyRootFeature;
 import eu.hyvar.feature.HyVersion;
 import eu.hyvar.feature.graphical.base.deltaecore.wrapper.layouter.version.HyVersionLayouterManager;
 import eu.hyvar.feature.graphical.base.deltaecore.wrapper.layouter.version.HyVersionTreeLayouter;
-import eu.hyvar.feature.graphical.base.editor.HyGraphicalFeatureModelViewer;
+import eu.hyvar.feature.graphical.base.editor.DwGraphicalFeatureModelViewer;
 import eu.hyvar.feature.graphical.base.model.HyFeatureModelWrapped;
 import eu.hyvar.feature.graphical.base.model.HyFeatureWrapped;
 import eu.hyvar.feature.graphical.base.model.HyGroupWrapped;
 import eu.hyvar.feature.graphical.base.model.HyParentChildConnection;
 import eu.hyvar.feature.graphical.editor.template.EclipseWorkspaceUtil;
 import freemarker.core.ParseException;
+import freemarker.core.TemplateNumberFormatFactory;
 import freemarker.template.Configuration;
 import freemarker.template.MalformedTemplateNameException;
 import freemarker.template.Template;
@@ -131,7 +132,7 @@ public class HyFeatureModelSVGGenerator {
 					DEGraphicalEditorTheme theme = DEGraphicalEditor.getTheme();
 					
 					HyFeatureWrapped parentFeature = featureModelWrapped.getParentFeatureForGroup(group, featureModelWrapped.getSelectedDate());
-					Point position = parentFeature.getPosition(date).getCopy();
+					Point position = parentFeature.getPosition(date).getPosition().getCopy();
 					position.x += parentFeature.getSize(date).width() / 2;
 					//position.y += parentFeature.getSize(date).height(); //(int) (Integer)HyGeometryUtil.calculateFeatureHeight(parentFeature.getWrappedModelElement(), date); // - theme.getFeatureVariationTypeExtent() * 1.5+theme.getLineWidth());
 
@@ -151,21 +152,21 @@ public class HyFeatureModelSVGGenerator {
 								rightest = featureWrapped;
 							}
 
-							if(leftest.getPosition(date).x > featureWrapped.getPosition(date).x){
+							if(leftest.getPosition(date).getPosition().x > featureWrapped.getPosition(date).getPosition().x){
 								leftest = featureWrapped;
 							}
 
-							if(rightest.getPosition(date).x < featureWrapped.getPosition(date).x){
+							if(rightest.getPosition(date).getPosition().x < featureWrapped.getPosition(date).getPosition().x){
 								rightest = featureWrapped;
 							}
 						}
 					}
 
 					if(leftest != null && rightest != null){
-						Point leftestPosition = leftest.getPosition(date).getCopy();
+						Point leftestPosition = leftest.getPosition(date).getPosition().getCopy();
 						leftestPosition.x += leftest.getSize(date).getCopy().width / 2;
 
-						Point rightestPosition = rightest.getPosition(date).getCopy();
+						Point rightestPosition = rightest.getPosition(date).getPosition().getCopy();
 						rightestPosition.x += rightest.getSize(date).getCopy().width / 2;
 
 						int modifier = HyEvolutionUtil.getValidTemporalElement(group.getWrappedModelElement().getTypes(), date).getType().getValue();
@@ -187,7 +188,7 @@ public class HyFeatureModelSVGGenerator {
 	 * @return
 	 */
 	private HyFeatureModelSVGFeatureDataObject convertFeature(HyFeatureWrapped featureWrapped){
-		Point position = featureWrapped.getPosition(date);
+		Point position = featureWrapped.getPosition(date).getPosition();
 
 		HyName name = HyEvolutionUtil.getValidTemporalElement(featureWrapped.getWrappedModelElement().getNames(), date);
 
@@ -288,7 +289,7 @@ public class HyFeatureModelSVGGenerator {
 		IWorkbench wb = PlatformUI.getWorkbench();
 		IWorkbenchWindow win = wb.getActiveWorkbenchWindow();
 		IWorkbenchPage page = win.getActivePage();
-		HyGraphicalFeatureModelViewer editor = (HyGraphicalFeatureModelViewer)page.getActiveEditor();
+		DwGraphicalFeatureModelViewer editor = (DwGraphicalFeatureModelViewer)page.getActiveEditor();
 
 		HyFeatureModelWrapped modelWrapped = editor.getModelWrapped();
 		HyFeatureModel model = modelWrapped.getModel();
@@ -338,6 +339,12 @@ public class HyFeatureModelSVGGenerator {
 
 		File file = new File(FileLocator.resolve(fileURL).toURI());
 		cfg.setDirectoryForTemplateLoading(file);
+		
+		Map<String, TemplateNumberFormatFactory> customNumberFormats = new HashMap<String, TemplateNumberFormatFactory>();
+
+		customNumberFormats.put("hex", DwHexTemplateNumberFormatFactory.INSTANCE);
+
+		cfg.setCustomNumberFormats(customNumberFormats);
 
 		return cfg;
 	}

@@ -7,7 +7,7 @@ import eu.hyvar.dataValues.HyEnum;
 import eu.hyvar.dataValues.HyEnumLiteral;
 import eu.hyvar.feature.HyFeatureAttribute;
 import eu.hyvar.feature.HyVersion;
-import eu.hyvar.feature.graphical.base.editor.HyGraphicalFeatureModelViewer;
+import eu.hyvar.feature.graphical.base.editor.DwGraphicalFeatureModelViewer;
 import eu.hyvar.feature.graphical.base.editparts.HyEnumEditPart;
 import eu.hyvar.feature.graphical.base.editparts.HyEnumLiteralEditPart;
 import eu.hyvar.feature.graphical.base.editparts.HyGroupEditPart;
@@ -25,7 +25,7 @@ import eu.hyvar.feature.graphical.configurator.editparts.HyConfiguratorVersionEd
 
 public class HyConfiguratorEditPartFactory extends HyFeatureModelEditPartFactory{
 
-	public HyConfiguratorEditPartFactory(GraphicalViewer viewer, HyGraphicalFeatureModelViewer editor) {
+	public HyConfiguratorEditPartFactory(GraphicalViewer viewer, DwGraphicalFeatureModelViewer editor) {
 		super(viewer, editor);
 	}
 	

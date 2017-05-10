@@ -4,16 +4,22 @@ import org.eclipse.gef.EditPart;
 import org.eclipse.gef.EditPartFactory;
 import org.eclipse.gef.GraphicalViewer;
 
+import eu.hyvar.dataValues.HyEnum;
+import eu.hyvar.dataValues.HyEnumLiteral;
 import eu.hyvar.feature.HyFeatureAttribute;
 import eu.hyvar.feature.HyVersion;
-import eu.hyvar.feature.graphical.base.editor.HyGraphicalFeatureModelViewer;
+import eu.hyvar.feature.graphical.base.editor.DwGraphicalFeatureModelViewer;
+import eu.hyvar.feature.graphical.base.editparts.DwEnumContainerEditPart;
 import eu.hyvar.feature.graphical.base.editparts.HyAttributeEditPart;
+import eu.hyvar.feature.graphical.base.editparts.HyEnumEditPart;
+import eu.hyvar.feature.graphical.base.editparts.HyEnumLiteralEditPart;
 import eu.hyvar.feature.graphical.base.editparts.HyFeatureEditPart;
 import eu.hyvar.feature.graphical.base.editparts.HyFeatureModelEditPart;
 import eu.hyvar.feature.graphical.base.editparts.HyGroupEditPart;
 import eu.hyvar.feature.graphical.base.editparts.HyParentChildConnectionEditPart;
 import eu.hyvar.feature.graphical.base.editparts.HyRootFeatureEditPart;
 import eu.hyvar.feature.graphical.base.editparts.HyVersionEditPart;
+import eu.hyvar.feature.graphical.base.model.DwEnumContainerWrapped;
 import eu.hyvar.feature.graphical.base.model.HyFeatureModelWrapped;
 import eu.hyvar.feature.graphical.base.model.HyFeatureWrapped;
 import eu.hyvar.feature.graphical.base.model.HyGroupWrapped;
@@ -24,9 +30,9 @@ public class HyFeatureModelEditPartFactory implements EditPartFactory{
 	protected HyFeatureModelWrapped featureModel;
 	protected GraphicalViewer viewer;
 	
-	protected HyGraphicalFeatureModelViewer editor;
+	protected DwGraphicalFeatureModelViewer editor;
 	
-	public HyFeatureModelEditPartFactory(GraphicalViewer viewer, HyGraphicalFeatureModelViewer editor){
+	public HyFeatureModelEditPartFactory(GraphicalViewer viewer, DwGraphicalFeatureModelViewer editor){
 		this.viewer = viewer;
 		this.editor = editor;
 	}
@@ -66,7 +72,14 @@ public class HyFeatureModelEditPartFactory implements EditPartFactory{
 			part = new HyVersionEditPart(editor, featureModel);
 		}else if(model instanceof HyFeatureAttribute){
 			part = new HyAttributeEditPart(editor, featureModel);
+		}else if(model instanceof DwEnumContainerWrapped){
+			part = new DwEnumContainerEditPart(editor, featureModel);
+		}else if(model instanceof HyEnum){
+			part = new HyEnumEditPart(editor, featureModel);			
+		}else if(model instanceof HyEnumLiteral){
+			part = new HyEnumLiteralEditPart(editor, featureModel);
 		}
+
 
 		if(context != null && model != null && !(model instanceof HyParentChildConnection)){
 			part.setParent(context);

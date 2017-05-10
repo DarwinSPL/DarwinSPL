@@ -2,7 +2,7 @@ package eu.hyvar.feature.graphical.configurator.editparts;
 
 import org.eclipse.draw2d.IFigure;
 
-import eu.hyvar.feature.graphical.base.editor.HyGraphicalFeatureModelViewer;
+import eu.hyvar.feature.graphical.base.editor.DwGraphicalFeatureModelViewer;
 import eu.hyvar.feature.graphical.base.editparts.HyFeatureEditPart;
 import eu.hyvar.feature.graphical.base.model.HyFeatureModelWrapped;
 import eu.hyvar.feature.graphical.base.model.HyFeatureWrapped;
@@ -10,7 +10,7 @@ import eu.hyvar.feature.graphical.configurator.figures.HyConfiguratorFeatureFigu
 
 public class HyConfiguratorFeatureEditPart extends HyFeatureEditPart{
 
-	public HyConfiguratorFeatureEditPart(HyGraphicalFeatureModelViewer editor, HyFeatureModelWrapped featureModel) {
+	public HyConfiguratorFeatureEditPart(DwGraphicalFeatureModelViewer editor, HyFeatureModelWrapped featureModel) {
 		super(editor, featureModel);
 	}
 	

@@ -6,7 +6,7 @@ import org.eclipse.gef.Request;
 import org.eclipse.gef.commands.Command;
 
 import eu.hyvar.feature.HyFeature;
-import eu.hyvar.feature.graphical.base.editor.HyGraphicalFeatureModelViewer;
+import eu.hyvar.feature.graphical.base.editor.DwGraphicalFeatureModelViewer;
 import eu.hyvar.feature.graphical.editor.commands.feature.DwSetFeatureLinkCommand;
 import eu.hyvar.mspl.manifest.HySPLImplementation;
 import eu.hyvar.mspl.manifest.HySPLSignature;
@@ -16,7 +16,7 @@ public class DwSetFeatureLinkAction extends HyFeatureSelectionAction {
 	public static final String ID = "SetFeatureLink";
 	public static final String REQUEST = "SetFeatureLink"; 
 	
-	public DwSetFeatureLinkAction(HyGraphicalFeatureModelViewer editor) {
+	public DwSetFeatureLinkAction(DwGraphicalFeatureModelViewer editor) {
 		super(editor);
 			
 		setId(ID);

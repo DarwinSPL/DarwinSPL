@@ -42,64 +42,64 @@ public class DEFeatureModelGeneratorConfigurable extends DEFeatureModelGenerator
 
 			switch (kvp.getKey()) {
 			case CHILD_FEATURE_FACTOR_AVERAGE:
-				oldValue = this.childFeatureFactorAverage;
-				this.childFeatureFactorAverage = newValue.intValue();
+				oldValue = getChildFeatureFactorAverage();
+				setChildFeatureFactorAverage(newValue.intValue());
 				break;
 			case CHILD_FEATURE_FACTOR_VARIANCE:
-				oldValue = this.childFeatureFactorVariance;
-				this.childFeatureFactorVariance = newValue.intValue();
+				oldValue = getChildFeatureFactorVariance();
+				setChildFeatureFactorVariance(newValue.intValue());
 				break;
 			case CHILD_FEATURE_FACTOR_VARIANCE_PROBABILITY:
-				oldValue = this.childFeatureFactorVarianceProbability;
-				this.childFeatureFactorVarianceProbability = newValue;
+				oldValue = getChildFeatureFactorVarianceProbability();
+				setChildFeatureFactorVarianceProbability(newValue);
 				break;
 			case CHILD_GROUP_FACTOR_AVERAGE:
-				oldValue = this.childGroupFactorAverage;
-				this.childGroupFactorAverage = newValue.intValue();
+				oldValue = getChildGroupFactorAverage();
+				setChildGroupFactorAverage(newValue.intValue());
 				break;
 			case CHILD_GROUP_FACTOR_VARIANCE:
-				oldValue = this.childGroupFactorVariance;
-				this.childGroupFactorVariance = newValue.intValue();
+				oldValue = getChildGroupFactorVariance();
+				setChildGroupFactorVariance(newValue.intValue());
 				break;
 			case CHILD_GROUP_FACTOR_VARIANCE_PROBABILITY:
-				oldValue = this.childGroupFactorVarianceProbability;
-				this.childGroupFactorVarianceProbability = newValue;
+				oldValue = getChildGroupFactorVarianceProbability();
+				setChildGroupFactorVarianceProbability(newValue);
 				break;
 			case FEATURE_TREE_DEPTH_AVERAGE:
-				oldValue = this.featureTreeDepthAverage;
-				this.featureTreeDepthAverage = newValue.intValue();
+				oldValue = getFeatureTreeDepthAverage();
+				setFeatureTreeDepthAverage(newValue.intValue());
 				break;
 			case FEATURE_TREE_DEPTH_VARIANCE:
-				oldValue = this.featureTreeDepthVariance;
-				this.featureTreeDepthVariance = newValue.intValue();
+				oldValue = getFeatureTreeDepthVariance();
+				setFeatureTreeDepthVariance(newValue.intValue());
 				break;
 			case FEATURE_TREE_DEPTH_VARIANCE_PROBABILITY:
-				oldValue = this.featureTreeDepthVarianceProbability;
-				this.featureTreeDepthVarianceProbability = newValue;
+				oldValue = getFeatureTreeDepthVarianceProbability();
+				setFeatureTreeDepthVarianceProbability(newValue);
 				break;
 			case VERSION_TREE_BRANCHING_FACTOR_AVERAGE:
-				oldValue = this.versionTreeBranchingFactorAverage;
-				this.versionTreeBranchingFactorAverage = newValue.intValue();
+				oldValue = getVersionTreeBranchingFactorAverage();
+				setVersionTreeBranchingFactorAverage(newValue.intValue());
 				break;
 			case VERSION_TREE_BRANCHING_FACTOR_VARIANCE:
-				oldValue = this.versionTreeBranchingFactorVariance;
-				this.versionTreeBranchingFactorVariance = newValue.intValue();
+				oldValue = getVersionTreeBranchingFactorVariance();
+				setVersionTreeBranchingFactorVariance(newValue.intValue());
 				break;
 			case VERSION_TREE_BRANCHING_FACTOR_VARIANCE_PROBABILITY:
-				oldValue = this.versionTreeBranchingFactorVarianceProbability;
-				this.versionTreeBranchingFactorVarianceProbability = newValue;
+				oldValue = getVersionTreeBranchingFactorVarianceProbability();
+				setVersionTreeBranchingFactorVarianceProbability(newValue);
 				break;
 			case VERSION_TREE_DEPTH_AVERAGE:
-				oldValue = this.versionTreeDepthAverage;
-				this.versionTreeDepthAverage = newValue.intValue();
+				oldValue = getVersionTreeDepthAverage();
+				setVersionTreeDepthAverage(newValue.intValue());
 				break;
 			case VERSION_TREE_DEPTH_VARIANCE:
-				oldValue = this.versionTreeDepthVariance;
-				this.versionTreeDepthVariance = newValue.intValue();
+				oldValue = getVersionTreeDepthVariance();
+				setVersionTreeDepthVariance(newValue.intValue());
 				break;
 			case VESRION_TREE_DEPTH_VARIANCE_PROBABILITY:
-				oldValue = this.versionTreeDepthVarianceProbability;
-				this.versionTreeDepthVarianceProbability = newValue;
+				oldValue = getVersionTreeDepthVarianceProbability();
+				setVersionTreeDepthVarianceProbability(newValue);
 				break;
 			}
 
