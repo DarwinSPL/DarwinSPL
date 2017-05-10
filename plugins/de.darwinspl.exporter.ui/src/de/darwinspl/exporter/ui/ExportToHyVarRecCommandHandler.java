@@ -61,8 +61,10 @@ public class ExportToHyVarRecCommandHandler extends AbstractHandler {
 			modelFiles.add(featureModelFile);
 		}
 
-		IFile constraintModelFile = ResourceUtil.deriveFile(featureModelFile,
+		IFile constraintModelFileConcreteSyntax = ResourceUtil.deriveFile(featureModelFile,
 				HyConstraintUtil.getConstraintModelFileExtensionForConcreteSyntax());
+		IFile constraintModelFileXmi = ResourceUtil.deriveFile(featureModelFile,
+				HyConstraintUtil.getConstraintModelFileExtensionForXmi());
 		IFile contextModelFile = ResourceUtil.deriveFile(featureModelFile,
 				HyContextInformationUtil.getContextModelFileExtensionForConcreteSyntax());
 		IFile validityModelFile = ResourceUtil.deriveFile(featureModelFile,
@@ -74,10 +76,21 @@ public class ExportToHyVarRecCommandHandler extends AbstractHandler {
 		IFile contextValueModelFile = ResourceUtil.deriveFile(featureModelFile,
 				HyConfigurationUtil.getConfigurationModelFileExtensionForXmi());
 
-		if (constraintModelFile != null && constraintModelFile.exists()) {
+		if (constraintModelFileConcreteSyntax != null && constraintModelFileConcreteSyntax.exists()) {
 			try {
-				if (constraintModelFile.getContents().available() != 0) {
-					modelFiles.add(constraintModelFile);
+				if (constraintModelFileConcreteSyntax.getContents().available() != 0) {
+					modelFiles.add(constraintModelFileConcreteSyntax);
+				}
+			} catch (IOException e) {
+				e.printStackTrace();
+			} catch (CoreException e) {
+				e.printStackTrace();
+			}
+		} 
+		else if(constraintModelFileXmi != null && constraintModelFileXmi.exists()) {
+			try {
+				if (constraintModelFileXmi.getContents().available() != 0) {
+					modelFiles.add(constraintModelFileXmi);
 				}
 			} catch (IOException e) {
 				e.printStackTrace();

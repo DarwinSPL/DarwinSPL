@@ -1,0 +1,5 @@
+package de.darwinspl.evolution.guidance;
+
+public enum EvolutionOperationType {
+	DELETE_WITH_CODE,CHANGE_FEATURE_TYPE,CHANGE_GROUP_TYPE,MERGE_FEATURE,MOVE_FEATURE,GROUP_FEATURE,UNGROUP_FEATURE, EXTRACT_FEATURE;
+}

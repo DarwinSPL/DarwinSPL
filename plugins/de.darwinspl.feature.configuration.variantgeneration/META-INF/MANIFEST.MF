@@ -11,5 +11,7 @@ Require-Bundle: org.deltaecore.feature,
  eu.hyvar.feature.exporter.hfm_exporter,
  eu.hyvar.feature.configuration,
  eu.hyvar.feature.mapping,
- org.deltaecore.feature.mapping
+ org.deltaecore.suite.mapping,
+ org.deltaecore.core.variant;visibility:=reexport,
+ org.deltaecore.suite.variant
 Export-Package: de.darwinspl.feature.configuration.variantgeneration

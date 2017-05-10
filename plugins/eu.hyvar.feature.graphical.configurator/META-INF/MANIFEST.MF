@@ -24,7 +24,6 @@ Require-Bundle: org.eclipse.ui,
  org.eclipse.jetty.io,
  de.christophseidl.util.eclipse,
  de.christophseidl.util.ecore,
- eu.hyvar.reconfigurator.input.rest.dummyclient,
  eu.hyvar.feature.configuration,
  org.deltaecore.feature.configuration,
  de.darwinspl.feature.configuration.variantgeneration,
@@ -39,10 +38,12 @@ Require-Bundle: org.eclipse.ui,
  eu.hyvar.reconfigurator.input,
  eu.hyvar.reconfigurator.output.translation,
  org.eclipse.e4.ui.model.workbench,
- dw.darwinspl.feature.graphical.configurator.viewer,
- eu.hyvar.feature.data
+ eu.hyvar.feature.data,
+ org.eclipse.jetty.server,
+ de.christophseidl.util.swt,
+ dw.darwinspl.feature.graphical.configurator.viewer
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Bundle-ActivationPolicy: lazy
 Bundle-Vendor: www.darwinspl.de
-Bundle-ClassPath: lib/jetty-client-9.2.13.v20150730.jar,
- .
+Bundle-ClassPath: .,
+ lib/org.eclipse.jetty.client_9.3.9.v20160517.jar

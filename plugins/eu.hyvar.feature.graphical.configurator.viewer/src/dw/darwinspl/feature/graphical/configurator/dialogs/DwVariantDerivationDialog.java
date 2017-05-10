@@ -1,5 +1,6 @@
 package dw.darwinspl.feature.graphical.configurator.dialogs;
 
+//import org.deltaecore.common.eclipse.controls.DEVariantComposite;
 import org.eclipse.jface.dialogs.Dialog;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Point;

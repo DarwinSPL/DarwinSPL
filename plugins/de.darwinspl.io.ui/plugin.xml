@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   <extension
+         point="org.eclipse.ui.commands">
+      <command
+            defaultHandler=" de.darwinspl.io.ui.commands.SplotToHyVarRecTranslator"
+            id="de.darwinspl.io.ui.translateSPLOTtoHyVarRec"
+            name="Translate all SPLOT models to HyVarRec">
+      </command>
+   </extension>
+   <extension
+         point="org.eclipse.ui.menus">
+      <menuContribution
+            allPopups="false"
+            locationURI="popup:de.darwinspl.eclipse.ui.menu">
+         <menu
+               id="de.darwinspl.eclipse.ui.menu.translate"
+               label="Translate All">
+            <command
+                  commandId="de.darwinspl.io.ui.translateSPLOTtoHyVarRec"
+                  label="Translate all SPLOT models to HyVarRec"
+                  style="push">
+            </command>
+         </menu>
+      </menuContribution>
+   </extension>
+
+</plugin>

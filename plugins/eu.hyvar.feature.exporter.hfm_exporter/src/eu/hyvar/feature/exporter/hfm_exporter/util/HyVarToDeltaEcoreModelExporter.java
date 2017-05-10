@@ -10,7 +10,7 @@ import org.deltaecore.feature.DEFeatureModel;
 import org.deltaecore.feature.DEVersion;
 import org.deltaecore.feature.configuration.DEConfiguration;
 import org.deltaecore.feature.constraint.DEConstraintModel;
-import org.deltaecore.feature.mapping.DEMappingModel;
+import org.deltaecore.suite.mapping.DEMappingModel;
 import org.eclipse.emf.ecore.EObject;
 
 import eu.hyvar.feature.HyFeature;

@@ -15,7 +15,7 @@ Require-Bundle: org.deltaecore.feature,
  eu.hyvar.feature.configuration,
  eu.hyvar.feature.mapping,
  org.deltaecore.feature.configuration,
- org.deltaecore.feature.mapping,
+ org.deltaecore.suite.mapping,
  org.deltaecore.feature.constraint,
  eu.hyvar.reconfigurator.input,
  eu.hyvar.context.information.value,
@@ -23,6 +23,8 @@ Require-Bundle: org.deltaecore.feature,
  eu.hyvar.context.validity_formulas,
  eu.hyvar.context.information,
  de.darwinspl.common.eclipse.util,
+ de.darwinspl.eclipse.ui,
+ org.eclipse.core.expressions
  dw.darwinspl.feature.graphical.base
 Bundle-Vendor: www.darwinspl.de
 Bundle-ClassPath: .,

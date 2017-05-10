@@ -12,8 +12,10 @@ import eu.hyvar.feature.HyVersion;
 import eu.hyvar.feature.configuration.HyAttributeValueAssignment;
 import eu.hyvar.feature.configuration.HyConfiguration;
 import eu.hyvar.feature.configuration.HyConfigurationElement;
+import eu.hyvar.feature.configuration.HyConfigurationFactory;
 import eu.hyvar.feature.configuration.HyFeatureDeselected;
 import eu.hyvar.feature.configuration.HyFeatureSelected;
+import eu.hyvar.feature.configuration.HyFeatureSelection;
 import eu.hyvar.feature.configuration.HyVersionSelected;
 
 public class HyConfigurationUtil {
@@ -143,5 +145,43 @@ public class HyConfigurationUtil {
 //		return CONFIGURATION_MODEL_FILE_EXTENSION_FOR_CONCRETE_SYNTAX;
 //	}
 	
+	
+
+	/**
+	 * Creates a HyFeatureDeselected element and adds it to the configuration.
+	 * @param feature
+	 * @param configuration
+	 * @param date
+	 * @return
+	 */
+	public static HyFeatureDeselected deselectFeature(HyFeature feature, HyConfiguration configuration, Date date) {
+		HyFeatureDeselected featureDeselected = HyConfigurationFactory.eINSTANCE.createHyFeatureDeselected();
+		
+		addFeatureSelection(featureDeselected, feature, configuration, date);
+		
+		return featureDeselected;
+	}
+	
+	/**
+	 * Creates a HyFeatureSelected element and adds it to the configuration.
+	 * @param feature
+	 * @param configuration
+	 * @param date
+	 * @return
+	 */
+	public static HyFeatureSelected selectFeature(HyFeature feature, HyConfiguration configuration, Date date) {
+		HyFeatureSelected featureSelected = HyConfigurationFactory.eINSTANCE.createHyFeatureSelected();
+		
+		addFeatureSelection(featureSelected, feature, configuration, date);
+		
+		return featureSelected;
+	}
+	
+	private static void addFeatureSelection(HyFeatureSelection featureSelection, HyFeature feature, HyConfiguration configuration, Date date) {
+		// TODO sensible valid until?!
+		featureSelection.setValidSince(date);
+		featureSelection.setSelectedFeature(feature);
+		configuration.getElements().add(featureSelection);
+	}
 	
 }

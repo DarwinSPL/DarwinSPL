@@ -3,10 +3,10 @@
 <plugin>
 <extension
          point="org.eclipse.ui.menus">
-      <menuContribution locationURI="popup:org.eclipse.jdt.ui.PackageExplorer?after=additions">
+      <menuContribution locationURI="popup:de.darwinspl.eclipse.ui.menu">
          <menu
                id="eu.hyvar.export.menu"
-               label="DarwinSPL Exports">
+               label="Export">
             <command
                   commandId="de.darwinspl.exporter.ui.hfm"
                   label="Export Feature Model to DeltaEcore">
@@ -21,6 +21,12 @@
                   label="Export as Json"
                   style="push">
             </command>
+            <visibleWhen
+                  checkEnabled="true">
+               <reference
+                     definitionId="de.darwinspl.eclipse.expressions.isDarwinFeatureModelSelected">
+               </reference>
+            </visibleWhen>
          </menu>
       </menuContribution>
    </extension>
@@ -41,5 +47,27 @@
          id="de.darwinspl.exporter.ui.json"
          name="Export as Json">
    </command>
+</extension>
+<extension
+      point="org.eclipse.core.expressions.definitions">
+   <definition
+         id="de.darwinspl.eclipse.expressions.isDarwinFeatureModelSelected">
+      <with
+            variable="selection">
+         <iterate
+               ifEmpty="false"
+               operator="or">
+            <adapt
+                  type="org.eclipse.core.resources.IResource">
+               <or>
+                  <test
+                        property="org.eclipse.core.resources.extension"
+                        value="hyfeature">
+                  </test>
+               </or>
+            </adapt>
+         </iterate>
+      </with>
+   </definition>
 </extension>
 </plugin>
