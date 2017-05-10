@@ -73,8 +73,8 @@ public class DwSetFeatureLinkCommand extends Command {
 			
 			
 			HyTimedImplementationLink newImplementationLink = ManifestFactory.eINSTANCE.createHyTimedImplementationLink();
-			newImplementationLink.setLocal(localFeature);
-			newImplementationLink.setSignature(signatureFeature);
+			newImplementationLink.getLocal().add(localFeature);
+			newImplementationLink.getSignature().add(signatureFeature);
 			newImplementationLink.setValidSince(date);
 			
 			relevantTimedImplementations.getAssociations().add(newImplementationLink);
