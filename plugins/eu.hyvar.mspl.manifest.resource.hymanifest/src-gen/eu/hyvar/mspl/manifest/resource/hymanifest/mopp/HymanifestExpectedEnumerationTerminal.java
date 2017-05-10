@@ -44,7 +44,7 @@ public class HymanifestExpectedEnumerationTerminal extends eu.hyvar.mspl.manifes
 	/**
 	 * Returns the expected enumeration terminal.
 	 */
-	public eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestSyntaxElement getSyntaxElement() {
+	public eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestSyntaxElement getSymtaxElement() {
 		return enumerationTerminal;
 	}
 	

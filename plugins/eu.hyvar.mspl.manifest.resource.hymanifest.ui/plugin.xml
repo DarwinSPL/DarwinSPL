@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.2"?>
+<plugin>
+	<extension point="org.emftext.access.syntax.ui">
+		<metaInformationProvider class="eu.hyvar.mspl.manifest.resource.hymanifest.ui.HymanifestUIMetaInformation" id="eu.hyvar.mspl.manifest.resource.hymanifest.ui.HymanifestUIMetaInformation">
+		</metaInformationProvider>
+	</extension>
+	
+	<extension point="org.eclipse.ui.editors">
+		<editor class="eu.hyvar.mspl.manifest.resource.hymanifest.ui.HymanifestEditor" contributorClass="org.eclipse.ui.texteditor.BasicTextEditorActionContributor" extensions="hymanifest" icon="icons/editor_icon.gif" id="eu.hyvar.mspl.manifest.resource.hymanifest.ui.HymanifestEditor" name="EMFText hymanifest Editor">
+			<contentTypeBinding contentTypeId="eu.hyvar.mspl.manifest.resource.hymanifest">
+			</contentTypeBinding>
+		</editor>
+	</extension>
+	
+	<extension point="org.eclipse.core.runtime.preferences">
+		<initializer class="eu.hyvar.mspl.manifest.resource.hymanifest.ui.HymanifestPreferenceInitializer">
+		</initializer>
+	</extension>
+	
+	<extension point="org.eclipse.ui.preferencePages">
+		<page name="Hymanifest Text Editor" id="eu.hyvar.mspl.manifest.resource.hymanifest.ui.HymanifestPreferencePage" class="eu.hyvar.mspl.manifest.resource.hymanifest.ui.HymanifestPreferencePage" category="org.eclipse.ui.preferencePages.GeneralTextEditor">
+		</page>
+		<page name="Syntax Coloring" id="eu.hyvar.mspl.manifest.resource.hymanifest.ui.HymanifestSyntaxColoringPreferencePage" class="eu.hyvar.mspl.manifest.resource.hymanifest.ui.HymanifestSyntaxColoringPreferencePage" category="eu.hyvar.mspl.manifest.resource.hymanifest.ui.HymanifestPreferencePage">
+		</page>
+		<page name="Brackets" id="eu.hyvar.mspl.manifest.resource.hymanifest.ui.HymanifestBracketPreferencePage" class="eu.hyvar.mspl.manifest.resource.hymanifest.ui.HymanifestBracketPreferencePage" category="eu.hyvar.mspl.manifest.resource.hymanifest.ui.HymanifestPreferencePage">
+		</page>
+		<page name="Content Assist" id="eu.hyvar.mspl.manifest.resource.hymanifest.ui.HymanifestContentAssistPreferencePage" class="eu.hyvar.mspl.manifest.resource.hymanifest.ui.HymanifestContentAssistPreferencePage" category="eu.hyvar.mspl.manifest.resource.hymanifest.ui.HymanifestPreferencePage">
+		</page>
+	</extension>
+	
+	<extension point="org.eclipse.ui.newWizards">
+		<category id="org.emftext.runtime.ui.EMFTextFileCategory" name="EMFText File">
+		</category>
+		<wizard category="org.emftext.runtime.ui.EMFTextFileCategory" icon="/icons/default_new_icon.gif" class="eu.hyvar.mspl.manifest.resource.hymanifest.ui.HymanifestNewFileWizard" id="eu.hyvar.mspl.manifest.resource.hymanifest.ui.HymanifestNewFileWizard" name="EMFText .hymanifest file">
+		</wizard>
+	</extension>
+	
+	<extension point="org.eclipse.ui.ide.markerResolution">
+		<markerResolutionGenerator class="eu.hyvar.mspl.manifest.resource.hymanifest.ui.HymanifestMarkerResolutionGenerator" markerType="eu.hyvar.mspl.manifest.resource.hymanifest.problem">
+		</markerResolutionGenerator>
+	</extension>
+	
+	<extension point="org.eclipse.core.filebuffers.annotationModelCreation">
+		<factory class="eu.hyvar.mspl.manifest.resource.hymanifest.ui.HymanifestAnnotationModelFactory" extensions="hymanifest">
+		</factory>
+	</extension>
+	
+	<extension point="org.eclipse.core.contenttype.contentTypes">
+		<content-type id="eu.hyvar.mspl.manifest.resource.hymanifest" name=".hymanifest File" base-type="org.eclipse.core.runtime.text" file-extensions="hymanifest">
+		</content-type>
+	</extension>
+	
+	<extension point="org.eclipse.ui.editors.documentProviders">
+		<provider class="org.eclipse.ui.editors.text.TextFileDocumentProvider" extensions="hymanifest" id="eu.hyvar.mspl.manifest.resource.hymanifest.ui.provider">
+		</provider>
+	</extension>
+	
+	<extension point="org.eclipse.ui.editors.annotationTypes">
+		<type name="eu.hyvar.mspl.manifest.resource.hymanifest.ui.occurences">
+		</type>
+		<type name="eu.hyvar.mspl.manifest.resource.hymanifest.ui.occurences.declaration" super="eu.hyvar.mspl.manifest.resource.hymanifest.ui.occurences">
+		</type>
+	</extension>
+	
+	<extension point="org.eclipse.ui.editors.markerAnnotationSpecification">
+		<specification annotationType="eu.hyvar.mspl.manifest.resource.hymanifest.ui.occurences" label="Occurrences (in .hymanifest files)" icon="/icons/occurrence_icon.gif" textPreferenceKey="hymanifest.occurrenceIndication" textPreferenceValue="false" highlightPreferenceKey="hymanifest.occurrenceHighlighting" highlightPreferenceValue="true" contributesToHeader="false" overviewRulerPreferenceKey="hymanifest.occurrenceIndicationInOverviewRuler" overviewRulerPreferenceValue="true" verticalRulerPreferenceKey="hymanifest.occurrenceIndicationInVerticalRuler" verticalRulerPreferenceValue="false" colorPreferenceKey="hymanifest.occurrenceIndicationColor" colorPreferenceValue="212,212,212" presentationLayer="4" showInNextPrevDropdownToolbarActionKey="hymanifest.showOccurrenceInNextPrevDropdownToolbarAction" showInNextPrevDropdownToolbarAction="true" isGoToNextNavigationTargetKey="hymanifest.isOccurrenceGoToNextNavigationTarget" isGoToNextNavigationTarget="false" isGoToPreviousNavigationTargetKey="hymanifest.isOccurrenceGoToPreviousNavigationTarget" isGoToPreviousNavigationTarget="false" textStylePreferenceKey="hymanifest.occurrenceTextStyle" textStylePreferenceValue="NONE">
+		</specification>
+		<specification annotationType="eu.hyvar.mspl.manifest.resource.hymanifest.ui.occurences.declaration" label="Declarations (in .hymanifest files)" textPreferenceKey="hymanifest.declarationIndication" textPreferenceValue="false" highlightPreferenceKey="hymanifest.declarationHighlighting" highlightPreferenceValue="true" overviewRulerPreferenceKey="hymanifest.declarationIndicationInOverviewRuler" overviewRulerPreferenceValue="true" verticalRulerPreferenceKey="hymanifest.declarationIndicationInVerticalRuler" verticalRulerPreferenceValue="false" colorPreferenceKey="hymanifest.declarationIndicationColor" colorPreferenceValue="240,216,168" presentationLayer="4" textStylePreferenceKey="hymanifest.declarationTextStyle" textStylePreferenceValue="NONE">
+		</specification>
+	</extension>
+	
+	<extension point="org.eclipse.ui.commands">
+		<category description="All commands belonging to Hymanifest" id="eu.hyvar.mspl.manifest.resource.hymanifest.ui.command.category" name="Hymanifest">
+		</category>
+		<command categoryId="eu.hyvar.mspl.manifest.resource.hymanifest.ui.command.category" description="Toggle comment of the selected lines" id="eu.hyvar.mspl.manifest.resource.hymanifest.ui.command.togglecomment" name="Toggle Comment">
+		</command>
+	</extension>
+	
+	<extension point="org.eclipse.ui.handlers">
+		<handler class="eu.hyvar.mspl.manifest.resource.hymanifest.ui.HymanifestToggleCommentHandler" commandId="eu.hyvar.mspl.manifest.resource.hymanifest.ui.command.togglecomment">
+		</handler>
+	</extension>
+	
+	<extension point="org.eclipse.ui.contexts">
+		<context name="Editing Hymanifest Files" description="Editing Hymanifest Files Context" parentId="org.eclipse.ui.textEditorScope" id="eu.hyvar.mspl.manifest.resource.hymanifest.EditorScope">
+		</context>
+	</extension>
+	
+	<extension point="org.eclipse.ui.bindings">
+		<key sequence="M1+7" commandId="eu.hyvar.mspl.manifest.resource.hymanifest.ui.command.togglecomment" schemeId="org.eclipse.ui.defaultAcceleratorConfiguration" contextId="eu.hyvar.mspl.manifest.resource.hymanifest.EditorScope">
+		</key>
+	</extension>
+	
+</plugin>

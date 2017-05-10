@@ -30,7 +30,7 @@ public class HymanifestExpectedStructuralFeature extends eu.hyvar.mspl.manifest.
 	/**
 	 * Returns the expected placeholder.
 	 */
-	public eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestSyntaxElement getSyntaxElement() {
+	public eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestSyntaxElement getSymtaxElement() {
 		return placeholder;
 	}
 	

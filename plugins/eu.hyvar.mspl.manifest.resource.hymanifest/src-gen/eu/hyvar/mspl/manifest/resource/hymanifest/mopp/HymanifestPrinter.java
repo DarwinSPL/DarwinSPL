@@ -19,14 +19,6 @@ import java.util.Map;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
 
-/**
- * This class provides an implementation of the
- * eu.hyvar.mspl.manifest.resource.hymanifest.IHymanifestTextDiagnostic interface.
- * However, it is recommended to use the
- * eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestPrinter2 instead,
- * because it provides advanced printing features. There are even some features
- * (e.g., printing enumeration terminals) which are only supported by that class.
- */
 public class HymanifestPrinter implements eu.hyvar.mspl.manifest.resource.hymanifest.IHymanifestTextPrinter {
 	
 	protected eu.hyvar.mspl.manifest.resource.hymanifest.IHymanifestTokenResolverFactory tokenResolverFactory = new eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestTokenResolverFactory();
@@ -818,9 +810,9 @@ public class HymanifestPrinter implements eu.hyvar.mspl.manifest.resource.hymani
 		temp = element.eGet(element.eClass().getEStructuralFeature(eu.hyvar.mspl.manifest.ManifestPackage.HY_TIMED_IMPLEMENTATION_LINK__VALID_UNTIL));
 		printCountingMap.put("validUntil", temp == null ? 0 : 1);
 		temp = element.eGet(element.eClass().getEStructuralFeature(eu.hyvar.mspl.manifest.ManifestPackage.HY_TIMED_IMPLEMENTATION_LINK__LOCAL));
-		printCountingMap.put("local", temp == null ? 0 : 1);
+		printCountingMap.put("local", temp == null ? 0 : ((Collection<?>) temp).size());
 		temp = element.eGet(element.eClass().getEStructuralFeature(eu.hyvar.mspl.manifest.ManifestPackage.HY_TIMED_IMPLEMENTATION_LINK__SIGNATURE));
-		printCountingMap.put("signature", temp == null ? 0 : 1);
+		printCountingMap.put("signature", temp == null ? 0 : ((Collection<?>) temp).size());
 		// print collected hidden tokens
 		java.io.StringWriter sWriter = null;
 		PrintWriter out1 = null;
@@ -864,6 +856,13 @@ public class HymanifestPrinter implements eu.hyvar.mspl.manifest.resource.hymani
 				count = printCountingMap.get("local");
 				if (count > 0) {
 					Object o = element.eGet(element.eClass().getEStructuralFeature(eu.hyvar.mspl.manifest.ManifestPackage.HY_TIMED_IMPLEMENTATION_LINK__LOCAL));
+					List<?> list = (List<?>) o;
+					int index = list.size() - count;
+					if (index >= 0) {
+						o = list.get(index);
+					} else {
+						o = null;
+					}
 					if (o != null) {
 						eu.hyvar.mspl.manifest.resource.hymanifest.IHymanifestTokenResolver resolver = tokenResolverFactory.createTokenResolver("IDENTIFIER_TOKEN");
 						resolver.setOptions(getOptions());
@@ -878,6 +877,13 @@ public class HymanifestPrinter implements eu.hyvar.mspl.manifest.resource.hymani
 			count = printCountingMap.get("local");
 			if (count > 0) {
 				Object o = element.eGet(element.eClass().getEStructuralFeature(eu.hyvar.mspl.manifest.ManifestPackage.HY_TIMED_IMPLEMENTATION_LINK__LOCAL));
+				List<?> list = (List<?>) o;
+				int index = list.size() - count;
+				if (index >= 0) {
+					o = list.get(index);
+				} else {
+					o = null;
+				}
 				if (o != null) {
 					eu.hyvar.mspl.manifest.resource.hymanifest.IHymanifestTokenResolver resolver = tokenResolverFactory.createTokenResolver("QUOTED_34_34");
 					resolver.setOptions(getOptions());
@@ -906,6 +912,13 @@ public class HymanifestPrinter implements eu.hyvar.mspl.manifest.resource.hymani
 				count = printCountingMap.get("signature");
 				if (count > 0) {
 					Object o = element.eGet(element.eClass().getEStructuralFeature(eu.hyvar.mspl.manifest.ManifestPackage.HY_TIMED_IMPLEMENTATION_LINK__SIGNATURE));
+					List<?> list = (List<?>) o;
+					int index = list.size() - count;
+					if (index >= 0) {
+						o = list.get(index);
+					} else {
+						o = null;
+					}
 					if (o != null) {
 						eu.hyvar.mspl.manifest.resource.hymanifest.IHymanifestTokenResolver resolver = tokenResolverFactory.createTokenResolver("IDENTIFIER_TOKEN");
 						resolver.setOptions(getOptions());
@@ -920,6 +933,13 @@ public class HymanifestPrinter implements eu.hyvar.mspl.manifest.resource.hymani
 			count = printCountingMap.get("signature");
 			if (count > 0) {
 				Object o = element.eGet(element.eClass().getEStructuralFeature(eu.hyvar.mspl.manifest.ManifestPackage.HY_TIMED_IMPLEMENTATION_LINK__SIGNATURE));
+				List<?> list = (List<?>) o;
+				int index = list.size() - count;
+				if (index >= 0) {
+					o = list.get(index);
+				} else {
+					o = null;
+				}
 				if (o != null) {
 					eu.hyvar.mspl.manifest.resource.hymanifest.IHymanifestTokenResolver resolver = tokenResolverFactory.createTokenResolver("QUOTED_34_34");
 					resolver.setOptions(getOptions());

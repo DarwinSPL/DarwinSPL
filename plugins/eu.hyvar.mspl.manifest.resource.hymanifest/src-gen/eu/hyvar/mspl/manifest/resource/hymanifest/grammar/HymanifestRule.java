@@ -28,10 +28,5 @@ public class HymanifestRule extends eu.hyvar.mspl.manifest.resource.hymanifest.g
 		return (eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestChoice) getChildren()[0];
 	}
 	
-	@Deprecated
-	public String toString() {
-		return metaclass == null ? "null" : metaclass.getName() + " ::= " + getDefinition().toString();
-	}
-	
 }
 

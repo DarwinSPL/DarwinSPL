@@ -29,7 +29,7 @@ public class HymanifestExpectedCsString extends eu.hyvar.mspl.manifest.resource.
 	/**
 	 * Returns the expected keyword.
 	 */
-	public eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestSyntaxElement getSyntaxElement() {
+	public eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestSyntaxElement getSymtaxElement() {
 		return keyword;
 	}
 	

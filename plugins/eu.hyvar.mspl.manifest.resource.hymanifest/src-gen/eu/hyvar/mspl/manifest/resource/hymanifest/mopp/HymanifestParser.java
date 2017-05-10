@@ -192,16 +192,6 @@ public class HymanifestParser extends HymanifestANTLRParserBase {
     		addErrorToResource(message.getMessage(), message.getColumn(), message.getLine(), message.getCharStart(), message.getCharEnd());
     	}
     	
-    	public void addExpectedElement(EClass eClass, int expectationStartIndex, int expectationEndIndex) {
-    		for (int expectationIndex = expectationStartIndex; expectationIndex <= expectationEndIndex; expectationIndex++) {
-    			addExpectedElement(eClass, eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[expectationIndex]);
-    		}
-    	}
-    	
-    	public void addExpectedElement(EClass eClass, int expectationIndex) {
-    		addExpectedElement(eClass, eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[expectationIndex]);
-    	}
-    	
     	public void addExpectedElement(EClass eClass, int[] ids) {
     		if (!this.rememberExpectedElements) {
     			return;
@@ -218,6 +208,11 @@ public class HymanifestParser extends HymanifestANTLRParserBase {
     		eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectedTerminal expectedElement = new eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectedTerminal(container, terminal, followSetID, containmentTrace);
     		setPosition(expectedElement, input.index());
     		int startIncludingHiddenTokens = expectedElement.getStartIncludingHiddenTokens();
+    		if (lastStartIncludingHidden >= 0 && lastStartIncludingHidden < startIncludingHiddenTokens && cursorOffset > startIncludingHiddenTokens) {
+    			// clear list of expected elements
+    			this.expectedElements.clear();
+    			this.expectedElementsIndexOfLastCompleteElement = 0;
+    		}
     		lastStartIncludingHidden = startIncludingHiddenTokens;
     		this.expectedElements.add(expectedElement);
     	}
@@ -433,6 +428,8 @@ public class HymanifestParser extends HymanifestANTLRParserBase {
     				command.execute(dummyResource);
     			}
     		}
+    		// remove all expected elements that were added after the last complete element
+    		expectedElements = expectedElements.subList(0, expectedElementsIndexOfLastCompleteElement + 1);
     		int lastFollowSetID = expectedElements.get(expectedElementsIndexOfLastCompleteElement).getFollowSetID();
     		Set<eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectedTerminal> currentFollowSet = new LinkedHashSet<eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectedTerminal>();
     		List<eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectedTerminal> newFollowSet = new ArrayList<eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectedTerminal>();
@@ -523,7 +520,9 @@ public class HymanifestParser extends HymanifestANTLRParserBase {
     	
     	private void completedElement(Object object, boolean isContainment) {
     		if (isContainment && !this.incompleteObjects.isEmpty()) {
-    			this.incompleteObjects.remove(object);
+    			boolean exists = this.incompleteObjects.remove(object);
+    			if (!exists) {
+    			}
     		}
     		if (object instanceof EObject) {
     			this.tokenIndexOfLastCompleteElement = getTokenStream().index();
@@ -542,7 +541,7 @@ public class HymanifestParser extends HymanifestANTLRParserBase {
 
 
     // $ANTLR start "start"
-    // Hymanifest.g:503:1: start returns [ EObject element = null] : (c0= parse_eu_hyvar_mspl_manifest_HySPLImplementation |c1= parse_eu_hyvar_mspl_manifest_HySPLSignature ) EOF ;
+    // Hymanifest.g:502:1: start returns [ EObject element = null] : (c0= parse_eu_hyvar_mspl_manifest_HySPLImplementation |c1= parse_eu_hyvar_mspl_manifest_HySPLSignature ) EOF ;
     public final EObject start() throws RecognitionException {
         EObject element =  null;
 
@@ -556,13 +555,14 @@ public class HymanifestParser extends HymanifestANTLRParserBase {
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 1) ) { return element; }
 
-            // Hymanifest.g:504:2: ( (c0= parse_eu_hyvar_mspl_manifest_HySPLImplementation |c1= parse_eu_hyvar_mspl_manifest_HySPLSignature ) EOF )
-            // Hymanifest.g:505:2: (c0= parse_eu_hyvar_mspl_manifest_HySPLImplementation |c1= parse_eu_hyvar_mspl_manifest_HySPLSignature ) EOF
+            // Hymanifest.g:503:2: ( (c0= parse_eu_hyvar_mspl_manifest_HySPLImplementation |c1= parse_eu_hyvar_mspl_manifest_HySPLSignature ) EOF )
+            // Hymanifest.g:504:2: (c0= parse_eu_hyvar_mspl_manifest_HySPLImplementation |c1= parse_eu_hyvar_mspl_manifest_HySPLSignature ) EOF
             {
             if ( state.backtracking==0 ) {
             		// follow set for start rule(s)
-            		addExpectedElement(null, 0, 1);
-            		expectedElementsIndexOfLastCompleteElement = 1;
+            		addExpectedElement(null, eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[0]);
+            		addExpectedElement(null, eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[1]);
+            		expectedElementsIndexOfLastCompleteElement = 0;
             	}
 
             // Hymanifest.g:510:2: (c0= parse_eu_hyvar_mspl_manifest_HySPLImplementation |c1= parse_eu_hyvar_mspl_manifest_HySPLSignature )
@@ -688,7 +688,7 @@ public class HymanifestParser extends HymanifestANTLRParserBase {
 
             if ( state.backtracking==0 ) {
             		// expected elements (follow set)
-            		addExpectedElement(eu.hyvar.mspl.manifest.ManifestPackage.eINSTANCE.getHySPLImplementation(), 2);
+            		addExpectedElement(eu.hyvar.mspl.manifest.ManifestPackage.eINSTANCE.getHySPLImplementation(), eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[2]);
             	}
 
             // Hymanifest.g:538:2: (a1_0= parse_eu_hyvar_evolution_HyName )
@@ -725,10 +725,12 @@ public class HymanifestParser extends HymanifestANTLRParserBase {
 
             if ( state.backtracking==0 ) {
             		// expected elements (follow set)
-            		addExpectedElement(null, 3, 5);
+            		addExpectedElement(null, eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[3]);
+            		addExpectedElement(null, eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[4]);
+            		addExpectedElement(null, eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[5]);
             	}
 
-            // Hymanifest.g:564:2: ( (a2= ',' (a3_0= parse_eu_hyvar_evolution_HyName ) ) )*
+            // Hymanifest.g:566:2: ( (a2= ',' (a3_0= parse_eu_hyvar_evolution_HyName ) ) )*
             loop2:
             do {
                 int alt2=2;
@@ -741,10 +743,10 @@ public class HymanifestParser extends HymanifestANTLRParserBase {
 
                 switch (alt2) {
             	case 1 :
-            	    // Hymanifest.g:565:3: (a2= ',' (a3_0= parse_eu_hyvar_evolution_HyName ) )
+            	    // Hymanifest.g:567:3: (a2= ',' (a3_0= parse_eu_hyvar_evolution_HyName ) )
             	    {
-            	    // Hymanifest.g:565:3: (a2= ',' (a3_0= parse_eu_hyvar_evolution_HyName ) )
-            	    // Hymanifest.g:566:4: a2= ',' (a3_0= parse_eu_hyvar_evolution_HyName )
+            	    // Hymanifest.g:567:3: (a2= ',' (a3_0= parse_eu_hyvar_evolution_HyName ) )
+            	    // Hymanifest.g:568:4: a2= ',' (a3_0= parse_eu_hyvar_evolution_HyName )
             	    {
             	    a2=(Token)match(input,15,FOLLOW_15_in_parse_eu_hyvar_mspl_manifest_HySPLImplementation174); if (state.failed) return element;
 
@@ -760,11 +762,11 @@ public class HymanifestParser extends HymanifestANTLRParserBase {
 
             	    if ( state.backtracking==0 ) {
             	    				// expected elements (follow set)
-            	    				addExpectedElement(eu.hyvar.mspl.manifest.ManifestPackage.eINSTANCE.getHySPLImplementation(), 6);
+            	    				addExpectedElement(eu.hyvar.mspl.manifest.ManifestPackage.eINSTANCE.getHySPLImplementation(), eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[6]);
             	    			}
 
-            	    // Hymanifest.g:580:4: (a3_0= parse_eu_hyvar_evolution_HyName )
-            	    // Hymanifest.g:581:5: a3_0= parse_eu_hyvar_evolution_HyName
+            	    // Hymanifest.g:582:4: (a3_0= parse_eu_hyvar_evolution_HyName )
+            	    // Hymanifest.g:583:5: a3_0= parse_eu_hyvar_evolution_HyName
             	    {
             	    pushFollow(FOLLOW_parse_eu_hyvar_evolution_HyName_in_parse_eu_hyvar_mspl_manifest_HySPLImplementation200);
             	    a3_0=parse_eu_hyvar_evolution_HyName();
@@ -797,7 +799,9 @@ public class HymanifestParser extends HymanifestANTLRParserBase {
 
             	    if ( state.backtracking==0 ) {
             	    				// expected elements (follow set)
-            	    				addExpectedElement(null, 7, 9);
+            	    				addExpectedElement(null, eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[7]);
+            	    				addExpectedElement(null, eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[8]);
+            	    				addExpectedElement(null, eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[9]);
             	    			}
 
             	    }
@@ -814,10 +818,12 @@ public class HymanifestParser extends HymanifestANTLRParserBase {
 
             if ( state.backtracking==0 ) {
             		// expected elements (follow set)
-            		addExpectedElement(null, 10, 12);
+            		addExpectedElement(null, eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[10]);
+            		addExpectedElement(null, eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[11]);
+            		addExpectedElement(null, eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[12]);
             	}
 
-            // Hymanifest.g:613:2: ( (a4= '(' (a5_0= parse_eu_hyvar_mspl_manifest_HyTimedDependencies ) ( (a6= ',' (a7_0= parse_eu_hyvar_mspl_manifest_HyTimedDependencies ) ) )* a8= ')' ) )?
+            // Hymanifest.g:619:2: ( (a4= '(' (a5_0= parse_eu_hyvar_mspl_manifest_HyTimedDependencies ) ( (a6= ',' (a7_0= parse_eu_hyvar_mspl_manifest_HyTimedDependencies ) ) )* a8= ')' ) )?
             int alt4=2;
             int LA4_0 = input.LA(1);
 
@@ -826,10 +832,10 @@ public class HymanifestParser extends HymanifestANTLRParserBase {
             }
             switch (alt4) {
                 case 1 :
-                    // Hymanifest.g:614:3: (a4= '(' (a5_0= parse_eu_hyvar_mspl_manifest_HyTimedDependencies ) ( (a6= ',' (a7_0= parse_eu_hyvar_mspl_manifest_HyTimedDependencies ) ) )* a8= ')' )
+                    // Hymanifest.g:620:3: (a4= '(' (a5_0= parse_eu_hyvar_mspl_manifest_HyTimedDependencies ) ( (a6= ',' (a7_0= parse_eu_hyvar_mspl_manifest_HyTimedDependencies ) ) )* a8= ')' )
                     {
-                    // Hymanifest.g:614:3: (a4= '(' (a5_0= parse_eu_hyvar_mspl_manifest_HyTimedDependencies ) ( (a6= ',' (a7_0= parse_eu_hyvar_mspl_manifest_HyTimedDependencies ) ) )* a8= ')' )
-                    // Hymanifest.g:615:4: a4= '(' (a5_0= parse_eu_hyvar_mspl_manifest_HyTimedDependencies ) ( (a6= ',' (a7_0= parse_eu_hyvar_mspl_manifest_HyTimedDependencies ) ) )* a8= ')'
+                    // Hymanifest.g:620:3: (a4= '(' (a5_0= parse_eu_hyvar_mspl_manifest_HyTimedDependencies ) ( (a6= ',' (a7_0= parse_eu_hyvar_mspl_manifest_HyTimedDependencies ) ) )* a8= ')' )
+                    // Hymanifest.g:621:4: a4= '(' (a5_0= parse_eu_hyvar_mspl_manifest_HyTimedDependencies ) ( (a6= ',' (a7_0= parse_eu_hyvar_mspl_manifest_HyTimedDependencies ) ) )* a8= ')'
                     {
                     a4=(Token)match(input,13,FOLLOW_13_in_parse_eu_hyvar_mspl_manifest_HySPLImplementation250); if (state.failed) return element;
 
@@ -845,11 +851,11 @@ public class HymanifestParser extends HymanifestANTLRParserBase {
 
                     if ( state.backtracking==0 ) {
                     				// expected elements (follow set)
-                    				addExpectedElement(eu.hyvar.mspl.manifest.ManifestPackage.eINSTANCE.getHySPLImplementation(), 13);
+                    				addExpectedElement(eu.hyvar.mspl.manifest.ManifestPackage.eINSTANCE.getHySPLImplementation(), eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[13]);
                     			}
 
-                    // Hymanifest.g:629:4: (a5_0= parse_eu_hyvar_mspl_manifest_HyTimedDependencies )
-                    // Hymanifest.g:630:5: a5_0= parse_eu_hyvar_mspl_manifest_HyTimedDependencies
+                    // Hymanifest.g:635:4: (a5_0= parse_eu_hyvar_mspl_manifest_HyTimedDependencies )
+                    // Hymanifest.g:636:5: a5_0= parse_eu_hyvar_mspl_manifest_HyTimedDependencies
                     {
                     pushFollow(FOLLOW_parse_eu_hyvar_mspl_manifest_HyTimedDependencies_in_parse_eu_hyvar_mspl_manifest_HySPLImplementation276);
                     a5_0=parse_eu_hyvar_mspl_manifest_HyTimedDependencies();
@@ -882,10 +888,11 @@ public class HymanifestParser extends HymanifestANTLRParserBase {
 
                     if ( state.backtracking==0 ) {
                     				// expected elements (follow set)
-                    				addExpectedElement(null, 14, 15);
+                    				addExpectedElement(null, eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[14]);
+                    				addExpectedElement(null, eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[15]);
                     			}
 
-                    // Hymanifest.g:655:4: ( (a6= ',' (a7_0= parse_eu_hyvar_mspl_manifest_HyTimedDependencies ) ) )*
+                    // Hymanifest.g:662:4: ( (a6= ',' (a7_0= parse_eu_hyvar_mspl_manifest_HyTimedDependencies ) ) )*
                     loop3:
                     do {
                         int alt3=2;
@@ -898,10 +905,10 @@ public class HymanifestParser extends HymanifestANTLRParserBase {
 
                         switch (alt3) {
                     	case 1 :
-                    	    // Hymanifest.g:656:5: (a6= ',' (a7_0= parse_eu_hyvar_mspl_manifest_HyTimedDependencies ) )
+                    	    // Hymanifest.g:663:5: (a6= ',' (a7_0= parse_eu_hyvar_mspl_manifest_HyTimedDependencies ) )
                     	    {
-                    	    // Hymanifest.g:656:5: (a6= ',' (a7_0= parse_eu_hyvar_mspl_manifest_HyTimedDependencies ) )
-                    	    // Hymanifest.g:657:6: a6= ',' (a7_0= parse_eu_hyvar_mspl_manifest_HyTimedDependencies )
+                    	    // Hymanifest.g:663:5: (a6= ',' (a7_0= parse_eu_hyvar_mspl_manifest_HyTimedDependencies ) )
+                    	    // Hymanifest.g:664:6: a6= ',' (a7_0= parse_eu_hyvar_mspl_manifest_HyTimedDependencies )
                     	    {
                     	    a6=(Token)match(input,15,FOLLOW_15_in_parse_eu_hyvar_mspl_manifest_HySPLImplementation317); if (state.failed) return element;
 
@@ -917,11 +924,11 @@ public class HymanifestParser extends HymanifestANTLRParserBase {
 
                     	    if ( state.backtracking==0 ) {
                     	    						// expected elements (follow set)
-                    	    						addExpectedElement(eu.hyvar.mspl.manifest.ManifestPackage.eINSTANCE.getHySPLImplementation(), 16);
+                    	    						addExpectedElement(eu.hyvar.mspl.manifest.ManifestPackage.eINSTANCE.getHySPLImplementation(), eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[16]);
                     	    					}
 
-                    	    // Hymanifest.g:671:6: (a7_0= parse_eu_hyvar_mspl_manifest_HyTimedDependencies )
-                    	    // Hymanifest.g:672:7: a7_0= parse_eu_hyvar_mspl_manifest_HyTimedDependencies
+                    	    // Hymanifest.g:678:6: (a7_0= parse_eu_hyvar_mspl_manifest_HyTimedDependencies )
+                    	    // Hymanifest.g:679:7: a7_0= parse_eu_hyvar_mspl_manifest_HyTimedDependencies
                     	    {
                     	    pushFollow(FOLLOW_parse_eu_hyvar_mspl_manifest_HyTimedDependencies_in_parse_eu_hyvar_mspl_manifest_HySPLImplementation351);
                     	    a7_0=parse_eu_hyvar_mspl_manifest_HyTimedDependencies();
@@ -954,7 +961,8 @@ public class HymanifestParser extends HymanifestANTLRParserBase {
 
                     	    if ( state.backtracking==0 ) {
                     	    						// expected elements (follow set)
-                    	    						addExpectedElement(null, 17, 18);
+                    	    						addExpectedElement(null, eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[17]);
+                    	    						addExpectedElement(null, eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[18]);
                     	    					}
 
                     	    }
@@ -971,7 +979,8 @@ public class HymanifestParser extends HymanifestANTLRParserBase {
 
                     if ( state.backtracking==0 ) {
                     				// expected elements (follow set)
-                    				addExpectedElement(null, 19, 20);
+                    				addExpectedElement(null, eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[19]);
+                    				addExpectedElement(null, eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[20]);
                     			}
 
                     a8=(Token)match(input,14,FOLLOW_14_in_parse_eu_hyvar_mspl_manifest_HySPLImplementation412); if (state.failed) return element;
@@ -988,7 +997,7 @@ public class HymanifestParser extends HymanifestANTLRParserBase {
 
                     if ( state.backtracking==0 ) {
                     				// expected elements (follow set)
-                    				addExpectedElement(null, 21);
+                    				addExpectedElement(null, eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[21]);
                     			}
 
                     }
@@ -1002,10 +1011,10 @@ public class HymanifestParser extends HymanifestANTLRParserBase {
 
             if ( state.backtracking==0 ) {
             		// expected elements (follow set)
-            		addExpectedElement(null, 22);
+            		addExpectedElement(null, eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[22]);
             	}
 
-            // Hymanifest.g:725:2: ( (a9= ':' (a10_0= parse_eu_hyvar_mspl_manifest_HyTimedImplementations ) ( (a11= ',' (a12_0= parse_eu_hyvar_mspl_manifest_HyTimedImplementations ) ) )* ) )?
+            // Hymanifest.g:734:2: ( (a9= ':' (a10_0= parse_eu_hyvar_mspl_manifest_HyTimedImplementations ) ( (a11= ',' (a12_0= parse_eu_hyvar_mspl_manifest_HyTimedImplementations ) ) )* ) )?
             int alt6=2;
             int LA6_0 = input.LA(1);
 
@@ -1014,10 +1023,10 @@ public class HymanifestParser extends HymanifestANTLRParserBase {
             }
             switch (alt6) {
                 case 1 :
-                    // Hymanifest.g:726:3: (a9= ':' (a10_0= parse_eu_hyvar_mspl_manifest_HyTimedImplementations ) ( (a11= ',' (a12_0= parse_eu_hyvar_mspl_manifest_HyTimedImplementations ) ) )* )
+                    // Hymanifest.g:735:3: (a9= ':' (a10_0= parse_eu_hyvar_mspl_manifest_HyTimedImplementations ) ( (a11= ',' (a12_0= parse_eu_hyvar_mspl_manifest_HyTimedImplementations ) ) )* )
                     {
-                    // Hymanifest.g:726:3: (a9= ':' (a10_0= parse_eu_hyvar_mspl_manifest_HyTimedImplementations ) ( (a11= ',' (a12_0= parse_eu_hyvar_mspl_manifest_HyTimedImplementations ) ) )* )
-                    // Hymanifest.g:727:4: a9= ':' (a10_0= parse_eu_hyvar_mspl_manifest_HyTimedImplementations ) ( (a11= ',' (a12_0= parse_eu_hyvar_mspl_manifest_HyTimedImplementations ) ) )*
+                    // Hymanifest.g:735:3: (a9= ':' (a10_0= parse_eu_hyvar_mspl_manifest_HyTimedImplementations ) ( (a11= ',' (a12_0= parse_eu_hyvar_mspl_manifest_HyTimedImplementations ) ) )* )
+                    // Hymanifest.g:736:4: a9= ':' (a10_0= parse_eu_hyvar_mspl_manifest_HyTimedImplementations ) ( (a11= ',' (a12_0= parse_eu_hyvar_mspl_manifest_HyTimedImplementations ) ) )*
                     {
                     a9=(Token)match(input,19,FOLLOW_19_in_parse_eu_hyvar_mspl_manifest_HySPLImplementation454); if (state.failed) return element;
 
@@ -1033,11 +1042,11 @@ public class HymanifestParser extends HymanifestANTLRParserBase {
 
                     if ( state.backtracking==0 ) {
                     				// expected elements (follow set)
-                    				addExpectedElement(eu.hyvar.mspl.manifest.ManifestPackage.eINSTANCE.getHySPLImplementation(), 23);
+                    				addExpectedElement(eu.hyvar.mspl.manifest.ManifestPackage.eINSTANCE.getHySPLImplementation(), eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[23]);
                     			}
 
-                    // Hymanifest.g:741:4: (a10_0= parse_eu_hyvar_mspl_manifest_HyTimedImplementations )
-                    // Hymanifest.g:742:5: a10_0= parse_eu_hyvar_mspl_manifest_HyTimedImplementations
+                    // Hymanifest.g:750:4: (a10_0= parse_eu_hyvar_mspl_manifest_HyTimedImplementations )
+                    // Hymanifest.g:751:5: a10_0= parse_eu_hyvar_mspl_manifest_HyTimedImplementations
                     {
                     pushFollow(FOLLOW_parse_eu_hyvar_mspl_manifest_HyTimedImplementations_in_parse_eu_hyvar_mspl_manifest_HySPLImplementation480);
                     a10_0=parse_eu_hyvar_mspl_manifest_HyTimedImplementations();
@@ -1070,10 +1079,10 @@ public class HymanifestParser extends HymanifestANTLRParserBase {
 
                     if ( state.backtracking==0 ) {
                     				// expected elements (follow set)
-                    				addExpectedElement(null, 24);
+                    				addExpectedElement(null, eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[24]);
                     			}
 
-                    // Hymanifest.g:767:4: ( (a11= ',' (a12_0= parse_eu_hyvar_mspl_manifest_HyTimedImplementations ) ) )*
+                    // Hymanifest.g:776:4: ( (a11= ',' (a12_0= parse_eu_hyvar_mspl_manifest_HyTimedImplementations ) ) )*
                     loop5:
                     do {
                         int alt5=2;
@@ -1086,10 +1095,10 @@ public class HymanifestParser extends HymanifestANTLRParserBase {
 
                         switch (alt5) {
                     	case 1 :
-                    	    // Hymanifest.g:768:5: (a11= ',' (a12_0= parse_eu_hyvar_mspl_manifest_HyTimedImplementations ) )
+                    	    // Hymanifest.g:777:5: (a11= ',' (a12_0= parse_eu_hyvar_mspl_manifest_HyTimedImplementations ) )
                     	    {
-                    	    // Hymanifest.g:768:5: (a11= ',' (a12_0= parse_eu_hyvar_mspl_manifest_HyTimedImplementations ) )
-                    	    // Hymanifest.g:769:6: a11= ',' (a12_0= parse_eu_hyvar_mspl_manifest_HyTimedImplementations )
+                    	    // Hymanifest.g:777:5: (a11= ',' (a12_0= parse_eu_hyvar_mspl_manifest_HyTimedImplementations ) )
+                    	    // Hymanifest.g:778:6: a11= ',' (a12_0= parse_eu_hyvar_mspl_manifest_HyTimedImplementations )
                     	    {
                     	    a11=(Token)match(input,15,FOLLOW_15_in_parse_eu_hyvar_mspl_manifest_HySPLImplementation521); if (state.failed) return element;
 
@@ -1105,11 +1114,11 @@ public class HymanifestParser extends HymanifestANTLRParserBase {
 
                     	    if ( state.backtracking==0 ) {
                     	    						// expected elements (follow set)
-                    	    						addExpectedElement(eu.hyvar.mspl.manifest.ManifestPackage.eINSTANCE.getHySPLImplementation(), 25);
+                    	    						addExpectedElement(eu.hyvar.mspl.manifest.ManifestPackage.eINSTANCE.getHySPLImplementation(), eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[25]);
                     	    					}
 
-                    	    // Hymanifest.g:783:6: (a12_0= parse_eu_hyvar_mspl_manifest_HyTimedImplementations )
-                    	    // Hymanifest.g:784:7: a12_0= parse_eu_hyvar_mspl_manifest_HyTimedImplementations
+                    	    // Hymanifest.g:792:6: (a12_0= parse_eu_hyvar_mspl_manifest_HyTimedImplementations )
+                    	    // Hymanifest.g:793:7: a12_0= parse_eu_hyvar_mspl_manifest_HyTimedImplementations
                     	    {
                     	    pushFollow(FOLLOW_parse_eu_hyvar_mspl_manifest_HyTimedImplementations_in_parse_eu_hyvar_mspl_manifest_HySPLImplementation555);
                     	    a12_0=parse_eu_hyvar_mspl_manifest_HyTimedImplementations();
@@ -1142,10 +1151,7 @@ public class HymanifestParser extends HymanifestANTLRParserBase {
 
                     	    if ( state.backtracking==0 ) {
                     	    						// expected elements (follow set)
-                    	    						// We've found the last token for this rule. The constructed EObject is now
-                    	    						// complete.
-                    	    						completedElement(element, true);
-                    	    						addExpectedElement(null, 26);
+                    	    						addExpectedElement(null, eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[26]);
                     	    					}
 
                     	    }
@@ -1162,10 +1168,7 @@ public class HymanifestParser extends HymanifestANTLRParserBase {
 
                     if ( state.backtracking==0 ) {
                     				// expected elements (follow set)
-                    				// We've found the last token for this rule. The constructed EObject is now
-                    				// complete.
-                    				completedElement(element, true);
-                    				addExpectedElement(null, 27);
+                    				addExpectedElement(null, eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[27]);
                     			}
 
                     }
@@ -1179,9 +1182,6 @@ public class HymanifestParser extends HymanifestANTLRParserBase {
 
             if ( state.backtracking==0 ) {
             		// expected elements (follow set)
-            		// We've found the last token for this rule. The constructed EObject is now
-            		// complete.
-            		completedElement(element, true);
             	}
 
             }
@@ -1274,10 +1274,12 @@ public class HymanifestParser extends HymanifestANTLRParserBase {
 
             if ( state.backtracking==0 ) {
             		// expected elements (follow set)
-            		addExpectedElement(null, 28, 30);
+            		addExpectedElement(null, eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[28]);
+            		addExpectedElement(null, eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[29]);
+            		addExpectedElement(null, eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[30]);
             	}
 
-            // Hymanifest.g:877:2: ( (a1= '@[' ( (a2= DATE ) a3= '-' (a4= DATE ) | (a5= DATE ) a6= '-' a7= 'eternity' |a8= 'eternity' a9= '-' (a10= DATE ) ) a11= ']' ) )?
+            // Hymanifest.g:879:2: ( (a1= '@[' ( (a2= DATE ) a3= '-' (a4= DATE ) | (a5= DATE ) a6= '-' a7= 'eternity' |a8= 'eternity' a9= '-' (a10= DATE ) ) a11= ']' ) )?
             int alt8=2;
             int LA8_0 = input.LA(1);
 
@@ -1286,10 +1288,10 @@ public class HymanifestParser extends HymanifestANTLRParserBase {
             }
             switch (alt8) {
                 case 1 :
-                    // Hymanifest.g:878:3: (a1= '@[' ( (a2= DATE ) a3= '-' (a4= DATE ) | (a5= DATE ) a6= '-' a7= 'eternity' |a8= 'eternity' a9= '-' (a10= DATE ) ) a11= ']' )
+                    // Hymanifest.g:880:3: (a1= '@[' ( (a2= DATE ) a3= '-' (a4= DATE ) | (a5= DATE ) a6= '-' a7= 'eternity' |a8= 'eternity' a9= '-' (a10= DATE ) ) a11= ']' )
                     {
-                    // Hymanifest.g:878:3: (a1= '@[' ( (a2= DATE ) a3= '-' (a4= DATE ) | (a5= DATE ) a6= '-' a7= 'eternity' |a8= 'eternity' a9= '-' (a10= DATE ) ) a11= ']' )
-                    // Hymanifest.g:879:4: a1= '@[' ( (a2= DATE ) a3= '-' (a4= DATE ) | (a5= DATE ) a6= '-' a7= 'eternity' |a8= 'eternity' a9= '-' (a10= DATE ) ) a11= ']'
+                    // Hymanifest.g:880:3: (a1= '@[' ( (a2= DATE ) a3= '-' (a4= DATE ) | (a5= DATE ) a6= '-' a7= 'eternity' |a8= 'eternity' a9= '-' (a10= DATE ) ) a11= ']' )
+                    // Hymanifest.g:881:4: a1= '@[' ( (a2= DATE ) a3= '-' (a4= DATE ) | (a5= DATE ) a6= '-' a7= 'eternity' |a8= 'eternity' a9= '-' (a10= DATE ) ) a11= ']'
                     {
                     a1=(Token)match(input,20,FOLLOW_20_in_parse_eu_hyvar_mspl_manifest_HyTimedDependencies678); if (state.failed) return element;
 
@@ -1305,10 +1307,12 @@ public class HymanifestParser extends HymanifestANTLRParserBase {
 
                     if ( state.backtracking==0 ) {
                     				// expected elements (follow set)
-                    				addExpectedElement(null, 31, 33);
+                    				addExpectedElement(null, eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[31]);
+                    				addExpectedElement(null, eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[32]);
+                    				addExpectedElement(null, eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[33]);
                     			}
 
-                    // Hymanifest.g:893:4: ( (a2= DATE ) a3= '-' (a4= DATE ) | (a5= DATE ) a6= '-' a7= 'eternity' |a8= 'eternity' a9= '-' (a10= DATE ) )
+                    // Hymanifest.g:897:4: ( (a2= DATE ) a3= '-' (a4= DATE ) | (a5= DATE ) a6= '-' a7= 'eternity' |a8= 'eternity' a9= '-' (a10= DATE ) )
                     int alt7=3;
                     int LA7_0 = input.LA(1);
 
@@ -1355,10 +1359,10 @@ public class HymanifestParser extends HymanifestANTLRParserBase {
                     }
                     switch (alt7) {
                         case 1 :
-                            // Hymanifest.g:894:5: (a2= DATE ) a3= '-' (a4= DATE )
+                            // Hymanifest.g:898:5: (a2= DATE ) a3= '-' (a4= DATE )
                             {
-                            // Hymanifest.g:894:5: (a2= DATE )
-                            // Hymanifest.g:895:6: a2= DATE
+                            // Hymanifest.g:898:5: (a2= DATE )
+                            // Hymanifest.g:899:6: a2= DATE
                             {
                             a2=(Token)match(input,DATE,FOLLOW_DATE_in_parse_eu_hyvar_mspl_manifest_HyTimedDependencies711); if (state.failed) return element;
 
@@ -1396,7 +1400,7 @@ public class HymanifestParser extends HymanifestANTLRParserBase {
 
                             if ( state.backtracking==0 ) {
                             					// expected elements (follow set)
-                            					addExpectedElement(null, 34);
+                            					addExpectedElement(null, eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[34]);
                             				}
 
                             a3=(Token)match(input,16,FOLLOW_16_in_parse_eu_hyvar_mspl_manifest_HyTimedDependencies750); if (state.failed) return element;
@@ -1413,11 +1417,11 @@ public class HymanifestParser extends HymanifestANTLRParserBase {
 
                             if ( state.backtracking==0 ) {
                             					// expected elements (follow set)
-                            					addExpectedElement(null, 35);
+                            					addExpectedElement(null, eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[35]);
                             				}
 
-                            // Hymanifest.g:944:5: (a4= DATE )
-                            // Hymanifest.g:945:6: a4= DATE
+                            // Hymanifest.g:948:5: (a4= DATE )
+                            // Hymanifest.g:949:6: a4= DATE
                             {
                             a4=(Token)match(input,DATE,FOLLOW_DATE_in_parse_eu_hyvar_mspl_manifest_HyTimedDependencies780); if (state.failed) return element;
 
@@ -1455,16 +1459,16 @@ public class HymanifestParser extends HymanifestANTLRParserBase {
 
                             if ( state.backtracking==0 ) {
                             					// expected elements (follow set)
-                            					addExpectedElement(null, 36);
+                            					addExpectedElement(null, eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[36]);
                             				}
 
                             }
                             break;
                         case 2 :
-                            // Hymanifest.g:981:10: (a5= DATE ) a6= '-' a7= 'eternity'
+                            // Hymanifest.g:985:10: (a5= DATE ) a6= '-' a7= 'eternity'
                             {
-                            // Hymanifest.g:981:10: (a5= DATE )
-                            // Hymanifest.g:982:6: a5= DATE
+                            // Hymanifest.g:985:10: (a5= DATE )
+                            // Hymanifest.g:986:6: a5= DATE
                             {
                             a5=(Token)match(input,DATE,FOLLOW_DATE_in_parse_eu_hyvar_mspl_manifest_HyTimedDependencies836); if (state.failed) return element;
 
@@ -1502,7 +1506,7 @@ public class HymanifestParser extends HymanifestANTLRParserBase {
 
                             if ( state.backtracking==0 ) {
                             					// expected elements (follow set)
-                            					addExpectedElement(null, 37);
+                            					addExpectedElement(null, eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[37]);
                             				}
 
                             a6=(Token)match(input,16,FOLLOW_16_in_parse_eu_hyvar_mspl_manifest_HyTimedDependencies875); if (state.failed) return element;
@@ -1519,7 +1523,7 @@ public class HymanifestParser extends HymanifestANTLRParserBase {
 
                             if ( state.backtracking==0 ) {
                             					// expected elements (follow set)
-                            					addExpectedElement(null, 38);
+                            					addExpectedElement(null, eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[38]);
                             				}
 
                             a7=(Token)match(input,28,FOLLOW_28_in_parse_eu_hyvar_mspl_manifest_HyTimedDependencies898); if (state.failed) return element;
@@ -1536,13 +1540,13 @@ public class HymanifestParser extends HymanifestANTLRParserBase {
 
                             if ( state.backtracking==0 ) {
                             					// expected elements (follow set)
-                            					addExpectedElement(null, 39);
+                            					addExpectedElement(null, eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[39]);
                             				}
 
                             }
                             break;
                         case 3 :
-                            // Hymanifest.g:1046:10: a8= 'eternity' a9= '-' (a10= DATE )
+                            // Hymanifest.g:1050:10: a8= 'eternity' a9= '-' (a10= DATE )
                             {
                             a8=(Token)match(input,28,FOLLOW_28_in_parse_eu_hyvar_mspl_manifest_HyTimedDependencies931); if (state.failed) return element;
 
@@ -1558,7 +1562,7 @@ public class HymanifestParser extends HymanifestANTLRParserBase {
 
                             if ( state.backtracking==0 ) {
                             					// expected elements (follow set)
-                            					addExpectedElement(null, 40);
+                            					addExpectedElement(null, eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[40]);
                             				}
 
                             a9=(Token)match(input,16,FOLLOW_16_in_parse_eu_hyvar_mspl_manifest_HyTimedDependencies954); if (state.failed) return element;
@@ -1575,11 +1579,11 @@ public class HymanifestParser extends HymanifestANTLRParserBase {
 
                             if ( state.backtracking==0 ) {
                             					// expected elements (follow set)
-                            					addExpectedElement(null, 41);
+                            					addExpectedElement(null, eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[41]);
                             				}
 
-                            // Hymanifest.g:1074:5: (a10= DATE )
-                            // Hymanifest.g:1075:6: a10= DATE
+                            // Hymanifest.g:1078:5: (a10= DATE )
+                            // Hymanifest.g:1079:6: a10= DATE
                             {
                             a10=(Token)match(input,DATE,FOLLOW_DATE_in_parse_eu_hyvar_mspl_manifest_HyTimedDependencies984); if (state.failed) return element;
 
@@ -1617,7 +1621,7 @@ public class HymanifestParser extends HymanifestANTLRParserBase {
 
                             if ( state.backtracking==0 ) {
                             					// expected elements (follow set)
-                            					addExpectedElement(null, 42);
+                            					addExpectedElement(null, eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[42]);
                             				}
 
                             }
@@ -1628,7 +1632,7 @@ public class HymanifestParser extends HymanifestANTLRParserBase {
 
                     if ( state.backtracking==0 ) {
                     				// expected elements (follow set)
-                    				addExpectedElement(null, 43);
+                    				addExpectedElement(null, eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[43]);
                     			}
 
                     a11=(Token)match(input,26,FOLLOW_26_in_parse_eu_hyvar_mspl_manifest_HyTimedDependencies1036); if (state.failed) return element;
@@ -1645,10 +1649,8 @@ public class HymanifestParser extends HymanifestANTLRParserBase {
 
                     if ( state.backtracking==0 ) {
                     				// expected elements (follow set)
-                    				// We've found the last token for this rule. The constructed EObject is now
-                    				// complete.
-                    				completedElement(element, true);
-                    				addExpectedElement(null, 44, 45);
+                    				addExpectedElement(null, eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[44]);
+                    				addExpectedElement(null, eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[45]);
                     			}
 
                     }
@@ -1662,10 +1664,8 @@ public class HymanifestParser extends HymanifestANTLRParserBase {
 
             if ( state.backtracking==0 ) {
             		// expected elements (follow set)
-            		// We've found the last token for this rule. The constructed EObject is now
-            		// complete.
-            		completedElement(element, true);
-            		addExpectedElement(null, 46, 47);
+            		addExpectedElement(null, eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[46]);
+            		addExpectedElement(null, eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[47]);
             	}
 
             }
@@ -1765,10 +1765,11 @@ public class HymanifestParser extends HymanifestANTLRParserBase {
 
             if ( state.backtracking==0 ) {
             		// expected elements (follow set)
-            		addExpectedElement(null, 48, 49);
+            		addExpectedElement(null, eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[48]);
+            		addExpectedElement(null, eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[49]);
             	}
 
-            // Hymanifest.g:1189:2: ( (a1= '@[' ( (a2= DATE ) a3= '-' (a4= DATE ) | (a5= DATE ) a6= '-' a7= 'eternity' |a8= 'eternity' a9= '-' (a10= DATE ) ) a11= ']' ) )?
+            // Hymanifest.g:1190:2: ( (a1= '@[' ( (a2= DATE ) a3= '-' (a4= DATE ) | (a5= DATE ) a6= '-' a7= 'eternity' |a8= 'eternity' a9= '-' (a10= DATE ) ) a11= ']' ) )?
             int alt10=2;
             int LA10_0 = input.LA(1);
 
@@ -1777,10 +1778,10 @@ public class HymanifestParser extends HymanifestANTLRParserBase {
             }
             switch (alt10) {
                 case 1 :
-                    // Hymanifest.g:1190:3: (a1= '@[' ( (a2= DATE ) a3= '-' (a4= DATE ) | (a5= DATE ) a6= '-' a7= 'eternity' |a8= 'eternity' a9= '-' (a10= DATE ) ) a11= ']' )
+                    // Hymanifest.g:1191:3: (a1= '@[' ( (a2= DATE ) a3= '-' (a4= DATE ) | (a5= DATE ) a6= '-' a7= 'eternity' |a8= 'eternity' a9= '-' (a10= DATE ) ) a11= ']' )
                     {
-                    // Hymanifest.g:1190:3: (a1= '@[' ( (a2= DATE ) a3= '-' (a4= DATE ) | (a5= DATE ) a6= '-' a7= 'eternity' |a8= 'eternity' a9= '-' (a10= DATE ) ) a11= ']' )
-                    // Hymanifest.g:1191:4: a1= '@[' ( (a2= DATE ) a3= '-' (a4= DATE ) | (a5= DATE ) a6= '-' a7= 'eternity' |a8= 'eternity' a9= '-' (a10= DATE ) ) a11= ']'
+                    // Hymanifest.g:1191:3: (a1= '@[' ( (a2= DATE ) a3= '-' (a4= DATE ) | (a5= DATE ) a6= '-' a7= 'eternity' |a8= 'eternity' a9= '-' (a10= DATE ) ) a11= ']' )
+                    // Hymanifest.g:1192:4: a1= '@[' ( (a2= DATE ) a3= '-' (a4= DATE ) | (a5= DATE ) a6= '-' a7= 'eternity' |a8= 'eternity' a9= '-' (a10= DATE ) ) a11= ']'
                     {
                     a1=(Token)match(input,20,FOLLOW_20_in_parse_eu_hyvar_mspl_manifest_HyTimedImplementations1118); if (state.failed) return element;
 
@@ -1796,10 +1797,12 @@ public class HymanifestParser extends HymanifestANTLRParserBase {
 
                     if ( state.backtracking==0 ) {
                     				// expected elements (follow set)
-                    				addExpectedElement(null, 50, 52);
+                    				addExpectedElement(null, eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[50]);
+                    				addExpectedElement(null, eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[51]);
+                    				addExpectedElement(null, eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[52]);
                     			}
 
-                    // Hymanifest.g:1205:4: ( (a2= DATE ) a3= '-' (a4= DATE ) | (a5= DATE ) a6= '-' a7= 'eternity' |a8= 'eternity' a9= '-' (a10= DATE ) )
+                    // Hymanifest.g:1208:4: ( (a2= DATE ) a3= '-' (a4= DATE ) | (a5= DATE ) a6= '-' a7= 'eternity' |a8= 'eternity' a9= '-' (a10= DATE ) )
                     int alt9=3;
                     int LA9_0 = input.LA(1);
 
@@ -1846,10 +1849,10 @@ public class HymanifestParser extends HymanifestANTLRParserBase {
                     }
                     switch (alt9) {
                         case 1 :
-                            // Hymanifest.g:1206:5: (a2= DATE ) a3= '-' (a4= DATE )
+                            // Hymanifest.g:1209:5: (a2= DATE ) a3= '-' (a4= DATE )
                             {
-                            // Hymanifest.g:1206:5: (a2= DATE )
-                            // Hymanifest.g:1207:6: a2= DATE
+                            // Hymanifest.g:1209:5: (a2= DATE )
+                            // Hymanifest.g:1210:6: a2= DATE
                             {
                             a2=(Token)match(input,DATE,FOLLOW_DATE_in_parse_eu_hyvar_mspl_manifest_HyTimedImplementations1151); if (state.failed) return element;
 
@@ -1887,7 +1890,7 @@ public class HymanifestParser extends HymanifestANTLRParserBase {
 
                             if ( state.backtracking==0 ) {
                             					// expected elements (follow set)
-                            					addExpectedElement(null, 53);
+                            					addExpectedElement(null, eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[53]);
                             				}
 
                             a3=(Token)match(input,16,FOLLOW_16_in_parse_eu_hyvar_mspl_manifest_HyTimedImplementations1190); if (state.failed) return element;
@@ -1904,11 +1907,11 @@ public class HymanifestParser extends HymanifestANTLRParserBase {
 
                             if ( state.backtracking==0 ) {
                             					// expected elements (follow set)
-                            					addExpectedElement(null, 54);
+                            					addExpectedElement(null, eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[54]);
                             				}
 
-                            // Hymanifest.g:1256:5: (a4= DATE )
-                            // Hymanifest.g:1257:6: a4= DATE
+                            // Hymanifest.g:1259:5: (a4= DATE )
+                            // Hymanifest.g:1260:6: a4= DATE
                             {
                             a4=(Token)match(input,DATE,FOLLOW_DATE_in_parse_eu_hyvar_mspl_manifest_HyTimedImplementations1220); if (state.failed) return element;
 
@@ -1946,16 +1949,16 @@ public class HymanifestParser extends HymanifestANTLRParserBase {
 
                             if ( state.backtracking==0 ) {
                             					// expected elements (follow set)
-                            					addExpectedElement(null, 55);
+                            					addExpectedElement(null, eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[55]);
                             				}
 
                             }
                             break;
                         case 2 :
-                            // Hymanifest.g:1293:10: (a5= DATE ) a6= '-' a7= 'eternity'
+                            // Hymanifest.g:1296:10: (a5= DATE ) a6= '-' a7= 'eternity'
                             {
-                            // Hymanifest.g:1293:10: (a5= DATE )
-                            // Hymanifest.g:1294:6: a5= DATE
+                            // Hymanifest.g:1296:10: (a5= DATE )
+                            // Hymanifest.g:1297:6: a5= DATE
                             {
                             a5=(Token)match(input,DATE,FOLLOW_DATE_in_parse_eu_hyvar_mspl_manifest_HyTimedImplementations1276); if (state.failed) return element;
 
@@ -1993,7 +1996,7 @@ public class HymanifestParser extends HymanifestANTLRParserBase {
 
                             if ( state.backtracking==0 ) {
                             					// expected elements (follow set)
-                            					addExpectedElement(null, 56);
+                            					addExpectedElement(null, eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[56]);
                             				}
 
                             a6=(Token)match(input,16,FOLLOW_16_in_parse_eu_hyvar_mspl_manifest_HyTimedImplementations1315); if (state.failed) return element;
@@ -2010,7 +2013,7 @@ public class HymanifestParser extends HymanifestANTLRParserBase {
 
                             if ( state.backtracking==0 ) {
                             					// expected elements (follow set)
-                            					addExpectedElement(null, 57);
+                            					addExpectedElement(null, eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[57]);
                             				}
 
                             a7=(Token)match(input,28,FOLLOW_28_in_parse_eu_hyvar_mspl_manifest_HyTimedImplementations1338); if (state.failed) return element;
@@ -2027,13 +2030,13 @@ public class HymanifestParser extends HymanifestANTLRParserBase {
 
                             if ( state.backtracking==0 ) {
                             					// expected elements (follow set)
-                            					addExpectedElement(null, 58);
+                            					addExpectedElement(null, eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[58]);
                             				}
 
                             }
                             break;
                         case 3 :
-                            // Hymanifest.g:1358:10: a8= 'eternity' a9= '-' (a10= DATE )
+                            // Hymanifest.g:1361:10: a8= 'eternity' a9= '-' (a10= DATE )
                             {
                             a8=(Token)match(input,28,FOLLOW_28_in_parse_eu_hyvar_mspl_manifest_HyTimedImplementations1371); if (state.failed) return element;
 
@@ -2049,7 +2052,7 @@ public class HymanifestParser extends HymanifestANTLRParserBase {
 
                             if ( state.backtracking==0 ) {
                             					// expected elements (follow set)
-                            					addExpectedElement(null, 59);
+                            					addExpectedElement(null, eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[59]);
                             				}
 
                             a9=(Token)match(input,16,FOLLOW_16_in_parse_eu_hyvar_mspl_manifest_HyTimedImplementations1394); if (state.failed) return element;
@@ -2066,11 +2069,11 @@ public class HymanifestParser extends HymanifestANTLRParserBase {
 
                             if ( state.backtracking==0 ) {
                             					// expected elements (follow set)
-                            					addExpectedElement(null, 60);
+                            					addExpectedElement(null, eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[60]);
                             				}
 
-                            // Hymanifest.g:1386:5: (a10= DATE )
-                            // Hymanifest.g:1387:6: a10= DATE
+                            // Hymanifest.g:1389:5: (a10= DATE )
+                            // Hymanifest.g:1390:6: a10= DATE
                             {
                             a10=(Token)match(input,DATE,FOLLOW_DATE_in_parse_eu_hyvar_mspl_manifest_HyTimedImplementations1424); if (state.failed) return element;
 
@@ -2108,7 +2111,7 @@ public class HymanifestParser extends HymanifestANTLRParserBase {
 
                             if ( state.backtracking==0 ) {
                             					// expected elements (follow set)
-                            					addExpectedElement(null, 61);
+                            					addExpectedElement(null, eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[61]);
                             				}
 
                             }
@@ -2119,7 +2122,7 @@ public class HymanifestParser extends HymanifestANTLRParserBase {
 
                     if ( state.backtracking==0 ) {
                     				// expected elements (follow set)
-                    				addExpectedElement(null, 62);
+                    				addExpectedElement(null, eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[62]);
                     			}
 
                     a11=(Token)match(input,26,FOLLOW_26_in_parse_eu_hyvar_mspl_manifest_HyTimedImplementations1476); if (state.failed) return element;
@@ -2136,7 +2139,7 @@ public class HymanifestParser extends HymanifestANTLRParserBase {
 
                     if ( state.backtracking==0 ) {
                     				// expected elements (follow set)
-                    				addExpectedElement(null, 63);
+                    				addExpectedElement(null, eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[63]);
                     			}
 
                     }
@@ -2150,7 +2153,7 @@ public class HymanifestParser extends HymanifestANTLRParserBase {
 
             if ( state.backtracking==0 ) {
             		// expected elements (follow set)
-            		addExpectedElement(null, 64);
+            		addExpectedElement(null, eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[64]);
             	}
 
             a12=(Token)match(input,31,FOLLOW_31_in_parse_eu_hyvar_mspl_manifest_HyTimedImplementations1509); if (state.failed) return element;
@@ -2167,11 +2170,12 @@ public class HymanifestParser extends HymanifestANTLRParserBase {
 
             if ( state.backtracking==0 ) {
             		// expected elements (follow set)
-            		addExpectedElement(eu.hyvar.mspl.manifest.ManifestPackage.eINSTANCE.getHyTimedImplementations(), 65, 66);
-            		addExpectedElement(null, 67);
+            		addExpectedElement(eu.hyvar.mspl.manifest.ManifestPackage.eINSTANCE.getHyTimedImplementations(), eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[65]);
+            		addExpectedElement(eu.hyvar.mspl.manifest.ManifestPackage.eINSTANCE.getHyTimedImplementations(), eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[66]);
+            		addExpectedElement(null, eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[67]);
             	}
 
-            // Hymanifest.g:1464:2: ( ( (a13_0= parse_eu_hyvar_mspl_manifest_HyTimedImplementationLink ) ( (a14= ',' (a15_0= parse_eu_hyvar_mspl_manifest_HyTimedImplementationLink ) ) )* ) )?
+            // Hymanifest.g:1468:2: ( ( (a13_0= parse_eu_hyvar_mspl_manifest_HyTimedImplementationLink ) ( (a14= ',' (a15_0= parse_eu_hyvar_mspl_manifest_HyTimedImplementationLink ) ) )* ) )?
             int alt12=2;
             int LA12_0 = input.LA(1);
 
@@ -2180,13 +2184,13 @@ public class HymanifestParser extends HymanifestANTLRParserBase {
             }
             switch (alt12) {
                 case 1 :
-                    // Hymanifest.g:1465:3: ( (a13_0= parse_eu_hyvar_mspl_manifest_HyTimedImplementationLink ) ( (a14= ',' (a15_0= parse_eu_hyvar_mspl_manifest_HyTimedImplementationLink ) ) )* )
+                    // Hymanifest.g:1469:3: ( (a13_0= parse_eu_hyvar_mspl_manifest_HyTimedImplementationLink ) ( (a14= ',' (a15_0= parse_eu_hyvar_mspl_manifest_HyTimedImplementationLink ) ) )* )
                     {
-                    // Hymanifest.g:1465:3: ( (a13_0= parse_eu_hyvar_mspl_manifest_HyTimedImplementationLink ) ( (a14= ',' (a15_0= parse_eu_hyvar_mspl_manifest_HyTimedImplementationLink ) ) )* )
-                    // Hymanifest.g:1466:4: (a13_0= parse_eu_hyvar_mspl_manifest_HyTimedImplementationLink ) ( (a14= ',' (a15_0= parse_eu_hyvar_mspl_manifest_HyTimedImplementationLink ) ) )*
+                    // Hymanifest.g:1469:3: ( (a13_0= parse_eu_hyvar_mspl_manifest_HyTimedImplementationLink ) ( (a14= ',' (a15_0= parse_eu_hyvar_mspl_manifest_HyTimedImplementationLink ) ) )* )
+                    // Hymanifest.g:1470:4: (a13_0= parse_eu_hyvar_mspl_manifest_HyTimedImplementationLink ) ( (a14= ',' (a15_0= parse_eu_hyvar_mspl_manifest_HyTimedImplementationLink ) ) )*
                     {
-                    // Hymanifest.g:1466:4: (a13_0= parse_eu_hyvar_mspl_manifest_HyTimedImplementationLink )
-                    // Hymanifest.g:1467:5: a13_0= parse_eu_hyvar_mspl_manifest_HyTimedImplementationLink
+                    // Hymanifest.g:1470:4: (a13_0= parse_eu_hyvar_mspl_manifest_HyTimedImplementationLink )
+                    // Hymanifest.g:1471:5: a13_0= parse_eu_hyvar_mspl_manifest_HyTimedImplementationLink
                     {
                     pushFollow(FOLLOW_parse_eu_hyvar_mspl_manifest_HyTimedImplementationLink_in_parse_eu_hyvar_mspl_manifest_HyTimedImplementations1538);
                     a13_0=parse_eu_hyvar_mspl_manifest_HyTimedImplementationLink();
@@ -2219,10 +2223,11 @@ public class HymanifestParser extends HymanifestANTLRParserBase {
 
                     if ( state.backtracking==0 ) {
                     				// expected elements (follow set)
-                    				addExpectedElement(null, 68, 69);
+                    				addExpectedElement(null, eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[68]);
+                    				addExpectedElement(null, eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[69]);
                     			}
 
-                    // Hymanifest.g:1492:4: ( (a14= ',' (a15_0= parse_eu_hyvar_mspl_manifest_HyTimedImplementationLink ) ) )*
+                    // Hymanifest.g:1497:4: ( (a14= ',' (a15_0= parse_eu_hyvar_mspl_manifest_HyTimedImplementationLink ) ) )*
                     loop11:
                     do {
                         int alt11=2;
@@ -2235,10 +2240,10 @@ public class HymanifestParser extends HymanifestANTLRParserBase {
 
                         switch (alt11) {
                     	case 1 :
-                    	    // Hymanifest.g:1493:5: (a14= ',' (a15_0= parse_eu_hyvar_mspl_manifest_HyTimedImplementationLink ) )
+                    	    // Hymanifest.g:1498:5: (a14= ',' (a15_0= parse_eu_hyvar_mspl_manifest_HyTimedImplementationLink ) )
                     	    {
-                    	    // Hymanifest.g:1493:5: (a14= ',' (a15_0= parse_eu_hyvar_mspl_manifest_HyTimedImplementationLink ) )
-                    	    // Hymanifest.g:1494:6: a14= ',' (a15_0= parse_eu_hyvar_mspl_manifest_HyTimedImplementationLink )
+                    	    // Hymanifest.g:1498:5: (a14= ',' (a15_0= parse_eu_hyvar_mspl_manifest_HyTimedImplementationLink ) )
+                    	    // Hymanifest.g:1499:6: a14= ',' (a15_0= parse_eu_hyvar_mspl_manifest_HyTimedImplementationLink )
                     	    {
                     	    a14=(Token)match(input,15,FOLLOW_15_in_parse_eu_hyvar_mspl_manifest_HyTimedImplementations1579); if (state.failed) return element;
 
@@ -2254,11 +2259,12 @@ public class HymanifestParser extends HymanifestANTLRParserBase {
 
                     	    if ( state.backtracking==0 ) {
                     	    						// expected elements (follow set)
-                    	    						addExpectedElement(eu.hyvar.mspl.manifest.ManifestPackage.eINSTANCE.getHyTimedImplementations(), 70, 71);
+                    	    						addExpectedElement(eu.hyvar.mspl.manifest.ManifestPackage.eINSTANCE.getHyTimedImplementations(), eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[70]);
+                    	    						addExpectedElement(eu.hyvar.mspl.manifest.ManifestPackage.eINSTANCE.getHyTimedImplementations(), eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[71]);
                     	    					}
 
-                    	    // Hymanifest.g:1508:6: (a15_0= parse_eu_hyvar_mspl_manifest_HyTimedImplementationLink )
-                    	    // Hymanifest.g:1509:7: a15_0= parse_eu_hyvar_mspl_manifest_HyTimedImplementationLink
+                    	    // Hymanifest.g:1514:6: (a15_0= parse_eu_hyvar_mspl_manifest_HyTimedImplementationLink )
+                    	    // Hymanifest.g:1515:7: a15_0= parse_eu_hyvar_mspl_manifest_HyTimedImplementationLink
                     	    {
                     	    pushFollow(FOLLOW_parse_eu_hyvar_mspl_manifest_HyTimedImplementationLink_in_parse_eu_hyvar_mspl_manifest_HyTimedImplementations1613);
                     	    a15_0=parse_eu_hyvar_mspl_manifest_HyTimedImplementationLink();
@@ -2291,7 +2297,8 @@ public class HymanifestParser extends HymanifestANTLRParserBase {
 
                     	    if ( state.backtracking==0 ) {
                     	    						// expected elements (follow set)
-                    	    						addExpectedElement(null, 72, 73);
+                    	    						addExpectedElement(null, eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[72]);
+                    	    						addExpectedElement(null, eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[73]);
                     	    					}
 
                     	    }
@@ -2308,7 +2315,8 @@ public class HymanifestParser extends HymanifestANTLRParserBase {
 
                     if ( state.backtracking==0 ) {
                     				// expected elements (follow set)
-                    				addExpectedElement(null, 74, 75);
+                    				addExpectedElement(null, eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[74]);
+                    				addExpectedElement(null, eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[75]);
                     			}
 
                     }
@@ -2322,7 +2330,7 @@ public class HymanifestParser extends HymanifestANTLRParserBase {
 
             if ( state.backtracking==0 ) {
             		// expected elements (follow set)
-            		addExpectedElement(null, 76);
+            		addExpectedElement(null, eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[76]);
             	}
 
             a16=(Token)match(input,32,FOLLOW_32_in_parse_eu_hyvar_mspl_manifest_HyTimedImplementations1687); if (state.failed) return element;
@@ -2339,10 +2347,7 @@ public class HymanifestParser extends HymanifestANTLRParserBase {
 
             if ( state.backtracking==0 ) {
             		// expected elements (follow set)
-            		// We've found the last token for this rule. The constructed EObject is now
-            		// complete.
-            		completedElement(element, true);
-            		addExpectedElement(null, 77);
+            		addExpectedElement(null, eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[77]);
             	}
 
             }
@@ -2365,7 +2370,7 @@ public class HymanifestParser extends HymanifestANTLRParserBase {
 
 
     // $ANTLR start "parse_eu_hyvar_mspl_manifest_HyTimedImplementationLink"
-    // Hymanifest.g:1567:1: parse_eu_hyvar_mspl_manifest_HyTimedImplementationLink returns [eu.hyvar.mspl.manifest.HyTimedImplementationLink element = null] : ( (a0= QUOTED_34_34 ) | (a1= IDENTIFIER_TOKEN ) ) a2= '->' ( (a3= QUOTED_34_34 ) | (a4= IDENTIFIER_TOKEN ) ) ( (a5= '@[' ( (a6= DATE ) a7= '-' (a8= DATE ) | (a9= DATE ) a10= '-' a11= 'eternity' |a12= 'eternity' a13= '-' (a14= DATE ) ) a15= ']' ) )? ;
+    // Hymanifest.g:1572:1: parse_eu_hyvar_mspl_manifest_HyTimedImplementationLink returns [eu.hyvar.mspl.manifest.HyTimedImplementationLink element = null] : ( (a0= QUOTED_34_34 ) | (a1= IDENTIFIER_TOKEN ) ) a2= '->' ( (a3= QUOTED_34_34 ) | (a4= IDENTIFIER_TOKEN ) ) ( (a5= '@[' ( (a6= DATE ) a7= '-' (a8= DATE ) | (a9= DATE ) a10= '-' a11= 'eternity' |a12= 'eternity' a13= '-' (a14= DATE ) ) a15= ']' ) )? ;
     public final eu.hyvar.mspl.manifest.HyTimedImplementationLink parse_eu_hyvar_mspl_manifest_HyTimedImplementationLink() throws RecognitionException {
         eu.hyvar.mspl.manifest.HyTimedImplementationLink element =  null;
 
@@ -2393,10 +2398,10 @@ public class HymanifestParser extends HymanifestANTLRParserBase {
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 5) ) { return element; }
 
-            // Hymanifest.g:1570:2: ( ( (a0= QUOTED_34_34 ) | (a1= IDENTIFIER_TOKEN ) ) a2= '->' ( (a3= QUOTED_34_34 ) | (a4= IDENTIFIER_TOKEN ) ) ( (a5= '@[' ( (a6= DATE ) a7= '-' (a8= DATE ) | (a9= DATE ) a10= '-' a11= 'eternity' |a12= 'eternity' a13= '-' (a14= DATE ) ) a15= ']' ) )? )
-            // Hymanifest.g:1571:2: ( (a0= QUOTED_34_34 ) | (a1= IDENTIFIER_TOKEN ) ) a2= '->' ( (a3= QUOTED_34_34 ) | (a4= IDENTIFIER_TOKEN ) ) ( (a5= '@[' ( (a6= DATE ) a7= '-' (a8= DATE ) | (a9= DATE ) a10= '-' a11= 'eternity' |a12= 'eternity' a13= '-' (a14= DATE ) ) a15= ']' ) )?
+            // Hymanifest.g:1575:2: ( ( (a0= QUOTED_34_34 ) | (a1= IDENTIFIER_TOKEN ) ) a2= '->' ( (a3= QUOTED_34_34 ) | (a4= IDENTIFIER_TOKEN ) ) ( (a5= '@[' ( (a6= DATE ) a7= '-' (a8= DATE ) | (a9= DATE ) a10= '-' a11= 'eternity' |a12= 'eternity' a13= '-' (a14= DATE ) ) a15= ']' ) )? )
+            // Hymanifest.g:1576:2: ( (a0= QUOTED_34_34 ) | (a1= IDENTIFIER_TOKEN ) ) a2= '->' ( (a3= QUOTED_34_34 ) | (a4= IDENTIFIER_TOKEN ) ) ( (a5= '@[' ( (a6= DATE ) a7= '-' (a8= DATE ) | (a9= DATE ) a10= '-' a11= 'eternity' |a12= 'eternity' a13= '-' (a14= DATE ) ) a15= ']' ) )?
             {
-            // Hymanifest.g:1571:2: ( (a0= QUOTED_34_34 ) | (a1= IDENTIFIER_TOKEN ) )
+            // Hymanifest.g:1576:2: ( (a0= QUOTED_34_34 ) | (a1= IDENTIFIER_TOKEN ) )
             int alt13=2;
             int LA13_0 = input.LA(1);
 
@@ -2416,10 +2421,10 @@ public class HymanifestParser extends HymanifestANTLRParserBase {
             }
             switch (alt13) {
                 case 1 :
-                    // Hymanifest.g:1572:3: (a0= QUOTED_34_34 )
+                    // Hymanifest.g:1577:3: (a0= QUOTED_34_34 )
                     {
-                    // Hymanifest.g:1572:3: (a0= QUOTED_34_34 )
-                    // Hymanifest.g:1573:4: a0= QUOTED_34_34
+                    // Hymanifest.g:1577:3: (a0= QUOTED_34_34 )
+                    // Hymanifest.g:1578:4: a0= QUOTED_34_34
                     {
                     a0=(Token)match(input,QUOTED_34_34,FOLLOW_QUOTED_34_34_in_parse_eu_hyvar_mspl_manifest_HyTimedImplementationLink1725); if (state.failed) return element;
 
@@ -2446,7 +2451,7 @@ public class HymanifestParser extends HymanifestANTLRParserBase {
                     					registerContextDependentProxy(new eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestContextDependentURIFragmentFactory<eu.hyvar.mspl.manifest.HyTimedImplementationLink, eu.hyvar.feature.HyFeature>(getReferenceResolverSwitch() == null ? null : getReferenceResolverSwitch().getHyTimedImplementationLinkLocalReferenceResolver()), element, (EReference) element.eClass().getEStructuralFeature(eu.hyvar.mspl.manifest.ManifestPackage.HY_TIMED_IMPLEMENTATION_LINK__LOCAL), resolved, proxy);
                     					if (proxy != null) {
                     						Object value = proxy;
-                    						element.eSet(element.eClass().getEStructuralFeature(eu.hyvar.mspl.manifest.ManifestPackage.HY_TIMED_IMPLEMENTATION_LINK__LOCAL), value);
+                    						addObjectToList(element, eu.hyvar.mspl.manifest.ManifestPackage.HY_TIMED_IMPLEMENTATION_LINK__LOCAL, value);
                     						completedElement(value, false);
                     					}
                     					collectHiddenTokens(element);
@@ -2461,16 +2466,16 @@ public class HymanifestParser extends HymanifestANTLRParserBase {
 
                     if ( state.backtracking==0 ) {
                     			// expected elements (follow set)
-                    			addExpectedElement(null, 78);
+                    			addExpectedElement(null, eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[78]);
                     		}
 
                     }
                     break;
                 case 2 :
-                    // Hymanifest.g:1613:6: (a1= IDENTIFIER_TOKEN )
+                    // Hymanifest.g:1618:6: (a1= IDENTIFIER_TOKEN )
                     {
-                    // Hymanifest.g:1613:6: (a1= IDENTIFIER_TOKEN )
-                    // Hymanifest.g:1614:4: a1= IDENTIFIER_TOKEN
+                    // Hymanifest.g:1618:6: (a1= IDENTIFIER_TOKEN )
+                    // Hymanifest.g:1619:4: a1= IDENTIFIER_TOKEN
                     {
                     a1=(Token)match(input,IDENTIFIER_TOKEN,FOLLOW_IDENTIFIER_TOKEN_in_parse_eu_hyvar_mspl_manifest_HyTimedImplementationLink1763); if (state.failed) return element;
 
@@ -2497,7 +2502,7 @@ public class HymanifestParser extends HymanifestANTLRParserBase {
                     					registerContextDependentProxy(new eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestContextDependentURIFragmentFactory<eu.hyvar.mspl.manifest.HyTimedImplementationLink, eu.hyvar.feature.HyFeature>(getReferenceResolverSwitch() == null ? null : getReferenceResolverSwitch().getHyTimedImplementationLinkLocalReferenceResolver()), element, (EReference) element.eClass().getEStructuralFeature(eu.hyvar.mspl.manifest.ManifestPackage.HY_TIMED_IMPLEMENTATION_LINK__LOCAL), resolved, proxy);
                     					if (proxy != null) {
                     						Object value = proxy;
-                    						element.eSet(element.eClass().getEStructuralFeature(eu.hyvar.mspl.manifest.ManifestPackage.HY_TIMED_IMPLEMENTATION_LINK__LOCAL), value);
+                    						addObjectToList(element, eu.hyvar.mspl.manifest.ManifestPackage.HY_TIMED_IMPLEMENTATION_LINK__LOCAL, value);
                     						completedElement(value, false);
                     					}
                     					collectHiddenTokens(element);
@@ -2512,7 +2517,7 @@ public class HymanifestParser extends HymanifestANTLRParserBase {
 
                     if ( state.backtracking==0 ) {
                     			// expected elements (follow set)
-                    			addExpectedElement(null, 79);
+                    			addExpectedElement(null, eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[79]);
                     		}
 
                     }
@@ -2523,7 +2528,7 @@ public class HymanifestParser extends HymanifestANTLRParserBase {
 
             if ( state.backtracking==0 ) {
             		// expected elements (follow set)
-            		addExpectedElement(null, 80);
+            		addExpectedElement(null, eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[80]);
             	}
 
             a2=(Token)match(input,17,FOLLOW_17_in_parse_eu_hyvar_mspl_manifest_HyTimedImplementationLink1797); if (state.failed) return element;
@@ -2540,10 +2545,11 @@ public class HymanifestParser extends HymanifestANTLRParserBase {
 
             if ( state.backtracking==0 ) {
             		// expected elements (follow set)
-            		addExpectedElement(null, 81, 82);
+            		addExpectedElement(null, eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[81]);
+            		addExpectedElement(null, eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[82]);
             	}
 
-            // Hymanifest.g:1673:2: ( (a3= QUOTED_34_34 ) | (a4= IDENTIFIER_TOKEN ) )
+            // Hymanifest.g:1679:2: ( (a3= QUOTED_34_34 ) | (a4= IDENTIFIER_TOKEN ) )
             int alt14=2;
             int LA14_0 = input.LA(1);
 
@@ -2563,10 +2569,10 @@ public class HymanifestParser extends HymanifestANTLRParserBase {
             }
             switch (alt14) {
                 case 1 :
-                    // Hymanifest.g:1674:3: (a3= QUOTED_34_34 )
+                    // Hymanifest.g:1680:3: (a3= QUOTED_34_34 )
                     {
-                    // Hymanifest.g:1674:3: (a3= QUOTED_34_34 )
-                    // Hymanifest.g:1675:4: a3= QUOTED_34_34
+                    // Hymanifest.g:1680:3: (a3= QUOTED_34_34 )
+                    // Hymanifest.g:1681:4: a3= QUOTED_34_34
                     {
                     a3=(Token)match(input,QUOTED_34_34,FOLLOW_QUOTED_34_34_in_parse_eu_hyvar_mspl_manifest_HyTimedImplementationLink1820); if (state.failed) return element;
 
@@ -2593,7 +2599,7 @@ public class HymanifestParser extends HymanifestANTLRParserBase {
                     					registerContextDependentProxy(new eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestContextDependentURIFragmentFactory<eu.hyvar.mspl.manifest.HyTimedImplementationLink, eu.hyvar.feature.HyFeature>(getReferenceResolverSwitch() == null ? null : getReferenceResolverSwitch().getHyTimedImplementationLinkSignatureReferenceResolver()), element, (EReference) element.eClass().getEStructuralFeature(eu.hyvar.mspl.manifest.ManifestPackage.HY_TIMED_IMPLEMENTATION_LINK__SIGNATURE), resolved, proxy);
                     					if (proxy != null) {
                     						Object value = proxy;
-                    						element.eSet(element.eClass().getEStructuralFeature(eu.hyvar.mspl.manifest.ManifestPackage.HY_TIMED_IMPLEMENTATION_LINK__SIGNATURE), value);
+                    						addObjectToList(element, eu.hyvar.mspl.manifest.ManifestPackage.HY_TIMED_IMPLEMENTATION_LINK__SIGNATURE, value);
                     						completedElement(value, false);
                     					}
                     					collectHiddenTokens(element);
@@ -2608,16 +2614,18 @@ public class HymanifestParser extends HymanifestANTLRParserBase {
 
                     if ( state.backtracking==0 ) {
                     			// expected elements (follow set)
-                    			addExpectedElement(null, 83, 85);
+                    			addExpectedElement(null, eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[83]);
+                    			addExpectedElement(null, eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[84]);
+                    			addExpectedElement(null, eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[85]);
                     		}
 
                     }
                     break;
                 case 2 :
-                    // Hymanifest.g:1715:6: (a4= IDENTIFIER_TOKEN )
+                    // Hymanifest.g:1723:6: (a4= IDENTIFIER_TOKEN )
                     {
-                    // Hymanifest.g:1715:6: (a4= IDENTIFIER_TOKEN )
-                    // Hymanifest.g:1716:4: a4= IDENTIFIER_TOKEN
+                    // Hymanifest.g:1723:6: (a4= IDENTIFIER_TOKEN )
+                    // Hymanifest.g:1724:4: a4= IDENTIFIER_TOKEN
                     {
                     a4=(Token)match(input,IDENTIFIER_TOKEN,FOLLOW_IDENTIFIER_TOKEN_in_parse_eu_hyvar_mspl_manifest_HyTimedImplementationLink1858); if (state.failed) return element;
 
@@ -2644,7 +2652,7 @@ public class HymanifestParser extends HymanifestANTLRParserBase {
                     					registerContextDependentProxy(new eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestContextDependentURIFragmentFactory<eu.hyvar.mspl.manifest.HyTimedImplementationLink, eu.hyvar.feature.HyFeature>(getReferenceResolverSwitch() == null ? null : getReferenceResolverSwitch().getHyTimedImplementationLinkSignatureReferenceResolver()), element, (EReference) element.eClass().getEStructuralFeature(eu.hyvar.mspl.manifest.ManifestPackage.HY_TIMED_IMPLEMENTATION_LINK__SIGNATURE), resolved, proxy);
                     					if (proxy != null) {
                     						Object value = proxy;
-                    						element.eSet(element.eClass().getEStructuralFeature(eu.hyvar.mspl.manifest.ManifestPackage.HY_TIMED_IMPLEMENTATION_LINK__SIGNATURE), value);
+                    						addObjectToList(element, eu.hyvar.mspl.manifest.ManifestPackage.HY_TIMED_IMPLEMENTATION_LINK__SIGNATURE, value);
                     						completedElement(value, false);
                     					}
                     					collectHiddenTokens(element);
@@ -2659,7 +2667,9 @@ public class HymanifestParser extends HymanifestANTLRParserBase {
 
                     if ( state.backtracking==0 ) {
                     			// expected elements (follow set)
-                    			addExpectedElement(null, 86, 88);
+                    			addExpectedElement(null, eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[86]);
+                    			addExpectedElement(null, eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[87]);
+                    			addExpectedElement(null, eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[88]);
                     		}
 
                     }
@@ -2670,10 +2680,12 @@ public class HymanifestParser extends HymanifestANTLRParserBase {
 
             if ( state.backtracking==0 ) {
             		// expected elements (follow set)
-            		addExpectedElement(null, 89, 91);
+            		addExpectedElement(null, eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[89]);
+            		addExpectedElement(null, eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[90]);
+            		addExpectedElement(null, eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[91]);
             	}
 
-            // Hymanifest.g:1761:2: ( (a5= '@[' ( (a6= DATE ) a7= '-' (a8= DATE ) | (a9= DATE ) a10= '-' a11= 'eternity' |a12= 'eternity' a13= '-' (a14= DATE ) ) a15= ']' ) )?
+            // Hymanifest.g:1773:2: ( (a5= '@[' ( (a6= DATE ) a7= '-' (a8= DATE ) | (a9= DATE ) a10= '-' a11= 'eternity' |a12= 'eternity' a13= '-' (a14= DATE ) ) a15= ']' ) )?
             int alt16=2;
             int LA16_0 = input.LA(1);
 
@@ -2682,10 +2694,10 @@ public class HymanifestParser extends HymanifestANTLRParserBase {
             }
             switch (alt16) {
                 case 1 :
-                    // Hymanifest.g:1762:3: (a5= '@[' ( (a6= DATE ) a7= '-' (a8= DATE ) | (a9= DATE ) a10= '-' a11= 'eternity' |a12= 'eternity' a13= '-' (a14= DATE ) ) a15= ']' )
+                    // Hymanifest.g:1774:3: (a5= '@[' ( (a6= DATE ) a7= '-' (a8= DATE ) | (a9= DATE ) a10= '-' a11= 'eternity' |a12= 'eternity' a13= '-' (a14= DATE ) ) a15= ']' )
                     {
-                    // Hymanifest.g:1762:3: (a5= '@[' ( (a6= DATE ) a7= '-' (a8= DATE ) | (a9= DATE ) a10= '-' a11= 'eternity' |a12= 'eternity' a13= '-' (a14= DATE ) ) a15= ']' )
-                    // Hymanifest.g:1763:4: a5= '@[' ( (a6= DATE ) a7= '-' (a8= DATE ) | (a9= DATE ) a10= '-' a11= 'eternity' |a12= 'eternity' a13= '-' (a14= DATE ) ) a15= ']'
+                    // Hymanifest.g:1774:3: (a5= '@[' ( (a6= DATE ) a7= '-' (a8= DATE ) | (a9= DATE ) a10= '-' a11= 'eternity' |a12= 'eternity' a13= '-' (a14= DATE ) ) a15= ']' )
+                    // Hymanifest.g:1775:4: a5= '@[' ( (a6= DATE ) a7= '-' (a8= DATE ) | (a9= DATE ) a10= '-' a11= 'eternity' |a12= 'eternity' a13= '-' (a14= DATE ) ) a15= ']'
                     {
                     a5=(Token)match(input,20,FOLLOW_20_in_parse_eu_hyvar_mspl_manifest_HyTimedImplementationLink1901); if (state.failed) return element;
 
@@ -2701,10 +2713,12 @@ public class HymanifestParser extends HymanifestANTLRParserBase {
 
                     if ( state.backtracking==0 ) {
                     				// expected elements (follow set)
-                    				addExpectedElement(null, 92, 94);
+                    				addExpectedElement(null, eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[92]);
+                    				addExpectedElement(null, eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[93]);
+                    				addExpectedElement(null, eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[94]);
                     			}
 
-                    // Hymanifest.g:1777:4: ( (a6= DATE ) a7= '-' (a8= DATE ) | (a9= DATE ) a10= '-' a11= 'eternity' |a12= 'eternity' a13= '-' (a14= DATE ) )
+                    // Hymanifest.g:1791:4: ( (a6= DATE ) a7= '-' (a8= DATE ) | (a9= DATE ) a10= '-' a11= 'eternity' |a12= 'eternity' a13= '-' (a14= DATE ) )
                     int alt15=3;
                     int LA15_0 = input.LA(1);
 
@@ -2751,10 +2765,10 @@ public class HymanifestParser extends HymanifestANTLRParserBase {
                     }
                     switch (alt15) {
                         case 1 :
-                            // Hymanifest.g:1778:5: (a6= DATE ) a7= '-' (a8= DATE )
+                            // Hymanifest.g:1792:5: (a6= DATE ) a7= '-' (a8= DATE )
                             {
-                            // Hymanifest.g:1778:5: (a6= DATE )
-                            // Hymanifest.g:1779:6: a6= DATE
+                            // Hymanifest.g:1792:5: (a6= DATE )
+                            // Hymanifest.g:1793:6: a6= DATE
                             {
                             a6=(Token)match(input,DATE,FOLLOW_DATE_in_parse_eu_hyvar_mspl_manifest_HyTimedImplementationLink1934); if (state.failed) return element;
 
@@ -2792,7 +2806,7 @@ public class HymanifestParser extends HymanifestANTLRParserBase {
 
                             if ( state.backtracking==0 ) {
                             					// expected elements (follow set)
-                            					addExpectedElement(null, 95);
+                            					addExpectedElement(null, eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[95]);
                             				}
 
                             a7=(Token)match(input,16,FOLLOW_16_in_parse_eu_hyvar_mspl_manifest_HyTimedImplementationLink1973); if (state.failed) return element;
@@ -2809,11 +2823,11 @@ public class HymanifestParser extends HymanifestANTLRParserBase {
 
                             if ( state.backtracking==0 ) {
                             					// expected elements (follow set)
-                            					addExpectedElement(null, 96);
+                            					addExpectedElement(null, eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[96]);
                             				}
 
-                            // Hymanifest.g:1828:5: (a8= DATE )
-                            // Hymanifest.g:1829:6: a8= DATE
+                            // Hymanifest.g:1842:5: (a8= DATE )
+                            // Hymanifest.g:1843:6: a8= DATE
                             {
                             a8=(Token)match(input,DATE,FOLLOW_DATE_in_parse_eu_hyvar_mspl_manifest_HyTimedImplementationLink2003); if (state.failed) return element;
 
@@ -2851,16 +2865,16 @@ public class HymanifestParser extends HymanifestANTLRParserBase {
 
                             if ( state.backtracking==0 ) {
                             					// expected elements (follow set)
-                            					addExpectedElement(null, 97);
+                            					addExpectedElement(null, eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[97]);
                             				}
 
                             }
                             break;
                         case 2 :
-                            // Hymanifest.g:1865:10: (a9= DATE ) a10= '-' a11= 'eternity'
+                            // Hymanifest.g:1879:10: (a9= DATE ) a10= '-' a11= 'eternity'
                             {
-                            // Hymanifest.g:1865:10: (a9= DATE )
-                            // Hymanifest.g:1866:6: a9= DATE
+                            // Hymanifest.g:1879:10: (a9= DATE )
+                            // Hymanifest.g:1880:6: a9= DATE
                             {
                             a9=(Token)match(input,DATE,FOLLOW_DATE_in_parse_eu_hyvar_mspl_manifest_HyTimedImplementationLink2059); if (state.failed) return element;
 
@@ -2898,7 +2912,7 @@ public class HymanifestParser extends HymanifestANTLRParserBase {
 
                             if ( state.backtracking==0 ) {
                             					// expected elements (follow set)
-                            					addExpectedElement(null, 98);
+                            					addExpectedElement(null, eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[98]);
                             				}
 
                             a10=(Token)match(input,16,FOLLOW_16_in_parse_eu_hyvar_mspl_manifest_HyTimedImplementationLink2098); if (state.failed) return element;
@@ -2915,7 +2929,7 @@ public class HymanifestParser extends HymanifestANTLRParserBase {
 
                             if ( state.backtracking==0 ) {
                             					// expected elements (follow set)
-                            					addExpectedElement(null, 99);
+                            					addExpectedElement(null, eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[99]);
                             				}
 
                             a11=(Token)match(input,28,FOLLOW_28_in_parse_eu_hyvar_mspl_manifest_HyTimedImplementationLink2121); if (state.failed) return element;
@@ -2932,13 +2946,13 @@ public class HymanifestParser extends HymanifestANTLRParserBase {
 
                             if ( state.backtracking==0 ) {
                             					// expected elements (follow set)
-                            					addExpectedElement(null, 100);
+                            					addExpectedElement(null, eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[100]);
                             				}
 
                             }
                             break;
                         case 3 :
-                            // Hymanifest.g:1930:10: a12= 'eternity' a13= '-' (a14= DATE )
+                            // Hymanifest.g:1944:10: a12= 'eternity' a13= '-' (a14= DATE )
                             {
                             a12=(Token)match(input,28,FOLLOW_28_in_parse_eu_hyvar_mspl_manifest_HyTimedImplementationLink2154); if (state.failed) return element;
 
@@ -2954,7 +2968,7 @@ public class HymanifestParser extends HymanifestANTLRParserBase {
 
                             if ( state.backtracking==0 ) {
                             					// expected elements (follow set)
-                            					addExpectedElement(null, 101);
+                            					addExpectedElement(null, eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[101]);
                             				}
 
                             a13=(Token)match(input,16,FOLLOW_16_in_parse_eu_hyvar_mspl_manifest_HyTimedImplementationLink2177); if (state.failed) return element;
@@ -2971,11 +2985,11 @@ public class HymanifestParser extends HymanifestANTLRParserBase {
 
                             if ( state.backtracking==0 ) {
                             					// expected elements (follow set)
-                            					addExpectedElement(null, 102);
+                            					addExpectedElement(null, eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[102]);
                             				}
 
-                            // Hymanifest.g:1958:5: (a14= DATE )
-                            // Hymanifest.g:1959:6: a14= DATE
+                            // Hymanifest.g:1972:5: (a14= DATE )
+                            // Hymanifest.g:1973:6: a14= DATE
                             {
                             a14=(Token)match(input,DATE,FOLLOW_DATE_in_parse_eu_hyvar_mspl_manifest_HyTimedImplementationLink2207); if (state.failed) return element;
 
@@ -3013,7 +3027,7 @@ public class HymanifestParser extends HymanifestANTLRParserBase {
 
                             if ( state.backtracking==0 ) {
                             					// expected elements (follow set)
-                            					addExpectedElement(null, 103);
+                            					addExpectedElement(null, eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[103]);
                             				}
 
                             }
@@ -3024,7 +3038,7 @@ public class HymanifestParser extends HymanifestANTLRParserBase {
 
                     if ( state.backtracking==0 ) {
                     				// expected elements (follow set)
-                    				addExpectedElement(null, 104);
+                    				addExpectedElement(null, eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[104]);
                     			}
 
                     a15=(Token)match(input,26,FOLLOW_26_in_parse_eu_hyvar_mspl_manifest_HyTimedImplementationLink2259); if (state.failed) return element;
@@ -3041,10 +3055,8 @@ public class HymanifestParser extends HymanifestANTLRParserBase {
 
                     if ( state.backtracking==0 ) {
                     				// expected elements (follow set)
-                    				// We've found the last token for this rule. The constructed EObject is now
-                    				// complete.
-                    				completedElement(element, true);
-                    				addExpectedElement(null, 105, 106);
+                    				addExpectedElement(null, eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[105]);
+                    				addExpectedElement(null, eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[106]);
                     			}
 
                     }
@@ -3058,10 +3070,8 @@ public class HymanifestParser extends HymanifestANTLRParserBase {
 
             if ( state.backtracking==0 ) {
             		// expected elements (follow set)
-            		// We've found the last token for this rule. The constructed EObject is now
-            		// complete.
-            		completedElement(element, true);
-            		addExpectedElement(null, 107, 108);
+            		addExpectedElement(null, eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[107]);
+            		addExpectedElement(null, eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[108]);
             	}
 
             }
@@ -3084,7 +3094,7 @@ public class HymanifestParser extends HymanifestANTLRParserBase {
 
 
     // $ANTLR start "parse_eu_hyvar_mspl_manifest_HySPLSignature"
-    // Hymanifest.g:2029:1: parse_eu_hyvar_mspl_manifest_HySPLSignature returns [eu.hyvar.mspl.manifest.HySPLSignature element = null] : a0= 'Signature ' (a1_0= parse_eu_hyvar_evolution_HyName ) ( (a2= ',' (a3_0= parse_eu_hyvar_evolution_HyName ) ) )* ;
+    // Hymanifest.g:2039:1: parse_eu_hyvar_mspl_manifest_HySPLSignature returns [eu.hyvar.mspl.manifest.HySPLSignature element = null] : a0= 'Signature ' (a1_0= parse_eu_hyvar_evolution_HyName ) ( (a2= ',' (a3_0= parse_eu_hyvar_evolution_HyName ) ) )* ;
     public final eu.hyvar.mspl.manifest.HySPLSignature parse_eu_hyvar_mspl_manifest_HySPLSignature() throws RecognitionException {
         eu.hyvar.mspl.manifest.HySPLSignature element =  null;
 
@@ -3102,8 +3112,8 @@ public class HymanifestParser extends HymanifestANTLRParserBase {
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 6) ) { return element; }
 
-            // Hymanifest.g:2032:2: (a0= 'Signature ' (a1_0= parse_eu_hyvar_evolution_HyName ) ( (a2= ',' (a3_0= parse_eu_hyvar_evolution_HyName ) ) )* )
-            // Hymanifest.g:2033:2: a0= 'Signature ' (a1_0= parse_eu_hyvar_evolution_HyName ) ( (a2= ',' (a3_0= parse_eu_hyvar_evolution_HyName ) ) )*
+            // Hymanifest.g:2042:2: (a0= 'Signature ' (a1_0= parse_eu_hyvar_evolution_HyName ) ( (a2= ',' (a3_0= parse_eu_hyvar_evolution_HyName ) ) )* )
+            // Hymanifest.g:2043:2: a0= 'Signature ' (a1_0= parse_eu_hyvar_evolution_HyName ) ( (a2= ',' (a3_0= parse_eu_hyvar_evolution_HyName ) ) )*
             {
             a0=(Token)match(input,24,FOLLOW_24_in_parse_eu_hyvar_mspl_manifest_HySPLSignature2307); if (state.failed) return element;
 
@@ -3119,11 +3129,11 @@ public class HymanifestParser extends HymanifestANTLRParserBase {
 
             if ( state.backtracking==0 ) {
             		// expected elements (follow set)
-            		addExpectedElement(eu.hyvar.mspl.manifest.ManifestPackage.eINSTANCE.getHySPLSignature(), 109);
+            		addExpectedElement(eu.hyvar.mspl.manifest.ManifestPackage.eINSTANCE.getHySPLSignature(), eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[109]);
             	}
 
-            // Hymanifest.g:2047:2: (a1_0= parse_eu_hyvar_evolution_HyName )
-            // Hymanifest.g:2048:3: a1_0= parse_eu_hyvar_evolution_HyName
+            // Hymanifest.g:2057:2: (a1_0= parse_eu_hyvar_evolution_HyName )
+            // Hymanifest.g:2058:3: a1_0= parse_eu_hyvar_evolution_HyName
             {
             pushFollow(FOLLOW_parse_eu_hyvar_evolution_HyName_in_parse_eu_hyvar_mspl_manifest_HySPLSignature2325);
             a1_0=parse_eu_hyvar_evolution_HyName();
@@ -3156,10 +3166,10 @@ public class HymanifestParser extends HymanifestANTLRParserBase {
 
             if ( state.backtracking==0 ) {
             		// expected elements (follow set)
-            		addExpectedElement(null, 110);
+            		addExpectedElement(null, eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[110]);
             	}
 
-            // Hymanifest.g:2073:2: ( (a2= ',' (a3_0= parse_eu_hyvar_evolution_HyName ) ) )*
+            // Hymanifest.g:2083:2: ( (a2= ',' (a3_0= parse_eu_hyvar_evolution_HyName ) ) )*
             loop17:
             do {
                 int alt17=2;
@@ -3172,10 +3182,10 @@ public class HymanifestParser extends HymanifestANTLRParserBase {
 
                 switch (alt17) {
             	case 1 :
-            	    // Hymanifest.g:2074:3: (a2= ',' (a3_0= parse_eu_hyvar_evolution_HyName ) )
+            	    // Hymanifest.g:2084:3: (a2= ',' (a3_0= parse_eu_hyvar_evolution_HyName ) )
             	    {
-            	    // Hymanifest.g:2074:3: (a2= ',' (a3_0= parse_eu_hyvar_evolution_HyName ) )
-            	    // Hymanifest.g:2075:4: a2= ',' (a3_0= parse_eu_hyvar_evolution_HyName )
+            	    // Hymanifest.g:2084:3: (a2= ',' (a3_0= parse_eu_hyvar_evolution_HyName ) )
+            	    // Hymanifest.g:2085:4: a2= ',' (a3_0= parse_eu_hyvar_evolution_HyName )
             	    {
             	    a2=(Token)match(input,15,FOLLOW_15_in_parse_eu_hyvar_mspl_manifest_HySPLSignature2352); if (state.failed) return element;
 
@@ -3191,11 +3201,11 @@ public class HymanifestParser extends HymanifestANTLRParserBase {
 
             	    if ( state.backtracking==0 ) {
             	    				// expected elements (follow set)
-            	    				addExpectedElement(eu.hyvar.mspl.manifest.ManifestPackage.eINSTANCE.getHySPLSignature(), 111);
+            	    				addExpectedElement(eu.hyvar.mspl.manifest.ManifestPackage.eINSTANCE.getHySPLSignature(), eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[111]);
             	    			}
 
-            	    // Hymanifest.g:2089:4: (a3_0= parse_eu_hyvar_evolution_HyName )
-            	    // Hymanifest.g:2090:5: a3_0= parse_eu_hyvar_evolution_HyName
+            	    // Hymanifest.g:2099:4: (a3_0= parse_eu_hyvar_evolution_HyName )
+            	    // Hymanifest.g:2100:5: a3_0= parse_eu_hyvar_evolution_HyName
             	    {
             	    pushFollow(FOLLOW_parse_eu_hyvar_evolution_HyName_in_parse_eu_hyvar_mspl_manifest_HySPLSignature2378);
             	    a3_0=parse_eu_hyvar_evolution_HyName();
@@ -3228,10 +3238,7 @@ public class HymanifestParser extends HymanifestANTLRParserBase {
 
             	    if ( state.backtracking==0 ) {
             	    				// expected elements (follow set)
-            	    				// We've found the last token for this rule. The constructed EObject is now
-            	    				// complete.
-            	    				completedElement(element, true);
-            	    				addExpectedElement(null, 112);
+            	    				addExpectedElement(null, eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[112]);
             	    			}
 
             	    }
@@ -3248,10 +3255,7 @@ public class HymanifestParser extends HymanifestANTLRParserBase {
 
             if ( state.backtracking==0 ) {
             		// expected elements (follow set)
-            		// We've found the last token for this rule. The constructed EObject is now
-            		// complete.
-            		completedElement(element, true);
-            		addExpectedElement(null, 113);
+            		addExpectedElement(null, eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[113]);
             	}
 
             }
@@ -3274,7 +3278,7 @@ public class HymanifestParser extends HymanifestANTLRParserBase {
 
 
     // $ANTLR start "parse_eu_hyvar_evolution_HyName"
-    // Hymanifest.g:2130:1: parse_eu_hyvar_evolution_HyName returns [eu.hyvar.evolution.HyName element = null] : (a0= IDENTIFIER_TOKEN ) ( (a1= '@[' ( (a2= DATE ) a3= '-' (a4= DATE ) | (a5= DATE ) a6= '-' a7= 'eternity' |a8= 'eternity' a9= '-' (a10= DATE ) ) a11= ']' ) )? ;
+    // Hymanifest.g:2134:1: parse_eu_hyvar_evolution_HyName returns [eu.hyvar.evolution.HyName element = null] : (a0= IDENTIFIER_TOKEN ) ( (a1= '@[' ( (a2= DATE ) a3= '-' (a4= DATE ) | (a5= DATE ) a6= '-' a7= 'eternity' |a8= 'eternity' a9= '-' (a10= DATE ) ) a11= ']' ) )? ;
     public final eu.hyvar.evolution.HyName parse_eu_hyvar_evolution_HyName() throws RecognitionException {
         eu.hyvar.evolution.HyName element =  null;
 
@@ -3298,11 +3302,11 @@ public class HymanifestParser extends HymanifestANTLRParserBase {
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 7) ) { return element; }
 
-            // Hymanifest.g:2133:2: ( (a0= IDENTIFIER_TOKEN ) ( (a1= '@[' ( (a2= DATE ) a3= '-' (a4= DATE ) | (a5= DATE ) a6= '-' a7= 'eternity' |a8= 'eternity' a9= '-' (a10= DATE ) ) a11= ']' ) )? )
-            // Hymanifest.g:2134:2: (a0= IDENTIFIER_TOKEN ) ( (a1= '@[' ( (a2= DATE ) a3= '-' (a4= DATE ) | (a5= DATE ) a6= '-' a7= 'eternity' |a8= 'eternity' a9= '-' (a10= DATE ) ) a11= ']' ) )?
+            // Hymanifest.g:2137:2: ( (a0= IDENTIFIER_TOKEN ) ( (a1= '@[' ( (a2= DATE ) a3= '-' (a4= DATE ) | (a5= DATE ) a6= '-' a7= 'eternity' |a8= 'eternity' a9= '-' (a10= DATE ) ) a11= ']' ) )? )
+            // Hymanifest.g:2138:2: (a0= IDENTIFIER_TOKEN ) ( (a1= '@[' ( (a2= DATE ) a3= '-' (a4= DATE ) | (a5= DATE ) a6= '-' a7= 'eternity' |a8= 'eternity' a9= '-' (a10= DATE ) ) a11= ']' ) )?
             {
-            // Hymanifest.g:2134:2: (a0= IDENTIFIER_TOKEN )
-            // Hymanifest.g:2135:3: a0= IDENTIFIER_TOKEN
+            // Hymanifest.g:2138:2: (a0= IDENTIFIER_TOKEN )
+            // Hymanifest.g:2139:3: a0= IDENTIFIER_TOKEN
             {
             a0=(Token)match(input,IDENTIFIER_TOKEN,FOLLOW_IDENTIFIER_TOKEN_in_parse_eu_hyvar_evolution_HyName2438); if (state.failed) return element;
 
@@ -3340,10 +3344,14 @@ public class HymanifestParser extends HymanifestANTLRParserBase {
 
             if ( state.backtracking==0 ) {
             		// expected elements (follow set)
-            		addExpectedElement(null, 114, 118);
+            		addExpectedElement(null, eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[114]);
+            		addExpectedElement(null, eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[115]);
+            		addExpectedElement(null, eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[116]);
+            		addExpectedElement(null, eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[117]);
+            		addExpectedElement(null, eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[118]);
             	}
 
-            // Hymanifest.g:2170:2: ( (a1= '@[' ( (a2= DATE ) a3= '-' (a4= DATE ) | (a5= DATE ) a6= '-' a7= 'eternity' |a8= 'eternity' a9= '-' (a10= DATE ) ) a11= ']' ) )?
+            // Hymanifest.g:2178:2: ( (a1= '@[' ( (a2= DATE ) a3= '-' (a4= DATE ) | (a5= DATE ) a6= '-' a7= 'eternity' |a8= 'eternity' a9= '-' (a10= DATE ) ) a11= ']' ) )?
             int alt19=2;
             int LA19_0 = input.LA(1);
 
@@ -3352,10 +3360,10 @@ public class HymanifestParser extends HymanifestANTLRParserBase {
             }
             switch (alt19) {
                 case 1 :
-                    // Hymanifest.g:2171:3: (a1= '@[' ( (a2= DATE ) a3= '-' (a4= DATE ) | (a5= DATE ) a6= '-' a7= 'eternity' |a8= 'eternity' a9= '-' (a10= DATE ) ) a11= ']' )
+                    // Hymanifest.g:2179:3: (a1= '@[' ( (a2= DATE ) a3= '-' (a4= DATE ) | (a5= DATE ) a6= '-' a7= 'eternity' |a8= 'eternity' a9= '-' (a10= DATE ) ) a11= ']' )
                     {
-                    // Hymanifest.g:2171:3: (a1= '@[' ( (a2= DATE ) a3= '-' (a4= DATE ) | (a5= DATE ) a6= '-' a7= 'eternity' |a8= 'eternity' a9= '-' (a10= DATE ) ) a11= ']' )
-                    // Hymanifest.g:2172:4: a1= '@[' ( (a2= DATE ) a3= '-' (a4= DATE ) | (a5= DATE ) a6= '-' a7= 'eternity' |a8= 'eternity' a9= '-' (a10= DATE ) ) a11= ']'
+                    // Hymanifest.g:2179:3: (a1= '@[' ( (a2= DATE ) a3= '-' (a4= DATE ) | (a5= DATE ) a6= '-' a7= 'eternity' |a8= 'eternity' a9= '-' (a10= DATE ) ) a11= ']' )
+                    // Hymanifest.g:2180:4: a1= '@[' ( (a2= DATE ) a3= '-' (a4= DATE ) | (a5= DATE ) a6= '-' a7= 'eternity' |a8= 'eternity' a9= '-' (a10= DATE ) ) a11= ']'
                     {
                     a1=(Token)match(input,20,FOLLOW_20_in_parse_eu_hyvar_evolution_HyName2468); if (state.failed) return element;
 
@@ -3371,10 +3379,12 @@ public class HymanifestParser extends HymanifestANTLRParserBase {
 
                     if ( state.backtracking==0 ) {
                     				// expected elements (follow set)
-                    				addExpectedElement(null, 119, 121);
+                    				addExpectedElement(null, eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[119]);
+                    				addExpectedElement(null, eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[120]);
+                    				addExpectedElement(null, eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[121]);
                     			}
 
-                    // Hymanifest.g:2186:4: ( (a2= DATE ) a3= '-' (a4= DATE ) | (a5= DATE ) a6= '-' a7= 'eternity' |a8= 'eternity' a9= '-' (a10= DATE ) )
+                    // Hymanifest.g:2196:4: ( (a2= DATE ) a3= '-' (a4= DATE ) | (a5= DATE ) a6= '-' a7= 'eternity' |a8= 'eternity' a9= '-' (a10= DATE ) )
                     int alt18=3;
                     int LA18_0 = input.LA(1);
 
@@ -3421,10 +3431,10 @@ public class HymanifestParser extends HymanifestANTLRParserBase {
                     }
                     switch (alt18) {
                         case 1 :
-                            // Hymanifest.g:2187:5: (a2= DATE ) a3= '-' (a4= DATE )
+                            // Hymanifest.g:2197:5: (a2= DATE ) a3= '-' (a4= DATE )
                             {
-                            // Hymanifest.g:2187:5: (a2= DATE )
-                            // Hymanifest.g:2188:6: a2= DATE
+                            // Hymanifest.g:2197:5: (a2= DATE )
+                            // Hymanifest.g:2198:6: a2= DATE
                             {
                             a2=(Token)match(input,DATE,FOLLOW_DATE_in_parse_eu_hyvar_evolution_HyName2501); if (state.failed) return element;
 
@@ -3462,7 +3472,7 @@ public class HymanifestParser extends HymanifestANTLRParserBase {
 
                             if ( state.backtracking==0 ) {
                             					// expected elements (follow set)
-                            					addExpectedElement(null, 122);
+                            					addExpectedElement(null, eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[122]);
                             				}
 
                             a3=(Token)match(input,16,FOLLOW_16_in_parse_eu_hyvar_evolution_HyName2540); if (state.failed) return element;
@@ -3479,11 +3489,11 @@ public class HymanifestParser extends HymanifestANTLRParserBase {
 
                             if ( state.backtracking==0 ) {
                             					// expected elements (follow set)
-                            					addExpectedElement(null, 123);
+                            					addExpectedElement(null, eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[123]);
                             				}
 
-                            // Hymanifest.g:2237:5: (a4= DATE )
-                            // Hymanifest.g:2238:6: a4= DATE
+                            // Hymanifest.g:2247:5: (a4= DATE )
+                            // Hymanifest.g:2248:6: a4= DATE
                             {
                             a4=(Token)match(input,DATE,FOLLOW_DATE_in_parse_eu_hyvar_evolution_HyName2570); if (state.failed) return element;
 
@@ -3521,16 +3531,16 @@ public class HymanifestParser extends HymanifestANTLRParserBase {
 
                             if ( state.backtracking==0 ) {
                             					// expected elements (follow set)
-                            					addExpectedElement(null, 124);
+                            					addExpectedElement(null, eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[124]);
                             				}
 
                             }
                             break;
                         case 2 :
-                            // Hymanifest.g:2274:10: (a5= DATE ) a6= '-' a7= 'eternity'
+                            // Hymanifest.g:2284:10: (a5= DATE ) a6= '-' a7= 'eternity'
                             {
-                            // Hymanifest.g:2274:10: (a5= DATE )
-                            // Hymanifest.g:2275:6: a5= DATE
+                            // Hymanifest.g:2284:10: (a5= DATE )
+                            // Hymanifest.g:2285:6: a5= DATE
                             {
                             a5=(Token)match(input,DATE,FOLLOW_DATE_in_parse_eu_hyvar_evolution_HyName2626); if (state.failed) return element;
 
@@ -3568,7 +3578,7 @@ public class HymanifestParser extends HymanifestANTLRParserBase {
 
                             if ( state.backtracking==0 ) {
                             					// expected elements (follow set)
-                            					addExpectedElement(null, 125);
+                            					addExpectedElement(null, eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[125]);
                             				}
 
                             a6=(Token)match(input,16,FOLLOW_16_in_parse_eu_hyvar_evolution_HyName2665); if (state.failed) return element;
@@ -3585,7 +3595,7 @@ public class HymanifestParser extends HymanifestANTLRParserBase {
 
                             if ( state.backtracking==0 ) {
                             					// expected elements (follow set)
-                            					addExpectedElement(null, 126);
+                            					addExpectedElement(null, eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[126]);
                             				}
 
                             a7=(Token)match(input,28,FOLLOW_28_in_parse_eu_hyvar_evolution_HyName2688); if (state.failed) return element;
@@ -3602,13 +3612,13 @@ public class HymanifestParser extends HymanifestANTLRParserBase {
 
                             if ( state.backtracking==0 ) {
                             					// expected elements (follow set)
-                            					addExpectedElement(null, 127);
+                            					addExpectedElement(null, eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[127]);
                             				}
 
                             }
                             break;
                         case 3 :
-                            // Hymanifest.g:2339:10: a8= 'eternity' a9= '-' (a10= DATE )
+                            // Hymanifest.g:2349:10: a8= 'eternity' a9= '-' (a10= DATE )
                             {
                             a8=(Token)match(input,28,FOLLOW_28_in_parse_eu_hyvar_evolution_HyName2721); if (state.failed) return element;
 
@@ -3624,7 +3634,7 @@ public class HymanifestParser extends HymanifestANTLRParserBase {
 
                             if ( state.backtracking==0 ) {
                             					// expected elements (follow set)
-                            					addExpectedElement(null, 128);
+                            					addExpectedElement(null, eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[128]);
                             				}
 
                             a9=(Token)match(input,16,FOLLOW_16_in_parse_eu_hyvar_evolution_HyName2744); if (state.failed) return element;
@@ -3641,11 +3651,11 @@ public class HymanifestParser extends HymanifestANTLRParserBase {
 
                             if ( state.backtracking==0 ) {
                             					// expected elements (follow set)
-                            					addExpectedElement(null, 129);
+                            					addExpectedElement(null, eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[129]);
                             				}
 
-                            // Hymanifest.g:2367:5: (a10= DATE )
-                            // Hymanifest.g:2368:6: a10= DATE
+                            // Hymanifest.g:2377:5: (a10= DATE )
+                            // Hymanifest.g:2378:6: a10= DATE
                             {
                             a10=(Token)match(input,DATE,FOLLOW_DATE_in_parse_eu_hyvar_evolution_HyName2774); if (state.failed) return element;
 
@@ -3683,7 +3693,7 @@ public class HymanifestParser extends HymanifestANTLRParserBase {
 
                             if ( state.backtracking==0 ) {
                             					// expected elements (follow set)
-                            					addExpectedElement(null, 130);
+                            					addExpectedElement(null, eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[130]);
                             				}
 
                             }
@@ -3694,7 +3704,7 @@ public class HymanifestParser extends HymanifestANTLRParserBase {
 
                     if ( state.backtracking==0 ) {
                     				// expected elements (follow set)
-                    				addExpectedElement(null, 131);
+                    				addExpectedElement(null, eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[131]);
                     			}
 
                     a11=(Token)match(input,26,FOLLOW_26_in_parse_eu_hyvar_evolution_HyName2826); if (state.failed) return element;
@@ -3711,10 +3721,10 @@ public class HymanifestParser extends HymanifestANTLRParserBase {
 
                     if ( state.backtracking==0 ) {
                     				// expected elements (follow set)
-                    				// We've found the last token for this rule. The constructed EObject is now
-                    				// complete.
-                    				completedElement(element, true);
-                    				addExpectedElement(null, 132, 135);
+                    				addExpectedElement(null, eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[132]);
+                    				addExpectedElement(null, eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[133]);
+                    				addExpectedElement(null, eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[134]);
+                    				addExpectedElement(null, eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[135]);
                     			}
 
                     }
@@ -3728,10 +3738,10 @@ public class HymanifestParser extends HymanifestANTLRParserBase {
 
             if ( state.backtracking==0 ) {
             		// expected elements (follow set)
-            		// We've found the last token for this rule. The constructed EObject is now
-            		// complete.
-            		completedElement(element, true);
-            		addExpectedElement(null, 136, 139);
+            		addExpectedElement(null, eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[136]);
+            		addExpectedElement(null, eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[137]);
+            		addExpectedElement(null, eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[138]);
+            		addExpectedElement(null, eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[139]);
             	}
 
             }
@@ -3754,7 +3764,7 @@ public class HymanifestParser extends HymanifestANTLRParserBase {
 
 
     // $ANTLR start "parse_eu_hyvar_dataValues_HyEnum"
-    // Hymanifest.g:2438:1: parse_eu_hyvar_dataValues_HyEnum returns [eu.hyvar.dataValues.HyEnum element = null] : a0= 'Enum(' (a1= IDENTIFIER_TOKEN ) a2= ',' ( ( (a3_0= parse_eu_hyvar_dataValues_HyEnumLiteral ) ( (a4= ',' (a5_0= parse_eu_hyvar_dataValues_HyEnumLiteral ) ) )* ) )? a6= ')' ( (a7= '[' ( (a8= DATE ) a9= '-' (a10= DATE ) | (a11= DATE ) a12= '-' |a13= 'eternity' a14= '-' (a15= DATE ) ) a16= ']' ) )? ;
+    // Hymanifest.g:2448:1: parse_eu_hyvar_dataValues_HyEnum returns [eu.hyvar.dataValues.HyEnum element = null] : a0= 'Enum(' (a1= IDENTIFIER_TOKEN ) a2= ',' ( ( (a3_0= parse_eu_hyvar_dataValues_HyEnumLiteral ) ( (a4= ',' (a5_0= parse_eu_hyvar_dataValues_HyEnumLiteral ) ) )* ) )? a6= ')' ( (a7= '[' ( (a8= DATE ) a9= '-' (a10= DATE ) | (a11= DATE ) a12= '-' |a13= 'eternity' a14= '-' (a15= DATE ) ) a16= ']' ) )? ;
     public final eu.hyvar.dataValues.HyEnum parse_eu_hyvar_dataValues_HyEnum() throws RecognitionException {
         eu.hyvar.dataValues.HyEnum element =  null;
 
@@ -3785,8 +3795,8 @@ public class HymanifestParser extends HymanifestANTLRParserBase {
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 8) ) { return element; }
 
-            // Hymanifest.g:2441:2: (a0= 'Enum(' (a1= IDENTIFIER_TOKEN ) a2= ',' ( ( (a3_0= parse_eu_hyvar_dataValues_HyEnumLiteral ) ( (a4= ',' (a5_0= parse_eu_hyvar_dataValues_HyEnumLiteral ) ) )* ) )? a6= ')' ( (a7= '[' ( (a8= DATE ) a9= '-' (a10= DATE ) | (a11= DATE ) a12= '-' |a13= 'eternity' a14= '-' (a15= DATE ) ) a16= ']' ) )? )
-            // Hymanifest.g:2442:2: a0= 'Enum(' (a1= IDENTIFIER_TOKEN ) a2= ',' ( ( (a3_0= parse_eu_hyvar_dataValues_HyEnumLiteral ) ( (a4= ',' (a5_0= parse_eu_hyvar_dataValues_HyEnumLiteral ) ) )* ) )? a6= ')' ( (a7= '[' ( (a8= DATE ) a9= '-' (a10= DATE ) | (a11= DATE ) a12= '-' |a13= 'eternity' a14= '-' (a15= DATE ) ) a16= ']' ) )?
+            // Hymanifest.g:2451:2: (a0= 'Enum(' (a1= IDENTIFIER_TOKEN ) a2= ',' ( ( (a3_0= parse_eu_hyvar_dataValues_HyEnumLiteral ) ( (a4= ',' (a5_0= parse_eu_hyvar_dataValues_HyEnumLiteral ) ) )* ) )? a6= ')' ( (a7= '[' ( (a8= DATE ) a9= '-' (a10= DATE ) | (a11= DATE ) a12= '-' |a13= 'eternity' a14= '-' (a15= DATE ) ) a16= ']' ) )? )
+            // Hymanifest.g:2452:2: a0= 'Enum(' (a1= IDENTIFIER_TOKEN ) a2= ',' ( ( (a3_0= parse_eu_hyvar_dataValues_HyEnumLiteral ) ( (a4= ',' (a5_0= parse_eu_hyvar_dataValues_HyEnumLiteral ) ) )* ) )? a6= ')' ( (a7= '[' ( (a8= DATE ) a9= '-' (a10= DATE ) | (a11= DATE ) a12= '-' |a13= 'eternity' a14= '-' (a15= DATE ) ) a16= ']' ) )?
             {
             a0=(Token)match(input,21,FOLLOW_21_in_parse_eu_hyvar_dataValues_HyEnum2874); if (state.failed) return element;
 
@@ -3802,11 +3812,11 @@ public class HymanifestParser extends HymanifestANTLRParserBase {
 
             if ( state.backtracking==0 ) {
             		// expected elements (follow set)
-            		addExpectedElement(null, 140);
+            		addExpectedElement(null, eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[140]);
             	}
 
-            // Hymanifest.g:2456:2: (a1= IDENTIFIER_TOKEN )
-            // Hymanifest.g:2457:3: a1= IDENTIFIER_TOKEN
+            // Hymanifest.g:2466:2: (a1= IDENTIFIER_TOKEN )
+            // Hymanifest.g:2467:3: a1= IDENTIFIER_TOKEN
             {
             a1=(Token)match(input,IDENTIFIER_TOKEN,FOLLOW_IDENTIFIER_TOKEN_in_parse_eu_hyvar_dataValues_HyEnum2892); if (state.failed) return element;
 
@@ -3844,7 +3854,7 @@ public class HymanifestParser extends HymanifestANTLRParserBase {
 
             if ( state.backtracking==0 ) {
             		// expected elements (follow set)
-            		addExpectedElement(null, 141);
+            		addExpectedElement(null, eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[141]);
             	}
 
             a2=(Token)match(input,15,FOLLOW_15_in_parse_eu_hyvar_dataValues_HyEnum2913); if (state.failed) return element;
@@ -3861,11 +3871,11 @@ public class HymanifestParser extends HymanifestANTLRParserBase {
 
             if ( state.backtracking==0 ) {
             		// expected elements (follow set)
-            		addExpectedElement(eu.hyvar.dataValues.HyDataValuesPackage.eINSTANCE.getHyEnum(), 142);
-            		addExpectedElement(null, 143);
+            		addExpectedElement(eu.hyvar.dataValues.HyDataValuesPackage.eINSTANCE.getHyEnum(), eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[142]);
+            		addExpectedElement(null, eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[143]);
             	}
 
-            // Hymanifest.g:2507:2: ( ( (a3_0= parse_eu_hyvar_dataValues_HyEnumLiteral ) ( (a4= ',' (a5_0= parse_eu_hyvar_dataValues_HyEnumLiteral ) ) )* ) )?
+            // Hymanifest.g:2517:2: ( ( (a3_0= parse_eu_hyvar_dataValues_HyEnumLiteral ) ( (a4= ',' (a5_0= parse_eu_hyvar_dataValues_HyEnumLiteral ) ) )* ) )?
             int alt21=2;
             int LA21_0 = input.LA(1);
 
@@ -3874,13 +3884,13 @@ public class HymanifestParser extends HymanifestANTLRParserBase {
             }
             switch (alt21) {
                 case 1 :
-                    // Hymanifest.g:2508:3: ( (a3_0= parse_eu_hyvar_dataValues_HyEnumLiteral ) ( (a4= ',' (a5_0= parse_eu_hyvar_dataValues_HyEnumLiteral ) ) )* )
+                    // Hymanifest.g:2518:3: ( (a3_0= parse_eu_hyvar_dataValues_HyEnumLiteral ) ( (a4= ',' (a5_0= parse_eu_hyvar_dataValues_HyEnumLiteral ) ) )* )
                     {
-                    // Hymanifest.g:2508:3: ( (a3_0= parse_eu_hyvar_dataValues_HyEnumLiteral ) ( (a4= ',' (a5_0= parse_eu_hyvar_dataValues_HyEnumLiteral ) ) )* )
-                    // Hymanifest.g:2509:4: (a3_0= parse_eu_hyvar_dataValues_HyEnumLiteral ) ( (a4= ',' (a5_0= parse_eu_hyvar_dataValues_HyEnumLiteral ) ) )*
+                    // Hymanifest.g:2518:3: ( (a3_0= parse_eu_hyvar_dataValues_HyEnumLiteral ) ( (a4= ',' (a5_0= parse_eu_hyvar_dataValues_HyEnumLiteral ) ) )* )
+                    // Hymanifest.g:2519:4: (a3_0= parse_eu_hyvar_dataValues_HyEnumLiteral ) ( (a4= ',' (a5_0= parse_eu_hyvar_dataValues_HyEnumLiteral ) ) )*
                     {
-                    // Hymanifest.g:2509:4: (a3_0= parse_eu_hyvar_dataValues_HyEnumLiteral )
-                    // Hymanifest.g:2510:5: a3_0= parse_eu_hyvar_dataValues_HyEnumLiteral
+                    // Hymanifest.g:2519:4: (a3_0= parse_eu_hyvar_dataValues_HyEnumLiteral )
+                    // Hymanifest.g:2520:5: a3_0= parse_eu_hyvar_dataValues_HyEnumLiteral
                     {
                     pushFollow(FOLLOW_parse_eu_hyvar_dataValues_HyEnumLiteral_in_parse_eu_hyvar_dataValues_HyEnum2942);
                     a3_0=parse_eu_hyvar_dataValues_HyEnumLiteral();
@@ -3913,10 +3923,11 @@ public class HymanifestParser extends HymanifestANTLRParserBase {
 
                     if ( state.backtracking==0 ) {
                     				// expected elements (follow set)
-                    				addExpectedElement(null, 144, 145);
+                    				addExpectedElement(null, eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[144]);
+                    				addExpectedElement(null, eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[145]);
                     			}
 
-                    // Hymanifest.g:2535:4: ( (a4= ',' (a5_0= parse_eu_hyvar_dataValues_HyEnumLiteral ) ) )*
+                    // Hymanifest.g:2546:4: ( (a4= ',' (a5_0= parse_eu_hyvar_dataValues_HyEnumLiteral ) ) )*
                     loop20:
                     do {
                         int alt20=2;
@@ -3929,10 +3940,10 @@ public class HymanifestParser extends HymanifestANTLRParserBase {
 
                         switch (alt20) {
                     	case 1 :
-                    	    // Hymanifest.g:2536:5: (a4= ',' (a5_0= parse_eu_hyvar_dataValues_HyEnumLiteral ) )
+                    	    // Hymanifest.g:2547:5: (a4= ',' (a5_0= parse_eu_hyvar_dataValues_HyEnumLiteral ) )
                     	    {
-                    	    // Hymanifest.g:2536:5: (a4= ',' (a5_0= parse_eu_hyvar_dataValues_HyEnumLiteral ) )
-                    	    // Hymanifest.g:2537:6: a4= ',' (a5_0= parse_eu_hyvar_dataValues_HyEnumLiteral )
+                    	    // Hymanifest.g:2547:5: (a4= ',' (a5_0= parse_eu_hyvar_dataValues_HyEnumLiteral ) )
+                    	    // Hymanifest.g:2548:6: a4= ',' (a5_0= parse_eu_hyvar_dataValues_HyEnumLiteral )
                     	    {
                     	    a4=(Token)match(input,15,FOLLOW_15_in_parse_eu_hyvar_dataValues_HyEnum2983); if (state.failed) return element;
 
@@ -3948,11 +3959,11 @@ public class HymanifestParser extends HymanifestANTLRParserBase {
 
                     	    if ( state.backtracking==0 ) {
                     	    						// expected elements (follow set)
-                    	    						addExpectedElement(eu.hyvar.dataValues.HyDataValuesPackage.eINSTANCE.getHyEnum(), 146);
+                    	    						addExpectedElement(eu.hyvar.dataValues.HyDataValuesPackage.eINSTANCE.getHyEnum(), eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[146]);
                     	    					}
 
-                    	    // Hymanifest.g:2551:6: (a5_0= parse_eu_hyvar_dataValues_HyEnumLiteral )
-                    	    // Hymanifest.g:2552:7: a5_0= parse_eu_hyvar_dataValues_HyEnumLiteral
+                    	    // Hymanifest.g:2562:6: (a5_0= parse_eu_hyvar_dataValues_HyEnumLiteral )
+                    	    // Hymanifest.g:2563:7: a5_0= parse_eu_hyvar_dataValues_HyEnumLiteral
                     	    {
                     	    pushFollow(FOLLOW_parse_eu_hyvar_dataValues_HyEnumLiteral_in_parse_eu_hyvar_dataValues_HyEnum3017);
                     	    a5_0=parse_eu_hyvar_dataValues_HyEnumLiteral();
@@ -3985,7 +3996,8 @@ public class HymanifestParser extends HymanifestANTLRParserBase {
 
                     	    if ( state.backtracking==0 ) {
                     	    						// expected elements (follow set)
-                    	    						addExpectedElement(null, 147, 148);
+                    	    						addExpectedElement(null, eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[147]);
+                    	    						addExpectedElement(null, eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[148]);
                     	    					}
 
                     	    }
@@ -4002,7 +4014,8 @@ public class HymanifestParser extends HymanifestANTLRParserBase {
 
                     if ( state.backtracking==0 ) {
                     				// expected elements (follow set)
-                    				addExpectedElement(null, 149, 150);
+                    				addExpectedElement(null, eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[149]);
+                    				addExpectedElement(null, eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[150]);
                     			}
 
                     }
@@ -4016,7 +4029,7 @@ public class HymanifestParser extends HymanifestANTLRParserBase {
 
             if ( state.backtracking==0 ) {
             		// expected elements (follow set)
-            		addExpectedElement(null, 151);
+            		addExpectedElement(null, eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[151]);
             	}
 
             a6=(Token)match(input,14,FOLLOW_14_in_parse_eu_hyvar_dataValues_HyEnum3091); if (state.failed) return element;
@@ -4033,10 +4046,10 @@ public class HymanifestParser extends HymanifestANTLRParserBase {
 
             if ( state.backtracking==0 ) {
             		// expected elements (follow set)
-            		addExpectedElement(null, 152);
+            		addExpectedElement(null, eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[152]);
             	}
 
-            // Hymanifest.g:2605:2: ( (a7= '[' ( (a8= DATE ) a9= '-' (a10= DATE ) | (a11= DATE ) a12= '-' |a13= 'eternity' a14= '-' (a15= DATE ) ) a16= ']' ) )?
+            // Hymanifest.g:2618:2: ( (a7= '[' ( (a8= DATE ) a9= '-' (a10= DATE ) | (a11= DATE ) a12= '-' |a13= 'eternity' a14= '-' (a15= DATE ) ) a16= ']' ) )?
             int alt23=2;
             int LA23_0 = input.LA(1);
 
@@ -4045,10 +4058,10 @@ public class HymanifestParser extends HymanifestANTLRParserBase {
             }
             switch (alt23) {
                 case 1 :
-                    // Hymanifest.g:2606:3: (a7= '[' ( (a8= DATE ) a9= '-' (a10= DATE ) | (a11= DATE ) a12= '-' |a13= 'eternity' a14= '-' (a15= DATE ) ) a16= ']' )
+                    // Hymanifest.g:2619:3: (a7= '[' ( (a8= DATE ) a9= '-' (a10= DATE ) | (a11= DATE ) a12= '-' |a13= 'eternity' a14= '-' (a15= DATE ) ) a16= ']' )
                     {
-                    // Hymanifest.g:2606:3: (a7= '[' ( (a8= DATE ) a9= '-' (a10= DATE ) | (a11= DATE ) a12= '-' |a13= 'eternity' a14= '-' (a15= DATE ) ) a16= ']' )
-                    // Hymanifest.g:2607:4: a7= '[' ( (a8= DATE ) a9= '-' (a10= DATE ) | (a11= DATE ) a12= '-' |a13= 'eternity' a14= '-' (a15= DATE ) ) a16= ']'
+                    // Hymanifest.g:2619:3: (a7= '[' ( (a8= DATE ) a9= '-' (a10= DATE ) | (a11= DATE ) a12= '-' |a13= 'eternity' a14= '-' (a15= DATE ) ) a16= ']' )
+                    // Hymanifest.g:2620:4: a7= '[' ( (a8= DATE ) a9= '-' (a10= DATE ) | (a11= DATE ) a12= '-' |a13= 'eternity' a14= '-' (a15= DATE ) ) a16= ']'
                     {
                     a7=(Token)match(input,25,FOLLOW_25_in_parse_eu_hyvar_dataValues_HyEnum3114); if (state.failed) return element;
 
@@ -4064,10 +4077,12 @@ public class HymanifestParser extends HymanifestANTLRParserBase {
 
                     if ( state.backtracking==0 ) {
                     				// expected elements (follow set)
-                    				addExpectedElement(null, 153, 155);
+                    				addExpectedElement(null, eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[153]);
+                    				addExpectedElement(null, eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[154]);
+                    				addExpectedElement(null, eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[155]);
                     			}
 
-                    // Hymanifest.g:2621:4: ( (a8= DATE ) a9= '-' (a10= DATE ) | (a11= DATE ) a12= '-' |a13= 'eternity' a14= '-' (a15= DATE ) )
+                    // Hymanifest.g:2636:4: ( (a8= DATE ) a9= '-' (a10= DATE ) | (a11= DATE ) a12= '-' |a13= 'eternity' a14= '-' (a15= DATE ) )
                     int alt22=3;
                     int LA22_0 = input.LA(1);
 
@@ -4114,10 +4129,10 @@ public class HymanifestParser extends HymanifestANTLRParserBase {
                     }
                     switch (alt22) {
                         case 1 :
-                            // Hymanifest.g:2622:5: (a8= DATE ) a9= '-' (a10= DATE )
+                            // Hymanifest.g:2637:5: (a8= DATE ) a9= '-' (a10= DATE )
                             {
-                            // Hymanifest.g:2622:5: (a8= DATE )
-                            // Hymanifest.g:2623:6: a8= DATE
+                            // Hymanifest.g:2637:5: (a8= DATE )
+                            // Hymanifest.g:2638:6: a8= DATE
                             {
                             a8=(Token)match(input,DATE,FOLLOW_DATE_in_parse_eu_hyvar_dataValues_HyEnum3147); if (state.failed) return element;
 
@@ -4155,7 +4170,7 @@ public class HymanifestParser extends HymanifestANTLRParserBase {
 
                             if ( state.backtracking==0 ) {
                             					// expected elements (follow set)
-                            					addExpectedElement(null, 156);
+                            					addExpectedElement(null, eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[156]);
                             				}
 
                             a9=(Token)match(input,16,FOLLOW_16_in_parse_eu_hyvar_dataValues_HyEnum3186); if (state.failed) return element;
@@ -4172,11 +4187,11 @@ public class HymanifestParser extends HymanifestANTLRParserBase {
 
                             if ( state.backtracking==0 ) {
                             					// expected elements (follow set)
-                            					addExpectedElement(null, 157);
+                            					addExpectedElement(null, eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[157]);
                             				}
 
-                            // Hymanifest.g:2672:5: (a10= DATE )
-                            // Hymanifest.g:2673:6: a10= DATE
+                            // Hymanifest.g:2687:5: (a10= DATE )
+                            // Hymanifest.g:2688:6: a10= DATE
                             {
                             a10=(Token)match(input,DATE,FOLLOW_DATE_in_parse_eu_hyvar_dataValues_HyEnum3216); if (state.failed) return element;
 
@@ -4214,16 +4229,16 @@ public class HymanifestParser extends HymanifestANTLRParserBase {
 
                             if ( state.backtracking==0 ) {
                             					// expected elements (follow set)
-                            					addExpectedElement(null, 158);
+                            					addExpectedElement(null, eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[158]);
                             				}
 
                             }
                             break;
                         case 2 :
-                            // Hymanifest.g:2709:10: (a11= DATE ) a12= '-'
+                            // Hymanifest.g:2724:10: (a11= DATE ) a12= '-'
                             {
-                            // Hymanifest.g:2709:10: (a11= DATE )
-                            // Hymanifest.g:2710:6: a11= DATE
+                            // Hymanifest.g:2724:10: (a11= DATE )
+                            // Hymanifest.g:2725:6: a11= DATE
                             {
                             a11=(Token)match(input,DATE,FOLLOW_DATE_in_parse_eu_hyvar_dataValues_HyEnum3272); if (state.failed) return element;
 
@@ -4261,7 +4276,7 @@ public class HymanifestParser extends HymanifestANTLRParserBase {
 
                             if ( state.backtracking==0 ) {
                             					// expected elements (follow set)
-                            					addExpectedElement(null, 159);
+                            					addExpectedElement(null, eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[159]);
                             				}
 
                             a12=(Token)match(input,16,FOLLOW_16_in_parse_eu_hyvar_dataValues_HyEnum3311); if (state.failed) return element;
@@ -4278,13 +4293,13 @@ public class HymanifestParser extends HymanifestANTLRParserBase {
 
                             if ( state.backtracking==0 ) {
                             					// expected elements (follow set)
-                            					addExpectedElement(null, 160);
+                            					addExpectedElement(null, eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[160]);
                             				}
 
                             }
                             break;
                         case 3 :
-                            // Hymanifest.g:2760:10: a13= 'eternity' a14= '-' (a15= DATE )
+                            // Hymanifest.g:2775:10: a13= 'eternity' a14= '-' (a15= DATE )
                             {
                             a13=(Token)match(input,28,FOLLOW_28_in_parse_eu_hyvar_dataValues_HyEnum3344); if (state.failed) return element;
 
@@ -4300,7 +4315,7 @@ public class HymanifestParser extends HymanifestANTLRParserBase {
 
                             if ( state.backtracking==0 ) {
                             					// expected elements (follow set)
-                            					addExpectedElement(null, 161);
+                            					addExpectedElement(null, eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[161]);
                             				}
 
                             a14=(Token)match(input,16,FOLLOW_16_in_parse_eu_hyvar_dataValues_HyEnum3367); if (state.failed) return element;
@@ -4317,11 +4332,11 @@ public class HymanifestParser extends HymanifestANTLRParserBase {
 
                             if ( state.backtracking==0 ) {
                             					// expected elements (follow set)
-                            					addExpectedElement(null, 162);
+                            					addExpectedElement(null, eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[162]);
                             				}
 
-                            // Hymanifest.g:2788:5: (a15= DATE )
-                            // Hymanifest.g:2789:6: a15= DATE
+                            // Hymanifest.g:2803:5: (a15= DATE )
+                            // Hymanifest.g:2804:6: a15= DATE
                             {
                             a15=(Token)match(input,DATE,FOLLOW_DATE_in_parse_eu_hyvar_dataValues_HyEnum3397); if (state.failed) return element;
 
@@ -4359,7 +4374,7 @@ public class HymanifestParser extends HymanifestANTLRParserBase {
 
                             if ( state.backtracking==0 ) {
                             					// expected elements (follow set)
-                            					addExpectedElement(null, 163);
+                            					addExpectedElement(null, eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[163]);
                             				}
 
                             }
@@ -4370,7 +4385,7 @@ public class HymanifestParser extends HymanifestANTLRParserBase {
 
                     if ( state.backtracking==0 ) {
                     				// expected elements (follow set)
-                    				addExpectedElement(null, 164);
+                    				addExpectedElement(null, eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[164]);
                     			}
 
                     a16=(Token)match(input,26,FOLLOW_26_in_parse_eu_hyvar_dataValues_HyEnum3449); if (state.failed) return element;
@@ -4387,9 +4402,6 @@ public class HymanifestParser extends HymanifestANTLRParserBase {
 
                     if ( state.backtracking==0 ) {
                     				// expected elements (follow set)
-                    				// We've found the last token for this rule. The constructed EObject is now
-                    				// complete.
-                    				completedElement(element, true);
                     			}
 
                     }
@@ -4403,9 +4415,6 @@ public class HymanifestParser extends HymanifestANTLRParserBase {
 
             if ( state.backtracking==0 ) {
             		// expected elements (follow set)
-            		// We've found the last token for this rule. The constructed EObject is now
-            		// complete.
-            		completedElement(element, true);
             	}
 
             }
@@ -4428,7 +4437,7 @@ public class HymanifestParser extends HymanifestANTLRParserBase {
 
 
     // $ANTLR start "parse_eu_hyvar_dataValues_HyEnumLiteral"
-    // Hymanifest.g:2857:1: parse_eu_hyvar_dataValues_HyEnumLiteral returns [eu.hyvar.dataValues.HyEnumLiteral element = null] : a0= 'EnumLiteral(' (a1= IDENTIFIER_TOKEN ) a2= ',' (a3= INTEGER_LITERAL ) a4= ')' ( (a5= '[' ( (a6= DATE ) a7= '-' (a8= DATE ) | (a9= DATE ) a10= '-' a11= 'eternity' |a12= 'eternity' a13= '-' (a14= DATE ) ) a15= ']' ) )? ;
+    // Hymanifest.g:2866:1: parse_eu_hyvar_dataValues_HyEnumLiteral returns [eu.hyvar.dataValues.HyEnumLiteral element = null] : a0= 'EnumLiteral(' (a1= IDENTIFIER_TOKEN ) a2= ',' (a3= INTEGER_LITERAL ) a4= ')' ( (a5= '[' ( (a6= DATE ) a7= '-' (a8= DATE ) | (a9= DATE ) a10= '-' a11= 'eternity' |a12= 'eternity' a13= '-' (a14= DATE ) ) a15= ']' ) )? ;
     public final eu.hyvar.dataValues.HyEnumLiteral parse_eu_hyvar_dataValues_HyEnumLiteral() throws RecognitionException {
         eu.hyvar.dataValues.HyEnumLiteral element =  null;
 
@@ -4456,8 +4465,8 @@ public class HymanifestParser extends HymanifestANTLRParserBase {
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 9) ) { return element; }
 
-            // Hymanifest.g:2860:2: (a0= 'EnumLiteral(' (a1= IDENTIFIER_TOKEN ) a2= ',' (a3= INTEGER_LITERAL ) a4= ')' ( (a5= '[' ( (a6= DATE ) a7= '-' (a8= DATE ) | (a9= DATE ) a10= '-' a11= 'eternity' |a12= 'eternity' a13= '-' (a14= DATE ) ) a15= ']' ) )? )
-            // Hymanifest.g:2861:2: a0= 'EnumLiteral(' (a1= IDENTIFIER_TOKEN ) a2= ',' (a3= INTEGER_LITERAL ) a4= ')' ( (a5= '[' ( (a6= DATE ) a7= '-' (a8= DATE ) | (a9= DATE ) a10= '-' a11= 'eternity' |a12= 'eternity' a13= '-' (a14= DATE ) ) a15= ']' ) )?
+            // Hymanifest.g:2869:2: (a0= 'EnumLiteral(' (a1= IDENTIFIER_TOKEN ) a2= ',' (a3= INTEGER_LITERAL ) a4= ')' ( (a5= '[' ( (a6= DATE ) a7= '-' (a8= DATE ) | (a9= DATE ) a10= '-' a11= 'eternity' |a12= 'eternity' a13= '-' (a14= DATE ) ) a15= ']' ) )? )
+            // Hymanifest.g:2870:2: a0= 'EnumLiteral(' (a1= IDENTIFIER_TOKEN ) a2= ',' (a3= INTEGER_LITERAL ) a4= ')' ( (a5= '[' ( (a6= DATE ) a7= '-' (a8= DATE ) | (a9= DATE ) a10= '-' a11= 'eternity' |a12= 'eternity' a13= '-' (a14= DATE ) ) a15= ']' ) )?
             {
             a0=(Token)match(input,22,FOLLOW_22_in_parse_eu_hyvar_dataValues_HyEnumLiteral3497); if (state.failed) return element;
 
@@ -4473,11 +4482,11 @@ public class HymanifestParser extends HymanifestANTLRParserBase {
 
             if ( state.backtracking==0 ) {
             		// expected elements (follow set)
-            		addExpectedElement(null, 165);
+            		addExpectedElement(null, eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[165]);
             	}
 
-            // Hymanifest.g:2875:2: (a1= IDENTIFIER_TOKEN )
-            // Hymanifest.g:2876:3: a1= IDENTIFIER_TOKEN
+            // Hymanifest.g:2884:2: (a1= IDENTIFIER_TOKEN )
+            // Hymanifest.g:2885:3: a1= IDENTIFIER_TOKEN
             {
             a1=(Token)match(input,IDENTIFIER_TOKEN,FOLLOW_IDENTIFIER_TOKEN_in_parse_eu_hyvar_dataValues_HyEnumLiteral3515); if (state.failed) return element;
 
@@ -4515,7 +4524,7 @@ public class HymanifestParser extends HymanifestANTLRParserBase {
 
             if ( state.backtracking==0 ) {
             		// expected elements (follow set)
-            		addExpectedElement(null, 166);
+            		addExpectedElement(null, eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[166]);
             	}
 
             a2=(Token)match(input,15,FOLLOW_15_in_parse_eu_hyvar_dataValues_HyEnumLiteral3536); if (state.failed) return element;
@@ -4532,11 +4541,11 @@ public class HymanifestParser extends HymanifestANTLRParserBase {
 
             if ( state.backtracking==0 ) {
             		// expected elements (follow set)
-            		addExpectedElement(null, 167);
+            		addExpectedElement(null, eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[167]);
             	}
 
-            // Hymanifest.g:2925:2: (a3= INTEGER_LITERAL )
-            // Hymanifest.g:2926:3: a3= INTEGER_LITERAL
+            // Hymanifest.g:2934:2: (a3= INTEGER_LITERAL )
+            // Hymanifest.g:2935:3: a3= INTEGER_LITERAL
             {
             a3=(Token)match(input,INTEGER_LITERAL,FOLLOW_INTEGER_LITERAL_in_parse_eu_hyvar_dataValues_HyEnumLiteral3554); if (state.failed) return element;
 
@@ -4574,7 +4583,7 @@ public class HymanifestParser extends HymanifestANTLRParserBase {
 
             if ( state.backtracking==0 ) {
             		// expected elements (follow set)
-            		addExpectedElement(null, 168);
+            		addExpectedElement(null, eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[168]);
             	}
 
             a4=(Token)match(input,14,FOLLOW_14_in_parse_eu_hyvar_dataValues_HyEnumLiteral3575); if (state.failed) return element;
@@ -4591,10 +4600,12 @@ public class HymanifestParser extends HymanifestANTLRParserBase {
 
             if ( state.backtracking==0 ) {
             		// expected elements (follow set)
-            		addExpectedElement(null, 169, 171);
+            		addExpectedElement(null, eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[169]);
+            		addExpectedElement(null, eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[170]);
+            		addExpectedElement(null, eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[171]);
             	}
 
-            // Hymanifest.g:2975:2: ( (a5= '[' ( (a6= DATE ) a7= '-' (a8= DATE ) | (a9= DATE ) a10= '-' a11= 'eternity' |a12= 'eternity' a13= '-' (a14= DATE ) ) a15= ']' ) )?
+            // Hymanifest.g:2986:2: ( (a5= '[' ( (a6= DATE ) a7= '-' (a8= DATE ) | (a9= DATE ) a10= '-' a11= 'eternity' |a12= 'eternity' a13= '-' (a14= DATE ) ) a15= ']' ) )?
             int alt25=2;
             int LA25_0 = input.LA(1);
 
@@ -4603,10 +4614,10 @@ public class HymanifestParser extends HymanifestANTLRParserBase {
             }
             switch (alt25) {
                 case 1 :
-                    // Hymanifest.g:2976:3: (a5= '[' ( (a6= DATE ) a7= '-' (a8= DATE ) | (a9= DATE ) a10= '-' a11= 'eternity' |a12= 'eternity' a13= '-' (a14= DATE ) ) a15= ']' )
+                    // Hymanifest.g:2987:3: (a5= '[' ( (a6= DATE ) a7= '-' (a8= DATE ) | (a9= DATE ) a10= '-' a11= 'eternity' |a12= 'eternity' a13= '-' (a14= DATE ) ) a15= ']' )
                     {
-                    // Hymanifest.g:2976:3: (a5= '[' ( (a6= DATE ) a7= '-' (a8= DATE ) | (a9= DATE ) a10= '-' a11= 'eternity' |a12= 'eternity' a13= '-' (a14= DATE ) ) a15= ']' )
-                    // Hymanifest.g:2977:4: a5= '[' ( (a6= DATE ) a7= '-' (a8= DATE ) | (a9= DATE ) a10= '-' a11= 'eternity' |a12= 'eternity' a13= '-' (a14= DATE ) ) a15= ']'
+                    // Hymanifest.g:2987:3: (a5= '[' ( (a6= DATE ) a7= '-' (a8= DATE ) | (a9= DATE ) a10= '-' a11= 'eternity' |a12= 'eternity' a13= '-' (a14= DATE ) ) a15= ']' )
+                    // Hymanifest.g:2988:4: a5= '[' ( (a6= DATE ) a7= '-' (a8= DATE ) | (a9= DATE ) a10= '-' a11= 'eternity' |a12= 'eternity' a13= '-' (a14= DATE ) ) a15= ']'
                     {
                     a5=(Token)match(input,25,FOLLOW_25_in_parse_eu_hyvar_dataValues_HyEnumLiteral3598); if (state.failed) return element;
 
@@ -4622,10 +4633,12 @@ public class HymanifestParser extends HymanifestANTLRParserBase {
 
                     if ( state.backtracking==0 ) {
                     				// expected elements (follow set)
-                    				addExpectedElement(null, 172, 174);
+                    				addExpectedElement(null, eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[172]);
+                    				addExpectedElement(null, eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[173]);
+                    				addExpectedElement(null, eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[174]);
                     			}
 
-                    // Hymanifest.g:2991:4: ( (a6= DATE ) a7= '-' (a8= DATE ) | (a9= DATE ) a10= '-' a11= 'eternity' |a12= 'eternity' a13= '-' (a14= DATE ) )
+                    // Hymanifest.g:3004:4: ( (a6= DATE ) a7= '-' (a8= DATE ) | (a9= DATE ) a10= '-' a11= 'eternity' |a12= 'eternity' a13= '-' (a14= DATE ) )
                     int alt24=3;
                     int LA24_0 = input.LA(1);
 
@@ -4672,10 +4685,10 @@ public class HymanifestParser extends HymanifestANTLRParserBase {
                     }
                     switch (alt24) {
                         case 1 :
-                            // Hymanifest.g:2992:5: (a6= DATE ) a7= '-' (a8= DATE )
+                            // Hymanifest.g:3005:5: (a6= DATE ) a7= '-' (a8= DATE )
                             {
-                            // Hymanifest.g:2992:5: (a6= DATE )
-                            // Hymanifest.g:2993:6: a6= DATE
+                            // Hymanifest.g:3005:5: (a6= DATE )
+                            // Hymanifest.g:3006:6: a6= DATE
                             {
                             a6=(Token)match(input,DATE,FOLLOW_DATE_in_parse_eu_hyvar_dataValues_HyEnumLiteral3631); if (state.failed) return element;
 
@@ -4713,7 +4726,7 @@ public class HymanifestParser extends HymanifestANTLRParserBase {
 
                             if ( state.backtracking==0 ) {
                             					// expected elements (follow set)
-                            					addExpectedElement(null, 175);
+                            					addExpectedElement(null, eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[175]);
                             				}
 
                             a7=(Token)match(input,16,FOLLOW_16_in_parse_eu_hyvar_dataValues_HyEnumLiteral3670); if (state.failed) return element;
@@ -4730,11 +4743,11 @@ public class HymanifestParser extends HymanifestANTLRParserBase {
 
                             if ( state.backtracking==0 ) {
                             					// expected elements (follow set)
-                            					addExpectedElement(null, 176);
+                            					addExpectedElement(null, eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[176]);
                             				}
 
-                            // Hymanifest.g:3042:5: (a8= DATE )
-                            // Hymanifest.g:3043:6: a8= DATE
+                            // Hymanifest.g:3055:5: (a8= DATE )
+                            // Hymanifest.g:3056:6: a8= DATE
                             {
                             a8=(Token)match(input,DATE,FOLLOW_DATE_in_parse_eu_hyvar_dataValues_HyEnumLiteral3700); if (state.failed) return element;
 
@@ -4772,16 +4785,16 @@ public class HymanifestParser extends HymanifestANTLRParserBase {
 
                             if ( state.backtracking==0 ) {
                             					// expected elements (follow set)
-                            					addExpectedElement(null, 177);
+                            					addExpectedElement(null, eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[177]);
                             				}
 
                             }
                             break;
                         case 2 :
-                            // Hymanifest.g:3079:10: (a9= DATE ) a10= '-' a11= 'eternity'
+                            // Hymanifest.g:3092:10: (a9= DATE ) a10= '-' a11= 'eternity'
                             {
-                            // Hymanifest.g:3079:10: (a9= DATE )
-                            // Hymanifest.g:3080:6: a9= DATE
+                            // Hymanifest.g:3092:10: (a9= DATE )
+                            // Hymanifest.g:3093:6: a9= DATE
                             {
                             a9=(Token)match(input,DATE,FOLLOW_DATE_in_parse_eu_hyvar_dataValues_HyEnumLiteral3756); if (state.failed) return element;
 
@@ -4819,7 +4832,7 @@ public class HymanifestParser extends HymanifestANTLRParserBase {
 
                             if ( state.backtracking==0 ) {
                             					// expected elements (follow set)
-                            					addExpectedElement(null, 178);
+                            					addExpectedElement(null, eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[178]);
                             				}
 
                             a10=(Token)match(input,16,FOLLOW_16_in_parse_eu_hyvar_dataValues_HyEnumLiteral3795); if (state.failed) return element;
@@ -4836,7 +4849,7 @@ public class HymanifestParser extends HymanifestANTLRParserBase {
 
                             if ( state.backtracking==0 ) {
                             					// expected elements (follow set)
-                            					addExpectedElement(null, 179);
+                            					addExpectedElement(null, eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[179]);
                             				}
 
                             a11=(Token)match(input,28,FOLLOW_28_in_parse_eu_hyvar_dataValues_HyEnumLiteral3818); if (state.failed) return element;
@@ -4853,13 +4866,13 @@ public class HymanifestParser extends HymanifestANTLRParserBase {
 
                             if ( state.backtracking==0 ) {
                             					// expected elements (follow set)
-                            					addExpectedElement(null, 180);
+                            					addExpectedElement(null, eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[180]);
                             				}
 
                             }
                             break;
                         case 3 :
-                            // Hymanifest.g:3144:10: a12= 'eternity' a13= '-' (a14= DATE )
+                            // Hymanifest.g:3157:10: a12= 'eternity' a13= '-' (a14= DATE )
                             {
                             a12=(Token)match(input,28,FOLLOW_28_in_parse_eu_hyvar_dataValues_HyEnumLiteral3851); if (state.failed) return element;
 
@@ -4875,7 +4888,7 @@ public class HymanifestParser extends HymanifestANTLRParserBase {
 
                             if ( state.backtracking==0 ) {
                             					// expected elements (follow set)
-                            					addExpectedElement(null, 181);
+                            					addExpectedElement(null, eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[181]);
                             				}
 
                             a13=(Token)match(input,16,FOLLOW_16_in_parse_eu_hyvar_dataValues_HyEnumLiteral3874); if (state.failed) return element;
@@ -4892,11 +4905,11 @@ public class HymanifestParser extends HymanifestANTLRParserBase {
 
                             if ( state.backtracking==0 ) {
                             					// expected elements (follow set)
-                            					addExpectedElement(null, 182);
+                            					addExpectedElement(null, eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[182]);
                             				}
 
-                            // Hymanifest.g:3172:5: (a14= DATE )
-                            // Hymanifest.g:3173:6: a14= DATE
+                            // Hymanifest.g:3185:5: (a14= DATE )
+                            // Hymanifest.g:3186:6: a14= DATE
                             {
                             a14=(Token)match(input,DATE,FOLLOW_DATE_in_parse_eu_hyvar_dataValues_HyEnumLiteral3904); if (state.failed) return element;
 
@@ -4934,7 +4947,7 @@ public class HymanifestParser extends HymanifestANTLRParserBase {
 
                             if ( state.backtracking==0 ) {
                             					// expected elements (follow set)
-                            					addExpectedElement(null, 183);
+                            					addExpectedElement(null, eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[183]);
                             				}
 
                             }
@@ -4945,7 +4958,7 @@ public class HymanifestParser extends HymanifestANTLRParserBase {
 
                     if ( state.backtracking==0 ) {
                     				// expected elements (follow set)
-                    				addExpectedElement(null, 184);
+                    				addExpectedElement(null, eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[184]);
                     			}
 
                     a15=(Token)match(input,26,FOLLOW_26_in_parse_eu_hyvar_dataValues_HyEnumLiteral3956); if (state.failed) return element;
@@ -4962,10 +4975,8 @@ public class HymanifestParser extends HymanifestANTLRParserBase {
 
                     if ( state.backtracking==0 ) {
                     				// expected elements (follow set)
-                    				// We've found the last token for this rule. The constructed EObject is now
-                    				// complete.
-                    				completedElement(element, true);
-                    				addExpectedElement(null, 185, 186);
+                    				addExpectedElement(null, eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[185]);
+                    				addExpectedElement(null, eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[186]);
                     			}
 
                     }
@@ -4979,10 +4990,8 @@ public class HymanifestParser extends HymanifestANTLRParserBase {
 
             if ( state.backtracking==0 ) {
             		// expected elements (follow set)
-            		// We've found the last token for this rule. The constructed EObject is now
-            		// complete.
-            		completedElement(element, true);
-            		addExpectedElement(null, 187, 188);
+            		addExpectedElement(null, eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[187]);
+            		addExpectedElement(null, eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[188]);
             	}
 
             }
@@ -5005,7 +5014,7 @@ public class HymanifestParser extends HymanifestANTLRParserBase {
 
 
     // $ANTLR start "parseop_HyValue_level_15"
-    // Hymanifest.g:3243:1: parseop_HyValue_level_15 returns [eu.hyvar.dataValues.HyValue element = null] : (c0= parse_eu_hyvar_dataValues_HyNumberValue |c1= parse_eu_hyvar_dataValues_HyBooleanValue |c2= parse_eu_hyvar_dataValues_HyEnumValue );
+    // Hymanifest.g:3252:1: parseop_HyValue_level_15 returns [eu.hyvar.dataValues.HyValue element = null] : (c0= parse_eu_hyvar_dataValues_HyNumberValue |c1= parse_eu_hyvar_dataValues_HyBooleanValue |c2= parse_eu_hyvar_dataValues_HyEnumValue );
     public final eu.hyvar.dataValues.HyValue parseop_HyValue_level_15() throws RecognitionException {
         eu.hyvar.dataValues.HyValue element =  null;
 
@@ -5023,7 +5032,7 @@ public class HymanifestParser extends HymanifestANTLRParserBase {
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 10) ) { return element; }
 
-            // Hymanifest.g:3246:2: (c0= parse_eu_hyvar_dataValues_HyNumberValue |c1= parse_eu_hyvar_dataValues_HyBooleanValue |c2= parse_eu_hyvar_dataValues_HyEnumValue )
+            // Hymanifest.g:3255:2: (c0= parse_eu_hyvar_dataValues_HyNumberValue |c1= parse_eu_hyvar_dataValues_HyBooleanValue |c2= parse_eu_hyvar_dataValues_HyEnumValue )
             int alt26=3;
             switch ( input.LA(1) ) {
             case INTEGER_LITERAL:
@@ -5053,7 +5062,7 @@ public class HymanifestParser extends HymanifestANTLRParserBase {
 
             switch (alt26) {
                 case 1 :
-                    // Hymanifest.g:3247:2: c0= parse_eu_hyvar_dataValues_HyNumberValue
+                    // Hymanifest.g:3256:2: c0= parse_eu_hyvar_dataValues_HyNumberValue
                     {
                     pushFollow(FOLLOW_parse_eu_hyvar_dataValues_HyNumberValue_in_parseop_HyValue_level_154004);
                     c0=parse_eu_hyvar_dataValues_HyNumberValue();
@@ -5066,7 +5075,7 @@ public class HymanifestParser extends HymanifestANTLRParserBase {
                     }
                     break;
                 case 2 :
-                    // Hymanifest.g:3248:4: c1= parse_eu_hyvar_dataValues_HyBooleanValue
+                    // Hymanifest.g:3257:4: c1= parse_eu_hyvar_dataValues_HyBooleanValue
                     {
                     pushFollow(FOLLOW_parse_eu_hyvar_dataValues_HyBooleanValue_in_parseop_HyValue_level_154014);
                     c1=parse_eu_hyvar_dataValues_HyBooleanValue();
@@ -5079,7 +5088,7 @@ public class HymanifestParser extends HymanifestANTLRParserBase {
                     }
                     break;
                 case 3 :
-                    // Hymanifest.g:3249:4: c2= parse_eu_hyvar_dataValues_HyEnumValue
+                    // Hymanifest.g:3258:4: c2= parse_eu_hyvar_dataValues_HyEnumValue
                     {
                     pushFollow(FOLLOW_parse_eu_hyvar_dataValues_HyEnumValue_in_parseop_HyValue_level_154024);
                     c2=parse_eu_hyvar_dataValues_HyEnumValue();
@@ -5111,7 +5120,7 @@ public class HymanifestParser extends HymanifestANTLRParserBase {
 
 
     // $ANTLR start "parse_eu_hyvar_dataValues_HyNumberValue"
-    // Hymanifest.g:3252:1: parse_eu_hyvar_dataValues_HyNumberValue returns [eu.hyvar.dataValues.HyNumberValue element = null] : (a0= INTEGER_LITERAL ) ;
+    // Hymanifest.g:3261:1: parse_eu_hyvar_dataValues_HyNumberValue returns [eu.hyvar.dataValues.HyNumberValue element = null] : (a0= INTEGER_LITERAL ) ;
     public final eu.hyvar.dataValues.HyNumberValue parse_eu_hyvar_dataValues_HyNumberValue() throws RecognitionException {
         eu.hyvar.dataValues.HyNumberValue element =  null;
 
@@ -5124,11 +5133,11 @@ public class HymanifestParser extends HymanifestANTLRParserBase {
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 11) ) { return element; }
 
-            // Hymanifest.g:3255:2: ( (a0= INTEGER_LITERAL ) )
-            // Hymanifest.g:3256:2: (a0= INTEGER_LITERAL )
+            // Hymanifest.g:3264:2: ( (a0= INTEGER_LITERAL ) )
+            // Hymanifest.g:3265:2: (a0= INTEGER_LITERAL )
             {
-            // Hymanifest.g:3256:2: (a0= INTEGER_LITERAL )
-            // Hymanifest.g:3257:3: a0= INTEGER_LITERAL
+            // Hymanifest.g:3265:2: (a0= INTEGER_LITERAL )
+            // Hymanifest.g:3266:3: a0= INTEGER_LITERAL
             {
             a0=(Token)match(input,INTEGER_LITERAL,FOLLOW_INTEGER_LITERAL_in_parse_eu_hyvar_dataValues_HyNumberValue4051); if (state.failed) return element;
 
@@ -5166,9 +5175,6 @@ public class HymanifestParser extends HymanifestANTLRParserBase {
 
             if ( state.backtracking==0 ) {
             		// expected elements (follow set)
-            		// We've found the last token for this rule. The constructed EObject is now
-            		// complete.
-            		completedElement(element, true);
             	}
 
             }
@@ -5191,7 +5197,7 @@ public class HymanifestParser extends HymanifestANTLRParserBase {
 
 
     // $ANTLR start "parse_eu_hyvar_dataValues_HyBooleanValue"
-    // Hymanifest.g:3296:1: parse_eu_hyvar_dataValues_HyBooleanValue returns [eu.hyvar.dataValues.HyBooleanValue element = null] : ( (a0= 'true' |a1= 'false' ) ) ;
+    // Hymanifest.g:3302:1: parse_eu_hyvar_dataValues_HyBooleanValue returns [eu.hyvar.dataValues.HyBooleanValue element = null] : ( (a0= 'true' |a1= 'false' ) ) ;
     public final eu.hyvar.dataValues.HyBooleanValue parse_eu_hyvar_dataValues_HyBooleanValue() throws RecognitionException {
         eu.hyvar.dataValues.HyBooleanValue element =  null;
 
@@ -5205,13 +5211,13 @@ public class HymanifestParser extends HymanifestANTLRParserBase {
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 12) ) { return element; }
 
-            // Hymanifest.g:3299:2: ( ( (a0= 'true' |a1= 'false' ) ) )
-            // Hymanifest.g:3300:2: ( (a0= 'true' |a1= 'false' ) )
+            // Hymanifest.g:3305:2: ( ( (a0= 'true' |a1= 'false' ) ) )
+            // Hymanifest.g:3306:2: ( (a0= 'true' |a1= 'false' ) )
             {
-            // Hymanifest.g:3300:2: ( (a0= 'true' |a1= 'false' ) )
-            // Hymanifest.g:3301:3: (a0= 'true' |a1= 'false' )
+            // Hymanifest.g:3306:2: ( (a0= 'true' |a1= 'false' ) )
+            // Hymanifest.g:3307:3: (a0= 'true' |a1= 'false' )
             {
-            // Hymanifest.g:3301:3: (a0= 'true' |a1= 'false' )
+            // Hymanifest.g:3307:3: (a0= 'true' |a1= 'false' )
             int alt27=2;
             int LA27_0 = input.LA(1);
 
@@ -5231,7 +5237,7 @@ public class HymanifestParser extends HymanifestANTLRParserBase {
             }
             switch (alt27) {
                 case 1 :
-                    // Hymanifest.g:3302:4: a0= 'true'
+                    // Hymanifest.g:3308:4: a0= 'true'
                     {
                     a0=(Token)match(input,30,FOLLOW_30_in_parse_eu_hyvar_dataValues_HyBooleanValue4096); if (state.failed) return element;
 
@@ -5252,7 +5258,7 @@ public class HymanifestParser extends HymanifestANTLRParserBase {
                     }
                     break;
                 case 2 :
-                    // Hymanifest.g:3315:8: a1= 'false'
+                    // Hymanifest.g:3321:8: a1= 'false'
                     {
                     a1=(Token)match(input,29,FOLLOW_29_in_parse_eu_hyvar_dataValues_HyBooleanValue4111); if (state.failed) return element;
 
@@ -5281,9 +5287,6 @@ public class HymanifestParser extends HymanifestANTLRParserBase {
 
             if ( state.backtracking==0 ) {
             		// expected elements (follow set)
-            		// We've found the last token for this rule. The constructed EObject is now
-            		// complete.
-            		completedElement(element, true);
             	}
 
             }
@@ -5306,7 +5309,7 @@ public class HymanifestParser extends HymanifestANTLRParserBase {
 
 
     // $ANTLR start "parse_eu_hyvar_dataValues_HyEnumValue"
-    // Hymanifest.g:3339:1: parse_eu_hyvar_dataValues_HyEnumValue returns [eu.hyvar.dataValues.HyEnumValue element = null] : a0= 'enum:' (a1= IDENTIFIER_TOKEN ) a2= '.' (a3= IDENTIFIER_TOKEN ) ;
+    // Hymanifest.g:3342:1: parse_eu_hyvar_dataValues_HyEnumValue returns [eu.hyvar.dataValues.HyEnumValue element = null] : a0= 'enum:' (a1= IDENTIFIER_TOKEN ) a2= '.' (a3= IDENTIFIER_TOKEN ) ;
     public final eu.hyvar.dataValues.HyEnumValue parse_eu_hyvar_dataValues_HyEnumValue() throws RecognitionException {
         eu.hyvar.dataValues.HyEnumValue element =  null;
 
@@ -5322,8 +5325,8 @@ public class HymanifestParser extends HymanifestANTLRParserBase {
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 13) ) { return element; }
 
-            // Hymanifest.g:3342:2: (a0= 'enum:' (a1= IDENTIFIER_TOKEN ) a2= '.' (a3= IDENTIFIER_TOKEN ) )
-            // Hymanifest.g:3343:2: a0= 'enum:' (a1= IDENTIFIER_TOKEN ) a2= '.' (a3= IDENTIFIER_TOKEN )
+            // Hymanifest.g:3345:2: (a0= 'enum:' (a1= IDENTIFIER_TOKEN ) a2= '.' (a3= IDENTIFIER_TOKEN ) )
+            // Hymanifest.g:3346:2: a0= 'enum:' (a1= IDENTIFIER_TOKEN ) a2= '.' (a3= IDENTIFIER_TOKEN )
             {
             a0=(Token)match(input,27,FOLLOW_27_in_parse_eu_hyvar_dataValues_HyEnumValue4147); if (state.failed) return element;
 
@@ -5339,11 +5342,11 @@ public class HymanifestParser extends HymanifestANTLRParserBase {
 
             if ( state.backtracking==0 ) {
             		// expected elements (follow set)
-            		addExpectedElement(null, 189);
+            		addExpectedElement(null, eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[189]);
             	}
 
-            // Hymanifest.g:3357:2: (a1= IDENTIFIER_TOKEN )
-            // Hymanifest.g:3358:3: a1= IDENTIFIER_TOKEN
+            // Hymanifest.g:3360:2: (a1= IDENTIFIER_TOKEN )
+            // Hymanifest.g:3361:3: a1= IDENTIFIER_TOKEN
             {
             a1=(Token)match(input,IDENTIFIER_TOKEN,FOLLOW_IDENTIFIER_TOKEN_in_parse_eu_hyvar_dataValues_HyEnumValue4165); if (state.failed) return element;
 
@@ -5385,7 +5388,7 @@ public class HymanifestParser extends HymanifestANTLRParserBase {
 
             if ( state.backtracking==0 ) {
             		// expected elements (follow set)
-            		addExpectedElement(null, 190);
+            		addExpectedElement(null, eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[190]);
             	}
 
             a2=(Token)match(input,18,FOLLOW_18_in_parse_eu_hyvar_dataValues_HyEnumValue4186); if (state.failed) return element;
@@ -5402,11 +5405,11 @@ public class HymanifestParser extends HymanifestANTLRParserBase {
 
             if ( state.backtracking==0 ) {
             		// expected elements (follow set)
-            		addExpectedElement(null, 191);
+            		addExpectedElement(null, eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[191]);
             	}
 
-            // Hymanifest.g:3411:2: (a3= IDENTIFIER_TOKEN )
-            // Hymanifest.g:3412:3: a3= IDENTIFIER_TOKEN
+            // Hymanifest.g:3414:2: (a3= IDENTIFIER_TOKEN )
+            // Hymanifest.g:3415:3: a3= IDENTIFIER_TOKEN
             {
             a3=(Token)match(input,IDENTIFIER_TOKEN,FOLLOW_IDENTIFIER_TOKEN_in_parse_eu_hyvar_dataValues_HyEnumValue4204); if (state.failed) return element;
 
@@ -5448,9 +5451,6 @@ public class HymanifestParser extends HymanifestANTLRParserBase {
 
             if ( state.backtracking==0 ) {
             		// expected elements (follow set)
-            		// We've found the last token for this rule. The constructed EObject is now
-            		// complete.
-            		completedElement(element, true);
             	}
 
             }

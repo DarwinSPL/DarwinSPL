@@ -52,23 +52,7 @@ public class HymanifestContainmentTrace {
 	}
 	
 	public String toString() {
-		return (startClass == null ? "null" : startClass.getName()) + "." + eu.hyvar.mspl.manifest.resource.hymanifest.util.HymanifestStringUtil.explode(path, "->");
-	}
-	
-	public boolean contains(eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestRule rule) {
-		if (path == null) {
-			return false;
-		}
-		
-		EClass ruleMetaclass = rule.getMetaclass();
-		for (eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestContainedFeature pathElement : path) {
-			EClass containerClass = pathElement.getContainerClass();
-			if (containerClass == ruleMetaclass) {
-				return true;
-			}
-		}
-		
-		return startClass == ruleMetaclass;
+		return (startClass == null ? "null" : startClass.getName()) + "->" + eu.hyvar.mspl.manifest.resource.hymanifest.util.HymanifestStringUtil.explode(path, "->");
 	}
 	
 }

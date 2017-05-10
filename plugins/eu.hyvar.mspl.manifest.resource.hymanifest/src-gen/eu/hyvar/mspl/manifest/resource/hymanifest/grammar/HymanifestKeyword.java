@@ -24,7 +24,7 @@ public class HymanifestKeyword extends eu.hyvar.mspl.manifest.resource.hymanifes
 	}
 	
 	public String toString() {
-		return "\"" + value + "\"";
+		return value;
 	}
 	
 }

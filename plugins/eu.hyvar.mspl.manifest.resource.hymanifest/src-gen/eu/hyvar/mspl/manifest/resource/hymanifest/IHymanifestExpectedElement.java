@@ -28,7 +28,7 @@ public interface IHymanifestExpectedElement {
 	/**
 	 * Returns the syntax element that is expected.
 	 */
-	public eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestSyntaxElement getSyntaxElement();
+	public eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestSyntaxElement getSymtaxElement();
 	
 	/**
 	 * Adds an element that is a valid follower for this element.
