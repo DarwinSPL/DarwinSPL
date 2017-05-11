@@ -1,7 +1,7 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: DarwinSPL Common Graphical Editor
-Bundle-SymbolicName: dw.darwinspl.feature.graphical.base
+Bundle-SymbolicName: de.darwinspl.feature.graphical.base
 Bundle-Version: 1.0.0
 Bundle-Activator: de.darwinspl.feature.graphical.base.Activator
 Require-Bundle: org.eclipse.ui,

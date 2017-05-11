@@ -100,7 +100,6 @@ public class DwAttributeEditorEditPart extends DwAttributeEditPart {
 	private void performDirectEditing() {
 		Label label = ((DwAttributeFigure)getFigure()).getLabel();
 
-		// TODO
 		DwAttributeDirectEditManager manager = new DwAttributeDirectEditManager(this, TextCellEditor.class, new DwAttributeCellEditorLocator(label), label);
 		manager.show();
 	}   
