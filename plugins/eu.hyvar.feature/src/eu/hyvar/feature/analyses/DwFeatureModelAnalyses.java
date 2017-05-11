@@ -21,6 +21,7 @@ public class DwFeatureModelAnalyses {
 	public static List<DwFeatureModelAnalysesMarker> checkFeatureModelValidity(HyFeatureModel featureModel) {
 		List<DwFeatureModelAnalysesMarker> markerList = new ArrayList<DwFeatureModelAnalysesMarker>();
 		
+		markerList.addAll(checkForNameUniqueness(featureModel));
 		
 		return markerList;
 	}
