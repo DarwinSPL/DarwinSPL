@@ -10,6 +10,9 @@ OPTIONS {
 	reloadGeneratorModel = "false";
 	usePredefinedTokens = "false";
 	
+	editorName = "Manifest Editor (HyVar)";
+	newFileWizardName = "HyVar MSPL Model Constraints (*.hymanifest)";
+	
 	defaultTokenName = "IDENTIFIER_TOKEN";
 	disableNewProjectWizard = "true";
 	disableBuilder = "true";
@@ -18,12 +21,9 @@ OPTIONS {
 }
 
 
-
 TOKENSTYLES  {
 	"SL_COMMENT", "ML_COMMENT" COLOR #008000;
-		
 	"Implementation", "Signature", ":", "->" COLOR #800040, BOLD;
-	
 	"[", "]", "(", ")" COLOR #0000CC;
 }
 
@@ -43,11 +43,5 @@ RULES {
 
 	@SuppressWarnings(featureWithoutSyntax) 
 	HyName ::= name[IDENTIFIER_TOKEN] ("@[" (validSince[DATE] "-" validUntil[DATE] | validSince[DATE] "-" "eternity" | "eternity" "-" validUntil[DATE])  "]")? ;
-
-
-
-//  (validSince[DATE] "-" validUntil[DATE])
-//  (validSince[DATE] "-" validUntil[DATE] | validSince[DATE] "-" "eternity" | "eternity" "-" validUntil[DATE])
-
 	
 }

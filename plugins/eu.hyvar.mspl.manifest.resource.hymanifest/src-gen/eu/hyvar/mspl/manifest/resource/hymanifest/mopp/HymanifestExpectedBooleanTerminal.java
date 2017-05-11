@@ -30,7 +30,7 @@ public class HymanifestExpectedBooleanTerminal extends eu.hyvar.mspl.manifest.re
 	/**
 	 * Returns the expected boolean terminal.
 	 */
-	public eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestSyntaxElement getSyntaxElement() {
+	public eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestSyntaxElement getSymtaxElement() {
 		return booleanTerminal;
 	}
 	

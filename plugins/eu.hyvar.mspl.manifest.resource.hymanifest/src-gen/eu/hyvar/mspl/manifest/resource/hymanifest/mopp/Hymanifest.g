@@ -152,16 +152,6 @@ import org.eclipse.emf.ecore.EReference;
 		addErrorToResource(message.getMessage(), message.getColumn(), message.getLine(), message.getCharStart(), message.getCharEnd());
 	}
 	
-	public void addExpectedElement(EClass eClass, int expectationStartIndex, int expectationEndIndex) {
-		for (int expectationIndex = expectationStartIndex; expectationIndex <= expectationEndIndex; expectationIndex++) {
-			addExpectedElement(eClass, eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[expectationIndex]);
-		}
-	}
-	
-	public void addExpectedElement(EClass eClass, int expectationIndex) {
-		addExpectedElement(eClass, eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[expectationIndex]);
-	}
-	
 	public void addExpectedElement(EClass eClass, int[] ids) {
 		if (!this.rememberExpectedElements) {
 			return;
@@ -178,6 +168,11 @@ import org.eclipse.emf.ecore.EReference;
 		eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectedTerminal expectedElement = new eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectedTerminal(container, terminal, followSetID, containmentTrace);
 		setPosition(expectedElement, input.index());
 		int startIncludingHiddenTokens = expectedElement.getStartIncludingHiddenTokens();
+		if (lastStartIncludingHidden >= 0 && lastStartIncludingHidden < startIncludingHiddenTokens && cursorOffset > startIncludingHiddenTokens) {
+			// clear list of expected elements
+			this.expectedElements.clear();
+			this.expectedElementsIndexOfLastCompleteElement = 0;
+		}
 		lastStartIncludingHidden = startIncludingHiddenTokens;
 		this.expectedElements.add(expectedElement);
 	}
@@ -393,6 +388,8 @@ import org.eclipse.emf.ecore.EReference;
 				command.execute(dummyResource);
 			}
 		}
+		// remove all expected elements that were added after the last complete element
+		expectedElements = expectedElements.subList(0, expectedElementsIndexOfLastCompleteElement + 1);
 		int lastFollowSetID = expectedElements.get(expectedElementsIndexOfLastCompleteElement).getFollowSetID();
 		Set<eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectedTerminal> currentFollowSet = new LinkedHashSet<eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectedTerminal>();
 		List<eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectedTerminal> newFollowSet = new ArrayList<eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectedTerminal>();
@@ -483,7 +480,9 @@ import org.eclipse.emf.ecore.EReference;
 	
 	private void completedElement(Object object, boolean isContainment) {
 		if (isContainment && !this.incompleteObjects.isEmpty()) {
-			this.incompleteObjects.remove(object);
+			boolean exists = this.incompleteObjects.remove(object);
+			if (!exists) {
+			}
 		}
 		if (object instanceof EObject) {
 			this.tokenIndexOfLastCompleteElement = getTokenStream().index();
@@ -504,8 +503,9 @@ start returns [ EObject element = null]
 :
 	{
 		// follow set for start rule(s)
-		addExpectedElement(null, 0, 1);
-		expectedElementsIndexOfLastCompleteElement = 1;
+		addExpectedElement(null, eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[0]);
+		addExpectedElement(null, eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[1]);
+		expectedElementsIndexOfLastCompleteElement = 0;
 	}
 	(
 		c0 = parse_eu_hyvar_mspl_manifest_HySPLImplementation{ element = c0; }
@@ -532,7 +532,7 @@ parse_eu_hyvar_mspl_manifest_HySPLImplementation returns [eu.hyvar.mspl.manifest
 	}
 	{
 		// expected elements (follow set)
-		addExpectedElement(eu.hyvar.mspl.manifest.ManifestPackage.eINSTANCE.getHySPLImplementation(), 2);
+		addExpectedElement(eu.hyvar.mspl.manifest.ManifestPackage.eINSTANCE.getHySPLImplementation(), eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[2]);
 	}
 	
 	(
@@ -558,7 +558,9 @@ parse_eu_hyvar_mspl_manifest_HySPLImplementation returns [eu.hyvar.mspl.manifest
 	)
 	{
 		// expected elements (follow set)
-		addExpectedElement(null, 3, 5);
+		addExpectedElement(null, eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[3]);
+		addExpectedElement(null, eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[4]);
+		addExpectedElement(null, eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[5]);
 	}
 	
 	(
@@ -574,7 +576,7 @@ parse_eu_hyvar_mspl_manifest_HySPLImplementation returns [eu.hyvar.mspl.manifest
 			}
 			{
 				// expected elements (follow set)
-				addExpectedElement(eu.hyvar.mspl.manifest.ManifestPackage.eINSTANCE.getHySPLImplementation(), 6);
+				addExpectedElement(eu.hyvar.mspl.manifest.ManifestPackage.eINSTANCE.getHySPLImplementation(), eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[6]);
 			}
 			
 			(
@@ -600,14 +602,18 @@ parse_eu_hyvar_mspl_manifest_HySPLImplementation returns [eu.hyvar.mspl.manifest
 			)
 			{
 				// expected elements (follow set)
-				addExpectedElement(null, 7, 9);
+				addExpectedElement(null, eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[7]);
+				addExpectedElement(null, eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[8]);
+				addExpectedElement(null, eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[9]);
 			}
 			
 		)
 		
 	)*	{
 		// expected elements (follow set)
-		addExpectedElement(null, 10, 12);
+		addExpectedElement(null, eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[10]);
+		addExpectedElement(null, eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[11]);
+		addExpectedElement(null, eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[12]);
 	}
 	
 	(
@@ -623,7 +629,7 @@ parse_eu_hyvar_mspl_manifest_HySPLImplementation returns [eu.hyvar.mspl.manifest
 			}
 			{
 				// expected elements (follow set)
-				addExpectedElement(eu.hyvar.mspl.manifest.ManifestPackage.eINSTANCE.getHySPLImplementation(), 13);
+				addExpectedElement(eu.hyvar.mspl.manifest.ManifestPackage.eINSTANCE.getHySPLImplementation(), eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[13]);
 			}
 			
 			(
@@ -649,7 +655,8 @@ parse_eu_hyvar_mspl_manifest_HySPLImplementation returns [eu.hyvar.mspl.manifest
 			)
 			{
 				// expected elements (follow set)
-				addExpectedElement(null, 14, 15);
+				addExpectedElement(null, eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[14]);
+				addExpectedElement(null, eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[15]);
 			}
 			
 			(
@@ -665,7 +672,7 @@ parse_eu_hyvar_mspl_manifest_HySPLImplementation returns [eu.hyvar.mspl.manifest
 					}
 					{
 						// expected elements (follow set)
-						addExpectedElement(eu.hyvar.mspl.manifest.ManifestPackage.eINSTANCE.getHySPLImplementation(), 16);
+						addExpectedElement(eu.hyvar.mspl.manifest.ManifestPackage.eINSTANCE.getHySPLImplementation(), eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[16]);
 					}
 					
 					(
@@ -691,14 +698,16 @@ parse_eu_hyvar_mspl_manifest_HySPLImplementation returns [eu.hyvar.mspl.manifest
 					)
 					{
 						// expected elements (follow set)
-						addExpectedElement(null, 17, 18);
+						addExpectedElement(null, eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[17]);
+						addExpectedElement(null, eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[18]);
 					}
 					
 				)
 				
 			)*			{
 				// expected elements (follow set)
-				addExpectedElement(null, 19, 20);
+				addExpectedElement(null, eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[19]);
+				addExpectedElement(null, eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[20]);
 			}
 			
 			a8 = ')' {
@@ -712,14 +721,14 @@ parse_eu_hyvar_mspl_manifest_HySPLImplementation returns [eu.hyvar.mspl.manifest
 			}
 			{
 				// expected elements (follow set)
-				addExpectedElement(null, 21);
+				addExpectedElement(null, eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[21]);
 			}
 			
 		)
 		
 	)?	{
 		// expected elements (follow set)
-		addExpectedElement(null, 22);
+		addExpectedElement(null, eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[22]);
 	}
 	
 	(
@@ -735,7 +744,7 @@ parse_eu_hyvar_mspl_manifest_HySPLImplementation returns [eu.hyvar.mspl.manifest
 			}
 			{
 				// expected elements (follow set)
-				addExpectedElement(eu.hyvar.mspl.manifest.ManifestPackage.eINSTANCE.getHySPLImplementation(), 23);
+				addExpectedElement(eu.hyvar.mspl.manifest.ManifestPackage.eINSTANCE.getHySPLImplementation(), eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[23]);
 			}
 			
 			(
@@ -761,7 +770,7 @@ parse_eu_hyvar_mspl_manifest_HySPLImplementation returns [eu.hyvar.mspl.manifest
 			)
 			{
 				// expected elements (follow set)
-				addExpectedElement(null, 24);
+				addExpectedElement(null, eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[24]);
 			}
 			
 			(
@@ -777,7 +786,7 @@ parse_eu_hyvar_mspl_manifest_HySPLImplementation returns [eu.hyvar.mspl.manifest
 					}
 					{
 						// expected elements (follow set)
-						addExpectedElement(eu.hyvar.mspl.manifest.ManifestPackage.eINSTANCE.getHySPLImplementation(), 25);
+						addExpectedElement(eu.hyvar.mspl.manifest.ManifestPackage.eINSTANCE.getHySPLImplementation(), eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[25]);
 					}
 					
 					(
@@ -803,29 +812,20 @@ parse_eu_hyvar_mspl_manifest_HySPLImplementation returns [eu.hyvar.mspl.manifest
 					)
 					{
 						// expected elements (follow set)
-						// We've found the last token for this rule. The constructed EObject is now
-						// complete.
-						completedElement(element, true);
-						addExpectedElement(null, 26);
+						addExpectedElement(null, eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[26]);
 					}
 					
 				)
 				
 			)*			{
 				// expected elements (follow set)
-				// We've found the last token for this rule. The constructed EObject is now
-				// complete.
-				completedElement(element, true);
-				addExpectedElement(null, 27);
+				addExpectedElement(null, eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[27]);
 			}
 			
 		)
 		
 	)?	{
 		// expected elements (follow set)
-		// We've found the last token for this rule. The constructed EObject is now
-		// complete.
-		completedElement(element, true);
 	}
 	
 ;
@@ -871,7 +871,9 @@ parse_eu_hyvar_mspl_manifest_HyTimedDependencies returns [eu.hyvar.mspl.manifest
 	)
 	{
 		// expected elements (follow set)
-		addExpectedElement(null, 28, 30);
+		addExpectedElement(null, eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[28]);
+		addExpectedElement(null, eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[29]);
+		addExpectedElement(null, eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[30]);
 	}
 	
 	(
@@ -887,7 +889,9 @@ parse_eu_hyvar_mspl_manifest_HyTimedDependencies returns [eu.hyvar.mspl.manifest
 			}
 			{
 				// expected elements (follow set)
-				addExpectedElement(null, 31, 33);
+				addExpectedElement(null, eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[31]);
+				addExpectedElement(null, eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[32]);
+				addExpectedElement(null, eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[33]);
 			}
 			
 			(
@@ -924,7 +928,7 @@ parse_eu_hyvar_mspl_manifest_HyTimedDependencies returns [eu.hyvar.mspl.manifest
 				)
 				{
 					// expected elements (follow set)
-					addExpectedElement(null, 34);
+					addExpectedElement(null, eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[34]);
 				}
 				
 				a3 = '-' {
@@ -938,7 +942,7 @@ parse_eu_hyvar_mspl_manifest_HyTimedDependencies returns [eu.hyvar.mspl.manifest
 				}
 				{
 					// expected elements (follow set)
-					addExpectedElement(null, 35);
+					addExpectedElement(null, eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[35]);
 				}
 				
 				(
@@ -974,7 +978,7 @@ parse_eu_hyvar_mspl_manifest_HyTimedDependencies returns [eu.hyvar.mspl.manifest
 				)
 				{
 					// expected elements (follow set)
-					addExpectedElement(null, 36);
+					addExpectedElement(null, eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[36]);
 				}
 				
 				
@@ -1011,7 +1015,7 @@ parse_eu_hyvar_mspl_manifest_HyTimedDependencies returns [eu.hyvar.mspl.manifest
 				)
 				{
 					// expected elements (follow set)
-					addExpectedElement(null, 37);
+					addExpectedElement(null, eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[37]);
 				}
 				
 				a6 = '-' {
@@ -1025,7 +1029,7 @@ parse_eu_hyvar_mspl_manifest_HyTimedDependencies returns [eu.hyvar.mspl.manifest
 				}
 				{
 					// expected elements (follow set)
-					addExpectedElement(null, 38);
+					addExpectedElement(null, eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[38]);
 				}
 				
 				a7 = 'eternity' {
@@ -1039,7 +1043,7 @@ parse_eu_hyvar_mspl_manifest_HyTimedDependencies returns [eu.hyvar.mspl.manifest
 				}
 				{
 					// expected elements (follow set)
-					addExpectedElement(null, 39);
+					addExpectedElement(null, eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[39]);
 				}
 				
 				
@@ -1054,7 +1058,7 @@ parse_eu_hyvar_mspl_manifest_HyTimedDependencies returns [eu.hyvar.mspl.manifest
 				}
 				{
 					// expected elements (follow set)
-					addExpectedElement(null, 40);
+					addExpectedElement(null, eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[40]);
 				}
 				
 				a9 = '-' {
@@ -1068,7 +1072,7 @@ parse_eu_hyvar_mspl_manifest_HyTimedDependencies returns [eu.hyvar.mspl.manifest
 				}
 				{
 					// expected elements (follow set)
-					addExpectedElement(null, 41);
+					addExpectedElement(null, eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[41]);
 				}
 				
 				(
@@ -1104,13 +1108,13 @@ parse_eu_hyvar_mspl_manifest_HyTimedDependencies returns [eu.hyvar.mspl.manifest
 				)
 				{
 					// expected elements (follow set)
-					addExpectedElement(null, 42);
+					addExpectedElement(null, eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[42]);
 				}
 				
 			)
 			{
 				// expected elements (follow set)
-				addExpectedElement(null, 43);
+				addExpectedElement(null, eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[43]);
 			}
 			
 			a11 = ']' {
@@ -1124,20 +1128,16 @@ parse_eu_hyvar_mspl_manifest_HyTimedDependencies returns [eu.hyvar.mspl.manifest
 			}
 			{
 				// expected elements (follow set)
-				// We've found the last token for this rule. The constructed EObject is now
-				// complete.
-				completedElement(element, true);
-				addExpectedElement(null, 44, 45);
+				addExpectedElement(null, eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[44]);
+				addExpectedElement(null, eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[45]);
 			}
 			
 		)
 		
 	)?	{
 		// expected elements (follow set)
-		// We've found the last token for this rule. The constructed EObject is now
-		// complete.
-		completedElement(element, true);
-		addExpectedElement(null, 46, 47);
+		addExpectedElement(null, eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[46]);
+		addExpectedElement(null, eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[47]);
 	}
 	
 ;
@@ -1183,7 +1183,8 @@ parse_eu_hyvar_mspl_manifest_HyTimedImplementations returns [eu.hyvar.mspl.manif
 	)
 	{
 		// expected elements (follow set)
-		addExpectedElement(null, 48, 49);
+		addExpectedElement(null, eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[48]);
+		addExpectedElement(null, eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[49]);
 	}
 	
 	(
@@ -1199,7 +1200,9 @@ parse_eu_hyvar_mspl_manifest_HyTimedImplementations returns [eu.hyvar.mspl.manif
 			}
 			{
 				// expected elements (follow set)
-				addExpectedElement(null, 50, 52);
+				addExpectedElement(null, eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[50]);
+				addExpectedElement(null, eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[51]);
+				addExpectedElement(null, eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[52]);
 			}
 			
 			(
@@ -1236,7 +1239,7 @@ parse_eu_hyvar_mspl_manifest_HyTimedImplementations returns [eu.hyvar.mspl.manif
 				)
 				{
 					// expected elements (follow set)
-					addExpectedElement(null, 53);
+					addExpectedElement(null, eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[53]);
 				}
 				
 				a3 = '-' {
@@ -1250,7 +1253,7 @@ parse_eu_hyvar_mspl_manifest_HyTimedImplementations returns [eu.hyvar.mspl.manif
 				}
 				{
 					// expected elements (follow set)
-					addExpectedElement(null, 54);
+					addExpectedElement(null, eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[54]);
 				}
 				
 				(
@@ -1286,7 +1289,7 @@ parse_eu_hyvar_mspl_manifest_HyTimedImplementations returns [eu.hyvar.mspl.manif
 				)
 				{
 					// expected elements (follow set)
-					addExpectedElement(null, 55);
+					addExpectedElement(null, eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[55]);
 				}
 				
 				
@@ -1323,7 +1326,7 @@ parse_eu_hyvar_mspl_manifest_HyTimedImplementations returns [eu.hyvar.mspl.manif
 				)
 				{
 					// expected elements (follow set)
-					addExpectedElement(null, 56);
+					addExpectedElement(null, eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[56]);
 				}
 				
 				a6 = '-' {
@@ -1337,7 +1340,7 @@ parse_eu_hyvar_mspl_manifest_HyTimedImplementations returns [eu.hyvar.mspl.manif
 				}
 				{
 					// expected elements (follow set)
-					addExpectedElement(null, 57);
+					addExpectedElement(null, eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[57]);
 				}
 				
 				a7 = 'eternity' {
@@ -1351,7 +1354,7 @@ parse_eu_hyvar_mspl_manifest_HyTimedImplementations returns [eu.hyvar.mspl.manif
 				}
 				{
 					// expected elements (follow set)
-					addExpectedElement(null, 58);
+					addExpectedElement(null, eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[58]);
 				}
 				
 				
@@ -1366,7 +1369,7 @@ parse_eu_hyvar_mspl_manifest_HyTimedImplementations returns [eu.hyvar.mspl.manif
 				}
 				{
 					// expected elements (follow set)
-					addExpectedElement(null, 59);
+					addExpectedElement(null, eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[59]);
 				}
 				
 				a9 = '-' {
@@ -1380,7 +1383,7 @@ parse_eu_hyvar_mspl_manifest_HyTimedImplementations returns [eu.hyvar.mspl.manif
 				}
 				{
 					// expected elements (follow set)
-					addExpectedElement(null, 60);
+					addExpectedElement(null, eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[60]);
 				}
 				
 				(
@@ -1416,13 +1419,13 @@ parse_eu_hyvar_mspl_manifest_HyTimedImplementations returns [eu.hyvar.mspl.manif
 				)
 				{
 					// expected elements (follow set)
-					addExpectedElement(null, 61);
+					addExpectedElement(null, eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[61]);
 				}
 				
 			)
 			{
 				// expected elements (follow set)
-				addExpectedElement(null, 62);
+				addExpectedElement(null, eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[62]);
 			}
 			
 			a11 = ']' {
@@ -1436,14 +1439,14 @@ parse_eu_hyvar_mspl_manifest_HyTimedImplementations returns [eu.hyvar.mspl.manif
 			}
 			{
 				// expected elements (follow set)
-				addExpectedElement(null, 63);
+				addExpectedElement(null, eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[63]);
 			}
 			
 		)
 		
 	)?	{
 		// expected elements (follow set)
-		addExpectedElement(null, 64);
+		addExpectedElement(null, eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[64]);
 	}
 	
 	a12 = '{' {
@@ -1457,8 +1460,9 @@ parse_eu_hyvar_mspl_manifest_HyTimedImplementations returns [eu.hyvar.mspl.manif
 	}
 	{
 		// expected elements (follow set)
-		addExpectedElement(eu.hyvar.mspl.manifest.ManifestPackage.eINSTANCE.getHyTimedImplementations(), 65, 66);
-		addExpectedElement(null, 67);
+		addExpectedElement(eu.hyvar.mspl.manifest.ManifestPackage.eINSTANCE.getHyTimedImplementations(), eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[65]);
+		addExpectedElement(eu.hyvar.mspl.manifest.ManifestPackage.eINSTANCE.getHyTimedImplementations(), eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[66]);
+		addExpectedElement(null, eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[67]);
 	}
 	
 	(
@@ -1486,7 +1490,8 @@ parse_eu_hyvar_mspl_manifest_HyTimedImplementations returns [eu.hyvar.mspl.manif
 			)
 			{
 				// expected elements (follow set)
-				addExpectedElement(null, 68, 69);
+				addExpectedElement(null, eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[68]);
+				addExpectedElement(null, eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[69]);
 			}
 			
 			(
@@ -1502,7 +1507,8 @@ parse_eu_hyvar_mspl_manifest_HyTimedImplementations returns [eu.hyvar.mspl.manif
 					}
 					{
 						// expected elements (follow set)
-						addExpectedElement(eu.hyvar.mspl.manifest.ManifestPackage.eINSTANCE.getHyTimedImplementations(), 70, 71);
+						addExpectedElement(eu.hyvar.mspl.manifest.ManifestPackage.eINSTANCE.getHyTimedImplementations(), eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[70]);
+						addExpectedElement(eu.hyvar.mspl.manifest.ManifestPackage.eINSTANCE.getHyTimedImplementations(), eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[71]);
 					}
 					
 					(
@@ -1528,21 +1534,23 @@ parse_eu_hyvar_mspl_manifest_HyTimedImplementations returns [eu.hyvar.mspl.manif
 					)
 					{
 						// expected elements (follow set)
-						addExpectedElement(null, 72, 73);
+						addExpectedElement(null, eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[72]);
+						addExpectedElement(null, eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[73]);
 					}
 					
 				)
 				
 			)*			{
 				// expected elements (follow set)
-				addExpectedElement(null, 74, 75);
+				addExpectedElement(null, eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[74]);
+				addExpectedElement(null, eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[75]);
 			}
 			
 		)
 		
 	)?	{
 		// expected elements (follow set)
-		addExpectedElement(null, 76);
+		addExpectedElement(null, eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[76]);
 	}
 	
 	a16 = '}' {
@@ -1556,10 +1564,7 @@ parse_eu_hyvar_mspl_manifest_HyTimedImplementations returns [eu.hyvar.mspl.manif
 	}
 	{
 		// expected elements (follow set)
-		// We've found the last token for this rule. The constructed EObject is now
-		// complete.
-		completedElement(element, true);
-		addExpectedElement(null, 77);
+		addExpectedElement(null, eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[77]);
 	}
 	
 ;
@@ -1594,7 +1599,7 @@ parse_eu_hyvar_mspl_manifest_HyTimedImplementationLink returns [eu.hyvar.mspl.ma
 					registerContextDependentProxy(new eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestContextDependentURIFragmentFactory<eu.hyvar.mspl.manifest.HyTimedImplementationLink, eu.hyvar.feature.HyFeature>(getReferenceResolverSwitch() == null ? null : getReferenceResolverSwitch().getHyTimedImplementationLinkLocalReferenceResolver()), element, (EReference) element.eClass().getEStructuralFeature(eu.hyvar.mspl.manifest.ManifestPackage.HY_TIMED_IMPLEMENTATION_LINK__LOCAL), resolved, proxy);
 					if (proxy != null) {
 						Object value = proxy;
-						element.eSet(element.eClass().getEStructuralFeature(eu.hyvar.mspl.manifest.ManifestPackage.HY_TIMED_IMPLEMENTATION_LINK__LOCAL), value);
+						addObjectToList(element, eu.hyvar.mspl.manifest.ManifestPackage.HY_TIMED_IMPLEMENTATION_LINK__LOCAL, value);
 						completedElement(value, false);
 					}
 					collectHiddenTokens(element);
@@ -1606,7 +1611,7 @@ parse_eu_hyvar_mspl_manifest_HyTimedImplementationLink returns [eu.hyvar.mspl.ma
 		)
 		{
 			// expected elements (follow set)
-			addExpectedElement(null, 78);
+			addExpectedElement(null, eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[78]);
 		}
 		
 		
@@ -1635,7 +1640,7 @@ parse_eu_hyvar_mspl_manifest_HyTimedImplementationLink returns [eu.hyvar.mspl.ma
 					registerContextDependentProxy(new eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestContextDependentURIFragmentFactory<eu.hyvar.mspl.manifest.HyTimedImplementationLink, eu.hyvar.feature.HyFeature>(getReferenceResolverSwitch() == null ? null : getReferenceResolverSwitch().getHyTimedImplementationLinkLocalReferenceResolver()), element, (EReference) element.eClass().getEStructuralFeature(eu.hyvar.mspl.manifest.ManifestPackage.HY_TIMED_IMPLEMENTATION_LINK__LOCAL), resolved, proxy);
 					if (proxy != null) {
 						Object value = proxy;
-						element.eSet(element.eClass().getEStructuralFeature(eu.hyvar.mspl.manifest.ManifestPackage.HY_TIMED_IMPLEMENTATION_LINK__LOCAL), value);
+						addObjectToList(element, eu.hyvar.mspl.manifest.ManifestPackage.HY_TIMED_IMPLEMENTATION_LINK__LOCAL, value);
 						completedElement(value, false);
 					}
 					collectHiddenTokens(element);
@@ -1647,13 +1652,13 @@ parse_eu_hyvar_mspl_manifest_HyTimedImplementationLink returns [eu.hyvar.mspl.ma
 		)
 		{
 			// expected elements (follow set)
-			addExpectedElement(null, 79);
+			addExpectedElement(null, eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[79]);
 		}
 		
 	)
 	{
 		// expected elements (follow set)
-		addExpectedElement(null, 80);
+		addExpectedElement(null, eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[80]);
 	}
 	
 	a2 = '->' {
@@ -1667,7 +1672,8 @@ parse_eu_hyvar_mspl_manifest_HyTimedImplementationLink returns [eu.hyvar.mspl.ma
 	}
 	{
 		// expected elements (follow set)
-		addExpectedElement(null, 81, 82);
+		addExpectedElement(null, eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[81]);
+		addExpectedElement(null, eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[82]);
 	}
 	
 	(
@@ -1696,7 +1702,7 @@ parse_eu_hyvar_mspl_manifest_HyTimedImplementationLink returns [eu.hyvar.mspl.ma
 					registerContextDependentProxy(new eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestContextDependentURIFragmentFactory<eu.hyvar.mspl.manifest.HyTimedImplementationLink, eu.hyvar.feature.HyFeature>(getReferenceResolverSwitch() == null ? null : getReferenceResolverSwitch().getHyTimedImplementationLinkSignatureReferenceResolver()), element, (EReference) element.eClass().getEStructuralFeature(eu.hyvar.mspl.manifest.ManifestPackage.HY_TIMED_IMPLEMENTATION_LINK__SIGNATURE), resolved, proxy);
 					if (proxy != null) {
 						Object value = proxy;
-						element.eSet(element.eClass().getEStructuralFeature(eu.hyvar.mspl.manifest.ManifestPackage.HY_TIMED_IMPLEMENTATION_LINK__SIGNATURE), value);
+						addObjectToList(element, eu.hyvar.mspl.manifest.ManifestPackage.HY_TIMED_IMPLEMENTATION_LINK__SIGNATURE, value);
 						completedElement(value, false);
 					}
 					collectHiddenTokens(element);
@@ -1708,7 +1714,9 @@ parse_eu_hyvar_mspl_manifest_HyTimedImplementationLink returns [eu.hyvar.mspl.ma
 		)
 		{
 			// expected elements (follow set)
-			addExpectedElement(null, 83, 85);
+			addExpectedElement(null, eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[83]);
+			addExpectedElement(null, eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[84]);
+			addExpectedElement(null, eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[85]);
 		}
 		
 		
@@ -1737,7 +1745,7 @@ parse_eu_hyvar_mspl_manifest_HyTimedImplementationLink returns [eu.hyvar.mspl.ma
 					registerContextDependentProxy(new eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestContextDependentURIFragmentFactory<eu.hyvar.mspl.manifest.HyTimedImplementationLink, eu.hyvar.feature.HyFeature>(getReferenceResolverSwitch() == null ? null : getReferenceResolverSwitch().getHyTimedImplementationLinkSignatureReferenceResolver()), element, (EReference) element.eClass().getEStructuralFeature(eu.hyvar.mspl.manifest.ManifestPackage.HY_TIMED_IMPLEMENTATION_LINK__SIGNATURE), resolved, proxy);
 					if (proxy != null) {
 						Object value = proxy;
-						element.eSet(element.eClass().getEStructuralFeature(eu.hyvar.mspl.manifest.ManifestPackage.HY_TIMED_IMPLEMENTATION_LINK__SIGNATURE), value);
+						addObjectToList(element, eu.hyvar.mspl.manifest.ManifestPackage.HY_TIMED_IMPLEMENTATION_LINK__SIGNATURE, value);
 						completedElement(value, false);
 					}
 					collectHiddenTokens(element);
@@ -1749,13 +1757,17 @@ parse_eu_hyvar_mspl_manifest_HyTimedImplementationLink returns [eu.hyvar.mspl.ma
 		)
 		{
 			// expected elements (follow set)
-			addExpectedElement(null, 86, 88);
+			addExpectedElement(null, eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[86]);
+			addExpectedElement(null, eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[87]);
+			addExpectedElement(null, eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[88]);
 		}
 		
 	)
 	{
 		// expected elements (follow set)
-		addExpectedElement(null, 89, 91);
+		addExpectedElement(null, eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[89]);
+		addExpectedElement(null, eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[90]);
+		addExpectedElement(null, eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[91]);
 	}
 	
 	(
@@ -1771,7 +1783,9 @@ parse_eu_hyvar_mspl_manifest_HyTimedImplementationLink returns [eu.hyvar.mspl.ma
 			}
 			{
 				// expected elements (follow set)
-				addExpectedElement(null, 92, 94);
+				addExpectedElement(null, eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[92]);
+				addExpectedElement(null, eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[93]);
+				addExpectedElement(null, eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[94]);
 			}
 			
 			(
@@ -1808,7 +1822,7 @@ parse_eu_hyvar_mspl_manifest_HyTimedImplementationLink returns [eu.hyvar.mspl.ma
 				)
 				{
 					// expected elements (follow set)
-					addExpectedElement(null, 95);
+					addExpectedElement(null, eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[95]);
 				}
 				
 				a7 = '-' {
@@ -1822,7 +1836,7 @@ parse_eu_hyvar_mspl_manifest_HyTimedImplementationLink returns [eu.hyvar.mspl.ma
 				}
 				{
 					// expected elements (follow set)
-					addExpectedElement(null, 96);
+					addExpectedElement(null, eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[96]);
 				}
 				
 				(
@@ -1858,7 +1872,7 @@ parse_eu_hyvar_mspl_manifest_HyTimedImplementationLink returns [eu.hyvar.mspl.ma
 				)
 				{
 					// expected elements (follow set)
-					addExpectedElement(null, 97);
+					addExpectedElement(null, eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[97]);
 				}
 				
 				
@@ -1895,7 +1909,7 @@ parse_eu_hyvar_mspl_manifest_HyTimedImplementationLink returns [eu.hyvar.mspl.ma
 				)
 				{
 					// expected elements (follow set)
-					addExpectedElement(null, 98);
+					addExpectedElement(null, eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[98]);
 				}
 				
 				a10 = '-' {
@@ -1909,7 +1923,7 @@ parse_eu_hyvar_mspl_manifest_HyTimedImplementationLink returns [eu.hyvar.mspl.ma
 				}
 				{
 					// expected elements (follow set)
-					addExpectedElement(null, 99);
+					addExpectedElement(null, eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[99]);
 				}
 				
 				a11 = 'eternity' {
@@ -1923,7 +1937,7 @@ parse_eu_hyvar_mspl_manifest_HyTimedImplementationLink returns [eu.hyvar.mspl.ma
 				}
 				{
 					// expected elements (follow set)
-					addExpectedElement(null, 100);
+					addExpectedElement(null, eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[100]);
 				}
 				
 				
@@ -1938,7 +1952,7 @@ parse_eu_hyvar_mspl_manifest_HyTimedImplementationLink returns [eu.hyvar.mspl.ma
 				}
 				{
 					// expected elements (follow set)
-					addExpectedElement(null, 101);
+					addExpectedElement(null, eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[101]);
 				}
 				
 				a13 = '-' {
@@ -1952,7 +1966,7 @@ parse_eu_hyvar_mspl_manifest_HyTimedImplementationLink returns [eu.hyvar.mspl.ma
 				}
 				{
 					// expected elements (follow set)
-					addExpectedElement(null, 102);
+					addExpectedElement(null, eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[102]);
 				}
 				
 				(
@@ -1988,13 +2002,13 @@ parse_eu_hyvar_mspl_manifest_HyTimedImplementationLink returns [eu.hyvar.mspl.ma
 				)
 				{
 					// expected elements (follow set)
-					addExpectedElement(null, 103);
+					addExpectedElement(null, eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[103]);
 				}
 				
 			)
 			{
 				// expected elements (follow set)
-				addExpectedElement(null, 104);
+				addExpectedElement(null, eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[104]);
 			}
 			
 			a15 = ']' {
@@ -2008,20 +2022,16 @@ parse_eu_hyvar_mspl_manifest_HyTimedImplementationLink returns [eu.hyvar.mspl.ma
 			}
 			{
 				// expected elements (follow set)
-				// We've found the last token for this rule. The constructed EObject is now
-				// complete.
-				completedElement(element, true);
-				addExpectedElement(null, 105, 106);
+				addExpectedElement(null, eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[105]);
+				addExpectedElement(null, eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[106]);
 			}
 			
 		)
 		
 	)?	{
 		// expected elements (follow set)
-		// We've found the last token for this rule. The constructed EObject is now
-		// complete.
-		completedElement(element, true);
-		addExpectedElement(null, 107, 108);
+		addExpectedElement(null, eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[107]);
+		addExpectedElement(null, eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[108]);
 	}
 	
 ;
@@ -2041,7 +2051,7 @@ parse_eu_hyvar_mspl_manifest_HySPLSignature returns [eu.hyvar.mspl.manifest.HySP
 	}
 	{
 		// expected elements (follow set)
-		addExpectedElement(eu.hyvar.mspl.manifest.ManifestPackage.eINSTANCE.getHySPLSignature(), 109);
+		addExpectedElement(eu.hyvar.mspl.manifest.ManifestPackage.eINSTANCE.getHySPLSignature(), eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[109]);
 	}
 	
 	(
@@ -2067,7 +2077,7 @@ parse_eu_hyvar_mspl_manifest_HySPLSignature returns [eu.hyvar.mspl.manifest.HySP
 	)
 	{
 		// expected elements (follow set)
-		addExpectedElement(null, 110);
+		addExpectedElement(null, eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[110]);
 	}
 	
 	(
@@ -2083,7 +2093,7 @@ parse_eu_hyvar_mspl_manifest_HySPLSignature returns [eu.hyvar.mspl.manifest.HySP
 			}
 			{
 				// expected elements (follow set)
-				addExpectedElement(eu.hyvar.mspl.manifest.ManifestPackage.eINSTANCE.getHySPLSignature(), 111);
+				addExpectedElement(eu.hyvar.mspl.manifest.ManifestPackage.eINSTANCE.getHySPLSignature(), eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[111]);
 			}
 			
 			(
@@ -2109,20 +2119,14 @@ parse_eu_hyvar_mspl_manifest_HySPLSignature returns [eu.hyvar.mspl.manifest.HySP
 			)
 			{
 				// expected elements (follow set)
-				// We've found the last token for this rule. The constructed EObject is now
-				// complete.
-				completedElement(element, true);
-				addExpectedElement(null, 112);
+				addExpectedElement(null, eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[112]);
 			}
 			
 		)
 		
 	)*	{
 		// expected elements (follow set)
-		// We've found the last token for this rule. The constructed EObject is now
-		// complete.
-		completedElement(element, true);
-		addExpectedElement(null, 113);
+		addExpectedElement(null, eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[113]);
 	}
 	
 ;
@@ -2164,7 +2168,11 @@ parse_eu_hyvar_evolution_HyName returns [eu.hyvar.evolution.HyName element = nul
 	)
 	{
 		// expected elements (follow set)
-		addExpectedElement(null, 114, 118);
+		addExpectedElement(null, eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[114]);
+		addExpectedElement(null, eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[115]);
+		addExpectedElement(null, eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[116]);
+		addExpectedElement(null, eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[117]);
+		addExpectedElement(null, eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[118]);
 	}
 	
 	(
@@ -2180,7 +2188,9 @@ parse_eu_hyvar_evolution_HyName returns [eu.hyvar.evolution.HyName element = nul
 			}
 			{
 				// expected elements (follow set)
-				addExpectedElement(null, 119, 121);
+				addExpectedElement(null, eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[119]);
+				addExpectedElement(null, eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[120]);
+				addExpectedElement(null, eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[121]);
 			}
 			
 			(
@@ -2217,7 +2227,7 @@ parse_eu_hyvar_evolution_HyName returns [eu.hyvar.evolution.HyName element = nul
 				)
 				{
 					// expected elements (follow set)
-					addExpectedElement(null, 122);
+					addExpectedElement(null, eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[122]);
 				}
 				
 				a3 = '-' {
@@ -2231,7 +2241,7 @@ parse_eu_hyvar_evolution_HyName returns [eu.hyvar.evolution.HyName element = nul
 				}
 				{
 					// expected elements (follow set)
-					addExpectedElement(null, 123);
+					addExpectedElement(null, eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[123]);
 				}
 				
 				(
@@ -2267,7 +2277,7 @@ parse_eu_hyvar_evolution_HyName returns [eu.hyvar.evolution.HyName element = nul
 				)
 				{
 					// expected elements (follow set)
-					addExpectedElement(null, 124);
+					addExpectedElement(null, eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[124]);
 				}
 				
 				
@@ -2304,7 +2314,7 @@ parse_eu_hyvar_evolution_HyName returns [eu.hyvar.evolution.HyName element = nul
 				)
 				{
 					// expected elements (follow set)
-					addExpectedElement(null, 125);
+					addExpectedElement(null, eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[125]);
 				}
 				
 				a6 = '-' {
@@ -2318,7 +2328,7 @@ parse_eu_hyvar_evolution_HyName returns [eu.hyvar.evolution.HyName element = nul
 				}
 				{
 					// expected elements (follow set)
-					addExpectedElement(null, 126);
+					addExpectedElement(null, eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[126]);
 				}
 				
 				a7 = 'eternity' {
@@ -2332,7 +2342,7 @@ parse_eu_hyvar_evolution_HyName returns [eu.hyvar.evolution.HyName element = nul
 				}
 				{
 					// expected elements (follow set)
-					addExpectedElement(null, 127);
+					addExpectedElement(null, eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[127]);
 				}
 				
 				
@@ -2347,7 +2357,7 @@ parse_eu_hyvar_evolution_HyName returns [eu.hyvar.evolution.HyName element = nul
 				}
 				{
 					// expected elements (follow set)
-					addExpectedElement(null, 128);
+					addExpectedElement(null, eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[128]);
 				}
 				
 				a9 = '-' {
@@ -2361,7 +2371,7 @@ parse_eu_hyvar_evolution_HyName returns [eu.hyvar.evolution.HyName element = nul
 				}
 				{
 					// expected elements (follow set)
-					addExpectedElement(null, 129);
+					addExpectedElement(null, eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[129]);
 				}
 				
 				(
@@ -2397,13 +2407,13 @@ parse_eu_hyvar_evolution_HyName returns [eu.hyvar.evolution.HyName element = nul
 				)
 				{
 					// expected elements (follow set)
-					addExpectedElement(null, 130);
+					addExpectedElement(null, eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[130]);
 				}
 				
 			)
 			{
 				// expected elements (follow set)
-				addExpectedElement(null, 131);
+				addExpectedElement(null, eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[131]);
 			}
 			
 			a11 = ']' {
@@ -2417,20 +2427,20 @@ parse_eu_hyvar_evolution_HyName returns [eu.hyvar.evolution.HyName element = nul
 			}
 			{
 				// expected elements (follow set)
-				// We've found the last token for this rule. The constructed EObject is now
-				// complete.
-				completedElement(element, true);
-				addExpectedElement(null, 132, 135);
+				addExpectedElement(null, eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[132]);
+				addExpectedElement(null, eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[133]);
+				addExpectedElement(null, eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[134]);
+				addExpectedElement(null, eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[135]);
 			}
 			
 		)
 		
 	)?	{
 		// expected elements (follow set)
-		// We've found the last token for this rule. The constructed EObject is now
-		// complete.
-		completedElement(element, true);
-		addExpectedElement(null, 136, 139);
+		addExpectedElement(null, eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[136]);
+		addExpectedElement(null, eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[137]);
+		addExpectedElement(null, eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[138]);
+		addExpectedElement(null, eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[139]);
 	}
 	
 ;
@@ -2450,7 +2460,7 @@ parse_eu_hyvar_dataValues_HyEnum returns [eu.hyvar.dataValues.HyEnum element = n
 	}
 	{
 		// expected elements (follow set)
-		addExpectedElement(null, 140);
+		addExpectedElement(null, eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[140]);
 	}
 	
 	(
@@ -2486,7 +2496,7 @@ parse_eu_hyvar_dataValues_HyEnum returns [eu.hyvar.dataValues.HyEnum element = n
 	)
 	{
 		// expected elements (follow set)
-		addExpectedElement(null, 141);
+		addExpectedElement(null, eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[141]);
 	}
 	
 	a2 = ',' {
@@ -2500,8 +2510,8 @@ parse_eu_hyvar_dataValues_HyEnum returns [eu.hyvar.dataValues.HyEnum element = n
 	}
 	{
 		// expected elements (follow set)
-		addExpectedElement(eu.hyvar.dataValues.HyDataValuesPackage.eINSTANCE.getHyEnum(), 142);
-		addExpectedElement(null, 143);
+		addExpectedElement(eu.hyvar.dataValues.HyDataValuesPackage.eINSTANCE.getHyEnum(), eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[142]);
+		addExpectedElement(null, eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[143]);
 	}
 	
 	(
@@ -2529,7 +2539,8 @@ parse_eu_hyvar_dataValues_HyEnum returns [eu.hyvar.dataValues.HyEnum element = n
 			)
 			{
 				// expected elements (follow set)
-				addExpectedElement(null, 144, 145);
+				addExpectedElement(null, eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[144]);
+				addExpectedElement(null, eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[145]);
 			}
 			
 			(
@@ -2545,7 +2556,7 @@ parse_eu_hyvar_dataValues_HyEnum returns [eu.hyvar.dataValues.HyEnum element = n
 					}
 					{
 						// expected elements (follow set)
-						addExpectedElement(eu.hyvar.dataValues.HyDataValuesPackage.eINSTANCE.getHyEnum(), 146);
+						addExpectedElement(eu.hyvar.dataValues.HyDataValuesPackage.eINSTANCE.getHyEnum(), eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[146]);
 					}
 					
 					(
@@ -2571,21 +2582,23 @@ parse_eu_hyvar_dataValues_HyEnum returns [eu.hyvar.dataValues.HyEnum element = n
 					)
 					{
 						// expected elements (follow set)
-						addExpectedElement(null, 147, 148);
+						addExpectedElement(null, eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[147]);
+						addExpectedElement(null, eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[148]);
 					}
 					
 				)
 				
 			)*			{
 				// expected elements (follow set)
-				addExpectedElement(null, 149, 150);
+				addExpectedElement(null, eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[149]);
+				addExpectedElement(null, eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[150]);
 			}
 			
 		)
 		
 	)?	{
 		// expected elements (follow set)
-		addExpectedElement(null, 151);
+		addExpectedElement(null, eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[151]);
 	}
 	
 	a6 = ')' {
@@ -2599,7 +2612,7 @@ parse_eu_hyvar_dataValues_HyEnum returns [eu.hyvar.dataValues.HyEnum element = n
 	}
 	{
 		// expected elements (follow set)
-		addExpectedElement(null, 152);
+		addExpectedElement(null, eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[152]);
 	}
 	
 	(
@@ -2615,7 +2628,9 @@ parse_eu_hyvar_dataValues_HyEnum returns [eu.hyvar.dataValues.HyEnum element = n
 			}
 			{
 				// expected elements (follow set)
-				addExpectedElement(null, 153, 155);
+				addExpectedElement(null, eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[153]);
+				addExpectedElement(null, eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[154]);
+				addExpectedElement(null, eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[155]);
 			}
 			
 			(
@@ -2652,7 +2667,7 @@ parse_eu_hyvar_dataValues_HyEnum returns [eu.hyvar.dataValues.HyEnum element = n
 				)
 				{
 					// expected elements (follow set)
-					addExpectedElement(null, 156);
+					addExpectedElement(null, eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[156]);
 				}
 				
 				a9 = '-' {
@@ -2666,7 +2681,7 @@ parse_eu_hyvar_dataValues_HyEnum returns [eu.hyvar.dataValues.HyEnum element = n
 				}
 				{
 					// expected elements (follow set)
-					addExpectedElement(null, 157);
+					addExpectedElement(null, eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[157]);
 				}
 				
 				(
@@ -2702,7 +2717,7 @@ parse_eu_hyvar_dataValues_HyEnum returns [eu.hyvar.dataValues.HyEnum element = n
 				)
 				{
 					// expected elements (follow set)
-					addExpectedElement(null, 158);
+					addExpectedElement(null, eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[158]);
 				}
 				
 				
@@ -2739,7 +2754,7 @@ parse_eu_hyvar_dataValues_HyEnum returns [eu.hyvar.dataValues.HyEnum element = n
 				)
 				{
 					// expected elements (follow set)
-					addExpectedElement(null, 159);
+					addExpectedElement(null, eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[159]);
 				}
 				
 				a12 = '-' {
@@ -2753,7 +2768,7 @@ parse_eu_hyvar_dataValues_HyEnum returns [eu.hyvar.dataValues.HyEnum element = n
 				}
 				{
 					// expected elements (follow set)
-					addExpectedElement(null, 160);
+					addExpectedElement(null, eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[160]);
 				}
 				
 				
@@ -2768,7 +2783,7 @@ parse_eu_hyvar_dataValues_HyEnum returns [eu.hyvar.dataValues.HyEnum element = n
 				}
 				{
 					// expected elements (follow set)
-					addExpectedElement(null, 161);
+					addExpectedElement(null, eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[161]);
 				}
 				
 				a14 = '-' {
@@ -2782,7 +2797,7 @@ parse_eu_hyvar_dataValues_HyEnum returns [eu.hyvar.dataValues.HyEnum element = n
 				}
 				{
 					// expected elements (follow set)
-					addExpectedElement(null, 162);
+					addExpectedElement(null, eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[162]);
 				}
 				
 				(
@@ -2818,13 +2833,13 @@ parse_eu_hyvar_dataValues_HyEnum returns [eu.hyvar.dataValues.HyEnum element = n
 				)
 				{
 					// expected elements (follow set)
-					addExpectedElement(null, 163);
+					addExpectedElement(null, eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[163]);
 				}
 				
 			)
 			{
 				// expected elements (follow set)
-				addExpectedElement(null, 164);
+				addExpectedElement(null, eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[164]);
 			}
 			
 			a16 = ']' {
@@ -2838,18 +2853,12 @@ parse_eu_hyvar_dataValues_HyEnum returns [eu.hyvar.dataValues.HyEnum element = n
 			}
 			{
 				// expected elements (follow set)
-				// We've found the last token for this rule. The constructed EObject is now
-				// complete.
-				completedElement(element, true);
 			}
 			
 		)
 		
 	)?	{
 		// expected elements (follow set)
-		// We've found the last token for this rule. The constructed EObject is now
-		// complete.
-		completedElement(element, true);
 	}
 	
 ;
@@ -2869,7 +2878,7 @@ parse_eu_hyvar_dataValues_HyEnumLiteral returns [eu.hyvar.dataValues.HyEnumLiter
 	}
 	{
 		// expected elements (follow set)
-		addExpectedElement(null, 165);
+		addExpectedElement(null, eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[165]);
 	}
 	
 	(
@@ -2905,7 +2914,7 @@ parse_eu_hyvar_dataValues_HyEnumLiteral returns [eu.hyvar.dataValues.HyEnumLiter
 	)
 	{
 		// expected elements (follow set)
-		addExpectedElement(null, 166);
+		addExpectedElement(null, eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[166]);
 	}
 	
 	a2 = ',' {
@@ -2919,7 +2928,7 @@ parse_eu_hyvar_dataValues_HyEnumLiteral returns [eu.hyvar.dataValues.HyEnumLiter
 	}
 	{
 		// expected elements (follow set)
-		addExpectedElement(null, 167);
+		addExpectedElement(null, eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[167]);
 	}
 	
 	(
@@ -2955,7 +2964,7 @@ parse_eu_hyvar_dataValues_HyEnumLiteral returns [eu.hyvar.dataValues.HyEnumLiter
 	)
 	{
 		// expected elements (follow set)
-		addExpectedElement(null, 168);
+		addExpectedElement(null, eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[168]);
 	}
 	
 	a4 = ')' {
@@ -2969,7 +2978,9 @@ parse_eu_hyvar_dataValues_HyEnumLiteral returns [eu.hyvar.dataValues.HyEnumLiter
 	}
 	{
 		// expected elements (follow set)
-		addExpectedElement(null, 169, 171);
+		addExpectedElement(null, eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[169]);
+		addExpectedElement(null, eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[170]);
+		addExpectedElement(null, eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[171]);
 	}
 	
 	(
@@ -2985,7 +2996,9 @@ parse_eu_hyvar_dataValues_HyEnumLiteral returns [eu.hyvar.dataValues.HyEnumLiter
 			}
 			{
 				// expected elements (follow set)
-				addExpectedElement(null, 172, 174);
+				addExpectedElement(null, eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[172]);
+				addExpectedElement(null, eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[173]);
+				addExpectedElement(null, eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[174]);
 			}
 			
 			(
@@ -3022,7 +3035,7 @@ parse_eu_hyvar_dataValues_HyEnumLiteral returns [eu.hyvar.dataValues.HyEnumLiter
 				)
 				{
 					// expected elements (follow set)
-					addExpectedElement(null, 175);
+					addExpectedElement(null, eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[175]);
 				}
 				
 				a7 = '-' {
@@ -3036,7 +3049,7 @@ parse_eu_hyvar_dataValues_HyEnumLiteral returns [eu.hyvar.dataValues.HyEnumLiter
 				}
 				{
 					// expected elements (follow set)
-					addExpectedElement(null, 176);
+					addExpectedElement(null, eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[176]);
 				}
 				
 				(
@@ -3072,7 +3085,7 @@ parse_eu_hyvar_dataValues_HyEnumLiteral returns [eu.hyvar.dataValues.HyEnumLiter
 				)
 				{
 					// expected elements (follow set)
-					addExpectedElement(null, 177);
+					addExpectedElement(null, eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[177]);
 				}
 				
 				
@@ -3109,7 +3122,7 @@ parse_eu_hyvar_dataValues_HyEnumLiteral returns [eu.hyvar.dataValues.HyEnumLiter
 				)
 				{
 					// expected elements (follow set)
-					addExpectedElement(null, 178);
+					addExpectedElement(null, eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[178]);
 				}
 				
 				a10 = '-' {
@@ -3123,7 +3136,7 @@ parse_eu_hyvar_dataValues_HyEnumLiteral returns [eu.hyvar.dataValues.HyEnumLiter
 				}
 				{
 					// expected elements (follow set)
-					addExpectedElement(null, 179);
+					addExpectedElement(null, eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[179]);
 				}
 				
 				a11 = 'eternity' {
@@ -3137,7 +3150,7 @@ parse_eu_hyvar_dataValues_HyEnumLiteral returns [eu.hyvar.dataValues.HyEnumLiter
 				}
 				{
 					// expected elements (follow set)
-					addExpectedElement(null, 180);
+					addExpectedElement(null, eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[180]);
 				}
 				
 				
@@ -3152,7 +3165,7 @@ parse_eu_hyvar_dataValues_HyEnumLiteral returns [eu.hyvar.dataValues.HyEnumLiter
 				}
 				{
 					// expected elements (follow set)
-					addExpectedElement(null, 181);
+					addExpectedElement(null, eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[181]);
 				}
 				
 				a13 = '-' {
@@ -3166,7 +3179,7 @@ parse_eu_hyvar_dataValues_HyEnumLiteral returns [eu.hyvar.dataValues.HyEnumLiter
 				}
 				{
 					// expected elements (follow set)
-					addExpectedElement(null, 182);
+					addExpectedElement(null, eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[182]);
 				}
 				
 				(
@@ -3202,13 +3215,13 @@ parse_eu_hyvar_dataValues_HyEnumLiteral returns [eu.hyvar.dataValues.HyEnumLiter
 				)
 				{
 					// expected elements (follow set)
-					addExpectedElement(null, 183);
+					addExpectedElement(null, eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[183]);
 				}
 				
 			)
 			{
 				// expected elements (follow set)
-				addExpectedElement(null, 184);
+				addExpectedElement(null, eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[184]);
 			}
 			
 			a15 = ']' {
@@ -3222,20 +3235,16 @@ parse_eu_hyvar_dataValues_HyEnumLiteral returns [eu.hyvar.dataValues.HyEnumLiter
 			}
 			{
 				// expected elements (follow set)
-				// We've found the last token for this rule. The constructed EObject is now
-				// complete.
-				completedElement(element, true);
-				addExpectedElement(null, 185, 186);
+				addExpectedElement(null, eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[185]);
+				addExpectedElement(null, eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[186]);
 			}
 			
 		)
 		
 	)?	{
 		// expected elements (follow set)
-		// We've found the last token for this rule. The constructed EObject is now
-		// complete.
-		completedElement(element, true);
-		addExpectedElement(null, 187, 188);
+		addExpectedElement(null, eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[187]);
+		addExpectedElement(null, eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[188]);
 	}
 	
 ;
@@ -3286,9 +3295,6 @@ parse_eu_hyvar_dataValues_HyNumberValue returns [eu.hyvar.dataValues.HyNumberVal
 	)
 	{
 		// expected elements (follow set)
-		// We've found the last token for this rule. The constructed EObject is now
-		// complete.
-		completedElement(element, true);
 	}
 	
 ;
@@ -3329,9 +3335,6 @@ parse_eu_hyvar_dataValues_HyBooleanValue returns [eu.hyvar.dataValues.HyBooleanV
 	)
 	{
 		// expected elements (follow set)
-		// We've found the last token for this rule. The constructed EObject is now
-		// complete.
-		completedElement(element, true);
 	}
 	
 ;
@@ -3351,7 +3354,7 @@ parse_eu_hyvar_dataValues_HyEnumValue returns [eu.hyvar.dataValues.HyEnumValue e
 	}
 	{
 		// expected elements (follow set)
-		addExpectedElement(null, 189);
+		addExpectedElement(null, eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[189]);
 	}
 	
 	(
@@ -3391,7 +3394,7 @@ parse_eu_hyvar_dataValues_HyEnumValue returns [eu.hyvar.dataValues.HyEnumValue e
 	)
 	{
 		// expected elements (follow set)
-		addExpectedElement(null, 190);
+		addExpectedElement(null, eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[190]);
 	}
 	
 	a2 = '.' {
@@ -3405,7 +3408,7 @@ parse_eu_hyvar_dataValues_HyEnumValue returns [eu.hyvar.dataValues.HyEnumValue e
 	}
 	{
 		// expected elements (follow set)
-		addExpectedElement(null, 191);
+		addExpectedElement(null, eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestExpectationConstants.EXPECTATIONS[191]);
 	}
 	
 	(
@@ -3445,9 +3448,6 @@ parse_eu_hyvar_dataValues_HyEnumValue returns [eu.hyvar.dataValues.HyEnumValue e
 	)
 	{
 		// expected elements (follow set)
-		// We've found the last token for this rule. The constructed EObject is now
-		// complete.
-		completedElement(element, true);
 	}
 	
 ;

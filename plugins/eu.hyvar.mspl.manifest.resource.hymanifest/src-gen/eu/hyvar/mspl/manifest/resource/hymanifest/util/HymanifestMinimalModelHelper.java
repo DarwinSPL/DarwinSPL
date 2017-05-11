@@ -96,9 +96,6 @@ public class HymanifestMinimalModelHelper {
 				}
 			} else if (feature instanceof EAttribute) {
 				EAttribute attribute = (EAttribute) feature;
-				if (!attribute.isChangeable()) {
-					continue;
-				}
 				if ("EString".equals(attribute.getEType().getName())) {
 					String initialValue;
 					if (attribute.getName().equals("name") && name != null) {

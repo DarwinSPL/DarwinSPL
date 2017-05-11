@@ -174,10 +174,6 @@ public class HymanifestGrammarInformationProvider {
 		return new eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestChoice(eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCardinality.ONE, HYMANIFEST_0_0_0);
 	}
 	
-	/**
-	 * This constant refers to the definition of the syntax for meta class
-	 * HySPLImplementation
-	 */
 	public final static eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestRule HYMANIFEST_0 = INSTANCE.getHYMANIFEST_0();
 	private eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestRule getHYMANIFEST_0() {
 		return new eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestRule(eu.hyvar.mspl.manifest.ManifestPackage.eINSTANCE.getHySPLImplementation(), HYMANIFEST_0_0, eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCardinality.ONE);
@@ -293,10 +289,6 @@ public class HymanifestGrammarInformationProvider {
 		return new eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestChoice(eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCardinality.ONE, HYMANIFEST_1_0_0);
 	}
 	
-	/**
-	 * This constant refers to the definition of the syntax for meta class
-	 * HyTimedDependencies
-	 */
 	public final static eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestRule HYMANIFEST_1 = INSTANCE.getHYMANIFEST_1();
 	private eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestRule getHYMANIFEST_1() {
 		return new eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestRule(eu.hyvar.mspl.manifest.ManifestPackage.eINSTANCE.getHyTimedDependencies(), HYMANIFEST_1_0, eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCardinality.ONE);
@@ -467,10 +459,6 @@ public class HymanifestGrammarInformationProvider {
 		return new eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestChoice(eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCardinality.ONE, HYMANIFEST_2_0_0);
 	}
 	
-	/**
-	 * This constant refers to the definition of the syntax for meta class
-	 * HyTimedImplementations
-	 */
 	public final static eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestRule HYMANIFEST_2 = INSTANCE.getHYMANIFEST_2();
 	private eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestRule getHYMANIFEST_2() {
 		return new eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestRule(eu.hyvar.mspl.manifest.ManifestPackage.eINSTANCE.getHyTimedImplementations(), HYMANIFEST_2_0, eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCardinality.ONE);
@@ -646,10 +634,6 @@ public class HymanifestGrammarInformationProvider {
 		return new eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestChoice(eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCardinality.ONE, HYMANIFEST_3_0_0);
 	}
 	
-	/**
-	 * This constant refers to the definition of the syntax for meta class
-	 * HyTimedImplementationLink
-	 */
 	public final static eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestRule HYMANIFEST_3 = INSTANCE.getHYMANIFEST_3();
 	private eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestRule getHYMANIFEST_3() {
 		return new eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestRule(eu.hyvar.mspl.manifest.ManifestPackage.eINSTANCE.getHyTimedImplementationLink(), HYMANIFEST_3_0, eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCardinality.ONE);
@@ -700,10 +684,6 @@ public class HymanifestGrammarInformationProvider {
 		return new eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestChoice(eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCardinality.ONE, HYMANIFEST_4_0_0);
 	}
 	
-	/**
-	 * This constant refers to the definition of the syntax for meta class
-	 * HySPLSignature
-	 */
 	public final static eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestRule HYMANIFEST_4 = INSTANCE.getHYMANIFEST_4();
 	private eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestRule getHYMANIFEST_4() {
 		return new eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestRule(eu.hyvar.mspl.manifest.ManifestPackage.eINSTANCE.getHySPLSignature(), HYMANIFEST_4_0, eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCardinality.ONE);
@@ -819,9 +799,6 @@ public class HymanifestGrammarInformationProvider {
 		return new eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestChoice(eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCardinality.ONE, HYMANIFEST_5_0_0);
 	}
 	
-	/**
-	 * This constant refers to the definition of the syntax for meta class HyName
-	 */
 	public final static eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestRule HYMANIFEST_5 = INSTANCE.getHYMANIFEST_5();
 	private eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestRule getHYMANIFEST_5() {
 		return new eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestRule(eu.hyvar.evolution.HyEvolutionPackage.eINSTANCE.getHyName(), HYMANIFEST_5_0, eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCardinality.ONE);
@@ -842,10 +819,6 @@ public class HymanifestGrammarInformationProvider {
 		return new eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestChoice(eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCardinality.ONE, HYDATAVALUE_0_0_0);
 	}
 	
-	/**
-	 * This constant refers to the definition of the syntax for meta class
-	 * HyNumberValue
-	 */
 	public final static eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestRule HYDATAVALUE_0 = INSTANCE.getHYDATAVALUE_0();
 	private eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestRule getHYDATAVALUE_0() {
 		return new eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestRule(eu.hyvar.dataValues.HyDataValuesPackage.eINSTANCE.getHyNumberValue(), HYDATAVALUE_0_0, eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCardinality.ONE);
@@ -866,10 +839,6 @@ public class HymanifestGrammarInformationProvider {
 		return new eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestChoice(eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCardinality.ONE, HYDATAVALUE_1_0_0);
 	}
 	
-	/**
-	 * This constant refers to the definition of the syntax for meta class
-	 * HyBooleanValue
-	 */
 	public final static eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestRule HYDATAVALUE_1 = INSTANCE.getHYDATAVALUE_1();
 	private eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestRule getHYDATAVALUE_1() {
 		return new eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestRule(eu.hyvar.dataValues.HyDataValuesPackage.eINSTANCE.getHyBooleanValue(), HYDATAVALUE_1_0, eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCardinality.ONE);
@@ -905,9 +874,6 @@ public class HymanifestGrammarInformationProvider {
 		return new eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestChoice(eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCardinality.ONE, HYDATAVALUE_2_0_0);
 	}
 	
-	/**
-	 * This constant refers to the definition of the syntax for meta class HyEnumValue
-	 */
 	public final static eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestRule HYDATAVALUE_2 = INSTANCE.getHYDATAVALUE_2();
 	private eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestRule getHYDATAVALUE_2() {
 		return new eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestRule(eu.hyvar.dataValues.HyDataValuesPackage.eINSTANCE.getHyEnumValue(), HYDATAVALUE_2_0, eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCardinality.ONE);
@@ -1078,9 +1044,6 @@ public class HymanifestGrammarInformationProvider {
 		return new eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestChoice(eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCardinality.ONE, HYDATAVALUE_3_0_0);
 	}
 	
-	/**
-	 * This constant refers to the definition of the syntax for meta class HyEnum
-	 */
 	public final static eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestRule HYDATAVALUE_3 = INSTANCE.getHYDATAVALUE_3();
 	private eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestRule getHYDATAVALUE_3() {
 		return new eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestRule(eu.hyvar.dataValues.HyDataValuesPackage.eINSTANCE.getHyEnum(), HYDATAVALUE_3_0, eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCardinality.ONE);
@@ -1216,10 +1179,6 @@ public class HymanifestGrammarInformationProvider {
 		return new eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestChoice(eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCardinality.ONE, HYDATAVALUE_4_0_0);
 	}
 	
-	/**
-	 * This constant refers to the definition of the syntax for meta class
-	 * HyEnumLiteral
-	 */
 	public final static eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestRule HYDATAVALUE_4 = INSTANCE.getHYDATAVALUE_4();
 	private eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestRule getHYDATAVALUE_4() {
 		return new eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestRule(eu.hyvar.dataValues.HyDataValuesPackage.eINSTANCE.getHyEnumLiteral(), HYDATAVALUE_4_0, eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCardinality.ONE);
