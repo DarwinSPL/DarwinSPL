@@ -7,7 +7,7 @@
 	</extension>
 	
 	<extension point="org.eclipse.ui.editors">
-		<editor class="eu.hyvar.mspl.manifest.resource.hymanifest.ui.HymanifestEditor" contributorClass="org.eclipse.ui.texteditor.BasicTextEditorActionContributor" extensions="hymanifest" icon="icons/editor_icon.gif" id="eu.hyvar.mspl.manifest.resource.hymanifest.ui.HymanifestEditor" name="EMFText hymanifest Editor">
+		<editor class="eu.hyvar.mspl.manifest.resource.hymanifest.ui.HymanifestEditor" contributorClass="org.eclipse.ui.texteditor.BasicTextEditorActionContributor" extensions="hymanifest" icon="icons/editor_icon.gif" id="eu.hyvar.mspl.manifest.resource.hymanifest.ui.HymanifestEditor" name="Manifest Editor (HyVar)">
 			<contentTypeBinding contentTypeId="eu.hyvar.mspl.manifest.resource.hymanifest">
 			</contentTypeBinding>
 		</editor>
@@ -19,7 +19,7 @@
 	</extension>
 	
 	<extension point="org.eclipse.ui.preferencePages">
-		<page name="Hymanifest Text Editor" id="eu.hyvar.mspl.manifest.resource.hymanifest.ui.HymanifestPreferencePage" class="eu.hyvar.mspl.manifest.resource.hymanifest.ui.HymanifestPreferencePage" category="org.eclipse.ui.preferencePages.GeneralTextEditor">
+		<page name="Manifest Editor (HyVar)" id="eu.hyvar.mspl.manifest.resource.hymanifest.ui.HymanifestPreferencePage" class="eu.hyvar.mspl.manifest.resource.hymanifest.ui.HymanifestPreferencePage" category="org.eclipse.ui.preferencePages.GeneralTextEditor">
 		</page>
 		<page name="Syntax Coloring" id="eu.hyvar.mspl.manifest.resource.hymanifest.ui.HymanifestSyntaxColoringPreferencePage" class="eu.hyvar.mspl.manifest.resource.hymanifest.ui.HymanifestSyntaxColoringPreferencePage" category="eu.hyvar.mspl.manifest.resource.hymanifest.ui.HymanifestPreferencePage">
 		</page>
@@ -32,7 +32,7 @@
 	<extension point="org.eclipse.ui.newWizards">
 		<category id="org.emftext.runtime.ui.EMFTextFileCategory" name="EMFText File">
 		</category>
-		<wizard category="org.emftext.runtime.ui.EMFTextFileCategory" icon="/icons/default_new_icon.gif" class="eu.hyvar.mspl.manifest.resource.hymanifest.ui.HymanifestNewFileWizard" id="eu.hyvar.mspl.manifest.resource.hymanifest.ui.HymanifestNewFileWizard" name="EMFText .hymanifest file">
+		<wizard category="org.emftext.runtime.ui.EMFTextFileCategory" icon="/icons/default_new_icon.gif" class="eu.hyvar.mspl.manifest.resource.hymanifest.ui.HymanifestNewFileWizard" id="eu.hyvar.mspl.manifest.resource.hymanifest.ui.HymanifestNewFileWizard" name="HyVar MSPL Model Constraints (*.hymanifest)">
 		</wizard>
 	</extension>
 	
