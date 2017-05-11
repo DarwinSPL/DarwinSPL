@@ -11,7 +11,7 @@ import org.deltaecore.suite.mapping.DEMappingFactory;
 import org.deltaecore.suite.mapping.DEMappingModel;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 
-import eu.hyvar.evolution.HyEvolutionUtil;
+import eu.hyvar.evolution.util.HyEvolutionUtil;
 import eu.hyvar.feature.HyFeature;
 import eu.hyvar.feature.HyVersion;
 import eu.hyvar.feature.mapping.HyMapping;

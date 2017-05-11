@@ -12,7 +12,7 @@ import org.deltaecore.feature.configuration.DEConfigurationFactory;
 import org.deltaecore.feature.configuration.DEFeatureSelection;
 import org.deltaecore.feature.configuration.DEVersionSelection;
 
-import eu.hyvar.evolution.HyEvolutionUtil;
+import eu.hyvar.evolution.util.HyEvolutionUtil;
 import eu.hyvar.feature.HyFeature;
 import eu.hyvar.feature.HyFeatureModel;
 import eu.hyvar.feature.HyVersion;

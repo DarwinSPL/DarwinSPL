@@ -4,7 +4,7 @@ import java.util.Date;
 import java.util.List;
 
 import de.darwinspl.feature.evolution.complex.operations.ComplexOperation;
-import eu.hyvar.evolution.HyEvolutionUtil;
+import eu.hyvar.evolution.util.HyEvolutionUtil;
 import eu.hyvar.feature.HyFeature;
 import eu.hyvar.feature.HyFeatureChild;
 import eu.hyvar.feature.HyGroup;

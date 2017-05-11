@@ -10,7 +10,7 @@ import org.deltaecore.feature.analysis.util.FeatureModelConverter;
 import org.deltaecore.feature.constraint.DEConstraintModel;
 import org.deltaecore.feature.expression.DEExpression;
 
-import eu.hyvar.evolution.HyEvolutionUtil;
+import eu.hyvar.evolution.util.HyEvolutionUtil;
 import eu.hyvar.feature.HyFeature;
 import eu.hyvar.feature.HyFeatureModel;
 import eu.hyvar.feature.configuration.HyConfiguration;

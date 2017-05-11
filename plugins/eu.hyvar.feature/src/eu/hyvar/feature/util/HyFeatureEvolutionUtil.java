@@ -12,12 +12,12 @@ import org.eclipse.emf.common.util.EList;
 
 import eu.hyvar.dataValues.HyEnum;
 import eu.hyvar.dataValues.HyEnumValue;
-import eu.hyvar.evolution.HyEvolutionUtil;
 import eu.hyvar.evolution.HyLinearTemporalElement;
 import eu.hyvar.evolution.HyModelDiff;
 import eu.hyvar.evolution.HyName;
 import eu.hyvar.evolution.HyNamedElement;
 import eu.hyvar.evolution.HyTemporalElement;
+import eu.hyvar.evolution.util.HyEvolutionUtil;
 import eu.hyvar.feature.HyFeature;
 import eu.hyvar.feature.HyFeatureAttribute;
 import eu.hyvar.feature.HyFeatureChild;

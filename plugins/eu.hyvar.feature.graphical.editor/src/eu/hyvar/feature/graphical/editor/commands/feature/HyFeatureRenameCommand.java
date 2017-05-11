@@ -4,8 +4,8 @@ import java.util.Date;
 import java.util.List;
 
 import eu.hyvar.evolution.HyEvolutionFactory;
-import eu.hyvar.evolution.HyEvolutionUtil;
 import eu.hyvar.evolution.HyName;
+import eu.hyvar.evolution.util.HyEvolutionUtil;
 import eu.hyvar.feature.graphical.base.model.HyFeatureWrapped;
 import eu.hyvar.feature.graphical.editor.commands.DwLinearTemporalElementCommand;
 import eu.hyvar.feature.graphical.editor.editor.HyGraphicalFeatureModelEditor;

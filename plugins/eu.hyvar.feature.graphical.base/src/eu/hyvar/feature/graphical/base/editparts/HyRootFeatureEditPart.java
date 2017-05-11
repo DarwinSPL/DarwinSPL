@@ -4,8 +4,8 @@ import java.util.Date;
 
 import org.eclipse.draw2d.IFigure;
 
-import eu.hyvar.evolution.HyEvolutionUtil;
 import eu.hyvar.evolution.HyName;
+import eu.hyvar.evolution.util.HyEvolutionUtil;
 import eu.hyvar.feature.graphical.base.editor.DwGraphicalFeatureModelViewer;
 import eu.hyvar.feature.graphical.base.figures.HyRootFeatureFigure;
 import eu.hyvar.feature.graphical.base.model.HyFeatureModelWrapped;

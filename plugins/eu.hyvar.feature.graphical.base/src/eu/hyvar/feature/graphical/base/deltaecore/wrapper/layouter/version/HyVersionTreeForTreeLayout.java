@@ -5,7 +5,7 @@ import java.util.List;
 
 import org.abego.treelayout.util.AbstractTreeForTreeLayout;
 
-import eu.hyvar.evolution.HyEvolutionUtil;
+import eu.hyvar.evolution.util.HyEvolutionUtil;
 import eu.hyvar.feature.HyVersion;
 
 public class HyVersionTreeForTreeLayout extends AbstractTreeForTreeLayout<HyVersion> {

@@ -5,7 +5,7 @@ import java.util.Date;
 import org.eclipse.gef.Request;
 import org.eclipse.gef.commands.Command;
 
-import eu.hyvar.evolution.HyEvolutionUtil;
+import eu.hyvar.evolution.util.HyEvolutionUtil;
 import eu.hyvar.feature.HyFeatureType;
 import eu.hyvar.feature.HyFeatureTypeEnum;
 import eu.hyvar.feature.graphical.base.editor.DwGraphicalFeatureModelViewer;

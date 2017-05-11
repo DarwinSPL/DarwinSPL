@@ -1,4 +1,4 @@
-package eu.hyvar.evolution;
+package eu.hyvar.evolution.util;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -13,7 +13,10 @@ import org.eclipse.emf.common.util.TreeIterator;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 
-import eu.hyvar.evolution.util.HyEvolutionCopier;
+import eu.hyvar.evolution.HyEvolvedElementsContainer;
+import eu.hyvar.evolution.HyLinearTemporalElement;
+import eu.hyvar.evolution.HyModelDiff;
+import eu.hyvar.evolution.HyTemporalElement;
 
 public class HyEvolutionUtil {
 
@@ -189,6 +192,77 @@ public class HyEvolutionUtil {
 		}
 
 		return false;
+	}
+	
+	/**
+	 * Checks if the validity of @elementToCheck is within the validity of @elementToCheckAgainst
+	 * Usable, e.g., to check if a constraint's ( @elementToCheck ) validity is no longer than it's referencing features' validity ( @elementToCheckAgainst )  
+	 * @param elementToCheck
+	 * @param elementToCheckAgainst
+	 * @return
+	 */
+	public static boolean isWithinValidityOf(HyTemporalElement elementToCheck, HyTemporalElement elementToCheckAgainst) {
+		if(elementToCheck.getValidSince() == null && elementToCheckAgainst.getValidSince() != null) {
+			return false;
+		}
+		else if(elementToCheck.getValidSince() != null && elementToCheckAgainst.getValidSince() != null && elementToCheck.getValidSince().before(elementToCheckAgainst.getValidSince())) {
+			return false;
+		}
+		else if(elementToCheck.getValidUntil() == null && elementToCheckAgainst.getValidUntil() != null) {
+			return false;
+		}
+		else if(elementToCheck.getValidUntil() != null && elementToCheckAgainst.getValidUntil() != null && elementToCheck.getValidUntil().after(elementToCheckAgainst.getValidUntil())) {
+			return false;
+		}
+		return true;
+	}
+	
+	/**
+	 * Checks if the validity of @elementToCheck is within the validity of each of @elementsToCheckAgainst
+	 * Usable, e.g., to check if a constraint's ( @elementToCheck ) validity is no longer than it's referencing features' validity ( @elementsToCheckAgainst )  
+	 * @param elementToCheck
+	 * @param elementsToCheckAgainst
+	 * @return
+	 */
+	public static boolean isWithinValidityOf(HyTemporalElement elementToCheck, List<HyTemporalElement> elementsToCheckAgainst) {
+		for(HyTemporalElement elementToCheckAgainst: elementsToCheckAgainst) {
+			if(!isWithinValidityOf(elementToCheck, elementToCheckAgainst)) {
+				return false;
+			}
+		}
+		return true;
+	}
+	
+	/**
+	 * Checks if the each validity of @elementsToCheck is within the validity of @elementToCheckAgainst
+	 * Usable, e.g., to check if a constraint's ( @elementsToCheck ) validity is no longer than it's referencing features' validity ( @elementToCheckAgainst )  
+	 * @param elementsToCheck
+	 * @param elementToCheckAgainst
+	 * @return
+	 */
+	public static boolean areWithinValidityOf(List<HyTemporalElement> elementsToCheck, HyTemporalElement elementToCheckAgainst) {
+		for(HyTemporalElement elementToCheck: elementsToCheck) {
+			if(!isWithinValidityOf(elementToCheck, elementToCheckAgainst)) {
+				return false;
+			}
+		}
+		return true;
+	}
+	
+	/**
+	 * Checks if the each validity of @elementsToCheck is within the validity of each @elementsToCheckAgainst
+	 * Usable, e.g., to check if a constraint's ( @elementsToCheck ) validity is no longer than it's referencing features' validity ( @elementsToCheckAgainst )  
+	 * @param elementsToCheck
+	 * @param elementsToCheckAgainst
+	 * @return
+	 */
+	public static boolean areWithinValitiyOf(List<HyTemporalElement> elementsToCheck, List<HyTemporalElement> elementsToCheckAgainst) {
+		for(HyTemporalElement elementToCheck: elementsToCheck) {
+			if(!isWithinValidityOf(elementToCheck, elementsToCheckAgainst)) {
+				return false;
+			}
+		}
+		return true;
 	}
 
 	// With supersedes

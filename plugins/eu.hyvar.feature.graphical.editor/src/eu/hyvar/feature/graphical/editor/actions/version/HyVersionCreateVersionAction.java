@@ -3,7 +3,7 @@ package eu.hyvar.feature.graphical.editor.actions.version;
 import org.eclipse.gef.Request;
 import org.eclipse.gef.ui.actions.SelectionAction;
 
-import eu.hyvar.evolution.HyEvolutionUtil;
+import eu.hyvar.evolution.util.HyEvolutionUtil;
 import eu.hyvar.feature.HyFeature;
 import eu.hyvar.feature.graphical.base.editor.DwGraphicalFeatureModelViewer;
 import eu.hyvar.feature.graphical.base.editparts.HyFeatureEditPart;

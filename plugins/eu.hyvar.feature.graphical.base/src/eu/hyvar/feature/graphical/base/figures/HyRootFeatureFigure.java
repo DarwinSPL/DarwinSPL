@@ -3,7 +3,7 @@ package eu.hyvar.feature.graphical.base.figures;
 import java.util.Date;
 import org.eclipse.draw2d.Graphics;
 
-import eu.hyvar.evolution.HyEvolutionUtil;
+import eu.hyvar.evolution.util.HyEvolutionUtil;
 import eu.hyvar.feature.graphical.base.editor.DwGraphicalFeatureModelViewer;
 import eu.hyvar.feature.graphical.base.model.HyFeatureWrapped;
 

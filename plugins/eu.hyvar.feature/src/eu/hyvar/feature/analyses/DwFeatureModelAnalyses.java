@@ -8,8 +8,8 @@ import java.util.Map;
 
 import org.eclipse.emf.ecore.EObject;
 
-import eu.hyvar.evolution.HyEvolutionUtil;
 import eu.hyvar.evolution.HyNamedElement;
+import eu.hyvar.evolution.util.HyEvolutionUtil;
 import eu.hyvar.feature.HyFeature;
 import eu.hyvar.feature.HyFeatureAttribute;
 import eu.hyvar.feature.HyFeatureModel;
@@ -21,6 +21,7 @@ public class DwFeatureModelAnalyses {
 	public static List<DwFeatureModelAnalysesMarker> checkFeatureModelValidity(HyFeatureModel featureModel) {
 		List<DwFeatureModelAnalysesMarker> markerList = new ArrayList<DwFeatureModelAnalysesMarker>();
 		
+		markerList.addAll(checkForNameUniqueness(featureModel));
 		
 		return markerList;
 	}
