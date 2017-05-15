@@ -32,7 +32,9 @@ public class DwFeatureModelAnalyses {
 		Map<String, List<EObject>> nameMap;
 		List<String> doubledNames;
 		
-		for(Date date: HyEvolutionUtil.collectDates(featureModel)) {
+		List<Date> dates = HyEvolutionUtil.collectDates(featureModel);
+		
+		for(Date date: dates) {
 			nameMap = new HashMap<String, List<EObject>>();
 			doubledNames = new ArrayList<String>();
 			
@@ -40,6 +42,23 @@ public class DwFeatureModelAnalyses {
 				collectNames(feature, nameMap, doubledNames, date);
 				for(HyFeatureAttribute attribute: HyFeatureEvolutionUtil.getAttributes(feature, date)) {
 					collectNames(attribute, nameMap, doubledNames, date);
+				}
+			}
+			
+			for(String doubledName: doubledNames) {
+				String errorMessage = "Multiple elements with the same name at date "+date.toString();
+				markerList.add(new DwFeatureModelAnalysesMarker(nameMap.get(doubledName), errorMessage, MarkerTypeEnum.ERROR));
+			}
+		}
+		
+		if(dates.isEmpty()) {
+			nameMap = new HashMap<String, List<EObject>>();
+			doubledNames = new ArrayList<String>();
+			
+			for(HyFeature feature: featureModel.getFeatures()) {
+				collectNames(feature, nameMap, doubledNames, null);
+				for(HyFeatureAttribute attribute: HyFeatureEvolutionUtil.getAttributes(feature, null)) {
+					collectNames(attribute, nameMap, doubledNames, null);
 				}
 			}
 			
