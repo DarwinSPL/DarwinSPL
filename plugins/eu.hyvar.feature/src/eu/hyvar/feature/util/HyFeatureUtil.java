@@ -17,6 +17,7 @@ import eu.hyvar.feature.HyGroup;
 import eu.hyvar.feature.HyGroupComposition;
 import eu.hyvar.feature.HyGroupType;
 import eu.hyvar.feature.HyGroupTypeEnum;
+import eu.hyvar.feature.HyRootFeature;
 import eu.hyvar.feature.HyVersion;
 
 public class HyFeatureUtil {
@@ -173,6 +174,24 @@ public class HyFeatureUtil {
 		HyFeatureType featureType = HyEvolutionUtil.getValidTemporalElement(feature.getTypes(), date);
 		return (featureType.getType().equals(HyFeatureTypeEnum.OPTIONAL));
 	} 
+	
+	public static boolean isRootFeature(HyFeature feature, Date date) throws HyFeatureModelWellFormednessException {
+		if(feature == null) {
+			System.err.println("Something bad happened. Feature was null during isRoot check");
+			return false;
+		}
+		
+		HyRootFeature rootFeature = HyEvolutionUtil.getValidTemporalElement(feature.getFeatureModel().getRootFeature(), date);
+		if(rootFeature == null) {
+			System.err.println("Something bad happened. Root Feature was null during isRoot check");
+			return false;
+		}
+		
+		if(rootFeature.getFeature() == feature) {
+			return true;
+		}
+		return false;
+	}
 	
 	
 	/**

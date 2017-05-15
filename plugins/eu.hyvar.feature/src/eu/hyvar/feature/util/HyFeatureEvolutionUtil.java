@@ -268,9 +268,20 @@ public class HyFeatureEvolutionUtil {
 				date);
 
 		if (validGroupComposition == null) {
-			System.err.println("Something bad happened. Feature " + feature
-					+ " is not member of any group or member of multiple groups at date " + date);
-			return null;
+			try {
+				if(HyFeatureUtil.isRootFeature(feature, date)) {
+					System.out.println("Tried to get parent group of root feature");
+				}
+				else {
+					System.err.println("Something bad happened. Feature " + feature
+							+ " is not member of any group or member of multiple groups at date " + date);
+				}
+				return null;
+			} catch (HyFeatureModelWellFormednessException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
 		}
 
 		if (validGroupComposition instanceof HyGroupComposition) {
