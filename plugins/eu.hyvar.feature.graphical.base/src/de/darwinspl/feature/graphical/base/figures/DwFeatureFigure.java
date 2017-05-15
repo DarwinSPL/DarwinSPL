@@ -10,7 +10,6 @@ import org.eclipse.draw2d.ActionEvent;
 import org.eclipse.draw2d.ActionListener;
 import org.eclipse.draw2d.ConnectionAnchor;
 import org.eclipse.draw2d.Graphics;
-import org.eclipse.draw2d.ImageFigure;
 import org.eclipse.draw2d.Label;
 import org.eclipse.draw2d.Orientable;
 import org.eclipse.draw2d.XYLayout;
@@ -18,9 +17,7 @@ import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Insets;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
-import org.eclipse.jface.resource.ImageDescriptor;
-import org.eclipse.ui.ISharedImages;
-import org.eclipse.ui.PlatformUI;
+
 
 import de.darwinspl.feature.graphical.base.anchors.DwFeatureChildrenAnchor;
 import de.darwinspl.feature.graphical.base.anchors.DwFeatureParentAnchor;
@@ -28,6 +25,7 @@ import de.darwinspl.feature.graphical.base.deltaecore.wrapper.DwGeometryUtil;
 import de.darwinspl.feature.graphical.base.deltaecore.wrapper.layouter.version.DwVersionLayouterManager;
 import de.darwinspl.feature.graphical.base.deltaecore.wrapper.layouter.version.DwVersionTreeLayouter;
 import de.darwinspl.feature.graphical.base.editor.DwGraphicalFeatureModelViewer;
+import de.darwinspl.feature.graphical.base.model.DwFeatureModelWrapped;
 import de.darwinspl.feature.graphical.base.model.DwFeatureWrapped;
 import eu.hyvar.evolution.HyEvolutionUtil;
 import eu.hyvar.evolution.HyName;
@@ -41,7 +39,7 @@ import eu.hyvar.feature.HyVersion;
  * @author Gil Engel
  *
  */
-public class DwFeatureFigure extends DwLabelFigure{
+public class DwFeatureFigure extends DwErrorMarkerFigure{
 	/**
 	 * Button to hide/show children
 	 */
@@ -57,10 +55,7 @@ public class DwFeatureFigure extends DwLabelFigure{
 	 */
 	private DwHiddenChildrenIndicatorFigure hiddenChildrenIndicator;
 	
-	/**
-	 * Tooltip to display error in the feature model
-	 */
-	private DwTooltipFigure tooltipFigure;
+
 	
 	protected AbstractConnectionAnchor parentAnchor;
 	protected AbstractConnectionAnchor childrenAnchor;
@@ -70,7 +65,6 @@ public class DwFeatureFigure extends DwLabelFigure{
 	 */
 	protected DwFeatureWrapped feature;
 	
-	protected ImageFigure iconFigure;
 		
 	public DwFeatureFigure(DwGraphicalFeatureModelViewer editor, DwFeatureWrapped feature) {
 		super(editor);
@@ -80,8 +74,8 @@ public class DwFeatureFigure extends DwLabelFigure{
 		createExpandButton();
 		createHiddenChildrenIndicator();
 		createTypeFigure();
-		createTooltipFigure();	
 		createIconFigure();
+		
 		
 		this.setLayoutManager(new XYLayout());
 		
@@ -91,13 +85,13 @@ public class DwFeatureFigure extends DwLabelFigure{
 		
 	}
 	
-	public void setTooltipVisible(boolean visible){
-		if(visible)
-			setToolTip(tooltipFigure);
-		else
-			setToolTip(null);
+
+	@Override
+	protected void createTooltipFigure() {
+		super.createTooltipFigure();
 		
-		updateIconFigure();
+		if(calculateIconVisibility())
+			setTooltipText(editor.getModelWrapped().getMarkerForElement(feature.getWrappedModelElement()).getMessage());
 	}
 
 	public ConnectionAnchor getParentAnchor() {
@@ -164,29 +158,8 @@ public class DwFeatureFigure extends DwLabelFigure{
 		add(typeFigure);
 	}
 	
-	/**
-	 * Creates the tooltip figure to show errors or warnings
-	 */
-	private void createTooltipFigure() {
-		tooltipFigure = new DwTooltipFigure();
-		if(feature.getMarker() != null){
-			setToolTip(tooltipFigure);
-			tooltipFigure.setMessage(feature.getMarker().getMessage());
-		}
-	}
-	/**
-	 * Creates a figure to display a small icon on the left side of the name of a feature
-	 */
-	private void createIconFigure(){
-		ImageDescriptor descriptor = PlatformUI.getWorkbench().getSharedImages().getImageDescriptor(ISharedImages.IMG_OBJS_ERROR_TSK);
-		iconFigure = new ImageFigure(descriptor.createImage(true));
-		iconFigure.setBounds(new Rectangle(0, 0, descriptor.getImageData().width, descriptor.getImageData().height));
-		
-		if(feature.getMarker() == null)
-			iconFigure.setVisible(false);
-		
-		add(iconFigure);
-	}
+
+
 	
 	@Override
 	protected boolean useLocalCoordinates(){
@@ -318,14 +291,7 @@ public class DwFeatureFigure extends DwLabelFigure{
 		expandButton.setLocation(new Point(width-18, positionY));		
 	}
 	
-	private void updateIconFigure(){
-		DEGraphicalEditorTheme theme = DEGraphicalEditor.getTheme();
-		
-		Date date = editor.getCurrentSelectedDate();
-		
-		iconFigure.setVisible(feature.getMarker() != null);
-		iconFigure.setLocation(new Point(theme.getPrimaryMargin() / 2, feature.calculateVariationTypeCircleBounds(date).height + feature.calculateNameAreaBounds(date).height / 2 - 8));
-	}
+
 	
 	private void updateContent(){
 		Date date = editor.getCurrentSelectedDate();
@@ -412,11 +378,24 @@ public class DwFeatureFigure extends DwLabelFigure{
 		}
 	}
 	
-	/**
-	 * Sets the text displayed by the figure tooltip
-	 * @param tooltipText
-	 */
-	public void setTooltipText(String tooltipText) {
-        tooltipFigure.setMessage(tooltipText);
-    }
+
+
+	@Override
+	protected boolean calculateIconVisibility() {
+
+		DwFeatureModelWrapped featureModel = editor.getModelWrapped();
+		if(featureModel.hasMarkerForElement(feature.getWrappedModelElement())){
+			return true;
+		}
+		
+		return false;
+	}
+	
+	protected Point calculateLocation(){
+		DEGraphicalEditorTheme theme = DEGraphicalEditor.getTheme();
+		Date date = editor.getCurrentSelectedDate();
+		
+		return new Point(theme.getPrimaryMargin() / 2, feature.calculateVariationTypeCircleBounds(date).height + feature.calculateNameAreaBounds(date).height / 2 - 8);
+
+	}
 }

@@ -7,10 +7,12 @@ import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.gef.editparts.AbstractGraphicalEditPart;
 
 import de.darwinspl.feature.graphical.base.editor.DwGraphicalFeatureModelViewer;
+import de.darwinspl.feature.graphical.base.figures.DwAttributeFigure;
 import de.darwinspl.feature.graphical.base.model.DwEditorChangeableElement;
 import de.darwinspl.feature.graphical.base.model.DwFeatureModelWrapped;
 import eu.hyvar.evolution.HyEvolutionUtil;
 import eu.hyvar.evolution.HyTemporalElement;
+import eu.hyvar.feature.HyFeatureAttribute;
 
 public abstract class DwAbstractEditPart extends AbstractGraphicalEditPart implements PropertyChangeListener{
 	protected DwGraphicalFeatureModelViewer editor;
@@ -61,6 +63,18 @@ public abstract class DwAbstractEditPart extends AbstractGraphicalEditPart imple
 
 	@Override
 	public void propertyChange(PropertyChangeEvent evt) {
+		DwAttributeFigure figure = (DwAttributeFigure)getFigure();
+		HyFeatureAttribute attribute = (HyFeatureAttribute)getModel();
+		
+		boolean hasMarker = featureModel.hasMarkerForElement(attribute);
+
+		if(hasMarker){
+			figure.setTooltipVisible(true);
+			figure.setTooltipText(featureModel.getMarkerForElement(attribute).getMessage());
+
+		}else{
+			figure.setTooltipVisible(false);
+		}
 	}
 
 	/**

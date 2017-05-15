@@ -32,12 +32,12 @@ import eu.hyvar.feature.HyVersion;
 
 public class DwFeatureEditPart extends DwAbstractEditPart implements NodeEditPart{
 	private HyFeatureAdapter adapter;
-	
+
 	public class HyFeatureAdapter implements Adapter {
 
 		@Override 
 		public void notifyChanged(Notification notification) {
-			
+
 			if(notification.getEventType() == ENotificationImpl.REMOVE && notification.getNotifier() instanceof HyFeature){
 				// in case that the feature was deleted do nothing
 			}else{
@@ -77,7 +77,7 @@ public class DwFeatureEditPart extends DwAbstractEditPart implements NodeEditPar
 			DwFeatureWrapped model = ((DwFeatureWrapped)getModel());
 			model.getWrappedModelElement().eAdapters().add(adapter);
 		}
-		
+
 		super.activate();
 	}
 
@@ -94,25 +94,25 @@ public class DwFeatureEditPart extends DwAbstractEditPart implements NodeEditPar
 
 
 	@Override
-	public void propertyChange(PropertyChangeEvent evt) {		
-		if(evt.getPropertyName().equals(DwFeatureWrapped.PROPERTY_HAS_MARKER)){
-			DwFeatureFigure figure = (DwFeatureFigure)getFigure();
-			DwFeatureWrapped model = ((DwFeatureWrapped)getModel());
-			
-			if(model.getMarker() != null){
-				figure.setTooltipVisible(true);
-				figure.setTooltipText(model.getMarker().getMessage());
-				
-			}else{
-				figure.setTooltipVisible(false);
-			}
-				
-		}else{
-			refreshVisuals();
+	public void propertyChange(PropertyChangeEvent evt) {				
+		DwFeatureFigure figure = (DwFeatureFigure)getFigure();
+		DwFeatureWrapped model = ((DwFeatureWrapped)getModel());
 
-			refreshTargetConnections();
-			refreshSourceConnections();				
+		boolean hasMarker = featureModel.hasMarkerForElement(model.getWrappedModelElement());
+
+		if(hasMarker){
+			figure.setTooltipVisible(true);
+			figure.setTooltipText(featureModel.getMarkerForElement(model.getWrappedModelElement()).getMessage());
+
+		}else{
+			figure.setTooltipVisible(false);
 		}
+
+		refreshVisuals();
+
+		refreshTargetConnections();
+		refreshSourceConnections();				
+
 	}
 
 	@Override
@@ -146,16 +146,16 @@ public class DwFeatureEditPart extends DwAbstractEditPart implements NodeEditPar
 		for(HyVersion version : model.getWrappedModelElement().getVersions()){
 			objects.add(version);
 		}
-		
+
 		for(HyFeatureAttribute attribute : model.getWrappedModelElement().getAttributes()){
 			objects.add(attribute);
 		}
-		
+
 		return objects;	
 	}
-	
-	
-	
+
+
+
 	protected boolean hasModifier(DwFeatureWrapped feature){
 		Date date = ((DwGraphicalFeatureModelViewer)this.editor).getCurrentSelectedDate();
 		if(date == null)
@@ -169,7 +169,7 @@ public class DwFeatureEditPart extends DwAbstractEditPart implements NodeEditPar
 	public void refreshVisuals(){
 		refreshChildren();
 		super.refreshVisuals();
-		
+
 		DwGraphicalFeatureModelViewer editor = (DwGraphicalFeatureModelViewer)this.editor;
 		Date date = editor.getCurrentSelectedDate();
 
@@ -181,29 +181,29 @@ public class DwFeatureEditPart extends DwAbstractEditPart implements NodeEditPar
 		if(featureIsCurrentlyValid){
 			figure.update();
 		}
-		
+
 		figure.setVisible(wrappedFeature.isVisible());
-			
-		
+
+
 		for(DwParentChildConnection connection : this.getModelSourceConnections()){
 			connection.notifyChange();
 		}
-		
+
 		refreshVisualsOfChildren();
 	}
-	
-	
+
+
 	@Override
 	protected void refreshChildren() {
 		super.refreshChildren();
-		
+
 		HyFeature feature = ((DwFeatureWrapped)getModel()).getWrappedModelElement();
-		
+
 		DwGraphicalFeatureModelViewer editor = (DwGraphicalFeatureModelViewer)this.editor;
 		Date date = editor.getCurrentSelectedDate();
 		DwVersionLayouterManager.updateLayouter(feature, date);
 	}
-	
+
 	@Override
 	protected void createEditPolicies(){
 	}
@@ -231,7 +231,7 @@ public class DwFeatureEditPart extends DwAbstractEditPart implements NodeEditPar
 	 * Refresh the visual representation of all versions and attributes related to this feature
 	 */
 	protected void refreshVisualsOfChildren(){
-		
+
 		for(Object o : this.getChildren()){
 			if(o instanceof DwVersionEditPart){
 				DwVersionEditPart edit = (DwVersionEditPart)o;
@@ -244,20 +244,20 @@ public class DwFeatureEditPart extends DwAbstractEditPart implements NodeEditPar
 			}
 		}		
 	}
-	
+
 	@Override
 	protected Rectangle getFigureConstraint() {
 		DwFeatureWrapped feature = (DwFeatureWrapped)getModel();
 		DwGraphicalFeatureModelViewer editor = (DwGraphicalFeatureModelViewer)this.editor;
 		Date date = editor.getCurrentSelectedDate();
-		
+
 		int width = DwGeometryUtil.calculateFeatureWidth(feature.getWrappedModelElement(), date);
 		int height = feature.getSize(date).height;
-		
+
 		if(feature.isHideChildren()){
 			height += (int)(DwHiddenChildrenIndicatorFigure.HIDDEN_CHILDREN_INDICATOR_SIZE * 1.5); 
 		}
-		
+
 		Dimension newFeatureSize = new Dimension(width, height);
 		feature.setSize(newFeatureSize);
 

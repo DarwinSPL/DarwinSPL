@@ -52,6 +52,8 @@ public class DwAttributeRenameCommand extends DwLinearTemporalElementCommand {
 		attribute.getNames().add(newName);		
 		
 		DwElementEditorUtil.cleanNames(attribute);
+		
+		editor.getModelWrapped().checkModelForErrors();
 	}
 	
 	public void setNewName(String newName) {

@@ -25,7 +25,6 @@ import eu.hyvar.feature.HyGroupComposition;
 import eu.hyvar.feature.HyGroupType;
 import eu.hyvar.feature.HyGroupTypeEnum;
 import eu.hyvar.feature.HyRootFeature;
-import eu.hyvar.feature.analyses.DwFeatureModelAnalysesMarker;
 
 public class DwFeatureWrapped extends DwEditorChangeableElement{
 	public final static String PROPERTY_CARDINALITY = "PropertyCardinality";
@@ -33,7 +32,6 @@ public class DwFeatureWrapped extends DwEditorChangeableElement{
 	public final static String PROPERTY_CHILDREN_CONNECTIONS_SIZE_CHANGED = "PropertyChildrenConnectionsSize";
 	public final static String PROPERTY_VIEW_HIDE_CHILDREN = "PropertyHideChildren";
 	public final static String PROPERTY_VISIBILITY = "PropertyVisibility";
-	public final static String PROPERTY_HAS_MARKER = "PropertyHasMarker";
 
 	DwGroupWrapped parentGroup;
 	DwFeatureModelWrapped featureModel = null;
@@ -51,23 +49,7 @@ public class DwFeatureWrapped extends DwEditorChangeableElement{
 	 */
 	private boolean visible = true;
 
-	/**
-	 * Indicates if there is an error|warning in the feature model caused by this feature.
-	 * If the feature causes no error this variable is null.
-	 */
-	private DwFeatureModelAnalysesMarker marker;
 
-	
-	public DwFeatureModelAnalysesMarker getMarker() {
-		return marker;
-	}
-
-	public void setMarker(DwFeatureModelAnalysesMarker marker) {
-		DwFeatureModelAnalysesMarker old = this.marker;
-		this.marker = marker;
-		
-		listeners.firePropertyChange(PROPERTY_HAS_MARKER, old, marker);
-	}
 
 	/**
 	 * 

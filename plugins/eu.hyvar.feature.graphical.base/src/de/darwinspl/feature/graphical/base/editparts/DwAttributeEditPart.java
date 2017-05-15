@@ -9,6 +9,9 @@ import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Insets;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
+import org.eclipse.emf.common.notify.Adapter;
+import org.eclipse.emf.common.notify.Notification;
+import org.eclipse.emf.common.notify.Notifier;
 
 import de.darwinspl.feature.graphical.base.editor.DwGraphicalFeatureModelViewer;
 import de.darwinspl.feature.graphical.base.figures.DwAttributeFigure;
@@ -17,10 +20,34 @@ import de.darwinspl.feature.graphical.base.model.DwFeatureWrapped;
 import de.darwinspl.feature.graphical.base.model.DwTemporalPosition;
 import eu.hyvar.evolution.HyEvolutionUtil;
 import eu.hyvar.evolution.HyName;
+import eu.hyvar.feature.HyFeature;
 import eu.hyvar.feature.HyFeatureAttribute;
 
 public class DwAttributeEditPart extends DwAbstractEditPart{
+	private DwAttributeAdapter adapter = new DwAttributeAdapter();
+	
+	public class DwAttributeAdapter implements Adapter {
 
+		@Override 
+		public void notifyChanged(Notification notification) {				
+			refreshChildren();
+			refreshVisuals();
+		}
+
+		@Override 
+		public Notifier getTarget() {
+			return (HyFeature)((DwFeatureWrapped)getModel()).getWrappedModelElement();
+		}
+
+		@Override public void setTarget(Notifier newTarget) {
+			// Do nothing.
+		}
+
+		@Override public boolean isAdapterForType(Object type) {
+			return type.equals(HyFeature.class);
+		}
+	} 
+	
 	public DwAttributeEditPart(DwGraphicalFeatureModelViewer editor, DwFeatureModelWrapped featureModel) {
 		super(editor, featureModel);
 	}
@@ -28,6 +55,27 @@ public class DwAttributeEditPart extends DwAbstractEditPart{
 	@Override
 	protected IFigure createFigure() {
 		return new DwAttributeFigure(editor, (HyFeatureAttribute)getModel());
+	}
+	
+
+	@Override 
+	public void activate() {
+		if(!isActive()) {
+			HyFeatureAttribute model = ((HyFeatureAttribute)getModel());
+			model.eAdapters().add(adapter);
+		}
+
+		super.activate();
+	}
+
+	@Override 
+	public void deactivate() {
+		if(isActive()) {
+			HyFeatureAttribute model = ((HyFeatureAttribute)getModel());
+			
+			model.eAdapters().remove(adapter);
+		}
+		super.deactivate();
 	}
 
 	@Override

@@ -8,6 +8,8 @@ import org.eclipse.emf.ecore.EObject;
 
 
 public class DwEditorChangeableElement extends DwEvolutionaryPositionElement{
+
+	public final static String PROPERTY_HAS_MARKER = "PropertyHasMarker";
 	public final static String PROPERTY_POSITION = "PropertyPosition";
 	public static final String PROPERTY_CARDINALITY = "PropertyCardinality";
 	protected EObject wrappedModelElement;

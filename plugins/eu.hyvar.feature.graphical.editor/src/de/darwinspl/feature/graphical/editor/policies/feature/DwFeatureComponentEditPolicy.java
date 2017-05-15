@@ -7,7 +7,6 @@ import org.eclipse.gef.requests.GroupRequest;
 import de.darwinspl.feature.graphical.base.editor.DwGraphicalFeatureModelViewer;
 import de.darwinspl.feature.graphical.base.editparts.DwFeatureEditPart;
 import de.darwinspl.feature.graphical.base.model.DwFeatureWrapped;
-import de.darwinspl.feature.graphical.editor.commands.feature.DwFeatureDeleteCommand;
 import de.darwinspl.feature.graphical.editor.commands.feature.DwFeatureDeletePermanentlyCommand;
 
 public class DwFeatureComponentEditPolicy extends ComponentEditPolicy {

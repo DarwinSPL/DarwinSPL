@@ -22,7 +22,6 @@ import org.eclipse.e4.ui.model.application.ui.basic.MPartStack;
 import org.eclipse.e4.ui.model.application.ui.basic.MStackElement;
 import org.eclipse.e4.ui.model.application.ui.basic.impl.BasicFactoryImpl;
 import org.eclipse.e4.ui.workbench.modeling.EModelService;
-import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.gef.GraphicalViewer;
 import org.eclipse.gef.KeyHandler;
@@ -42,7 +41,6 @@ import org.eclipse.ui.actions.ActionFactory;
 import org.eclipse.ui.part.FileEditorInput;
 
 import de.darwinspl.feature.graphical.base.editor.DwGraphicalFeatureModelViewer;
-import de.darwinspl.feature.graphical.base.model.DwFeatureWrapped;
 import de.darwinspl.feature.graphical.base.util.DwFeatureModelLayoutFileUtil;
 import de.darwinspl.feature.graphical.editor.actions.DwLinearTemporalElementChangeValidityAction;
 import de.darwinspl.feature.graphical.editor.actions.attribute.DwAttributeCreateBooleanAction;
@@ -65,9 +63,6 @@ import de.darwinspl.feature.graphical.editor.actions.version.DwVersionCreateVers
 import de.darwinspl.feature.graphical.editor.factory.DwFeatureModelEditorEditPartFactory;
 import eu.hyvar.context.contextValidity.util.HyValidityModelUtil;
 import eu.hyvar.context.information.util.HyContextInformationUtil;
-import eu.hyvar.feature.HyFeature;
-import eu.hyvar.feature.analyses.DwFeatureModelAnalyses;
-import eu.hyvar.feature.analyses.DwFeatureModelAnalysesMarker;
 import eu.hyvar.feature.constraint.util.HyConstraintUtil;
 
 @SuppressWarnings("restriction")

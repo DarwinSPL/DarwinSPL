@@ -13,7 +13,6 @@ import de.darwinspl.feature.graphical.base.model.DwFeatureWrapped;
 import de.darwinspl.feature.graphical.base.model.DwGroupWrapped;
 import de.darwinspl.feature.graphical.base.model.DwParentChildConnection;
 import de.darwinspl.feature.graphical.editor.commands.DwFeatureModelEditorCommand;
-import de.darwinspl.feature.graphical.editor.editparts.DwRootFeatureEditorEditPart;
 import de.darwinspl.feature.graphical.editor.util.DwEcoreUtil;
 import eu.hyvar.feature.HyFeature;
 import eu.hyvar.feature.HyFeatureChild;

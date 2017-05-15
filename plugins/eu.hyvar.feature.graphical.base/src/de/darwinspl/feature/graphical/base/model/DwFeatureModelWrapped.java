@@ -7,10 +7,13 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
 import java.util.Date;
+import java.util.Hashtable;
 import java.util.List;
+import java.util.Set;
 
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 
 import de.darwinspl.feature.graphical.base.deltaecore.wrapper.layouter.feature.DwFeatureLayouterManager;
@@ -40,12 +43,13 @@ public class DwFeatureModelWrapped implements PropertyChangeListener {
 
 	public static final String PROPERTY_SELECTED_DATE = "PropertySelectedDate";
 	public static final String PROPERTY_DATES_COUNT = "PropertyDatesCount";
+	public static final String PROPERTY_MARKER_ADDED = "PropertyMarkerAdded";
 	private Date selectedDate;
 
 	private List<Date> dates;
 
 	List<DwParentChildConnection> connections;
-
+	
 	/**
 	 * Handles the layout mode. If active, rearrange features will be ignored
 	 */
@@ -64,6 +68,19 @@ public class DwFeatureModelWrapped implements PropertyChangeListener {
 
 	protected List<DwGroupWrapped> groups;	
 
+	private Hashtable<EObject, DwFeatureModelAnalysesMarker > markers = new Hashtable<EObject, DwFeatureModelAnalysesMarker>();
+
+	public void addMarker(EObject key, DwFeatureModelAnalysesMarker marker){
+		markers.put(key, marker);
+	}
+	
+	public boolean hasMarkerForElement(EObject key){
+		return markers.containsKey(key);
+	}
+	public DwFeatureModelAnalysesMarker getMarkerForElement(EObject key){
+		return markers.get(key);
+	}
+	
 	/**
 	 * Returns all valid groups at a specific date
 	 * @param date
@@ -703,22 +720,21 @@ public class DwFeatureModelWrapped implements PropertyChangeListener {
 	
 	
 	public void checkModelForErrors(){
-		for(DwFeatureWrapped featureWrapped : features){
-			featureWrapped.setMarker(null);
+		@SuppressWarnings("unchecked")
+		Set<EObject> keys = ((Hashtable<EObject, DwFeatureModelAnalysesMarker>)this.markers.clone()).keySet();
+		this.markers.clear();
+		for(EObject key : keys){
+			key.eNotify(new ENotificationImpl(null, 0, null, true, false));	
 		}
+		
 		
 		List<DwFeatureModelAnalysesMarker> markers = DwFeatureModelAnalyses.checkFeatureModelValidity(model);
 		for(DwFeatureModelAnalysesMarker marker : markers){
 			for(EObject affectedElement : marker.getAffectedObjects()){
-				if(affectedElement instanceof HyFeature){
-					HyFeature feature = (HyFeature)affectedElement;
-					
-					DwFeatureWrapped wrappedFeature = findWrappedFeature(feature);
-					if(wrappedFeature != null){
-						wrappedFeature.setMarker(marker);
-					}
-				}
+				
+				this.markers.put(affectedElement, marker);
+				affectedElement.eNotify(new ENotificationImpl(null, 0, null, true, false));
 			}
-		}		
+		}
 	}
 }

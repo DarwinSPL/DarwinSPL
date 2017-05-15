@@ -14,6 +14,7 @@ public class DwTooltipFigure extends FlowPage {
      
     public DwTooltipFigure() {
         setOpaque(true);
+        setBackgroundColor(ColorConstants.white);
         
 
         setBorder( new CompoundBorder(
@@ -29,8 +30,8 @@ public class DwTooltipFigure extends FlowPage {
     @Override
     public Dimension getPreferredSize(int w, int h) {
         Dimension d = super.getPreferredSize(-1, -1);
-        if (d.width > 150)
-            d = super.getPreferredSize(150, -1);
+        if (d.width > 350)
+            d = super.getPreferredSize(350, -1);
         return d;
     }
      
