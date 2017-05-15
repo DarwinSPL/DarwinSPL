@@ -6,7 +6,7 @@ import java.util.List;
 
 import org.abego.treelayout.util.AbstractTreeForTreeLayout;
 
-import eu.hyvar.evolution.HyEvolutionUtil;
+import eu.hyvar.evolution.util.HyEvolutionUtil;
 import eu.hyvar.feature.HyFeature;
 import eu.hyvar.feature.HyFeatureChild;
 import eu.hyvar.feature.HyGroup;

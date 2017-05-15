@@ -5,7 +5,7 @@ import org.eclipse.draw2d.Graphics;
 
 import de.darwinspl.feature.graphical.base.editor.DwGraphicalFeatureModelViewer;
 import de.darwinspl.feature.graphical.base.model.DwFeatureWrapped;
-import eu.hyvar.evolution.HyEvolutionUtil;
+import eu.hyvar.evolution.util.HyEvolutionUtil;
 
 public class DwRootFeatureFigure extends DwFeatureFigure{
 

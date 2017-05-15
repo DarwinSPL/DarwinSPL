@@ -15,7 +15,7 @@ import de.darwinspl.feature.graphical.base.adapters.DwFeatureWrappedAdapter;
 import de.darwinspl.feature.graphical.base.deltaecore.wrapper.DwGeometryUtil;
 import de.darwinspl.feature.graphical.base.deltaecore.wrapper.layouter.version.DwVersionLayouterManager;
 import de.darwinspl.feature.graphical.base.deltaecore.wrapper.layouter.version.DwVersionTreeLayouter;
-import eu.hyvar.evolution.HyEvolutionUtil;
+import eu.hyvar.evolution.util.HyEvolutionUtil;
 import eu.hyvar.feature.HyFeature;
 import eu.hyvar.feature.HyFeatureChild;
 import eu.hyvar.feature.HyFeatureType;

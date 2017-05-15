@@ -23,7 +23,7 @@ import org.eclipse.ui.PlatformUI;
 import org.osgi.framework.Bundle;
 
 import de.darwinspl.feature.graphical.base.editor.DwGraphicalFeatureModelViewer;
-import eu.hyvar.evolution.HyEvolutionUtil;
+import eu.hyvar.evolution.util.HyEvolutionUtil;
 import eu.hyvar.evolution.HyName;
 import eu.hyvar.evolution.HyNamedElement;
 import eu.hyvar.feature.HyFeature;

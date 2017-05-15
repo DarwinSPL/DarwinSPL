@@ -11,7 +11,7 @@ import org.deltaecore.feature.constraint.DEConstraintFactory;
 import org.deltaecore.feature.constraint.DEConstraintModel;
 import org.deltaecore.feature.expression.DEExpression;
 
-import eu.hyvar.evolution.HyEvolutionUtil;
+import eu.hyvar.evolution.util.HyEvolutionUtil;
 import eu.hyvar.feature.HyFeature;
 import eu.hyvar.feature.HyVersion;
 import eu.hyvar.feature.constraint.HyConstraint;

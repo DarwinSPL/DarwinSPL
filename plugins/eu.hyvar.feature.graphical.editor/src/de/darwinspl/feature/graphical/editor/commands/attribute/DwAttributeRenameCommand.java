@@ -6,7 +6,7 @@ import de.darwinspl.feature.graphical.base.editor.DwGraphicalFeatureModelViewer;
 import de.darwinspl.feature.graphical.editor.commands.DwLinearTemporalElementCommand;
 import de.darwinspl.feature.graphical.editor.util.DwElementEditorUtil;
 import eu.hyvar.evolution.HyEvolutionFactory;
-import eu.hyvar.evolution.HyEvolutionUtil;
+import eu.hyvar.evolution.util.HyEvolutionUtil;
 import eu.hyvar.evolution.HyName;
 import eu.hyvar.feature.HyFeatureAttribute;
 

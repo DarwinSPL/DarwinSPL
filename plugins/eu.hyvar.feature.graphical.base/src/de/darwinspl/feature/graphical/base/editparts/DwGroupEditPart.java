@@ -15,7 +15,7 @@ import de.darwinspl.feature.graphical.base.figures.DwGroupFigure;
 import de.darwinspl.feature.graphical.base.model.DwFeatureModelWrapped;
 import de.darwinspl.feature.graphical.base.model.DwFeatureWrapped;
 import de.darwinspl.feature.graphical.base.model.DwGroupWrapped;
-import eu.hyvar.evolution.HyEvolutionUtil;
+import eu.hyvar.evolution.util.HyEvolutionUtil;
 
 public class DwGroupEditPart extends DwAbstractEditPart{
 	

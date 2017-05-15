@@ -3,7 +3,7 @@ package eu.hyvar.feature.constraint.util;
 import java.util.Date;
 import java.util.List;
 
-import eu.hyvar.evolution.HyEvolutionUtil;
+import eu.hyvar.evolution.util.HyEvolutionUtil;
 import eu.hyvar.feature.HyFeature;
 import eu.hyvar.feature.HyVersion;
 import eu.hyvar.feature.constraint.HyConstraint;

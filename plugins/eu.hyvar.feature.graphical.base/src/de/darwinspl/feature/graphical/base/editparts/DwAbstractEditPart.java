@@ -10,7 +10,7 @@ import de.darwinspl.feature.graphical.base.editor.DwGraphicalFeatureModelViewer;
 import de.darwinspl.feature.graphical.base.figures.DwAttributeFigure;
 import de.darwinspl.feature.graphical.base.model.DwEditorChangeableElement;
 import de.darwinspl.feature.graphical.base.model.DwFeatureModelWrapped;
-import eu.hyvar.evolution.HyEvolutionUtil;
+import eu.hyvar.evolution.util.HyEvolutionUtil;
 import eu.hyvar.evolution.HyTemporalElement;
 import eu.hyvar.feature.HyFeatureAttribute;
 

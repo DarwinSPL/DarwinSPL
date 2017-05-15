@@ -21,7 +21,7 @@ import de.darwinspl.feature.graphical.base.model.DwFeatureModelWrapped;
 import de.darwinspl.feature.graphical.base.model.DwTemporalPosition;
 import de.darwinspl.feature.graphical.base.model.DwEnumContainerWrapped.EditorAlignment;
 import eu.hyvar.dataValues.HyEnum;
-import eu.hyvar.evolution.HyEvolutionUtil;
+import eu.hyvar.evolution.util.HyEvolutionUtil;
 import eu.hyvar.feature.HyFeature;
 
 public class DwEnumContainerEditPart extends DwAbstractEditPart{

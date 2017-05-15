@@ -8,7 +8,7 @@ import de.darwinspl.feature.graphical.editor.commands.DwLinearTemporalElementCom
 import de.darwinspl.feature.graphical.editor.editor.DwGraphicalFeatureModelEditor;
 import de.darwinspl.feature.graphical.editor.util.DwElementEditorUtil;
 import eu.hyvar.evolution.HyEvolutionFactory;
-import eu.hyvar.evolution.HyEvolutionUtil;
+import eu.hyvar.evolution.util.HyEvolutionUtil;
 import eu.hyvar.evolution.HyName;
 
 public class DwFeatureRenameCommand extends DwLinearTemporalElementCommand {

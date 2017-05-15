@@ -11,7 +11,7 @@ import de.darwinspl.feature.graphical.base.editparts.DwRootFeatureEditPart;
 import de.darwinspl.feature.graphical.base.model.DwFeatureWrapped;
 import de.darwinspl.feature.graphical.editor.commands.feature.DwFeatureCreateCommand;
 import de.darwinspl.feature.graphical.editor.editor.DwGraphicalFeatureModelEditor;
-import eu.hyvar.evolution.HyEvolutionUtil;
+import eu.hyvar.evolution.util.HyEvolutionUtil;
 import eu.hyvar.feature.HyFeatureChild;
 import eu.hyvar.feature.HyGroupComposition;
 

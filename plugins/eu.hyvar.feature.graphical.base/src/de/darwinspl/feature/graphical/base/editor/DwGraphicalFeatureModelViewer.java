@@ -41,7 +41,7 @@ import de.darwinspl.feature.graphical.base.editparts.DwFeatureModelEditPart;
 import de.darwinspl.feature.graphical.base.factory.DwFeatureModelEditPartFactory;
 import de.darwinspl.feature.graphical.base.model.DwFeatureModelWrapped;
 import de.darwinspl.feature.graphical.base.util.DwFeatureModelLayoutFileUtil;
-import eu.hyvar.evolution.HyEvolutionUtil;
+import eu.hyvar.evolution.util.HyEvolutionUtil;
 import eu.hyvar.feature.HyFeatureModel;
 import eu.hyvar.feature.HyFeaturePackage;
 import eu.hyvar.feature.expression.extensionpoints.IFeatureModelEditor;

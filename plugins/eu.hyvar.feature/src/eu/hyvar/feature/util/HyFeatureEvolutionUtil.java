@@ -12,12 +12,12 @@ import org.eclipse.emf.common.util.EList;
 
 import eu.hyvar.dataValues.HyEnum;
 import eu.hyvar.dataValues.HyEnumValue;
-import eu.hyvar.evolution.HyEvolutionUtil;
 import eu.hyvar.evolution.HyLinearTemporalElement;
 import eu.hyvar.evolution.HyModelDiff;
 import eu.hyvar.evolution.HyName;
 import eu.hyvar.evolution.HyNamedElement;
 import eu.hyvar.evolution.HyTemporalElement;
+import eu.hyvar.evolution.util.HyEvolutionUtil;
 import eu.hyvar.feature.HyFeature;
 import eu.hyvar.feature.HyFeatureAttribute;
 import eu.hyvar.feature.HyFeatureChild;
@@ -268,9 +268,20 @@ public class HyFeatureEvolutionUtil {
 				date);
 
 		if (validGroupComposition == null) {
-			System.err.println("Something bad happened. Feature " + feature
-					+ " is not member of any group or member of multiple groups at date " + date);
-			return null;
+			try {
+				if(HyFeatureUtil.isRootFeature(feature, date)) {
+					System.out.println("Tried to get parent group of root feature");
+				}
+				else {
+					System.err.println("Something bad happened. Feature " + feature
+							+ " is not member of any group or member of multiple groups at date " + date);
+				}
+				return null;
+			} catch (HyFeatureModelWellFormednessException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
 		}
 
 		if (validGroupComposition instanceof HyGroupComposition) {

@@ -21,7 +21,7 @@ import de.darwinspl.feature.graphical.editor.policies.feature.DwFeatureComponent
 import de.darwinspl.feature.graphical.editor.policies.feature.DwFeatureDirectEditPolicy;
 import de.darwinspl.feature.graphical.editor.policies.feature.DwFeatureGraphicalNodeEditPolicy;
 import de.darwinspl.feature.graphical.editor.policies.feature.DwFeatureXYLayoutPolicy;
-import eu.hyvar.evolution.HyEvolutionUtil;
+import eu.hyvar.evolution.util.HyEvolutionUtil;
 import eu.hyvar.feature.HyFeatureType;
 import eu.hyvar.feature.HyFeatureTypeEnum;
 

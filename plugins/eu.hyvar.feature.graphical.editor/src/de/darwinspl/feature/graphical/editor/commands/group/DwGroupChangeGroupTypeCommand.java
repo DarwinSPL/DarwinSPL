@@ -7,7 +7,7 @@ import org.eclipse.emf.ecore.util.EcoreUtil;
 import de.darwinspl.feature.graphical.base.editor.DwGraphicalFeatureModelViewer;
 import de.darwinspl.feature.graphical.editor.commands.DwLinearTemporalElementCommand;
 import de.darwinspl.feature.graphical.editor.util.DwElementEditorUtil;
-import eu.hyvar.evolution.HyEvolutionUtil;
+import eu.hyvar.evolution.util.HyEvolutionUtil;
 import eu.hyvar.feature.HyFeatureFactory;
 import eu.hyvar.feature.HyGroup;
 import eu.hyvar.feature.HyGroupType;

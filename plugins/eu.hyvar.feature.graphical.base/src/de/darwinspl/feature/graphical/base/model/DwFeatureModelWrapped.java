@@ -19,7 +19,7 @@ import org.eclipse.emf.ecore.util.EcoreUtil;
 import de.darwinspl.feature.graphical.base.deltaecore.wrapper.layouter.feature.DwFeatureLayouterManager;
 import de.darwinspl.feature.graphical.base.deltaecore.wrapper.layouter.feature.DwFeatureTreeLayouter;
 import eu.hyvar.evolution.HyEvolutionFactory;
-import eu.hyvar.evolution.HyEvolutionUtil;
+import eu.hyvar.evolution.util.HyEvolutionUtil;
 import eu.hyvar.evolution.HyName;
 import eu.hyvar.feature.HyFeature;
 import eu.hyvar.feature.HyFeatureChild;

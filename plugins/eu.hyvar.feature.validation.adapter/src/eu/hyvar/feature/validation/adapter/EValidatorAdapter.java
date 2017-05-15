@@ -22,11 +22,11 @@ import org.eclipse.emf.validation.model.IConstraintStatus;
 import org.eclipse.emf.validation.service.IBatchValidator;
 import org.eclipse.emf.validation.service.ModelValidationService;
 
-import eu.hyvar.evolution.HyEvolutionUtil;
 import eu.hyvar.evolution.HyLinearTemporalElement;
 import eu.hyvar.evolution.HyName;
 import eu.hyvar.evolution.HyNamedElement;
 import eu.hyvar.evolution.HyTemporalElement;
+import eu.hyvar.evolution.util.HyEvolutionUtil;
 import eu.hyvar.feature.HyFeature;
 import eu.hyvar.feature.HyFeatureAttribute;
 import eu.hyvar.feature.HyFeatureChild;
