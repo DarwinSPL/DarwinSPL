@@ -30,8 +30,6 @@ public class DwEditorChangeableElement extends DwEvolutionaryPositionElement{
 	public DwEditorChangeableElement(EObject wrappedModelElement){
 		this.wrappedModelElement = wrappedModelElement;
 
-		//positions.add(new DwTemporalPosition());
-
 		listeners = new PropertyChangeSupport(this);
 	}
 	public void addPropertyChangeListener(PropertyChangeListener listener){

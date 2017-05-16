@@ -118,6 +118,8 @@ public class DwFeatureDeletePermanentlyCommand extends DwFeatureModelEditorComma
 		
 		redoConnections();
 		
+		int index = viewer.getModelWrapped().getFeatures(null).indexOf(this.feature);
+		
 		HyFeature feature = this.feature.getWrappedModelElement();
 		
 		// save a copy to the feature with dummy references to all related elements
@@ -175,7 +177,7 @@ public class DwFeatureDeletePermanentlyCommand extends DwFeatureModelEditorComma
 		}
 		
 		// remove feature and update feature model view
-		viewer.getModelWrapped().removeFeature(this.feature);
+		viewer.getModelWrapped().removeFeature(index);
 		
 		updateFeatureModel();
 	}

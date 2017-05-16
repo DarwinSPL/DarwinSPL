@@ -326,12 +326,6 @@ public class DwFeatureFigure extends DwErrorMarkerFigure{
 	protected void paintFigure(Graphics graphics) {
 		Date date = editor.getCurrentSelectedDate();
 
-		HyFeature model = feature.getWrappedModelElement();
-		if(HyEvolutionUtil.getValidTemporalElement(model.getTypes(), date) == null ||
-				feature.getGroupMembership(date).isEmpty()){
-			return;
-		}
-		
 		if (feature.hasVersionsAtDate(date)) {
 			paintVersionAreaBackground(graphics);
 			
