@@ -19,7 +19,7 @@ public class HyTimedImplementationsSignatureReferenceResolver implements eu.hyva
 	public void resolve(String identifier, eu.hyvar.mspl.manifest.HyTimedImplementations container, EReference reference, int position, boolean resolveFuzzy, final eu.hyvar.mspl.manifest.resource.hymanifest.IHymanifestReferenceResolveResult<eu.hyvar.mspl.manifest.HySPLSignature> result) {
 		//delegate.resolve(identifier, container, reference, position, resolveFuzzy, result);
 		
-		HySPLSignature manifest = HyManifestResolverUtil.getRelativeSignatureModel(identifier, container);
+		HySPLSignature manifest = HyManifestResolverUtil.resolveRelativeSignatureModel(identifier, container);
 		if(manifest!=null) {
 			result.addMapping(identifier, manifest);
 		}
