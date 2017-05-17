@@ -21,3 +21,4 @@ Export-Package: eu.hyvar.mspl.manifest,
  eu.hyvar.mspl.manifest.util,
  eu.hyvar.mspl.util
 Bundle-ActivationPolicy: lazy
+Import-Package: org.deltaecore.util

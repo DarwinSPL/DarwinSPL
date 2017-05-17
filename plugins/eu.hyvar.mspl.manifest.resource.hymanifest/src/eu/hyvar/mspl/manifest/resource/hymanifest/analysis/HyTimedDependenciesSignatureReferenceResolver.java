@@ -17,10 +17,6 @@ public class HyTimedDependenciesSignatureReferenceResolver implements eu.hyvar.m
 	
 	public void resolve(String identifier, eu.hyvar.mspl.manifest.HyTimedDependencies container, EReference reference, int position, boolean resolveFuzzy, final eu.hyvar.mspl.manifest.resource.hymanifest.IHymanifestReferenceResolveResult<eu.hyvar.mspl.manifest.HySPLSignature> result) {
 
-		//if("../signatures/ecuaS/ECUASignature.hymanifest".equals(identifier)) {
-		//	HyManifestResolverUtil.visitRelativeImplementationModel("../ecua/ecua.hymanifest", container);
-		//}
-
 		delegate.resolve(identifier, container, reference, position, resolveFuzzy, result);
 	}
 	

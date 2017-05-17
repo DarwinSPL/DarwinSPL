@@ -25,7 +25,7 @@ public class HyTimedImplementationLinkSignatureReferenceResolver implements eu.h
 		HySPLSignature manifest = null;
 		EObject superElement = container.eContainer();
 		if( superElement instanceof HyTimedImplementations) {
-			HyTimedImplementations implementation = (eu.hyvar.mspl.manifest.impl.HyTimedImplementationsImpl) superElement;
+			HyTimedImplementations implementation = (eu.hyvar.mspl.manifest.HyTimedImplementations) superElement;
 			manifest = implementation.getSignature();
 		}
 		
