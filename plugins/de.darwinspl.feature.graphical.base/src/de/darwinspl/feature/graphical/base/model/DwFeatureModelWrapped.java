@@ -530,7 +530,6 @@ public class DwFeatureModelWrapped implements PropertyChangeListener {
 	public void removeFeature(DwFeatureWrapped feature){
 		features.remove(feature);
 		
-		System.out.println(features.contains(feature));
 
 		int index = -1;
 		for(int i=0; i<model.getFeatures().size(); i++){
@@ -541,8 +540,6 @@ public class DwFeatureModelWrapped implements PropertyChangeListener {
 
 		if(index != -1)
 			model.getFeatures().remove(index);
-
-		System.out.println(this.model.getFeatures().size());
 
 		// Inform editparts about the changes made to the model
 		//listeners.firePropertyChange(PROPERTY_CHILD_FEATURES, old, this);
