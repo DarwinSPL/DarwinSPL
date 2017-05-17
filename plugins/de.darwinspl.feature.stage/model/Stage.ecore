@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ecore:EPackage xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="stage" nsURI="https://darwinspl.de/stage/1.0" nsPrefix="stage">
+  <eClassifiers xsi:type="ecore:EClass" name="Stage" eSuperTypes="../../eu.hyvar.evolution/model/Evolution.ecore#//HyTemporalElement">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="assignedTo" lowerBound="1"
+        upperBound="-1" eType="#//Role" eOpposite="#//Role/assignedTo"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="hasComposition" lowerBound="1"
+        upperBound="-1" eType="#//StageComposition"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="hasStageOrder" lowerBound="1"
+        eType="#//StageOrder"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="StageOrder">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="hasModel" lowerBound="1"
+        eType="ecore:EClass ../../eu.hyvar.feature/model/Feature.ecore#//HyFeatureModel"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Role">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="assignedTo" upperBound="-1"
+        eType="#//Stage" eOpposite="#//Stage/assignedTo"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="StageComposition">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="belongsTo" lowerBound="1"
+        eType="#//Stage"/>
+  </eClassifiers>
+</ecore:EPackage>
