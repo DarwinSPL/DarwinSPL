@@ -45,7 +45,7 @@ public class DwConstraintModelAnalyses {
 		return markerList;
 	}
 	
-	private static List<DwConstraintModelAnalysesMarker> checkReferenceValidityConsistencyForExpression(HyExpression expression, HyConstraint constraint) {
+	public static List<DwConstraintModelAnalysesMarker> checkReferenceValidityConsistencyForExpression(HyExpression expression, HyConstraint constraint) {
 		List<DwConstraintModelAnalysesMarker> markerList = new ArrayList<DwConstraintModelAnalysesMarker>();
 
 		if(expression instanceof HyAtomicExpression) {
@@ -58,9 +58,13 @@ public class DwConstraintModelAnalyses {
 				}
 				
 				if(!HyEvolutionUtil.isWithinValidityOf(constraint, feature)) {
+					List<HyExpression> affectedExpressions = new ArrayList<HyExpression>(1);
+					affectedExpressions.add(featureReference);
+					
 					List<EObject> affectedObjects = new ArrayList<EObject>(1);
-					affectedObjects.add(featureReference);
-					markerList.add(new DwConstraintModelAnalysesMarker(affectedObjects, ERROR_MESSAGE_REFERENCE_VALIDITY_CONSISTENCY_FEATURE, MarkerTypeEnum.ERROR));
+					affectedObjects.add(feature);
+					
+					markerList.add(new DwConstraintModelAnalysesMarker(affectedExpressions, affectedObjects, ERROR_MESSAGE_REFERENCE_VALIDITY_CONSISTENCY_FEATURE, MarkerTypeEnum.ERROR));
 				}
 				
 				if(featureReference.getVersionRestriction()!=null) {
@@ -69,10 +73,34 @@ public class DwConstraintModelAnalyses {
 						HyVersion lowerVersion = versionRangeRestriction.getLowerVersion();
 						HyVersion upperVersion = versionRangeRestriction.getUpperVersion();
 						
-						if((lowerVersion != null && !HyEvolutionUtil.isWithinValidityOf(constraint, lowerVersion)) || (upperVersion != null && !HyEvolutionUtil.isWithinValidityOf(constraint, upperVersion))) {
-							List<EObject> affectedObjects = new ArrayList<EObject>(1);
-							affectedObjects.add(featureReference);
-							markerList.add(new DwConstraintModelAnalysesMarker(affectedObjects, ERROR_MESSAGE_REFERENCE_VALIDITY_CONSISTENCY_VERSION, MarkerTypeEnum.ERROR));
+						
+						boolean markerToAdd = false;
+
+						List<HyExpression> affectedExpressions = null;
+						List<EObject> affectedObjects = null;
+						affectedExpressions.add(featureReference);
+						
+						if((lowerVersion != null && !HyEvolutionUtil.isWithinValidityOf(constraint, lowerVersion))) {
+							affectedExpressions = new ArrayList<HyExpression>(1);
+							affectedObjects = new ArrayList<EObject>(1);
+
+							affectedExpressions.add(featureReference);
+							
+							affectedObjects.add(lowerVersion);
+							markerToAdd = true;
+							
+						} else if((upperVersion != null && !HyEvolutionUtil.isWithinValidityOf(constraint, upperVersion))) {
+							affectedExpressions = new ArrayList<HyExpression>(1);
+							affectedObjects = new ArrayList<EObject>(1);
+
+							affectedExpressions.add(featureReference);
+							
+							affectedObjects.add(upperVersion);
+							markerToAdd = true;
+						}
+						
+						if(markerToAdd) {
+							markerList.add(new DwConstraintModelAnalysesMarker(affectedExpressions, affectedObjects, ERROR_MESSAGE_REFERENCE_VALIDITY_CONSISTENCY_VERSION, MarkerTypeEnum.ERROR));							
 						}
 					}
 					else if(featureReference.getVersionRestriction() instanceof HyRelativeVersionRestriction) {
@@ -80,9 +108,13 @@ public class DwConstraintModelAnalyses {
 						HyVersion version = relativeVersionRestriction.getVersion();
 						
 						if(version != null && !HyEvolutionUtil.isWithinValidityOf(constraint, version)) {
+							List<HyExpression> affectedExpressions = new ArrayList<HyExpression>(1);
+							affectedExpressions.add(featureReference);
+							
 							List<EObject> affectedObjects = new ArrayList<EObject>(1);
-							affectedObjects.add(featureReference);
-							markerList.add(new DwConstraintModelAnalysesMarker(affectedObjects, ERROR_MESSAGE_REFERENCE_VALIDITY_CONSISTENCY_VERSION, MarkerTypeEnum.ERROR));
+							affectedObjects.add(version);
+							
+							markerList.add(new DwConstraintModelAnalysesMarker(affectedExpressions, affectedObjects, ERROR_MESSAGE_REFERENCE_VALIDITY_CONSISTENCY_VERSION, MarkerTypeEnum.ERROR));
 						}
 					}
 				}
@@ -94,15 +126,23 @@ public class DwConstraintModelAnalyses {
 				HyFeatureAttribute attribute = attributeReference.getAttribute();
 				
 				if(feature != null && !HyEvolutionUtil.isWithinValidityOf(constraint, feature)) {
+					List<HyExpression> affectedExpressions = new ArrayList<HyExpression>(1);
+					affectedExpressions.add(attributeReference);
+					
 					List<EObject> affectedObjects = new ArrayList<EObject>(1);
-					affectedObjects.add(attributeReference);
-					markerList.add(new DwConstraintModelAnalysesMarker(affectedObjects, ERROR_MESSAGE_REFERENCE_VALIDITY_CONSISTENCY_FEATURE, MarkerTypeEnum.ERROR));
+					affectedObjects.add(feature);
+					
+					markerList.add(new DwConstraintModelAnalysesMarker(affectedExpressions, affectedObjects, ERROR_MESSAGE_REFERENCE_VALIDITY_CONSISTENCY_FEATURE, MarkerTypeEnum.ERROR));
 				}
 				
 				if(attribute != null && !HyEvolutionUtil.isWithinValidityOf(constraint, attribute)) {
+					List<HyExpression> affectedExpressions = new ArrayList<HyExpression>(1);
+					affectedExpressions.add(attributeReference);
+					
 					List<EObject> affectedObjects = new ArrayList<EObject>(1);
-					affectedObjects.add(attributeReference);
-					markerList.add(new DwConstraintModelAnalysesMarker(affectedObjects, ERROR_MESSAGE_REFERENCE_VALIDITY_CONSISTENCY_ATTRIBUTE, MarkerTypeEnum.ERROR));
+					affectedObjects.add(attribute);
+					
+					markerList.add(new DwConstraintModelAnalysesMarker(affectedExpressions, affectedObjects, ERROR_MESSAGE_REFERENCE_VALIDITY_CONSISTENCY_ATTRIBUTE, MarkerTypeEnum.ERROR));
 				}
 			}
 			
