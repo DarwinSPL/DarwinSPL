@@ -18,6 +18,7 @@ import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.ecore.util.EContentAdapter;
 import org.eclipse.gef.GraphicalViewer;
 import org.eclipse.jface.dialogs.Dialog;
+import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.window.Window;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.SashForm;
@@ -344,7 +345,6 @@ public class DwFeatureModelConfiguratorEditor extends DwFeatureModelConfigurator
 			HyContextModel contextModel = null;
 			HyContextValueModel contextValueModel = null;
 			
-	
 			
 			if(modelFileExists(HyContextInformationUtil.getContextModelFileExtensionForConcreteSyntax())){
 				contextModel = loadContextInformationModel();
@@ -365,6 +365,7 @@ public class DwFeatureModelConfiguratorEditor extends DwFeatureModelConfigurator
 				}
 			}
 			else {
+				MessageDialog.openError(getShell(), "No context model", "Reconfiguration not possible as no context information file exists.");
 				return;
 			}
 			
