@@ -2,8 +2,9 @@
 <classpath>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8"/>
 	<classpathentry kind="con" path="org.eclipse.pde.core.requiredPlugins"/>
+	<classpathentry kind="lib" path="lib"/>
+	<classpathentry exported="true" kind="lib" path="lib/jetty-client-9.3.16.v20170120.jar"/>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
-	<classpathentry kind="lib" path="lib/org.eclipse.jetty.client_9.3.9.v20160517.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

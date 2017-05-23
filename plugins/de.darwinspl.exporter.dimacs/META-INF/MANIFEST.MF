@@ -1,0 +1,14 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Dimacs
+Bundle-SymbolicName: de.darwinspl.exporter.dimacs
+Bundle-Version: 1.0.0.qualifier
+Bundle-Activator: de.darwinspl.exporter.dimacs.Activator
+Require-Bundle: org.eclipse.ui,
+ org.eclipse.core.runtime,
+ eu.hyvar.feature;bundle-version="1.0.0"
+Bundle-RequiredExecutionEnvironment: JavaSE-1.7
+Bundle-ActivationPolicy: lazy
+Import-Package: eu.hyvar.feature,
+ eu.hyvar.feature.constraint
+Export-Package: de.darwinspl.exporter.dimacs

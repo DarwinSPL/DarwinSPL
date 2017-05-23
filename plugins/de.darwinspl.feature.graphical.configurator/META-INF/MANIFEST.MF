@@ -46,4 +46,4 @@ Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Bundle-ActivationPolicy: lazy
 Bundle-Vendor: www.darwinspl.de
 Bundle-ClassPath: .,
- lib/org.eclipse.jetty.client_9.3.9.v20160517.jar
+ lib/jetty-client-9.3.16.v20170120.jar

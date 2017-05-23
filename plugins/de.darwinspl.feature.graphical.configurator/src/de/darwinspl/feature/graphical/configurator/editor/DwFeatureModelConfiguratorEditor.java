@@ -17,12 +17,14 @@ import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.ecore.util.EContentAdapter;
 import org.eclipse.gef.GraphicalViewer;
+import org.eclipse.jetty.client.HttpClient;
 import org.eclipse.jface.dialogs.Dialog;
 import org.eclipse.jface.window.Window;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.SashForm;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
+import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
@@ -70,7 +72,7 @@ import eu.hyvar.feature.constraint.util.HyConstraintUtil;
 
 public class DwFeatureModelConfiguratorEditor extends DwFeatureModelConfiguratorViewer {
 	private Button validateContextButton;
-	
+	private Button generateConfigurationButton;
 	private Button explainButton;
 	
 //	private Button numberOfPossibleConfigurationsButton;
@@ -186,6 +188,9 @@ public class DwFeatureModelConfiguratorEditor extends DwFeatureModelConfigurator
 		Composite configurationPanel = new Composite(parent, SWT.NONE);
 		configurationPanel.setLayout(new GridLayout(1, false));
 
+		generateConfigurationButton = new Button(configurationPanel, SWT.PUSH);
+		generateConfigurationButton.setText("Generate Automatic Configuration");
+		generateConfigurationButton.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, false));
 		
 		validateContextButton = new Button(configurationPanel, SWT.PUSH);
 		validateContextButton.setText("Detect Anomalies");
@@ -246,6 +251,23 @@ public class DwFeatureModelConfiguratorEditor extends DwFeatureModelConfigurator
 
 		simulateButton.addSelectionListener(buttonListener);
 
+		generateConfigurationButton.addSelectionListener(new SelectionListener() {
+			
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+				
+				System.out.println("generating...");
+			
+				HttpClient client = new HttpClient();
+				
+			}
+			
+			@Override
+			public void widgetDefaultSelected(SelectionEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
 //		numberOfPossibleConfigurationsButton.addSelectionListener(new SelectionAdapter() {
 //			@Override
 //			public void widgetSelected(SelectionEvent e) {
