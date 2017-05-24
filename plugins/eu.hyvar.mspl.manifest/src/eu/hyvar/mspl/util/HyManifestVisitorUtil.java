@@ -12,10 +12,18 @@ import eu.hyvar.mspl.manifest.HyTimedImplementationLink;
 import eu.hyvar.mspl.manifest.HyTimedImplementations;
 
 public class HyManifestVisitorUtil {
-	private final static boolean PrintDebug = false;
+	private final static boolean PrintDebug = true;
 
+	
 	public static void visitRelativeImplementationModel (String identifier, EObject elementInOriginalResource) {
 		HySPLImplementation model = HyManifestResolverUtil.resolveRelativeImplementationModel(identifier, elementInOriginalResource);
+		visitRelativeImplementationModel(model);
+	}	
+	
+	
+//	public static void visitRelativeImplementationModel (String identifier, EObject elementInOriginalResource) {
+	public static void visitRelativeImplementationModel (HySPLImplementation model) {
+		//HySPLImplementation model = HyManifestResolverUtil.resolveRelativeImplementationModel(identifier, elementInOriginalResource);
 
 		if(model==null) {
 			print("UNITO VISIT: ", "ERROR! Model not found.");
@@ -88,18 +96,18 @@ public class HyManifestVisitorUtil {
 
 	}	
 	
-	static void visitHySPLSignature (String prefix, HySPLSignature signature) {
+	public static void visitHySPLSignature (String prefix, HySPLSignature signature) {
 		visitHyName(prefix+"  ", signature.getNames());
 	}
 
-	static void visitHyFeature (String prefix, HyFeature feature) {
+	public static void visitHyFeature (String prefix, HyFeature feature) {
 		visitHyName(prefix+"  ", feature.getNames());
 		print(prefix+"    ", "id="+feature.getId());
 		print(prefix+"    ", "since="+feature.getValidSince());
 		print(prefix+"    ", "until="+feature.getValidUntil());
 	}
 
-	static void visitHyName (String prefix, EList<HyName> names) {
+	public static void visitHyName (String prefix, EList<HyName> names) {
 		print(prefix+"  ", "Names:");
 		for(HyName name: names) {
 			print(prefix+"      ", "-- name="+name.getName());
@@ -114,7 +122,7 @@ public class HyManifestVisitorUtil {
 	}
 
 	
-	static void print(String prefix, String str) {
+	public static void print(String prefix, String str) {
 		if (PrintDebug) {
 			System.out.println(prefix+str);
 		}

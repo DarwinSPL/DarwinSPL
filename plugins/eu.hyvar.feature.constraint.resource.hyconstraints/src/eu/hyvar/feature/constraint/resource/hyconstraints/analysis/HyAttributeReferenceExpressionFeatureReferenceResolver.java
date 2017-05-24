@@ -19,7 +19,7 @@ public class HyAttributeReferenceExpressionFeatureReferenceResolver implements e
 	
 	public void resolve(String identifier, eu.hyvar.feature.expression.HyAttributeReferenceExpression container, EReference reference, int position, boolean resolveFuzzy, final eu.hyvar.feature.constraint.resource.hyconstraints.IHyconstraintsReferenceResolveResult<eu.hyvar.feature.HyFeature> result) {
 
-		if((identifier!=null)&&(identifier.contains("."))) {
+		if((identifier!=null)&&(identifier.contains(eu.hyvar.mspl.util.HyManifestResolverUtil.MANIFEST_SEPARATOR))) {
 			eu.hyvar.feature.HyFeature found = eu.hyvar.mspl.util.HyManifestResolverUtil.resolveMsplFeature(identifier, container);
 			if (found!=null) {
 				result.addMapping(identifier, found);

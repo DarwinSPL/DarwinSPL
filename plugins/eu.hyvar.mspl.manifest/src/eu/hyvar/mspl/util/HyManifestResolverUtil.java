@@ -19,6 +19,7 @@ import eu.hyvar.mspl.manifest.HyTimedDependencies;
 public class HyManifestResolverUtil {
 
 	private final static boolean PrintDebug = false;
+	public static String MANIFEST_SEPARATOR = ":";
 	
 	public static final String[] FILE_EXTENSIONS = { "hymanifest" };
 	
@@ -30,14 +31,14 @@ public class HyManifestResolverUtil {
 	// From an identifier in the form "signatureName.signatureFeature" search in all dependencies
 	public static HyFeature resolveMsplFeature(String identifier, EObject container) {
 		// Check of parameters:
-		if( (identifier==null)||(container==null)||(!identifier.contains(".")) ) {
+		if( (identifier==null)||(container==null)||(!identifier.contains(HyManifestResolverUtil.MANIFEST_SEPARATOR)) ) {
 			return null;
 		}
 		
 		if (identifier.startsWith("\"") && identifier.endsWith("\"")) {
 			identifier = identifier.substring(1, identifier.length() - 1);
 		}
-		String elements[] = identifier.split("\\.", 2);
+		String elements[] = identifier.split(HyManifestResolverUtil.MANIFEST_SEPARATOR, 2);
 		String signatureName = elements[0];
 		String signatureFeature = elements[1];
 
