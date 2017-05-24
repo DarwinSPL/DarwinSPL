@@ -27,6 +27,7 @@ public class DwVersionDeleteCommand extends Command {
 		parent.getSupersedingVersions().clear();
 	}
 
+
 	@Override
 	public void execute(){
 		boolean hasChildren = version.getSupersedingVersions().size() > 0;

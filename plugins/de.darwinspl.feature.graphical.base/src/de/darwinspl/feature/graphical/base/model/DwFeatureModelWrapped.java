@@ -34,6 +34,8 @@ import eu.hyvar.feature.HyGroupTypeEnum;
 import eu.hyvar.feature.HyRootFeature;
 import eu.hyvar.feature.analyses.DwFeatureModelAnalyses;
 import eu.hyvar.feature.analyses.DwFeatureModelAnalysesMarker;
+import eu.hyvar.feature.util.HyFeatureModelWellFormednessException;
+import eu.hyvar.feature.util.HyFeatureUtil;
 
 public class DwFeatureModelWrapped implements PropertyChangeListener {
 	protected final String PROPERTY_CHILDREN_SIZE = "PropertyChildrenSize";
@@ -49,7 +51,7 @@ public class DwFeatureModelWrapped implements PropertyChangeListener {
 	private List<Date> dates;
 
 	List<DwParentChildConnection> connections;
-	
+
 	/**
 	 * Handles the layout mode. If active, rearrange features will be ignored
 	 */
@@ -73,14 +75,14 @@ public class DwFeatureModelWrapped implements PropertyChangeListener {
 	public void addMarker(EObject key, DwFeatureModelAnalysesMarker marker){
 		markers.put(key, marker);
 	}
-	
+
 	public boolean hasMarkerForElement(EObject key){
 		return markers.containsKey(key);
 	}
 	public DwFeatureModelAnalysesMarker getMarkerForElement(EObject key){
 		return markers.get(key);
 	}
-	
+
 	/**
 	 * Returns all valid groups at a specific date
 	 * @param date
@@ -114,6 +116,7 @@ public class DwFeatureModelWrapped implements PropertyChangeListener {
 	public void setModel(HyFeatureModel model) {
 		this.model = model;
 	}
+
 
 	public List<DwFeatureWrapped> getFeatures(Date date) {
 		if(date == null)
@@ -254,7 +257,7 @@ public class DwFeatureModelWrapped implements PropertyChangeListener {
 
 		HyFeature root = model.getRootFeature().get(0).getFeature();
 		convertFeatures(root, features);
-		
+
 		checkModelForErrors();
 	}
 
@@ -443,18 +446,26 @@ public class DwFeatureModelWrapped implements PropertyChangeListener {
 
 
 		DwFeatureTreeLayouter layouter = DwFeatureLayouterManager.getLayouter(this);
-		
-		for(HyFeature feature : HyEvolutionUtil.getValidTemporalElements(model.getFeatures(), this.selectedDate)){
 
-			if(HyEvolutionUtil.getValidTemporalElements(feature.getGroupMembership(), selectedDate).size() > 0 || isRootFeature(feature)){
-				Rectangle rectangle = layouter.getBounds(feature);
+		try {
+			for(HyFeature feature : HyEvolutionUtil.getValidTemporalElements(model.getFeatures(), this.selectedDate)){
 
-				DwFeatureWrapped featureWrapped = getWrappedFeature(feature);
-				if(featureWrapped.isVisible())
-					getWrappedFeature(feature).addPosition(rectangle.getTopLeft(), selectedDate, true);
-				//getWrappedFeature(feature).setPosition(rectangle.getTopLeft());	
+
+				if(HyEvolutionUtil.getValidTemporalElements(feature.getGroupMembership(), selectedDate).size() > 0 || 
+						HyFeatureUtil.isRootFeature(feature, selectedDate)){
+					DwFeatureWrapped featureWrapped = getWrappedFeature(feature);
+
+					Rectangle rectangle = layouter.getBounds(featureWrapped);
+
+
+					if(featureWrapped.isVisible())
+						featureWrapped.addPosition(rectangle.getTopLeft(), selectedDate, true);
+
+				}
 			}
-		}	
+		} catch (HyFeatureModelWellFormednessException e) {
+			e.printStackTrace();
+		}
 	}
 
 
@@ -474,26 +485,13 @@ public class DwFeatureModelWrapped implements PropertyChangeListener {
 		return connections;
 	}
 
-	/*
-	public void removeFeature(HyFeatureWrapped feature, Date date){
-		feature.getParentGroup(date).removeChildFeature(feature, date);
 
-
-
-		if(date == null || date.equals(new Date(Long.MIN_VALUE))){
-			features.remove(feature);
-
-			model.getFeatures().remove(feature.getWrappedModelElement());
-		}
-
-		changes.firePropertyChange(PROPERTY_CHILDREN_SIZE, model.getFeatures().size()+1, model.getFeatures().size());
+	public void removeFeature(int i){
+		features.remove(i);
+		
+		int size = features.size();
+		changes.firePropertyChange(PROPERTY_CHILDREN_SIZE, size+1, size);
 	}
-
-	public void removeFeature(HyFeatureWrapped feature) {
-		removeFeature(feature, new Date());
-	}
-	 */
-
 	/**
 	 * Removes a feature which is child of this group. Use this function to delete the feature temporarily since the selected date.
 	 * @param childFeature the feature to remove
@@ -532,17 +530,16 @@ public class DwFeatureModelWrapped implements PropertyChangeListener {
 	public void removeFeature(DwFeatureWrapped feature){
 		features.remove(feature);
 		
+
 		int index = -1;
 		for(int i=0; i<model.getFeatures().size(); i++){
 			if(model.getFeatures().get(i).getId().equals(feature.getWrappedModelElement().getId())){
 				index = i;
 			}
 		}
-		
+
 		if(index != -1)
-		model.getFeatures().remove(index);
-		
-		System.out.println(this.model.getFeatures().size());
+			model.getFeatures().remove(index);
 
 		// Inform editparts about the changes made to the model
 		//listeners.firePropertyChange(PROPERTY_CHILD_FEATURES, old, this);
@@ -591,15 +588,6 @@ public class DwFeatureModelWrapped implements PropertyChangeListener {
 		return null;
 	}
 
-	private boolean isRootFeature(HyFeature feature){
-		for(HyRootFeature rootFeature : model.getRootFeature()){
-			if(rootFeature.getFeature().equals(feature))
-				return true;
-		}
-
-		return false;
-	}
-
 	private void createConnection(DwFeatureWrapped parent, DwFeatureWrapped child){
 		DwParentChildConnection connection = new DwParentChildConnection();
 		connection.setSource(parent);
@@ -624,10 +612,15 @@ public class DwFeatureModelWrapped implements PropertyChangeListener {
 		if(target == null){
 
 			// root feature
-			if(isRootFeature(feature)){
-				target = new DwRootFeatureWrapped(feature, this);
-			}else{
-				target = new DwFeatureWrapped(feature, this);
+			try {
+				if(HyFeatureUtil.isRootFeature(feature, null)){
+					target = new DwRootFeatureWrapped(feature, this);
+				}else{
+					target = new DwFeatureWrapped(feature, this);
+				}
+			} catch (HyFeatureModelWellFormednessException e) {
+				e.printStackTrace();
+				return;
 			}
 
 			addFeature(target);
@@ -667,12 +660,12 @@ public class DwFeatureModelWrapped implements PropertyChangeListener {
 	public DwFeatureWrapped findWrappedFeature(HyFeature feature){
 		if(feature == null)
 			return null;
-		
+
 		for(DwFeatureWrapped wrappedFeature : features){
 			if(wrappedFeature.getWrappedModelElement().equals(feature))
 				return wrappedFeature;
 		}
-		
+
 		return null;
 	}
 
@@ -717,8 +710,8 @@ public class DwFeatureModelWrapped implements PropertyChangeListener {
 			}
 		}
 	}
-	
-	
+
+
 	public void checkModelForErrors(){
 		@SuppressWarnings("unchecked")
 		Set<EObject> keys = ((Hashtable<EObject, DwFeatureModelAnalysesMarker>)this.markers.clone()).keySet();
@@ -726,12 +719,12 @@ public class DwFeatureModelWrapped implements PropertyChangeListener {
 		for(EObject key : keys){
 			key.eNotify(new ENotificationImpl(null, 0, null, true, false));	
 		}
-		
-		
+
+
 		List<DwFeatureModelAnalysesMarker> markers = DwFeatureModelAnalyses.checkFeatureModelValidity(model);
 		for(DwFeatureModelAnalysesMarker marker : markers){
 			for(EObject affectedElement : marker.getAffectedObjects()){
-				
+
 				this.markers.put(affectedElement, marker);
 				affectedElement.eNotify(new ENotificationImpl(null, 0, null, true, false));
 			}

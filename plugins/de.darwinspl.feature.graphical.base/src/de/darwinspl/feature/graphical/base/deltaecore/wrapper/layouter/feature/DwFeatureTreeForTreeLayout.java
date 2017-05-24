@@ -6,45 +6,32 @@ import java.util.List;
 
 import org.abego.treelayout.util.AbstractTreeForTreeLayout;
 
-import eu.hyvar.evolution.util.HyEvolutionUtil;
-import eu.hyvar.feature.HyFeature;
-import eu.hyvar.feature.HyFeatureChild;
-import eu.hyvar.feature.HyGroup;
-import eu.hyvar.feature.HyGroupComposition;
+import de.darwinspl.feature.graphical.base.model.DwFeatureWrapped;
+import de.darwinspl.feature.graphical.base.model.DwParentChildConnection;
 
-public class DwFeatureTreeForTreeLayout extends AbstractTreeForTreeLayout<HyFeature> {
+public class DwFeatureTreeForTreeLayout extends AbstractTreeForTreeLayout<DwFeatureWrapped> {
 	private Date date;
 	
-	public DwFeatureTreeForTreeLayout(HyFeature root, Date date) {
+	public DwFeatureTreeForTreeLayout(DwFeatureWrapped root, Date date) {
 		super(root);
 
 		this.date = (date != null) ? date : new Date();	
 	}
 
+
 	@Override
-	public List<HyFeature> getChildrenList(HyFeature feature) {
-		ArrayList<HyFeature> children = new ArrayList<HyFeature>();
-
-		if (feature == null) {
-			return children;
-		}
-		
-		for(HyFeatureChild child : HyEvolutionUtil.getValidTemporalElements(feature.getParentOf(), date)){
-			HyGroup group = child.getChildGroup();
-			
-			for(HyGroupComposition composition : HyEvolutionUtil.getValidTemporalElements(group.getParentOf(), date)){
-				children.addAll(HyEvolutionUtil.getValidTemporalElements(composition.getFeatures(), date));
-			}
-		}
-
-		return children;
+	public DwFeatureWrapped getParent(DwFeatureWrapped node) {
+		return node.getParentFeature(date);
 	}
-
+	
 	@Override
-	public HyFeature getParent(HyFeature node) {
-		HyGroupComposition composition = HyEvolutionUtil.getValidTemporalElement(node.getGroupMembership(), date);
-		HyFeatureChild child = HyEvolutionUtil.getValidTemporalElement(composition.getCompositionOf().getChildOf(), date);
+	public List<DwFeatureWrapped> getChildrenList(DwFeatureWrapped feature) {
+		ArrayList<DwFeatureWrapped> children = new ArrayList<DwFeatureWrapped>();
+
+		for(DwParentChildConnection connection : feature.getChildrenConnections(date)){
+			children.add(connection.getTarget());
+		}
 		
-		return child.getParent();
+		return children;
 	}
 }

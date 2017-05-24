@@ -20,7 +20,6 @@ import de.darwinspl.feature.graphical.base.model.DwFeatureWrapped;
 import de.darwinspl.feature.graphical.base.model.DwTemporalPosition;
 import eu.hyvar.evolution.util.HyEvolutionUtil;
 import eu.hyvar.evolution.HyName;
-import eu.hyvar.feature.HyFeature;
 import eu.hyvar.feature.HyFeatureAttribute;
 
 public class DwAttributeEditPart extends DwAbstractEditPart{
@@ -36,7 +35,7 @@ public class DwAttributeEditPart extends DwAbstractEditPart{
 
 		@Override 
 		public Notifier getTarget() {
-			return (HyFeature)((DwFeatureWrapped)getModel()).getWrappedModelElement();
+			return (HyFeatureAttribute)getModel();
 		}
 
 		@Override public void setTarget(Notifier newTarget) {
@@ -44,7 +43,7 @@ public class DwAttributeEditPart extends DwAbstractEditPart{
 		}
 
 		@Override public boolean isAdapterForType(Object type) {
-			return type.equals(HyFeature.class);
+			return type.equals(HyFeatureAttribute.class);
 		}
 	} 
 	

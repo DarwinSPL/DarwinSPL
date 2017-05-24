@@ -245,8 +245,6 @@ public class DwGraphicalFeatureModelEditor extends DwGraphicalFeatureModelViewer
 
 		EModelService service = window.getService(EModelService.class);
 		
-		if(secondEditor != null)
-		System.out.println("====> "+secondEditor.getChildren().size());
 
 		if(secondEditor == null){
 			secondEditor = getPartStack(editorToInsert);

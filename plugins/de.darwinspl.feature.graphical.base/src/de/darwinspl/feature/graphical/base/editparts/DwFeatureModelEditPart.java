@@ -77,6 +77,9 @@ public class DwFeatureModelEditPart extends AbstractGraphicalEditPart implements
 
 	@Override
 	public void propertyChange(PropertyChangeEvent evt) {
+		DwFeatureModelWrapped model = ((DwFeatureModelWrapped)getModel());
+		model.rearrangeFeatures();
+		
 		refreshChildren();
 		refreshVisuals();
 	}

@@ -38,12 +38,18 @@ public class DwFeatureEditPart extends DwAbstractEditPart implements NodeEditPar
 		@Override 
 		public void notifyChanged(Notification notification) {
 
+			if(notification.getEventType() == ENotificationImpl.ADD){
+				if(notification.getNotifier() instanceof HyFeature){
+					if(notification.getNewValue() instanceof HyVersion){
+						refreshChildren();
+						refreshVisuals();						
+					}
+
+				}
+			}
 			if(notification.getEventType() == ENotificationImpl.REMOVE && notification.getNotifier() instanceof HyFeature){
 				// in case that the feature was deleted do nothing
-			}else{
-				refreshChildren();
-				refreshVisuals();
-			}
+			}			
 		}
 
 		@Override 
@@ -167,6 +173,7 @@ public class DwFeatureEditPart extends DwAbstractEditPart implements NodeEditPar
 
 	@Override
 	public void refreshVisuals(){
+		
 		refreshChildren();
 		super.refreshVisuals();
 
@@ -175,7 +182,7 @@ public class DwFeatureEditPart extends DwAbstractEditPart implements NodeEditPar
 
 		DwFeatureFigure figure = (DwFeatureFigure)getFigure();
 		DwFeatureWrapped wrappedFeature = (DwFeatureWrapped)this.getModel();
-
+		
 		boolean featureIsCurrentlyValid = wrappedFeature.isValid(date);
 
 		if(featureIsCurrentlyValid){

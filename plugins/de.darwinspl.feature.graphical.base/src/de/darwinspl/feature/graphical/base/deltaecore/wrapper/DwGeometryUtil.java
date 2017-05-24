@@ -20,6 +20,7 @@ import eu.hyvar.feature.HyGroupComposition;
 import eu.hyvar.feature.HyGroupType;
 import eu.hyvar.feature.HyGroupTypeEnum;
 import eu.hyvar.feature.HyVersion;
+import eu.hyvar.feature.util.HyFeatureModelWellFormednessException;
 import eu.hyvar.feature.util.HyFeatureUtil;
 
 public class DwGeometryUtil {
@@ -139,24 +140,34 @@ public class DwGeometryUtil {
 		return rawVersionAreaHeight + 2 * theme.getPrimaryMargin();
 	}
 
-	private static int findHighestVersionAreaHightOnSameLevel(HyFeature feature, Date date) {
-		List<HyFeature> featuresOnSameTreeLevel = HyFeatureUtil.findFeaturesOnSameTreeLevel(feature, null);
-
+	private static int findHighestVersionAreaHightOnSameLevel(HyFeature feature, Date date){
 		int highestVersionAreaHightOnSameLevel = 0;
+		
+		try {
+			if(HyFeatureUtil.isRootFeature(feature, date)){
+				DwVersionTreeLayouter versionTreeLayouter = DwVersionLayouterManager.getLayouter(feature, date);
+				highestVersionAreaHightOnSameLevel = versionTreeLayouter.getTreeBounds().height;
 
-		for (HyFeature featureOnSameTreeLevel : featuresOnSameTreeLevel) {
-			List<HyVersion> versions = featureOnSameTreeLevel.getVersions();
+			}else{
+				List<HyFeature> featuresOnSameTreeLevel = HyFeatureUtil.findFeaturesOnSameTreeLevel(feature, null);
 
-			if (!versions.isEmpty()) {
-				DwVersionTreeLayouter versionTreeLayouter = DwVersionLayouterManager.getLayouter(featureOnSameTreeLevel, date);
+				for (HyFeature featureOnSameTreeLevel : featuresOnSameTreeLevel) {
+					List<HyVersion> versions = featureOnSameTreeLevel.getVersions();
 
-				if(versionTreeLayouter != null){
-					Rectangle versionTreeBounds = versionTreeLayouter.getTreeBounds();
-					int versionTreeHeight = versionTreeBounds.height;
+					if (!versions.isEmpty()) {
+						DwVersionTreeLayouter versionTreeLayouter = DwVersionLayouterManager.getLayouter(featureOnSameTreeLevel, date);
 
-					highestVersionAreaHightOnSameLevel = Math.max(highestVersionAreaHightOnSameLevel, versionTreeHeight);
-				}
+						if(versionTreeLayouter != null){
+							Rectangle versionTreeBounds = versionTreeLayouter.getTreeBounds();
+							int versionTreeHeight = versionTreeBounds.height;
+
+							highestVersionAreaHightOnSameLevel = Math.max(highestVersionAreaHightOnSameLevel, versionTreeHeight);
+						}
+					}
+				}			
 			}
+		} catch (HyFeatureModelWellFormednessException e) {
+			e.printStackTrace();
 		}
 
 		return highestVersionAreaHightOnSameLevel;
