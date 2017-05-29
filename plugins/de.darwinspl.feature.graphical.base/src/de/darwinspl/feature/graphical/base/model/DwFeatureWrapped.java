@@ -124,7 +124,7 @@ public class DwFeatureWrapped extends DwEditorChangeableElement{
 		bounds.width = variationAndNameBounds.width;
 		
 		DwVersionTreeLayouter versionTree = DwVersionLayouterManager.getLayouter(getWrappedModelElement(), date);
-		if(versionTree != null){
+		if(versionTree != null && HyEvolutionUtil.getValidTemporalElements(getWrappedModelElement().getVersions(), date).isEmpty()){
 			DEGraphicalEditorTheme theme = DEGraphicalEditor.getTheme();
 			
 			int variationHeight = calculateVariationTypeCircleBounds(date).height;

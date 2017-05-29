@@ -29,8 +29,8 @@ public class DwAttributeEditPart extends DwAbstractEditPart{
 
 		@Override 
 		public void notifyChanged(Notification notification) {				
-			refreshChildren();
-			refreshVisuals();
+			//refreshChildren();
+			//refreshVisuals();
 		}
 
 		@Override 

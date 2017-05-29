@@ -37,20 +37,32 @@ public class DwFeatureEditPart extends DwAbstractEditPart implements NodeEditPar
 
 		@Override 
 		public void notifyChanged(Notification notification) {
+			System.out.println("versions ==> "+((HyFeature)getTarget()).getVersions().size());
+			if(notification.getEventType() == ENotificationImpl.REMOVE && notification.getOldValue() instanceof HyFeatureAttribute){
+				refreshVisuals();
+			}else{
+				refreshChildren();
+				refreshVisuals();
+			}
+
 
 			if(notification.getEventType() == ENotificationImpl.ADD){
 				if(notification.getNotifier() instanceof HyFeature){
 					if(notification.getNewValue() instanceof HyVersion){
-						refreshChildren();
-						refreshVisuals();						
+						rearrangeChildren();
 					}
-
 				}
 			}
-			if(notification.getEventType() == ENotificationImpl.REMOVE && notification.getNotifier() instanceof HyFeature){
-				// in case that the feature was deleted do nothing
-			}			
+			if(notification.getEventType() == ENotificationImpl.REMOVE){
+				if(notification.getNotifier() instanceof HyFeature){
+					if(notification.getOldValue() instanceof HyVersion){
+						rearrangeChildren();
+					}
+				}
+			}		
 		}
+		
+
 
 		@Override 
 		public Notifier getTarget() {
@@ -97,7 +109,22 @@ public class DwFeatureEditPart extends DwAbstractEditPart implements NodeEditPar
 		super.deactivate();
 	}
 
+	/**
+	 * Rearrange children after a version was added or removed
+	 */
+	private void rearrangeChildren(){
 
+		DwGraphicalFeatureModelViewer viewer = (DwGraphicalFeatureModelViewer)editor;
+		Date date = viewer.getCurrentSelectedDate();
+		DwFeatureWrapped model = ((DwFeatureWrapped)getModel());
+		DwVersionLayouterManager.updateLayouter(model.getWrappedModelElement(), date);	
+		
+		for(Object o : children){
+			if(o instanceof DwAttributeEditPart){
+				((DwAttributeEditPart)o).refreshVisibility();
+			}
+		}
+	}
 
 	@Override
 	public void propertyChange(PropertyChangeEvent evt) {				
@@ -173,8 +200,6 @@ public class DwFeatureEditPart extends DwAbstractEditPart implements NodeEditPar
 
 	@Override
 	public void refreshVisuals(){
-		
-		refreshChildren();
 		super.refreshVisuals();
 
 		DwGraphicalFeatureModelViewer editor = (DwGraphicalFeatureModelViewer)this.editor;
@@ -196,19 +221,7 @@ public class DwFeatureEditPart extends DwAbstractEditPart implements NodeEditPar
 			connection.notifyChange();
 		}
 
-		refreshVisualsOfChildren();
-	}
-
-
-	@Override
-	protected void refreshChildren() {
-		super.refreshChildren();
-
-		HyFeature feature = ((DwFeatureWrapped)getModel()).getWrappedModelElement();
-
-		DwGraphicalFeatureModelViewer editor = (DwGraphicalFeatureModelViewer)this.editor;
-		Date date = editor.getCurrentSelectedDate();
-		DwVersionLayouterManager.updateLayouter(feature, date);
+		//refreshVisualsOfChildren();
 	}
 
 	@Override
