@@ -17,7 +17,6 @@ import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.ecore.util.EContentAdapter;
 import org.eclipse.gef.GraphicalViewer;
-import org.eclipse.jetty.client.HttpClient;
 import org.eclipse.jface.dialogs.Dialog;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.window.Window;
@@ -42,11 +41,13 @@ import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.part.FileEditorInput;
 
 import de.christophseidl.util.ecore.EcoreIOUtil;
+import de.darwinspl.configurator.Configurator;
 import de.darwinspl.feature.graphical.configurator.analyses.AnalysesClient;
 import de.darwinspl.feature.graphical.configurator.composites.DwSelectedConfigurationComposite;
 import de.darwinspl.feature.graphical.configurator.dialogs.DwContextInformationDialog;
 import de.darwinspl.feature.graphical.configurator.dialogs.DwInvalidContextInfoDialog;
 import de.darwinspl.feature.graphical.configurator.dialogs.DwRESTServerSelectDialog;
+import de.darwinspl.feature.graphical.configurator.dialogs.DwSelectConfiguratorDialog;
 import de.darwinspl.feature.graphical.configurator.editor.listeners.DwDeriveVariantListener;
 import de.darwinspl.feature.graphical.configurator.factory.DwConfiguratorEditorEditPartFactory;
 import de.darwinspl.feature.graphical.configurator.viewer.DwFeatureModelConfiguratorViewer;
@@ -66,6 +67,7 @@ import eu.hyvar.dataValues.HyDataValuesFactory;
 import eu.hyvar.dataValues.HyEnumLiteral;
 import eu.hyvar.dataValues.HyEnumValue;
 import eu.hyvar.dataValues.HyNumberValue;
+import eu.hyvar.feature.HyFeatureModel;
 import eu.hyvar.feature.configuration.HyConfiguration;
 import eu.hyvar.feature.configuration.util.HyConfigurationUtil;
 import eu.hyvar.feature.constraint.HyConstraintModel;
@@ -75,13 +77,13 @@ public class DwFeatureModelConfiguratorEditor extends DwFeatureModelConfigurator
 	private Button validateContextButton;
 	private Button generateConfigurationButton;
 	private Button explainButton;
-	
-//	private Button numberOfPossibleConfigurationsButton;
+
+	// private Button numberOfPossibleConfigurationsButton;
 	private Button simulateButton;
 	private DwSelectedConfigurationComposite selectedConfigurationComposite;
 
 	protected HyConfiguration suggestedConfiguration;
-	
+
 	private static final String DEFAULT_HYVARREC_URI = "http://hyvarhyvarrec-env.eu-west-1.elasticbeanstalk.com/";
 
 	@Override
@@ -89,16 +91,16 @@ public class DwFeatureModelConfiguratorEditor extends DwFeatureModelConfigurator
 		super.init(site, input);
 
 		// load an existing configuration model
-		if(this.modelFileExists(HyConfigurationUtil.getConfigurationModelFileExtensionForXmi())) {
+		if (this.modelFileExists(HyConfigurationUtil.getConfigurationModelFileExtensionForXmi())) {
 			selectedConfiguration = this.loadConfigurationModel();
-		}
-		else {
-			selectedConfiguration.setFeatureModel(this.modelWrapped.getModel());			
+		} else {
+			selectedConfiguration.setFeatureModel(this.modelWrapped.getModel());
 		}
 	}
 
 	/**
-	 * Hook the evolution factory into the editor logic and override the standard edit part factory
+	 * Hook the evolution factory into the editor logic and override the
+	 * standard edit part factory
 	 */
 	@Override
 	public void configureGraphicalViewer() {
@@ -108,20 +110,17 @@ public class DwFeatureModelConfiguratorEditor extends DwFeatureModelConfigurator
 		viewer.setEditPartFactory(new DwConfiguratorEditorEditPartFactory(viewer, this));
 	}
 
-	private boolean modelFileExists(String extension){
-		IPath path = ((IPath)getFile().getFullPath().clone()).removeFileExtension().addFileExtension(extension);
+	private boolean modelFileExists(String extension) {
+		IPath path = ((IPath) getFile().getFullPath().clone()).removeFileExtension().addFileExtension(extension);
 
 		IWorkspaceRoot workspaceRoot = ResourcesPlugin.getWorkspace().getRoot();
 
 		IFile file = workspaceRoot.getFile(path);
 
-		return file.exists();		
+		return file.exists();
 	}
 
-
-
-	
-	protected void openConfigurationViewer(String name){
+	protected void openConfigurationViewer(String name) {
 		IWorkbench workbench = PlatformUI.getWorkbench();
 		IWorkbenchWindow workbenchWindow = workbench.getActiveWorkbenchWindow();
 		IWorkbenchPage workbenchPage = workbenchWindow.getActivePage();
@@ -130,14 +129,11 @@ public class DwFeatureModelConfiguratorEditor extends DwFeatureModelConfigurator
 
 		IFile file = workspaceRoot.getFile(Path.fromOSString(name));
 
-		workbench.getDisplay().syncExec(new Runnable(){
+		workbench.getDisplay().syncExec(new Runnable() {
 
 			@Override
 			public void run() {
-				IEditorDescriptor desc = PlatformUI.getWorkbench().
-						getEditorRegistry().getDefaultEditor(name);
-
-
+				IEditorDescriptor desc = PlatformUI.getWorkbench().getEditorRegistry().getDefaultEditor(name);
 
 				try {
 					workbenchPage.openEditor(new FileEditorInput(file), desc.getId());
@@ -146,23 +142,26 @@ public class DwFeatureModelConfiguratorEditor extends DwFeatureModelConfigurator
 					e.printStackTrace();
 				}
 
-			}			
+			}
 		});
 	}
 
-	private void saveConfigurationIntoFeatureModelFolder(){
-		IPath path = ((IPath)getFile().getFullPath().clone()).removeFileExtension().addFileExtension(HyConfigurationUtil.getConfigurationModelFileExtensionForXmi());
+	private void saveConfigurationIntoFeatureModelFolder() {
+		IPath path = ((IPath) getFile().getFullPath().clone()).removeFileExtension()
+				.addFileExtension(HyConfigurationUtil.getConfigurationModelFileExtensionForXmi());
 		IWorkspaceRoot workspaceRoot = ResourcesPlugin.getWorkspace().getRoot();
 
-		EcoreIOUtil.saveModelAs(selectedConfiguration, workspaceRoot.getFile(path));		
+		EcoreIOUtil.saveModelAs(selectedConfiguration, workspaceRoot.getFile(path));
 	}
 
-	private HyContextModel loadContextInformationModel(){
-		return (HyContextModel) EcoreIOUtil.loadAccompanyingModel(modelWrapped.getModel(), HyContextInformationUtil.getContextModelFileExtensionForConcreteSyntax());
+	private HyContextModel loadContextInformationModel() {
+		return (HyContextModel) EcoreIOUtil.loadAccompanyingModel(modelWrapped.getModel(),
+				HyContextInformationUtil.getContextModelFileExtensionForConcreteSyntax());
 	}
 
-	private HyConfiguration loadConfigurationModel(){
-		return (HyConfiguration) EcoreIOUtil.loadAccompanyingModel(modelWrapped.getModel(), HyConfigurationUtil.getConfigurationModelFileExtensionForXmi());
+	private HyConfiguration loadConfigurationModel() {
+		return (HyConfiguration) EcoreIOUtil.loadAccompanyingModel(modelWrapped.getModel(),
+				HyConfigurationUtil.getConfigurationModelFileExtensionForXmi());
 	}
 
 	@Override
@@ -177,7 +176,7 @@ public class DwFeatureModelConfiguratorEditor extends DwFeatureModelConfigurator
 
 		// Right sash
 		createConfigurationPanel(sashForm);
-		sashForm.setWeights(new int[] { 4, 1});
+		sashForm.setWeights(new int[] { 4, 1 });
 
 		parent.setLayout(new GridLayout(1, false));
 		super.createSliderControl(parent);
@@ -192,7 +191,7 @@ public class DwFeatureModelConfiguratorEditor extends DwFeatureModelConfigurator
 		generateConfigurationButton = new Button(configurationPanel, SWT.PUSH);
 		generateConfigurationButton.setText("Generate Automatic Configuration");
 		generateConfigurationButton.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, false));
-		
+
 		validateContextButton = new Button(configurationPanel, SWT.PUSH);
 		validateContextButton.setText("Detect Anomalies");
 		validateContextButton.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, false));
@@ -200,44 +199,44 @@ public class DwFeatureModelConfiguratorEditor extends DwFeatureModelConfigurator
 		explainButton = new Button(configurationPanel, SWT.PUSH);
 		explainButton.setText("Explain Anomalies");
 		explainButton.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, false));
-		
+
 		simulateButton = new Button(configurationPanel, SWT.PUSH);
 		simulateButton.setText("Simulate Reconfiguration");
 		simulateButton.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, false));
 
-
-//		numberOfPossibleConfigurationsButton = new Button(configurationPanel, SWT.PUSH);
-//		numberOfPossibleConfigurationsButton.setText("Number of Possible Configurations");
-//		numberOfPossibleConfigurationsButton.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, false));
-//		numberOfPossibleConfigurationsButton.setEnabled(false);
-
+		// numberOfPossibleConfigurationsButton = new Button(configurationPanel,
+		// SWT.PUSH);
+		// numberOfPossibleConfigurationsButton.setText("Number of Possible
+		// Configurations");
+		// numberOfPossibleConfigurationsButton.setLayoutData(new
+		// GridData(SWT.FILL, SWT.FILL, true, false));
+		// numberOfPossibleConfigurationsButton.setEnabled(false);
 
 		selectedConfigurationComposite = new DwSelectedConfigurationComposite(configurationPanel);
 		selectedConfigurationComposite.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
 
-
 		return configurationPanel;
 	}
 
-	private String getURI(){
-		DwRESTServerSelectDialog dialog = new DwRESTServerSelectDialog(getEditorSite().getShell(), DEFAULT_HYVARREC_URI);
+	private String getURI() {
+		DwRESTServerSelectDialog dialog = new DwRESTServerSelectDialog(getEditorSite().getShell(),
+				DEFAULT_HYVARREC_URI);
 		int result = dialog.open();
-		if(result == Dialog.OK){
+		if (result == Dialog.OK) {
 			return dialog.getUri();
-		}
-		else {
+		} else {
 			return null;
 		}
 
-//		return DEFAULT_HYVARREC_URI;
+		// return DEFAULT_HYVARREC_URI;
 	}
 
 	private void registerListeners() {
 
 		super.registerControlListeners();
-		
+
 		ButtonListener buttonListener = new ButtonListener();
-		
+
 		selectedConfiguration.eAdapters().add(new EContentAdapter() {
 			@Override
 			public void notifyChanged(Notification notification) {
@@ -253,40 +252,50 @@ public class DwFeatureModelConfiguratorEditor extends DwFeatureModelConfigurator
 		simulateButton.addSelectionListener(buttonListener);
 
 		generateConfigurationButton.addSelectionListener(new SelectionListener() {
-			
+
 			@Override
 			public void widgetSelected(SelectionEvent e) {
-				
-				System.out.println("generating...");
-			
-				HttpClient client = new HttpClient();
+
+				HyConstraintModel constraintModel = null;
+				if (modelFileExists(HyConstraintUtil.getConstraintModelFileExtensionForConcreteSyntax())) {
+					constraintModel = EcoreIOUtil.loadAccompanyingModel(modelWrapped.getModel(),
+							HyConstraintUtil.getConstraintModelFileExtensionForConcreteSyntax());
+				}
+
+				HyFeatureModel featureModel = modelWrapped.getModel();
+
+				String uri = getURI();
+				if(uri == null) return;
+				DwSelectConfiguratorDialog selectConfiguratorDialog = new DwSelectConfiguratorDialog(getEditorSite().getShell(), featureModel, constraintModel, getDate(), uri);
+				selectConfiguratorDialog.open();
 				
 			}
-			
+
 			@Override
 			public void widgetDefaultSelected(SelectionEvent e) {
 				// TODO Auto-generated method stub
-				
+
 			}
 		});
-//		numberOfPossibleConfigurationsButton.addSelectionListener(new SelectionAdapter() {
-//			@Override
-//			public void widgetSelected(SelectionEvent e) {
-//				//calculateNumberOfPossibleConfigurations();
-//			}
-//		});
+		// numberOfPossibleConfigurationsButton.addSelectionListener(new
+		// SelectionAdapter() {
+		// @Override
+		// public void widgetSelected(SelectionEvent e) {
+		// //calculateNumberOfPossibleConfigurations();
+		// }
+		// });
 
 		selectedConfigurationComposite.getCompleteButton().addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
-				//autoCompleteVersions();
+				// autoCompleteVersions();
 			}
 		});
 
 		selectedConfigurationComposite.getUseButton().addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
-				//useSelectedConfigurationAsRunningConfiguration();
+				// useSelectedConfigurationAsRunningConfiguration();
 			}
 		});
 
@@ -295,176 +304,190 @@ public class DwFeatureModelConfiguratorEditor extends DwFeatureModelConfigurator
 
 	private static HyContextValueModel createContextValueModel(DwContextInformationDialog dialog) {
 		HyContextValueModel contextValueModel = ContextValueFactory.eINSTANCE.createHyContextValueModel();
-		
+
 		fillContextValueModelWithBooleanValues(contextValueModel, dialog.getBooleanValueMap());
-		
+
 		fillContextValueModelWithEnumValues(contextValueModel, dialog.getEnumValueMap());
 
 		fillContextValueModelWithNumberValues(contextValueModel, dialog.getNumberValueMap());
-		
+
 		return contextValueModel;
 	}
-	
-	private static void fillContextValueModelWithBooleanValues(HyContextValueModel contextValueModel, Map<HyContextualInformationBoolean, Boolean> map) {
-		for(Entry<HyContextualInformationBoolean, Boolean> entry: map.entrySet()) {
+
+	private static void fillContextValueModelWithBooleanValues(HyContextValueModel contextValueModel,
+			Map<HyContextualInformationBoolean, Boolean> map) {
+		for (Entry<HyContextualInformationBoolean, Boolean> entry : map.entrySet()) {
 			HyContextValue contextValue = ContextValueFactory.eINSTANCE.createHyContextValue();
 			contextValue.setContext(entry.getKey());
-			
+
 			HyBooleanValue value = HyDataValuesFactory.eINSTANCE.createHyBooleanValue();
 			value.setValue(entry.getValue().booleanValue());
-			
+
 			contextValue.setValue(value);
 			contextValueModel.getValues().add(contextValue);
 		}
 	}
-	
-	private static void fillContextValueModelWithEnumValues(HyContextValueModel contextValueModel, Map<HyContextualInformationEnum, String> map) {
-		for(Entry<HyContextualInformationEnum, String> entry: map.entrySet()) {
+
+	private static void fillContextValueModelWithEnumValues(HyContextValueModel contextValueModel,
+			Map<HyContextualInformationEnum, String> map) {
+		for (Entry<HyContextualInformationEnum, String> entry : map.entrySet()) {
 			HyContextValue contextValue = ContextValueFactory.eINSTANCE.createHyContextValue();
 			contextValue.setContext(entry.getKey());
-			
+
 			HyEnumValue value = HyDataValuesFactory.eINSTANCE.createHyEnumValue();
 			value.setEnum(entry.getKey().getEnumType());
-			
-			for(HyEnumLiteral literal: entry.getKey().getEnumType().getLiterals()) {
-				if(literal.getName().equals(entry.getValue())) {
+
+			for (HyEnumLiteral literal : entry.getKey().getEnumType().getLiterals()) {
+				if (literal.getName().equals(entry.getValue())) {
 					value.setEnumLiteral(literal);
 					break;
 				}
 			}
-			
+
 			contextValue.setValue(value);
 			contextValueModel.getValues().add(contextValue);
 		}
 	}
-		
-	private static void fillContextValueModelWithNumberValues(HyContextValueModel contextValueModel, Map<HyContextualInformationNumber, Integer> map) {
-		
-		for(Entry<HyContextualInformationNumber, Integer> entry: map.entrySet()) {
+
+	private static void fillContextValueModelWithNumberValues(HyContextValueModel contextValueModel,
+			Map<HyContextualInformationNumber, Integer> map) {
+
+		for (Entry<HyContextualInformationNumber, Integer> entry : map.entrySet()) {
 			HyContextValue contextValue = ContextValueFactory.eINSTANCE.createHyContextValue();
 			contextValue.setContext(entry.getKey());
-			
+
 			HyNumberValue value = HyDataValuesFactory.eINSTANCE.createHyNumberValue();
-			
+
 			value.setValue(entry.getValue());
-			
+
 			contextValue.setValue(value);
 			contextValueModel.getValues().add(contextValue);
 		}
 	}
-	
-	
+
 	@Override
 	protected void setInput(IEditorInput input) {
 		super.setInput(input);
 		selectedConfiguration.setFeatureModel(getFeatureModel());
 	}
-	
+
 	protected class ButtonListener extends SelectionAdapter {
-		
+
 		@Override
 		public void widgetSelected(SelectionEvent e) {
 			HyContextModel contextModel = null;
 			HyContextValueModel contextValueModel = null;
-			
-			
-			if(modelFileExists(HyContextInformationUtil.getContextModelFileExtensionForConcreteSyntax())){
+
+			if (modelFileExists(HyContextInformationUtil.getContextModelFileExtensionForConcreteSyntax())) {
 				contextModel = loadContextInformationModel();
 
 				// only show the dialog if context information are available
-				if(contextModel == null) {
+				if (contextModel == null) {
 					contextModel = HyContextInformationFactory.eINSTANCE.createHyContextModel();
 				}
-				
-				if(contextModel != null && (e.getSource() == simulateButton || e.getSource() == explainButton)){
-					DwContextInformationDialog dialog = new DwContextInformationDialog(getEditorSite().getShell(), contextModel, getDate());
-					if(dialog.open() == Window.CANCEL){
+
+				if (contextModel != null && (e.getSource() == simulateButton || e.getSource() == explainButton)) {
+					DwContextInformationDialog dialog = new DwContextInformationDialog(getEditorSite().getShell(),
+							contextModel, getDate());
+					if (dialog.open() == Window.CANCEL) {
 						return;
-					} 
-					else {
-						contextValueModel =  createContextValueModel(dialog);
+					} else {
+						contextValueModel = createContextValueModel(dialog);
 					}
 				}
-			}
-			else {
-				MessageDialog.openError(getShell(), "No context model", "Reconfiguration not possible as no context information file exists.");
+			} else {
+				MessageDialog.openError(getShell(), "No context model",
+						"Reconfiguration not possible as no context information file exists.");
 				return;
 			}
-			
-//			if(modelFileExists(HyContextInformationUtil.getContextModelFileExtensionForConcreteSyntax())){
-//				contextModel = loadContextInformationModel();
-//
-//				// only show the dialog if context information are available
-//				if(contextModel == null) {
-//					contextModel = HyContextInformationFactory.eINSTANCE.createHyContextModel();
-//				}
-//				
-//				if(contextModel != null && e.getSource() == simulateButton){
-//					HyContextInformationDialog dialog = new HyContextInformationDialog(getEditorSite().getShell(), contextModel, getDate());
-//					if(dialog.open() == Window.CANCEL){
-//						return;
-//					} 
-//					else {
-//						contextValueModel = createContextValueModel(dialog);
-//					}
-//				}
-//			}
-//			else {
-//				// TODO inform user that no context model exists
-//				return;
-//			}
 
-			if(contextValueModel == null) {
-				contextValueModel = ContextValueFactory.eINSTANCE.createHyContextValueModel();;
+			// if(modelFileExists(HyContextInformationUtil.getContextModelFileExtensionForConcreteSyntax())){
+			// contextModel = loadContextInformationModel();
+			//
+			// // only show the dialog if context information are available
+			// if(contextModel == null) {
+			// contextModel =
+			// HyContextInformationFactory.eINSTANCE.createHyContextModel();
+			// }
+			//
+			// if(contextModel != null && e.getSource() == simulateButton){
+			// HyContextInformationDialog dialog = new
+			// HyContextInformationDialog(getEditorSite().getShell(),
+			// contextModel, getDate());
+			// if(dialog.open() == Window.CANCEL){
+			// return;
+			// }
+			// else {
+			// contextValueModel = createContextValueModel(dialog);
+			// }
+			// }
+			// }
+			// else {
+			// // TODO inform user that no context model exists
+			// return;
+			// }
+
+			if (contextValueModel == null) {
+				contextValueModel = ContextValueFactory.eINSTANCE.createHyContextValueModel();
+				;
 			}
-			
+
 			HyValidityModel validityModel = null;
-			if(modelFileExists(HyValidityModelUtil.getValidityModelFileExtensionForConcreteSyntax())){
-				validityModel = EcoreIOUtil.loadAccompanyingModel(modelWrapped.getModel(), HyValidityModelUtil.getValidityModelFileExtensionForConcreteSyntax());
+			if (modelFileExists(HyValidityModelUtil.getValidityModelFileExtensionForConcreteSyntax())) {
+				validityModel = EcoreIOUtil.loadAccompanyingModel(modelWrapped.getModel(),
+						HyValidityModelUtil.getValidityModelFileExtensionForConcreteSyntax());
 			}
 
 			HyConstraintModel constraintModel = null;
-			if(modelFileExists(HyConstraintUtil.getConstraintModelFileExtensionForConcreteSyntax())){
-				constraintModel = EcoreIOUtil.loadAccompanyingModel(modelWrapped.getModel(), HyConstraintUtil.getConstraintModelFileExtensionForConcreteSyntax());
+			if (modelFileExists(HyConstraintUtil.getConstraintModelFileExtensionForConcreteSyntax())) {
+				constraintModel = EcoreIOUtil.loadAccompanyingModel(modelWrapped.getModel(),
+						HyConstraintUtil.getConstraintModelFileExtensionForConcreteSyntax());
 			}
 
-//			HyPreferenceModel preferenceModel = null;
-//			if(modelFileExists(HyPreferenceModelUtil.getPreferenceModelFileExtensionForConcreteSyntax())){
-//				preferenceModel = EcoreIOUtil.loadAccompanyingModel(modelWrapped.getModel(), HyPreferenceModelUtil.getPreferenceModelFileExtensionForConcreteSyntax());
-//			}
+			// HyPreferenceModel preferenceModel = null;
+			// if(modelFileExists(HyPreferenceModelUtil.getPreferenceModelFileExtensionForConcreteSyntax())){
+			// preferenceModel =
+			// EcoreIOUtil.loadAccompanyingModel(modelWrapped.getModel(),
+			// HyPreferenceModelUtil.getPreferenceModelFileExtensionForConcreteSyntax());
+			// }
 
 			//
-//			if(modelFileExists(ContextInformationUtil.getContextValueModelFileExtensionForXmi())){
-//				// TODO type check? other models, too?
-//				contextValueModel = EcoreIOUtil.loadAccompanyingModel(modelWrapped.getModel(), ContextInformationUtil.getContextValueModelFileExtensionForXmi());
-//			}
+			// if(modelFileExists(ContextInformationUtil.getContextValueModelFileExtensionForXmi())){
+			// // TODO type check? other models, too?
+			// contextValueModel =
+			// EcoreIOUtil.loadAccompanyingModel(modelWrapped.getModel(),
+			// ContextInformationUtil.getContextValueModelFileExtensionForXmi());
+			// }
 
 			saveConfigurationIntoFeatureModelFolder();
 
 			// allow to change the server uri
 			String uri = getURI();
-			
-			if(uri == null) {
+
+			if (uri == null) {
 				return;
 			}
 
-
 			AnalysesClient client = new AnalysesClient();
 
-			
-			
-			
-			if(e.getSource() == validateContextButton) {
-				HyContextValueModel notSatisfiableContextValues = client.validateFeatureModelWithContext(uri, contextModel, validityModel, modelWrapped.getModel(), constraintModel, selectedConfiguration, null, contextValueModel, modelWrapped.getSelectedDate());
-				DwInvalidContextInfoDialog contextInfoDialog = new DwInvalidContextInfoDialog(getEditorSite().getShell(), notSatisfiableContextValues);
+			if (e.getSource() == validateContextButton) {
+				HyContextValueModel notSatisfiableContextValues = client.validateFeatureModelWithContext(uri,
+						contextModel, validityModel, modelWrapped.getModel(), constraintModel, selectedConfiguration,
+						null, contextValueModel, modelWrapped.getSelectedDate());
+				DwInvalidContextInfoDialog contextInfoDialog = new DwInvalidContextInfoDialog(
+						getEditorSite().getShell(), notSatisfiableContextValues);
 				contextInfoDialog.open();
-			}
-			else if(e.getSource() == simulateButton) {
-				HyConfiguration configuration = client.reconfigure(uri, contextModel, validityModel, modelWrapped.getModel(), constraintModel, selectedConfiguration, null, contextValueModel, modelWrapped.getSelectedDate());
-				if(configuration != null){
+			} else if (e.getSource() == simulateButton) {
+				HyConfiguration configuration = client.reconfigure(uri, contextModel, validityModel,
+						modelWrapped.getModel(), constraintModel, selectedConfiguration, null, contextValueModel,
+						modelWrapped.getSelectedDate());
+				if (configuration != null) {
 					String fileName = getFile().getFullPath().removeFileExtension().lastSegment();
 
-					String name = getFile().getFullPath().removeFileExtension().removeLastSegments(1).append(fileName+"_Result").addFileExtension(HyConfigurationUtil.getConfigurationModelFileExtensionForXmi()).toString();
+					String name = getFile().getFullPath().removeFileExtension().removeLastSegments(1)
+							.append(fileName + "_Result")
+							.addFileExtension(HyConfigurationUtil.getConfigurationModelFileExtensionForXmi())
+							.toString();
 
 					// create a new resource for the result configuration
 					ResourceSet resSet = new ResourceSetImpl();
@@ -475,14 +498,14 @@ public class DwFeatureModelConfiguratorEditor extends DwFeatureModelConfigurator
 						resource.save(Collections.EMPTY_MAP);
 					} catch (IOException e2) {
 						e2.printStackTrace();
-					}				
+					}
 
 					// Show the result within a new viewer
 					openConfigurationViewer(name);
 				}
-			}
-			else if(e.getSource() == explainButton) {
-				client.validateFeatureModel(uri, contextModel, validityModel, modelWrapped.getModel(), constraintModel, selectedConfiguration, null, contextValueModel, modelWrapped.getSelectedDate());
+			} else if (e.getSource() == explainButton) {
+				client.validateFeatureModel(uri, contextModel, validityModel, modelWrapped.getModel(), constraintModel,
+						selectedConfiguration, null, contextValueModel, modelWrapped.getSelectedDate());
 			}
 		}
 	}
