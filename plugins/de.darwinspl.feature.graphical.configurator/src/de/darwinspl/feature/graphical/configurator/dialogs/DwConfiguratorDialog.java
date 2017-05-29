@@ -1,6 +1,7 @@
 package de.darwinspl.feature.graphical.configurator.dialogs;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.eclipse.jface.dialogs.Dialog;
@@ -16,18 +17,37 @@ import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.widgets.TableItem;
 import org.eclipse.swt.widgets.Text;
 
+import de.darwinspl.configurator.Configurator;
 import eu.hyvar.evolution.HyName;
+import eu.hyvar.evolution.HyNamedElement;
 import eu.hyvar.feature.HyFeature;
 import eu.hyvar.feature.HyFeatureAttribute;
 import eu.hyvar.feature.HyFeatureModel;
+import eu.hyvar.feature.constraint.HyConstraintModel;
+import eu.hyvar.feature.expression.HyAttributeReferenceExpression;
 
 public class DwConfiguratorDialog extends Dialog {
 
-	List<String> attributes = new ArrayList<>();
+	private List<String> attributes = new ArrayList<>();
+	private HyFeatureModel featureModel;
+	private HyConstraintModel constraintModel;
+	private Date date;
+	private String uri;
+	
+	private Table table;
+	
+	private TableColumn colAttributeName;
+	private TableColumn colAttributeDefaultValue;
+	private TableColumn colAttributeMinMax;
 
-	public DwConfiguratorDialog(Shell parentShell, HyFeatureModel featureModel) {
+	public DwConfiguratorDialog(Shell parentShell, HyFeatureModel featureModel, HyConstraintModel constraintModel, Date date, String uri) {
 		super(parentShell);
 
+		this.featureModel = featureModel;
+		this.constraintModel = constraintModel;
+		this.date = date;
+		this.uri = uri;
+		
 		for (HyFeature feature : featureModel.getFeatures()) {
 			for (HyFeatureAttribute attribute : feature.getAttributes()) {
 				for (HyName name : attribute.getNames()) {
@@ -37,6 +57,35 @@ public class DwConfiguratorDialog extends Dialog {
 			}
 		}
 	}
+	
+	
+
+	@Override
+	protected void okPressed() {
+		
+		for(int i = 0; i < table.getItemCount(); i++) {
+			TableItem item = table.getItem(i);
+			
+			if(item.getChecked()) {
+				for(HyFeature feature : featureModel.getFeatures()) {
+					for(HyFeatureAttribute attribute : feature.getAttributes()) {
+						for (HyName name : attribute.getNames()) {
+							if(name.getName().equals(attributes.get(i))) {
+								
+							}
+						}
+					}
+				}
+			}
+		}
+		
+		Configurator configurator = new Configurator();
+		configurator.optimizeAttributes(uri, featureModel, constraintModel, date);
+		
+		super.okPressed();
+	}
+
+
 
 	@Override
 	protected Control createDialogArea(Composite parent) {
@@ -44,13 +93,13 @@ public class DwConfiguratorDialog extends Dialog {
 
 		composite.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
 
-		Table table = new Table(composite, SWT.CHECK | SWT.SINGLE);
+		table = new Table(composite, SWT.CHECK | SWT.SINGLE);
 		table.setHeaderVisible(true);
 		table.setLinesVisible(true);
 
-		TableColumn colAttributeName = new TableColumn(table, SWT.LEFT);
-		TableColumn colAttributeDefaultValue = new TableColumn(table, SWT.LEFT);
-		TableColumn colAttributeMinMax = new TableColumn(table, SWT.LEFT);
+		colAttributeName = new TableColumn(table, SWT.LEFT);
+		colAttributeDefaultValue = new TableColumn(table, SWT.LEFT);
+		colAttributeMinMax = new TableColumn(table, SWT.LEFT);
 		
 		colAttributeName.setText("Attributes");
 		colAttributeDefaultValue.setText("Default Value");

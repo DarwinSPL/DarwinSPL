@@ -267,7 +267,11 @@ public class DwFeatureModelConfiguratorEditor extends DwFeatureModelConfigurator
 				String uri = getURI();
 				if(uri == null) return;
 				DwSelectConfiguratorDialog selectConfiguratorDialog = new DwSelectConfiguratorDialog(getEditorSite().getShell(), featureModel, constraintModel, getDate(), uri);
-				selectConfiguratorDialog.open();
+				HyConfiguration result = selectConfiguratorDialog.openWithAnswer();
+				if(result != null) {
+					selectedConfiguration = result;
+					saveConfigurationIntoFeatureModelFolder();
+				}
 				
 			}
 

@@ -11,11 +11,14 @@ import org.eclipse.jetty.client.util.StringContentProvider;
 import org.eclipse.jetty.http.HttpHeader;
 
 import eu.hyvar.feature.HyFeature;
+import eu.hyvar.feature.HyFeatureAttribute;
 import eu.hyvar.feature.HyFeatureModel;
 import eu.hyvar.feature.constraint.HyConstraintModel;
+import eu.hyvar.feature.expression.HyAttributeReferenceExpression;
 import eu.hyvar.feature.expression.HyExpressionFactory;
 import eu.hyvar.feature.expression.HyFeatureReferenceExpression;
 import eu.hyvar.feature.expression.HyIfPossibleExpression;
+import eu.hyvar.feature.expression.HyMaximumExpression;
 import eu.hyvar.feature.expression.HyNegationExpression;
 import eu.hyvar.preferences.HyPreference;
 import eu.hyvar.preferences.HyPreferenceModel;
@@ -23,123 +26,121 @@ import eu.hyvar.preferences.PreferencesFactory;
 import eu.hyvar.reconfigurator.input.exporter.HyVarRecExporter;
 
 public class Configurator {
-	
-	public Configurator(){
+
+	public Configurator() {
 	}
-	
-	public void maxFeatures(String uri, HyFeatureModel featureModel, HyConstraintModel constraintModel, Date date) {
-		
-		//create preference model
+
+	public String maxFeatures(String uri, HyFeatureModel featureModel, HyConstraintModel constraintModel, Date date) {
+
+		// create preference model
 		PreferencesFactory preferenceFactory = PreferencesFactory.eINSTANCE;
 		HyPreferenceModel preferenceModel = preferenceFactory.createHyPreferenceModel();
 
 		HyExpressionFactory expressionFactory = HyExpressionFactory.eINSTANCE;
 
 		preferenceModel.setFeatureModel(featureModel);
-		
-	/* APPROACH 1
-		
-		for(HyFeature feature : featureModel.getFeatures()) {
-				HyFeatureReferenceExpression featureExpression = expressionFactory.createHyFeatureReferenceExpression();
-				featureExpression.setFeature(feature);
-				
-				//HyNegationExpression negationExpression = expressionFactory.createHyNegationExpression();
-				//negationExpression.setOperand(featureExpression);
-				
-				HyPreference preference = preferenceFactory.createHyPreference();
-				preference.setRootExpression(featureExpression);
-				preferenceModel.getPreferences().add(preference);
-					
-		}
 
-	*/
-	/* APPROACH 2 */
-		
+		/*
+		 * APPROACH 1
+		 * 
+		 * for(HyFeature feature : featureModel.getFeatures()) {
+		 * HyFeatureReferenceExpression featureExpression =
+		 * expressionFactory.createHyFeatureReferenceExpression();
+		 * featureExpression.setFeature(feature);
+		 * 
+		 * //HyNegationExpression negationExpression =
+		 * expressionFactory.createHyNegationExpression();
+		 * //negationExpression.setOperand(featureExpression);
+		 * 
+		 * HyPreference preference = preferenceFactory.createHyPreference();
+		 * preference.setRootExpression(featureExpression);
+		 * preferenceModel.getPreferences().add(preference);
+		 * 
+		 * }
+		 * 
+		 */
+		/* APPROACH 2 */
+
 		HyIfPossibleExpression ipExpression = expressionFactory.createHyIfPossibleExpression();
 
 		// preferences to select the most features
 		for (HyFeature feature : featureModel.getFeatures()) {
-			
-			HyFeatureReferenceExpression referenceExpression = expressionFactory
-					.createHyFeatureReferenceExpression();
+
+			HyFeatureReferenceExpression referenceExpression = expressionFactory.createHyFeatureReferenceExpression();
 			referenceExpression.setFeature(feature);
 
-			ipExpression.getOperands().add(referenceExpression);	
+			ipExpression.getOperands().add(referenceExpression);
 
 		}
 		HyPreference preference = preferenceFactory.createHyPreference();
 		preference.setRootExpression(ipExpression);
 		preferenceModel.getPreferences().add(preference);
-	
 
-	/*	APPROACH 3 
-	  
-	  	HyFeature lastFeature = null;
-		
-		for(HyFeature feature : featureModel.getFeatures()) {
-			if(lastFeature != null) {
-				HyFeatureReferenceExpression featureExpression = expressionFactory.createHyFeatureReferenceExpression();
-				HyFeatureReferenceExpression lastFeatureExpression = expressionFactory.createHyFeatureReferenceExpression();
-				
-				featureExpression.setFeature(feature);
-				lastFeatureExpression.setFeature(lastFeature);
-				
-				HyAndExpression andExpression = expressionFactory.createHyAndExpression();
-				andExpression.setOperand1(lastFeatureExpression);
-				andExpression.setOperand2(featureExpression);
-				
-				HyPreference preference = preferenceFactory.createHyPreference();
-				preference.setRootExpression(andExpression);
-				preferenceModel.getPreferences().add(preference);
-				
-			}
-			lastFeature = feature;	
-		}
-
-*/
+		/*
+		 * APPROACH 3
+		 * 
+		 * HyFeature lastFeature = null;
+		 * 
+		 * for(HyFeature feature : featureModel.getFeatures()) { if(lastFeature
+		 * != null) { HyFeatureReferenceExpression featureExpression =
+		 * expressionFactory.createHyFeatureReferenceExpression();
+		 * HyFeatureReferenceExpression lastFeatureExpression =
+		 * expressionFactory.createHyFeatureReferenceExpression();
+		 * 
+		 * featureExpression.setFeature(feature);
+		 * lastFeatureExpression.setFeature(lastFeature);
+		 * 
+		 * HyAndExpression andExpression =
+		 * expressionFactory.createHyAndExpression();
+		 * andExpression.setOperand1(lastFeatureExpression);
+		 * andExpression.setOperand2(featureExpression);
+		 * 
+		 * HyPreference preference = preferenceFactory.createHyPreference();
+		 * preference.setRootExpression(andExpression);
+		 * preferenceModel.getPreferences().add(preference);
+		 * 
+		 * } lastFeature = feature; }
+		 * 
+		 */
 		// export to hyvar
 		HyVarRecExporter exporter = new HyVarRecExporter();
 		String hyvarrec = exporter.exportContextMappingModel(null, null, featureModel, constraintModel, null,
 				preferenceModel, null, date);
 
 		System.out.println("HyVarRecInput: " + hyvarrec);
-		System.out.println("HyVarRecOutput: " + sendToHyVarRec(hyvarrec, uri));
-		
-	//	DwConfiguratorDialog dialog = new DwConfiguratorDialog(getEditorSite().getShell(), featureModel);
-	//	dialog.open();
+		String output = sendToHyVarRec(hyvarrec, uri);
+		System.out.println("HyVarRecOutput: " + output );
+		return output;
 
-	
 	}
-	
-public void minFeatures(String uri, HyFeatureModel featureModel, HyConstraintModel constraintModel, Date date) {
-		
-		//create preference model
+
+	public String minFeatures(String uri, HyFeatureModel featureModel, HyConstraintModel constraintModel, Date date) {
+
+		// create preference model
 		PreferencesFactory preferenceFactory = PreferencesFactory.eINSTANCE;
 		HyPreferenceModel preferenceModel = preferenceFactory.createHyPreferenceModel();
 
 		HyExpressionFactory expressionFactory = HyExpressionFactory.eINSTANCE;
 
 		preferenceModel.setFeatureModel(featureModel);
-		
+
 		HyIfPossibleExpression ipExpression = expressionFactory.createHyIfPossibleExpression();
 
 		// preferences to select the most features
 		for (HyFeature feature : featureModel.getFeatures()) {
-			
-			HyFeatureReferenceExpression referenceExpression = expressionFactory
-					.createHyFeatureReferenceExpression();
+
+			HyFeatureReferenceExpression referenceExpression = expressionFactory.createHyFeatureReferenceExpression();
 			referenceExpression.setFeature(feature);
 
 			HyNegationExpression negationExpression = expressionFactory.createHyNegationExpression();
 			negationExpression.setOperand(referenceExpression);
-			
-			ipExpression.getOperands().add(negationExpression);	
+
+			ipExpression.getOperands().add(negationExpression);
 
 		}
 		HyPreference preference = preferenceFactory.createHyPreference();
 		preference.setRootExpression(ipExpression);
 		preferenceModel.getPreferences().add(preference);
-	
 
 		// export to hyvar
 		HyVarRecExporter exporter = new HyVarRecExporter();
@@ -147,10 +148,50 @@ public void minFeatures(String uri, HyFeatureModel featureModel, HyConstraintMod
 				preferenceModel, null, date);
 
 		System.out.println("HyVarRecInput: " + hyvarrec);
-		System.out.println("HyVarRecOutput: " + sendToHyVarRec(hyvarrec, uri));
+		String output = sendToHyVarRec(hyvarrec, uri);
+		System.out.println("HyVarRecOutput: " + output );
+		return output;
 	}
-	
-	
+
+	public String optimizeAttributes(String uri, HyFeatureModel featureModel, HyConstraintModel constraintModel,
+			Date date) {
+
+		
+		// create preference model
+		PreferencesFactory preferenceFactory = PreferencesFactory.eINSTANCE;
+		HyPreferenceModel preferenceModel = preferenceFactory.createHyPreferenceModel();
+		
+		preferenceModel.setFeatureModel(featureModel);
+		
+		HyExpressionFactory expressionFactory = HyExpressionFactory.eINSTANCE;
+		
+		for(HyFeature feature : featureModel.getFeatures()){
+			for(HyFeatureAttribute attribute : feature.getAttributes()){
+				HyAttributeReferenceExpression expression = expressionFactory.createHyAttributeReferenceExpression();
+				expression.setAttribute(attribute);
+				expression.setFeature(feature);
+				
+				HyMaximumExpression maxExpression = expressionFactory.createHyMaximumExpression();
+				maxExpression.setOperand(expression);
+				
+				HyPreference preference = preferenceFactory.createHyPreference();
+				preference.setRootExpression(maxExpression);
+				
+				preferenceModel.getPreferences().add(preference);
+			}
+		}
+		
+		// export to hyvar
+		HyVarRecExporter exporter = new HyVarRecExporter();
+		String hyvarrec = exporter.exportContextMappingModel(null, null, featureModel, constraintModel, null,
+				preferenceModel, null, date);
+
+		System.out.println("HyVarRecInput: " + hyvarrec);
+		String output = sendToHyVarRec(hyvarrec, uri);
+		System.out.println("HyVarRecOutput: " + output );
+		return output;
+	}
+
 	private String sendToHyVarRec(String content, String uri) {
 		HttpClient client = new HttpClient();
 		try {
@@ -166,7 +207,7 @@ public void minFeatures(String uri, HyFeatureModel featureModel, HyConstraintMod
 		hyvarrecRequest.content(new StringContentProvider(content), "application/json");
 		try {
 			ContentResponse response = hyvarrecRequest.send();
-			
+
 			return response.getContentAsString();
 		} catch (InterruptedException e1) {
 			// TODO Auto-generated catch block
@@ -178,10 +219,8 @@ public void minFeatures(String uri, HyFeatureModel featureModel, HyConstraintMod
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
-		
+
 		return null;
 	}
-	
-	
 
 }
