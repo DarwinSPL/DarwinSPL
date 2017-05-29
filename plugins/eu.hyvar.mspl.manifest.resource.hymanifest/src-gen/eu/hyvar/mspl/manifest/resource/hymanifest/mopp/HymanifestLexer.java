@@ -35,7 +35,6 @@ public class HymanifestLexer extends Lexer {
     public static final int T__29=29;
     public static final int T__30=30;
     public static final int T__31=31;
-    public static final int T__32=32;
     public static final int DATE=4;
     public static final int IDENTIFIER_TOKEN=5;
     public static final int INTEGER_LITERAL=6;
@@ -224,10 +223,10 @@ public class HymanifestLexer extends Lexer {
         try {
             int _type = T__20;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // Hymanifest.g:27:7: ( '@[' )
-            // Hymanifest.g:27:9: '@['
+            // Hymanifest.g:27:7: ( 'Enum(' )
+            // Hymanifest.g:27:9: 'Enum('
             {
-            match("@["); 
+            match("Enum("); 
 
 
 
@@ -247,10 +246,10 @@ public class HymanifestLexer extends Lexer {
         try {
             int _type = T__21;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // Hymanifest.g:28:7: ( 'Enum(' )
-            // Hymanifest.g:28:9: 'Enum('
+            // Hymanifest.g:28:7: ( 'EnumLiteral(' )
+            // Hymanifest.g:28:9: 'EnumLiteral('
             {
-            match("Enum("); 
+            match("EnumLiteral("); 
 
 
 
@@ -270,10 +269,10 @@ public class HymanifestLexer extends Lexer {
         try {
             int _type = T__22;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // Hymanifest.g:29:7: ( 'EnumLiteral(' )
-            // Hymanifest.g:29:9: 'EnumLiteral('
+            // Hymanifest.g:29:7: ( 'Implementation ' )
+            // Hymanifest.g:29:9: 'Implementation '
             {
-            match("EnumLiteral("); 
+            match("Implementation "); 
 
 
 
@@ -293,10 +292,10 @@ public class HymanifestLexer extends Lexer {
         try {
             int _type = T__23;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // Hymanifest.g:30:7: ( 'Implementation ' )
-            // Hymanifest.g:30:9: 'Implementation '
+            // Hymanifest.g:30:7: ( 'Signature ' )
+            // Hymanifest.g:30:9: 'Signature '
             {
-            match("Implementation "); 
+            match("Signature "); 
 
 
 
@@ -316,12 +315,10 @@ public class HymanifestLexer extends Lexer {
         try {
             int _type = T__24;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // Hymanifest.g:31:7: ( 'Signature ' )
-            // Hymanifest.g:31:9: 'Signature '
+            // Hymanifest.g:31:7: ( '[' )
+            // Hymanifest.g:31:9: '['
             {
-            match("Signature "); 
-
-
+            match('['); 
 
             }
 
@@ -339,10 +336,10 @@ public class HymanifestLexer extends Lexer {
         try {
             int _type = T__25;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // Hymanifest.g:32:7: ( '[' )
-            // Hymanifest.g:32:9: '['
+            // Hymanifest.g:32:7: ( ']' )
+            // Hymanifest.g:32:9: ']'
             {
-            match('['); 
+            match(']'); 
 
             }
 
@@ -360,10 +357,12 @@ public class HymanifestLexer extends Lexer {
         try {
             int _type = T__26;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // Hymanifest.g:33:7: ( ']' )
-            // Hymanifest.g:33:9: ']'
+            // Hymanifest.g:33:7: ( 'enum:' )
+            // Hymanifest.g:33:9: 'enum:'
             {
-            match(']'); 
+            match("enum:"); 
+
+
 
             }
 
@@ -381,10 +380,10 @@ public class HymanifestLexer extends Lexer {
         try {
             int _type = T__27;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // Hymanifest.g:34:7: ( 'enum:' )
-            // Hymanifest.g:34:9: 'enum:'
+            // Hymanifest.g:34:7: ( 'eternity' )
+            // Hymanifest.g:34:9: 'eternity'
             {
-            match("enum:"); 
+            match("eternity"); 
 
 
 
@@ -404,10 +403,10 @@ public class HymanifestLexer extends Lexer {
         try {
             int _type = T__28;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // Hymanifest.g:35:7: ( 'eternity' )
-            // Hymanifest.g:35:9: 'eternity'
+            // Hymanifest.g:35:7: ( 'false' )
+            // Hymanifest.g:35:9: 'false'
             {
-            match("eternity"); 
+            match("false"); 
 
 
 
@@ -427,10 +426,10 @@ public class HymanifestLexer extends Lexer {
         try {
             int _type = T__29;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // Hymanifest.g:36:7: ( 'false' )
-            // Hymanifest.g:36:9: 'false'
+            // Hymanifest.g:36:7: ( 'true' )
+            // Hymanifest.g:36:9: 'true'
             {
-            match("false"); 
+            match("true"); 
 
 
 
@@ -450,12 +449,10 @@ public class HymanifestLexer extends Lexer {
         try {
             int _type = T__30;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // Hymanifest.g:37:7: ( 'true' )
-            // Hymanifest.g:37:9: 'true'
+            // Hymanifest.g:37:7: ( '{' )
+            // Hymanifest.g:37:9: '{'
             {
-            match("true"); 
-
-
+            match('{'); 
 
             }
 
@@ -473,29 +470,8 @@ public class HymanifestLexer extends Lexer {
         try {
             int _type = T__31;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // Hymanifest.g:38:7: ( '{' )
-            // Hymanifest.g:38:9: '{'
-            {
-            match('{'); 
-
-            }
-
-            state.type = _type;
-            state.channel = _channel;
-        }
-        finally {
-        	// do for sure before leaving
-        }
-    }
-    // $ANTLR end "T__31"
-
-    // $ANTLR start "T__32"
-    public final void mT__32() throws RecognitionException {
-        try {
-            int _type = T__32;
-            int _channel = DEFAULT_TOKEN_CHANNEL;
-            // Hymanifest.g:39:7: ( '}' )
-            // Hymanifest.g:39:9: '}'
+            // Hymanifest.g:38:7: ( '}' )
+            // Hymanifest.g:38:9: '}'
             {
             match('}'); 
 
@@ -508,34 +484,34 @@ public class HymanifestLexer extends Lexer {
         	// do for sure before leaving
         }
     }
-    // $ANTLR end "T__32"
+    // $ANTLR end "T__31"
 
-    // $ANTLR start "QUOTED_60_62"
-    public final void mQUOTED_60_62() throws RecognitionException {
+    // $ANTLR start "QUOTED_34_34"
+    public final void mQUOTED_34_34() throws RecognitionException {
         try {
-            int _type = QUOTED_60_62;
+            int _type = QUOTED_34_34;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // Hymanifest.g:3455:13: ( ( ( '<' ) (~ ( '>' ) )* ( '>' ) ) )
-            // Hymanifest.g:3456:2: ( ( '<' ) (~ ( '>' ) )* ( '>' ) )
+            // Hymanifest.g:3079:13: ( ( ( '\"' ) (~ ( '\"' ) )* ( '\"' ) ) )
+            // Hymanifest.g:3080:2: ( ( '\"' ) (~ ( '\"' ) )* ( '\"' ) )
             {
-            // Hymanifest.g:3456:2: ( ( '<' ) (~ ( '>' ) )* ( '>' ) )
-            // Hymanifest.g:3456:3: ( '<' ) (~ ( '>' ) )* ( '>' )
+            // Hymanifest.g:3080:2: ( ( '\"' ) (~ ( '\"' ) )* ( '\"' ) )
+            // Hymanifest.g:3080:3: ( '\"' ) (~ ( '\"' ) )* ( '\"' )
             {
-            // Hymanifest.g:3456:3: ( '<' )
-            // Hymanifest.g:3456:4: '<'
+            // Hymanifest.g:3080:3: ( '\"' )
+            // Hymanifest.g:3080:4: '\"'
             {
-            match('<'); 
+            match('\"'); 
 
             }
 
 
-            // Hymanifest.g:3456:8: (~ ( '>' ) )*
+            // Hymanifest.g:3080:8: (~ ( '\"' ) )*
             loop1:
             do {
                 int alt1=2;
                 int LA1_0 = input.LA(1);
 
-                if ( ((LA1_0 >= '\u0000' && LA1_0 <= '=')||(LA1_0 >= '?' && LA1_0 <= '\uFFFF')) ) {
+                if ( ((LA1_0 >= '\u0000' && LA1_0 <= '!')||(LA1_0 >= '#' && LA1_0 <= '\uFFFF')) ) {
                     alt1=1;
                 }
 
@@ -544,7 +520,7 @@ public class HymanifestLexer extends Lexer {
             	case 1 :
             	    // Hymanifest.g:
             	    {
-            	    if ( (input.LA(1) >= '\u0000' && input.LA(1) <= '=')||(input.LA(1) >= '?' && input.LA(1) <= '\uFFFF') ) {
+            	    if ( (input.LA(1) >= '\u0000' && input.LA(1) <= '!')||(input.LA(1) >= '#' && input.LA(1) <= '\uFFFF') ) {
             	        input.consume();
             	    }
             	    else {
@@ -563,83 +539,8 @@ public class HymanifestLexer extends Lexer {
             } while (true);
 
 
-            // Hymanifest.g:3456:17: ( '>' )
-            // Hymanifest.g:3456:18: '>'
-            {
-            match('>'); 
-
-            }
-
-
-            }
-
-
-            }
-
-            state.type = _type;
-            state.channel = _channel;
-        }
-        finally {
-        	// do for sure before leaving
-        }
-    }
-    // $ANTLR end "QUOTED_60_62"
-
-    // $ANTLR start "QUOTED_34_34"
-    public final void mQUOTED_34_34() throws RecognitionException {
-        try {
-            int _type = QUOTED_34_34;
-            int _channel = DEFAULT_TOKEN_CHANNEL;
-            // Hymanifest.g:3458:13: ( ( ( '\"' ) (~ ( '\"' ) )* ( '\"' ) ) )
-            // Hymanifest.g:3459:2: ( ( '\"' ) (~ ( '\"' ) )* ( '\"' ) )
-            {
-            // Hymanifest.g:3459:2: ( ( '\"' ) (~ ( '\"' ) )* ( '\"' ) )
-            // Hymanifest.g:3459:3: ( '\"' ) (~ ( '\"' ) )* ( '\"' )
-            {
-            // Hymanifest.g:3459:3: ( '\"' )
-            // Hymanifest.g:3459:4: '\"'
-            {
-            match('\"'); 
-
-            }
-
-
-            // Hymanifest.g:3459:8: (~ ( '\"' ) )*
-            loop2:
-            do {
-                int alt2=2;
-                int LA2_0 = input.LA(1);
-
-                if ( ((LA2_0 >= '\u0000' && LA2_0 <= '!')||(LA2_0 >= '#' && LA2_0 <= '\uFFFF')) ) {
-                    alt2=1;
-                }
-
-
-                switch (alt2) {
-            	case 1 :
-            	    // Hymanifest.g:
-            	    {
-            	    if ( (input.LA(1) >= '\u0000' && input.LA(1) <= '!')||(input.LA(1) >= '#' && input.LA(1) <= '\uFFFF') ) {
-            	        input.consume();
-            	    }
-            	    else {
-            	        MismatchedSetException mse = new MismatchedSetException(null,input);
-            	        recover(mse);
-            	        throw mse;
-            	    }
-
-
-            	    }
-            	    break;
-
-            	default :
-            	    break loop2;
-                }
-            } while (true);
-
-
-            // Hymanifest.g:3459:17: ( '\"' )
-            // Hymanifest.g:3459:18: '\"'
+            // Hymanifest.g:3080:17: ( '\"' )
+            // Hymanifest.g:3080:18: '\"'
             {
             match('\"'); 
 
@@ -660,16 +561,91 @@ public class HymanifestLexer extends Lexer {
     }
     // $ANTLR end "QUOTED_34_34"
 
+    // $ANTLR start "QUOTED_60_62"
+    public final void mQUOTED_60_62() throws RecognitionException {
+        try {
+            int _type = QUOTED_60_62;
+            int _channel = DEFAULT_TOKEN_CHANNEL;
+            // Hymanifest.g:3082:13: ( ( ( '<' ) (~ ( '>' ) )* ( '>' ) ) )
+            // Hymanifest.g:3083:2: ( ( '<' ) (~ ( '>' ) )* ( '>' ) )
+            {
+            // Hymanifest.g:3083:2: ( ( '<' ) (~ ( '>' ) )* ( '>' ) )
+            // Hymanifest.g:3083:3: ( '<' ) (~ ( '>' ) )* ( '>' )
+            {
+            // Hymanifest.g:3083:3: ( '<' )
+            // Hymanifest.g:3083:4: '<'
+            {
+            match('<'); 
+
+            }
+
+
+            // Hymanifest.g:3083:8: (~ ( '>' ) )*
+            loop2:
+            do {
+                int alt2=2;
+                int LA2_0 = input.LA(1);
+
+                if ( ((LA2_0 >= '\u0000' && LA2_0 <= '=')||(LA2_0 >= '?' && LA2_0 <= '\uFFFF')) ) {
+                    alt2=1;
+                }
+
+
+                switch (alt2) {
+            	case 1 :
+            	    // Hymanifest.g:
+            	    {
+            	    if ( (input.LA(1) >= '\u0000' && input.LA(1) <= '=')||(input.LA(1) >= '?' && input.LA(1) <= '\uFFFF') ) {
+            	        input.consume();
+            	    }
+            	    else {
+            	        MismatchedSetException mse = new MismatchedSetException(null,input);
+            	        recover(mse);
+            	        throw mse;
+            	    }
+
+
+            	    }
+            	    break;
+
+            	default :
+            	    break loop2;
+                }
+            } while (true);
+
+
+            // Hymanifest.g:3083:17: ( '>' )
+            // Hymanifest.g:3083:18: '>'
+            {
+            match('>'); 
+
+            }
+
+
+            }
+
+
+            }
+
+            state.type = _type;
+            state.channel = _channel;
+        }
+        finally {
+        	// do for sure before leaving
+        }
+    }
+    // $ANTLR end "QUOTED_60_62"
+
     // $ANTLR start "IDENTIFIER_TOKEN"
     public final void mIDENTIFIER_TOKEN() throws RecognitionException {
         try {
             int _type = IDENTIFIER_TOKEN;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // Hymanifest.g:3461:17: ( ( ( 'A' .. 'Z' | 'a' .. 'z' | '_' ) ( 'A' .. 'Z' | 'a' .. 'z' | '_' | '0' .. '9' )* ( '@' ( ( '-' )? ( '0' .. '9' )+ '/' ( '-' )? ( '0' .. '9' )+ '/' ( '-' )? ( '0' .. '9' )+ ( 'T' ( '-' )? ( '0' .. '9' )+ ':' ( '-' )? ( '0' .. '9' )+ ( ':' ( '-' )? ( '0' .. '9' )+ )? )? ) )? ) )
-            // Hymanifest.g:3462:2: ( ( 'A' .. 'Z' | 'a' .. 'z' | '_' ) ( 'A' .. 'Z' | 'a' .. 'z' | '_' | '0' .. '9' )* ( '@' ( ( '-' )? ( '0' .. '9' )+ '/' ( '-' )? ( '0' .. '9' )+ '/' ( '-' )? ( '0' .. '9' )+ ( 'T' ( '-' )? ( '0' .. '9' )+ ':' ( '-' )? ( '0' .. '9' )+ ( ':' ( '-' )? ( '0' .. '9' )+ )? )? ) )? )
+            // Hymanifest.g:3085:17: ( ( ( 'A' .. 'Z' | 'a' .. 'z' | '_' ) ( 'A' .. 'Z' | 'a' .. 'z' | '_' | '0' .. '9' )* ( '@' ( ( '-' )? ( '0' .. '9' )+ '/' ( '-' )? ( '0' .. '9' )+ '/' ( '-' )? ( '0' .. '9' )+ ( 'T' ( '-' )? ( '0' .. '9' )+ ':' ( '-' )? ( '0' .. '9' )+ ( ':' ( '-' )? ( '0' .. '9' )+ )? )? ) )? ) )
+            // Hymanifest.g:3086:2: ( ( 'A' .. 'Z' | 'a' .. 'z' | '_' ) ( 'A' .. 'Z' | 'a' .. 'z' | '_' | '0' .. '9' )* ( '@' ( ( '-' )? ( '0' .. '9' )+ '/' ( '-' )? ( '0' .. '9' )+ '/' ( '-' )? ( '0' .. '9' )+ ( 'T' ( '-' )? ( '0' .. '9' )+ ':' ( '-' )? ( '0' .. '9' )+ ( ':' ( '-' )? ( '0' .. '9' )+ )? )? ) )? )
             {
-            // Hymanifest.g:3462:2: ( ( 'A' .. 'Z' | 'a' .. 'z' | '_' ) ( 'A' .. 'Z' | 'a' .. 'z' | '_' | '0' .. '9' )* ( '@' ( ( '-' )? ( '0' .. '9' )+ '/' ( '-' )? ( '0' .. '9' )+ '/' ( '-' )? ( '0' .. '9' )+ ( 'T' ( '-' )? ( '0' .. '9' )+ ':' ( '-' )? ( '0' .. '9' )+ ( ':' ( '-' )? ( '0' .. '9' )+ )? )? ) )? )
-            // Hymanifest.g:3462:3: ( 'A' .. 'Z' | 'a' .. 'z' | '_' ) ( 'A' .. 'Z' | 'a' .. 'z' | '_' | '0' .. '9' )* ( '@' ( ( '-' )? ( '0' .. '9' )+ '/' ( '-' )? ( '0' .. '9' )+ '/' ( '-' )? ( '0' .. '9' )+ ( 'T' ( '-' )? ( '0' .. '9' )+ ':' ( '-' )? ( '0' .. '9' )+ ( ':' ( '-' )? ( '0' .. '9' )+ )? )? ) )?
+            // Hymanifest.g:3086:2: ( ( 'A' .. 'Z' | 'a' .. 'z' | '_' ) ( 'A' .. 'Z' | 'a' .. 'z' | '_' | '0' .. '9' )* ( '@' ( ( '-' )? ( '0' .. '9' )+ '/' ( '-' )? ( '0' .. '9' )+ '/' ( '-' )? ( '0' .. '9' )+ ( 'T' ( '-' )? ( '0' .. '9' )+ ':' ( '-' )? ( '0' .. '9' )+ ( ':' ( '-' )? ( '0' .. '9' )+ )? )? ) )? )
+            // Hymanifest.g:3086:3: ( 'A' .. 'Z' | 'a' .. 'z' | '_' ) ( 'A' .. 'Z' | 'a' .. 'z' | '_' | '0' .. '9' )* ( '@' ( ( '-' )? ( '0' .. '9' )+ '/' ( '-' )? ( '0' .. '9' )+ '/' ( '-' )? ( '0' .. '9' )+ ( 'T' ( '-' )? ( '0' .. '9' )+ ':' ( '-' )? ( '0' .. '9' )+ ( ':' ( '-' )? ( '0' .. '9' )+ )? )? ) )?
             {
             if ( (input.LA(1) >= 'A' && input.LA(1) <= 'Z')||input.LA(1)=='_'||(input.LA(1) >= 'a' && input.LA(1) <= 'z') ) {
                 input.consume();
@@ -681,7 +657,7 @@ public class HymanifestLexer extends Lexer {
             }
 
 
-            // Hymanifest.g:3462:26: ( 'A' .. 'Z' | 'a' .. 'z' | '_' | '0' .. '9' )*
+            // Hymanifest.g:3086:26: ( 'A' .. 'Z' | 'a' .. 'z' | '_' | '0' .. '9' )*
             loop3:
             do {
                 int alt3=2;
@@ -715,7 +691,7 @@ public class HymanifestLexer extends Lexer {
             } while (true);
 
 
-            // Hymanifest.g:3462:60: ( '@' ( ( '-' )? ( '0' .. '9' )+ '/' ( '-' )? ( '0' .. '9' )+ '/' ( '-' )? ( '0' .. '9' )+ ( 'T' ( '-' )? ( '0' .. '9' )+ ':' ( '-' )? ( '0' .. '9' )+ ( ':' ( '-' )? ( '0' .. '9' )+ )? )? ) )?
+            // Hymanifest.g:3086:60: ( '@' ( ( '-' )? ( '0' .. '9' )+ '/' ( '-' )? ( '0' .. '9' )+ '/' ( '-' )? ( '0' .. '9' )+ ( 'T' ( '-' )? ( '0' .. '9' )+ ':' ( '-' )? ( '0' .. '9' )+ ( ':' ( '-' )? ( '0' .. '9' )+ )? )? ) )?
             int alt18=2;
             int LA18_0 = input.LA(1);
 
@@ -724,14 +700,14 @@ public class HymanifestLexer extends Lexer {
             }
             switch (alt18) {
                 case 1 :
-                    // Hymanifest.g:3462:61: '@' ( ( '-' )? ( '0' .. '9' )+ '/' ( '-' )? ( '0' .. '9' )+ '/' ( '-' )? ( '0' .. '9' )+ ( 'T' ( '-' )? ( '0' .. '9' )+ ':' ( '-' )? ( '0' .. '9' )+ ( ':' ( '-' )? ( '0' .. '9' )+ )? )? )
+                    // Hymanifest.g:3086:61: '@' ( ( '-' )? ( '0' .. '9' )+ '/' ( '-' )? ( '0' .. '9' )+ '/' ( '-' )? ( '0' .. '9' )+ ( 'T' ( '-' )? ( '0' .. '9' )+ ':' ( '-' )? ( '0' .. '9' )+ ( ':' ( '-' )? ( '0' .. '9' )+ )? )? )
                     {
                     match('@'); 
 
-                    // Hymanifest.g:3462:64: ( ( '-' )? ( '0' .. '9' )+ '/' ( '-' )? ( '0' .. '9' )+ '/' ( '-' )? ( '0' .. '9' )+ ( 'T' ( '-' )? ( '0' .. '9' )+ ':' ( '-' )? ( '0' .. '9' )+ ( ':' ( '-' )? ( '0' .. '9' )+ )? )? )
-                    // Hymanifest.g:3462:65: ( '-' )? ( '0' .. '9' )+ '/' ( '-' )? ( '0' .. '9' )+ '/' ( '-' )? ( '0' .. '9' )+ ( 'T' ( '-' )? ( '0' .. '9' )+ ':' ( '-' )? ( '0' .. '9' )+ ( ':' ( '-' )? ( '0' .. '9' )+ )? )?
+                    // Hymanifest.g:3086:64: ( ( '-' )? ( '0' .. '9' )+ '/' ( '-' )? ( '0' .. '9' )+ '/' ( '-' )? ( '0' .. '9' )+ ( 'T' ( '-' )? ( '0' .. '9' )+ ':' ( '-' )? ( '0' .. '9' )+ ( ':' ( '-' )? ( '0' .. '9' )+ )? )? )
+                    // Hymanifest.g:3086:65: ( '-' )? ( '0' .. '9' )+ '/' ( '-' )? ( '0' .. '9' )+ '/' ( '-' )? ( '0' .. '9' )+ ( 'T' ( '-' )? ( '0' .. '9' )+ ':' ( '-' )? ( '0' .. '9' )+ ( ':' ( '-' )? ( '0' .. '9' )+ )? )?
                     {
-                    // Hymanifest.g:3462:65: ( '-' )?
+                    // Hymanifest.g:3086:65: ( '-' )?
                     int alt4=2;
                     int LA4_0 = input.LA(1);
 
@@ -740,7 +716,7 @@ public class HymanifestLexer extends Lexer {
                     }
                     switch (alt4) {
                         case 1 :
-                            // Hymanifest.g:3462:66: '-'
+                            // Hymanifest.g:3086:66: '-'
                             {
                             match('-'); 
 
@@ -750,7 +726,7 @@ public class HymanifestLexer extends Lexer {
                     }
 
 
-                    // Hymanifest.g:3462:72: ( '0' .. '9' )+
+                    // Hymanifest.g:3086:72: ( '0' .. '9' )+
                     int cnt5=0;
                     loop5:
                     do {
@@ -791,7 +767,7 @@ public class HymanifestLexer extends Lexer {
 
                     match('/'); 
 
-                    // Hymanifest.g:3462:87: ( '-' )?
+                    // Hymanifest.g:3086:87: ( '-' )?
                     int alt6=2;
                     int LA6_0 = input.LA(1);
 
@@ -800,7 +776,7 @@ public class HymanifestLexer extends Lexer {
                     }
                     switch (alt6) {
                         case 1 :
-                            // Hymanifest.g:3462:88: '-'
+                            // Hymanifest.g:3086:88: '-'
                             {
                             match('-'); 
 
@@ -810,7 +786,7 @@ public class HymanifestLexer extends Lexer {
                     }
 
 
-                    // Hymanifest.g:3462:94: ( '0' .. '9' )+
+                    // Hymanifest.g:3086:94: ( '0' .. '9' )+
                     int cnt7=0;
                     loop7:
                     do {
@@ -851,7 +827,7 @@ public class HymanifestLexer extends Lexer {
 
                     match('/'); 
 
-                    // Hymanifest.g:3462:109: ( '-' )?
+                    // Hymanifest.g:3086:109: ( '-' )?
                     int alt8=2;
                     int LA8_0 = input.LA(1);
 
@@ -860,7 +836,7 @@ public class HymanifestLexer extends Lexer {
                     }
                     switch (alt8) {
                         case 1 :
-                            // Hymanifest.g:3462:110: '-'
+                            // Hymanifest.g:3086:110: '-'
                             {
                             match('-'); 
 
@@ -870,7 +846,7 @@ public class HymanifestLexer extends Lexer {
                     }
 
 
-                    // Hymanifest.g:3462:116: ( '0' .. '9' )+
+                    // Hymanifest.g:3086:116: ( '0' .. '9' )+
                     int cnt9=0;
                     loop9:
                     do {
@@ -909,7 +885,7 @@ public class HymanifestLexer extends Lexer {
                     } while (true);
 
 
-                    // Hymanifest.g:3462:128: ( 'T' ( '-' )? ( '0' .. '9' )+ ':' ( '-' )? ( '0' .. '9' )+ ( ':' ( '-' )? ( '0' .. '9' )+ )? )?
+                    // Hymanifest.g:3086:128: ( 'T' ( '-' )? ( '0' .. '9' )+ ':' ( '-' )? ( '0' .. '9' )+ ( ':' ( '-' )? ( '0' .. '9' )+ )? )?
                     int alt17=2;
                     int LA17_0 = input.LA(1);
 
@@ -918,11 +894,11 @@ public class HymanifestLexer extends Lexer {
                     }
                     switch (alt17) {
                         case 1 :
-                            // Hymanifest.g:3462:130: 'T' ( '-' )? ( '0' .. '9' )+ ':' ( '-' )? ( '0' .. '9' )+ ( ':' ( '-' )? ( '0' .. '9' )+ )?
+                            // Hymanifest.g:3086:130: 'T' ( '-' )? ( '0' .. '9' )+ ':' ( '-' )? ( '0' .. '9' )+ ( ':' ( '-' )? ( '0' .. '9' )+ )?
                             {
                             match('T'); 
 
-                            // Hymanifest.g:3462:133: ( '-' )?
+                            // Hymanifest.g:3086:133: ( '-' )?
                             int alt10=2;
                             int LA10_0 = input.LA(1);
 
@@ -931,7 +907,7 @@ public class HymanifestLexer extends Lexer {
                             }
                             switch (alt10) {
                                 case 1 :
-                                    // Hymanifest.g:3462:134: '-'
+                                    // Hymanifest.g:3086:134: '-'
                                     {
                                     match('-'); 
 
@@ -941,7 +917,7 @@ public class HymanifestLexer extends Lexer {
                             }
 
 
-                            // Hymanifest.g:3462:140: ( '0' .. '9' )+
+                            // Hymanifest.g:3086:140: ( '0' .. '9' )+
                             int cnt11=0;
                             loop11:
                             do {
@@ -982,7 +958,7 @@ public class HymanifestLexer extends Lexer {
 
                             match(':'); 
 
-                            // Hymanifest.g:3462:155: ( '-' )?
+                            // Hymanifest.g:3086:155: ( '-' )?
                             int alt12=2;
                             int LA12_0 = input.LA(1);
 
@@ -991,7 +967,7 @@ public class HymanifestLexer extends Lexer {
                             }
                             switch (alt12) {
                                 case 1 :
-                                    // Hymanifest.g:3462:156: '-'
+                                    // Hymanifest.g:3086:156: '-'
                                     {
                                     match('-'); 
 
@@ -1001,7 +977,7 @@ public class HymanifestLexer extends Lexer {
                             }
 
 
-                            // Hymanifest.g:3462:162: ( '0' .. '9' )+
+                            // Hymanifest.g:3086:162: ( '0' .. '9' )+
                             int cnt13=0;
                             loop13:
                             do {
@@ -1040,7 +1016,7 @@ public class HymanifestLexer extends Lexer {
                             } while (true);
 
 
-                            // Hymanifest.g:3462:174: ( ':' ( '-' )? ( '0' .. '9' )+ )?
+                            // Hymanifest.g:3086:174: ( ':' ( '-' )? ( '0' .. '9' )+ )?
                             int alt16=2;
                             int LA16_0 = input.LA(1);
 
@@ -1049,11 +1025,11 @@ public class HymanifestLexer extends Lexer {
                             }
                             switch (alt16) {
                                 case 1 :
-                                    // Hymanifest.g:3462:175: ':' ( '-' )? ( '0' .. '9' )+
+                                    // Hymanifest.g:3086:175: ':' ( '-' )? ( '0' .. '9' )+
                                     {
                                     match(':'); 
 
-                                    // Hymanifest.g:3462:179: ( '-' )?
+                                    // Hymanifest.g:3086:179: ( '-' )?
                                     int alt14=2;
                                     int LA14_0 = input.LA(1);
 
@@ -1062,7 +1038,7 @@ public class HymanifestLexer extends Lexer {
                                     }
                                     switch (alt14) {
                                         case 1 :
-                                            // Hymanifest.g:3462:180: '-'
+                                            // Hymanifest.g:3086:180: '-'
                                             {
                                             match('-'); 
 
@@ -1072,7 +1048,7 @@ public class HymanifestLexer extends Lexer {
                                     }
 
 
-                                    // Hymanifest.g:3462:186: ( '0' .. '9' )+
+                                    // Hymanifest.g:3086:186: ( '0' .. '9' )+
                                     int cnt15=0;
                                     loop15:
                                     do {
@@ -1151,16 +1127,16 @@ public class HymanifestLexer extends Lexer {
         try {
             int _type = DATE;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // Hymanifest.g:3464:5: ( ( ( ( '-' )? ( '0' .. '9' )+ '/' ( '-' )? ( '0' .. '9' )+ '/' ( '-' )? ( '0' .. '9' )+ ( 'T' ( '-' )? ( '0' .. '9' )+ ':' ( '-' )? ( '0' .. '9' )+ ( ':' ( '-' )? ( '0' .. '9' )+ )? )? ) ) )
-            // Hymanifest.g:3465:2: ( ( ( '-' )? ( '0' .. '9' )+ '/' ( '-' )? ( '0' .. '9' )+ '/' ( '-' )? ( '0' .. '9' )+ ( 'T' ( '-' )? ( '0' .. '9' )+ ':' ( '-' )? ( '0' .. '9' )+ ( ':' ( '-' )? ( '0' .. '9' )+ )? )? ) )
+            // Hymanifest.g:3088:5: ( ( ( ( '-' )? ( '0' .. '9' )+ '/' ( '-' )? ( '0' .. '9' )+ '/' ( '-' )? ( '0' .. '9' )+ ( 'T' ( '-' )? ( '0' .. '9' )+ ':' ( '-' )? ( '0' .. '9' )+ ( ':' ( '-' )? ( '0' .. '9' )+ )? )? ) ) )
+            // Hymanifest.g:3089:2: ( ( ( '-' )? ( '0' .. '9' )+ '/' ( '-' )? ( '0' .. '9' )+ '/' ( '-' )? ( '0' .. '9' )+ ( 'T' ( '-' )? ( '0' .. '9' )+ ':' ( '-' )? ( '0' .. '9' )+ ( ':' ( '-' )? ( '0' .. '9' )+ )? )? ) )
             {
-            // Hymanifest.g:3465:2: ( ( ( '-' )? ( '0' .. '9' )+ '/' ( '-' )? ( '0' .. '9' )+ '/' ( '-' )? ( '0' .. '9' )+ ( 'T' ( '-' )? ( '0' .. '9' )+ ':' ( '-' )? ( '0' .. '9' )+ ( ':' ( '-' )? ( '0' .. '9' )+ )? )? ) )
-            // Hymanifest.g:3465:3: ( ( '-' )? ( '0' .. '9' )+ '/' ( '-' )? ( '0' .. '9' )+ '/' ( '-' )? ( '0' .. '9' )+ ( 'T' ( '-' )? ( '0' .. '9' )+ ':' ( '-' )? ( '0' .. '9' )+ ( ':' ( '-' )? ( '0' .. '9' )+ )? )? )
+            // Hymanifest.g:3089:2: ( ( ( '-' )? ( '0' .. '9' )+ '/' ( '-' )? ( '0' .. '9' )+ '/' ( '-' )? ( '0' .. '9' )+ ( 'T' ( '-' )? ( '0' .. '9' )+ ':' ( '-' )? ( '0' .. '9' )+ ( ':' ( '-' )? ( '0' .. '9' )+ )? )? ) )
+            // Hymanifest.g:3089:3: ( ( '-' )? ( '0' .. '9' )+ '/' ( '-' )? ( '0' .. '9' )+ '/' ( '-' )? ( '0' .. '9' )+ ( 'T' ( '-' )? ( '0' .. '9' )+ ':' ( '-' )? ( '0' .. '9' )+ ( ':' ( '-' )? ( '0' .. '9' )+ )? )? )
             {
-            // Hymanifest.g:3465:3: ( ( '-' )? ( '0' .. '9' )+ '/' ( '-' )? ( '0' .. '9' )+ '/' ( '-' )? ( '0' .. '9' )+ ( 'T' ( '-' )? ( '0' .. '9' )+ ':' ( '-' )? ( '0' .. '9' )+ ( ':' ( '-' )? ( '0' .. '9' )+ )? )? )
-            // Hymanifest.g:3465:4: ( '-' )? ( '0' .. '9' )+ '/' ( '-' )? ( '0' .. '9' )+ '/' ( '-' )? ( '0' .. '9' )+ ( 'T' ( '-' )? ( '0' .. '9' )+ ':' ( '-' )? ( '0' .. '9' )+ ( ':' ( '-' )? ( '0' .. '9' )+ )? )?
+            // Hymanifest.g:3089:3: ( ( '-' )? ( '0' .. '9' )+ '/' ( '-' )? ( '0' .. '9' )+ '/' ( '-' )? ( '0' .. '9' )+ ( 'T' ( '-' )? ( '0' .. '9' )+ ':' ( '-' )? ( '0' .. '9' )+ ( ':' ( '-' )? ( '0' .. '9' )+ )? )? )
+            // Hymanifest.g:3089:4: ( '-' )? ( '0' .. '9' )+ '/' ( '-' )? ( '0' .. '9' )+ '/' ( '-' )? ( '0' .. '9' )+ ( 'T' ( '-' )? ( '0' .. '9' )+ ':' ( '-' )? ( '0' .. '9' )+ ( ':' ( '-' )? ( '0' .. '9' )+ )? )?
             {
-            // Hymanifest.g:3465:4: ( '-' )?
+            // Hymanifest.g:3089:4: ( '-' )?
             int alt19=2;
             int LA19_0 = input.LA(1);
 
@@ -1169,7 +1145,7 @@ public class HymanifestLexer extends Lexer {
             }
             switch (alt19) {
                 case 1 :
-                    // Hymanifest.g:3465:5: '-'
+                    // Hymanifest.g:3089:5: '-'
                     {
                     match('-'); 
 
@@ -1179,7 +1155,7 @@ public class HymanifestLexer extends Lexer {
             }
 
 
-            // Hymanifest.g:3465:11: ( '0' .. '9' )+
+            // Hymanifest.g:3089:11: ( '0' .. '9' )+
             int cnt20=0;
             loop20:
             do {
@@ -1220,7 +1196,7 @@ public class HymanifestLexer extends Lexer {
 
             match('/'); 
 
-            // Hymanifest.g:3465:26: ( '-' )?
+            // Hymanifest.g:3089:26: ( '-' )?
             int alt21=2;
             int LA21_0 = input.LA(1);
 
@@ -1229,7 +1205,7 @@ public class HymanifestLexer extends Lexer {
             }
             switch (alt21) {
                 case 1 :
-                    // Hymanifest.g:3465:27: '-'
+                    // Hymanifest.g:3089:27: '-'
                     {
                     match('-'); 
 
@@ -1239,7 +1215,7 @@ public class HymanifestLexer extends Lexer {
             }
 
 
-            // Hymanifest.g:3465:33: ( '0' .. '9' )+
+            // Hymanifest.g:3089:33: ( '0' .. '9' )+
             int cnt22=0;
             loop22:
             do {
@@ -1280,7 +1256,7 @@ public class HymanifestLexer extends Lexer {
 
             match('/'); 
 
-            // Hymanifest.g:3465:48: ( '-' )?
+            // Hymanifest.g:3089:48: ( '-' )?
             int alt23=2;
             int LA23_0 = input.LA(1);
 
@@ -1289,7 +1265,7 @@ public class HymanifestLexer extends Lexer {
             }
             switch (alt23) {
                 case 1 :
-                    // Hymanifest.g:3465:49: '-'
+                    // Hymanifest.g:3089:49: '-'
                     {
                     match('-'); 
 
@@ -1299,7 +1275,7 @@ public class HymanifestLexer extends Lexer {
             }
 
 
-            // Hymanifest.g:3465:55: ( '0' .. '9' )+
+            // Hymanifest.g:3089:55: ( '0' .. '9' )+
             int cnt24=0;
             loop24:
             do {
@@ -1338,7 +1314,7 @@ public class HymanifestLexer extends Lexer {
             } while (true);
 
 
-            // Hymanifest.g:3465:67: ( 'T' ( '-' )? ( '0' .. '9' )+ ':' ( '-' )? ( '0' .. '9' )+ ( ':' ( '-' )? ( '0' .. '9' )+ )? )?
+            // Hymanifest.g:3089:67: ( 'T' ( '-' )? ( '0' .. '9' )+ ':' ( '-' )? ( '0' .. '9' )+ ( ':' ( '-' )? ( '0' .. '9' )+ )? )?
             int alt32=2;
             int LA32_0 = input.LA(1);
 
@@ -1347,11 +1323,11 @@ public class HymanifestLexer extends Lexer {
             }
             switch (alt32) {
                 case 1 :
-                    // Hymanifest.g:3465:69: 'T' ( '-' )? ( '0' .. '9' )+ ':' ( '-' )? ( '0' .. '9' )+ ( ':' ( '-' )? ( '0' .. '9' )+ )?
+                    // Hymanifest.g:3089:69: 'T' ( '-' )? ( '0' .. '9' )+ ':' ( '-' )? ( '0' .. '9' )+ ( ':' ( '-' )? ( '0' .. '9' )+ )?
                     {
                     match('T'); 
 
-                    // Hymanifest.g:3465:72: ( '-' )?
+                    // Hymanifest.g:3089:72: ( '-' )?
                     int alt25=2;
                     int LA25_0 = input.LA(1);
 
@@ -1360,7 +1336,7 @@ public class HymanifestLexer extends Lexer {
                     }
                     switch (alt25) {
                         case 1 :
-                            // Hymanifest.g:3465:73: '-'
+                            // Hymanifest.g:3089:73: '-'
                             {
                             match('-'); 
 
@@ -1370,7 +1346,7 @@ public class HymanifestLexer extends Lexer {
                     }
 
 
-                    // Hymanifest.g:3465:79: ( '0' .. '9' )+
+                    // Hymanifest.g:3089:79: ( '0' .. '9' )+
                     int cnt26=0;
                     loop26:
                     do {
@@ -1411,7 +1387,7 @@ public class HymanifestLexer extends Lexer {
 
                     match(':'); 
 
-                    // Hymanifest.g:3465:94: ( '-' )?
+                    // Hymanifest.g:3089:94: ( '-' )?
                     int alt27=2;
                     int LA27_0 = input.LA(1);
 
@@ -1420,7 +1396,7 @@ public class HymanifestLexer extends Lexer {
                     }
                     switch (alt27) {
                         case 1 :
-                            // Hymanifest.g:3465:95: '-'
+                            // Hymanifest.g:3089:95: '-'
                             {
                             match('-'); 
 
@@ -1430,7 +1406,7 @@ public class HymanifestLexer extends Lexer {
                     }
 
 
-                    // Hymanifest.g:3465:101: ( '0' .. '9' )+
+                    // Hymanifest.g:3089:101: ( '0' .. '9' )+
                     int cnt28=0;
                     loop28:
                     do {
@@ -1469,7 +1445,7 @@ public class HymanifestLexer extends Lexer {
                     } while (true);
 
 
-                    // Hymanifest.g:3465:113: ( ':' ( '-' )? ( '0' .. '9' )+ )?
+                    // Hymanifest.g:3089:113: ( ':' ( '-' )? ( '0' .. '9' )+ )?
                     int alt31=2;
                     int LA31_0 = input.LA(1);
 
@@ -1478,11 +1454,11 @@ public class HymanifestLexer extends Lexer {
                     }
                     switch (alt31) {
                         case 1 :
-                            // Hymanifest.g:3465:114: ':' ( '-' )? ( '0' .. '9' )+
+                            // Hymanifest.g:3089:114: ':' ( '-' )? ( '0' .. '9' )+
                             {
                             match(':'); 
 
-                            // Hymanifest.g:3465:118: ( '-' )?
+                            // Hymanifest.g:3089:118: ( '-' )?
                             int alt29=2;
                             int LA29_0 = input.LA(1);
 
@@ -1491,7 +1467,7 @@ public class HymanifestLexer extends Lexer {
                             }
                             switch (alt29) {
                                 case 1 :
-                                    // Hymanifest.g:3465:119: '-'
+                                    // Hymanifest.g:3089:119: '-'
                                     {
                                     match('-'); 
 
@@ -1501,7 +1477,7 @@ public class HymanifestLexer extends Lexer {
                             }
 
 
-                            // Hymanifest.g:3465:125: ( '0' .. '9' )+
+                            // Hymanifest.g:3089:125: ( '0' .. '9' )+
                             int cnt30=0;
                             loop30:
                             do {
@@ -1574,13 +1550,13 @@ public class HymanifestLexer extends Lexer {
         try {
             int _type = INTEGER_LITERAL;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // Hymanifest.g:3467:16: ( ( ( '-' )? ( '0' .. '9' )+ ) )
-            // Hymanifest.g:3468:2: ( ( '-' )? ( '0' .. '9' )+ )
+            // Hymanifest.g:3091:16: ( ( ( '-' )? ( '0' .. '9' )+ ) )
+            // Hymanifest.g:3092:2: ( ( '-' )? ( '0' .. '9' )+ )
             {
-            // Hymanifest.g:3468:2: ( ( '-' )? ( '0' .. '9' )+ )
-            // Hymanifest.g:3468:3: ( '-' )? ( '0' .. '9' )+
+            // Hymanifest.g:3092:2: ( ( '-' )? ( '0' .. '9' )+ )
+            // Hymanifest.g:3092:3: ( '-' )? ( '0' .. '9' )+
             {
-            // Hymanifest.g:3468:3: ( '-' )?
+            // Hymanifest.g:3092:3: ( '-' )?
             int alt33=2;
             int LA33_0 = input.LA(1);
 
@@ -1589,7 +1565,7 @@ public class HymanifestLexer extends Lexer {
             }
             switch (alt33) {
                 case 1 :
-                    // Hymanifest.g:3468:4: '-'
+                    // Hymanifest.g:3092:4: '-'
                     {
                     match('-'); 
 
@@ -1599,7 +1575,7 @@ public class HymanifestLexer extends Lexer {
             }
 
 
-            // Hymanifest.g:3468:10: ( '0' .. '9' )+
+            // Hymanifest.g:3092:10: ( '0' .. '9' )+
             int cnt34=0;
             loop34:
             do {
@@ -1657,17 +1633,17 @@ public class HymanifestLexer extends Lexer {
         try {
             int _type = SL_COMMENT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // Hymanifest.g:3470:11: ( ( '//' (~ ( '\\n' | '\\r' | '\\uffff' ) )* ) )
-            // Hymanifest.g:3471:2: ( '//' (~ ( '\\n' | '\\r' | '\\uffff' ) )* )
+            // Hymanifest.g:3094:11: ( ( '//' (~ ( '\\n' | '\\r' | '\\uffff' ) )* ) )
+            // Hymanifest.g:3095:2: ( '//' (~ ( '\\n' | '\\r' | '\\uffff' ) )* )
             {
-            // Hymanifest.g:3471:2: ( '//' (~ ( '\\n' | '\\r' | '\\uffff' ) )* )
-            // Hymanifest.g:3471:3: '//' (~ ( '\\n' | '\\r' | '\\uffff' ) )*
+            // Hymanifest.g:3095:2: ( '//' (~ ( '\\n' | '\\r' | '\\uffff' ) )* )
+            // Hymanifest.g:3095:3: '//' (~ ( '\\n' | '\\r' | '\\uffff' ) )*
             {
             match("//"); 
 
 
 
-            // Hymanifest.g:3471:7: (~ ( '\\n' | '\\r' | '\\uffff' ) )*
+            // Hymanifest.g:3095:7: (~ ( '\\n' | '\\r' | '\\uffff' ) )*
             loop35:
             do {
                 int alt35=2;
@@ -1722,17 +1698,17 @@ public class HymanifestLexer extends Lexer {
         try {
             int _type = ML_COMMENT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // Hymanifest.g:3474:11: ( ( '/*' ( . )* '*/' ) )
-            // Hymanifest.g:3475:2: ( '/*' ( . )* '*/' )
+            // Hymanifest.g:3098:11: ( ( '/*' ( . )* '*/' ) )
+            // Hymanifest.g:3099:2: ( '/*' ( . )* '*/' )
             {
-            // Hymanifest.g:3475:2: ( '/*' ( . )* '*/' )
-            // Hymanifest.g:3475:3: '/*' ( . )* '*/'
+            // Hymanifest.g:3099:2: ( '/*' ( . )* '*/' )
+            // Hymanifest.g:3099:3: '/*' ( . )* '*/'
             {
             match("/*"); 
 
 
 
-            // Hymanifest.g:3475:7: ( . )*
+            // Hymanifest.g:3099:7: ( . )*
             loop36:
             do {
                 int alt36=2;
@@ -1757,7 +1733,7 @@ public class HymanifestLexer extends Lexer {
 
                 switch (alt36) {
             	case 1 :
-            	    // Hymanifest.g:3475:7: .
+            	    // Hymanifest.g:3099:7: .
             	    {
             	    matchAny(); 
 
@@ -1795,13 +1771,13 @@ public class HymanifestLexer extends Lexer {
         try {
             int _type = LINEBREAK;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // Hymanifest.g:3478:10: ( ( ( '\\r\\n' | '\\r' | '\\n' ) ) )
-            // Hymanifest.g:3479:2: ( ( '\\r\\n' | '\\r' | '\\n' ) )
+            // Hymanifest.g:3102:10: ( ( ( '\\r\\n' | '\\r' | '\\n' ) ) )
+            // Hymanifest.g:3103:2: ( ( '\\r\\n' | '\\r' | '\\n' ) )
             {
-            // Hymanifest.g:3479:2: ( ( '\\r\\n' | '\\r' | '\\n' ) )
-            // Hymanifest.g:3479:3: ( '\\r\\n' | '\\r' | '\\n' )
+            // Hymanifest.g:3103:2: ( ( '\\r\\n' | '\\r' | '\\n' ) )
+            // Hymanifest.g:3103:3: ( '\\r\\n' | '\\r' | '\\n' )
             {
-            // Hymanifest.g:3479:3: ( '\\r\\n' | '\\r' | '\\n' )
+            // Hymanifest.g:3103:3: ( '\\r\\n' | '\\r' | '\\n' )
             int alt37=3;
             int LA37_0 = input.LA(1);
 
@@ -1827,7 +1803,7 @@ public class HymanifestLexer extends Lexer {
             }
             switch (alt37) {
                 case 1 :
-                    // Hymanifest.g:3479:4: '\\r\\n'
+                    // Hymanifest.g:3103:4: '\\r\\n'
                     {
                     match("\r\n"); 
 
@@ -1836,14 +1812,14 @@ public class HymanifestLexer extends Lexer {
                     }
                     break;
                 case 2 :
-                    // Hymanifest.g:3479:11: '\\r'
+                    // Hymanifest.g:3103:11: '\\r'
                     {
                     match('\r'); 
 
                     }
                     break;
                 case 3 :
-                    // Hymanifest.g:3479:16: '\\n'
+                    // Hymanifest.g:3103:16: '\\n'
                     {
                     match('\n'); 
 
@@ -1874,8 +1850,8 @@ public class HymanifestLexer extends Lexer {
         try {
             int _type = WHITESPACE;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // Hymanifest.g:3482:11: ( ( ( ' ' | '\\t' | '\\f' ) ) )
-            // Hymanifest.g:3483:2: ( ( ' ' | '\\t' | '\\f' ) )
+            // Hymanifest.g:3106:11: ( ( ( ' ' | '\\t' | '\\f' ) ) )
+            // Hymanifest.g:3107:2: ( ( ' ' | '\\t' | '\\f' ) )
             {
             if ( input.LA(1)=='\t'||input.LA(1)=='\f'||input.LA(1)==' ' ) {
                 input.consume();
@@ -1901,8 +1877,8 @@ public class HymanifestLexer extends Lexer {
     // $ANTLR end "WHITESPACE"
 
     public void mTokens() throws RecognitionException {
-        // Hymanifest.g:1:8: ( T__13 | T__14 | T__15 | T__16 | T__17 | T__18 | T__19 | T__20 | T__21 | T__22 | T__23 | T__24 | T__25 | T__26 | T__27 | T__28 | T__29 | T__30 | T__31 | T__32 | QUOTED_60_62 | QUOTED_34_34 | IDENTIFIER_TOKEN | DATE | INTEGER_LITERAL | SL_COMMENT | ML_COMMENT | LINEBREAK | WHITESPACE )
-        int alt38=29;
+        // Hymanifest.g:1:8: ( T__13 | T__14 | T__15 | T__16 | T__17 | T__18 | T__19 | T__20 | T__21 | T__22 | T__23 | T__24 | T__25 | T__26 | T__27 | T__28 | T__29 | T__30 | T__31 | QUOTED_34_34 | QUOTED_60_62 | IDENTIFIER_TOKEN | DATE | INTEGER_LITERAL | SL_COMMENT | ML_COMMENT | LINEBREAK | WHITESPACE )
+        int alt38=28;
         alt38 = dfa38.predict(input);
         switch (alt38) {
             case 1 :
@@ -2058,15 +2034,15 @@ public class HymanifestLexer extends Lexer {
                 }
                 break;
             case 20 :
-                // Hymanifest.g:1:124: T__32
+                // Hymanifest.g:1:124: QUOTED_34_34
                 {
-                mT__32(); 
+                mQUOTED_34_34(); 
 
 
                 }
                 break;
             case 21 :
-                // Hymanifest.g:1:130: QUOTED_60_62
+                // Hymanifest.g:1:137: QUOTED_60_62
                 {
                 mQUOTED_60_62(); 
 
@@ -2074,63 +2050,55 @@ public class HymanifestLexer extends Lexer {
                 }
                 break;
             case 22 :
-                // Hymanifest.g:1:143: QUOTED_34_34
-                {
-                mQUOTED_34_34(); 
-
-
-                }
-                break;
-            case 23 :
-                // Hymanifest.g:1:156: IDENTIFIER_TOKEN
+                // Hymanifest.g:1:150: IDENTIFIER_TOKEN
                 {
                 mIDENTIFIER_TOKEN(); 
 
 
                 }
                 break;
-            case 24 :
-                // Hymanifest.g:1:173: DATE
+            case 23 :
+                // Hymanifest.g:1:167: DATE
                 {
                 mDATE(); 
 
 
                 }
                 break;
-            case 25 :
-                // Hymanifest.g:1:178: INTEGER_LITERAL
+            case 24 :
+                // Hymanifest.g:1:172: INTEGER_LITERAL
                 {
                 mINTEGER_LITERAL(); 
 
 
                 }
                 break;
-            case 26 :
-                // Hymanifest.g:1:194: SL_COMMENT
+            case 25 :
+                // Hymanifest.g:1:188: SL_COMMENT
                 {
                 mSL_COMMENT(); 
 
 
                 }
                 break;
-            case 27 :
-                // Hymanifest.g:1:205: ML_COMMENT
+            case 26 :
+                // Hymanifest.g:1:199: ML_COMMENT
                 {
                 mML_COMMENT(); 
 
 
                 }
                 break;
-            case 28 :
-                // Hymanifest.g:1:216: LINEBREAK
+            case 27 :
+                // Hymanifest.g:1:210: LINEBREAK
                 {
                 mLINEBREAK(); 
 
 
                 }
                 break;
-            case 29 :
-                // Hymanifest.g:1:226: WHITESPACE
+            case 28 :
+                // Hymanifest.g:1:220: WHITESPACE
                 {
                 mWHITESPACE(); 
 
@@ -2145,14 +2113,14 @@ public class HymanifestLexer extends Lexer {
 
     protected DFA38 dfa38 = new DFA38(this);
     static final String DFA38_eotS =
-        "\4\uffff\1\32\3\uffff\3\24\2\uffff\3\24\5\uffff\1\43\5\uffff\7\24"+
-        "\4\uffff\15\24\1\73\1\uffff\3\24\1\uffff\1\24\1\100\1\uffff\4\24"+
-        "\1\uffff\7\24\1\114\3\24\1\uffff\2\24\1\uffff\2\24\1\uffff\3\24"+
+        "\4\uffff\1\31\2\uffff\3\23\2\uffff\3\23\5\uffff\1\42\5\uffff\7\23"+
+        "\4\uffff\15\23\1\72\1\uffff\3\23\1\uffff\1\23\1\77\1\uffff\4\23"+
+        "\1\uffff\7\23\1\113\3\23\1\uffff\2\23\1\uffff\2\23\1\uffff\3\23"+
         "\1\uffff";
     static final String DFA38_eofS =
-        "\127\uffff";
+        "\126\uffff";
     static final String DFA38_minS =
-        "\1\11\3\uffff\1\60\3\uffff\1\156\1\155\1\151\2\uffff\1\156\1\141"+
+        "\1\11\3\uffff\1\60\2\uffff\1\156\1\155\1\151\2\uffff\1\156\1\141"+
         "\1\162\5\uffff\1\57\1\52\4\uffff\1\165\1\160\1\147\1\165\1\145\1"+
         "\154\1\165\4\uffff\1\155\1\154\1\156\1\155\1\162\1\163\1\145\1\50"+
         "\1\145\1\141\1\72\1\156\1\145\1\60\1\uffff\1\151\1\155\1\164\1\uffff"+
@@ -2160,7 +2128,7 @@ public class HymanifestLexer extends Lexer {
         "\1\162\1\171\1\162\1\164\1\145\1\60\2\141\1\40\1\uffff\1\154\1\164"+
         "\1\uffff\1\50\1\151\1\uffff\1\157\1\156\1\40\1\uffff";
     static final String DFA38_maxS =
-        "\1\175\3\uffff\1\76\3\uffff\1\156\1\155\1\151\2\uffff\1\164\1\141"+
+        "\1\175\3\uffff\1\76\2\uffff\1\156\1\155\1\151\2\uffff\1\164\1\141"+
         "\1\162\5\uffff\1\71\1\57\4\uffff\1\165\1\160\1\147\1\165\1\145\1"+
         "\154\1\165\4\uffff\1\155\1\154\1\156\1\155\1\162\1\163\1\145\1\114"+
         "\1\145\1\141\1\72\1\156\1\145\1\172\1\uffff\1\151\1\155\1\164\1"+
@@ -2168,103 +2136,102 @@ public class HymanifestLexer extends Lexer {
         "\1\156\1\162\1\171\1\162\1\164\1\145\1\172\2\141\1\40\1\uffff\1"+
         "\154\1\164\1\uffff\1\50\1\151\1\uffff\1\157\1\156\1\40\1\uffff";
     static final String DFA38_acceptS =
-        "\1\uffff\1\1\1\2\1\3\1\uffff\1\6\1\7\1\10\3\uffff\1\15\1\16\3\uffff"+
-        "\1\23\1\24\1\25\1\26\1\27\2\uffff\1\34\1\35\1\5\1\4\7\uffff\1\30"+
-        "\1\31\1\32\1\33\16\uffff\1\11\3\uffff\1\17\2\uffff\1\22\4\uffff"+
-        "\1\21\13\uffff\1\20\2\uffff\1\14\2\uffff\1\12\3\uffff\1\13";
+        "\1\uffff\1\1\1\2\1\3\1\uffff\1\6\1\7\3\uffff\1\14\1\15\3\uffff\1"+
+        "\22\1\23\1\24\1\25\1\26\2\uffff\1\33\1\34\1\5\1\4\7\uffff\1\27\1"+
+        "\30\1\31\1\32\16\uffff\1\10\3\uffff\1\16\2\uffff\1\21\4\uffff\1"+
+        "\20\13\uffff\1\17\2\uffff\1\13\2\uffff\1\11\3\uffff\1\12";
     static final String DFA38_specialS =
-        "\127\uffff}>";
+        "\126\uffff}>";
     static final String[] DFA38_transitionS = {
-            "\1\30\1\27\1\uffff\1\30\1\27\22\uffff\1\30\1\uffff\1\23\5\uffff"+
-            "\1\1\1\2\2\uffff\1\3\1\4\1\5\1\26\12\25\1\6\1\uffff\1\22\3\uffff"+
-            "\1\7\4\24\1\10\3\24\1\11\11\24\1\12\7\24\1\13\1\uffff\1\14\1"+
-            "\uffff\1\24\1\uffff\4\24\1\15\1\16\15\24\1\17\6\24\1\20\1\uffff"+
-            "\1\21",
+            "\1\27\1\26\1\uffff\1\27\1\26\22\uffff\1\27\1\uffff\1\21\5\uffff"+
+            "\1\1\1\2\2\uffff\1\3\1\4\1\5\1\25\12\24\1\6\1\uffff\1\22\4\uffff"+
+            "\4\23\1\7\3\23\1\10\11\23\1\11\7\23\1\12\1\uffff\1\13\1\uffff"+
+            "\1\23\1\uffff\4\23\1\14\1\15\15\23\1\16\6\23\1\17\1\uffff\1"+
+            "\20",
             "",
             "",
             "",
-            "\12\25\4\uffff\1\31",
+            "\12\24\4\uffff\1\30",
             "",
             "",
-            "",
+            "\1\32",
             "\1\33",
             "\1\34",
-            "\1\35",
             "",
             "",
-            "\1\36\5\uffff\1\37",
+            "\1\35\5\uffff\1\36",
+            "\1\37",
             "\1\40",
-            "\1\41",
             "",
             "",
             "",
             "",
             "",
-            "\1\42\12\25",
-            "\1\45\4\uffff\1\44",
+            "\1\41\12\24",
+            "\1\44\4\uffff\1\43",
             "",
             "",
             "",
             "",
+            "\1\45",
             "\1\46",
             "\1\47",
             "\1\50",
             "\1\51",
             "\1\52",
             "\1\53",
+            "",
+            "",
+            "",
+            "",
             "\1\54",
-            "",
-            "",
-            "",
-            "",
             "\1\55",
             "\1\56",
             "\1\57",
             "\1\60",
             "\1\61",
             "\1\62",
-            "\1\63",
-            "\1\64\43\uffff\1\65",
+            "\1\63\43\uffff\1\64",
+            "\1\65",
             "\1\66",
             "\1\67",
             "\1\70",
             "\1\71",
-            "\1\72",
-            "\12\24\6\uffff\33\24\4\uffff\1\24\1\uffff\32\24",
+            "\12\23\6\uffff\33\23\4\uffff\1\23\1\uffff\32\23",
             "",
+            "\1\73",
             "\1\74",
             "\1\75",
+            "",
             "\1\76",
+            "\12\23\6\uffff\33\23\4\uffff\1\23\1\uffff\32\23",
             "",
-            "\1\77",
-            "\12\24\6\uffff\33\24\4\uffff\1\24\1\uffff\32\24",
-            "",
+            "\1\100",
             "\1\101",
             "\1\102",
             "\1\103",
-            "\1\104",
             "",
+            "\1\104",
             "\1\105",
             "\1\106",
             "\1\107",
             "\1\110",
             "\1\111",
             "\1\112",
-            "\1\113",
-            "\12\24\6\uffff\33\24\4\uffff\1\24\1\uffff\32\24",
+            "\12\23\6\uffff\33\23\4\uffff\1\23\1\uffff\32\23",
+            "\1\114",
             "\1\115",
             "\1\116",
+            "",
             "\1\117",
-            "",
             "\1\120",
+            "",
             "\1\121",
-            "",
             "\1\122",
-            "\1\123",
             "",
+            "\1\123",
             "\1\124",
             "\1\125",
-            "\1\126",
             ""
     };
 
@@ -2298,7 +2265,7 @@ public class HymanifestLexer extends Lexer {
             this.transition = DFA38_transition;
         }
         public String getDescription() {
-            return "1:1: Tokens : ( T__13 | T__14 | T__15 | T__16 | T__17 | T__18 | T__19 | T__20 | T__21 | T__22 | T__23 | T__24 | T__25 | T__26 | T__27 | T__28 | T__29 | T__30 | T__31 | T__32 | QUOTED_60_62 | QUOTED_34_34 | IDENTIFIER_TOKEN | DATE | INTEGER_LITERAL | SL_COMMENT | ML_COMMENT | LINEBREAK | WHITESPACE );";
+            return "1:1: Tokens : ( T__13 | T__14 | T__15 | T__16 | T__17 | T__18 | T__19 | T__20 | T__21 | T__22 | T__23 | T__24 | T__25 | T__26 | T__27 | T__28 | T__29 | T__30 | T__31 | QUOTED_34_34 | QUOTED_60_62 | IDENTIFIER_TOKEN | DATE | INTEGER_LITERAL | SL_COMMENT | ML_COMMENT | LINEBREAK | WHITESPACE );";
         }
     }
  

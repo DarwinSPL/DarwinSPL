@@ -213,28 +213,24 @@ public class HymanifestPrinter2 implements eu.hyvar.mspl.manifest.resource.hyman
 			throw new IllegalArgumentException("Nothing to write on.");
 		}
 		
-		if (element instanceof eu.hyvar.mspl.manifest.HySPLImplementation) {
+		if (element instanceof eu.hyvar.mspl.manifest.HySPLSignature) {
 			printInternal(element, eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestGrammarInformationProvider.HYMANIFEST_0, foundFormattingElements);
 			return;
 		}
-		if (element instanceof eu.hyvar.mspl.manifest.HyTimedDependencies) {
+		if (element instanceof eu.hyvar.mspl.manifest.HySPLImplementation) {
 			printInternal(element, eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestGrammarInformationProvider.HYMANIFEST_1, foundFormattingElements);
 			return;
 		}
-		if (element instanceof eu.hyvar.mspl.manifest.HyTimedImplementations) {
+		if (element instanceof eu.hyvar.mspl.manifest.HyTimedDependencies) {
 			printInternal(element, eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestGrammarInformationProvider.HYMANIFEST_2, foundFormattingElements);
 			return;
 		}
-		if (element instanceof eu.hyvar.mspl.manifest.HyTimedImplementationLink) {
+		if (element instanceof eu.hyvar.mspl.manifest.HyTimedImplementations) {
 			printInternal(element, eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestGrammarInformationProvider.HYMANIFEST_3, foundFormattingElements);
 			return;
 		}
-		if (element instanceof eu.hyvar.mspl.manifest.HySPLSignature) {
+		if (element instanceof eu.hyvar.mspl.manifest.HyTimedImplementationLink) {
 			printInternal(element, eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestGrammarInformationProvider.HYMANIFEST_4, foundFormattingElements);
-			return;
-		}
-		if (element instanceof eu.hyvar.evolution.HyName) {
-			printInternal(element, eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestGrammarInformationProvider.HYMANIFEST_5, foundFormattingElements);
 			return;
 		}
 		if (element instanceof eu.hyvar.dataValues.HyNumberValue) {

@@ -7,7 +7,7 @@ This can be disabled with -vmargs -Dorg.eclipse.emf.examples.generator.validator
 
 Package manifest <http://hyvar-project.eu/mspl/manifest/1.0>
 
-  Class HyManifest -> HyNamedElement
+  Class HyManifest
 
   Class HySPLImplementation -> HyManifest
     Reference dependencies : HyTimedDependencies<<0..*>>
@@ -17,11 +17,12 @@ Package manifest <http://hyvar-project.eu/mspl/manifest/1.0>
 
   Class HyTimedDependencies -> HyTemporalElement
     Reference signature : HySPLSignature<<1..1>>
+    Attribute alias : EString<<1..1>>
 
   Class HyTimedImplementations -> HyTemporalElement
     Reference signature : HySPLSignature<<1..1>>
     Reference associations : HyTimedImplementationLink<<0..*>>
 
   Class HyTimedImplementationLink -> HyTemporalElement
-    Reference local : HyFeature<<1..*>>
-    Reference signature : HyFeature<<1..*>>
+    Reference local : HyFeature<<1..1>>
+    Reference signature : HyFeature<<1..1>>

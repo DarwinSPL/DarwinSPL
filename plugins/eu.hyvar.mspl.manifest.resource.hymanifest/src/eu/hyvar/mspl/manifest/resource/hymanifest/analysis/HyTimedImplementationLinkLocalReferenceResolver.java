@@ -17,12 +17,11 @@ public class HyTimedImplementationLinkLocalReferenceResolver implements eu.hyvar
 	private eu.hyvar.mspl.manifest.resource.hymanifest.analysis.HymanifestDefaultResolverDelegate<eu.hyvar.mspl.manifest.HyTimedImplementationLink, eu.hyvar.feature.HyFeature> delegate = new eu.hyvar.mspl.manifest.resource.hymanifest.analysis.HymanifestDefaultResolverDelegate<eu.hyvar.mspl.manifest.HyTimedImplementationLink, eu.hyvar.feature.HyFeature>();
 	
 	public void resolve(String identifier, eu.hyvar.mspl.manifest.HyTimedImplementationLink container, EReference reference, int position, boolean resolveFuzzy, final eu.hyvar.mspl.manifest.resource.hymanifest.IHymanifestReferenceResolveResult<eu.hyvar.feature.HyFeature> result) {
-		
 		HyFeature feature = HyExpressionResolverUtil.resolveFeature(identifier, container);
 		if(feature!=null) {
 			result.addMapping(identifier, feature);
 		}
-		
+
 		//delegate.resolve(identifier, container, reference, position, resolveFuzzy, result);
 	}
 	

@@ -55,18 +55,11 @@ public class HyManifestResolverUtil {
 			
 			EList<HyTimedDependencies> list = ((HySPLImplementation) manifest).getDependencies();
 			for (HyTimedDependencies dep: list) {
-				HySPLSignature signature = dep.getSignature();
-				EList<HyName> names = signature.getNames();
-				for (HyName name: names) {
-					if (signatureName.equals(name.getName())) {
-						signatures.add(signature);
-					}
+				if( signatureName.equals(dep.getAlias()) ) {
+					HySPLSignature signature = dep.getSignature();
+					EList<HyFeature> finds = resolveFeaturesOfSignature(signatureFeature, signature);
+					features.addAll(finds);
 				}
-			}
-			
-			for (HySPLSignature signature: signatures) {
-				EList<HyFeature> finds = resolveFeaturesOfSignature(signatureFeature, signature);
-				features.addAll(finds);
 			}
 		}
 

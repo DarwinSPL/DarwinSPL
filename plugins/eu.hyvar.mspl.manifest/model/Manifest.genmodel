@@ -17,6 +17,7 @@
     <genClasses ecoreClass="Manifest.ecore#//HySPLSignature"/>
     <genClasses ecoreClass="Manifest.ecore#//HyTimedDependencies">
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Manifest.ecore#//HyTimedDependencies/signature"/>
+      <genFeatures children="true" createChild="true" ecoreFeature="ecore:EAttribute Manifest.ecore#//HyTimedDependencies/alias"/>
     </genClasses>
     <genClasses ecoreClass="Manifest.ecore#//HyTimedImplementations">
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Manifest.ecore#//HyTimedImplementations/signature"/>

@@ -33,7 +33,7 @@ public class HyManifestVisitorUtil {
 		int count=0;
 
 		print("\n\nUNITO VISIT: ", "Start visit HySPLImplementation");
-		visitHyName("", model.getNames());
+		//visitHyName("", model.getNames());
 
 		
 		print("", "Dependencies:");
@@ -69,7 +69,9 @@ public class HyManifestVisitorUtil {
 				countAssoc++;
 				print("      ", countAssoc+") ");
 				print("        ", "local=");
-
+				HyFeature feature = assoc.getLocal();
+				visitHyFeature("        ", feature);
+/*
 				EList<HyFeature> features = assoc.getLocal();
 				int countFeature=0;
 				for (HyFeature feature: features) {
@@ -77,7 +79,11 @@ public class HyManifestVisitorUtil {
 					print("        ", countFeature+") ");
 					visitHyFeature("        ", feature);
 				}
+*/
 				print("        ", "signature=");
+				feature = assoc.getSignature();
+				visitHyFeature("        ", feature);
+/*
 				features = assoc.getSignature();
 				countFeature=0;
 				for (HyFeature feature: features) {
@@ -85,6 +91,7 @@ public class HyManifestVisitorUtil {
 					print("        ", countFeature+") ");
 					visitHyFeature("        ", feature);
 				}
+*/
 				print("        ", "since="+assoc.getValidSince());
 				print("        ", "until="+assoc.getValidUntil());
 			}
@@ -97,7 +104,8 @@ public class HyManifestVisitorUtil {
 	}	
 	
 	public static void visitHySPLSignature (String prefix, HySPLSignature signature) {
-		visitHyName(prefix+"  ", signature.getNames());
+		print(prefix+"  ", "PRINT Signature");
+		//visitHyName(prefix+"  ", signature.getNames());
 	}
 
 	public static void visitHyFeature (String prefix, HyFeature feature) {

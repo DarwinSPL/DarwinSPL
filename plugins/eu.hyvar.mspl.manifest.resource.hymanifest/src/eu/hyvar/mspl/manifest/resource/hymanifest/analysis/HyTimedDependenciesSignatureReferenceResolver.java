@@ -9,14 +9,11 @@ package eu.hyvar.mspl.manifest.resource.hymanifest.analysis;
 import java.util.Map;
 import org.eclipse.emf.ecore.EReference;
 
-import eu.hyvar.mspl.util.HyManifestResolverUtil;
-
 public class HyTimedDependenciesSignatureReferenceResolver implements eu.hyvar.mspl.manifest.resource.hymanifest.IHymanifestReferenceResolver<eu.hyvar.mspl.manifest.HyTimedDependencies, eu.hyvar.mspl.manifest.HySPLSignature> {
 	
 	private eu.hyvar.mspl.manifest.resource.hymanifest.analysis.HymanifestDefaultResolverDelegate<eu.hyvar.mspl.manifest.HyTimedDependencies, eu.hyvar.mspl.manifest.HySPLSignature> delegate = new eu.hyvar.mspl.manifest.resource.hymanifest.analysis.HymanifestDefaultResolverDelegate<eu.hyvar.mspl.manifest.HyTimedDependencies, eu.hyvar.mspl.manifest.HySPLSignature>();
 	
 	public void resolve(String identifier, eu.hyvar.mspl.manifest.HyTimedDependencies container, EReference reference, int position, boolean resolveFuzzy, final eu.hyvar.mspl.manifest.resource.hymanifest.IHymanifestReferenceResolveResult<eu.hyvar.mspl.manifest.HySPLSignature> result) {
-
 		delegate.resolve(identifier, container, reference, position, resolveFuzzy, result);
 	}
 	
