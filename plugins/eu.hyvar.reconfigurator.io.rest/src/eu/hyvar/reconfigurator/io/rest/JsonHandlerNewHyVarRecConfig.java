@@ -43,7 +43,7 @@ public class JsonHandlerNewHyVarRecConfig extends AbstractHandler {
 
 	// TODO much duplicated code - improve!
 	
-	public static final String MSG_TYPE_JSON_INPUT = "raw_hyvarrec_input";
+//	public static final String MSG_TYPE_JSON_INPUT = "raw_hyvarrec_input";
 	public static final String MSG_TYPE_JSON_HYVARREC_OUTPUT = "hyvarrec_config_plus_fm";
 	
 	public static final String MSG_TYPE_JSON_HYCONFIG_OUTPUT = "hyconfig";
