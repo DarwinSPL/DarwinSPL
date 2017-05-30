@@ -41,13 +41,12 @@ import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.part.FileEditorInput;
 
 import de.christophseidl.util.ecore.EcoreIOUtil;
-import de.darwinspl.configurator.Configurator;
 import de.darwinspl.feature.graphical.configurator.analyses.AnalysesClient;
 import de.darwinspl.feature.graphical.configurator.composites.DwSelectedConfigurationComposite;
+import de.darwinspl.feature.graphical.configurator.dialogs.DwConfiguratorDialog;
 import de.darwinspl.feature.graphical.configurator.dialogs.DwContextInformationDialog;
 import de.darwinspl.feature.graphical.configurator.dialogs.DwInvalidContextInfoDialog;
 import de.darwinspl.feature.graphical.configurator.dialogs.DwRESTServerSelectDialog;
-import de.darwinspl.feature.graphical.configurator.dialogs.DwSelectConfiguratorDialog;
 import de.darwinspl.feature.graphical.configurator.editor.listeners.DwDeriveVariantListener;
 import de.darwinspl.feature.graphical.configurator.factory.DwConfiguratorEditorEditPartFactory;
 import de.darwinspl.feature.graphical.configurator.viewer.DwFeatureModelConfiguratorViewer;
@@ -266,8 +265,8 @@ public class DwFeatureModelConfiguratorEditor extends DwFeatureModelConfigurator
 
 				String uri = getURI();
 				if(uri == null) return;
-				DwSelectConfiguratorDialog selectConfiguratorDialog = new DwSelectConfiguratorDialog(getEditorSite().getShell(), featureModel, constraintModel, getDate(), uri);
-				HyConfiguration result = selectConfiguratorDialog.openWithAnswer();
+				DwConfiguratorDialog dialog = new DwConfiguratorDialog(getEditorSite().getShell(), featureModel, constraintModel, getDate(), uri);
+				HyConfiguration result = dialog.openWithConfigurationResult();
 				if(result != null) {
 					selectedConfiguration = result;
 					saveConfigurationIntoFeatureModelFolder();

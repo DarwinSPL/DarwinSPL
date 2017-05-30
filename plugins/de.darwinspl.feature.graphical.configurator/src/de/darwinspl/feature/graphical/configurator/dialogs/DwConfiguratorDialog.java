@@ -17,14 +17,18 @@ import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.widgets.TableItem;
 import org.eclipse.swt.widgets.Text;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
 import de.darwinspl.configurator.Configurator;
 import eu.hyvar.evolution.HyName;
-import eu.hyvar.evolution.HyNamedElement;
 import eu.hyvar.feature.HyFeature;
 import eu.hyvar.feature.HyFeatureAttribute;
 import eu.hyvar.feature.HyFeatureModel;
+import eu.hyvar.feature.configuration.HyConfiguration;
 import eu.hyvar.feature.constraint.HyConstraintModel;
-import eu.hyvar.feature.expression.HyAttributeReferenceExpression;
+import eu.hyvar.reconfigurator.output.translation.HyVarRecOutputTranslator;
+import eu.hyvar.reconfigurator.output.translation.format.OutputOfHyVarRec;
 
 public class DwConfiguratorDialog extends Dialog {
 
@@ -39,6 +43,10 @@ public class DwConfiguratorDialog extends Dialog {
 	private TableColumn colAttributeName;
 	private TableColumn colAttributeDefaultValue;
 	private TableColumn colAttributeMinMax;
+	
+	private HyConfiguration configuration;
+	
+	private CCombo dropdown;
 
 	public DwConfiguratorDialog(Shell parentShell, HyFeatureModel featureModel, HyConstraintModel constraintModel, Date date, String uri) {
 		super(parentShell);
@@ -58,10 +66,18 @@ public class DwConfiguratorDialog extends Dialog {
 		}
 	}
 	
-	
+	public HyConfiguration openWithConfigurationResult(){
+		open();
+		return configuration;
+	}
 
 	@Override
 	protected void okPressed() {
+		
+		String output = null;
+		
+		Configurator configurator = new Configurator(uri, featureModel, constraintModel, date);
+
 		
 		for(int i = 0; i < table.getItemCount(); i++) {
 			TableItem item = table.getItem(i);
@@ -79,8 +95,21 @@ public class DwConfiguratorDialog extends Dialog {
 			}
 		}
 		
-		Configurator configurator = new Configurator();
-		configurator.optimizeAttributes(uri, featureModel, constraintModel, date);
+		
+		if(dropdown.getSelectionIndex() == 0) {
+			configurator.addMaxFeaturesPreference();
+		} else if(dropdown.getSelectionIndex() == 1) {
+			configurator.addMinFeaturesPreference();
+		}
+		
+		output = configurator.run();
+		
+		if(output != null) {
+			GsonBuilder builder = new GsonBuilder();
+			Gson gson = builder.create();
+			OutputOfHyVarRec outputOfHyVarRec  = gson.fromJson(output, OutputOfHyVarRec.class);
+			configuration = HyVarRecOutputTranslator.translateConfiguration(featureModel, outputOfHyVarRec, date);
+		}
 		
 		super.okPressed();
 	}
@@ -140,6 +169,14 @@ public class DwConfiguratorDialog extends Dialog {
 			
 		}
 
+		
+		dropdown = new CCombo(composite, SWT.NONE);
+		dropdown.setItems(new String[]{"Max. Features", "Min. Features", "None"});
+		dropdown.select(2);
+		
+		
+		colAttributeDefaultValue.pack();
+		colAttributeMinMax.pack();
 		colAttributeName.pack();
 		table.pack();
 		composite.pack();

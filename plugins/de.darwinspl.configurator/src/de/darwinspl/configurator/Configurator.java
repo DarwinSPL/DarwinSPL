@@ -27,39 +27,42 @@ import eu.hyvar.reconfigurator.input.exporter.HyVarRecExporter;
 
 public class Configurator {
 
-	public Configurator() {
+	private HyPreferenceModel preferenceModel;
+	private PreferencesFactory preferenceFactory;
+	private HyExpressionFactory expressionFactory;
+	
+	private String uri;
+	
+	private HyFeatureModel featureModel;
+	private HyConstraintModel constraintModel;
+	private Date date;
+	
+	public Configurator(String uri, HyFeatureModel featureModel, HyConstraintModel constraintModel, Date date) {
+		 this.preferenceFactory = PreferencesFactory.eINSTANCE;
+		 this.preferenceModel = preferenceFactory.createHyPreferenceModel();
+		 this.preferenceModel.setFeatureModel(featureModel);
+		 
+		 this.expressionFactory = HyExpressionFactory.eINSTANCE;
+		 
+		 this.uri = uri;
+		 this.featureModel = featureModel;
+		 this.constraintModel = constraintModel;
+		 this.date = date;	 
+	}
+	
+	public String run(){
+		HyVarRecExporter exporter = new HyVarRecExporter();
+		String input = exporter.exportContextMappingModel(null, null, featureModel, constraintModel, null,
+				preferenceModel, null, date);
+		
+		String output = sendToHyVarRec(input);
+		
+		System.out.println("HyVarRecInput: " + input);
+		System.out.println("HyVarRecOutput: " + output );
+		return output;
 	}
 
-	public String maxFeatures(String uri, HyFeatureModel featureModel, HyConstraintModel constraintModel, Date date) {
-
-		// create preference model
-		PreferencesFactory preferenceFactory = PreferencesFactory.eINSTANCE;
-		HyPreferenceModel preferenceModel = preferenceFactory.createHyPreferenceModel();
-
-		HyExpressionFactory expressionFactory = HyExpressionFactory.eINSTANCE;
-
-		preferenceModel.setFeatureModel(featureModel);
-
-		/*
-		 * APPROACH 1
-		 * 
-		 * for(HyFeature feature : featureModel.getFeatures()) {
-		 * HyFeatureReferenceExpression featureExpression =
-		 * expressionFactory.createHyFeatureReferenceExpression();
-		 * featureExpression.setFeature(feature);
-		 * 
-		 * //HyNegationExpression negationExpression =
-		 * expressionFactory.createHyNegationExpression();
-		 * //negationExpression.setOperand(featureExpression);
-		 * 
-		 * HyPreference preference = preferenceFactory.createHyPreference();
-		 * preference.setRootExpression(featureExpression);
-		 * preferenceModel.getPreferences().add(preference);
-		 * 
-		 * }
-		 * 
-		 */
-		/* APPROACH 2 */
+	public void addMaxFeaturesPreference() {
 
 		HyIfPossibleExpression ipExpression = expressionFactory.createHyIfPossibleExpression();
 
@@ -76,51 +79,9 @@ public class Configurator {
 		preference.setRootExpression(ipExpression);
 		preferenceModel.getPreferences().add(preference);
 
-		/*
-		 * APPROACH 3
-		 * 
-		 * HyFeature lastFeature = null;
-		 * 
-		 * for(HyFeature feature : featureModel.getFeatures()) { if(lastFeature
-		 * != null) { HyFeatureReferenceExpression featureExpression =
-		 * expressionFactory.createHyFeatureReferenceExpression();
-		 * HyFeatureReferenceExpression lastFeatureExpression =
-		 * expressionFactory.createHyFeatureReferenceExpression();
-		 * 
-		 * featureExpression.setFeature(feature);
-		 * lastFeatureExpression.setFeature(lastFeature);
-		 * 
-		 * HyAndExpression andExpression =
-		 * expressionFactory.createHyAndExpression();
-		 * andExpression.setOperand1(lastFeatureExpression);
-		 * andExpression.setOperand2(featureExpression);
-		 * 
-		 * HyPreference preference = preferenceFactory.createHyPreference();
-		 * preference.setRootExpression(andExpression);
-		 * preferenceModel.getPreferences().add(preference);
-		 * 
-		 * } lastFeature = feature; }
-		 * 
-		 */
-		// export to hyvar
-		HyVarRecExporter exporter = new HyVarRecExporter();
-		String hyvarrec = exporter.exportContextMappingModel(null, null, featureModel, constraintModel, null,
-				preferenceModel, null, date);
-
-		System.out.println("HyVarRecInput: " + hyvarrec);
-		String output = sendToHyVarRec(hyvarrec, uri);
-		System.out.println("HyVarRecOutput: " + output );
-		return output;
-
 	}
 
-	public String minFeatures(String uri, HyFeatureModel featureModel, HyConstraintModel constraintModel, Date date) {
-
-		// create preference model
-		PreferencesFactory preferenceFactory = PreferencesFactory.eINSTANCE;
-		HyPreferenceModel preferenceModel = preferenceFactory.createHyPreferenceModel();
-
-		HyExpressionFactory expressionFactory = HyExpressionFactory.eINSTANCE;
+	public void addMinFeaturesPreference() {
 
 		preferenceModel.setFeatureModel(featureModel);
 
@@ -142,29 +103,10 @@ public class Configurator {
 		preference.setRootExpression(ipExpression);
 		preferenceModel.getPreferences().add(preference);
 
-		// export to hyvar
-		HyVarRecExporter exporter = new HyVarRecExporter();
-		String hyvarrec = exporter.exportContextMappingModel(null, null, featureModel, constraintModel, null,
-				preferenceModel, null, date);
-
-		System.out.println("HyVarRecInput: " + hyvarrec);
-		String output = sendToHyVarRec(hyvarrec, uri);
-		System.out.println("HyVarRecOutput: " + output );
-		return output;
 	}
 
-	public String optimizeAttributes(String uri, HyFeatureModel featureModel, HyConstraintModel constraintModel,
-			Date date) {
+	public void addAttributeOptimizationPreference() {
 
-		
-		// create preference model
-		PreferencesFactory preferenceFactory = PreferencesFactory.eINSTANCE;
-		HyPreferenceModel preferenceModel = preferenceFactory.createHyPreferenceModel();
-		
-		preferenceModel.setFeatureModel(featureModel);
-		
-		HyExpressionFactory expressionFactory = HyExpressionFactory.eINSTANCE;
-		
 		for(HyFeature feature : featureModel.getFeatures()){
 			for(HyFeatureAttribute attribute : feature.getAttributes()){
 				HyAttributeReferenceExpression expression = expressionFactory.createHyAttributeReferenceExpression();
@@ -180,19 +122,9 @@ public class Configurator {
 				preferenceModel.getPreferences().add(preference);
 			}
 		}
-		
-		// export to hyvar
-		HyVarRecExporter exporter = new HyVarRecExporter();
-		String hyvarrec = exporter.exportContextMappingModel(null, null, featureModel, constraintModel, null,
-				preferenceModel, null, date);
-
-		System.out.println("HyVarRecInput: " + hyvarrec);
-		String output = sendToHyVarRec(hyvarrec, uri);
-		System.out.println("HyVarRecOutput: " + output );
-		return output;
 	}
 
-	private String sendToHyVarRec(String content, String uri) {
+	private String sendToHyVarRec(String content) {
 		HttpClient client = new HttpClient();
 		try {
 			client.start();
