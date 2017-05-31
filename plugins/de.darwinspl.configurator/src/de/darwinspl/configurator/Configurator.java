@@ -10,6 +10,10 @@ import org.eclipse.jetty.client.api.Request;
 import org.eclipse.jetty.client.util.StringContentProvider;
 import org.eclipse.jetty.http.HttpHeader;
 
+import de.darwinspl.configurator.expression.AtomicFeatureExpression;
+import eu.hyvar.dataValues.HyDataValuesFactory;
+import eu.hyvar.dataValues.HyNumberValue;
+import eu.hyvar.dataValues.HyValue;
 import eu.hyvar.feature.HyFeature;
 import eu.hyvar.feature.HyFeatureAttribute;
 import eu.hyvar.feature.HyFeatureModel;
@@ -20,6 +24,9 @@ import eu.hyvar.feature.expression.HyFeatureReferenceExpression;
 import eu.hyvar.feature.expression.HyIfPossibleExpression;
 import eu.hyvar.feature.expression.HyMaximumExpression;
 import eu.hyvar.feature.expression.HyNegationExpression;
+import eu.hyvar.feature.expression.HyNestedExpression;
+import eu.hyvar.feature.expression.HySubtractionExpression;
+import eu.hyvar.feature.expression.HyValueExpression;
 import eu.hyvar.preferences.HyPreference;
 import eu.hyvar.preferences.HyPreferenceModel;
 import eu.hyvar.preferences.PreferencesFactory;
@@ -69,7 +76,7 @@ public class Configurator {
 		// preferences to select the most features
 		for (HyFeature feature : featureModel.getFeatures()) {
 
-			HyFeatureReferenceExpression referenceExpression = expressionFactory.createHyFeatureReferenceExpression();
+			AtomicFeatureExpression referenceExpression = new AtomicFeatureExpression();
 			referenceExpression.setFeature(feature);
 
 			ipExpression.getOperands().add(referenceExpression);
@@ -83,24 +90,32 @@ public class Configurator {
 
 	public void addMinFeaturesPreference() {
 
-		preferenceModel.setFeatureModel(featureModel);
-
 		HyIfPossibleExpression ipExpression = expressionFactory.createHyIfPossibleExpression();
 
 		// preferences to select the most features
 		for (HyFeature feature : featureModel.getFeatures()) {
 
-			HyFeatureReferenceExpression referenceExpression = expressionFactory.createHyFeatureReferenceExpression();
+			AtomicFeatureExpression referenceExpression = new AtomicFeatureExpression();
 			referenceExpression.setFeature(feature);
 
-			HyNegationExpression negationExpression = expressionFactory.createHyNegationExpression();
-			negationExpression.setOperand(referenceExpression);
-
-			ipExpression.getOperands().add(negationExpression);
+			ipExpression.getOperands().add(referenceExpression);
 
 		}
+		HyNestedExpression nestedExpression = expressionFactory.createHyNestedExpression();
+		nestedExpression.setOperand(ipExpression);
+		
+		HyValueExpression valueExpression = expressionFactory.createHyValueExpression();
+		HyDataValuesFactory dataValuesFactory = HyDataValuesFactory.eINSTANCE;
+		HyNumberValue value =  dataValuesFactory.createHyNumberValue();
+		value.setValue(0);
+		valueExpression.setValue(value);
+				
+		HySubtractionExpression subtractionExpression = expressionFactory.createHySubtractionExpression();
+		subtractionExpression.setOperand1(valueExpression);
+		subtractionExpression.setOperand2(nestedExpression);
+		
 		HyPreference preference = preferenceFactory.createHyPreference();
-		preference.setRootExpression(ipExpression);
+		preference.setRootExpression(subtractionExpression);
 		preferenceModel.getPreferences().add(preference);
 
 	}
