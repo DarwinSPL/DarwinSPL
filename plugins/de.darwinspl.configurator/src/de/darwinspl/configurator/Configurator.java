@@ -41,8 +41,6 @@ public class Configurator {
 	}
 
 	private HyPreferenceModel preferenceModel;
-	private PreferencesFactory preferenceFactory;
-	private HyExpressionFactory expressionFactory;
 
 	private String uri;
 
@@ -51,11 +49,8 @@ public class Configurator {
 	private Date date;
 
 	public Configurator(String uri, HyFeatureModel featureModel, HyConstraintModel constraintModel, Date date) {
-		this.preferenceFactory = PreferencesFactory.eINSTANCE;
+		PreferencesFactory preferenceFactory = PreferencesFactory.eINSTANCE;
 		this.preferenceModel = preferenceFactory.createHyPreferenceModel();
-		this.preferenceModel.setFeatureModel(featureModel);
-
-		this.expressionFactory = HyExpressionFactory.eINSTANCE;
 
 		this.uri = uri;
 		this.featureModel = featureModel;
@@ -75,109 +70,10 @@ public class Configurator {
 		return output;
 	}
 
-	public void addMaxFeaturesPreference() {
-
-		HyIfPossibleExpression ipExpression = expressionFactory.createHyIfPossibleExpression();
-
-		// preferences to select the most features
-		for (HyFeature feature : featureModel.getFeatures()) {
-
-			AtomicFeatureExpression referenceExpression = new AtomicFeatureExpression();
-			referenceExpression.setFeature(feature);
-
-			ipExpression.getOperands().add(referenceExpression);
-
-		}
-		HyPreference preference = preferenceFactory.createHyPreference();
-		preference.setRootExpression(ipExpression);
-		preferenceModel.getPreferences().add(preference);
-
-	}
-
-	public void addMinFeaturesPreference() {
-
-		HyIfPossibleExpression ipExpression = expressionFactory.createHyIfPossibleExpression();
-
-		// preferences to select the most features
-		for (HyFeature feature : featureModel.getFeatures()) {
-
-			AtomicFeatureExpression referenceExpression = new AtomicFeatureExpression();
-			referenceExpression.setFeature(feature);
-
-			ipExpression.getOperands().add(referenceExpression);
-
-		}
-		HyNestedExpression nestedExpression = expressionFactory.createHyNestedExpression();
-		nestedExpression.setOperand(ipExpression);
-
-		HyValueExpression valueExpression = expressionFactory.createHyValueExpression();
-		HyDataValuesFactory dataValuesFactory = HyDataValuesFactory.eINSTANCE;
-		HyNumberValue value = dataValuesFactory.createHyNumberValue();
-		value.setValue(0);
-		valueExpression.setValue(value);
-
-		HySubtractionExpression subtractionExpression = expressionFactory.createHySubtractionExpression();
-		subtractionExpression.setOperand1(valueExpression);
-		subtractionExpression.setOperand2(nestedExpression);
-
-		HyPreference preference = preferenceFactory.createHyPreference();
-		preference.setRootExpression(subtractionExpression);
-		preferenceModel.getPreferences().add(preference);
-
-	}
-
-	public void addAttributeOptimizationPreference(List<String> mins) {
-
-		HyIfPossibleExpression ifPossibleExpression = expressionFactory.createHyIfPossibleExpression();
-		
-		for (String attributeName : mins) {
-			for (HyFeature feature : featureModel.getFeatures()) {
-				for (HyFeatureAttribute attribute : feature.getAttributes()) {
-					for(HyName name : attribute.getNames()) {
-						if(attributeName.equals(name.getName())) {
-							HyAttributeReferenceExpression attributeReferenceExpression = expressionFactory.createHyAttributeReferenceExpression();
-							attributeReferenceExpression.setAttribute(attribute);
-							attributeReferenceExpression.setFeature(feature);
-							
-							int min = ((HyNumberAttribute)attribute).getMin();
-							HyDataValuesFactory dataValuesFactory = HyDataValuesFactory.eINSTANCE;
-							HyNumberValue value = dataValuesFactory.createHyNumberValue();
-							value.setValue(min);
-							HyValueExpression valueExpression = expressionFactory.createHyValueExpression();
-							valueExpression.setValue(value);
-							
-							AtomicFeatureExpression atomicFeatureExpression = new AtomicFeatureExpression();
-							atomicFeatureExpression.setFeature(feature);
-							
-							
-							HyMultiplicationExpression multiplicationExpression = expressionFactory.createHyMultiplicationExpression();
-							multiplicationExpression.setOperand1(valueExpression);
-							multiplicationExpression.setOperand2(atomicFeatureExpression);
-							
-							ifPossibleExpression.getOperands().add(multiplicationExpression);
-						}
-					}
-				}
-			}
-		}
-		
-		HyNestedExpression nestedExpression = expressionFactory.createHyNestedExpression();
-		nestedExpression.setOperand(ifPossibleExpression);
-
-		HyValueExpression valueExpression = expressionFactory.createHyValueExpression();
-		HyDataValuesFactory dataValuesFactory = HyDataValuesFactory.eINSTANCE;
-		HyNumberValue value = dataValuesFactory.createHyNumberValue();
-		value.setValue(0);
-		valueExpression.setValue(value);
-
-		HySubtractionExpression subtractionExpression = expressionFactory.createHySubtractionExpression();
-		subtractionExpression.setOperand1(valueExpression);
-		subtractionExpression.setOperand2(nestedExpression);
-
-		HyPreference preference = preferenceFactory.createHyPreference();
-		preference.setRootExpression(subtractionExpression);
+	public void addPreference(HyPreference preference) {
 		preferenceModel.getPreferences().add(preference);
 	}
+
 
 	private String sendToHyVarRec(String content) {
 		HttpClient client = new HttpClient();
