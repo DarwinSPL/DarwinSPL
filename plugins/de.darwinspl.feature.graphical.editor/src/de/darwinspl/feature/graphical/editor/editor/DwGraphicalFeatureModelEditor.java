@@ -47,6 +47,7 @@ import de.darwinspl.feature.graphical.editor.actions.attribute.DwAttributeCreate
 import de.darwinspl.feature.graphical.editor.actions.attribute.DwAttributeCreateEnumAction;
 import de.darwinspl.feature.graphical.editor.actions.attribute.DwAttributeCreateNumberAction;
 import de.darwinspl.feature.graphical.editor.actions.attribute.DwAttributeCreateStringAction;
+import de.darwinspl.feature.graphical.editor.actions.attribute.DwAttributeEditDefaultAction;
 import de.darwinspl.feature.graphical.editor.actions.attribute.DwAttributeRenameAction;
 import de.darwinspl.feature.graphical.editor.actions.attribute.DwNumberAttributeSetNumberRangeAction;
 import de.darwinspl.feature.graphical.editor.actions.enumeration.DwFeatureAttributeEnumCreateEnumAction;
@@ -225,6 +226,10 @@ public class DwGraphicalFeatureModelEditor extends DwGraphicalFeatureModelViewer
 		getActionRegistry().registerAction(rangeAttributeAction);
 		getSelectionActions().add(rangeAttributeAction.getId());
 
+		DwAttributeEditDefaultAction editDefaultAction = new DwAttributeEditDefaultAction(this);
+		getActionRegistry().registerAction(editDefaultAction);
+		getSelectionActions().add(editDefaultAction.getId());
+		
 		createGroupActions();
 		createEnumActions();
 

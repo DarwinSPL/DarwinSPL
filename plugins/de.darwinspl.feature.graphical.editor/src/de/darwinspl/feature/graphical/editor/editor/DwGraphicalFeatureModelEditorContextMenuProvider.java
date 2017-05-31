@@ -9,11 +9,13 @@ import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.action.Separator;
 import org.eclipse.ui.actions.ActionFactory;
 
+import de.darwinspl.feature.graphical.base.model.DwEditorChangeableElement;
 import de.darwinspl.feature.graphical.editor.actions.DwLinearTemporalElementChangeValidityAction;
 import de.darwinspl.feature.graphical.editor.actions.attribute.DwAttributeCreateBooleanAction;
 import de.darwinspl.feature.graphical.editor.actions.attribute.DwAttributeCreateEnumAction;
 import de.darwinspl.feature.graphical.editor.actions.attribute.DwAttributeCreateNumberAction;
 import de.darwinspl.feature.graphical.editor.actions.attribute.DwAttributeCreateStringAction;
+import de.darwinspl.feature.graphical.editor.actions.attribute.DwAttributeEditDefaultAction;
 import de.darwinspl.feature.graphical.editor.actions.attribute.DwAttributeRenameAction;
 import de.darwinspl.feature.graphical.editor.actions.attribute.DwNumberAttributeSetNumberRangeAction;
 import de.darwinspl.feature.graphical.editor.actions.enumeration.DwFeatureAttributeEnumCreateEnumAction;
@@ -98,6 +100,9 @@ public class DwGraphicalFeatureModelEditorContextMenuProvider extends ContextMen
         
         action = getActionRegistry().getAction(DwNumberAttributeSetNumberRangeAction.ATTRIBUTE_EDIT_MIN_AND_MAX);     
         menu.appendToGroup(GEFActionConstants.GROUP_EDIT, action);    
+        
+        action = getActionRegistry().getAction(DwAttributeEditDefaultAction.ATTRIBUTE_EDIT_DEFAULT);
+        menu.appendToGroup(GEFActionConstants.GROUP_EDIT, action);
         
         action = getActionRegistry().getAction(DwFeatureAttributeEnumCreateLiteralAction.ATTRIBUTE_CREATE_LITERAL);
         menu.appendToGroup(GEFActionConstants.GROUP_EDIT, action);
