@@ -47,8 +47,8 @@ public class DwAttributeDeleteCommand extends Command{
 			attribute.getFeature().getAttributes().remove(attribute);
 		}
 			
-		for(Adapter adapter : attribute.getFeature().eAdapters())
-			adapter.notifyChanged(new AttributeTemporalDeleteNotification(0, date, date));
+		//for(Adapter adapter : attribute.getFeature().eAdapters())
+		//	adapter.notifyChanged(new AttributeTemporalDeleteNotification(0, date, date));
 		
 		editor.getModelWrapped().rearrangeFeatures();
 		editor.refreshView();

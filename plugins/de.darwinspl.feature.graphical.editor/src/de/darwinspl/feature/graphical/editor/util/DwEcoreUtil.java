@@ -6,6 +6,7 @@ import eu.hyvar.feature.HyFeature;
 import eu.hyvar.feature.HyFeatureChild;
 import eu.hyvar.feature.HyGroup;
 import eu.hyvar.feature.HyGroupComposition;
+import eu.hyvar.feature.HyVersion;
 
 public class DwEcoreUtil {
 	public static HyFeature copy(HyFeature o){
@@ -46,5 +47,12 @@ public class DwEcoreUtil {
 		}	
 		
 		return result;	
+	}
+	
+	public static HyVersion copy(HyVersion o){
+		HyVersion result = (HyVersion)EcoreUtil.copy(o);
+		result.setId(o.getId());
+		
+		return result;
 	}
 }

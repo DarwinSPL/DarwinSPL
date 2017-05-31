@@ -14,10 +14,11 @@ import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
 
 import de.darwinspl.feature.graphical.base.model.DwFeatureModelWrapped;
+import de.darwinspl.feature.graphical.base.model.DwFeatureWrapped;
 import eu.hyvar.feature.HyFeature;
 
 public class DwFeatureTreeLayouter {
-	private TreeLayout<HyFeature> treeLayout;
+	private TreeLayout<DwFeatureWrapped> treeLayout;
 	
 	private static final int offsetX = calculateOffsetX();
 	private static final int offsetY = calculateOffsetY();
@@ -40,10 +41,10 @@ public class DwFeatureTreeLayouter {
 		HyFeature initialVersion = featureModel.getModel().getRootFeature().get(0).getFeature();
 		
 		
-		TreeForTreeLayout<HyFeature> tree = new DwFeatureTreeForTreeLayout(initialVersion, featureModel.getSelectedDate());
+		TreeForTreeLayout<DwFeatureWrapped> tree = new DwFeatureTreeForTreeLayout(featureModel.findWrappedFeature(initialVersion), featureModel.getSelectedDate());
 		DwFeatureNodeExtentProvider extentProvider = new DwFeatureNodeExtentProvider(featureModel);
 
-		DefaultConfiguration<HyFeature> configuration = new DefaultConfiguration<HyFeature>(theme.getFeatureExtentY()*1.5, theme.getFeatureExtentX()) {
+		DefaultConfiguration<DwFeatureWrapped> configuration = new DefaultConfiguration<DwFeatureWrapped>(theme.getFeatureExtentY()*1.5, theme.getFeatureExtentX()) {
 			@Override
 			public Location getRootLocation() {
 				return Location.Top;
@@ -55,19 +56,19 @@ public class DwFeatureTreeLayouter {
 			}
 		};
 		
-		treeLayout = new TreeLayout<HyFeature>(tree, extentProvider, configuration);
+		treeLayout = new TreeLayout<DwFeatureWrapped>(tree, extentProvider, configuration);
 	}
 
 	/**
 	 * @return A point representing the upper left point of the rectangle representing the bounds.
 	 */
-	public Point getCoordinates(HyFeature feature) {
+	public Point getCoordinates(DwFeatureWrapped feature) {
 		Rectangle2D.Double nodeBounds = getNodeBounds(feature);
 		
 		return new Point((int) nodeBounds.getX(), (int) nodeBounds.getY());
 	}
 
-	public Rectangle getBounds(HyFeature feature) {
+	public Rectangle getBounds(DwFeatureWrapped feature) {
 		
 		Rectangle2D.Double nodeBounds = getNodeBounds(feature);
 		
@@ -81,7 +82,7 @@ public class DwFeatureTreeLayouter {
 		return null;
 	}
 	
-	private Rectangle2D.Double adjustNodeBounds(Rectangle2D.Double nodeBounds, HyFeature feature) {
+	private Rectangle2D.Double adjustNodeBounds(Rectangle2D.Double nodeBounds, DwFeatureWrapped feature) {
 
 		try{
 			Rectangle2D.Double adjustedNodeBounds = (Rectangle2D.Double) nodeBounds.clone();
@@ -98,8 +99,8 @@ public class DwFeatureTreeLayouter {
 		return null;
 	}
 
-	private Rectangle2D.Double getNodeBounds(HyFeature feature) {
-		Map<HyFeature, Double> elements = treeLayout.getNodeBounds();
+	private Rectangle2D.Double getNodeBounds(DwFeatureWrapped feature) {
+		Map<DwFeatureWrapped, Double> elements = treeLayout.getNodeBounds();
 		Rectangle2D.Double nodeBounds = elements.get(feature);
 		
 		return adjustNodeBounds(nodeBounds, feature);

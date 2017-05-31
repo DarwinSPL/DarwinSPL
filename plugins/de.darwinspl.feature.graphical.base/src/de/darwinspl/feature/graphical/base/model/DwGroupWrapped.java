@@ -98,8 +98,8 @@ public class DwGroupWrapped extends DwEditorChangeableElement {
 		DwGroupWrapped old = clone();
 		HyGroupComposition composition = getWrappedModelElement().getParentOf().get(0);
 
-		childFeature.getWrappedModelElement().getGroupMembership().add(composition);
-		childFeature.setParent(this);
+		//childFeature.getWrappedModelElement().getGroupMembership().add(composition);
+		//childFeature.setParent(this);
 
 		if(features.add(childFeature)){
 			listeners.firePropertyChange(PROPERTY_CHILD_FEATURES, old, this);

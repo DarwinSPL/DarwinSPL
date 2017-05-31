@@ -147,6 +147,8 @@ public class DwEnumContainerEditPart extends DwAbstractEditPart{
 			int validEnums = HyEvolutionUtil.getValidTemporalElements(featureModel.getModel().getEnums(), featureModel.getSelectedDate()).size();
 			
 			figure.setVisible(validEnums != 0);
+			
+			parent.setLayoutConstraint(this, figure, getFigureConstraint());
 		}
 	}
 	

@@ -41,6 +41,8 @@ public class DwVersionCreateCommand  extends Command {
 			version.setValidSince(date);
 			parentAsFeature.getVersions().add(version);
 		}		
+		
+		
 	}
 	
 	@Override

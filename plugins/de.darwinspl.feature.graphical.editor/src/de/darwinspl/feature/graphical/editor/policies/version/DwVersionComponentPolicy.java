@@ -1,5 +1,6 @@
 package de.darwinspl.feature.graphical.editor.policies.version;
 
+import org.eclipse.gef.EditPart;
 import org.eclipse.gef.commands.Command;
 import org.eclipse.gef.editpolicies.ComponentEditPolicy;
 import org.eclipse.gef.requests.GroupRequest;
@@ -20,7 +21,7 @@ public class DwVersionComponentPolicy extends ComponentEditPolicy {
 
 	@Override 
 	protected Command createDeleteCommand(GroupRequest deleteRequest) {
-		DwVersionEvolutionDeleteCommand deleteCommand = new DwVersionEvolutionDeleteCommand(editor);
+		DwVersionEvolutionDeleteCommand deleteCommand = new DwVersionEvolutionDeleteCommand(editor, (EditPart)deleteRequest.getEditParts().get(0));
 		deleteCommand.setVersion((HyVersion)getHost().getModel());
 
 		return deleteCommand;

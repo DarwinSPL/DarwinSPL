@@ -39,6 +39,7 @@ public class DwFeatureWrapped extends DwEditorChangeableElement{
 	private List<DwParentChildConnection> parentConnections;
 	private List<DwParentChildConnection> childrenConnections;
 	
+
 	/**
 	 * Controls if all features are hidden or visible
 	 */
@@ -134,8 +135,7 @@ public class DwFeatureWrapped extends DwEditorChangeableElement{
 		
 		return bounds;
 	}
-
-
+	
 	public Rectangle calculateNameAreaBounds(Date date) {
 		DEGraphicalEditorTheme theme = DEGraphicalEditor.getTheme();
 		int width = DwGeometryUtil.calculateFeatureWidth(getWrappedModelElement(), date);

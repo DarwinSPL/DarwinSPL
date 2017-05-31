@@ -106,7 +106,7 @@ public abstract class DwAbstractEditPart extends AbstractGraphicalEditPart imple
 			}	
 			
 			if(parent != null)
-			parent.setLayoutConstraint(this, figure, constraint);
+				parent.setLayoutConstraint(this, figure, constraint);
 		}
 	}
 

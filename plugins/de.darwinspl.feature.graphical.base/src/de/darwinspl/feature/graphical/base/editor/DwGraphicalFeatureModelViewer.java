@@ -19,6 +19,8 @@ import org.eclipse.gef.commands.CommandStack;
 import org.eclipse.gef.editparts.ScalableFreeformRootEditPart;
 import org.eclipse.gef.ui.parts.ScrollingGraphicalViewer;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.events.ControlEvent;
+import org.eclipse.swt.events.ControlListener;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.layout.RowData;
@@ -37,7 +39,6 @@ import org.eclipse.ui.PartInitException;
 
 import de.christophseidl.util.ecore.EcoreIOUtil;
 import de.darwinspl.feature.graphical.base.dialogs.DwDateDialog;
-import de.darwinspl.feature.graphical.base.editparts.DwFeatureModelEditPart;
 import de.darwinspl.feature.graphical.base.factory.DwFeatureModelEditPartFactory;
 import de.darwinspl.feature.graphical.base.model.DwFeatureModelWrapped;
 import de.darwinspl.feature.graphical.base.util.DwFeatureModelLayoutFileUtil;
@@ -48,6 +49,7 @@ import eu.hyvar.feature.expression.extensionpoints.IFeatureModelEditor;
 
 
 public class DwGraphicalFeatureModelViewer extends DwGraphicalViewerWithZoomSupport implements IFeatureModelEditor, Listener{
+
 	// UI components
 	protected Button currentDate;
 	protected Button addDate;
@@ -98,8 +100,6 @@ public class DwGraphicalFeatureModelViewer extends DwGraphicalViewerWithZoomSupp
 
 
 		modelWrapped.setSelectedDate(currentSelectedDate);
-
-		refreshView();
 	}
 
 	/**
@@ -315,6 +315,22 @@ public class DwGraphicalFeatureModelViewer extends DwGraphicalViewerWithZoomSupp
 			modelWrapped.addDate(now);
 			setCurrentSelectedDate(now);
 		}		
+		
+		/**
+		 * register control listener for visualization bug if a side editor was added
+		 */
+		parent.addControlListener(new ControlListener(){
+
+			@Override
+			public void controlMoved(ControlEvent e) {
+			}
+
+			@Override
+			public void controlResized(ControlEvent e) {
+				parent.update();
+			}
+			
+		});
 	}
 
 	/**
@@ -327,7 +343,6 @@ public class DwGraphicalFeatureModelViewer extends DwGraphicalViewerWithZoomSupp
 		createEditor(parent);
 		createSliderControl(parent);
 		registerControlListeners();
-		((DwFeatureModelEditPart)getGraphicalViewer().getContents()).refresh();
 	}
 
 	/**
