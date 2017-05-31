@@ -1,5 +1,8 @@
 package de.darwinspl.configurator;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import de.darwinspl.configurator.expression.AtomicFeatureExpression;
 import eu.hyvar.dataValues.HyDataValuesFactory;
 import eu.hyvar.dataValues.HyNumberValue;
@@ -22,6 +25,12 @@ import eu.hyvar.preferences.PreferencesFactory;
 
 public class PreferenceBuilder {
 
+	public enum Mode {
+		MIN,
+		MAX,
+		DEFAULT
+	}
+	
 	private HyFeatureModel featureModel;
 
 	private HyExpressionFactory expressionFactory;
@@ -103,49 +112,62 @@ public class PreferenceBuilder {
 		return this;
 	}
 
-	private HyExpression createMaxAttributeExpression(String attributeName) {
-		HyIfPossibleExpression ifPossibleExpression = expressionFactory.createHyIfPossibleExpression();
-
+	private List<HyFeatureAttribute> getAttributesByName(String attributeName) {
+		if (attributeName == null)
+			return new ArrayList<HyFeatureAttribute>();
+		List<HyFeatureAttribute> attributes = new ArrayList<HyFeatureAttribute>();
 		for (HyFeature feature : featureModel.getFeatures()) {
 			for (HyFeatureAttribute attribute : feature.getAttributes()) {
 				for (HyName name : attribute.getNames()) {
 					if (attributeName.equals(name.getName())) {
-						HyAttributeReferenceExpression attributeReferenceExpression = expressionFactory
-								.createHyAttributeReferenceExpression();
-						attributeReferenceExpression.setAttribute(attribute);
-						attributeReferenceExpression.setFeature(feature);
-
-						int min = ((HyNumberAttribute) attribute).getMin();
-						HyDataValuesFactory dataValuesFactory = HyDataValuesFactory.eINSTANCE;
-						HyNumberValue value = dataValuesFactory.createHyNumberValue();
-						value.setValue(min);
-						HyValueExpression valueExpression = expressionFactory.createHyValueExpression();
-						valueExpression.setValue(value);
-
-						AtomicFeatureExpression atomicFeatureExpression = new AtomicFeatureExpression();
-						atomicFeatureExpression.setFeature(feature);
-
-						HyMultiplicationExpression multiplicationExpression = expressionFactory
-								.createHyMultiplicationExpression();
-						multiplicationExpression.setOperand1(valueExpression);
-						multiplicationExpression.setOperand2(atomicFeatureExpression);
-
-						ifPossibleExpression.getOperands().add(multiplicationExpression);
+						attributes.add(attribute);
 					}
 				}
 			}
+		}
+		return attributes;
+	}
 
+	private HyExpression createMaxAttributeExpression(String attributeName, Mode mode) {
+		HyIfPossibleExpression ifPossibleExpression = expressionFactory.createHyIfPossibleExpression();
+
+		for (HyFeatureAttribute attribute : getAttributesByName(attributeName)) {
+			HyAttributeReferenceExpression attributeReferenceExpression = expressionFactory
+					.createHyAttributeReferenceExpression();
+			attributeReferenceExpression.setAttribute(attribute);
+			attributeReferenceExpression.setFeature(attribute.getFeature());
+				
+			int intValue = 0;
+			if(mode == Mode.MIN) {
+				intValue = ((HyNumberAttribute) attribute).getMin();
+			} else {
+				intValue = ((HyNumberAttribute) attribute).getMax();
+			}
+			HyDataValuesFactory dataValuesFactory = HyDataValuesFactory.eINSTANCE;
+			HyNumberValue value = dataValuesFactory.createHyNumberValue();
+			value.setValue(intValue);
+			HyValueExpression valueExpression = expressionFactory.createHyValueExpression();
+			valueExpression.setValue(value);
+
+			AtomicFeatureExpression atomicFeatureExpression = new AtomicFeatureExpression();
+			atomicFeatureExpression.setFeature(attribute.getFeature());
+
+			HyMultiplicationExpression multiplicationExpression = expressionFactory.createHyMultiplicationExpression();
+			multiplicationExpression.setOperand1(valueExpression);
+			multiplicationExpression.setOperand2(atomicFeatureExpression);
+
+			ifPossibleExpression.getOperands().add(multiplicationExpression);
 		}
 		return nestExpression(ifPossibleExpression);
 	}
 
-	public PreferenceBuilder addMaxAttributeExpression(String attributeName) {
-		addExpression(createMaxAttributeExpression(attributeName));
+	public PreferenceBuilder addMaxAttributeExpression(String attributeName, Mode mode) {
+		addExpression(createMaxAttributeExpression(attributeName, mode));
 		return this;
 	}
 
-	public PreferenceBuilder addMinAttributeExpression(String attributeName) {
-		addExpression(invertExpression(createMaxAttributeExpression(attributeName)));
+	public PreferenceBuilder addMinAttributeExpression(String attributeName, Mode mode) {
+		addExpression(invertExpression(createMaxAttributeExpression(attributeName, mode)));
 		return this;
 	}
 

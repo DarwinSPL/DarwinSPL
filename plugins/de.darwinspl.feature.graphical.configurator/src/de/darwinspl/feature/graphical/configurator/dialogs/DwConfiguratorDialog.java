@@ -88,7 +88,7 @@ public class DwConfiguratorDialog extends Dialog {
 			TableItem item = table.getItem(i);
 
 			if (item.getChecked()) {
-				builder.addMinAttributeExpression(attributes.get(i));
+				builder.addMinAttributeExpression(attributes.get(i), PreferenceBuilder.Mode.MIN);
 			}
 		}
 
