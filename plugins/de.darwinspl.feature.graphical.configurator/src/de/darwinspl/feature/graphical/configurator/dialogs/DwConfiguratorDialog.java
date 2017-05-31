@@ -95,6 +95,7 @@ public class DwConfiguratorDialog extends Dialog {
 			}
 		}
 		
+		configurator.addAttributeOptimizationPreference(attributes);
 		
 		if(dropdown.getSelectionIndex() == 0) {
 			configurator.addMaxFeaturesPreference();
