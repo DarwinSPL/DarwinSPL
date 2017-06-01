@@ -20,7 +20,7 @@ import eu.hyvar.feature.configuration.HyConfiguration;
 import eu.hyvar.feature.constraint.HyConstraintModel;
 import eu.hyvar.feature.impl.custom.HyFeatureFactoryWithIds;
 import eu.hyvar.feature.mapping.HyMappingModel;
-import eu.hyvar.preferences.HyPreferenceModel;
+import eu.hyvar.preferences.HyProfile;
 
 public class SmallExample extends HyFMExample {
 
@@ -106,7 +106,7 @@ public class SmallExample extends HyFMExample {
 	}
 
 	@Override
-	public HyPreferenceModel createPreferenceModel() {
+	public HyProfile createPreferenceModel() {
 		// TODO Auto-generated method stub
 		return null;
 	}

@@ -38,7 +38,7 @@ import eu.hyvar.dataValues.HyValue;
 import eu.hyvar.feature.HyFeatureModel;
 import eu.hyvar.feature.configuration.HyConfiguration;
 import eu.hyvar.feature.constraint.HyConstraintModel;
-import eu.hyvar.preferences.HyPreferenceModel;
+import eu.hyvar.preferences.HyProfile;
 import eu.hyvar.reconfigurator.input.exporter.HyVarRecExporter;
 import eu.hyvar.reconfigurator.output.translation.HyVarRecOutputTranslator;
 import eu.hyvar.reconfigurator.output.translation.format.OutputOfHyVarRec;
@@ -79,7 +79,7 @@ public class AnalysesClient {
 		return URI.create(originalUri);
 	}
 	
-	protected String createHyVarRecMessage(HyContextModel contextModel, HyValidityModel contextValidityModel, HyFeatureModel featureModel, HyConstraintModel constraintModel, HyConfiguration oldConfiguration, HyPreferenceModel preferenceModel, HyContextValueModel contextValues, Date date) {
+	protected String createHyVarRecMessage(HyContextModel contextModel, HyValidityModel contextValidityModel, HyFeatureModel featureModel, HyConstraintModel constraintModel, HyConfiguration oldConfiguration, HyProfile preferenceModel, HyContextValueModel contextValues, Date date) {
 		HyVarRecExporter exporter = new HyVarRecExporter();
 		String messageForHyVarRec = exporter.exportContextMappingModel(contextModel, contextValidityModel, featureModel, constraintModel, oldConfiguration, preferenceModel, contextValues, date);
 		return messageForHyVarRec;
@@ -100,7 +100,7 @@ public class AnalysesClient {
 	 */
 	public boolean validateFeatureModel(String uriString, HyContextModel contextModel, HyValidityModel contextValidityModel,
 			HyFeatureModel featureModel, HyConstraintModel constraintModel, HyConfiguration oldConfiguration,
-			HyPreferenceModel preferenceModel, HyContextValueModel contextValues, Date date) {
+			HyProfile preferenceModel, HyContextValueModel contextValues, Date date) {
 		
 		String messageForHyVarRec = createHyVarRecMessage(contextModel, contextValidityModel, featureModel, constraintModel, oldConfiguration, preferenceModel, contextValues, date);
 		URI uri = createUriWithPath(uriString, VALIDATE_FM_URI);
@@ -135,7 +135,7 @@ public class AnalysesClient {
 	 */
 	public HyContextValueModel validateFeatureModelWithContext(String uriString, HyContextModel contextModel, HyValidityModel contextValidityModel,
 			HyFeatureModel featureModel, HyConstraintModel constraintModel, HyConfiguration oldConfiguration,
-			HyPreferenceModel preferenceModel, HyContextValueModel contextValues, Date date) {
+			HyProfile preferenceModel, HyContextValueModel contextValues, Date date) {
 		
 		String messageForHyVarRec = createHyVarRecMessage(contextModel, contextValidityModel, featureModel, constraintModel, oldConfiguration, preferenceModel, contextValues, date);
 		URI uri = createUriWithPath(uriString, VALIDATE_CONTEXT_URI);
@@ -264,7 +264,7 @@ public class AnalysesClient {
 	 */
 	public HyConfiguration reconfigure(String uriString, HyContextModel contextModel, HyValidityModel contextValidityModel,
 			HyFeatureModel featureModel, HyConstraintModel constraintModel, HyConfiguration oldConfiguration,
-			HyPreferenceModel preferenceModel, HyContextValueModel contextValues, Date date) {
+			HyProfile preferenceModel, HyContextValueModel contextValues, Date date) {
 		
 		String messageForHyVarRec = createHyVarRecMessage(contextModel, contextValidityModel, featureModel, constraintModel, oldConfiguration, preferenceModel, contextValues, date);
 		

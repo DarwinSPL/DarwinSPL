@@ -33,7 +33,7 @@ import eu.hyvar.feature.configuration.util.HyConfigurationUtil;
 import eu.hyvar.feature.constraint.HyConstraintModel;
 import eu.hyvar.feature.constraint.util.HyConstraintUtil;
 import eu.hyvar.feature.util.HyFeatureUtil;
-import eu.hyvar.preferences.HyPreferenceModel;
+import eu.hyvar.preferences.HyProfile;
 import eu.hyvar.preferences.util.HyPreferenceModelUtil;
 import eu.hyvar.reconfigurator.input.exporter.HyVarRecExporter;
 
@@ -165,7 +165,7 @@ public class ExportToHyVarRecCommandHandler extends AbstractHandler {
 		HyConstraintModel constraintModel = null;
 		HyContextModel contextModel = null;
 		HyValidityModel validityModel = null;
-		HyPreferenceModel preferenceModel = null;
+		HyProfile preferenceModel = null;
 		HyConfiguration configuration = null;
 		HyContextValueModel contextValueModel = null;
 
@@ -178,8 +178,8 @@ public class ExportToHyVarRecCommandHandler extends AbstractHandler {
 				contextModel = (HyContextModel) object;
 			} else if (object instanceof HyValidityModel) {
 				validityModel = (HyValidityModel) object;
-			} else if (object instanceof HyPreferenceModel) {
-				preferenceModel = (HyPreferenceModel) object;
+			} else if (object instanceof HyProfile) {
+				preferenceModel = (HyProfile) object;
 			} else if (object instanceof HyConfiguration) {
 				configuration = (HyConfiguration) object;
 			} else if (object instanceof HyContextValueModel) {

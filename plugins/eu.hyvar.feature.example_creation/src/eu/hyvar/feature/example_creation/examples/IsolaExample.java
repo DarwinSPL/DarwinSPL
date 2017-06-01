@@ -57,7 +57,7 @@ import eu.hyvar.feature.expression.HyValueExpression;
 import eu.hyvar.feature.mapping.HyMappingModel;
 import eu.hyvar.feature.util.HyFeatureCreationUtil;
 import eu.hyvar.preferences.HyPreference;
-import eu.hyvar.preferences.HyPreferenceModel;
+import eu.hyvar.preferences.HyProfile;
 import eu.hyvar.preferences.PreferencesFactory;
 
 public class IsolaExample extends HyFMExample {
@@ -585,7 +585,7 @@ public class IsolaExample extends HyFMExample {
 
 		// ------- create preferences --------
 		PreferencesFactory preferenceFactory = PreferencesFactory.eINSTANCE;
-		HyPreferenceModel preferenceModel = preferenceFactory.createHyPreferenceModel();
+		HyProfile preferenceModel = preferenceFactory.createHyProfile();
 		this.preferenceModel = preferenceModel;
 		preferenceModel.setContextModel(contextModel);
 		preferenceModel.setFeatureModel(featureModel);
@@ -863,10 +863,10 @@ public class IsolaExample extends HyFMExample {
 		return contextValidityModel;
 	}
 
-	private HyPreferenceModel preferenceModel;
+	private HyProfile preferenceModel;
 	
 	@Override
-	public HyPreferenceModel createPreferenceModel() {
+	public HyProfile createPreferenceModel() {
 		return preferenceModel;
 	}
 
