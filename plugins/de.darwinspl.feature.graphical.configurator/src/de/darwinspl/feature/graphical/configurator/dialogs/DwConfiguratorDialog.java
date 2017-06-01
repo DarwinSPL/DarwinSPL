@@ -12,6 +12,7 @@ import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
+import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
@@ -47,6 +48,10 @@ public class DwConfiguratorDialog extends Dialog {
 	private TableColumn colAttributeMax;
 	private TableColumn colAttributeMin;
 	private TableColumn colAttributeCustom;
+	
+	private final String MIN = "MIN";
+	private final String MAX = "MAX";
+	private final String CUSTOM = "CUSTOM";
 
 	private HyConfiguration configuration;
 
@@ -56,6 +61,7 @@ public class DwConfiguratorDialog extends Dialog {
 			Date date, String uri) {
 		super(parentShell);
 
+		
 		this.featureModel = featureModel;
 		this.constraintModel = constraintModel;
 		this.date = date;
@@ -75,7 +81,17 @@ public class DwConfiguratorDialog extends Dialog {
 		open();
 		return configuration;
 	}
+	
+	
 
+	@Override
+	protected boolean isResizable() {
+		// TODO Auto-generated method stub
+		return true;
+	}
+
+	
+	
 	@Override
 	protected void okPressed() {
 
@@ -83,16 +99,25 @@ public class DwConfiguratorDialog extends Dialog {
 
 		Configurator configurator = new Configurator(uri, featureModel, constraintModel, date);
 		PreferenceBuilder builder = new PreferenceBuilder(featureModel);
-
+		
+		boolean expressionAdded = false;
 		for (int i = 0; i < table.getItemCount(); i++) {
 			TableItem item = table.getItem(i);
 
 			if (item.getChecked()) {
-				builder.addMinAttributeExpression(attributes.get(i), PreferenceBuilder.Mode.MIN);
+				if(((Button)item.getData(MIN)).getSelection()) {
+					builder.addMinAttributeExpression(attributes.get(i), PreferenceBuilder.Mode.MIN);
+				} else if(((Button)item.getData(MAX)).getSelection()) {
+					builder.addMaxAttributeExpression(attributes.get(i), PreferenceBuilder.Mode.MIN);
+				} else  if(((Button)item.getData(CUSTOM)).getSelection()) {
+					builder.addMinAttributeExpression(attributes.get(i), PreferenceBuilder.Mode.MIN);
+				}
+				builder.addCustomAttribute(attributes.get(i), PreferenceBuilder.Mode.MIN, 50);
+				expressionAdded = true;
 			}
 		}
 
-		configurator.addPreference(builder.build());
+		if(expressionAdded) configurator.addPreference(builder.build());
 
 		if (dropdown.getSelectionIndex() == 0) {
 			builder = new PreferenceBuilder(featureModel);
@@ -120,10 +145,15 @@ public class DwConfiguratorDialog extends Dialog {
 		Composite composite = (Composite) super.createDialogArea(parent);
 
 		composite.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
+	
 
-		table = new Table(composite, SWT.CHECK | SWT.SINGLE);
+		table = new Table(composite, SWT.CHECK | SWT.MAX );
 		table.setHeaderVisible(true);
 		table.setLinesVisible(true);
+		
+		GridData gridData = new GridData(SWT.FILL, SWT.FILL, true, true, 2, 1);
+		gridData.heightHint = 100;
+		table.setLayoutData(gridData);
 
 		colAttributeName = new TableColumn(table, SWT.LEFT);
 		colAttributeMin = new TableColumn(table, SWT.LEFT);
@@ -144,35 +174,43 @@ public class DwConfiguratorDialog extends Dialog {
 
 			// fill attribute names
 			TableEditor editor = new TableEditor(table);
-			Text text = new Text(table, SWT.NONE);
+			Label text = new Label(table, SWT.NONE);
 			text.setText(attribute);
-			text.setEditable(false);
 			editor.grabHorizontal = true;
 			TableItem item = new TableItem(table, SWT.NONE);
 			editor.setEditor(text, item, 0);
 
 			editor = new TableEditor(table);
-			Button btn = new Button(table, SWT.CHECK);
-			btn.setText("MIN");
+			Button btn = new Button(table, SWT.RADIO);
+			editor.grabHorizontal = true;
 			editor.setEditor(btn, item, 1);
+			item.setData(MIN, btn);
 
 			// min selection
 			editor = new TableEditor(table);
-			btn = new Button(table, SWT.CHECK);
-			btn.setText("MAX");
+			btn = new Button(table, SWT.RADIO);
+			editor.grabHorizontal = true;
+			item.setData(MAX, btn);
+
 			editor.setEditor(btn, item, 2);
 
 			editor = new TableEditor(table);
-			btn = new Button(table, SWT.CHECK);
-			btn.setText("CUSTOM");
+			btn = new Button(table, SWT.RADIO);
+			editor.grabHorizontal = true;
+			item.setData(CUSTOM, btn);
+
 			editor.setEditor(btn, item, 3);
+			
+			
 
 		}
+	
 
 		dropdown = new CCombo(composite, SWT.NONE);
 		dropdown.setItems(new String[] { "Max. Features", "Min. Features", "None" });
 		dropdown.select(2);
 
+		table.pack();
 		// composite.pack();
 
 		return composite;

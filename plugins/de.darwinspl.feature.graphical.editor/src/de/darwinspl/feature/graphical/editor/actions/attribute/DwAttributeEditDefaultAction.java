@@ -8,7 +8,6 @@ import org.eclipse.ui.IWorkbenchPart;
 
 import de.darwinspl.feature.graphical.base.editparts.DwAttributeEditPart;
 import de.darwinspl.feature.graphical.editor.dialogs.DwEditAttributeDefaultDialog;
-import eu.hyvar.feature.HyFeatureAttribute;
 import eu.hyvar.feature.HyNumberAttribute;
 
 public class DwAttributeEditDefaultAction extends SelectionAction {
