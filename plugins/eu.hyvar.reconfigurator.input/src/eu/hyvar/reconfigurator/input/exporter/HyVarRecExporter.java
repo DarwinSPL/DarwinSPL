@@ -37,6 +37,7 @@ import eu.hyvar.feature.HyFeatureModel;
 import eu.hyvar.feature.HyGroup;
 import eu.hyvar.feature.HyGroupComposition;
 import eu.hyvar.feature.HyGroupType;
+import eu.hyvar.feature.HyGroupTypeEnum;
 import eu.hyvar.feature.HyNumberAttribute;
 import eu.hyvar.feature.HyRootFeature;
 import eu.hyvar.feature.HyVersion;
@@ -54,6 +55,7 @@ import eu.hyvar.feature.expression.util.HyExpressionStringExporter;
 import eu.hyvar.feature.expression.util.HyExpressionStringExporter.BooleanRepresentationOption;
 import eu.hyvar.feature.expression.util.HyExpressionStringExporter.FeatureSelectionRepresentationOption;
 import eu.hyvar.feature.expression.util.HyExpressionStringExporter.VersionRepresentation;
+import eu.hyvar.feature.util.HyFeatureEvolutionUtil;
 import eu.hyvar.feature.util.HyFeatureModelWellFormednessException;
 import eu.hyvar.feature.util.HyFeatureUtil;
 import eu.hyvar.preferences.HyPreference;
@@ -634,6 +636,8 @@ public class HyVarRecExporter {
 			featureModelConstraints.add(groupConstraintsStringBuilder.toString());
 			groupConstraintsStringBuilder = new StringBuilder();
 		}
+		
+		
 
 		// Check Type of group and set according constraints
 
@@ -746,6 +750,34 @@ public class HyVarRecExporter {
 
 					featureModelConstraints.add(groupConstraintsStringBuilder.toString());
 					groupConstraintsStringBuilder = new StringBuilder();
+				}
+			}
+		}
+		
+		if(parentIsRoot && groupType.getType().equals(HyGroupTypeEnum.AND) && validFeaturesOfGroupComposition.size() > 0) {
+			for (HyFeature feature : validFeaturesOfGroupComposition) {
+				boolean setRootOptionalConstraint = false;
+				if(HyEvolutionUtil.getValidTemporalElements(feature.getParentOf(), date).isEmpty()) {
+					setRootOptionalConstraint = true;
+				}
+				else {
+					for(HyFeatureChild featureChild: HyEvolutionUtil.getValidTemporalElements(feature.getParentOf(), date)) {
+						if(HyFeatureEvolutionUtil.getFeaturesOfGroup(featureChild.getChildGroup(), date).isEmpty()) {
+							setRootOptionalConstraint = true;							
+						}
+					}
+				}
+				
+				if(setRootOptionalConstraint) {
+					StringBuilder optionalWithoutChildStringBuilder = new StringBuilder();
+					optionalWithoutChildStringBuilder.append(featureReconfiguratorIdMapping.get(feature));
+					optionalWithoutChildStringBuilder.append(EQUALS);
+					optionalWithoutChildStringBuilder.append(1);
+					optionalWithoutChildStringBuilder.append(IMPLICATION);
+					optionalWithoutChildStringBuilder.append(parentFeatureId);
+					optionalWithoutChildStringBuilder.append(EQUALS);
+					optionalWithoutChildStringBuilder.append(1);
+					featureModelConstraints.add(optionalWithoutChildStringBuilder.toString());							
 				}
 			}
 		}

@@ -4,13 +4,17 @@ import java.util.List;
 
 import org.eclipse.emf.ecore.EObject;
 
+import eu.hyvar.feature.expression.HyExpression;
+
 public class DwConstraintModelAnalysesMarker {
+	private List<HyExpression> affectedExpressions;
 	private List<EObject> affectedObjects;
 	private String message;
 	private MarkerTypeEnum markerType;
 
-	public DwConstraintModelAnalysesMarker(List<EObject> affectedObjects, String message, MarkerTypeEnum markerType) {
+	public DwConstraintModelAnalysesMarker(List<HyExpression> affectedExpressions, List<EObject> affectedObjects, String message, MarkerTypeEnum markerType) {
 		this.affectedObjects = affectedObjects;
+		this.affectedExpressions = affectedExpressions;
 		this.message = message;
 		this.markerType = markerType;
 	}
@@ -19,8 +23,8 @@ public class DwConstraintModelAnalysesMarker {
 		WARNING, ERROR
 	}
 
-	public List<EObject> getAffectedObjects() {
-		return affectedObjects;
+	public List<HyExpression> getAffectedExpressions() {
+		return affectedExpressions;
 	}
 
 	public String getMessage() {
@@ -30,6 +34,11 @@ public class DwConstraintModelAnalysesMarker {
 	public MarkerTypeEnum getMarkerType() {
 		return markerType;
 	}
+
+	public List<EObject> getAffectedObjects() {
+		return affectedObjects;
+	}
+	
 	
 	
 }
