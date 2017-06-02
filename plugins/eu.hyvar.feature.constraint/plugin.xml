@@ -47,7 +47,7 @@
                   The following objects have a shorter validity than the constraint itself: {0}
                </message>
                <description>
-                  The constraint's temporal validity should not be longer than its referencing elements
+                  The constraint temporal validity should not be longer than its referencing elements
                </description>
                <target
                      class="HyConstraint">

@@ -23,5 +23,6 @@ Require-Bundle: org.eclipse.core.runtime,
  org.deltaecore.common,
  org.eclipse.emf.validation,
  org.eclipse.emf.common,
- org.eclipse.equinox.registry
+ org.eclipse.equinox.registry,
+ de.darwinspl.common.analyses
 Bundle-ActivationPolicy: lazy

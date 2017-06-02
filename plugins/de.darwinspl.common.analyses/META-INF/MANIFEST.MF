@@ -1,0 +1,9 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Common Analyses Types
+Bundle-SymbolicName: de.darwinspl.common.analyses
+Bundle-Version: 1.0.0
+Bundle-RequiredExecutionEnvironment: JavaSE-1.7
+Require-Bundle: org.eclipse.emf.ecore,
+ eu.hyvar.feature.expression
+Export-Package: de.darwinspl.common.analyses

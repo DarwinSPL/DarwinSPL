@@ -3,162 +3,34 @@ package eu.hyvar.feature.constraint.analyses;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.eclipse.emf.ecore.EObject;
-
-import eu.hyvar.evolution.util.HyEvolutionUtil;
-import eu.hyvar.feature.HyFeature;
-import eu.hyvar.feature.HyFeatureAttribute;
-import eu.hyvar.feature.HyVersion;
+import de.darwinspl.common.analyses.DwAnalyses;
+import de.darwinspl.common.analyses.DwAnalysesMarker;
 import eu.hyvar.feature.constraint.HyConstraint;
 import eu.hyvar.feature.constraint.HyConstraintModel;
-import eu.hyvar.feature.constraint.analyses.DwConstraintModelAnalysesMarker.MarkerTypeEnum;
-import eu.hyvar.feature.expression.HyAbstractFeatureReferenceExpression;
-import eu.hyvar.feature.expression.HyAtomicExpression;
-import eu.hyvar.feature.expression.HyAttributeReferenceExpression;
-import eu.hyvar.feature.expression.HyBinaryExpression;
-import eu.hyvar.feature.expression.HyExpression;
-import eu.hyvar.feature.expression.HyRelativeVersionRestriction;
-import eu.hyvar.feature.expression.HyUnaryExpression;
-import eu.hyvar.feature.expression.HyVersionRangeRestriction;
 
 public class DwConstraintModelAnalyses {
-
-	private static final String ERROR_MESSAGE_REFERENCE_VALIDITY_CONSISTENCY_FEATURE = "Constraint's validity is exceeding referenced feature's validity";
-	private static final String ERROR_MESSAGE_REFERENCE_VALIDITY_CONSISTENCY_VERSION = "Constraint's validity is exceeding referenced version's validity";
-	private static final String ERROR_MESSAGE_REFERENCE_VALIDITY_CONSISTENCY_ATTRIBUTE = "Constraint's validity is exceeding referenced attribute's validity";
 	
-	public static List<DwConstraintModelAnalysesMarker> checkConstraintModelValidity(HyConstraintModel constraintModel) {
-		List<DwConstraintModelAnalysesMarker> markerList = new ArrayList<DwConstraintModelAnalysesMarker>();
+	public static List<DwAnalysesMarker> checkConstraintModelValidity(HyConstraintModel constraintModel) {
+		List<DwAnalysesMarker> markerList = new ArrayList<DwAnalysesMarker>();
 		
+		markerList.addAll(checkReferenceValidityConsistency(constraintModel));
 		
 		return markerList;
 	}
 	
-	public static List<DwConstraintModelAnalysesMarker> checkReferenceValidityConsistency(HyConstraintModel constraintModel) {
-		List<DwConstraintModelAnalysesMarker> markerList = new ArrayList<DwConstraintModelAnalysesMarker>();
+	public static List<DwAnalysesMarker> checkReferenceValidityConsistency(HyConstraintModel constraintModel) {
+		List<DwAnalysesMarker> markerList = new ArrayList<DwAnalysesMarker>();
 		
 		
 		for(HyConstraint constraint: constraintModel.getConstraints()) {
-			markerList.addAll(checkReferenceValidityConsistencyForExpression(constraint.getRootExpression(), constraint));
+			markerList.addAll(DwAnalyses.checkReferenceValidityConsistencyForExpression(constraint.getRootExpression(), constraint));
 		}
 		
 		return markerList;
 	}
 	
-	public static List<DwConstraintModelAnalysesMarker> checkReferenceValidityConsistencyForExpression(HyExpression expression, HyConstraint constraint) {
-		List<DwConstraintModelAnalysesMarker> markerList = new ArrayList<DwConstraintModelAnalysesMarker>();
+	
 
-		if(expression instanceof HyAtomicExpression) {
-			if(expression instanceof HyAbstractFeatureReferenceExpression) {
-				HyAbstractFeatureReferenceExpression featureReference = (HyAbstractFeatureReferenceExpression) expression;
-				
-				HyFeature feature = featureReference.getFeature();
-				if(feature == null) {
-					return markerList;
-				}
-				
-				if(!HyEvolutionUtil.isWithinValidityOf(constraint, feature)) {
-					List<HyExpression> affectedExpressions = new ArrayList<HyExpression>(1);
-					affectedExpressions.add(featureReference);
-					
-					List<EObject> affectedObjects = new ArrayList<EObject>(1);
-					affectedObjects.add(feature);
-					
-					markerList.add(new DwConstraintModelAnalysesMarker(affectedExpressions, affectedObjects, ERROR_MESSAGE_REFERENCE_VALIDITY_CONSISTENCY_FEATURE, MarkerTypeEnum.ERROR));
-				}
-				
-				if(featureReference.getVersionRestriction()!=null) {
-					if(featureReference.getVersionRestriction() instanceof HyVersionRangeRestriction) {
-						HyVersionRangeRestriction versionRangeRestriction = (HyVersionRangeRestriction) featureReference.getVersionRestriction();
-						HyVersion lowerVersion = versionRangeRestriction.getLowerVersion();
-						HyVersion upperVersion = versionRangeRestriction.getUpperVersion();
-						
-						
-						boolean markerToAdd = false;
-
-						List<HyExpression> affectedExpressions = null;
-						List<EObject> affectedObjects = null;
-						affectedExpressions.add(featureReference);
-						
-						if((lowerVersion != null && !HyEvolutionUtil.isWithinValidityOf(constraint, lowerVersion))) {
-							affectedExpressions = new ArrayList<HyExpression>(1);
-							affectedObjects = new ArrayList<EObject>(1);
-
-							affectedExpressions.add(featureReference);
-							
-							affectedObjects.add(lowerVersion);
-							markerToAdd = true;
-							
-						} else if((upperVersion != null && !HyEvolutionUtil.isWithinValidityOf(constraint, upperVersion))) {
-							affectedExpressions = new ArrayList<HyExpression>(1);
-							affectedObjects = new ArrayList<EObject>(1);
-
-							affectedExpressions.add(featureReference);
-							
-							affectedObjects.add(upperVersion);
-							markerToAdd = true;
-						}
-						
-						if(markerToAdd) {
-							markerList.add(new DwConstraintModelAnalysesMarker(affectedExpressions, affectedObjects, ERROR_MESSAGE_REFERENCE_VALIDITY_CONSISTENCY_VERSION, MarkerTypeEnum.ERROR));							
-						}
-					}
-					else if(featureReference.getVersionRestriction() instanceof HyRelativeVersionRestriction) {
-						HyRelativeVersionRestriction relativeVersionRestriction = (HyRelativeVersionRestriction) featureReference.getVersionRestriction();
-						HyVersion version = relativeVersionRestriction.getVersion();
-						
-						if(version != null && !HyEvolutionUtil.isWithinValidityOf(constraint, version)) {
-							List<HyExpression> affectedExpressions = new ArrayList<HyExpression>(1);
-							affectedExpressions.add(featureReference);
-							
-							List<EObject> affectedObjects = new ArrayList<EObject>(1);
-							affectedObjects.add(version);
-							
-							markerList.add(new DwConstraintModelAnalysesMarker(affectedExpressions, affectedObjects, ERROR_MESSAGE_REFERENCE_VALIDITY_CONSISTENCY_VERSION, MarkerTypeEnum.ERROR));
-						}
-					}
-				}
-			}
-			else if(expression instanceof HyAttributeReferenceExpression) {
-				HyAttributeReferenceExpression attributeReference = (HyAttributeReferenceExpression) expression;
-				
-				HyFeature feature = attributeReference.getFeature();
-				HyFeatureAttribute attribute = attributeReference.getAttribute();
-				
-				if(feature != null && !HyEvolutionUtil.isWithinValidityOf(constraint, feature)) {
-					List<HyExpression> affectedExpressions = new ArrayList<HyExpression>(1);
-					affectedExpressions.add(attributeReference);
-					
-					List<EObject> affectedObjects = new ArrayList<EObject>(1);
-					affectedObjects.add(feature);
-					
-					markerList.add(new DwConstraintModelAnalysesMarker(affectedExpressions, affectedObjects, ERROR_MESSAGE_REFERENCE_VALIDITY_CONSISTENCY_FEATURE, MarkerTypeEnum.ERROR));
-				}
-				
-				if(attribute != null && !HyEvolutionUtil.isWithinValidityOf(constraint, attribute)) {
-					List<HyExpression> affectedExpressions = new ArrayList<HyExpression>(1);
-					affectedExpressions.add(attributeReference);
-					
-					List<EObject> affectedObjects = new ArrayList<EObject>(1);
-					affectedObjects.add(attribute);
-					
-					markerList.add(new DwConstraintModelAnalysesMarker(affectedExpressions, affectedObjects, ERROR_MESSAGE_REFERENCE_VALIDITY_CONSISTENCY_ATTRIBUTE, MarkerTypeEnum.ERROR));
-				}
-			}
-			
-		} 
-		else if(expression instanceof HyBinaryExpression) {
-			HyBinaryExpression binaryExpression = (HyBinaryExpression) expression;
-			markerList.addAll(checkReferenceValidityConsistencyForExpression(binaryExpression.getOperand1(), constraint));
-			markerList.addAll(checkReferenceValidityConsistencyForExpression(binaryExpression.getOperand2(), constraint));
-		}
-		else if(expression instanceof HyUnaryExpression) {
-			HyUnaryExpression unaryExpression = (HyUnaryExpression) expression;
-			markerList.addAll(checkReferenceValidityConsistencyForExpression(unaryExpression.getOperand(), constraint));
-		}
-		
-		return markerList;
-	}
 	
 	
 	
