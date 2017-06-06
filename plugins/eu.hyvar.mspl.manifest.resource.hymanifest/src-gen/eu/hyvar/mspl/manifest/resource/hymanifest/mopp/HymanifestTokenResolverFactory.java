@@ -26,8 +26,8 @@ public class HymanifestTokenResolverFactory implements eu.hyvar.mspl.manifest.re
 	public HymanifestTokenResolverFactory() {
 		tokenName2TokenResolver = new LinkedHashMap<String, eu.hyvar.mspl.manifest.resource.hymanifest.IHymanifestTokenResolver>();
 		featureName2CollectInTokenResolver = new LinkedHashMap<String, eu.hyvar.mspl.manifest.resource.hymanifest.IHymanifestTokenResolver>();
-		registerTokenResolver("QUOTED_60_62", new eu.hyvar.mspl.manifest.resource.hymanifest.analysis.HymanifestQUOTED_60_62TokenResolver());
 		registerTokenResolver("QUOTED_34_34", new eu.hyvar.mspl.manifest.resource.hymanifest.analysis.HymanifestQUOTED_34_34TokenResolver());
+		registerTokenResolver("QUOTED_60_62", new eu.hyvar.mspl.manifest.resource.hymanifest.analysis.HymanifestQUOTED_60_62TokenResolver());
 		registerTokenResolver("IDENTIFIER_TOKEN", new eu.hyvar.mspl.manifest.resource.hymanifest.analysis.HydatavalueIDENTIFIER_TOKENTokenResolver());
 		registerTokenResolver("DATE", new eu.hyvar.mspl.manifest.resource.hymanifest.analysis.HydatavalueDATETokenResolver());
 		registerTokenResolver("INTEGER_LITERAL", new eu.hyvar.mspl.manifest.resource.hymanifest.analysis.HydatavalueINTEGER_LITERALTokenResolver());

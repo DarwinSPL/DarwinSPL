@@ -65,6 +65,10 @@ public class HymanifestPrinter implements eu.hyvar.mspl.manifest.resource.hymani
 			throw new IllegalArgumentException("Nothing to write on.");
 		}
 		
+		if (element instanceof eu.hyvar.mspl.manifest.HySPLSignature) {
+			print_eu_hyvar_mspl_manifest_HySPLSignature((eu.hyvar.mspl.manifest.HySPLSignature) element, globaltab, out);
+			return;
+		}
 		if (element instanceof eu.hyvar.mspl.manifest.HySPLImplementation) {
 			print_eu_hyvar_mspl_manifest_HySPLImplementation((eu.hyvar.mspl.manifest.HySPLImplementation) element, globaltab, out);
 			return;
@@ -79,14 +83,6 @@ public class HymanifestPrinter implements eu.hyvar.mspl.manifest.resource.hymani
 		}
 		if (element instanceof eu.hyvar.mspl.manifest.HyTimedImplementationLink) {
 			print_eu_hyvar_mspl_manifest_HyTimedImplementationLink((eu.hyvar.mspl.manifest.HyTimedImplementationLink) element, globaltab, out);
-			return;
-		}
-		if (element instanceof eu.hyvar.mspl.manifest.HySPLSignature) {
-			print_eu_hyvar_mspl_manifest_HySPLSignature((eu.hyvar.mspl.manifest.HySPLSignature) element, globaltab, out);
-			return;
-		}
-		if (element instanceof eu.hyvar.evolution.HyName) {
-			print_eu_hyvar_evolution_HyName((eu.hyvar.evolution.HyName) element, globaltab, out);
 			return;
 		}
 		if (element instanceof eu.hyvar.dataValues.HyNumberValue) {
@@ -158,6 +154,19 @@ public class HymanifestPrinter implements eu.hyvar.mspl.manifest.resource.hymani
 		out.flush();
 	}
 	
+	public void print_eu_hyvar_mspl_manifest_HySPLSignature(eu.hyvar.mspl.manifest.HySPLSignature element, String outertab, PrintWriter out) {
+		// The printCountingMap contains a mapping from feature names to the number of
+		// remaining elements that still need to be printed. The map is initialized with
+		// the number of elements stored in each structural feature. For lists this is the
+		// list size. For non-multiple features it is either 1 (if the feature is set) or
+		// 0 (if the feature is null).
+		// print collected hidden tokens
+		// DEFINITION PART BEGINS (CsString)
+		out.print("Signature ");
+		out.print(" ");
+	}
+	
+	
 	public void print_eu_hyvar_mspl_manifest_HySPLImplementation(eu.hyvar.mspl.manifest.HySPLImplementation element, String outertab, PrintWriter out) {
 		String localtab = outertab;
 		// The printCountingMap contains a mapping from feature names to the number of
@@ -165,55 +174,31 @@ public class HymanifestPrinter implements eu.hyvar.mspl.manifest.resource.hymani
 		// the number of elements stored in each structural feature. For lists this is the
 		// list size. For non-multiple features it is either 1 (if the feature is set) or
 		// 0 (if the feature is null).
-		Map<String, Integer> printCountingMap = new LinkedHashMap<String, Integer>(3);
+		Map<String, Integer> printCountingMap = new LinkedHashMap<String, Integer>(2);
 		Object temp;
-		temp = element.eGet(element.eClass().getEStructuralFeature(eu.hyvar.mspl.manifest.ManifestPackage.HY_SPL_IMPLEMENTATION__NAMES));
-		printCountingMap.put("names", temp == null ? 0 : ((Collection<?>) temp).size());
 		temp = element.eGet(element.eClass().getEStructuralFeature(eu.hyvar.mspl.manifest.ManifestPackage.HY_SPL_IMPLEMENTATION__DEPENDENCIES));
 		printCountingMap.put("dependencies", temp == null ? 0 : ((Collection<?>) temp).size());
 		temp = element.eGet(element.eClass().getEStructuralFeature(eu.hyvar.mspl.manifest.ManifestPackage.HY_SPL_IMPLEMENTATION__IMPLEMENTATIONS));
 		printCountingMap.put("implementations", temp == null ? 0 : ((Collection<?>) temp).size());
 		// print collected hidden tokens
-		int count;
-		boolean iterate = true;
 		java.io.StringWriter sWriter = null;
 		PrintWriter out1 = null;
 		Map<String, Integer> printCountingMap1 = null;
 		// DEFINITION PART BEGINS (CsString)
 		out.print("Implementation ");
 		out.print(" ");
-		// DEFINITION PART BEGINS (Containment)
-		count = printCountingMap.get("names");
-		if (count > 0) {
-			Object o = element.eGet(element.eClass().getEStructuralFeature(eu.hyvar.mspl.manifest.ManifestPackage.HY_SPL_IMPLEMENTATION__NAMES));
-			List<?> list = (List<?>) o;
-			int index = list.size() - count;
-			if (index >= 0) {
-				o = list.get(index);
-			} else {
-				o = null;
-			}
-			if (o != null) {
-				doPrint((EObject) o, out, localtab);
-			}
-			printCountingMap.put("names", count - 1);
-		}
 		// DEFINITION PART BEGINS (CompoundDefinition)
-		iterate = true;
-		while (iterate) {
-			sWriter = new StringWriter();
-			out1 = new PrintWriter(sWriter);
-			printCountingMap1 = new LinkedHashMap<String, Integer>(printCountingMap);
-			print_eu_hyvar_mspl_manifest_HySPLImplementation_0(element, localtab, out1, printCountingMap1);
-			if (printCountingMap.equals(printCountingMap1)) {
-				iterate = false;
-				out1.close();
-			} else {
-				out1.flush();
-				out1.close();
-				out.print(sWriter.toString());
-				printCountingMap.putAll(printCountingMap1);
-			}
+		sWriter = new StringWriter();
+		out1 = new PrintWriter(sWriter);
+		printCountingMap1 = new LinkedHashMap<String, Integer>(printCountingMap);
+		print_eu_hyvar_mspl_manifest_HySPLImplementation_0(element, localtab, out1, printCountingMap1);
+		if (printCountingMap.equals(printCountingMap1)) {
+			out1.close();
+		} else {
+			out1.flush();
+			out1.close();
+			out.print(sWriter.toString());
+			printCountingMap.putAll(printCountingMap1);
 		}
 		// DEFINITION PART BEGINS (CompoundDefinition)
 		sWriter = new StringWriter();
@@ -228,46 +213,9 @@ public class HymanifestPrinter implements eu.hyvar.mspl.manifest.resource.hymani
 			out.print(sWriter.toString());
 			printCountingMap.putAll(printCountingMap1);
 		}
-		// DEFINITION PART BEGINS (CompoundDefinition)
-		sWriter = new StringWriter();
-		out1 = new PrintWriter(sWriter);
-		printCountingMap1 = new LinkedHashMap<String, Integer>(printCountingMap);
-		print_eu_hyvar_mspl_manifest_HySPLImplementation_2(element, localtab, out1, printCountingMap1);
-		if (printCountingMap.equals(printCountingMap1)) {
-			out1.close();
-		} else {
-			out1.flush();
-			out1.close();
-			out.print(sWriter.toString());
-			printCountingMap.putAll(printCountingMap1);
-		}
 	}
 	
 	public void print_eu_hyvar_mspl_manifest_HySPLImplementation_0(eu.hyvar.mspl.manifest.HySPLImplementation element, String outertab, PrintWriter out, Map<String, Integer> printCountingMap) {
-		String localtab = outertab;
-		int count;
-		// DEFINITION PART BEGINS (CsString)
-		out.print(",");
-		out.print(" ");
-		// DEFINITION PART BEGINS (Containment)
-		count = printCountingMap.get("names");
-		if (count > 0) {
-			Object o = element.eGet(element.eClass().getEStructuralFeature(eu.hyvar.mspl.manifest.ManifestPackage.HY_SPL_IMPLEMENTATION__NAMES));
-			List<?> list = (List<?>) o;
-			int index = list.size() - count;
-			if (index >= 0) {
-				o = list.get(index);
-			} else {
-				o = null;
-			}
-			if (o != null) {
-				doPrint((EObject) o, out, localtab);
-			}
-			printCountingMap.put("names", count - 1);
-		}
-	}
-	
-	public void print_eu_hyvar_mspl_manifest_HySPLImplementation_1(eu.hyvar.mspl.manifest.HySPLImplementation element, String outertab, PrintWriter out, Map<String, Integer> printCountingMap) {
 		String localtab = outertab;
 		int count;
 		boolean iterate = true;
@@ -299,7 +247,7 @@ public class HymanifestPrinter implements eu.hyvar.mspl.manifest.resource.hymani
 			sWriter = new StringWriter();
 			out1 = new PrintWriter(sWriter);
 			printCountingMap1 = new LinkedHashMap<String, Integer>(printCountingMap);
-			print_eu_hyvar_mspl_manifest_HySPLImplementation_1_0(element, localtab, out1, printCountingMap1);
+			print_eu_hyvar_mspl_manifest_HySPLImplementation_0_0(element, localtab, out1, printCountingMap1);
 			if (printCountingMap.equals(printCountingMap1)) {
 				iterate = false;
 				out1.close();
@@ -315,7 +263,7 @@ public class HymanifestPrinter implements eu.hyvar.mspl.manifest.resource.hymani
 		out.print(" ");
 	}
 	
-	public void print_eu_hyvar_mspl_manifest_HySPLImplementation_1_0(eu.hyvar.mspl.manifest.HySPLImplementation element, String outertab, PrintWriter out, Map<String, Integer> printCountingMap) {
+	public void print_eu_hyvar_mspl_manifest_HySPLImplementation_0_0(eu.hyvar.mspl.manifest.HySPLImplementation element, String outertab, PrintWriter out, Map<String, Integer> printCountingMap) {
 		String localtab = outertab;
 		int count;
 		// DEFINITION PART BEGINS (CsString)
@@ -339,7 +287,7 @@ public class HymanifestPrinter implements eu.hyvar.mspl.manifest.resource.hymani
 		}
 	}
 	
-	public void print_eu_hyvar_mspl_manifest_HySPLImplementation_2(eu.hyvar.mspl.manifest.HySPLImplementation element, String outertab, PrintWriter out, Map<String, Integer> printCountingMap) {
+	public void print_eu_hyvar_mspl_manifest_HySPLImplementation_1(eu.hyvar.mspl.manifest.HySPLImplementation element, String outertab, PrintWriter out, Map<String, Integer> printCountingMap) {
 		String localtab = outertab;
 		int count;
 		boolean iterate = true;
@@ -371,7 +319,7 @@ public class HymanifestPrinter implements eu.hyvar.mspl.manifest.resource.hymani
 			sWriter = new StringWriter();
 			out1 = new PrintWriter(sWriter);
 			printCountingMap1 = new LinkedHashMap<String, Integer>(printCountingMap);
-			print_eu_hyvar_mspl_manifest_HySPLImplementation_2_0(element, localtab, out1, printCountingMap1);
+			print_eu_hyvar_mspl_manifest_HySPLImplementation_1_0(element, localtab, out1, printCountingMap1);
 			if (printCountingMap.equals(printCountingMap1)) {
 				iterate = false;
 				out1.close();
@@ -384,7 +332,7 @@ public class HymanifestPrinter implements eu.hyvar.mspl.manifest.resource.hymani
 		}
 	}
 	
-	public void print_eu_hyvar_mspl_manifest_HySPLImplementation_2_0(eu.hyvar.mspl.manifest.HySPLImplementation element, String outertab, PrintWriter out, Map<String, Integer> printCountingMap) {
+	public void print_eu_hyvar_mspl_manifest_HySPLImplementation_1_0(eu.hyvar.mspl.manifest.HySPLImplementation element, String outertab, PrintWriter out, Map<String, Integer> printCountingMap) {
 		String localtab = outertab;
 		int count;
 		// DEFINITION PART BEGINS (CsString)
@@ -416,7 +364,7 @@ public class HymanifestPrinter implements eu.hyvar.mspl.manifest.resource.hymani
 		// the number of elements stored in each structural feature. For lists this is the
 		// list size. For non-multiple features it is either 1 (if the feature is set) or
 		// 0 (if the feature is null).
-		Map<String, Integer> printCountingMap = new LinkedHashMap<String, Integer>(4);
+		Map<String, Integer> printCountingMap = new LinkedHashMap<String, Integer>(5);
 		Object temp;
 		temp = element.eGet(element.eClass().getEStructuralFeature(eu.hyvar.mspl.manifest.ManifestPackage.HY_TIMED_DEPENDENCIES__VALID_SINCE));
 		printCountingMap.put("validSince", temp == null ? 0 : 1);
@@ -424,23 +372,13 @@ public class HymanifestPrinter implements eu.hyvar.mspl.manifest.resource.hymani
 		printCountingMap.put("validUntil", temp == null ? 0 : 1);
 		temp = element.eGet(element.eClass().getEStructuralFeature(eu.hyvar.mspl.manifest.ManifestPackage.HY_TIMED_DEPENDENCIES__SIGNATURE));
 		printCountingMap.put("signature", temp == null ? 0 : 1);
+		temp = element.eGet(element.eClass().getEStructuralFeature(eu.hyvar.mspl.manifest.ManifestPackage.HY_TIMED_DEPENDENCIES__ALIAS));
+		printCountingMap.put("alias", temp == null ? 0 : 1);
 		// print collected hidden tokens
 		int count;
 		java.io.StringWriter sWriter = null;
 		PrintWriter out1 = null;
 		Map<String, Integer> printCountingMap1 = null;
-		// DEFINITION PART BEGINS (PlaceholderInQuotes)
-		count = printCountingMap.get("signature");
-		if (count > 0) {
-			Object o = element.eGet(element.eClass().getEStructuralFeature(eu.hyvar.mspl.manifest.ManifestPackage.HY_TIMED_DEPENDENCIES__SIGNATURE));
-			if (o != null) {
-				eu.hyvar.mspl.manifest.resource.hymanifest.IHymanifestTokenResolver resolver = tokenResolverFactory.createTokenResolver("QUOTED_60_62");
-				resolver.setOptions(getOptions());
-				out.print(resolver.deResolve(getReferenceResolverSwitch() == null ? null : getReferenceResolverSwitch().getHyTimedDependenciesSignatureReferenceResolver().deResolve((eu.hyvar.mspl.manifest.HySPLSignature) o, element, (EReference) element.eClass().getEStructuralFeature(eu.hyvar.mspl.manifest.ManifestPackage.HY_TIMED_DEPENDENCIES__SIGNATURE)), element.eClass().getEStructuralFeature(eu.hyvar.mspl.manifest.ManifestPackage.HY_TIMED_DEPENDENCIES__SIGNATURE), element));
-				out.print(" ");
-			}
-			printCountingMap.put("signature", count - 1);
-		}
 		// DEFINITION PART BEGINS (CompoundDefinition)
 		sWriter = new StringWriter();
 		out1 = new PrintWriter(sWriter);
@@ -454,12 +392,29 @@ public class HymanifestPrinter implements eu.hyvar.mspl.manifest.resource.hymani
 			out.print(sWriter.toString());
 			printCountingMap.putAll(printCountingMap1);
 		}
+		// DEFINITION PART BEGINS (CompoundDefinition)
+		print_eu_hyvar_mspl_manifest_HyTimedDependencies_1(element, localtab, out, printCountingMap);
+		// DEFINITION PART BEGINS (CsString)
+		out.print(":");
+		out.print(" ");
+		// DEFINITION PART BEGINS (PlaceholderInQuotes)
+		count = printCountingMap.get("signature");
+		if (count > 0) {
+			Object o = element.eGet(element.eClass().getEStructuralFeature(eu.hyvar.mspl.manifest.ManifestPackage.HY_TIMED_DEPENDENCIES__SIGNATURE));
+			if (o != null) {
+				eu.hyvar.mspl.manifest.resource.hymanifest.IHymanifestTokenResolver resolver = tokenResolverFactory.createTokenResolver("QUOTED_60_62");
+				resolver.setOptions(getOptions());
+				out.print(resolver.deResolve(getReferenceResolverSwitch() == null ? null : getReferenceResolverSwitch().getHyTimedDependenciesSignatureReferenceResolver().deResolve((eu.hyvar.mspl.manifest.HySPLSignature) o, element, (EReference) element.eClass().getEStructuralFeature(eu.hyvar.mspl.manifest.ManifestPackage.HY_TIMED_DEPENDENCIES__SIGNATURE)), element.eClass().getEStructuralFeature(eu.hyvar.mspl.manifest.ManifestPackage.HY_TIMED_DEPENDENCIES__SIGNATURE), element));
+				out.print(" ");
+			}
+			printCountingMap.put("signature", count - 1);
+		}
 	}
 	
 	public void print_eu_hyvar_mspl_manifest_HyTimedDependencies_0(eu.hyvar.mspl.manifest.HyTimedDependencies element, String outertab, PrintWriter out, Map<String, Integer> printCountingMap) {
 		String localtab = outertab;
 		// DEFINITION PART BEGINS (CsString)
-		out.print("@[");
+		out.print("[");
 		out.print(" ");
 		// DEFINITION PART BEGINS (CompoundDefinition)
 		print_eu_hyvar_mspl_manifest_HyTimedDependencies_0_0(element, localtab, out, printCountingMap);
@@ -558,6 +513,48 @@ public class HymanifestPrinter implements eu.hyvar.mspl.manifest.resource.hymani
 		}
 	}
 	
+	public void print_eu_hyvar_mspl_manifest_HyTimedDependencies_1(eu.hyvar.mspl.manifest.HyTimedDependencies element, String outertab, PrintWriter out, Map<String, Integer> printCountingMap) {
+		int count;
+		int alt = -1;
+		alt = 0;
+		int matches = 		matchCount(printCountingMap, Arrays.asList(		"alias"		));
+		int tempMatchCount;
+		tempMatchCount = 		matchCount(printCountingMap, Arrays.asList(		"alias"		));
+		if (tempMatchCount > matches) {
+			alt = 1;
+			matches = tempMatchCount;
+		}
+		switch(alt) {
+			case 1:			{
+				// DEFINITION PART BEGINS (PlaceholderUsingDefaultToken)
+				count = printCountingMap.get("alias");
+				if (count > 0) {
+					Object o = element.eGet(element.eClass().getEStructuralFeature(eu.hyvar.mspl.manifest.ManifestPackage.HY_TIMED_DEPENDENCIES__ALIAS));
+					if (o != null) {
+						eu.hyvar.mspl.manifest.resource.hymanifest.IHymanifestTokenResolver resolver = tokenResolverFactory.createTokenResolver("IDENTIFIER_TOKEN");
+						resolver.setOptions(getOptions());
+						out.print(resolver.deResolve((Object) o, element.eClass().getEStructuralFeature(eu.hyvar.mspl.manifest.ManifestPackage.HY_TIMED_DEPENDENCIES__ALIAS), element));
+						out.print(" ");
+					}
+					printCountingMap.put("alias", count - 1);
+				}
+			}
+			break;
+			default:			// DEFINITION PART BEGINS (PlaceholderInQuotes)
+			count = printCountingMap.get("alias");
+			if (count > 0) {
+				Object o = element.eGet(element.eClass().getEStructuralFeature(eu.hyvar.mspl.manifest.ManifestPackage.HY_TIMED_DEPENDENCIES__ALIAS));
+				if (o != null) {
+					eu.hyvar.mspl.manifest.resource.hymanifest.IHymanifestTokenResolver resolver = tokenResolverFactory.createTokenResolver("QUOTED_34_34");
+					resolver.setOptions(getOptions());
+					out.print(resolver.deResolve((Object) o, element.eClass().getEStructuralFeature(eu.hyvar.mspl.manifest.ManifestPackage.HY_TIMED_DEPENDENCIES__ALIAS), element));
+					out.print(" ");
+				}
+				printCountingMap.put("alias", count - 1);
+			}
+		}
+	}
+	
 	
 	public void print_eu_hyvar_mspl_manifest_HyTimedImplementations(eu.hyvar.mspl.manifest.HyTimedImplementations element, String outertab, PrintWriter out) {
 		String localtab = outertab;
@@ -581,18 +578,6 @@ public class HymanifestPrinter implements eu.hyvar.mspl.manifest.resource.hymani
 		java.io.StringWriter sWriter = null;
 		PrintWriter out1 = null;
 		Map<String, Integer> printCountingMap1 = null;
-		// DEFINITION PART BEGINS (PlaceholderInQuotes)
-		count = printCountingMap.get("signature");
-		if (count > 0) {
-			Object o = element.eGet(element.eClass().getEStructuralFeature(eu.hyvar.mspl.manifest.ManifestPackage.HY_TIMED_IMPLEMENTATIONS__SIGNATURE));
-			if (o != null) {
-				eu.hyvar.mspl.manifest.resource.hymanifest.IHymanifestTokenResolver resolver = tokenResolverFactory.createTokenResolver("QUOTED_60_62");
-				resolver.setOptions(getOptions());
-				out.print(resolver.deResolve(getReferenceResolverSwitch() == null ? null : getReferenceResolverSwitch().getHyTimedImplementationsSignatureReferenceResolver().deResolve((eu.hyvar.mspl.manifest.HySPLSignature) o, element, (EReference) element.eClass().getEStructuralFeature(eu.hyvar.mspl.manifest.ManifestPackage.HY_TIMED_IMPLEMENTATIONS__SIGNATURE)), element.eClass().getEStructuralFeature(eu.hyvar.mspl.manifest.ManifestPackage.HY_TIMED_IMPLEMENTATIONS__SIGNATURE), element));
-				out.print(" ");
-			}
-			printCountingMap.put("signature", count - 1);
-		}
 		// DEFINITION PART BEGINS (CompoundDefinition)
 		sWriter = new StringWriter();
 		out1 = new PrintWriter(sWriter);
@@ -605,6 +590,18 @@ public class HymanifestPrinter implements eu.hyvar.mspl.manifest.resource.hymani
 			out1.close();
 			out.print(sWriter.toString());
 			printCountingMap.putAll(printCountingMap1);
+		}
+		// DEFINITION PART BEGINS (PlaceholderInQuotes)
+		count = printCountingMap.get("signature");
+		if (count > 0) {
+			Object o = element.eGet(element.eClass().getEStructuralFeature(eu.hyvar.mspl.manifest.ManifestPackage.HY_TIMED_IMPLEMENTATIONS__SIGNATURE));
+			if (o != null) {
+				eu.hyvar.mspl.manifest.resource.hymanifest.IHymanifestTokenResolver resolver = tokenResolverFactory.createTokenResolver("QUOTED_60_62");
+				resolver.setOptions(getOptions());
+				out.print(resolver.deResolve(getReferenceResolverSwitch() == null ? null : getReferenceResolverSwitch().getHyTimedImplementationsSignatureReferenceResolver().deResolve((eu.hyvar.mspl.manifest.HySPLSignature) o, element, (EReference) element.eClass().getEStructuralFeature(eu.hyvar.mspl.manifest.ManifestPackage.HY_TIMED_IMPLEMENTATIONS__SIGNATURE)), element.eClass().getEStructuralFeature(eu.hyvar.mspl.manifest.ManifestPackage.HY_TIMED_IMPLEMENTATIONS__SIGNATURE), element));
+				out.print(" ");
+			}
+			printCountingMap.put("signature", count - 1);
 		}
 		// DEFINITION PART BEGINS (CsString)
 		out.print("{");
@@ -630,7 +627,7 @@ public class HymanifestPrinter implements eu.hyvar.mspl.manifest.resource.hymani
 	public void print_eu_hyvar_mspl_manifest_HyTimedImplementations_0(eu.hyvar.mspl.manifest.HyTimedImplementations element, String outertab, PrintWriter out, Map<String, Integer> printCountingMap) {
 		String localtab = outertab;
 		// DEFINITION PART BEGINS (CsString)
-		out.print("@[");
+		out.print("[");
 		out.print(" ");
 		// DEFINITION PART BEGINS (CompoundDefinition)
 		print_eu_hyvar_mspl_manifest_HyTimedImplementations_0_0(element, localtab, out, printCountingMap);
@@ -810,25 +807,18 @@ public class HymanifestPrinter implements eu.hyvar.mspl.manifest.resource.hymani
 		temp = element.eGet(element.eClass().getEStructuralFeature(eu.hyvar.mspl.manifest.ManifestPackage.HY_TIMED_IMPLEMENTATION_LINK__VALID_UNTIL));
 		printCountingMap.put("validUntil", temp == null ? 0 : 1);
 		temp = element.eGet(element.eClass().getEStructuralFeature(eu.hyvar.mspl.manifest.ManifestPackage.HY_TIMED_IMPLEMENTATION_LINK__LOCAL));
-		printCountingMap.put("local", temp == null ? 0 : ((Collection<?>) temp).size());
+		printCountingMap.put("local", temp == null ? 0 : 1);
 		temp = element.eGet(element.eClass().getEStructuralFeature(eu.hyvar.mspl.manifest.ManifestPackage.HY_TIMED_IMPLEMENTATION_LINK__SIGNATURE));
-		printCountingMap.put("signature", temp == null ? 0 : ((Collection<?>) temp).size());
+		printCountingMap.put("signature", temp == null ? 0 : 1);
 		// print collected hidden tokens
 		java.io.StringWriter sWriter = null;
 		PrintWriter out1 = null;
 		Map<String, Integer> printCountingMap1 = null;
 		// DEFINITION PART BEGINS (CompoundDefinition)
-		print_eu_hyvar_mspl_manifest_HyTimedImplementationLink_0(element, localtab, out, printCountingMap);
-		// DEFINITION PART BEGINS (CsString)
-		out.print("->");
-		out.print(" ");
-		// DEFINITION PART BEGINS (CompoundDefinition)
-		print_eu_hyvar_mspl_manifest_HyTimedImplementationLink_1(element, localtab, out, printCountingMap);
-		// DEFINITION PART BEGINS (CompoundDefinition)
 		sWriter = new StringWriter();
 		out1 = new PrintWriter(sWriter);
 		printCountingMap1 = new LinkedHashMap<String, Integer>(printCountingMap);
-		print_eu_hyvar_mspl_manifest_HyTimedImplementationLink_2(element, localtab, out1, printCountingMap1);
+		print_eu_hyvar_mspl_manifest_HyTimedImplementationLink_0(element, localtab, out1, printCountingMap1);
 		if (printCountingMap.equals(printCountingMap1)) {
 			out1.close();
 		} else {
@@ -837,133 +827,28 @@ public class HymanifestPrinter implements eu.hyvar.mspl.manifest.resource.hymani
 			out.print(sWriter.toString());
 			printCountingMap.putAll(printCountingMap1);
 		}
+		// DEFINITION PART BEGINS (CompoundDefinition)
+		print_eu_hyvar_mspl_manifest_HyTimedImplementationLink_1(element, localtab, out, printCountingMap);
+		// DEFINITION PART BEGINS (CsString)
+		out.print("->");
+		out.print(" ");
+		// DEFINITION PART BEGINS (CompoundDefinition)
+		print_eu_hyvar_mspl_manifest_HyTimedImplementationLink_2(element, localtab, out, printCountingMap);
 	}
 	
 	public void print_eu_hyvar_mspl_manifest_HyTimedImplementationLink_0(eu.hyvar.mspl.manifest.HyTimedImplementationLink element, String outertab, PrintWriter out, Map<String, Integer> printCountingMap) {
-		int count;
-		int alt = -1;
-		alt = 0;
-		int matches = 		matchCount(printCountingMap, Arrays.asList(		"local"		));
-		int tempMatchCount;
-		tempMatchCount = 		matchCount(printCountingMap, Arrays.asList(		"local"		));
-		if (tempMatchCount > matches) {
-			alt = 1;
-			matches = tempMatchCount;
-		}
-		switch(alt) {
-			case 1:			{
-				// DEFINITION PART BEGINS (PlaceholderUsingDefaultToken)
-				count = printCountingMap.get("local");
-				if (count > 0) {
-					Object o = element.eGet(element.eClass().getEStructuralFeature(eu.hyvar.mspl.manifest.ManifestPackage.HY_TIMED_IMPLEMENTATION_LINK__LOCAL));
-					List<?> list = (List<?>) o;
-					int index = list.size() - count;
-					if (index >= 0) {
-						o = list.get(index);
-					} else {
-						o = null;
-					}
-					if (o != null) {
-						eu.hyvar.mspl.manifest.resource.hymanifest.IHymanifestTokenResolver resolver = tokenResolverFactory.createTokenResolver("IDENTIFIER_TOKEN");
-						resolver.setOptions(getOptions());
-						out.print(resolver.deResolve(getReferenceResolverSwitch() == null ? null : getReferenceResolverSwitch().getHyTimedImplementationLinkLocalReferenceResolver().deResolve((eu.hyvar.feature.HyFeature) o, element, (EReference) element.eClass().getEStructuralFeature(eu.hyvar.mspl.manifest.ManifestPackage.HY_TIMED_IMPLEMENTATION_LINK__LOCAL)), element.eClass().getEStructuralFeature(eu.hyvar.mspl.manifest.ManifestPackage.HY_TIMED_IMPLEMENTATION_LINK__LOCAL), element));
-						out.print(" ");
-					}
-					printCountingMap.put("local", count - 1);
-				}
-			}
-			break;
-			default:			// DEFINITION PART BEGINS (PlaceholderInQuotes)
-			count = printCountingMap.get("local");
-			if (count > 0) {
-				Object o = element.eGet(element.eClass().getEStructuralFeature(eu.hyvar.mspl.manifest.ManifestPackage.HY_TIMED_IMPLEMENTATION_LINK__LOCAL));
-				List<?> list = (List<?>) o;
-				int index = list.size() - count;
-				if (index >= 0) {
-					o = list.get(index);
-				} else {
-					o = null;
-				}
-				if (o != null) {
-					eu.hyvar.mspl.manifest.resource.hymanifest.IHymanifestTokenResolver resolver = tokenResolverFactory.createTokenResolver("QUOTED_34_34");
-					resolver.setOptions(getOptions());
-					out.print(resolver.deResolve(getReferenceResolverSwitch() == null ? null : getReferenceResolverSwitch().getHyTimedImplementationLinkLocalReferenceResolver().deResolve((eu.hyvar.feature.HyFeature) o, element, (EReference) element.eClass().getEStructuralFeature(eu.hyvar.mspl.manifest.ManifestPackage.HY_TIMED_IMPLEMENTATION_LINK__LOCAL)), element.eClass().getEStructuralFeature(eu.hyvar.mspl.manifest.ManifestPackage.HY_TIMED_IMPLEMENTATION_LINK__LOCAL), element));
-					out.print(" ");
-				}
-				printCountingMap.put("local", count - 1);
-			}
-		}
-	}
-	
-	public void print_eu_hyvar_mspl_manifest_HyTimedImplementationLink_1(eu.hyvar.mspl.manifest.HyTimedImplementationLink element, String outertab, PrintWriter out, Map<String, Integer> printCountingMap) {
-		int count;
-		int alt = -1;
-		alt = 0;
-		int matches = 		matchCount(printCountingMap, Arrays.asList(		"signature"		));
-		int tempMatchCount;
-		tempMatchCount = 		matchCount(printCountingMap, Arrays.asList(		"signature"		));
-		if (tempMatchCount > matches) {
-			alt = 1;
-			matches = tempMatchCount;
-		}
-		switch(alt) {
-			case 1:			{
-				// DEFINITION PART BEGINS (PlaceholderUsingDefaultToken)
-				count = printCountingMap.get("signature");
-				if (count > 0) {
-					Object o = element.eGet(element.eClass().getEStructuralFeature(eu.hyvar.mspl.manifest.ManifestPackage.HY_TIMED_IMPLEMENTATION_LINK__SIGNATURE));
-					List<?> list = (List<?>) o;
-					int index = list.size() - count;
-					if (index >= 0) {
-						o = list.get(index);
-					} else {
-						o = null;
-					}
-					if (o != null) {
-						eu.hyvar.mspl.manifest.resource.hymanifest.IHymanifestTokenResolver resolver = tokenResolverFactory.createTokenResolver("IDENTIFIER_TOKEN");
-						resolver.setOptions(getOptions());
-						out.print(resolver.deResolve(getReferenceResolverSwitch() == null ? null : getReferenceResolverSwitch().getHyTimedImplementationLinkSignatureReferenceResolver().deResolve((eu.hyvar.feature.HyFeature) o, element, (EReference) element.eClass().getEStructuralFeature(eu.hyvar.mspl.manifest.ManifestPackage.HY_TIMED_IMPLEMENTATION_LINK__SIGNATURE)), element.eClass().getEStructuralFeature(eu.hyvar.mspl.manifest.ManifestPackage.HY_TIMED_IMPLEMENTATION_LINK__SIGNATURE), element));
-						out.print(" ");
-					}
-					printCountingMap.put("signature", count - 1);
-				}
-			}
-			break;
-			default:			// DEFINITION PART BEGINS (PlaceholderInQuotes)
-			count = printCountingMap.get("signature");
-			if (count > 0) {
-				Object o = element.eGet(element.eClass().getEStructuralFeature(eu.hyvar.mspl.manifest.ManifestPackage.HY_TIMED_IMPLEMENTATION_LINK__SIGNATURE));
-				List<?> list = (List<?>) o;
-				int index = list.size() - count;
-				if (index >= 0) {
-					o = list.get(index);
-				} else {
-					o = null;
-				}
-				if (o != null) {
-					eu.hyvar.mspl.manifest.resource.hymanifest.IHymanifestTokenResolver resolver = tokenResolverFactory.createTokenResolver("QUOTED_34_34");
-					resolver.setOptions(getOptions());
-					out.print(resolver.deResolve(getReferenceResolverSwitch() == null ? null : getReferenceResolverSwitch().getHyTimedImplementationLinkSignatureReferenceResolver().deResolve((eu.hyvar.feature.HyFeature) o, element, (EReference) element.eClass().getEStructuralFeature(eu.hyvar.mspl.manifest.ManifestPackage.HY_TIMED_IMPLEMENTATION_LINK__SIGNATURE)), element.eClass().getEStructuralFeature(eu.hyvar.mspl.manifest.ManifestPackage.HY_TIMED_IMPLEMENTATION_LINK__SIGNATURE), element));
-					out.print(" ");
-				}
-				printCountingMap.put("signature", count - 1);
-			}
-		}
-	}
-	
-	public void print_eu_hyvar_mspl_manifest_HyTimedImplementationLink_2(eu.hyvar.mspl.manifest.HyTimedImplementationLink element, String outertab, PrintWriter out, Map<String, Integer> printCountingMap) {
 		String localtab = outertab;
 		// DEFINITION PART BEGINS (CsString)
-		out.print("@[");
+		out.print("[");
 		out.print(" ");
 		// DEFINITION PART BEGINS (CompoundDefinition)
-		print_eu_hyvar_mspl_manifest_HyTimedImplementationLink_2_0(element, localtab, out, printCountingMap);
+		print_eu_hyvar_mspl_manifest_HyTimedImplementationLink_0_0(element, localtab, out, printCountingMap);
 		// DEFINITION PART BEGINS (CsString)
 		out.print("]");
 		out.print(" ");
 	}
 	
-	public void print_eu_hyvar_mspl_manifest_HyTimedImplementationLink_2_0(eu.hyvar.mspl.manifest.HyTimedImplementationLink element, String outertab, PrintWriter out, Map<String, Integer> printCountingMap) {
+	public void print_eu_hyvar_mspl_manifest_HyTimedImplementationLink_0_0(eu.hyvar.mspl.manifest.HyTimedImplementationLink element, String outertab, PrintWriter out, Map<String, Integer> printCountingMap) {
 		int count;
 		int alt = -1;
 		alt = 0;
@@ -1053,236 +938,86 @@ public class HymanifestPrinter implements eu.hyvar.mspl.manifest.resource.hymani
 		}
 	}
 	
-	
-	public void print_eu_hyvar_mspl_manifest_HySPLSignature(eu.hyvar.mspl.manifest.HySPLSignature element, String outertab, PrintWriter out) {
-		String localtab = outertab;
-		// The printCountingMap contains a mapping from feature names to the number of
-		// remaining elements that still need to be printed. The map is initialized with
-		// the number of elements stored in each structural feature. For lists this is the
-		// list size. For non-multiple features it is either 1 (if the feature is set) or
-		// 0 (if the feature is null).
-		Map<String, Integer> printCountingMap = new LinkedHashMap<String, Integer>(1);
-		Object temp;
-		temp = element.eGet(element.eClass().getEStructuralFeature(eu.hyvar.mspl.manifest.ManifestPackage.HY_SPL_SIGNATURE__NAMES));
-		printCountingMap.put("names", temp == null ? 0 : ((Collection<?>) temp).size());
-		// print collected hidden tokens
-		int count;
-		boolean iterate = true;
-		java.io.StringWriter sWriter = null;
-		PrintWriter out1 = null;
-		Map<String, Integer> printCountingMap1 = null;
-		// DEFINITION PART BEGINS (CsString)
-		out.print("Signature ");
-		out.print(" ");
-		// DEFINITION PART BEGINS (Containment)
-		count = printCountingMap.get("names");
-		if (count > 0) {
-			Object o = element.eGet(element.eClass().getEStructuralFeature(eu.hyvar.mspl.manifest.ManifestPackage.HY_SPL_SIGNATURE__NAMES));
-			List<?> list = (List<?>) o;
-			int index = list.size() - count;
-			if (index >= 0) {
-				o = list.get(index);
-			} else {
-				o = null;
-			}
-			if (o != null) {
-				doPrint((EObject) o, out, localtab);
-			}
-			printCountingMap.put("names", count - 1);
-		}
-		// DEFINITION PART BEGINS (CompoundDefinition)
-		iterate = true;
-		while (iterate) {
-			sWriter = new StringWriter();
-			out1 = new PrintWriter(sWriter);
-			printCountingMap1 = new LinkedHashMap<String, Integer>(printCountingMap);
-			print_eu_hyvar_mspl_manifest_HySPLSignature_0(element, localtab, out1, printCountingMap1);
-			if (printCountingMap.equals(printCountingMap1)) {
-				iterate = false;
-				out1.close();
-			} else {
-				out1.flush();
-				out1.close();
-				out.print(sWriter.toString());
-				printCountingMap.putAll(printCountingMap1);
-			}
-		}
-	}
-	
-	public void print_eu_hyvar_mspl_manifest_HySPLSignature_0(eu.hyvar.mspl.manifest.HySPLSignature element, String outertab, PrintWriter out, Map<String, Integer> printCountingMap) {
-		String localtab = outertab;
-		int count;
-		// DEFINITION PART BEGINS (CsString)
-		out.print(",");
-		out.print(" ");
-		// DEFINITION PART BEGINS (Containment)
-		count = printCountingMap.get("names");
-		if (count > 0) {
-			Object o = element.eGet(element.eClass().getEStructuralFeature(eu.hyvar.mspl.manifest.ManifestPackage.HY_SPL_SIGNATURE__NAMES));
-			List<?> list = (List<?>) o;
-			int index = list.size() - count;
-			if (index >= 0) {
-				o = list.get(index);
-			} else {
-				o = null;
-			}
-			if (o != null) {
-				doPrint((EObject) o, out, localtab);
-			}
-			printCountingMap.put("names", count - 1);
-		}
-	}
-	
-	
-	public void print_eu_hyvar_evolution_HyName(eu.hyvar.evolution.HyName element, String outertab, PrintWriter out) {
-		String localtab = outertab;
-		// The printCountingMap contains a mapping from feature names to the number of
-		// remaining elements that still need to be printed. The map is initialized with
-		// the number of elements stored in each structural feature. For lists this is the
-		// list size. For non-multiple features it is either 1 (if the feature is set) or
-		// 0 (if the feature is null).
-		Map<String, Integer> printCountingMap = new LinkedHashMap<String, Integer>(6);
-		Object temp;
-		temp = element.eGet(element.eClass().getEStructuralFeature(eu.hyvar.evolution.HyEvolutionPackage.HY_NAME__VALID_SINCE));
-		printCountingMap.put("validSince", temp == null ? 0 : 1);
-		temp = element.eGet(element.eClass().getEStructuralFeature(eu.hyvar.evolution.HyEvolutionPackage.HY_NAME__VALID_UNTIL));
-		printCountingMap.put("validUntil", temp == null ? 0 : 1);
-		temp = element.eGet(element.eClass().getEStructuralFeature(eu.hyvar.evolution.HyEvolutionPackage.HY_NAME__SUPERSEDING_ELEMENT));
-		printCountingMap.put("supersedingElement", temp == null ? 0 : 1);
-		temp = element.eGet(element.eClass().getEStructuralFeature(eu.hyvar.evolution.HyEvolutionPackage.HY_NAME__SUPERSEDED_ELEMENT));
-		printCountingMap.put("supersededElement", temp == null ? 0 : 1);
-		temp = element.eGet(element.eClass().getEStructuralFeature(eu.hyvar.evolution.HyEvolutionPackage.HY_NAME__NAME));
-		printCountingMap.put("name", temp == null ? 0 : 1);
-		// print collected hidden tokens
-		int count;
-		java.io.StringWriter sWriter = null;
-		PrintWriter out1 = null;
-		Map<String, Integer> printCountingMap1 = null;
-		// DEFINITION PART BEGINS (PlaceholderUsingSpecifiedToken)
-		count = printCountingMap.get("name");
-		if (count > 0) {
-			Object o = element.eGet(element.eClass().getEStructuralFeature(eu.hyvar.evolution.HyEvolutionPackage.HY_NAME__NAME));
-			if (o != null) {
-				eu.hyvar.mspl.manifest.resource.hymanifest.IHymanifestTokenResolver resolver = tokenResolverFactory.createTokenResolver("IDENTIFIER_TOKEN");
-				resolver.setOptions(getOptions());
-				out.print(resolver.deResolve((Object) o, element.eClass().getEStructuralFeature(eu.hyvar.evolution.HyEvolutionPackage.HY_NAME__NAME), element));
-				out.print(" ");
-			}
-			printCountingMap.put("name", count - 1);
-		}
-		// DEFINITION PART BEGINS (CompoundDefinition)
-		sWriter = new StringWriter();
-		out1 = new PrintWriter(sWriter);
-		printCountingMap1 = new LinkedHashMap<String, Integer>(printCountingMap);
-		print_eu_hyvar_evolution_HyName_0(element, localtab, out1, printCountingMap1);
-		if (printCountingMap.equals(printCountingMap1)) {
-			out1.close();
-		} else {
-			out1.flush();
-			out1.close();
-			out.print(sWriter.toString());
-			printCountingMap.putAll(printCountingMap1);
-		}
-	}
-	
-	public void print_eu_hyvar_evolution_HyName_0(eu.hyvar.evolution.HyName element, String outertab, PrintWriter out, Map<String, Integer> printCountingMap) {
-		String localtab = outertab;
-		// DEFINITION PART BEGINS (CsString)
-		out.print("@[");
-		out.print(" ");
-		// DEFINITION PART BEGINS (CompoundDefinition)
-		print_eu_hyvar_evolution_HyName_0_0(element, localtab, out, printCountingMap);
-		// DEFINITION PART BEGINS (CsString)
-		out.print("]");
-		out.print(" ");
-	}
-	
-	public void print_eu_hyvar_evolution_HyName_0_0(eu.hyvar.evolution.HyName element, String outertab, PrintWriter out, Map<String, Integer> printCountingMap) {
+	public void print_eu_hyvar_mspl_manifest_HyTimedImplementationLink_1(eu.hyvar.mspl.manifest.HyTimedImplementationLink element, String outertab, PrintWriter out, Map<String, Integer> printCountingMap) {
 		int count;
 		int alt = -1;
 		alt = 0;
-		int matches = 		matchCount(printCountingMap, Arrays.asList(		"validSince"		,
-		"validUntil"		));
+		int matches = 		matchCount(printCountingMap, Arrays.asList(		"local"		));
 		int tempMatchCount;
-		tempMatchCount = 		matchCount(printCountingMap, Arrays.asList(		"validSince"		));
+		tempMatchCount = 		matchCount(printCountingMap, Arrays.asList(		"local"		));
 		if (tempMatchCount > matches) {
 			alt = 1;
 			matches = tempMatchCount;
 		}
-		tempMatchCount = 		matchCount(printCountingMap, Arrays.asList(		"validUntil"		));
+		switch(alt) {
+			case 1:			{
+				// DEFINITION PART BEGINS (PlaceholderUsingDefaultToken)
+				count = printCountingMap.get("local");
+				if (count > 0) {
+					Object o = element.eGet(element.eClass().getEStructuralFeature(eu.hyvar.mspl.manifest.ManifestPackage.HY_TIMED_IMPLEMENTATION_LINK__LOCAL));
+					if (o != null) {
+						eu.hyvar.mspl.manifest.resource.hymanifest.IHymanifestTokenResolver resolver = tokenResolverFactory.createTokenResolver("IDENTIFIER_TOKEN");
+						resolver.setOptions(getOptions());
+						out.print(resolver.deResolve(getReferenceResolverSwitch() == null ? null : getReferenceResolverSwitch().getHyTimedImplementationLinkLocalReferenceResolver().deResolve((eu.hyvar.feature.HyFeature) o, element, (EReference) element.eClass().getEStructuralFeature(eu.hyvar.mspl.manifest.ManifestPackage.HY_TIMED_IMPLEMENTATION_LINK__LOCAL)), element.eClass().getEStructuralFeature(eu.hyvar.mspl.manifest.ManifestPackage.HY_TIMED_IMPLEMENTATION_LINK__LOCAL), element));
+						out.print(" ");
+					}
+					printCountingMap.put("local", count - 1);
+				}
+			}
+			break;
+			default:			// DEFINITION PART BEGINS (PlaceholderInQuotes)
+			count = printCountingMap.get("local");
+			if (count > 0) {
+				Object o = element.eGet(element.eClass().getEStructuralFeature(eu.hyvar.mspl.manifest.ManifestPackage.HY_TIMED_IMPLEMENTATION_LINK__LOCAL));
+				if (o != null) {
+					eu.hyvar.mspl.manifest.resource.hymanifest.IHymanifestTokenResolver resolver = tokenResolverFactory.createTokenResolver("QUOTED_34_34");
+					resolver.setOptions(getOptions());
+					out.print(resolver.deResolve(getReferenceResolverSwitch() == null ? null : getReferenceResolverSwitch().getHyTimedImplementationLinkLocalReferenceResolver().deResolve((eu.hyvar.feature.HyFeature) o, element, (EReference) element.eClass().getEStructuralFeature(eu.hyvar.mspl.manifest.ManifestPackage.HY_TIMED_IMPLEMENTATION_LINK__LOCAL)), element.eClass().getEStructuralFeature(eu.hyvar.mspl.manifest.ManifestPackage.HY_TIMED_IMPLEMENTATION_LINK__LOCAL), element));
+					out.print(" ");
+				}
+				printCountingMap.put("local", count - 1);
+			}
+		}
+	}
+	
+	public void print_eu_hyvar_mspl_manifest_HyTimedImplementationLink_2(eu.hyvar.mspl.manifest.HyTimedImplementationLink element, String outertab, PrintWriter out, Map<String, Integer> printCountingMap) {
+		int count;
+		int alt = -1;
+		alt = 0;
+		int matches = 		matchCount(printCountingMap, Arrays.asList(		"signature"		));
+		int tempMatchCount;
+		tempMatchCount = 		matchCount(printCountingMap, Arrays.asList(		"signature"		));
 		if (tempMatchCount > matches) {
-			alt = 2;
+			alt = 1;
 			matches = tempMatchCount;
 		}
 		switch(alt) {
 			case 1:			{
-				// DEFINITION PART BEGINS (PlaceholderUsingSpecifiedToken)
-				count = printCountingMap.get("validSince");
+				// DEFINITION PART BEGINS (PlaceholderUsingDefaultToken)
+				count = printCountingMap.get("signature");
 				if (count > 0) {
-					Object o = element.eGet(element.eClass().getEStructuralFeature(eu.hyvar.evolution.HyEvolutionPackage.HY_NAME__VALID_SINCE));
+					Object o = element.eGet(element.eClass().getEStructuralFeature(eu.hyvar.mspl.manifest.ManifestPackage.HY_TIMED_IMPLEMENTATION_LINK__SIGNATURE));
 					if (o != null) {
-						eu.hyvar.mspl.manifest.resource.hymanifest.IHymanifestTokenResolver resolver = tokenResolverFactory.createTokenResolver("DATE");
+						eu.hyvar.mspl.manifest.resource.hymanifest.IHymanifestTokenResolver resolver = tokenResolverFactory.createTokenResolver("IDENTIFIER_TOKEN");
 						resolver.setOptions(getOptions());
-						out.print(resolver.deResolve((Object) o, element.eClass().getEStructuralFeature(eu.hyvar.evolution.HyEvolutionPackage.HY_NAME__VALID_SINCE), element));
+						out.print(resolver.deResolve(getReferenceResolverSwitch() == null ? null : getReferenceResolverSwitch().getHyTimedImplementationLinkSignatureReferenceResolver().deResolve((eu.hyvar.feature.HyFeature) o, element, (EReference) element.eClass().getEStructuralFeature(eu.hyvar.mspl.manifest.ManifestPackage.HY_TIMED_IMPLEMENTATION_LINK__SIGNATURE)), element.eClass().getEStructuralFeature(eu.hyvar.mspl.manifest.ManifestPackage.HY_TIMED_IMPLEMENTATION_LINK__SIGNATURE), element));
 						out.print(" ");
 					}
-					printCountingMap.put("validSince", count - 1);
-				}
-				// DEFINITION PART BEGINS (CsString)
-				out.print("-");
-				out.print(" ");
-				// DEFINITION PART BEGINS (CsString)
-				out.print("eternity");
-				out.print(" ");
-			}
-			break;
-			case 2:			{
-				// DEFINITION PART BEGINS (CsString)
-				out.print("eternity");
-				out.print(" ");
-				// DEFINITION PART BEGINS (CsString)
-				out.print("-");
-				out.print(" ");
-				// DEFINITION PART BEGINS (PlaceholderUsingSpecifiedToken)
-				count = printCountingMap.get("validUntil");
-				if (count > 0) {
-					Object o = element.eGet(element.eClass().getEStructuralFeature(eu.hyvar.evolution.HyEvolutionPackage.HY_NAME__VALID_UNTIL));
-					if (o != null) {
-						eu.hyvar.mspl.manifest.resource.hymanifest.IHymanifestTokenResolver resolver = tokenResolverFactory.createTokenResolver("DATE");
-						resolver.setOptions(getOptions());
-						out.print(resolver.deResolve((Object) o, element.eClass().getEStructuralFeature(eu.hyvar.evolution.HyEvolutionPackage.HY_NAME__VALID_UNTIL), element));
-						out.print(" ");
-					}
-					printCountingMap.put("validUntil", count - 1);
+					printCountingMap.put("signature", count - 1);
 				}
 			}
 			break;
-			default:			// DEFINITION PART BEGINS (PlaceholderUsingSpecifiedToken)
-			count = printCountingMap.get("validSince");
+			default:			// DEFINITION PART BEGINS (PlaceholderInQuotes)
+			count = printCountingMap.get("signature");
 			if (count > 0) {
-				Object o = element.eGet(element.eClass().getEStructuralFeature(eu.hyvar.evolution.HyEvolutionPackage.HY_NAME__VALID_SINCE));
+				Object o = element.eGet(element.eClass().getEStructuralFeature(eu.hyvar.mspl.manifest.ManifestPackage.HY_TIMED_IMPLEMENTATION_LINK__SIGNATURE));
 				if (o != null) {
-					eu.hyvar.mspl.manifest.resource.hymanifest.IHymanifestTokenResolver resolver = tokenResolverFactory.createTokenResolver("DATE");
+					eu.hyvar.mspl.manifest.resource.hymanifest.IHymanifestTokenResolver resolver = tokenResolverFactory.createTokenResolver("QUOTED_34_34");
 					resolver.setOptions(getOptions());
-					out.print(resolver.deResolve((Object) o, element.eClass().getEStructuralFeature(eu.hyvar.evolution.HyEvolutionPackage.HY_NAME__VALID_SINCE), element));
+					out.print(resolver.deResolve(getReferenceResolverSwitch() == null ? null : getReferenceResolverSwitch().getHyTimedImplementationLinkSignatureReferenceResolver().deResolve((eu.hyvar.feature.HyFeature) o, element, (EReference) element.eClass().getEStructuralFeature(eu.hyvar.mspl.manifest.ManifestPackage.HY_TIMED_IMPLEMENTATION_LINK__SIGNATURE)), element.eClass().getEStructuralFeature(eu.hyvar.mspl.manifest.ManifestPackage.HY_TIMED_IMPLEMENTATION_LINK__SIGNATURE), element));
 					out.print(" ");
 				}
-				printCountingMap.put("validSince", count - 1);
-			}
-			// DEFINITION PART BEGINS (CsString)
-			out.print("-");
-			out.print(" ");
-			// DEFINITION PART BEGINS (PlaceholderUsingSpecifiedToken)
-			count = printCountingMap.get("validUntil");
-			if (count > 0) {
-				Object o = element.eGet(element.eClass().getEStructuralFeature(eu.hyvar.evolution.HyEvolutionPackage.HY_NAME__VALID_UNTIL));
-				if (o != null) {
-					eu.hyvar.mspl.manifest.resource.hymanifest.IHymanifestTokenResolver resolver = tokenResolverFactory.createTokenResolver("DATE");
-					resolver.setOptions(getOptions());
-					out.print(resolver.deResolve((Object) o, element.eClass().getEStructuralFeature(eu.hyvar.evolution.HyEvolutionPackage.HY_NAME__VALID_UNTIL), element));
-					out.print(" ");
-				}
-				printCountingMap.put("validUntil", count - 1);
+				printCountingMap.put("signature", count - 1);
 			}
 		}
 	}

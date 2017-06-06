@@ -26,147 +26,12 @@ public class HymanifestGrammarInformationProvider {
 	
 	public final static eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestKeyword HYMANIFEST_0_0_0_0 = INSTANCE.getHYMANIFEST_0_0_0_0();
 	private eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestKeyword getHYMANIFEST_0_0_0_0() {
-		return new eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestKeyword("Implementation ", eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCardinality.ONE);
-	}
-	
-	public final static eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestContainment HYMANIFEST_0_0_0_1 = INSTANCE.getHYMANIFEST_0_0_0_1();
-	private eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestContainment getHYMANIFEST_0_0_0_1() {
-		return new eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestContainment(eu.hyvar.mspl.manifest.ManifestPackage.eINSTANCE.getHySPLImplementation().getEStructuralFeature(eu.hyvar.mspl.manifest.ManifestPackage.HY_SPL_IMPLEMENTATION__NAMES), eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCardinality.ONE, new EClass[] {eu.hyvar.evolution.HyEvolutionPackage.eINSTANCE.getHyName(), }, 0);
-	}
-	
-	public final static eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestKeyword HYMANIFEST_0_0_0_2_0_0_0 = INSTANCE.getHYMANIFEST_0_0_0_2_0_0_0();
-	private eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestKeyword getHYMANIFEST_0_0_0_2_0_0_0() {
-		return new eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestKeyword(",", eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCardinality.ONE);
-	}
-	
-	public final static eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestContainment HYMANIFEST_0_0_0_2_0_0_1 = INSTANCE.getHYMANIFEST_0_0_0_2_0_0_1();
-	private eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestContainment getHYMANIFEST_0_0_0_2_0_0_1() {
-		return new eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestContainment(eu.hyvar.mspl.manifest.ManifestPackage.eINSTANCE.getHySPLImplementation().getEStructuralFeature(eu.hyvar.mspl.manifest.ManifestPackage.HY_SPL_IMPLEMENTATION__NAMES), eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCardinality.ONE, new EClass[] {eu.hyvar.evolution.HyEvolutionPackage.eINSTANCE.getHyName(), }, 0);
-	}
-	
-	public final static eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestSequence HYMANIFEST_0_0_0_2_0_0 = INSTANCE.getHYMANIFEST_0_0_0_2_0_0();
-	private eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestSequence getHYMANIFEST_0_0_0_2_0_0() {
-		return new eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestSequence(eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCardinality.ONE, HYMANIFEST_0_0_0_2_0_0_0, HYMANIFEST_0_0_0_2_0_0_1);
-	}
-	
-	public final static eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestChoice HYMANIFEST_0_0_0_2_0 = INSTANCE.getHYMANIFEST_0_0_0_2_0();
-	private eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestChoice getHYMANIFEST_0_0_0_2_0() {
-		return new eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestChoice(eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCardinality.ONE, HYMANIFEST_0_0_0_2_0_0);
-	}
-	
-	public final static eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCompound HYMANIFEST_0_0_0_2 = INSTANCE.getHYMANIFEST_0_0_0_2();
-	private eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCompound getHYMANIFEST_0_0_0_2() {
-		return new eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCompound(HYMANIFEST_0_0_0_2_0, eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCardinality.STAR);
-	}
-	
-	public final static eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestKeyword HYMANIFEST_0_0_0_3_0_0_0 = INSTANCE.getHYMANIFEST_0_0_0_3_0_0_0();
-	private eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestKeyword getHYMANIFEST_0_0_0_3_0_0_0() {
-		return new eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestKeyword("(", eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCardinality.ONE);
-	}
-	
-	public final static eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestContainment HYMANIFEST_0_0_0_3_0_0_1 = INSTANCE.getHYMANIFEST_0_0_0_3_0_0_1();
-	private eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestContainment getHYMANIFEST_0_0_0_3_0_0_1() {
-		return new eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestContainment(eu.hyvar.mspl.manifest.ManifestPackage.eINSTANCE.getHySPLImplementation().getEStructuralFeature(eu.hyvar.mspl.manifest.ManifestPackage.HY_SPL_IMPLEMENTATION__DEPENDENCIES), eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCardinality.ONE, new EClass[] {eu.hyvar.mspl.manifest.ManifestPackage.eINSTANCE.getHyTimedDependencies(), }, 0);
-	}
-	
-	public final static eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestKeyword HYMANIFEST_0_0_0_3_0_0_2_0_0_0 = INSTANCE.getHYMANIFEST_0_0_0_3_0_0_2_0_0_0();
-	private eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestKeyword getHYMANIFEST_0_0_0_3_0_0_2_0_0_0() {
-		return new eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestKeyword(",", eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCardinality.ONE);
-	}
-	
-	public final static eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestContainment HYMANIFEST_0_0_0_3_0_0_2_0_0_1 = INSTANCE.getHYMANIFEST_0_0_0_3_0_0_2_0_0_1();
-	private eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestContainment getHYMANIFEST_0_0_0_3_0_0_2_0_0_1() {
-		return new eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestContainment(eu.hyvar.mspl.manifest.ManifestPackage.eINSTANCE.getHySPLImplementation().getEStructuralFeature(eu.hyvar.mspl.manifest.ManifestPackage.HY_SPL_IMPLEMENTATION__DEPENDENCIES), eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCardinality.ONE, new EClass[] {eu.hyvar.mspl.manifest.ManifestPackage.eINSTANCE.getHyTimedDependencies(), }, 0);
-	}
-	
-	public final static eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestSequence HYMANIFEST_0_0_0_3_0_0_2_0_0 = INSTANCE.getHYMANIFEST_0_0_0_3_0_0_2_0_0();
-	private eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestSequence getHYMANIFEST_0_0_0_3_0_0_2_0_0() {
-		return new eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestSequence(eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCardinality.ONE, HYMANIFEST_0_0_0_3_0_0_2_0_0_0, HYMANIFEST_0_0_0_3_0_0_2_0_0_1);
-	}
-	
-	public final static eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestChoice HYMANIFEST_0_0_0_3_0_0_2_0 = INSTANCE.getHYMANIFEST_0_0_0_3_0_0_2_0();
-	private eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestChoice getHYMANIFEST_0_0_0_3_0_0_2_0() {
-		return new eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestChoice(eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCardinality.ONE, HYMANIFEST_0_0_0_3_0_0_2_0_0);
-	}
-	
-	public final static eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCompound HYMANIFEST_0_0_0_3_0_0_2 = INSTANCE.getHYMANIFEST_0_0_0_3_0_0_2();
-	private eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCompound getHYMANIFEST_0_0_0_3_0_0_2() {
-		return new eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCompound(HYMANIFEST_0_0_0_3_0_0_2_0, eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCardinality.STAR);
-	}
-	
-	public final static eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestKeyword HYMANIFEST_0_0_0_3_0_0_3 = INSTANCE.getHYMANIFEST_0_0_0_3_0_0_3();
-	private eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestKeyword getHYMANIFEST_0_0_0_3_0_0_3() {
-		return new eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestKeyword(")", eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCardinality.ONE);
-	}
-	
-	public final static eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestSequence HYMANIFEST_0_0_0_3_0_0 = INSTANCE.getHYMANIFEST_0_0_0_3_0_0();
-	private eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestSequence getHYMANIFEST_0_0_0_3_0_0() {
-		return new eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestSequence(eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCardinality.ONE, HYMANIFEST_0_0_0_3_0_0_0, HYMANIFEST_0_0_0_3_0_0_1, HYMANIFEST_0_0_0_3_0_0_2, HYMANIFEST_0_0_0_3_0_0_3);
-	}
-	
-	public final static eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestChoice HYMANIFEST_0_0_0_3_0 = INSTANCE.getHYMANIFEST_0_0_0_3_0();
-	private eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestChoice getHYMANIFEST_0_0_0_3_0() {
-		return new eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestChoice(eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCardinality.ONE, HYMANIFEST_0_0_0_3_0_0);
-	}
-	
-	public final static eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCompound HYMANIFEST_0_0_0_3 = INSTANCE.getHYMANIFEST_0_0_0_3();
-	private eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCompound getHYMANIFEST_0_0_0_3() {
-		return new eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCompound(HYMANIFEST_0_0_0_3_0, eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCardinality.QUESTIONMARK);
-	}
-	
-	public final static eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestKeyword HYMANIFEST_0_0_0_4_0_0_0 = INSTANCE.getHYMANIFEST_0_0_0_4_0_0_0();
-	private eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestKeyword getHYMANIFEST_0_0_0_4_0_0_0() {
-		return new eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestKeyword(":", eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCardinality.ONE);
-	}
-	
-	public final static eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestContainment HYMANIFEST_0_0_0_4_0_0_1 = INSTANCE.getHYMANIFEST_0_0_0_4_0_0_1();
-	private eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestContainment getHYMANIFEST_0_0_0_4_0_0_1() {
-		return new eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestContainment(eu.hyvar.mspl.manifest.ManifestPackage.eINSTANCE.getHySPLImplementation().getEStructuralFeature(eu.hyvar.mspl.manifest.ManifestPackage.HY_SPL_IMPLEMENTATION__IMPLEMENTATIONS), eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCardinality.ONE, new EClass[] {eu.hyvar.mspl.manifest.ManifestPackage.eINSTANCE.getHyTimedImplementations(), }, 0);
-	}
-	
-	public final static eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestKeyword HYMANIFEST_0_0_0_4_0_0_2_0_0_0 = INSTANCE.getHYMANIFEST_0_0_0_4_0_0_2_0_0_0();
-	private eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestKeyword getHYMANIFEST_0_0_0_4_0_0_2_0_0_0() {
-		return new eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestKeyword(",", eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCardinality.ONE);
-	}
-	
-	public final static eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestContainment HYMANIFEST_0_0_0_4_0_0_2_0_0_1 = INSTANCE.getHYMANIFEST_0_0_0_4_0_0_2_0_0_1();
-	private eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestContainment getHYMANIFEST_0_0_0_4_0_0_2_0_0_1() {
-		return new eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestContainment(eu.hyvar.mspl.manifest.ManifestPackage.eINSTANCE.getHySPLImplementation().getEStructuralFeature(eu.hyvar.mspl.manifest.ManifestPackage.HY_SPL_IMPLEMENTATION__IMPLEMENTATIONS), eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCardinality.ONE, new EClass[] {eu.hyvar.mspl.manifest.ManifestPackage.eINSTANCE.getHyTimedImplementations(), }, 0);
-	}
-	
-	public final static eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestSequence HYMANIFEST_0_0_0_4_0_0_2_0_0 = INSTANCE.getHYMANIFEST_0_0_0_4_0_0_2_0_0();
-	private eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestSequence getHYMANIFEST_0_0_0_4_0_0_2_0_0() {
-		return new eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestSequence(eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCardinality.ONE, HYMANIFEST_0_0_0_4_0_0_2_0_0_0, HYMANIFEST_0_0_0_4_0_0_2_0_0_1);
-	}
-	
-	public final static eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestChoice HYMANIFEST_0_0_0_4_0_0_2_0 = INSTANCE.getHYMANIFEST_0_0_0_4_0_0_2_0();
-	private eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestChoice getHYMANIFEST_0_0_0_4_0_0_2_0() {
-		return new eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestChoice(eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCardinality.ONE, HYMANIFEST_0_0_0_4_0_0_2_0_0);
-	}
-	
-	public final static eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCompound HYMANIFEST_0_0_0_4_0_0_2 = INSTANCE.getHYMANIFEST_0_0_0_4_0_0_2();
-	private eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCompound getHYMANIFEST_0_0_0_4_0_0_2() {
-		return new eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCompound(HYMANIFEST_0_0_0_4_0_0_2_0, eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCardinality.STAR);
-	}
-	
-	public final static eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestSequence HYMANIFEST_0_0_0_4_0_0 = INSTANCE.getHYMANIFEST_0_0_0_4_0_0();
-	private eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestSequence getHYMANIFEST_0_0_0_4_0_0() {
-		return new eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestSequence(eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCardinality.ONE, HYMANIFEST_0_0_0_4_0_0_0, HYMANIFEST_0_0_0_4_0_0_1, HYMANIFEST_0_0_0_4_0_0_2);
-	}
-	
-	public final static eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestChoice HYMANIFEST_0_0_0_4_0 = INSTANCE.getHYMANIFEST_0_0_0_4_0();
-	private eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestChoice getHYMANIFEST_0_0_0_4_0() {
-		return new eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestChoice(eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCardinality.ONE, HYMANIFEST_0_0_0_4_0_0);
-	}
-	
-	public final static eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCompound HYMANIFEST_0_0_0_4 = INSTANCE.getHYMANIFEST_0_0_0_4();
-	private eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCompound getHYMANIFEST_0_0_0_4() {
-		return new eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCompound(HYMANIFEST_0_0_0_4_0, eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCardinality.QUESTIONMARK);
+		return new eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestKeyword("Signature ", eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCardinality.ONE);
 	}
 	
 	public final static eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestSequence HYMANIFEST_0_0_0 = INSTANCE.getHYMANIFEST_0_0_0();
 	private eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestSequence getHYMANIFEST_0_0_0() {
-		return new eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestSequence(eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCardinality.ONE, HYMANIFEST_0_0_0_0, HYMANIFEST_0_0_0_1, HYMANIFEST_0_0_0_2, HYMANIFEST_0_0_0_3, HYMANIFEST_0_0_0_4);
+		return new eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestSequence(eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCardinality.ONE, HYMANIFEST_0_0_0_0);
 	}
 	
 	public final static eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestChoice HYMANIFEST_0_0 = INSTANCE.getHYMANIFEST_0_0();
@@ -176,97 +41,57 @@ public class HymanifestGrammarInformationProvider {
 	
 	public final static eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestRule HYMANIFEST_0 = INSTANCE.getHYMANIFEST_0();
 	private eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestRule getHYMANIFEST_0() {
-		return new eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestRule(eu.hyvar.mspl.manifest.ManifestPackage.eINSTANCE.getHySPLImplementation(), HYMANIFEST_0_0, eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCardinality.ONE);
+		return new eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestRule(eu.hyvar.mspl.manifest.ManifestPackage.eINSTANCE.getHySPLSignature(), HYMANIFEST_0_0, eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCardinality.ONE);
 	}
 	
-	public final static eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestPlaceholder HYMANIFEST_1_0_0_0 = INSTANCE.getHYMANIFEST_1_0_0_0();
-	private eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestPlaceholder getHYMANIFEST_1_0_0_0() {
-		return new eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestPlaceholder(eu.hyvar.mspl.manifest.ManifestPackage.eINSTANCE.getHyTimedDependencies().getEStructuralFeature(eu.hyvar.mspl.manifest.ManifestPackage.HY_TIMED_DEPENDENCIES__SIGNATURE), "QUOTED_60_62", eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCardinality.ONE, 0);
+	public final static eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestKeyword HYMANIFEST_1_0_0_0 = INSTANCE.getHYMANIFEST_1_0_0_0();
+	private eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestKeyword getHYMANIFEST_1_0_0_0() {
+		return new eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestKeyword("Implementation ", eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCardinality.ONE);
 	}
 	
 	public final static eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestKeyword HYMANIFEST_1_0_0_1_0_0_0 = INSTANCE.getHYMANIFEST_1_0_0_1_0_0_0();
 	private eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestKeyword getHYMANIFEST_1_0_0_1_0_0_0() {
-		return new eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestKeyword("@[", eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCardinality.ONE);
+		return new eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestKeyword("(", eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCardinality.ONE);
 	}
 	
-	public final static eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestPlaceholder HYMANIFEST_1_0_0_1_0_0_1_0_0_0 = INSTANCE.getHYMANIFEST_1_0_0_1_0_0_1_0_0_0();
-	private eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestPlaceholder getHYMANIFEST_1_0_0_1_0_0_1_0_0_0() {
-		return new eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestPlaceholder(eu.hyvar.mspl.manifest.ManifestPackage.eINSTANCE.getHyTimedDependencies().getEStructuralFeature(eu.hyvar.mspl.manifest.ManifestPackage.HY_TIMED_DEPENDENCIES__VALID_SINCE), "DATE", eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCardinality.ONE, 0);
+	public final static eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestContainment HYMANIFEST_1_0_0_1_0_0_1 = INSTANCE.getHYMANIFEST_1_0_0_1_0_0_1();
+	private eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestContainment getHYMANIFEST_1_0_0_1_0_0_1() {
+		return new eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestContainment(eu.hyvar.mspl.manifest.ManifestPackage.eINSTANCE.getHySPLImplementation().getEStructuralFeature(eu.hyvar.mspl.manifest.ManifestPackage.HY_SPL_IMPLEMENTATION__DEPENDENCIES), eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCardinality.ONE, new EClass[] {eu.hyvar.mspl.manifest.ManifestPackage.eINSTANCE.getHyTimedDependencies(), }, 0);
 	}
 	
-	public final static eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestKeyword HYMANIFEST_1_0_0_1_0_0_1_0_0_1 = INSTANCE.getHYMANIFEST_1_0_0_1_0_0_1_0_0_1();
-	private eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestKeyword getHYMANIFEST_1_0_0_1_0_0_1_0_0_1() {
-		return new eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestKeyword("-", eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCardinality.ONE);
+	public final static eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestKeyword HYMANIFEST_1_0_0_1_0_0_2_0_0_0 = INSTANCE.getHYMANIFEST_1_0_0_1_0_0_2_0_0_0();
+	private eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestKeyword getHYMANIFEST_1_0_0_1_0_0_2_0_0_0() {
+		return new eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestKeyword(",", eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCardinality.ONE);
 	}
 	
-	public final static eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestPlaceholder HYMANIFEST_1_0_0_1_0_0_1_0_0_2 = INSTANCE.getHYMANIFEST_1_0_0_1_0_0_1_0_0_2();
-	private eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestPlaceholder getHYMANIFEST_1_0_0_1_0_0_1_0_0_2() {
-		return new eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestPlaceholder(eu.hyvar.mspl.manifest.ManifestPackage.eINSTANCE.getHyTimedDependencies().getEStructuralFeature(eu.hyvar.mspl.manifest.ManifestPackage.HY_TIMED_DEPENDENCIES__VALID_UNTIL), "DATE", eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCardinality.ONE, 0);
+	public final static eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestContainment HYMANIFEST_1_0_0_1_0_0_2_0_0_1 = INSTANCE.getHYMANIFEST_1_0_0_1_0_0_2_0_0_1();
+	private eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestContainment getHYMANIFEST_1_0_0_1_0_0_2_0_0_1() {
+		return new eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestContainment(eu.hyvar.mspl.manifest.ManifestPackage.eINSTANCE.getHySPLImplementation().getEStructuralFeature(eu.hyvar.mspl.manifest.ManifestPackage.HY_SPL_IMPLEMENTATION__DEPENDENCIES), eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCardinality.ONE, new EClass[] {eu.hyvar.mspl.manifest.ManifestPackage.eINSTANCE.getHyTimedDependencies(), }, 0);
 	}
 	
-	public final static eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestSequence HYMANIFEST_1_0_0_1_0_0_1_0_0 = INSTANCE.getHYMANIFEST_1_0_0_1_0_0_1_0_0();
-	private eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestSequence getHYMANIFEST_1_0_0_1_0_0_1_0_0() {
-		return new eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestSequence(eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCardinality.ONE, HYMANIFEST_1_0_0_1_0_0_1_0_0_0, HYMANIFEST_1_0_0_1_0_0_1_0_0_1, HYMANIFEST_1_0_0_1_0_0_1_0_0_2);
+	public final static eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestSequence HYMANIFEST_1_0_0_1_0_0_2_0_0 = INSTANCE.getHYMANIFEST_1_0_0_1_0_0_2_0_0();
+	private eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestSequence getHYMANIFEST_1_0_0_1_0_0_2_0_0() {
+		return new eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestSequence(eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCardinality.ONE, HYMANIFEST_1_0_0_1_0_0_2_0_0_0, HYMANIFEST_1_0_0_1_0_0_2_0_0_1);
 	}
 	
-	public final static eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestPlaceholder HYMANIFEST_1_0_0_1_0_0_1_0_1_0 = INSTANCE.getHYMANIFEST_1_0_0_1_0_0_1_0_1_0();
-	private eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestPlaceholder getHYMANIFEST_1_0_0_1_0_0_1_0_1_0() {
-		return new eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestPlaceholder(eu.hyvar.mspl.manifest.ManifestPackage.eINSTANCE.getHyTimedDependencies().getEStructuralFeature(eu.hyvar.mspl.manifest.ManifestPackage.HY_TIMED_DEPENDENCIES__VALID_SINCE), "DATE", eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCardinality.ONE, 0);
+	public final static eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestChoice HYMANIFEST_1_0_0_1_0_0_2_0 = INSTANCE.getHYMANIFEST_1_0_0_1_0_0_2_0();
+	private eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestChoice getHYMANIFEST_1_0_0_1_0_0_2_0() {
+		return new eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestChoice(eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCardinality.ONE, HYMANIFEST_1_0_0_1_0_0_2_0_0);
 	}
 	
-	public final static eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestKeyword HYMANIFEST_1_0_0_1_0_0_1_0_1_1 = INSTANCE.getHYMANIFEST_1_0_0_1_0_0_1_0_1_1();
-	private eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestKeyword getHYMANIFEST_1_0_0_1_0_0_1_0_1_1() {
-		return new eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestKeyword("-", eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCardinality.ONE);
+	public final static eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCompound HYMANIFEST_1_0_0_1_0_0_2 = INSTANCE.getHYMANIFEST_1_0_0_1_0_0_2();
+	private eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCompound getHYMANIFEST_1_0_0_1_0_0_2() {
+		return new eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCompound(HYMANIFEST_1_0_0_1_0_0_2_0, eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCardinality.STAR);
 	}
 	
-	public final static eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestKeyword HYMANIFEST_1_0_0_1_0_0_1_0_1_2 = INSTANCE.getHYMANIFEST_1_0_0_1_0_0_1_0_1_2();
-	private eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestKeyword getHYMANIFEST_1_0_0_1_0_0_1_0_1_2() {
-		return new eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestKeyword("eternity", eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCardinality.ONE);
-	}
-	
-	public final static eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestSequence HYMANIFEST_1_0_0_1_0_0_1_0_1 = INSTANCE.getHYMANIFEST_1_0_0_1_0_0_1_0_1();
-	private eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestSequence getHYMANIFEST_1_0_0_1_0_0_1_0_1() {
-		return new eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestSequence(eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCardinality.ONE, HYMANIFEST_1_0_0_1_0_0_1_0_1_0, HYMANIFEST_1_0_0_1_0_0_1_0_1_1, HYMANIFEST_1_0_0_1_0_0_1_0_1_2);
-	}
-	
-	public final static eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestKeyword HYMANIFEST_1_0_0_1_0_0_1_0_2_0 = INSTANCE.getHYMANIFEST_1_0_0_1_0_0_1_0_2_0();
-	private eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestKeyword getHYMANIFEST_1_0_0_1_0_0_1_0_2_0() {
-		return new eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestKeyword("eternity", eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCardinality.ONE);
-	}
-	
-	public final static eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestKeyword HYMANIFEST_1_0_0_1_0_0_1_0_2_1 = INSTANCE.getHYMANIFEST_1_0_0_1_0_0_1_0_2_1();
-	private eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestKeyword getHYMANIFEST_1_0_0_1_0_0_1_0_2_1() {
-		return new eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestKeyword("-", eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCardinality.ONE);
-	}
-	
-	public final static eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestPlaceholder HYMANIFEST_1_0_0_1_0_0_1_0_2_2 = INSTANCE.getHYMANIFEST_1_0_0_1_0_0_1_0_2_2();
-	private eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestPlaceholder getHYMANIFEST_1_0_0_1_0_0_1_0_2_2() {
-		return new eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestPlaceholder(eu.hyvar.mspl.manifest.ManifestPackage.eINSTANCE.getHyTimedDependencies().getEStructuralFeature(eu.hyvar.mspl.manifest.ManifestPackage.HY_TIMED_DEPENDENCIES__VALID_UNTIL), "DATE", eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCardinality.ONE, 0);
-	}
-	
-	public final static eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestSequence HYMANIFEST_1_0_0_1_0_0_1_0_2 = INSTANCE.getHYMANIFEST_1_0_0_1_0_0_1_0_2();
-	private eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestSequence getHYMANIFEST_1_0_0_1_0_0_1_0_2() {
-		return new eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestSequence(eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCardinality.ONE, HYMANIFEST_1_0_0_1_0_0_1_0_2_0, HYMANIFEST_1_0_0_1_0_0_1_0_2_1, HYMANIFEST_1_0_0_1_0_0_1_0_2_2);
-	}
-	
-	public final static eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestChoice HYMANIFEST_1_0_0_1_0_0_1_0 = INSTANCE.getHYMANIFEST_1_0_0_1_0_0_1_0();
-	private eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestChoice getHYMANIFEST_1_0_0_1_0_0_1_0() {
-		return new eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestChoice(eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCardinality.ONE, HYMANIFEST_1_0_0_1_0_0_1_0_0, HYMANIFEST_1_0_0_1_0_0_1_0_1, HYMANIFEST_1_0_0_1_0_0_1_0_2);
-	}
-	
-	public final static eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCompound HYMANIFEST_1_0_0_1_0_0_1 = INSTANCE.getHYMANIFEST_1_0_0_1_0_0_1();
-	private eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCompound getHYMANIFEST_1_0_0_1_0_0_1() {
-		return new eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCompound(HYMANIFEST_1_0_0_1_0_0_1_0, eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCardinality.ONE);
-	}
-	
-	public final static eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestKeyword HYMANIFEST_1_0_0_1_0_0_2 = INSTANCE.getHYMANIFEST_1_0_0_1_0_0_2();
-	private eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestKeyword getHYMANIFEST_1_0_0_1_0_0_2() {
-		return new eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestKeyword("]", eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCardinality.ONE);
+	public final static eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestKeyword HYMANIFEST_1_0_0_1_0_0_3 = INSTANCE.getHYMANIFEST_1_0_0_1_0_0_3();
+	private eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestKeyword getHYMANIFEST_1_0_0_1_0_0_3() {
+		return new eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestKeyword(")", eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCardinality.ONE);
 	}
 	
 	public final static eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestSequence HYMANIFEST_1_0_0_1_0_0 = INSTANCE.getHYMANIFEST_1_0_0_1_0_0();
 	private eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestSequence getHYMANIFEST_1_0_0_1_0_0() {
-		return new eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestSequence(eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCardinality.ONE, HYMANIFEST_1_0_0_1_0_0_0, HYMANIFEST_1_0_0_1_0_0_1, HYMANIFEST_1_0_0_1_0_0_2);
+		return new eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestSequence(eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCardinality.ONE, HYMANIFEST_1_0_0_1_0_0_0, HYMANIFEST_1_0_0_1_0_0_1, HYMANIFEST_1_0_0_1_0_0_2, HYMANIFEST_1_0_0_1_0_0_3);
 	}
 	
 	public final static eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestChoice HYMANIFEST_1_0_0_1_0 = INSTANCE.getHYMANIFEST_1_0_0_1_0();
@@ -279,9 +104,59 @@ public class HymanifestGrammarInformationProvider {
 		return new eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCompound(HYMANIFEST_1_0_0_1_0, eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCardinality.QUESTIONMARK);
 	}
 	
+	public final static eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestKeyword HYMANIFEST_1_0_0_2_0_0_0 = INSTANCE.getHYMANIFEST_1_0_0_2_0_0_0();
+	private eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestKeyword getHYMANIFEST_1_0_0_2_0_0_0() {
+		return new eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestKeyword(":", eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCardinality.ONE);
+	}
+	
+	public final static eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestContainment HYMANIFEST_1_0_0_2_0_0_1 = INSTANCE.getHYMANIFEST_1_0_0_2_0_0_1();
+	private eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestContainment getHYMANIFEST_1_0_0_2_0_0_1() {
+		return new eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestContainment(eu.hyvar.mspl.manifest.ManifestPackage.eINSTANCE.getHySPLImplementation().getEStructuralFeature(eu.hyvar.mspl.manifest.ManifestPackage.HY_SPL_IMPLEMENTATION__IMPLEMENTATIONS), eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCardinality.ONE, new EClass[] {eu.hyvar.mspl.manifest.ManifestPackage.eINSTANCE.getHyTimedImplementations(), }, 0);
+	}
+	
+	public final static eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestKeyword HYMANIFEST_1_0_0_2_0_0_2_0_0_0 = INSTANCE.getHYMANIFEST_1_0_0_2_0_0_2_0_0_0();
+	private eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestKeyword getHYMANIFEST_1_0_0_2_0_0_2_0_0_0() {
+		return new eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestKeyword(",", eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCardinality.ONE);
+	}
+	
+	public final static eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestContainment HYMANIFEST_1_0_0_2_0_0_2_0_0_1 = INSTANCE.getHYMANIFEST_1_0_0_2_0_0_2_0_0_1();
+	private eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestContainment getHYMANIFEST_1_0_0_2_0_0_2_0_0_1() {
+		return new eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestContainment(eu.hyvar.mspl.manifest.ManifestPackage.eINSTANCE.getHySPLImplementation().getEStructuralFeature(eu.hyvar.mspl.manifest.ManifestPackage.HY_SPL_IMPLEMENTATION__IMPLEMENTATIONS), eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCardinality.ONE, new EClass[] {eu.hyvar.mspl.manifest.ManifestPackage.eINSTANCE.getHyTimedImplementations(), }, 0);
+	}
+	
+	public final static eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestSequence HYMANIFEST_1_0_0_2_0_0_2_0_0 = INSTANCE.getHYMANIFEST_1_0_0_2_0_0_2_0_0();
+	private eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestSequence getHYMANIFEST_1_0_0_2_0_0_2_0_0() {
+		return new eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestSequence(eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCardinality.ONE, HYMANIFEST_1_0_0_2_0_0_2_0_0_0, HYMANIFEST_1_0_0_2_0_0_2_0_0_1);
+	}
+	
+	public final static eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestChoice HYMANIFEST_1_0_0_2_0_0_2_0 = INSTANCE.getHYMANIFEST_1_0_0_2_0_0_2_0();
+	private eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestChoice getHYMANIFEST_1_0_0_2_0_0_2_0() {
+		return new eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestChoice(eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCardinality.ONE, HYMANIFEST_1_0_0_2_0_0_2_0_0);
+	}
+	
+	public final static eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCompound HYMANIFEST_1_0_0_2_0_0_2 = INSTANCE.getHYMANIFEST_1_0_0_2_0_0_2();
+	private eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCompound getHYMANIFEST_1_0_0_2_0_0_2() {
+		return new eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCompound(HYMANIFEST_1_0_0_2_0_0_2_0, eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCardinality.STAR);
+	}
+	
+	public final static eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestSequence HYMANIFEST_1_0_0_2_0_0 = INSTANCE.getHYMANIFEST_1_0_0_2_0_0();
+	private eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestSequence getHYMANIFEST_1_0_0_2_0_0() {
+		return new eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestSequence(eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCardinality.ONE, HYMANIFEST_1_0_0_2_0_0_0, HYMANIFEST_1_0_0_2_0_0_1, HYMANIFEST_1_0_0_2_0_0_2);
+	}
+	
+	public final static eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestChoice HYMANIFEST_1_0_0_2_0 = INSTANCE.getHYMANIFEST_1_0_0_2_0();
+	private eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestChoice getHYMANIFEST_1_0_0_2_0() {
+		return new eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestChoice(eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCardinality.ONE, HYMANIFEST_1_0_0_2_0_0);
+	}
+	
+	public final static eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCompound HYMANIFEST_1_0_0_2 = INSTANCE.getHYMANIFEST_1_0_0_2();
+	private eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCompound getHYMANIFEST_1_0_0_2() {
+		return new eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCompound(HYMANIFEST_1_0_0_2_0, eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCardinality.QUESTIONMARK);
+	}
+	
 	public final static eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestSequence HYMANIFEST_1_0_0 = INSTANCE.getHYMANIFEST_1_0_0();
 	private eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestSequence getHYMANIFEST_1_0_0() {
-		return new eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestSequence(eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCardinality.ONE, HYMANIFEST_1_0_0_0, HYMANIFEST_1_0_0_1);
+		return new eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestSequence(eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCardinality.ONE, HYMANIFEST_1_0_0_0, HYMANIFEST_1_0_0_1, HYMANIFEST_1_0_0_2);
 	}
 	
 	public final static eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestChoice HYMANIFEST_1_0 = INSTANCE.getHYMANIFEST_1_0();
@@ -291,167 +166,147 @@ public class HymanifestGrammarInformationProvider {
 	
 	public final static eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestRule HYMANIFEST_1 = INSTANCE.getHYMANIFEST_1();
 	private eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestRule getHYMANIFEST_1() {
-		return new eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestRule(eu.hyvar.mspl.manifest.ManifestPackage.eINSTANCE.getHyTimedDependencies(), HYMANIFEST_1_0, eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCardinality.ONE);
+		return new eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestRule(eu.hyvar.mspl.manifest.ManifestPackage.eINSTANCE.getHySPLImplementation(), HYMANIFEST_1_0, eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCardinality.ONE);
 	}
 	
-	public final static eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestPlaceholder HYMANIFEST_2_0_0_0 = INSTANCE.getHYMANIFEST_2_0_0_0();
-	private eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestPlaceholder getHYMANIFEST_2_0_0_0() {
-		return new eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestPlaceholder(eu.hyvar.mspl.manifest.ManifestPackage.eINSTANCE.getHyTimedImplementations().getEStructuralFeature(eu.hyvar.mspl.manifest.ManifestPackage.HY_TIMED_IMPLEMENTATIONS__SIGNATURE), "QUOTED_60_62", eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCardinality.ONE, 0);
+	public final static eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestKeyword HYMANIFEST_2_0_0_0_0_0_0 = INSTANCE.getHYMANIFEST_2_0_0_0_0_0_0();
+	private eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestKeyword getHYMANIFEST_2_0_0_0_0_0_0() {
+		return new eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestKeyword("[", eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCardinality.ONE);
 	}
 	
-	public final static eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestKeyword HYMANIFEST_2_0_0_1_0_0_0 = INSTANCE.getHYMANIFEST_2_0_0_1_0_0_0();
-	private eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestKeyword getHYMANIFEST_2_0_0_1_0_0_0() {
-		return new eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestKeyword("@[", eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCardinality.ONE);
+	public final static eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestPlaceholder HYMANIFEST_2_0_0_0_0_0_1_0_0_0 = INSTANCE.getHYMANIFEST_2_0_0_0_0_0_1_0_0_0();
+	private eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestPlaceholder getHYMANIFEST_2_0_0_0_0_0_1_0_0_0() {
+		return new eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestPlaceholder(eu.hyvar.mspl.manifest.ManifestPackage.eINSTANCE.getHyTimedDependencies().getEStructuralFeature(eu.hyvar.mspl.manifest.ManifestPackage.HY_TIMED_DEPENDENCIES__VALID_SINCE), "DATE", eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCardinality.ONE, 0);
 	}
 	
-	public final static eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestPlaceholder HYMANIFEST_2_0_0_1_0_0_1_0_0_0 = INSTANCE.getHYMANIFEST_2_0_0_1_0_0_1_0_0_0();
-	private eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestPlaceholder getHYMANIFEST_2_0_0_1_0_0_1_0_0_0() {
-		return new eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestPlaceholder(eu.hyvar.mspl.manifest.ManifestPackage.eINSTANCE.getHyTimedImplementations().getEStructuralFeature(eu.hyvar.mspl.manifest.ManifestPackage.HY_TIMED_IMPLEMENTATIONS__VALID_SINCE), "DATE", eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCardinality.ONE, 0);
-	}
-	
-	public final static eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestKeyword HYMANIFEST_2_0_0_1_0_0_1_0_0_1 = INSTANCE.getHYMANIFEST_2_0_0_1_0_0_1_0_0_1();
-	private eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestKeyword getHYMANIFEST_2_0_0_1_0_0_1_0_0_1() {
+	public final static eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestKeyword HYMANIFEST_2_0_0_0_0_0_1_0_0_1 = INSTANCE.getHYMANIFEST_2_0_0_0_0_0_1_0_0_1();
+	private eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestKeyword getHYMANIFEST_2_0_0_0_0_0_1_0_0_1() {
 		return new eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestKeyword("-", eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCardinality.ONE);
 	}
 	
-	public final static eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestPlaceholder HYMANIFEST_2_0_0_1_0_0_1_0_0_2 = INSTANCE.getHYMANIFEST_2_0_0_1_0_0_1_0_0_2();
-	private eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestPlaceholder getHYMANIFEST_2_0_0_1_0_0_1_0_0_2() {
-		return new eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestPlaceholder(eu.hyvar.mspl.manifest.ManifestPackage.eINSTANCE.getHyTimedImplementations().getEStructuralFeature(eu.hyvar.mspl.manifest.ManifestPackage.HY_TIMED_IMPLEMENTATIONS__VALID_UNTIL), "DATE", eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCardinality.ONE, 0);
+	public final static eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestPlaceholder HYMANIFEST_2_0_0_0_0_0_1_0_0_2 = INSTANCE.getHYMANIFEST_2_0_0_0_0_0_1_0_0_2();
+	private eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestPlaceholder getHYMANIFEST_2_0_0_0_0_0_1_0_0_2() {
+		return new eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestPlaceholder(eu.hyvar.mspl.manifest.ManifestPackage.eINSTANCE.getHyTimedDependencies().getEStructuralFeature(eu.hyvar.mspl.manifest.ManifestPackage.HY_TIMED_DEPENDENCIES__VALID_UNTIL), "DATE", eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCardinality.ONE, 0);
 	}
 	
-	public final static eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestSequence HYMANIFEST_2_0_0_1_0_0_1_0_0 = INSTANCE.getHYMANIFEST_2_0_0_1_0_0_1_0_0();
-	private eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestSequence getHYMANIFEST_2_0_0_1_0_0_1_0_0() {
-		return new eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestSequence(eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCardinality.ONE, HYMANIFEST_2_0_0_1_0_0_1_0_0_0, HYMANIFEST_2_0_0_1_0_0_1_0_0_1, HYMANIFEST_2_0_0_1_0_0_1_0_0_2);
+	public final static eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestSequence HYMANIFEST_2_0_0_0_0_0_1_0_0 = INSTANCE.getHYMANIFEST_2_0_0_0_0_0_1_0_0();
+	private eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestSequence getHYMANIFEST_2_0_0_0_0_0_1_0_0() {
+		return new eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestSequence(eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCardinality.ONE, HYMANIFEST_2_0_0_0_0_0_1_0_0_0, HYMANIFEST_2_0_0_0_0_0_1_0_0_1, HYMANIFEST_2_0_0_0_0_0_1_0_0_2);
 	}
 	
-	public final static eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestPlaceholder HYMANIFEST_2_0_0_1_0_0_1_0_1_0 = INSTANCE.getHYMANIFEST_2_0_0_1_0_0_1_0_1_0();
-	private eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestPlaceholder getHYMANIFEST_2_0_0_1_0_0_1_0_1_0() {
-		return new eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestPlaceholder(eu.hyvar.mspl.manifest.ManifestPackage.eINSTANCE.getHyTimedImplementations().getEStructuralFeature(eu.hyvar.mspl.manifest.ManifestPackage.HY_TIMED_IMPLEMENTATIONS__VALID_SINCE), "DATE", eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCardinality.ONE, 0);
+	public final static eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestPlaceholder HYMANIFEST_2_0_0_0_0_0_1_0_1_0 = INSTANCE.getHYMANIFEST_2_0_0_0_0_0_1_0_1_0();
+	private eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestPlaceholder getHYMANIFEST_2_0_0_0_0_0_1_0_1_0() {
+		return new eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestPlaceholder(eu.hyvar.mspl.manifest.ManifestPackage.eINSTANCE.getHyTimedDependencies().getEStructuralFeature(eu.hyvar.mspl.manifest.ManifestPackage.HY_TIMED_DEPENDENCIES__VALID_SINCE), "DATE", eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCardinality.ONE, 0);
 	}
 	
-	public final static eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestKeyword HYMANIFEST_2_0_0_1_0_0_1_0_1_1 = INSTANCE.getHYMANIFEST_2_0_0_1_0_0_1_0_1_1();
-	private eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestKeyword getHYMANIFEST_2_0_0_1_0_0_1_0_1_1() {
+	public final static eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestKeyword HYMANIFEST_2_0_0_0_0_0_1_0_1_1 = INSTANCE.getHYMANIFEST_2_0_0_0_0_0_1_0_1_1();
+	private eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestKeyword getHYMANIFEST_2_0_0_0_0_0_1_0_1_1() {
 		return new eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestKeyword("-", eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCardinality.ONE);
 	}
 	
-	public final static eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestKeyword HYMANIFEST_2_0_0_1_0_0_1_0_1_2 = INSTANCE.getHYMANIFEST_2_0_0_1_0_0_1_0_1_2();
-	private eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestKeyword getHYMANIFEST_2_0_0_1_0_0_1_0_1_2() {
+	public final static eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestKeyword HYMANIFEST_2_0_0_0_0_0_1_0_1_2 = INSTANCE.getHYMANIFEST_2_0_0_0_0_0_1_0_1_2();
+	private eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestKeyword getHYMANIFEST_2_0_0_0_0_0_1_0_1_2() {
 		return new eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestKeyword("eternity", eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCardinality.ONE);
 	}
 	
-	public final static eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestSequence HYMANIFEST_2_0_0_1_0_0_1_0_1 = INSTANCE.getHYMANIFEST_2_0_0_1_0_0_1_0_1();
-	private eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestSequence getHYMANIFEST_2_0_0_1_0_0_1_0_1() {
-		return new eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestSequence(eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCardinality.ONE, HYMANIFEST_2_0_0_1_0_0_1_0_1_0, HYMANIFEST_2_0_0_1_0_0_1_0_1_1, HYMANIFEST_2_0_0_1_0_0_1_0_1_2);
+	public final static eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestSequence HYMANIFEST_2_0_0_0_0_0_1_0_1 = INSTANCE.getHYMANIFEST_2_0_0_0_0_0_1_0_1();
+	private eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestSequence getHYMANIFEST_2_0_0_0_0_0_1_0_1() {
+		return new eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestSequence(eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCardinality.ONE, HYMANIFEST_2_0_0_0_0_0_1_0_1_0, HYMANIFEST_2_0_0_0_0_0_1_0_1_1, HYMANIFEST_2_0_0_0_0_0_1_0_1_2);
 	}
 	
-	public final static eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestKeyword HYMANIFEST_2_0_0_1_0_0_1_0_2_0 = INSTANCE.getHYMANIFEST_2_0_0_1_0_0_1_0_2_0();
-	private eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestKeyword getHYMANIFEST_2_0_0_1_0_0_1_0_2_0() {
+	public final static eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestKeyword HYMANIFEST_2_0_0_0_0_0_1_0_2_0 = INSTANCE.getHYMANIFEST_2_0_0_0_0_0_1_0_2_0();
+	private eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestKeyword getHYMANIFEST_2_0_0_0_0_0_1_0_2_0() {
 		return new eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestKeyword("eternity", eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCardinality.ONE);
 	}
 	
-	public final static eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestKeyword HYMANIFEST_2_0_0_1_0_0_1_0_2_1 = INSTANCE.getHYMANIFEST_2_0_0_1_0_0_1_0_2_1();
-	private eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestKeyword getHYMANIFEST_2_0_0_1_0_0_1_0_2_1() {
+	public final static eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestKeyword HYMANIFEST_2_0_0_0_0_0_1_0_2_1 = INSTANCE.getHYMANIFEST_2_0_0_0_0_0_1_0_2_1();
+	private eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestKeyword getHYMANIFEST_2_0_0_0_0_0_1_0_2_1() {
 		return new eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestKeyword("-", eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCardinality.ONE);
 	}
 	
-	public final static eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestPlaceholder HYMANIFEST_2_0_0_1_0_0_1_0_2_2 = INSTANCE.getHYMANIFEST_2_0_0_1_0_0_1_0_2_2();
-	private eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestPlaceholder getHYMANIFEST_2_0_0_1_0_0_1_0_2_2() {
-		return new eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestPlaceholder(eu.hyvar.mspl.manifest.ManifestPackage.eINSTANCE.getHyTimedImplementations().getEStructuralFeature(eu.hyvar.mspl.manifest.ManifestPackage.HY_TIMED_IMPLEMENTATIONS__VALID_UNTIL), "DATE", eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCardinality.ONE, 0);
+	public final static eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestPlaceholder HYMANIFEST_2_0_0_0_0_0_1_0_2_2 = INSTANCE.getHYMANIFEST_2_0_0_0_0_0_1_0_2_2();
+	private eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestPlaceholder getHYMANIFEST_2_0_0_0_0_0_1_0_2_2() {
+		return new eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestPlaceholder(eu.hyvar.mspl.manifest.ManifestPackage.eINSTANCE.getHyTimedDependencies().getEStructuralFeature(eu.hyvar.mspl.manifest.ManifestPackage.HY_TIMED_DEPENDENCIES__VALID_UNTIL), "DATE", eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCardinality.ONE, 0);
 	}
 	
-	public final static eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestSequence HYMANIFEST_2_0_0_1_0_0_1_0_2 = INSTANCE.getHYMANIFEST_2_0_0_1_0_0_1_0_2();
-	private eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestSequence getHYMANIFEST_2_0_0_1_0_0_1_0_2() {
-		return new eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestSequence(eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCardinality.ONE, HYMANIFEST_2_0_0_1_0_0_1_0_2_0, HYMANIFEST_2_0_0_1_0_0_1_0_2_1, HYMANIFEST_2_0_0_1_0_0_1_0_2_2);
+	public final static eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestSequence HYMANIFEST_2_0_0_0_0_0_1_0_2 = INSTANCE.getHYMANIFEST_2_0_0_0_0_0_1_0_2();
+	private eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestSequence getHYMANIFEST_2_0_0_0_0_0_1_0_2() {
+		return new eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestSequence(eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCardinality.ONE, HYMANIFEST_2_0_0_0_0_0_1_0_2_0, HYMANIFEST_2_0_0_0_0_0_1_0_2_1, HYMANIFEST_2_0_0_0_0_0_1_0_2_2);
 	}
 	
-	public final static eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestChoice HYMANIFEST_2_0_0_1_0_0_1_0 = INSTANCE.getHYMANIFEST_2_0_0_1_0_0_1_0();
-	private eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestChoice getHYMANIFEST_2_0_0_1_0_0_1_0() {
-		return new eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestChoice(eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCardinality.ONE, HYMANIFEST_2_0_0_1_0_0_1_0_0, HYMANIFEST_2_0_0_1_0_0_1_0_1, HYMANIFEST_2_0_0_1_0_0_1_0_2);
+	public final static eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestChoice HYMANIFEST_2_0_0_0_0_0_1_0 = INSTANCE.getHYMANIFEST_2_0_0_0_0_0_1_0();
+	private eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestChoice getHYMANIFEST_2_0_0_0_0_0_1_0() {
+		return new eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestChoice(eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCardinality.ONE, HYMANIFEST_2_0_0_0_0_0_1_0_0, HYMANIFEST_2_0_0_0_0_0_1_0_1, HYMANIFEST_2_0_0_0_0_0_1_0_2);
 	}
 	
-	public final static eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCompound HYMANIFEST_2_0_0_1_0_0_1 = INSTANCE.getHYMANIFEST_2_0_0_1_0_0_1();
-	private eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCompound getHYMANIFEST_2_0_0_1_0_0_1() {
-		return new eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCompound(HYMANIFEST_2_0_0_1_0_0_1_0, eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCardinality.ONE);
+	public final static eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCompound HYMANIFEST_2_0_0_0_0_0_1 = INSTANCE.getHYMANIFEST_2_0_0_0_0_0_1();
+	private eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCompound getHYMANIFEST_2_0_0_0_0_0_1() {
+		return new eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCompound(HYMANIFEST_2_0_0_0_0_0_1_0, eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCardinality.ONE);
 	}
 	
-	public final static eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestKeyword HYMANIFEST_2_0_0_1_0_0_2 = INSTANCE.getHYMANIFEST_2_0_0_1_0_0_2();
-	private eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestKeyword getHYMANIFEST_2_0_0_1_0_0_2() {
+	public final static eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestKeyword HYMANIFEST_2_0_0_0_0_0_2 = INSTANCE.getHYMANIFEST_2_0_0_0_0_0_2();
+	private eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestKeyword getHYMANIFEST_2_0_0_0_0_0_2() {
 		return new eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestKeyword("]", eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCardinality.ONE);
+	}
+	
+	public final static eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestSequence HYMANIFEST_2_0_0_0_0_0 = INSTANCE.getHYMANIFEST_2_0_0_0_0_0();
+	private eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestSequence getHYMANIFEST_2_0_0_0_0_0() {
+		return new eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestSequence(eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCardinality.ONE, HYMANIFEST_2_0_0_0_0_0_0, HYMANIFEST_2_0_0_0_0_0_1, HYMANIFEST_2_0_0_0_0_0_2);
+	}
+	
+	public final static eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestChoice HYMANIFEST_2_0_0_0_0 = INSTANCE.getHYMANIFEST_2_0_0_0_0();
+	private eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestChoice getHYMANIFEST_2_0_0_0_0() {
+		return new eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestChoice(eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCardinality.ONE, HYMANIFEST_2_0_0_0_0_0);
+	}
+	
+	public final static eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCompound HYMANIFEST_2_0_0_0 = INSTANCE.getHYMANIFEST_2_0_0_0();
+	private eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCompound getHYMANIFEST_2_0_0_0() {
+		return new eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCompound(HYMANIFEST_2_0_0_0_0, eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCardinality.QUESTIONMARK);
+	}
+	
+	public final static eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestPlaceholder HYMANIFEST_2_0_0_1_0_0_0 = INSTANCE.getHYMANIFEST_2_0_0_1_0_0_0();
+	private eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestPlaceholder getHYMANIFEST_2_0_0_1_0_0_0() {
+		return new eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestPlaceholder(eu.hyvar.mspl.manifest.ManifestPackage.eINSTANCE.getHyTimedDependencies().getEStructuralFeature(eu.hyvar.mspl.manifest.ManifestPackage.HY_TIMED_DEPENDENCIES__ALIAS), "QUOTED_34_34", eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCardinality.ONE, 0);
 	}
 	
 	public final static eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestSequence HYMANIFEST_2_0_0_1_0_0 = INSTANCE.getHYMANIFEST_2_0_0_1_0_0();
 	private eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestSequence getHYMANIFEST_2_0_0_1_0_0() {
-		return new eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestSequence(eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCardinality.ONE, HYMANIFEST_2_0_0_1_0_0_0, HYMANIFEST_2_0_0_1_0_0_1, HYMANIFEST_2_0_0_1_0_0_2);
+		return new eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestSequence(eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCardinality.ONE, HYMANIFEST_2_0_0_1_0_0_0);
+	}
+	
+	public final static eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestPlaceholder HYMANIFEST_2_0_0_1_0_1_0 = INSTANCE.getHYMANIFEST_2_0_0_1_0_1_0();
+	private eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestPlaceholder getHYMANIFEST_2_0_0_1_0_1_0() {
+		return new eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestPlaceholder(eu.hyvar.mspl.manifest.ManifestPackage.eINSTANCE.getHyTimedDependencies().getEStructuralFeature(eu.hyvar.mspl.manifest.ManifestPackage.HY_TIMED_DEPENDENCIES__ALIAS), "IDENTIFIER_TOKEN", eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCardinality.ONE, 0);
+	}
+	
+	public final static eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestSequence HYMANIFEST_2_0_0_1_0_1 = INSTANCE.getHYMANIFEST_2_0_0_1_0_1();
+	private eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestSequence getHYMANIFEST_2_0_0_1_0_1() {
+		return new eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestSequence(eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCardinality.ONE, HYMANIFEST_2_0_0_1_0_1_0);
 	}
 	
 	public final static eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestChoice HYMANIFEST_2_0_0_1_0 = INSTANCE.getHYMANIFEST_2_0_0_1_0();
 	private eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestChoice getHYMANIFEST_2_0_0_1_0() {
-		return new eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestChoice(eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCardinality.ONE, HYMANIFEST_2_0_0_1_0_0);
+		return new eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestChoice(eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCardinality.ONE, HYMANIFEST_2_0_0_1_0_0, HYMANIFEST_2_0_0_1_0_1);
 	}
 	
 	public final static eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCompound HYMANIFEST_2_0_0_1 = INSTANCE.getHYMANIFEST_2_0_0_1();
 	private eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCompound getHYMANIFEST_2_0_0_1() {
-		return new eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCompound(HYMANIFEST_2_0_0_1_0, eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCardinality.QUESTIONMARK);
+		return new eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCompound(HYMANIFEST_2_0_0_1_0, eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCardinality.ONE);
 	}
 	
 	public final static eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestKeyword HYMANIFEST_2_0_0_2 = INSTANCE.getHYMANIFEST_2_0_0_2();
 	private eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestKeyword getHYMANIFEST_2_0_0_2() {
-		return new eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestKeyword("{", eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCardinality.ONE);
+		return new eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestKeyword(":", eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCardinality.ONE);
 	}
 	
-	public final static eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestContainment HYMANIFEST_2_0_0_3_0_0_0 = INSTANCE.getHYMANIFEST_2_0_0_3_0_0_0();
-	private eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestContainment getHYMANIFEST_2_0_0_3_0_0_0() {
-		return new eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestContainment(eu.hyvar.mspl.manifest.ManifestPackage.eINSTANCE.getHyTimedImplementations().getEStructuralFeature(eu.hyvar.mspl.manifest.ManifestPackage.HY_TIMED_IMPLEMENTATIONS__ASSOCIATIONS), eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCardinality.ONE, new EClass[] {eu.hyvar.mspl.manifest.ManifestPackage.eINSTANCE.getHyTimedImplementationLink(), }, 0);
-	}
-	
-	public final static eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestKeyword HYMANIFEST_2_0_0_3_0_0_1_0_0_0 = INSTANCE.getHYMANIFEST_2_0_0_3_0_0_1_0_0_0();
-	private eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestKeyword getHYMANIFEST_2_0_0_3_0_0_1_0_0_0() {
-		return new eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestKeyword(",", eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCardinality.ONE);
-	}
-	
-	public final static eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestContainment HYMANIFEST_2_0_0_3_0_0_1_0_0_1 = INSTANCE.getHYMANIFEST_2_0_0_3_0_0_1_0_0_1();
-	private eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestContainment getHYMANIFEST_2_0_0_3_0_0_1_0_0_1() {
-		return new eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestContainment(eu.hyvar.mspl.manifest.ManifestPackage.eINSTANCE.getHyTimedImplementations().getEStructuralFeature(eu.hyvar.mspl.manifest.ManifestPackage.HY_TIMED_IMPLEMENTATIONS__ASSOCIATIONS), eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCardinality.ONE, new EClass[] {eu.hyvar.mspl.manifest.ManifestPackage.eINSTANCE.getHyTimedImplementationLink(), }, 0);
-	}
-	
-	public final static eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestSequence HYMANIFEST_2_0_0_3_0_0_1_0_0 = INSTANCE.getHYMANIFEST_2_0_0_3_0_0_1_0_0();
-	private eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestSequence getHYMANIFEST_2_0_0_3_0_0_1_0_0() {
-		return new eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestSequence(eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCardinality.ONE, HYMANIFEST_2_0_0_3_0_0_1_0_0_0, HYMANIFEST_2_0_0_3_0_0_1_0_0_1);
-	}
-	
-	public final static eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestChoice HYMANIFEST_2_0_0_3_0_0_1_0 = INSTANCE.getHYMANIFEST_2_0_0_3_0_0_1_0();
-	private eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestChoice getHYMANIFEST_2_0_0_3_0_0_1_0() {
-		return new eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestChoice(eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCardinality.ONE, HYMANIFEST_2_0_0_3_0_0_1_0_0);
-	}
-	
-	public final static eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCompound HYMANIFEST_2_0_0_3_0_0_1 = INSTANCE.getHYMANIFEST_2_0_0_3_0_0_1();
-	private eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCompound getHYMANIFEST_2_0_0_3_0_0_1() {
-		return new eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCompound(HYMANIFEST_2_0_0_3_0_0_1_0, eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCardinality.STAR);
-	}
-	
-	public final static eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestSequence HYMANIFEST_2_0_0_3_0_0 = INSTANCE.getHYMANIFEST_2_0_0_3_0_0();
-	private eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestSequence getHYMANIFEST_2_0_0_3_0_0() {
-		return new eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestSequence(eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCardinality.ONE, HYMANIFEST_2_0_0_3_0_0_0, HYMANIFEST_2_0_0_3_0_0_1);
-	}
-	
-	public final static eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestChoice HYMANIFEST_2_0_0_3_0 = INSTANCE.getHYMANIFEST_2_0_0_3_0();
-	private eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestChoice getHYMANIFEST_2_0_0_3_0() {
-		return new eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestChoice(eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCardinality.ONE, HYMANIFEST_2_0_0_3_0_0);
-	}
-	
-	public final static eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCompound HYMANIFEST_2_0_0_3 = INSTANCE.getHYMANIFEST_2_0_0_3();
-	private eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCompound getHYMANIFEST_2_0_0_3() {
-		return new eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCompound(HYMANIFEST_2_0_0_3_0, eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCardinality.QUESTIONMARK);
-	}
-	
-	public final static eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestKeyword HYMANIFEST_2_0_0_4 = INSTANCE.getHYMANIFEST_2_0_0_4();
-	private eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestKeyword getHYMANIFEST_2_0_0_4() {
-		return new eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestKeyword("}", eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCardinality.ONE);
+	public final static eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestPlaceholder HYMANIFEST_2_0_0_3 = INSTANCE.getHYMANIFEST_2_0_0_3();
+	private eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestPlaceholder getHYMANIFEST_2_0_0_3() {
+		return new eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestPlaceholder(eu.hyvar.mspl.manifest.ManifestPackage.eINSTANCE.getHyTimedDependencies().getEStructuralFeature(eu.hyvar.mspl.manifest.ManifestPackage.HY_TIMED_DEPENDENCIES__SIGNATURE), "QUOTED_60_62", eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCardinality.ONE, 0);
 	}
 	
 	public final static eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestSequence HYMANIFEST_2_0_0 = INSTANCE.getHYMANIFEST_2_0_0();
 	private eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestSequence getHYMANIFEST_2_0_0() {
-		return new eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestSequence(eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCardinality.ONE, HYMANIFEST_2_0_0_0, HYMANIFEST_2_0_0_1, HYMANIFEST_2_0_0_2, HYMANIFEST_2_0_0_3, HYMANIFEST_2_0_0_4);
+		return new eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestSequence(eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCardinality.ONE, HYMANIFEST_2_0_0_0, HYMANIFEST_2_0_0_1, HYMANIFEST_2_0_0_2, HYMANIFEST_2_0_0_3);
 	}
 	
 	public final static eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestChoice HYMANIFEST_2_0 = INSTANCE.getHYMANIFEST_2_0();
@@ -461,157 +316,147 @@ public class HymanifestGrammarInformationProvider {
 	
 	public final static eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestRule HYMANIFEST_2 = INSTANCE.getHYMANIFEST_2();
 	private eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestRule getHYMANIFEST_2() {
-		return new eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestRule(eu.hyvar.mspl.manifest.ManifestPackage.eINSTANCE.getHyTimedImplementations(), HYMANIFEST_2_0, eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCardinality.ONE);
+		return new eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestRule(eu.hyvar.mspl.manifest.ManifestPackage.eINSTANCE.getHyTimedDependencies(), HYMANIFEST_2_0, eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCardinality.ONE);
 	}
 	
-	public final static eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestPlaceholder HYMANIFEST_3_0_0_0_0_0_0 = INSTANCE.getHYMANIFEST_3_0_0_0_0_0_0();
-	private eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestPlaceholder getHYMANIFEST_3_0_0_0_0_0_0() {
-		return new eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestPlaceholder(eu.hyvar.mspl.manifest.ManifestPackage.eINSTANCE.getHyTimedImplementationLink().getEStructuralFeature(eu.hyvar.mspl.manifest.ManifestPackage.HY_TIMED_IMPLEMENTATION_LINK__LOCAL), "QUOTED_34_34", eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCardinality.ONE, 0);
+	public final static eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestKeyword HYMANIFEST_3_0_0_0_0_0_0 = INSTANCE.getHYMANIFEST_3_0_0_0_0_0_0();
+	private eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestKeyword getHYMANIFEST_3_0_0_0_0_0_0() {
+		return new eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestKeyword("[", eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCardinality.ONE);
+	}
+	
+	public final static eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestPlaceholder HYMANIFEST_3_0_0_0_0_0_1_0_0_0 = INSTANCE.getHYMANIFEST_3_0_0_0_0_0_1_0_0_0();
+	private eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestPlaceholder getHYMANIFEST_3_0_0_0_0_0_1_0_0_0() {
+		return new eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestPlaceholder(eu.hyvar.mspl.manifest.ManifestPackage.eINSTANCE.getHyTimedImplementations().getEStructuralFeature(eu.hyvar.mspl.manifest.ManifestPackage.HY_TIMED_IMPLEMENTATIONS__VALID_SINCE), "DATE", eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCardinality.ONE, 0);
+	}
+	
+	public final static eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestKeyword HYMANIFEST_3_0_0_0_0_0_1_0_0_1 = INSTANCE.getHYMANIFEST_3_0_0_0_0_0_1_0_0_1();
+	private eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestKeyword getHYMANIFEST_3_0_0_0_0_0_1_0_0_1() {
+		return new eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestKeyword("-", eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCardinality.ONE);
+	}
+	
+	public final static eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestPlaceholder HYMANIFEST_3_0_0_0_0_0_1_0_0_2 = INSTANCE.getHYMANIFEST_3_0_0_0_0_0_1_0_0_2();
+	private eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestPlaceholder getHYMANIFEST_3_0_0_0_0_0_1_0_0_2() {
+		return new eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestPlaceholder(eu.hyvar.mspl.manifest.ManifestPackage.eINSTANCE.getHyTimedImplementations().getEStructuralFeature(eu.hyvar.mspl.manifest.ManifestPackage.HY_TIMED_IMPLEMENTATIONS__VALID_UNTIL), "DATE", eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCardinality.ONE, 0);
+	}
+	
+	public final static eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestSequence HYMANIFEST_3_0_0_0_0_0_1_0_0 = INSTANCE.getHYMANIFEST_3_0_0_0_0_0_1_0_0();
+	private eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestSequence getHYMANIFEST_3_0_0_0_0_0_1_0_0() {
+		return new eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestSequence(eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCardinality.ONE, HYMANIFEST_3_0_0_0_0_0_1_0_0_0, HYMANIFEST_3_0_0_0_0_0_1_0_0_1, HYMANIFEST_3_0_0_0_0_0_1_0_0_2);
+	}
+	
+	public final static eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestPlaceholder HYMANIFEST_3_0_0_0_0_0_1_0_1_0 = INSTANCE.getHYMANIFEST_3_0_0_0_0_0_1_0_1_0();
+	private eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestPlaceholder getHYMANIFEST_3_0_0_0_0_0_1_0_1_0() {
+		return new eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestPlaceholder(eu.hyvar.mspl.manifest.ManifestPackage.eINSTANCE.getHyTimedImplementations().getEStructuralFeature(eu.hyvar.mspl.manifest.ManifestPackage.HY_TIMED_IMPLEMENTATIONS__VALID_SINCE), "DATE", eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCardinality.ONE, 0);
+	}
+	
+	public final static eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestKeyword HYMANIFEST_3_0_0_0_0_0_1_0_1_1 = INSTANCE.getHYMANIFEST_3_0_0_0_0_0_1_0_1_1();
+	private eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestKeyword getHYMANIFEST_3_0_0_0_0_0_1_0_1_1() {
+		return new eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestKeyword("-", eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCardinality.ONE);
+	}
+	
+	public final static eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestKeyword HYMANIFEST_3_0_0_0_0_0_1_0_1_2 = INSTANCE.getHYMANIFEST_3_0_0_0_0_0_1_0_1_2();
+	private eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestKeyword getHYMANIFEST_3_0_0_0_0_0_1_0_1_2() {
+		return new eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestKeyword("eternity", eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCardinality.ONE);
+	}
+	
+	public final static eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestSequence HYMANIFEST_3_0_0_0_0_0_1_0_1 = INSTANCE.getHYMANIFEST_3_0_0_0_0_0_1_0_1();
+	private eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestSequence getHYMANIFEST_3_0_0_0_0_0_1_0_1() {
+		return new eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestSequence(eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCardinality.ONE, HYMANIFEST_3_0_0_0_0_0_1_0_1_0, HYMANIFEST_3_0_0_0_0_0_1_0_1_1, HYMANIFEST_3_0_0_0_0_0_1_0_1_2);
+	}
+	
+	public final static eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestKeyword HYMANIFEST_3_0_0_0_0_0_1_0_2_0 = INSTANCE.getHYMANIFEST_3_0_0_0_0_0_1_0_2_0();
+	private eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestKeyword getHYMANIFEST_3_0_0_0_0_0_1_0_2_0() {
+		return new eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestKeyword("eternity", eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCardinality.ONE);
+	}
+	
+	public final static eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestKeyword HYMANIFEST_3_0_0_0_0_0_1_0_2_1 = INSTANCE.getHYMANIFEST_3_0_0_0_0_0_1_0_2_1();
+	private eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestKeyword getHYMANIFEST_3_0_0_0_0_0_1_0_2_1() {
+		return new eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestKeyword("-", eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCardinality.ONE);
+	}
+	
+	public final static eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestPlaceholder HYMANIFEST_3_0_0_0_0_0_1_0_2_2 = INSTANCE.getHYMANIFEST_3_0_0_0_0_0_1_0_2_2();
+	private eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestPlaceholder getHYMANIFEST_3_0_0_0_0_0_1_0_2_2() {
+		return new eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestPlaceholder(eu.hyvar.mspl.manifest.ManifestPackage.eINSTANCE.getHyTimedImplementations().getEStructuralFeature(eu.hyvar.mspl.manifest.ManifestPackage.HY_TIMED_IMPLEMENTATIONS__VALID_UNTIL), "DATE", eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCardinality.ONE, 0);
+	}
+	
+	public final static eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestSequence HYMANIFEST_3_0_0_0_0_0_1_0_2 = INSTANCE.getHYMANIFEST_3_0_0_0_0_0_1_0_2();
+	private eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestSequence getHYMANIFEST_3_0_0_0_0_0_1_0_2() {
+		return new eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestSequence(eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCardinality.ONE, HYMANIFEST_3_0_0_0_0_0_1_0_2_0, HYMANIFEST_3_0_0_0_0_0_1_0_2_1, HYMANIFEST_3_0_0_0_0_0_1_0_2_2);
+	}
+	
+	public final static eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestChoice HYMANIFEST_3_0_0_0_0_0_1_0 = INSTANCE.getHYMANIFEST_3_0_0_0_0_0_1_0();
+	private eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestChoice getHYMANIFEST_3_0_0_0_0_0_1_0() {
+		return new eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestChoice(eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCardinality.ONE, HYMANIFEST_3_0_0_0_0_0_1_0_0, HYMANIFEST_3_0_0_0_0_0_1_0_1, HYMANIFEST_3_0_0_0_0_0_1_0_2);
+	}
+	
+	public final static eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCompound HYMANIFEST_3_0_0_0_0_0_1 = INSTANCE.getHYMANIFEST_3_0_0_0_0_0_1();
+	private eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCompound getHYMANIFEST_3_0_0_0_0_0_1() {
+		return new eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCompound(HYMANIFEST_3_0_0_0_0_0_1_0, eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCardinality.ONE);
+	}
+	
+	public final static eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestKeyword HYMANIFEST_3_0_0_0_0_0_2 = INSTANCE.getHYMANIFEST_3_0_0_0_0_0_2();
+	private eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestKeyword getHYMANIFEST_3_0_0_0_0_0_2() {
+		return new eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestKeyword("]", eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCardinality.ONE);
 	}
 	
 	public final static eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestSequence HYMANIFEST_3_0_0_0_0_0 = INSTANCE.getHYMANIFEST_3_0_0_0_0_0();
 	private eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestSequence getHYMANIFEST_3_0_0_0_0_0() {
-		return new eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestSequence(eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCardinality.ONE, HYMANIFEST_3_0_0_0_0_0_0);
-	}
-	
-	public final static eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestPlaceholder HYMANIFEST_3_0_0_0_0_1_0 = INSTANCE.getHYMANIFEST_3_0_0_0_0_1_0();
-	private eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestPlaceholder getHYMANIFEST_3_0_0_0_0_1_0() {
-		return new eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestPlaceholder(eu.hyvar.mspl.manifest.ManifestPackage.eINSTANCE.getHyTimedImplementationLink().getEStructuralFeature(eu.hyvar.mspl.manifest.ManifestPackage.HY_TIMED_IMPLEMENTATION_LINK__LOCAL), "IDENTIFIER_TOKEN", eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCardinality.ONE, 0);
-	}
-	
-	public final static eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestSequence HYMANIFEST_3_0_0_0_0_1 = INSTANCE.getHYMANIFEST_3_0_0_0_0_1();
-	private eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestSequence getHYMANIFEST_3_0_0_0_0_1() {
-		return new eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestSequence(eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCardinality.ONE, HYMANIFEST_3_0_0_0_0_1_0);
+		return new eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestSequence(eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCardinality.ONE, HYMANIFEST_3_0_0_0_0_0_0, HYMANIFEST_3_0_0_0_0_0_1, HYMANIFEST_3_0_0_0_0_0_2);
 	}
 	
 	public final static eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestChoice HYMANIFEST_3_0_0_0_0 = INSTANCE.getHYMANIFEST_3_0_0_0_0();
 	private eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestChoice getHYMANIFEST_3_0_0_0_0() {
-		return new eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestChoice(eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCardinality.ONE, HYMANIFEST_3_0_0_0_0_0, HYMANIFEST_3_0_0_0_0_1);
+		return new eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestChoice(eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCardinality.ONE, HYMANIFEST_3_0_0_0_0_0);
 	}
 	
 	public final static eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCompound HYMANIFEST_3_0_0_0 = INSTANCE.getHYMANIFEST_3_0_0_0();
 	private eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCompound getHYMANIFEST_3_0_0_0() {
-		return new eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCompound(HYMANIFEST_3_0_0_0_0, eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCardinality.ONE);
+		return new eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCompound(HYMANIFEST_3_0_0_0_0, eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCardinality.QUESTIONMARK);
 	}
 	
-	public final static eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestKeyword HYMANIFEST_3_0_0_1 = INSTANCE.getHYMANIFEST_3_0_0_1();
-	private eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestKeyword getHYMANIFEST_3_0_0_1() {
-		return new eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestKeyword("->", eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCardinality.ONE);
+	public final static eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestPlaceholder HYMANIFEST_3_0_0_1 = INSTANCE.getHYMANIFEST_3_0_0_1();
+	private eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestPlaceholder getHYMANIFEST_3_0_0_1() {
+		return new eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestPlaceholder(eu.hyvar.mspl.manifest.ManifestPackage.eINSTANCE.getHyTimedImplementations().getEStructuralFeature(eu.hyvar.mspl.manifest.ManifestPackage.HY_TIMED_IMPLEMENTATIONS__SIGNATURE), "QUOTED_60_62", eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCardinality.ONE, 0);
 	}
 	
-	public final static eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestPlaceholder HYMANIFEST_3_0_0_2_0_0_0 = INSTANCE.getHYMANIFEST_3_0_0_2_0_0_0();
-	private eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestPlaceholder getHYMANIFEST_3_0_0_2_0_0_0() {
-		return new eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestPlaceholder(eu.hyvar.mspl.manifest.ManifestPackage.eINSTANCE.getHyTimedImplementationLink().getEStructuralFeature(eu.hyvar.mspl.manifest.ManifestPackage.HY_TIMED_IMPLEMENTATION_LINK__SIGNATURE), "QUOTED_34_34", eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCardinality.ONE, 0);
+	public final static eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestKeyword HYMANIFEST_3_0_0_2 = INSTANCE.getHYMANIFEST_3_0_0_2();
+	private eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestKeyword getHYMANIFEST_3_0_0_2() {
+		return new eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestKeyword("{", eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCardinality.ONE);
 	}
 	
-	public final static eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestSequence HYMANIFEST_3_0_0_2_0_0 = INSTANCE.getHYMANIFEST_3_0_0_2_0_0();
-	private eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestSequence getHYMANIFEST_3_0_0_2_0_0() {
-		return new eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestSequence(eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCardinality.ONE, HYMANIFEST_3_0_0_2_0_0_0);
+	public final static eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestContainment HYMANIFEST_3_0_0_3_0_0_0 = INSTANCE.getHYMANIFEST_3_0_0_3_0_0_0();
+	private eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestContainment getHYMANIFEST_3_0_0_3_0_0_0() {
+		return new eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestContainment(eu.hyvar.mspl.manifest.ManifestPackage.eINSTANCE.getHyTimedImplementations().getEStructuralFeature(eu.hyvar.mspl.manifest.ManifestPackage.HY_TIMED_IMPLEMENTATIONS__ASSOCIATIONS), eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCardinality.ONE, new EClass[] {eu.hyvar.mspl.manifest.ManifestPackage.eINSTANCE.getHyTimedImplementationLink(), }, 0);
 	}
 	
-	public final static eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestPlaceholder HYMANIFEST_3_0_0_2_0_1_0 = INSTANCE.getHYMANIFEST_3_0_0_2_0_1_0();
-	private eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestPlaceholder getHYMANIFEST_3_0_0_2_0_1_0() {
-		return new eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestPlaceholder(eu.hyvar.mspl.manifest.ManifestPackage.eINSTANCE.getHyTimedImplementationLink().getEStructuralFeature(eu.hyvar.mspl.manifest.ManifestPackage.HY_TIMED_IMPLEMENTATION_LINK__SIGNATURE), "IDENTIFIER_TOKEN", eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCardinality.ONE, 0);
+	public final static eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestKeyword HYMANIFEST_3_0_0_3_0_0_1_0_0_0 = INSTANCE.getHYMANIFEST_3_0_0_3_0_0_1_0_0_0();
+	private eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestKeyword getHYMANIFEST_3_0_0_3_0_0_1_0_0_0() {
+		return new eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestKeyword(",", eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCardinality.ONE);
 	}
 	
-	public final static eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestSequence HYMANIFEST_3_0_0_2_0_1 = INSTANCE.getHYMANIFEST_3_0_0_2_0_1();
-	private eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestSequence getHYMANIFEST_3_0_0_2_0_1() {
-		return new eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestSequence(eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCardinality.ONE, HYMANIFEST_3_0_0_2_0_1_0);
-	}
-	
-	public final static eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestChoice HYMANIFEST_3_0_0_2_0 = INSTANCE.getHYMANIFEST_3_0_0_2_0();
-	private eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestChoice getHYMANIFEST_3_0_0_2_0() {
-		return new eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestChoice(eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCardinality.ONE, HYMANIFEST_3_0_0_2_0_0, HYMANIFEST_3_0_0_2_0_1);
-	}
-	
-	public final static eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCompound HYMANIFEST_3_0_0_2 = INSTANCE.getHYMANIFEST_3_0_0_2();
-	private eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCompound getHYMANIFEST_3_0_0_2() {
-		return new eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCompound(HYMANIFEST_3_0_0_2_0, eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCardinality.ONE);
-	}
-	
-	public final static eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestKeyword HYMANIFEST_3_0_0_3_0_0_0 = INSTANCE.getHYMANIFEST_3_0_0_3_0_0_0();
-	private eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestKeyword getHYMANIFEST_3_0_0_3_0_0_0() {
-		return new eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestKeyword("@[", eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCardinality.ONE);
-	}
-	
-	public final static eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestPlaceholder HYMANIFEST_3_0_0_3_0_0_1_0_0_0 = INSTANCE.getHYMANIFEST_3_0_0_3_0_0_1_0_0_0();
-	private eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestPlaceholder getHYMANIFEST_3_0_0_3_0_0_1_0_0_0() {
-		return new eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestPlaceholder(eu.hyvar.mspl.manifest.ManifestPackage.eINSTANCE.getHyTimedImplementationLink().getEStructuralFeature(eu.hyvar.mspl.manifest.ManifestPackage.HY_TIMED_IMPLEMENTATION_LINK__VALID_SINCE), "DATE", eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCardinality.ONE, 0);
-	}
-	
-	public final static eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestKeyword HYMANIFEST_3_0_0_3_0_0_1_0_0_1 = INSTANCE.getHYMANIFEST_3_0_0_3_0_0_1_0_0_1();
-	private eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestKeyword getHYMANIFEST_3_0_0_3_0_0_1_0_0_1() {
-		return new eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestKeyword("-", eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCardinality.ONE);
-	}
-	
-	public final static eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestPlaceholder HYMANIFEST_3_0_0_3_0_0_1_0_0_2 = INSTANCE.getHYMANIFEST_3_0_0_3_0_0_1_0_0_2();
-	private eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestPlaceholder getHYMANIFEST_3_0_0_3_0_0_1_0_0_2() {
-		return new eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestPlaceholder(eu.hyvar.mspl.manifest.ManifestPackage.eINSTANCE.getHyTimedImplementationLink().getEStructuralFeature(eu.hyvar.mspl.manifest.ManifestPackage.HY_TIMED_IMPLEMENTATION_LINK__VALID_UNTIL), "DATE", eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCardinality.ONE, 0);
+	public final static eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestContainment HYMANIFEST_3_0_0_3_0_0_1_0_0_1 = INSTANCE.getHYMANIFEST_3_0_0_3_0_0_1_0_0_1();
+	private eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestContainment getHYMANIFEST_3_0_0_3_0_0_1_0_0_1() {
+		return new eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestContainment(eu.hyvar.mspl.manifest.ManifestPackage.eINSTANCE.getHyTimedImplementations().getEStructuralFeature(eu.hyvar.mspl.manifest.ManifestPackage.HY_TIMED_IMPLEMENTATIONS__ASSOCIATIONS), eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCardinality.ONE, new EClass[] {eu.hyvar.mspl.manifest.ManifestPackage.eINSTANCE.getHyTimedImplementationLink(), }, 0);
 	}
 	
 	public final static eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestSequence HYMANIFEST_3_0_0_3_0_0_1_0_0 = INSTANCE.getHYMANIFEST_3_0_0_3_0_0_1_0_0();
 	private eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestSequence getHYMANIFEST_3_0_0_3_0_0_1_0_0() {
-		return new eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestSequence(eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCardinality.ONE, HYMANIFEST_3_0_0_3_0_0_1_0_0_0, HYMANIFEST_3_0_0_3_0_0_1_0_0_1, HYMANIFEST_3_0_0_3_0_0_1_0_0_2);
-	}
-	
-	public final static eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestPlaceholder HYMANIFEST_3_0_0_3_0_0_1_0_1_0 = INSTANCE.getHYMANIFEST_3_0_0_3_0_0_1_0_1_0();
-	private eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestPlaceholder getHYMANIFEST_3_0_0_3_0_0_1_0_1_0() {
-		return new eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestPlaceholder(eu.hyvar.mspl.manifest.ManifestPackage.eINSTANCE.getHyTimedImplementationLink().getEStructuralFeature(eu.hyvar.mspl.manifest.ManifestPackage.HY_TIMED_IMPLEMENTATION_LINK__VALID_SINCE), "DATE", eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCardinality.ONE, 0);
-	}
-	
-	public final static eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestKeyword HYMANIFEST_3_0_0_3_0_0_1_0_1_1 = INSTANCE.getHYMANIFEST_3_0_0_3_0_0_1_0_1_1();
-	private eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestKeyword getHYMANIFEST_3_0_0_3_0_0_1_0_1_1() {
-		return new eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestKeyword("-", eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCardinality.ONE);
-	}
-	
-	public final static eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestKeyword HYMANIFEST_3_0_0_3_0_0_1_0_1_2 = INSTANCE.getHYMANIFEST_3_0_0_3_0_0_1_0_1_2();
-	private eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestKeyword getHYMANIFEST_3_0_0_3_0_0_1_0_1_2() {
-		return new eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestKeyword("eternity", eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCardinality.ONE);
-	}
-	
-	public final static eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestSequence HYMANIFEST_3_0_0_3_0_0_1_0_1 = INSTANCE.getHYMANIFEST_3_0_0_3_0_0_1_0_1();
-	private eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestSequence getHYMANIFEST_3_0_0_3_0_0_1_0_1() {
-		return new eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestSequence(eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCardinality.ONE, HYMANIFEST_3_0_0_3_0_0_1_0_1_0, HYMANIFEST_3_0_0_3_0_0_1_0_1_1, HYMANIFEST_3_0_0_3_0_0_1_0_1_2);
-	}
-	
-	public final static eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestKeyword HYMANIFEST_3_0_0_3_0_0_1_0_2_0 = INSTANCE.getHYMANIFEST_3_0_0_3_0_0_1_0_2_0();
-	private eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestKeyword getHYMANIFEST_3_0_0_3_0_0_1_0_2_0() {
-		return new eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestKeyword("eternity", eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCardinality.ONE);
-	}
-	
-	public final static eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestKeyword HYMANIFEST_3_0_0_3_0_0_1_0_2_1 = INSTANCE.getHYMANIFEST_3_0_0_3_0_0_1_0_2_1();
-	private eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestKeyword getHYMANIFEST_3_0_0_3_0_0_1_0_2_1() {
-		return new eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestKeyword("-", eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCardinality.ONE);
-	}
-	
-	public final static eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestPlaceholder HYMANIFEST_3_0_0_3_0_0_1_0_2_2 = INSTANCE.getHYMANIFEST_3_0_0_3_0_0_1_0_2_2();
-	private eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestPlaceholder getHYMANIFEST_3_0_0_3_0_0_1_0_2_2() {
-		return new eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestPlaceholder(eu.hyvar.mspl.manifest.ManifestPackage.eINSTANCE.getHyTimedImplementationLink().getEStructuralFeature(eu.hyvar.mspl.manifest.ManifestPackage.HY_TIMED_IMPLEMENTATION_LINK__VALID_UNTIL), "DATE", eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCardinality.ONE, 0);
-	}
-	
-	public final static eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestSequence HYMANIFEST_3_0_0_3_0_0_1_0_2 = INSTANCE.getHYMANIFEST_3_0_0_3_0_0_1_0_2();
-	private eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestSequence getHYMANIFEST_3_0_0_3_0_0_1_0_2() {
-		return new eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestSequence(eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCardinality.ONE, HYMANIFEST_3_0_0_3_0_0_1_0_2_0, HYMANIFEST_3_0_0_3_0_0_1_0_2_1, HYMANIFEST_3_0_0_3_0_0_1_0_2_2);
+		return new eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestSequence(eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCardinality.ONE, HYMANIFEST_3_0_0_3_0_0_1_0_0_0, HYMANIFEST_3_0_0_3_0_0_1_0_0_1);
 	}
 	
 	public final static eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestChoice HYMANIFEST_3_0_0_3_0_0_1_0 = INSTANCE.getHYMANIFEST_3_0_0_3_0_0_1_0();
 	private eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestChoice getHYMANIFEST_3_0_0_3_0_0_1_0() {
-		return new eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestChoice(eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCardinality.ONE, HYMANIFEST_3_0_0_3_0_0_1_0_0, HYMANIFEST_3_0_0_3_0_0_1_0_1, HYMANIFEST_3_0_0_3_0_0_1_0_2);
+		return new eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestChoice(eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCardinality.ONE, HYMANIFEST_3_0_0_3_0_0_1_0_0);
 	}
 	
 	public final static eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCompound HYMANIFEST_3_0_0_3_0_0_1 = INSTANCE.getHYMANIFEST_3_0_0_3_0_0_1();
 	private eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCompound getHYMANIFEST_3_0_0_3_0_0_1() {
-		return new eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCompound(HYMANIFEST_3_0_0_3_0_0_1_0, eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCardinality.ONE);
-	}
-	
-	public final static eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestKeyword HYMANIFEST_3_0_0_3_0_0_2 = INSTANCE.getHYMANIFEST_3_0_0_3_0_0_2();
-	private eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestKeyword getHYMANIFEST_3_0_0_3_0_0_2() {
-		return new eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestKeyword("]", eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCardinality.ONE);
+		return new eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCompound(HYMANIFEST_3_0_0_3_0_0_1_0, eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCardinality.STAR);
 	}
 	
 	public final static eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestSequence HYMANIFEST_3_0_0_3_0_0 = INSTANCE.getHYMANIFEST_3_0_0_3_0_0();
 	private eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestSequence getHYMANIFEST_3_0_0_3_0_0() {
-		return new eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestSequence(eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCardinality.ONE, HYMANIFEST_3_0_0_3_0_0_0, HYMANIFEST_3_0_0_3_0_0_1, HYMANIFEST_3_0_0_3_0_0_2);
+		return new eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestSequence(eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCardinality.ONE, HYMANIFEST_3_0_0_3_0_0_0, HYMANIFEST_3_0_0_3_0_0_1);
 	}
 	
 	public final static eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestChoice HYMANIFEST_3_0_0_3_0 = INSTANCE.getHYMANIFEST_3_0_0_3_0();
@@ -624,9 +469,14 @@ public class HymanifestGrammarInformationProvider {
 		return new eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCompound(HYMANIFEST_3_0_0_3_0, eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCardinality.QUESTIONMARK);
 	}
 	
+	public final static eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestKeyword HYMANIFEST_3_0_0_4 = INSTANCE.getHYMANIFEST_3_0_0_4();
+	private eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestKeyword getHYMANIFEST_3_0_0_4() {
+		return new eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestKeyword("}", eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCardinality.ONE);
+	}
+	
 	public final static eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestSequence HYMANIFEST_3_0_0 = INSTANCE.getHYMANIFEST_3_0_0();
 	private eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestSequence getHYMANIFEST_3_0_0() {
-		return new eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestSequence(eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCardinality.ONE, HYMANIFEST_3_0_0_0, HYMANIFEST_3_0_0_1, HYMANIFEST_3_0_0_2, HYMANIFEST_3_0_0_3);
+		return new eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestSequence(eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCardinality.ONE, HYMANIFEST_3_0_0_0, HYMANIFEST_3_0_0_1, HYMANIFEST_3_0_0_2, HYMANIFEST_3_0_0_3, HYMANIFEST_3_0_0_4);
 	}
 	
 	public final static eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestChoice HYMANIFEST_3_0 = INSTANCE.getHYMANIFEST_3_0();
@@ -636,47 +486,172 @@ public class HymanifestGrammarInformationProvider {
 	
 	public final static eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestRule HYMANIFEST_3 = INSTANCE.getHYMANIFEST_3();
 	private eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestRule getHYMANIFEST_3() {
-		return new eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestRule(eu.hyvar.mspl.manifest.ManifestPackage.eINSTANCE.getHyTimedImplementationLink(), HYMANIFEST_3_0, eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCardinality.ONE);
+		return new eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestRule(eu.hyvar.mspl.manifest.ManifestPackage.eINSTANCE.getHyTimedImplementations(), HYMANIFEST_3_0, eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCardinality.ONE);
 	}
 	
-	public final static eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestKeyword HYMANIFEST_4_0_0_0 = INSTANCE.getHYMANIFEST_4_0_0_0();
-	private eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestKeyword getHYMANIFEST_4_0_0_0() {
-		return new eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestKeyword("Signature ", eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCardinality.ONE);
+	public final static eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestKeyword HYMANIFEST_4_0_0_0_0_0_0 = INSTANCE.getHYMANIFEST_4_0_0_0_0_0_0();
+	private eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestKeyword getHYMANIFEST_4_0_0_0_0_0_0() {
+		return new eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestKeyword("[", eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCardinality.ONE);
 	}
 	
-	public final static eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestContainment HYMANIFEST_4_0_0_1 = INSTANCE.getHYMANIFEST_4_0_0_1();
-	private eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestContainment getHYMANIFEST_4_0_0_1() {
-		return new eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestContainment(eu.hyvar.mspl.manifest.ManifestPackage.eINSTANCE.getHySPLSignature().getEStructuralFeature(eu.hyvar.mspl.manifest.ManifestPackage.HY_SPL_SIGNATURE__NAMES), eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCardinality.ONE, new EClass[] {eu.hyvar.evolution.HyEvolutionPackage.eINSTANCE.getHyName(), }, 0);
+	public final static eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestPlaceholder HYMANIFEST_4_0_0_0_0_0_1_0_0_0 = INSTANCE.getHYMANIFEST_4_0_0_0_0_0_1_0_0_0();
+	private eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestPlaceholder getHYMANIFEST_4_0_0_0_0_0_1_0_0_0() {
+		return new eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestPlaceholder(eu.hyvar.mspl.manifest.ManifestPackage.eINSTANCE.getHyTimedImplementationLink().getEStructuralFeature(eu.hyvar.mspl.manifest.ManifestPackage.HY_TIMED_IMPLEMENTATION_LINK__VALID_SINCE), "DATE", eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCardinality.ONE, 0);
 	}
 	
-	public final static eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestKeyword HYMANIFEST_4_0_0_2_0_0_0 = INSTANCE.getHYMANIFEST_4_0_0_2_0_0_0();
-	private eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestKeyword getHYMANIFEST_4_0_0_2_0_0_0() {
-		return new eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestKeyword(",", eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCardinality.ONE);
+	public final static eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestKeyword HYMANIFEST_4_0_0_0_0_0_1_0_0_1 = INSTANCE.getHYMANIFEST_4_0_0_0_0_0_1_0_0_1();
+	private eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestKeyword getHYMANIFEST_4_0_0_0_0_0_1_0_0_1() {
+		return new eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestKeyword("-", eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCardinality.ONE);
 	}
 	
-	public final static eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestContainment HYMANIFEST_4_0_0_2_0_0_1 = INSTANCE.getHYMANIFEST_4_0_0_2_0_0_1();
-	private eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestContainment getHYMANIFEST_4_0_0_2_0_0_1() {
-		return new eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestContainment(eu.hyvar.mspl.manifest.ManifestPackage.eINSTANCE.getHySPLSignature().getEStructuralFeature(eu.hyvar.mspl.manifest.ManifestPackage.HY_SPL_SIGNATURE__NAMES), eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCardinality.ONE, new EClass[] {eu.hyvar.evolution.HyEvolutionPackage.eINSTANCE.getHyName(), }, 0);
+	public final static eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestPlaceholder HYMANIFEST_4_0_0_0_0_0_1_0_0_2 = INSTANCE.getHYMANIFEST_4_0_0_0_0_0_1_0_0_2();
+	private eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestPlaceholder getHYMANIFEST_4_0_0_0_0_0_1_0_0_2() {
+		return new eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestPlaceholder(eu.hyvar.mspl.manifest.ManifestPackage.eINSTANCE.getHyTimedImplementationLink().getEStructuralFeature(eu.hyvar.mspl.manifest.ManifestPackage.HY_TIMED_IMPLEMENTATION_LINK__VALID_UNTIL), "DATE", eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCardinality.ONE, 0);
 	}
 	
-	public final static eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestSequence HYMANIFEST_4_0_0_2_0_0 = INSTANCE.getHYMANIFEST_4_0_0_2_0_0();
-	private eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestSequence getHYMANIFEST_4_0_0_2_0_0() {
-		return new eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestSequence(eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCardinality.ONE, HYMANIFEST_4_0_0_2_0_0_0, HYMANIFEST_4_0_0_2_0_0_1);
+	public final static eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestSequence HYMANIFEST_4_0_0_0_0_0_1_0_0 = INSTANCE.getHYMANIFEST_4_0_0_0_0_0_1_0_0();
+	private eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestSequence getHYMANIFEST_4_0_0_0_0_0_1_0_0() {
+		return new eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestSequence(eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCardinality.ONE, HYMANIFEST_4_0_0_0_0_0_1_0_0_0, HYMANIFEST_4_0_0_0_0_0_1_0_0_1, HYMANIFEST_4_0_0_0_0_0_1_0_0_2);
 	}
 	
-	public final static eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestChoice HYMANIFEST_4_0_0_2_0 = INSTANCE.getHYMANIFEST_4_0_0_2_0();
-	private eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestChoice getHYMANIFEST_4_0_0_2_0() {
-		return new eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestChoice(eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCardinality.ONE, HYMANIFEST_4_0_0_2_0_0);
+	public final static eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestPlaceholder HYMANIFEST_4_0_0_0_0_0_1_0_1_0 = INSTANCE.getHYMANIFEST_4_0_0_0_0_0_1_0_1_0();
+	private eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestPlaceholder getHYMANIFEST_4_0_0_0_0_0_1_0_1_0() {
+		return new eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestPlaceholder(eu.hyvar.mspl.manifest.ManifestPackage.eINSTANCE.getHyTimedImplementationLink().getEStructuralFeature(eu.hyvar.mspl.manifest.ManifestPackage.HY_TIMED_IMPLEMENTATION_LINK__VALID_SINCE), "DATE", eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCardinality.ONE, 0);
 	}
 	
-	public final static eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCompound HYMANIFEST_4_0_0_2 = INSTANCE.getHYMANIFEST_4_0_0_2();
-	private eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCompound getHYMANIFEST_4_0_0_2() {
-		return new eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCompound(HYMANIFEST_4_0_0_2_0, eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCardinality.STAR);
+	public final static eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestKeyword HYMANIFEST_4_0_0_0_0_0_1_0_1_1 = INSTANCE.getHYMANIFEST_4_0_0_0_0_0_1_0_1_1();
+	private eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestKeyword getHYMANIFEST_4_0_0_0_0_0_1_0_1_1() {
+		return new eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestKeyword("-", eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCardinality.ONE);
+	}
+	
+	public final static eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestKeyword HYMANIFEST_4_0_0_0_0_0_1_0_1_2 = INSTANCE.getHYMANIFEST_4_0_0_0_0_0_1_0_1_2();
+	private eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestKeyword getHYMANIFEST_4_0_0_0_0_0_1_0_1_2() {
+		return new eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestKeyword("eternity", eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCardinality.ONE);
+	}
+	
+	public final static eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestSequence HYMANIFEST_4_0_0_0_0_0_1_0_1 = INSTANCE.getHYMANIFEST_4_0_0_0_0_0_1_0_1();
+	private eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestSequence getHYMANIFEST_4_0_0_0_0_0_1_0_1() {
+		return new eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestSequence(eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCardinality.ONE, HYMANIFEST_4_0_0_0_0_0_1_0_1_0, HYMANIFEST_4_0_0_0_0_0_1_0_1_1, HYMANIFEST_4_0_0_0_0_0_1_0_1_2);
+	}
+	
+	public final static eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestKeyword HYMANIFEST_4_0_0_0_0_0_1_0_2_0 = INSTANCE.getHYMANIFEST_4_0_0_0_0_0_1_0_2_0();
+	private eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestKeyword getHYMANIFEST_4_0_0_0_0_0_1_0_2_0() {
+		return new eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestKeyword("eternity", eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCardinality.ONE);
+	}
+	
+	public final static eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestKeyword HYMANIFEST_4_0_0_0_0_0_1_0_2_1 = INSTANCE.getHYMANIFEST_4_0_0_0_0_0_1_0_2_1();
+	private eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestKeyword getHYMANIFEST_4_0_0_0_0_0_1_0_2_1() {
+		return new eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestKeyword("-", eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCardinality.ONE);
+	}
+	
+	public final static eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestPlaceholder HYMANIFEST_4_0_0_0_0_0_1_0_2_2 = INSTANCE.getHYMANIFEST_4_0_0_0_0_0_1_0_2_2();
+	private eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestPlaceholder getHYMANIFEST_4_0_0_0_0_0_1_0_2_2() {
+		return new eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestPlaceholder(eu.hyvar.mspl.manifest.ManifestPackage.eINSTANCE.getHyTimedImplementationLink().getEStructuralFeature(eu.hyvar.mspl.manifest.ManifestPackage.HY_TIMED_IMPLEMENTATION_LINK__VALID_UNTIL), "DATE", eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCardinality.ONE, 0);
+	}
+	
+	public final static eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestSequence HYMANIFEST_4_0_0_0_0_0_1_0_2 = INSTANCE.getHYMANIFEST_4_0_0_0_0_0_1_0_2();
+	private eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestSequence getHYMANIFEST_4_0_0_0_0_0_1_0_2() {
+		return new eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestSequence(eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCardinality.ONE, HYMANIFEST_4_0_0_0_0_0_1_0_2_0, HYMANIFEST_4_0_0_0_0_0_1_0_2_1, HYMANIFEST_4_0_0_0_0_0_1_0_2_2);
+	}
+	
+	public final static eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestChoice HYMANIFEST_4_0_0_0_0_0_1_0 = INSTANCE.getHYMANIFEST_4_0_0_0_0_0_1_0();
+	private eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestChoice getHYMANIFEST_4_0_0_0_0_0_1_0() {
+		return new eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestChoice(eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCardinality.ONE, HYMANIFEST_4_0_0_0_0_0_1_0_0, HYMANIFEST_4_0_0_0_0_0_1_0_1, HYMANIFEST_4_0_0_0_0_0_1_0_2);
+	}
+	
+	public final static eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCompound HYMANIFEST_4_0_0_0_0_0_1 = INSTANCE.getHYMANIFEST_4_0_0_0_0_0_1();
+	private eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCompound getHYMANIFEST_4_0_0_0_0_0_1() {
+		return new eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCompound(HYMANIFEST_4_0_0_0_0_0_1_0, eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCardinality.ONE);
+	}
+	
+	public final static eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestKeyword HYMANIFEST_4_0_0_0_0_0_2 = INSTANCE.getHYMANIFEST_4_0_0_0_0_0_2();
+	private eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestKeyword getHYMANIFEST_4_0_0_0_0_0_2() {
+		return new eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestKeyword("]", eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCardinality.ONE);
+	}
+	
+	public final static eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestSequence HYMANIFEST_4_0_0_0_0_0 = INSTANCE.getHYMANIFEST_4_0_0_0_0_0();
+	private eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestSequence getHYMANIFEST_4_0_0_0_0_0() {
+		return new eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestSequence(eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCardinality.ONE, HYMANIFEST_4_0_0_0_0_0_0, HYMANIFEST_4_0_0_0_0_0_1, HYMANIFEST_4_0_0_0_0_0_2);
+	}
+	
+	public final static eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestChoice HYMANIFEST_4_0_0_0_0 = INSTANCE.getHYMANIFEST_4_0_0_0_0();
+	private eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestChoice getHYMANIFEST_4_0_0_0_0() {
+		return new eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestChoice(eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCardinality.ONE, HYMANIFEST_4_0_0_0_0_0);
+	}
+	
+	public final static eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCompound HYMANIFEST_4_0_0_0 = INSTANCE.getHYMANIFEST_4_0_0_0();
+	private eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCompound getHYMANIFEST_4_0_0_0() {
+		return new eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCompound(HYMANIFEST_4_0_0_0_0, eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCardinality.QUESTIONMARK);
+	}
+	
+	public final static eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestPlaceholder HYMANIFEST_4_0_0_1_0_0_0 = INSTANCE.getHYMANIFEST_4_0_0_1_0_0_0();
+	private eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestPlaceholder getHYMANIFEST_4_0_0_1_0_0_0() {
+		return new eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestPlaceholder(eu.hyvar.mspl.manifest.ManifestPackage.eINSTANCE.getHyTimedImplementationLink().getEStructuralFeature(eu.hyvar.mspl.manifest.ManifestPackage.HY_TIMED_IMPLEMENTATION_LINK__LOCAL), "QUOTED_34_34", eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCardinality.ONE, 0);
+	}
+	
+	public final static eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestSequence HYMANIFEST_4_0_0_1_0_0 = INSTANCE.getHYMANIFEST_4_0_0_1_0_0();
+	private eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestSequence getHYMANIFEST_4_0_0_1_0_0() {
+		return new eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestSequence(eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCardinality.ONE, HYMANIFEST_4_0_0_1_0_0_0);
+	}
+	
+	public final static eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestPlaceholder HYMANIFEST_4_0_0_1_0_1_0 = INSTANCE.getHYMANIFEST_4_0_0_1_0_1_0();
+	private eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestPlaceholder getHYMANIFEST_4_0_0_1_0_1_0() {
+		return new eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestPlaceholder(eu.hyvar.mspl.manifest.ManifestPackage.eINSTANCE.getHyTimedImplementationLink().getEStructuralFeature(eu.hyvar.mspl.manifest.ManifestPackage.HY_TIMED_IMPLEMENTATION_LINK__LOCAL), "IDENTIFIER_TOKEN", eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCardinality.ONE, 0);
+	}
+	
+	public final static eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestSequence HYMANIFEST_4_0_0_1_0_1 = INSTANCE.getHYMANIFEST_4_0_0_1_0_1();
+	private eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestSequence getHYMANIFEST_4_0_0_1_0_1() {
+		return new eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestSequence(eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCardinality.ONE, HYMANIFEST_4_0_0_1_0_1_0);
+	}
+	
+	public final static eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestChoice HYMANIFEST_4_0_0_1_0 = INSTANCE.getHYMANIFEST_4_0_0_1_0();
+	private eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestChoice getHYMANIFEST_4_0_0_1_0() {
+		return new eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestChoice(eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCardinality.ONE, HYMANIFEST_4_0_0_1_0_0, HYMANIFEST_4_0_0_1_0_1);
+	}
+	
+	public final static eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCompound HYMANIFEST_4_0_0_1 = INSTANCE.getHYMANIFEST_4_0_0_1();
+	private eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCompound getHYMANIFEST_4_0_0_1() {
+		return new eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCompound(HYMANIFEST_4_0_0_1_0, eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCardinality.ONE);
+	}
+	
+	public final static eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestKeyword HYMANIFEST_4_0_0_2 = INSTANCE.getHYMANIFEST_4_0_0_2();
+	private eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestKeyword getHYMANIFEST_4_0_0_2() {
+		return new eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestKeyword("->", eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCardinality.ONE);
+	}
+	
+	public final static eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestPlaceholder HYMANIFEST_4_0_0_3_0_0_0 = INSTANCE.getHYMANIFEST_4_0_0_3_0_0_0();
+	private eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestPlaceholder getHYMANIFEST_4_0_0_3_0_0_0() {
+		return new eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestPlaceholder(eu.hyvar.mspl.manifest.ManifestPackage.eINSTANCE.getHyTimedImplementationLink().getEStructuralFeature(eu.hyvar.mspl.manifest.ManifestPackage.HY_TIMED_IMPLEMENTATION_LINK__SIGNATURE), "QUOTED_34_34", eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCardinality.ONE, 0);
+	}
+	
+	public final static eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestSequence HYMANIFEST_4_0_0_3_0_0 = INSTANCE.getHYMANIFEST_4_0_0_3_0_0();
+	private eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestSequence getHYMANIFEST_4_0_0_3_0_0() {
+		return new eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestSequence(eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCardinality.ONE, HYMANIFEST_4_0_0_3_0_0_0);
+	}
+	
+	public final static eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestPlaceholder HYMANIFEST_4_0_0_3_0_1_0 = INSTANCE.getHYMANIFEST_4_0_0_3_0_1_0();
+	private eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestPlaceholder getHYMANIFEST_4_0_0_3_0_1_0() {
+		return new eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestPlaceholder(eu.hyvar.mspl.manifest.ManifestPackage.eINSTANCE.getHyTimedImplementationLink().getEStructuralFeature(eu.hyvar.mspl.manifest.ManifestPackage.HY_TIMED_IMPLEMENTATION_LINK__SIGNATURE), "IDENTIFIER_TOKEN", eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCardinality.ONE, 0);
+	}
+	
+	public final static eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestSequence HYMANIFEST_4_0_0_3_0_1 = INSTANCE.getHYMANIFEST_4_0_0_3_0_1();
+	private eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestSequence getHYMANIFEST_4_0_0_3_0_1() {
+		return new eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestSequence(eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCardinality.ONE, HYMANIFEST_4_0_0_3_0_1_0);
+	}
+	
+	public final static eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestChoice HYMANIFEST_4_0_0_3_0 = INSTANCE.getHYMANIFEST_4_0_0_3_0();
+	private eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestChoice getHYMANIFEST_4_0_0_3_0() {
+		return new eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestChoice(eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCardinality.ONE, HYMANIFEST_4_0_0_3_0_0, HYMANIFEST_4_0_0_3_0_1);
+	}
+	
+	public final static eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCompound HYMANIFEST_4_0_0_3 = INSTANCE.getHYMANIFEST_4_0_0_3();
+	private eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCompound getHYMANIFEST_4_0_0_3() {
+		return new eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCompound(HYMANIFEST_4_0_0_3_0, eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCardinality.ONE);
 	}
 	
 	public final static eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestSequence HYMANIFEST_4_0_0 = INSTANCE.getHYMANIFEST_4_0_0();
 	private eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestSequence getHYMANIFEST_4_0_0() {
-		return new eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestSequence(eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCardinality.ONE, HYMANIFEST_4_0_0_0, HYMANIFEST_4_0_0_1, HYMANIFEST_4_0_0_2);
+		return new eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestSequence(eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCardinality.ONE, HYMANIFEST_4_0_0_0, HYMANIFEST_4_0_0_1, HYMANIFEST_4_0_0_2, HYMANIFEST_4_0_0_3);
 	}
 	
 	public final static eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestChoice HYMANIFEST_4_0 = INSTANCE.getHYMANIFEST_4_0();
@@ -686,122 +661,7 @@ public class HymanifestGrammarInformationProvider {
 	
 	public final static eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestRule HYMANIFEST_4 = INSTANCE.getHYMANIFEST_4();
 	private eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestRule getHYMANIFEST_4() {
-		return new eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestRule(eu.hyvar.mspl.manifest.ManifestPackage.eINSTANCE.getHySPLSignature(), HYMANIFEST_4_0, eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCardinality.ONE);
-	}
-	
-	public final static eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestPlaceholder HYMANIFEST_5_0_0_0 = INSTANCE.getHYMANIFEST_5_0_0_0();
-	private eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestPlaceholder getHYMANIFEST_5_0_0_0() {
-		return new eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestPlaceholder(eu.hyvar.evolution.HyEvolutionPackage.eINSTANCE.getHyName().getEStructuralFeature(eu.hyvar.evolution.HyEvolutionPackage.HY_NAME__NAME), "IDENTIFIER_TOKEN", eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCardinality.ONE, 0);
-	}
-	
-	public final static eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestKeyword HYMANIFEST_5_0_0_1_0_0_0 = INSTANCE.getHYMANIFEST_5_0_0_1_0_0_0();
-	private eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestKeyword getHYMANIFEST_5_0_0_1_0_0_0() {
-		return new eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestKeyword("@[", eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCardinality.ONE);
-	}
-	
-	public final static eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestPlaceholder HYMANIFEST_5_0_0_1_0_0_1_0_0_0 = INSTANCE.getHYMANIFEST_5_0_0_1_0_0_1_0_0_0();
-	private eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestPlaceholder getHYMANIFEST_5_0_0_1_0_0_1_0_0_0() {
-		return new eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestPlaceholder(eu.hyvar.evolution.HyEvolutionPackage.eINSTANCE.getHyName().getEStructuralFeature(eu.hyvar.evolution.HyEvolutionPackage.HY_NAME__VALID_SINCE), "DATE", eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCardinality.ONE, 0);
-	}
-	
-	public final static eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestKeyword HYMANIFEST_5_0_0_1_0_0_1_0_0_1 = INSTANCE.getHYMANIFEST_5_0_0_1_0_0_1_0_0_1();
-	private eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestKeyword getHYMANIFEST_5_0_0_1_0_0_1_0_0_1() {
-		return new eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestKeyword("-", eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCardinality.ONE);
-	}
-	
-	public final static eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestPlaceholder HYMANIFEST_5_0_0_1_0_0_1_0_0_2 = INSTANCE.getHYMANIFEST_5_0_0_1_0_0_1_0_0_2();
-	private eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestPlaceholder getHYMANIFEST_5_0_0_1_0_0_1_0_0_2() {
-		return new eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestPlaceholder(eu.hyvar.evolution.HyEvolutionPackage.eINSTANCE.getHyName().getEStructuralFeature(eu.hyvar.evolution.HyEvolutionPackage.HY_NAME__VALID_UNTIL), "DATE", eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCardinality.ONE, 0);
-	}
-	
-	public final static eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestSequence HYMANIFEST_5_0_0_1_0_0_1_0_0 = INSTANCE.getHYMANIFEST_5_0_0_1_0_0_1_0_0();
-	private eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestSequence getHYMANIFEST_5_0_0_1_0_0_1_0_0() {
-		return new eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestSequence(eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCardinality.ONE, HYMANIFEST_5_0_0_1_0_0_1_0_0_0, HYMANIFEST_5_0_0_1_0_0_1_0_0_1, HYMANIFEST_5_0_0_1_0_0_1_0_0_2);
-	}
-	
-	public final static eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestPlaceholder HYMANIFEST_5_0_0_1_0_0_1_0_1_0 = INSTANCE.getHYMANIFEST_5_0_0_1_0_0_1_0_1_0();
-	private eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestPlaceholder getHYMANIFEST_5_0_0_1_0_0_1_0_1_0() {
-		return new eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestPlaceholder(eu.hyvar.evolution.HyEvolutionPackage.eINSTANCE.getHyName().getEStructuralFeature(eu.hyvar.evolution.HyEvolutionPackage.HY_NAME__VALID_SINCE), "DATE", eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCardinality.ONE, 0);
-	}
-	
-	public final static eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestKeyword HYMANIFEST_5_0_0_1_0_0_1_0_1_1 = INSTANCE.getHYMANIFEST_5_0_0_1_0_0_1_0_1_1();
-	private eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestKeyword getHYMANIFEST_5_0_0_1_0_0_1_0_1_1() {
-		return new eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestKeyword("-", eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCardinality.ONE);
-	}
-	
-	public final static eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestKeyword HYMANIFEST_5_0_0_1_0_0_1_0_1_2 = INSTANCE.getHYMANIFEST_5_0_0_1_0_0_1_0_1_2();
-	private eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestKeyword getHYMANIFEST_5_0_0_1_0_0_1_0_1_2() {
-		return new eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestKeyword("eternity", eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCardinality.ONE);
-	}
-	
-	public final static eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestSequence HYMANIFEST_5_0_0_1_0_0_1_0_1 = INSTANCE.getHYMANIFEST_5_0_0_1_0_0_1_0_1();
-	private eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestSequence getHYMANIFEST_5_0_0_1_0_0_1_0_1() {
-		return new eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestSequence(eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCardinality.ONE, HYMANIFEST_5_0_0_1_0_0_1_0_1_0, HYMANIFEST_5_0_0_1_0_0_1_0_1_1, HYMANIFEST_5_0_0_1_0_0_1_0_1_2);
-	}
-	
-	public final static eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestKeyword HYMANIFEST_5_0_0_1_0_0_1_0_2_0 = INSTANCE.getHYMANIFEST_5_0_0_1_0_0_1_0_2_0();
-	private eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestKeyword getHYMANIFEST_5_0_0_1_0_0_1_0_2_0() {
-		return new eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestKeyword("eternity", eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCardinality.ONE);
-	}
-	
-	public final static eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestKeyword HYMANIFEST_5_0_0_1_0_0_1_0_2_1 = INSTANCE.getHYMANIFEST_5_0_0_1_0_0_1_0_2_1();
-	private eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestKeyword getHYMANIFEST_5_0_0_1_0_0_1_0_2_1() {
-		return new eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestKeyword("-", eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCardinality.ONE);
-	}
-	
-	public final static eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestPlaceholder HYMANIFEST_5_0_0_1_0_0_1_0_2_2 = INSTANCE.getHYMANIFEST_5_0_0_1_0_0_1_0_2_2();
-	private eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestPlaceholder getHYMANIFEST_5_0_0_1_0_0_1_0_2_2() {
-		return new eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestPlaceholder(eu.hyvar.evolution.HyEvolutionPackage.eINSTANCE.getHyName().getEStructuralFeature(eu.hyvar.evolution.HyEvolutionPackage.HY_NAME__VALID_UNTIL), "DATE", eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCardinality.ONE, 0);
-	}
-	
-	public final static eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestSequence HYMANIFEST_5_0_0_1_0_0_1_0_2 = INSTANCE.getHYMANIFEST_5_0_0_1_0_0_1_0_2();
-	private eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestSequence getHYMANIFEST_5_0_0_1_0_0_1_0_2() {
-		return new eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestSequence(eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCardinality.ONE, HYMANIFEST_5_0_0_1_0_0_1_0_2_0, HYMANIFEST_5_0_0_1_0_0_1_0_2_1, HYMANIFEST_5_0_0_1_0_0_1_0_2_2);
-	}
-	
-	public final static eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestChoice HYMANIFEST_5_0_0_1_0_0_1_0 = INSTANCE.getHYMANIFEST_5_0_0_1_0_0_1_0();
-	private eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestChoice getHYMANIFEST_5_0_0_1_0_0_1_0() {
-		return new eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestChoice(eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCardinality.ONE, HYMANIFEST_5_0_0_1_0_0_1_0_0, HYMANIFEST_5_0_0_1_0_0_1_0_1, HYMANIFEST_5_0_0_1_0_0_1_0_2);
-	}
-	
-	public final static eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCompound HYMANIFEST_5_0_0_1_0_0_1 = INSTANCE.getHYMANIFEST_5_0_0_1_0_0_1();
-	private eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCompound getHYMANIFEST_5_0_0_1_0_0_1() {
-		return new eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCompound(HYMANIFEST_5_0_0_1_0_0_1_0, eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCardinality.ONE);
-	}
-	
-	public final static eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestKeyword HYMANIFEST_5_0_0_1_0_0_2 = INSTANCE.getHYMANIFEST_5_0_0_1_0_0_2();
-	private eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestKeyword getHYMANIFEST_5_0_0_1_0_0_2() {
-		return new eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestKeyword("]", eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCardinality.ONE);
-	}
-	
-	public final static eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestSequence HYMANIFEST_5_0_0_1_0_0 = INSTANCE.getHYMANIFEST_5_0_0_1_0_0();
-	private eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestSequence getHYMANIFEST_5_0_0_1_0_0() {
-		return new eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestSequence(eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCardinality.ONE, HYMANIFEST_5_0_0_1_0_0_0, HYMANIFEST_5_0_0_1_0_0_1, HYMANIFEST_5_0_0_1_0_0_2);
-	}
-	
-	public final static eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestChoice HYMANIFEST_5_0_0_1_0 = INSTANCE.getHYMANIFEST_5_0_0_1_0();
-	private eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestChoice getHYMANIFEST_5_0_0_1_0() {
-		return new eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestChoice(eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCardinality.ONE, HYMANIFEST_5_0_0_1_0_0);
-	}
-	
-	public final static eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCompound HYMANIFEST_5_0_0_1 = INSTANCE.getHYMANIFEST_5_0_0_1();
-	private eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCompound getHYMANIFEST_5_0_0_1() {
-		return new eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCompound(HYMANIFEST_5_0_0_1_0, eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCardinality.QUESTIONMARK);
-	}
-	
-	public final static eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestSequence HYMANIFEST_5_0_0 = INSTANCE.getHYMANIFEST_5_0_0();
-	private eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestSequence getHYMANIFEST_5_0_0() {
-		return new eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestSequence(eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCardinality.ONE, HYMANIFEST_5_0_0_0, HYMANIFEST_5_0_0_1);
-	}
-	
-	public final static eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestChoice HYMANIFEST_5_0 = INSTANCE.getHYMANIFEST_5_0();
-	private eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestChoice getHYMANIFEST_5_0() {
-		return new eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestChoice(eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCardinality.ONE, HYMANIFEST_5_0_0);
-	}
-	
-	public final static eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestRule HYMANIFEST_5 = INSTANCE.getHYMANIFEST_5();
-	private eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestRule getHYMANIFEST_5() {
-		return new eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestRule(eu.hyvar.evolution.HyEvolutionPackage.eINSTANCE.getHyName(), HYMANIFEST_5_0, eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCardinality.ONE);
+		return new eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestRule(eu.hyvar.mspl.manifest.ManifestPackage.eINSTANCE.getHyTimedImplementationLink(), HYMANIFEST_4_0, eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestCardinality.ONE);
 	}
 	
 	public final static eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestPlaceholder HYDATAVALUE_0_0_0_0 = INSTANCE.getHYDATAVALUE_0_0_0_0();
@@ -1217,7 +1077,6 @@ public class HymanifestGrammarInformationProvider {
 		HYMANIFEST_2,
 		HYMANIFEST_3,
 		HYMANIFEST_4,
-		HYMANIFEST_5,
 		HYDATAVALUE_0,
 		HYDATAVALUE_1,
 		HYDATAVALUE_2,

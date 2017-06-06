@@ -12,10 +12,18 @@ import eu.hyvar.mspl.manifest.HyTimedImplementationLink;
 import eu.hyvar.mspl.manifest.HyTimedImplementations;
 
 public class HyManifestVisitorUtil {
-	private final static boolean PrintDebug = false;
+	private final static boolean PrintDebug = true;
 
+	
 	public static void visitRelativeImplementationModel (String identifier, EObject elementInOriginalResource) {
 		HySPLImplementation model = HyManifestResolverUtil.resolveRelativeImplementationModel(identifier, elementInOriginalResource);
+		visitRelativeImplementationModel(model);
+	}	
+	
+	
+//	public static void visitRelativeImplementationModel (String identifier, EObject elementInOriginalResource) {
+	public static void visitRelativeImplementationModel (HySPLImplementation model) {
+		//HySPLImplementation model = HyManifestResolverUtil.resolveRelativeImplementationModel(identifier, elementInOriginalResource);
 
 		if(model==null) {
 			print("UNITO VISIT: ", "ERROR! Model not found.");
@@ -25,7 +33,7 @@ public class HyManifestVisitorUtil {
 		int count=0;
 
 		print("\n\nUNITO VISIT: ", "Start visit HySPLImplementation");
-		visitHyName("", model.getNames());
+		//visitHyName("", model.getNames());
 
 		
 		print("", "Dependencies:");
@@ -61,7 +69,9 @@ public class HyManifestVisitorUtil {
 				countAssoc++;
 				print("      ", countAssoc+") ");
 				print("        ", "local=");
-
+				HyFeature feature = assoc.getLocal();
+				visitHyFeature("        ", feature);
+/*
 				EList<HyFeature> features = assoc.getLocal();
 				int countFeature=0;
 				for (HyFeature feature: features) {
@@ -69,7 +79,11 @@ public class HyManifestVisitorUtil {
 					print("        ", countFeature+") ");
 					visitHyFeature("        ", feature);
 				}
+*/
 				print("        ", "signature=");
+				feature = assoc.getSignature();
+				visitHyFeature("        ", feature);
+/*
 				features = assoc.getSignature();
 				countFeature=0;
 				for (HyFeature feature: features) {
@@ -77,6 +91,7 @@ public class HyManifestVisitorUtil {
 					print("        ", countFeature+") ");
 					visitHyFeature("        ", feature);
 				}
+*/
 				print("        ", "since="+assoc.getValidSince());
 				print("        ", "until="+assoc.getValidUntil());
 			}
@@ -88,18 +103,19 @@ public class HyManifestVisitorUtil {
 
 	}	
 	
-	static void visitHySPLSignature (String prefix, HySPLSignature signature) {
-		visitHyName(prefix+"  ", signature.getNames());
+	public static void visitHySPLSignature (String prefix, HySPLSignature signature) {
+		print(prefix+"  ", "PRINT Signature");
+		//visitHyName(prefix+"  ", signature.getNames());
 	}
 
-	static void visitHyFeature (String prefix, HyFeature feature) {
+	public static void visitHyFeature (String prefix, HyFeature feature) {
 		visitHyName(prefix+"  ", feature.getNames());
 		print(prefix+"    ", "id="+feature.getId());
 		print(prefix+"    ", "since="+feature.getValidSince());
 		print(prefix+"    ", "until="+feature.getValidUntil());
 	}
 
-	static void visitHyName (String prefix, EList<HyName> names) {
+	public static void visitHyName (String prefix, EList<HyName> names) {
 		print(prefix+"  ", "Names:");
 		for(HyName name: names) {
 			print(prefix+"      ", "-- name="+name.getName());
@@ -114,7 +130,7 @@ public class HyManifestVisitorUtil {
 	}
 
 	
-	static void print(String prefix, String str) {
+	public static void print(String prefix, String str) {
 		if (PrintDebug) {
 			System.out.println(prefix+str);
 		}

@@ -28,20 +28,20 @@ TOKENSTYLES  {
 }
 
 RULES {
-	// syntax definition for class 'HySPLImplementation'
-	HySPLImplementation ::= "Implementation "  names ("," names)*  ("(" dependencies ("," dependencies)* ")")? (":" implementations ("," implementations)* )?  ;
-
-	HyTimedDependencies ::= signature['<','>'] ("@[" (validSince[DATE] "-" validUntil[DATE] | validSince[DATE] "-" "eternity" | "eternity" "-" validUntil[DATE])  "]")? ;
-
-	HyTimedImplementations ::= signature['<','>'] ("@[" (validSince[DATE] "-" validUntil[DATE] | validSince[DATE] "-" "eternity" | "eternity" "-" validUntil[DATE])  "]")? "{" (associations ("," associations)*)? "}";
-	
-	@SuppressWarnings(explicitSyntaxChoice)
-	HyTimedImplementationLink ::= (local['"','"'] | local[]) "->" (signature['"','"'] | signature[]) ("@[" (validSince[DATE] "-" validUntil[DATE] | validSince[DATE] "-" "eternity" | "eternity" "-" validUntil[DATE])  "]")? ;
 
 	// syntax definition for class 'HySPLSignature'
-	HySPLSignature ::= "Signature "  names ("," names)* ;
+	HySPLSignature ::= "Signature ";
 
-	@SuppressWarnings(featureWithoutSyntax) 
-	HyName ::= name[IDENTIFIER_TOKEN] ("@[" (validSince[DATE] "-" validUntil[DATE] | validSince[DATE] "-" "eternity" | "eternity" "-" validUntil[DATE])  "]")? ;
+	// syntax definition for class 'HySPLImplementation'
+	HySPLImplementation ::= "Implementation " ("(" dependencies ("," dependencies)* ")")? (":" implementations ("," implementations)* )?  ;
+
+	@SuppressWarnings(explicitSyntaxChoice)
+	HyTimedDependencies ::= ("[" (validSince[DATE] "-" validUntil[DATE] | validSince[DATE] "-" "eternity" | "eternity" "-" validUntil[DATE])  "]")? (alias['"','"'] | alias[]) ":"  signature['<','>'] ;
 	
+	@SuppressWarnings(explicitSyntaxChoice)
+	HyTimedImplementations ::= ("[" (validSince[DATE] "-" validUntil[DATE] | validSince[DATE] "-" "eternity" | "eternity" "-" validUntil[DATE])  "]")? signature['<','>'] "{" (associations ("," associations)*)? "}";
+	
+	@SuppressWarnings(explicitSyntaxChoice)
+	HyTimedImplementationLink ::= ("[" (validSince[DATE] "-" validUntil[DATE] | validSince[DATE] "-" "eternity" | "eternity" "-" validUntil[DATE])  "]")? (local['"','"'] | local[]) "->" (signature['"','"'] | signature[]) ;
+
 }
