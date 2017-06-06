@@ -35,10 +35,11 @@ public abstract class DwAbstractConfiguratorWidget extends Composite implements 
 		super(parent, style);
 		this.setLayout( new RowLayout(SWT.HORIZONTAL));
 
-		checkbox = new Button(this, SWT.CHECK);
-		label = new Label(this, SWT.NONE);
 		upButton = new Button(this, SWT.NONE);
 		downButton = new Button(this, SWT.NONE);
+		checkbox = new Button(this, SWT.CHECK);
+		label = new Label(this, SWT.NONE);
+		
 
 		upButton.setText("Up");
 		downButton.setText("Down");

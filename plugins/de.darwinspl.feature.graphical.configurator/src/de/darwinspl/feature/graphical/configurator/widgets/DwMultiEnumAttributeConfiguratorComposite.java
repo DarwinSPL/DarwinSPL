@@ -3,6 +3,7 @@ package de.darwinspl.feature.graphical.configurator.widgets;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.CCombo;
 import org.eclipse.swt.widgets.Composite;
 
@@ -24,6 +25,7 @@ public class DwMultiEnumAttributeConfiguratorComposite extends DwAbstractConfigu
 			items[i] = literals.get(i).getName();
 		}
 		
+		dropdown = new CCombo(this, SWT.NONE);
 		dropdown.setItems(items);
 		dropdown.select(0);
 	}

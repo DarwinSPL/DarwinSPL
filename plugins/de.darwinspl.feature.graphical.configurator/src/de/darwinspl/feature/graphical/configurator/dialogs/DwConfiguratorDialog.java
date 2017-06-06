@@ -6,21 +6,10 @@ import java.util.List;
 
 import org.eclipse.jface.dialogs.Dialog;
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.custom.CCombo;
-import org.eclipse.swt.custom.TableEditor;
 import org.eclipse.swt.layout.FillLayout;
-import org.eclipse.swt.layout.GridData;
-import org.eclipse.swt.layout.RowLayout;
-import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
-import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Shell;
-import org.eclipse.swt.widgets.Table;
-import org.eclipse.swt.widgets.TableColumn;
-import org.eclipse.swt.widgets.TableItem;
-import org.eclipse.swt.widgets.Text;
-
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -36,13 +25,14 @@ import de.darwinspl.feature.graphical.configurator.widgets.DwMultiNumberedAttrib
 import de.darwinspl.feature.graphical.configurator.widgets.DwSingleBooleanAttributeConfiguratorComposite;
 import de.darwinspl.feature.graphical.configurator.widgets.DwSingleEnumAttributeConfiguratorComposite;
 import de.darwinspl.feature.graphical.configurator.widgets.DwSingleNumberedAttributeConfiguratorComposite;
-import eu.hyvar.evolution.HyName;
+import eu.hyvar.feature.HyBooleanAttribute;
+import eu.hyvar.feature.HyEnumAttribute;
 import eu.hyvar.feature.HyFeature;
 import eu.hyvar.feature.HyFeatureAttribute;
 import eu.hyvar.feature.HyFeatureModel;
+import eu.hyvar.feature.HyNumberAttribute;
 import eu.hyvar.feature.configuration.HyConfiguration;
 import eu.hyvar.feature.constraint.HyConstraintModel;
-import eu.hyvar.preferences.HyPreference;
 import eu.hyvar.reconfigurator.output.translation.HyVarRecOutputTranslator;
 import eu.hyvar.reconfigurator.output.translation.format.OutputOfHyVarRec;
 
@@ -110,11 +100,20 @@ public class DwConfiguratorDialog extends Dialog {
 					DwMultiBooleanAttributeConfiguratorComposite multiBoolComp = (DwMultiBooleanAttributeConfiguratorComposite)row;
 					builder.addBooleanPreferenceExpression(multiBoolComp.getAttributeName(), multiBoolComp.isTrue());
 				} else if (row instanceof DwSingleNumberedAttributeConfiguratorComposite) {
-
+					DwSingleNumberedAttributeConfiguratorComposite singleNumberComp = (DwSingleNumberedAttributeConfiguratorComposite)row;
+					if(singleNumberComp.getSelectedMode() == ConfiguratorMode.MIN) {
+						builder.addSingleNumberedAttributeMinimumExpression((HyNumberAttribute)singleNumberComp.getAttribute(), singleNumberComp.getSelectedValue());
+					} else if(singleNumberComp.getSelectedMode() == ConfiguratorMode.MAX) {
+						builder.addSingleNumberedAttributeMaximumExpression((HyNumberAttribute)singleNumberComp.getAttribute(), singleNumberComp.getSelectedValue());
+					} else if(singleNumberComp.getSelectedMode() == ConfiguratorMode.CUSTOM) {
+						//TODO: custom value
+					}
 				} else if (row instanceof DwSingleEnumAttributeConfiguratorComposite) {
-
+					DwSingleEnumAttributeConfiguratorComposite singleEnumComp = (DwSingleEnumAttributeConfiguratorComposite)row;
+					builder.addSingleEnumAttributeExpression((HyEnumAttribute)singleEnumComp.getAttribute(),  singleEnumComp.getSelectedEnumLiteral());
 				} else if (row instanceof DwSingleBooleanAttributeConfiguratorComposite) {
-
+					DwSingleBooleanAttributeConfiguratorComposite singleBoolComp = (DwSingleBooleanAttributeConfiguratorComposite)row;
+					builder.addSingleBooleanExpression((HyBooleanAttribute)singleBoolComp.getAttribute(), singleBoolComp.isTrue());
 				} else if (row instanceof DwFeatureQuantityConfiguratorComposite) {
 					DwFeatureQuantityConfiguratorComposite featureQuantityComp = (DwFeatureQuantityConfiguratorComposite)row;
 					if(featureQuantityComp.getSelection() == DwFeatureQuantityConfiguratorComposite.MIN) {
