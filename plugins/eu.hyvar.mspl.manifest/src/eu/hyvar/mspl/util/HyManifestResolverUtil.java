@@ -1,5 +1,7 @@
 package eu.hyvar.mspl.util;
 
+import java.util.List;
+
 import org.deltaecore.util.DEIOUtil;
 import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.EList;
@@ -8,17 +10,20 @@ import org.eclipse.emf.ecore.EObject;
 
 import de.christophseidl.util.ecore.EcoreIOUtil;
 import eu.hyvar.evolution.HyName;
+import eu.hyvar.evolution.HyTemporalElement;
 import eu.hyvar.feature.HyFeature;
 import eu.hyvar.feature.HyFeatureModel;
 import eu.hyvar.feature.util.HyFeatureResolverUtil;
+import eu.hyvar.mspl.manifest.HyInterval;
 import eu.hyvar.mspl.manifest.HyManifest;
 import eu.hyvar.mspl.manifest.HySPLImplementation;
 import eu.hyvar.mspl.manifest.HySPLSignature;
 import eu.hyvar.mspl.manifest.HyTimedDependencies;
+import eu.hyvar.mspl.manifest.ManifestFactory;
+import eu.hyvar.mspl.manifest.impl.ManifestFactoryImpl;
 
 public class HyManifestResolverUtil {
 
-	private final static boolean PrintDebug = false;
 	public static String MANIFEST_SEPARATOR = ":";
 	
 	public static final String[] FILE_EXTENSIONS = { "hymanifest" };
@@ -50,8 +55,6 @@ public class HyManifestResolverUtil {
 
 		HyManifest manifest = getAccompanyingManifestModel(container);
 		if(manifest instanceof HySPLImplementation) {
-			
-			java.util.HashSet<HySPLSignature> signatures = new java.util.HashSet<HySPLSignature>(); 
 			
 			EList<HyTimedDependencies> list = ((HySPLImplementation) manifest).getDependencies();
 			for (HyTimedDependencies dep: list) {
@@ -147,112 +150,30 @@ public class HyManifestResolverUtil {
 		return null;
 	}
 
-/*	
-	public static void visitRelativeImplementationModel (String identifier, EObject elementInOriginalResource) {
-		HySPLImplementation model = HyManifestResolverUtil.getRelativeImplementationModel(identifier, elementInOriginalResource);
 
-		if(model==null) {
-			print("UNITO VISIT: ", "ERROR! Model not found.");
-			return;
-		}
 
-		int count=0;
-
-		print("\n\nUNITO VISIT: ", "Start visit HySPLImplementation");
-		visitHyName("", model.getNames());
-
+	
+	public static HyInterval temporalIntersection(List<HyTemporalElement> elementsToIntersect) {
+		ManifestFactory factory = ManifestFactoryImpl.init();
+		HyInterval interval = factory.createHyInterval();
 		
-		print("", "Dependencies:");
-		EList<HyTimedDependencies> dependent = model.getDependencies();
-		count=0;
-		for (HyTimedDependencies dep: dependent) {
-			count++;
-			print("  ", count+") ");
-			print("    ", "signature=");
-			visitHySPLSignature("    ", dep.getSignature());
-			print("    ", "since="+dep.getValidSince());
-			print("    ", "until="+dep.getValidUntil());
-		}
-		print("", "end dependencies.");
-		
-		
-		print("", "Implementations:");
-		EList<HyTimedImplementations> implementation = model.getImplementations();
-		count=0;
-		for (HyTimedImplementations impl: implementation) {
-			count++;
-			print("  ", count+") ");
-			print("    ", "signature=");
-			visitHySPLSignature("    ", impl.getSignature());
-			print("    ", "since="+impl.getValidSince());
-			print("    ", "until="+impl.getValidUntil());
+		for(HyTemporalElement element: elementsToIntersect) {
 
-
-			print("    ", "Associations:");
-			EList<HyTimedImplementationLink> associations = impl.getAssociations();
-			int countAssoc=0;
-			for (HyTimedImplementationLink assoc: associations) {
-				countAssoc++;
-				print("      ", countAssoc+") ");
-				print("        ", "local=");
-
-				EList<HyFeature> features = assoc.getLocal();
-				int countFeature=0;
-				for (HyFeature feature: features) {
-					countFeature++;
-					print("        ", countFeature+") ");
-					visitHyFeature("        ", feature);
-				}
-				print("        ", "signature=");
-				features = assoc.getSignature();
-				countFeature=0;
-				for (HyFeature feature: features) {
-					countFeature++;
-					print("        ", countFeature+") ");
-					visitHyFeature("        ", feature);
-				}
-				print("        ", "since="+assoc.getValidSince());
-				print("        ", "until="+assoc.getValidUntil());
+			if(element.getValidSince()!=null && interval.getValidSince()!=null && element.getValidSince().after(interval.getValidSince()) ) {
+				interval.setValidSince(element.getValidSince());
 			}
-			print("    ", "end associations.");
+			if(element.getValidSince()!=null && interval.getValidSince()==null) {
+				interval.setValidSince(element.getValidSince());
+			}
 
+			if(element.getValidUntil()!=null && interval.getValidUntil()!=null && element.getValidUntil().before(interval.getValidUntil()) ) {
+				interval.setValidSince(element.getValidSince());
+			}
+			if(element.getValidUntil()!=null && interval.getValidUntil()==null) {
+				interval.setValidUntil(element.getValidUntil());
+			}
 		}
-		print("", "end implementations.");
-		print("", "End visit HySPLImplementation\n\n");
-
-	}	
-	
-	static void visitHySPLSignature (String prefix, HySPLSignature signature) {
-		visitHyName(prefix+"  ", signature.getNames());
+		return interval;
 	}
-
-	static void visitHyFeature (String prefix, HyFeature feature) {
-		visitHyName(prefix+"  ", feature.getNames());
-		print(prefix+"    ", "id="+feature.getId());
-		print(prefix+"    ", "since="+feature.getValidSince());
-		print(prefix+"    ", "until="+feature.getValidUntil());
-	}
-
-	static void visitHyName (String prefix, EList<HyName> names) {
-		print(prefix+"  ", "Names:");
-		for(HyName name: names) {
-			print(prefix+"      ", "-- name="+name.getName());
-			print(prefix+"         ", "id="+name.getId());
-			print(prefix+"         ", "since="+name.getValidSince());
-			print(prefix+"         ", "until="+name.getValidUntil());
-			print(prefix+"         ", "superseded="+name.getSupersededElement());
-			print(prefix+"         ", "superseding="+name.getSupersedingElement());
-		}
-		print(prefix+"  ", "end names.");
-
-	}
-*/
-	
-	static void print(String prefix, String str) {
-		if (PrintDebug) {
-			System.out.println(prefix+str);
-		}
-	}
-	
 	
 }

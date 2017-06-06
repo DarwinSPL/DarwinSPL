@@ -14,10 +14,7 @@ public class HyTimedImplementationsSignatureReferenceResolver implements eu.hyva
 	private eu.hyvar.mspl.manifest.resource.hymanifest.analysis.HymanifestDefaultResolverDelegate<eu.hyvar.mspl.manifest.HyTimedImplementations, eu.hyvar.mspl.manifest.HySPLSignature> delegate = new eu.hyvar.mspl.manifest.resource.hymanifest.analysis.HymanifestDefaultResolverDelegate<eu.hyvar.mspl.manifest.HyTimedImplementations, eu.hyvar.mspl.manifest.HySPLSignature>();
 	
 	public void resolve(String identifier, eu.hyvar.mspl.manifest.HyTimedImplementations container, EReference reference, int position, boolean resolveFuzzy, final eu.hyvar.mspl.manifest.resource.hymanifest.IHymanifestReferenceResolveResult<eu.hyvar.mspl.manifest.HySPLSignature> result) {
-
-		System.out.println("Sig ref: identifier="+identifier);
 		delegate.resolve(identifier, container, reference, position, resolveFuzzy, result);
-		System.out.println("Sig ref: result="+result.getMappings());
 	}
 	
 	public String deResolve(eu.hyvar.mspl.manifest.HySPLSignature element, eu.hyvar.mspl.manifest.HyTimedImplementations container, EReference reference) {

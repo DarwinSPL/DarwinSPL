@@ -8,13 +8,18 @@ package eu.hyvar.mspl.manifest.resource.hymanifest.analysis;
 
 import java.util.Map;
 
+import org.eclipse.emf.common.util.BasicEList;
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
 
+import eu.hyvar.evolution.util.HyEvolutionUtil;
 import eu.hyvar.feature.HyFeature;
 import eu.hyvar.feature.expression.util.HyExpressionResolverUtil;
+import eu.hyvar.mspl.manifest.HyInterval;
 import eu.hyvar.mspl.manifest.HySPLSignature;
 import eu.hyvar.mspl.manifest.HyTimedImplementations;
+import eu.hyvar.mspl.util.HyManifestResolverUtil;
 
 public class HyTimedImplementationLinkSignatureReferenceResolver implements eu.hyvar.mspl.manifest.resource.hymanifest.IHymanifestReferenceResolver<eu.hyvar.mspl.manifest.HyTimedImplementationLink, eu.hyvar.feature.HyFeature> {
 	
@@ -34,7 +39,17 @@ public class HyTimedImplementationLinkSignatureReferenceResolver implements eu.h
 		}
 		
 		if(feature != null) {
-			result.addMapping(identifier, feature);
+			
+			EList<eu.hyvar.evolution.HyTemporalElement> elements = new BasicEList<eu.hyvar.evolution.HyTemporalElement>();
+			elements.add(container);
+			elements.add((eu.hyvar.evolution.HyTemporalElement)container.eContainer());
+			HyInterval interval = HyManifestResolverUtil.temporalIntersection(elements);
+			
+			if(HyEvolutionUtil.isWithinValidityOf(interval, feature)) {
+				result.addMapping(identifier, feature);
+			}
+			
+			//result.addMapping(identifier, feature);
 		}
 
 		//delegate.resolve(identifier, container, reference, position, resolveFuzzy, result);
