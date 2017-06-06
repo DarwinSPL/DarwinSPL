@@ -21,7 +21,7 @@ public abstract class DwAbstractConfiguratorWidget extends Composite implements 
 	private HyFeatureAttribute attribute;
 
 	public DwAbstractConfiguratorWidget(HyFeatureAttribute attribute, Composite parent, int style) {
-		this(attribute.getNames().get(0).getName(), parent, style);
+		this(attribute.getFeature().getNames().get(0).getName() + ": " + attribute.getNames().get(0).getName(), parent, style);
 		this.attribute = attribute;
 	}
 	
