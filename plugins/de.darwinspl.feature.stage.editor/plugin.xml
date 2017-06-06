@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   <extension
+         point="org.eclipse.ui.editors">
+      <editor
+            class="de.darwinspl.feature.stage.editor.editor.SmStageModelEditor"
+            default="false"
+            extensions="hyfeature"
+            id="de.darwinspl.feature.stage.editor.editor.stage.editor"
+            name="DarwinSPL Staged Feature Model Editor">
+      </editor>
+   </extension>
+
+</plugin>
