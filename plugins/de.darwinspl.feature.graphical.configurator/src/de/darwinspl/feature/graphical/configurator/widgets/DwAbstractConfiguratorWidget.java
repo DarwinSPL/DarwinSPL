@@ -17,10 +17,18 @@ public abstract class DwAbstractConfiguratorWidget extends Composite implements 
 	private Label label;
 	private Button upButton;
 	private Button downButton;
+	private String attributeName;
+	private HyFeatureAttribute attribute;
 
 	public DwAbstractConfiguratorWidget(HyFeatureAttribute attribute, Composite parent, int style) {
+		this(attribute.getNames().get(0).getName(), parent, style);
+		this.attribute = attribute;
+	}
+	
+	public DwAbstractConfiguratorWidget(String attributename, Composite parent, int style) {
 		this(parent, style);
-		label.setText(attribute.getNames().get(0).getName());
+		label.setText(attributename);
+		this.attributeName = attributename;
 	}
 	
 	public DwAbstractConfiguratorWidget(Composite parent, int style) {
@@ -79,5 +87,18 @@ public abstract class DwAbstractConfiguratorWidget extends Composite implements 
 	public boolean isChecked() {
 		return checkbox.getSelection();
 	}
+
+	@Override
+	public HyFeatureAttribute getAttribute() {
+		return attribute;
+	}
+
+	@Override
+	public String getAttributeName() {
+		// TODO Auto-generated method stub
+		return attributeName;
+	}
+	
+	
 
 }

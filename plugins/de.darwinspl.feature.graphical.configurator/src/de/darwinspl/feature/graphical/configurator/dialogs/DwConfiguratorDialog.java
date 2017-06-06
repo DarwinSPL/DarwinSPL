@@ -26,8 +26,15 @@ import com.google.gson.GsonBuilder;
 
 import de.darwinspl.configurator.Configurator;
 import de.darwinspl.configurator.PreferenceBuilder;
+import de.darwinspl.feature.graphical.configurator.widgets.ConfiguratorMode;
 import de.darwinspl.feature.graphical.configurator.widgets.DwAbstractConfiguratorWidget;
 import de.darwinspl.feature.graphical.configurator.widgets.DwConfiguratorRowComposite;
+import de.darwinspl.feature.graphical.configurator.widgets.DwFeatureQuantityConfiguratorComposite;
+import de.darwinspl.feature.graphical.configurator.widgets.DwMultiBooleanAttributeConfiguratorComposite;
+import de.darwinspl.feature.graphical.configurator.widgets.DwMultiEnumAttributeConfiguratorComposite;
+import de.darwinspl.feature.graphical.configurator.widgets.DwMultiNumberedAttributeConfiguratorComposite;
+import de.darwinspl.feature.graphical.configurator.widgets.DwSingleBooleanAttributeConfiguratorComposite;
+import de.darwinspl.feature.graphical.configurator.widgets.DwSingleEnumAttributeConfiguratorComposite;
 import de.darwinspl.feature.graphical.configurator.widgets.DwSingleNumberedAttributeConfiguratorComposite;
 import eu.hyvar.evolution.HyName;
 import eu.hyvar.feature.HyFeature;
@@ -47,16 +54,14 @@ public class DwConfiguratorDialog extends Dialog {
 	private Date date;
 	private String uri;
 
+	private DwConfiguratorRowComposite comp;
 
 	private HyConfiguration configuration;
-
-	private CCombo dropdown;
 
 	public DwConfiguratorDialog(Shell parentShell, HyFeatureModel featureModel, HyConstraintModel constraintModel,
 			Date date, String uri) {
 		super(parentShell);
 
-		
 		this.featureModel = featureModel;
 		this.constraintModel = constraintModel;
 		this.date = date;
@@ -71,8 +76,6 @@ public class DwConfiguratorDialog extends Dialog {
 		open();
 		return configuration;
 	}
-	
-	
 
 	@Override
 	protected boolean isResizable() {
@@ -80,8 +83,6 @@ public class DwConfiguratorDialog extends Dialog {
 		return true;
 	}
 
-	
-	
 	@Override
 	protected void okPressed() {
 
@@ -89,34 +90,41 @@ public class DwConfiguratorDialog extends Dialog {
 
 		Configurator configurator = new Configurator(uri, featureModel, constraintModel, date);
 		PreferenceBuilder builder = new PreferenceBuilder(featureModel);
-		
-		boolean expressionAdded = false;
-//		for (int i = 0; i < table.getItemCount(); i++) {
-//			TableItem item = table.getItem(i);
-//
-//			if (item.getChecked()) {
-//				if(((Button)item.getData(MIN)).getSelection()) {
-//					builder.addMinAttributeExpression(attributes.get(i), PreferenceBuilder.Mode.MIN);
-//				} else if(((Button)item.getData(MAX)).getSelection()) {
-//					builder.addMaxAttributeExpression(attributes.get(i), PreferenceBuilder.Mode.MIN);
-//				} else  if(((Button)item.getData(CUSTOM)).getSelection()) {
-//					builder.addMinAttributeExpression(attributes.get(i), PreferenceBuilder.Mode.MIN);
-//				}
-//				builder.addCustomAttribute(attributes.get(i), PreferenceBuilder.Mode.MIN, 50);
-//				expressionAdded = true;
-//			}
-//		}
 
-		if(expressionAdded) configurator.addPreference(builder.build());
+		for (DwAbstractConfiguratorWidget row : comp.getRows()) {
+			if (row.isChecked()) {
+				builder =  new PreferenceBuilder(featureModel);
+				if (row instanceof DwMultiNumberedAttributeConfiguratorComposite) {
+					DwMultiNumberedAttributeConfiguratorComposite multiNumberComp = (DwMultiNumberedAttributeConfiguratorComposite)row;
+					if(multiNumberComp.getSelectedMode() == ConfiguratorMode.MIN) {
+						builder.addMinAttributeExpression(multiNumberComp.getAttributeName(), multiNumberComp.getSelectedValue());
+					} else if(multiNumberComp.getSelectedMode() == ConfiguratorMode.MAX) {
+						builder.addMaxAttributeExpression(multiNumberComp.getAttributeName(), multiNumberComp.getSelectedValue());
+					} else if(multiNumberComp.getSelectedMode() == ConfiguratorMode.CUSTOM) {
+						//TODO: custom value
+					}
+				} else if (row instanceof DwMultiEnumAttributeConfiguratorComposite) {
+					DwMultiEnumAttributeConfiguratorComposite multiEnumComp = (DwMultiEnumAttributeConfiguratorComposite)row;
+					builder.addEnumPreferenceExpression(multiEnumComp.getAttributeName(), multiEnumComp.getSelectedLiteral());
+				} else if (row instanceof DwMultiBooleanAttributeConfiguratorComposite) {
+					DwMultiBooleanAttributeConfiguratorComposite multiBoolComp = (DwMultiBooleanAttributeConfiguratorComposite)row;
+					builder.addBooleanPreferenceExpression(multiBoolComp.getAttributeName(), multiBoolComp.isTrue());
+				} else if (row instanceof DwSingleNumberedAttributeConfiguratorComposite) {
 
-		if (dropdown.getSelectionIndex() == 0) {
-			builder = new PreferenceBuilder(featureModel);
-			HyPreference preference = builder.addMaxFeatures().build();
-			configurator.addPreference(preference);
-		} else if (dropdown.getSelectionIndex() == 1) {
-			builder = new PreferenceBuilder(featureModel);
-			HyPreference preference = builder.addMinFeatures().build();
-			configurator.addPreference(preference);
+				} else if (row instanceof DwSingleEnumAttributeConfiguratorComposite) {
+
+				} else if (row instanceof DwSingleBooleanAttributeConfiguratorComposite) {
+
+				} else if (row instanceof DwFeatureQuantityConfiguratorComposite) {
+					DwFeatureQuantityConfiguratorComposite featureQuantityComp = (DwFeatureQuantityConfiguratorComposite)row;
+					if(featureQuantityComp.getSelection() == DwFeatureQuantityConfiguratorComposite.MIN) {
+						builder.addMinFeatures();
+					} else if(featureQuantityComp.getSelection() == DwFeatureQuantityConfiguratorComposite.MAX) {
+						builder.addMaxFeatures();
+					}
+				}
+				configurator.addPreference(builder.build());
+			}
 		}
 
 		output = configurator.run();
@@ -133,23 +141,13 @@ public class DwConfiguratorDialog extends Dialog {
 	@Override
 	protected Control createDialogArea(Composite parent) {
 		Composite composite = (Composite) super.createDialogArea(parent);
-	
 
 		composite.setLayout(new FillLayout(SWT.VERTICAL));
-		
-		DwConfiguratorRowComposite comp = new DwConfiguratorRowComposite(attributes, composite, SWT.NONE);
 
-//
-//		dropdown = new CCombo(composite, SWT.NONE);
-//		dropdown.setItems(new String[] { "Max. Features", "Min. Features", "None" });
-//		dropdown.select(2);
-//
-//		table.pack();
-		// composite.pack();
+		comp = new DwConfiguratorRowComposite(attributes, composite, SWT.NONE);
+
 
 		return composite;
 	}
 
-	
-	
 }

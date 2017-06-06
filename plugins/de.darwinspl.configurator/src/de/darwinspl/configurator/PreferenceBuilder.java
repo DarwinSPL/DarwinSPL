@@ -235,7 +235,7 @@ public class PreferenceBuilder {
 		return additionExpression;
 	}
 
-	private HyExpression createMaxAttributeExpression(String attributeName, Mode mode) {
+	private HyExpression createMaxAttributeExpression(String attributeName, NumberedAttributeMode mode) {
 		HyIfPossibleExpression ifPossibleExpression = expressionFactory.createHyIfPossibleExpression();
 
 		for (HyFeatureAttribute attribute : getAttributesByName(attributeName)) {
@@ -245,11 +245,11 @@ public class PreferenceBuilder {
 			attributeReferenceExpression.setFeature(attribute.getFeature());
 				
 			int intValue = 0;
-			if(mode == Mode.MIN) {
+			if(mode == NumberedAttributeMode.MIN) {
 				intValue = ((HyNumberAttribute) attribute).getMin();
-			} else if (mode == Mode.MAX){
+			} else if (mode == NumberedAttributeMode.MAX){
 				intValue = ((HyNumberAttribute) attribute).getMax();
-			} else if (mode == Mode.DEFAULT) {
+			} else if (mode == NumberedAttributeMode.DEFAULT) {
 				intValue = ((HyNumberAttribute) attribute).getDefault(); 
 			}
 			
@@ -270,12 +270,12 @@ public class PreferenceBuilder {
 		return nestExpression(ifPossibleExpression);
 	}
 
-	public PreferenceBuilder addMaxAttributeExpression(String attributeName, Mode mode) {
+	public PreferenceBuilder addMaxAttributeExpression(String attributeName, NumberedAttributeMode mode) {
 		addExpression(createMaxAttributeExpression(attributeName, mode));
 		return this;
 	}
 
-	public PreferenceBuilder addMinAttributeExpression(String attributeName, Mode mode) {
+	public PreferenceBuilder addMinAttributeExpression(String attributeName, NumberedAttributeMode mode) {
 		addExpression(invertExpression(createMaxAttributeExpression(attributeName, mode)));
 		return this;
 	}
