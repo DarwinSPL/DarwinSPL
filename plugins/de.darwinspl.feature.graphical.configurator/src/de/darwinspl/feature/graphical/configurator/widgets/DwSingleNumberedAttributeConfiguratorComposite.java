@@ -62,4 +62,8 @@ public class DwSingleNumberedAttributeConfiguratorComposite extends DwAbstractCo
 		
 		return ConfiguratorMode.MIN;
 	}
+	
+	public int getCustomValue(){
+		return Integer.parseInt(customInput.getText());
+	}
 }

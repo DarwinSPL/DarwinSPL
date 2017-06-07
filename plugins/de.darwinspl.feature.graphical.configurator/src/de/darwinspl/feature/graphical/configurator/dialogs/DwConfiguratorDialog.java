@@ -6,7 +6,11 @@ import java.util.List;
 
 import org.eclipse.jface.dialogs.Dialog;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.events.SelectionEvent;
+import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.layout.FillLayout;
+import org.eclipse.swt.layout.RowLayout;
+import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Shell;
@@ -69,7 +73,6 @@ public class DwConfiguratorDialog extends Dialog {
 
 	@Override
 	protected boolean isResizable() {
-		// TODO Auto-generated method stub
 		return true;
 	}
 
@@ -91,7 +94,7 @@ public class DwConfiguratorDialog extends Dialog {
 					} else if(multiNumberComp.getSelectedMode() == ConfiguratorMode.MAX) {
 						builder.addMaxAttributeExpression(multiNumberComp.getAttributeName(), multiNumberComp.getSelectedValue());
 					} else if(multiNumberComp.getSelectedMode() == ConfiguratorMode.CUSTOM) {
-						//TODO: custom value
+						builder.addCustomAttribute(multiNumberComp.getAttributeName(), multiNumberComp.getCustomValue());
 					}
 				} else if (row instanceof DwMultiEnumAttributeConfiguratorComposite) {
 					DwMultiEnumAttributeConfiguratorComposite multiEnumComp = (DwMultiEnumAttributeConfiguratorComposite)row;
@@ -106,7 +109,7 @@ public class DwConfiguratorDialog extends Dialog {
 					} else if(singleNumberComp.getSelectedMode() == ConfiguratorMode.MAX) {
 						builder.addSingleNumberedAttributeMaximumExpression((HyNumberAttribute)singleNumberComp.getAttribute(), singleNumberComp.getSelectedValue());
 					} else if(singleNumberComp.getSelectedMode() == ConfiguratorMode.CUSTOM) {
-						//TODO: custom value
+						builder.addSingleCustomAttribute((HyNumberAttribute)singleNumberComp.getAttribute(), singleNumberComp.getCustomValue());
 					}
 				} else if (row instanceof DwSingleEnumAttributeConfiguratorComposite) {
 					DwSingleEnumAttributeConfiguratorComposite singleEnumComp = (DwSingleEnumAttributeConfiguratorComposite)row;
@@ -141,11 +144,27 @@ public class DwConfiguratorDialog extends Dialog {
 	protected Control createDialogArea(Composite parent) {
 		Composite composite = (Composite) super.createDialogArea(parent);
 
-		composite.setLayout(new FillLayout(SWT.VERTICAL));
+		composite.setLayout(new RowLayout(SWT.VERTICAL));
 
 		comp = new DwConfiguratorRowComposite(attributes, composite, SWT.NONE);
-
-
+		Button add = new Button(composite, SWT.NONE);
+		add.setText("Add");
+		add.addSelectionListener(new SelectionListener() {
+			
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+				DwConfiguratorSelectionDialog dialog = new DwConfiguratorSelectionDialog(getShell(), attributes);
+				dialog.open();
+				
+			}
+			
+			@Override
+			public void widgetDefaultSelected(SelectionEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
+		
 		return composite;
 	}
 
