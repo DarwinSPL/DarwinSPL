@@ -15,6 +15,7 @@ import org.eclipse.emf.common.notify.Notifier;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.gef.ConnectionEditPart;
+import org.eclipse.gef.EditPart;
 import org.eclipse.gef.NodeEditPart;
 import org.eclipse.gef.Request;
 
@@ -36,20 +37,17 @@ public class DwFeatureEditPart extends DwAbstractEditPart implements NodeEditPar
 	public class HyFeatureAdapter implements Adapter {
 
 		@Override 
-		public void notifyChanged(Notification notification) {
-			System.out.println("versions ==> "+((HyFeature)getTarget()).getVersions().size());
+		public void notifyChanged(Notification notification) {			
 			if(notification.getEventType() == ENotificationImpl.REMOVE && notification.getOldValue() instanceof HyFeatureAttribute){
-				refreshVisuals();
-			}else{
-				refreshChildren();
 				refreshVisuals();
 			}
 
-
+			/*
 			if(notification.getEventType() == ENotificationImpl.ADD){
 				if(notification.getNotifier() instanceof HyFeature){
-					if(notification.getNewValue() instanceof HyVersion){
+					if(notification.getNewValue() instanceof HyVersion || notification.getNewValue() instanceof HyFeatureAttribute){
 						rearrangeChildren();
+						refreshVisuals();
 					}
 				}
 			}
@@ -59,7 +57,8 @@ public class DwFeatureEditPart extends DwAbstractEditPart implements NodeEditPar
 						rearrangeChildren();
 					}
 				}
-			}		
+			}	
+			*/	
 		}
 		
 
@@ -108,7 +107,7 @@ public class DwFeatureEditPart extends DwAbstractEditPart implements NodeEditPar
 		}
 		super.deactivate();
 	}
-
+	
 	/**
 	 * Rearrange children after a version was added or removed
 	 */
@@ -130,7 +129,7 @@ public class DwFeatureEditPart extends DwAbstractEditPart implements NodeEditPar
 	public void propertyChange(PropertyChangeEvent evt) {				
 		DwFeatureFigure figure = (DwFeatureFigure)getFigure();
 		DwFeatureWrapped model = ((DwFeatureWrapped)getModel());
-
+		
 		boolean hasMarker = featureModel.hasMarkerForElement(model.getWrappedModelElement());
 
 		if(hasMarker){
@@ -213,15 +212,23 @@ public class DwFeatureEditPart extends DwAbstractEditPart implements NodeEditPar
 		if(featureIsCurrentlyValid){
 			figure.update();
 		}
-
+		
 		figure.setVisible(wrappedFeature.isVisible());
+		
 
-
-		for(DwParentChildConnection connection : this.getModelSourceConnections()){
-			connection.notifyChange();
-		}
-
-		//refreshVisualsOfChildren();
+		refreshVisualsOfConnections();		
+	}
+	
+	private void refreshVisualsOfConnections(){
+		if(sourceConnections != null)
+			for(Object o : sourceConnections){
+				((DwParentChildConnectionEditPart)o).refreshVisuals();
+			}
+			
+		if(targetConnections != null)
+			for(Object o : targetConnections){
+				((DwParentChildConnectionEditPart)o).refreshVisuals();
+			}		
 	}
 
 	@Override
@@ -267,6 +274,7 @@ public class DwFeatureEditPart extends DwAbstractEditPart implements NodeEditPar
 
 	@Override
 	protected Rectangle getFigureConstraint() {
+		
 		DwFeatureWrapped feature = (DwFeatureWrapped)getModel();
 		DwGraphicalFeatureModelViewer editor = (DwGraphicalFeatureModelViewer)this.editor;
 		Date date = editor.getCurrentSelectedDate();

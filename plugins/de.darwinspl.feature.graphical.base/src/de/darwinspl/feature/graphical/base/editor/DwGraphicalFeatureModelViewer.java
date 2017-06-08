@@ -281,7 +281,7 @@ public class DwGraphicalFeatureModelViewer extends DwGraphicalViewerWithZoomSupp
 	 * Creates all widgets (slider and add date button) to the editor to perform date changes.
 	 * @param parent
 	 */
-	public void createSliderControl(Composite parent){
+	public void createSliderControl(final Composite parent){
 		List<Date> dates = modelWrapped.getDates();
 
 		int size = dates.size(); 
