@@ -202,7 +202,7 @@ public class DwFeatureModelWrapped implements PropertyChangeListener {
 
 		Collections.sort(dates);
 
-		changes.firePropertyChange(PROPERTY_DATES_COUNT, old, dates.size());
+		//changes.firePropertyChange(PROPERTY_DATES_COUNT, old, dates.size());
 
 		return true;
 	}

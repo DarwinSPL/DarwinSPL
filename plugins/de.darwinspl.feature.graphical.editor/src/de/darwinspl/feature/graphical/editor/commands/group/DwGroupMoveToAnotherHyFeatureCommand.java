@@ -93,6 +93,6 @@ public class DwGroupMoveToAnotherHyFeatureCommand extends Command{
 	
 	@Override
 	public void undo(){
-		
+		System.err.println("Not implemented yet");
 	}
 }

@@ -15,7 +15,6 @@ import org.eclipse.emf.common.notify.Notifier;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.gef.ConnectionEditPart;
-import org.eclipse.gef.EditPart;
 import org.eclipse.gef.NodeEditPart;
 import org.eclipse.gef.Request;
 
@@ -38,27 +37,15 @@ public class DwFeatureEditPart extends DwAbstractEditPart implements NodeEditPar
 
 		@Override 
 		public void notifyChanged(Notification notification) {			
+			refreshChildren();
+			rearrangeChildren();
+			
 			if(notification.getEventType() == ENotificationImpl.REMOVE && notification.getOldValue() instanceof HyFeatureAttribute){
 				refreshVisuals();
 			}
-
-			/*
-			if(notification.getEventType() == ENotificationImpl.ADD){
-				if(notification.getNotifier() instanceof HyFeature){
-					if(notification.getNewValue() instanceof HyVersion || notification.getNewValue() instanceof HyFeatureAttribute){
-						rearrangeChildren();
-						refreshVisuals();
-					}
-				}
-			}
-			if(notification.getEventType() == ENotificationImpl.REMOVE){
-				if(notification.getNotifier() instanceof HyFeature){
-					if(notification.getOldValue() instanceof HyVersion){
-						rearrangeChildren();
-					}
-				}
-			}	
-			*/	
+			
+			
+			refreshVisibility();
 		}
 		
 
@@ -118,6 +105,7 @@ public class DwFeatureEditPart extends DwAbstractEditPart implements NodeEditPar
 		DwFeatureWrapped model = ((DwFeatureWrapped)getModel());
 		DwVersionLayouterManager.updateLayouter(model.getWrappedModelElement(), date);	
 		
+		if(children != null)
 		for(Object o : children){
 			if(o instanceof DwAttributeEditPart){
 				((DwAttributeEditPart)o).refreshVisibility();
@@ -193,7 +181,7 @@ public class DwFeatureEditPart extends DwAbstractEditPart implements NodeEditPar
 		if(date == null)
 			date = new Date();
 
-		return feature.isWithoutModifier(date);
+		return feature.hasModfierAtDate(date);
 	}
 
 
@@ -217,6 +205,7 @@ public class DwFeatureEditPart extends DwAbstractEditPart implements NodeEditPar
 		
 
 		refreshVisualsOfConnections();		
+		refreshVisualsOfChildren();
 	}
 	
 	private void refreshVisualsOfConnections(){
@@ -258,7 +247,6 @@ public class DwFeatureEditPart extends DwAbstractEditPart implements NodeEditPar
 	 * Refresh the visual representation of all versions and attributes related to this feature
 	 */
 	protected void refreshVisualsOfChildren(){
-
 		for(Object o : this.getChildren()){
 			if(o instanceof DwVersionEditPart){
 				DwVersionEditPart edit = (DwVersionEditPart)o;
