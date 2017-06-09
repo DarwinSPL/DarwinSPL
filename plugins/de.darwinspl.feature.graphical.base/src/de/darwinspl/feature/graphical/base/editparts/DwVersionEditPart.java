@@ -36,6 +36,8 @@ public class DwVersionEditPart extends DwAbstractEditPart{
 				for(Adapter adapter : version.getFeature().eAdapters()){
 					adapter.notifyChanged(notification);
 				}
+			
+			refreshVisuals();
 		}
 		
 
