@@ -52,7 +52,7 @@ public class DwGeometryUtil {
 		for(HyFeatureAttribute attribute : HyEvolutionUtil.getValidTemporalElements(feature.getAttributes(), date)){
 			HyName attributeName = HyEvolutionUtil.getValidTemporalElement(attribute.getNames(), date);
 			if(attributeName != null){
-				int nameWidth = DEGeometryUtil.getTextWidth(name.getName(), theme.getFeatureFont());
+				int nameWidth = DEGeometryUtil.getTextWidth(attributeName.getName(), theme.getFeatureFont());
 				int typeWidth = DEGeometryUtil.getTextWidth("Boolean", theme.getFeatureFont());
 
 				rawFeatureWidth = Math.max(rawFeatureWidth, nameWidth + typeWidth + 80);
