@@ -94,7 +94,7 @@ public class HyExpressionStringExporter {
 
 	private static final String WHITESPACE = " ";
 	
-	private Map<HyFeature, String> featureIdMapping;
+	protected Map<HyFeature, String> featureIdMapping;
 	private Map<HyVersion, String> versionIdMapping;
 	private Map<HyFeatureAttribute, String> attributeIdMapping;
 	private Map<HyContextualInformation, String> contextIdMapping;
@@ -313,7 +313,7 @@ public class HyExpressionStringExporter {
 		return unaryString.toString();
 	}
 	
-	private String handleAtomicExpression(HyAtomicExpression atomicExpression, boolean negated) {
+	protected String handleAtomicExpression(HyAtomicExpression atomicExpression, boolean negated) {
 		StringBuilder atomicString = new StringBuilder();
 
 		if (atomicExpression instanceof HyBooleanValueExpression) {
