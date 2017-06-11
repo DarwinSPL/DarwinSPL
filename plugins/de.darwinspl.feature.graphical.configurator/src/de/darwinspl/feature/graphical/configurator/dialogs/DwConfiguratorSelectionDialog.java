@@ -11,9 +11,6 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Tree;
 import org.eclipse.swt.widgets.TreeItem;
 
-import de.darwinspl.feature.graphical.configurator.widgets.DwMultiBooleanAttributeConfiguratorComposite;
-import de.darwinspl.feature.graphical.configurator.widgets.DwMultiEnumAttributeConfiguratorComposite;
-import de.darwinspl.feature.graphical.configurator.widgets.DwMultiNumberedAttributeConfiguratorComposite;
 import eu.hyvar.evolution.HyName;
 import eu.hyvar.feature.HyBooleanAttribute;
 import eu.hyvar.feature.HyEnumAttribute;
