@@ -19,7 +19,7 @@ import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Shell;
 
 public class StageDialog extends Dialog implements Listener{
-	
+	// TODO Alex: Replace List with colored Table to improve readability
 	protected Composite stageButtonGroup;
 	protected Composite roleButtonGroup;
 	protected Group stageGroup;
@@ -73,7 +73,7 @@ public class StageDialog extends Dialog implements Listener{
 	    List roleList = new List(roleGroup, SWT.BORDER | SWT.SINGLE | SWT.V_SCROLL);
 	    roleList.setLayoutData(new GridData());
 	    
-	     // TODO Replace with a function that gets the names of the existing stages
+	     // TODO Alex: Replace with a function that gets the names of the existing stages
 	    for (int loopIndex = 0; loopIndex < 10; loopIndex++) {
 	        stageList.add("Stage " + loopIndex);
 	        roleList.add("Role " + loopIndex);

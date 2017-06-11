@@ -11,5 +11,15 @@
             name="DarwinSPL Staged Feature Model Editor">
       </editor>
    </extension>
+   <extension
+         point="org.eclipse.ui.newWizards">
+      <wizard
+            category="de.darwinspl.wizards"
+            class="de.darwinspl.feature.stage.editor.wizard.StageModelWizard"
+            icon="icons/icon_standard.png"
+            id="de.darwinspl.feature.stage.editor.new_sm_wizard"
+            name="Staged DarwinSPL Feature Model">
+      </wizard>
+   </extension>
 
 </plugin>

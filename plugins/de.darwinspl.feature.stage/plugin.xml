@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+
+<!--
+-->
+
+<plugin>
+
+
+   <extension point="org.eclipse.emf.ecore.generated_package">
+      <!-- @generated Stage -->
+      <package
+            uri="https://darwinspl.de/stage/1.0"
+            class="de.darwinspl.feature.stage.StagePackage"
+            genModel="model/Stage.genmodel"/>
+   </extension>
+   <extension
+         point="org.eclipse.emf.ecore.factory_override">
+      <factory
+            class="de.darwinspl.feature.stage.impl.custom.StageModelFactoryWithIds"
+            uri="de.darwinspl.feature.stage.StageFactoryOverride">
+      </factory>
+   </extension>
+
+</plugin>

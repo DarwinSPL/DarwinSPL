@@ -15,4 +15,5 @@ Require-Bundle: org.eclipse.ui,
  eu.hyvar.feature.graphical.base
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Bundle-ActivationPolicy: lazy
-Export-Package: de.darwinspl.feature.stage.base.editor
+Import-Package: de.darwinspl.feature.stage
+Export-Package: de.darwinspl.feature.stage.base.model

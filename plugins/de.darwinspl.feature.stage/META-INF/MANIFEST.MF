@@ -1,14 +1,31 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
-Bundle-Name: %pluginName
+Bundle-Name: Staged DarwinSPL Feature Model
 Bundle-SymbolicName: de.darwinspl.feature.stage;singleton:=true
 Bundle-Version: 1.0.0
 Bundle-ClassPath: .
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
-Export-Package: stage,
- stage.impl,
- stage.util
-Bundle-Vendor: %providerName
+Export-Package: de.darwinspl.feature.stage;
+  uses:="eu.hyvar.feature,
+   org.eclipse.emf.ecore,
+   org.eclipse.emf.common.util,
+   eu.hyvar.evolution",
+ de.darwinspl.feature.stage.impl;
+  uses:="org.eclipse.emf.ecore,
+   eu.hyvar.feature,
+   org.eclipse.emf.ecore.impl,
+   org.eclipse.emf.common.util,
+   eu.hyvar.evolution,
+   org.eclipse.emf.common.notify,
+   de.darwinspl.feature.stage",
+ de.darwinspl.feature.stage.util;
+  uses:="org.eclipse.emf.ecore,
+   eu.hyvar.evolution,
+   org.eclipse.emf.common.notify,
+   org.eclipse.emf.common.notify.impl,
+   de.darwinspl.feature.stage,
+   org.eclipse.emf.ecore.util"
+Bundle-Vendor: www.darwinspl.de
 Bundle-Localization: plugin
 Bundle-ActivationPolicy: lazy
 Require-Bundle: org.eclipse.ui,
@@ -16,6 +33,4 @@ Require-Bundle: org.eclipse.ui,
  org.eclipse.emf.ecore;visibility:=reexport,
  eu.hyvar.feature.data;visibility:=reexport,
  eu.hyvar.evolution;visibility:=reexport,
- eu.hyvar.feature.expression;bundle-version="1.0.0",
- org.eclipse.core.resources,
- eu.hyvar.feature;visibility:=reexport
+ eu.hyvar.feature;bundle-version="1.0.0";visibility:=reexport
