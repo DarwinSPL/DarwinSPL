@@ -3,7 +3,6 @@ Bundle-ManifestVersion: 2
 Bundle-Name: Configurator
 Bundle-SymbolicName: de.darwinspl.configurator;singleton:=true
 Bundle-Version: 1.0.0.qualifier
-Bundle-Activator: de.darwinspl.configurator.Activator
 Require-Bundle: org.eclipse.ui,
  org.eclipse.core.runtime,
  eu.hyvar.context.contextValidity.resource.hyvalidityformula;bundle-version="1.0.0",

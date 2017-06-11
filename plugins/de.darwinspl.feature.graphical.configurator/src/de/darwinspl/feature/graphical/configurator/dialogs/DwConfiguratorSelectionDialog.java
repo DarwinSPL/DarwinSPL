@@ -69,8 +69,8 @@ public class DwConfiguratorSelectionDialog extends Dialog {
 	private List<String> enumAttributeNames = new ArrayList<String>();
 	
 	private List<String> selectedNumberedAttributeNames = new ArrayList<String>();
-	private List<String> selectedNumberedAttributeNamesBooleanAttributeNames = new ArrayList<String>();
-	private List<String> selectedNumberedAttributeNamesEnumAttributeNames = new ArrayList<String>();
+	private List<String> selectedBooleanAttributeNames = new ArrayList<String>();
+	private List<String> selectedEnumAttributeNames = new ArrayList<String>();
 	
 	private Tree tree;
 	private TreeItem treeItemFeatureAttribute;
@@ -105,9 +105,9 @@ public class DwConfiguratorSelectionDialog extends Dialog {
 					if(configuratorTreeItem.getAttributeType() == AttributeType.NUMBERED) {
 						selectedNumberedAttributeNames.add(configuratorTreeItem.getText());
 					} else if (configuratorTreeItem.getAttributeType() == AttributeType.ENUM) {
-						selectedNumberedAttributeNamesBooleanAttributeNames.add(configuratorTreeItem.getText());
+						selectedEnumAttributeNames.add(configuratorTreeItem.getText());
 					} else if (configuratorTreeItem.getAttributeType() == AttributeType.BOOLEAN) {
-						selectedNumberedAttributeNamesEnumAttributeNames.add(configuratorTreeItem.getText());
+						selectedBooleanAttributeNames.add(configuratorTreeItem.getText());
 					}
 				}
 			}
@@ -121,11 +121,11 @@ public class DwConfiguratorSelectionDialog extends Dialog {
 	}
 
 	protected List<String> getSelectedBooleanAttributeNames() {
-		return selectedNumberedAttributeNamesBooleanAttributeNames;
+		return selectedBooleanAttributeNames;
 	}
 
 	protected List<String> getSelectedEnumAttributeNames() {
-		return selectedNumberedAttributeNamesEnumAttributeNames;
+		return selectedEnumAttributeNames;
 	}
 
 	protected List<HyFeatureAttribute> getSelectedFeatureAttributes() {
@@ -147,7 +147,7 @@ public class DwConfiguratorSelectionDialog extends Dialog {
 		for (HyFeatureAttribute attribute : attributes) {
 			for(HyName name : attribute.getNames()) {
 				TreeItem treeItemAttribute = new TreeItem(treeItemFeatureAttribute, SWT.CHECK);
-				treeItemAttribute.setText(name.getName());
+				treeItemAttribute.setText(attribute.getNames().get(0).getName() + ": " + name.getName());
 			}
 		}
 		

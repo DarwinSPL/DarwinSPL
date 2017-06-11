@@ -156,6 +156,11 @@ public class HyVarRecExporter {
 		input.setPreferences(new ArrayList<String>());
 	}
 
+	protected HyExpressionStringExporter createHyExpressionStringExporter(Map<HyFeature, String> featureIdMapping, Map<HyVersion, String> versionIdMapping, Map<HyFeatureAttribute, String> attributeIdMapping, Map<HyContextualInformation, String> contextIdMapping, BooleanRepresentationOption booleanRepresentationOption, FeatureSelectionRepresentationOption featureSelectionRepresentationOption, VersionRepresentation versionRepresentation, boolean resolveSetExpression, boolean enumsAsIntValues) {
+		return new HyExpressionStringExporter(featureIdMapping, versionIdMapping, attributeIdMapping, contextIdMapping, booleanRepresentationOption, featureSelectionRepresentationOption, versionRepresentation, resolveSetExpression, enumsAsIntValues);
+	}
+	
+	
 	public String exportContextMappingModel(HyContextModel contextModel, HyValidityModel contextValidityModel,
 			HyFeatureModel featureModel, HyConstraintModel constraintModel, HyConfiguration oldConfiguration,
 			HyPreferenceModel preferenceModel, HyContextValueModel contextValues, Date date) {
@@ -173,7 +178,7 @@ public class HyVarRecExporter {
 		contextReconfiguratorIdMapping = reconfiguratorIdMapping.getContextIdMapping();
 		attributeReconfiguratorIdMapping = reconfiguratorIdMapping.getAttributeIdMapping();
 
-		expressionExporter = new HyExpressionStringExporter(reconfiguratorIdMapping.getFeatureIdMapping(),
+		expressionExporter = createHyExpressionStringExporter(reconfiguratorIdMapping.getFeatureIdMapping(),
 				reconfiguratorIdMapping.getVersionIdMapping(), reconfiguratorIdMapping.getAttributeIdMapping(),
 				reconfiguratorIdMapping.getContextIdMapping(), BooleanRepresentationOption.ONEZERO,
 				FeatureSelectionRepresentationOption.ONEZERO, VersionRepresentation.AS_ONEZERO_FEATURES, true, true);

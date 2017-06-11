@@ -14,6 +14,7 @@ import org.eclipse.jetty.client.util.StringContentProvider;
 import org.eclipse.jetty.http.HttpHeader;
 
 import de.darwinspl.configurator.expression.AtomicFeatureExpression;
+import de.darwinspl.configurator.expression.exporter.CustomHyVarRecExpressionExporter;
 import eu.hyvar.dataValues.HyDataValuesFactory;
 import eu.hyvar.dataValues.HyNumberValue;
 import eu.hyvar.evolution.HyName;
@@ -59,7 +60,7 @@ public class Configurator {
 	}
 
 	public String run() {
-		HyVarRecExporter exporter = new HyVarRecExporter();
+		CustomHyVarRecExpressionExporter exporter = new CustomHyVarRecExpressionExporter();
 		String input = exporter.exportContextMappingModel(null, null, featureModel, constraintModel, null,
 				preferenceModel, null, date);
 

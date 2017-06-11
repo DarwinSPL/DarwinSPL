@@ -9,6 +9,7 @@ import org.eclipse.swt.layout.RowLayout;
 import org.eclipse.swt.widgets.Composite;
 
 import eu.hyvar.dataValues.HyEnum;
+import eu.hyvar.evolution.HyName;
 import eu.hyvar.feature.HyBooleanAttribute;
 import eu.hyvar.feature.HyEnumAttribute;
 import eu.hyvar.feature.HyFeatureAttribute;
@@ -22,12 +23,15 @@ public class DwConfiguratorRowComposite extends Composite {
 	private List<String> booleanAttributeNames = new ArrayList<String>();
 	private List<String> enumAttributeNames = new ArrayList<String>();
 	
+	private List<HyFeatureAttribute> attributes;
 	private List<HyFeatureAttribute> featureAttributes = new ArrayList<>();
 
 	public DwConfiguratorRowComposite(List<HyFeatureAttribute> attributes, Composite parent, int style) {
 		super(parent, style);
 		setLayout(new RowLayout(SWT.VERTICAL));
 
+		this.attributes = attributes;
+		
 		DwAbstractConfiguratorWidget configuratorWidget = new DwFeatureQuantityConfiguratorComposite(this, SWT.NONE);
 		rows.add(configuratorWidget);
 
@@ -49,21 +53,34 @@ public class DwConfiguratorRowComposite extends Composite {
 	public void addBooleanFeatureModelAttributes(List<String> featureModelAttributeNames) {
 		for(String name : featureModelAttributeNames) {
 			if(!booleanAttributeNames.contains(name)) {
-				numberedAttributeNames.add(name);
+				booleanAttributeNames.add(name);
 				DwAbstractConfiguratorWidget configuratorWidget = new DwMultiBooleanAttributeConfiguratorComposite(name, this, SWT.NONE);
 				rows.add(configuratorWidget);
 			}
 		}
 	}
 	
-	public void addEnumFeatureModelAttributes(List<String> featureModelAttributeNames, HyEnum enumType) {
+	public void addEnumFeatureModelAttributes(List<String> featureModelAttributeNames) {
 		for(String name : featureModelAttributeNames) {
 			if(!enumAttributeNames.contains(name)) {
-				numberedAttributeNames.add(name);
-				DwAbstractConfiguratorWidget configuratorWidget = new DwMultiEnumAttributeConfiguratorComposite(enumType, name, this, SWT.NONE);
+				enumAttributeNames.add(name);
+				DwAbstractConfiguratorWidget configuratorWidget = new DwMultiEnumAttributeConfiguratorComposite(findEnumByAttributeName(name), name, this, SWT.NONE);
 				rows.add(configuratorWidget);
 			}
 		}
+	}
+	
+	private HyEnum findEnumByAttributeName(String attributeName) {
+		for (HyFeatureAttribute attribute : attributes) {
+			if (attribute instanceof HyEnumAttribute) {
+				for (HyName name : attribute.getNames()) {
+					if(name.getName().equals(attributeName)) {
+						return ((HyEnumAttribute)attribute).getEnumType();
+					}
+				}
+			}
+		}
+		return null;
 	}
 	
 	public void addNumberedFeatureModelAttributes(List<String> featureModelAttributeNames) {
