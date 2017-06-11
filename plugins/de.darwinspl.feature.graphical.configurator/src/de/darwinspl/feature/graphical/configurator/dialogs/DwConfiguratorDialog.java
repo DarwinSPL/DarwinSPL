@@ -147,6 +147,8 @@ public class DwConfiguratorDialog extends Dialog {
 		composite.setLayout(new RowLayout(SWT.VERTICAL));
 
 		comp = new DwConfiguratorRowComposite(attributes, composite, SWT.NONE);
+		
+		
 		Button add = new Button(composite, SWT.NONE);
 		add.setText("Add");
 		add.addSelectionListener(new SelectionListener() {
@@ -154,8 +156,14 @@ public class DwConfiguratorDialog extends Dialog {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
 				DwConfiguratorSelectionDialog dialog = new DwConfiguratorSelectionDialog(getShell(), attributes);
-				dialog.open();
-				
+				if(dialog.open() == Dialog.OK) {
+					comp.addNumberedFeatureModelAttributes(dialog.getSelectedNumberedAttributeNames());
+					comp.addEnumFeatureModelAttributes(dialog.getSelectedEnumAttributeNames(), null);
+					comp.addBooleanFeatureModelAttributes(dialog.getSelectedBooleanAttributeNames());
+					comp.addFeatureAttributes(dialog.getSelectedFeatureAttributes());
+					comp.layout();
+					composite.layout();
+				}
 			}
 			
 			@Override
