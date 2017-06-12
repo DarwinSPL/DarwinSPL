@@ -168,7 +168,7 @@ public class HyExpressionStringExporter {
 		return "";
 	}
 	
-	private String handleSetExpression(HySetExpression setExpression) {
+	protected String handleSetExpression(HySetExpression setExpression) {
 
 		StringBuilder setString = new StringBuilder("");
 

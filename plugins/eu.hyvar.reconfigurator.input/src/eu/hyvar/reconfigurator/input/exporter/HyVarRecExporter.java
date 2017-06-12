@@ -119,15 +119,15 @@ public class HyVarRecExporter {
 
 	private static final String WHITESPACE = " ";
 
-	private HyExpressionStringExporter expressionExporter;
+	protected HyExpressionStringExporter expressionExporter;
 
-	private Map<HyFeature, String> featureReconfiguratorIdMapping;
-	private Map<HyVersion, String> versionReconfiguratorIdMapping;
-	private Map<HyContextualInformation, String> contextReconfiguratorIdMapping;
-	private Map<HyFeatureAttribute, String> attributeReconfiguratorIdMapping;
+	protected Map<HyFeature, String> featureReconfiguratorIdMapping;
+	protected Map<HyVersion, String> versionReconfiguratorIdMapping;
+	protected Map<HyContextualInformation, String> contextReconfiguratorIdMapping;
+	protected Map<HyFeatureAttribute, String> attributeReconfiguratorIdMapping;
 
-	private ReconfiguratorIdMapping reconfiguratorIdMapping;
-
+	protected ReconfiguratorIdMapping reconfiguratorIdMapping;
+	
 	public HyVarRecExporter() {
 		// featureReconfiguratorIdMapping = new HashMap<HyFeature, String>();
 		// versionReconfiguratorIdMapping = new HashMap<HyVersion, String>();
@@ -156,8 +156,8 @@ public class HyVarRecExporter {
 		input.setPreferences(new ArrayList<String>());
 	}
 
-	protected HyExpressionStringExporter createHyExpressionStringExporter(Map<HyFeature, String> featureIdMapping, Map<HyVersion, String> versionIdMapping, Map<HyFeatureAttribute, String> attributeIdMapping, Map<HyContextualInformation, String> contextIdMapping, BooleanRepresentationOption booleanRepresentationOption, FeatureSelectionRepresentationOption featureSelectionRepresentationOption, VersionRepresentation versionRepresentation, boolean resolveSetExpression, boolean enumsAsIntValues) {
-		return new HyExpressionStringExporter(featureIdMapping, versionIdMapping, attributeIdMapping, contextIdMapping, booleanRepresentationOption, featureSelectionRepresentationOption, versionRepresentation, resolveSetExpression, enumsAsIntValues);
+	protected HyExpressionStringExporter getHyExpressionStringExporter() {
+		return expressionExporter;
 	}
 	
 	
@@ -178,10 +178,13 @@ public class HyVarRecExporter {
 		contextReconfiguratorIdMapping = reconfiguratorIdMapping.getContextIdMapping();
 		attributeReconfiguratorIdMapping = reconfiguratorIdMapping.getAttributeIdMapping();
 
-		expressionExporter = createHyExpressionStringExporter(reconfiguratorIdMapping.getFeatureIdMapping(),
-				reconfiguratorIdMapping.getVersionIdMapping(), reconfiguratorIdMapping.getAttributeIdMapping(),
-				reconfiguratorIdMapping.getContextIdMapping(), BooleanRepresentationOption.ONEZERO,
-				FeatureSelectionRepresentationOption.ONEZERO, VersionRepresentation.AS_ONEZERO_FEATURES, true, true);
+		expressionExporter = getHyExpressionStringExporter();
+		if(expressionExporter == null) {
+			expressionExporter = new  HyExpressionStringExporter(reconfiguratorIdMapping.getFeatureIdMapping(),
+					reconfiguratorIdMapping.getVersionIdMapping(), reconfiguratorIdMapping.getAttributeIdMapping(),
+					reconfiguratorIdMapping.getContextIdMapping(), BooleanRepresentationOption.ONEZERO,
+					FeatureSelectionRepresentationOption.ONEZERO, VersionRepresentation.AS_ONEZERO_FEATURES, true, true);
+		}
 
 		InputForHyVarRec input = new InputForHyVarRec();
 		initializeEmptyHyVarRecInput(input);

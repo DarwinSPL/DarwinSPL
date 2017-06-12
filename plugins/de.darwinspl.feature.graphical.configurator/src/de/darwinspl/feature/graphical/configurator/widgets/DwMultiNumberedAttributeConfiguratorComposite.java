@@ -10,7 +10,7 @@ import de.darwinspl.configurator.NumberedAttributeMode;
 
 public class DwMultiNumberedAttributeConfiguratorComposite extends DwAbstractConfiguratorWidget implements DwConfiguratorWidget {
 
-	private CCombo dropdown;
+	private Button useDefault;
 	
 	private Button min;
 	private Button max;
@@ -21,9 +21,9 @@ public class DwMultiNumberedAttributeConfiguratorComposite extends DwAbstractCon
 	public DwMultiNumberedAttributeConfiguratorComposite(String attributename, Composite parent, int style) {
 		super(attributename, parent, style);
 		
-		dropdown = new CCombo(this, SWT.DROP_DOWN);
-		dropdown.setItems(new String[]{"Min", "Max", "Default"});
-		dropdown.select(0);
+		
+		useDefault = new Button(this, SWT.CHECK);
+		useDefault.setText("Use Default Value");
 		
 		min = new Button(this, SWT.RADIO);
 		min.setText("Minimize");
@@ -41,13 +41,8 @@ public class DwMultiNumberedAttributeConfiguratorComposite extends DwAbstractCon
 		
 	}
 	
-	public NumberedAttributeMode getSelectedValue(){
-		switch (dropdown.getSelectionIndex() ) {
-			case 0: return NumberedAttributeMode.MIN;
-			case 1: return NumberedAttributeMode.MAX;
-			case 2: return NumberedAttributeMode.DEFAULT;
-			default: return NumberedAttributeMode.MIN;
-		}
+	public boolean useDefaultValue(){
+		return useDefault.getSelection();
 	}
 	
 	public ConfiguratorMode getSelectedMode() {

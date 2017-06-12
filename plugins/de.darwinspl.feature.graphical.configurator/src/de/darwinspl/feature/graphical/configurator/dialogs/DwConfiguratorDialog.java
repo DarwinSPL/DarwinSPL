@@ -90,10 +90,10 @@ public class DwConfiguratorDialog extends Dialog {
 					DwMultiNumberedAttributeConfiguratorComposite multiNumberComp = (DwMultiNumberedAttributeConfiguratorComposite) row;
 					if (multiNumberComp.getSelectedMode() == ConfiguratorMode.MIN) {
 						builder.addMinAttributeExpression(multiNumberComp.getAttributeName(),
-								multiNumberComp.getSelectedValue());
+								multiNumberComp.useDefaultValue());
 					} else if (multiNumberComp.getSelectedMode() == ConfiguratorMode.MAX) {
 						builder.addMaxAttributeExpression(multiNumberComp.getAttributeName(),
-								multiNumberComp.getSelectedValue());
+								multiNumberComp.useDefaultValue());
 					} else if (multiNumberComp.getSelectedMode() == ConfiguratorMode.CUSTOM) {
 						builder.addCustomAttribute(multiNumberComp.getAttributeName(),
 								multiNumberComp.getCustomValue());
@@ -110,11 +110,11 @@ public class DwConfiguratorDialog extends Dialog {
 					if (singleNumberComp.getSelectedMode() == ConfiguratorMode.MIN) {
 						builder.addSingleNumberedAttributeMinimumExpression(
 								(HyNumberAttribute) singleNumberComp.getAttribute(),
-								singleNumberComp.getSelectedValue());
+								singleNumberComp.useDefaultValue());
 					} else if (singleNumberComp.getSelectedMode() == ConfiguratorMode.MAX) {
 						builder.addSingleNumberedAttributeMaximumExpression(
 								(HyNumberAttribute) singleNumberComp.getAttribute(),
-								singleNumberComp.getSelectedValue());
+								singleNumberComp.useDefaultValue());
 					} else if (singleNumberComp.getSelectedMode() == ConfiguratorMode.CUSTOM) {
 						builder.addSingleCustomAttribute((HyNumberAttribute) singleNumberComp.getAttribute(),
 								singleNumberComp.getCustomValue());
