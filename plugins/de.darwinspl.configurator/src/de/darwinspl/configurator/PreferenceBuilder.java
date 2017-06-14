@@ -3,6 +3,8 @@ package de.darwinspl.configurator;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.eclipse.emf.ecore.util.EcoreUtil;
+
 import de.darwinspl.configurator.expression.AtomicFeatureExpression;
 import de.darwinspl.configurator.expression.AttributeSumExpression;
 import eu.hyvar.dataValues.HyDataValuesFactory;
@@ -149,7 +151,7 @@ public class PreferenceBuilder {
 
 		HyEqualExpression equalExpression = expressionFactory.createHyEqualExpression();
 		equalExpression.setOperand1(attributeReferenceExpression);
-		equalExpression.setOperand2(getValueExpression(value));
+		equalExpression.setOperand2(value(value));
 
 		AtomicFeatureExpression featureExpression = new AtomicFeatureExpression();
 		featureExpression.setFeature(attribute.getFeature());
@@ -237,7 +239,7 @@ public class PreferenceBuilder {
 
 				HyEqualExpression equalExpression = expressionFactory.createHyEqualExpression();
 				equalExpression.setOperand1(attributeReferenceExpression);
-				equalExpression.setOperand2(getValueExpression(value ? 1 : 0));
+				equalExpression.setOperand2(value(value ? 1 : 0));
 
 				AtomicFeatureExpression featureExpression = new AtomicFeatureExpression();
 				featureExpression.setFeature(attribute.getFeature());
@@ -267,7 +269,7 @@ public class PreferenceBuilder {
 
 				HyEqualExpression equalExpression = expressionFactory.createHyEqualExpression();
 				equalExpression.setOperand1(attributeReferenceExpression);
-				equalExpression.setOperand2(getValueExpression(enumLiteral.getValue()));
+				equalExpression.setOperand2(value(enumLiteral.getValue()));
 
 				AtomicFeatureExpression featureExpression = new AtomicFeatureExpression();
 				featureExpression.setFeature(attribute.getFeature());
@@ -285,7 +287,7 @@ public class PreferenceBuilder {
 		return this;
 	}
 
-	private HyValueExpression getValueExpression(int value) {
+	private HyValueExpression value(int value) {
 		HyNumberValue numberValue = HyDataValuesFactory.eINSTANCE.createHyNumberValue();
 		numberValue.setValue(value);
 		HyValueExpression valueExpression = expressionFactory.createHyValueExpression();
@@ -297,14 +299,14 @@ public class PreferenceBuilder {
 			boolean useDefaultValue) {
 		HyAtomicExpression atomicExpression;
 		if (useDefaultValue) {
-			atomicExpression = getValueExpression(((HyNumberAttribute) attribute).getDefault());
+			atomicExpression = value(((HyNumberAttribute) attribute).getDefault());
 		} else {
-			atomicExpression = createAttributeReferenceExpression(attribute);
+			atomicExpression = attribute(attribute);
 		}
 
-		AtomicFeatureExpression atomicFeatureExpression = createFeatureExpression(attribute.getFeature());
+		AtomicFeatureExpression atomicFeatureExpression = feature(attribute.getFeature());
 
-		HyMultiplicationExpression multiplicationExpression = createMultiplicationExpression(atomicExpression,
+		HyMultiplicationExpression multiplicationExpression = mul(atomicExpression,
 				atomicFeatureExpression);
 
 		return multiplicationExpression;
@@ -330,7 +332,7 @@ public class PreferenceBuilder {
 
 		HyEqualExpression equalExpression = expressionFactory.createHyEqualExpression();
 		equalExpression.setOperand1(attributeReferenceExpression);
-		equalExpression.setOperand2(getValueExpression(literal.getValue()));
+		equalExpression.setOperand2(value(literal.getValue()));
 
 		AtomicFeatureExpression featureExpression = new AtomicFeatureExpression();
 		featureExpression.setFeature(attribute.getFeature());
@@ -351,7 +353,7 @@ public class PreferenceBuilder {
 
 		HyEqualExpression equalExpression = expressionFactory.createHyEqualExpression();
 		equalExpression.setOperand1(attributeReferenceExpression);
-		equalExpression.setOperand2(getValueExpression(value ? 1 : 0));
+		equalExpression.setOperand2(value(value ? 1 : 0));
 
 		AtomicFeatureExpression featureExpression = new AtomicFeatureExpression();
 		featureExpression.setFeature(attribute.getFeature());
@@ -368,67 +370,36 @@ public class PreferenceBuilder {
 		List<HyFeatureAttribute> attributes = getAttributesByName(attributeName);
 
 		// fa
-		HyExpression attributeSum = createNumberedAttributeSumExpression(attributes);
+		HyExpression fa1 = createNumberedAttributeSumExpression(attributes);
+		HyExpression fa2 = createNumberedAttributeSumExpression(attributes);
+		HyExpression fa3 = createNumberedAttributeSumExpression(attributes);
+		HyExpression fa4 = createNumberedAttributeSumExpression(attributes);
 
+		
 		// c
-		HyExpression valueExpression = getValueExpression(value);
+		HyExpression c1 = value(value);
+		HyExpression c2 = value(value);
+		HyExpression c3 = value(value);
+		HyExpression c4 = value(value);
 
-		// LEFT SIDE
+		
+		// 0 - (fa > c) * (fa - c) + (fa < c) * (c - fa))
+		return sub(value(0),add(mul(gt(fa1, c1), sub(fa2,c2)), 
+				mul(lt(fa3, c3), sub(c4, fa4)))); 
 
-		// fa - c
-		attributeSum = createNumberedAttributeSumExpression(attributes);
-
-		HyExpression diff = createSubtractionExpression(attributeSum, valueExpression);
-
-		// (fa - c) * 2
-		HyExpression multExp = createMultiplicationExpression(diff, getValueExpression(2));
-
-		// fa > c
-		attributeSum = createNumberedAttributeSumExpression(attributes);
-		valueExpression = getValueExpression(value);
-		HyExpression greaterExp = createGreaterExpression(attributeSum, valueExpression);
-
-		// (fa > c) * (fa - c) * 2
-		HyExpression multExp2 = createMultiplicationExpression(greaterExp, multExp);
-
-		// fa - ((fa > c) * (fa - c) * 2)
-		attributeSum = createNumberedAttributeSumExpression(attributes);
-		HyExpression sub1 = createSubtractionExpression(attributeSum, multExp2);
-
-		// RIGHT SIDE
-
-		// c - fa
-		attributeSum = createNumberedAttributeSumExpression(attributes);
-		valueExpression = getValueExpression(value);
-		HyExpression diffRight = createSubtractionExpression(valueExpression, attributeSum);
-
-		// (c - fa) * 2
-		HyExpression multExpRight = createMultiplicationExpression(diffRight, getValueExpression(2));
-
-		// fa < c
-		attributeSum = createNumberedAttributeSumExpression(attributes);
-		valueExpression = getValueExpression(value);
-		HyExpression lessExp = createLessExpression(attributeSum, valueExpression);
-
-		// (fa > c) * (fa - c) * 2
-		HyExpression multExp2Right = createMultiplicationExpression(lessExp, multExpRight);
-
-		// fa - ((fa < c) * (c - fa) * 2)
-		attributeSum = createNumberedAttributeSumExpression(attributes);
-		HyExpression sub2 = createSubtractionExpression(attributeSum, multExp2Right);
-
-		// fa - (fa > value) * (fa - value) * 2
-		// + fa - (fa < value) * (value - fa) * 2
-		return createAdditionExpression(sub1, sub2);
+	}
+	
+	private HyExpression copy(HyExpression expression) {
+		return EcoreUtil.copy(expression);
 	}
 
-	private AtomicFeatureExpression createFeatureExpression(HyFeature feature) {
+	private AtomicFeatureExpression feature(HyFeature feature) {
 		AtomicFeatureExpression atomicFeatureExpression = new AtomicFeatureExpression();
 		atomicFeatureExpression.setFeature(feature);
 		return atomicFeatureExpression;
 	}
 
-	private HyAttributeReferenceExpression createAttributeReferenceExpression(HyFeatureAttribute attribute) {
+	private HyAttributeReferenceExpression attribute(HyFeatureAttribute attribute) {
 		HyAttributeReferenceExpression attributeReferenceExpression = expressionFactory
 				.createHyAttributeReferenceExpression();
 		attributeReferenceExpression.setAttribute(attribute);
@@ -436,39 +407,46 @@ public class PreferenceBuilder {
 		return attributeReferenceExpression;
 	}
 
-	private HyAdditionExpression createAdditionExpression(HyExpression operand1, HyExpression operand2) {
+	private HyAdditionExpression add(HyExpression operand1, HyExpression operand2) {
 		HyAdditionExpression additionExpression = expressionFactory.createHyAdditionExpression();
 		additionExpression.setOperand1(operand1);
 		additionExpression.setOperand2(operand2);
 		return additionExpression;
 	}
 
-	private HySubtractionExpression createSubtractionExpression(HyExpression operand1, HyExpression operand2) {
+	private HySubtractionExpression sub(HyExpression operand1, HyExpression operand2) {
 		HySubtractionExpression subtractionExpression = expressionFactory.createHySubtractionExpression();
 		subtractionExpression.setOperand1(operand1);
 		subtractionExpression.setOperand2(operand2);
 		return subtractionExpression;
 	}
 
-	private HyMultiplicationExpression createMultiplicationExpression(HyExpression operand1, HyExpression operand2) {
+	private HyMultiplicationExpression mul(HyExpression operand1, HyExpression operand2) {
 		HyMultiplicationExpression multiplicationExpression = expressionFactory.createHyMultiplicationExpression();
 		multiplicationExpression.setOperand1(operand1);
 		multiplicationExpression.setOperand2(operand2);
 		return multiplicationExpression;
 	}
 
-	private HyGreaterExpression createGreaterExpression(HyExpression operand1, HyExpression operand2) {
+	private HyGreaterExpression gt(HyExpression operand1, HyExpression operand2) {
 		HyGreaterExpression greaterExpression = expressionFactory.createHyGreaterExpression();
 		greaterExpression.setOperand1(operand1);
 		greaterExpression.setOperand2(operand2);
 		return greaterExpression;
 	}
 
-	private HyLessExpression createLessExpression(HyExpression operand1, HyExpression operand2) {
+	private HyLessExpression lt(HyExpression operand1, HyExpression operand2) {
 		HyLessExpression lessExpression = expressionFactory.createHyLessExpression();
 		lessExpression.setOperand1(operand1);
 		lessExpression.setOperand2(operand2);
 		return lessExpression;
+	}
+	
+	private HyExpression createFeatureAndAttributeMultiplication(HyFeatureAttribute attribute) {
+		HyExpression attributeExpression =attribute(attribute);
+		HyExpression featureExpression = feature(attribute.getFeature());
+		
+		return mul(attributeExpression, featureExpression);
 	}
 
 	private HyExpression createNumberedAttributeSumExpression(List<HyFeatureAttribute> attributes) {
@@ -480,9 +458,10 @@ public class PreferenceBuilder {
 			if (lastAttribute != null) {
 				if (first) {
 					first = false;
-					addExp = createAdditionExpression(createAttributeReferenceExpression(lastAttribute),createAttributeReferenceExpression(attribute));
+					
+					addExp = add(createFeatureAndAttributeMultiplication(lastAttribute),createFeatureAndAttributeMultiplication(attribute));
 				} else {
-					addExp = createAdditionExpression(addExp, createAttributeReferenceExpression(attribute));
+					addExp = add(addExp, createFeatureAndAttributeMultiplication(attribute));
 				}
 			}
 			lastAttribute = attribute;
