@@ -70,19 +70,8 @@ public class PreferenceBuilder {
 	}
 
 	private HyExpression invertExpression(HyExpression expression) {
-		HyNestedExpression nestedExpression = nestExpression(expression);
-
-		HyValueExpression valueExpression = expressionFactory.createHyValueExpression();
-		HyDataValuesFactory dataValuesFactory = HyDataValuesFactory.eINSTANCE;
-		HyNumberValue value = dataValuesFactory.createHyNumberValue();
-		value.setValue(0);
-		valueExpression.setValue(value);
-
-		HySubtractionExpression subtractionExpression = expressionFactory.createHySubtractionExpression();
-		subtractionExpression.setOperand1(valueExpression);
-		subtractionExpression.setOperand2(nestedExpression);
-
-		return nestExpression(subtractionExpression);
+		// (0 - (expresiion))
+		return nestExpression(sub(value(0), nestExpression(expression)));
 	}
 
 	private HyNestedExpression nestExpression(HyExpression expression) {
@@ -100,11 +89,7 @@ public class PreferenceBuilder {
 
 		// preferences to select the most features
 		for (HyFeature feature : featureModel.getFeatures()) {
-
-			AtomicFeatureExpression referenceExpression = new AtomicFeatureExpression();
-			referenceExpression.setFeature(feature);
-
-			ipExpression.getOperands().add(referenceExpression);
+			ipExpression.getOperands().add(feature(feature));
 
 		}
 		return nestExpression(ipExpression);
@@ -137,67 +122,15 @@ public class PreferenceBuilder {
 	}
 
 	public PreferenceBuilder addCustomAttribute(String attributeName, int value) {
-		// addExpression(createCustomAttributeExpression(attributeName, value));
 		addExpression(createCustomValueExpression(attributeName, value));
 		return this;
 	}
 
 	public PreferenceBuilder addSingleCustomAttribute(HyNumberAttribute attribute, int value) {
-
-		HyAttributeReferenceExpression attributeReferenceExpression = expressionFactory
-				.createHyAttributeReferenceExpression();
-		attributeReferenceExpression.setAttribute(attribute);
-		attributeReferenceExpression.setFeature(attribute.getFeature());
-
-		HyEqualExpression equalExpression = expressionFactory.createHyEqualExpression();
-		equalExpression.setOperand1(attributeReferenceExpression);
-		equalExpression.setOperand2(value(value));
-
-		AtomicFeatureExpression featureExpression = new AtomicFeatureExpression();
-		featureExpression.setFeature(attribute.getFeature());
-
-		HyMultiplicationExpression multiplicationExpression = expressionFactory.createHyMultiplicationExpression();
-		multiplicationExpression.setOperand1(featureExpression);
-		multiplicationExpression.setOperand2(equalExpression);
-
-		addExpression(multiplicationExpression);
+		// feature * (attribute = value)
+		addExpression(mul(feature(attribute.getFeature()), eq(attribute(attribute), value(value))));
 		return this;
 	}
-
-	// private HyExpression createCustomAttributeExpression(String
-	// attributeName, int value) {
-	//
-	// HyIfPossibleExpression ipExpression =
-	// expressionFactory.createHyIfPossibleExpression();
-	//
-	// for (HyFeatureAttribute attribute : getAttributesByName(attributeName)) {
-	// if (attribute instanceof HyNumberAttribute) {
-	// HyAttributeReferenceExpression attributeReferenceExpression =
-	// expressionFactory
-	// .createHyAttributeReferenceExpression();
-	// attributeReferenceExpression.setAttribute(attribute);
-	// attributeReferenceExpression.setFeature(attribute.getFeature());
-	//
-	// AtomicFeatureExpression featureExpression = new
-	// AtomicFeatureExpression();
-	// featureExpression.setFeature(attribute.getFeature());
-	//
-	// HyMultiplicationExpression multiplicationExpression = expressionFactory
-	// .createHyMultiplicationExpression();
-	// multiplicationExpression.setOperand1(attributeReferenceExpression);
-	// multiplicationExpression.setOperand2(featureExpression);
-	//
-	// ipExpression.getOperands().add(multiplicationExpression);
-	// }
-	// }
-	//
-	// HyEqualExpression equalExpression =
-	// expressionFactory.createHyEqualExpression();
-	// equalExpression.setOperand1(getValueExpression(value));
-	// equalExpression.setOperand2(ipExpression);
-	//
-	// return equalExpression;
-	// }
 
 	private HyExpression createNumberedAttributeExpression(String attributeName, boolean useDefaultValue) {
 		HyIfPossibleExpression ifPossibleExpression = expressionFactory.createHyIfPossibleExpression();
@@ -230,26 +163,7 @@ public class PreferenceBuilder {
 		HyIfPossibleExpression ipExpression = expressionFactory.createHyIfPossibleExpression();
 		for (HyFeatureAttribute attribute : attributes) {
 			if (attribute instanceof HyBooleanAttribute) {
-				HyBooleanAttribute booleanAttribute = (HyBooleanAttribute) attribute;
-
-				HyAttributeReferenceExpression attributeReferenceExpression = expressionFactory
-						.createHyAttributeReferenceExpression();
-				attributeReferenceExpression.setAttribute(booleanAttribute);
-				attributeReferenceExpression.setFeature(booleanAttribute.getFeature());
-
-				HyEqualExpression equalExpression = expressionFactory.createHyEqualExpression();
-				equalExpression.setOperand1(attributeReferenceExpression);
-				equalExpression.setOperand2(value(value ? 1 : 0));
-
-				AtomicFeatureExpression featureExpression = new AtomicFeatureExpression();
-				featureExpression.setFeature(attribute.getFeature());
-
-				HyMultiplicationExpression multiplicationExpression = expressionFactory
-						.createHyMultiplicationExpression();
-				multiplicationExpression.setOperand1(equalExpression);
-				multiplicationExpression.setOperand2(featureExpression);
-
-				ipExpression.getOperands().add(multiplicationExpression);
+				ipExpression.getOperands().add(createSingleBooleanExpression(attribute, value));
 			}
 		}
 		addExpression(ipExpression);
@@ -258,28 +172,10 @@ public class PreferenceBuilder {
 
 	public PreferenceBuilder addEnumPreferenceExpression(String attributeName, HyEnumLiteral enumLiteral) {
 		HyIfPossibleExpression ipExpression = expressionFactory.createHyIfPossibleExpression();
-
 		List<HyFeatureAttribute> attributes = getAttributesByName(attributeName);
 		for (HyFeatureAttribute attribute : attributes) {
 			if (attribute instanceof HyEnumAttribute) {
-				HyAttributeReferenceExpression attributeReferenceExpression = expressionFactory
-						.createHyAttributeReferenceExpression();
-				attributeReferenceExpression.setAttribute(attribute);
-				attributeReferenceExpression.setFeature(attribute.getFeature());
-
-				HyEqualExpression equalExpression = expressionFactory.createHyEqualExpression();
-				equalExpression.setOperand1(attributeReferenceExpression);
-				equalExpression.setOperand2(value(enumLiteral.getValue()));
-
-				AtomicFeatureExpression featureExpression = new AtomicFeatureExpression();
-				featureExpression.setFeature(attribute.getFeature());
-
-				HyMultiplicationExpression multiplicationExpression = expressionFactory
-						.createHyMultiplicationExpression();
-				multiplicationExpression.setOperand1(equalExpression);
-				multiplicationExpression.setOperand2(featureExpression);
-
-				ipExpression.getOperands().add(multiplicationExpression);
+				ipExpression.getOperands().add(createSingleEnumAttributeExpression((HyEnumAttribute)attribute, enumLiteral));
 			}
 		}
 
@@ -304,12 +200,9 @@ public class PreferenceBuilder {
 			atomicExpression = attribute(attribute);
 		}
 
-		AtomicFeatureExpression atomicFeatureExpression = feature(attribute.getFeature());
-
-		HyMultiplicationExpression multiplicationExpression = mul(atomicExpression,
-				atomicFeatureExpression);
-
-		return multiplicationExpression;
+		// attribute * feature
+		return mul(atomicExpression,
+				feature(attribute.getFeature()));
 	}
 
 	public PreferenceBuilder addSingleNumberedAttributeMaximumExpression(HyNumberAttribute attribute,
@@ -325,45 +218,23 @@ public class PreferenceBuilder {
 	}
 
 	public PreferenceBuilder addSingleEnumAttributeExpression(HyEnumAttribute attribute, HyEnumLiteral literal) {
-		HyAttributeReferenceExpression attributeReferenceExpression = expressionFactory
-				.createHyAttributeReferenceExpression();
-		attributeReferenceExpression.setAttribute(attribute);
-		attributeReferenceExpression.setFeature(attribute.getFeature());
-
-		HyEqualExpression equalExpression = expressionFactory.createHyEqualExpression();
-		equalExpression.setOperand1(attributeReferenceExpression);
-		equalExpression.setOperand2(value(literal.getValue()));
-
-		AtomicFeatureExpression featureExpression = new AtomicFeatureExpression();
-		featureExpression.setFeature(attribute.getFeature());
-
-		HyMultiplicationExpression multiplicationExpression = expressionFactory.createHyMultiplicationExpression();
-		multiplicationExpression.setOperand1(equalExpression);
-		multiplicationExpression.setOperand2(featureExpression);
-
-		addExpression(multiplicationExpression);
+		addExpression(createSingleEnumAttributeExpression(attribute, literal));
 		return this;
+	}
+	
+	private HyExpression createSingleEnumAttributeExpression(HyEnumAttribute attribute, HyEnumLiteral literal) {
+		// (attribute = literal) * feature
+		return mul(eq(attribute(attribute), value(literal.getValue())), feature(attribute.getFeature()));
 	}
 
 	public PreferenceBuilder addSingleBooleanExpression(HyFeatureAttribute attribute, boolean value) {
-		HyAttributeReferenceExpression attributeReferenceExpression = expressionFactory
-				.createHyAttributeReferenceExpression();
-		attributeReferenceExpression.setAttribute(attribute);
-		attributeReferenceExpression.setFeature(attribute.getFeature());
-
-		HyEqualExpression equalExpression = expressionFactory.createHyEqualExpression();
-		equalExpression.setOperand1(attributeReferenceExpression);
-		equalExpression.setOperand2(value(value ? 1 : 0));
-
-		AtomicFeatureExpression featureExpression = new AtomicFeatureExpression();
-		featureExpression.setFeature(attribute.getFeature());
-
-		HyMultiplicationExpression multiplicationExpression = expressionFactory.createHyMultiplicationExpression();
-		multiplicationExpression.setOperand1(equalExpression);
-		multiplicationExpression.setOperand2(featureExpression);
-
-		addExpression(multiplicationExpression);
+		addExpression(createSingleBooleanExpression(attribute, value));
 		return this;
+	}
+	
+	private HyExpression createSingleBooleanExpression(HyFeatureAttribute attribute, boolean value) {
+		// (attribute = value) * feature
+		return mul(eq(attribute(attribute), value(value ? 1 : 0)), feature(attribute.getFeature()));
 	}
 
 	private HyExpression createCustomValueExpression(String attributeName, int value) {
@@ -375,7 +246,6 @@ public class PreferenceBuilder {
 		HyExpression fa3 = createNumberedAttributeSumExpression(attributes);
 		HyExpression fa4 = createNumberedAttributeSumExpression(attributes);
 
-		
 		// c
 		HyExpression c1 = value(value);
 		HyExpression c2 = value(value);
@@ -387,10 +257,6 @@ public class PreferenceBuilder {
 		return sub(value(0),add(mul(gt(fa1, c1), sub(fa2,c2)), 
 				mul(lt(fa3, c3), sub(c4, fa4)))); 
 
-	}
-	
-	private HyExpression copy(HyExpression expression) {
-		return EcoreUtil.copy(expression);
 	}
 
 	private AtomicFeatureExpression feature(HyFeature feature) {
@@ -440,6 +306,13 @@ public class PreferenceBuilder {
 		lessExpression.setOperand1(operand1);
 		lessExpression.setOperand2(operand2);
 		return lessExpression;
+	}
+	
+	private HyEqualExpression eq(HyExpression operand1, HyExpression operand2) {
+		HyEqualExpression equalExpression = expressionFactory.createHyEqualExpression();
+		equalExpression.setOperand1(operand1);
+		equalExpression.setOperand2(operand2);
+		return equalExpression;
 	}
 	
 	private HyExpression createFeatureAndAttributeMultiplication(HyFeatureAttribute attribute) {
