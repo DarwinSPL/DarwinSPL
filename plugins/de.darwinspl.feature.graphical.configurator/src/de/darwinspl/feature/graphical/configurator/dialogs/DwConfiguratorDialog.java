@@ -160,6 +160,25 @@ public class DwConfiguratorDialog extends Dialog {
 
 		comp = new DwConfiguratorRowComposite(attributes, composite, SWT.NONE);
 
+		Button selectFeatures = new Button(composite, SWT.NONE);
+		selectFeatures.setText("Select Features");
+		selectFeatures.addSelectionListener(new SelectionListener() {
+			
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+				DwFeatureSelectionDialog dialog = new DwFeatureSelectionDialog(getShell(), featureModel, date);
+				if(dialog.open() == Dialog.OK) {
+					
+				}
+			}
+			
+			@Override
+			public void widgetDefaultSelected(SelectionEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
+		
 		Button add = new Button(composite, SWT.NONE);
 		add.setText("Add");
 		add.addSelectionListener(new SelectionListener() {
