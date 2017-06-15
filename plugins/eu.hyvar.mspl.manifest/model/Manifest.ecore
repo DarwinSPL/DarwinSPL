@@ -28,5 +28,4 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="signature" lowerBound="1"
         eType="ecore:EClass ../../eu.hyvar.feature/model/Feature.ecore#//HyFeature"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="HyInterval" eSuperTypes="../../eu.hyvar.evolution/model/Evolution.ecore#//HyTemporalElement"/>
 </ecore:EPackage>

@@ -38,4 +38,5 @@
   <eClassifiers xsi:type="ecore:EClass" name="HyName" eSuperTypes="#//HyLinearTemporalElement">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="HyInterval" eSuperTypes="#//HyTemporalElement"/>
 </ecore:EPackage>

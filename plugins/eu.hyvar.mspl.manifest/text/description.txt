@@ -27,5 +27,3 @@ Package manifest <http://hyvar-project.eu/mspl/manifest/1.0>
   Class HyTimedImplementationLink -> HyTemporalElement
     Reference local : HyFeature<<1..1>>
     Reference signature : HyFeature<<1..1>>
-
-  Class HyInterval -> HyTemporalElement

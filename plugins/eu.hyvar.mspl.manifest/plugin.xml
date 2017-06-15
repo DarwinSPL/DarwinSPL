@@ -13,6 +13,14 @@
             class="eu.hyvar.mspl.manifest.ManifestPackage"
             genModel="model/Manifest.genmodel"/>
    </extension>
+
+   <extension point="org.eclipse.emf.ecore.generated_package">
+      <!-- @generated Manifest -->
+      <package
+            uri="http://hyvar-project.eu/mspl/manifest/1.0"
+            class="eu.hyvar.mspl.manifest.ManifestPackage"
+            genModel="model/Manifest.genmodel"/>
+   </extension>
    <extension
          point="org.eclipse.emf.validation.constraintProviders">
       <category

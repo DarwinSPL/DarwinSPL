@@ -25,5 +25,6 @@
     <genClasses ecoreClass="Evolution.ecore#//HyName">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Evolution.ecore#//HyName/name"/>
     </genClasses>
+    <genClasses ecoreClass="Evolution.ecore#//HyInterval"/>
   </genPackages>
 </genmodel:GenModel>

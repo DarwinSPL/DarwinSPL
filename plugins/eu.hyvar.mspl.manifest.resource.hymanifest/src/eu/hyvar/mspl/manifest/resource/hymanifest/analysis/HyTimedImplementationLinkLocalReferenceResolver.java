@@ -12,10 +12,10 @@ import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EReference;
 
+import eu.hyvar.evolution.HyInterval;
 import eu.hyvar.evolution.util.HyEvolutionUtil;
 import eu.hyvar.feature.HyFeature;
 import eu.hyvar.feature.expression.util.HyExpressionResolverUtil;
-import eu.hyvar.mspl.manifest.HyInterval;
 import eu.hyvar.mspl.util.HyManifestResolverUtil;
 
 public class HyTimedImplementationLinkLocalReferenceResolver implements eu.hyvar.mspl.manifest.resource.hymanifest.IHymanifestReferenceResolver<eu.hyvar.mspl.manifest.HyTimedImplementationLink, eu.hyvar.feature.HyFeature> {
@@ -29,7 +29,7 @@ public class HyTimedImplementationLinkLocalReferenceResolver implements eu.hyvar
 			EList<eu.hyvar.evolution.HyTemporalElement> elements = new BasicEList<eu.hyvar.evolution.HyTemporalElement>();
 			elements.add(container);
 			elements.add((eu.hyvar.evolution.HyTemporalElement)container.eContainer());
-			HyInterval interval = HyManifestResolverUtil.temporalIntersection(elements);
+			HyInterval interval = HyEvolutionUtil.computeTemporalIntersection(elements);
 			
 			if(HyEvolutionUtil.isWithinValidityOf(interval, feature)) {
 				result.addMapping(identifier, feature);

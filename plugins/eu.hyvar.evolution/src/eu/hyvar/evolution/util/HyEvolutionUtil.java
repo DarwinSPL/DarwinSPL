@@ -13,7 +13,9 @@ import org.eclipse.emf.common.util.TreeIterator;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 
+import eu.hyvar.evolution.HyEvolutionFactory;
 import eu.hyvar.evolution.HyEvolvedElementsContainer;
+import eu.hyvar.evolution.HyInterval;
 import eu.hyvar.evolution.HyLinearTemporalElement;
 import eu.hyvar.evolution.HyModelDiff;
 import eu.hyvar.evolution.HyTemporalElement;
@@ -439,5 +441,29 @@ public class HyEvolutionUtil {
 		linearTemporalElements.addAll(getAllSupersedingElements(element.getSupersedingElement()));
 		
 		return linearTemporalElements;
+	}
+	
+	
+	public static HyInterval computeTemporalIntersection(List<HyTemporalElement> elementsToIntersect) {
+		HyEvolutionFactory factory = HyEvolutionFactory.eINSTANCE;
+		HyInterval interval = factory.createHyInterval();
+		
+		for(HyTemporalElement element: elementsToIntersect) {
+
+			if(element.getValidSince()!=null && interval.getValidSince()!=null && element.getValidSince().after(interval.getValidSince()) ) {
+				interval.setValidSince(element.getValidSince());
+			}
+			if(element.getValidSince()!=null && interval.getValidSince()==null) {
+				interval.setValidSince(element.getValidSince());
+			}
+
+			if(element.getValidUntil()!=null && interval.getValidUntil()!=null && element.getValidUntil().before(interval.getValidUntil()) ) {
+				interval.setValidSince(element.getValidSince());
+			}
+			if(element.getValidUntil()!=null && interval.getValidUntil()==null) {
+				interval.setValidUntil(element.getValidUntil());
+			}
+		}
+		return interval;
 	}
 }
