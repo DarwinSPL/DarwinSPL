@@ -1,4 +1,4 @@
-package de.darwinspl.feature.graphical.editor.editor;
+package eu.hyvar.feature.graphical.editor.editor;
 
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -40,34 +40,35 @@ import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.actions.ActionFactory;
 import org.eclipse.ui.part.FileEditorInput;
 
-import de.darwinspl.feature.graphical.base.editor.DwGraphicalFeatureModelViewer;
-import de.darwinspl.feature.graphical.base.util.DwFeatureModelLayoutFileUtil;
-import de.darwinspl.feature.graphical.editor.actions.DwLinearTemporalElementChangeValidityAction;
-import de.darwinspl.feature.graphical.editor.actions.attribute.DwAttributeCreateBooleanAction;
-import de.darwinspl.feature.graphical.editor.actions.attribute.DwAttributeCreateEnumAction;
-import de.darwinspl.feature.graphical.editor.actions.attribute.DwAttributeCreateNumberAction;
-import de.darwinspl.feature.graphical.editor.actions.attribute.DwAttributeCreateStringAction;
-import de.darwinspl.feature.graphical.editor.actions.attribute.DwAttributeRenameAction;
-import de.darwinspl.feature.graphical.editor.actions.attribute.DwNumberAttributeSetNumberRangeAction;
-import de.darwinspl.feature.graphical.editor.actions.enumeration.DwFeatureAttributeEnumCreateEnumAction;
-import de.darwinspl.feature.graphical.editor.actions.enumeration.DwFeatureAttributeEnumCreateLiteralAction;
-import de.darwinspl.feature.graphical.editor.actions.feature.DwFeatureChangeTypeAction;
-import de.darwinspl.feature.graphical.editor.actions.feature.DwFeatureCreateChildAction;
-import de.darwinspl.feature.graphical.editor.actions.feature.DwFeatureCreateSiblingAction;
-import de.darwinspl.feature.graphical.editor.actions.feature.DwFeatureEditNamesAction;
-import de.darwinspl.feature.graphical.editor.actions.feature.DwSetFeatureLinkAction;
-import de.darwinspl.feature.graphical.editor.actions.group.DwGroupChangeGroupTypeToAlternativeTypeAction;
-import de.darwinspl.feature.graphical.editor.actions.group.DwGroupChangeGroupTypeToAndTypeAction;
-import de.darwinspl.feature.graphical.editor.actions.group.DwGroupChangeGroupTypeToOrTypeAction;
-import de.darwinspl.feature.graphical.editor.actions.version.DwVersionCreateSuccessorAction;
-import de.darwinspl.feature.graphical.editor.actions.version.DwVersionCreateVersionAction;
-import de.darwinspl.feature.graphical.editor.factory.DwFeatureModelEditorEditPartFactory;
 import eu.hyvar.context.contextValidity.util.HyValidityModelUtil;
 import eu.hyvar.context.information.util.HyContextInformationUtil;
+import eu.hyvar.feature.analyses.DwFeatureModelAnalyses;
 import eu.hyvar.feature.constraint.util.HyConstraintUtil;
+import eu.hyvar.feature.graphical.base.editor.DwGraphicalFeatureModelViewer;
+import eu.hyvar.feature.graphical.base.util.DwFeatureModelLayoutFileUtil;
+import eu.hyvar.feature.graphical.editor.actions.HyLinearTemporalElementChangeValidityAction;
+import eu.hyvar.feature.graphical.editor.actions.attribute.HyAttributeCreateBooleanAction;
+import eu.hyvar.feature.graphical.editor.actions.attribute.HyAttributeCreateEnumAction;
+import eu.hyvar.feature.graphical.editor.actions.attribute.HyAttributeCreateNumberAction;
+import eu.hyvar.feature.graphical.editor.actions.attribute.HyAttributeCreateStringAction;
+import eu.hyvar.feature.graphical.editor.actions.attribute.HyAttributeRenameAction;
+import eu.hyvar.feature.graphical.editor.actions.attribute.HyNumberAttributeSetNumberRangeAction;
+import eu.hyvar.feature.graphical.editor.actions.enumeration.HyFeatureAttributeEnumCreateEnumAction;
+import eu.hyvar.feature.graphical.editor.actions.enumeration.HyFeatureAttributeEnumCreateLiteralAction;
+import eu.hyvar.feature.graphical.editor.actions.feature.DwSetFeatureLinkAction;
+import eu.hyvar.feature.graphical.editor.actions.feature.HyFeatureChangeTypeAction;
+import eu.hyvar.feature.graphical.editor.actions.feature.HyFeatureCreateChildAction;
+import eu.hyvar.feature.graphical.editor.actions.feature.HyFeatureCreateSiblingAction;
+import eu.hyvar.feature.graphical.editor.actions.feature.HyFeatureEditNamesAction;
+import eu.hyvar.feature.graphical.editor.actions.group.HyGroupChangeGroupTypeToAlternativeTypeAction;
+import eu.hyvar.feature.graphical.editor.actions.group.HyGroupChangeGroupTypeToAndTypeAction;
+import eu.hyvar.feature.graphical.editor.actions.group.HyGroupChangeGroupTypeToOrTypeAction;
+import eu.hyvar.feature.graphical.editor.actions.version.HyVersionCreateSuccessorAction;
+import eu.hyvar.feature.graphical.editor.actions.version.HyVersionCreateVersionAction;
+import eu.hyvar.feature.graphical.editor.factory.HyFeatureModelEditorEditPartFactory;
 
 @SuppressWarnings("restriction")
-public class DwGraphicalFeatureModelEditor extends DwGraphicalFeatureModelViewer{
+public class HyGraphicalFeatureModelEditor extends DwGraphicalFeatureModelViewer{
 	List<IPath> relatedEditorFiles = new ArrayList<IPath>();
 
 	@Override
@@ -79,6 +80,10 @@ public class DwGraphicalFeatureModelEditor extends DwGraphicalFeatureModelViewer
 	public void executeCommand(Command command) {
 		CommandStack commandStack = getCommandStack();
 		commandStack.execute(command);
+		
+		
+		// TODO for Gil: visualize errors
+		DwFeatureModelAnalyses.checkFeatureModelValidity(getInternalFeatureModel());
 	}
 
 	@Override
@@ -128,8 +133,8 @@ public class DwGraphicalFeatureModelEditor extends DwGraphicalFeatureModelViewer
 		super.configureGraphicalViewer();
 
 		GraphicalViewer viewer = getGraphicalViewer();
-		viewer.setEditPartFactory(new DwFeatureModelEditorEditPartFactory(viewer, this));
-		viewer.setContextMenu(new DwGraphicalFeatureModelEditorContextMenuProvider(getGraphicalViewer(), getActionRegistry()));
+		viewer.setEditPartFactory(new HyFeatureModelEditorEditPartFactory(viewer, this));
+		viewer.setContextMenu(new HyGraphicalFeatureModelEditorContextMenuProvider(getGraphicalViewer(), getActionRegistry()));
 		viewer.setKeyHandler(new GraphicalViewerKeyHandler(viewer).setParent(getCommonKeyHandler()));
 	}
 
@@ -147,26 +152,26 @@ public class DwGraphicalFeatureModelEditor extends DwGraphicalFeatureModelViewer
 
 	@SuppressWarnings("unchecked")
 	protected void createGroupActions(){
-		DwGroupChangeGroupTypeToAlternativeTypeAction groupChangeTypeToAlternativeAction = new DwGroupChangeGroupTypeToAlternativeTypeAction(this);
+		HyGroupChangeGroupTypeToAlternativeTypeAction groupChangeTypeToAlternativeAction = new HyGroupChangeGroupTypeToAlternativeTypeAction(this);
 		getActionRegistry().registerAction(groupChangeTypeToAlternativeAction);
 		getSelectionActions().add(groupChangeTypeToAlternativeAction.getId());
 
-		DwGroupChangeGroupTypeToAndTypeAction groupChangeTypeToAndAction = new DwGroupChangeGroupTypeToAndTypeAction(this);
+		HyGroupChangeGroupTypeToAndTypeAction groupChangeTypeToAndAction = new HyGroupChangeGroupTypeToAndTypeAction(this);
 		getActionRegistry().registerAction(groupChangeTypeToAndAction);
 		getSelectionActions().add(groupChangeTypeToAndAction.getId());
 
-		DwGroupChangeGroupTypeToOrTypeAction groupChangeTypeToOrAction = new DwGroupChangeGroupTypeToOrTypeAction(this);
+		HyGroupChangeGroupTypeToOrTypeAction groupChangeTypeToOrAction = new HyGroupChangeGroupTypeToOrTypeAction(this);
 		getActionRegistry().registerAction(groupChangeTypeToOrAction);
 		getSelectionActions().add(groupChangeTypeToOrAction.getId());
 	}
 
 	@SuppressWarnings("unchecked")
 	protected void createEnumActions(){
-		DwFeatureAttributeEnumCreateEnumAction createEnumAction = new DwFeatureAttributeEnumCreateEnumAction(this);
+		HyFeatureAttributeEnumCreateEnumAction createEnumAction = new HyFeatureAttributeEnumCreateEnumAction(this);
 		getActionRegistry().registerAction(createEnumAction);
 		getSelectionActions().add(createEnumAction.getId());
 
-		DwFeatureAttributeEnumCreateLiteralAction createLiteralAction = new DwFeatureAttributeEnumCreateLiteralAction(this);
+		HyFeatureAttributeEnumCreateLiteralAction createLiteralAction = new HyFeatureAttributeEnumCreateLiteralAction(this);
 		getActionRegistry().registerAction(createLiteralAction);
 		getSelectionActions().add(createLiteralAction.getId());
 	}
@@ -174,55 +179,55 @@ public class DwGraphicalFeatureModelEditor extends DwGraphicalFeatureModelViewer
 	@SuppressWarnings("unchecked")
 	@Override
 	protected void createActions(){
-		DwAttributeCreateNumberAction attributeCreateNumberAction = new DwAttributeCreateNumberAction(this);
+		HyAttributeCreateNumberAction attributeCreateNumberAction = new HyAttributeCreateNumberAction(this);
 		getActionRegistry().registerAction(attributeCreateNumberAction);
 		getSelectionActions().add(attributeCreateNumberAction.getId());
 
-		DwAttributeCreateStringAction attributeCreateStringAction = new DwAttributeCreateStringAction(this);
+		HyAttributeCreateStringAction attributeCreateStringAction = new HyAttributeCreateStringAction(this);
 		getActionRegistry().registerAction(attributeCreateStringAction);
 		getSelectionActions().add(attributeCreateStringAction.getId());
 
-		DwAttributeCreateBooleanAction attributeCreateBooleanAction = new DwAttributeCreateBooleanAction(this);
+		HyAttributeCreateBooleanAction attributeCreateBooleanAction = new HyAttributeCreateBooleanAction(this);
 		getActionRegistry().registerAction(attributeCreateBooleanAction);
 		getSelectionActions().add(attributeCreateBooleanAction.getId());
 
-		DwAttributeCreateEnumAction attributeCreateEnumAction = new DwAttributeCreateEnumAction(this);
+		HyAttributeCreateEnumAction attributeCreateEnumAction = new HyAttributeCreateEnumAction(this);
 		getActionRegistry().registerAction(attributeCreateEnumAction);
 		getSelectionActions().add(attributeCreateEnumAction.getId());		
 
-		DwFeatureCreateChildAction childAction = new DwFeatureCreateChildAction(this);
+		HyFeatureCreateChildAction childAction = new HyFeatureCreateChildAction(this);
 		getActionRegistry().registerAction(childAction);
 		getSelectionActions().add(childAction.getId());
 
-		DwFeatureCreateSiblingAction siblingAction = new DwFeatureCreateSiblingAction(this);
+		HyFeatureCreateSiblingAction siblingAction = new HyFeatureCreateSiblingAction(this);
 		getActionRegistry().registerAction(siblingAction);
 		getSelectionActions().add(siblingAction.getId());		
 
-		DwFeatureChangeTypeAction changeAction = new DwFeatureChangeTypeAction(this);
+		HyFeatureChangeTypeAction changeAction = new HyFeatureChangeTypeAction(this);
 		getActionRegistry().registerAction(changeAction);
 		getSelectionActions().add(changeAction.getId());	
 
-		DwVersionCreateVersionAction featureCreateVersionAction = new DwVersionCreateVersionAction(this);
+		HyVersionCreateVersionAction featureCreateVersionAction = new HyVersionCreateVersionAction(this);
 		getActionRegistry().registerAction(featureCreateVersionAction);
 		getSelectionActions().add(featureCreateVersionAction.getId());
 
-		DwVersionCreateSuccessorAction versionCreateSuccessorAction = new DwVersionCreateSuccessorAction(this);
+		HyVersionCreateSuccessorAction versionCreateSuccessorAction = new HyVersionCreateSuccessorAction(this);
 		getActionRegistry().registerAction(versionCreateSuccessorAction);
 		getSelectionActions().add(versionCreateSuccessorAction.getId());
 
-		DwLinearTemporalElementChangeValidityAction visibilityAction = new DwLinearTemporalElementChangeValidityAction(this);
+		HyLinearTemporalElementChangeValidityAction visibilityAction = new HyLinearTemporalElementChangeValidityAction(this);
 		getActionRegistry().registerAction(visibilityAction);
 		getSelectionActions().add(visibilityAction.getId());
 
-		DwFeatureEditNamesAction featureNameAction = new DwFeatureEditNamesAction(this);
+		HyFeatureEditNamesAction featureNameAction = new HyFeatureEditNamesAction(this);
 		getActionRegistry().registerAction(featureNameAction);
 		getSelectionActions().add(featureNameAction.getId());	
 
-		DwAttributeRenameAction renameAttributeAction = new DwAttributeRenameAction(this);
+		HyAttributeRenameAction renameAttributeAction = new HyAttributeRenameAction(this);
 		getActionRegistry().registerAction(renameAttributeAction);
 		getSelectionActions().add(renameAttributeAction.getId());
 
-		DwNumberAttributeSetNumberRangeAction rangeAttributeAction = new DwNumberAttributeSetNumberRangeAction(this);
+		HyNumberAttributeSetNumberRangeAction rangeAttributeAction = new HyNumberAttributeSetNumberRangeAction(this);
 		getActionRegistry().registerAction(rangeAttributeAction);
 		getSelectionActions().add(rangeAttributeAction.getId());
 
@@ -250,6 +255,8 @@ public class DwGraphicalFeatureModelEditor extends DwGraphicalFeatureModelViewer
 
 		EModelService service = window.getService(EModelService.class);
 		
+		if(secondEditor != null)
+		System.out.println("====> "+secondEditor.getChildren().size());
 
 		if(secondEditor == null){
 			secondEditor = getPartStack(editorToInsert);

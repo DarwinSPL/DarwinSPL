@@ -32,6 +32,10 @@
       <product
             application="eu.hyvar.feature.exporter.hfm_exporter.rest.dummyclient.client"
             name="HyVar to DeltaEcore REST Dummyclient">
+         <property
+               name="appName"
+               value="HyVar to DeltaEcore REST Dummyclient">
+         </property>
       </product>
    </extension>
 

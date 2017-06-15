@@ -22,6 +22,7 @@ import de.darwinspl.feature.graphical.editor.actions.feature.DwFeatureChangeType
 import de.darwinspl.feature.graphical.editor.actions.feature.DwFeatureCreateChildAction;
 import de.darwinspl.feature.graphical.editor.actions.feature.DwFeatureCreateSiblingAction;
 import de.darwinspl.feature.graphical.editor.actions.feature.DwFeatureEditNamesAction;
+import de.darwinspl.feature.graphical.editor.actions.feature.DwSetFeatureLinkAction;
 import de.darwinspl.feature.graphical.editor.actions.group.DwGroupChangeGroupTypeToAlternativeTypeAction;
 import de.darwinspl.feature.graphical.editor.actions.group.DwGroupChangeGroupTypeToAndTypeAction;
 import de.darwinspl.feature.graphical.editor.actions.group.DwGroupChangeGroupTypeToOrTypeAction;
@@ -107,6 +108,10 @@ public class DwGraphicalFeatureModelEditorContextMenuProvider extends ContextMen
         
         menu.appendToGroup(GEFActionConstants.GROUP_EDIT, new Separator());
         action = getActionRegistry().getAction(DwLinearTemporalElementChangeValidityAction.FEATURE_CHANGE_VALIDITY);
+        menu.appendToGroup(GEFActionConstants.GROUP_EDIT, action);
+        
+        menu.appendToGroup(GEFActionConstants.GROUP_EDIT, new Separator());
+        action = getActionRegistry().getAction(DwSetFeatureLinkAction.ID);
         menu.appendToGroup(GEFActionConstants.GROUP_EDIT, action);
 	}
 	

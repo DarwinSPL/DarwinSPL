@@ -36,14 +36,19 @@ import eu.hyvar.context.HyContextInformationPackage;
 import eu.hyvar.context.HyContextModel;
 import eu.hyvar.context.contextValidity.HyContextValidityPackage;
 import eu.hyvar.context.contextValidity.HyValidityModel;
+import eu.hyvar.context.contextValidity.util.HyValidityModelUtil;
 import eu.hyvar.context.information.contextValue.ContextValueFactory;
 import eu.hyvar.context.information.contextValue.HyContextValue;
 import eu.hyvar.context.information.contextValue.HyContextValueModel;
+import eu.hyvar.context.information.util.HyContextInformationUtil;
 import eu.hyvar.feature.HyFeatureModel;
 import eu.hyvar.feature.HyFeaturePackage;
 import eu.hyvar.feature.configuration.HyConfiguration;
+import eu.hyvar.feature.configuration.util.HyConfigurationUtil;
 import eu.hyvar.feature.constraint.HyConstraintModel;
 import eu.hyvar.feature.constraint.HyConstraintPackage;
+import eu.hyvar.feature.constraint.util.HyConstraintUtil;
+import eu.hyvar.feature.util.HyFeatureUtil;
 import eu.hyvar.reconfigurator.input.exporter.HyVarRecExporter;
 import eu.hyvar.reconfigurator.io.rest.context.ContextToModelMapper;
 import eu.hyvar.reconfigurator.io.rest.input.raw_hyvarrec.RawInputForHyVarRecOld;
@@ -120,7 +125,7 @@ public class JsonHandlerFMForHyVarRec extends AbstractHandler {
 			}
 		}
 
-		IFile fmFile = folder.getFile(rawInput.getFeatureModel().getFilename() + ".hyfeature");
+		IFile fmFile = folder.getFile(rawInput.getFeatureModel().getFilename() + "." + HyFeatureUtil.getFeatureModelFileExtensionForXmi());
 		InputStream inputStream = new ByteArrayInputStream(rawInput.getFeatureModel().getSpecification().getBytes());
 		try {
 			if(!fmFile.exists()) {
@@ -132,7 +137,7 @@ public class JsonHandlerFMForHyVarRec extends AbstractHandler {
 			e.printStackTrace();
 		}
 
-		IFile contextFile = folder.getFile(rawInput.getContextModel().getFilename() + ".hycontextmodel");
+		IFile contextFile = folder.getFile(rawInput.getContextModel().getFilename() + "." + HyContextInformationUtil.getContextModelFileExtensionForXmi());
 		inputStream = new ByteArrayInputStream(rawInput.getContextModel().getSpecification().getBytes());
 		try {
 			if(!contextFile.exists()) {
@@ -145,7 +150,7 @@ public class JsonHandlerFMForHyVarRec extends AbstractHandler {
 			e.printStackTrace();
 		}
 
-		IFile constraintFile = folder.getFile(rawInput.getConstraints().getFilename() + ".hyconstraint");
+		IFile constraintFile = folder.getFile(rawInput.getConstraints().getFilename() + "." + HyConstraintUtil.getConstraintModelFileExtensionForXmi());
 		inputStream = new ByteArrayInputStream(rawInput.getConstraints().getSpecification().getBytes());
 		try {
 			if(!constraintFile.exists()) {
@@ -158,7 +163,7 @@ public class JsonHandlerFMForHyVarRec extends AbstractHandler {
 			e.printStackTrace();
 		}
 
-		IFile configurationFile = folder.getFile(rawInput.getOldConfiguration().getFilename() + ".hyconfiguration");
+		IFile configurationFile = folder.getFile(rawInput.getOldConfiguration().getFilename() + HyConfigurationUtil.getConfigurationModelFileExtensionForXmi());
 		inputStream = new ByteArrayInputStream(rawInput.getOldConfiguration().getSpecification().getBytes());
 		try {
 			if(!configurationFile.exists()) {
@@ -171,7 +176,7 @@ public class JsonHandlerFMForHyVarRec extends AbstractHandler {
 			e.printStackTrace();
 		}
 
-		IFile validityFile = folder.getFile(rawInput.getValidityFormulas().getFilename() + ".hyvaliditymodel");
+		IFile validityFile = folder.getFile(rawInput.getValidityFormulas().getFilename() + HyValidityModelUtil.getValidityModelFileExtensionForXmi());
 		inputStream = new ByteArrayInputStream(rawInput.getValidityFormulas().getSpecification().getBytes());
 		try {
 			if(!validityFile.exists()) {
@@ -219,7 +224,7 @@ public class JsonHandlerFMForHyVarRec extends AbstractHandler {
 			}
 		}
 
-		System.out.println(models);
+//		System.out.println(models);
 
 		// TODO
 		// Load context values (how to resolve to the contexts?)
@@ -237,8 +242,17 @@ public class JsonHandlerFMForHyVarRec extends AbstractHandler {
 
 		
 		HyVarRecExporter hyvarrecExporter = new HyVarRecExporter();
-		return hyvarrecExporter.exportContextMappingModel(contextModel, validityModel, featureModel, constraintModel,
+		String answer = hyvarrecExporter.exportContextMappingModel(contextModel, validityModel, featureModel, constraintModel,
 				configuration, null, contextValueModel, date);
+		
+		try {
+			folder.delete(true, progressMonitor);
+		} catch (CoreException e) {
+			e.printStackTrace();
+			return "Error when deleting folder: "+e.getMessage();
+		}
+		
+		return answer;
 	}
 
 	private String loadModelsFromStrings(RawInputForHyVarRecOld rawInput) throws IOException {
