@@ -46,7 +46,8 @@ import eu.hyvar.feature.constraint.HyConstraintModel;
 import eu.hyvar.feature.constraint.HyConstraintPackage;
 import eu.hyvar.reconfigurator.input.exporter.HyVarRecExporter;
 import eu.hyvar.reconfigurator.io.rest.context.ContextToModelMapper;
-import eu.hyvar.reconfigurator.io.rest.input.raw_hyvarrec.RawInputForHyVarRec;
+import eu.hyvar.reconfigurator.io.rest.input.raw_hyvarrec.RawInputForHyVarRecOld;
+import eu.hyvar.reconfigurator.io.rest.input.raw_input_for_hyvarrec.RawInputForHyVarRec;
 
 public class JsonHandlerFMForHyVarRec extends AbstractHandler {
 
@@ -93,6 +94,7 @@ public class JsonHandlerFMForHyVarRec extends AbstractHandler {
 	}
 
 	private String loadModelsFromFiles(RawInputForHyVarRec rawInput) {
+		Date date = DateParser.getDate(rawInput.getDate());
 
 		IProgressMonitor progressMonitor = new NullProgressMonitor();
 		IWorkspaceRoot workspaceRoot = ResourcesPlugin.getWorkspace().getRoot();
@@ -156,8 +158,8 @@ public class JsonHandlerFMForHyVarRec extends AbstractHandler {
 			e.printStackTrace();
 		}
 
-		IFile configurationFile = folder.getFile(rawInput.getConfiguration().getFilename() + ".hyconfiguration");
-		inputStream = new ByteArrayInputStream(rawInput.getConfiguration().getSpecification().getBytes());
+		IFile configurationFile = folder.getFile(rawInput.getOldConfiguration().getFilename() + ".hyconfiguration");
+		inputStream = new ByteArrayInputStream(rawInput.getOldConfiguration().getSpecification().getBytes());
 		try {
 			if(!configurationFile.exists()) {
 				configurationFile.create(inputStream, true, progressMonitor);				
@@ -225,7 +227,7 @@ public class JsonHandlerFMForHyVarRec extends AbstractHandler {
 
 		// TODO Optimistic -> error handling?
 		double latitude = Double.parseDouble(rawInput.getContext().getLat());
-		double longitude = Double.parseDouble(rawInput.getContext().getLng());
+		double longitude = Double.parseDouble(rawInput.getContext().getLong());
 		HyContextValue positionValue = ContextToModelMapper.mapGPSToContextValue(latitude, longitude, contextModel);
 
 		// TODO very optimistic.... catch null sensible like that?
@@ -236,10 +238,10 @@ public class JsonHandlerFMForHyVarRec extends AbstractHandler {
 		
 		HyVarRecExporter hyvarrecExporter = new HyVarRecExporter();
 		return hyvarrecExporter.exportContextMappingModel(contextModel, validityModel, featureModel, constraintModel,
-				configuration, null, contextValueModel, new Date());
+				configuration, null, contextValueModel, date);
 	}
 
-	private String loadModelsFromStrings(RawInputForHyVarRec rawInput) throws IOException {
+	private String loadModelsFromStrings(RawInputForHyVarRecOld rawInput) throws IOException {
 
 		// Load feature model from input string
 		HyFeatureModel featureModel = null;

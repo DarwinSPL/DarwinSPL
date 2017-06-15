@@ -6,7 +6,7 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 @Generated("org.jsonschema2pojo")
-public class RawInputForHyVarRec {
+public class RawInputForHyVarRecOld {
 
     @SerializedName("msg_type")
     @Expose
