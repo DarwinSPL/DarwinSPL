@@ -167,7 +167,7 @@ public class HyVarRecExporter {
 			HyFeatureModel featureModel, HyConstraintModel constraintModel, HyConfiguration oldConfiguration,
 			HyProfile preferenceModel, HyContextValueModel contextValues, Date date) {
 
-		// FIXME check for invalidities
+		// TODO incorporate MSPL stuff
 
 		if (featureModel == null) {
 			return null;
@@ -236,17 +236,17 @@ public class HyVarRecExporter {
 			return null;
 		}
 
-		if (constraintModel != null) {
-			input.getConstraints().addAll(getConstraints(constraintModel, date, dateContext, sortedDateList));
-		}
-
-		if (contextValidityModel != null) {
-			input.getConstraints().addAll(getContextValidityFormulas(contextValidityModel, date, dateContext, sortedDateList));
-		}
-
-		if (preferenceModel != null) {
-			input.setPreferences(getPreferences(preferenceModel, date, dateContext, sortedDateList));
-		}
+//		if (constraintModel != null) {
+//			input.getConstraints().addAll(getConstraints(constraintModel, date, dateContext, sortedDateList));
+//		}
+//
+//		if (contextValidityModel != null) {
+//			input.getConstraints().addAll(getContextValidityFormulas(contextValidityModel, date, dateContext, sortedDateList));
+//		}
+//
+//		if (preferenceModel != null) {
+//			input.setPreferences(getPreferences(preferenceModel, date, dateContext, sortedDateList));
+//		}
 
 
 		// File output. Not necessary for HyVar in the end. Only for Isola Paper
@@ -586,9 +586,10 @@ public class HyVarRecExporter {
 
 			featureModelConstraints.add(rootFeatureConstraint.toString());
 
-			featureModelConstraints.addAll(getFeatureConstraints(rootFeature.getFeature(), true, date));
+//			featureModelConstraints.addAll(getFeatureConstraints(rootFeature.getFeature(), true, date));
 
-			featureModelConstraints.addAll(getFeatureModelVersionConstraints(featureModel, date));
+			// TODO
+			featureModelConstraints.addAll(getFeatureModelVersionConstraints(featurasdeModel, date));
 		}
 		else {
 			for(HyRootFeature rootFeature: featureModel.getRootFeature()) {
@@ -603,17 +604,21 @@ public class HyVarRecExporter {
 			}
 		}
 		
+		for(HyGroup group: featureModel.getGroups()) {
+			getGroupConstraints(group, date, dateContext, sortedDateList);
+		}
+		
 
 		return featureModelConstraints;
 	}
 	
-	private String timedConstraint(HyTemporalElement evolvedElement, Context dateContext, List<Date> sortedDateList) {
+	private String timedConstraint(Date validSince, Date validUntil, Context dateContext, List<Date> sortedDateList) {
 		StringBuilder timedConstraint = new StringBuilder();
 		
 		boolean validSinceNull = true;
 		boolean validUntilNull = true;
 		
-		if(evolvedElement.getValidSince() != null) {
+		if(validSince != null) {
 			validSinceNull = false;
 			
 			timedConstraint.append(BRACKETS_OPEN);
@@ -622,13 +627,13 @@ public class HyVarRecExporter {
 			timedConstraint.append(ReconfiguratorIdMapping.ARRAY_BRACKETS_CLOSING);
 			
 			
-			int dateContextValue = getPositionOfEqualDateInList(sortedDateList, evolvedElement.getValidSince());
+			int dateContextValue = getPositionOfEqualDateInList(sortedDateList, validSince);
 			
 			timedConstraint.append(GEQ);
 			timedConstraint.append(dateContextValue);
 		}
 		
-		if(evolvedElement.getValidUntil() != null) {
+		if(validUntil != null) {
 			validUntilNull = false;
 			
 			if(!validSinceNull ) {
@@ -641,7 +646,7 @@ public class HyVarRecExporter {
 			timedConstraint.append(dateContext.getId());
 			timedConstraint.append(ReconfiguratorIdMapping.ARRAY_BRACKETS_CLOSING);
 			
-			int dateContextValue = getPositionOfEqualDateInList(sortedDateList, evolvedElement.getValidUntil());
+			int dateContextValue = getPositionOfEqualDateInList(sortedDateList, validUntil);
 			
 			timedConstraint.append(LESS);
 			timedConstraint.append(dateContextValue);
@@ -655,6 +660,10 @@ public class HyVarRecExporter {
 		
 		
 		return timedConstraint.toString();
+	}
+	
+	private String timedConstraint(HyTemporalElement evolvedElement, Context dateContext, List<Date> sortedDateList) {		
+		return timedConstraint(evolvedElement.getValidSince(), evolvedElement.getValidUntil(), dateContext, sortedDateList);
 	}
 
 	private List<String> getFeatureModelVersionConstraints(HyFeatureModel featureModel, Date date) {
@@ -689,156 +698,297 @@ public class HyVarRecExporter {
 		return versionConstraints;
 	}
 
-	private List<String> getFeatureConstraints(HyFeature feature, boolean isRoot, Date date) throws HyFeatureModelWellFormednessException {
-		List<String> featureModelConstraints = new ArrayList<String>();
+	// TODO obsolete?
+//	private List<String> getFeatureConstraints(HyFeature feature, boolean isRoot, Date date) throws HyFeatureModelWellFormednessException {
+//		List<String> featureModelConstraints = new ArrayList<String>();
+//
+//		List<HyFeatureChild> featureChildren = HyEvolutionUtil.getValidTemporalElements(feature.getParentOf(), date);
+//		for (HyFeatureChild featureChild : featureChildren) {
+//			featureModelConstraints.addAll(getGroupConstraints(featureChild.getChildGroup(),
+//					featureReconfiguratorIdMapping.get(feature), isRoot, date));
+//		}
+//
+//		return featureModelConstraints;
+//	}
 
-		List<HyFeatureChild> featureChildren = HyEvolutionUtil.getValidTemporalElements(feature.getParentOf(), date);
-		for (HyFeatureChild featureChild : featureChildren) {
-			featureModelConstraints.addAll(getGroupConstraints(featureChild.getChildGroup(),
-					featureReconfiguratorIdMapping.get(feature), isRoot, date));
-		}
-
-		return featureModelConstraints;
-	}
-
-	private List<String> getGroupConstraints(HyGroup group, String parentFeatureId, boolean parentIsRoot, Date date) throws HyFeatureModelWellFormednessException {
+	private List<String> getGroupConstraints(HyGroup group, Date date, Context dateContext, List<Date> sortedDateList) throws HyFeatureModelWellFormednessException {
 		List<String> featureModelConstraints = new ArrayList<String>();
 
 		StringBuilder groupConstraintsStringBuilder = new StringBuilder();
 
-		HyGroupComposition groupComposition = HyEvolutionUtil.getValidTemporalElement(group.getParentOf(), date);
-		List<HyFeature> validFeaturesOfGroupComposition = HyEvolutionUtil
-				.getValidTemporalElements(groupComposition.getFeatures(), date);
-
-		if (!parentIsRoot) {
-			// Require parent for each child
-			// groupConstraintsStringBuilder.append(TABULATOR);
-			groupConstraintsStringBuilder.append(BRACKETS_OPEN);
-
-			boolean first = true;
-			for (HyFeature feature : validFeaturesOfGroupComposition) {
-				if (!first) {
-					groupConstraintsStringBuilder.append(OR);
-				} else {
-					first = false;
-				}
-
-				groupConstraintsStringBuilder.append(featureReconfiguratorIdMapping.get(feature));
-				groupConstraintsStringBuilder.append(EQUALS);
-				groupConstraintsStringBuilder.append(1);
-			}
-			groupConstraintsStringBuilder.append(BRACKETS_CLOSING);
-
-			groupConstraintsStringBuilder.append(IMPLICATION);
-			groupConstraintsStringBuilder.append(parentFeatureId);
-			groupConstraintsStringBuilder.append(EQUALS);
-			groupConstraintsStringBuilder.append(1);
-
-			featureModelConstraints.add(groupConstraintsStringBuilder.toString());
-			groupConstraintsStringBuilder = new StringBuilder();
+		// Need to collect all dates in which the constraints are different
+		
+		Set<Date> relevantDatesSet = null;
+		boolean considerOnlyOneDate = false;
+		
+		if(date != null) {
+			relevantDatesSet = new HashSet<Date>(1);
+			relevantDatesSet.add(date);
+			considerOnlyOneDate = true;
+		}
+		else {
+			relevantDatesSet = new HashSet<Date>();
+			relevantDatesSet.addAll(HyEvolutionUtil.collectDates(group.getChildOf()));
+			relevantDatesSet.addAll(HyEvolutionUtil.collectDates(group.getParentOf()));
+			
 		}
 		
+		// if there was no date, every date is null. so we add a dummy date for the loop.
+		if(relevantDatesSet.size() == 0) {
+			relevantDatesSet.add(new Date());
+		}
 		
+		if(relevantDatesSet.size() <= 1) {
+			considerOnlyOneDate = true;
+		}
+		
+		// For each date at which something changes, create seperate constraints.
+		List<Date> relevantDates = new ArrayList<Date>(relevantDatesSet);
+		Collections.sort(relevantDates);
+		
+		// i = -1 before the first date, as the first date could be from a validUntil while the validSince==null
+		for (int i = -1; i < relevantDates.size(); i++) {
+			groupConstraintsStringBuilder = new StringBuilder();
+			
+			Date relevantDate;
+			
+			if(i == -1) {
+				relevantDate = new Date(Long.MIN_VALUE);				
+			}
+			else {
+				relevantDate = relevantDates.get(i);
+			}
+			
+			HyFeatureChild featureChild = HyEvolutionUtil.getValidTemporalElement(group.getChildOf(), relevantDate);
+			HyGroupComposition groupComposition = HyEvolutionUtil.getValidTemporalElement(group.getParentOf(), relevantDate);
+			
+			// May happen if the first date is a from a validSince and we use minimum date.
+			if(featureChild == null || groupComposition == null) {
+				continue;
+			}
+			
+			String parentFeatureId = featureReconfiguratorIdMapping.get(featureChild.getParent());
+			
+			String timedConstraint = null;
+			
+			if(!considerOnlyOneDate) {
+				Date validSince;
+				if(i!=-1) {
+					validSince = null;
+				}
+				else {
+					validSince = relevantDate;
+				}
+				
+				Date validUntil;
+				if(i<relevantDates.size()-1) {
+					validUntil = relevantDates.get(i+1);
+				}
+				else {
+					validUntil = null;
+				}
+				
+				timedConstraint = timedConstraint(validSince, validUntil, dateContext, sortedDateList);
+				groupConstraintsStringBuilder.append(timedConstraint);
+				
+			}
+			
 
-		// Check Type of group and set according constraints
-
-		HyGroupType groupType = HyEvolutionUtil.getValidTemporalElement(group.getTypes(), date);
-
-		// check if more than one element in group
-		if (validFeaturesOfGroupComposition.size() > 1) {
-			switch(groupType.getType()) {
-			case ALTERNATIVE:
-				groupConstraintsStringBuilder.append(parentFeatureId);
-				groupConstraintsStringBuilder.append(EQUALS);
-				groupConstraintsStringBuilder.append(1);
-				groupConstraintsStringBuilder.append(IMPLICATION);
+			List<HyFeature> validFeaturesOfGroupComposition = HyEvolutionUtil
+					.getValidTemporalElements(groupComposition.getFeatures(), relevantDate);
+			
+			boolean parentIsRoot = HyFeatureUtil.isRootFeature(featureChild.getParent(), relevantDate);
+			
+			if (!parentIsRoot) {
+				
+				// Require parent for each child
+				// groupConstraintsStringBuilder.append(TABULATOR);
 				groupConstraintsStringBuilder.append(BRACKETS_OPEN);
 
-				// The sum of all children
 				boolean first = true;
-				for (HyFeature childFeature : validFeaturesOfGroupComposition) {
+				for (HyFeature feature : validFeaturesOfGroupComposition) {
 					if (!first) {
-						groupConstraintsStringBuilder.append(ADDITION);
-					} else {
-						first = false;
-					}
-
-					groupConstraintsStringBuilder.append(featureReconfiguratorIdMapping.get(childFeature));
-				}
-
-				// is equal to 1
-				groupConstraintsStringBuilder.append(EQUALS);
-				groupConstraintsStringBuilder.append(1);
-				groupConstraintsStringBuilder.append(BRACKETS_CLOSING);
-				
-				break;
-			case AND:
-				
-				// Check if only optional features are in groups -> no constraint necessary
-				if(HyFeatureUtil.getNumberOfMandatoryFeatures(validFeaturesOfGroupComposition, date) == 0) {
-					break;
-				}
-				
-				groupConstraintsStringBuilder.append(parentFeatureId);
-				groupConstraintsStringBuilder.append(EQUALS);
-				groupConstraintsStringBuilder.append(1);
-				groupConstraintsStringBuilder.append(IMPLICATION);
-				groupConstraintsStringBuilder.append(BRACKETS_OPEN);
-
-				boolean firstChildAnd = true;
-
-				for (HyFeature feature : validFeaturesOfGroupComposition) {
-					// Constraints for mandatory features
-					if (HyFeatureUtil.isMandatory(feature, date)) {
-						if (!firstChildAnd) {
-							groupConstraintsStringBuilder.append(AND);
-						} else {
-							firstChildAnd = false;
-						}
-
-						groupConstraintsStringBuilder.append(featureReconfiguratorIdMapping.get(feature));
-						groupConstraintsStringBuilder.append(EQUALS);
-						groupConstraintsStringBuilder.append(1);
-					}
-				}
-				
-				groupConstraintsStringBuilder.append(BRACKETS_CLOSING);
-				break;
-			case OR:
-				
-				groupConstraintsStringBuilder.append(parentFeatureId);
-				groupConstraintsStringBuilder.append(EQUALS);
-				groupConstraintsStringBuilder.append(1);
-				groupConstraintsStringBuilder.append(IMPLICATION);
-				groupConstraintsStringBuilder.append(BRACKETS_OPEN);
-
-				boolean firstChildOr = true;
-
-				for (HyFeature feature : validFeaturesOfGroupComposition) {
-					if (!firstChildOr) {
 						groupConstraintsStringBuilder.append(OR);
 					} else {
-						firstChildOr = false;
+						first = false;
 					}
 
 					groupConstraintsStringBuilder.append(featureReconfiguratorIdMapping.get(feature));
 					groupConstraintsStringBuilder.append(EQUALS);
 					groupConstraintsStringBuilder.append(1);
 				}
-
 				groupConstraintsStringBuilder.append(BRACKETS_CLOSING);
-				break;
-			
-			}
-			
-			if (!groupConstraintsStringBuilder.toString().equals("")) {
+
+				groupConstraintsStringBuilder.append(IMPLICATION);
+				groupConstraintsStringBuilder.append(parentFeatureId);
+				groupConstraintsStringBuilder.append(EQUALS);
+				groupConstraintsStringBuilder.append(1);
+
 				featureModelConstraints.add(groupConstraintsStringBuilder.toString());
 				groupConstraintsStringBuilder = new StringBuilder();
 			}
-		} 
-		else {
-			for (HyFeature feature : validFeaturesOfGroupComposition) {
-				if (HyFeatureUtil.isMandatory(feature, date)) {
+		}
+		
+		
+		// --------- add constraints for AND, OR, ALTERNATIVE groups
+		
+		// For group type constraints, group type dates and feature type dates are relevant as well.
+		relevantDatesSet.addAll(HyEvolutionUtil.collectDates(group.getTypes()));
+		for(HyFeature feature: group.getFeatureModel().getFeatures()) {
+			relevantDatesSet.addAll(HyEvolutionUtil.collectDates(feature.getTypes()));
+		}
+		
+		relevantDates = new ArrayList<Date>(relevantDatesSet);
+		Collections.sort(relevantDates);
+		
+		// i = -1 before the first date, as the first date could be from a
+		// validUntil while the validSince==null
+		for (int i = -1; i < relevantDates.size(); i++) {
+			groupConstraintsStringBuilder = new StringBuilder();
+
+			Date relevantDate;
+
+			if (i == -1) {
+				relevantDate = new Date(Long.MIN_VALUE);
+			} else {
+				relevantDate = relevantDates.get(i);
+			}
+			
+			
+			HyFeatureChild featureChild = HyEvolutionUtil.getValidTemporalElement(group.getChildOf(), relevantDate);
+			HyGroupComposition groupComposition = HyEvolutionUtil.getValidTemporalElement(group.getParentOf(), relevantDate);
+			HyGroupType groupType = HyEvolutionUtil.getValidTemporalElement(group.getTypes(), relevantDate);
+			
+			// May happen if the first date is a from a validSince and we use minimum date.
+			if(featureChild == null || groupComposition == null || groupType == null) {
+				continue;
+			}
+			
+			String parentFeatureId = featureReconfiguratorIdMapping.get(featureChild.getParent());
+			
+			String timedConstraint = "";
+			
+			if(!considerOnlyOneDate) {
+				Date validSince;
+				if(i!=-1) {
+					validSince = null;
+				}
+				else {
+					validSince = relevantDate;
+				}
+				
+				Date validUntil;
+				if(i<relevantDates.size()-1) {
+					validUntil = relevantDates.get(i+1);
+				}
+				else {
+					validUntil = null;
+				}
+				
+				timedConstraint = timedConstraint(validSince, validUntil, dateContext, sortedDateList);
+			}
+			
+
+			List<HyFeature> validFeaturesOfGroupComposition = HyEvolutionUtil
+					.getValidTemporalElements(groupComposition.getFeatures(), relevantDate);
+			
+
+			// check if more than one element in group
+			if (validFeaturesOfGroupComposition.size() > 1) {
+				switch(groupType.getType()) {
+				case ALTERNATIVE:
+					groupConstraintsStringBuilder.append(parentFeatureId);
+					groupConstraintsStringBuilder.append(EQUALS);
+					groupConstraintsStringBuilder.append(1);
+					groupConstraintsStringBuilder.append(IMPLICATION);
+					groupConstraintsStringBuilder.append(BRACKETS_OPEN);
+
+					// The sum of all children
+					boolean first = true;
+					for (HyFeature childFeature : validFeaturesOfGroupComposition) {
+						if (!first) {
+							groupConstraintsStringBuilder.append(ADDITION);
+						} else {
+							first = false;
+						}
+
+						groupConstraintsStringBuilder.append(featureReconfiguratorIdMapping.get(childFeature));
+					}
+
+					// is equal to 1
+					groupConstraintsStringBuilder.append(EQUALS);
+					groupConstraintsStringBuilder.append(1);
+					groupConstraintsStringBuilder.append(BRACKETS_CLOSING);
+					
+					break;
+				case AND:
+					
+					// Check if only optional features are in groups -> no constraint necessary
+					if(HyFeatureUtil.getNumberOfMandatoryFeatures(validFeaturesOfGroupComposition, relevantDate) == 0) {
+						break;
+					}
+					
+					groupConstraintsStringBuilder.append(parentFeatureId);
+					groupConstraintsStringBuilder.append(EQUALS);
+					groupConstraintsStringBuilder.append(1);
+					groupConstraintsStringBuilder.append(IMPLICATION);
+					groupConstraintsStringBuilder.append(BRACKETS_OPEN);
+
+					boolean firstChildAnd = true;
+
+					for (HyFeature feature : validFeaturesOfGroupComposition) {
+						// Constraints for mandatory features
+						if (HyFeatureUtil.isMandatory(feature, relevantDate)) {
+							if (!firstChildAnd) {
+								groupConstraintsStringBuilder.append(AND);
+							} else {
+								firstChildAnd = false;
+							}
+
+							groupConstraintsStringBuilder.append(featureReconfiguratorIdMapping.get(feature));
+							groupConstraintsStringBuilder.append(EQUALS);
+							groupConstraintsStringBuilder.append(1);
+						}
+					}
+					
+					groupConstraintsStringBuilder.append(BRACKETS_CLOSING);
+					break;
+				case OR:
+					
+					groupConstraintsStringBuilder.append(parentFeatureId);
+					groupConstraintsStringBuilder.append(EQUALS);
+					groupConstraintsStringBuilder.append(1);
+					groupConstraintsStringBuilder.append(IMPLICATION);
+					groupConstraintsStringBuilder.append(BRACKETS_OPEN);
+
+					boolean firstChildOr = true;
+
+					for (HyFeature feature : validFeaturesOfGroupComposition) {
+						if (!firstChildOr) {
+							groupConstraintsStringBuilder.append(OR);
+						} else {
+							firstChildOr = false;
+						}
+
+						groupConstraintsStringBuilder.append(featureReconfiguratorIdMapping.get(feature));
+						groupConstraintsStringBuilder.append(EQUALS);
+						groupConstraintsStringBuilder.append(1);
+					}
+
+					groupConstraintsStringBuilder.append(BRACKETS_CLOSING);
+					break;
+				
+				}
+				
+				if (!groupConstraintsStringBuilder.toString().equals("")) {
+					featureModelConstraints.add(timedConstraint + groupConstraintsStringBuilder.toString());
+				}
+			}
+			
+			// if only one feature is available in the group composition:
+			else if(!validFeaturesOfGroupComposition.isEmpty()){
+				HyFeature feature = validFeaturesOfGroupComposition.get(0);
+				if (HyFeatureUtil.isMandatory(feature, relevantDate)) {
 					// groupConstraintsStringBuilder.append(TABULATOR);
 					// Mandatory Constraint (Parent => Child)
 					groupConstraintsStringBuilder.append(parentFeatureId);
@@ -849,42 +999,53 @@ public class HyVarRecExporter {
 					groupConstraintsStringBuilder.append(EQUALS);
 					groupConstraintsStringBuilder.append(1);
 
-					featureModelConstraints.add(groupConstraintsStringBuilder.toString());
-					groupConstraintsStringBuilder = new StringBuilder();
-				}
-			}
-		}
-		
-		if(parentIsRoot && groupType.getType().equals(HyGroupTypeEnum.AND) && validFeaturesOfGroupComposition.size() > 0) {
-			for (HyFeature feature : validFeaturesOfGroupComposition) {
-				boolean setRootOptionalConstraint = false;
-				if(HyEvolutionUtil.getValidTemporalElements(feature.getParentOf(), date).isEmpty()) {
-					setRootOptionalConstraint = true;
-				}
-				else {
-					for(HyFeatureChild featureChild: HyEvolutionUtil.getValidTemporalElements(feature.getParentOf(), date)) {
-						if(HyFeatureEvolutionUtil.getFeaturesOfGroup(featureChild.getChildGroup(), date).isEmpty()) {
-							setRootOptionalConstraint = true;							
-						}
-					}
+					featureModelConstraints.add(timedConstraint + groupConstraintsStringBuilder.toString());
 				}
 				
-				if(setRootOptionalConstraint) {
-					StringBuilder optionalWithoutChildStringBuilder = new StringBuilder();
-					optionalWithoutChildStringBuilder.append(featureReconfiguratorIdMapping.get(feature));
-					optionalWithoutChildStringBuilder.append(EQUALS);
-					optionalWithoutChildStringBuilder.append(1);
-					optionalWithoutChildStringBuilder.append(IMPLICATION);
-					optionalWithoutChildStringBuilder.append(parentFeatureId);
-					optionalWithoutChildStringBuilder.append(EQUALS);
-					optionalWithoutChildStringBuilder.append(1);
-					featureModelConstraints.add(optionalWithoutChildStringBuilder.toString());							
+			}
+			
+			boolean parentIsRoot = HyFeatureUtil.isRootFeature(featureChild.getParent(), relevantDate);
+			
+			// Each feature has to appear in a constraint to be detected by
+			// HyVarRec. Normally, it is not necessary to create this constraint:
+			// feature -> rootFeature. But if feature has no children, it would not
+			// appear in any constraint. Only necessary if validSince and validUntil
+			// are null or only one date is relevant
+			if(parentIsRoot && groupType.getType().equals(HyGroupTypeEnum.AND)) {
+				for (HyFeature feature : validFeaturesOfGroupComposition) {
+					boolean setRootOptionalConstraint = false;
+					
+					if(!considerOnlyOneDate) {
+						if(feature.getValidSince() == null && feature.getValidUntil() == null && feature.getParentOf().isEmpty()) {
+							setRootOptionalConstraint = true;
+						}
+					}
+					else {
+						if(HyEvolutionUtil.getValidTemporalElements(feature.getParentOf(), relevantDate).isEmpty()) {
+							setRootOptionalConstraint = true;
+						}	
+						else {
+							for(HyFeatureChild featureChildOfFeature: HyEvolutionUtil.getValidTemporalElements(feature.getParentOf(), relevantDate)) {
+								if(HyFeatureEvolutionUtil.getFeaturesOfGroup(featureChildOfFeature.getChildGroup(), relevantDate).isEmpty()) {
+									setRootOptionalConstraint = true;							
+								}
+							}
+						}					
+					}
+					
+					if(setRootOptionalConstraint) {
+						StringBuilder optionalWithoutChildStringBuilder = new StringBuilder();
+						optionalWithoutChildStringBuilder.append(featureReconfiguratorIdMapping.get(feature));
+						optionalWithoutChildStringBuilder.append(EQUALS);
+						optionalWithoutChildStringBuilder.append(1);
+						optionalWithoutChildStringBuilder.append(IMPLICATION);
+						optionalWithoutChildStringBuilder.append(parentFeatureId);
+						optionalWithoutChildStringBuilder.append(EQUALS);
+						optionalWithoutChildStringBuilder.append(1);
+						featureModelConstraints.add(timedConstraint + optionalWithoutChildStringBuilder.toString());							
+					}
 				}
 			}
-		}
-
-		for (HyFeature feature : validFeaturesOfGroupComposition) {
-			featureModelConstraints.addAll(getFeatureConstraints(feature, false, date));
 		}
 
 		return featureModelConstraints;

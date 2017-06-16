@@ -382,6 +382,37 @@ public class HyEvolutionUtil {
 
 		return dates;
 	}
+	
+	/**
+	 * Collects dates of valid until and valid since of the given elements
+	 * @param elements
+	 * @return sorted list of unique dates (created using a set)
+	 */
+	public static List<Date> collectDates(List<? extends HyTemporalElement> elements) {
+		// NOTE: Check if equals and identity work for hash set.
+		Set<Date> rawDates = new HashSet<Date>();
+
+		for (HyTemporalElement temporalElement : elements) {
+			Date validSince = temporalElement.getValidSince();
+
+			if (validSince != null) {
+				rawDates.add(validSince);
+				// } else {
+				// validSinceNull = true;
+			}
+
+			Date validUntil = temporalElement.getValidUntil();
+
+			if (validUntil != null) {
+				rawDates.add(validUntil);
+			}
+		}
+		List<Date> dates = new ArrayList<Date>(rawDates);
+
+		Collections.sort(dates);
+
+		return dates;
+	}
 
 	public static boolean modelHasValiditySinceNull(EObject model) {
 		Iterator<EObject> iterator = model.eAllContents();
