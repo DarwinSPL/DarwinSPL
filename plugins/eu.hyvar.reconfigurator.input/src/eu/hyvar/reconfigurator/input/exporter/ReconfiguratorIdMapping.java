@@ -12,11 +12,11 @@ import eu.hyvar.feature.HyVersion;
 
 public class ReconfiguratorIdMapping {
 	
-	private static final String FEATURE_ATOM = "feature[";
-	private static final String VERSION_ATOM = "feature[";
-	private static final String ATTRIBUTE_ATOM = "attribute[";
-	private static final String CONTEXT_ATOM = "context[";
-	private static final String ARRAY_BRACKETS_CLOSING = "]";
+	public static final String FEATURE_ATOM = "feature[";
+	public static final String VERSION_ATOM = "feature[";
+	public static final String ATTRIBUTE_ATOM = "attribute[";
+	public static final String CONTEXT_ATOM = "context[";
+	public static final String ARRAY_BRACKETS_CLOSING = "]";
 	
 	
 	private Map<HyFeature, String> featureIdMapping;

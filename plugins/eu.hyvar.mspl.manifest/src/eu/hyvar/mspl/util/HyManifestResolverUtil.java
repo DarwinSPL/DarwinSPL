@@ -28,6 +28,8 @@ public class HyManifestResolverUtil {
 	
 	public static final String[] FILE_EXTENSIONS = { "hymanifest" };
 	
+	public static final String FILE_EXTENSION_FOR_XMI = "hymanifest";
+	
 
 	public static HyManifest getAccompanyingManifestModel(EObject elementInOriginalResource) {
 		return DEIOUtil.doLoadAccompanyingModel(elementInOriginalResource, FILE_EXTENSIONS);

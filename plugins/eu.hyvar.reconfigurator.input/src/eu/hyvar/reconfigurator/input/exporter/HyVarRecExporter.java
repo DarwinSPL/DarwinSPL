@@ -1,9 +1,14 @@
 package eu.hyvar.reconfigurator.input.exporter;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
+import java.util.UUID;
 
 import org.eclipse.emf.ecore.util.EcoreUtil;
 
@@ -27,6 +32,7 @@ import eu.hyvar.dataValues.HyEnumLiteral;
 import eu.hyvar.dataValues.HyEnumValue;
 import eu.hyvar.dataValues.HyNumberValue;
 import eu.hyvar.dataValues.HyValue;
+import eu.hyvar.evolution.HyTemporalElement;
 import eu.hyvar.evolution.util.HyEvolutionUtil;
 import eu.hyvar.feature.HyBooleanAttribute;
 import eu.hyvar.feature.HyEnumAttribute;
@@ -65,6 +71,7 @@ import eu.hyvar.reconfigurator.input.format.AttributeValue;
 import eu.hyvar.reconfigurator.input.format.Configuration;
 import eu.hyvar.reconfigurator.input.format.Context;
 import eu.hyvar.reconfigurator.input.format.InputForHyVarRec;
+import javafx.collections.transformation.SortedList;
 
 public class HyVarRecExporter {
 
@@ -192,8 +199,37 @@ public class HyVarRecExporter {
 			input.setConfiguration(getExportedConfiguration(oldConfiguration, contextValues));			
 		}
 
+		input.setConstraints(new ArrayList<String>());
+		
+		// Encode evolution as context: 0 is before the first date, sortedDateList.size() is after the last date. 0 is min and max if there is no date.
+		Context dateContext = null;
+		List<Date> sortedDateList = null;
+		if(date == null) {
+			Set<Date> dateSet = null;
+			dateSet = new HashSet<Date>();
+			dateSet.addAll(HyEvolutionUtil.collectDates(featureModel));
+			dateSet.addAll(HyEvolutionUtil.collectDates(contextModel));
+			dateSet.addAll(HyEvolutionUtil.collectDates(preferenceModel));
+			dateSet.addAll(HyEvolutionUtil.collectDates(constraintModel));
+			dateSet.addAll(HyEvolutionUtil.collectDates(contextValidityModel));
+			
+			sortedDateList = new ArrayList<Date>(dateSet.size());
+			sortedDateList.addAll(dateSet);
+			Collections.sort(sortedDateList);
+			
+			dateContext = new Context();
+			dateContext.setId("_"+UUID.randomUUID().toString());
+			dateContext.setMin(0);
+			dateContext.setMax(sortedDateList.size());
+			
+			input.getContexts().add(dateContext);
+		}
+		// -----
+		
+		
+		
 		try {
-			input.setConstraints(getFeatureModelConstraints(featureModel, date));
+			input.getConstraints().addAll(getFeatureModelConstraints(featureModel, date, dateContext, sortedDateList));
 		} catch (HyFeatureModelWellFormednessException e) {
 			System.err.println("Could not create constraints of FM, as FM is not well-formed");
 			e.printStackTrace();
@@ -201,15 +237,15 @@ public class HyVarRecExporter {
 		}
 
 		if (constraintModel != null) {
-			input.getConstraints().addAll(getConstraints(constraintModel, date));
+			input.getConstraints().addAll(getConstraints(constraintModel, date, dateContext, sortedDateList));
 		}
 
 		if (contextValidityModel != null) {
-			input.getConstraints().addAll(getContextValidityFormulas(contextValidityModel, date));
+			input.getConstraints().addAll(getContextValidityFormulas(contextValidityModel, date, dateContext, sortedDateList));
 		}
 
 		if (preferenceModel != null) {
-			input.setPreferences(getPreferences(preferenceModel, date));
+			input.setPreferences(getPreferences(preferenceModel, date, dateContext, sortedDateList));
 		}
 
 
@@ -536,24 +572,89 @@ public class HyVarRecExporter {
 		return domain;
 	}
 
-	private List<String> getFeatureModelConstraints(HyFeatureModel featureModel, Date date) throws HyFeatureModelWellFormednessException {
+	private List<String> getFeatureModelConstraints(HyFeatureModel featureModel, Date date, Context dateContext, List<Date> sortedDateList) throws HyFeatureModelWellFormednessException {
 		List<String> featureModelConstraints = new ArrayList<String>();
 
 		StringBuilder rootFeatureConstraint = new StringBuilder();
 
-		// Root feature has to be selected
-		HyRootFeature rootFeature = HyEvolutionUtil.getValidTemporalElement(featureModel.getRootFeature(), date);
-		rootFeatureConstraint.append(featureReconfiguratorIdMapping.get(rootFeature.getFeature()));
-		rootFeatureConstraint.append(EQUALS);
-		rootFeatureConstraint.append(1);
+		if(date != null || featureModel.getRootFeature().size() == 1) {
+			// Root feature has to be selected
+			HyRootFeature rootFeature = HyEvolutionUtil.getValidTemporalElement(featureModel.getRootFeature(), date);
+			rootFeatureConstraint.append(featureReconfiguratorIdMapping.get(rootFeature.getFeature()));
+			rootFeatureConstraint.append(EQUALS);
+			rootFeatureConstraint.append(1);
 
-		featureModelConstraints.add(rootFeatureConstraint.toString());
+			featureModelConstraints.add(rootFeatureConstraint.toString());
 
-		featureModelConstraints.addAll(getFeatureConstraints(rootFeature.getFeature(), true, date));
+			featureModelConstraints.addAll(getFeatureConstraints(rootFeature.getFeature(), true, date));
 
-		featureModelConstraints.addAll(getFeatureModelVersionConstraints(featureModel, date));
+			featureModelConstraints.addAll(getFeatureModelVersionConstraints(featureModel, date));
+		}
+		else {
+			for(HyRootFeature rootFeature: featureModel.getRootFeature()) {
+				rootFeatureConstraint.append(timedConstraint(rootFeature, dateContext, sortedDateList));
+				
+				rootFeatureConstraint.append(featureReconfiguratorIdMapping.get(rootFeature.getFeature()));
+				rootFeatureConstraint.append(EQUALS);
+				rootFeatureConstraint.append(1);
+				
+				featureModelConstraints.add(rootFeatureConstraint.toString());
+				rootFeatureConstraint = new StringBuilder();
+			}
+		}
+		
 
 		return featureModelConstraints;
+	}
+	
+	private String timedConstraint(HyTemporalElement evolvedElement, Context dateContext, List<Date> sortedDateList) {
+		StringBuilder timedConstraint = new StringBuilder();
+		
+		boolean validSinceNull = true;
+		boolean validUntilNull = true;
+		
+		if(evolvedElement.getValidSince() != null) {
+			validSinceNull = false;
+			
+			timedConstraint.append(BRACKETS_OPEN);
+			timedConstraint.append(ReconfiguratorIdMapping.CONTEXT_ATOM);
+			timedConstraint.append(dateContext.getId());
+			timedConstraint.append(ReconfiguratorIdMapping.ARRAY_BRACKETS_CLOSING);
+			
+			
+			int dateContextValue = getPositionOfEqualDateInList(sortedDateList, evolvedElement.getValidSince());
+			
+			timedConstraint.append(GEQ);
+			timedConstraint.append(dateContextValue);
+		}
+		
+		if(evolvedElement.getValidUntil() != null) {
+			validUntilNull = false;
+			
+			if(!validSinceNull ) {
+				timedConstraint.append(AND);
+			} else {
+				timedConstraint.append(BRACKETS_OPEN);
+			}
+			
+			timedConstraint.append(ReconfiguratorIdMapping.CONTEXT_ATOM);
+			timedConstraint.append(dateContext.getId());
+			timedConstraint.append(ReconfiguratorIdMapping.ARRAY_BRACKETS_CLOSING);
+			
+			int dateContextValue = getPositionOfEqualDateInList(sortedDateList, evolvedElement.getValidUntil());
+			
+			timedConstraint.append(LESS);
+			timedConstraint.append(dateContextValue);
+		}
+		
+		if(!validSinceNull || !validUntilNull) {
+			timedConstraint.append(BRACKETS_CLOSING);			
+			timedConstraint.append(IMPLICATION);
+		}
+
+		
+		
+		return timedConstraint.toString();
 	}
 
 	private List<String> getFeatureModelVersionConstraints(HyFeatureModel featureModel, Date date) {
@@ -869,6 +970,16 @@ public class HyVarRecExporter {
 		// contextMappingString.append(expressionExporter.exportExpressionToString(contextMapping.getValidityFormula()));
 
 		return contextMappingString.toString();
+	}
+	
+	protected int getPositionOfEqualDateInList(List<Date> dateList, Date date) {
+		for(int i = 0; i<dateList.size(); i++) {
+			if(dateList.get(i).equals(date)) {
+				return i;
+			}
+		}
+		
+		return -1;
 	}
 
 }
