@@ -1,9 +1,6 @@
 package de.darwinspl.configurator;
 
 import java.util.Date;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeoutException;
 
@@ -13,27 +10,12 @@ import org.eclipse.jetty.client.api.Request;
 import org.eclipse.jetty.client.util.StringContentProvider;
 import org.eclipse.jetty.http.HttpHeader;
 
-import de.darwinspl.configurator.expression.AtomicFeatureExpression;
 import de.darwinspl.configurator.expression.exporter.CustomHyVarRecExpressionExporter;
-import eu.hyvar.dataValues.HyDataValuesFactory;
-import eu.hyvar.dataValues.HyNumberValue;
-import eu.hyvar.evolution.HyName;
-import eu.hyvar.feature.HyFeature;
-import eu.hyvar.feature.HyFeatureAttribute;
 import eu.hyvar.feature.HyFeatureModel;
-import eu.hyvar.feature.HyNumberAttribute;
 import eu.hyvar.feature.constraint.HyConstraintModel;
-import eu.hyvar.feature.expression.HyAttributeReferenceExpression;
-import eu.hyvar.feature.expression.HyExpressionFactory;
-import eu.hyvar.feature.expression.HyIfPossibleExpression;
-import eu.hyvar.feature.expression.HyMultiplicationExpression;
-import eu.hyvar.feature.expression.HyNestedExpression;
-import eu.hyvar.feature.expression.HySubtractionExpression;
-import eu.hyvar.feature.expression.HyValueExpression;
 import eu.hyvar.preferences.HyPreference;
 import eu.hyvar.preferences.HyPreferenceModel;
 import eu.hyvar.preferences.PreferencesFactory;
-import eu.hyvar.reconfigurator.input.exporter.HyVarRecExporter;
 
 public class Configurator {
 

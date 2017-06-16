@@ -1,16 +1,13 @@
 package de.darwinspl.configurator;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
-import org.eclipse.emf.ecore.util.EcoreUtil;
-
 import de.darwinspl.configurator.expression.AtomicFeatureExpression;
-import de.darwinspl.configurator.expression.AttributeSumExpression;
 import eu.hyvar.dataValues.HyDataValuesFactory;
 import eu.hyvar.dataValues.HyEnumLiteral;
 import eu.hyvar.dataValues.HyNumberValue;
-import eu.hyvar.evolution.HyName;
 import eu.hyvar.feature.HyBooleanAttribute;
 import eu.hyvar.feature.HyEnumAttribute;
 import eu.hyvar.feature.HyFeature;
@@ -30,6 +27,7 @@ import eu.hyvar.feature.expression.HyMultiplicationExpression;
 import eu.hyvar.feature.expression.HyNestedExpression;
 import eu.hyvar.feature.expression.HySubtractionExpression;
 import eu.hyvar.feature.expression.HyValueExpression;
+import eu.hyvar.feature.util.HyFeatureEvolutionUtil;
 import eu.hyvar.preferences.HyPreference;
 import eu.hyvar.preferences.PreferencesFactory;
 
@@ -44,9 +42,14 @@ public class PreferenceBuilder {
 	private HyExpressionFactory expressionFactory;
 	private HyPreference preference;
 
-	public PreferenceBuilder(HyFeatureModel featureModel) {
-		this.featureModel = featureModel;
+	private Date date;
 
+	private List<HyFeature> selectedFeatures;
+
+	public PreferenceBuilder(HyFeatureModel featureModel, List<HyFeature> selectedFeatures, Date date) {
+		this.featureModel = featureModel;
+		this.selectedFeatures = selectedFeatures;
+		this.date = date;
 		this.expressionFactory = HyExpressionFactory.eINSTANCE;
 		this.preference = PreferencesFactory.eINSTANCE.createHyPreference();
 
@@ -89,8 +92,9 @@ public class PreferenceBuilder {
 
 		// preferences to select the most features
 		for (HyFeature feature : featureModel.getFeatures()) {
-			ipExpression.getOperands().add(feature(feature));
-
+			if (selectedFeatures.contains(feature)) {
+				ipExpression.getOperands().add(feature(feature));
+			}
 		}
 		return nestExpression(ipExpression);
 	}
@@ -111,11 +115,10 @@ public class PreferenceBuilder {
 		List<HyFeatureAttribute> attributes = new ArrayList<HyFeatureAttribute>();
 		for (HyFeature feature : featureModel.getFeatures()) {
 			for (HyFeatureAttribute attribute : feature.getAttributes()) {
-				for (HyName name : attribute.getNames()) {
-					if (attributeName.equals(name.getName())) {
-						attributes.add(attribute);
-					}
+				if (attributeName.equals(HyFeatureEvolutionUtil.getName(attribute.getNames(), date).getName())) {
+					attributes.add(attribute);
 				}
+
 			}
 		}
 		return attributes;
@@ -136,7 +139,7 @@ public class PreferenceBuilder {
 		HyIfPossibleExpression ifPossibleExpression = expressionFactory.createHyIfPossibleExpression();
 
 		for (HyFeatureAttribute attribute : getAttributesByName(attributeName)) {
-			if (attribute instanceof HyNumberAttribute) {
+			if (attribute instanceof HyNumberAttribute && selectedFeatures.contains(attribute.getFeature())) {
 				ifPossibleExpression.getOperands().add(
 						createSingleNumberedMaximumAttributeExpression((HyNumberAttribute) attribute, useDefaultValue));
 			}
@@ -162,7 +165,7 @@ public class PreferenceBuilder {
 		List<HyFeatureAttribute> attributes = getAttributesByName(attributeName);
 		HyIfPossibleExpression ipExpression = expressionFactory.createHyIfPossibleExpression();
 		for (HyFeatureAttribute attribute : attributes) {
-			if (attribute instanceof HyBooleanAttribute) {
+			if (attribute instanceof HyBooleanAttribute && selectedFeatures.contains(attribute.getFeature())) {
 				ipExpression.getOperands().add(createSingleBooleanExpression(attribute, value));
 			}
 		}
@@ -174,8 +177,9 @@ public class PreferenceBuilder {
 		HyIfPossibleExpression ipExpression = expressionFactory.createHyIfPossibleExpression();
 		List<HyFeatureAttribute> attributes = getAttributesByName(attributeName);
 		for (HyFeatureAttribute attribute : attributes) {
-			if (attribute instanceof HyEnumAttribute) {
-				ipExpression.getOperands().add(createSingleEnumAttributeExpression((HyEnumAttribute)attribute, enumLiteral));
+			if (attribute instanceof HyEnumAttribute && selectedFeatures.contains(attribute.getFeature())) {
+				ipExpression.getOperands()
+						.add(createSingleEnumAttributeExpression((HyEnumAttribute) attribute, enumLiteral));
 			}
 		}
 
@@ -201,8 +205,7 @@ public class PreferenceBuilder {
 		}
 
 		// attribute * feature
-		return mul(atomicExpression,
-				feature(attribute.getFeature()));
+		return mul(atomicExpression, feature(attribute.getFeature()));
 	}
 
 	public PreferenceBuilder addSingleNumberedAttributeMaximumExpression(HyNumberAttribute attribute,
@@ -221,7 +224,7 @@ public class PreferenceBuilder {
 		addExpression(createSingleEnumAttributeExpression(attribute, literal));
 		return this;
 	}
-	
+
 	private HyExpression createSingleEnumAttributeExpression(HyEnumAttribute attribute, HyEnumLiteral literal) {
 		// (attribute = literal) * feature
 		return mul(eq(attribute(attribute), value(literal.getValue())), feature(attribute.getFeature()));
@@ -231,7 +234,7 @@ public class PreferenceBuilder {
 		addExpression(createSingleBooleanExpression(attribute, value));
 		return this;
 	}
-	
+
 	private HyExpression createSingleBooleanExpression(HyFeatureAttribute attribute, boolean value) {
 		// (attribute = value) * feature
 		return mul(eq(attribute(attribute), value(value ? 1 : 0)), feature(attribute.getFeature()));
@@ -252,10 +255,8 @@ public class PreferenceBuilder {
 		HyExpression c3 = value(value);
 		HyExpression c4 = value(value);
 
-		
 		// 0 - (fa > c) * (fa - c) + (fa < c) * (c - fa))
-		return sub(value(0),add(mul(gt(fa1, c1), sub(fa2,c2)), 
-				mul(lt(fa3, c3), sub(c4, fa4)))); 
+		return sub(value(0), add(mul(gt(fa1, c1), sub(fa2, c2)), mul(lt(fa3, c3), sub(c4, fa4))));
 
 	}
 
@@ -307,18 +308,18 @@ public class PreferenceBuilder {
 		lessExpression.setOperand2(operand2);
 		return lessExpression;
 	}
-	
+
 	private HyEqualExpression eq(HyExpression operand1, HyExpression operand2) {
 		HyEqualExpression equalExpression = expressionFactory.createHyEqualExpression();
 		equalExpression.setOperand1(operand1);
 		equalExpression.setOperand2(operand2);
 		return equalExpression;
 	}
-	
+
 	private HyExpression createFeatureAndAttributeMultiplication(HyFeatureAttribute attribute) {
-		HyExpression attributeExpression =attribute(attribute);
+		HyExpression attributeExpression = attribute(attribute);
 		HyExpression featureExpression = feature(attribute.getFeature());
-		
+
 		return mul(attributeExpression, featureExpression);
 	}
 
@@ -327,17 +328,19 @@ public class PreferenceBuilder {
 		HyAdditionExpression addExp = null;
 		boolean first = true;
 		for (HyFeatureAttribute attribute : attributes) {
+			if (attribute instanceof HyNumberAttribute && selectedFeatures.contains(attribute.getFeature())) {
+				if (lastAttribute != null) {
+					if (first) {
+						first = false;
 
-			if (lastAttribute != null) {
-				if (first) {
-					first = false;
-					
-					addExp = add(createFeatureAndAttributeMultiplication(lastAttribute),createFeatureAndAttributeMultiplication(attribute));
-				} else {
-					addExp = add(addExp, createFeatureAndAttributeMultiplication(attribute));
+						addExp = add(createFeatureAndAttributeMultiplication(lastAttribute),
+								createFeatureAndAttributeMultiplication(attribute));
+					} else {
+						addExp = add(addExp, createFeatureAndAttributeMultiplication(attribute));
+					}
 				}
+				lastAttribute = attribute;
 			}
-			lastAttribute = attribute;
 		}
 
 		return addExp;

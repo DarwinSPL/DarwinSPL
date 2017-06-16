@@ -84,11 +84,11 @@ public class DwConfiguratorDialog extends Dialog {
 		String output = null;
 
 		Configurator configurator = new Configurator(uri, featureModel, constraintModel, date);
-		PreferenceBuilder builder = new PreferenceBuilder(featureModel);
+		PreferenceBuilder builder;
 
 		for (DwAbstractConfiguratorWidget row : comp.getRows()) {
 			if (row.isChecked()) {
-				builder = new PreferenceBuilder(featureModel);
+				builder = new PreferenceBuilder(featureModel, selectedFeatures, date);
 				if (row instanceof DwMultiNumberedAttributeConfiguratorComposite) {
 					DwMultiNumberedAttributeConfiguratorComposite multiNumberComp = (DwMultiNumberedAttributeConfiguratorComposite) row;
 					if (multiNumberComp.getSelectedMode() == ConfiguratorMode.MIN) {
@@ -172,13 +172,11 @@ public class DwConfiguratorDialog extends Dialog {
 				DwFeatureSelectionDialog dialog = new DwFeatureSelectionDialog(getShell(), selectedFeatures, featureModel, date);
 				if(dialog.open() == Dialog.OK) {
 					selectedFeatures = dialog.getSelectedFeatureNames();
-					
 				}
 			}
 			
 			@Override
 			public void widgetDefaultSelected(SelectionEvent e) {
-				// TODO Auto-generated method stub
 				
 			}
 		});
@@ -202,7 +200,6 @@ public class DwConfiguratorDialog extends Dialog {
 
 			@Override
 			public void widgetDefaultSelected(SelectionEvent e) {
-				// TODO Auto-generated method stub
 
 			}
 		});
