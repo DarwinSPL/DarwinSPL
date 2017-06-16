@@ -46,6 +46,8 @@ public class DwConfiguratorDialog extends Dialog {
 	private HyConstraintModel constraintModel;
 	private Date date;
 	private String uri;
+	
+	private List<HyFeature> selectedFeatures;
 
 	private DwConfiguratorRowComposite comp;
 
@@ -60,6 +62,7 @@ public class DwConfiguratorDialog extends Dialog {
 		this.date = date;
 		this.uri = uri;
 
+		selectedFeatures = featureModel.getFeatures();
 		for (HyFeature feature : featureModel.getFeatures()) {
 			attributes.addAll(feature.getAttributes());
 		}
@@ -160,14 +163,15 @@ public class DwConfiguratorDialog extends Dialog {
 
 		comp = new DwConfiguratorRowComposite(attributes, composite, SWT.NONE);
 
-		Button selectFeatures = new Button(composite, SWT.NONE);
-		selectFeatures.setText("Select Features");
-		selectFeatures.addSelectionListener(new SelectionListener() {
+		Button selectFeaturesButton = new Button(composite, SWT.NONE);
+		selectFeaturesButton.setText("Select Features");
+		selectFeaturesButton.addSelectionListener(new SelectionListener() {
 			
 			@Override
 			public void widgetSelected(SelectionEvent e) {
-				DwFeatureSelectionDialog dialog = new DwFeatureSelectionDialog(getShell(), featureModel, date);
+				DwFeatureSelectionDialog dialog = new DwFeatureSelectionDialog(getShell(), selectedFeatures, featureModel, date);
 				if(dialog.open() == Dialog.OK) {
+					selectedFeatures = dialog.getSelectedFeatureNames();
 					
 				}
 			}
@@ -185,7 +189,7 @@ public class DwConfiguratorDialog extends Dialog {
 
 			@Override
 			public void widgetSelected(SelectionEvent e) {
-				DwConfiguratorSelectionDialog dialog = new DwConfiguratorSelectionDialog(getShell(), attributes);
+				DwConfiguratorSelectionDialog dialog = new DwConfiguratorSelectionDialog(getShell(), attributes, date);
 				if (dialog.open() == Dialog.OK) {
 					comp.addNumberedFeatureModelAttributes(dialog.getSelectedNumberedAttributeNames());
 					comp.addEnumFeatureModelAttributes(dialog.getSelectedEnumAttributeNames());
