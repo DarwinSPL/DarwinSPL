@@ -4,6 +4,8 @@ package de.darwinspl.feature.stage.editor.editor;
 import java.util.Date;
 
 import org.eclipse.core.resources.IFile;
+import org.eclipse.jface.window.Window;
+import org.eclipse.jface.wizard.WizardDialog;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.layout.RowLayout;
@@ -15,13 +17,15 @@ import org.eclipse.swt.widgets.Listener;
 import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.IEditorSite;
 import org.eclipse.ui.IFileEditorInput;
+import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.PartInitException;
+import org.eclipse.ui.PlatformUI;
 
 import de.christophseidl.util.ecore.EcoreIOUtil;
 import de.darwinspl.feature.stage.StageModel;
 import de.darwinspl.feature.stage.StagePackage;
-import de.darwinspl.feature.stage.base.model.StageModelWrapped;
 import de.darwinspl.feature.stage.editor.dialogs.StageDialog;
+import de.darwinspl.feature.stage.editor.wizard.StageModelWizard;
 import eu.hyvar.feature.HyFeatureModel;
 import eu.hyvar.feature.HyFeaturePackage;
 import eu.hyvar.feature.graphical.base.dialogs.DateDialog;
@@ -39,6 +43,8 @@ public class SmStageModelEditor extends HyGraphicalFeatureModelEditor {
 	protected Button stageManagementButton;
 	protected Composite comboGroup;
 	
+	protected boolean isInitialized = false;
+	
 	// Functions that have to be overwritten to allow Stage model loading	
 	
 	/**
@@ -46,7 +52,7 @@ public class SmStageModelEditor extends HyGraphicalFeatureModelEditor {
 	 * @param file
 	 */
 	protected void loadModelFromFile(IFile file){		
-		modelWrapped = new StageModelWrapped((StageModel)EcoreIOUtil.loadModel(file));
+		modelWrapped = new HyFeatureModelWrapped((HyFeatureModel)EcoreIOUtil.loadModel(file));
 		
 		setCurrentSelectedDateToMostActualDate();
 		
@@ -125,9 +131,22 @@ public class SmStageModelEditor extends HyGraphicalFeatureModelEditor {
 		// Left button to select an individual date
 		stageManagementButton.addListener(SWT.Selection, new Listener(){
 			public void handleEvent(Event event){
-				StageDialog dialog = new StageDialog(getEditorSite().getShell());
-				dialog.open();
-				if(dialog.getReturnCode()==0){					
+				if(isInitialized == false){
+					// Show initialization wizard the first time the button is pressed
+					IWorkbench workbench =  PlatformUI.getWorkbench();
+					WizardDialog dialog = new WizardDialog(getEditorSite().getShell(), new StageModelWizard(modelWrapped,workbench));
+					
+					if(dialog.open() == Window.OK){
+						isInitialized =true;
+					} else {
+						System.out.print("canceled creation");
+						return;
+					}
+					
+				}
+				StageDialog stageDialog = new StageDialog(getEditorSite().getShell());
+				stageDialog.open();
+				if(stageDialog.getReturnCode()==0){					
 				
 				}
 			}

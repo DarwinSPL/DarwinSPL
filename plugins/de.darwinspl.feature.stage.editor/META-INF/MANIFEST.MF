@@ -18,8 +18,9 @@ Require-Bundle: org.eclipse.ui,
  eu.hyvar.feature.constraint,
  eu.hyvar.context.validity_formulas,
  eu.hyvar.feature.constraint.resource.hyconstraints,
- eu.hyvar.feature.graphical.editor
+ eu.hyvar.feature.graphical.editor,
+ org.eclipse.ui.workbench
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Bundle-ActivationPolicy: lazy
 Bundle-Vendor: www.darwinspl.de
-Import-Package: de.darwinspl.feature.stage.base.model
+
