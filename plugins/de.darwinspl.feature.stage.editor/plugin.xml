@@ -6,7 +6,7 @@
       <editor
             class="de.darwinspl.feature.stage.editor.editor.SmStageModelEditor"
             default="false"
-            extensions="hyfeature"
+            extensions="hyfeature,staged"
             id="de.darwinspl.feature.stage.editor.editor.stage.editor"
             name="DarwinSPL Staged Feature Model Editor">
       </editor>

@@ -9,7 +9,9 @@ import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.StructuredSelection;
@@ -63,21 +65,7 @@ public class StageModelWizard extends Wizard {
 		super();
 		this.workbench = workbench;
 		this.featureModel = featureModel;
-	}
-	
-	
-	
-	/**
-	 * Changed Init method
-	 */
-//	public void init(IWorkbench workbench, IStructuredSelection selection) {
-//		this.workbench = workbench;
-//		this.selection = selection;
-//		System.out.println("init successfull");
-//		setWindowTitle("New Staged Feature Model");
-//		newStageModelCreationPage = new StageModelWizardCreationPage("NewStageModelCreationPage");
-//	}
-//	
+	}	
 
 	
 	/**
@@ -87,14 +75,7 @@ public class StageModelWizard extends Wizard {
 		StageModel stageModel = StageFactory.eINSTANCE.createStageModel();
 		
 		
-		// TODO Alex: Change stuff 
-		//#################### Tryout Section ########################
-		
-		IWorkbenchWindow workbenchWindow = workbench.getActiveWorkbenchWindow();
-		IWorkbenchPage page = workbenchWindow.getActivePage();
-	    IEditorPart editor = page.getActiveEditor();
-	   
-		
+		// TODO Alex: Add default Stage and Role
 		//featureModel = editor ;
 		//HyFeatureModel featureModel = HyFeatureFactory.eINSTANCE.createHyFeatureModel();
 		
@@ -117,40 +98,21 @@ public class StageModelWizard extends Wizard {
 		
 		return stageModel;
 	}	
-//	protected EObject createInitialModel() {
-//		HyFeatureModel featureModel = HyFeatureFactory.eINSTANCE.createHyFeatureModel();
-//		
-//		HyFeature rootFeatureFeature = HyFeatureFactory.eINSTANCE.createHyFeature();
-//		HyName featureName = HyEvolutionFactory.eINSTANCE.createHyName();
-//		featureName.setName("RootFeature");
-//		rootFeatureFeature.getNames().add(featureName);
-//		HyFeatureType featureType = HyFeatureFactory.eINSTANCE.createHyFeatureType();
-//		featureType.setType(HyFeatureTypeEnum.MANDATORY);
-//		rootFeatureFeature.getTypes().add(featureType);
-//		
-//		HyRootFeature rootFeature = HyFeatureFactory.eINSTANCE.createHyRootFeature();
-//		rootFeature.setFeature(rootFeatureFeature);
-//		
-//		featureModel.getFeatures().add(rootFeatureFeature);
-//		featureModel.getRootFeature().add(rootFeature);
-//		
-//		return featureModel;
-//	}	
 
-	// TODO: Alex replacement for perform finish method
-	//currently I try to get the currently active model file from the editor and use that file for initialization
+
+	/**
+	 * Finish Function that creates the Wrapped Stage Model and saves it
+	 */
 	@Override
 	public boolean performFinish() {
 			try {
-			IWorkbenchWindow workbenchWindow = workbench.getActiveWorkbenchWindow();
-			IWorkbenchPage page = workbenchWindow.getActivePage();
-		    IEditorPart editor = page.getActiveEditor();
-			IEditorInput input = editor.getEditorInput();
-			IPath path = ((FileEditorInput) input).getPath();
-			String filePathString = path.toString();
-			IFile file = ResourceUtil.getLocalFile(filePathString);
+
+			URI featureModelURI = featureModel.getModel().eResource().getURI();
+			URI stageModelURI = featureModelURI.trimFileExtension().appendFileExtension("staged");
 			
-			saveModel(file);
+			EObject stageModel = createStageModel();
+			EcoreIOUtil.saveModelAs(stageModel, stageModelURI, EcoreIOUtil.getDefaultResourceSet(stageModel));
+			
 			//selectFileInCurrentView(file, page);
 			//openFileInEditor(file, workbenchWindow, page);
 	
@@ -161,82 +123,6 @@ public class StageModelWizard extends Wizard {
 		}
 
 	}
-	
-	
-//	@Override
-//	public boolean performFinish() {
-//		try {
-//			IFile file = newStageModelCreationPage.getModelFile();
-//			IWorkbenchWindow workbenchWindow = workbench.getActiveWorkbenchWindow();
-//			IWorkbenchPage page = workbenchWindow.getActivePage();
-//
-//			saveModel(file);
-//			selectFileInCurrentView(file, page);
-//			openFileInEditor(file, workbenchWindow, page);
-//
-//			return true;
-//		} catch (Exception exception) {
-//			exception.printStackTrace();
-//			return false;
-//		}
-//	}
-	
-	protected void saveModel(final IFile file) throws InvocationTargetException, InterruptedException {
-		WorkspaceModifyOperation operation = new WorkspaceModifyOperation() {
-			@Override
-			protected void execute(IProgressMonitor progressMonitor) {
-				try {
-					EObject model = createStageModel();
-					EcoreIOUtil.saveModelAs(model, file);
-				} finally {
-					progressMonitor.done();
-				}
-			}
-		};
-
-		IWizardContainer container = getContainer();
-		container.run(false, false, operation);
-	}
-
-
-//	protected void selectFileInCurrentView(final IFile file, IWorkbenchPage page) {
-//		final IWorkbenchPart activePart = page.getActivePart();
-//		
-//		if (activePart instanceof ISetSelectionTarget) {
-//			final ISelection targetSelection = new StructuredSelection(file);
-//			Shell shell = getShell();
-//			Display display = shell.getDisplay();
-//			
-//			Runnable runnable = new Runnable() {
-//				 public void run() {
-//					 ISetSelectionTarget setSelectionTarget = (ISetSelectionTarget) activePart;
-//					 setSelectionTarget.selectReveal(targetSelection);
-//				 }
-//			};
-//			 
-//			display.asyncExec(runnable);
-//		}
-//	}	
-
-
-//	protected void openFileInEditor(IFile file, IWorkbenchWindow workbenchWindow, IWorkbenchPage page) throws PartInitException{
-//		IEditorRegistry editorRegistry = workbench.getEditorRegistry();
-//		FileEditorInput fileEditorInput = new FileEditorInput(file);
-//		
-//		IPath filePath = file.getFullPath();
-//		String filePathString = filePath.toString();
-//		
-//		IEditorDescriptor defaultEditor = editorRegistry.getDefaultEditor(filePathString);
-//		String defaultEditorId = defaultEditor.getId();
-//		
-//		page.openEditor(fileEditorInput, defaultEditorId);					 	 
-//
-////		Shell shell = workbenchWindow.getShell();
-////		String title = "Error";
-////		String message = exception.getMessage();
-////		MessageDialog.openError(shell, title, message);
-//	}
-//	
 
 	
 	@Override
