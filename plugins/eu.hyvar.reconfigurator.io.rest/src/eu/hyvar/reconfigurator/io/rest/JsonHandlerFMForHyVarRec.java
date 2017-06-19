@@ -322,7 +322,7 @@ public class JsonHandlerFMForHyVarRec extends AbstractHandler {
 
 		
 		HyVarRecExporter hyvarrecExporter = new HyVarRecExporter();
-		String answer = hyvarrecExporter.exportContextMappingModel(contextModel, validityModel, featureModel, constraintModel,
+		String answer = hyvarrecExporter.exportSPL(contextModel, validityModel, featureModel, constraintModel,
 				configuration, null, contextValueModel, date);
 		
 		try {

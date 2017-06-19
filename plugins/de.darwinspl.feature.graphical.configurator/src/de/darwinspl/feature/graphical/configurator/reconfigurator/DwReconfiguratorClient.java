@@ -67,7 +67,7 @@ public class DwReconfiguratorClient {
 			HyProfile preferenceModel, HyContextValueModel contextValues, Date date) {
 		
 		HyVarRecExporter exporter = new HyVarRecExporter();
-		String messageForHyVarRec = exporter.exportContextMappingModel(contextModel, contextValidityModel, featureModel, constraintModel, oldConfiguration, preferenceModel, contextValues, date);
+		String messageForHyVarRec = exporter.exportSPL(contextModel, contextValidityModel, featureModel, constraintModel, oldConfiguration, preferenceModel, contextValues, date);
 		
 		
 //		InputForHyVarRec answer = gson.fromJson(answerString, InputForHyVarRec.class);

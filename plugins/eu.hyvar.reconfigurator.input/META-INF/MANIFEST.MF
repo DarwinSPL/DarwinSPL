@@ -12,7 +12,8 @@ Require-Bundle: eu.hyvar.context.validity_formulas;visibility:=reexport,
  eu.hyvar.preferences;visibility:=reexport,
  eu.hyvar.context.information.value;visibility:=reexport,
  eu.hyvar.evolution;visibility:=reexport,
- eu.hyvar.feature;visibility:=reexport
+ eu.hyvar.feature;visibility:=reexport,
+ eu.hyvar.feature.expression
 Bundle-ClassPath: .,
  libs/gson-2.6.1.jar
 Bundle-Vendor: www.darwinspl.de
