@@ -1,6 +1,7 @@
 package de.darwinspl.feature.graphical.configurator.widgets;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.eclipse.swt.SWT;
@@ -9,15 +10,16 @@ import org.eclipse.swt.widgets.Composite;
 
 import eu.hyvar.dataValues.HyEnum;
 import eu.hyvar.dataValues.HyEnumLiteral;
+import eu.hyvar.feature.HyFeatureModel;
 
-public class DwMultiEnumAttributeConfiguratorComposite extends DwAbstractConfiguratorWidget
+public class DwMultiEnumAttributeConfiguratorComposite extends DwAbstractMultiConfiguratorWidget
 		implements DwConfiguratorWidget {
 
 	private CCombo dropdown;
 	private List<HyEnumLiteral> literals = new ArrayList<HyEnumLiteral>();
 
-	public DwMultiEnumAttributeConfiguratorComposite(HyEnum hyEnum, String attributename, Composite parent, int style) {
-		super(attributename, parent, style);
+	public DwMultiEnumAttributeConfiguratorComposite(HyEnum hyEnum, String attributename, Composite parent, int style, HyFeatureModel featureModel, Date date) {
+		super(attributename, parent, style, featureModel, date);
 
 		if (hyEnum != null) {
 			literals = hyEnum.getLiterals();

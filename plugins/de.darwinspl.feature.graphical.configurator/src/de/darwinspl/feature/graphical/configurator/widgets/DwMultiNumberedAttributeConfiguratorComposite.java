@@ -1,5 +1,7 @@
 package de.darwinspl.feature.graphical.configurator.widgets;
 
+import java.util.Date;
+
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.CCombo;
 import org.eclipse.swt.widgets.Button;
@@ -7,8 +9,9 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Text;
 
 import de.darwinspl.configurator.NumberedAttributeMode;
+import eu.hyvar.feature.HyFeatureModel;
 
-public class DwMultiNumberedAttributeConfiguratorComposite extends DwAbstractConfiguratorWidget implements DwConfiguratorWidget {
+public class DwMultiNumberedAttributeConfiguratorComposite extends DwAbstractMultiConfiguratorWidget implements DwConfiguratorWidget {
 
 	private Button useDefault;
 	
@@ -18,8 +21,8 @@ public class DwMultiNumberedAttributeConfiguratorComposite extends DwAbstractCon
 	
 	private Text customInput;
 	
-	public DwMultiNumberedAttributeConfiguratorComposite(String attributename, Composite parent, int style) {
-		super(attributename, parent, style);
+	public DwMultiNumberedAttributeConfiguratorComposite(String attributename, Composite parent, int style, HyFeatureModel featureModel, Date date) {
+		super(attributename, parent, style, featureModel, date);
 		
 		
 		useDefault = new Button(this, SWT.CHECK);

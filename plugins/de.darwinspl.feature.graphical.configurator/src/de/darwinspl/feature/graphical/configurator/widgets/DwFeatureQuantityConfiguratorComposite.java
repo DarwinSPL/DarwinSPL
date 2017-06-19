@@ -1,18 +1,22 @@
 package de.darwinspl.feature.graphical.configurator.widgets;
 
+import java.util.Date;
+
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.CCombo;
 import org.eclipse.swt.widgets.Composite;
 
-public class DwFeatureQuantityConfiguratorComposite extends DwAbstractConfiguratorWidget implements DwConfiguratorWidget {
+import eu.hyvar.feature.HyFeatureModel;
+
+public class DwFeatureQuantityConfiguratorComposite extends DwAbstractMultiConfiguratorWidget implements DwConfiguratorWidget {
 
 	private CCombo dropdown;
 	
 	public final static int MIN = 0;
 	public final static int MAX = 1;
 	
-	public DwFeatureQuantityConfiguratorComposite(Composite parent, int style) {
-		super(parent, style);
+	public DwFeatureQuantityConfiguratorComposite(Composite parent, int style, HyFeatureModel featureModel, Date date) {
+		super(parent, style, featureModel, date);
 		
 		String items[] = new String[2];
 		items[MIN] = "Min";

@@ -8,6 +8,10 @@ import org.eclipse.jface.dialogs.Dialog;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
+import org.eclipse.swt.graphics.Point;
+import org.eclipse.swt.layout.GridData;
+import org.eclipse.swt.layout.RowData;
+import org.eclipse.swt.layout.RowLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
@@ -57,10 +61,18 @@ public class DwFeatureSelectionDialog extends Dialog {
 	protected Control createDialogArea(Composite parent) {
 
 		Composite composite = (Composite) super.createDialogArea(parent);
-	
+
+        GridData gridData = new GridData();
+        gridData.horizontalAlignment = GridData.FILL;
+        gridData.verticalAlignment = GridData.FILL;
+        gridData.grabExcessHorizontalSpace = true;
+        gridData.grabExcessVerticalSpace = true;
+		composite.setLayoutData(gridData);
+		
 		HyFeature feature = HyFeatureEvolutionUtil.getRootFeature(featureModel, date);
 		
 		tree = new Tree(composite, SWT.CHECK);
+		tree.setLayoutData(gridData);
 		tree.addListener(SWT.Selection, new Listener() {
 			
 			@Override
@@ -128,4 +140,10 @@ public class DwFeatureSelectionDialog extends Dialog {
 		}
 		return features;
 	}
+	
+	@Override
+	protected Point getInitialSize() {
+		return new Point(640, 480);
+	}
+	
 }

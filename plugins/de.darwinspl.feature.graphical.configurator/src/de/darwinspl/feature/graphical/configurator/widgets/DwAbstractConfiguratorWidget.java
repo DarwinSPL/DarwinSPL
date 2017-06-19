@@ -33,7 +33,7 @@ public abstract class DwAbstractConfiguratorWidget extends Composite implements 
 	
 	public DwAbstractConfiguratorWidget(Composite parent, int style) {
 		super(parent, style);
-		this.setLayout( new RowLayout(SWT.HORIZONTAL));
+		this.setLayout(new RowLayout(SWT.HORIZONTAL));
 
 		upButton = new Button(this, SWT.NONE);
 		downButton = new Button(this, SWT.NONE);

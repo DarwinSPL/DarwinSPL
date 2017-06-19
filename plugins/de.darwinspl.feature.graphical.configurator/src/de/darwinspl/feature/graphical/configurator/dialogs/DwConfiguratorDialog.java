@@ -8,6 +8,7 @@ import org.eclipse.jface.dialogs.Dialog;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
+import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.layout.RowLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
@@ -46,7 +47,7 @@ public class DwConfiguratorDialog extends Dialog {
 	private HyConstraintModel constraintModel;
 	private Date date;
 	private String uri;
-	
+
 	private List<HyFeature> selectedFeatures;
 
 	private DwConfiguratorRowComposite comp;
@@ -88,26 +89,27 @@ public class DwConfiguratorDialog extends Dialog {
 
 		for (DwAbstractConfiguratorWidget row : comp.getRows()) {
 			if (row.isChecked()) {
-				builder = new PreferenceBuilder(featureModel, selectedFeatures, date);
+				builder = new PreferenceBuilder(featureModel, date);
 				if (row instanceof DwMultiNumberedAttributeConfiguratorComposite) {
 					DwMultiNumberedAttributeConfiguratorComposite multiNumberComp = (DwMultiNumberedAttributeConfiguratorComposite) row;
 					if (multiNumberComp.getSelectedMode() == ConfiguratorMode.MIN) {
 						builder.addMinAttributeExpression(multiNumberComp.getAttributeName(),
-								multiNumberComp.useDefaultValue());
+								multiNumberComp.getSelectedFeatures(), multiNumberComp.useDefaultValue());
 					} else if (multiNumberComp.getSelectedMode() == ConfiguratorMode.MAX) {
 						builder.addMaxAttributeExpression(multiNumberComp.getAttributeName(),
-								multiNumberComp.useDefaultValue());
+								multiNumberComp.getSelectedFeatures(), multiNumberComp.useDefaultValue());
 					} else if (multiNumberComp.getSelectedMode() == ConfiguratorMode.CUSTOM) {
 						builder.addCustomAttribute(multiNumberComp.getAttributeName(),
-								multiNumberComp.getCustomValue());
+								multiNumberComp.getSelectedFeatures(), multiNumberComp.getCustomValue());
 					}
 				} else if (row instanceof DwMultiEnumAttributeConfiguratorComposite) {
 					DwMultiEnumAttributeConfiguratorComposite multiEnumComp = (DwMultiEnumAttributeConfiguratorComposite) row;
 					builder.addEnumPreferenceExpression(multiEnumComp.getAttributeName(),
-							multiEnumComp.getSelectedLiteral());
+							multiEnumComp.getSelectedFeatures(), multiEnumComp.getSelectedLiteral());
 				} else if (row instanceof DwMultiBooleanAttributeConfiguratorComposite) {
 					DwMultiBooleanAttributeConfiguratorComposite multiBoolComp = (DwMultiBooleanAttributeConfiguratorComposite) row;
-					builder.addBooleanPreferenceExpression(multiBoolComp.getAttributeName(), multiBoolComp.isTrue());
+					builder.addBooleanPreferenceExpression(multiBoolComp.getAttributeName(),
+							multiBoolComp.getSelectedFeatures(), multiBoolComp.isTrue());
 				} else if (row instanceof DwSingleNumberedAttributeConfiguratorComposite) {
 					DwSingleNumberedAttributeConfiguratorComposite singleNumberComp = (DwSingleNumberedAttributeConfiguratorComposite) row;
 					if (singleNumberComp.getSelectedMode() == ConfiguratorMode.MIN) {
@@ -133,9 +135,9 @@ public class DwConfiguratorDialog extends Dialog {
 				} else if (row instanceof DwFeatureQuantityConfiguratorComposite) {
 					DwFeatureQuantityConfiguratorComposite featureQuantityComp = (DwFeatureQuantityConfiguratorComposite) row;
 					if (featureQuantityComp.getSelection() == DwFeatureQuantityConfiguratorComposite.MIN) {
-						builder.addMinFeatures();
+						builder.addMinFeatures(featureQuantityComp.getSelectedFeatures());
 					} else if (featureQuantityComp.getSelection() == DwFeatureQuantityConfiguratorComposite.MAX) {
-						builder.addMaxFeatures();
+						builder.addMaxFeatures(featureQuantityComp.getSelectedFeatures());
 					}
 				}
 				configurator.addPreference(builder.build());
@@ -153,34 +155,14 @@ public class DwConfiguratorDialog extends Dialog {
 		super.okPressed();
 	}
 
-
-
 	@Override
 	protected Control createDialogArea(Composite parent) {
 		Composite composite = (Composite) super.createDialogArea(parent);
 
 		composite.setLayout(new RowLayout(SWT.VERTICAL));
 
-		comp = new DwConfiguratorRowComposite(attributes, composite, SWT.NONE);
+		comp = new DwConfiguratorRowComposite(attributes, featureModel, date, composite, SWT.NONE);
 
-		Button selectFeaturesButton = new Button(composite, SWT.NONE);
-		selectFeaturesButton.setText("Select Features");
-		selectFeaturesButton.addSelectionListener(new SelectionListener() {
-			
-			@Override
-			public void widgetSelected(SelectionEvent e) {
-				DwFeatureSelectionDialog dialog = new DwFeatureSelectionDialog(getShell(), selectedFeatures, featureModel, date);
-				if(dialog.open() == Dialog.OK) {
-					selectedFeatures = dialog.getSelectedFeatureNames();
-				}
-			}
-			
-			@Override
-			public void widgetDefaultSelected(SelectionEvent e) {
-				
-			}
-		});
-		
 		Button add = new Button(composite, SWT.NONE);
 		add.setText("Add");
 		add.addSelectionListener(new SelectionListener() {
@@ -205,6 +187,11 @@ public class DwConfiguratorDialog extends Dialog {
 		});
 
 		return composite;
+	}
+
+	@Override
+	protected Point getInitialSize() {
+		return new Point(800, 480);
 	}
 
 }

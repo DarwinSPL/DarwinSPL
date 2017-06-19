@@ -1,15 +1,19 @@
 package de.darwinspl.feature.graphical.configurator.widgets;
 
+import java.util.Date;
+
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 
-public class DwMultiBooleanAttributeConfiguratorComposite extends DwAbstractConfiguratorWidget implements DwConfiguratorWidget {
+import eu.hyvar.feature.HyFeatureModel;
+
+public class DwMultiBooleanAttributeConfiguratorComposite extends DwAbstractMultiConfiguratorWidget implements DwConfiguratorWidget {
 
 	Button booleanCheckbox;
 	
-	public DwMultiBooleanAttributeConfiguratorComposite(String attributename, Composite parent, int style) {
-		super(attributename, parent, style);
+	public DwMultiBooleanAttributeConfiguratorComposite(String attributename, Composite parent, int style, HyFeatureModel featureModel, Date date) {
+		super(attributename, parent, style, featureModel, date);
 		
 		booleanCheckbox = new Button(this, SWT.CHECK);
 		booleanCheckbox.setText("True");

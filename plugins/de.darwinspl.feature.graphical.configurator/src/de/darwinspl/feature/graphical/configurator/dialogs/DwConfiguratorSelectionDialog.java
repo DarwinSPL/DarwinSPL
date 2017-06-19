@@ -6,6 +6,8 @@ import java.util.List;
 
 import org.eclipse.jface.dialogs.Dialog;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.graphics.Point;
+import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Shell;
@@ -90,9 +92,9 @@ public class DwConfiguratorSelectionDialog extends Dialog {
 	@Override
 	protected void okPressed() {
 		for (TreeItem item : treeItemFeatureAttribute.getItems()) {
-			
+
 			if (item.getChecked() && item instanceof DwAttributeTreeItem) {
-				selectedFeatureAttributes.add(((DwAttributeTreeItem)item).getAttribute());
+				selectedFeatureAttributes.add(((DwAttributeTreeItem) item).getAttribute());
 			}
 		}
 
@@ -134,8 +136,18 @@ public class DwConfiguratorSelectionDialog extends Dialog {
 	protected Control createDialogArea(Composite parent) {
 		Composite composite = (Composite) super.createDialogArea(parent);
 
+		GridData gridData = new GridData();
+		gridData.horizontalAlignment = GridData.FILL;
+		gridData.verticalAlignment = GridData.FILL;
+		gridData.grabExcessHorizontalSpace = true;
+		gridData.grabExcessVerticalSpace = true;
+
+		composite.setLayoutData(gridData);
+		
 		tree = new Tree(composite, SWT.CHECK);
 		tree.setSize(250, 1000);
+		
+		tree.setLayoutData(gridData);
 
 		treeItemFeatureAttribute = new TreeItem(tree, SWT.CHECK);
 		treeItemFeatureAttribute.setText("Feature Attributes");
@@ -178,6 +190,11 @@ public class DwConfiguratorSelectionDialog extends Dialog {
 		}
 
 		return composite;
+	}
+
+	@Override
+	protected Point getInitialSize() {
+		return new Point(640, 480);
 	}
 
 }

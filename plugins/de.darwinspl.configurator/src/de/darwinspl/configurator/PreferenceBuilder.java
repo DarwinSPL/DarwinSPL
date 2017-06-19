@@ -44,11 +44,8 @@ public class PreferenceBuilder {
 
 	private Date date;
 
-	private List<HyFeature> selectedFeatures;
-
-	public PreferenceBuilder(HyFeatureModel featureModel, List<HyFeature> selectedFeatures, Date date) {
+	public PreferenceBuilder(HyFeatureModel featureModel, Date date) {
 		this.featureModel = featureModel;
-		this.selectedFeatures = selectedFeatures;
 		this.date = date;
 		this.expressionFactory = HyExpressionFactory.eINSTANCE;
 		this.preference = PreferencesFactory.eINSTANCE.createHyPreference();
@@ -87,7 +84,7 @@ public class PreferenceBuilder {
 		}
 	}
 
-	private HyExpression createMaxFeaturesExpression() {
+	private HyExpression createMaxFeaturesExpression(List<HyFeature> selectedFeatures) {
 		HyIfPossibleExpression ipExpression = expressionFactory.createHyIfPossibleExpression();
 
 		// preferences to select the most features
@@ -99,13 +96,13 @@ public class PreferenceBuilder {
 		return nestExpression(ipExpression);
 	}
 
-	public PreferenceBuilder addMaxFeatures() {
-		addExpression(createMaxFeaturesExpression());
+	public PreferenceBuilder addMaxFeatures(List<HyFeature> selectedFeatures) {
+		addExpression(createMaxFeaturesExpression(selectedFeatures));
 		return this;
 	}
 
-	public PreferenceBuilder addMinFeatures() {
-		addExpression(invertExpression(createMaxFeaturesExpression()));
+	public PreferenceBuilder addMinFeatures(List<HyFeature> selectedFeatures) {
+		addExpression(invertExpression(createMaxFeaturesExpression(selectedFeatures)));
 		return this;
 	}
 
@@ -124,8 +121,8 @@ public class PreferenceBuilder {
 		return attributes;
 	}
 
-	public PreferenceBuilder addCustomAttribute(String attributeName, int value) {
-		addExpression(createCustomValueExpression(attributeName, value));
+	public PreferenceBuilder addCustomAttribute(String attributeName, List<HyFeature> selectedFeatures, int value) {
+		addExpression(createCustomValueExpression(attributeName, selectedFeatures, value));
 		return this;
 	}
 
@@ -135,7 +132,8 @@ public class PreferenceBuilder {
 		return this;
 	}
 
-	private HyExpression createNumberedAttributeExpression(String attributeName, boolean useDefaultValue) {
+	private HyExpression createNumberedAttributeExpression(String attributeName, List<HyFeature> selectedFeatures,
+			boolean useDefaultValue) {
 		HyIfPossibleExpression ifPossibleExpression = expressionFactory.createHyIfPossibleExpression();
 
 		for (HyFeatureAttribute attribute : getAttributesByName(attributeName)) {
@@ -147,13 +145,15 @@ public class PreferenceBuilder {
 		return nestExpression(ifPossibleExpression);
 	}
 
-	public PreferenceBuilder addMaxAttributeExpression(String attributeName, boolean useDefault) {
-		addExpression(createNumberedAttributeExpression(attributeName, useDefault));
+	public PreferenceBuilder addMaxAttributeExpression(String attributeName, List<HyFeature> selectedFeatures,
+			boolean useDefault) {
+		addExpression(createNumberedAttributeExpression(attributeName, selectedFeatures, useDefault));
 		return this;
 	}
 
-	public PreferenceBuilder addMinAttributeExpression(String attributeName, boolean useDefault) {
-		addExpression(invertExpression(createNumberedAttributeExpression(attributeName, useDefault)));
+	public PreferenceBuilder addMinAttributeExpression(String attributeName, List<HyFeature> selectedFeatures,
+			boolean useDefault) {
+		addExpression(invertExpression(createNumberedAttributeExpression(attributeName, selectedFeatures, useDefault)));
 		return this;
 	}
 
@@ -161,7 +161,8 @@ public class PreferenceBuilder {
 		return preference;
 	}
 
-	public PreferenceBuilder addBooleanPreferenceExpression(String attributeName, boolean value) {
+	public PreferenceBuilder addBooleanPreferenceExpression(String attributeName, List<HyFeature> selectedFeatures,
+			boolean value) {
 		List<HyFeatureAttribute> attributes = getAttributesByName(attributeName);
 		HyIfPossibleExpression ipExpression = expressionFactory.createHyIfPossibleExpression();
 		for (HyFeatureAttribute attribute : attributes) {
@@ -173,7 +174,8 @@ public class PreferenceBuilder {
 		return this;
 	}
 
-	public PreferenceBuilder addEnumPreferenceExpression(String attributeName, HyEnumLiteral enumLiteral) {
+	public PreferenceBuilder addEnumPreferenceExpression(String attributeName, List<HyFeature> selectedFeatures,
+			HyEnumLiteral enumLiteral) {
 		HyIfPossibleExpression ipExpression = expressionFactory.createHyIfPossibleExpression();
 		List<HyFeatureAttribute> attributes = getAttributesByName(attributeName);
 		for (HyFeatureAttribute attribute : attributes) {
@@ -240,14 +242,15 @@ public class PreferenceBuilder {
 		return mul(eq(attribute(attribute), value(value ? 1 : 0)), feature(attribute.getFeature()));
 	}
 
-	private HyExpression createCustomValueExpression(String attributeName, int value) {
+	private HyExpression createCustomValueExpression(String attributeName, List<HyFeature> selectedFeatures,
+			int value) {
 		List<HyFeatureAttribute> attributes = getAttributesByName(attributeName);
 
 		// fa
-		HyExpression fa1 = createNumberedAttributeSumExpression(attributes);
-		HyExpression fa2 = createNumberedAttributeSumExpression(attributes);
-		HyExpression fa3 = createNumberedAttributeSumExpression(attributes);
-		HyExpression fa4 = createNumberedAttributeSumExpression(attributes);
+		HyExpression fa1 = createNumberedAttributeSumExpression(attributes, selectedFeatures);
+		HyExpression fa2 = createNumberedAttributeSumExpression(attributes, selectedFeatures);
+		HyExpression fa3 = createNumberedAttributeSumExpression(attributes, selectedFeatures);
+		HyExpression fa4 = createNumberedAttributeSumExpression(attributes, selectedFeatures);
 
 		// c
 		HyExpression c1 = value(value);
@@ -323,7 +326,8 @@ public class PreferenceBuilder {
 		return mul(attributeExpression, featureExpression);
 	}
 
-	private HyExpression createNumberedAttributeSumExpression(List<HyFeatureAttribute> attributes) {
+	private HyExpression createNumberedAttributeSumExpression(List<HyFeatureAttribute> attributes,
+			List<HyFeature> selectedFeatures) {
 		HyFeatureAttribute lastAttribute = null;
 		HyAdditionExpression addExp = null;
 		boolean first = true;
