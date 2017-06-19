@@ -236,17 +236,17 @@ public class HyVarRecExporter {
 			return null;
 		}
 
-//		if (constraintModel != null) {
-//			input.getConstraints().addAll(getConstraints(constraintModel, date, dateContext, sortedDateList));
-//		}
-//
-//		if (contextValidityModel != null) {
-//			input.getConstraints().addAll(getContextValidityFormulas(contextValidityModel, date, dateContext, sortedDateList));
-//		}
-//
-//		if (preferenceModel != null) {
-//			input.setPreferences(getPreferences(preferenceModel, date, dateContext, sortedDateList));
-//		}
+		if (constraintModel != null) {
+			input.getConstraints().addAll(getConstraints(constraintModel, date, dateContext, sortedDateList));
+		}
+
+		if (contextValidityModel != null) {
+			input.getConstraints().addAll(getContextValidityFormulas(contextValidityModel, date, dateContext, sortedDateList));
+		}
+
+		if (preferenceModel != null) {
+			input.setPreferences(getPreferences(preferenceModel, date, dateContext, sortedDateList));
+		}
 
 
 		// File output. Not necessary for HyVar in the end. Only for Isola Paper
@@ -588,8 +588,7 @@ public class HyVarRecExporter {
 
 //			featureModelConstraints.addAll(getFeatureConstraints(rootFeature.getFeature(), true, date));
 
-			// TODO
-			featureModelConstraints.addAll(getFeatureModelVersionConstraints(featurasdeModel, date));
+			featureModelConstraints.addAll(getFeatureModelVersionConstraints(featureModel, date, dateContext, sortedDateList));
 		}
 		else {
 			for(HyRootFeature rootFeature: featureModel.getRootFeature()) {
@@ -605,9 +604,62 @@ public class HyVarRecExporter {
 		}
 		
 		for(HyGroup group: featureModel.getGroups()) {
-			getGroupConstraints(group, date, dateContext, sortedDateList);
+			featureModelConstraints.addAll(getGroupConstraints(group, date, dateContext, sortedDateList));
 		}
 		
+		
+		// Set value of each feature and version to 0 if it is not valid at that moment
+		if(date == null) {
+			for(Date dateToCheck: sortedDateList) {
+				
+				StringBuilder featureInvalidStringBuilder = new StringBuilder();
+
+				
+				boolean atLeastOneFeature = false;
+				
+				for(HyFeature feature: featureModel.getFeatures()) {
+					
+					if(!HyEvolutionUtil.isValid(feature, dateToCheck)) {
+						if(!atLeastOneFeature) {
+							atLeastOneFeature = true;
+							
+							featureInvalidStringBuilder.append(timedConstraint(dateToCheck, dateContext, sortedDateList));
+							featureInvalidStringBuilder.append(BRACKETS_OPEN);
+						}
+						else {
+							featureInvalidStringBuilder.append(AND);
+						}
+						
+						featureInvalidStringBuilder.append(featureReconfiguratorIdMapping.get(feature));
+						featureInvalidStringBuilder.append(EQUALS);
+						featureInvalidStringBuilder.append(0);						
+					}
+					
+					for(HyVersion version: feature.getVersions()) {
+						if(!HyEvolutionUtil.isValid(version, dateToCheck)) {
+							if(!atLeastOneFeature) {
+								atLeastOneFeature = true;
+								
+								featureInvalidStringBuilder.append(timedConstraint(dateToCheck, dateContext, sortedDateList));
+								featureInvalidStringBuilder.append(BRACKETS_OPEN);
+							}
+							else {
+								featureInvalidStringBuilder.append(AND);
+							}
+							
+							featureInvalidStringBuilder.append(versionReconfiguratorIdMapping.get(version));
+							featureInvalidStringBuilder.append(EQUALS);
+							featureInvalidStringBuilder.append(0);		
+						}
+					}
+				}
+								
+				if(atLeastOneFeature) {
+					featureInvalidStringBuilder.append(BRACKETS_CLOSING);
+					featureModelConstraints.add(featureInvalidStringBuilder.toString());
+				}
+			}
+		}
 
 		return featureModelConstraints;
 	}
@@ -665,33 +717,109 @@ public class HyVarRecExporter {
 	private String timedConstraint(HyTemporalElement evolvedElement, Context dateContext, List<Date> sortedDateList) {		
 		return timedConstraint(evolvedElement.getValidSince(), evolvedElement.getValidUntil(), dateContext, sortedDateList);
 	}
+	
+	private String timedConstraint(Date date, Context dateContext, List<Date> sortedDateList) {
+		StringBuilder timedConstraint = new StringBuilder();
+		
+		timedConstraint.append(BRACKETS_OPEN);
+		timedConstraint.append(ReconfiguratorIdMapping.CONTEXT_ATOM);
+		timedConstraint.append(dateContext.getId());
+		timedConstraint.append(ReconfiguratorIdMapping.ARRAY_BRACKETS_CLOSING);
+		
+		timedConstraint.append(EQUALS);
 
-	private List<String> getFeatureModelVersionConstraints(HyFeatureModel featureModel, Date date) {
+		timedConstraint.append(getPositionOfEqualDateInList(sortedDateList, date));
+		
+		timedConstraint.append(BRACKETS_CLOSING);			
+		timedConstraint.append(IMPLICATION);
+		
+		return timedConstraint.toString();
+	}
+
+	private List<String> getFeatureModelVersionConstraints(HyFeatureModel featureModel, Date date, Context dateContext, List<Date> sortedDateList) {
 		List<String> versionConstraints = new ArrayList<String>();
 
+		
+		
 		// f feature, f_1 - f_n feature versions
 		// f = (f_1 + ... + f_n)
 		for (HyFeature feature : HyEvolutionUtil.getValidTemporalElements(featureModel.getFeatures(), date)) {
-			List<HyVersion> versions = HyEvolutionUtil.getValidTemporalElements(feature.getVersions(), date);
-			if (!versions.isEmpty()) {
+			List<Date> relevantDates = null;
+			
+			boolean considerOnlyOneDate = false;
+			
+			if(date != null) {
+				relevantDates = new ArrayList<Date>(1);
+				relevantDates.add(date);
+				considerOnlyOneDate = true;
+			} 
+			else {
+				relevantDates = HyEvolutionUtil.collectDates(feature.getVersions());
+			}
+			
+			if(relevantDates.isEmpty()) {
+				considerOnlyOneDate = true;
+			}
+			
+			
+			// i = -1 before the first date, as the first date could be from a validUntil while the validSince==null
+			for (int i = -1; i < relevantDates.size(); i++) {
+
 				StringBuilder versionStringBuilder = new StringBuilder();
-
-				versionStringBuilder.append(featureReconfiguratorIdMapping.get(feature));
-				versionStringBuilder.append(EQUALS);
-				versionStringBuilder.append(BRACKETS_OPEN);
-
-				boolean first = true;
-				for (HyVersion version : versions) {
-					if (!first) {
-						versionStringBuilder.append(ADDITION);
-					} else {
-						first = false;
-					}
-
-					versionStringBuilder.append(versionReconfiguratorIdMapping.get(version));
+				
+				Date relevantDate;
+				
+				if(i == -1) {
+					relevantDate = new Date(Long.MIN_VALUE);				
 				}
-				versionStringBuilder.append(BRACKETS_CLOSING);
-				versionConstraints.add(versionStringBuilder.toString());
+				else {
+					relevantDate = relevantDates.get(i);
+				}
+				
+				
+				List<HyVersion> validVersions = HyEvolutionUtil.getValidTemporalElements(feature.getVersions(), relevantDate);
+				if(!validVersions.isEmpty()) {
+					String timedConstraint = "";
+					
+					if(!considerOnlyOneDate) {
+						Date validSince;
+						if(i!=-1) {
+							validSince = null;
+						}
+						else {
+							validSince = relevantDate;
+						}
+						
+						Date validUntil;
+						if(i<relevantDates.size()-1) {
+							validUntil = relevantDates.get(i+1);
+						}
+						else {
+							validUntil = null;
+						}
+						
+						timedConstraint = timedConstraint(validSince, validUntil, dateContext, sortedDateList);
+						versionStringBuilder.append(timedConstraint);
+						
+					}
+					
+					versionStringBuilder.append(featureReconfiguratorIdMapping.get(feature));
+					versionStringBuilder.append(EQUALS);
+					versionStringBuilder.append(BRACKETS_OPEN);
+
+					boolean first = true;
+					for (HyVersion version : validVersions) {
+						if (!first) {
+							versionStringBuilder.append(ADDITION);
+						} else {
+							first = false;
+						}
+
+						versionStringBuilder.append(versionReconfiguratorIdMapping.get(version));
+					}
+					versionStringBuilder.append(BRACKETS_CLOSING);
+					versionConstraints.add(versionStringBuilder.toString());
+				}
 			}
 		}
 
@@ -733,12 +861,8 @@ public class HyVarRecExporter {
 			
 		}
 		
-		// if there was no date, every date is null. so we add a dummy date for the loop.
+		// if there was no date, eveery since and until was null.
 		if(relevantDatesSet.size() == 0) {
-			relevantDatesSet.add(new Date());
-		}
-		
-		if(relevantDatesSet.size() <= 1) {
 			considerOnlyOneDate = true;
 		}
 		
@@ -1051,20 +1175,37 @@ public class HyVarRecExporter {
 		return featureModelConstraints;
 	}
 
-	private List<String> getConstraints(HyConstraintModel constraintModel, Date date) {
+	private List<String> getConstraints(HyConstraintModel constraintModel, Date date, Context dateContext, List<Date> sortedDateList) {
 		List<String> constraints = new ArrayList<String>();
 
-		for (HyConstraint constraint : HyEvolutionUtil.getValidTemporalElements(constraintModel.getConstraints(),
-				date)) {
-			constraints.add(getConstraint(constraint));
+		for (HyConstraint constraint : constraintModel.getConstraints()) {
+			
+			String exportedConstraint = getConstraint(constraint, date, dateContext, sortedDateList);
+			
+			if(exportedConstraint != null) {
+				constraints.add(exportedConstraint);
+			}
+			
 		}
 
 		return constraints;
 	}
 
-	private String getConstraint(HyConstraint constraint) {
-
-		return expressionExporter.exportExpressionToString(constraint.getRootExpression());
+	private String getConstraint(HyConstraint constraint, Date date, Context dateContext, List<Date> sortedDateList) {
+		
+		if(date != null) {
+			if(!HyEvolutionUtil.isValid(constraint, date)) {
+				return null;
+			}
+		}
+		
+		StringBuilder constraintStringBuilder = new StringBuilder();
+		
+		constraintStringBuilder.append(timedConstraint(constraint, dateContext, sortedDateList));
+		
+		constraintStringBuilder.append(constraint.getRootExpression());
+		
+		return constraintStringBuilder.toString();
 	}
 
 	private List<String> getPreferences(HyProfile preferenceModel, Date date) {
@@ -1082,22 +1223,36 @@ public class HyVarRecExporter {
 		return expressionExporter.exportExpressionToString(preference.getRootExpression());
 	}
 
-	private List<String> getContextValidityFormulas(HyValidityModel validityModel, Date date) {
+	private List<String> getContextValidityFormulas(HyValidityModel validityModel, Date date, Context dateContext, List<Date> sortedDateList) {
 		List<String> validityFormulas = new ArrayList<String>();
 
-		for (HyValidityFormula contextMapping : HyEvolutionUtil
-				.getValidTemporalElements(validityModel.getValidityFormulas(), date)) {
-			validityFormulas.add(getValidityFormulaAsConstraint(contextMapping));
+		for (HyValidityFormula validityFormula :validityModel.getValidityFormulas()) {
+			
+			String validityFormulaConstraint = getValidityFormulaAsConstraint(validityFormula, date, dateContext, sortedDateList);
+			
+			if(validityFormulaConstraint != null) {
+				validityFormulas.add(validityFormulaConstraint);				
+			}
+			
 		}
 
 		return validityFormulas;
 	}
 
-	private String getValidityFormulaAsConstraint(HyValidityFormula contextMapping) {
+	private String getValidityFormulaAsConstraint(HyValidityFormula validityFormula, Date date, Context dateContext, List<Date> sortedDateList) {
+		
+		if(date != null) {
+			if(!HyEvolutionUtil.isValid(validityFormula, date)) {
+				return null;
+			}
+		}
+		
 		StringBuilder contextMappingString = new StringBuilder();
+		
+		contextMappingString.append(timedConstraint(validityFormula, dateContext, sortedDateList));
 
-		if (contextMapping instanceof HyFeatureValidityFormula) {
-			HyFeatureValidityFormula featureValidityFormula = (HyFeatureValidityFormula) contextMapping;
+		if (validityFormula instanceof HyFeatureValidityFormula) {
+			HyFeatureValidityFormula featureValidityFormula = (HyFeatureValidityFormula) validityFormula;
 			HyImpliesExpression featureImpliesValidityFormulaExpression = HyExpressionFactory.eINSTANCE
 					.createHyImpliesExpression();
 
@@ -1111,8 +1266,8 @@ public class HyVarRecExporter {
 
 			contextMappingString
 					.append(expressionExporter.exportExpressionToString(featureImpliesValidityFormulaExpression));
-		} else if (contextMapping instanceof HyAttributeValidityFormula) {
-			HyAttributeValidityFormula attributeValidityFormula = (HyAttributeValidityFormula) contextMapping;
+		} else if (validityFormula instanceof HyAttributeValidityFormula) {
+			HyAttributeValidityFormula attributeValidityFormula = (HyAttributeValidityFormula) validityFormula;
 			HyImpliesExpression featureImpliesValidityFormulaExpression = HyExpressionFactory.eINSTANCE
 					.createHyImpliesExpression();
 

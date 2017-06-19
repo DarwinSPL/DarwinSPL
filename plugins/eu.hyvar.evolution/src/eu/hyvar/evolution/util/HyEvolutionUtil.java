@@ -340,6 +340,16 @@ public class HyEvolutionUtil {
 
 		return validElements;
 	}
+	
+	public static <T extends HyTemporalElement> List<T> getInvalidTemporalElements(List<T> elements, Date date) {
+		List<T> invalidElements = new ArrayList<T>(elements);
+		
+		if(date != null) {
+			invalidElements.removeAll(getValidTemporalElements(elements, date));			
+		}
+		
+		return invalidElements;
+	}
 
 	/**
 	 * Returns a sorted list of all available dates of HyTemporalElements in the
@@ -384,7 +394,7 @@ public class HyEvolutionUtil {
 	}
 	
 	/**
-	 * Collects dates of valid until and valid since of the given elements
+	 * Collects a sorted list of unique dates of valid until and valid since of the given elements
 	 * @param elements
 	 * @return sorted list of unique dates (created using a set)
 	 */
