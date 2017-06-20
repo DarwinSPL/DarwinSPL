@@ -21,20 +21,22 @@ public class StageModelWizardCreationPage extends WizardPage {
 	public StageModelWizardCreationPage(String pageName) {
 		super(pageName);
 		
-		setTitle("Adding a Staged Model to the Feature Model");
-		setDescription("description");
+		setTitle("Stage Model Creation");
+		setDescription("By Clicking Finish, a Stage Model will be cerated for the available Feature Model");
+		//setMessage("Blubel");
+		
 	}
 
 	@Override
 	public void createControl(Composite parent) {
 		// TODO Auto-generated method stub
 		container = new Composite(parent, SWT.NONE);
-		GridLayout layout = new GridLayout();
-		container.setLayout(layout);
-		layout.numColumns = 2;
-		Label label1 = new Label(container, SWT.NONE);
-		
-		
+//		GridLayout layout = new GridLayout();
+//		container.setLayout(layout);
+//		layout.numColumns = 2;
+//		Label label1 = new Label(container, SWT.NONE);
+//		
+		container.setSize(250,0);
 		setControl(container);
 		setPageComplete(true);
 	}

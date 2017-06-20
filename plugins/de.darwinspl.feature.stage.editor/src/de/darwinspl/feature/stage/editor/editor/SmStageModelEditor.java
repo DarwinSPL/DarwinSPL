@@ -2,26 +2,28 @@ package de.darwinspl.feature.stage.editor.editor;
 
 
 import java.io.IOException;
-import java.util.Date;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IWorkspace;
 import org.eclipse.core.resources.IWorkspaceRoot;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
-import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.jface.window.Window;
 import org.eclipse.jface.wizard.WizardDialog;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.events.SelectionEvent;
+import org.eclipse.swt.events.SelectionListener;
+import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.layout.RowLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Event;
+import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.widgets.Listener;
 import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.IEditorSite;
@@ -31,6 +33,7 @@ import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.PlatformUI;
 
 import de.christophseidl.util.ecore.EcoreIOUtil;
+import de.darwinspl.feature.stage.Stage;
 import de.darwinspl.feature.stage.StageModel;
 import de.darwinspl.feature.stage.StagePackage;
 import de.darwinspl.feature.stage.base.model.StageModelWrapped;
@@ -49,12 +52,14 @@ import eu.hyvar.feature.util.HyFeatureUtil;
 
 public class SmStageModelEditor extends HyGraphicalFeatureModelEditor {
 	
+	protected Group stageGroup;
 	protected Combo stageCombo;
 	protected Button stageAssignButton;
 	protected Button stageManagementButton;
 	protected Composite comboGroup;
 	
 	protected StageModelWrapped stageModelWrapped;
+	protected Stage selectedStage;
 	
 	// Functions that have to be overwritten to allow Stage model loading	
 	
@@ -83,16 +88,13 @@ public class SmStageModelEditor extends HyGraphicalFeatureModelEditor {
 	
 	
 	/**
-	 * 
+	 * Save Method for Stage Model and Feature Model
 	 */
 	@Override
 	public void doSave(IProgressMonitor monitor) {
-		Resource featureModelResource = this.modelWrapped.getModel().eResource();
-		
-		
-		
+		Resource featureModelResource = this.modelWrapped.getModel().eResource();		
+		// Feature Model Part
 		if(featureModelResource == null) return;
-
 		try{
 			DwFeatureModelLayoutFileUtil.saveLayout(modelWrapped);
 
@@ -107,7 +109,7 @@ public class SmStageModelEditor extends HyGraphicalFeatureModelEditor {
 		}catch(CoreException e){
 			e.printStackTrace();
 		}		
-		
+		// Stage Model Part
 		if(stageModelWrapped == null) return;
 		Resource stageModelResource = this.stageModelWrapped.getModel().eResource();
 		try{			
@@ -123,21 +125,10 @@ public class SmStageModelEditor extends HyGraphicalFeatureModelEditor {
 	}
 	
 	
-//	
-//	/**
-//	 * Extracts the file which correspond to the current editor instance and
-//	 * loads the underlying feature model saved in that file. This method is called
-//	 * during initialising the editor.
-//	 */
-//	protected void setInput(IEditorInput input) {
-//		super.setInput(input);
-//		loadModelFromFile(((IFileEditorInput) input).getFile());
-//	}
-//	
-	
 	/**
-	 * New Init
+	 * Init Method that loads the StageModel in the Editor Workspace
 	 */
+	@Override
 	public void init(IEditorSite site, IEditorInput input) throws PartInitException {
 		super.init(site, input);
 
@@ -168,8 +159,15 @@ public class SmStageModelEditor extends HyGraphicalFeatureModelEditor {
 	 * Creation of the Buttons/Combobox for Stage control in the editor
 	 */
 	public void createStageControl(Composite parent){
-		//Groups for positioning
-		buttonGroup = new Composite(parent,SWT.NONE);
+		// Group Around the Components of the Stage Extension
+		GridData gridData = new GridData();
+		stageGroup = new Group(parent, SWT.NONE);
+	    stageGroup.setLayout(new GridLayout( 1, false ));
+	    stageGroup.setLayoutData(gridData);
+	    stageGroup.setText("Stage Model");
+	    
+		//Groups for positioning inside the Group
+		buttonGroup = new Composite(stageGroup,SWT.NONE);
 		RowLayout rowLayout = new RowLayout (SWT.HORIZONTAL);
 		rowLayout.justify = true;
 		buttonGroup.setLayout(rowLayout);		
@@ -181,9 +179,6 @@ public class SmStageModelEditor extends HyGraphicalFeatureModelEditor {
 		
 		// Combo box for stage Selection
 		stageCombo = new Combo(comboGroup, SWT.NONE);		
-		//Example;
-		String items[] = { "Stage One", "Stage Two"};
-		stageCombo.setItems(items);
 		
 		//Button for Stage Management, Creation/Deletion
 		stageManagementButton = new Button (comboGroup, SWT.NONE);
@@ -210,7 +205,7 @@ public class SmStageModelEditor extends HyGraphicalFeatureModelEditor {
 					// Show initialization wizard the first time the button is pressed
 					IWorkbench workbench =  PlatformUI.getWorkbench();
 					WizardDialog dialog = new WizardDialog(getEditorSite().getShell(), new StageModelWizard(modelWrapped,workbench));
-					
+					dialog.setPageSize(25,10);
 					if(dialog.open() == Window.OK){
 						URI featureModelURI = modelWrapped.getModel().eResource().getURI();
 						URI stageModelURI = featureModelURI.trimFileExtension().appendFileExtension("staged");
@@ -222,16 +217,49 @@ public class SmStageModelEditor extends HyGraphicalFeatureModelEditor {
 					}
 					
 				}
-				StageDialog stageDialog = new StageDialog(getEditorSite().getShell());
+				StageDialog stageDialog = new StageDialog(getEditorSite().getShell(), stageModelWrapped);
 				stageDialog.open();
 				if(stageDialog.getReturnCode()==0){					
 				
 				}
+				updateComboBox();
 			}
 		});
 
 	}
 	
+	/**
+	 * Listener for the combo Box to get the currently selected stage
+	 */
+	public void registerStageComboListener(){
+		stageCombo.addSelectionListener(new SelectionListener(){
+
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+				int selectedItem = stageCombo.getSelectionIndex();
+				selectedStage = stageModelWrapped.getModel().getStages().get(selectedItem);
+			}
+
+			@Override
+			public void widgetDefaultSelected(SelectionEvent e) {
+			}
+			
+		});
+	}
+	
+	
+	/**
+	 * Update Function for the Stage Combo Box
+	 */
+	public void updateComboBox(){
+		stageCombo.removeAll();;
+		for (Stage currentStage : stageModelWrapped.getModel().getStages()) {			
+			String currentStageName = currentStage.getNames().get(0).getName();
+			stageCombo.add(currentStageName);
+			stageCombo.redraw();
+			
+      }	   
+	}
 	
 	/** Function to overwrite from DwGraphicalFeatureModelViewer
 	 *  This function adds everything to the layout
@@ -245,6 +273,9 @@ public class SmStageModelEditor extends HyGraphicalFeatureModelEditor {
 		
 		registerControlListeners();
 		registerStageControlListeners();
+		registerStageComboListener();
+		//refresh
+		updateComboBox();
 		((HyFeatureModelEditPart)getGraphicalViewer().getContents()).refresh();
 	}	
 

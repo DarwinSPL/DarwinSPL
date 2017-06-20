@@ -59,10 +59,14 @@ public class StageModelWizard extends Wizard {
 	
 	
 	/**
-	 * New Consturctor to allow reference to exisiting FeauterModel
+	 * Stage Model Wizard
+	 * Not only a dialog, because furhter decisions may be added
+	 * @param featureModel current FeatureModel
+	 * @param workbench Eclipse Root
 	 */
 	public StageModelWizard(HyFeatureModelWrapped featureModel, IWorkbench workbench){
 		super();
+		
 		this.workbench = workbench;
 		this.featureModel = featureModel;
 	}	

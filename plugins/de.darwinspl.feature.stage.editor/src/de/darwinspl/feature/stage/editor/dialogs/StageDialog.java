@@ -5,6 +5,8 @@ import org.eclipse.jface.dialogs.IDialogConstants;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.KeyEvent;
 import org.eclipse.swt.events.KeyListener;
+import org.eclipse.swt.events.SelectionEvent;
+import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
@@ -16,12 +18,28 @@ import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.widgets.List;
 import org.eclipse.swt.widgets.Listener;
+import org.eclipse.swt.widgets.MessageBox;
 import org.eclipse.swt.widgets.Shell;
+import org.eclipse.ui.IEditorPart;
 
+import de.darwinspl.feature.stage.Stage;
+import de.darwinspl.feature.stage.base.model.StageModelWrapped;
+
+/**
+ * Dialog to manage Stages and Roles
+ * @author Informatik
+ *
+ */
 public class StageDialog extends Dialog implements Listener{
+	// The current Model
+	protected StageModelWrapped stageModelWrapped;
+	// Selected Stage Reference
+	protected Stage selectedStage; 
+	
 	// TODO Alex: Replace List with colored Table to improve readability
 	protected Composite stageButtonGroup;
 	protected Composite roleButtonGroup;
+	
 	protected Group stageGroup;
 	protected Group roleGroup;
 	
@@ -31,9 +49,19 @@ public class StageDialog extends Dialog implements Listener{
 	protected Button addRoleButton;
 	protected Button deleteRoleButton;
 
+	protected List stageList;
+	protected List roleList;
 	
-	public StageDialog(Shell parentShell) {
+	
+	
+	/**
+	 * Stage Dialog
+	 * @param parentShell
+	 * @param stageModel current Stage Model
+	 */
+	public StageDialog(Shell parentShell, StageModelWrapped stageModel) {
 		super(parentShell);
+		this.stageModelWrapped = stageModel;		
 	}
 
 	@Override
@@ -68,16 +96,16 @@ public class StageDialog extends Dialog implements Listener{
 	    roleGroup.setLayout(new GridLayout( 1, false ));
 	    
 	    // Lists for Stages / Roles	    
-	    List stageList = new List(stageGroup, SWT.BORDER | SWT.SINGLE | SWT.V_SCROLL);
+	    stageList = new List(stageGroup, SWT.BORDER | SWT.SINGLE | SWT.V_SCROLL);
 	    stageList.setLayoutData(new GridData());
-	    List roleList = new List(roleGroup, SWT.BORDER | SWT.SINGLE | SWT.V_SCROLL);
+	    roleList = new List(roleGroup, SWT.BORDER | SWT.SINGLE | SWT.V_SCROLL);
 	    roleList.setLayoutData(new GridData());
 	    
 	     // TODO Alex: Replace with a function that gets the names of the existing stages
-	    for (int loopIndex = 0; loopIndex < 10; loopIndex++) {
-	        stageList.add("Stage " + loopIndex);
-	        roleList.add("Role " + loopIndex);
-	      }	   
+//	    for (int loopIndex = 0; loopIndex < 10; loopIndex++) {
+//	        stageList.add("Stage " + loopIndex);
+//	        roleList.add("Role " + loopIndex);
+//	      }	   
 	    
 	    // Stage Button Group
 	    stageButtonGroup = new Composite(stageGroup,SWT.NONE);
@@ -101,14 +129,69 @@ public class StageDialog extends Dialog implements Listener{
 		deleteRoleButton = new Button (roleButtonGroup, SWT.NONE);
 		deleteRoleButton.setText("Delete");
 		assignRoleButton = new Button (roleButtonGroup, SWT.NONE);
-		assignRoleButton.setText("Assign");    
+		assignRoleButton.setText("Assign");   
+		
 
-
+		// Add Listeners 
+		addButtonListeners();
+		addListListeners();
+		
 	    container.pack();
+	    updateStageList();
 		return container;
 	}
+	
+	/**
+	 * Adding Listeners for Current Selection
+	 *  Sets references tp the currently selected Elements
+	 */
+	protected void addListListeners() {
+		
+		stageList.addSelectionListener(new SelectionListener(){
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+				int[] selectedItems = stageList.getSelectionIndices();
+				// Setting the Reference to the currently selected Stage
+				selectedStage = stageModelWrapped.getModel().getStages().get(selectedItems[0]);				
+			}
+			@Override
+			public void widgetDefaultSelected(SelectionEvent e) {			
+			}			
+		});
+		
+	}
+	
+	/**
+	 * Adding Listeners for Creation/Deletion of ObjectEntities
+	 */
+	protected void addButtonListeners() {
+		//Add Button Listeners
+		addStageButton.addListener(SWT.Selection, new Listener(){
+			public void handleEvent(Event event) {
+				StageCreationDialog stageCreationDialog = new StageCreationDialog(getShell(), stageModelWrapped);
+				stageCreationDialog.open();
+				updateStageList();
+			}
+			
+		});
+		
+		deleteStageButton.addListener(SWT.Selection,new Listener(){
+			public void handleEvent(Event event){
+				String stageName = selectedStage.getNames().get(0).getName();
+				MessageBox messageBox = new MessageBox(getShell(), SWT.ICON_QUESTION | SWT.YES | SWT.NO);
+			    messageBox.setMessage("Do you really want to delete the Stage: " + stageName );
+			    int response = messageBox.open();
+			    if(response == SWT.YES){
+			    	System.out.println("trying to delete the stage: " +stageName);
+			    	stageModelWrapped.deleteStage(selectedStage);
+			    	updateStageList();
+			    }
+			    
+			}
+		});
+	}
 
-	  @Override
+	@Override
 	  protected void createButtonsForButtonBar(Composite parent) {
 	    createButton(parent, IDialogConstants.OK_ID, "Finish", true);
 //	    createButton(parent, IDialogConstants.CANCEL_ID,
@@ -130,6 +213,27 @@ public class StageDialog extends Dialog implements Listener{
 
 	@Override
 	public void handleEvent(Event event) {
-	}		
+		updateStageList();
+	}	
+	
+	/**
+	 * Update Function for the Stage representation
+	 */
+	public void updateStageList(){
+		stageList.removeAll();;
+		for (Stage currentStage : stageModelWrapped.getModel().getStages()) {			
+			String currentStageName = currentStage.getNames().get(0).getName();
+			stageList.add(currentStageName);
+			stageList.redraw();
+			
+      }	   
+	}
+	
+	/**
+	 * Update Function for Role representation
+	 */
+	public void updateRoleList(){
+		
+	}
 
 }
