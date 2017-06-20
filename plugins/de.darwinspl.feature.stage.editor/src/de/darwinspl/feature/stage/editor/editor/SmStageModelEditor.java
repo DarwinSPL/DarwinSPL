@@ -178,7 +178,7 @@ public class SmStageModelEditor extends HyGraphicalFeatureModelEditor {
 		
 		
 		// Combo box for stage Selection
-		stageCombo = new Combo(comboGroup, SWT.NONE);		
+		stageCombo = new Combo(comboGroup, SWT.NONE);
 		
 		//Button for Stage Management, Creation/Deletion
 		stageManagementButton = new Button (comboGroup, SWT.NONE);
@@ -252,13 +252,20 @@ public class SmStageModelEditor extends HyGraphicalFeatureModelEditor {
 	 * Update Function for the Stage Combo Box
 	 */
 	public void updateComboBox(){
-		stageCombo.removeAll();;
-		for (Stage currentStage : stageModelWrapped.getModel().getStages()) {			
-			String currentStageName = currentStage.getNames().get(0).getName();
-			stageCombo.add(currentStageName);
-			stageCombo.redraw();
+		if(stageModelWrapped != null){
 			
-      }	   
+			stageCombo.removeAll();
+			
+			for (Stage currentStage : stageModelWrapped.getModel().getStages()) {			
+				String currentStageName = currentStage.getNames().get(0).getName();
+				stageCombo.add(currentStageName);
+				stageCombo.pack();
+				stageGroup.pack();
+				stageCombo.redraw();
+				
+				
+	      }	   
+		}
 	}
 	
 	/** Function to overwrite from DwGraphicalFeatureModelViewer
