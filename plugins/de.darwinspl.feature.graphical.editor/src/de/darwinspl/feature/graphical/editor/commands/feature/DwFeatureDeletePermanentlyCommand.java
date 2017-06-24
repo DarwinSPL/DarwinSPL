@@ -14,11 +14,14 @@ import de.darwinspl.feature.graphical.base.model.DwGroupWrapped;
 import de.darwinspl.feature.graphical.base.model.DwParentChildConnection;
 import de.darwinspl.feature.graphical.editor.commands.DwFeatureModelEditorCommand;
 import de.darwinspl.feature.graphical.editor.util.DwEcoreUtil;
+import eu.hyvar.evolution.util.HyEvolutionUtil;
 import eu.hyvar.feature.HyFeature;
 import eu.hyvar.feature.HyFeatureChild;
 import eu.hyvar.feature.HyFeatureModel;
 import eu.hyvar.feature.HyGroup;
 import eu.hyvar.feature.HyGroupComposition;
+import eu.hyvar.feature.HyGroupType;
+import eu.hyvar.feature.HyGroupTypeEnum;
 
 public class DwFeatureDeletePermanentlyCommand extends DwFeatureModelEditorCommand{
 	EditPart host;
@@ -158,6 +161,12 @@ public class DwFeatureDeletePermanentlyCommand extends DwFeatureModelEditorComma
 				}
 
 				viewer.getModelWrapped().removeGroup(viewer.getModelWrapped().findWrappedGroup(realGroup));
+			// change group type to and
+			}else if(features.size() == 2){
+				HyGroup realGroup = composition.getCompositionOf();
+				
+				this.group = DwEcoreUtil.copy(composition.getCompositionOf());
+				HyEvolutionUtil.getValidTemporalElement(realGroup.getTypes(), viewer.getCurrentSelectedDate()).setType(HyGroupTypeEnum.AND);
 			}else{
 				this.group = DwEcoreUtil.copy(composition.getCompositionOf());
 			}
@@ -181,7 +190,16 @@ public class DwFeatureDeletePermanentlyCommand extends DwFeatureModelEditorComma
 		
 		updateFeatureModel();
 	}
-
+	
+	private void undoGroupTypeChange(HyGroup group, HyGroup backupGroup){
+		for(HyGroupType type : group.getTypes()){
+			for(HyGroupType backupType : backupGroup.getTypes()){
+				if(type.getId().equals(backupType.getId())){
+					type.setType(backupType.getType());
+				}
+			}
+		}		
+	}
 
 	public void undo(){
 		HyFeatureModel featureModel = viewer.getInternalFeatureModel();
@@ -216,6 +234,8 @@ public class DwFeatureDeletePermanentlyCommand extends DwFeatureModelEditorComma
 					viewer.getModelWrapped().addGroup(new DwGroupWrapped(backupGroup));
 				}
 			}else{
+				undoGroupTypeChange(group, backupGroup);
+				
 				HyGroupComposition composition = getRealModelGroupComposition(group, backupComposition);
 				
 				if(composition != null){
@@ -228,7 +248,10 @@ public class DwFeatureDeletePermanentlyCommand extends DwFeatureModelEditorComma
 			}
 		}
 	
-		updateFeatureModel();
+
+		
+		viewer.getModelWrapped().rearrangeFeatures();
+		viewer.refreshView();		
 	}
 
 	@Override

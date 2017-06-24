@@ -12,11 +12,13 @@ import org.eclipse.gef.ConnectionEditPart;
 import org.eclipse.gef.NodeEditPart;
 import org.eclipse.gef.Request;
 import org.eclipse.gef.editparts.AbstractConnectionEditPart;
+import org.eclipse.gef.editparts.AbstractGraphicalEditPart;
 
 import de.darwinspl.feature.graphical.base.editor.DwGraphicalFeatureModelViewer;
 import de.darwinspl.feature.graphical.base.figures.DwParentChildConnectionFigure;
 import de.darwinspl.feature.graphical.base.model.DwFeatureModelWrapped;
 import de.darwinspl.feature.graphical.base.model.DwParentChildConnection;
+import eu.hyvar.evolution.util.HyEvolutionUtil;
 
 public class DwParentChildConnectionEditPart extends AbstractConnectionEditPart implements PropertyChangeListener, NodeEditPart {
 	protected DwFeatureModelWrapped model;
@@ -111,14 +113,12 @@ public class DwParentChildConnectionEditPart extends AbstractConnectionEditPart 
 		return ((DwParentChildConnectionFigure)getFigure()).getAnchor();
 	}
 
-
-	
 	@Override
 	public void refreshVisuals(){
 		Date date = editor.getCurrentSelectedDate();
 		DwParentChildConnection connection = (DwParentChildConnection)getModel();
-		boolean sourceValid = connection.getSource().isValid(date);
-		boolean targetValid = connection.getTarget().isValid(date);
+		boolean sourceValid = HyEvolutionUtil.isValid(connection.getSource().getWrappedModelElement(), date);
+		boolean targetValid = HyEvolutionUtil.isValid(connection.getTarget().getWrappedModelElement(), date);
 		
 		boolean connectionValid = true;
 		
@@ -130,6 +130,7 @@ public class DwParentChildConnectionEditPart extends AbstractConnectionEditPart 
 		
 		if(sourceValid && targetValid && connectionValid){
 			figure.setVisible(true);
+			
 			((DwParentChildConnectionFigure)this.getFigure()).layout();
 		}else{
 			figure.setVisible(false);

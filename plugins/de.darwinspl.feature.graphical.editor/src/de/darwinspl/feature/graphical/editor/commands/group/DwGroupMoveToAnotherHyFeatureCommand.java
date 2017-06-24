@@ -18,6 +18,7 @@ public class DwGroupMoveToAnotherHyFeatureCommand extends Command{
 	DwGroupWrapped groupWrapped;
 	DwFeatureModelWrapped featureModelWrapped;
 	DwFeatureWrapped newParentFeatureWrapped;
+	DwFeatureWrapped oldParentFeatureWrapped;
 	DwGraphicalFeatureModelViewer viewer;
 	public DwGroupMoveToAnotherHyFeatureCommand(DwGroupWrapped group, 
 												DwFeatureWrapped newParentFeatureWrapped, 
@@ -34,21 +35,24 @@ public class DwGroupMoveToAnotherHyFeatureCommand extends Command{
 		redo();
 	}
 	
-	@Override
-	public void redo(){
+	private void moveToNewParentFeature(DwFeatureWrapped newParent){
 		Date date = featureModelWrapped.getSelectedDate();
 		if(date.equals(new Date(Long.MIN_VALUE)))
 			date = null;
+		
+		
 				
 		HyGroup group = groupWrapped.getWrappedModelElement();
 		HyFeatureChild oldParentFeatureChild = HyEvolutionUtil.getValidTemporalElement(group.getChildOf(), date);
 		
+		// save old parent feature for undo
+		oldParentFeatureWrapped = viewer.getModelWrapped().getWrappedFeature(oldParentFeatureChild.getParent());
 		
 		HyFeatureChild featureChild = HyFeatureFactory.eINSTANCE.createHyFeatureChild();
 		featureChild.setValidSince(date);
 		
 		
-		newParentFeatureWrapped.getWrappedModelElement().getParentOf().add(featureChild);
+		newParent.getWrappedModelElement().getParentOf().add(featureChild);
 		featureChild.setChildGroup(group);
 		group.getChildOf().add(featureChild);
 		
@@ -75,24 +79,28 @@ public class DwGroupMoveToAnotherHyFeatureCommand extends Command{
 		for(DwFeatureWrapped featureWrapped : groupWrapped.getFeaturesWrapped(date)){
 			DwParentChildConnection connection = new DwParentChildConnection();
 			connection.setModel(featureModelWrapped);
-			connection.setSource(newParentFeatureWrapped);
+			connection.setSource(newParent);
 			connection.setTarget(featureWrapped);
 			
 			featureModelWrapped.addConnection(connection, date, group);
 			
 			featureWrapped.addChildToParentConnection(connection);
-			newParentFeatureWrapped.addParentToChildConnection(connection);
-		}
+			newParent.addParentToChildConnection(connection);
+		}		
+	}
+	@Override
+	public void redo(){
+		moveToNewParentFeature(newParentFeatureWrapped);
 		
-		
-		
-
 		featureModelWrapped.rearrangeFeatures();
 		viewer.refreshView();
 	}
 	
 	@Override
 	public void undo(){
-		
+		moveToNewParentFeature(oldParentFeatureWrapped);
+	
+		featureModelWrapped.rearrangeFeatures();
+		viewer.refreshView();
 	}
 }

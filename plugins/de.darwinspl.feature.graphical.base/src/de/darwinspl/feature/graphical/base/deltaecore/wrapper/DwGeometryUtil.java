@@ -1,5 +1,6 @@
 package de.darwinspl.feature.graphical.base.deltaecore.wrapper;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -10,8 +11,8 @@ import org.eclipse.draw2d.geometry.Rectangle;
 
 import de.darwinspl.feature.graphical.base.deltaecore.wrapper.layouter.version.DwVersionLayouterManager;
 import de.darwinspl.feature.graphical.base.deltaecore.wrapper.layouter.version.DwVersionTreeLayouter;
-import eu.hyvar.evolution.util.HyEvolutionUtil;
 import eu.hyvar.evolution.HyName;
+import eu.hyvar.evolution.util.HyEvolutionUtil;
 import eu.hyvar.feature.HyFeature;
 import eu.hyvar.feature.HyFeatureAttribute;
 import eu.hyvar.feature.HyFeatureChild;
@@ -51,30 +52,31 @@ public class DwGeometryUtil {
 		for(HyFeatureAttribute attribute : HyEvolutionUtil.getValidTemporalElements(feature.getAttributes(), date)){
 			HyName attributeName = HyEvolutionUtil.getValidTemporalElement(attribute.getNames(), date);
 			if(attributeName != null){
-				int nameWidth = DEGeometryUtil.getTextWidth(name.getName(), theme.getFeatureFont());
+				int nameWidth = DEGeometryUtil.getTextWidth(attributeName.getName(), theme.getFeatureFont());
 				int typeWidth = DEGeometryUtil.getTextWidth("Boolean", theme.getFeatureFont());
 
 				rawFeatureWidth = Math.max(rawFeatureWidth, nameWidth + typeWidth + 80);
 			}
 		}
-		
-		
-		HyFeatureChild child = HyEvolutionUtil.getValidTemporalElement(feature.getParentOf(), date);
-		if(child != null){
-			HyGroup group = child.getChildGroup();
-			
-			if(group != null){
-				HyGroupComposition composition = HyEvolutionUtil.getValidTemporalElement(group.getParentOf(), date);
-				
-				if(composition != null){
-				List<HyFeature> children = HyEvolutionUtil.getValidTemporalElements(composition.getFeatures(), date);
-		
-				if(!children.isEmpty())
-					rawFeatureWidth += 18;
+
+		if(!feature.getParentOf().isEmpty()){
+			HyFeatureChild child = HyEvolutionUtil.getValidTemporalElement(feature.getParentOf(), date);
+			if(child != null){
+				HyGroup group = child.getChildGroup();
+
+				if(group != null){
+					HyGroupComposition composition = HyEvolutionUtil.getValidTemporalElement(group.getParentOf(), date);
+
+					if(composition != null){
+						List<HyFeature> children = HyEvolutionUtil.getValidTemporalElements(composition.getFeatures(), date);
+
+						if(!children.isEmpty())
+							rawFeatureWidth += 18;
+					}
 				}
 			}
 		}
-		
+
 		// +16 to display an icon on the left for warnings, errors etc.
 		return rawFeatureWidth + 2 * theme.getPrimaryMargin() + 16;
 	}
@@ -88,28 +90,35 @@ public class DwGeometryUtil {
 		int featureHeight = theme.getFeatureNameAreaHeight() + versionAreaHeight;
 
 		int variationHeight = 0;
-		HyGroupComposition composition = HyEvolutionUtil.getValidTemporalElement(feature.getGroupMembership(), date);
-		if(composition != null){
-			HyGroupType type = HyEvolutionUtil.getValidTemporalElement(composition.getCompositionOf().getTypes(), date);
-			
-			if(type != null)
-				variationHeight = (type.getType() == HyGroupTypeEnum.AND ? theme.getFeatureVariationTypeExtent() : 0);
-		}else{
-			variationHeight = 4;
+		try {
+			if(!HyFeatureUtil.isRootFeature(feature, date)){
+				HyGroupComposition composition = HyEvolutionUtil.getValidTemporalElement(feature.getGroupMembership(), date);
+				if(composition != null){
+					HyGroupType type = HyEvolutionUtil.getValidTemporalElement(composition.getCompositionOf().getTypes(), date);
+
+					if(type != null)
+						variationHeight = (type.getType() == HyGroupTypeEnum.AND ? theme.getFeatureVariationTypeExtent() : 0);
+				}else{
+					variationHeight = 4;
+				}
+			}
+		} catch (HyFeatureModelWellFormednessException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 		featureHeight += variationHeight; // + theme.getLineWidth() * 2;
 
-		
+
 		int visibleAttributes = HyEvolutionUtil.getValidTemporalElements(feature.getAttributes(), date).size();
 		featureHeight += (theme.getFeatureNameAreaHeight()+theme.getLineWidth() * 3) * visibleAttributes; 
 
-		
+
 		if(visibleAttributes > 0 && versionAreaHeight > 0)
 			featureHeight -= 8;
 		else if(visibleAttributes > 0){
 			featureHeight += 1;
 		}
-		
+
 		return featureHeight;
 	}
 
@@ -142,14 +151,21 @@ public class DwGeometryUtil {
 
 	private static int findHighestVersionAreaHightOnSameLevel(HyFeature feature, Date date){
 		int highestVersionAreaHightOnSameLevel = 0;
-		
+
 		try {
 			if(HyFeatureUtil.isRootFeature(feature, date)){
 				DwVersionTreeLayouter versionTreeLayouter = DwVersionLayouterManager.getLayouter(feature, date);
 				highestVersionAreaHightOnSameLevel = versionTreeLayouter.getTreeBounds().height;
 
 			}else{
-				List<HyFeature> featuresOnSameTreeLevel = HyFeatureUtil.findFeaturesOnSameTreeLevel(feature, null);
+				List<HyFeature> featuresOnSameTreeLevel = null;
+				if(HyFeatureUtil.isRootFeature(feature, date)){
+					featuresOnSameTreeLevel = HyFeatureUtil.findFeaturesOnSameTreeLevel(feature, date);
+				}else{
+					featuresOnSameTreeLevel = new ArrayList<HyFeature>();
+					featuresOnSameTreeLevel.add(feature);
+				}
+
 
 				for (HyFeature featureOnSameTreeLevel : featuresOnSameTreeLevel) {
 					List<HyVersion> versions = featureOnSameTreeLevel.getVersions();

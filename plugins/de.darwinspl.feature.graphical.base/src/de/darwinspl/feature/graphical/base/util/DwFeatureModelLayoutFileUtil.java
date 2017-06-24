@@ -10,6 +10,7 @@ import java.nio.file.Paths;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -45,14 +46,11 @@ public class DwFeatureModelLayoutFileUtil {
 	}		
 	
 	/**
-	 * Tries to load and parse a layout file and add the extracted positions to each feature of 
-	 * the selected feature model. In case no layout file could be found or the layout file is corrupted,
-	 * dummy positions are added and the feature model is marked as auto layouted. 
-	 * @see addDummyPosition
-	 *  
+	 * Returns the file object of the feature model
 	 * @param featureModel
+	 * @return
 	 */
-	public static void loadLayoutFile(DwFeatureModelWrapped featureModel){
+	private static File getLayoutFile(DwFeatureModelWrapped featureModel){
 		IWorkspace workspace = ResourcesPlugin.getWorkspace();
 		IWorkspaceRoot workspaceRoot = workspace.getRoot();
 		
@@ -62,23 +60,105 @@ public class DwFeatureModelLayoutFileUtil {
 		IResource resourceInRuntimeWorkspace = workspaceRoot.findMember(path.toString());
 
 		if(resourceInRuntimeWorkspace != null){
-			File cfile = new File(resourceInRuntimeWorkspace.getLocationURI());
-
-			if(cfile.exists()){
+			return new File(resourceInRuntimeWorkspace.getLocationURI());	
+		}else{
+			return null;
+		}
+	}
+	
+	/**
+	 * Collects all the dates of a layout file
+	 * @param featureModel
+	 * @return
+	 */
+	public static List<Date> loadDatesFromLayoutFile(DwFeatureModelWrapped featureModel){
+		List<Date> dates = new ArrayList<Date>();
+		
+		File file = getLayoutFile(featureModel);
+		
+		if(file != null){
+			if(file.exists()){
+				List<String> lines;
 				try {
-					List<String> lines = Files.readAllLines(Paths.get(cfile.getPath()), Charset.defaultCharset());
+					lines = Files.readAllLines(Paths.get(file.getPath()), Charset.defaultCharset());
+					
 					for(String line : lines){
-						String[] parts = line.split(",");
-						if(parts.length != 5){
-							System.err.println("Layout file is corrupt at some point");
-							continue;
-						}
-
-						String id = parts[0];
+						List<Object> container = parseLine(line);		
 						
-						Date since = !parts[1].contains("null") ? dateFormat.parse(parts[1]) : null;
-						int x = Integer.parseInt(parts[3]);
-						int y = Integer.parseInt(parts[4]);
+						Date since = (Date)container.get(1);
+						Date until = (Date)container.get(2);
+						
+						if(!dates.contains(since) && since != null)
+							dates.add(since);
+						if(!dates.contains(until) && until != null)
+							dates.add(until);
+					}
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		
+		return dates;
+	}
+	
+	/**
+	 * parses a line of a layout file to a container of five objects. The structure of the container is (String, Date, Date, Int, Int)
+	 * @param line
+	 * @return
+	 */
+	private static List<Object> parseLine(String line){
+		String[] parts = line.split(",");
+		if(parts.length != 5){
+			System.err.println("Layout file is corrupt at some point");
+		}
+
+		List<Object> container = new ArrayList<Object>();
+		
+		String id = parts[0];
+		container.add(id);
+		
+		try{
+		Date since = !parts[1].contains("null") ? dateFormat.parse(parts[1]) : null;
+		Date until = !parts[2].contains("null") ? dateFormat.parse(parts[2]) : null;
+
+		container.add(since);
+		container.add(until);
+		}catch(ParseException ex){
+			System.err.println("Layout file has corrupt date at some point");
+		}
+		
+		int x = Integer.parseInt(parts[3]);
+		int y = Integer.parseInt(parts[4]);	
+		container.add(x);
+		container.add(y);
+		
+		return container;
+	}
+	
+	/**
+	 * Tries to load and parse a layout file and add the extracted positions to each feature of 
+	 * the selected feature model. In case no layout file could be found or the layout file is corrupted,
+	 * dummy positions are added and the feature model is marked as auto layouted. 
+	 * @see addDummyPosition
+	 *  
+	 * @param featureModel
+	 */
+	public static void loadLayoutFile(DwFeatureModelWrapped featureModel){
+		File file = getLayoutFile(featureModel);
+		
+		if(file != null){
+			if(file.exists()){
+				try {
+					List<String> lines = Files.readAllLines(Paths.get(file.getPath()), Charset.defaultCharset());
+					for(String line : lines){
+						List<Object> container = parseLine(line);
+
+						String id = (String)container.get(0);
+						
+						Date since = (Date)container.get(1);
+						int x = (Integer)container.get(3);
+						int y = (Integer)container.get(4);
 
 						featureModel.setAutoLayoutActive(false);
 						for(DwFeatureWrapped featureWrapped : featureModel.getFeatures(null)){
@@ -87,8 +167,7 @@ public class DwFeatureModelLayoutFileUtil {
 							}
 						}
 					}
-				} catch (IOException | ParseException e) {
-					// TODO Auto-generated catch block
+				} catch (IOException e) {
 					e.printStackTrace();
 					
 					addDummyPosition(featureModel);

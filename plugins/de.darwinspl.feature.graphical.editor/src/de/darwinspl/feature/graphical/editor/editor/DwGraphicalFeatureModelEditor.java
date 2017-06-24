@@ -54,6 +54,7 @@ import de.darwinspl.feature.graphical.editor.actions.enumeration.DwFeatureAttrib
 import de.darwinspl.feature.graphical.editor.actions.feature.DwFeatureChangeTypeAction;
 import de.darwinspl.feature.graphical.editor.actions.feature.DwFeatureCreateChildAction;
 import de.darwinspl.feature.graphical.editor.actions.feature.DwFeatureCreateSiblingAction;
+import de.darwinspl.feature.graphical.editor.actions.feature.DwFeatureDeletePermanentlyAction;
 import de.darwinspl.feature.graphical.editor.actions.feature.DwFeatureEditNamesAction;
 import de.darwinspl.feature.graphical.editor.actions.feature.DwSetFeatureLinkAction;
 import de.darwinspl.feature.graphical.editor.actions.group.DwGroupChangeGroupTypeToAlternativeTypeAction;
@@ -225,6 +226,10 @@ public class DwGraphicalFeatureModelEditor extends DwGraphicalFeatureModelViewer
 		DwNumberAttributeSetNumberRangeAction rangeAttributeAction = new DwNumberAttributeSetNumberRangeAction(this);
 		getActionRegistry().registerAction(rangeAttributeAction);
 		getSelectionActions().add(rangeAttributeAction.getId());
+		
+		DwFeatureDeletePermanentlyAction deleteFeaturePermanentlyAction = new DwFeatureDeletePermanentlyAction(this);
+		getActionRegistry().registerAction(deleteFeaturePermanentlyAction);
+		getSelectionActions().add(deleteFeaturePermanentlyAction.getId());
 
 		DwSetFeatureLinkAction setFeatureLinkAction = new DwSetFeatureLinkAction(this);
 		getActionRegistry().registerAction(setFeatureLinkAction);

@@ -2,6 +2,10 @@ package de.darwinspl.feature.graphical.editor.commands.version;
 
 import java.util.Date;
 
+import org.eclipse.emf.ecore.EStructuralFeature;
+import org.eclipse.emf.ecore.InternalEObject;
+import org.eclipse.emf.ecore.impl.ENotificationImpl;
+import org.eclipse.emf.ecore.impl.EStructuralFeatureImpl;
 import org.eclipse.gef.EditPart;
 
 import de.darwinspl.feature.graphical.base.editor.DwGraphicalFeatureModelViewer;
@@ -60,9 +64,6 @@ public class DwVersionEvolutionDeleteCommand extends DwFeatureModelEditorCommand
 		redo();
 	}
 	
-	private void removePermanentlyFromSupersededVersion(HyVersion version){
-		
-	}
 	private void removePermanentlyFromFeature(HyFeature feature){
 		int index = -1;
 		for(int i = 0; i<feature.getVersions().size(); i++){
@@ -81,6 +82,7 @@ public class DwVersionEvolutionDeleteCommand extends DwFeatureModelEditorCommand
 			}
 		}		
 	}
+	
 	@Override
 	public void redo(){
 		Date date = viewer.getCurrentSelectedDate();
@@ -94,7 +96,7 @@ public class DwVersionEvolutionDeleteCommand extends DwFeatureModelEditorCommand
 		if(version.getSupersededVersion() != null)
 			oldVersion.setSupersededVersion(DwEcoreUtil.copy(version.getSupersededVersion()));
 		
-		HyFeature feature = featureWrapped.getWrappedModelElement();
+		HyFeature feature = version.getFeature();
 		
 		if(date == null){
 			removePermanentlyFromFeature(feature);
@@ -105,10 +107,12 @@ public class DwVersionEvolutionDeleteCommand extends DwFeatureModelEditorCommand
 
 		oldVersion.setFeature(DwEcoreUtil.copy(feature));
 		
-		featureWrapped.getListeners().firePropertyChange("versions", 0, 1);
+		//featureWrapped.getListeners().firePropertyChange("versions", 0, 1);
 		
 		viewer.getModelWrapped().rearrangeFeatures();
 		viewer.refreshView();
+		
+		host.setSelected(0);
 	}
 	
 	@Override
@@ -135,9 +139,13 @@ public class DwVersionEvolutionDeleteCommand extends DwFeatureModelEditorCommand
 					feature.getVersions().add(oldVersion);
 					
 					version = oldVersion;
-					
 				}
 			}
+		}else{
+			version.setValidUntil(oldVersion.getValidUntil());
 		}
+		
+		viewer.getModelWrapped().rearrangeFeatures();
+		viewer.refreshView();
 	}
 }

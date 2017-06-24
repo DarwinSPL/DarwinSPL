@@ -19,8 +19,8 @@ import org.eclipse.emf.ecore.util.EcoreUtil;
 import de.darwinspl.feature.graphical.base.deltaecore.wrapper.layouter.feature.DwFeatureLayouterManager;
 import de.darwinspl.feature.graphical.base.deltaecore.wrapper.layouter.feature.DwFeatureTreeLayouter;
 import eu.hyvar.evolution.HyEvolutionFactory;
-import eu.hyvar.evolution.util.HyEvolutionUtil;
 import eu.hyvar.evolution.HyName;
+import eu.hyvar.evolution.util.HyEvolutionUtil;
 import eu.hyvar.feature.HyFeature;
 import eu.hyvar.feature.HyFeatureChild;
 import eu.hyvar.feature.HyFeatureFactory;
@@ -202,7 +202,7 @@ public class DwFeatureModelWrapped implements PropertyChangeListener {
 
 		Collections.sort(dates);
 
-		changes.firePropertyChange(PROPERTY_DATES_COUNT, old, dates.size());
+		//changes.firePropertyChange(PROPERTY_DATES_COUNT, old, dates.size());
 
 		return true;
 	}
@@ -214,7 +214,6 @@ public class DwFeatureModelWrapped implements PropertyChangeListener {
 	public void setSelectedDate(Date selectedDate) {
 		Date old = this.selectedDate;
 		this.selectedDate = selectedDate;
-
 
 		changes.firePropertyChange(PROPERTY_SELECTED_DATE, old, selectedDate);
 
@@ -281,7 +280,6 @@ public class DwFeatureModelWrapped implements PropertyChangeListener {
 				HyGroupComposition supersedingComposition = EcoreUtil.copy(composition);
 				Calendar a = Calendar.getInstance();
 				a.setTime(selectedDate);
-				a.add(Calendar.SECOND, -1);
 				oldComposition.setValidUntil(a.getTime());
 				child.getChildGroup().getParentOf().add(supersedingComposition);
 
@@ -470,15 +468,11 @@ public class DwFeatureModelWrapped implements PropertyChangeListener {
 
 
 	public void addFeature(DwFeatureWrapped feature){
-		int size = features.size();
-
-
 		features.add(feature);
 
 		feature.addPropertyChangeListener(this);
 
 		model.getFeatures().add(feature.getWrappedModelElement());
-		changes.firePropertyChange(PROPERTY_CHILDREN_SIZE, size, size+1);
 	}
 
 	public List<DwParentChildConnection> getConnections() {
