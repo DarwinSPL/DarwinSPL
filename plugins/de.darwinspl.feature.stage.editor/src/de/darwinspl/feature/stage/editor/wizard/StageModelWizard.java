@@ -73,32 +73,12 @@ public class StageModelWizard extends Wizard {
 
 	
 	/**
-	 * TODO Alex: Overwrite this function with Factory for Stage Model
+	 *  Stage Model Creation and linking with current Feature Model
 	 */
 	protected EObject createStageModel() {
+		
 		StageModel stageModel = StageFactory.eINSTANCE.createStageModel();
-		
-		
-		// TODO Alex: Add default Stage and Role
-		//featureModel = editor ;
-		//HyFeatureModel featureModel = HyFeatureFactory.eINSTANCE.createHyFeatureModel();
-		
-		
-	//	HyFeature rootFeatureFeature = HyFeatureFactory.eINSTANCE.createHyFeature();
-		//HyName featureName = HyEvolutionFactory.eINSTANCE.createHyName();
-		//featureName.setName("RootFeature");
-		//rootFeatureFeature.getNames().add(featureName);
-		//HyFeatureType featureType = HyFeatureFactory.eINSTANCE.createHyFeatureType();
-		//featureType.setType(HyFeatureTypeEnum.MANDATORY);
-		//rootFeatureFeature.getTypes().add(featureType);
-		
-		//HyRootFeature rootFeature = HyFeatureFactory.eINSTANCE.createHyRootFeature();
-		//rootFeature.setFeature(rootFeatureFeature);
-	
 		stageModel.setFeatureModel(featureModel.getModel());
-		//stageModel.getFeatureModel().getFeatures().add(rootFeatureFeature);
-		//stageModel.getFeatureModel().getRootFeature().add(rootFeature);
-		
 		
 		return stageModel;
 	}	

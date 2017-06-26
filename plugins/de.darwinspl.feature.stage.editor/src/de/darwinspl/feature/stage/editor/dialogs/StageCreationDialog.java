@@ -49,7 +49,7 @@ public class StageCreationDialog extends Dialog {
 	    
 	    
 	    infoText = new Label(container, SWT.NONE);
-	    infoText.setText("Please enter a Name");	    
+	    infoText.setText("Please enter a Name for new Stage");	    
 	    
 	    editField = new Text(container, SWT.BORDER);
 	    
@@ -91,6 +91,14 @@ public class StageCreationDialog extends Dialog {
 	  layout.marginHeight = 0;
 	}
 	
+	/**
+	 * Sets stage Creation Dialog Caption
+	 */
+	@Override
+	protected void configureShell(Shell newShell) {
+		super.configureShell(newShell);
+		newShell.setText("Create Stage");
+	}
 	
 	
 	

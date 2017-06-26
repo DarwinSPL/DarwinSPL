@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import de.darwinspl.feature.stage.Role;
 import de.darwinspl.feature.stage.Stage;
 import de.darwinspl.feature.stage.StageFactory;
 import de.darwinspl.feature.stage.StageModel;
@@ -81,11 +82,43 @@ public class StageModelWrapped implements PropertyChangeListener  {
 	}
 	
 	/**
+	 * Function call to create a new named Role
+	 * @param text Name for the new Stage
+	 */
+	public void addNewRoleToModel(String text) {
+		// TODO Auto-generated method stub
+		Role newRole =StageFactory.eINSTANCE.createRole();
+		HyName newName =  HyEvolutionFactory.eINSTANCE.createHyName();
+		newName.setName(text);		
+	    newRole.getNames().add(newName);		
+		stageModel.getRoles().add(newRole);
+	}
+	
+	/**
+	 * Function call to assign 
+	 * @param selectedRole
+	 * @param selectedStage
+	 */
+	public void assignRoleToStage(Role selectedRole, Stage selectedStage){
+		selectedRole.getAssignedTo().add(selectedStage);
+	}
+	
+	
+	/**
 	 * Function to Remove a Stage from the Model
 	 * @param stage
 	 */
 	public void deleteStage(Stage stage){
 		stageModel.getStages().remove(stage);
 	}
+	
+	/**
+	 * Function to Remove a Role from the Model
+	 * @param stage
+	 */
+	public void deleteRole(Role role){
+		stageModel.getRoles().remove(role);
+	}
+
 
 }

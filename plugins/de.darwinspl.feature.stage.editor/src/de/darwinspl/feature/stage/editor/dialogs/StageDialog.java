@@ -22,6 +22,7 @@ import org.eclipse.swt.widgets.MessageBox;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.IEditorPart;
 
+import de.darwinspl.feature.stage.Role;
 import de.darwinspl.feature.stage.Stage;
 import de.darwinspl.feature.stage.base.model.StageModelWrapped;
 
@@ -35,6 +36,7 @@ public class StageDialog extends Dialog implements Listener{
 	protected StageModelWrapped stageModelWrapped;
 	// Selected Stage Reference
 	protected Stage selectedStage; 
+	protected Role selectedRole;
 	
 	// TODO Alex: Replace List with colored Table to improve readability
 	protected Composite stageButtonGroup;
@@ -75,9 +77,9 @@ public class StageDialog extends Dialog implements Listener{
 		//Grid Layout for area
 		Composite container = (Composite) super.createDialogArea(parent);
 	    container.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
-	    GridLayout layout = new GridLayout(4, true);
+	    GridLayout layout = new GridLayout(2, true);
 	    GridData gridData = new GridData();
-		gridData.horizontalSpan = 2;
+		gridData.horizontalSpan = 1;
 		gridData.horizontalAlignment = SWT.FILL;
 		gridData.grabExcessHorizontalSpace = true;
 		gridData.verticalAlignment = SWT.FILL;
@@ -97,9 +99,10 @@ public class StageDialog extends Dialog implements Listener{
 	    
 	    // Lists for Stages / Roles	    
 	    stageList = new List(stageGroup, SWT.BORDER | SWT.SINGLE | SWT.V_SCROLL);
-	    stageList.setLayoutData(new GridData());
+	    stageList.setLayoutData(new GridData(SWT.FILL,SWT.FILL,true,true));
+	    
 	    roleList = new List(roleGroup, SWT.BORDER | SWT.SINGLE | SWT.V_SCROLL);
-	    roleList.setLayoutData(new GridData());
+	    roleList.setLayoutData(new GridData(SWT.FILL,SWT.FILL,true,true));
 	    
 	     // TODO Alex: Replace with a function that gets the names of the existing stages
 //	    for (int loopIndex = 0; loopIndex < 10; loopIndex++) {
@@ -136,8 +139,9 @@ public class StageDialog extends Dialog implements Listener{
 		addButtonListeners();
 		addListListeners();
 		
-	    container.pack();
+	    //container.pack();
 	    updateStageList();
+	    updateRoleList();
 		return container;
 	}
 	
@@ -159,6 +163,18 @@ public class StageDialog extends Dialog implements Listener{
 			}			
 		});
 		
+		roleList.addSelectionListener(new SelectionListener(){
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+				int[] selectedItems = roleList.getSelectionIndices();
+				// Setting the Reference to the currently selected Stage
+				selectedRole = stageModelWrapped.getModel().getRoles().get(selectedItems[0]);				
+			}
+			@Override
+			public void widgetDefaultSelected(SelectionEvent e) {			
+			}			
+		});
+		
 	}
 	
 	/**
@@ -166,6 +182,7 @@ public class StageDialog extends Dialog implements Listener{
 	 */
 	protected void addButtonListeners() {
 		//Add Button Listeners
+		// Add Buttons
 		addStageButton.addListener(SWT.Selection, new Listener(){
 			public void handleEvent(Event event) {
 				StageCreationDialog stageCreationDialog = new StageCreationDialog(getShell(), stageModelWrapped);
@@ -175,6 +192,15 @@ public class StageDialog extends Dialog implements Listener{
 			
 		});
 		
+		addRoleButton.addListener(SWT.Selection, new Listener(){
+			public void handleEvent(Event event) {
+				RoleCreationDialog roleCreationDialog = new RoleCreationDialog(getShell(), stageModelWrapped);
+				roleCreationDialog.open();
+				updateRoleList();
+			}
+			
+		});
+		// Delete Buttons
 		deleteStageButton.addListener(SWT.Selection,new Listener(){
 			public void handleEvent(Event event){
 				String stageName = selectedStage.getNames().get(0).getName();
@@ -188,12 +214,37 @@ public class StageDialog extends Dialog implements Listener{
 			    }
 			    
 			}
+		});		
+		deleteRoleButton.addListener(SWT.Selection,new Listener(){
+			public void handleEvent(Event event){
+				String roleName = selectedRole.getNames().get(0).getName();
+				MessageBox messageBox = new MessageBox(getShell(), SWT.ICON_QUESTION | SWT.YES | SWT.NO);
+			    messageBox.setMessage("Do you really want to delete the Role: " + roleName );
+			    int response = messageBox.open();
+			    if(response == SWT.YES){
+			    	System.out.println("trying to delete the role: " +roleName);
+			    	stageModelWrapped.deleteRole(selectedRole);
+			    	updateRoleList();
+			    }
+			    
+			}
 		});
+		
+		//Assign Button
+		assignRoleButton.addListener(SWT.Selection, new Listener(){
+			public void handleEvent(Event event) {
+				stageModelWrapped.assignRoleToStage(selectedRole,selectedStage);
+				updateStageList();
+				updateRoleList();
+			}
+			
+		});
+		
 	}
 
 	@Override
 	  protected void createButtonsForButtonBar(Composite parent) {
-	    createButton(parent, IDialogConstants.OK_ID, "Finish", true);
+	    createButton(parent, IDialogConstants.OK_ID, "Done", true);
 //	    createButton(parent, IDialogConstants.CANCEL_ID,
 //	        IDialogConstants.CANCEL_LABEL, false);
 	  }	
@@ -208,12 +259,13 @@ public class StageDialog extends Dialog implements Listener{
 
 	@Override
 	protected Point getInitialSize() {
-		return new Point(400, 340);
+		return new Point(340, 240);
 	}
 
 	@Override
 	public void handleEvent(Event event) {
 		updateStageList();
+		updateRoleList();
 	}	
 	
 	/**
@@ -223,8 +275,18 @@ public class StageDialog extends Dialog implements Listener{
 		stageList.removeAll();;
 		for (Stage currentStage : stageModelWrapped.getModel().getStages()) {			
 			String currentStageName = currentStage.getNames().get(0).getName();
+			
+			String assignedRoleNames = ": ";			
+			for (Role assignedRole : currentStage.getHasAssigned()){
+				assignedRoleNames = assignedRoleNames +  assignedRole.getNames().get(0).getName() + " | ";
+			}
+			currentStageName = currentStageName + assignedRoleNames;
+			
 			stageList.add(currentStageName);
-			stageList.redraw();
+
+			//stageList.pack();
+			//stageGroup.pack();
+			stageList.redraw();	
 			
       }	   
 	}
@@ -233,6 +295,22 @@ public class StageDialog extends Dialog implements Listener{
 	 * Update Function for Role representation
 	 */
 	public void updateRoleList(){
+		roleList.removeAll();;
+		for (Role currentRole : stageModelWrapped.getModel().getRoles()) {			
+			String currentRoleName = currentRole.getNames().get(0).getName(); 
+			
+			String assignedStageNames = ": ";			
+			for (Stage assignedStage : currentRole.getAssignedTo()){
+				assignedStageNames = assignedStageNames +  assignedStage.getNames().get(0).getName() + " | ";
+			}
+			currentRoleName = currentRoleName + assignedStageNames;
+			
+			roleList.add(currentRoleName);
+			//roleList.pack();
+			//roleGroup.pack();
+			roleList.redraw();
+			
+      }	  
 		
 	}
 
