@@ -8,6 +8,7 @@ import java.util.List;
 
 import de.darwinspl.feature.stage.Role;
 import de.darwinspl.feature.stage.Stage;
+import de.darwinspl.feature.stage.StageComposition;
 import de.darwinspl.feature.stage.StageFactory;
 import de.darwinspl.feature.stage.StageModel;
 import eu.hyvar.evolution.HyEvolutionFactory;
@@ -69,15 +70,17 @@ public class StageModelWrapped implements PropertyChangeListener  {
 	}
 	
 	/**
-	 * Function call to create a new named Stage
+	 * Function call to create a new named Stage and initial StageComposition
 	 * @param text Name for the new Stage
 	 */
 	public void addNewStageToModel(String text) {
 		// TODO Auto-generated method stub
 		Stage newStage =StageFactory.eINSTANCE.createStage();
+		StageComposition newStageComposition = StageFactory.eINSTANCE.createStageComposition();
 		HyName newName =  HyEvolutionFactory.eINSTANCE.createHyName();
 		newName.setName(text);		
-	    newStage.getNames().add(newName);		
+	    newStage.getNames().add(newName);
+	    newStage.getComposition().add(newStageComposition);
 		stageModel.getStages().add(newStage);
 	}
 	

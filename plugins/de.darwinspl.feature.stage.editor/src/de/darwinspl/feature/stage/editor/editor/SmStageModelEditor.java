@@ -2,6 +2,7 @@ package de.darwinspl.feature.stage.editor.editor;
 
 
 import java.io.IOException;
+import java.util.List;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IWorkspace;
@@ -11,6 +12,8 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.jface.viewers.ISelection;
+import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.jface.window.Window;
 import org.eclipse.jface.wizard.WizardDialog;
 import org.eclipse.swt.SWT;
@@ -39,13 +42,20 @@ import de.darwinspl.feature.stage.StagePackage;
 import de.darwinspl.feature.stage.base.model.StageModelWrapped;
 import de.darwinspl.feature.stage.editor.dialogs.StageDialog;
 import de.darwinspl.feature.stage.editor.wizard.StageModelWizard;
+import eu.hyvar.feature.HyFeature;
 import eu.hyvar.feature.HyFeatureModel;
 import eu.hyvar.feature.HyFeaturePackage;
 import eu.hyvar.feature.graphical.base.dialogs.DateDialog;
+import eu.hyvar.feature.graphical.base.editparts.HyFeatureEditPart;
 import eu.hyvar.feature.graphical.base.editparts.HyFeatureModelEditPart;
+import eu.hyvar.feature.graphical.base.editparts.HyGroupEditPart;
 import eu.hyvar.feature.graphical.base.model.HyFeatureModelWrapped;
+import eu.hyvar.feature.graphical.base.model.HyFeatureWrapped;
+import eu.hyvar.feature.graphical.base.model.HyGroupWrapped;
 import eu.hyvar.feature.graphical.base.util.DwFeatureModelLayoutFileUtil;
 import eu.hyvar.feature.graphical.editor.editor.HyGraphicalFeatureModelEditor;
+import eu.hyvar.feature.graphical.editor.editparts.HyFeatureEditorEditPart;
+import eu.hyvar.feature.graphical.editor.editparts.HyGroupEditorEditPart;
 import eu.hyvar.feature.util.HyFeatureUtil;
 
 
@@ -186,7 +196,7 @@ public class SmStageModelEditor extends HyGraphicalFeatureModelEditor {
 		
 		
 		//Button for Assignment
-		stageAssignButton = new Button(buttonGroup, SWT.TOGGLE);
+		stageAssignButton = new Button(buttonGroup, SWT.NONE);
 		stageAssignButton.setText("Assign Stage");
 		
 		
@@ -247,6 +257,51 @@ public class SmStageModelEditor extends HyGraphicalFeatureModelEditor {
 		});
 	}
 	
+	/**
+	 * Listener for the Assignment Button to assign selected Features to Stage
+	 */
+	//TODO Alex: Replace 0 Index with appropriate index depending on date
+	public void registerAssignmentListener(){
+		stageAssignButton.addSelectionListener(new SelectionListener(){
+			@Override
+			public void widgetSelected(SelectionEvent e) {				
+				
+				StructuredSelection currentSelection=  (StructuredSelection) getEditorSite().getSelectionProvider().getSelection();
+				// current Selection as List
+				@SuppressWarnings("unchecked")
+				List<Object> selectionList = currentSelection.toList();
+				
+				HyFeatureEditPart currentFeatureEditPart;
+				HyFeatureWrapped currentWrappedFeature;
+				
+				HyGroupEditPart currentGroupEditPart;
+				HyGroupWrapped currentWrappedGroup;
+				
+				// Iterating over all selected Elements and Adding them to the Stage when they are features
+				for(int i = 0; i< currentSelection.size(); i++){
+					// Features
+					if(selectionList.get(i) instanceof HyFeatureEditorEditPart ){
+						currentFeatureEditPart = (HyFeatureEditPart)selectionList.get(i);
+						currentWrappedFeature = (HyFeatureWrapped) currentFeatureEditPart.getModel();					
+						selectedStage.getComposition().get(0).getFeatures().add(currentWrappedFeature.getWrappedModelElement());
+					}
+					// Groups
+					else if (selectionList.get(i) instanceof HyGroupEditorEditPart){
+						currentGroupEditPart = (HyGroupEditPart)selectionList.get(i);
+						currentWrappedGroup = (HyGroupWrapped) currentGroupEditPart.getModel();
+						selectedStage.getComposition().get(0).getGroups().add(currentWrappedGroup.getWrappedModelElement());
+					}
+				}				
+				
+			}
+
+			@Override
+			public void widgetDefaultSelected(SelectionEvent e) {
+			}
+			
+		});
+	}
+	
 	
 	/**
 	 * Update Function for the Stage Combo Box
@@ -276,11 +331,11 @@ public class SmStageModelEditor extends HyGraphicalFeatureModelEditor {
 		createEditor(parent);
 		createSliderControl(parent);
 		// ##### New Create ######
-		createStageControl(parent);
-		
+		createStageControl(parent);		
 		registerControlListeners();
 		registerStageControlListeners();
 		registerStageComboListener();
+		registerAssignmentListener();
 		//refresh
 		updateComboBox();
 		((HyFeatureModelEditPart)getGraphicalViewer().getContents()).refresh();
