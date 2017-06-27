@@ -109,18 +109,22 @@ public class StageModelWrapped implements PropertyChangeListener  {
 	
 	/**
 	 * Function to Remove a Stage from the Model
-	 * @param stage
+	 * @param stage Selected Stage
 	 */
 	public void deleteStage(Stage stage){
+		// Remove all assigned Roles		
 		stageModel.getStages().remove(stage);
+		stage.getHasAssigned().clear();
 	}
 	
 	/**
 	 * Function to Remove a Role from the Model
-	 * @param stage
+	 * @param role Selected Role
 	 */
 	public void deleteRole(Role role){
+		// Remove all assigned Stages
 		stageModel.getRoles().remove(role);
+		role.getAssignedTo().clear();
 	}
 
 

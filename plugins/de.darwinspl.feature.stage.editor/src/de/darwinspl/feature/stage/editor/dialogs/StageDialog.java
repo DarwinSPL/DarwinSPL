@@ -156,7 +156,9 @@ public class StageDialog extends Dialog implements Listener{
 			public void widgetSelected(SelectionEvent e) {
 				int[] selectedItems = stageList.getSelectionIndices();
 				// Setting the Reference to the currently selected Stage
-				selectedStage = stageModelWrapped.getModel().getStages().get(selectedItems[0]);				
+				if(selectedItems.length > 0){
+					selectedStage = stageModelWrapped.getModel().getStages().get(selectedItems[0]);		
+				}
 			}
 			@Override
 			public void widgetDefaultSelected(SelectionEvent e) {			
@@ -168,7 +170,9 @@ public class StageDialog extends Dialog implements Listener{
 			public void widgetSelected(SelectionEvent e) {
 				int[] selectedItems = roleList.getSelectionIndices();
 				// Setting the Reference to the currently selected Stage
-				selectedRole = stageModelWrapped.getModel().getRoles().get(selectedItems[0]);				
+				if(selectedItems.length > 0){
+					selectedRole = stageModelWrapped.getModel().getRoles().get(selectedItems[0]);	
+				}
 			}
 			@Override
 			public void widgetDefaultSelected(SelectionEvent e) {			
@@ -181,8 +185,7 @@ public class StageDialog extends Dialog implements Listener{
 	 * Adding Listeners for Creation/Deletion of ObjectEntities
 	 */
 	protected void addButtonListeners() {
-		//Add Button Listeners
-		// Add Buttons
+		// Add Stage Button
 		addStageButton.addListener(SWT.Selection, new Listener(){
 			public void handleEvent(Event event) {
 				StageCreationDialog stageCreationDialog = new StageCreationDialog(getShell(), stageModelWrapped);
@@ -192,6 +195,7 @@ public class StageDialog extends Dialog implements Listener{
 			
 		});
 		
+		// Add Role Button
 		addRoleButton.addListener(SWT.Selection, new Listener(){
 			public void handleEvent(Event event) {
 				RoleCreationDialog roleCreationDialog = new RoleCreationDialog(getShell(), stageModelWrapped);
@@ -200,7 +204,8 @@ public class StageDialog extends Dialog implements Listener{
 			}
 			
 		});
-		// Delete Buttons
+		
+		// Delete Stage Button
 		deleteStageButton.addListener(SWT.Selection,new Listener(){
 			public void handleEvent(Event event){
 				String stageName = selectedStage.getNames().get(0).getName();
@@ -211,10 +216,13 @@ public class StageDialog extends Dialog implements Listener{
 			    	System.out.println("trying to delete the stage: " +stageName);
 			    	stageModelWrapped.deleteStage(selectedStage);
 			    	updateStageList();
+			    	updateRoleList();
 			    }
 			    
 			}
-		});		
+		});	
+		
+		//Delete Role Button
 		deleteRoleButton.addListener(SWT.Selection,new Listener(){
 			public void handleEvent(Event event){
 				String roleName = selectedRole.getNames().get(0).getName();
@@ -225,12 +233,13 @@ public class StageDialog extends Dialog implements Listener{
 			    	System.out.println("trying to delete the role: " +roleName);
 			    	stageModelWrapped.deleteRole(selectedRole);
 			    	updateRoleList();
+			    	updateStageList();
 			    }
 			    
 			}
 		});
 		
-		//Assign Button
+		//Assign Role to Stage Button
 		assignRoleButton.addListener(SWT.Selection, new Listener(){
 			public void handleEvent(Event event) {
 				stageModelWrapped.assignRoleToStage(selectedRole,selectedStage);

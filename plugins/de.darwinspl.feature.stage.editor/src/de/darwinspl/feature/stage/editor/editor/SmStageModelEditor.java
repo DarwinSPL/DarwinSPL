@@ -66,6 +66,7 @@ public class SmStageModelEditor extends HyGraphicalFeatureModelEditor {
 	protected Combo stageCombo;
 	protected Button stageAssignButton;
 	protected Button stageManagementButton;
+	protected Button stageClearButton;
 	protected Composite comboGroup;
 	
 	protected StageModelWrapped stageModelWrapped;
@@ -199,6 +200,10 @@ public class SmStageModelEditor extends HyGraphicalFeatureModelEditor {
 		stageAssignButton = new Button(buttonGroup, SWT.NONE);
 		stageAssignButton.setText("Assign Stage");
 		
+		//Button to remove Features from stage
+		stageClearButton = new Button(buttonGroup, SWT.NONE);
+		stageClearButton.setText("Clear Stages");
+		
 		
 	}
 	
@@ -302,6 +307,51 @@ public class SmStageModelEditor extends HyGraphicalFeatureModelEditor {
 		});
 	}
 	
+	/**
+	 * Listener for Removal of Features from Stage
+	 */
+	//TODO Alex: Replace 0 Index with appropriate index depending on date
+		public void registerFeatureRemovalListener(){
+			stageAssignButton.addSelectionListener(new SelectionListener(){
+				@Override
+				public void widgetSelected(SelectionEvent e) {				
+					
+					StructuredSelection currentSelection=  (StructuredSelection) getEditorSite().getSelectionProvider().getSelection();
+					// current Selection as List
+					@SuppressWarnings("unchecked")
+					List<Object> selectionList = currentSelection.toList();
+					
+					HyFeatureEditPart currentFeatureEditPart;
+					HyFeatureWrapped currentWrappedFeature;
+					
+					HyGroupEditPart currentGroupEditPart;
+					HyGroupWrapped currentWrappedGroup;
+					
+					// Iterating over all selected Elements and Adding them to the Stage when they are features
+					for(int i = 0; i< currentSelection.size(); i++){
+						// Features
+						if(selectionList.get(i) instanceof HyFeatureEditorEditPart ){
+							currentFeatureEditPart = (HyFeatureEditPart)selectionList.get(i);
+							currentWrappedFeature = (HyFeatureWrapped) currentFeatureEditPart.getModel();					
+							selectedStage.getComposition().get(0).getFeatures().remove(currentWrappedFeature.getWrappedModelElement());
+						}
+						// Groups
+						else if (selectionList.get(i) instanceof HyGroupEditorEditPart){
+							currentGroupEditPart = (HyGroupEditPart)selectionList.get(i);
+							currentWrappedGroup = (HyGroupWrapped) currentGroupEditPart.getModel();
+							selectedStage.getComposition().get(0).getGroups().remove(currentWrappedGroup.getWrappedModelElement());
+						}
+					}				
+					
+				}
+
+				@Override
+				public void widgetDefaultSelected(SelectionEvent e) {
+				}
+				
+			});
+		}
+	
 	
 	/**
 	 * Update Function for the Stage Combo Box
@@ -336,6 +386,7 @@ public class SmStageModelEditor extends HyGraphicalFeatureModelEditor {
 		registerStageControlListeners();
 		registerStageComboListener();
 		registerAssignmentListener();
+		registerFeatureRemovalListener();
 		//refresh
 		updateComboBox();
 		((HyFeatureModelEditPart)getGraphicalViewer().getContents()).refresh();
