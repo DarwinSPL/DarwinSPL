@@ -1,5 +1,7 @@
 package de.darwinspl.feature.graphical.configurator.dialogs;
 
+import java.util.Date;
+
 import org.eclipse.jface.dialogs.IDialogConstants;
 import org.eclipse.jface.dialogs.IMessageProvider;
 import org.eclipse.jface.dialogs.TitleAreaDialog;
@@ -16,6 +18,7 @@ import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.widgets.TableItem;
 
+import de.darwinspl.reconfigurator.client.hyvarrec.DwAnalysesClient.DwContextValueEvolutionWrapper;
 import eu.hyvar.context.information.contextValue.HyContextValue;
 import eu.hyvar.context.information.contextValue.HyContextValueModel;
 import eu.hyvar.dataValues.HyBooleanValue;
@@ -26,6 +29,7 @@ import eu.hyvar.dataValues.HyValue;
 public class DwInvalidContextInfoDialog extends TitleAreaDialog {
 
 	protected HyContextValueModel invalidContextValues;
+	protected Date invalidDate;
 
 	protected static final String TITLE_INVALID_CONTEXT = "Invalid Context Found!";
 	protected static final String TITLE_NO_INVALID_CONTEXT = "Model is satisfiable for each context!";
@@ -37,6 +41,14 @@ public class DwInvalidContextInfoDialog extends TitleAreaDialog {
 		super(parentShell);
 
 		this.invalidContextValues = invalidContextValues;
+	}
+	
+	
+	public DwInvalidContextInfoDialog(Shell parentShell, DwContextValueEvolutionWrapper contextValueEvolutionWrapper) {
+		super(parentShell);
+
+		this.invalidContextValues = contextValueEvolutionWrapper.getContextValueModel();
+		this.invalidDate = contextValueEvolutionWrapper.getDate();
 	}
 
 	@Override

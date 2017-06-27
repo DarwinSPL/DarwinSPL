@@ -7,7 +7,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.UUID;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -91,6 +90,8 @@ public class HyVarRecExporter {
 	public static final String BRACKETS_CLOSING = ")";
 
 	public static final String WHITESPACE = " ";
+	
+	public static final String EVOLUTION_CONTEXT_ID = "_evolution-context";
 
 	private HyExpressionStringExporter expressionExporter;
 
@@ -192,20 +193,10 @@ public class HyVarRecExporter {
 		Context dateContext = null;
 		List<Date> sortedDateList = null;
 		if (date == null) {
-			Set<Date> dateSet = null;
-			dateSet = new HashSet<Date>();
-			dateSet.addAll(HyEvolutionUtil.collectDates(featureModel));
-			dateSet.addAll(HyEvolutionUtil.collectDates(contextModel));
-			dateSet.addAll(HyEvolutionUtil.collectDates(preferenceModel));
-			dateSet.addAll(HyEvolutionUtil.collectDates(constraintModel));
-			dateSet.addAll(HyEvolutionUtil.collectDates(contextValidityModel));
-
-			sortedDateList = new ArrayList<Date>(dateSet.size());
-			sortedDateList.addAll(dateSet);
-			Collections.sort(sortedDateList);
+			sortedDateList = getSortedListOfDates(featureModel, contextModel, constraintModel, contextValidityModel, preferenceModel);
 
 			dateContext = new Context();
-			dateContext.setId("_" + UUID.randomUUID().toString());
+			dateContext.setId(EVOLUTION_CONTEXT_ID);
 			dateContext.setMin(0);
 			dateContext.setMax(sortedDateList.size());
 
@@ -237,6 +228,23 @@ public class HyVarRecExporter {
 		}
 
 		return gson.toJson(input);
+	}
+	
+	public static List<Date> getSortedListOfDates(HyFeatureModel featureModel, HyContextModel contextModel, HyConstraintModel constraintModel, HyValidityModel contextValidityModel, HyProfile profile) {
+		List<Date> sortedDateList = null;
+		Set<Date> dateSet = null;
+		dateSet = new HashSet<Date>();
+		dateSet.addAll(HyEvolutionUtil.collectDates(featureModel));
+		dateSet.addAll(HyEvolutionUtil.collectDates(contextModel));
+		dateSet.addAll(HyEvolutionUtil.collectDates(profile));
+		dateSet.addAll(HyEvolutionUtil.collectDates(constraintModel));
+		dateSet.addAll(HyEvolutionUtil.collectDates(contextValidityModel));
+
+		sortedDateList = new ArrayList<Date>(dateSet.size());
+		sortedDateList.addAll(dateSet);
+		Collections.sort(sortedDateList);
+		
+		return sortedDateList;
 	}
 
 	public static DomainTuple<Integer> getEnumDomain(HyEnum hyEnum) {
