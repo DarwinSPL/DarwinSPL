@@ -4,11 +4,13 @@ import org.eclipse.gef.EditPart;
 import org.eclipse.gef.GraphicalViewer;
 
 import de.darwinspl.feature.graphical.base.editor.DwGraphicalFeatureModelViewer;
+import de.darwinspl.feature.graphical.base.editparts.DwEnumContainerEditPart;
 import de.darwinspl.feature.graphical.base.editparts.DwEnumEditPart;
 import de.darwinspl.feature.graphical.base.editparts.DwEnumLiteralEditPart;
 import de.darwinspl.feature.graphical.base.editparts.DwGroupEditPart;
 import de.darwinspl.feature.graphical.base.editparts.DwParentChildConnectionEditPart;
 import de.darwinspl.feature.graphical.base.factory.DwFeatureModelEditPartFactory;
+import de.darwinspl.feature.graphical.base.model.DwEnumContainerWrapped;
 import de.darwinspl.feature.graphical.base.model.DwFeatureModelWrapped;
 import de.darwinspl.feature.graphical.base.model.DwFeatureWrapped;
 import de.darwinspl.feature.graphical.base.model.DwGroupWrapped;
@@ -53,6 +55,10 @@ public class DwConfiguratorEditPartFactory extends DwFeatureModelEditPartFactory
 			part = new DwConfiguratorAttributeEditPart(editor, featureModel);
 		}else if(model instanceof HyEnum){
 			part = new DwEnumEditPart(editor, featureModel);
+		}else if(model instanceof DwEnumContainerWrapped){
+			part = new DwEnumContainerEditPart(editor, featureModel);
+		}else if(model instanceof HyEnum){
+			part = new DwEnumEditPart(editor, featureModel);			
 		}else if(model instanceof HyEnumLiteral){
 			part = new DwEnumLiteralEditPart(editor, featureModel);
 		}
