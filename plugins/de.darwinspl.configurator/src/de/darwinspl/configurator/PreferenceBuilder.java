@@ -70,7 +70,7 @@ public class PreferenceBuilder {
 	}
 
 	private HyExpression invertExpression(HyExpression expression) {
-		// (0 - (expresiion))
+		// (0 - (expression))
 		return nestExpression(sub(value(0), nestExpression(expression)));
 	}
 

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+	<extension
+         point="org.eclipse.ui.commands">
+      <command
+            defaultHandler="de.darwinspl.util.GenerateRandomFeatureModelCommandHandler"
+            id="de.darwinspl.util.generateRandomFeatureModel"
+            name="Generate Random Feature Model">
+      </command>
+   </extension>
+	<extension
+         point="org.eclipse.ui.menus">
+      <menuContribution
+            allPopups="false"
+            locationURI="popup:de.darwinspl.eclipse.ui.menu">
+        
+            <command
+                  commandId="de.darwinspl.util.generateRandomFeatureModel"
+                  label="Generate Random Feature Model"
+                  style="push">
+            </command>
+      </menuContribution>
+   </extension>
+
+
+</plugin>

@@ -48,8 +48,6 @@ public class DwConfiguratorDialog extends Dialog {
 	private Date date;
 	private String uri;
 
-	private List<HyFeature> selectedFeatures;
-
 	private DwConfiguratorRowComposite comp;
 
 	private HyConfiguration configuration;
@@ -63,7 +61,6 @@ public class DwConfiguratorDialog extends Dialog {
 		this.date = date;
 		this.uri = uri;
 
-		selectedFeatures = featureModel.getFeatures();
 		for (HyFeature feature : featureModel.getFeatures()) {
 			attributes.addAll(feature.getAttributes());
 		}
