@@ -26,6 +26,7 @@ import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Group;
+import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Listener;
 import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.IEditorSite;
@@ -39,6 +40,7 @@ import de.darwinspl.feature.stage.Stage;
 import de.darwinspl.feature.stage.StageModel;
 import de.darwinspl.feature.stage.StagePackage;
 import de.darwinspl.feature.stage.base.model.StageModelWrapped;
+import de.darwinspl.feature.stage.commands.DirtyFlagCommand;
 import de.darwinspl.feature.stage.editor.dialogs.StageDialog;
 import de.darwinspl.feature.stage.editor.wizard.StageModelWizard;
 import eu.hyvar.feature.HyFeatureModel;
@@ -55,7 +57,9 @@ import de.darwinspl.feature.graphical.editor.editparts.DwGroupEditorEditPart;
 import eu.hyvar.feature.util.HyFeatureUtil;
 
 
-
+/**
+ * DarwinSPL Feature Model Editor extended with Stage Model
+ */
 public class SmStageModelEditor extends DwGraphicalFeatureModelEditor {
 	
 	protected Group stageGroup;
@@ -64,6 +68,8 @@ public class SmStageModelEditor extends DwGraphicalFeatureModelEditor {
 	protected Button stageManagementButton;
 	protected Button stageClearButton;
 	protected Composite comboGroup;
+	protected Composite currentStageGroup;
+	protected Label currentStageLabel;
 	
 	protected StageModelWrapped stageModelWrapped;
 	protected Stage selectedStage;
@@ -173,19 +179,25 @@ public class SmStageModelEditor extends DwGraphicalFeatureModelEditor {
 	    stageGroup.setLayoutData(gridData);
 	    stageGroup.setText("Stage Model");
 	    
-		//Groups for positioning inside the Group
-		buttonGroup = new Composite(stageGroup,SWT.NONE);
-		RowLayout rowLayout = new RowLayout (SWT.HORIZONTAL);
-		rowLayout.justify = true;
-		buttonGroup.setLayout(rowLayout);		
-		comboGroup = new Composite(buttonGroup, SWT.NONE);
+	    comboGroup = new Composite(stageGroup, SWT.NONE);
 		RowLayout columnLayout = new RowLayout(SWT.VERTICAL);	
 		columnLayout.justify = true;
 		comboGroup.setLayout(columnLayout);
 		
+		// Current Stage Label		
+		RowLayout stageComboLayout = new RowLayout(SWT.HORIZONTAL);
+		stageComboLayout.center = true;
+		
+		currentStageGroup = new Composite(comboGroup, SWT.NONE);
+		currentStageGroup.setLayout(stageComboLayout);
+		
+		currentStageLabel = new Label(currentStageGroup, SWT.NONE);
+		currentStageLabel.setText("Active Stage:");
+		
 		
 		// Combo box for stage Selection
-		stageCombo = new Combo(comboGroup, SWT.NONE);
+		
+		stageCombo = new Combo(currentStageGroup, SWT.NONE);
 		
 		//Button for Stage Management, Creation/Deletion
 		stageManagementButton = new Button (comboGroup, SWT.NONE);
@@ -193,12 +205,12 @@ public class SmStageModelEditor extends DwGraphicalFeatureModelEditor {
 		
 		
 		//Button for Assignment
-		stageAssignButton = new Button(buttonGroup, SWT.NONE);
+		stageAssignButton = new Button(currentStageGroup, SWT.NONE);
 		stageAssignButton.setText("Assign Stage");
 		
 		//Button to remove Features from stage
-		stageClearButton = new Button(buttonGroup, SWT.NONE);
-		stageClearButton.setText("Clear Stages");
+		stageClearButton = new Button(currentStageGroup, SWT.NONE);
+		stageClearButton.setText("Unassign Stage");
 		
 		
 	}
@@ -230,9 +242,12 @@ public class SmStageModelEditor extends DwGraphicalFeatureModelEditor {
 				}
 				StageDialog stageDialog = new StageDialog(getEditorSite().getShell(), stageModelWrapped);
 				stageDialog.open();
-				if(stageDialog.getReturnCode()==0){					
-				
+				if(stageDialog.getReturnCode()== 0){			
 				}
+				
+				// Manual Setting Dirty Flag with Empty Command
+				DirtyFlagCommand dirtyCommand = new DirtyFlagCommand();
+				executeCommand(dirtyCommand);		
 				updateComboBox();
 			}
 		});
@@ -247,8 +262,8 @@ public class SmStageModelEditor extends DwGraphicalFeatureModelEditor {
 
 			@Override
 			public void widgetSelected(SelectionEvent e) {
-				int selectedItem = stageCombo.getSelectionIndex();
-				selectedStage = stageModelWrapped.getModel().getStages().get(selectedItem);
+				int selectedItemIndex = stageCombo.getSelectionIndex();
+				selectedStage = stageModelWrapped.getModel().getStages().get(selectedItemIndex);
 			}
 
 			@Override
@@ -292,6 +307,10 @@ public class SmStageModelEditor extends DwGraphicalFeatureModelEditor {
 						currentWrappedGroup = (DwGroupWrapped) currentGroupEditPart.getModel();
 						selectedStage.getComposition().get(0).getGroups().add(currentWrappedGroup.getWrappedModelElement());
 					}
+					
+					// Manual Setting Dirty Flag with Empty Command
+					DirtyFlagCommand dirtyCommand = new DirtyFlagCommand();
+					executeCommand(dirtyCommand);					
 				}				
 				
 			}
@@ -308,7 +327,7 @@ public class SmStageModelEditor extends DwGraphicalFeatureModelEditor {
 	 */
 	//TODO Alex: Replace 0 Index with appropriate index depending on date
 		public void registerFeatureRemovalListener(){
-			stageAssignButton.addSelectionListener(new SelectionListener(){
+			stageClearButton.addSelectionListener(new SelectionListener(){
 				@Override
 				public void widgetSelected(SelectionEvent e) {				
 					
@@ -337,7 +356,10 @@ public class SmStageModelEditor extends DwGraphicalFeatureModelEditor {
 							currentWrappedGroup = (DwGroupWrapped) currentGroupEditPart.getModel();
 							selectedStage.getComposition().get(0).getGroups().remove(currentWrappedGroup.getWrappedModelElement());
 						}
-					}				
+					}
+					// Manual Setting Dirty Flag with Empty Command
+					DirtyFlagCommand dirtyCommand = new DirtyFlagCommand();
+					executeCommand(dirtyCommand);		
 					
 				}
 
@@ -387,6 +409,9 @@ public class SmStageModelEditor extends DwGraphicalFeatureModelEditor {
 		updateComboBox();
 		((DwFeatureModelEditPart)getGraphicalViewer().getContents()).refresh();
 	}	
+	
+	
+	
 
 
 }
