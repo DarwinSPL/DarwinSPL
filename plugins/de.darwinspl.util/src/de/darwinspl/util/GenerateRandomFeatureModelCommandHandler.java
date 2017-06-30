@@ -28,6 +28,7 @@ public class GenerateRandomFeatureModelCommandHandler extends AbstractHandler {
 			return null;
 		}
 
+		String name = dialog.getName();
 		int numberOfFeatures = dialog.getNumberOfFeatures();
 		int maxGroupSize = dialog.getMaxSizeOfGroups();
 		int numberOfFeatureAttributes = dialog.getNumberOfFeatureAttributes();
@@ -45,7 +46,7 @@ public class GenerateRandomFeatureModelCommandHandler extends AbstractHandler {
 			if (firstElement instanceof IAdaptable) {
 				IProject project = (IProject) ((IAdaptable) firstElement).getAdapter(IProject.class);
 				IPath path = project.getFullPath();
-				IFile file = ResourceUtil.getLocalFile(path.append("random.hyfeature").toString());
+				IFile file = ResourceUtil.getLocalFile(path.append(name + ".hyfeature").toString());
 				EcoreIOUtil.saveModelAs(fm, file);
 
 			}

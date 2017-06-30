@@ -46,10 +46,13 @@ public class Configurator {
 		String input = exporter.exportContextMappingModel(null, null, featureModel, constraintModel, null,
 				preferenceModel, null, date);
 
-		String output = sendToHyVarRec(input);
-
 		System.out.println("HyVarRecInput: " + input);
+		long start = System.currentTimeMillis();
+		
+		String output = sendToHyVarRec(input);
+		
 		System.out.println("HyVarRecOutput: " + output);
+		System.out.println("Solution took " + (System.currentTimeMillis() - start) + "ms to be found.");
 		return output;
 	}
 
@@ -63,7 +66,6 @@ public class Configurator {
 		try {
 			client.start();
 		} catch (Exception e2) {
-			// TODO Auto-generated catch block
 			e2.printStackTrace();
 		}
 
