@@ -6,7 +6,7 @@ import java.util.List;
 
 import eu.hyvar.dataValues.HyEnum;
 import eu.hyvar.dataValues.HyEnumLiteral;
-import eu.hyvar.evolution.HyEvolutionUtil;
+import eu.hyvar.evolution.util.HyEvolutionUtil;
 
 public class DataValuesResolverUtil {
 

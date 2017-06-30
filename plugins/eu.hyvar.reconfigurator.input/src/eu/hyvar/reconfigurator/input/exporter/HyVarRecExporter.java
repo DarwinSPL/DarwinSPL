@@ -27,7 +27,7 @@ import eu.hyvar.dataValues.HyEnumLiteral;
 import eu.hyvar.dataValues.HyEnumValue;
 import eu.hyvar.dataValues.HyNumberValue;
 import eu.hyvar.dataValues.HyValue;
-import eu.hyvar.evolution.HyEvolutionUtil;
+import eu.hyvar.evolution.util.HyEvolutionUtil;
 import eu.hyvar.feature.HyBooleanAttribute;
 import eu.hyvar.feature.HyEnumAttribute;
 import eu.hyvar.feature.HyFeature;
@@ -37,6 +37,7 @@ import eu.hyvar.feature.HyFeatureModel;
 import eu.hyvar.feature.HyGroup;
 import eu.hyvar.feature.HyGroupComposition;
 import eu.hyvar.feature.HyGroupType;
+import eu.hyvar.feature.HyGroupTypeEnum;
 import eu.hyvar.feature.HyNumberAttribute;
 import eu.hyvar.feature.HyRootFeature;
 import eu.hyvar.feature.HyVersion;
@@ -54,10 +55,11 @@ import eu.hyvar.feature.expression.util.HyExpressionStringExporter;
 import eu.hyvar.feature.expression.util.HyExpressionStringExporter.BooleanRepresentationOption;
 import eu.hyvar.feature.expression.util.HyExpressionStringExporter.FeatureSelectionRepresentationOption;
 import eu.hyvar.feature.expression.util.HyExpressionStringExporter.VersionRepresentation;
+import eu.hyvar.feature.util.HyFeatureEvolutionUtil;
 import eu.hyvar.feature.util.HyFeatureModelWellFormednessException;
 import eu.hyvar.feature.util.HyFeatureUtil;
 import eu.hyvar.preferences.HyPreference;
-import eu.hyvar.preferences.HyPreferenceModel;
+import eu.hyvar.preferences.HyProfile;
 import eu.hyvar.reconfigurator.input.format.Attribute;
 import eu.hyvar.reconfigurator.input.format.AttributeValue;
 import eu.hyvar.reconfigurator.input.format.Configuration;
@@ -156,7 +158,7 @@ public class HyVarRecExporter {
 
 	public String exportContextMappingModel(HyContextModel contextModel, HyValidityModel contextValidityModel,
 			HyFeatureModel featureModel, HyConstraintModel constraintModel, HyConfiguration oldConfiguration,
-			HyPreferenceModel preferenceModel, HyContextValueModel contextValues, Date date) {
+			HyProfile preferenceModel, HyContextValueModel contextValues, Date date) {
 
 		// FIXME check for invalidities
 
@@ -634,6 +636,8 @@ public class HyVarRecExporter {
 			featureModelConstraints.add(groupConstraintsStringBuilder.toString());
 			groupConstraintsStringBuilder = new StringBuilder();
 		}
+		
+		
 
 		// Check Type of group and set according constraints
 
@@ -749,6 +753,34 @@ public class HyVarRecExporter {
 				}
 			}
 		}
+		
+		if(parentIsRoot && groupType.getType().equals(HyGroupTypeEnum.AND) && validFeaturesOfGroupComposition.size() > 0) {
+			for (HyFeature feature : validFeaturesOfGroupComposition) {
+				boolean setRootOptionalConstraint = false;
+				if(HyEvolutionUtil.getValidTemporalElements(feature.getParentOf(), date).isEmpty()) {
+					setRootOptionalConstraint = true;
+				}
+				else {
+					for(HyFeatureChild featureChild: HyEvolutionUtil.getValidTemporalElements(feature.getParentOf(), date)) {
+						if(HyFeatureEvolutionUtil.getFeaturesOfGroup(featureChild.getChildGroup(), date).isEmpty()) {
+							setRootOptionalConstraint = true;							
+						}
+					}
+				}
+				
+				if(setRootOptionalConstraint) {
+					StringBuilder optionalWithoutChildStringBuilder = new StringBuilder();
+					optionalWithoutChildStringBuilder.append(featureReconfiguratorIdMapping.get(feature));
+					optionalWithoutChildStringBuilder.append(EQUALS);
+					optionalWithoutChildStringBuilder.append(1);
+					optionalWithoutChildStringBuilder.append(IMPLICATION);
+					optionalWithoutChildStringBuilder.append(parentFeatureId);
+					optionalWithoutChildStringBuilder.append(EQUALS);
+					optionalWithoutChildStringBuilder.append(1);
+					featureModelConstraints.add(optionalWithoutChildStringBuilder.toString());							
+				}
+			}
+		}
 
 		for (HyFeature feature : validFeaturesOfGroupComposition) {
 			featureModelConstraints.addAll(getFeatureConstraints(feature, false, date));
@@ -773,7 +805,7 @@ public class HyVarRecExporter {
 		return expressionExporter.exportExpressionToString(constraint.getRootExpression());
 	}
 
-	private List<String> getPreferences(HyPreferenceModel preferenceModel, Date date) {
+	private List<String> getPreferences(HyProfile preferenceModel, Date date) {
 		List<String> preferences = new ArrayList<String>();
 
 		for (HyPreference preference : HyEvolutionUtil.getValidTemporalElements(preferenceModel.getPreferences(),

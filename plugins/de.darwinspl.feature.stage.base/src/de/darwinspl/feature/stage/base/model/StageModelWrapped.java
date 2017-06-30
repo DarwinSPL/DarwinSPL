@@ -12,15 +12,15 @@ import de.darwinspl.feature.stage.StageComposition;
 import de.darwinspl.feature.stage.StageFactory;
 import de.darwinspl.feature.stage.StageModel;
 import eu.hyvar.evolution.HyEvolutionFactory;
-import eu.hyvar.evolution.HyEvolutionUtil;
+import eu.hyvar.evolution.util.HyEvolutionUtil;
 import eu.hyvar.evolution.HyName;
 import eu.hyvar.feature.HyFeature;
 import eu.hyvar.feature.HyFeatureFactory;
 import eu.hyvar.feature.HyFeatureModel;
-import eu.hyvar.feature.graphical.base.model.HyFeatureModelWrapped;
-import eu.hyvar.feature.graphical.base.model.HyFeatureWrapped;
-import eu.hyvar.feature.graphical.base.model.HyGroupWrapped;
-import eu.hyvar.feature.graphical.base.model.HyParentChildConnection;
+import de.darwinspl.feature.graphical.base.model.DwFeatureModelWrapped;
+import de.darwinspl.feature.graphical.base.model.DwFeatureWrapped;
+import de.darwinspl.feature.graphical.base.model.DwGroupWrapped;
+import de.darwinspl.feature.graphical.base.model.DwParentChildConnection;
 
 public class StageModelWrapped implements PropertyChangeListener  {
 

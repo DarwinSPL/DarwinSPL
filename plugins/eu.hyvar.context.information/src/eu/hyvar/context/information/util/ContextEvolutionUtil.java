@@ -6,7 +6,7 @@ import java.util.List;
 import eu.hyvar.context.HyContextModel;
 import eu.hyvar.context.HyContextualInformation;
 import eu.hyvar.dataValues.HyEnum;
-import eu.hyvar.evolution.HyEvolutionUtil;
+import eu.hyvar.evolution.util.HyEvolutionUtil;
 
 public class ContextEvolutionUtil {
 

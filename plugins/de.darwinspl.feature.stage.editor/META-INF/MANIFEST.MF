@@ -11,15 +11,15 @@ Require-Bundle: org.eclipse.ui,
  org.eclipse.core.resources,
  org.deltaecore.feature.graphical.base,
  de.darwinspl.feature.stage,
- eu.hyvar.feature.graphical.base,
  org.eclipse.e4.ui.workbench,
  org.eclipse.e4.ui.model.workbench,
  org.eclipse.text,
  eu.hyvar.feature.constraint,
  eu.hyvar.context.validity_formulas,
  eu.hyvar.feature.constraint.resource.hyconstraints,
- eu.hyvar.feature.graphical.editor,
- org.eclipse.ui.workbench
+ org.eclipse.ui.workbench,
+ de.darwinspl.feature.graphical.base,
+ de.darwinspl.feature.graphical.editor
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Bundle-ActivationPolicy: lazy
 Bundle-Vendor: www.darwinspl.de

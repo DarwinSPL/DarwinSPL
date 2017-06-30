@@ -8,8 +8,8 @@ import org.deltaecore.util.DEIOUtil;
 import org.eclipse.emf.ecore.EObject;
 
 import eu.hyvar.dataValues.HyEnum;
-import eu.hyvar.evolution.HyEvolutionUtil;
 import eu.hyvar.evolution.HyName;
+import eu.hyvar.evolution.util.HyEvolutionUtil;
 import eu.hyvar.feature.HyFeature;
 import eu.hyvar.feature.HyFeatureAttribute;
 import eu.hyvar.feature.HyFeatureModel;

@@ -12,7 +12,6 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.Resource;
-import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.jface.window.Window;
 import org.eclipse.jface.wizard.WizardDialog;
@@ -42,25 +41,22 @@ import de.darwinspl.feature.stage.StagePackage;
 import de.darwinspl.feature.stage.base.model.StageModelWrapped;
 import de.darwinspl.feature.stage.editor.dialogs.StageDialog;
 import de.darwinspl.feature.stage.editor.wizard.StageModelWizard;
-import eu.hyvar.feature.HyFeature;
 import eu.hyvar.feature.HyFeatureModel;
-import eu.hyvar.feature.HyFeaturePackage;
-import eu.hyvar.feature.graphical.base.dialogs.DateDialog;
-import eu.hyvar.feature.graphical.base.editparts.HyFeatureEditPart;
-import eu.hyvar.feature.graphical.base.editparts.HyFeatureModelEditPart;
-import eu.hyvar.feature.graphical.base.editparts.HyGroupEditPart;
-import eu.hyvar.feature.graphical.base.model.HyFeatureModelWrapped;
-import eu.hyvar.feature.graphical.base.model.HyFeatureWrapped;
-import eu.hyvar.feature.graphical.base.model.HyGroupWrapped;
-import eu.hyvar.feature.graphical.base.util.DwFeatureModelLayoutFileUtil;
-import eu.hyvar.feature.graphical.editor.editor.HyGraphicalFeatureModelEditor;
-import eu.hyvar.feature.graphical.editor.editparts.HyFeatureEditorEditPart;
-import eu.hyvar.feature.graphical.editor.editparts.HyGroupEditorEditPart;
+import de.darwinspl.feature.graphical.base.editparts.DwFeatureEditPart;
+import de.darwinspl.feature.graphical.base.editparts.DwFeatureModelEditPart;
+import de.darwinspl.feature.graphical.base.editparts.DwGroupEditPart;
+import de.darwinspl.feature.graphical.base.model.DwFeatureModelWrapped;
+import de.darwinspl.feature.graphical.base.model.DwFeatureWrapped;
+import de.darwinspl.feature.graphical.base.model.DwGroupWrapped;
+import de.darwinspl.feature.graphical.base.util.DwFeatureModelLayoutFileUtil;
+import de.darwinspl.feature.graphical.editor.editor.DwGraphicalFeatureModelEditor;
+import de.darwinspl.feature.graphical.editor.editparts.DwFeatureEditorEditPart;
+import de.darwinspl.feature.graphical.editor.editparts.DwGroupEditorEditPart;
 import eu.hyvar.feature.util.HyFeatureUtil;
 
 
 
-public class SmStageModelEditor extends HyGraphicalFeatureModelEditor {
+public class SmStageModelEditor extends DwGraphicalFeatureModelEditor {
 	
 	protected Group stageGroup;
 	protected Combo stageCombo;
@@ -79,7 +75,7 @@ public class SmStageModelEditor extends HyGraphicalFeatureModelEditor {
 	 * @param file
 	 */
 	protected void loadFeatureModelFromFile(IFile file){		
-		modelWrapped = new HyFeatureModelWrapped((HyFeatureModel)EcoreIOUtil.loadModel(file));
+		modelWrapped = new DwFeatureModelWrapped((HyFeatureModel)EcoreIOUtil.loadModel(file));
 		
 		setCurrentSelectedDateToMostActualDate();
 		
@@ -276,24 +272,24 @@ public class SmStageModelEditor extends HyGraphicalFeatureModelEditor {
 				@SuppressWarnings("unchecked")
 				List<Object> selectionList = currentSelection.toList();
 				
-				HyFeatureEditPart currentFeatureEditPart;
-				HyFeatureWrapped currentWrappedFeature;
+				DwFeatureEditPart currentFeatureEditPart;
+				DwFeatureWrapped currentWrappedFeature;
 				
-				HyGroupEditPart currentGroupEditPart;
-				HyGroupWrapped currentWrappedGroup;
+				DwGroupEditPart currentGroupEditPart;
+				DwGroupWrapped currentWrappedGroup;
 				
 				// Iterating over all selected Elements and Adding them to the Stage when they are features
 				for(int i = 0; i< currentSelection.size(); i++){
 					// Features
-					if(selectionList.get(i) instanceof HyFeatureEditorEditPart ){
-						currentFeatureEditPart = (HyFeatureEditPart)selectionList.get(i);
-						currentWrappedFeature = (HyFeatureWrapped) currentFeatureEditPart.getModel();					
+					if(selectionList.get(i) instanceof DwFeatureEditorEditPart ){
+						currentFeatureEditPart = (DwFeatureEditPart)selectionList.get(i);
+						currentWrappedFeature = (DwFeatureWrapped) currentFeatureEditPart.getModel();					
 						selectedStage.getComposition().get(0).getFeatures().add(currentWrappedFeature.getWrappedModelElement());
 					}
 					// Groups
-					else if (selectionList.get(i) instanceof HyGroupEditorEditPart){
-						currentGroupEditPart = (HyGroupEditPart)selectionList.get(i);
-						currentWrappedGroup = (HyGroupWrapped) currentGroupEditPart.getModel();
+					else if (selectionList.get(i) instanceof DwGroupEditorEditPart){
+						currentGroupEditPart = (DwGroupEditPart)selectionList.get(i);
+						currentWrappedGroup = (DwGroupWrapped) currentGroupEditPart.getModel();
 						selectedStage.getComposition().get(0).getGroups().add(currentWrappedGroup.getWrappedModelElement());
 					}
 				}				
@@ -321,24 +317,24 @@ public class SmStageModelEditor extends HyGraphicalFeatureModelEditor {
 					@SuppressWarnings("unchecked")
 					List<Object> selectionList = currentSelection.toList();
 					
-					HyFeatureEditPart currentFeatureEditPart;
-					HyFeatureWrapped currentWrappedFeature;
+					DwFeatureEditPart currentFeatureEditPart;
+					DwFeatureWrapped currentWrappedFeature;
 					
-					HyGroupEditPart currentGroupEditPart;
-					HyGroupWrapped currentWrappedGroup;
+					DwGroupEditPart currentGroupEditPart;
+					DwGroupWrapped currentWrappedGroup;
 					
 					// Iterating over all selected Elements and Adding them to the Stage when they are features
 					for(int i = 0; i< currentSelection.size(); i++){
 						// Features
-						if(selectionList.get(i) instanceof HyFeatureEditorEditPart ){
-							currentFeatureEditPart = (HyFeatureEditPart)selectionList.get(i);
-							currentWrappedFeature = (HyFeatureWrapped) currentFeatureEditPart.getModel();					
+						if(selectionList.get(i) instanceof DwFeatureEditorEditPart ){
+							currentFeatureEditPart = (DwFeatureEditPart)selectionList.get(i);
+							currentWrappedFeature = (DwFeatureWrapped) currentFeatureEditPart.getModel();					
 							selectedStage.getComposition().get(0).getFeatures().remove(currentWrappedFeature.getWrappedModelElement());
 						}
 						// Groups
-						else if (selectionList.get(i) instanceof HyGroupEditorEditPart){
-							currentGroupEditPart = (HyGroupEditPart)selectionList.get(i);
-							currentWrappedGroup = (HyGroupWrapped) currentGroupEditPart.getModel();
+						else if (selectionList.get(i) instanceof DwGroupEditorEditPart){
+							currentGroupEditPart = (DwGroupEditPart)selectionList.get(i);
+							currentWrappedGroup = (DwGroupWrapped) currentGroupEditPart.getModel();
 							selectedStage.getComposition().get(0).getGroups().remove(currentWrappedGroup.getWrappedModelElement());
 						}
 					}				
@@ -389,7 +385,7 @@ public class SmStageModelEditor extends HyGraphicalFeatureModelEditor {
 		registerFeatureRemovalListener();
 		//refresh
 		updateComboBox();
-		((HyFeatureModelEditPart)getGraphicalViewer().getContents()).refresh();
+		((DwFeatureModelEditPart)getGraphicalViewer().getContents()).refresh();
 	}	
 
 

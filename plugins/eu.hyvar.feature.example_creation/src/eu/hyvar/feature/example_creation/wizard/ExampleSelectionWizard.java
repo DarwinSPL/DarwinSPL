@@ -22,7 +22,7 @@ import eu.hyvar.feature.example_creation.examples.HyFMExample;
 import eu.hyvar.feature.mapping.HyMappingModel;
 import eu.hyvar.feature.mapping.util.HyMappingModelUtil;
 import eu.hyvar.feature.util.HyFeatureUtil;
-import eu.hyvar.preferences.HyPreferenceModel;
+import eu.hyvar.preferences.HyProfile;
 import eu.hyvar.preferences.util.HyPreferenceModelUtil;
 
 public class ExampleSelectionWizard extends Wizard {
@@ -69,7 +69,7 @@ public class ExampleSelectionWizard extends Wizard {
 		
 		HyValidityModel validityModel = example.createValidityModel();
 		
-		HyPreferenceModel preferenceModel = example.createPreferenceModel();
+		HyProfile preferenceModel = example.createPreferenceModel();
 		
 		HyMappingModel mappingModel = example.createMappingModel();
 		

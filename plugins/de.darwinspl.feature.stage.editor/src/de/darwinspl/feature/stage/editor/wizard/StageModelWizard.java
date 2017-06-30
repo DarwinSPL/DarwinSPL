@@ -1,50 +1,12 @@
 package de.darwinspl.feature.stage.editor.wizard;
 
-import java.lang.reflect.InvocationTargetException;
-
-import org.eclipse.core.resources.IContainer;
-import org.eclipse.core.resources.IFile;
-import org.eclipse.core.resources.IFolder;
-import org.eclipse.core.resources.IProject;
-import org.eclipse.core.resources.IResource;
-import org.eclipse.core.runtime.IPath;
-import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
-import org.eclipse.emf.ecore.resource.ResourceSet;
-import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
-import org.eclipse.jface.viewers.StructuredSelection;
-import org.eclipse.jface.wizard.IWizardContainer;
 import org.eclipse.jface.wizard.Wizard;
-import org.eclipse.swt.widgets.Display;
-import org.eclipse.swt.widgets.Shell;
-import org.eclipse.ui.IEditorDescriptor;
-import org.eclipse.ui.IEditorInput;
-import org.eclipse.ui.IEditorPart;
-import org.eclipse.ui.IEditorRegistry;
-import org.eclipse.ui.INewWizard;
 import org.eclipse.ui.IWorkbench;
-import org.eclipse.ui.IWorkbenchPage;
-import org.eclipse.ui.IWorkbenchPart;
-import org.eclipse.ui.IWorkbenchWindow;
-import org.eclipse.ui.PartInitException;
-import org.eclipse.ui.actions.WorkspaceModifyOperation;
-import org.eclipse.ui.part.FileEditorInput;
-import org.eclipse.ui.part.ISetSelectionTarget;
-
-import de.christophseidl.util.eclipse.ResourceUtil;
 import de.christophseidl.util.ecore.EcoreIOUtil;
-import eu.hyvar.evolution.HyEvolutionFactory;
-import eu.hyvar.evolution.HyName;
-import eu.hyvar.feature.HyFeature;
-import eu.hyvar.feature.HyFeatureFactory;
-import eu.hyvar.feature.HyFeatureModel;
-import eu.hyvar.feature.HyFeatureType;
-import eu.hyvar.feature.HyFeatureTypeEnum;
-import eu.hyvar.feature.HyRootFeature;
-import eu.hyvar.feature.graphical.base.model.HyFeatureModelWrapped;
-import eu.hyvar.feature.util.HyFeatureUtil;
+import de.darwinspl.feature.graphical.base.model.DwFeatureModelWrapped;
 import de.darwinspl.feature.stage.StageFactory;
 import de.darwinspl.feature.stage.StageModel;
 
@@ -55,7 +17,7 @@ public class StageModelWizard extends Wizard {
 	
 	protected StageModelWizardCreationPage newStageModelCreationPage;
 	
-	protected HyFeatureModelWrapped featureModel;
+	protected DwFeatureModelWrapped featureModel;
 	
 	
 	/**
@@ -64,7 +26,7 @@ public class StageModelWizard extends Wizard {
 	 * @param featureModel current FeatureModel
 	 * @param workbench Eclipse Root
 	 */
-	public StageModelWizard(HyFeatureModelWrapped featureModel, IWorkbench workbench){
+	public StageModelWizard(DwFeatureModelWrapped featureModel, IWorkbench workbench){
 		super();
 		
 		this.workbench = workbench;

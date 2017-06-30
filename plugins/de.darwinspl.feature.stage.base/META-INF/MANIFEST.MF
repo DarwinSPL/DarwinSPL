@@ -12,7 +12,7 @@ Require-Bundle: org.eclipse.ui,
  org.eclipse.e4.ui.model.workbench,
  eu.hyvar.feature.expression,
  org.eclipse.e4.ui.workbench,
- eu.hyvar.feature.graphical.base
+ de.darwinspl.feature.graphical.base
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Bundle-ActivationPolicy: lazy
 Import-Package: de.darwinspl.feature.stage
