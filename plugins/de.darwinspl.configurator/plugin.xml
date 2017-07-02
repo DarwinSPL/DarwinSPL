@@ -4,7 +4,7 @@
  <extension
          point="org.eclipse.ui.commands">
       <command
-            defaultHandler="de.darwinspl.configurator.Configurator"
+            defaultHandler="de.darwinspl.configurator.ConfiguratorCommandHandler"
             id="de.darwinspl.configurator.configurator"
             name="Generate Configuration with HyVarRec">
       </command>

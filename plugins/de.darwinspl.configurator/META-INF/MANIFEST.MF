@@ -40,7 +40,10 @@ Require-Bundle: org.eclipse.ui,
  org.eclipse.jetty.http;bundle-version="9.2.13",
  org.eclipse.jetty.io;bundle-version="9.2.13",
  org.eclipse.jetty.util;bundle-version="9.2.13",
- de.darwinspl.configurator.expression
+ de.darwinspl.configurator.expression,
+ de.darwinspl.feature.graphical.configurator.editor,
+ de.darwinspl.feature.graphical.base,
+ de.christophseidl.util.eclipse.ui
 Bundle-RequiredExecutionEnvironment: JavaSE-1.7
 Bundle-ActivationPolicy: lazy
 Export-Package: de.darwinspl.configurator

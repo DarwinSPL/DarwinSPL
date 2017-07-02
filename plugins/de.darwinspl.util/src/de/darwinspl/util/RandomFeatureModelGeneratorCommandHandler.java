@@ -17,7 +17,7 @@ import de.christophseidl.util.eclipse.ResourceUtil;
 import de.christophseidl.util.ecore.EcoreIOUtil;
 import eu.hyvar.feature.HyFeatureModel;
 
-public class GenerateRandomFeatureModelCommandHandler extends AbstractHandler {
+public class RandomFeatureModelGeneratorCommandHandler extends AbstractHandler {
 
 	@Override
 	public Object execute(ExecutionEvent event) throws ExecutionException {

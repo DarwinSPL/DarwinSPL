@@ -4,11 +4,40 @@
 	<extension
          point="org.eclipse.ui.commands">
       <command
-            defaultHandler="de.darwinspl.util.GenerateRandomFeatureModelCommandHandler"
+            defaultHandler="de.darwinspl.util.RandomFeatureModelGeneratorCommandHandler"
             id="de.darwinspl.util.generateRandomFeatureModel"
             name="Generate Random Feature Model">
       </command>
-   </extension>
+      <command
+            defaultHandler="de.darwinspl.util.RandomAttributeGeneratorCommandHandler"
+            id="de.darwinspl.util.generateRandomAttributes"
+            name="Generate Random Attributes">
+      </command>
+   	</extension>
+   	
+   	<extension
+         point="org.eclipse.core.expressions.definitions">
+       <definition
+            id="de.darwinspl.util.generateRandomAttributes.isvisible">
+         <with
+               variable="selection">
+            <iterate
+                  ifEmpty="false"
+                  operator="or">
+               <adapt
+                     type="org.eclipse.core.resources.IResource">
+                  <or>
+                     <test
+                           property="org.eclipse.core.resources.extension"
+                           value="hyfeature">
+                     </test>
+                  </or>
+               </adapt>
+            </iterate>
+         </with>
+      </definition>
+  	</extension>
+   	
 	<extension
          point="org.eclipse.ui.menus">
       <menuContribution
@@ -19,6 +48,17 @@
                   commandId="de.darwinspl.util.generateRandomFeatureModel"
                   label="Generate Random Feature Model"
                   style="push">
+            </command>
+            <command
+                  commandId="de.darwinspl.util.generateRandomAttributes"
+                  label="Generate Random Attributes"
+                  style="push">
+                  <visibleWhen
+                     checkEnabled="true">  
+                    <reference
+                        definitionId="de.darwinspl.util.generateRandomAttributes.isvisible">
+                  	</reference>
+                 </visibleWhen>  
             </command>
       </menuContribution>
    </extension>
