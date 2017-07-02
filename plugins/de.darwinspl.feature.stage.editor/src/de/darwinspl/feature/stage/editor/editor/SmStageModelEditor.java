@@ -10,8 +10,14 @@ import org.eclipse.core.resources.IWorkspaceRoot;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.draw2d.ColorConstants;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.gef.GraphicalViewer;
+import org.eclipse.gef.editparts.ZoomManager;
+import org.eclipse.gef.ui.actions.ZoomInAction;
+import org.eclipse.gef.ui.actions.ZoomOutAction;
+import org.eclipse.gef.ui.parts.GraphicalViewerKeyHandler;
 import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.jface.window.Window;
 import org.eclipse.jface.wizard.WizardDialog;
@@ -42,6 +48,7 @@ import de.darwinspl.feature.stage.StagePackage;
 import de.darwinspl.feature.stage.base.model.StageModelWrapped;
 import de.darwinspl.feature.stage.commands.DirtyFlagCommand;
 import de.darwinspl.feature.stage.editor.dialogs.StageDialog;
+import de.darwinspl.feature.stage.editor.factory.SmFeatureModelEditorEditPartFactory;
 import de.darwinspl.feature.stage.editor.wizard.StageModelWizard;
 import eu.hyvar.feature.HyFeatureModel;
 import de.darwinspl.feature.graphical.base.editparts.DwFeatureEditPart;
@@ -52,6 +59,7 @@ import de.darwinspl.feature.graphical.base.model.DwFeatureWrapped;
 import de.darwinspl.feature.graphical.base.model.DwGroupWrapped;
 import de.darwinspl.feature.graphical.base.util.DwFeatureModelLayoutFileUtil;
 import de.darwinspl.feature.graphical.editor.editor.DwGraphicalFeatureModelEditor;
+import de.darwinspl.feature.graphical.editor.editor.DwGraphicalFeatureModelEditorContextMenuProvider;
 import de.darwinspl.feature.graphical.editor.editparts.DwFeatureEditorEditPart;
 import de.darwinspl.feature.graphical.editor.editparts.DwGroupEditorEditPart;
 import eu.hyvar.feature.util.HyFeatureUtil;
@@ -74,8 +82,15 @@ public class SmStageModelEditor extends DwGraphicalFeatureModelEditor {
 	protected StageModelWrapped stageModelWrapped;
 	protected Stage selectedStage;
 	
-	// Functions that have to be overwritten to allow Stage model loading	
+	/**
+	 * Getter for current selected Stage
+	 * @return current selected stage
+	 */
+	public Stage getCurrentSelectedStage(){
+		return selectedStage;
+	}
 	
+	// Functions that have to be overwritten to allow Stage model loading	
 	/**
 	 * Load the feature model from a given file
 	 * @param file
@@ -295,11 +310,18 @@ public class SmStageModelEditor extends DwGraphicalFeatureModelEditor {
 				
 				// Iterating over all selected Elements and Adding them to the Stage when they are features
 				for(int i = 0; i< currentSelection.size(); i++){
+					//TODO ALex: Root Feature Stages zuordnen?
+					//if(selectionList.get(i) instanceof DwRootFeatureEditPart)
 					// Features
 					if(selectionList.get(i) instanceof DwFeatureEditorEditPart ){
 						currentFeatureEditPart = (DwFeatureEditPart)selectionList.get(i);
-						currentWrappedFeature = (DwFeatureWrapped) currentFeatureEditPart.getModel();					
-						selectedStage.getComposition().get(0).getFeatures().add(currentWrappedFeature.getWrappedModelElement());
+						currentWrappedFeature = (DwFeatureWrapped) currentFeatureEditPart.getModel();
+						//check if object already exists in composition
+						if(! selectedStage.getComposition().get(0).getFeatures().contains(currentWrappedFeature.getWrappedModelElement())){
+							selectedStage.getComposition().get(0).getFeatures().add(currentWrappedFeature.getWrappedModelElement());
+						} else {
+							System.out.println("Feature is already in the Composition");
+						}
 					}
 					// Groups
 					else if (selectionList.get(i) instanceof DwGroupEditorEditPart){
@@ -409,6 +431,31 @@ public class SmStageModelEditor extends DwGraphicalFeatureModelEditor {
 		updateComboBox();
 		((DwFeatureModelEditPart)getGraphicalViewer().getContents()).refresh();
 	}	
+	
+	
+	
+	/**
+	 * Hook the evolution factory into the editor logic and override the standard edit part factory
+	 * Overwritten from original GEF Method to add custom Edit Part Factory with feature highlighting
+	 */
+	@Override
+	public void configureGraphicalViewer() {
+		// from original Method
+		getGraphicalViewer().getControl().setBackground(
+				ColorConstants.listBackground);
+		// from DwGraphicalViewer
+		ZoomManager manager = (ZoomManager) getGraphicalViewer().getProperty(ZoomManager.class.toString());
+
+		getActionRegistry().registerAction(new ZoomInAction(manager));
+		getActionRegistry().registerAction(new ZoomOutAction(manager));
+
+		// new Part
+		GraphicalViewer viewer = getGraphicalViewer();
+		viewer.setEditPartFactory(new SmFeatureModelEditorEditPartFactory(viewer, this, this));
+		viewer.setContextMenu(new DwGraphicalFeatureModelEditorContextMenuProvider(getGraphicalViewer(), getActionRegistry()));
+		viewer.setKeyHandler(new GraphicalViewerKeyHandler(viewer).setParent(getCommonKeyHandler()));
+	}
+	
 	
 	
 	
