@@ -15,5 +15,7 @@ Require-Bundle: org.eclipse.ui,
  de.darwinspl.feature.graphical.base
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Bundle-ActivationPolicy: lazy
-Import-Package: de.darwinspl.feature.stage
+Import-Package: de.darwinspl.feature.graphical.editor.editparts,
+ de.darwinspl.feature.graphical.editor.factory,
+ de.darwinspl.feature.stage
 Export-Package: de.darwinspl.feature.stage.base.model

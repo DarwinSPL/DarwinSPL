@@ -86,12 +86,21 @@ public class StageModelWrapped implements PropertyChangeListener  {
 	}
 	
 	/**
-	 * Function call to assign 
+	 * Function call to assign Stage to Role
 	 * @param selectedRole
 	 * @param selectedStage
 	 */
 	public void assignRoleToStage(Role selectedRole, Stage selectedStage){
 		selectedRole.getAssignedTo().add(selectedStage);
+	}
+	
+	/**
+	 * Function call to unassign Role from Stage
+	 * @param selectedRole
+	 * @param selectedStage
+	 */
+	public void unassignRoleFromStage(Role selectedRole, Stage selectedStage){
+		selectedRole.getAssignedTo().remove(selectedStage);
 	}
 	
 	

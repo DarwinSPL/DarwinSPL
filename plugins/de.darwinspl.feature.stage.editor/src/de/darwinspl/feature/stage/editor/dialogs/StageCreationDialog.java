@@ -31,7 +31,7 @@ public class StageCreationDialog extends Dialog {
 	protected Composite buttonGroup;
 	
 	
-
+//TODO Alex: Auf Individualität der Stage Namen testen, Zeitabhängig
 	public StageCreationDialog(Shell parentShell, StageModelWrapped stageModelWrapped) {
 		super(parentShell);
 		this.stageModelWrapped = stageModelWrapped;

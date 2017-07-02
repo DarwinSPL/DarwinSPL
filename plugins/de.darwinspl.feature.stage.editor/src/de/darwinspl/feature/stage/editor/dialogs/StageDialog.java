@@ -41,15 +41,18 @@ public class StageDialog extends Dialog implements Listener{
 	// TODO Alex: Replace List with colored Table to improve readability
 	protected Composite stageButtonGroup;
 	protected Composite roleButtonGroup;
+	protected Composite buttonBar;
 	
 	protected Group stageGroup;
 	protected Group roleGroup;
 	
 	protected Button addStageButton;
 	protected Button deleteStageButton;
-	protected Button assignRoleButton;
+	//protected Button assignRoleButton;
 	protected Button addRoleButton;
 	protected Button deleteRoleButton;
+	protected Button roleAssignmentButton;
+	protected Button roleInclusionButton;
 
 	protected List stageList;
 	protected List roleList;
@@ -104,12 +107,6 @@ public class StageDialog extends Dialog implements Listener{
 	    roleList = new List(roleGroup, SWT.BORDER | SWT.SINGLE | SWT.V_SCROLL);
 	    roleList.setLayoutData(new GridData(SWT.FILL,SWT.FILL,true,true));
 	    
-	     // TODO Alex: Replace with a function that gets the names of the existing stages
-//	    for (int loopIndex = 0; loopIndex < 10; loopIndex++) {
-//	        stageList.add("Stage " + loopIndex);
-//	        roleList.add("Role " + loopIndex);
-//	      }	   
-	    
 	    // Stage Button Group
 	    stageButtonGroup = new Composite(stageGroup,SWT.NONE);
 		RowLayout rowLayout = new RowLayout (SWT.HORIZONTAL);
@@ -131,8 +128,10 @@ public class StageDialog extends Dialog implements Listener{
 		addRoleButton.setText("Add");
 		deleteRoleButton = new Button (roleButtonGroup, SWT.NONE);
 		deleteRoleButton.setText("Delete");
-		assignRoleButton = new Button (roleButtonGroup, SWT.NONE);
-		assignRoleButton.setText("Assign");   
+	//	assignRoleButton = new Button (roleButtonGroup, SWT.NONE);
+	//	assignRoleButton.setText("Assign");   
+		roleInclusionButton = new Button(roleButtonGroup, SWT.NONE);
+		roleInclusionButton.setText("Inclusions");
 		
 
 		// Add Listeners 
@@ -161,7 +160,8 @@ public class StageDialog extends Dialog implements Listener{
 				}
 			}
 			@Override
-			public void widgetDefaultSelected(SelectionEvent e) {			
+			public void widgetDefaultSelected(SelectionEvent e) {
+				stageList.deselectAll();
 			}			
 		});
 		
@@ -175,7 +175,8 @@ public class StageDialog extends Dialog implements Listener{
 				}
 			}
 			@Override
-			public void widgetDefaultSelected(SelectionEvent e) {			
+			public void widgetDefaultSelected(SelectionEvent e) {
+				roleList.deselectAll();
 			}			
 		});
 		
@@ -239,24 +240,75 @@ public class StageDialog extends Dialog implements Listener{
 			}
 		});
 		
-		//Assign Role to Stage Button
-		assignRoleButton.addListener(SWT.Selection, new Listener(){
-			public void handleEvent(Event event) {
-				stageModelWrapped.assignRoleToStage(selectedRole,selectedStage);
-				updateStageList();
-				updateRoleList();
-			}
-			
-		});
+//		//Assign Role to Stage Button
+//		assignRoleButton.addListener(SWT.Selection, new Listener(){
+//			public void handleEvent(Event event) {
+//				stageModelWrapped.assignRoleToStage(selectedRole,selectedStage);
+//				updateStageList();
+//				updateRoleList();
+//			}
+//			
+//		});		
 		
 	}
-
+	
 	@Override
-	  protected void createButtonsForButtonBar(Composite parent) {
-	    createButton(parent, IDialogConstants.OK_ID, "Done", true);
-//	    createButton(parent, IDialogConstants.CANCEL_ID,
-//	        IDialogConstants.CANCEL_LABEL, false);
+	/**	
+	 * New Button Bar Done-Button, removes Cancel
+	 */		
+	 protected void createButtonsForButtonBar(Composite parent) {
+		//Accept
+		createButton(parent, IDialogConstants.OK_ID, "Done", true);	   
+		
 	  }	
+	
+	/**
+	 * New Button Bar with additional Assignment Button on left side
+	 */
+	@Override
+	protected Control createButtonBar(final Composite parent)
+	{
+	    buttonBar = new Composite(parent, SWT.NONE);
+	    GridLayout layout = new GridLayout();
+	    layout.numColumns = 2;
+	    layout.makeColumnsEqualWidth = false;
+	    layout.horizontalSpacing = convertHorizontalDLUsToPixels(IDialogConstants.HORIZONTAL_SPACING);
+	    buttonBar.setLayout(layout);
+
+	    GridData data = new GridData(SWT.FILL, SWT.BOTTOM, true, false);
+	    data.grabExcessHorizontalSpace = true;
+	    data.grabExcessVerticalSpace = false;
+	    buttonBar.setLayoutData(data);
+
+	    // place a button on the left
+	    roleAssignmentButton = new Button(buttonBar, SWT.PUSH);
+	    roleAssignmentButton.setText("Role Assignment");
+
+	    GridData assignmentButtonData = new GridData(SWT.LEFT, SWT.CENTER, true, true);
+	    assignmentButtonData.grabExcessHorizontalSpace = true;
+	    assignmentButtonData.horizontalIndent = convertHorizontalDLUsToPixels(IDialogConstants.HORIZONTAL_MARGIN);
+	    roleAssignmentButton.setLayoutData(assignmentButtonData);
+
+	    // add the dialog's button bar to the right
+	    Control buttonControl = super.createButtonBar(buttonBar);
+	    buttonControl.setLayoutData(new GridData(SWT.RIGHT, SWT.CENTER, true, false));	  
+	    
+	    
+		//Role Assignment Button Listener 
+	    roleAssignmentButton.addListener(SWT.Selection, new Listener(){
+	  			public void handleEvent(Event event) {
+	  				RoleAssignmentDialog roleAssignmentDialog = new RoleAssignmentDialog(getShell(), stageModelWrapped);
+	  				roleAssignmentDialog.open();	  				
+
+	  				updateStageList();
+	  				updateRoleList();
+	  				
+	  				
+	  			}
+	  	});
+
+	    return buttonBar;
+	}
 	
 	// overriding this methods allows you to set the
 	// title of the custom dialog
@@ -268,7 +320,7 @@ public class StageDialog extends Dialog implements Listener{
 
 	@Override
 	protected Point getInitialSize() {
-		return new Point(340, 240);
+		return new Point(380, 240);
 	}
 
 	@Override
@@ -284,13 +336,6 @@ public class StageDialog extends Dialog implements Listener{
 		stageList.removeAll();;
 		for (Stage currentStage : stageModelWrapped.getModel().getStages()) {			
 			String currentStageName = currentStage.getNames().get(0).getName();
-			
-			String assignedRoleNames = ": ";			
-			for (Role assignedRole : currentStage.getHasAssigned()){
-				assignedRoleNames = assignedRoleNames +  assignedRole.getNames().get(0).getName() + " | ";
-			}
-			currentStageName = currentStageName + assignedRoleNames;
-			
 			stageList.add(currentStageName);
 
 			//stageList.pack();
@@ -306,14 +351,8 @@ public class StageDialog extends Dialog implements Listener{
 	public void updateRoleList(){
 		roleList.removeAll();;
 		for (Role currentRole : stageModelWrapped.getModel().getRoles()) {			
-			String currentRoleName = currentRole.getNames().get(0).getName(); 
-			
-			String assignedStageNames = ": ";			
-			for (Stage assignedStage : currentRole.getAssignedTo()){
-				assignedStageNames = assignedStageNames +  assignedStage.getNames().get(0).getName() + " | ";
-			}
-			currentRoleName = currentRoleName + assignedStageNames;
-			
+			String currentRoleName = currentRole.getNames().get(0).getName(); 		
+
 			roleList.add(currentRoleName);
 			//roleList.pack();
 			//roleGroup.pack();

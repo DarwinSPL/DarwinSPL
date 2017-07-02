@@ -70,7 +70,7 @@ public class SmFeatureFigure extends DwFeatureFigure  {
 	protected void paintStageBorder(Graphics graphics){
 		
 		Rectangle featureMarkRectangle = getFeatureMarkRectangle(feature);
-		DEDrawingUtil.drawSelection(graphics, featureMarkRectangle, this, false);			
+		DEDrawingUtil.drawSelection(graphics, featureMarkRectangle, this, false);
 	}
 	
 	/**
