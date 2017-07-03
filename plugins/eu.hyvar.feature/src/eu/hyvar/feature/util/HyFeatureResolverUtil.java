@@ -34,7 +34,7 @@ public class HyFeatureResolverUtil {
 		}
 		
 		List<HyFeature> validFeatures = new ArrayList<HyFeature>();
-
+		
 		// try if name is unique over time
 		for (HyFeature feature : featureModel.getFeatures()) {
 			for (HyName name : feature.getNames()) {

@@ -38,6 +38,25 @@ public class DwConfigurationExporter {
 	}
 
 	public eu.hyvar.reconfigurator.input.format.Configuration getExportedConfiguration(
+			HyConfiguration oldConfiguration, List<HyContextValueModel> contextValueModels) {
+		eu.hyvar.reconfigurator.input.format.Configuration exportedConfiguration = new eu.hyvar.reconfigurator.input.format.Configuration();
+
+		if (oldConfiguration != null) {
+			exportedConfiguration.setSelectedFeatures(getSelectedFeatureIds(oldConfiguration));
+			exportedConfiguration.setAttributeValues(getFeatureAttributeValues(oldConfiguration));
+		}
+
+		if (contextValueModels != null) {
+			exportedConfiguration.setContextValues(new ArrayList<eu.hyvar.reconfigurator.input.format.ContextValue>());
+			for(HyContextValueModel contextValueModel: contextValueModels) {
+				exportedConfiguration.getContextValues().addAll(getContextValues(contextValueModel));
+			}
+		}
+
+		return exportedConfiguration;
+	}
+	
+	public eu.hyvar.reconfigurator.input.format.Configuration getExportedConfiguration(
 			HyConfiguration oldConfiguration, HyContextValueModel contextValueModel) {
 		eu.hyvar.reconfigurator.input.format.Configuration exportedConfiguration = new eu.hyvar.reconfigurator.input.format.Configuration();
 

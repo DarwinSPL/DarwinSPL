@@ -23,6 +23,7 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.jetty.server.Request;
 import org.eclipse.jetty.server.handler.AbstractHandler;
 
@@ -45,6 +46,7 @@ import eu.hyvar.feature.configuration.util.HyConfigurationUtil;
 import eu.hyvar.feature.constraint.HyConstraintModel;
 import eu.hyvar.feature.constraint.util.HyConstraintUtil;
 import eu.hyvar.feature.util.HyFeatureUtil;
+import eu.hyvar.mspl.manifest.HyManifest;
 import eu.hyvar.mspl.util.HyManifestResolverUtil;
 import eu.hyvar.reconfigurator.input.exporter.HyVarRecExporter;
 import eu.hyvar.reconfigurator.io.rest.context.ContextToModelMapper;
@@ -113,6 +115,21 @@ public class JsonHandlerFMForHyVarRec extends AbstractHandler {
 			e.printStackTrace();
 		}
 
+		// Files which don't contain dependencies 
+		List<IFile> featureModelFiles = new ArrayList<IFile>();
+		List<IFile> contextModelFiles = new ArrayList<IFile>();
+		
+		// Files which contain dependencies
+		List<IFile> manifestFiles = new ArrayList<IFile>();
+		List<IFile> constraintModelFiles = new ArrayList<IFile>();
+		List<IFile> validityModelFiles = new ArrayList<IFile>();
+		
+		List<HyFeatureModel> featureModels = new ArrayList<HyFeatureModel>();
+		List<HyContextModel> contextModels = new ArrayList<HyContextModel>();
+		List<HyManifest> manifestModels = new ArrayList<HyManifest>();
+		List<HyConstraintModel> constraintModels = new ArrayList<HyConstraintModel>();
+		List<HyValidityModel> validityModels = new ArrayList<HyValidityModel>();
+		
 		IFolder folder = null;
 		while(folder == null || folder.exists()) {
 			folder = project.getFolder(UUID.randomUUID().toString());
@@ -135,7 +152,7 @@ public class JsonHandlerFMForHyVarRec extends AbstractHandler {
 		} catch (CoreException e) {
 			e.printStackTrace();
 		}
-		
+		manifestFiles.add(manifestFile);
 		
 		IFile fmFile = folder.getFile(rawInput.getFeatureModel().getFilename() + "." + HyFeatureUtil.getFeatureModelFileExtensionForXmi());
 		inputStream = new ByteArrayInputStream(rawInput.getFeatureModel().getSpecification().getBytes());
@@ -148,6 +165,7 @@ public class JsonHandlerFMForHyVarRec extends AbstractHandler {
 		} catch (CoreException e) {
 			e.printStackTrace();
 		}
+		featureModelFiles.add(fmFile);
 
 		IFile contextFile = folder.getFile(rawInput.getContextModel().getFilename() + "." + HyContextInformationUtil.getContextModelFileExtensionForXmi());
 		inputStream = new ByteArrayInputStream(rawInput.getContextModel().getSpecification().getBytes());
@@ -161,6 +179,7 @@ public class JsonHandlerFMForHyVarRec extends AbstractHandler {
 		} catch (CoreException e) {
 			e.printStackTrace();
 		}
+		contextModelFiles.add(contextFile);
 
 		IFile constraintFile = folder.getFile(rawInput.getConstraints().getFilename() + "." + HyConstraintUtil.getConstraintModelFileExtensionForXmi());
 		inputStream = new ByteArrayInputStream(rawInput.getConstraints().getSpecification().getBytes());
@@ -174,6 +193,7 @@ public class JsonHandlerFMForHyVarRec extends AbstractHandler {
 		} catch (CoreException e) {
 			e.printStackTrace();
 		}
+		constraintModelFiles.add(constraintFile);
 
 		IFile configurationFile = folder.getFile(rawInput.getOldConfiguration().getFilename() + HyConfigurationUtil.getConfigurationModelFileExtensionForXmi());
 		inputStream = new ByteArrayInputStream(rawInput.getOldConfiguration().getSpecification().getBytes());
@@ -182,6 +202,19 @@ public class JsonHandlerFMForHyVarRec extends AbstractHandler {
 				configurationFile.create(inputStream, true, progressMonitor);				
 			} else {
 				 configurationFile.setContents(inputStream, IFile.FORCE,
+				 progressMonitor);				
+			}
+		} catch (CoreException e) {
+			e.printStackTrace();
+		}
+		
+		IFile partialConfigurationFile = folder.getFile(rawInput.getPartialConfiguration().getFilename() + HyConfigurationUtil.getConfigurationModelFileExtensionForXmi());
+		inputStream = new ByteArrayInputStream(rawInput.getPartialConfiguration().getSpecification().getBytes());
+		try {
+			if(!partialConfigurationFile.exists()) {
+				partialConfigurationFile.create(inputStream, true, progressMonitor);				
+			} else {
+				 partialConfigurationFile.setContents(inputStream, IFile.FORCE,
 				 progressMonitor);				
 			}
 		} catch (CoreException e) {
@@ -200,41 +233,50 @@ public class JsonHandlerFMForHyVarRec extends AbstractHandler {
 		} catch (CoreException e) {
 			e.printStackTrace();
 		}
+		validityModelFiles.add(validityFile);
 
-		List<IFile> modelFiles = new ArrayList<IFile>();
-		modelFiles.add(fmFile);
-		modelFiles.add(contextFile);
-		modelFiles.add(configurationFile);
-		modelFiles.add(constraintFile);
-		modelFiles.add(validityFile);
 
-		List<EObject> models = EcoreIOUtil.loadModels(modelFiles);
-
-		HyContextModel contextModel = null;
-		HyFeatureModel featureModel = null;
-		HyValidityModel validityModel = null;
-		HyConstraintModel constraintModel = null;
-		HyConfiguration configuration = null;
-
-		try {
-			project.close(progressMonitor);
-		} catch (CoreException e) {
-			e.printStackTrace();
-		}
 		
-		for (EObject eobject : models) {
-			if (eobject instanceof HyContextModel) {
-				contextModel = (HyContextModel) eobject;
-			} else if (eobject instanceof HyFeatureModel) {
-				featureModel = (HyFeatureModel) eobject;
-			} else if (eobject instanceof HyValidityModel) {
-				validityModel = (HyValidityModel) eobject;
-			} else if (eobject instanceof HyConstraintModel) {
-				constraintModel = (HyConstraintModel) eobject;
-			} else if (eobject instanceof HyConfiguration) {
-				configuration = (HyConfiguration) eobject;
-			}
-		}
+//		HyFeatureModel featureModel = EcoreIOUtil.loadModel(fmFile);
+//		ResourceSet resourceSet = featureModel.eResource().getResourceSet();
+//		
+//		List<IFile> modelFiles = new ArrayList<IFile>();
+//		modelFiles.add(fmFile);
+//		modelFiles.add(contextFile);
+//		modelFiles.add(configurationFile);
+//		modelFiles.add(constraintFile);
+//		modelFiles.add(validityFile);
+//
+//		List<EObject> models = EcoreIOUtil.loadModels(modelFiles);
+//
+//		HyContextModel contextModel = null;
+//		HyValidityModel validityModel = null;
+//		HyConstraintModel constraintModel = null;
+//		HyConfiguration configuration = null;
+//
+//		try {
+//			project.close(progressMonitor);
+//		} catch (CoreException e) {
+//			e.printStackTrace();
+//		}
+//		
+//		for (EObject eobject : models) {
+//			if (eobject instanceof HyContextModel) {
+//				contextModel = (HyContextModel) eobject;
+//			} else if (eobject instanceof HyFeatureModel) {
+//				featureModel = (HyFeatureModel) eobject;
+//			} else if (eobject instanceof HyValidityModel) {
+//				validityModel = (HyValidityModel) eobject;
+//			} else if (eobject instanceof HyConstraintModel) {
+//				constraintModel = (HyConstraintModel) eobject;
+//			} else if (eobject instanceof HyConfiguration) {
+//				configuration = (HyConfiguration) eobject;
+//			}
+//		}
+//		
+//
+//		validityModels.add(validityModel);
+		
 		
 		for(Dependency dependency: rawInput.getDependencies()) {
 			IFile dependencyManifestFile = folder.getFile(dependency.getSignature().getFilename() + "." + HyManifestResolverUtil.FILE_EXTENSION_FOR_XMI);
@@ -248,6 +290,7 @@ public class JsonHandlerFMForHyVarRec extends AbstractHandler {
 			} catch (CoreException e) {
 				e.printStackTrace();
 			}
+			manifestFiles.add(dependencyManifestFile);
 			
 			
 			IFile dependencyFmFile = folder.getFile(dependency.getFeatureModel().getFilename() + "." + HyFeatureUtil.getFeatureModelFileExtensionForXmi());
@@ -261,50 +304,109 @@ public class JsonHandlerFMForHyVarRec extends AbstractHandler {
 			} catch (CoreException e) {
 				e.printStackTrace();
 			}
+			featureModelFiles.add(dependencyFmFile);
 
-			IFile dependencyContextFile = folder.getFile(dependency.getContextModel().getFilename() + "." + HyContextInformationUtil.getContextModelFileExtensionForXmi());
-			inputStream = new ByteArrayInputStream(dependency.getContextModel().getSpecification().getBytes());
-			try {
-				if(!dependencyContextFile.exists()) {
-					dependencyContextFile.create(inputStream, true, progressMonitor);				
-				} else {
-					 dependencyContextFile.setContents(inputStream, IFile.FORCE,
-					 progressMonitor);				
+			if(dependency.getContextModel() != null && dependency.getContextModel().getSpecification() != null && !dependency.getContextModel().getSpecification().equals("")) {
+				IFile dependencyContextFile = folder.getFile(dependency.getContextModel().getFilename() + "." + HyContextInformationUtil.getContextModelFileExtensionForXmi());
+				inputStream = new ByteArrayInputStream(dependency.getContextModel().getSpecification().getBytes());
+				try {
+					if(!dependencyContextFile.exists()) {
+						dependencyContextFile.create(inputStream, true, progressMonitor);				
+					} else {
+						dependencyContextFile.setContents(inputStream, IFile.FORCE,
+								progressMonitor);				
+					}
+				} catch (CoreException e) {
+					e.printStackTrace();
 				}
-			} catch (CoreException e) {
-				e.printStackTrace();
+				contextModelFiles.add(dependencyContextFile);
 			}
 
-			IFile dependencyConstraintFile = folder.getFile(dependency.getConstraints().getFilename() + "." + HyConstraintUtil.getConstraintModelFileExtensionForXmi());
-			inputStream = new ByteArrayInputStream(dependency.getConstraints().getSpecification().getBytes());
-			try {
-				if(!dependencyConstraintFile.exists()) {
-					dependencyConstraintFile.create(inputStream, true, progressMonitor);				
-				} else {
-					 dependencyConstraintFile.setContents(inputStream, IFile.FORCE,
-					 progressMonitor);				
+			if(dependency.getConstraints() != null && dependency.getConstraints().getSpecification() != null && !dependency.getConstraints().getSpecification().equals("")) {
+				IFile dependencyConstraintFile = folder.getFile(dependency.getConstraints().getFilename() + "." + HyConstraintUtil.getConstraintModelFileExtensionForXmi());
+				inputStream = new ByteArrayInputStream(dependency.getConstraints().getSpecification().getBytes());
+				try {
+					if(!dependencyConstraintFile.exists()) {
+						dependencyConstraintFile.create(inputStream, true, progressMonitor);				
+					} else {
+						dependencyConstraintFile.setContents(inputStream, IFile.FORCE,
+								progressMonitor);				
+					}
+				} catch (CoreException e) {
+					e.printStackTrace();
 				}
-			} catch (CoreException e) {
-				e.printStackTrace();
+				constraintModelFiles.add(dependencyConstraintFile);				
 			}
 
-			IFile dependencyValidityFile = folder.getFile(dependency.getValidityFormulas().getFilename() + HyValidityModelUtil.getValidityModelFileExtensionForXmi());
-			inputStream = new ByteArrayInputStream(dependency.getValidityFormulas().getSpecification().getBytes());
-			try {
-				if(!dependencyValidityFile.exists()) {
-					dependencyValidityFile.create(inputStream, true, progressMonitor);				
-				} else {
-					 dependencyValidityFile.setContents(inputStream, IFile.FORCE,
-					 progressMonitor);				
+			if(dependency.getValidityFormulas() != null && dependency.getValidityFormulas().getSpecification() != null && !dependency.getValidityFormulas().getSpecification().equals("")) {
+				IFile dependencyValidityFile = folder.getFile(dependency.getValidityFormulas().getFilename() + HyValidityModelUtil.getValidityModelFileExtensionForXmi());
+				inputStream = new ByteArrayInputStream(dependency.getValidityFormulas().getSpecification().getBytes());
+				try {
+					if(!dependencyValidityFile.exists()) {
+						dependencyValidityFile.create(inputStream, true, progressMonitor);				
+					} else {
+						dependencyValidityFile.setContents(inputStream, IFile.FORCE,
+								progressMonitor);				
+					}
+				} catch (CoreException e) {
+					e.printStackTrace();
 				}
-			} catch (CoreException e) {
-				e.printStackTrace();
+				validityModelFiles.add(dependencyValidityFile);
 			}
-			// TODO load dependency models. Adapt hyvarrec exporter to be able to take dependencies. Also needs to consider validity formulas and ctcs of dependencies.
+			
 			
 		}
 
-		// TODO how to deal with multiple context models?!
+		
+		// load all models from files
+		
+		// first load independent models
+		for(EObject loadedModel: EcoreIOUtil.loadModels(featureModelFiles)) {
+			if(loadedModel instanceof HyFeatureModel) {
+				featureModels.add((HyFeatureModel)loadedModel);
+			}
+		}
+		
+		ResourceSet resourceSet = featureModels.get(0).eResource().getResourceSet();
+		
+		HyContextModel contextModelImpl = null;
+		
+		for(IFile contextModelFile: contextModelFiles) {
+			HyContextModel contextModel = EcoreIOUtil.loadModel(contextModelFile, resourceSet);
+			if(contextModelFile == contextFile) {
+				contextModelImpl = contextModel;
+			}
+			contextModels.add(contextModel);
+		}
+		
+		// load dependent models
+		for(EObject loadedModel: EcoreIOUtil.loadModels(manifestFiles, resourceSet, null, false)) {
+			if(loadedModel instanceof HyManifest) {
+				manifestModels.add((HyManifest)loadedModel);
+			}
+		}
+		
+		for(EObject loadedModel: EcoreIOUtil.loadModels(constraintModelFiles, resourceSet, null, false)) {
+			if(loadedModel instanceof HyConstraintModel) {
+				constraintModels.add((HyConstraintModel)loadedModel);
+			}
+		}
+
+		for(EObject loadedModel: EcoreIOUtil.loadModels(validityModelFiles, resourceSet, null, false)) {
+			if(loadedModel instanceof HyValidityModel) {
+				validityModels.add((HyValidityModel)loadedModel);
+			}
+		}
+
+		HyConfiguration configuration = null;
+		if(rawInput.getOldConfiguration() != null && rawInput.getOldConfiguration().getSpecification() != null && !rawInput.getOldConfiguration().getSpecification().equals("")) {
+			configuration = EcoreIOUtil.loadModel(configurationFile, resourceSet);			
+		}
+		
+		HyConfiguration partialConfiguration = null;
+		if(rawInput.getPartialConfiguration() != null && rawInput.getPartialConfiguration().getSpecification() != null && !rawInput.getPartialConfiguration().getSpecification().equals("")) {
+			partialConfiguration = EcoreIOUtil.loadModel(partialConfigurationFile, resourceSet);			
+		}
 		
 		// Load context values (how to resolve to the contexts?)
 		// This is very HyVar specific
@@ -313,17 +415,20 @@ public class JsonHandlerFMForHyVarRec extends AbstractHandler {
 		// TODO Optimistic -> error handling?
 		double latitude = Double.parseDouble(rawInput.getContext().getLat());
 		double longitude = Double.parseDouble(rawInput.getContext().getLong());
-		HyContextValue positionValue = ContextToModelMapper.mapGPSToContextValue(latitude, longitude, contextModel);
+		HyContextValue positionValue = ContextToModelMapper.mapGPSToContextValue(latitude, longitude, contextModelImpl);
 
 		// TODO very optimistic.... catch null sensible like that?
 		if (positionValue != null) {
 			contextValueModel.getValues().add(positionValue);
 		}
+		
+		List<HyContextValueModel> contextValueModels = new ArrayList<HyContextValueModel>(1);
+		contextValueModels.add(contextValueModel);
 
 		
 		HyVarRecExporter hyvarrecExporter = new HyVarRecExporter();
-		String answer = hyvarrecExporter.exportSPL(contextModel, validityModel, featureModel, constraintModel,
-				configuration, null, contextValueModel, date);
+		String answer = hyvarrecExporter.exportSPL(contextModels, validityModels, featureModels, constraintModels,
+				configuration, partialConfiguration, null, contextValueModels, date);
 		
 		try {
 			folder.delete(true, progressMonitor);

@@ -20,4 +20,5 @@ Require-Bundle: com.google.gson,
  eu.hyvar.reconfigurator.input,
  eu.hyvar.preferences,
  eu.hyvar.reconfigurator.output.translation,
- eu.hyvar.mspl.manifest
+ eu.hyvar.mspl.manifest,
+ org.eclipse.emf.ecore
