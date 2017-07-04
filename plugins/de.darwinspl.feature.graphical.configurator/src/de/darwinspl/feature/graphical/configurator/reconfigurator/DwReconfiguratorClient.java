@@ -37,7 +37,7 @@ import eu.hyvar.context.information.contextValue.HyContextValueModel;
 import eu.hyvar.feature.HyFeatureModel;
 import eu.hyvar.feature.configuration.HyConfiguration;
 import eu.hyvar.feature.constraint.HyConstraintModel;
-import eu.hyvar.preferences.HyPreferenceModel;
+import eu.hyvar.preferences.HyProfile;
 import eu.hyvar.reconfigurator.input.exporter.HyVarRecExporter;
 import eu.hyvar.reconfigurator.output.translation.HyVarRecOutputTranslator;
 import eu.hyvar.reconfigurator.output.translation.format.OutputOfHyVarRec;
@@ -64,7 +64,7 @@ public class DwReconfiguratorClient {
 	
 	public HyConfiguration reconfigure(URI uri, HyContextModel contextModel, HyValidityModel contextValidityModel,
 			HyFeatureModel featureModel, HyConstraintModel constraintModel, HyConfiguration oldConfiguration,
-			HyPreferenceModel preferenceModel, HyContextValueModel contextValues, Date date) {
+			HyProfile preferenceModel, HyContextValueModel contextValues, Date date) {
 		
 		HyVarRecExporter exporter = new HyVarRecExporter();
 		String messageForHyVarRec = exporter.exportContextMappingModel(contextModel, contextValidityModel, featureModel, constraintModel, oldConfiguration, preferenceModel, contextValues, date);

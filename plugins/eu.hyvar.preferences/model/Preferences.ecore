@@ -2,7 +2,7 @@
 <ecore:EPackage xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="preferences" nsURI="http://hyvar-project.eu/feature/preferences/1.0"
     nsPrefix="preferences">
-  <eClassifiers xsi:type="ecore:EClass" name="HyPreferenceModel">
+  <eClassifiers xsi:type="ecore:EClass" name="HyProfile">
     <eStructuralFeatures xsi:type="ecore:EReference" name="preferences" upperBound="-1"
         eType="#//HyPreference" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="featureModel" lowerBound="1"

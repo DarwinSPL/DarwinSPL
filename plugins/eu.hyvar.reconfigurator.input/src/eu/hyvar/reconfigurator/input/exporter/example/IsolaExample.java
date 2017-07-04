@@ -57,7 +57,7 @@ import eu.hyvar.feature.expression.HyRelativeVersionRestrictionOperator;
 import eu.hyvar.feature.expression.HyValueExpression;
 import eu.hyvar.feature.util.HyFeatureCreationUtil;
 import eu.hyvar.preferences.HyPreference;
-import eu.hyvar.preferences.HyPreferenceModel;
+import eu.hyvar.preferences.HyProfile;
 import eu.hyvar.preferences.PreferencesFactory;
 
 public class IsolaExample {
@@ -67,7 +67,7 @@ public class IsolaExample {
 	private HyContextModel contextModel;
 	private HyValidityModel contextValidityModel;
 	private HyConfiguration oldConfiguration;
-	private HyPreferenceModel preferenceModel;
+	private HyProfile preferenceModel;
 
 	public enum ProfileEnum {
 		SPORTY, ECO
@@ -596,7 +596,7 @@ public class IsolaExample {
 
 		// ------- create preferences --------
 		PreferencesFactory preferenceFactory = PreferencesFactory.eINSTANCE;
-		HyPreferenceModel preferenceModel = preferenceFactory.createHyPreferenceModel();
+		HyProfile preferenceModel = preferenceFactory.createHyProfile();
 		this.preferenceModel = preferenceModel;
 		preferenceModel.setContextModel(contextModel);
 		preferenceModel.setFeatureModel(featureModel);
@@ -881,11 +881,11 @@ public class IsolaExample {
 		this.oldConfiguration = oldConfiguration;
 	}
 
-	public HyPreferenceModel getPreferenceModel() {
+	public HyProfile getPreferenceModel() {
 		return preferenceModel;
 	}
 
-	public void setPreferenceModel(HyPreferenceModel preferenceModel) {
+	public void setPreferenceModel(HyProfile preferenceModel) {
 		this.preferenceModel = preferenceModel;
 	}
 

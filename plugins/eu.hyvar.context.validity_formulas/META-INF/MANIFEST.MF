@@ -16,5 +16,7 @@ Require-Bundle: org.eclipse.core.runtime,
  eu.hyvar.feature.data;visibility:=reexport,
  eu.hyvar.evolution;visibility:=reexport,
  eu.hyvar.feature.expression;visibility:=reexport,
- eu.hyvar.feature;visibility:=reexport
+ eu.hyvar.feature;visibility:=reexport,
+ org.eclipse.emf.validation,
+ de.darwinspl.common.analyses
 Bundle-ActivationPolicy: lazy

@@ -27,7 +27,7 @@ import eu.hyvar.feature.expression.HyFeatureReferenceExpression;
 import eu.hyvar.feature.expression.HyImpliesExpression;
 import eu.hyvar.feature.mapping.HyMappingModel;
 import eu.hyvar.feature.util.HyFeatureCreationUtil;
-import eu.hyvar.preferences.HyPreferenceModel;
+import eu.hyvar.preferences.HyProfile;
 
 public class HyVarUseCaseGM extends HyFMExample {
 
@@ -238,7 +238,7 @@ public class HyVarUseCaseGM extends HyFMExample {
 	}
 
 	@Override
-	public HyPreferenceModel createPreferenceModel() {
+	public HyProfile createPreferenceModel() {
 		// TODO Auto-generated method stub
 		return null;
 	}

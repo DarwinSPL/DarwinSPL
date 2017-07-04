@@ -42,7 +42,7 @@ public class DwAttributeEditorEditPart extends DwAttributeEditPart {
 				((DwFeatureEditPart)getParent()).propertyChange(new PropertyChangeEvent(this, "AttributeSizeChanged", figure.getBounds(), new Rectangle(0, 0, 0, 0)));
 				
 			
-				refreshVisuals();
+				//refreshVisuals();
 				
 				featureModel.rearrangeFeatures();
 				

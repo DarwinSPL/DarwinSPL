@@ -1,5 +1,4 @@
-package eu.hyvar.feature.constraint.emf.validation;
-
+package eu.hyvar.context.contextValidity.emf.validation;
 import java.util.List;
 
 import org.eclipse.core.runtime.IStatus;
@@ -8,13 +7,14 @@ import org.eclipse.emf.validation.AbstractModelConstraint;
 import org.eclipse.emf.validation.EMFEventType;
 import org.eclipse.emf.validation.IValidationContext;
 
-import de.darwinspl.common.analyses.DwAnalyses;
 import de.darwinspl.common.analyses.DwAnalysesMarker;
+import eu.hyvar.context.contextValidity.HyValidityFormula;
+import eu.hyvar.context.contextValidity.analyses.DwValidityModelAnalyses;
 import eu.hyvar.evolution.HyName;
 import eu.hyvar.evolution.HyNamedElement;
-import eu.hyvar.feature.constraint.HyConstraint;
 
 public class DwReferenceValidityConsistencyConstraint extends AbstractModelConstraint {
+
 
 	@Override
 	public IStatus validate(IValidationContext ctx) {
@@ -23,9 +23,9 @@ public class DwReferenceValidityConsistencyConstraint extends AbstractModelConst
 		
 		// In the case of batch mode.
 		if (eType == EMFEventType.NULL) {
-			if (eObj instanceof HyConstraint) {
-				HyConstraint constraint = (HyConstraint) eObj;
-				List<DwAnalysesMarker> markers = DwAnalyses.checkReferenceValidityConsistencyForExpression(constraint.getRootExpression(), constraint);
+			if(eObj instanceof HyValidityFormula) {
+				HyValidityFormula validityFormula = (HyValidityFormula) eObj;
+				List<DwAnalysesMarker> markers = DwValidityModelAnalyses.checkReferenceValidityConsistencyForValidityFormula(validityFormula);
 				
 				if(markers == null || markers.size() <= 0) {
 					return ctx.createSuccessStatus();
@@ -52,11 +52,11 @@ public class DwReferenceValidityConsistencyConstraint extends AbstractModelConst
 						message += ")";
 					}
 				}
-				
+
 				return ctx.createFailureStatus(message);
 			}
 		}
-
+		
 		return ctx.createSuccessStatus();
 	}
 

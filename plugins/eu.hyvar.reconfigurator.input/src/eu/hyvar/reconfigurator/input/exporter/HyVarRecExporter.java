@@ -59,7 +59,7 @@ import eu.hyvar.feature.util.HyFeatureEvolutionUtil;
 import eu.hyvar.feature.util.HyFeatureModelWellFormednessException;
 import eu.hyvar.feature.util.HyFeatureUtil;
 import eu.hyvar.preferences.HyPreference;
-import eu.hyvar.preferences.HyPreferenceModel;
+import eu.hyvar.preferences.HyProfile;
 import eu.hyvar.reconfigurator.input.format.Attribute;
 import eu.hyvar.reconfigurator.input.format.AttributeValue;
 import eu.hyvar.reconfigurator.input.format.Configuration;
@@ -163,7 +163,7 @@ public class HyVarRecExporter {
 	
 	public String exportContextMappingModel(HyContextModel contextModel, HyValidityModel contextValidityModel,
 			HyFeatureModel featureModel, HyConstraintModel constraintModel, HyConfiguration oldConfiguration,
-			HyPreferenceModel preferenceModel, HyContextValueModel contextValues, Date date) {
+			HyProfile preferenceModel, HyContextValueModel contextValues, Date date) {
 
 		// FIXME check for invalidities
 
@@ -813,7 +813,7 @@ public class HyVarRecExporter {
 		return expressionExporter.exportExpressionToString(constraint.getRootExpression());
 	}
 
-	private List<String> getPreferences(HyPreferenceModel preferenceModel, Date date) {
+	private List<String> getPreferences(HyProfile preferenceModel, Date date) {
 		List<String> preferences = new ArrayList<String>();
 
 		for (HyPreference preference : HyEvolutionUtil.getValidTemporalElements(preferenceModel.getPreferences(),

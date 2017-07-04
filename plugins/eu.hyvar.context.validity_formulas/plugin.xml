@@ -20,5 +20,41 @@
             uri="http://hyvar-project.eu/context/validity/1.0">
       </factory>
    </extension>
+   <extension
+         point="org.eclipse.emf.validation.constraintProviders">
+      <category
+            id="eu.hyvar.context.validity_formulas.emf.validation"
+            name="Validity Formula Constraints">
+      </category>
+      <constraintProvider
+            cache="true"
+            mode="Batch">
+         <package
+               namespaceUri="http://hyvar-project.eu/context/validity/1.0">
+         </package>
+         <constraints
+               categories="eu.hyvar.context.validity_formulas.emf.validation">
+            <constraint
+                  class="eu.hyvar.context.contextValidity.emf.validation.DwReferenceValidityConsistencyConstraint"
+                  id="eu.hyvar.context.validity_formulas.emf.validation.DwReferenceValidityConsistencyConstraint"
+                  isEnabledByDefault="true"
+                  lang="Java"
+                  mode="Batch"
+                  name="DwReferenceValidityConsistencyConstraint"
+                  severity="ERROR"
+                  statusCode="1">
+               <message>
+                  The following objects have a shorter validity than the validity formula itself: {0}
+               </message>
+               <description>
+                  The validity formula temporal validity should not be longer than its referencing elements
+               </description>
+               <target
+                     class="HyValidityFormula">
+               </target>
+            </constraint>
+         </constraints>
+      </constraintProvider>
+   </extension>
 
 </plugin>

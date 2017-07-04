@@ -9,10 +9,10 @@
   <foreignModel>Preferences.ecore</foreignModel>
   <genPackages prefix="Preferences" basePackage="eu.hyvar" disposableProviderFactory="true"
       fileExtensions="hypreferencemodel" ecorePackage="Preferences.ecore#/">
-    <genClasses ecoreClass="Preferences.ecore#//HyPreferenceModel">
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Preferences.ecore#//HyPreferenceModel/preferences"/>
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Preferences.ecore#//HyPreferenceModel/featureModel"/>
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Preferences.ecore#//HyPreferenceModel/contextModel"/>
+    <genClasses ecoreClass="Preferences.ecore#//HyProfile">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Preferences.ecore#//HyProfile/preferences"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Preferences.ecore#//HyProfile/featureModel"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Preferences.ecore#//HyProfile/contextModel"/>
     </genClasses>
     <genClasses ecoreClass="Preferences.ecore#//HyPreference">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Preferences.ecore#//HyPreference/rootExpression"/>
