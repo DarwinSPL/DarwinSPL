@@ -1,10 +1,10 @@
 
-package eu.hyvar.reconfigurator.io.rest.input.raw_input_for_hyvarrec;
+package eu.hyvar.reconfigurator.io.rest.output.configurations;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Signature {
+public class Configuration {
 
     /**
      * 

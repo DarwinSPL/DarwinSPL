@@ -4,7 +4,7 @@ package eu.hyvar.reconfigurator.io.rest.input.raw_input_for_hyvarrec;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Constraints_ {
+public class DependencySignature {
 
     /**
      * 

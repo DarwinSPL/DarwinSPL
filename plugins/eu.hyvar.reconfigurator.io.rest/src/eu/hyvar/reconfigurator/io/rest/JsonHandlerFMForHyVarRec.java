@@ -1,9 +1,7 @@
 package eu.hyvar.reconfigurator.io.rest;
 
 import java.io.BufferedReader;
-import java.io.ByteArrayInputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Date;
@@ -141,98 +139,50 @@ public class JsonHandlerFMForHyVarRec extends AbstractHandler {
 			}
 		}
 
-		IFile manifestFile = folder.getFile(rawInput.getManifest().getFilename() + "." + HyManifestResolverUtil.FILE_EXTENSION_FOR_XMI);
-		InputStream inputStream = new ByteArrayInputStream(rawInput.getManifest().getSpecification().getBytes());
-		try {
-			if(!manifestFile.exists()) {
-				manifestFile.create(inputStream, true, progressMonitor);				
-			} else {
-				manifestFile.setContents(inputStream, IFile.FORCE, progressMonitor);
-			}
-		} catch (CoreException e) {
-			e.printStackTrace();
-		}
+		IFile manifestFile = FileWriterUtility.writeFileWithContent(
+				rawInput.getManifest().getFilename(),
+				HyManifestResolverUtil.FILE_EXTENSION_FOR_XMI,
+				rawInput.getManifest().getSpecification(), folder);
+
 		manifestFiles.add(manifestFile);
 		
-		IFile fmFile = folder.getFile(rawInput.getFeatureModel().getFilename() + "." + HyFeatureUtil.getFeatureModelFileExtensionForXmi());
-		inputStream = new ByteArrayInputStream(rawInput.getFeatureModel().getSpecification().getBytes());
-		try {
-			if(!fmFile.exists()) {
-				fmFile.create(inputStream, true, progressMonitor);				
-			} else {
-				fmFile.setContents(inputStream, IFile.FORCE, progressMonitor);
-			}
-		} catch (CoreException e) {
-			e.printStackTrace();
-		}
+		IFile fmFile = FileWriterUtility.writeFileWithContent(
+				rawInput.getFeatureModel().getFilename(),
+				HyFeatureUtil.getFeatureModelFileExtensionForXmi(),
+				rawInput.getFeatureModel().getSpecification(), folder);
+
 		featureModelFiles.add(fmFile);
 
-		IFile contextFile = folder.getFile(rawInput.getContextModel().getFilename() + "." + HyContextInformationUtil.getContextModelFileExtensionForXmi());
-		inputStream = new ByteArrayInputStream(rawInput.getContextModel().getSpecification().getBytes());
-		try {
-			if(!contextFile.exists()) {
-				contextFile.create(inputStream, true, progressMonitor);				
-			} else {
-				 contextFile.setContents(inputStream, IFile.FORCE,
-				 progressMonitor);				
-			}
-		} catch (CoreException e) {
-			e.printStackTrace();
-		}
+		IFile contextFile = FileWriterUtility.writeFileWithContent(
+				rawInput.getContextModel().getFilename(),
+				HyContextInformationUtil.getContextModelFileExtensionForXmi(),
+				rawInput.getContextModel().getSpecification(), folder);
+
 		contextModelFiles.add(contextFile);
 
-		IFile constraintFile = folder.getFile(rawInput.getConstraints().getFilename() + "." + HyConstraintUtil.getConstraintModelFileExtensionForXmi());
-		inputStream = new ByteArrayInputStream(rawInput.getConstraints().getSpecification().getBytes());
-		try {
-			if(!constraintFile.exists()) {
-				constraintFile.create(inputStream, true, progressMonitor);				
-			} else {
-				 constraintFile.setContents(inputStream, IFile.FORCE,
-				 progressMonitor);				
-			}
-		} catch (CoreException e) {
-			e.printStackTrace();
-		}
+		IFile constraintFile = FileWriterUtility.writeFileWithContent(
+				rawInput.getConstraints().getFilename(),
+				HyConstraintUtil.getConstraintModelFileExtensionForXmi(),
+				rawInput.getConstraints().getSpecification(), folder);
+		
 		constraintModelFiles.add(constraintFile);
 
-		IFile configurationFile = folder.getFile(rawInput.getOldConfiguration().getFilename() + HyConfigurationUtil.getConfigurationModelFileExtensionForXmi());
-		inputStream = new ByteArrayInputStream(rawInput.getOldConfiguration().getSpecification().getBytes());
-		try {
-			if(!configurationFile.exists()) {
-				configurationFile.create(inputStream, true, progressMonitor);				
-			} else {
-				 configurationFile.setContents(inputStream, IFile.FORCE,
-				 progressMonitor);				
-			}
-		} catch (CoreException e) {
-			e.printStackTrace();
-		}
-		
-		IFile partialConfigurationFile = folder.getFile(rawInput.getPartialConfiguration().getFilename() + HyConfigurationUtil.getConfigurationModelFileExtensionForXmi());
-		inputStream = new ByteArrayInputStream(rawInput.getPartialConfiguration().getSpecification().getBytes());
-		try {
-			if(!partialConfigurationFile.exists()) {
-				partialConfigurationFile.create(inputStream, true, progressMonitor);				
-			} else {
-				 partialConfigurationFile.setContents(inputStream, IFile.FORCE,
-				 progressMonitor);				
-			}
-		} catch (CoreException e) {
-			e.printStackTrace();
-		}
+		IFile configurationFile = FileWriterUtility.writeFileWithContent(
+				rawInput.getOldConfiguration().getFilename(),
+				HyConfigurationUtil.getConfigurationModelFileExtensionForXmi(),
+				rawInput.getOldConfiguration().getSpecification(), folder);
 
-		IFile validityFile = folder.getFile(rawInput.getValidityFormulas().getFilename() + HyValidityModelUtil.getValidityModelFileExtensionForXmi());
-		inputStream = new ByteArrayInputStream(rawInput.getValidityFormulas().getSpecification().getBytes());
-		try {
-			if(!validityFile.exists()) {
-				validityFile.create(inputStream, true, progressMonitor);				
-			} else {
-				 validityFile.setContents(inputStream, IFile.FORCE,
-				 progressMonitor);				
-			}
-		} catch (CoreException e) {
-			e.printStackTrace();
-		}
+		
+		IFile partialConfigurationFile = FileWriterUtility.writeFileWithContent(
+				rawInput.getPartialConfiguration().getFilename(),
+				HyConfigurationUtil.getConfigurationModelFileExtensionForXmi(),
+				rawInput.getPartialConfiguration().getSpecification(), folder);
+
+		IFile validityFile = FileWriterUtility.writeFileWithContent(
+				rawInput.getValidityFormulas().getFilename(),
+				HyValidityModelUtil.getValidityModelFileExtensionForXmi(),
+				rawInput.getValidityFormulas().getSpecification(), folder);
+
 		validityModelFiles.add(validityFile);
 
 
@@ -279,78 +229,45 @@ public class JsonHandlerFMForHyVarRec extends AbstractHandler {
 		
 		
 		for(Dependency dependency: rawInput.getDependencies()) {
-			IFile dependencyManifestFile = folder.getFile(dependency.getSignature().getFilename() + "." + HyManifestResolverUtil.FILE_EXTENSION_FOR_XMI);
-			inputStream = new ByteArrayInputStream(dependency.getSignature().getSpecification().getBytes());
-			try {
-				if(!dependencyManifestFile.exists()) {
-					dependencyManifestFile.create(inputStream, true, progressMonitor);				
-				} else {
-					dependencyManifestFile.setContents(inputStream, IFile.FORCE, progressMonitor);
-				}
-			} catch (CoreException e) {
-				e.printStackTrace();
-			}
+			IFile dependencyManifestFile = FileWriterUtility.writeFileWithContent(
+					dependency.getDependencySignature().getFilename(),
+					HyManifestResolverUtil.FILE_EXTENSION_FOR_XMI,
+					dependency.getDependencySignature().getSpecification(), folder);
+
 			manifestFiles.add(dependencyManifestFile);
 			
 			
-			IFile dependencyFmFile = folder.getFile(dependency.getFeatureModel().getFilename() + "." + HyFeatureUtil.getFeatureModelFileExtensionForXmi());
-			inputStream = new ByteArrayInputStream(dependency.getFeatureModel().getSpecification().getBytes());
-			try {
-				if(!dependencyFmFile.exists()) {
-					dependencyFmFile.create(inputStream, true, progressMonitor);				
-				} else {
-					dependencyFmFile.setContents(inputStream, IFile.FORCE, progressMonitor);
-				}
-			} catch (CoreException e) {
-				e.printStackTrace();
-			}
+			IFile dependencyFmFile = FileWriterUtility.writeFileWithContent(
+					dependency.getDependencyFeatureModel().getFilename(),
+					HyFeatureUtil.getFeatureModelFileExtensionForXmi(),
+					dependency.getDependencyFeatureModel().getSpecification(), folder); 
+
 			featureModelFiles.add(dependencyFmFile);
 
-			if(dependency.getContextModel() != null && dependency.getContextModel().getSpecification() != null && !dependency.getContextModel().getSpecification().equals("")) {
-				IFile dependencyContextFile = folder.getFile(dependency.getContextModel().getFilename() + "." + HyContextInformationUtil.getContextModelFileExtensionForXmi());
-				inputStream = new ByteArrayInputStream(dependency.getContextModel().getSpecification().getBytes());
-				try {
-					if(!dependencyContextFile.exists()) {
-						dependencyContextFile.create(inputStream, true, progressMonitor);				
-					} else {
-						dependencyContextFile.setContents(inputStream, IFile.FORCE,
-								progressMonitor);				
-					}
-				} catch (CoreException e) {
-					e.printStackTrace();
-				}
+			if(dependency.getDependencyContextModel() != null && dependency.getDependencyContextModel().getSpecification() != null && !dependency.getDependencyContextModel().getSpecification().equals("")) {
+				IFile dependencyContextFile = FileWriterUtility.writeFileWithContent(
+						dependency.getDependencyContextModel().getFilename(),
+						HyContextInformationUtil.getContextModelFileExtensionForXmi(),
+						dependency.getDependencyContextModel().getSpecification(), folder); 
+				
 				contextModelFiles.add(dependencyContextFile);
 			}
 
-			if(dependency.getConstraints() != null && dependency.getConstraints().getSpecification() != null && !dependency.getConstraints().getSpecification().equals("")) {
-				IFile dependencyConstraintFile = folder.getFile(dependency.getConstraints().getFilename() + "." + HyConstraintUtil.getConstraintModelFileExtensionForXmi());
-				inputStream = new ByteArrayInputStream(dependency.getConstraints().getSpecification().getBytes());
-				try {
-					if(!dependencyConstraintFile.exists()) {
-						dependencyConstraintFile.create(inputStream, true, progressMonitor);				
-					} else {
-						dependencyConstraintFile.setContents(inputStream, IFile.FORCE,
-								progressMonitor);				
-					}
-				} catch (CoreException e) {
-					e.printStackTrace();
-				}
+			if(dependency.getDependencyConstraints() != null && dependency.getDependencyConstraints().getSpecification() != null && !dependency.getDependencyConstraints().getSpecification().equals("")) {
+				IFile dependencyConstraintFile = FileWriterUtility.writeFileWithContent(
+						dependency.getDependencyConstraints().getFilename(),
+						HyConstraintUtil.getConstraintModelFileExtensionForXmi(),
+						dependency.getDependencyConstraints().getSpecification(), folder); 
+
 				constraintModelFiles.add(dependencyConstraintFile);				
 			}
 
-			if(dependency.getValidityFormulas() != null && dependency.getValidityFormulas().getSpecification() != null && !dependency.getValidityFormulas().getSpecification().equals("")) {
-				IFile dependencyValidityFile = folder.getFile(dependency.getValidityFormulas().getFilename() + HyValidityModelUtil.getValidityModelFileExtensionForXmi());
-				inputStream = new ByteArrayInputStream(dependency.getValidityFormulas().getSpecification().getBytes());
-				try {
-					if(!dependencyValidityFile.exists()) {
-						dependencyValidityFile.create(inputStream, true, progressMonitor);				
-					} else {
-						dependencyValidityFile.setContents(inputStream, IFile.FORCE,
-								progressMonitor);				
-					}
-				} catch (CoreException e) {
-					e.printStackTrace();
-				}
+			if(dependency.getDependencyValidityFormulas() != null && dependency.getDependencyValidityFormulas().getSpecification() != null && !dependency.getDependencyValidityFormulas().getSpecification().equals("")) {
+				IFile dependencyValidityFile = FileWriterUtility.writeFileWithContent(
+						dependency.getDependencyValidityFormulas().getFilename(),
+						HyValidityModelUtil.getValidityModelFileExtensionForXmi(),
+						dependency.getDependencyValidityFormulas().getSpecification(), folder); 
+
 				validityModelFiles.add(dependencyValidityFile);
 			}
 			

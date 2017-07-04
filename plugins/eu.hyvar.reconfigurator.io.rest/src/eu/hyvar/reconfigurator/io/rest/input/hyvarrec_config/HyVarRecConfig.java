@@ -1,11 +1,11 @@
 
-package eu.hyvar.reconfigurator.io.rest.input.raw_input_for_hyvarrec;
+package eu.hyvar.reconfigurator.io.rest.input.hyvarrec_config;
 
 import java.util.List;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class RawInputForHyVarRec {
+public class HyVarRecConfig {
 
     /**
      * 
@@ -15,15 +15,14 @@ public class RawInputForHyVarRec {
     @SerializedName("date")
     @Expose
     private String date;
-    @SerializedName("constraints")
+    /**
+     * 
+     * (Required)
+     * 
+     */
+    @SerializedName("attributes")
     @Expose
-    private Constraints constraints;
-    @SerializedName("context")
-    @Expose
-    private Context context;
-    @SerializedName("context_model")
-    @Expose
-    private ContextModel contextModel;
+    private List<Attribute> attributes = null;
     /**
      * 
      * (Required)
@@ -45,6 +44,14 @@ public class RawInputForHyVarRec {
      * (Required)
      * 
      */
+    @SerializedName("features")
+    @Expose
+    private List<String> features = null;
+    /**
+     * 
+     * (Required)
+     * 
+     */
     @SerializedName("manifest")
     @Expose
     private Manifest manifest;
@@ -55,13 +62,15 @@ public class RawInputForHyVarRec {
      */
     @SerializedName("msg_type")
     @Expose
-    private String msgType = "raw_hyvarrec_input";
-    @SerializedName("old_configuration")
+    private String msgType = "hyvarrec_config_plus_fm";
+    /**
+     * 
+     * (Required)
+     * 
+     */
+    @SerializedName("result")
     @Expose
-    private OldConfiguration oldConfiguration;
-    @SerializedName("partial_configuration")
-    @Expose
-    private PartialConfiguration partialConfiguration;
+    private String result;
     /**
      * 
      * (Required)
@@ -70,9 +79,6 @@ public class RawInputForHyVarRec {
     @SerializedName("spl_id")
     @Expose
     private String splId;
-    @SerializedName("validity_formulas")
-    @Expose
-    private ValidityFormulas validityFormulas;
 
     /**
      * 
@@ -92,28 +98,22 @@ public class RawInputForHyVarRec {
         this.date = date;
     }
 
-    public Constraints getConstraints() {
-        return constraints;
+    /**
+     * 
+     * (Required)
+     * 
+     */
+    public List<Attribute> getAttributes() {
+        return attributes;
     }
 
-    public void setConstraints(Constraints constraints) {
-        this.constraints = constraints;
-    }
-
-    public Context getContext() {
-        return context;
-    }
-
-    public void setContext(Context context) {
-        this.context = context;
-    }
-
-    public ContextModel getContextModel() {
-        return contextModel;
-    }
-
-    public void setContextModel(ContextModel contextModel) {
-        this.contextModel = contextModel;
+    /**
+     * 
+     * (Required)
+     * 
+     */
+    public void setAttributes(List<Attribute> attributes) {
+        this.attributes = attributes;
     }
 
     /**
@@ -157,6 +157,24 @@ public class RawInputForHyVarRec {
      * (Required)
      * 
      */
+    public List<String> getFeatures() {
+        return features;
+    }
+
+    /**
+     * 
+     * (Required)
+     * 
+     */
+    public void setFeatures(List<String> features) {
+        this.features = features;
+    }
+
+    /**
+     * 
+     * (Required)
+     * 
+     */
     public Manifest getManifest() {
         return manifest;
     }
@@ -188,20 +206,22 @@ public class RawInputForHyVarRec {
         this.msgType = msgType;
     }
 
-    public OldConfiguration getOldConfiguration() {
-        return oldConfiguration;
+    /**
+     * 
+     * (Required)
+     * 
+     */
+    public String getResult() {
+        return result;
     }
 
-    public void setOldConfiguration(OldConfiguration oldConfiguration) {
-        this.oldConfiguration = oldConfiguration;
-    }
-
-    public PartialConfiguration getPartialConfiguration() {
-        return partialConfiguration;
-    }
-
-    public void setPartialConfiguration(PartialConfiguration partialConfiguration) {
-        this.partialConfiguration = partialConfiguration;
+    /**
+     * 
+     * (Required)
+     * 
+     */
+    public void setResult(String result) {
+        this.result = result;
     }
 
     /**
@@ -220,14 +240,6 @@ public class RawInputForHyVarRec {
      */
     public void setSplId(String splId) {
         this.splId = splId;
-    }
-
-    public ValidityFormulas getValidityFormulas() {
-        return validityFormulas;
-    }
-
-    public void setValidityFormulas(ValidityFormulas validityFormulas) {
-        this.validityFormulas = validityFormulas;
     }
 
 }
