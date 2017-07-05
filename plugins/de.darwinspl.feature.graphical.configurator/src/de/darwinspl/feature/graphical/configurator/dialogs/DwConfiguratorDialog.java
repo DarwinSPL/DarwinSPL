@@ -3,8 +3,11 @@ package de.darwinspl.feature.graphical.configurator.dialogs;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.TimeoutException;
 
 import org.eclipse.jface.dialogs.Dialog;
+import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
@@ -141,12 +144,21 @@ public class DwConfiguratorDialog extends Dialog {
 			}
 		}
 
-		output = configurator.run();
+		try {
+			output = configurator.run();
+		} catch (InterruptedException | TimeoutException | ExecutionException e) {
+			MessageDialog.openError(getShell(), "Connection Failed", "Connection to HyVarRec instance failed!");
+			e.printStackTrace();
+		}
 
 		if (output != null) {
 			Gson gson = new GsonBuilder().create();
 			OutputOfHyVarRec outputOfHyVarRec = gson.fromJson(output, OutputOfHyVarRec.class);
-			configuration = HyVarRecOutputTranslator.translateConfiguration(featureModel, outputOfHyVarRec, date);
+			if(outputOfHyVarRec.getFeatures() == null || outputOfHyVarRec.getFeatures().isEmpty()) {
+				MessageDialog.openWarning(getShell(), "No Solution!", "No solution found!");
+			} else {
+				configuration = HyVarRecOutputTranslator.translateConfiguration(featureModel, outputOfHyVarRec, date);
+			}
 		}
 
 		super.okPressed();

@@ -36,31 +36,31 @@ public class ConfiguratorCommandHandler extends AbstractHandler  {
 		if (result != Dialog.OK) return null;
 		
 		IFile selectedFile = SelectionUtil.getFirstActiveIFileWithExtension("hyfeature");
-		DwFeatureModelWrapped modelWrapped = new DwFeatureModelWrapped((HyFeatureModel)EcoreIOUtil.loadModel(selectedFile));
+		HyFeatureModel featureModel = (HyFeatureModel)EcoreIOUtil.loadModel(selectedFile);
 		
 		HyConstraintModel constraintModel = null;
-		if (modelFileExists(HyConstraintUtil.getConstraintModelFileExtensionForConcreteSyntax(), modelWrapped)) {
-			constraintModel = EcoreIOUtil.loadAccompanyingModel(modelWrapped.getModel(),
+		if (modelFileExists(HyConstraintUtil.getConstraintModelFileExtensionForConcreteSyntax(), featureModel)) {
+			constraintModel = EcoreIOUtil.loadAccompanyingModel(featureModel,
 					HyConstraintUtil.getConstraintModelFileExtensionForConcreteSyntax());
 		}
 
-		DwConfiguratorDialog conDialog = new DwConfiguratorDialog(shell, modelWrapped.getModel(), constraintModel, modelWrapped.getDates().get(0), dialog.getUri());
+		DwConfiguratorDialog conDialog = new DwConfiguratorDialog(shell, featureModel, constraintModel, null, dialog.getUri());
 		HyConfiguration configuration = conDialog.openWithConfigurationResult();
 		if(configuration != null) {
-			saveConfigurationIntoFeatureModelFolder(configuration, modelWrapped);
+			saveConfigurationIntoFeatureModelFolder(configuration, featureModel);
 		}
 		return null;
 	}
 	
-	public IFile getFile(DwFeatureModelWrapped modelWrapped) {
+	public IFile getFile(HyFeatureModel featureModel) {
 		IWorkspace workspace = ResourcesPlugin.getWorkspace();
 		IWorkspaceRoot workspaceRoot = workspace.getRoot();
 		
-		return workspaceRoot.getFile(new Path(modelWrapped.getModel().eResource().getURI().toPlatformString(true)));
+		return workspaceRoot.getFile(new Path(featureModel.eResource().getURI().toPlatformString(true)));
 	}
 	
-	private boolean modelFileExists(String extension, DwFeatureModelWrapped modelWrapped) {
-		IPath path = ((IPath) getFile(modelWrapped).getFullPath().clone()).removeFileExtension().addFileExtension(extension);
+	private boolean modelFileExists(String extension, HyFeatureModel featureModel) {
+		IPath path = ((IPath) getFile(featureModel).getFullPath().clone()).removeFileExtension().addFileExtension(extension);
 
 		IWorkspaceRoot workspaceRoot = ResourcesPlugin.getWorkspace().getRoot();
 
@@ -69,8 +69,8 @@ public class ConfiguratorCommandHandler extends AbstractHandler  {
 		return file.exists();
 	}
 	
-	private void saveConfigurationIntoFeatureModelFolder(HyConfiguration configuration, DwFeatureModelWrapped modelWrapped) {
-		IPath path = ((IPath) getFile(modelWrapped).getFullPath().clone()).removeFileExtension()
+	private void saveConfigurationIntoFeatureModelFolder(HyConfiguration configuration, HyFeatureModel featureModel) {
+		IPath path = ((IPath) getFile(featureModel).getFullPath().clone()).removeFileExtension()
 				.addFileExtension(HyConfigurationUtil.getConfigurationModelFileExtensionForXmi());
 		IWorkspaceRoot workspaceRoot = ResourcesPlugin.getWorkspace().getRoot();
 

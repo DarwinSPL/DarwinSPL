@@ -79,13 +79,14 @@ public class RandomAttributeGenerator {
 		case 0:
 			attribute = HyFeatureCreationUtil.createBooleanAttribute(validSince, validUntil, name);
 			break;
-		case 1:
-			attribute = HyFeatureCreationUtil.createEnumAttribute(validSince, validUntil, name);
-			HyEnum hyEnum = createHyEnum();
-			featureModel.getEnums().add(hyEnum);
-			((HyEnumAttribute)attribute).setEnumType(hyEnum);
-			break;
+//		case 1:
+//			attribute = HyFeatureCreationUtil.createEnumAttribute(validSince, validUntil, name);
+//			HyEnum hyEnum = createHyEnum();
+//			featureModel.getEnums().add(hyEnum);
+//			((HyEnumAttribute)attribute).setEnumType(hyEnum);
+//			break;
 		case 2:
+		default:
 			attribute = HyFeatureCreationUtil.createNumberAttribute(name, validSince, validUntil);
 			
 			int min = new Random().nextInt(1000);
@@ -96,8 +97,6 @@ public class RandomAttributeGenerator {
 			((HyNumberAttribute)attribute).setMax(max);
 			((HyNumberAttribute)attribute).setDefault(def);
 
-			break;
-		default:
 			break;
 		}
 		return attribute;
