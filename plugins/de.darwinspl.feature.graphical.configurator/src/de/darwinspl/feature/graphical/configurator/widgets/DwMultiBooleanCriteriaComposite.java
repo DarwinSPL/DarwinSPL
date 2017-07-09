@@ -8,11 +8,11 @@ import org.eclipse.swt.widgets.Composite;
 
 import eu.hyvar.feature.HyFeatureModel;
 
-public class DwMultiBooleanAttributeConfiguratorComposite extends DwAbstractMultiConfiguratorWidget implements DwConfiguratorWidget {
+public class DwMultiBooleanCriteriaComposite extends DwAbstractMultiCriteriaComposite implements DwCriteriaComposite {
 
 	Button booleanCheckbox;
 	
-	public DwMultiBooleanAttributeConfiguratorComposite(String attributename, Composite parent, int style, HyFeatureModel featureModel, Date date) {
+	public DwMultiBooleanCriteriaComposite(String attributename, Composite parent, int style, HyFeatureModel featureModel, Date date) {
 		super(attributename, parent, style, featureModel, date);
 		
 		booleanCheckbox = new Button(this, SWT.CHECK);

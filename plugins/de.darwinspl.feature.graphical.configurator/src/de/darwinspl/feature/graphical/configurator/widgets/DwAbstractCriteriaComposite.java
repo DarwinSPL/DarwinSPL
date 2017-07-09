@@ -3,7 +3,6 @@ package de.darwinspl.feature.graphical.configurator.widgets;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
-import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.layout.RowLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
@@ -11,7 +10,7 @@ import org.eclipse.swt.widgets.Label;
 
 import eu.hyvar.feature.HyFeatureAttribute;
 
-public abstract class DwAbstractConfiguratorWidget extends Composite implements DwConfiguratorWidget {
+public abstract class DwAbstractCriteriaComposite extends Composite implements DwCriteriaComposite {
 
 	private Button checkbox;
 	private Label label;
@@ -20,18 +19,18 @@ public abstract class DwAbstractConfiguratorWidget extends Composite implements 
 	private String attributeName;
 	private HyFeatureAttribute attribute;
 
-	public DwAbstractConfiguratorWidget(HyFeatureAttribute attribute, Composite parent, int style) {
+	public DwAbstractCriteriaComposite(HyFeatureAttribute attribute, Composite parent, int style) {
 		this(attribute.getFeature().getNames().get(0).getName() + ": " + attribute.getNames().get(0).getName(), parent, style);
 		this.attribute = attribute;
 	}
 	
-	public DwAbstractConfiguratorWidget(String attributename, Composite parent, int style) {
+	public DwAbstractCriteriaComposite(String attributename, Composite parent, int style) {
 		this(parent, style);
 		label.setText(attributename);
 		this.attributeName = attributename;
 	}
 	
-	public DwAbstractConfiguratorWidget(Composite parent, int style) {
+	public DwAbstractCriteriaComposite(Composite parent, int style) {
 		super(parent, style);
 		this.setLayout(new RowLayout(SWT.HORIZONTAL));
 
@@ -48,9 +47,9 @@ public abstract class DwAbstractConfiguratorWidget extends Composite implements 
 
 			@Override
 			public void widgetSelected(SelectionEvent e) {
-				if (parent instanceof DwConfiguratorRowComposite) {
-					DwConfiguratorRowComposite composite = (DwConfiguratorRowComposite) parent;
-					composite.moveUp(DwAbstractConfiguratorWidget.this);
+				if (parent instanceof DwRowCriteriaComposite) {
+					DwRowCriteriaComposite composite = (DwRowCriteriaComposite) parent;
+					composite.moveUp(DwAbstractCriteriaComposite.this);
 				}
 			}
 
@@ -64,15 +63,14 @@ public abstract class DwAbstractConfiguratorWidget extends Composite implements 
 			
 			@Override
 			public void widgetSelected(SelectionEvent e) {
-				if (parent instanceof DwConfiguratorRowComposite) {
-					DwConfiguratorRowComposite composite = (DwConfiguratorRowComposite) parent;
-					composite.moveDown(DwAbstractConfiguratorWidget.this);
+				if (parent instanceof DwRowCriteriaComposite) {
+					DwRowCriteriaComposite composite = (DwRowCriteriaComposite) parent;
+					composite.moveDown(DwAbstractCriteriaComposite.this);
 				}				
 			}
 			
 			@Override
 			public void widgetDefaultSelected(SelectionEvent e) {
-				// TODO Auto-generated method stub
 				
 			}
 		});
@@ -96,7 +94,6 @@ public abstract class DwAbstractConfiguratorWidget extends Composite implements 
 
 	@Override
 	public String getAttributeName() {
-		// TODO Auto-generated method stub
 		return attributeName;
 	}
 	

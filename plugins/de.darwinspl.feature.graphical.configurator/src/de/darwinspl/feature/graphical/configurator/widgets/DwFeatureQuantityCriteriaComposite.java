@@ -8,14 +8,14 @@ import org.eclipse.swt.widgets.Composite;
 
 import eu.hyvar.feature.HyFeatureModel;
 
-public class DwFeatureQuantityConfiguratorComposite extends DwAbstractMultiConfiguratorWidget implements DwConfiguratorWidget {
+public class DwFeatureQuantityCriteriaComposite extends DwAbstractMultiCriteriaComposite implements DwCriteriaComposite {
 
 	private CCombo dropdown;
 	
 	public final static int MIN = 0;
 	public final static int MAX = 1;
 	
-	public DwFeatureQuantityConfiguratorComposite(Composite parent, int style, HyFeatureModel featureModel, Date date) {
+	public DwFeatureQuantityCriteriaComposite(Composite parent, int style, HyFeatureModel featureModel, Date date) {
 		super(parent, style, featureModel, date);
 		
 		String items[] = new String[2];

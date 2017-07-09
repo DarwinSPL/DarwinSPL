@@ -22,7 +22,7 @@ import eu.hyvar.feature.HyFeatureAttribute;
 import eu.hyvar.feature.HyNumberAttribute;
 import eu.hyvar.feature.util.HyFeatureEvolutionUtil;
 
-public class DwConfiguratorSelectionDialog extends Dialog {
+public class DwCriteriaSelectionDialog extends Dialog {
 
 	protected enum AttributeType {
 		NUMBERED, BOOLEAN, ENUM
@@ -78,7 +78,7 @@ public class DwConfiguratorSelectionDialog extends Dialog {
 
 	private Date date;
 
-	public DwConfiguratorSelectionDialog(Shell parent, List<HyFeatureAttribute> attributes, Date date) {
+	public DwCriteriaSelectionDialog(Shell parent, List<HyFeatureAttribute> attributes, Date date) {
 		super(parent);
 		this.attributes = attributes;
 		this.date = date;

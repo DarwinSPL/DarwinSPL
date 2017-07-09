@@ -14,16 +14,17 @@ import de.darwinspl.feature.graphical.configurator.dialogs.DwFeatureSelectionDia
 import eu.hyvar.feature.HyFeature;
 import eu.hyvar.feature.HyFeatureModel;
 
-public abstract class DwAbstractMultiConfiguratorWidget extends DwAbstractConfiguratorWidget {
+public abstract class DwAbstractMultiCriteriaComposite extends DwAbstractCriteriaComposite implements DwCriteriaComposite {
 
 	private List<HyFeature> selectedFeatures;
-
-	public DwAbstractMultiConfiguratorWidget(Composite parent, int style, HyFeatureModel featureModel, Date date) {
+	private Button selectFeaturesButton;
+	
+	public DwAbstractMultiCriteriaComposite(Composite parent, int style, HyFeatureModel featureModel, Date date) {
 		super(parent, style);
 		init(featureModel, date);
 	}
 
-	public DwAbstractMultiConfiguratorWidget(String attributeName, Composite parent, int style,
+	public DwAbstractMultiCriteriaComposite(String attributeName, Composite parent, int style,
 			HyFeatureModel featureModel, Date date) {
 		super(attributeName, parent, style);
 		init(featureModel, date);
@@ -32,7 +33,7 @@ public abstract class DwAbstractMultiConfiguratorWidget extends DwAbstractConfig
 	private void init(HyFeatureModel featureModel, Date date) {
 		selectedFeatures = featureModel.getFeatures();
 
-		Button selectFeaturesButton = new Button(this, SWT.NONE);
+		selectFeaturesButton = new Button(this, SWT.NONE);
 		selectFeaturesButton.setText("Select Features");
 		selectFeaturesButton.addSelectionListener(new SelectionListener() {
 

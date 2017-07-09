@@ -127,19 +127,34 @@ public class PreferenceBuilder {
 	}
 
 	public PreferenceBuilder addSingleCustomAttribute(HyNumberAttribute attribute, int value) {
-		// feature * (attribute = value)
-		addExpression(mul(feature(attribute.getFeature()), eq(attribute(attribute), value(value))));
+
+		// f
+		HyFeature feature = attribute.getFeature();
+		HyMultiplicationExpression f1 = mul(feature(feature), attribute(attribute));
+		HyMultiplicationExpression f2 = mul(feature(feature), attribute(attribute));
+		HyMultiplicationExpression f3 = mul(feature(feature), attribute(attribute));
+		HyMultiplicationExpression f4 = mul(feature(feature), attribute(attribute));
+		
+		// c
+		HyExpression c1 = value(value);
+		HyExpression c2 = value(value);
+		HyExpression c3 = value(value);
+		HyExpression c4 = value(value);
+		
+		// ((f > c) * (f - c) + (f < c) * (c - f))
+		addExpression(add(mul(gt(f1, c1), sub(c2, f2)), mul(lt(f3, c3), sub(f4, c4))));
+		
 		return this;
 	}
 
-	private HyExpression createNumberedAttributeExpression(String attributeName, List<HyFeature> selectedFeatures,
+	private HyExpression createMaxMultiNumberedAttributeExpression(String attributeName, List<HyFeature> selectedFeatures,
 			boolean useDefaultValue) {
 		HyIfPossibleExpression ifPossibleExpression = expressionFactory.createHyIfPossibleExpression();
 
 		for (HyFeatureAttribute attribute : getAttributesByName(attributeName)) {
 			if (attribute instanceof HyNumberAttribute && selectedFeatures.contains(attribute.getFeature())) {
 				ifPossibleExpression.getOperands().add(
-						createSingleNumberedMaximumAttributeExpression((HyNumberAttribute) attribute, useDefaultValue));
+						createMaxNumberedAttributeExpression((HyNumberAttribute) attribute, useDefaultValue));
 			}
 		}
 		return nestExpression(ifPossibleExpression);
@@ -147,13 +162,13 @@ public class PreferenceBuilder {
 
 	public PreferenceBuilder addMaxAttributeExpression(String attributeName, List<HyFeature> selectedFeatures,
 			boolean useDefault) {
-		addExpression(createNumberedAttributeExpression(attributeName, selectedFeatures, useDefault));
+		addExpression(createMaxMultiNumberedAttributeExpression(attributeName, selectedFeatures, useDefault));
 		return this;
 	}
 
 	public PreferenceBuilder addMinAttributeExpression(String attributeName, List<HyFeature> selectedFeatures,
 			boolean useDefault) {
-		addExpression(invertExpression(createNumberedAttributeExpression(attributeName, selectedFeatures, useDefault)));
+		addExpression(invertExpression(createMaxMultiNumberedAttributeExpression(attributeName, selectedFeatures, useDefault)));
 		return this;
 	}
 
@@ -197,7 +212,7 @@ public class PreferenceBuilder {
 		return valueExpression;
 	}
 
-	private HyExpression createSingleNumberedMaximumAttributeExpression(HyNumberAttribute attribute,
+	private HyExpression createMaxNumberedAttributeExpression(HyNumberAttribute attribute,
 			boolean useDefaultValue) {
 		HyAtomicExpression atomicExpression;
 		if (useDefaultValue) {
@@ -212,13 +227,13 @@ public class PreferenceBuilder {
 
 	public PreferenceBuilder addSingleNumberedAttributeMaximumExpression(HyNumberAttribute attribute,
 			boolean useDefaultValue) {
-		addExpression(createSingleNumberedMaximumAttributeExpression(attribute, useDefaultValue));
+		addExpression(createMaxNumberedAttributeExpression(attribute, useDefaultValue));
 		return this;
 	}
 
 	public PreferenceBuilder addSingleNumberedAttributeMinimumExpression(HyNumberAttribute attribute,
 			boolean useDefaultValue) {
-		addExpression(createSingleNumberedMaximumAttributeExpression(attribute, useDefaultValue));
+		addExpression(createMaxNumberedAttributeExpression(attribute, useDefaultValue));
 		return this;
 	}
 
@@ -258,8 +273,8 @@ public class PreferenceBuilder {
 		HyExpression c3 = value(value);
 		HyExpression c4 = value(value);
 
-		// 0 - (fa > c) * (fa - c) + (fa < c) * (c - fa))
-		return sub(value(0), add(mul(gt(fa1, c1), sub(fa2, c2)), mul(lt(fa3, c3), sub(c4, fa4))));
+		// (fa > c) * (fa - c) + (fa < c) * (c - fa)
+		return add(mul(gt(fa1, c1), sub(c2, fa2)), mul(lt(fa3, c3), sub(fa4, c4)));
 
 	}
 

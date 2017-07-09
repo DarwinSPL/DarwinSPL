@@ -9,12 +9,12 @@ import org.eclipse.swt.widgets.Composite;
 import eu.hyvar.dataValues.HyEnumLiteral;
 import eu.hyvar.feature.HyEnumAttribute;
 
-public class DwSingleEnumAttributeConfiguratorComposite  extends DwAbstractConfiguratorWidget implements DwConfiguratorWidget{
+public class DwEnumCriteriaComposite  extends DwAbstractCriteriaComposite implements DwCriteriaComposite{
 
 	private CCombo dropdown;
 	private HyEnumAttribute attribute;
 	
-	public DwSingleEnumAttributeConfiguratorComposite(HyEnumAttribute attribute, Composite parent, int style) {
+	public DwEnumCriteriaComposite(HyEnumAttribute attribute, Composite parent, int style) {
 		super(attribute, parent, style);
 		
 		this.attribute = attribute;

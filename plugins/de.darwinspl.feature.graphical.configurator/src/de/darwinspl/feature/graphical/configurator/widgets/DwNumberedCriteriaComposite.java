@@ -1,28 +1,25 @@
 package de.darwinspl.feature.graphical.configurator.widgets;
 
-import java.util.Date;
-
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.custom.CCombo;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Text;
 
-import de.darwinspl.configurator.NumberedAttributeMode;
-import eu.hyvar.feature.HyFeatureModel;
+import eu.hyvar.feature.HyNumberAttribute;
 
-public class DwMultiNumberedAttributeConfiguratorComposite extends DwAbstractMultiConfiguratorWidget implements DwConfiguratorWidget {
+public class DwNumberedCriteriaComposite extends DwAbstractCriteriaComposite implements DwCriteriaComposite {
 
 	private Button useDefault;
 	
 	private Button min;
 	private Button max;
 	private Button custom;
-	
+
 	private Text customInput;
+
 	
-	public DwMultiNumberedAttributeConfiguratorComposite(String attributename, Composite parent, int style, HyFeatureModel featureModel, Date date) {
-		super(attributename, parent, style, featureModel, date);
+	public DwNumberedCriteriaComposite(HyNumberAttribute attribute, Composite parent, int style) {
+		super(attribute, parent, style);
 		
 		
 		useDefault = new Button(this, SWT.CHECK);
@@ -40,10 +37,8 @@ public class DwMultiNumberedAttributeConfiguratorComposite extends DwAbstractMul
 		customInput = new Text(this, SWT.NONE);
 		customInput.setText("0");
 		customInput.setEditable(true);
-		
-		
 	}
-	
+
 	public boolean useDefaultValue(){
 		return useDefault.getSelection();
 	}
@@ -63,7 +58,4 @@ public class DwMultiNumberedAttributeConfiguratorComposite extends DwAbstractMul
 	public int getCustomValue(){
 		return Integer.parseInt(customInput.getText());
 	}
-
 }
-
-

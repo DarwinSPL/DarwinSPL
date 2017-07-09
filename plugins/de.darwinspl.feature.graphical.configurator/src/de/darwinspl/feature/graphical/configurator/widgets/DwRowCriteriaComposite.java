@@ -17,9 +17,9 @@ import eu.hyvar.feature.HyFeatureAttribute;
 import eu.hyvar.feature.HyFeatureModel;
 import eu.hyvar.feature.HyNumberAttribute;
 
-public class DwConfiguratorRowComposite extends Composite {
+public class DwRowCriteriaComposite extends Composite {
 
-	private List<DwAbstractConfiguratorWidget> rows = new ArrayList<>();
+	private List<DwAbstractCriteriaComposite> rows = new ArrayList<>();
 
 	private List<String> numberedAttributeNames = new ArrayList<String>();
 	private List<String> booleanAttributeNames = new ArrayList<String>();
@@ -31,7 +31,7 @@ public class DwConfiguratorRowComposite extends Composite {
 	private HyFeatureModel featureModel;
 	private Date date;
 
-	public DwConfiguratorRowComposite(List<HyFeatureAttribute> attributes, HyFeatureModel featureModel, Date date,
+	public DwRowCriteriaComposite(List<HyFeatureAttribute> attributes, HyFeatureModel featureModel, Date date,
 			Composite parent, int style) {
 		super(parent, style);
 		setLayout(new RowLayout(SWT.VERTICAL));
@@ -40,12 +40,12 @@ public class DwConfiguratorRowComposite extends Composite {
 		this.date = date;
 		this.attributes = attributes;
 
-		DwAbstractConfiguratorWidget configuratorWidget = new DwFeatureQuantityConfiguratorComposite(this, SWT.NONE, featureModel, date);
+		DwAbstractCriteriaComposite configuratorWidget = new DwFeatureQuantityCriteriaComposite(this, SWT.NONE, featureModel, date);
 		rows.add(configuratorWidget);
 
 	}
 
-	public void moveUp(DwAbstractConfiguratorWidget row) {
+	public void moveUp(DwCriteriaComposite row) {
 
 		for (int i = 0; i < rows.size(); i++) {
 			if (i > 0 && rows.get(i) == row) {
@@ -55,27 +55,15 @@ public class DwConfiguratorRowComposite extends Composite {
 				return;
 			}
 		}
-
 	}
-
-	public void addBooleanFeatureModelAttributes(List<String> featureModelAttributeNames) {
-		for (String name : featureModelAttributeNames) {
-			if (!booleanAttributeNames.contains(name)) {
-				booleanAttributeNames.add(name);
-				DwAbstractConfiguratorWidget configuratorWidget = new DwMultiBooleanAttributeConfiguratorComposite(name,
-						this, SWT.NONE, featureModel, date);
-				rows.add(configuratorWidget);
-			}
-		}
-	}
-
-	public void addEnumFeatureModelAttributes(List<String> featureModelAttributeNames) {
-		for (String name : featureModelAttributeNames) {
-			if (!enumAttributeNames.contains(name)) {
-				enumAttributeNames.add(name);
-				DwAbstractConfiguratorWidget configuratorWidget = new DwMultiEnumAttributeConfiguratorComposite(
-						findEnumByAttributeName(name), name, this, SWT.NONE, featureModel, date);
-				rows.add(configuratorWidget);
+	
+	public void moveDown(DwAbstractCriteriaComposite row) {
+		for (int i = 0; i < rows.size(); i++) {
+			if (i < rows.size() - 1 && rows.get(i) == row) {
+				rows.get(i).moveBelow(rows.get(i + 1));
+				Collections.swap(rows, i, i + 1);
+				this.layout();
+				return;
 			}
 		}
 	}
@@ -92,33 +80,55 @@ public class DwConfiguratorRowComposite extends Composite {
 		}
 		return null;
 	}
+	
+	public void addMultiBooleanCriteria(List<String> featureModelAttributeNames) {
+		for (String name : featureModelAttributeNames) {
+			if (!booleanAttributeNames.contains(name)) {
+				booleanAttributeNames.add(name);
+				DwAbstractCriteriaComposite configuratorWidget = new DwMultiBooleanCriteriaComposite(name,
+						this, SWT.NONE, featureModel, date);
+				rows.add(configuratorWidget);
+			}
+		}
+	}
 
-	public void addNumberedFeatureModelAttributes(List<String> featureModelAttributeNames) {
+	public void addMultiEnumCriteria(List<String> featureModelAttributeNames) {
+		for (String name : featureModelAttributeNames) {
+			if (!enumAttributeNames.contains(name)) {
+				enumAttributeNames.add(name);
+				DwAbstractCriteriaComposite configuratorWidget = new DwMultiEnumCriteriaComposite(
+						findEnumByAttributeName(name), name, this, SWT.NONE, featureModel, date);
+				rows.add(configuratorWidget);
+			}
+		}
+	}
+
+	public void addMultiNumberedCriteria(List<String> featureModelAttributeNames) {
 		for (String name : featureModelAttributeNames) {
 			if (!numberedAttributeNames.contains(name)) {
 				numberedAttributeNames.add(name);
-				DwAbstractConfiguratorWidget configuratorWidget = new DwMultiNumberedAttributeConfiguratorComposite(
+				DwAbstractCriteriaComposite configuratorWidget = new DwMultiNumberedCriteriaComposite(
 						name, this, SWT.NONE, featureModel, date);
 				rows.add(configuratorWidget);
 			}
 		}
 	}
 
-	public void addFeatureAttributes(List<HyFeatureAttribute> featureAttributes) {
+	public void addCriteria(List<HyFeatureAttribute> featureAttributes) {
 		for (HyFeatureAttribute featureAttribute : featureAttributes) {
 			if (!this.featureAttributes.contains(featureAttribute)) {
 				this.featureAttributes.add(featureAttribute);
 
 				if (featureAttribute instanceof HyNumberAttribute) {
-					DwAbstractConfiguratorWidget configuratorWidget = new DwSingleNumberedAttributeConfiguratorComposite(
+					DwAbstractCriteriaComposite configuratorWidget = new DwNumberedCriteriaComposite(
 							(HyNumberAttribute) featureAttribute, this, SWT.NONE);
 					rows.add(configuratorWidget);
 				} else if (featureAttribute instanceof HyEnumAttribute) {
-					DwAbstractConfiguratorWidget configuratorWidget = new DwSingleEnumAttributeConfiguratorComposite(
+					DwAbstractCriteriaComposite configuratorWidget = new DwEnumCriteriaComposite(
 							(HyEnumAttribute) featureAttribute, this, SWT.NONE);
 					rows.add(configuratorWidget);
 				} else if (featureAttribute instanceof HyBooleanAttribute) {
-					DwAbstractConfiguratorWidget configuratorWidget = new DwSingleBooleanAttributeConfiguratorComposite(
+					DwAbstractCriteriaComposite configuratorWidget = new DwBooleanCriteriaComposite(
 							(HyBooleanAttribute) featureAttribute, this, SWT.NONE);
 					rows.add(configuratorWidget);
 				}
@@ -127,19 +137,9 @@ public class DwConfiguratorRowComposite extends Composite {
 		}
 	}
 
-	public void moveDown(DwAbstractConfiguratorWidget row) {
-		for (int i = 0; i < rows.size(); i++) {
-			if (i < rows.size() - 1 && rows.get(i) == row) {
-				rows.get(i).moveBelow(rows.get(i + 1));
-				Collections.swap(rows, i, i + 1);
-				this.layout();
-				return;
-			}
-		}
+	
 
-	}
-
-	public List<DwAbstractConfiguratorWidget> getRows() {
+	public List<DwAbstractCriteriaComposite> getRows() {
 		return rows;
 	}
 

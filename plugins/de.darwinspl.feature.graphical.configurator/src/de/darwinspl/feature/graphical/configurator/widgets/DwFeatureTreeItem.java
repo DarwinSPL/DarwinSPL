@@ -8,7 +8,7 @@ import org.eclipse.swt.widgets.TreeItem;
 import eu.hyvar.feature.HyFeature;
 import eu.hyvar.feature.util.HyFeatureEvolutionUtil;
 
-public class DwFeatureTreeItem extends TreeItem{
+public class DwFeatureTreeItem extends TreeItem {
 
 	private HyFeature feature;
 	

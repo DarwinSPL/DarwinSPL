@@ -17,7 +17,7 @@ import org.eclipse.ui.handlers.HandlerUtil;
 import de.christophseidl.util.eclipse.ui.SelectionUtil;
 import de.christophseidl.util.ecore.EcoreIOUtil;
 import de.darwinspl.feature.graphical.base.model.DwFeatureModelWrapped;
-import de.darwinspl.feature.graphical.configurator.dialogs.DwConfiguratorDialog;
+import de.darwinspl.feature.graphical.configurator.dialogs.DwCriteriaOverviewDialog;
 import de.darwinspl.feature.graphical.configurator.dialogs.DwRESTServerSelectDialog;
 import eu.hyvar.feature.HyFeatureModel;
 import eu.hyvar.feature.configuration.HyConfiguration;
@@ -44,8 +44,12 @@ public class ConfiguratorCommandHandler extends AbstractHandler  {
 					HyConstraintUtil.getConstraintModelFileExtensionForConcreteSyntax());
 		}
 
-		DwConfiguratorDialog conDialog = new DwConfiguratorDialog(shell, featureModel, constraintModel, null, dialog.getUri());
-		HyConfiguration configuration = conDialog.openWithConfigurationResult();
+		DwCriteriaOverviewDialog conDialog = new DwCriteriaOverviewDialog(shell, featureModel, constraintModel, null, dialog.getUri());
+		HyConfiguration configuration = null;
+		if(conDialog.open() == Dialog.OK) {
+			configuration = conDialog.getConfiguration();
+		}
+		
 		if(configuration != null) {
 			saveConfigurationIntoFeatureModelFolder(configuration, featureModel);
 		}

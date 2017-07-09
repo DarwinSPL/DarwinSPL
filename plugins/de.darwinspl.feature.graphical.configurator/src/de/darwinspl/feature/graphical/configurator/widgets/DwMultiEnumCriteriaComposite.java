@@ -12,13 +12,13 @@ import eu.hyvar.dataValues.HyEnum;
 import eu.hyvar.dataValues.HyEnumLiteral;
 import eu.hyvar.feature.HyFeatureModel;
 
-public class DwMultiEnumAttributeConfiguratorComposite extends DwAbstractMultiConfiguratorWidget
-		implements DwConfiguratorWidget {
+public class DwMultiEnumCriteriaComposite extends DwAbstractMultiCriteriaComposite
+		implements DwCriteriaComposite {
 
 	private CCombo dropdown;
 	private List<HyEnumLiteral> literals = new ArrayList<HyEnumLiteral>();
 
-	public DwMultiEnumAttributeConfiguratorComposite(HyEnum hyEnum, String attributename, Composite parent, int style, HyFeatureModel featureModel, Date date) {
+	public DwMultiEnumCriteriaComposite(HyEnum hyEnum, String attributename, Composite parent, int style, HyFeatureModel featureModel, Date date) {
 		super(attributename, parent, style, featureModel, date);
 
 		if (hyEnum != null) {

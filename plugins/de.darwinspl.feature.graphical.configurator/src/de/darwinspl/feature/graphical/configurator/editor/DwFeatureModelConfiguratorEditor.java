@@ -43,7 +43,7 @@ import org.eclipse.ui.part.FileEditorInput;
 import de.christophseidl.util.ecore.EcoreIOUtil;
 import de.darwinspl.feature.graphical.configurator.analyses.AnalysesClient;
 import de.darwinspl.feature.graphical.configurator.composites.DwSelectedConfigurationComposite;
-import de.darwinspl.feature.graphical.configurator.dialogs.DwConfiguratorDialog;
+import de.darwinspl.feature.graphical.configurator.dialogs.DwCriteriaOverviewDialog;
 import de.darwinspl.feature.graphical.configurator.dialogs.DwContextInformationDialog;
 import de.darwinspl.feature.graphical.configurator.dialogs.DwInvalidContextInfoDialog;
 import de.darwinspl.feature.graphical.configurator.dialogs.DwRESTServerSelectDialog;
@@ -265,8 +265,12 @@ public class DwFeatureModelConfiguratorEditor extends DwFeatureModelConfigurator
 
 				String uri = getURI();
 				if(uri == null) return;
-				DwConfiguratorDialog dialog = new DwConfiguratorDialog(getEditorSite().getShell(), featureModel, constraintModel, getDate(), uri);
-				HyConfiguration result = dialog.openWithConfigurationResult();
+				DwCriteriaOverviewDialog dialog = new DwCriteriaOverviewDialog(getEditorSite().getShell(), featureModel, constraintModel, getDate(), uri);
+				HyConfiguration result = null;
+				if(dialog.open() == Dialog.OK) {
+					result = dialog.getConfiguration();
+				}
+				
 				if(result != null) {
 					selectedConfiguration = result;
 					saveConfigurationIntoFeatureModelFolder();

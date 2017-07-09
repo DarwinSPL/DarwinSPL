@@ -39,13 +39,13 @@ public class RandomAttributeGenerator {
 		// generate feature attributes
 		for (HyFeature feature : featureModel.getFeatures()) {
 			for (int i = 0; i < numberOfFeatureAttributes; i++) {
-				feature.getAttributes().add(createRandomAttribute());
+				feature.getAttributes().add(createRandomAttribute(feature));
 			}
 		}
 
 		// generate feature model attributes
 		for (int i = 0; i < numberOfFeatureModelAttributes; i++) {
-			HyFeatureAttribute attribute = createRandomAttribute();
+			HyFeatureAttribute attribute = createRandomAttribute(null);
 			for (HyFeature feature : featureModel.getFeatures()) {
 				feature.getAttributes().add(cloneAttribute(attribute));
 			}
@@ -72,7 +72,7 @@ public class RandomAttributeGenerator {
 		return clone;
 	}
 
-	private HyFeatureAttribute createRandomAttribute() {
+	private HyFeatureAttribute createRandomAttribute(HyFeature feature) {
 		HyFeatureAttribute attribute = null;
 		HyName name = HyFeatureCreationUtil.createName("attribute " + attributeNr++, validSince, validUntil, null);
 		switch (new Random().nextInt(3)) {
@@ -99,6 +99,8 @@ public class RandomAttributeGenerator {
 
 			break;
 		}
+		attribute.setFeature(feature);
+		assert(attribute != null);
 		return attribute;
 	}
 	
