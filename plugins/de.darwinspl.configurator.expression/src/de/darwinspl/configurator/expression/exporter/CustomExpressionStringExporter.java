@@ -10,9 +10,9 @@ import eu.hyvar.feature.HyVersion;
 import eu.hyvar.feature.expression.HyAtomicExpression;
 import eu.hyvar.feature.expression.util.HyExpressionStringExporter;
 
-public class ExpressionStringExporter extends HyExpressionStringExporter{
+public class CustomExpressionStringExporter extends HyExpressionStringExporter{
 
-	public ExpressionStringExporter(Map<HyFeature, String> featureIdMapping, Map<HyVersion, String> versionIdMapping,
+	public CustomExpressionStringExporter(Map<HyFeature, String> featureIdMapping, Map<HyVersion, String> versionIdMapping,
 			Map<HyFeatureAttribute, String> attributeIdMapping, Map<HyContextualInformation, String> contextIdMapping,
 			BooleanRepresentationOption booleanRepresentationOption,
 			FeatureSelectionRepresentationOption featureSelectionRepresentationOption,

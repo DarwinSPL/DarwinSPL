@@ -6,14 +6,14 @@ import eu.hyvar.feature.expression.util.HyExpressionStringExporter.FeatureSelect
 import eu.hyvar.feature.expression.util.HyExpressionStringExporter.VersionRepresentation;
 import eu.hyvar.reconfigurator.input.exporter.HyVarRecExporter;
 
-public class CustomHyVarRecExpressionExporter extends HyVarRecExporter {
+public class CustomHyVarRecExporter extends HyVarRecExporter {
 
-	public CustomHyVarRecExpressionExporter() {
+	public CustomHyVarRecExporter() {
 	}
 	
 	@Override
 	protected HyExpressionStringExporter getHyExpressionStringExporter() {
-		return new ExpressionStringExporter(reconfiguratorIdMapping.getFeatureIdMapping(),
+		return new CustomExpressionStringExporter(reconfiguratorIdMapping.getFeatureIdMapping(),
 					reconfiguratorIdMapping.getVersionIdMapping(), reconfiguratorIdMapping.getAttributeIdMapping(),
 					reconfiguratorIdMapping.getContextIdMapping(), BooleanRepresentationOption.ONEZERO,
 					FeatureSelectionRepresentationOption.ONEZERO, VersionRepresentation.AS_ONEZERO_FEATURES, true, true);

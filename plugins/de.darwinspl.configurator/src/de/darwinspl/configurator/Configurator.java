@@ -11,7 +11,7 @@ import org.eclipse.jetty.client.util.StringContentProvider;
 import org.eclipse.jetty.http.HttpHeader;
 import org.eclipse.jface.dialogs.MessageDialog;
 
-import de.darwinspl.configurator.expression.exporter.CustomHyVarRecExpressionExporter;
+import de.darwinspl.configurator.expression.exporter.CustomHyVarRecExporter;
 import eu.hyvar.feature.HyFeatureModel;
 import eu.hyvar.feature.constraint.HyConstraintModel;
 import eu.hyvar.preferences.HyPreference;
@@ -43,7 +43,7 @@ public class Configurator {
 	}
 
 	public String run() throws InterruptedException, TimeoutException, ExecutionException {
-		CustomHyVarRecExpressionExporter exporter = new CustomHyVarRecExpressionExporter();
+		CustomHyVarRecExporter exporter = new CustomHyVarRecExporter();
 		String input = exporter.exportContextMappingModel(null, null, featureModel, constraintModel, null, profile,
 				null, date);
 
