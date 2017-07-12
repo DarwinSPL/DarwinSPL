@@ -24,4 +24,5 @@ Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Bundle-ActivationPolicy: lazy
 Bundle-Vendor: www.darwinspl.de
 Import-Package: de.darwinspl.feature.stage.base.model
+Export-Package: de.darwinspl.feature.stage.editor.editor
 

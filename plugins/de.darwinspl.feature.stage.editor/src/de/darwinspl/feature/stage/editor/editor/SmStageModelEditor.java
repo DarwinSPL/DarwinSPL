@@ -90,21 +90,6 @@ public class SmStageModelEditor extends DwGraphicalFeatureModelEditor {
 		return selectedStage;
 	}
 	
-	// Functions that have to be overwritten to allow Stage model loading	
-	/**
-	 * Load the feature model from a given file
-	 * @param file
-	 */
-	protected void loadFeatureModelFromFile(IFile file){		
-		modelWrapped = new DwFeatureModelWrapped((HyFeatureModel)EcoreIOUtil.loadModel(file));
-		
-		setCurrentSelectedDateToMostActualDate();
-		
-		setEditorTabText(file.getName());
-		
-		DwFeatureModelLayoutFileUtil.loadLayoutFile(modelWrapped);
-	}
-	
 	/**
 	 * Load the stage Model from a given URI
 	 * @param file

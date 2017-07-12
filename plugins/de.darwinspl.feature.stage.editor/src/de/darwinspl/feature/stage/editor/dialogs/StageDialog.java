@@ -240,15 +240,19 @@ public class StageDialog extends Dialog implements Listener{
 			}
 		});
 		
-//		//Assign Role to Stage Button
-//		assignRoleButton.addListener(SWT.Selection, new Listener(){
-//			public void handleEvent(Event event) {
-//				stageModelWrapped.assignRoleToStage(selectedRole,selectedStage);
-//				updateStageList();
-//				updateRoleList();
-//			}
-//			
-//		});		
+		//Role Inclusion Button Listener
+	    roleInclusionButton.addListener(SWT.Selection, new Listener(){
+	  			public void handleEvent(Event event) {
+	  				RoleInclusionDialog roleInclusionDialog = new RoleInclusionDialog(getShell(), stageModelWrapped);
+	  				roleInclusionDialog.open();	  				
+
+	  				updateStageList();
+	  				updateRoleList();
+	  				
+	  				
+	  			}
+	  	});
+		
 		
 	}
 	

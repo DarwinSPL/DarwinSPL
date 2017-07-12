@@ -3,6 +3,7 @@ package de.darwinspl.feature.stage.base.model;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import de.darwinspl.feature.stage.Role;
+import de.darwinspl.feature.stage.RoleInclusion;
 import de.darwinspl.feature.stage.Stage;
 import de.darwinspl.feature.stage.StageComposition;
 import de.darwinspl.feature.stage.StageFactory;
@@ -62,8 +63,7 @@ public class StageModelWrapped implements PropertyChangeListener  {
 	 * @param text Name for the new Stage
 	 */
 	public void addNewStageToModel(String text) {
-		// TODO Auto-generated method stub
-		Stage newStage =StageFactory.eINSTANCE.createStage();
+		Stage newStage = StageFactory.eINSTANCE.createStage();
 		StageComposition newStageComposition = StageFactory.eINSTANCE.createStageComposition();
 		HyName newName =  HyEvolutionFactory.eINSTANCE.createHyName();
 		newName.setName(text);		
@@ -77,11 +77,12 @@ public class StageModelWrapped implements PropertyChangeListener  {
 	 * @param text Name for the new Stage
 	 */
 	public void addNewRoleToModel(String text) {
-		// TODO Auto-generated method stub
 		Role newRole =StageFactory.eINSTANCE.createRole();
-		HyName newName =  HyEvolutionFactory.eINSTANCE.createHyName();
+		//RoleInclusion newRoleInclusion = StageFactory.eINSTANCE.createRoleInclusion();
+		HyName newName =  HyEvolutionFactory.eINSTANCE.createHyName();		
 		newName.setName(text);		
-	    newRole.getNames().add(newName);		
+	    newRole.getNames().add(newName);
+	    //newRole.getInclusions().add(newRoleInclusion);
 		stageModel.getRoles().add(newRole);
 	}
 	
@@ -123,6 +124,45 @@ public class StageModelWrapped implements PropertyChangeListener  {
 		stageModel.getRoles().remove(role);
 		role.getAssignedTo().clear();
 	}
+	/**
+	 * Function to include a role
+	 *  @param role Active Role
+	 *  @param role Role to be included
+	 */
+	public void includeRole(Role role, Role includedRole){
+		// TODO Alex: Add Evolution here, currently wrong
+		
+		RoleInclusion newInclusion;		
+
+		if(role.getInclusions().get(0) == null){
+			newInclusion = StageFactory.eINSTANCE.createRoleInclusion();	
+			newInclusion.setInclusionsFor(role);
+			role.getInclusions().add(newInclusion);			
+		} else {
+			newInclusion = role.getInclusions().get(0);
+		}
+		
+		// Add new role to inclusion reference
+		newInclusion.getIncludes().add(includedRole);		
+		includedRole.getIncludedBy().add(newInclusion);		
+
+		
+	}
+	
+	/**
+	 * Function to remove Role from inclusion
+	 *  @param role Active Role
+	 *  @param role Role to be included
+	 */
+	public void unincludeRole(Role role, Role unincludedRole){
+		// Remove include from Role Inclusion
+		role.getInclusions().get(0).getIncludes().remove(unincludedRole);
+		
+		// Remove reference to RoleInclsuion from unincludedRole
+		unincludedRole.getIncludedBy().remove(role.getInclusions().get(0));
+		
+	}
+
 
 
 }
