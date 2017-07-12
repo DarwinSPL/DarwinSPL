@@ -75,9 +75,9 @@ public class SmStageModelConfigurator extends DwFeatureModelConfiguratorEditor {
 	 * Load the stage Model from a given URI
 	 * @param file
 	 */
-	protected void loadStageModelFromURI (URI modelURI){		
-		stageModelWrapped = new StageModelWrapped((StageModel)EcoreIOUtil.loadModel(modelURI));
-		
+	protected void loadStageModelFromURI (IFile modelURI){	
+		stageModelWrapped = new StageModelWrapped((StageModel)EcoreIOUtil.loadModel(modelURI, modelWrapped.getModel().eResource().getResourceSet()));
+		System.out.println("test");
 	}
 	
 	
@@ -139,7 +139,7 @@ public class SmStageModelConfigurator extends DwFeatureModelConfiguratorEditor {
 				IWorkspaceRoot workspaceRoot = workspace.getRoot();				
 				IFile file = workspaceRoot.getFile(getPathToEditorRelatedFileWithFileExtension("staged"));
 				if(file.exists()){
-					loadStageModelFromURI(stageModelURI);	
+					loadStageModelFromURI(file);	
 				}
 				
 			}

@@ -71,6 +71,7 @@ public class SmFeatureFigure extends DwFeatureFigure  {
 		
 		Rectangle featureMarkRectangle = getFeatureMarkRectangle(feature);
 		DEDrawingUtil.drawSelection(graphics, featureMarkRectangle, this, false);
+		System.out.println("draw");
 	}
 	
 	/**

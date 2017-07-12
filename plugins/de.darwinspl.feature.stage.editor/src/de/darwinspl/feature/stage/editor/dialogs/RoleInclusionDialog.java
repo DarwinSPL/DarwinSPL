@@ -257,7 +257,9 @@ public class RoleInclusionDialog extends Dialog {
 		includedRolesList.removeAll();;
 		for (Role currentRole : stageModelWrapped.getModel().getRoles()) {
 			
-			if(selectedRole != null && selectedRole.getInclusions().get(0).getIncludes().contains(currentRole)){
+			if(selectedRole != null 
+					&& selectedRole.getInclusions()!= null
+					&& selectedRole.getInclusions().get(0).getIncludes().contains(currentRole)){
 				String currentRoleName = currentRole.getNames().get(0).getName();
 				includedRolesList.add(currentRoleName);
 			}

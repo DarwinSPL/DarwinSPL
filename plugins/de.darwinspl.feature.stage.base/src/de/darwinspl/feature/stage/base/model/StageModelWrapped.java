@@ -78,11 +78,11 @@ public class StageModelWrapped implements PropertyChangeListener  {
 	 */
 	public void addNewRoleToModel(String text) {
 		Role newRole =StageFactory.eINSTANCE.createRole();
-		//RoleInclusion newRoleInclusion = StageFactory.eINSTANCE.createRoleInclusion();
+		RoleInclusion newRoleInclusion = StageFactory.eINSTANCE.createRoleInclusion();
 		HyName newName =  HyEvolutionFactory.eINSTANCE.createHyName();		
 		newName.setName(text);		
 	    newRole.getNames().add(newName);
-	    //newRole.getInclusions().add(newRoleInclusion);
+	    newRole.getInclusions().add(newRoleInclusion);
 		stageModel.getRoles().add(newRole);
 	}
 	
