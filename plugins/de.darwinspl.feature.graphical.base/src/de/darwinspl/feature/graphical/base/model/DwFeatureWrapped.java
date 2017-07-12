@@ -290,8 +290,9 @@ public class DwFeatureWrapped extends DwEditorChangeableElement{
 		return valid;
 	}
 	public boolean isValid(Date date){
-		boolean result = isValidRec(this.getWrappedModelElement(), date);
-		return result;
+		return HyEvolutionUtil.isValid(this.getWrappedModelElement(), date);
+		//boolean result = isValidRec(this.getWrappedModelElement(), date);
+		//return result;
 	}
 
 	/**
@@ -301,7 +302,10 @@ public class DwFeatureWrapped extends DwEditorChangeableElement{
 	 */
 	public boolean isOptional(Date date){
 		HyFeatureType type = HyEvolutionUtil.getValidTemporalElement(this.getWrappedModelElement().getTypes(), date);
-
+		
+		if(type == null)
+			return true;
+		
 		return type.getType() == HyFeatureTypeEnum.OPTIONAL;
 	}
 
@@ -439,8 +443,8 @@ public class DwFeatureWrapped extends DwEditorChangeableElement{
 	}
 
 
-	public List<HyGroupComposition> getGroupMembership(Date date){
-		return HyEvolutionUtil.getValidTemporalElements(this.getWrappedModelElement().getGroupMembership(), date);
+	public HyGroupComposition getGroupMembership(Date date){
+		return HyEvolutionUtil.getValidTemporalElement(this.getWrappedModelElement().getGroupMembership(), date);
 	}
 
 	public void setSize(Dimension size) {

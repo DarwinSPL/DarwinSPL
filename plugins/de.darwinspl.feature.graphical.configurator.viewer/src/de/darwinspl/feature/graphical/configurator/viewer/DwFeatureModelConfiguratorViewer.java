@@ -82,8 +82,6 @@ public class DwFeatureModelConfiguratorViewer extends DwGraphicalFeatureModelVie
 
 	@Override
 	public void setCurrentSelectedDate(Date date){
-		//selectedConfiguration.getElements().clear();
-		
 		super.setCurrentSelectedDate(date);
 	}
 

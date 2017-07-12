@@ -1,4 +1,4 @@
-package de.darwinspl.feature.graphical.editor.commands;
+package de.darwinspl.feature.graphical.editor.commands.connections;
 
 import org.eclipse.gef.commands.Command;
 
