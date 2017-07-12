@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   <extension
+         point="org.eclipse.ui.editors">
+      <editor
+            class="de.darwinspl.feature.stage.configurator.configurator.SmStageModelConfigurator"
+            default="false"
+            extensions="hyfeature, hyconfigurationmodel"
+            id="de.darwinspl.feature.stage.configurator.editor1"
+            name="DarwinSPL Staged Configurator Editor">
+      </editor>
+   </extension>
+
+</plugin>
