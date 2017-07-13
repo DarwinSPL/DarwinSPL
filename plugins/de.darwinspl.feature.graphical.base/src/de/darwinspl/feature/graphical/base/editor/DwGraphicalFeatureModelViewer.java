@@ -137,17 +137,6 @@ public class DwGraphicalFeatureModelViewer extends DwGraphicalViewerWithZoomSupp
 		setEditDomain(new DefaultEditDomain(this));	
 	}
 
-	@Override
-	public void init(IEditorSite site, IEditorInput input) throws PartInitException {
-		super.init(site, input);
-
-		HyFeaturePackage.eINSTANCE.eClass();
-		if(input instanceof IFileEditorInput) {
-			//IFileEditorInput fileInput = (IFileEditorInput) input;
-			//loadModelFromFile(fileInput.getFile());
-		}
-	}
-
 	public IFile getFile() {
 		IWorkspace workspace = ResourcesPlugin.getWorkspace();
 		IWorkspaceRoot workspaceRoot = workspace.getRoot();
@@ -200,6 +189,12 @@ public class DwGraphicalFeatureModelViewer extends DwGraphicalViewerWithZoomSupp
 		setEditorTabText(file.getName());
 		
 		DwFeatureModelLayoutFileUtil.loadLayoutFile(modelWrapped);
+		List<Date> dates = DwFeatureModelLayoutFileUtil.loadDatesFromLayoutFile(modelWrapped);
+		for(Date date : dates){
+			if(!modelWrapped.getDates().contains(date))
+				modelWrapped.addDate(date);
+		}
+		
 	}
 
 	/**
@@ -281,7 +276,7 @@ public class DwGraphicalFeatureModelViewer extends DwGraphicalViewerWithZoomSupp
 	 * Creates all widgets (slider and add date button) to the editor to perform date changes.
 	 * @param parent
 	 */
-	public void createSliderControl(Composite parent){
+	public void createSliderControl(final Composite parent){
 		List<Date> dates = modelWrapped.getDates();
 
 		int size = dates.size(); 

@@ -17,7 +17,7 @@ import org.eclipse.ui.PlatformUI;
 
 import de.darwinspl.feature.graphical.editor.editor.DwGraphicalFeatureModelEditor;
 
-public abstract class DwCreateFileCommand extends AbstractHandler {
+public abstract class DwCreateOrOpenFileCommand extends AbstractHandler {
 	protected IEditorPart getActiveEditor(){
 		return PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().getActiveEditor();
 	}
@@ -48,6 +48,8 @@ public abstract class DwCreateFileCommand extends AbstractHandler {
 				e.printStackTrace();
 			}
 			
+			editor.openEditorForFileExtension(fileExtension);
+		}else{
 			editor.openEditorForFileExtension(fileExtension);
 		}
 		

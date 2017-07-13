@@ -37,31 +37,24 @@ public class DwFeatureEditPart extends DwAbstractEditPart implements NodeEditPar
 
 		@Override 
 		public void notifyChanged(Notification notification) {
-			System.out.println("versions ==> "+((HyFeature)getTarget()).getVersions().size());
+			//refreshVisuals();
+			//refreshChildren();
+			//rearrangeChildren();
+			
+			System.out.println(notification);
+/*
 			if(notification.getEventType() == ENotificationImpl.REMOVE && notification.getOldValue() instanceof HyFeatureAttribute){
 				refreshVisuals();
-			}else{
-				refreshChildren();
-				refreshVisuals();
 			}
 
-
-			if(notification.getEventType() == ENotificationImpl.ADD){
-				if(notification.getNotifier() instanceof HyFeature){
-					if(notification.getNewValue() instanceof HyVersion){
-						rearrangeChildren();
-					}
-				}
-			}
-			if(notification.getEventType() == ENotificationImpl.REMOVE){
-				if(notification.getNotifier() instanceof HyFeature){
-					if(notification.getOldValue() instanceof HyVersion){
-						rearrangeChildren();
-					}
-				}
-			}		
+			// update figure only if feature was not deleted
+			//if(!(notification.getEventType() == ENotificationImpl.SET && notification.getPosition() == -1))
+			//	updateFigure();
+			
+			refreshVisibility();
+*/
 		}
-		
+
 
 
 		@Override 
@@ -118,12 +111,13 @@ public class DwFeatureEditPart extends DwAbstractEditPart implements NodeEditPar
 		Date date = viewer.getCurrentSelectedDate();
 		DwFeatureWrapped model = ((DwFeatureWrapped)getModel());
 		DwVersionLayouterManager.updateLayouter(model.getWrappedModelElement(), date);	
-		
-		for(Object o : children){
-			if(o instanceof DwAttributeEditPart){
-				((DwAttributeEditPart)o).refreshVisibility();
+
+		if(children != null)
+			for(Object o : children){
+				if(o instanceof DwAttributeEditPart){
+					((DwAttributeEditPart)o).refreshVisibility();
+				}
 			}
-		}
 	}
 
 	@Override
@@ -194,7 +188,7 @@ public class DwFeatureEditPart extends DwAbstractEditPart implements NodeEditPar
 		if(date == null)
 			date = new Date();
 
-		return feature.isWithoutModifier(date);
+		return feature.hasModfierAtDate(date);
 	}
 
 
@@ -202,12 +196,19 @@ public class DwFeatureEditPart extends DwAbstractEditPart implements NodeEditPar
 	public void refreshVisuals(){
 		super.refreshVisuals();
 
-		DwGraphicalFeatureModelViewer editor = (DwGraphicalFeatureModelViewer)this.editor;
+		updateFigure();
+
+		refreshVisualsOfConnections();		
+		refreshVisualsOfChildren();
+	}
+
+	private void updateFigure(){
 		Date date = editor.getCurrentSelectedDate();
+
 
 		DwFeatureFigure figure = (DwFeatureFigure)getFigure();
 		DwFeatureWrapped wrappedFeature = (DwFeatureWrapped)this.getModel();
-		
+
 		boolean featureIsCurrentlyValid = wrappedFeature.isValid(date);
 
 		if(featureIsCurrentlyValid){
@@ -215,13 +216,21 @@ public class DwFeatureEditPart extends DwAbstractEditPart implements NodeEditPar
 		}
 
 		figure.setVisible(wrappedFeature.isVisible());
+	}
 
-
-		for(DwParentChildConnection connection : this.getModelSourceConnections()){
-			connection.notifyChange();
+	private void refreshVisualsOfConnections(){
+		
+		
+		if(sourceConnections != null){
+			for(Object o : sourceConnections){
+				((DwParentChildConnectionEditPart)o).refreshVisuals();
+			}
 		}
 
-		//refreshVisualsOfChildren();
+		if(targetConnections != null)
+			for(Object o : targetConnections){
+				((DwParentChildConnectionEditPart)o).refreshVisuals();
+			}		
 	}
 
 	@Override
@@ -251,7 +260,6 @@ public class DwFeatureEditPart extends DwAbstractEditPart implements NodeEditPar
 	 * Refresh the visual representation of all versions and attributes related to this feature
 	 */
 	protected void refreshVisualsOfChildren(){
-
 		for(Object o : this.getChildren()){
 			if(o instanceof DwVersionEditPart){
 				DwVersionEditPart edit = (DwVersionEditPart)o;
@@ -267,6 +275,7 @@ public class DwFeatureEditPart extends DwAbstractEditPart implements NodeEditPar
 
 	@Override
 	protected Rectangle getFigureConstraint() {
+
 		DwFeatureWrapped feature = (DwFeatureWrapped)getModel();
 		DwGraphicalFeatureModelViewer editor = (DwGraphicalFeatureModelViewer)this.editor;
 		Date date = editor.getCurrentSelectedDate();

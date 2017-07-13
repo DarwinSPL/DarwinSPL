@@ -40,6 +40,7 @@ public class DwVersionCreateSuccessorCommand extends Command {
 		version = HyFeatureFactory.eINSTANCE.createHyVersion();
 		version.setValidSince(date);
 		version.setNumber("C"+parentVersion.getSupersedingVersions().size());
+		version.setValidUntil(parentVersion.getValidUntil());
 
 		parentVersion.getSupersedingVersions().add(version);
 		version.setSupersededVersion(parentVersion);

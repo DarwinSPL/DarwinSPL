@@ -11,6 +11,7 @@ import org.eclipse.gef.requests.CreateRequest;
 
 import de.darwinspl.feature.graphical.base.editparts.DwEnumContainerEditPart;
 import de.darwinspl.feature.graphical.base.editparts.DwFeatureEditPart;
+import de.darwinspl.feature.graphical.base.editparts.DwGroupEditPart;
 import de.darwinspl.feature.graphical.base.model.DwEvolutionaryPositionElement;
 import de.darwinspl.feature.graphical.base.model.DwFeatureModelWrapped;
 import de.darwinspl.feature.graphical.editor.commands.DwEnumContainerMoveCommand;
@@ -28,6 +29,11 @@ public class DwFeatureModelXYLayoutPolicy extends XYLayoutEditPolicy{
 
 		DwMoveCommand moveCommand = null;
 		if(child instanceof DwFeatureEditPart){
+			moveCommand = new DwMoveCommand();			
+			moveCommand.setModel((DwEvolutionaryPositionElement)child.getModel());
+		}
+		
+		if(child instanceof DwGroupEditPart){
 			moveCommand = new DwMoveCommand();			
 			moveCommand.setModel((DwEvolutionaryPositionElement)child.getModel());
 		}

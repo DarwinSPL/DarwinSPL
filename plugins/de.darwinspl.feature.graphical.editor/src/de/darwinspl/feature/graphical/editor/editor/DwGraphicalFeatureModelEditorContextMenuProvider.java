@@ -21,6 +21,7 @@ import de.darwinspl.feature.graphical.editor.actions.enumeration.DwFeatureAttrib
 import de.darwinspl.feature.graphical.editor.actions.feature.DwFeatureChangeTypeAction;
 import de.darwinspl.feature.graphical.editor.actions.feature.DwFeatureCreateChildAction;
 import de.darwinspl.feature.graphical.editor.actions.feature.DwFeatureCreateSiblingAction;
+import de.darwinspl.feature.graphical.editor.actions.feature.DwFeatureDeletePermanentlyAction;
 import de.darwinspl.feature.graphical.editor.actions.feature.DwFeatureEditNamesAction;
 import de.darwinspl.feature.graphical.editor.actions.group.DwGroupChangeGroupTypeToAlternativeTypeAction;
 import de.darwinspl.feature.graphical.editor.actions.group.DwGroupChangeGroupTypeToAndTypeAction;
@@ -49,6 +50,9 @@ public class DwGraphicalFeatureModelEditorContextMenuProvider extends ContextMen
         action = getActionRegistry().getAction(ActionFactory.REDO.getId());
         menu.appendToGroup(GEFActionConstants.GROUP_UNDO, action);
         action = getActionRegistry().getAction(ActionFactory.DELETE.getId());
+        menu.appendToGroup(GEFActionConstants.GROUP_UNDO, action);
+        
+        action = getActionRegistry().getAction(DwFeatureDeletePermanentlyAction.FEATURE_DELETE_PERMANENTLY);
         menu.appendToGroup(GEFActionConstants.GROUP_UNDO, action);
         
  

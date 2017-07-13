@@ -22,7 +22,8 @@ public class DwMoveCommand extends Command {
 	
 	@Override 
 	public void undo(){
-		model.addPosition(oldPosition.getPosition(), date, true);
+		if(oldPosition != null)
+			model.addPosition(oldPosition.getPosition(), date, true);
 	}
 	
 	@Override

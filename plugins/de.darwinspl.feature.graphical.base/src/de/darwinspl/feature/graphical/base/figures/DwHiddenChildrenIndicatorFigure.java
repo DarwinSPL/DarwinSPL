@@ -123,15 +123,9 @@ public class DwHiddenChildrenIndicatorFigure extends DwGradientFillCircleFigure 
 		return feature.isHideChildren();
 	};
 	
-	/**
-	 * Update the number displayed by the label each time the figure is repaint
-	 */
-	@Override
-	public void repaint() {
+	public void update(){
 		label.setText(String.valueOf(getFeatureChildrenCount(feature, featureModel.getSelectedDate())));
-		super.repaint();
-	};
-
+	}
 	/**
 	 * Sets position and size of the figure. The figure is rendered centered at the bottom of the parent feature
 	 */

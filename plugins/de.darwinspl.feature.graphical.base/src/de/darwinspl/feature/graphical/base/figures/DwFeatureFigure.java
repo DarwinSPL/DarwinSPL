@@ -18,7 +18,6 @@ import org.eclipse.draw2d.geometry.Insets;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
 
-
 import de.darwinspl.feature.graphical.base.anchors.DwFeatureChildrenAnchor;
 import de.darwinspl.feature.graphical.base.anchors.DwFeatureParentAnchor;
 import de.darwinspl.feature.graphical.base.deltaecore.wrapper.DwGeometryUtil;
@@ -27,8 +26,8 @@ import de.darwinspl.feature.graphical.base.deltaecore.wrapper.layouter.version.D
 import de.darwinspl.feature.graphical.base.editor.DwGraphicalFeatureModelViewer;
 import de.darwinspl.feature.graphical.base.model.DwFeatureModelWrapped;
 import de.darwinspl.feature.graphical.base.model.DwFeatureWrapped;
-import eu.hyvar.evolution.util.HyEvolutionUtil;
 import eu.hyvar.evolution.HyName;
+import eu.hyvar.evolution.util.HyEvolutionUtil;
 import eu.hyvar.feature.HyFeature;
 import eu.hyvar.feature.HyFeatureAttribute;
 import eu.hyvar.feature.HyVersion;
@@ -303,10 +302,12 @@ public class DwFeatureFigure extends DwErrorMarkerFigure{
 			// TODO show error that specific feature has no name at current date
 		}	
 		
-		boolean hasChildren = !HyEvolutionUtil.getValidTemporalElements(feature.getWrappedModelElement().getParentOf(), editor.getCurrentSelectedDate()).isEmpty();
-
 		expandButton.setDirection(feature.isHideChildren() ? Orientable.SOUTH : Orientable.NORTH);
-		expandButton.setVisible(hasChildren);
+		expandButton.setVisible(!feature.getChildrenConnections(date).isEmpty());
+	}
+	
+	private void updateHiddenChildrenIndicator(){
+		this.hiddenChildrenIndicator.update();
 	}
 	
 	public void update() {
@@ -316,6 +317,7 @@ public class DwFeatureFigure extends DwErrorMarkerFigure{
 		updateLabel();
 		updateExpandButton();
 		updateIconFigure();
+		updateHiddenChildrenIndicator();
 		
 		repaint();
 		
