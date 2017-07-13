@@ -73,8 +73,10 @@ public class DwCriteriaSelectionDialog extends Dialog {
 	private Tree tree;
 	private TreeItem treeItemFeatureAttribute;
 	private TreeItem treeItemFeatureModelAttribute;
+	private TreeItem treeItemFeatureQuantityCriteria;
 
 	private List<HyFeatureAttribute> selectedFeatureAttributes = new ArrayList<>();
+	private boolean featureQuantityCriteriaSelected = false;
 
 	private Date date;
 
@@ -91,6 +93,9 @@ public class DwCriteriaSelectionDialog extends Dialog {
 
 	@Override
 	protected void okPressed() {
+		
+		featureQuantityCriteriaSelected = treeItemFeatureQuantityCriteria.getChecked();
+		
 		for (TreeItem item : treeItemFeatureAttribute.getItems()) {
 
 			if (item.getChecked() && item instanceof DwAttributeTreeItem) {
@@ -132,6 +137,10 @@ public class DwCriteriaSelectionDialog extends Dialog {
 		return selectedFeatureAttributes;
 	}
 
+	protected boolean isfeatureQuantityCriteriaSelected() {
+		return featureQuantityCriteriaSelected;
+	}
+	
 	@Override
 	protected Control createDialogArea(Composite parent) {
 		Composite composite = (Composite) super.createDialogArea(parent);
@@ -153,6 +162,8 @@ public class DwCriteriaSelectionDialog extends Dialog {
 		treeItemFeatureAttribute.setText("Feature Attributes");
 		treeItemFeatureModelAttribute = new TreeItem(tree, SWT.CHECK);
 		treeItemFeatureModelAttribute.setText("Feature Model Attributes");
+		treeItemFeatureQuantityCriteria = new TreeItem(tree, SWT.CHECK);
+		treeItemFeatureQuantityCriteria.setText("Feature Quantity");
 
 		for (HyFeatureAttribute attribute : attributes) {
 			new DwAttributeTreeItem(attribute, date, treeItemFeatureAttribute, SWT.CHECK);

@@ -84,7 +84,7 @@ public class DwFeatureSelectionDialog extends Dialog {
 		addFeatures(rootItem, HyFeatureEvolutionUtil.getChildsOfFeature(feature, date));
 	
 		Button checkSubTrees = new Button(composite, SWT.CHECK);
-		checkSubTrees.setText("include childs");
+		checkSubTrees.setText("Include Children");
 		checkSubTrees.setSelection(true);
 		
 		checkSubTrees.addSelectionListener(new SelectionListener() {

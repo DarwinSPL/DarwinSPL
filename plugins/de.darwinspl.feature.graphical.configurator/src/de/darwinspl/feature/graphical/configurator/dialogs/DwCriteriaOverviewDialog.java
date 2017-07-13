@@ -183,6 +183,7 @@ public class DwCriteriaOverviewDialog extends Dialog {
 					comp.addMultiEnumCriteria(dialog.getSelectedEnumAttributeNames());
 					comp.addMultiBooleanCriteria(dialog.getSelectedBooleanAttributeNames());
 					comp.addCriteria(dialog.getSelectedFeatureAttributes());
+					if(dialog.isfeatureQuantityCriteriaSelected()) comp.addFeatureQuantityCriteria();
 					comp.layout();
 					composite.layout();
 				}

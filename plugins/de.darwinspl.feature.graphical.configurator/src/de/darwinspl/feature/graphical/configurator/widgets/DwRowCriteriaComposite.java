@@ -40,9 +40,6 @@ public class DwRowCriteriaComposite extends Composite {
 		this.date = date;
 		this.attributes = attributes;
 
-		DwAbstractCriteriaComposite configuratorWidget = new DwFeatureQuantityCriteriaComposite(this, SWT.NONE, featureModel, date);
-		rows.add(configuratorWidget);
-
 	}
 
 	public void moveUp(DwCriteriaComposite row) {
@@ -112,6 +109,10 @@ public class DwRowCriteriaComposite extends Composite {
 				rows.add(configuratorWidget);
 			}
 		}
+	}
+	
+	public void addFeatureQuantityCriteria() {
+		rows.add(new DwFeatureQuantityCriteriaComposite(this, SWT.NONE, featureModel, date));
 	}
 
 	public void addCriteria(List<HyFeatureAttribute> featureAttributes) {
