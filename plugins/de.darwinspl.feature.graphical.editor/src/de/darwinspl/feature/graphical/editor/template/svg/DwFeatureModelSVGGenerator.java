@@ -334,7 +334,7 @@ public class DwFeatureModelSVGGenerator {
 		cfg.setLocale(Locale.US);
 		cfg.setTemplateExceptionHandler(TemplateExceptionHandler.RETHROW_HANDLER);
 
-		Bundle bundle = Platform.getBundle("eu.hyvar.feature.graphical.editor");
+		Bundle bundle = Platform.getBundle("de.darwinspl.feature.graphical.editor");
 		URL fileURL = bundle.getEntry("templates/");
 
 		File file = new File(FileLocator.resolve(fileURL).toURI());

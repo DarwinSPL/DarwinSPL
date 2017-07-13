@@ -3,7 +3,6 @@ package de.darwinspl.feature.graphical.editor.commands.feature;
 import java.util.Date;
 
 import org.eclipse.emf.common.util.EList;
-import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.gef.EditPart;
 
 import de.darwinspl.feature.graphical.base.editor.DwGraphicalFeatureModelViewer;
@@ -12,23 +11,20 @@ import de.darwinspl.feature.graphical.base.editparts.DwRootFeatureEditPart;
 import de.darwinspl.feature.graphical.base.model.DwFeatureModelWrapped;
 import de.darwinspl.feature.graphical.base.model.DwFeatureWrapped;
 import de.darwinspl.feature.graphical.base.model.DwParentChildConnection;
-import de.darwinspl.feature.graphical.editor.commands.DwFeatureModelEditorCommand;
+import de.darwinspl.feature.graphical.editor.util.DwEcoreUtil;
 import eu.hyvar.evolution.HyTemporalElement;
+import eu.hyvar.evolution.util.HyEvolutionUtil;
 import eu.hyvar.feature.HyFeature;
+import eu.hyvar.feature.HyGroup;
+import eu.hyvar.feature.HyGroupComposition;
 
-public class DwFeatureDeleteCommand extends DwFeatureModelEditorCommand{
-	EditPart host;
-
+public class DwFeatureDeleteCommand extends DwAbstractFeatureDeleteCommand{
 	public DwFeatureDeleteCommand(DwGraphicalFeatureModelViewer viewer, EditPart host) {
 		super(viewer);
 
 		this.host = host;
 	}
 
-	private DwFeatureWrapped feature;
-	private DwFeatureWrapped oldParent;
-	private HyFeature oldFeature;
-	private Date executionDate;
 
 	public void setFeature(DwFeatureWrapped feature) {
 		this.feature = feature;
@@ -42,6 +38,16 @@ public class DwFeatureDeleteCommand extends DwFeatureModelEditorCommand{
 			}
 		}			
 	}
+	private void undoRestrictHyLinearTemporalElementsToParentValidUntil(EList<HyTemporalElement> elements, EList<HyTemporalElement> oldElements){
+		for(HyTemporalElement element : elements){
+			for(HyTemporalElement oldElement : oldElements){
+				if(element.getId().equals(oldElement.getId())){
+					element.setValidUntil(oldElement.getValidUntil());
+				}
+			}
+			
+		}
+	}
 
 	@Override
 	public boolean canExecute() {
@@ -49,74 +55,77 @@ public class DwFeatureDeleteCommand extends DwFeatureModelEditorCommand{
 			return false;
 		if(host instanceof DwFeatureEditPart)
 			return true;
-		
+
 		return false;
 	}
 
 
 	@SuppressWarnings("unchecked")
 	public void redo(){
-		
+
 		HyFeature feature = this.feature.getWrappedModelElement();
-		Date date = viewer.getCurrentSelectedDate();
-		if(date.equals(new Date(Long.MIN_VALUE)))
-			date = null;
-		
-		executionDate = date;
+		executionDate = viewer.getCurrentSelectedDate();
 
-		oldFeature = EcoreUtil.copy(feature);
-		oldParent = this.feature.getParentFeature(date);
-		
-		if(date == null){
-			viewer.getModelWrapped().removeFeaturePermanently(this.feature);
-		}else{
-			feature.setValidUntil(date);
 
-			// restrict feature parameters to the date
-			restrictHyLinearTemporalElementsToParentValidUntil((EList<HyTemporalElement>)(EList<?>)feature.getNames());
-			restrictHyLinearTemporalElementsToParentValidUntil((EList<HyTemporalElement>)(EList<?>)feature.getAttributes());
-			restrictHyLinearTemporalElementsToParentValidUntil((EList<HyTemporalElement>)(EList<?>)feature.getVersions());
+
+		oldFeature = DwEcoreUtil.copy(feature);
+		oldParent = this.feature.getParentFeature(executionDate);
 		
-			viewer.getModelWrapped().removeFeature(this.feature, date);
-		}
+		feature.setValidUntil(executionDate);
+
+		// restrict feature parameters to the date
+		restrictHyLinearTemporalElementsToParentValidUntil((EList<HyTemporalElement>)(EList<?>)feature.getNames());
+		restrictHyLinearTemporalElementsToParentValidUntil((EList<HyTemporalElement>)(EList<?>)feature.getAttributes());
+		restrictHyLinearTemporalElementsToParentValidUntil((EList<HyTemporalElement>)(EList<?>)feature.getVersions());
+		
 		
 
-		
-		
+		viewer.getModelWrapped().removeFeature(this.feature, executionDate);
+
 
 		// delete the selection from the element
 		host.setSelected(0);
 
 		viewer.getModelWrapped().rearrangeFeatures();
 		viewer.refreshView();
-		
-	}
-	
-	public void undo(){
-		
-		Date date = executionDate;
-		DwParentChildConnection connection = new DwParentChildConnection();
-		
-		this.feature.setWrappedModelElement(oldFeature);
-		DwFeatureModelWrapped featureModel = viewer.getModelWrapped();
-		date = viewer.getCurrentSelectedDate();
-		if(date.equals(new Date(Long.MIN_VALUE))){
-			date = null;
-		}		
-		
 
+	}
+
+	public void undo(){
+		DwFeatureModelWrapped featureModel = viewer.getModelWrapped();
+
+		HyFeature realFeature = getRealModelFeature(oldFeature);
+		realFeature.setValidSince(oldFeature.getValidSince());
+		realFeature.setValidUntil(oldFeature.getValidUntil());
 		
-		connection = new DwParentChildConnection();
-		connection.setSource(oldParent);
-		connection.setTarget(this.feature);
-		connection.setModel(featureModel);
+		// undo restrictions of children
+		undoRestrictHyLinearTemporalElementsToParentValidUntil((EList<HyTemporalElement>)(EList<?>)realFeature.getNames(), 
+															   (EList<HyTemporalElement>)(EList<?>)oldFeature.getNames());
+		undoRestrictHyLinearTemporalElementsToParentValidUntil((EList<HyTemporalElement>)(EList<?>)realFeature.getAttributes(), 
+				   											   (EList<HyTemporalElement>)(EList<?>)oldFeature.getAttributes());
+		undoRestrictHyLinearTemporalElementsToParentValidUntil((EList<HyTemporalElement>)(EList<?>)realFeature.getVersions(), 
+				   											   (EList<HyTemporalElement>)(EList<?>)oldFeature.getVersions());
 		
-		featureModel.addConnection(connection, featureModel.getSelectedDate(), null);
+		// remove the splitted composition from the feature model
+		for(HyGroupComposition composition : realFeature.getGroupMembership()){
+			// the last composition where the feature is part of
+			if(composition.getValidUntil().equals(executionDate)){
+				composition.getCompositionOf().getParentOf().remove(composition.getSupersedingElement());
+				
+				HyGroupComposition newAddedComposition = (HyGroupComposition)composition.getSupersedingElement();
+				newAddedComposition.getFeatures().clear();
+				
+				composition.setValidUntil(null);
+				composition.getFeatures().add(realFeature);
+				
+				composition.setSupersedingElement(null);
+			}
+		}
 		
 		featureModel.rearrangeFeatures();
 		viewer.refreshView();	
 	}
-	
+
 	@Override
 	public void execute(){
 		redo();

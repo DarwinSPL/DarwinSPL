@@ -36,20 +36,23 @@ public class DwFeatureEditPart extends DwAbstractEditPart implements NodeEditPar
 	public class HyFeatureAdapter implements Adapter {
 
 		@Override 
-		public void notifyChanged(Notification notification) {			
-			refreshChildren();
-			rearrangeChildren();
-
+		public void notifyChanged(Notification notification) {
+			//refreshVisuals();
+			//refreshChildren();
+			//rearrangeChildren();
+			
+			System.out.println(notification);
+/*
 			if(notification.getEventType() == ENotificationImpl.REMOVE && notification.getOldValue() instanceof HyFeatureAttribute){
 				refreshVisuals();
 			}
 
 			// update figure only if feature was not deleted
-			if(!(notification.getEventType() == ENotificationImpl.SET && notification.getPosition() == -1))
-				updateFigure();
+			//if(!(notification.getEventType() == ENotificationImpl.SET && notification.getPosition() == -1))
+			//	updateFigure();
 			
 			refreshVisibility();
-
+*/
 		}
 
 
@@ -216,10 +219,13 @@ public class DwFeatureEditPart extends DwAbstractEditPart implements NodeEditPar
 	}
 
 	private void refreshVisualsOfConnections(){
-		if(sourceConnections != null)
+		
+		
+		if(sourceConnections != null){
 			for(Object o : sourceConnections){
 				((DwParentChildConnectionEditPart)o).refreshVisuals();
 			}
+		}
 
 		if(targetConnections != null)
 			for(Object o : targetConnections){

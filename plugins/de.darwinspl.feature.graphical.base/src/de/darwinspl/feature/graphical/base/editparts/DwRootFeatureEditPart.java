@@ -47,10 +47,12 @@ public class DwRootFeatureEditPart extends DwFeatureEditPart{
 		DwRootFeatureFigure figure = (DwRootFeatureFigure)getFigure();
 		DwFeatureWrapped wrappedFeature = (DwFeatureWrapped)this.getModel();
 		// find a valid name for the feature
+		/*
 		for(HyName name : wrappedFeature.getWrappedModelElement().getNames()){
 			if(HyEvolutionUtil.isValid(name, date)){
 				figure.setText(name.getName());
 			}
 		}
+		*/
 	}
 }

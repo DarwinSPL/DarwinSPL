@@ -16,8 +16,8 @@ import de.darwinspl.feature.graphical.base.model.DwFeatureModelWrapped;
 import de.darwinspl.feature.graphical.base.model.DwFeatureWrapped;
 import de.darwinspl.feature.graphical.base.model.DwGroupWrapped;
 import de.darwinspl.feature.graphical.base.model.DwParentChildConnection;
-import de.darwinspl.feature.graphical.editor.commands.DwParentChildConnectionCreateCommand;
-import de.darwinspl.feature.graphical.editor.commands.DwParentChildConnectionReconnectCommand;
+import de.darwinspl.feature.graphical.editor.commands.connections.DwParentChildConnectionCreateCommand;
+import de.darwinspl.feature.graphical.editor.commands.connections.DwParentChildConnectionReconnectCommand;
 
 public class DwFeatureGraphicalNodeEditPolicy extends GraphicalNodeEditPolicy{
 	private DwGraphicalFeatureModelViewer editor;
@@ -76,13 +76,13 @@ public class DwFeatureGraphicalNodeEditPolicy extends GraphicalNodeEditPolicy{
 		if(part instanceof DwFeatureEditPart){
 			DwFeatureModelWrapped featureModel = (DwFeatureModelWrapped)((DwFeatureEditPart)getHost()).getFeatureModel();
 			
-			DwParentChildConnectionReconnectCommand command = new DwParentChildConnectionReconnectCommand(editor);
+			DwParentChildConnectionReconnectCommand command = new DwParentChildConnectionReconnectCommand(editor, part);
 			
 			DwParentChildConnection connection = (DwParentChildConnection)((DwParentChildConnectionEditPart)request.getConnectionEditPart()).getModel();
 			command.setConnection(connection);
 			command.setSource(connection.getSource());
 			command.setTarget(request.getTarget().getModel());
-			command.setFeatureModel(featureModel);
+			
 			return command;
 		}else if(part instanceof DwParentChildConnectionEditPart){
 			DwParentChildConnection hoveredParentChildConnection = (DwParentChildConnection)part.getModel();
@@ -96,12 +96,11 @@ public class DwFeatureGraphicalNodeEditPolicy extends GraphicalNodeEditPolicy{
 			DwParentChildConnection targetConnection = (DwParentChildConnection)part.getModel();
 			DwParentChildConnection connection = (DwParentChildConnection)((DwParentChildConnectionEditPart)request.getConnectionEditPart()).getModel();
 			
-			DwParentChildConnectionReconnectCommand command = new DwParentChildConnectionReconnectCommand(editor);
+			DwParentChildConnectionReconnectCommand command = new DwParentChildConnectionReconnectCommand(editor, part);
 			
 			command.setConnection(connection);
 			command.setSource(connection.getTarget());
 			command.setTarget(targetConnection);
-			command.setFeatureModel(featureModel);
 			
 			return command;		
 		}else{
@@ -118,7 +117,7 @@ public class DwFeatureGraphicalNodeEditPolicy extends GraphicalNodeEditPolicy{
 		if(part instanceof DwFeatureEditPart){
 			DwFeatureModelWrapped featureModel = ((DwFeatureEditPart)getHost()).getFeatureModel();
 			
-			DwParentChildConnectionReconnectCommand command = new DwParentChildConnectionReconnectCommand(editor);
+			DwParentChildConnectionReconnectCommand command = new DwParentChildConnectionReconnectCommand(editor, part);
 			
 			DwParentChildConnection con = (DwParentChildConnection)((DwParentChildConnectionEditPart)request.getConnectionEditPart()).getModel();
 			//HyParentChildConnection connection = con.clone();
@@ -126,19 +125,17 @@ public class DwFeatureGraphicalNodeEditPolicy extends GraphicalNodeEditPolicy{
 			
 			command.setSource(con.getSource());
 			command.setTarget(request.getTarget().getModel());
-			command.setFeatureModel(featureModel);
 			
 			
 			return command;
 		}else if(part instanceof DwParentChildConnectionEditPart){
 			DwParentChildConnection targetConnection = (DwParentChildConnection)part.getModel();
 			DwParentChildConnection connection = (DwParentChildConnection)((DwParentChildConnectionEditPart)request.getConnectionEditPart()).getModel();
-			DwParentChildConnectionReconnectCommand command = new DwParentChildConnectionReconnectCommand(editor);
+			DwParentChildConnectionReconnectCommand command = new DwParentChildConnectionReconnectCommand(editor, part);
 		
 			command.setConnection(connection);
 			command.setSource(connection.getSource());
 			command.setTarget(targetConnection);
-			command.setFeatureModel(featureModel);
 			
 			return command;
 		}else{

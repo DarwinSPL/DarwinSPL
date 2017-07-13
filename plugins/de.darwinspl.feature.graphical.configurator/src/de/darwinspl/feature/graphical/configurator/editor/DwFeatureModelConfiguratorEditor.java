@@ -190,7 +190,7 @@ public class DwFeatureModelConfiguratorEditor extends DwFeatureModelConfigurator
 		registerListeners();
 	}
 
-	private Composite createConfigurationPanel(Composite parent) {
+	protected Composite createConfigurationPanel(Composite parent) {
 		Composite configurationPanel = new Composite(parent, SWT.NONE);
 		configurationPanel.setLayout(new GridLayout(1, false));
 
@@ -238,7 +238,7 @@ public class DwFeatureModelConfiguratorEditor extends DwFeatureModelConfigurator
 //		return DEFAULT_HYVARREC_URI;
 	}
 
-	private void registerListeners() {
+	protected void registerListeners() {
 
 		super.registerControlListeners();
 		

@@ -91,7 +91,7 @@ public class DwGeometryUtil {
 
 		int variationHeight = 0;
 		try {
-			if(!HyFeatureUtil.isRootFeature(feature, date)){
+			if(feature != null && !HyFeatureUtil.isRootFeature(feature, date)){
 				HyGroupComposition composition = HyEvolutionUtil.getValidTemporalElement(feature.getGroupMembership(), date);
 				if(composition != null){
 					HyGroupType type = HyEvolutionUtil.getValidTemporalElement(composition.getCompositionOf().getTypes(), date);

@@ -28,4 +28,5 @@ Bundle-ActivationPolicy: lazy
 Bundle-ClassPath: .,
  libraries/freemarker.jar
 Bundle-Vendor: www.darwinspl.de
+Export-Package: de.darwinspl.feature.graphical.editor.editor
 
