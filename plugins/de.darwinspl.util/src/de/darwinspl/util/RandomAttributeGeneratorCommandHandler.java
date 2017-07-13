@@ -24,8 +24,8 @@ public class RandomAttributeGeneratorCommandHandler extends AbstractHandler {
 			return null;
 		}
 		
-		RandomAttributeGenerator generator = new RandomAttributeGenerator(featureModel, dialog.getNumberOfFeatureAttributes(), dialog.getNumberOfFeatureModelAttributes(), null, null);
-		featureModel = generator.generateAttributes();
+		RandomAttributeGenerator generator = new RandomAttributeGenerator(featureModel, null, null);
+		featureModel = generator.generateAttributes(dialog.getType());
 		
 		EcoreIOUtil.saveModelAs(featureModel, file);
 		return null;

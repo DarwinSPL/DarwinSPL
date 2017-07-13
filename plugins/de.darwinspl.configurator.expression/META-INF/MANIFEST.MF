@@ -4,7 +4,13 @@ Bundle-Name: Expression
 Bundle-SymbolicName: de.darwinspl.configurator.expression
 Bundle-Version: 1.0.0.qualifier
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
-Require-Bundle: eu.hyvar.feature.expression;bundle-version="1.0.0",
+Export-Package: de.darwinspl.configurator.expression;uses:="eu.hyvar.feature.expression.impl,eu.hyvar.feature.expression",
+ de.darwinspl.configurator.expression.exporter;
+  uses:="eu.hyvar.feature,
+   eu.hyvar.feature.constraint,
+   eu.hyvar.reconfigurator.input.exporter,
+   eu.hyvar.feature.expression,
+   eu.hyvar.preferences,
+   eu.hyvar.feature.expression.util"
+Require-Bundle: eu.hyvar.feature.expression,
  eu.hyvar.reconfigurator.input
-Export-Package: de.darwinspl.configurator.expression,
- de.darwinspl.configurator.expression.exporter

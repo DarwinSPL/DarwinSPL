@@ -9,14 +9,12 @@ import org.eclipse.core.resources.IWorkspaceRoot;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
-import org.eclipse.emf.codegen.ecore.templates.editor.ModelWizard;
 import org.eclipse.jface.dialogs.Dialog;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.handlers.HandlerUtil;
 
 import de.christophseidl.util.eclipse.ui.SelectionUtil;
 import de.christophseidl.util.ecore.EcoreIOUtil;
-import de.darwinspl.feature.graphical.base.model.DwFeatureModelWrapped;
 import de.darwinspl.feature.graphical.configurator.dialogs.DwCriteriaOverviewDialog;
 import de.darwinspl.feature.graphical.configurator.dialogs.DwRESTServerSelectDialog;
 import eu.hyvar.feature.HyFeatureModel;

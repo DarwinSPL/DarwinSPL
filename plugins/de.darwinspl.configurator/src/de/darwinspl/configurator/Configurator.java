@@ -6,12 +6,13 @@ import java.util.concurrent.TimeoutException;
 
 import org.eclipse.jetty.client.HttpClient;
 import org.eclipse.jetty.client.api.ContentResponse;
-import org.eclipse.jetty.client.api.Request;
 import org.eclipse.jetty.client.util.StringContentProvider;
 import org.eclipse.jetty.http.HttpHeader;
-import org.eclipse.jface.dialogs.MessageDialog;
 
 import de.darwinspl.configurator.expression.exporter.CustomHyVarRecExporter;
+
+import org.eclipse.jetty.client.api.Request;
+
 import eu.hyvar.feature.HyFeatureModel;
 import eu.hyvar.feature.constraint.HyConstraintModel;
 import eu.hyvar.preferences.HyPreference;
@@ -44,8 +45,7 @@ public class Configurator {
 
 	public String run() throws InterruptedException, TimeoutException, ExecutionException {
 		CustomHyVarRecExporter exporter = new CustomHyVarRecExporter();
-		String input = exporter.exportContextMappingModel(null, null, featureModel, constraintModel, null, profile,
-				null, date);
+		String input = exporter.export(featureModel, constraintModel, profile, date);
 
 		System.out.println("HyVarRecInput: " + input);
 		long start = System.currentTimeMillis();

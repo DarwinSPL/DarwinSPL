@@ -7,7 +7,6 @@ import java.util.Map;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 
-import de.darwinspl.configurator.expression.AtomicFeatureExpression;
 import eu.hyvar.context.HyContextualInformation;
 import eu.hyvar.dataValues.HyBooleanValue;
 import eu.hyvar.dataValues.HyEnumLiteral;
@@ -322,9 +321,6 @@ public class HyExpressionStringExporter {
 			} else {
 				atomicString.append(FALSE);
 			}
-		} else if(atomicExpression instanceof AtomicFeatureExpression) {
-			AtomicFeatureExpression atomicFeatureExpression = (AtomicFeatureExpression)atomicExpression;
-			atomicString.append(featureIdMapping.get(atomicFeatureExpression.getFeature()));
 		} else if (atomicExpression instanceof HyAbstractFeatureReferenceExpression) {
 		
 			HyAbstractFeatureReferenceExpression abstractFeatureReferenceExpression = (HyAbstractFeatureReferenceExpression) atomicExpression;

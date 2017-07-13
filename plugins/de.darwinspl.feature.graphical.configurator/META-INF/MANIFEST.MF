@@ -42,11 +42,11 @@ Require-Bundle: org.eclipse.ui,
  org.eclipse.jetty.server,
  de.christophseidl.util.swt,
  de.darwinspl.feature.graphical.configurator.viewer,
- org.eclipse.jface
+ org.eclipse.jface,
+ de.darwinspl.configurator
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Bundle-ActivationPolicy: lazy
 Bundle-Vendor: www.darwinspl.de
 Bundle-ClassPath: .,
  lib/jetty-client-9.2.13.v20150730.jar
 Export-Package: de.darwinspl.feature.graphical.configurator.dialogs
-Import-Package: de.darwinspl.configurator
