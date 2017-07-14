@@ -3,12 +3,20 @@ package de.darwinspl.feature.graphical.configurator.widgets;
 import java.util.Date;
 
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.layout.RowData;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Text;
 
 import eu.hyvar.feature.HyFeatureModel;
 
+/**
+ * 
+ * ui implementation for numbered feature model attribute criterias
+ * 
+ * @author Jeremias Wrensch
+ *
+ */
 public class DwMultiNumberedCriteriaComposite extends DwAbstractMultiCriteriaComposite implements DwCriteriaComposite {
 
 	private Button useDefault;
@@ -35,9 +43,13 @@ public class DwMultiNumberedCriteriaComposite extends DwAbstractMultiCriteriaCom
 		custom = new Button(this, SWT.RADIO);
 		custom.setText("Custom");
 		
-		customInput = new Text(this, SWT.NONE);
+		RowData rowData = new RowData();
+		rowData.width = 30;
+		
+		customInput = new Text(this, SWT.BORDER);
 		customInput.setText("0");
 		customInput.setEditable(true);
+		customInput.setLayoutData(rowData);
 		
 		
 	}

@@ -12,6 +12,14 @@ import eu.hyvar.dataValues.HyEnum;
 import eu.hyvar.dataValues.HyEnumLiteral;
 import eu.hyvar.feature.HyFeatureModel;
 
+
+/**
+ * 
+ * ui implementation for enum feature model attribute criterias
+ * 
+ * @author Jeremias Wrensch
+ *
+ */
 public class DwMultiEnumCriteriaComposite extends DwAbstractMultiCriteriaComposite
 		implements DwCriteriaComposite {
 
@@ -30,7 +38,7 @@ public class DwMultiEnumCriteriaComposite extends DwAbstractMultiCriteriaComposi
 				items[i] = literals.get(i).getName();
 			}
 
-			dropdown = new CCombo(this, SWT.NONE);
+			dropdown = new CCombo(this, SWT.BORDER);
 			dropdown.setItems(items);
 			dropdown.select(0);
 		}

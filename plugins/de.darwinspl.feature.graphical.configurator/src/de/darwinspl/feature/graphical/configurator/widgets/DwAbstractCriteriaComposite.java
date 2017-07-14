@@ -10,6 +10,13 @@ import org.eclipse.swt.widgets.Label;
 
 import eu.hyvar.feature.HyFeatureAttribute;
 
+/**
+ * 
+ * abstract class for the ui representation of criterias
+ * 
+ * @author Jeremias Wrensch
+ *
+ */
 public abstract class DwAbstractCriteriaComposite extends Composite implements DwCriteriaComposite {
 
 	private Button checkbox;

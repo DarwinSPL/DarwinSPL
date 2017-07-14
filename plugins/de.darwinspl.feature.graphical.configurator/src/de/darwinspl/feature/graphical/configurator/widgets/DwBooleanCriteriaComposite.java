@@ -6,6 +6,13 @@ import org.eclipse.swt.widgets.Composite;
 
 import eu.hyvar.feature.HyBooleanAttribute;
 
+/**
+ * 
+ * ui implementation for boolean feature attribute criterias
+ * 
+ * @author Jeremias Wrensch
+ *
+ */
 public class DwBooleanCriteriaComposite extends DwAbstractCriteriaComposite implements DwCriteriaComposite {
 
 	private Button checkbox;

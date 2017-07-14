@@ -22,6 +22,13 @@ import eu.hyvar.feature.HyFeatureAttribute;
 import eu.hyvar.feature.HyNumberAttribute;
 import eu.hyvar.feature.util.HyFeatureEvolutionUtil;
 
+/**
+ * 
+ * A Dialog the list all feature attributes and feature model attributes aswell as an entry to select feature quantity
+ * 
+ * @author Jeremias Wrensch
+ *
+ */
 public class DwCriteriaSelectionDialog extends Dialog {
 
 	protected enum AttributeType {
@@ -165,10 +172,12 @@ public class DwCriteriaSelectionDialog extends Dialog {
 		treeItemFeatureQuantityCriteria = new TreeItem(tree, SWT.CHECK);
 		treeItemFeatureQuantityCriteria.setText("Feature Quantity");
 
+		// add all feature attributes
 		for (HyFeatureAttribute attribute : attributes) {
 			new DwAttributeTreeItem(attribute, date, treeItemFeatureAttribute, SWT.CHECK);
 		}
 
+		// add all feature model attributes
 		for (HyFeatureAttribute attribute : attributes) {
 			String name = HyFeatureEvolutionUtil.getName(attribute.getNames(), date).getName();
 			if (attribute instanceof HyNumberAttribute && !numberedAttributeNames.contains(name)) {

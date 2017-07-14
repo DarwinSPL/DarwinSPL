@@ -43,6 +43,12 @@ import eu.hyvar.feature.constraint.HyConstraintModel;
 import eu.hyvar.reconfigurator.output.translation.HyVarRecOutputTranslator;
 import eu.hyvar.reconfigurator.output.translation.format.OutputOfHyVarRec;
 
+/**
+ * dialog the contains selected optimization criterias
+ * 
+ * @author Jeremias Wrensch
+ *
+ */
 public class DwCriteriaOverviewDialog extends Dialog {
 
 	private List<HyFeatureAttribute> attributes = new ArrayList<>();
@@ -86,6 +92,7 @@ public class DwCriteriaOverviewDialog extends Dialog {
 		Configurator configurator = new Configurator(uri, featureModel, constraintModel, date);
 		PreferenceBuilder builder;
 
+		// iterate of all rows create criterias
 		for (DwAbstractCriteriaComposite row : comp.getRows()) {
 			if (row.isChecked()) {
 				builder = new PreferenceBuilder(featureModel, date);
@@ -95,10 +102,10 @@ public class DwCriteriaOverviewDialog extends Dialog {
 						builder.addMinAttributeExpression(multiNumberComp.getAttributeName(),
 								multiNumberComp.getSelectedFeatures(), multiNumberComp.useDefaultValue());
 					} else if (multiNumberComp.getSelectedMode() == ConfiguratorMode.MAX) {
-						builder.addMaxAttributeExpression(multiNumberComp.getAttributeName(),
+						builder.addMaxMultiNumberedAttributeExpression(multiNumberComp.getAttributeName(),
 								multiNumberComp.getSelectedFeatures(), multiNumberComp.useDefaultValue());
 					} else if (multiNumberComp.getSelectedMode() == ConfiguratorMode.CUSTOM) {
-						builder.addCustomAttribute(multiNumberComp.getAttributeName(),
+						builder.addCustomNumberedAttributeExpression(multiNumberComp.getAttributeName(),
 								multiNumberComp.getSelectedFeatures(), multiNumberComp.getCustomValue());
 					}
 				} else if (row instanceof DwMultiEnumCriteriaComposite) {
@@ -143,6 +150,7 @@ public class DwCriteriaOverviewDialog extends Dialog {
 			}
 		}
 
+		// run the configurator, show a dialog in case the connection to hyvarrec failed
 		try {
 			output = configurator.run();
 		} catch (InterruptedException | TimeoutException | ExecutionException e) {
@@ -150,6 +158,7 @@ public class DwCriteriaOverviewDialog extends Dialog {
 			e.printStackTrace();
 		}
 
+		// check the output, if its valid then create a configuration, else open a warning dialog
 		if (output != null) {
 			Gson gson = new GsonBuilder().create();
 			OutputOfHyVarRec outputOfHyVarRec = gson.fromJson(output, OutputOfHyVarRec.class);
@@ -179,6 +188,9 @@ public class DwCriteriaOverviewDialog extends Dialog {
 			public void widgetSelected(SelectionEvent e) {
 				DwCriteriaSelectionDialog dialog = new DwCriteriaSelectionDialog(getShell(), attributes, date);
 				if (dialog.open() == Dialog.OK) {
+					
+					// add criterias to this dialog that has been selected in the criteria-selection dialog
+					
 					comp.addMultiNumberedCriteria(dialog.getSelectedNumberedAttributeNames());
 					comp.addMultiEnumCriteria(dialog.getSelectedEnumAttributeNames());
 					comp.addMultiBooleanCriteria(dialog.getSelectedBooleanAttributeNames());

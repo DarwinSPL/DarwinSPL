@@ -34,8 +34,7 @@ public class DwAttributeEditDefaultAction extends SelectionAction {
 		StructuredSelection selection = (StructuredSelection)this.getSelection();
 		DwAttributeEditPart part = (DwAttributeEditPart)selection.getFirstElement();
 		HyNumberAttribute attribute = (HyNumberAttribute)part.getModel();
-		DwEditAttributeDefaultDialog dialog = new DwEditAttributeDefaultDialog(this.getWorkbenchPart().getSite().getShell());
-		dialog.setElement(attribute);
+		DwEditAttributeDefaultDialog dialog = new DwEditAttributeDefaultDialog(this.getWorkbenchPart().getSite().getShell(), attribute);
 		
 		if(dialog.open() == Dialog.OK) {
 			attribute.setDefault(dialog.getDefaultValue());

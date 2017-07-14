@@ -19,6 +19,12 @@ import eu.hyvar.preferences.HyPreference;
 import eu.hyvar.preferences.HyProfile;
 import eu.hyvar.preferences.PreferencesFactory;
 
+/**
+ * collects preferences and sends all necessary data to hyvarrec to create a configuration
+ * 
+ * @author Jeremias Wrensch
+ *
+ */
 public class Configurator {
 
 	public enum Mode {
@@ -33,6 +39,13 @@ public class Configurator {
 	private HyConstraintModel constraintModel;
 	private Date date;
 
+	/**
+	 * 
+	 * @param uri hyvarrec-uri
+	 * @param featureModel 
+	 * @param constraintModel cross-tree-constraints
+	 * @param date evolution date
+	 */
 	public Configurator(String uri, HyFeatureModel featureModel, HyConstraintModel constraintModel, Date date) {
 		PreferencesFactory preferenceFactory = PreferencesFactory.eINSTANCE;
 		this.profile = preferenceFactory.createHyProfile();
@@ -43,6 +56,16 @@ public class Configurator {
 		this.date = date;
 	}
 
+	/**
+	 * 
+	 * exports the feature model, cross-tree-constraints to hyvarrec input
+	 * and sends it to hyvarrec
+	 * 
+	 * @return generated configuration string
+	 * @throws InterruptedException
+	 * @throws TimeoutException
+	 * @throws ExecutionException
+	 */
 	public String run() throws InterruptedException, TimeoutException, ExecutionException {
 		CustomHyVarRecExporter exporter = new CustomHyVarRecExporter();
 		String input = exporter.export(featureModel, constraintModel, profile, date);
@@ -57,10 +80,24 @@ public class Configurator {
 		return output;
 	}
 
+	/**
+	 * adds preferences that will be used for the generation of the configuration
+	 * @param preference
+	 */
 	public void addPreference(HyPreference preference) {
 		profile.getPreferences().add(preference);
 	}
 
+	/**
+	 * 
+	 * sends the content to hyvarrec and returns the result
+	 * 
+	 * @param content hyvarrec input
+	 * @return result of hyvarrec
+	 * @throws InterruptedException
+	 * @throws TimeoutException
+	 * @throws ExecutionException
+	 */
 	private String sendToHyVarRec(String content) throws InterruptedException, TimeoutException, ExecutionException {
 		HttpClient client = new HttpClient();
 		try {

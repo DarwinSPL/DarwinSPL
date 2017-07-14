@@ -1,12 +1,20 @@
 package de.darwinspl.feature.graphical.configurator.widgets;
 
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.layout.RowData;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Text;
 
 import eu.hyvar.feature.HyNumberAttribute;
 
+/**
+ * 
+ * UI implementation for numbered criteria
+ * 
+ * @author Jeremias Wrensch
+ *
+ */
 public class DwNumberedCriteriaComposite extends DwAbstractCriteriaComposite implements DwCriteriaComposite {
 
 	private Button useDefault;
@@ -17,7 +25,12 @@ public class DwNumberedCriteriaComposite extends DwAbstractCriteriaComposite imp
 
 	private Text customInput;
 
-	
+	/**
+	 * 
+	 * @param attribute numbered attribute
+	 * @param parent
+	 * @param style
+	 */
 	public DwNumberedCriteriaComposite(HyNumberAttribute attribute, Composite parent, int style) {
 		super(attribute, parent, style);
 		
@@ -34,9 +47,13 @@ public class DwNumberedCriteriaComposite extends DwAbstractCriteriaComposite imp
 		custom = new Button(this, SWT.RADIO);
 		custom.setText("Custom");
 		
-		customInput = new Text(this, SWT.NONE);
+		RowData rowData = new RowData();
+		rowData.width = 30;
+		
+		customInput = new Text(this, SWT.BORDER);
 		customInput.setText("0");
 		customInput.setEditable(true);
+		customInput.setLayoutData(rowData);
 	}
 
 	public boolean useDefaultValue(){

@@ -14,6 +14,13 @@ import de.darwinspl.feature.graphical.configurator.dialogs.DwFeatureSelectionDia
 import eu.hyvar.feature.HyFeature;
 import eu.hyvar.feature.HyFeatureModel;
 
+/**
+ * 
+ * abstract class for fature model attribute criterias
+ * 
+ * @author Jeremias Wrensch
+ *
+ */
 public abstract class DwAbstractMultiCriteriaComposite extends DwAbstractCriteriaComposite implements DwCriteriaComposite {
 
 	private List<HyFeature> selectedFeatures;

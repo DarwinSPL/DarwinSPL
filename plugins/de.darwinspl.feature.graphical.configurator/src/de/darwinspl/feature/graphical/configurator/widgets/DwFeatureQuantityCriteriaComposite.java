@@ -8,6 +8,14 @@ import org.eclipse.swt.widgets.Composite;
 
 import eu.hyvar.feature.HyFeatureModel;
 
+
+/**
+ * 
+ * ui implementation for feature quantity criterias
+ * 
+ * @author Jeremias Wrensch
+ *
+ */
 public class DwFeatureQuantityCriteriaComposite extends DwAbstractMultiCriteriaComposite implements DwCriteriaComposite {
 
 	private CCombo dropdown;
@@ -22,7 +30,7 @@ public class DwFeatureQuantityCriteriaComposite extends DwAbstractMultiCriteriaC
 		items[MIN] = "Min";
 		items[MAX] = "Max";
 		
-		dropdown = new CCombo(this, SWT.DROP_DOWN);
+		dropdown = new CCombo(this, SWT.BORDER);
 		dropdown.setItems(items);
 		dropdown.select(0);
 		

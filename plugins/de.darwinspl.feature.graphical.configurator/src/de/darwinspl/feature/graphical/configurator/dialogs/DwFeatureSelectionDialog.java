@@ -25,6 +25,13 @@ import eu.hyvar.feature.HyFeatureModel;
 import eu.hyvar.feature.HyGroup;
 import eu.hyvar.feature.util.HyFeatureEvolutionUtil;
 
+/**
+ * 
+ * dialog containing a tree that represent the fm
+ * 
+ * @author Jeremias Wrensch
+ *
+ */
 public class DwFeatureSelectionDialog extends Dialog {
 	
 	private HyFeatureModel featureModel;
@@ -103,6 +110,11 @@ public class DwFeatureSelectionDialog extends Dialog {
 		return composite;
 	}
 	
+	/**
+	 * method that recursively adds feature to the tree
+	 * @param parent parent of the treeitem
+	 * @param groups fm groups
+	 */
 	private void addFeatures(DwFeatureTreeItem parent, List<HyGroup> groups) {
 		for(HyGroup group : groups) {
 			for(HyFeature feature : HyFeatureEvolutionUtil.getFeaturesOfGroup(group, date)) {
@@ -113,6 +125,11 @@ public class DwFeatureSelectionDialog extends Dialog {
 		}
 	}
 	
+	/**
+	 * method the recursively checks the children
+	 * @param item
+	 * @param checked
+	 */
 	private void selectChilds(TreeItem item, boolean checked) {
 		for(TreeItem child : item.getItems()) {
 			child.setChecked(checked);
@@ -124,6 +141,11 @@ public class DwFeatureSelectionDialog extends Dialog {
 		return selectedFeatures;
 	}
 	
+	/**
+	 * method that recursively adds checked features
+	 * @param item
+	 * @return list of selected features
+	 */
 	private List<HyFeature> getSelectedFeatures(DwFeatureTreeItem item) {
 		List<HyFeature> features = new ArrayList<HyFeature>();
 		

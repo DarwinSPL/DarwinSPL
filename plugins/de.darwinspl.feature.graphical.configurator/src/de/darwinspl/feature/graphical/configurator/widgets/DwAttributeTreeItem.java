@@ -8,6 +8,13 @@ import org.eclipse.swt.widgets.TreeItem;
 import eu.hyvar.feature.HyFeatureAttribute;
 import eu.hyvar.feature.util.HyFeatureEvolutionUtil;
 
+/**
+ * 
+ * TreeItem with attribute representation
+ * 
+ * @author Jeremias Wrensch
+ *
+ */
 public class DwAttributeTreeItem extends TreeItem {
 	
 	private HyFeatureAttribute attribute;

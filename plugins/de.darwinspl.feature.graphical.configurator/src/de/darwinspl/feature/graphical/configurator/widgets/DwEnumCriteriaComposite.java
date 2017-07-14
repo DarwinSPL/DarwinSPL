@@ -9,6 +9,14 @@ import org.eclipse.swt.widgets.Composite;
 import eu.hyvar.dataValues.HyEnumLiteral;
 import eu.hyvar.feature.HyEnumAttribute;
 
+
+/**
+ * 
+ * ui implementation for enum feature attribute criterias
+ * 
+ * @author Jeremias Wrensch
+ *
+ */
 public class DwEnumCriteriaComposite  extends DwAbstractCriteriaComposite implements DwCriteriaComposite{
 
 	private CCombo dropdown;
@@ -19,7 +27,7 @@ public class DwEnumCriteriaComposite  extends DwAbstractCriteriaComposite implem
 		
 		this.attribute = attribute;
 		
-		dropdown = new CCombo(this, SWT.DROP_DOWN);
+		dropdown = new CCombo(this, SWT.BORDER);
 		List<HyEnumLiteral> literals =  attribute.getEnumType().getLiterals();
 		String[] items = new String[literals.size()];
 		for(int i = 0; i < literals.size(); i++) {

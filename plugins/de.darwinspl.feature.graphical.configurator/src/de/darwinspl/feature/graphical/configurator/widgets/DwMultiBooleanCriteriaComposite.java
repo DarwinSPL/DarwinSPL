@@ -8,6 +8,14 @@ import org.eclipse.swt.widgets.Composite;
 
 import eu.hyvar.feature.HyFeatureModel;
 
+
+/**
+ * 
+ * ui implementation for boolean feature model attribute criterias
+ * 
+ * @author Jeremias Wrensch
+ *
+ */
 public class DwMultiBooleanCriteriaComposite extends DwAbstractMultiCriteriaComposite implements DwCriteriaComposite {
 
 	Button booleanCheckbox;
