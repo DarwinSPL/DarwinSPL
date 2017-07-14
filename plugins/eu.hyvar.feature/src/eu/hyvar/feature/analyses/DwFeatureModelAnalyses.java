@@ -29,17 +29,17 @@ public class DwFeatureModelAnalyses {
 	public static List<DwFeatureModelAnalysesMarker> checkForNameUniqueness(HyFeatureModel featureModel) {
 		List<DwFeatureModelAnalysesMarker> markerList = new ArrayList<DwFeatureModelAnalysesMarker>();
 		
-		Map<String, List<EObject>> nameMap = new HashMap<String, List<EObject>>();
+//		Map<String, List<EObject>> nameMap = new HashMap<String, List<EObject>>();
 		List<String> doubledNames = new ArrayList<String>();
 		
 		List<Date> dates = HyEvolutionUtil.collectDates(featureModel);
 		
 		if(dates == null || dates.isEmpty()) {
-			markerList.addAll(computeDoubledNames(nameMap, doubledNames, featureModel, null));
+			markerList.addAll(computeDoubledNames(doubledNames, featureModel, null));
 		}
 		else {
 			for(Date date: dates) {
-				markerList.addAll(computeDoubledNames(nameMap, doubledNames, featureModel, date));
+				markerList.addAll(computeDoubledNames(doubledNames, featureModel, date));
 			}
 		}
 		
@@ -89,8 +89,10 @@ public class DwFeatureModelAnalyses {
 		return markerList;
 	}
 	
-	private static List<DwFeatureModelAnalysesMarker> computeDoubledNames(Map<String, List<EObject>> featureNameMap, List<String> doubledFeatureNames, HyFeatureModel featureModel, Date date) {
+	private static List<DwFeatureModelAnalysesMarker> computeDoubledNames(List<String> doubledFeatureNames, HyFeatureModel featureModel, Date date) {
 		List<DwFeatureModelAnalysesMarker> markerList = new ArrayList<DwFeatureModelAnalysesMarker>();
+		
+		Map<String, List<EObject>> featureNameMap = new HashMap<String, List<EObject>>();
 		
 		for(HyFeature feature: featureModel.getFeatures()) {
 			collectNames(feature, featureNameMap, doubledFeatureNames, date);
@@ -117,6 +119,10 @@ public class DwFeatureModelAnalyses {
 	}
 	
 	private static void collectNames(HyNamedElement namedElement, Map<String, List<EObject>> nameMap, List<String> doubledNames, Date date) {
+		if(namedElement == null || namedElement.getNames() == null || HyFeatureEvolutionUtil.getName(namedElement.getNames(), date) == null) {
+			return;
+		}
+		
 		String name = HyFeatureEvolutionUtil.getName(namedElement.getNames(), date).getName();
 		if(nameMap.containsKey(name)) {
 			nameMap.get(name).add(namedElement);
