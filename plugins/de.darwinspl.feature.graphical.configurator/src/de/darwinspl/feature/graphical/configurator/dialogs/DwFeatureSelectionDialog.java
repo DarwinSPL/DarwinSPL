@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.List;
 
 import org.eclipse.jface.dialogs.Dialog;
+import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
@@ -59,6 +60,10 @@ public class DwFeatureSelectionDialog extends Dialog {
 	@Override
 	protected void okPressed() {
 		selectedFeatures = getSelectedFeatures(rootItem);
+		if(selectedFeatures == null || selectedFeatures.isEmpty()) {
+			MessageDialog.openError(getShell(), "Feature Selection Empty!", "Please select at least one feature!");
+			return;
+		}
 		super.okPressed();
 	}
 

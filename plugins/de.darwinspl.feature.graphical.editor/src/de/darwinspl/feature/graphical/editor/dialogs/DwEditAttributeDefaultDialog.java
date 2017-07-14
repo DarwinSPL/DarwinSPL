@@ -2,15 +2,12 @@ package de.darwinspl.feature.graphical.editor.dialogs;
 
 import org.eclipse.jface.dialogs.Dialog;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.events.VerifyEvent;
+import org.eclipse.swt.events.VerifyListener;
 import org.eclipse.swt.layout.FillLayout;
-import org.eclipse.swt.layout.GridData;
-import org.eclipse.swt.layout.GridLayout;
-import org.eclipse.swt.layout.RowLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
-import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Label;
-import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
 
@@ -31,6 +28,13 @@ public class DwEditAttributeDefaultDialog extends Dialog {
 		return defaultValue;
 	}
 
+	
+
+	@Override
+	protected void okPressed() {
+		defaultValue = Integer.parseInt(textDefault.getText());
+		super.okPressed();
+	}
 
 	@Override
 	protected Control createDialogArea(Composite parent) {
@@ -45,14 +49,18 @@ public class DwEditAttributeDefaultDialog extends Dialog {
 
 	    textDefault = new Text(composite, SWT.BORDER);
 	    textDefault.setText(Integer.toString(attribute.getDefault()));
-	    textDefault.addListener(SWT.CHANGED, new Listener(){
-
+	    textDefault.addVerifyListener(new VerifyListener() {
 			@Override
-			public void handleEvent(Event event) {
-				if(!textDefault.getText().isEmpty())
-					defaultValue = Integer.parseInt(textDefault.getText());
-			}			
-		});	
+			public void verifyText(VerifyEvent e) {
+				// check that input is a number
+				if(!Character.isDigit(e.character)
+						&& e.keyCode != SWT.BS
+						&& e.keyCode != SWT.DEL) {
+					e.doit = false;
+				}
+				
+			}
+		});
 	    
 	    label.pack();
 	    textDefault.pack();

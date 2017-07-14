@@ -3,6 +3,8 @@ package de.darwinspl.feature.graphical.configurator.widgets;
 import java.util.Date;
 
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.events.VerifyEvent;
+import org.eclipse.swt.events.VerifyListener;
 import org.eclipse.swt.layout.RowData;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
@@ -36,6 +38,8 @@ public class DwMultiNumberedCriteriaComposite extends DwAbstractMultiCriteriaCom
 		
 		min = new Button(this, SWT.RADIO);
 		min.setText("Minimize");
+		min.setSelection(true);
+
 		
 		max = new Button(this, SWT.RADIO);
 		max.setText("Maximize");
@@ -50,6 +54,18 @@ public class DwMultiNumberedCriteriaComposite extends DwAbstractMultiCriteriaCom
 		customInput.setText("0");
 		customInput.setEditable(true);
 		customInput.setLayoutData(rowData);
+		customInput.addVerifyListener(new VerifyListener() {
+				@Override
+				public void verifyText(VerifyEvent e) {
+					// check that input is a number
+					if(!Character.isDigit(e.character)
+							&& e.keyCode != SWT.BS
+							&& e.keyCode != SWT.DEL) {
+						e.doit = false;
+					}
+					
+				}
+			});
 		
 		
 	}
