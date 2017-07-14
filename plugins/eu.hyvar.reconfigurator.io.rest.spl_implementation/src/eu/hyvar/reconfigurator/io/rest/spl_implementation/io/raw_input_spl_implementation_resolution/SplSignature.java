@@ -11,14 +11,6 @@ public class SplSignature {
      * (Required)
      * 
      */
-    @SerializedName("feature_model")
-    @Expose
-    private FeatureModel featureModel;
-    /**
-     * 
-     * (Required)
-     * 
-     */
     @SerializedName("signature_id")
     @Expose
     private String signatureId;
@@ -30,24 +22,6 @@ public class SplSignature {
     @SerializedName("signature_model")
     @Expose
     private SignatureModel signatureModel;
-
-    /**
-     * 
-     * (Required)
-     * 
-     */
-    public FeatureModel getFeatureModel() {
-        return featureModel;
-    }
-
-    /**
-     * 
-     * (Required)
-     * 
-     */
-    public void setFeatureModel(FeatureModel featureModel) {
-        this.featureModel = featureModel;
-    }
 
     /**
      * 

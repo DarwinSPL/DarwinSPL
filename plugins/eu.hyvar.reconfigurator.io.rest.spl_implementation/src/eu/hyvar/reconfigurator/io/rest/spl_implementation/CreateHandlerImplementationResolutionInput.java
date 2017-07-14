@@ -110,26 +110,11 @@ public class CreateHandlerImplementationResolutionInput extends AbstractHandler 
 			}
 			sm.setSpecification(new String(data));
 			signature.setSignatureModel(sm);
-			
-			filename = "signatures/ecuaS/ECUASignature.hyfeature";
-			FeatureModel fm = new FeatureModel();
-			fm.setFilename(filename);
-			readfile = folder.getFile(filename);
-			is = readfile.getContents();
-			length = is.available();
-			read=0;
-			data = new byte[length];
-			while(read<length) {
-				read+=is.read(data, read, (length-read));
-			}
-			fm.setSpecification(new String(data));
-			signature.setFeatureModel(fm);
-			
+
 			input.setSplSignature(signature);
 			
 			List<SplImplementation> implementationList = new ArrayList<SplImplementation>();
 			SignatureModel_ sm_;
-			FeatureModel_ fm_;
 			SplImplementation implementation;
 			
 			
@@ -153,20 +138,6 @@ public class CreateHandlerImplementationResolutionInput extends AbstractHandler 
 			sm_.setSpecification(new String(data));
 			implementation.setSignatureModel(sm_);
 			
-			filename = "ecua_drop/ecua_drop.hyfeature";
-			fm_ = new FeatureModel_();
-			fm_.setFilename(filename);
-			readfile = folder.getFile(filename);
-			is = readfile.getContents();
-			length = is.available();
-			read=0;
-			data = new byte[length];
-			while(read<length) {
-				read+=is.read(data, read, (length-read));
-			}
-			fm_.setSpecification(new String(data));
-			implementation.setFeatureModel(fm_);
-			
 			implementationList.add(implementation);
 			
 			// Impl 2
@@ -188,20 +159,6 @@ public class CreateHandlerImplementationResolutionInput extends AbstractHandler 
 			}
 			sm_.setSpecification(new String(data));
 			implementation.setSignatureModel(sm_);
-			
-			filename = "ecua/ecua.hyfeature";
-			fm_ = new FeatureModel_();
-			fm_.setFilename(filename);
-			readfile = folder.getFile(filename);
-			is = readfile.getContents();
-			length = is.available();
-			read=0;
-			data = new byte[length];
-			while(read<length) {
-				read+=is.read(data, read, (length-read));
-			}
-			fm_.setSpecification(new String(data));
-			implementation.setFeatureModel(fm_);
 			
 			implementationList.add(implementation);
 			
@@ -225,19 +182,6 @@ public class CreateHandlerImplementationResolutionInput extends AbstractHandler 
 			sm_.setSpecification(new String(data));
 			implementation.setSignatureModel(sm_);
 			
-			filename = "ecua_bis/ecua_bis.hyfeature";
-			fm_ = new FeatureModel_();
-			fm_.setFilename(filename);
-			readfile = folder.getFile(filename);
-			is = readfile.getContents();
-			length = is.available();
-			read=0;
-			data = new byte[length];
-			while(read<length) {
-				read+=is.read(data, read, (length-read));
-			}
-			fm_.setSpecification(new String(data));
-			implementation.setFeatureModel(fm_);
 			
 			implementationList.add(implementation);
 

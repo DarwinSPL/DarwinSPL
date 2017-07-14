@@ -3,7 +3,6 @@ package eu.hyvar.reconfigurator.io.rest.spl_implementation;
 import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.PrintWriter;
 import java.util.Date;
 import java.util.List;
@@ -16,6 +15,7 @@ import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.emf.common.util.ECollections;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
@@ -40,7 +40,6 @@ import eu.hyvar.reconfigurator.io.rest.spl_implementation.io.raw_output_spl_impl
 public class JsonHandlerSPLImplementationResolution extends AbstractHandler {
 
 	private String MSG_TYPE_JSON_INPUT = "implementation_selection";
-	private boolean DEVEL = true;
 
 	@Override
 	public void handle(String target, Request baseRequest, HttpServletRequest request, HttpServletResponse response)
@@ -69,23 +68,25 @@ public class JsonHandlerSPLImplementationResolution extends AbstractHandler {
 			msgType = obj.get("msg_type").getAsString();
 
 		} catch(Exception e) {
-			error.setErrorString(error.getErrorString()+"\nError during input parsing: "+e.toString());
+			error.setErrorString(error.getErrorString()+"\n Error during input parsing: "+e.toString());
 		}
 		
-
+		// If the JSON have the right message type do the work
 		if (msgType.equals(MSG_TYPE_JSON_INPUT)) {
 			RawInputSPLImplementationResolution rawInput = gson.fromJson(jsonInput, RawInputSPLImplementationResolution.class);
 			
 			RawOutputSPLImplementationResolution output = saveAndAnalize(rawInput, error);
 			responseString = gson.toJson(output);
 		} else {
-			error.setErrorString(error.getErrorString()+"\nWrong type of message, expect: "+MSG_TYPE_JSON_INPUT);
+			error.setErrorString(error.getErrorString()+"\n Wrong type of message, expect: "+MSG_TYPE_JSON_INPUT);
 		}
 		
+		// If there is an error, return it instead of the output
 		if(!"".equals(error.getErrorString())) {
 			responseString = gson.toJson(error);
 		}
-			
+
+		// Send the output message
 		response.setContentType("application/json; charset=utf-8");
 		PrintWriter out = response.getWriter();
 		out.write(responseString);
@@ -93,162 +94,131 @@ public class JsonHandlerSPLImplementationResolution extends AbstractHandler {
 		baseRequest.setHandled(true);
 	}
 
+	
+	
 	private RawOutputSPLImplementationResolution saveAndAnalize(RawInputSPLImplementationResolution rawInput, RawOutputError error) {
-		
+
+		// Initialize the output and the temporary ResourseSet
 		RawOutputSPLImplementationResolution output = new RawOutputSPLImplementationResolution();
 		output.setSplId("");
 		
 		ResourceSetImpl baseContext = new ResourceSetImpl();
 
+		// Take the date-time used for the work  
 		Date currentInstant = HyEvolutionResolverUtil.resolveDate(rawInput.getDate());
 
-		
+		// Create the temporary folder for this work
 		IProgressMonitor progressMonitor = null;
 		IFolder folder = null;
 		try {
 			folder = WorkspaceManager.getWorkspaceManager().getNewIFolder();
 			progressMonitor = WorkspaceManager.getWorkspaceManager().getIProgressMonitor();
 		} catch (CoreException e) {
-			error.setErrorString(error.getErrorString()+"\nError creating folder and monitor: "+e.toString());
+			error.setErrorString(error.getErrorString()+"\n Error creating folder and monitor: "+e.toString());
 		}
 
 
 		String fileName = "";
+		byte[] content = new byte[0];
 		IFile ifile;
-		InputStream inputStream;
 		EObject object;
 		
 		// Saving the Signature to be implemented
 		HySPLSignature signatureToImplement = null;
 
-		fileName = rawInput.getSplSignature().getFeatureModel().getFilename();
-		if(fileName.startsWith("\\")||fileName.startsWith("/")) {
-			fileName = fileName.substring(1);
-		}
-		createFilePath(fileName, folder, progressMonitor, error);
-
-		ifile = folder.getFile(fileName);
-		inputStream = new ByteArrayInputStream(rawInput.getSplSignature().getFeatureModel().getSpecification().getBytes());
-		try {
-			if(!ifile.exists()) {
-				ifile.create(inputStream, true, progressMonitor);				
-			} else {
-				ifile.setContents(inputStream, IFile.FORCE, progressMonitor);
-			}
-		} catch (CoreException e) {
-			error.setErrorString(error.getErrorString()+"\nError creating file ("+fileName+"): "+e.toString());
-			e.printStackTrace();
-		}
-		
+		// Instantiate the Signature to be implemented: 
 		fileName = rawInput.getSplSignature().getSignatureModel().getFilename();
-		if(fileName.startsWith("\\")||fileName.startsWith("/")) {
-			fileName = fileName.substring(1);
-		}
-		createFilePath(fileName, folder, progressMonitor, error);
+		content = rawInput.getSplSignature().getSignatureModel().getSpecification().getBytes();
+		ifile = saveFileContent(fileName, content, folder, progressMonitor, error);
 
-		ifile = folder.getFile(fileName);
-		inputStream = new ByteArrayInputStream(rawInput.getSplSignature().getSignatureModel().getSpecification().getBytes());
-		try {
-			if(!ifile.exists()) {
-				ifile.create(inputStream, true, progressMonitor);				
-			} else {
-				ifile.setContents(inputStream, IFile.FORCE, progressMonitor);
+		if(ifile!=null) {
+			object = EcoreIOUtil.loadModel(ifile, baseContext);
+			if (object instanceof HySPLSignature) {
+				signatureToImplement = (HySPLSignature) object;
 			}
-		} catch (CoreException e) {
-			error.setErrorString(error.getErrorString()+"\nError creating file ("+fileName+"): "+e.toString());
-			e.printStackTrace();
-		}
-				
-		object = EcoreIOUtil.loadModel(ifile, baseContext);
-		if (object instanceof HySPLSignature) {
-			signatureToImplement = (HySPLSignature) object;
+		} else {
+			error.setErrorString(error.getErrorString()+"\n Error during saving of: "+fileName);
 		}
 
 		
 		
 		// Save and check the implementation
 		HySPLImplementation modelToCheck = null;
+		EList<HyTimedImplementations> elems;
 
 		List<SplImplementation> implementations = rawInput.getSplImplementations();
 		for (SplImplementation implementation: implementations) {
-			modelToCheck = null;
+			elems = ECollections.emptyEList();
 
 			// Save the implementation
-			fileName = implementation.getFeatureModel().getFilename();
-			if(fileName.startsWith("\\")||fileName.startsWith("/")) {
-				fileName = fileName.substring(1);
-			}
-			createFilePath(fileName, folder, progressMonitor, error);
-
-			ifile = folder.getFile(fileName);
-			inputStream = new ByteArrayInputStream(implementation.getFeatureModel().getSpecification().getBytes());
-			try {
-				if(!ifile.exists()) {
-					ifile.create(inputStream, true, progressMonitor);				
-				} else {
-					ifile.setContents(inputStream, IFile.FORCE, progressMonitor);
-				}
-			} catch (CoreException e) {
-				error.setErrorString(error.getErrorString()+"\nError creating file ("+fileName+"): "+e.toString());
-				e.printStackTrace();
-			}
-			
 			fileName = implementation.getSignatureModel().getFilename();
-			if(fileName.startsWith("\\")||fileName.startsWith("/")) {
-				fileName = fileName.substring(1);
-			}
-			createFilePath(fileName, folder, progressMonitor, error);
+			content = implementation.getSignatureModel().getSpecification().getBytes();
+			ifile = saveFileContent(fileName, content, folder, progressMonitor, error);
 
-			ifile = folder.getFile(fileName);
-			inputStream = new ByteArrayInputStream(implementation.getSignatureModel().getSpecification().getBytes());
-			try {
-				if(!ifile.exists()) {
-					ifile.create(inputStream, true, progressMonitor);				
-				} else {
-					ifile.setContents(inputStream, IFile.FORCE, progressMonitor);
+			
+			if(ifile!=null) {
+				// Check if is a valid HySPLImplementation
+				object = EcoreIOUtil.loadModel(ifile, baseContext);
+				if (object instanceof HySPLImplementation) {
+					modelToCheck = (HySPLImplementation) object;
+					elems = modelToCheck.getImplementations();
 				}
-			} catch (CoreException e) {
-				error.setErrorString(error.getErrorString()+"\nError creating file ("+fileName+"): "+e.toString());
-				e.printStackTrace();
-			}
-			
-			
-			// Check if is a valid implementation
-			object = EcoreIOUtil.loadModel(ifile, baseContext);
-			if (object instanceof HySPLImplementation) {
-				modelToCheck = (HySPLImplementation) object;
-			}
-			
-			EList<HyTimedImplementations> elems = modelToCheck.getImplementations();
-			for(HyTimedImplementations elem: elems) {
-				if( HyEvolutionUtil.isValid(elem, currentInstant) ) {
-					if(signatureToImplement==elem.getSignature()) {
-						output.setSplId(implementation.getSignatureId());
-						try {
-							if(!DEVEL) {
+				
+				// Check if is a valid implementation for the Signature in instance "currentInstant"
+				for(HyTimedImplementations elem: elems) {
+					if( HyEvolutionUtil.isValid(elem, currentInstant) ) {
+						if(signatureToImplement==elem.getSignature()) {
+							output.setSplId(implementation.getSignatureId());
+							try {
 								folder.delete(true, progressMonitor);
+							} catch (CoreException e) {
+								error.setErrorString(error.getErrorString()+"\n Error when deleting folder: "+e.getMessage());
 							}
-						} catch (CoreException e) {
-							error.setErrorString(error.getErrorString()+"\nError when deleting folder: "+e.getMessage());
+							return output;
 						}
-						return output;
 					}
 				}
+			} else {
+				error.setErrorString(error.getErrorString()+"\n Error during saving of: "+fileName);
 			}
 		}
 
 		try {
-			if(!DEVEL) {
-				folder.delete(true, progressMonitor);
-			}
+			folder.delete(true, progressMonitor);
 		} catch (CoreException e) {
-			error.setErrorString(error.getErrorString()+"\nError when deleting folder: "+e.getMessage());
+			error.setErrorString(error.getErrorString()+"\n Error when deleting folder: "+e.getMessage());
 		}
 		
 		return output;
 	}
 
 
+
+	private IFile saveFileContent (String fileName, byte[] content, IFolder folder, IProgressMonitor progressMonitor, RawOutputError error) {
+		if(fileName.startsWith("\\")||fileName.startsWith("/")) {
+			fileName = fileName.substring(1);
+		}
+		createFilePath(fileName, folder, progressMonitor, error);
+
+		IFile ifile = folder.getFile(fileName);
+		ByteArrayInputStream inputStream = new ByteArrayInputStream(content);
+		try {
+			if(!ifile.exists()) {
+				ifile.create(inputStream, true, progressMonitor);				
+			} else {
+				ifile.setContents(inputStream, IFile.FORCE, progressMonitor);
+			}
+			return ifile;
+		} catch (CoreException e) {
+			error.setErrorString(error.getErrorString()+"\n Error creating file ("+fileName+"): "+e.toString());
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
+	
+	
+	
 	private void createFilePath(String fileName, IFolder folder, IProgressMonitor progressMonitor, RawOutputError error) {
 
 		String relativePath = "";
@@ -268,7 +238,7 @@ public class JsonHandlerSPLImplementationResolution extends AbstractHandler {
 				}
 			}
 		} catch (CoreException e) {
-			error.setErrorString(error.getErrorString()+"\nError creating folder ("+relativePath+"): "+e.toString());
+			error.setErrorString(error.getErrorString()+"\n Error creating folder ("+relativePath+"): "+e.toString());
 		}
 	}
 
