@@ -1,5 +1,8 @@
 package de.darwinspl.feature.stage.editor.dialogs;
 
+import java.util.Date;
+import java.util.List;
+
 import org.eclipse.jface.dialogs.Dialog;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionEvent;
@@ -15,21 +18,24 @@ import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.widgets.Label;
-import org.eclipse.swt.widgets.List;
 import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Shell;
 
 import de.darwinspl.feature.stage.Role;
+import de.darwinspl.feature.stage.RoleAssignment;
 import de.darwinspl.feature.stage.Stage;
 import de.darwinspl.feature.stage.base.model.StageModelWrapped;
+import eu.hyvar.evolution.HyName;
+import eu.hyvar.evolution.util.HyEvolutionUtil;
 
 public class RoleAssignmentDialog extends Dialog {
 
-	protected StageModelWrapped stageModelWrapped;	
+	protected StageModelWrapped stageModelWrapped;
+	protected Date currentSelectedDate;
 	
-	protected List roleList;
-	protected List assignedStagesList;
-	protected List availableStagesList;
+	protected org.eclipse.swt.widgets.List roleList;
+	protected org.eclipse.swt.widgets.List assignedStagesList;
+	protected org.eclipse.swt.widgets.List availableStagesList;
 	
 	protected Stage selectedAssignedStage;
 	protected Stage selectedAvailableStage;
@@ -52,9 +58,10 @@ public class RoleAssignmentDialog extends Dialog {
 	 * Role Assignment Dialog Constructor
 	 * @param parentShell
 	 */
-	protected RoleAssignmentDialog(Shell parentShell, StageModelWrapped stageModelWrapped) {
+	protected RoleAssignmentDialog(Shell parentShell, StageModelWrapped stageModelWrapped, Date currentSelectedDate) {
 		super(parentShell);
-		this.stageModelWrapped = stageModelWrapped; 
+		this.stageModelWrapped = stageModelWrapped;
+		this.currentSelectedDate = currentSelectedDate;
 	}
 
 	/**
@@ -106,18 +113,18 @@ public class RoleAssignmentDialog extends Dialog {
 //		// Lists for Stages / Roles
 		roleLabel = new Label(roleGroup, SWT.NONE);
 		roleLabel.setText("Roles");
-	    roleList = new List(roleGroup, SWT.BORDER | SWT.SINGLE | SWT.V_SCROLL);
+	    roleList = new org.eclipse.swt.widgets.List(roleGroup, SWT.BORDER | SWT.SINGLE | SWT.V_SCROLL);
 	    roleList.setLayoutData(new GridData(SWT.FILL,SWT.FILL,true,true));
 	     
 	    assignedStagesLabel = new Label(assignedStagesGroup, SWT.NONE);
 	    assignedStagesLabel.setText("Assigned Stages");
-	    assignedStagesList = new List(assignedStagesGroup, SWT.BORDER | SWT.SINGLE | SWT.V_SCROLL);
+	    assignedStagesList = new org.eclipse.swt.widgets.List(assignedStagesGroup, SWT.BORDER | SWT.SINGLE | SWT.V_SCROLL);
 	    assignedStagesList.setLayoutData(new GridData(SWT.FILL,SWT.FILL,true,true));
 	    
 	    
 	    availableStagesLabel = new Label(availableStagesGroup, SWT.NONE);
 	    availableStagesLabel.setText("Available Stages");
-	    availableStagesList = new List(availableStagesGroup, SWT.BORDER | SWT.SINGLE | SWT.V_SCROLL);
+	    availableStagesList = new org.eclipse.swt.widgets.List(availableStagesGroup, SWT.BORDER | SWT.SINGLE | SWT.V_SCROLL);
 	    availableStagesList.setLayoutData(new GridData(SWT.FILL,SWT.FILL,true,true));
 	    
 	    
@@ -177,7 +184,8 @@ public class RoleAssignmentDialog extends Dialog {
 					
 					// For Loops Checks for Existing Name (Have to be unqiue)
 					for(Stage currentStage: stageModelWrapped.getModel().getStages()){
-						if(currentStage.getNames().get(0).getName().equals(listString)){
+						HyName currentName = HyEvolutionUtil.getValidTemporalElement(currentStage.getNames(), currentSelectedDate);
+						if(currentName.getName().equals(listString)){
 							selectedAssignedStage = currentStage;
 						}
 						
@@ -201,7 +209,8 @@ public class RoleAssignmentDialog extends Dialog {
 					
 					// For Loops Checks for Existing Name (Have to be unqiue)
 					for(Stage currentStage: stageModelWrapped.getModel().getStages()){
-						if(currentStage.getNames().get(0).getName().equals(listString)){
+						HyName currentName = HyEvolutionUtil.getValidTemporalElement(currentStage.getNames(), currentSelectedDate);
+						if(currentName.getName().equals(listString)){
 							selectedAvailableStage = currentStage;
 						}
 						
@@ -224,7 +233,7 @@ public class RoleAssignmentDialog extends Dialog {
 		//	Assign Role to Stage Button Listener
 		assignButton.addListener(SWT.Selection, new Listener(){
 			public void handleEvent(Event event) {
-				stageModelWrapped.assignRoleToStage(selectedRole,selectedAvailableStage);
+				stageModelWrapped.assignRoleToStage(selectedRole,selectedAvailableStage, currentSelectedDate);
 				
 				updateAssignedStagesList();
 				updateAvailableStagesList();
@@ -236,7 +245,7 @@ public class RoleAssignmentDialog extends Dialog {
 		// Unassign Role from Stage Button Listener
 		unassignButton.addListener(SWT.Selection, new Listener(){
 			public void handleEvent(Event event) {
-				stageModelWrapped.unassignRoleFromStage(selectedRole,selectedAssignedStage);
+				stageModelWrapped.unassignRoleFromStage(selectedRole,selectedAssignedStage, currentSelectedDate);
 				
 				updateAssignedStagesList();
 				updateAvailableStagesList();
@@ -257,11 +266,19 @@ public class RoleAssignmentDialog extends Dialog {
 		assignedStagesList.removeAll();;
 		for (Stage currentStage : stageModelWrapped.getModel().getStages()) {
 			
-			if(selectedRole != null && selectedRole.getAssignedTo().contains(currentStage)){
-				String currentStageName = currentStage.getNames().get(0).getName();
-				assignedStagesList.add(currentStageName);
-			}
+			if(selectedRole != null){
+				
+				List<RoleAssignment> roleAssignment = HyEvolutionUtil.getValidTemporalElements(selectedRole.getAssignments(), currentSelectedDate);
+				
+				for(RoleAssignment currentAssignment : roleAssignment){
+					if(currentAssignment.getStage().equals(currentStage)){
+						HyName currentName = HyEvolutionUtil.getValidTemporalElement(currentStage.getNames(), currentSelectedDate);
+						String currentStageName = currentName.getName();
+						assignedStagesList.add(currentStageName);						
+					}
+				}					
 
+			}
 			assignedStagesList.redraw();	
 			
       }	   
@@ -274,7 +291,8 @@ public class RoleAssignmentDialog extends Dialog {
 	public void updateAvailableStagesList(){
 		availableStagesList.removeAll();;
 		for (Stage currentStage : stageModelWrapped.getModel().getStages()) {	
-			String currentStageName = currentStage.getNames().get(0).getName();
+			HyName currentName = HyEvolutionUtil.getValidTemporalElement(currentStage.getNames(), currentSelectedDate);
+			String currentStageName = currentName.getName();
 			boolean exists = false;
 			for(String str: assignedStagesList.getItems()){
 				if(str.equals(currentStageName)){
@@ -296,8 +314,9 @@ public class RoleAssignmentDialog extends Dialog {
 	 */
 	public void updateRoleList(){
 		roleList.removeAll();;
-		for (Role currentRole : stageModelWrapped.getModel().getRoles()) {			
-			String currentRoleName = currentRole.getNames().get(0).getName(); 
+		for (Role currentRole : stageModelWrapped.getModel().getRoles()) {
+			HyName currentName = HyEvolutionUtil.getValidTemporalElement(currentRole.getNames(), currentSelectedDate);
+			String currentRoleName = currentName.getName(); 
 			roleList.add(currentRoleName);
 			
 			roleList.redraw();

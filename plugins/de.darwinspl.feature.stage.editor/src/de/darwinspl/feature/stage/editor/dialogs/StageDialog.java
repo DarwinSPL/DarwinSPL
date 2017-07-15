@@ -1,10 +1,10 @@
 package de.darwinspl.feature.stage.editor.dialogs;
 
+import java.util.Date;
+
 import org.eclipse.jface.dialogs.Dialog;
 import org.eclipse.jface.dialogs.IDialogConstants;
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.events.KeyEvent;
-import org.eclipse.swt.events.KeyListener;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.graphics.Point;
@@ -20,11 +20,11 @@ import org.eclipse.swt.widgets.List;
 import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.MessageBox;
 import org.eclipse.swt.widgets.Shell;
-import org.eclipse.ui.IEditorPart;
-
 import de.darwinspl.feature.stage.Role;
 import de.darwinspl.feature.stage.Stage;
 import de.darwinspl.feature.stage.base.model.StageModelWrapped;
+import eu.hyvar.evolution.HyName;
+import eu.hyvar.evolution.util.HyEvolutionUtil;
 
 /**
  * Dialog to manage Stages and Roles
@@ -34,6 +34,8 @@ import de.darwinspl.feature.stage.base.model.StageModelWrapped;
 public class StageDialog extends Dialog implements Listener{
 	// The current Model
 	protected StageModelWrapped stageModelWrapped;
+	// Current Date
+	protected Date currentSelectedDate;
 	// Selected Stage Reference
 	protected Stage selectedStage; 
 	protected Role selectedRole;
@@ -62,11 +64,13 @@ public class StageDialog extends Dialog implements Listener{
 	/**
 	 * Stage Dialog
 	 * @param parentShell
+	 * @param currentSelectedDate current selected Date
 	 * @param stageModel current Stage Model
 	 */
-	public StageDialog(Shell parentShell, StageModelWrapped stageModel) {
+	public StageDialog(Shell parentShell, Date currentSelectedDate, StageModelWrapped stageModel) {
 		super(parentShell);
-		this.stageModelWrapped = stageModel;		
+		this.stageModelWrapped = stageModel;
+		this.currentSelectedDate = currentSelectedDate;
 	}
 
 	@Override
@@ -189,7 +193,7 @@ public class StageDialog extends Dialog implements Listener{
 		// Add Stage Button
 		addStageButton.addListener(SWT.Selection, new Listener(){
 			public void handleEvent(Event event) {
-				StageCreationDialog stageCreationDialog = new StageCreationDialog(getShell(), stageModelWrapped);
+				StageCreationDialog stageCreationDialog = new StageCreationDialog(getShell(), stageModelWrapped, currentSelectedDate);
 				stageCreationDialog.open();
 				updateStageList();
 			}
@@ -199,7 +203,7 @@ public class StageDialog extends Dialog implements Listener{
 		// Add Role Button
 		addRoleButton.addListener(SWT.Selection, new Listener(){
 			public void handleEvent(Event event) {
-				RoleCreationDialog roleCreationDialog = new RoleCreationDialog(getShell(), stageModelWrapped);
+				RoleCreationDialog roleCreationDialog = new RoleCreationDialog(getShell(), stageModelWrapped, currentSelectedDate);
 				roleCreationDialog.open();
 				updateRoleList();
 			}
@@ -209,13 +213,14 @@ public class StageDialog extends Dialog implements Listener{
 		// Delete Stage Button
 		deleteStageButton.addListener(SWT.Selection,new Listener(){
 			public void handleEvent(Event event){
-				String stageName = selectedStage.getNames().get(0).getName();
+				HyName currentName = HyEvolutionUtil.getValidTemporalElement(selectedStage.getNames(), currentSelectedDate);
+				String stageName = currentName.getName();
 				MessageBox messageBox = new MessageBox(getShell(), SWT.ICON_QUESTION | SWT.YES | SWT.NO);
 			    messageBox.setMessage("Do you really want to delete the Stage: " + stageName );
 			    int response = messageBox.open();
 			    if(response == SWT.YES){
 			    	System.out.println("trying to delete the stage: " +stageName);
-			    	stageModelWrapped.deleteStage(selectedStage);
+			    	stageModelWrapped.deleteStage(selectedStage, currentSelectedDate);
 			    	updateStageList();
 			    	updateRoleList();
 			    }
@@ -226,13 +231,14 @@ public class StageDialog extends Dialog implements Listener{
 		//Delete Role Button
 		deleteRoleButton.addListener(SWT.Selection,new Listener(){
 			public void handleEvent(Event event){
-				String roleName = selectedRole.getNames().get(0).getName();
+				HyName currentName = HyEvolutionUtil.getValidTemporalElement(selectedRole.getNames(), currentSelectedDate);
+				String roleName = currentName.getName();
 				MessageBox messageBox = new MessageBox(getShell(), SWT.ICON_QUESTION | SWT.YES | SWT.NO);
 			    messageBox.setMessage("Do you really want to delete the Role: " + roleName );
 			    int response = messageBox.open();
 			    if(response == SWT.YES){
 			    	System.out.println("trying to delete the role: " +roleName);
-			    	stageModelWrapped.deleteRole(selectedRole);
+			    	stageModelWrapped.deleteRole(selectedRole, currentSelectedDate);
 			    	updateRoleList();
 			    	updateStageList();
 			    }
@@ -243,7 +249,7 @@ public class StageDialog extends Dialog implements Listener{
 		//Role Inclusion Button Listener
 	    roleInclusionButton.addListener(SWT.Selection, new Listener(){
 	  			public void handleEvent(Event event) {
-	  				RoleInclusionDialog roleInclusionDialog = new RoleInclusionDialog(getShell(), stageModelWrapped);
+	  				RoleInclusionDialog roleInclusionDialog = new RoleInclusionDialog(getShell(), stageModelWrapped, currentSelectedDate);
 	  				roleInclusionDialog.open();	  				
 
 	  				updateStageList();
@@ -256,10 +262,11 @@ public class StageDialog extends Dialog implements Listener{
 		
 	}
 	
-	@Override
+	
 	/**	
 	 * New Button Bar Done-Button, removes Cancel
-	 */		
+	 */	
+	@Override
 	 protected void createButtonsForButtonBar(Composite parent) {
 		//Accept
 		createButton(parent, IDialogConstants.OK_ID, "Done", true);	   
@@ -301,7 +308,7 @@ public class StageDialog extends Dialog implements Listener{
 		//Role Assignment Button Listener 
 	    roleAssignmentButton.addListener(SWT.Selection, new Listener(){
 	  			public void handleEvent(Event event) {
-	  				RoleAssignmentDialog roleAssignmentDialog = new RoleAssignmentDialog(getShell(), stageModelWrapped);
+	  				RoleAssignmentDialog roleAssignmentDialog = new RoleAssignmentDialog(getShell(), stageModelWrapped, currentSelectedDate);
 	  				roleAssignmentDialog.open();	  				
 
 	  				updateStageList();
@@ -314,8 +321,9 @@ public class StageDialog extends Dialog implements Listener{
 	    return buttonBar;
 	}
 	
-	// overriding this methods allows you to set the
-	// title of the custom dialog
+	/**
+	 * Override creates name of Dialog
+	 */
 	@Override
 	protected void configureShell(Shell newShell) {
 		super.configureShell(newShell);
@@ -337,13 +345,17 @@ public class StageDialog extends Dialog implements Listener{
 	 * Update Function for the Stage representation
 	 */
 	public void updateStageList(){
-		stageList.removeAll();;
-		for (Stage currentStage : stageModelWrapped.getModel().getStages()) {			
-			String currentStageName = currentStage.getNames().get(0).getName();
+		stageList.removeAll();
+		for (Stage currentStage : stageModelWrapped.getModel().getStages()) {
+			String currentStageName;
+			if(HyEvolutionUtil.isValid(currentStage, currentSelectedDate)){
+				HyName currentName = HyEvolutionUtil.getValidTemporalElement(currentStage.getNames(), currentSelectedDate);
+				 currentStageName = currentName.getName();				
+			} else {
+				HyName currentName = HyEvolutionUtil.getValidTemporalElement(currentStage.getNames(), currentSelectedDate);
+				 currentStageName = currentName.getName() + " - not valid";	 
+			}
 			stageList.add(currentStageName);
-
-			//stageList.pack();
-			//stageGroup.pack();
 			stageList.redraw();	
 			
       }	   
@@ -355,11 +367,15 @@ public class StageDialog extends Dialog implements Listener{
 	public void updateRoleList(){
 		roleList.removeAll();;
 		for (Role currentRole : stageModelWrapped.getModel().getRoles()) {			
-			String currentRoleName = currentRole.getNames().get(0).getName(); 		
-
+			String currentRoleName;			
+			if(HyEvolutionUtil.isValid(currentRole, currentSelectedDate)){
+				HyName currentName = HyEvolutionUtil.getValidTemporalElement(currentRole.getNames(), currentSelectedDate);
+				currentRoleName = currentName.getName();				
+			} else {
+				HyName currentName = HyEvolutionUtil.getValidTemporalElement(currentRole.getNames(), currentSelectedDate);
+				currentRoleName = currentName.getName() + " - not valid";	
+			}
 			roleList.add(currentRoleName);
-			//roleList.pack();
-			//roleGroup.pack();
 			roleList.redraw();
 			
       }	  

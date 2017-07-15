@@ -23,8 +23,6 @@ public class StageModelWizardCreationPage extends WizardPage {
 		
 		setTitle("Stage Model Creation");
 		setDescription("By Clicking Finish, a Stage Model will be cerated for the available Feature Model");
-		//setMessage("Blubel");
-		
 	}
 
 	@Override
@@ -41,22 +39,4 @@ public class StageModelWizardCreationPage extends WizardPage {
 		setPageComplete(true);
 	}
 
-
-	
-//	public IFile getModelFile() {
-//		IPath containerFullPath = getContainerFullPath();
-//		String filename = getFileName();
-//		IPath filePath = containerFullPath.append(filename);
-//		String filePathString = filePath.toString();
-//		IFile file = ResourceUtil.getLocalFile(filePathString);
-//		String fileExtension = file.getFileExtension();
-//		
-//		//Ensure that the file has the right extension
-//		if (fileExtension.equalsIgnoreCase(HyFeatureUtil.getFeatureModelFileExtensionForXmi())) {
-//			return file;
-//		}
-//		
-//		return ResourceUtil.getLocalFile(filePathString + "."+HyFeatureUtil.getFeatureModelFileExtensionForXmi());
-//	}
-	
 }

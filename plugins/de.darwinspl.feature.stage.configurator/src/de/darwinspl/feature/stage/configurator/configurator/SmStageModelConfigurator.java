@@ -1,5 +1,7 @@
 package de.darwinspl.feature.stage.configurator.configurator;
 
+import java.util.List;
+
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IWorkspace;
 import org.eclipse.core.resources.IWorkspaceRoot;
@@ -28,10 +30,14 @@ import de.christophseidl.util.ecore.EcoreIOUtil;
 import de.darwinspl.feature.graphical.configurator.editor.DwFeatureModelConfiguratorEditor;
 import de.darwinspl.feature.graphical.configurator.factory.DwConfiguratorEditorEditPartFactory;
 import de.darwinspl.feature.stage.Role;
+import de.darwinspl.feature.stage.RoleAssignment;
+import de.darwinspl.feature.stage.RoleInclusion;
 import de.darwinspl.feature.stage.Stage;
 import de.darwinspl.feature.stage.StageModel;
 import de.darwinspl.feature.stage.base.model.StageModelWrapped;
 import de.darwinspl.feature.stage.configurator.factory.SmConfiguratorEditPartFactory;
+import eu.hyvar.evolution.HyName;
+import eu.hyvar.evolution.util.HyEvolutionUtil;
 import eu.hyvar.feature.util.HyFeatureUtil;
 
 public class SmStageModelConfigurator extends DwFeatureModelConfiguratorEditor {
@@ -280,19 +286,32 @@ public class SmStageModelConfigurator extends DwFeatureModelConfiguratorEditor {
 			stageCombo.removeAll();
 			// Get all stages the role is assigned to the current Role
 			if(stageModelWrapped.getModel().getStages() != null) {
-				for (Stage currentStage : stageModelWrapped.getModel().getStages()) {				
-					if(currentStage.getHasAssigned().contains(selectedRole)){
-						String currentStageName = currentStage.getNames().get(0).getName();
+				for (Stage currentStage : stageModelWrapped.getModel().getStages()) {
+					HyName currentName;
+					RoleAssignment roleAssignment;
+					roleAssignment = HyEvolutionUtil.getValidTemporalElement(currentStage.getRoleAssignment(), currentSelectedDate);
+					
+					if(roleAssignment.getRoles().contains(selectedRole)){
+						currentName = HyEvolutionUtil.getValidTemporalElement(currentStage.getNames(), currentSelectedDate);
+						String currentStageName = currentName.getName();
 						stageCombo.add(currentStageName);
 					}
 					
 					// Get all stages that are assigned to included roles
 					if(selectedRole != null && selectedRole.getInclusions().get(0).getIncludes() != null){
-						for(Role includedRole: selectedRole.getInclusions().get(0).getIncludes()){
-							if(includedRole.getAssignedTo().contains(currentStage)){
-								String currentStageName = currentStage.getNames().get(0).getName();
+						
+						RoleInclusion currentInclusion = HyEvolutionUtil.getValidTemporalElement(selectedRole.getInclusions(), currentSelectedDate);						
+						for(Role includedRole: currentInclusion.getIncludes()){
+							
+							RoleAssignment includedAssignment;
+							includedAssignment = HyEvolutionUtil.getValidTemporalElement(includedRole.getAssignments(), currentSelectedDate);
+							
+							if(includedAssignment.getStage() != null && includedAssignment.getStage().equals(currentStage)){
+								currentName = HyEvolutionUtil.getValidTemporalElement(currentStage.getNames(), currentSelectedDate);
+								String currentStageName = currentName.getName();
 								stageCombo.add(currentStageName);
 							}
+							
 						}	
 					}
 				}		
@@ -311,8 +330,9 @@ public class SmStageModelConfigurator extends DwFeatureModelConfiguratorEditor {
 			
 			roleCombo.removeAll();
 			
-			for (Role currentRole : stageModelWrapped.getModel().getRoles()) {			
-				String currentRoleName = currentRole.getNames().get(0).getName();
+			for (Role currentRole : stageModelWrapped.getModel().getRoles()) {	
+				HyName currentName = HyEvolutionUtil.getValidTemporalElement(currentRole.getNames(), currentSelectedDate);
+				String currentRoleName = currentName.getName();
 				roleCombo.add(currentRoleName);
 				roleCombo.pack();
 				stageGroup.pack();

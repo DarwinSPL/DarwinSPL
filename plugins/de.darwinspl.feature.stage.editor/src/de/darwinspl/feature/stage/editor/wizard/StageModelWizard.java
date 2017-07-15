@@ -18,6 +18,7 @@ public class StageModelWizard extends Wizard {
 	protected StageModelWizardCreationPage newStageModelCreationPage;
 	
 	protected DwFeatureModelWrapped featureModel;
+
 	
 	
 	/**
@@ -31,6 +32,7 @@ public class StageModelWizard extends Wizard {
 		
 		this.workbench = workbench;
 		this.featureModel = featureModel;
+
 	}	
 
 	

@@ -2,6 +2,7 @@ package de.darwinspl.feature.stage.impl.custom;
 
 
 import de.darwinspl.feature.stage.Role;
+import de.darwinspl.feature.stage.RoleAssignment;
 import de.darwinspl.feature.stage.RoleInclusion;
 import de.darwinspl.feature.stage.Stage;
 import de.darwinspl.feature.stage.StageComposition;
@@ -47,6 +48,14 @@ public class StageModelFactoryWithIds extends StageFactoryImpl {
 		StageComposition stageComposition = super.createStageComposition();
 		stageComposition.createId();
 		return stageComposition;
-	}	
+	}
+	
+	@Override
+	public RoleAssignment createRoleAssignment() {
+		RoleAssignment roleAssignment = super.createRoleAssignment();
+		roleAssignment.createId();
+		return roleAssignment;
+	}
+
 	
 }

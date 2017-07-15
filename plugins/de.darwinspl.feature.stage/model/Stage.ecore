@@ -10,29 +10,37 @@
         eType="#//Role" containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Stage" eSuperTypes="../../eu.hyvar.evolution/model/Evolution.ecore#//HyTemporalElement ../../eu.hyvar.evolution/model/Evolution.ecore#//HyNamedElement">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="hasAssigned" lowerBound="1"
-        upperBound="-1" eType="#//Role" eOpposite="#//Role/assignedTo"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="composition" upperBound="-1"
-        eType="#//StageComposition" containment="true"/>
+        eType="#//StageComposition" containment="true" eOpposite="#//StageComposition/compositionOf"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="roleAssignment" lowerBound="1"
+        upperBound="-1" eType="#//RoleAssignment" containment="true" eOpposite="#//RoleAssignment/stage"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Role" eSuperTypes="../../eu.hyvar.evolution/model/Evolution.ecore#//HyTemporalElement ../../eu.hyvar.evolution/model/Evolution.ecore#//HyNamedElement">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="assignedTo" upperBound="-1"
-        eType="#//Stage" eOpposite="#//Stage/hasAssigned"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="inclusions" upperBound="-1"
         eType="#//RoleInclusion" containment="true" eOpposite="#//RoleInclusion/inclusionsFor"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="includedBy" upperBound="-1"
         eType="#//RoleInclusion" eOpposite="#//RoleInclusion/includes"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="assignments" upperBound="-1"
+        eType="#//RoleAssignment" eOpposite="#//RoleAssignment/roles"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="RoleInclusion" eSuperTypes="../../eu.hyvar.evolution/model/Evolution.ecore#//HyTemporalElement">
+  <eClassifiers xsi:type="ecore:EClass" name="RoleInclusion" eSuperTypes="../../eu.hyvar.evolution/model/Evolution.ecore#//HyLinearTemporalElement">
     <eStructuralFeatures xsi:type="ecore:EReference" name="includes" upperBound="-1"
         eType="#//Role" eOpposite="#//Role/includedBy"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="inclusionsFor" eType="#//Role"
-        eOpposite="#//Role/inclusions"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="inclusionsFor" lowerBound="1"
+        eType="#//Role" eOpposite="#//Role/inclusions"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="StageComposition" eSuperTypes="../../eu.hyvar.evolution/model/Evolution.ecore#//HyTemporalElement">
     <eStructuralFeatures xsi:type="ecore:EReference" name="features" upperBound="-1"
         eType="ecore:EClass ../../eu.hyvar.feature/model/Feature.ecore#//HyFeature"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="groups" upperBound="-1"
         eType="ecore:EClass ../../eu.hyvar.feature/model/Feature.ecore#//HyGroup"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="compositionOf" lowerBound="1"
+        eType="#//Stage" eOpposite="#//Stage/composition"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="RoleAssignment" eSuperTypes="../../eu.hyvar.evolution/model/Evolution.ecore#//HyLinearTemporalElement">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="stage" lowerBound="1" eType="#//Stage"
+        eOpposite="#//Stage/roleAssignment"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="roles" lowerBound="1" upperBound="-1"
+        eType="#//Role" eOpposite="#//Role/assignments"/>
   </eClassifiers>
 </ecore:EPackage>

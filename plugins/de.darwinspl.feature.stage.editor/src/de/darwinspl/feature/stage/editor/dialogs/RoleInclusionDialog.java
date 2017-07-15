@@ -1,5 +1,7 @@
 package de.darwinspl.feature.stage.editor.dialogs;
 
+import java.util.Date;
+
 import org.eclipse.jface.dialogs.Dialog;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionEvent;
@@ -25,7 +27,8 @@ import de.darwinspl.feature.stage.base.model.StageModelWrapped;
 
 public class RoleInclusionDialog extends Dialog {
 
-	protected StageModelWrapped stageModelWrapped;	
+	protected StageModelWrapped stageModelWrapped;
+	protected Date currentSelectedDate;
 	
 	protected List roleList;
 	protected List includedRolesList;
@@ -52,9 +55,10 @@ public class RoleInclusionDialog extends Dialog {
 	 * Role Assignment Dialog Constructor
 	 * @param parentShell
 	 */
-	protected RoleInclusionDialog(Shell parentShell, StageModelWrapped stageModelWrapped) {
+	protected RoleInclusionDialog(Shell parentShell, StageModelWrapped stageModelWrapped, Date currentSelectedDate) {
 		super(parentShell);
 		this.stageModelWrapped = stageModelWrapped; 
+		this.currentSelectedDate = currentSelectedDate;
 	}
 
 	/**
@@ -224,7 +228,7 @@ public class RoleInclusionDialog extends Dialog {
 		//	Include Role
 		includeButton.addListener(SWT.Selection, new Listener(){
 			public void handleEvent(Event event) {
-				stageModelWrapped.includeRole(selectedRole,selectedAvailableRole);
+				stageModelWrapped.includeRole(selectedRole,selectedAvailableRole, currentSelectedDate);
 				
 				updateIncludedRolesList();
 				updateAvailableRolesList();
@@ -236,7 +240,7 @@ public class RoleInclusionDialog extends Dialog {
 		// Uninclude Role
 		unincludeButton.addListener(SWT.Selection, new Listener(){
 			public void handleEvent(Event event) {
-				stageModelWrapped.unincludeRole(selectedRole,selectedIncludedRole);
+				stageModelWrapped.unincludeRole(selectedRole,selectedIncludedRole, currentSelectedDate);
 				
 				updateIncludedRolesList();
 				updateAvailableRolesList();

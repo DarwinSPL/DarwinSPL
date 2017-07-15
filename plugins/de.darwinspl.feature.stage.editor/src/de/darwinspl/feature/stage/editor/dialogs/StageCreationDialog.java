@@ -1,5 +1,7 @@
 package de.darwinspl.feature.stage.editor.dialogs;
 
+import java.util.Date;
+
 import org.eclipse.jface.dialogs.Dialog;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.GridLayout;
@@ -13,11 +15,16 @@ import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
 
+import de.darwinspl.feature.stage.Role;
+import de.darwinspl.feature.stage.Stage;
 import de.darwinspl.feature.stage.base.model.StageModelWrapped;
+import eu.hyvar.evolution.HyName;
+import eu.hyvar.evolution.util.HyEvolutionUtil;
 
 public class StageCreationDialog extends Dialog {
 	
 	protected StageModelWrapped stageModelWrapped;
+	protected Date currentSelectedDate;
 	
 	protected Composite stageButtonGroup;
 	
@@ -32,9 +39,10 @@ public class StageCreationDialog extends Dialog {
 	
 	
 //TODO Alex: Auf Individualität der Stage Namen testen, Zeitabhängig
-	public StageCreationDialog(Shell parentShell, StageModelWrapped stageModelWrapped) {
+	public StageCreationDialog(Shell parentShell, StageModelWrapped stageModelWrapped, Date currentSelectedDate) {
 		super(parentShell);
 		this.stageModelWrapped = stageModelWrapped;
+		this.currentSelectedDate = currentSelectedDate;
 	}
 	
 	@Override
@@ -54,16 +62,24 @@ public class StageCreationDialog extends Dialog {
 	    buttonGroup.setLayout(new RowLayout());
 	    
 	    createStageButton = new Button(buttonGroup, SWT.PUSH);
-	    createStageButton.setText("create");
+	    createStageButton.setText("Create");
 	    
 	    cancelButton = new Button(buttonGroup, SWT.PUSH);
-	    cancelButton.setText("cancel");
+	    cancelButton.setText("Cancel");
 	    
 	    
 	    // Register Listeners
 	    createStageButton.addListener(SWT.Selection, new Listener(){
 			public void handleEvent(Event event) {
-				stageModelWrapped.addNewStageToModel(editField.getText());
+								
+				for (Stage currentStage : stageModelWrapped.getModel().getStages()) {
+					HyName currentName = HyEvolutionUtil.getValidTemporalElement(currentStage.getNames(),currentSelectedDate);
+					if(currentName.getName().equals(editField.getText())){
+						System.out.println("stage already exists");
+						return;
+					}
+				}			
+				stageModelWrapped.addNewStageToModel(editField.getText(), currentSelectedDate);
 				close();
 			}	    	
 	    });

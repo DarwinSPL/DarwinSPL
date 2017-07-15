@@ -6,20 +6,10 @@
       <editor
             class="de.darwinspl.feature.stage.editor.editor.SmStageModelEditor"
             default="false"
-            extensions="hyfeature,staged"
+            extensions="hyfeature"
             id="de.darwinspl.feature.stage.editor.editor.stage.editor"
             name="DarwinSPL Staged Feature Model Editor">
       </editor>
-   </extension>
-   <extension
-         point="org.eclipse.ui.newWizards">
-      <wizard
-            category="de.darwinspl.wizards"
-            class="de.darwinspl.feature.stage.editor.wizard.StageModelWizard"
-            icon="icons/icon_standard.png"
-            id="de.darwinspl.feature.stage.editor.new_sm_wizard"
-            name="Staged DarwinSPL Feature Model">
-      </wizard>
    </extension>
 
 </plugin>

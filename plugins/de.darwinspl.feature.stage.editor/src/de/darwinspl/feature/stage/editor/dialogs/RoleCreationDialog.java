@@ -1,5 +1,7 @@
 package de.darwinspl.feature.stage.editor.dialogs;
 
+import java.util.Date;
+
 import org.eclipse.jface.dialogs.Dialog;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.GridLayout;
@@ -13,11 +15,16 @@ import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
 
+import de.darwinspl.feature.stage.Role;
+import de.darwinspl.feature.stage.Stage;
 import de.darwinspl.feature.stage.base.model.StageModelWrapped;
+import eu.hyvar.evolution.HyName;
+import eu.hyvar.evolution.util.HyEvolutionUtil;
 
 public class RoleCreationDialog extends Dialog {
 	
 	protected StageModelWrapped stageModelWrapped;
+	protected Date currentSelectedDate;
 	
 	protected Composite roleButtonGroup;
 	
@@ -32,9 +39,10 @@ public class RoleCreationDialog extends Dialog {
 	
 	
 
-	public RoleCreationDialog(Shell parentShell, StageModelWrapped stageModelWrapped) {
+	public RoleCreationDialog(Shell parentShell, StageModelWrapped stageModelWrapped, Date currentSelectedDate) {
 		super(parentShell);
 		this.stageModelWrapped = stageModelWrapped;
+		this.currentSelectedDate = currentSelectedDate;
 	}
 	
 	@Override
@@ -54,16 +62,24 @@ public class RoleCreationDialog extends Dialog {
 	    buttonGroup.setLayout(new RowLayout());
 	    
 	    createRoleButton = new Button(buttonGroup, SWT.PUSH);
-	    createRoleButton.setText("create");
+	    createRoleButton.setText("Create");
 	    
 	    cancelButton = new Button(buttonGroup, SWT.PUSH);
-	    cancelButton.setText("cancel");
+	    cancelButton.setText("Cancel");
 	    
 	    
 	    // Register Listeners
 	    createRoleButton.addListener(SWT.Selection, new Listener(){
 			public void handleEvent(Event event) {
-				stageModelWrapped.addNewRoleToModel(editField.getText());
+				for (Role currentRole : stageModelWrapped.getModel().getRoles()) {
+					HyName currentName = HyEvolutionUtil.getValidTemporalElement(currentRole.getNames(),currentSelectedDate);
+					if(currentName.getName().equals(editField.getText())){
+						System.out.println("role already exists");
+						return;
+					}
+				}	
+				
+				stageModelWrapped.addNewRoleToModel(editField.getText(), currentSelectedDate);
 				close();
 			}	    	
 	    });

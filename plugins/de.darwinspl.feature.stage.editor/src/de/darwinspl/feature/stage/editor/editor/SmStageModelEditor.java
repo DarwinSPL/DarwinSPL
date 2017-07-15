@@ -43,6 +43,7 @@ import org.eclipse.ui.PlatformUI;
 
 import de.christophseidl.util.ecore.EcoreIOUtil;
 import de.darwinspl.feature.stage.Stage;
+import de.darwinspl.feature.stage.StageComposition;
 import de.darwinspl.feature.stage.StageModel;
 import de.darwinspl.feature.stage.StagePackage;
 import de.darwinspl.feature.stage.base.model.StageModelWrapped;
@@ -50,6 +51,7 @@ import de.darwinspl.feature.stage.commands.DirtyFlagCommand;
 import de.darwinspl.feature.stage.editor.dialogs.StageDialog;
 import de.darwinspl.feature.stage.editor.factory.SmFeatureModelEditorEditPartFactory;
 import de.darwinspl.feature.stage.editor.wizard.StageModelWizard;
+import eu.hyvar.evolution.util.HyEvolutionUtil;
 import eu.hyvar.feature.HyFeatureModel;
 import de.darwinspl.feature.graphical.base.editparts.DwFeatureEditPart;
 import de.darwinspl.feature.graphical.base.editparts.DwFeatureModelEditPart;
@@ -227,7 +229,7 @@ public class SmStageModelEditor extends DwGraphicalFeatureModelEditor {
 				if(stageModelWrapped == null){
 					// Show initialization wizard the first time the button is pressed
 					IWorkbench workbench =  PlatformUI.getWorkbench();
-					WizardDialog dialog = new WizardDialog(getEditorSite().getShell(), new StageModelWizard(modelWrapped,workbench));
+					WizardDialog dialog = new WizardDialog(getEditorSite().getShell(), new StageModelWizard(modelWrapped, workbench));
 					dialog.setPageSize(25,10);
 					if(dialog.open() == Window.OK){
 						URI featureModelURI = modelWrapped.getModel().eResource().getURI();
@@ -240,7 +242,7 @@ public class SmStageModelEditor extends DwGraphicalFeatureModelEditor {
 					}
 					
 				}
-				StageDialog stageDialog = new StageDialog(getEditorSite().getShell(), stageModelWrapped);
+				StageDialog stageDialog = new StageDialog(getEditorSite().getShell(), currentSelectedDate ,stageModelWrapped);
 				stageDialog.open();
 				if(stageDialog.getReturnCode()== 0){			
 				}
@@ -302,8 +304,9 @@ public class SmStageModelEditor extends DwGraphicalFeatureModelEditor {
 						currentFeatureEditPart = (DwFeatureEditPart)selectionList.get(i);
 						currentWrappedFeature = (DwFeatureWrapped) currentFeatureEditPart.getModel();
 						//check if object already exists in composition
-						if(! selectedStage.getComposition().get(0).getFeatures().contains(currentWrappedFeature.getWrappedModelElement())){
-							selectedStage.getComposition().get(0).getFeatures().add(currentWrappedFeature.getWrappedModelElement());
+						StageComposition currentComposition = HyEvolutionUtil.getValidTemporalElement(selectedStage.getComposition(), currentSelectedDate);
+						if(! currentComposition.getFeatures().contains(currentWrappedFeature.getWrappedModelElement())){
+							currentComposition.getFeatures().add(currentWrappedFeature.getWrappedModelElement());
 						} else {
 							System.out.println("Feature is already in the Composition");
 						}

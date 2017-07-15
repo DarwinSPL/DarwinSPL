@@ -2,7 +2,11 @@ package de.darwinspl.feature.stage.base.model;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import java.util.Date;
+import java.util.List;
+
 import de.darwinspl.feature.stage.Role;
+import de.darwinspl.feature.stage.RoleAssignment;
 import de.darwinspl.feature.stage.RoleInclusion;
 import de.darwinspl.feature.stage.Stage;
 import de.darwinspl.feature.stage.StageComposition;
@@ -10,6 +14,7 @@ import de.darwinspl.feature.stage.StageFactory;
 import de.darwinspl.feature.stage.StageModel;
 import eu.hyvar.evolution.HyEvolutionFactory;
 import eu.hyvar.evolution.HyName;
+import eu.hyvar.evolution.util.HyEvolutionUtil;
 
 public class StageModelWrapped implements PropertyChangeListener  {
 
@@ -62,13 +67,21 @@ public class StageModelWrapped implements PropertyChangeListener  {
 	 * Function call to create a new named Stage and initial StageComposition
 	 * @param text Name for the new Stage
 	 */
-	public void addNewStageToModel(String text) {
+	public void addNewStageToModel(String text, Date currentSelectedDate) {
 		Stage newStage = StageFactory.eINSTANCE.createStage();
 		StageComposition newStageComposition = StageFactory.eINSTANCE.createStageComposition();
+		RoleAssignment newRoleAssignment = StageFactory.eINSTANCE.createRoleAssignment();
 		HyName newName =  HyEvolutionFactory.eINSTANCE.createHyName();
 		newName.setName(text);		
 	    newStage.getNames().add(newName);
 	    newStage.getComposition().add(newStageComposition);
+	     
+	    //add dates
+	    newStage.getRoleAssignment().add(newRoleAssignment);
+	    newStage.setValidSince(currentSelectedDate);
+	    newRoleAssignment.setValidSince(currentSelectedDate);
+	    newStageComposition.setValidSince(currentSelectedDate);
+	    
 		stageModel.getStages().add(newStage);
 	}
 	
@@ -76,13 +89,18 @@ public class StageModelWrapped implements PropertyChangeListener  {
 	 * Function call to create a new named Role
 	 * @param text Name for the new Stage
 	 */
-	public void addNewRoleToModel(String text) {
+	public void addNewRoleToModel(String text, Date currentSelectedDate) {
 		Role newRole =StageFactory.eINSTANCE.createRole();
 		RoleInclusion newRoleInclusion = StageFactory.eINSTANCE.createRoleInclusion();
 		HyName newName =  HyEvolutionFactory.eINSTANCE.createHyName();		
 		newName.setName(text);		
 	    newRole.getNames().add(newName);
 	    newRole.getInclusions().add(newRoleInclusion);
+	    
+	    //add dates
+	    newRole.setValidSince(currentSelectedDate);
+	    newRoleInclusion.setValidSince(currentSelectedDate);
+	    
 		stageModel.getRoles().add(newRole);
 	}
 	
@@ -91,8 +109,12 @@ public class StageModelWrapped implements PropertyChangeListener  {
 	 * @param selectedRole
 	 * @param selectedStage
 	 */
-	public void assignRoleToStage(Role selectedRole, Stage selectedStage){
-		selectedRole.getAssignedTo().add(selectedStage);
+	public void assignRoleToStage(Role selectedRole, Stage selectedStage, Date currentSelectedDate){
+		
+		RoleAssignment currentRoleAssignment;		
+		currentRoleAssignment = HyEvolutionUtil.getValidTemporalElement(selectedStage.getRoleAssignment(), currentSelectedDate);
+		currentRoleAssignment.getRoles().add(selectedRole);
+		
 	}
 	
 	/**
@@ -100,8 +122,11 @@ public class StageModelWrapped implements PropertyChangeListener  {
 	 * @param selectedRole
 	 * @param selectedStage
 	 */
-	public void unassignRoleFromStage(Role selectedRole, Stage selectedStage){
-		selectedRole.getAssignedTo().remove(selectedStage);
+	public void unassignRoleFromStage(Role selectedRole, Stage selectedStage, Date currentSelectedDate){		
+		RoleAssignment currentRoleAssignment;		
+		currentRoleAssignment = HyEvolutionUtil.getValidTemporalElement(selectedStage.getRoleAssignment(), currentSelectedDate);		
+		currentRoleAssignment.getRoles().remove(selectedRole);
+
 	}
 	
 	
@@ -109,27 +134,45 @@ public class StageModelWrapped implements PropertyChangeListener  {
 	 * Function to Remove a Stage from the Model
 	 * @param stage Selected Stage
 	 */
-	public void deleteStage(Stage stage){
-		// Remove all assigned Roles		
-		stageModel.getStages().remove(stage);
-		stage.getHasAssigned().clear();
+	public void deleteStage(Stage stage, Date currentSelectedDate){
+		// Remove all assigned Roles
+		if(stage.getValidSince().equals(currentSelectedDate)){
+
+//			RoleAssignment currentRoleAssignment;
+//			currentRoleAssignment = HyEvolutionUtil.getValidTemporalElement(stage.getRoleAssignment(), currentSelectedDate);
+//			for(Role roles : currentRoleAssignment.getRoles()){
+//				
+//			}
+			stageModel.getStages().remove(stage);
+			
+		}
+		else if( stage.getValidSince().before(currentSelectedDate)){
+			stage.setValidUntil(currentSelectedDate);
+		}
+		
 	}
 	
 	/**
 	 * Function to Remove a Role from the Model
 	 * @param role Selected Role
 	 */
-	public void deleteRole(Role role){
+	public void deleteRole(Role role, Date currentSelectedDate){
 		// Remove all assigned Stages
-		stageModel.getRoles().remove(role);
-		role.getAssignedTo().clear();
+		if(role.getValidSince().equals(currentSelectedDate)){
+			stageModel.getRoles().remove(role);
+//			role.getAssignedTo().clear();
+		}
+		else if (role.getValidSince().before(currentSelectedDate)){
+			role.setValidUntil(currentSelectedDate);
+		}
+		
 	}
 	/**
 	 * Function to include a role
 	 *  @param role Active Role
 	 *  @param role Role to be included
 	 */
-	public void includeRole(Role role, Role includedRole){
+	public void includeRole(Role role, Role includedRole, Date currentSelectedDate){
 		// TODO Alex: Add Evolution here, currently wrong
 		
 		RoleInclusion newInclusion;		
@@ -139,7 +182,8 @@ public class StageModelWrapped implements PropertyChangeListener  {
 			newInclusion.setInclusionsFor(role);
 			role.getInclusions().add(newInclusion);			
 		} else {
-			newInclusion = role.getInclusions().get(0);
+
+			newInclusion = HyEvolutionUtil.getValidTemporalElement(role.getInclusions(), currentSelectedDate);
 		}
 		
 		// Add new role to inclusion reference
@@ -154,12 +198,13 @@ public class StageModelWrapped implements PropertyChangeListener  {
 	 *  @param role Active Role
 	 *  @param role Role to be included
 	 */
-	public void unincludeRole(Role role, Role unincludedRole){
+	public void unincludeRole(Role role, Role unincludedRole, Date currentSelectedDate){
 		// Remove include from Role Inclusion
-		role.getInclusions().get(0).getIncludes().remove(unincludedRole);
+		RoleInclusion inclusion = HyEvolutionUtil.getValidTemporalElement(role.getInclusions(), currentSelectedDate);
+		inclusion.getIncludes().remove(unincludedRole);
 		
 		// Remove reference to RoleInclsuion from unincludedRole
-		unincludedRole.getIncludedBy().remove(role.getInclusions().get(0));
+//		unincludedRole.getIncludedBy().remove(inclusion);
 		
 	}
 
