@@ -35,7 +35,8 @@ import eu.hyvar.preferences.PreferencesFactory;
  * 
  * @author Jeremias Wrensch
  * 
- * Provides methods to encode optimizationproblems in hyexpression as preferences.
+ *         Provides methods to encode optimizationproblems in hyexpression as
+ *         preferences.
  *
  */
 public class PreferenceBuilder {
@@ -53,8 +54,9 @@ public class PreferenceBuilder {
 
 	/**
 	 * 
-	 * @param featureModel: 
-	 * @param date: date of evolution
+	 * @param featureModel:
+	 * @param date:
+	 *            date of evolution
 	 */
 	public PreferenceBuilder(HyFeatureModel featureModel, Date date) {
 		this.featureModel = featureModel;
@@ -82,7 +84,8 @@ public class PreferenceBuilder {
 	/**
 	 * Basically performs a conversion on the given expression
 	 * 
-	 * @param expression that should be inverted
+	 * @param expression
+	 *            that should be inverted
 	 * @return inverted expression
 	 */
 	private HyExpression invertExpression(HyExpression expression) {
@@ -92,6 +95,7 @@ public class PreferenceBuilder {
 
 	/**
 	 * adds brackets to expression
+	 * 
 	 * @param expression
 	 * @return expression in brackets
 	 */
@@ -107,9 +111,11 @@ public class PreferenceBuilder {
 
 	/**
 	 * 
-	 * creates expression that represents the optimizationproblem of maximizing the number of features
+	 * creates expression that represents the optimizationproblem of maximizing
+	 * the number of features
 	 * 
-	 * @param selectedFeatures: only selected features will be considered 
+	 * @param selectedFeatures:
+	 *            only selected features will be considered
 	 * @return
 	 */
 	private HyExpression createMaxFeaturesExpression(List<HyFeature> selectedFeatures) {
@@ -125,9 +131,11 @@ public class PreferenceBuilder {
 	}
 
 	/**
-	 * creates an expression for maximizing the number of features and adds it to the global expression
+	 * creates an expression for maximizing the number of features and adds it
+	 * to the global expression
 	 * 
-	 * @param selectedFeatures: only selected features will be considered  
+	 * @param selectedFeatures:
+	 *            only selected features will be considered
 	 * @return
 	 */
 	public PreferenceBuilder addMaxFeatures(List<HyFeature> selectedFeatures) {
@@ -136,9 +144,11 @@ public class PreferenceBuilder {
 	}
 
 	/**
-	 * creates and inverts a maxFeatureExpression to create expression that represents the minimization for the number of feature.
+	 * creates and inverts a maxFeatureExpression to create expression that
+	 * represents the minimization for the number of feature.
 	 * 
-	 * @param selectedFeatures: only selected features will be considered 
+	 * @param selectedFeatures:
+	 *            only selected features will be considered
 	 * @return preferenceBuilder
 	 */
 	public PreferenceBuilder addMinFeatures(List<HyFeature> selectedFeatures) {
@@ -148,7 +158,9 @@ public class PreferenceBuilder {
 
 	/**
 	 * Returns all attributes of the feature model indentified by the name
-	 * @param attributeName name of the attribute
+	 * 
+	 * @param attributeName
+	 *            name of the attribute
 	 * @return List of attributes with the given name
 	 */
 	private List<HyFeatureAttribute> getAttributesByName(String attributeName) {
@@ -167,20 +179,25 @@ public class PreferenceBuilder {
 	}
 
 	/**
-	 * adds expression that represents the optimizing problem of optimizing against a certain value
+	 * adds expression that represents the optimizing problem of optimizing
+	 * against a certain value
 	 * 
-	 * @param attributeName feature-model-attribute name
-	 * @param selectedFeatures 
-	 * @param value desired value
+	 * @param attributeName
+	 *            feature-model-attribute name
+	 * @param selectedFeatures
+	 * @param value
+	 *            desired value
 	 * @return
 	 */
-	public PreferenceBuilder addCustomNumberedAttributeExpression(String attributeName, List<HyFeature> selectedFeatures, int value) {
-		addExpression(createCustomValueExpression(attributeName, selectedFeatures, value));
+	public PreferenceBuilder addCustomNumberedAttributeExpression(String attributeName,
+			List<HyFeature> selectedFeatures, int value) {
+		addExpression(createMultiCustomNumberedExpression(attributeName, selectedFeatures, value));
 		return this;
 	}
 
 	/**
-	 * adds expression that represents the optimizing problem of optimizing against a certain value
+	 * adds expression that represents the optimizing problem of optimizing
+	 * against a certain value
 	 * 
 	 * @param attribute
 	 * @param value
@@ -194,34 +211,37 @@ public class PreferenceBuilder {
 		HyMultiplicationExpression f2 = mul(feature(feature), attribute(attribute));
 		HyMultiplicationExpression f3 = mul(feature(feature), attribute(attribute));
 		HyMultiplicationExpression f4 = mul(feature(feature), attribute(attribute));
-		
+
 		// c
 		HyExpression c1 = value(value);
 		HyExpression c2 = value(value);
 		HyExpression c3 = value(value);
 		HyExpression c4 = value(value);
-		
+
 		// ((f > c) * (f - c) + (f < c) * (c - f))
 		addExpression(add(mul(gt(f1, c1), sub(c2, f2)), mul(lt(f3, c3), sub(f4, c4))));
-		
+
 		return this;
 	}
 
 	/**
 	 * 
-	 * @param attributeName name of the feature model attribute
-	 * @param selectedFeatures only selected features will be considered 
-	 * @param useDefaultValue should the default value of the attribute be used
+	 * @param attributeName
+	 *            name of the feature model attribute
+	 * @param selectedFeatures
+	 *            only selected features will be considered
+	 * @param useDefaultValue
+	 *            should the default value of the attribute be used
 	 * @return
 	 */
-	private HyExpression createMaxMultiNumberedAttributeExpression(String attributeName, List<HyFeature> selectedFeatures,
-			boolean useDefaultValue) {
+	private HyExpression createMaxMultiNumberedAttributeExpression(String attributeName,
+			List<HyFeature> selectedFeatures, boolean useDefaultValue) {
 		HyIfPossibleExpression ifPossibleExpression = expressionFactory.createHyIfPossibleExpression();
 
 		for (HyFeatureAttribute attribute : getAttributesByName(attributeName)) {
 			if (attribute instanceof HyNumberAttribute && selectedFeatures.contains(attribute.getFeature())) {
-				ifPossibleExpression.getOperands().add(
-						createMaxNumberedAttributeExpression((HyNumberAttribute) attribute, useDefaultValue));
+				ifPossibleExpression.getOperands()
+						.add(createMaxNumberedAttributeExpression((HyNumberAttribute) attribute, useDefaultValue));
 			}
 		}
 		return nestExpression(ifPossibleExpression);
@@ -229,32 +249,40 @@ public class PreferenceBuilder {
 
 	/**
 	 * 
-	 * @param attributeName name of the feature model attribute
-	 * @param selectedFeatures only selected features will be considered 
-	 * @param useDefault should the default value of the attribute be used
+	 * @param attributeName
+	 *            name of the feature model attribute
+	 * @param selectedFeatures
+	 *            only selected features will be considered
+	 * @param useDefault
+	 *            should the default value of the attribute be used
 	 * @return
 	 */
-	public PreferenceBuilder addMaxMultiNumberedAttributeExpression(String attributeName, List<HyFeature> selectedFeatures,
-			boolean useDefault) {
+	public PreferenceBuilder addMaxMultiNumberedAttributeExpression(String attributeName,
+			List<HyFeature> selectedFeatures, boolean useDefault) {
 		addExpression(createMaxMultiNumberedAttributeExpression(attributeName, selectedFeatures, useDefault));
 		return this;
 	}
 
 	/**
 	 * 
-	 * @param attributeName name of the feature model attribute
-	 * @param selectedFeatures only selected features will be considered 
-	 * @param useDefault should the default value of the attribute be used
+	 * @param attributeName
+	 *            name of the feature model attribute
+	 * @param selectedFeatures
+	 *            only selected features will be considered
+	 * @param useDefault
+	 *            should the default value of the attribute be used
 	 * @return
 	 */
 	public PreferenceBuilder addMinAttributeExpression(String attributeName, List<HyFeature> selectedFeatures,
 			boolean useDefault) {
-		addExpression(invertExpression(createMaxMultiNumberedAttributeExpression(attributeName, selectedFeatures, useDefault)));
+		addExpression(invertExpression(
+				createMaxMultiNumberedAttributeExpression(attributeName, selectedFeatures, useDefault)));
 		return this;
 	}
 
 	/**
 	 * creates a preference out of the created expression
+	 * 
 	 * @return the created preference
 	 */
 	public HyPreference build() {
@@ -262,12 +290,15 @@ public class PreferenceBuilder {
 		preference.setRootExpression(preferenceExpression);
 		return preference;
 	}
-	
+
 	/**
 	 * 
-	 * @param attributeName name of the feature model attribute
-	 * @param selectedFeatures only selected features will be considered 
-	 * @param useDefault should the default value of the attribute be used
+	 * @param attributeName
+	 *            name of the feature model attribute
+	 * @param selectedFeatures
+	 *            only selected features will be considered
+	 * @param useDefault
+	 *            should the default value of the attribute be used
 	 * @return
 	 */
 	public PreferenceBuilder addBooleanPreferenceExpression(String attributeName, List<HyFeature> selectedFeatures,
@@ -285,8 +316,10 @@ public class PreferenceBuilder {
 
 	/**
 	 * 
-	 * @param selectedFeatures only selected features will be considered 
-	 * @param useDefault should the default value of the attribute be used
+	 * @param selectedFeatures
+	 *            only selected features will be considered
+	 * @param useDefault
+	 *            should the default value of the attribute be used
 	 * @param enumLiteral
 	 * @return
 	 */
@@ -296,8 +329,7 @@ public class PreferenceBuilder {
 		List<HyFeatureAttribute> attributes = getAttributesByName(attributeName);
 		for (HyFeatureAttribute attribute : attributes) {
 			if (attribute instanceof HyEnumAttribute && selectedFeatures.contains(attribute.getFeature())) {
-				ipExpression.getOperands()
-						.add(createEnumAttributeExpression((HyEnumAttribute) attribute, enumLiteral));
+				ipExpression.getOperands().add(createEnumAttributeExpression((HyEnumAttribute) attribute, enumLiteral));
 			}
 		}
 
@@ -305,17 +337,18 @@ public class PreferenceBuilder {
 		return this;
 	}
 
-
 	/**
 	 * 
-	 * creates expression that represents the optimization problem of maximizing a single numbered attribute
+	 * creates expression that represents the optimization problem of maximizing
+	 * a single numbered attribute
 	 * 
-	 * @param attribute that should be optimized
-	 * @param useDefaultValue should the default value of the attribute be used
+	 * @param attribute
+	 *            that should be optimized
+	 * @param useDefaultValue
+	 *            should the default value of the attribute be used
 	 * @return
 	 */
-	private HyExpression createMaxNumberedAttributeExpression(HyNumberAttribute attribute,
-			boolean useDefaultValue) {
+	private HyExpression createMaxNumberedAttributeExpression(HyNumberAttribute attribute, boolean useDefaultValue) {
 		HyAtomicExpression atomicExpression;
 		if (useDefaultValue) {
 			atomicExpression = value(((HyNumberAttribute) attribute).getDefault());
@@ -331,7 +364,8 @@ public class PreferenceBuilder {
 	 * 
 	 * 
 	 * @param attribute
-	 * @param useDefaultValue should the default value of the attribute be used
+	 * @param useDefaultValue
+	 *            should the default value of the attribute be used
 	 * @return
 	 */
 	public PreferenceBuilder addSingleNumberedAttributeMaximumExpression(HyNumberAttribute attribute,
@@ -343,10 +377,11 @@ public class PreferenceBuilder {
 	/**
 	 * 
 	 * @param attribute
-	 * @param useDefaultValue should the default value of the attribute be used
+	 * @param useDefaultValue
+	 *            should the default value of the attribute be used
 	 * @return
 	 */
-	public PreferenceBuilder addSingleNumberedAttributeMinimumExpression(HyNumberAttribute attribute,
+	public PreferenceBuilder addNumberedMinimumAttributeExpression(HyNumberAttribute attribute,
 			boolean useDefaultValue) {
 		addExpression(createMaxNumberedAttributeExpression(attribute, useDefaultValue));
 		return this;
@@ -358,7 +393,7 @@ public class PreferenceBuilder {
 	 * @param literal
 	 * @return
 	 */
-	public PreferenceBuilder addSingleEnumAttributeExpression(HyEnumAttribute attribute, HyEnumLiteral literal) {
+	public PreferenceBuilder addEnumAttributeExpression(HyEnumAttribute attribute, HyEnumLiteral literal) {
 		addExpression(createEnumAttributeExpression(attribute, literal));
 		return this;
 	}
@@ -380,7 +415,7 @@ public class PreferenceBuilder {
 	 * @param value
 	 * @return
 	 */
-	public PreferenceBuilder addSingleBooleanExpression(HyFeatureAttribute attribute, boolean value) {
+	public PreferenceBuilder addBooleanExpression(HyFeatureAttribute attribute, boolean value) {
 		addExpression(createBooleanAttributeExpression(attribute, value));
 		return this;
 	}
@@ -394,7 +429,7 @@ public class PreferenceBuilder {
 	private HyExpression createBooleanAttributeExpression(HyFeatureAttribute attribute, boolean value) {
 		// convert true to 1 and 0 to false
 		int convertedValue;
-		if(value) {
+		if (value) {
 			convertedValue = 1;
 		} else {
 			convertedValue = 0;
@@ -405,12 +440,14 @@ public class PreferenceBuilder {
 
 	/**
 	 * 
-	 * @param attributeName name of the feature model attribute
-	 * @param selectedFeatures only selected features will be considered 
+	 * @param attributeName
+	 *            name of the feature model attribute
+	 * @param selectedFeatures
+	 *            only selected features will be considered
 	 * @param value
 	 * @return
 	 */
-	private HyExpression createCustomValueExpression(String attributeName, List<HyFeature> selectedFeatures,
+	private HyExpression createMultiCustomNumberedExpression(String attributeName, List<HyFeature> selectedFeatures,
 			int value) {
 		List<HyFeatureAttribute> attributes = getAttributesByName(attributeName);
 
@@ -473,7 +510,7 @@ public class PreferenceBuilder {
 
 	/**
 	 * helper method to create a HySubtractionExpression
-	 *  
+	 * 
 	 * @param operand1
 	 * @param operand2
 	 * @return
@@ -529,6 +566,7 @@ public class PreferenceBuilder {
 
 	/**
 	 * helper method to create a HyEqualExpression
+	 * 
 	 * @param operand1
 	 * @param operand2
 	 * @return
@@ -551,9 +589,10 @@ public class PreferenceBuilder {
 
 		return mul(attributeExpression, featureExpression);
 	}
-	
+
 	/**
 	 * helper method to create a hyValueExpression
+	 * 
 	 * @param value
 	 * @return
 	 */

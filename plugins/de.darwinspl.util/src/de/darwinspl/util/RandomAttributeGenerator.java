@@ -16,6 +16,12 @@ import eu.hyvar.feature.HyFeatureModel;
 import eu.hyvar.feature.HyNumberAttribute;
 import eu.hyvar.feature.util.HyFeatureCreationUtil;
 
+/**
+ * Generates feature model attribute depending on the given type
+ * 
+ * @author Jeremias Wrensch
+ *
+ */
 public class RandomAttributeGenerator {
 
 	protected enum Type {
@@ -26,7 +32,6 @@ public class RandomAttributeGenerator {
 	private Date validSince;
 	private Date validUntil;
 
-	private int attributeNr = 0;
 	private int enumNr = 0;
 
 	public RandomAttributeGenerator(HyFeatureModel featureModel, Date validSince, Date validUntil) {
@@ -35,9 +40,9 @@ public class RandomAttributeGenerator {
 		this.validUntil = validUntil;
 	}
 
-	public HyFeatureModel generateAttributes(Type type) {
+	public HyFeatureModel generateAttributes(Type type, String name) {
 
-		HyFeatureAttribute attribute = createRandomAttribute(null, type);
+		HyFeatureAttribute attribute = createRandomAttribute(null, type, name);
 		for (HyFeature feature : featureModel.getFeatures()) {
 			feature.getAttributes().add(cloneAttribute(attribute));
 		}
@@ -65,9 +70,9 @@ public class RandomAttributeGenerator {
 		return clone;
 	}
 
-	private HyFeatureAttribute createRandomAttribute(HyFeature feature, Type type) {
+	private HyFeatureAttribute createRandomAttribute(HyFeature feature, Type type, String attributeName) {
 		HyFeatureAttribute attribute = null;
-		HyName name = HyFeatureCreationUtil.createName("attribute " + attributeNr++, validSince, validUntil, null);
+		HyName name = HyFeatureCreationUtil.createName(attributeName, validSince, validUntil, null);
 		switch (type) {
 		case BOOLEAN:
 			attribute = HyFeatureCreationUtil.createBooleanAttribute(validSince, validUntil, name);
@@ -82,8 +87,8 @@ public class RandomAttributeGenerator {
 		default:
 			attribute = HyFeatureCreationUtil.createNumberAttribute(name, validSince, validUntil);
 
-			int min = new Random().nextInt(1000);
-			int max = new Random().nextInt(1000) + min;
+			int min = new Random().nextInt(10);
+			int max = new Random().nextInt(10) + min;
 			int def = new Random().nextInt(max - min + 1) + min;
 
 			((HyNumberAttribute) attribute).setMin(min);

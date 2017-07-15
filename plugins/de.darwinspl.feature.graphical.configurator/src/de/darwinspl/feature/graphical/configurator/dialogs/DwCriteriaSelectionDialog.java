@@ -10,6 +10,8 @@ import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
+import org.eclipse.swt.widgets.Event;
+import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Tree;
 import org.eclipse.swt.widgets.TreeItem;
@@ -177,7 +179,7 @@ public class DwCriteriaSelectionDialog extends Dialog {
 			new DwAttributeTreeItem(attribute, date, treeItemFeatureAttribute, SWT.CHECK);
 		}
 
-		// add all feature model attributes
+		// add all feature model attributes and attach attribute type to each treeitem
 		for (HyFeatureAttribute attribute : attributes) {
 			String name = HyFeatureEvolutionUtil.getName(attribute.getNames(), date).getName();
 			if (attribute instanceof HyNumberAttribute && !numberedAttributeNames.contains(name)) {
@@ -206,8 +208,19 @@ public class DwCriteriaSelectionDialog extends Dialog {
 				treeItemAttribute.setText(name);
 
 			}
-
 		}
+		
+		// select all childs if parent is selected
+		tree.addListener(SWT.Selection, new Listener() {
+			
+			@Override
+			public void handleEvent(Event event) {
+				TreeItem item = (TreeItem)event.item;
+				for(TreeItem child : item.getItems()) {
+					child.setChecked(item.getChecked());
+				}
+			}
+		});
 
 		return composite;
 	}

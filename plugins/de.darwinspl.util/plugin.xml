@@ -4,11 +4,6 @@
 	<extension
          point="org.eclipse.ui.commands">
       <command
-            defaultHandler="de.darwinspl.util.RandomFeatureModelGeneratorCommandHandler"
-            id="de.darwinspl.util.generateRandomFeatureModel"
-            name="Generate Random Feature Model">
-      </command>
-      <command
             defaultHandler="de.darwinspl.util.RandomAttributeGeneratorCommandHandler"
             id="de.darwinspl.util.generateRandomAttributes"
             name="Generate Random Attributes">
@@ -43,12 +38,6 @@
       <menuContribution
             allPopups="false"
             locationURI="popup:de.darwinspl.eclipse.ui.menu">
-        
-            <command
-                  commandId="de.darwinspl.util.generateRandomFeatureModel"
-                  label="Generate Random Feature Model"
-                  style="push">
-            </command>
             <command
                   commandId="de.darwinspl.util.generateRandomAttributes"
                   label="Generate Random Attributes"
@@ -62,6 +51,4 @@
             </command>
       </menuContribution>
    </extension>
-
-
 </plugin>

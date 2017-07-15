@@ -1,5 +1,8 @@
 package de.darwinspl.configurator;
 
+import java.util.Date;
+import java.util.List;
+
 import org.eclipse.core.commands.AbstractHandler;
 import org.eclipse.core.commands.ExecutionEvent;
 import org.eclipse.core.commands.ExecutionException;
@@ -17,6 +20,7 @@ import de.christophseidl.util.eclipse.ui.SelectionUtil;
 import de.christophseidl.util.ecore.EcoreIOUtil;
 import de.darwinspl.feature.graphical.configurator.dialogs.DwCriteriaOverviewDialog;
 import de.darwinspl.feature.graphical.configurator.dialogs.DwRESTServerSelectDialog;
+import eu.hyvar.evolution.util.HyEvolutionUtil;
 import eu.hyvar.feature.HyFeatureModel;
 import eu.hyvar.feature.configuration.HyConfiguration;
 import eu.hyvar.feature.configuration.util.HyConfigurationUtil;
@@ -29,6 +33,8 @@ public class ConfiguratorCommandHandler extends AbstractHandler  {
 	public Object execute(ExecutionEvent event) throws ExecutionException {
 		Shell shell = 	HandlerUtil.getActiveWorkbenchWindow(event).getShell();
 		
+		
+		
 		// show dialog to enter hyvar uri
 		DwRESTServerSelectDialog dialog = new DwRESTServerSelectDialog(shell, "http://localhost:9001/process");
 		int result = dialog.open();
@@ -38,6 +44,15 @@ public class ConfiguratorCommandHandler extends AbstractHandler  {
 		IFile selectedFile = SelectionUtil.getFirstActiveIFileWithExtension("hyfeature");
 		HyFeatureModel featureModel = (HyFeatureModel)EcoreIOUtil.loadModel(selectedFile);
 		
+		Date date = null;
+		List<Date> dates = HyEvolutionUtil.collectDates(featureModel);
+		System.out.println("size:" + dates.size());
+		if(dates != null && !dates.isEmpty()) {
+			DatePickerDialog datePickerDialog = new DatePickerDialog(shell, dates);
+			if(datePickerDialog.open() != Dialog.OK) return null;
+			date = datePickerDialog.getSelectedDate();
+		}
+		
 		// load the constraint model
 		HyConstraintModel constraintModel = null;
 		if (modelFileExists(HyConstraintUtil.getConstraintModelFileExtensionForConcreteSyntax(), featureModel)) {
@@ -46,7 +61,7 @@ public class ConfiguratorCommandHandler extends AbstractHandler  {
 		}
 
 		// show the criteria dialog
-		DwCriteriaOverviewDialog conDialog = new DwCriteriaOverviewDialog(shell, featureModel, constraintModel, null, dialog.getUri());
+		DwCriteriaOverviewDialog conDialog = new DwCriteriaOverviewDialog(shell, featureModel, constraintModel, date, dialog.getUri());
 		HyConfiguration configuration = null;
 		if(conDialog.open() == Dialog.OK) {
 			configuration = conDialog.getConfiguration();

@@ -10,6 +10,13 @@ import eu.hyvar.feature.HyVersion;
 import eu.hyvar.feature.expression.HyAtomicExpression;
 import eu.hyvar.feature.expression.util.HyExpressionStringExporter;
 
+/**
+ * 
+ * Adds Handling of the AtomFeatureExpression
+ * 
+ * @author Jeremias Wrensch
+ *
+ */
 public class CustomExpressionStringExporter extends HyExpressionStringExporter{
 
 	public CustomExpressionStringExporter(Map<HyFeature, String> featureIdMapping, Map<HyVersion, String> versionIdMapping,

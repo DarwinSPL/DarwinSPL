@@ -3,7 +3,6 @@ package de.darwinspl.util;
 import org.eclipse.jface.dialogs.Dialog;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.CCombo;
-import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
@@ -14,11 +13,18 @@ import org.eclipse.swt.widgets.Text;
 
 import de.darwinspl.util.RandomAttributeGenerator.Type;
 
+/**
+ * Simple dialog that allows the user to the select the desired type of attribute he wants to generate
+ * 
+ * @author Jeremias Wrensch
+ *
+ */
 public class RandomAttributeGeneratorDialog extends Dialog {
 
 	private CCombo attributeTypeCCombo;
-	
-	RandomAttributeGenerator.Type type;
+	private Text nameText;
+	private String name;
+	private RandomAttributeGenerator.Type type;
 	
 	protected RandomAttributeGeneratorDialog(Shell parentShell) {
 		super(parentShell);
@@ -33,7 +39,7 @@ public class RandomAttributeGeneratorDialog extends Dialog {
 		} else if(attributeTypeCCombo.getSelectionIndex() == 2) {
 			type = Type.NUMBERED;
 		}
-
+		name = nameText.getText();
 		super.okPressed();
 	}
 	
@@ -47,22 +53,26 @@ public class RandomAttributeGeneratorDialog extends Dialog {
 
 		GridData data = new GridData(GridData.FILL_BOTH);
 
-		Label numberOfFeatureAttributesLabel = new Label(composite, SWT.None);
+		Label numberOfFeatureAttributesLabel = new Label(composite, SWT.NONE);
 		numberOfFeatureAttributesLabel.setText("Number of feature attributes");
 		numberOfFeatureAttributesLabel.setLayoutData(data);
 
-		attributeTypeCCombo = new CCombo(composite, SWT.DROP_DOWN);
+		attributeTypeCCombo = new CCombo(composite, SWT.BORDER);
 		attributeTypeCCombo.setItems(new String[]{"Enum", "Boolean", "Numbered"});
 		attributeTypeCCombo.setLayoutData(data);
 		attributeTypeCCombo.select(0);
 		
+		Label nameLabel = new Label(composite, SWT.NONE);
+		nameLabel.setText("Attribute Name:");
+		nameLabel.setLayoutData(data);
+		
+		nameText = new Text(composite, SWT.NONE);
+		nameText.setLayoutData(data);
+		
+		
 		return composite;
 	}
 	
-	@Override
-	protected Point getInitialSize() {
-		return new Point(480, 320);
-	}
 
 	@Override
 	protected boolean isResizable() {
@@ -71,5 +81,9 @@ public class RandomAttributeGeneratorDialog extends Dialog {
 	
 	public RandomAttributeGenerator.Type getType() {
 		return type;
+	}
+	
+	public String getName() {
+		return name;
 	}
 }

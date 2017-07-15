@@ -119,7 +119,7 @@ public class DwCriteriaOverviewDialog extends Dialog {
 				} else if (row instanceof DwNumberedCriteriaComposite) {
 					DwNumberedCriteriaComposite singleNumberComp = (DwNumberedCriteriaComposite) row;
 					if (singleNumberComp.getSelectedMode() == ConfiguratorMode.MIN) {
-						builder.addSingleNumberedAttributeMinimumExpression(
+						builder.addNumberedMinimumAttributeExpression(
 								(HyNumberAttribute) singleNumberComp.getAttribute(),
 								singleNumberComp.useDefaultValue());
 					} else if (singleNumberComp.getSelectedMode() == ConfiguratorMode.MAX) {
@@ -132,11 +132,11 @@ public class DwCriteriaOverviewDialog extends Dialog {
 					}
 				} else if (row instanceof DwEnumCriteriaComposite) {
 					DwEnumCriteriaComposite singleEnumComp = (DwEnumCriteriaComposite) row;
-					builder.addSingleEnumAttributeExpression((HyEnumAttribute) singleEnumComp.getAttribute(),
+					builder.addEnumAttributeExpression((HyEnumAttribute) singleEnumComp.getAttribute(),
 							singleEnumComp.getSelectedEnumLiteral());
 				} else if (row instanceof DwBooleanCriteriaComposite) {
 					DwBooleanCriteriaComposite singleBoolComp = (DwBooleanCriteriaComposite) row;
-					builder.addSingleBooleanExpression((HyBooleanAttribute) singleBoolComp.getAttribute(),
+					builder.addBooleanExpression((HyBooleanAttribute) singleBoolComp.getAttribute(),
 							singleBoolComp.isTrue());
 				} else if (row instanceof DwFeatureQuantityCriteriaComposite) {
 					DwFeatureQuantityCriteriaComposite featureQuantityComp = (DwFeatureQuantityCriteriaComposite) row;

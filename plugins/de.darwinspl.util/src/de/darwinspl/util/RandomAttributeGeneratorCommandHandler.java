@@ -11,6 +11,12 @@ import de.christophseidl.util.eclipse.ui.SelectionUtil;
 import de.christophseidl.util.ecore.EcoreIOUtil;
 import eu.hyvar.feature.HyFeatureModel;
 
+/**
+ * CommandHandler for generation Attributes
+ * 
+ * @author Jeremias Wrensch
+ *
+ */
 public class RandomAttributeGeneratorCommandHandler extends AbstractHandler {
 
 	@Override
@@ -25,7 +31,7 @@ public class RandomAttributeGeneratorCommandHandler extends AbstractHandler {
 		}
 		
 		RandomAttributeGenerator generator = new RandomAttributeGenerator(featureModel, null, null);
-		featureModel = generator.generateAttributes(dialog.getType());
+		featureModel = generator.generateAttributes(dialog.getType(), dialog.getName());
 		
 		EcoreIOUtil.saveModelAs(featureModel, file);
 		return null;

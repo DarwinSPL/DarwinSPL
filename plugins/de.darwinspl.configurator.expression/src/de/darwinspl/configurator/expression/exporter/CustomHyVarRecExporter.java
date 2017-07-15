@@ -11,6 +11,13 @@ import eu.hyvar.feature.expression.util.HyExpressionStringExporter.VersionRepres
 import eu.hyvar.preferences.HyProfile;
 import eu.hyvar.reconfigurator.input.exporter.HyVarRecExporter;
 
+/**
+ * 
+ * Adds the use of the HyExpressionStringExporter class to support the AtomicFeatureExpression
+ * 
+ * @author Jeremias Wrensch
+ *
+ */
 public class CustomHyVarRecExporter extends HyVarRecExporter {
 
 	public CustomHyVarRecExporter() {
