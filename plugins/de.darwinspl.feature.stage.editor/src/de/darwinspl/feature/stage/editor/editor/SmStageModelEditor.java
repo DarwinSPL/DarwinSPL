@@ -51,11 +51,13 @@ import de.darwinspl.feature.stage.commands.DirtyFlagCommand;
 import de.darwinspl.feature.stage.editor.dialogs.StageDialog;
 import de.darwinspl.feature.stage.editor.factory.SmFeatureModelEditorEditPartFactory;
 import de.darwinspl.feature.stage.editor.wizard.StageModelWizard;
+import eu.hyvar.evolution.HyName;
 import eu.hyvar.evolution.util.HyEvolutionUtil;
 import eu.hyvar.feature.HyFeatureModel;
 import de.darwinspl.feature.graphical.base.editparts.DwFeatureEditPart;
 import de.darwinspl.feature.graphical.base.editparts.DwFeatureModelEditPart;
 import de.darwinspl.feature.graphical.base.editparts.DwGroupEditPart;
+import de.darwinspl.feature.graphical.base.editparts.DwRootFeatureEditPart;
 import de.darwinspl.feature.graphical.base.model.DwFeatureModelWrapped;
 import de.darwinspl.feature.graphical.base.model.DwFeatureWrapped;
 import de.darwinspl.feature.graphical.base.model.DwGroupWrapped;
@@ -64,6 +66,7 @@ import de.darwinspl.feature.graphical.editor.editor.DwGraphicalFeatureModelEdito
 import de.darwinspl.feature.graphical.editor.editor.DwGraphicalFeatureModelEditorContextMenuProvider;
 import de.darwinspl.feature.graphical.editor.editparts.DwFeatureEditorEditPart;
 import de.darwinspl.feature.graphical.editor.editparts.DwGroupEditorEditPart;
+import de.darwinspl.feature.graphical.editor.editparts.DwRootFeatureEditorEditPart;
 import eu.hyvar.feature.util.HyFeatureUtil;
 
 
@@ -290,6 +293,7 @@ public class SmStageModelEditor extends DwGraphicalFeatureModelEditor {
 				List<Object> selectionList = currentSelection.toList();
 				
 				DwFeatureEditPart currentFeatureEditPart;
+				DwRootFeatureEditPart currentRootFeatureEditPart;
 				DwFeatureWrapped currentWrappedFeature;
 				
 				DwGroupEditPart currentGroupEditPart;
@@ -304,18 +308,21 @@ public class SmStageModelEditor extends DwGraphicalFeatureModelEditor {
 						currentFeatureEditPart = (DwFeatureEditPart)selectionList.get(i);
 						currentWrappedFeature = (DwFeatureWrapped) currentFeatureEditPart.getModel();
 						//check if object already exists in composition
-						StageComposition currentComposition = HyEvolutionUtil.getValidTemporalElement(selectedStage.getComposition(), currentSelectedDate);
-						if(! currentComposition.getFeatures().contains(currentWrappedFeature.getWrappedModelElement())){
-							currentComposition.getFeatures().add(currentWrappedFeature.getWrappedModelElement());
-						} else {
-							System.out.println("Feature is already in the Composition");
-						}
+						stageModelWrapped.assignFeatureToStage(currentWrappedFeature, selectedStage, currentSelectedDate);						
+					}
+					// Root Feature
+					if(selectionList.get(i) instanceof DwRootFeatureEditorEditPart ){
+						currentRootFeatureEditPart = (DwRootFeatureEditPart)selectionList.get(i);
+						currentWrappedFeature = (DwFeatureWrapped) currentRootFeatureEditPart.getModel();
+						//check if object already exists in composition
+						stageModelWrapped.assignFeatureToStage(currentWrappedFeature, selectedStage, currentSelectedDate);						
 					}
 					// Groups
 					else if (selectionList.get(i) instanceof DwGroupEditorEditPart){
 						currentGroupEditPart = (DwGroupEditPart)selectionList.get(i);
 						currentWrappedGroup = (DwGroupWrapped) currentGroupEditPart.getModel();
-						selectedStage.getComposition().get(0).getGroups().add(currentWrappedGroup.getWrappedModelElement());
+						
+						stageModelWrapped.assignGroupToStage(currentWrappedGroup, selectedStage, currentSelectedDate);	
 					}
 					
 					// Manual Setting Dirty Flag with Empty Command
@@ -347,24 +354,33 @@ public class SmStageModelEditor extends DwGraphicalFeatureModelEditor {
 					List<Object> selectionList = currentSelection.toList();
 					
 					DwFeatureEditPart currentFeatureEditPart;
+					DwRootFeatureEditPart currentRootFeatureEditPart;
 					DwFeatureWrapped currentWrappedFeature;
 					
 					DwGroupEditPart currentGroupEditPart;
 					DwGroupWrapped currentWrappedGroup;
 					
-					// Iterating over all selected Elements and Adding them to the Stage when they are features
+					// Iterating over all selected Elements and Removing them from the Stage when they are Features
 					for(int i = 0; i< currentSelection.size(); i++){
 						// Features
 						if(selectionList.get(i) instanceof DwFeatureEditorEditPart ){
 							currentFeatureEditPart = (DwFeatureEditPart)selectionList.get(i);
-							currentWrappedFeature = (DwFeatureWrapped) currentFeatureEditPart.getModel();					
-							selectedStage.getComposition().get(0).getFeatures().remove(currentWrappedFeature.getWrappedModelElement());
+							currentWrappedFeature = (DwFeatureWrapped) currentFeatureEditPart.getModel();							
+							stageModelWrapped.unassignFeatureFromStage(currentWrappedFeature, selectedStage, currentSelectedDate);
+							
 						}
-						// Groups
+						// Root Features
+						if(selectionList.get(i) instanceof DwRootFeatureEditorEditPart ){
+							currentRootFeatureEditPart = (DwRootFeatureEditPart)selectionList.get(i);
+							currentWrappedFeature = (DwFeatureWrapped) currentRootFeatureEditPart.getModel();					
+							stageModelWrapped.unassignFeatureFromStage(currentWrappedFeature, selectedStage, currentSelectedDate);
+						}
+						// ... or Groups
 						else if (selectionList.get(i) instanceof DwGroupEditorEditPart){
 							currentGroupEditPart = (DwGroupEditPart)selectionList.get(i);
-							currentWrappedGroup = (DwGroupWrapped) currentGroupEditPart.getModel();
-							selectedStage.getComposition().get(0).getGroups().remove(currentWrappedGroup.getWrappedModelElement());
+							currentWrappedGroup = (DwGroupWrapped) currentGroupEditPart.getModel();							
+							stageModelWrapped.unassignGroupFromStage(currentWrappedGroup, selectedStage, currentSelectedDate);
+							
 						}
 					}
 					// Manual Setting Dirty Flag with Empty Command
@@ -389,12 +405,16 @@ public class SmStageModelEditor extends DwGraphicalFeatureModelEditor {
 			
 			stageCombo.removeAll();
 			
-			for (Stage currentStage : stageModelWrapped.getModel().getStages()) {			
-				String currentStageName = currentStage.getNames().get(0).getName();
-				stageCombo.add(currentStageName);
-				stageCombo.pack();
-				stageGroup.pack();
-				stageCombo.redraw();
+			for (Stage currentStage : stageModelWrapped.getModel().getStages()) {
+				if(HyEvolutionUtil.isValid(currentStage, currentSelectedDate)){
+					HyName currentName = HyEvolutionUtil.getValidTemporalElement(currentStage.getNames(), currentSelectedDate);
+					String currentStageName = currentName.getName();
+					stageCombo.add(currentStageName);
+					stageCombo.pack();
+					stageGroup.pack();
+					stageCombo.redraw();
+				}
+				
 				
 				
 	      }	   

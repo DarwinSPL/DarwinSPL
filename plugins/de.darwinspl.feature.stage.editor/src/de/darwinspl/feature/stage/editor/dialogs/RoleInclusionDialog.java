@@ -1,6 +1,7 @@
 package de.darwinspl.feature.stage.editor.dialogs;
 
 import java.util.Date;
+import java.util.List;
 
 import org.eclipse.jface.dialogs.Dialog;
 import org.eclipse.swt.SWT;
@@ -17,22 +18,24 @@ import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.widgets.Label;
-import org.eclipse.swt.widgets.List;
 import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Shell;
 
 import de.darwinspl.feature.stage.Role;
+import de.darwinspl.feature.stage.RoleInclusion;
 import de.darwinspl.feature.stage.Stage;
 import de.darwinspl.feature.stage.base.model.StageModelWrapped;
+import eu.hyvar.evolution.HyName;
+import eu.hyvar.evolution.util.HyEvolutionUtil;
 
 public class RoleInclusionDialog extends Dialog {
 
 	protected StageModelWrapped stageModelWrapped;
 	protected Date currentSelectedDate;
 	
-	protected List roleList;
-	protected List includedRolesList;
-	protected List availableRolesList;
+	protected org.eclipse.swt.widgets.List roleList;
+	protected org.eclipse.swt.widgets.List includedRolesList;
+	protected org.eclipse.swt.widgets.List availableRolesList;
 	
 	protected Role selectedIncludedRole;
 	protected Role selectedAvailableRole;
@@ -110,18 +113,18 @@ public class RoleInclusionDialog extends Dialog {
 //		// Lists for Stages / Roles
 		roleLabel = new Label(roleGroup, SWT.NONE);
 		roleLabel.setText("Roles");
-	    roleList = new List(roleGroup, SWT.BORDER | SWT.SINGLE | SWT.V_SCROLL);
+	    roleList = new org.eclipse.swt.widgets.List(roleGroup, SWT.BORDER | SWT.SINGLE | SWT.V_SCROLL);
 	    roleList.setLayoutData(new GridData(SWT.FILL,SWT.FILL,true,true));
 	     
 	    includedRolesLabel = new Label(includedRolesGroup, SWT.NONE);
 	    includedRolesLabel.setText("Included Roles");
-	    includedRolesList = new List(includedRolesGroup, SWT.BORDER | SWT.SINGLE | SWT.V_SCROLL);
+	    includedRolesList = new org.eclipse.swt.widgets.List(includedRolesGroup, SWT.BORDER | SWT.SINGLE | SWT.V_SCROLL);
 	    includedRolesList.setLayoutData(new GridData(SWT.FILL,SWT.FILL,true,true));
 	    
 	    
 	    availableRolesLabel = new Label(availableRolesGroup, SWT.NONE);
 	    availableRolesLabel.setText("Available Roles");
-	    availableRolesList = new List(availableRolesGroup, SWT.BORDER | SWT.SINGLE | SWT.V_SCROLL);
+	    availableRolesList = new org.eclipse.swt.widgets.List(availableRolesGroup, SWT.BORDER | SWT.SINGLE | SWT.V_SCROLL);
 	    availableRolesList.setLayoutData(new GridData(SWT.FILL,SWT.FILL,true,true));
 	    
 	    
@@ -181,7 +184,8 @@ public class RoleInclusionDialog extends Dialog {
 					
 					// For Loops Checks for Existing Name (Have to be unqiue)
 					for(Role currentRole: stageModelWrapped.getModel().getRoles()){
-						if(currentRole.getNames().get(0).getName().equals(listString)){
+						HyName currentName = HyEvolutionUtil.getValidTemporalElement(currentRole.getNames(), currentSelectedDate);
+						if(currentName.getName().equals(listString)){
 							selectedIncludedRole = currentRole;
 						}
 						
@@ -205,7 +209,8 @@ public class RoleInclusionDialog extends Dialog {
 					
 					// For Loops Checks for Existing Name (Have to be unqiue)
 					for(Role currentRole: stageModelWrapped.getModel().getRoles()){
-						if(currentRole.getNames().get(0).getName().equals(listString)){
+						HyName currentName = HyEvolutionUtil.getValidTemporalElement(currentRole.getNames(), currentSelectedDate);
+						if(currentName.getName().equals(listString)){
 							selectedAvailableRole = currentRole;
 						}
 						
@@ -259,18 +264,25 @@ public class RoleInclusionDialog extends Dialog {
 	 */
 	public void updateIncludedRolesList(){
 		includedRolesList.removeAll();;
-		for (Role currentRole : stageModelWrapped.getModel().getRoles()) {
+		if(selectedRole != null && selectedRole.getInclusions()!= null){	
 			
-			if(selectedRole != null 
-					&& selectedRole.getInclusions()!= null
-					&& selectedRole.getInclusions().get(0).getIncludes().contains(currentRole)){
-				String currentRoleName = currentRole.getNames().get(0).getName();
-				includedRolesList.add(currentRoleName);
-			}
+			RoleInclusion currentValidInclusion = HyEvolutionUtil.getValidTemporalElement(selectedRole.getInclusions(), currentSelectedDate);
+			
+			for(Role includedRole: currentValidInclusion.getIncludes()){	
+				
+				if(HyEvolutionUtil.isValid(includedRole,currentSelectedDate)){
+					HyName currentName = HyEvolutionUtil.getValidTemporalElement(includedRole.getNames(), currentSelectedDate);
+					String currentRoleName = currentName.getName();
+					includedRolesList.add(currentRoleName);
+				}
+				
+			}				
+			
+			
+		}
 
-			includedRolesList.redraw();	
-			
-      }	   
+		includedRolesList.redraw();	
+  
 	}
 	
 	
@@ -280,17 +292,20 @@ public class RoleInclusionDialog extends Dialog {
 	public void updateAvailableRolesList(){
 		availableRolesList.removeAll();;
 		for (Role currentRole : stageModelWrapped.getModel().getRoles()) {	
-			String currentRoleName = currentRole.getNames().get(0).getName();
-			boolean exists = false;
-			for(String str: includedRolesList.getItems()){
-				if(str.equals(currentRoleName)){
-					exists = true;
+			if(HyEvolutionUtil.isValid(currentRole, currentSelectedDate)){
+				HyName currentName = HyEvolutionUtil.getValidTemporalElement(currentRole.getNames(), currentSelectedDate);
+				String currentRoleName = currentName.getName();
+				boolean exists = false;
+				for(String str: includedRolesList.getItems()){
+					if(str.equals(currentRoleName)){
+						exists = true;
+					}
 				}
+				if(!exists && currentRole != selectedRole){
+					availableRolesList.add(currentRoleName);
+				}
+				
 			}
-			if(!exists && currentRole != selectedRole){
-				availableRolesList.add(currentRoleName);
-			}
-
 			availableRolesList.redraw();	
 			
       }	   
@@ -302,13 +317,15 @@ public class RoleInclusionDialog extends Dialog {
 	 */
 	public void updateRoleList(){
 		roleList.removeAll();;
-		for (Role currentRole : stageModelWrapped.getModel().getRoles()) {			
-			String currentRoleName = currentRole.getNames().get(0).getName(); 
-			roleList.add(currentRoleName);
-			
-			roleList.redraw();
-			
-      }	  
+		for (Role currentRole : stageModelWrapped.getModel().getRoles()) {
+			if(HyEvolutionUtil.isValid(currentRole, currentSelectedDate)){
+				HyName currentName = HyEvolutionUtil.getValidTemporalElement(currentRole.getNames(), currentSelectedDate);
+				String currentRoleName = currentName.getName(); 
+				roleList.add(currentRoleName);
+				
+				roleList.redraw();
+			}			
+      }	
 		
 	}
 	

@@ -265,9 +265,8 @@ public class RoleAssignmentDialog extends Dialog {
 	public void updateAssignedStagesList(){
 		assignedStagesList.removeAll();;
 		for (Stage currentStage : stageModelWrapped.getModel().getStages()) {
-			
-			if(selectedRole != null){
-				
+
+			if(HyEvolutionUtil.isValid(currentStage, currentSelectedDate) && selectedRole!= null){				
 				List<RoleAssignment> roleAssignment = HyEvolutionUtil.getValidTemporalElements(selectedRole.getAssignments(), currentSelectedDate);
 				
 				for(RoleAssignment currentAssignment : roleAssignment){
@@ -290,20 +289,22 @@ public class RoleAssignmentDialog extends Dialog {
 	 */
 	public void updateAvailableStagesList(){
 		availableStagesList.removeAll();;
-		for (Stage currentStage : stageModelWrapped.getModel().getStages()) {	
-			HyName currentName = HyEvolutionUtil.getValidTemporalElement(currentStage.getNames(), currentSelectedDate);
-			String currentStageName = currentName.getName();
-			boolean exists = false;
-			for(String str: assignedStagesList.getItems()){
-				if(str.equals(currentStageName)){
-					exists = true;
+		for (Stage currentStage : stageModelWrapped.getModel().getStages()) {
+			if(HyEvolutionUtil.isValid(currentStage, currentSelectedDate)){
+				HyName currentName = HyEvolutionUtil.getValidTemporalElement(currentStage.getNames(), currentSelectedDate);
+				String currentStageName = currentName.getName();
+				boolean exists = false;
+				for(String str: assignedStagesList.getItems()){
+					if(str.equals(currentStageName)){
+						exists = true;
+					}
 				}
-			}
-			if(!exists){
-				availableStagesList.add(currentStageName);
-			}
+				if(!exists){
+					availableStagesList.add(currentStageName);
+				}
 
-			availableStagesList.redraw();	
+				availableStagesList.redraw();	
+			}			
 			
       }	   
 	}
@@ -315,12 +316,13 @@ public class RoleAssignmentDialog extends Dialog {
 	public void updateRoleList(){
 		roleList.removeAll();;
 		for (Role currentRole : stageModelWrapped.getModel().getRoles()) {
-			HyName currentName = HyEvolutionUtil.getValidTemporalElement(currentRole.getNames(), currentSelectedDate);
-			String currentRoleName = currentName.getName(); 
-			roleList.add(currentRoleName);
-			
-			roleList.redraw();
-			
+			if(HyEvolutionUtil.isValid(currentRole, currentSelectedDate)){
+				HyName currentName = HyEvolutionUtil.getValidTemporalElement(currentRole.getNames(), currentSelectedDate);
+				String currentRoleName = currentName.getName(); 
+				roleList.add(currentRoleName);
+				
+				roleList.redraw();
+			}			
       }	  
 		
 	}
@@ -342,6 +344,9 @@ public class RoleAssignmentDialog extends Dialog {
 		return new Point(480, 300);
 	}
 	
+	/**
+	 *  Sets window resizable
+	 */
 	@Override
 	protected boolean isResizable() {
 	    return true;

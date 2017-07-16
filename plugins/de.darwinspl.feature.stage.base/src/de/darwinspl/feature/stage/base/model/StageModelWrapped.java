@@ -5,6 +5,10 @@ import java.beans.PropertyChangeListener;
 import java.util.Date;
 import java.util.List;
 
+import org.eclipse.emf.ecore.util.EcoreUtil;
+
+import de.darwinspl.feature.graphical.base.model.DwFeatureWrapped;
+import de.darwinspl.feature.graphical.base.model.DwGroupWrapped;
 import de.darwinspl.feature.stage.Role;
 import de.darwinspl.feature.stage.RoleAssignment;
 import de.darwinspl.feature.stage.RoleInclusion;
@@ -15,6 +19,8 @@ import de.darwinspl.feature.stage.StageModel;
 import eu.hyvar.evolution.HyEvolutionFactory;
 import eu.hyvar.evolution.HyName;
 import eu.hyvar.evolution.util.HyEvolutionUtil;
+import eu.hyvar.feature.HyFeature;
+import eu.hyvar.feature.HyGroup;
 
 public class StageModelWrapped implements PropertyChangeListener  {
 
@@ -109,11 +115,31 @@ public class StageModelWrapped implements PropertyChangeListener  {
 	 * @param selectedRole
 	 * @param selectedStage
 	 */
-	public void assignRoleToStage(Role selectedRole, Stage selectedStage, Date currentSelectedDate){
-		
+	public void assignRoleToStage(Role selectedRole, Stage selectedStage, Date currentSelectedDate){		
 		RoleAssignment currentRoleAssignment;		
 		currentRoleAssignment = HyEvolutionUtil.getValidTemporalElement(selectedStage.getRoleAssignment(), currentSelectedDate);
-		currentRoleAssignment.getRoles().add(selectedRole);
+		
+		if(currentRoleAssignment.getValidSince().equals(currentSelectedDate)){
+			currentRoleAssignment.getRoles().add(selectedRole);
+		}		
+		else { 
+			//Create new Validity from this date
+			RoleAssignment newRoleAssignment = EcoreUtil.copy(currentRoleAssignment);
+			newRoleAssignment.setStage(currentRoleAssignment.getStage());
+			// TODO Alex: Is this needed twice?
+			currentRoleAssignment.setSupersedingElement(newRoleAssignment);
+			newRoleAssignment.setSupersededElement(currentRoleAssignment);
+			// TODO Alex: Change this, Copy seems to be not working?
+			for(Role role : currentRoleAssignment.getRoles()){
+				newRoleAssignment.getRoles().add(role);
+			}
+			newRoleAssignment.getRoles().add(selectedRole);
+			newRoleAssignment.setValidSince(currentSelectedDate);
+			// Make old Assignment not valid
+			currentRoleAssignment.setValidUntil(currentSelectedDate);			
+		}
+		
+		
 		
 	}
 	
@@ -124,8 +150,21 @@ public class StageModelWrapped implements PropertyChangeListener  {
 	 */
 	public void unassignRoleFromStage(Role selectedRole, Stage selectedStage, Date currentSelectedDate){		
 		RoleAssignment currentRoleAssignment;		
-		currentRoleAssignment = HyEvolutionUtil.getValidTemporalElement(selectedStage.getRoleAssignment(), currentSelectedDate);		
-		currentRoleAssignment.getRoles().remove(selectedRole);
+		currentRoleAssignment = HyEvolutionUtil.getValidTemporalElement(selectedStage.getRoleAssignment(), currentSelectedDate);
+		
+		if(currentRoleAssignment.getValidSince().equals(currentSelectedDate)){
+			currentRoleAssignment.getRoles().remove(selectedRole);
+		}
+		else {
+			RoleAssignment newRoleAssignment = EcoreUtil.copy(currentRoleAssignment);
+			
+			currentRoleAssignment.setSupersedingElement(newRoleAssignment);
+			newRoleAssignment.setSupersededElement(currentRoleAssignment);
+			
+			currentRoleAssignment.setValidUntil(currentSelectedDate);
+			newRoleAssignment.setValidSince(currentSelectedDate);
+			newRoleAssignment.getRoles().remove(selectedRole);
+		}
 
 	}
 	
@@ -176,14 +215,30 @@ public class StageModelWrapped implements PropertyChangeListener  {
 		// TODO Alex: Add Evolution here, currently wrong
 		
 		RoleInclusion newInclusion;		
-
+		
 		if(role.getInclusions().get(0) == null){
 			newInclusion = StageFactory.eINSTANCE.createRoleInclusion();	
 			newInclusion.setInclusionsFor(role);
 			role.getInclusions().add(newInclusion);			
 		} else {
-
+			
 			newInclusion = HyEvolutionUtil.getValidTemporalElement(role.getInclusions(), currentSelectedDate);
+			if(!newInclusion.getValidSince().equals(currentSelectedDate)){
+				//TODO Alex: Copy does not work
+				RoleInclusion inclusion = EcoreUtil.copy(newInclusion);
+				
+				for(Role includedBefore : newInclusion.getIncludes()){
+					inclusion.getIncludes().add(includedBefore);
+				}
+				
+				newInclusion.setValidUntil(currentSelectedDate);			
+				newInclusion.setSupersedingElement(inclusion);
+				inclusion.setSupersededElement(newInclusion);
+				inclusion.setValidSince(currentSelectedDate);
+				inclusion.setInclusionsFor(newInclusion.getInclusionsFor());
+				
+				newInclusion = inclusion;
+			}
 		}
 		
 		// Add new role to inclusion reference
@@ -201,10 +256,162 @@ public class StageModelWrapped implements PropertyChangeListener  {
 	public void unincludeRole(Role role, Role unincludedRole, Date currentSelectedDate){
 		// Remove include from Role Inclusion
 		RoleInclusion inclusion = HyEvolutionUtil.getValidTemporalElement(role.getInclusions(), currentSelectedDate);
+		if(!inclusion.getValidSince().equals(currentSelectedDate)){
+			inclusion.setValidUntil(currentSelectedDate);
+			
+			RoleInclusion newInclusion = EcoreUtil.copy(inclusion);
+			
+			inclusion.setSupersedingElement(newInclusion);
+			newInclusion.setSupersededElement(inclusion);
+			newInclusion.setValidSince(currentSelectedDate);
+			newInclusion.setInclusionsFor(inclusion.getInclusionsFor());			
+			
+			inclusion = newInclusion;
+		}
 		inclusion.getIncludes().remove(unincludedRole);
 		
 		// Remove reference to RoleInclsuion from unincludedRole
 //		unincludedRole.getIncludedBy().remove(inclusion);
+		
+	}
+
+	/**
+	 * Feature Assignment to a selected Stage
+	 * @param currentWrappedFeature selected Feature
+	 * @param selectedStage selected Stage
+	 */
+	public void assignFeatureToStage(DwFeatureWrapped currentWrappedFeature, Stage selectedStage, Date currentSelectedDate) {
+		StageComposition currentComposition = HyEvolutionUtil.getValidTemporalElement(selectedStage.getComposition(), currentSelectedDate);
+		if(currentComposition.getValidSince().equals(currentSelectedDate)){
+			// There is already a composition at the selected Date
+			if(! currentComposition.getFeatures().contains(currentWrappedFeature.getWrappedModelElement())){
+				currentComposition.getFeatures().add(currentWrappedFeature.getWrappedModelElement());
+			} else {
+				System.out.println("Feature is already in the Composition");
+			}
+		} else {
+			// New composition is created for the selected Date
+			if(! currentComposition.getFeatures().contains(currentWrappedFeature.getWrappedModelElement())){
+				StageComposition newComposition = EcoreUtil.copy(currentComposition);
+				currentComposition.setValidUntil(currentSelectedDate);
+				
+				newComposition.setValidSince(currentSelectedDate);
+				for(HyFeature currentFeature : currentComposition.getFeatures()){
+					newComposition.getFeatures().add(currentFeature);
+				}
+				newComposition.setCompositionOf(currentComposition.getCompositionOf());
+				newComposition.getFeatures().add(currentWrappedFeature.getWrappedModelElement());
+			} else {
+				System.out.println("Feature is already in the Composition");
+			}			
+			
+		}		
+		
+	}
+
+	/**
+	 * Group Assignment to a selected Stage
+	 * @param currentWrappedGroup selected Group
+	 * @param selectedStage selected Stage
+	 */
+	public void assignGroupToStage(DwGroupWrapped currentWrappedGroup, Stage selectedStage, Date currentSelectedDate) {
+		StageComposition currentComposition = HyEvolutionUtil.getValidTemporalElement(selectedStage.getComposition(), currentSelectedDate);
+		if(currentComposition.getValidSince().equals(currentSelectedDate)){
+			// There is already a composition at the selected Date
+			if(! currentComposition.getGroups().contains(currentWrappedGroup.getWrappedModelElement())){
+				currentComposition.getGroups().add(currentWrappedGroup.getWrappedModelElement());
+			} else {
+				System.out.println("Group is already in the Composition");
+			}
+		} else {
+			// New composition is created for the selected Date
+			if(! currentComposition.getGroups().contains(currentWrappedGroup.getWrappedModelElement())){
+				StageComposition newComposition = EcoreUtil.copy(currentComposition);
+				currentComposition.setValidUntil(currentSelectedDate);
+				
+				newComposition.setValidSince(currentSelectedDate);
+				for(HyGroup currentGroup : currentComposition.getGroups()){
+					newComposition.getGroups().add(currentGroup);
+				}
+				newComposition.setCompositionOf(currentComposition.getCompositionOf());
+				newComposition.getGroups().add(currentWrappedGroup.getWrappedModelElement());
+			} else {
+				System.out.println("Feature is already in the Composition");
+			}			
+			
+		}	
+		
+	}
+
+	/**
+	 * Unassignment of Features from Stages
+	 * @param currentWrappedFeature selected Feature
+	 * @param selectedStage selected Stage	
+	 * @param currentSelectedDate selected Date
+	 */
+	public void unassignFeatureFromStage(DwFeatureWrapped currentWrappedFeature, Stage selectedStage,
+			Date currentSelectedDate) {
+		StageComposition currentComposition = HyEvolutionUtil.getValidTemporalElement(selectedStage.getComposition(), currentSelectedDate);
+		if(currentComposition.getValidSince().equals(currentSelectedDate)){
+			// There is already a composition at the selected Date
+			if(currentComposition.getFeatures().contains(currentWrappedFeature.getWrappedModelElement())){
+				currentComposition.getFeatures().remove(currentWrappedFeature.getWrappedModelElement());
+			} else {
+				System.out.println("Feature is not in current Stage");
+			}
+		} else {
+			// New composition is created for the selected Date
+			if(currentComposition.getFeatures().contains(currentWrappedFeature.getWrappedModelElement())){
+				StageComposition newComposition = EcoreUtil.copy(currentComposition);
+				currentComposition.setValidUntil(currentSelectedDate);
+				
+				newComposition.setValidSince(currentSelectedDate);
+				for(HyFeature currentFeature : currentComposition.getFeatures()){
+					newComposition.getFeatures().add(currentFeature);
+				}
+				newComposition.setCompositionOf(currentComposition.getCompositionOf());
+				newComposition.getFeatures().remove(currentWrappedFeature.getWrappedModelElement());
+			} else {
+				System.out.println("Feature is not in current Stage");
+			}			
+			
+		}	
+		
+	}
+
+	/**
+	 *  Unassignment of Groups from Features
+	 * @param currentWrappedGroup
+	 * @param selectedStage
+	 * @param currentSelectedDate
+	 */
+	public void unassignGroupFromStage(DwGroupWrapped currentWrappedGroup, Stage selectedStage,
+			Date currentSelectedDate) {
+		StageComposition currentComposition = HyEvolutionUtil.getValidTemporalElement(selectedStage.getComposition(), currentSelectedDate);
+		if(currentComposition.getValidSince().equals(currentSelectedDate)){
+			// There is already a composition at the selected Date
+			if(currentComposition.getGroups().contains(currentWrappedGroup.getWrappedModelElement())){
+				currentComposition.getGroups().remove(currentWrappedGroup.getWrappedModelElement());
+			} else {
+				System.out.println("Group is not in current Stage");
+			}
+		} else {
+			// New composition is created for the selected Date
+			if(currentComposition.getGroups().contains(currentWrappedGroup.getWrappedModelElement())){
+				StageComposition newComposition = EcoreUtil.copy(currentComposition);
+				currentComposition.setValidUntil(currentSelectedDate);
+				
+				newComposition.setValidSince(currentSelectedDate);
+				for(HyGroup currentGroup : currentComposition.getGroups()){
+					newComposition.getGroups().add(currentGroup);
+				}
+				newComposition.setCompositionOf(currentComposition.getCompositionOf());
+				newComposition.getGroups().remove(currentWrappedGroup.getWrappedModelElement());
+			} else {
+				System.out.println("Group is not in current Stage");
+			}			
+			
+		}	
 		
 	}
 
