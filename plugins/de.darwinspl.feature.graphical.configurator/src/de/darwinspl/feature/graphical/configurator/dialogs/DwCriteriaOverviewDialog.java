@@ -106,7 +106,8 @@ public class DwCriteriaOverviewDialog extends Dialog {
 								multiNumberComp.getSelectedFeatures(), multiNumberComp.useDefaultValue());
 					} else if (multiNumberComp.getSelectedMode() == ConfiguratorMode.CUSTOM) {
 						builder.addCustomNumberedAttributeExpression(multiNumberComp.getAttributeName(),
-								multiNumberComp.getSelectedFeatures(), multiNumberComp.getCustomValue());
+								multiNumberComp.getSelectedFeatures(), multiNumberComp.getCustomValue(),
+								multiNumberComp.useDefaultValue());
 					}
 				} else if (row instanceof DwMultiEnumCriteriaComposite) {
 					DwMultiEnumCriteriaComposite multiEnumComp = (DwMultiEnumCriteriaComposite) row;
@@ -128,7 +129,7 @@ public class DwCriteriaOverviewDialog extends Dialog {
 								singleNumberComp.useDefaultValue());
 					} else if (singleNumberComp.getSelectedMode() == ConfiguratorMode.CUSTOM) {
 						builder.addSingleCustomAttribute((HyNumberAttribute) singleNumberComp.getAttribute(),
-								singleNumberComp.getCustomValue());
+								singleNumberComp.getCustomValue(), singleNumberComp.useDefaultValue());
 					}
 				} else if (row instanceof DwEnumCriteriaComposite) {
 					DwEnumCriteriaComposite singleEnumComp = (DwEnumCriteriaComposite) row;

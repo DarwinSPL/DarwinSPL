@@ -190,8 +190,8 @@ public class PreferenceBuilder {
 	 * @return
 	 */
 	public PreferenceBuilder addCustomNumberedAttributeExpression(String attributeName,
-			List<HyFeature> selectedFeatures, int value) {
-		addExpression(createMultiCustomNumberedExpression(attributeName, selectedFeatures, value));
+			List<HyFeature> selectedFeatures, int value, boolean useDefaultValue) {
+		addExpression(createMultiCustomNumberedExpression(attributeName, selectedFeatures, value, useDefaultValue));
 		return this;
 	}
 
@@ -203,14 +203,33 @@ public class PreferenceBuilder {
 	 * @param value
 	 * @return
 	 */
-	public PreferenceBuilder addSingleCustomAttribute(HyNumberAttribute attribute, int value) {
+	public PreferenceBuilder addSingleCustomAttribute(HyNumberAttribute attribute, int value, boolean useDefault) {
 
+		// attribute values
+		HyExpression e1;
+		HyExpression e2;
+		HyExpression e3;
+		HyExpression e4;
+		
+		if(useDefault) {
+			e1 = value(attribute.getDefault());
+			e2 = value(attribute.getDefault());
+			e3 = value(attribute.getDefault());
+			e4 = value(attribute.getDefault());
+		} else {
+			e1 = attribute(attribute);
+			e2 = attribute(attribute);
+			e3 = attribute(attribute);
+			e4 = attribute(attribute);
+		}
+
+		
 		// f
 		HyFeature feature = attribute.getFeature();
-		HyMultiplicationExpression f1 = mul(feature(feature), attribute(attribute));
-		HyMultiplicationExpression f2 = mul(feature(feature), attribute(attribute));
-		HyMultiplicationExpression f3 = mul(feature(feature), attribute(attribute));
-		HyMultiplicationExpression f4 = mul(feature(feature), attribute(attribute));
+		HyMultiplicationExpression f1 = mul(feature(feature), e1);
+		HyMultiplicationExpression f2 = mul(feature(feature), e2);
+		HyMultiplicationExpression f3 = mul(feature(feature), e3);
+		HyMultiplicationExpression f4 = mul(feature(feature), e4);
 
 		// c
 		HyExpression c1 = value(value);
@@ -448,14 +467,14 @@ public class PreferenceBuilder {
 	 * @return
 	 */
 	private HyExpression createMultiCustomNumberedExpression(String attributeName, List<HyFeature> selectedFeatures,
-			int value) {
+			int value, boolean useDefaultValue) {
 		List<HyFeatureAttribute> attributes = getAttributesByName(attributeName);
 
 		// fa
-		HyExpression fa1 = createNumberedAttributeSumExpression(attributes, selectedFeatures);
-		HyExpression fa2 = createNumberedAttributeSumExpression(attributes, selectedFeatures);
-		HyExpression fa3 = createNumberedAttributeSumExpression(attributes, selectedFeatures);
-		HyExpression fa4 = createNumberedAttributeSumExpression(attributes, selectedFeatures);
+		HyExpression fa1 = createNumberedAttributeSumExpression(attributes, selectedFeatures, useDefaultValue);
+		HyExpression fa2 = createNumberedAttributeSumExpression(attributes, selectedFeatures, useDefaultValue);
+		HyExpression fa3 = createNumberedAttributeSumExpression(attributes, selectedFeatures, useDefaultValue);
+		HyExpression fa4 = createNumberedAttributeSumExpression(attributes, selectedFeatures, useDefaultValue);
 
 		// c
 		HyExpression c1 = value(value);
@@ -583,8 +602,15 @@ public class PreferenceBuilder {
 	 * @param attribute
 	 * @return
 	 */
-	private HyExpression createFeatureAndAttributeMultiplication(HyFeatureAttribute attribute) {
-		HyExpression attributeExpression = attribute(attribute);
+	private HyExpression createFeatureAndAttributeMultiplication(HyFeatureAttribute attribute,
+			boolean useDefaultValue) {
+
+		HyExpression attributeExpression;
+		if (useDefaultValue && attribute instanceof HyNumberAttribute) {
+			attributeExpression = value(((HyNumberAttribute) attribute).getDefault());
+		} else {
+			attributeExpression = attribute(attribute);
+		}
 		HyExpression featureExpression = feature(attribute.getFeature());
 
 		return mul(attributeExpression, featureExpression);
@@ -605,7 +631,7 @@ public class PreferenceBuilder {
 	}
 
 	private HyExpression createNumberedAttributeSumExpression(List<HyFeatureAttribute> attributes,
-			List<HyFeature> selectedFeatures) {
+			List<HyFeature> selectedFeatures, boolean useDefaultValue) {
 		HyFeatureAttribute lastAttribute = null;
 		HyAdditionExpression addExp = null;
 		boolean first = true;
@@ -615,10 +641,10 @@ public class PreferenceBuilder {
 					if (first) {
 						first = false;
 
-						addExp = add(createFeatureAndAttributeMultiplication(lastAttribute),
-								createFeatureAndAttributeMultiplication(attribute));
+						addExp = add(createFeatureAndAttributeMultiplication(lastAttribute, useDefaultValue),
+								createFeatureAndAttributeMultiplication(attribute, useDefaultValue));
 					} else {
-						addExp = add(addExp, createFeatureAndAttributeMultiplication(attribute));
+						addExp = add(addExp, createFeatureAndAttributeMultiplication(attribute, useDefaultValue));
 					}
 				}
 				lastAttribute = attribute;

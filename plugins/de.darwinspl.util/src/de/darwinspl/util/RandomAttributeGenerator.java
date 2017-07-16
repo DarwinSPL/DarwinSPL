@@ -113,16 +113,19 @@ public class RandomAttributeGenerator {
 		HyEnumLiteral lit3 = HyDataValuesFactory.eINSTANCE.createHyEnumLiteral();
 
 		lit1.setEnum(hyEnum);
+		lit1.setValue(0);
 		lit1.setName("Enum " + enumNr + " lit 1");
 		lit1.setValidSince(validSince);
 		lit1.setValidUntil(validUntil);
 
 		lit2.setEnum(hyEnum);
+		lit2.setValue(1);
 		lit2.setName("Enum " + enumNr + " lit 2");
 		lit2.setValidSince(validSince);
 		lit2.setValidUntil(validUntil);
 
 		lit3.setEnum(hyEnum);
+		lit3.setValue(2);
 		lit3.setName("Enum " + enumNr + " lit 3");
 		lit3.setValidSince(validSince);
 		lit3.setValidUntil(validUntil);
