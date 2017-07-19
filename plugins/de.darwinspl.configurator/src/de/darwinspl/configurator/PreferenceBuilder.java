@@ -244,6 +244,7 @@ public class PreferenceBuilder {
 	}
 
 	/**
+	 * creates expression that expresses the maximization of numbered FMAs
 	 * 
 	 * @param attributeName
 	 *            name of the feature model attribute
@@ -267,6 +268,7 @@ public class PreferenceBuilder {
 	}
 
 	/**
+	 * adds expression that expresses the maximization of numbered FMAs
 	 * 
 	 * @param attributeName
 	 *            name of the feature model attribute
@@ -283,6 +285,7 @@ public class PreferenceBuilder {
 	}
 
 	/**
+	 * adds expression that expresses the minimization of numbered FMAs
 	 * 
 	 * @param attributeName
 	 *            name of the feature model attribute
@@ -311,6 +314,7 @@ public class PreferenceBuilder {
 	}
 
 	/**
+	 * creates Expression that represents the optimization agains an enum-literal
 	 * 
 	 * @param attributeName
 	 *            name of the feature model attribute
@@ -334,6 +338,7 @@ public class PreferenceBuilder {
 	}
 
 	/**
+	 * adds expression that represents the optimization agains an enum-literal
 	 * 
 	 * @param selectedFeatures
 	 *            only selected features will be considered
@@ -359,7 +364,7 @@ public class PreferenceBuilder {
 	/**
 	 * 
 	 * creates expression that represents the optimization problem of maximizing
-	 * a single numbered attribute
+	 * a numbered FA
 	 * 
 	 * @param attribute
 	 *            that should be optimized
@@ -380,20 +385,21 @@ public class PreferenceBuilder {
 	}
 
 	/**
-	 * 
+	 * add expression that represents the maximization of a numbered FA
 	 * 
 	 * @param attribute
 	 * @param useDefaultValue
 	 *            should the default value of the attribute be used
 	 * @return
 	 */
-	public PreferenceBuilder addSingleNumberedAttributeMaximumExpression(HyNumberAttribute attribute,
+	public PreferenceBuilder addNumberedAttributeMaximumExpression(HyNumberAttribute attribute,
 			boolean useDefaultValue) {
 		addExpression(createMaxNumberedAttributeExpression(attribute, useDefaultValue));
 		return this;
 	}
 
 	/**
+	 * add expression that represents the minimization of a numbered FA
 	 * 
 	 * @param attribute
 	 * @param useDefaultValue
@@ -407,9 +413,10 @@ public class PreferenceBuilder {
 	}
 
 	/**
+	 * adds expression that represents the optimization against an enum-literal
 	 * 
-	 * @param attribute
-	 * @param literal
+	 * @param attribute attribute that should be optimized
+	 * @param literal enum-literal that should be used for the optimization
 	 * @return
 	 */
 	public PreferenceBuilder addEnumAttributeExpression(HyEnumAttribute attribute, HyEnumLiteral literal) {
@@ -418,9 +425,10 @@ public class PreferenceBuilder {
 	}
 
 	/**
+	 * creates expression that represents the optimization against an enum-literal
 	 * 
-	 * @param attribute
-	 * @param literal
+	 * @param attribute attribute attribute that should be optimized
+	 * @param literal enum-literal that should be used for the optimization
 	 * @return
 	 */
 	private HyExpression createEnumAttributeExpression(HyEnumAttribute attribute, HyEnumLiteral literal) {
@@ -429,9 +437,10 @@ public class PreferenceBuilder {
 	}
 
 	/**
+	 * adds expression that represent the optimization of boolean FAs
 	 * 
-	 * @param attribute
-	 * @param value
+	 * @param attribute attribute that should be optimized
+	 * @param value desired attribute value
 	 * @return
 	 */
 	public PreferenceBuilder addBooleanExpression(HyFeatureAttribute attribute, boolean value) {
@@ -440,9 +449,10 @@ public class PreferenceBuilder {
 	}
 
 	/**
+	 * creates expression that represent the optimization of boolean FAs
 	 * 
-	 * @param attribute
-	 * @param value
+	 * @param attribute attribute that should be optimized
+	 * @param value desired attribute value
 	 * @return
 	 */
 	private HyExpression createBooleanAttributeExpression(HyFeatureAttribute attribute, boolean value) {
@@ -458,6 +468,7 @@ public class PreferenceBuilder {
 	}
 
 	/**
+	 * creates expression that represents the optimization against a custom value for FMAs
 	 * 
 	 * @param attributeName
 	 *            name of the feature model attribute
@@ -598,8 +609,10 @@ public class PreferenceBuilder {
 	}
 
 	/**
+	 * creates product of the attributes and its feature
 	 * 
-	 * @param attribute
+	 * @param attribute 
+	 * @param useDefaultValue true, if the default value of the attribtue should be used
 	 * @return
 	 */
 	private HyExpression createFeatureAndAttributeMultiplication(HyFeatureAttribute attribute,

@@ -124,7 +124,7 @@ public class DwCriteriaOverviewDialog extends Dialog {
 								(HyNumberAttribute) singleNumberComp.getAttribute(),
 								singleNumberComp.useDefaultValue());
 					} else if (singleNumberComp.getSelectedMode() == ConfiguratorMode.MAX) {
-						builder.addSingleNumberedAttributeMaximumExpression(
+						builder.addNumberedAttributeMaximumExpression(
 								(HyNumberAttribute) singleNumberComp.getAttribute(),
 								singleNumberComp.useDefaultValue());
 					} else if (singleNumberComp.getSelectedMode() == ConfiguratorMode.CUSTOM) {
