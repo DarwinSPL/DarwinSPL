@@ -101,7 +101,7 @@ public class SmStageModelEditor extends DwGraphicalFeatureModelEditor {
 	 */
 	protected void loadStageModelFromURI (URI modelURI){		
 		stageModelWrapped = new StageModelWrapped((StageModel)EcoreIOUtil.loadModel(modelURI, modelWrapped.getModel().eResource().getResourceSet()));
-		
+		stageModelWrapped.getModel().setFeatureModel(modelWrapped.getModel());
 	}
 	
 	
