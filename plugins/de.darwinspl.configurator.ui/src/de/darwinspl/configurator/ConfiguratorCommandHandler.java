@@ -53,7 +53,6 @@ public class ConfiguratorCommandHandler extends AbstractHandler  {
 		
 		Date date = null;
 		List<Date> dates = HyEvolutionUtil.collectDates(featureModel);
-		System.out.println("size:" + dates.size());
 		if(dates != null && !dates.isEmpty()) {
 			DatePickerDialog datePickerDialog = new DatePickerDialog(shell, dates);
 			if(datePickerDialog.open() != Dialog.OK) return null;
