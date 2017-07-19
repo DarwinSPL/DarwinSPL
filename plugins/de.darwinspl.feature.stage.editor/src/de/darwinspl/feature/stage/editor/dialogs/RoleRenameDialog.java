@@ -21,14 +21,15 @@ import de.darwinspl.feature.stage.base.model.StageModelWrapped;
 import eu.hyvar.evolution.HyName;
 import eu.hyvar.evolution.util.HyEvolutionUtil;
 
-public class StageCreationDialog extends Dialog {
+public class RoleRenameDialog extends Dialog {
 	
 	protected StageModelWrapped stageModelWrapped;
 	protected Date currentSelectedDate;
+	protected Role currentSelectedRole;
 	
-	protected Composite stageButtonGroup;
+	protected Composite roleButtonGroup;
 	
-	protected Button createStageButton;
+	protected Button renameButton;
 	protected Button cancelButton;
 	
 	protected Text editField;
@@ -37,10 +38,13 @@ public class StageCreationDialog extends Dialog {
 	
 	protected Composite buttonGroup;
 	
-	public StageCreationDialog(Shell parentShell, StageModelWrapped stageModelWrapped, Date currentSelectedDate) {
+	
+	public RoleRenameDialog(Shell parentShell, StageModelWrapped stageModelWrapped, Date currentSelectedDate, Role currentSelectedRole) {
 		super(parentShell);
 		this.stageModelWrapped = stageModelWrapped;
 		this.currentSelectedDate = currentSelectedDate;
+		this.currentSelectedRole = currentSelectedRole;
+		
 	}
 	
 	@Override
@@ -52,34 +56,32 @@ public class StageCreationDialog extends Dialog {
 	    
 	    
 	    infoText = new Label(container, SWT.NONE);
-	    infoText.setText("Please enter a Name for new Stage");	    
+	    infoText.setText("Please enter a new name for the selected role");	    
 	    
 	    editField = new Text(container, SWT.BORDER);
 	    
 	    buttonGroup = new Composite(container,SWT.NONE);
 	    buttonGroup.setLayout(new RowLayout());
 	    
-	    createStageButton = new Button(buttonGroup, SWT.PUSH);
-	    createStageButton.setText("Create");
+	    renameButton = new Button(buttonGroup, SWT.PUSH);
+	    renameButton.setText("Rename");
 	    
 	    cancelButton = new Button(buttonGroup, SWT.PUSH);
 	    cancelButton.setText("Cancel");
 	    
 	    
 	    // Register Listeners
-	    createStageButton.addListener(SWT.Selection, new Listener(){
+	    renameButton.addListener(SWT.Selection, new Listener(){
 			public void handleEvent(Event event) {
 								
-				for (Stage currentStage : stageModelWrapped.getModel().getStages()) {
-					if(HyEvolutionUtil.isValid(currentStage, currentSelectedDate)){
-						HyName currentName = HyEvolutionUtil.getValidTemporalElement(currentStage.getNames(),currentSelectedDate);
-						if(currentName.getName().equals(editField.getText())){
-							System.out.println("stage already exists");
-							return;
-						}
+				for (Role currentRole : stageModelWrapped.getModel().getRoles()) {
+					HyName currentName = HyEvolutionUtil.getValidTemporalElement(currentRole.getNames(),currentSelectedDate);
+					if(currentName.getName().equals(editField.getText())){
+						System.out.println("Name already exists at this date");
+						return;
 					}
 				}			
-				stageModelWrapped.addNewStageToModel(editField.getText(), currentSelectedDate);
+				stageModelWrapped.addNewNameToRole(editField.getText(), currentSelectedDate, currentSelectedRole);
 				close();
 			}	    	
 	    });
@@ -105,12 +107,12 @@ public class StageCreationDialog extends Dialog {
 	}
 	
 	/**
-	 * Sets stage Creation Dialog Caption
+	 * Sets role Creation Dialog Caption
 	 */
 	@Override
 	protected void configureShell(Shell newShell) {
 		super.configureShell(newShell);
-		newShell.setText("Create Stage");
+		newShell.setText("Rename role");
 	}
 	
 	

@@ -78,7 +78,8 @@ public class StageModelWrapped implements PropertyChangeListener  {
 		StageComposition newStageComposition = StageFactory.eINSTANCE.createStageComposition();
 		RoleAssignment newRoleAssignment = StageFactory.eINSTANCE.createRoleAssignment();
 		HyName newName =  HyEvolutionFactory.eINSTANCE.createHyName();
-		newName.setName(text);		
+		newName.setName(text);
+		newName.setValidSince(currentSelectedDate);
 	    newStage.getNames().add(newName);
 	    newStage.getComposition().add(newStageComposition);
 	     
@@ -99,7 +100,8 @@ public class StageModelWrapped implements PropertyChangeListener  {
 		Role newRole =StageFactory.eINSTANCE.createRole();
 		RoleInclusion newRoleInclusion = StageFactory.eINSTANCE.createRoleInclusion();
 		HyName newName =  HyEvolutionFactory.eINSTANCE.createHyName();		
-		newName.setName(text);		
+		newName.setName(text);
+		newName.setValidSince(currentSelectedDate);
 	    newRole.getNames().add(newName);
 	    newRole.getInclusions().add(newRoleInclusion);
 	    
@@ -176,12 +178,6 @@ public class StageModelWrapped implements PropertyChangeListener  {
 	public void deleteStage(Stage stage, Date currentSelectedDate){
 		// Remove all assigned Roles
 		if(stage.getValidSince().equals(currentSelectedDate)){
-
-//			RoleAssignment currentRoleAssignment;
-//			currentRoleAssignment = HyEvolutionUtil.getValidTemporalElement(stage.getRoleAssignment(), currentSelectedDate);
-//			for(Role roles : currentRoleAssignment.getRoles()){
-//				
-//			}
 			stageModel.getStages().remove(stage);
 			
 		}
@@ -189,6 +185,30 @@ public class StageModelWrapped implements PropertyChangeListener  {
 			stage.setValidUntil(currentSelectedDate);
 		}
 		
+	}
+	
+	/**
+	 * Restores a Stage for the current selected Date
+	 * @param stage
+	 * @param currentSelectedDate
+	 */
+	public void restoreStage(Stage stage, Date currentSelectedDate){		
+		if(stage.getValidUntil().before(currentSelectedDate)){
+			boolean exists = false;
+			for(Stage validStage: stageModel.getStages()){
+				if(HyEvolutionUtil.isValid(validStage, currentSelectedDate)){
+					HyName restoreName = HyEvolutionUtil.getValidTemporalElement(stage.getNames(), stage.getValidUntil());
+					HyName validName = HyEvolutionUtil.getValidTemporalElement(validStage.getNames(), currentSelectedDate);
+					if(restoreName.getName().equals(validName.getName())){
+						exists = true;
+					}
+				}
+			}
+			
+			if(!exists){
+				stage.setValidUntil(null);
+			}
+		}
 	}
 	
 	/**
@@ -205,6 +225,28 @@ public class StageModelWrapped implements PropertyChangeListener  {
 			role.setValidUntil(currentSelectedDate);
 		}
 		
+	}
+	/**
+	 * Restores a Role For the current Selected Date
+	 * @param role Selected Role
+	 * @param currentSelectedDate Selected Date
+	 */
+	public void restoreRole(Role role, Date currentSelectedDate){
+		if(role.getValidUntil().before(currentSelectedDate)){
+			boolean exists = false;
+			for(Role validRole: stageModel.getRoles()){
+				if(HyEvolutionUtil.isValid(validRole, currentSelectedDate)){
+					HyName name = HyEvolutionUtil.getValidTemporalElement(role.getNames(), role.getValidUntil());
+					if(name.equals(HyEvolutionUtil.getValidTemporalElement(validRole.getNames(), currentSelectedDate))){
+						exists = true;
+					}
+				}
+			}
+			
+			if(!exists){
+				role.setValidUntil(null);
+			}
+		}
 	}
 	/**
 	 * Function to include a role
@@ -412,6 +454,60 @@ public class StageModelWrapped implements PropertyChangeListener  {
 			}			
 			
 		}	
+		
+	}
+
+	/**
+	 * Adding a new name to a stage
+	 * @param text New Name
+	 * @param currentSelectedDate current date
+	 * @param currentSelectedStage current stage
+	 */
+	public void addNewNameToStage(String text, Date currentSelectedDate, Stage currentSelectedStage) {
+		HyName currentName = HyEvolutionUtil.getValidTemporalElement(currentSelectedStage.getNames(), currentSelectedDate);
+		
+		if(currentName.getValidSince() == currentSelectedDate){
+			currentName.setName(text);
+		}
+		
+		else {
+			currentName.setValidUntil(currentSelectedDate);
+			HyName newName =  HyEvolutionFactory.eINSTANCE.createHyName();			
+			newName.setValidSince(currentSelectedDate);		
+			newName.setName(text);
+			currentName.setSupersedingElement(newName);
+			newName.setSupersededElement(currentName);				
+			currentSelectedStage.getNames().add(newName);
+
+		}
+		
+		
+	}
+	
+	/**
+	 * Adding a new name to a role
+	 * @param text New Name
+	 * @param currentSelectedDate current date
+	 * @param currentSelectedStage current role
+	 */
+	public void addNewNameToRole(String text, Date currentSelectedDate, Role currentSelectedRole) {
+		HyName currentName = HyEvolutionUtil.getValidTemporalElement(currentSelectedRole.getNames(), currentSelectedDate);
+		
+		if(currentName.getValidSince() == currentSelectedDate){
+			currentName.setName(text);
+		}
+		
+		else {
+			currentName.setValidUntil(currentSelectedDate);
+			HyName newName =  HyEvolutionFactory.eINSTANCE.createHyName();			
+			newName.setValidSince(currentSelectedDate);		
+			newName.setName(text);
+			currentName.setSupersedingElement(newName);
+			newName.setSupersededElement(currentName);				
+			currentSelectedRole.getNames().add(newName);
+
+		}
+		
 		
 	}
 
