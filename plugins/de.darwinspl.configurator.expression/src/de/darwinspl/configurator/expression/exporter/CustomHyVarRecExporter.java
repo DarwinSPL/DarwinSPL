@@ -31,7 +31,14 @@ public class CustomHyVarRecExporter extends HyVarRecExporter {
 				FeatureSelectionRepresentationOption.ONEZERO, VersionRepresentation.AS_ONEZERO_FEATURES, true, true);
 	}
 
-	
+	/**
+	 * exports the input into hyvarrec format
+	 * @param featureModel
+	 * @param constraintModel
+	 * @param profile
+	 * @param date
+	 * @return
+	 */
 	public String export(HyFeatureModel featureModel, HyConstraintModel constraintModel,
 			HyProfile profile, Date date) {
 		return super.exportContextMappingModel(null, null, featureModel, constraintModel, null, profile,

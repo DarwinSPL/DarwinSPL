@@ -27,6 +27,13 @@ import eu.hyvar.feature.configuration.util.HyConfigurationUtil;
 import eu.hyvar.feature.constraint.HyConstraintModel;
 import eu.hyvar.feature.constraint.util.HyConstraintUtil;
 
+/**
+ * 
+ * @author Jeremias Wrensch
+ *
+ * handles menu entry to generate an automatic configuration
+ *
+ */
 public class ConfiguratorCommandHandler extends AbstractHandler  {
 
 	@Override

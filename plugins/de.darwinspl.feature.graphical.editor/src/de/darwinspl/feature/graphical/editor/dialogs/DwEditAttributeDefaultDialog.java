@@ -13,6 +13,12 @@ import org.eclipse.swt.widgets.Text;
 
 import eu.hyvar.feature.HyNumberAttribute;
 
+/**
+ * 
+ * @author Jeremias Wrensch
+ *
+ *	Dialog to set the default value of a numbered attribute
+ */
 public class DwEditAttributeDefaultDialog extends Dialog {
 
 	private HyNumberAttribute attribute;

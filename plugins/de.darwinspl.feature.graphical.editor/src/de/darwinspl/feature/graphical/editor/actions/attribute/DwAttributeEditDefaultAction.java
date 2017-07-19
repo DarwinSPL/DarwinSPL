@@ -10,6 +10,12 @@ import de.darwinspl.feature.graphical.base.editparts.DwAttributeEditPart;
 import de.darwinspl.feature.graphical.editor.dialogs.DwEditAttributeDefaultDialog;
 import eu.hyvar.feature.HyNumberAttribute;
 
+/**
+ * 
+ * @author Jeremias Wrensch
+ * 
+ * Opens a dialog so the user can enter the default value
+ */
 public class DwAttributeEditDefaultAction extends SelectionAction {
 
 	public static final String ATTRIBUTE_EDIT_DEFAULT = "EditAttributeDefault";
