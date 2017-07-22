@@ -7,6 +7,7 @@ import de.darwinspl.feature.stage.RoleInclusion;
 import de.darwinspl.feature.stage.Stage;
 import de.darwinspl.feature.stage.StageComposition;
 import de.darwinspl.feature.stage.StageFactory;
+import de.darwinspl.feature.stage.StageOrder;
 import de.darwinspl.feature.stage.impl.StageFactoryImpl;
 
 
@@ -55,6 +56,13 @@ public class StageModelFactoryWithIds extends StageFactoryImpl {
 		RoleAssignment roleAssignment = super.createRoleAssignment();
 		roleAssignment.createId();
 		return roleAssignment;
+	}
+	
+	@Override
+	public StageOrder createStageOrder() {
+		StageOrder stageOrder = super.createStageOrder();
+		stageOrder.createId();
+		return stageOrder;
 	}
 
 	

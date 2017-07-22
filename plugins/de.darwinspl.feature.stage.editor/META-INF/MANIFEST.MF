@@ -23,6 +23,7 @@ Require-Bundle: org.eclipse.ui,
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Bundle-ActivationPolicy: lazy
 Bundle-Vendor: www.darwinspl.de
-Import-Package: de.darwinspl.feature.stage.base.model
+Import-Package: de.darwinspl.feature.stage.base.model,
+ de.darwinspl.feature.stage.base.util
 Export-Package: de.darwinspl.feature.stage.editor.editor
 

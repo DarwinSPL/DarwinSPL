@@ -17,6 +17,7 @@ import org.eclipse.swt.widgets.Text;
 
 import de.darwinspl.feature.stage.Role;
 import de.darwinspl.feature.stage.Stage;
+import de.darwinspl.feature.stage.StageOrder;
 import de.darwinspl.feature.stage.base.model.StageModelWrapped;
 import eu.hyvar.evolution.HyName;
 import eu.hyvar.evolution.util.HyEvolutionUtil;
@@ -69,16 +70,19 @@ public class StageCreationDialog extends Dialog {
 	    // Register Listeners
 	    createStageButton.addListener(SWT.Selection, new Listener(){
 			public void handleEvent(Event event) {
-								
-				for (Stage currentStage : stageModelWrapped.getModel().getStages()) {
-					if(HyEvolutionUtil.isValid(currentStage, currentSelectedDate)){
-						HyName currentName = HyEvolutionUtil.getValidTemporalElement(currentStage.getNames(),currentSelectedDate);
-						if(currentName.getName().equals(editField.getText())){
-							System.out.println("stage already exists");
-							return;
+				
+				StageOrder currentStageOrder = HyEvolutionUtil.getValidTemporalElement(stageModelWrapped.getModel().getStageOrder(), currentSelectedDate);
+				if(currentStageOrder != null){
+					for (Stage currentStage : currentStageOrder.getStages()) {
+						if(HyEvolutionUtil.isValid(currentStage, currentSelectedDate)){
+							HyName currentName = HyEvolutionUtil.getValidTemporalElement(currentStage.getNames(),currentSelectedDate);
+							if(currentName.getName().equals(editField.getText())){
+								System.out.println("stage already exists");
+								return;
+							}
 						}
 					}
-				}			
+				}
 				stageModelWrapped.addNewStageToModel(editField.getText(), currentSelectedDate);
 				close();
 			}	    	

@@ -49,7 +49,8 @@ public class SmConfiguratorEditPartFactory extends DwConfiguratorEditorEditPartF
 			
 			featureModel = (DwFeatureModelWrapped)model;
 		}else if(model instanceof DwRootFeatureWrapped){
-			part = new DwConfiguratorEditorFeatureEditPart(editor, featureModel);
+			//Changed part to support Stages and their representation
+			part = new SmConfiguratorFeatureEditPart(editor, featureModel, stageConfigurator);
 		}else if(model instanceof DwFeatureWrapped){
 			//Changed part to support Stages and their representation
 			part = new SmConfiguratorFeatureEditPart(editor, featureModel, stageConfigurator);

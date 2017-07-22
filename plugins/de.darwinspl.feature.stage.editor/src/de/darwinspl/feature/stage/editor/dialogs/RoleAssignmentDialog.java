@@ -24,6 +24,7 @@ import org.eclipse.swt.widgets.Shell;
 import de.darwinspl.feature.stage.Role;
 import de.darwinspl.feature.stage.RoleAssignment;
 import de.darwinspl.feature.stage.Stage;
+import de.darwinspl.feature.stage.StageOrder;
 import de.darwinspl.feature.stage.base.model.StageModelWrapped;
 import eu.hyvar.evolution.HyName;
 import eu.hyvar.evolution.util.HyEvolutionUtil;
@@ -183,7 +184,8 @@ public class RoleAssignmentDialog extends Dialog {
 					String listString = assignedStagesList.getItem(selectedItems[0]);	
 					
 					// For Loops Checks for Existing Name (Have to be unqiue)
-					for(Stage currentStage: stageModelWrapped.getModel().getStages()){
+					StageOrder currentStageOrder = HyEvolutionUtil.getValidTemporalElement(stageModelWrapped.getModel().getStageOrder(), currentSelectedDate);
+					for(Stage currentStage: currentStageOrder.getStages()){
 						HyName currentName = HyEvolutionUtil.getValidTemporalElement(currentStage.getNames(), currentSelectedDate);
 						if(currentName.getName().equals(listString)){
 							selectedAssignedStage = currentStage;
@@ -208,7 +210,8 @@ public class RoleAssignmentDialog extends Dialog {
 					String listString = availableStagesList.getItem(selectedItems[0]);	
 					
 					// For Loops Checks for Existing Name (Have to be unqiue)
-					for(Stage currentStage: stageModelWrapped.getModel().getStages()){
+					StageOrder currentStageOrder = HyEvolutionUtil.getValidTemporalElement(stageModelWrapped.getModel().getStageOrder(), currentSelectedDate);
+					for(Stage currentStage: currentStageOrder.getStages()){
 						HyName currentName = HyEvolutionUtil.getValidTemporalElement(currentStage.getNames(), currentSelectedDate);
 						if(currentName.getName().equals(listString)){
 							selectedAvailableStage = currentStage;
@@ -263,24 +266,26 @@ public class RoleAssignmentDialog extends Dialog {
 	 * Update List of Assigned Stages depending on selected Role
 	 */
 	public void updateAssignedStagesList(){
-		assignedStagesList.removeAll();;
-		for (Stage currentStage : stageModelWrapped.getModel().getStages()) {
-
-			if(HyEvolutionUtil.isValid(currentStage, currentSelectedDate) && selectedRole!= null){				
-				List<RoleAssignment> roleAssignment = HyEvolutionUtil.getValidTemporalElements(selectedRole.getAssignments(), currentSelectedDate);
+		assignedStagesList.removeAll();
+		StageOrder currentStageOrder = HyEvolutionUtil.getValidTemporalElement(stageModelWrapped.getModel().getStageOrder(), currentSelectedDate);
+		if(currentStageOrder != null){
+			for (Stage currentStage : currentStageOrder.getStages()) {
+				if(HyEvolutionUtil.isValid(currentStage, currentSelectedDate) && selectedRole!= null){				
+					List<RoleAssignment> roleAssignment = HyEvolutionUtil.getValidTemporalElements(selectedRole.getAssignments(), currentSelectedDate);
+					
+					for(RoleAssignment currentAssignment : roleAssignment){
+						if(currentAssignment.getStage().equals(currentStage)){
+							HyName currentName = HyEvolutionUtil.getValidTemporalElement(currentStage.getNames(), currentSelectedDate);
+							String currentStageName = currentName.getName();
+							assignedStagesList.add(currentStageName);						
+						}
+					}					
+	
+				}
+				assignedStagesList.redraw();	
 				
-				for(RoleAssignment currentAssignment : roleAssignment){
-					if(currentAssignment.getStage().equals(currentStage)){
-						HyName currentName = HyEvolutionUtil.getValidTemporalElement(currentStage.getNames(), currentSelectedDate);
-						String currentStageName = currentName.getName();
-						assignedStagesList.add(currentStageName);						
-					}
-				}					
-
-			}
-			assignedStagesList.redraw();	
-			
-      }	   
+			}	 
+		}
 	}
 	
 	
@@ -289,24 +294,26 @@ public class RoleAssignmentDialog extends Dialog {
 	 */
 	public void updateAvailableStagesList(){
 		availableStagesList.removeAll();;
-		for (Stage currentStage : stageModelWrapped.getModel().getStages()) {
-			if(HyEvolutionUtil.isValid(currentStage, currentSelectedDate)){
-				HyName currentName = HyEvolutionUtil.getValidTemporalElement(currentStage.getNames(), currentSelectedDate);
-				String currentStageName = currentName.getName();
-				boolean exists = false;
-				for(String str: assignedStagesList.getItems()){
-					if(str.equals(currentStageName)){
-						exists = true;
+		StageOrder currentStageOrder = HyEvolutionUtil.getValidTemporalElement(stageModelWrapped.getModel().getStageOrder(), currentSelectedDate);
+		if(currentStageOrder != null){
+			for (Stage currentStage : currentStageOrder.getStages()) {
+				if(HyEvolutionUtil.isValid(currentStage, currentSelectedDate)){
+					HyName currentName = HyEvolutionUtil.getValidTemporalElement(currentStage.getNames(), currentSelectedDate);
+					String currentStageName = currentName.getName();
+					boolean exists = false;
+					for(String str: assignedStagesList.getItems()){
+						if(str.equals(currentStageName)){
+							exists = true;
+						}
 					}
-				}
-				if(!exists){
-					availableStagesList.add(currentStageName);
-				}
-
-				availableStagesList.redraw();	
-			}			
-			
-      }	   
+					if(!exists){
+						availableStagesList.add(currentStageName);
+					}
+	
+					availableStagesList.redraw();	
+				}			
+			}	
+		}	   
 	}
 	
 	

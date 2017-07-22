@@ -45,6 +45,7 @@ import de.christophseidl.util.ecore.EcoreIOUtil;
 import de.darwinspl.feature.stage.Stage;
 import de.darwinspl.feature.stage.StageComposition;
 import de.darwinspl.feature.stage.StageModel;
+import de.darwinspl.feature.stage.StageOrder;
 import de.darwinspl.feature.stage.StagePackage;
 import de.darwinspl.feature.stage.base.model.StageModelWrapped;
 import de.darwinspl.feature.stage.commands.DirtyFlagCommand;
@@ -268,7 +269,9 @@ public class SmStageModelEditor extends DwGraphicalFeatureModelEditor {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
 				int selectedItemIndex = stageCombo.getSelectionIndex();
-				selectedStage = stageModelWrapped.getModel().getStages().get(selectedItemIndex);
+				StageOrder currentStageOrder = HyEvolutionUtil.getValidTemporalElement(stageModelWrapped.getModel().getStageOrder(), currentSelectedDate);
+				selectedStage = currentStageOrder.getStages().get(selectedItemIndex);
+				refreshView();
 			}
 
 			@Override
@@ -327,7 +330,8 @@ public class SmStageModelEditor extends DwGraphicalFeatureModelEditor {
 					
 					// Manual Setting Dirty Flag with Empty Command
 					DirtyFlagCommand dirtyCommand = new DirtyFlagCommand();
-					executeCommand(dirtyCommand);					
+					executeCommand(dirtyCommand);
+					refreshView();
 				}				
 				
 			}
@@ -385,7 +389,8 @@ public class SmStageModelEditor extends DwGraphicalFeatureModelEditor {
 					}
 					// Manual Setting Dirty Flag with Empty Command
 					DirtyFlagCommand dirtyCommand = new DirtyFlagCommand();
-					executeCommand(dirtyCommand);		
+					executeCommand(dirtyCommand);
+					refreshView();
 					
 				}
 
@@ -405,19 +410,22 @@ public class SmStageModelEditor extends DwGraphicalFeatureModelEditor {
 			
 			stageCombo.removeAll();
 			
-			for (Stage currentStage : stageModelWrapped.getModel().getStages()) {
-				if(HyEvolutionUtil.isValid(currentStage, currentSelectedDate)){
-					HyName currentName = HyEvolutionUtil.getValidTemporalElement(currentStage.getNames(), currentSelectedDate);
-					String currentStageName = currentName.getName();
-					stageCombo.add(currentStageName);
-					stageCombo.pack();
-					stageGroup.pack();
-					stageCombo.redraw();
-				}
-				
-				
-				
-	      }	   
+			StageOrder currentStageOrder = HyEvolutionUtil.getValidTemporalElement(stageModelWrapped.getModel().getStageOrder(), currentSelectedDate);
+			if(currentStageOrder != null){
+				for (Stage currentStage : currentStageOrder.getStages()) {
+					if(HyEvolutionUtil.isValid(currentStage, currentSelectedDate)){
+						HyName currentName = HyEvolutionUtil.getValidTemporalElement(currentStage.getNames(), currentSelectedDate);
+						String currentStageName = currentName.getName();
+						stageCombo.add(currentStageName);
+						stageCombo.pack();
+						stageGroup.pack();
+						stageCombo.redraw();
+					}
+					
+					
+					
+				}	
+			}
 		}
 	}
 	

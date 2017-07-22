@@ -17,6 +17,7 @@ import org.eclipse.swt.widgets.Text;
 
 import de.darwinspl.feature.stage.Role;
 import de.darwinspl.feature.stage.Stage;
+import de.darwinspl.feature.stage.StageOrder;
 import de.darwinspl.feature.stage.base.model.StageModelWrapped;
 import eu.hyvar.evolution.HyName;
 import eu.hyvar.evolution.util.HyEvolutionUtil;
@@ -73,8 +74,9 @@ public class StageRenameDialog extends Dialog {
 	    // Register Listeners
 	    renameButton.addListener(SWT.Selection, new Listener(){
 			public void handleEvent(Event event) {
-								
-				for (Stage currentStage : stageModelWrapped.getModel().getStages()) {
+				
+				StageOrder currentStageOrder = HyEvolutionUtil.getValidTemporalElement(stageModelWrapped.getModel().getStageOrder(), currentSelectedDate);
+				for (Stage currentStage : currentStageOrder.getStages()) {
 					HyName currentName = HyEvolutionUtil.getValidTemporalElement(currentStage.getNames(),currentSelectedDate);
 					if(currentName.getName().equals(editField.getText())){
 						System.out.println("Name already exists at this date");

@@ -1,5 +1,7 @@
 package de.darwinspl.feature.stage.editor.wizard;
 
+import java.util.Date;
+
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.jface.viewers.IStructuredSelection;
@@ -9,6 +11,7 @@ import de.christophseidl.util.ecore.EcoreIOUtil;
 import de.darwinspl.feature.graphical.base.model.DwFeatureModelWrapped;
 import de.darwinspl.feature.stage.StageFactory;
 import de.darwinspl.feature.stage.StageModel;
+import de.darwinspl.feature.stage.StageOrder;
 
 public class StageModelWizard extends Wizard {
 	
@@ -37,12 +40,16 @@ public class StageModelWizard extends Wizard {
 
 	
 	/**
-	 *  Stage Model Creation and linking with current Feature Model
+	 *  Stage Model Creation ,linking with current Feature Model and adding an empty StageOrder
 	 */
 	protected EObject createStageModel() {
 		
 		StageModel stageModel = StageFactory.eINSTANCE.createStageModel();
 		stageModel.setFeatureModel(featureModel.getModel());
+		
+		StageOrder stageOrder = StageFactory.eINSTANCE.createStageOrder();
+		stageOrder.setValidSince(new Date(Long.MIN_VALUE));
+		stageModel.getStageOrder().add(stageOrder);
 		
 		return stageModel;
 	}	

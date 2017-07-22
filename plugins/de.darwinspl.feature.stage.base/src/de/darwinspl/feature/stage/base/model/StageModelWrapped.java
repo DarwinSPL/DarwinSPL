@@ -16,6 +16,7 @@ import de.darwinspl.feature.stage.Stage;
 import de.darwinspl.feature.stage.StageComposition;
 import de.darwinspl.feature.stage.StageFactory;
 import de.darwinspl.feature.stage.StageModel;
+import de.darwinspl.feature.stage.StageOrder;
 import eu.hyvar.evolution.HyEvolutionFactory;
 import eu.hyvar.evolution.HyName;
 import eu.hyvar.evolution.util.HyEvolutionUtil;
@@ -89,7 +90,37 @@ public class StageModelWrapped implements PropertyChangeListener  {
 	    newRoleAssignment.setValidSince(currentSelectedDate);
 	    newStageComposition.setValidSince(currentSelectedDate);
 	    
-		stageModel.getStages().add(newStage);
+	    
+	    StageOrder currentStageOrder = HyEvolutionUtil.getValidTemporalElement(stageModel.getStageOrder(), currentSelectedDate);
+	    
+	    if(currentStageOrder == null){
+	    	currentStageOrder= stageModel.getStageOrder().get(0);	
+
+	    }
+	    // Check if a Stage Order exists for the given Date
+	    Date csd = currentSelectedDate;
+	    Date modelDate = stageModel.getStageOrder().get(0).getValidSince();
+	    if(currentStageOrder != null && currentStageOrder.getValidSince().equals(currentSelectedDate)){
+	    	currentStageOrder.getStages().add(newStage);
+	    }
+	    else {	    	
+	    	
+	    	StageOrder newStageOrder = EcoreUtil.copy(currentStageOrder);
+	    	
+	    	for(Stage stage : currentStageOrder.getStages()){
+	    		newStageOrder.getStages().add(stage);
+	    	}
+	    	
+	    	currentStageOrder.setSupersedingElement(newStageOrder);
+	    	newStageOrder.setSupersededElement(currentStageOrder);
+	    	
+	    	currentStageOrder.setValidUntil(currentSelectedDate);
+	    	newStageOrder.setValidSince(currentSelectedDate);	    	
+			newStageOrder.getStages().add(newStage);
+			
+			stageModel.getStageOrder().add(newStageOrder);
+	    }
+
 	}
 	
 	/**
@@ -120,7 +151,6 @@ public class StageModelWrapped implements PropertyChangeListener  {
 	public void assignRoleToStage(Role selectedRole, Stage selectedStage, Date currentSelectedDate){		
 		RoleAssignment currentRoleAssignment;		
 		currentRoleAssignment = HyEvolutionUtil.getValidTemporalElement(selectedStage.getRoleAssignment(), currentSelectedDate);
-		
 		if(currentRoleAssignment.getValidSince().equals(currentSelectedDate)){
 			currentRoleAssignment.getRoles().add(selectedRole);
 		}		
@@ -177,8 +207,9 @@ public class StageModelWrapped implements PropertyChangeListener  {
 	 */
 	public void deleteStage(Stage stage, Date currentSelectedDate){
 		// Remove all assigned Roles
+		StageOrder currentStageOrder = HyEvolutionUtil.getValidTemporalElement(stageModel.getStageOrder(), currentSelectedDate);
 		if(stage.getValidSince().equals(currentSelectedDate)){
-			stageModel.getStages().remove(stage);
+			currentStageOrder.getStages().remove(stage);
 			
 		}
 		else if( stage.getValidSince().before(currentSelectedDate)){
@@ -195,7 +226,8 @@ public class StageModelWrapped implements PropertyChangeListener  {
 	public void restoreStage(Stage stage, Date currentSelectedDate){		
 		if(stage.getValidUntil().before(currentSelectedDate)){
 			boolean exists = false;
-			for(Stage validStage: stageModel.getStages()){
+			StageOrder currentStageOrder = HyEvolutionUtil.getValidTemporalElement(stageModel.getStageOrder(), currentSelectedDate);
+			for(Stage validStage: currentStageOrder.getStages()){
 				if(HyEvolutionUtil.isValid(validStage, currentSelectedDate)){
 					HyName restoreName = HyEvolutionUtil.getValidTemporalElement(stage.getNames(), stage.getValidUntil());
 					HyName validName = HyEvolutionUtil.getValidTemporalElement(validStage.getNames(), currentSelectedDate);
@@ -506,6 +538,79 @@ public class StageModelWrapped implements PropertyChangeListener  {
 			newName.setSupersededElement(currentName);				
 			currentSelectedRole.getNames().add(newName);
 
+		}
+		
+		
+	}
+
+	/**
+	 * Moves the stage up in the current StageOrder
+	 * @param selectedStage
+	 * @param currentSelectedDate
+	 */
+	public void moveStageUp(Stage selectedStage, Date currentSelectedDate) {		
+
+		StageOrder currentStageOrder = HyEvolutionUtil.getValidTemporalElement(stageModel.getStageOrder(), currentSelectedDate);
+		
+		if(currentStageOrder != null && currentStageOrder.getValidSince().equals(currentSelectedDate)){
+			int selectedStageOldIndex = currentStageOrder.getStages().indexOf(selectedStage);
+			if(selectedStageOldIndex > 0){
+				currentStageOrder.getStages().move(selectedStageOldIndex - 1, selectedStageOldIndex);
+			}
+		} 
+		else if (currentStageOrder != null) {
+			
+			StageOrder newStageOrder = EcoreUtil.copy(currentStageOrder);
+			
+			currentStageOrder.setValidUntil(currentSelectedDate);
+			newStageOrder.setValidSince(currentSelectedDate);
+			
+			currentStageOrder.setSupersedingElement(newStageOrder);
+			newStageOrder.setSupersededElement(currentStageOrder);
+					
+			stageModel.getStageOrder().add(newStageOrder);		
+			
+			int selectedStageOldIndex = currentStageOrder.getStages().indexOf(selectedStage);
+			if(selectedStageOldIndex > 0){
+				newStageOrder.getStages().move(selectedStageOldIndex - 1, selectedStageOldIndex );
+			}
+			
+		}
+		
+	}
+
+	/**
+	 * Moves the stage up in the currentStageOrder
+	 * @param selectedStage
+	 * @param currentSelectedDate
+	 */
+	public void moveStageDown(Stage selectedStage, Date currentSelectedDate) {
+		
+StageOrder currentStageOrder = HyEvolutionUtil.getValidTemporalElement(stageModel.getStageOrder(), currentSelectedDate);
+		
+		if(currentStageOrder != null && currentStageOrder.getValidSince().equals(currentSelectedDate)){
+			int selectedStageOldIndex = currentStageOrder.getStages().indexOf(selectedStage);
+			if(selectedStageOldIndex < (currentStageOrder.getStages().size()-1)){
+				currentStageOrder.getStages().move(selectedStageOldIndex + 1, selectedStageOldIndex);
+			}
+		} 
+		else if (currentStageOrder != null) {
+			
+			StageOrder newStageOrder = EcoreUtil.copy(currentStageOrder);
+			
+			currentStageOrder.setValidUntil(currentSelectedDate);
+			newStageOrder.setValidSince(currentSelectedDate);
+			
+			currentStageOrder.setSupersedingElement(newStageOrder);
+			newStageOrder.setSupersededElement(currentStageOrder);
+					
+			stageModel.getStageOrder().add(newStageOrder);		
+			
+			int selectedStageOldIndex = newStageOrder.getStages().indexOf(selectedStage);
+			if(selectedStageOldIndex < (newStageOrder.getStages().size() - 1)){
+				newStageOrder.getStages().move(selectedStageOldIndex + 1, selectedStageOldIndex);
+			}
+			
 		}
 		
 		

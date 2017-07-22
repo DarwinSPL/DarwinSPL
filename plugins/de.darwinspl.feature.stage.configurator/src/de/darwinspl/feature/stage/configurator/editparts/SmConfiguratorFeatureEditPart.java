@@ -16,6 +16,7 @@ import de.darwinspl.feature.graphical.configurator.predicates.DwConfiguratorElem
 import de.darwinspl.feature.graphical.configurator.util.DwConfiguratorEditorUtil;
 import de.darwinspl.feature.stage.Stage;
 import de.darwinspl.feature.stage.configurator.configurator.SmStageModelConfigurator;
+import de.darwinspl.feature.stage.configurator.figures.SmConfiguratorFeatureFigure;
 import eu.hyvar.feature.HyFeature;
 import eu.hyvar.feature.configuration.HyConfiguration;
 
@@ -30,7 +31,7 @@ public class SmConfiguratorFeatureEditPart extends DwFeatureEditPart {
 	
 	@Override
 	protected IFigure createFigure() {	
-		return new DwConfiguratorFeatureFigure(editor, (DwFeatureWrapped)getModel());
+		return new SmConfiguratorFeatureFigure(editor, (DwFeatureWrapped)getModel(), stageConfigurator);
 	}
 
 
@@ -44,8 +45,6 @@ public class SmConfiguratorFeatureEditPart extends DwFeatureEditPart {
 			
 			if (request.getType() == RequestConstants.REQ_OPEN) {
 				DwFeatureWrapped wrappedFeature = (DwFeatureWrapped)getModel();
-				HyFeature hyfeature = wrappedFeature.getWrappedModelElement();
-				List<HyFeature> featureList = currentStage.getComposition().get(0).getFeatures();
 				if(currentStage.getComposition().get(0).getFeatures().contains(wrappedFeature.getWrappedModelElement())){
 					DwFeatureModelConfiguratorEditor editor = (DwFeatureModelConfiguratorEditor)getEditor();
 					HyConfiguration configuration = editor.getSelectedConfiguration();
@@ -60,6 +59,9 @@ public class SmConfiguratorFeatureEditPart extends DwFeatureEditPart {
 					}
 				}
 			}
+			
+			//TODO Alex: Reaction to Right click to "unselect" a feature and make it unavailable for following stages
+			//TODO Alex: Features Selectable only when parent is already selected, or the stage has rights for the previous features.
 		}
 		
 		editor.refreshView();

@@ -10,6 +10,7 @@ import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
+import org.eclipse.swt.layout.RowData;
 import org.eclipse.swt.layout.RowLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
@@ -22,6 +23,7 @@ import org.eclipse.swt.widgets.MessageBox;
 import org.eclipse.swt.widgets.Shell;
 import de.darwinspl.feature.stage.Role;
 import de.darwinspl.feature.stage.Stage;
+import de.darwinspl.feature.stage.StageOrder;
 import de.darwinspl.feature.stage.base.model.StageModelWrapped;
 import eu.hyvar.evolution.HyName;
 import eu.hyvar.evolution.util.HyEvolutionUtil;
@@ -52,6 +54,8 @@ public class StageDialog extends Dialog implements Listener{
 	protected Button deleteStageButton;
 	protected Button restoreStageButton;
 	protected Button renameStageButton;
+	protected Button upButton;
+	protected Button downButton;
 	//protected Button assignRoleButton;
 	protected Button addRoleButton;
 	protected Button deleteRoleButton;
@@ -136,6 +140,14 @@ public class StageDialog extends Dialog implements Listener{
 		renameStageButton = new Button(stageButtonGroup,SWT.NONE);
 		renameStageButton.setText("Rename");
 		
+		RowData upButtonData = new RowData(30,30);
+		upButton = new Button(stageButtonGroup, SWT.ARROW|SWT.UP|SWT.FILL);
+		upButton.setLayoutData(upButtonData);
+		
+		RowData downButtonData = new RowData(30,30);
+		downButton = new Button(stageButtonGroup, SWT.ARROW|SWT.DOWN|SWT.FILL);
+		downButton.setLayoutData(downButtonData);				  
+		
 		// Buttons for role management
 		addRoleButton = new Button (roleButtonGroup, SWT.NONE);
 		addRoleButton.setText("Add");
@@ -173,7 +185,8 @@ public class StageDialog extends Dialog implements Listener{
 				int[] selectedItems = stageList.getSelectionIndices();
 				// Setting the Reference to the currently selected Stage
 				if(selectedItems.length > 0){
-					selectedStage = stageModelWrapped.getModel().getStages().get(selectedItems[0]);		
+					StageOrder currentStageOrder = HyEvolutionUtil.getValidTemporalElement(stageModelWrapped.getModel().getStageOrder(), currentSelectedDate);
+					selectedStage = currentStageOrder.getStages().get(selectedItems[0]);		
 				}
 			}
 			@Override
@@ -278,7 +291,27 @@ public class StageDialog extends Dialog implements Listener{
 			    }
 			    
 			}
+		});
+		
+		// Move Stage Up Button
+		upButton.addListener(SWT.Selection,new Listener(){
+			public void handleEvent(Event event){
+		    	stageModelWrapped.moveStageUp(selectedStage, currentSelectedDate);
+		    	updateStageList();
+			    
+			}
 		});	
+				
+		// Move Stage down Button
+		downButton.addListener(SWT.Selection,new Listener(){
+			public void handleEvent(Event event){
+				stageModelWrapped.moveStageDown(selectedStage, currentSelectedDate);
+		    	updateStageList();			    
+			}
+		});	
+				
+				
+				
 		
 		//Delete Role Button
 		deleteRoleButton.addListener(SWT.Selection,new Listener(){
@@ -416,23 +449,26 @@ public class StageDialog extends Dialog implements Listener{
 	 */
 	public void updateStageList(){
 		stageList.removeAll();
-		for (Stage currentStage : stageModelWrapped.getModel().getStages()) {
-			String currentStageName;
-			if(HyEvolutionUtil.isValid(currentStage, currentSelectedDate)){
-				HyName currentName = HyEvolutionUtil.getValidTemporalElement(currentStage.getNames(), currentSelectedDate);
-				 currentStageName = currentName.getName();	
-
-			} else {
-				HyName currentName = HyEvolutionUtil.getValidTemporalElement(currentStage.getNames(), currentSelectedDate);
-				if(currentName == null){
-					continue;
+		StageOrder currentStageOrder = HyEvolutionUtil.getValidTemporalElement(stageModelWrapped.getModel().getStageOrder(), currentSelectedDate);
+		if(currentStageOrder != null){		
+			for (Stage currentStage : currentStageOrder.getStages()) {
+				String currentStageName;
+				if(HyEvolutionUtil.isValid(currentStage, currentSelectedDate)){
+					HyName currentName = HyEvolutionUtil.getValidTemporalElement(currentStage.getNames(), currentSelectedDate);
+					 currentStageName = currentName.getName();	
+	
+				} else {
+					HyName currentName = HyEvolutionUtil.getValidTemporalElement(currentStage.getNames(), currentSelectedDate);
+					if(currentName == null){
+						continue;
+					}
+					currentStageName = currentName.getName() + " - not valid"; 	 
 				}
-				currentStageName = currentName.getName() + " - not valid"; 	 
-			}
-			stageList.add(currentStageName);
-			stageList.redraw();	
-			
-      }	   
+				stageList.add(currentStageName);
+				stageList.redraw();	
+				
+			}	  
+		}
 	}
 	
 	/**

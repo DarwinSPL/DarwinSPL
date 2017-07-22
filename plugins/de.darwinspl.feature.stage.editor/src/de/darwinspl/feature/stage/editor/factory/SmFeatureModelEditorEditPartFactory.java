@@ -22,11 +22,11 @@ import de.darwinspl.feature.graphical.editor.editparts.DwEnumLiteralEditorEditPa
 import de.darwinspl.feature.graphical.editor.editparts.DwFeatureModelEditorEditPart;
 import de.darwinspl.feature.graphical.editor.editparts.DwGroupEditorEditPart;
 import de.darwinspl.feature.graphical.editor.editparts.DwParentChildConnectionEditorEditPart;
-import de.darwinspl.feature.graphical.editor.editparts.DwRootFeatureEditorEditPart;
 import de.darwinspl.feature.graphical.editor.editparts.DwVersionEditorEditPart;
 import de.darwinspl.feature.graphical.editor.factory.DwFeatureModelEditorEditPartFactory;
 import de.darwinspl.feature.stage.editor.editor.SmStageModelEditor;
 import de.darwinspl.feature.stage.editor.editparts.SmFeatureEditorEditPart;
+import de.darwinspl.feature.stage.editor.editparts.SmRootFeatureEditorEditPart;
 
 public class SmFeatureModelEditorEditPartFactory extends DwFeatureModelEditorEditPartFactory {
 
@@ -52,9 +52,10 @@ public class SmFeatureModelEditorEditPartFactory extends DwFeatureModelEditorEdi
 			
 			featureModel = (DwFeatureModelWrapped)model;
 		}else if(model instanceof DwRootFeatureWrapped){
-			part = new DwRootFeatureEditorEditPart(editor, featureModel);
+			//Replaced Function call
+			part = new SmRootFeatureEditorEditPart(editor, featureModel, stageEditor);
 		}else if(model instanceof DwFeatureWrapped){
-			//Overwritten Function call
+			//Replaced Function call
 			part = new SmFeatureEditorEditPart(editor, featureModel, stageEditor);
 		}else if(model instanceof DwGroupWrapped){
 			part = new DwGroupEditorEditPart(editor, featureModel);
