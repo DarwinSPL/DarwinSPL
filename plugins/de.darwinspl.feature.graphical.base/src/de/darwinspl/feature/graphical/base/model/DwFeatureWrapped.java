@@ -411,7 +411,7 @@ public class DwFeatureWrapped extends DwEditorChangeableElement{
 			childrenConnections.add(connection);	
 		}
 
-		listeners.firePropertyChange(PROPERTY_PARENT_CONNECTIONS_SIZE_CHANGED, old, childrenConnections.size());
+		//listeners.firePropertyChange(PROPERTY_PARENT_CONNECTIONS_SIZE_CHANGED, old, childrenConnections.size());
 	}
 
 

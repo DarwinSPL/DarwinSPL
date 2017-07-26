@@ -503,26 +503,33 @@ System.out.println(featureWrapped.getWrappedModelElement().getNames().get(0).get
 
 			// split composition to allow evolution
 			if(date != null && (composition.getValidSince() != null ? !composition.getValidSince().equals(date) : true)){				
-				composition = DwGroupWrapped.splitComposition(composition, null, date);
+				HyGroupComposition succedingComposition = DwGroupWrapped.splitComposition(composition, null, date);
 				
+				// remove feature from old composition
+				composition.getFeatures().remove(childFeature.getWrappedModelElement());
+				
+				composition = succedingComposition;
 
 				// split group types in case that no and type is selected at the selected date
-				if(composition.getFeatures().size() == 2 && type.getType() != HyGroupTypeEnum.AND){
+				if(composition.getFeatures().size() == 1 && type.getType() != HyGroupTypeEnum.AND){
 					group.splitGroupType(date, HyGroupTypeEnum.AND);
 				}
 			}else{	
-				if(composition.getFeatures().size() == 2)
+				composition.getFeatures().remove(childFeature.getWrappedModelElement());
+				
+				if(composition.getFeatures().size() == 1)
 					type.setType(HyGroupTypeEnum.AND);
 			}
 			
 			
-			composition.getFeatures().remove(childFeature.getWrappedModelElement());
+			
 			
 			if(composition.getFeatures().isEmpty()){
 				for(HyFeatureChild featureChild : composition.getCompositionOf().getChildOf()){
 					featureChild.getParent().getParentOf().remove(featureChild);
 				}
 				
+				this.groups.remove(findWrappedGroup(composition.getCompositionOf()));
 				this.model.getGroups().remove(composition.getCompositionOf());
 			}
 			// Inform editparts about the changes made to the model

@@ -3,7 +3,6 @@ package de.darwinspl.feature.graphical.editor.commands.connections;
 
 import java.util.Date;
 
-import org.eclipse.emf.common.util.EList;
 import org.eclipse.gef.EditPart;
 
 import de.darwinspl.feature.graphical.base.editor.DwGraphicalFeatureModelViewer;
@@ -11,10 +10,8 @@ import de.darwinspl.feature.graphical.base.model.DwFeatureModelWrapped;
 import de.darwinspl.feature.graphical.base.model.DwFeatureWrapped;
 import de.darwinspl.feature.graphical.base.model.DwGroupWrapped;
 import de.darwinspl.feature.graphical.base.model.DwParentChildConnection;
-import de.darwinspl.feature.graphical.editor.commands.feature.DwAbstractFeatureDeleteCommand;
 import de.darwinspl.feature.graphical.editor.commands.feature.DwFeatureDeleteCommand;
 import de.darwinspl.feature.graphical.editor.util.DwEcoreUtil;
-import eu.hyvar.evolution.HyTemporalElement;
 import eu.hyvar.evolution.util.HyEvolutionUtil;
 import eu.hyvar.feature.HyFeature;
 import eu.hyvar.feature.HyFeatureChild;
@@ -52,7 +49,7 @@ public class DwParentChildConnectionReconnectCommand extends DwFeatureDeleteComm
 	private void redoForFeatureTarget(){
 		DwFeatureModelWrapped featureModel = viewer.getModelWrapped();
 		
-		executionDate = featureModel.getSelectedDate();
+		executionDate = featureModel.getSelectedDate().equals(new Date(Long.MIN_VALUE)) ? null : featureModel.getSelectedDate();
 		
 		DwFeatureWrapped newTarget = (DwFeatureWrapped)target;
 		DwFeatureWrapped oldTarget = connection.getTarget();
@@ -75,7 +72,7 @@ public class DwParentChildConnectionReconnectCommand extends DwFeatureDeleteComm
 		newConnection.setModel(featureModel);
 		newConnection.setTarget(oldTarget);
 		newConnection.setSource(newTarget);
-		featureModel.addConnection(newConnection, executionDate, null);
+		//featureModel.addConnection(newConnection, executionDate, null);
 		
 
 	}
@@ -121,8 +118,8 @@ public class DwParentChildConnectionReconnectCommand extends DwFeatureDeleteComm
 			redoForConnectionTarget();
 		}	
 		
-		viewer.getModelWrapped().rearrangeFeatures();
-		viewer.refreshView();
+		//viewer.getModelWrapped().rearrangeFeatures();
+		//viewer.refreshView();
 	}
 	
 	@Override 
