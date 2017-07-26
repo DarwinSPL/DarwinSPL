@@ -126,6 +126,7 @@ public class StageModelWrapped implements PropertyChangeListener  {
 	/**
 	 * Function call to create a new named Role
 	 * @param text Name for the new Stage
+	 * @param currentSelectedDate
 	 */
 	public void addNewRoleToModel(String text, Date currentSelectedDate) {
 		Role newRole =StageFactory.eINSTANCE.createRole();
@@ -158,17 +159,15 @@ public class StageModelWrapped implements PropertyChangeListener  {
 			//Create new Validity from this date
 			RoleAssignment newRoleAssignment = EcoreUtil.copy(currentRoleAssignment);
 			newRoleAssignment.setStage(currentRoleAssignment.getStage());
-			// TODO Alex: Is this needed twice?
 			currentRoleAssignment.setSupersedingElement(newRoleAssignment);
 			newRoleAssignment.setSupersededElement(currentRoleAssignment);
-			// TODO Alex: Change this, Copy seems to be not working?
 			for(Role role : currentRoleAssignment.getRoles()){
 				newRoleAssignment.getRoles().add(role);
-			}
-			newRoleAssignment.getRoles().add(selectedRole);
+			}			
 			newRoleAssignment.setValidSince(currentSelectedDate);
 			// Make old Assignment not valid
-			currentRoleAssignment.setValidUntil(currentSelectedDate);			
+			currentRoleAssignment.setValidUntil(currentSelectedDate);
+			newRoleAssignment.getRoles().add(selectedRole);
 		}
 		
 		

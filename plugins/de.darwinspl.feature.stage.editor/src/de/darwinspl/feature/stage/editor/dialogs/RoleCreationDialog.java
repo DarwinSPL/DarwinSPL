@@ -54,7 +54,7 @@ public class RoleCreationDialog extends Dialog {
 	    
 	    
 	    infoText = new Label(container, SWT.NONE);
-	    infoText.setText("Please enter a Name for new Role");	    
+	    infoText.setText("Please enter a name");	    
 	    
 	    editField = new Text(container, SWT.BORDER);
 	    
@@ -73,7 +73,7 @@ public class RoleCreationDialog extends Dialog {
 			public void handleEvent(Event event) {
 				for (Role currentRole : stageModelWrapped.getModel().getRoles()) {
 					HyName currentName = HyEvolutionUtil.getValidTemporalElement(currentRole.getNames(),currentSelectedDate);
-					if(currentName.getName().equals(editField.getText())){
+					if(currentName != null && currentName.getName().equals(editField.getText())){
 						System.out.println("role already exists");
 						return;
 					}

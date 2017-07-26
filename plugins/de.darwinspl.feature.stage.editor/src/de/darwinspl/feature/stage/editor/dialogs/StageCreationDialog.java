@@ -53,7 +53,7 @@ public class StageCreationDialog extends Dialog {
 	    
 	    
 	    infoText = new Label(container, SWT.NONE);
-	    infoText.setText("Please enter a Name for new Stage");	    
+	    infoText.setText("Please enter a name");	    
 	    
 	    editField = new Text(container, SWT.BORDER);
 	    

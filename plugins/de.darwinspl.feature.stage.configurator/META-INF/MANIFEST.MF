@@ -45,6 +45,7 @@ Require-Bundle: org.eclipse.ui,
  org.eclipse.jface,
  de.darwinspl.feature.graphical.configurator.editor,
  de.darwinspl.feature.stage.base,
- de.darwinspl.feature.stage
+ de.darwinspl.feature.stage,
+ org.eclipse.emf.common
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Bundle-ActivationPolicy: lazy

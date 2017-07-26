@@ -11,6 +11,8 @@ import org.eclipse.emf.common.util.URI;
 import org.eclipse.gef.GraphicalViewer;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.SashForm;
+import org.eclipse.swt.events.MouseEvent;
+import org.eclipse.swt.events.MouseListener;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.layout.FillLayout;
@@ -19,6 +21,7 @@ import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.layout.RowLayout;
 import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.ui.IEditorInput;
@@ -265,6 +268,7 @@ public class SmStageModelConfigurator extends DwFeatureModelConfiguratorEditor {
 			}
 			
 		});
+		
 	}
 	
 	/**
@@ -317,11 +321,12 @@ public class SmStageModelConfigurator extends DwFeatureModelConfiguratorEditor {
 								
 								RoleAssignment includedAssignment;
 								includedAssignment = HyEvolutionUtil.getValidTemporalElement(includedRole.getAssignments(), currentSelectedDate);
-								
-								if(includedAssignment.getStage() != null && includedAssignment.getStage().equals(currentStage)){
-									currentName = HyEvolutionUtil.getValidTemporalElement(currentStage.getNames(), currentSelectedDate);
-									String currentStageName = currentName.getName();
-									stageCombo.add(currentStageName);
+								if(currentStage != null && includedAssignment != null){
+									if(includedAssignment.getStage() != null && includedAssignment.getStage().equals(currentStage)){
+										currentName = HyEvolutionUtil.getValidTemporalElement(currentStage.getNames(), currentSelectedDate);
+										String currentStageName = currentName.getName();
+										stageCombo.add(currentStageName);
+									}
 								}
 								
 							}	
@@ -345,15 +350,27 @@ public class SmStageModelConfigurator extends DwFeatureModelConfiguratorEditor {
 			
 			for (Role currentRole : stageModelWrapped.getModel().getRoles()) {	
 				HyName currentName = HyEvolutionUtil.getValidTemporalElement(currentRole.getNames(), currentSelectedDate);
-				String currentRoleName = currentName.getName();
-				roleCombo.add(currentRoleName);
-				roleCombo.pack();
-				stageGroup.pack();
-				roleCombo.redraw();
+				if(currentName != null){
+					String currentRoleName = currentName.getName();
+					roleCombo.add(currentRoleName);
+					roleCombo.pack();
+					stageGroup.pack();
+					roleCombo.redraw();
+				}
 				
 				
 	      }	   
 		}
+	}
+	
+	
+	/**
+	 *  Function that updates the available roles when date is selected
+	 */
+	public void handleEvent(Event event) {
+		super.handleEvent(event);
+		updateRoleComboBox();
+		updateStageComboBox();
 	}
 
 
