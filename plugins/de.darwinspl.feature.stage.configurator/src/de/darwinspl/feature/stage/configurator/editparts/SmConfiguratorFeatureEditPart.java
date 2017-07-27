@@ -98,6 +98,8 @@ public class SmConfiguratorFeatureEditPart extends DwFeatureEditPart {
 						} else {
 							if(currentComposition.getFeatures().contains(currentFeature)){
 								available = true;
+							} else {
+								available = false;
 							}
 						}						
 						//Cancel selection when not allowed
