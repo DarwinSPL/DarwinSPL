@@ -2,6 +2,7 @@ package de.darwinspl.feature.stage.base.model;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -107,10 +108,9 @@ public class StageModelWrapped implements PropertyChangeListener  {
 	    	
 	    	StageOrder newStageOrder = EcoreUtil.copy(currentStageOrder);
 	    	
-	    	for(Stage stage : currentStageOrder.getStages()){
-	    		newStageOrder.getStages().add(stage);
-	    	}
-	    	
+	    	List<Stage> currentStageList = new ArrayList<Stage>(currentStageOrder.getStages());
+    		newStageOrder.getStages().addAll(currentStageList);
+	    		    	
 	    	currentStageOrder.setSupersedingElement(newStageOrder);
 	    	newStageOrder.setSupersededElement(currentStageOrder);
 	    	

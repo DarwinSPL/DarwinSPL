@@ -334,8 +334,10 @@ public class SmStageModelConfigurator extends DwFeatureModelConfiguratorEditor {
 					}
 				}		
 				stageCombo.pack();
-				stageGroup.pack();
 				stageCombo.redraw();
+				stageGroup.pack();
+				stageGroup.redraw();
+				
 			}
 		}
 	}
@@ -349,15 +351,18 @@ public class SmStageModelConfigurator extends DwFeatureModelConfiguratorEditor {
 			roleCombo.removeAll();
 			
 			for (Role currentRole : stageModelWrapped.getModel().getRoles()) {	
-				HyName currentName = HyEvolutionUtil.getValidTemporalElement(currentRole.getNames(), currentSelectedDate);
-				if(currentName != null){
-					String currentRoleName = currentName.getName();
-					roleCombo.add(currentRoleName);
-					roleCombo.pack();
-					stageGroup.pack();
-					roleCombo.redraw();
-				}
 				
+				if(HyEvolutionUtil.isValid(currentRole, currentSelectedDate)){
+					HyName currentName = HyEvolutionUtil.getValidTemporalElement(currentRole.getNames(), currentSelectedDate);
+					if(currentName != null){
+						String currentRoleName = currentName.getName();
+						roleCombo.add(currentRoleName);
+						roleCombo.pack();
+						roleCombo.redraw();
+						stageGroup.pack();
+						stageGroup.redraw();
+					}
+				}			
 				
 	      }	   
 		}
