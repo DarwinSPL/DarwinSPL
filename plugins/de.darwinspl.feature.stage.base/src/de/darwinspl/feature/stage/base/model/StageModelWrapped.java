@@ -92,6 +92,10 @@ public class StageModelWrapped implements PropertyChangeListener  {
 	    newStageComposition.setValidSince(currentSelectedDate);
 	    
 	    
+	    //Add stage to composition reference of the StageModel
+	    stageModel.getStages().add(newStage);
+	    
+	    //Add the stage to the current stage order
 	    StageOrder currentStageOrder = HyEvolutionUtil.getValidTemporalElement(stageModel.getStageOrder(), currentSelectedDate);
 	    
 	    if(currentStageOrder == null){
@@ -99,8 +103,6 @@ public class StageModelWrapped implements PropertyChangeListener  {
 
 	    }
 	    // Check if a Stage Order exists for the given Date
-	    Date csd = currentSelectedDate;
-	    Date modelDate = stageModel.getStageOrder().get(0).getValidSince();
 	    if(currentStageOrder != null && currentStageOrder.getValidSince().equals(currentSelectedDate)){
 	    	currentStageOrder.getStages().add(newStage);
 	    }
@@ -108,8 +110,8 @@ public class StageModelWrapped implements PropertyChangeListener  {
 	    	
 	    	StageOrder newStageOrder = EcoreUtil.copy(currentStageOrder);
 	    	
-	    	List<Stage> currentStageList = new ArrayList<Stage>(currentStageOrder.getStages());
-    		newStageOrder.getStages().addAll(currentStageList);
+	    	//List<Stage> currentStageList = new ArrayList<Stage>(currentStageOrder.getStages());
+    		newStageOrder.getStages().addAll(currentStageOrder.getStages());
 	    		    	
 	    	currentStageOrder.setSupersedingElement(newStageOrder);
 	    	newStageOrder.setSupersededElement(currentStageOrder);
@@ -150,24 +152,26 @@ public class StageModelWrapped implements PropertyChangeListener  {
 	 * @param selectedStage
 	 */
 	public void assignRoleToStage(Role selectedRole, Stage selectedStage, Date currentSelectedDate){		
-		RoleAssignment currentRoleAssignment;		
-		currentRoleAssignment = HyEvolutionUtil.getValidTemporalElement(selectedStage.getRoleAssignment(), currentSelectedDate);
-		if(currentRoleAssignment.getValidSince().equals(currentSelectedDate)){
-			currentRoleAssignment.getRoles().add(selectedRole);
-		}		
-		else { 
-			//Create new Validity from this date
-			RoleAssignment newRoleAssignment = EcoreUtil.copy(currentRoleAssignment);
-			newRoleAssignment.setStage(currentRoleAssignment.getStage());
-			currentRoleAssignment.setSupersedingElement(newRoleAssignment);
-			newRoleAssignment.setSupersededElement(currentRoleAssignment);
-			for(Role role : currentRoleAssignment.getRoles()){
-				newRoleAssignment.getRoles().add(role);
-			}			
-			newRoleAssignment.setValidSince(currentSelectedDate);
-			// Make old Assignment not valid
-			currentRoleAssignment.setValidUntil(currentSelectedDate);
-			newRoleAssignment.getRoles().add(selectedRole);
+		RoleAssignment currentRoleAssignment;
+		if(selectedStage != null && selectedRole != null){
+			currentRoleAssignment = HyEvolutionUtil.getValidTemporalElement(selectedStage.getRoleAssignment(), currentSelectedDate);
+			if(currentRoleAssignment.getValidSince().equals(currentSelectedDate)){
+				currentRoleAssignment.getRoles().add(selectedRole);
+			}		
+			else { 
+				//Create new Validity from this date
+				RoleAssignment newRoleAssignment = EcoreUtil.copy(currentRoleAssignment);
+				newRoleAssignment.setStage(currentRoleAssignment.getStage());
+				currentRoleAssignment.setSupersedingElement(newRoleAssignment);
+				newRoleAssignment.setSupersededElement(currentRoleAssignment);
+				for(Role role : currentRoleAssignment.getRoles()){
+					newRoleAssignment.getRoles().add(role);
+				}			
+				newRoleAssignment.setValidSince(currentSelectedDate);
+				// Make old Assignment not valid
+				currentRoleAssignment.setValidUntil(currentSelectedDate);
+				newRoleAssignment.getRoles().add(selectedRole);
+			}
 		}
 		
 		

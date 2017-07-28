@@ -279,8 +279,18 @@ public class SmStageModelConfigurator extends DwFeatureModelConfiguratorEditor {
 
 			@Override
 			public void widgetSelected(SelectionEvent e) {
-				int selectedItemIndex = roleCombo.getSelectionIndex();
-				selectedRole = stageModelWrapped.getModel().getRoles().get(selectedItemIndex);
+				//int selectedItemIndex = roleCombo.getSelectionIndex();
+				String currentSelectionName = roleCombo.getText();
+				
+				for(Role role : stageModelWrapped.getModel().getRoles()){
+					if(HyEvolutionUtil.isValid(role, currentSelectedDate)){
+					HyName currentRoleName = HyEvolutionUtil.getValidTemporalElement(role.getNames(), currentSelectedDate);
+						if(currentRoleName.getName().equals(currentSelectionName)){
+							selectedRole = role;
+						}
+					}
+				}
+				//selectedRole = stageModelWrapped.getModel().getRoles().get(selectedItemIndex);
 				updateStageComboBox();
 				selectedStage = null;
 			}

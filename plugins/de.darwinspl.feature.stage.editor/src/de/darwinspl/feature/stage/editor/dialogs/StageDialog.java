@@ -229,9 +229,11 @@ public class StageDialog extends Dialog implements Listener{
 		// Rename Stage Button
 		renameStageButton.addListener(SWT.Selection, new Listener(){
 			public void handleEvent(Event event) {
-				StageRenameDialog stageRenameDialog = new StageRenameDialog(getShell(), stageModelWrapped, currentSelectedDate, selectedStage);
-				stageRenameDialog.open();
-				updateStageList();
+				if(selectedStage != null){
+					StageRenameDialog stageRenameDialog = new StageRenameDialog(getShell(), stageModelWrapped, currentSelectedDate, selectedStage);
+					stageRenameDialog.open();
+					updateStageList();
+				}
 			}
 			
 		});
@@ -250,9 +252,11 @@ public class StageDialog extends Dialog implements Listener{
 		// Rename Role Button
 		renameRoleButton.addListener(SWT.Selection, new Listener(){
 			public void handleEvent(Event event) {
-				RoleRenameDialog roleRenameDialog = new RoleRenameDialog(getShell(), stageModelWrapped, currentSelectedDate, selectedRole);
-				roleRenameDialog.open();
-				updateRoleList();
+				if(selectedRole != null){
+					RoleRenameDialog roleRenameDialog = new RoleRenameDialog(getShell(), stageModelWrapped, currentSelectedDate, selectedRole);
+					roleRenameDialog.open();
+					updateRoleList();
+				}
 			}
 			
 		});
@@ -260,17 +264,19 @@ public class StageDialog extends Dialog implements Listener{
 		// Delete Stage Button
 		deleteStageButton.addListener(SWT.Selection,new Listener(){
 			public void handleEvent(Event event){
-				HyName currentName = HyEvolutionUtil.getValidTemporalElement(selectedStage.getNames(), currentSelectedDate);
-				String stageName = currentName.getName();
-				MessageBox messageBox = new MessageBox(getShell(), SWT.ICON_QUESTION | SWT.YES | SWT.NO);
-			    messageBox.setMessage("Do you really want to delete the Stage: " + stageName );
-			    int response = messageBox.open();
-			    if(response == SWT.YES){
-			    	System.out.println("trying to delete the stage: " +stageName);
-			    	stageModelWrapped.deleteStage(selectedStage, currentSelectedDate);
-			    	updateStageList();
-			    	updateRoleList();
-			    }
+				if(selectedStage != null){
+					HyName currentName = HyEvolutionUtil.getValidTemporalElement(selectedStage.getNames(), currentSelectedDate);
+					String stageName = currentName.getName();
+					MessageBox messageBox = new MessageBox(getShell(), SWT.ICON_QUESTION | SWT.YES | SWT.NO);
+				    messageBox.setMessage("Do you really want to delete the Stage: " + stageName );
+				    int response = messageBox.open();
+				    if(response == SWT.YES){
+				    	System.out.println("trying to delete the stage: " +stageName);
+				    	stageModelWrapped.deleteStage(selectedStage, currentSelectedDate);
+				    	updateStageList();
+				    	updateRoleList();
+				    }
+				}
 			    
 			}
 		});	
@@ -278,17 +284,19 @@ public class StageDialog extends Dialog implements Listener{
 		// Restore Stage Button
 		restoreStageButton.addListener(SWT.Selection,new Listener(){
 			public void handleEvent(Event event){
-				HyName currentName = HyEvolutionUtil.getValidTemporalElement(selectedStage.getNames(), currentSelectedDate);
-				String stageName = currentName.getName();
-				MessageBox messageBox = new MessageBox(getShell(), SWT.ICON_QUESTION | SWT.YES | SWT.NO);
-			    messageBox.setMessage("Do you really want to restore the previously deleted Stage: " + stageName );
-			    int response = messageBox.open();
-			    if(response == SWT.YES){
-			    	System.out.println("trying to restore the stage: " +stageName);
-			    	stageModelWrapped.restoreStage(selectedStage, currentSelectedDate);
-			    	updateStageList();
-			    	updateRoleList();
-			    }
+				if(selectedStage != null){
+					HyName currentName = HyEvolutionUtil.getValidTemporalElement(selectedStage.getNames(), currentSelectedDate);
+					String stageName = currentName.getName();
+					MessageBox messageBox = new MessageBox(getShell(), SWT.ICON_QUESTION | SWT.YES | SWT.NO);
+				    messageBox.setMessage("Do you really want to restore the previously deleted Stage: " + stageName );
+				    int response = messageBox.open();
+				    if(response == SWT.YES){
+				    	System.out.println("trying to restore the stage: " +stageName);
+				    	stageModelWrapped.restoreStage(selectedStage, currentSelectedDate);
+				    	updateStageList();
+				    	updateRoleList();
+				    }
+				}
 			    
 			}
 		});
@@ -296,8 +304,10 @@ public class StageDialog extends Dialog implements Listener{
 		// Move Stage Up Button
 		upButton.addListener(SWT.Selection,new Listener(){
 			public void handleEvent(Event event){
-		    	stageModelWrapped.moveStageUp(selectedStage, currentSelectedDate);
-		    	updateStageList();
+				if(selectedStage != null){
+			    	stageModelWrapped.moveStageUp(selectedStage, currentSelectedDate);
+			    	updateStageList();
+				}
 			    
 			}
 		});	
@@ -305,8 +315,10 @@ public class StageDialog extends Dialog implements Listener{
 		// Move Stage down Button
 		downButton.addListener(SWT.Selection,new Listener(){
 			public void handleEvent(Event event){
-				stageModelWrapped.moveStageDown(selectedStage, currentSelectedDate);
-		    	updateStageList();			    
+				if(selectedStage != null){
+					stageModelWrapped.moveStageDown(selectedStage, currentSelectedDate);
+			    	updateStageList();		
+				}
 			}
 		});	
 				
@@ -316,17 +328,19 @@ public class StageDialog extends Dialog implements Listener{
 		//Delete Role Button
 		deleteRoleButton.addListener(SWT.Selection,new Listener(){
 			public void handleEvent(Event event){
-				HyName currentName = HyEvolutionUtil.getValidTemporalElement(selectedRole.getNames(), currentSelectedDate);
-				String roleName = currentName.getName();
-				MessageBox messageBox = new MessageBox(getShell(), SWT.ICON_QUESTION | SWT.YES | SWT.NO);
-			    messageBox.setMessage("Do you really want to delete the Role: " + roleName );
-			    int response = messageBox.open();
-			    if(response == SWT.YES){
-			    	System.out.println("trying to delete the role: " +roleName);
-			    	stageModelWrapped.deleteRole(selectedRole, currentSelectedDate);
-			    	updateRoleList();
-			    	updateStageList();
-			    }
+				if(selectedRole != null){
+					HyName currentName = HyEvolutionUtil.getValidTemporalElement(selectedRole.getNames(), currentSelectedDate);
+					String roleName = currentName.getName();
+					MessageBox messageBox = new MessageBox(getShell(), SWT.ICON_QUESTION | SWT.YES | SWT.NO);
+				    messageBox.setMessage("Do you really want to delete the Role: " + roleName );
+				    int response = messageBox.open();
+				    if(response == SWT.YES){
+				    	System.out.println("trying to delete the role: " +roleName);
+				    	stageModelWrapped.deleteRole(selectedRole, currentSelectedDate);
+				    	updateRoleList();
+				    	updateStageList();
+				    }
+				}
 			    
 			}
 		});
@@ -334,17 +348,19 @@ public class StageDialog extends Dialog implements Listener{
 		//Restore Role Button
 		restoreRoleButton.addListener(SWT.Selection,new Listener(){
 			public void handleEvent(Event event){
-				HyName currentName = HyEvolutionUtil.getValidTemporalElement(selectedRole.getNames(), currentSelectedDate);
-				String roleName = currentName.getName();
-				MessageBox messageBox = new MessageBox(getShell(), SWT.ICON_QUESTION | SWT.YES | SWT.NO);
-			    messageBox.setMessage("Do you really want to restore the previously deleted Role: " + roleName );
-			    int response = messageBox.open();
-			    if(response == SWT.YES){
-			    	System.out.println("trying to delete the role: " +roleName);
-			    	stageModelWrapped.restoreRole(selectedRole, currentSelectedDate);
-			    	updateRoleList();
-			    	updateStageList();
-			    }
+				if(selectedRole != null){
+					HyName currentName = HyEvolutionUtil.getValidTemporalElement(selectedRole.getNames(), currentSelectedDate);
+					String roleName = currentName.getName();
+					MessageBox messageBox = new MessageBox(getShell(), SWT.ICON_QUESTION | SWT.YES | SWT.NO);
+				    messageBox.setMessage("Do you really want to restore the previously deleted Role: " + roleName );
+				    int response = messageBox.open();
+				    if(response == SWT.YES){
+				    	System.out.println("trying to delete the role: " +roleName);
+				    	stageModelWrapped.restoreRole(selectedRole, currentSelectedDate);
+				    	updateRoleList();
+				    	updateStageList();
+				    }
+				}
 			    
 			}
 		});

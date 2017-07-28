@@ -8,6 +8,8 @@
         eType="#//Role" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="stageOrder" lowerBound="1"
         upperBound="-1" eType="#//StageOrder" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="stages" lowerBound="1"
+        upperBound="-1" eType="#//Stage" containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Stage" eSuperTypes="../../eu.hyvar.evolution/model/Evolution.ecore#//HyTemporalElement ../../eu.hyvar.evolution/model/Evolution.ecore#//HyNamedElement">
     <eStructuralFeatures xsi:type="ecore:EReference" name="composition" upperBound="-1"
@@ -45,6 +47,6 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="StageOrder" eSuperTypes="../../eu.hyvar.evolution/model/Evolution.ecore#//HyLinearTemporalElement">
     <eStructuralFeatures xsi:type="ecore:EReference" name="stages" lowerBound="1"
-        upperBound="-1" eType="#//Stage" containment="true"/>
+        upperBound="-1" eType="#//Stage"/>
   </eClassifiers>
 </ecore:EPackage>

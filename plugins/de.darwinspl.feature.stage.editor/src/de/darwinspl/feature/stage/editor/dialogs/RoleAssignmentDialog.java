@@ -162,7 +162,17 @@ public class RoleAssignmentDialog extends Dialog {
 			public void widgetSelected(SelectionEvent e) {
 				int[] selectedItems = roleList.getSelectionIndices();
 				if(selectedItems.length > 0){
-					selectedRole = stageModelWrapped.getModel().getRoles().get(selectedItems[0]);	
+					String[] currentSelectionName = roleList.getSelection();
+					
+					for(Role role : stageModelWrapped.getModel().getRoles()){
+						if(HyEvolutionUtil.isValid(role, currentSelectedDate)){
+						HyName currentRoleName = HyEvolutionUtil.getValidTemporalElement(role.getNames(), currentSelectedDate);
+							if(currentRoleName.getName().equals(currentSelectionName[0])){
+								selectedRole = role;
+							}
+						}
+					}
+					
 				}
 				updateAssignedStagesList();
 				updateAvailableStagesList();				
