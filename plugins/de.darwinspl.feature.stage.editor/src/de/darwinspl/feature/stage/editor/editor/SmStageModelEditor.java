@@ -473,6 +473,13 @@ public class SmStageModelEditor extends DwGraphicalFeatureModelEditor {
 	}
 	
 	
+	/**
+	 *  Function that updates the available stages when date is changed
+	 */
+	public void handleEvent(Event event) {
+		super.handleEvent(event);
+		updateComboBox();
+	}
 	
 	
 
