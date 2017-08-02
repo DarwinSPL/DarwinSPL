@@ -34,7 +34,6 @@ import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.ui.IEditorDescriptor;
 import org.eclipse.ui.IEditorInput;
-import org.eclipse.ui.IEditorSite;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.IWorkbenchWindow;
@@ -85,22 +84,7 @@ public class DwFeatureModelConfiguratorEditor extends DwFeatureModelConfigurator
 	private Button simulateButton;
 	private DwSelectedConfigurationComposite selectedConfigurationComposite;
 
-	protected HyConfiguration suggestedConfiguration;
-	
 	private static final String DEFAULT_HYVARREC_URI = "http://hyvarhyvarrec-env.eu-west-1.elasticbeanstalk.com/";
-
-	@Override
-	public void init(IEditorSite site, IEditorInput input) throws PartInitException {
-		super.init(site, input);
-
-		// load an existing configuration model
-		if(this.modelFileExists(HyConfigurationUtil.getConfigurationModelFileExtensionForXmi())) {
-			selectedConfiguration = this.loadConfigurationModel();
-		}
-		else {
-			selectedConfiguration.setFeatureModel(this.modelWrapped.getModel());			
-		}
-	}
 
 	/**
 	 * Hook the evolution factory into the editor logic and override the standard edit part factory
@@ -166,10 +150,10 @@ public class DwFeatureModelConfiguratorEditor extends DwFeatureModelConfigurator
 		return (HyContextModel) EcoreIOUtil.loadAccompanyingModel(modelWrapped.getModel(), HyContextInformationUtil.getContextModelFileExtensionForConcreteSyntax());
 	}
 
-	private HyConfiguration loadConfigurationModel(){
+	protected HyConfiguration loadConfigurationModel(){
 		return (HyConfiguration) EcoreIOUtil.loadAccompanyingModel(modelWrapped.getModel(), HyConfigurationUtil.getConfigurationModelFileExtensionForXmi());
 	}
-
+	
 	@Override
 	public void createPartControl(Composite parent) {
 		Composite sash = new Composite(parent, SWT.NONE);
@@ -187,7 +171,7 @@ public class DwFeatureModelConfiguratorEditor extends DwFeatureModelConfigurator
 		parent.setLayout(new GridLayout(1, false));
 		super.createSliderControl(parent);
 
-		registerListeners();
+		registerControlListeners();
 	}
 
 	protected Composite createConfigurationPanel(Composite parent) {
@@ -238,7 +222,7 @@ public class DwFeatureModelConfiguratorEditor extends DwFeatureModelConfigurator
 //		return DEFAULT_HYVARREC_URI;
 	}
 
-	protected void registerListeners() {
+	public void registerControlListeners() {
 
 		super.registerControlListeners();
 		
