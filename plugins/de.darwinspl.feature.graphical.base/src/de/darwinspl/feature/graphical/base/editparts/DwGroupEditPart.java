@@ -8,6 +8,7 @@ import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
+import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.gef.editparts.AbstractGraphicalEditPart;
 
 import de.darwinspl.feature.graphical.base.editor.DwGraphicalFeatureModelViewer;
@@ -15,9 +16,12 @@ import de.darwinspl.feature.graphical.base.figures.DwGroupFigure;
 import de.darwinspl.feature.graphical.base.model.DwFeatureModelWrapped;
 import de.darwinspl.feature.graphical.base.model.DwFeatureWrapped;
 import de.darwinspl.feature.graphical.base.model.DwGroupWrapped;
+import de.darwinspl.feature.graphical.base.model.DwRepaintNotification;
 import eu.hyvar.evolution.util.HyEvolutionUtil;
+import eu.hyvar.feature.HyFeature;
 
 public class DwGroupEditPart extends DwAbstractEditPart{
+
 	
 	public DwGroupEditPart(DwGraphicalFeatureModelViewer editor, DwFeatureModelWrapped featureModel){
 		super(editor, featureModel);
@@ -29,7 +33,7 @@ public class DwGroupEditPart extends DwAbstractEditPart{
 		DwGroupWrapped model = (DwGroupWrapped)getModel();
 		return new DwGroupFigure(editor, model);
 	}
-
+	
 	@Override
 	protected void createEditPolicies() {		
 	}
@@ -77,5 +81,13 @@ public class DwGroupEditPart extends DwAbstractEditPart{
 		AbstractGraphicalEditPart parent = (AbstractGraphicalEditPart)getParent();
 		if(figure.isVisible() && parent != null)
 			parent.setLayoutConstraint(this, figure, getFigureConstraint());
+	}
+	
+	@Override
+	protected void refreshVisuals() {
+
+
+		// TODO Auto-generated method stub
+		super.refreshVisuals();
 	}
 }

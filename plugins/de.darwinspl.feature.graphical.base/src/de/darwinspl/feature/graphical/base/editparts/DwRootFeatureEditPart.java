@@ -1,15 +1,12 @@
 package de.darwinspl.feature.graphical.base.editparts;
 
-import java.util.Date;
-
 import org.eclipse.draw2d.IFigure;
 
 import de.darwinspl.feature.graphical.base.editor.DwGraphicalFeatureModelViewer;
 import de.darwinspl.feature.graphical.base.figures.DwRootFeatureFigure;
 import de.darwinspl.feature.graphical.base.model.DwFeatureModelWrapped;
 import de.darwinspl.feature.graphical.base.model.DwFeatureWrapped;
-import eu.hyvar.evolution.util.HyEvolutionUtil;
-import eu.hyvar.evolution.HyName;
+
 
 public class DwRootFeatureEditPart extends DwFeatureEditPart{
 
@@ -33,26 +30,5 @@ public class DwRootFeatureEditPart extends DwFeatureEditPart{
 	@Override
 	public void refresh(){
 		super.refresh();
-	}
-	
-	
-
-	@Override
-	public void refreshVisuals(){
-		super.refreshVisuals();
-		
-		DwGraphicalFeatureModelViewer editor = (DwGraphicalFeatureModelViewer)this.editor;
-		Date date = editor.getCurrentSelectedDate();
-		
-		DwRootFeatureFigure figure = (DwRootFeatureFigure)getFigure();
-		DwFeatureWrapped wrappedFeature = (DwFeatureWrapped)this.getModel();
-		// find a valid name for the feature
-		/*
-		for(HyName name : wrappedFeature.getWrappedModelElement().getNames()){
-			if(HyEvolutionUtil.isValid(name, date)){
-				figure.setText(name.getName());
-			}
-		}
-		*/
 	}
 }

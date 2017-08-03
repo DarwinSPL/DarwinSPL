@@ -7,6 +7,8 @@ import org.eclipse.emf.common.notify.Adapter;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.Notifier;
 import org.eclipse.emf.common.util.EList;
+import org.eclipse.emf.ecore.InternalEObject;
+import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.gef.EditPolicy;
 
 import de.darwinspl.feature.graphical.base.editor.DwGraphicalFeatureModelViewer;
@@ -14,8 +16,10 @@ import de.darwinspl.feature.graphical.base.editparts.DwGroupEditPart;
 import de.darwinspl.feature.graphical.base.model.DwFeatureModelWrapped;
 import de.darwinspl.feature.graphical.base.model.DwFeatureWrapped;
 import de.darwinspl.feature.graphical.base.model.DwGroupWrapped;
+import de.darwinspl.feature.graphical.base.model.DwRepaintNotification;
 import eu.hyvar.feature.HyFeature;
 import eu.hyvar.feature.HyGroup;
+import eu.hyvar.feature.HyGroupType;
 
 public class DwGroupEditorEditPart extends DwGroupEditPart {
 	public static String GROUP_MODEL_CHANGED = "GROUP_MODEL_CHANGED";
@@ -23,6 +27,18 @@ public class DwGroupEditorEditPart extends DwGroupEditPart {
 
 		@Override 
 		public void notifyChanged(Notification notification) {
+			System.out.println(notification);
+			
+			if(notification instanceof ENotificationImpl) {
+				ENotificationImpl enotification = (ENotificationImpl)notification;
+				if(enotification.getEventType() == Notification.ADD && enotification.getNewValue() instanceof HyGroupType) {
+					refreshVisuals();
+				}
+				if(enotification.getEventType() == Notification.REMOVE && enotification.getOldValue() instanceof HyGroupType) {
+					refreshVisuals();
+				}
+			}		
+			
 			if(notification.getEventType() != Notification.REMOVING_ADAPTER){
 				DwGroupWrapped groupWrapped = (DwGroupWrapped)getModel();
 				
@@ -146,5 +162,13 @@ public class DwGroupEditorEditPart extends DwGroupEditPart {
 
 	}
 	
-
+	@Override
+	protected void refreshVisuals() {
+		super.refreshVisuals();
+		
+		DwGroupWrapped model = (DwGroupWrapped)getModel();
+		for(HyFeature feature : model.getFeatures(editor.getCurrentSelectedDate())) {
+			feature.eNotify(new DwRepaintNotification((InternalEObject)model.getWrappedModelElement(), -1, model.getWrappedModelElement().eContainingFeature(), false, true));
+		}
+	}
 }

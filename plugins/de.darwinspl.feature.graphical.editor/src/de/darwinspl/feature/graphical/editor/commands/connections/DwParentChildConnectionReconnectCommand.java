@@ -1,9 +1,7 @@
 package de.darwinspl.feature.graphical.editor.commands.connections;
 
 
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 import org.eclipse.gef.EditPart;
 
@@ -33,7 +31,6 @@ public class DwParentChildConnectionReconnectCommand extends DwFeatureDeleteComm
 
 	private HyFeature backupFeature;
 	private HyGroup backupGroup;
-	private HyGroupComposition backupGroupComposition;
 
 	@Override 
 	public boolean canExecute(){
@@ -60,7 +57,6 @@ public class DwParentChildConnectionReconnectCommand extends DwFeatureDeleteComm
 		DwFeatureWrapped newTarget = (DwFeatureWrapped)target;
 		DwFeatureWrapped oldTarget = connection.getTarget();
 
-		backupGroupComposition = DwEcoreUtil.copy(HyEvolutionUtil.getValidTemporalElement(oldTarget.getWrappedModelElement().getGroupMembership(), executionDate));
 		backupGroup = DwEcoreUtil.copy(HyEvolutionUtil.getValidTemporalElement(oldTarget.getWrappedModelElement().getGroupMembership(), executionDate).getCompositionOf());
 		
 		// only one connection valid at a timestamp
@@ -163,7 +159,7 @@ public class DwParentChildConnectionReconnectCommand extends DwFeatureDeleteComm
 		for(HyGroupComposition composition : backupFeature.getGroupMembership()) {
 			HyGroupComposition realComposition = getRealModelGroupComposition(realGroup, composition);
 			
-			if(realComposition != null) {
+			if(realComposition != null && realComposition.getSupersedingElement() != null) {
 				if(executionDate.equals(realComposition.getSupersedingElement().getValidSince())) {
 					HyGroupComposition newComposition = (HyGroupComposition)realComposition.getSupersedingElement();
 					newComposition.getFeatures().clear();
