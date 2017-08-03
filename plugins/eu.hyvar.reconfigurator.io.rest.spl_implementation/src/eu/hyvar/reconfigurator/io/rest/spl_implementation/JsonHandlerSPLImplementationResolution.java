@@ -34,7 +34,7 @@ import eu.hyvar.mspl.manifest.HySPLImplementation;
 import eu.hyvar.mspl.manifest.HySPLSignature;
 import eu.hyvar.mspl.manifest.HyTimedImplementations;
 import eu.hyvar.reconfigurator.io.rest.spl_implementation.io.raw_input_spl_implementation_resolution.*;
-import eu.hyvar.reconfigurator.io.rest.spl_implementation.io.raw_output_spl_implementation_resolution.RawOutputError;
+import eu.hyvar.reconfigurator.io.rest.spl_implementation.io.raw_output_error_resolution.RawOutputError;
 import eu.hyvar.reconfigurator.io.rest.spl_implementation.io.raw_output_spl_implementation_resolution.RawOutputSPLImplementationResolution;
 
 public class JsonHandlerSPLImplementationResolution extends AbstractHandler {
@@ -129,7 +129,7 @@ public class JsonHandlerSPLImplementationResolution extends AbstractHandler {
 		// Instantiate the Signature to be implemented: 
 		fileName = rawInput.getSplSignature().getSignatureModel().getFilename();
 		content = rawInput.getSplSignature().getSignatureModel().getSpecification().getBytes();
-		ifile = saveFileContent(fileName, content, folder, progressMonitor, error);
+		ifile = WorkspaceUtility.saveFileContent(fileName, content, folder, progressMonitor, error);
 
 		if(ifile!=null) {
 			object = EcoreIOUtil.loadModel(ifile, baseContext);
@@ -153,7 +153,7 @@ public class JsonHandlerSPLImplementationResolution extends AbstractHandler {
 			// Save the implementation
 			fileName = implementation.getSignatureModel().getFilename();
 			content = implementation.getSignatureModel().getSpecification().getBytes();
-			ifile = saveFileContent(fileName, content, folder, progressMonitor, error);
+			ifile = WorkspaceUtility.saveFileContent(fileName, content, folder, progressMonitor, error);
 
 			
 			if(ifile!=null) {
@@ -191,56 +191,5 @@ public class JsonHandlerSPLImplementationResolution extends AbstractHandler {
 		
 		return output;
 	}
-
-
-
-	private IFile saveFileContent (String fileName, byte[] content, IFolder folder, IProgressMonitor progressMonitor, RawOutputError error) {
-		if(fileName.startsWith("\\")||fileName.startsWith("/")) {
-			fileName = fileName.substring(1);
-		}
-		createFilePath(fileName, folder, progressMonitor, error);
-
-		IFile ifile = folder.getFile(fileName);
-		ByteArrayInputStream inputStream = new ByteArrayInputStream(content);
-		try {
-			if(!ifile.exists()) {
-				ifile.create(inputStream, true, progressMonitor);				
-			} else {
-				ifile.setContents(inputStream, IFile.FORCE, progressMonitor);
-			}
-			return ifile;
-		} catch (CoreException e) {
-			error.setErrorString(error.getErrorString()+"\n Error creating file ("+fileName+"): "+e.toString());
-			e.printStackTrace();
-		}
-		return null;
-	}
-	
-	
-	
-	
-	private void createFilePath(String fileName, IFolder folder, IProgressMonitor progressMonitor, RawOutputError error) {
-
-		String relativePath = "";
-		try {
-			String elements[] = fileName.split("/|\\\\");
-			// Remove the file name (last element)
-			elements[elements.length-1]="";
-			
-			IFolder relativeFolder;
-			for(String element: elements) {
-				if(!"".equals(element)) {
-					relativeFolder = folder.getFolder(relativePath+element);
-					if(!relativeFolder.exists()) {
-						relativeFolder.create(true, true, progressMonitor);
-					}
-					relativePath += element+"/";
-				}
-			}
-		} catch (CoreException e) {
-			error.setErrorString(error.getErrorString()+"\n Error creating folder ("+relativePath+"): "+e.toString());
-		}
-	}
-
 
 }

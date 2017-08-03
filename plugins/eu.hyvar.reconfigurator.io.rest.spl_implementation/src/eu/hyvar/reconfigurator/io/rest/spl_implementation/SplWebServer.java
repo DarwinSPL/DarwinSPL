@@ -24,11 +24,35 @@ public class SplWebServer implements IApplication {
 		handlerCollection.addHandler(handler);
 
 		
+		handler = new ContextHandler("/createJsonConfigurationResolution");
+		handler.setContextPath("/createJsonConfigurationResolution");
+		// set allowed message size to 2MB
+		handler.setMaxFormContentSize(2000000);
+		handler.setHandler(new CreateHandlerConfigurationResolutionInput());
+		handlerCollection.addHandler(handler);
+
+		
 		handler = new ContextHandler("/implementationResolution");
 		handler.setContextPath("/implementationResolution");
 		// set allowed message size to 2MB
 		handler.setMaxFormContentSize(2000000);
 		handler.setHandler(new JsonHandlerSPLImplementationResolution());
+		handlerCollection.addHandler(handler);
+		
+		
+		handler = new ContextHandler("/configurationResolution");
+		handler.setContextPath("/configurationResolution");
+		// set allowed message size to 2MB
+		handler.setMaxFormContentSize(2000000);
+		handler.setHandler(new JsonHandlerSPLConfigurationResolution());
+		handlerCollection.addHandler(handler);
+		
+		
+		handler = new ContextHandler("/health");
+		handler.setContextPath("/health");
+		// set allowed message size to 2MB
+		handler.setMaxFormContentSize(2000000);
+		handler.setHandler(new HandlerHealth());
 		handlerCollection.addHandler(handler);
 		
 		
