@@ -41,7 +41,7 @@ public class DwFeatureRenameCommand extends DwLinearTemporalElementCommand {
 		if(!names.contains(oldName))
 			names.add(oldName);
 		
-		editor.getModelWrapped().checkModelForErrors();
+		//editor.getModelWrapped().checkModelForErrors();
 	}
 
 	@Override

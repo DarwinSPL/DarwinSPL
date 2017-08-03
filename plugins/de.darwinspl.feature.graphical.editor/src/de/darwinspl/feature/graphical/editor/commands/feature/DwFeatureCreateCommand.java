@@ -49,20 +49,16 @@ public class DwFeatureCreateCommand extends DwFeatureModelEditorCommand {
 	public void redo() {
 		DwFeatureModelWrapped featureModel = viewer.getModelWrapped();
 		date = viewer.getCurrentSelectedDate();
-		if(date.equals(new Date(Long.MIN_VALUE))){
-			date = null;
-		}		
-		
 		
 		// Create a new feature model and editor representation
 		HyFeature feature = HyFeatureFactory.eINSTANCE.createHyFeature();
-		feature.setValidSince(date);
+		feature.setValidSince(DwFeatureModelWrapped.getCorrectModelDate(date));
 		newFeature = new DwFeatureWrapped(feature, featureModel);
 		newFeature.addPosition(new Point(0, 0), date, false);
 		
 		HyName name = HyEvolutionFactory.eINSTANCE.createHyName();
 		name.setName(featureModel.getValidNewFeatureName());
-		name.setValidSince(date);
+		name.setValidSince(DwFeatureModelWrapped.getCorrectModelDate(date));
 		feature.getNames().add(name);
 
 		HyFeatureType type = HyFeatureFactory.eINSTANCE.createHyFeatureType();
@@ -74,9 +70,6 @@ public class DwFeatureCreateCommand extends DwFeatureModelEditorCommand {
 		connection.setModel(featureModel);
 		
 		featureModel.addConnection(connection, featureModel.getSelectedDate(), null);
-		
-		parent.addParentToChildConnection(connection);
-		newFeature.addChildToParentConnection(connection);
 		
 		newFeature.setWrappedModelElement(feature);
 		featureModel.addFeature(newFeature);

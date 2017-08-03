@@ -40,8 +40,6 @@ public class DwFeatureEditPart extends DwAbstractEditPart implements NodeEditPar
 			//refreshVisuals();
 			//refreshChildren();
 			//rearrangeChildren();
-			
-			System.out.println(notification);
 /*
 			if(notification.getEventType() == ENotificationImpl.REMOVE && notification.getOldValue() instanceof HyFeatureAttribute){
 				refreshVisuals();

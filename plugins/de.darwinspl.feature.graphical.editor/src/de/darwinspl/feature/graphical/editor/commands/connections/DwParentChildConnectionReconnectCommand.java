@@ -1,7 +1,9 @@
 package de.darwinspl.feature.graphical.editor.commands.connections;
 
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import org.eclipse.gef.EditPart;
 
@@ -29,6 +31,10 @@ public class DwParentChildConnectionReconnectCommand extends DwFeatureDeleteComm
 	private DwParentChildConnection oldConnection;
 	private DwParentChildConnection newConnection;
 
+	private HyFeature backupFeature;
+	private HyGroup backupGroup;
+	private HyGroupComposition backupGroupComposition;
+
 	@Override 
 	public boolean canExecute(){
 		return source != null && target != null && connection != null;
@@ -48,42 +54,45 @@ public class DwParentChildConnectionReconnectCommand extends DwFeatureDeleteComm
 
 	private void redoForFeatureTarget(){
 		DwFeatureModelWrapped featureModel = viewer.getModelWrapped();
-		
-		executionDate = featureModel.getSelectedDate().equals(new Date(Long.MIN_VALUE)) ? null : featureModel.getSelectedDate();
-		
+
+		executionDate = featureModel.getSelectedDate();
+
 		DwFeatureWrapped newTarget = (DwFeatureWrapped)target;
 		DwFeatureWrapped oldTarget = connection.getTarget();
+
+		backupGroupComposition = DwEcoreUtil.copy(HyEvolutionUtil.getValidTemporalElement(oldTarget.getWrappedModelElement().getGroupMembership(), executionDate));
+		backupGroup = DwEcoreUtil.copy(HyEvolutionUtil.getValidTemporalElement(oldTarget.getWrappedModelElement().getGroupMembership(), executionDate).getCompositionOf());
 		
 		// only one connection valid at a timestamp
 		if(!oldTarget.getParentConnections(executionDate).isEmpty()){
 			DwParentChildConnection currentConnection = oldTarget.getParentConnections(executionDate).get(0);
-			
+
 			oldConnection = DwEcoreUtil.copy(currentConnection);
-			
-			currentConnection.setValidUntil(executionDate);	
+
+			featureModel.removeConnection(currentConnection, executionDate);
 		}
-		
-		
-		oldFeature = DwEcoreUtil.copy(connection.getTarget().getWrappedModelElement());
-		
+
+
+		backupFeature = DwEcoreUtil.copy(connection.getTarget().getWrappedModelElement());
+
+
 		featureModel.removeFeature(oldTarget, executionDate);
-		
+
 		newConnection = new DwParentChildConnection();
 		newConnection.setModel(featureModel);
 		newConnection.setTarget(oldTarget);
 		newConnection.setSource(newTarget);
-		//featureModel.addConnection(newConnection, executionDate, null);
-		
-
+		newConnection.setValidSince(executionDate.equals(new Date(Long.MIN_VALUE)) ? null : executionDate);
+		featureModel.addConnection(newConnection, executionDate, null);
 	}
-	
+
 	private void redoForConnectionTarget(){
 		DwFeatureModelWrapped featureModel = viewer.getModelWrapped();
 		Date date = featureModel.getSelectedDate();
 		if(date.equals(new Date(Long.MIN_VALUE)))
 			date = null;
 
-		
+
 		DwParentChildConnection connection = (DwParentChildConnection)target;
 
 		DwFeatureWrapped tempTargetFeature = connection.getTarget();
@@ -93,21 +102,28 @@ public class DwParentChildConnectionReconnectCommand extends DwFeatureDeleteComm
 		HyFeatureChild child = HyEvolutionUtil.getValidTemporalElement(group.getChildOf(), date);
 		DwFeatureWrapped newTarget = featureModel.getWrappedFeature(child.getParent());
 		DwFeatureWrapped oldTarget = this.connection.getTarget();
-		
+
 		//DwGroupWrapped oldGroup = oldTarget.getParentGroup(date);
-		
+
 		DwParentChildConnection newConnection = new DwParentChildConnection();
 		newConnection.setModel(featureModel);
 		newConnection.setTarget(oldTarget);
 		newConnection.setSource(newTarget);			
-		
+
 		parentGroupWrapped.addChildFeature(oldTarget);
-		
-		
-		
+
+
+
 		featureModel.addConnection(newConnection, date, composition.getCompositionOf());
-		
+
 		featureModel.removeFeature(oldTarget, date);		
+	}
+
+
+
+	private void refreshView() {
+		viewer.getModelWrapped().rearrangeFeatures();
+		viewer.refreshView();		
 	}
 
 	@Override
@@ -117,42 +133,56 @@ public class DwParentChildConnectionReconnectCommand extends DwFeatureDeleteComm
 		}else{
 			redoForConnectionTarget();
 		}	
-		
-		//viewer.getModelWrapped().rearrangeFeatures();
-		//viewer.refreshView();
+
+		refreshView();
 	}
-	
+
 	@Override 
 	public void undo(){
-		HyFeature realFeature = getRealModelFeature(oldFeature);
-	
-		DwFeatureModelWrapped featureModel = viewer.getModelWrapped();
-		featureModel.removeConnection(newConnection, executionDate);
+		HyFeature realFeature = getRealModelFeature(backupFeature);
+		HyGroup realGroup = getRealModelGroup(backupGroup);
 		
+		HyGroup backupGroup = HyEvolutionUtil.getValidTemporalElement(backupFeature.getGroupMembership(), executionDate).getCompositionOf();
+		HyGroup currentGroup = HyEvolutionUtil.getValidTemporalElement(realFeature.getGroupMembership(), executionDate).getCompositionOf();
 		
-		
-		
-
-		// remove the splitted composition from the feature model
-		for(HyGroupComposition composition : realFeature.getGroupMembership()){
-			// the last composition where the feature is part of
-			if(composition.getValidUntil().equals(executionDate)){
-				composition.getCompositionOf().getParentOf().remove(composition.getSupersedingElement());
-				
-				HyGroupComposition newAddedComposition = (HyGroupComposition)composition.getSupersedingElement();
-				newAddedComposition.getFeatures().clear();
-				
-				composition.setValidUntil(null);
-				composition.getFeatures().add(realFeature);
-				
-				composition.setSupersedingElement(null);
-				
-				break;
+		if(!backupGroup.getId().equals(currentGroup.getId())) {
+			DwGroupWrapped groupWrapped = viewer.getModelWrapped().getWrappedGroup(currentGroup);
+			viewer.getModelWrapped().removeGroup(groupWrapped);
+			
+			HyGroupComposition obsoleteComposition = null;
+			for(HyGroupComposition composition : realFeature.getGroupMembership()) {
+				if(composition.getCompositionOf().equals(currentGroup))
+					obsoleteComposition = composition;
+			}
+			
+			if(obsoleteComposition != null) {
+				realFeature.getGroupMembership().remove(obsoleteComposition);
 			}
 		}	
 		
-		featureModel.addConnection(oldConnection, executionDate, oldConnection.getTarget().getGroupMembership(executionDate).getCompositionOf());
+		for(HyGroupComposition composition : backupFeature.getGroupMembership()) {
+			HyGroupComposition realComposition = getRealModelGroupComposition(realGroup, composition);
+			
+			if(realComposition != null) {
+				if(executionDate.equals(realComposition.getSupersedingElement().getValidSince())) {
+					HyGroupComposition newComposition = (HyGroupComposition)realComposition.getSupersedingElement();
+					newComposition.getFeatures().clear();
+					newComposition.getCompositionOf().getParentOf().remove(newComposition);				
+				}
+				
+				
+				realComposition.setValidSince(composition.getValidSince());
+				realComposition.setValidUntil(composition.getValidUntil());
+				realComposition.setSupersededElement(composition.getSupersededElement());
+				realComposition.setSupersedingElement(composition.getSupersedingElement());
+				
+			}
+		}
+
+		viewer.getModelWrapped().removeConnection(newConnection, executionDate);
+		viewer.getModelWrapped().addConnection(oldConnection, executionDate, realGroup);	
 		
+		refreshView();
 	}
 
 	@Override

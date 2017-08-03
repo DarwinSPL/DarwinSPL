@@ -31,8 +31,8 @@ public class DwParentChildConnectionCreateCommand extends Command{
 		connection.setTarget(target);
 		connection.setModel(featureModel);
 		
-		source.addParentToChildConnection(connection);
-		target.addChildToParentConnection(connection);
+		source.addOrUpdateParentToChildConnection(connection);
+		target.addOrUpdateChildToParentConnection(connection);
 		
 		featureModel.addConnection(connection, featureModel.getSelectedDate(), null);	
 	}

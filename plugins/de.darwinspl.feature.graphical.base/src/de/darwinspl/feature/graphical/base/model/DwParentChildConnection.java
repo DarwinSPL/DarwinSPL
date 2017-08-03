@@ -3,8 +3,8 @@ package de.darwinspl.feature.graphical.base.model;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.util.Date;
+import java.util.UUID;
 
-import eu.hyvar.evolution.util.HyEvolutionUtil;
 import eu.hyvar.feature.HyFeature;
 import eu.hyvar.feature.HyFeatureChild;
 import eu.hyvar.feature.HyGroupComposition;
@@ -13,6 +13,8 @@ public class DwParentChildConnection{
 	private PropertyChangeSupport changes = new PropertyChangeSupport( this );
 	private boolean highlight = false;
 	private boolean visible = true;
+	
+	private UUID id;
 
 	Date validSince;
 	Date validUntil;
@@ -33,6 +35,16 @@ public class DwParentChildConnection{
 		this.validUntil = validUntil;
 	}
 
+	public UUID getId() {
+		return id;
+	}
+
+	public void setId(UUID id) {
+		this.id = id;
+	}
+
+
+
 	public static final String PROPERTY_SOURCE = "PropertySOURCE";
 	public static final String PROPERTY_TARGET = "PropertyTARGET";
 	public static final String PROPERTY_HIGHLIGHTED = "PropertyHighlighted";
@@ -43,15 +55,9 @@ public class DwParentChildConnection{
 
 	DwFeatureModelWrapped model;
 
-	public DwParentChildConnection clone(){
-		DwParentChildConnection connection = new DwParentChildConnection();
-		connection.setHighlight(highlight);
-		connection.setTarget(target);
-		connection.setSource(source);
-
-		return connection;
+	public DwParentChildConnection() {
+		id = UUID.randomUUID();
 	}
-
 	public void setVisible(boolean visible) {
 		boolean old = this.visible;
 		this.visible = visible;
@@ -160,7 +166,6 @@ public class DwParentChildConnection{
 	public boolean equals(Object other){
 		DwParentChildConnection connection = (DwParentChildConnection)other;
 		
-		return (connection.getTarget().equals(getTarget()) &&
-		        connection.getSource().equals(getSource()));
+		return this.getId().equals(connection.getId());
 	}
 }

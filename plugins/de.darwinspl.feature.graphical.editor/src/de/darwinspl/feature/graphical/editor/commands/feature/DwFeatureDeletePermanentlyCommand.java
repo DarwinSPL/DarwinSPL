@@ -68,7 +68,7 @@ public class DwFeatureDeletePermanentlyCommand extends DwAbstractFeatureDeleteCo
 	
 	private void undoConnections(){
 		for(DwParentChildConnection connection : feature.getParentConnections()){
-			connection.getSource().addParentToChildConnection(connection);
+			connection.getSource().addOrUpdateParentToChildConnection(connection);
 		}
 	}
 		
@@ -163,7 +163,7 @@ public class DwFeatureDeletePermanentlyCommand extends DwAbstractFeatureDeleteCo
 	public void undo(){
 		HyFeatureModel featureModel = viewer.getInternalFeatureModel();
 		
-		undoConnections();
+		
 
 
 		feature.setWrappedModelElement(oldFeature);
@@ -206,6 +206,8 @@ public class DwFeatureDeletePermanentlyCommand extends DwAbstractFeatureDeleteCo
 	
 		// check if feature already exist in feature model
 		boolean exists = this.getRealModelFeature(feature.getWrappedModelElement()) != null;
+		
+		undoConnections();
 		
 		if(!exists)
 			viewer.getModelWrapped().addFeature(feature);
