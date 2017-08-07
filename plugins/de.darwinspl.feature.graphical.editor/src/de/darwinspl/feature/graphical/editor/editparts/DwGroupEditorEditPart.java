@@ -46,7 +46,7 @@ public class DwGroupEditorEditPart extends DwGroupEditPart {
 					for(DwFeatureWrapped featureWrapped : groupWrapped.getFeaturesWrapped(date)){
 						// notify all children about the change
 						
-						featureWrapped.getListeners().firePropertyChange(new PropertyChangeEvent(groupWrapped.getWrappedModelElement(), GROUP_MODEL_CHANGED, notification.getOldValue(), notification.getNewValue()));
+						//featureWrapped.getListeners().firePropertyChange(new PropertyChangeEvent(groupWrapped.getWrappedModelElement(), GROUP_MODEL_CHANGED, notification.getOldValue(), notification.getNewValue()));
 					}					
 					
 					refreshVisuals(); 

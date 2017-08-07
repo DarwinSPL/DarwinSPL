@@ -59,6 +59,22 @@ public class DwParentChildConnection{
 		changes.firePropertyChange(PROPERTY_HIGHLIGHTED, old, visible);
 	}
 	public boolean isVisible(Date date){
+		if (date == null) {
+			if (validSince == null && validUntil == null) {
+				return true;
+			} else {
+				return false;
+			}
+		}
+
+		if ((validSince == null || validSince.before(date)
+				|| validSince.equals(date))
+				&& (validUntil == null || validUntil.after(date))) {
+			return true;
+		}
+
+		return false;
+		/*
 		if(!target.isValid(date) || !source.isValid(date))
 			return false;
 
@@ -75,6 +91,7 @@ public class DwParentChildConnection{
 		}
 		
 		return false;
+		*/
 	}
 
 	public boolean isVisible(){

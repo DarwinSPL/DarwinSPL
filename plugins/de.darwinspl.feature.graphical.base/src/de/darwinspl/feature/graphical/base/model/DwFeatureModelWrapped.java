@@ -19,8 +19,8 @@ import org.eclipse.emf.ecore.util.EcoreUtil;
 import de.darwinspl.feature.graphical.base.deltaecore.wrapper.layouter.feature.DwFeatureLayouterManager;
 import de.darwinspl.feature.graphical.base.deltaecore.wrapper.layouter.feature.DwFeatureTreeLayouter;
 import eu.hyvar.evolution.HyEvolutionFactory;
-import eu.hyvar.evolution.util.HyEvolutionUtil;
 import eu.hyvar.evolution.HyName;
+import eu.hyvar.evolution.util.HyEvolutionUtil;
 import eu.hyvar.feature.HyFeature;
 import eu.hyvar.feature.HyFeatureChild;
 import eu.hyvar.feature.HyFeatureFactory;
@@ -202,7 +202,7 @@ public class DwFeatureModelWrapped implements PropertyChangeListener {
 
 		Collections.sort(dates);
 
-		changes.firePropertyChange(PROPERTY_DATES_COUNT, old, dates.size());
+		//changes.firePropertyChange(PROPERTY_DATES_COUNT, old, dates.size());
 
 		return true;
 	}
@@ -214,7 +214,6 @@ public class DwFeatureModelWrapped implements PropertyChangeListener {
 	public void setSelectedDate(Date selectedDate) {
 		Date old = this.selectedDate;
 		this.selectedDate = selectedDate;
-
 
 		changes.firePropertyChange(PROPERTY_SELECTED_DATE, old, selectedDate);
 
@@ -281,7 +280,6 @@ public class DwFeatureModelWrapped implements PropertyChangeListener {
 				HyGroupComposition supersedingComposition = EcoreUtil.copy(composition);
 				Calendar a = Calendar.getInstance();
 				a.setTime(selectedDate);
-				a.add(Calendar.SECOND, -1);
 				oldComposition.setValidUntil(a.getTime());
 				child.getChildGroup().getParentOf().add(supersedingComposition);
 
@@ -457,7 +455,7 @@ public class DwFeatureModelWrapped implements PropertyChangeListener {
 
 					Rectangle rectangle = layouter.getBounds(featureWrapped);
 
-
+System.out.println(featureWrapped.getWrappedModelElement().getNames().get(0).getName());
 					if(featureWrapped.isVisible())
 						featureWrapped.addPosition(rectangle.getTopLeft(), selectedDate, true);
 
@@ -470,15 +468,11 @@ public class DwFeatureModelWrapped implements PropertyChangeListener {
 
 
 	public void addFeature(DwFeatureWrapped feature){
-		int size = features.size();
-
-
 		features.add(feature);
 
 		feature.addPropertyChangeListener(this);
 
 		model.getFeatures().add(feature.getWrappedModelElement());
-		changes.firePropertyChange(PROPERTY_CHILDREN_SIZE, size, size+1);
 	}
 
 	public List<DwParentChildConnection> getConnections() {
@@ -487,7 +481,10 @@ public class DwFeatureModelWrapped implements PropertyChangeListener {
 
 
 	public void removeFeature(int i){
-		features.remove(i);
+		DwFeatureWrapped removedFeature = features.remove(i);
+		
+		// delete the feature in the real feature model
+		model.getFeatures().remove(removedFeature.getWrappedModelElement());
 		
 		int size = features.size();
 		changes.firePropertyChange(PROPERTY_CHILDREN_SIZE, size+1, size);
@@ -498,18 +495,16 @@ public class DwFeatureModelWrapped implements PropertyChangeListener {
 	 * @param date
 	 */
 	public void removeFeature(DwFeatureWrapped childFeature, Date date){
-		if(date != null && date.equals(new Date(Long.MIN_VALUE)))
-			date = null;
 
 		DwGroupWrapped group = childFeature.getParentGroup(date);
-
 		HyGroupComposition composition = HyEvolutionUtil.getValidTemporalElement(group.getWrappedModelElement().getParentOf(), date);			
 		if(composition != null){
 			HyGroupType type = HyEvolutionUtil.getValidTemporalElement(group.getWrappedModelElement().getTypes(), date);
 
 			// split composition to allow evolution
-			if(date != null){
+			if(date != null && (composition.getValidSince() != null ? !composition.getValidSince().equals(date) : true)){				
 				composition = DwGroupWrapped.splitComposition(composition, null, date);
+				
 
 				// split group types in case that no and type is selected at the selected date
 				if(composition.getFeatures().size() == 2 && type.getType() != HyGroupTypeEnum.AND){
@@ -519,8 +514,17 @@ public class DwFeatureModelWrapped implements PropertyChangeListener {
 				if(composition.getFeatures().size() == 2)
 					type.setType(HyGroupTypeEnum.AND);
 			}
+			
+			
 			composition.getFeatures().remove(childFeature.getWrappedModelElement());
-
+			
+			if(composition.getFeatures().isEmpty()){
+				for(HyFeatureChild featureChild : composition.getCompositionOf().getChildOf()){
+					featureChild.getParent().getParentOf().remove(featureChild);
+				}
+				
+				this.model.getGroups().remove(composition.getCompositionOf());
+			}
 			// Inform editparts about the changes made to the model
 			//listeners.firePropertyChange(PROPERTY_CHILD_FEATURES, old, this);
 		}
@@ -546,30 +550,6 @@ public class DwFeatureModelWrapped implements PropertyChangeListener {
 
 	}
 
-
-	public void removeFeaturePermanently(DwFeatureWrapped childFeature){
-		HyFeature feature = childFeature.getWrappedModelElement();
-		HyFeatureModel featureModel = feature.getFeatureModel();
-
-		featureModel.getFeatures().remove(feature);
-
-		for(HyGroupComposition composition : feature.getGroupMembership()){
-
-
-			if(composition.getFeatures().size() == 1){
-				HyGroup group = composition.getCompositionOf();
-
-				for(HyFeatureChild child : group.getChildOf()){
-					child.getParent().getParentOf().remove(child);
-				}
-
-				featureModel.getGroups().remove(group);
-			}
-		}
-
-		feature.getGroupMembership().clear();
-	}	
-
 	public DwFeatureWrapped getWrappedFeature(HyFeature feature){
 		for(DwFeatureWrapped wrapped : features){
 			if(wrapped.getWrappedModelElement().equals(feature))
@@ -588,10 +568,12 @@ public class DwFeatureModelWrapped implements PropertyChangeListener {
 		return null;
 	}
 
-	private void createConnection(DwFeatureWrapped parent, DwFeatureWrapped child){
+	private void createConnection(DwFeatureWrapped parent, DwFeatureWrapped child, Date validSince, Date validUntil){
 		DwParentChildConnection connection = new DwParentChildConnection();
 		connection.setSource(parent);
 		connection.setTarget(child);
+		connection.setValidSince(validSince);
+		connection.setValidUntil(validUntil);
 		connection.setModel(this);
 
 		parent.addParentToChildConnection(connection);
@@ -607,6 +589,16 @@ public class DwFeatureModelWrapped implements PropertyChangeListener {
 		DwFeatureLayouterManager.updateLayouter(this);
 	}	
 
+	private Date getValidUntilDateForConnection(DwFeatureWrapped feature, HyGroupComposition composition){
+		if(!composition.getFeatures().contains(feature.getWrappedModelElement()))
+			return composition.getValidSince();
+		
+		if(composition.getSupersedingElement() != null){
+			HyGroupComposition supersedingComposition = (HyGroupComposition)composition.getSupersedingElement();	
+			return getValidUntilDateForConnection(feature, supersedingComposition);
+		}else
+			return null;
+	}
 	public void convertFeatures(HyFeature feature, List<DwFeatureWrapped> features){
 		DwFeatureWrapped target = getWrappedFeature(feature);
 		if(target == null){
@@ -636,18 +628,19 @@ public class DwFeatureModelWrapped implements PropertyChangeListener {
 
 				for(HyGroupComposition composition : group.getParentOf()){
 					for(HyFeature childFeature : composition.getFeatures()){
-						DwFeatureWrapped wrapped = getWrappedFeature(childFeature);
-						if(wrapped == null){
-							wrapped = new DwFeatureWrapped(childFeature, this);
+						DwFeatureWrapped childFeatureWrapped = getWrappedFeature(childFeature);
+						if(childFeatureWrapped == null){
+							childFeatureWrapped = new DwFeatureWrapped(childFeature, this);
 
-							addFeature(wrapped);
+							addFeature(childFeatureWrapped);
 						}
 
-						createConnection(target, wrapped);
+						Date connectionValidUntil = getValidUntilDateForConnection(childFeatureWrapped, composition);
+						createConnection(target, childFeatureWrapped, composition.getValidSince(), connectionValidUntil);
 
-						wrapped.setParent(wrappedGroup);
+						childFeatureWrapped.setParent(wrappedGroup);
 
-						wrappedGroup.getFeatures().add(wrapped);
+						wrappedGroup.getFeatures().add(childFeatureWrapped);
 						convertFeatures(childFeature, features);
 					}
 				}

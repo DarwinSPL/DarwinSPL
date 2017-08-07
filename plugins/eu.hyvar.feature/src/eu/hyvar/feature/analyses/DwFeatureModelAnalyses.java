@@ -29,49 +29,100 @@ public class DwFeatureModelAnalyses {
 	public static List<DwFeatureModelAnalysesMarker> checkForNameUniqueness(HyFeatureModel featureModel) {
 		List<DwFeatureModelAnalysesMarker> markerList = new ArrayList<DwFeatureModelAnalysesMarker>();
 		
-		Map<String, List<EObject>> nameMap;
-		List<String> doubledNames;
+//		Map<String, List<EObject>> nameMap = new HashMap<String, List<EObject>>();
+		List<String> doubledNames = new ArrayList<String>();
 		
 		List<Date> dates = HyEvolutionUtil.collectDates(featureModel);
 		
-		for(Date date: dates) {
-			nameMap = new HashMap<String, List<EObject>>();
-			doubledNames = new ArrayList<String>();
-			
-			for(HyFeature feature: HyFeatureEvolutionUtil.getFeatures(featureModel, date)) {
-				collectNames(feature, nameMap, doubledNames, date);
-				for(HyFeatureAttribute attribute: HyFeatureEvolutionUtil.getAttributes(feature, date)) {
-					collectNames(attribute, nameMap, doubledNames, date);
-				}
-			}
-			
-			for(String doubledName: doubledNames) {
-				String errorMessage = "Multiple elements with the same name at date "+date.toString();
-				markerList.add(new DwFeatureModelAnalysesMarker(nameMap.get(doubledName), errorMessage, MarkerTypeEnum.ERROR));
+		if(dates == null || dates.isEmpty()) {
+			markerList.addAll(computeDoubledNames(doubledNames, featureModel, null));
+		}
+		else {
+			for(Date date: dates) {
+				markerList.addAll(computeDoubledNames(doubledNames, featureModel, date));
 			}
 		}
 		
-		if(dates.isEmpty()) {
-			nameMap = new HashMap<String, List<EObject>>();
-			doubledNames = new ArrayList<String>();
+//		for(Date date: dates) {
+//			nameMap = new HashMap<String, List<EObject>>();
+//			doubledNames = new ArrayList<String>();
+//			
+//			for(HyFeature feature: HyFeatureEvolutionUtil.getFeatures(featureModel, date)) {
+//				collectNames(feature, nameMap, doubledNames, date);
+//				for(HyFeatureAttribute attribute: HyFeatureEvolutionUtil.getAttributes(feature, date)) {
+//					collectNames(attribute, nameMap, doubledNames, date);
+//				}
+//			}
+//			
+//			for(String doubledName: doubledNames) {
+//				String errorMessage = "Multiple elements with the same name at date "+date.toString();
+//				markerList.add(new DwFeatureModelAnalysesMarker(nameMap.get(doubledName), errorMessage, MarkerTypeEnum.ERROR));
+//			}
+//		}
+//		
+//		if(dates.isEmpty()) {
+//			nameMap = new HashMap<String, List<EObject>>();
+//			doubledNames = new ArrayList<String>();
+//			
+//			for(HyFeature feature: featureModel.getFeatures()) {
+//				collectNames(feature, nameMap, doubledNames, null);
+//				
+//				List<String> doubledAttributeNames = new ArrayList<String>();
+//				Map<String, List<EObject>> attributeNameMap = new HashMap<String, List<EObject>>();
+//				
+//				for(HyFeatureAttribute attribute: HyFeatureEvolutionUtil.getAttributes(feature, null)) {
+//					collectNames(attribute, attributeNameMap, doubledAttributeNames, null);
+//				}
+//				
+//				for(String doubledAttributeName: doubledAttributeNames) {
+//					String errorMessage = "Multiple attributes with the same name at one point in time";
+//					markerList.add(new DwFeatureModelAnalysesMarker(attributeNameMap.get(doubledAttributeName), errorMessage, MarkerTypeEnum.ERROR));
+//				}
+//			}
+//			
+//			for(String doubledName: doubledNames) {
+//				String errorMessage = "Multiple features with the same name at one point in time";
+//				markerList.add(new DwFeatureModelAnalysesMarker(nameMap.get(doubledName), errorMessage, MarkerTypeEnum.ERROR));
+//			}
+//		}
+		
+		return markerList;
+	}
+	
+	private static List<DwFeatureModelAnalysesMarker> computeDoubledNames(List<String> doubledFeatureNames, HyFeatureModel featureModel, Date date) {
+		List<DwFeatureModelAnalysesMarker> markerList = new ArrayList<DwFeatureModelAnalysesMarker>();
+		
+		Map<String, List<EObject>> featureNameMap = new HashMap<String, List<EObject>>();
+		
+		for(HyFeature feature: featureModel.getFeatures()) {
+			collectNames(feature, featureNameMap, doubledFeatureNames, date);
 			
-			for(HyFeature feature: featureModel.getFeatures()) {
-				collectNames(feature, nameMap, doubledNames, null);
-				for(HyFeatureAttribute attribute: HyFeatureEvolutionUtil.getAttributes(feature, null)) {
-					collectNames(attribute, nameMap, doubledNames, null);
-				}
+			List<String> doubledAttributeNames = new ArrayList<String>();
+			Map<String, List<EObject>> attributeNameMap = new HashMap<String, List<EObject>>();
+			
+			for(HyFeatureAttribute attribute: HyFeatureEvolutionUtil.getAttributes(feature, date)) {
+				collectNames(attribute, attributeNameMap, doubledAttributeNames, date);
 			}
 			
-			for(String doubledName: doubledNames) {
-				String errorMessage = "Multiple elements with the same name at one point in time";
-				markerList.add(new DwFeatureModelAnalysesMarker(nameMap.get(doubledName), errorMessage, MarkerTypeEnum.ERROR));
+			for(String doubledAttributeName: doubledAttributeNames) {
+				String errorMessage = "Multiple attributes with the same name at one point in time";
+				markerList.add(new DwFeatureModelAnalysesMarker(attributeNameMap.get(doubledAttributeName), errorMessage, MarkerTypeEnum.ERROR));
 			}
+		}
+		
+		for(String doubledName: doubledFeatureNames) {
+			String errorMessage = "Multiple features with the same name at one point in time";
+			markerList.add(new DwFeatureModelAnalysesMarker(featureNameMap.get(doubledName), errorMessage, MarkerTypeEnum.ERROR));
 		}
 		
 		return markerList;
 	}
 	
 	private static void collectNames(HyNamedElement namedElement, Map<String, List<EObject>> nameMap, List<String> doubledNames, Date date) {
+		if(namedElement == null || namedElement.getNames() == null || HyFeatureEvolutionUtil.getName(namedElement.getNames(), date) == null) {
+			return;
+		}
+		
 		String name = HyFeatureEvolutionUtil.getName(namedElement.getNames(), date).getName();
 		if(nameMap.containsKey(name)) {
 			nameMap.get(name).add(namedElement);

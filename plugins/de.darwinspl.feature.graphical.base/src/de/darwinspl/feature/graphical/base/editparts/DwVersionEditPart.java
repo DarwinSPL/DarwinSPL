@@ -7,19 +7,78 @@ import org.deltaecore.feature.graphical.base.editor.DEGraphicalEditor;
 import org.deltaecore.feature.graphical.base.util.DEGraphicalEditorTheme;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.geometry.Rectangle;
-
+import org.eclipse.emf.common.notify.Adapter;
+import org.eclipse.emf.common.notify.Notification;
+import org.eclipse.emf.common.notify.Notifier;
+import org.eclipse.emf.ecore.impl.ENotificationImpl;
 
 import de.darwinspl.feature.graphical.base.deltaecore.wrapper.layouter.version.DwVersionLayouterManager;
 import de.darwinspl.feature.graphical.base.deltaecore.wrapper.layouter.version.DwVersionTreeLayouter;
 import de.darwinspl.feature.graphical.base.editor.DwGraphicalFeatureModelViewer;
+import de.darwinspl.feature.graphical.base.editparts.DwFeatureEditPart.HyFeatureAdapter;
 import de.darwinspl.feature.graphical.base.figures.DwVersionFigure;
 import de.darwinspl.feature.graphical.base.model.DwFeatureModelWrapped;
+import de.darwinspl.feature.graphical.base.model.DwFeatureWrapped;
+import eu.hyvar.feature.HyFeature;
+import eu.hyvar.feature.HyFeatureAttribute;
 import eu.hyvar.feature.HyVersion;
 
 public class DwVersionEditPart extends DwAbstractEditPart{
+	private DwVersionAdapter adapter;
 
+	public class DwVersionAdapter implements Adapter {
+
+		@Override 
+		public void notifyChanged(Notification notification) {
+			HyVersion version = (HyVersion)getModel();
+			
+			if(version.getFeature() != null)
+				for(Adapter adapter : version.getFeature().eAdapters()){
+					adapter.notifyChanged(notification);
+				}
+			
+			refreshVisuals();
+		}
+		
+
+
+		@Override 
+		public Notifier getTarget() {
+			return (HyVersion)getModel();
+		}
+
+		@Override public void setTarget(Notifier newTarget) {
+			// Do nothing.
+		}
+
+		@Override public boolean isAdapterForType(Object type) {
+			return type.equals(HyVersion.class);
+		}
+	} 
+	
 	public DwVersionEditPart(DwGraphicalFeatureModelViewer editor, DwFeatureModelWrapped featureModel) {
 		super(editor, featureModel);
+		
+		adapter = new DwVersionAdapter();
+	}
+	
+	@Override 
+	public void activate() {
+		if(!isActive()) {
+			HyVersion model = ((HyVersion)getModel());
+			model.eAdapters().add(adapter);
+		}
+
+		super.activate();
+	}
+
+	@Override 
+	public void deactivate() {
+		if(isActive()) {
+			HyVersion model = ((HyVersion)getModel());
+			model.eAdapters().remove(adapter);
+		}
+		super.deactivate();
 	}
 
 	@Override
@@ -31,6 +90,7 @@ public class DwVersionEditPart extends DwAbstractEditPart{
 	protected void createEditPolicies() {
 	}
 
+	@Override
 	protected Rectangle getFigureConstraint(){
 		DEGraphicalEditorTheme theme = DEGraphicalEditor.getTheme();
 		Date date = ((DwGraphicalFeatureModelViewer)editor).getCurrentSelectedDate();

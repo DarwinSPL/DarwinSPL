@@ -82,7 +82,22 @@ public class DwFeatureModelEditPart extends AbstractGraphicalEditPart implements
 		
 		refreshChildren();
 		refreshVisuals();
+		refreshVisualsOfChildren();
 	}
+	
+
+	
+
+	protected void refreshVisualsOfChildren() {
+		if(children != null){
+			for(Object o : children){
+				if(o instanceof DwFeatureEditPart)
+					((DwFeatureEditPart)o).refreshVisuals();
+				if(o instanceof DwParentChildConnectionEditPart)
+					((DwParentChildConnectionEditPart)o).refreshVisuals();
+			}
+		}
+	};
 	
 	@Override
 	public void controlMoved(ControlEvent e) {	

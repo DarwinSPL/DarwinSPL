@@ -40,16 +40,13 @@ public class DwVersionCreateVersionAction extends SelectionAction{
 			if(!(o instanceof DwRootFeatureEditPart) && !(o instanceof DwFeatureEditPart))
 				return false;
 			else{
-				if(o instanceof DwRootFeatureEditPart){
-					DwRootFeatureWrapped rootFeature = (DwRootFeatureWrapped)((DwRootFeatureEditPart)o).getModel();
-					if(HyEvolutionUtil.getValidTemporalElement(rootFeature.getWrappedModelElement().getVersions(), editor.getCurrentSelectedDate()) != null){
-						return false;
-					}
-				}else if(o instanceof DwFeatureEditPart){
+				if(o instanceof DwFeatureEditPart){
 					DwFeatureWrapped feature = (DwFeatureWrapped)((DwFeatureEditPart)o).getModel();
-					if(HyEvolutionUtil.getValidTemporalElement(feature.getWrappedModelElement().getVersions(), editor.getCurrentSelectedDate()) != null){
-						return false;
-					}			
+					
+					if(!feature.getWrappedModelElement().getVersions().isEmpty())
+						if(HyEvolutionUtil.getValidTemporalElement(feature.getWrappedModelElement().getVersions(), editor.getCurrentSelectedDate()) != null){
+							return false;
+						}			
 				}
 			}
 		}

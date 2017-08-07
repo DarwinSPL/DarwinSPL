@@ -12,27 +12,23 @@ import de.darwinspl.feature.graphical.base.editparts.DwRootFeatureEditPart;
 import de.darwinspl.feature.graphical.base.model.DwFeatureWrapped;
 import de.darwinspl.feature.graphical.base.model.DwGroupWrapped;
 import de.darwinspl.feature.graphical.base.model.DwParentChildConnection;
-import de.darwinspl.feature.graphical.editor.commands.DwFeatureModelEditorCommand;
 import de.darwinspl.feature.graphical.editor.util.DwEcoreUtil;
+import eu.hyvar.evolution.util.HyEvolutionUtil;
 import eu.hyvar.feature.HyFeature;
 import eu.hyvar.feature.HyFeatureChild;
 import eu.hyvar.feature.HyFeatureModel;
 import eu.hyvar.feature.HyGroup;
 import eu.hyvar.feature.HyGroupComposition;
+import eu.hyvar.feature.HyGroupType;
+import eu.hyvar.feature.HyGroupTypeEnum;
 
-public class DwFeatureDeletePermanentlyCommand extends DwFeatureModelEditorCommand{
-	EditPart host;
-
+public class DwFeatureDeletePermanentlyCommand extends DwAbstractFeatureDeleteCommand{
 	public DwFeatureDeletePermanentlyCommand(DwGraphicalFeatureModelViewer viewer, EditPart host) {
 		super(viewer);
 
 		this.host = host;
 	}
 
-	private DwFeatureWrapped feature;
-	private HyFeature oldFeature;
-
-	private List<HyGroupComposition> groupMemberships = new ArrayList<HyGroupComposition>();
 	private List<HyFeatureChild> featureChildren = new ArrayList<HyFeatureChild>();
 
 	private HyGroup group;
@@ -76,39 +72,8 @@ public class DwFeatureDeletePermanentlyCommand extends DwFeatureModelEditorComma
 		}
 	}
 		
-	public HyGroup getRealModelGroup(HyGroup backupGroup){
-		HyFeatureModel featureModel = viewer.getInternalFeatureModel();
-		
-		for(HyGroup group : featureModel.getGroups()){
-			if(group.getId().equals(backupGroup.getId())){
-				return group;
-			}
-		}
-		
-		return null;
-	}
-	
-	public HyFeature getRealModelFeature(HyFeature backupFeature){
-		HyFeatureModel featureModel = viewer.getInternalFeatureModel();
-		
-		for(HyFeature feature : featureModel.getFeatures()){
-			if(feature.getId().equals(backupFeature.getId())){
-				return feature;
-			}
-		}
-		
-		return null;
-	}	
-	
-	public HyGroupComposition getRealModelGroupComposition(HyGroup group, HyGroupComposition backupGroupComposition){
-		for(HyGroupComposition composition : group.getParentOf()){
-			if(composition.getId().equals(backupGroupComposition.getId())){
-				return composition;
-			}
-		}
-		
-		return null;
-	}	
+
+
 	
 	public void redo(){
 		if(!groupMemberships.isEmpty())
@@ -125,9 +90,6 @@ public class DwFeatureDeletePermanentlyCommand extends DwFeatureModelEditorComma
 		// save a copy to the feature with dummy references to all related elements
 		oldFeature = DwEcoreUtil.copy(feature);
 		
-		HyFeatureModel featureModel = viewer.getInternalFeatureModel();
-		featureModel.getFeatures().remove(feature);
-
 		EList<HyGroupComposition> compositions = feature.getGroupMembership();
 		for(HyGroupComposition composition : compositions){
 
@@ -158,6 +120,12 @@ public class DwFeatureDeletePermanentlyCommand extends DwFeatureModelEditorComma
 				}
 
 				viewer.getModelWrapped().removeGroup(viewer.getModelWrapped().findWrappedGroup(realGroup));
+			// change group type to and
+			}else if(features.size() == 2){
+				HyGroup realGroup = composition.getCompositionOf();
+				
+				this.group = DwEcoreUtil.copy(composition.getCompositionOf());
+				HyEvolutionUtil.getValidTemporalElement(realGroup.getTypes(), viewer.getCurrentSelectedDate()).setType(HyGroupTypeEnum.AND);
 			}else{
 				this.group = DwEcoreUtil.copy(composition.getCompositionOf());
 			}
@@ -181,19 +149,25 @@ public class DwFeatureDeletePermanentlyCommand extends DwFeatureModelEditorComma
 		
 		updateFeatureModel();
 	}
-
+	
+	private void undoGroupTypeChange(HyGroup group, HyGroup backupGroup){
+		for(HyGroupType type : group.getTypes()){
+			for(HyGroupType backupType : backupGroup.getTypes()){
+				if(type.getId().equals(backupType.getId())){
+					type.setType(backupType.getType());
+				}
+			}
+		}		
+	}
 
 	public void undo(){
 		HyFeatureModel featureModel = viewer.getInternalFeatureModel();
 		
 		undoConnections();
 
-		// check if feature already exist in feature model
-		boolean exists = this.getRealModelFeature(feature.getWrappedModelElement()) != null;
-		
+
 		feature.setWrappedModelElement(oldFeature);
-		if(!exists)
-			viewer.getModelWrapped().addFeature(feature);
+
 		
 		int size = oldFeature.getGroupMembership().size();
 		for(int i=0; i<size; i++){
@@ -216,6 +190,8 @@ public class DwFeatureDeletePermanentlyCommand extends DwFeatureModelEditorComma
 					viewer.getModelWrapped().addGroup(new DwGroupWrapped(backupGroup));
 				}
 			}else{
+				undoGroupTypeChange(group, backupGroup);
+				
 				HyGroupComposition composition = getRealModelGroupComposition(group, backupComposition);
 				
 				if(composition != null){
@@ -228,7 +204,15 @@ public class DwFeatureDeletePermanentlyCommand extends DwFeatureModelEditorComma
 			}
 		}
 	
-		updateFeatureModel();
+		// check if feature already exist in feature model
+		boolean exists = this.getRealModelFeature(feature.getWrappedModelElement()) != null;
+		
+		if(!exists)
+			viewer.getModelWrapped().addFeature(feature);
+		
+		viewer.getModelWrapped().rearrangeFeatures();
+		viewer.refreshView();		
+		
 	}
 
 	@Override

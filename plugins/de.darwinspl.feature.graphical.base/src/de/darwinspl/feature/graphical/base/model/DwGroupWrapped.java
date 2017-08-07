@@ -164,8 +164,8 @@ public class DwGroupWrapped extends DwEditorChangeableElement {
 		// copy the composition in order to replace the old composition since selected date
 		HyGroupComposition newComposition = HyFeatureFactory.eINSTANCE.createHyGroupComposition();
 		newComposition.setCompositionOf(composition.getCompositionOf());
-		newComposition.setSupersededElement(composition.getSupersededElement());
-		newComposition.setSupersedingElement(composition.getSupersedingElement());
+		newComposition.setSupersededElement(composition);
+		//newComposition.setSupersedingElement(composition.getSupersededElement());
 
 
 		// update validation of old composition (until) and new composition (since) selected date

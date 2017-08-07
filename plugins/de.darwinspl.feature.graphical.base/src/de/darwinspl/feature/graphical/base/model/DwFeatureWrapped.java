@@ -124,7 +124,7 @@ public class DwFeatureWrapped extends DwEditorChangeableElement{
 		bounds.width = variationAndNameBounds.width;
 		
 		DwVersionTreeLayouter versionTree = DwVersionLayouterManager.getLayouter(getWrappedModelElement(), date);
-		if(versionTree != null && HyEvolutionUtil.getValidTemporalElements(getWrappedModelElement().getVersions(), date).isEmpty()){
+		if(versionTree != null && !HyEvolutionUtil.getValidTemporalElements(getWrappedModelElement().getVersions(), date).isEmpty()){
 			DEGraphicalEditorTheme theme = DEGraphicalEditor.getTheme();
 			
 			int variationHeight = calculateVariationTypeCircleBounds(date).height;
@@ -191,6 +191,27 @@ public class DwFeatureWrapped extends DwEditorChangeableElement{
 
 		return false;
 	}
+	
+	/**
+	 * Checks if feature has no modifier therefore is child of a "or" or "alternative" group
+	 * @param date
+	 * @return true if feature  is child of a "or" or "alternative" group, false otherwise
+	 */
+	/*
+	public boolean isWithoutModifier(Date date){
+		if(HyEvolutionUtil.getValidTemporalElements(this.getGroupMembership(date).get(0).getFeatures(), date).size() <= 1)
+			return false;
+
+		DwGroupWrapped groupWrapped = this.getParentGroup(date);
+		if(groupWrapped != null){
+			HyGroup group = groupWrapped.getWrappedModelElement();
+
+			return !group.isAnd(date);
+		}
+
+		return true;
+	}
+	*/
 	public HyGroupTypeEnum getModfierAtDate(Date date){
 		HyGroupComposition composition = HyEvolutionUtil.getValidTemporalElement(getWrappedModelElement().getGroupMembership(), date);
 
@@ -269,8 +290,9 @@ public class DwFeatureWrapped extends DwEditorChangeableElement{
 		return valid;
 	}
 	public boolean isValid(Date date){
-		boolean result = isValidRec(this.getWrappedModelElement(), date);
-		return result;
+		return HyEvolutionUtil.isValid(this.getWrappedModelElement(), date);
+		//boolean result = isValidRec(this.getWrappedModelElement(), date);
+		//return result;
 	}
 
 	/**
@@ -280,7 +302,10 @@ public class DwFeatureWrapped extends DwEditorChangeableElement{
 	 */
 	public boolean isOptional(Date date){
 		HyFeatureType type = HyEvolutionUtil.getValidTemporalElement(this.getWrappedModelElement().getTypes(), date);
-
+		
+		if(type == null)
+			return true;
+		
 		return type.getType() == HyFeatureTypeEnum.OPTIONAL;
 	}
 
@@ -295,24 +320,7 @@ public class DwFeatureWrapped extends DwEditorChangeableElement{
 		return type.getType() == HyFeatureTypeEnum.MANDATORY;	
 	}
 
-	/**
-	 * Checks if feature has no modifier therefore is child of a "or" or "alternative" group
-	 * @param date
-	 * @return true if feature  is child of a "or" or "alternative" group, false otherwise
-	 */
-	public boolean isWithoutModifier(Date date){
-		if(HyEvolutionUtil.getValidTemporalElements(this.getGroupMembership(date).get(0).getFeatures(), date).size() <= 1)
-			return false;
 
-		DwGroupWrapped groupWrapped = this.getParentGroup(date);
-		if(groupWrapped != null){
-			HyGroup group = groupWrapped.getWrappedModelElement();
-
-			return !group.isAnd(date);
-		}
-
-		return true;
-	}
 
 	/**
 	 * Returns an instance of the HyFeature model which was wrapped by this class.
@@ -435,8 +443,8 @@ public class DwFeatureWrapped extends DwEditorChangeableElement{
 	}
 
 
-	public List<HyGroupComposition> getGroupMembership(Date date){
-		return HyEvolutionUtil.getValidTemporalElements(this.getWrappedModelElement().getGroupMembership(), date);
+	public HyGroupComposition getGroupMembership(Date date){
+		return HyEvolutionUtil.getValidTemporalElement(this.getWrappedModelElement().getGroupMembership(), date);
 	}
 
 	public void setSize(Dimension size) {

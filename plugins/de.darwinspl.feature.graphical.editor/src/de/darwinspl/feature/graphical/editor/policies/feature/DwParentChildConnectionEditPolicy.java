@@ -6,7 +6,7 @@ import org.eclipse.gef.requests.GroupRequest;
 import org.eclipse.gef.requests.ReconnectRequest;
 
 import de.darwinspl.feature.graphical.base.model.DwParentChildConnection;
-import de.darwinspl.feature.graphical.editor.commands.DwParentChildConnectionDeleteCommand;
+import de.darwinspl.feature.graphical.editor.commands.connections.DwParentChildConnectionDeleteCommand;
 
 public class DwParentChildConnectionEditPolicy extends ConnectionEditPolicy{
 

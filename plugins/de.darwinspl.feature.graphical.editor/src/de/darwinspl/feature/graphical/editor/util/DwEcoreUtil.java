@@ -2,6 +2,7 @@ package de.darwinspl.feature.graphical.editor.util;
 
 import org.eclipse.emf.ecore.util.EcoreUtil;
 
+import de.darwinspl.feature.graphical.base.model.DwParentChildConnection;
 import eu.hyvar.feature.HyFeature;
 import eu.hyvar.feature.HyFeatureAttribute;
 import eu.hyvar.feature.HyFeatureChild;
@@ -67,6 +68,17 @@ public class DwEcoreUtil {
 		HyVersion result = (HyVersion)EcoreUtil.copy(o);
 		result.setId(o.getId());
 		
+		return result;
+	}
+	
+	public static DwParentChildConnection copy(DwParentChildConnection o){
+		DwParentChildConnection result = new DwParentChildConnection();
+		result.setValidSince(o.getValidSince());
+		result.setValidUntil(o.getValidUntil());
+		result.setModel(o.getModel());
+		result.setSource(o.getSource());
+		result.setTarget(o.getTarget());
+
 		return result;
 	}
 }
