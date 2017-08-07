@@ -2,7 +2,7 @@
 <?eclipse version="3.4"?>
 <plugin>
    <extension
-         id="spl_resolver"
+         id="server"
          point="org.eclipse.core.runtime.applications">
       <application>
          <run
@@ -14,7 +14,7 @@
          id="spl_resolver_product"
          point="org.eclipse.core.runtime.products">
       <product
-            application="eu.hyvar.reconfigurator.io.rest.spl_implementation.spl_resolver"
+            application="eu.hyvar.reconfigurator.io.rest.spl_implementation.server"
             name="SPL Implementation">
          <property
                name="appName"
