@@ -4,7 +4,6 @@ Bundle-Name: %pluginName
 Bundle-SymbolicName: eu.hyvar.mspl.manifest;singleton:=true
 Bundle-Version: 1.0.0.qualifier
 Bundle-ClassPath: .
-Bundle-Activator: eu.hyvar.mspl.manifest.Activator
 Bundle-Vendor: %providerName
 Bundle-Localization: plugin
 Require-Bundle: org.eclipse.emf.ecore;visibility:=reexport,
@@ -19,5 +18,4 @@ Export-Package: eu.hyvar.mspl.manifest,
  eu.hyvar.mspl.manifest.impl,
  eu.hyvar.mspl.manifest.util,
  eu.hyvar.mspl.util
-Bundle-ActivationPolicy: lazy
 Import-Package: org.deltaecore.util

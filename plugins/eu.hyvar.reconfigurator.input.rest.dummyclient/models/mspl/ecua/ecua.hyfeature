@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="ASCII"?>
+<feature:HyFeatureModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:feature="http://hyvar-project.eu/feature/1.0">
+  <rootFeature id="_81bafa5c-7e05-425e-b38c-a1a97d9f961f" feature="_7157f871-ec10-4f90-a39e-53a895c0e69b"/>
+  <features id="_7157f871-ec10-4f90-a39e-53a895c0e69b">
+    <names id="_4be2f7b8-961b-4a0b-8018-5138a61d2e20" name="ECU_A"/>
+    <parentOf id="_5b72ec4f-cd7d-440e-ba4b-5c9f78873007" childGroup="_9094567a-0f0d-4c04-85f6-341ef1c29b27"/>
+    <types id="_b4665857-e664-4dd2-9f01-8d077b42adf4" type="MANDATORY"/>
+  </features>
+  <features id="_47eb0877-5f94-4602-9105-6a083a8f64ad" groupMembership="_c4c04114-0478-468a-a294-d88ae9a7bb46">
+    <names id="_fc54e719-34cd-4d6f-8c68-f94281909f9a" name="GNSS"/>
+    <parentOf id="_8e5c45a5-b90f-400b-896f-400c06e1cb97" childGroup="_d59794a8-55a1-4df7-a57c-84140908cfd2"/>
+    <types id="_db3daf49-e1ac-4ead-80d3-df0c20a2a027" type="MANDATORY"/>
+  </features>
+  <features id="_88c3c505-5170-424f-930a-cfb40ced7b0a" groupMembership="_c4c04114-0478-468a-a294-d88ae9a7bb46">
+    <names id="_11a024cb-f155-4d9c-9515-964965b55aab" name="Diagnostic"/>
+    <types id="_cf474992-238c-460d-ad63-c06347d6cf14"/>
+  </features>
+  <features id="_a166d9eb-96b2-484c-b576-024cfd750a80" groupMembership="_c4c04114-0478-468a-a294-d88ae9a7bb46">
+    <names id="_63344f51-d0bd-432a-97da-d501150f39b8" name="Languages"/>
+    <parentOf id="_9583d7e3-7e16-4ca4-a2ae-e7d4e78bcba1" childGroup="_d65ff341-2739-4ab6-9889-a2d8dcc2900e"/>
+    <types id="_bf15ccc6-813e-49a2-ad87-4acec3a43501" type="MANDATORY"/>
+  </features>
+  <features id="_71c6ca2f-cc39-4532-831a-ef3c7660f290" groupMembership="_c4c04114-0478-468a-a294-d88ae9a7bb46">
+    <names id="_4b8323ef-6bdb-489f-ac99-8c836d057174" name="EmergencyCall"/>
+    <parentOf id="_989a8e65-38be-467f-bb63-31a799ac00b8" childGroup="_e65808be-6918-433e-83ee-9b4369dbb50f"/>
+    <types id="_09d889ed-fa83-4ccf-a006-607d2b756b68" type="MANDATORY"/>
+  </features>
+  <features id="_2e3d5334-5da5-4346-9217-1336b325d87d" groupMembership="_c4c04114-0478-468a-a294-d88ae9a7bb46">
+    <names id="_a1cf2e98-9b9a-422f-8e5b-4f3add726873" name="ConnectionGateway"/>
+    <versions id="_34e77dbb-71a0-47d2-a7d5-b85a803c7a8d" number="V0" supersedingVersions="_c6233862-0ff0-4840-a82c-33e0c8606a9a"/>
+    <versions id="_c6233862-0ff0-4840-a82c-33e0c8606a9a" number="V1" supersededVersion="_34e77dbb-71a0-47d2-a7d5-b85a803c7a8d"/>
+    <types id="_d84cdc02-0891-4d5f-acf1-f1def4987a74"/>
+  </features>
+  <features id="_62561468-b798-4fe6-bebe-11ef71495aff" groupMembership="_09d2898d-b7b7-40c6-856f-50af175c0e4d">
+    <names id="_e07cff47-6ee5-4984-b0c6-37160d00209d" name="GPS"/>
+    <types id="_8181f3f8-123b-475c-b553-8c1969333023"/>
+  </features>
+  <features id="_9eab5935-da55-4d90-aa39-5d76e2d4b8de" groupMembership="_09d2898d-b7b7-40c6-856f-50af175c0e4d">
+    <names id="_58a6e17b-11c4-4ff6-97d8-fb9a81541754" name="Glonass"/>
+    <types id="_310a0e58-5ad8-4402-9179-428d7c11125b"/>
+  </features>
+  <features id="_a61d4306-49d6-4ba2-9367-e604a5e01d8e" groupMembership="_9e0afe3f-24f2-4cbe-9f63-c9ea1322b356">
+    <names id="_10762cdb-bb4c-4ca1-88fc-2bd55bbebc37" name="Russian"/>
+    <types id="_e055819d-9050-4492-92c5-67047f0820fb"/>
+  </features>
+  <features id="_69c74e30-f8c5-445e-bb83-22b8b06479ec" groupMembership="_9e0afe3f-24f2-4cbe-9f63-c9ea1322b356">
+    <names id="_9c509d56-65c3-48a0-b2e7-6d6b9ff57776" name="English"/>
+    <types id="_c3b880a2-ca73-4cff-8a6d-4491f53932bb"/>
+  </features>
+  <features id="_47581836-0482-472f-8d33-2d7e1062a244" groupMembership="_8f28d278-f683-462c-b16c-13474068b773">
+    <names id="_5321d969-a7cb-4b20-ad19-f7e5bd9d5101" name="eCall"/>
+    <types id="_976bd4b6-d001-4185-bf7a-98c375aa3cbc"/>
+  </features>
+  <features id="_88dfe9f5-61cb-4871-919e-3e3eeffc5216" groupMembership="_8f28d278-f683-462c-b16c-13474068b773">
+    <names id="_e4d8d1f4-8a03-4cd7-a1cf-88d2efe38d0e" name="EraGlonass"/>
+    <types id="_19cf4f10-379d-4773-b129-be87b4699bf2"/>
+  </features>
+  <groups id="_9094567a-0f0d-4c04-85f6-341ef1c29b27" childOf="_5b72ec4f-cd7d-440e-ba4b-5c9f78873007">
+    <parentOf id="_c4c04114-0478-468a-a294-d88ae9a7bb46" features="_47eb0877-5f94-4602-9105-6a083a8f64ad _88c3c505-5170-424f-930a-cfb40ced7b0a _a166d9eb-96b2-484c-b576-024cfd750a80 _71c6ca2f-cc39-4532-831a-ef3c7660f290 _2e3d5334-5da5-4346-9217-1336b325d87d"/>
+    <types id="_d3377763-7ba0-4b0c-817a-922316818c81"/>
+  </groups>
+  <groups id="_d59794a8-55a1-4df7-a57c-84140908cfd2" childOf="_8e5c45a5-b90f-400b-896f-400c06e1cb97">
+    <parentOf id="_09d2898d-b7b7-40c6-856f-50af175c0e4d" features="_62561468-b798-4fe6-bebe-11ef71495aff _9eab5935-da55-4d90-aa39-5d76e2d4b8de"/>
+    <types id="_f64fab11-2fa0-4db6-b1fc-90dfe313b8d4" type="OR"/>
+  </groups>
+  <groups id="_d65ff341-2739-4ab6-9889-a2d8dcc2900e" childOf="_9583d7e3-7e16-4ca4-a2ae-e7d4e78bcba1">
+    <parentOf id="_9e0afe3f-24f2-4cbe-9f63-c9ea1322b356" features="_a61d4306-49d6-4ba2-9367-e604a5e01d8e _69c74e30-f8c5-445e-bb83-22b8b06479ec"/>
+    <types id="_8b51e38c-a718-483e-8081-2588e1539302" type="ALTERNATIVE"/>
+  </groups>
+  <groups id="_e65808be-6918-433e-83ee-9b4369dbb50f" childOf="_989a8e65-38be-467f-bb63-31a799ac00b8">
+    <parentOf id="_8f28d278-f683-462c-b16c-13474068b773" features="_47581836-0482-472f-8d33-2d7e1062a244 _88dfe9f5-61cb-4871-919e-3e3eeffc5216"/>
+    <types id="_f08f3ca2-f5ac-4411-bfdc-aad519bd46a8" type="ALTERNATIVE"/>
+  </groups>
+</feature:HyFeatureModel>

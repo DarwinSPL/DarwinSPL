@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration:HyConfiguration xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:configuration="http://hyvar-project.eu/feature/configuration/1.0" id="_7a6cc62d-0e92-47fc-8bb3-bcecb5d67019" variantsGenerated="1" creationDate="2017-07-20T16:05:30.000+0200">
+  <elements xsi:type="configuration:HyFeatureSelected" id="_8f1a5f25-f302-4375-9b42-f32602e40947">
+    <selectedFeature href="../ecua/ecua.hyfeature#_7157f871-ec10-4f90-a39e-53a895c0e69b"/>
+  </elements>
+  <elements xsi:type="configuration:HyFeatureDeselected" id="_ab201b20-70b7-46c6-8077-7d28c78912a0">
+    <selectedFeature href="../ecua/ecua.hyfeature#_47eb0877-5f94-4602-9105-6a083a8f64ad"/>
+  </elements>
+  <elements xsi:type="configuration:HyFeatureSelected" id="_df5aa601-2a82-4a7f-bd48-64d0f5fdab0d">
+    <selectedFeature href="../ecua/ecua.hyfeature#_71c6ca2f-cc39-4532-831a-ef3c7660f290"/>
+  </elements>
+  <elements xsi:type="configuration:HyVersionSelected" id="_622b4550-4528-41d0-8de1-18ccf7c6cd49">
+    <selectedVersion href="../ecua/ecua.hyfeature#_c6233862-0ff0-4840-a82c-33e0c8606a9a"/>
+  </elements>
+  <featureModel href="../ecua/ecua.hyfeature#/"/>
+</configuration:HyConfiguration>
