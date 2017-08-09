@@ -13,7 +13,8 @@
             class="eu.hyvar.mspl.manifest.ManifestPackage"
             genModel="model/Manifest.genmodel"/>
    </extension>
-   <extension
+
+null   <extension
          point="org.eclipse.emf.validation.constraintProviders">
       <category
             id="eu.hyvar.mspl.emf.validation"

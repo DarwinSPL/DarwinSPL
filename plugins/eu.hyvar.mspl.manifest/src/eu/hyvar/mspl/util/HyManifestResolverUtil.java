@@ -14,7 +14,6 @@ import eu.hyvar.evolution.HyTemporalElement;
 import eu.hyvar.feature.HyFeature;
 import eu.hyvar.feature.HyFeatureModel;
 import eu.hyvar.feature.util.HyFeatureResolverUtil;
-import eu.hyvar.mspl.manifest.HyInterval;
 import eu.hyvar.mspl.manifest.HyManifest;
 import eu.hyvar.mspl.manifest.HySPLImplementation;
 import eu.hyvar.mspl.manifest.HySPLSignature;
@@ -27,8 +26,6 @@ public class HyManifestResolverUtil {
 	public static String MANIFEST_SEPARATOR = ":";
 	
 	public static final String[] FILE_EXTENSIONS = { "hymanifest" };
-	
-	public static final String FILE_EXTENSION_FOR_XMI = "hymanifest";
 	
 
 	public static HyManifest getAccompanyingManifestModel(EObject elementInOriginalResource) {
@@ -155,27 +152,6 @@ public class HyManifestResolverUtil {
 
 
 	
-	public static HyInterval temporalIntersection(List<HyTemporalElement> elementsToIntersect) {
-		ManifestFactory factory = ManifestFactoryImpl.init();
-		HyInterval interval = factory.createHyInterval();
-		
-		for(HyTemporalElement element: elementsToIntersect) {
 
-			if(element.getValidSince()!=null && interval.getValidSince()!=null && element.getValidSince().after(interval.getValidSince()) ) {
-				interval.setValidSince(element.getValidSince());
-			}
-			if(element.getValidSince()!=null && interval.getValidSince()==null) {
-				interval.setValidSince(element.getValidSince());
-			}
-
-			if(element.getValidUntil()!=null && interval.getValidUntil()!=null && element.getValidUntil().before(interval.getValidUntil()) ) {
-				interval.setValidSince(element.getValidSince());
-			}
-			if(element.getValidUntil()!=null && interval.getValidUntil()==null) {
-				interval.setValidUntil(element.getValidUntil());
-			}
-		}
-		return interval;
-	}
 	
 }

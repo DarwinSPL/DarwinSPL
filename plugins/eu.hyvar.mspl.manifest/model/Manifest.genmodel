@@ -8,13 +8,15 @@
     operationReflection="true" importOrganizing="true">
   <foreignModel>Manifest.ecore</foreignModel>
   <genPackages prefix="Manifest" basePackage="eu.hyvar.mspl" disposableProviderFactory="true"
-      fileExtensions="hymanifest" ecorePackage="Manifest.ecore#/">
+      fileExtensions="hymanifest_xmi" ecorePackage="Manifest.ecore#/">
     <genClasses image="false" ecoreClass="Manifest.ecore#//HyManifest"/>
     <genClasses ecoreClass="Manifest.ecore#//HySPLImplementation">
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Manifest.ecore#//HySPLImplementation/dependencies"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Manifest.ecore#//HySPLImplementation/implementations"/>
     </genClasses>
-    <genClasses ecoreClass="Manifest.ecore#//HySPLSignature"/>
+    <genClasses ecoreClass="Manifest.ecore#//HySPLSignature">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Manifest.ecore#//HySPLSignature/name"/>
+    </genClasses>
     <genClasses ecoreClass="Manifest.ecore#//HyTimedDependencies">
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Manifest.ecore#//HyTimedDependencies/signature"/>
       <genFeatures children="true" createChild="true" ecoreFeature="ecore:EAttribute Manifest.ecore#//HyTimedDependencies/alias"/>
