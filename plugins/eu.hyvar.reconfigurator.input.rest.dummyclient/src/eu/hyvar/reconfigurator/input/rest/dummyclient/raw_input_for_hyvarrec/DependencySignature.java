@@ -1,10 +1,10 @@
 
-package eu.hyvar.reconfigurator.input.rest.dummyclient.hyvarrec_config;
+package eu.hyvar.reconfigurator.input.rest.dummyclient.raw_input_for_hyvarrec;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class FeatureModel {
+public class DependencySignature {
 
     /**
      * 

@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
 import java.net.URI;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -40,15 +41,14 @@ import eu.hyvar.feature.HyFeatureModel;
 import eu.hyvar.feature.configuration.HyConfiguration;
 import eu.hyvar.reconfigurator.input.rest.dummyclient.hyconfig.HyConfigurationJson;
 import eu.hyvar.reconfigurator.input.rest.dummyclient.hyvar_rec_answer.HyVarRecAnswer;
-import eu.hyvar.reconfigurator.input.rest.dummyclient.hyvarrec_config.OutputOfHyVarRecAndFm;
+import eu.hyvar.reconfigurator.input.rest.dummyclient.hyvarrec_config.HyVarRecConfig;
 import eu.hyvar.reconfigurator.input.rest.dummyclient.input_for_hyvarrec.InputForHyVarRec;
-import eu.hyvar.reconfigurator.input.rest.dummyclient.output.Configuration;
-import eu.hyvar.reconfigurator.input.rest.dummyclient.output.Constraints;
-import eu.hyvar.reconfigurator.input.rest.dummyclient.output.Context;
-import eu.hyvar.reconfigurator.input.rest.dummyclient.output.ContextModel;
-import eu.hyvar.reconfigurator.input.rest.dummyclient.output.FeatureModel;
-import eu.hyvar.reconfigurator.input.rest.dummyclient.output.RawInputForHyVarRec;
-import eu.hyvar.reconfigurator.input.rest.dummyclient.output.ValidityFormulas;
+import eu.hyvar.reconfigurator.input.rest.dummyclient.raw_input_for_hyvarrec.Dependency;
+import eu.hyvar.reconfigurator.input.rest.dummyclient.raw_input_for_hyvarrec.DependencyFeatureModel;
+import eu.hyvar.reconfigurator.input.rest.dummyclient.raw_input_for_hyvarrec.DependencySignature;
+import eu.hyvar.reconfigurator.input.rest.dummyclient.raw_input_for_hyvarrec.FeatureModel;
+import eu.hyvar.reconfigurator.input.rest.dummyclient.raw_input_for_hyvarrec.Manifest;
+import eu.hyvar.reconfigurator.input.rest.dummyclient.raw_input_for_hyvarrec.RawInputForHyVarRec;
 
 public class FmToHyVarRecQueryThread extends Thread {
 
@@ -76,7 +76,7 @@ public class FmToHyVarRecQueryThread extends Thread {
 		Scenario scenario = Scenario.RAW_HYVARREC_2_HYVARREC;
 		
 		HttpClient client;
-		URI uri;
+		URI fm_for_hyvarrec_uri;
 		
 		GsonBuilder builder = new GsonBuilder();
 		Gson gson = builder.create();
@@ -140,6 +140,12 @@ public class FmToHyVarRecQueryThread extends Thread {
 				return;
 			}
 
+			json = "";
+
+			json = gson.toJson(output);
+			
+			System.out.println(json);
+			
 			client = new HttpClient();
 			try {
 				client.start();
@@ -149,17 +155,11 @@ public class FmToHyVarRecQueryThread extends Thread {
 				return;
 			}
 
-			uri = URI.create("http://localhost:8080/fm_for_hyvarrec");
+			fm_for_hyvarrec_uri = URI.create("http://localhost:8080/fm_for_hyvarrec");
 //			uri = URI.create("http://hyvarfmtohyvarrec-env.eu-west-1.elasticbeanstalk.com/fm_for_hyvarrec/");
 
-			
-			json = "";
 
-			json = gson.toJson(output);
-			
-			System.out.println(json);
-
-			request = client.POST(uri);
+			request = client.POST(fm_for_hyvarrec_uri);
 			request.header(HttpHeader.CONTENT_TYPE, "application/json");
 			request.content(new StringContentProvider(json), "application/json");
 
@@ -180,6 +180,11 @@ public class FmToHyVarRecQueryThread extends Thread {
 			InputForHyVarRec answer = gson.fromJson(answerString, InputForHyVarRec.class);
 			System.out.println("Input for HyVarRec: "+answerString);
 			
+			
+			
+			
+			
+			
 			// send it to HyVarRec
 			String hyvarrecJson = gson.toJson(answer);
 			HttpClient hyvarrecClient = new HttpClient();
@@ -191,6 +196,8 @@ public class FmToHyVarRecQueryThread extends Thread {
 				return;
 			}
 			// Current HyVarRec URI
+			
+			
 			
 			
 			
@@ -214,8 +221,13 @@ public class FmToHyVarRecQueryThread extends Thread {
 			System.out.println("HyVarRec Answer: "+hyvarrecAnswerString);
 			
 			
+			
+			
+			
+			// send HyVarRec answer with FM again to Fm_for_hyvarrec
+			
 			// redirect the answer of hyvarrec again to fm_to_hyvarrec
-			OutputOfHyVarRecAndFm outputAndFm;
+			HyVarRecConfig outputAndFm = null;
 			try {
 				outputAndFm = createHyVarRecOutputAndFMFromHyVarRecAnswer(hyvarrecAnswerString);
 			} catch (IOException e) {
@@ -224,60 +236,42 @@ public class FmToHyVarRecQueryThread extends Thread {
 				return;
 			}
 			
+			json = gson.toJson(outputAndFm);
+			
+			System.out.println("FM and HyVarRec config input for fm_for_hyvarrece: "+json);
+			
+			client = new HttpClient();
+			try {
+				client.start();
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				return;
+			}
 
-//			HttpClient configClient = new HttpClient();
-//			try {
-//				configClient.start();
-//			} catch (Exception e) {
-//				// TODO Auto-generated catch block
-//				e.printStackTrace();
-//				return;
-//			}
-//
-//			URI configUri = URI.create("http://localhost:8080/new_hyvarrec_config");
-////			URI configUri = URI.create("http://hyvarfmtohyvarrec-env.eu-west-1.elasticbeanstalk.com/new_hyvarrec_config");
-//	
-//
-//			String configString = gson.toJson(outputAndFm);
-//			
-//			System.out.println(configString);
-//
-//			Request configRequest = configClient.POST(configUri);
-//			configRequest.header(HttpHeader.CONTENT_TYPE, "application/json");
-//			configRequest.content(new StringContentProvider(configString), "application/json");
-//
-//			ContentResponse configResponse;
-//			try {
-//				configResponse = configRequest.send();
-//			} catch (InterruptedException | TimeoutException | ExecutionException e) {
-//				// TODO Auto-generated catch block
-//				e.printStackTrace();
-//				return;
-//			}
-//			if(configResponse.getStatus() != HttpServletResponse.SC_OK)
-//			{
-//				System.out.println("Could not connect to fm to hyvarrec service. Terminating");
-//				return;
-//			}
-//			System.out.println(configResponse);
-//			answerString = configResponse.getContentAsString();
-//			HyConfigurationJson hyvarConfig = gson.fromJson(answerString, HyConfigurationJson.class);
-//			System.out.println("HyConfig answer: "+answerString);
-//			
-//			PrintWriter printWriter = null;
-//			try {
-//				printWriter = new PrintWriter("D:/HyVar/Implementations/_ExampleInputOutput/_Initial Data/models/HyVarUseCaseReview.hyconfigurationmodel");
-//			} catch (FileNotFoundException e) {
-//				// TODO Auto-generated catch block
-//				e.printStackTrace();
-//				return;
-//			}
-//			printWriter.write(hyvarConfig.getConfiguration().getSpecification());
-//			printWriter.flush();
-//			printWriter.close();
-//			
-//			break;
+			URI fm_for_hyvarrec_uri_new_config = URI.create("http://localhost:8080/new_hyvarrec_config");
+			
+			
+			request = client.POST(fm_for_hyvarrec_uri_new_config);
+			request.header(HttpHeader.CONTENT_TYPE, "application/json");
+			request.content(new StringContentProvider(json), "application/json");
+
+			try {
+				response = request.send();
+			} catch (InterruptedException | TimeoutException | ExecutionException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				return;
+			}
+			System.out.println(response);
+			if(response.getStatus() != HttpServletResponse.SC_OK)
+			{
+				System.out.println("Could not connect to fm for hyvarrec service. Terminating");
+				return;
+			}
+			answerString = response.getContentAsString();
 		
+			System.out.println("Answer configurations from fm_for_hyvarrec: "+answerString);
 		}
 		
 		
@@ -289,7 +283,7 @@ public class FmToHyVarRecQueryThread extends Thread {
 	}
 	
 
-	private void saveAndReadConfigFile(HyConfigurationJson config, OutputOfHyVarRecAndFm hyVarRecOutputAndFM) {
+	private void saveAndReadConfigFile(HyConfigurationJson config, HyVarRecConfig hyVarRecOutputAndFM) {
 
 		IProgressMonitor progressMonitor = new NullProgressMonitor();
 		IWorkspaceRoot workspaceRoot = ResourcesPlugin.getWorkspace().getRoot();
@@ -348,22 +342,31 @@ public class FmToHyVarRecQueryThread extends Thread {
 		
 	}
 	
-	private OutputOfHyVarRecAndFm createHyVarRecOutputAndFMFromHyVarRecAnswer(String hyVarRecAnswer) throws IOException {
+	private HyVarRecConfig createHyVarRecOutputAndFMFromHyVarRecAnswer(String hyVarRecAnswer) throws IOException {
 		GsonBuilder gsonBuilder = new GsonBuilder();
 		Gson gson = gsonBuilder.create();
 		HyVarRecAnswer hyvarrecAnswer = gson.fromJson(hyVarRecAnswer, HyVarRecAnswer.class);
 		
 		
-		OutputOfHyVarRecAndFm hyVarRecOutputAndFM = new OutputOfHyVarRecAndFm();
-		eu.hyvar.reconfigurator.input.rest.dummyclient.hyvarrec_config.FeatureModel fm = new eu.hyvar.reconfigurator.input.rest.dummyclient.hyvarrec_config.FeatureModel();
+		HyVarRecConfig hyVarRecOutputAndFM = new HyVarRecConfig();
+//		eu.hyvar.reconfigurator.input.rest.dummyclient.hyvarrec_config.FeatureModel fm = new eu.hyvar.reconfigurator.input.rest.dummyclient.hyvarrec_config.FeatureModel();
 		
 		
 		FileInputStream fileReader;
 		Scanner scanner;
 		
-		// Read Feature Model
+		// Read models
+		
+		String dateString = "2017/08/09";
+		hyVarRecOutputAndFM.setDate(dateString);
+		
+		String spl_id = "1";
+		hyVarRecOutputAndFM.setSplId(spl_id);
+		
+		String msg_type = "hyvarrec_config_plus_fm";
+		
 		File fmFile = new File(
-				"D:/HyVar/Implementations/_ExampleInputOutput/_Initial Data/models/"+FILENAME+".hyfeature");
+				"D:/HyVar/Implementations/_ExampleInputOutput/M36/_initial_data/models/car/car.hyfeature");
 		fileReader = new FileInputStream(fmFile);
 		scanner = new Scanner(fileReader, "UTF-8");
 		scanner.useDelimiter("\\A");
@@ -371,14 +374,157 @@ public class FmToHyVarRecQueryThread extends Thread {
 		scanner.close();
 		fileReader.close();
 		
-		fm.setFilename(FILENAME);
-		fm.setSpecification(featureModelString);
 		
+		File manifestFile = new File(
+				"D:/HyVar/Implementations/_ExampleInputOutput/M36/_initial_data/models/car/car.hymanifest_xmi");
+		fileReader = new FileInputStream(manifestFile);
+		scanner = new Scanner(fileReader, "UTF-8");
+		scanner.useDelimiter("\\A");
+		String manifestString = scanner.next();
+		scanner.close();
+		fileReader.close();
+		
+		
+		// ECU_A
+		String ecuAdependencyId = "2";
+		
+		File ecuAdependencyFmFile = new File(
+				"D:/HyVar/Implementations/_ExampleInputOutput/M36/_initial_data/models/signatures/ecuaS/ECUASignature.hyfeature");
+		fileReader = new FileInputStream(ecuAdependencyFmFile);
+		scanner = new Scanner(fileReader, "UTF-8");
+		scanner.useDelimiter("\\A");
+		String ecuAdependencyFmString = scanner.next();
+		scanner.close();
+		fileReader.close();
+		
+		File ecuAdependencySignatureFile = new File(
+				"D:/HyVar/Implementations/_ExampleInputOutput/M36/_initial_data/models/signatures/ecuaS/ECUASignature.hymanifest_xmi");
+		fileReader = new FileInputStream(ecuAdependencySignatureFile);
+		scanner = new Scanner(fileReader, "UTF-8");
+		scanner.useDelimiter("\\A");
+		String ecuAdependencySignatureString = scanner.next();
+		scanner.close();
+		fileReader.close();
+		
+		// ECU_B
+		String ecuBdependencyId = "3";
+		
+		File ecuBdependencyFmFile = new File(
+				"D:/HyVar/Implementations/_ExampleInputOutput/M36/_initial_data/models/signatures/ecubS/ECUBSignature.hyfeature");
+		fileReader = new FileInputStream(ecuBdependencyFmFile);
+		scanner = new Scanner(fileReader, "UTF-8");
+		scanner.useDelimiter("\\A");
+		String ecuBdependencyFmString = scanner.next();
+		scanner.close();
+		fileReader.close();
+		
+		File ecuBdependencySignatureFile = new File(
+				"D:/HyVar/Implementations/_ExampleInputOutput/M36/_initial_data/models/signatures/ecubS/ECUBSignature.hymanifest_xmi");
+		fileReader = new FileInputStream(ecuBdependencySignatureFile);
+		scanner = new Scanner(fileReader, "UTF-8");
+		scanner.useDelimiter("\\A");
+		String ecuBdependencySignatureString = scanner.next();
+		scanner.close();
+		fileReader.close();
+		
+		
+		// ECU_C
+		String ecuCdependencyId = "4";
+		
+		File ecuCdependencyFmFile = new File(
+				"D:/HyVar/Implementations/_ExampleInputOutput/M36/_initial_data/models/signatures/ecucS/ECUCSignature.hyfeature");
+		fileReader = new FileInputStream(ecuCdependencyFmFile);
+		scanner = new Scanner(fileReader, "UTF-8");
+		scanner.useDelimiter("\\A");
+		String ecuCdependencyFmString = scanner.next();
+		scanner.close();
+		fileReader.close();
+		
+		File ecuCdependencySignatureFile = new File(
+				"D:/HyVar/Implementations/_ExampleInputOutput/M36/_initial_data/models/signatures/ecucS/ECUCSignature.hymanifest_xmi");
+		fileReader = new FileInputStream(ecuCdependencySignatureFile);
+		scanner = new Scanner(fileReader, "UTF-8");
+		scanner.useDelimiter("\\A");
+		String ecuCdependencySignatureString = scanner.next();
+		scanner.close();
+		fileReader.close();
+		
+//		fm.setFilename(FILENAME);
+//		fm.setSpecification(featureModelString);
+		
+//		hyVarRecOutputAndFM.setFeatureModel(fm);
+		
+		hyVarRecOutputAndFM.setMsgType(msg_type);
+		hyVarRecOutputAndFM.setSplId(spl_id);		
+		hyVarRecOutputAndFM.setDate(dateString);
+		
+		eu.hyvar.reconfigurator.input.rest.dummyclient.hyvarrec_config.FeatureModel fm = new eu.hyvar.reconfigurator.input.rest.dummyclient.hyvarrec_config.FeatureModel();
+		fm.setFilename("car/car");
+		fm.setSpecification(featureModelString);
 		hyVarRecOutputAndFM.setFeatureModel(fm);
+		
+		eu.hyvar.reconfigurator.input.rest.dummyclient.hyvarrec_config.Manifest manifest = new eu.hyvar.reconfigurator.input.rest.dummyclient.hyvarrec_config.Manifest();
+		manifest.setFilename("car/car");
+		manifest.setSpecification(manifestString);
+		hyVarRecOutputAndFM.setManifest(manifest);
+		
+		List<eu.hyvar.reconfigurator.input.rest.dummyclient.hyvarrec_config.Dependency> dependencies = new ArrayList<eu.hyvar.reconfigurator.input.rest.dummyclient.hyvarrec_config.Dependency>(3);
+		hyVarRecOutputAndFM.setDependencies(dependencies);
+		
+		// dependencies
+		
+		// ECU_A
+		eu.hyvar.reconfigurator.input.rest.dummyclient.hyvarrec_config.Dependency dependencyA = new eu.hyvar.reconfigurator.input.rest.dummyclient.hyvarrec_config.Dependency();
+		dependencyA.setSignatureId(ecuAdependencyId);
+		
+		eu.hyvar.reconfigurator.input.rest.dummyclient.hyvarrec_config.DependencyFeatureModel featureModelA = new eu.hyvar.reconfigurator.input.rest.dummyclient.hyvarrec_config.DependencyFeatureModel();
+		featureModelA.setFilename("signatures/ecuaS/ECUASignature");
+		featureModelA.setSpecification(ecuAdependencyFmString);
+		dependencyA.setDependencyFeatureModel(featureModelA);
+		
+		eu.hyvar.reconfigurator.input.rest.dummyclient.hyvarrec_config.DependencySignature signatureA = new eu.hyvar.reconfigurator.input.rest.dummyclient.hyvarrec_config.DependencySignature();
+		signatureA.setFilename("signatures/ecuaS/ECUASignature");
+		signatureA.setSpecification(ecuAdependencySignatureString);
+		dependencyA.setDependencySignature(signatureA);
+		
+		dependencies.add(dependencyA);
+		
+		// ECU_B
+		eu.hyvar.reconfigurator.input.rest.dummyclient.hyvarrec_config.Dependency dependencyB = new eu.hyvar.reconfigurator.input.rest.dummyclient.hyvarrec_config.Dependency();
+		dependencyB.setSignatureId(ecuBdependencyId);
+		
+		eu.hyvar.reconfigurator.input.rest.dummyclient.hyvarrec_config.DependencyFeatureModel featureModelB = new eu.hyvar.reconfigurator.input.rest.dummyclient.hyvarrec_config.DependencyFeatureModel();
+		featureModelB.setFilename("signatures/ecubS/ECUBSignature");
+		featureModelB.setSpecification(ecuBdependencyFmString);
+		dependencyB.setDependencyFeatureModel(featureModelB);
+		
+		eu.hyvar.reconfigurator.input.rest.dummyclient.hyvarrec_config.DependencySignature signatureB = new eu.hyvar.reconfigurator.input.rest.dummyclient.hyvarrec_config.DependencySignature();
+		signatureB.setFilename("signatures/ecubS/ECUBSignature");
+		signatureB.setSpecification(ecuBdependencySignatureString);
+		dependencyB.setDependencySignature(signatureB);
+		
+		dependencies.add(dependencyB);
+		
+		// ECU_C
+		eu.hyvar.reconfigurator.input.rest.dummyclient.hyvarrec_config.Dependency dependencyC = new eu.hyvar.reconfigurator.input.rest.dummyclient.hyvarrec_config.Dependency();
+		dependencyC.setSignatureId(ecuCdependencyId);
+		
+		eu.hyvar.reconfigurator.input.rest.dummyclient.hyvarrec_config.DependencyFeatureModel featureModelC = new eu.hyvar.reconfigurator.input.rest.dummyclient.hyvarrec_config.DependencyFeatureModel();
+		featureModelC.setFilename("signatures/ecucS/ECUCSignature");
+		featureModelC.setSpecification(ecuCdependencyFmString);
+		dependencyC.setDependencyFeatureModel(featureModelC);
+		
+		eu.hyvar.reconfigurator.input.rest.dummyclient.hyvarrec_config.DependencySignature signatureC = new eu.hyvar.reconfigurator.input.rest.dummyclient.hyvarrec_config.DependencySignature();
+		signatureC.setFilename("signatures/ecucS/ECUCSignature");
+		signatureC.setSpecification(ecuCdependencySignatureString);
+		dependencyC.setDependencySignature(signatureC);
+		
+		dependencies.add(dependencyC);
 		
 		hyVarRecOutputAndFM.setMsgType(MSG_TYPE_HYVARREC_CONFIG_2_HYCONFIG);
 		
 		hyVarRecOutputAndFM.setFeatures(hyvarrecAnswer.getFeatures());
+		
 		List<eu.hyvar.reconfigurator.input.rest.dummyclient.hyvarrec_config.Attribute> newAttributes = new ArrayList<eu.hyvar.reconfigurator.input.rest.dummyclient.hyvarrec_config.Attribute>();
 		if(hyvarrecAnswer.getAttributes()!=null) {
 			for(eu.hyvar.reconfigurator.input.rest.dummyclient.hyvar_rec_answer.Attribute attribute: hyvarrecAnswer.getAttributes()) {
@@ -462,9 +608,8 @@ public class FmToHyVarRecQueryThread extends Thread {
 //		return hyVarRecOutputAndFM;
 //	}
 	
-
-	private RawInputForHyVarRec createRawHyVarRecOutput() throws IOException {
-
+	
+	private RawInputForHyVarRec createRawHyVarRecOutputOfCar() throws IOException {
 		RawInputForHyVarRec rawInput = new RawInputForHyVarRec();
 
 
@@ -487,95 +632,225 @@ public class FmToHyVarRecQueryThread extends Thread {
 		
 //		Read from Model Files
 		// Read Feature Model
+		
+		String dateString = "2017/08/09";
+		String spl_id = "1";
+		
+		String msg_type = "raw_hyvarrec_input";
+		
 		File fmFile = new File(
-				"D:/HyVar/Implementations/_ExampleInputOutput/_Initial Data/models/"+FILENAME+".hyfeature");
+				"D:/HyVar/Implementations/_ExampleInputOutput/M36/_initial_data/models/car/car.hyfeature");
 		fileReader = new FileInputStream(fmFile);
 		scanner = new Scanner(fileReader, "UTF-8");
 		scanner.useDelimiter("\\A");
 		String featureModelString = scanner.next();
 		scanner.close();
 		fileReader.close();
-
-		// Read configuration
-		File configFile = new File(
-				"D:/HyVar/Implementations/_ExampleInputOutput/_Initial Data/models/"+FILENAME+".hyconfigurationmodel");
-		fileReader = new FileInputStream(configFile);
+		
+		
+		File manifestFile = new File(
+				"D:/HyVar/Implementations/_ExampleInputOutput/M36/_initial_data/models/car/car.hymanifest_xmi");
+		fileReader = new FileInputStream(manifestFile);
 		scanner = new Scanner(fileReader, "UTF-8");
 		scanner.useDelimiter("\\A");
-		String configString = scanner.next();
+		String manifestString = scanner.next();
 		scanner.close();
 		fileReader.close();
+		
+		// TODO old configuration
+		
+		// dependencies 
+		
+		
+		// ECU_A
+		String ecuAdependencyId = "2";
+		
+		File ecuAdependencyFmFile = new File(
+				"D:/HyVar/Implementations/_ExampleInputOutput/M36/_initial_data/models/signatures/ecuaS/ECUASignature.hyfeature");
+		fileReader = new FileInputStream(ecuAdependencyFmFile);
+		scanner = new Scanner(fileReader, "UTF-8");
+		scanner.useDelimiter("\\A");
+		String ecuAdependencyFmString = scanner.next();
+		scanner.close();
+		fileReader.close();
+		
+		File ecuAdependencySignatureFile = new File(
+				"D:/HyVar/Implementations/_ExampleInputOutput/M36/_initial_data/models/signatures/ecuaS/ECUASignature.hymanifest_xmi");
+		fileReader = new FileInputStream(ecuAdependencySignatureFile);
+		scanner = new Scanner(fileReader, "UTF-8");
+		scanner.useDelimiter("\\A");
+		String ecuAdependencySignatureString = scanner.next();
+		scanner.close();
+		fileReader.close();
+		
+		// ECU_B
+		String ecuBdependencyId = "3";
+		
+		File ecuBdependencyFmFile = new File(
+				"D:/HyVar/Implementations/_ExampleInputOutput/M36/_initial_data/models/signatures/ecubS/ECUBSignature.hyfeature");
+		fileReader = new FileInputStream(ecuBdependencyFmFile);
+		scanner = new Scanner(fileReader, "UTF-8");
+		scanner.useDelimiter("\\A");
+		String ecuBdependencyFmString = scanner.next();
+		scanner.close();
+		fileReader.close();
+		
+		File ecuBdependencySignatureFile = new File(
+				"D:/HyVar/Implementations/_ExampleInputOutput/M36/_initial_data/models/signatures/ecubS/ECUBSignature.hymanifest_xmi");
+		fileReader = new FileInputStream(ecuBdependencySignatureFile);
+		scanner = new Scanner(fileReader, "UTF-8");
+		scanner.useDelimiter("\\A");
+		String ecuBdependencySignatureString = scanner.next();
+		scanner.close();
+		fileReader.close();
+		
+		
+		// ECU_C
+		String ecuCdependencyId = "4";
+		
+		File ecuCdependencyFmFile = new File(
+				"D:/HyVar/Implementations/_ExampleInputOutput/M36/_initial_data/models/signatures/ecucS/ECUCSignature.hyfeature");
+		fileReader = new FileInputStream(ecuCdependencyFmFile);
+		scanner = new Scanner(fileReader, "UTF-8");
+		scanner.useDelimiter("\\A");
+		String ecuCdependencyFmString = scanner.next();
+		scanner.close();
+		fileReader.close();
+		
+		File ecuCdependencySignatureFile = new File(
+				"D:/HyVar/Implementations/_ExampleInputOutput/M36/_initial_data/models/signatures/ecucS/ECUCSignature.hymanifest_xmi");
+		fileReader = new FileInputStream(ecuCdependencySignatureFile);
+		scanner = new Scanner(fileReader, "UTF-8");
+		scanner.useDelimiter("\\A");
+		String ecuCdependencySignatureString = scanner.next();
+		scanner.close();
+		fileReader.close();
+
+		
+		
+		
+		//TODO  Read configuration
+//		File configFile = new File(
+//				"D:/HyVar/Implementations/_ExampleInputOutput/_Initial Data/models/"+FILENAME+".hyconfigurationmodel");
+//		fileReader = new FileInputStream(configFile);
+//		scanner = new Scanner(fileReader, "UTF-8");
+//		scanner.useDelimiter("\\A");
+//		String configString = scanner.next();
+//		scanner.close();
+//		fileReader.close();
 
 
 		// Read constraint model
-		File constraintsFile = new File(
-				"D:/HyVar/Implementations/_ExampleInputOutput/_Initial Data/models/"+FILENAME+".hyconstraint");
-		fileReader = new FileInputStream(constraintsFile);
-		scanner = new Scanner(fileReader, "UTF-8");
-		scanner.useDelimiter("\\A");
-		String constraintString = scanner.next();
-		scanner.close();
-		fileReader.close();
-
-
-
-		// Read context model
-		File contextFile = new File(
-				"D:/HyVar/Implementations/_ExampleInputOutput/_Initial Data/models/"+FILENAME+".hycontextmodel");
-		fileReader = new FileInputStream(contextFile);
-		scanner = new Scanner(fileReader, "UTF-8");
-		scanner.useDelimiter("\\A");
-		String contextString = scanner.next();
-		scanner.close();
-		fileReader.close();
-
-
-		// Read validity model
-		File validityFormulaFile = new File(
-				"D:/HyVar/Implementations/_ExampleInputOutput/_Initial Data/models/"+FILENAME+".hyvaliditymodel");
-		fileReader = new FileInputStream(validityFormulaFile);
-		scanner = new Scanner(fileReader, "UTF-8");
-		scanner.useDelimiter("\\A");
-		String validityFormulaString = scanner.next();
-		scanner.close();
-		fileReader.close();
+//		File constraintsFile = new File(
+//				"D:/HyVar/Implementations/_ExampleInputOutput/_Initial Data/models/"+FILENAME+".hyconstraint");
+//		fileReader = new FileInputStream(constraintsFile);
+//		scanner = new Scanner(fileReader, "UTF-8");
+//		scanner.useDelimiter("\\A");
+//		String constraintString = scanner.next();
+//		scanner.close();
+//		fileReader.close();
+//
+//
+//
+//		// Read context model
+//		File contextFile = new File(
+//				"D:/HyVar/Implementations/_ExampleInputOutput/_Initial Data/models/"+FILENAME+".hycontextmodel");
+//		fileReader = new FileInputStream(contextFile);
+//		scanner = new Scanner(fileReader, "UTF-8");
+//		scanner.useDelimiter("\\A");
+//		String contextString = scanner.next();
+//		scanner.close();
+//		fileReader.close();
+//
+//
+//		// Read validity model
+//		File validityFormulaFile = new File(
+//				"D:/HyVar/Implementations/_ExampleInputOutput/_Initial Data/models/"+FILENAME+".hyvaliditymodel");
+//		fileReader = new FileInputStream(validityFormulaFile);
+//		scanner = new Scanner(fileReader, "UTF-8");
+//		scanner.useDelimiter("\\A");
+//		String validityFormulaString = scanner.next();
+//		scanner.close();
+//		fileReader.close();
 
 		// Fill input
-		rawInput.setMsgType(MSG_TYPE_RAW_HYVARREC);
-		
-		Configuration config = new Configuration();
-		config.setFilename(FILENAME);
-		config.setSpecification(configString);
-		rawInput.setConfiguration(config);
-		
-		Constraints constr = new Constraints();
-		constr.setFilename(FILENAME);
-		constr.setSpecification(constraintString);
-		rawInput.setConstraints(constr);
-		
-		ContextModel contextModel = new ContextModel();
-		contextModel.setFilename(FILENAME);
-		contextModel.setSpecification(contextString);
-		rawInput.setContextModel(contextModel);
+		rawInput.setMsgType(msg_type);
+		rawInput.setSplId(spl_id);		
+		rawInput.setDate(dateString);
 		
 		FeatureModel fm = new FeatureModel();
-		fm.setFilename(FILENAME);
+		fm.setFilename("car/car");
 		fm.setSpecification(featureModelString);
 		rawInput.setFeatureModel(fm);
 		
-		ValidityFormulas vali = new ValidityFormulas();
-		vali.setFilename(FILENAME);
-		vali.setSpecification(validityFormulaString);
-		rawInput.setValidityFormulas(vali);
+		Manifest manifest = new Manifest();
+		manifest.setFilename("car/car");
+		manifest.setSpecification(manifestString);
+		rawInput.setManifest(manifest);
 		
-		Context context = new Context();
-		context.setLat("1.1");
-		context.setLng("1.9");
+		List<Dependency> dependencies = new ArrayList<Dependency>(3);
+		rawInput.setDependencies(dependencies);
 		
-		rawInput.setContext(context);
+		// dependencies
 		
+		// ECU_A
+		Dependency dependencyA = new Dependency();
+		dependencyA.setSignatureId(ecuAdependencyId);
+		
+		DependencyFeatureModel featureModelA = new DependencyFeatureModel();
+		featureModelA.setFilename("signatures/ecuaS/ECUASignature");
+		featureModelA.setSpecification(ecuAdependencyFmString);
+		dependencyA.setDependencyFeatureModel(featureModelA);
+		
+		DependencySignature signatureA = new DependencySignature();
+		signatureA.setFilename("signatures/ecuaS/ECUASignature");
+		signatureA.setSpecification(ecuAdependencySignatureString);
+		dependencyA.setDependencySignature(signatureA);
+		
+		dependencies.add(dependencyA);
+		
+		// ECU_B
+		Dependency dependencyB = new Dependency();
+		dependencyB.setSignatureId(ecuBdependencyId);
+		
+		DependencyFeatureModel featureModelB = new DependencyFeatureModel();
+		featureModelB.setFilename("signatures/ecubS/ECUBSignature");
+		featureModelB.setSpecification(ecuBdependencyFmString);
+		dependencyB.setDependencyFeatureModel(featureModelB);
+		
+		DependencySignature signatureB = new DependencySignature();
+		signatureB.setFilename("signatures/ecubS/ECUBSignature");
+		signatureB.setSpecification(ecuBdependencySignatureString);
+		dependencyB.setDependencySignature(signatureB);
+		
+		dependencies.add(dependencyB);
+		
+		// ECU_C
+		Dependency dependencyC = new Dependency();
+		dependencyC.setSignatureId(ecuCdependencyId);
+		
+		DependencyFeatureModel featureModelC = new DependencyFeatureModel();
+		featureModelC.setFilename("signatures/ecucS/ECUCSignature");
+		featureModelC.setSpecification(ecuCdependencyFmString);
+		dependencyC.setDependencyFeatureModel(featureModelC);
+		
+		DependencySignature signatureC = new DependencySignature();
+		signatureC.setFilename("signatures/ecucS/ECUCSignature");
+		signatureC.setSpecification(ecuCdependencySignatureString);
+		dependencyC.setDependencySignature(signatureC);
+		
+		dependencies.add(dependencyC);
 		
 		return rawInput;
+	}
+
+	private RawInputForHyVarRec createRawHyVarRecOutput() throws IOException {
+		
+		return createRawHyVarRecOutputOfCar();
+		
+		
+		
+//		return rawInput;
 	}
 	
 }

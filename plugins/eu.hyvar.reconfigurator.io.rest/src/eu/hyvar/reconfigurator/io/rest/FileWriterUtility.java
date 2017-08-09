@@ -18,7 +18,26 @@ public class FileWriterUtility {
 	 * @return
 	 */
 	public static IFile writeFileWithContent(String fileName, String fileExtension, String fileContent, IFolder openedFolder) {
-		IFile file = openedFolder.getFile(fileName + "." + fileExtension);
+		String[] folders = fileName.split("/");
+		
+		IFolder lastFolder = openedFolder;
+		
+		for(int i = 0; i<folders.length-1;i++) {
+			IFolder folder = openedFolder.getFolder(folders[i]);
+			
+			if(!folder.exists()) {
+				try {
+					folder.create(true, true, null);
+				} catch (CoreException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+			
+			lastFolder = folder;
+		}
+		
+		IFile file = lastFolder.getFile(folders[folders.length-1] + "." + fileExtension);
 		InputStream inputStream = new ByteArrayInputStream(fileContent.getBytes());
 		try {
 			if(!file.exists()) {

@@ -13,10 +13,10 @@ public class Application implements IApplication {
 
 		List<Thread> threads = new ArrayList<Thread>(10);
 		
-		for(int i=0;i<100;i++) {
-			FmToHyVarRecQueryThread thread = new FmToHyVarRecQueryThread();
-			threads.add(thread);
-		}
+//		for(int i=0;i<100;i++) {
+			FmToHyVarRecQueryThread fmToHyVarRecQueryThread = new FmToHyVarRecQueryThread();
+			threads.add(fmToHyVarRecQueryThread);
+//		}
 		
 		for(Thread thread: threads) {
 			thread.start();

@@ -4,32 +4,32 @@ package eu.hyvar.reconfigurator.input.rest.dummyclient.hyvarrec_config;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Attribute {
+public class DependencySignature {
 
     /**
      * 
      * (Required)
      * 
      */
-    @SerializedName("id")
+    @SerializedName("filename")
     @Expose
-    private String id;
+    private String filename;
     /**
      * 
      * (Required)
      * 
      */
-    @SerializedName("value")
+    @SerializedName("specification")
     @Expose
-    private Integer value;
+    private String specification;
 
     /**
      * 
      * (Required)
      * 
      */
-    public String getId() {
-        return id;
+    public String getFilename() {
+        return filename;
     }
 
     /**
@@ -37,8 +37,8 @@ public class Attribute {
      * (Required)
      * 
      */
-    public void setId(String id) {
-        this.id = id;
+    public void setFilename(String filename) {
+        this.filename = filename;
     }
 
     /**
@@ -46,8 +46,8 @@ public class Attribute {
      * (Required)
      * 
      */
-    public Integer getValue() {
-        return value;
+    public String getSpecification() {
+        return specification;
     }
 
     /**
@@ -55,8 +55,8 @@ public class Attribute {
      * (Required)
      * 
      */
-    public void setValue(Integer value) {
-        this.value = value;
+    public void setSpecification(String specification) {
+        this.specification = specification;
     }
 
 }

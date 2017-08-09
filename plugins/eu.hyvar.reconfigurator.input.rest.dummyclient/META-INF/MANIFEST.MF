@@ -19,10 +19,5 @@ Require-Bundle: org.eclipse.equinox.app,
  eu.hyvar.context.validity_formulas,
  javax.servlet
 Bundle-ClassPath: .,
- lib/jetty-client-9.2.13.v20150730.jar
+ lib/org.eclipse.jetty.client_9.3.9.v20160517.jar
 Bundle-Vendor: www.darwinspl.de
-Export-Package: eu.hyvar.reconfigurator.input.rest.dummyclient.hyconfig,
- eu.hyvar.reconfigurator.input.rest.dummyclient.hyvar_rec_answer,
- eu.hyvar.reconfigurator.input.rest.dummyclient.hyvarrec_config,
- eu.hyvar.reconfigurator.input.rest.dummyclient.input_for_hyvarrec,
- eu.hyvar.reconfigurator.input.rest.dummyclient.output

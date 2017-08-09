@@ -98,10 +98,18 @@ public class JsonHandlerFMForHyVarRec extends AbstractHandler {
 	}
 
 	private String loadModelsFromFiles(RawInputForHyVarRec rawInput) {
+		if(rawInput == null) {
+			return null;
+		}
+		
+		if(rawInput.getFeatureModel() == null) {
+			return null;
+		}
+		
 		Date date = DateParser.getDate(rawInput.getDate());
 
 		IProgressMonitor progressMonitor = new NullProgressMonitor();
-		IWorkspaceRoot workspaceRoot = ResourcesPlugin.getWorkspace().getRoot();
+		IWorkspaceRoot workspaceRoot = ResourcesPlugin.getWorkspace().getRoot();//
 		IProject project = workspaceRoot.getProject(PROJECT_NAME);
 
 		try {
@@ -131,12 +139,12 @@ public class JsonHandlerFMForHyVarRec extends AbstractHandler {
 		IFolder folder = null;
 		while(folder == null || folder.exists()) {
 			folder = project.getFolder(UUID.randomUUID().toString());
-			
-			try {
-				folder.create(true, true, progressMonitor);
-			} catch (CoreException e) {
-				e.printStackTrace();
-			}
+		}
+
+		try {
+			folder.create(true, true, progressMonitor);
+		} catch (CoreException e) {
+			e.printStackTrace();
 		}
 
 		IFile manifestFile = FileWriterUtility.writeFileWithContent(
@@ -153,37 +161,51 @@ public class JsonHandlerFMForHyVarRec extends AbstractHandler {
 
 		featureModelFiles.add(fmFile);
 
-		IFile contextFile = FileWriterUtility.writeFileWithContent(
-				rawInput.getContextModel().getFilename(),
-				HyContextInformationUtil.getContextModelFileExtensionForXmi(),
-				rawInput.getContextModel().getSpecification(), folder);
-
-		contextModelFiles.add(contextFile);
-
-		IFile constraintFile = FileWriterUtility.writeFileWithContent(
-				rawInput.getConstraints().getFilename(),
-				HyConstraintUtil.getConstraintModelFileExtensionForXmi(),
-				rawInput.getConstraints().getSpecification(), folder);
+		IFile contextFile = null;
+		if(rawInput.getContextModel() != null) {
+			contextFile = FileWriterUtility.writeFileWithContent(
+					rawInput.getContextModel().getFilename(),
+					HyContextInformationUtil.getContextModelFileExtensionForXmi(),
+					rawInput.getContextModel().getSpecification(), folder);
+			
+			contextModelFiles.add(contextFile);			
+		}
 		
-		constraintModelFiles.add(constraintFile);
-
-		IFile configurationFile = FileWriterUtility.writeFileWithContent(
-				rawInput.getOldConfiguration().getFilename(),
-				HyConfigurationUtil.getConfigurationModelFileExtensionForXmi(),
-				rawInput.getOldConfiguration().getSpecification(), folder);
-
+		IFile constraintFile = null;
+		if(rawInput.getConstraints() != null) {
+			constraintFile = FileWriterUtility.writeFileWithContent(
+					rawInput.getConstraints().getFilename(),
+					HyConstraintUtil.getConstraintModelFileExtensionForXmi(),
+					rawInput.getConstraints().getSpecification(), folder);
+			
+			constraintModelFiles.add(constraintFile);			
+		}
 		
-		IFile partialConfigurationFile = FileWriterUtility.writeFileWithContent(
-				rawInput.getPartialConfiguration().getFilename(),
-				HyConfigurationUtil.getConfigurationModelFileExtensionForXmi(),
-				rawInput.getPartialConfiguration().getSpecification(), folder);
+		IFile configurationFile = null;
+		if(rawInput.getOldConfiguration() != null) {
+			configurationFile = FileWriterUtility.writeFileWithContent(
+					rawInput.getOldConfiguration().getFilename(),
+					HyConfigurationUtil.getConfigurationModelFileExtensionForXmi(),
+					rawInput.getOldConfiguration().getSpecification(), folder);			
+		}
 
-		IFile validityFile = FileWriterUtility.writeFileWithContent(
-				rawInput.getValidityFormulas().getFilename(),
-				HyValidityModelUtil.getValidityModelFileExtensionForXmi(),
-				rawInput.getValidityFormulas().getSpecification(), folder);
+		IFile partialConfigurationFile = null;
+		if(rawInput.getPartialConfiguration() != null) {
+			partialConfigurationFile = FileWriterUtility.writeFileWithContent(
+					rawInput.getPartialConfiguration().getFilename(),
+					HyConfigurationUtil.getConfigurationModelFileExtensionForXmi(),
+					rawInput.getPartialConfiguration().getSpecification(), folder);			
+		}
 
-		validityModelFiles.add(validityFile);
+		IFile validityFile = null;
+		if(rawInput.getValidityFormulas() != null) {
+			validityFile = FileWriterUtility.writeFileWithContent(
+					rawInput.getValidityFormulas().getFilename(),
+					HyValidityModelUtil.getValidityModelFileExtensionForXmi(),
+					rawInput.getValidityFormulas().getSpecification(), folder);
+			
+			validityModelFiles.add(validityFile);
+		}
 
 
 		
@@ -227,51 +249,56 @@ public class JsonHandlerFMForHyVarRec extends AbstractHandler {
 //
 //		validityModels.add(validityModel);
 		
-		
-		for(Dependency dependency: rawInput.getDependencies()) {
-			IFile dependencyManifestFile = FileWriterUtility.writeFileWithContent(
-					dependency.getDependencySignature().getFilename(),
-					HyManifestResolverUtil.FILE_EXTENSION_FOR_XMI,
-					dependency.getDependencySignature().getSpecification(), folder);
+		if (rawInput.getDependencies() != null) {
+			for (Dependency dependency : rawInput.getDependencies()) {
+				IFile dependencyManifestFile = FileWriterUtility.writeFileWithContent(
+						dependency.getDependencySignature().getFilename(),
+						HyManifestResolverUtil.FILE_EXTENSION_FOR_XMI,
+						dependency.getDependencySignature().getSpecification(), folder);
 
-			manifestFiles.add(dependencyManifestFile);
-			
-			
-			IFile dependencyFmFile = FileWriterUtility.writeFileWithContent(
-					dependency.getDependencyFeatureModel().getFilename(),
-					HyFeatureUtil.getFeatureModelFileExtensionForXmi(),
-					dependency.getDependencyFeatureModel().getSpecification(), folder); 
+				manifestFiles.add(dependencyManifestFile);
 
-			featureModelFiles.add(dependencyFmFile);
+				IFile dependencyFmFile = FileWriterUtility.writeFileWithContent(
+						dependency.getDependencyFeatureModel().getFilename(),
+						HyFeatureUtil.getFeatureModelFileExtensionForXmi(),
+						dependency.getDependencyFeatureModel().getSpecification(), folder);
 
-			if(dependency.getDependencyContextModel() != null && dependency.getDependencyContextModel().getSpecification() != null && !dependency.getDependencyContextModel().getSpecification().equals("")) {
-				IFile dependencyContextFile = FileWriterUtility.writeFileWithContent(
-						dependency.getDependencyContextModel().getFilename(),
-						HyContextInformationUtil.getContextModelFileExtensionForXmi(),
-						dependency.getDependencyContextModel().getSpecification(), folder); 
-				
-				contextModelFiles.add(dependencyContextFile);
+				featureModelFiles.add(dependencyFmFile);
+
+				if (dependency.getDependencyContextModel() != null
+						&& dependency.getDependencyContextModel().getSpecification() != null
+						&& !dependency.getDependencyContextModel().getSpecification().equals("")) {
+					IFile dependencyContextFile = FileWriterUtility.writeFileWithContent(
+							dependency.getDependencyContextModel().getFilename(),
+							HyContextInformationUtil.getContextModelFileExtensionForXmi(),
+							dependency.getDependencyContextModel().getSpecification(), folder);
+
+					contextModelFiles.add(dependencyContextFile);
+				}
+
+				if (dependency.getDependencyConstraints() != null
+						&& dependency.getDependencyConstraints().getSpecification() != null
+						&& !dependency.getDependencyConstraints().getSpecification().equals("")) {
+					IFile dependencyConstraintFile = FileWriterUtility.writeFileWithContent(
+							dependency.getDependencyConstraints().getFilename(),
+							HyConstraintUtil.getConstraintModelFileExtensionForXmi(),
+							dependency.getDependencyConstraints().getSpecification(), folder);
+
+					constraintModelFiles.add(dependencyConstraintFile);
+				}
+
+				if (dependency.getDependencyValidityFormulas() != null
+						&& dependency.getDependencyValidityFormulas().getSpecification() != null
+						&& !dependency.getDependencyValidityFormulas().getSpecification().equals("")) {
+					IFile dependencyValidityFile = FileWriterUtility.writeFileWithContent(
+							dependency.getDependencyValidityFormulas().getFilename(),
+							HyValidityModelUtil.getValidityModelFileExtensionForXmi(),
+							dependency.getDependencyValidityFormulas().getSpecification(), folder);
+
+					validityModelFiles.add(dependencyValidityFile);
+				}
 			}
 
-			if(dependency.getDependencyConstraints() != null && dependency.getDependencyConstraints().getSpecification() != null && !dependency.getDependencyConstraints().getSpecification().equals("")) {
-				IFile dependencyConstraintFile = FileWriterUtility.writeFileWithContent(
-						dependency.getDependencyConstraints().getFilename(),
-						HyConstraintUtil.getConstraintModelFileExtensionForXmi(),
-						dependency.getDependencyConstraints().getSpecification(), folder); 
-
-				constraintModelFiles.add(dependencyConstraintFile);				
-			}
-
-			if(dependency.getDependencyValidityFormulas() != null && dependency.getDependencyValidityFormulas().getSpecification() != null && !dependency.getDependencyValidityFormulas().getSpecification().equals("")) {
-				IFile dependencyValidityFile = FileWriterUtility.writeFileWithContent(
-						dependency.getDependencyValidityFormulas().getFilename(),
-						HyValidityModelUtil.getValidityModelFileExtensionForXmi(),
-						dependency.getDependencyValidityFormulas().getSpecification(), folder); 
-
-				validityModelFiles.add(dependencyValidityFile);
-			}
-			
-			
 		}
 
 		
@@ -330,14 +357,16 @@ public class JsonHandlerFMForHyVarRec extends AbstractHandler {
 		HyContextValueModel contextValueModel = ContextValueFactory.eINSTANCE.createHyContextValueModel();
 
 		// TODO Optimistic -> error handling?
-		double latitude = Double.parseDouble(rawInput.getContext().getLat());
-		double longitude = Double.parseDouble(rawInput.getContext().getLong());
-		HyContextValue positionValue = ContextToModelMapper.mapGPSToContextValue(latitude, longitude, contextModelImpl);
-
-		// TODO very optimistic.... catch null sensible like that?
-		if (positionValue != null) {
-			contextValueModel.getValues().add(positionValue);
+		if(rawInput.getContext() != null) {
+			double latitude = Double.parseDouble(rawInput.getContext().getLat());
+			double longitude = Double.parseDouble(rawInput.getContext().getLong());
+			HyContextValue positionValue = ContextToModelMapper.mapGPSToContextValue(latitude, longitude, contextModelImpl);			
+			// TODO very optimistic.... catch null sensible like that?
+			if (positionValue != null) {
+				contextValueModel.getValues().add(positionValue);
+			}
 		}
+
 		
 		List<HyContextValueModel> contextValueModels = new ArrayList<HyContextValueModel>(1);
 		contextValueModels.add(contextValueModel);

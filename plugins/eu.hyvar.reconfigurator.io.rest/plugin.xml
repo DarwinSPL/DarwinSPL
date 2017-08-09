@@ -2,7 +2,7 @@
 <?eclipse version="3.4"?>
 <plugin>
    <extension
-         id="server"
+         id="fm_for_hyvarrec_server"
          point="org.eclipse.core.runtime.applications">
       <application>
          <run
@@ -11,10 +11,10 @@
       </application>
    </extension>
    <extension
-         id="fm_for_hyvarrec_rest_server_new"
+         id="fm_for_hyvarrec_server"
          point="org.eclipse.core.runtime.products">
       <product
-            application="eu.hyvar.reconfigurator.io.rest.server"
+            application="eu.hyvar.reconfigurator.io.rest.fm_for_hyvarrec_server"
             name="FM for HyVarRec REST Web Service">
          <property
                name="appName"

@@ -1,11 +1,9 @@
 
-package eu.hyvar.reconfigurator.input.rest.dummyclient.output;
+package eu.hyvar.reconfigurator.input.rest.dummyclient.raw_input_for_hyvarrec;
 
-import javax.annotation.Generated;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-@Generated("org.jsonschema2pojo")
 public class Context {
 
     /**
@@ -21,16 +19,14 @@ public class Context {
      * (Required)
      * 
      */
-    @SerializedName("lng")
+    @SerializedName("long")
     @Expose
-    private String lng;
+    private String _long;
 
     /**
      * 
      * (Required)
      * 
-     * @return
-     *     The lat
      */
     public String getLat() {
         return lat;
@@ -40,8 +36,6 @@ public class Context {
      * 
      * (Required)
      * 
-     * @param lat
-     *     The lat
      */
     public void setLat(String lat) {
         this.lat = lat;
@@ -51,22 +45,18 @@ public class Context {
      * 
      * (Required)
      * 
-     * @return
-     *     The lng
      */
-    public String getLng() {
-        return lng;
+    public String getLong() {
+        return _long;
     }
 
     /**
      * 
      * (Required)
      * 
-     * @param lng
-     *     The lng
      */
-    public void setLng(String lng) {
-        this.lng = lng;
+    public void setLong(String _long) {
+        this._long = _long;
     }
 
 }

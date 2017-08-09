@@ -1,24 +1,32 @@
 
-package eu.hyvar.reconfigurator.input.rest.dummyclient.output;
+package eu.hyvar.reconfigurator.input.rest.dummyclient.raw_input_for_hyvarrec;
 
-import javax.annotation.Generated;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-@Generated("org.jsonschema2pojo")
 public class ContextModel {
 
+    /**
+     * 
+     * (Required)
+     * 
+     */
     @SerializedName("filename")
     @Expose
     private String filename;
+    /**
+     * 
+     * (Required)
+     * 
+     */
     @SerializedName("specification")
     @Expose
     private String specification;
 
     /**
      * 
-     * @return
-     *     The filename
+     * (Required)
+     * 
      */
     public String getFilename() {
         return filename;
@@ -26,8 +34,8 @@ public class ContextModel {
 
     /**
      * 
-     * @param filename
-     *     The filename
+     * (Required)
+     * 
      */
     public void setFilename(String filename) {
         this.filename = filename;
@@ -35,8 +43,8 @@ public class ContextModel {
 
     /**
      * 
-     * @return
-     *     The specification
+     * (Required)
+     * 
      */
     public String getSpecification() {
         return specification;
@@ -44,8 +52,8 @@ public class ContextModel {
 
     /**
      * 
-     * @param specification
-     *     The specification
+     * (Required)
+     * 
      */
     public void setSpecification(String specification) {
         this.specification = specification;

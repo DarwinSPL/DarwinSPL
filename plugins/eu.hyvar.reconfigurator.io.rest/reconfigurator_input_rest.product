@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?pde version="3.5"?>
 
-<product name="FM for HyVarRec REST Web Service" id="eu.hyvar.reconfigurator.io.rest.fm_for_hyvarrec_rest_server_new" application="eu.hyvar.reconfigurator.io.rest.server" version="1.0.0" useFeatures="false" includeLaunchers="true">
+<product name="FM for HyVarRec REST Web Service" id="eu.hyvar.reconfigurator.io.rest.fm_for_hyvarrec_server" application="eu.hyvar.reconfigurator.io.rest.fm_for_hyvarrec_server" version="1.0.0" useFeatures="false" includeLaunchers="true">
 
    <configIni use="default">
    </configIni>
@@ -29,6 +29,7 @@
       <plugin id="eu.hyvar.feature.constraint"/>
       <plugin id="eu.hyvar.feature.data"/>
       <plugin id="eu.hyvar.feature.expression"/>
+      <plugin id="eu.hyvar.mspl.manifest"/>
       <plugin id="eu.hyvar.preferences"/>
       <plugin id="eu.hyvar.reconfigurator.input"/>
       <plugin id="eu.hyvar.reconfigurator.io.rest"/>

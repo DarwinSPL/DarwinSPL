@@ -284,11 +284,13 @@ public class DwFeatureModelExporter {
 		
 		Set<Date> relevantDatesSet = null;
 		boolean considerOnlyOneDate = false;
-		
+
+		int startIndexToIterate = -1;
 		if(date != null) {
 			relevantDatesSet = new HashSet<Date>(1);
 			relevantDatesSet.add(date);
 			considerOnlyOneDate = true;
+			startIndexToIterate = 0;
 		}
 		else {
 			relevantDatesSet = new HashSet<Date>();
@@ -297,7 +299,7 @@ public class DwFeatureModelExporter {
 			
 		}
 		
-		// if there was no date, eveery since and until was null.
+		// if there was no date, every since and until was null.
 		if(relevantDatesSet.size() == 0) {
 			considerOnlyOneDate = true;
 		}
@@ -307,7 +309,7 @@ public class DwFeatureModelExporter {
 		Collections.sort(relevantDates);
 		
 		// i = -1 before the first date, as the first date could be from a validUntil while the validSince==null
-		for (int i = -1; i < relevantDates.size(); i++) {
+		for (int i = startIndexToIterate; i < relevantDates.size(); i++) {
 			groupConstraintsStringBuilder = new StringBuilder();
 			
 			Date relevantDate;
@@ -403,7 +405,7 @@ public class DwFeatureModelExporter {
 		
 		// i = -1 before the first date, as the first date could be from a
 		// validUntil while the validSince==null
-		for (int i = -1; i < relevantDates.size(); i++) {
+		for (int i = startIndexToIterate; i < relevantDates.size(); i++) {
 			groupConstraintsStringBuilder = new StringBuilder();
 
 			Date relevantDate;
