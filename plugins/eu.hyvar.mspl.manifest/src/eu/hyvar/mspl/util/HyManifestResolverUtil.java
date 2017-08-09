@@ -25,6 +25,8 @@ public class HyManifestResolverUtil {
 
 	public static String MANIFEST_SEPARATOR = ":";
 	
+	public static final String FILE_EXTENSION_FOR_XMI = "hymanifest_xmi";
+	
 	public static final String[] FILE_EXTENSIONS = { "hymanifest" };
 	
 
