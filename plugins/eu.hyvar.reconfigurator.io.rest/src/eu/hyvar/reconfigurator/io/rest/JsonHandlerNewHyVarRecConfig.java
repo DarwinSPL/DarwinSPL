@@ -120,14 +120,14 @@ public class JsonHandlerNewHyVarRecConfig extends AbstractHandler {
 		IFolder folder = null;
 		while (folder == null || folder.exists()) {
 			folder = project.getFolder(UUID.randomUUID().toString());
-
-			try {
-				folder.create(true, true, progressMonitor);
-			} catch (CoreException e) {
-				e.printStackTrace();
-			}
 		}
 
+		try {
+			folder.create(true, true, progressMonitor);
+		} catch (CoreException e) {
+			e.printStackTrace();
+		}
+		
 		IFile fmFile = FileWriterUtility.writeFileWithContent(hyVarRecConfig.getFeatureModel().getFilename(),
 				HyFeatureUtil.getFeatureModelFileExtensionForXmi(), hyVarRecConfig.getFeatureModel().getSpecification(),
 				folder);

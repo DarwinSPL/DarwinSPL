@@ -23,7 +23,7 @@ public class FileWriterUtility {
 		IFolder lastFolder = openedFolder;
 		
 		for(int i = 0; i<folders.length-1;i++) {
-			IFolder folder = openedFolder.getFolder(folders[i]);
+			IFolder folder = lastFolder.getFolder(folders[i]);
 			
 			if(!folder.exists()) {
 				try {
