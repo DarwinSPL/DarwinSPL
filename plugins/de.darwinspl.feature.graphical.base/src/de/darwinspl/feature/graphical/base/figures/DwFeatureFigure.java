@@ -297,7 +297,8 @@ public class DwFeatureFigure extends DwErrorMarkerFigure{
 		HyName name = HyEvolutionUtil.getValidTemporalElement(feature.getWrappedModelElement().getNames(), date);
 		
 		if(name != null){
-			getLabel().setText(name.getName());	
+			label.setText(name.getName());	
+			//label.setText(HyEvolutionUtil.getValidTemporalElements(feature.getWrappedModelElement().getGroupMembership(), date).size()+" P:"+feature.getParentConnections(date).size()+"  C:"+feature.getChildrenConnections(date).size());
 		}else{
 			// TODO show error that specific feature has no name at current date
 		}	

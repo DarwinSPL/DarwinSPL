@@ -50,7 +50,7 @@ public class DwFeatureModelWrapped implements PropertyChangeListener {
 
 	private List<Date> dates;
 
-	List<DwParentChildConnection> connections;
+	//List<DwParentChildConnection> connections;
 
 	/**
 	 * Handles the layout mode. If active, rearrange features will be ignored
@@ -247,7 +247,7 @@ public class DwFeatureModelWrapped implements PropertyChangeListener {
 
 		features = new ArrayList<DwFeatureWrapped>();
 		groups = new ArrayList<DwGroupWrapped>();
-		connections = new ArrayList<DwParentChildConnection>();
+		//connections = new ArrayList<DwParentChildConnection>();
 
 		// add a root feature to the model if the model is empty
 		if(model.getRootFeature().size() == 0){
@@ -257,7 +257,7 @@ public class DwFeatureModelWrapped implements PropertyChangeListener {
 		HyFeature root = model.getRootFeature().get(0).getFeature();
 		convertFeatures(root, features);
 
-		checkModelForErrors();
+	//	checkModelForErrors();
 	}
 
 
@@ -336,7 +336,9 @@ public class DwFeatureModelWrapped implements PropertyChangeListener {
 		return null;
 	}
 
-
+	public static Date getCorrectModelDate(Date date) {
+		return date.equals(new Date(Long.MIN_VALUE)) ? null : date;
+	}
 
 	/**
 	 * Adds a new connection to the feature model. A connection connects two features and always have a parent and a child feature. 
@@ -347,8 +349,7 @@ public class DwFeatureModelWrapped implements PropertyChangeListener {
 	 * connection. If you don't specify the parameter an and group will be searched at the target feature and created if not available at the given date. 
 	 */
 	public void addConnection(DwParentChildConnection connection, Date date, HyGroup childGroup){
-		if(date != null && date.equals(new Date(Long.MIN_VALUE)))
-			date = null;
+		
 
 		HyFeature parentFeature = connection.getSource().getWrappedModelElement();
 		HyFeature childFeature = connection.getTarget().getWrappedModelElement();
@@ -362,17 +363,17 @@ public class DwFeatureModelWrapped implements PropertyChangeListener {
 
 		if(childGroupComposition == null){
 			// find an and group in order to add new features to that group
-			for(HyFeatureChild child : HyEvolutionUtil.getValidTemporalElements(parentFeature.getParentOf(), selectedDate)){
-				HyGroupType type = HyEvolutionUtil.getValidTemporalElement(child.getChildGroup().getTypes(), selectedDate);		
+			for(HyFeatureChild child : HyEvolutionUtil.getValidTemporalElements(parentFeature.getParentOf(), date)){
+				HyGroupType type = HyEvolutionUtil.getValidTemporalElement(child.getChildGroup().getTypes(), date);		
 
 				if(type.getType() == HyGroupTypeEnum.AND){
-					List<HyGroupComposition> compositions = HyEvolutionUtil.getValidTemporalElements(child.getChildGroup().getParentOf(), selectedDate);
+					List<HyGroupComposition> compositions = HyEvolutionUtil.getValidTemporalElements(child.getChildGroup().getParentOf(), date);
 
 					childGroup = child.getChildGroup();
 					childGroupComposition = compositions.get(0);
 
 					// split composition to model evolution
-					if(date != null)
+					if(!date.equals(new Date(Long.MIN_VALUE)))
 						childGroupComposition = DwGroupWrapped.splitComposition(childGroupComposition, null, date);
 				}
 			}
@@ -383,18 +384,18 @@ public class DwFeatureModelWrapped implements PropertyChangeListener {
 			HyFeatureChild childChild = HyFeatureFactory.eINSTANCE.createHyFeatureChild();
 
 			childGroupComposition = HyFeatureFactory.eINSTANCE.createHyGroupComposition();
-			childGroupComposition.setValidSince(date);
+			childGroupComposition.setValidSince(getCorrectModelDate(date));
 			childGroup = HyFeatureFactory.eINSTANCE.createHyGroup();
-			childGroup.setValidSince(date);
+			childGroup.setValidSince(getCorrectModelDate(date));
 
 			HyGroupType type = HyFeatureFactory.eINSTANCE.createHyGroupType();
 			type.setType(HyGroupTypeEnum.AND);
-			type.setValidSince(date);
+			type.setValidSince(getCorrectModelDate(date));
 
 			childGroup.getTypes().add(type);
 
 			childChild.setChildGroup(childGroup);
-			childChild.setValidSince(date);
+			childChild.setValidSince(getCorrectModelDate(date));
 
 
 			parentFeature.getParentOf().add(childChild);			
@@ -416,24 +417,21 @@ public class DwFeatureModelWrapped implements PropertyChangeListener {
 		childGroupComposition.getFeatures().add(childFeature);
 		wrappedGroup.addChildFeature(connection.getTarget());
 
-		connection.getSource().addParentToChildConnection(connection);
-		connection.getTarget().addChildToParentConnection(connection);
-
-		connections.add(connection);
+		connection.getSource().addOrUpdateParentToChildConnection(connection);
+		connection.getTarget().addOrUpdateChildToParentConnection(connection);
 	}
 
 
 
 
 	public void removeConnection(DwParentChildConnection connection, Date date) {
+		if(date != null && !date.equals(new Date(Long.MIN_VALUE)) && !date.equals(connection.getValidSince())) {
+			connection.setValidUntil(date);
+		}else {
 		// remove the connection visually
 		connection.getSource().removeParentToChildConnection(connection);
 		connection.getTarget().removeChildToParentConnection(connection);
-
-
-		DwFeatureWrapped oldTarget = connection.getTarget();
-
-		removeFeature(oldTarget, date);
+		}
 	}
 
 	public void rearrangeFeatures(){
@@ -455,7 +453,6 @@ public class DwFeatureModelWrapped implements PropertyChangeListener {
 
 					Rectangle rectangle = layouter.getBounds(featureWrapped);
 
-System.out.println(featureWrapped.getWrappedModelElement().getNames().get(0).getName());
 					if(featureWrapped.isVisible())
 						featureWrapped.addPosition(rectangle.getTopLeft(), selectedDate, true);
 
@@ -474,11 +471,11 @@ System.out.println(featureWrapped.getWrappedModelElement().getNames().get(0).get
 
 		model.getFeatures().add(feature.getWrappedModelElement());
 	}
-
+/*
 	public List<DwParentChildConnection> getConnections() {
 		return connections;
 	}
-
+*/
 
 	public void removeFeature(int i){
 		DwFeatureWrapped removedFeature = features.remove(i);
@@ -502,35 +499,33 @@ System.out.println(featureWrapped.getWrappedModelElement().getNames().get(0).get
 			HyGroupType type = HyEvolutionUtil.getValidTemporalElement(group.getWrappedModelElement().getTypes(), date);
 
 			// split composition to allow evolution
-			if(date != null && (composition.getValidSince() != null ? !composition.getValidSince().equals(date) : true)){				
-				HyGroupComposition succedingComposition = DwGroupWrapped.splitComposition(composition, null, date);
-				
-				// remove feature from old composition
-				composition.getFeatures().remove(childFeature.getWrappedModelElement());
-				
-				composition = succedingComposition;
-
-				// split group types in case that no and type is selected at the selected date
-				if(composition.getFeatures().size() == 1 && type.getType() != HyGroupTypeEnum.AND){
-					group.splitGroupType(date, HyGroupTypeEnum.AND);
+			if(!date.equals(new Date(Long.MIN_VALUE)) && (composition.getValidSince() != null ? !composition.getValidSince().equals(date) : true)){			
+				if(composition.getFeatures().size() > 1) {
+					composition = DwGroupWrapped.splitComposition(composition, childFeature, date);
+					
+	
+					// split group types in case that no and type is selected at the selected date
+					if(composition.getFeatures().size() == 2 && type.getType() != HyGroupTypeEnum.AND){
+						DwGroupWrapped.splitGroupType(HyGroupTypeEnum.AND, group, date);
+					}
+				}else {
+					composition.setValidUntil(date);
 				}
 			}else{	
-				composition.getFeatures().remove(childFeature.getWrappedModelElement());
-				
-				if(composition.getFeatures().size() == 1)
+				if(composition.getFeatures().size() == 2)
 					type.setType(HyGroupTypeEnum.AND);
 			}
 			
 			
-			
+			//composition.getFeatures().remove(childFeature.getWrappedModelElement());
 			
 			if(composition.getFeatures().isEmpty()){
 				for(HyFeatureChild featureChild : composition.getCompositionOf().getChildOf()){
-					featureChild.getParent().getParentOf().remove(featureChild);
+					//featureChild.getParent().getParentOf().remove(featureChild);
 				}
 				
-				this.groups.remove(findWrappedGroup(composition.getCompositionOf()));
-				this.model.getGroups().remove(composition.getCompositionOf());
+				//if(composition.getCompositionOf().getParentOf().size() == 1)
+				//	this.model.getGroups().remove(composition.getCompositionOf());
 			}
 			// Inform editparts about the changes made to the model
 			//listeners.firePropertyChange(PROPERTY_CHILD_FEATURES, old, this);
@@ -575,6 +570,7 @@ System.out.println(featureWrapped.getWrappedModelElement().getNames().get(0).get
 		return null;
 	}
 
+	
 	private void createConnection(DwFeatureWrapped parent, DwFeatureWrapped child, Date validSince, Date validUntil){
 		DwParentChildConnection connection = new DwParentChildConnection();
 		connection.setSource(parent);
@@ -583,14 +579,15 @@ System.out.println(featureWrapped.getWrappedModelElement().getNames().get(0).get
 		connection.setValidUntil(validUntil);
 		connection.setModel(this);
 
-		parent.addParentToChildConnection(connection);
-		child.addChildToParentConnection(connection);	
+		parent.addOrUpdateParentToChildConnection(connection);
+		child.addOrUpdateChildToParentConnection(connection);	
 
-		if(!connections.contains(connection))
-			connections.add(connection);		
+		//if(!connections.contains(connection))
+		//	connections.add(connection);		
 
 		DwFeatureLayouterManager.updateLayouter(this);
 	}
+	
 
 	public void updateLayouter(){
 		DwFeatureLayouterManager.updateLayouter(this);
@@ -643,7 +640,7 @@ System.out.println(featureWrapped.getWrappedModelElement().getNames().get(0).get
 						}
 
 						Date connectionValidUntil = getValidUntilDateForConnection(childFeatureWrapped, composition);
-						createConnection(target, childFeatureWrapped, composition.getValidSince(), connectionValidUntil);
+						createConnection(target, childFeatureWrapped, composition.getValidSince(), composition.getValidUntil());
 
 						childFeatureWrapped.setParent(wrappedGroup);
 
@@ -688,13 +685,17 @@ System.out.println(featureWrapped.getWrappedModelElement().getNames().get(0).get
 	}
 
 	public void removeGroup(DwGroupWrapped group){
-
-		HyFeatureChild child = group.getWrappedModelElement().getChildOf().get(0);
-
-		if(child.getParent() != null){
-			child.getParent().getParentOf().remove(child);
+		HyGroup hyGroup = group.getWrappedModelElement();
+		if(!hyGroup.getChildOf().isEmpty()) {
+			
+			for(HyFeatureChild child : hyGroup.getChildOf()) {
+		
+				if(child.getParent() != null){
+					child.getParent().getParentOf().remove(child);
+				}
+			}
 		}
-
+				
 		model.getGroups().remove(group.getWrappedModelElement());
 
 		groups.remove(group);

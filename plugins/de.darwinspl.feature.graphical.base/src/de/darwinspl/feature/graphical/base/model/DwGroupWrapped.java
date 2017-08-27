@@ -142,8 +142,8 @@ public class DwGroupWrapped extends DwEditorChangeableElement {
 	 * @param date
 	 * @param newTypeEnum
 	 */
-	protected void splitGroupType(Date date, HyGroupTypeEnum newTypeEnum){
-		HyGroupType type = HyEvolutionUtil.getValidTemporalElement(getWrappedModelElement().getTypes(), date);
+	public static void splitGroupType(HyGroupTypeEnum newTypeEnum, DwGroupWrapped group, Date date){
+		HyGroupType type = HyEvolutionUtil.getValidTemporalElement(group.getWrappedModelElement().getTypes(), date);
 		HyGroupType newType = HyFeatureFactory.eINSTANCE.createHyGroupType();
 		newType.setValidSince(date);
 		newType.setType(newTypeEnum);
@@ -152,10 +152,10 @@ public class DwGroupWrapped extends DwEditorChangeableElement {
 		if(type.getValidSince() != null &&
 				type.getValidUntil() != null &&
 				type.getValidSince().equals(type.getValidUntil())){
-			getWrappedModelElement().getTypes().remove(type);
+			group.getWrappedModelElement().getTypes().remove(type);
 		}
 
-		getWrappedModelElement().getTypes().add(newType);
+		group.getWrappedModelElement().getTypes().add(newType);
 	}
 
 	public static HyGroupComposition splitComposition(HyGroupComposition composition, DwFeatureWrapped feature, Date date){
@@ -165,12 +165,11 @@ public class DwGroupWrapped extends DwEditorChangeableElement {
 		HyGroupComposition newComposition = HyFeatureFactory.eINSTANCE.createHyGroupComposition();
 		newComposition.setCompositionOf(composition.getCompositionOf());
 		newComposition.setSupersededElement(composition);
-		//newComposition.setSupersedingElement(composition.getSupersededElement());
 
 
 		// update validation of old composition (until) and new composition (since) selected date
-		composition.setValidUntil(date);
-		newComposition.setValidSince(date);
+		composition.setValidUntil(DwFeatureModelWrapped.getCorrectModelDate(date));
+		newComposition.setValidSince(DwFeatureModelWrapped.getCorrectModelDate(date));
 
 		for(HyFeature f : composition.getFeatures()){
 			if(feature != null){
@@ -186,22 +185,32 @@ public class DwGroupWrapped extends DwEditorChangeableElement {
 
 		group.getParentOf().add(newComposition);
 
-		removeUnlogicalComposition(composition);
+		//removeUnlogicalComposition(composition);
 
 		return newComposition;
 
 	}
-
+	
 	private static void removeUnlogicalComposition(HyGroupComposition composition){
 		if(composition.getValidSince() != null && 
 				composition.getValidUntil() != null &&
 				composition.getValidSince().equals(composition.getValidUntil())){
 
+			if(composition.getSupersededElement() != null && composition.getSupersedingElement() == null) {
+				composition.getSupersededElement().setSupersedingElement(null);
+			}
+
+			if(composition.getSupersededElement() == null && composition.getSupersedingElement() != null) {
+				composition.getSupersedingElement().setSupersededElement(null);
+			}		
+			
+			if(composition.getSupersededElement() != null && composition.getSupersedingElement() != null) {
+				composition.getSupersededElement().setSupersedingElement(composition.getSupersedingElement());
+			}
+			
 			composition.getFeatures().clear();
 
 			composition.getCompositionOf().getParentOf().remove(composition);
 		}		
 	}
-
-
 }

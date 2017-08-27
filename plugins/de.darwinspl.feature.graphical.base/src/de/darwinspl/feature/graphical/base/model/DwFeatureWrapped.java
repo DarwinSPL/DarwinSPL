@@ -404,11 +404,15 @@ public class DwFeatureWrapped extends DwEditorChangeableElement{
 	public void clearChildrenConnections(){
 		childrenConnections.clear();
 	}
-	public void addParentToChildConnection(DwParentChildConnection connection){
+	public void addOrUpdateParentToChildConnection(DwParentChildConnection connection){
 		int old = childrenConnections.size();
 		
 		if(!(childrenConnections.contains(connection))){
 			childrenConnections.add(connection);	
+		}else {
+			DwParentChildConnection other = childrenConnections.get(childrenConnections.indexOf(connection));
+			other.setValidSince(other.getValidSince());
+			other.setValidUntil(connection.getValidUntil());
 		}
 
 		//listeners.firePropertyChange(PROPERTY_PARENT_CONNECTIONS_SIZE_CHANGED, old, childrenConnections.size());
@@ -422,7 +426,7 @@ public class DwFeatureWrapped extends DwEditorChangeableElement{
 		listeners.firePropertyChange(PROPERTY_PARENT_CONNECTIONS_SIZE_CHANGED, old, childrenConnections.size());
 	}	
 
-	public void addChildToParentConnection(DwParentChildConnection connection){
+	public void addOrUpdateChildToParentConnection(DwParentChildConnection connection){
 		int old = parentConnections.size();
 
 		if(!(parentConnections.contains(connection))){

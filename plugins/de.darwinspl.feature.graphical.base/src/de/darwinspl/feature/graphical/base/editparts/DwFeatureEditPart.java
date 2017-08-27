@@ -26,8 +26,11 @@ import de.darwinspl.feature.graphical.base.figures.DwHiddenChildrenIndicatorFigu
 import de.darwinspl.feature.graphical.base.model.DwFeatureModelWrapped;
 import de.darwinspl.feature.graphical.base.model.DwFeatureWrapped;
 import de.darwinspl.feature.graphical.base.model.DwParentChildConnection;
+import de.darwinspl.feature.graphical.base.model.DwRepaintNotification;
+import eu.hyvar.evolution.HyName;
 import eu.hyvar.feature.HyFeature;
 import eu.hyvar.feature.HyFeatureAttribute;
+import eu.hyvar.feature.HyFeatureType;
 import eu.hyvar.feature.HyVersion;
 
 public class DwFeatureEditPart extends DwAbstractEditPart implements NodeEditPart{
@@ -37,22 +40,25 @@ public class DwFeatureEditPart extends DwAbstractEditPart implements NodeEditPar
 
 		@Override 
 		public void notifyChanged(Notification notification) {
-			//refreshVisuals();
-			//refreshChildren();
-			//rearrangeChildren();
-			
-			System.out.println(notification);
-/*
-			if(notification.getEventType() == ENotificationImpl.REMOVE && notification.getOldValue() instanceof HyFeatureAttribute){
-				refreshVisuals();
-			}
+			if(notification instanceof ENotificationImpl) {
+				ENotificationImpl enotification = (ENotificationImpl)notification;
+				if(enotification.getEventType() == Notification.ADD && enotification.getNewValue() instanceof HyName) {
+					refreshVisuals();
+				}
+				if(enotification.getEventType() == Notification.REMOVE && enotification.getOldValue() instanceof HyName) {
+					refreshVisuals();
+				}
+				if(enotification.getEventType() == Notification.ADD && enotification.getNewValue() instanceof HyFeatureType) {
+					refreshVisuals();
+				}
+				if(enotification.getEventType() == Notification.REMOVE && enotification.getOldValue() instanceof HyFeatureType) {
+					refreshVisuals();
+				}
+				
+				if(notification instanceof DwRepaintNotification)
+					refreshVisuals();
 
-			// update figure only if feature was not deleted
-			//if(!(notification.getEventType() == ENotificationImpl.SET && notification.getPosition() == -1))
-			//	updateFigure();
-			
-			refreshVisibility();
-*/
+			}
 		}
 
 
@@ -219,8 +225,8 @@ public class DwFeatureEditPart extends DwAbstractEditPart implements NodeEditPar
 	}
 
 	private void refreshVisualsOfConnections(){
-		
-		
+
+
 		if(sourceConnections != null){
 			for(Object o : sourceConnections){
 				((DwParentChildConnectionEditPart)o).refreshVisuals();

@@ -62,7 +62,7 @@ public class DwDeriveVariantListener extends SelectionAdapter {
 				DwVariantComposite variantComposite = dialog.getVariantComposite();
 				IFolder variantFolder = variantComposite.getFolder();
 
-				variantCreator.createAndSaveVariantFromConfiguration(featureModel, configuration, mapping, date, variantFolder);
+				//variantCreator.createAndSaveVariantFromConfiguration(featureModel, configuration, mapping, date, variantFolder);
 
 				IPath variantFolderPath = variantFolder.getFullPath();
 				MessageDialog.openInformation(shell, "Variant Creation Completed",

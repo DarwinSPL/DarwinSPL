@@ -84,8 +84,8 @@ public class DwGroupMoveToAnotherHyFeatureCommand extends Command{
 			
 			featureModelWrapped.addConnection(connection, date, group);
 			
-			featureWrapped.addChildToParentConnection(connection);
-			newParent.addParentToChildConnection(connection);
+			featureWrapped.addOrUpdateChildToParentConnection(connection);
+			newParent.addOrUpdateParentToChildConnection(connection);
 		}		
 	}
 	@Override
