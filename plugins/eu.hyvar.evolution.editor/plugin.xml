@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+
+<!--
+-->
+
+<plugin>
+
+   <extension point="org.eclipse.ui.newWizards">
+      <!-- @generated Evolution -->
+      <category
+            id="org.eclipse.emf.ecore.Wizard.category.ID"
+            name="%_UI_Wizard_category"/>
+      <wizard
+            id="eu.hyvar.evolution.presentation.HyEvolutionModelWizardID"
+            name="%_UI_HyEvolutionModelWizard_label"
+            class="eu.hyvar.evolution.presentation.HyEvolutionModelWizard"
+            category="org.eclipse.emf.ecore.Wizard.category.ID"
+            icon="icons/full/obj16/HyEvolutionModelFile.gif">
+         <description>%_UI_HyEvolutionModelWizard_description</description>
+         <selection class="org.eclipse.core.resources.IResource"/>
+      </wizard>
+   </extension>
+
+   <extension point="org.eclipse.ui.editors">
+      <!-- @generated Evolution -->
+      <editor
+            id="eu.hyvar.evolution.presentation.HyEvolutionEditorID"
+            name="%_UI_HyEvolutionEditor_label"
+            icon="icons/full/obj16/HyEvolutionModelFile.gif"
+            extensions="hyevolution"
+            class="eu.hyvar.evolution.presentation.HyEvolutionEditor"
+            contributorClass="eu.hyvar.evolution.presentation.HyEvolutionActionBarContributor">
+      </editor>
+   </extension>
+
+</plugin>
