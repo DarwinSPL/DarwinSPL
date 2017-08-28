@@ -1,7 +1,5 @@
 package de.darwinspl.feature.graphical.editor.editparts;
 
-import java.beans.PropertyChangeEvent;
-
 import org.eclipse.draw2d.Label;
 import org.eclipse.emf.common.notify.Adapter;
 import org.eclipse.emf.common.notify.Notification;
@@ -10,17 +8,16 @@ import org.eclipse.gef.EditPolicy;
 import org.eclipse.gef.Request;
 import org.eclipse.gef.RequestConstants;
 import org.eclipse.jface.viewers.TextCellEditor;
-import org.eclipse.swt.graphics.Rectangle;
 
 import de.darwinspl.feature.graphical.base.editor.DwGraphicalFeatureModelViewer;
 import de.darwinspl.feature.graphical.base.editparts.DwAttributeEditPart;
-import de.darwinspl.feature.graphical.base.editparts.DwFeatureEditPart;
 import de.darwinspl.feature.graphical.base.figures.DwAttributeFigure;
 import de.darwinspl.feature.graphical.base.model.DwFeatureModelWrapped;
 import de.darwinspl.feature.graphical.editor.locators.DwAttributeCellEditorLocator;
 import de.darwinspl.feature.graphical.editor.managers.DwAttributeDirectEditManager;
 import de.darwinspl.feature.graphical.editor.policies.attribute.DwAttributeComponentPolicy;
 import de.darwinspl.feature.graphical.editor.policies.attribute.DwAttributeDirectEditPolicy;
+import eu.hyvar.evolution.HyName;
 import eu.hyvar.feature.HyFeature;
 import eu.hyvar.feature.HyFeatureAttribute;
 
@@ -37,14 +34,15 @@ public class DwAttributeEditorEditPart extends DwAttributeEditPart {
 		// Adapter interface
 		@Override 
 		public void notifyChanged(Notification notification) {
-			
-			if(!(notification.getEventType() == Notification.SET && notification.getPosition() == -1)){
-				((DwFeatureEditPart)getParent()).propertyChange(new PropertyChangeEvent(this, "AttributeSizeChanged", figure.getBounds(), new Rectangle(0, 0, 0, 0)));
+			if((notification.getEventType() == Notification.ADD || notification.getEventType() == Notification.REMOVE) && 
+			   (notification.getNewValue() instanceof HyName || notification.getOldValue() instanceof HyName)){
+				refreshVisuals();
+				//((DwFeatureEditPart)getParent()).propertyChange(new PropertyChangeEvent(this, "AttributeSizeChanged", figure.getBounds(), new Rectangle(0, 0, 0, 0)));
 				
 			
 				//refreshVisuals();
 				
-				featureModel.rearrangeFeatures();
+				//featureModel.rearrangeFeatures();
 				
 			}
 		}

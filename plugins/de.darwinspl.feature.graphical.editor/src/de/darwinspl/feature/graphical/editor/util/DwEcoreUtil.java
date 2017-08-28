@@ -8,6 +8,7 @@ import eu.hyvar.feature.HyFeatureAttribute;
 import eu.hyvar.feature.HyFeatureChild;
 import eu.hyvar.feature.HyGroup;
 import eu.hyvar.feature.HyGroupComposition;
+import eu.hyvar.feature.HyGroupType;
 import eu.hyvar.feature.HyVersion;
 
 public class DwEcoreUtil {
@@ -27,9 +28,11 @@ public class DwEcoreUtil {
 			result.getGroupMembership().add(DwEcoreUtil.copy(composition));
 		}
 		
+		/*
 		for(HyFeatureChild child : o.getParentOf()) {
 			result.getParentOf().add(DwEcoreUtil.copy(child));
 		}
+		*/
 		
 		return result;	
 	}
@@ -37,6 +40,8 @@ public class DwEcoreUtil {
 	public static HyFeatureChild copy(HyFeatureChild o){
 		HyFeatureChild result = (HyFeatureChild)EcoreUtil.copy(o);
 		result.setId(o.getId());
+		
+		result.setParent(DwEcoreUtil.copy((o.getParent())));
 		
 		return result;	
 	}	
@@ -59,6 +64,10 @@ public class DwEcoreUtil {
 		for(int i=0; i<o.getTypes().size(); i++){
 			result.getTypes().get(i).setId(o.getTypes().get(i).getId());
 		}	
+		
+		for(HyFeatureChild child : o.getChildOf()) {
+			result.getChildOf().add(DwEcoreUtil.copy(child));
+		}
 		
 		//for(HyGroupComposition composition : o.getParentOf()) {
 		//	result.getParentOf().add(DwEcoreUtil.copy(composition));
@@ -96,6 +105,16 @@ public class DwEcoreUtil {
 		result.setTarget(o.getTarget());
 		result.setId(o.getId());
 
+		return result;
+	}
+	
+	public static HyGroupType copy(HyGroupType o) {
+		HyGroupType result = (HyGroupType)EcoreUtil.copy(o);
+		result.setId(o.getId());
+		
+		result.setSupersededElement(o.getSupersededElement());
+		result.setSupersedingElement(o.getSupersedingElement());
+		
 		return result;
 	}
 }

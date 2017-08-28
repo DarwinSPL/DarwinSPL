@@ -12,14 +12,7 @@ import eu.hyvar.feature.HyFeature;
 import eu.hyvar.feature.HyFeatureAttribute;
 
 public class DwAttributeDeleteCommand extends Command{
-	private class AttributeTemporalDeleteNotification extends NotificationImpl{
 
-		public AttributeTemporalDeleteNotification(int eventType, Object oldValue, Object newValue) {
-			super(eventType, oldValue, newValue);
-		}
-	}
-	
-	
 	private DwGraphicalFeatureModelViewer editor;
 	private HyFeatureAttribute attribute;
 	private HyFeatureAttribute oldAttribute;
@@ -55,6 +48,8 @@ public class DwAttributeDeleteCommand extends Command{
 		}else{
 			attribute.setValidUntil(oldAttribute.getValidUntil());				
 		}
+		
+		editor.refreshView();
 	}
 
 	@Override
@@ -69,16 +64,10 @@ public class DwAttributeDeleteCommand extends Command{
 		if(date.equals(attribute.getValidSince()) || date.equals(new Date(Long.MIN_VALUE))){
 			attribute.getFeature().getAttributes().remove(attribute);
 		}else{
-			attribute.setValidUntil(date);
-			for(Adapter adapter : attribute.getFeature().eAdapters())
-				adapter.notifyChanged(new AttributeTemporalDeleteNotification(0, date, date));					
+			attribute.setValidUntil(date);		
 		}
-	
-		//for(Adapter adapter : attribute.getFeature().eAdapters())
-		//	adapter.notifyChanged(new AttributeTemporalDeleteNotification(0, date, date));
-		
-		editor.getModelWrapped().rearrangeFeatures();
-		//editor.refreshView();
+
+		editor.refreshView();
 	}
 	
 	@Override

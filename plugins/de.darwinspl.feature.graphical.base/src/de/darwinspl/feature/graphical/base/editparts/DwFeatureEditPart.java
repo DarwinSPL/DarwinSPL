@@ -54,7 +54,13 @@ public class DwFeatureEditPart extends DwAbstractEditPart implements NodeEditPar
 				if(enotification.getEventType() == Notification.REMOVE && enotification.getOldValue() instanceof HyFeatureType) {
 					refreshVisuals();
 				}
-				
+				if(enotification.getEventType() == Notification.REMOVE && enotification.getOldValue() instanceof HyFeatureAttribute) {
+					refreshChildren();
+					updateFigure();
+					refreshVisibility();
+					
+				}
+								
 				if(notification instanceof DwRepaintNotification)
 					refreshVisuals();
 
@@ -141,6 +147,7 @@ public class DwFeatureEditPart extends DwAbstractEditPart implements NodeEditPar
 			figure.setTooltipVisible(false);
 		}
 
+		//refreshChildren();
 		refreshVisuals();
 
 		refreshTargetConnections();
@@ -204,8 +211,20 @@ public class DwFeatureEditPart extends DwAbstractEditPart implements NodeEditPar
 
 		updateFigure();
 
-		refreshVisualsOfConnections();		
+		// TODO update them only if selected date has changed to improve performance
+		refreshSourceConnections();
+		refreshTargetConnections();
+		
 		refreshVisualsOfChildren();
+		refreshVisualsOfConnections();		
+	}
+	
+	@Override
+	protected void refreshVisibility() {
+		super.refreshVisibility();
+		
+		DwFeatureWrapped wrappedFeature = (DwFeatureWrapped)this.getModel();		
+		figure.setVisible(wrappedFeature.isVisible());
 	}
 
 	private void updateFigure(){
@@ -220,13 +239,13 @@ public class DwFeatureEditPart extends DwAbstractEditPart implements NodeEditPar
 		if(featureIsCurrentlyValid){
 			figure.update();
 		}
-
-		figure.setVisible(wrappedFeature.isVisible());
+		
+		refreshVisibility();
 	}
 
 	private void refreshVisualsOfConnections(){
-
-
+		DwFeatureWrapped wrappedFeature = (DwFeatureWrapped)this.getModel();
+		
 		if(sourceConnections != null){
 			for(Object o : sourceConnections){
 				((DwParentChildConnectionEditPart)o).refreshVisuals();

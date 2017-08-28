@@ -1,6 +1,8 @@
 package de.darwinspl.feature.graphical.editor.commands.feature;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.gef.EditPart;
@@ -8,17 +10,20 @@ import org.eclipse.gef.EditPart;
 import de.darwinspl.feature.graphical.base.editor.DwGraphicalFeatureModelViewer;
 import de.darwinspl.feature.graphical.base.editparts.DwFeatureEditPart;
 import de.darwinspl.feature.graphical.base.editparts.DwRootFeatureEditPart;
-import de.darwinspl.feature.graphical.base.model.DwFeatureModelWrapped;
 import de.darwinspl.feature.graphical.base.model.DwFeatureWrapped;
 import de.darwinspl.feature.graphical.base.model.DwParentChildConnection;
 import de.darwinspl.feature.graphical.editor.util.DwEcoreUtil;
 import eu.hyvar.evolution.HyTemporalElement;
 import eu.hyvar.feature.HyFeature;
+import eu.hyvar.feature.HyFeatureChild;
+import eu.hyvar.feature.HyGroup;
 import eu.hyvar.feature.HyGroupComposition;
+import eu.hyvar.feature.HyGroupType;
 
 public class DwFeatureDeleteCommand extends DwAbstractFeatureDeleteCommand{
 
-	DwParentChildConnection oldConnection;
+	DwParentChildConnection backupConnection;
+	DwParentChildConnection connection;
 	public DwFeatureDeleteCommand(DwGraphicalFeatureModelViewer viewer, EditPart host) {
 		super(viewer);
 
@@ -53,8 +58,10 @@ public class DwFeatureDeleteCommand extends DwAbstractFeatureDeleteCommand{
 	public boolean canExecute() {
 		if(host instanceof DwRootFeatureEditPart)
 			return false;
-		if(host instanceof DwFeatureEditPart)
-			return true;
+		if(host instanceof DwFeatureEditPart) {
+			return feature.getChildrenConnections(viewer.getCurrentSelectedDate()).isEmpty();
+		}
+			
 
 		return false;
 	}
@@ -68,7 +75,7 @@ public class DwFeatureDeleteCommand extends DwAbstractFeatureDeleteCommand{
 
 
 
-		oldFeature = DwEcoreUtil.copy(feature);
+		backupFeature = DwEcoreUtil.copy(feature);
 		oldParent = this.feature.getParentFeature(executionDate);
 
 		feature.setValidUntil(executionDate);
@@ -79,14 +86,12 @@ public class DwFeatureDeleteCommand extends DwAbstractFeatureDeleteCommand{
 		restrictHyLinearTemporalElementsToParentValidUntil((EList<HyTemporalElement>)(EList<?>)feature.getVersions());
 
 
+		// backup connection 
+		connection = this.feature.getParentConnections(executionDate).get(0);
+		backupConnection = DwEcoreUtil.copy(connection);		
+		connection.setValidUntil(executionDate);
 
 		viewer.getModelWrapped().removeFeature(this.feature, executionDate);
-
-		// remove or hide connection 
-		DwParentChildConnection connection = this.feature.getParentConnections(executionDate).get(0);
-		oldConnection = DwEcoreUtil.copy(connection);
-		viewer.getModelWrapped().removeConnection(connection, executionDate);
-
 
 		// delete the selection from the element
 		host.setSelected(0);
@@ -96,45 +101,106 @@ public class DwFeatureDeleteCommand extends DwAbstractFeatureDeleteCommand{
 
 	}
 
+	@SuppressWarnings("unchecked")
 	public void undo(){
-		DwFeatureModelWrapped featureModel = viewer.getModelWrapped();
-
-		HyFeature realFeature = getRealModelFeature(oldFeature);
-		realFeature.setValidSince(oldFeature.getValidSince());
-		realFeature.setValidUntil(oldFeature.getValidUntil());
-
+		HyFeature realFeature = getRealModelFeature(backupFeature);
+		realFeature.setValidSince(backupFeature.getValidSince());
+		realFeature.setValidUntil(backupFeature.getValidUntil());
+		
 		// undo restrictions of children
 		undoRestrictHyLinearTemporalElementsToParentValidUntil((EList<HyTemporalElement>)(EList<?>)realFeature.getNames(), 
-				(EList<HyTemporalElement>)(EList<?>)oldFeature.getNames());
+				(EList<HyTemporalElement>)(EList<?>)backupFeature.getNames());
 		undoRestrictHyLinearTemporalElementsToParentValidUntil((EList<HyTemporalElement>)(EList<?>)realFeature.getAttributes(), 
-				(EList<HyTemporalElement>)(EList<?>)oldFeature.getAttributes());
+				(EList<HyTemporalElement>)(EList<?>)backupFeature.getAttributes());
 		undoRestrictHyLinearTemporalElementsToParentValidUntil((EList<HyTemporalElement>)(EList<?>)realFeature.getVersions(), 
-				(EList<HyTemporalElement>)(EList<?>)oldFeature.getVersions());
+				(EList<HyTemporalElement>)(EList<?>)backupFeature.getVersions());
+		
+		List<HyGroupComposition> compositionToBeDeleted = new ArrayList<>();
+		for(HyGroupComposition composition : realFeature.getGroupMembership()) {
+			boolean exist = false;
+			for(HyGroupComposition backupComposition : backupFeature.getGroupMembership()) {
+				
+				if(composition.getId().equals(backupComposition.getId())){
+					exist = true;
+					
+					HyGroup group = composition.getCompositionOf();
+					HyGroup backupGroup = backupComposition.getCompositionOf();
+					
+					if(group.getId().equals(backupGroup.getId())){
+						List<HyGroupType> groupTypesToBeDeleted = new ArrayList<>();
+						for(HyGroupType groupType : group.getTypes()) {
+							boolean groupTypeExist = false;
+							
+							for(HyGroupType backupGroupType : backupGroup.getTypes()) {
+								if(groupType.getId().equals(backupGroupType.getId())) {
+									groupTypeExist = true;
+									groupType.setType(backupGroupType.getType());
+									groupType.setValidSince(backupGroupType.getValidSince());
+									groupType.setValidUntil(backupGroupType.getValidUntil());
+									groupType.setSupersedingElement(backupGroupType.getSupersedingElement());
+									groupType.setSupersededElement(backupGroupType.getSupersededElement());
+								}
+							}
+							
+							if(!groupTypeExist)
+								groupTypesToBeDeleted.add(groupType);
+						}
+						
+						group.getTypes().removeAll(groupTypesToBeDeleted);
+						
+						List<HyGroupComposition> compositionToBeDeletedFromGroup = new ArrayList<>();
+						for(HyGroupComposition groupComposition : composition.getCompositionOf().getParentOf()) {
+							boolean groupCompositionExist = false;
+							
+							for(HyGroupComposition backupGroupComposition : backupComposition.getCompositionOf().getParentOf()) {
+								if(groupComposition.getId().equals(backupGroupComposition.getId())) {
+									groupCompositionExist = true;		
+								}
+														
+							}
+							
+							if(!groupCompositionExist) {
+								compositionToBeDeletedFromGroup.add(groupComposition);
+								groupComposition.getFeatures().clear();
+							}
+						}
+						composition.getCompositionOf().getParentOf().removeAll(compositionToBeDeletedFromGroup);
+					}
+					
+					composition.setValidSince(backupComposition.getValidSince());
+					composition.setValidUntil(backupComposition.getValidUntil());
+					composition.setSupersedingElement(backupComposition.getSupersedingElement());
+					
+					List<HyFeatureChild> childToBeDeleted = new ArrayList<>();					
+					for(HyFeatureChild child : composition.getCompositionOf().getChildOf()) {
+						boolean childExist = false;
+						for(HyFeatureChild backupChild : backupComposition.getCompositionOf().getChildOf()) {
+							if(child.getId().equals(backupChild.getId())) {
+								childExist = true;
+								
+								child.setValidSince(backupChild.getValidSince());
+								child.setValidUntil(backupChild.getValidUntil());
+							}
+						}	
+						
+						if(!childExist) {
+							childToBeDeleted.add(child);
+						}
+					}
 
-		// remove the splitted composition from the feature model
-		for(HyGroupComposition composition : realFeature.getGroupMembership()){
-			// the last composition where the feature is part of
-			if(composition.getValidUntil().equals(executionDate)){
-				composition.getCompositionOf().getParentOf().remove(composition.getSupersedingElement());
-
-				HyGroupComposition newAddedComposition = (HyGroupComposition)composition.getSupersedingElement();
-				newAddedComposition.getFeatures().clear();
-
-				composition.setValidUntil(null);
-				composition.getFeatures().add(realFeature);
-
-				composition.setSupersedingElement(null);
+					composition.getCompositionOf().getChildOf().removeAll(childToBeDeleted);
+				}
+			}
+			
+			if(!exist) {
+				compositionToBeDeleted.add(composition);
 			}
 		}
-
-		// remove or hide connection 
-		for(DwParentChildConnection connection : feature.getParentConnections()) {
-			if(connection.getId().equals(oldConnection.getId())) {
-				connection.setValidUntil(oldConnection.getValidUntil());
-			}
-		}
-
-		featureModel.rearrangeFeatures();
+		
+		realFeature.getGroupMembership().removeAll(compositionToBeDeleted);
+		
+		connection.setValidUntil(backupConnection.getValidUntil());
+		
 		viewer.refreshView();	
 	}
 

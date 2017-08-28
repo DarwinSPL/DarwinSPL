@@ -40,55 +40,60 @@ import eu.hyvar.feature.HyVersion;
  */
 public class DwFeatureFigure extends DwErrorMarkerFigure{
 	/**
+	 * Tooltip to display the id of a feature
+	 */
+	private DwTooltipFigure tooltipFigure;	
+	
+	/**
 	 * Button to hide/show children
 	 */
 	private DwExpandButton expandButton;
-	
+
 	/**
 	 * Figure to indicate the type of the feature
 	 */
 	private DwFeatureTypeFigure typeFigure;
-	
+
 	/**
 	 * Indicator to show the numbers of hidden features
 	 */
 	private DwHiddenChildrenIndicatorFigure hiddenChildrenIndicator;
-	
 
-	
+
+
 	protected AbstractConnectionAnchor parentAnchor;
 	protected AbstractConnectionAnchor childrenAnchor;
-	
+
 	/**
 	 * The model that is represented by this figure
 	 */
 	protected DwFeatureWrapped feature;
-	
-		
+
+
 	public DwFeatureFigure(DwGraphicalFeatureModelViewer editor, DwFeatureWrapped feature) {
 		super(editor);
-		
+
 		this.feature = feature;	
-		
+
 		createExpandButton();
 		createHiddenChildrenIndicator();
 		createTypeFigure();
 		createIconFigure();
-		
-		
+
+
 		this.setLayoutManager(new XYLayout());
-		
+
 		parentAnchor = new DwFeatureParentAnchor(this, editor);	
 		childrenAnchor = new DwFeatureChildrenAnchor(this, editor);
-		
-		
+
+
 	}
-	
+
 
 	@Override
 	protected void createTooltipFigure() {
 		super.createTooltipFigure();
-		
+
 		if(calculateIconVisibility())
 			setTooltipText(editor.getModelWrapped().getMarkerForElement(feature.getWrappedModelElement()).getMessage());
 	}
@@ -121,18 +126,18 @@ public class DwFeatureFigure extends DwErrorMarkerFigure{
 
 		add(label);	
 	}
-	
+
 	/**
 	 * Creates the button to show/hide children
 	 */
 	private void createExpandButton(){
 		expandButton = new DwExpandButton();
 		add(expandButton);
-		
+
 		expandButton.setSize(new Dimension( 16, 16 ));
 		expandButton.setDirection(Orientable.NORTH);
 		expandButton.setVisible(false);
-		
+
 		expandButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent event) {
@@ -140,7 +145,7 @@ public class DwFeatureFigure extends DwErrorMarkerFigure{
 			}
 		});		
 	}
-	
+
 	/**
 	 * Creates the figure to show the number of hidden children
 	 */
@@ -148,7 +153,7 @@ public class DwFeatureFigure extends DwErrorMarkerFigure{
 		hiddenChildrenIndicator = new DwHiddenChildrenIndicatorFigure(feature, editor.getModelWrapped());
 		add(hiddenChildrenIndicator);
 	}
-	
+
 	/**
 	 * Creates the figure to indicate the feature type if the figure has a type
 	 */
@@ -156,15 +161,15 @@ public class DwFeatureFigure extends DwErrorMarkerFigure{
 		typeFigure = new DwFeatureTypeFigure(feature, editor.getModelWrapped());
 		add(typeFigure);
 	}
-	
 
 
-	
+
+
 	@Override
 	protected boolean useLocalCoordinates(){
 		return true;
 	}
-	
+
 	/**
 	 * Paints the background for the name area with the predefined style as defined by 
 	 * DeltaEcore
@@ -178,10 +183,10 @@ public class DwFeatureFigure extends DwErrorMarkerFigure{
 		//Compensate for line width
 		int halfLineWidth = theme.getLineWidth() / 2;
 		nameAreaBounds.expand(-halfLineWidth, -halfLineWidth);
-		
+
 		DEDrawingUtil.gradientFillRectangle(graphics, nameAreaBounds, theme.getFeatureNameAreaPrimaryColor(), theme.getFeatureNameAreaSecondaryColor());
 		DEDrawingUtil.outlineRectangle(graphics, nameAreaBounds, theme.getLineColor());
-		
+
 	}
 
 	/**
@@ -194,19 +199,19 @@ public class DwFeatureFigure extends DwErrorMarkerFigure{
 		//Label size
 		Rectangle nameAreaBounds = feature.calculateNameAreaBounds(date);
 		Dimension preferredLabelSize = label.getPreferredSize();
-		
+
 		int labelWidth = nameAreaBounds.width;
 		int labelHeight = preferredLabelSize.height;
 		int labelX = theme.getPrimaryMargin() / 2;
 		int labelY = feature.calculateVariationTypeCircleBounds(date).height + (theme.getFeatureNameAreaHeight() - labelHeight) / 2;
-		
+
 		Rectangle labelBounds = new Rectangle(labelX, labelY, labelWidth, labelHeight);
 		label.setBounds(labelBounds);
 		setConstraint(label, labelBounds);
 	}
-	
+
 	protected void paintVersionAreaBackground(Graphics graphics) {
-		
+
 		DEGraphicalEditorTheme theme = DEGraphicalEditor.getTheme();
 		Rectangle versionAreaBounds = feature.calculateVersionAreaBounds(editor.getCurrentSelectedDate());
 
@@ -214,19 +219,19 @@ public class DwFeatureFigure extends DwErrorMarkerFigure{
 		int halfLineWidth = (int) Math.ceil(theme.getLineWidth() / 2);
 		versionAreaBounds.expand(new Insets(halfLineWidth, -halfLineWidth, -halfLineWidth, -halfLineWidth));
 
-		
+
 		DEDrawingUtil.gradientFillRectangle(graphics, versionAreaBounds, theme.getFeatureVersionAreaPrimaryColor(), theme.getFeatureVersionAreaSecondaryColor());
-		
+
 		paintVersionMarks(graphics);
 		paintAttributeMarks(graphics);
-		
+
 		DEDrawingUtil.outlineRectangle(graphics, versionAreaBounds, theme.getLineColor());
-		
+
 	}
 	protected void paintAttributeAreaBackground(Graphics graphics) {
-		
+
 		DEGraphicalEditorTheme theme = DEGraphicalEditor.getTheme();
-		
+
 		Date date = editor.getCurrentSelectedDate();
 		Rectangle attributesAreaBounds = feature.calculateAttributesAreaBounds(date);
 
@@ -235,21 +240,21 @@ public class DwFeatureFigure extends DwErrorMarkerFigure{
 		attributesAreaBounds.expand(new Insets(halfLineWidth, -halfLineWidth, -halfLineWidth, -halfLineWidth));
 
 		DEDrawingUtil.gradientFillRectangle(graphics, attributesAreaBounds, theme.getFeatureVersionAreaPrimaryColor(), theme.getFeatureVersionAreaSecondaryColor());
-		
+
 		paintAttributeMarks(graphics);
-		
+
 		DEDrawingUtil.outlineRectangle(graphics, attributesAreaBounds, theme.getLineColor());
 	}
-	
-	
+
+
 	protected Rectangle getVersionMarkRectangle(HyVersion version) {
 		HyFeature feature = this.feature.getWrappedModelElement();
 		DwVersionTreeLayouter versionTree = DwVersionLayouterManager.getLayouter(feature, editor.getCurrentSelectedDate());
 		Rectangle versionBounds = versionTree.getBounds(version);
-		
+
 		return versionBounds;
 	}
-	
+
 	protected void paintVersionMarks(Graphics graphics) {
 	}
 	protected void paintAttributeMarks(Graphics graphics) {
@@ -258,92 +263,91 @@ public class DwFeatureFigure extends DwErrorMarkerFigure{
 	protected Rectangle getAttributeMarkRectangle(HyFeatureAttribute attribute) {
 		DEGraphicalEditorTheme theme = DEGraphicalEditor.getTheme();
 		Date date = editor.getCurrentSelectedDate();
-		
-		
+
+
 		int index = HyEvolutionUtil.getValidTemporalElements(attribute.getFeature().getAttributes(), date).indexOf(attribute);
 		int height = theme.getFeatureNameAreaHeight()+theme.getLineWidth();
 		int y = feature.getHeightWithoutAttributes(date);
-		
+
 		return new Rectangle(new Point(theme.getLineWidth(), y + index*height), 
-				 new Dimension(feature.getSize(date).width-theme.getLineWidth()*2, height));
+				new Dimension(feature.getSize(date).width-theme.getLineWidth()*2, height));
 	}
 
 	private void resizeToContent() {
 		Date date = editor.getCurrentSelectedDate();
-		
+
 		int width = DwGeometryUtil.calculateFeatureWidth(feature.getWrappedModelElement(), date);
 		int height = DwGeometryUtil.calculateFeatureHeight(feature.getWrappedModelElement(), date);
-		
+
 		setSize(width, height);
 	}
-	
+
 	private void updateExpandButton(){
 		DEGraphicalEditorTheme theme = DEGraphicalEditor.getTheme();
 
 		Date date = editor.getCurrentSelectedDate();
-		
+
 		int width = feature.getSize(date).width;
-		
+
 		int positionY = theme.getFeatureNameAreaHeight() / 2-8;
 		positionY += feature.calculateVariationTypeCircleBounds(editor.getCurrentSelectedDate()).height;
-		
+
 		expandButton.setLocation(new Point(width-18, positionY));		
 	}
-	
 
-	
+
+
 	private void updateContent(){
 		Date date = editor.getCurrentSelectedDate();
 		HyName name = HyEvolutionUtil.getValidTemporalElement(feature.getWrappedModelElement().getNames(), date);
-		
+
 		if(name != null){
 			label.setText(name.getName());	
-			//label.setText(HyEvolutionUtil.getValidTemporalElements(feature.getWrappedModelElement().getGroupMembership(), date).size()+" P:"+feature.getParentConnections(date).size()+"  C:"+feature.getChildrenConnections(date).size());
 		}else{
 			// TODO show error that specific feature has no name at current date
 		}	
-		
+
 		expandButton.setDirection(feature.isHideChildren() ? Orientable.SOUTH : Orientable.NORTH);
 		expandButton.setVisible(!feature.getChildrenConnections(date).isEmpty());
 	}
-	
+
 	private void updateHiddenChildrenIndicator(){
 		this.hiddenChildrenIndicator.update();
 	}
-	
+
 	public void update() {
 		updateContent();
-		
+
 		resizeToContent();
 		updateLabel();
 		updateExpandButton();
 		updateIconFigure();
 		updateHiddenChildrenIndicator();
-		
+
 		repaint();
-		
+
 		typeFigure.repaint();
 	}
-	
+
 	@Override 
 	protected void paintFigure(Graphics graphics) {
 		Date date = editor.getCurrentSelectedDate();
 
 		if (feature.hasVersionsAtDate(date)) {
 			paintVersionAreaBackground(graphics);
-			
+
 			paintConnection(graphics, HyEvolutionUtil.getValidTemporalElements(feature.getWrappedModelElement().getVersions(), date).get(0));
 		}
-		
-		
+
+
 		if (feature.hasAttributesAtDate(date)) {
 			paintAttributeAreaBackground(graphics);
 		}		
-		
+
 		paintNameAreaBackground(graphics);
 
 	}
-	
+
 	protected void paintConnection(Graphics graphics, HyVersion superseded) {
 		Date date = ((DwGraphicalFeatureModelViewer)editor).getCurrentSelectedDate();
 		HyFeature feature = superseded.getFeature();
@@ -352,8 +356,8 @@ public class DwFeatureFigure extends DwErrorMarkerFigure{
 		for(HyVersion superseding : HyEvolutionUtil.getValidTemporalElements(superseded.getSupersedingVersions(), date)){
 			Rectangle sb = versionTreeLayouter.getBounds(superseded);
 			Rectangle ss = versionTreeLayouter.getBounds(superseding);
-			
-			
+
+
 			Point supersedeedLocation = sb.getCenter();
 			Point supersedingLocation = ss.getCenter();
 
@@ -364,7 +368,7 @@ public class DwFeatureFigure extends DwErrorMarkerFigure{
 			DEGraphicalEditorTheme theme = DEGraphicalEditor.getTheme();
 			graphics.setForegroundColor(theme.getLineColor());
 			graphics.setLineWidth(theme.getLineWidth());
-		
+
 
 			graphics.setLineWidth(2);
 			Point start = new Point(supersedeedLocation.x + getLocation().x, supersedeedLocation.y + getLocation().y);
@@ -374,7 +378,7 @@ public class DwFeatureFigure extends DwErrorMarkerFigure{
 			paintConnection(graphics, superseding);
 		}
 	}
-	
+
 
 
 	@Override
@@ -384,14 +388,14 @@ public class DwFeatureFigure extends DwErrorMarkerFigure{
 		if(featureModel.hasMarkerForElement(feature.getWrappedModelElement())){
 			return true;
 		}
-		
+
 		return false;
 	}
-	
+
 	protected Point calculateLocation(){
 		DEGraphicalEditorTheme theme = DEGraphicalEditor.getTheme();
 		Date date = editor.getCurrentSelectedDate();
-		
+
 		return new Point(theme.getPrimaryMargin() / 2, feature.calculateVariationTypeCircleBounds(date).height + feature.calculateNameAreaBounds(date).height / 2 - 8);
 
 	}

@@ -143,7 +143,7 @@ public class DwFeatureModelSVGGenerator {
 					DwFeatureWrapped leftest = null;
 					DwFeatureWrapped rightest = null;
 					for(HyFeature feature : group.getFeatures(date)){
-						DwFeatureWrapped featureWrapped = featureModelWrapped.getWrappedFeature(feature);
+						DwFeatureWrapped featureWrapped = featureModelWrapped.findWrappedFeature(feature);
 						if(HyEvolutionUtil.isValid(featureWrapped.getWrappedModelElement(), date)){
 							if(leftest == null){
 								leftest = featureWrapped;
@@ -295,7 +295,7 @@ public class DwFeatureModelSVGGenerator {
 		HyFeatureModel model = modelWrapped.getModel();
 
 		HyRootFeature rootFeature = HyEvolutionUtil.getValidTemporalElement(model.getRootFeature(), date);
-		DwFeatureWrapped featureWrapped = modelWrapped.getWrappedFeature(rootFeature.getFeature());
+		DwFeatureWrapped featureWrapped = modelWrapped.findWrappedFeature(rootFeature.getFeature());
 
 	
 		DwFeatureModelSVGFeatureDataObject root = convertFeature(featureWrapped);

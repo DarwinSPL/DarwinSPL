@@ -27,8 +27,6 @@ public class DwGroupEditorEditPart extends DwGroupEditPart {
 
 		@Override 
 		public void notifyChanged(Notification notification) {
-			System.out.println(notification);
-			
 			if(notification instanceof ENotificationImpl) {
 				ENotificationImpl enotification = (ENotificationImpl)notification;
 				if(enotification.getEventType() == Notification.ADD && enotification.getNewValue() instanceof HyGroupType) {
@@ -53,17 +51,9 @@ public class DwGroupEditorEditPart extends DwGroupEditPart {
 
 					// remove feature from the child list of the group
 					if(notification.getNotifier() instanceof HyFeature){
-						DwFeatureWrapped removedFeatureWrapped = featureModel.getWrappedFeature((HyFeature)notification.getNotifier());
+						DwFeatureWrapped removedFeatureWrapped = featureModel.findWrappedFeature((HyFeature)notification.getNotifier());
 						groupWrapped.getFeatures().remove(removedFeatureWrapped);
 					}	
-					
-					Date date = featureModel.getSelectedDate();
-					
-					for(DwFeatureWrapped featureWrapped : groupWrapped.getFeaturesWrapped(date)){
-						// notify all children about the change
-						
-						//featureWrapped.getListeners().firePropertyChange(new PropertyChangeEvent(groupWrapped.getWrappedModelElement(), GROUP_MODEL_CHANGED, notification.getOldValue(), notification.getNewValue()));
-					}					
 					
 					refreshVisuals(); 
 					

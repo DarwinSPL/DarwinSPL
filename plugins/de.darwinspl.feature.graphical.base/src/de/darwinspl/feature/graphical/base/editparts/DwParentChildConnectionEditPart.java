@@ -134,6 +134,5 @@ public class DwParentChildConnectionEditPart extends AbstractConnectionEditPart 
 		}else{
 			figure.setVisible(false);
 		}
-		
 	}
 }

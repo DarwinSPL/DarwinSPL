@@ -96,7 +96,7 @@ public class DwGroupWrapped extends DwEditorChangeableElement {
 	 */
 	public void addChildFeature(DwFeatureWrapped childFeature){
 		DwGroupWrapped old = clone();
-		HyGroupComposition composition = getWrappedModelElement().getParentOf().get(0);
+		//HyGroupComposition composition = getWrappedModelElement().getParentOf().get(0);
 
 		//childFeature.getWrappedModelElement().getGroupMembership().add(composition);
 		//childFeature.setParent(this);

@@ -88,13 +88,11 @@ public class DwFeatureDeletePermanentlyCommand extends DwAbstractFeatureDeleteCo
 		HyFeature feature = this.feature.getWrappedModelElement();
 		
 		// save a copy to the feature with dummy references to all related elements
-		oldFeature = DwEcoreUtil.copy(feature);
+		backupFeature = DwEcoreUtil.copy(feature);
 		
 		EList<HyGroupComposition> compositions = feature.getGroupMembership();
 		for(HyGroupComposition composition : compositions){
 
-			HyGroupComposition backupComposition = DwEcoreUtil.copy(composition);
-			oldFeature.getGroupMembership().add(backupComposition);
 			EList<HyFeature> features = composition.getFeatures();
 
 			// if the group has only one feature delete the group
@@ -119,7 +117,10 @@ public class DwFeatureDeletePermanentlyCommand extends DwAbstractFeatureDeleteCo
 					featureChild.getParent().getParentOf().remove(featureChild);
 				}
 
-				viewer.getModelWrapped().removeGroup(viewer.getModelWrapped().findWrappedGroup(realGroup));
+				DwGroupWrapped groupWrapped = viewer.getModelWrapped().findWrappedGroup(realGroup);
+				
+				if(groupWrapped != null)
+					viewer.getModelWrapped().removeGroup(groupWrapped);
 			// change group type to and
 			}else if(features.size() == 2){
 				HyGroup realGroup = composition.getCompositionOf();
@@ -133,17 +134,12 @@ public class DwFeatureDeletePermanentlyCommand extends DwAbstractFeatureDeleteCo
 			// delete all parent elements of the group
 			if(this.group != null)
 				this.group.getParentOf().clear();
-			
-			backupComposition.setCompositionOf(this.group);			
-			groupMemberships.add(backupComposition);
+
 		}
 		
 		feature.getGroupMembership().clear();
 
-		for(HyGroupComposition composition : groupMemberships){
-			composition.getFeatures().add(oldFeature);
-		}
-		
+	
 		// remove feature and update feature model view
 		viewer.getModelWrapped().removeFeature(index);
 		
@@ -166,12 +162,12 @@ public class DwFeatureDeletePermanentlyCommand extends DwAbstractFeatureDeleteCo
 		
 
 
-		feature.setWrappedModelElement(oldFeature);
+		feature.setWrappedModelElement(backupFeature);
 
 		
-		int size = oldFeature.getGroupMembership().size();
+		int size = backupFeature.getGroupMembership().size();
 		for(int i=0; i<size; i++){
-			HyGroupComposition backupComposition = oldFeature.getGroupMembership().get(i);
+			HyGroupComposition backupComposition = backupFeature.getGroupMembership().get(i);
 		
 			HyGroup backupGroup = backupComposition.getCompositionOf();
 			HyGroup group = getRealModelGroup(backupGroup);
@@ -194,11 +190,22 @@ public class DwFeatureDeletePermanentlyCommand extends DwAbstractFeatureDeleteCo
 				
 				HyGroupComposition composition = getRealModelGroupComposition(group, backupComposition);
 				
-				if(composition != null){
-					oldFeature.getGroupMembership().set(i, composition);
+				if(composition != null){				
 					
-					oldFeature.getGroupMembership().add(composition);
-					composition.getFeatures().add(oldFeature);
+					if(!backupFeature.getGroupMembership().contains(composition) && !(backupComposition.getId().equals(composition.getId()))) {
+						backupFeature.getGroupMembership().set(i, composition);
+					
+						backupFeature.getGroupMembership().add(composition);
+						
+					}
+					
+					for(HyGroupComposition backupFeatureComposition : backupFeature.getGroupMembership()) {
+						if(backupFeatureComposition.getId().equals(composition.getId())) {
+							backupFeature.getGroupMembership().remove(backupFeatureComposition);
+							break;
+						}
+					}
+					composition.getFeatures().add(backupFeature);
 				}else
 					System.err.println("GroupComposition is not part of the feature model...");
 			}

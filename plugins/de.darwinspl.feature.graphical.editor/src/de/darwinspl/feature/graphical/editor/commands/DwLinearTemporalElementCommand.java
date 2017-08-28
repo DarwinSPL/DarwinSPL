@@ -18,16 +18,18 @@ public class DwLinearTemporalElementCommand extends Command{
 	}
 	
 	protected void changeVisibilities(HyLinearTemporalElement previousElement, HyLinearTemporalElement newElement, Date date){
+		Date modelDate = date;
+		
 		if(date != null && date.equals(new Date(Long.MIN_VALUE)))
-			date = null;
+			modelDate = null;
 		
 		if(previousElement == null){	
-			newElement.setValidSince(date);
+			newElement.setValidSince(modelDate);
 			return;
 		}
 		
-		previousElement.setValidUntil(date);
-		newElement.setValidSince(date);
+		previousElement.setValidUntil(modelDate);
+		newElement.setValidSince(modelDate);
 		
 		HyLinearTemporalElement successor = previousElement.getSupersedingElement();
 		if(successor == null){			

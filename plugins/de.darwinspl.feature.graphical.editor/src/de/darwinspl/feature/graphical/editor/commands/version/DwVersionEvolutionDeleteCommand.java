@@ -2,15 +2,10 @@ package de.darwinspl.feature.graphical.editor.commands.version;
 
 import java.util.Date;
 
-import org.eclipse.emf.ecore.EStructuralFeature;
-import org.eclipse.emf.ecore.InternalEObject;
-import org.eclipse.emf.ecore.impl.ENotificationImpl;
-import org.eclipse.emf.ecore.impl.EStructuralFeatureImpl;
 import org.eclipse.gef.EditPart;
 
 import de.darwinspl.feature.graphical.base.editor.DwGraphicalFeatureModelViewer;
 import de.darwinspl.feature.graphical.base.editparts.DwVersionEditPart;
-import de.darwinspl.feature.graphical.base.model.DwFeatureWrapped;
 import de.darwinspl.feature.graphical.editor.commands.DwFeatureModelEditorCommand;
 import de.darwinspl.feature.graphical.editor.util.DwEcoreUtil;
 import eu.hyvar.evolution.util.HyEvolutionUtil;
@@ -23,8 +18,6 @@ public class DwVersionEvolutionDeleteCommand extends DwFeatureModelEditorCommand
 	
 	private EditPart host;
 	
-	private DwFeatureWrapped featureWrapped;
-	
 
 	public HyVersion getVersion() {
 		return version;
@@ -32,7 +25,6 @@ public class DwVersionEvolutionDeleteCommand extends DwFeatureModelEditorCommand
 
 	public void setVersion(HyVersion version) {
 		this.version = version;
-		this.featureWrapped = viewer.getModelWrapped().getWrappedFeature(version.getFeature());
 	}
 
 	public DwVersionEvolutionDeleteCommand(DwGraphicalFeatureModelViewer viewer, EditPart host) {

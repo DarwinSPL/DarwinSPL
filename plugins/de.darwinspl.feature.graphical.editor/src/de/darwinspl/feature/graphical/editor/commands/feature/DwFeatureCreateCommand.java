@@ -62,11 +62,13 @@ public class DwFeatureCreateCommand extends DwFeatureModelEditorCommand {
 		feature.getNames().add(name);
 
 		HyFeatureType type = HyFeatureFactory.eINSTANCE.createHyFeatureType();
+		type.setValidSince(DwFeatureModelWrapped.getCorrectModelDate(date));
 		feature.getTypes().add(type);
 		
 		connection = new DwParentChildConnection();
 		connection.setSource(parent);
 		connection.setTarget(newFeature);
+		connection.setValidSince(DwFeatureModelWrapped.getCorrectModelDate(date));
 		connection.setModel(featureModel);
 		
 		featureModel.addConnection(connection, featureModel.getSelectedDate(), null);
