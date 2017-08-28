@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.2"?>
+<plugin>
+	<extension point="org.emftext.access.syntax">
+		<metaInformationProvider class="eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestMetaInformation" id="eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestMetaInformation">
+		</metaInformationProvider>
+	</extension>
+	
+	<extension id="eu.hyvar.mspl.manifest.resource.hymanifest.problem" name="EMFText Problem" point="org.eclipse.core.resources.markers">
+		<persistent value="true">
+		</persistent>
+		<super type="org.eclipse.core.resources.problemmarker">
+		</super>
+		<super type="org.eclipse.core.resources.textmarker">
+		</super>
+		<super type="org.eclipse.emf.ecore.diagnostic">
+		</super>
+	</extension>
+	
+	<extension id="eu.hyvar.mspl.manifest.resource.hymanifest.problem.syntax_error" name="EMFText Problem" point="org.eclipse.core.resources.markers">
+		<persistent value="true">
+		</persistent>
+		<super type="eu.hyvar.mspl.manifest.resource.hymanifest.problem">
+		</super>
+	</extension>
+	
+	<extension id="eu.hyvar.mspl.manifest.resource.hymanifest.problem.print_problem" name="EMFText Problem" point="org.eclipse.core.resources.markers">
+		<persistent value="true">
+		</persistent>
+		<super type="eu.hyvar.mspl.manifest.resource.hymanifest.problem">
+		</super>
+	</extension>
+	
+	<extension id="eu.hyvar.mspl.manifest.resource.hymanifest.problem.unresolved_reference" name="EMFText Problem" point="org.eclipse.core.resources.markers">
+		<persistent value="true">
+		</persistent>
+		<super type="eu.hyvar.mspl.manifest.resource.hymanifest.problem">
+		</super>
+	</extension>
+	
+	<extension id="eu.hyvar.mspl.manifest.resource.hymanifest.problem.analysis_problem" name="EMFText Problem" point="org.eclipse.core.resources.markers">
+		<persistent value="true">
+		</persistent>
+		<super type="eu.hyvar.mspl.manifest.resource.hymanifest.problem">
+		</super>
+	</extension>
+	
+	<extension id="eu.hyvar.mspl.manifest.resource.hymanifest.problem.batch_constraint_problem" name="EMFText Problem" point="org.eclipse.core.resources.markers">
+		<persistent value="true">
+		</persistent>
+		<super type="eu.hyvar.mspl.manifest.resource.hymanifest.problem">
+		</super>
+	</extension>
+	
+	<extension id="eu.hyvar.mspl.manifest.resource.hymanifest.problem.live_constraint_problem" name="EMFText Problem" point="org.eclipse.core.resources.markers">
+		<persistent value="true">
+		</persistent>
+		<super type="eu.hyvar.mspl.manifest.resource.hymanifest.problem">
+		</super>
+	</extension>
+	
+	<extension id="eu.hyvar.mspl.manifest.resource.hymanifest.problem.builder_error" name="EMFText Problem" point="org.eclipse.core.resources.markers">
+		<persistent value="true">
+		</persistent>
+		<super type="eu.hyvar.mspl.manifest.resource.hymanifest.problem">
+		</super>
+	</extension>
+	
+	<extension id="eu.hyvar.mspl.manifest.resource.hymanifest.nature" name="hymanifest nature" point="org.eclipse.core.resources.natures">
+		<runtime>
+			<run class="eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestNature">
+			</run>
+		</runtime>
+		<builder id="eu.hyvar.mspl.manifest.resource.hymanifest.builder">
+		</builder>
+	</extension>
+	
+	<extension point="org.eclipse.core.resources.builders" id="eu.hyvar.mspl.manifest.resource.hymanifest.builder" name="hymanifest Builder">
+		<builder hasNature="true">
+			<run class="eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestBuilderAdapter">
+			</run>
+		</builder>
+	</extension>
+	
+	<extension-point id="eu.hyvar.mspl.manifest.resource.hymanifest.default_load_options" name="Default Load Options" schema="schema/default_load_options.exsd">
+	</extension-point>
+	
+	<extension point="org.eclipse.emf.ecore.extension_parser">
+		<parser class="eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestResourceFactoryDelegator" type="hymanifest">
+		</parser>
+	</extension>
+	
+	<extension-point id="eu.hyvar.mspl.manifest.resource.hymanifest.additional_extension_parser" name="Additional Extension Parser" schema="schema/additional_extension_parser.exsd">
+	</extension-point>
+	
+</plugin>

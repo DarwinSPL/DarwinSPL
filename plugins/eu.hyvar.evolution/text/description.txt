@@ -22,3 +22,5 @@ Package evolution <http://hyvar-project.eu/evolution/1.0>
 
   Class HyName -> HyLinearTemporalElement
     Attribute name : EString<<1..1>>
+
+  Class HyInterval -> HyTemporalElement

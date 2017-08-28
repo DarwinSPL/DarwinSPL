@@ -1,6 +1,7 @@
 package eu.hyvar.reconfigurator.input.exporter;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import eu.hyvar.context.HyContextModel;
@@ -12,11 +13,11 @@ import eu.hyvar.feature.HyVersion;
 
 public class ReconfiguratorIdMapping {
 	
-	private static final String FEATURE_ATOM = "feature[";
-	private static final String VERSION_ATOM = "feature[";
-	private static final String ATTRIBUTE_ATOM = "attribute[";
-	private static final String CONTEXT_ATOM = "context[";
-	private static final String ARRAY_BRACKETS_CLOSING = "]";
+	public static final String FEATURE_ATOM = "feature[";
+	public static final String VERSION_ATOM = "feature[";
+	public static final String ATTRIBUTE_ATOM = "attribute[";
+	public static final String CONTEXT_ATOM = "context[";
+	public static final String ARRAY_BRACKETS_CLOSING = "]";
 	
 	
 	private Map<HyFeature, String> featureIdMapping;
@@ -24,16 +25,45 @@ public class ReconfiguratorIdMapping {
 	private Map<HyFeatureAttribute, String> attributeIdMapping;
 	private Map<HyContextualInformation, String> contextIdMapping;
 	
+	private boolean initialized = false;
+	
 	public ReconfiguratorIdMapping() {
+		if(!initialized) {
+			reinitialize();
+		}
+	}
+	
+	public void reinitialize() {
 		featureIdMapping = new HashMap<HyFeature, String>();
 		versionIdMapping = new HashMap<HyVersion, String>();
 		attributeIdMapping = new HashMap<HyFeatureAttribute, String>();
-		contextIdMapping = new HashMap<HyContextualInformation, String>();
+		contextIdMapping = new HashMap<HyContextualInformation, String>();			
+		initialized = true;
+	}
+	
+	public ReconfiguratorIdMapping(List<HyFeatureModel> featureModels, List<HyContextModel> contextModels) {
+		this();
+		
+		if(featureModels != null) {
+			for(HyFeatureModel featureModel: featureModels) {
+				setFeatureModelIds(featureModel);
+			}
+		}
+		
+		if(contextModels != null) {
+			for(HyContextModel contextModel: contextModels) {
+				setContextModelIds(contextModel);
+			}
+		}
 	}
 	
 	public ReconfiguratorIdMapping(HyFeatureModel featureModel, HyContextModel contextModel) {
 		this();
-		
+		setFeatureModelIds(featureModel);
+		setContextModelIds(contextModel);
+	}
+	
+	private void setFeatureModelIds(HyFeatureModel featureModel) {
 		StringBuilder idBuilder;
 		
 		if(featureModel != null) {
@@ -68,6 +98,10 @@ public class ReconfiguratorIdMapping {
 				}
 			}
 		}
+	}
+	
+	private void setContextModelIds(HyContextModel contextModel) {
+		StringBuilder idBuilder;
 		
 		if(contextModel != null) {
 			for(HyContextualInformation contextualInformation: contextModel.getContextualInformations()) {
@@ -81,8 +115,6 @@ public class ReconfiguratorIdMapping {
 				contextIdMapping.put(contextualInformation, idBuilder.toString());
 			}
 		}
-
-		
 	}
 
 	public Map<HyFeature, String> getFeatureIdMapping() {

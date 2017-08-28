@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="ASCII"?>
+<manifest:HySPLImplementation xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:manifest="http://hyvar-project.eu/mspl/manifest/1.0">
+  <implementations>
+    <signature href="../signatures/ecuaS/ECUASignature.hymanifest_xmi#/"/>
+    <associations>
+      <local href="ecua.hyfeature#_7157f871-ec10-4f90-a39e-53a895c0e69b"/>
+      <signature href="../signatures/ecuaS/ECUASignature.hyfeature#_562024c2-882f-492a-90bd-6f47d27d56a1"/>
+    </associations>
+    <associations>
+      <local href="ecua.hyfeature#_47eb0877-5f94-4602-9105-6a083a8f64ad"/>
+      <signature href="../signatures/ecuaS/ECUASignature.hyfeature#_1f7f741d-3dd6-4ffc-a02f-ad611dac3727"/>
+    </associations>
+    <associations>
+      <local href="ecua.hyfeature#_71c6ca2f-cc39-4532-831a-ef3c7660f290"/>
+      <signature href="../signatures/ecuaS/ECUASignature.hyfeature#_9dbe06e0-b76c-4056-af54-d0c90782ef0d"/>
+    </associations>
+    <associations validSince="2017-01-01T00:00:00.000+0100">
+      <local href="ecua.hyfeature#_2e3d5334-5da5-4346-9217-1336b325d87d"/>
+      <signature href="../signatures/ecuaS/ECUASignature.hyfeature#_c4b60eee-e7c0-448b-8d42-995f9f395bbf"/>
+    </associations>
+  </implementations>
+</manifest:HySPLImplementation>

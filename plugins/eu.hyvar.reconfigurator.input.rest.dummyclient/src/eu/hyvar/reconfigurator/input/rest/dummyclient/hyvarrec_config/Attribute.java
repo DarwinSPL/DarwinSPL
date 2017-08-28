@@ -27,8 +27,6 @@ public class Attribute {
      * 
      * (Required)
      * 
-     * @return
-     *     The id
      */
     public String getId() {
         return id;
@@ -38,8 +36,6 @@ public class Attribute {
      * 
      * (Required)
      * 
-     * @param id
-     *     The id
      */
     public void setId(String id) {
         this.id = id;
@@ -49,8 +45,6 @@ public class Attribute {
      * 
      * (Required)
      * 
-     * @return
-     *     The value
      */
     public Integer getValue() {
         return value;
@@ -60,8 +54,6 @@ public class Attribute {
      * 
      * (Required)
      * 
-     * @param value
-     *     The value
      */
     public void setValue(Integer value) {
         this.value = value;

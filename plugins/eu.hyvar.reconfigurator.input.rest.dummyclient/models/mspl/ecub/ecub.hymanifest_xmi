@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="ASCII"?>
+<manifest:HySPLImplementation xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:manifest="http://hyvar-project.eu/mspl/manifest/1.0">
+  <implementations>
+    <signature href="../signatures/ecubS/ECUBSignature.hymanifest_xmi#/"/>
+    <associations>
+      <local href="ecub.hyfeature#_12044d0b-52d9-45d2-bc64-5f51664ddc73"/>
+      <signature href="../signatures/ecubS/ECUBSignature.hyfeature#_65835c1f-13a6-44a1-8ed7-f3e7666f5a7c"/>
+    </associations>
+    <associations>
+      <local href="ecub.hyfeature#_2c0a2b7f-3ab9-4fe5-806f-02301d9fb53a"/>
+      <signature href="../signatures/ecubS/ECUBSignature.hyfeature#_dc66d7cf-2b55-419c-afd2-5d883408f7a1"/>
+    </associations>
+    <associations>
+      <local href="ecub.hyfeature#_41d605f9-473d-41e7-9cc1-fd4c21670869"/>
+      <signature href="../signatures/ecubS/ECUBSignature.hyfeature#_7f5c316c-cfc2-4fee-a65a-a7d8f7a138a1"/>
+    </associations>
+  </implementations>
+</manifest:HySPLImplementation>

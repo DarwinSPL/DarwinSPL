@@ -1,0 +1,7 @@
+"ECU_A" -> "Sig_A:ECU_A"
+"ECU_B" -> "Sig_B:ECU_B"
+"ECU_C" -> "Sig_C:ECU_C"
+
+"Sig_C:StartStopUI" -> "Sig_B:StartStop"
+"Sig_C:GearAdviceUI" -> "Sig_B:GearAdvice"
+

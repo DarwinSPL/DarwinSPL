@@ -42,7 +42,8 @@ Require-Bundle: org.eclipse.ui,
  org.eclipse.jetty.server,
  de.christophseidl.util.swt,
  de.darwinspl.feature.graphical.configurator.viewer,
- org.eclipse.jface
+ org.eclipse.jface,
+ de.darwinspl.reconfigurator.client
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Bundle-ActivationPolicy: lazy
 Bundle-Vendor: www.darwinspl.de

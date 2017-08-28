@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import eu.hyvar.dataValues.HyBooleanValue;
 import eu.hyvar.dataValues.HyDataValuesFactory;
@@ -28,8 +29,6 @@ import eu.hyvar.feature.configuration.HyFeatureSelected;
 import eu.hyvar.feature.configuration.HyFeatureSelection;
 import eu.hyvar.feature.configuration.HyVersionSelected;
 import eu.hyvar.reconfigurator.input.exporter.ReconfiguratorIdMapping;
-import eu.hyvar.reconfigurator.output.translation.format.Attribute;
-import eu.hyvar.reconfigurator.output.translation.format.OutputOfHyVarRec;
 
 public class HyVarRecOutputTranslator {
 
@@ -40,21 +39,21 @@ public class HyVarRecOutputTranslator {
 	 * @param attributeValues
 	 * @return
 	 */
-	public static HyConfiguration translateConfiguration(HyFeatureModel featureModel, OutputOfHyVarRec hyvarrecOutput) {
+	public static HyConfiguration translateConfiguration(HyFeatureModel featureModel, List<String> featureValues, Map<String, Integer> attributeValues) {
 		ReconfiguratorIdMapping idMapper = new ReconfiguratorIdMapping(featureModel, null);
 
 		HyConfiguration configuration = HyConfigurationFactory.eINSTANCE.createHyConfiguration();
 		configuration.setFeatureModel(featureModel);
 
-		configuration.getElements().addAll(getFeatureSelection(idMapper, hyvarrecOutput.getFeatures()));
+		configuration.getElements().addAll(getFeatureSelection(idMapper, featureValues));
 		
-		configuration.getElements().addAll(getAttributeValueAssignments(idMapper, hyvarrecOutput.getAttributes()));
+		configuration.getElements().addAll(getAttributeValueAssignments(idMapper, attributeValues));
 
 		return configuration;
 	}
 	
-	public static HyConfiguration translateConfiguration(HyFeatureModel featureModel, OutputOfHyVarRec hyvarrecOutput, Date date) {
-		HyConfiguration configuration = translateConfiguration(featureModel, hyvarrecOutput);
+	public static HyConfiguration translateConfiguration(HyFeatureModel featureModel, List<String> featureValues, Map<String, Integer> attributeValues, Date date) {
+		HyConfiguration configuration = translateConfiguration(featureModel, featureValues, attributeValues);
 		configuration.setCreationDate(date);
 		return configuration;
 	}
@@ -65,14 +64,14 @@ public class HyVarRecOutputTranslator {
 	 * @param attributeValues Integer representation for numberValues, booleanValues (0,1) and enumValues (value range)
 	 * @return List of attribute value assignments
 	 */
-	private static List<HyAttributeValueAssignment> getAttributeValueAssignments(ReconfiguratorIdMapping idMapper, List<Attribute> attributeValues) {
+	private static List<HyAttributeValueAssignment> getAttributeValueAssignments(ReconfiguratorIdMapping idMapper, Map<String, Integer> attributeValues) {
 		List<HyAttributeValueAssignment> attributeValueAssignments = new ArrayList<HyAttributeValueAssignment>();
 		
 		int processedValues = 0;
 		outerloop:
 		for(Map.Entry<HyFeatureAttribute, String> entry: idMapper.getAttributeIdMapping().entrySet()) {
-			for(Attribute attributeValue : attributeValues) {
-				String correctedId = "attribute["+attributeValue.getId()+"]";
+			for(Entry<String, Integer> attributeValue: attributeValues.entrySet()) {
+				String correctedId = "attribute["+attributeValue.getKey()+"]";
 				
 				if(correctedId.equals(entry.getValue())) {
 					

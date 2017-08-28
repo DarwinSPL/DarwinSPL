@@ -4,7 +4,8 @@ package eu.hyvar.reconfigurator.io.rest.input.hyvarrec_config_and_fm;
 import java.util.List;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
-
+@Deprecated
+//Use instead: eu.hyvar.reconfigurator.io.rest.input.hyvarrec_config.HyVarRecConfig
 public class OutputOfHyVarRecAndFm {
 
     /**

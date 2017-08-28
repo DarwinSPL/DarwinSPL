@@ -56,6 +56,7 @@ import de.darwinspl.feature.graphical.editor.actions.feature.DwFeatureCreateChil
 import de.darwinspl.feature.graphical.editor.actions.feature.DwFeatureCreateSiblingAction;
 import de.darwinspl.feature.graphical.editor.actions.feature.DwFeatureDeletePermanentlyAction;
 import de.darwinspl.feature.graphical.editor.actions.feature.DwFeatureEditNamesAction;
+import de.darwinspl.feature.graphical.editor.actions.feature.DwSetFeatureLinkAction;
 import de.darwinspl.feature.graphical.editor.actions.group.DwGroupChangeGroupTypeToAlternativeTypeAction;
 import de.darwinspl.feature.graphical.editor.actions.group.DwGroupChangeGroupTypeToAndTypeAction;
 import de.darwinspl.feature.graphical.editor.actions.group.DwGroupChangeGroupTypeToOrTypeAction;
@@ -230,6 +231,10 @@ public class DwGraphicalFeatureModelEditor extends DwGraphicalFeatureModelViewer
 		getActionRegistry().registerAction(deleteFeaturePermanentlyAction);
 		getSelectionActions().add(deleteFeaturePermanentlyAction.getId());
 
+		DwSetFeatureLinkAction setFeatureLinkAction = new DwSetFeatureLinkAction(this);
+		getActionRegistry().registerAction(setFeatureLinkAction);
+		getSelectionActions().add(setFeatureLinkAction.getId());
+		
 		createGroupActions();
 		createEnumActions();
 

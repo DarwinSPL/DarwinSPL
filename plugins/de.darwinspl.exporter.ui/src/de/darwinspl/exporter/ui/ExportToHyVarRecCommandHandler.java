@@ -195,7 +195,7 @@ public class ExportToHyVarRecCommandHandler extends AbstractHandler {
 		DwDateDialog datePicker = new DwDateDialog(shell, new Date());
 		datePicker.open();
 		
-		String hyVarRecString = hyvarrecExporter.exportContextMappingModel(contextModel, validityModel, featureModel,
+		String hyVarRecString = hyvarrecExporter.exportSPL(contextModel, validityModel, featureModel,
 				constraintModel, configuration, preferenceModel, contextValueModel, datePicker.getValue());
 
 		String baseFileName = ResourceUtil.getBaseFilename(featureModelFile) + "_HyVarRecOutput";

@@ -27,8 +27,6 @@ public class FeatureModel {
      * 
      * (Required)
      * 
-     * @return
-     *     The filename
      */
     public String getFilename() {
         return filename;
@@ -38,8 +36,6 @@ public class FeatureModel {
      * 
      * (Required)
      * 
-     * @param filename
-     *     The filename
      */
     public void setFilename(String filename) {
         this.filename = filename;
@@ -49,8 +45,6 @@ public class FeatureModel {
      * 
      * (Required)
      * 
-     * @return
-     *     The specification
      */
     public String getSpecification() {
         return specification;
@@ -60,8 +54,6 @@ public class FeatureModel {
      * 
      * (Required)
      * 
-     * @param specification
-     *     The specification
      */
     public void setSpecification(String specification) {
         this.specification = specification;

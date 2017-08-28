@@ -10,6 +10,7 @@ import com.google.gson.annotations.SerializedName;
  * Final configuration
  * 
  */
+
 public class OutputOfHyVarRec {
 
     /**
