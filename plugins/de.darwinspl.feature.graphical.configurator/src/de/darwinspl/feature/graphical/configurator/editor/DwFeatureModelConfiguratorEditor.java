@@ -1,9 +1,12 @@
 package de.darwinspl.feature.graphical.configurator.editor;
 
 import java.io.IOException;
+import java.nio.channels.UnresolvedAddressException;
 import java.util.Collections;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.TimeoutException;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IWorkspaceRoot;
@@ -40,7 +43,6 @@ import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.part.FileEditorInput;
 
 import de.christophseidl.util.ecore.EcoreIOUtil;
-import de.darwinspl.feature.graphical.configurator.analyses.AnalysesClient;
 import de.darwinspl.feature.graphical.configurator.composites.DwSelectedConfigurationComposite;
 import de.darwinspl.feature.graphical.configurator.dialogs.DwContextInformationDialog;
 import de.darwinspl.feature.graphical.configurator.dialogs.DwInvalidContextInfoDialog;
@@ -48,6 +50,8 @@ import de.darwinspl.feature.graphical.configurator.dialogs.DwRESTServerSelectDia
 import de.darwinspl.feature.graphical.configurator.editor.listeners.DwDeriveVariantListener;
 import de.darwinspl.feature.graphical.configurator.factory.DwConfiguratorEditorEditPartFactory;
 import de.darwinspl.feature.graphical.configurator.viewer.DwFeatureModelConfiguratorViewer;
+import de.darwinspl.reconfigurator.client.hyvarrec.DwAnalysesClient;
+import de.darwinspl.reconfigurator.client.hyvarrec.DwAnalysesClient.DwContextValueEvolutionWrapper;
 import eu.hyvar.context.HyContextInformationFactory;
 import eu.hyvar.context.HyContextModel;
 import eu.hyvar.context.HyContextualInformationBoolean;
@@ -70,6 +74,9 @@ import eu.hyvar.feature.constraint.HyConstraintModel;
 import eu.hyvar.feature.constraint.util.HyConstraintUtil;
 
 public class DwFeatureModelConfiguratorEditor extends DwFeatureModelConfiguratorViewer {
+	
+	private Button validateWithEvolutionButton;
+	
 	private Button validateContextButton;
 	
 	private Button explainButton;
@@ -188,6 +195,10 @@ public class DwFeatureModelConfiguratorEditor extends DwFeatureModelConfigurator
 		configurationPanel.setLayout(new GridLayout(1, false));
 
 		
+		validateWithEvolutionButton = new Button(configurationPanel, SWT.PUSH);
+		validateWithEvolutionButton.setText("Evolution Anomalies");
+		validateWithEvolutionButton.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, false));
+		
 		validateContextButton = new Button(configurationPanel, SWT.PUSH);
 		validateContextButton.setText("Detect Anomalies");
 		validateContextButton.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, false));
@@ -242,6 +253,8 @@ public class DwFeatureModelConfiguratorEditor extends DwFeatureModelConfigurator
 			}
 		});
 
+		validateWithEvolutionButton.addSelectionListener(buttonListener);
+		
 		validateContextButton.addSelectionListener(buttonListener);
 		explainButton.addSelectionListener(buttonListener);
 
@@ -427,40 +440,68 @@ public class DwFeatureModelConfiguratorEditor extends DwFeatureModelConfigurator
 			}
 
 
-			AnalysesClient client = new AnalysesClient();
+			DwAnalysesClient client = new DwAnalysesClient();
 
 			
 			
 			
-			if(e.getSource() == validateContextButton) {
-				HyContextValueModel notSatisfiableContextValues = client.validateFeatureModelWithContext(uri, contextModel, validityModel, modelWrapped.getModel(), constraintModel, selectedConfiguration, null, contextValueModel, modelWrapped.getSelectedDate());
-				DwInvalidContextInfoDialog contextInfoDialog = new DwInvalidContextInfoDialog(getEditorSite().getShell(), notSatisfiableContextValues);
-				contextInfoDialog.open();
-			}
-			else if(e.getSource() == simulateButton) {
-				HyConfiguration configuration = client.reconfigure(uri, contextModel, validityModel, modelWrapped.getModel(), constraintModel, selectedConfiguration, null, contextValueModel, modelWrapped.getSelectedDate());
-				if(configuration != null){
-					String fileName = getFile().getFullPath().removeFileExtension().lastSegment();
+			try {
+				if (e.getSource() == validateContextButton) {
+					HyContextValueModel notSatisfiableContextValues;
+					notSatisfiableContextValues = client.validateFeatureModelWithContext(uri, contextModel,
+							validityModel, modelWrapped.getModel(), constraintModel, selectedConfiguration, null,
+							contextValueModel, modelWrapped.getSelectedDate()).getContextValueModel();
+					DwInvalidContextInfoDialog contextInfoDialog = new DwInvalidContextInfoDialog(
+							getEditorSite().getShell(), notSatisfiableContextValues);
+					contextInfoDialog.open();
+				} else if (e.getSource() == simulateButton) {
+					HyConfiguration configuration;
+					configuration = client.reconfigure(uri, contextModel, validityModel, modelWrapped.getModel(),
+							constraintModel, selectedConfiguration, null, contextValueModel,
+							modelWrapped.getSelectedDate());
+					if (configuration != null) {
+						String fileName = getFile().getFullPath().removeFileExtension().lastSegment();
 
-					String name = getFile().getFullPath().removeFileExtension().removeLastSegments(1).append(fileName+"_Result").addFileExtension(HyConfigurationUtil.getConfigurationModelFileExtensionForXmi()).toString();
+						String name = getFile().getFullPath().removeFileExtension().removeLastSegments(1)
+								.append(fileName + "_Result")
+								.addFileExtension(HyConfigurationUtil.getConfigurationModelFileExtensionForXmi())
+								.toString();
 
-					// create a new resource for the result configuration
-					ResourceSet resSet = new ResourceSetImpl();
-					Resource resource = resSet.createResource(URI.createURI(name));
-					resource.getContents().add(configuration);
+						// create a new resource for the result configuration
+						ResourceSet resSet = new ResourceSetImpl();
+						Resource resource = resSet.createResource(URI.createURI(name));
+						resource.getContents().add(configuration);
 
-					try {
-						resource.save(Collections.EMPTY_MAP);
-					} catch (IOException e2) {
-						e2.printStackTrace();
-					}				
+						try {
+							resource.save(Collections.EMPTY_MAP);
+						} catch (IOException e2) {
+							e2.printStackTrace();
+						}
 
-					// Show the result within a new viewer
-					openConfigurationViewer(name);
+						// Show the result within a new viewer
+						openConfigurationViewer(name);
+					}
+
+				} else if (e.getSource() == explainButton) {
+					client.validateFeatureModel(uri, contextModel, validityModel, modelWrapped.getModel(),
+							constraintModel, selectedConfiguration, null, contextValueModel,
+							modelWrapped.getSelectedDate());
+				} else if (e.getSource() == validateWithEvolutionButton) {
+					// Show date
+					
+					DwContextValueEvolutionWrapper notSatisfiableContextValues = client.validateFeatureModelWithContext(uri,
+							contextModel, validityModel, modelWrapped.getModel(), constraintModel,
+							selectedConfiguration, null, contextValueModel, null);
+					
+					DwInvalidContextInfoDialog contextInfoDialog = new DwInvalidContextInfoDialog(
+							getEditorSite().getShell(), notSatisfiableContextValues);
+					
+					contextInfoDialog.open();
 				}
-			}
-			else if(e.getSource() == explainButton) {
-				client.validateFeatureModel(uri, contextModel, validityModel, modelWrapped.getModel(), constraintModel, selectedConfiguration, null, contextValueModel, modelWrapped.getSelectedDate());
+			} catch (UnresolvedAddressException | TimeoutException | InterruptedException | ExecutionException e1) {
+				MessageDialog dialog = new MessageDialog(PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell(), "Unresolvable Server Adress", null,
+						"The adress '"+uri.toString()+"' could not be resolved or had a timeout. No configuration was generated.", MessageDialog.ERROR, new String[] { "Ok" }, 0);
+				dialog.open();
 			}
 		}
 	}

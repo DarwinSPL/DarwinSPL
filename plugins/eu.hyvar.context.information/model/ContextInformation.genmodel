@@ -8,7 +8,7 @@
     operationReflection="true" importOrganizing="true">
   <foreignModel>ContextInformation.ecore</foreignModel>
   <genPackages prefix="HyContextInformation" basePackage="eu.hyvar" disposableProviderFactory="true"
-      fileExtensions="hycontextmodel" ecorePackage="ContextInformation.ecore#/">
+      fileExtensions="hycontextinformation" ecorePackage="ContextInformation.ecore#/">
     <genClasses ecoreClass="ContextInformation.ecore#//HyContextModel">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ContextInformation.ecore#//HyContextModel/contextualInformations"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ContextInformation.ecore#//HyContextModel/enums"/>

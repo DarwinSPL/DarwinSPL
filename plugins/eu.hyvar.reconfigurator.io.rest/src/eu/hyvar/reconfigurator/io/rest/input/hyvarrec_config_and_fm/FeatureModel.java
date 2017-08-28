@@ -3,7 +3,7 @@ package eu.hyvar.reconfigurator.io.rest.input.hyvarrec_config_and_fm;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
-
+@Deprecated
 public class FeatureModel {
 
     /**

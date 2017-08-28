@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="ASCII"?>
+<feature:HyFeatureModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:feature="http://hyvar-project.eu/feature/1.0">
+  <rootFeature id="_23572481-2f94-46fc-b8b6-9fc3f29332a3" feature="_2c8838b9-cb00-47bc-949f-08d2ee6cf1f4"/>
+  <features id="_2c8838b9-cb00-47bc-949f-08d2ee6cf1f4">
+    <names id="_1c658e48-791e-40ed-8c01-b59bdb552ece" name="car"/>
+    <parentOf id="_430eb926-6850-44e7-a8bd-508997b73513" childGroup="_8a93e7ee-f332-4296-928d-d5e9845e834d"/>
+    <types id="_647ffbe6-bece-4399-95c0-bf1e71b0e1a9" type="MANDATORY"/>
+  </features>
+  <features id="_5a66d5ff-3dd2-4ba5-99da-06b8e5149ea9" groupMembership="_e6c20b39-08f8-4eba-9068-4a64369c6dfe">
+    <names id="_722c41df-6969-47cf-82f8-3a6678b1a415" name="ECU_A"/>
+    <types id="_85f5c5a0-69ef-4d24-a86b-b841483a9f6c" type="MANDATORY"/>
+  </features>
+  <features id="_f25227cb-236b-4839-bb70-d5ee170c7362" groupMembership="_e6c20b39-08f8-4eba-9068-4a64369c6dfe">
+    <names id="_9a139f9f-2013-47cb-8202-79379a8a128c" name="ECU_B"/>
+    <types id="_f965aecd-94bf-480d-9824-943768d56831" type="MANDATORY"/>
+  </features>
+  <features id="_71257991-8a51-432a-8dc0-5cd5648fff45" groupMembership="_e6c20b39-08f8-4eba-9068-4a64369c6dfe">
+    <names id="_917dc291-5773-4c18-8ba3-60fa4685bb45" name="ECU_C"/>
+    <types id="_b482796e-50a5-44b6-81df-6645b7110483"/>
+  </features>
+  <groups id="_8a93e7ee-f332-4296-928d-d5e9845e834d" childOf="_430eb926-6850-44e7-a8bd-508997b73513">
+    <parentOf id="_e6c20b39-08f8-4eba-9068-4a64369c6dfe" features="_5a66d5ff-3dd2-4ba5-99da-06b8e5149ea9 _f25227cb-236b-4839-bb70-d5ee170c7362 _71257991-8a51-432a-8dc0-5cd5648fff45"/>
+    <types id="_3dd3ab13-c2b4-4a2a-89bf-10bb4a51efac"/>
+  </groups>
+</feature:HyFeatureModel>

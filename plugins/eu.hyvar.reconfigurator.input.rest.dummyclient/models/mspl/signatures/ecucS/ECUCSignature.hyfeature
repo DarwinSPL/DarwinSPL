@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="ASCII"?>
+<feature:HyFeatureModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:feature="http://hyvar-project.eu/feature/1.0">
+  <rootFeature id="_8241b243-3845-4e1c-9487-4a2c75380293" feature="_cd0cbde4-9fdd-4501-8dfa-cb91af527184"/>
+  <features id="_cd0cbde4-9fdd-4501-8dfa-cb91af527184">
+    <names id="_24db636d-359a-40cf-94be-916e76f1c36e" name="ECU_C"/>
+    <parentOf id="_0999fb48-cb5c-4a95-a63d-e437b0361d5d" childGroup="_a6751239-1178-4266-9128-c7bcb28734ba"/>
+    <types id="_4b8275e7-9b92-4b2f-ba5a-a1cc8b1a2db0" type="MANDATORY"/>
+  </features>
+  <features id="_57599f9f-281a-4ba7-9a3a-3554a70c48a7" groupMembership="_e76a337e-7ba6-4da7-a573-9a8aea5dbc3a">
+    <names id="_8687fefe-ab68-48e8-9a54-5e7138e1e390" name="AmbientLighting"/>
+    <attributes xsi:type="feature:HyEnumAttribute" id="_81e98a61-f2e6-498c-bbef-b79ed22596b9" enumType="_c5394567-79f7-410e-b39f-560ecee29d7d">
+      <names id="_9db7dcc2-3068-45d9-a1cf-21ecf3e23ee2" name="color"/>
+    </attributes>
+    <types id="_58402e35-5669-4a55-942a-4eb2aae56977"/>
+  </features>
+  <features id="_90cfa906-6b0d-48d2-a9fc-3aebda262add" groupMembership="_e76a337e-7ba6-4da7-a573-9a8aea5dbc3a">
+    <names id="_1f48b277-4178-4cbf-a1f6-5620a4a8c7e3" name="NavigationSystem"/>
+    <types id="_d21016ff-311c-443d-b796-4d30dfff0f02"/>
+  </features>
+  <features id="_59a2af95-6819-4ac6-8a74-b0ce915f7b6c" groupMembership="_e76a337e-7ba6-4da7-a573-9a8aea5dbc3a">
+    <names id="_93e94319-2e12-401e-b122-14ec52e61796" name="EmergencyCallUI"/>
+    <types id="_b9e52ff5-6cd7-412a-9fc5-e8e096275c55"/>
+  </features>
+  <features id="_fb9474b7-c6a1-4bcc-b95c-f2f0bb4c09ca" groupMembership="_e76a337e-7ba6-4da7-a573-9a8aea5dbc3a">
+    <names id="_fe47e068-35f3-4fdd-a0fc-c57b270e5308" name="SOSButton"/>
+    <types id="_0f96d4db-b248-42fe-b888-0956337ede6e"/>
+  </features>
+  <features id="_21a3df7a-6aa4-4ce0-812c-67f5e6a93f4b" groupMembership="_e76a337e-7ba6-4da7-a573-9a8aea5dbc3a">
+    <names id="_40f112a6-8965-494d-9538-1a7f16e9932d" name="GearAdviceUI"/>
+    <versions id="_020be661-9cd4-4735-aa1f-f0530a69721d" number="V0"/>
+    <types id="_f4f642ee-d705-4324-a7cb-59a307249cc5"/>
+  </features>
+  <features id="_d83f1d51-0e71-4348-b05b-4ff0b8326664" groupMembership="_e76a337e-7ba6-4da7-a573-9a8aea5dbc3a">
+    <names id="_dc1dd045-5dd1-4150-a56e-2493e99aa09f" name="StartStopUI"/>
+    <types id="_92459e6f-22cf-4e5b-8cae-00908ea58aff"/>
+  </features>
+  <groups id="_a6751239-1178-4266-9128-c7bcb28734ba" childOf="_0999fb48-cb5c-4a95-a63d-e437b0361d5d">
+    <parentOf id="_e76a337e-7ba6-4da7-a573-9a8aea5dbc3a" features="_57599f9f-281a-4ba7-9a3a-3554a70c48a7 _90cfa906-6b0d-48d2-a9fc-3aebda262add _59a2af95-6819-4ac6-8a74-b0ce915f7b6c _fb9474b7-c6a1-4bcc-b95c-f2f0bb4c09ca _21a3df7a-6aa4-4ce0-812c-67f5e6a93f4b _d83f1d51-0e71-4348-b05b-4ff0b8326664"/>
+    <types id="_9f5f7d28-dd1a-46ce-9eee-fee3d4b63224"/>
+  </groups>
+  <enums id="_c5394567-79f7-410e-b39f-560ecee29d7d" name="colorValue">
+    <literals id="_b883d7cf-9fbd-40a8-b621-cd5062cd2709" name="Green"/>
+    <literals id="_25f7ea2d-6f00-44d1-a534-3a69589cf5c6" name="White"/>
+    <literals id="_cf676046-36ea-452c-aff5-8afe3e84629b" name="Red"/>
+  </enums>
+</feature:HyFeatureModel>

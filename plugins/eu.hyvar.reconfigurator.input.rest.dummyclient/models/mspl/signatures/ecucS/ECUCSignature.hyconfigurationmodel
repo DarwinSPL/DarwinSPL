@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="ASCII"?>
+<configuration:HyConfiguration xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:configuration="http://hyvar-project.eu/feature/configuration/1.0" id="_e64d0c12-b117-4e3d-a040-df734e6b390c">
+  <featureModel href="ECUCSignature.hyfeature#/"/>
+</configuration:HyConfiguration>
