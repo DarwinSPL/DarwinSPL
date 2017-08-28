@@ -21,7 +21,6 @@
       <plugin id="de.christophseidl.util.java"/>
       <plugin id="de.darwinspl.common.analyses"/>
       <plugin id="eu.hyvar.context.information"/>
-      <plugin id="eu.hyvar.dataValues.resource.hydatavalue"/>
       <plugin id="eu.hyvar.evolution"/>
       <plugin id="eu.hyvar.feature"/>
       <plugin id="eu.hyvar.feature.configuration"/>
@@ -58,7 +57,10 @@
       <plugin id="org.eclipse.equinox.app"/>
       <plugin id="org.eclipse.equinox.common"/>
       <plugin id="org.eclipse.equinox.preferences"/>
+      <plugin id="org.eclipse.equinox.region" fragment="true"/>
       <plugin id="org.eclipse.equinox.registry"/>
+      <plugin id="org.eclipse.equinox.transforms.hook" fragment="true"/>
+      <plugin id="org.eclipse.equinox.weaving.hook" fragment="true"/>
       <plugin id="org.eclipse.fx.osgi" fragment="true"/>
       <plugin id="org.eclipse.jdt.compiler.apt" fragment="true"/>
       <plugin id="org.eclipse.jdt.compiler.tool" fragment="true"/>
@@ -71,7 +73,6 @@
       <plugin id="org.eclipse.jetty.util"/>
       <plugin id="org.eclipse.osgi"/>
       <plugin id="org.eclipse.text"/>
-      <plugin id="org.emftext.commons.antlr3_4_0"/>
    </plugins>
 
 

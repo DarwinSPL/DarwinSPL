@@ -21,6 +21,9 @@ public class DwPreferenceExporter {
 	public List<String> getPreferences(HyProfile preferenceModel, Date date, Context dateContext, List<Date> sortedDateList) {
 		List<String> preferences = new ArrayList<String>();
 
+		if(preferenceModel == null) {
+			return preferences;
+		}
 		for (HyPreference preference : preferenceModel.getPreferences()) {
 			String preferenceString = getPreference(preference, date, dateContext, sortedDateList);
 			
