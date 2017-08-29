@@ -24,7 +24,7 @@ public abstract class DwAbstractFeatureDeleteCommand extends DwFeatureModelEdito
 	
 	protected DwFeatureWrapped feature;
 	protected DwFeatureWrapped oldParent;
-	protected HyFeature oldFeature;
+	protected HyFeature backupFeature;
 	protected Date executionDate;
 	
 	protected List<HyGroupComposition> groupMemberships = new ArrayList<HyGroupComposition>();

@@ -68,7 +68,7 @@ public class DwGroupFigure extends DwFeatureViewerReferencedFigure{
 			HyGroupComposition featureComposition = HyEvolutionUtil.getValidTemporalElement(feature.getGroupMembership(), date);
 		
 			if(!(groupComposition == null || featureComposition == null || (groupComposition != featureComposition))){
-				features.add(model.getWrappedFeature(feature));
+				features.add(model.findWrappedFeature(feature));
 			}
 		}
 

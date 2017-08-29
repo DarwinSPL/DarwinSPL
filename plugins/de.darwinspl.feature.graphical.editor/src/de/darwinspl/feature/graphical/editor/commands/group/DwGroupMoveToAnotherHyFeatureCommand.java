@@ -37,16 +37,12 @@ public class DwGroupMoveToAnotherHyFeatureCommand extends Command{
 	
 	private void moveToNewParentFeature(DwFeatureWrapped newParent){
 		Date date = featureModelWrapped.getSelectedDate();
-		if(date.equals(new Date(Long.MIN_VALUE)))
-			date = null;
 		
-		
-				
 		HyGroup group = groupWrapped.getWrappedModelElement();
 		HyFeatureChild oldParentFeatureChild = HyEvolutionUtil.getValidTemporalElement(group.getChildOf(), date);
 		
 		// save old parent feature for undo
-		oldParentFeatureWrapped = viewer.getModelWrapped().getWrappedFeature(oldParentFeatureChild.getParent());
+		//oldParentFeatureWrapped = viewer.getModelWrapped().getWrappedFeature(oldParentFeatureChild.getParent());
 		
 		HyFeatureChild featureChild = HyFeatureFactory.eINSTANCE.createHyFeatureChild();
 		featureChild.setValidSince(date);
@@ -56,7 +52,7 @@ public class DwGroupMoveToAnotherHyFeatureCommand extends Command{
 		featureChild.setChildGroup(group);
 		group.getChildOf().add(featureChild);
 		
-		if(date == null){
+		if(date.equals(new Date(Long.MIN_VALUE))){
 			group.getChildOf().remove(oldParentFeatureChild);
 			oldParentFeatureChild.getParent().getParentOf().remove(oldParentFeatureChild);
 		}else{
@@ -70,8 +66,7 @@ public class DwGroupMoveToAnotherHyFeatureCommand extends Command{
 		// remove all old connections
 		for(DwFeatureWrapped featureWrapped : groupWrapped.getFeaturesWrapped(date)){
 			for(DwParentChildConnection connection : featureWrapped.getParentConnections(date)){
-				connection.getSource().removeParentToChildConnection(connection);
-				connection.getTarget().removeChildToParentConnection(connection);
+				featureModelWrapped.removeConnection(connection, date);
 			}
 		}
 		
@@ -81,8 +76,9 @@ public class DwGroupMoveToAnotherHyFeatureCommand extends Command{
 			connection.setModel(featureModelWrapped);
 			connection.setSource(newParent);
 			connection.setTarget(featureWrapped);
+			connection.setValidSince(date);
 			
-			featureModelWrapped.addConnection(connection, date, group);
+			//featureModelWrapped.addConnection(connection, date, group);
 			
 			featureWrapped.addOrUpdateChildToParentConnection(connection);
 			newParent.addOrUpdateParentToChildConnection(connection);
@@ -98,9 +94,9 @@ public class DwGroupMoveToAnotherHyFeatureCommand extends Command{
 	
 	@Override
 	public void undo(){
-		moveToNewParentFeature(oldParentFeatureWrapped);
+		//moveToNewParentFeature(oldParentFeatureWrapped);
 	
-		featureModelWrapped.rearrangeFeatures();
-		viewer.refreshView();
+		//featureModelWrapped.rearrangeFeatures();
+		//viewer.refreshView();
 	}
 }

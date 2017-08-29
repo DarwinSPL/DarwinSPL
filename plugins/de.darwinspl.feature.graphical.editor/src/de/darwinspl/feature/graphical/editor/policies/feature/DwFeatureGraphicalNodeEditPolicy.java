@@ -74,8 +74,6 @@ public class DwFeatureGraphicalNodeEditPolicy extends GraphicalNodeEditPolicy{
 		EditPart part = (EditPart)getHost();
 		
 		if(part instanceof DwFeatureEditPart){
-			DwFeatureModelWrapped featureModel = (DwFeatureModelWrapped)((DwFeatureEditPart)getHost()).getFeatureModel();
-			
 			DwParentChildConnectionReconnectCommand command = new DwParentChildConnectionReconnectCommand(editor, part);
 			
 			DwParentChildConnection connection = (DwParentChildConnection)((DwParentChildConnectionEditPart)request.getConnectionEditPart()).getModel();
@@ -115,8 +113,6 @@ public class DwFeatureGraphicalNodeEditPolicy extends GraphicalNodeEditPolicy{
 		EditPart part = (EditPart)getHost();
 		
 		if(part instanceof DwFeatureEditPart){
-			DwFeatureModelWrapped featureModel = ((DwFeatureEditPart)getHost()).getFeatureModel();
-			
 			DwParentChildConnectionReconnectCommand command = new DwParentChildConnectionReconnectCommand(editor, part);
 			
 			DwParentChildConnection con = (DwParentChildConnection)((DwParentChildConnectionEditPart)request.getConnectionEditPart()).getModel();

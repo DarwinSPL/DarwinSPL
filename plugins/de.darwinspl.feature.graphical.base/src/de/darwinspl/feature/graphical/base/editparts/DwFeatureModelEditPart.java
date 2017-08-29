@@ -93,8 +93,6 @@ public class DwFeatureModelEditPart extends AbstractGraphicalEditPart implements
 			for(Object o : children){
 				if(o instanceof DwFeatureEditPart)
 					((DwFeatureEditPart)o).refreshVisuals();
-				if(o instanceof DwParentChildConnectionEditPart)
-					((DwParentChildConnectionEditPart)o).refreshVisuals();
 			}
 		}
 	};

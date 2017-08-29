@@ -1,5 +1,6 @@
 package de.darwinspl.feature.graphical.base.model;
 
+import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -20,11 +21,9 @@ import eu.hyvar.feature.HyFeature;
 import eu.hyvar.feature.HyFeatureChild;
 import eu.hyvar.feature.HyFeatureType;
 import eu.hyvar.feature.HyFeatureTypeEnum;
-import eu.hyvar.feature.HyGroup;
 import eu.hyvar.feature.HyGroupComposition;
 import eu.hyvar.feature.HyGroupType;
 import eu.hyvar.feature.HyGroupTypeEnum;
-import eu.hyvar.feature.HyRootFeature;
 
 public class DwFeatureWrapped extends DwEditorChangeableElement{
 	public final static String PROPERTY_CARDINALITY = "PropertyCardinality";
@@ -89,7 +88,7 @@ public class DwFeatureWrapped extends DwEditorChangeableElement{
 		
 		this.hideChildren = hideChildren;
 		
-		for(DwParentChildConnection connection : childrenConnections){
+		for(DwParentChildConnection connection : getChildrenConnections(date)){
 			connection.getTarget().setVisible(!hideChildren, date);
 		}
 		
@@ -105,10 +104,13 @@ public class DwFeatureWrapped extends DwEditorChangeableElement{
 		
 		this.visible = visible;
 		
-		for(DwParentChildConnection connection : childrenConnections){
+		for(DwParentChildConnection connection : getChildrenConnections(date)){
 			if(visible){
 				if(!hideChildren)
 					connection.getTarget().setVisible(true, date);
+				else{
+					connection.getTarget().setVisible(false, date);
+				}
 			}else{
 				connection.getTarget().setVisible(false, date);
 			}
@@ -256,6 +258,7 @@ public class DwFeatureWrapped extends DwEditorChangeableElement{
 	 * @param date
 	 * @return true if and only if all parent features and groups are valid, false otherwise
 	 */
+	/*
 	private boolean isValidRec(HyFeature feature, Date date){
 		// check for root features
 		for(HyRootFeature root : featureModel.getModel().getRootFeature()){
@@ -289,10 +292,10 @@ public class DwFeatureWrapped extends DwEditorChangeableElement{
 		boolean valid = HyEvolutionUtil.isValid(feature, date);
 		return valid;
 	}
+	*/
+	
 	public boolean isValid(Date date){
 		return HyEvolutionUtil.isValid(this.getWrappedModelElement(), date);
-		//boolean result = isValidRec(this.getWrappedModelElement(), date);
-		//return result;
 	}
 
 	/**
@@ -385,6 +388,9 @@ public class DwFeatureWrapped extends DwEditorChangeableElement{
 	public void setParentConnections(List<DwParentChildConnection> parentConnections) {
 		this.parentConnections = parentConnections;
 	}
+	public List<DwParentChildConnection> getChildrenConnections() {
+		return childrenConnections;
+	}
 	public List<DwParentChildConnection> getChildrenConnections(Date date) {
 		return filterConnections(childrenConnections, date);
 	}
@@ -405,7 +411,7 @@ public class DwFeatureWrapped extends DwEditorChangeableElement{
 		childrenConnections.clear();
 	}
 	public void addOrUpdateParentToChildConnection(DwParentChildConnection connection){
-		int old = childrenConnections.size();
+		//int old = childrenConnections.size();
 		
 		if(!(childrenConnections.contains(connection))){
 			childrenConnections.add(connection);	
@@ -423,7 +429,7 @@ public class DwFeatureWrapped extends DwEditorChangeableElement{
 		int old = childrenConnections.size();
 
 		childrenConnections.remove(connection);
-		listeners.firePropertyChange(PROPERTY_PARENT_CONNECTIONS_SIZE_CHANGED, old, childrenConnections.size());
+		//listeners.firePropertyChange(PROPERTY_PARENT_CONNECTIONS_SIZE_CHANGED, old, childrenConnections.size());
 	}	
 
 	public void addOrUpdateChildToParentConnection(DwParentChildConnection connection){
@@ -443,7 +449,7 @@ public class DwFeatureWrapped extends DwEditorChangeableElement{
 
 		parentConnections.remove(connection);
 
-		listeners.firePropertyChange(PROPERTY_CHILDREN_CONNECTIONS_SIZE_CHANGED, old, childrenConnections.size());
+		//listeners.firePropertyChange(PROPERTY_CHILDREN_CONNECTIONS_SIZE_CHANGED, old, childrenConnections.size());
 	}
 
 
@@ -482,8 +488,11 @@ public class DwFeatureWrapped extends DwEditorChangeableElement{
 
 	public DwFeatureWrapped getParentFeature(Date date){
 		HyGroupComposition composition = HyEvolutionUtil.getValidTemporalElement(getWrappedModelElement().getGroupMembership(), date);
+		
+		if(composition == null) return null;
+		
 		HyFeatureChild child = HyEvolutionUtil.getValidTemporalElement(composition.getCompositionOf().getChildOf(), date);
 
-		return featureModel.getWrappedFeature(child.getParent());
+		return featureModel.findWrappedFeature(child.getParent());
 	}
 }

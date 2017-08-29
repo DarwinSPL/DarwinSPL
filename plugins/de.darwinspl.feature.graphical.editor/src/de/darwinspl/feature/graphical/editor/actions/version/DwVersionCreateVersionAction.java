@@ -7,7 +7,6 @@ import de.darwinspl.feature.graphical.base.editor.DwGraphicalFeatureModelViewer;
 import de.darwinspl.feature.graphical.base.editparts.DwFeatureEditPart;
 import de.darwinspl.feature.graphical.base.editparts.DwRootFeatureEditPart;
 import de.darwinspl.feature.graphical.base.model.DwFeatureWrapped;
-import de.darwinspl.feature.graphical.base.model.DwRootFeatureWrapped;
 import de.darwinspl.feature.graphical.editor.commands.version.DwVersionCreateCommand;
 import eu.hyvar.evolution.util.HyEvolutionUtil;
 import eu.hyvar.feature.HyFeature;

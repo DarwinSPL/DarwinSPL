@@ -28,6 +28,7 @@ public abstract class DwErrorMarkerFigure extends DwLabelFigure{
 	protected void createIconFigure(){
 		ImageDescriptor descriptor = PlatformUI.getWorkbench().getSharedImages().getImageDescriptor(ISharedImages.IMG_OBJS_ERROR_TSK);
 		iconFigure = new ImageFigure(descriptor.createImage(true));
+		
 		iconFigure.setBounds(new Rectangle(0, 0, descriptor.getImageData().width, descriptor.getImageData().height));
 
 		iconFigure.setVisible(calculateIconVisibility());
