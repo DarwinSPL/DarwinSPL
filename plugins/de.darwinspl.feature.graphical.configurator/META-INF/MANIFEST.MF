@@ -43,10 +43,16 @@ Require-Bundle: org.eclipse.ui,
  de.christophseidl.util.swt,
  de.darwinspl.feature.graphical.configurator.viewer,
  org.eclipse.jface,
- de.darwinspl.reconfigurator.client
+ de.darwinspl.reconfigurator.client,
+ org.deltaecore.feature.variant,
+ org.deltaecore.common.eclipse,
+ org.deltaecore.feature.graphical.configurator,
+ org.deltaecore.feature,
+ org.deltaecore.suite.mapping
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Bundle-ActivationPolicy: lazy
 Bundle-Vendor: www.darwinspl.de
 Bundle-ClassPath: .,
  lib/org.eclipse.jetty.client_9.3.9.v20160517.jar
-Export-Package: de.darwinspl.feature.graphical.configurator.editor
+Export-Package: de.darwinspl.feature.graphical.configurator.editor,
+ de.darwinspl.feature.graphical.configurator.editor.listeners
