@@ -20,7 +20,7 @@ import eu.hyvar.feature.configuration.HyVersionSelected;
 public class DwSelectedConfigurationComposite extends Group {
 	private Text textArea;
 	private Button completeButton;
-	private Button useButton;
+	private Button saveConfigurationButton;
 	private Button deriveVariantButton;
 	
 	public DwSelectedConfigurationComposite(Composite parent) {
@@ -44,9 +44,9 @@ public class DwSelectedConfigurationComposite extends Group {
 		completeButton.setText("Automatically Select Versions");
 		completeButton.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, false));
 		
-		useButton = new Button(this, SWT.PUSH);
-		useButton.setText("Use as Running Configuration");
-		useButton.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, false));
+		saveConfigurationButton = new Button(this, SWT.PUSH);
+		saveConfigurationButton.setText("Save Configuration");
+		saveConfigurationButton.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, false));
 		
 		deriveVariantButton = new Button(this, SWT.PUSH);
 		deriveVariantButton.setText("Derive Variant");
@@ -82,8 +82,8 @@ public class DwSelectedConfigurationComposite extends Group {
 		return completeButton;
 	}
 
-	public Button getUseButton() {
-		return useButton;
+	public Button getSaveConfigurationButton() {
+		return saveConfigurationButton;
 	}
 
 	public Button getDeriveVariantButton() {

@@ -48,6 +48,7 @@ import de.darwinspl.feature.graphical.configurator.dialogs.DwContextInformationD
 import de.darwinspl.feature.graphical.configurator.dialogs.DwInvalidContextInfoDialog;
 import de.darwinspl.feature.graphical.configurator.dialogs.DwRESTServerSelectDialog;
 import de.darwinspl.feature.graphical.configurator.editor.listeners.DwDeriveVariantListener;
+import de.darwinspl.feature.graphical.configurator.editor.listeners.DwSaveConfigurationListener;
 import de.darwinspl.feature.graphical.configurator.factory.DwConfiguratorEditorEditPartFactory;
 import de.darwinspl.feature.graphical.configurator.viewer.DwFeatureModelConfiguratorViewer;
 import de.darwinspl.reconfigurator.client.hyvarrec.DwAnalysesClient;
@@ -274,12 +275,7 @@ public class DwFeatureModelConfiguratorEditor extends DwFeatureModelConfigurator
 			}
 		});
 
-		selectedConfigurationComposite.getUseButton().addSelectionListener(new SelectionAdapter() {
-			@Override
-			public void widgetSelected(SelectionEvent e) {
-				//useSelectedConfigurationAsRunningConfiguration();
-			}
-		});
+		selectedConfigurationComposite.getSaveConfigurationButton().addSelectionListener(new DwSaveConfigurationListener(this));
 
 		selectedConfigurationComposite.getDeriveVariantButton().addSelectionListener(new DwDeriveVariantListener(this));
 	}
