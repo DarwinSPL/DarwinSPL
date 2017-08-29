@@ -1,5 +1,5 @@
 # DarwinSPL
-DarwinSPL is a software project to model evolving context-aware software product lines.
+DarwinSPL is a software project to model evolving context-sensitive software product lines.
 
 It strongly depends on DeltaEcore (www.deltaecore.org) which is necessary to run DarwinSPL.
 
