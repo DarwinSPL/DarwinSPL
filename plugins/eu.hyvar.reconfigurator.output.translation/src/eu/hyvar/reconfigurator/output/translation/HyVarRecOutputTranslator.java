@@ -52,6 +52,14 @@ public class HyVarRecOutputTranslator {
 		return configuration;
 	}
 	
+	/**
+	 * 
+	 * @param featureModel
+	 * @param featureValues
+	 * @param attributeValues key = id, value = value
+	 * @param date
+	 * @return
+	 */
 	public static HyConfiguration translateConfiguration(HyFeatureModel featureModel, List<String> featureValues, Map<String, Integer> attributeValues, Date date) {
 		HyConfiguration configuration = translateConfiguration(featureModel, featureValues, attributeValues);
 		configuration.setCreationDate(date);

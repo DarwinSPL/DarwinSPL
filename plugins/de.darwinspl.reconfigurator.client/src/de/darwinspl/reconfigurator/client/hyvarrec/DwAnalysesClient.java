@@ -291,23 +291,11 @@ public class DwAnalysesClient {
 		
 		String messageForHyVarRec = createHyVarRecMessage(contextModel, contextValidityModel, featureModel, constraintModel, oldConfiguration, preferenceModel, contextValues, date);
 		
-		
-//		InputForHyVarRec answer = gson.fromJson(answerString, InputForHyVarRec.class);
-//		System.out.println("Input for HyVarRec: "+answerString);
-//
-//		// send it to HyVarRec
-//		String hyvarrecJson = gson.toJson(answer);
-		
-//		String uriString = uri.toString();
-//		if(uriString.endsWith(arg0))
-//		System.out.println(uriString);
-		
 		URI uri = createUriWithPath(uriString, RECONFIGURATION_URI);
 		
 		String hyvarrecAnswerString = sendMessageToHyVarRec(messageForHyVarRec, uri);
 		
 		OutputOfHyVarRec hyvarrecAnswer = gson.fromJson(hyvarrecAnswerString, OutputOfHyVarRec.class);
-//		hyvarrecAnswer.get
 		
 		Map<String, Integer> attributeValues = new HashMap<String, Integer>();
 		for(eu.hyvar.reconfigurator.output.translation.format.Attribute attributeValue: hyvarrecAnswer.getAttributes()) {
