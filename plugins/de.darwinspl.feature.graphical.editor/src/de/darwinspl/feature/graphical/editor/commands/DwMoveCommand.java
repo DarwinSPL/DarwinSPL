@@ -18,8 +18,8 @@ public class DwMoveCommand extends Command {
 	@Override 
 	public void execute(){
 		redo();
-	}
-	
+	}	
+
 	@Override 
 	public void undo(){
 		if(oldPosition != null)

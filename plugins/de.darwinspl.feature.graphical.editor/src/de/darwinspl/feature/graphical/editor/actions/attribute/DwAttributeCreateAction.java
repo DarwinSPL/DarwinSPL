@@ -36,6 +36,9 @@ public abstract class DwAttributeCreateAction extends SelectionAction{
 	protected boolean calculateEnabled() {
 		boolean result = true;
 		
+		if(!this.editor.isLastDateSelected())
+			return false;
+		
 		for(Object o : getSelectedObjects()){
 			if(!(o instanceof DwRootFeatureEditPart) &&
 			   !(o instanceof DwFeatureEditPart)){

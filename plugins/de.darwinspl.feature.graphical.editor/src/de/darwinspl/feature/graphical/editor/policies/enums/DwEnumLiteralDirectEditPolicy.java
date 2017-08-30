@@ -4,6 +4,7 @@ import org.eclipse.gef.commands.Command;
 import org.eclipse.gef.editpolicies.DirectEditPolicy;
 import org.eclipse.gef.requests.DirectEditRequest;
 
+import de.darwinspl.feature.graphical.base.editor.DwGraphicalFeatureModelViewer;
 import de.darwinspl.feature.graphical.base.editparts.DwEnumLiteralEditPart;
 import de.darwinspl.feature.graphical.base.figures.DwEnumLiteralFigure;
 import de.darwinspl.feature.graphical.editor.commands.enumeration.DwEnumLiteralRenameCommand;
@@ -14,7 +15,7 @@ public class DwEnumLiteralDirectEditPolicy extends DirectEditPolicy {
 	@Override
 	protected Command getDirectEditCommand(DirectEditRequest request) {
 		DwEnumLiteralEditPart editPart = (DwEnumLiteralEditPart)getHost();
-		DwEnumLiteralRenameCommand command = new DwEnumLiteralRenameCommand((HyEnumLiteral)editPart.getModel());
+		DwEnumLiteralRenameCommand command = new DwEnumLiteralRenameCommand((HyEnumLiteral)editPart.getModel(), (DwGraphicalFeatureModelViewer)editPart.getParent());
 		command.setNewName((String)request.getCellEditor().getValue());
 		
 		return command;

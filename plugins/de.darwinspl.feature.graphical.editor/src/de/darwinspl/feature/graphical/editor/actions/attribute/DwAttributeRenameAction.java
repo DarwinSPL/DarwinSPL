@@ -9,6 +9,7 @@ import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.IWorkbenchPart;
 
+import de.darwinspl.feature.graphical.base.editor.DwGraphicalFeatureModelViewer;
 import de.darwinspl.feature.graphical.base.editparts.DwAttributeEditPart;
 import de.darwinspl.feature.graphical.editor.dialogs.DwNameDialog;
 import eu.hyvar.evolution.HyName;
@@ -19,9 +20,13 @@ public class DwAttributeRenameAction extends SelectionAction{
 	public static final String REQ_ATTRIBUTE_EDIT_NAMES = "EditAttributeNames";
 
 	Request request;
+	
+	private DwGraphicalFeatureModelViewer viewer;
 
 	public DwAttributeRenameAction(IWorkbenchPart part){
 		super(part);
+		
+		viewer = (DwGraphicalFeatureModelViewer)part;
 
 		setId(ATTRIBUTE_EDIT_NAMES);
 		setText("Edit Attribute Names");
@@ -54,6 +59,9 @@ public class DwAttributeRenameAction extends SelectionAction{
 	@Override
 	protected boolean calculateEnabled() {
 		if(getSelectedObjects().isEmpty())
+			return false;
+		
+		if(!viewer.isLastDateSelected())
 			return false;
 
 		for(Object selectedObject : getSelectedObjects()){

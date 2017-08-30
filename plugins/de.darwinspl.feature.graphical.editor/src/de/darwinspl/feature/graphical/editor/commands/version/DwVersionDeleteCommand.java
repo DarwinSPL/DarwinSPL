@@ -3,10 +3,20 @@ package de.darwinspl.feature.graphical.editor.commands.version;
 import org.eclipse.gef.commands.Command;
 import org.eclipse.jface.dialogs.MessageDialog;
 
+import de.darwinspl.feature.graphical.base.editor.DwGraphicalFeatureModelViewer;
 import eu.hyvar.feature.HyVersion;
 
 public class DwVersionDeleteCommand extends Command {
 	private HyVersion version;
+	
+	private DwGraphicalFeatureModelViewer editor;
+	private HyVersion parentVersion;
+	
+	public DwVersionDeleteCommand(HyVersion version, DwGraphicalFeatureModelViewer editor)  {
+		this.editor = editor;
+		this.parentVersion = version;
+	}
+
 
 	public HyVersion getVersion() {
 		return version;
@@ -27,6 +37,7 @@ public class DwVersionDeleteCommand extends Command {
 		parent.getSupersedingVersions().clear();
 	}
 
+	
 
 	@Override
 	public void execute(){
@@ -76,5 +87,10 @@ public class DwVersionDeleteCommand extends Command {
 				}
 			}
 		}
+	}
+	
+	@Override
+	public boolean canExecute() {
+		return editor.isLastDateSelected();
 	}
 }

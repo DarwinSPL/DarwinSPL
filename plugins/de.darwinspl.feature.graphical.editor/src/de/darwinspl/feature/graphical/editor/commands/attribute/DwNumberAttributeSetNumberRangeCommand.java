@@ -25,6 +25,11 @@ public class DwNumberAttributeSetNumberRangeCommand  extends Command {
 	}
 	
 	@Override
+	public boolean canExecute() {
+		return editor.isLastDateSelected();
+	}
+	
+	@Override
 	public void undo() {
 		attribute.setMin(oldMinimum);
 		attribute.setMax(oldMaximum);

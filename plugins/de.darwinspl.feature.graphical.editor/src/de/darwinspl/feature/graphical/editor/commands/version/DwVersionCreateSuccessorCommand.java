@@ -48,4 +48,9 @@ public class DwVersionCreateSuccessorCommand extends Command {
 		parentVersion.getFeature().getVersions().add(version);
 		version.setFeature(parentVersion.getFeature());
 	}
+	
+	@Override
+	public boolean canExecute() {
+		return editor.isLastDateSelected();
+	}
 }

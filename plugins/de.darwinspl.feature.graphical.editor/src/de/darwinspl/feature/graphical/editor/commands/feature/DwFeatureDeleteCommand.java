@@ -56,6 +56,9 @@ public class DwFeatureDeleteCommand extends DwAbstractFeatureDeleteCommand{
 
 	@Override
 	public boolean canExecute() {
+		if(!viewer.isLastDateSelected())
+			return false;
+		
 		if(host instanceof DwRootFeatureEditPart)
 			return false;
 		if(host instanceof DwFeatureEditPart) {
@@ -208,4 +211,6 @@ public class DwFeatureDeleteCommand extends DwAbstractFeatureDeleteCommand{
 	public void execute(){
 		redo();
 	}
+	
+	
 }

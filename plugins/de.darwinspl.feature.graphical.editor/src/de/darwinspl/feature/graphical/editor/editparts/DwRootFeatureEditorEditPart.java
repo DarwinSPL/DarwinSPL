@@ -45,6 +45,10 @@ public class DwRootFeatureEditorEditPart extends DwRootFeatureEditPart{
 	 * This method is used to enable direct name editing in the feature
 	 */
 	@Override public void performRequest(Request req) {
+		if(!editor.isLastDateSelected())
+			return;
+		
+		
 		if(req.getType() == RequestConstants.REQ_DIRECT_EDIT) {
 			
 		}

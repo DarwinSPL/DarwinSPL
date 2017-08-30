@@ -25,6 +25,11 @@ public class DwFeatureAttributeEnumCreateEnumCommand extends Command {
 	public void undo() {	
 		editor.getModelWrapped().getModel().getEnums().remove(featureEnum);
 	}
+	
+	@Override
+	public boolean canExecute() {
+		return editor.isLastDateSelected();
+	}
 
 	@Override
 	public void redo() {

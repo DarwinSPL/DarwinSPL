@@ -27,7 +27,11 @@ public class DwAttributeRenameCommand extends DwLinearTemporalElementCommand {
 	public void execute(){
 		redo();
 	}
-
+	
+	@Override
+	public boolean canExecute() {
+		return editor.isLastDateSelected();
+	}
 	/**
 	 * Undo renaming the feature.
 	 */

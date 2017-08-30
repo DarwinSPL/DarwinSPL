@@ -40,6 +40,11 @@ public class DwEnumDeleteCommand extends Command{
 	public DwEnumDeleteCommand(DwGraphicalFeatureModelViewer editor) {
 		this.editor = editor;
 	}
+	
+	@Override
+	public boolean canExecute() {
+		return editor.isLastDateSelected();
+	}
 
 	
 	@Override

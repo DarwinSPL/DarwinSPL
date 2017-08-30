@@ -20,6 +20,11 @@ public class DwAttributeCreateCommand extends Command {
 	}
 	
 	@Override
+	public boolean canExecute() {
+		return editor.isLastDateSelected();
+	}
+	
+	@Override
 	public void execute(){
 		redo();
 	}

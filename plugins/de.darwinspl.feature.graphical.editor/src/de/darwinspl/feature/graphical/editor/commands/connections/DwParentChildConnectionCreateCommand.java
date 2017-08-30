@@ -25,6 +25,7 @@ public class DwParentChildConnectionCreateCommand extends Command{
 		return source != null && target != null && connection != null;
 	}
 	
+
 	@Override
 	public void execute(){
 		connection.setSource(source);

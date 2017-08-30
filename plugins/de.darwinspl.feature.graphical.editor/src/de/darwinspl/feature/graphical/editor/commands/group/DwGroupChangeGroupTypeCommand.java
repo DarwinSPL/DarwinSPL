@@ -37,6 +37,11 @@ public class DwGroupChangeGroupTypeCommand extends DwLinearTemporalElementComman
 		redo();
 	}
 	
+	@Override
+	public boolean canExecute() {
+		return editor.isLastDateSelected();
+	}
+	
 	/**
 	 * TODO undo not working properly. Example case: the group type was changed at since == Long.MIN_VALUE then the preccessor type
 	 * was deleted due to invalid date(since == until == null/Long.MIN_VALUE). Therefore the old type has to be added again to the

@@ -25,6 +25,11 @@ public class DwFeatureAttributeEnumCreateLiteralCommand extends Command {
 	}
 	
 	@Override
+	public boolean canExecute() {
+		return editor.isLastDateSelected();
+	}
+	
+	@Override
 	public void undo() {	
 		featureEnum.getLiterals().remove(literal);
 	}

@@ -9,6 +9,7 @@ import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.IWorkbenchPart;
 
+import de.darwinspl.feature.graphical.base.editor.DwGraphicalFeatureModelViewer;
 import de.darwinspl.feature.graphical.base.editparts.DwFeatureEditPart;
 import de.darwinspl.feature.graphical.base.model.DwFeatureWrapped;
 import de.darwinspl.feature.graphical.editor.dialogs.DwFeatureTypeDialog;
@@ -20,8 +21,11 @@ public class DwFeatureEditCardinalitiesAction extends SelectionAction{
 
 	Request request;
 	
+	DwGraphicalFeatureModelViewer editor;
+	
 	public DwFeatureEditCardinalitiesAction(IWorkbenchPart part){
 		super(part);
+		editor = (DwGraphicalFeatureModelViewer)part;
 		
 		setId(FEATURE_EDIT_CARDINALITIES);
 		setText("Edit Cardinalities");
@@ -62,6 +66,9 @@ public class DwFeatureEditCardinalitiesAction extends SelectionAction{
 	@Override
 	protected boolean calculateEnabled() {
 		if(getSelectedObjects().isEmpty())
+			return false;
+		
+		if(!editor.isLastDateSelected())
 			return false;
 		
 		for(Object selectedObject : getSelectedObjects()){

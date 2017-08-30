@@ -91,4 +91,9 @@ public class DwFeatureChangeTypeCommand extends Command{
 		
 		DwElementEditorUtil.cleanFeatureTypes(feature);
 	}
+	
+	@Override
+	public boolean canExecute() {
+		return editor.isLastDateSelected();
+	}
 }

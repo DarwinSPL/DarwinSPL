@@ -2,6 +2,7 @@ package de.darwinspl.feature.graphical.editor.commands.enumeration;
 
 import org.eclipse.gef.commands.Command;
 
+import de.darwinspl.feature.graphical.base.editor.DwGraphicalFeatureModelViewer;
 import eu.hyvar.dataValues.HyEnumLiteral;
 
 public class DwEnumLiteralRenameCommand extends Command {
@@ -9,7 +10,10 @@ public class DwEnumLiteralRenameCommand extends Command {
 	private String newName;
 	private String oldName;
 	
-	public DwEnumLiteralRenameCommand(HyEnumLiteral literal){
+	DwGraphicalFeatureModelViewer editor;
+	
+	public DwEnumLiteralRenameCommand(HyEnumLiteral literal, DwGraphicalFeatureModelViewer editor) {
+		this.editor = editor;
 		this.literal = literal;
 	}
 	
@@ -31,5 +35,10 @@ public class DwEnumLiteralRenameCommand extends Command {
 	
 	public void setNewName(String newName) {
 		this.newName = newName;
+	}
+	
+	@Override
+	public boolean canExecute() {
+		return editor.isLastDateSelected();
 	}
 }

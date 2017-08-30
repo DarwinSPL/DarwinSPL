@@ -89,4 +89,9 @@ public class DwFeatureCreateCommand extends DwFeatureModelEditorCommand {
 	public void execute(){
 		redo();
 	}
+	
+	@Override
+	public boolean canExecute() {
+		return viewer.isLastDateSelected();
+	}
 }

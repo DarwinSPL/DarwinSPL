@@ -1,16 +1,18 @@
 package de.darwinspl.feature.graphical.editor.commands.version;
 
-import org.eclipse.gef.commands.Command;
-
+import de.darwinspl.feature.graphical.base.editor.DwGraphicalFeatureModelViewer;
+import de.darwinspl.feature.graphical.editor.commands.DwFeatureModelEditorCommand;
 import eu.hyvar.feature.HyVersion;
 
-public class DwVersionRenameCommand extends Command{
+public class DwVersionRenameCommand extends DwFeatureModelEditorCommand{
 	private String oldNumber;
 	private String newNumber;
 
 	private HyVersion version;
 
-	public DwVersionRenameCommand(HyVersion version){
+	public DwVersionRenameCommand(HyVersion version, DwGraphicalFeatureModelViewer viewer){
+		super(viewer);
+		
 		this.version = version;
 	}
 
@@ -35,5 +37,11 @@ public class DwVersionRenameCommand extends Command{
 	
 	public void setNewNumber(String newNumber) {
 		this.newNumber = newNumber;
+	}
+	
+	
+	@Override
+	public boolean canExecute() {
+		return viewer.isLastDateSelected();
 	}
 }

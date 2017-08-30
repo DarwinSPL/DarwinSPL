@@ -8,6 +8,7 @@ import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.IWorkbenchPart;
 
+import de.darwinspl.feature.graphical.base.editor.DwGraphicalFeatureModelViewer;
 import de.darwinspl.feature.graphical.base.editparts.DwFeatureEditPart;
 import de.darwinspl.feature.graphical.base.model.DwFeatureWrapped;
 import de.darwinspl.feature.graphical.editor.dialogs.DwNameDialog;
@@ -19,8 +20,11 @@ public class DwFeatureEditNamesAction extends SelectionAction{
 
 	Request request;
 
+	DwGraphicalFeatureModelViewer editor;
 	public DwFeatureEditNamesAction(IWorkbenchPart part){
 		super(part);
+		
+		editor = (DwGraphicalFeatureModelViewer)part;
 
 		setId(FEATURE_EDIT_NAMES);
 		setText("Edit Names");
@@ -48,15 +52,9 @@ public class DwFeatureEditNamesAction extends SelectionAction{
 
 	@Override
 	protected boolean calculateEnabled() {
-		if(getSelectedObjects().isEmpty())
+		if(!editor.isLastDateSelected())
 			return false;
-
-		for(Object selectedObject : getSelectedObjects()){
-			if(!(selectedObject instanceof DwFeatureEditPart)){
-				return false;
-			}
-		}
-
+		
 		return true;
-	}	
+	}
 }

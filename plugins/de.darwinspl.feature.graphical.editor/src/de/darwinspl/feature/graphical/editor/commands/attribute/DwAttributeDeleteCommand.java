@@ -30,7 +30,11 @@ public class DwAttributeDeleteCommand extends Command{
 	public DwAttributeDeleteCommand(DwGraphicalFeatureModelViewer editor) {
 		this.editor = editor;
 	}
-
+	
+	@Override
+	public boolean canExecute() {
+		return editor.isLastDateSelected();
+	}
 	/**
 	 * Undo renaming the feature.
 	 */

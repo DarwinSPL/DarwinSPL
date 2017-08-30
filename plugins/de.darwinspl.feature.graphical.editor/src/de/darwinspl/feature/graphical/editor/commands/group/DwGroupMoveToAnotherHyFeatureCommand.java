@@ -99,4 +99,9 @@ public class DwGroupMoveToAnotherHyFeatureCommand extends Command{
 		//featureModelWrapped.rearrangeFeatures();
 		//viewer.refreshView();
 	}
+	
+	@Override
+	public boolean canExecute() {
+		return viewer.isLastDateSelected();
+	}
 }

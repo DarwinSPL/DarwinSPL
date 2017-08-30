@@ -36,6 +36,9 @@ public class DwParentChildConnectionReconnectCommand extends DwFeatureDeleteComm
 
 	@Override 
 	public boolean canExecute(){
+		if(!viewer.isLastDateSelected())
+			return false;
+		
 		return source != null && target != null && connection != null;
 	}
 

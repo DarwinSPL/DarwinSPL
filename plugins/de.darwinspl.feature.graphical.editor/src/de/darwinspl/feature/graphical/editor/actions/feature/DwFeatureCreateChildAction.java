@@ -21,6 +21,12 @@ public class DwFeatureCreateChildAction extends DwFeatureSelectionAction {
 	}
 	
 	@Override
+	protected boolean calculateEnabled() {
+		// TODO Auto-generated method stub
+		return super.calculateEnabled();
+	}
+	
+	@Override
 	protected Command createCommand(Object acceptedModel) {
 		DwFeatureWrapped selectedFeature = getSelectedFeature();		
 		DwGraphicalFeatureModelViewer viewer = (DwGraphicalFeatureModelViewer)this.getWorkbenchPart();

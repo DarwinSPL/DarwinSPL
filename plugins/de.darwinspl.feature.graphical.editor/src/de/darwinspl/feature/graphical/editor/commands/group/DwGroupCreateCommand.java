@@ -73,4 +73,9 @@ public class DwGroupCreateCommand extends Command {
 			childs.get(childs.size()-1).setChildGroup(newGroup);
 		}
 	}
+	
+	@Override
+	public boolean canExecute() {
+		return editor.isLastDateSelected();
+	}
 }

@@ -29,6 +29,10 @@ public abstract class DwAbstractFeatureDeleteCommand extends DwFeatureModelEdito
 	
 	protected List<HyGroupComposition> groupMemberships = new ArrayList<HyGroupComposition>();
 
+	@Override
+	public boolean canExecute() {
+		return viewer.isLastDateSelected();
+	}
 	
 	public HyFeature getRealModelFeature(HyFeature backupFeature){
 		HyFeatureModel featureModel = viewer.getInternalFeatureModel();

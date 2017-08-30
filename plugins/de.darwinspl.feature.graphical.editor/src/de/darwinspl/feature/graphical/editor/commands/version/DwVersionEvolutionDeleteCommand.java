@@ -18,6 +18,7 @@ public class DwVersionEvolutionDeleteCommand extends DwFeatureModelEditorCommand
 	
 	private EditPart host;
 	
+	DwGraphicalFeatureModelViewer viewer;
 
 	public HyVersion getVersion() {
 		return version;
@@ -36,6 +37,9 @@ public class DwVersionEvolutionDeleteCommand extends DwFeatureModelEditorCommand
 	@Override
 	public boolean canExecute() {
 		Date date = viewer.getCurrentSelectedDate();
+		
+		if(!viewer.isLastDateSelected())
+			return false;
 		
 		boolean correctElement = (host instanceof DwVersionEditPart);
 
@@ -140,4 +144,6 @@ public class DwVersionEvolutionDeleteCommand extends DwFeatureModelEditorCommand
 		viewer.getModelWrapped().rearrangeFeatures();
 		viewer.refreshView();
 	}
+	
+	
 }

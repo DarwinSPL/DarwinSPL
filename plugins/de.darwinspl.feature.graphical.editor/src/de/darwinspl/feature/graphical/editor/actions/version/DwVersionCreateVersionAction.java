@@ -35,6 +35,9 @@ public class DwVersionCreateVersionAction extends SelectionAction{
 
 	@Override
 	protected boolean calculateEnabled() {
+		if(!editor.isLastDateSelected())
+			return false;
+		
 		for(Object o : getSelectedObjects()){
 			if(!(o instanceof DwRootFeatureEditPart) && !(o instanceof DwFeatureEditPart))
 				return false;

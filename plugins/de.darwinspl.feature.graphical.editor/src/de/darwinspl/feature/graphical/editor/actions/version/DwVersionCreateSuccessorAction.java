@@ -56,6 +56,9 @@ public class DwVersionCreateSuccessorAction extends SelectionAction{
 		
 		if(getSelectedObjects().isEmpty())
 			return false;
+		
+		if(!editor.isLastDateSelected())
+			return false;
 
 		for(Object selectedObject : getSelectedObjects()){
 			if(!(selectedObject instanceof DwVersionEditPart)){

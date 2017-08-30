@@ -85,4 +85,9 @@ public class DwVersionCreateCommand  extends Command {
 		DwVersionUtil.addVersion(version, parentFeature, date);
 	}
 	
+	@Override
+	public boolean canExecute() {
+		return editor.isLastDateSelected();
+	}
+	
 }

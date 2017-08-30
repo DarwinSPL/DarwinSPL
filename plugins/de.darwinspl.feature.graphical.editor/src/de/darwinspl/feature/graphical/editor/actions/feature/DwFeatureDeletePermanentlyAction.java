@@ -12,7 +12,7 @@ import de.darwinspl.feature.graphical.base.model.DwFeatureWrapped;
 import de.darwinspl.feature.graphical.editor.actions.DwCommandAction;
 import de.darwinspl.feature.graphical.editor.commands.feature.DwFeatureDeletePermanentlyCommand;
 
-public class DwFeatureDeletePermanentlyAction  extends DwCommandAction {
+public class DwFeatureDeletePermanentlyAction  extends DwFeatureSelectionAction {
 	public static final String FEATURE_DELETE_PERMANENTLY = "DeleteFeaturePermanently";
 	public static final String REQ_FEATURE_DELETE_PERMANENTLY = "DeleteFeaturePermanentlyRequest";
 
@@ -46,19 +46,6 @@ public class DwFeatureDeletePermanentlyAction  extends DwCommandAction {
 		return null;
 	}	
 	
-	protected boolean calculateEnabled() {
-		if(getSelectedObjects().isEmpty())
-			return false;
-		
-		for(Object selectedObject : getSelectedObjects()){
-			if(!(selectedObject instanceof DwFeatureEditPart || selectedObject instanceof DwRootFeatureEditPart)){
-				return false;
-			}
-		}
-		
-		return true;
-	}
-
 	@Override
 	protected Command createCommand(Object acceptedModel) {
 		DwFeatureDeletePermanentlyCommand command = new DwFeatureDeletePermanentlyCommand(editor, (EditPart)getSelectedObjects().get(0));

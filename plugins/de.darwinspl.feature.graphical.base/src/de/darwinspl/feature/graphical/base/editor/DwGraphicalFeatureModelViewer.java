@@ -58,9 +58,15 @@ public class DwGraphicalFeatureModelViewer extends DwGraphicalViewerWithZoomSupp
 	protected Date currentSelectedDate;	
 
 	protected DwFeatureModelWrapped modelWrapped;
-	
+
+	private boolean lastDateSelected;
+
 	public Date getCurrentSelectedDate() {
 		return currentSelectedDate;
+	}
+
+	public boolean isLastDateSelected() {
+		return modelWrapped.getDates().indexOf(modelWrapped.getSelectedDate()) == modelWrapped.getDates().size()-1;
 	}
 
 	/**
@@ -107,11 +113,11 @@ public class DwGraphicalFeatureModelViewer extends DwGraphicalViewerWithZoomSupp
 	 */
 	public Dimension getEditorGraphicalDimension(){
 		FigureCanvas c = ((FigureCanvas) getGraphicalViewer().getControl());
-		
+
 		Rectangle bounds = c.getContents().getBounds();
 		return new Dimension(bounds.width, bounds.height);
 	}
-	
+
 	/**
 	 * Refresh the view and rerender the feature model.
 	 */
@@ -137,7 +143,7 @@ public class DwGraphicalFeatureModelViewer extends DwGraphicalViewerWithZoomSupp
 	public IFile getFile() {
 		IWorkspace workspace = ResourcesPlugin.getWorkspace();
 		IWorkspaceRoot workspaceRoot = workspace.getRoot();
-		
+
 		return workspaceRoot.getFile(new Path(modelWrapped.getModel().eResource().getURI().toPlatformString(true)));
 	}
 
@@ -151,7 +157,7 @@ public class DwGraphicalFeatureModelViewer extends DwGraphicalViewerWithZoomSupp
 	@Override
 	protected void initializeGraphicalViewer() {
 		super.initializeGraphicalViewer();
-		
+
 		GraphicalViewer viewer = getGraphicalViewer();
 		viewer.setContents(modelWrapped);
 	}
@@ -171,6 +177,7 @@ public class DwGraphicalFeatureModelViewer extends DwGraphicalViewerWithZoomSupp
 			}
 		}
 
+		lastDateSelected = true;
 		currentSelectedDate = closestDate;	
 	}
 
@@ -180,18 +187,18 @@ public class DwGraphicalFeatureModelViewer extends DwGraphicalViewerWithZoomSupp
 	 */
 	protected void loadModelFromFile(IFile file){		
 		modelWrapped = new DwFeatureModelWrapped((HyFeatureModel)EcoreIOUtil.loadModel(file));
-		
+
 		setCurrentSelectedDateToMostActualDate();
-		
+
 		setEditorTabText(file.getName());
-		
+
 		DwFeatureModelLayoutFileUtil.loadLayoutFile(modelWrapped);
 		List<Date> dates = DwFeatureModelLayoutFileUtil.loadDatesFromLayoutFile(modelWrapped);
 		for(Date date : dates){
 			if(!modelWrapped.getDates().contains(date))
 				modelWrapped.addDate(date);
 		}
-		
+
 	}
 
 	/**
@@ -241,8 +248,12 @@ public class DwGraphicalFeatureModelViewer extends DwGraphicalViewerWithZoomSupp
 						scale.setMaximum(size-1);
 						scale.setEnabled(size > 1);
 
-						scale.setSelection(modelWrapped.getDates().indexOf(newDate));
+						int index = modelWrapped.getDates().indexOf(newDate);
+						scale.setSelection(index);
 						setCurrentSelectedDate(newDate);
+
+						if(index == modelWrapped.getDates().size()-1)
+							lastDateSelected = true;
 					}
 				}
 			}
@@ -306,8 +317,10 @@ public class DwGraphicalFeatureModelViewer extends DwGraphicalViewerWithZoomSupp
 			Date now = new Date();
 			modelWrapped.addDate(now);
 			setCurrentSelectedDate(now);
+
+			lastDateSelected = true;
 		}		
-		
+
 		/**
 		 * register control listener for visualization bug if a side editor was added
 		 */
@@ -321,7 +334,7 @@ public class DwGraphicalFeatureModelViewer extends DwGraphicalViewerWithZoomSupp
 			public void controlResized(ControlEvent e) {
 				parent.update();
 			}
-			
+
 		});
 	}
 
@@ -379,9 +392,12 @@ public class DwGraphicalFeatureModelViewer extends DwGraphicalViewerWithZoomSupp
 	@Override
 	public void handleEvent(Event event) {
 		if(event.widget.equals(scale)) {
-			
+			int index = scale.getSelection();
 			currentSelectedDate = modelWrapped.getDates().get(scale.getSelection());
 			setCurrentSelectedDate(currentSelectedDate);
+			
+			if(index == modelWrapped.getDates().size()-1)
+				lastDateSelected = true;
 		}
 	}
 }
