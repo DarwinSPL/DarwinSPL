@@ -3,6 +3,8 @@ package de.darwinspl.feature.graphical.editor.commands.feature;
 import java.util.Date;
 import java.util.List;
 
+import org.eclipse.emf.ecore.util.EcoreUtil;
+
 import de.darwinspl.feature.graphical.base.model.DwFeatureWrapped;
 import de.darwinspl.feature.graphical.editor.commands.DwLinearTemporalElementCommand;
 import de.darwinspl.feature.graphical.editor.editor.DwGraphicalFeatureModelEditor;
@@ -58,7 +60,8 @@ public class DwFeatureRenameCommand extends DwLinearTemporalElementCommand {
 		
 		if(changeDate.equals(new Date(Long.MIN_VALUE))){
 			changeDate = null;
-			feature.getWrappedModelElement().getNames().remove(oldName);
+			EcoreUtil.delete(oldName);
+//			feature.getWrappedModelElement().getNames().remove(oldName);
 		}
 		
 		changeVisibilities(oldName, newName, changeDate);
