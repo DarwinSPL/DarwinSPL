@@ -50,6 +50,7 @@ public class DwGraphicalFeatureModelViewer extends DwGraphicalViewerWithZoomSupp
 	// UI components
 	protected Button currentDate;
 	protected Button addDate;
+	protected Button resetDates;
 	protected Scale scale;
 	protected Combo minState;
 	protected Combo maxState;
@@ -278,6 +279,27 @@ public class DwGraphicalFeatureModelViewer extends DwGraphicalViewerWithZoomSupp
 				}				
 			}	
 		});
+		
+		resetDates.addListener(SWT.Selection, new Listener() {
+
+			@Override
+			public void handleEvent(Event event) {
+				List<Date> dates = DwFeatureModelLayoutFileUtil.loadDatesFromLayoutFile(modelWrapped);
+				dates.add(0, new Date(Long.MIN_VALUE));
+				
+				modelWrapped.setDates(dates);
+				
+				int size = modelWrapped.getDates().size();
+				scale.setMaximum(size-1);
+				scale.setEnabled(size > 1);
+				
+//				scale.update();
+				
+				setCurrentSelectedDateToMostActualDate();
+				setCurrentSelectedDate(currentSelectedDate);
+			}
+			
+		});
 	}
 
 	/**
@@ -310,6 +332,9 @@ public class DwGraphicalFeatureModelViewer extends DwGraphicalViewerWithZoomSupp
 
 		addDate = new Button(buttonGroup, SWT.PUSH);
 		addDate.setText("Add Date");
+		
+		resetDates = new Button(buttonGroup, SWT.PUSH);
+		resetDates.setText("Reset Dates");
 
 		if(dates.size() > 0)
 			setCurrentSelectedDate(currentSelectedDate);
