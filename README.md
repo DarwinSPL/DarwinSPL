@@ -1,3 +1,5 @@
+![Logo](https://michaelnieke.files.wordpress.com/2016/11/logo_original_rendered.png?w=300&h=94)
+
 # DarwinSPL
 DarwinSPL is a software project to model evolving context-sensitive software product lines.
 
