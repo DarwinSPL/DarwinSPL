@@ -259,7 +259,7 @@ public class DwFeatureModelWrapped implements PropertyChangeListener {
 		HyFeature root = model.getRootFeature().get(0).getFeature();
 		convertFeatures(root, features);
 
-		// checkModelForErrors();
+		checkModelForErrors();
 	}
 
 	public void changeConnection(DwParentChildConnection oldConnection, DwParentChildConnection newConnection) {

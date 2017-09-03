@@ -216,7 +216,7 @@ public class DwFeatureEditPart extends DwAbstractEditPart implements NodeEditPar
 		refreshTargetConnections();
 		
 		refreshVisualsOfChildren();
-		refreshVisualsOfConnections();		
+		refreshVisualsOfConnections();	
 	}
 	
 	@Override
@@ -244,8 +244,6 @@ public class DwFeatureEditPart extends DwAbstractEditPart implements NodeEditPar
 	}
 
 	private void refreshVisualsOfConnections(){
-		DwFeatureWrapped wrappedFeature = (DwFeatureWrapped)this.getModel();
-		
 		if(sourceConnections != null){
 			for(Object o : sourceConnections){
 				((DwParentChildConnectionEditPart)o).refreshVisuals();
@@ -278,6 +276,14 @@ public class DwFeatureEditPart extends DwAbstractEditPart implements NodeEditPar
 
 		DwGraphicalFeatureModelViewer editor = (DwGraphicalFeatureModelViewer)this.editor;
 		Date date = editor.getCurrentSelectedDate();
+		
+		if(model.getParentConnections(date).size() > 1) {
+			int index = 0;
+			for(DwParentChildConnection c : model.getParentConnections(date)) {
+				System.out.println(index+"  "+c.getValidSince()+"  "+c.getValidUntil()+"  "+c.getSource().getWrappedModelElement().getNames().get(0).getName()+"  "+c.getTarget().getWrappedModelElement().getNames().get(0).getName());
+				index++;
+			}
+		}
 		return model.getParentConnections(date);
 	}
 
