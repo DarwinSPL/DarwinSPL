@@ -508,7 +508,6 @@ public class DwFeatureModelWrapped implements PropertyChangeListener {
 	 * @param date
 	 */
 	public void removeFeature(DwFeatureWrapped childFeature, Date date) {
-
 		DwGroupWrapped group = childFeature.getParentGroup(date);
 		DwFeatureWrapped parentFeature = childFeature.getParentFeature(date);
 		HyGroupComposition composition = HyEvolutionUtil
@@ -540,7 +539,9 @@ public class DwFeatureModelWrapped implements PropertyChangeListener {
 				}
 			} else if ((type.getType() != HyGroupTypeEnum.AND) && (composition.getFeatures().size() == 2)) {
 				type.setType(HyGroupTypeEnum.AND);
-			} else if (date.equals(new Date(Long.MIN_VALUE))) {
+			} 
+			
+			if (date.equals(new Date(Long.MIN_VALUE))) {
 				composition.getFeatures().remove(childFeature.getWrappedModelElement());
 
 				if (composition.getFeatures().isEmpty()) {

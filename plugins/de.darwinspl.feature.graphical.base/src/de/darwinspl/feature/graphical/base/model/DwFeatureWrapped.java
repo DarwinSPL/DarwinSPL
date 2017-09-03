@@ -472,9 +472,7 @@ public class DwFeatureWrapped extends DwEditorChangeableElement{
 	}	
 
 	public void addOrUpdateChildToParentConnection(DwParentChildConnection connection){
-		if(getWrappedModelElement().getNames().get(0).getName().equals("New Feature 1"))
-			System.out.println("");
-		
+	
 		int old = parentConnections.size();
 
 		if(hasSimilarConnection(connection,  parentConnections))
