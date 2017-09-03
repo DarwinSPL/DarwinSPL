@@ -12,7 +12,9 @@ import de.darwinspl.feature.graphical.base.editparts.DwParentChildConnectionEdit
 import de.darwinspl.feature.graphical.base.model.DwGroupWrapped;
 import de.darwinspl.feature.graphical.base.model.DwParentChildConnection;
 import de.darwinspl.feature.graphical.editor.commands.group.DwGroupChangeGroupTypeCommand;
+import eu.hyvar.evolution.util.HyEvolutionUtil;
 import eu.hyvar.feature.HyGroup;
+import eu.hyvar.feature.HyGroupComposition;
 import eu.hyvar.feature.HyGroupTypeEnum;
 
 public abstract class DwGroupChangeGroupTypeAction extends SelectionAction{
@@ -61,7 +63,27 @@ public abstract class DwGroupChangeGroupTypeAction extends SelectionAction{
 		for(Object o : getSelectedObjects()){
 			if(!(o instanceof DwGroupEditPart || o instanceof DwParentChildConnectionEditPart))
 				return false;
-		}		
+			
+			if(o instanceof DwGroupEditPart) {
+				DwGroupEditPart groupEditPart = (DwGroupEditPart)o;
+				DwGroupWrapped groupWrapped = (DwGroupWrapped)groupEditPart.getModel();
+				
+				HyGroupComposition composition = HyEvolutionUtil.getValidTemporalElement(groupWrapped.getWrappedModelElement().getParentOf(), editor.getCurrentSelectedDate());
+
+				if(composition.getFeatures().size() < 2)
+					return false;
+			}
+			
+			if(o instanceof DwParentChildConnectionEditPart) {
+				DwParentChildConnectionEditPart connectionEditPart = (DwParentChildConnectionEditPart)o;
+				DwParentChildConnection connection = (DwParentChildConnection)connectionEditPart.getModel();
+								
+				if(HyEvolutionUtil.getValidTemporalElement(connection.getTarget().getWrappedModelElement().getGroupMembership(), editor.getCurrentSelectedDate()).getFeatures().size() < 2)
+					return false;
+			}
+		}	
+		
+		
 
 		return true;
 	}
