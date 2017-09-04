@@ -112,10 +112,11 @@ public class DwGraphicalFeatureModelEditor extends DwGraphicalFeatureModelViewer
 
 		if (sharedKeyHandler == null) {
 			sharedKeyHandler = new KeyHandler();
-			sharedKeyHandler.put(KeyStroke.getPressed(SWT.DEL, 127, 0), 
-					getActionRegistry().getAction(
-							ActionFactory.DELETE.getId()));
 		}
+		
+		sharedKeyHandler.put(KeyStroke.getPressed(SWT.DEL, 127, 0), 
+				getActionRegistry().getAction(
+						ActionFactory.DELETE.getId()));
 
 		return sharedKeyHandler;
 	}
