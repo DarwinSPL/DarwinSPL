@@ -29,7 +29,7 @@ public class HyFeatureResolverUtil {
 	public static HyFeature resolveFeature(String identifier, HyFeatureModel featureModel, Date date)
 			throws HyFeatureModelWellFormednessException {
 		
-		if(identifier == null) {
+		if(identifier == null || featureModel == null) {
 			return null;
 		}
 		

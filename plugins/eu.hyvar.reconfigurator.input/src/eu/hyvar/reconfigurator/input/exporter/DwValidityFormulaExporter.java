@@ -29,6 +29,10 @@ public class DwValidityFormulaExporter {
 	public List<String> getContextValidityFormulas(HyValidityModel validityModel, Date date, Context dateContext, List<Date> sortedDateList) {
 		List<String> validityFormulas = new ArrayList<String>();
 
+		if(validityModel == null || validityModel.getValidityFormulas() == null) {
+			return validityFormulas;
+		}
+		
 		for (HyValidityFormula validityFormula :validityModel.getValidityFormulas()) {
 			
 			String validityFormulaConstraint = getValidityFormulaAsConstraint(validityFormula, date, dateContext, sortedDateList);

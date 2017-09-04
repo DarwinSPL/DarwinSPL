@@ -16,5 +16,5 @@ Require-Bundle: com.google.gson,
  org.eclipse.jetty.io,
  org.eclipse.jetty.util
 Bundle-ClassPath: .,
- libs/org.eclipse.jetty.client_9.3.9.v20160517.jar
+ libs/org.eclipse.jetty.client_9.4.5.v20170502.jar
 Export-Package: de.darwinspl.reconfigurator.client.hyvarrec

@@ -20,6 +20,10 @@ public class DwConstraintExporter {
 	public List<String> getConstraints(HyConstraintModel constraintModel, Date date, Context dateContext, List<Date> sortedDateList) {
 		List<String> constraints = new ArrayList<String>();
 
+		if(constraintModel == null || constraintModel.getConstraints() == null) {
+			return constraints;
+		}
+		
 		for (HyConstraint constraint : constraintModel.getConstraints()) {
 			
 			String exportedConstraint = getConstraint(constraint, date, dateContext, sortedDateList);
