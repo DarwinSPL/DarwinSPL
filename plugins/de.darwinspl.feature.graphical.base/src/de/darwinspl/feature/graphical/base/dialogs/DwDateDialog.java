@@ -6,8 +6,6 @@ import java.util.Date;
 import org.eclipse.jface.dialogs.Dialog;
 import org.eclipse.jface.dialogs.IDialogConstants;
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.events.KeyEvent;
-import org.eclipse.swt.events.KeyListener;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
@@ -21,7 +19,6 @@ import org.eclipse.swt.widgets.Shell;
 public class DwDateDialog extends Dialog implements Listener{
 
 	private DateTime calendarWidget;
-	private DateTime timeWidget;
 
 	public DwDateDialog(Shell parentShell, Date date) {
 		super(parentShell);
@@ -68,23 +65,8 @@ public class DwDateDialog extends Dialog implements Listener{
 		gridData.grabExcessHorizontalSpace = true;
 		gridData.verticalAlignment = SWT.FILL;
 		gridData.grabExcessVerticalSpace = false;
-	    timeWidget = new DateTime (container, SWT.TIME);
-	    timeWidget.setLayoutData(gridData);
-	    timeWidget.addListener(SWT.Selection, this);
-	    timeWidget.addKeyListener(new KeyListener(){
 
-			@Override
-			public void keyPressed(KeyEvent e) {
-			}
-
-			@Override
-			public void keyReleased(KeyEvent e) {				
-				//dateChanged();
-			}
-	    });
-	    timeWidget.setTime(calendar.get(Calendar.HOUR), calendar.get(Calendar.MINUTE), calendar.get(Calendar.SECOND));
-
-	    container.pack();
+		container.pack();
 		return container;
 	}
 
@@ -110,14 +92,13 @@ public class DwDateDialog extends Dialog implements Listener{
 	
 	public void dateChanged(){
 		Calendar instance = Calendar.getInstance();
-		instance.set(Calendar.SECOND, timeWidget.getSeconds());
-		instance.set(Calendar.MILLISECOND, 0);
-		instance.set(Calendar.MINUTE, timeWidget.getMinutes());
-		instance.set(Calendar.HOUR, timeWidget.getHours());
-		instance.set(Calendar.AM_PM, timeWidget.getHours() <= 12 ? Calendar.AM : Calendar.PM);
 		instance.set(Calendar.DAY_OF_MONTH, calendarWidget.getDay());
 		instance.set(Calendar.MONTH, calendarWidget.getMonth());
 		instance.set(Calendar.YEAR, calendarWidget.getYear());
+		instance.set(Calendar.HOUR, 0);
+		instance.set(Calendar.MINUTE, 0);
+		instance.set(Calendar.SECOND, 0);
+		instance.set(Calendar.MILLISECOND, 0);
 		
 		value = instance.getTime(); 	
 	}

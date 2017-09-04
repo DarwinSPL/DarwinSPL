@@ -39,7 +39,7 @@ public class DwFeatureDeletePermanentlyCommand extends DwAbstractFeatureDeleteCo
 
 	@Override
 	public boolean canExecute() {
-		if(viewer.isLastDateSelected())
+		if(!viewer.isLastDateSelected())
 			return false;
 		
 		boolean correctElement = (host instanceof DwFeatureEditPart) && !(host instanceof DwRootFeatureEditPart);

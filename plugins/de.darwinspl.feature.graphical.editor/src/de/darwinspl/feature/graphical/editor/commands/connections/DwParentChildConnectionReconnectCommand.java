@@ -85,8 +85,12 @@ public class DwParentChildConnectionReconnectCommand extends DwFeatureDeleteComm
 		newConnection.setTarget(oldTarget);
 		newConnection.setSource(newTarget);
 		newConnection.setValidSince(executionDate.equals(new Date(Long.MIN_VALUE)) ? null : executionDate);
+
 		
+
 		featureModel.addConnection(newConnection, executionDate, null);
+		
+
 	}
 
 	private void redoForConnectionTarget(){

@@ -67,7 +67,11 @@ public class DwGraphicalFeatureModelViewer extends DwGraphicalViewerWithZoomSupp
 	}
 
 	public boolean isLastDateSelected() {
-		return modelWrapped.getDates().indexOf(modelWrapped.getSelectedDate()) == modelWrapped.getDates().size()-1;
+		int size = modelWrapped.getDates().size();
+		if(size == 1)
+			return true;
+		
+		return modelWrapped.getDates().indexOf(modelWrapped.getSelectedDate()) == size-1;
 	}
 
 	/**

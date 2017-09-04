@@ -1,6 +1,5 @@
 package de.darwinspl.feature.graphical.base.model;
 
-import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -410,8 +409,50 @@ public class DwFeatureWrapped extends DwEditorChangeableElement{
 	public void clearChildrenConnections(){
 		childrenConnections.clear();
 	}
+	
+	private boolean hasSimilarConnection(DwParentChildConnection connection, List<DwParentChildConnection> connections) {
+		for(DwParentChildConnection c : connections) {
+			boolean equalSinceDates = false;
+			if(c.getValidSince() == null) {
+				if(connection.getValidSince() == null)
+					equalSinceDates = true;
+				else
+					equalSinceDates = false;
+			}else {
+				if(connection.getValidSince() == null)
+					equalSinceDates = false;
+				else
+					equalSinceDates = c.getValidSince().equals(connection.getValidSince());
+			}
+			
+			boolean equalUntilDates = false;
+			if(c.getValidUntil() == null) {
+				if(connection.getValidUntil() == null)
+					equalUntilDates = true;
+				else
+					equalUntilDates = false;
+			}else {
+				if(connection.getValidUntil() == null)
+					equalUntilDates = false;
+				else
+					equalUntilDates = c.getValidUntil().equals(connection.getValidUntil());
+			}
+			
+			boolean equalDates = equalSinceDates && equalUntilDates;
+			boolean equalFeatures = c.getSource().equals(connection.getSource()) && c.getTarget().equals(connection.getTarget());
+			
+			if (equalDates && equalFeatures)
+				return true;
+		}		
+		
+		return false;
+	}
+	
 	public void addOrUpdateParentToChildConnection(DwParentChildConnection connection){
-		//int old = childrenConnections.size();
+
+		
+		if(hasSimilarConnection(connection,  childrenConnections))
+			return;
 		
 		if(!(childrenConnections.contains(connection))){
 			childrenConnections.add(connection);	
@@ -426,15 +467,17 @@ public class DwFeatureWrapped extends DwEditorChangeableElement{
 
 
 	public void removeParentToChildConnection(DwParentChildConnection connection) {
-		int old = childrenConnections.size();
-
 		childrenConnections.remove(connection);
 		//listeners.firePropertyChange(PROPERTY_PARENT_CONNECTIONS_SIZE_CHANGED, old, childrenConnections.size());
 	}	
 
 	public void addOrUpdateChildToParentConnection(DwParentChildConnection connection){
+	
 		int old = parentConnections.size();
 
+		if(hasSimilarConnection(connection,  parentConnections))
+			return;
+		
 		if(!(parentConnections.contains(connection))){
 			parentConnections.add(connection);				
 		}else{
@@ -445,8 +488,6 @@ public class DwFeatureWrapped extends DwEditorChangeableElement{
 
 
 	public void removeChildToParentConnection(DwParentChildConnection connection) {
-		int old = parentConnections.size();
-
 		parentConnections.remove(connection);
 
 		//listeners.firePropertyChange(PROPERTY_CHILDREN_CONNECTIONS_SIZE_CHANGED, old, childrenConnections.size());

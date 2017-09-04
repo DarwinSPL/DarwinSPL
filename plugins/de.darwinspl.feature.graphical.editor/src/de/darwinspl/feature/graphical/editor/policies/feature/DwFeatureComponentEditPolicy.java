@@ -21,6 +21,9 @@ public class DwFeatureComponentEditPolicy extends ComponentEditPolicy {
 		DwGraphicalFeatureModelViewer viewer = (DwGraphicalFeatureModelViewer)editPart.getEditor();
 		DwFeatureWrapped wrappedFeature = (DwFeatureWrapped)getHost().getModel();
 		
+		if(!viewer.isLastDateSelected())
+			return null;
+		
 		Command deleteCommand = null;
 		if(viewer.getCurrentSelectedDate().equals(new Date(Long.MIN_VALUE))){
 			deleteCommand = new DwFeatureDeletePermanentlyCommand(viewer, getHost());
