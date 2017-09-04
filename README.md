@@ -18,6 +18,7 @@ Installation:
 ATTENTION (if you want to use the integrated webservers or the reconfiguration engine HyVarRec https://github.com/HyVar/hyvar-rec):
 
 In de.darwinspl.reconfigurator.client and eu.hyvar.reconfigurator.input.rest.dummyclient, you have to ensure that the jetty client version in the build path matches _exactly_ the jetty version of your eclipse installation. If it is not matching, you have to add it to the "lib" folder, replace it in the build path of the project and replace it in the "Classpath" in the "Runtime" tab of the Manifest.MF. 
+You can find your eclipse' Jetty version via Help -> About Eclipse -> Installation Details -> Plug-ins -> Seach for Jetty
 
 
 See the Wiki for more detailed information (outdated):
