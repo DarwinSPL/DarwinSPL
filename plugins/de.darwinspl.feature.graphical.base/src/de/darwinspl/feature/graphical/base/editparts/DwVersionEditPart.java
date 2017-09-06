@@ -32,7 +32,10 @@ public class DwVersionEditPart extends DwAbstractEditPart{
 					adapter.notifyChanged(notification);
 				}
 			
-			refreshVisuals();
+			if(notification.getEventType() != Notification.SET && notification.getPosition() != -1 &&
+			   notification.getEventType() != Notification.REMOVE &&
+			   notification.getEventType() != Notification.REMOVING_ADAPTER)
+				refreshVisuals();
 		}
 		
 

@@ -45,6 +45,10 @@ public class DwFeatureEditPart extends DwAbstractEditPart implements NodeEditPar
 				if(enotification.getEventType() == Notification.ADD && enotification.getNewValue() instanceof HyName) {
 					refreshVisuals();
 				}
+				if(enotification.getEventType() == Notification.ADD && enotification.getNewValue() instanceof HyVersion) {
+					rearrangeChildren();
+					refreshVisuals();
+				}
 				if(enotification.getEventType() == Notification.REMOVE && enotification.getOldValue() instanceof HyName) {
 					refreshVisuals();
 				}
@@ -215,8 +219,18 @@ public class DwFeatureEditPart extends DwAbstractEditPart implements NodeEditPar
 		refreshSourceConnections();
 		refreshTargetConnections();
 		
+		
 		refreshVisualsOfChildren();
 		refreshVisualsOfConnections();	
+	}
+	
+	/**
+	 * Override in order to swap the chi
+	 */
+	@Override
+	public void refresh() {
+		refreshChildren();
+		refreshVisuals();
 	}
 	
 	@Override
