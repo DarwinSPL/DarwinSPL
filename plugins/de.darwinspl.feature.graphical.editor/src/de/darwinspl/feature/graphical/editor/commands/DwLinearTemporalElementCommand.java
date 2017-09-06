@@ -33,17 +33,17 @@ public class DwLinearTemporalElementCommand extends Command{
 		
 		HyLinearTemporalElement successor = previousElement.getSupersedingElement();
 		if(successor == null){			
-			previousElement.setSupersedingElement(newElement);
+//			previousElement.setSupersedingElement(newElement);
 		}else{
-			newElement.setSupersedingElement(successor);
-			
-			successor.setSupersededElement(newElement);
-			previousElement.setSupersedingElement(newElement);
+//			newElement.setSupersedingElement(successor);
+//			
+//			successor.setSupersededElement(newElement);
+//			previousElement.setSupersedingElement(newElement);
 			
 			newElement.setValidUntil(successor.getValidSince());
 		}
 		
-		newElement.setSupersededElement(previousElement);		
+//		newElement.setSupersededElement(previousElement);		
 	}
 	
 	protected void removeElementFromLinkedList(HyLinearTemporalElement element){

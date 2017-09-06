@@ -298,8 +298,11 @@ public class DwAnalysesClient {
 		OutputOfHyVarRec hyvarrecAnswer = gson.fromJson(hyvarrecAnswerString, OutputOfHyVarRec.class);
 		
 		Map<String, Integer> attributeValues = new HashMap<String, Integer>();
-		for(eu.hyvar.reconfigurator.output.translation.format.Attribute attributeValue: hyvarrecAnswer.getAttributes()) {
-			attributeValues.put(attributeValue.getId(), attributeValue.getValue());
+		
+		if(hyvarrecAnswer.getAttributes() != null) {
+			for(eu.hyvar.reconfigurator.output.translation.format.Attribute attributeValue: hyvarrecAnswer.getAttributes()) {
+				attributeValues.put(attributeValue.getId(), attributeValue.getValue());
+			}			
 		}
 		
 		HyConfiguration configuration = HyVarRecOutputTranslator.translateConfiguration(featureModel, hyvarrecAnswer.getFeatures(), attributeValues, date);
