@@ -29,3 +29,9 @@ http://dl.acm.org/citation.cfm?id=3023962
 
 Demo video:
 https://www.youtube.com/watch?v=qE-ep0FoguI
+
+Troubleshooting:
+https://github.com/DarwinSPL/DarwinSPL/wiki/Troubleshooting
+
+If you encounter any other issues, please contact me:
+nieke ((at)) isf.cs.tu-bs.de
