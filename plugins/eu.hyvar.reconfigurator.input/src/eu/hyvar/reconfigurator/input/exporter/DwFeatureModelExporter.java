@@ -78,57 +78,61 @@ public class DwFeatureModelExporter {
 		}
 		
 		
-		// Set value of each feature and version to 0 if it is not valid at that moment
+//		// Set value of each feature and version to 0 if it is not valid at that moment
+//		if(date == null) {
+//			for(Date dateToCheck: sortedDateList) {
+//				
+//				StringBuilder featureInvalidStringBuilder = new StringBuilder();
+//
+//				
+//				boolean atLeastOneFeature = false;
+//				
+//				for(HyFeature feature: featureModel.getFeatures()) {
+//					
+//					if(!HyEvolutionUtil.isValid(feature, dateToCheck)) {
+//						if(!atLeastOneFeature) {
+//							atLeastOneFeature = true;
+//							
+//							featureInvalidStringBuilder.append(HyVarRecExporter.timedConstraint(dateToCheck, dateContext, sortedDateList));
+//							featureInvalidStringBuilder.append(HyVarRecExporter.BRACKETS_OPEN);
+//						}
+//						else {
+//							featureInvalidStringBuilder.append(HyVarRecExporter.AND);
+//						}
+//						
+//						featureInvalidStringBuilder.append(featureReconfiguratorIdMapping.get(feature));
+//						featureInvalidStringBuilder.append(HyVarRecExporter.EQUALS);
+//						featureInvalidStringBuilder.append(0);						
+//					}
+//					
+//					for(HyVersion version: feature.getVersions()) {
+//						if(!HyEvolutionUtil.isValid(version, dateToCheck)) {
+//							if(!atLeastOneFeature) {
+//								atLeastOneFeature = true;
+//								
+//								featureInvalidStringBuilder.append(HyVarRecExporter.timedConstraint(dateToCheck, dateContext, sortedDateList));
+//								featureInvalidStringBuilder.append(HyVarRecExporter.BRACKETS_OPEN);
+//							}
+//							else {
+//								featureInvalidStringBuilder.append(HyVarRecExporter.AND);
+//							}
+//							
+//							featureInvalidStringBuilder.append(versionReconfiguratorIdMapping.get(version));
+//							featureInvalidStringBuilder.append(HyVarRecExporter.EQUALS);
+//							featureInvalidStringBuilder.append(0);		
+//						}
+//					}
+//				}
+//								
+//				if(atLeastOneFeature) {
+//					featureInvalidStringBuilder.append(HyVarRecExporter.BRACKETS_CLOSING);
+//					featureModelConstraints.add(featureInvalidStringBuilder.toString());
+//				}
+//			}
+//		}
+		
 		if(date == null) {
-			for(Date dateToCheck: sortedDateList) {
-				
-				StringBuilder featureInvalidStringBuilder = new StringBuilder();
-
-				
-				boolean atLeastOneFeature = false;
-				
-				for(HyFeature feature: featureModel.getFeatures()) {
-					
-					if(!HyEvolutionUtil.isValid(feature, dateToCheck)) {
-						if(!atLeastOneFeature) {
-							atLeastOneFeature = true;
-							
-							featureInvalidStringBuilder.append(HyVarRecExporter.timedConstraint(dateToCheck, dateContext, sortedDateList));
-							featureInvalidStringBuilder.append(HyVarRecExporter.BRACKETS_OPEN);
-						}
-						else {
-							featureInvalidStringBuilder.append(HyVarRecExporter.AND);
-						}
-						
-						featureInvalidStringBuilder.append(featureReconfiguratorIdMapping.get(feature));
-						featureInvalidStringBuilder.append(HyVarRecExporter.EQUALS);
-						featureInvalidStringBuilder.append(0);						
-					}
-					
-					for(HyVersion version: feature.getVersions()) {
-						if(!HyEvolutionUtil.isValid(version, dateToCheck)) {
-							if(!atLeastOneFeature) {
-								atLeastOneFeature = true;
-								
-								featureInvalidStringBuilder.append(HyVarRecExporter.timedConstraint(dateToCheck, dateContext, sortedDateList));
-								featureInvalidStringBuilder.append(HyVarRecExporter.BRACKETS_OPEN);
-							}
-							else {
-								featureInvalidStringBuilder.append(HyVarRecExporter.AND);
-							}
-							
-							featureInvalidStringBuilder.append(versionReconfiguratorIdMapping.get(version));
-							featureInvalidStringBuilder.append(HyVarRecExporter.EQUALS);
-							featureInvalidStringBuilder.append(0);		
-						}
-					}
-				}
-								
-				if(atLeastOneFeature) {
-					featureInvalidStringBuilder.append(HyVarRecExporter.BRACKETS_CLOSING);
-					featureModelConstraints.add(featureInvalidStringBuilder.toString());
-				}
-			}
+			featureModelConstraints.addAll(getEvolutionFeatureAndVersionRestrictionConstraints(featureModel.getFeatures(), dateContext));
 		}
 
 		return featureModelConstraints;
@@ -213,7 +217,7 @@ public class DwFeatureModelExporter {
 				
 				List<HyVersion> validVersions = HyEvolutionUtil.getValidTemporalElements(feature.getVersions(), relevantDate);
 				if(!validVersions.isEmpty()) {
-					String timedConstraint = "";
+					String timedConstraint = null;
 					
 					if(!considerOnlyOneDate) {
 						Date validSince;
@@ -234,6 +238,7 @@ public class DwFeatureModelExporter {
 						
 						timedConstraint = HyVarRecExporter.timedConstraint(validSince, validUntil, dateContext, sortedDateList);
 						versionStringBuilder.append(timedConstraint);
+						versionStringBuilder.append(HyVarRecExporter.BRACKETS_OPEN);
 						
 					}
 					
@@ -252,6 +257,11 @@ public class DwFeatureModelExporter {
 						versionStringBuilder.append(versionReconfiguratorIdMapping.get(version));
 					}
 					versionStringBuilder.append(HyVarRecExporter.BRACKETS_CLOSING);
+					
+					if(timedConstraint != null) {
+						versionStringBuilder.append(HyVarRecExporter.BRACKETS_CLOSING);
+					}
+					
 					versionConstraints.add(versionStringBuilder.toString());
 				}
 			}
@@ -285,6 +295,7 @@ public class DwFeatureModelExporter {
 		Set<Date> relevantDatesSet = null;
 		boolean considerOnlyOneDate = false;
 
+		// With start index = -1, we capture the date before the first evolution step.
 		int startIndexToIterate = -1;
 		if(date != null) {
 			relevantDatesSet = new HashSet<Date>(1);
@@ -313,7 +324,7 @@ public class DwFeatureModelExporter {
 			groupConstraintsStringBuilder = new StringBuilder();
 			
 			Date relevantDate;
-			
+			// i==-1 represents the date before the first evolution step
 			if(i == -1) {
 				relevantDate = new Date(Long.MIN_VALUE);				
 			}
@@ -335,7 +346,7 @@ public class DwFeatureModelExporter {
 			
 			if(!considerOnlyOneDate) {
 				Date validSince;
-				if(i!=-1) {
+				if(i==-1) {
 					validSince = null;
 				}
 				else {
@@ -352,6 +363,7 @@ public class DwFeatureModelExporter {
 				
 				timedConstraint = HyVarRecExporter.timedConstraint(validSince, validUntil, dateContext, sortedDateList);
 				groupConstraintsStringBuilder.append(timedConstraint);
+				groupConstraintsStringBuilder.append(HyVarRecExporter.BRACKETS_OPEN);
 				
 			}
 			
@@ -386,6 +398,10 @@ public class DwFeatureModelExporter {
 				groupConstraintsStringBuilder.append(HyVarRecExporter.EQUALS);
 				groupConstraintsStringBuilder.append(1);
 
+				if(timedConstraint != null) {
+					groupConstraintsStringBuilder.append(HyVarRecExporter.BRACKETS_CLOSING);
+				}
+				
 				featureModelConstraints.add(groupConstraintsStringBuilder.toString());
 				groupConstraintsStringBuilder = new StringBuilder();
 			}
@@ -428,7 +444,7 @@ public class DwFeatureModelExporter {
 			
 			String parentFeatureId = featureReconfiguratorIdMapping.get(featureChild.getParent());
 			
-			String timedConstraint = "";
+			String timedConstraint = null;
 			
 			if(!considerOnlyOneDate) {
 				Date validSince;
@@ -451,6 +467,7 @@ public class DwFeatureModelExporter {
 			}
 			
 
+			
 			List<HyFeature> validFeaturesOfGroupComposition = HyEvolutionUtil
 					.getValidTemporalElements(groupComposition.getFeatures(), relevantDate);
 			
@@ -543,7 +560,15 @@ public class DwFeatureModelExporter {
 				}
 				
 				if (!groupConstraintsStringBuilder.toString().equals("")) {
-					featureModelConstraints.add(timedConstraint + groupConstraintsStringBuilder.toString());
+					if(timedConstraint != null) {
+						StringBuilder timedGroupConstraintStringBuilder = new StringBuilder(timedConstraint);
+						timedGroupConstraintStringBuilder.append(HyVarRecExporter.BRACKETS_OPEN);
+						timedGroupConstraintStringBuilder.append(groupConstraintsStringBuilder);
+						timedGroupConstraintStringBuilder.append(HyVarRecExporter.BRACKETS_CLOSING);		
+						groupConstraintsStringBuilder = timedGroupConstraintStringBuilder;
+					}
+					
+					featureModelConstraints.add(groupConstraintsStringBuilder.toString());
 				}
 			}
 			
@@ -561,7 +586,15 @@ public class DwFeatureModelExporter {
 					groupConstraintsStringBuilder.append(HyVarRecExporter.EQUALS);
 					groupConstraintsStringBuilder.append(1);
 
-					featureModelConstraints.add(timedConstraint + groupConstraintsStringBuilder.toString());
+					if(timedConstraint != null) {
+						StringBuilder timedGroupConstraintStringBuilder = new StringBuilder(timedConstraint);
+						timedGroupConstraintStringBuilder.append(HyVarRecExporter.BRACKETS_OPEN);
+						timedGroupConstraintStringBuilder.append(groupConstraintsStringBuilder);
+						timedGroupConstraintStringBuilder.append(HyVarRecExporter.BRACKETS_CLOSING);		
+						groupConstraintsStringBuilder = timedGroupConstraintStringBuilder;
+					}
+					
+					featureModelConstraints.add(groupConstraintsStringBuilder.toString());
 				}
 				
 			}
@@ -604,12 +637,139 @@ public class DwFeatureModelExporter {
 						optionalWithoutChildStringBuilder.append(parentFeatureId);
 						optionalWithoutChildStringBuilder.append(HyVarRecExporter.EQUALS);
 						optionalWithoutChildStringBuilder.append(1);
-						featureModelConstraints.add(timedConstraint + optionalWithoutChildStringBuilder.toString());							
+
+						if(timedConstraint != null) {
+							StringBuilder timedGroupConstraintStringBuilder = new StringBuilder(timedConstraint);
+							timedGroupConstraintStringBuilder.append(HyVarRecExporter.BRACKETS_OPEN);
+							timedGroupConstraintStringBuilder.append(optionalWithoutChildStringBuilder);
+							timedGroupConstraintStringBuilder.append(HyVarRecExporter.BRACKETS_CLOSING);		
+							optionalWithoutChildStringBuilder = timedGroupConstraintStringBuilder;
+						}
+						
+						featureModelConstraints.add(optionalWithoutChildStringBuilder.toString());							
 					}
 				}
 			}
 		}
-
+		
 		return featureModelConstraints;
+	}
+	
+	/**
+	 * Set features and versions to 0 if they are not valid at certain points in time.
+	 * @param features
+	 * @param dateContext
+	 * @return
+	 */
+	protected List<String> getEvolutionFeatureAndVersionRestrictionConstraints(List<HyFeature> features, Context dateContext) {
+		List<String> evolutionFeatureRestrictionConstraints = new ArrayList<String>();
+		
+		Set<Date> relevantDateSet = new HashSet<Date>();
+		relevantDateSet.addAll(HyEvolutionUtil.collectDates(features));
+		
+		for(HyFeature feature: features) {
+			relevantDateSet.addAll(HyEvolutionUtil.collectDates(feature.getVersions()));			
+		}
+		
+		
+		if(relevantDateSet.size() == 0) {
+			return evolutionFeatureRestrictionConstraints;
+		}
+		
+		List<Date> relevantDates = new ArrayList<Date>(relevantDateSet);
+		Collections.sort(relevantDates);
+		
+		for(int i=-1;i<relevantDates.size();i++) {
+			StringBuilder stringBuilder = new StringBuilder();
+			
+			Date since = null;
+			Date until = null;
+			
+			if(i==-1) {
+				since = new Date(Long.MIN_VALUE);
+			}
+			else {
+				since = relevantDates.get(i);
+			}
+			
+			List<HyFeature> invalidFeatures = HyEvolutionUtil.getInvalidTemporalElements(features, since);
+			
+			List<HyVersion> invalidVersionsOfValidFeatures = new ArrayList<HyVersion>();
+			for(HyFeature feature: features) {
+				if(!invalidFeatures.contains(feature)) {
+					invalidVersionsOfValidFeatures.addAll(HyEvolutionUtil.getInvalidTemporalElements(feature.getVersions(), since));
+				}
+			}
+			
+			if(invalidFeatures.size() == 0 && invalidVersionsOfValidFeatures.size() == 0) {
+				continue;
+			}
+//			
+//			stringBuilder.append(HyVarRecExporter.BRACKETS_OPEN);
+//			
+//			if(i==-1) {
+//				since = null;
+//				until = relevantDates.get(i+1);
+//			}
+//			else if(i == relevantDates.size()-1) {
+//				until = null;
+//			}
+//			else {
+//				until = relevantDates.get(i+1);
+//			}
+//			
+//			stringBuilder.append(HyVarRecExporter.BRACKETS_CLOSING);
+			
+			
+			
+			if(i==-1) {
+				since = null;
+				until = relevantDates.get(i+1);
+			}
+			else if(i == relevantDates.size()-1) {
+				until = null;
+			}
+			else {
+				until = relevantDates.get(i+1);
+			}
+			
+			String timedConstraint = HyVarRecExporter.timedConstraint(since, until, dateContext, relevantDates);
+			stringBuilder.append(timedConstraint);
+			stringBuilder.append(HyVarRecExporter.BRACKETS_OPEN);
+			
+			boolean first = true;
+			
+			for(HyFeature feature: invalidFeatures) {
+				if(!first) {
+					stringBuilder.append(HyVarRecExporter.AND);
+				} else {
+					first = false;
+				}
+				
+				stringBuilder.append(featureReconfiguratorIdMapping.get(feature));
+				stringBuilder.append(HyVarRecExporter.EQUALS);
+				stringBuilder.append(0);
+			}
+			
+			for(HyVersion version: invalidVersionsOfValidFeatures) {
+				if(!first) {
+					stringBuilder.append(HyVarRecExporter.AND);
+				} else {
+					first = false;
+				}
+				
+				stringBuilder.append(versionReconfiguratorIdMapping.get(version));
+				stringBuilder.append(HyVarRecExporter.EQUALS);
+				stringBuilder.append(0);
+			}
+			
+
+			stringBuilder.append(HyVarRecExporter.BRACKETS_CLOSING);
+			
+			evolutionFeatureRestrictionConstraints.add(stringBuilder.toString());
+		}
+		
+		return evolutionFeatureRestrictionConstraints;
+		
 	}
 }

@@ -349,6 +349,14 @@ public class HyVarRecExporter {
 		return domain;
 	}
 
+	/**
+	 * Creates a constraint which is like (evolutionContext >= since and evolutionContext < until) impl
+	 * @param validSince
+	 * @param validUntil
+	 * @param dateContext
+	 * @param sortedDateList
+	 * @return
+	 */
 	public static String timedConstraint(Date validSince, Date validUntil, Context dateContext,
 			List<Date> sortedDateList) {
 		StringBuilder timedConstraint = new StringBuilder();
@@ -364,7 +372,7 @@ public class HyVarRecExporter {
 			timedConstraint.append(dateContext.getId());
 			timedConstraint.append(ReconfiguratorIdMapping.ARRAY_BRACKETS_CLOSING);
 
-			int dateContextValue = getPositionOfEqualDateInList(sortedDateList, validSince);
+			int dateContextValue = getDateContextValueForDate(sortedDateList, validSince);
 
 			timedConstraint.append(GEQ);
 			timedConstraint.append(dateContextValue);
@@ -383,7 +391,7 @@ public class HyVarRecExporter {
 			timedConstraint.append(dateContext.getId());
 			timedConstraint.append(ReconfiguratorIdMapping.ARRAY_BRACKETS_CLOSING);
 
-			int dateContextValue = getPositionOfEqualDateInList(sortedDateList, validUntil);
+			int dateContextValue = getDateContextValueForDate(sortedDateList, validUntil);
 
 			timedConstraint.append(LESS);
 			timedConstraint.append(dateContextValue);
@@ -413,7 +421,7 @@ public class HyVarRecExporter {
 
 		timedConstraint.append(EQUALS);
 
-		timedConstraint.append(getPositionOfEqualDateInList(sortedDateList, date));
+		timedConstraint.append(getDateContextValueForDate(sortedDateList, date));
 
 		timedConstraint.append(BRACKETS_CLOSING);
 		timedConstraint.append(IMPLICATION);
@@ -431,21 +439,24 @@ public class HyVarRecExporter {
 			}
 		} else {
 			expressionStringBuilder.append(timedConstraint(baseElement, dateContext, sortedDateList));
+			expressionStringBuilder.append(BRACKETS_OPEN);
 		}
 
 		expressionStringBuilder.append(expressionExporter.exportExpressionToString(expression));
 
+		expressionStringBuilder.append(BRACKETS_CLOSING);
+
 		return expressionStringBuilder.toString();
 	}
 
-	protected static int getPositionOfEqualDateInList(List<Date> dateList, Date date) {
+	protected static int getDateContextValueForDate(List<Date> dateList, Date date) {
 		for (int i = 0; i < dateList.size(); i++) {
 			if (dateList.get(i).equals(date)) {
-				return i;
+				return i+1;
 			}
 		}
 
-		return -1;
+		return 0;
 	}
 
 }

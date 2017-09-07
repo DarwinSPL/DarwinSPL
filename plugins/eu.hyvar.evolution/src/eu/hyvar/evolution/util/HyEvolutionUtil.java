@@ -361,6 +361,10 @@ public class HyEvolutionUtil {
 	 * @return
 	 */
 	public static List<Date> collectDates(EObject model) {
+		if(model == null) {
+			return Collections.emptyList();
+		}
+		
 		// NOTE: Check if equals and identity work for hash set.
 		Set<Date> rawDates = new HashSet<Date>();
 

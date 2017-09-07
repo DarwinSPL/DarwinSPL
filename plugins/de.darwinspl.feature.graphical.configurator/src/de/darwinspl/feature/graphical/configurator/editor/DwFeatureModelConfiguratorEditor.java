@@ -53,6 +53,7 @@ import de.darwinspl.feature.graphical.configurator.factory.DwConfiguratorEditorE
 import de.darwinspl.feature.graphical.configurator.viewer.DwFeatureModelConfiguratorViewer;
 import de.darwinspl.reconfigurator.client.hyvarrec.DwAnalysesClient;
 import de.darwinspl.reconfigurator.client.hyvarrec.DwAnalysesClient.DwContextValueEvolutionWrapper;
+import de.darwinspl.reconfigurator.client.hyvarrec.HyVarRecNoSolutionException;
 import eu.hyvar.context.HyContextInformationFactory;
 import eu.hyvar.context.HyContextModel;
 import eu.hyvar.context.HyContextualInformationBoolean;
@@ -374,8 +375,9 @@ public class DwFeatureModelConfiguratorEditor extends DwFeatureModelConfigurator
 				}
 			}
 			else {
-				MessageDialog.openError(getShell(), "No context model", "Reconfiguration not possible as no context information file exists.");
-				return;
+				contextModel = HyContextInformationFactory.eINSTANCE.createHyContextModel();
+//				MessageDialog.openError(getShell(), "No context model", "Reconfiguration not possible as no context information file exists.");
+//				return;
 			}
 			
 //			if(modelFileExists(HyContextInformationUtil.getContextModelFileExtensionForConcreteSyntax())){
@@ -497,6 +499,10 @@ public class DwFeatureModelConfiguratorEditor extends DwFeatureModelConfigurator
 			} catch (UnresolvedAddressException | TimeoutException | InterruptedException | ExecutionException e1) {
 				MessageDialog dialog = new MessageDialog(PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell(), "Unresolvable Server Adress", null,
 						"The adress '"+uri.toString()+"' could not be resolved or had a timeout. No configuration was generated.", MessageDialog.ERROR, new String[] { "Ok" }, 0);
+				dialog.open();
+			} catch (HyVarRecNoSolutionException e1) {
+				MessageDialog dialog = new MessageDialog(PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell(), "No Solution", null,
+						e1.getMessage(), MessageDialog.ERROR, new String[] { "Ok" }, 0);
 				dialog.open();
 			}
 		}

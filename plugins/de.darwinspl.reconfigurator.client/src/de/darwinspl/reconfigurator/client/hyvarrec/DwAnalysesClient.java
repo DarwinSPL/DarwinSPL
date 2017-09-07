@@ -140,14 +140,20 @@ public class DwAnalysesClient {
 	 */
 	public DwContextValueEvolutionWrapper validateFeatureModelWithContext(String uriString, HyContextModel contextModel, HyValidityModel contextValidityModel,
 			HyFeatureModel featureModel, HyConstraintModel constraintModel, HyConfiguration oldConfiguration,
-			HyProfile profile, HyContextValueModel contextValues, Date date) throws TimeoutException, InterruptedException, ExecutionException, UnresolvedAddressException {
+			HyProfile profile, HyContextValueModel contextValues, Date date) throws TimeoutException, InterruptedException, ExecutionException, UnresolvedAddressException, HyVarRecNoSolutionException {
 		
 		String messageForHyVarRec = createHyVarRecMessage(contextModel, contextValidityModel, featureModel, constraintModel, oldConfiguration, profile, contextValues, date);
 		URI uri = createUriWithPath(uriString, VALIDATE_CONTEXT_URI);
 		
 		String hyvarrecAnswerString = sendMessageToHyVarRec(messageForHyVarRec, uri);
 		
+		if(hyvarrecAnswerString.startsWith("{\"no_solution")) {
+			throw new HyVarRecNoSolutionException("HyVarRec returned could not find any solution.\n Message for HyVarRec:\n"+messageForHyVarRec+"\n Answer from HyVarRec:\n"+hyvarrecAnswerString);
+		}
+		
 		HyVarRecValidateAnswer hyVarRecAnswer = gson.fromJson(hyvarrecAnswerString, HyVarRecValidateAnswer.class);
+		
+		
 		
 		if(hyVarRecAnswer.getResult().equals(CONTEXT_VALID)) {
 			return null;
@@ -252,19 +258,8 @@ public class DwAnalysesClient {
 		hyvarrecRequest.content(new StringContentProvider(message), "application/json");
 		ContentResponse hyvarrecResponse;
 		String hyvarrecAnswerString = "";
-//		try {
-			hyvarrecResponse = hyvarrecRequest.send();
-			hyvarrecAnswerString = hyvarrecResponse.getContentAsString();
-//		} catch (UnresolvedAddressException | ExecutionException e){
-//			MessageDialog dialog = new MessageDialog(PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell(), "Unresolvable Server Adress", null,
-//					"The adress '"+uri.toString()+"' could not be resolved. No configuration was generated.", MessageDialog.ERROR, new String[] { "Ok" }, 0);
-//			dialog.open();
-//			
-//			return null;
-//		} catch (InterruptedException | TimeoutException e) {
-//			//e.printStackTrace();
-//			return null;
-//		} 
+		hyvarrecResponse = hyvarrecRequest.send();
+		hyvarrecAnswerString = hyvarrecResponse.getContentAsString();
 
 		// Only for Debug
 		System.err.println("HyVarRec Answer: "+hyvarrecAnswerString);
