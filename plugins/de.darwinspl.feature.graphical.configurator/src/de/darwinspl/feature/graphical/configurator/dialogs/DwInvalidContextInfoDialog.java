@@ -17,6 +17,7 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.widgets.TableItem;
+import org.eclipse.swt.widgets.Text;
 
 import de.darwinspl.reconfigurator.client.hyvarrec.DwAnalysesClient.DwContextValueEvolutionWrapper;
 import eu.hyvar.context.information.contextValue.HyContextValue;
@@ -31,11 +32,11 @@ public class DwInvalidContextInfoDialog extends TitleAreaDialog {
 	protected HyContextValueModel invalidContextValues;
 	protected Date invalidDate;
 
-	protected static final String TITLE_INVALID_CONTEXT = "Invalid Context Found!";
-	protected static final String TITLE_NO_INVALID_CONTEXT = "Model is satisfiable for each context!";
+	protected static final String TITLE_INVALID_CONTEXT = "Invalid Context or Evolution Step Found!";
+	protected static final String TITLE_NO_INVALID_CONTEXT = "Model is satisfiable!";
 
-	protected static final String MESSAGE_INVALID_CONTEXT = "HyVarRec found an invalid context for which the model is not satisfiable. Below a non-satisfiable example is given.";
-	protected static final String MESSAGE_NO_INVALID_CONTEXT = "HyVarRec didn't find any invalid context for which the model is not satisfiable.";
+	protected static final String MESSAGE_INVALID_CONTEXT = "HyVarRec found an invalid context or evolution step for which the model is not satisfiable. Below a non-satisfiable example is given.";
+	protected static final String MESSAGE_NO_INVALID_CONTEXT = "HyVarRec didn't find any invalid context or evolution step for which the model is not satisfiable.";
 
 	public DwInvalidContextInfoDialog(Shell parentShell, HyContextValueModel invalidContextValues) {
 		super(parentShell);
@@ -47,8 +48,10 @@ public class DwInvalidContextInfoDialog extends TitleAreaDialog {
 	public DwInvalidContextInfoDialog(Shell parentShell, DwContextValueEvolutionWrapper contextValueEvolutionWrapper) {
 		super(parentShell);
 
-		this.invalidContextValues = contextValueEvolutionWrapper.getContextValueModel();
-		this.invalidDate = contextValueEvolutionWrapper.getDate();
+		if(contextValueEvolutionWrapper!=null) {
+			this.invalidContextValues = contextValueEvolutionWrapper.getContextValueModel();
+			this.invalidDate = contextValueEvolutionWrapper.getDate();			
+		}
 	}
 
 	@Override
@@ -64,7 +67,7 @@ public class DwInvalidContextInfoDialog extends TitleAreaDialog {
 		String message;
 		int type;
 
-		if (invalidContextValues == null) {
+		if (invalidContextValues == null && invalidDate == null) {
 			title = TITLE_NO_INVALID_CONTEXT;
 			message = MESSAGE_NO_INVALID_CONTEXT;
 			type = IMessageProvider.INFORMATION;
@@ -94,7 +97,7 @@ public class DwInvalidContextInfoDialog extends TitleAreaDialog {
 		}
 		
 		Label whitespaceLabel = new Label(parent, SWT.VERTICAL);
-		whitespaceLabel.setText("Invalid Context:");
+		whitespaceLabel.setText("Context values:");
 
 		Table table = new Table(parent, SWT.SINGLE | SWT.FULL_SELECTION | SWT.BORDER);
 		table.setLayoutData(GridDataFactory.swtDefaults().hint(360, 100).create());
@@ -134,35 +137,16 @@ public class DwInvalidContextInfoDialog extends TitleAreaDialog {
 		    tableItem.setText(new String[] { contextValue.getContext().getName(), valueString});
 		}
 
-		// uriText = new Text(container, SWT.BORDER);
-		// uriText.setLayoutData(dataURI);
-		// uriText.setText(uri.toString());
-
-		// final ControlDecoration txtDecorator = new ControlDecoration(uriText,
-		// SWT.TOP|SWT.RIGHT|SWT.FILL);
-		// FieldDecoration fieldDecoration =
-		// FieldDecorationRegistry.getDefault().getFieldDecoration(FieldDecorationRegistry
-		// .DEC_ERROR);
-		//
-		// Image img = fieldDecoration.getImage();
-		// txtDecorator.setImage(img);
-		// txtDecorator.setDescriptionText("Pls enter only numeric fields");
-		// // hiding it initially
-		// txtDecorator.hide();
-		//
-		// uriText.addModifyListener(new ModifyListener(){
-		//
-		// @Override
-		// public void modifyText(ModifyEvent e) {
-		// try{
-		// uri = uriText.getText();
-		// txtDecorator.hide();
-		// }catch(Exception e1){
-		// txtDecorator.show();
-		// }
-		// }
-		//
-		// });
+		
+		if(invalidDate != null) {
+			new Label(parent, SWT.VERTICAL);
+			
+			Label whitespaceLabel2 = new Label(parent, SWT.VERTICAL);
+			whitespaceLabel2.setText("At date:");
+			
+			Text dateText = new Text(parent, SWT.CENTER);
+			dateText.setText(invalidDate.toString());
+		}
 
 		return container;
 	}

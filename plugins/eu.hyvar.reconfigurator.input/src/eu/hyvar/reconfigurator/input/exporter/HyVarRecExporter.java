@@ -94,7 +94,7 @@ public class HyVarRecExporter {
 
 	public static final String WHITESPACE = " ";
 	
-	public static final String EVOLUTION_CONTEXT_ID = "_evolution-context";
+	public static final String EVOLUTION_CONTEXT_ID = "context[_evolution-context]";
 
 //	private HyExpressionStringExporter expressionExporter;
 
@@ -105,21 +105,8 @@ public class HyVarRecExporter {
 
 	private ReconfiguratorIdMapping reconfiguratorIdMapping;
 
-//	private DwFeatureModelExporter featureModelExporter;
-//	private DwConfigurationExporter configurationExporter;
-//	private DwConstraintExporter constraintExporter;
-//	private DwPreferenceExporter preferenceExporter;
-//	private DwValidityFormulaExporter validityFormulaExporter;
-//	private DwContextExporter contextExporter;
-
 	public HyVarRecExporter() {
-		// featureReconfiguratorIdMapping = new HashMap<HyFeature, String>();
-		// versionReconfiguratorIdMapping = new HashMap<HyVersion, String>();
-		// contextReconfiguratorIdMapping = new HashMap<HyContextualInformation,
-		// String>();
-		// attributeReconfiguratorIdMapping = new HashMap<HyFeatureAttribute,
-		// String>();
-		// expressionExporter = null;
+		
 	}
 
 	private static void initializeEmptyHyVarRecInput(InputForHyVarRec input) {
@@ -252,9 +239,12 @@ public class HyVarRecExporter {
 			sortedDateList = getSortedListOfDates(allModels);
 
 			dateContext = new Context();
+//			String id = CONTEXT_ATOM;
+//			id += EVOLUTION_CONTEXT_ID;
+//			id += ARRAY_BRACKETS_CLOSING;
 			dateContext.setId(EVOLUTION_CONTEXT_ID);
-			dateContext.setMin(0);
-			dateContext.setMax(sortedDateList.size());
+			dateContext.setMin(-1);
+			dateContext.setMax(sortedDateList.size()-1);
 
 			input.getContexts().add(dateContext);
 		}
@@ -294,22 +284,15 @@ public class HyVarRecExporter {
 		return gson.toJson(input);
 	}
 	
-//	public static List<Date> getSortedListOfDates(HyFeatureModel featureModel, HyContextModel contextModel, HyConstraintModel constraintModel, HyValidityModel contextValidityModel, HyProfile profile) {
-//		List<Date> sortedDateList = null;
-//		Set<Date> dateSet = null;
-//		dateSet = new HashSet<Date>();
-//		dateSet.addAll(HyEvolutionUtil.collectDates(featureModel));
-//		dateSet.addAll(HyEvolutionUtil.collectDates(contextModel));
-//		dateSet.addAll(HyEvolutionUtil.collectDates(profile));
-//		dateSet.addAll(HyEvolutionUtil.collectDates(constraintModel));
-//		dateSet.addAll(HyEvolutionUtil.collectDates(contextValidityModel));
-//
-//		sortedDateList = new ArrayList<Date>(dateSet.size());
-//		sortedDateList.addAll(dateSet);
-//		Collections.sort(sortedDateList);
-//		
-//		return sortedDateList;
-//	}
+	public static List<Date> getSortedListOfDatesOfDateContext(List<HyFeatureModel> featureModels, List <HyConstraintModel> constraintModels, List<HyContextModel> contextModels, List<HyValidityModel> validityModels, List<HyProfile> profiles) {
+		List<EObject> allModels = new ArrayList<EObject>();
+		allModels.addAll(featureModels);
+		allModels.addAll(constraintModels);
+		allModels.addAll(contextModels);
+		allModels.addAll(validityModels);
+		allModels.addAll(profiles);
+		return getSortedListOfDates(allModels);
+	}
 	
 	public static List<Date> getSortedListOfDates(List<EObject> eObjects) {
 		List<Date> sortedDateList = null;
@@ -368,9 +351,7 @@ public class HyVarRecExporter {
 			validSinceNull = false;
 
 			timedConstraint.append(BRACKETS_OPEN);
-			timedConstraint.append(ReconfiguratorIdMapping.CONTEXT_ATOM);
 			timedConstraint.append(dateContext.getId());
-			timedConstraint.append(ReconfiguratorIdMapping.ARRAY_BRACKETS_CLOSING);
 
 			int dateContextValue = getDateContextValueForDate(sortedDateList, validSince);
 
@@ -387,9 +368,7 @@ public class HyVarRecExporter {
 				timedConstraint.append(BRACKETS_OPEN);
 			}
 
-			timedConstraint.append(ReconfiguratorIdMapping.CONTEXT_ATOM);
 			timedConstraint.append(dateContext.getId());
-			timedConstraint.append(ReconfiguratorIdMapping.ARRAY_BRACKETS_CLOSING);
 
 			int dateContextValue = getDateContextValueForDate(sortedDateList, validUntil);
 
@@ -415,9 +394,7 @@ public class HyVarRecExporter {
 		StringBuilder timedConstraint = new StringBuilder();
 
 		timedConstraint.append(BRACKETS_OPEN);
-		timedConstraint.append(ReconfiguratorIdMapping.CONTEXT_ATOM);
 		timedConstraint.append(dateContext.getId());
-		timedConstraint.append(ReconfiguratorIdMapping.ARRAY_BRACKETS_CLOSING);
 
 		timedConstraint.append(EQUALS);
 
@@ -452,11 +429,11 @@ public class HyVarRecExporter {
 	protected static int getDateContextValueForDate(List<Date> dateList, Date date) {
 		for (int i = 0; i < dateList.size(); i++) {
 			if (dateList.get(i).equals(date)) {
-				return i+1;
+				return i;
 			}
 		}
 
-		return 0;
+		return -1;
 	}
 
 }
