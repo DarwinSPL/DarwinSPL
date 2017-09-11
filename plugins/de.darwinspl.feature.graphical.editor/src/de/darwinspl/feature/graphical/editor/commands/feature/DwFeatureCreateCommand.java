@@ -39,6 +39,7 @@ public class DwFeatureCreateCommand extends DwFeatureModelEditorCommand {
 		featureModel.removeConnection(connection, date);
 		
 		//featureModel.getModel().getFeatures().remove(newFeature.getWrappedModelElement());
+		featureModel.removeFeature(newFeature, date);
 		featureModel.removeFeature(newFeature);
 		
 		featureModel.rearrangeFeatures();

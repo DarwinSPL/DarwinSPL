@@ -36,6 +36,8 @@ public class DwVersionEditPart extends DwAbstractEditPart{
 			   notification.getEventType() != Notification.REMOVE &&
 			   notification.getEventType() != Notification.REMOVING_ADAPTER)
 				refreshVisuals();
+			
+			
 		}
 		
 
