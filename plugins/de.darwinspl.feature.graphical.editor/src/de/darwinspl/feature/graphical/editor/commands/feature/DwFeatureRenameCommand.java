@@ -61,7 +61,6 @@ public class DwFeatureRenameCommand extends DwLinearTemporalElementCommand {
 		if(changeDate.equals(new Date(Long.MIN_VALUE))){
 			changeDate = null;
 			EcoreUtil.delete(oldName);
-//			feature.getWrappedModelElement().getNames().remove(oldName);
 		}
 		
 		changeVisibilities(oldName, newName, changeDate);

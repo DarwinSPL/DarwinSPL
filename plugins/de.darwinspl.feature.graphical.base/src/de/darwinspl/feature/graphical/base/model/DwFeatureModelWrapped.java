@@ -541,7 +541,7 @@ public class DwFeatureModelWrapped implements PropertyChangeListener {
 				type.setType(HyGroupTypeEnum.AND);
 			} 
 			
-			if (date.equals(new Date(Long.MIN_VALUE))) {
+			if (date.equals(new Date(Long.MIN_VALUE)) || (composition.getValidSince() != null && date.equals(composition.getValidSince()))) {
 				composition.getFeatures().remove(childFeature.getWrappedModelElement());
 
 				if (composition.getFeatures().isEmpty()) {
