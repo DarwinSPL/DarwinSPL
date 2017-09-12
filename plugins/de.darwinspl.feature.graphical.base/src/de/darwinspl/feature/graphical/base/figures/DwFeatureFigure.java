@@ -308,7 +308,10 @@ public class DwFeatureFigure extends DwErrorMarkerFigure{
 		}	
 
 		expandButton.setDirection(feature.isHideChildren() ? Orientable.SOUTH : Orientable.NORTH);
-		expandButton.setVisible(!feature.getChildrenConnections(date).isEmpty());
+		boolean noConnections = feature.getChildrenConnections(date).isEmpty();
+		expandButton.setVisible(!noConnections);
+		
+		hiddenChildrenIndicator.setVisible(feature.isHideChildren() && !noConnections);
 	}
 
 	private void updateHiddenChildrenIndicator(){

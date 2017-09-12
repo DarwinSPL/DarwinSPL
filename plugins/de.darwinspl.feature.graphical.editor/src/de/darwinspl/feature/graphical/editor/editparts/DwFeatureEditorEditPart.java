@@ -27,7 +27,7 @@ import eu.hyvar.feature.HyFeatureTypeEnum;
 
 public class DwFeatureEditorEditPart extends DwFeatureEditPart{
 	public DwFeatureEditorEditPart(DwGraphicalFeatureModelViewer editor, DwFeatureModelWrapped featureModel) {
-		super(editor, featureModel);
+		super(editor, featureModel);		
 	}
 
 	@Override

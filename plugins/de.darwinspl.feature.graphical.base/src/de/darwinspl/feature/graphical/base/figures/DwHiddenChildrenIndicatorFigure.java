@@ -118,11 +118,7 @@ public class DwHiddenChildrenIndicatorFigure extends DwGradientFillCircleFigure 
 		return true;
 	};
 	
-	@Override
-	public boolean isVisible() {
-		return feature.isHideChildren();
-	};
-	
+
 	public void update(){
 		label.setText(String.valueOf(getFeatureChildrenCount(feature, featureModel.getSelectedDate())));
 	}

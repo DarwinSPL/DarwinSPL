@@ -41,6 +41,7 @@ public class DwFeatureEditPart extends DwAbstractEditPart implements NodeEditPar
 		@Override 
 		public void notifyChanged(Notification notification) {
 			if(notification instanceof ENotificationImpl) {
+				
 				ENotificationImpl enotification = (ENotificationImpl)notification;
 				if(enotification.getEventType() == Notification.ADD && enotification.getNewValue() instanceof HyName) {
 					refreshVisuals();
@@ -65,8 +66,9 @@ public class DwFeatureEditPart extends DwAbstractEditPart implements NodeEditPar
 					
 				}
 								
-				if(notification instanceof DwRepaintNotification)
+				if(notification instanceof DwRepaintNotification) {
 					refreshVisuals();
+				}
 
 			}
 		}
@@ -235,9 +237,11 @@ public class DwFeatureEditPart extends DwAbstractEditPart implements NodeEditPar
 	
 	@Override
 	protected void refreshVisibility() {
+		DwFeatureWrapped wrappedFeature = (DwFeatureWrapped)this.getModel();		
+		wrappedFeature.updateVisibillity(editor.getCurrentSelectedDate());
+		
 		super.refreshVisibility();
 		
-		DwFeatureWrapped wrappedFeature = (DwFeatureWrapped)this.getModel();		
 		figure.setVisible(wrappedFeature.isVisible());
 	}
 

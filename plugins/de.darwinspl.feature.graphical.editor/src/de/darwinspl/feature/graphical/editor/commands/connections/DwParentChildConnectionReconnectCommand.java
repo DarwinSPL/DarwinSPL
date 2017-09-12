@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.gef.EditPart;
 
 import de.darwinspl.feature.graphical.base.editor.DwGraphicalFeatureModelViewer;
@@ -31,6 +32,8 @@ public class DwParentChildConnectionReconnectCommand extends DwFeatureDeleteComm
 	private DwParentChildConnection connection;
 	private DwParentChildConnection backupConnection;
 	private DwParentChildConnection newConnection;
+	
+	Date executionDate;
 	
 	private HyGroup backupGroup;
 
@@ -109,7 +112,7 @@ public class DwParentChildConnectionReconnectCommand extends DwFeatureDeleteComm
 
 		//DwGroupWrapped oldGroup = oldTarget.getParentGroup(date);
 
-		DwParentChildConnection newConnection = new DwParentChildConnection();
+		
 		newConnection.setModel(featureModel);
 		newConnection.setTarget(oldTarget);
 		newConnection.setSource(newTarget);			
@@ -132,6 +135,8 @@ public class DwParentChildConnectionReconnectCommand extends DwFeatureDeleteComm
 
 	@Override
 	public void redo(){
+		executionDate = viewer.getCurrentSelectedDate();
+		
 		if(target instanceof DwFeatureWrapped){
 			redoForFeatureTarget();
 		}else{
@@ -147,6 +152,11 @@ public class DwParentChildConnectionReconnectCommand extends DwFeatureDeleteComm
 		realFeature.setValidSince(backupFeature.getValidSince());
 		realFeature.setValidUntil(backupFeature.getValidUntil());
 		
+		DwFeatureModelWrapped featureModel = viewer.getModelWrapped();
+		
+		
+		featureModel.removeConnection(newConnection, executionDate);
+
 		/*
 		// undo restrictions of children
 		undoRestrictHyLinearTemporalElementsToParentValidUntil((EList<HyTemporalElement>)(EList<?>)realFeature.getNames(), 
@@ -234,6 +244,17 @@ public class DwParentChildConnectionReconnectCommand extends DwFeatureDeleteComm
 			}
 			
 			if(!exist) {
+				if(composition.getFeatures().size() == 1) {
+					if(composition.getCompositionOf().getParentOf().size() == 1) {
+						for(HyFeatureChild child : composition.getCompositionOf().getChildOf()) {
+							child.getParent().getParentOf().remove(child);
+						}
+						
+						composition.getCompositionOf().getChildOf().clear();
+						viewer.getModelWrapped().getModel().getGroups().remove(composition.getCompositionOf());
+					}
+				}
+				
 				compositionToBeDeleted.add(composition);
 			}
 		}
@@ -241,6 +262,31 @@ public class DwParentChildConnectionReconnectCommand extends DwFeatureDeleteComm
 		realFeature.getGroupMembership().removeAll(compositionToBeDeleted);
 		
 		connection.setValidUntil(backupConnection.getValidUntil());
+		
+		for(HyGroupComposition composition : backupFeature.getGroupMembership()) {
+			boolean containsComposition = false;
+			for(HyGroupComposition realFeatureComposition : realFeature.getGroupMembership()) {
+				if(realFeatureComposition.getId().equals(composition.getId())){
+					containsComposition = true;
+				}
+			}
+			
+			if(!containsComposition) {
+				for(HyGroup group : viewer.getModelWrapped().getModel().getGroups()) {
+					if(composition.getCompositionOf().getId().equals(group.getId())) {
+						for(HyGroupComposition realComposition : group.getParentOf()) {
+							if(realComposition.getId().contentEquals(composition.getId())) {
+								realComposition.getFeatures().add(realFeature);
+							}
+						}
+					}
+				}
+			}
+		}
+		
+		
+		backupConnection.getSource().addOrUpdateParentToChildConnection(backupConnection);
+		backupConnection.getTarget().addOrUpdateChildToParentConnection(backupConnection);
 		
 		viewer.refreshView();	
 		/*

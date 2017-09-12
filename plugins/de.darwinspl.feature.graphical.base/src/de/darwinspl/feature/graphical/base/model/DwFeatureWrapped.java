@@ -98,6 +98,15 @@ public class DwFeatureWrapped extends DwEditorChangeableElement{
 		return visible;
 	}
 
+	public void updateVisibillity(Date date) {
+		for(DwParentChildConnection connection : getParentConnections(date)) {
+			if(connection.getSource().isHideChildren()) {
+				visible = false;
+			}else {
+				visible = true;
+			}
+		}
+	}
 	public void setVisible(boolean visible, Date date) {
 		boolean old = this.visible;
 		
