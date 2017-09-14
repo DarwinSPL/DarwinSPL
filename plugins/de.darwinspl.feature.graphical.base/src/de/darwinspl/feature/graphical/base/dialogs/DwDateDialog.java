@@ -1,5 +1,8 @@
 package de.darwinspl.feature.graphical.base.dialogs;
 
+
+import org.eclipse.swt.events.KeyEvent;
+import org.eclipse.swt.events.KeyListener;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -19,6 +22,7 @@ import org.eclipse.swt.widgets.Shell;
 public class DwDateDialog extends Dialog implements Listener{
 
 	private DateTime calendarWidget;
+	private DateTime timeWidget;
 
 	public DwDateDialog(Shell parentShell, Date date) {
 		super(parentShell);
@@ -58,13 +62,30 @@ public class DwDateDialog extends Dialog implements Listener{
 	    calendarWidget.setLayoutData(gridData);
 	    calendarWidget.addListener(SWT.Selection, this);
 	    calendarWidget.setDate(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
-
+	    
 	    gridData = new GridData();
 		gridData.horizontalSpan = 2;
 		gridData.horizontalAlignment = SWT.FILL;
 		gridData.grabExcessHorizontalSpace = true;
 		gridData.verticalAlignment = SWT.FILL;
 		gridData.grabExcessVerticalSpace = false;
+
+	    
+		timeWidget = new DateTime(container, SWT.TIME);
+		timeWidget.setLayoutData(gridData);
+		timeWidget.addListener(SWT.Selection, this);
+		timeWidget.addKeyListener(new KeyListener() {
+
+			@Override
+			public void keyPressed(KeyEvent e) {
+			}
+
+			@Override
+			public void keyReleased(KeyEvent e) {
+				// dateChanged();
+			}
+		});
+		timeWidget.setTime(calendar.get(Calendar.HOUR), calendar.get(Calendar.MINUTE), calendar.get(Calendar.SECOND));
 
 		container.pack();
 		return container;
@@ -95,10 +116,15 @@ public class DwDateDialog extends Dialog implements Listener{
 		instance.set(Calendar.DAY_OF_MONTH, calendarWidget.getDay());
 		instance.set(Calendar.MONTH, calendarWidget.getMonth());
 		instance.set(Calendar.YEAR, calendarWidget.getYear());
-		instance.set(Calendar.HOUR, 0);
-		instance.set(Calendar.MINUTE, 0);
-		instance.set(Calendar.SECOND, 0);
+		instance.set(Calendar.SECOND, timeWidget.getSeconds());
 		instance.set(Calendar.MILLISECOND, 0);
+		instance.set(Calendar.MINUTE, timeWidget.getMinutes());
+		instance.set(Calendar.HOUR, timeWidget.getHours());
+		instance.set(Calendar.AM_PM, timeWidget.getHours() <= 12 ? Calendar.AM : Calendar.PM);
+//		instance.set(Calendar.HOUR, 0);
+//		instance.set(Calendar.MINUTE, 0);
+//		instance.set(Calendar.SECOND, 0);
+//		instance.set(Calendar.MILLISECOND, 0);
 		
 		value = instance.getTime(); 	
 	}
