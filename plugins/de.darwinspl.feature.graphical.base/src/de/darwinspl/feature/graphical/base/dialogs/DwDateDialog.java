@@ -3,8 +3,12 @@ package de.darwinspl.feature.graphical.base.dialogs;
 
 import org.eclipse.swt.events.KeyEvent;
 import org.eclipse.swt.events.KeyListener;
+
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Locale;
 
 import org.eclipse.jface.dialogs.Dialog;
 import org.eclipse.jface.dialogs.IDialogConstants;
@@ -85,7 +89,17 @@ public class DwDateDialog extends Dialog implements Listener{
 				// dateChanged();
 			}
 		});
-		timeWidget.setTime(calendar.get(Calendar.HOUR), calendar.get(Calendar.MINUTE), calendar.get(Calendar.SECOND));
+		
+//		int hour;
+//		
+//		if(is24HourLocale()) {
+//			hour = Calendar.HOUR_OF_DAY;
+//		}
+//		else {
+//			hour = Calendar.HOUR;
+//		}
+		
+		timeWidget.setTime(calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE), calendar.get(Calendar.SECOND));
 
 		container.pack();
 		return container;
@@ -119,8 +133,11 @@ public class DwDateDialog extends Dialog implements Listener{
 		instance.set(Calendar.SECOND, timeWidget.getSeconds());
 		instance.set(Calendar.MILLISECOND, 0);
 		instance.set(Calendar.MINUTE, timeWidget.getMinutes());
-		instance.set(Calendar.HOUR, timeWidget.getHours());
-		instance.set(Calendar.AM_PM, timeWidget.getHours() <= 12 ? Calendar.AM : Calendar.PM);
+		
+		instance.set(Calendar.HOUR_OF_DAY, timeWidget.getHours());
+//		instance.set(Calendar.AM_PM, timeWidget.getHours() <= 12 ? Calendar.AM : Calendar.PM);
+		
+		
 //		instance.set(Calendar.HOUR, 0);
 //		instance.set(Calendar.MINUTE, 0);
 //		instance.set(Calendar.SECOND, 0);
@@ -139,5 +156,14 @@ public class DwDateDialog extends Dialog implements Listener{
 		value = null;
 		
 		super.cancelPressed();
+	}
+	
+	public static boolean is24HourLocale() {
+	    String output = SimpleDateFormat.getTimeInstance(DateFormat.SHORT).format(new Date());
+	    if (output.contains(" AM") || output.contains(" PM")) {
+	        return false;
+	    } else {
+	        return true;
+	    }
 	}
 }
