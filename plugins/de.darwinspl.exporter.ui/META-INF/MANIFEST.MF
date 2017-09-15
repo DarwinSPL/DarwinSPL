@@ -23,7 +23,6 @@ Require-Bundle: org.deltaecore.feature,
  eu.hyvar.context.validity_formulas,
  eu.hyvar.context.information,
  de.darwinspl.common.eclipse.util,
- de.darwinspl.eclipse.ui,
  org.eclipse.core.expressions,
  de.darwinspl.feature.graphical.base
 Bundle-Vendor: www.darwinspl.de
