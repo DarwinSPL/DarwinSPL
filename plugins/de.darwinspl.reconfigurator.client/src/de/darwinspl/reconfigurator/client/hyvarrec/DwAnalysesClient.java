@@ -3,14 +3,15 @@ package de.darwinspl.reconfigurator.client.hyvarrec;
 import java.net.URI;
 import java.nio.channels.UnresolvedAddressException;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeoutException;
 
-import org.eclipse.emf.ecore.EObject;
 import org.eclipse.jetty.client.HttpClient;
 import org.eclipse.jetty.client.api.ContentResponse;
 import org.eclipse.jetty.client.api.Request;
@@ -140,14 +141,20 @@ public class DwAnalysesClient {
 	 */
 	public DwContextValueEvolutionWrapper validateFeatureModelWithContext(String uriString, HyContextModel contextModel, HyValidityModel contextValidityModel,
 			HyFeatureModel featureModel, HyConstraintModel constraintModel, HyConfiguration oldConfiguration,
-			HyProfile profile, HyContextValueModel contextValues, Date date) throws TimeoutException, InterruptedException, ExecutionException, UnresolvedAddressException {
+			HyProfile profile, HyContextValueModel contextValues, Date date) throws TimeoutException, InterruptedException, ExecutionException, UnresolvedAddressException, HyVarRecNoSolutionException {
 		
 		String messageForHyVarRec = createHyVarRecMessage(contextModel, contextValidityModel, featureModel, constraintModel, oldConfiguration, profile, contextValues, date);
 		URI uri = createUriWithPath(uriString, VALIDATE_CONTEXT_URI);
 		
 		String hyvarrecAnswerString = sendMessageToHyVarRec(messageForHyVarRec, uri);
 		
+		if(hyvarrecAnswerString.startsWith("{\"no_solution")) {
+			throw new HyVarRecNoSolutionException("HyVarRec returned could not find any solution.\n Message for HyVarRec:\n"+messageForHyVarRec+"\n Answer from HyVarRec:\n"+hyvarrecAnswerString);
+		}
+		
 		HyVarRecValidateAnswer hyVarRecAnswer = gson.fromJson(hyvarrecAnswerString, HyVarRecValidateAnswer.class);
+		
+		
 		
 		if(hyVarRecAnswer.getResult().equals(CONTEXT_VALID)) {
 			return null;
@@ -159,11 +166,22 @@ public class DwAnalysesClient {
 		contextValueEvolutionWrapper.setContextValueModel(contextValueModel);
 		
 		if(hyVarRecAnswer.getContexts() != null) {
+			// TODO inconsistency. In the requests for HyVarRec it's always written context[id] and in the answer its just id
+			String evolutionId = HyVarRecExporter.EVOLUTION_CONTEXT_ID;
+			
+			if(HyVarRecExporter.EVOLUTION_CONTEXT_ID.startsWith(HyVarRecExporter.CONTEXT_ATOM)) {
+				
+				evolutionId = evolutionId.substring(HyVarRecExporter.CONTEXT_ATOM.length());
+				evolutionId = evolutionId.substring(0, evolutionId.length()-1);
+			}
+			
 			for(de.darwinspl.reconfigurator.client.hyvarrec.format.context.Context context: hyVarRecAnswer.getContexts()) {
 				String contextId = context.getId();
 				int value = context.getValue();
 				
-				if(contextId.equals(HyVarRecExporter.EVOLUTION_CONTEXT_ID)) {
+				
+				
+				if(contextId.equals(evolutionId)) {
 					contextValueEvolutionWrapper.setDate(getDateOutOfEvolutionContext(context, value, contextModel, contextValidityModel, featureModel, constraintModel, profile));										
 					continue;
 				}
@@ -227,13 +245,30 @@ public class DwAnalysesClient {
 	
 	private Date getDateOutOfEvolutionContext(de.darwinspl.reconfigurator.client.hyvarrec.format.context.Context dateContext, int valueForDateContext, HyContextModel contextModel, HyValidityModel contextValidityModel,
 			HyFeatureModel featureModel, HyConstraintModel constraintModel, HyProfile profile) {
-		List<EObject> eObjects = new ArrayList<EObject>(5);
-		eObjects.add(profile);
-		eObjects.add(constraintModel);
-		eObjects.add(featureModel);
-		eObjects.add(contextValidityModel);
-		eObjects.add(contextModel);
-		List<Date> sortedDateList = HyVarRecExporter.getSortedListOfDates(eObjects);
+		List<HyFeatureModel> featureModels = new ArrayList<HyFeatureModel>(1);
+		featureModels.add(featureModel);
+		
+		List<HyConstraintModel> constraintModels = new ArrayList<HyConstraintModel>(1);
+		constraintModels.add(constraintModel);
+		
+		List<HyContextModel> contextModels = new ArrayList<HyContextModel>(1);
+		contextModels.add(contextModel);
+		
+		List<HyValidityModel> validityModels = new ArrayList<HyValidityModel>(1);
+		validityModels.add(contextValidityModel);
+		
+		List<HyProfile> profiles = new ArrayList<HyProfile>(1);
+		profiles.add(profile);
+		
+		List<Date> sortedDateList = HyVarRecExporter.getSortedListOfDatesOfDateContext(featureModels, constraintModels, contextModels, validityModels, profiles);
+		
+		if(valueForDateContext == -1) {
+			Calendar cal = new GregorianCalendar();
+			cal.setTime(sortedDateList.get(0));
+			cal.add(Calendar.DAY_OF_MONTH, -1);
+			return cal.getTime();
+		}
+		
 		return sortedDateList.get(valueForDateContext);
 	}
 	
@@ -252,19 +287,8 @@ public class DwAnalysesClient {
 		hyvarrecRequest.content(new StringContentProvider(message), "application/json");
 		ContentResponse hyvarrecResponse;
 		String hyvarrecAnswerString = "";
-//		try {
-			hyvarrecResponse = hyvarrecRequest.send();
-			hyvarrecAnswerString = hyvarrecResponse.getContentAsString();
-//		} catch (UnresolvedAddressException | ExecutionException e){
-//			MessageDialog dialog = new MessageDialog(PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell(), "Unresolvable Server Adress", null,
-//					"The adress '"+uri.toString()+"' could not be resolved. No configuration was generated.", MessageDialog.ERROR, new String[] { "Ok" }, 0);
-//			dialog.open();
-//			
-//			return null;
-//		} catch (InterruptedException | TimeoutException e) {
-//			//e.printStackTrace();
-//			return null;
-//		} 
+		hyvarrecResponse = hyvarrecRequest.send();
+		hyvarrecAnswerString = hyvarrecResponse.getContentAsString();
 
 		// Only for Debug
 		System.err.println("HyVarRec Answer: "+hyvarrecAnswerString);

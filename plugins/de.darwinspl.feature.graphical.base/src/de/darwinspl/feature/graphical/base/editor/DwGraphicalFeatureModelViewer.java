@@ -1,6 +1,8 @@
 package de.darwinspl.feature.graphical.base.editor;
 
+import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
 
 import org.eclipse.core.resources.IFile;
@@ -270,7 +272,15 @@ public class DwGraphicalFeatureModelViewer extends DwGraphicalViewerWithZoomSupp
 		// Button that adds a new date to the model
 		addDate.addListener(SWT.Selection, new Listener() {
 			public void handleEvent(Event event) {
-				DwDateDialog dialog = new DwDateDialog(null, new Date());
+				Date date = new Date();
+				Calendar cal = new GregorianCalendar();
+				cal.setTime(date);
+				cal.set(Calendar.HOUR_OF_DAY, 0);
+				cal.set(Calendar.MINUTE, 0);
+				cal.set(Calendar.SECOND, 0);
+				cal.set(Calendar.MILLISECOND, 0);
+				date = cal.getTime();
+				DwDateDialog dialog = new DwDateDialog(null, date);
 				dialog.open();
 				Date value = dialog.getValue();
 

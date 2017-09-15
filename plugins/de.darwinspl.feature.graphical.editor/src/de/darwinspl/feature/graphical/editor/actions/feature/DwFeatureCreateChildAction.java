@@ -31,7 +31,7 @@ public class DwFeatureCreateChildAction extends DwFeatureSelectionAction {
 		DwFeatureWrapped selectedFeature = getSelectedFeature();		
 		DwGraphicalFeatureModelViewer viewer = (DwGraphicalFeatureModelViewer)this.getWorkbenchPart();
 		
-		DwFeatureCreateCommand command = new DwFeatureCreateCommand(selectedFeature, viewer);
+		DwFeatureCreateCommand command = new DwFeatureCreateCommand(selectedFeature, viewer, null);
 		return command;
 	}	
 }

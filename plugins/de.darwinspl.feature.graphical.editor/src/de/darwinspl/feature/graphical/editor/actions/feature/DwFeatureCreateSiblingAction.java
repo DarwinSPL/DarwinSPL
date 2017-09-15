@@ -57,7 +57,7 @@ public class DwFeatureCreateSiblingAction extends DwFeatureSelectionAction{
 		HyGroupComposition composition = HyEvolutionUtil.getValidTemporalElement(selectedFeature.getWrappedModelElement().getGroupMembership(), date);
 		HyFeatureChild child = HyEvolutionUtil.getValidTemporalElement(composition.getCompositionOf().getChildOf(), date);
 		
-		DwFeatureCreateCommand command = new DwFeatureCreateCommand(editor.getModelWrapped().findWrappedFeature(child.getParent()), (DwGraphicalFeatureModelViewer)editor);
+		DwFeatureCreateCommand command = new DwFeatureCreateCommand(editor.getModelWrapped().findWrappedFeature(child.getParent()), (DwGraphicalFeatureModelViewer)editor, selectedFeature);
 		return command;
 	}	
 }
