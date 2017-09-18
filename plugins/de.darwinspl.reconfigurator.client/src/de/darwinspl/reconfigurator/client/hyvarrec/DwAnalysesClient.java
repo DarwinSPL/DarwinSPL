@@ -100,9 +100,9 @@ public class DwAnalysesClient {
 	 * @param preferenceModel
 	 * @param contextValues
 	 * @param date
-	 * @return if the fm is satisfiable
+	 * @return A List of Constraints leading to an invalidity. Null if model is valid.
 	 */
-	public boolean validateFeatureModel(String uriString, HyContextModel contextModel, HyValidityModel contextValidityModel,
+	public List<String> explainAnomaly(String uriString, HyContextModel contextModel, HyValidityModel contextValidityModel,
 			HyFeatureModel featureModel, HyConstraintModel constraintModel, HyConfiguration oldConfiguration,
 			HyProfile preferenceModel, HyContextValueModel contextValues, Date date) throws TimeoutException, InterruptedException, ExecutionException, UnresolvedAddressException {
 		
@@ -115,12 +115,12 @@ public class DwAnalysesClient {
 		// TODO do something with the answer
 		
 		if(hyVarRecAnswer.getResult().equals("sat")) {
-			return true;
+			return null;
 		}else if(hyVarRecAnswer.getResult().equals("unsat")) {
-			return false;
+			return hyVarRecAnswer.getConstraints();
 		}
 		
-		return false;
+		return null;
 	}
 	
 	
