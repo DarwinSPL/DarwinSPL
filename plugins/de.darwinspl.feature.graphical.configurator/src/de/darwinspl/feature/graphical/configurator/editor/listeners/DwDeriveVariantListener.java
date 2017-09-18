@@ -28,6 +28,7 @@ import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.widgets.Shell;
 
+import de.christophseidl.util.eclipse.ResourceUtil;
 import de.christophseidl.util.ecore.EcoreIOUtil;
 import de.darwinspl.feature.graphical.configurator.editor.DwFeatureModelConfiguratorEditor;
 import eu.hyvar.feature.HyFeatureModel;
@@ -56,7 +57,15 @@ public class DwDeriveVariantListener extends SelectionAdapter {
 		
 		HyConfiguration configuration = configurator.getConfiguration();
 		HyFeatureModel featureModel = configurator.getFeatureModel();
-		EcoreIOUtil.getFile(featureModel);		
+//		EcoreIOUtil.getFile(featureModel);		
+		
+		IFile mappingFile = ResourceUtil.getLocalFile(featureModel.eResource().getURI().toPlatformString(true));
+		
+		
+		if(mappingFile == null || !mappingFile.exists()) {
+			MessageDialog.openInformation(shell, "Could not find Mapping Model", "No Mapping Model with file extension "+HyMappingModelUtil.getMappingModelFileExtensionForConcreteSyntax()+" or "+ HyMappingModelUtil.getMappingModelFileExtensionForXmi()+" found!");
+			return;
+		}
 		
 		EObject loadedObject = EcoreIOUtil.loadAccompanyingModel(featureModel, HyMappingModelUtil.getMappingModelFileExtensionForConcreteSyntax(), HyMappingModelUtil.getMappingModelFileExtensionForXmi());			
 		

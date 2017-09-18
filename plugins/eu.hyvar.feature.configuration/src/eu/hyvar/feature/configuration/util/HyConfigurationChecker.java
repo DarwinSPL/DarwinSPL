@@ -46,6 +46,7 @@ public class HyConfigurationChecker {
 
 	/**
 	 * For one point in time
+	 * IMPORTANT! CONSTRAINTS ARE NOT CHECKED AS CONTEXTS IN THEM CURRENTLY BREAK EVERYTHING #ContextCTC
 	 * 
 	 * @param configuration
 	 * @return
@@ -93,34 +94,38 @@ public class HyConfigurationChecker {
 			}
 		}
 
-		// check cross-tree constraints
-		HyConstraintModel constraintModel = HyConstraintIOUtil.loadAccompanyingConstraintModel(featureModel);
-		if (constraintModel != null) {
-			HyConstraintEvaluator constraintEvaluator = new HyConstraintEvaluator();
-			boolean allConstraintsSatisfied = constraintEvaluator.evaluate(constraintModel, selectedFeatures,
-					selectedVersions, date);
-
-			if (!allConstraintsSatisfied) {
-
-				HyConstraint violatedConstraint = constraintEvaluator.getViolatedConstraint();
-				String formattedConstraint = HyConstraintFormatter.formatConstraint(violatedConstraint);
-				addErrorMessage(violatedConstraint, "Constraint \"" + formattedConstraint + "\" is violated.");
-
-				isValid = false;
-			}
-		}
-		
-
-		
-		// check attribute domains and right type of values
-		List<HyAttributeValueAssignment> attributeValueAssignments = HyConfigurationUtil.getAttributeValueAssignments(validConfigurationElements);
-		for(HyAttributeValueAssignment attributeValueAssignment: attributeValueAssignments) {
-			if(!checkAttributeValueAssignment(attributeValueAssignment, date)) {
-				isValid = false;
-			}
-		}
-
 		return isValid;
+		
+//		#ContextCTC
+//		
+//		// check cross-tree constraints
+//		HyConstraintModel constraintModel = HyConstraintIOUtil.loadAccompanyingConstraintModel(featureModel);
+//		if (constraintModel != null) {
+//			HyConstraintEvaluator constraintEvaluator = new HyConstraintEvaluator();
+//			boolean allConstraintsSatisfied = constraintEvaluator.evaluate(constraintModel, selectedFeatures,
+//					selectedVersions, date);
+//
+//			if (!allConstraintsSatisfied) {
+//
+//				HyConstraint violatedConstraint = constraintEvaluator.getViolatedConstraint();
+//				String formattedConstraint = HyConstraintFormatter.formatConstraint(violatedConstraint);
+//				addErrorMessage(violatedConstraint, "Constraint \"" + formattedConstraint + "\" is violated.");
+//
+//				isValid = false;
+//			}
+//		}
+//		
+//
+//		
+//		// check attribute domains and right type of values
+//		List<HyAttributeValueAssignment> attributeValueAssignments = HyConfigurationUtil.getAttributeValueAssignments(validConfigurationElements);
+//		for(HyAttributeValueAssignment attributeValueAssignment: attributeValueAssignments) {
+//			if(!checkAttributeValueAssignment(attributeValueAssignment, date)) {
+//				isValid = false;
+//			}
+//		}
+//
+//		return isValid;
 	}
 
 	private boolean checkAttributeValueAssignment(HyAttributeValueAssignment attributeValueAssignment, Date date) {
