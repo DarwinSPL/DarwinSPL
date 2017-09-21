@@ -19,6 +19,7 @@ import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.ecore.util.EContentAdapter;
+import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.gef.GraphicalViewer;
 import org.eclipse.jface.dialogs.Dialog;
 import org.eclipse.jface.dialogs.MessageDialog;
@@ -48,6 +49,7 @@ import de.darwinspl.feature.graphical.configurator.dialogs.DwContextInformationD
 import de.darwinspl.feature.graphical.configurator.dialogs.DwInvalidContextInfoDialog;
 import de.darwinspl.feature.graphical.configurator.dialogs.DwRESTServerSelectDialog;
 import de.darwinspl.feature.graphical.configurator.editor.listeners.DwDeriveVariantListener;
+import de.darwinspl.feature.graphical.configurator.editor.listeners.DwLoadConfigurationListener;
 import de.darwinspl.feature.graphical.configurator.editor.listeners.DwSaveConfigurationListener;
 import de.darwinspl.feature.graphical.configurator.factory.DwConfiguratorEditorEditPartFactory;
 import de.darwinspl.feature.graphical.configurator.viewer.DwFeatureModelConfiguratorViewer;
@@ -277,6 +279,8 @@ public class DwFeatureModelConfiguratorEditor extends DwFeatureModelConfigurator
 		});
 
 		selectedConfigurationComposite.getSaveConfigurationButton().addSelectionListener(new DwSaveConfigurationListener(this));
+		
+		selectedConfigurationComposite.getLoadConfigurationButton().addSelectionListener(new DwLoadConfigurationListener(this));
 
 		selectedConfigurationComposite.getDeriveVariantButton().addSelectionListener(new DwDeriveVariantListener(this));
 	}
@@ -346,6 +350,15 @@ public class DwFeatureModelConfiguratorEditor extends DwFeatureModelConfigurator
 	protected void setInput(IEditorInput input) {
 		super.setInput(input);
 		selectedConfiguration.setFeatureModel(getFeatureModel());
+	}
+	
+	public void setConfiguration(HyConfiguration configuration) {
+//		HyConfiguration newConfiguration = EcoreUtil.copy(configuration);
+		this.selectedConfiguration = configuration;
+		refreshView();
+		
+//		while(!selectedConfiguration.getElements().isEmpty()) {
+//		}
 	}
 	
 	protected class ButtonListener extends SelectionAdapter {
