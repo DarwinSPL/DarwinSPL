@@ -447,12 +447,12 @@ public class DwFeatureModelConfiguratorEditor extends DwFeatureModelConfigurator
 			
 			try {
 				if (e.getSource() == validateContextButton) {
-					HyContextValueModel notSatisfiableContextValues;
-					notSatisfiableContextValues = client.validateFeatureModelWithContext(uri, contextModel,
+					DwContextValueEvolutionWrapper contextValueEvolutionWrapper = client.validateFeatureModelWithContext(uri, contextModel,
 							validityModel, modelWrapped.getModel(), constraintModel, selectedConfiguration, null,
-							contextValueModel, modelWrapped.getSelectedDate()).getContextValueModel();
+							contextValueModel, modelWrapped.getSelectedDate());
+					
 					DwInvalidContextInfoDialog contextInfoDialog = new DwInvalidContextInfoDialog(
-							getEditorSite().getShell(), notSatisfiableContextValues);
+							getEditorSite().getShell(), contextValueEvolutionWrapper);
 					contextInfoDialog.open();
 				} else if (e.getSource() == simulateButton) {
 					HyConfiguration configuration;
