@@ -9,6 +9,7 @@ import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeoutException;
 
@@ -39,7 +40,12 @@ import eu.hyvar.dataValues.HyEnumLiteral;
 import eu.hyvar.dataValues.HyEnumValue;
 import eu.hyvar.dataValues.HyNumberValue;
 import eu.hyvar.dataValues.HyValue;
+import eu.hyvar.evolution.HyName;
+import eu.hyvar.evolution.util.HyEvolutionUtil;
+import eu.hyvar.feature.HyFeature;
+import eu.hyvar.feature.HyFeatureAttribute;
 import eu.hyvar.feature.HyFeatureModel;
+import eu.hyvar.feature.HyVersion;
 import eu.hyvar.feature.configuration.HyConfiguration;
 import eu.hyvar.feature.constraint.HyConstraintModel;
 import eu.hyvar.preferences.HyProfile;
@@ -56,6 +62,8 @@ public class DwAnalysesClient {
 	protected static final String RECONFIGURATION_URI = "process";
 	protected static final String VALIDATE_CONTEXT_URI = "validate";
 	protected static final String VALIDATE_FM_URI = "explain";
+	
+	protected HyVarRecExporter exporter;
 	
 	
 	protected static final String CONTEXT_VALID = "valid";
@@ -84,7 +92,7 @@ public class DwAnalysesClient {
 	}
 	
 	protected String createHyVarRecMessage(HyContextModel contextModel, HyValidityModel contextValidityModel, HyFeatureModel featureModel, HyConstraintModel constraintModel, HyConfiguration oldConfiguration, HyProfile preferenceModel, HyContextValueModel contextValues, Date date) {
-		HyVarRecExporter exporter = new HyVarRecExporter();
+		exporter = new HyVarRecExporter();
 		String messageForHyVarRec = exporter.exportSPL(contextModel, contextValidityModel, featureModel, constraintModel, oldConfiguration, preferenceModel, contextValues, date);
 		return messageForHyVarRec;
 	}
@@ -117,13 +125,112 @@ public class DwAnalysesClient {
 		if(hyVarRecAnswer.getResult().equals("sat")) {
 			return null;
 		}else if(hyVarRecAnswer.getResult().equals("unsat")) {
-			return hyVarRecAnswer.getConstraints();
+			List<String> parsedConstraints = translateIdsBackToNames(hyVarRecAnswer.getConstraints(), date, exporter);
+			
+			if(parsedConstraints == null) {
+				parsedConstraints = hyVarRecAnswer.getConstraints();
+			}
+			
+			return parsedConstraints;
 		}
 		
 		return null;
 	}
 	
-	
+	protected List<String> translateIdsBackToNames(List<String> constraints, Date date, HyVarRecExporter hyVarRecExporter) {
+		if(hyVarRecExporter == null || constraints == null) {
+			return null;
+		}
+		
+		// TODO dramatically not performant! More sophisticated implementation necessary!
+		
+		Map<String, String> replacementsMap = new HashMap<String, String>();
+		
+		for(Entry<HyFeatureAttribute, String> entry: hyVarRecExporter.getAttributeReconfiguratorIdMapping().entrySet()) {
+			HyFeatureAttribute attribute = entry.getKey();
+			HyFeature feature = attribute.getFeature();
+			
+			HyName attributeName = HyEvolutionUtil.getValidTemporalElement(attribute.getNames(), date);
+			if(attributeName == null) {
+				continue;
+			}
+			String attributeNameString = attributeName.getName();
+			if(attributeNameString == null) {
+				continue;
+			}
+			
+			HyName featureName = HyEvolutionUtil.getValidTemporalElement(feature.getNames(), date);
+			if(featureName == null) {
+				continue;
+			}
+			String featureNameString = featureName.getName();
+			if(featureNameString == null) {
+				continue;
+			}
+			
+			StringBuilder sb = new StringBuilder(featureNameString);
+			sb.append(".");
+			sb.append(attributeNameString);
+			
+			replacementsMap.put(entry.getValue(), sb.toString());
+		}
+		
+		for(Entry<HyContextualInformation, String> entry: hyVarRecExporter.getContextReconfiguratorIdMapping().entrySet()) {
+			String contextName = entry.getKey().getName();
+			contextName = "context:"+contextName;
+			replacementsMap.put(entry.getValue(), contextName);
+		}
+		
+		for(Entry<HyFeature, String> entry: hyVarRecExporter.getFeatureReconfiguratorIdMapping().entrySet()) {
+			HyName featureName = HyEvolutionUtil.getValidTemporalElement(entry.getKey().getNames(), date);
+			if(featureName == null) {
+				continue;
+			}
+			String featureNameString = featureName.getName();
+			if(featureNameString == null) {
+				continue;
+			}
+			
+			replacementsMap.put(entry.getValue(), featureNameString);
+		}
+		
+		for(Entry<HyVersion, String> entry: hyVarRecExporter.getVersionReconfiguratorIdMapping().entrySet()) {
+			String versionNumber = entry.getKey().getNumber();
+			
+			HyFeature feature = entry.getKey().getFeature();
+			
+			HyName featureName = HyEvolutionUtil.getValidTemporalElement(feature.getNames(), date);
+			if(featureName == null) {
+				continue;
+			}
+			String featureNameString = featureName.getName();
+			if(featureNameString == null) {
+				continue;
+			}
+			
+			StringBuilder sb = new StringBuilder(featureNameString);
+			sb.append("(");
+			sb.append(versionNumber);
+			sb.append(")");
+			
+			replacementsMap.put(entry.getValue(), sb.toString());
+		}
+		
+		// TODO context / Enum / boolean values are all Integers in the constraints -> need to be translated back
+		
+		List<String> translatedConstraints = new ArrayList<String>(constraints.size());
+		
+		for(String constraint: constraints) {
+			String translatedConstraint = constraint;
+			for(Entry<String, String> entry: replacementsMap.entrySet()) {
+				translatedConstraint = translatedConstraint.replace(entry.getKey(), entry.getValue());
+			}
+			
+			translatedConstraints.add(translatedConstraint);
+		}
+		
+		return translatedConstraints;
+	}
 	
 	
 	/**
