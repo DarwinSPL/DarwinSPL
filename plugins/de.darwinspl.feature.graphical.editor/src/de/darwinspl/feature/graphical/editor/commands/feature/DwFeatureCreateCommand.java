@@ -15,18 +15,22 @@ import eu.hyvar.evolution.HyName;
 import eu.hyvar.feature.HyFeature;
 import eu.hyvar.feature.HyFeatureFactory;
 import eu.hyvar.feature.HyFeatureType;
+import eu.hyvar.feature.HyGroup;
+import eu.hyvar.feature.util.HyFeatureEvolutionUtil;
 
 public class DwFeatureCreateCommand extends DwFeatureModelEditorCommand {
 	private DwFeatureWrapped parent;
 	private DwFeatureWrapped newFeature;
+	private DwFeatureWrapped sibling;
 	
 	private DwParentChildConnection connection;
 	private Date date;
 	
-	public DwFeatureCreateCommand(DwFeatureWrapped parent, DwGraphicalFeatureModelViewer viewer){
+	public DwFeatureCreateCommand(DwFeatureWrapped parent, DwGraphicalFeatureModelViewer viewer, DwFeatureWrapped sibling){
 		super(viewer);
 		
 		this.parent = parent;
+		this.sibling = sibling;
 	}
 
 	/**
@@ -72,7 +76,13 @@ public class DwFeatureCreateCommand extends DwFeatureModelEditorCommand {
 		connection.setValidSince(DwFeatureModelWrapped.getCorrectModelDate(date));
 		connection.setModel(featureModel);
 		
-		featureModel.addConnection(connection, featureModel.getSelectedDate(), null);
+		HyGroup groupToBeAddedTo = null;
+		if(!(sibling == null)) {
+			HyFeature siblingFeature = sibling.getWrappedModelElement();
+			groupToBeAddedTo = HyFeatureEvolutionUtil.getParentGroupOfFeature(siblingFeature, date);
+		}
+		
+		featureModel.addConnection(connection, featureModel.getSelectedDate(), groupToBeAddedTo);
 		
 		newFeature.setWrappedModelElement(feature);
 		featureModel.addFeature(newFeature);

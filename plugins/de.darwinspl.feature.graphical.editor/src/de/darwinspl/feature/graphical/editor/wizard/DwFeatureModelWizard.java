@@ -64,6 +64,11 @@ public class DwFeatureModelWizard extends Wizard implements INewWizard {
 	public boolean performFinish() {
 		try {
 			IFile file = newFileCreationPage.getModelFile();
+			
+			if(file == null) {
+				return false;
+			}
+			
 			IWorkbenchWindow workbenchWindow = workbench.getActiveWorkbenchWindow();
 			IWorkbenchPage page = workbenchWindow.getActivePage();
 

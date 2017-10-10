@@ -27,6 +27,11 @@ public class DwFeatureModelWizardNewFileCreationPage extends WizardNewFileCreati
 	public IFile getModelFile() {
 		IPath containerFullPath = getContainerFullPath();
 		String filename = getFileName();
+		
+		if(containerFullPath == null) {
+			return null;
+		}
+		
 		IPath filePath = containerFullPath.append(filename);
 		String filePathString = filePath.toString();
 		IFile file = ResourceUtil.getLocalFile(filePathString);

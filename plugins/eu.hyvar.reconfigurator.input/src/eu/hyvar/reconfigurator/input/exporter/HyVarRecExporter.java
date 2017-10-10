@@ -410,18 +410,23 @@ public class HyVarRecExporter {
 			Context dateContext, List<Date> sortedDateList, HyExpressionStringExporter expressionExporter) {
 		StringBuilder expressionStringBuilder = new StringBuilder();
 
+		boolean timedConstraint = false;
+		
 		if (date != null) {
 			if (!HyEvolutionUtil.isValid(baseElement, date)) {
 				return null;
 			}
 		} else {
+			timedConstraint = true;
 			expressionStringBuilder.append(timedConstraint(baseElement, dateContext, sortedDateList));
 			expressionStringBuilder.append(BRACKETS_OPEN);
 		}
 
 		expressionStringBuilder.append(expressionExporter.exportExpressionToString(expression));
 
-		expressionStringBuilder.append(BRACKETS_CLOSING);
+		if(timedConstraint) {
+			expressionStringBuilder.append(BRACKETS_CLOSING);			
+		}
 
 		return expressionStringBuilder.toString();
 	}

@@ -25,6 +25,8 @@ import eu.hyvar.feature.expression.HyVersionRestriction;
 import eu.hyvar.feature.HyFeature;
 import eu.hyvar.feature.HyVersion;
 
+
+// Needs extension for contexts and attributes! #ContextCTC
 public abstract class HyExpressionEvaluator {
 	protected boolean evaluateExpression(HyExpression expression) {
 		if (expression instanceof HyBinaryExpression) {
@@ -69,7 +71,7 @@ public abstract class HyExpressionEvaluator {
 			//A <-> B = (A && B) || (!A && !B)
 			return (operand1Result && operand2Result) || (!operand1Result && !operand2Result);
 		}
-		
+		// Needs extension for contexts and attributes! #ContextCTC ... <=, <, >, >=, = .....
 		throw new UnsupportedOperationException(binaryExpression.getClass().getCanonicalName());
 	}
 	
@@ -121,7 +123,7 @@ public abstract class HyExpressionEvaluator {
 			HyVersionRestriction versionRestriction = conditionalFeatureReferenceExpression.getVersionRestriction();
 			return evaluateVersionRestriction(versionRestriction);
 		}
-		
+		// // Needs extension for contexts and attributes! #ContextCTC
 		// TODO Attribute stuff!
 		
 		throw new UnsupportedOperationException(atomicExpression.getClass().getCanonicalName());

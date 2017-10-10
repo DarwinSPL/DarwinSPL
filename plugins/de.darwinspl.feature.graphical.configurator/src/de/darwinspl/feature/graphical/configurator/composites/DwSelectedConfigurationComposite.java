@@ -22,6 +22,7 @@ public class DwSelectedConfigurationComposite extends Group {
 	private Button completeButton;
 	private Button saveConfigurationButton;
 	private Button deriveVariantButton;
+	private Button loadConfigurationButton;
 	
 	public DwSelectedConfigurationComposite(Composite parent) {
 		super(parent, SWT.NONE);
@@ -47,6 +48,10 @@ public class DwSelectedConfigurationComposite extends Group {
 		saveConfigurationButton = new Button(this, SWT.PUSH);
 		saveConfigurationButton.setText("Save Configuration");
 		saveConfigurationButton.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, false));
+		
+		loadConfigurationButton = new Button(this, SWT.PUSH);
+		loadConfigurationButton.setText("Load Configuration");
+		loadConfigurationButton.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, false));
 		
 		deriveVariantButton = new Button(this, SWT.PUSH);
 		deriveVariantButton.setText("Derive Variant");
@@ -89,4 +94,10 @@ public class DwSelectedConfigurationComposite extends Group {
 	public Button getDeriveVariantButton() {
 		return deriveVariantButton;
 	}
+
+	public Button getLoadConfigurationButton() {
+		return loadConfigurationButton;
+	}
+	
+	
 }
