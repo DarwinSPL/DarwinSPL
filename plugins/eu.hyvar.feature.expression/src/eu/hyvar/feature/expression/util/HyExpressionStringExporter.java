@@ -3,6 +3,7 @@ package eu.hyvar.feature.expression.util;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Stack;
 
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.util.EcoreUtil;
@@ -223,14 +224,63 @@ public class HyExpressionStringExporter {
 		}
 
 		binaryString.append(BRACKETS_OPEN);
+
+		
+		// Simone: patch for n-ary AND and OR
+		if (binaryExpression instanceof HyAndExpression) {
+			HyExpression expr;
+			HyAndExpression andExpr;
+			boolean flag = false;
+			Stack<HyExpression> elements = new Stack<HyExpression> ();
+			elements.push(binaryExpression.getOperand1());
+			elements.push(binaryExpression.getOperand2());
+			while (!elements.empty()) {
+				expr = elements.pop();
+				if (expr instanceof HyAndExpression) {
+					andExpr = (HyAndExpression)expr;
+					elements.push(andExpr.getOperand1());
+					elements.push(andExpr.getOperand2());
+				} else {
+					if (flag) {
+						binaryString.append(AND);
+					}
+					flag=true;
+					binaryString.append(handleExpression(expr));
+				}
+			}
+		} else if (binaryExpression instanceof HyOrExpression) {
+			HyExpression expr;
+			HyOrExpression orExpr;
+			boolean flag = false;
+			Stack<HyExpression> elements = new Stack<HyExpression> ();
+			elements.push(binaryExpression.getOperand1());
+			elements.push(binaryExpression.getOperand2());
+			while (!elements.empty()) {
+				expr = elements.pop();
+				if (expr instanceof HyOrExpression) {
+					orExpr = (HyOrExpression)expr;
+					elements.push(orExpr.getOperand1());
+					elements.push(orExpr.getOperand2());
+				} else {
+					if (flag) {
+						binaryString.append(OR);
+					}
+					flag=true;
+					binaryString.append(handleExpression(expr));
+				}
+			}
+		} else {
+		// Simone: end
+		
 		binaryString.append(handleExpression(binaryExpression.getOperand1()));
 
 		// binaryString.append(" ");
-		if (binaryExpression instanceof HyAndExpression) {
-			binaryString.append(AND);
-		} else if (binaryExpression instanceof HyOrExpression) {
-			binaryString.append(OR);
-		} else if (binaryExpression instanceof HyEquivalenceExpression) {
+//		if (binaryExpression instanceof HyAndExpression) {
+//			binaryString.append(AND);
+//		} else if (binaryExpression instanceof HyOrExpression) {
+//			binaryString.append(OR);
+//		} else if (binaryExpression instanceof HyEquivalenceExpression) {
+		if (binaryExpression instanceof HyEquivalenceExpression) {
 			binaryString.append(EQUIVALENCE);
 		} else if (binaryExpression instanceof HyImpliesExpression) {
 			binaryString.append(IMPLICATION);
@@ -264,6 +314,10 @@ public class HyExpressionStringExporter {
 		// binaryString.append(" ");
 
 		binaryString.append(handleExpression(binaryExpression.getOperand2()));
+		
+		// Simone: patch for n-ary AND and OR 
+		}
+		// Simone: end
 		binaryString.append(BRACKETS_CLOSING);
 		
 		return binaryString.toString();
