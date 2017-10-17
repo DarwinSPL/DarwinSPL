@@ -441,4 +441,26 @@ public class HyVarRecExporter {
 		return -1;
 	}
 
+	public Map<HyFeature, String> getFeatureReconfiguratorIdMapping() {
+		return featureReconfiguratorIdMapping;
+	}
+
+	public Map<HyVersion, String> getVersionReconfiguratorIdMapping() {
+		return versionReconfiguratorIdMapping;
+	}
+
+	public Map<HyContextualInformation, String> getContextReconfiguratorIdMapping() {
+		return contextReconfiguratorIdMapping;
+	}
+
+	public Map<HyFeatureAttribute, String> getAttributeReconfiguratorIdMapping() {
+		return attributeReconfiguratorIdMapping;
+	}
+
+	public ReconfiguratorIdMapping getReconfiguratorIdMapping() {
+		return reconfiguratorIdMapping;
+	}
+	
+	
+
 }
