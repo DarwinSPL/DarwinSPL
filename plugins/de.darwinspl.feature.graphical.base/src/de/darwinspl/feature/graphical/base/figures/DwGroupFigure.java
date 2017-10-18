@@ -31,6 +31,11 @@ public class DwGroupFigure extends DwFeatureViewerReferencedFigure{
 
 	protected Path groupTypeArc;
 	protected DwGroupWrapped group;
+	
+	/**
+	 * Tooltip to display the id of a feature
+	 */
+	private DwTooltipFigure tooltipFigure;	
 
 	public DwGroupFigure(DwGraphicalFeatureModelViewer editor, DwGroupWrapped group) {
 		super(editor);
@@ -40,6 +45,10 @@ public class DwGroupFigure extends DwFeatureViewerReferencedFigure{
 
 
 		createGroupTypeArc(editor.getCurrentSelectedDate());
+		
+		tooltipFigure = new DwTooltipFigure();
+		setToolTip(tooltipFigure);
+		
 	}
 
 	// copied from delta ecore DEGroupFigure
@@ -187,4 +196,8 @@ public class DwGroupFigure extends DwFeatureViewerReferencedFigure{
 			}
 		}
 	}
+	
+	public void setTooltipText(String tooltipText) {
+        tooltipFigure.setMessage(tooltipText);
+    }
 }

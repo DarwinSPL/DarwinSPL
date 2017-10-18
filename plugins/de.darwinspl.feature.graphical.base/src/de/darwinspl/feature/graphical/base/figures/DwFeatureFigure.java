@@ -79,15 +79,23 @@ public class DwFeatureFigure extends DwErrorMarkerFigure{
 		createHiddenChildrenIndicator();
 		createTypeFigure();
 		createIconFigure();
+	
 
 
 		this.setLayoutManager(new XYLayout());
 
 		parentAnchor = new DwFeatureParentAnchor(this, editor);	
 		childrenAnchor = new DwFeatureChildrenAnchor(this, editor);
+		
+		tooltipFigure = new DwTooltipFigure();
+		setToolTip(tooltipFigure);
 
 
 	}
+	
+	public void setTooltipText(String tooltipText) {
+        tooltipFigure.setMessage(tooltipText);
+    }
 
 
 	@Override
