@@ -127,7 +127,7 @@ public class JsonHandlerSPLImplementationResolution extends AbstractHandler {
 		HySPLSignature signatureToImplement = null;
 
 		// Instantiate the Signature to be implemented: 
-		fileName = rawInput.getSplSignature().getSignatureModel().getFilename();
+		fileName = rawInput.getSplSignature().getSignatureModel().getFilename()+".hymanifest_xmi";
 		content = rawInput.getSplSignature().getSignatureModel().getSpecification().getBytes();
 		ifile = WorkspaceUtility.saveFileContent(fileName, content, folder, progressMonitor, error);
 
@@ -151,7 +151,7 @@ public class JsonHandlerSPLImplementationResolution extends AbstractHandler {
 			elems = ECollections.emptyEList();
 
 			// Save the implementation
-			fileName = implementation.getSignatureModel().getFilename();
+			fileName = implementation.getSignatureModel().getFilename()+".hymanifest_xmi";
 			content = implementation.getSignatureModel().getSpecification().getBytes();
 			ifile = WorkspaceUtility.saveFileContent(fileName, content, folder, progressMonitor, error);
 
