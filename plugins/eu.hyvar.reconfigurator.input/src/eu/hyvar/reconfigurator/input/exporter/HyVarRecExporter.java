@@ -39,6 +39,7 @@ import eu.hyvar.reconfigurator.input.format.Attribute;
 import eu.hyvar.reconfigurator.input.format.AttributeValue;
 import eu.hyvar.reconfigurator.input.format.Configuration;
 import eu.hyvar.reconfigurator.input.format.Context;
+import eu.hyvar.reconfigurator.input.format.ContextValue;
 import eu.hyvar.reconfigurator.input.format.InputForHyVarRec;
 
 public class HyVarRecExporter {
@@ -192,7 +193,7 @@ public class HyVarRecExporter {
 
 		HyExpressionStringExporter expressionExporter = new HyExpressionStringExporter(reconfiguratorIdMapping.getFeatureIdMapping(),
 				reconfiguratorIdMapping.getVersionIdMapping(), reconfiguratorIdMapping.getAttributeIdMapping(),
-				reconfiguratorIdMapping.getContextIdMapping(), BooleanRepresentationOption.ONEZERO,
+				reconfiguratorIdMapping.getContextIdMapping(), BooleanRepresentationOption.TRUEFALSE,
 				FeatureSelectionRepresentationOption.ONEZERO, VersionRepresentation.AS_ONEZERO_FEATURES, true, true);
 
 		DwConstraintExporter constraintExporter = new DwConstraintExporter(expressionExporter);
@@ -247,6 +248,12 @@ public class HyVarRecExporter {
 			dateContext.setMax(sortedDateList.size()-1);
 
 			input.getContexts().add(dateContext);
+			
+			// Simone: patch to initialize the context value
+			ContextValue initDateContext = new ContextValue();
+			initDateContext.setId(EVOLUTION_CONTEXT_ID);
+			initDateContext.setValue(-1);
+			input.getConfiguration().getContextValues().add(initDateContext);
 		}
 		// -----
 
