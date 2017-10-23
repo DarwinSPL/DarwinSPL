@@ -38,6 +38,8 @@ public class DwGraphicalFeatureModelEditorContextMenuProvider extends ContextMen
 
 		setActionRegistry(actionRegistry);
 	}
+	
+	
 
 	@Override
 	public void buildContextMenu(IMenuManager menu) {
@@ -47,76 +49,74 @@ public class DwGraphicalFeatureModelEditorContextMenuProvider extends ContextMen
         
         // Basic operations: undo, redo, delete
         action = getActionRegistry().getAction(ActionFactory.UNDO.getId());
-        menu.appendToGroup(GEFActionConstants.GROUP_UNDO, action);
+        addToMenuIfEnabled(menu, GEFActionConstants.GROUP_UNDO, action);
         action = getActionRegistry().getAction(ActionFactory.REDO.getId());
-        menu.appendToGroup(GEFActionConstants.GROUP_UNDO, action);
+        addToMenuIfEnabled(menu, GEFActionConstants.GROUP_UNDO, action);
         action = getActionRegistry().getAction(ActionFactory.DELETE.getId());
-        menu.appendToGroup(GEFActionConstants.GROUP_UNDO, action);
+        addToMenuIfEnabled(menu, GEFActionConstants.GROUP_UNDO, action);
         
         action = getActionRegistry().getAction(DwFeatureDeletePermanentlyAction.FEATURE_DELETE_PERMANENTLY);
-        menu.appendToGroup(GEFActionConstants.GROUP_UNDO, action);
+        addToMenuIfEnabled(menu, GEFActionConstants.GROUP_UNDO, action);
         
  
         // Feature actions: create child, create sibling
         action = getActionRegistry().getAction(DwFeatureCreateChildAction.FEATURE_CREATE_CHILD);
-        menu.appendToGroup(GEFActionConstants.GROUP_EDIT, action);
+        addToMenuIfEnabled(menu, GEFActionConstants.GROUP_EDIT, action);
         action = getActionRegistry().getAction(DwFeatureCreateSiblingAction.FEATURE_CREATE_SIBLING);
-        menu.appendToGroup(GEFActionConstants.GROUP_EDIT, action);       
+        addToMenuIfEnabled(menu, GEFActionConstants.GROUP_EDIT, action);       
         action = getActionRegistry().getAction(DwFeatureEditNamesAction.FEATURE_EDIT_NAMES);
-        menu.appendToGroup(GEFActionConstants.GROUP_EDIT, action);      
+        addToMenuIfEnabled(menu, GEFActionConstants.GROUP_EDIT, action);      
         action = getActionRegistry().getAction(DwFeatureChangeTypeAction.FEATURE_CHANGE_TYPE);
-        menu.appendToGroup(GEFActionConstants.GROUP_EDIT, action);      
+        addToMenuIfEnabled(menu, GEFActionConstants.GROUP_EDIT, action);      
         menu.appendToGroup(GEFActionConstants.GROUP_EDIT, new Separator());
         
         
 
         action = getActionRegistry().getAction(DwGroupChangeGroupTypeToAlternativeTypeAction.CHANGE_GROUP_TYPE_TO_ALTERNATIVE);
-        menu.appendToGroup(GEFActionConstants.GROUP_EDIT, action);
+        addToMenuIfEnabled(menu, GEFActionConstants.GROUP_EDIT, action);
         action = getActionRegistry().getAction(DwGroupChangeGroupTypeToAndTypeAction.CHANGE_GROUP_TYPE_TO_AND);
-        menu.appendToGroup(GEFActionConstants.GROUP_EDIT, action);
+        addToMenuIfEnabled(menu, GEFActionConstants.GROUP_EDIT, action);
         action = getActionRegistry().getAction(DwGroupChangeGroupTypeToOrTypeAction.CHANGE_GROUP_TYPE_TO_OR);
-        menu.appendToGroup(GEFActionConstants.GROUP_EDIT, action);
+        addToMenuIfEnabled(menu, GEFActionConstants.GROUP_EDIT, action);
         
         menu.appendToGroup(GEFActionConstants.GROUP_EDIT, new Separator());
-        
-        action = getActionRegistry().getAction(DwLinearTemporalElementChangeValidityAction.FEATURE_CHANGE_VALIDITY);
         
         menu.appendToGroup(GEFActionConstants.GROUP_EDIT, new Separator());
         action = getActionRegistry().getAction(DwVersionCreateVersionAction.FEATURE_ADD_VERSION);
-        menu.appendToGroup(GEFActionConstants.GROUP_EDIT, action);
+        addToMenuIfEnabled(menu, GEFActionConstants.GROUP_EDIT, action);
         action = getActionRegistry().getAction(DwVersionCreateSuccessorAction.FEATURE_CREATE_SUCCESSOR_VERSION);
-        menu.appendToGroup(GEFActionConstants.GROUP_EDIT, action);         
+        addToMenuIfEnabled(menu, GEFActionConstants.GROUP_EDIT, action);         
         
         menu.appendToGroup(GEFActionConstants.GROUP_EDIT, new Separator());
         action = getActionRegistry().getAction(DwAttributeCreateNumberAction.FEATURE_ADD_NUMBER_ATTRIBUTE);     
-        menu.appendToGroup(GEFActionConstants.GROUP_EDIT, action);
+        addToMenuIfEnabled(menu, GEFActionConstants.GROUP_EDIT, action);
         action = getActionRegistry().getAction(DwAttributeCreateBooleanAction.FEATURE_ADD_BOOLEAN_ATTRIBUTE);     
-        menu.appendToGroup(GEFActionConstants.GROUP_EDIT, action);
+        addToMenuIfEnabled(menu, GEFActionConstants.GROUP_EDIT, action);
         action = getActionRegistry().getAction(DwAttributeCreateStringAction.FEATURE_ADD_STRING_ATTRIBUTE);     
-        menu.appendToGroup(GEFActionConstants.GROUP_EDIT, action);      
+        addToMenuIfEnabled(menu, GEFActionConstants.GROUP_EDIT, action);      
         action = getActionRegistry().getAction(DwAttributeCreateEnumAction.FEATURE_ADD_ENUM_ATTRIBUTE);     
-        menu.appendToGroup(GEFActionConstants.GROUP_EDIT, action);    
+        addToMenuIfEnabled(menu, GEFActionConstants.GROUP_EDIT, action);    
 
 
         action = getActionRegistry().getAction(DwAttributeRenameAction.ATTRIBUTE_EDIT_NAMES);
-        menu.appendToGroup(GEFActionConstants.GROUP_EDIT, action);
+        addToMenuIfEnabled(menu, GEFActionConstants.GROUP_EDIT, action);
         
         action = getActionRegistry().getAction(DwNumberAttributeSetNumberRangeAction.ATTRIBUTE_EDIT_MIN_AND_MAX);     
-        menu.appendToGroup(GEFActionConstants.GROUP_EDIT, action);    
+        addToMenuIfEnabled(menu, GEFActionConstants.GROUP_EDIT, action);    
         
         action = getActionRegistry().getAction(DwFeatureAttributeEnumCreateLiteralAction.ATTRIBUTE_CREATE_LITERAL);
-        menu.appendToGroup(GEFActionConstants.GROUP_EDIT, action);
+        addToMenuIfEnabled(menu, GEFActionConstants.GROUP_EDIT, action);
         
         action = getActionRegistry().getAction(DwFeatureAttributeEnumCreateEnumAction.ATTRIBUTE_CREATE_ENUM);
-        menu.appendToGroup(GEFActionConstants.GROUP_EDIT, action);
+        addToMenuIfEnabled(menu, GEFActionConstants.GROUP_EDIT, action);
         
         menu.appendToGroup(GEFActionConstants.GROUP_EDIT, new Separator());
         action = getActionRegistry().getAction(DwLinearTemporalElementChangeValidityAction.FEATURE_CHANGE_VALIDITY);
-        menu.appendToGroup(GEFActionConstants.GROUP_EDIT, action);
+        addToMenuIfEnabled(menu, GEFActionConstants.GROUP_EDIT, action);
         
         menu.appendToGroup(GEFActionConstants.GROUP_EDIT, new Separator());
         action = getActionRegistry().getAction(DwSetFeatureLinkAction.ID);
-        menu.appendToGroup(GEFActionConstants.GROUP_EDIT, action);
+        addToMenuIfEnabled(menu, GEFActionConstants.GROUP_EDIT, action);
 	}
 	
 	public ActionRegistry getActionRegistry() {
@@ -125,5 +125,21 @@ public class DwGraphicalFeatureModelEditorContextMenuProvider extends ContextMen
 	public void setActionRegistry(ActionRegistry actionRegistry) {
 		this.actionRegistry = actionRegistry;
 	}
+	
+	
+	/**
+	 * Checks if the given action is enabled and only adds the action to the given menu if isEnabled() return true 
+	 * 
+	 * @param menu
+	 * @param groupName
+	 * @param action
+	 */
+	private void addToMenuIfEnabled(IMenuManager menu, String groupName, IAction action){
+		if(action.isEnabled()){
+			menu.appendToGroup(groupName, action);
+		}
+		
+	}
+
 
 }
