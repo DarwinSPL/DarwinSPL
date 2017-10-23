@@ -1,5 +1,6 @@
 package de.darwinspl.feature.graphical.configurator.editparts;
 
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.gef.Request;
 import org.eclipse.gef.RequestConstants;
 
@@ -35,14 +36,42 @@ public class DwConfiguratorEditorVersionEditPart extends DwVersionEditPart{
 			if(!selectedConfiguration.getElements().removeIf(predicate)){
 				HyVersionSelected versionSelected = HyConfigurationFactory.eINSTANCE.createHyVersionSelected();
 				versionSelected.setSelectedVersion(version);
+				
+				selectedConfiguration = checkIfConfigurationContainsOtherVersion(selectedConfiguration, version);
+				
 				selectedConfiguration.getElements().add(versionSelected);
 				
 				if(!HyConfigurationUtil.configurationSelects(selectedConfiguration, version.getFeature())){
 					DwConfiguratorEditorUtil.addFeatureToConfiguration(selectedConfiguration, version.getFeature(), editor.getCurrentSelectedDate());				
-				}				
+				}
+				
 			}
 			
 			editor.refreshView();
 		}
+	}
+	
+	
+	/**
+	 * Checks if another version of the feature is already selected.
+	 * 
+	 * If this is the case, the previously selected version is deselected.
+	 * 
+	 * @param selectedConfiguration currently selected configuration of the feature model
+	 * @param version the new selected version of a feature
+	 * @return
+	 */
+	private HyConfiguration checkIfConfigurationContainsOtherVersion(HyConfiguration selectedConfiguration, HyVersion version) {
+		
+		for(EObject object: selectedConfiguration.getElements()){
+			if(object instanceof HyVersionSelected){
+				HyVersionSelected otherVersion = (HyVersionSelected) object;
+				if(otherVersion.getSelectedVersion().getFeature().equals(version.getFeature())){
+					selectedConfiguration.getElements().remove(otherVersion);
+					return selectedConfiguration;
+				}
+			}
+		}
+		return selectedConfiguration;
 	}	
 }
