@@ -55,6 +55,8 @@ import de.darwinspl.feature.graphical.configurator.editor.listeners.DwLoadConfig
 import de.darwinspl.feature.graphical.configurator.editor.listeners.DwSaveConfigurationListener;
 import de.darwinspl.feature.graphical.configurator.factory.DwConfiguratorEditorEditPartFactory;
 import de.darwinspl.feature.graphical.configurator.viewer.DwFeatureModelConfiguratorViewer;
+import de.darwinspl.preferences.DwProfile;
+import de.darwinspl.preferences.util.custom.DwPreferenceModelUtil;
 import de.darwinspl.reconfigurator.client.hyvarrec.DwAnalysesClient;
 import de.darwinspl.reconfigurator.client.hyvarrec.DwAnalysesClient.DwContextValueEvolutionWrapper;
 import de.darwinspl.reconfigurator.client.hyvarrec.HyVarRecNoSolutionException;
@@ -426,16 +428,25 @@ public class DwFeatureModelConfiguratorEditor extends DwFeatureModelConfigurator
 			if(modelFileExists(HyValidityModelUtil.getValidityModelFileExtensionForConcreteSyntax())){
 				validityModel = EcoreIOUtil.loadAccompanyingModel(modelWrapped.getModel(), HyValidityModelUtil.getValidityModelFileExtensionForConcreteSyntax());
 			}
+			else if(modelFileExists(HyValidityModelUtil.getValidityModelFileExtensionForXmi())) {
+				validityModel = EcoreIOUtil.loadAccompanyingModel(modelWrapped.getModel(), HyValidityModelUtil.getValidityModelFileExtensionForXmi());
+			}
 
 			HyConstraintModel constraintModel = null;
 			if(modelFileExists(HyConstraintUtil.getConstraintModelFileExtensionForConcreteSyntax())){
 				constraintModel = EcoreIOUtil.loadAccompanyingModel(modelWrapped.getModel(), HyConstraintUtil.getConstraintModelFileExtensionForConcreteSyntax());
 			}
+			else if(modelFileExists(HyConstraintUtil.getConstraintModelFileExtensionForXmi())){
+				constraintModel = EcoreIOUtil.loadAccompanyingModel(modelWrapped.getModel(), HyConstraintUtil.getConstraintModelFileExtensionForXmi());
+			}
 
-//			DwPreferenceModel preferenceModel = null;
-//			if(modelFileExists(DwPreferenceModelUtil.getPreferenceModelFileExtensionForConcreteSyntax())){
-//				preferenceModel = EcoreIOUtil.loadAccompanyingModel(modelWrapped.getModel(), DwPreferenceModelUtil.getPreferenceModelFileExtensionForConcreteSyntax());
-//			}
+			DwProfile profile = null;
+			if(modelFileExists(DwPreferenceModelUtil.getPreferenceModelFileExtensionForConcreteSyntax())){
+				profile = EcoreIOUtil.loadAccompanyingModel(modelWrapped.getModel(), DwPreferenceModelUtil.getPreferenceModelFileExtensionForConcreteSyntax());
+			}
+			else if(modelFileExists(DwPreferenceModelUtil.getPreferenceModelFileExtensionForXmi())){
+				profile = EcoreIOUtil.loadAccompanyingModel(modelWrapped.getModel(), DwPreferenceModelUtil.getPreferenceModelFileExtensionForXmi());
+			}
 
 			//
 //			if(modelFileExists(ContextInformationUtil.getContextValueModelFileExtensionForXmi())){
@@ -461,7 +472,7 @@ public class DwFeatureModelConfiguratorEditor extends DwFeatureModelConfigurator
 			try {
 				if (e.getSource() == validateContextButton) {
 					DwContextValueEvolutionWrapper contextValueEvolutionWrapper = client.validateFeatureModelWithContext(uri, contextModel,
-							validityModel, modelWrapped.getModel(), constraintModel, selectedConfiguration, null,
+							validityModel, modelWrapped.getModel(), constraintModel, selectedConfiguration, profile,
 							contextValueModel, modelWrapped.getSelectedDate());
 					
 					DwInvalidContextInfoDialog contextInfoDialog = new DwInvalidContextInfoDialog(
@@ -470,7 +481,7 @@ public class DwFeatureModelConfiguratorEditor extends DwFeatureModelConfigurator
 				} else if (e.getSource() == simulateButton) {
 					HyConfiguration configuration;
 					configuration = client.reconfigure(uri, contextModel, validityModel, modelWrapped.getModel(),
-							constraintModel, selectedConfiguration, null, contextValueModel,
+							constraintModel, selectedConfiguration, profile, contextValueModel,
 							modelWrapped.getSelectedDate());
 					if (configuration != null) {
 						String fileName = getFile().getFullPath().removeFileExtension().lastSegment();
@@ -497,7 +508,7 @@ public class DwFeatureModelConfiguratorEditor extends DwFeatureModelConfigurator
 
 				} else if (e.getSource() == explainButton) {
 					List<String> explainingConstraints = client.explainAnomaly(uri, contextModel, validityModel, modelWrapped.getModel(),
-							constraintModel, selectedConfiguration, null, contextValueModel,
+							constraintModel, selectedConfiguration, profile, contextValueModel,
 							modelWrapped.getSelectedDate());
 					
 					DwAnomalyExplanationDialog anomalyExplanationDialog = new DwAnomalyExplanationDialog(getEditorSite().getShell(), explainingConstraints);
@@ -508,7 +519,7 @@ public class DwFeatureModelConfiguratorEditor extends DwFeatureModelConfigurator
 					
 					DwContextValueEvolutionWrapper notSatisfiableContextValues = client.validateFeatureModelWithContext(uri,
 							contextModel, validityModel, modelWrapped.getModel(), constraintModel,
-							selectedConfiguration, null, contextValueModel, null);
+							selectedConfiguration, profile, contextValueModel, null);
 					
 					DwInvalidContextInfoDialog contextInfoDialog = new DwInvalidContextInfoDialog(
 							getEditorSite().getShell(), notSatisfiableContextValues);
