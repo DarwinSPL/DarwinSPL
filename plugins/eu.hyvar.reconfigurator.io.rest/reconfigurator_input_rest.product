@@ -30,7 +30,7 @@
       <plugin id="eu.hyvar.feature.data"/>
       <plugin id="eu.hyvar.feature.expression"/>
       <plugin id="eu.hyvar.mspl.manifest"/>
-      <plugin id="eu.hyvar.preferences"/>
+      <plugin id="de.darwinspl.preferences"/>
       <plugin id="eu.hyvar.reconfigurator.input"/>
       <plugin id="eu.hyvar.reconfigurator.io.rest"/>
       <plugin id="eu.hyvar.reconfigurator.output.translation"/>

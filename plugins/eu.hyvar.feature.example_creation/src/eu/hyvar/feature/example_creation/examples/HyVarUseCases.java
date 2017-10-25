@@ -30,7 +30,7 @@ import eu.hyvar.feature.expression.HyFeatureReferenceExpression;
 import eu.hyvar.feature.expression.HyImpliesExpression;
 import eu.hyvar.feature.mapping.HyMappingModel;
 import eu.hyvar.feature.util.HyFeatureCreationUtil;
-import eu.hyvar.preferences.HyProfile;
+import de.darwinspl.preferences.DwProfile;
 
 public class HyVarUseCases extends HyFMExample {
 
@@ -284,7 +284,7 @@ public class HyVarUseCases extends HyFMExample {
 	}
 
 	@Override
-	public HyProfile createPreferenceModel() {
+	public DwProfile createPreferenceModel() {
 		// TODO Auto-generated method stub
 		return null;
 	}

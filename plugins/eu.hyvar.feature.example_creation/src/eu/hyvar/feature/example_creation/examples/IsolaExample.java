@@ -56,9 +56,9 @@ import eu.hyvar.feature.expression.HyRelativeVersionRestrictionOperator;
 import eu.hyvar.feature.expression.HyValueExpression;
 import eu.hyvar.feature.mapping.HyMappingModel;
 import eu.hyvar.feature.util.HyFeatureCreationUtil;
-import eu.hyvar.preferences.HyPreference;
-import eu.hyvar.preferences.HyProfile;
-import eu.hyvar.preferences.PreferencesFactory;
+import de.darwinspl.preferences.DwPreference;
+import de.darwinspl.preferences.DwProfile;
+import de.darwinspl.preferences.PreferencesFactory;
 
 public class IsolaExample extends HyFMExample {
 
@@ -585,7 +585,7 @@ public class IsolaExample extends HyFMExample {
 
 		// ------- create preferences --------
 		PreferencesFactory preferenceFactory = PreferencesFactory.eINSTANCE;
-		HyProfile preferenceModel = preferenceFactory.createHyProfile();
+		DwProfile preferenceModel = preferenceFactory.createDwProfile();
 		this.preferenceModel = preferenceModel;
 		preferenceModel.setContextModel(contextModel);
 		preferenceModel.setFeatureModel(featureModel);
@@ -593,7 +593,7 @@ public class IsolaExample extends HyFMExample {
 //		switch(profile) {
 //		case SPORTY:
 //			// # passengers >= 2 -> ifPossibe(Comfort)   Comfort = Neutral, Automatic, White
-//			HyPreference passengersComfortPreference = preferenceFactory.createHyPreference();
+//			DwPreference passengersComfortPreference = preferenceFactory.createDwPreference();
 //			HyGreaterOrEqualExpression passengersGEQ2Expression = expressionFactory.createHyGreaterOrEqualExpression();
 //			HyContextInformationReferenceExpression passengersReference = expressionFactory.createHyContextInformationReferenceExpression();
 //			passengersReference.setContextInformation(numberOfPassengers);
@@ -622,7 +622,7 @@ public class IsolaExample extends HyFMExample {
 //			preferenceModel.getPreferences().add(passengersComfortPreference);
 //			
 //			// # passengers >= 2 -> Cruise Control
-//			HyPreference passengersCruiseControlPreference = preferenceFactory.createHyPreference();
+//			DwPreference passengersCruiseControlPreference = preferenceFactory.createDwPreference();
 //			HyGreaterOrEqualExpression passengersGEQ2Expression2 = EcoreUtil.copy(passengersGEQ2Expression);
 //			HyImpliesExpression passengersCruiseControlExpression = expressionFactory.createHyImpliesExpression();
 //			passengersCruiseControlExpression.setOperand1(passengersGEQ2Expression2);
@@ -634,12 +634,12 @@ public class IsolaExample extends HyFMExample {
 //			
 //			
 //			// Automatic
-//			HyPreference automaticPreference = preferenceFactory.createHyPreference();
+//			DwPreference automaticPreference = preferenceFactory.createDwPreference();
 //			automaticPreference.setRootExpression(EcoreUtil.copy(automaticReference));
 //			preferenceModel.getPreferences().add(automaticPreference);
 //
 //			// ifPossible(Sport) (Progressive, Red, Manual)
-//			HyPreference ifPossibleSportPreference = preferenceFactory.createHyPreference();
+//			DwPreference ifPossibleSportPreference = preferenceFactory.createDwPreference();
 //			HyIfPossibleExpression ifPossibleSportExpression = expressionFactory.createHyIfPossibleExpression();
 //			ifPossibleSportExpression.getOperands().add(EcoreUtil.copy(progressiveReference));
 //			ifPossibleSportExpression.getOperands().add(EcoreUtil.copy(redReference));
@@ -648,7 +648,7 @@ public class IsolaExample extends HyFMExample {
 //			preferenceModel.getPreferences().add(ifPossibleSportPreference);
 //
 //			// HUD <= 1.1
-//			HyPreference hudLess11Preference = preferenceFactory.createHyPreference();
+//			DwPreference hudLess11Preference = preferenceFactory.createDwPreference();
 //			HyFeatureReferenceExpression headsUpLess11Reference = expressionFactory.createHyFeatureReferenceExpression();
 //			headsUpLess11Reference.setFeature(headsUpFeature);
 //			HyRelativeVersionRestriction hudLess11 = expressionFactory.createHyRelativeVersionRestriction();
@@ -660,14 +660,14 @@ public class IsolaExample extends HyFMExample {
 //			preferenceModel.getPreferences().add(hudLess11Preference);
 //			
 //			// max(maxSpeed)
-//			HyPreference maxMaxSpeedPreference = preferenceFactory.createHyPreference();
+//			DwPreference maxMaxSpeedPreference = preferenceFactory.createDwPreference();
 //			HyMaximumExpression maxMaxSpeed = expressionFactory.createHyMaximumExpression();
 //			maxMaxSpeed.setOperand(EcoreUtil.copy(maxSpeedReference));
 //			maxMaxSpeedPreference.setRootExpression(maxMaxSpeed);
 //			preferenceModel.getPreferences().add(maxMaxSpeedPreference);
 //			
 //			// Cruise Control -> Lane Assist
-//			HyPreference cruiseControlLaneAssistPreference = preferenceFactory.createHyPreference();
+//			DwPreference cruiseControlLaneAssistPreference = preferenceFactory.createDwPreference();
 //			HyImpliesExpression cruiseControlLaneAssist = expressionFactory.createHyImpliesExpression();
 //			HyFeatureReferenceExpression laneAssistReference = expressionFactory.createHyFeatureReferenceExpression();
 //			laneAssistReference.setFeature(laneAssistFeature);
@@ -677,7 +677,7 @@ public class IsolaExample extends HyFMExample {
 //			preferenceModel.getPreferences().add(cruiseControlLaneAssistPreference);
 //
 //			// !Lane Assist
-//			HyPreference notLaneAssistPreference = preferenceFactory.createHyPreference();
+//			DwPreference notLaneAssistPreference = preferenceFactory.createDwPreference();
 //			HyNotExpression notLaneAssist = expressionFactory.createHyNotExpression();
 //			notLaneAssist.setOperand(EcoreUtil.copy(laneAssistReference));
 //			notLaneAssistPreference.setRootExpression(notLaneAssist);
@@ -687,7 +687,7 @@ public class IsolaExample extends HyFMExample {
 			
 //		case ECO:
 			// Time >= 16 -> nightMode = true
-			HyPreference hourOfTheDay16NightModePreference =  preferenceFactory.createHyPreference();
+			DwPreference hourOfTheDay16NightModePreference =  preferenceFactory.createDwPreference();
 				
 			HyValueExpression value16Expression = expressionFactory.createHyValueExpression();
 			HyNumberValue value16 = valueFactory.createHyNumberValue();
@@ -711,7 +711,7 @@ public class IsolaExample extends HyFMExample {
 			preferenceModel.getPreferences().add(hourOfTheDay16NightModePreference);
 			
 			// ifPossible(Eco)  Conservative, Automatic, Green
-			HyPreference ifPossibleEcoPreference = preferenceFactory.createHyPreference();
+			DwPreference ifPossibleEcoPreference = preferenceFactory.createDwPreference();
 			HyIfPossibleExpression ifPossibleEcoExpression = expressionFactory.createHyIfPossibleExpression();
 			ifPossibleEcoExpression.getOperands().add(EcoreUtil.copy(conservativeReference));
 			ifPossibleEcoExpression.getOperands().add(EcoreUtil.copy(automaticReference));
@@ -722,22 +722,22 @@ public class IsolaExample extends HyFMExample {
 			preferenceModel.getPreferences().add(ifPossibleEcoPreference);
 			
 			// Parking Spot detector
-			HyPreference parkingSpotPreference = preferenceFactory.createHyPreference();
+			DwPreference parkingSpotPreference = preferenceFactory.createDwPreference();
 			parkingSpotPreference.setRootExpression(EcoreUtil.copy(parkingSpotReference));
 			preferenceModel.getPreferences().add(parkingSpotPreference);
 			
 			// HUD[>=2.0]
-			HyPreference hudBigger20Preference = preferenceFactory.createHyPreference();
+			DwPreference hudBigger20Preference = preferenceFactory.createDwPreference();
 			hudBigger20Preference.setRootExpression(EcoreUtil.copy(headsUpBigger20Reference));
 			preferenceModel.getPreferences().add(hudBigger20Preference);
 			
 			// Cruise Control
-			HyPreference cruiseControlPreference = preferenceFactory.createHyPreference();
+			DwPreference cruiseControlPreference = preferenceFactory.createDwPreference();
 			cruiseControlPreference.setRootExpression(EcoreUtil.copy(cruiseControlReference));
 			preferenceModel.getPreferences().add(cruiseControlPreference);
 			
 			// Lane Assist [>=2.0]
-			HyPreference laneAssistGreater20Preference = preferenceFactory.createHyPreference();
+			DwPreference laneAssistGreater20Preference = preferenceFactory.createDwPreference();
 			HyFeatureReferenceExpression laneAssistGreater20Reference = expressionFactory.createHyFeatureReferenceExpression();
 			laneAssistGreater20Reference.setFeature(laneAssistFeature);
 			HyRelativeVersionRestriction laneAssistGreater20 = expressionFactory.createHyRelativeVersionRestriction();
@@ -748,14 +748,14 @@ public class IsolaExample extends HyFMExample {
 			preferenceModel.getPreferences().add(laneAssistGreater20Preference);
 			
 			// Lane Assist
-			HyPreference laneAssistPreference = preferenceFactory.createHyPreference();
+			DwPreference laneAssistPreference = preferenceFactory.createDwPreference();
 			HyFeatureReferenceExpression laneAssistReference3 = expressionFactory.createHyFeatureReferenceExpression();
 			laneAssistReference3.setFeature(laneAssistFeature);
 			laneAssistPreference.setRootExpression(EcoreUtil.copy(laneAssistReference3));
 			preferenceModel.getPreferences().add(laneAssistPreference);
 			
 			// max(maxSpeed)
-			HyPreference maxMaxSpeedPreference2 = preferenceFactory.createHyPreference();
+			DwPreference maxMaxSpeedPreference2 = preferenceFactory.createDwPreference();
 			HyMaximumExpression maxMaxSpeed2 = expressionFactory.createHyMaximumExpression();
 			maxMaxSpeed2.setOperand(EcoreUtil.copy(maxSpeedReference));
 			maxMaxSpeedPreference2.setRootExpression(maxMaxSpeed2);
@@ -863,10 +863,10 @@ public class IsolaExample extends HyFMExample {
 		return contextValidityModel;
 	}
 
-	private HyProfile preferenceModel;
+	private DwProfile preferenceModel;
 	
 	@Override
-	public HyProfile createPreferenceModel() {
+	public DwProfile createPreferenceModel() {
 		return preferenceModel;
 	}
 

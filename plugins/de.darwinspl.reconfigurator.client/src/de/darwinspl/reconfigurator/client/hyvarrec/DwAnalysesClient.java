@@ -48,7 +48,7 @@ import eu.hyvar.feature.HyFeatureModel;
 import eu.hyvar.feature.HyVersion;
 import eu.hyvar.feature.configuration.HyConfiguration;
 import eu.hyvar.feature.constraint.HyConstraintModel;
-import eu.hyvar.preferences.HyProfile;
+import de.darwinspl.preferences.DwProfile;
 import eu.hyvar.reconfigurator.input.exporter.HyVarRecExporter;
 import eu.hyvar.reconfigurator.output.translation.HyVarRecOutputTranslator;
 import eu.hyvar.reconfigurator.output.translation.format.OutputOfHyVarRec;
@@ -91,7 +91,7 @@ public class DwAnalysesClient {
 		return URI.create(originalUri);
 	}
 	
-	protected String createHyVarRecMessage(HyContextModel contextModel, HyValidityModel contextValidityModel, HyFeatureModel featureModel, HyConstraintModel constraintModel, HyConfiguration oldConfiguration, HyProfile preferenceModel, HyContextValueModel contextValues, Date date) {
+	protected String createHyVarRecMessage(HyContextModel contextModel, HyValidityModel contextValidityModel, HyFeatureModel featureModel, HyConstraintModel constraintModel, HyConfiguration oldConfiguration, DwProfile preferenceModel, HyContextValueModel contextValues, Date date) {
 		exporter = new HyVarRecExporter();
 		String messageForHyVarRec = exporter.exportSPL(contextModel, contextValidityModel, featureModel, constraintModel, oldConfiguration, preferenceModel, contextValues, date);
 		return messageForHyVarRec;
@@ -112,7 +112,7 @@ public class DwAnalysesClient {
 	 */
 	public List<String> explainAnomaly(String uriString, HyContextModel contextModel, HyValidityModel contextValidityModel,
 			HyFeatureModel featureModel, HyConstraintModel constraintModel, HyConfiguration oldConfiguration,
-			HyProfile preferenceModel, HyContextValueModel contextValues, Date date) throws TimeoutException, InterruptedException, ExecutionException, UnresolvedAddressException {
+			DwProfile preferenceModel, HyContextValueModel contextValues, Date date) throws TimeoutException, InterruptedException, ExecutionException, UnresolvedAddressException {
 		
 		String messageForHyVarRec = createHyVarRecMessage(contextModel, contextValidityModel, featureModel, constraintModel, oldConfiguration, preferenceModel, contextValues, date);
 		URI uri = createUriWithPath(uriString, VALIDATE_FM_URI);
@@ -248,7 +248,7 @@ public class DwAnalysesClient {
 	 */
 	public DwContextValueEvolutionWrapper validateFeatureModelWithContext(String uriString, HyContextModel contextModel, HyValidityModel contextValidityModel,
 			HyFeatureModel featureModel, HyConstraintModel constraintModel, HyConfiguration oldConfiguration,
-			HyProfile profile, HyContextValueModel contextValues, Date date) throws TimeoutException, InterruptedException, ExecutionException, UnresolvedAddressException, HyVarRecNoSolutionException {
+			DwProfile profile, HyContextValueModel contextValues, Date date) throws TimeoutException, InterruptedException, ExecutionException, UnresolvedAddressException, HyVarRecNoSolutionException {
 		
 		String messageForHyVarRec = createHyVarRecMessage(contextModel, contextValidityModel, featureModel, constraintModel, oldConfiguration, profile, contextValues, date);
 		URI uri = createUriWithPath(uriString, VALIDATE_CONTEXT_URI);
@@ -351,7 +351,7 @@ public class DwAnalysesClient {
 	}
 	
 	private Date getDateOutOfEvolutionContext(de.darwinspl.reconfigurator.client.hyvarrec.format.context.Context dateContext, int valueForDateContext, HyContextModel contextModel, HyValidityModel contextValidityModel,
-			HyFeatureModel featureModel, HyConstraintModel constraintModel, HyProfile profile) {
+			HyFeatureModel featureModel, HyConstraintModel constraintModel, DwProfile profile) {
 		List<HyFeatureModel> featureModels = new ArrayList<HyFeatureModel>(1);
 		featureModels.add(featureModel);
 		
@@ -364,7 +364,7 @@ public class DwAnalysesClient {
 		List<HyValidityModel> validityModels = new ArrayList<HyValidityModel>(1);
 		validityModels.add(contextValidityModel);
 		
-		List<HyProfile> profiles = new ArrayList<HyProfile>(1);
+		List<DwProfile> profiles = new ArrayList<DwProfile>(1);
 		profiles.add(profile);
 		
 		List<Date> sortedDateList = HyVarRecExporter.getSortedListOfDatesOfDateContext(featureModels, constraintModels, contextModels, validityModels, profiles);
@@ -418,7 +418,7 @@ public class DwAnalysesClient {
 	 */
 	public HyConfiguration reconfigure(String uriString, HyContextModel contextModel, HyValidityModel contextValidityModel,
 			HyFeatureModel featureModel, HyConstraintModel constraintModel, HyConfiguration oldConfiguration,
-			HyProfile preferenceModel, HyContextValueModel contextValues, Date date) throws TimeoutException, InterruptedException, ExecutionException, UnresolvedAddressException {
+			DwProfile preferenceModel, HyContextValueModel contextValues, Date date) throws TimeoutException, InterruptedException, ExecutionException, UnresolvedAddressException {
 		
 		String messageForHyVarRec = createHyVarRecMessage(contextModel, contextValidityModel, featureModel, constraintModel, oldConfiguration, preferenceModel, contextValues, date);
 		

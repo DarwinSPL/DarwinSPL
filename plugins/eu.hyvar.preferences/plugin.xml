@@ -6,19 +6,20 @@
 
 <plugin>
 
-   <extension point="org.eclipse.emf.ecore.generated_package">
-      <!-- @generated Preferences -->
-      <package
-            uri="http://hyvar-project.eu/feature/preferences/1.0"
-            class="eu.hyvar.preferences.PreferencesPackage"
-            genModel="model/Preferences.genmodel"/>
-   </extension>
    <extension
          point="org.eclipse.emf.ecore.factory_override">
       <factory
-            class="eu.hyvar.preferences.factory.PreferencesFactoryWithIds"
-            uri="http://hyvar-project.eu/feature/preferences/1.0">
+            class="de.darwinspl.preferences.factory.PreferencesFactoryWithIds"
+            uri="http://darwinspl.de/feature/preferences/1.0">
       </factory>
+   </extension>
+
+   <extension point="org.eclipse.emf.ecore.generated_package">
+      <!-- @generated Preferences -->
+      <package
+            uri="http://darwinspl.de/feature/preferences/1.0"
+            class="de.darwinspl.preferences.PreferencesPackage"
+            genModel="model/Preferences.genmodel"/>
    </extension>
 
 </plugin>

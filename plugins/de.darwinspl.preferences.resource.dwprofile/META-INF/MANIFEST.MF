@@ -1,0 +1,32 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: EMFText Parser Plugin: dwprofile
+Bundle-SymbolicName: de.darwinspl.preferences.resource.dwprofile;singleton:=true
+Bundle-Version: 1.0.0
+Bundle-Vendor: Software Technology Group - TU Dresden Germany
+Require-Bundle: org.eclipse.core.runtime;resolution:=optional,
+ org.eclipse.core.resources;resolution:=optional,
+ org.eclipse.emf.ecore,
+ org.eclipse.emf.ecore.change,
+ org.eclipse.emf.validation;resolution:=optional,
+ org.emftext.access;resolution:=optional,
+ org.emftext.commons.antlr3_4_0,
+ de.darwinspl.preferences,
+ eu.hyvar.context.information,
+ eu.hyvar.feature.data,
+ eu.hyvar.evolution,
+ eu.hyvar.feature.expression,
+ eu.hyvar.feature,
+ eu.hyvar.feature.expression.resource.hyexpression,
+ eu.hyvar.dataValues.resource.hydatavalue,
+ eu.hyvar.mspl.manifest
+Bundle-ActivationPolicy: lazy
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Export-Package: de.darwinspl.preferences.resource.dwprofile,
+  de.darwinspl.preferences.resource.dwprofile.analysis,
+  de.darwinspl.preferences.resource.dwprofile.mopp,
+  de.darwinspl.preferences.resource.dwprofile.debug,
+  de.darwinspl.preferences.resource.dwprofile.launch,
+  de.darwinspl.preferences.resource.dwprofile.grammar,
+  de.darwinspl.preferences.resource.dwprofile.util
+Bundle-Activator: de.darwinspl.preferences.resource.dwprofile.mopp.DwprofilePlugin

@@ -5,8 +5,8 @@ import java.util.Date;
 import java.util.List;
 
 import eu.hyvar.feature.expression.util.HyExpressionStringExporter;
-import eu.hyvar.preferences.HyPreference;
-import eu.hyvar.preferences.HyProfile;
+import de.darwinspl.preferences.DwPreference;
+import de.darwinspl.preferences.DwProfile;
 import eu.hyvar.reconfigurator.input.format.Context;
 
 public class DwPreferenceExporter {
@@ -18,13 +18,13 @@ public class DwPreferenceExporter {
 	}
 	
 
-	public List<String> getPreferences(HyProfile preferenceModel, Date date, Context dateContext, List<Date> sortedDateList) {
+	public List<String> getPreferences(DwProfile preferenceModel, Date date, Context dateContext, List<Date> sortedDateList) {
 		List<String> preferences = new ArrayList<String>();
 
 		if(preferenceModel == null) {
 			return preferences;
 		}
-		for (HyPreference preference : preferenceModel.getPreferences()) {
+		for (DwPreference preference : preferenceModel.getPreferences()) {
 			String preferenceString = getPreference(preference, date, dateContext, sortedDateList);
 			
 			if(preferenceString != null) {
@@ -35,7 +35,7 @@ public class DwPreferenceExporter {
 		return preferences;
 	}
 
-	private String getPreference(HyPreference preference, Date date, Context dateContext, List<Date> sortedDateList) {
+	private String getPreference(DwPreference preference, Date date, Context dateContext, List<Date> sortedDateList) {
 		return HyVarRecExporter.createTimedExpression(preference, preference.getRootExpression(), date, dateContext, sortedDateList, expressionExporter);
 	}
 	
