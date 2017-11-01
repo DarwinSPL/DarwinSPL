@@ -7,7 +7,7 @@
 	</extension>
 	
 	<extension point="org.eclipse.ui.editors">
-		<editor class="de.darwinspl.preferences.resource.dwprofile.ui.DwprofileEditor" contributorClass="org.eclipse.ui.texteditor.BasicTextEditorActionContributor" extensions="dwprofile" icon="icons/editor_icon.gif" id="de.darwinspl.preferences.resource.dwprofile.ui.DwprofileEditor" name="Profile Editor (DarwinSPL)">
+		<editor class="de.darwinspl.preferences.resource.dwprofile.ui.DwprofileEditor" contributorClass="org.eclipse.ui.texteditor.BasicTextEditorActionContributor" extensions="dwprofile" icon="icons/icon_profile.png" id="de.darwinspl.preferences.resource.dwprofile.ui.DwprofileEditor" name="Profile Editor (DarwinSPL)">
 			<contentTypeBinding contentTypeId="de.darwinspl.preferences.resource.dwprofile">
 			</contentTypeBinding>
 		</editor>
@@ -30,7 +30,7 @@
 	</extension>
 	
 	<extension point="org.eclipse.ui.newWizards">
-		<wizard category="de.darwinspl.wizards" icon="/icons/default_new_icon.gif" class="de.darwinspl.preferences.resource.dwprofile.ui.DwprofileNewFileWizard" id="de.darwinspl.preferences.resource.dwprofile.ui.DwprofileNewFileWizard" name="DarwinSPL Profile (*.dwprofile)">
+		<wizard category="de.darwinspl.wizards" icon="icons/icon_profile.png" class="de.darwinspl.preferences.resource.dwprofile.ui.DwprofileNewFileWizard" id="de.darwinspl.preferences.resource.dwprofile.ui.DwprofileNewFileWizard" name="DarwinSPL Profile (*.dwprofile)">
 		</wizard>
 	</extension>
 	

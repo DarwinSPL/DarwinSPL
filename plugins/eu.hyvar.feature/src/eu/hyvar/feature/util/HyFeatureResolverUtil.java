@@ -5,8 +5,15 @@ import java.util.Date;
 import java.util.List;
 
 import org.deltaecore.util.DEIOUtil;
+import org.eclipse.core.resources.IContainer;
+import org.eclipse.core.resources.IFile;
+import org.eclipse.core.resources.IProject;
 import org.eclipse.emf.ecore.EObject;
 
+import de.christophseidl.util.eclipse.ResourceUtil;
+import de.christophseidl.util.ecore.EcoreIOUtil;
+import de.christophseidl.util.ecore.EcoreResolverUtil;
+import de.darwinspl.common.ecore.util.DwEcoreUtil;
 import eu.hyvar.dataValues.HyEnum;
 import eu.hyvar.evolution.HyName;
 import eu.hyvar.evolution.util.HyEvolutionUtil;
@@ -16,14 +23,50 @@ import eu.hyvar.feature.HyFeatureModel;
 import eu.hyvar.feature.HyVersion;
 
 public class HyFeatureResolverUtil {
-	public static final String[] FILE_EXTENSIONS = { "hyfeature", "hyfeaturemodel" };
+//	public static final String[] FILE_EXTENSIONS = { "hyfeature", "hyfeaturemodel" };
 
 	// TODO incorporate evolution
 
 	public static HyFeatureModel getAccompanyingFeatureModel(EObject elementInOriginalResource) {
-		// String[] models = new String[1];
-		// models[0] = "hyfeature";
-		return DEIOUtil.doLoadAccompanyingModel(elementInOriginalResource, FILE_EXTENSIONS);
+		
+		EObject model = DwEcoreUtil.loadAccompanyingModelInSameProject(elementInOriginalResource, HyFeatureUtil.getFeatureModelFileExtensionForXmi());
+		
+		if(model != null && model instanceof HyFeatureModel) {
+			return (HyFeatureModel)model;
+		}
+		
+		return null;
+		
+		
+//		HyFeatureModel featureModel = DEIOUtil.doLoadAccompanyingModel(elementInOriginalResource, new String[] {HyFeatureUtil.getFeatureModelFileExtensionForXmi()});
+//		
+//		if(featureModel == null) {
+//			// search for first feature model in the same folder and then all the way up to the project
+//			
+//			 IFile fileOfOriginalResource = EcoreResolverUtil.resolveRelativeFileFromEObject(elementInOriginalResource);
+//			 if(fileOfOriginalResource != null) {
+//				 IContainer container = fileOfOriginalResource.getParent();
+//				 
+//				 while(container != null) {
+//					 IFile featureModelFile = ResourceUtil.findFirstFileWithExtension(container, HyFeatureUtil.getFeatureModelFileExtensionForXmi());
+//					 
+//					 featureModel = EcoreIOUtil.loadModel(featureModelFile, elementInOriginalResource.eResource().getResourceSet());
+//					 
+//					 if(featureModel != null) {
+//						 break;
+//					 }
+//					 
+//					 // Repeat only if container is not a project
+//					 if(container instanceof IProject) {
+//						 break;
+//					 }
+//					 
+//					 container = container.getParent();						 
+//				 }
+//			 }
+//		}
+//		
+//		return featureModel;
 	}
 
 	public static HyFeature resolveFeature(String identifier, HyFeatureModel featureModel, Date date)

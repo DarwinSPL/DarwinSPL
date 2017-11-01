@@ -12,7 +12,7 @@ import eu.hyvar.feature.configuration.HyConfiguration;
 import eu.hyvar.feature.constraint.HyConstraintModel;
 import eu.hyvar.feature.constraint.util.HyConstraintUtil;
 import eu.hyvar.feature.mapping.HyMapping;
-import eu.hyvar.feature.util.HyFeatureResolverUtil;
+import eu.hyvar.feature.util.HyFeatureUtil;
 
 public class VariantDerivationImpl implements VariantDerivation {
 	
@@ -35,7 +35,7 @@ public class VariantDerivationImpl implements VariantDerivation {
 		}
 		
 		if(featureModel == null) {
-			EObject potentialFeatureModel = EcoreIOUtil.loadAccompanyingModel(configuration, "", HyFeatureResolverUtil.FILE_EXTENSIONS);
+			EObject potentialFeatureModel = EcoreIOUtil.loadAccompanyingModel(configuration, "", new String[] {HyFeatureUtil.getFeatureModelFileExtensionForXmi()});
 			if(potentialFeatureModel == null || !(potentialFeatureModel instanceof HyFeatureModel))  {
 				throw new VariantDerivationFailedException("No Feature Model found!");
 			}

@@ -95,7 +95,7 @@ public class DwFeatureModelConfiguratorEditor extends DwFeatureModelConfigurator
 
 	protected HyConfiguration suggestedConfiguration;
 	
-	private static final String DEFAULT_HYVARREC_URI = "http://hyvarhyvarrec-env.eu-west-1.elasticbeanstalk.com/";
+	private static final String DEFAULT_HYVARREC_URI = "http://hyvartest-hyvarrec.d33pmz246q.eu-west-1.elasticbeanstalk.com/";
 
 	@Override
 	public void init(IEditorSite site, IEditorInput input) throws PartInitException {

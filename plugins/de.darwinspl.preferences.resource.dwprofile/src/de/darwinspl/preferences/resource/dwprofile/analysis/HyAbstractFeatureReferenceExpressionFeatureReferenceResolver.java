@@ -26,7 +26,7 @@ public class HyAbstractFeatureReferenceExpressionFeatureReferenceResolver implem
 			}
 		}
 		else {
-		delegate.resolve(identifier, container, reference, position, resolveFuzzy, new eu.hyvar.feature.expression.resource.hyexpression.IHyexpressionReferenceResolveResult<eu.hyvar.feature.HyFeature>() {
+			delegate.resolve(identifier, container, reference, position, resolveFuzzy, new eu.hyvar.feature.expression.resource.hyexpression.IHyexpressionReferenceResolveResult<eu.hyvar.feature.HyFeature>() {
 			
 			public boolean wasResolvedUniquely() {
 				return result.wasResolvedUniquely();

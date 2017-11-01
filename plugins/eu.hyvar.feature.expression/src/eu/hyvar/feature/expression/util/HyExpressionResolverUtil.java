@@ -29,15 +29,23 @@ public class HyExpressionResolverUtil {
 //	private final static String FEATUREMODEL_EDITOR_EXTENSIONPOINT_ID = "eu.hyvar.feature.expression.FeatureModelEditor";
 
 	public static HyFeature resolveFeature(String identifier, EObject elementFromAccompanyingResource) {
+		if (elementFromAccompanyingResource == null) {
+			return null;
+		}
+		
+		HyFeatureModel featureModel = HyFeatureResolverUtil
+				.getAccompanyingFeatureModel(elementFromAccompanyingResource);
+
+		return resolveFeatureFromFeatureModel(identifier, featureModel);
+	}
+	
+	public static HyFeature resolveFeatureFromFeatureModel(String identifier, HyFeatureModel featureModel) {
 		if (identifier == null) {
 			return null;
 		}
 		
 		identifier = removeQuotationMarks(identifier);
 		
-		HyFeatureModel featureModel = HyFeatureResolverUtil
-				.getAccompanyingFeatureModel(elementFromAccompanyingResource);
-
 		Tuple<String, Date> identifierAndDate = IdentifierWithDateUtil.getIdentifierAndDate(identifier);
 		if (identifierAndDate.getSecondEntry() == null) {
 			identifierAndDate.setSecondEntry(new Date());
