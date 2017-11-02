@@ -18,7 +18,12 @@ import eu.hyvar.context.HyContextualInformation;
 import eu.hyvar.context.HyContextualInformationBoolean;
 import eu.hyvar.context.HyContextualInformationEnum;
 import eu.hyvar.context.HyContextualInformationNumber;
+import eu.hyvar.dataValues.HyBooleanValue;
 import eu.hyvar.dataValues.HyEnumLiteral;
+import eu.hyvar.dataValues.HyEnumValue;
+import eu.hyvar.dataValues.HyNumberValue;
+import eu.hyvar.dataValues.HyStringValue;
+import eu.hyvar.dataValues.HyValue;
 import eu.hyvar.evolution.util.HyEvolutionUtil;
 import eu.hyvar.feature.HyBooleanAttribute;
 import eu.hyvar.feature.HyEnumAttribute;
@@ -381,7 +386,7 @@ public class DwSolver {
 		} 
 		// Constraints over attributes
 		else if (binaryExpression instanceof HyGreaterExpression) {			
-			constraint = chocoModel.arithm(getOperatorOfArithmeticalOperation(binaryExpression.getOperand1(), featureModelMapping), ">", getOperatorOfArithmeticalOperation(binaryExpression.getOperand2(), featureModelMapping));
+			constraint = chocoModel.arithm(getOperatorOfArithmeticalOperation(binaryExpression.getOperand1(), chocoModel, featureModelMapping), ">", getOperatorOfArithmeticalOperation(binaryExpression.getOperand2(), chocoModel, featureModelMapping));
 		} else if (binaryExpression instanceof HyLessExpression) {
 			binaryString.append(LESS);
 		} else if (binaryExpression instanceof HyLessOrEqualExpression) {
@@ -409,13 +414,41 @@ public class DwSolver {
 		}
 	}
 	
-	protected IntVar getOperatorOfArithmeticalOperation(HyExpression expression, DwSolverModelVariableMapping featureModelMapping) {
+	protected IntVar getOperatorOfArithmeticalOperation(HyExpression expression, Model chocoModel, DwSolverModelVariableMapping featureModelMapping) {
 		if(expression instanceof HyValueExpression) {
+			HyValue value = ((HyValueExpression)expression).getValue();
 			
+			if (value instanceof HyNumberValue) {
+				int intValue = ((HyNumberValue)value).getValue();
+				return chocoModel.intVar(""+intValue, intValue);
+			}
+			else if (value instanceof HyBooleanValue) {
+				if(((HyBooleanValue)value).isValue()) {
+					return chocoModel.intVar("true", 1);
+				}
+				else {
+					return chocoModel.intVar("false", 0);
+				}
+			}
+			else if (value instanceof HyEnumValue) {
+				HyEnumValue enumValue = (HyEnumValue) value;
+				HyEnumLiteral literal = enumValue.getEnumLiteral();
+				return chocoModel.intVar(literal.getName(), literal.getValue());
+			}
+			else if (value instanceof HyStringValue) {
+				throw new UnsupportedOperationException("Strings are currently not supported");
+			}
 		}
 		else if(expression instanceof HyAtomicExpression) {
-			
+			asdsd
+			// TODO!!!!
 		}
+		else {
+			// exception after arithmetic operations only values or other atomic expressions are allowed
+			throw new UnsupportedOperationException("After an arithmetic operator, a ValueExpression or AtomicExpression need to follow. Check your constraints. ");
+		}
+
+		return null;
 	}
 
 }
