@@ -1,0 +1,11 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: DarwinSPL Solver
+Bundle-SymbolicName: de.darwinspl.solver
+Bundle-Version: 1.0.0
+Bundle-RequiredExecutionEnvironment: JavaSE-1.7
+Bundle-ClassPath: .,
+ libs/choco-solver-4.0.5-with-dependencies.jar
+Require-Bundle: eu.hyvar.feature,
+ eu.hyvar.feature.constraint,
+ eu.hyvar.context.information
