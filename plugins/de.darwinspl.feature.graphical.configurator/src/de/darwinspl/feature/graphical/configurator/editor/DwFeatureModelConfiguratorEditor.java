@@ -20,7 +20,6 @@ import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.ecore.util.EContentAdapter;
-import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.gef.GraphicalViewer;
 import org.eclipse.jface.dialogs.Dialog;
 import org.eclipse.jface.dialogs.MessageDialog;
@@ -88,6 +87,8 @@ public class DwFeatureModelConfiguratorEditor extends DwFeatureModelConfigurator
 	private Button validateContextButton;
 	
 	private Button explainButton;
+	
+	private Button explainWithEvolutionButton;
 	
 //	private Button numberOfPossibleConfigurationsButton;
 	private Button simulateButton;
@@ -207,6 +208,10 @@ public class DwFeatureModelConfiguratorEditor extends DwFeatureModelConfigurator
 		validateWithEvolutionButton.setText("Evolution Anomalies");
 		validateWithEvolutionButton.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, false));
 		
+		explainWithEvolutionButton = new Button(configurationPanel, SWT.PUSH);
+		explainWithEvolutionButton.setText("Explain Evolution Anomalies");
+		explainWithEvolutionButton.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, false));
+		
 		validateContextButton = new Button(configurationPanel, SWT.PUSH);
 		validateContextButton.setText("Detect Anomalies");
 		validateContextButton.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, false));
@@ -262,6 +267,7 @@ public class DwFeatureModelConfiguratorEditor extends DwFeatureModelConfigurator
 		});
 
 		validateWithEvolutionButton.addSelectionListener(buttonListener);
+		explainWithEvolutionButton.addSelectionListener(buttonListener);
 		
 		validateContextButton.addSelectionListener(buttonListener);
 		explainButton.addSelectionListener(buttonListener);
@@ -381,7 +387,7 @@ public class DwFeatureModelConfiguratorEditor extends DwFeatureModelConfigurator
 					contextModel = HyContextInformationFactory.eINSTANCE.createHyContextModel();
 				}
 				
-				if(contextModel != null && (e.getSource() == simulateButton || e.getSource() == explainButton)){
+				if(contextModel != null && (e.getSource() == simulateButton || e.getSource() == explainButton || e.getSource() == explainWithEvolutionButton)){
 					DwContextInformationDialog dialog = new DwContextInformationDialog(getEditorSite().getShell(), contextModel, getDate());
 					if(dialog.open() == Window.CANCEL){
 						return;
@@ -509,7 +515,7 @@ public class DwFeatureModelConfiguratorEditor extends DwFeatureModelConfigurator
 				} else if (e.getSource() == explainButton) {
 					List<String> explainingConstraints = client.explainAnomaly(uri, contextModel, validityModel, modelWrapped.getModel(),
 							constraintModel, selectedConfiguration, profile, contextValueModel,
-							modelWrapped.getSelectedDate());
+							modelWrapped.getSelectedDate(), null);
 					
 					DwAnomalyExplanationDialog anomalyExplanationDialog = new DwAnomalyExplanationDialog(getEditorSite().getShell(), explainingConstraints);
 					anomalyExplanationDialog.open();
@@ -525,6 +531,18 @@ public class DwFeatureModelConfiguratorEditor extends DwFeatureModelConfigurator
 							getEditorSite().getShell(), notSatisfiableContextValues);
 					
 					contextInfoDialog.open();
+				}
+				else if(e.getSource() == explainWithEvolutionButton) {
+					
+					//TODO set context value for evolutoin to current selected date
+					
+					
+					List<String> explainingConstraints = client.explainAnomaly(uri, contextModel, validityModel, modelWrapped.getModel(),
+							constraintModel, selectedConfiguration, profile, contextValueModel,
+							null, modelWrapped.getSelectedDate());
+					
+					DwAnomalyExplanationDialog anomalyExplanationDialog = new DwAnomalyExplanationDialog(getEditorSite().getShell(), explainingConstraints);
+					anomalyExplanationDialog.open();
 				}
 			} catch (UnresolvedAddressException | TimeoutException | InterruptedException | ExecutionException e1) {
 				MessageDialog dialog = new MessageDialog(PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell(), "Unresolvable Server Adress", null,

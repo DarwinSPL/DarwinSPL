@@ -411,13 +411,30 @@ public class DwFeatureModelExporter {
 		// --------- add constraints for AND, OR, ALTERNATIVE groups
 		
 		// For group type constraints, group type dates and feature type dates are relevant as well.
-		relevantDatesSet.addAll(HyEvolutionUtil.collectDates(group.getTypes()));
-		for(HyFeature feature: group.getFeatureModel().getFeatures()) {
-			relevantDatesSet.addAll(HyEvolutionUtil.collectDates(feature.getTypes()));
-		}
 		
-		relevantDates = new ArrayList<Date>(relevantDatesSet);
-		Collections.sort(relevantDates);
+		if(date == null) {
+			relevantDatesSet.addAll(HyEvolutionUtil.collectDates(group.getTypes()));
+			
+			for(HyGroupComposition groupComposition: group.getParentOf()) {
+				for(HyFeature feature: groupComposition.getFeatures()) {
+					relevantDatesSet.addAll(HyEvolutionUtil.collectDates(feature.getTypes())); 
+				}
+			}
+			
+//			for(HyFeature feature: group.getFeatureModel().getFeatures()) {
+//				relevantDatesSet.addAll(HyEvolutionUtil.collectDates(feature.getTypes()));
+//			}
+			
+			relevantDates = new ArrayList<Date>(relevantDatesSet);
+			Collections.sort(relevantDates);	
+			
+			if(relevantDatesSet.size() == 0) {
+				considerOnlyOneDate = true;
+			}
+			else {
+				considerOnlyOneDate = false;
+			}
+		}
 		
 		// i = -1 before the first date, as the first date could be from a
 		// validUntil while the validSince==null

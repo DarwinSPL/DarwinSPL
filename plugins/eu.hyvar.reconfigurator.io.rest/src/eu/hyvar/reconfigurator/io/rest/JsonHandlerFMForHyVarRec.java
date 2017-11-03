@@ -374,7 +374,7 @@ public class JsonHandlerFMForHyVarRec extends AbstractHandler {
 		
 		HyVarRecExporter hyvarrecExporter = new HyVarRecExporter();
 		String answer = hyvarrecExporter.exportSPL(contextModels, validityModels, featureModels, constraintModels,
-				configuration, partialConfiguration, null, contextValueModels, date);
+				configuration, partialConfiguration, null, contextValueModels, date, null);
 		
 		try {
 			folder.delete(true, progressMonitor);

@@ -196,7 +196,7 @@ public class ExportToHyVarRecCommandHandler extends AbstractHandler {
 		datePicker.open();
 		
 		String hyVarRecString = hyvarrecExporter.exportSPL(contextModel, validityModel, featureModel,
-				constraintModel, configuration, preferenceModel, contextValueModel, datePicker.getValue());
+				constraintModel, configuration, preferenceModel, contextValueModel, datePicker.getValue(), null);
 
 		String baseFileName = ResourceUtil.getBaseFilename(featureModelFile) + "_HyVarRecOutput";
 		

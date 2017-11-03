@@ -131,13 +131,13 @@ public class HyVarRecExporter {
 	
 	public String exportSPL(HyContextModel contextModel, HyValidityModel contextValidityModel,
 			HyFeatureModel featureModel, HyConstraintModel constraintModel, HyConfiguration oldConfiguration,
-			DwProfile profileModel, HyContextValueModel contextValue, Date date) {
-		return exportSPL(contextModel, contextValidityModel, featureModel, constraintModel, oldConfiguration, null, profileModel, contextValue, date);
+			DwProfile profileModel, HyContextValueModel contextValue, Date date, Date evolutionContextValueDate) {
+		return exportSPL(contextModel, contextValidityModel, featureModel, constraintModel, oldConfiguration, null, profileModel, contextValue, date, evolutionContextValueDate);
 	}
 	
 	public String exportSPL(HyContextModel contextModel, HyValidityModel contextValidityModel,
 			HyFeatureModel featureModel, HyConstraintModel constraintModel, HyConfiguration oldConfiguration, HyConfiguration partialConfiguration,
-			DwProfile profileModel, HyContextValueModel contextValue, Date date) {
+			DwProfile profileModel, HyContextValueModel contextValue, Date date, Date evolutionContextValueDate) {
 		
 		List<HyContextModel> contextModels = new ArrayList<HyContextModel>();
 		contextModels.add(contextModel);
@@ -159,12 +159,12 @@ public class HyVarRecExporter {
 		List<HyContextValueModel> contextValues = new ArrayList<HyContextValueModel>();
 		contextValues.add(contextValue);
 		
-		return exportSPL(contextModels, contextValidityModels, featureModels, constraintModels, oldConfiguration, partialConfiguration, profileModels, contextValues, date);
+		return exportSPL(contextModels, contextValidityModels, featureModels, constraintModels, oldConfiguration, partialConfiguration, profileModels, contextValues, date, evolutionContextValueDate);
 	}
 	
 	public String exportSPL(List<HyContextModel> contextModels, List<HyValidityModel> contextValidityModels,
 			List<HyFeatureModel> featureModels, List<HyConstraintModel> constraintModels, HyConfiguration oldConfiguration, HyConfiguration partialConfiguration,
-			List<DwProfile> profileModels, List<HyContextValueModel> contextValues, Date date) {
+			List<DwProfile> profileModels, List<HyContextValueModel> contextValues, Date date, Date evolutionContextValueDate) {
 
 		// TODO incorporate MSPL stuff
 
@@ -252,7 +252,22 @@ public class HyVarRecExporter {
 			// Simone: patch to initialize the context value
 			ContextValue initDateContext = new ContextValue();
 			initDateContext.setId(EVOLUTION_CONTEXT_ID);
-			initDateContext.setValue(-1);
+			if(evolutionContextValueDate == null) {
+				initDateContext.setValue(-1);				
+			}
+			else {
+				if(evolutionContextValueDate.getTime() == Long.MIN_VALUE) {
+					initDateContext.setValue(-1);
+				}
+				else {
+					for(int i=0;i<sortedDateList.size();i++) {
+						if(evolutionContextValueDate.equals(sortedDateList.get(i))) {
+							initDateContext.setValue(i);
+							break;
+						}
+					}
+				}
+			}
 			input.getConfiguration().getContextValues().add(initDateContext);
 			
 		}

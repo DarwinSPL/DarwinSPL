@@ -67,7 +67,7 @@ public class SplotToHyVarRecTranslator extends AbstractHandler {
 //				    Shell shell = display.getActiveShell();
 					
 					String hyVarRecString = hyvarrecExporter.exportSPL(null, null, tuple.getFeatureModel(),
-							tuple.getConstraintModel(), null, null, null, new Date());
+							tuple.getConstraintModel(), null, null, null, new Date(), null);
 
 					String baseFileName = ResourceUtil.getBaseFilename(ifile) + "_HyVarRecOutput";
 					
