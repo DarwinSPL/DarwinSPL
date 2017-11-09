@@ -45,7 +45,8 @@ Require-Bundle: org.eclipse.ui,
  org.deltaecore.feature.graphical.configurator,
  org.deltaecore.feature,
  org.deltaecore.suite.mapping,
- org.eclipse.emf.common
+ org.eclipse.emf.common,
+ de.darwinspl.solver
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Bundle-ActivationPolicy: lazy
 Bundle-Vendor: www.darwinspl.de

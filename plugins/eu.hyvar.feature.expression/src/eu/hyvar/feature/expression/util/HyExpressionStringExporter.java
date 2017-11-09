@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Stack;
 
-import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 
 import eu.hyvar.context.HyContextualInformation;
@@ -369,13 +368,14 @@ public class HyExpressionStringExporter {
 	private String handleAtomicExpression(HyAtomicExpression atomicExpression, boolean negated) {
 		StringBuilder atomicString = new StringBuilder();
 
-		if (atomicExpression instanceof HyBooleanValueExpression) {
-			if (((HyBooleanValueExpression) atomicExpression).isValue()) {
-				atomicString.append(TRUE);
-			} else {
-				atomicString.append(FALSE);
-			}
-		} else if (atomicExpression instanceof HyAbstractFeatureReferenceExpression) {
+//		if (atomicExpression instanceof HyBooleanValueExpression) {
+//			if (((HyBooleanValueExpression) atomicExpression).isValue()) {
+//				atomicString.append(TRUE);
+//			} else {
+//				atomicString.append(FALSE);
+//			}
+//		} else
+			if (atomicExpression instanceof HyAbstractFeatureReferenceExpression) {
 			HyAbstractFeatureReferenceExpression abstractFeatureReferenceExpression = (HyAbstractFeatureReferenceExpression) atomicExpression;
 			String featureId = featureIdMapping.get(abstractFeatureReferenceExpression.getFeature());
 
@@ -460,7 +460,7 @@ public class HyExpressionStringExporter {
 		} else if (atomicExpression instanceof HyAttributeReferenceExpression) {
 			HyAttributeReferenceExpression attributeReferenceExpression = (HyAttributeReferenceExpression) atomicExpression;
 			HyFeatureAttribute attribute = attributeReferenceExpression.getAttribute();
-			HyFeature feature = attribute.getFeature();
+//			HyFeature feature = attribute.getFeature();
 
 			String attributeId = attributeIdMapping.get(attribute);
 

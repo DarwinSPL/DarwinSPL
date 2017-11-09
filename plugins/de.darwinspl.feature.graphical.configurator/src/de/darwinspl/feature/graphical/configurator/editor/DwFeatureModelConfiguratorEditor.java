@@ -59,6 +59,7 @@ import de.darwinspl.preferences.util.custom.DwPreferenceModelUtil;
 import de.darwinspl.reconfigurator.client.hyvarrec.DwAnalysesClient;
 import de.darwinspl.reconfigurator.client.hyvarrec.DwAnalysesClient.DwContextValueEvolutionWrapper;
 import de.darwinspl.reconfigurator.client.hyvarrec.HyVarRecNoSolutionException;
+import de.darwinspl.solver.DwSolver;
 import eu.hyvar.context.HyContextInformationFactory;
 import eu.hyvar.context.HyContextModel;
 import eu.hyvar.context.HyContextualInformationBoolean;
@@ -90,6 +91,10 @@ public class DwFeatureModelConfiguratorEditor extends DwFeatureModelConfigurator
 	
 	private Button explainWithEvolutionButton;
 	
+	private Button checkSatisfiabilityButton;
+	
+	private DwSolver solver;
+	
 //	private Button numberOfPossibleConfigurationsButton;
 	private Button simulateButton;
 	private DwSelectedConfigurationComposite selectedConfigurationComposite;
@@ -109,6 +114,8 @@ public class DwFeatureModelConfiguratorEditor extends DwFeatureModelConfigurator
 		else {
 			selectedConfiguration.setFeatureModel(this.modelWrapped.getModel());			
 		}
+		
+		
 	}
 
 	/**
@@ -224,6 +231,11 @@ public class DwFeatureModelConfiguratorEditor extends DwFeatureModelConfigurator
 		simulateButton.setText("Simulate Reconfiguration");
 		simulateButton.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, false));
 
+		
+		checkSatisfiabilityButton = new Button(configurationPanel, SWT.PUSH);
+		checkSatisfiabilityButton.setText("Check Satisfiability");
+		checkSatisfiabilityButton.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, false));
+
 
 //		numberOfPossibleConfigurationsButton = new Button(configurationPanel, SWT.PUSH);
 //		numberOfPossibleConfigurationsButton.setText("Number of Possible Configurations");
@@ -255,6 +267,7 @@ public class DwFeatureModelConfiguratorEditor extends DwFeatureModelConfigurator
 
 		super.registerControlListeners();
 		
+		HyVarRecButtonListener hyVarRecButtonListener = new HyVarRecButtonListener();
 		ButtonListener buttonListener = new ButtonListener();
 		
 		selectedConfiguration.eAdapters().add(new EContentAdapter() {
@@ -266,13 +279,15 @@ public class DwFeatureModelConfiguratorEditor extends DwFeatureModelConfigurator
 			}
 		});
 
-		validateWithEvolutionButton.addSelectionListener(buttonListener);
-		explainWithEvolutionButton.addSelectionListener(buttonListener);
+		validateWithEvolutionButton.addSelectionListener(hyVarRecButtonListener);
+		explainWithEvolutionButton.addSelectionListener(hyVarRecButtonListener);
 		
-		validateContextButton.addSelectionListener(buttonListener);
-		explainButton.addSelectionListener(buttonListener);
+		validateContextButton.addSelectionListener(hyVarRecButtonListener);
+		explainButton.addSelectionListener(hyVarRecButtonListener);
 
-		simulateButton.addSelectionListener(buttonListener);
+		simulateButton.addSelectionListener(hyVarRecButtonListener);
+		
+		checkSatisfiabilityButton.addSelectionListener(buttonListener);
 
 //		numberOfPossibleConfigurationsButton.addSelectionListener(new SelectionAdapter() {
 //			@Override
@@ -372,6 +387,44 @@ public class DwFeatureModelConfiguratorEditor extends DwFeatureModelConfigurator
 	}
 	
 	protected class ButtonListener extends SelectionAdapter {
+		@Override
+		public void widgetSelected(SelectionEvent e) {
+			HyContextModel contextModel = null;
+			
+			if(modelFileExists(HyContextInformationUtil.getContextModelFileExtensionForConcreteSyntax())){
+				contextModel = loadContextInformationModel();
+				
+				if(contextModel == null) {
+					contextModel = HyContextInformationFactory.eINSTANCE.createHyContextModel();
+				}
+			}
+			else {
+				contextModel = HyContextInformationFactory.eINSTANCE.createHyContextModel();
+			}
+			
+			HyConstraintModel constraintModel = null;
+			if(modelFileExists(HyConstraintUtil.getConstraintModelFileExtensionForConcreteSyntax())){
+				constraintModel = EcoreIOUtil.loadAccompanyingModel(modelWrapped.getModel(), HyConstraintUtil.getConstraintModelFileExtensionForConcreteSyntax());
+			}
+			else if(modelFileExists(HyConstraintUtil.getConstraintModelFileExtensionForXmi())){
+				constraintModel = EcoreIOUtil.loadAccompanyingModel(modelWrapped.getModel(), HyConstraintUtil.getConstraintModelFileExtensionForXmi());
+			}
+			
+			if(e.getSource() == checkSatisfiabilityButton) {
+				// TODO check if any of those models is null
+				DwSolver solver = new DwSolver(modelWrapped.getModel(), contextModel, modelWrapped.getSelectedDate());
+				solver.setConstraintModel(constraintModel, modelWrapped.getSelectedDate());
+				
+				boolean sat = solver.isSatisfiable();
+				
+				MessageDialog dialog = new MessageDialog(PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell(), "Model satisfiability", null,
+						"Model satisfiability: "+sat, MessageDialog.INFORMATION, new String[] { "Ok" }, 0);
+				dialog.open();
+			}
+		}
+	}
+	
+	protected class HyVarRecButtonListener extends SelectionAdapter {
 		
 		@Override
 		public void widgetSelected(SelectionEvent e) {
@@ -544,6 +597,7 @@ public class DwFeatureModelConfiguratorEditor extends DwFeatureModelConfigurator
 					DwAnomalyExplanationDialog anomalyExplanationDialog = new DwAnomalyExplanationDialog(getEditorSite().getShell(), explainingConstraints);
 					anomalyExplanationDialog.open();
 				}
+				
 			} catch (UnresolvedAddressException | TimeoutException | InterruptedException | ExecutionException e1) {
 				MessageDialog dialog = new MessageDialog(PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell(), "Unresolvable Server Adress", null,
 						"The adress '"+uri.toString()+"' could not be resolved or had a timeout. No configuration was generated.", MessageDialog.ERROR, new String[] { "Ok" }, 0);

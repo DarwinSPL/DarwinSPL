@@ -9,3 +9,4 @@ Bundle-ClassPath: .,
 Require-Bundle: eu.hyvar.feature,
  eu.hyvar.feature.constraint,
  eu.hyvar.context.information
+Export-Package: de.darwinspl.solver
