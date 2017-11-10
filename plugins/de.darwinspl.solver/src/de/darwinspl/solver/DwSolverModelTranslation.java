@@ -11,6 +11,7 @@ import org.chocosolver.solver.constraints.Constraint;
 import org.chocosolver.solver.variables.BoolVar;
 import org.chocosolver.solver.variables.IntVar;
 
+import de.darwinspl.solver.exception.DwAttributeValueOfSelectedFeatureNotSetException;
 import eu.hyvar.context.HyContextModel;
 import eu.hyvar.context.HyContextualInformation;
 import eu.hyvar.context.HyContextualInformationBoolean;
@@ -34,6 +35,13 @@ import eu.hyvar.feature.HyGroupComposition;
 import eu.hyvar.feature.HyGroupType;
 import eu.hyvar.feature.HyNumberAttribute;
 import eu.hyvar.feature.HyVersion;
+import eu.hyvar.feature.configuration.HyAttributeValueAssignment;
+import eu.hyvar.feature.configuration.HyConfiguration;
+import eu.hyvar.feature.configuration.HyConfigurationElement;
+import eu.hyvar.feature.configuration.HyFeatureDeselected;
+import eu.hyvar.feature.configuration.HyFeatureSelection;
+import eu.hyvar.feature.configuration.HyVersionDeselected;
+import eu.hyvar.feature.configuration.HyVersionSelection;
 import eu.hyvar.feature.expression.HyAbstractFeatureReferenceExpression;
 import eu.hyvar.feature.expression.HyAdditionExpression;
 import eu.hyvar.feature.expression.HyAndExpression;
@@ -251,7 +259,7 @@ public class DwSolverModelTranslation {
 			break;
 		case AND:
 
-			 List<BoolVar> optionalVarList = new ArrayList<BoolVar>();
+			List<BoolVar> optionalVarList = new ArrayList<BoolVar>();
 			List<BoolVar> mandatoryVarList = new ArrayList<BoolVar>();
 
 			for (HyFeature child : childFeatures) {
@@ -665,4 +673,117 @@ public class DwSolverModelTranslation {
 		return validVersions;
 	}
 	
+	
+	public static List<Constraint> createConstraintsFromConfiguration(HyConfiguration configuration, Model chocoModel, DwSolverModelVariableMapping featureModelMapping, Date date) throws DwAttributeValueOfSelectedFeatureNotSetException {
+		List<Constraint> constraints = new ArrayList<Constraint>();
+
+		List<HyFeature> nonSelectedFeatures = new ArrayList<HyFeature>(
+				featureModelMapping.getFeatureVariableMapping().size());
+		nonSelectedFeatures.addAll(featureModelMapping.getFeatureVariableMapping().keySet());
+
+		List<HyVersion> nonSelectedVersions = new ArrayList<HyVersion>(
+				featureModelMapping.getVersionVariableMapping().keySet().size());
+		nonSelectedVersions.addAll(featureModelMapping.getVersionVariableMapping().keySet());
+
+		List<HyFeatureAttribute> allAttributesOfSelectedFeatures = new ArrayList<HyFeatureAttribute>();
+		List<HyFeatureAttribute> attributesWithAssignedValues = new ArrayList<HyFeatureAttribute>();
+
+		for (HyConfigurationElement configurationElement : configuration.getElements()) {
+
+			if (configurationElement instanceof HyFeatureSelection) {
+				HyFeature feature = ((HyFeatureSelection) configurationElement).getSelectedFeature();
+				nonSelectedFeatures.remove(feature);
+
+				Constraint constraint = chocoModel.and(featureModelMapping.getFeatureVariableMapping().get(feature));
+
+				if (configurationElement instanceof HyFeatureDeselected) {
+					constraint = chocoModel.not(constraint);
+				} else {
+					allAttributesOfSelectedFeatures
+							.addAll(HyEvolutionUtil.getValidTemporalElements(feature.getAttributes(), date));
+				}
+
+//				chocoModel.post(constraint);
+				constraints.add(constraint);
+
+			} else if (configurationElement instanceof HyAttributeValueAssignment) {
+				HyAttributeValueAssignment attributeValueAssignment = (HyAttributeValueAssignment) configurationElement;
+
+				HyFeatureAttribute attribute = attributeValueAssignment.getAttribute();
+				attributesWithAssignedValues.add(attribute);
+
+				HyValue value = attributeValueAssignment.getValue();
+
+				IntVar attributeVar = featureModelMapping.getAttributeVariableMapping().get(attribute);
+				IntVar valueVar = null;
+
+				if (value instanceof HyBooleanValue) {
+					HyBooleanValue booleanValue = (HyBooleanValue) value;
+
+					if (booleanValue.isValue()) {
+						valueVar = chocoModel.intVar("true", 1);
+					} else {
+						valueVar = chocoModel.intVar("false", 0);
+					}
+				} else if (value instanceof HyEnumValue) {
+					HyEnumValue enumValue = (HyEnumValue) value;
+
+					HyEnumLiteral enumLiteral = enumValue.getEnumLiteral();
+					valueVar = chocoModel.intVar(enumLiteral.getEnum().getName() + "." + enumLiteral.getName(),
+							enumLiteral.getValue());
+				} else if (value instanceof HyNumberValue) {
+					HyNumberValue numberValue = (HyNumberValue) value;
+					valueVar = chocoModel.intVar("" + numberValue.getValue(), numberValue.getValue());
+				}
+
+				Constraint constraint = chocoModel.allEqual(attributeVar, valueVar);
+
+//				chocoModel.post(constraint);
+				constraints.add(constraint);
+
+			} else if (configurationElement instanceof HyVersionSelection) {
+				HyVersion version = ((HyVersionSelection) configurationElement).getSelectedVersion();
+
+				nonSelectedVersions.remove(version);
+
+				Constraint constraint = chocoModel.and(featureModelMapping.getVersionVariableMapping().get(version));
+
+				if (configurationElement instanceof HyVersionDeselected) {
+					constraint = chocoModel.not(constraint);
+				}
+
+//				chocoModel.post(constraint);
+				constraints.add(constraint);
+			}
+
+		}
+		
+		if (!attributesWithAssignedValues.containsAll(allAttributesOfSelectedFeatures)) {
+			// attributes of some selected features don't have a value
+			// assignment
+			throw new DwAttributeValueOfSelectedFeatureNotSetException();
+		}
+		
+		for (HyFeature nonSelectedFeature : nonSelectedFeatures) {
+			Constraint constraint = chocoModel
+					.and(featureModelMapping.getFeatureVariableMapping().get(nonSelectedFeature));
+
+			constraint = chocoModel.not(constraint);
+
+//			chocoModel.post(constraint);
+			constraints.add(constraint);
+		}
+
+		for (HyVersion nonSelectedVersion : nonSelectedVersions) {
+			Constraint constraint = chocoModel
+					.and(featureModelMapping.getVersionVariableMapping().get(nonSelectedVersion));
+
+			constraint = chocoModel.not(constraint);
+
+//			chocoModel.post(constraint);
+			constraints.add(constraint);
+		}
+		
+		return constraints;
+	}
 }

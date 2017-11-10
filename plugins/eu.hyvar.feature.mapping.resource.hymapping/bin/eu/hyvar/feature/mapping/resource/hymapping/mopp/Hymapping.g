@@ -652,7 +652,7 @@ parse_org_deltaecore_core_decore_DEDeltaInvokation returns [org.deltaecore.core.
 }
 :
 	(
-		a0 = QUOTED_60_62		
+		a0 = QUOTED_6060_6262		
 		{
 			if (terminateParsing) {
 				throw new eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingTerminateParsingException();
@@ -662,7 +662,7 @@ parse_org_deltaecore_core_decore_DEDeltaInvokation returns [org.deltaecore.core.
 				startIncompleteElement(element);
 			}
 			if (a0 != null) {
-				eu.hyvar.feature.mapping.resource.hymapping.IHymappingTokenResolver tokenResolver = tokenResolverFactory.createTokenResolver("QUOTED_60_62");
+				eu.hyvar.feature.mapping.resource.hymapping.IHymappingTokenResolver tokenResolver = tokenResolverFactory.createTokenResolver("QUOTED_6060_6262");
 				tokenResolver.setOptions(getOptions());
 				eu.hyvar.feature.mapping.resource.hymapping.IHymappingTokenResolveResult result = getFreshTokenResolveResult();
 				tokenResolver.resolve(a0.getText(), element.eClass().getEStructuralFeature(org.deltaecore.core.decore.DEcorePackage.DE_DELTA_INVOKATION__DELTA), result);
@@ -5167,8 +5167,8 @@ c = parseop_HyValue_level_15{ element = c; /* this rule is an expression root */
 
 ;
 
-QUOTED_60_62:
-(('<')(~('>'))*('>'))
+QUOTED_6060_6262:
+(('<<')(~('>')|'>'~('>'))*('>>'))
 ;
 QUOTED_34_34:
 (('"')(~('"'))*('"'))

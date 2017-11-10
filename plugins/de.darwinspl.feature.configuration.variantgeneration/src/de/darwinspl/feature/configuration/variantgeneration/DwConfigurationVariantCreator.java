@@ -6,25 +6,17 @@ import java.util.List;
 import org.deltaecore.core.decore.DEDelta;
 import org.deltaecore.core.decore.util.DEDeltaRequirementsCycleException;
 import org.deltaecore.core.variant.DEVariantCreator;
-import org.deltaecore.core.variant.requirements.DEDeltaAbstractDeltasInInputException;
-import org.deltaecore.feature.DEFeatureModel;
-import org.deltaecore.feature.configuration.DEConfiguration;
-import org.deltaecore.suite.mapping.DEMappingModel;
-import org.deltaecore.suite.variant.DEConfigurationDeltaModuleVariantGenerator;
-import org.deltaecore.suite.variant.util.DEConfigurationEvaluator;
 import org.eclipse.core.resources.IFolder;
 import org.eclipse.emf.ecore.resource.Resource;
 
-import de.christophseidl.util.ecore.EcoreIOUtil;
+import de.darwinspl.solver.DwSolver;
+import de.darwinspl.solver.exception.DwAttributeValueOfSelectedFeatureNotSetException;
+import eu.hyvar.context.HyContextModel;
 import eu.hyvar.feature.HyFeatureModel;
 import eu.hyvar.feature.configuration.HyConfiguration;
-import eu.hyvar.feature.exporter.hfm_exporter.HFMConfigurationExporter;
-import eu.hyvar.feature.exporter.hfm_exporter.HFMExporter;
-import eu.hyvar.feature.exporter.hfm_exporter.HFMMappingExporter;
 import eu.hyvar.feature.mapping.HyMappingModel;
-import eu.hyvar.feature.util.HyFeatureModelWellFormednessException;
 
-public class DwConfigurationVariantCreator extends DEConfigurationDeltaModuleVariantGenerator {
+public class DwConfigurationVariantCreator {
 
 	private DEVariantCreator deltaVariantCreator;
 	
@@ -32,146 +24,46 @@ public class DwConfigurationVariantCreator extends DEConfigurationDeltaModuleVar
 		deltaVariantCreator = new DEVariantCreator();
 	}
 	
-	public List<Resource> createVariantFromConfiguration(HyFeatureModel featureModel, HyConfiguration configuration,
-			HyMappingModel mapping, Date date) throws DEDeltaAbstractDeltasInInputException,
-			DEDeltaRequirementsCycleException, HyFeatureModelWellFormednessException {
+	/**
+	 * 
+	 * @param featureModel
+	 * @param contextModel
+	 * @param configuration
+	 * @param mapping
+	 * @param date
+	 * @param solver May be null. Then, a new solver is created.
+	 * @return
+	 * @throws DwAttributeValueOfSelectedFeatureNotSetException
+	 * @throws DEDeltaRequirementsCycleException
+	 */
+	public List<Resource> createVariantFromConfiguration(HyFeatureModel featureModel, HyContextModel contextModel, HyConfiguration configuration,
+			HyMappingModel mapping, Date date, DwSolver solver) throws DwAttributeValueOfSelectedFeatureNotSetException, DEDeltaRequirementsCycleException {
+		
+		List<DEDelta> deltasList = DwConfigurationEvaluator.evaluateConfiguration(featureModel, contextModel, mapping, configuration, date, solver);
+		
+		List<Resource> resourceList = deltaVariantCreator.createVariantFromDeltas(deltasList);
 
-		try {
-			FeatureModelConfigurationMappingTriple deltaEcoreModels = exportToDeltaEcoreModels(featureModel,
-					configuration, mapping, date);
-
-			DEConfigurationEvaluator configurationEvaluator = new DEConfigurationEvaluator();
-			
-			List<DEDelta> deltasList = configurationEvaluator.evaluateConfiguration(deltaEcoreModels.getConfiguration(), deltaEcoreModels.getMapping());
-			
-			List<Resource> resourceList = deltaVariantCreator.createVariantFromDeltas(deltasList);
-
-			// deleteModels(deltaEcoreModels);
-
-			return resourceList;
-		} catch (HyFeatureModelWellFormednessException e) {
-			throw e;
-		}
+		return resourceList;
+		
 	}
 
-	public void createAndSaveVariantFromConfiguration(HyFeatureModel featureModel, HyConfiguration configuration,
-			HyMappingModel mapping, Date date, IFolder variantFolder) throws DEDeltaAbstractDeltasInInputException,
-			DEDeltaRequirementsCycleException, HyFeatureModelWellFormednessException {
+	/**
+	 * 
+	 * @param featureModel
+	 * @param contextModel
+	 * @param configuration
+	 * @param mapping
+	 * @param date
+	 * @param variantFolder
+	 * @param solver May be null. Then, a new solver is created.
+	 * @throws DwAttributeValueOfSelectedFeatureNotSetException
+	 * @throws DEDeltaRequirementsCycleException
+	 */
+	public void createAndSaveVariantFromConfiguration(HyFeatureModel featureModel, HyContextModel contextModel, HyConfiguration configuration,
+			HyMappingModel mapping, Date date, IFolder variantFolder, DwSolver solver) throws DwAttributeValueOfSelectedFeatureNotSetException, DEDeltaRequirementsCycleException  {
 
-		try {			
-			List<Resource> affectedResources = createVariantFromConfiguration(featureModel, configuration, mapping, date);
-			
-			EcoreIOUtil.saveResourcesAs(affectedResources, variantFolder);
-		} catch (HyFeatureModelWellFormednessException e) {
-			throw e;
-		}
-
-		// deleteModels(deltaEcoreModels);
-	}
-
-	private FeatureModelConfigurationMappingTriple exportToDeltaEcoreModels(HyFeatureModel featureModel,
-			HyConfiguration configuration, HyMappingModel mapping, Date date)
-			throws HyFeatureModelWellFormednessException {
-		FeatureModelConfigurationMappingTriple triple = new FeatureModelConfigurationMappingTriple();
-
-		HFMExporter exporter = new HFMExporter();
-
-		DEFeatureModel deFeatureModel = exporter.exportFeatureModel(featureModel, date);
-
-		HFMConfigurationExporter configurationExporter = new HFMConfigurationExporter(exporter.getFeatureMapping(),
-				exporter.getVersionMapping(), featureModel, deFeatureModel);
-		DEConfiguration deConfiguration = configurationExporter.exportConfiguration(configuration, date);
-
-		HFMMappingExporter mappingExporter = new HFMMappingExporter(exporter.getFeatureMapping(),
-				exporter.getVersionMapping());
-		DEMappingModel deMapping = mappingExporter.exportMappingModel(mapping, date);
-
-		triple.setConfiguration(deConfiguration);
-		triple.setFeatureModel(deFeatureModel);
-		triple.setMapping(deMapping);
-
-		return triple;
-		// return saveModelsAndLoadThemAgain(triple, featureModel);
-	}
-
-//	private FeatureModelConfigurationMappingTriple saveModelsAndLoadThemAgain(
-//			FeatureModelConfigurationMappingTriple triple, HyFeatureModel featureModelInSameFolder) {
-//		IFile featureModelFile = EcoreIOUtil.getFile(featureModelInSameFolder);
-//
-//		IFile deFeatureModelFile = ResourceUtil.getFileInSameContainer(featureModelFile,
-//				ResourceUtil.getBaseFilename(featureModelFile) + "." + DEFeatureIOUtil.FILE_EXTENSIONS[0]);
-//		IFile deConfigurationFile = ResourceUtil.getFileInSameContainer(featureModelFile,
-//				ResourceUtil.getBaseFilename(featureModelFile) + "." + DEConfigurationIOUtil.FILE_EXTENSIONS[0]);
-//		IFile deMappingFile = ResourceUtil.getFileInSameContainer(featureModelFile,
-//				ResourceUtil.getBaseFilename(featureModelFile) + "." + DEMappingIOUtil.FILE_EXTENSIONS[0]);
-//
-//		EcoreIOUtil.saveModelAs(triple.getFeatureModel(), deFeatureModelFile);
-//		EcoreIOUtil.saveModelAs(triple.getConfiguration(), deConfigurationFile);
-//		EcoreIOUtil.saveModelAs(triple.getMapping(), deMappingFile);
-//
-//		List<IFile> fileListToLoad = new ArrayList<IFile>();
-//		fileListToLoad.add(deFeatureModelFile);
-//		fileListToLoad.add(deConfigurationFile);
-//		fileListToLoad.add(deMappingFile);
-//
-//		List<EObject> loadedModels = EcoreIOUtil.loadModels(fileListToLoad);
-//
-//		FeatureModelConfigurationMappingTriple newTriple = new FeatureModelConfigurationMappingTriple();
-//
-//		for (EObject object : loadedModels) {
-//			if (object instanceof DEFeatureModel) {
-//				newTriple.setFeatureModel((DEFeatureModel) object);
-//			} else if (object instanceof DEConfiguration) {
-//				newTriple.setConfiguration((DEConfiguration) object);
-//			} else if (object instanceof DEMappingModel) {
-//				newTriple.setMapping((DEMappingModel) object);
-//			}
-//		}
-//
-//		return newTriple;
-//	}
-//
-//	private void deleteModels(FeatureModelConfigurationMappingTriple triple) {
-//		IProgressMonitor progressMonitor = new NullProgressMonitor();
-//		try {
-//			EcoreIOUtil.getFile(triple.getFeatureModel()).delete(IResource.FORCE, progressMonitor);
-//			EcoreIOUtil.getFile(triple.getConfiguration()).delete(IResource.FORCE, progressMonitor);
-//			EcoreIOUtil.getFile(triple.getMapping()).delete(IResource.FORCE, progressMonitor);
-//		} catch (CoreException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-//	}
-
-	private class FeatureModelConfigurationMappingTriple {
-		private DEFeatureModel featureModel;
-		private DEConfiguration configuration;
-		private DEMappingModel mapping;
-
-		@SuppressWarnings("unused")
-		public DEFeatureModel getFeatureModel() {
-			return featureModel;
-		}
-
-		public void setFeatureModel(DEFeatureModel featureModel) {
-			this.featureModel = featureModel;
-		}
-
-		public DEConfiguration getConfiguration() {
-			return configuration;
-		}
-
-		public void setConfiguration(DEConfiguration configuration) {
-			this.configuration = configuration;
-		}
-
-		public DEMappingModel getMapping() {
-			return mapping;
-		}
-
-		public void setMapping(DEMappingModel mapping) {
-			this.mapping = mapping;
-		}
-
+		List<DEDelta> deltasList = DwConfigurationEvaluator.evaluateConfiguration(featureModel, contextModel, mapping, configuration, date, solver);
+		
+		deltaVariantCreator.createAndSaveVariantFromDeltas(deltasList, variantFolder);
 	}
 }

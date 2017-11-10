@@ -33,7 +33,7 @@ import java.util.HashMap;
 @SuppressWarnings({"all", "warnings", "unchecked"})
 public class HymappingParser extends HymappingANTLRParserBase {
     public static final String[] tokenNames = new String[] {
-        "<invalid>", "<EOR>", "<DOWN>", "<UP>", "DATE", "IDENTIFIER_TOKEN", "INTEGER_LITERAL", "LINEBREAK", "ML_COMMENT", "QUOTED_34_34", "QUOTED_60_62", "SL_COMMENT", "WHITESPACE", "'!'", "'!='", "'&&'", "'('", "')'", "'*'", "'+'", "','", "'-'", "'->'", "'.'", "'/'", "':'", "'<'", "'<->'", "'<='", "'='", "'>'", "'>='", "'?'", "'Enum('", "'EnumLiteral('", "'['", "'\\u0025'", "']'", "'^'", "'context:'", "'enum:'", "'eternity'", "'false'", "'ifPossible('", "'max('", "'min('", "'true'", "'||'"
+        "<invalid>", "<EOR>", "<DOWN>", "<UP>", "DATE", "IDENTIFIER_TOKEN", "INTEGER_LITERAL", "LINEBREAK", "ML_COMMENT", "QUOTED_34_34", "QUOTED_6060_6262", "SL_COMMENT", "WHITESPACE", "'!'", "'!='", "'&&'", "'('", "')'", "'*'", "'+'", "','", "'-'", "'->'", "'.'", "'/'", "':'", "'<'", "'<->'", "'<='", "'='", "'>'", "'>='", "'?'", "'Enum('", "'EnumLiteral('", "'['", "'\\u0025'", "']'", "'^'", "'context:'", "'enum:'", "'eternity'", "'false'", "'ifPossible('", "'max('", "'min('", "'true'", "'||'"
     };
 
     public static final int EOF=-1;
@@ -78,7 +78,7 @@ public class HymappingParser extends HymappingANTLRParserBase {
     public static final int LINEBREAK=7;
     public static final int ML_COMMENT=8;
     public static final int QUOTED_34_34=9;
-    public static final int QUOTED_60_62=10;
+    public static final int QUOTED_6060_6262=10;
     public static final int SL_COMMENT=11;
     public static final int WHITESPACE=12;
 
@@ -849,7 +849,7 @@ public class HymappingParser extends HymappingANTLRParserBase {
 
 
     // $ANTLR start "parse_org_deltaecore_core_decore_DEDeltaInvokation"
-    // Hymapping.g:650:1: parse_org_deltaecore_core_decore_DEDeltaInvokation returns [org.deltaecore.core.decore.DEDeltaInvokation element = null] : (a0= QUOTED_60_62 ) ;
+    // Hymapping.g:650:1: parse_org_deltaecore_core_decore_DEDeltaInvokation returns [org.deltaecore.core.decore.DEDeltaInvokation element = null] : (a0= QUOTED_6060_6262 ) ;
     public final org.deltaecore.core.decore.DEDeltaInvokation parse_org_deltaecore_core_decore_DEDeltaInvokation() throws RecognitionException {
         org.deltaecore.core.decore.DEDeltaInvokation element =  null;
 
@@ -862,13 +862,13 @@ public class HymappingParser extends HymappingANTLRParserBase {
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 3) ) { return element; }
 
-            // Hymapping.g:653:2: ( (a0= QUOTED_60_62 ) )
-            // Hymapping.g:654:2: (a0= QUOTED_60_62 )
+            // Hymapping.g:653:2: ( (a0= QUOTED_6060_6262 ) )
+            // Hymapping.g:654:2: (a0= QUOTED_6060_6262 )
             {
-            // Hymapping.g:654:2: (a0= QUOTED_60_62 )
-            // Hymapping.g:655:3: a0= QUOTED_60_62
+            // Hymapping.g:654:2: (a0= QUOTED_6060_6262 )
+            // Hymapping.g:655:3: a0= QUOTED_6060_6262
             {
-            a0=(Token)match(input,QUOTED_60_62,FOLLOW_QUOTED_60_62_in_parse_org_deltaecore_core_decore_DEDeltaInvokation272); if (state.failed) return element;
+            a0=(Token)match(input,QUOTED_6060_6262,FOLLOW_QUOTED_6060_6262_in_parse_org_deltaecore_core_decore_DEDeltaInvokation272); if (state.failed) return element;
 
             if ( state.backtracking==0 ) {
             			if (terminateParsing) {
@@ -879,7 +879,7 @@ public class HymappingParser extends HymappingANTLRParserBase {
             				startIncompleteElement(element);
             			}
             			if (a0 != null) {
-            				eu.hyvar.feature.mapping.resource.hymapping.IHymappingTokenResolver tokenResolver = tokenResolverFactory.createTokenResolver("QUOTED_60_62");
+            				eu.hyvar.feature.mapping.resource.hymapping.IHymappingTokenResolver tokenResolver = tokenResolverFactory.createTokenResolver("QUOTED_6060_6262");
             				tokenResolver.setOptions(getOptions());
             				eu.hyvar.feature.mapping.resource.hymapping.IHymappingTokenResolveResult result = getFreshTokenResolveResult();
             				tokenResolver.resolve(a0.getText(), element.eClass().getEStructuralFeature(org.deltaecore.core.decore.DEcorePackage.DE_DELTA_INVOKATION__DELTA), result);
@@ -8964,7 +8964,7 @@ public class HymappingParser extends HymappingANTLRParserBase {
     public static final BitSet FOLLOW_EOF_in_start89 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_parse_eu_hyvar_feature_mapping_HyMapping_in_parse_eu_hyvar_feature_mapping_HyMappingModel130 = new BitSet(new long[]{0x00007D8100212262L});
     public static final BitSet FOLLOW_parse_eu_hyvar_feature_mapping_HyMapping_in_parse_eu_hyvar_feature_mapping_HyMappingModel179 = new BitSet(new long[]{0x00007D8100212262L});
-    public static final BitSet FOLLOW_QUOTED_60_62_in_parse_org_deltaecore_core_decore_DEDeltaInvokation272 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_QUOTED_6060_6262_in_parse_org_deltaecore_core_decore_DEDeltaInvokation272 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_parse_eu_hyvar_feature_expression_HyExpression_in_parse_eu_hyvar_feature_mapping_HyMapping312 = new BitSet(new long[]{0x0000000002000000L});
     public static final BitSet FOLLOW_25_in_parse_eu_hyvar_feature_mapping_HyMapping330 = new BitSet(new long[]{0x0000000000000400L});
     public static final BitSet FOLLOW_parse_org_deltaecore_core_decore_DEDeltaInvokation_in_parse_eu_hyvar_feature_mapping_HyMapping348 = new BitSet(new long[]{0x0000000800100002L});

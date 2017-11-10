@@ -19,7 +19,6 @@ public class HymappingBracketInformationProvider {
 		Collection<eu.hyvar.feature.mapping.resource.hymapping.IHymappingBracketPair> result = new ArrayList<eu.hyvar.feature.mapping.resource.hymapping.IHymappingBracketPair>();
 		result.add(new eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingBracketPair("[", "]", true, false));
 		result.add(new eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingBracketPair("(", ")", true, false));
-		result.add(new eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingBracketPair("<", ">", false, false));
 		result.add(new eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingBracketPair("\"", "\"", false, false));
 		return result;
 	}

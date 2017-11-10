@@ -379,7 +379,7 @@ public class HymappingPrinter implements eu.hyvar.feature.mapping.resource.hymap
 		if (count > 0) {
 			Object o = element.eGet(element.eClass().getEStructuralFeature(org.deltaecore.core.decore.DEcorePackage.DE_DELTA_INVOKATION__DELTA));
 			if (o != null) {
-				eu.hyvar.feature.mapping.resource.hymapping.IHymappingTokenResolver resolver = tokenResolverFactory.createTokenResolver("QUOTED_60_62");
+				eu.hyvar.feature.mapping.resource.hymapping.IHymappingTokenResolver resolver = tokenResolverFactory.createTokenResolver("QUOTED_6060_6262");
 				resolver.setOptions(getOptions());
 				out.print(resolver.deResolve(getReferenceResolverSwitch() == null ? null : getReferenceResolverSwitch().getDEDeltaInvokationDeltaReferenceResolver().deResolve((org.deltaecore.core.decore.DEDelta) o, element, (EReference) element.eClass().getEStructuralFeature(org.deltaecore.core.decore.DEcorePackage.DE_DELTA_INVOKATION__DELTA)), element.eClass().getEStructuralFeature(org.deltaecore.core.decore.DEcorePackage.DE_DELTA_INVOKATION__DELTA), element));
 				out.print(" ");

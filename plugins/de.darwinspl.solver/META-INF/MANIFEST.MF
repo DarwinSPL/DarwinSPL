@@ -8,5 +8,7 @@ Bundle-ClassPath: .,
  libs/choco-solver-4.0.5-with-dependencies.jar
 Require-Bundle: eu.hyvar.feature,
  eu.hyvar.feature.constraint,
- eu.hyvar.context.information
-Export-Package: de.darwinspl.solver
+ eu.hyvar.context.information,
+ eu.hyvar.feature.configuration
+Export-Package: de.darwinspl.solver,
+ de.darwinspl.solver.exception

@@ -26,7 +26,7 @@ public class HymappingTokenResolverFactory implements eu.hyvar.feature.mapping.r
 	public HymappingTokenResolverFactory() {
 		tokenName2TokenResolver = new LinkedHashMap<String, eu.hyvar.feature.mapping.resource.hymapping.IHymappingTokenResolver>();
 		featureName2CollectInTokenResolver = new LinkedHashMap<String, eu.hyvar.feature.mapping.resource.hymapping.IHymappingTokenResolver>();
-		registerTokenResolver("QUOTED_60_62", new eu.hyvar.feature.mapping.resource.hymapping.analysis.HymappingQUOTED_60_62TokenResolver());
+		registerTokenResolver("QUOTED_6060_6262", new eu.hyvar.feature.mapping.resource.hymapping.analysis.HymappingQUOTED_6060_6262TokenResolver());
 		registerTokenResolver("QUOTED_34_34", new eu.hyvar.feature.mapping.resource.hymapping.analysis.HyexpressionQUOTED_34_34TokenResolver());
 		registerTokenResolver("IDENTIFIER_TOKEN", new eu.hyvar.feature.mapping.resource.hymapping.analysis.HydatavalueIDENTIFIER_TOKENTokenResolver());
 		registerTokenResolver("DATE", new eu.hyvar.feature.mapping.resource.hymapping.analysis.HydatavalueDATETokenResolver());

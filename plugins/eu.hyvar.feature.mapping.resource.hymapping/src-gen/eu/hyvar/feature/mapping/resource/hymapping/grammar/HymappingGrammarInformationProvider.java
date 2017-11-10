@@ -91,7 +91,7 @@ public class HymappingGrammarInformationProvider {
 	
 	public final static eu.hyvar.feature.mapping.resource.hymapping.grammar.HymappingPlaceholder HYMAPPING_1_0_0_0 = INSTANCE.getHYMAPPING_1_0_0_0();
 	private eu.hyvar.feature.mapping.resource.hymapping.grammar.HymappingPlaceholder getHYMAPPING_1_0_0_0() {
-		return new eu.hyvar.feature.mapping.resource.hymapping.grammar.HymappingPlaceholder(org.deltaecore.core.decore.DEcorePackage.eINSTANCE.getDEDeltaInvokation().getEStructuralFeature(org.deltaecore.core.decore.DEcorePackage.DE_DELTA_INVOKATION__DELTA), "QUOTED_60_62", eu.hyvar.feature.mapping.resource.hymapping.grammar.HymappingCardinality.ONE, 0);
+		return new eu.hyvar.feature.mapping.resource.hymapping.grammar.HymappingPlaceholder(org.deltaecore.core.decore.DEcorePackage.eINSTANCE.getDEDeltaInvokation().getEStructuralFeature(org.deltaecore.core.decore.DEcorePackage.DE_DELTA_INVOKATION__DELTA), "QUOTED_6060_6262", eu.hyvar.feature.mapping.resource.hymapping.grammar.HymappingCardinality.ONE, 0);
 	}
 	
 	public final static eu.hyvar.feature.mapping.resource.hymapping.grammar.HymappingSequence HYMAPPING_1_0_0 = INSTANCE.getHYMAPPING_1_0_0();

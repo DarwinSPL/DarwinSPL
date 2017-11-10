@@ -60,6 +60,7 @@ import de.darwinspl.reconfigurator.client.hyvarrec.DwAnalysesClient;
 import de.darwinspl.reconfigurator.client.hyvarrec.DwAnalysesClient.DwContextValueEvolutionWrapper;
 import de.darwinspl.reconfigurator.client.hyvarrec.HyVarRecNoSolutionException;
 import de.darwinspl.solver.DwSolver;
+import de.darwinspl.solver.exception.DwAttributeValueOfSelectedFeatureNotSetException;
 import eu.hyvar.context.HyContextInformationFactory;
 import eu.hyvar.context.HyContextModel;
 import eu.hyvar.context.HyContextualInformationBoolean;
@@ -92,6 +93,7 @@ public class DwFeatureModelConfiguratorEditor extends DwFeatureModelConfigurator
 	private Button explainWithEvolutionButton;
 	
 	private Button checkSatisfiabilityButton;
+	private Button checkConfigurationValidity;
 	
 	private DwSolver solver;
 	
@@ -235,8 +237,11 @@ public class DwFeatureModelConfiguratorEditor extends DwFeatureModelConfigurator
 		checkSatisfiabilityButton = new Button(configurationPanel, SWT.PUSH);
 		checkSatisfiabilityButton.setText("Check Satisfiability");
 		checkSatisfiabilityButton.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, false));
-
-
+		
+		checkConfigurationValidity = new Button(configurationPanel, SWT.PUSH);
+		checkConfigurationValidity.setText("Check Configuration Validity");
+		checkConfigurationValidity.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, false));
+		
 //		numberOfPossibleConfigurationsButton = new Button(configurationPanel, SWT.PUSH);
 //		numberOfPossibleConfigurationsButton.setText("Number of Possible Configurations");
 //		numberOfPossibleConfigurationsButton.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, false));
@@ -288,6 +293,7 @@ public class DwFeatureModelConfiguratorEditor extends DwFeatureModelConfigurator
 		simulateButton.addSelectionListener(hyVarRecButtonListener);
 		
 		checkSatisfiabilityButton.addSelectionListener(buttonListener);
+		checkConfigurationValidity.addSelectionListener(buttonListener);
 
 //		numberOfPossibleConfigurationsButton.addSelectionListener(new SelectionAdapter() {
 //			@Override
@@ -410,6 +416,8 @@ public class DwFeatureModelConfiguratorEditor extends DwFeatureModelConfigurator
 				constraintModel = EcoreIOUtil.loadAccompanyingModel(modelWrapped.getModel(), HyConstraintUtil.getConstraintModelFileExtensionForXmi());
 			}
 			
+			saveConfigurationIntoFeatureModelFolder();
+			
 			if(e.getSource() == checkSatisfiabilityButton) {
 				// TODO check if any of those models is null
 				DwSolver solver = new DwSolver(modelWrapped.getModel(), contextModel, modelWrapped.getSelectedDate());
@@ -419,6 +427,22 @@ public class DwFeatureModelConfiguratorEditor extends DwFeatureModelConfigurator
 				
 				MessageDialog dialog = new MessageDialog(PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell(), "Model satisfiability", null,
 						"Model satisfiability: "+sat, MessageDialog.INFORMATION, new String[] { "Ok" }, 0);
+				dialog.open();
+			}
+			else if(e.getSource() == checkConfigurationValidity) {
+				DwSolver solver = new DwSolver(modelWrapped.getModel(), contextModel, modelWrapped.getSelectedDate());
+				solver.setConstraintModel(constraintModel, modelWrapped.getSelectedDate());
+				
+				boolean validity = false;
+				try {
+					validity = solver.isConfigurationValid(selectedConfiguration);
+				} catch (DwAttributeValueOfSelectedFeatureNotSetException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				
+				MessageDialog dialog = new MessageDialog(PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell(), "Configuration validity", null,
+						"Configuration validity: "+validity, MessageDialog.INFORMATION, new String[] { "Ok" }, 0);
 				dialog.open();
 			}
 		}
