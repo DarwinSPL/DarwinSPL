@@ -35,8 +35,15 @@ import eu.hyvar.context.HyContextualInformation;
 import eu.hyvar.context.HyContextualInformationBoolean;
 import eu.hyvar.context.HyContextualInformationEnum;
 import eu.hyvar.context.HyContextualInformationNumber;
+import eu.hyvar.context.information.contextValue.ContextValueFactory;
+import eu.hyvar.context.information.contextValue.HyContextValue;
+import eu.hyvar.context.information.contextValue.HyContextValueModel;
 import eu.hyvar.context.information.util.ContextEvolutionUtil;
+import eu.hyvar.dataValues.HyBooleanValue;
+import eu.hyvar.dataValues.HyDataValuesFactory;
 import eu.hyvar.dataValues.HyEnumLiteral;
+import eu.hyvar.dataValues.HyEnumValue;
+import eu.hyvar.dataValues.HyNumberValue;
 
 public class DwContextInformationDialog extends Dialog implements Listener, ModifyListener{
 	private HyContextModel model;
@@ -175,6 +182,7 @@ public class DwContextInformationDialog extends Dialog implements Listener, Modi
 	    createButton(parent, IDialogConstants.OK_ID, "Set Context Information Values", true);
 	    createButton(parent, IDialogConstants.CANCEL_ID,
 	        IDialogConstants.CANCEL_LABEL, false);
+	    createButton(parent, IDialogConstants.DESELECT_ALL_ID, "Use without Context Values", false);
 	  }	
 	
 	// overriding this methods allows you to set the
@@ -278,6 +286,68 @@ public class DwContextInformationDialog extends Dialog implements Listener, Modi
 			}
 			text.setBackground(background);
 			text.setToolTipText(tooltip);
+		}
+	}
+	
+	public HyContextValueModel getContextValueModel() {
+		HyContextValueModel contextValueModel = ContextValueFactory.eINSTANCE.createHyContextValueModel();
+		
+		fillContextValueModelWithBooleanValues(contextValueModel, getBooleanValueMap());
+		
+		fillContextValueModelWithEnumValues(contextValueModel, getEnumValueMap());
+
+		fillContextValueModelWithNumberValues(contextValueModel, getNumberValueMap());
+		
+		return contextValueModel;
+	}
+	
+
+	
+	private static void fillContextValueModelWithBooleanValues(HyContextValueModel contextValueModel, Map<HyContextualInformationBoolean, Boolean> map) {
+		for(Entry<HyContextualInformationBoolean, Boolean> entry: map.entrySet()) {
+			HyContextValue contextValue = ContextValueFactory.eINSTANCE.createHyContextValue();
+			contextValue.setContext(entry.getKey());
+			
+			HyBooleanValue value = HyDataValuesFactory.eINSTANCE.createHyBooleanValue();
+			value.setValue(entry.getValue().booleanValue());
+			
+			contextValue.setValue(value);
+			contextValueModel.getValues().add(contextValue);
+		}
+	}
+	
+	private static void fillContextValueModelWithEnumValues(HyContextValueModel contextValueModel, Map<HyContextualInformationEnum, String> map) {
+		for(Entry<HyContextualInformationEnum, String> entry: map.entrySet()) {
+			HyContextValue contextValue = ContextValueFactory.eINSTANCE.createHyContextValue();
+			contextValue.setContext(entry.getKey());
+			
+			HyEnumValue value = HyDataValuesFactory.eINSTANCE.createHyEnumValue();
+			value.setEnum(entry.getKey().getEnumType());
+			
+			for(HyEnumLiteral literal: entry.getKey().getEnumType().getLiterals()) {
+				if(literal.getName().equals(entry.getValue())) {
+					value.setEnumLiteral(literal);
+					break;
+				}
+			}
+			
+			contextValue.setValue(value);
+			contextValueModel.getValues().add(contextValue);
+		}
+	}
+		
+	private static void fillContextValueModelWithNumberValues(HyContextValueModel contextValueModel, Map<HyContextualInformationNumber, Integer> map) {
+		
+		for(Entry<HyContextualInformationNumber, Integer> entry: map.entrySet()) {
+			HyContextValue contextValue = ContextValueFactory.eINSTANCE.createHyContextValue();
+			contextValue.setContext(entry.getKey());
+			
+			HyNumberValue value = HyDataValuesFactory.eINSTANCE.createHyNumberValue();
+			
+			value.setValue(entry.getValue());
+			
+			contextValue.setValue(value);
+			contextValueModel.getValues().add(contextValue);
 		}
 	}
 }

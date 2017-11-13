@@ -10,6 +10,7 @@ import org.chocosolver.solver.constraints.Constraint;
 
 import de.darwinspl.solver.exception.DwAttributeValueOfSelectedFeatureNotSetException;
 import eu.hyvar.context.HyContextModel;
+import eu.hyvar.context.information.contextValue.HyContextValueModel;
 import eu.hyvar.evolution.util.HyEvolutionUtil;
 import eu.hyvar.feature.HyFeatureModel;
 import eu.hyvar.feature.configuration.HyConfiguration;
@@ -117,7 +118,7 @@ public class DwSolver {
 		return solveValue;
 	}
 
-	public boolean isConfigurationValid(HyConfiguration configuration)
+	public boolean isConfigurationValid(HyConfiguration configuration, HyContextValueModel contextValueModel)
 			throws DwAttributeValueOfSelectedFeatureNotSetException {
 
 		chocoModel.getSolver().reset();
@@ -125,6 +126,10 @@ public class DwSolver {
 		List<Constraint> postedConstraints;
 		postedConstraints = DwSolverModelTranslation.createConstraintsFromConfiguration(configuration, chocoModel,
 				featureModelMapping, date);
+		
+		if(contextValueModel != null) {
+			postedConstraints.addAll(DwSolverModelTranslation.createConstraintsFromContextValidityModel(contextValueModel, chocoModel, featureModelMapping, date));			
+		}
 
 		for (Constraint postedConstraint : postedConstraints) {
 			chocoModel.post(postedConstraint);
@@ -139,11 +144,12 @@ public class DwSolver {
 		for (Constraint postedConstraint : postedConstraints) {
 			chocoModel.unpost(postedConstraint);
 		}
+		chocoModel.getSolver().reset();
 
 		return configurationValid;
 	}
 
-	public boolean isExpressionSatisfied(HyExpression expression, HyConfiguration configuration)
+	public boolean isExpressionSatisfied(HyExpression expression, HyConfiguration configuration, HyContextValueModel contextValueModel)
 			throws DwAttributeValueOfSelectedFeatureNotSetException {
 
 		chocoModel.getSolver().reset();
@@ -151,6 +157,10 @@ public class DwSolver {
 		List<Constraint> postedConstraints;
 		postedConstraints = DwSolverModelTranslation.createConstraintsFromConfiguration(configuration, chocoModel,
 				featureModelMapping, date);
+		
+		if(contextValueModel != null) {
+			postedConstraints.addAll(DwSolverModelTranslation.createConstraintsFromContextValidityModel(contextValueModel, chocoModel, featureModelMapping, date));			
+		}
 		
 		Constraint expressionConstraint = DwSolverModelTranslation.createExpressionConstraint(expression, chocoModel, featureModelMapping, date);
 		
@@ -171,7 +181,7 @@ public class DwSolver {
 		return expressionSatisfied;
 	}
 	
-	public boolean isExpressionSatisfiedWithoutFeatureModelConstraints(HyExpression expression, HyConfiguration configuration) throws DwAttributeValueOfSelectedFeatureNotSetException {
+	public boolean isExpressionSatisfiedWithoutFeatureModelConstraints(HyExpression expression, HyConfiguration configuration, HyContextValueModel contextValueModel) throws DwAttributeValueOfSelectedFeatureNotSetException {
 		
 		chocoModel.getSolver().reset();
 		
@@ -179,13 +189,14 @@ public class DwSolver {
 		
 		boolean expressionSatisfied;
 		try {
-			expressionSatisfied = isExpressionSatisfied(expression, configuration);
+			expressionSatisfied = isExpressionSatisfied(expression, configuration, contextValueModel);
 		} catch (DwAttributeValueOfSelectedFeatureNotSetException e) {
 //			postConstraints(chocoModel, featureModelStructureConstraints);
 			throw e;
 		}
 
 		postConstraints(chocoModel, featureModelStructureConstraints);
+		chocoModel.getSolver().reset();
 		
 		return expressionSatisfied;
 	}

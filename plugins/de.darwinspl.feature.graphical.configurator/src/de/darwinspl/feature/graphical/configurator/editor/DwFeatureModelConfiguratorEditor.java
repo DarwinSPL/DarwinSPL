@@ -22,6 +22,7 @@ import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.ecore.util.EContentAdapter;
 import org.eclipse.gef.GraphicalViewer;
 import org.eclipse.jface.dialogs.Dialog;
+import org.eclipse.jface.dialogs.IDialogConstants;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.window.Window;
 import org.eclipse.swt.SWT;
@@ -315,66 +316,6 @@ public class DwFeatureModelConfiguratorEditor extends DwFeatureModelConfigurator
 
 		selectedConfigurationComposite.getDeriveVariantButton().addSelectionListener(new DwDeriveVariantListener(this));
 	}
-
-	private static HyContextValueModel createContextValueModel(DwContextInformationDialog dialog) {
-		HyContextValueModel contextValueModel = ContextValueFactory.eINSTANCE.createHyContextValueModel();
-		
-		fillContextValueModelWithBooleanValues(contextValueModel, dialog.getBooleanValueMap());
-		
-		fillContextValueModelWithEnumValues(contextValueModel, dialog.getEnumValueMap());
-
-		fillContextValueModelWithNumberValues(contextValueModel, dialog.getNumberValueMap());
-		
-		return contextValueModel;
-	}
-	
-	private static void fillContextValueModelWithBooleanValues(HyContextValueModel contextValueModel, Map<HyContextualInformationBoolean, Boolean> map) {
-		for(Entry<HyContextualInformationBoolean, Boolean> entry: map.entrySet()) {
-			HyContextValue contextValue = ContextValueFactory.eINSTANCE.createHyContextValue();
-			contextValue.setContext(entry.getKey());
-			
-			HyBooleanValue value = HyDataValuesFactory.eINSTANCE.createHyBooleanValue();
-			value.setValue(entry.getValue().booleanValue());
-			
-			contextValue.setValue(value);
-			contextValueModel.getValues().add(contextValue);
-		}
-	}
-	
-	private static void fillContextValueModelWithEnumValues(HyContextValueModel contextValueModel, Map<HyContextualInformationEnum, String> map) {
-		for(Entry<HyContextualInformationEnum, String> entry: map.entrySet()) {
-			HyContextValue contextValue = ContextValueFactory.eINSTANCE.createHyContextValue();
-			contextValue.setContext(entry.getKey());
-			
-			HyEnumValue value = HyDataValuesFactory.eINSTANCE.createHyEnumValue();
-			value.setEnum(entry.getKey().getEnumType());
-			
-			for(HyEnumLiteral literal: entry.getKey().getEnumType().getLiterals()) {
-				if(literal.getName().equals(entry.getValue())) {
-					value.setEnumLiteral(literal);
-					break;
-				}
-			}
-			
-			contextValue.setValue(value);
-			contextValueModel.getValues().add(contextValue);
-		}
-	}
-		
-	private static void fillContextValueModelWithNumberValues(HyContextValueModel contextValueModel, Map<HyContextualInformationNumber, Integer> map) {
-		
-		for(Entry<HyContextualInformationNumber, Integer> entry: map.entrySet()) {
-			HyContextValue contextValue = ContextValueFactory.eINSTANCE.createHyContextValue();
-			contextValue.setContext(entry.getKey());
-			
-			HyNumberValue value = HyDataValuesFactory.eINSTANCE.createHyNumberValue();
-			
-			value.setValue(entry.getValue());
-			
-			contextValue.setValue(value);
-			contextValueModel.getValues().add(contextValue);
-		}
-	}
 	
 	
 	@Override
@@ -430,12 +371,30 @@ public class DwFeatureModelConfiguratorEditor extends DwFeatureModelConfigurator
 				dialog.open();
 			}
 			else if(e.getSource() == checkConfigurationValidity) {
+				HyContextValueModel contextValueModel = null;
+				
+				DwContextInformationDialog contextValueDialog = new DwContextInformationDialog(getEditorSite().getShell(), contextModel, getDate());
+				switch(contextValueDialog.open()) {
+				case IDialogConstants.CANCEL_ID:
+					return;
+				case IDialogConstants.OK_ID:
+					contextValueModel = contextValueDialog.getContextValueModel();
+					break;
+				case IDialogConstants.DESELECT_ALL_ID:
+					contextValueModel = null;
+					break;
+				default:
+					contextValueModel = null;
+					break;
+				}
+				
+				
 				DwSolver solver = new DwSolver(modelWrapped.getModel(), contextModel, modelWrapped.getSelectedDate());
 				solver.setConstraintModel(constraintModel, modelWrapped.getSelectedDate());
 				
 				boolean validity = false;
 				try {
-					validity = solver.isConfigurationValid(selectedConfiguration);
+					validity = solver.isConfigurationValid(selectedConfiguration, contextValueModel);
 				} catch (DwAttributeValueOfSelectedFeatureNotSetException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
@@ -466,11 +425,18 @@ public class DwFeatureModelConfiguratorEditor extends DwFeatureModelConfigurator
 				
 				if(contextModel != null && (e.getSource() == simulateButton || e.getSource() == explainButton || e.getSource() == explainWithEvolutionButton)){
 					DwContextInformationDialog dialog = new DwContextInformationDialog(getEditorSite().getShell(), contextModel, getDate());
-					if(dialog.open() == Window.CANCEL){
+					switch(dialog.open()) {
+					case IDialogConstants.CANCEL_ID:
 						return;
-					} 
-					else {
-						contextValueModel =  createContextValueModel(dialog);
+					case IDialogConstants.OK_ID:
+						contextValueModel = dialog.getContextValueModel();
+						break;
+					case IDialogConstants.DESELECT_ALL_ID:
+						contextValueModel = null;
+						break;
+					default:
+						contextValueModel = null;
+						break;
 					}
 				}
 			}

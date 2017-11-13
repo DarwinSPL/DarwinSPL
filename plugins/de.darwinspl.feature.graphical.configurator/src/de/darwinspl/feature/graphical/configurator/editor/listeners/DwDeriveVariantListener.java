@@ -5,17 +5,20 @@ import java.util.Date;
 import org.deltaecore.core.decore.util.DEDeltaRequirementsCycleException;
 import org.eclipse.core.resources.IFolder;
 import org.eclipse.jface.dialogs.Dialog;
+import org.eclipse.jface.dialogs.IDialogConstants;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.widgets.Shell;
 
 import de.darwinspl.feature.configuration.variantgeneration.DwConfigurationVariantCreator;
+import de.darwinspl.feature.graphical.configurator.dialogs.DwContextInformationDialog;
 import de.darwinspl.feature.graphical.configurator.dialogs.DwVariantDerivationDialog;
 import de.darwinspl.feature.graphical.configurator.editor.DwFeatureModelConfiguratorEditor;
 import de.darwinspl.solver.DwSolver;
 import de.darwinspl.solver.exception.DwAttributeValueOfSelectedFeatureNotSetException;
 import eu.hyvar.context.HyContextModel;
+import eu.hyvar.context.information.contextValue.HyContextValueModel;
 import eu.hyvar.context.information.util.ContextInformationResolverUtil;
 import eu.hyvar.feature.HyFeatureModel;
 import eu.hyvar.feature.configuration.HyConfiguration;
@@ -41,23 +44,7 @@ public class DwDeriveVariantListener extends SelectionAdapter {
 		HyConfiguration configuration = configurator.getConfiguration();
 		HyFeatureModel featureModel = configurator.getFeatureModel();
 		
-//		EcoreIOUtil.getFile(featureModel);		
-//		
-//		IFile mappingFile = ResourceUtil.getLocalFile(featureModel.eResource().getURI().toPlatformString(true));
-//		
-//		
-//		if(mappingFile == null || !mappingFile.exists()) {
-//			MessageDialog.openInformation(shell, "Could not find Mapping Model", "No Mapping Model with file extension "+HyMappingModelUtil.getMappingModelFileExtensionForConcreteSyntax()+" or "+ HyMappingModelUtil.getMappingModelFileExtensionForXmi()+" found!");
-//			return;
-//		}
-//		
-//		EObject loadedObject = EcoreIOUtil.loadAccompanyingModel(featureModel, HyMappingModelUtil.getMappingModelFileExtensionForConcreteSyntax(), HyMappingModelUtil.getMappingModelFileExtensionForXmi());			
-//		
-//		if(loadedObject == null || !(loadedObject instanceof HyMappingModel)) {
-//			MessageDialog.openInformation(shell, "Could not find Mapping Model", "No Mapping Model with file extension "+HyMappingModelUtil.getMappingModelFileExtensionForConcreteSyntax()+" or "+ HyMappingModelUtil.getMappingModelFileExtensionForXmi()+" found!");
-//			return;
-//		}
-		
+		// TODO make context value popup
 		
 		HyMappingModel mapping = DwMappingResolverUtil.getAccompanyingContextModel(featureModel);
 		if(mapping == null) {
@@ -65,7 +52,6 @@ public class DwDeriveVariantListener extends SelectionAdapter {
 			return;
 		}
 
-//		DwConfigurationVariantCreator variantCreator = new DwConfigurationVariantCreator();
 
 
 		Date date = configurator.getCurrentSelectedDate();
@@ -75,10 +61,29 @@ public class DwDeriveVariantListener extends SelectionAdapter {
 		
 		HyContextModel contextModel = ContextInformationResolverUtil.getAccompanyingContextModel(featureModel);
 		
+		HyContextValueModel contextValueModel = null;
+		
+		DwContextInformationDialog contextValueDialog = new DwContextInformationDialog(shell, contextModel, date);
+		int contextValueDialogAnswer = contextValueDialog.open();
+		
+		switch(contextValueDialogAnswer) {
+		case IDialogConstants.OK_ID:
+			contextValueModel = contextValueDialog.getContextValueModel();
+			break;
+		case IDialogConstants.CANCEL_ID:
+			return;
+		case IDialogConstants.DESELECT_ALL_ID:
+			contextValueModel = null;
+			break;
+		default:
+			contextValueModel = null;
+			break;
+		}
+		
 		DwSolver solver = new DwSolver(featureModel, contextModel, date);
 		
 		try {
-			if(!solver.isConfigurationValid(configuration)) {
+			if(!solver.isConfigurationValid(configuration, contextValueModel)) {
 				MessageDialog.openInformation(shell, failureMessageTitle, failureMessageTitle + " Configuration is not valid!");
 				return;
 			}
@@ -103,7 +108,7 @@ public class DwDeriveVariantListener extends SelectionAdapter {
 			
 			DwConfigurationVariantCreator variantCreator = new DwConfigurationVariantCreator();
 			try {
-				variantCreator.createAndSaveVariantFromConfiguration(featureModel, contextModel, configuration, mapping, date, variantFolder, solver);
+				variantCreator.createAndSaveVariantFromConfiguration(featureModel, contextModel, configuration, contextValueModel, mapping, date, variantFolder, solver);
 			} catch (DwAttributeValueOfSelectedFeatureNotSetException e1) {
 				MessageDialog.openInformation(shell, failureMessageTitle, failureMessageTitle + e1.getMessage());
 				return;

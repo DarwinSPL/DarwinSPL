@@ -10,5 +10,6 @@ Require-Bundle: eu.hyvar.feature,
  eu.hyvar.feature.mapping,
  org.deltaecore.core.variant;visibility:=reexport,
  eu.hyvar.context.information,
- de.darwinspl.solver
+ de.darwinspl.solver,
+ eu.hyvar.context.information.value
 Export-Package: de.darwinspl.feature.configuration.variantgeneration

@@ -10,6 +10,7 @@ import org.deltaecore.core.decore.DEDeltaInvokation;
 import de.darwinspl.solver.DwSolver;
 import de.darwinspl.solver.exception.DwAttributeValueOfSelectedFeatureNotSetException;
 import eu.hyvar.context.HyContextModel;
+import eu.hyvar.context.information.contextValue.HyContextValueModel;
 import eu.hyvar.evolution.util.HyEvolutionUtil;
 import eu.hyvar.feature.HyFeatureModel;
 import eu.hyvar.feature.configuration.HyConfiguration;
@@ -18,7 +19,7 @@ import eu.hyvar.feature.mapping.HyMappingModel;
 
 public class DwConfigurationEvaluator {
 
-	public static List<DEDelta> evaluateConfiguration(HyFeatureModel featureModel, HyContextModel contextModel, HyMappingModel mappingModel, HyConfiguration configuration, Date date, DwSolver solver) throws DwAttributeValueOfSelectedFeatureNotSetException {
+	public static List<DEDelta> evaluateConfiguration(HyFeatureModel featureModel, HyContextModel contextModel, HyMappingModel mappingModel, HyConfiguration configuration, HyContextValueModel contextValueModel, Date date, DwSolver solver) throws DwAttributeValueOfSelectedFeatureNotSetException {
 		
 		List<DEDelta> deltas = new ArrayList<DEDelta>();
 		
@@ -31,7 +32,7 @@ public class DwConfigurationEvaluator {
 				continue;
 			}
 			
-			if(solver.isExpressionSatisfiedWithoutFeatureModelConstraints(mapping.getExpression(), configuration)) {
+			if(solver.isExpressionSatisfiedWithoutFeatureModelConstraints(mapping.getExpression(), configuration, contextValueModel)) {
 				for(DEDeltaInvokation deltaInvokation: mapping.getDeltaInvokations()) {
 					deltas.add(deltaInvokation.getDelta());
 				}

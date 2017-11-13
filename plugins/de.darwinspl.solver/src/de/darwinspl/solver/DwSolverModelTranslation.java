@@ -10,6 +10,7 @@ import org.chocosolver.solver.Model;
 import org.chocosolver.solver.constraints.Constraint;
 import org.chocosolver.solver.variables.BoolVar;
 import org.chocosolver.solver.variables.IntVar;
+import org.eclipse.emf.common.util.EList;
 
 import de.darwinspl.solver.exception.DwAttributeValueOfSelectedFeatureNotSetException;
 import eu.hyvar.context.HyContextModel;
@@ -17,6 +18,8 @@ import eu.hyvar.context.HyContextualInformation;
 import eu.hyvar.context.HyContextualInformationBoolean;
 import eu.hyvar.context.HyContextualInformationEnum;
 import eu.hyvar.context.HyContextualInformationNumber;
+import eu.hyvar.context.information.contextValue.HyContextValue;
+import eu.hyvar.context.information.contextValue.HyContextValueModel;
 import eu.hyvar.dataValues.HyBooleanValue;
 import eu.hyvar.dataValues.HyEnumLiteral;
 import eu.hyvar.dataValues.HyEnumValue;
@@ -483,7 +486,7 @@ public class DwSolverModelTranslation {
 			return featureModelMapping.getAttributeVariableMapping().get(((HyAttributeReferenceExpression)atomicExpression).getAttribute());
 		}
 		else if(atomicExpression instanceof HyContextInformationReferenceExpression) {
-			return featureModelMapping.getAttributeVariableMapping().get(((HyContextInformationReferenceExpression)atomicExpression).getContextInformation());
+			return featureModelMapping.getContextVariableMapping().get(((HyContextInformationReferenceExpression)atomicExpression).getContextInformation());
 		}
 		else if (atomicExpression instanceof HyAbstractFeatureReferenceExpression) {
 			throw new UnsupportedOperationException(
@@ -715,26 +718,8 @@ public class DwSolverModelTranslation {
 				HyValue value = attributeValueAssignment.getValue();
 
 				IntVar attributeVar = featureModelMapping.getAttributeVariableMapping().get(attribute);
-				IntVar valueVar = null;
-
-				if (value instanceof HyBooleanValue) {
-					HyBooleanValue booleanValue = (HyBooleanValue) value;
-
-					if (booleanValue.isValue()) {
-						valueVar = chocoModel.intVar("true", 1);
-					} else {
-						valueVar = chocoModel.intVar("false", 0);
-					}
-				} else if (value instanceof HyEnumValue) {
-					HyEnumValue enumValue = (HyEnumValue) value;
-
-					HyEnumLiteral enumLiteral = enumValue.getEnumLiteral();
-					valueVar = chocoModel.intVar(enumLiteral.getEnum().getName() + "." + enumLiteral.getName(),
-							enumLiteral.getValue());
-				} else if (value instanceof HyNumberValue) {
-					HyNumberValue numberValue = (HyNumberValue) value;
-					valueVar = chocoModel.intVar("" + numberValue.getValue(), numberValue.getValue());
-				}
+				
+				IntVar valueVar = createIntVarForValue(value, chocoModel);
 
 				Constraint constraint = chocoModel.allEqual(attributeVar, valueVar);
 
@@ -785,5 +770,59 @@ public class DwSolverModelTranslation {
 		}
 		
 		return constraints;
+	}
+	
+	public static List<Constraint> createConstraintsFromContextValidityModel(HyContextValueModel contextValueModel, Model chocoModel, DwSolverModelVariableMapping featureModelMapping, Date date) {
+		List<Constraint> constraints = new ArrayList<Constraint>();
+		
+		if(contextValueModel == null || chocoModel == null || featureModelMapping == null) {
+			return constraints;
+		}
+		
+		EList<HyContextValue> contextValues = contextValueModel.getValues();
+		
+		for(HyContextValue contextValue: contextValues) {
+			HyContextualInformation context = contextValue.getContext();
+			if(!HyEvolutionUtil.isValid(context, date)) {
+				continue;
+			}
+			
+			HyValue value = contextValue.getValue();
+			
+			IntVar contextVar = featureModelMapping.getContextVariableMapping().get(context);
+			
+			IntVar valueVar = createIntVarForValue(value, chocoModel);
+			
+			Constraint constraint = chocoModel.allEqual(contextVar, valueVar);
+			
+			constraints.add(constraint);
+		}
+		
+		return constraints;
+	}
+	
+	protected static IntVar createIntVarForValue(HyValue value, Model chocoModel) {
+		IntVar valueVar = null;
+		
+		if (value instanceof HyBooleanValue) {
+			HyBooleanValue booleanValue = (HyBooleanValue) value;
+
+			if (booleanValue.isValue()) {
+				valueVar = chocoModel.intVar("true", 1);
+			} else {
+				valueVar = chocoModel.intVar("false", 0);
+			}
+		} else if (value instanceof HyEnumValue) {
+			HyEnumValue enumValue = (HyEnumValue) value;
+
+			HyEnumLiteral enumLiteral = enumValue.getEnumLiteral();
+			valueVar = chocoModel.intVar(enumLiteral.getEnum().getName() + "." + enumLiteral.getName(),
+					enumLiteral.getValue());
+		} else if (value instanceof HyNumberValue) {
+			HyNumberValue numberValue = (HyNumberValue) value;
+			valueVar = chocoModel.intVar("" + numberValue.getValue(), numberValue.getValue());
+		}
+
+		return valueVar;
 	}
 }
