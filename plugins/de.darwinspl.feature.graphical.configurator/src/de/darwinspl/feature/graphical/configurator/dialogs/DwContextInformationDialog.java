@@ -14,11 +14,14 @@ import org.eclipse.swt.custom.CCombo;
 import org.eclipse.swt.custom.TableEditor;
 import org.eclipse.swt.events.ModifyEvent;
 import org.eclipse.swt.events.ModifyListener;
+import org.eclipse.swt.events.SelectionAdapter;
+import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.Device;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
+import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Display;
@@ -56,6 +59,8 @@ public class DwContextInformationDialog extends Dialog implements Listener, Modi
 	private Map<HyContextualInformationBoolean, CCombo> booleanComboMap;
 	private Map<HyContextualInformationEnum, CCombo> enumComboMap;
 	private Map<HyContextualInformationNumber, Text> numberTextMap;
+	
+	private Button noContextValuesButton;
 	
 	private List<Text> onlyNumericTexts;
 	
@@ -182,7 +187,9 @@ public class DwContextInformationDialog extends Dialog implements Listener, Modi
 	    createButton(parent, IDialogConstants.OK_ID, "Set Context Information Values", true);
 	    createButton(parent, IDialogConstants.CANCEL_ID,
 	        IDialogConstants.CANCEL_LABEL, false);
-	    createButton(parent, IDialogConstants.DESELECT_ALL_ID, "Use without Context Values", false);
+	    noContextValuesButton = createButton(parent, IDialogConstants.DESELECT_ALL_ID, "Use without Context Values", false);
+	    noContextValuesButton.addSelectionListener(new NoContextValueButtonListener());
+	    
 	  }	
 	
 	// overriding this methods allows you to set the
@@ -195,7 +202,7 @@ public class DwContextInformationDialog extends Dialog implements Listener, Modi
 
 	@Override
 	protected Point getInitialSize() {
-		return new Point(480, 340);
+		return new Point(800, 340);
 	}
 
 
@@ -348,6 +355,15 @@ public class DwContextInformationDialog extends Dialog implements Listener, Modi
 			
 			contextValue.setValue(value);
 			contextValueModel.getValues().add(contextValue);
+		}
+	}
+	
+	protected class NoContextValueButtonListener extends SelectionAdapter {
+		
+		@Override
+		public void widgetSelected(SelectionEvent e) {
+			setReturnCode(IDialogConstants.DESELECT_ALL_ID);
+			close();			
 		}
 	}
 }
