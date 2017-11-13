@@ -448,7 +448,7 @@ public class DwFeatureModelExporter {
 			
 			if(!considerOnlyOneDate) {
 				Date validSince;
-				if(i!=-1) {
+				if(i==-1) {
 					validSince = null;
 				}
 				else {

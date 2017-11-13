@@ -3,6 +3,7 @@ package de.darwinspl.feature.graphical.configurator.editor;
 import java.io.IOException;
 import java.nio.channels.UnresolvedAddressException;
 import java.util.Collections;
+import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.concurrent.ExecutionException;
@@ -45,6 +46,7 @@ import org.eclipse.ui.part.FileEditorInput;
 
 import de.christophseidl.util.ecore.EcoreIOUtil;
 import de.darwinspl.feature.graphical.configurator.composites.DwSelectedConfigurationComposite;
+import de.darwinspl.feature.graphical.configurator.dialogs.DwAnomalyExplanationDialog;
 import de.darwinspl.feature.graphical.configurator.dialogs.DwContextInformationDialog;
 import de.darwinspl.feature.graphical.configurator.dialogs.DwInvalidContextInfoDialog;
 import de.darwinspl.feature.graphical.configurator.dialogs.DwRESTServerSelectDialog;
@@ -458,12 +460,12 @@ public class DwFeatureModelConfiguratorEditor extends DwFeatureModelConfigurator
 			
 			try {
 				if (e.getSource() == validateContextButton) {
-					HyContextValueModel notSatisfiableContextValues;
-					notSatisfiableContextValues = client.validateFeatureModelWithContext(uri, contextModel,
+					DwContextValueEvolutionWrapper contextValueEvolutionWrapper = client.validateFeatureModelWithContext(uri, contextModel,
 							validityModel, modelWrapped.getModel(), constraintModel, selectedConfiguration, null,
-							contextValueModel, modelWrapped.getSelectedDate()).getContextValueModel();
+							contextValueModel, modelWrapped.getSelectedDate());
+					
 					DwInvalidContextInfoDialog contextInfoDialog = new DwInvalidContextInfoDialog(
-							getEditorSite().getShell(), notSatisfiableContextValues);
+							getEditorSite().getShell(), contextValueEvolutionWrapper);
 					contextInfoDialog.open();
 				} else if (e.getSource() == simulateButton) {
 					HyConfiguration configuration;
@@ -494,9 +496,13 @@ public class DwFeatureModelConfiguratorEditor extends DwFeatureModelConfigurator
 					}
 
 				} else if (e.getSource() == explainButton) {
-					client.validateFeatureModel(uri, contextModel, validityModel, modelWrapped.getModel(),
+					List<String> explainingConstraints = client.explainAnomaly(uri, contextModel, validityModel, modelWrapped.getModel(),
 							constraintModel, selectedConfiguration, null, contextValueModel,
 							modelWrapped.getSelectedDate());
+					
+					DwAnomalyExplanationDialog anomalyExplanationDialog = new DwAnomalyExplanationDialog(getEditorSite().getShell(), explainingConstraints);
+					anomalyExplanationDialog.open();
+					
 				} else if (e.getSource() == validateWithEvolutionButton) {
 					// Show date
 					

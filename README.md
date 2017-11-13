@@ -17,9 +17,17 @@ Installation:
 
 ATTENTION (if you want to use the integrated webservers or the reconfiguration engine HyVarRec https://github.com/HyVar/hyvar-rec):
 
-In de.darwinspl.reconfigurator.client and eu.hyvar.reconfigurator.input.rest.dummyclient, you have to ensure that the jetty client version in the build path matches _exactly_ the jetty version of your eclipse installation. If it is not matching, you have to add it to the "lib" folder, replace it in the build path of the project and replace it in the "Classpath" in the "Runtime" tab of the Manifest.MF. 
-You can find your eclipse' Jetty version via Help -> About Eclipse -> Installation Details -> Plug-ins -> Seach for Jetty
-
+In de.darwinspl.reconfigurator.client and eu.hyvar.reconfigurator.input.rest.dummyclient, you have to ensure that the jetty client version in the build path matches _exactly_ the jetty version of your eclipse installation.
+You can check the required Jetty version if you look in your eclipse installation details:
+Help -> About eclipse -> Installation Details -> Plug-ins -> search for Jetty
+If it is not matching, you have to do the following:
+- Right click on the project de.darwinspl.reconfigurator.client -> Build Path -> Configure Build Path -> Libraries:
+   - Remove the wrong jetty jar
+   - Add the correct jar via "Add JARs..." (can be downloaded from http://mvnrepository.com/artifact/org.eclipse.jetty/jetty-client and should be added to the "libs" folder of the project)
+- Go to the manifest of the de.darwinspl.reconfigurator.client project:
+   -> Runtime tab: replace the wrong jar in the classpath with the correct one
+   -> Build tab: replace the wrong jar in the Runtime Information, Binary Build and Source Build with the correct one
+- If you encounter any connection issues and exceptions with jetty, it is most likely that you are using the wrong version.
 
 See the Wiki for more detailed information (outdated):
 https://github.com/DarwinSPL/DarwinSPL/wiki
