@@ -63,21 +63,23 @@ public class DwDeriveVariantListener extends SelectionAdapter {
 		
 		HyContextValueModel contextValueModel = null;
 		
-		DwContextInformationDialog contextValueDialog = new DwContextInformationDialog(shell, contextModel, date);
-		int contextValueDialogAnswer = contextValueDialog.open();
-		
-		switch(contextValueDialogAnswer) {
-		case IDialogConstants.OK_ID:
-			contextValueModel = contextValueDialog.getContextValueModel();
-			break;
-		case IDialogConstants.CANCEL_ID:
-			return;
-		case IDialogConstants.DESELECT_ALL_ID:
-			contextValueModel = null;
-			break;
-		default:
-			contextValueModel = null;
-			break;
+		if(contextModel != null) {
+			DwContextInformationDialog contextValueDialog = new DwContextInformationDialog(shell, contextModel, date);
+			int contextValueDialogAnswer = contextValueDialog.open();
+			
+			switch(contextValueDialogAnswer) {
+			case IDialogConstants.OK_ID:
+				contextValueModel = contextValueDialog.getContextValueModel();
+				break;
+			case IDialogConstants.CANCEL_ID:
+				return;
+			case IDialogConstants.DESELECT_ALL_ID:
+				contextValueModel = null;
+				break;
+			default:
+				contextValueModel = null;
+				break;
+			}			
 		}
 		
 		DwSolver solver = new DwSolver(featureModel, contextModel, date);
