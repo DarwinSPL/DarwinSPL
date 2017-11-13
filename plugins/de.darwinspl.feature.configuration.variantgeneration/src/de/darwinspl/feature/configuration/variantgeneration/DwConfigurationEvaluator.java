@@ -20,8 +20,20 @@ import eu.hyvar.feature.mapping.HyMappingModel;
 public class DwConfigurationEvaluator {
 
 	public static List<DEDelta> evaluateConfiguration(HyFeatureModel featureModel, HyContextModel contextModel, HyMappingModel mappingModel, HyConfiguration configuration, HyContextValueModel contextValueModel, Date date, DwSolver solver) throws DwAttributeValueOfSelectedFeatureNotSetException {
-		
 		List<DEDelta> deltas = new ArrayList<DEDelta>();
+		List<DEDeltaInvokation> deltaInvocations = evaluateConfigurationToDeltaInvocations(featureModel, contextModel, mappingModel, configuration, contextValueModel, date, solver);
+		
+		if(deltaInvocations != null) {
+			for(DEDeltaInvokation deltaInvocation: deltaInvocations) {
+				deltas.add(deltaInvocation.getDelta());
+			}
+		}
+		
+		return deltas;
+	}
+	
+	public static List<DEDeltaInvokation> evaluateConfigurationToDeltaInvocations(HyFeatureModel featureModel, HyContextModel contextModel, HyMappingModel mappingModel, HyConfiguration configuration, HyContextValueModel contextValueModel, Date date, DwSolver solver) throws DwAttributeValueOfSelectedFeatureNotSetException {
+		List<DEDeltaInvokation> deltaInvocations = new ArrayList<DEDeltaInvokation>();
 		
 		if(solver == null) {
 			solver = new DwSolver(featureModel, contextModel, date);			
@@ -34,12 +46,12 @@ public class DwConfigurationEvaluator {
 			
 			if(solver.isExpressionSatisfiedWithoutFeatureModelConstraints(mapping.getExpression(), configuration, contextValueModel)) {
 				for(DEDeltaInvokation deltaInvokation: mapping.getDeltaInvokations()) {
-					deltas.add(deltaInvokation.getDelta());
+					deltaInvocations.add(deltaInvokation);
 				}
 			}
 		}
 		
-		return deltas;
+		return deltaInvocations;
 	}
 	
 }

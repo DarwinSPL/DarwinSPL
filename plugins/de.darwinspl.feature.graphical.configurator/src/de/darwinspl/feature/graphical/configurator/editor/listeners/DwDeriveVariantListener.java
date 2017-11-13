@@ -11,12 +11,12 @@ import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.widgets.Shell;
 
-import de.darwinspl.feature.configuration.variantgeneration.DwConfigurationVariantCreator;
 import de.darwinspl.feature.graphical.configurator.dialogs.DwContextInformationDialog;
 import de.darwinspl.feature.graphical.configurator.dialogs.DwVariantDerivationDialog;
 import de.darwinspl.feature.graphical.configurator.editor.DwFeatureModelConfiguratorEditor;
 import de.darwinspl.solver.DwSolver;
 import de.darwinspl.solver.exception.DwAttributeValueOfSelectedFeatureNotSetException;
+import de.darwinspl.variant_generation.DwConfigurationVariantCreator;
 import eu.hyvar.context.HyContextModel;
 import eu.hyvar.context.information.contextValue.HyContextValueModel;
 import eu.hyvar.context.information.util.ContextInformationResolverUtil;

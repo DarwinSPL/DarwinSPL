@@ -1,4 +1,4 @@
-package de.darwinspl.feature.configuration.variantgeneration;
+package de.darwinspl.variant_generation;
 
 import java.util.Date;
 import java.util.List;
@@ -9,6 +9,7 @@ import org.deltaecore.core.variant.DEVariantCreator;
 import org.eclipse.core.resources.IFolder;
 import org.eclipse.emf.ecore.resource.Resource;
 
+import de.darwinspl.feature.configuration.variantgeneration.DwConfigurationEvaluator;
 import de.darwinspl.solver.DwSolver;
 import de.darwinspl.solver.exception.DwAttributeValueOfSelectedFeatureNotSetException;
 import eu.hyvar.context.HyContextModel;

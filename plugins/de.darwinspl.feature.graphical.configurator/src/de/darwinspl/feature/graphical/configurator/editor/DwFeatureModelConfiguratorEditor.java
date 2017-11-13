@@ -96,7 +96,6 @@ public class DwFeatureModelConfiguratorEditor extends DwFeatureModelConfigurator
 	private Button checkSatisfiabilityButton;
 	private Button checkConfigurationValidity;
 	
-	private DwSolver solver;
 	
 //	private Button numberOfPossibleConfigurationsButton;
 	private Button simulateButton;

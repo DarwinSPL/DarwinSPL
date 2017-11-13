@@ -27,6 +27,10 @@ public class VariantDerivationImpl implements VariantDerivation {
 	}
 
 	@Override
+	@Deprecated
+	/**
+	 * Needs to be updated to new varieant derivation!
+	 */
 	public void deriveVariant(HyFeatureModel featureModel, HyConstraintModel constraints, HyConfiguration configuration,
 			HyMapping mapping, Date date) throws VariantDerivationFailedException {
 		
