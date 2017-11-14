@@ -93,6 +93,6 @@ public class DwConfiguratorEditorUtil {
 		attributeValueAssignment.setValue(value);
 		configuration.getElements().add(attributeValueAssignment);
 		
-		addFeatureToConfiguration(configuration, attribute.getFeature(), date);
+//		addFeatureToConfiguration(configuration, attribute.getFeature(), date);
 	}
 }

@@ -56,6 +56,7 @@ public class DwConfiguratorEditorUtil {
 		}
 	}
 	
+
 	public static void removeChildrenFeaturesFromConfiguration(HyConfiguration configuration, HyFeature feature, Date date){
 		List<HyFeature> featureChildren = getChildrenFeatures(feature, date);
 		
@@ -93,6 +94,7 @@ public class DwConfiguratorEditorUtil {
 		attributeValueAssignment.setValue(value);
 		configuration.getElements().add(attributeValueAssignment);
 		
-		addFeatureToConfiguration(configuration, attribute.getFeature(), date);
+//		TODO: Muss wieder auskommentiert, aber verändert werden. Momentan: Wenn feature bereits in liste drin ist, wird es erneut hinzugefügt
+//		addFeatureToConfiguration(configuration, attribute.getFeature(), date);
 	}
 }
