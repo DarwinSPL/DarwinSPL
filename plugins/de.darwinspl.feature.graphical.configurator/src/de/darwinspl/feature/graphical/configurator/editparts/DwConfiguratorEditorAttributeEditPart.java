@@ -2,12 +2,14 @@ package de.darwinspl.feature.graphical.configurator.editparts;
 
 import org.eclipse.gef.Request;
 import org.eclipse.gef.RequestConstants;
+import org.eclipse.jface.dialogs.Dialog;
 import org.eclipse.jface.dialogs.IInputValidator;
 import org.eclipse.jface.dialogs.InputDialog;
 
 import de.darwinspl.feature.graphical.base.editor.DwGraphicalFeatureModelViewer;
 import de.darwinspl.feature.graphical.base.editparts.DwAttributeEditPart;
 import de.darwinspl.feature.graphical.base.model.DwFeatureModelWrapped;
+import de.darwinspl.feature.graphical.configurator.dialogs.DwChoiceBoxAttributeAssignmentDialog;
 import de.darwinspl.feature.graphical.configurator.editor.DwFeatureModelConfiguratorEditor;
 import de.darwinspl.feature.graphical.configurator.util.DwConfiguratorEditorUtil;
 import eu.hyvar.dataValues.HyBooleanValue;
@@ -89,8 +91,9 @@ public class DwConfiguratorEditorAttributeEditPart extends DwAttributeEditPart {
 			}
 			
 
-			InputDialog dialog;
+			Dialog dialog;
 			String initialValue= "";
+			DwChoiceBoxAttributeAssignmentDialog dialog2 = null;
 
 			if (attribute instanceof HyNumberAttribute) {
 				HyAttributeValueAssignment assignment = DwConfiguratorEditorUtil.getValueAssignmentForFeatureAttribute(configuration, attribute);
@@ -106,9 +109,14 @@ public class DwConfiguratorEditorAttributeEditPart extends DwAttributeEditPart {
 				if(assignment!=null){
 					initialValue = Boolean.toString(((HyBooleanValue) assignment.getValue()).isValue());
 				}
+				String[] listi = new String[2];
+				listi[0] = "true";
+				listi[1] = "false";
 
-				dialog = new InputDialog(this.getViewer().getControl().getShell(), "Specify Attribute Value",
-						"Please give the attribute a value:", initialValue, booleanValidator);
+			    dialog = new DwChoiceBoxAttributeAssignmentDialog(this.getViewer().getControl().getShell(), "Specify Attribute Value",
+						"Please give the attribute a value:", initialValue, listi);
+//				dialog = new InputDialog(this.getViewer().getControl().getShell(), "Specify Attribute Value",
+//						"Please give the attribute a value:", initialValue, booleanValidator);
 			} else if(attribute instanceof HyStringAttribute){
 				HyAttributeValueAssignment assignment = DwConfiguratorEditorUtil.getValueAssignmentForFeatureAttribute(configuration, attribute);
 				if(assignment!=null){
@@ -125,9 +133,16 @@ public class DwConfiguratorEditorAttributeEditPart extends DwAttributeEditPart {
 						"Please give the attribute a value:", initialValue, null);
 			}
 
-			if (dialog.open() == InputDialog.OK) {
+			
+			if ((dialog instanceof InputDialog && dialog.open() == InputDialog.OK) || (dialog.open() == Dialog.OK)) {
 
-				String dialogValue = dialog.getValue();
+				String dialogValue = null;
+				if(dialog instanceof InputDialog){
+					dialogValue =((InputDialog)dialog).getValue();
+				}else{
+					dialogValue = ((DwChoiceBoxAttributeAssignmentDialog)dialog).getValue();
+					System.out.println(dialogValue);
+				}
 				if (attribute instanceof HyBooleanAttribute) {
 
 					attributeValue = HyDataValuesFactory.eINSTANCE.createHyBooleanValue();
@@ -151,6 +166,7 @@ public class DwConfiguratorEditorAttributeEditPart extends DwAttributeEditPart {
 					DwConfiguratorEditorUtil.changeValueAssignmentOfAttribute(configuration, attribute, attributeValue);
 
 				}
+			
 
 				editor.refreshView();
 			}

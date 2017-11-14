@@ -14,6 +14,7 @@ import org.eclipse.swt.widgets.Text;
 
 import eu.hyvar.evolution.util.HyEvolutionUtil;
 import eu.hyvar.dataValues.HyBooleanValue;
+import eu.hyvar.dataValues.HyEnumValue;
 import eu.hyvar.dataValues.HyNumberValue;
 import eu.hyvar.dataValues.HyStringValue;
 import eu.hyvar.dataValues.HyValue;
@@ -107,11 +108,13 @@ public class DwSelectedConfigurationComposite extends Group {
 							} else if (value instanceof HyBooleanValue) {
 								boolean b = ((HyBooleanValue) value).isValue();
 								stringValue = Boolean.toString(b);
-							} else {
+							} else if (value instanceof HyStringValue){
 								stringValue = ((HyStringValue) value).getValue();
+							}else{
+								stringValue = ((HyEnumValue) value).getEnumLiteral().getName();
 							}
 
-							text += name.getName() + "." + nameAtr.getName() + " : " + stringValue + "\n";
+							text += name.getName() + "." + nameAtr.getName() + " = " + stringValue + "\n";
 						}
 					}
 

@@ -64,30 +64,9 @@ public class DwConfiguratorEditorFeatureEditPart extends DwFeatureEditPart{
 				DwConfiguratorEditorUtil.addFeatureToConfiguration(configuration, feature.getWrappedModelElement(), editor.getCurrentSelectedDate());
 				
 				for(HyFeatureAttribute attribute: feature.getWrappedModelElement().getAttributes()){
-					if(HyEvolutionUtil.isValid(attribute, editor.getCurrentSelectedDate())==true){
-					HyValue attributeValue;
-					if(attribute instanceof HyNumberAttribute){
-						attributeValue = HyDataValuesFactory.eINSTANCE.createHyNumberValue();
-						((HyNumberValue) attributeValue).setValue(((HyNumberAttribute) attribute).getMin());
-					}else if(attribute instanceof HyBooleanAttribute){
-						attributeValue = HyDataValuesFactory.eINSTANCE.createHyBooleanValue();
-						((HyBooleanValue) attributeValue).setValue(false);
-					} else if(attribute instanceof HyStringAttribute){
-						attributeValue = HyDataValuesFactory.eINSTANCE.createHyStringValue();
-						if(((HyStringAttribute) attribute).getDefault()!=null){
-						    ((HyStringValue) attributeValue).setValue(((HyStringAttribute) attribute).getDefault());
-						}
-					} else{
-						attributeValue = HyDataValuesFactory.eINSTANCE.createHyEnumValue();
-						HyEnum enumType = ((HyEnumAttribute) attribute).getEnumType();
-						((HyEnumValue) attributeValue).setEnum(enumType);
-						((HyEnumValue) attributeValue).setEnumLiteral(enumType.getLiterals().get(0));
-					}
 					
-					if(attributeValue!=null){
-					    DwConfiguratorEditorUtil.addAttributeToConfiguration(configuration, attribute, attributeValue, editor.getCurrentSelectedDate());	
-					}
-					}
+					DwConfiguratorEditorUtil.addAttributeWithDefaultValueToConfiguration(configuration, attribute, editor.getCurrentSelectedDate());
+					
 				}
 				
 				
