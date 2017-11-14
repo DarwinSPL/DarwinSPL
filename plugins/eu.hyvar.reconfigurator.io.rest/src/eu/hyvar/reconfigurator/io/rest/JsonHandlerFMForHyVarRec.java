@@ -149,7 +149,7 @@ public class JsonHandlerFMForHyVarRec extends AbstractHandler {
 
 		IFile manifestFile = FileWriterUtility.writeFileWithContent(
 				rawInput.getManifest().getFilename(),
-				HyManifestResolverUtil.FILE_EXTENSION_FOR_XMI,
+				HyManifestResolverUtil.getManifestModelFileExtensionForXmi(),
 				rawInput.getManifest().getSpecification(), folder);
 
 		manifestFiles.add(manifestFile);
@@ -253,7 +253,7 @@ public class JsonHandlerFMForHyVarRec extends AbstractHandler {
 			for (Dependency dependency : rawInput.getDependencies()) {
 				IFile dependencyManifestFile = FileWriterUtility.writeFileWithContent(
 						dependency.getDependencySignature().getFilename(),
-						HyManifestResolverUtil.FILE_EXTENSION_FOR_XMI,
+						HyManifestResolverUtil.getManifestModelFileExtensionForXmi(),
 						dependency.getDependencySignature().getSpecification(), folder);
 
 				manifestFiles.add(dependencyManifestFile);
