@@ -1,8 +1,0 @@
-Implementation 
-	: <../signatures/ecuaS/ECUASignature.hymanifest_xmi> 
-		{
-			"ECU_A" -> "ECU_A",
-			"GNSS" -> "GNSS",
-			EmergencyCall -> EmergencyCall,
-			[2017/1/1 - eternity] "ConnectionGateway" -> "ConnectionGateway"
-		}
