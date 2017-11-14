@@ -18,4 +18,5 @@ Export-Package: eu.hyvar.mspl.manifest,
  eu.hyvar.mspl.manifest.impl,
  eu.hyvar.mspl.manifest.util,
  eu.hyvar.mspl.util
-Import-Package: org.deltaecore.util
+Import-Package: de.darwinspl.common.ecore.util,
+ org.deltaecore.util
