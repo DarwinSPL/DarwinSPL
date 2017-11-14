@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import org.eclipse.emf.common.util.BasicEList;
+import org.eclipse.emf.common.util.EList;
+
 import de.darwinspl.feature.graphical.configurator.predicates.DwConfiguratorElementHasFeaturePredicate;
 import de.darwinspl.feature.graphical.configurator.predicates.DwConfiguratorElementHasVersionPredicate;
 import eu.hyvar.dataValues.HyValue;
@@ -15,6 +18,7 @@ import eu.hyvar.feature.HyGroupComposition;
 import eu.hyvar.feature.HyVersion;
 import eu.hyvar.feature.configuration.HyAttributeValueAssignment;
 import eu.hyvar.feature.configuration.HyConfiguration;
+import eu.hyvar.feature.configuration.HyConfigurationElement;
 import eu.hyvar.feature.configuration.HyConfigurationFactory;
 import eu.hyvar.feature.configuration.HyFeatureSelected;
 import eu.hyvar.feature.configuration.util.HyConfigurationUtil;
@@ -94,5 +98,37 @@ public class DwConfiguratorEditorUtil {
 		configuration.getElements().add(attributeValueAssignment);
 		
 //		addFeatureToConfiguration(configuration, attribute.getFeature(), date);
+	}
+	
+	public static EList<HyAttributeValueAssignment> getHyAttributeValueAssignments(HyConfiguration configuration){
+		EList<HyAttributeValueAssignment> assignments = new BasicEList<HyAttributeValueAssignment>();
+		for(HyConfigurationElement element: configuration.getElements()){
+			if(element instanceof HyAttributeValueAssignment){
+				assignments.add((HyAttributeValueAssignment) element);
+				
+			}
+		}
+		
+		return assignments;
+	}
+	
+	public static HyAttributeValueAssignment getValueAssignmentForFeatureAttribute(HyConfiguration configuration, HyFeatureAttribute attribute){
+		for(HyAttributeValueAssignment assignment: getHyAttributeValueAssignments(configuration)){
+			if(assignment.getAttribute().equals(attribute)){
+				return assignment;
+			}
+		}
+		return null;
+	}
+	
+	
+	
+	public static void changeValueAssignmentOfAttribute(HyConfiguration configuration, HyFeatureAttribute attribute, HyValue value){
+		for(HyAttributeValueAssignment assignment: getHyAttributeValueAssignments(configuration)){
+			if(assignment.getAttribute().equals(attribute)){
+				assignment.setValue(value);
+			}
+			
+		}
 	}
 }
