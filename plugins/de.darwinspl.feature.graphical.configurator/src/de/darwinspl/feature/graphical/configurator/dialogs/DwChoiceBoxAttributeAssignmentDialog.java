@@ -127,6 +127,7 @@ public class DwChoiceBoxAttributeAssignmentDialog extends Dialog {
 	    		}
 	    		
 	    		
+	    		
 	    	}
 	    	return 0;
 	    }
