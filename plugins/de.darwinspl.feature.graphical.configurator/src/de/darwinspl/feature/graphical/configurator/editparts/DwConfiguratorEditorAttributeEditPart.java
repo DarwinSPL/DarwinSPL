@@ -155,7 +155,7 @@ public class DwConfiguratorEditorAttributeEditPart extends DwAttributeEditPart {
 					dialogValue =((InputDialog)dialog).getValue();
 				}else{
 					dialogValue = ((DwChoiceBoxAttributeAssignmentDialog)dialog).getValue();
-					System.out.println(dialogValue);
+					
 				}
 				if (attribute instanceof HyBooleanAttribute) {
 
