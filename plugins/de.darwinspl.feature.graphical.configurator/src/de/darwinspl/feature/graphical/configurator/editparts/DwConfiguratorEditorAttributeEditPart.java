@@ -148,7 +148,7 @@ public class DwConfiguratorEditorAttributeEditPart extends DwAttributeEditPart {
 			}
 
 			
-			if ((dialog instanceof InputDialog && dialog.open() == InputDialog.OK) || (dialog.open() == Dialog.OK)) {
+			if ((dialog.open() == Dialog.OK)) {
 
 				String dialogValue = null;
 				if(dialog instanceof InputDialog){
