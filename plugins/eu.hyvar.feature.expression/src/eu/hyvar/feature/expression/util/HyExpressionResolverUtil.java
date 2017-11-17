@@ -126,7 +126,6 @@ public class HyExpressionResolverUtil {
 	}
 
 	public static HyEnum resolveEnum(String identifier, EObject elementFromAccompanyingResource) {
-
 		HyEnum resolved = null;
 
 		if (identifier == null) {

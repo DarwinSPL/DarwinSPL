@@ -395,7 +395,7 @@ import org.eclipse.emf.ecore.EReference;
 				break;
 			}
 		}
-		int followSetID = 123;
+		int followSetID = 129;
 		int i;
 		for (i = tokenIndexOfLastCompleteElement; i < tokenStream.size(); i++) {
 			CommonToken nextToken = (CommonToken) tokenStream.get(i);
@@ -4068,10 +4068,12 @@ copyLocalizationInfos((CommonToken)a0, element);
 {
 // expected elements (follow set)
 addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[790]);
+addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[791]);
 }
 
 (
-a1 = IDENTIFIER_TOKEN
+(
+a1 = QUOTED_34_34
 {
 if (terminateParsing) {
 throw new de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileTerminateParsingException();
@@ -4081,7 +4083,7 @@ element = eu.hyvar.feature.expression.HyExpressionFactory.eINSTANCE.createHyCont
 startIncompleteElement(element);
 }
 if (a1 != null) {
-de.darwinspl.preferences.resource.dwprofile.IDwprofileTokenResolver tokenResolver = tokenResolverFactory.createTokenResolver("IDENTIFIER_TOKEN");
+de.darwinspl.preferences.resource.dwprofile.IDwprofileTokenResolver tokenResolver = tokenResolverFactory.createTokenResolver("QUOTED_34_34");
 tokenResolver.setOptions(getOptions());
 de.darwinspl.preferences.resource.dwprofile.IDwprofileTokenResolveResult result = getFreshTokenResolveResult();
 tokenResolver.resolve(a1.getText(), element.eClass().getEStructuralFeature(eu.hyvar.feature.expression.HyExpressionPackage.HY_CONTEXT_INFORMATION_REFERENCE_EXPRESSION__CONTEXT_INFORMATION), result);
@@ -4099,7 +4101,7 @@ element.eSet(element.eClass().getEStructuralFeature(eu.hyvar.feature.expression.
 completedElement(value, false);
 }
 collectHiddenTokens(element);
-retrieveLayoutInformation(element, de.darwinspl.preferences.resource.dwprofile.grammar.DwprofileGrammarInformationProvider.HYEXPRESSION_9_0_0_1, proxy, true);
+retrieveLayoutInformation(element, de.darwinspl.preferences.resource.dwprofile.grammar.DwprofileGrammarInformationProvider.HYEXPRESSION_9_0_0_1_0_0_0, proxy, true);
 copyLocalizationInfos((CommonToken) a1, element);
 copyLocalizationInfos((CommonToken) a1, proxy);
 }
@@ -4107,8 +4109,7 @@ copyLocalizationInfos((CommonToken) a1, proxy);
 )
 {
 // expected elements (follow set)
-addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[791]);
-addExpectedElement(de.darwinspl.preferences.PreferencesPackage.eINSTANCE.getDwProfile(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[792]);
+addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[792]);
 addExpectedElement(de.darwinspl.preferences.PreferencesPackage.eINSTANCE.getDwProfile(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[793]);
 addExpectedElement(de.darwinspl.preferences.PreferencesPackage.eINSTANCE.getDwProfile(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[794]);
 addExpectedElement(de.darwinspl.preferences.PreferencesPackage.eINSTANCE.getDwProfile(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[795]);
@@ -4124,7 +4125,7 @@ addExpectedElement(de.darwinspl.preferences.PreferencesPackage.eINSTANCE.getDwPr
 addExpectedElement(de.darwinspl.preferences.PreferencesPackage.eINSTANCE.getDwProfile(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[805]);
 addExpectedElement(de.darwinspl.preferences.PreferencesPackage.eINSTANCE.getDwProfile(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[806]);
 addExpectedElement(de.darwinspl.preferences.PreferencesPackage.eINSTANCE.getDwProfile(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[807]);
-addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[808]);
+addExpectedElement(de.darwinspl.preferences.PreferencesPackage.eINSTANCE.getDwProfile(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[808]);
 addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[809]);
 addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[810]);
 addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[811]);
@@ -4144,6 +4145,126 @@ addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.Dwprof
 addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[825]);
 addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[826]);
 addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[827]);
+addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[828]);
+}
+
+
+|(
+a2 = IDENTIFIER_TOKEN
+{
+if (terminateParsing) {
+throw new de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileTerminateParsingException();
+}
+if (element == null) {
+element = eu.hyvar.feature.expression.HyExpressionFactory.eINSTANCE.createHyContextInformationReferenceExpression();
+startIncompleteElement(element);
+}
+if (a2 != null) {
+de.darwinspl.preferences.resource.dwprofile.IDwprofileTokenResolver tokenResolver = tokenResolverFactory.createTokenResolver("IDENTIFIER_TOKEN");
+tokenResolver.setOptions(getOptions());
+de.darwinspl.preferences.resource.dwprofile.IDwprofileTokenResolveResult result = getFreshTokenResolveResult();
+tokenResolver.resolve(a2.getText(), element.eClass().getEStructuralFeature(eu.hyvar.feature.expression.HyExpressionPackage.HY_CONTEXT_INFORMATION_REFERENCE_EXPRESSION__CONTEXT_INFORMATION), result);
+Object resolvedObject = result.getResolvedToken();
+if (resolvedObject == null) {
+addErrorToResource(result.getErrorMessage(), ((CommonToken) a2).getLine(), ((CommonToken) a2).getCharPositionInLine(), ((CommonToken) a2).getStartIndex(), ((CommonToken) a2).getStopIndex());
+}
+String resolved = (String) resolvedObject;
+eu.hyvar.context.HyContextualInformation proxy = eu.hyvar.context.HyContextInformationFactory.eINSTANCE.createHyContextualInformationEnum();
+collectHiddenTokens(element);
+registerContextDependentProxy(new de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileContextDependentURIFragmentFactory<eu.hyvar.feature.expression.HyContextInformationReferenceExpression, eu.hyvar.context.HyContextualInformation>(getReferenceResolverSwitch() == null ? null : getReferenceResolverSwitch().getHyContextInformationReferenceExpressionContextInformationReferenceResolver()), element, (EReference) element.eClass().getEStructuralFeature(eu.hyvar.feature.expression.HyExpressionPackage.HY_CONTEXT_INFORMATION_REFERENCE_EXPRESSION__CONTEXT_INFORMATION), resolved, proxy);
+if (proxy != null) {
+Object value = proxy;
+element.eSet(element.eClass().getEStructuralFeature(eu.hyvar.feature.expression.HyExpressionPackage.HY_CONTEXT_INFORMATION_REFERENCE_EXPRESSION__CONTEXT_INFORMATION), value);
+completedElement(value, false);
+}
+collectHiddenTokens(element);
+retrieveLayoutInformation(element, de.darwinspl.preferences.resource.dwprofile.grammar.DwprofileGrammarInformationProvider.HYEXPRESSION_9_0_0_1_0_1_0, proxy, true);
+copyLocalizationInfos((CommonToken) a2, element);
+copyLocalizationInfos((CommonToken) a2, proxy);
+}
+}
+)
+{
+// expected elements (follow set)
+addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[829]);
+addExpectedElement(de.darwinspl.preferences.PreferencesPackage.eINSTANCE.getDwProfile(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[830]);
+addExpectedElement(de.darwinspl.preferences.PreferencesPackage.eINSTANCE.getDwProfile(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[831]);
+addExpectedElement(de.darwinspl.preferences.PreferencesPackage.eINSTANCE.getDwProfile(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[832]);
+addExpectedElement(de.darwinspl.preferences.PreferencesPackage.eINSTANCE.getDwProfile(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[833]);
+addExpectedElement(de.darwinspl.preferences.PreferencesPackage.eINSTANCE.getDwProfile(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[834]);
+addExpectedElement(de.darwinspl.preferences.PreferencesPackage.eINSTANCE.getDwProfile(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[835]);
+addExpectedElement(de.darwinspl.preferences.PreferencesPackage.eINSTANCE.getDwProfile(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[836]);
+addExpectedElement(de.darwinspl.preferences.PreferencesPackage.eINSTANCE.getDwProfile(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[837]);
+addExpectedElement(de.darwinspl.preferences.PreferencesPackage.eINSTANCE.getDwProfile(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[838]);
+addExpectedElement(de.darwinspl.preferences.PreferencesPackage.eINSTANCE.getDwProfile(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[839]);
+addExpectedElement(de.darwinspl.preferences.PreferencesPackage.eINSTANCE.getDwProfile(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[840]);
+addExpectedElement(de.darwinspl.preferences.PreferencesPackage.eINSTANCE.getDwProfile(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[841]);
+addExpectedElement(de.darwinspl.preferences.PreferencesPackage.eINSTANCE.getDwProfile(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[842]);
+addExpectedElement(de.darwinspl.preferences.PreferencesPackage.eINSTANCE.getDwProfile(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[843]);
+addExpectedElement(de.darwinspl.preferences.PreferencesPackage.eINSTANCE.getDwProfile(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[844]);
+addExpectedElement(de.darwinspl.preferences.PreferencesPackage.eINSTANCE.getDwProfile(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[845]);
+addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[846]);
+addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[847]);
+addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[848]);
+addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[849]);
+addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[850]);
+addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[851]);
+addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[852]);
+addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[853]);
+addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[854]);
+addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[855]);
+addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[856]);
+addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[857]);
+addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[858]);
+addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[859]);
+addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[860]);
+addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[861]);
+addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[862]);
+addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[863]);
+addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[864]);
+addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[865]);
+}
+
+)
+{
+// expected elements (follow set)
+addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[866]);
+addExpectedElement(de.darwinspl.preferences.PreferencesPackage.eINSTANCE.getDwProfile(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[867]);
+addExpectedElement(de.darwinspl.preferences.PreferencesPackage.eINSTANCE.getDwProfile(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[868]);
+addExpectedElement(de.darwinspl.preferences.PreferencesPackage.eINSTANCE.getDwProfile(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[869]);
+addExpectedElement(de.darwinspl.preferences.PreferencesPackage.eINSTANCE.getDwProfile(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[870]);
+addExpectedElement(de.darwinspl.preferences.PreferencesPackage.eINSTANCE.getDwProfile(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[871]);
+addExpectedElement(de.darwinspl.preferences.PreferencesPackage.eINSTANCE.getDwProfile(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[872]);
+addExpectedElement(de.darwinspl.preferences.PreferencesPackage.eINSTANCE.getDwProfile(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[873]);
+addExpectedElement(de.darwinspl.preferences.PreferencesPackage.eINSTANCE.getDwProfile(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[874]);
+addExpectedElement(de.darwinspl.preferences.PreferencesPackage.eINSTANCE.getDwProfile(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[875]);
+addExpectedElement(de.darwinspl.preferences.PreferencesPackage.eINSTANCE.getDwProfile(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[876]);
+addExpectedElement(de.darwinspl.preferences.PreferencesPackage.eINSTANCE.getDwProfile(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[877]);
+addExpectedElement(de.darwinspl.preferences.PreferencesPackage.eINSTANCE.getDwProfile(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[878]);
+addExpectedElement(de.darwinspl.preferences.PreferencesPackage.eINSTANCE.getDwProfile(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[879]);
+addExpectedElement(de.darwinspl.preferences.PreferencesPackage.eINSTANCE.getDwProfile(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[880]);
+addExpectedElement(de.darwinspl.preferences.PreferencesPackage.eINSTANCE.getDwProfile(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[881]);
+addExpectedElement(de.darwinspl.preferences.PreferencesPackage.eINSTANCE.getDwProfile(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[882]);
+addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[883]);
+addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[884]);
+addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[885]);
+addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[886]);
+addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[887]);
+addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[888]);
+addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[889]);
+addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[890]);
+addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[891]);
+addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[892]);
+addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[893]);
+addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[894]);
+addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[895]);
+addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[896]);
+addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[897]);
+addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[898]);
+addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[899]);
+addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[900]);
+addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[901]);
+addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[902]);
 }
 
 ;
@@ -4190,7 +4311,7 @@ copyLocalizationInfos((CommonToken) a0, proxy);
 )
 {
 // expected elements (follow set)
-addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[828]);
+addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[903]);
 }
 
 
@@ -4231,13 +4352,13 @@ copyLocalizationInfos((CommonToken) a1, proxy);
 )
 {
 // expected elements (follow set)
-addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[829]);
+addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[904]);
 }
 
 )
 {
 // expected elements (follow set)
-addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[830]);
+addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[905]);
 }
 
 a2 = '.' {
@@ -4251,7 +4372,7 @@ copyLocalizationInfos((CommonToken)a2, element);
 }
 {
 // expected elements (follow set)
-addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[831]);
+addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[906]);
 }
 
 (
@@ -4291,43 +4412,43 @@ copyLocalizationInfos((CommonToken) a3, proxy);
 )
 {
 // expected elements (follow set)
-addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[832]);
-addExpectedElement(de.darwinspl.preferences.PreferencesPackage.eINSTANCE.getDwProfile(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[833]);
-addExpectedElement(de.darwinspl.preferences.PreferencesPackage.eINSTANCE.getDwProfile(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[834]);
-addExpectedElement(de.darwinspl.preferences.PreferencesPackage.eINSTANCE.getDwProfile(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[835]);
-addExpectedElement(de.darwinspl.preferences.PreferencesPackage.eINSTANCE.getDwProfile(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[836]);
-addExpectedElement(de.darwinspl.preferences.PreferencesPackage.eINSTANCE.getDwProfile(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[837]);
-addExpectedElement(de.darwinspl.preferences.PreferencesPackage.eINSTANCE.getDwProfile(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[838]);
-addExpectedElement(de.darwinspl.preferences.PreferencesPackage.eINSTANCE.getDwProfile(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[839]);
-addExpectedElement(de.darwinspl.preferences.PreferencesPackage.eINSTANCE.getDwProfile(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[840]);
-addExpectedElement(de.darwinspl.preferences.PreferencesPackage.eINSTANCE.getDwProfile(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[841]);
-addExpectedElement(de.darwinspl.preferences.PreferencesPackage.eINSTANCE.getDwProfile(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[842]);
-addExpectedElement(de.darwinspl.preferences.PreferencesPackage.eINSTANCE.getDwProfile(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[843]);
-addExpectedElement(de.darwinspl.preferences.PreferencesPackage.eINSTANCE.getDwProfile(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[844]);
-addExpectedElement(de.darwinspl.preferences.PreferencesPackage.eINSTANCE.getDwProfile(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[845]);
-addExpectedElement(de.darwinspl.preferences.PreferencesPackage.eINSTANCE.getDwProfile(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[846]);
-addExpectedElement(de.darwinspl.preferences.PreferencesPackage.eINSTANCE.getDwProfile(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[847]);
-addExpectedElement(de.darwinspl.preferences.PreferencesPackage.eINSTANCE.getDwProfile(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[848]);
-addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[849]);
-addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[850]);
-addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[851]);
-addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[852]);
-addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[853]);
-addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[854]);
-addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[855]);
-addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[856]);
-addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[857]);
-addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[858]);
-addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[859]);
-addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[860]);
-addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[861]);
-addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[862]);
-addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[863]);
-addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[864]);
-addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[865]);
-addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[866]);
-addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[867]);
-addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[868]);
+addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[907]);
+addExpectedElement(de.darwinspl.preferences.PreferencesPackage.eINSTANCE.getDwProfile(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[908]);
+addExpectedElement(de.darwinspl.preferences.PreferencesPackage.eINSTANCE.getDwProfile(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[909]);
+addExpectedElement(de.darwinspl.preferences.PreferencesPackage.eINSTANCE.getDwProfile(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[910]);
+addExpectedElement(de.darwinspl.preferences.PreferencesPackage.eINSTANCE.getDwProfile(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[911]);
+addExpectedElement(de.darwinspl.preferences.PreferencesPackage.eINSTANCE.getDwProfile(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[912]);
+addExpectedElement(de.darwinspl.preferences.PreferencesPackage.eINSTANCE.getDwProfile(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[913]);
+addExpectedElement(de.darwinspl.preferences.PreferencesPackage.eINSTANCE.getDwProfile(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[914]);
+addExpectedElement(de.darwinspl.preferences.PreferencesPackage.eINSTANCE.getDwProfile(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[915]);
+addExpectedElement(de.darwinspl.preferences.PreferencesPackage.eINSTANCE.getDwProfile(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[916]);
+addExpectedElement(de.darwinspl.preferences.PreferencesPackage.eINSTANCE.getDwProfile(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[917]);
+addExpectedElement(de.darwinspl.preferences.PreferencesPackage.eINSTANCE.getDwProfile(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[918]);
+addExpectedElement(de.darwinspl.preferences.PreferencesPackage.eINSTANCE.getDwProfile(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[919]);
+addExpectedElement(de.darwinspl.preferences.PreferencesPackage.eINSTANCE.getDwProfile(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[920]);
+addExpectedElement(de.darwinspl.preferences.PreferencesPackage.eINSTANCE.getDwProfile(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[921]);
+addExpectedElement(de.darwinspl.preferences.PreferencesPackage.eINSTANCE.getDwProfile(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[922]);
+addExpectedElement(de.darwinspl.preferences.PreferencesPackage.eINSTANCE.getDwProfile(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[923]);
+addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[924]);
+addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[925]);
+addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[926]);
+addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[927]);
+addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[928]);
+addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[929]);
+addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[930]);
+addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[931]);
+addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[932]);
+addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[933]);
+addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[934]);
+addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[935]);
+addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[936]);
+addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[937]);
+addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[938]);
+addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[939]);
+addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[940]);
+addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[941]);
+addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[942]);
+addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[943]);
 }
 
 ;
@@ -4359,43 +4480,43 @@ copyLocalizationInfos(a0_0, element);
 )
 {
 // expected elements (follow set)
-addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[869]);
-addExpectedElement(de.darwinspl.preferences.PreferencesPackage.eINSTANCE.getDwProfile(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[870]);
-addExpectedElement(de.darwinspl.preferences.PreferencesPackage.eINSTANCE.getDwProfile(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[871]);
-addExpectedElement(de.darwinspl.preferences.PreferencesPackage.eINSTANCE.getDwProfile(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[872]);
-addExpectedElement(de.darwinspl.preferences.PreferencesPackage.eINSTANCE.getDwProfile(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[873]);
-addExpectedElement(de.darwinspl.preferences.PreferencesPackage.eINSTANCE.getDwProfile(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[874]);
-addExpectedElement(de.darwinspl.preferences.PreferencesPackage.eINSTANCE.getDwProfile(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[875]);
-addExpectedElement(de.darwinspl.preferences.PreferencesPackage.eINSTANCE.getDwProfile(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[876]);
-addExpectedElement(de.darwinspl.preferences.PreferencesPackage.eINSTANCE.getDwProfile(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[877]);
-addExpectedElement(de.darwinspl.preferences.PreferencesPackage.eINSTANCE.getDwProfile(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[878]);
-addExpectedElement(de.darwinspl.preferences.PreferencesPackage.eINSTANCE.getDwProfile(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[879]);
-addExpectedElement(de.darwinspl.preferences.PreferencesPackage.eINSTANCE.getDwProfile(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[880]);
-addExpectedElement(de.darwinspl.preferences.PreferencesPackage.eINSTANCE.getDwProfile(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[881]);
-addExpectedElement(de.darwinspl.preferences.PreferencesPackage.eINSTANCE.getDwProfile(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[882]);
-addExpectedElement(de.darwinspl.preferences.PreferencesPackage.eINSTANCE.getDwProfile(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[883]);
-addExpectedElement(de.darwinspl.preferences.PreferencesPackage.eINSTANCE.getDwProfile(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[884]);
-addExpectedElement(de.darwinspl.preferences.PreferencesPackage.eINSTANCE.getDwProfile(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[885]);
-addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[886]);
-addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[887]);
-addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[888]);
-addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[889]);
-addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[890]);
-addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[891]);
-addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[892]);
-addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[893]);
-addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[894]);
-addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[895]);
-addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[896]);
-addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[897]);
-addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[898]);
-addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[899]);
-addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[900]);
-addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[901]);
-addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[902]);
-addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[903]);
-addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[904]);
-addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[905]);
+addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[944]);
+addExpectedElement(de.darwinspl.preferences.PreferencesPackage.eINSTANCE.getDwProfile(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[945]);
+addExpectedElement(de.darwinspl.preferences.PreferencesPackage.eINSTANCE.getDwProfile(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[946]);
+addExpectedElement(de.darwinspl.preferences.PreferencesPackage.eINSTANCE.getDwProfile(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[947]);
+addExpectedElement(de.darwinspl.preferences.PreferencesPackage.eINSTANCE.getDwProfile(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[948]);
+addExpectedElement(de.darwinspl.preferences.PreferencesPackage.eINSTANCE.getDwProfile(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[949]);
+addExpectedElement(de.darwinspl.preferences.PreferencesPackage.eINSTANCE.getDwProfile(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[950]);
+addExpectedElement(de.darwinspl.preferences.PreferencesPackage.eINSTANCE.getDwProfile(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[951]);
+addExpectedElement(de.darwinspl.preferences.PreferencesPackage.eINSTANCE.getDwProfile(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[952]);
+addExpectedElement(de.darwinspl.preferences.PreferencesPackage.eINSTANCE.getDwProfile(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[953]);
+addExpectedElement(de.darwinspl.preferences.PreferencesPackage.eINSTANCE.getDwProfile(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[954]);
+addExpectedElement(de.darwinspl.preferences.PreferencesPackage.eINSTANCE.getDwProfile(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[955]);
+addExpectedElement(de.darwinspl.preferences.PreferencesPackage.eINSTANCE.getDwProfile(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[956]);
+addExpectedElement(de.darwinspl.preferences.PreferencesPackage.eINSTANCE.getDwProfile(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[957]);
+addExpectedElement(de.darwinspl.preferences.PreferencesPackage.eINSTANCE.getDwProfile(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[958]);
+addExpectedElement(de.darwinspl.preferences.PreferencesPackage.eINSTANCE.getDwProfile(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[959]);
+addExpectedElement(de.darwinspl.preferences.PreferencesPackage.eINSTANCE.getDwProfile(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[960]);
+addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[961]);
+addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[962]);
+addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[963]);
+addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[964]);
+addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[965]);
+addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[966]);
+addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[967]);
+addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[968]);
+addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[969]);
+addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[970]);
+addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[971]);
+addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[972]);
+addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[973]);
+addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[974]);
+addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[975]);
+addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[976]);
+addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[977]);
+addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[978]);
+addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[979]);
+addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[980]);
 }
 
 ;
@@ -4436,43 +4557,43 @@ completedElement(value, false);
 )
 {
 // expected elements (follow set)
-addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[906]);
-addExpectedElement(de.darwinspl.preferences.PreferencesPackage.eINSTANCE.getDwProfile(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[907]);
-addExpectedElement(de.darwinspl.preferences.PreferencesPackage.eINSTANCE.getDwProfile(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[908]);
-addExpectedElement(de.darwinspl.preferences.PreferencesPackage.eINSTANCE.getDwProfile(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[909]);
-addExpectedElement(de.darwinspl.preferences.PreferencesPackage.eINSTANCE.getDwProfile(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[910]);
-addExpectedElement(de.darwinspl.preferences.PreferencesPackage.eINSTANCE.getDwProfile(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[911]);
-addExpectedElement(de.darwinspl.preferences.PreferencesPackage.eINSTANCE.getDwProfile(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[912]);
-addExpectedElement(de.darwinspl.preferences.PreferencesPackage.eINSTANCE.getDwProfile(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[913]);
-addExpectedElement(de.darwinspl.preferences.PreferencesPackage.eINSTANCE.getDwProfile(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[914]);
-addExpectedElement(de.darwinspl.preferences.PreferencesPackage.eINSTANCE.getDwProfile(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[915]);
-addExpectedElement(de.darwinspl.preferences.PreferencesPackage.eINSTANCE.getDwProfile(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[916]);
-addExpectedElement(de.darwinspl.preferences.PreferencesPackage.eINSTANCE.getDwProfile(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[917]);
-addExpectedElement(de.darwinspl.preferences.PreferencesPackage.eINSTANCE.getDwProfile(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[918]);
-addExpectedElement(de.darwinspl.preferences.PreferencesPackage.eINSTANCE.getDwProfile(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[919]);
-addExpectedElement(de.darwinspl.preferences.PreferencesPackage.eINSTANCE.getDwProfile(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[920]);
-addExpectedElement(de.darwinspl.preferences.PreferencesPackage.eINSTANCE.getDwProfile(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[921]);
-addExpectedElement(de.darwinspl.preferences.PreferencesPackage.eINSTANCE.getDwProfile(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[922]);
-addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[923]);
-addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[924]);
-addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[925]);
-addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[926]);
-addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[927]);
-addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[928]);
-addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[929]);
-addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[930]);
-addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[931]);
-addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[932]);
-addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[933]);
-addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[934]);
-addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[935]);
-addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[936]);
-addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[937]);
-addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[938]);
-addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[939]);
-addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[940]);
-addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[941]);
-addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[942]);
+addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[981]);
+addExpectedElement(de.darwinspl.preferences.PreferencesPackage.eINSTANCE.getDwProfile(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[982]);
+addExpectedElement(de.darwinspl.preferences.PreferencesPackage.eINSTANCE.getDwProfile(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[983]);
+addExpectedElement(de.darwinspl.preferences.PreferencesPackage.eINSTANCE.getDwProfile(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[984]);
+addExpectedElement(de.darwinspl.preferences.PreferencesPackage.eINSTANCE.getDwProfile(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[985]);
+addExpectedElement(de.darwinspl.preferences.PreferencesPackage.eINSTANCE.getDwProfile(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[986]);
+addExpectedElement(de.darwinspl.preferences.PreferencesPackage.eINSTANCE.getDwProfile(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[987]);
+addExpectedElement(de.darwinspl.preferences.PreferencesPackage.eINSTANCE.getDwProfile(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[988]);
+addExpectedElement(de.darwinspl.preferences.PreferencesPackage.eINSTANCE.getDwProfile(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[989]);
+addExpectedElement(de.darwinspl.preferences.PreferencesPackage.eINSTANCE.getDwProfile(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[990]);
+addExpectedElement(de.darwinspl.preferences.PreferencesPackage.eINSTANCE.getDwProfile(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[991]);
+addExpectedElement(de.darwinspl.preferences.PreferencesPackage.eINSTANCE.getDwProfile(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[992]);
+addExpectedElement(de.darwinspl.preferences.PreferencesPackage.eINSTANCE.getDwProfile(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[993]);
+addExpectedElement(de.darwinspl.preferences.PreferencesPackage.eINSTANCE.getDwProfile(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[994]);
+addExpectedElement(de.darwinspl.preferences.PreferencesPackage.eINSTANCE.getDwProfile(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[995]);
+addExpectedElement(de.darwinspl.preferences.PreferencesPackage.eINSTANCE.getDwProfile(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[996]);
+addExpectedElement(de.darwinspl.preferences.PreferencesPackage.eINSTANCE.getDwProfile(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[997]);
+addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[998]);
+addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[999]);
+addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1000]);
+addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1001]);
+addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1002]);
+addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1003]);
+addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1004]);
+addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1005]);
+addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1006]);
+addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1007]);
+addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1008]);
+addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1009]);
+addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1010]);
+addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1011]);
+addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1012]);
+addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1013]);
+addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1014]);
+addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1015]);
+addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1016]);
+addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1017]);
 }
 
 ;
@@ -4492,22 +4613,22 @@ copyLocalizationInfos((CommonToken)a0, element);
 }
 {
 // expected elements (follow set)
-addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyMinimumExpression(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[943]);
-addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyMinimumExpression(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[944]);
-addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyMinimumExpression(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[945]);
-addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyMinimumExpression(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[946]);
-addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyMinimumExpression(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[947]);
-addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyMinimumExpression(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[948]);
-addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyMinimumExpression(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[949]);
-addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyMinimumExpression(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[950]);
-addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyMinimumExpression(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[951]);
-addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyMinimumExpression(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[952]);
-addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyMinimumExpression(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[953]);
-addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyMinimumExpression(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[954]);
-addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyMinimumExpression(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[955]);
-addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyMinimumExpression(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[956]);
-addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyMinimumExpression(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[957]);
-addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyMinimumExpression(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[958]);
+addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyMinimumExpression(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1018]);
+addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyMinimumExpression(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1019]);
+addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyMinimumExpression(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1020]);
+addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyMinimumExpression(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1021]);
+addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyMinimumExpression(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1022]);
+addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyMinimumExpression(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1023]);
+addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyMinimumExpression(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1024]);
+addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyMinimumExpression(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1025]);
+addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyMinimumExpression(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1026]);
+addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyMinimumExpression(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1027]);
+addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyMinimumExpression(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1028]);
+addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyMinimumExpression(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1029]);
+addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyMinimumExpression(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1030]);
+addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyMinimumExpression(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1031]);
+addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyMinimumExpression(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1032]);
+addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyMinimumExpression(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1033]);
 }
 
 (
@@ -4533,7 +4654,7 @@ copyLocalizationInfos(a1_0, element);
 )
 {
 // expected elements (follow set)
-addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[959]);
+addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1034]);
 }
 
 a2 = ')' {
@@ -4547,43 +4668,43 @@ copyLocalizationInfos((CommonToken)a2, element);
 }
 {
 // expected elements (follow set)
-addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[960]);
-addExpectedElement(de.darwinspl.preferences.PreferencesPackage.eINSTANCE.getDwProfile(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[961]);
-addExpectedElement(de.darwinspl.preferences.PreferencesPackage.eINSTANCE.getDwProfile(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[962]);
-addExpectedElement(de.darwinspl.preferences.PreferencesPackage.eINSTANCE.getDwProfile(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[963]);
-addExpectedElement(de.darwinspl.preferences.PreferencesPackage.eINSTANCE.getDwProfile(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[964]);
-addExpectedElement(de.darwinspl.preferences.PreferencesPackage.eINSTANCE.getDwProfile(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[965]);
-addExpectedElement(de.darwinspl.preferences.PreferencesPackage.eINSTANCE.getDwProfile(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[966]);
-addExpectedElement(de.darwinspl.preferences.PreferencesPackage.eINSTANCE.getDwProfile(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[967]);
-addExpectedElement(de.darwinspl.preferences.PreferencesPackage.eINSTANCE.getDwProfile(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[968]);
-addExpectedElement(de.darwinspl.preferences.PreferencesPackage.eINSTANCE.getDwProfile(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[969]);
-addExpectedElement(de.darwinspl.preferences.PreferencesPackage.eINSTANCE.getDwProfile(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[970]);
-addExpectedElement(de.darwinspl.preferences.PreferencesPackage.eINSTANCE.getDwProfile(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[971]);
-addExpectedElement(de.darwinspl.preferences.PreferencesPackage.eINSTANCE.getDwProfile(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[972]);
-addExpectedElement(de.darwinspl.preferences.PreferencesPackage.eINSTANCE.getDwProfile(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[973]);
-addExpectedElement(de.darwinspl.preferences.PreferencesPackage.eINSTANCE.getDwProfile(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[974]);
-addExpectedElement(de.darwinspl.preferences.PreferencesPackage.eINSTANCE.getDwProfile(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[975]);
-addExpectedElement(de.darwinspl.preferences.PreferencesPackage.eINSTANCE.getDwProfile(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[976]);
-addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[977]);
-addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[978]);
-addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[979]);
-addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[980]);
-addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[981]);
-addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[982]);
-addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[983]);
-addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[984]);
-addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[985]);
-addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[986]);
-addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[987]);
-addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[988]);
-addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[989]);
-addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[990]);
-addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[991]);
-addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[992]);
-addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[993]);
-addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[994]);
-addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[995]);
-addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[996]);
+addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1035]);
+addExpectedElement(de.darwinspl.preferences.PreferencesPackage.eINSTANCE.getDwProfile(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1036]);
+addExpectedElement(de.darwinspl.preferences.PreferencesPackage.eINSTANCE.getDwProfile(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1037]);
+addExpectedElement(de.darwinspl.preferences.PreferencesPackage.eINSTANCE.getDwProfile(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1038]);
+addExpectedElement(de.darwinspl.preferences.PreferencesPackage.eINSTANCE.getDwProfile(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1039]);
+addExpectedElement(de.darwinspl.preferences.PreferencesPackage.eINSTANCE.getDwProfile(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1040]);
+addExpectedElement(de.darwinspl.preferences.PreferencesPackage.eINSTANCE.getDwProfile(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1041]);
+addExpectedElement(de.darwinspl.preferences.PreferencesPackage.eINSTANCE.getDwProfile(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1042]);
+addExpectedElement(de.darwinspl.preferences.PreferencesPackage.eINSTANCE.getDwProfile(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1043]);
+addExpectedElement(de.darwinspl.preferences.PreferencesPackage.eINSTANCE.getDwProfile(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1044]);
+addExpectedElement(de.darwinspl.preferences.PreferencesPackage.eINSTANCE.getDwProfile(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1045]);
+addExpectedElement(de.darwinspl.preferences.PreferencesPackage.eINSTANCE.getDwProfile(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1046]);
+addExpectedElement(de.darwinspl.preferences.PreferencesPackage.eINSTANCE.getDwProfile(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1047]);
+addExpectedElement(de.darwinspl.preferences.PreferencesPackage.eINSTANCE.getDwProfile(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1048]);
+addExpectedElement(de.darwinspl.preferences.PreferencesPackage.eINSTANCE.getDwProfile(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1049]);
+addExpectedElement(de.darwinspl.preferences.PreferencesPackage.eINSTANCE.getDwProfile(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1050]);
+addExpectedElement(de.darwinspl.preferences.PreferencesPackage.eINSTANCE.getDwProfile(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1051]);
+addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1052]);
+addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1053]);
+addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1054]);
+addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1055]);
+addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1056]);
+addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1057]);
+addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1058]);
+addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1059]);
+addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1060]);
+addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1061]);
+addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1062]);
+addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1063]);
+addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1064]);
+addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1065]);
+addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1066]);
+addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1067]);
+addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1068]);
+addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1069]);
+addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1070]);
+addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1071]);
 }
 
 ;
@@ -4603,22 +4724,22 @@ copyLocalizationInfos((CommonToken)a0, element);
 }
 {
 // expected elements (follow set)
-addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyMaximumExpression(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[997]);
-addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyMaximumExpression(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[998]);
-addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyMaximumExpression(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[999]);
-addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyMaximumExpression(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1000]);
-addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyMaximumExpression(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1001]);
-addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyMaximumExpression(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1002]);
-addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyMaximumExpression(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1003]);
-addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyMaximumExpression(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1004]);
-addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyMaximumExpression(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1005]);
-addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyMaximumExpression(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1006]);
-addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyMaximumExpression(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1007]);
-addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyMaximumExpression(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1008]);
-addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyMaximumExpression(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1009]);
-addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyMaximumExpression(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1010]);
-addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyMaximumExpression(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1011]);
-addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyMaximumExpression(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1012]);
+addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyMaximumExpression(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1072]);
+addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyMaximumExpression(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1073]);
+addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyMaximumExpression(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1074]);
+addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyMaximumExpression(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1075]);
+addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyMaximumExpression(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1076]);
+addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyMaximumExpression(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1077]);
+addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyMaximumExpression(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1078]);
+addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyMaximumExpression(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1079]);
+addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyMaximumExpression(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1080]);
+addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyMaximumExpression(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1081]);
+addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyMaximumExpression(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1082]);
+addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyMaximumExpression(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1083]);
+addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyMaximumExpression(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1084]);
+addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyMaximumExpression(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1085]);
+addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyMaximumExpression(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1086]);
+addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyMaximumExpression(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1087]);
 }
 
 (
@@ -4644,7 +4765,7 @@ copyLocalizationInfos(a1_0, element);
 )
 {
 // expected elements (follow set)
-addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1013]);
+addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1088]);
 }
 
 a2 = ')' {
@@ -4655,184 +4776,6 @@ startIncompleteElement(element);
 collectHiddenTokens(element);
 retrieveLayoutInformation(element, de.darwinspl.preferences.resource.dwprofile.grammar.DwprofileGrammarInformationProvider.HYEXPRESSION_14_0_0_2, null, true);
 copyLocalizationInfos((CommonToken)a2, element);
-}
-{
-// expected elements (follow set)
-addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1014]);
-addExpectedElement(de.darwinspl.preferences.PreferencesPackage.eINSTANCE.getDwProfile(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1015]);
-addExpectedElement(de.darwinspl.preferences.PreferencesPackage.eINSTANCE.getDwProfile(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1016]);
-addExpectedElement(de.darwinspl.preferences.PreferencesPackage.eINSTANCE.getDwProfile(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1017]);
-addExpectedElement(de.darwinspl.preferences.PreferencesPackage.eINSTANCE.getDwProfile(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1018]);
-addExpectedElement(de.darwinspl.preferences.PreferencesPackage.eINSTANCE.getDwProfile(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1019]);
-addExpectedElement(de.darwinspl.preferences.PreferencesPackage.eINSTANCE.getDwProfile(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1020]);
-addExpectedElement(de.darwinspl.preferences.PreferencesPackage.eINSTANCE.getDwProfile(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1021]);
-addExpectedElement(de.darwinspl.preferences.PreferencesPackage.eINSTANCE.getDwProfile(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1022]);
-addExpectedElement(de.darwinspl.preferences.PreferencesPackage.eINSTANCE.getDwProfile(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1023]);
-addExpectedElement(de.darwinspl.preferences.PreferencesPackage.eINSTANCE.getDwProfile(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1024]);
-addExpectedElement(de.darwinspl.preferences.PreferencesPackage.eINSTANCE.getDwProfile(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1025]);
-addExpectedElement(de.darwinspl.preferences.PreferencesPackage.eINSTANCE.getDwProfile(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1026]);
-addExpectedElement(de.darwinspl.preferences.PreferencesPackage.eINSTANCE.getDwProfile(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1027]);
-addExpectedElement(de.darwinspl.preferences.PreferencesPackage.eINSTANCE.getDwProfile(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1028]);
-addExpectedElement(de.darwinspl.preferences.PreferencesPackage.eINSTANCE.getDwProfile(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1029]);
-addExpectedElement(de.darwinspl.preferences.PreferencesPackage.eINSTANCE.getDwProfile(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1030]);
-addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1031]);
-addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1032]);
-addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1033]);
-addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1034]);
-addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1035]);
-addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1036]);
-addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1037]);
-addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1038]);
-addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1039]);
-addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1040]);
-addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1041]);
-addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1042]);
-addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1043]);
-addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1044]);
-addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1045]);
-addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1046]);
-addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1047]);
-addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1048]);
-addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1049]);
-addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1050]);
-}
-
-;
-
-parse_eu_hyvar_feature_expression_HyIfPossibleExpression returns [eu.hyvar.feature.expression.HyIfPossibleExpression element = null]
-@init{
-}
-:
-a0 = 'ifPossible(' {
-if (element == null) {
-element = eu.hyvar.feature.expression.HyExpressionFactory.eINSTANCE.createHyIfPossibleExpression();
-startIncompleteElement(element);
-}
-collectHiddenTokens(element);
-retrieveLayoutInformation(element, de.darwinspl.preferences.resource.dwprofile.grammar.DwprofileGrammarInformationProvider.HYEXPRESSION_15_0_0_0, null, true);
-copyLocalizationInfos((CommonToken)a0, element);
-}
-{
-// expected elements (follow set)
-addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyIfPossibleExpression(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1051]);
-addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyIfPossibleExpression(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1052]);
-addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyIfPossibleExpression(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1053]);
-addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyIfPossibleExpression(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1054]);
-addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyIfPossibleExpression(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1055]);
-addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyIfPossibleExpression(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1056]);
-addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyIfPossibleExpression(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1057]);
-addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyIfPossibleExpression(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1058]);
-addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyIfPossibleExpression(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1059]);
-addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyIfPossibleExpression(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1060]);
-addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyIfPossibleExpression(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1061]);
-addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyIfPossibleExpression(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1062]);
-addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyIfPossibleExpression(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1063]);
-addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyIfPossibleExpression(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1064]);
-addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyIfPossibleExpression(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1065]);
-addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyIfPossibleExpression(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1066]);
-}
-
-(
-a1_0 = parse_eu_hyvar_feature_expression_HyExpression{
-if (terminateParsing) {
-throw new de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileTerminateParsingException();
-}
-if (element == null) {
-element = eu.hyvar.feature.expression.HyExpressionFactory.eINSTANCE.createHyIfPossibleExpression();
-startIncompleteElement(element);
-}
-if (a1_0 != null) {
-if (a1_0 != null) {
-Object value = a1_0;
-addObjectToList(element, eu.hyvar.feature.expression.HyExpressionPackage.HY_IF_POSSIBLE_EXPRESSION__OPERANDS, value);
-completedElement(value, true);
-}
-collectHiddenTokens(element);
-retrieveLayoutInformation(element, de.darwinspl.preferences.resource.dwprofile.grammar.DwprofileGrammarInformationProvider.HYEXPRESSION_15_0_0_1, a1_0, true);
-copyLocalizationInfos(a1_0, element);
-}
-}
-)
-{
-// expected elements (follow set)
-addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1067]);
-addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1068]);
-}
-
-(
-(
-a2 = ',' {
-if (element == null) {
-element = eu.hyvar.feature.expression.HyExpressionFactory.eINSTANCE.createHyIfPossibleExpression();
-startIncompleteElement(element);
-}
-collectHiddenTokens(element);
-retrieveLayoutInformation(element, de.darwinspl.preferences.resource.dwprofile.grammar.DwprofileGrammarInformationProvider.HYEXPRESSION_15_0_0_2_0_0_0, null, true);
-copyLocalizationInfos((CommonToken)a2, element);
-}
-{
-// expected elements (follow set)
-addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyIfPossibleExpression(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1069]);
-addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyIfPossibleExpression(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1070]);
-addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyIfPossibleExpression(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1071]);
-addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyIfPossibleExpression(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1072]);
-addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyIfPossibleExpression(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1073]);
-addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyIfPossibleExpression(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1074]);
-addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyIfPossibleExpression(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1075]);
-addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyIfPossibleExpression(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1076]);
-addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyIfPossibleExpression(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1077]);
-addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyIfPossibleExpression(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1078]);
-addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyIfPossibleExpression(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1079]);
-addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyIfPossibleExpression(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1080]);
-addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyIfPossibleExpression(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1081]);
-addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyIfPossibleExpression(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1082]);
-addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyIfPossibleExpression(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1083]);
-addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyIfPossibleExpression(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1084]);
-}
-
-(
-a3_0 = parse_eu_hyvar_feature_expression_HyExpression{
-if (terminateParsing) {
-throw new de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileTerminateParsingException();
-}
-if (element == null) {
-element = eu.hyvar.feature.expression.HyExpressionFactory.eINSTANCE.createHyIfPossibleExpression();
-startIncompleteElement(element);
-}
-if (a3_0 != null) {
-if (a3_0 != null) {
-Object value = a3_0;
-addObjectToList(element, eu.hyvar.feature.expression.HyExpressionPackage.HY_IF_POSSIBLE_EXPRESSION__OPERANDS, value);
-completedElement(value, true);
-}
-collectHiddenTokens(element);
-retrieveLayoutInformation(element, de.darwinspl.preferences.resource.dwprofile.grammar.DwprofileGrammarInformationProvider.HYEXPRESSION_15_0_0_2_0_0_1, a3_0, true);
-copyLocalizationInfos(a3_0, element);
-}
-}
-)
-{
-// expected elements (follow set)
-addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1085]);
-addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1086]);
-}
-
-)
-
-)*{
-// expected elements (follow set)
-addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1087]);
-addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1088]);
-}
-
-a4 = ')' {
-if (element == null) {
-element = eu.hyvar.feature.expression.HyExpressionFactory.eINSTANCE.createHyIfPossibleExpression();
-startIncompleteElement(element);
-}
-collectHiddenTokens(element);
-retrieveLayoutInformation(element, de.darwinspl.preferences.resource.dwprofile.grammar.DwprofileGrammarInformationProvider.HYEXPRESSION_15_0_0_3, null, true);
-copyLocalizationInfos((CommonToken)a4, element);
 }
 {
 // expected elements (follow set)
@@ -4873,6 +4816,184 @@ addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.Dwprof
 addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1123]);
 addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1124]);
 addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1125]);
+}
+
+;
+
+parse_eu_hyvar_feature_expression_HyIfPossibleExpression returns [eu.hyvar.feature.expression.HyIfPossibleExpression element = null]
+@init{
+}
+:
+a0 = 'ifPossible(' {
+if (element == null) {
+element = eu.hyvar.feature.expression.HyExpressionFactory.eINSTANCE.createHyIfPossibleExpression();
+startIncompleteElement(element);
+}
+collectHiddenTokens(element);
+retrieveLayoutInformation(element, de.darwinspl.preferences.resource.dwprofile.grammar.DwprofileGrammarInformationProvider.HYEXPRESSION_15_0_0_0, null, true);
+copyLocalizationInfos((CommonToken)a0, element);
+}
+{
+// expected elements (follow set)
+addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyIfPossibleExpression(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1126]);
+addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyIfPossibleExpression(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1127]);
+addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyIfPossibleExpression(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1128]);
+addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyIfPossibleExpression(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1129]);
+addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyIfPossibleExpression(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1130]);
+addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyIfPossibleExpression(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1131]);
+addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyIfPossibleExpression(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1132]);
+addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyIfPossibleExpression(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1133]);
+addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyIfPossibleExpression(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1134]);
+addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyIfPossibleExpression(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1135]);
+addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyIfPossibleExpression(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1136]);
+addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyIfPossibleExpression(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1137]);
+addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyIfPossibleExpression(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1138]);
+addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyIfPossibleExpression(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1139]);
+addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyIfPossibleExpression(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1140]);
+addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyIfPossibleExpression(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1141]);
+}
+
+(
+a1_0 = parse_eu_hyvar_feature_expression_HyExpression{
+if (terminateParsing) {
+throw new de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileTerminateParsingException();
+}
+if (element == null) {
+element = eu.hyvar.feature.expression.HyExpressionFactory.eINSTANCE.createHyIfPossibleExpression();
+startIncompleteElement(element);
+}
+if (a1_0 != null) {
+if (a1_0 != null) {
+Object value = a1_0;
+addObjectToList(element, eu.hyvar.feature.expression.HyExpressionPackage.HY_IF_POSSIBLE_EXPRESSION__OPERANDS, value);
+completedElement(value, true);
+}
+collectHiddenTokens(element);
+retrieveLayoutInformation(element, de.darwinspl.preferences.resource.dwprofile.grammar.DwprofileGrammarInformationProvider.HYEXPRESSION_15_0_0_1, a1_0, true);
+copyLocalizationInfos(a1_0, element);
+}
+}
+)
+{
+// expected elements (follow set)
+addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1142]);
+addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1143]);
+}
+
+(
+(
+a2 = ',' {
+if (element == null) {
+element = eu.hyvar.feature.expression.HyExpressionFactory.eINSTANCE.createHyIfPossibleExpression();
+startIncompleteElement(element);
+}
+collectHiddenTokens(element);
+retrieveLayoutInformation(element, de.darwinspl.preferences.resource.dwprofile.grammar.DwprofileGrammarInformationProvider.HYEXPRESSION_15_0_0_2_0_0_0, null, true);
+copyLocalizationInfos((CommonToken)a2, element);
+}
+{
+// expected elements (follow set)
+addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyIfPossibleExpression(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1144]);
+addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyIfPossibleExpression(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1145]);
+addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyIfPossibleExpression(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1146]);
+addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyIfPossibleExpression(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1147]);
+addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyIfPossibleExpression(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1148]);
+addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyIfPossibleExpression(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1149]);
+addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyIfPossibleExpression(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1150]);
+addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyIfPossibleExpression(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1151]);
+addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyIfPossibleExpression(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1152]);
+addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyIfPossibleExpression(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1153]);
+addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyIfPossibleExpression(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1154]);
+addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyIfPossibleExpression(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1155]);
+addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyIfPossibleExpression(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1156]);
+addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyIfPossibleExpression(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1157]);
+addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyIfPossibleExpression(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1158]);
+addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyIfPossibleExpression(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1159]);
+}
+
+(
+a3_0 = parse_eu_hyvar_feature_expression_HyExpression{
+if (terminateParsing) {
+throw new de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileTerminateParsingException();
+}
+if (element == null) {
+element = eu.hyvar.feature.expression.HyExpressionFactory.eINSTANCE.createHyIfPossibleExpression();
+startIncompleteElement(element);
+}
+if (a3_0 != null) {
+if (a3_0 != null) {
+Object value = a3_0;
+addObjectToList(element, eu.hyvar.feature.expression.HyExpressionPackage.HY_IF_POSSIBLE_EXPRESSION__OPERANDS, value);
+completedElement(value, true);
+}
+collectHiddenTokens(element);
+retrieveLayoutInformation(element, de.darwinspl.preferences.resource.dwprofile.grammar.DwprofileGrammarInformationProvider.HYEXPRESSION_15_0_0_2_0_0_1, a3_0, true);
+copyLocalizationInfos(a3_0, element);
+}
+}
+)
+{
+// expected elements (follow set)
+addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1160]);
+addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1161]);
+}
+
+)
+
+)*{
+// expected elements (follow set)
+addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1162]);
+addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1163]);
+}
+
+a4 = ')' {
+if (element == null) {
+element = eu.hyvar.feature.expression.HyExpressionFactory.eINSTANCE.createHyIfPossibleExpression();
+startIncompleteElement(element);
+}
+collectHiddenTokens(element);
+retrieveLayoutInformation(element, de.darwinspl.preferences.resource.dwprofile.grammar.DwprofileGrammarInformationProvider.HYEXPRESSION_15_0_0_3, null, true);
+copyLocalizationInfos((CommonToken)a4, element);
+}
+{
+// expected elements (follow set)
+addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1164]);
+addExpectedElement(de.darwinspl.preferences.PreferencesPackage.eINSTANCE.getDwProfile(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1165]);
+addExpectedElement(de.darwinspl.preferences.PreferencesPackage.eINSTANCE.getDwProfile(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1166]);
+addExpectedElement(de.darwinspl.preferences.PreferencesPackage.eINSTANCE.getDwProfile(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1167]);
+addExpectedElement(de.darwinspl.preferences.PreferencesPackage.eINSTANCE.getDwProfile(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1168]);
+addExpectedElement(de.darwinspl.preferences.PreferencesPackage.eINSTANCE.getDwProfile(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1169]);
+addExpectedElement(de.darwinspl.preferences.PreferencesPackage.eINSTANCE.getDwProfile(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1170]);
+addExpectedElement(de.darwinspl.preferences.PreferencesPackage.eINSTANCE.getDwProfile(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1171]);
+addExpectedElement(de.darwinspl.preferences.PreferencesPackage.eINSTANCE.getDwProfile(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1172]);
+addExpectedElement(de.darwinspl.preferences.PreferencesPackage.eINSTANCE.getDwProfile(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1173]);
+addExpectedElement(de.darwinspl.preferences.PreferencesPackage.eINSTANCE.getDwProfile(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1174]);
+addExpectedElement(de.darwinspl.preferences.PreferencesPackage.eINSTANCE.getDwProfile(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1175]);
+addExpectedElement(de.darwinspl.preferences.PreferencesPackage.eINSTANCE.getDwProfile(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1176]);
+addExpectedElement(de.darwinspl.preferences.PreferencesPackage.eINSTANCE.getDwProfile(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1177]);
+addExpectedElement(de.darwinspl.preferences.PreferencesPackage.eINSTANCE.getDwProfile(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1178]);
+addExpectedElement(de.darwinspl.preferences.PreferencesPackage.eINSTANCE.getDwProfile(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1179]);
+addExpectedElement(de.darwinspl.preferences.PreferencesPackage.eINSTANCE.getDwProfile(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1180]);
+addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1181]);
+addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1182]);
+addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1183]);
+addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1184]);
+addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1185]);
+addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1186]);
+addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1187]);
+addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1188]);
+addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1189]);
+addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1190]);
+addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1191]);
+addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1192]);
+addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1193]);
+addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1194]);
+addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1195]);
+addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1196]);
+addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1197]);
+addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1198]);
+addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1199]);
+addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1200]);
 }
 
 ;
@@ -4923,43 +5044,43 @@ copyLocalizationInfos((CommonToken) a0, element);
 )
 {
 // expected elements (follow set)
-addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1126]);
-addExpectedElement(de.darwinspl.preferences.PreferencesPackage.eINSTANCE.getDwProfile(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1127]);
-addExpectedElement(de.darwinspl.preferences.PreferencesPackage.eINSTANCE.getDwProfile(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1128]);
-addExpectedElement(de.darwinspl.preferences.PreferencesPackage.eINSTANCE.getDwProfile(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1129]);
-addExpectedElement(de.darwinspl.preferences.PreferencesPackage.eINSTANCE.getDwProfile(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1130]);
-addExpectedElement(de.darwinspl.preferences.PreferencesPackage.eINSTANCE.getDwProfile(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1131]);
-addExpectedElement(de.darwinspl.preferences.PreferencesPackage.eINSTANCE.getDwProfile(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1132]);
-addExpectedElement(de.darwinspl.preferences.PreferencesPackage.eINSTANCE.getDwProfile(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1133]);
-addExpectedElement(de.darwinspl.preferences.PreferencesPackage.eINSTANCE.getDwProfile(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1134]);
-addExpectedElement(de.darwinspl.preferences.PreferencesPackage.eINSTANCE.getDwProfile(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1135]);
-addExpectedElement(de.darwinspl.preferences.PreferencesPackage.eINSTANCE.getDwProfile(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1136]);
-addExpectedElement(de.darwinspl.preferences.PreferencesPackage.eINSTANCE.getDwProfile(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1137]);
-addExpectedElement(de.darwinspl.preferences.PreferencesPackage.eINSTANCE.getDwProfile(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1138]);
-addExpectedElement(de.darwinspl.preferences.PreferencesPackage.eINSTANCE.getDwProfile(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1139]);
-addExpectedElement(de.darwinspl.preferences.PreferencesPackage.eINSTANCE.getDwProfile(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1140]);
-addExpectedElement(de.darwinspl.preferences.PreferencesPackage.eINSTANCE.getDwProfile(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1141]);
-addExpectedElement(de.darwinspl.preferences.PreferencesPackage.eINSTANCE.getDwProfile(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1142]);
-addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1143]);
-addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1144]);
-addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1145]);
-addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1146]);
-addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1147]);
-addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1148]);
-addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1149]);
-addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1150]);
-addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1151]);
-addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1152]);
-addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1153]);
-addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1154]);
-addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1155]);
-addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1156]);
-addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1157]);
-addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1158]);
-addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1159]);
-addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1160]);
-addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1161]);
-addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1162]);
+addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1201]);
+addExpectedElement(de.darwinspl.preferences.PreferencesPackage.eINSTANCE.getDwProfile(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1202]);
+addExpectedElement(de.darwinspl.preferences.PreferencesPackage.eINSTANCE.getDwProfile(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1203]);
+addExpectedElement(de.darwinspl.preferences.PreferencesPackage.eINSTANCE.getDwProfile(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1204]);
+addExpectedElement(de.darwinspl.preferences.PreferencesPackage.eINSTANCE.getDwProfile(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1205]);
+addExpectedElement(de.darwinspl.preferences.PreferencesPackage.eINSTANCE.getDwProfile(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1206]);
+addExpectedElement(de.darwinspl.preferences.PreferencesPackage.eINSTANCE.getDwProfile(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1207]);
+addExpectedElement(de.darwinspl.preferences.PreferencesPackage.eINSTANCE.getDwProfile(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1208]);
+addExpectedElement(de.darwinspl.preferences.PreferencesPackage.eINSTANCE.getDwProfile(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1209]);
+addExpectedElement(de.darwinspl.preferences.PreferencesPackage.eINSTANCE.getDwProfile(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1210]);
+addExpectedElement(de.darwinspl.preferences.PreferencesPackage.eINSTANCE.getDwProfile(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1211]);
+addExpectedElement(de.darwinspl.preferences.PreferencesPackage.eINSTANCE.getDwProfile(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1212]);
+addExpectedElement(de.darwinspl.preferences.PreferencesPackage.eINSTANCE.getDwProfile(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1213]);
+addExpectedElement(de.darwinspl.preferences.PreferencesPackage.eINSTANCE.getDwProfile(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1214]);
+addExpectedElement(de.darwinspl.preferences.PreferencesPackage.eINSTANCE.getDwProfile(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1215]);
+addExpectedElement(de.darwinspl.preferences.PreferencesPackage.eINSTANCE.getDwProfile(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1216]);
+addExpectedElement(de.darwinspl.preferences.PreferencesPackage.eINSTANCE.getDwProfile(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1217]);
+addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1218]);
+addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1219]);
+addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1220]);
+addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1221]);
+addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1222]);
+addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1223]);
+addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1224]);
+addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1225]);
+addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1226]);
+addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1227]);
+addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1228]);
+addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1229]);
+addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1230]);
+addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1231]);
+addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1232]);
+addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1233]);
+addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1234]);
+addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1235]);
+addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1236]);
+addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1237]);
 }
 
 ;
@@ -5000,43 +5121,43 @@ completedElement(value, false);
 )
 {
 // expected elements (follow set)
-addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1163]);
-addExpectedElement(de.darwinspl.preferences.PreferencesPackage.eINSTANCE.getDwProfile(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1164]);
-addExpectedElement(de.darwinspl.preferences.PreferencesPackage.eINSTANCE.getDwProfile(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1165]);
-addExpectedElement(de.darwinspl.preferences.PreferencesPackage.eINSTANCE.getDwProfile(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1166]);
-addExpectedElement(de.darwinspl.preferences.PreferencesPackage.eINSTANCE.getDwProfile(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1167]);
-addExpectedElement(de.darwinspl.preferences.PreferencesPackage.eINSTANCE.getDwProfile(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1168]);
-addExpectedElement(de.darwinspl.preferences.PreferencesPackage.eINSTANCE.getDwProfile(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1169]);
-addExpectedElement(de.darwinspl.preferences.PreferencesPackage.eINSTANCE.getDwProfile(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1170]);
-addExpectedElement(de.darwinspl.preferences.PreferencesPackage.eINSTANCE.getDwProfile(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1171]);
-addExpectedElement(de.darwinspl.preferences.PreferencesPackage.eINSTANCE.getDwProfile(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1172]);
-addExpectedElement(de.darwinspl.preferences.PreferencesPackage.eINSTANCE.getDwProfile(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1173]);
-addExpectedElement(de.darwinspl.preferences.PreferencesPackage.eINSTANCE.getDwProfile(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1174]);
-addExpectedElement(de.darwinspl.preferences.PreferencesPackage.eINSTANCE.getDwProfile(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1175]);
-addExpectedElement(de.darwinspl.preferences.PreferencesPackage.eINSTANCE.getDwProfile(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1176]);
-addExpectedElement(de.darwinspl.preferences.PreferencesPackage.eINSTANCE.getDwProfile(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1177]);
-addExpectedElement(de.darwinspl.preferences.PreferencesPackage.eINSTANCE.getDwProfile(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1178]);
-addExpectedElement(de.darwinspl.preferences.PreferencesPackage.eINSTANCE.getDwProfile(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1179]);
-addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1180]);
-addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1181]);
-addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1182]);
-addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1183]);
-addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1184]);
-addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1185]);
-addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1186]);
-addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1187]);
-addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1188]);
-addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1189]);
-addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1190]);
-addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1191]);
-addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1192]);
-addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1193]);
-addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1194]);
-addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1195]);
-addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1196]);
-addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1197]);
-addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1198]);
-addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1199]);
+addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1238]);
+addExpectedElement(de.darwinspl.preferences.PreferencesPackage.eINSTANCE.getDwProfile(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1239]);
+addExpectedElement(de.darwinspl.preferences.PreferencesPackage.eINSTANCE.getDwProfile(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1240]);
+addExpectedElement(de.darwinspl.preferences.PreferencesPackage.eINSTANCE.getDwProfile(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1241]);
+addExpectedElement(de.darwinspl.preferences.PreferencesPackage.eINSTANCE.getDwProfile(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1242]);
+addExpectedElement(de.darwinspl.preferences.PreferencesPackage.eINSTANCE.getDwProfile(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1243]);
+addExpectedElement(de.darwinspl.preferences.PreferencesPackage.eINSTANCE.getDwProfile(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1244]);
+addExpectedElement(de.darwinspl.preferences.PreferencesPackage.eINSTANCE.getDwProfile(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1245]);
+addExpectedElement(de.darwinspl.preferences.PreferencesPackage.eINSTANCE.getDwProfile(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1246]);
+addExpectedElement(de.darwinspl.preferences.PreferencesPackage.eINSTANCE.getDwProfile(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1247]);
+addExpectedElement(de.darwinspl.preferences.PreferencesPackage.eINSTANCE.getDwProfile(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1248]);
+addExpectedElement(de.darwinspl.preferences.PreferencesPackage.eINSTANCE.getDwProfile(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1249]);
+addExpectedElement(de.darwinspl.preferences.PreferencesPackage.eINSTANCE.getDwProfile(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1250]);
+addExpectedElement(de.darwinspl.preferences.PreferencesPackage.eINSTANCE.getDwProfile(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1251]);
+addExpectedElement(de.darwinspl.preferences.PreferencesPackage.eINSTANCE.getDwProfile(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1252]);
+addExpectedElement(de.darwinspl.preferences.PreferencesPackage.eINSTANCE.getDwProfile(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1253]);
+addExpectedElement(de.darwinspl.preferences.PreferencesPackage.eINSTANCE.getDwProfile(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1254]);
+addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1255]);
+addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1256]);
+addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1257]);
+addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1258]);
+addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1259]);
+addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1260]);
+addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1261]);
+addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1262]);
+addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1263]);
+addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1264]);
+addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1265]);
+addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1266]);
+addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1267]);
+addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1268]);
+addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1269]);
+addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1270]);
+addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1271]);
+addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1272]);
+addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1273]);
+addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1274]);
 }
 
 ;
@@ -5056,11 +5177,13 @@ copyLocalizationInfos((CommonToken)a0, element);
 }
 {
 // expected elements (follow set)
-addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1200]);
+addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1275]);
+addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1276]);
 }
 
 (
-a1 = IDENTIFIER_TOKEN
+(
+a1 = QUOTED_34_34
 {
 if (terminateParsing) {
 throw new de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileTerminateParsingException();
@@ -5070,7 +5193,7 @@ element = eu.hyvar.dataValues.HyDataValuesFactory.eINSTANCE.createHyEnumValue();
 startIncompleteElement(element);
 }
 if (a1 != null) {
-de.darwinspl.preferences.resource.dwprofile.IDwprofileTokenResolver tokenResolver = tokenResolverFactory.createTokenResolver("IDENTIFIER_TOKEN");
+de.darwinspl.preferences.resource.dwprofile.IDwprofileTokenResolver tokenResolver = tokenResolverFactory.createTokenResolver("QUOTED_34_34");
 tokenResolver.setOptions(getOptions());
 de.darwinspl.preferences.resource.dwprofile.IDwprofileTokenResolveResult result = getFreshTokenResolveResult();
 tokenResolver.resolve(a1.getText(), element.eClass().getEStructuralFeature(eu.hyvar.dataValues.HyDataValuesPackage.HY_ENUM_VALUE__ENUM), result);
@@ -5088,7 +5211,7 @@ element.eSet(element.eClass().getEStructuralFeature(eu.hyvar.dataValues.HyDataVa
 completedElement(value, false);
 }
 collectHiddenTokens(element);
-retrieveLayoutInformation(element, de.darwinspl.preferences.resource.dwprofile.grammar.DwprofileGrammarInformationProvider.HYDATAVALUE_2_0_0_1, proxy, true);
+retrieveLayoutInformation(element, de.darwinspl.preferences.resource.dwprofile.grammar.DwprofileGrammarInformationProvider.HYDATAVALUE_2_0_0_1_0_0_0, proxy, true);
 copyLocalizationInfos((CommonToken) a1, element);
 copyLocalizationInfos((CommonToken) a1, proxy);
 }
@@ -5096,25 +5219,12 @@ copyLocalizationInfos((CommonToken) a1, proxy);
 )
 {
 // expected elements (follow set)
-addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1201]);
+addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1277]);
 }
 
-a2 = '.' {
-if (element == null) {
-element = eu.hyvar.dataValues.HyDataValuesFactory.eINSTANCE.createHyEnumValue();
-startIncompleteElement(element);
-}
-collectHiddenTokens(element);
-retrieveLayoutInformation(element, de.darwinspl.preferences.resource.dwprofile.grammar.DwprofileGrammarInformationProvider.HYDATAVALUE_2_0_0_2, null, true);
-copyLocalizationInfos((CommonToken)a2, element);
-}
-{
-// expected elements (follow set)
-addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1202]);
-}
 
-(
-a3 = IDENTIFIER_TOKEN
+|(
+a2 = IDENTIFIER_TOKEN
 {
 if (terminateParsing) {
 throw new de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileTerminateParsingException();
@@ -5123,14 +5233,76 @@ if (element == null) {
 element = eu.hyvar.dataValues.HyDataValuesFactory.eINSTANCE.createHyEnumValue();
 startIncompleteElement(element);
 }
-if (a3 != null) {
+if (a2 != null) {
 de.darwinspl.preferences.resource.dwprofile.IDwprofileTokenResolver tokenResolver = tokenResolverFactory.createTokenResolver("IDENTIFIER_TOKEN");
 tokenResolver.setOptions(getOptions());
 de.darwinspl.preferences.resource.dwprofile.IDwprofileTokenResolveResult result = getFreshTokenResolveResult();
-tokenResolver.resolve(a3.getText(), element.eClass().getEStructuralFeature(eu.hyvar.dataValues.HyDataValuesPackage.HY_ENUM_VALUE__ENUM_LITERAL), result);
+tokenResolver.resolve(a2.getText(), element.eClass().getEStructuralFeature(eu.hyvar.dataValues.HyDataValuesPackage.HY_ENUM_VALUE__ENUM), result);
 Object resolvedObject = result.getResolvedToken();
 if (resolvedObject == null) {
-addErrorToResource(result.getErrorMessage(), ((CommonToken) a3).getLine(), ((CommonToken) a3).getCharPositionInLine(), ((CommonToken) a3).getStartIndex(), ((CommonToken) a3).getStopIndex());
+addErrorToResource(result.getErrorMessage(), ((CommonToken) a2).getLine(), ((CommonToken) a2).getCharPositionInLine(), ((CommonToken) a2).getStartIndex(), ((CommonToken) a2).getStopIndex());
+}
+String resolved = (String) resolvedObject;
+eu.hyvar.dataValues.HyEnum proxy = eu.hyvar.dataValues.HyDataValuesFactory.eINSTANCE.createHyEnum();
+collectHiddenTokens(element);
+registerContextDependentProxy(new de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileContextDependentURIFragmentFactory<eu.hyvar.dataValues.HyEnumValue, eu.hyvar.dataValues.HyEnum>(getReferenceResolverSwitch() == null ? null : getReferenceResolverSwitch().getHyEnumValueEnumReferenceResolver()), element, (EReference) element.eClass().getEStructuralFeature(eu.hyvar.dataValues.HyDataValuesPackage.HY_ENUM_VALUE__ENUM), resolved, proxy);
+if (proxy != null) {
+Object value = proxy;
+element.eSet(element.eClass().getEStructuralFeature(eu.hyvar.dataValues.HyDataValuesPackage.HY_ENUM_VALUE__ENUM), value);
+completedElement(value, false);
+}
+collectHiddenTokens(element);
+retrieveLayoutInformation(element, de.darwinspl.preferences.resource.dwprofile.grammar.DwprofileGrammarInformationProvider.HYDATAVALUE_2_0_0_1_0_1_0, proxy, true);
+copyLocalizationInfos((CommonToken) a2, element);
+copyLocalizationInfos((CommonToken) a2, proxy);
+}
+}
+)
+{
+// expected elements (follow set)
+addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1278]);
+}
+
+)
+{
+// expected elements (follow set)
+addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1279]);
+}
+
+a3 = '.' {
+if (element == null) {
+element = eu.hyvar.dataValues.HyDataValuesFactory.eINSTANCE.createHyEnumValue();
+startIncompleteElement(element);
+}
+collectHiddenTokens(element);
+retrieveLayoutInformation(element, de.darwinspl.preferences.resource.dwprofile.grammar.DwprofileGrammarInformationProvider.HYDATAVALUE_2_0_0_2, null, true);
+copyLocalizationInfos((CommonToken)a3, element);
+}
+{
+// expected elements (follow set)
+addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1280]);
+addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1281]);
+}
+
+(
+(
+a4 = QUOTED_34_34
+{
+if (terminateParsing) {
+throw new de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileTerminateParsingException();
+}
+if (element == null) {
+element = eu.hyvar.dataValues.HyDataValuesFactory.eINSTANCE.createHyEnumValue();
+startIncompleteElement(element);
+}
+if (a4 != null) {
+de.darwinspl.preferences.resource.dwprofile.IDwprofileTokenResolver tokenResolver = tokenResolverFactory.createTokenResolver("QUOTED_34_34");
+tokenResolver.setOptions(getOptions());
+de.darwinspl.preferences.resource.dwprofile.IDwprofileTokenResolveResult result = getFreshTokenResolveResult();
+tokenResolver.resolve(a4.getText(), element.eClass().getEStructuralFeature(eu.hyvar.dataValues.HyDataValuesPackage.HY_ENUM_VALUE__ENUM_LITERAL), result);
+Object resolvedObject = result.getResolvedToken();
+if (resolvedObject == null) {
+addErrorToResource(result.getErrorMessage(), ((CommonToken) a4).getLine(), ((CommonToken) a4).getCharPositionInLine(), ((CommonToken) a4).getStartIndex(), ((CommonToken) a4).getStopIndex());
 }
 String resolved = (String) resolvedObject;
 eu.hyvar.dataValues.HyEnumLiteral proxy = eu.hyvar.dataValues.HyDataValuesFactory.eINSTANCE.createHyEnumLiteral();
@@ -5142,51 +5314,170 @@ element.eSet(element.eClass().getEStructuralFeature(eu.hyvar.dataValues.HyDataVa
 completedElement(value, false);
 }
 collectHiddenTokens(element);
-retrieveLayoutInformation(element, de.darwinspl.preferences.resource.dwprofile.grammar.DwprofileGrammarInformationProvider.HYDATAVALUE_2_0_0_3, proxy, true);
-copyLocalizationInfos((CommonToken) a3, element);
-copyLocalizationInfos((CommonToken) a3, proxy);
+retrieveLayoutInformation(element, de.darwinspl.preferences.resource.dwprofile.grammar.DwprofileGrammarInformationProvider.HYDATAVALUE_2_0_0_3_0_0_0, proxy, true);
+copyLocalizationInfos((CommonToken) a4, element);
+copyLocalizationInfos((CommonToken) a4, proxy);
 }
 }
 )
 {
 // expected elements (follow set)
-addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1203]);
-addExpectedElement(de.darwinspl.preferences.PreferencesPackage.eINSTANCE.getDwProfile(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1204]);
-addExpectedElement(de.darwinspl.preferences.PreferencesPackage.eINSTANCE.getDwProfile(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1205]);
-addExpectedElement(de.darwinspl.preferences.PreferencesPackage.eINSTANCE.getDwProfile(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1206]);
-addExpectedElement(de.darwinspl.preferences.PreferencesPackage.eINSTANCE.getDwProfile(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1207]);
-addExpectedElement(de.darwinspl.preferences.PreferencesPackage.eINSTANCE.getDwProfile(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1208]);
-addExpectedElement(de.darwinspl.preferences.PreferencesPackage.eINSTANCE.getDwProfile(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1209]);
-addExpectedElement(de.darwinspl.preferences.PreferencesPackage.eINSTANCE.getDwProfile(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1210]);
-addExpectedElement(de.darwinspl.preferences.PreferencesPackage.eINSTANCE.getDwProfile(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1211]);
-addExpectedElement(de.darwinspl.preferences.PreferencesPackage.eINSTANCE.getDwProfile(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1212]);
-addExpectedElement(de.darwinspl.preferences.PreferencesPackage.eINSTANCE.getDwProfile(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1213]);
-addExpectedElement(de.darwinspl.preferences.PreferencesPackage.eINSTANCE.getDwProfile(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1214]);
-addExpectedElement(de.darwinspl.preferences.PreferencesPackage.eINSTANCE.getDwProfile(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1215]);
-addExpectedElement(de.darwinspl.preferences.PreferencesPackage.eINSTANCE.getDwProfile(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1216]);
-addExpectedElement(de.darwinspl.preferences.PreferencesPackage.eINSTANCE.getDwProfile(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1217]);
-addExpectedElement(de.darwinspl.preferences.PreferencesPackage.eINSTANCE.getDwProfile(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1218]);
-addExpectedElement(de.darwinspl.preferences.PreferencesPackage.eINSTANCE.getDwProfile(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1219]);
-addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1220]);
-addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1221]);
-addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1222]);
-addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1223]);
-addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1224]);
-addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1225]);
-addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1226]);
-addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1227]);
-addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1228]);
-addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1229]);
-addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1230]);
-addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1231]);
-addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1232]);
-addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1233]);
-addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1234]);
-addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1235]);
-addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1236]);
-addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1237]);
-addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1238]);
-addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1239]);
+addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1282]);
+addExpectedElement(de.darwinspl.preferences.PreferencesPackage.eINSTANCE.getDwProfile(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1283]);
+addExpectedElement(de.darwinspl.preferences.PreferencesPackage.eINSTANCE.getDwProfile(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1284]);
+addExpectedElement(de.darwinspl.preferences.PreferencesPackage.eINSTANCE.getDwProfile(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1285]);
+addExpectedElement(de.darwinspl.preferences.PreferencesPackage.eINSTANCE.getDwProfile(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1286]);
+addExpectedElement(de.darwinspl.preferences.PreferencesPackage.eINSTANCE.getDwProfile(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1287]);
+addExpectedElement(de.darwinspl.preferences.PreferencesPackage.eINSTANCE.getDwProfile(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1288]);
+addExpectedElement(de.darwinspl.preferences.PreferencesPackage.eINSTANCE.getDwProfile(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1289]);
+addExpectedElement(de.darwinspl.preferences.PreferencesPackage.eINSTANCE.getDwProfile(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1290]);
+addExpectedElement(de.darwinspl.preferences.PreferencesPackage.eINSTANCE.getDwProfile(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1291]);
+addExpectedElement(de.darwinspl.preferences.PreferencesPackage.eINSTANCE.getDwProfile(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1292]);
+addExpectedElement(de.darwinspl.preferences.PreferencesPackage.eINSTANCE.getDwProfile(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1293]);
+addExpectedElement(de.darwinspl.preferences.PreferencesPackage.eINSTANCE.getDwProfile(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1294]);
+addExpectedElement(de.darwinspl.preferences.PreferencesPackage.eINSTANCE.getDwProfile(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1295]);
+addExpectedElement(de.darwinspl.preferences.PreferencesPackage.eINSTANCE.getDwProfile(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1296]);
+addExpectedElement(de.darwinspl.preferences.PreferencesPackage.eINSTANCE.getDwProfile(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1297]);
+addExpectedElement(de.darwinspl.preferences.PreferencesPackage.eINSTANCE.getDwProfile(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1298]);
+addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1299]);
+addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1300]);
+addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1301]);
+addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1302]);
+addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1303]);
+addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1304]);
+addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1305]);
+addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1306]);
+addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1307]);
+addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1308]);
+addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1309]);
+addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1310]);
+addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1311]);
+addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1312]);
+addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1313]);
+addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1314]);
+addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1315]);
+addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1316]);
+addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1317]);
+addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1318]);
+}
+
+
+|(
+a5 = IDENTIFIER_TOKEN
+{
+if (terminateParsing) {
+throw new de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileTerminateParsingException();
+}
+if (element == null) {
+element = eu.hyvar.dataValues.HyDataValuesFactory.eINSTANCE.createHyEnumValue();
+startIncompleteElement(element);
+}
+if (a5 != null) {
+de.darwinspl.preferences.resource.dwprofile.IDwprofileTokenResolver tokenResolver = tokenResolverFactory.createTokenResolver("IDENTIFIER_TOKEN");
+tokenResolver.setOptions(getOptions());
+de.darwinspl.preferences.resource.dwprofile.IDwprofileTokenResolveResult result = getFreshTokenResolveResult();
+tokenResolver.resolve(a5.getText(), element.eClass().getEStructuralFeature(eu.hyvar.dataValues.HyDataValuesPackage.HY_ENUM_VALUE__ENUM_LITERAL), result);
+Object resolvedObject = result.getResolvedToken();
+if (resolvedObject == null) {
+addErrorToResource(result.getErrorMessage(), ((CommonToken) a5).getLine(), ((CommonToken) a5).getCharPositionInLine(), ((CommonToken) a5).getStartIndex(), ((CommonToken) a5).getStopIndex());
+}
+String resolved = (String) resolvedObject;
+eu.hyvar.dataValues.HyEnumLiteral proxy = eu.hyvar.dataValues.HyDataValuesFactory.eINSTANCE.createHyEnumLiteral();
+collectHiddenTokens(element);
+registerContextDependentProxy(new de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileContextDependentURIFragmentFactory<eu.hyvar.dataValues.HyEnumValue, eu.hyvar.dataValues.HyEnumLiteral>(getReferenceResolverSwitch() == null ? null : getReferenceResolverSwitch().getHyEnumValueEnumLiteralReferenceResolver()), element, (EReference) element.eClass().getEStructuralFeature(eu.hyvar.dataValues.HyDataValuesPackage.HY_ENUM_VALUE__ENUM_LITERAL), resolved, proxy);
+if (proxy != null) {
+Object value = proxy;
+element.eSet(element.eClass().getEStructuralFeature(eu.hyvar.dataValues.HyDataValuesPackage.HY_ENUM_VALUE__ENUM_LITERAL), value);
+completedElement(value, false);
+}
+collectHiddenTokens(element);
+retrieveLayoutInformation(element, de.darwinspl.preferences.resource.dwprofile.grammar.DwprofileGrammarInformationProvider.HYDATAVALUE_2_0_0_3_0_1_0, proxy, true);
+copyLocalizationInfos((CommonToken) a5, element);
+copyLocalizationInfos((CommonToken) a5, proxy);
+}
+}
+)
+{
+// expected elements (follow set)
+addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1319]);
+addExpectedElement(de.darwinspl.preferences.PreferencesPackage.eINSTANCE.getDwProfile(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1320]);
+addExpectedElement(de.darwinspl.preferences.PreferencesPackage.eINSTANCE.getDwProfile(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1321]);
+addExpectedElement(de.darwinspl.preferences.PreferencesPackage.eINSTANCE.getDwProfile(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1322]);
+addExpectedElement(de.darwinspl.preferences.PreferencesPackage.eINSTANCE.getDwProfile(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1323]);
+addExpectedElement(de.darwinspl.preferences.PreferencesPackage.eINSTANCE.getDwProfile(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1324]);
+addExpectedElement(de.darwinspl.preferences.PreferencesPackage.eINSTANCE.getDwProfile(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1325]);
+addExpectedElement(de.darwinspl.preferences.PreferencesPackage.eINSTANCE.getDwProfile(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1326]);
+addExpectedElement(de.darwinspl.preferences.PreferencesPackage.eINSTANCE.getDwProfile(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1327]);
+addExpectedElement(de.darwinspl.preferences.PreferencesPackage.eINSTANCE.getDwProfile(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1328]);
+addExpectedElement(de.darwinspl.preferences.PreferencesPackage.eINSTANCE.getDwProfile(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1329]);
+addExpectedElement(de.darwinspl.preferences.PreferencesPackage.eINSTANCE.getDwProfile(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1330]);
+addExpectedElement(de.darwinspl.preferences.PreferencesPackage.eINSTANCE.getDwProfile(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1331]);
+addExpectedElement(de.darwinspl.preferences.PreferencesPackage.eINSTANCE.getDwProfile(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1332]);
+addExpectedElement(de.darwinspl.preferences.PreferencesPackage.eINSTANCE.getDwProfile(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1333]);
+addExpectedElement(de.darwinspl.preferences.PreferencesPackage.eINSTANCE.getDwProfile(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1334]);
+addExpectedElement(de.darwinspl.preferences.PreferencesPackage.eINSTANCE.getDwProfile(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1335]);
+addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1336]);
+addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1337]);
+addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1338]);
+addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1339]);
+addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1340]);
+addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1341]);
+addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1342]);
+addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1343]);
+addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1344]);
+addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1345]);
+addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1346]);
+addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1347]);
+addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1348]);
+addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1349]);
+addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1350]);
+addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1351]);
+addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1352]);
+addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1353]);
+addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1354]);
+addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1355]);
+}
+
+)
+{
+// expected elements (follow set)
+addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1356]);
+addExpectedElement(de.darwinspl.preferences.PreferencesPackage.eINSTANCE.getDwProfile(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1357]);
+addExpectedElement(de.darwinspl.preferences.PreferencesPackage.eINSTANCE.getDwProfile(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1358]);
+addExpectedElement(de.darwinspl.preferences.PreferencesPackage.eINSTANCE.getDwProfile(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1359]);
+addExpectedElement(de.darwinspl.preferences.PreferencesPackage.eINSTANCE.getDwProfile(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1360]);
+addExpectedElement(de.darwinspl.preferences.PreferencesPackage.eINSTANCE.getDwProfile(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1361]);
+addExpectedElement(de.darwinspl.preferences.PreferencesPackage.eINSTANCE.getDwProfile(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1362]);
+addExpectedElement(de.darwinspl.preferences.PreferencesPackage.eINSTANCE.getDwProfile(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1363]);
+addExpectedElement(de.darwinspl.preferences.PreferencesPackage.eINSTANCE.getDwProfile(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1364]);
+addExpectedElement(de.darwinspl.preferences.PreferencesPackage.eINSTANCE.getDwProfile(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1365]);
+addExpectedElement(de.darwinspl.preferences.PreferencesPackage.eINSTANCE.getDwProfile(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1366]);
+addExpectedElement(de.darwinspl.preferences.PreferencesPackage.eINSTANCE.getDwProfile(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1367]);
+addExpectedElement(de.darwinspl.preferences.PreferencesPackage.eINSTANCE.getDwProfile(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1368]);
+addExpectedElement(de.darwinspl.preferences.PreferencesPackage.eINSTANCE.getDwProfile(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1369]);
+addExpectedElement(de.darwinspl.preferences.PreferencesPackage.eINSTANCE.getDwProfile(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1370]);
+addExpectedElement(de.darwinspl.preferences.PreferencesPackage.eINSTANCE.getDwProfile(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1371]);
+addExpectedElement(de.darwinspl.preferences.PreferencesPackage.eINSTANCE.getDwProfile(), de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1372]);
+addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1373]);
+addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1374]);
+addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1375]);
+addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1376]);
+addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1377]);
+addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1378]);
+addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1379]);
+addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1380]);
+addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1381]);
+addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1382]);
+addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1383]);
+addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1384]);
+addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1385]);
+addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1386]);
+addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1387]);
+addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1388]);
+addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1389]);
+addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1390]);
+addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1391]);
+addExpectedElement(null, de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileExpectationConstants.EXPECTATIONS[1392]);
 }
 
 ;

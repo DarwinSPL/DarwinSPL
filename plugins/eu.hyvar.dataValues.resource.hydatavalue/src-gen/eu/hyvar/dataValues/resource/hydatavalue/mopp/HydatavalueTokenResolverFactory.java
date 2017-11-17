@@ -29,6 +29,7 @@ public class HydatavalueTokenResolverFactory implements eu.hyvar.dataValues.reso
 		registerTokenResolver("IDENTIFIER_TOKEN", new eu.hyvar.dataValues.resource.hydatavalue.analysis.HydatavalueIDENTIFIER_TOKENTokenResolver());
 		registerTokenResolver("DATE", new eu.hyvar.dataValues.resource.hydatavalue.analysis.HydatavalueDATETokenResolver());
 		registerTokenResolver("INTEGER_LITERAL", new eu.hyvar.dataValues.resource.hydatavalue.analysis.HydatavalueINTEGER_LITERALTokenResolver());
+		registerTokenResolver("QUOTED_34_34", new eu.hyvar.dataValues.resource.hydatavalue.analysis.HydatavalueQUOTED_34_34TokenResolver());
 	}
 	
 	public eu.hyvar.dataValues.resource.hydatavalue.IHydatavalueTokenResolver createTokenResolver(String tokenName) {

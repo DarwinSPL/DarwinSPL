@@ -484,9 +484,34 @@ public class DwprofileGrammarInformationProvider {
 		return new de.darwinspl.preferences.resource.dwprofile.grammar.DwprofileKeyword("context:", de.darwinspl.preferences.resource.dwprofile.grammar.DwprofileCardinality.ONE);
 	}
 	
-	public final static de.darwinspl.preferences.resource.dwprofile.grammar.DwprofilePlaceholder HYEXPRESSION_9_0_0_1 = INSTANCE.getHYEXPRESSION_9_0_0_1();
-	private de.darwinspl.preferences.resource.dwprofile.grammar.DwprofilePlaceholder getHYEXPRESSION_9_0_0_1() {
+	public final static de.darwinspl.preferences.resource.dwprofile.grammar.DwprofilePlaceholder HYEXPRESSION_9_0_0_1_0_0_0 = INSTANCE.getHYEXPRESSION_9_0_0_1_0_0_0();
+	private de.darwinspl.preferences.resource.dwprofile.grammar.DwprofilePlaceholder getHYEXPRESSION_9_0_0_1_0_0_0() {
+		return new de.darwinspl.preferences.resource.dwprofile.grammar.DwprofilePlaceholder(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyContextInformationReferenceExpression().getEStructuralFeature(eu.hyvar.feature.expression.HyExpressionPackage.HY_CONTEXT_INFORMATION_REFERENCE_EXPRESSION__CONTEXT_INFORMATION), "QUOTED_34_34", de.darwinspl.preferences.resource.dwprofile.grammar.DwprofileCardinality.ONE, 0);
+	}
+	
+	public final static de.darwinspl.preferences.resource.dwprofile.grammar.DwprofileSequence HYEXPRESSION_9_0_0_1_0_0 = INSTANCE.getHYEXPRESSION_9_0_0_1_0_0();
+	private de.darwinspl.preferences.resource.dwprofile.grammar.DwprofileSequence getHYEXPRESSION_9_0_0_1_0_0() {
+		return new de.darwinspl.preferences.resource.dwprofile.grammar.DwprofileSequence(de.darwinspl.preferences.resource.dwprofile.grammar.DwprofileCardinality.ONE, HYEXPRESSION_9_0_0_1_0_0_0);
+	}
+	
+	public final static de.darwinspl.preferences.resource.dwprofile.grammar.DwprofilePlaceholder HYEXPRESSION_9_0_0_1_0_1_0 = INSTANCE.getHYEXPRESSION_9_0_0_1_0_1_0();
+	private de.darwinspl.preferences.resource.dwprofile.grammar.DwprofilePlaceholder getHYEXPRESSION_9_0_0_1_0_1_0() {
 		return new de.darwinspl.preferences.resource.dwprofile.grammar.DwprofilePlaceholder(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyContextInformationReferenceExpression().getEStructuralFeature(eu.hyvar.feature.expression.HyExpressionPackage.HY_CONTEXT_INFORMATION_REFERENCE_EXPRESSION__CONTEXT_INFORMATION), "IDENTIFIER_TOKEN", de.darwinspl.preferences.resource.dwprofile.grammar.DwprofileCardinality.ONE, 0);
+	}
+	
+	public final static de.darwinspl.preferences.resource.dwprofile.grammar.DwprofileSequence HYEXPRESSION_9_0_0_1_0_1 = INSTANCE.getHYEXPRESSION_9_0_0_1_0_1();
+	private de.darwinspl.preferences.resource.dwprofile.grammar.DwprofileSequence getHYEXPRESSION_9_0_0_1_0_1() {
+		return new de.darwinspl.preferences.resource.dwprofile.grammar.DwprofileSequence(de.darwinspl.preferences.resource.dwprofile.grammar.DwprofileCardinality.ONE, HYEXPRESSION_9_0_0_1_0_1_0);
+	}
+	
+	public final static de.darwinspl.preferences.resource.dwprofile.grammar.DwprofileChoice HYEXPRESSION_9_0_0_1_0 = INSTANCE.getHYEXPRESSION_9_0_0_1_0();
+	private de.darwinspl.preferences.resource.dwprofile.grammar.DwprofileChoice getHYEXPRESSION_9_0_0_1_0() {
+		return new de.darwinspl.preferences.resource.dwprofile.grammar.DwprofileChoice(de.darwinspl.preferences.resource.dwprofile.grammar.DwprofileCardinality.ONE, HYEXPRESSION_9_0_0_1_0_0, HYEXPRESSION_9_0_0_1_0_1);
+	}
+	
+	public final static de.darwinspl.preferences.resource.dwprofile.grammar.DwprofileCompound HYEXPRESSION_9_0_0_1 = INSTANCE.getHYEXPRESSION_9_0_0_1();
+	private de.darwinspl.preferences.resource.dwprofile.grammar.DwprofileCompound getHYEXPRESSION_9_0_0_1() {
+		return new de.darwinspl.preferences.resource.dwprofile.grammar.DwprofileCompound(HYEXPRESSION_9_0_0_1_0, de.darwinspl.preferences.resource.dwprofile.grammar.DwprofileCardinality.ONE);
 	}
 	
 	public final static de.darwinspl.preferences.resource.dwprofile.grammar.DwprofileSequence HYEXPRESSION_9_0_0 = INSTANCE.getHYEXPRESSION_9_0_0();
@@ -1174,9 +1199,34 @@ public class DwprofileGrammarInformationProvider {
 		return new de.darwinspl.preferences.resource.dwprofile.grammar.DwprofileKeyword("enum:", de.darwinspl.preferences.resource.dwprofile.grammar.DwprofileCardinality.ONE);
 	}
 	
-	public final static de.darwinspl.preferences.resource.dwprofile.grammar.DwprofilePlaceholder HYDATAVALUE_2_0_0_1 = INSTANCE.getHYDATAVALUE_2_0_0_1();
-	private de.darwinspl.preferences.resource.dwprofile.grammar.DwprofilePlaceholder getHYDATAVALUE_2_0_0_1() {
+	public final static de.darwinspl.preferences.resource.dwprofile.grammar.DwprofilePlaceholder HYDATAVALUE_2_0_0_1_0_0_0 = INSTANCE.getHYDATAVALUE_2_0_0_1_0_0_0();
+	private de.darwinspl.preferences.resource.dwprofile.grammar.DwprofilePlaceholder getHYDATAVALUE_2_0_0_1_0_0_0() {
+		return new de.darwinspl.preferences.resource.dwprofile.grammar.DwprofilePlaceholder(eu.hyvar.dataValues.HyDataValuesPackage.eINSTANCE.getHyEnumValue().getEStructuralFeature(eu.hyvar.dataValues.HyDataValuesPackage.HY_ENUM_VALUE__ENUM), "QUOTED_34_34", de.darwinspl.preferences.resource.dwprofile.grammar.DwprofileCardinality.ONE, 0);
+	}
+	
+	public final static de.darwinspl.preferences.resource.dwprofile.grammar.DwprofileSequence HYDATAVALUE_2_0_0_1_0_0 = INSTANCE.getHYDATAVALUE_2_0_0_1_0_0();
+	private de.darwinspl.preferences.resource.dwprofile.grammar.DwprofileSequence getHYDATAVALUE_2_0_0_1_0_0() {
+		return new de.darwinspl.preferences.resource.dwprofile.grammar.DwprofileSequence(de.darwinspl.preferences.resource.dwprofile.grammar.DwprofileCardinality.ONE, HYDATAVALUE_2_0_0_1_0_0_0);
+	}
+	
+	public final static de.darwinspl.preferences.resource.dwprofile.grammar.DwprofilePlaceholder HYDATAVALUE_2_0_0_1_0_1_0 = INSTANCE.getHYDATAVALUE_2_0_0_1_0_1_0();
+	private de.darwinspl.preferences.resource.dwprofile.grammar.DwprofilePlaceholder getHYDATAVALUE_2_0_0_1_0_1_0() {
 		return new de.darwinspl.preferences.resource.dwprofile.grammar.DwprofilePlaceholder(eu.hyvar.dataValues.HyDataValuesPackage.eINSTANCE.getHyEnumValue().getEStructuralFeature(eu.hyvar.dataValues.HyDataValuesPackage.HY_ENUM_VALUE__ENUM), "IDENTIFIER_TOKEN", de.darwinspl.preferences.resource.dwprofile.grammar.DwprofileCardinality.ONE, 0);
+	}
+	
+	public final static de.darwinspl.preferences.resource.dwprofile.grammar.DwprofileSequence HYDATAVALUE_2_0_0_1_0_1 = INSTANCE.getHYDATAVALUE_2_0_0_1_0_1();
+	private de.darwinspl.preferences.resource.dwprofile.grammar.DwprofileSequence getHYDATAVALUE_2_0_0_1_0_1() {
+		return new de.darwinspl.preferences.resource.dwprofile.grammar.DwprofileSequence(de.darwinspl.preferences.resource.dwprofile.grammar.DwprofileCardinality.ONE, HYDATAVALUE_2_0_0_1_0_1_0);
+	}
+	
+	public final static de.darwinspl.preferences.resource.dwprofile.grammar.DwprofileChoice HYDATAVALUE_2_0_0_1_0 = INSTANCE.getHYDATAVALUE_2_0_0_1_0();
+	private de.darwinspl.preferences.resource.dwprofile.grammar.DwprofileChoice getHYDATAVALUE_2_0_0_1_0() {
+		return new de.darwinspl.preferences.resource.dwprofile.grammar.DwprofileChoice(de.darwinspl.preferences.resource.dwprofile.grammar.DwprofileCardinality.ONE, HYDATAVALUE_2_0_0_1_0_0, HYDATAVALUE_2_0_0_1_0_1);
+	}
+	
+	public final static de.darwinspl.preferences.resource.dwprofile.grammar.DwprofileCompound HYDATAVALUE_2_0_0_1 = INSTANCE.getHYDATAVALUE_2_0_0_1();
+	private de.darwinspl.preferences.resource.dwprofile.grammar.DwprofileCompound getHYDATAVALUE_2_0_0_1() {
+		return new de.darwinspl.preferences.resource.dwprofile.grammar.DwprofileCompound(HYDATAVALUE_2_0_0_1_0, de.darwinspl.preferences.resource.dwprofile.grammar.DwprofileCardinality.ONE);
 	}
 	
 	public final static de.darwinspl.preferences.resource.dwprofile.grammar.DwprofileKeyword HYDATAVALUE_2_0_0_2 = INSTANCE.getHYDATAVALUE_2_0_0_2();
@@ -1184,9 +1234,34 @@ public class DwprofileGrammarInformationProvider {
 		return new de.darwinspl.preferences.resource.dwprofile.grammar.DwprofileKeyword(".", de.darwinspl.preferences.resource.dwprofile.grammar.DwprofileCardinality.ONE);
 	}
 	
-	public final static de.darwinspl.preferences.resource.dwprofile.grammar.DwprofilePlaceholder HYDATAVALUE_2_0_0_3 = INSTANCE.getHYDATAVALUE_2_0_0_3();
-	private de.darwinspl.preferences.resource.dwprofile.grammar.DwprofilePlaceholder getHYDATAVALUE_2_0_0_3() {
+	public final static de.darwinspl.preferences.resource.dwprofile.grammar.DwprofilePlaceholder HYDATAVALUE_2_0_0_3_0_0_0 = INSTANCE.getHYDATAVALUE_2_0_0_3_0_0_0();
+	private de.darwinspl.preferences.resource.dwprofile.grammar.DwprofilePlaceholder getHYDATAVALUE_2_0_0_3_0_0_0() {
+		return new de.darwinspl.preferences.resource.dwprofile.grammar.DwprofilePlaceholder(eu.hyvar.dataValues.HyDataValuesPackage.eINSTANCE.getHyEnumValue().getEStructuralFeature(eu.hyvar.dataValues.HyDataValuesPackage.HY_ENUM_VALUE__ENUM_LITERAL), "QUOTED_34_34", de.darwinspl.preferences.resource.dwprofile.grammar.DwprofileCardinality.ONE, 0);
+	}
+	
+	public final static de.darwinspl.preferences.resource.dwprofile.grammar.DwprofileSequence HYDATAVALUE_2_0_0_3_0_0 = INSTANCE.getHYDATAVALUE_2_0_0_3_0_0();
+	private de.darwinspl.preferences.resource.dwprofile.grammar.DwprofileSequence getHYDATAVALUE_2_0_0_3_0_0() {
+		return new de.darwinspl.preferences.resource.dwprofile.grammar.DwprofileSequence(de.darwinspl.preferences.resource.dwprofile.grammar.DwprofileCardinality.ONE, HYDATAVALUE_2_0_0_3_0_0_0);
+	}
+	
+	public final static de.darwinspl.preferences.resource.dwprofile.grammar.DwprofilePlaceholder HYDATAVALUE_2_0_0_3_0_1_0 = INSTANCE.getHYDATAVALUE_2_0_0_3_0_1_0();
+	private de.darwinspl.preferences.resource.dwprofile.grammar.DwprofilePlaceholder getHYDATAVALUE_2_0_0_3_0_1_0() {
 		return new de.darwinspl.preferences.resource.dwprofile.grammar.DwprofilePlaceholder(eu.hyvar.dataValues.HyDataValuesPackage.eINSTANCE.getHyEnumValue().getEStructuralFeature(eu.hyvar.dataValues.HyDataValuesPackage.HY_ENUM_VALUE__ENUM_LITERAL), "IDENTIFIER_TOKEN", de.darwinspl.preferences.resource.dwprofile.grammar.DwprofileCardinality.ONE, 0);
+	}
+	
+	public final static de.darwinspl.preferences.resource.dwprofile.grammar.DwprofileSequence HYDATAVALUE_2_0_0_3_0_1 = INSTANCE.getHYDATAVALUE_2_0_0_3_0_1();
+	private de.darwinspl.preferences.resource.dwprofile.grammar.DwprofileSequence getHYDATAVALUE_2_0_0_3_0_1() {
+		return new de.darwinspl.preferences.resource.dwprofile.grammar.DwprofileSequence(de.darwinspl.preferences.resource.dwprofile.grammar.DwprofileCardinality.ONE, HYDATAVALUE_2_0_0_3_0_1_0);
+	}
+	
+	public final static de.darwinspl.preferences.resource.dwprofile.grammar.DwprofileChoice HYDATAVALUE_2_0_0_3_0 = INSTANCE.getHYDATAVALUE_2_0_0_3_0();
+	private de.darwinspl.preferences.resource.dwprofile.grammar.DwprofileChoice getHYDATAVALUE_2_0_0_3_0() {
+		return new de.darwinspl.preferences.resource.dwprofile.grammar.DwprofileChoice(de.darwinspl.preferences.resource.dwprofile.grammar.DwprofileCardinality.ONE, HYDATAVALUE_2_0_0_3_0_0, HYDATAVALUE_2_0_0_3_0_1);
+	}
+	
+	public final static de.darwinspl.preferences.resource.dwprofile.grammar.DwprofileCompound HYDATAVALUE_2_0_0_3 = INSTANCE.getHYDATAVALUE_2_0_0_3();
+	private de.darwinspl.preferences.resource.dwprofile.grammar.DwprofileCompound getHYDATAVALUE_2_0_0_3() {
+		return new de.darwinspl.preferences.resource.dwprofile.grammar.DwprofileCompound(HYDATAVALUE_2_0_0_3_0, de.darwinspl.preferences.resource.dwprofile.grammar.DwprofileCardinality.ONE);
 	}
 	
 	public final static de.darwinspl.preferences.resource.dwprofile.grammar.DwprofileSequence HYDATAVALUE_2_0_0 = INSTANCE.getHYDATAVALUE_2_0_0();

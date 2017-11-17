@@ -599,9 +599,34 @@ public class HymappingGrammarInformationProvider {
 		return new eu.hyvar.feature.mapping.resource.hymapping.grammar.HymappingKeyword("context:", eu.hyvar.feature.mapping.resource.hymapping.grammar.HymappingCardinality.ONE);
 	}
 	
-	public final static eu.hyvar.feature.mapping.resource.hymapping.grammar.HymappingPlaceholder HYEXPRESSION_9_0_0_1 = INSTANCE.getHYEXPRESSION_9_0_0_1();
-	private eu.hyvar.feature.mapping.resource.hymapping.grammar.HymappingPlaceholder getHYEXPRESSION_9_0_0_1() {
+	public final static eu.hyvar.feature.mapping.resource.hymapping.grammar.HymappingPlaceholder HYEXPRESSION_9_0_0_1_0_0_0 = INSTANCE.getHYEXPRESSION_9_0_0_1_0_0_0();
+	private eu.hyvar.feature.mapping.resource.hymapping.grammar.HymappingPlaceholder getHYEXPRESSION_9_0_0_1_0_0_0() {
+		return new eu.hyvar.feature.mapping.resource.hymapping.grammar.HymappingPlaceholder(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyContextInformationReferenceExpression().getEStructuralFeature(eu.hyvar.feature.expression.HyExpressionPackage.HY_CONTEXT_INFORMATION_REFERENCE_EXPRESSION__CONTEXT_INFORMATION), "QUOTED_34_34", eu.hyvar.feature.mapping.resource.hymapping.grammar.HymappingCardinality.ONE, 0);
+	}
+	
+	public final static eu.hyvar.feature.mapping.resource.hymapping.grammar.HymappingSequence HYEXPRESSION_9_0_0_1_0_0 = INSTANCE.getHYEXPRESSION_9_0_0_1_0_0();
+	private eu.hyvar.feature.mapping.resource.hymapping.grammar.HymappingSequence getHYEXPRESSION_9_0_0_1_0_0() {
+		return new eu.hyvar.feature.mapping.resource.hymapping.grammar.HymappingSequence(eu.hyvar.feature.mapping.resource.hymapping.grammar.HymappingCardinality.ONE, HYEXPRESSION_9_0_0_1_0_0_0);
+	}
+	
+	public final static eu.hyvar.feature.mapping.resource.hymapping.grammar.HymappingPlaceholder HYEXPRESSION_9_0_0_1_0_1_0 = INSTANCE.getHYEXPRESSION_9_0_0_1_0_1_0();
+	private eu.hyvar.feature.mapping.resource.hymapping.grammar.HymappingPlaceholder getHYEXPRESSION_9_0_0_1_0_1_0() {
 		return new eu.hyvar.feature.mapping.resource.hymapping.grammar.HymappingPlaceholder(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyContextInformationReferenceExpression().getEStructuralFeature(eu.hyvar.feature.expression.HyExpressionPackage.HY_CONTEXT_INFORMATION_REFERENCE_EXPRESSION__CONTEXT_INFORMATION), "IDENTIFIER_TOKEN", eu.hyvar.feature.mapping.resource.hymapping.grammar.HymappingCardinality.ONE, 0);
+	}
+	
+	public final static eu.hyvar.feature.mapping.resource.hymapping.grammar.HymappingSequence HYEXPRESSION_9_0_0_1_0_1 = INSTANCE.getHYEXPRESSION_9_0_0_1_0_1();
+	private eu.hyvar.feature.mapping.resource.hymapping.grammar.HymappingSequence getHYEXPRESSION_9_0_0_1_0_1() {
+		return new eu.hyvar.feature.mapping.resource.hymapping.grammar.HymappingSequence(eu.hyvar.feature.mapping.resource.hymapping.grammar.HymappingCardinality.ONE, HYEXPRESSION_9_0_0_1_0_1_0);
+	}
+	
+	public final static eu.hyvar.feature.mapping.resource.hymapping.grammar.HymappingChoice HYEXPRESSION_9_0_0_1_0 = INSTANCE.getHYEXPRESSION_9_0_0_1_0();
+	private eu.hyvar.feature.mapping.resource.hymapping.grammar.HymappingChoice getHYEXPRESSION_9_0_0_1_0() {
+		return new eu.hyvar.feature.mapping.resource.hymapping.grammar.HymappingChoice(eu.hyvar.feature.mapping.resource.hymapping.grammar.HymappingCardinality.ONE, HYEXPRESSION_9_0_0_1_0_0, HYEXPRESSION_9_0_0_1_0_1);
+	}
+	
+	public final static eu.hyvar.feature.mapping.resource.hymapping.grammar.HymappingCompound HYEXPRESSION_9_0_0_1 = INSTANCE.getHYEXPRESSION_9_0_0_1();
+	private eu.hyvar.feature.mapping.resource.hymapping.grammar.HymappingCompound getHYEXPRESSION_9_0_0_1() {
+		return new eu.hyvar.feature.mapping.resource.hymapping.grammar.HymappingCompound(HYEXPRESSION_9_0_0_1_0, eu.hyvar.feature.mapping.resource.hymapping.grammar.HymappingCardinality.ONE);
 	}
 	
 	public final static eu.hyvar.feature.mapping.resource.hymapping.grammar.HymappingSequence HYEXPRESSION_9_0_0 = INSTANCE.getHYEXPRESSION_9_0_0();
@@ -1289,9 +1314,34 @@ public class HymappingGrammarInformationProvider {
 		return new eu.hyvar.feature.mapping.resource.hymapping.grammar.HymappingKeyword("enum:", eu.hyvar.feature.mapping.resource.hymapping.grammar.HymappingCardinality.ONE);
 	}
 	
-	public final static eu.hyvar.feature.mapping.resource.hymapping.grammar.HymappingPlaceholder HYDATAVALUE_2_0_0_1 = INSTANCE.getHYDATAVALUE_2_0_0_1();
-	private eu.hyvar.feature.mapping.resource.hymapping.grammar.HymappingPlaceholder getHYDATAVALUE_2_0_0_1() {
+	public final static eu.hyvar.feature.mapping.resource.hymapping.grammar.HymappingPlaceholder HYDATAVALUE_2_0_0_1_0_0_0 = INSTANCE.getHYDATAVALUE_2_0_0_1_0_0_0();
+	private eu.hyvar.feature.mapping.resource.hymapping.grammar.HymappingPlaceholder getHYDATAVALUE_2_0_0_1_0_0_0() {
+		return new eu.hyvar.feature.mapping.resource.hymapping.grammar.HymappingPlaceholder(eu.hyvar.dataValues.HyDataValuesPackage.eINSTANCE.getHyEnumValue().getEStructuralFeature(eu.hyvar.dataValues.HyDataValuesPackage.HY_ENUM_VALUE__ENUM), "QUOTED_34_34", eu.hyvar.feature.mapping.resource.hymapping.grammar.HymappingCardinality.ONE, 0);
+	}
+	
+	public final static eu.hyvar.feature.mapping.resource.hymapping.grammar.HymappingSequence HYDATAVALUE_2_0_0_1_0_0 = INSTANCE.getHYDATAVALUE_2_0_0_1_0_0();
+	private eu.hyvar.feature.mapping.resource.hymapping.grammar.HymappingSequence getHYDATAVALUE_2_0_0_1_0_0() {
+		return new eu.hyvar.feature.mapping.resource.hymapping.grammar.HymappingSequence(eu.hyvar.feature.mapping.resource.hymapping.grammar.HymappingCardinality.ONE, HYDATAVALUE_2_0_0_1_0_0_0);
+	}
+	
+	public final static eu.hyvar.feature.mapping.resource.hymapping.grammar.HymappingPlaceholder HYDATAVALUE_2_0_0_1_0_1_0 = INSTANCE.getHYDATAVALUE_2_0_0_1_0_1_0();
+	private eu.hyvar.feature.mapping.resource.hymapping.grammar.HymappingPlaceholder getHYDATAVALUE_2_0_0_1_0_1_0() {
 		return new eu.hyvar.feature.mapping.resource.hymapping.grammar.HymappingPlaceholder(eu.hyvar.dataValues.HyDataValuesPackage.eINSTANCE.getHyEnumValue().getEStructuralFeature(eu.hyvar.dataValues.HyDataValuesPackage.HY_ENUM_VALUE__ENUM), "IDENTIFIER_TOKEN", eu.hyvar.feature.mapping.resource.hymapping.grammar.HymappingCardinality.ONE, 0);
+	}
+	
+	public final static eu.hyvar.feature.mapping.resource.hymapping.grammar.HymappingSequence HYDATAVALUE_2_0_0_1_0_1 = INSTANCE.getHYDATAVALUE_2_0_0_1_0_1();
+	private eu.hyvar.feature.mapping.resource.hymapping.grammar.HymappingSequence getHYDATAVALUE_2_0_0_1_0_1() {
+		return new eu.hyvar.feature.mapping.resource.hymapping.grammar.HymappingSequence(eu.hyvar.feature.mapping.resource.hymapping.grammar.HymappingCardinality.ONE, HYDATAVALUE_2_0_0_1_0_1_0);
+	}
+	
+	public final static eu.hyvar.feature.mapping.resource.hymapping.grammar.HymappingChoice HYDATAVALUE_2_0_0_1_0 = INSTANCE.getHYDATAVALUE_2_0_0_1_0();
+	private eu.hyvar.feature.mapping.resource.hymapping.grammar.HymappingChoice getHYDATAVALUE_2_0_0_1_0() {
+		return new eu.hyvar.feature.mapping.resource.hymapping.grammar.HymappingChoice(eu.hyvar.feature.mapping.resource.hymapping.grammar.HymappingCardinality.ONE, HYDATAVALUE_2_0_0_1_0_0, HYDATAVALUE_2_0_0_1_0_1);
+	}
+	
+	public final static eu.hyvar.feature.mapping.resource.hymapping.grammar.HymappingCompound HYDATAVALUE_2_0_0_1 = INSTANCE.getHYDATAVALUE_2_0_0_1();
+	private eu.hyvar.feature.mapping.resource.hymapping.grammar.HymappingCompound getHYDATAVALUE_2_0_0_1() {
+		return new eu.hyvar.feature.mapping.resource.hymapping.grammar.HymappingCompound(HYDATAVALUE_2_0_0_1_0, eu.hyvar.feature.mapping.resource.hymapping.grammar.HymappingCardinality.ONE);
 	}
 	
 	public final static eu.hyvar.feature.mapping.resource.hymapping.grammar.HymappingKeyword HYDATAVALUE_2_0_0_2 = INSTANCE.getHYDATAVALUE_2_0_0_2();
@@ -1299,9 +1349,34 @@ public class HymappingGrammarInformationProvider {
 		return new eu.hyvar.feature.mapping.resource.hymapping.grammar.HymappingKeyword(".", eu.hyvar.feature.mapping.resource.hymapping.grammar.HymappingCardinality.ONE);
 	}
 	
-	public final static eu.hyvar.feature.mapping.resource.hymapping.grammar.HymappingPlaceholder HYDATAVALUE_2_0_0_3 = INSTANCE.getHYDATAVALUE_2_0_0_3();
-	private eu.hyvar.feature.mapping.resource.hymapping.grammar.HymappingPlaceholder getHYDATAVALUE_2_0_0_3() {
+	public final static eu.hyvar.feature.mapping.resource.hymapping.grammar.HymappingPlaceholder HYDATAVALUE_2_0_0_3_0_0_0 = INSTANCE.getHYDATAVALUE_2_0_0_3_0_0_0();
+	private eu.hyvar.feature.mapping.resource.hymapping.grammar.HymappingPlaceholder getHYDATAVALUE_2_0_0_3_0_0_0() {
+		return new eu.hyvar.feature.mapping.resource.hymapping.grammar.HymappingPlaceholder(eu.hyvar.dataValues.HyDataValuesPackage.eINSTANCE.getHyEnumValue().getEStructuralFeature(eu.hyvar.dataValues.HyDataValuesPackage.HY_ENUM_VALUE__ENUM_LITERAL), "QUOTED_34_34", eu.hyvar.feature.mapping.resource.hymapping.grammar.HymappingCardinality.ONE, 0);
+	}
+	
+	public final static eu.hyvar.feature.mapping.resource.hymapping.grammar.HymappingSequence HYDATAVALUE_2_0_0_3_0_0 = INSTANCE.getHYDATAVALUE_2_0_0_3_0_0();
+	private eu.hyvar.feature.mapping.resource.hymapping.grammar.HymappingSequence getHYDATAVALUE_2_0_0_3_0_0() {
+		return new eu.hyvar.feature.mapping.resource.hymapping.grammar.HymappingSequence(eu.hyvar.feature.mapping.resource.hymapping.grammar.HymappingCardinality.ONE, HYDATAVALUE_2_0_0_3_0_0_0);
+	}
+	
+	public final static eu.hyvar.feature.mapping.resource.hymapping.grammar.HymappingPlaceholder HYDATAVALUE_2_0_0_3_0_1_0 = INSTANCE.getHYDATAVALUE_2_0_0_3_0_1_0();
+	private eu.hyvar.feature.mapping.resource.hymapping.grammar.HymappingPlaceholder getHYDATAVALUE_2_0_0_3_0_1_0() {
 		return new eu.hyvar.feature.mapping.resource.hymapping.grammar.HymappingPlaceholder(eu.hyvar.dataValues.HyDataValuesPackage.eINSTANCE.getHyEnumValue().getEStructuralFeature(eu.hyvar.dataValues.HyDataValuesPackage.HY_ENUM_VALUE__ENUM_LITERAL), "IDENTIFIER_TOKEN", eu.hyvar.feature.mapping.resource.hymapping.grammar.HymappingCardinality.ONE, 0);
+	}
+	
+	public final static eu.hyvar.feature.mapping.resource.hymapping.grammar.HymappingSequence HYDATAVALUE_2_0_0_3_0_1 = INSTANCE.getHYDATAVALUE_2_0_0_3_0_1();
+	private eu.hyvar.feature.mapping.resource.hymapping.grammar.HymappingSequence getHYDATAVALUE_2_0_0_3_0_1() {
+		return new eu.hyvar.feature.mapping.resource.hymapping.grammar.HymappingSequence(eu.hyvar.feature.mapping.resource.hymapping.grammar.HymappingCardinality.ONE, HYDATAVALUE_2_0_0_3_0_1_0);
+	}
+	
+	public final static eu.hyvar.feature.mapping.resource.hymapping.grammar.HymappingChoice HYDATAVALUE_2_0_0_3_0 = INSTANCE.getHYDATAVALUE_2_0_0_3_0();
+	private eu.hyvar.feature.mapping.resource.hymapping.grammar.HymappingChoice getHYDATAVALUE_2_0_0_3_0() {
+		return new eu.hyvar.feature.mapping.resource.hymapping.grammar.HymappingChoice(eu.hyvar.feature.mapping.resource.hymapping.grammar.HymappingCardinality.ONE, HYDATAVALUE_2_0_0_3_0_0, HYDATAVALUE_2_0_0_3_0_1);
+	}
+	
+	public final static eu.hyvar.feature.mapping.resource.hymapping.grammar.HymappingCompound HYDATAVALUE_2_0_0_3 = INSTANCE.getHYDATAVALUE_2_0_0_3();
+	private eu.hyvar.feature.mapping.resource.hymapping.grammar.HymappingCompound getHYDATAVALUE_2_0_0_3() {
+		return new eu.hyvar.feature.mapping.resource.hymapping.grammar.HymappingCompound(HYDATAVALUE_2_0_0_3_0, eu.hyvar.feature.mapping.resource.hymapping.grammar.HymappingCardinality.ONE);
 	}
 	
 	public final static eu.hyvar.feature.mapping.resource.hymapping.grammar.HymappingSequence HYDATAVALUE_2_0_0 = INSTANCE.getHYDATAVALUE_2_0_0();

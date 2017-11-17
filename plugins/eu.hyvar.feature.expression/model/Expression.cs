@@ -74,8 +74,9 @@ RULES {
 	@Operator(type="primitive", weight="15", superclass="HyExpression")
 	HyConditionalFeatureReferenceExpression ::= "?" (feature['"', '"'] | feature[]) versionRestriction;	
 
+	@SuppressWarnings(explicitSyntaxChoice)
 	@Operator(type="primitive", weight="15", superclass="HyExpression")
-	HyContextInformationReferenceExpression ::= "context:" contextInformation[];
+	HyContextInformationReferenceExpression ::= "context:" (contextInformation['"', '"'] | contextInformation[]);
 
 	@SuppressWarnings(explicitSyntaxChoice)
 	@SuppressWarnings(minOccurenceMismatch)

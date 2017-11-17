@@ -659,6 +659,7 @@ public class HyexpressionPrinter implements eu.hyvar.feature.expression.resource
 	
 	
 	public void print_eu_hyvar_feature_expression_HyContextInformationReferenceExpression(eu.hyvar.feature.expression.HyContextInformationReferenceExpression element, String outertab, PrintWriter out) {
+		String localtab = outertab;
 		// The printCountingMap contains a mapping from feature names to the number of
 		// remaining elements that still need to be printed. The map is initialized with
 		// the number of elements stored in each structural feature. For lists this is the
@@ -669,21 +670,52 @@ public class HyexpressionPrinter implements eu.hyvar.feature.expression.resource
 		temp = element.eGet(element.eClass().getEStructuralFeature(eu.hyvar.feature.expression.HyExpressionPackage.HY_CONTEXT_INFORMATION_REFERENCE_EXPRESSION__CONTEXT_INFORMATION));
 		printCountingMap.put("contextInformation", temp == null ? 0 : 1);
 		// print collected hidden tokens
-		int count;
 		// DEFINITION PART BEGINS (CsString)
 		out.print("context:");
 		out.print(" ");
-		// DEFINITION PART BEGINS (PlaceholderUsingDefaultToken)
-		count = printCountingMap.get("contextInformation");
-		if (count > 0) {
-			Object o = element.eGet(element.eClass().getEStructuralFeature(eu.hyvar.feature.expression.HyExpressionPackage.HY_CONTEXT_INFORMATION_REFERENCE_EXPRESSION__CONTEXT_INFORMATION));
-			if (o != null) {
-				eu.hyvar.feature.expression.resource.hyexpression.IHyexpressionTokenResolver resolver = tokenResolverFactory.createTokenResolver("IDENTIFIER_TOKEN");
-				resolver.setOptions(getOptions());
-				out.print(resolver.deResolve(getReferenceResolverSwitch() == null ? null : getReferenceResolverSwitch().getHyContextInformationReferenceExpressionContextInformationReferenceResolver().deResolve((eu.hyvar.context.HyContextualInformation) o, element, (EReference) element.eClass().getEStructuralFeature(eu.hyvar.feature.expression.HyExpressionPackage.HY_CONTEXT_INFORMATION_REFERENCE_EXPRESSION__CONTEXT_INFORMATION)), element.eClass().getEStructuralFeature(eu.hyvar.feature.expression.HyExpressionPackage.HY_CONTEXT_INFORMATION_REFERENCE_EXPRESSION__CONTEXT_INFORMATION), element));
-				out.print(" ");
+		// DEFINITION PART BEGINS (CompoundDefinition)
+		print_eu_hyvar_feature_expression_HyContextInformationReferenceExpression_0(element, localtab, out, printCountingMap);
+	}
+	
+	public void print_eu_hyvar_feature_expression_HyContextInformationReferenceExpression_0(eu.hyvar.feature.expression.HyContextInformationReferenceExpression element, String outertab, PrintWriter out, Map<String, Integer> printCountingMap) {
+		int count;
+		int alt = -1;
+		alt = 0;
+		int matches = 		matchCount(printCountingMap, Arrays.asList(		"contextInformation"		));
+		int tempMatchCount;
+		tempMatchCount = 		matchCount(printCountingMap, Arrays.asList(		"contextInformation"		));
+		if (tempMatchCount > matches) {
+			alt = 1;
+			matches = tempMatchCount;
+		}
+		switch(alt) {
+			case 1:			{
+				// DEFINITION PART BEGINS (PlaceholderUsingDefaultToken)
+				count = printCountingMap.get("contextInformation");
+				if (count > 0) {
+					Object o = element.eGet(element.eClass().getEStructuralFeature(eu.hyvar.feature.expression.HyExpressionPackage.HY_CONTEXT_INFORMATION_REFERENCE_EXPRESSION__CONTEXT_INFORMATION));
+					if (o != null) {
+						eu.hyvar.feature.expression.resource.hyexpression.IHyexpressionTokenResolver resolver = tokenResolverFactory.createTokenResolver("IDENTIFIER_TOKEN");
+						resolver.setOptions(getOptions());
+						out.print(resolver.deResolve(getReferenceResolverSwitch() == null ? null : getReferenceResolverSwitch().getHyContextInformationReferenceExpressionContextInformationReferenceResolver().deResolve((eu.hyvar.context.HyContextualInformation) o, element, (EReference) element.eClass().getEStructuralFeature(eu.hyvar.feature.expression.HyExpressionPackage.HY_CONTEXT_INFORMATION_REFERENCE_EXPRESSION__CONTEXT_INFORMATION)), element.eClass().getEStructuralFeature(eu.hyvar.feature.expression.HyExpressionPackage.HY_CONTEXT_INFORMATION_REFERENCE_EXPRESSION__CONTEXT_INFORMATION), element));
+						out.print(" ");
+					}
+					printCountingMap.put("contextInformation", count - 1);
+				}
 			}
-			printCountingMap.put("contextInformation", count - 1);
+			break;
+			default:			// DEFINITION PART BEGINS (PlaceholderInQuotes)
+			count = printCountingMap.get("contextInformation");
+			if (count > 0) {
+				Object o = element.eGet(element.eClass().getEStructuralFeature(eu.hyvar.feature.expression.HyExpressionPackage.HY_CONTEXT_INFORMATION_REFERENCE_EXPRESSION__CONTEXT_INFORMATION));
+				if (o != null) {
+					eu.hyvar.feature.expression.resource.hyexpression.IHyexpressionTokenResolver resolver = tokenResolverFactory.createTokenResolver("QUOTED_34_34");
+					resolver.setOptions(getOptions());
+					out.print(resolver.deResolve(getReferenceResolverSwitch() == null ? null : getReferenceResolverSwitch().getHyContextInformationReferenceExpressionContextInformationReferenceResolver().deResolve((eu.hyvar.context.HyContextualInformation) o, element, (EReference) element.eClass().getEStructuralFeature(eu.hyvar.feature.expression.HyExpressionPackage.HY_CONTEXT_INFORMATION_REFERENCE_EXPRESSION__CONTEXT_INFORMATION)), element.eClass().getEStructuralFeature(eu.hyvar.feature.expression.HyExpressionPackage.HY_CONTEXT_INFORMATION_REFERENCE_EXPRESSION__CONTEXT_INFORMATION), element));
+					out.print(" ");
+				}
+				printCountingMap.put("contextInformation", count - 1);
+			}
 		}
 	}
 	
@@ -1555,6 +1587,7 @@ public class HyexpressionPrinter implements eu.hyvar.feature.expression.resource
 	
 	
 	public void print_eu_hyvar_dataValues_HyEnumValue(eu.hyvar.dataValues.HyEnumValue element, String outertab, PrintWriter out) {
+		String localtab = outertab;
 		// The printCountingMap contains a mapping from feature names to the number of
 		// remaining elements that still need to be printed. The map is initialized with
 		// the number of elements stored in each structural feature. For lists this is the
@@ -1567,36 +1600,99 @@ public class HyexpressionPrinter implements eu.hyvar.feature.expression.resource
 		temp = element.eGet(element.eClass().getEStructuralFeature(eu.hyvar.dataValues.HyDataValuesPackage.HY_ENUM_VALUE__ENUM));
 		printCountingMap.put("enum", temp == null ? 0 : 1);
 		// print collected hidden tokens
-		int count;
 		// DEFINITION PART BEGINS (CsString)
 		out.print("enum:");
 		out.print(" ");
-		// DEFINITION PART BEGINS (PlaceholderUsingSpecifiedToken)
-		count = printCountingMap.get("enum");
-		if (count > 0) {
-			Object o = element.eGet(element.eClass().getEStructuralFeature(eu.hyvar.dataValues.HyDataValuesPackage.HY_ENUM_VALUE__ENUM));
-			if (o != null) {
-				eu.hyvar.feature.expression.resource.hyexpression.IHyexpressionTokenResolver resolver = tokenResolverFactory.createTokenResolver("IDENTIFIER_TOKEN");
-				resolver.setOptions(getOptions());
-				out.print(resolver.deResolve(getReferenceResolverSwitch() == null ? null : getReferenceResolverSwitch().getHyEnumValueEnumReferenceResolver().deResolve((eu.hyvar.dataValues.HyEnum) o, element, (EReference) element.eClass().getEStructuralFeature(eu.hyvar.dataValues.HyDataValuesPackage.HY_ENUM_VALUE__ENUM)), element.eClass().getEStructuralFeature(eu.hyvar.dataValues.HyDataValuesPackage.HY_ENUM_VALUE__ENUM), element));
-				out.print(" ");
-			}
-			printCountingMap.put("enum", count - 1);
-		}
+		// DEFINITION PART BEGINS (CompoundDefinition)
+		print_eu_hyvar_dataValues_HyEnumValue_0(element, localtab, out, printCountingMap);
 		// DEFINITION PART BEGINS (CsString)
 		out.print(".");
 		out.print(" ");
-		// DEFINITION PART BEGINS (PlaceholderUsingSpecifiedToken)
-		count = printCountingMap.get("enumLiteral");
-		if (count > 0) {
-			Object o = element.eGet(element.eClass().getEStructuralFeature(eu.hyvar.dataValues.HyDataValuesPackage.HY_ENUM_VALUE__ENUM_LITERAL));
-			if (o != null) {
-				eu.hyvar.feature.expression.resource.hyexpression.IHyexpressionTokenResolver resolver = tokenResolverFactory.createTokenResolver("IDENTIFIER_TOKEN");
-				resolver.setOptions(getOptions());
-				out.print(resolver.deResolve(getReferenceResolverSwitch() == null ? null : getReferenceResolverSwitch().getHyEnumValueEnumLiteralReferenceResolver().deResolve((eu.hyvar.dataValues.HyEnumLiteral) o, element, (EReference) element.eClass().getEStructuralFeature(eu.hyvar.dataValues.HyDataValuesPackage.HY_ENUM_VALUE__ENUM_LITERAL)), element.eClass().getEStructuralFeature(eu.hyvar.dataValues.HyDataValuesPackage.HY_ENUM_VALUE__ENUM_LITERAL), element));
-				out.print(" ");
+		// DEFINITION PART BEGINS (CompoundDefinition)
+		print_eu_hyvar_dataValues_HyEnumValue_1(element, localtab, out, printCountingMap);
+	}
+	
+	public void print_eu_hyvar_dataValues_HyEnumValue_0(eu.hyvar.dataValues.HyEnumValue element, String outertab, PrintWriter out, Map<String, Integer> printCountingMap) {
+		int count;
+		int alt = -1;
+		alt = 0;
+		int matches = 		matchCount(printCountingMap, Arrays.asList(		"enum"		));
+		int tempMatchCount;
+		tempMatchCount = 		matchCount(printCountingMap, Arrays.asList(		"enum"		));
+		if (tempMatchCount > matches) {
+			alt = 1;
+			matches = tempMatchCount;
+		}
+		switch(alt) {
+			case 1:			{
+				// DEFINITION PART BEGINS (PlaceholderUsingDefaultToken)
+				count = printCountingMap.get("enum");
+				if (count > 0) {
+					Object o = element.eGet(element.eClass().getEStructuralFeature(eu.hyvar.dataValues.HyDataValuesPackage.HY_ENUM_VALUE__ENUM));
+					if (o != null) {
+						eu.hyvar.feature.expression.resource.hyexpression.IHyexpressionTokenResolver resolver = tokenResolverFactory.createTokenResolver("IDENTIFIER_TOKEN");
+						resolver.setOptions(getOptions());
+						out.print(resolver.deResolve(getReferenceResolverSwitch() == null ? null : getReferenceResolverSwitch().getHyEnumValueEnumReferenceResolver().deResolve((eu.hyvar.dataValues.HyEnum) o, element, (EReference) element.eClass().getEStructuralFeature(eu.hyvar.dataValues.HyDataValuesPackage.HY_ENUM_VALUE__ENUM)), element.eClass().getEStructuralFeature(eu.hyvar.dataValues.HyDataValuesPackage.HY_ENUM_VALUE__ENUM), element));
+						out.print(" ");
+					}
+					printCountingMap.put("enum", count - 1);
+				}
 			}
-			printCountingMap.put("enumLiteral", count - 1);
+			break;
+			default:			// DEFINITION PART BEGINS (PlaceholderInQuotes)
+			count = printCountingMap.get("enum");
+			if (count > 0) {
+				Object o = element.eGet(element.eClass().getEStructuralFeature(eu.hyvar.dataValues.HyDataValuesPackage.HY_ENUM_VALUE__ENUM));
+				if (o != null) {
+					eu.hyvar.feature.expression.resource.hyexpression.IHyexpressionTokenResolver resolver = tokenResolverFactory.createTokenResolver("QUOTED_34_34");
+					resolver.setOptions(getOptions());
+					out.print(resolver.deResolve(getReferenceResolverSwitch() == null ? null : getReferenceResolverSwitch().getHyEnumValueEnumReferenceResolver().deResolve((eu.hyvar.dataValues.HyEnum) o, element, (EReference) element.eClass().getEStructuralFeature(eu.hyvar.dataValues.HyDataValuesPackage.HY_ENUM_VALUE__ENUM)), element.eClass().getEStructuralFeature(eu.hyvar.dataValues.HyDataValuesPackage.HY_ENUM_VALUE__ENUM), element));
+					out.print(" ");
+				}
+				printCountingMap.put("enum", count - 1);
+			}
+		}
+	}
+	
+	public void print_eu_hyvar_dataValues_HyEnumValue_1(eu.hyvar.dataValues.HyEnumValue element, String outertab, PrintWriter out, Map<String, Integer> printCountingMap) {
+		int count;
+		int alt = -1;
+		alt = 0;
+		int matches = 		matchCount(printCountingMap, Arrays.asList(		"enumLiteral"		));
+		int tempMatchCount;
+		tempMatchCount = 		matchCount(printCountingMap, Arrays.asList(		"enumLiteral"		));
+		if (tempMatchCount > matches) {
+			alt = 1;
+			matches = tempMatchCount;
+		}
+		switch(alt) {
+			case 1:			{
+				// DEFINITION PART BEGINS (PlaceholderUsingDefaultToken)
+				count = printCountingMap.get("enumLiteral");
+				if (count > 0) {
+					Object o = element.eGet(element.eClass().getEStructuralFeature(eu.hyvar.dataValues.HyDataValuesPackage.HY_ENUM_VALUE__ENUM_LITERAL));
+					if (o != null) {
+						eu.hyvar.feature.expression.resource.hyexpression.IHyexpressionTokenResolver resolver = tokenResolverFactory.createTokenResolver("IDENTIFIER_TOKEN");
+						resolver.setOptions(getOptions());
+						out.print(resolver.deResolve(getReferenceResolverSwitch() == null ? null : getReferenceResolverSwitch().getHyEnumValueEnumLiteralReferenceResolver().deResolve((eu.hyvar.dataValues.HyEnumLiteral) o, element, (EReference) element.eClass().getEStructuralFeature(eu.hyvar.dataValues.HyDataValuesPackage.HY_ENUM_VALUE__ENUM_LITERAL)), element.eClass().getEStructuralFeature(eu.hyvar.dataValues.HyDataValuesPackage.HY_ENUM_VALUE__ENUM_LITERAL), element));
+						out.print(" ");
+					}
+					printCountingMap.put("enumLiteral", count - 1);
+				}
+			}
+			break;
+			default:			// DEFINITION PART BEGINS (PlaceholderInQuotes)
+			count = printCountingMap.get("enumLiteral");
+			if (count > 0) {
+				Object o = element.eGet(element.eClass().getEStructuralFeature(eu.hyvar.dataValues.HyDataValuesPackage.HY_ENUM_VALUE__ENUM_LITERAL));
+				if (o != null) {
+					eu.hyvar.feature.expression.resource.hyexpression.IHyexpressionTokenResolver resolver = tokenResolverFactory.createTokenResolver("QUOTED_34_34");
+					resolver.setOptions(getOptions());
+					out.print(resolver.deResolve(getReferenceResolverSwitch() == null ? null : getReferenceResolverSwitch().getHyEnumValueEnumLiteralReferenceResolver().deResolve((eu.hyvar.dataValues.HyEnumLiteral) o, element, (EReference) element.eClass().getEStructuralFeature(eu.hyvar.dataValues.HyDataValuesPackage.HY_ENUM_VALUE__ENUM_LITERAL)), element.eClass().getEStructuralFeature(eu.hyvar.dataValues.HyDataValuesPackage.HY_ENUM_VALUE__ENUM_LITERAL), element));
+					out.print(" ");
+				}
+				printCountingMap.put("enumLiteral", count - 1);
+			}
 		}
 	}
 	
