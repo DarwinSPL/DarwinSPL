@@ -69,9 +69,34 @@ public class HydatavalueGrammarInformationProvider {
 		return new eu.hyvar.dataValues.resource.hydatavalue.grammar.HydatavalueKeyword("enum:", eu.hyvar.dataValues.resource.hydatavalue.grammar.HydatavalueCardinality.ONE);
 	}
 	
-	public final static eu.hyvar.dataValues.resource.hydatavalue.grammar.HydatavaluePlaceholder HYDATAVALUE_2_0_0_1 = INSTANCE.getHYDATAVALUE_2_0_0_1();
-	private eu.hyvar.dataValues.resource.hydatavalue.grammar.HydatavaluePlaceholder getHYDATAVALUE_2_0_0_1() {
+	public final static eu.hyvar.dataValues.resource.hydatavalue.grammar.HydatavaluePlaceholder HYDATAVALUE_2_0_0_1_0_0_0 = INSTANCE.getHYDATAVALUE_2_0_0_1_0_0_0();
+	private eu.hyvar.dataValues.resource.hydatavalue.grammar.HydatavaluePlaceholder getHYDATAVALUE_2_0_0_1_0_0_0() {
+		return new eu.hyvar.dataValues.resource.hydatavalue.grammar.HydatavaluePlaceholder(eu.hyvar.dataValues.HyDataValuesPackage.eINSTANCE.getHyEnumValue().getEStructuralFeature(eu.hyvar.dataValues.HyDataValuesPackage.HY_ENUM_VALUE__ENUM), "QUOTED_34_34", eu.hyvar.dataValues.resource.hydatavalue.grammar.HydatavalueCardinality.ONE, 0);
+	}
+	
+	public final static eu.hyvar.dataValues.resource.hydatavalue.grammar.HydatavalueSequence HYDATAVALUE_2_0_0_1_0_0 = INSTANCE.getHYDATAVALUE_2_0_0_1_0_0();
+	private eu.hyvar.dataValues.resource.hydatavalue.grammar.HydatavalueSequence getHYDATAVALUE_2_0_0_1_0_0() {
+		return new eu.hyvar.dataValues.resource.hydatavalue.grammar.HydatavalueSequence(eu.hyvar.dataValues.resource.hydatavalue.grammar.HydatavalueCardinality.ONE, HYDATAVALUE_2_0_0_1_0_0_0);
+	}
+	
+	public final static eu.hyvar.dataValues.resource.hydatavalue.grammar.HydatavaluePlaceholder HYDATAVALUE_2_0_0_1_0_1_0 = INSTANCE.getHYDATAVALUE_2_0_0_1_0_1_0();
+	private eu.hyvar.dataValues.resource.hydatavalue.grammar.HydatavaluePlaceholder getHYDATAVALUE_2_0_0_1_0_1_0() {
 		return new eu.hyvar.dataValues.resource.hydatavalue.grammar.HydatavaluePlaceholder(eu.hyvar.dataValues.HyDataValuesPackage.eINSTANCE.getHyEnumValue().getEStructuralFeature(eu.hyvar.dataValues.HyDataValuesPackage.HY_ENUM_VALUE__ENUM), "IDENTIFIER_TOKEN", eu.hyvar.dataValues.resource.hydatavalue.grammar.HydatavalueCardinality.ONE, 0);
+	}
+	
+	public final static eu.hyvar.dataValues.resource.hydatavalue.grammar.HydatavalueSequence HYDATAVALUE_2_0_0_1_0_1 = INSTANCE.getHYDATAVALUE_2_0_0_1_0_1();
+	private eu.hyvar.dataValues.resource.hydatavalue.grammar.HydatavalueSequence getHYDATAVALUE_2_0_0_1_0_1() {
+		return new eu.hyvar.dataValues.resource.hydatavalue.grammar.HydatavalueSequence(eu.hyvar.dataValues.resource.hydatavalue.grammar.HydatavalueCardinality.ONE, HYDATAVALUE_2_0_0_1_0_1_0);
+	}
+	
+	public final static eu.hyvar.dataValues.resource.hydatavalue.grammar.HydatavalueChoice HYDATAVALUE_2_0_0_1_0 = INSTANCE.getHYDATAVALUE_2_0_0_1_0();
+	private eu.hyvar.dataValues.resource.hydatavalue.grammar.HydatavalueChoice getHYDATAVALUE_2_0_0_1_0() {
+		return new eu.hyvar.dataValues.resource.hydatavalue.grammar.HydatavalueChoice(eu.hyvar.dataValues.resource.hydatavalue.grammar.HydatavalueCardinality.ONE, HYDATAVALUE_2_0_0_1_0_0, HYDATAVALUE_2_0_0_1_0_1);
+	}
+	
+	public final static eu.hyvar.dataValues.resource.hydatavalue.grammar.HydatavalueCompound HYDATAVALUE_2_0_0_1 = INSTANCE.getHYDATAVALUE_2_0_0_1();
+	private eu.hyvar.dataValues.resource.hydatavalue.grammar.HydatavalueCompound getHYDATAVALUE_2_0_0_1() {
+		return new eu.hyvar.dataValues.resource.hydatavalue.grammar.HydatavalueCompound(HYDATAVALUE_2_0_0_1_0, eu.hyvar.dataValues.resource.hydatavalue.grammar.HydatavalueCardinality.ONE);
 	}
 	
 	public final static eu.hyvar.dataValues.resource.hydatavalue.grammar.HydatavalueKeyword HYDATAVALUE_2_0_0_2 = INSTANCE.getHYDATAVALUE_2_0_0_2();
@@ -79,9 +104,34 @@ public class HydatavalueGrammarInformationProvider {
 		return new eu.hyvar.dataValues.resource.hydatavalue.grammar.HydatavalueKeyword(".", eu.hyvar.dataValues.resource.hydatavalue.grammar.HydatavalueCardinality.ONE);
 	}
 	
-	public final static eu.hyvar.dataValues.resource.hydatavalue.grammar.HydatavaluePlaceholder HYDATAVALUE_2_0_0_3 = INSTANCE.getHYDATAVALUE_2_0_0_3();
-	private eu.hyvar.dataValues.resource.hydatavalue.grammar.HydatavaluePlaceholder getHYDATAVALUE_2_0_0_3() {
+	public final static eu.hyvar.dataValues.resource.hydatavalue.grammar.HydatavaluePlaceholder HYDATAVALUE_2_0_0_3_0_0_0 = INSTANCE.getHYDATAVALUE_2_0_0_3_0_0_0();
+	private eu.hyvar.dataValues.resource.hydatavalue.grammar.HydatavaluePlaceholder getHYDATAVALUE_2_0_0_3_0_0_0() {
+		return new eu.hyvar.dataValues.resource.hydatavalue.grammar.HydatavaluePlaceholder(eu.hyvar.dataValues.HyDataValuesPackage.eINSTANCE.getHyEnumValue().getEStructuralFeature(eu.hyvar.dataValues.HyDataValuesPackage.HY_ENUM_VALUE__ENUM_LITERAL), "QUOTED_34_34", eu.hyvar.dataValues.resource.hydatavalue.grammar.HydatavalueCardinality.ONE, 0);
+	}
+	
+	public final static eu.hyvar.dataValues.resource.hydatavalue.grammar.HydatavalueSequence HYDATAVALUE_2_0_0_3_0_0 = INSTANCE.getHYDATAVALUE_2_0_0_3_0_0();
+	private eu.hyvar.dataValues.resource.hydatavalue.grammar.HydatavalueSequence getHYDATAVALUE_2_0_0_3_0_0() {
+		return new eu.hyvar.dataValues.resource.hydatavalue.grammar.HydatavalueSequence(eu.hyvar.dataValues.resource.hydatavalue.grammar.HydatavalueCardinality.ONE, HYDATAVALUE_2_0_0_3_0_0_0);
+	}
+	
+	public final static eu.hyvar.dataValues.resource.hydatavalue.grammar.HydatavaluePlaceholder HYDATAVALUE_2_0_0_3_0_1_0 = INSTANCE.getHYDATAVALUE_2_0_0_3_0_1_0();
+	private eu.hyvar.dataValues.resource.hydatavalue.grammar.HydatavaluePlaceholder getHYDATAVALUE_2_0_0_3_0_1_0() {
 		return new eu.hyvar.dataValues.resource.hydatavalue.grammar.HydatavaluePlaceholder(eu.hyvar.dataValues.HyDataValuesPackage.eINSTANCE.getHyEnumValue().getEStructuralFeature(eu.hyvar.dataValues.HyDataValuesPackage.HY_ENUM_VALUE__ENUM_LITERAL), "IDENTIFIER_TOKEN", eu.hyvar.dataValues.resource.hydatavalue.grammar.HydatavalueCardinality.ONE, 0);
+	}
+	
+	public final static eu.hyvar.dataValues.resource.hydatavalue.grammar.HydatavalueSequence HYDATAVALUE_2_0_0_3_0_1 = INSTANCE.getHYDATAVALUE_2_0_0_3_0_1();
+	private eu.hyvar.dataValues.resource.hydatavalue.grammar.HydatavalueSequence getHYDATAVALUE_2_0_0_3_0_1() {
+		return new eu.hyvar.dataValues.resource.hydatavalue.grammar.HydatavalueSequence(eu.hyvar.dataValues.resource.hydatavalue.grammar.HydatavalueCardinality.ONE, HYDATAVALUE_2_0_0_3_0_1_0);
+	}
+	
+	public final static eu.hyvar.dataValues.resource.hydatavalue.grammar.HydatavalueChoice HYDATAVALUE_2_0_0_3_0 = INSTANCE.getHYDATAVALUE_2_0_0_3_0();
+	private eu.hyvar.dataValues.resource.hydatavalue.grammar.HydatavalueChoice getHYDATAVALUE_2_0_0_3_0() {
+		return new eu.hyvar.dataValues.resource.hydatavalue.grammar.HydatavalueChoice(eu.hyvar.dataValues.resource.hydatavalue.grammar.HydatavalueCardinality.ONE, HYDATAVALUE_2_0_0_3_0_0, HYDATAVALUE_2_0_0_3_0_1);
+	}
+	
+	public final static eu.hyvar.dataValues.resource.hydatavalue.grammar.HydatavalueCompound HYDATAVALUE_2_0_0_3 = INSTANCE.getHYDATAVALUE_2_0_0_3();
+	private eu.hyvar.dataValues.resource.hydatavalue.grammar.HydatavalueCompound getHYDATAVALUE_2_0_0_3() {
+		return new eu.hyvar.dataValues.resource.hydatavalue.grammar.HydatavalueCompound(HYDATAVALUE_2_0_0_3_0, eu.hyvar.dataValues.resource.hydatavalue.grammar.HydatavalueCardinality.ONE);
 	}
 	
 	public final static eu.hyvar.dataValues.resource.hydatavalue.grammar.HydatavalueSequence HYDATAVALUE_2_0_0 = INSTANCE.getHYDATAVALUE_2_0_0();

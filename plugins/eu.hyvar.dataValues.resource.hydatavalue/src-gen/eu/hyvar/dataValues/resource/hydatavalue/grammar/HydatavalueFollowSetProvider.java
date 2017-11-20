@@ -14,7 +14,7 @@ import org.eclipse.emf.ecore.EStructuralFeature;
  */
 public class HydatavalueFollowSetProvider {
 	
-	public final static eu.hyvar.dataValues.resource.hydatavalue.IHydatavalueExpectedElement TERMINALS[] = new eu.hyvar.dataValues.resource.hydatavalue.IHydatavalueExpectedElement[37];
+	public final static eu.hyvar.dataValues.resource.hydatavalue.IHydatavalueExpectedElement TERMINALS[] = new eu.hyvar.dataValues.resource.hydatavalue.IHydatavalueExpectedElement[39];
 	
 	public final static EStructuralFeature[] FEATURES = new EStructuralFeature[1];
 	
@@ -57,9 +57,11 @@ public class HydatavalueFollowSetProvider {
 		TERMINALS[31] = new eu.hyvar.dataValues.resource.hydatavalue.mopp.HydatavalueExpectedCsString(eu.hyvar.dataValues.resource.hydatavalue.grammar.HydatavalueGrammarInformationProvider.HYDATAVALUE_4_0_0_5_0_0_1_0_1_2);
 		TERMINALS[32] = new eu.hyvar.dataValues.resource.hydatavalue.mopp.HydatavalueExpectedCsString(eu.hyvar.dataValues.resource.hydatavalue.grammar.HydatavalueGrammarInformationProvider.HYDATAVALUE_4_0_0_5_0_0_1_0_2_1);
 		TERMINALS[33] = new eu.hyvar.dataValues.resource.hydatavalue.mopp.HydatavalueExpectedStructuralFeature(eu.hyvar.dataValues.resource.hydatavalue.grammar.HydatavalueGrammarInformationProvider.HYDATAVALUE_4_0_0_5_0_0_1_0_2_2);
-		TERMINALS[34] = new eu.hyvar.dataValues.resource.hydatavalue.mopp.HydatavalueExpectedStructuralFeature(eu.hyvar.dataValues.resource.hydatavalue.grammar.HydatavalueGrammarInformationProvider.HYDATAVALUE_2_0_0_1);
-		TERMINALS[35] = new eu.hyvar.dataValues.resource.hydatavalue.mopp.HydatavalueExpectedCsString(eu.hyvar.dataValues.resource.hydatavalue.grammar.HydatavalueGrammarInformationProvider.HYDATAVALUE_2_0_0_2);
-		TERMINALS[36] = new eu.hyvar.dataValues.resource.hydatavalue.mopp.HydatavalueExpectedStructuralFeature(eu.hyvar.dataValues.resource.hydatavalue.grammar.HydatavalueGrammarInformationProvider.HYDATAVALUE_2_0_0_3);
+		TERMINALS[34] = new eu.hyvar.dataValues.resource.hydatavalue.mopp.HydatavalueExpectedStructuralFeature(eu.hyvar.dataValues.resource.hydatavalue.grammar.HydatavalueGrammarInformationProvider.HYDATAVALUE_2_0_0_1_0_0_0);
+		TERMINALS[35] = new eu.hyvar.dataValues.resource.hydatavalue.mopp.HydatavalueExpectedStructuralFeature(eu.hyvar.dataValues.resource.hydatavalue.grammar.HydatavalueGrammarInformationProvider.HYDATAVALUE_2_0_0_1_0_1_0);
+		TERMINALS[36] = new eu.hyvar.dataValues.resource.hydatavalue.mopp.HydatavalueExpectedCsString(eu.hyvar.dataValues.resource.hydatavalue.grammar.HydatavalueGrammarInformationProvider.HYDATAVALUE_2_0_0_2);
+		TERMINALS[37] = new eu.hyvar.dataValues.resource.hydatavalue.mopp.HydatavalueExpectedStructuralFeature(eu.hyvar.dataValues.resource.hydatavalue.grammar.HydatavalueGrammarInformationProvider.HYDATAVALUE_2_0_0_3_0_0_0);
+		TERMINALS[38] = new eu.hyvar.dataValues.resource.hydatavalue.mopp.HydatavalueExpectedStructuralFeature(eu.hyvar.dataValues.resource.hydatavalue.grammar.HydatavalueGrammarInformationProvider.HYDATAVALUE_2_0_0_3_0_1_0);
 	}
 	
 	public static void initializeTerminals() {
@@ -123,8 +125,11 @@ public class HydatavalueFollowSetProvider {
 		TERMINALS[29].addFollower(TERMINALS[8], EMPTY_LINK_ARRAY);
 		TERMINALS[29].addFollower(TERMINALS[7], EMPTY_LINK_ARRAY);
 		TERMINALS[2].addFollower(TERMINALS[34], EMPTY_LINK_ARRAY);
-		TERMINALS[34].addFollower(TERMINALS[35], EMPTY_LINK_ARRAY);
+		TERMINALS[2].addFollower(TERMINALS[35], EMPTY_LINK_ARRAY);
+		TERMINALS[34].addFollower(TERMINALS[36], EMPTY_LINK_ARRAY);
 		TERMINALS[35].addFollower(TERMINALS[36], EMPTY_LINK_ARRAY);
+		TERMINALS[36].addFollower(TERMINALS[37], EMPTY_LINK_ARRAY);
+		TERMINALS[36].addFollower(TERMINALS[38], EMPTY_LINK_ARRAY);
 	}
 	
 	public static void wire() {

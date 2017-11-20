@@ -90,14 +90,14 @@ public class HyexpressionTokenStyleInformationProvider {
 		if ("eternity".equals(tokenName)) {
 			return new eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionTokenStyle(new int[] {0x80, 0x00, 0x55}, null, true, false, false, false);
 		}
+		if ("QUOTED_34_34".equals(tokenName)) {
+			return new eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionTokenStyle(new int[] {0x2A, 0x00, 0xFF}, null, false, false, false, false);
+		}
 		if ("TASK_ITEM".equals(tokenName)) {
 			return new eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionTokenStyle(new int[] {0x7F, 0x9F, 0xBF}, null, true, false, false, false);
 		}
 		if ("context:".equals(tokenName)) {
 			return new eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionTokenStyle(new int[] {0x80, 0x00, 0x55}, null, true, false, false, false);
-		}
-		if ("QUOTED_34_34".equals(tokenName)) {
-			return new eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionTokenStyle(new int[] {0x2A, 0x00, 0xFF}, null, false, false, false, false);
 		}
 		return null;
 	}

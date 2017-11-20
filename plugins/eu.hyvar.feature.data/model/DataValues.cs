@@ -40,9 +40,9 @@ RULES {
 	@Operator(type="primitive", weight="15", superclass="HyValue")
 	HyBooleanValue ::= value["true" : "false"];
 	
-	@SuppressWarnings(minOccurenceMismatch)
+	@SuppressWarnings(minOccurenceMismatch, explicitSyntaxChoice)
 	@Operator(type="primitive", weight="15", superclass="HyValue")
-	HyEnumValue ::= "enum:"enum[IDENTIFIER_TOKEN] "." enumLiteral[IDENTIFIER_TOKEN];
+	HyEnumValue ::= "enum:"(enum['"', '"'] | enum[]) "." (enumLiteral['"', '"'] | enumLiteral[]);
 	
 	@SuppressWarnings(explicitSyntaxChoice)
 	HyEnum ::= "Enum(" name[IDENTIFIER_TOKEN]"," (literals ("," literals)*)? ")" ("[" (validSince[DATE] "-" validUntil[DATE] | validSince[DATE] "-"  | "eternity" "-" validUntil[DATE])  "]")?;

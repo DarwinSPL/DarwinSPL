@@ -383,7 +383,7 @@ import org.eclipse.emf.ecore.EReference;
 				break;
 			}
 		}
-		int followSetID = 46;
+		int followSetID = 50;
 		int i;
 		for (i = tokenIndexOfLastCompleteElement; i < tokenStream.size(); i++) {
 			CommonToken nextToken = (CommonToken) tokenStream.get(i);
@@ -1413,96 +1413,192 @@ parse_eu_hyvar_dataValues_HyEnumValue returns [eu.hyvar.dataValues.HyEnumValue e
 	{
 		// expected elements (follow set)
 		addExpectedElement(null, eu.hyvar.dataValues.resource.hydatavalue.mopp.HydatavalueExpectationConstants.EXPECTATIONS[54]);
-	}
-	
-	(
-		a1 = IDENTIFIER_TOKEN		
-		{
-			if (terminateParsing) {
-				throw new eu.hyvar.dataValues.resource.hydatavalue.mopp.HydatavalueTerminateParsingException();
-			}
-			if (element == null) {
-				element = eu.hyvar.dataValues.HyDataValuesFactory.eINSTANCE.createHyEnumValue();
-				startIncompleteElement(element);
-			}
-			if (a1 != null) {
-				eu.hyvar.dataValues.resource.hydatavalue.IHydatavalueTokenResolver tokenResolver = tokenResolverFactory.createTokenResolver("IDENTIFIER_TOKEN");
-				tokenResolver.setOptions(getOptions());
-				eu.hyvar.dataValues.resource.hydatavalue.IHydatavalueTokenResolveResult result = getFreshTokenResolveResult();
-				tokenResolver.resolve(a1.getText(), element.eClass().getEStructuralFeature(eu.hyvar.dataValues.HyDataValuesPackage.HY_ENUM_VALUE__ENUM), result);
-				Object resolvedObject = result.getResolvedToken();
-				if (resolvedObject == null) {
-					addErrorToResource(result.getErrorMessage(), ((CommonToken) a1).getLine(), ((CommonToken) a1).getCharPositionInLine(), ((CommonToken) a1).getStartIndex(), ((CommonToken) a1).getStopIndex());
-				}
-				String resolved = (String) resolvedObject;
-				eu.hyvar.dataValues.HyEnum proxy = eu.hyvar.dataValues.HyDataValuesFactory.eINSTANCE.createHyEnum();
-				collectHiddenTokens(element);
-				registerContextDependentProxy(new eu.hyvar.dataValues.resource.hydatavalue.mopp.HydatavalueContextDependentURIFragmentFactory<eu.hyvar.dataValues.HyEnumValue, eu.hyvar.dataValues.HyEnum>(getReferenceResolverSwitch() == null ? null : getReferenceResolverSwitch().getHyEnumValueEnumReferenceResolver()), element, (EReference) element.eClass().getEStructuralFeature(eu.hyvar.dataValues.HyDataValuesPackage.HY_ENUM_VALUE__ENUM), resolved, proxy);
-				if (proxy != null) {
-					Object value = proxy;
-					element.eSet(element.eClass().getEStructuralFeature(eu.hyvar.dataValues.HyDataValuesPackage.HY_ENUM_VALUE__ENUM), value);
-					completedElement(value, false);
-				}
-				collectHiddenTokens(element);
-				retrieveLayoutInformation(element, eu.hyvar.dataValues.resource.hydatavalue.grammar.HydatavalueGrammarInformationProvider.HYDATAVALUE_2_0_0_1, proxy, true);
-				copyLocalizationInfos((CommonToken) a1, element);
-				copyLocalizationInfos((CommonToken) a1, proxy);
-			}
-		}
-	)
-	{
-		// expected elements (follow set)
 		addExpectedElement(null, eu.hyvar.dataValues.resource.hydatavalue.mopp.HydatavalueExpectationConstants.EXPECTATIONS[55]);
 	}
 	
-	a2 = '.' {
+	(
+		(
+			a1 = QUOTED_34_34			
+			{
+				if (terminateParsing) {
+					throw new eu.hyvar.dataValues.resource.hydatavalue.mopp.HydatavalueTerminateParsingException();
+				}
+				if (element == null) {
+					element = eu.hyvar.dataValues.HyDataValuesFactory.eINSTANCE.createHyEnumValue();
+					startIncompleteElement(element);
+				}
+				if (a1 != null) {
+					eu.hyvar.dataValues.resource.hydatavalue.IHydatavalueTokenResolver tokenResolver = tokenResolverFactory.createTokenResolver("QUOTED_34_34");
+					tokenResolver.setOptions(getOptions());
+					eu.hyvar.dataValues.resource.hydatavalue.IHydatavalueTokenResolveResult result = getFreshTokenResolveResult();
+					tokenResolver.resolve(a1.getText(), element.eClass().getEStructuralFeature(eu.hyvar.dataValues.HyDataValuesPackage.HY_ENUM_VALUE__ENUM), result);
+					Object resolvedObject = result.getResolvedToken();
+					if (resolvedObject == null) {
+						addErrorToResource(result.getErrorMessage(), ((CommonToken) a1).getLine(), ((CommonToken) a1).getCharPositionInLine(), ((CommonToken) a1).getStartIndex(), ((CommonToken) a1).getStopIndex());
+					}
+					String resolved = (String) resolvedObject;
+					eu.hyvar.dataValues.HyEnum proxy = eu.hyvar.dataValues.HyDataValuesFactory.eINSTANCE.createHyEnum();
+					collectHiddenTokens(element);
+					registerContextDependentProxy(new eu.hyvar.dataValues.resource.hydatavalue.mopp.HydatavalueContextDependentURIFragmentFactory<eu.hyvar.dataValues.HyEnumValue, eu.hyvar.dataValues.HyEnum>(getReferenceResolverSwitch() == null ? null : getReferenceResolverSwitch().getHyEnumValueEnumReferenceResolver()), element, (EReference) element.eClass().getEStructuralFeature(eu.hyvar.dataValues.HyDataValuesPackage.HY_ENUM_VALUE__ENUM), resolved, proxy);
+					if (proxy != null) {
+						Object value = proxy;
+						element.eSet(element.eClass().getEStructuralFeature(eu.hyvar.dataValues.HyDataValuesPackage.HY_ENUM_VALUE__ENUM), value);
+						completedElement(value, false);
+					}
+					collectHiddenTokens(element);
+					retrieveLayoutInformation(element, eu.hyvar.dataValues.resource.hydatavalue.grammar.HydatavalueGrammarInformationProvider.HYDATAVALUE_2_0_0_1_0_0_0, proxy, true);
+					copyLocalizationInfos((CommonToken) a1, element);
+					copyLocalizationInfos((CommonToken) a1, proxy);
+				}
+			}
+		)
+		{
+			// expected elements (follow set)
+			addExpectedElement(null, eu.hyvar.dataValues.resource.hydatavalue.mopp.HydatavalueExpectationConstants.EXPECTATIONS[56]);
+		}
+		
+		
+		|		(
+			a2 = IDENTIFIER_TOKEN			
+			{
+				if (terminateParsing) {
+					throw new eu.hyvar.dataValues.resource.hydatavalue.mopp.HydatavalueTerminateParsingException();
+				}
+				if (element == null) {
+					element = eu.hyvar.dataValues.HyDataValuesFactory.eINSTANCE.createHyEnumValue();
+					startIncompleteElement(element);
+				}
+				if (a2 != null) {
+					eu.hyvar.dataValues.resource.hydatavalue.IHydatavalueTokenResolver tokenResolver = tokenResolverFactory.createTokenResolver("IDENTIFIER_TOKEN");
+					tokenResolver.setOptions(getOptions());
+					eu.hyvar.dataValues.resource.hydatavalue.IHydatavalueTokenResolveResult result = getFreshTokenResolveResult();
+					tokenResolver.resolve(a2.getText(), element.eClass().getEStructuralFeature(eu.hyvar.dataValues.HyDataValuesPackage.HY_ENUM_VALUE__ENUM), result);
+					Object resolvedObject = result.getResolvedToken();
+					if (resolvedObject == null) {
+						addErrorToResource(result.getErrorMessage(), ((CommonToken) a2).getLine(), ((CommonToken) a2).getCharPositionInLine(), ((CommonToken) a2).getStartIndex(), ((CommonToken) a2).getStopIndex());
+					}
+					String resolved = (String) resolvedObject;
+					eu.hyvar.dataValues.HyEnum proxy = eu.hyvar.dataValues.HyDataValuesFactory.eINSTANCE.createHyEnum();
+					collectHiddenTokens(element);
+					registerContextDependentProxy(new eu.hyvar.dataValues.resource.hydatavalue.mopp.HydatavalueContextDependentURIFragmentFactory<eu.hyvar.dataValues.HyEnumValue, eu.hyvar.dataValues.HyEnum>(getReferenceResolverSwitch() == null ? null : getReferenceResolverSwitch().getHyEnumValueEnumReferenceResolver()), element, (EReference) element.eClass().getEStructuralFeature(eu.hyvar.dataValues.HyDataValuesPackage.HY_ENUM_VALUE__ENUM), resolved, proxy);
+					if (proxy != null) {
+						Object value = proxy;
+						element.eSet(element.eClass().getEStructuralFeature(eu.hyvar.dataValues.HyDataValuesPackage.HY_ENUM_VALUE__ENUM), value);
+						completedElement(value, false);
+					}
+					collectHiddenTokens(element);
+					retrieveLayoutInformation(element, eu.hyvar.dataValues.resource.hydatavalue.grammar.HydatavalueGrammarInformationProvider.HYDATAVALUE_2_0_0_1_0_1_0, proxy, true);
+					copyLocalizationInfos((CommonToken) a2, element);
+					copyLocalizationInfos((CommonToken) a2, proxy);
+				}
+			}
+		)
+		{
+			// expected elements (follow set)
+			addExpectedElement(null, eu.hyvar.dataValues.resource.hydatavalue.mopp.HydatavalueExpectationConstants.EXPECTATIONS[57]);
+		}
+		
+	)
+	{
+		// expected elements (follow set)
+		addExpectedElement(null, eu.hyvar.dataValues.resource.hydatavalue.mopp.HydatavalueExpectationConstants.EXPECTATIONS[58]);
+	}
+	
+	a3 = '.' {
 		if (element == null) {
 			element = eu.hyvar.dataValues.HyDataValuesFactory.eINSTANCE.createHyEnumValue();
 			startIncompleteElement(element);
 		}
 		collectHiddenTokens(element);
 		retrieveLayoutInformation(element, eu.hyvar.dataValues.resource.hydatavalue.grammar.HydatavalueGrammarInformationProvider.HYDATAVALUE_2_0_0_2, null, true);
-		copyLocalizationInfos((CommonToken)a2, element);
+		copyLocalizationInfos((CommonToken)a3, element);
 	}
 	{
 		// expected elements (follow set)
-		addExpectedElement(null, eu.hyvar.dataValues.resource.hydatavalue.mopp.HydatavalueExpectationConstants.EXPECTATIONS[56]);
+		addExpectedElement(null, eu.hyvar.dataValues.resource.hydatavalue.mopp.HydatavalueExpectationConstants.EXPECTATIONS[59]);
+		addExpectedElement(null, eu.hyvar.dataValues.resource.hydatavalue.mopp.HydatavalueExpectationConstants.EXPECTATIONS[60]);
 	}
 	
 	(
-		a3 = IDENTIFIER_TOKEN		
+		(
+			a4 = QUOTED_34_34			
+			{
+				if (terminateParsing) {
+					throw new eu.hyvar.dataValues.resource.hydatavalue.mopp.HydatavalueTerminateParsingException();
+				}
+				if (element == null) {
+					element = eu.hyvar.dataValues.HyDataValuesFactory.eINSTANCE.createHyEnumValue();
+					startIncompleteElement(element);
+				}
+				if (a4 != null) {
+					eu.hyvar.dataValues.resource.hydatavalue.IHydatavalueTokenResolver tokenResolver = tokenResolverFactory.createTokenResolver("QUOTED_34_34");
+					tokenResolver.setOptions(getOptions());
+					eu.hyvar.dataValues.resource.hydatavalue.IHydatavalueTokenResolveResult result = getFreshTokenResolveResult();
+					tokenResolver.resolve(a4.getText(), element.eClass().getEStructuralFeature(eu.hyvar.dataValues.HyDataValuesPackage.HY_ENUM_VALUE__ENUM_LITERAL), result);
+					Object resolvedObject = result.getResolvedToken();
+					if (resolvedObject == null) {
+						addErrorToResource(result.getErrorMessage(), ((CommonToken) a4).getLine(), ((CommonToken) a4).getCharPositionInLine(), ((CommonToken) a4).getStartIndex(), ((CommonToken) a4).getStopIndex());
+					}
+					String resolved = (String) resolvedObject;
+					eu.hyvar.dataValues.HyEnumLiteral proxy = eu.hyvar.dataValues.HyDataValuesFactory.eINSTANCE.createHyEnumLiteral();
+					collectHiddenTokens(element);
+					registerContextDependentProxy(new eu.hyvar.dataValues.resource.hydatavalue.mopp.HydatavalueContextDependentURIFragmentFactory<eu.hyvar.dataValues.HyEnumValue, eu.hyvar.dataValues.HyEnumLiteral>(getReferenceResolverSwitch() == null ? null : getReferenceResolverSwitch().getHyEnumValueEnumLiteralReferenceResolver()), element, (EReference) element.eClass().getEStructuralFeature(eu.hyvar.dataValues.HyDataValuesPackage.HY_ENUM_VALUE__ENUM_LITERAL), resolved, proxy);
+					if (proxy != null) {
+						Object value = proxy;
+						element.eSet(element.eClass().getEStructuralFeature(eu.hyvar.dataValues.HyDataValuesPackage.HY_ENUM_VALUE__ENUM_LITERAL), value);
+						completedElement(value, false);
+					}
+					collectHiddenTokens(element);
+					retrieveLayoutInformation(element, eu.hyvar.dataValues.resource.hydatavalue.grammar.HydatavalueGrammarInformationProvider.HYDATAVALUE_2_0_0_3_0_0_0, proxy, true);
+					copyLocalizationInfos((CommonToken) a4, element);
+					copyLocalizationInfos((CommonToken) a4, proxy);
+				}
+			}
+		)
 		{
-			if (terminateParsing) {
-				throw new eu.hyvar.dataValues.resource.hydatavalue.mopp.HydatavalueTerminateParsingException();
-			}
-			if (element == null) {
-				element = eu.hyvar.dataValues.HyDataValuesFactory.eINSTANCE.createHyEnumValue();
-				startIncompleteElement(element);
-			}
-			if (a3 != null) {
-				eu.hyvar.dataValues.resource.hydatavalue.IHydatavalueTokenResolver tokenResolver = tokenResolverFactory.createTokenResolver("IDENTIFIER_TOKEN");
-				tokenResolver.setOptions(getOptions());
-				eu.hyvar.dataValues.resource.hydatavalue.IHydatavalueTokenResolveResult result = getFreshTokenResolveResult();
-				tokenResolver.resolve(a3.getText(), element.eClass().getEStructuralFeature(eu.hyvar.dataValues.HyDataValuesPackage.HY_ENUM_VALUE__ENUM_LITERAL), result);
-				Object resolvedObject = result.getResolvedToken();
-				if (resolvedObject == null) {
-					addErrorToResource(result.getErrorMessage(), ((CommonToken) a3).getLine(), ((CommonToken) a3).getCharPositionInLine(), ((CommonToken) a3).getStartIndex(), ((CommonToken) a3).getStopIndex());
-				}
-				String resolved = (String) resolvedObject;
-				eu.hyvar.dataValues.HyEnumLiteral proxy = eu.hyvar.dataValues.HyDataValuesFactory.eINSTANCE.createHyEnumLiteral();
-				collectHiddenTokens(element);
-				registerContextDependentProxy(new eu.hyvar.dataValues.resource.hydatavalue.mopp.HydatavalueContextDependentURIFragmentFactory<eu.hyvar.dataValues.HyEnumValue, eu.hyvar.dataValues.HyEnumLiteral>(getReferenceResolverSwitch() == null ? null : getReferenceResolverSwitch().getHyEnumValueEnumLiteralReferenceResolver()), element, (EReference) element.eClass().getEStructuralFeature(eu.hyvar.dataValues.HyDataValuesPackage.HY_ENUM_VALUE__ENUM_LITERAL), resolved, proxy);
-				if (proxy != null) {
-					Object value = proxy;
-					element.eSet(element.eClass().getEStructuralFeature(eu.hyvar.dataValues.HyDataValuesPackage.HY_ENUM_VALUE__ENUM_LITERAL), value);
-					completedElement(value, false);
-				}
-				collectHiddenTokens(element);
-				retrieveLayoutInformation(element, eu.hyvar.dataValues.resource.hydatavalue.grammar.HydatavalueGrammarInformationProvider.HYDATAVALUE_2_0_0_3, proxy, true);
-				copyLocalizationInfos((CommonToken) a3, element);
-				copyLocalizationInfos((CommonToken) a3, proxy);
-			}
+			// expected elements (follow set)
 		}
+		
+		
+		|		(
+			a5 = IDENTIFIER_TOKEN			
+			{
+				if (terminateParsing) {
+					throw new eu.hyvar.dataValues.resource.hydatavalue.mopp.HydatavalueTerminateParsingException();
+				}
+				if (element == null) {
+					element = eu.hyvar.dataValues.HyDataValuesFactory.eINSTANCE.createHyEnumValue();
+					startIncompleteElement(element);
+				}
+				if (a5 != null) {
+					eu.hyvar.dataValues.resource.hydatavalue.IHydatavalueTokenResolver tokenResolver = tokenResolverFactory.createTokenResolver("IDENTIFIER_TOKEN");
+					tokenResolver.setOptions(getOptions());
+					eu.hyvar.dataValues.resource.hydatavalue.IHydatavalueTokenResolveResult result = getFreshTokenResolveResult();
+					tokenResolver.resolve(a5.getText(), element.eClass().getEStructuralFeature(eu.hyvar.dataValues.HyDataValuesPackage.HY_ENUM_VALUE__ENUM_LITERAL), result);
+					Object resolvedObject = result.getResolvedToken();
+					if (resolvedObject == null) {
+						addErrorToResource(result.getErrorMessage(), ((CommonToken) a5).getLine(), ((CommonToken) a5).getCharPositionInLine(), ((CommonToken) a5).getStartIndex(), ((CommonToken) a5).getStopIndex());
+					}
+					String resolved = (String) resolvedObject;
+					eu.hyvar.dataValues.HyEnumLiteral proxy = eu.hyvar.dataValues.HyDataValuesFactory.eINSTANCE.createHyEnumLiteral();
+					collectHiddenTokens(element);
+					registerContextDependentProxy(new eu.hyvar.dataValues.resource.hydatavalue.mopp.HydatavalueContextDependentURIFragmentFactory<eu.hyvar.dataValues.HyEnumValue, eu.hyvar.dataValues.HyEnumLiteral>(getReferenceResolverSwitch() == null ? null : getReferenceResolverSwitch().getHyEnumValueEnumLiteralReferenceResolver()), element, (EReference) element.eClass().getEStructuralFeature(eu.hyvar.dataValues.HyDataValuesPackage.HY_ENUM_VALUE__ENUM_LITERAL), resolved, proxy);
+					if (proxy != null) {
+						Object value = proxy;
+						element.eSet(element.eClass().getEStructuralFeature(eu.hyvar.dataValues.HyDataValuesPackage.HY_ENUM_VALUE__ENUM_LITERAL), value);
+						completedElement(value, false);
+					}
+					collectHiddenTokens(element);
+					retrieveLayoutInformation(element, eu.hyvar.dataValues.resource.hydatavalue.grammar.HydatavalueGrammarInformationProvider.HYDATAVALUE_2_0_0_3_0_1_0, proxy, true);
+					copyLocalizationInfos((CommonToken) a5, element);
+					copyLocalizationInfos((CommonToken) a5, proxy);
+				}
+			}
+		)
+		{
+			// expected elements (follow set)
+		}
+		
 	)
 	{
 		// expected elements (follow set)
@@ -1540,5 +1636,8 @@ LINEBREAK:
 WHITESPACE:
 	((' '|'\t'|'\f'))
 	{ _channel = 99; }
+;
+QUOTED_34_34:
+	(('"')(~('"'))*('"'))
 ;
 

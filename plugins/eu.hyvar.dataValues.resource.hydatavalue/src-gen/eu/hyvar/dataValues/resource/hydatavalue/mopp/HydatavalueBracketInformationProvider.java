@@ -18,6 +18,7 @@ public class HydatavalueBracketInformationProvider {
 	public Collection<eu.hyvar.dataValues.resource.hydatavalue.IHydatavalueBracketPair> getBracketPairs() {
 		Collection<eu.hyvar.dataValues.resource.hydatavalue.IHydatavalueBracketPair> result = new ArrayList<eu.hyvar.dataValues.resource.hydatavalue.IHydatavalueBracketPair>();
 		result.add(new eu.hyvar.dataValues.resource.hydatavalue.mopp.HydatavalueBracketPair("[", "]", true, false));
+		result.add(new eu.hyvar.dataValues.resource.hydatavalue.mopp.HydatavalueBracketPair("\"", "\"", false, false));
 		return result;
 	}
 	
