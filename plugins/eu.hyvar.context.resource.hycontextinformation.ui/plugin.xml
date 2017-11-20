@@ -7,7 +7,7 @@
 	</extension>
 	
 	<extension point="org.eclipse.ui.editors">
-		<editor class="eu.hyvar.context.resource.hycontextinformation.ui.HycontextinformationEditor" contributorClass="org.eclipse.ui.texteditor.BasicTextEditorActionContributor" extensions="hycontextinformation" icon="icons/icon_context.png" id="eu.hyvar.context.resource.hycontextinformation.ui.HycontextinformationEditor" name="Contextual Information Editor (HyVar)">
+		<editor class="eu.hyvar.context.resource.hycontextinformation.ui.HycontextinformationEditor" contributorClass="org.eclipse.ui.texteditor.BasicTextEditorActionContributor" extensions="hycontextinformation" icon="icons/icon_context.png" id="eu.hyvar.context.resource.hycontextinformation.ui.HycontextinformationEditor" name="DarwinSPL Context Information Editor">
 			<contentTypeBinding contentTypeId="eu.hyvar.context.resource.hycontextinformation">
 			</contentTypeBinding>
 		</editor>
@@ -30,7 +30,7 @@
 	</extension>
 	
 	<extension point="org.eclipse.ui.newWizards">
-		<wizard category="eu.hyvar.newwizards.Category" icon="/icons/default_new_icon.gif" class="eu.hyvar.context.resource.hycontextinformation.ui.HycontextinformationNewFileWizard" id="eu.hyvar.context.resource.hycontextinformation.ui.HycontextinformationNewFileWizard" name="HyVar Contextual Information (*.hycontextinformation)">
+		<wizard category="de.darwinspl.wizards" icon="icons/icon_context.png" class="eu.hyvar.context.resource.hycontextinformation.ui.HycontextinformationNewFileWizard" id="eu.hyvar.context.resource.hycontextinformation.ui.HycontextinformationNewFileWizard" name="DarwinSPL Context Information (*.hycontextinformation)">
 		</wizard>
 	</extension>
 	
