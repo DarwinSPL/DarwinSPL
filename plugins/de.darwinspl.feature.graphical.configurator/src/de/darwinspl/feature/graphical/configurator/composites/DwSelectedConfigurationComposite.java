@@ -80,6 +80,21 @@ public class DwSelectedConfigurationComposite extends Group {
 		return attributes;
 		
 	}
+	
+	public List<HyVersionSelected> getSelectedVersionForFeature(HyFeatureSelected feature, HyConfiguration config){
+		List<HyVersionSelected> attributes = new ArrayList<>();
+		
+		for(HyConfigurationElement element: config.getElements()){
+			if(element instanceof HyVersionSelected){
+				if(((HyVersionSelected) element).getSelectedVersion().getFeature().equals(feature.getSelectedFeature())){
+					attributes.add((HyVersionSelected) element);
+				}
+			}
+		}
+		
+		return attributes;
+		
+	}
 
 	public void setConfiguration(HyConfiguration configuration, Date date) {
 		String text = "";
@@ -91,6 +106,16 @@ public class DwSelectedConfigurationComposite extends Group {
 					HyName name = HyEvolutionUtil.getValidTemporalElement(select.getSelectedFeature().getNames(), date);
 
 					text += name.getName() + "\n";
+					
+					if(!(select.getSelectedFeature().getVersions().isEmpty())){
+						for(HyVersionSelected versionSelected: getSelectedVersionForFeature(select, configuration)){
+							HyVersionSelected version = (HyVersionSelected) versionSelected;
+							String nameVersion = version.getSelectedVersion().getNumber();
+
+							text += "@" + nameVersion + "\n";
+						}
+						
+					}
 
 					if (((HyFeatureSelected) element).getSelectedFeature().getAttributes().isEmpty() != true) {
 						for (HyAttributeValueAssignment attribute : getSelectedAttributesForFeature(select,
@@ -117,14 +142,8 @@ public class DwSelectedConfigurationComposite extends Group {
 							text += name.getName() + "." + nameAtr.getName() + " = " + stringValue + "\n";
 						}
 					}
+					
 
-				}
-
-				if (element instanceof HyVersionSelected) {
-					HyVersionSelected select = (HyVersionSelected) element;
-					String name = select.getSelectedVersion().getNumber();
-
-					text += "@" + name + "\n";
 				}
 
 			}
