@@ -10,13 +10,16 @@ import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 
 import de.christophseidl.util.ecore.EcoreIOUtil;
+import de.darwinspl.common.ecore.util.DwEcoreUtil;
 import eu.hyvar.context.HyContextModel;
 import eu.hyvar.context.information.util.ContextInformationResolverUtil;
 import eu.hyvar.dataValues.HyEnum;
+
 import eu.hyvar.evolution.HyName;
 import eu.hyvar.feature.HyFeature;
 import eu.hyvar.feature.HyFeatureModel;
 import eu.hyvar.feature.util.HyFeatureResolverUtil;
+import eu.hyvar.feature.util.HyFeatureUtil;
 import eu.hyvar.mspl.manifest.HyManifest;
 import eu.hyvar.mspl.manifest.HySPLImplementation;
 import eu.hyvar.mspl.manifest.HySPLSignature;
@@ -25,13 +28,32 @@ import eu.hyvar.mspl.manifest.HyTimedDependencies;
 public class HyManifestResolverUtil {
 
 	public static String MANIFEST_SEPARATOR = ":";
-
-	public static final String FILE_EXTENSION_FOR_XMI = "hymanifest_xmi";
-
-	public static final String[] FILE_EXTENSIONS = { "hymanifest" };
+	
+	private static final String MANIFEST_MODEL_FILE_EXTENSION_FOR_XMI = "hymanifest_xmi";
+	private static final String MANIFEST_MODEL_FILE_EXTENSION_FOR_CONCRETE_SYNTAX = "hymanifest";
+	
+	private static final String[] MANIFEST_MODEL_FILE_EXTENSIONS = {MANIFEST_MODEL_FILE_EXTENSION_FOR_XMI, MANIFEST_MODEL_FILE_EXTENSION_FOR_CONCRETE_SYNTAX};
+	
+	public static String getManifestModelFileExtensionForXmi() {
+		return MANIFEST_MODEL_FILE_EXTENSION_FOR_XMI;
+	}
+	public static String getManifestModelFileExtensionForConcreteSyntax() {
+		return MANIFEST_MODEL_FILE_EXTENSION_FOR_CONCRETE_SYNTAX;
+	}
+	public static String[] getManifestModelFileExtensions() {
+		return MANIFEST_MODEL_FILE_EXTENSIONS;
+	}
 
 	public static HyManifest getAccompanyingManifestModel(EObject elementInOriginalResource) {
-		return DEIOUtil.doLoadAccompanyingModel(elementInOriginalResource, FILE_EXTENSIONS);
+		//EObject model = DwEcoreUtil.loadAccompanyingModelInSameProject(elementInOriginalResource, HyFeatureUtil.getFeatureModelFileExtensionForXmi());
+		EObject model = DwEcoreUtil.loadAccompanyingModelInSameProject(elementInOriginalResource, getManifestModelFileExtensions());
+		
+		if(model != null && model instanceof HyManifest) {
+			return (HyManifest)model;
+		}
+		
+		return null;
+		// return DEIOUtil.doLoadAccompanyingModel(elementInOriginalResource, FILE_EXTENSIONS);
 	}
 
 	// From an identifier in the form "signatureName.signatureFeature" search in
@@ -95,9 +117,9 @@ public class HyManifestResolverUtil {
 	public static HySPLSignature resolveRelativeSignatureModel(String identifier, EObject elementInOriginalResource) {
 
 		boolean checkExtension = false;
-		for (String ext : FILE_EXTENSIONS) {
-			if (identifier.endsWith(ext)) {
-				checkExtension = true;
+		for(String ext: HyManifestResolverUtil.getManifestModelFileExtensions()) {
+			if(identifier.endsWith(ext)){
+				checkExtension=true;
 			}
 		}
 		if (!checkExtension)
@@ -124,9 +146,9 @@ public class HyManifestResolverUtil {
 			EObject elementInOriginalResource) {
 
 		boolean checkExtension = false;
-		for (String ext : FILE_EXTENSIONS) {
-			if (identifier.endsWith(ext)) {
-				checkExtension = true;
+		for(String ext: HyManifestResolverUtil.getManifestModelFileExtensions()) {
+			if(identifier.endsWith(ext)){
+				checkExtension=true;
 			}
 		}
 		if (!checkExtension)
