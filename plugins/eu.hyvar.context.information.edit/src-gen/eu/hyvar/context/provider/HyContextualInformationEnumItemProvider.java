@@ -7,7 +7,6 @@ import eu.hyvar.context.HyContextInformationPackage;
 import eu.hyvar.context.HyContextualInformationEnum;
 
 import eu.hyvar.evolution.HyEvolutionPackage;
-import eu.hyvar.evolution.edit.DwTemporalElementPropertyDescriptor;
 
 import java.util.Collection;
 import java.util.List;
@@ -76,23 +75,10 @@ public class HyContextualInformationEnumItemProvider
 	 * This adds a property descriptor for the Valid Since feature.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated NOT
+	 * @generated
 	 */
 	protected void addValidSincePropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add(new DwTemporalElementPropertyDescriptor(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-				 getResourceLocator(),
-				 getString("_UI_HyTemporalElement_validSince_feature"),
-				 getString("_UI_HyTemporalElement_validSince_description"),
-				 HyEvolutionPackage.Literals.HY_TEMPORAL_ELEMENT__VALID_SINCE,
-				 true,
-				 false,
-				 false,
-				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
-				 null,
-				 null));
-//		itemPropertyDescriptors.add
-//			(createItemPropertyDescriptor
-//				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+//		itemPropertyDescriptors.add(new DwTemporalElementPropertyDescriptor(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
 //				 getResourceLocator(),
 //				 getString("_UI_HyTemporalElement_validSince_feature"),
 //				 getString("_UI_HyTemporalElement_validSince_description"),
@@ -103,6 +89,19 @@ public class HyContextualInformationEnumItemProvider
 //				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
 //				 null,
 //				 null));
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_HyTemporalElement_validSince_feature"),
+				 getString("_UI_HyTemporalElement_validSince_description"),
+				 HyEvolutionPackage.Literals.HY_TEMPORAL_ELEMENT__VALID_SINCE,
+				 true,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+				 null,
+				 null));
 	}
 
 	/**

@@ -8,8 +8,7 @@ Bundle-Activator: eu.hyvar.evolution.provider.EvolEditPlugin$Implementation
 Bundle-Vendor: %providerName
 Bundle-Localization: plugin
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
-Export-Package: eu.hyvar.evolution.edit,
- eu.hyvar.evolution.provider
+Export-Package: eu.hyvar.evolution.provider
 Require-Bundle: org.eclipse.core.runtime,
  eu.hyvar.evolution;visibility:=reexport,
  org.eclipse.emf.edit;visibility:=reexport
