@@ -25,7 +25,8 @@ Require-Bundle: org.deltaecore.feature,
  de.darwinspl.common.eclipse.util,
  de.darwinspl.eclipse.ui,
  org.eclipse.core.expressions,
- de.darwinspl.feature.graphical.base
+ de.darwinspl.feature.graphical.base,
+ de.darwinspl.common.eclipse.ui
 Bundle-Vendor: www.darwinspl.de
 Bundle-ClassPath: .,
  libs/gson-2.6.1.jar

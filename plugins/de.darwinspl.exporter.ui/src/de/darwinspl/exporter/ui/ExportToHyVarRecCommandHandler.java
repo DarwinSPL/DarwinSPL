@@ -21,7 +21,6 @@ import org.eclipse.swt.widgets.Shell;
 import de.christophseidl.util.eclipse.ResourceUtil;
 import de.christophseidl.util.eclipse.ui.SelectionUtil;
 import de.christophseidl.util.ecore.EcoreIOUtil;
-import de.darwinspl.feature.graphical.base.dialogs.DwDateDialog;
 import de.darwinspl.preferences.util.custom.DwPreferenceModelUtil;
 import eu.hyvar.context.HyContextModel;
 import eu.hyvar.context.contextValidity.HyValidityModel;
@@ -34,6 +33,7 @@ import eu.hyvar.feature.configuration.util.HyConfigurationUtil;
 import eu.hyvar.feature.constraint.HyConstraintModel;
 import eu.hyvar.feature.constraint.util.HyConstraintUtil;
 import eu.hyvar.feature.util.HyFeatureUtil;
+import de.darwinspl.common.eclipse.ui.dialogs.DwDateDialog;
 import de.darwinspl.preferences.DwProfile;
 import eu.hyvar.reconfigurator.input.exporter.HyVarRecExporter;
 
@@ -66,7 +66,7 @@ public class ExportToHyVarRecCommandHandler extends AbstractHandler {
 		IFile constraintModelFileXmi = ResourceUtil.deriveFile(featureModelFile,
 				HyConstraintUtil.getConstraintModelFileExtensionForXmi());
 		IFile contextModelFile = ResourceUtil.deriveFile(featureModelFile,
-				HyContextInformationUtil.getContextModelFileExtensionForConcreteSyntax());
+				HyContextInformationUtil.getContextModelFileExtensionForXmi());
 		IFile validityModelFile = ResourceUtil.deriveFile(featureModelFile,
 				HyValidityModelUtil.getValidityModelFileExtensionForConcreteSyntax());
 		IFile preferenceModelFile = ResourceUtil.deriveFile(featureModelFile,

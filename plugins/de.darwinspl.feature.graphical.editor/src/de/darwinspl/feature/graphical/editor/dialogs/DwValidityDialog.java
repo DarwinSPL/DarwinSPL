@@ -11,7 +11,7 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
 
-import de.darwinspl.feature.graphical.base.dialogs.DwDateDialog;
+import de.darwinspl.common.eclipse.ui.dialogs.DwDateDialog;
 import eu.hyvar.evolution.HyTemporalElement;
 
 public class DwValidityDialog extends DwSelectionDialog{

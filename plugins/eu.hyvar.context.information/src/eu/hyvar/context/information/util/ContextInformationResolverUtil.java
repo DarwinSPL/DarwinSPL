@@ -15,7 +15,7 @@ import eu.hyvar.evolution.util.HyEvolutionUtil;
 
 public class ContextInformationResolverUtil {
 
-	public static final String[] FILE_EXTENSIONS = {HyContextInformationUtil.getContextModelFileExtensionForXmi(), HyContextInformationUtil.getContextModelFileExtensionForConcreteSyntax()};
+	public static final String[] FILE_EXTENSIONS = {HyContextInformationUtil.getContextModelFileExtensionForXmi()};
 	
 	
 	public static HyContextModel getAccompanyingContextModel(EObject elementInOriginalResource) {

@@ -137,7 +137,7 @@ public class DwFeatureModelConfiguratorEditor extends DwFeatureModelConfigurator
 		IWorkspaceRoot workspaceRoot = ResourcesPlugin.getWorkspace().getRoot();
 
 		IFile file = workspaceRoot.getFile(path);
-
+		
 		return file.exists();		
 	}
 
@@ -181,7 +181,7 @@ public class DwFeatureModelConfiguratorEditor extends DwFeatureModelConfigurator
 	}
 
 	private HyContextModel loadContextInformationModel(){
-		return (HyContextModel) EcoreIOUtil.loadAccompanyingModel(modelWrapped.getModel(), HyContextInformationUtil.getContextModelFileExtensionForConcreteSyntax());
+		return (HyContextModel) EcoreIOUtil.loadAccompanyingModel(modelWrapped.getModel(), HyContextInformationUtil.getContextModelFileExtensionForXmi());
 	}
 
 	private HyConfiguration loadConfigurationModel(){
@@ -337,7 +337,7 @@ public class DwFeatureModelConfiguratorEditor extends DwFeatureModelConfigurator
 		public void widgetSelected(SelectionEvent e) {
 			HyContextModel contextModel = null;
 			
-			if(modelFileExists(HyContextInformationUtil.getContextModelFileExtensionForConcreteSyntax())){
+			if(modelFileExists(HyContextInformationUtil.getContextModelFileExtensionForXmi())){
 				contextModel = loadContextInformationModel();
 				
 				if(contextModel == null) {
@@ -414,7 +414,7 @@ public class DwFeatureModelConfiguratorEditor extends DwFeatureModelConfigurator
 			HyContextValueModel contextValueModel = null;
 			
 			
-			if(modelFileExists(HyContextInformationUtil.getContextModelFileExtensionForConcreteSyntax())){
+			if(modelFileExists(HyContextInformationUtil.getContextModelFileExtensionForXmi())){
 				contextModel = loadContextInformationModel();
 
 				// only show the dialog if context information are available
