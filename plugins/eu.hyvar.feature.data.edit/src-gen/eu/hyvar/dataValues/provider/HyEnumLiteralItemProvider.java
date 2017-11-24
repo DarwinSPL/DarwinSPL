@@ -196,14 +196,26 @@ public class HyEnumLiteralItemProvider
 	 * This returns the label text for the adapted class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
 	@Override
 	public String getText(Object object) {
-		String label = ((HyEnumLiteral)object).getName();
-		return label == null || label.length() == 0 ?
-			getString("_UI_HyEnumLiteral_type") :
-			getString("_UI_HyEnumLiteral_type") + " " + label;
+//		String label = ((HyEnumLiteral)object).getName();
+//		return label == null || label.length() == 0 ?
+//			getString("_UI_HyEnumLiteral_type") :
+//			getString("_UI_HyEnumLiteral_type") + " " + label;
+		String label = "Literal: ";
+		if(object != null) {
+			HyEnumLiteral enumLiteral = ((HyEnumLiteral)object);
+			String name = enumLiteral.getName();
+			if(name != null) {
+				label += name;
+				
+				label += " ("+enumLiteral.getValue()+")";
+			}
+		}
+		
+		return label;
 	}
 	
 

@@ -221,7 +221,7 @@ public class HyContextualInformationEnumItemProvider
 	 * children and by creating a viewer notification, which it passes to {@link #fireNotifyChanged}.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
 	@Override
 	public void notifyChanged(Notification notification) {
@@ -232,6 +232,9 @@ public class HyContextualInformationEnumItemProvider
 			case HyContextInformationPackage.HY_CONTEXTUAL_INFORMATION_ENUM__VALID_UNTIL:
 			case HyContextInformationPackage.HY_CONTEXTUAL_INFORMATION_ENUM__ID:
 			case HyContextInformationPackage.HY_CONTEXTUAL_INFORMATION_ENUM__NAME:
+				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
+				return;
+			case HyContextInformationPackage.HY_CONTEXTUAL_INFORMATION_ENUM__ENUM_TYPE:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 				return;
 		}

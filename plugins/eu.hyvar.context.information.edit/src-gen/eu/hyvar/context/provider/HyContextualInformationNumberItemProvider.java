@@ -228,7 +228,9 @@ public class HyContextualInformationNumberItemProvider
 //			getString("_UI_HyContextualInformationNumber_type") :
 //			getString("_UI_HyContextualInformationNumber_type") + " " + label;
 
-		return "Integer: "+((HyContextualInformationNumber)object).getName();
+		HyContextualInformationNumber number = ((HyContextualInformationNumber)object);
+		String label = "Integer: "+number.getName() + " ("+number.getMin()+" - "+number.getMax()+")";
+		return label;
 	}
 	
 
@@ -237,7 +239,7 @@ public class HyContextualInformationNumberItemProvider
 	 * children and by creating a viewer notification, which it passes to {@link #fireNotifyChanged}.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
 	@Override
 	public void notifyChanged(Notification notification) {
@@ -248,7 +250,11 @@ public class HyContextualInformationNumberItemProvider
 			case HyContextInformationPackage.HY_CONTEXTUAL_INFORMATION_NUMBER__VALID_UNTIL:
 			case HyContextInformationPackage.HY_CONTEXTUAL_INFORMATION_NUMBER__ID:
 			case HyContextInformationPackage.HY_CONTEXTUAL_INFORMATION_NUMBER__NAME:
+				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
+				return;
 			case HyContextInformationPackage.HY_CONTEXTUAL_INFORMATION_NUMBER__MIN:
+				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
+				return;
 			case HyContextInformationPackage.HY_CONTEXTUAL_INFORMATION_NUMBER__MAX:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 				return;
