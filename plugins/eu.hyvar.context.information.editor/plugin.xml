@@ -16,7 +16,7 @@
             name="DarwinSPL Context Information (*.dwcontextinformation)"
             class="eu.hyvar.context.presentation.HyContextInformationModelWizard"
             category="de.darwinspl.wizards"
-            icon="icons/full/obj16/HyContextInformationModelFile.gif">
+            icon="icons/icon_context.png">
          <description>%_UI_HyContextInformationModelWizard_description</description>
          <selection class="org.eclipse.core.resources.IResource"/>
       </wizard>
@@ -27,7 +27,7 @@
       <editor
             id="eu.hyvar.context.presentation.HyContextInformationEditorID"
             name="DarwinSPL Context Information Editor"
-            icon="icons/full/obj16/HyContextInformationModelFile.gif"
+            icon="icons/icon_context.png"
             extensions="dwcontextinformation"
             class="eu.hyvar.context.presentation.HyContextInformationEditor"
             contributorClass="eu.hyvar.context.presentation.HyContextInformationActionBarContributor">
