@@ -78,17 +78,6 @@ public class HyContextualInformationEnumItemProvider
 	 * @generated
 	 */
 	protected void addValidSincePropertyDescriptor(Object object) {
-//		itemPropertyDescriptors.add(new DwTemporalElementPropertyDescriptor(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-//				 getResourceLocator(),
-//				 getString("_UI_HyTemporalElement_validSince_feature"),
-//				 getString("_UI_HyTemporalElement_validSince_description"),
-//				 HyEvolutionPackage.Literals.HY_TEMPORAL_ELEMENT__VALID_SINCE,
-//				 true,
-//				 false,
-//				 false,
-//				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
-//				 null,
-//				 null));
 		itemPropertyDescriptors.add
 			(createItemPropertyDescriptor
 				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),

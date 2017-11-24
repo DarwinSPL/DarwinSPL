@@ -15,7 +15,7 @@
             id="eu.hyvar.context.presentation.HyContextInformationModelWizardID"
             name="%_UI_HyContextInformationModelWizard_label"
             class="eu.hyvar.context.presentation.HyContextInformationModelWizard"
-            category="org.eclipse.emf.ecore.Wizard.category.ID"
+            category="de.darwinspl.wizards"
             icon="icons/full/obj16/HyContextInformationModelFile.gif">
          <description>%_UI_HyContextInformationModelWizard_description</description>
          <selection class="org.eclipse.core.resources.IResource"/>
