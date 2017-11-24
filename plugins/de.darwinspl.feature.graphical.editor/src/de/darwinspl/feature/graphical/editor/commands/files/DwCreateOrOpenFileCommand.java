@@ -12,9 +12,11 @@ import org.eclipse.core.resources.IWorkspace;
 import org.eclipse.core.resources.IWorkspaceRoot;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.PlatformUI;
 
+import de.christophseidl.util.ecore.EcoreIOUtil;
 import de.darwinspl.feature.graphical.editor.editor.DwGraphicalFeatureModelEditor;
 
 public abstract class DwCreateOrOpenFileCommand extends AbstractHandler {
@@ -29,6 +31,10 @@ public abstract class DwCreateOrOpenFileCommand extends AbstractHandler {
 
 	protected abstract String getExtension();
 	
+	protected abstract boolean isConcreteSyntax();
+	
+	protected abstract EObject createNewModelInstance();
+	
 	@Override
 	public Object execute(ExecutionEvent event) throws ExecutionException {
 		String fileExtension = getExtension();
@@ -41,11 +47,17 @@ public abstract class DwCreateOrOpenFileCommand extends AbstractHandler {
 		IFile file = workspaceRoot.getFile(editor.getPathToEditorRelatedFileWithFileExtension(fileExtension));
 		
 		if(!file.exists()){
-			InputStream source = new ByteArrayInputStream("".getBytes());
-			try {
-				file.create(source, IResource.NONE, null);
-			} catch (CoreException e) {
-				e.printStackTrace();
+			if(isConcreteSyntax()) {
+				InputStream source = new ByteArrayInputStream("".getBytes());				
+				try {
+					file.create(source, IResource.NONE, null);
+				} catch (CoreException e) {
+					e.printStackTrace();
+				}
+			}
+			else {
+				EObject object = createNewModelInstance();
+				EcoreIOUtil.saveModelAs(object, file);
 			}
 			
 			editor.openEditorForFileExtension(fileExtension);
