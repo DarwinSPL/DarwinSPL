@@ -78,17 +78,6 @@ public class HyContextualInformationEnumItemProvider
 	 * @generated
 	 */
 	protected void addValidSincePropertyDescriptor(Object object) {
-//		itemPropertyDescriptors.add(new DwTemporalElementPropertyDescriptor(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-//				 getResourceLocator(),
-//				 getString("_UI_HyTemporalElement_validSince_feature"),
-//				 getString("_UI_HyTemporalElement_validSince_description"),
-//				 HyEvolutionPackage.Literals.HY_TEMPORAL_ELEMENT__VALID_SINCE,
-//				 true,
-//				 false,
-//				 false,
-//				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
-//				 null,
-//				 null));
 		itemPropertyDescriptors.add
 			(createItemPropertyDescriptor
 				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
@@ -232,7 +221,7 @@ public class HyContextualInformationEnumItemProvider
 	 * children and by creating a viewer notification, which it passes to {@link #fireNotifyChanged}.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
 	@Override
 	public void notifyChanged(Notification notification) {
@@ -243,6 +232,9 @@ public class HyContextualInformationEnumItemProvider
 			case HyContextInformationPackage.HY_CONTEXTUAL_INFORMATION_ENUM__VALID_UNTIL:
 			case HyContextInformationPackage.HY_CONTEXTUAL_INFORMATION_ENUM__ID:
 			case HyContextInformationPackage.HY_CONTEXTUAL_INFORMATION_ENUM__NAME:
+				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
+				return;
+			case HyContextInformationPackage.HY_CONTEXTUAL_INFORMATION_ENUM__ENUM_TYPE:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 				return;
 		}

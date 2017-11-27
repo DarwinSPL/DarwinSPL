@@ -13,10 +13,10 @@
             name="%_UI_Wizard_category"/>
       <wizard
             id="eu.hyvar.context.presentation.HyContextInformationModelWizardID"
-            name="%_UI_HyContextInformationModelWizard_label"
+            name="DarwinSPL Context Information (*.dwcontextinformation)"
             class="eu.hyvar.context.presentation.HyContextInformationModelWizard"
-            category="org.eclipse.emf.ecore.Wizard.category.ID"
-            icon="icons/full/obj16/HyContextInformationModelFile.gif">
+            category="de.darwinspl.wizards"
+            icon="icons/icon_context.png">
          <description>%_UI_HyContextInformationModelWizard_description</description>
          <selection class="org.eclipse.core.resources.IResource"/>
       </wizard>
@@ -26,8 +26,8 @@
       <!-- @generated ContextInformation -->
       <editor
             id="eu.hyvar.context.presentation.HyContextInformationEditorID"
-            name="%_UI_HyContextInformationEditor_label"
-            icon="icons/full/obj16/HyContextInformationModelFile.gif"
+            name="DarwinSPL Context Information Editor"
+            icon="icons/icon_context.png"
             extensions="dwcontextinformation"
             class="eu.hyvar.context.presentation.HyContextInformationEditor"
             contributorClass="eu.hyvar.context.presentation.HyContextInformationActionBarContributor">

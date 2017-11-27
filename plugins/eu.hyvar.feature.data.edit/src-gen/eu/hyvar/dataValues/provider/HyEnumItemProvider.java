@@ -218,10 +218,12 @@ public class HyEnumItemProvider
 		
 		String name = hyEnum.getName();
 		
+		String label = "Enum: ";
+		
 		if(name != null) {
-			return name;
+			label = label+name;
 		}
-		return "";
+		return label;
 	}
 	
 
