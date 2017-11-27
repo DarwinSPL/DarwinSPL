@@ -6,7 +6,7 @@ public class DwCreateContextInformationCommand extends DwCreateOrOpenFileCommand
 
 	@Override
 	protected String getExtension() {
-		return HyContextInformationUtil.getContextModelFileExtensionForConcreteSyntax();
+		return HyContextInformationUtil.getContextModelFileExtensionForXmi();
 	}
 
 }

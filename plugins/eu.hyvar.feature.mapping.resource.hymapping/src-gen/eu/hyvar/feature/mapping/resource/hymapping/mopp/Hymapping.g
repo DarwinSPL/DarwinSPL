@@ -398,7 +398,7 @@ import org.eclipse.emf.ecore.EReference;
 				break;
 			}
 		}
-		int followSetID = 132;
+		int followSetID = 138;
 		int i;
 		for (i = tokenIndexOfLastCompleteElement; i < tokenStream.size(); i++) {
 			CommonToken nextToken = (CommonToken) tokenStream.get(i);
@@ -652,7 +652,7 @@ parse_org_deltaecore_core_decore_DEDeltaInvokation returns [org.deltaecore.core.
 }
 :
 	(
-		a0 = QUOTED_60_62		
+		a0 = QUOTED_6060_6262		
 		{
 			if (terminateParsing) {
 				throw new eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingTerminateParsingException();
@@ -662,7 +662,7 @@ parse_org_deltaecore_core_decore_DEDeltaInvokation returns [org.deltaecore.core.
 				startIncompleteElement(element);
 			}
 			if (a0 != null) {
-				eu.hyvar.feature.mapping.resource.hymapping.IHymappingTokenResolver tokenResolver = tokenResolverFactory.createTokenResolver("QUOTED_60_62");
+				eu.hyvar.feature.mapping.resource.hymapping.IHymappingTokenResolver tokenResolver = tokenResolverFactory.createTokenResolver("QUOTED_6060_6262");
 				tokenResolver.setOptions(getOptions());
 				eu.hyvar.feature.mapping.resource.hymapping.IHymappingTokenResolveResult result = getFreshTokenResolveResult();
 				tokenResolver.resolve(a0.getText(), element.eClass().getEStructuralFeature(org.deltaecore.core.decore.DEcorePackage.DE_DELTA_INVOKATION__DELTA), result);
@@ -4185,10 +4185,12 @@ copyLocalizationInfos((CommonToken)a0, element);
 {
 // expected elements (follow set)
 addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[736]);
+addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[737]);
 }
 
 (
-a1 = IDENTIFIER_TOKEN
+(
+a1 = QUOTED_34_34
 {
 if (terminateParsing) {
 throw new eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingTerminateParsingException();
@@ -4198,7 +4200,7 @@ element = eu.hyvar.feature.expression.HyExpressionFactory.eINSTANCE.createHyCont
 startIncompleteElement(element);
 }
 if (a1 != null) {
-eu.hyvar.feature.mapping.resource.hymapping.IHymappingTokenResolver tokenResolver = tokenResolverFactory.createTokenResolver("IDENTIFIER_TOKEN");
+eu.hyvar.feature.mapping.resource.hymapping.IHymappingTokenResolver tokenResolver = tokenResolverFactory.createTokenResolver("QUOTED_34_34");
 tokenResolver.setOptions(getOptions());
 eu.hyvar.feature.mapping.resource.hymapping.IHymappingTokenResolveResult result = getFreshTokenResolveResult();
 tokenResolver.resolve(a1.getText(), element.eClass().getEStructuralFeature(eu.hyvar.feature.expression.HyExpressionPackage.HY_CONTEXT_INFORMATION_REFERENCE_EXPRESSION__CONTEXT_INFORMATION), result);
@@ -4216,7 +4218,7 @@ element.eSet(element.eClass().getEStructuralFeature(eu.hyvar.feature.expression.
 completedElement(value, false);
 }
 collectHiddenTokens(element);
-retrieveLayoutInformation(element, eu.hyvar.feature.mapping.resource.hymapping.grammar.HymappingGrammarInformationProvider.HYEXPRESSION_9_0_0_1, proxy, true);
+retrieveLayoutInformation(element, eu.hyvar.feature.mapping.resource.hymapping.grammar.HymappingGrammarInformationProvider.HYEXPRESSION_9_0_0_1_0_0_0, proxy, true);
 copyLocalizationInfos((CommonToken) a1, element);
 copyLocalizationInfos((CommonToken) a1, proxy);
 }
@@ -4224,7 +4226,6 @@ copyLocalizationInfos((CommonToken) a1, proxy);
 )
 {
 // expected elements (follow set)
-addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[737]);
 addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[738]);
 addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[739]);
 addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[740]);
@@ -4245,6 +4246,94 @@ addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.Hymapp
 addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[755]);
 addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[756]);
 addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[757]);
+addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[758]);
+}
+
+
+|(
+a2 = IDENTIFIER_TOKEN
+{
+if (terminateParsing) {
+throw new eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingTerminateParsingException();
+}
+if (element == null) {
+element = eu.hyvar.feature.expression.HyExpressionFactory.eINSTANCE.createHyContextInformationReferenceExpression();
+startIncompleteElement(element);
+}
+if (a2 != null) {
+eu.hyvar.feature.mapping.resource.hymapping.IHymappingTokenResolver tokenResolver = tokenResolverFactory.createTokenResolver("IDENTIFIER_TOKEN");
+tokenResolver.setOptions(getOptions());
+eu.hyvar.feature.mapping.resource.hymapping.IHymappingTokenResolveResult result = getFreshTokenResolveResult();
+tokenResolver.resolve(a2.getText(), element.eClass().getEStructuralFeature(eu.hyvar.feature.expression.HyExpressionPackage.HY_CONTEXT_INFORMATION_REFERENCE_EXPRESSION__CONTEXT_INFORMATION), result);
+Object resolvedObject = result.getResolvedToken();
+if (resolvedObject == null) {
+addErrorToResource(result.getErrorMessage(), ((CommonToken) a2).getLine(), ((CommonToken) a2).getCharPositionInLine(), ((CommonToken) a2).getStartIndex(), ((CommonToken) a2).getStopIndex());
+}
+String resolved = (String) resolvedObject;
+eu.hyvar.context.HyContextualInformation proxy = eu.hyvar.context.HyContextInformationFactory.eINSTANCE.createHyContextualInformationEnum();
+collectHiddenTokens(element);
+registerContextDependentProxy(new eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingContextDependentURIFragmentFactory<eu.hyvar.feature.expression.HyContextInformationReferenceExpression, eu.hyvar.context.HyContextualInformation>(getReferenceResolverSwitch() == null ? null : getReferenceResolverSwitch().getHyContextInformationReferenceExpressionContextInformationReferenceResolver()), element, (EReference) element.eClass().getEStructuralFeature(eu.hyvar.feature.expression.HyExpressionPackage.HY_CONTEXT_INFORMATION_REFERENCE_EXPRESSION__CONTEXT_INFORMATION), resolved, proxy);
+if (proxy != null) {
+Object value = proxy;
+element.eSet(element.eClass().getEStructuralFeature(eu.hyvar.feature.expression.HyExpressionPackage.HY_CONTEXT_INFORMATION_REFERENCE_EXPRESSION__CONTEXT_INFORMATION), value);
+completedElement(value, false);
+}
+collectHiddenTokens(element);
+retrieveLayoutInformation(element, eu.hyvar.feature.mapping.resource.hymapping.grammar.HymappingGrammarInformationProvider.HYEXPRESSION_9_0_0_1_0_1_0, proxy, true);
+copyLocalizationInfos((CommonToken) a2, element);
+copyLocalizationInfos((CommonToken) a2, proxy);
+}
+}
+)
+{
+// expected elements (follow set)
+addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[759]);
+addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[760]);
+addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[761]);
+addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[762]);
+addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[763]);
+addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[764]);
+addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[765]);
+addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[766]);
+addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[767]);
+addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[768]);
+addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[769]);
+addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[770]);
+addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[771]);
+addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[772]);
+addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[773]);
+addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[774]);
+addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[775]);
+addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[776]);
+addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[777]);
+addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[778]);
+addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[779]);
+}
+
+)
+{
+// expected elements (follow set)
+addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[780]);
+addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[781]);
+addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[782]);
+addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[783]);
+addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[784]);
+addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[785]);
+addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[786]);
+addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[787]);
+addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[788]);
+addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[789]);
+addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[790]);
+addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[791]);
+addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[792]);
+addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[793]);
+addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[794]);
+addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[795]);
+addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[796]);
+addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[797]);
+addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[798]);
+addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[799]);
+addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[800]);
 }
 
 ;
@@ -4291,7 +4380,7 @@ copyLocalizationInfos((CommonToken) a0, proxy);
 )
 {
 // expected elements (follow set)
-addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[758]);
+addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[801]);
 }
 
 
@@ -4332,13 +4421,13 @@ copyLocalizationInfos((CommonToken) a1, proxy);
 )
 {
 // expected elements (follow set)
-addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[759]);
+addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[802]);
 }
 
 )
 {
 // expected elements (follow set)
-addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[760]);
+addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[803]);
 }
 
 a2 = '.' {
@@ -4352,7 +4441,7 @@ copyLocalizationInfos((CommonToken)a2, element);
 }
 {
 // expected elements (follow set)
-addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[761]);
+addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[804]);
 }
 
 (
@@ -4392,27 +4481,27 @@ copyLocalizationInfos((CommonToken) a3, proxy);
 )
 {
 // expected elements (follow set)
-addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[762]);
-addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[763]);
-addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[764]);
-addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[765]);
-addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[766]);
-addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[767]);
-addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[768]);
-addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[769]);
-addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[770]);
-addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[771]);
-addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[772]);
-addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[773]);
-addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[774]);
-addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[775]);
-addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[776]);
-addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[777]);
-addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[778]);
-addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[779]);
-addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[780]);
-addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[781]);
-addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[782]);
+addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[805]);
+addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[806]);
+addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[807]);
+addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[808]);
+addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[809]);
+addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[810]);
+addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[811]);
+addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[812]);
+addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[813]);
+addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[814]);
+addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[815]);
+addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[816]);
+addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[817]);
+addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[818]);
+addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[819]);
+addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[820]);
+addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[821]);
+addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[822]);
+addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[823]);
+addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[824]);
+addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[825]);
 }
 
 ;
@@ -4444,27 +4533,27 @@ copyLocalizationInfos(a0_0, element);
 )
 {
 // expected elements (follow set)
-addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[783]);
-addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[784]);
-addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[785]);
-addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[786]);
-addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[787]);
-addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[788]);
-addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[789]);
-addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[790]);
-addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[791]);
-addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[792]);
-addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[793]);
-addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[794]);
-addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[795]);
-addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[796]);
-addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[797]);
-addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[798]);
-addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[799]);
-addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[800]);
-addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[801]);
-addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[802]);
-addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[803]);
+addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[826]);
+addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[827]);
+addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[828]);
+addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[829]);
+addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[830]);
+addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[831]);
+addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[832]);
+addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[833]);
+addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[834]);
+addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[835]);
+addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[836]);
+addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[837]);
+addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[838]);
+addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[839]);
+addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[840]);
+addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[841]);
+addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[842]);
+addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[843]);
+addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[844]);
+addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[845]);
+addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[846]);
 }
 
 ;
@@ -4505,27 +4594,27 @@ completedElement(value, false);
 )
 {
 // expected elements (follow set)
-addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[804]);
-addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[805]);
-addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[806]);
-addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[807]);
-addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[808]);
-addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[809]);
-addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[810]);
-addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[811]);
-addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[812]);
-addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[813]);
-addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[814]);
-addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[815]);
-addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[816]);
-addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[817]);
-addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[818]);
-addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[819]);
-addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[820]);
-addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[821]);
-addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[822]);
-addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[823]);
-addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[824]);
+addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[847]);
+addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[848]);
+addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[849]);
+addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[850]);
+addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[851]);
+addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[852]);
+addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[853]);
+addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[854]);
+addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[855]);
+addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[856]);
+addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[857]);
+addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[858]);
+addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[859]);
+addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[860]);
+addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[861]);
+addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[862]);
+addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[863]);
+addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[864]);
+addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[865]);
+addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[866]);
+addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[867]);
 }
 
 ;
@@ -4545,22 +4634,22 @@ copyLocalizationInfos((CommonToken)a0, element);
 }
 {
 // expected elements (follow set)
-addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyMinimumExpression(), eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[825]);
-addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyMinimumExpression(), eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[826]);
-addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyMinimumExpression(), eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[827]);
-addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyMinimumExpression(), eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[828]);
-addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyMinimumExpression(), eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[829]);
-addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyMinimumExpression(), eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[830]);
-addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyMinimumExpression(), eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[831]);
-addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyMinimumExpression(), eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[832]);
-addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyMinimumExpression(), eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[833]);
-addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyMinimumExpression(), eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[834]);
-addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyMinimumExpression(), eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[835]);
-addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyMinimumExpression(), eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[836]);
-addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyMinimumExpression(), eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[837]);
-addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyMinimumExpression(), eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[838]);
-addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyMinimumExpression(), eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[839]);
-addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyMinimumExpression(), eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[840]);
+addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyMinimumExpression(), eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[868]);
+addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyMinimumExpression(), eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[869]);
+addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyMinimumExpression(), eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[870]);
+addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyMinimumExpression(), eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[871]);
+addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyMinimumExpression(), eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[872]);
+addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyMinimumExpression(), eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[873]);
+addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyMinimumExpression(), eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[874]);
+addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyMinimumExpression(), eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[875]);
+addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyMinimumExpression(), eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[876]);
+addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyMinimumExpression(), eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[877]);
+addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyMinimumExpression(), eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[878]);
+addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyMinimumExpression(), eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[879]);
+addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyMinimumExpression(), eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[880]);
+addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyMinimumExpression(), eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[881]);
+addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyMinimumExpression(), eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[882]);
+addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyMinimumExpression(), eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[883]);
 }
 
 (
@@ -4586,7 +4675,7 @@ copyLocalizationInfos(a1_0, element);
 )
 {
 // expected elements (follow set)
-addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[841]);
+addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[884]);
 }
 
 a2 = ')' {
@@ -4600,27 +4689,27 @@ copyLocalizationInfos((CommonToken)a2, element);
 }
 {
 // expected elements (follow set)
-addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[842]);
-addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[843]);
-addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[844]);
-addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[845]);
-addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[846]);
-addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[847]);
-addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[848]);
-addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[849]);
-addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[850]);
-addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[851]);
-addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[852]);
-addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[853]);
-addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[854]);
-addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[855]);
-addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[856]);
-addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[857]);
-addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[858]);
-addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[859]);
-addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[860]);
-addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[861]);
-addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[862]);
+addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[885]);
+addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[886]);
+addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[887]);
+addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[888]);
+addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[889]);
+addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[890]);
+addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[891]);
+addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[892]);
+addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[893]);
+addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[894]);
+addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[895]);
+addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[896]);
+addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[897]);
+addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[898]);
+addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[899]);
+addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[900]);
+addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[901]);
+addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[902]);
+addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[903]);
+addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[904]);
+addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[905]);
 }
 
 ;
@@ -4640,22 +4729,22 @@ copyLocalizationInfos((CommonToken)a0, element);
 }
 {
 // expected elements (follow set)
-addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyMaximumExpression(), eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[863]);
-addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyMaximumExpression(), eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[864]);
-addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyMaximumExpression(), eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[865]);
-addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyMaximumExpression(), eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[866]);
-addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyMaximumExpression(), eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[867]);
-addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyMaximumExpression(), eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[868]);
-addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyMaximumExpression(), eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[869]);
-addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyMaximumExpression(), eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[870]);
-addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyMaximumExpression(), eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[871]);
-addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyMaximumExpression(), eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[872]);
-addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyMaximumExpression(), eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[873]);
-addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyMaximumExpression(), eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[874]);
-addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyMaximumExpression(), eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[875]);
-addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyMaximumExpression(), eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[876]);
-addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyMaximumExpression(), eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[877]);
-addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyMaximumExpression(), eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[878]);
+addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyMaximumExpression(), eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[906]);
+addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyMaximumExpression(), eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[907]);
+addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyMaximumExpression(), eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[908]);
+addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyMaximumExpression(), eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[909]);
+addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyMaximumExpression(), eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[910]);
+addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyMaximumExpression(), eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[911]);
+addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyMaximumExpression(), eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[912]);
+addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyMaximumExpression(), eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[913]);
+addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyMaximumExpression(), eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[914]);
+addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyMaximumExpression(), eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[915]);
+addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyMaximumExpression(), eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[916]);
+addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyMaximumExpression(), eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[917]);
+addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyMaximumExpression(), eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[918]);
+addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyMaximumExpression(), eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[919]);
+addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyMaximumExpression(), eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[920]);
+addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyMaximumExpression(), eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[921]);
 }
 
 (
@@ -4681,7 +4770,7 @@ copyLocalizationInfos(a1_0, element);
 )
 {
 // expected elements (follow set)
-addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[879]);
+addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[922]);
 }
 
 a2 = ')' {
@@ -4695,27 +4784,27 @@ copyLocalizationInfos((CommonToken)a2, element);
 }
 {
 // expected elements (follow set)
-addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[880]);
-addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[881]);
-addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[882]);
-addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[883]);
-addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[884]);
-addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[885]);
-addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[886]);
-addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[887]);
-addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[888]);
-addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[889]);
-addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[890]);
-addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[891]);
-addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[892]);
-addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[893]);
-addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[894]);
-addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[895]);
-addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[896]);
-addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[897]);
-addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[898]);
-addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[899]);
-addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[900]);
+addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[923]);
+addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[924]);
+addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[925]);
+addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[926]);
+addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[927]);
+addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[928]);
+addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[929]);
+addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[930]);
+addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[931]);
+addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[932]);
+addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[933]);
+addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[934]);
+addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[935]);
+addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[936]);
+addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[937]);
+addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[938]);
+addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[939]);
+addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[940]);
+addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[941]);
+addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[942]);
+addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[943]);
 }
 
 ;
@@ -4735,22 +4824,22 @@ copyLocalizationInfos((CommonToken)a0, element);
 }
 {
 // expected elements (follow set)
-addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyIfPossibleExpression(), eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[901]);
-addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyIfPossibleExpression(), eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[902]);
-addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyIfPossibleExpression(), eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[903]);
-addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyIfPossibleExpression(), eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[904]);
-addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyIfPossibleExpression(), eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[905]);
-addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyIfPossibleExpression(), eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[906]);
-addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyIfPossibleExpression(), eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[907]);
-addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyIfPossibleExpression(), eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[908]);
-addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyIfPossibleExpression(), eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[909]);
-addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyIfPossibleExpression(), eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[910]);
-addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyIfPossibleExpression(), eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[911]);
-addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyIfPossibleExpression(), eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[912]);
-addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyIfPossibleExpression(), eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[913]);
-addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyIfPossibleExpression(), eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[914]);
-addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyIfPossibleExpression(), eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[915]);
-addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyIfPossibleExpression(), eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[916]);
+addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyIfPossibleExpression(), eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[944]);
+addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyIfPossibleExpression(), eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[945]);
+addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyIfPossibleExpression(), eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[946]);
+addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyIfPossibleExpression(), eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[947]);
+addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyIfPossibleExpression(), eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[948]);
+addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyIfPossibleExpression(), eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[949]);
+addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyIfPossibleExpression(), eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[950]);
+addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyIfPossibleExpression(), eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[951]);
+addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyIfPossibleExpression(), eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[952]);
+addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyIfPossibleExpression(), eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[953]);
+addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyIfPossibleExpression(), eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[954]);
+addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyIfPossibleExpression(), eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[955]);
+addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyIfPossibleExpression(), eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[956]);
+addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyIfPossibleExpression(), eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[957]);
+addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyIfPossibleExpression(), eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[958]);
+addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyIfPossibleExpression(), eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[959]);
 }
 
 (
@@ -4776,8 +4865,8 @@ copyLocalizationInfos(a1_0, element);
 )
 {
 // expected elements (follow set)
-addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[917]);
-addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[918]);
+addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[960]);
+addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[961]);
 }
 
 (
@@ -4793,22 +4882,22 @@ copyLocalizationInfos((CommonToken)a2, element);
 }
 {
 // expected elements (follow set)
-addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyIfPossibleExpression(), eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[919]);
-addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyIfPossibleExpression(), eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[920]);
-addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyIfPossibleExpression(), eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[921]);
-addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyIfPossibleExpression(), eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[922]);
-addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyIfPossibleExpression(), eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[923]);
-addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyIfPossibleExpression(), eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[924]);
-addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyIfPossibleExpression(), eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[925]);
-addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyIfPossibleExpression(), eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[926]);
-addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyIfPossibleExpression(), eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[927]);
-addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyIfPossibleExpression(), eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[928]);
-addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyIfPossibleExpression(), eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[929]);
-addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyIfPossibleExpression(), eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[930]);
-addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyIfPossibleExpression(), eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[931]);
-addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyIfPossibleExpression(), eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[932]);
-addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyIfPossibleExpression(), eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[933]);
-addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyIfPossibleExpression(), eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[934]);
+addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyIfPossibleExpression(), eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[962]);
+addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyIfPossibleExpression(), eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[963]);
+addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyIfPossibleExpression(), eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[964]);
+addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyIfPossibleExpression(), eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[965]);
+addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyIfPossibleExpression(), eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[966]);
+addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyIfPossibleExpression(), eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[967]);
+addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyIfPossibleExpression(), eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[968]);
+addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyIfPossibleExpression(), eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[969]);
+addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyIfPossibleExpression(), eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[970]);
+addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyIfPossibleExpression(), eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[971]);
+addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyIfPossibleExpression(), eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[972]);
+addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyIfPossibleExpression(), eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[973]);
+addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyIfPossibleExpression(), eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[974]);
+addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyIfPossibleExpression(), eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[975]);
+addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyIfPossibleExpression(), eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[976]);
+addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyIfPossibleExpression(), eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[977]);
 }
 
 (
@@ -4834,16 +4923,16 @@ copyLocalizationInfos(a3_0, element);
 )
 {
 // expected elements (follow set)
-addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[935]);
-addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[936]);
+addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[978]);
+addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[979]);
 }
 
 )
 
 )*{
 // expected elements (follow set)
-addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[937]);
-addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[938]);
+addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[980]);
+addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[981]);
 }
 
 a4 = ')' {
@@ -4857,27 +4946,27 @@ copyLocalizationInfos((CommonToken)a4, element);
 }
 {
 // expected elements (follow set)
-addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[939]);
-addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[940]);
-addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[941]);
-addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[942]);
-addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[943]);
-addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[944]);
-addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[945]);
-addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[946]);
-addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[947]);
-addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[948]);
-addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[949]);
-addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[950]);
-addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[951]);
-addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[952]);
-addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[953]);
-addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[954]);
-addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[955]);
-addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[956]);
-addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[957]);
-addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[958]);
-addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[959]);
+addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[982]);
+addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[983]);
+addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[984]);
+addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[985]);
+addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[986]);
+addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[987]);
+addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[988]);
+addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[989]);
+addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[990]);
+addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[991]);
+addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[992]);
+addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[993]);
+addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[994]);
+addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[995]);
+addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[996]);
+addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[997]);
+addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[998]);
+addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[999]);
+addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[1000]);
+addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[1001]);
+addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[1002]);
 }
 
 ;
@@ -4928,27 +5017,27 @@ copyLocalizationInfos((CommonToken) a0, element);
 )
 {
 // expected elements (follow set)
-addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[960]);
-addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[961]);
-addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[962]);
-addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[963]);
-addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[964]);
-addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[965]);
-addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[966]);
-addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[967]);
-addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[968]);
-addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[969]);
-addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[970]);
-addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[971]);
-addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[972]);
-addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[973]);
-addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[974]);
-addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[975]);
-addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[976]);
-addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[977]);
-addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[978]);
-addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[979]);
-addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[980]);
+addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[1003]);
+addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[1004]);
+addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[1005]);
+addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[1006]);
+addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[1007]);
+addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[1008]);
+addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[1009]);
+addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[1010]);
+addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[1011]);
+addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[1012]);
+addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[1013]);
+addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[1014]);
+addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[1015]);
+addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[1016]);
+addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[1017]);
+addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[1018]);
+addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[1019]);
+addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[1020]);
+addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[1021]);
+addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[1022]);
+addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[1023]);
 }
 
 ;
@@ -4989,27 +5078,27 @@ completedElement(value, false);
 )
 {
 // expected elements (follow set)
-addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[981]);
-addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[982]);
-addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[983]);
-addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[984]);
-addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[985]);
-addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[986]);
-addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[987]);
-addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[988]);
-addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[989]);
-addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[990]);
-addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[991]);
-addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[992]);
-addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[993]);
-addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[994]);
-addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[995]);
-addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[996]);
-addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[997]);
-addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[998]);
-addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[999]);
-addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[1000]);
-addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[1001]);
+addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[1024]);
+addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[1025]);
+addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[1026]);
+addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[1027]);
+addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[1028]);
+addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[1029]);
+addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[1030]);
+addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[1031]);
+addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[1032]);
+addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[1033]);
+addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[1034]);
+addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[1035]);
+addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[1036]);
+addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[1037]);
+addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[1038]);
+addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[1039]);
+addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[1040]);
+addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[1041]);
+addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[1042]);
+addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[1043]);
+addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[1044]);
 }
 
 ;
@@ -5029,11 +5118,13 @@ copyLocalizationInfos((CommonToken)a0, element);
 }
 {
 // expected elements (follow set)
-addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[1002]);
+addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[1045]);
+addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[1046]);
 }
 
 (
-a1 = IDENTIFIER_TOKEN
+(
+a1 = QUOTED_34_34
 {
 if (terminateParsing) {
 throw new eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingTerminateParsingException();
@@ -5043,7 +5134,7 @@ element = eu.hyvar.dataValues.HyDataValuesFactory.eINSTANCE.createHyEnumValue();
 startIncompleteElement(element);
 }
 if (a1 != null) {
-eu.hyvar.feature.mapping.resource.hymapping.IHymappingTokenResolver tokenResolver = tokenResolverFactory.createTokenResolver("IDENTIFIER_TOKEN");
+eu.hyvar.feature.mapping.resource.hymapping.IHymappingTokenResolver tokenResolver = tokenResolverFactory.createTokenResolver("QUOTED_34_34");
 tokenResolver.setOptions(getOptions());
 eu.hyvar.feature.mapping.resource.hymapping.IHymappingTokenResolveResult result = getFreshTokenResolveResult();
 tokenResolver.resolve(a1.getText(), element.eClass().getEStructuralFeature(eu.hyvar.dataValues.HyDataValuesPackage.HY_ENUM_VALUE__ENUM), result);
@@ -5061,7 +5152,7 @@ element.eSet(element.eClass().getEStructuralFeature(eu.hyvar.dataValues.HyDataVa
 completedElement(value, false);
 }
 collectHiddenTokens(element);
-retrieveLayoutInformation(element, eu.hyvar.feature.mapping.resource.hymapping.grammar.HymappingGrammarInformationProvider.HYDATAVALUE_2_0_0_1, proxy, true);
+retrieveLayoutInformation(element, eu.hyvar.feature.mapping.resource.hymapping.grammar.HymappingGrammarInformationProvider.HYDATAVALUE_2_0_0_1_0_0_0, proxy, true);
 copyLocalizationInfos((CommonToken) a1, element);
 copyLocalizationInfos((CommonToken) a1, proxy);
 }
@@ -5069,25 +5160,12 @@ copyLocalizationInfos((CommonToken) a1, proxy);
 )
 {
 // expected elements (follow set)
-addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[1003]);
+addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[1047]);
 }
 
-a2 = '.' {
-if (element == null) {
-element = eu.hyvar.dataValues.HyDataValuesFactory.eINSTANCE.createHyEnumValue();
-startIncompleteElement(element);
-}
-collectHiddenTokens(element);
-retrieveLayoutInformation(element, eu.hyvar.feature.mapping.resource.hymapping.grammar.HymappingGrammarInformationProvider.HYDATAVALUE_2_0_0_2, null, true);
-copyLocalizationInfos((CommonToken)a2, element);
-}
-{
-// expected elements (follow set)
-addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[1004]);
-}
 
-(
-a3 = IDENTIFIER_TOKEN
+|(
+a2 = IDENTIFIER_TOKEN
 {
 if (terminateParsing) {
 throw new eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingTerminateParsingException();
@@ -5096,14 +5174,76 @@ if (element == null) {
 element = eu.hyvar.dataValues.HyDataValuesFactory.eINSTANCE.createHyEnumValue();
 startIncompleteElement(element);
 }
-if (a3 != null) {
+if (a2 != null) {
 eu.hyvar.feature.mapping.resource.hymapping.IHymappingTokenResolver tokenResolver = tokenResolverFactory.createTokenResolver("IDENTIFIER_TOKEN");
 tokenResolver.setOptions(getOptions());
 eu.hyvar.feature.mapping.resource.hymapping.IHymappingTokenResolveResult result = getFreshTokenResolveResult();
-tokenResolver.resolve(a3.getText(), element.eClass().getEStructuralFeature(eu.hyvar.dataValues.HyDataValuesPackage.HY_ENUM_VALUE__ENUM_LITERAL), result);
+tokenResolver.resolve(a2.getText(), element.eClass().getEStructuralFeature(eu.hyvar.dataValues.HyDataValuesPackage.HY_ENUM_VALUE__ENUM), result);
 Object resolvedObject = result.getResolvedToken();
 if (resolvedObject == null) {
-addErrorToResource(result.getErrorMessage(), ((CommonToken) a3).getLine(), ((CommonToken) a3).getCharPositionInLine(), ((CommonToken) a3).getStartIndex(), ((CommonToken) a3).getStopIndex());
+addErrorToResource(result.getErrorMessage(), ((CommonToken) a2).getLine(), ((CommonToken) a2).getCharPositionInLine(), ((CommonToken) a2).getStartIndex(), ((CommonToken) a2).getStopIndex());
+}
+String resolved = (String) resolvedObject;
+eu.hyvar.dataValues.HyEnum proxy = eu.hyvar.dataValues.HyDataValuesFactory.eINSTANCE.createHyEnum();
+collectHiddenTokens(element);
+registerContextDependentProxy(new eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingContextDependentURIFragmentFactory<eu.hyvar.dataValues.HyEnumValue, eu.hyvar.dataValues.HyEnum>(getReferenceResolverSwitch() == null ? null : getReferenceResolverSwitch().getHyEnumValueEnumReferenceResolver()), element, (EReference) element.eClass().getEStructuralFeature(eu.hyvar.dataValues.HyDataValuesPackage.HY_ENUM_VALUE__ENUM), resolved, proxy);
+if (proxy != null) {
+Object value = proxy;
+element.eSet(element.eClass().getEStructuralFeature(eu.hyvar.dataValues.HyDataValuesPackage.HY_ENUM_VALUE__ENUM), value);
+completedElement(value, false);
+}
+collectHiddenTokens(element);
+retrieveLayoutInformation(element, eu.hyvar.feature.mapping.resource.hymapping.grammar.HymappingGrammarInformationProvider.HYDATAVALUE_2_0_0_1_0_1_0, proxy, true);
+copyLocalizationInfos((CommonToken) a2, element);
+copyLocalizationInfos((CommonToken) a2, proxy);
+}
+}
+)
+{
+// expected elements (follow set)
+addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[1048]);
+}
+
+)
+{
+// expected elements (follow set)
+addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[1049]);
+}
+
+a3 = '.' {
+if (element == null) {
+element = eu.hyvar.dataValues.HyDataValuesFactory.eINSTANCE.createHyEnumValue();
+startIncompleteElement(element);
+}
+collectHiddenTokens(element);
+retrieveLayoutInformation(element, eu.hyvar.feature.mapping.resource.hymapping.grammar.HymappingGrammarInformationProvider.HYDATAVALUE_2_0_0_2, null, true);
+copyLocalizationInfos((CommonToken)a3, element);
+}
+{
+// expected elements (follow set)
+addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[1050]);
+addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[1051]);
+}
+
+(
+(
+a4 = QUOTED_34_34
+{
+if (terminateParsing) {
+throw new eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingTerminateParsingException();
+}
+if (element == null) {
+element = eu.hyvar.dataValues.HyDataValuesFactory.eINSTANCE.createHyEnumValue();
+startIncompleteElement(element);
+}
+if (a4 != null) {
+eu.hyvar.feature.mapping.resource.hymapping.IHymappingTokenResolver tokenResolver = tokenResolverFactory.createTokenResolver("QUOTED_34_34");
+tokenResolver.setOptions(getOptions());
+eu.hyvar.feature.mapping.resource.hymapping.IHymappingTokenResolveResult result = getFreshTokenResolveResult();
+tokenResolver.resolve(a4.getText(), element.eClass().getEStructuralFeature(eu.hyvar.dataValues.HyDataValuesPackage.HY_ENUM_VALUE__ENUM_LITERAL), result);
+Object resolvedObject = result.getResolvedToken();
+if (resolvedObject == null) {
+addErrorToResource(result.getErrorMessage(), ((CommonToken) a4).getLine(), ((CommonToken) a4).getCharPositionInLine(), ((CommonToken) a4).getStartIndex(), ((CommonToken) a4).getStopIndex());
 }
 String resolved = (String) resolvedObject;
 eu.hyvar.dataValues.HyEnumLiteral proxy = eu.hyvar.dataValues.HyDataValuesFactory.eINSTANCE.createHyEnumLiteral();
@@ -5115,35 +5255,122 @@ element.eSet(element.eClass().getEStructuralFeature(eu.hyvar.dataValues.HyDataVa
 completedElement(value, false);
 }
 collectHiddenTokens(element);
-retrieveLayoutInformation(element, eu.hyvar.feature.mapping.resource.hymapping.grammar.HymappingGrammarInformationProvider.HYDATAVALUE_2_0_0_3, proxy, true);
-copyLocalizationInfos((CommonToken) a3, element);
-copyLocalizationInfos((CommonToken) a3, proxy);
+retrieveLayoutInformation(element, eu.hyvar.feature.mapping.resource.hymapping.grammar.HymappingGrammarInformationProvider.HYDATAVALUE_2_0_0_3_0_0_0, proxy, true);
+copyLocalizationInfos((CommonToken) a4, element);
+copyLocalizationInfos((CommonToken) a4, proxy);
 }
 }
 )
 {
 // expected elements (follow set)
-addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[1005]);
-addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[1006]);
-addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[1007]);
-addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[1008]);
-addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[1009]);
-addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[1010]);
-addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[1011]);
-addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[1012]);
-addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[1013]);
-addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[1014]);
-addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[1015]);
-addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[1016]);
-addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[1017]);
-addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[1018]);
-addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[1019]);
-addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[1020]);
-addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[1021]);
-addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[1022]);
-addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[1023]);
-addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[1024]);
-addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[1025]);
+addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[1052]);
+addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[1053]);
+addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[1054]);
+addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[1055]);
+addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[1056]);
+addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[1057]);
+addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[1058]);
+addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[1059]);
+addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[1060]);
+addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[1061]);
+addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[1062]);
+addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[1063]);
+addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[1064]);
+addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[1065]);
+addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[1066]);
+addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[1067]);
+addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[1068]);
+addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[1069]);
+addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[1070]);
+addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[1071]);
+addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[1072]);
+}
+
+
+|(
+a5 = IDENTIFIER_TOKEN
+{
+if (terminateParsing) {
+throw new eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingTerminateParsingException();
+}
+if (element == null) {
+element = eu.hyvar.dataValues.HyDataValuesFactory.eINSTANCE.createHyEnumValue();
+startIncompleteElement(element);
+}
+if (a5 != null) {
+eu.hyvar.feature.mapping.resource.hymapping.IHymappingTokenResolver tokenResolver = tokenResolverFactory.createTokenResolver("IDENTIFIER_TOKEN");
+tokenResolver.setOptions(getOptions());
+eu.hyvar.feature.mapping.resource.hymapping.IHymappingTokenResolveResult result = getFreshTokenResolveResult();
+tokenResolver.resolve(a5.getText(), element.eClass().getEStructuralFeature(eu.hyvar.dataValues.HyDataValuesPackage.HY_ENUM_VALUE__ENUM_LITERAL), result);
+Object resolvedObject = result.getResolvedToken();
+if (resolvedObject == null) {
+addErrorToResource(result.getErrorMessage(), ((CommonToken) a5).getLine(), ((CommonToken) a5).getCharPositionInLine(), ((CommonToken) a5).getStartIndex(), ((CommonToken) a5).getStopIndex());
+}
+String resolved = (String) resolvedObject;
+eu.hyvar.dataValues.HyEnumLiteral proxy = eu.hyvar.dataValues.HyDataValuesFactory.eINSTANCE.createHyEnumLiteral();
+collectHiddenTokens(element);
+registerContextDependentProxy(new eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingContextDependentURIFragmentFactory<eu.hyvar.dataValues.HyEnumValue, eu.hyvar.dataValues.HyEnumLiteral>(getReferenceResolverSwitch() == null ? null : getReferenceResolverSwitch().getHyEnumValueEnumLiteralReferenceResolver()), element, (EReference) element.eClass().getEStructuralFeature(eu.hyvar.dataValues.HyDataValuesPackage.HY_ENUM_VALUE__ENUM_LITERAL), resolved, proxy);
+if (proxy != null) {
+Object value = proxy;
+element.eSet(element.eClass().getEStructuralFeature(eu.hyvar.dataValues.HyDataValuesPackage.HY_ENUM_VALUE__ENUM_LITERAL), value);
+completedElement(value, false);
+}
+collectHiddenTokens(element);
+retrieveLayoutInformation(element, eu.hyvar.feature.mapping.resource.hymapping.grammar.HymappingGrammarInformationProvider.HYDATAVALUE_2_0_0_3_0_1_0, proxy, true);
+copyLocalizationInfos((CommonToken) a5, element);
+copyLocalizationInfos((CommonToken) a5, proxy);
+}
+}
+)
+{
+// expected elements (follow set)
+addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[1073]);
+addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[1074]);
+addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[1075]);
+addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[1076]);
+addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[1077]);
+addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[1078]);
+addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[1079]);
+addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[1080]);
+addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[1081]);
+addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[1082]);
+addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[1083]);
+addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[1084]);
+addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[1085]);
+addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[1086]);
+addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[1087]);
+addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[1088]);
+addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[1089]);
+addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[1090]);
+addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[1091]);
+addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[1092]);
+addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[1093]);
+}
+
+)
+{
+// expected elements (follow set)
+addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[1094]);
+addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[1095]);
+addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[1096]);
+addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[1097]);
+addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[1098]);
+addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[1099]);
+addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[1100]);
+addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[1101]);
+addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[1102]);
+addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[1103]);
+addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[1104]);
+addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[1105]);
+addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[1106]);
+addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[1107]);
+addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[1108]);
+addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[1109]);
+addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[1110]);
+addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[1111]);
+addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[1112]);
+addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[1113]);
+addExpectedElement(null, eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectationConstants.EXPECTATIONS[1114]);
 }
 
 ;
@@ -5167,8 +5394,8 @@ c = parseop_HyValue_level_15{ element = c; /* this rule is an expression root */
 
 ;
 
-QUOTED_60_62:
-(('<')(~('>'))*('>'))
+QUOTED_6060_6262:
+(('<<')(~('>')|'>'~('>'))*('>>'))
 ;
 QUOTED_34_34:
 (('"')(~('"'))*('"'))

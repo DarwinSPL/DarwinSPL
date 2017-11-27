@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="ASCII"?>
-<preferences:HyPreferenceModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://hyvar-project.eu/feature/context/1.0" xmlns:dataValues="http://hyvar-project.eu/feature/dataValues/1.0" xmlns:expression="http://hyvar-project.eu/feature/expression/1.0" xmlns:feature="http://hyvar-project.eu/feature/1.0" xmlns:preferences="http://hyvar-project.eu/feature/preferences/1.0">
+<preferences:DwPreferenceModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://hyvar-project.eu/feature/context/1.0" xmlns:dataValues="http://hyvar-project.eu/feature/dataValues/1.0" xmlns:expression="http://hyvar-project.eu/feature/expression/1.0" xmlns:feature="http://hyvar-project.eu/feature/1.0" xmlns:preferences="http://hyvar-project.eu/feature/preferences/1.0">
   <preferences id="_ad5428a1-9e03-438f-aa19-617a944bd703">
     <rootExpression xsi:type="expression:HyImpliesExpression">
       <operand1 xsi:type="expression:HyFeatureReferenceExpression">
@@ -80,4 +80,4 @@
   </preferences>
   <featureModel href="Isola%20Example.hyfeature#/"/>
   <contextModel href="Isola%20Example.hycontextmodel#/"/>
-</preferences:HyPreferenceModel>
+</preferences:DwPreferenceModel>

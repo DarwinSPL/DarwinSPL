@@ -7,7 +7,7 @@
 	</extension>
 	
 	<extension point="org.eclipse.ui.editors">
-		<editor class="eu.hyvar.feature.constraint.resource.hyconstraints.ui.HyconstraintsEditor" contributorClass="org.eclipse.ui.texteditor.BasicTextEditorActionContributor" extensions="hyconstraints" icon="icons/icon_constraints.png" id="eu.hyvar.feature.constraint.resource.hyconstraints.ui.HyconstraintsEditor" name="Constraints Editor (HyVar)">
+		<editor class="eu.hyvar.feature.constraint.resource.hyconstraints.ui.HyconstraintsEditor" contributorClass="org.eclipse.ui.texteditor.BasicTextEditorActionContributor" extensions="hyconstraints" icon="icons/icon_constraints.png" id="eu.hyvar.feature.constraint.resource.hyconstraints.ui.HyconstraintsEditor" name="DarwinSPL Constraints Editor">
 			<contentTypeBinding contentTypeId="eu.hyvar.feature.constraint.resource.hyconstraints">
 			</contentTypeBinding>
 		</editor>
@@ -30,7 +30,7 @@
 	</extension>
 	
 	<extension point="org.eclipse.ui.newWizards">
-		<wizard category="eu.hyvar.newwizards.Category" icon="/icons/default_new_icon.gif" class="eu.hyvar.feature.constraint.resource.hyconstraints.ui.HyconstraintsNewFileWizard" id="eu.hyvar.feature.constraint.resource.hyconstraints.ui.HyconstraintsNewFileWizard" name="HyVar Feature Model Constraints (*.hyconstraints)">
+		<wizard category="de.darwinspl.wizards" icon="icons/icon_constraints.png" class="eu.hyvar.feature.constraint.resource.hyconstraints.ui.HyconstraintsNewFileWizard" id="eu.hyvar.feature.constraint.resource.hyconstraints.ui.HyconstraintsNewFileWizard" name="DarwinSPL Constraints (*.hyconstraints)">
 		</wizard>
 	</extension>
 	

@@ -16,7 +16,6 @@ import java.util.ArrayList;
 @SuppressWarnings({"all", "warnings", "unchecked"})
 public class HydatavalueLexer extends Lexer {
     public static final int EOF=-1;
-    public static final int T__11=11;
     public static final int T__12=12;
     public static final int T__13=13;
     public static final int T__14=14;
@@ -28,13 +27,15 @@ public class HydatavalueLexer extends Lexer {
     public static final int T__20=20;
     public static final int T__21=21;
     public static final int T__22=22;
+    public static final int T__23=23;
     public static final int DATE=4;
     public static final int IDENTIFIER_TOKEN=5;
     public static final int INTEGER_LITERAL=6;
     public static final int LINEBREAK=7;
     public static final int ML_COMMENT=8;
-    public static final int SL_COMMENT=9;
-    public static final int WHITESPACE=10;
+    public static final int QUOTED_34_34=9;
+    public static final int SL_COMMENT=10;
+    public static final int WHITESPACE=11;
 
     	public List<RecognitionException> lexerExceptions  = new ArrayList<RecognitionException>();
     	public List<Integer> lexerExceptionPositions = new ArrayList<Integer>();
@@ -60,36 +61,15 @@ public class HydatavalueLexer extends Lexer {
     }
     public String getGrammarFileName() { return "Hydatavalue.g"; }
 
-    // $ANTLR start "T__11"
-    public final void mT__11() throws RecognitionException {
-        try {
-            int _type = T__11;
-            int _channel = DEFAULT_TOKEN_CHANNEL;
-            // Hydatavalue.g:20:7: ( ')' )
-            // Hydatavalue.g:20:9: ')'
-            {
-            match(')'); 
-
-            }
-
-            state.type = _type;
-            state.channel = _channel;
-        }
-        finally {
-        	// do for sure before leaving
-        }
-    }
-    // $ANTLR end "T__11"
-
     // $ANTLR start "T__12"
     public final void mT__12() throws RecognitionException {
         try {
             int _type = T__12;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // Hydatavalue.g:21:7: ( ',' )
-            // Hydatavalue.g:21:9: ','
+            // Hydatavalue.g:20:7: ( ')' )
+            // Hydatavalue.g:20:9: ')'
             {
-            match(','); 
+            match(')'); 
 
             }
 
@@ -107,10 +87,10 @@ public class HydatavalueLexer extends Lexer {
         try {
             int _type = T__13;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // Hydatavalue.g:22:7: ( '-' )
-            // Hydatavalue.g:22:9: '-'
+            // Hydatavalue.g:21:7: ( ',' )
+            // Hydatavalue.g:21:9: ','
             {
-            match('-'); 
+            match(','); 
 
             }
 
@@ -128,10 +108,10 @@ public class HydatavalueLexer extends Lexer {
         try {
             int _type = T__14;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // Hydatavalue.g:23:7: ( '.' )
-            // Hydatavalue.g:23:9: '.'
+            // Hydatavalue.g:22:7: ( '-' )
+            // Hydatavalue.g:22:9: '-'
             {
-            match('.'); 
+            match('-'); 
 
             }
 
@@ -149,12 +129,10 @@ public class HydatavalueLexer extends Lexer {
         try {
             int _type = T__15;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // Hydatavalue.g:24:7: ( 'Enum(' )
-            // Hydatavalue.g:24:9: 'Enum('
+            // Hydatavalue.g:23:7: ( '.' )
+            // Hydatavalue.g:23:9: '.'
             {
-            match("Enum("); 
-
-
+            match('.'); 
 
             }
 
@@ -172,10 +150,10 @@ public class HydatavalueLexer extends Lexer {
         try {
             int _type = T__16;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // Hydatavalue.g:25:7: ( 'EnumLiteral(' )
-            // Hydatavalue.g:25:9: 'EnumLiteral('
+            // Hydatavalue.g:24:7: ( 'Enum(' )
+            // Hydatavalue.g:24:9: 'Enum('
             {
-            match("EnumLiteral("); 
+            match("Enum("); 
 
 
 
@@ -195,10 +173,12 @@ public class HydatavalueLexer extends Lexer {
         try {
             int _type = T__17;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // Hydatavalue.g:26:7: ( '[' )
-            // Hydatavalue.g:26:9: '['
+            // Hydatavalue.g:25:7: ( 'EnumLiteral(' )
+            // Hydatavalue.g:25:9: 'EnumLiteral('
             {
-            match('['); 
+            match("EnumLiteral("); 
+
+
 
             }
 
@@ -216,10 +196,10 @@ public class HydatavalueLexer extends Lexer {
         try {
             int _type = T__18;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // Hydatavalue.g:27:7: ( ']' )
-            // Hydatavalue.g:27:9: ']'
+            // Hydatavalue.g:26:7: ( '[' )
+            // Hydatavalue.g:26:9: '['
             {
-            match(']'); 
+            match('['); 
 
             }
 
@@ -237,12 +217,10 @@ public class HydatavalueLexer extends Lexer {
         try {
             int _type = T__19;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // Hydatavalue.g:28:7: ( 'enum:' )
-            // Hydatavalue.g:28:9: 'enum:'
+            // Hydatavalue.g:27:7: ( ']' )
+            // Hydatavalue.g:27:9: ']'
             {
-            match("enum:"); 
-
-
+            match(']'); 
 
             }
 
@@ -260,10 +238,10 @@ public class HydatavalueLexer extends Lexer {
         try {
             int _type = T__20;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // Hydatavalue.g:29:7: ( 'eternity' )
-            // Hydatavalue.g:29:9: 'eternity'
+            // Hydatavalue.g:28:7: ( 'enum:' )
+            // Hydatavalue.g:28:9: 'enum:'
             {
-            match("eternity"); 
+            match("enum:"); 
 
 
 
@@ -283,10 +261,10 @@ public class HydatavalueLexer extends Lexer {
         try {
             int _type = T__21;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // Hydatavalue.g:30:7: ( 'false' )
-            // Hydatavalue.g:30:9: 'false'
+            // Hydatavalue.g:29:7: ( 'eternity' )
+            // Hydatavalue.g:29:9: 'eternity'
             {
-            match("false"); 
+            match("eternity"); 
 
 
 
@@ -306,6 +284,29 @@ public class HydatavalueLexer extends Lexer {
         try {
             int _type = T__22;
             int _channel = DEFAULT_TOKEN_CHANNEL;
+            // Hydatavalue.g:30:7: ( 'false' )
+            // Hydatavalue.g:30:9: 'false'
+            {
+            match("false"); 
+
+
+
+            }
+
+            state.type = _type;
+            state.channel = _channel;
+        }
+        finally {
+        	// do for sure before leaving
+        }
+    }
+    // $ANTLR end "T__22"
+
+    // $ANTLR start "T__23"
+    public final void mT__23() throws RecognitionException {
+        try {
+            int _type = T__23;
+            int _channel = DEFAULT_TOKEN_CHANNEL;
             // Hydatavalue.g:31:7: ( 'true' )
             // Hydatavalue.g:31:9: 'true'
             {
@@ -322,18 +323,18 @@ public class HydatavalueLexer extends Lexer {
         	// do for sure before leaving
         }
     }
-    // $ANTLR end "T__22"
+    // $ANTLR end "T__23"
 
     // $ANTLR start "IDENTIFIER_TOKEN"
     public final void mIDENTIFIER_TOKEN() throws RecognitionException {
         try {
             int _type = IDENTIFIER_TOKEN;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // Hydatavalue.g:1519:17: ( ( ( 'A' .. 'Z' | 'a' .. 'z' | '_' ) ( 'A' .. 'Z' | 'a' .. 'z' | '_' | '0' .. '9' )* ( '@' ( ( '-' )? ( '0' .. '9' )+ '/' ( '-' )? ( '0' .. '9' )+ '/' ( '-' )? ( '0' .. '9' )+ ( 'T' ( '-' )? ( '0' .. '9' )+ ':' ( '-' )? ( '0' .. '9' )+ ( ':' ( '-' )? ( '0' .. '9' )+ )? )? ) )? ) )
-            // Hydatavalue.g:1520:2: ( ( 'A' .. 'Z' | 'a' .. 'z' | '_' ) ( 'A' .. 'Z' | 'a' .. 'z' | '_' | '0' .. '9' )* ( '@' ( ( '-' )? ( '0' .. '9' )+ '/' ( '-' )? ( '0' .. '9' )+ '/' ( '-' )? ( '0' .. '9' )+ ( 'T' ( '-' )? ( '0' .. '9' )+ ':' ( '-' )? ( '0' .. '9' )+ ( ':' ( '-' )? ( '0' .. '9' )+ )? )? ) )? )
+            // Hydatavalue.g:1615:17: ( ( ( 'A' .. 'Z' | 'a' .. 'z' | '_' ) ( 'A' .. 'Z' | 'a' .. 'z' | '_' | '0' .. '9' )* ( '@' ( ( '-' )? ( '0' .. '9' )+ '/' ( '-' )? ( '0' .. '9' )+ '/' ( '-' )? ( '0' .. '9' )+ ( 'T' ( '-' )? ( '0' .. '9' )+ ':' ( '-' )? ( '0' .. '9' )+ ( ':' ( '-' )? ( '0' .. '9' )+ )? )? ) )? ) )
+            // Hydatavalue.g:1616:2: ( ( 'A' .. 'Z' | 'a' .. 'z' | '_' ) ( 'A' .. 'Z' | 'a' .. 'z' | '_' | '0' .. '9' )* ( '@' ( ( '-' )? ( '0' .. '9' )+ '/' ( '-' )? ( '0' .. '9' )+ '/' ( '-' )? ( '0' .. '9' )+ ( 'T' ( '-' )? ( '0' .. '9' )+ ':' ( '-' )? ( '0' .. '9' )+ ( ':' ( '-' )? ( '0' .. '9' )+ )? )? ) )? )
             {
-            // Hydatavalue.g:1520:2: ( ( 'A' .. 'Z' | 'a' .. 'z' | '_' ) ( 'A' .. 'Z' | 'a' .. 'z' | '_' | '0' .. '9' )* ( '@' ( ( '-' )? ( '0' .. '9' )+ '/' ( '-' )? ( '0' .. '9' )+ '/' ( '-' )? ( '0' .. '9' )+ ( 'T' ( '-' )? ( '0' .. '9' )+ ':' ( '-' )? ( '0' .. '9' )+ ( ':' ( '-' )? ( '0' .. '9' )+ )? )? ) )? )
-            // Hydatavalue.g:1520:3: ( 'A' .. 'Z' | 'a' .. 'z' | '_' ) ( 'A' .. 'Z' | 'a' .. 'z' | '_' | '0' .. '9' )* ( '@' ( ( '-' )? ( '0' .. '9' )+ '/' ( '-' )? ( '0' .. '9' )+ '/' ( '-' )? ( '0' .. '9' )+ ( 'T' ( '-' )? ( '0' .. '9' )+ ':' ( '-' )? ( '0' .. '9' )+ ( ':' ( '-' )? ( '0' .. '9' )+ )? )? ) )?
+            // Hydatavalue.g:1616:2: ( ( 'A' .. 'Z' | 'a' .. 'z' | '_' ) ( 'A' .. 'Z' | 'a' .. 'z' | '_' | '0' .. '9' )* ( '@' ( ( '-' )? ( '0' .. '9' )+ '/' ( '-' )? ( '0' .. '9' )+ '/' ( '-' )? ( '0' .. '9' )+ ( 'T' ( '-' )? ( '0' .. '9' )+ ':' ( '-' )? ( '0' .. '9' )+ ( ':' ( '-' )? ( '0' .. '9' )+ )? )? ) )? )
+            // Hydatavalue.g:1616:3: ( 'A' .. 'Z' | 'a' .. 'z' | '_' ) ( 'A' .. 'Z' | 'a' .. 'z' | '_' | '0' .. '9' )* ( '@' ( ( '-' )? ( '0' .. '9' )+ '/' ( '-' )? ( '0' .. '9' )+ '/' ( '-' )? ( '0' .. '9' )+ ( 'T' ( '-' )? ( '0' .. '9' )+ ':' ( '-' )? ( '0' .. '9' )+ ( ':' ( '-' )? ( '0' .. '9' )+ )? )? ) )?
             {
             if ( (input.LA(1) >= 'A' && input.LA(1) <= 'Z')||input.LA(1)=='_'||(input.LA(1) >= 'a' && input.LA(1) <= 'z') ) {
                 input.consume();
@@ -345,7 +346,7 @@ public class HydatavalueLexer extends Lexer {
             }
 
 
-            // Hydatavalue.g:1520:26: ( 'A' .. 'Z' | 'a' .. 'z' | '_' | '0' .. '9' )*
+            // Hydatavalue.g:1616:26: ( 'A' .. 'Z' | 'a' .. 'z' | '_' | '0' .. '9' )*
             loop1:
             do {
                 int alt1=2;
@@ -379,7 +380,7 @@ public class HydatavalueLexer extends Lexer {
             } while (true);
 
 
-            // Hydatavalue.g:1520:60: ( '@' ( ( '-' )? ( '0' .. '9' )+ '/' ( '-' )? ( '0' .. '9' )+ '/' ( '-' )? ( '0' .. '9' )+ ( 'T' ( '-' )? ( '0' .. '9' )+ ':' ( '-' )? ( '0' .. '9' )+ ( ':' ( '-' )? ( '0' .. '9' )+ )? )? ) )?
+            // Hydatavalue.g:1616:60: ( '@' ( ( '-' )? ( '0' .. '9' )+ '/' ( '-' )? ( '0' .. '9' )+ '/' ( '-' )? ( '0' .. '9' )+ ( 'T' ( '-' )? ( '0' .. '9' )+ ':' ( '-' )? ( '0' .. '9' )+ ( ':' ( '-' )? ( '0' .. '9' )+ )? )? ) )?
             int alt16=2;
             int LA16_0 = input.LA(1);
 
@@ -388,14 +389,14 @@ public class HydatavalueLexer extends Lexer {
             }
             switch (alt16) {
                 case 1 :
-                    // Hydatavalue.g:1520:61: '@' ( ( '-' )? ( '0' .. '9' )+ '/' ( '-' )? ( '0' .. '9' )+ '/' ( '-' )? ( '0' .. '9' )+ ( 'T' ( '-' )? ( '0' .. '9' )+ ':' ( '-' )? ( '0' .. '9' )+ ( ':' ( '-' )? ( '0' .. '9' )+ )? )? )
+                    // Hydatavalue.g:1616:61: '@' ( ( '-' )? ( '0' .. '9' )+ '/' ( '-' )? ( '0' .. '9' )+ '/' ( '-' )? ( '0' .. '9' )+ ( 'T' ( '-' )? ( '0' .. '9' )+ ':' ( '-' )? ( '0' .. '9' )+ ( ':' ( '-' )? ( '0' .. '9' )+ )? )? )
                     {
                     match('@'); 
 
-                    // Hydatavalue.g:1520:64: ( ( '-' )? ( '0' .. '9' )+ '/' ( '-' )? ( '0' .. '9' )+ '/' ( '-' )? ( '0' .. '9' )+ ( 'T' ( '-' )? ( '0' .. '9' )+ ':' ( '-' )? ( '0' .. '9' )+ ( ':' ( '-' )? ( '0' .. '9' )+ )? )? )
-                    // Hydatavalue.g:1520:65: ( '-' )? ( '0' .. '9' )+ '/' ( '-' )? ( '0' .. '9' )+ '/' ( '-' )? ( '0' .. '9' )+ ( 'T' ( '-' )? ( '0' .. '9' )+ ':' ( '-' )? ( '0' .. '9' )+ ( ':' ( '-' )? ( '0' .. '9' )+ )? )?
+                    // Hydatavalue.g:1616:64: ( ( '-' )? ( '0' .. '9' )+ '/' ( '-' )? ( '0' .. '9' )+ '/' ( '-' )? ( '0' .. '9' )+ ( 'T' ( '-' )? ( '0' .. '9' )+ ':' ( '-' )? ( '0' .. '9' )+ ( ':' ( '-' )? ( '0' .. '9' )+ )? )? )
+                    // Hydatavalue.g:1616:65: ( '-' )? ( '0' .. '9' )+ '/' ( '-' )? ( '0' .. '9' )+ '/' ( '-' )? ( '0' .. '9' )+ ( 'T' ( '-' )? ( '0' .. '9' )+ ':' ( '-' )? ( '0' .. '9' )+ ( ':' ( '-' )? ( '0' .. '9' )+ )? )?
                     {
-                    // Hydatavalue.g:1520:65: ( '-' )?
+                    // Hydatavalue.g:1616:65: ( '-' )?
                     int alt2=2;
                     int LA2_0 = input.LA(1);
 
@@ -404,7 +405,7 @@ public class HydatavalueLexer extends Lexer {
                     }
                     switch (alt2) {
                         case 1 :
-                            // Hydatavalue.g:1520:66: '-'
+                            // Hydatavalue.g:1616:66: '-'
                             {
                             match('-'); 
 
@@ -414,7 +415,7 @@ public class HydatavalueLexer extends Lexer {
                     }
 
 
-                    // Hydatavalue.g:1520:72: ( '0' .. '9' )+
+                    // Hydatavalue.g:1616:72: ( '0' .. '9' )+
                     int cnt3=0;
                     loop3:
                     do {
@@ -455,7 +456,7 @@ public class HydatavalueLexer extends Lexer {
 
                     match('/'); 
 
-                    // Hydatavalue.g:1520:87: ( '-' )?
+                    // Hydatavalue.g:1616:87: ( '-' )?
                     int alt4=2;
                     int LA4_0 = input.LA(1);
 
@@ -464,7 +465,7 @@ public class HydatavalueLexer extends Lexer {
                     }
                     switch (alt4) {
                         case 1 :
-                            // Hydatavalue.g:1520:88: '-'
+                            // Hydatavalue.g:1616:88: '-'
                             {
                             match('-'); 
 
@@ -474,7 +475,7 @@ public class HydatavalueLexer extends Lexer {
                     }
 
 
-                    // Hydatavalue.g:1520:94: ( '0' .. '9' )+
+                    // Hydatavalue.g:1616:94: ( '0' .. '9' )+
                     int cnt5=0;
                     loop5:
                     do {
@@ -515,7 +516,7 @@ public class HydatavalueLexer extends Lexer {
 
                     match('/'); 
 
-                    // Hydatavalue.g:1520:109: ( '-' )?
+                    // Hydatavalue.g:1616:109: ( '-' )?
                     int alt6=2;
                     int LA6_0 = input.LA(1);
 
@@ -524,7 +525,7 @@ public class HydatavalueLexer extends Lexer {
                     }
                     switch (alt6) {
                         case 1 :
-                            // Hydatavalue.g:1520:110: '-'
+                            // Hydatavalue.g:1616:110: '-'
                             {
                             match('-'); 
 
@@ -534,7 +535,7 @@ public class HydatavalueLexer extends Lexer {
                     }
 
 
-                    // Hydatavalue.g:1520:116: ( '0' .. '9' )+
+                    // Hydatavalue.g:1616:116: ( '0' .. '9' )+
                     int cnt7=0;
                     loop7:
                     do {
@@ -573,7 +574,7 @@ public class HydatavalueLexer extends Lexer {
                     } while (true);
 
 
-                    // Hydatavalue.g:1520:128: ( 'T' ( '-' )? ( '0' .. '9' )+ ':' ( '-' )? ( '0' .. '9' )+ ( ':' ( '-' )? ( '0' .. '9' )+ )? )?
+                    // Hydatavalue.g:1616:128: ( 'T' ( '-' )? ( '0' .. '9' )+ ':' ( '-' )? ( '0' .. '9' )+ ( ':' ( '-' )? ( '0' .. '9' )+ )? )?
                     int alt15=2;
                     int LA15_0 = input.LA(1);
 
@@ -582,11 +583,11 @@ public class HydatavalueLexer extends Lexer {
                     }
                     switch (alt15) {
                         case 1 :
-                            // Hydatavalue.g:1520:130: 'T' ( '-' )? ( '0' .. '9' )+ ':' ( '-' )? ( '0' .. '9' )+ ( ':' ( '-' )? ( '0' .. '9' )+ )?
+                            // Hydatavalue.g:1616:130: 'T' ( '-' )? ( '0' .. '9' )+ ':' ( '-' )? ( '0' .. '9' )+ ( ':' ( '-' )? ( '0' .. '9' )+ )?
                             {
                             match('T'); 
 
-                            // Hydatavalue.g:1520:133: ( '-' )?
+                            // Hydatavalue.g:1616:133: ( '-' )?
                             int alt8=2;
                             int LA8_0 = input.LA(1);
 
@@ -595,7 +596,7 @@ public class HydatavalueLexer extends Lexer {
                             }
                             switch (alt8) {
                                 case 1 :
-                                    // Hydatavalue.g:1520:134: '-'
+                                    // Hydatavalue.g:1616:134: '-'
                                     {
                                     match('-'); 
 
@@ -605,7 +606,7 @@ public class HydatavalueLexer extends Lexer {
                             }
 
 
-                            // Hydatavalue.g:1520:140: ( '0' .. '9' )+
+                            // Hydatavalue.g:1616:140: ( '0' .. '9' )+
                             int cnt9=0;
                             loop9:
                             do {
@@ -646,7 +647,7 @@ public class HydatavalueLexer extends Lexer {
 
                             match(':'); 
 
-                            // Hydatavalue.g:1520:155: ( '-' )?
+                            // Hydatavalue.g:1616:155: ( '-' )?
                             int alt10=2;
                             int LA10_0 = input.LA(1);
 
@@ -655,7 +656,7 @@ public class HydatavalueLexer extends Lexer {
                             }
                             switch (alt10) {
                                 case 1 :
-                                    // Hydatavalue.g:1520:156: '-'
+                                    // Hydatavalue.g:1616:156: '-'
                                     {
                                     match('-'); 
 
@@ -665,7 +666,7 @@ public class HydatavalueLexer extends Lexer {
                             }
 
 
-                            // Hydatavalue.g:1520:162: ( '0' .. '9' )+
+                            // Hydatavalue.g:1616:162: ( '0' .. '9' )+
                             int cnt11=0;
                             loop11:
                             do {
@@ -704,7 +705,7 @@ public class HydatavalueLexer extends Lexer {
                             } while (true);
 
 
-                            // Hydatavalue.g:1520:174: ( ':' ( '-' )? ( '0' .. '9' )+ )?
+                            // Hydatavalue.g:1616:174: ( ':' ( '-' )? ( '0' .. '9' )+ )?
                             int alt14=2;
                             int LA14_0 = input.LA(1);
 
@@ -713,11 +714,11 @@ public class HydatavalueLexer extends Lexer {
                             }
                             switch (alt14) {
                                 case 1 :
-                                    // Hydatavalue.g:1520:175: ':' ( '-' )? ( '0' .. '9' )+
+                                    // Hydatavalue.g:1616:175: ':' ( '-' )? ( '0' .. '9' )+
                                     {
                                     match(':'); 
 
-                                    // Hydatavalue.g:1520:179: ( '-' )?
+                                    // Hydatavalue.g:1616:179: ( '-' )?
                                     int alt12=2;
                                     int LA12_0 = input.LA(1);
 
@@ -726,7 +727,7 @@ public class HydatavalueLexer extends Lexer {
                                     }
                                     switch (alt12) {
                                         case 1 :
-                                            // Hydatavalue.g:1520:180: '-'
+                                            // Hydatavalue.g:1616:180: '-'
                                             {
                                             match('-'); 
 
@@ -736,7 +737,7 @@ public class HydatavalueLexer extends Lexer {
                                     }
 
 
-                                    // Hydatavalue.g:1520:186: ( '0' .. '9' )+
+                                    // Hydatavalue.g:1616:186: ( '0' .. '9' )+
                                     int cnt13=0;
                                     loop13:
                                     do {
@@ -815,16 +816,16 @@ public class HydatavalueLexer extends Lexer {
         try {
             int _type = DATE;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // Hydatavalue.g:1522:5: ( ( ( ( '-' )? ( '0' .. '9' )+ '/' ( '-' )? ( '0' .. '9' )+ '/' ( '-' )? ( '0' .. '9' )+ ( 'T' ( '-' )? ( '0' .. '9' )+ ':' ( '-' )? ( '0' .. '9' )+ ( ':' ( '-' )? ( '0' .. '9' )+ )? )? ) ) )
-            // Hydatavalue.g:1523:2: ( ( ( '-' )? ( '0' .. '9' )+ '/' ( '-' )? ( '0' .. '9' )+ '/' ( '-' )? ( '0' .. '9' )+ ( 'T' ( '-' )? ( '0' .. '9' )+ ':' ( '-' )? ( '0' .. '9' )+ ( ':' ( '-' )? ( '0' .. '9' )+ )? )? ) )
+            // Hydatavalue.g:1618:5: ( ( ( ( '-' )? ( '0' .. '9' )+ '/' ( '-' )? ( '0' .. '9' )+ '/' ( '-' )? ( '0' .. '9' )+ ( 'T' ( '-' )? ( '0' .. '9' )+ ':' ( '-' )? ( '0' .. '9' )+ ( ':' ( '-' )? ( '0' .. '9' )+ )? )? ) ) )
+            // Hydatavalue.g:1619:2: ( ( ( '-' )? ( '0' .. '9' )+ '/' ( '-' )? ( '0' .. '9' )+ '/' ( '-' )? ( '0' .. '9' )+ ( 'T' ( '-' )? ( '0' .. '9' )+ ':' ( '-' )? ( '0' .. '9' )+ ( ':' ( '-' )? ( '0' .. '9' )+ )? )? ) )
             {
-            // Hydatavalue.g:1523:2: ( ( ( '-' )? ( '0' .. '9' )+ '/' ( '-' )? ( '0' .. '9' )+ '/' ( '-' )? ( '0' .. '9' )+ ( 'T' ( '-' )? ( '0' .. '9' )+ ':' ( '-' )? ( '0' .. '9' )+ ( ':' ( '-' )? ( '0' .. '9' )+ )? )? ) )
-            // Hydatavalue.g:1523:3: ( ( '-' )? ( '0' .. '9' )+ '/' ( '-' )? ( '0' .. '9' )+ '/' ( '-' )? ( '0' .. '9' )+ ( 'T' ( '-' )? ( '0' .. '9' )+ ':' ( '-' )? ( '0' .. '9' )+ ( ':' ( '-' )? ( '0' .. '9' )+ )? )? )
+            // Hydatavalue.g:1619:2: ( ( ( '-' )? ( '0' .. '9' )+ '/' ( '-' )? ( '0' .. '9' )+ '/' ( '-' )? ( '0' .. '9' )+ ( 'T' ( '-' )? ( '0' .. '9' )+ ':' ( '-' )? ( '0' .. '9' )+ ( ':' ( '-' )? ( '0' .. '9' )+ )? )? ) )
+            // Hydatavalue.g:1619:3: ( ( '-' )? ( '0' .. '9' )+ '/' ( '-' )? ( '0' .. '9' )+ '/' ( '-' )? ( '0' .. '9' )+ ( 'T' ( '-' )? ( '0' .. '9' )+ ':' ( '-' )? ( '0' .. '9' )+ ( ':' ( '-' )? ( '0' .. '9' )+ )? )? )
             {
-            // Hydatavalue.g:1523:3: ( ( '-' )? ( '0' .. '9' )+ '/' ( '-' )? ( '0' .. '9' )+ '/' ( '-' )? ( '0' .. '9' )+ ( 'T' ( '-' )? ( '0' .. '9' )+ ':' ( '-' )? ( '0' .. '9' )+ ( ':' ( '-' )? ( '0' .. '9' )+ )? )? )
-            // Hydatavalue.g:1523:4: ( '-' )? ( '0' .. '9' )+ '/' ( '-' )? ( '0' .. '9' )+ '/' ( '-' )? ( '0' .. '9' )+ ( 'T' ( '-' )? ( '0' .. '9' )+ ':' ( '-' )? ( '0' .. '9' )+ ( ':' ( '-' )? ( '0' .. '9' )+ )? )?
+            // Hydatavalue.g:1619:3: ( ( '-' )? ( '0' .. '9' )+ '/' ( '-' )? ( '0' .. '9' )+ '/' ( '-' )? ( '0' .. '9' )+ ( 'T' ( '-' )? ( '0' .. '9' )+ ':' ( '-' )? ( '0' .. '9' )+ ( ':' ( '-' )? ( '0' .. '9' )+ )? )? )
+            // Hydatavalue.g:1619:4: ( '-' )? ( '0' .. '9' )+ '/' ( '-' )? ( '0' .. '9' )+ '/' ( '-' )? ( '0' .. '9' )+ ( 'T' ( '-' )? ( '0' .. '9' )+ ':' ( '-' )? ( '0' .. '9' )+ ( ':' ( '-' )? ( '0' .. '9' )+ )? )?
             {
-            // Hydatavalue.g:1523:4: ( '-' )?
+            // Hydatavalue.g:1619:4: ( '-' )?
             int alt17=2;
             int LA17_0 = input.LA(1);
 
@@ -833,7 +834,7 @@ public class HydatavalueLexer extends Lexer {
             }
             switch (alt17) {
                 case 1 :
-                    // Hydatavalue.g:1523:5: '-'
+                    // Hydatavalue.g:1619:5: '-'
                     {
                     match('-'); 
 
@@ -843,7 +844,7 @@ public class HydatavalueLexer extends Lexer {
             }
 
 
-            // Hydatavalue.g:1523:11: ( '0' .. '9' )+
+            // Hydatavalue.g:1619:11: ( '0' .. '9' )+
             int cnt18=0;
             loop18:
             do {
@@ -884,7 +885,7 @@ public class HydatavalueLexer extends Lexer {
 
             match('/'); 
 
-            // Hydatavalue.g:1523:26: ( '-' )?
+            // Hydatavalue.g:1619:26: ( '-' )?
             int alt19=2;
             int LA19_0 = input.LA(1);
 
@@ -893,7 +894,7 @@ public class HydatavalueLexer extends Lexer {
             }
             switch (alt19) {
                 case 1 :
-                    // Hydatavalue.g:1523:27: '-'
+                    // Hydatavalue.g:1619:27: '-'
                     {
                     match('-'); 
 
@@ -903,7 +904,7 @@ public class HydatavalueLexer extends Lexer {
             }
 
 
-            // Hydatavalue.g:1523:33: ( '0' .. '9' )+
+            // Hydatavalue.g:1619:33: ( '0' .. '9' )+
             int cnt20=0;
             loop20:
             do {
@@ -944,7 +945,7 @@ public class HydatavalueLexer extends Lexer {
 
             match('/'); 
 
-            // Hydatavalue.g:1523:48: ( '-' )?
+            // Hydatavalue.g:1619:48: ( '-' )?
             int alt21=2;
             int LA21_0 = input.LA(1);
 
@@ -953,7 +954,7 @@ public class HydatavalueLexer extends Lexer {
             }
             switch (alt21) {
                 case 1 :
-                    // Hydatavalue.g:1523:49: '-'
+                    // Hydatavalue.g:1619:49: '-'
                     {
                     match('-'); 
 
@@ -963,7 +964,7 @@ public class HydatavalueLexer extends Lexer {
             }
 
 
-            // Hydatavalue.g:1523:55: ( '0' .. '9' )+
+            // Hydatavalue.g:1619:55: ( '0' .. '9' )+
             int cnt22=0;
             loop22:
             do {
@@ -1002,7 +1003,7 @@ public class HydatavalueLexer extends Lexer {
             } while (true);
 
 
-            // Hydatavalue.g:1523:67: ( 'T' ( '-' )? ( '0' .. '9' )+ ':' ( '-' )? ( '0' .. '9' )+ ( ':' ( '-' )? ( '0' .. '9' )+ )? )?
+            // Hydatavalue.g:1619:67: ( 'T' ( '-' )? ( '0' .. '9' )+ ':' ( '-' )? ( '0' .. '9' )+ ( ':' ( '-' )? ( '0' .. '9' )+ )? )?
             int alt30=2;
             int LA30_0 = input.LA(1);
 
@@ -1011,11 +1012,11 @@ public class HydatavalueLexer extends Lexer {
             }
             switch (alt30) {
                 case 1 :
-                    // Hydatavalue.g:1523:69: 'T' ( '-' )? ( '0' .. '9' )+ ':' ( '-' )? ( '0' .. '9' )+ ( ':' ( '-' )? ( '0' .. '9' )+ )?
+                    // Hydatavalue.g:1619:69: 'T' ( '-' )? ( '0' .. '9' )+ ':' ( '-' )? ( '0' .. '9' )+ ( ':' ( '-' )? ( '0' .. '9' )+ )?
                     {
                     match('T'); 
 
-                    // Hydatavalue.g:1523:72: ( '-' )?
+                    // Hydatavalue.g:1619:72: ( '-' )?
                     int alt23=2;
                     int LA23_0 = input.LA(1);
 
@@ -1024,7 +1025,7 @@ public class HydatavalueLexer extends Lexer {
                     }
                     switch (alt23) {
                         case 1 :
-                            // Hydatavalue.g:1523:73: '-'
+                            // Hydatavalue.g:1619:73: '-'
                             {
                             match('-'); 
 
@@ -1034,7 +1035,7 @@ public class HydatavalueLexer extends Lexer {
                     }
 
 
-                    // Hydatavalue.g:1523:79: ( '0' .. '9' )+
+                    // Hydatavalue.g:1619:79: ( '0' .. '9' )+
                     int cnt24=0;
                     loop24:
                     do {
@@ -1075,7 +1076,7 @@ public class HydatavalueLexer extends Lexer {
 
                     match(':'); 
 
-                    // Hydatavalue.g:1523:94: ( '-' )?
+                    // Hydatavalue.g:1619:94: ( '-' )?
                     int alt25=2;
                     int LA25_0 = input.LA(1);
 
@@ -1084,7 +1085,7 @@ public class HydatavalueLexer extends Lexer {
                     }
                     switch (alt25) {
                         case 1 :
-                            // Hydatavalue.g:1523:95: '-'
+                            // Hydatavalue.g:1619:95: '-'
                             {
                             match('-'); 
 
@@ -1094,7 +1095,7 @@ public class HydatavalueLexer extends Lexer {
                     }
 
 
-                    // Hydatavalue.g:1523:101: ( '0' .. '9' )+
+                    // Hydatavalue.g:1619:101: ( '0' .. '9' )+
                     int cnt26=0;
                     loop26:
                     do {
@@ -1133,7 +1134,7 @@ public class HydatavalueLexer extends Lexer {
                     } while (true);
 
 
-                    // Hydatavalue.g:1523:113: ( ':' ( '-' )? ( '0' .. '9' )+ )?
+                    // Hydatavalue.g:1619:113: ( ':' ( '-' )? ( '0' .. '9' )+ )?
                     int alt29=2;
                     int LA29_0 = input.LA(1);
 
@@ -1142,11 +1143,11 @@ public class HydatavalueLexer extends Lexer {
                     }
                     switch (alt29) {
                         case 1 :
-                            // Hydatavalue.g:1523:114: ':' ( '-' )? ( '0' .. '9' )+
+                            // Hydatavalue.g:1619:114: ':' ( '-' )? ( '0' .. '9' )+
                             {
                             match(':'); 
 
-                            // Hydatavalue.g:1523:118: ( '-' )?
+                            // Hydatavalue.g:1619:118: ( '-' )?
                             int alt27=2;
                             int LA27_0 = input.LA(1);
 
@@ -1155,7 +1156,7 @@ public class HydatavalueLexer extends Lexer {
                             }
                             switch (alt27) {
                                 case 1 :
-                                    // Hydatavalue.g:1523:119: '-'
+                                    // Hydatavalue.g:1619:119: '-'
                                     {
                                     match('-'); 
 
@@ -1165,7 +1166,7 @@ public class HydatavalueLexer extends Lexer {
                             }
 
 
-                            // Hydatavalue.g:1523:125: ( '0' .. '9' )+
+                            // Hydatavalue.g:1619:125: ( '0' .. '9' )+
                             int cnt28=0;
                             loop28:
                             do {
@@ -1238,13 +1239,13 @@ public class HydatavalueLexer extends Lexer {
         try {
             int _type = INTEGER_LITERAL;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // Hydatavalue.g:1525:16: ( ( ( '-' )? ( '0' .. '9' )+ ) )
-            // Hydatavalue.g:1526:2: ( ( '-' )? ( '0' .. '9' )+ )
+            // Hydatavalue.g:1621:16: ( ( ( '-' )? ( '0' .. '9' )+ ) )
+            // Hydatavalue.g:1622:2: ( ( '-' )? ( '0' .. '9' )+ )
             {
-            // Hydatavalue.g:1526:2: ( ( '-' )? ( '0' .. '9' )+ )
-            // Hydatavalue.g:1526:3: ( '-' )? ( '0' .. '9' )+
+            // Hydatavalue.g:1622:2: ( ( '-' )? ( '0' .. '9' )+ )
+            // Hydatavalue.g:1622:3: ( '-' )? ( '0' .. '9' )+
             {
-            // Hydatavalue.g:1526:3: ( '-' )?
+            // Hydatavalue.g:1622:3: ( '-' )?
             int alt31=2;
             int LA31_0 = input.LA(1);
 
@@ -1253,7 +1254,7 @@ public class HydatavalueLexer extends Lexer {
             }
             switch (alt31) {
                 case 1 :
-                    // Hydatavalue.g:1526:4: '-'
+                    // Hydatavalue.g:1622:4: '-'
                     {
                     match('-'); 
 
@@ -1263,7 +1264,7 @@ public class HydatavalueLexer extends Lexer {
             }
 
 
-            // Hydatavalue.g:1526:10: ( '0' .. '9' )+
+            // Hydatavalue.g:1622:10: ( '0' .. '9' )+
             int cnt32=0;
             loop32:
             do {
@@ -1321,17 +1322,17 @@ public class HydatavalueLexer extends Lexer {
         try {
             int _type = SL_COMMENT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // Hydatavalue.g:1528:11: ( ( '//' (~ ( '\\n' | '\\r' | '\\uffff' ) )* ) )
-            // Hydatavalue.g:1529:2: ( '//' (~ ( '\\n' | '\\r' | '\\uffff' ) )* )
+            // Hydatavalue.g:1624:11: ( ( '//' (~ ( '\\n' | '\\r' | '\\uffff' ) )* ) )
+            // Hydatavalue.g:1625:2: ( '//' (~ ( '\\n' | '\\r' | '\\uffff' ) )* )
             {
-            // Hydatavalue.g:1529:2: ( '//' (~ ( '\\n' | '\\r' | '\\uffff' ) )* )
-            // Hydatavalue.g:1529:3: '//' (~ ( '\\n' | '\\r' | '\\uffff' ) )*
+            // Hydatavalue.g:1625:2: ( '//' (~ ( '\\n' | '\\r' | '\\uffff' ) )* )
+            // Hydatavalue.g:1625:3: '//' (~ ( '\\n' | '\\r' | '\\uffff' ) )*
             {
             match("//"); 
 
 
 
-            // Hydatavalue.g:1529:7: (~ ( '\\n' | '\\r' | '\\uffff' ) )*
+            // Hydatavalue.g:1625:7: (~ ( '\\n' | '\\r' | '\\uffff' ) )*
             loop33:
             do {
                 int alt33=2;
@@ -1386,17 +1387,17 @@ public class HydatavalueLexer extends Lexer {
         try {
             int _type = ML_COMMENT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // Hydatavalue.g:1532:11: ( ( '/*' ( . )* '*/' ) )
-            // Hydatavalue.g:1533:2: ( '/*' ( . )* '*/' )
+            // Hydatavalue.g:1628:11: ( ( '/*' ( . )* '*/' ) )
+            // Hydatavalue.g:1629:2: ( '/*' ( . )* '*/' )
             {
-            // Hydatavalue.g:1533:2: ( '/*' ( . )* '*/' )
-            // Hydatavalue.g:1533:3: '/*' ( . )* '*/'
+            // Hydatavalue.g:1629:2: ( '/*' ( . )* '*/' )
+            // Hydatavalue.g:1629:3: '/*' ( . )* '*/'
             {
             match("/*"); 
 
 
 
-            // Hydatavalue.g:1533:7: ( . )*
+            // Hydatavalue.g:1629:7: ( . )*
             loop34:
             do {
                 int alt34=2;
@@ -1421,7 +1422,7 @@ public class HydatavalueLexer extends Lexer {
 
                 switch (alt34) {
             	case 1 :
-            	    // Hydatavalue.g:1533:7: .
+            	    // Hydatavalue.g:1629:7: .
             	    {
             	    matchAny(); 
 
@@ -1459,13 +1460,13 @@ public class HydatavalueLexer extends Lexer {
         try {
             int _type = LINEBREAK;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // Hydatavalue.g:1536:10: ( ( ( '\\r\\n' | '\\r' | '\\n' ) ) )
-            // Hydatavalue.g:1537:2: ( ( '\\r\\n' | '\\r' | '\\n' ) )
+            // Hydatavalue.g:1632:10: ( ( ( '\\r\\n' | '\\r' | '\\n' ) ) )
+            // Hydatavalue.g:1633:2: ( ( '\\r\\n' | '\\r' | '\\n' ) )
             {
-            // Hydatavalue.g:1537:2: ( ( '\\r\\n' | '\\r' | '\\n' ) )
-            // Hydatavalue.g:1537:3: ( '\\r\\n' | '\\r' | '\\n' )
+            // Hydatavalue.g:1633:2: ( ( '\\r\\n' | '\\r' | '\\n' ) )
+            // Hydatavalue.g:1633:3: ( '\\r\\n' | '\\r' | '\\n' )
             {
-            // Hydatavalue.g:1537:3: ( '\\r\\n' | '\\r' | '\\n' )
+            // Hydatavalue.g:1633:3: ( '\\r\\n' | '\\r' | '\\n' )
             int alt35=3;
             int LA35_0 = input.LA(1);
 
@@ -1491,7 +1492,7 @@ public class HydatavalueLexer extends Lexer {
             }
             switch (alt35) {
                 case 1 :
-                    // Hydatavalue.g:1537:4: '\\r\\n'
+                    // Hydatavalue.g:1633:4: '\\r\\n'
                     {
                     match("\r\n"); 
 
@@ -1500,14 +1501,14 @@ public class HydatavalueLexer extends Lexer {
                     }
                     break;
                 case 2 :
-                    // Hydatavalue.g:1537:11: '\\r'
+                    // Hydatavalue.g:1633:11: '\\r'
                     {
                     match('\r'); 
 
                     }
                     break;
                 case 3 :
-                    // Hydatavalue.g:1537:16: '\\n'
+                    // Hydatavalue.g:1633:16: '\\n'
                     {
                     match('\n'); 
 
@@ -1538,8 +1539,8 @@ public class HydatavalueLexer extends Lexer {
         try {
             int _type = WHITESPACE;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // Hydatavalue.g:1540:11: ( ( ( ' ' | '\\t' | '\\f' ) ) )
-            // Hydatavalue.g:1541:2: ( ( ' ' | '\\t' | '\\f' ) )
+            // Hydatavalue.g:1636:11: ( ( ( ' ' | '\\t' | '\\f' ) ) )
+            // Hydatavalue.g:1637:2: ( ( ' ' | '\\t' | '\\f' ) )
             {
             if ( input.LA(1)=='\t'||input.LA(1)=='\f'||input.LA(1)==' ' ) {
                 input.consume();
@@ -1564,103 +1565,178 @@ public class HydatavalueLexer extends Lexer {
     }
     // $ANTLR end "WHITESPACE"
 
-    public void mTokens() throws RecognitionException {
-        // Hydatavalue.g:1:8: ( T__11 | T__12 | T__13 | T__14 | T__15 | T__16 | T__17 | T__18 | T__19 | T__20 | T__21 | T__22 | IDENTIFIER_TOKEN | DATE | INTEGER_LITERAL | SL_COMMENT | ML_COMMENT | LINEBREAK | WHITESPACE )
-        int alt36=19;
-        alt36 = dfa36.predict(input);
-        switch (alt36) {
-            case 1 :
-                // Hydatavalue.g:1:10: T__11
-                {
-                mT__11(); 
+    // $ANTLR start "QUOTED_34_34"
+    public final void mQUOTED_34_34() throws RecognitionException {
+        try {
+            int _type = QUOTED_34_34;
+            int _channel = DEFAULT_TOKEN_CHANNEL;
+            // Hydatavalue.g:1640:13: ( ( ( '\"' ) (~ ( '\"' ) )* ( '\"' ) ) )
+            // Hydatavalue.g:1641:2: ( ( '\"' ) (~ ( '\"' ) )* ( '\"' ) )
+            {
+            // Hydatavalue.g:1641:2: ( ( '\"' ) (~ ( '\"' ) )* ( '\"' ) )
+            // Hydatavalue.g:1641:3: ( '\"' ) (~ ( '\"' ) )* ( '\"' )
+            {
+            // Hydatavalue.g:1641:3: ( '\"' )
+            // Hydatavalue.g:1641:4: '\"'
+            {
+            match('\"'); 
+
+            }
 
 
+            // Hydatavalue.g:1641:8: (~ ( '\"' ) )*
+            loop36:
+            do {
+                int alt36=2;
+                int LA36_0 = input.LA(1);
+
+                if ( ((LA36_0 >= '\u0000' && LA36_0 <= '!')||(LA36_0 >= '#' && LA36_0 <= '\uFFFF')) ) {
+                    alt36=1;
                 }
-                break;
-            case 2 :
-                // Hydatavalue.g:1:16: T__12
+
+
+                switch (alt36) {
+            	case 1 :
+            	    // Hydatavalue.g:
+            	    {
+            	    if ( (input.LA(1) >= '\u0000' && input.LA(1) <= '!')||(input.LA(1) >= '#' && input.LA(1) <= '\uFFFF') ) {
+            	        input.consume();
+            	    }
+            	    else {
+            	        MismatchedSetException mse = new MismatchedSetException(null,input);
+            	        recover(mse);
+            	        throw mse;
+            	    }
+
+
+            	    }
+            	    break;
+
+            	default :
+            	    break loop36;
+                }
+            } while (true);
+
+
+            // Hydatavalue.g:1641:17: ( '\"' )
+            // Hydatavalue.g:1641:18: '\"'
+            {
+            match('\"'); 
+
+            }
+
+
+            }
+
+
+            }
+
+            state.type = _type;
+            state.channel = _channel;
+        }
+        finally {
+        	// do for sure before leaving
+        }
+    }
+    // $ANTLR end "QUOTED_34_34"
+
+    public void mTokens() throws RecognitionException {
+        // Hydatavalue.g:1:8: ( T__12 | T__13 | T__14 | T__15 | T__16 | T__17 | T__18 | T__19 | T__20 | T__21 | T__22 | T__23 | IDENTIFIER_TOKEN | DATE | INTEGER_LITERAL | SL_COMMENT | ML_COMMENT | LINEBREAK | WHITESPACE | QUOTED_34_34 )
+        int alt37=20;
+        alt37 = dfa37.predict(input);
+        switch (alt37) {
+            case 1 :
+                // Hydatavalue.g:1:10: T__12
                 {
                 mT__12(); 
 
 
                 }
                 break;
-            case 3 :
-                // Hydatavalue.g:1:22: T__13
+            case 2 :
+                // Hydatavalue.g:1:16: T__13
                 {
                 mT__13(); 
 
 
                 }
                 break;
-            case 4 :
-                // Hydatavalue.g:1:28: T__14
+            case 3 :
+                // Hydatavalue.g:1:22: T__14
                 {
                 mT__14(); 
 
 
                 }
                 break;
-            case 5 :
-                // Hydatavalue.g:1:34: T__15
+            case 4 :
+                // Hydatavalue.g:1:28: T__15
                 {
                 mT__15(); 
 
 
                 }
                 break;
-            case 6 :
-                // Hydatavalue.g:1:40: T__16
+            case 5 :
+                // Hydatavalue.g:1:34: T__16
                 {
                 mT__16(); 
 
 
                 }
                 break;
-            case 7 :
-                // Hydatavalue.g:1:46: T__17
+            case 6 :
+                // Hydatavalue.g:1:40: T__17
                 {
                 mT__17(); 
 
 
                 }
                 break;
-            case 8 :
-                // Hydatavalue.g:1:52: T__18
+            case 7 :
+                // Hydatavalue.g:1:46: T__18
                 {
                 mT__18(); 
 
 
                 }
                 break;
-            case 9 :
-                // Hydatavalue.g:1:58: T__19
+            case 8 :
+                // Hydatavalue.g:1:52: T__19
                 {
                 mT__19(); 
 
 
                 }
                 break;
-            case 10 :
-                // Hydatavalue.g:1:64: T__20
+            case 9 :
+                // Hydatavalue.g:1:58: T__20
                 {
                 mT__20(); 
 
 
                 }
                 break;
-            case 11 :
-                // Hydatavalue.g:1:70: T__21
+            case 10 :
+                // Hydatavalue.g:1:64: T__21
                 {
                 mT__21(); 
 
 
                 }
                 break;
-            case 12 :
-                // Hydatavalue.g:1:76: T__22
+            case 11 :
+                // Hydatavalue.g:1:70: T__22
                 {
                 mT__22(); 
+
+
+                }
+                break;
+            case 12 :
+                // Hydatavalue.g:1:76: T__23
+                {
+                mT__23(); 
 
 
                 }
@@ -1721,127 +1797,137 @@ public class HydatavalueLexer extends Lexer {
 
                 }
                 break;
+            case 20 :
+                // Hydatavalue.g:1:163: QUOTED_34_34
+                {
+                mQUOTED_34_34(); 
+
+
+                }
+                break;
 
         }
 
     }
 
 
-    protected DFA36 dfa36 = new DFA36(this);
-    static final String DFA36_eotS =
-        "\3\uffff\1\20\1\uffff\1\13\2\uffff\3\13\1\uffff\1\27\4\uffff\5\13"+
-        "\4\uffff\11\13\1\51\1\uffff\1\13\1\uffff\1\13\1\54\1\uffff\2\13"+
-        "\1\uffff\3\13\1\62\1\13\1\uffff\2\13\1\uffff";
-    static final String DFA36_eofS =
-        "\66\uffff";
-    static final String DFA36_minS =
+    protected DFA37 dfa37 = new DFA37(this);
+    static final String DFA37_eotS =
+        "\3\uffff\1\21\1\uffff\1\13\2\uffff\3\13\1\uffff\1\30\5\uffff\5\13"+
+        "\4\uffff\11\13\1\52\1\uffff\1\13\1\uffff\1\13\1\55\1\uffff\2\13"+
+        "\1\uffff\3\13\1\63\1\13\1\uffff\2\13\1\uffff";
+    static final String DFA37_eofS =
+        "\67\uffff";
+    static final String DFA37_minS =
         "\1\11\2\uffff\1\60\1\uffff\1\156\2\uffff\1\156\1\141\1\162\1\uffff"+
-        "\1\57\1\52\3\uffff\2\165\1\145\1\154\1\165\4\uffff\2\155\1\162\1"+
+        "\1\57\1\52\4\uffff\2\165\1\145\1\154\1\165\4\uffff\2\155\1\162\1"+
         "\163\1\145\1\50\1\72\1\156\1\145\1\60\1\uffff\1\151\1\uffff\1\151"+
         "\1\60\1\uffff\2\164\1\uffff\1\145\1\171\1\162\1\60\1\141\1\uffff"+
         "\1\154\1\50\1\uffff";
-    static final String DFA36_maxS =
+    static final String DFA37_maxS =
         "\1\172\2\uffff\1\71\1\uffff\1\156\2\uffff\1\164\1\141\1\162\1\uffff"+
-        "\1\71\1\57\3\uffff\2\165\1\145\1\154\1\165\4\uffff\2\155\1\162\1"+
+        "\1\71\1\57\4\uffff\2\165\1\145\1\154\1\165\4\uffff\2\155\1\162\1"+
         "\163\1\145\1\114\1\72\1\156\1\145\1\172\1\uffff\1\151\1\uffff\1"+
         "\151\1\172\1\uffff\2\164\1\uffff\1\145\1\171\1\162\1\172\1\141\1"+
         "\uffff\1\154\1\50\1\uffff";
-    static final String DFA36_acceptS =
+    static final String DFA37_acceptS =
         "\1\uffff\1\1\1\2\1\uffff\1\4\1\uffff\1\7\1\10\3\uffff\1\15\2\uffff"+
-        "\1\22\1\23\1\3\5\uffff\1\16\1\17\1\20\1\21\12\uffff\1\5\1\uffff"+
+        "\1\22\1\23\1\24\1\3\5\uffff\1\16\1\17\1\20\1\21\12\uffff\1\5\1\uffff"+
         "\1\11\2\uffff\1\14\2\uffff\1\13\5\uffff\1\12\2\uffff\1\6";
-    static final String DFA36_specialS =
-        "\66\uffff}>";
-    static final String[] DFA36_transitionS = {
-            "\1\17\1\16\1\uffff\1\17\1\16\22\uffff\1\17\10\uffff\1\1\2\uffff"+
-            "\1\2\1\3\1\4\1\15\12\14\7\uffff\4\13\1\5\25\13\1\6\1\uffff\1"+
-            "\7\1\uffff\1\13\1\uffff\4\13\1\10\1\11\15\13\1\12\6\13",
+    static final String DFA37_specialS =
+        "\67\uffff}>";
+    static final String[] DFA37_transitionS = {
+            "\1\17\1\16\1\uffff\1\17\1\16\22\uffff\1\17\1\uffff\1\20\6\uffff"+
+            "\1\1\2\uffff\1\2\1\3\1\4\1\15\12\14\7\uffff\4\13\1\5\25\13\1"+
+            "\6\1\uffff\1\7\1\uffff\1\13\1\uffff\4\13\1\10\1\11\15\13\1\12"+
+            "\6\13",
             "",
             "",
             "\12\14",
             "",
-            "\1\21",
+            "\1\22",
             "",
             "",
-            "\1\22\5\uffff\1\23",
-            "\1\24",
+            "\1\23\5\uffff\1\24",
             "\1\25",
+            "\1\26",
             "",
-            "\1\26\12\14",
-            "\1\31\4\uffff\1\30",
+            "\1\27\12\14",
+            "\1\32\4\uffff\1\31",
             "",
             "",
             "",
-            "\1\32",
+            "",
             "\1\33",
             "\1\34",
             "\1\35",
             "\1\36",
-            "",
-            "",
-            "",
-            "",
             "\1\37",
+            "",
+            "",
+            "",
+            "",
             "\1\40",
             "\1\41",
             "\1\42",
             "\1\43",
-            "\1\44\43\uffff\1\45",
-            "\1\46",
+            "\1\44",
+            "\1\45\43\uffff\1\46",
             "\1\47",
             "\1\50",
+            "\1\51",
             "\12\13\6\uffff\33\13\4\uffff\1\13\1\uffff\32\13",
-            "",
-            "\1\52",
             "",
             "\1\53",
+            "",
+            "\1\54",
             "\12\13\6\uffff\33\13\4\uffff\1\13\1\uffff\32\13",
             "",
-            "\1\55",
             "\1\56",
-            "",
             "\1\57",
+            "",
             "\1\60",
             "\1\61",
+            "\1\62",
             "\12\13\6\uffff\33\13\4\uffff\1\13\1\uffff\32\13",
-            "\1\63",
-            "",
             "\1\64",
+            "",
             "\1\65",
+            "\1\66",
             ""
     };
 
-    static final short[] DFA36_eot = DFA.unpackEncodedString(DFA36_eotS);
-    static final short[] DFA36_eof = DFA.unpackEncodedString(DFA36_eofS);
-    static final char[] DFA36_min = DFA.unpackEncodedStringToUnsignedChars(DFA36_minS);
-    static final char[] DFA36_max = DFA.unpackEncodedStringToUnsignedChars(DFA36_maxS);
-    static final short[] DFA36_accept = DFA.unpackEncodedString(DFA36_acceptS);
-    static final short[] DFA36_special = DFA.unpackEncodedString(DFA36_specialS);
-    static final short[][] DFA36_transition;
+    static final short[] DFA37_eot = DFA.unpackEncodedString(DFA37_eotS);
+    static final short[] DFA37_eof = DFA.unpackEncodedString(DFA37_eofS);
+    static final char[] DFA37_min = DFA.unpackEncodedStringToUnsignedChars(DFA37_minS);
+    static final char[] DFA37_max = DFA.unpackEncodedStringToUnsignedChars(DFA37_maxS);
+    static final short[] DFA37_accept = DFA.unpackEncodedString(DFA37_acceptS);
+    static final short[] DFA37_special = DFA.unpackEncodedString(DFA37_specialS);
+    static final short[][] DFA37_transition;
 
     static {
-        int numStates = DFA36_transitionS.length;
-        DFA36_transition = new short[numStates][];
+        int numStates = DFA37_transitionS.length;
+        DFA37_transition = new short[numStates][];
         for (int i=0; i<numStates; i++) {
-            DFA36_transition[i] = DFA.unpackEncodedString(DFA36_transitionS[i]);
+            DFA37_transition[i] = DFA.unpackEncodedString(DFA37_transitionS[i]);
         }
     }
 
-    class DFA36 extends DFA {
+    class DFA37 extends DFA {
 
-        public DFA36(BaseRecognizer recognizer) {
+        public DFA37(BaseRecognizer recognizer) {
             this.recognizer = recognizer;
-            this.decisionNumber = 36;
-            this.eot = DFA36_eot;
-            this.eof = DFA36_eof;
-            this.min = DFA36_min;
-            this.max = DFA36_max;
-            this.accept = DFA36_accept;
-            this.special = DFA36_special;
-            this.transition = DFA36_transition;
+            this.decisionNumber = 37;
+            this.eot = DFA37_eot;
+            this.eof = DFA37_eof;
+            this.min = DFA37_min;
+            this.max = DFA37_max;
+            this.accept = DFA37_accept;
+            this.special = DFA37_special;
+            this.transition = DFA37_transition;
         }
         public String getDescription() {
-            return "1:1: Tokens : ( T__11 | T__12 | T__13 | T__14 | T__15 | T__16 | T__17 | T__18 | T__19 | T__20 | T__21 | T__22 | IDENTIFIER_TOKEN | DATE | INTEGER_LITERAL | SL_COMMENT | ML_COMMENT | LINEBREAK | WHITESPACE );";
+            return "1:1: Tokens : ( T__12 | T__13 | T__14 | T__15 | T__16 | T__17 | T__18 | T__19 | T__20 | T__21 | T__22 | T__23 | IDENTIFIER_TOKEN | DATE | INTEGER_LITERAL | SL_COMMENT | ML_COMMENT | LINEBREAK | WHITESPACE | QUOTED_34_34 );";
         }
     }
  

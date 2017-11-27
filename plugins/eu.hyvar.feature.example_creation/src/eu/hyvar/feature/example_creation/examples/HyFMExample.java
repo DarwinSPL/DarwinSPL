@@ -7,7 +7,7 @@ import eu.hyvar.feature.configuration.HyConfiguration;
 import eu.hyvar.feature.constraint.HyConstraintModel;
 import eu.hyvar.feature.impl.custom.HyFeatureFactoryWithIds;
 import eu.hyvar.feature.mapping.HyMappingModel;
-import eu.hyvar.preferences.HyProfile;
+import de.darwinspl.preferences.DwProfile;
 import eu.hyvar.context.contextValidity.HyValidityModel;
 
 public abstract class HyFMExample {
@@ -24,7 +24,7 @@ public abstract class HyFMExample {
 	
 	public abstract HyValidityModel createValidityModel();
 	
-	public abstract HyProfile createPreferenceModel();
+	public abstract DwProfile createPreferenceModel();
 	
 	public abstract HyConfiguration createConfiguration();
 }

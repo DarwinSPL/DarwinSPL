@@ -22,7 +22,7 @@ public class HyConstraintUtil {
 //	}
 	
 	
-	public static final String CONSTRAINT_MODEL_FILE_EXTENSION_FOR_XMI = "hyconstraint";
+	public static final String CONSTRAINT_MODEL_FILE_EXTENSION_FOR_XMI = "hyconstraints_xmi";
 	public static final String CONSTRAINT_MODEL_FILE_EXTENSION_FOR_CONCRETE_SYNTAX = "hyconstraints";
 	
 	public static HyNotExpression negate(HyExpression expression) {

@@ -25,7 +25,7 @@ import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.TableItem;
 
-import de.darwinspl.feature.graphical.base.dialogs.DwDateDialog;
+import de.darwinspl.common.eclipse.ui.dialogs.DwDateDialog;
 import de.darwinspl.feature.graphical.base.model.DwFeatureWrapped;
 import de.darwinspl.feature.graphical.base.model.DwGroupWrapped;
 import eu.hyvar.evolution.HyLinearTemporalElement;

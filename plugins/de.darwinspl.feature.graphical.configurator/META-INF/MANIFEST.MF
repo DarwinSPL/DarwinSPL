@@ -29,7 +29,7 @@ Require-Bundle: org.eclipse.ui,
  eu.hyvar.feature.exporter.hfm_exporter,
  eu.hyvar.feature.constraint,
  eu.hyvar.context.validity_formulas,
- eu.hyvar.preferences,
+ de.darwinspl.preferences,
  eu.hyvar.context.information.value,
  eu.hyvar.reconfigurator.input,
  eu.hyvar.reconfigurator.output.translation,
@@ -45,7 +45,10 @@ Require-Bundle: org.eclipse.ui,
  org.deltaecore.feature.graphical.configurator,
  org.deltaecore.feature,
  org.deltaecore.suite.mapping,
- org.eclipse.emf.common
+ org.eclipse.emf.common,
+ de.darwinspl.solver,
+ eu.hyvar.context.information,
+ de.darwinspl.variant_generation
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Bundle-ActivationPolicy: lazy
 Bundle-Vendor: www.darwinspl.de

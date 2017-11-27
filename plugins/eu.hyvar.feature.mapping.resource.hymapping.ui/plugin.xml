@@ -19,7 +19,7 @@
 	</extension>
 	
 	<extension point="org.eclipse.ui.preferencePages">
-		<page name="Feature Mapping Editor (HyVar)" id="eu.hyvar.feature.mapping.resource.hymapping.ui.HymappingPreferencePage" class="eu.hyvar.feature.mapping.resource.hymapping.ui.HymappingPreferencePage" category="org.eclipse.ui.preferencePages.GeneralTextEditor">
+		<page name="DarwinSPL Mapping Editor" id="eu.hyvar.feature.mapping.resource.hymapping.ui.HymappingPreferencePage" class="eu.hyvar.feature.mapping.resource.hymapping.ui.HymappingPreferencePage" category="org.eclipse.ui.preferencePages.GeneralTextEditor">
 		</page>
 		<page name="Syntax Coloring" id="eu.hyvar.feature.mapping.resource.hymapping.ui.HymappingSyntaxColoringPreferencePage" class="eu.hyvar.feature.mapping.resource.hymapping.ui.HymappingSyntaxColoringPreferencePage" category="eu.hyvar.feature.mapping.resource.hymapping.ui.HymappingPreferencePage">
 		</page>
@@ -30,7 +30,7 @@
 	</extension>
 	
 	<extension point="org.eclipse.ui.newWizards">
-		<wizard category="de.darwinspl.wizards" icon="icons/icon_mapping.png" class="eu.hyvar.feature.mapping.resource.hymapping.ui.DwMappingNewFileWizardCustom" id="eu.hyvar.feature.mapping.resource.hymapping.ui.HymappingNewFileWizard" name="DarwinSPL Mapping  (*.hymapping)">
+		<wizard category="de.darwinspl.wizards" icon="icons/icon_mapping.png" class="eu.hyvar.feature.mapping.resource.hymapping.ui.HymappingNewFileWizard" id="eu.hyvar.feature.mapping.resource.hymapping.ui.HymappingNewFileWizard" name="DarwinSPL Mapping (*.hymapping)">
 		</wizard>
 	</extension>
 	

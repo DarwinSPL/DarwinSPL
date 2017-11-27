@@ -502,7 +502,7 @@ public class HyEvolutionUtil {
 			}
 
 			if(element.getValidUntil()!=null && interval.getValidUntil()!=null && element.getValidUntil().before(interval.getValidUntil()) ) {
-				interval.setValidSince(element.getValidSince());
+				interval.setValidUntil(element.getValidSince());
 			}
 			if(element.getValidUntil()!=null && interval.getValidUntil()==null) {
 				interval.setValidUntil(element.getValidUntil());

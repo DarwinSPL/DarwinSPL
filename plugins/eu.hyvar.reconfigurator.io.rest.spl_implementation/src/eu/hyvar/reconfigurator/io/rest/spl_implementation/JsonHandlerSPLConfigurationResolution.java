@@ -139,7 +139,7 @@ public class JsonHandlerSPLConfigurationResolution extends AbstractHandler {
 		HyFeatureModel signature = null;
 
 		// Instantiate the manifest of the SPL : (not necessary to maintain the file )
-		fileName = rawInput.getSignatureManifest().getFilename();
+		fileName = rawInput.getSignatureManifest().getFilename()+".hymanifest_xmi";
 		content = rawInput.getSignatureManifest().getSpecification().getBytes();
 		ifile = WorkspaceUtility.saveFileContent(fileName, content, folder, progressMonitor, error);
 
@@ -153,7 +153,7 @@ public class JsonHandlerSPLConfigurationResolution extends AbstractHandler {
 		}
 
 		// Instantiate the feature model of the SPL : 
-		fileName = rawInput.getSignatureFeatureModel().getFilename();
+		fileName = rawInput.getSignatureFeatureModel().getFilename()+".hyfeature";
 		content = rawInput.getSignatureFeatureModel().getSpecification().getBytes();
 		ifile = WorkspaceUtility.saveFileContent(fileName, content, folder, progressMonitor, error);
 
@@ -171,7 +171,7 @@ public class JsonHandlerSPLConfigurationResolution extends AbstractHandler {
 		HyFeatureModel spl = null;
 
 		// Instantiate the manifest of the SPL : 
-		fileName = rawInput.getSplManifest().getFilename();
+		fileName = rawInput.getSplManifest().getFilename()+".hymanifest_xmi";
 		content = rawInput.getSplManifest().getSpecification().getBytes();
 		ifile = WorkspaceUtility.saveFileContent(fileName, content, folder, progressMonitor, error);
 
@@ -185,7 +185,7 @@ public class JsonHandlerSPLConfigurationResolution extends AbstractHandler {
 		}
 
 		// Instantiate the feature model of the SPL : 
-		fileName = rawInput.getSplFeatureModel().getFilename();
+		fileName = rawInput.getSplFeatureModel().getFilename()+".hyfeature";
 		content = rawInput.getSplFeatureModel().getSpecification().getBytes();
 		ifile = WorkspaceUtility.saveFileContent(fileName, content, folder, progressMonitor, error);
 
@@ -202,7 +202,7 @@ public class JsonHandlerSPLConfigurationResolution extends AbstractHandler {
 		HyConfiguration configuration = null;
 
 		// Instantiate the Configuration : 
-		fileName = rawInput.getSignatureConfiguration().getFilename();
+		fileName = rawInput.getSignatureConfiguration().getFilename()+".hyconfigurationmodel";
 		content = rawInput.getSignatureConfiguration().getSpecification().getBytes();
 		ifile = WorkspaceUtility.saveFileContent(fileName, content, folder, progressMonitor, error);
 
@@ -318,7 +318,7 @@ public class JsonHandlerSPLConfigurationResolution extends AbstractHandler {
 		
 		byte[] data = new byte[0];
 		try {
-			IFile readfile = folder.getFile(fileName);
+			IFile readfile = folder.getFile(fileName+".hyconfigurationmodel");
 			InputStream is = readfile.getContents();
 			int length = is.available();
 			int read=0;

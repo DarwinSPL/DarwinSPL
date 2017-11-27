@@ -1,6 +1,0 @@
-Implementation  :  <../signatures/ecubS/ECUBSignature.hymanifest_xmi>
-	{
-		"ECU_B" -> "ECU_B",
-		"GearAdvice" -> "GearAdvice",
-		"StartStop" -> "StartStop"
-	}

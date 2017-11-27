@@ -12,7 +12,7 @@ package eu.hyvar.dataValues.resource.hydatavalue.mopp;
  */
 public class HydatavalueExpectationConstants {
 	
-	public final static int EXPECTATIONS[][] = new int[57][];
+	public final static int EXPECTATIONS[][] = new int[61][];
 	
 	public static void initialize0() {
 		EXPECTATIONS[0] = new int[2];
@@ -184,10 +184,22 @@ public class HydatavalueExpectationConstants {
 		EXPECTATIONS[54][1] = 42;
 		EXPECTATIONS[55] = new int[2];
 		EXPECTATIONS[55][0] = 35;
-		EXPECTATIONS[55][1] = 43;
+		EXPECTATIONS[55][1] = 42;
 		EXPECTATIONS[56] = new int[2];
 		EXPECTATIONS[56][0] = 36;
-		EXPECTATIONS[56][1] = 44;
+		EXPECTATIONS[56][1] = 43;
+		EXPECTATIONS[57] = new int[2];
+		EXPECTATIONS[57][0] = 36;
+		EXPECTATIONS[57][1] = 44;
+		EXPECTATIONS[58] = new int[2];
+		EXPECTATIONS[58][0] = 36;
+		EXPECTATIONS[58][1] = 45;
+		EXPECTATIONS[59] = new int[2];
+		EXPECTATIONS[59][0] = 37;
+		EXPECTATIONS[59][1] = 46;
+		EXPECTATIONS[60] = new int[2];
+		EXPECTATIONS[60][0] = 38;
+		EXPECTATIONS[60][1] = 46;
 	}
 	
 	public static void initialize() {

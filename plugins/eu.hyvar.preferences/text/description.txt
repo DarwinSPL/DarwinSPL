@@ -7,10 +7,10 @@ This can be disabled with -vmargs -Dorg.eclipse.emf.examples.generator.validator
 
 Package preferences <http://hyvar-project.eu/feature/preferences/1.0>
 
-  Class HyProfile
-    Reference preferences : HyPreference<<0..*>>
+  Class DwProfile
+    Reference preferences : DwPreference<<0..*>>
     Reference featureModel : HyFeatureModel<<1..1>>
     Reference contextModel : HyContextModel
 
-  Class HyPreference -> HyTemporalElement
+  Class DwPreference -> HyTemporalElement
     Reference rootExpression : HyExpression<<1..1>>

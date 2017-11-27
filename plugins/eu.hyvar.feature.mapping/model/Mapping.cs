@@ -10,9 +10,9 @@ OPTIONS {
 	reloadGeneratorModel = "false";
 	usePredefinedTokens = "false";
 	
-	editorName = "Feature Mapping Editor (HyVar)";
+	editorName = "DarwinSPL Mapping Editor";
 	newFileWizardCategory = "org.hyvar.newwizards.Category";
-	newFileWizardName = "HyVar Feature Mapping (*.hymapping)";
+	newFileWizardName = "DarwinSPL Mapping (*.hymapping)";
 	
 	disableLaunchSupport = "true";
 	disableDebugSupport = "true";
@@ -24,7 +24,7 @@ RULES {
 	//Explicitly allow that there are no mappings, e.g., for generated empty mapping files.
 	HyMappingModel ::= (mappings (!0!0 mappings)*)?;
 	
-	DEDeltaInvokation ::= delta['<','>'];
+	DEDeltaInvokation ::= delta['<<','>>'];
 	
 	@SuppressWarnings(explicitSyntaxChoice)
 	HyMapping ::= expression #1 ":" !1 deltaInvokations ("," !0 deltaInvokations)* ("[" (validSince[DATE] "-" validUntil[DATE] | validSince[DATE] "-" "eternity" | "eternity" "-" validUntil[DATE])  "]")?;

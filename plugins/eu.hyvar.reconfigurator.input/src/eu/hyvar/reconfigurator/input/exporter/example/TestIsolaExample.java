@@ -15,7 +15,7 @@ public class TestIsolaExample {
 		IsolaExample isolaExample = new IsolaExample(ProfileEnum.ECO);
 		
 		HyVarRecExporter jsonExporter = new HyVarRecExporter();
-		jsonExporter.exportSPL(isolaExample.getContextModel(), isolaExample.getContextValidityModel(), isolaExample.getFeatureModel(), isolaExample.getConstraintModel(), isolaExample.getOldConfiguration(), isolaExample.getPreferenceModel(), null, new Date());
+		jsonExporter.exportSPL(isolaExample.getContextModel(), isolaExample.getContextValidityModel(), isolaExample.getFeatureModel(), isolaExample.getConstraintModel(), isolaExample.getOldConfiguration(), isolaExample.getPreferenceModel(), null, new Date(), null);
 	}
 	
 	public static void save(IsolaExample isolaExample) {

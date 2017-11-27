@@ -4,9 +4,9 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import org.deltaecore.util.DEIOUtil;
 import org.eclipse.emf.ecore.EObject;
 
+import de.darwinspl.common.ecore.util.DwEcoreUtil;
 import eu.hyvar.context.HyContextModel;
 import eu.hyvar.context.HyContextualInformation;
 import eu.hyvar.dataValues.HyEnum;
@@ -15,14 +15,90 @@ import eu.hyvar.evolution.util.HyEvolutionUtil;
 
 public class ContextInformationResolverUtil {
 
-	public static final String[] FILE_EXTENSIONS = {HyContextInformationUtil.getContextModelFileExtensionForXmi(), HyContextInformationUtil.getContextModelFileExtensionForConcreteSyntax()};
+	public static final String[] FILE_EXTENSIONS = {HyContextInformationUtil.getContextModelFileExtensionForXmi()};
 	
-	// TODO incorporate evolution
 	
 	public static HyContextModel getAccompanyingContextModel(EObject elementInOriginalResource) {
-//		String[] models = new String[1];
-//		models[0] = "hyfeature";
-		return DEIOUtil.doLoadAccompanyingModel(elementInOriginalResource, FILE_EXTENSIONS);
+		EObject model = DwEcoreUtil.loadAccompanyingModelInSameProject(elementInOriginalResource, FILE_EXTENSIONS);
+		
+		if(model != null && model instanceof HyContextModel) {
+			return (HyContextModel)model;
+		}
+		
+		return null;
+		
+//
+//		// refactor after DeltaEcore update:
+//		// IFile file = DEIOUtil.doGetAccompanyingFile(elementInOriginalResource, FILE_EXTENSIONS);
+//		
+//		IFile file = null;
+//		if (elementInOriginalResource == null) {
+//			return null;
+//		}
+//		
+//		IFile sourceFile = EcoreResolverUtil.resolveRelativeFileFromEObject(elementInOriginalResource);
+//		
+//		if (sourceFile == null) {
+//			return null;
+//		}
+//
+//		for (String fileExtension : FILE_EXTENSIONS) {
+//			IFile accompanyingFile = ResourceUtil.deriveFile(sourceFile, fileExtension);
+//		
+//			if (accompanyingFile != null && accompanyingFile.exists()) {
+//				file = accompanyingFile;
+//				break;
+//			}
+//		}
+//		
+////		if(file == null) {
+////			
+////			IContainer container = sourceFile.getParent();
+////			
+////			while(container != null) {
+////				
+////				if(container instanceof IProject) {
+////					break;
+////				}
+////				
+////			}
+////			for (String fileExtension : FILE_EXTENSIONS) {
+////				
+////			}
+////			ResourceUtil.findFirstFileWithExtension(container, 
+////		}
+//		
+//		
+//		
+//		if(file != null) {
+//			try {
+//				if(!file.exists()) {
+//					return null;
+//				}
+//				
+//				
+//				java.util.Scanner scanner = new java.util.Scanner(file.getContents()).useDelimiter("\\A");
+//				
+//				StringBuilder stringBuilder = new StringBuilder();
+//				
+//				while(scanner.hasNext()) {
+//					stringBuilder.append(scanner.next());
+//				}
+//				
+//				scanner.close();
+//				
+//				if(stringBuilder.toString().trim().equals("")) {
+//					return null;
+//				}
+//			} catch (CoreException e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+//			}
+//		} else {
+//			return null;
+//		}
+//		
+//		return DEIOUtil.doLoadAccompanyingModel(elementInOriginalResource, FILE_EXTENSIONS);
 	}
 	
 	public static HyEnum resolveEnum(String identifier, HyContextModel contextModel, Date date) {

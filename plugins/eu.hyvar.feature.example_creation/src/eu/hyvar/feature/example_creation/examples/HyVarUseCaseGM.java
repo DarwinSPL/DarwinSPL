@@ -22,12 +22,13 @@ import eu.hyvar.feature.configuration.HyConfiguration;
 import eu.hyvar.feature.constraint.HyConstraint;
 import eu.hyvar.feature.constraint.HyConstraintFactory;
 import eu.hyvar.feature.constraint.HyConstraintModel;
+import eu.hyvar.feature.constraint.util.HyConstraintUtil;
 import eu.hyvar.feature.expression.HyExpressionFactory;
 import eu.hyvar.feature.expression.HyFeatureReferenceExpression;
 import eu.hyvar.feature.expression.HyImpliesExpression;
 import eu.hyvar.feature.mapping.HyMappingModel;
 import eu.hyvar.feature.util.HyFeatureCreationUtil;
-import eu.hyvar.preferences.HyProfile;
+import de.darwinspl.preferences.DwProfile;
 
 public class HyVarUseCaseGM extends HyFMExample {
 
@@ -206,7 +207,7 @@ public class HyVarUseCaseGM extends HyFMExample {
 		
 		if(constraintModel != null) {
 			// TODO take folder selected in eclipse
-			IFile file = ResourceUtil.getLocalFile("Example/" + "HyVarUseCases" + ".hyconstraint");
+			IFile file = ResourceUtil.getLocalFile("Example/" + "HyVarUseCases" + "."+HyConstraintUtil.CONSTRAINT_MODEL_FILE_EXTENSION_FOR_XMI);
 			EcoreIOUtil.saveModelAs(constraintModel, file);
 		}
 		
@@ -238,7 +239,7 @@ public class HyVarUseCaseGM extends HyFMExample {
 	}
 
 	@Override
-	public HyProfile createPreferenceModel() {
+	public DwProfile createPreferenceModel() {
 		// TODO Auto-generated method stub
 		return null;
 	}

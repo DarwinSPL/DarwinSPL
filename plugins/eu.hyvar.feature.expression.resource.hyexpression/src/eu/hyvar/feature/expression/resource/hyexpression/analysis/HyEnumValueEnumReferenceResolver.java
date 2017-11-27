@@ -17,6 +17,8 @@ public class HyEnumValueEnumReferenceResolver implements eu.hyvar.feature.expres
 	
 	
 	public void resolve(String identifier, eu.hyvar.dataValues.HyEnumValue container, EReference reference, int position, boolean resolveFuzzy, final eu.hyvar.feature.expression.resource.hyexpression.IHyexpressionReferenceResolveResult<eu.hyvar.dataValues.HyEnum> result) {
+		
+		
 		HyEnum hyEnum = HyExpressionResolverUtil.resolveEnum(identifier, container);
 		
 		if(hyEnum != null) {

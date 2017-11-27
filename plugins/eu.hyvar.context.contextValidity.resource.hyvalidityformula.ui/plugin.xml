@@ -7,7 +7,7 @@
 	</extension>
 	
 	<extension point="org.eclipse.ui.editors">
-		<editor class="eu.hyvar.context.contextValidity.resource.hyvalidityformula.ui.HyvalidityformulaEditor" contributorClass="org.eclipse.ui.texteditor.BasicTextEditorActionContributor" extensions="hyvalidityformula" icon="icons/icon_validity.png" id="eu.hyvar.context.contextValidity.resource.hyvalidityformula.ui.HyvalidityformulaEditor" name="Validity Formula Editor (HyVar)">
+		<editor class="eu.hyvar.context.contextValidity.resource.hyvalidityformula.ui.HyvalidityformulaEditor" contributorClass="org.eclipse.ui.texteditor.BasicTextEditorActionContributor" extensions="hyvalidityformula" icon="icons/icon_validity.png" id="eu.hyvar.context.contextValidity.resource.hyvalidityformula.ui.HyvalidityformulaEditor" name="DarwinSPL Validity Formula Editor">
 			<contentTypeBinding contentTypeId="eu.hyvar.context.contextValidity.resource.hyvalidityformula">
 			</contentTypeBinding>
 		</editor>
@@ -30,7 +30,7 @@
 	</extension>
 	
 	<extension point="org.eclipse.ui.newWizards">
-		<wizard category="eu.hyvar.newwizards.Category" icon="/icons/default_new_icon.gif" class="eu.hyvar.context.contextValidity.resource.hyvalidityformula.ui.HyvalidityformulaNewFileWizard" id="eu.hyvar.context.contextValidity.resource.hyvalidityformula.ui.HyvalidityformulaNewFileWizard" name="HyVar Validity Formulas (*.hyvalidityformula)">
+		<wizard category="de.darwinspl.wizards" icon="icons/icon_validity.png" class="eu.hyvar.context.contextValidity.resource.hyvalidityformula.ui.HyvalidityformulaNewFileWizard" id="eu.hyvar.context.contextValidity.resource.hyvalidityformula.ui.HyvalidityformulaNewFileWizard" name="DarwinSPL Validity Formulas (*.hyvalidityformula)">
 		</wizard>
 	</extension>
 	

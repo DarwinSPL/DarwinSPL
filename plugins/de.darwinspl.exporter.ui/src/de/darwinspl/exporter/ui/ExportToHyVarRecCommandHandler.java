@@ -21,7 +21,7 @@ import org.eclipse.swt.widgets.Shell;
 import de.christophseidl.util.eclipse.ResourceUtil;
 import de.christophseidl.util.eclipse.ui.SelectionUtil;
 import de.christophseidl.util.ecore.EcoreIOUtil;
-import de.darwinspl.feature.graphical.base.dialogs.DwDateDialog;
+import de.darwinspl.preferences.util.custom.DwPreferenceModelUtil;
 import eu.hyvar.context.HyContextModel;
 import eu.hyvar.context.contextValidity.HyValidityModel;
 import eu.hyvar.context.contextValidity.util.HyValidityModelUtil;
@@ -33,8 +33,8 @@ import eu.hyvar.feature.configuration.util.HyConfigurationUtil;
 import eu.hyvar.feature.constraint.HyConstraintModel;
 import eu.hyvar.feature.constraint.util.HyConstraintUtil;
 import eu.hyvar.feature.util.HyFeatureUtil;
-import eu.hyvar.preferences.HyProfile;
-import eu.hyvar.preferences.util.HyPreferenceModelUtil;
+import de.darwinspl.common.eclipse.ui.dialogs.DwDateDialog;
+import de.darwinspl.preferences.DwProfile;
 import eu.hyvar.reconfigurator.input.exporter.HyVarRecExporter;
 
 public class ExportToHyVarRecCommandHandler extends AbstractHandler {
@@ -66,11 +66,11 @@ public class ExportToHyVarRecCommandHandler extends AbstractHandler {
 		IFile constraintModelFileXmi = ResourceUtil.deriveFile(featureModelFile,
 				HyConstraintUtil.getConstraintModelFileExtensionForXmi());
 		IFile contextModelFile = ResourceUtil.deriveFile(featureModelFile,
-				HyContextInformationUtil.getContextModelFileExtensionForConcreteSyntax());
+				HyContextInformationUtil.getContextModelFileExtensionForXmi());
 		IFile validityModelFile = ResourceUtil.deriveFile(featureModelFile,
 				HyValidityModelUtil.getValidityModelFileExtensionForConcreteSyntax());
 		IFile preferenceModelFile = ResourceUtil.deriveFile(featureModelFile,
-				HyPreferenceModelUtil.getPreferenceModelFileExtensionForXmi());
+				DwPreferenceModelUtil.getPreferenceModelFileExtensionForXmi());
 		IFile configurationFile = ResourceUtil.deriveFile(featureModelFile,
 				HyConfigurationUtil.getConfigurationModelFileExtensionForXmi());
 		IFile contextValueModelFile = ResourceUtil.deriveFile(featureModelFile,
@@ -165,7 +165,7 @@ public class ExportToHyVarRecCommandHandler extends AbstractHandler {
 		HyConstraintModel constraintModel = null;
 		HyContextModel contextModel = null;
 		HyValidityModel validityModel = null;
-		HyProfile preferenceModel = null;
+		DwProfile preferenceModel = null;
 		HyConfiguration configuration = null;
 		HyContextValueModel contextValueModel = null;
 
@@ -178,8 +178,8 @@ public class ExportToHyVarRecCommandHandler extends AbstractHandler {
 				contextModel = (HyContextModel) object;
 			} else if (object instanceof HyValidityModel) {
 				validityModel = (HyValidityModel) object;
-			} else if (object instanceof HyProfile) {
-				preferenceModel = (HyProfile) object;
+			} else if (object instanceof DwProfile) {
+				preferenceModel = (DwProfile) object;
 			} else if (object instanceof HyConfiguration) {
 				configuration = (HyConfiguration) object;
 			} else if (object instanceof HyContextValueModel) {
@@ -196,7 +196,7 @@ public class ExportToHyVarRecCommandHandler extends AbstractHandler {
 		datePicker.open();
 		
 		String hyVarRecString = hyvarrecExporter.exportSPL(contextModel, validityModel, featureModel,
-				constraintModel, configuration, preferenceModel, contextValueModel, datePicker.getValue());
+				constraintModel, configuration, preferenceModel, contextValueModel, datePicker.getValue(), null);
 
 		String baseFileName = ResourceUtil.getBaseFilename(featureModelFile) + "_HyVarRecOutput";
 		

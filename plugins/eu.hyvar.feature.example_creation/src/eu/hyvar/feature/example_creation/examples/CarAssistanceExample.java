@@ -22,7 +22,7 @@ import eu.hyvar.feature.configuration.HyConfiguration;
 import eu.hyvar.feature.constraint.HyConstraintModel;
 import eu.hyvar.feature.mapping.HyMappingModel;
 import eu.hyvar.feature.util.HyFeatureCreationUtil;
-import eu.hyvar.preferences.HyProfile;
+import de.darwinspl.preferences.DwProfile;
 
 public class CarAssistanceExample extends HyFMExample {
 //	HyFeatureFactory factory = HyFeatureFactory.eINSTANCE;
@@ -284,7 +284,7 @@ public class CarAssistanceExample extends HyFMExample {
 	}
 
 	@Override
-	public HyProfile createPreferenceModel() {
+	public DwProfile createPreferenceModel() {
 		// TODO Auto-generated method stub
 		return null;
 	}

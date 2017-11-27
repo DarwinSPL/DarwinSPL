@@ -679,9 +679,34 @@ public class HyvalidityformulaGrammarInformationProvider {
 		return new eu.hyvar.context.contextValidity.resource.hyvalidityformula.grammar.HyvalidityformulaKeyword("context:", eu.hyvar.context.contextValidity.resource.hyvalidityformula.grammar.HyvalidityformulaCardinality.ONE);
 	}
 	
-	public final static eu.hyvar.context.contextValidity.resource.hyvalidityformula.grammar.HyvalidityformulaPlaceholder HYEXPRESSION_9_0_0_1 = INSTANCE.getHYEXPRESSION_9_0_0_1();
-	private eu.hyvar.context.contextValidity.resource.hyvalidityformula.grammar.HyvalidityformulaPlaceholder getHYEXPRESSION_9_0_0_1() {
+	public final static eu.hyvar.context.contextValidity.resource.hyvalidityformula.grammar.HyvalidityformulaPlaceholder HYEXPRESSION_9_0_0_1_0_0_0 = INSTANCE.getHYEXPRESSION_9_0_0_1_0_0_0();
+	private eu.hyvar.context.contextValidity.resource.hyvalidityformula.grammar.HyvalidityformulaPlaceholder getHYEXPRESSION_9_0_0_1_0_0_0() {
+		return new eu.hyvar.context.contextValidity.resource.hyvalidityformula.grammar.HyvalidityformulaPlaceholder(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyContextInformationReferenceExpression().getEStructuralFeature(eu.hyvar.feature.expression.HyExpressionPackage.HY_CONTEXT_INFORMATION_REFERENCE_EXPRESSION__CONTEXT_INFORMATION), "QUOTED_34_34", eu.hyvar.context.contextValidity.resource.hyvalidityformula.grammar.HyvalidityformulaCardinality.ONE, 0);
+	}
+	
+	public final static eu.hyvar.context.contextValidity.resource.hyvalidityformula.grammar.HyvalidityformulaSequence HYEXPRESSION_9_0_0_1_0_0 = INSTANCE.getHYEXPRESSION_9_0_0_1_0_0();
+	private eu.hyvar.context.contextValidity.resource.hyvalidityformula.grammar.HyvalidityformulaSequence getHYEXPRESSION_9_0_0_1_0_0() {
+		return new eu.hyvar.context.contextValidity.resource.hyvalidityformula.grammar.HyvalidityformulaSequence(eu.hyvar.context.contextValidity.resource.hyvalidityformula.grammar.HyvalidityformulaCardinality.ONE, HYEXPRESSION_9_0_0_1_0_0_0);
+	}
+	
+	public final static eu.hyvar.context.contextValidity.resource.hyvalidityformula.grammar.HyvalidityformulaPlaceholder HYEXPRESSION_9_0_0_1_0_1_0 = INSTANCE.getHYEXPRESSION_9_0_0_1_0_1_0();
+	private eu.hyvar.context.contextValidity.resource.hyvalidityformula.grammar.HyvalidityformulaPlaceholder getHYEXPRESSION_9_0_0_1_0_1_0() {
 		return new eu.hyvar.context.contextValidity.resource.hyvalidityformula.grammar.HyvalidityformulaPlaceholder(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyContextInformationReferenceExpression().getEStructuralFeature(eu.hyvar.feature.expression.HyExpressionPackage.HY_CONTEXT_INFORMATION_REFERENCE_EXPRESSION__CONTEXT_INFORMATION), "IDENTIFIER_TOKEN", eu.hyvar.context.contextValidity.resource.hyvalidityformula.grammar.HyvalidityformulaCardinality.ONE, 0);
+	}
+	
+	public final static eu.hyvar.context.contextValidity.resource.hyvalidityformula.grammar.HyvalidityformulaSequence HYEXPRESSION_9_0_0_1_0_1 = INSTANCE.getHYEXPRESSION_9_0_0_1_0_1();
+	private eu.hyvar.context.contextValidity.resource.hyvalidityformula.grammar.HyvalidityformulaSequence getHYEXPRESSION_9_0_0_1_0_1() {
+		return new eu.hyvar.context.contextValidity.resource.hyvalidityformula.grammar.HyvalidityformulaSequence(eu.hyvar.context.contextValidity.resource.hyvalidityformula.grammar.HyvalidityformulaCardinality.ONE, HYEXPRESSION_9_0_0_1_0_1_0);
+	}
+	
+	public final static eu.hyvar.context.contextValidity.resource.hyvalidityformula.grammar.HyvalidityformulaChoice HYEXPRESSION_9_0_0_1_0 = INSTANCE.getHYEXPRESSION_9_0_0_1_0();
+	private eu.hyvar.context.contextValidity.resource.hyvalidityformula.grammar.HyvalidityformulaChoice getHYEXPRESSION_9_0_0_1_0() {
+		return new eu.hyvar.context.contextValidity.resource.hyvalidityformula.grammar.HyvalidityformulaChoice(eu.hyvar.context.contextValidity.resource.hyvalidityformula.grammar.HyvalidityformulaCardinality.ONE, HYEXPRESSION_9_0_0_1_0_0, HYEXPRESSION_9_0_0_1_0_1);
+	}
+	
+	public final static eu.hyvar.context.contextValidity.resource.hyvalidityformula.grammar.HyvalidityformulaCompound HYEXPRESSION_9_0_0_1 = INSTANCE.getHYEXPRESSION_9_0_0_1();
+	private eu.hyvar.context.contextValidity.resource.hyvalidityformula.grammar.HyvalidityformulaCompound getHYEXPRESSION_9_0_0_1() {
+		return new eu.hyvar.context.contextValidity.resource.hyvalidityformula.grammar.HyvalidityformulaCompound(HYEXPRESSION_9_0_0_1_0, eu.hyvar.context.contextValidity.resource.hyvalidityformula.grammar.HyvalidityformulaCardinality.ONE);
 	}
 	
 	public final static eu.hyvar.context.contextValidity.resource.hyvalidityformula.grammar.HyvalidityformulaSequence HYEXPRESSION_9_0_0 = INSTANCE.getHYEXPRESSION_9_0_0();
@@ -1369,9 +1394,34 @@ public class HyvalidityformulaGrammarInformationProvider {
 		return new eu.hyvar.context.contextValidity.resource.hyvalidityformula.grammar.HyvalidityformulaKeyword("enum:", eu.hyvar.context.contextValidity.resource.hyvalidityformula.grammar.HyvalidityformulaCardinality.ONE);
 	}
 	
-	public final static eu.hyvar.context.contextValidity.resource.hyvalidityformula.grammar.HyvalidityformulaPlaceholder HYDATAVALUE_2_0_0_1 = INSTANCE.getHYDATAVALUE_2_0_0_1();
-	private eu.hyvar.context.contextValidity.resource.hyvalidityformula.grammar.HyvalidityformulaPlaceholder getHYDATAVALUE_2_0_0_1() {
+	public final static eu.hyvar.context.contextValidity.resource.hyvalidityformula.grammar.HyvalidityformulaPlaceholder HYDATAVALUE_2_0_0_1_0_0_0 = INSTANCE.getHYDATAVALUE_2_0_0_1_0_0_0();
+	private eu.hyvar.context.contextValidity.resource.hyvalidityformula.grammar.HyvalidityformulaPlaceholder getHYDATAVALUE_2_0_0_1_0_0_0() {
+		return new eu.hyvar.context.contextValidity.resource.hyvalidityformula.grammar.HyvalidityformulaPlaceholder(eu.hyvar.dataValues.HyDataValuesPackage.eINSTANCE.getHyEnumValue().getEStructuralFeature(eu.hyvar.dataValues.HyDataValuesPackage.HY_ENUM_VALUE__ENUM), "QUOTED_34_34", eu.hyvar.context.contextValidity.resource.hyvalidityformula.grammar.HyvalidityformulaCardinality.ONE, 0);
+	}
+	
+	public final static eu.hyvar.context.contextValidity.resource.hyvalidityformula.grammar.HyvalidityformulaSequence HYDATAVALUE_2_0_0_1_0_0 = INSTANCE.getHYDATAVALUE_2_0_0_1_0_0();
+	private eu.hyvar.context.contextValidity.resource.hyvalidityformula.grammar.HyvalidityformulaSequence getHYDATAVALUE_2_0_0_1_0_0() {
+		return new eu.hyvar.context.contextValidity.resource.hyvalidityformula.grammar.HyvalidityformulaSequence(eu.hyvar.context.contextValidity.resource.hyvalidityformula.grammar.HyvalidityformulaCardinality.ONE, HYDATAVALUE_2_0_0_1_0_0_0);
+	}
+	
+	public final static eu.hyvar.context.contextValidity.resource.hyvalidityformula.grammar.HyvalidityformulaPlaceholder HYDATAVALUE_2_0_0_1_0_1_0 = INSTANCE.getHYDATAVALUE_2_0_0_1_0_1_0();
+	private eu.hyvar.context.contextValidity.resource.hyvalidityformula.grammar.HyvalidityformulaPlaceholder getHYDATAVALUE_2_0_0_1_0_1_0() {
 		return new eu.hyvar.context.contextValidity.resource.hyvalidityformula.grammar.HyvalidityformulaPlaceholder(eu.hyvar.dataValues.HyDataValuesPackage.eINSTANCE.getHyEnumValue().getEStructuralFeature(eu.hyvar.dataValues.HyDataValuesPackage.HY_ENUM_VALUE__ENUM), "IDENTIFIER_TOKEN", eu.hyvar.context.contextValidity.resource.hyvalidityformula.grammar.HyvalidityformulaCardinality.ONE, 0);
+	}
+	
+	public final static eu.hyvar.context.contextValidity.resource.hyvalidityformula.grammar.HyvalidityformulaSequence HYDATAVALUE_2_0_0_1_0_1 = INSTANCE.getHYDATAVALUE_2_0_0_1_0_1();
+	private eu.hyvar.context.contextValidity.resource.hyvalidityformula.grammar.HyvalidityformulaSequence getHYDATAVALUE_2_0_0_1_0_1() {
+		return new eu.hyvar.context.contextValidity.resource.hyvalidityformula.grammar.HyvalidityformulaSequence(eu.hyvar.context.contextValidity.resource.hyvalidityformula.grammar.HyvalidityformulaCardinality.ONE, HYDATAVALUE_2_0_0_1_0_1_0);
+	}
+	
+	public final static eu.hyvar.context.contextValidity.resource.hyvalidityformula.grammar.HyvalidityformulaChoice HYDATAVALUE_2_0_0_1_0 = INSTANCE.getHYDATAVALUE_2_0_0_1_0();
+	private eu.hyvar.context.contextValidity.resource.hyvalidityformula.grammar.HyvalidityformulaChoice getHYDATAVALUE_2_0_0_1_0() {
+		return new eu.hyvar.context.contextValidity.resource.hyvalidityformula.grammar.HyvalidityformulaChoice(eu.hyvar.context.contextValidity.resource.hyvalidityformula.grammar.HyvalidityformulaCardinality.ONE, HYDATAVALUE_2_0_0_1_0_0, HYDATAVALUE_2_0_0_1_0_1);
+	}
+	
+	public final static eu.hyvar.context.contextValidity.resource.hyvalidityformula.grammar.HyvalidityformulaCompound HYDATAVALUE_2_0_0_1 = INSTANCE.getHYDATAVALUE_2_0_0_1();
+	private eu.hyvar.context.contextValidity.resource.hyvalidityformula.grammar.HyvalidityformulaCompound getHYDATAVALUE_2_0_0_1() {
+		return new eu.hyvar.context.contextValidity.resource.hyvalidityformula.grammar.HyvalidityformulaCompound(HYDATAVALUE_2_0_0_1_0, eu.hyvar.context.contextValidity.resource.hyvalidityformula.grammar.HyvalidityformulaCardinality.ONE);
 	}
 	
 	public final static eu.hyvar.context.contextValidity.resource.hyvalidityformula.grammar.HyvalidityformulaKeyword HYDATAVALUE_2_0_0_2 = INSTANCE.getHYDATAVALUE_2_0_0_2();
@@ -1379,9 +1429,34 @@ public class HyvalidityformulaGrammarInformationProvider {
 		return new eu.hyvar.context.contextValidity.resource.hyvalidityformula.grammar.HyvalidityformulaKeyword(".", eu.hyvar.context.contextValidity.resource.hyvalidityformula.grammar.HyvalidityformulaCardinality.ONE);
 	}
 	
-	public final static eu.hyvar.context.contextValidity.resource.hyvalidityformula.grammar.HyvalidityformulaPlaceholder HYDATAVALUE_2_0_0_3 = INSTANCE.getHYDATAVALUE_2_0_0_3();
-	private eu.hyvar.context.contextValidity.resource.hyvalidityformula.grammar.HyvalidityformulaPlaceholder getHYDATAVALUE_2_0_0_3() {
+	public final static eu.hyvar.context.contextValidity.resource.hyvalidityformula.grammar.HyvalidityformulaPlaceholder HYDATAVALUE_2_0_0_3_0_0_0 = INSTANCE.getHYDATAVALUE_2_0_0_3_0_0_0();
+	private eu.hyvar.context.contextValidity.resource.hyvalidityformula.grammar.HyvalidityformulaPlaceholder getHYDATAVALUE_2_0_0_3_0_0_0() {
+		return new eu.hyvar.context.contextValidity.resource.hyvalidityformula.grammar.HyvalidityformulaPlaceholder(eu.hyvar.dataValues.HyDataValuesPackage.eINSTANCE.getHyEnumValue().getEStructuralFeature(eu.hyvar.dataValues.HyDataValuesPackage.HY_ENUM_VALUE__ENUM_LITERAL), "QUOTED_34_34", eu.hyvar.context.contextValidity.resource.hyvalidityformula.grammar.HyvalidityformulaCardinality.ONE, 0);
+	}
+	
+	public final static eu.hyvar.context.contextValidity.resource.hyvalidityformula.grammar.HyvalidityformulaSequence HYDATAVALUE_2_0_0_3_0_0 = INSTANCE.getHYDATAVALUE_2_0_0_3_0_0();
+	private eu.hyvar.context.contextValidity.resource.hyvalidityformula.grammar.HyvalidityformulaSequence getHYDATAVALUE_2_0_0_3_0_0() {
+		return new eu.hyvar.context.contextValidity.resource.hyvalidityformula.grammar.HyvalidityformulaSequence(eu.hyvar.context.contextValidity.resource.hyvalidityformula.grammar.HyvalidityformulaCardinality.ONE, HYDATAVALUE_2_0_0_3_0_0_0);
+	}
+	
+	public final static eu.hyvar.context.contextValidity.resource.hyvalidityformula.grammar.HyvalidityformulaPlaceholder HYDATAVALUE_2_0_0_3_0_1_0 = INSTANCE.getHYDATAVALUE_2_0_0_3_0_1_0();
+	private eu.hyvar.context.contextValidity.resource.hyvalidityformula.grammar.HyvalidityformulaPlaceholder getHYDATAVALUE_2_0_0_3_0_1_0() {
 		return new eu.hyvar.context.contextValidity.resource.hyvalidityformula.grammar.HyvalidityformulaPlaceholder(eu.hyvar.dataValues.HyDataValuesPackage.eINSTANCE.getHyEnumValue().getEStructuralFeature(eu.hyvar.dataValues.HyDataValuesPackage.HY_ENUM_VALUE__ENUM_LITERAL), "IDENTIFIER_TOKEN", eu.hyvar.context.contextValidity.resource.hyvalidityformula.grammar.HyvalidityformulaCardinality.ONE, 0);
+	}
+	
+	public final static eu.hyvar.context.contextValidity.resource.hyvalidityformula.grammar.HyvalidityformulaSequence HYDATAVALUE_2_0_0_3_0_1 = INSTANCE.getHYDATAVALUE_2_0_0_3_0_1();
+	private eu.hyvar.context.contextValidity.resource.hyvalidityformula.grammar.HyvalidityformulaSequence getHYDATAVALUE_2_0_0_3_0_1() {
+		return new eu.hyvar.context.contextValidity.resource.hyvalidityformula.grammar.HyvalidityformulaSequence(eu.hyvar.context.contextValidity.resource.hyvalidityformula.grammar.HyvalidityformulaCardinality.ONE, HYDATAVALUE_2_0_0_3_0_1_0);
+	}
+	
+	public final static eu.hyvar.context.contextValidity.resource.hyvalidityformula.grammar.HyvalidityformulaChoice HYDATAVALUE_2_0_0_3_0 = INSTANCE.getHYDATAVALUE_2_0_0_3_0();
+	private eu.hyvar.context.contextValidity.resource.hyvalidityformula.grammar.HyvalidityformulaChoice getHYDATAVALUE_2_0_0_3_0() {
+		return new eu.hyvar.context.contextValidity.resource.hyvalidityformula.grammar.HyvalidityformulaChoice(eu.hyvar.context.contextValidity.resource.hyvalidityformula.grammar.HyvalidityformulaCardinality.ONE, HYDATAVALUE_2_0_0_3_0_0, HYDATAVALUE_2_0_0_3_0_1);
+	}
+	
+	public final static eu.hyvar.context.contextValidity.resource.hyvalidityformula.grammar.HyvalidityformulaCompound HYDATAVALUE_2_0_0_3 = INSTANCE.getHYDATAVALUE_2_0_0_3();
+	private eu.hyvar.context.contextValidity.resource.hyvalidityformula.grammar.HyvalidityformulaCompound getHYDATAVALUE_2_0_0_3() {
+		return new eu.hyvar.context.contextValidity.resource.hyvalidityformula.grammar.HyvalidityformulaCompound(HYDATAVALUE_2_0_0_3_0, eu.hyvar.context.contextValidity.resource.hyvalidityformula.grammar.HyvalidityformulaCardinality.ONE);
 	}
 	
 	public final static eu.hyvar.context.contextValidity.resource.hyvalidityformula.grammar.HyvalidityformulaSequence HYDATAVALUE_2_0_0 = INSTANCE.getHYDATAVALUE_2_0_0();

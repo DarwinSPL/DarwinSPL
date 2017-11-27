@@ -38,7 +38,7 @@ import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.IFileEditorInput;
 
 import de.christophseidl.util.ecore.EcoreIOUtil;
-import de.darwinspl.feature.graphical.base.dialogs.DwDateDialog;
+import de.darwinspl.common.eclipse.ui.dialogs.DwDateDialog;
 import de.darwinspl.feature.graphical.base.factory.DwFeatureModelEditPartFactory;
 import de.darwinspl.feature.graphical.base.model.DwFeatureModelWrapped;
 import de.darwinspl.feature.graphical.base.util.DwFeatureModelLayoutFileUtil;

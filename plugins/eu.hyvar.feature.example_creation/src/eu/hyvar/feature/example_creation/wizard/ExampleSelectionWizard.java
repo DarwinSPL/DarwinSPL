@@ -8,6 +8,7 @@ import org.eclipse.jface.wizard.Wizard;
 
 import de.christophseidl.util.eclipse.ResourceUtil;
 import de.christophseidl.util.ecore.EcoreIOUtil;
+import de.darwinspl.preferences.util.custom.DwPreferenceModelUtil;
 import eu.hyvar.context.HyContextModel;
 import eu.hyvar.context.contextValidity.HyValidityModel;
 import eu.hyvar.context.contextValidity.util.HyValidityModelUtil;
@@ -22,8 +23,7 @@ import eu.hyvar.feature.example_creation.examples.HyFMExample;
 import eu.hyvar.feature.mapping.HyMappingModel;
 import eu.hyvar.feature.mapping.util.HyMappingModelUtil;
 import eu.hyvar.feature.util.HyFeatureUtil;
-import eu.hyvar.preferences.HyProfile;
-import eu.hyvar.preferences.util.HyPreferenceModelUtil;
+import de.darwinspl.preferences.DwProfile;
 
 public class ExampleSelectionWizard extends Wizard {
 
@@ -69,7 +69,7 @@ public class ExampleSelectionWizard extends Wizard {
 		
 		HyValidityModel validityModel = example.createValidityModel();
 		
-		HyProfile preferenceModel = example.createPreferenceModel();
+		DwProfile preferenceModel = example.createPreferenceModel();
 		
 		HyMappingModel mappingModel = example.createMappingModel();
 		
@@ -106,7 +106,7 @@ public class ExampleSelectionWizard extends Wizard {
 		}
 		
 		if(preferenceModel != null) {
-			IFile file = ResourceUtil.getLocalFile("Example/" + fileName + "." + HyPreferenceModelUtil.getPreferenceModelFileExtensionForXmi());
+			IFile file = ResourceUtil.getLocalFile("Example/" + fileName + "." + DwPreferenceModelUtil.getPreferenceModelFileExtensionForXmi());
 			EcoreIOUtil.saveModelAs(preferenceModel, file);
 		} else {
 			System.out.println("Preference Model was null");

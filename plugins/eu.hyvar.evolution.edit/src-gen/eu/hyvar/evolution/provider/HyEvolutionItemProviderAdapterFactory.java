@@ -118,6 +118,29 @@ public class HyEvolutionItemProviderAdapterFactory extends HyEvolutionAdapterFac
 	}
 
 	/**
+	 * This keeps track of the one adapter used for all {@link eu.hyvar.evolution.HyInterval} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected HyIntervalItemProvider hyIntervalItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link eu.hyvar.evolution.HyInterval}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createHyIntervalAdapter() {
+		if (hyIntervalItemProvider == null) {
+			hyIntervalItemProvider = new HyIntervalItemProvider(this);
+		}
+
+		return hyIntervalItemProvider;
+	}
+
+	/**
 	 * This returns the root adapter factory that contains this factory.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -218,6 +241,7 @@ public class HyEvolutionItemProviderAdapterFactory extends HyEvolutionAdapterFac
 	public void dispose() {
 		if (hyNamedElementItemProvider != null) hyNamedElementItemProvider.dispose();
 		if (hyNameItemProvider != null) hyNameItemProvider.dispose();
+		if (hyIntervalItemProvider != null) hyIntervalItemProvider.dispose();
 	}
 
 }

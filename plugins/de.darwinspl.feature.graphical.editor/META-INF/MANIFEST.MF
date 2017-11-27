@@ -22,7 +22,8 @@ Require-Bundle: org.eclipse.ui,
  eu.hyvar.feature.constraint.resource.hyconstraints,
  eu.hyvar.feature.data,
  eu.hyvar.mspl.manifest,
- eu.hyvar.evolution
+ eu.hyvar.evolution,
+ de.darwinspl.common.eclipse.ui
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Bundle-ActivationPolicy: lazy
 Bundle-ClassPath: .,

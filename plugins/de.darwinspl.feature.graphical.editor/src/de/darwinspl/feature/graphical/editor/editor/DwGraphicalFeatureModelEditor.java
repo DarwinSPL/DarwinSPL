@@ -140,7 +140,7 @@ public class DwGraphicalFeatureModelEditor extends DwGraphicalFeatureModelViewer
 		super.loadModelFromFile(file);
 
 		openEditorForFileExtension(HyConstraintUtil.getConstraintModelFileExtensionForConcreteSyntax());
-		openEditorForFileExtension(HyContextInformationUtil.getContextModelFileExtensionForConcreteSyntax());
+		openEditorForFileExtension(HyContextInformationUtil.getContextModelFileExtensionForXmi());
 		openEditorForFileExtension(HyValidityModelUtil.getValidityModelFileExtensionForConcreteSyntax());
 	}
 

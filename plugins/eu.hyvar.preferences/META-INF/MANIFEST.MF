@@ -1,15 +1,16 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: DarwinSPL User Preferences
-Bundle-SymbolicName: eu.hyvar.preferences;singleton:=true
+Bundle-SymbolicName: de.darwinspl.preferences;singleton:=true
 Bundle-Version: 1.0.0
 Bundle-ClassPath: .
 Bundle-Vendor: www.darwinspl.de
 Bundle-Localization: plugin
 Bundle-RequiredExecutionEnvironment: JavaSE-1.7
-Export-Package: eu.hyvar.preferences,
- eu.hyvar.preferences.impl,
- eu.hyvar.preferences.util
+Export-Package: de.darwinspl.preferences,
+ de.darwinspl.preferences.impl,
+ de.darwinspl.preferences.util,
+ de.darwinspl.preferences.util.custom
 Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.emf.ecore;visibility:=reexport,
  eu.hyvar.context.information;visibility:=reexport,

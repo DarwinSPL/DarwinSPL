@@ -8,7 +8,7 @@
     operationReflection="true" importOrganizing="true">
   <foreignModel>ContextValidity.ecore</foreignModel>
   <genPackages prefix="HyContextValidity" basePackage="eu.hyvar.context" disposableProviderFactory="true"
-      fileExtensions="hyvaliditymodel" ecorePackage="ContextValidity.ecore#/">
+      fileExtensions="hyvalidityformula_xmi" ecorePackage="ContextValidity.ecore#/">
     <genClasses ecoreClass="ContextValidity.ecore#//HyValidityModel">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ContextValidity.ecore#//HyValidityModel/validityFormulas"/>
     </genClasses>

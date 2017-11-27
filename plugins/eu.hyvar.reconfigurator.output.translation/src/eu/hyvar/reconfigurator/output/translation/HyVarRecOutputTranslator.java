@@ -148,13 +148,19 @@ public class HyVarRecOutputTranslator {
 	 * @param selectedFeatures List of feature selection (0,1), where each feature and version is represented by an id (position in list) and the selection (0,1)
 	 * @return List of selected features and their version
 	 */	
-	private static List<HyFeatureSelection> getFeatureSelection(ReconfiguratorIdMapping idMapper, List<String> selectedFeatures) {
+	private static List<HyFeatureSelection> getFeatureSelection(ReconfiguratorIdMapping idMapper, List<String> selectedFeatures) {		
+		List<HyFeatureSelection> featureSelections = new ArrayList<HyFeatureSelection>();
+		
+		if(selectedFeatures == null) {
+			return featureSelections;
+		}
+		
 		List<String> correctedIds = new ArrayList<String>();
+		
 		for(String selectedFeature: selectedFeatures) {
 			correctedIds.add("feature["+selectedFeature+"]");
 		}
 		
-		List<HyFeatureSelection> featureSelections = new ArrayList<HyFeatureSelection>();
 		
 		Map<HyFeature, HyVersion> selectedFeaturesOrVersions = new HashMap<HyFeature, HyVersion>();
 

@@ -206,14 +206,22 @@ public class HyEnumItemProvider
 	 * This returns the label text for the adapted class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
 	@Override
 	public String getText(Object object) {
-		String label = ((HyEnum)object).getName();
-		return label == null || label.length() == 0 ?
-			getString("_UI_HyEnum_type") :
-			getString("_UI_HyEnum_type") + " " + label;
+//		String label = ((HyEnum)object).getName();
+//		return label == null || label.length() == 0 ?
+//			getString("_UI_HyEnum_type") :
+//			getString("_UI_HyEnum_type") + " " + label;
+		HyEnum hyEnum = (HyEnum) object;
+		
+		String name = hyEnum.getName();
+		
+		if(name != null) {
+			return name;
+		}
+		return "";
 	}
 	
 

@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.2"?>
+<plugin>
+	<extension point="org.emftext.access.syntax.ui">
+		<metaInformationProvider class="de.darwinspl.preferences.resource.dwprofile.ui.DwprofileUIMetaInformation" id="de.darwinspl.preferences.resource.dwprofile.ui.DwprofileUIMetaInformation">
+		</metaInformationProvider>
+	</extension>
+	
+	<extension point="org.eclipse.ui.editors">
+		<editor class="de.darwinspl.preferences.resource.dwprofile.ui.DwprofileEditor" contributorClass="org.eclipse.ui.texteditor.BasicTextEditorActionContributor" extensions="dwprofile" icon="icons/icon_profile.png" id="de.darwinspl.preferences.resource.dwprofile.ui.DwprofileEditor" name="DarwinSPL Profile Editor">
+			<contentTypeBinding contentTypeId="de.darwinspl.preferences.resource.dwprofile">
+			</contentTypeBinding>
+		</editor>
+	</extension>
+	
+	<extension point="org.eclipse.core.runtime.preferences">
+		<initializer class="de.darwinspl.preferences.resource.dwprofile.ui.DwprofilePreferenceInitializer">
+		</initializer>
+	</extension>
+	
+	<extension point="org.eclipse.ui.preferencePages">
+		<page name="Profile Editor (DarwinSPL)" id="de.darwinspl.preferences.resource.dwprofile.ui.DwprofilePreferencePage" class="de.darwinspl.preferences.resource.dwprofile.ui.DwprofilePreferencePage" category="org.eclipse.ui.preferencePages.GeneralTextEditor">
+		</page>
+		<page name="Syntax Coloring" id="de.darwinspl.preferences.resource.dwprofile.ui.DwprofileSyntaxColoringPreferencePage" class="de.darwinspl.preferences.resource.dwprofile.ui.DwprofileSyntaxColoringPreferencePage" category="de.darwinspl.preferences.resource.dwprofile.ui.DwprofilePreferencePage">
+		</page>
+		<page name="Brackets" id="de.darwinspl.preferences.resource.dwprofile.ui.DwprofileBracketPreferencePage" class="de.darwinspl.preferences.resource.dwprofile.ui.DwprofileBracketPreferencePage" category="de.darwinspl.preferences.resource.dwprofile.ui.DwprofilePreferencePage">
+		</page>
+		<page name="Content Assist" id="de.darwinspl.preferences.resource.dwprofile.ui.DwprofileContentAssistPreferencePage" class="de.darwinspl.preferences.resource.dwprofile.ui.DwprofileContentAssistPreferencePage" category="de.darwinspl.preferences.resource.dwprofile.ui.DwprofilePreferencePage">
+		</page>
+	</extension>
+	
+	<extension point="org.eclipse.ui.newWizards">
+		<wizard category="de.darwinspl.wizards" icon="icons/icon_profile.png" class="de.darwinspl.preferences.resource.dwprofile.ui.DwprofileNewFileWizard" id="de.darwinspl.preferences.resource.dwprofile.ui.DwprofileNewFileWizard" name="DarwinSPL Profile (*.dwprofile)">
+		</wizard>
+	</extension>
+	
+	<extension point="org.eclipse.ui.ide.markerResolution">
+		<markerResolutionGenerator class="de.darwinspl.preferences.resource.dwprofile.ui.DwprofileMarkerResolutionGenerator" markerType="de.darwinspl.preferences.resource.dwprofile.problem">
+		</markerResolutionGenerator>
+	</extension>
+	
+	<extension point="org.eclipse.core.filebuffers.annotationModelCreation">
+		<factory class="de.darwinspl.preferences.resource.dwprofile.ui.DwprofileAnnotationModelFactory" extensions="dwprofile">
+		</factory>
+	</extension>
+	
+	<extension point="org.eclipse.core.contenttype.contentTypes">
+		<content-type id="de.darwinspl.preferences.resource.dwprofile" name=".dwprofile File" base-type="org.eclipse.core.runtime.text" file-extensions="dwprofile">
+		</content-type>
+	</extension>
+	
+	<extension point="org.eclipse.ui.editors.documentProviders">
+		<provider class="org.eclipse.ui.editors.text.TextFileDocumentProvider" extensions="dwprofile" id="de.darwinspl.preferences.resource.dwprofile.ui.provider">
+		</provider>
+	</extension>
+	
+	<extension point="org.eclipse.ui.editors.annotationTypes">
+		<type name="de.darwinspl.preferences.resource.dwprofile.ui.occurences">
+		</type>
+		<type name="de.darwinspl.preferences.resource.dwprofile.ui.occurences.declaration" super="de.darwinspl.preferences.resource.dwprofile.ui.occurences">
+		</type>
+	</extension>
+	
+	<extension point="org.eclipse.ui.editors.markerAnnotationSpecification">
+		<specification annotationType="de.darwinspl.preferences.resource.dwprofile.ui.occurences" label="Occurrences (in .dwprofile files)" icon="/icons/occurrence_icon.gif" textPreferenceKey="dwprofile.occurrenceIndication" textPreferenceValue="false" highlightPreferenceKey="dwprofile.occurrenceHighlighting" highlightPreferenceValue="true" contributesToHeader="false" overviewRulerPreferenceKey="dwprofile.occurrenceIndicationInOverviewRuler" overviewRulerPreferenceValue="true" verticalRulerPreferenceKey="dwprofile.occurrenceIndicationInVerticalRuler" verticalRulerPreferenceValue="false" colorPreferenceKey="dwprofile.occurrenceIndicationColor" colorPreferenceValue="212,212,212" presentationLayer="4" showInNextPrevDropdownToolbarActionKey="dwprofile.showOccurrenceInNextPrevDropdownToolbarAction" showInNextPrevDropdownToolbarAction="true" isGoToNextNavigationTargetKey="dwprofile.isOccurrenceGoToNextNavigationTarget" isGoToNextNavigationTarget="false" isGoToPreviousNavigationTargetKey="dwprofile.isOccurrenceGoToPreviousNavigationTarget" isGoToPreviousNavigationTarget="false" textStylePreferenceKey="dwprofile.occurrenceTextStyle" textStylePreferenceValue="NONE">
+		</specification>
+		<specification annotationType="de.darwinspl.preferences.resource.dwprofile.ui.occurences.declaration" label="Declarations (in .dwprofile files)" textPreferenceKey="dwprofile.declarationIndication" textPreferenceValue="false" highlightPreferenceKey="dwprofile.declarationHighlighting" highlightPreferenceValue="true" overviewRulerPreferenceKey="dwprofile.declarationIndicationInOverviewRuler" overviewRulerPreferenceValue="true" verticalRulerPreferenceKey="dwprofile.declarationIndicationInVerticalRuler" verticalRulerPreferenceValue="false" colorPreferenceKey="dwprofile.declarationIndicationColor" colorPreferenceValue="240,216,168" presentationLayer="4" textStylePreferenceKey="dwprofile.declarationTextStyle" textStylePreferenceValue="NONE">
+		</specification>
+	</extension>
+	
+	<extension point="org.eclipse.ui.commands">
+		<category description="All commands belonging to Dwprofile" id="de.darwinspl.preferences.resource.dwprofile.ui.command.category" name="Dwprofile">
+		</category>
+		<command categoryId="de.darwinspl.preferences.resource.dwprofile.ui.command.category" description="Toggle comment of the selected lines" id="de.darwinspl.preferences.resource.dwprofile.ui.command.togglecomment" name="Toggle Comment">
+		</command>
+	</extension>
+	
+	<extension point="org.eclipse.ui.handlers">
+		<handler class="de.darwinspl.preferences.resource.dwprofile.ui.DwprofileToggleCommentHandler" commandId="de.darwinspl.preferences.resource.dwprofile.ui.command.togglecomment">
+		</handler>
+	</extension>
+	
+	<extension point="org.eclipse.ui.contexts">
+		<context name="Editing Dwprofile Files" description="Editing Dwprofile Files Context" parentId="org.eclipse.ui.textEditorScope" id="de.darwinspl.preferences.resource.dwprofile.EditorScope">
+		</context>
+	</extension>
+	
+	<extension point="org.eclipse.ui.bindings">
+		<key sequence="M1+7" commandId="de.darwinspl.preferences.resource.dwprofile.ui.command.togglecomment" schemeId="org.eclipse.ui.defaultAcceleratorConfiguration" contextId="de.darwinspl.preferences.resource.dwprofile.EditorScope">
+		</key>
+	</extension>
+	
+</plugin>

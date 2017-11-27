@@ -34,7 +34,7 @@ import eu.hyvar.feature.expression.util.HyExpressionStringExporter.BooleanRepres
 import eu.hyvar.feature.expression.util.HyExpressionStringExporter.FeatureSelectionRepresentationOption;
 import eu.hyvar.feature.expression.util.HyExpressionStringExporter.VersionRepresentation;
 import eu.hyvar.feature.util.HyFeatureModelWellFormednessException;
-import eu.hyvar.preferences.HyProfile;
+import de.darwinspl.preferences.DwProfile;
 import eu.hyvar.reconfigurator.input.format.Attribute;
 import eu.hyvar.reconfigurator.input.format.AttributeValue;
 import eu.hyvar.reconfigurator.input.format.Configuration;
@@ -131,13 +131,13 @@ public class HyVarRecExporter {
 	
 	public String exportSPL(HyContextModel contextModel, HyValidityModel contextValidityModel,
 			HyFeatureModel featureModel, HyConstraintModel constraintModel, HyConfiguration oldConfiguration,
-			HyProfile profileModel, HyContextValueModel contextValue, Date date) {
-		return exportSPL(contextModel, contextValidityModel, featureModel, constraintModel, oldConfiguration, null, profileModel, contextValue, date);
+			DwProfile profileModel, HyContextValueModel contextValue, Date date, Date evolutionContextValueDate) {
+		return exportSPL(contextModel, contextValidityModel, featureModel, constraintModel, oldConfiguration, null, profileModel, contextValue, date, evolutionContextValueDate);
 	}
 	
 	public String exportSPL(HyContextModel contextModel, HyValidityModel contextValidityModel,
 			HyFeatureModel featureModel, HyConstraintModel constraintModel, HyConfiguration oldConfiguration, HyConfiguration partialConfiguration,
-			HyProfile profileModel, HyContextValueModel contextValue, Date date) {
+			DwProfile profileModel, HyContextValueModel contextValue, Date date, Date evolutionContextValueDate) {
 		
 		List<HyContextModel> contextModels = new ArrayList<HyContextModel>();
 		contextModels.add(contextModel);
@@ -153,18 +153,18 @@ public class HyVarRecExporter {
 		constraintModels.add(constraintModel);
 		
 
-		List<HyProfile> profileModels = new ArrayList<HyProfile>();
+		List<DwProfile> profileModels = new ArrayList<DwProfile>();
 		profileModels.add(profileModel);
 		
 		List<HyContextValueModel> contextValues = new ArrayList<HyContextValueModel>();
 		contextValues.add(contextValue);
 		
-		return exportSPL(contextModels, contextValidityModels, featureModels, constraintModels, oldConfiguration, partialConfiguration, profileModels, contextValues, date);
+		return exportSPL(contextModels, contextValidityModels, featureModels, constraintModels, oldConfiguration, partialConfiguration, profileModels, contextValues, date, evolutionContextValueDate);
 	}
 	
 	public String exportSPL(List<HyContextModel> contextModels, List<HyValidityModel> contextValidityModels,
 			List<HyFeatureModel> featureModels, List<HyConstraintModel> constraintModels, HyConfiguration oldConfiguration, HyConfiguration partialConfiguration,
-			List<HyProfile> profileModels, List<HyContextValueModel> contextValues, Date date) {
+			List<DwProfile> profileModels, List<HyContextValueModel> contextValues, Date date, Date evolutionContextValueDate) {
 
 		// TODO incorporate MSPL stuff
 
@@ -252,7 +252,22 @@ public class HyVarRecExporter {
 			// Simone: patch to initialize the context value
 			ContextValue initDateContext = new ContextValue();
 			initDateContext.setId(EVOLUTION_CONTEXT_ID);
-			initDateContext.setValue(-1);
+			if(evolutionContextValueDate == null) {
+				initDateContext.setValue(-1);				
+			}
+			else {
+				if(evolutionContextValueDate.getTime() == Long.MIN_VALUE) {
+					initDateContext.setValue(-1);
+				}
+				else {
+					for(int i=0;i<sortedDateList.size();i++) {
+						if(evolutionContextValueDate.equals(sortedDateList.get(i))) {
+							initDateContext.setValue(i);
+							break;
+						}
+					}
+				}
+			}
 			input.getConfiguration().getContextValues().add(initDateContext);
 			
 		}
@@ -284,7 +299,7 @@ public class HyVarRecExporter {
 		}
 
 		if (profileModels != null) {
-			for(HyProfile profile: profileModels) {
+			for(DwProfile profile: profileModels) {
 				input.setPreferences(preferenceExporter.getPreferences(profile, date, dateContext, sortedDateList));				
 			}
 		}
@@ -292,7 +307,7 @@ public class HyVarRecExporter {
 		return gson.toJson(input);
 	}
 	
-	public static List<Date> getSortedListOfDatesOfDateContext(List<HyFeatureModel> featureModels, List <HyConstraintModel> constraintModels, List<HyContextModel> contextModels, List<HyValidityModel> validityModels, List<HyProfile> profiles) {
+	public static List<Date> getSortedListOfDatesOfDateContext(List<HyFeatureModel> featureModels, List <HyConstraintModel> constraintModels, List<HyContextModel> contextModels, List<HyValidityModel> validityModels, List<DwProfile> profiles) {
 		List<EObject> allModels = new ArrayList<EObject>();
 		allModels.addAll(featureModels);
 		allModels.addAll(constraintModels);

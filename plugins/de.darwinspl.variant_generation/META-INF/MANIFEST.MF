@@ -9,4 +9,9 @@ Require-Bundle: eu.hyvar.feature,
  eu.hyvar.feature.configuration,
  eu.hyvar.feature.mapping,
  eu.hyvar.feature.constraint,
- de.christophseidl.util.ecore
+ de.christophseidl.util.ecore,
+ org.deltaecore.core.variant,
+ de.darwinspl.solver,
+ de.darwinspl.feature.configuration.variantgeneration,
+ eu.hyvar.context.information.value
+Export-Package: de.darwinspl.variant_generation

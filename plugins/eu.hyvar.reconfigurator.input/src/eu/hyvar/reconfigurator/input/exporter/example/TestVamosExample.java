@@ -12,7 +12,7 @@ public class TestVamosExample {
 		VamosExample vamosExample = new VamosExample();
 		
 		HyVarRecExporter jsonExporter = new HyVarRecExporter();
-		jsonExporter.exportSPL(vamosExample.getContextModel(), vamosExample.getContextValidityModel(), vamosExample.getFeatureModel(), vamosExample.getConstraintModel(), vamosExample.getOldConfiguration(), null, null, new Date());
+		jsonExporter.exportSPL(vamosExample.getContextModel(), vamosExample.getContextValidityModel(), vamosExample.getFeatureModel(), vamosExample.getConstraintModel(), vamosExample.getOldConfiguration(), null, null, new Date(), null);
 	}
 
 }
