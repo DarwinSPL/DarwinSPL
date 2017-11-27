@@ -24,6 +24,22 @@ Package manifest <http://hyvar-project.eu/mspl/manifest/1.0>
     Reference signature : HySPLSignature<<1..1>>
     Reference associations : HyTimedImplementationLink<<0..*>>
 
-  Class HyTimedImplementationLink -> HyTemporalElement
+  Class HyTimedImplementationFeatureLink -> HyTimedImplementationLink
     Reference local : HyFeature<<1..1>>
     Reference signature : HyFeature<<1..1>>
+    Reference associations : HyTimedImplementationFeatureAttributeLink<<0..*>>
+
+  Class HyTimedImplementationLink -> HyTemporalElement
+
+  Class HyTimedImplementationFeatureAttributeLink -> HyTemporalElement
+    Reference local : HyFeatureAttribute<<1..1>>
+    Reference signature : HyFeatureAttribute<<1..1>>
+
+  Class HyTimedImplementationEnumLink -> HyTimedImplementationLink
+    Reference local : HyEnum<<1..1>>
+    Reference signature : HyEnum<<1..1>>
+    Reference associations : HyTimedImplementationEnumLiteralLink<<0..*>>
+
+  Class HyTimedImplementationEnumLiteralLink -> HyTemporalElement
+    Reference local : HyEnumLiteral<<1..1>>
+    Reference signature : HyEnumLiteral<<1..1>>

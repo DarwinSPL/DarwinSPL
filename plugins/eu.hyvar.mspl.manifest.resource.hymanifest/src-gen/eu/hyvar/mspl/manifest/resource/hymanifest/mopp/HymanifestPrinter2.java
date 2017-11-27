@@ -229,8 +229,20 @@ public class HymanifestPrinter2 implements eu.hyvar.mspl.manifest.resource.hyman
 			printInternal(element, eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestGrammarInformationProvider.HYMANIFEST_3, foundFormattingElements);
 			return;
 		}
-		if (element instanceof eu.hyvar.mspl.manifest.HyTimedImplementationLink) {
+		if (element instanceof eu.hyvar.mspl.manifest.HyTimedImplementationFeatureLink) {
 			printInternal(element, eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestGrammarInformationProvider.HYMANIFEST_4, foundFormattingElements);
+			return;
+		}
+		if (element instanceof eu.hyvar.mspl.manifest.HyTimedImplementationFeatureAttributeLink) {
+			printInternal(element, eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestGrammarInformationProvider.HYMANIFEST_5, foundFormattingElements);
+			return;
+		}
+		if (element instanceof eu.hyvar.mspl.manifest.HyTimedImplementationEnumLink) {
+			printInternal(element, eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestGrammarInformationProvider.HYMANIFEST_6, foundFormattingElements);
+			return;
+		}
+		if (element instanceof eu.hyvar.mspl.manifest.HyTimedImplementationEnumLiteralLink) {
+			printInternal(element, eu.hyvar.mspl.manifest.resource.hymanifest.grammar.HymanifestGrammarInformationProvider.HYMANIFEST_7, foundFormattingElements);
 			return;
 		}
 		if (element instanceof eu.hyvar.dataValues.HyNumberValue) {

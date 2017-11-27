@@ -17,6 +17,10 @@ import eu.hyvar.mspl.manifest.HyManifest;
 import eu.hyvar.mspl.manifest.HySPLImplementation;
 import eu.hyvar.mspl.manifest.HySPLSignature;
 import eu.hyvar.mspl.manifest.HyTimedDependencies;
+import eu.hyvar.mspl.manifest.HyTimedImplementationEnumLink;
+import eu.hyvar.mspl.manifest.HyTimedImplementationEnumLiteralLink;
+import eu.hyvar.mspl.manifest.HyTimedImplementationFeatureAttributeLink;
+import eu.hyvar.mspl.manifest.HyTimedImplementationFeatureLink;
 import eu.hyvar.mspl.manifest.HyTimedImplementationLink;
 import eu.hyvar.mspl.manifest.HyTimedImplementations;
 import java.util.ArrayList;
@@ -110,8 +114,32 @@ public class AbstractHymanifestInterpreter<ResultType, ContextType> {
 		if (result != null) {
 			return result;
 		}
+		if (object instanceof eu.hyvar.mspl.manifest.HyTimedImplementationFeatureLink) {
+			result = interprete_eu_hyvar_mspl_manifest_HyTimedImplementationFeatureLink((eu.hyvar.mspl.manifest.HyTimedImplementationFeatureLink) object, context);
+		}
+		if (result != null) {
+			return result;
+		}
+		if (object instanceof eu.hyvar.mspl.manifest.HyTimedImplementationEnumLink) {
+			result = interprete_eu_hyvar_mspl_manifest_HyTimedImplementationEnumLink((eu.hyvar.mspl.manifest.HyTimedImplementationEnumLink) object, context);
+		}
+		if (result != null) {
+			return result;
+		}
 		if (object instanceof eu.hyvar.mspl.manifest.HyTimedImplementationLink) {
 			result = interprete_eu_hyvar_mspl_manifest_HyTimedImplementationLink((eu.hyvar.mspl.manifest.HyTimedImplementationLink) object, context);
+		}
+		if (result != null) {
+			return result;
+		}
+		if (object instanceof eu.hyvar.mspl.manifest.HyTimedImplementationFeatureAttributeLink) {
+			result = interprete_eu_hyvar_mspl_manifest_HyTimedImplementationFeatureAttributeLink((eu.hyvar.mspl.manifest.HyTimedImplementationFeatureAttributeLink) object, context);
+		}
+		if (result != null) {
+			return result;
+		}
+		if (object instanceof eu.hyvar.mspl.manifest.HyTimedImplementationEnumLiteralLink) {
+			result = interprete_eu_hyvar_mspl_manifest_HyTimedImplementationEnumLiteralLink((eu.hyvar.mspl.manifest.HyTimedImplementationEnumLiteralLink) object, context);
 		}
 		if (result != null) {
 			return result;
@@ -134,12 +162,6 @@ public class AbstractHymanifestInterpreter<ResultType, ContextType> {
 		if (result != null) {
 			return result;
 		}
-		if (object instanceof eu.hyvar.dataValues.HyEnumValue) {
-			result = interprete_eu_hyvar_dataValues_HyEnumValue((eu.hyvar.dataValues.HyEnumValue) object, context);
-		}
-		if (result != null) {
-			return result;
-		}
 		if (object instanceof eu.hyvar.dataValues.HyValue) {
 			result = interprete_eu_hyvar_dataValues_HyValue((eu.hyvar.dataValues.HyValue) object, context);
 		}
@@ -154,6 +176,12 @@ public class AbstractHymanifestInterpreter<ResultType, ContextType> {
 		}
 		if (object instanceof eu.hyvar.dataValues.HyEnumLiteral) {
 			result = interprete_eu_hyvar_dataValues_HyEnumLiteral((eu.hyvar.dataValues.HyEnumLiteral) object, context);
+		}
+		if (result != null) {
+			return result;
+		}
+		if (object instanceof eu.hyvar.dataValues.HyEnumValue) {
+			result = interprete_eu_hyvar_dataValues_HyEnumValue((eu.hyvar.dataValues.HyEnumValue) object, context);
 		}
 		if (result != null) {
 			return result;
@@ -181,7 +209,23 @@ public class AbstractHymanifestInterpreter<ResultType, ContextType> {
 		return null;
 	}
 	
+	public ResultType interprete_eu_hyvar_mspl_manifest_HyTimedImplementationFeatureLink(HyTimedImplementationFeatureLink hyTimedImplementationFeatureLink, ContextType context) {
+		return null;
+	}
+	
 	public ResultType interprete_eu_hyvar_mspl_manifest_HyTimedImplementationLink(HyTimedImplementationLink hyTimedImplementationLink, ContextType context) {
+		return null;
+	}
+	
+	public ResultType interprete_eu_hyvar_mspl_manifest_HyTimedImplementationFeatureAttributeLink(HyTimedImplementationFeatureAttributeLink hyTimedImplementationFeatureAttributeLink, ContextType context) {
+		return null;
+	}
+	
+	public ResultType interprete_eu_hyvar_mspl_manifest_HyTimedImplementationEnumLink(HyTimedImplementationEnumLink hyTimedImplementationEnumLink, ContextType context) {
+		return null;
+	}
+	
+	public ResultType interprete_eu_hyvar_mspl_manifest_HyTimedImplementationEnumLiteralLink(HyTimedImplementationEnumLiteralLink hyTimedImplementationEnumLiteralLink, ContextType context) {
 		return null;
 	}
 	

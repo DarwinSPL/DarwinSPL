@@ -67,7 +67,7 @@ public class CreateHandlerConfigurationResolutionInput extends AbstractHandler {
 		}
 
 		IFolder folder = null;
-		String workFolderName = "extractInput2";
+		String workFolderName = "extractInput3";
 		while(folder == null ) {
 			response += "check="+workFolderName+"\n\n";
 			folder = project.getFolder(workFolderName);
@@ -97,14 +97,14 @@ public class CreateHandlerConfigurationResolutionInput extends AbstractHandler {
 			input.setDate("2017/06/27T10:25:00");
 			
 			
-			filename = "signatures/ecuaS/ECUASignature.hymanifest_xmi";
+			filename = "CAR/signatures/ecucS/ECUCSignature";
 			input.setSignatureId(filename);
 			
 			
-			filename = "signatures/ecuaS/ECUASignature.hymanifest_xmi";
+			filename = "CAR/signatures/ecucS/ECUCSignature";
 			SignatureManifest signatureManifest = new SignatureManifest();
 			signatureManifest.setFilename(filename);
-			readfile = folder.getFile(filename);
+			readfile = folder.getFile(filename+".hymanifest_xmi");
 			is = readfile.getContents();
 			length = is.available();
 			read=0;
@@ -116,10 +116,10 @@ public class CreateHandlerConfigurationResolutionInput extends AbstractHandler {
 			input.setSignatureManifest(signatureManifest);
 
 			
-			filename = "signatures/ecuaS/ECUASignature.hyfeature";
+			filename = "CAR/signatures/ecucS/ECUCSignature";
 			SignatureFeatureModel signatureFeatureModel = new SignatureFeatureModel();
 			signatureFeatureModel.setFilename(filename);
-			readfile = folder.getFile(filename);
+			readfile = folder.getFile(filename+".hyfeature");
 			is = readfile.getContents();
 			length = is.available();
 			read=0;
@@ -134,14 +134,14 @@ public class CreateHandlerConfigurationResolutionInput extends AbstractHandler {
 			
 
 			
-			filename = "ecua/ecua.hymanifest_xmi";
+			filename = "ECU_C/ecuc";
 			input.setSplId(filename);
 			
 			
-			filename = "ecua/ecua.hymanifest_xmi";
+			filename = "ECU_C/ecuc";
 			SplManifest splManifest = new SplManifest();
 			splManifest.setFilename(filename);
-			readfile = folder.getFile(filename);
+			readfile = folder.getFile(filename+".hymanifest_xmi");
 			is = readfile.getContents();
 			length = is.available();
 			read=0;
@@ -153,10 +153,10 @@ public class CreateHandlerConfigurationResolutionInput extends AbstractHandler {
 			input.setSplManifest(splManifest);
 
 			
-			filename = "ecua/ecua.hyfeature";
+			filename = "ECU_C/ecuc";
 			SplFeatureModel splFeatureModel = new SplFeatureModel();
 			splFeatureModel.setFilename(filename);
-			readfile = folder.getFile(filename);
+			readfile = folder.getFile(filename+".hyfeature");
 			is = readfile.getContents();
 			length = is.available();
 			read=0;
@@ -170,7 +170,7 @@ public class CreateHandlerConfigurationResolutionInput extends AbstractHandler {
 			
 			
 			
-			filename = "configuration/startConfig.hyconfigurationmodel";
+			filename = "CAR/signatures/ecucS/startConfig.hyconfigurationmodel";
 			SignatureConfiguration signatureConfiguration = new SignatureConfiguration();
 			signatureConfiguration.setFilename(filename);
 			readfile = folder.getFile(filename);

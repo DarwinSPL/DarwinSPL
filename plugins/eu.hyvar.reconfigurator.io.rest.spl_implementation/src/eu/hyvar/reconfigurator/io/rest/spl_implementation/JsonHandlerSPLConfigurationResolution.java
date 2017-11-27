@@ -29,19 +29,30 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
 import de.christophseidl.util.ecore.EcoreIOUtil;
+import eu.hyvar.dataValues.HyDataValuesFactory;
+import eu.hyvar.dataValues.HyEnumLiteral;
+import eu.hyvar.dataValues.HyEnumValue;
+import eu.hyvar.dataValues.HyValue;
 import eu.hyvar.evolution.util.HyEvolutionResolverUtil;
 import eu.hyvar.evolution.util.HyEvolutionUtil;
 import eu.hyvar.feature.HyFeature;
+import eu.hyvar.feature.HyFeatureAttribute;
 import eu.hyvar.feature.HyFeatureModel;
 import eu.hyvar.feature.HyVersion;
+import eu.hyvar.feature.configuration.HyAttributeValueAssignment;
 import eu.hyvar.feature.configuration.HyConfiguration;
 import eu.hyvar.feature.configuration.HyConfigurationElement;
+import eu.hyvar.feature.configuration.HyConfigurationFactory;
 import eu.hyvar.feature.configuration.HyFeatureDeselected;
 import eu.hyvar.feature.configuration.HyFeatureSelected;
 import eu.hyvar.feature.configuration.HyVersionDeselected;
 import eu.hyvar.feature.configuration.HyVersionSelected;
 import eu.hyvar.mspl.manifest.HySPLImplementation;
 import eu.hyvar.mspl.manifest.HySPLSignature;
+import eu.hyvar.mspl.manifest.HyTimedImplementationEnumLink;
+import eu.hyvar.mspl.manifest.HyTimedImplementationEnumLiteralLink;
+import eu.hyvar.mspl.manifest.HyTimedImplementationFeatureAttributeLink;
+import eu.hyvar.mspl.manifest.HyTimedImplementationFeatureLink;
 import eu.hyvar.mspl.manifest.HyTimedImplementationLink;
 import eu.hyvar.mspl.manifest.HyTimedImplementations;
 import eu.hyvar.reconfigurator.io.rest.spl_implementation.io.raw_input_spl_configuration_converter.RawInputSPLConfigurationConverter;
@@ -217,7 +228,14 @@ public class JsonHandlerSPLConfigurationResolution extends AbstractHandler {
 
 
 		// Change the Feature Model
-		configuration.setFeatureModel(spl);
+		//configuration.setFeatureModel(spl);
+
+		// Create the new configuration
+		HyConfiguration configurationNew = HyConfigurationFactory.eINSTANCE.createHyConfiguration();
+		configurationNew.setId(configurationNew.createId());
+		configurationNew.setCreationDate(configuration.getCreationDate());
+		configurationNew.setFeatureModel(spl);
+
 		
 		// Find the right implementation
 		HyTimedImplementations implementation = null;
@@ -237,14 +255,23 @@ public class JsonHandlerSPLConfigurationResolution extends AbstractHandler {
 		
 		// Change the link to the features (selected/deselected):		
 		HyFeature newFeature;
+		HyFeatureAttribute newAttribute;
+		HyConfigurationElement elementNew;
+		EList<HyConfigurationElement> elementsListNew = configurationNew.getElements();
+
 		
 		for(HyConfigurationElement element : configuration.getElements()) {
+			elementNew = null;
+
 			if(element instanceof HyFeatureSelected) {
 				HyFeatureSelected selected = (HyFeatureSelected) element;
 				newFeature = findAssociatedFeature(selected.getSelectedFeature(), associations, currentInstant);
 
 				if(newFeature!=null) {
-					selected.setSelectedFeature(newFeature);
+					HyFeatureSelected featureNew = HyConfigurationFactory.eINSTANCE.createHyFeatureSelected();
+					featureNew.setSelectedFeature(newFeature);
+					elementNew = featureNew;
+					//selected.setSelectedFeature(newFeature);
 				} else {
 					error.setErrorString(error.getErrorString()+"\n No valid selected feature for ID: "+selected.getSelectedFeature().getId());
 				}
@@ -254,7 +281,10 @@ public class JsonHandlerSPLConfigurationResolution extends AbstractHandler {
 				newFeature = findAssociatedFeature(deselected.getSelectedFeature(), associations, currentInstant);
 
 				if(newFeature!=null) {
-					deselected.setSelectedFeature(newFeature);
+					HyFeatureDeselected featureNew = HyConfigurationFactory.eINSTANCE.createHyFeatureDeselected();
+					featureNew.setSelectedFeature(newFeature);
+					elementNew = featureNew;
+					//deselected.setSelectedFeature(newFeature);
 				} else {
 					error.setErrorString(error.getErrorString()+"\n No valid deselected feature for ID: "+deselected.getSelectedFeature().getId());
 				}
@@ -271,7 +301,10 @@ public class JsonHandlerSPLConfigurationResolution extends AbstractHandler {
 					boolean found = false;
 					for( HyVersion splVersion :newFeature.getVersions()) {
 						if(splVersion.getNumber().equals(version.getNumber())) {
-							versionSelected.setSelectedVersion(splVersion);
+							HyVersionSelected versionNew = HyConfigurationFactory.eINSTANCE.createHyVersionSelected();
+							versionNew.setSelectedVersion(splVersion);
+							elementNew = versionNew;
+							//versionSelected.setSelectedVersion(splVersion);
 							found=true;
 						}
 					}
@@ -293,7 +326,10 @@ public class JsonHandlerSPLConfigurationResolution extends AbstractHandler {
 					boolean found = false;
 					for( HyVersion splVersion :newFeature.getVersions()) {
 						if(splVersion.getNumber().equals(version.getNumber())) {
-							versionDeselected.setSelectedVersion(splVersion);
+							HyVersionDeselected versionNew = HyConfigurationFactory.eINSTANCE.createHyVersionDeselected();
+							versionNew.setSelectedVersion(splVersion);
+							elementNew = versionNew;
+							//versionDeselected.setSelectedVersion(splVersion);
 							found=true;
 						}
 					}
@@ -304,14 +340,46 @@ public class JsonHandlerSPLConfigurationResolution extends AbstractHandler {
 					error.setErrorString(error.getErrorString()+"\n No valid deselected feature by version for ID: "+feature.getId());
 				}
 			}
+			
+			if(element instanceof HyAttributeValueAssignment) {
+				HyAttributeValueAssignment attribute = (HyAttributeValueAssignment) element;
+				newAttribute = findAssociatedAttribute(attribute.getAttribute(), associations, currentInstant);
+
+				if(newAttribute!=null) {
+					HyAttributeValueAssignment attributeNew = HyConfigurationFactory.eINSTANCE.createHyAttributeValueAssignment();
+					attributeNew.setAttribute(newAttribute);
+					
+					HyValue value = attribute.getValue();
+					if(value instanceof HyEnumValue) {
+						value = findAssociatedEnumValue((HyEnumValue)value, associations, currentInstant);
+					}
+					
+					attributeNew.setValue(value);
+					elementNew = attributeNew;
+				} else {
+					error.setErrorString(error.getErrorString()+"\n No valid attribute assignment for ID: "+attribute.getId());
+				}
+			}
+
+			if(elementNew!=null) {
+				elementNew.setId(elementNew.createId());
+				elementNew.setValidSince(element.getValidSince());
+				elementNew.setValidUntil(element.getValidUntil());
+				
+				elementsListNew.add(elementNew);
+			}
 
 		}
 
-		
-		
-		fileName = rawInput.getSignatureConfiguration().getFilename();
-		EcoreIOUtil.saveModel(configuration);
-	    
+
+		// Save the new configuration
+		fileName = rawInput.getSplFeatureModel().getFilename();
+		IFile fileNew = folder.getFile(fileName+".hyconfigurationmodel");
+		EcoreIOUtil.saveModelAs(configurationNew, fileNew);
+
+		//fileName = rawInput.getSignatureConfiguration().getFilename();
+		//EcoreIOUtil.saveModel(configuration);
+
 		
 		Configuration config = new Configuration();
 		config.setFilename(fileName);
@@ -348,15 +416,76 @@ public class JsonHandlerSPLConfigurationResolution extends AbstractHandler {
 	}
 
 
-	private HyFeature findAssociatedFeature(HyFeature selectedFeature, EList<HyTimedImplementationLink> associations, Date currentInstant) {
-		for(HyTimedImplementationLink link : associations) {
-			if( HyEvolutionUtil.isValid(link, currentInstant) ) {
-				if(link.getSignature()==selectedFeature) {
-					return link.getLocal();
+	private HyFeatureAttribute findAssociatedAttribute(HyFeatureAttribute selectedAttribute,
+			EList<HyTimedImplementationLink> associations, Date currentInstant) {
+		HyTimedImplementationFeatureLink baseFeatureLink = findAssociatedFeatureLink(selectedAttribute.getFeature(), associations, currentInstant);
+		if(baseFeatureLink!=null) {
+			EList<HyTimedImplementationFeatureAttributeLink> attributeAssociations = baseFeatureLink.getAssociations();
+			for(HyTimedImplementationFeatureAttributeLink attibuteLink: attributeAssociations ) {
+				if( HyEvolutionUtil.isValid(attibuteLink, currentInstant) ) {
+					if(attibuteLink.getSignature()==selectedAttribute) {
+						return attibuteLink.getLocal();
+					}
 				}
 			}
 		}
 		return null;
 	}
 
+
+	private HyFeature findAssociatedFeature(HyFeature selectedFeature, EList<HyTimedImplementationLink> associations, Date currentInstant) {
+		HyTimedImplementationFeatureLink featureLink = findAssociatedFeatureLink(selectedFeature, associations, currentInstant);
+
+		if(featureLink!=null) {
+			return featureLink.getLocal(); 
+		}
+		return null;
+	}
+
+	private HyTimedImplementationFeatureLink findAssociatedFeatureLink(HyFeature selectedFeature, EList<HyTimedImplementationLink> associations, Date currentInstant) {
+		HyTimedImplementationFeatureLink featureLink;
+		for(HyTimedImplementationLink link : associations) {
+			if(link instanceof HyTimedImplementationFeatureLink) {
+				featureLink = (HyTimedImplementationFeatureLink) link; 
+				if( HyEvolutionUtil.isValid(featureLink, currentInstant) ) {
+					if(featureLink.getSignature()==selectedFeature) {
+						return featureLink;
+					}
+				}
+			}
+		}
+		return null;
+	}
+
+	private HyEnumValue findAssociatedEnumValue(HyEnumValue selectedEnumValue, EList<HyTimedImplementationLink> associations, Date currentInstant) {
+		
+		HyTimedImplementationEnumLink enumLink;
+		// Search for enum associations
+		for(HyTimedImplementationLink link : associations) {
+			if(link instanceof HyTimedImplementationEnumLink) {
+				enumLink = (HyTimedImplementationEnumLink) link; 
+				if( HyEvolutionUtil.isValid(enumLink, currentInstant) ) {
+					if(enumLink.getSignature()==selectedEnumValue.getEnum()) {
+						// Search for enum literal associations
+						for(HyTimedImplementationEnumLiteralLink literalLink : enumLink.getAssociations()) {
+							if( HyEvolutionUtil.isValid(literalLink, currentInstant) ) {
+								if(literalLink.getSignature()==selectedEnumValue.getEnumLiteral()) {
+									HyEnumLiteral localEnumLiteral = literalLink.getLocal();
+
+									HyEnumValue enumValueNew = HyDataValuesFactory.eINSTANCE.createHyEnumValue();
+									enumValueNew.setEnum(localEnumLiteral.getEnum());
+									enumValueNew.setEnumLiteral(localEnumLiteral);
+									
+									return enumValueNew;
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+		return null;
+	}
+
+	
 }

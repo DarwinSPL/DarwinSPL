@@ -25,9 +25,24 @@
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Manifest.ecore#//HyTimedImplementations/signature"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Manifest.ecore#//HyTimedImplementations/associations"/>
     </genClasses>
-    <genClasses ecoreClass="Manifest.ecore#//HyTimedImplementationLink">
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Manifest.ecore#//HyTimedImplementationLink/local"/>
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Manifest.ecore#//HyTimedImplementationLink/signature"/>
+    <genClasses ecoreClass="Manifest.ecore#//HyTimedImplementationFeatureLink">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Manifest.ecore#//HyTimedImplementationFeatureLink/local"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Manifest.ecore#//HyTimedImplementationFeatureLink/signature"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Manifest.ecore#//HyTimedImplementationFeatureLink/associations"/>
+    </genClasses>
+    <genClasses ecoreClass="Manifest.ecore#//HyTimedImplementationLink"/>
+    <genClasses ecoreClass="Manifest.ecore#//HyTimedImplementationFeatureAttributeLink">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Manifest.ecore#//HyTimedImplementationFeatureAttributeLink/local"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Manifest.ecore#//HyTimedImplementationFeatureAttributeLink/signature"/>
+    </genClasses>
+    <genClasses ecoreClass="Manifest.ecore#//HyTimedImplementationEnumLink">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Manifest.ecore#//HyTimedImplementationEnumLink/local"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Manifest.ecore#//HyTimedImplementationEnumLink/signature"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Manifest.ecore#//HyTimedImplementationEnumLink/associations"/>
+    </genClasses>
+    <genClasses ecoreClass="Manifest.ecore#//HyTimedImplementationEnumLiteralLink">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Manifest.ecore#//HyTimedImplementationEnumLiteralLink/local"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Manifest.ecore#//HyTimedImplementationEnumLiteralLink/signature"/>
     </genClasses>
   </genPackages>
 </genmodel:GenModel>

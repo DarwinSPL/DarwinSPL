@@ -8,6 +8,7 @@ import eu.hyvar.evolution.util.HyEvolutionUtil;
 import eu.hyvar.feature.HyFeature;
 import eu.hyvar.mspl.manifest.HySPLImplementation;
 import eu.hyvar.mspl.manifest.HySPLSignature;
+import eu.hyvar.mspl.manifest.HyTimedImplementationFeatureLink;
 import eu.hyvar.mspl.manifest.HyTimedImplementationLink;
 import eu.hyvar.mspl.manifest.HyTimedImplementations;
 import eu.hyvar.mspl.manifest.ManifestFactory;
@@ -51,9 +52,11 @@ public class DwSetFeatureLinkCommand extends Command {
 				if(timedImplementations.getSignature() == implementingSignature) {
 					
 					for(HyTimedImplementationLink implementationLink: HyEvolutionUtil.getValidTemporalElements(timedImplementations.getAssociations(), date)) {
-						if(implementationLink.getSignature() == signatureFeature) {
-							removedImplementationLink = implementationLink;
-							break;
+						if(implementationLink instanceof HyTimedImplementationFeatureLink) {
+							if(((HyTimedImplementationFeatureLink)implementationLink).getSignature() == signatureFeature) {
+								removedImplementationLink = implementationLink;
+								break;
+							}
 						}
 					}
 					
@@ -72,7 +75,7 @@ public class DwSetFeatureLinkCommand extends Command {
 			}
 			
 			
-			HyTimedImplementationLink newImplementationLink = ManifestFactory.eINSTANCE.createHyTimedImplementationLink();
+			HyTimedImplementationFeatureLink newImplementationLink = ManifestFactory.eINSTANCE.createHyTimedImplementationFeatureLink();
 			// UNITO - Change from list of feature to one feature
 			//newImplementationLink.getLocal().add(localFeature);
 			//newImplementationLink.getSignature().add(signatureFeature);

@@ -54,6 +54,9 @@ public class HymanifestTokenStyleInformationProvider {
 		if ("eternity".equals(tokenName)) {
 			return new eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestTokenStyle(new int[] {0x80, 0x00, 0x55}, null, true, false, false, false);
 		}
+		if ("QUOTED_34_34".equals(tokenName)) {
+			return new eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestTokenStyle(new int[] {0x2A, 0x00, 0xFF}, null, false, false, false, false);
+		}
 		if ("TASK_ITEM".equals(tokenName)) {
 			return new eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestTokenStyle(new int[] {0x7F, 0x9F, 0xBF}, null, true, false, false, false);
 		}
@@ -62,9 +65,6 @@ public class HymanifestTokenStyleInformationProvider {
 		}
 		if ("Implementation ".equals(tokenName)) {
 			return new eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestTokenStyle(new int[] {0x80, 0x00, 0x55}, null, true, false, false, false);
-		}
-		if ("QUOTED_34_34".equals(tokenName)) {
-			return new eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestTokenStyle(new int[] {0x2A, 0x00, 0xFF}, null, false, false, false, false);
 		}
 		if ("QUOTED_60_62".equals(tokenName)) {
 			return new eu.hyvar.mspl.manifest.resource.hymanifest.mopp.HymanifestTokenStyle(new int[] {0x2A, 0x00, 0xFF}, null, false, false, false, false);

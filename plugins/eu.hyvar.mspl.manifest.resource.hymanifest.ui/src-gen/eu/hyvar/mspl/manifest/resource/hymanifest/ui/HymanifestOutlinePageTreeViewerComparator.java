@@ -74,7 +74,7 @@ public class HymanifestOutlinePageTreeViewerComparator extends ViewerComparator 
 		return packageID;
 	}
 	
-	public Comparator<? super String> getComparator() {
+	public Comparator<?> getComparator() {
 		return this.comparator;
 	}
 	

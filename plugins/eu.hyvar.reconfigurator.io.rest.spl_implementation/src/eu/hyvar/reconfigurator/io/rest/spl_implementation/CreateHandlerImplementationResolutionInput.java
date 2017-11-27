@@ -63,7 +63,7 @@ public class CreateHandlerImplementationResolutionInput extends AbstractHandler 
 		}
 
 		IFolder folder = null;
-		String workFolderName = "extractInput1";
+		String workFolderName = "extractInput4";
 		while(folder == null ) {
 			response += "check="+workFolderName+"\n\n";
 			folder = project.getFolder(workFolderName);
@@ -94,13 +94,13 @@ public class CreateHandlerImplementationResolutionInput extends AbstractHandler 
 			
 			SplSignature signature = new SplSignature();
 			
-			filename = "signatures/ecuaS/ECUASignature.hymanifest_xmi";
+			filename = "CAR/signatures/ecucS/ECUCSignature";
 			signature.setSignatureId(filename);
 			
-			filename = "signatures/ecuaS/ECUASignature.hymanifest_xmi";
+			filename = "CAR/signatures/ecucS/ECUCSignature";
 			SignatureModel sm = new SignatureModel();
 			sm.setFilename(filename);
-			readfile = folder.getFile(filename);
+			readfile = folder.getFile(filename+".hymanifest_xmi");
 			is = readfile.getContents();
 			length = is.available();
 			read=0;
@@ -118,38 +118,16 @@ public class CreateHandlerImplementationResolutionInput extends AbstractHandler 
 			SplImplementation implementation;
 			
 			
-			// Impl 1
-			implementation = new SplImplementation();
-			
-			filename = "ecua_drop/ecua_drop.hymanifest_xmi";
-			implementation.setSignatureId(filename);
-			
-			filename = "ecua_drop/ecua_drop.hymanifest_xmi";
-			sm_ = new SignatureModel_();
-			sm_.setFilename(filename);
-			readfile = folder.getFile(filename);
-			is = readfile.getContents();
-			length = is.available();
-			read=0;
-			data = new byte[length];
-			while(read<length) {
-				read+=is.read(data, read, (length-read));
-			}
-			sm_.setSpecification(new String(data));
-			implementation.setSignatureModel(sm_);
-			
-			implementationList.add(implementation);
-			
 			// Impl 2
 			implementation = new SplImplementation();
 			
-			filename = "ecua/ecua.hymanifest_xmi";
+			filename = "ECU_C/ecuc";
 			implementation.setSignatureId(filename);
 			
-			filename = "ecua/ecua.hymanifest_xmi";
+			filename = "ECU_C/ecuc";
 			sm_ = new SignatureModel_();
 			sm_.setFilename(filename);
-			readfile = folder.getFile(filename);
+			readfile = folder.getFile(filename+".hymanifest_xmi");
 			is = readfile.getContents();
 			length = is.available();
 			read=0;
@@ -162,28 +140,6 @@ public class CreateHandlerImplementationResolutionInput extends AbstractHandler 
 			
 			implementationList.add(implementation);
 			
-			// Impl 3
-			implementation = new SplImplementation();
-			
-			filename = "ecua_bis/ecua_bis.hymanifest_xmi";
-			implementation.setSignatureId(filename);
-			
-			filename = "ecua_bis/ecua_bis.hymanifest_xmi";
-			sm_ = new SignatureModel_();
-			sm_.setFilename(filename);
-			readfile = folder.getFile(filename);
-			is = readfile.getContents();
-			length = is.available();
-			read=0;
-			data = new byte[length];
-			while(read<length) {
-				read+=is.read(data, read, (length-read));
-			}
-			sm_.setSpecification(new String(data));
-			implementation.setSignatureModel(sm_);
-			
-			
-			implementationList.add(implementation);
 
 			input.setSplImplementations(implementationList);
 			
