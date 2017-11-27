@@ -11,11 +11,17 @@ import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.gef.editparts.AbstractGraphicalEditPart;
 
 import de.darwinspl.feature.graphical.base.editor.DwGraphicalFeatureModelViewer;
+import de.darwinspl.feature.graphical.base.figures.DwFeatureFigure;
 import de.darwinspl.feature.graphical.base.figures.DwGroupFigure;
 import de.darwinspl.feature.graphical.base.model.DwFeatureModelWrapped;
 import de.darwinspl.feature.graphical.base.model.DwFeatureWrapped;
 import de.darwinspl.feature.graphical.base.model.DwGroupWrapped;
+import eu.hyvar.evolution.HyName;
 import eu.hyvar.evolution.util.HyEvolutionUtil;
+import eu.hyvar.feature.HyFeature;
+import eu.hyvar.feature.HyFeatureType;
+import eu.hyvar.feature.HyGroup;
+import eu.hyvar.feature.HyGroupType;
 
 public class DwGroupEditPart extends DwAbstractEditPart{
 
@@ -81,4 +87,49 @@ public class DwGroupEditPart extends DwAbstractEditPart{
 		if(figure.isVisible() && parent != null)
 			parent.setLayoutConstraint(this, figure, getFigureConstraint());
 	}
+	
+	@Override
+	protected void refreshVisuals() {
+		
+		super.refreshVisuals();
+		
+		updateFigure();
+	}
+
+	private void updateFigure() {
+		
+		DwGroupFigure figure = (DwGroupFigure)getFigure();
+		
+		figure.setTooltipText(createToolTipText());
+		
+	}
+	
+	/**
+	 * Creates a tooltip containing the id and type of the group
+	 * 
+	 * 
+	 * @return
+	 */
+	private String createToolTipText(){
+		Date date = editor.getCurrentSelectedDate();
+		
+		
+		DwGroupWrapped wrappedGroup = (DwGroupWrapped)this.getModel();
+		HyGroup group = wrappedGroup.getWrappedModelElement();
+		
+
+		HyGroupType type = HyEvolutionUtil.getValidTemporalElement(group.getTypes(), date);
+
+		StringBuffer buffer = new StringBuffer();
+		buffer.append("ID: "+ group.getId() + ", \n");
+		buffer.append("Type: "+ type.getType());
+		
+		
+		return buffer.toString();
+		
+		
+	}
+	
+	
+	
 }

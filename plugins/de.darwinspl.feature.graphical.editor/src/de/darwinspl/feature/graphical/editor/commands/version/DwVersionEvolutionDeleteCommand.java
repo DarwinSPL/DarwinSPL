@@ -17,8 +17,6 @@ public class DwVersionEvolutionDeleteCommand extends DwFeatureModelEditorCommand
 	private HyVersion oldVersion;
 	
 	private EditPart host;
-	
-	DwGraphicalFeatureModelViewer viewer;
 
 	public HyVersion getVersion() {
 		return version;

@@ -12,6 +12,7 @@ import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.emf.common.notify.Adapter;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.Notifier;
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.gef.ConnectionEditPart;
@@ -28,6 +29,7 @@ import de.darwinspl.feature.graphical.base.model.DwFeatureWrapped;
 import de.darwinspl.feature.graphical.base.model.DwParentChildConnection;
 import de.darwinspl.feature.graphical.base.model.DwRepaintNotification;
 import eu.hyvar.evolution.HyName;
+import eu.hyvar.evolution.util.HyEvolutionUtil;
 import eu.hyvar.feature.HyFeature;
 import eu.hyvar.feature.HyFeatureAttribute;
 import eu.hyvar.feature.HyFeatureType;
@@ -224,6 +226,8 @@ public class DwFeatureEditPart extends DwAbstractEditPart implements NodeEditPar
 		
 		refreshVisualsOfChildren();
 		refreshVisualsOfConnections();	
+		
+		
 	}
 	
 	/**
@@ -253,13 +257,47 @@ public class DwFeatureEditPart extends DwAbstractEditPart implements NodeEditPar
 		DwFeatureWrapped wrappedFeature = (DwFeatureWrapped)this.getModel();
 
 		boolean featureIsCurrentlyValid = wrappedFeature.isValid(date);
+		
 
 		if(featureIsCurrentlyValid){
 			figure.update();
 		}
 		
+		
+		
+		figure.setTooltipText(createToolTipText());
+		
 		refreshVisibility();
 	}
+	
+	/**
+	 * Creates a tooltip containing the id and type of the feature and the id the name 
+	 * 
+	 * 
+	 * @return
+	 */
+	private String createToolTipText(){
+		Date date = editor.getCurrentSelectedDate();
+		
+		
+		DwFeatureWrapped wrappedFeature = (DwFeatureWrapped)this.getModel();
+		HyFeature feature = wrappedFeature.getWrappedModelElement();
+
+		HyName name = HyEvolutionUtil.getValidTemporalElement(feature.getNames(), date);
+		HyFeatureType type = HyEvolutionUtil.getValidTemporalElement(feature.getTypes(), date);
+
+		StringBuffer buffer = new StringBuffer();
+		buffer.append("ID: "+ feature.getId() + ", \n");
+		buffer.append("Type: "+ type.getType() + ", \n");
+		buffer.append("Name_ID: "+ name.getId());
+		
+		
+		return buffer.toString();
+		
+		
+	}
+	
+	
 
 	private void refreshVisualsOfConnections(){
 		if(sourceConnections != null){
