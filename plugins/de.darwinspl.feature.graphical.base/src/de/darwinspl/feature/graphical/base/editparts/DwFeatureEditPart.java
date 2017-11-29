@@ -289,7 +289,9 @@ public class DwFeatureEditPart extends DwAbstractEditPart implements NodeEditPar
 		StringBuffer buffer = new StringBuffer();
 		buffer.append("ID: "+ feature.getId() + ", \n");
 		buffer.append("Type: "+ type.getType() + ", \n");
+		if(name != null && name.getId()!= null){
 		buffer.append("Name_ID: "+ name.getId());
+		}
 		
 		
 		return buffer.toString();
