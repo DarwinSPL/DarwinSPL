@@ -19,7 +19,7 @@ import eu.hyvar.feature.HyStringAttribute;
 public class DwAttributeFigure extends DwErrorMarkerFigure{
 	private HyFeatureAttribute attribute;
 	
-	private Label valueLabel;
+	public Label valueLabel;
 	
 	public DwAttributeFigure(DwGraphicalFeatureModelViewer editor, HyFeatureAttribute attribute) {
 		super(editor);
@@ -86,6 +86,8 @@ public class DwAttributeFigure extends DwErrorMarkerFigure{
 		valueLabel.setLocation(new Point(label.getTextBounds().width+36, 0));
 		
 		updateIconFigure();
+		
+		((DwFeatureFigure) getParent()).update();
 	}
 	
 	@Override
