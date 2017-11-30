@@ -15,7 +15,7 @@ public class DwEnumDirectEditPolicy extends DirectEditPolicy {
 	@Override
 	protected Command getDirectEditCommand(DirectEditRequest request) {
 		DwEnumEditPart editPart = (DwEnumEditPart)getHost();
-		DwEnumRenameCommand command = new DwEnumRenameCommand((HyEnum)editPart.getModel(), (DwGraphicalFeatureModelViewer)editPart.getParent());
+		DwEnumRenameCommand command = new DwEnumRenameCommand((HyEnum)editPart.getModel(), editPart.getEditor());
 		command.setNewName((String)request.getCellEditor().getValue());
 		
 		return command;
