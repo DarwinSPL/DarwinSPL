@@ -283,13 +283,25 @@ public class DwFeatureEditPart extends DwAbstractEditPart implements NodeEditPar
 		DwFeatureWrapped wrappedFeature = (DwFeatureWrapped)this.getModel();
 		HyFeature feature = wrappedFeature.getWrappedModelElement();
 
+		if(feature == null) {
+			return "";
+		}
+		
 		HyName name = HyEvolutionUtil.getValidTemporalElement(feature.getNames(), date);
 		HyFeatureType type = HyEvolutionUtil.getValidTemporalElement(feature.getTypes(), date);
 
 		StringBuffer buffer = new StringBuffer();
+		
 		buffer.append("ID: "+ feature.getId() + ", \n");
-		buffer.append("Type: "+ type.getType() + ", \n");
-		buffer.append("Name_ID: "+ name.getId());
+		
+		if(type != null) {
+			buffer.append("Type: "+ type.getType() + ", \n");			
+		}
+		
+		if(name != null) {
+			buffer.append("Name_ID: "+ name.getId());			
+		}
+		
 		
 		
 		return buffer.toString();
