@@ -1,11 +1,11 @@
 
 package eu.hyvar.reconfigurator.input.format;
 
-import javax.annotation.Generated;
+//import javax.annotation.Generated;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-@Generated("org.jsonschema2pojo")
+//@Generated("org.jsonschema2pojo")
 public class Context {
 
     /**
