@@ -1,4 +1,4 @@
-package eu.hyvar.mspl.util;
+package eu.hyvar.mspl.manifest.util.custom;
 
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;

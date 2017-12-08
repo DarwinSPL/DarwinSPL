@@ -189,7 +189,7 @@ public class HyVarRecExporter {
 		DwConfigurationExporter configurationExporter = new DwConfigurationExporter(featureReconfiguratorIdMapping,
 				versionReconfiguratorIdMapping, contextReconfiguratorIdMapping, attributeReconfiguratorIdMapping);
 		
-		DwContextExporter contextExporter =new DwContextExporter(contextReconfiguratorIdMapping);
+		DwContextExporter contextExporter = new DwContextExporter(contextReconfiguratorIdMapping);
 
 		HyExpressionStringExporter expressionExporter = new HyExpressionStringExporter(reconfiguratorIdMapping.getFeatureIdMapping(),
 				reconfiguratorIdMapping.getVersionIdMapping(), reconfiguratorIdMapping.getAttributeIdMapping(),

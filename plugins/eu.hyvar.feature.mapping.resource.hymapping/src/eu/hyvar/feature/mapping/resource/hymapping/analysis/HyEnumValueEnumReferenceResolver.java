@@ -27,8 +27,8 @@ public class HyEnumValueEnumReferenceResolver implements eu.hyvar.feature.mappin
 //	private eu.hyvar.dataValues.resource.hydatavalue.analysis.HyEnumValueEnumReferenceResolver delegate = new eu.hyvar.dataValues.resource.hydatavalue.analysis.HyEnumValueEnumReferenceResolver();
 	
 	public void resolve(String identifier, eu.hyvar.dataValues.HyEnumValue container, EReference reference, int position, boolean resolveFuzzy, final eu.hyvar.feature.mapping.resource.hymapping.IHymappingReferenceResolveResult<eu.hyvar.dataValues.HyEnum> result) {
-		if((identifier!=null)&&(identifier.contains(eu.hyvar.mspl.util.HyManifestResolverUtil.MANIFEST_SEPARATOR))) {
-			HyEnum found = eu.hyvar.mspl.util.HyManifestResolverUtil.resolveMsplEnum(identifier, container);
+		if((identifier!=null)&&(identifier.contains(eu.hyvar.mspl.manifest.util.custom.HyManifestResolverUtil.MANIFEST_SEPARATOR))) {
+			HyEnum found = eu.hyvar.mspl.manifest.util.custom.HyManifestResolverUtil.resolveMsplEnum(identifier, container);
 			if (found!=null) {
 				result.addMapping(identifier, found);
 			}
