@@ -18,6 +18,7 @@ import eu.hyvar.feature.HyFeatureAttribute;
 import eu.hyvar.feature.configuration.HyAttributeValueAssignment;
 import eu.hyvar.feature.configuration.HyConfiguration;
 import eu.hyvar.feature.configuration.HyConfigurationElement;
+import eu.hyvar.feature.configuration.HyVersionSelected;
 
 public class DwConfiguratorEditorFeatureEditPart extends DwFeatureEditPart{
 
@@ -57,23 +58,34 @@ public class DwConfiguratorEditorFeatureEditPart extends DwFeatureEditPart{
 			}else{
 				DwConfiguratorEditorUtil.removeChildrenFeaturesFromConfiguration(configuration, feature.getWrappedModelElement(), editor.getCurrentSelectedDate());
 				
-				for(HyFeatureAttribute attribute: feature.getWrappedModelElement().getAttributes()){
+				
 				
 				EList<HyConfigurationElement> elementsToRemove = new BasicEList<>();
 					
 				for(HyConfigurationElement element: configuration.getElements()){
+					
 					if(element instanceof HyAttributeValueAssignment){
+						for(HyFeatureAttribute attribute: feature.getWrappedModelElement().getAttributes()){
 						if(((HyAttributeValueAssignment) element).getAttribute().equals(attribute)){
+							elementsToRemove.add(element);
+						}
+						}
+					}
+					if(element instanceof HyVersionSelected){
+						if(((HyVersionSelected) element).getSelectedVersion().getFeature().equals(feature.getWrappedModelElement())){
 							elementsToRemove.add(element);
 						}
 					}
 				}
+				
+				
+				
 				if(!elementsToRemove.isEmpty()){
 					configuration.getElements().removeAll(elementsToRemove);
 				}
 				
 
-			}
+			
 			}
 		}
 		
