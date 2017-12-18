@@ -1,10 +1,7 @@
 package de.darwinspl.feature.graphical.configurator.editparts;
 
-import java.util.List;
-
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.emf.common.util.BasicEList;
-import org.eclipse.emf.common.util.ECollections;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.gef.Request;
 import org.eclipse.gef.RequestConstants;
@@ -15,23 +12,9 @@ import de.darwinspl.feature.graphical.base.model.DwFeatureModelWrapped;
 import de.darwinspl.feature.graphical.base.model.DwFeatureWrapped;
 import de.darwinspl.feature.graphical.configurator.editor.DwFeatureModelConfiguratorEditor;
 import de.darwinspl.feature.graphical.configurator.figures.DwConfiguratorFeatureFigure;
-import de.darwinspl.feature.graphical.configurator.predicates.DwConfiguratorElementHasAttributePredicate;
 import de.darwinspl.feature.graphical.configurator.predicates.DwConfiguratorElementHasFeaturePredicate;
 import de.darwinspl.feature.graphical.configurator.util.DwConfiguratorEditorUtil;
-import eu.hyvar.dataValues.HyBooleanValue;
-import eu.hyvar.dataValues.HyDataValuesFactory;
-import eu.hyvar.dataValues.HyEnum;
-import eu.hyvar.dataValues.HyEnumLiteral;
-import eu.hyvar.dataValues.HyEnumValue;
-import eu.hyvar.dataValues.HyNumberValue;
-import eu.hyvar.dataValues.HyStringValue;
-import eu.hyvar.dataValues.HyValue;
-import eu.hyvar.evolution.util.HyEvolutionUtil;
-import eu.hyvar.feature.HyBooleanAttribute;
-import eu.hyvar.feature.HyEnumAttribute;
 import eu.hyvar.feature.HyFeatureAttribute;
-import eu.hyvar.feature.HyNumberAttribute;
-import eu.hyvar.feature.HyStringAttribute;
 import eu.hyvar.feature.configuration.HyAttributeValueAssignment;
 import eu.hyvar.feature.configuration.HyConfiguration;
 import eu.hyvar.feature.configuration.HyConfigurationElement;
