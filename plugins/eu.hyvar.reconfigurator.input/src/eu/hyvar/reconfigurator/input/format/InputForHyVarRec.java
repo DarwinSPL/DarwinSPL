@@ -49,13 +49,13 @@ public class InputForHyVarRec {
     @SerializedName("preferences")
     @Expose
     private List<String> preferences = null;
-    /**
-     * constraints given in smt format (faster to parse)
-     * 
-     */
-    @SerializedName("smt_constraints")
-    @Expose
-    private SmtConstraints smtConstraints;
+//    /**
+//     * constraints given in smt format (faster to parse)
+//     * 
+//     */
+//    @SerializedName("smt_constraints")
+//    @Expose
+//    private SmtConstraints smtConstraints;
     @SerializedName("context_constraints")
     @Expose
     private List<String> contextConstraints = null;
@@ -164,21 +164,21 @@ public class InputForHyVarRec {
         this.preferences = preferences;
     }
 
-    /**
-     * constraints given in smt format (faster to parse)
-     * 
-     */
-    public SmtConstraints getSmtConstraints() {
-        return smtConstraints;
-    }
-
-    /**
-     * constraints given in smt format (faster to parse)
-     * 
-     */
-    public void setSmtConstraints(SmtConstraints smtConstraints) {
-        this.smtConstraints = smtConstraints;
-    }
+//    /**
+//     * constraints given in smt format (faster to parse)
+//     * 
+//     */
+//    public SmtConstraints getSmtConstraints() {
+//        return smtConstraints;
+//    }
+//
+//    /**
+//     * constraints given in smt format (faster to parse)
+//     * 
+//     */
+//    public void setSmtConstraints(SmtConstraints smtConstraints) {
+//        this.smtConstraints = smtConstraints;
+//    }
 
     public List<String> getContextConstraints() {
         return contextConstraints;
