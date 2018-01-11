@@ -273,7 +273,7 @@ public class HyVarRecExporter {
 				}
 			}
 			
-			input.getConfiguration().getContextValues().add(initDateContext);
+//			input.getConfiguration().getContextValues().add(initDateContext);
 			
 			input.setOptionalFeatures(getOptionalFeatureMap(featureModels, sortedDateList));			
 		}
