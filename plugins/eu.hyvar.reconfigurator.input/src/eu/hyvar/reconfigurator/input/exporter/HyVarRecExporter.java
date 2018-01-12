@@ -103,11 +103,16 @@ public class HyVarRecExporter {
 //	private HyExpressionStringExporter expressionExporter;
 
 	private Map<HyFeature, String> featureReconfiguratorIdMapping;
+	
 	private Map<HyVersion, String> versionReconfiguratorIdMapping;
+	
 	private Map<HyContextualInformation, String> contextReconfiguratorIdMapping;
+	
 	private Map<HyFeatureAttribute, String> attributeReconfiguratorIdMapping;
 
 	private ReconfiguratorIdMapping reconfiguratorIdMapping;
+	
+	private List<Date> sortedDateList;
 
 	public HyVarRecExporter() {
 		
@@ -222,9 +227,7 @@ public class HyVarRecExporter {
 		}
 
 		// get old configurations
-		if (oldConfiguration != null) {
-			input.setConfiguration(configurationExporter.getExportedConfiguration(oldConfiguration, contextValues));
-		}
+		input.setConfiguration(configurationExporter.getExportedConfiguration(oldConfiguration, contextValues));
 
 		input.setConstraints(new ArrayList<String>());
 
@@ -232,7 +235,7 @@ public class HyVarRecExporter {
 		// sortedDateList.size() is after the last date. 0 is min and max if
 		// there is no date.
 		Context dateContext = null;
-		List<Date> sortedDateList = null;
+		sortedDateList = null;
 		if (date == null) {
 			List<EObject> allModels = new ArrayList<EObject>();
 			allModels.addAll(featureModels);
@@ -273,7 +276,7 @@ public class HyVarRecExporter {
 				}
 			}
 			
-//			input.getConfiguration().getContextValues().add(initDateContext);
+			input.getConfiguration().getContextValues().add(initDateContext);
 			
 			input.setOptionalFeatures(getOptionalFeatureMap(featureModels, sortedDateList));			
 		}
@@ -499,6 +502,7 @@ public class HyVarRecExporter {
 							validUntilId = getDateContextValueForDate(sortedDateList, featureType.getValidUntil());
 						}
 						else {
+//							validUntilId = getDateContextValueForDate(sortedDateList, sortedDateList.get(sortedDateList.size()-1));
 							validUntilId = sortedDateList.size()-1;
 						}
 						
@@ -511,7 +515,7 @@ public class HyVarRecExporter {
 				}
 				
 				if(optionalIntervalList != null) {
-					optionalFeatureMap.put(getFeatureReconfiguratorIdMapping().get(feature), optionalIntervalList);
+					optionalFeatureMap.put(feature.getId(), optionalIntervalList);
 				}
 			}
 		}
@@ -539,6 +543,9 @@ public class HyVarRecExporter {
 		return reconfiguratorIdMapping;
 	}
 	
+	public List<Date> getSortedDateList() {
+		return this.sortedDateList;
+	}
 	
 
 }

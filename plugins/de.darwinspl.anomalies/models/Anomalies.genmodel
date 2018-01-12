@@ -9,10 +9,7 @@
   <foreignModel>Anomalies.ecore</foreignModel>
   <genPackages prefix="DwAnomaly" basePackage="de.darwinspl" disposableProviderFactory="true"
       ecorePackage="Anomalies.ecore#/">
-    <genClasses image="false" ecoreClass="Anomalies.ecore#//DwAnomaly">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Anomalies.ecore#//DwAnomaly/start"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Anomalies.ecore#//DwAnomaly/end"/>
-    </genClasses>
+    <genClasses image="false" ecoreClass="Anomalies.ecore#//DwAnomaly"/>
     <genClasses ecoreClass="Anomalies.ecore#//DwVoidFeatureModelAnomaly">
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Anomalies.ecore#//DwVoidFeatureModelAnomaly/featureModel"/>
     </genClasses>
