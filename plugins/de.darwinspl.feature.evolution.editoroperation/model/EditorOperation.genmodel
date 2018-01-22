@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<genmodel:GenModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore"
+    xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" modelDirectory="/de.darwinspl.feature.evolution.editoroperation/src-gen"
+    editDirectory="/de.darwinspl.feature.evolution.editoroperation.edit/src-gen" editorDirectory="/de.darwinspl.feature.evolution.editoroperation.editor/src-gen"
+    modelPluginID="de.darwinspl.feature.evolution.editoroperation" modelName="EditorOperation"
+    rootExtendsClass="org.eclipse.emf.ecore.impl.MinimalEObjectImpl$Container" testsDirectory="/de.darwinspl.feature.evolution.editoroperation.tests/src-gen"
+    importerID="org.eclipse.emf.importer.ecore" complianceLevel="8.0" copyrightFields="false"
+    usedGenPackages="../../eu.hyvar.feature.constraint/model/Constraint.genmodel#//constraint ../../eu.hyvar.context.information/model/ContextInformation.genmodel#//context ../../eu.hyvar.feature.data/model/DataValues.genmodel#//dataValues ../../eu.hyvar.evolution/model/Evolution.genmodel#//evolution ../../eu.hyvar.feature.expression/model/Expression.genmodel#//expression ../../eu.hyvar.feature/model/Feature.genmodel#//feature"
+    operationReflection="true" importOrganizing="true">
+  <foreignModel>EditorOperation.ecore</foreignModel>
+  <genPackages prefix="Editoroperation" basePackage="de.darwinspl.feature.evolution"
+      disposableProviderFactory="true" ecorePackage="EditorOperation.ecore#/">
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="EditorOperation.ecore#//DwEditorOperationMinMax">
+      <genEnumLiterals ecoreEnumLiteral="EditorOperation.ecore#//DwEditorOperationMinMax/MIN"/>
+      <genEnumLiterals ecoreEnumLiteral="EditorOperation.ecore#//DwEditorOperationMinMax/MAX"/>
+    </genEnums>
+    <genClasses image="false" ecoreClass="EditorOperation.ecore#//DwEditorOperation">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute EditorOperation.ecore#//DwEditorOperation/name"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute EditorOperation.ecore#//DwEditorOperation/evoStep"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="EditorOperation.ecore#//DwEditorOperationFeature">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference EditorOperation.ecore#//DwEditorOperationFeature/feature"/>
+    </genClasses>
+    <genClasses ecoreClass="EditorOperation.ecore#//DwEditorOperationFeatureCreate"/>
+    <genClasses ecoreClass="EditorOperation.ecore#//DwEditorOperationFeatureDelete"/>
+    <genClasses ecoreClass="EditorOperation.ecore#//DwEditorOperationFeatureRename">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference EditorOperation.ecore#//DwEditorOperationFeatureRename/oldName"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference EditorOperation.ecore#//DwEditorOperationFeatureRename/newName"/>
+    </genClasses>
+    <genClasses ecoreClass="EditorOperation.ecore#//DwEditorOperationFeatureType">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference EditorOperation.ecore#//DwEditorOperationFeatureType/oldType"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference EditorOperation.ecore#//DwEditorOperationFeatureType/newType"/>
+    </genClasses>
+    <genClasses ecoreClass="EditorOperation.ecore#//DwEditorOperationFeatureGroup">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference EditorOperation.ecore#//DwEditorOperationFeatureGroup/oldGroup"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference EditorOperation.ecore#//DwEditorOperationFeatureGroup/newGroup"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="EditorOperation.ecore#//DwEditorOperationFeatureVersion">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference EditorOperation.ecore#//DwEditorOperationFeatureVersion/version"/>
+    </genClasses>
+    <genClasses ecoreClass="EditorOperation.ecore#//DwEditorOperationFeatureVersionCreate"/>
+    <genClasses ecoreClass="EditorOperation.ecore#//DwEditorOperationFeatureVersionDelete"/>
+    <genClasses ecoreClass="EditorOperation.ecore#//DwEditorOperationFeatureVersionRename">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference EditorOperation.ecore#//DwEditorOperationFeatureVersionRename/oldName"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference EditorOperation.ecore#//DwEditorOperationFeatureVersionRename/newName"/>
+    </genClasses>
+    <genClasses ecoreClass="EditorOperation.ecore#//DwEditorOperationGroupType">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference EditorOperation.ecore#//DwEditorOperationGroupType/group"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference EditorOperation.ecore#//DwEditorOperationGroupType/oldType"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference EditorOperation.ecore#//DwEditorOperationGroupType/newType"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="EditorOperation.ecore#//DwEditorOperationAttribute">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference EditorOperation.ecore#//DwEditorOperationAttribute/attribute"/>
+    </genClasses>
+    <genClasses ecoreClass="EditorOperation.ecore#//DwEditorOperationAttributeCreate"/>
+    <genClasses ecoreClass="EditorOperation.ecore#//DwEditorOperationAttributeDelete"/>
+    <genClasses ecoreClass="EditorOperation.ecore#//DwEditorOperationAttributeRename">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference EditorOperation.ecore#//DwEditorOperationAttributeRename/oldName"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference EditorOperation.ecore#//DwEditorOperationAttributeRename/newName"/>
+    </genClasses>
+    <genClasses ecoreClass="EditorOperation.ecore#//DwEditorOperationAttributeMinMax">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute EditorOperation.ecore#//DwEditorOperationAttributeMinMax/oldMinMax"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute EditorOperation.ecore#//DwEditorOperationAttributeMinMax/newMinMax"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute EditorOperation.ecore#//DwEditorOperationAttributeMinMax/type"/>
+    </genClasses>
+    <genClasses ecoreClass="EditorOperation.ecore#//DwEditorOperationAttributeEnum">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference EditorOperation.ecore#//DwEditorOperationAttributeEnum/oldEnum"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference EditorOperation.ecore#//DwEditorOperationAttributeEnum/newEnum"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="EditorOperation.ecore#//DwEditorOperationEnum">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference EditorOperation.ecore#//DwEditorOperationEnum/enum"/>
+    </genClasses>
+    <genClasses ecoreClass="EditorOperation.ecore#//DwEditorOperationEnumCreate"/>
+    <genClasses ecoreClass="EditorOperation.ecore#//DwEditorOperationEnumDelete"/>
+    <genClasses ecoreClass="EditorOperation.ecore#//DwEditorOperationEnumRename">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference EditorOperation.ecore#//DwEditorOperationEnumRename/oldName"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference EditorOperation.ecore#//DwEditorOperationEnumRename/newName"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="EditorOperation.ecore#//DwEditorOperationEnumLiteral">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference EditorOperation.ecore#//DwEditorOperationEnumLiteral/literal"/>
+    </genClasses>
+    <genClasses ecoreClass="EditorOperation.ecore#//DwEditorOperationEnumLiteralCreate"/>
+    <genClasses ecoreClass="EditorOperation.ecore#//DwEditorOperationEnumLiteralDelete"/>
+    <genClasses ecoreClass="EditorOperation.ecore#//DwEditorOperationEnumLiteralRename">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference EditorOperation.ecore#//DwEditorOperationEnumLiteralRename/oldName"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference EditorOperation.ecore#//DwEditorOperationEnumLiteralRename/newName"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="EditorOperation.ecore#//DwEditorOperationConstraint">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference EditorOperation.ecore#//DwEditorOperationConstraint/constraint"/>
+    </genClasses>
+    <genClasses ecoreClass="EditorOperation.ecore#//DwEditorOperationConstraintCreate"/>
+    <genClasses ecoreClass="EditorOperation.ecore#//DwEditorOperationConstraintDelete"/>
+    <genClasses image="false" ecoreClass="EditorOperation.ecore#//DwEditorOperationContext">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference EditorOperation.ecore#//DwEditorOperationContext/context"/>
+    </genClasses>
+    <genClasses ecoreClass="EditorOperation.ecore#//DwEditorOperationContextCreate"/>
+    <genClasses ecoreClass="EditorOperation.ecore#//DwEditorOperationContextDelete"/>
+  </genPackages>
+</genmodel:GenModel>
