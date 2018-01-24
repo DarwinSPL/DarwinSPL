@@ -40,16 +40,18 @@ public class DwFeatureAttributeEnumCreateLiteralAction extends DwCommandAction{
 	protected Command createCommand(Object acceptedModel) {
 		HyEnum enumeration = null;
 		
-		if(this.getSelectedObjects().get(0) instanceof DwEnumEditPart)
-			enumeration = (HyEnum)((DwEnumEditPart)this.getSelectedObjects().get(0)).getModel();
+		if(this.getSelectedObjects().get(0) instanceof DwEnumEditPart) {
+			enumeration = (HyEnum)((DwEnumEditPart)this.getSelectedObjects().get(0)).getModel();			
+		}
 		
 		if(this.getSelectedObjects().get(0) instanceof DwEnumLiteralEditPart){
 			HyEnumLiteral literal = (HyEnumLiteral)((DwEnumLiteralEditPart)this.getSelectedObjects().get(0)).getModel();
 			enumeration = literal.getEnum();
 		}
 		
-		if(enumeration == null)
-			return null;
+		if(enumeration == null) {
+			return null;			
+		}
 		
 		return new DwFeatureAttributeEnumCreateLiteralCommand(enumeration, editor);
 	}
