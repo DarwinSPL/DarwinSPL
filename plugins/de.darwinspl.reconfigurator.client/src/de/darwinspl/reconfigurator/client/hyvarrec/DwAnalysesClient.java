@@ -140,6 +140,21 @@ public class DwAnalysesClient {
 		return null;
 	}
 	
+	/**
+	 * False optional and dead features
+	 * @param uriString
+	 * @param contextModel
+	 * @param contextValidityModel
+	 * @param featureModel
+	 * @param constraintModel
+	 * @param contextValues
+	 * @param date
+	 * @return
+	 * @throws TimeoutException
+	 * @throws InterruptedException
+	 * @throws ExecutionException
+	 * @throws UnresolvedAddressException
+	 */
 	public List<DwAnomaly> checkFeatures(String uriString, HyContextModel contextModel, HyValidityModel contextValidityModel,
 			HyFeatureModel featureModel, HyConstraintModel constraintModel, HyContextValueModel contextValues, Date date) throws TimeoutException, InterruptedException, ExecutionException, UnresolvedAddressException {
 		String messageForHyVarRec = createHyVarRecMessage(contextModel, contextValidityModel, featureModel, constraintModel, null, null, contextValues, date, null);
