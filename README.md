@@ -8,7 +8,7 @@ It strongly depends on DeltaEcore (www.deltaecore.org) which is necessary to run
 Prerequisites:
 - Eclipse (e.g. Eclipse for Java and DSL Developers) (Tested with Mars, Neon and Oxygen)
 - EMF Validation Framework (using your ecplise's update site - e.g. for neon: http://download.eclipse.org/releases/neon)
-- EMF Comparison (using your ecplise's update site - e.g. for neon: http://download.eclipse.org/releases/neon)
+- Model Comparison (EMF Compare) (using your ecplise's update site - e.g. for neon: http://download.eclipse.org/releases/neon)
 - DeltaEcore (installation: http://deltaecore.org/?page_id=68 )
 
 Installation:
