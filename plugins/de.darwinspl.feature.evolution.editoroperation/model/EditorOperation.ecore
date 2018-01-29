@@ -24,8 +24,8 @@
         eType="ecore:EClass ../../eu.hyvar.feature/model/Feature.ecore#//HyFeatureType"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="DwEditorOperationFeatureGroup" eSuperTypes="#//DwEditorOperationFeature">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="oldGroup" eType="ecore:EClass ../../eu.hyvar.feature/model/Feature.ecore#//HyGroup"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="newGroup" eType="ecore:EClass ../../eu.hyvar.feature/model/Feature.ecore#//HyGroup"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="oldGroup" eType="ecore:EClass ../../eu.hyvar.feature/model/Feature.ecore#//HyGroupComposition"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="newGroup" eType="ecore:EClass ../../eu.hyvar.feature/model/Feature.ecore#//HyGroupComposition"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="DwEditorOperationFeatureVersion" abstract="true"
       eSuperTypes="#//DwEditorOperationFeature">
@@ -113,4 +113,13 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="DwEditorOperationContextCreate" eSuperTypes="#//DwEditorOperationContext"/>
   <eClassifiers xsi:type="ecore:EClass" name="DwEditorOperationContextDelete" eSuperTypes="#//DwEditorOperationContext"/>
+  <eClassifiers xsi:type="ecore:EClass" name="DwEditorOperationValidityFormula" abstract="true"
+      eSuperTypes="#//DwEditorOperation">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="validityFormula" lowerBound="1"
+        eType="ecore:EClass ../../eu.hyvar.context.validity_formulas/model/ContextValidity.ecore#//HyValidityFormula"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="DwEditorOperationValidityFormulaCreate"
+      eSuperTypes="#//DwEditorOperationValidityFormula"/>
+  <eClassifiers xsi:type="ecore:EClass" name="DwEditorOperationValidityFormulaDelete"
+      eSuperTypes="#//DwEditorOperationValidityFormula"/>
 </ecore:EPackage>

@@ -14,4 +14,12 @@
             genModel="model/EditorOperation.genmodel"/>
    </extension>
 
+   <extension point="org.eclipse.emf.ecore.generated_package">
+      <!-- @generated EditorOperation -->
+      <package
+            uri="http://hyvar-project.eu/context/validity/1.0"
+            class="contextValidity.ContextValidityPackage"
+            genModel="model/EditorOperation.genmodel"/>
+   </extension>
+
 </plugin>

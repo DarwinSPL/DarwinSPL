@@ -48,7 +48,8 @@ Require-Bundle: org.eclipse.ui,
  org.eclipse.emf.common,
  de.darwinspl.solver,
  eu.hyvar.context.information,
- de.darwinspl.variant_generation
+ de.darwinspl.variant_generation,
+ de.darwinspl.feature.evolution.editoroperation;bundle-version="0.1.0"
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Bundle-ActivationPolicy: lazy
 Bundle-Vendor: www.darwinspl.de
