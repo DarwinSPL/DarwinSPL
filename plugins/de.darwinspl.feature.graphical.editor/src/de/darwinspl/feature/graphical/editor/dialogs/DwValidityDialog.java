@@ -50,6 +50,7 @@ public class DwValidityDialog extends DwSelectionDialog {
 						validSince.setText(getDateFormatted(value, DATE_FORMATTING));
 						((HyTemporalElement) element).setValidSince(value);
 
+						//check all validities of this elements HyNames against the new feature validity
 						EList<HyName> namedElements = ((HyNamedElement) element).getNames();
 						for (int index = 0; index <= namedElements.size(); index++) {
 							if (value.after(namedElements.get(index).getValidSince())) {
