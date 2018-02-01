@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ecore:EPackage xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="anomaly" nsURI="http://darwinspl.de/anomaly/1.0" nsPrefix="anomaly">
+  <eClassifiers xsi:type="ecore:EClass" name="DwAnomaly" abstract="true" interface="true"
+      eSuperTypes="../../eu.hyvar.evolution/model/Evolution.ecore#//HyTemporalElement"/>
+  <eClassifiers xsi:type="ecore:EClass" name="DwVoidFeatureModelAnomaly" eSuperTypes="#//DwAnomaly">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="featureModel" lowerBound="1"
+        eType="ecore:EClass ../../eu.hyvar.feature/model/Feature.ecore#//HyFeatureModel"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="DwFeatureAnomaly" abstract="true" interface="true"
+      eSuperTypes="#//DwAnomaly">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="feature" lowerBound="1"
+        eType="ecore:EClass ../../eu.hyvar.feature/model/Feature.ecore#//HyFeature"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="DwFalseOptionalFeatureAnomaly" eSuperTypes="#//DwFeatureAnomaly"/>
+  <eClassifiers xsi:type="ecore:EClass" name="DwDeadFeatureAnomaly" eSuperTypes="#//DwFeatureAnomaly"/>
+</ecore:EPackage>

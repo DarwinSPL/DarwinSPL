@@ -41,15 +41,16 @@ public class DwConfigurationExporter {
 			HyConfiguration oldConfiguration, List<HyContextValueModel> contextValueModels) {
 		eu.hyvar.reconfigurator.input.format.Configuration exportedConfiguration = new eu.hyvar.reconfigurator.input.format.Configuration();
 
-		if (oldConfiguration != null) {
-			exportedConfiguration.setSelectedFeatures(getSelectedFeatureIds(oldConfiguration));
-			exportedConfiguration.setAttributeValues(getFeatureAttributeValues(oldConfiguration));
-		}
+		exportedConfiguration.setSelectedFeatures(getSelectedFeatureIds(oldConfiguration));
+		exportedConfiguration.setAttributeValues(getFeatureAttributeValues(oldConfiguration));
+
+		exportedConfiguration.setContextValues(new ArrayList<eu.hyvar.reconfigurator.input.format.ContextValue>());
 
 		if (contextValueModels != null) {
-			exportedConfiguration.setContextValues(new ArrayList<eu.hyvar.reconfigurator.input.format.ContextValue>());
-			for(HyContextValueModel contextValueModel: contextValueModels) {
-				exportedConfiguration.getContextValues().addAll(getContextValues(contextValueModel));
+			for (HyContextValueModel contextValueModel : contextValueModels) {
+				if(contextValueModel != null) {
+					exportedConfiguration.getContextValues().addAll(getContextValues(contextValueModel));					
+				}
 			}
 		}
 
@@ -109,6 +110,10 @@ public class DwConfigurationExporter {
 
 	private List<String> getSelectedFeatureIds(HyConfiguration oldConfiguration) {
 		List<String> initialFeatureIds = new ArrayList<String>();
+		
+		if(oldConfiguration == null) {
+			return initialFeatureIds;
+		}
 
 		for (HyConfigurationElement configurationElement : oldConfiguration.getElements()) {
 			if (configurationElement instanceof HyFeatureSelected) {
@@ -137,6 +142,10 @@ public class DwConfigurationExporter {
 			HyConfiguration oldConfiguration) {
 		List<eu.hyvar.reconfigurator.input.format.AttributeValue> exportedAttributeValues = new ArrayList<eu.hyvar.reconfigurator.input.format.AttributeValue>();
 
+		if(oldConfiguration == null) {
+			return exportedAttributeValues;
+		}
+		
 		// Check if configuration element is attribute value
 		for (HyConfigurationElement configEle : oldConfiguration.getElements()) {
 			if (configEle instanceof HyAttributeValueAssignment) {

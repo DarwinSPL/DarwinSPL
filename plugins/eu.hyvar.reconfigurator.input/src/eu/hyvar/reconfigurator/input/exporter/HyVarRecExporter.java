@@ -14,6 +14,7 @@ import org.eclipse.emf.ecore.EObject;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
+import de.darwinspl.preferences.DwProfile;
 import eu.hyvar.context.HyContextModel;
 import eu.hyvar.context.HyContextualInformation;
 import eu.hyvar.context.contextValidity.HyValidityModel;
@@ -25,6 +26,8 @@ import eu.hyvar.evolution.util.HyEvolutionUtil;
 import eu.hyvar.feature.HyFeature;
 import eu.hyvar.feature.HyFeatureAttribute;
 import eu.hyvar.feature.HyFeatureModel;
+import eu.hyvar.feature.HyFeatureType;
+import eu.hyvar.feature.HyFeatureTypeEnum;
 import eu.hyvar.feature.HyVersion;
 import eu.hyvar.feature.configuration.HyConfiguration;
 import eu.hyvar.feature.constraint.HyConstraintModel;
@@ -34,7 +37,6 @@ import eu.hyvar.feature.expression.util.HyExpressionStringExporter.BooleanRepres
 import eu.hyvar.feature.expression.util.HyExpressionStringExporter.FeatureSelectionRepresentationOption;
 import eu.hyvar.feature.expression.util.HyExpressionStringExporter.VersionRepresentation;
 import eu.hyvar.feature.util.HyFeatureModelWellFormednessException;
-import de.darwinspl.preferences.DwProfile;
 import eu.hyvar.reconfigurator.input.format.Attribute;
 import eu.hyvar.reconfigurator.input.format.AttributeValue;
 import eu.hyvar.reconfigurator.input.format.Configuration;
@@ -95,16 +97,22 @@ public class HyVarRecExporter {
 
 	public static final String WHITESPACE = " ";
 	
-	public static final String EVOLUTION_CONTEXT_ID = "context[_evolution-context]";
+	public static final String EVOLUTION_CONTEXT_ID_WITHOUT_CONTEXT_WRAPPER = "_evolution-context";
+	public static final String EVOLUTION_CONTEXT_ID = "context["+EVOLUTION_CONTEXT_ID_WITHOUT_CONTEXT_WRAPPER+"]";
 
 //	private HyExpressionStringExporter expressionExporter;
 
 	private Map<HyFeature, String> featureReconfiguratorIdMapping;
+	
 	private Map<HyVersion, String> versionReconfiguratorIdMapping;
+	
 	private Map<HyContextualInformation, String> contextReconfiguratorIdMapping;
+	
 	private Map<HyFeatureAttribute, String> attributeReconfiguratorIdMapping;
 
 	private ReconfiguratorIdMapping reconfiguratorIdMapping;
+	
+	private List<Date> sortedDateList;
 
 	public HyVarRecExporter() {
 		
@@ -219,9 +227,7 @@ public class HyVarRecExporter {
 		}
 
 		// get old configurations
-		if (oldConfiguration != null) {
-			input.setConfiguration(configurationExporter.getExportedConfiguration(oldConfiguration, contextValues));
-		}
+		input.setConfiguration(configurationExporter.getExportedConfiguration(oldConfiguration, contextValues));
 
 		input.setConstraints(new ArrayList<String>());
 
@@ -229,7 +235,7 @@ public class HyVarRecExporter {
 		// sortedDateList.size() is after the last date. 0 is min and max if
 		// there is no date.
 		Context dateContext = null;
-		List<Date> sortedDateList = null;
+		sortedDateList = null;
 		if (date == null) {
 			List<EObject> allModels = new ArrayList<EObject>();
 			allModels.addAll(featureModels);
@@ -244,6 +250,7 @@ public class HyVarRecExporter {
 //			id += EVOLUTION_CONTEXT_ID;
 //			id += ARRAY_BRACKETS_CLOSING;
 			dateContext.setId(EVOLUTION_CONTEXT_ID);
+			input.setTimeContext(EVOLUTION_CONTEXT_ID_WITHOUT_CONTEXT_WRAPPER);
 			dateContext.setMin(-1);
 			dateContext.setMax(sortedDateList.size()-1);
 
@@ -268,8 +275,10 @@ public class HyVarRecExporter {
 					}
 				}
 			}
+			
 			input.getConfiguration().getContextValues().add(initDateContext);
 			
+			input.setOptionalFeatures(getOptionalFeatureMap(featureModels, sortedDateList));			
 		}
 		// -----
 
@@ -463,6 +472,56 @@ public class HyVarRecExporter {
 
 		return -1;
 	}
+	
+	public Map<String, List<List<Integer>>> getOptionalFeatureMap(List<HyFeatureModel> featureModels, List<Date> sortedDateList) {
+		Map<String, List<List<Integer>>> optionalFeatureMap = new HashMap<String, List<List<Integer>>>();
+		
+		for(HyFeatureModel featureModel: featureModels) {
+			for(HyFeature feature: featureModel.getFeatures()) {
+				List<List<Integer>> optionalIntervalList = null;
+				
+				for(HyFeatureType featureType: feature.getTypes()) {
+					if(featureType.getType().equals(HyFeatureTypeEnum.OPTIONAL)) {
+						if(optionalIntervalList == null) {
+							optionalIntervalList = new ArrayList<List<Integer>>();
+						}
+						
+						int validSinceId;
+						
+						if(featureType.getValidSince() != null) {
+							validSinceId = getDateContextValueForDate(sortedDateList, featureType.getValidSince());
+						}
+						else {
+							validSinceId = -1;
+						}
+						
+						
+						int validUntilId;
+						
+						if(featureType.getValidUntil() != null) {
+							validUntilId = getDateContextValueForDate(sortedDateList, featureType.getValidUntil());
+						}
+						else {
+//							validUntilId = getDateContextValueForDate(sortedDateList, sortedDateList.get(sortedDateList.size()-1));
+							validUntilId = sortedDateList.size()-1;
+						}
+						
+						List<Integer> optionalInterval = new ArrayList<Integer>(2);
+						optionalInterval.add(validSinceId);
+						optionalInterval.add(validUntilId);
+						
+						optionalIntervalList.add(optionalInterval);
+					}
+				}
+				
+				if(optionalIntervalList != null) {
+					optionalFeatureMap.put(feature.getId(), optionalIntervalList);
+				}
+			}
+		}
+		
+		return optionalFeatureMap;
+	}
 
 	public Map<HyFeature, String> getFeatureReconfiguratorIdMapping() {
 		return featureReconfiguratorIdMapping;
@@ -484,6 +543,9 @@ public class HyVarRecExporter {
 		return reconfiguratorIdMapping;
 	}
 	
+	public List<Date> getSortedDateList() {
+		return this.sortedDateList;
+	}
 	
 
 }

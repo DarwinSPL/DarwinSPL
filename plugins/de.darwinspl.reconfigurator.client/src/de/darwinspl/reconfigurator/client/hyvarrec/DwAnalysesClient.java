@@ -22,7 +22,10 @@ import org.eclipse.jetty.http.HttpHeader;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
+import de.darwinspl.anomaly.DwAnomaly;
+import de.darwinspl.preferences.DwProfile;
 import de.darwinspl.reconfigurator.client.hyvarrec.format.HyVarRecExplainAnswer;
+import de.darwinspl.reconfigurator.client.hyvarrec.format.check_features.HyVarRecCheckFeaturesAnswer;
 import de.darwinspl.reconfigurator.client.hyvarrec.format.context.HyVarRecValidateAnswer;
 import eu.hyvar.context.HyContextModel;
 import eu.hyvar.context.HyContextualInformation;
@@ -75,6 +78,7 @@ public class DwAnalysesClient {
 	protected static final String RECONFIGURATION_URI = "process";
 	protected static final String VALIDATE_CONTEXT_URI = "validate";
 	protected static final String VALIDATE_FM_URI = "explain";
+	protected static final String CHECK_FEATURES_URI = "check_features";
 	
 	protected HyVarRecExporter exporter;
 	
@@ -158,6 +162,37 @@ public class DwAnalysesClient {
 		}
 		
 		return null;
+	}
+	
+	/**
+	 * False optional and dead features
+	 * @param uriString
+	 * @param contextModel
+	 * @param contextValidityModel
+	 * @param featureModel
+	 * @param constraintModel
+	 * @param contextValues
+	 * @param date
+	 * @return
+	 * @throws TimeoutException
+	 * @throws InterruptedException
+	 * @throws ExecutionException
+	 * @throws UnresolvedAddressException
+	 */
+	public List<DwAnomaly> checkFeatures(String uriString, HyContextModel contextModel, HyValidityModel contextValidityModel,
+			HyFeatureModel featureModel, HyConstraintModel constraintModel, HyContextValueModel contextValues, Date date) throws TimeoutException, InterruptedException, ExecutionException, UnresolvedAddressException {
+		String messageForHyVarRec = createHyVarRecMessage(contextModel, contextValidityModel, featureModel, constraintModel, null, null, contextValues, date, null);
+		System.err.println(messageForHyVarRec);
+		
+		
+		URI uri = createUriWithPath(uriString, CHECK_FEATURES_URI);
+		
+		String hyvarrecAnswerString = sendMessageToHyVarRec(messageForHyVarRec, uri);
+		System.err.println(hyvarrecAnswerString);
+		
+		HyVarRecCheckFeaturesAnswer hyVarRecAnswer = gson.fromJson(hyvarrecAnswerString, HyVarRecCheckFeaturesAnswer.class);
+		
+		return DwAnomalyTranslation.translateAnomalies(hyVarRecAnswer, exporter.getFeatureReconfiguratorIdMapping(), exporter.getSortedDateList());
 	}
 	
 	protected List<String> translateIdsBackToNames(List<String> constraints, Date date, HyVarRecExporter hyVarRecExporter) {
