@@ -4,8 +4,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import org.eclipse.emf.common.util.EList;
-
+import de.darwinspl.anomaly.DwAnomaly;
 import de.darwinspl.feature.evolution.editoroperation.DwEditorOperation;
 import de.darwinspl.feature.evolution.editoroperation.DwEditorOperationConstraint;
 import de.darwinspl.feature.evolution.editoroperation.DwEditorOperationContext;
@@ -233,7 +232,7 @@ public class DwEditorOperationAnalyzer {
 		}
 	}
 	
-	public List<String> processAnomaly(HyVarRecExplainAnswer hyVarRecAnswer, HyVarRecExporter exporter) {
+	public List<String> processVoidAnomaly(HyVarRecExplainAnswer hyVarRecAnswer, HyVarRecExporter exporter) {
 		// TODO
 		
 		// Possible ideas:
@@ -243,6 +242,12 @@ public class DwEditorOperationAnalyzer {
 		
 		// 2. - 
 		return client.translateIdsBackToNames(hyVarRecAnswer.getConstraints(), date, exporter);
+	}
+	
+	public void processFeatureAnomaly(List<DwAnomaly> anomalies) {
+		// TODO
+		
+		
 	}
 	
 

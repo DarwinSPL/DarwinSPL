@@ -32,7 +32,6 @@ import eu.hyvar.context.HyContextualInformation;
 import eu.hyvar.context.HyContextualInformationBoolean;
 import eu.hyvar.context.HyContextualInformationEnum;
 import eu.hyvar.context.HyContextualInformationNumber;
-import eu.hyvar.context.contextValidity.HyValidityFormula;
 import eu.hyvar.context.contextValidity.HyValidityModel;
 import eu.hyvar.context.information.contextValue.ContextValueFactory;
 import eu.hyvar.context.information.contextValue.HyContextValue;
@@ -49,22 +48,9 @@ import eu.hyvar.evolution.util.HyEvolutionUtil;
 import eu.hyvar.feature.HyFeature;
 import eu.hyvar.feature.HyFeatureAttribute;
 import eu.hyvar.feature.HyFeatureModel;
-import eu.hyvar.feature.HyFeatureType;
-import eu.hyvar.feature.HyGroup;
-import eu.hyvar.feature.HyGroupComposition;
-import eu.hyvar.feature.HyGroupType;
 import eu.hyvar.feature.HyVersion;
 import eu.hyvar.feature.configuration.HyConfiguration;
-import eu.hyvar.feature.constraint.HyConstraint;
 import eu.hyvar.feature.constraint.HyConstraintModel;
-import de.darwinspl.feature.evolution.editoroperation.DwEditorOperation;
-import de.darwinspl.feature.evolution.editoroperation.DwEditorOperationFeature;
-import de.darwinspl.feature.evolution.editoroperation.DwEditorOperationFeatureCreate;
-import de.darwinspl.feature.evolution.editoroperation.DwEditorOperationFeatureDelete;
-import de.darwinspl.feature.evolution.editoroperation.DwEditorOperationFeatureRename;
-import de.darwinspl.feature.evolution.editoroperation.DwEditorOperationFeatureType;
-import de.darwinspl.feature.evolution.editoroperation.EditoroperationFactory;
-import de.darwinspl.preferences.DwProfile;
 import eu.hyvar.reconfigurator.input.exporter.HyVarRecExporter;
 import eu.hyvar.reconfigurator.output.translation.HyVarRecOutputTranslator;
 import eu.hyvar.reconfigurator.output.translation.format.OutputOfHyVarRec;
@@ -152,7 +138,7 @@ public class DwAnalysesClient {
 		if (hyVarRecAnswer.getResult().equals("sat")) {
 			return null;
 		} else if (hyVarRecAnswer.getResult().equals("unsat")) {
-			List<String> parsedConstraints = editorOperationAnalyzer.processAnomaly(hyVarRecAnswer, exporter);
+			List<String> parsedConstraints = editorOperationAnalyzer.processVoidAnomaly(hyVarRecAnswer, exporter);
 			
 			if(parsedConstraints == null) {
 				parsedConstraints = hyVarRecAnswer.getConstraints();
@@ -183,7 +169,15 @@ public class DwAnalysesClient {
 			HyFeatureModel featureModel, HyConstraintModel constraintModel, HyContextValueModel contextValues, Date date) throws TimeoutException, InterruptedException, ExecutionException, UnresolvedAddressException {
 		String messageForHyVarRec = createHyVarRecMessage(contextModel, contextValidityModel, featureModel, constraintModel, null, null, contextValues, date, null);
 		System.err.println(messageForHyVarRec);
-		
+
+		DwEditorOperationAnalyzer editorOperationAnalyzer = new DwEditorOperationAnalyzer(this);
+		editorOperationAnalyzer.setContextModel(contextModel);
+		editorOperationAnalyzer.setContextValidityModel(contextValidityModel);
+		editorOperationAnalyzer.setFeatureModel(featureModel);
+		editorOperationAnalyzer.setConstraintModel(constraintModel);
+		editorOperationAnalyzer.setContextValues(contextValues);
+		editorOperationAnalyzer.setDate(date);
+		editorOperationAnalyzer.constructEditorOperations();
 		
 		URI uri = createUriWithPath(uriString, CHECK_FEATURES_URI);
 		
@@ -192,7 +186,10 @@ public class DwAnalysesClient {
 		
 		HyVarRecCheckFeaturesAnswer hyVarRecAnswer = gson.fromJson(hyvarrecAnswerString, HyVarRecCheckFeaturesAnswer.class);
 		
-		return DwAnomalyTranslation.translateAnomalies(hyVarRecAnswer, exporter.getFeatureReconfiguratorIdMapping(), exporter.getSortedDateList());
+		List<DwAnomaly> anomalies = DwAnomalyTranslation.translateAnomalies(hyVarRecAnswer, exporter.getFeatureReconfiguratorIdMapping(), exporter.getSortedDateList());
+		editorOperationAnalyzer.processFeatureAnomaly(anomalies);
+		
+		return anomalies;
 	}
 	
 	protected List<String> translateIdsBackToNames(List<String> constraints, Date date, HyVarRecExporter hyVarRecExporter) {
