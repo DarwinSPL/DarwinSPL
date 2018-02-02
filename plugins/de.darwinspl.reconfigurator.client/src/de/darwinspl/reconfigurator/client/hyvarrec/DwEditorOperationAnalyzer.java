@@ -5,6 +5,9 @@ import java.util.Date;
 import java.util.List;
 
 import de.darwinspl.anomaly.DwAnomaly;
+import de.darwinspl.anomaly.DwDeadFeatureAnomaly;
+import de.darwinspl.anomaly.DwFalseOptionalFeatureAnomaly;
+import de.darwinspl.anomaly.DwVoidFeatureModelAnomaly;
 import de.darwinspl.feature.evolution.editoroperation.DwEditorOperation;
 import de.darwinspl.feature.evolution.editoroperation.DwEditorOperationConstraint;
 import de.darwinspl.feature.evolution.editoroperation.DwEditorOperationContext;
@@ -26,11 +29,13 @@ import eu.hyvar.dataValues.HyEnum;
 import eu.hyvar.dataValues.HyEnumLiteral;
 import eu.hyvar.evolution.HyName;
 import eu.hyvar.feature.HyFeature;
+import eu.hyvar.feature.HyFeatureChild;
 import eu.hyvar.feature.HyFeatureModel;
 import eu.hyvar.feature.HyFeatureType;
 import eu.hyvar.feature.HyGroup;
 import eu.hyvar.feature.HyGroupComposition;
 import eu.hyvar.feature.HyGroupType;
+import eu.hyvar.feature.HyGroupTypeEnum;
 import eu.hyvar.feature.HyVersion;
 import eu.hyvar.feature.constraint.HyConstraint;
 import eu.hyvar.feature.constraint.HyConstraintModel;
@@ -240,16 +245,91 @@ public class DwEditorOperationAnalyzer {
 		//    - check whether such constraint occurs in the answer
 		//    - check whether certain conditions are fulfilled for a given anomaly
 		
-		// 2. - 
 		return client.translateIdsBackToNames(hyVarRecAnswer.getConstraints(), date, exporter);
 	}
-	
+
+	// TODO
 	public void processFeatureAnomaly(List<DwAnomaly> anomalies) {
-		// TODO
+		List<HyFeature> deadFeatureList = getDeadFeatures(anomalies);
+		List<HyFeature> falseOptionalList = getFalseOptionalFeatures(anomalies);
 		
+		for (DwAnomaly anomaly : anomalies) {
+			if (anomaly instanceof DwVoidFeatureModelAnomaly) {
+				DwVoidFeatureModelAnomaly voidFeatureAnomaly = (DwVoidFeatureModelAnomaly) anomaly;
+			} else if (anomaly instanceof DwDeadFeatureAnomaly){
+				DwDeadFeatureAnomaly deadFeatureAnomaly = (DwDeadFeatureAnomaly) anomaly;
+				processDeadFeatureAnomaly(deadFeatureAnomaly, deadFeatureList, falseOptionalList);
+			} else if (anomaly instanceof DwFalseOptionalFeatureAnomaly) {
+				DwFalseOptionalFeatureAnomaly falseOptionalFeatureAnomaly = (DwFalseOptionalFeatureAnomaly) anomaly;
+			}
+		}
 		
 	}
 	
+	// PROOF OF CONCEPT
+	public void processDeadFeatureAnomaly(DwDeadFeatureAnomaly anomaly, List<HyFeature> deadFeatures, List<HyFeature> falseOptionalFeatures) {
+		
+		// Root != FeatureChild
+		if (anomaly.getFeature() instanceof HyFeatureChild) {
+			HyFeatureChild featureChild = (HyFeatureChild) anomaly.getFeature();
+			
+			// check whether the parent is already dead
+			HyFeature parent = featureChild.getParent();			
+			if (deadFeatures.contains(parent)) {
+				// IGNORE as the parent is the one we have already handled or handle later
+				System.out.println("Feature " + featureChild.getId() + " is a dead feature, because of its already-dead parent!");
+				return;
+			}
+			
+			// check whether it's the result of the false-optional group
+			HyGroup featureGroup = featureChild.getChildGroup();
+			for (HyGroupType groupType : featureGroup.getTypes()) {
+				// TODO: check whether this is the groupType of the anomaly
+				
+				// assume for now that it is
+				if (groupType.getType() == HyGroupTypeEnum.ALTERNATIVE) {
+					
+					// iterate through the other alternate group members to check whether one is false optional
+					for (HyFeatureChild otherFeature : featureGroup.getChildOf()) {
+						if (falseOptionalFeatures.contains(otherFeature)) {
+							HyFeature falseOptionalFeature = falseOptionalFeatures.get(0); // TODO: getFalseOptionalFeature()
+							System.out.println("Feature " + featureChild.getId() + " is a dead feature, because it's in an ALTERNATIVE group with the false-optional feature " + falseOptionalFeature.getId());
+
+							// now we know that this feature is only considered a dead-feature because of the false-optional feature
+							// do we have an explanation here for the cause of _why_ it is false optional (which is the root of this)
+							// or do we simply wait/forward to the false-optional explanation?
+							
+							return;
+						}
+					}
+				}
+			}
+		}
+		
+		// if not: it is caused by a constraint.
+		
+		// TODO: search the constraints for this cause		
+	}
+	
+	protected List<HyFeature> getDeadFeatures(List<DwAnomaly> anomalies) {
+		List<HyFeature> deadFeatures = new ArrayList<HyFeature>();
+		for (DwAnomaly anomaly : anomalies) {
+			if (anomaly instanceof DwDeadFeatureAnomaly) {
+				deadFeatures.add(((DwDeadFeatureAnomaly) anomaly).getFeature());
+			}
+		}
+		return deadFeatures;
+	}
+	
+	protected List<HyFeature> getFalseOptionalFeatures(List<DwAnomaly> anomalies) {
+		List<HyFeature> falseOptionalFeatures = new ArrayList<HyFeature>();
+		for (DwAnomaly anomaly : anomalies) {
+			if (anomaly instanceof DwFalseOptionalFeatureAnomaly) {
+				falseOptionalFeatures.add(((DwFalseOptionalFeatureAnomaly) anomaly).getFeature());
+			}
+		}
+		return falseOptionalFeatures;
+	}	
 
 	public HyContextModel getContextModel() {
 		return contextModel;
