@@ -12,6 +12,8 @@ Export-Package: de.darwinspl.anomaly,
  de.darwinspl.anomaly.util
 Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.emf.ecore;visibility:=reexport,
+ eu.hyvar.context.information;visibility:=reexport,
+ eu.hyvar.context.information.value;visibility:=reexport,
  eu.hyvar.feature.data;visibility:=reexport,
  eu.hyvar.evolution;visibility:=reexport,
  eu.hyvar.feature;visibility:=reexport

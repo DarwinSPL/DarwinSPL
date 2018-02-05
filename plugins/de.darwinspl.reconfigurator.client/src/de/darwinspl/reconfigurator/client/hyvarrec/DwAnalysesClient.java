@@ -23,6 +23,8 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 import de.darwinspl.anomaly.DwAnomaly;
+import de.darwinspl.anomaly.DwAnomalyFactory;
+import de.darwinspl.anomaly.DwVoidFeatureModelAnomaly;
 import de.darwinspl.preferences.DwProfile;
 import de.darwinspl.reconfigurator.client.hyvarrec.format.HyVarRecExplainAnswer;
 import de.darwinspl.reconfigurator.client.hyvarrec.format.check_features.HyVarRecCheckFeaturesAnswer;
@@ -278,9 +280,9 @@ public class DwAnalysesClient {
 	 * @param profile
 	 * @param contextValues
 	 * @param date
-	 * @return Context values for which the model is not satisfiable. Null if satisfiable
+	 * @return Void feature model anomaly with context values. Null if no anomaly
 	 */
-	public DwContextValueEvolutionWrapper validateFeatureModelWithContext(String uriString, HyContextModel contextModel, HyValidityModel contextValidityModel,
+	public DwVoidFeatureModelAnomaly validateFeatureModelWithContext(String uriString, HyContextModel contextModel, HyValidityModel contextValidityModel,
 			HyFeatureModel featureModel, HyConstraintModel constraintModel, HyConfiguration oldConfiguration,
 			DwProfile profile, HyContextValueModel contextValues, Date date) throws TimeoutException, InterruptedException, ExecutionException, UnresolvedAddressException, HyVarRecNoSolutionException {
 		
@@ -301,10 +303,13 @@ public class DwAnalysesClient {
 			return null;
 		}
 		
-		DwContextValueEvolutionWrapper contextValueEvolutionWrapper = new DwContextValueEvolutionWrapper();
+		
+		DwVoidFeatureModelAnomaly voidFeatureAnomaly = DwAnomalyFactory.eINSTANCE.createDwVoidFeatureModelAnomaly();
+		
+		
 		
 		HyContextValueModel contextValueModel = ContextValueFactory.eINSTANCE.createHyContextValueModel();
-		contextValueEvolutionWrapper.setContextValueModel(contextValueModel);
+		voidFeatureAnomaly.setContextValueModel(contextValueModel);
 		
 		if(hyVarRecAnswer.getContexts() != null) {
 			// TODO inconsistency. In the requests for HyVarRec it's always written context[id] and in the answer its just id
@@ -323,7 +328,8 @@ public class DwAnalysesClient {
 				
 				
 				if(contextId.equals(evolutionId)) {
-					contextValueEvolutionWrapper.setDate(getDateOutOfEvolutionContext(context, value, contextModel, contextValidityModel, featureModel, constraintModel, profile));										
+					Date anomalyDate = getDateOutOfEvolutionContext(context, value, contextModel, contextValidityModel, featureModel, constraintModel, profile);
+					voidFeatureAnomaly.setValidSince(anomalyDate);
 					continue;
 				}
 				
@@ -381,7 +387,7 @@ public class DwAnalysesClient {
 			}
 		}
 		
-		return contextValueEvolutionWrapper;
+		return voidFeatureAnomaly;
 	}
 	
 	private Date getDateOutOfEvolutionContext(de.darwinspl.reconfigurator.client.hyvarrec.format.context.Context dateContext, int valueForDateContext, HyContextModel contextModel, HyValidityModel contextValidityModel,

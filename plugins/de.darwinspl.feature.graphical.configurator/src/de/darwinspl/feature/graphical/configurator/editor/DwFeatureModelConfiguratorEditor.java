@@ -43,6 +43,7 @@ import org.eclipse.ui.part.FileEditorInput;
 
 import de.christophseidl.util.ecore.EcoreIOUtil;
 import de.darwinspl.anomaly.DwAnomaly;
+import de.darwinspl.anomaly.DwVoidFeatureModelAnomaly;
 import de.darwinspl.feature.graphical.configurator.composites.DwSelectedConfigurationComposite;
 import de.darwinspl.feature.graphical.configurator.dialogs.DwAnomalyExplanationDialog;
 import de.darwinspl.feature.graphical.configurator.dialogs.DwContextInformationDialog;
@@ -518,12 +519,12 @@ public class DwFeatureModelConfiguratorEditor extends DwFeatureModelConfigurator
 			
 			try {
 				if (e.getSource() == validateContextButton) {
-					DwContextValueEvolutionWrapper contextValueEvolutionWrapper = client.validateFeatureModelWithContext(uri, contextModel,
+					DwVoidFeatureModelAnomaly anomaly = client.validateFeatureModelWithContext(uri, contextModel,
 							validityModel, modelWrapped.getModel(), constraintModel, selectedConfiguration, profile,
 							contextValueModel, modelWrapped.getSelectedDate());
 					
 					DwInvalidContextInfoDialog contextInfoDialog = new DwInvalidContextInfoDialog(
-							getEditorSite().getShell(), contextValueEvolutionWrapper);
+							getEditorSite().getShell(), anomaly);
 					contextInfoDialog.open();
 				} else if (e.getSource() == simulateButton) {
 					HyConfiguration configuration;
@@ -564,12 +565,12 @@ public class DwFeatureModelConfiguratorEditor extends DwFeatureModelConfigurator
 				} else if (e.getSource() == validateWithEvolutionButton) {
 					// Show date
 					
-					DwContextValueEvolutionWrapper notSatisfiableContextValues = client.validateFeatureModelWithContext(uri,
+					DwVoidFeatureModelAnomaly voidFeatureModelAnomaly = client.validateFeatureModelWithContext(uri,
 							contextModel, validityModel, modelWrapped.getModel(), constraintModel,
 							selectedConfiguration, profile, contextValueModel, null);
 					
 					DwInvalidContextInfoDialog contextInfoDialog = new DwInvalidContextInfoDialog(
-							getEditorSite().getShell(), notSatisfiableContextValues);
+							getEditorSite().getShell(), voidFeatureModelAnomaly);
 					
 					contextInfoDialog.open();
 				}

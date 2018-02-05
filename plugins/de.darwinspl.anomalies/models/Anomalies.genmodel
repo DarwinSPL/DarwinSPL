@@ -4,7 +4,7 @@
     editorDirectory="/de.darwinspl.anomalies.editor/src-gen" modelPluginID="de.darwinspl.anomalies"
     modelName="Anomalies" rootExtendsClass="org.eclipse.emf.ecore.impl.MinimalEObjectImpl$Container"
     testsDirectory="/de.darwinspl.anomalies.tests/src-gen" importerID="org.eclipse.emf.importer.ecore"
-    complianceLevel="7.0" copyrightFields="false" usedGenPackages="../../eu.hyvar.feature.data/model/DataValues.genmodel#//dataValues ../../eu.hyvar.evolution/model/Evolution.genmodel#//evolution ../../eu.hyvar.feature/model/Feature.genmodel#//feature"
+    complianceLevel="7.0" copyrightFields="false" usedGenPackages="../../eu.hyvar.context.information/model/ContextInformation.genmodel#//context ../../eu.hyvar.context.information.value/model/ContextValue.genmodel#//contextValue ../../eu.hyvar.feature.data/model/DataValues.genmodel#//dataValues ../../eu.hyvar.evolution/model/Evolution.genmodel#//evolution ../../eu.hyvar.feature/model/Feature.genmodel#//feature"
     operationReflection="true" importOrganizing="true">
   <foreignModel>Anomalies.ecore</foreignModel>
   <genPackages prefix="DwAnomaly" basePackage="de.darwinspl" disposableProviderFactory="true"
@@ -12,6 +12,7 @@
     <genClasses image="false" ecoreClass="Anomalies.ecore#//DwAnomaly"/>
     <genClasses ecoreClass="Anomalies.ecore#//DwVoidFeatureModelAnomaly">
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Anomalies.ecore#//DwVoidFeatureModelAnomaly/featureModel"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Anomalies.ecore#//DwVoidFeatureModelAnomaly/contextValueModel"/>
     </genClasses>
     <genClasses image="false" ecoreClass="Anomalies.ecore#//DwFeatureAnomaly">
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Anomalies.ecore#//DwFeatureAnomaly/feature"/>
