@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+
+<!--
+-->
+
+<plugin>
+
+   <extension point="org.eclipse.emf.ecore.generated_package">
+      <!-- @generated Explanation -->
+      <package
+            uri="http://darwinspl.de/explanation/1.0"
+            class="de.darwinspl.anomaly.explanation.DwExplanationPackage"
+            genModel="model/Explanation.genmodel"/>
+   </extension>
+
+</plugin>

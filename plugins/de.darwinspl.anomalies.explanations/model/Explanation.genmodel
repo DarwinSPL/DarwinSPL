@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<genmodel:GenModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore"
+    xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" modelDirectory="/de.darwinspl.anomalies.explanations/src-gen" editDirectory="/de.darwinspl.anomalies.explanations.edit/src-gen"
+    editorDirectory="/de.darwinspl.anomalies.explanations.editor/src-gen" modelPluginID="de.darwinspl.anomalies.explanations"
+    modelName="Explanation" rootExtendsClass="org.eclipse.emf.ecore.impl.MinimalEObjectImpl$Container"
+    testsDirectory="/de.darwinspl.anomalies.explanations.tests/src-gen" importerID="org.eclipse.emf.importer.ecore"
+    complianceLevel="7.0" copyrightFields="false" usedGenPackages="../../de.darwinspl.anomalies/models/Anomalies.genmodel#//anomaly ../../eu.hyvar.feature.data/model/DataValues.genmodel#//dataValues ../../eu.hyvar.evolution/model/Evolution.genmodel#//evolution ../../eu.hyvar.feature/model/Feature.genmodel#//feature"
+    operationReflection="true" importOrganizing="true">
+  <foreignModel>Explanation.ecore</foreignModel>
+  <genPackages prefix="DwExplanation" basePackage="de.darwinspl.anomaly" disposableProviderFactory="true"
+      ecorePackage="Explanation.ecore#/">
+    <genClasses ecoreClass="Explanation.ecore#//DwExplanation">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Explanation.ecore#//DwExplanation/anomaly"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Explanation.ecore#//DwExplanation/explanations"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Explanation.ecore#//DwExplanation/date"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Explanation.ecore#//DwExplanation/involvedElements"/>
+    </genClasses>
+  </genPackages>
+</genmodel:GenModel>
