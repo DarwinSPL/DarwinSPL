@@ -17,10 +17,20 @@ import com.google.gson.GsonBuilder;
 import de.darwinspl.preferences.DwProfile;
 import eu.hyvar.context.HyContextModel;
 import eu.hyvar.context.HyContextualInformation;
+import eu.hyvar.context.HyContextualInformationBoolean;
+import eu.hyvar.context.HyContextualInformationEnum;
+import eu.hyvar.context.HyContextualInformationNumber;
 import eu.hyvar.context.contextValidity.HyValidityModel;
+import eu.hyvar.context.information.contextValue.ContextValueFactory;
+import eu.hyvar.context.information.contextValue.HyContextValue;
 import eu.hyvar.context.information.contextValue.HyContextValueModel;
+import eu.hyvar.dataValues.HyBooleanValue;
+import eu.hyvar.dataValues.HyDataValuesFactory;
 import eu.hyvar.dataValues.HyEnum;
 import eu.hyvar.dataValues.HyEnumLiteral;
+import eu.hyvar.dataValues.HyEnumValue;
+import eu.hyvar.dataValues.HyNumberValue;
+import eu.hyvar.dataValues.HyValue;
 import eu.hyvar.evolution.HyTemporalElement;
 import eu.hyvar.evolution.util.HyEvolutionUtil;
 import eu.hyvar.feature.HyFeature;
@@ -195,9 +205,10 @@ public class HyVarRecExporter {
 		}
 
 		DwConfigurationExporter configurationExporter = new DwConfigurationExporter(featureReconfiguratorIdMapping,
-				versionReconfiguratorIdMapping, contextReconfiguratorIdMapping, attributeReconfiguratorIdMapping);
+				versionReconfiguratorIdMapping, attributeReconfiguratorIdMapping);
 		
 		DwContextExporter contextExporter = new DwContextExporter(contextReconfiguratorIdMapping);
+		DwContextValueExporter contextValueExporter = new DwContextValueExporter(contextReconfiguratorIdMapping);
 
 		HyExpressionStringExporter expressionExporter = new HyExpressionStringExporter(reconfiguratorIdMapping.getFeatureIdMapping(),
 				reconfiguratorIdMapping.getVersionIdMapping(), reconfiguratorIdMapping.getAttributeIdMapping(),
@@ -210,6 +221,7 @@ public class HyVarRecExporter {
 
 		InputForHyVarRec input = new InputForHyVarRec();
 		initializeEmptyHyVarRecInput(input);
+		input.setConstraints(new ArrayList<String>());
 
 		// gson = new Gson();
 		gson = new GsonBuilder().disableHtmlEscaping().create();
@@ -222,8 +234,10 @@ public class HyVarRecExporter {
 		
 		// collect contexts
 		input.setContexts(new ArrayList<Context>());
-		for(HyContextModel contextModel: contextModels) {
-			input.getContexts().addAll(contextExporter.getExportedContexts(contextModel, date));
+		if(contextModels != null) {
+			for(HyContextModel contextModel: contextModels) {
+				input.getContexts().addAll(contextExporter.getExportedContexts(contextModel, date));
+			}
 		}
 
 		eu.hyvar.reconfigurator.input.format.Configuration hyVarRecConfig = new eu.hyvar.reconfigurator.input.format.Configuration();
@@ -233,15 +247,13 @@ public class HyVarRecExporter {
 		
 		if (oldConfiguration != null) {
 			hyVarRecConfig.setSelectedFeatures(configurationExporter.getSelectedFeatureIds(oldConfiguration));
+			hyVarRecConfig.setAttributeValues(configurationExporter.getFeatureAttributeValues(oldConfiguration));
 		}
 		
 		if(contextValues != null) {			
-			for(HyContextValueModel contextValueModel: contextValues) {
-				hyVarRecConfig.getContextValues().addAll((configurationExporter.getContextValues(contextValueModel)));
-			}
+			hyVarRecConfig.getContextValues().addAll((contextValueExporter.getContextValuesWithValuesForContextsWithoutValues(contextValues, contextModels)));
 		}
 
-		input.setConstraints(new ArrayList<String>());
 
 		// Encode evolution as context: 0 is before the first date,
 		// sortedDateList.size() is after the last date. 0 is min and max if
