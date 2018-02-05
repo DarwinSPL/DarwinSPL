@@ -43,11 +43,13 @@ public class DwContextValueExporter {
 
 		if (contextValueModels != null) {
 			for (HyContextValueModel contextValueModel : contextValueModels) {
-				for (HyContextValue contextValue : contextValueModel.getValues()) {
-					
-					contextsWithoutValues.remove(contextValue.getContext());
-					
-					exportedContextValues.add(getContextValue(contextValue));
+				if(contextValueModel != null && contextValueModel.getValues() != null) {
+					for (HyContextValue contextValue : contextValueModel.getValues()) {
+						
+						contextsWithoutValues.remove(contextValue.getContext());
+						
+						exportedContextValues.add(getContextValue(contextValue));
+					}					
 				}
 			}
 		}

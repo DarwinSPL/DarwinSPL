@@ -24,7 +24,11 @@ import com.google.gson.GsonBuilder;
 
 import de.darwinspl.anomaly.DwAnomaly;
 import de.darwinspl.anomaly.DwAnomalyFactory;
+import de.darwinspl.anomaly.DwDeadFeatureAnomaly;
+import de.darwinspl.anomaly.DwFalseOptionalFeatureAnomaly;
 import de.darwinspl.anomaly.DwVoidFeatureModelAnomaly;
+import de.darwinspl.anomaly.explanation.DwAnomalyExplanation;
+import de.darwinspl.anomaly.explanation.DwAnomalyExplanationFactory;
 import de.darwinspl.preferences.DwProfile;
 import de.darwinspl.reconfigurator.client.hyvarrec.format.HyVarRecExplainAnswer;
 import de.darwinspl.reconfigurator.client.hyvarrec.format.check_features.HyVarRecCheckFeaturesAnswer;
@@ -54,6 +58,7 @@ import eu.hyvar.feature.HyVersion;
 import eu.hyvar.feature.configuration.HyConfiguration;
 import eu.hyvar.feature.constraint.HyConstraintModel;
 import eu.hyvar.reconfigurator.input.exporter.HyVarRecExporter;
+import eu.hyvar.reconfigurator.input.format.InputForHyVarRec;
 import eu.hyvar.reconfigurator.output.translation.HyVarRecOutputTranslator;
 import eu.hyvar.reconfigurator.output.translation.format.OutputOfHyVarRec;
 
@@ -143,6 +148,83 @@ public class DwAnalysesClient {
 	}
 	
 	/**
+	 * 
+	 * @param uriString
+	 * @param contextModel
+	 * @param contextValidityModel
+	 * @param featureModel
+	 * @param constraintModel
+	 * @param oldConfiguration
+	 * @param preferenceModel
+	 * @param anomaly
+	 * @return
+	 * @throws TimeoutException
+	 * @throws InterruptedException
+	 * @throws ExecutionException
+	 * @throws UnresolvedAddressException
+	 */
+	public DwAnomalyExplanation explainAnomaly(String uriString, HyContextModel contextModel, HyValidityModel contextValidityModel,
+			HyFeatureModel featureModel, HyConstraintModel constraintModel, DwAnomaly anomaly) throws TimeoutException, InterruptedException, ExecutionException, UnresolvedAddressException {
+		
+		HyContextValueModel contextValueModel = null;
+		String additionalAnomalyConstraint = null;
+		
+		if(anomaly instanceof DwVoidFeatureModelAnomaly) {
+			contextValueModel = ((DwVoidFeatureModelAnomaly) anomaly).getContextValueModel();
+		}
+		else {
+			// Create constraint enforcing the anomaly to cause a void feature model anomaly -> unsatisfiable constraints are the explanation for anomaly.
+			additionalAnomalyConstraint = "feature[";
+			additionalAnomalyConstraint = additionalAnomalyConstraint + ((DwFalseOptionalFeatureAnomaly)anomaly).getFeature().getId();
+			additionalAnomalyConstraint = additionalAnomalyConstraint + "] = ";
+			
+			if(anomaly instanceof DwFalseOptionalFeatureAnomaly) {
+				additionalAnomalyConstraint = additionalAnomalyConstraint + "0";
+			}
+			else if(anomaly instanceof DwDeadFeatureAnomaly) {
+				additionalAnomalyConstraint = additionalAnomalyConstraint + "1";
+			}
+		}
+		
+		InputForHyVarRec inputForHyVarRec = exporter.createInputForHyVarRec(contextModel, contextValidityModel, featureModel, constraintModel, null, null, contextValueModel, anomaly.getValidSince(), anomaly.getValidSince());
+		URI uri = createUriWithPath(uriString, VALIDATE_FM_URI);
+		
+		if(additionalAnomalyConstraint != null) {
+			inputForHyVarRec.getConstraints().add(additionalAnomalyConstraint);
+		}
+		
+		Gson gson = new GsonBuilder().disableHtmlEscaping().create();
+		String messageForHyVarRec = gson.toJson(inputForHyVarRec);
+		
+		String hyvarrecAnswerString = sendMessageToHyVarRec(messageForHyVarRec, uri);
+		
+		HyVarRecExplainAnswer hyVarRecAnswer = gson.fromJson(hyvarrecAnswerString, HyVarRecExplainAnswer.class);
+		
+		
+		
+		if(hyVarRecAnswer.getResult().equals("sat")) {
+			return null;
+		}else if(hyVarRecAnswer.getResult().equals("unsat")) {
+			// TODO here a more sophisticated explanation engine could be possible.
+			DwAnomalyExplanation anomalyExplanation = DwAnomalyExplanationFactory.eINSTANCE.createDwAnomalyExplanation();
+			anomalyExplanation.setAnomaly(anomaly);
+			anomalyExplanation.setDate(anomaly.getValidSince());
+			
+			List<String> parsedConstraints = translateIdsBackToNames(hyVarRecAnswer.getConstraints(), anomaly.getValidSince(), exporter);
+			
+			if(parsedConstraints == null) {
+				parsedConstraints = hyVarRecAnswer.getConstraints();
+			}
+			
+			anomalyExplanation.getExplanations().addAll(parsedConstraints);
+			
+			return anomalyExplanation;
+		}
+		
+		return null;
+	}
+	
+	/**
 	 * False optional and dead features
 	 * @param uriString
 	 * @param contextModel
@@ -170,7 +252,14 @@ public class DwAnalysesClient {
 		
 		HyVarRecCheckFeaturesAnswer hyVarRecAnswer = gson.fromJson(hyvarrecAnswerString, HyVarRecCheckFeaturesAnswer.class);
 		
-		return DwAnomalyTranslation.translateAnomalies(hyVarRecAnswer, exporter.getFeatureReconfiguratorIdMapping(), exporter.getSortedDateList());
+		List<DwAnomaly> anomalies = DwAnomalyTranslation.translateAnomalies(hyVarRecAnswer, exporter.getFeatureReconfiguratorIdMapping(), exporter.getSortedDateList());
+		
+		// Code to test anomaly explanation
+		for(DwAnomaly anomaly: anomalies) {
+			explainAnomaly(uriString, contextModel, contextValidityModel, featureModel, constraintModel, anomaly);
+		}
+		
+		return anomalies;
 	}
 	
 	protected List<String> translateIdsBackToNames(List<String> constraints, Date date, HyVarRecExporter hyVarRecExporter) {

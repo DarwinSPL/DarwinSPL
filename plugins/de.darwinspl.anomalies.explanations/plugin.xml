@@ -9,8 +9,8 @@
    <extension point="org.eclipse.emf.ecore.generated_package">
       <!-- @generated Explanation -->
       <package
-            uri="http://darwinspl.de/explanation/1.0"
-            class="de.darwinspl.anomaly.explanation.DwExplanationPackage"
+            uri="http://darwinspl.de/anomaly/explanation/1.0"
+            class="de.darwinspl.anomaly.explanation.DwAnomalyExplanationPackage"
             genModel="model/Explanation.genmodel"/>
    </extension>
 

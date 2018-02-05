@@ -15,5 +15,7 @@ Require-Bundle: org.eclipse.core.runtime,
  de.darwinspl.anomalies;visibility:=reexport,
  eu.hyvar.feature.data;visibility:=reexport,
  eu.hyvar.evolution;visibility:=reexport,
- eu.hyvar.feature;visibility:=reexport
+ eu.hyvar.feature;visibility:=reexport,
+ eu.hyvar.context.information.value;visibility:=reexport,
+ eu.hyvar.context.information;visibility:=reexport
 Bundle-ActivationPolicy: lazy

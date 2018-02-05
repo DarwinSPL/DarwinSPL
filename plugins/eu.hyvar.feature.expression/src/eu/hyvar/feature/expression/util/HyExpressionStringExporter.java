@@ -23,7 +23,6 @@ import eu.hyvar.feature.expression.HyAndExpression;
 import eu.hyvar.feature.expression.HyAtomicExpression;
 import eu.hyvar.feature.expression.HyAttributeReferenceExpression;
 import eu.hyvar.feature.expression.HyBinaryExpression;
-import eu.hyvar.feature.expression.HyBooleanValueExpression;
 import eu.hyvar.feature.expression.HyConditionalFeatureReferenceExpression;
 import eu.hyvar.feature.expression.HyContextInformationReferenceExpression;
 import eu.hyvar.feature.expression.HyDivisionExpression;
@@ -70,7 +69,7 @@ public class HyExpressionStringExporter {
 	private static final String IMPLICATION = " impl ";
 	private static final String EQUIVALENCE = " iff ";
 	private static final String OR = " or ";
-	private static final String XOR = " xor ";
+//	private static final String XOR = " xor ";
 	private static final String AND = " and ";
 	private static final String NOT = " not ";
 
