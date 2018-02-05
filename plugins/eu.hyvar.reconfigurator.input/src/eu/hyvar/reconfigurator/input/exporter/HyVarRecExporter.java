@@ -226,8 +226,20 @@ public class HyVarRecExporter {
 			input.getContexts().addAll(contextExporter.getExportedContexts(contextModel, date));
 		}
 
+		eu.hyvar.reconfigurator.input.format.Configuration hyVarRecConfig = new eu.hyvar.reconfigurator.input.format.Configuration();
+		input.setConfiguration(hyVarRecConfig);
+		hyVarRecConfig.setContextValues(new ArrayList<eu.hyvar.reconfigurator.input.format.ContextValue>());
 		// get old configurations
-		input.setConfiguration(configurationExporter.getExportedConfiguration(oldConfiguration, contextValues));
+		
+		if (oldConfiguration != null) {
+			hyVarRecConfig.setSelectedFeatures(configurationExporter.getSelectedFeatureIds(oldConfiguration));
+		}
+		
+		if(contextValues != null) {			
+			for(HyContextValueModel contextValueModel: contextValues) {
+				hyVarRecConfig.getContextValues().addAll((configurationExporter.getContextValues(contextValueModel)));
+			}
+		}
 
 		input.setConstraints(new ArrayList<String>());
 

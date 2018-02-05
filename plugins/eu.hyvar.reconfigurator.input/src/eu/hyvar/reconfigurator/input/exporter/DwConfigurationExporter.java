@@ -56,26 +56,53 @@ public class DwConfigurationExporter {
 
 		return exportedConfiguration;
 	}
+//	public List<String> getExportedConfiguration(HyConfiguration oldConfiguration) {
+//		if (oldConfiguration != null) {
+//			return getSelectedFeatureIds(oldConfiguration);
+//		}
+//
+//		return new ArrayList<String>();
+//	}
+//	public List<String> getExportedConfiguration(
+//			HyConfiguration oldConfiguration) {
+//		
+//		List<String> selectedFeatures = new ArrayList<String>();
+//		eu.hyvar.reconfigurator.input.format.Configuration exportedConfiguration = new eu.hyvar.reconfigurator.input.format.Configuration();
+//
+//		if (oldConfiguration != null) {
+//			exportedConfiguration.setSelectedFeatures(getSelectedFeatureIds(oldConfiguration));
+//			exportedConfiguration.setAttributeValues(getFeatureAttributeValues(oldConfiguration));
+//		}
+//
+//		if (contextValueModels != null) {
+//			exportedConfiguration.setContextValues(new ArrayList<eu.hyvar.reconfigurator.input.format.ContextValue>());
+//			for(HyContextValueModel contextValueModel: contextValueModels) {
+//				exportedConfiguration.getContextValues().addAll(getContextValues(contextValueModel));
+//			}
+//		}
+//
+//		return exportedConfiguration;
+//	}
 	
-	public eu.hyvar.reconfigurator.input.format.Configuration getExportedConfiguration(
-			HyConfiguration oldConfiguration, HyContextValueModel contextValueModel) {
-		eu.hyvar.reconfigurator.input.format.Configuration exportedConfiguration = new eu.hyvar.reconfigurator.input.format.Configuration();
-
-		if (oldConfiguration != null) {
-			exportedConfiguration.setSelectedFeatures(getSelectedFeatureIds(oldConfiguration));
-			exportedConfiguration.setAttributeValues(getFeatureAttributeValues(oldConfiguration));
-		}
-
-		if (contextValueModel != null) {
-			exportedConfiguration.setContextValues(getContextValues(contextValueModel));
-		}
-
-		return exportedConfiguration;
-	}
+//	public eu.hyvar.reconfigurator.input.format.Configuration getExportedConfiguration(
+//			HyConfiguration oldConfiguration, HyContextValueModel contextValueModel) {
+//		eu.hyvar.reconfigurator.input.format.Configuration exportedConfiguration = new eu.hyvar.reconfigurator.input.format.Configuration();
+//
+//		if (oldConfiguration != null) {
+//			exportedConfiguration.setSelectedFeatures(getSelectedFeatureIds(oldConfiguration));
+//			exportedConfiguration.setAttributeValues(getFeatureAttributeValues(oldConfiguration));
+//		}
+//
+//		if (contextValueModel != null) {
+//			exportedConfiguration.setContextValues(getContextValues(contextValueModel));
+//		}
+//
+//		return exportedConfiguration;
+//	}
 	
 
 
-	private List<eu.hyvar.reconfigurator.input.format.ContextValue> getContextValues(
+	public List<eu.hyvar.reconfigurator.input.format.ContextValue> getContextValues(
 			HyContextValueModel contextValueModel) {
 		List<eu.hyvar.reconfigurator.input.format.ContextValue> exportedContextValues = new ArrayList<eu.hyvar.reconfigurator.input.format.ContextValue>();
 
@@ -108,12 +135,8 @@ public class DwConfigurationExporter {
 		return 0;
 	}
 
-	private List<String> getSelectedFeatureIds(HyConfiguration oldConfiguration) {
+	public List<String> getSelectedFeatureIds(HyConfiguration oldConfiguration) {
 		List<String> initialFeatureIds = new ArrayList<String>();
-		
-		if(oldConfiguration == null) {
-			return initialFeatureIds;
-		}
 
 		for (HyConfigurationElement configurationElement : oldConfiguration.getElements()) {
 			if (configurationElement instanceof HyFeatureSelected) {
@@ -142,10 +165,6 @@ public class DwConfigurationExporter {
 			HyConfiguration oldConfiguration) {
 		List<eu.hyvar.reconfigurator.input.format.AttributeValue> exportedAttributeValues = new ArrayList<eu.hyvar.reconfigurator.input.format.AttributeValue>();
 
-		if(oldConfiguration == null) {
-			return exportedAttributeValues;
-		}
-		
 		// Check if configuration element is attribute value
 		for (HyConfigurationElement configEle : oldConfiguration.getElements()) {
 			if (configEle instanceof HyAttributeValueAssignment) {
