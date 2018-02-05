@@ -7,13 +7,18 @@ It strongly depends on DeltaEcore (www.deltaecore.org) which is necessary to run
 
 Prerequisites:
 - Eclipse (e.g. Eclipse for Java and DSL Developers) (Tested with Mars, Neon and Oxygen)
-- EMF Validation Framework (using your ecplise's update site - e.g. for neon: http://download.eclipse.org/releases/neon)
-- Model Comparison (EMF Compare) (using your ecplise's update site - e.g. for neon: http://download.eclipse.org/releases/neon)
+
+- EMF Validation Framework and Model Comparison (EMF Compare): Eclipse navigation bar -> Help -> Install new software -> Under "Work with", select your eclipse's update site, e.g., for neon : http://download.eclipse.org/releases/neon -> In the filter, search for "EMF Validation" and select all, and search for "Model Comparison" and select all. Then hit next and follow the instructions
+
 - DeltaEcore (installation: http://deltaecore.org/?page_id=68 )
 
 Installation:
-- Create Model Code for each *.genmodel file.
-- Do not generate text resources of *.cs files. EMFText is not working correctly.
+1. Add the DarwinSPL Git repository to eclipse (In the top bar in eclipse -> Windows -> Perspective -> Open Perspective -> Other -> Git -> Add an existing local Git repository (in your case, as you already cloned it) or Clone a Git repository.
+2. Open the DarwinSPL Git Repo  in the Git perspective -> Working Tree -> Right-click on "Plug-Ins" -> Import Projects -> Select all, but "Plugins" itself.
+3. Go to the Java Perspective (top right corner the icon with the "J")
+4. Press Shift + Alt + G, Select all .genmodels (Ctrl + A), hit "next"
+5. Only Select "Model" for each .genmodel, hit "finish"
+6. Do not generate text resources of *.cs files. EMFText is not working correctly.
 
 ATTENTION (if you want to use the integrated webservers or the reconfiguration engine HyVarRec https://github.com/HyVar/hyvar-rec):
 
