@@ -121,6 +121,7 @@ public class DwAnalysesClient {
 	 * @param contextValues
 	 * @param date
 	 * @return A List of Constraints leading to an invalidity. Null if model is valid.
+	 * @deprecated
 	 */
 	public List<String> explainAnomaly(String uriString, HyContextModel contextModel, HyValidityModel contextValidityModel,
 			HyFeatureModel featureModel, HyConstraintModel constraintModel, HyConfiguration oldConfiguration,
