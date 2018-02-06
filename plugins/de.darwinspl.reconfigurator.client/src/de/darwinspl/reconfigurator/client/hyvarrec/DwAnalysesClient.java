@@ -4,6 +4,7 @@ import java.net.URI;
 import java.nio.channels.UnresolvedAddressException;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.HashMap;
@@ -26,6 +27,7 @@ import de.darwinspl.anomaly.DwAnomaly;
 import de.darwinspl.anomaly.DwAnomalyFactory;
 import de.darwinspl.anomaly.DwDeadFeatureAnomaly;
 import de.darwinspl.anomaly.DwFalseOptionalFeatureAnomaly;
+import de.darwinspl.anomaly.DwFeatureAnomaly;
 import de.darwinspl.anomaly.DwVoidFeatureModelAnomaly;
 import de.darwinspl.anomaly.explanation.DwAnomalyExplanation;
 import de.darwinspl.anomaly.explanation.DwAnomalyExplanationFactory;
@@ -175,7 +177,7 @@ public class DwAnalysesClient {
 		else {
 			// Create constraint enforcing the anomaly to cause a void feature model anomaly -> unsatisfiable constraints are the explanation for anomaly.
 			additionalAnomalyConstraint = "feature[";
-			additionalAnomalyConstraint = additionalAnomalyConstraint + ((DwFalseOptionalFeatureAnomaly)anomaly).getFeature().getId();
+			additionalAnomalyConstraint = additionalAnomalyConstraint + ((DwFeatureAnomaly)anomaly).getFeature().getId();
 			additionalAnomalyConstraint = additionalAnomalyConstraint + "] = ";
 			
 			if(anomaly instanceof DwFalseOptionalFeatureAnomaly) {
@@ -186,7 +188,34 @@ public class DwAnalysesClient {
 			}
 		}
 		
-		InputForHyVarRec inputForHyVarRec = exporter.createInputForHyVarRec(contextModel, contextValidityModel, featureModel, constraintModel, null, null, contextValueModel, anomaly.getValidSince(), anomaly.getValidSince());
+		
+		// If the anomaly.getValidSince == null, we cannot use the null date as parameter. Otherwise, evolution-aware analysis is triggered which isn't working for explain service
+		Date date = anomaly.getValidSince();
+		if(date == null) {
+			List<Date> dates = HyEvolutionUtil.collectDates(featureModel);
+			if(contextModel != null) {
+				dates.addAll(HyEvolutionUtil.collectDates(contextModel));				
+			}
+			if(contextValidityModel != null) {
+				dates.addAll(HyEvolutionUtil.collectDates(contextValidityModel));				
+			}
+			if(constraintModel != null) {
+				dates.addAll(HyEvolutionUtil.collectDates(constraintModel));
+			}
+			// If dates is empty, null can be used, as the exporter won't use evolution-encoding since no evolution exists.
+			if(!dates.isEmpty()) {
+				Collections.sort(dates);
+				// select a date before the first evolution step, as there is the cause.
+				date = dates.get(0);
+				Calendar calendar = Calendar.getInstance();
+				calendar.setTime(date);
+				calendar.add(Calendar.DAY_OF_MONTH, -1);
+				date = calendar.getTime();
+			}			
+		}
+		
+		
+		InputForHyVarRec inputForHyVarRec = exporter.createInputForHyVarRec(contextModel, contextValidityModel, featureModel, constraintModel, null, null, contextValueModel, date, date);
 		URI uri = createUriWithPath(uriString, VALIDATE_FM_URI);
 		
 		if(additionalAnomalyConstraint != null) {
@@ -199,8 +228,6 @@ public class DwAnalysesClient {
 		String hyvarrecAnswerString = sendMessageToHyVarRec(messageForHyVarRec, uri);
 		
 		HyVarRecExplainAnswer hyVarRecAnswer = gson.fromJson(hyvarrecAnswerString, HyVarRecExplainAnswer.class);
-		
-		
 		
 		if(hyVarRecAnswer.getResult().equals("sat")) {
 			return null;
@@ -255,9 +282,9 @@ public class DwAnalysesClient {
 		List<DwAnomaly> anomalies = DwAnomalyTranslation.translateAnomalies(hyVarRecAnswer, exporter.getFeatureReconfiguratorIdMapping(), exporter.getSortedDateList());
 		
 		// Code to test anomaly explanation
-		for(DwAnomaly anomaly: anomalies) {
-			explainAnomaly(uriString, contextModel, contextValidityModel, featureModel, constraintModel, anomaly);
-		}
+//		for(DwAnomaly anomaly: anomalies) {
+//			explainAnomaly(uriString, contextModel, contextValidityModel, featureModel, constraintModel, anomaly);
+//		}
 		
 		return anomalies;
 	}

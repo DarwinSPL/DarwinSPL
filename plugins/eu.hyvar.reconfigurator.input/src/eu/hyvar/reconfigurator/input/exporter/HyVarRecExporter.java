@@ -232,6 +232,10 @@ public class HyVarRecExporter {
 			hyVarRecConfig.setSelectedFeatures(configurationExporter.getSelectedFeatureIds(oldConfiguration));
 			hyVarRecConfig.setAttributeValues(configurationExporter.getFeatureAttributeValues(oldConfiguration));
 		}
+		else {
+			hyVarRecConfig.setSelectedFeatures(new ArrayList<String>());
+			hyVarRecConfig.setAttributeValues(new ArrayList<AttributeValue>());
+		}
 		
 		if(contextValues != null) {			
 			hyVarRecConfig.getContextValues().addAll((contextValueExporter.getContextValuesWithValuesForContextsWithoutValues(contextValues, contextModels)));
@@ -530,10 +534,6 @@ public class HyVarRecExporter {
 		
 		for(HyFeatureModel featureModel: featureModels) {
 			for(HyFeature feature: featureModel.getFeatures()) {
-				//TODO debug code
-				if(feature.getId().equals("_dba0bf2f-a1ca-4eda-9eaa-d6a3e99189f0")) {
-					System.out.println("Wrong things happen");
-				}
 				
 				List<List<Integer>> optionalIntervalList = null;
 				
