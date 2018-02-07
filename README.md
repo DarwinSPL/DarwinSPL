@@ -13,6 +13,8 @@ Prerequisites:
 - DeltaEcore Framework (installation: http://deltaecore.org/?page_id=68 ). Instead of using the Team Project Set, we recommend to use the following SVN repositories and import all of these projects. Only works until the "Framework Workspace" in the installation instructions of DeltaEcore. SVN repositories (https://scm.fusionforge.zih.tu-dresden.de/anonscm/svn/ect/trunk/Utilities/ , https://scm.fusionforge.zih.tu-dresden.de/anonscm/svn/deltaecore/trunk/Framework)
 
 Installation:
+https://youtu.be/sDBKY0A8MBw (together with required plug-ins and DeltaEcore)
+
 1. Add the DarwinSPL Git repository to eclipse (In the top bar in eclipse -> Windows -> Perspective -> Open Perspective -> Other -> Git -> Add an existing local Git repository (in your case, as you already cloned it) or Clone a Git repository.
 2. Open the DarwinSPL Git Repo  in the Git perspective -> Working Tree -> Right-click on "Plug-Ins" -> Import Projects -> Select all, but "Plugins" itself.
 3. Go to the Java Perspective (top right corner the icon with the "J")
@@ -22,7 +24,7 @@ Installation:
 
 ATTENTION (if you want to use the integrated webservers or the reconfiguration engine HyVarRec https://github.com/HyVar/hyvar-rec):
 
-In de.darwinspl.reconfigurator.client and eu.hyvar.reconfigurator.input.rest.dummyclient, you have to ensure that the jetty client version in the build path matches _exactly_ the jetty version of your eclipse installation.
+In de.darwinspl.reconfigurator.client, you have to ensure that the jetty client version in the build path matches _exactly_ the jetty version of your eclipse installation.
 You can check the required Jetty version if you look in your eclipse installation details:
 Help -> About eclipse -> Installation Details -> Plug-ins -> search for Jetty
 If it is not matching, you have to do the following:
