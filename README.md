@@ -13,7 +13,7 @@ Prerequisites:
 - DeltaEcore Framework (installation: http://deltaecore.org/?page_id=68 ). Instead of using the Team Project Set, we recommend to use the following SVN repositories and import all of these projects. Only works until the "Framework Workspace" in the installation instructions of DeltaEcore. SVN repositories (https://scm.fusionforge.zih.tu-dresden.de/anonscm/svn/ect/trunk/Utilities/ , https://scm.fusionforge.zih.tu-dresden.de/anonscm/svn/deltaecore/trunk/Framework)
 
 Installation:
-https://youtu.be/sDBKY0A8MBw (together with required plug-ins and DeltaEcore)
+https://youtu.be/B9JmdyiU8PA (together with required plug-ins and DeltaEcore. You will need an SVN Team Provider for Eclipse when following the tutorial, such as subversive. Subversive can be installed using the Eclipse Marketplace)
 
 1. Add the DarwinSPL Git repository to eclipse (In the top bar in eclipse -> Windows -> Perspective -> Open Perspective -> Other -> Git -> Add an existing local Git repository (in your case, as you already cloned it) or Clone a Git repository.
 2. Open the DarwinSPL Git Repo  in the Git perspective -> Working Tree -> Right-click on "Plug-Ins" -> Import Projects -> Select all, but "Plugins" itself.
