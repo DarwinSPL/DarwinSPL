@@ -3,6 +3,8 @@ package de.darwinspl.feature.graphical.configurator.editor.anomaly.views;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import java.io.InputStream;
+import java.net.URL;
 import java.nio.channels.UnresolvedAddressException;
 import java.util.ArrayList;
 import java.util.Date;
@@ -18,10 +20,13 @@ import org.eclipse.core.resources.IWorkspaceRoot;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
+import org.eclipse.core.runtime.Platform;
 import org.eclipse.core.runtime.jobs.Job;
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.IToolBarManager;
 import org.eclipse.jface.dialogs.MessageDialog;
+import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.jface.viewers.ArrayContentProvider;
 import org.eclipse.jface.viewers.ColumnLabelProvider;
 import org.eclipse.jface.viewers.TableViewer;
@@ -29,10 +34,12 @@ import org.eclipse.jface.viewers.TableViewerColumn;
 import org.eclipse.jface.viewers.ViewerCell;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.TableEditor;
+import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
@@ -43,8 +50,10 @@ import org.eclipse.ui.IPartListener;
 import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.ide.ResourceUtil;
+import org.eclipse.ui.internal.util.BundleUtility;
 import org.eclipse.ui.part.FileEditorInput;
 import org.eclipse.ui.part.ViewPart;
+import org.osgi.framework.Bundle;
 
 import de.christophseidl.util.ecore.EcoreIOUtil;
 import de.darwinspl.anomaly.DwAnomaly;
@@ -64,8 +73,12 @@ import eu.hyvar.context.HyContextModel;
 import eu.hyvar.context.contextValidity.HyValidityModel;
 import eu.hyvar.context.contextValidity.util.HyValidityModelUtil;
 import eu.hyvar.context.information.contextValue.ContextValueFactory;
+import eu.hyvar.context.information.contextValue.HyContextValue;
 import eu.hyvar.context.information.contextValue.HyContextValueModel;
 import eu.hyvar.context.information.util.HyContextInformationUtil;
+import eu.hyvar.dataValues.HyEnumValue;
+import eu.hyvar.dataValues.HyNumberValue;
+import eu.hyvar.dataValues.HyStringValue;
 import eu.hyvar.feature.HyFeature;
 import eu.hyvar.feature.constraint.HyConstraintModel;
 import eu.hyvar.feature.constraint.util.HyConstraintUtil;
@@ -96,10 +109,14 @@ public class DwAnomalyView extends ViewPart {
 		HyContextValueModel contextValueModel = null;
 		DwFeatureModelWrapped modelWrapped = null;
 		
-		private DwContextValueEvolutionWrapper contextValueEvolutionWrapper = null;
+		DwVoidFeatureModelAnomaly voidFeatureAnomaly = null;
+		
+		public static final String DEFAULT_SERVER_URI = "http://localhost:8081/";
+		
+		public String serverUri = null; 
 		
 	//
-//		public static final Image EXPORT_IMG = FMUIPlugin.getImage("export_wiz.gif");
+		public static final String SETTINGS_IMG = "icons/settings.png";
 //		public static final Image REFRESH_IMG = FMUIPlugin.getImage("refresh_tab.gif");
 
 		@Override
@@ -360,12 +377,26 @@ public class DwAnomalyView extends ViewPart {
 	        col.setLabelProvider(new ColumnLabelProvider() {
 	            @Override
 	            public String getText(Object element) {
-	            	DwAnomaly p = (DwAnomaly) element;
-	            	if(p instanceof DwFalseOptionalFeatureAnomaly){
-	            		HyFeature feature = ((DwFalseOptionalFeatureAnomaly) p).getFeature();
-	            		return feature.getNames().get(0).getName();
+	            	DwVoidFeatureModelAnomaly p = (DwVoidFeatureModelAnomaly) element;
+	            	
+	            	EList<HyContextValue> contextValues = p.getContextValueModel().getValues();
+	            	String result = "";
+	            	for(HyContextValue contextValue: contextValues){
+	            		
+	            		
+	            		result += contextValue.getContext().getName() + " = ";
+	            		
+	            		if(contextValue.getValue() instanceof HyNumberValue){
+	            			result += Integer.toString(((HyNumberValue) contextValue.getValue()).getValue()) + "\n";
+	            		} else if( contextValue.getValue() instanceof HyStringValue){
+	            			result += ((HyStringValue) contextValue.getValue()).getValue() + "\n";
+	            		} else if ( contextValue.getValue() instanceof HyEnumValue){
+	            			result += ((HyEnumValue) contextValue.getValue()).getEnumLiteral().getName() + "\n";
+	            		}
+	            		
 	            	}
-	            	return "";
+	            	return result;
+	            	
 	            }
 	            
 	        });
@@ -454,9 +485,11 @@ public class DwAnomalyView extends ViewPart {
 
 				@Override
 				public void run() {
-					System.out.println("RUNRUNRURURURN");
+				
+					final DwRESTServerSelectDialog dialog = new DwRESTServerSelectDialog(viewerFalseOptionalAnomaly.getControl().getShell(), getURI());
 //					final CheckBoxTreeViewDialog dial = new CheckBoxTreeViewDialog(viewer.getControl().getShell(), contentProvider.godfather, viewer);
-//					dial.open();
+					dialog.open();
+					setURI(dialog.getUri());
 				}
 			};
 
@@ -473,8 +506,17 @@ public class DwAnomalyView extends ViewPart {
 //			refresher.setToolTipText(REFRESH_VIEW);
 
 			toolBarManager.add(checkBoxer);
-//			checkBoxer.setImageDescriptor(ImageDescriptor.createFromImage(EXPORT_IMG));
-			checkBoxer.setToolTipText("Export to *.csv");
+		
+			Display display = Display.getCurrent();
+			InputStream imageSettings=  getClass().getResourceAsStream("/images/settings2.png");
+			Image image = new Image(display, imageSettings);
+			
+			ImageDescriptor descriptor = ImageDescriptor.createFromImage(image);
+			
+		
+			
+			checkBoxer.setImageDescriptor(ImageDescriptor.createFromImage(image));
+			checkBoxer.setToolTipText("Settings");
 		}
 
 		private final IPartListener editorListener = new IPartListener() {
@@ -664,17 +706,18 @@ public class DwAnomalyView extends ViewPart {
 
 		private String getURI(){
 			
-			return "http://hyvartest-hyvarrec.d33pmz246q.eu-west-1.elasticbeanstalk.com/";
-//			DwRESTServerSelectDialog dialog = new DwRESTServerSelectDialog(getEditorSite().getShell(), DEFAULT_HYVARREC_URI);
-//			int result = dialog.open();
-//			if(result == Dialog.OK){
-//				return dialog.getUri();
-//			}
-//			else {
-//				return null;
-//			}
+			if(serverUri == null){
+				return DEFAULT_SERVER_URI;
+			}
+			
+			return serverUri;
 
-//			return DEFAULT_HYVARREC_URI;
+		}
+		
+		private void setURI(String string){
+			
+			serverUri = string;
+			
 		}
 		
 		
@@ -749,22 +792,26 @@ public class DwAnomalyView extends ViewPart {
 				
 				
 				
-//				if(currentEditor instanceof DwFeatureModelConfiguratorViewer){
-//					
-//					contextValueEvolutionWrapper = client.validateFeatureModelWithContext(uri, contextModel,
-//							validityModel, modelWrapped.getModel(), constraintModel, ((DwFeatureModelConfiguratorViewer) currentEditor).getSelectedConfiguration(), profile,
-//							contextValueModel, modelWrapped.getSelectedDate());
-//					System.out.println(contextValueEvolutionWrapper);
-//
-//					}
+				if(currentEditor instanceof DwFeatureModelConfiguratorViewer){
+					
+					voidFeatureAnomaly = client.validateFeatureModelWithContext(uri, contextModel,
+							validityModel, modelWrapped.getModel(), constraintModel, ((DwFeatureModelConfiguratorViewer) currentEditor).getSelectedConfiguration(), profile,
+							contextValueModel, modelWrapped.getSelectedDate());
+					System.out.println(voidFeatureAnomaly);
+
+					}
 
 					List<DwAnomaly> anomalies = client.checkFeatures(uri, contextModel, validityModel, modelWrapped.getModel(), constraintModel, null, null);
+					
+					if(voidFeatureAnomaly != null){
+						anomalies.add(voidFeatureAnomaly);
+					}
 					
 					return anomalies;
 					
 					
 				
-			} catch (UnresolvedAddressException | TimeoutException | InterruptedException | ExecutionException e1) {
+			} catch (UnresolvedAddressException | TimeoutException | InterruptedException | ExecutionException | HyVarRecNoSolutionException e1) {
 				MessageDialog dialog = new MessageDialog(PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell(), "Unresolvable Server Adress", null,
 						"The adress '"+uri.toString()+"' could not be resolved or had a timeout. No configuration was generated.", MessageDialog.ERROR, new String[] { "Ok" }, 0);
 				dialog.open();
