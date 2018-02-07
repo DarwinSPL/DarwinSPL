@@ -10,7 +10,7 @@ Prerequisites:
 
 - EMF Validation Framework and Model Comparison (EMF Compare): Eclipse navigation bar -> Help -> Install new software -> Under "Work with", select your eclipse's update site, e.g., for neon : http://download.eclipse.org/releases/neon -> In the filter, search for "EMF Validation" and select all, and search for "Model Comparison" and select all. Then hit next and follow the instructions
 
-- DeltaEcore (installation: http://deltaecore.org/?page_id=68 )
+- DeltaEcore Framework (installation: http://deltaecore.org/?page_id=68 ). Instead of using the Team Project Set, we recommend to use the following SVN repositories and import all of these projects. Only works until the "Framework Workspace" in the installation instructions of DeltaEcore. SVN repositories (https://scm.fusionforge.zih.tu-dresden.de/anonscm/svn/ect/trunk/Utilities/ , https://scm.fusionforge.zih.tu-dresden.de/anonscm/svn/deltaecore/trunk/Framework)
 
 Installation:
 1. Add the DarwinSPL Git repository to eclipse (In the top bar in eclipse -> Windows -> Perspective -> Open Perspective -> Other -> Git -> Add an existing local Git repository (in your case, as you already cloned it) or Clone a Git repository.
