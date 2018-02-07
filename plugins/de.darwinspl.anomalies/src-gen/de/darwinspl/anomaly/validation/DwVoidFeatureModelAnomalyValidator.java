@@ -4,6 +4,7 @@
  */
 package de.darwinspl.anomaly.validation;
 
+import eu.hyvar.context.information.contextValue.HyContextValueModel;
 import eu.hyvar.feature.HyFeatureModel;
 
 /**
@@ -16,4 +17,6 @@ public interface DwVoidFeatureModelAnomalyValidator {
 	boolean validate();
 
 	boolean validateFeatureModel(HyFeatureModel value);
+
+	boolean validateContextValueModel(HyContextValueModel value);
 }

@@ -42,6 +42,17 @@ RULES {
 	HyTimedImplementations ::= ("[" (validSince[DATE] "-" validUntil[DATE] | validSince[DATE] "-" "eternity" | "eternity" "-" validUntil[DATE])  "]")? signature['<','>'] "{" (associations ("," associations)*)? "}";
 	
 	@SuppressWarnings(explicitSyntaxChoice)
-	HyTimedImplementationLink ::= ("[" (validSince[DATE] "-" validUntil[DATE] | validSince[DATE] "-" "eternity" | "eternity" "-" validUntil[DATE])  "]")? (local['"','"'] | local[]) "->" (signature['"','"'] | signature[]) ;
+	HyTimedImplementationFeatureLink ::= ("[" (validSince[DATE] "-" validUntil[DATE] | validSince[DATE] "-" "eternity" | "eternity" "-" validUntil[DATE])  "]")? (local['"','"'] | local[]) "->" (signature['"','"'] | signature[])  ("{" (associations ("," associations)*)? "}")? ;
+
+	@SuppressWarnings(explicitSyntaxChoice)
+	HyTimedImplementationFeatureAttributeLink ::= ("[" (validSince[DATE] "-" validUntil[DATE] | validSince[DATE] "-" "eternity" | "eternity" "-" validUntil[DATE])  "]")? (local['"','"'] | local[]) "->" (signature['"','"'] | signature[]) ;
+
+	@SuppressWarnings(explicitSyntaxChoice)
+	HyTimedImplementationEnumLink ::= "enum:" ("[" (validSince[DATE] "-" validUntil[DATE] | validSince[DATE] "-" "eternity" | "eternity" "-" validUntil[DATE])  "]")? (local['"','"'] | local[]) "->" (signature['"','"'] | signature[]) ("{" (associations ("," associations)*)? "}")? ;
+
+	@SuppressWarnings(explicitSyntaxChoice)
+	HyTimedImplementationEnumLiteralLink ::= ("[" (validSince[DATE] "-" validUntil[DATE] | validSince[DATE] "-" "eternity" | "eternity" "-" validUntil[DATE])  "]")? (local['"','"'] | local[]) "->" (signature['"','"'] | signature[]) ;
+
+
 
 }

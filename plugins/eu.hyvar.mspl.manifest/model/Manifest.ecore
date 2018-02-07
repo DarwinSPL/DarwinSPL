@@ -23,9 +23,31 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="associations" upperBound="-1"
         eType="#//HyTimedImplementationLink" containment="true"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="HyTimedImplementationLink" eSuperTypes="../../eu.hyvar.evolution/model/Evolution.ecore#//HyTemporalElement">
+  <eClassifiers xsi:type="ecore:EClass" name="HyTimedImplementationFeatureLink" eSuperTypes="#//HyTimedImplementationLink">
     <eStructuralFeatures xsi:type="ecore:EReference" name="local" lowerBound="1" eType="ecore:EClass ../../eu.hyvar.feature/model/Feature.ecore#//HyFeature"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="signature" lowerBound="1"
         eType="ecore:EClass ../../eu.hyvar.feature/model/Feature.ecore#//HyFeature"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="associations" upperBound="-1"
+        eType="#//HyTimedImplementationFeatureAttributeLink" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="HyTimedImplementationLink" eSuperTypes="../../eu.hyvar.evolution/model/Evolution.ecore#//HyTemporalElement"/>
+  <eClassifiers xsi:type="ecore:EClass" name="HyTimedImplementationFeatureAttributeLink"
+      eSuperTypes="../../eu.hyvar.evolution/model/Evolution.ecore#//HyTemporalElement">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="local" lowerBound="1" eType="ecore:EClass ../../eu.hyvar.feature/model/Feature.ecore#//HyFeatureAttribute"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="signature" lowerBound="1"
+        eType="ecore:EClass ../../eu.hyvar.feature/model/Feature.ecore#//HyFeatureAttribute"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="HyTimedImplementationEnumLink" eSuperTypes="#//HyTimedImplementationLink">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="local" lowerBound="1" eType="ecore:EClass ../../eu.hyvar.feature.data/model/DataValues.ecore#//HyEnum"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="signature" lowerBound="1"
+        eType="ecore:EClass ../../eu.hyvar.feature.data/model/DataValues.ecore#//HyEnum"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="associations" upperBound="-1"
+        eType="#//HyTimedImplementationEnumLiteralLink" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="HyTimedImplementationEnumLiteralLink"
+      eSuperTypes="../../eu.hyvar.evolution/model/Evolution.ecore#//HyTemporalElement">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="local" lowerBound="1" eType="ecore:EClass ../../eu.hyvar.feature.data/model/DataValues.ecore#//HyEnumLiteral"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="signature" lowerBound="1"
+        eType="ecore:EClass ../../eu.hyvar.feature.data/model/DataValues.ecore#//HyEnumLiteral"/>
   </eClassifiers>
 </ecore:EPackage>

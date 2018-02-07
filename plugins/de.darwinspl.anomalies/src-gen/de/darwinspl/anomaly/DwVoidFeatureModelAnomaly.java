@@ -2,6 +2,7 @@
  */
 package de.darwinspl.anomaly;
 
+import eu.hyvar.context.information.contextValue.HyContextValueModel;
 import eu.hyvar.feature.HyFeatureModel;
 
 /**
@@ -13,6 +14,7 @@ import eu.hyvar.feature.HyFeatureModel;
  * The following features are supported:
  * <ul>
  *   <li>{@link de.darwinspl.anomaly.DwVoidFeatureModelAnomaly#getFeatureModel <em>Feature Model</em>}</li>
+ *   <li>{@link de.darwinspl.anomaly.DwVoidFeatureModelAnomaly#getContextValueModel <em>Context Value Model</em>}</li>
  * </ul>
  * </p>
  *
@@ -46,5 +48,31 @@ public interface DwVoidFeatureModelAnomaly extends DwAnomaly {
 	 * @generated
 	 */
 	void setFeatureModel(HyFeatureModel value);
+
+	/**
+	 * Returns the value of the '<em><b>Context Value Model</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Context Value Model</em>' containment reference isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Context Value Model</em>' containment reference.
+	 * @see #setContextValueModel(HyContextValueModel)
+	 * @see de.darwinspl.anomaly.DwAnomalyPackage#getDwVoidFeatureModelAnomaly_ContextValueModel()
+	 * @model containment="true"
+	 * @generated
+	 */
+	HyContextValueModel getContextValueModel();
+
+	/**
+	 * Sets the value of the '{@link de.darwinspl.anomaly.DwVoidFeatureModelAnomaly#getContextValueModel <em>Context Value Model</em>}' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Context Value Model</em>' containment reference.
+	 * @see #getContextValueModel()
+	 * @generated
+	 */
+	void setContextValueModel(HyContextValueModel value);
 
 } // DwVoidFeatureModelAnomaly

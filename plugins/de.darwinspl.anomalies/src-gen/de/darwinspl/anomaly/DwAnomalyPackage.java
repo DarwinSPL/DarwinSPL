@@ -168,13 +168,22 @@ public interface DwAnomalyPackage extends EPackage {
 	int DW_VOID_FEATURE_MODEL_ANOMALY__FEATURE_MODEL = DW_ANOMALY_FEATURE_COUNT + 0;
 
 	/**
+	 * The feature id for the '<em><b>Context Value Model</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DW_VOID_FEATURE_MODEL_ANOMALY__CONTEXT_VALUE_MODEL = DW_ANOMALY_FEATURE_COUNT + 1;
+
+	/**
 	 * The number of structural features of the '<em>Dw Void Feature Model Anomaly</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int DW_VOID_FEATURE_MODEL_ANOMALY_FEATURE_COUNT = DW_ANOMALY_FEATURE_COUNT + 1;
+	int DW_VOID_FEATURE_MODEL_ANOMALY_FEATURE_COUNT = DW_ANOMALY_FEATURE_COUNT + 2;
 
 	/**
 	 * The operation id for the '<em>Create Id</em>' operation.
@@ -446,6 +455,17 @@ public interface DwAnomalyPackage extends EPackage {
 	EReference getDwVoidFeatureModelAnomaly_FeatureModel();
 
 	/**
+	 * Returns the meta object for the containment reference '{@link de.darwinspl.anomaly.DwVoidFeatureModelAnomaly#getContextValueModel <em>Context Value Model</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>Context Value Model</em>'.
+	 * @see de.darwinspl.anomaly.DwVoidFeatureModelAnomaly#getContextValueModel()
+	 * @see #getDwVoidFeatureModelAnomaly()
+	 * @generated
+	 */
+	EReference getDwVoidFeatureModelAnomaly_ContextValueModel();
+
+	/**
 	 * Returns the meta object for class '{@link de.darwinspl.anomaly.DwFeatureAnomaly <em>Dw Feature Anomaly</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -536,6 +556,14 @@ public interface DwAnomalyPackage extends EPackage {
 		 * @generated
 		 */
 		EReference DW_VOID_FEATURE_MODEL_ANOMALY__FEATURE_MODEL = eINSTANCE.getDwVoidFeatureModelAnomaly_FeatureModel();
+
+		/**
+		 * The meta object literal for the '<em><b>Context Value Model</b></em>' containment reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference DW_VOID_FEATURE_MODEL_ANOMALY__CONTEXT_VALUE_MODEL = eINSTANCE.getDwVoidFeatureModelAnomaly_ContextValueModel();
 
 		/**
 		 * The meta object literal for the '{@link de.darwinspl.anomaly.DwFeatureAnomaly <em>Dw Feature Anomaly</em>}' class.

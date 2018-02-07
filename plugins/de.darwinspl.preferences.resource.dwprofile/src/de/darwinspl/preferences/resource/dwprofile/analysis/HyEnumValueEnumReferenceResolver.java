@@ -23,8 +23,8 @@ public class HyEnumValueEnumReferenceResolver implements de.darwinspl.preference
 	
 	public void resolve(String identifier, eu.hyvar.dataValues.HyEnumValue container, EReference reference, int position, boolean resolveFuzzy, final de.darwinspl.preferences.resource.dwprofile.IDwprofileReferenceResolveResult<eu.hyvar.dataValues.HyEnum> result) {
 		
-		if((identifier!=null)&&(identifier.contains(eu.hyvar.mspl.util.HyManifestResolverUtil.MANIFEST_SEPARATOR))) {
-			HyEnum found = eu.hyvar.mspl.util.HyManifestResolverUtil.resolveMsplEnum(identifier, container);
+		if((identifier!=null)&&(identifier.contains(eu.hyvar.mspl.manifest.util.custom.HyManifestResolverUtil.MANIFEST_SEPARATOR))) {
+			HyEnum found = eu.hyvar.mspl.manifest.util.custom.HyManifestResolverUtil.resolveMsplEnum(identifier, container);
 			if (found!=null) {
 				result.addMapping(identifier, found);
 			}

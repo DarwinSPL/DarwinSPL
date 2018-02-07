@@ -5,7 +5,7 @@ org.eclipse.emf.examples.generator.validator plug-in to illustrate how EMF's
 code generator can be extended.
 This can be disabled with -vmargs -Dorg.eclipse.emf.examples.generator.validator=false.
 
-Package preferences <http://hyvar-project.eu/feature/preferences/1.0>
+Package preferences <http://darwinspl.de/feature/preferences/1.0>
 
   Class DwProfile
     Reference preferences : DwPreference<<0..*>>

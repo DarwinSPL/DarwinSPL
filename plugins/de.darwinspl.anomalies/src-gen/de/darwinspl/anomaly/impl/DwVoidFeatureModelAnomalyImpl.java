@@ -5,6 +5,7 @@ package de.darwinspl.anomaly.impl;
 import de.darwinspl.anomaly.DwAnomalyPackage;
 import de.darwinspl.anomaly.DwVoidFeatureModelAnomaly;
 
+import eu.hyvar.context.information.contextValue.HyContextValueModel;
 import eu.hyvar.feature.HyFeatureModel;
 
 import java.lang.reflect.InvocationTargetException;
@@ -13,6 +14,7 @@ import java.util.Date;
 
 import org.eclipse.emf.common.notify.Notification;
 
+import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.common.util.EList;
 
 import org.eclipse.emf.ecore.EClass;
@@ -32,6 +34,7 @@ import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
  *   <li>{@link de.darwinspl.anomaly.impl.DwVoidFeatureModelAnomalyImpl#getValidUntil <em>Valid Until</em>}</li>
  *   <li>{@link de.darwinspl.anomaly.impl.DwVoidFeatureModelAnomalyImpl#getId <em>Id</em>}</li>
  *   <li>{@link de.darwinspl.anomaly.impl.DwVoidFeatureModelAnomalyImpl#getFeatureModel <em>Feature Model</em>}</li>
+ *   <li>{@link de.darwinspl.anomaly.impl.DwVoidFeatureModelAnomalyImpl#getContextValueModel <em>Context Value Model</em>}</li>
  * </ul>
  * </p>
  *
@@ -107,6 +110,16 @@ public class DwVoidFeatureModelAnomalyImpl extends MinimalEObjectImpl.Container 
 	 * @ordered
 	 */
 	protected HyFeatureModel featureModel;
+
+	/**
+	 * The cached value of the '{@link #getContextValueModel() <em>Context Value Model</em>}' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getContextValueModel()
+	 * @generated
+	 * @ordered
+	 */
+	protected HyContextValueModel contextValueModel;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -233,12 +246,69 @@ public class DwVoidFeatureModelAnomalyImpl extends MinimalEObjectImpl.Container 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public HyContextValueModel getContextValueModel() {
+		return contextValueModel;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public NotificationChain basicSetContextValueModel(HyContextValueModel newContextValueModel, NotificationChain msgs) {
+		HyContextValueModel oldContextValueModel = contextValueModel;
+		contextValueModel = newContextValueModel;
+		if (eNotificationRequired()) {
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, DwAnomalyPackage.DW_VOID_FEATURE_MODEL_ANOMALY__CONTEXT_VALUE_MODEL, oldContextValueModel, newContextValueModel);
+			if (msgs == null) msgs = notification; else msgs.add(notification);
+		}
+		return msgs;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setContextValueModel(HyContextValueModel newContextValueModel) {
+		if (newContextValueModel != contextValueModel) {
+			NotificationChain msgs = null;
+			if (contextValueModel != null)
+				msgs = ((InternalEObject)contextValueModel).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - DwAnomalyPackage.DW_VOID_FEATURE_MODEL_ANOMALY__CONTEXT_VALUE_MODEL, null, msgs);
+			if (newContextValueModel != null)
+				msgs = ((InternalEObject)newContextValueModel).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - DwAnomalyPackage.DW_VOID_FEATURE_MODEL_ANOMALY__CONTEXT_VALUE_MODEL, null, msgs);
+			msgs = basicSetContextValueModel(newContextValueModel, msgs);
+			if (msgs != null) msgs.dispatch();
+		}
+		else if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, DwAnomalyPackage.DW_VOID_FEATURE_MODEL_ANOMALY__CONTEXT_VALUE_MODEL, newContextValueModel, newContextValueModel));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public String createId() {
 		if(this.id == null || this.id.equals("")) {
 		   String newIdentifier = "_"+java.util.UUID.randomUUID().toString();
 		   setId(newIdentifier);
 		}
 		return getId();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+		switch (featureID) {
+			case DwAnomalyPackage.DW_VOID_FEATURE_MODEL_ANOMALY__CONTEXT_VALUE_MODEL:
+				return basicSetContextValueModel(null, msgs);
+		}
+		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
 
 	/**
@@ -258,6 +328,8 @@ public class DwVoidFeatureModelAnomalyImpl extends MinimalEObjectImpl.Container 
 			case DwAnomalyPackage.DW_VOID_FEATURE_MODEL_ANOMALY__FEATURE_MODEL:
 				if (resolve) return getFeatureModel();
 				return basicGetFeatureModel();
+			case DwAnomalyPackage.DW_VOID_FEATURE_MODEL_ANOMALY__CONTEXT_VALUE_MODEL:
+				return getContextValueModel();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -281,6 +353,9 @@ public class DwVoidFeatureModelAnomalyImpl extends MinimalEObjectImpl.Container 
 				return;
 			case DwAnomalyPackage.DW_VOID_FEATURE_MODEL_ANOMALY__FEATURE_MODEL:
 				setFeatureModel((HyFeatureModel)newValue);
+				return;
+			case DwAnomalyPackage.DW_VOID_FEATURE_MODEL_ANOMALY__CONTEXT_VALUE_MODEL:
+				setContextValueModel((HyContextValueModel)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -306,6 +381,9 @@ public class DwVoidFeatureModelAnomalyImpl extends MinimalEObjectImpl.Container 
 			case DwAnomalyPackage.DW_VOID_FEATURE_MODEL_ANOMALY__FEATURE_MODEL:
 				setFeatureModel((HyFeatureModel)null);
 				return;
+			case DwAnomalyPackage.DW_VOID_FEATURE_MODEL_ANOMALY__CONTEXT_VALUE_MODEL:
+				setContextValueModel((HyContextValueModel)null);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -326,6 +404,8 @@ public class DwVoidFeatureModelAnomalyImpl extends MinimalEObjectImpl.Container 
 				return ID_EDEFAULT == null ? id != null : !ID_EDEFAULT.equals(id);
 			case DwAnomalyPackage.DW_VOID_FEATURE_MODEL_ANOMALY__FEATURE_MODEL:
 				return featureModel != null;
+			case DwAnomalyPackage.DW_VOID_FEATURE_MODEL_ANOMALY__CONTEXT_VALUE_MODEL:
+				return contextValueModel != null;
 		}
 		return super.eIsSet(featureID);
 	}

@@ -22,8 +22,14 @@ public class HymanifestReferenceResolverSwitch implements eu.hyvar.mspl.manifest
 	
 	protected eu.hyvar.mspl.manifest.resource.hymanifest.analysis.HyTimedDependenciesSignatureReferenceResolver hyTimedDependenciesSignatureReferenceResolver = new eu.hyvar.mspl.manifest.resource.hymanifest.analysis.HyTimedDependenciesSignatureReferenceResolver();
 	protected eu.hyvar.mspl.manifest.resource.hymanifest.analysis.HyTimedImplementationsSignatureReferenceResolver hyTimedImplementationsSignatureReferenceResolver = new eu.hyvar.mspl.manifest.resource.hymanifest.analysis.HyTimedImplementationsSignatureReferenceResolver();
-	protected eu.hyvar.mspl.manifest.resource.hymanifest.analysis.HyTimedImplementationLinkLocalReferenceResolver hyTimedImplementationLinkLocalReferenceResolver = new eu.hyvar.mspl.manifest.resource.hymanifest.analysis.HyTimedImplementationLinkLocalReferenceResolver();
-	protected eu.hyvar.mspl.manifest.resource.hymanifest.analysis.HyTimedImplementationLinkSignatureReferenceResolver hyTimedImplementationLinkSignatureReferenceResolver = new eu.hyvar.mspl.manifest.resource.hymanifest.analysis.HyTimedImplementationLinkSignatureReferenceResolver();
+	protected eu.hyvar.mspl.manifest.resource.hymanifest.analysis.HyTimedImplementationFeatureLinkLocalReferenceResolver hyTimedImplementationFeatureLinkLocalReferenceResolver = new eu.hyvar.mspl.manifest.resource.hymanifest.analysis.HyTimedImplementationFeatureLinkLocalReferenceResolver();
+	protected eu.hyvar.mspl.manifest.resource.hymanifest.analysis.HyTimedImplementationFeatureLinkSignatureReferenceResolver hyTimedImplementationFeatureLinkSignatureReferenceResolver = new eu.hyvar.mspl.manifest.resource.hymanifest.analysis.HyTimedImplementationFeatureLinkSignatureReferenceResolver();
+	protected eu.hyvar.mspl.manifest.resource.hymanifest.analysis.HyTimedImplementationFeatureAttributeLinkLocalReferenceResolver hyTimedImplementationFeatureAttributeLinkLocalReferenceResolver = new eu.hyvar.mspl.manifest.resource.hymanifest.analysis.HyTimedImplementationFeatureAttributeLinkLocalReferenceResolver();
+	protected eu.hyvar.mspl.manifest.resource.hymanifest.analysis.HyTimedImplementationFeatureAttributeLinkSignatureReferenceResolver hyTimedImplementationFeatureAttributeLinkSignatureReferenceResolver = new eu.hyvar.mspl.manifest.resource.hymanifest.analysis.HyTimedImplementationFeatureAttributeLinkSignatureReferenceResolver();
+	protected eu.hyvar.mspl.manifest.resource.hymanifest.analysis.HyTimedImplementationEnumLinkLocalReferenceResolver hyTimedImplementationEnumLinkLocalReferenceResolver = new eu.hyvar.mspl.manifest.resource.hymanifest.analysis.HyTimedImplementationEnumLinkLocalReferenceResolver();
+	protected eu.hyvar.mspl.manifest.resource.hymanifest.analysis.HyTimedImplementationEnumLinkSignatureReferenceResolver hyTimedImplementationEnumLinkSignatureReferenceResolver = new eu.hyvar.mspl.manifest.resource.hymanifest.analysis.HyTimedImplementationEnumLinkSignatureReferenceResolver();
+	protected eu.hyvar.mspl.manifest.resource.hymanifest.analysis.HyTimedImplementationEnumLiteralLinkLocalReferenceResolver hyTimedImplementationEnumLiteralLinkLocalReferenceResolver = new eu.hyvar.mspl.manifest.resource.hymanifest.analysis.HyTimedImplementationEnumLiteralLinkLocalReferenceResolver();
+	protected eu.hyvar.mspl.manifest.resource.hymanifest.analysis.HyTimedImplementationEnumLiteralLinkSignatureReferenceResolver hyTimedImplementationEnumLiteralLinkSignatureReferenceResolver = new eu.hyvar.mspl.manifest.resource.hymanifest.analysis.HyTimedImplementationEnumLiteralLinkSignatureReferenceResolver();
 	protected eu.hyvar.mspl.manifest.resource.hymanifest.analysis.HyEnumValueEnumReferenceResolver hyEnumValueEnumReferenceResolver = new eu.hyvar.mspl.manifest.resource.hymanifest.analysis.HyEnumValueEnumReferenceResolver();
 	protected eu.hyvar.mspl.manifest.resource.hymanifest.analysis.HyEnumValueEnumLiteralReferenceResolver hyEnumValueEnumLiteralReferenceResolver = new eu.hyvar.mspl.manifest.resource.hymanifest.analysis.HyEnumValueEnumLiteralReferenceResolver();
 	
@@ -35,12 +41,36 @@ public class HymanifestReferenceResolverSwitch implements eu.hyvar.mspl.manifest
 		return getResolverChain(eu.hyvar.mspl.manifest.ManifestPackage.eINSTANCE.getHyTimedImplementations_Signature(), hyTimedImplementationsSignatureReferenceResolver);
 	}
 	
-	public eu.hyvar.mspl.manifest.resource.hymanifest.IHymanifestReferenceResolver<eu.hyvar.mspl.manifest.HyTimedImplementationLink, eu.hyvar.feature.HyFeature> getHyTimedImplementationLinkLocalReferenceResolver() {
-		return getResolverChain(eu.hyvar.mspl.manifest.ManifestPackage.eINSTANCE.getHyTimedImplementationLink_Local(), hyTimedImplementationLinkLocalReferenceResolver);
+	public eu.hyvar.mspl.manifest.resource.hymanifest.IHymanifestReferenceResolver<eu.hyvar.mspl.manifest.HyTimedImplementationFeatureLink, eu.hyvar.feature.HyFeature> getHyTimedImplementationFeatureLinkLocalReferenceResolver() {
+		return getResolverChain(eu.hyvar.mspl.manifest.ManifestPackage.eINSTANCE.getHyTimedImplementationFeatureLink_Local(), hyTimedImplementationFeatureLinkLocalReferenceResolver);
 	}
 	
-	public eu.hyvar.mspl.manifest.resource.hymanifest.IHymanifestReferenceResolver<eu.hyvar.mspl.manifest.HyTimedImplementationLink, eu.hyvar.feature.HyFeature> getHyTimedImplementationLinkSignatureReferenceResolver() {
-		return getResolverChain(eu.hyvar.mspl.manifest.ManifestPackage.eINSTANCE.getHyTimedImplementationLink_Signature(), hyTimedImplementationLinkSignatureReferenceResolver);
+	public eu.hyvar.mspl.manifest.resource.hymanifest.IHymanifestReferenceResolver<eu.hyvar.mspl.manifest.HyTimedImplementationFeatureLink, eu.hyvar.feature.HyFeature> getHyTimedImplementationFeatureLinkSignatureReferenceResolver() {
+		return getResolverChain(eu.hyvar.mspl.manifest.ManifestPackage.eINSTANCE.getHyTimedImplementationFeatureLink_Signature(), hyTimedImplementationFeatureLinkSignatureReferenceResolver);
+	}
+	
+	public eu.hyvar.mspl.manifest.resource.hymanifest.IHymanifestReferenceResolver<eu.hyvar.mspl.manifest.HyTimedImplementationFeatureAttributeLink, eu.hyvar.feature.HyFeatureAttribute> getHyTimedImplementationFeatureAttributeLinkLocalReferenceResolver() {
+		return getResolverChain(eu.hyvar.mspl.manifest.ManifestPackage.eINSTANCE.getHyTimedImplementationFeatureAttributeLink_Local(), hyTimedImplementationFeatureAttributeLinkLocalReferenceResolver);
+	}
+	
+	public eu.hyvar.mspl.manifest.resource.hymanifest.IHymanifestReferenceResolver<eu.hyvar.mspl.manifest.HyTimedImplementationFeatureAttributeLink, eu.hyvar.feature.HyFeatureAttribute> getHyTimedImplementationFeatureAttributeLinkSignatureReferenceResolver() {
+		return getResolverChain(eu.hyvar.mspl.manifest.ManifestPackage.eINSTANCE.getHyTimedImplementationFeatureAttributeLink_Signature(), hyTimedImplementationFeatureAttributeLinkSignatureReferenceResolver);
+	}
+	
+	public eu.hyvar.mspl.manifest.resource.hymanifest.IHymanifestReferenceResolver<eu.hyvar.mspl.manifest.HyTimedImplementationEnumLink, eu.hyvar.dataValues.HyEnum> getHyTimedImplementationEnumLinkLocalReferenceResolver() {
+		return getResolverChain(eu.hyvar.mspl.manifest.ManifestPackage.eINSTANCE.getHyTimedImplementationEnumLink_Local(), hyTimedImplementationEnumLinkLocalReferenceResolver);
+	}
+	
+	public eu.hyvar.mspl.manifest.resource.hymanifest.IHymanifestReferenceResolver<eu.hyvar.mspl.manifest.HyTimedImplementationEnumLink, eu.hyvar.dataValues.HyEnum> getHyTimedImplementationEnumLinkSignatureReferenceResolver() {
+		return getResolverChain(eu.hyvar.mspl.manifest.ManifestPackage.eINSTANCE.getHyTimedImplementationEnumLink_Signature(), hyTimedImplementationEnumLinkSignatureReferenceResolver);
+	}
+	
+	public eu.hyvar.mspl.manifest.resource.hymanifest.IHymanifestReferenceResolver<eu.hyvar.mspl.manifest.HyTimedImplementationEnumLiteralLink, eu.hyvar.dataValues.HyEnumLiteral> getHyTimedImplementationEnumLiteralLinkLocalReferenceResolver() {
+		return getResolverChain(eu.hyvar.mspl.manifest.ManifestPackage.eINSTANCE.getHyTimedImplementationEnumLiteralLink_Local(), hyTimedImplementationEnumLiteralLinkLocalReferenceResolver);
+	}
+	
+	public eu.hyvar.mspl.manifest.resource.hymanifest.IHymanifestReferenceResolver<eu.hyvar.mspl.manifest.HyTimedImplementationEnumLiteralLink, eu.hyvar.dataValues.HyEnumLiteral> getHyTimedImplementationEnumLiteralLinkSignatureReferenceResolver() {
+		return getResolverChain(eu.hyvar.mspl.manifest.ManifestPackage.eINSTANCE.getHyTimedImplementationEnumLiteralLink_Signature(), hyTimedImplementationEnumLiteralLinkSignatureReferenceResolver);
 	}
 	
 	public eu.hyvar.mspl.manifest.resource.hymanifest.IHymanifestReferenceResolver<eu.hyvar.dataValues.HyEnumValue, eu.hyvar.dataValues.HyEnum> getHyEnumValueEnumReferenceResolver() {
@@ -58,8 +88,14 @@ public class HymanifestReferenceResolverSwitch implements eu.hyvar.mspl.manifest
 		}
 		hyTimedDependenciesSignatureReferenceResolver.setOptions(options);
 		hyTimedImplementationsSignatureReferenceResolver.setOptions(options);
-		hyTimedImplementationLinkLocalReferenceResolver.setOptions(options);
-		hyTimedImplementationLinkSignatureReferenceResolver.setOptions(options);
+		hyTimedImplementationFeatureLinkLocalReferenceResolver.setOptions(options);
+		hyTimedImplementationFeatureLinkSignatureReferenceResolver.setOptions(options);
+		hyTimedImplementationFeatureAttributeLinkLocalReferenceResolver.setOptions(options);
+		hyTimedImplementationFeatureAttributeLinkSignatureReferenceResolver.setOptions(options);
+		hyTimedImplementationEnumLinkLocalReferenceResolver.setOptions(options);
+		hyTimedImplementationEnumLinkSignatureReferenceResolver.setOptions(options);
+		hyTimedImplementationEnumLiteralLinkLocalReferenceResolver.setOptions(options);
+		hyTimedImplementationEnumLiteralLinkSignatureReferenceResolver.setOptions(options);
 		hyEnumValueEnumReferenceResolver.setOptions(options);
 		hyEnumValueEnumLiteralReferenceResolver.setOptions(options);
 	}
@@ -84,20 +120,68 @@ public class HymanifestReferenceResolverSwitch implements eu.hyvar.mspl.manifest
 				hyTimedImplementationsSignatureReferenceResolver.resolve(identifier, (eu.hyvar.mspl.manifest.HyTimedImplementations) container, (EReference) feature, position, true, frr);
 			}
 		}
-		if (eu.hyvar.mspl.manifest.ManifestPackage.eINSTANCE.getHyTimedImplementationLink().isInstance(container)) {
+		if (eu.hyvar.mspl.manifest.ManifestPackage.eINSTANCE.getHyTimedImplementationFeatureLink().isInstance(container)) {
 			HymanifestFuzzyResolveResult<eu.hyvar.feature.HyFeature> frr = new HymanifestFuzzyResolveResult<eu.hyvar.feature.HyFeature>(result);
 			String referenceName = reference.getName();
 			EStructuralFeature feature = container.eClass().getEStructuralFeature(referenceName);
 			if (feature != null && feature instanceof EReference && referenceName != null && referenceName.equals("local")) {
-				hyTimedImplementationLinkLocalReferenceResolver.resolve(identifier, (eu.hyvar.mspl.manifest.HyTimedImplementationLink) container, (EReference) feature, position, true, frr);
+				hyTimedImplementationFeatureLinkLocalReferenceResolver.resolve(identifier, (eu.hyvar.mspl.manifest.HyTimedImplementationFeatureLink) container, (EReference) feature, position, true, frr);
 			}
 		}
-		if (eu.hyvar.mspl.manifest.ManifestPackage.eINSTANCE.getHyTimedImplementationLink().isInstance(container)) {
+		if (eu.hyvar.mspl.manifest.ManifestPackage.eINSTANCE.getHyTimedImplementationFeatureLink().isInstance(container)) {
 			HymanifestFuzzyResolveResult<eu.hyvar.feature.HyFeature> frr = new HymanifestFuzzyResolveResult<eu.hyvar.feature.HyFeature>(result);
 			String referenceName = reference.getName();
 			EStructuralFeature feature = container.eClass().getEStructuralFeature(referenceName);
 			if (feature != null && feature instanceof EReference && referenceName != null && referenceName.equals("signature")) {
-				hyTimedImplementationLinkSignatureReferenceResolver.resolve(identifier, (eu.hyvar.mspl.manifest.HyTimedImplementationLink) container, (EReference) feature, position, true, frr);
+				hyTimedImplementationFeatureLinkSignatureReferenceResolver.resolve(identifier, (eu.hyvar.mspl.manifest.HyTimedImplementationFeatureLink) container, (EReference) feature, position, true, frr);
+			}
+		}
+		if (eu.hyvar.mspl.manifest.ManifestPackage.eINSTANCE.getHyTimedImplementationFeatureAttributeLink().isInstance(container)) {
+			HymanifestFuzzyResolveResult<eu.hyvar.feature.HyFeatureAttribute> frr = new HymanifestFuzzyResolveResult<eu.hyvar.feature.HyFeatureAttribute>(result);
+			String referenceName = reference.getName();
+			EStructuralFeature feature = container.eClass().getEStructuralFeature(referenceName);
+			if (feature != null && feature instanceof EReference && referenceName != null && referenceName.equals("local")) {
+				hyTimedImplementationFeatureAttributeLinkLocalReferenceResolver.resolve(identifier, (eu.hyvar.mspl.manifest.HyTimedImplementationFeatureAttributeLink) container, (EReference) feature, position, true, frr);
+			}
+		}
+		if (eu.hyvar.mspl.manifest.ManifestPackage.eINSTANCE.getHyTimedImplementationFeatureAttributeLink().isInstance(container)) {
+			HymanifestFuzzyResolveResult<eu.hyvar.feature.HyFeatureAttribute> frr = new HymanifestFuzzyResolveResult<eu.hyvar.feature.HyFeatureAttribute>(result);
+			String referenceName = reference.getName();
+			EStructuralFeature feature = container.eClass().getEStructuralFeature(referenceName);
+			if (feature != null && feature instanceof EReference && referenceName != null && referenceName.equals("signature")) {
+				hyTimedImplementationFeatureAttributeLinkSignatureReferenceResolver.resolve(identifier, (eu.hyvar.mspl.manifest.HyTimedImplementationFeatureAttributeLink) container, (EReference) feature, position, true, frr);
+			}
+		}
+		if (eu.hyvar.mspl.manifest.ManifestPackage.eINSTANCE.getHyTimedImplementationEnumLink().isInstance(container)) {
+			HymanifestFuzzyResolveResult<eu.hyvar.dataValues.HyEnum> frr = new HymanifestFuzzyResolveResult<eu.hyvar.dataValues.HyEnum>(result);
+			String referenceName = reference.getName();
+			EStructuralFeature feature = container.eClass().getEStructuralFeature(referenceName);
+			if (feature != null && feature instanceof EReference && referenceName != null && referenceName.equals("local")) {
+				hyTimedImplementationEnumLinkLocalReferenceResolver.resolve(identifier, (eu.hyvar.mspl.manifest.HyTimedImplementationEnumLink) container, (EReference) feature, position, true, frr);
+			}
+		}
+		if (eu.hyvar.mspl.manifest.ManifestPackage.eINSTANCE.getHyTimedImplementationEnumLink().isInstance(container)) {
+			HymanifestFuzzyResolveResult<eu.hyvar.dataValues.HyEnum> frr = new HymanifestFuzzyResolveResult<eu.hyvar.dataValues.HyEnum>(result);
+			String referenceName = reference.getName();
+			EStructuralFeature feature = container.eClass().getEStructuralFeature(referenceName);
+			if (feature != null && feature instanceof EReference && referenceName != null && referenceName.equals("signature")) {
+				hyTimedImplementationEnumLinkSignatureReferenceResolver.resolve(identifier, (eu.hyvar.mspl.manifest.HyTimedImplementationEnumLink) container, (EReference) feature, position, true, frr);
+			}
+		}
+		if (eu.hyvar.mspl.manifest.ManifestPackage.eINSTANCE.getHyTimedImplementationEnumLiteralLink().isInstance(container)) {
+			HymanifestFuzzyResolveResult<eu.hyvar.dataValues.HyEnumLiteral> frr = new HymanifestFuzzyResolveResult<eu.hyvar.dataValues.HyEnumLiteral>(result);
+			String referenceName = reference.getName();
+			EStructuralFeature feature = container.eClass().getEStructuralFeature(referenceName);
+			if (feature != null && feature instanceof EReference && referenceName != null && referenceName.equals("local")) {
+				hyTimedImplementationEnumLiteralLinkLocalReferenceResolver.resolve(identifier, (eu.hyvar.mspl.manifest.HyTimedImplementationEnumLiteralLink) container, (EReference) feature, position, true, frr);
+			}
+		}
+		if (eu.hyvar.mspl.manifest.ManifestPackage.eINSTANCE.getHyTimedImplementationEnumLiteralLink().isInstance(container)) {
+			HymanifestFuzzyResolveResult<eu.hyvar.dataValues.HyEnumLiteral> frr = new HymanifestFuzzyResolveResult<eu.hyvar.dataValues.HyEnumLiteral>(result);
+			String referenceName = reference.getName();
+			EStructuralFeature feature = container.eClass().getEStructuralFeature(referenceName);
+			if (feature != null && feature instanceof EReference && referenceName != null && referenceName.equals("signature")) {
+				hyTimedImplementationEnumLiteralLinkSignatureReferenceResolver.resolve(identifier, (eu.hyvar.mspl.manifest.HyTimedImplementationEnumLiteralLink) container, (EReference) feature, position, true, frr);
 			}
 		}
 		if (eu.hyvar.dataValues.HyDataValuesPackage.eINSTANCE.getHyEnumValue().isInstance(container)) {
@@ -125,11 +209,29 @@ public class HymanifestReferenceResolverSwitch implements eu.hyvar.mspl.manifest
 		if (reference == eu.hyvar.mspl.manifest.ManifestPackage.eINSTANCE.getHyTimedImplementations_Signature()) {
 			return getResolverChain(reference, hyTimedImplementationsSignatureReferenceResolver);
 		}
-		if (reference == eu.hyvar.mspl.manifest.ManifestPackage.eINSTANCE.getHyTimedImplementationLink_Local()) {
-			return getResolverChain(reference, hyTimedImplementationLinkLocalReferenceResolver);
+		if (reference == eu.hyvar.mspl.manifest.ManifestPackage.eINSTANCE.getHyTimedImplementationFeatureLink_Local()) {
+			return getResolverChain(reference, hyTimedImplementationFeatureLinkLocalReferenceResolver);
 		}
-		if (reference == eu.hyvar.mspl.manifest.ManifestPackage.eINSTANCE.getHyTimedImplementationLink_Signature()) {
-			return getResolverChain(reference, hyTimedImplementationLinkSignatureReferenceResolver);
+		if (reference == eu.hyvar.mspl.manifest.ManifestPackage.eINSTANCE.getHyTimedImplementationFeatureLink_Signature()) {
+			return getResolverChain(reference, hyTimedImplementationFeatureLinkSignatureReferenceResolver);
+		}
+		if (reference == eu.hyvar.mspl.manifest.ManifestPackage.eINSTANCE.getHyTimedImplementationFeatureAttributeLink_Local()) {
+			return getResolverChain(reference, hyTimedImplementationFeatureAttributeLinkLocalReferenceResolver);
+		}
+		if (reference == eu.hyvar.mspl.manifest.ManifestPackage.eINSTANCE.getHyTimedImplementationFeatureAttributeLink_Signature()) {
+			return getResolverChain(reference, hyTimedImplementationFeatureAttributeLinkSignatureReferenceResolver);
+		}
+		if (reference == eu.hyvar.mspl.manifest.ManifestPackage.eINSTANCE.getHyTimedImplementationEnumLink_Local()) {
+			return getResolverChain(reference, hyTimedImplementationEnumLinkLocalReferenceResolver);
+		}
+		if (reference == eu.hyvar.mspl.manifest.ManifestPackage.eINSTANCE.getHyTimedImplementationEnumLink_Signature()) {
+			return getResolverChain(reference, hyTimedImplementationEnumLinkSignatureReferenceResolver);
+		}
+		if (reference == eu.hyvar.mspl.manifest.ManifestPackage.eINSTANCE.getHyTimedImplementationEnumLiteralLink_Local()) {
+			return getResolverChain(reference, hyTimedImplementationEnumLiteralLinkLocalReferenceResolver);
+		}
+		if (reference == eu.hyvar.mspl.manifest.ManifestPackage.eINSTANCE.getHyTimedImplementationEnumLiteralLink_Signature()) {
+			return getResolverChain(reference, hyTimedImplementationEnumLiteralLinkSignatureReferenceResolver);
 		}
 		if (reference == eu.hyvar.dataValues.HyDataValuesPackage.eINSTANCE.getHyEnumValue_Enum()) {
 			return getResolverChain(reference, hyEnumValueEnumReferenceResolver);

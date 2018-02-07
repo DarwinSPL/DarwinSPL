@@ -1,11 +1,9 @@
 
 package eu.hyvar.reconfigurator.input.format;
 
-import javax.annotation.Generated;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-@Generated("org.jsonschema2pojo")
 public class Attribute {
 
     /**
@@ -45,8 +43,6 @@ public class Attribute {
      * 
      * (Required)
      * 
-     * @return
-     *     The id
      */
     public String getId() {
         return id;
@@ -56,8 +52,6 @@ public class Attribute {
      * 
      * (Required)
      * 
-     * @param id
-     *     The id
      */
     public void setId(String id) {
         this.id = id;
@@ -67,8 +61,6 @@ public class Attribute {
      * 
      * (Required)
      * 
-     * @return
-     *     The min
      */
     public Integer getMin() {
         return min;
@@ -78,8 +70,6 @@ public class Attribute {
      * 
      * (Required)
      * 
-     * @param min
-     *     The min
      */
     public void setMin(Integer min) {
         this.min = min;
@@ -89,8 +79,6 @@ public class Attribute {
      * 
      * (Required)
      * 
-     * @return
-     *     The max
      */
     public Integer getMax() {
         return max;
@@ -100,8 +88,6 @@ public class Attribute {
      * 
      * (Required)
      * 
-     * @param max
-     *     The max
      */
     public void setMax(Integer max) {
         this.max = max;
@@ -111,8 +97,6 @@ public class Attribute {
      * 
      * (Required)
      * 
-     * @return
-     *     The featureId
      */
     public String getFeatureId() {
         return featureId;
@@ -122,8 +106,6 @@ public class Attribute {
      * 
      * (Required)
      * 
-     * @param featureId
-     *     The featureId
      */
     public void setFeatureId(String featureId) {
         this.featureId = featureId;

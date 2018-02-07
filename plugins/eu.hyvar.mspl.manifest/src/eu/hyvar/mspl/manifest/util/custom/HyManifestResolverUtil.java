@@ -1,4 +1,4 @@
-package eu.hyvar.mspl.util;
+package eu.hyvar.mspl.manifest.util.custom;
 
 import java.util.ArrayList;
 import java.util.List;

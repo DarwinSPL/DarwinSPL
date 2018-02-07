@@ -1,6 +1,8 @@
 package de.darwinspl.feature.graphical.editor.commands.enumeration;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import org.eclipse.gef.commands.Command;
 
@@ -37,12 +39,27 @@ public class DwFeatureAttributeEnumCreateLiteralCommand extends Command {
 	@Override
 	public void redo() {
 		Date date = editor.getCurrentSelectedDate();
-		if(date.equals(new Date(Long.MIN_VALUE)))
-			date = null;
+		
+		if(date.equals(new Date(Long.MIN_VALUE))) {
+			date = null;			
+		}
 		
 		literal = HyDataValuesFactory.eINSTANCE.createHyEnumLiteral();
 		literal.setName("New Literal");
 		literal.setValidSince(date);
+		
+		List<Integer> literalValues = new ArrayList<Integer>();
+		
+		for(HyEnumLiteral literal : featureEnum.getLiterals()) {
+			literalValues.add(literal.getValue());
+		}
+		 
+		int value=0;
+		while(literalValues.contains(value)) {
+			value++;
+		}
+		
+		literal.setValue(value);
 		
 		featureEnum.getLiterals().add(literal);		
 		editor.refreshView();

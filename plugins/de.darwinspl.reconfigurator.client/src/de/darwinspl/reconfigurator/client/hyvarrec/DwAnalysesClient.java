@@ -4,6 +4,7 @@ import java.net.URI;
 import java.nio.channels.UnresolvedAddressException;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.HashMap;
@@ -22,7 +23,17 @@ import org.eclipse.jetty.http.HttpHeader;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
+import de.darwinspl.anomaly.DwAnomaly;
+import de.darwinspl.anomaly.DwAnomalyFactory;
+import de.darwinspl.anomaly.DwDeadFeatureAnomaly;
+import de.darwinspl.anomaly.DwFalseOptionalFeatureAnomaly;
+import de.darwinspl.anomaly.DwFeatureAnomaly;
+import de.darwinspl.anomaly.DwVoidFeatureModelAnomaly;
+import de.darwinspl.anomaly.explanation.DwAnomalyExplanation;
+import de.darwinspl.anomaly.explanation.DwAnomalyExplanationFactory;
+import de.darwinspl.preferences.DwProfile;
 import de.darwinspl.reconfigurator.client.hyvarrec.format.HyVarRecExplainAnswer;
+import de.darwinspl.reconfigurator.client.hyvarrec.format.check_features.HyVarRecCheckFeaturesAnswer;
 import de.darwinspl.reconfigurator.client.hyvarrec.format.context.HyVarRecValidateAnswer;
 import eu.hyvar.context.HyContextModel;
 import eu.hyvar.context.HyContextualInformation;
@@ -48,8 +59,8 @@ import eu.hyvar.feature.HyFeatureModel;
 import eu.hyvar.feature.HyVersion;
 import eu.hyvar.feature.configuration.HyConfiguration;
 import eu.hyvar.feature.constraint.HyConstraintModel;
-import de.darwinspl.preferences.DwProfile;
 import eu.hyvar.reconfigurator.input.exporter.HyVarRecExporter;
+import eu.hyvar.reconfigurator.input.format.InputForHyVarRec;
 import eu.hyvar.reconfigurator.output.translation.HyVarRecOutputTranslator;
 import eu.hyvar.reconfigurator.output.translation.format.OutputOfHyVarRec;
 
@@ -62,6 +73,7 @@ public class DwAnalysesClient {
 	protected static final String RECONFIGURATION_URI = "process";
 	protected static final String VALIDATE_CONTEXT_URI = "validate";
 	protected static final String VALIDATE_FM_URI = "explain";
+	protected static final String CHECK_FEATURES_URI = "check_features";
 	
 	protected HyVarRecExporter exporter;
 	
@@ -109,6 +121,7 @@ public class DwAnalysesClient {
 	 * @param contextValues
 	 * @param date
 	 * @return A List of Constraints leading to an invalidity. Null if model is valid.
+	 * @deprecated
 	 */
 	public List<String> explainAnomaly(String uriString, HyContextModel contextModel, HyValidityModel contextValidityModel,
 			HyFeatureModel featureModel, HyConstraintModel constraintModel, HyConfiguration oldConfiguration,
@@ -135,6 +148,146 @@ public class DwAnalysesClient {
 		}
 		
 		return null;
+	}
+	
+	/**
+	 * 
+	 * @param uriString
+	 * @param contextModel
+	 * @param contextValidityModel
+	 * @param featureModel
+	 * @param constraintModel
+	 * @param oldConfiguration
+	 * @param preferenceModel
+	 * @param anomaly
+	 * @return
+	 * @throws TimeoutException
+	 * @throws InterruptedException
+	 * @throws ExecutionException
+	 * @throws UnresolvedAddressException
+	 */
+	public DwAnomalyExplanation explainAnomaly(String uriString, HyContextModel contextModel, HyValidityModel contextValidityModel,
+			HyFeatureModel featureModel, HyConstraintModel constraintModel, DwAnomaly anomaly) throws TimeoutException, InterruptedException, ExecutionException, UnresolvedAddressException {
+		
+		HyContextValueModel contextValueModel = null;
+		String additionalAnomalyConstraint = null;
+		
+		if(anomaly instanceof DwVoidFeatureModelAnomaly) {
+			contextValueModel = ((DwVoidFeatureModelAnomaly) anomaly).getContextValueModel();
+		}
+		else {
+			// Create constraint enforcing the anomaly to cause a void feature model anomaly -> unsatisfiable constraints are the explanation for anomaly.
+			additionalAnomalyConstraint = "feature[";
+			additionalAnomalyConstraint = additionalAnomalyConstraint + ((DwFeatureAnomaly)anomaly).getFeature().getId();
+			additionalAnomalyConstraint = additionalAnomalyConstraint + "] = ";
+			
+			if(anomaly instanceof DwFalseOptionalFeatureAnomaly) {
+				additionalAnomalyConstraint = additionalAnomalyConstraint + "0";
+			}
+			else if(anomaly instanceof DwDeadFeatureAnomaly) {
+				additionalAnomalyConstraint = additionalAnomalyConstraint + "1";
+			}
+		}
+		
+		
+		// If the anomaly.getValidSince == null, we cannot use the null date as parameter. Otherwise, evolution-aware analysis is triggered which isn't working for explain service
+		Date date = anomaly.getValidSince();
+		if(date == null) {
+			List<Date> dates = HyEvolutionUtil.collectDates(featureModel);
+			if(contextModel != null) {
+				dates.addAll(HyEvolutionUtil.collectDates(contextModel));				
+			}
+			if(contextValidityModel != null) {
+				dates.addAll(HyEvolutionUtil.collectDates(contextValidityModel));				
+			}
+			if(constraintModel != null) {
+				dates.addAll(HyEvolutionUtil.collectDates(constraintModel));
+			}
+			// If dates is empty, null can be used, as the exporter won't use evolution-encoding since no evolution exists.
+			if(!dates.isEmpty()) {
+				Collections.sort(dates);
+				// select a date before the first evolution step, as there is the cause.
+				date = dates.get(0);
+				Calendar calendar = Calendar.getInstance();
+				calendar.setTime(date);
+				calendar.add(Calendar.DAY_OF_MONTH, -1);
+				date = calendar.getTime();
+			}			
+		}
+		
+		
+		InputForHyVarRec inputForHyVarRec = exporter.createInputForHyVarRec(contextModel, contextValidityModel, featureModel, constraintModel, null, null, contextValueModel, date, date);
+		URI uri = createUriWithPath(uriString, VALIDATE_FM_URI);
+		
+		if(additionalAnomalyConstraint != null) {
+			inputForHyVarRec.getConstraints().add(additionalAnomalyConstraint);
+		}
+		
+		Gson gson = new GsonBuilder().disableHtmlEscaping().create();
+		String messageForHyVarRec = gson.toJson(inputForHyVarRec);
+		
+		String hyvarrecAnswerString = sendMessageToHyVarRec(messageForHyVarRec, uri);
+		
+		HyVarRecExplainAnswer hyVarRecAnswer = gson.fromJson(hyvarrecAnswerString, HyVarRecExplainAnswer.class);
+		
+		if(hyVarRecAnswer.getResult().equals("sat")) {
+			return null;
+		}else if(hyVarRecAnswer.getResult().equals("unsat")) {
+			// TODO here a more sophisticated explanation engine could be possible.
+			DwAnomalyExplanation anomalyExplanation = DwAnomalyExplanationFactory.eINSTANCE.createDwAnomalyExplanation();
+			anomalyExplanation.setAnomaly(anomaly);
+			anomalyExplanation.setDate(anomaly.getValidSince());
+			
+			List<String> parsedConstraints = translateIdsBackToNames(hyVarRecAnswer.getConstraints(), anomaly.getValidSince(), exporter);
+			
+			if(parsedConstraints == null) {
+				parsedConstraints = hyVarRecAnswer.getConstraints();
+			}
+			
+			anomalyExplanation.getExplanations().addAll(parsedConstraints);
+			
+			return anomalyExplanation;
+		}
+		
+		return null;
+	}
+	
+	/**
+	 * False optional and dead features
+	 * @param uriString
+	 * @param contextModel
+	 * @param contextValidityModel
+	 * @param featureModel
+	 * @param constraintModel
+	 * @param contextValues
+	 * @param date
+	 * @return
+	 * @throws TimeoutException
+	 * @throws InterruptedException
+	 * @throws ExecutionException
+	 * @throws UnresolvedAddressException
+	 */
+	public List<DwAnomaly> checkFeatures(String uriString, HyContextModel contextModel, HyValidityModel contextValidityModel,
+			HyFeatureModel featureModel, HyConstraintModel constraintModel, HyContextValueModel contextValues, Date date) throws TimeoutException, InterruptedException, ExecutionException, UnresolvedAddressException {
+		String messageForHyVarRec = createHyVarRecMessage(contextModel, contextValidityModel, featureModel, constraintModel, null, null, contextValues, date, null);
+		System.err.println(messageForHyVarRec);
+		
+		
+		URI uri = createUriWithPath(uriString, CHECK_FEATURES_URI);
+		
+		String hyvarrecAnswerString = sendMessageToHyVarRec(messageForHyVarRec, uri);
+		System.err.println(hyvarrecAnswerString);
+		
+		HyVarRecCheckFeaturesAnswer hyVarRecAnswer = gson.fromJson(hyvarrecAnswerString, HyVarRecCheckFeaturesAnswer.class);
+		
+		List<DwAnomaly> anomalies = DwAnomalyTranslation.translateAnomalies(hyVarRecAnswer, exporter.getFeatureReconfiguratorIdMapping(), exporter.getSortedDateList());
+		
+		// Code to test anomaly explanation
+//		for(DwAnomaly anomaly: anomalies) {
+//			explainAnomaly(uriString, contextModel, contextValidityModel, featureModel, constraintModel, anomaly);
+//		}
+		
+		return anomalies;
 	}
 	
 	protected List<String> translateIdsBackToNames(List<String> constraints, Date date, HyVarRecExporter hyVarRecExporter) {
@@ -244,9 +397,9 @@ public class DwAnalysesClient {
 	 * @param profile
 	 * @param contextValues
 	 * @param date
-	 * @return Context values for which the model is not satisfiable. Null if satisfiable
+	 * @return Void feature model anomaly with context values. Null if no anomaly
 	 */
-	public DwContextValueEvolutionWrapper validateFeatureModelWithContext(String uriString, HyContextModel contextModel, HyValidityModel contextValidityModel,
+	public DwVoidFeatureModelAnomaly validateFeatureModelWithContext(String uriString, HyContextModel contextModel, HyValidityModel contextValidityModel,
 			HyFeatureModel featureModel, HyConstraintModel constraintModel, HyConfiguration oldConfiguration,
 			DwProfile profile, HyContextValueModel contextValues, Date date) throws TimeoutException, InterruptedException, ExecutionException, UnresolvedAddressException, HyVarRecNoSolutionException {
 		
@@ -267,10 +420,13 @@ public class DwAnalysesClient {
 			return null;
 		}
 		
-		DwContextValueEvolutionWrapper contextValueEvolutionWrapper = new DwContextValueEvolutionWrapper();
+		
+		DwVoidFeatureModelAnomaly voidFeatureAnomaly = DwAnomalyFactory.eINSTANCE.createDwVoidFeatureModelAnomaly();
+		
+		
 		
 		HyContextValueModel contextValueModel = ContextValueFactory.eINSTANCE.createHyContextValueModel();
-		contextValueEvolutionWrapper.setContextValueModel(contextValueModel);
+		voidFeatureAnomaly.setContextValueModel(contextValueModel);
 		
 		if(hyVarRecAnswer.getContexts() != null) {
 			// TODO inconsistency. In the requests for HyVarRec it's always written context[id] and in the answer its just id
@@ -289,7 +445,8 @@ public class DwAnalysesClient {
 				
 				
 				if(contextId.equals(evolutionId)) {
-					contextValueEvolutionWrapper.setDate(getDateOutOfEvolutionContext(context, value, contextModel, contextValidityModel, featureModel, constraintModel, profile));										
+					Date anomalyDate = getDateOutOfEvolutionContext(context, value, contextModel, contextValidityModel, featureModel, constraintModel, profile);
+					voidFeatureAnomaly.setValidSince(anomalyDate);
 					continue;
 				}
 				
@@ -347,7 +504,7 @@ public class DwAnalysesClient {
 			}
 		}
 		
-		return contextValueEvolutionWrapper;
+		return voidFeatureAnomaly;
 	}
 	
 	private Date getDateOutOfEvolutionContext(de.darwinspl.reconfigurator.client.hyvarrec.format.context.Context dateContext, int valueForDateContext, HyContextModel contextModel, HyValidityModel contextValidityModel,

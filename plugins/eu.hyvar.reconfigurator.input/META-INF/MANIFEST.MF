@@ -5,7 +5,8 @@ Bundle-SymbolicName: eu.hyvar.reconfigurator.input
 Bundle-Version: 1.0.0
 Bundle-RequiredExecutionEnvironment: JavaSE-1.7
 Export-Package: eu.hyvar.reconfigurator.input.exporter,
- eu.hyvar.reconfigurator.input.exporter.example
+ eu.hyvar.reconfigurator.input.exporter.example,
+ eu.hyvar.reconfigurator.input.format
 Require-Bundle: eu.hyvar.context.validity_formulas;visibility:=reexport,
  eu.hyvar.feature.configuration;visibility:=reexport,
  eu.hyvar.feature.constraint;visibility:=reexport,

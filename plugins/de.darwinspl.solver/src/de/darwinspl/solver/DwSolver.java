@@ -33,7 +33,7 @@ public class DwSolver {
 
 	protected Date date;
 	
-	protected List<Constraint> featureModelStructureConstraints;
+	protected List<Constraint> featureModelStructureAndCrossTreeConstraints;
 
 	/**
 	 * 
@@ -46,7 +46,7 @@ public class DwSolver {
 	 */
 	public DwSolver(HyFeatureModel featureModel, HyContextModel contextModel, Date date) {
 		this.date = date;
-		this.featureModelStructureConstraints = new ArrayList<Constraint>();
+		this.featureModelStructureAndCrossTreeConstraints = new ArrayList<Constraint>();
 		
 		setModels(featureModel, contextModel, date);
 	}
@@ -77,6 +77,7 @@ public class DwSolver {
 		for (Constraint constraint : DwSolverModelTranslation.createFeatureModelConstraints(featureModel, chocoModel,
 				featureModelMapping, date)) {
 			chocoModel.post(constraint);
+			featureModelStructureAndCrossTreeConstraints.add(constraint);
 		}
 
 		createNewSolver();
@@ -86,6 +87,7 @@ public class DwSolver {
 		for (Constraint constraint : DwSolverModelTranslation.createFeatureModelConstraints(featureModel, chocoModel,
 				featureModelMapping, date)) {
 			chocoModel.post(constraint);
+			featureModelStructureAndCrossTreeConstraints.add(constraint);
 		}
 	}
 
@@ -100,8 +102,10 @@ public class DwSolver {
 
 		for (HyConstraint constraint : HyEvolutionUtil.getValidTemporalElements(constraintModel.getConstraints(),
 				date)) {
-			chocoModel.post(DwSolverModelTranslation.createExpressionConstraint(constraint.getRootExpression(),
-					chocoModel, featureModelMapping, date));
+			Constraint expressionConstraint = DwSolverModelTranslation.createExpressionConstraint(constraint.getRootExpression(),
+					chocoModel, featureModelMapping, date);
+			chocoModel.post(expressionConstraint);
+			featureModelStructureAndCrossTreeConstraints.add(expressionConstraint);
 		}
 	}
 
@@ -185,7 +189,7 @@ public class DwSolver {
 		
 		chocoModel.getSolver().reset();
 		
-		unpostConstraints(chocoModel, featureModelStructureConstraints);
+		unpostConstraints(chocoModel, featureModelStructureAndCrossTreeConstraints);
 		
 		boolean expressionSatisfied;
 		try {
@@ -195,7 +199,7 @@ public class DwSolver {
 			throw e;
 		}
 
-		postConstraints(chocoModel, featureModelStructureConstraints);
+		postConstraints(chocoModel, featureModelStructureAndCrossTreeConstraints);
 		chocoModel.getSolver().reset();
 		
 		return expressionSatisfied;

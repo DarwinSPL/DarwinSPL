@@ -81,8 +81,20 @@ public class HymanifestPrinter implements eu.hyvar.mspl.manifest.resource.hymani
 			print_eu_hyvar_mspl_manifest_HyTimedImplementations((eu.hyvar.mspl.manifest.HyTimedImplementations) element, globaltab, out);
 			return;
 		}
-		if (element instanceof eu.hyvar.mspl.manifest.HyTimedImplementationLink) {
-			print_eu_hyvar_mspl_manifest_HyTimedImplementationLink((eu.hyvar.mspl.manifest.HyTimedImplementationLink) element, globaltab, out);
+		if (element instanceof eu.hyvar.mspl.manifest.HyTimedImplementationFeatureLink) {
+			print_eu_hyvar_mspl_manifest_HyTimedImplementationFeatureLink((eu.hyvar.mspl.manifest.HyTimedImplementationFeatureLink) element, globaltab, out);
+			return;
+		}
+		if (element instanceof eu.hyvar.mspl.manifest.HyTimedImplementationFeatureAttributeLink) {
+			print_eu_hyvar_mspl_manifest_HyTimedImplementationFeatureAttributeLink((eu.hyvar.mspl.manifest.HyTimedImplementationFeatureAttributeLink) element, globaltab, out);
+			return;
+		}
+		if (element instanceof eu.hyvar.mspl.manifest.HyTimedImplementationEnumLink) {
+			print_eu_hyvar_mspl_manifest_HyTimedImplementationEnumLink((eu.hyvar.mspl.manifest.HyTimedImplementationEnumLink) element, globaltab, out);
+			return;
+		}
+		if (element instanceof eu.hyvar.mspl.manifest.HyTimedImplementationEnumLiteralLink) {
+			print_eu_hyvar_mspl_manifest_HyTimedImplementationEnumLiteralLink((eu.hyvar.mspl.manifest.HyTimedImplementationEnumLiteralLink) element, globaltab, out);
 			return;
 		}
 		if (element instanceof eu.hyvar.dataValues.HyNumberValue) {
@@ -160,6 +172,10 @@ public class HymanifestPrinter implements eu.hyvar.mspl.manifest.resource.hymani
 		// the number of elements stored in each structural feature. For lists this is the
 		// list size. For non-multiple features it is either 1 (if the feature is set) or
 		// 0 (if the feature is null).
+		Map<String, Integer> printCountingMap = new LinkedHashMap<String, Integer>(1);
+		Object temp;
+		temp = element.eGet(element.eClass().getEStructuralFeature(eu.hyvar.mspl.manifest.ManifestPackage.HY_SPL_SIGNATURE__NAME));
+		printCountingMap.put("name", temp == null ? 0 : 1);
 		// print collected hidden tokens
 		// DEFINITION PART BEGINS (CsString)
 		out.print("Signature ");
@@ -793,23 +809,25 @@ public class HymanifestPrinter implements eu.hyvar.mspl.manifest.resource.hymani
 	}
 	
 	
-	public void print_eu_hyvar_mspl_manifest_HyTimedImplementationLink(eu.hyvar.mspl.manifest.HyTimedImplementationLink element, String outertab, PrintWriter out) {
+	public void print_eu_hyvar_mspl_manifest_HyTimedImplementationFeatureLink(eu.hyvar.mspl.manifest.HyTimedImplementationFeatureLink element, String outertab, PrintWriter out) {
 		String localtab = outertab;
 		// The printCountingMap contains a mapping from feature names to the number of
 		// remaining elements that still need to be printed. The map is initialized with
 		// the number of elements stored in each structural feature. For lists this is the
 		// list size. For non-multiple features it is either 1 (if the feature is set) or
 		// 0 (if the feature is null).
-		Map<String, Integer> printCountingMap = new LinkedHashMap<String, Integer>(5);
+		Map<String, Integer> printCountingMap = new LinkedHashMap<String, Integer>(6);
 		Object temp;
-		temp = element.eGet(element.eClass().getEStructuralFeature(eu.hyvar.mspl.manifest.ManifestPackage.HY_TIMED_IMPLEMENTATION_LINK__VALID_SINCE));
+		temp = element.eGet(element.eClass().getEStructuralFeature(eu.hyvar.mspl.manifest.ManifestPackage.HY_TIMED_IMPLEMENTATION_FEATURE_LINK__VALID_SINCE));
 		printCountingMap.put("validSince", temp == null ? 0 : 1);
-		temp = element.eGet(element.eClass().getEStructuralFeature(eu.hyvar.mspl.manifest.ManifestPackage.HY_TIMED_IMPLEMENTATION_LINK__VALID_UNTIL));
+		temp = element.eGet(element.eClass().getEStructuralFeature(eu.hyvar.mspl.manifest.ManifestPackage.HY_TIMED_IMPLEMENTATION_FEATURE_LINK__VALID_UNTIL));
 		printCountingMap.put("validUntil", temp == null ? 0 : 1);
-		temp = element.eGet(element.eClass().getEStructuralFeature(eu.hyvar.mspl.manifest.ManifestPackage.HY_TIMED_IMPLEMENTATION_LINK__LOCAL));
+		temp = element.eGet(element.eClass().getEStructuralFeature(eu.hyvar.mspl.manifest.ManifestPackage.HY_TIMED_IMPLEMENTATION_FEATURE_LINK__LOCAL));
 		printCountingMap.put("local", temp == null ? 0 : 1);
-		temp = element.eGet(element.eClass().getEStructuralFeature(eu.hyvar.mspl.manifest.ManifestPackage.HY_TIMED_IMPLEMENTATION_LINK__SIGNATURE));
+		temp = element.eGet(element.eClass().getEStructuralFeature(eu.hyvar.mspl.manifest.ManifestPackage.HY_TIMED_IMPLEMENTATION_FEATURE_LINK__SIGNATURE));
 		printCountingMap.put("signature", temp == null ? 0 : 1);
+		temp = element.eGet(element.eClass().getEStructuralFeature(eu.hyvar.mspl.manifest.ManifestPackage.HY_TIMED_IMPLEMENTATION_FEATURE_LINK__ASSOCIATIONS));
+		printCountingMap.put("associations", temp == null ? 0 : ((Collection<?>) temp).size());
 		// print collected hidden tokens
 		java.io.StringWriter sWriter = null;
 		PrintWriter out1 = null;
@@ -818,7 +836,7 @@ public class HymanifestPrinter implements eu.hyvar.mspl.manifest.resource.hymani
 		sWriter = new StringWriter();
 		out1 = new PrintWriter(sWriter);
 		printCountingMap1 = new LinkedHashMap<String, Integer>(printCountingMap);
-		print_eu_hyvar_mspl_manifest_HyTimedImplementationLink_0(element, localtab, out1, printCountingMap1);
+		print_eu_hyvar_mspl_manifest_HyTimedImplementationFeatureLink_0(element, localtab, out1, printCountingMap1);
 		if (printCountingMap.equals(printCountingMap1)) {
 			out1.close();
 		} else {
@@ -828,27 +846,40 @@ public class HymanifestPrinter implements eu.hyvar.mspl.manifest.resource.hymani
 			printCountingMap.putAll(printCountingMap1);
 		}
 		// DEFINITION PART BEGINS (CompoundDefinition)
-		print_eu_hyvar_mspl_manifest_HyTimedImplementationLink_1(element, localtab, out, printCountingMap);
+		print_eu_hyvar_mspl_manifest_HyTimedImplementationFeatureLink_1(element, localtab, out, printCountingMap);
 		// DEFINITION PART BEGINS (CsString)
 		out.print("->");
 		out.print(" ");
 		// DEFINITION PART BEGINS (CompoundDefinition)
-		print_eu_hyvar_mspl_manifest_HyTimedImplementationLink_2(element, localtab, out, printCountingMap);
+		print_eu_hyvar_mspl_manifest_HyTimedImplementationFeatureLink_2(element, localtab, out, printCountingMap);
+		// DEFINITION PART BEGINS (CompoundDefinition)
+		sWriter = new StringWriter();
+		out1 = new PrintWriter(sWriter);
+		printCountingMap1 = new LinkedHashMap<String, Integer>(printCountingMap);
+		print_eu_hyvar_mspl_manifest_HyTimedImplementationFeatureLink_3(element, localtab, out1, printCountingMap1);
+		if (printCountingMap.equals(printCountingMap1)) {
+			out1.close();
+		} else {
+			out1.flush();
+			out1.close();
+			out.print(sWriter.toString());
+			printCountingMap.putAll(printCountingMap1);
+		}
 	}
 	
-	public void print_eu_hyvar_mspl_manifest_HyTimedImplementationLink_0(eu.hyvar.mspl.manifest.HyTimedImplementationLink element, String outertab, PrintWriter out, Map<String, Integer> printCountingMap) {
+	public void print_eu_hyvar_mspl_manifest_HyTimedImplementationFeatureLink_0(eu.hyvar.mspl.manifest.HyTimedImplementationFeatureLink element, String outertab, PrintWriter out, Map<String, Integer> printCountingMap) {
 		String localtab = outertab;
 		// DEFINITION PART BEGINS (CsString)
 		out.print("[");
 		out.print(" ");
 		// DEFINITION PART BEGINS (CompoundDefinition)
-		print_eu_hyvar_mspl_manifest_HyTimedImplementationLink_0_0(element, localtab, out, printCountingMap);
+		print_eu_hyvar_mspl_manifest_HyTimedImplementationFeatureLink_0_0(element, localtab, out, printCountingMap);
 		// DEFINITION PART BEGINS (CsString)
 		out.print("]");
 		out.print(" ");
 	}
 	
-	public void print_eu_hyvar_mspl_manifest_HyTimedImplementationLink_0_0(eu.hyvar.mspl.manifest.HyTimedImplementationLink element, String outertab, PrintWriter out, Map<String, Integer> printCountingMap) {
+	public void print_eu_hyvar_mspl_manifest_HyTimedImplementationFeatureLink_0_0(eu.hyvar.mspl.manifest.HyTimedImplementationFeatureLink element, String outertab, PrintWriter out, Map<String, Integer> printCountingMap) {
 		int count;
 		int alt = -1;
 		alt = 0;
@@ -870,11 +901,11 @@ public class HymanifestPrinter implements eu.hyvar.mspl.manifest.resource.hymani
 				// DEFINITION PART BEGINS (PlaceholderUsingSpecifiedToken)
 				count = printCountingMap.get("validSince");
 				if (count > 0) {
-					Object o = element.eGet(element.eClass().getEStructuralFeature(eu.hyvar.mspl.manifest.ManifestPackage.HY_TIMED_IMPLEMENTATION_LINK__VALID_SINCE));
+					Object o = element.eGet(element.eClass().getEStructuralFeature(eu.hyvar.mspl.manifest.ManifestPackage.HY_TIMED_IMPLEMENTATION_FEATURE_LINK__VALID_SINCE));
 					if (o != null) {
 						eu.hyvar.mspl.manifest.resource.hymanifest.IHymanifestTokenResolver resolver = tokenResolverFactory.createTokenResolver("DATE");
 						resolver.setOptions(getOptions());
-						out.print(resolver.deResolve((Object) o, element.eClass().getEStructuralFeature(eu.hyvar.mspl.manifest.ManifestPackage.HY_TIMED_IMPLEMENTATION_LINK__VALID_SINCE), element));
+						out.print(resolver.deResolve((Object) o, element.eClass().getEStructuralFeature(eu.hyvar.mspl.manifest.ManifestPackage.HY_TIMED_IMPLEMENTATION_FEATURE_LINK__VALID_SINCE), element));
 						out.print(" ");
 					}
 					printCountingMap.put("validSince", count - 1);
@@ -897,11 +928,11 @@ public class HymanifestPrinter implements eu.hyvar.mspl.manifest.resource.hymani
 				// DEFINITION PART BEGINS (PlaceholderUsingSpecifiedToken)
 				count = printCountingMap.get("validUntil");
 				if (count > 0) {
-					Object o = element.eGet(element.eClass().getEStructuralFeature(eu.hyvar.mspl.manifest.ManifestPackage.HY_TIMED_IMPLEMENTATION_LINK__VALID_UNTIL));
+					Object o = element.eGet(element.eClass().getEStructuralFeature(eu.hyvar.mspl.manifest.ManifestPackage.HY_TIMED_IMPLEMENTATION_FEATURE_LINK__VALID_UNTIL));
 					if (o != null) {
 						eu.hyvar.mspl.manifest.resource.hymanifest.IHymanifestTokenResolver resolver = tokenResolverFactory.createTokenResolver("DATE");
 						resolver.setOptions(getOptions());
-						out.print(resolver.deResolve((Object) o, element.eClass().getEStructuralFeature(eu.hyvar.mspl.manifest.ManifestPackage.HY_TIMED_IMPLEMENTATION_LINK__VALID_UNTIL), element));
+						out.print(resolver.deResolve((Object) o, element.eClass().getEStructuralFeature(eu.hyvar.mspl.manifest.ManifestPackage.HY_TIMED_IMPLEMENTATION_FEATURE_LINK__VALID_UNTIL), element));
 						out.print(" ");
 					}
 					printCountingMap.put("validUntil", count - 1);
@@ -911,11 +942,11 @@ public class HymanifestPrinter implements eu.hyvar.mspl.manifest.resource.hymani
 			default:			// DEFINITION PART BEGINS (PlaceholderUsingSpecifiedToken)
 			count = printCountingMap.get("validSince");
 			if (count > 0) {
-				Object o = element.eGet(element.eClass().getEStructuralFeature(eu.hyvar.mspl.manifest.ManifestPackage.HY_TIMED_IMPLEMENTATION_LINK__VALID_SINCE));
+				Object o = element.eGet(element.eClass().getEStructuralFeature(eu.hyvar.mspl.manifest.ManifestPackage.HY_TIMED_IMPLEMENTATION_FEATURE_LINK__VALID_SINCE));
 				if (o != null) {
 					eu.hyvar.mspl.manifest.resource.hymanifest.IHymanifestTokenResolver resolver = tokenResolverFactory.createTokenResolver("DATE");
 					resolver.setOptions(getOptions());
-					out.print(resolver.deResolve((Object) o, element.eClass().getEStructuralFeature(eu.hyvar.mspl.manifest.ManifestPackage.HY_TIMED_IMPLEMENTATION_LINK__VALID_SINCE), element));
+					out.print(resolver.deResolve((Object) o, element.eClass().getEStructuralFeature(eu.hyvar.mspl.manifest.ManifestPackage.HY_TIMED_IMPLEMENTATION_FEATURE_LINK__VALID_SINCE), element));
 					out.print(" ");
 				}
 				printCountingMap.put("validSince", count - 1);
@@ -926,11 +957,11 @@ public class HymanifestPrinter implements eu.hyvar.mspl.manifest.resource.hymani
 			// DEFINITION PART BEGINS (PlaceholderUsingSpecifiedToken)
 			count = printCountingMap.get("validUntil");
 			if (count > 0) {
-				Object o = element.eGet(element.eClass().getEStructuralFeature(eu.hyvar.mspl.manifest.ManifestPackage.HY_TIMED_IMPLEMENTATION_LINK__VALID_UNTIL));
+				Object o = element.eGet(element.eClass().getEStructuralFeature(eu.hyvar.mspl.manifest.ManifestPackage.HY_TIMED_IMPLEMENTATION_FEATURE_LINK__VALID_UNTIL));
 				if (o != null) {
 					eu.hyvar.mspl.manifest.resource.hymanifest.IHymanifestTokenResolver resolver = tokenResolverFactory.createTokenResolver("DATE");
 					resolver.setOptions(getOptions());
-					out.print(resolver.deResolve((Object) o, element.eClass().getEStructuralFeature(eu.hyvar.mspl.manifest.ManifestPackage.HY_TIMED_IMPLEMENTATION_LINK__VALID_UNTIL), element));
+					out.print(resolver.deResolve((Object) o, element.eClass().getEStructuralFeature(eu.hyvar.mspl.manifest.ManifestPackage.HY_TIMED_IMPLEMENTATION_FEATURE_LINK__VALID_UNTIL), element));
 					out.print(" ");
 				}
 				printCountingMap.put("validUntil", count - 1);
@@ -938,7 +969,7 @@ public class HymanifestPrinter implements eu.hyvar.mspl.manifest.resource.hymani
 		}
 	}
 	
-	public void print_eu_hyvar_mspl_manifest_HyTimedImplementationLink_1(eu.hyvar.mspl.manifest.HyTimedImplementationLink element, String outertab, PrintWriter out, Map<String, Integer> printCountingMap) {
+	public void print_eu_hyvar_mspl_manifest_HyTimedImplementationFeatureLink_1(eu.hyvar.mspl.manifest.HyTimedImplementationFeatureLink element, String outertab, PrintWriter out, Map<String, Integer> printCountingMap) {
 		int count;
 		int alt = -1;
 		alt = 0;
@@ -954,11 +985,11 @@ public class HymanifestPrinter implements eu.hyvar.mspl.manifest.resource.hymani
 				// DEFINITION PART BEGINS (PlaceholderUsingDefaultToken)
 				count = printCountingMap.get("local");
 				if (count > 0) {
-					Object o = element.eGet(element.eClass().getEStructuralFeature(eu.hyvar.mspl.manifest.ManifestPackage.HY_TIMED_IMPLEMENTATION_LINK__LOCAL));
+					Object o = element.eGet(element.eClass().getEStructuralFeature(eu.hyvar.mspl.manifest.ManifestPackage.HY_TIMED_IMPLEMENTATION_FEATURE_LINK__LOCAL));
 					if (o != null) {
 						eu.hyvar.mspl.manifest.resource.hymanifest.IHymanifestTokenResolver resolver = tokenResolverFactory.createTokenResolver("IDENTIFIER_TOKEN");
 						resolver.setOptions(getOptions());
-						out.print(resolver.deResolve(getReferenceResolverSwitch() == null ? null : getReferenceResolverSwitch().getHyTimedImplementationLinkLocalReferenceResolver().deResolve((eu.hyvar.feature.HyFeature) o, element, (EReference) element.eClass().getEStructuralFeature(eu.hyvar.mspl.manifest.ManifestPackage.HY_TIMED_IMPLEMENTATION_LINK__LOCAL)), element.eClass().getEStructuralFeature(eu.hyvar.mspl.manifest.ManifestPackage.HY_TIMED_IMPLEMENTATION_LINK__LOCAL), element));
+						out.print(resolver.deResolve(getReferenceResolverSwitch() == null ? null : getReferenceResolverSwitch().getHyTimedImplementationFeatureLinkLocalReferenceResolver().deResolve((eu.hyvar.feature.HyFeature) o, element, (EReference) element.eClass().getEStructuralFeature(eu.hyvar.mspl.manifest.ManifestPackage.HY_TIMED_IMPLEMENTATION_FEATURE_LINK__LOCAL)), element.eClass().getEStructuralFeature(eu.hyvar.mspl.manifest.ManifestPackage.HY_TIMED_IMPLEMENTATION_FEATURE_LINK__LOCAL), element));
 						out.print(" ");
 					}
 					printCountingMap.put("local", count - 1);
@@ -968,11 +999,11 @@ public class HymanifestPrinter implements eu.hyvar.mspl.manifest.resource.hymani
 			default:			// DEFINITION PART BEGINS (PlaceholderInQuotes)
 			count = printCountingMap.get("local");
 			if (count > 0) {
-				Object o = element.eGet(element.eClass().getEStructuralFeature(eu.hyvar.mspl.manifest.ManifestPackage.HY_TIMED_IMPLEMENTATION_LINK__LOCAL));
+				Object o = element.eGet(element.eClass().getEStructuralFeature(eu.hyvar.mspl.manifest.ManifestPackage.HY_TIMED_IMPLEMENTATION_FEATURE_LINK__LOCAL));
 				if (o != null) {
 					eu.hyvar.mspl.manifest.resource.hymanifest.IHymanifestTokenResolver resolver = tokenResolverFactory.createTokenResolver("QUOTED_34_34");
 					resolver.setOptions(getOptions());
-					out.print(resolver.deResolve(getReferenceResolverSwitch() == null ? null : getReferenceResolverSwitch().getHyTimedImplementationLinkLocalReferenceResolver().deResolve((eu.hyvar.feature.HyFeature) o, element, (EReference) element.eClass().getEStructuralFeature(eu.hyvar.mspl.manifest.ManifestPackage.HY_TIMED_IMPLEMENTATION_LINK__LOCAL)), element.eClass().getEStructuralFeature(eu.hyvar.mspl.manifest.ManifestPackage.HY_TIMED_IMPLEMENTATION_LINK__LOCAL), element));
+					out.print(resolver.deResolve(getReferenceResolverSwitch() == null ? null : getReferenceResolverSwitch().getHyTimedImplementationFeatureLinkLocalReferenceResolver().deResolve((eu.hyvar.feature.HyFeature) o, element, (EReference) element.eClass().getEStructuralFeature(eu.hyvar.mspl.manifest.ManifestPackage.HY_TIMED_IMPLEMENTATION_FEATURE_LINK__LOCAL)), element.eClass().getEStructuralFeature(eu.hyvar.mspl.manifest.ManifestPackage.HY_TIMED_IMPLEMENTATION_FEATURE_LINK__LOCAL), element));
 					out.print(" ");
 				}
 				printCountingMap.put("local", count - 1);
@@ -980,7 +1011,7 @@ public class HymanifestPrinter implements eu.hyvar.mspl.manifest.resource.hymani
 		}
 	}
 	
-	public void print_eu_hyvar_mspl_manifest_HyTimedImplementationLink_2(eu.hyvar.mspl.manifest.HyTimedImplementationLink element, String outertab, PrintWriter out, Map<String, Integer> printCountingMap) {
+	public void print_eu_hyvar_mspl_manifest_HyTimedImplementationFeatureLink_2(eu.hyvar.mspl.manifest.HyTimedImplementationFeatureLink element, String outertab, PrintWriter out, Map<String, Integer> printCountingMap) {
 		int count;
 		int alt = -1;
 		alt = 0;
@@ -996,11 +1027,11 @@ public class HymanifestPrinter implements eu.hyvar.mspl.manifest.resource.hymani
 				// DEFINITION PART BEGINS (PlaceholderUsingDefaultToken)
 				count = printCountingMap.get("signature");
 				if (count > 0) {
-					Object o = element.eGet(element.eClass().getEStructuralFeature(eu.hyvar.mspl.manifest.ManifestPackage.HY_TIMED_IMPLEMENTATION_LINK__SIGNATURE));
+					Object o = element.eGet(element.eClass().getEStructuralFeature(eu.hyvar.mspl.manifest.ManifestPackage.HY_TIMED_IMPLEMENTATION_FEATURE_LINK__SIGNATURE));
 					if (o != null) {
 						eu.hyvar.mspl.manifest.resource.hymanifest.IHymanifestTokenResolver resolver = tokenResolverFactory.createTokenResolver("IDENTIFIER_TOKEN");
 						resolver.setOptions(getOptions());
-						out.print(resolver.deResolve(getReferenceResolverSwitch() == null ? null : getReferenceResolverSwitch().getHyTimedImplementationLinkSignatureReferenceResolver().deResolve((eu.hyvar.feature.HyFeature) o, element, (EReference) element.eClass().getEStructuralFeature(eu.hyvar.mspl.manifest.ManifestPackage.HY_TIMED_IMPLEMENTATION_LINK__SIGNATURE)), element.eClass().getEStructuralFeature(eu.hyvar.mspl.manifest.ManifestPackage.HY_TIMED_IMPLEMENTATION_LINK__SIGNATURE), element));
+						out.print(resolver.deResolve(getReferenceResolverSwitch() == null ? null : getReferenceResolverSwitch().getHyTimedImplementationFeatureLinkSignatureReferenceResolver().deResolve((eu.hyvar.feature.HyFeature) o, element, (EReference) element.eClass().getEStructuralFeature(eu.hyvar.mspl.manifest.ManifestPackage.HY_TIMED_IMPLEMENTATION_FEATURE_LINK__SIGNATURE)), element.eClass().getEStructuralFeature(eu.hyvar.mspl.manifest.ManifestPackage.HY_TIMED_IMPLEMENTATION_FEATURE_LINK__SIGNATURE), element));
 						out.print(" ");
 					}
 					printCountingMap.put("signature", count - 1);
@@ -1010,11 +1041,903 @@ public class HymanifestPrinter implements eu.hyvar.mspl.manifest.resource.hymani
 			default:			// DEFINITION PART BEGINS (PlaceholderInQuotes)
 			count = printCountingMap.get("signature");
 			if (count > 0) {
-				Object o = element.eGet(element.eClass().getEStructuralFeature(eu.hyvar.mspl.manifest.ManifestPackage.HY_TIMED_IMPLEMENTATION_LINK__SIGNATURE));
+				Object o = element.eGet(element.eClass().getEStructuralFeature(eu.hyvar.mspl.manifest.ManifestPackage.HY_TIMED_IMPLEMENTATION_FEATURE_LINK__SIGNATURE));
 				if (o != null) {
 					eu.hyvar.mspl.manifest.resource.hymanifest.IHymanifestTokenResolver resolver = tokenResolverFactory.createTokenResolver("QUOTED_34_34");
 					resolver.setOptions(getOptions());
-					out.print(resolver.deResolve(getReferenceResolverSwitch() == null ? null : getReferenceResolverSwitch().getHyTimedImplementationLinkSignatureReferenceResolver().deResolve((eu.hyvar.feature.HyFeature) o, element, (EReference) element.eClass().getEStructuralFeature(eu.hyvar.mspl.manifest.ManifestPackage.HY_TIMED_IMPLEMENTATION_LINK__SIGNATURE)), element.eClass().getEStructuralFeature(eu.hyvar.mspl.manifest.ManifestPackage.HY_TIMED_IMPLEMENTATION_LINK__SIGNATURE), element));
+					out.print(resolver.deResolve(getReferenceResolverSwitch() == null ? null : getReferenceResolverSwitch().getHyTimedImplementationFeatureLinkSignatureReferenceResolver().deResolve((eu.hyvar.feature.HyFeature) o, element, (EReference) element.eClass().getEStructuralFeature(eu.hyvar.mspl.manifest.ManifestPackage.HY_TIMED_IMPLEMENTATION_FEATURE_LINK__SIGNATURE)), element.eClass().getEStructuralFeature(eu.hyvar.mspl.manifest.ManifestPackage.HY_TIMED_IMPLEMENTATION_FEATURE_LINK__SIGNATURE), element));
+					out.print(" ");
+				}
+				printCountingMap.put("signature", count - 1);
+			}
+		}
+	}
+	
+	public void print_eu_hyvar_mspl_manifest_HyTimedImplementationFeatureLink_3(eu.hyvar.mspl.manifest.HyTimedImplementationFeatureLink element, String outertab, PrintWriter out, Map<String, Integer> printCountingMap) {
+		String localtab = outertab;
+		java.io.StringWriter sWriter = null;
+		PrintWriter out1 = null;
+		Map<String, Integer> printCountingMap1 = null;
+		// DEFINITION PART BEGINS (CsString)
+		out.print("{");
+		out.print(" ");
+		// DEFINITION PART BEGINS (CompoundDefinition)
+		sWriter = new StringWriter();
+		out1 = new PrintWriter(sWriter);
+		printCountingMap1 = new LinkedHashMap<String, Integer>(printCountingMap);
+		print_eu_hyvar_mspl_manifest_HyTimedImplementationFeatureLink_3_0(element, localtab, out1, printCountingMap1);
+		if (printCountingMap.equals(printCountingMap1)) {
+			out1.close();
+		} else {
+			out1.flush();
+			out1.close();
+			out.print(sWriter.toString());
+			printCountingMap.putAll(printCountingMap1);
+		}
+		// DEFINITION PART BEGINS (CsString)
+		out.print("}");
+		out.print(" ");
+	}
+	
+	public void print_eu_hyvar_mspl_manifest_HyTimedImplementationFeatureLink_3_0(eu.hyvar.mspl.manifest.HyTimedImplementationFeatureLink element, String outertab, PrintWriter out, Map<String, Integer> printCountingMap) {
+		String localtab = outertab;
+		int count;
+		boolean iterate = true;
+		java.io.StringWriter sWriter = null;
+		PrintWriter out1 = null;
+		Map<String, Integer> printCountingMap1 = null;
+		// DEFINITION PART BEGINS (Containment)
+		count = printCountingMap.get("associations");
+		if (count > 0) {
+			Object o = element.eGet(element.eClass().getEStructuralFeature(eu.hyvar.mspl.manifest.ManifestPackage.HY_TIMED_IMPLEMENTATION_FEATURE_LINK__ASSOCIATIONS));
+			List<?> list = (List<?>) o;
+			int index = list.size() - count;
+			if (index >= 0) {
+				o = list.get(index);
+			} else {
+				o = null;
+			}
+			if (o != null) {
+				doPrint((EObject) o, out, localtab);
+			}
+			printCountingMap.put("associations", count - 1);
+		}
+		// DEFINITION PART BEGINS (CompoundDefinition)
+		iterate = true;
+		while (iterate) {
+			sWriter = new StringWriter();
+			out1 = new PrintWriter(sWriter);
+			printCountingMap1 = new LinkedHashMap<String, Integer>(printCountingMap);
+			print_eu_hyvar_mspl_manifest_HyTimedImplementationFeatureLink_3_0_0(element, localtab, out1, printCountingMap1);
+			if (printCountingMap.equals(printCountingMap1)) {
+				iterate = false;
+				out1.close();
+			} else {
+				out1.flush();
+				out1.close();
+				out.print(sWriter.toString());
+				printCountingMap.putAll(printCountingMap1);
+			}
+		}
+	}
+	
+	public void print_eu_hyvar_mspl_manifest_HyTimedImplementationFeatureLink_3_0_0(eu.hyvar.mspl.manifest.HyTimedImplementationFeatureLink element, String outertab, PrintWriter out, Map<String, Integer> printCountingMap) {
+		String localtab = outertab;
+		int count;
+		// DEFINITION PART BEGINS (CsString)
+		out.print(",");
+		out.print(" ");
+		// DEFINITION PART BEGINS (Containment)
+		count = printCountingMap.get("associations");
+		if (count > 0) {
+			Object o = element.eGet(element.eClass().getEStructuralFeature(eu.hyvar.mspl.manifest.ManifestPackage.HY_TIMED_IMPLEMENTATION_FEATURE_LINK__ASSOCIATIONS));
+			List<?> list = (List<?>) o;
+			int index = list.size() - count;
+			if (index >= 0) {
+				o = list.get(index);
+			} else {
+				o = null;
+			}
+			if (o != null) {
+				doPrint((EObject) o, out, localtab);
+			}
+			printCountingMap.put("associations", count - 1);
+		}
+	}
+	
+	
+	public void print_eu_hyvar_mspl_manifest_HyTimedImplementationFeatureAttributeLink(eu.hyvar.mspl.manifest.HyTimedImplementationFeatureAttributeLink element, String outertab, PrintWriter out) {
+		String localtab = outertab;
+		// The printCountingMap contains a mapping from feature names to the number of
+		// remaining elements that still need to be printed. The map is initialized with
+		// the number of elements stored in each structural feature. For lists this is the
+		// list size. For non-multiple features it is either 1 (if the feature is set) or
+		// 0 (if the feature is null).
+		Map<String, Integer> printCountingMap = new LinkedHashMap<String, Integer>(5);
+		Object temp;
+		temp = element.eGet(element.eClass().getEStructuralFeature(eu.hyvar.mspl.manifest.ManifestPackage.HY_TIMED_IMPLEMENTATION_FEATURE_ATTRIBUTE_LINK__VALID_SINCE));
+		printCountingMap.put("validSince", temp == null ? 0 : 1);
+		temp = element.eGet(element.eClass().getEStructuralFeature(eu.hyvar.mspl.manifest.ManifestPackage.HY_TIMED_IMPLEMENTATION_FEATURE_ATTRIBUTE_LINK__VALID_UNTIL));
+		printCountingMap.put("validUntil", temp == null ? 0 : 1);
+		temp = element.eGet(element.eClass().getEStructuralFeature(eu.hyvar.mspl.manifest.ManifestPackage.HY_TIMED_IMPLEMENTATION_FEATURE_ATTRIBUTE_LINK__LOCAL));
+		printCountingMap.put("local", temp == null ? 0 : 1);
+		temp = element.eGet(element.eClass().getEStructuralFeature(eu.hyvar.mspl.manifest.ManifestPackage.HY_TIMED_IMPLEMENTATION_FEATURE_ATTRIBUTE_LINK__SIGNATURE));
+		printCountingMap.put("signature", temp == null ? 0 : 1);
+		// print collected hidden tokens
+		java.io.StringWriter sWriter = null;
+		PrintWriter out1 = null;
+		Map<String, Integer> printCountingMap1 = null;
+		// DEFINITION PART BEGINS (CompoundDefinition)
+		sWriter = new StringWriter();
+		out1 = new PrintWriter(sWriter);
+		printCountingMap1 = new LinkedHashMap<String, Integer>(printCountingMap);
+		print_eu_hyvar_mspl_manifest_HyTimedImplementationFeatureAttributeLink_0(element, localtab, out1, printCountingMap1);
+		if (printCountingMap.equals(printCountingMap1)) {
+			out1.close();
+		} else {
+			out1.flush();
+			out1.close();
+			out.print(sWriter.toString());
+			printCountingMap.putAll(printCountingMap1);
+		}
+		// DEFINITION PART BEGINS (CompoundDefinition)
+		print_eu_hyvar_mspl_manifest_HyTimedImplementationFeatureAttributeLink_1(element, localtab, out, printCountingMap);
+		// DEFINITION PART BEGINS (CsString)
+		out.print("->");
+		out.print(" ");
+		// DEFINITION PART BEGINS (CompoundDefinition)
+		print_eu_hyvar_mspl_manifest_HyTimedImplementationFeatureAttributeLink_2(element, localtab, out, printCountingMap);
+	}
+	
+	public void print_eu_hyvar_mspl_manifest_HyTimedImplementationFeatureAttributeLink_0(eu.hyvar.mspl.manifest.HyTimedImplementationFeatureAttributeLink element, String outertab, PrintWriter out, Map<String, Integer> printCountingMap) {
+		String localtab = outertab;
+		// DEFINITION PART BEGINS (CsString)
+		out.print("[");
+		out.print(" ");
+		// DEFINITION PART BEGINS (CompoundDefinition)
+		print_eu_hyvar_mspl_manifest_HyTimedImplementationFeatureAttributeLink_0_0(element, localtab, out, printCountingMap);
+		// DEFINITION PART BEGINS (CsString)
+		out.print("]");
+		out.print(" ");
+	}
+	
+	public void print_eu_hyvar_mspl_manifest_HyTimedImplementationFeatureAttributeLink_0_0(eu.hyvar.mspl.manifest.HyTimedImplementationFeatureAttributeLink element, String outertab, PrintWriter out, Map<String, Integer> printCountingMap) {
+		int count;
+		int alt = -1;
+		alt = 0;
+		int matches = 		matchCount(printCountingMap, Arrays.asList(		"validSince"		,
+		"validUntil"		));
+		int tempMatchCount;
+		tempMatchCount = 		matchCount(printCountingMap, Arrays.asList(		"validSince"		));
+		if (tempMatchCount > matches) {
+			alt = 1;
+			matches = tempMatchCount;
+		}
+		tempMatchCount = 		matchCount(printCountingMap, Arrays.asList(		"validUntil"		));
+		if (tempMatchCount > matches) {
+			alt = 2;
+			matches = tempMatchCount;
+		}
+		switch(alt) {
+			case 1:			{
+				// DEFINITION PART BEGINS (PlaceholderUsingSpecifiedToken)
+				count = printCountingMap.get("validSince");
+				if (count > 0) {
+					Object o = element.eGet(element.eClass().getEStructuralFeature(eu.hyvar.mspl.manifest.ManifestPackage.HY_TIMED_IMPLEMENTATION_FEATURE_ATTRIBUTE_LINK__VALID_SINCE));
+					if (o != null) {
+						eu.hyvar.mspl.manifest.resource.hymanifest.IHymanifestTokenResolver resolver = tokenResolverFactory.createTokenResolver("DATE");
+						resolver.setOptions(getOptions());
+						out.print(resolver.deResolve((Object) o, element.eClass().getEStructuralFeature(eu.hyvar.mspl.manifest.ManifestPackage.HY_TIMED_IMPLEMENTATION_FEATURE_ATTRIBUTE_LINK__VALID_SINCE), element));
+						out.print(" ");
+					}
+					printCountingMap.put("validSince", count - 1);
+				}
+				// DEFINITION PART BEGINS (CsString)
+				out.print("-");
+				out.print(" ");
+				// DEFINITION PART BEGINS (CsString)
+				out.print("eternity");
+				out.print(" ");
+			}
+			break;
+			case 2:			{
+				// DEFINITION PART BEGINS (CsString)
+				out.print("eternity");
+				out.print(" ");
+				// DEFINITION PART BEGINS (CsString)
+				out.print("-");
+				out.print(" ");
+				// DEFINITION PART BEGINS (PlaceholderUsingSpecifiedToken)
+				count = printCountingMap.get("validUntil");
+				if (count > 0) {
+					Object o = element.eGet(element.eClass().getEStructuralFeature(eu.hyvar.mspl.manifest.ManifestPackage.HY_TIMED_IMPLEMENTATION_FEATURE_ATTRIBUTE_LINK__VALID_UNTIL));
+					if (o != null) {
+						eu.hyvar.mspl.manifest.resource.hymanifest.IHymanifestTokenResolver resolver = tokenResolverFactory.createTokenResolver("DATE");
+						resolver.setOptions(getOptions());
+						out.print(resolver.deResolve((Object) o, element.eClass().getEStructuralFeature(eu.hyvar.mspl.manifest.ManifestPackage.HY_TIMED_IMPLEMENTATION_FEATURE_ATTRIBUTE_LINK__VALID_UNTIL), element));
+						out.print(" ");
+					}
+					printCountingMap.put("validUntil", count - 1);
+				}
+			}
+			break;
+			default:			// DEFINITION PART BEGINS (PlaceholderUsingSpecifiedToken)
+			count = printCountingMap.get("validSince");
+			if (count > 0) {
+				Object o = element.eGet(element.eClass().getEStructuralFeature(eu.hyvar.mspl.manifest.ManifestPackage.HY_TIMED_IMPLEMENTATION_FEATURE_ATTRIBUTE_LINK__VALID_SINCE));
+				if (o != null) {
+					eu.hyvar.mspl.manifest.resource.hymanifest.IHymanifestTokenResolver resolver = tokenResolverFactory.createTokenResolver("DATE");
+					resolver.setOptions(getOptions());
+					out.print(resolver.deResolve((Object) o, element.eClass().getEStructuralFeature(eu.hyvar.mspl.manifest.ManifestPackage.HY_TIMED_IMPLEMENTATION_FEATURE_ATTRIBUTE_LINK__VALID_SINCE), element));
+					out.print(" ");
+				}
+				printCountingMap.put("validSince", count - 1);
+			}
+			// DEFINITION PART BEGINS (CsString)
+			out.print("-");
+			out.print(" ");
+			// DEFINITION PART BEGINS (PlaceholderUsingSpecifiedToken)
+			count = printCountingMap.get("validUntil");
+			if (count > 0) {
+				Object o = element.eGet(element.eClass().getEStructuralFeature(eu.hyvar.mspl.manifest.ManifestPackage.HY_TIMED_IMPLEMENTATION_FEATURE_ATTRIBUTE_LINK__VALID_UNTIL));
+				if (o != null) {
+					eu.hyvar.mspl.manifest.resource.hymanifest.IHymanifestTokenResolver resolver = tokenResolverFactory.createTokenResolver("DATE");
+					resolver.setOptions(getOptions());
+					out.print(resolver.deResolve((Object) o, element.eClass().getEStructuralFeature(eu.hyvar.mspl.manifest.ManifestPackage.HY_TIMED_IMPLEMENTATION_FEATURE_ATTRIBUTE_LINK__VALID_UNTIL), element));
+					out.print(" ");
+				}
+				printCountingMap.put("validUntil", count - 1);
+			}
+		}
+	}
+	
+	public void print_eu_hyvar_mspl_manifest_HyTimedImplementationFeatureAttributeLink_1(eu.hyvar.mspl.manifest.HyTimedImplementationFeatureAttributeLink element, String outertab, PrintWriter out, Map<String, Integer> printCountingMap) {
+		int count;
+		int alt = -1;
+		alt = 0;
+		int matches = 		matchCount(printCountingMap, Arrays.asList(		"local"		));
+		int tempMatchCount;
+		tempMatchCount = 		matchCount(printCountingMap, Arrays.asList(		"local"		));
+		if (tempMatchCount > matches) {
+			alt = 1;
+			matches = tempMatchCount;
+		}
+		switch(alt) {
+			case 1:			{
+				// DEFINITION PART BEGINS (PlaceholderUsingDefaultToken)
+				count = printCountingMap.get("local");
+				if (count > 0) {
+					Object o = element.eGet(element.eClass().getEStructuralFeature(eu.hyvar.mspl.manifest.ManifestPackage.HY_TIMED_IMPLEMENTATION_FEATURE_ATTRIBUTE_LINK__LOCAL));
+					if (o != null) {
+						eu.hyvar.mspl.manifest.resource.hymanifest.IHymanifestTokenResolver resolver = tokenResolverFactory.createTokenResolver("IDENTIFIER_TOKEN");
+						resolver.setOptions(getOptions());
+						out.print(resolver.deResolve(getReferenceResolverSwitch() == null ? null : getReferenceResolverSwitch().getHyTimedImplementationFeatureAttributeLinkLocalReferenceResolver().deResolve((eu.hyvar.feature.HyFeatureAttribute) o, element, (EReference) element.eClass().getEStructuralFeature(eu.hyvar.mspl.manifest.ManifestPackage.HY_TIMED_IMPLEMENTATION_FEATURE_ATTRIBUTE_LINK__LOCAL)), element.eClass().getEStructuralFeature(eu.hyvar.mspl.manifest.ManifestPackage.HY_TIMED_IMPLEMENTATION_FEATURE_ATTRIBUTE_LINK__LOCAL), element));
+						out.print(" ");
+					}
+					printCountingMap.put("local", count - 1);
+				}
+			}
+			break;
+			default:			// DEFINITION PART BEGINS (PlaceholderInQuotes)
+			count = printCountingMap.get("local");
+			if (count > 0) {
+				Object o = element.eGet(element.eClass().getEStructuralFeature(eu.hyvar.mspl.manifest.ManifestPackage.HY_TIMED_IMPLEMENTATION_FEATURE_ATTRIBUTE_LINK__LOCAL));
+				if (o != null) {
+					eu.hyvar.mspl.manifest.resource.hymanifest.IHymanifestTokenResolver resolver = tokenResolverFactory.createTokenResolver("QUOTED_34_34");
+					resolver.setOptions(getOptions());
+					out.print(resolver.deResolve(getReferenceResolverSwitch() == null ? null : getReferenceResolverSwitch().getHyTimedImplementationFeatureAttributeLinkLocalReferenceResolver().deResolve((eu.hyvar.feature.HyFeatureAttribute) o, element, (EReference) element.eClass().getEStructuralFeature(eu.hyvar.mspl.manifest.ManifestPackage.HY_TIMED_IMPLEMENTATION_FEATURE_ATTRIBUTE_LINK__LOCAL)), element.eClass().getEStructuralFeature(eu.hyvar.mspl.manifest.ManifestPackage.HY_TIMED_IMPLEMENTATION_FEATURE_ATTRIBUTE_LINK__LOCAL), element));
+					out.print(" ");
+				}
+				printCountingMap.put("local", count - 1);
+			}
+		}
+	}
+	
+	public void print_eu_hyvar_mspl_manifest_HyTimedImplementationFeatureAttributeLink_2(eu.hyvar.mspl.manifest.HyTimedImplementationFeatureAttributeLink element, String outertab, PrintWriter out, Map<String, Integer> printCountingMap) {
+		int count;
+		int alt = -1;
+		alt = 0;
+		int matches = 		matchCount(printCountingMap, Arrays.asList(		"signature"		));
+		int tempMatchCount;
+		tempMatchCount = 		matchCount(printCountingMap, Arrays.asList(		"signature"		));
+		if (tempMatchCount > matches) {
+			alt = 1;
+			matches = tempMatchCount;
+		}
+		switch(alt) {
+			case 1:			{
+				// DEFINITION PART BEGINS (PlaceholderUsingDefaultToken)
+				count = printCountingMap.get("signature");
+				if (count > 0) {
+					Object o = element.eGet(element.eClass().getEStructuralFeature(eu.hyvar.mspl.manifest.ManifestPackage.HY_TIMED_IMPLEMENTATION_FEATURE_ATTRIBUTE_LINK__SIGNATURE));
+					if (o != null) {
+						eu.hyvar.mspl.manifest.resource.hymanifest.IHymanifestTokenResolver resolver = tokenResolverFactory.createTokenResolver("IDENTIFIER_TOKEN");
+						resolver.setOptions(getOptions());
+						out.print(resolver.deResolve(getReferenceResolverSwitch() == null ? null : getReferenceResolverSwitch().getHyTimedImplementationFeatureAttributeLinkSignatureReferenceResolver().deResolve((eu.hyvar.feature.HyFeatureAttribute) o, element, (EReference) element.eClass().getEStructuralFeature(eu.hyvar.mspl.manifest.ManifestPackage.HY_TIMED_IMPLEMENTATION_FEATURE_ATTRIBUTE_LINK__SIGNATURE)), element.eClass().getEStructuralFeature(eu.hyvar.mspl.manifest.ManifestPackage.HY_TIMED_IMPLEMENTATION_FEATURE_ATTRIBUTE_LINK__SIGNATURE), element));
+						out.print(" ");
+					}
+					printCountingMap.put("signature", count - 1);
+				}
+			}
+			break;
+			default:			// DEFINITION PART BEGINS (PlaceholderInQuotes)
+			count = printCountingMap.get("signature");
+			if (count > 0) {
+				Object o = element.eGet(element.eClass().getEStructuralFeature(eu.hyvar.mspl.manifest.ManifestPackage.HY_TIMED_IMPLEMENTATION_FEATURE_ATTRIBUTE_LINK__SIGNATURE));
+				if (o != null) {
+					eu.hyvar.mspl.manifest.resource.hymanifest.IHymanifestTokenResolver resolver = tokenResolverFactory.createTokenResolver("QUOTED_34_34");
+					resolver.setOptions(getOptions());
+					out.print(resolver.deResolve(getReferenceResolverSwitch() == null ? null : getReferenceResolverSwitch().getHyTimedImplementationFeatureAttributeLinkSignatureReferenceResolver().deResolve((eu.hyvar.feature.HyFeatureAttribute) o, element, (EReference) element.eClass().getEStructuralFeature(eu.hyvar.mspl.manifest.ManifestPackage.HY_TIMED_IMPLEMENTATION_FEATURE_ATTRIBUTE_LINK__SIGNATURE)), element.eClass().getEStructuralFeature(eu.hyvar.mspl.manifest.ManifestPackage.HY_TIMED_IMPLEMENTATION_FEATURE_ATTRIBUTE_LINK__SIGNATURE), element));
+					out.print(" ");
+				}
+				printCountingMap.put("signature", count - 1);
+			}
+		}
+	}
+	
+	
+	public void print_eu_hyvar_mspl_manifest_HyTimedImplementationEnumLink(eu.hyvar.mspl.manifest.HyTimedImplementationEnumLink element, String outertab, PrintWriter out) {
+		String localtab = outertab;
+		// The printCountingMap contains a mapping from feature names to the number of
+		// remaining elements that still need to be printed. The map is initialized with
+		// the number of elements stored in each structural feature. For lists this is the
+		// list size. For non-multiple features it is either 1 (if the feature is set) or
+		// 0 (if the feature is null).
+		Map<String, Integer> printCountingMap = new LinkedHashMap<String, Integer>(6);
+		Object temp;
+		temp = element.eGet(element.eClass().getEStructuralFeature(eu.hyvar.mspl.manifest.ManifestPackage.HY_TIMED_IMPLEMENTATION_ENUM_LINK__VALID_SINCE));
+		printCountingMap.put("validSince", temp == null ? 0 : 1);
+		temp = element.eGet(element.eClass().getEStructuralFeature(eu.hyvar.mspl.manifest.ManifestPackage.HY_TIMED_IMPLEMENTATION_ENUM_LINK__VALID_UNTIL));
+		printCountingMap.put("validUntil", temp == null ? 0 : 1);
+		temp = element.eGet(element.eClass().getEStructuralFeature(eu.hyvar.mspl.manifest.ManifestPackage.HY_TIMED_IMPLEMENTATION_ENUM_LINK__LOCAL));
+		printCountingMap.put("local", temp == null ? 0 : 1);
+		temp = element.eGet(element.eClass().getEStructuralFeature(eu.hyvar.mspl.manifest.ManifestPackage.HY_TIMED_IMPLEMENTATION_ENUM_LINK__SIGNATURE));
+		printCountingMap.put("signature", temp == null ? 0 : 1);
+		temp = element.eGet(element.eClass().getEStructuralFeature(eu.hyvar.mspl.manifest.ManifestPackage.HY_TIMED_IMPLEMENTATION_ENUM_LINK__ASSOCIATIONS));
+		printCountingMap.put("associations", temp == null ? 0 : ((Collection<?>) temp).size());
+		// print collected hidden tokens
+		java.io.StringWriter sWriter = null;
+		PrintWriter out1 = null;
+		Map<String, Integer> printCountingMap1 = null;
+		// DEFINITION PART BEGINS (CsString)
+		out.print("enum:");
+		out.print(" ");
+		// DEFINITION PART BEGINS (CompoundDefinition)
+		sWriter = new StringWriter();
+		out1 = new PrintWriter(sWriter);
+		printCountingMap1 = new LinkedHashMap<String, Integer>(printCountingMap);
+		print_eu_hyvar_mspl_manifest_HyTimedImplementationEnumLink_0(element, localtab, out1, printCountingMap1);
+		if (printCountingMap.equals(printCountingMap1)) {
+			out1.close();
+		} else {
+			out1.flush();
+			out1.close();
+			out.print(sWriter.toString());
+			printCountingMap.putAll(printCountingMap1);
+		}
+		// DEFINITION PART BEGINS (CompoundDefinition)
+		print_eu_hyvar_mspl_manifest_HyTimedImplementationEnumLink_1(element, localtab, out, printCountingMap);
+		// DEFINITION PART BEGINS (CsString)
+		out.print("->");
+		out.print(" ");
+		// DEFINITION PART BEGINS (CompoundDefinition)
+		print_eu_hyvar_mspl_manifest_HyTimedImplementationEnumLink_2(element, localtab, out, printCountingMap);
+		// DEFINITION PART BEGINS (CompoundDefinition)
+		sWriter = new StringWriter();
+		out1 = new PrintWriter(sWriter);
+		printCountingMap1 = new LinkedHashMap<String, Integer>(printCountingMap);
+		print_eu_hyvar_mspl_manifest_HyTimedImplementationEnumLink_3(element, localtab, out1, printCountingMap1);
+		if (printCountingMap.equals(printCountingMap1)) {
+			out1.close();
+		} else {
+			out1.flush();
+			out1.close();
+			out.print(sWriter.toString());
+			printCountingMap.putAll(printCountingMap1);
+		}
+	}
+	
+	public void print_eu_hyvar_mspl_manifest_HyTimedImplementationEnumLink_0(eu.hyvar.mspl.manifest.HyTimedImplementationEnumLink element, String outertab, PrintWriter out, Map<String, Integer> printCountingMap) {
+		String localtab = outertab;
+		// DEFINITION PART BEGINS (CsString)
+		out.print("[");
+		out.print(" ");
+		// DEFINITION PART BEGINS (CompoundDefinition)
+		print_eu_hyvar_mspl_manifest_HyTimedImplementationEnumLink_0_0(element, localtab, out, printCountingMap);
+		// DEFINITION PART BEGINS (CsString)
+		out.print("]");
+		out.print(" ");
+	}
+	
+	public void print_eu_hyvar_mspl_manifest_HyTimedImplementationEnumLink_0_0(eu.hyvar.mspl.manifest.HyTimedImplementationEnumLink element, String outertab, PrintWriter out, Map<String, Integer> printCountingMap) {
+		int count;
+		int alt = -1;
+		alt = 0;
+		int matches = 		matchCount(printCountingMap, Arrays.asList(		"validSince"		,
+		"validUntil"		));
+		int tempMatchCount;
+		tempMatchCount = 		matchCount(printCountingMap, Arrays.asList(		"validSince"		));
+		if (tempMatchCount > matches) {
+			alt = 1;
+			matches = tempMatchCount;
+		}
+		tempMatchCount = 		matchCount(printCountingMap, Arrays.asList(		"validUntil"		));
+		if (tempMatchCount > matches) {
+			alt = 2;
+			matches = tempMatchCount;
+		}
+		switch(alt) {
+			case 1:			{
+				// DEFINITION PART BEGINS (PlaceholderUsingSpecifiedToken)
+				count = printCountingMap.get("validSince");
+				if (count > 0) {
+					Object o = element.eGet(element.eClass().getEStructuralFeature(eu.hyvar.mspl.manifest.ManifestPackage.HY_TIMED_IMPLEMENTATION_ENUM_LINK__VALID_SINCE));
+					if (o != null) {
+						eu.hyvar.mspl.manifest.resource.hymanifest.IHymanifestTokenResolver resolver = tokenResolverFactory.createTokenResolver("DATE");
+						resolver.setOptions(getOptions());
+						out.print(resolver.deResolve((Object) o, element.eClass().getEStructuralFeature(eu.hyvar.mspl.manifest.ManifestPackage.HY_TIMED_IMPLEMENTATION_ENUM_LINK__VALID_SINCE), element));
+						out.print(" ");
+					}
+					printCountingMap.put("validSince", count - 1);
+				}
+				// DEFINITION PART BEGINS (CsString)
+				out.print("-");
+				out.print(" ");
+				// DEFINITION PART BEGINS (CsString)
+				out.print("eternity");
+				out.print(" ");
+			}
+			break;
+			case 2:			{
+				// DEFINITION PART BEGINS (CsString)
+				out.print("eternity");
+				out.print(" ");
+				// DEFINITION PART BEGINS (CsString)
+				out.print("-");
+				out.print(" ");
+				// DEFINITION PART BEGINS (PlaceholderUsingSpecifiedToken)
+				count = printCountingMap.get("validUntil");
+				if (count > 0) {
+					Object o = element.eGet(element.eClass().getEStructuralFeature(eu.hyvar.mspl.manifest.ManifestPackage.HY_TIMED_IMPLEMENTATION_ENUM_LINK__VALID_UNTIL));
+					if (o != null) {
+						eu.hyvar.mspl.manifest.resource.hymanifest.IHymanifestTokenResolver resolver = tokenResolverFactory.createTokenResolver("DATE");
+						resolver.setOptions(getOptions());
+						out.print(resolver.deResolve((Object) o, element.eClass().getEStructuralFeature(eu.hyvar.mspl.manifest.ManifestPackage.HY_TIMED_IMPLEMENTATION_ENUM_LINK__VALID_UNTIL), element));
+						out.print(" ");
+					}
+					printCountingMap.put("validUntil", count - 1);
+				}
+			}
+			break;
+			default:			// DEFINITION PART BEGINS (PlaceholderUsingSpecifiedToken)
+			count = printCountingMap.get("validSince");
+			if (count > 0) {
+				Object o = element.eGet(element.eClass().getEStructuralFeature(eu.hyvar.mspl.manifest.ManifestPackage.HY_TIMED_IMPLEMENTATION_ENUM_LINK__VALID_SINCE));
+				if (o != null) {
+					eu.hyvar.mspl.manifest.resource.hymanifest.IHymanifestTokenResolver resolver = tokenResolverFactory.createTokenResolver("DATE");
+					resolver.setOptions(getOptions());
+					out.print(resolver.deResolve((Object) o, element.eClass().getEStructuralFeature(eu.hyvar.mspl.manifest.ManifestPackage.HY_TIMED_IMPLEMENTATION_ENUM_LINK__VALID_SINCE), element));
+					out.print(" ");
+				}
+				printCountingMap.put("validSince", count - 1);
+			}
+			// DEFINITION PART BEGINS (CsString)
+			out.print("-");
+			out.print(" ");
+			// DEFINITION PART BEGINS (PlaceholderUsingSpecifiedToken)
+			count = printCountingMap.get("validUntil");
+			if (count > 0) {
+				Object o = element.eGet(element.eClass().getEStructuralFeature(eu.hyvar.mspl.manifest.ManifestPackage.HY_TIMED_IMPLEMENTATION_ENUM_LINK__VALID_UNTIL));
+				if (o != null) {
+					eu.hyvar.mspl.manifest.resource.hymanifest.IHymanifestTokenResolver resolver = tokenResolverFactory.createTokenResolver("DATE");
+					resolver.setOptions(getOptions());
+					out.print(resolver.deResolve((Object) o, element.eClass().getEStructuralFeature(eu.hyvar.mspl.manifest.ManifestPackage.HY_TIMED_IMPLEMENTATION_ENUM_LINK__VALID_UNTIL), element));
+					out.print(" ");
+				}
+				printCountingMap.put("validUntil", count - 1);
+			}
+		}
+	}
+	
+	public void print_eu_hyvar_mspl_manifest_HyTimedImplementationEnumLink_1(eu.hyvar.mspl.manifest.HyTimedImplementationEnumLink element, String outertab, PrintWriter out, Map<String, Integer> printCountingMap) {
+		int count;
+		int alt = -1;
+		alt = 0;
+		int matches = 		matchCount(printCountingMap, Arrays.asList(		"local"		));
+		int tempMatchCount;
+		tempMatchCount = 		matchCount(printCountingMap, Arrays.asList(		"local"		));
+		if (tempMatchCount > matches) {
+			alt = 1;
+			matches = tempMatchCount;
+		}
+		switch(alt) {
+			case 1:			{
+				// DEFINITION PART BEGINS (PlaceholderUsingDefaultToken)
+				count = printCountingMap.get("local");
+				if (count > 0) {
+					Object o = element.eGet(element.eClass().getEStructuralFeature(eu.hyvar.mspl.manifest.ManifestPackage.HY_TIMED_IMPLEMENTATION_ENUM_LINK__LOCAL));
+					if (o != null) {
+						eu.hyvar.mspl.manifest.resource.hymanifest.IHymanifestTokenResolver resolver = tokenResolverFactory.createTokenResolver("IDENTIFIER_TOKEN");
+						resolver.setOptions(getOptions());
+						out.print(resolver.deResolve(getReferenceResolverSwitch() == null ? null : getReferenceResolverSwitch().getHyTimedImplementationEnumLinkLocalReferenceResolver().deResolve((eu.hyvar.dataValues.HyEnum) o, element, (EReference) element.eClass().getEStructuralFeature(eu.hyvar.mspl.manifest.ManifestPackage.HY_TIMED_IMPLEMENTATION_ENUM_LINK__LOCAL)), element.eClass().getEStructuralFeature(eu.hyvar.mspl.manifest.ManifestPackage.HY_TIMED_IMPLEMENTATION_ENUM_LINK__LOCAL), element));
+						out.print(" ");
+					}
+					printCountingMap.put("local", count - 1);
+				}
+			}
+			break;
+			default:			// DEFINITION PART BEGINS (PlaceholderInQuotes)
+			count = printCountingMap.get("local");
+			if (count > 0) {
+				Object o = element.eGet(element.eClass().getEStructuralFeature(eu.hyvar.mspl.manifest.ManifestPackage.HY_TIMED_IMPLEMENTATION_ENUM_LINK__LOCAL));
+				if (o != null) {
+					eu.hyvar.mspl.manifest.resource.hymanifest.IHymanifestTokenResolver resolver = tokenResolverFactory.createTokenResolver("QUOTED_34_34");
+					resolver.setOptions(getOptions());
+					out.print(resolver.deResolve(getReferenceResolverSwitch() == null ? null : getReferenceResolverSwitch().getHyTimedImplementationEnumLinkLocalReferenceResolver().deResolve((eu.hyvar.dataValues.HyEnum) o, element, (EReference) element.eClass().getEStructuralFeature(eu.hyvar.mspl.manifest.ManifestPackage.HY_TIMED_IMPLEMENTATION_ENUM_LINK__LOCAL)), element.eClass().getEStructuralFeature(eu.hyvar.mspl.manifest.ManifestPackage.HY_TIMED_IMPLEMENTATION_ENUM_LINK__LOCAL), element));
+					out.print(" ");
+				}
+				printCountingMap.put("local", count - 1);
+			}
+		}
+	}
+	
+	public void print_eu_hyvar_mspl_manifest_HyTimedImplementationEnumLink_2(eu.hyvar.mspl.manifest.HyTimedImplementationEnumLink element, String outertab, PrintWriter out, Map<String, Integer> printCountingMap) {
+		int count;
+		int alt = -1;
+		alt = 0;
+		int matches = 		matchCount(printCountingMap, Arrays.asList(		"signature"		));
+		int tempMatchCount;
+		tempMatchCount = 		matchCount(printCountingMap, Arrays.asList(		"signature"		));
+		if (tempMatchCount > matches) {
+			alt = 1;
+			matches = tempMatchCount;
+		}
+		switch(alt) {
+			case 1:			{
+				// DEFINITION PART BEGINS (PlaceholderUsingDefaultToken)
+				count = printCountingMap.get("signature");
+				if (count > 0) {
+					Object o = element.eGet(element.eClass().getEStructuralFeature(eu.hyvar.mspl.manifest.ManifestPackage.HY_TIMED_IMPLEMENTATION_ENUM_LINK__SIGNATURE));
+					if (o != null) {
+						eu.hyvar.mspl.manifest.resource.hymanifest.IHymanifestTokenResolver resolver = tokenResolverFactory.createTokenResolver("IDENTIFIER_TOKEN");
+						resolver.setOptions(getOptions());
+						out.print(resolver.deResolve(getReferenceResolverSwitch() == null ? null : getReferenceResolverSwitch().getHyTimedImplementationEnumLinkSignatureReferenceResolver().deResolve((eu.hyvar.dataValues.HyEnum) o, element, (EReference) element.eClass().getEStructuralFeature(eu.hyvar.mspl.manifest.ManifestPackage.HY_TIMED_IMPLEMENTATION_ENUM_LINK__SIGNATURE)), element.eClass().getEStructuralFeature(eu.hyvar.mspl.manifest.ManifestPackage.HY_TIMED_IMPLEMENTATION_ENUM_LINK__SIGNATURE), element));
+						out.print(" ");
+					}
+					printCountingMap.put("signature", count - 1);
+				}
+			}
+			break;
+			default:			// DEFINITION PART BEGINS (PlaceholderInQuotes)
+			count = printCountingMap.get("signature");
+			if (count > 0) {
+				Object o = element.eGet(element.eClass().getEStructuralFeature(eu.hyvar.mspl.manifest.ManifestPackage.HY_TIMED_IMPLEMENTATION_ENUM_LINK__SIGNATURE));
+				if (o != null) {
+					eu.hyvar.mspl.manifest.resource.hymanifest.IHymanifestTokenResolver resolver = tokenResolverFactory.createTokenResolver("QUOTED_34_34");
+					resolver.setOptions(getOptions());
+					out.print(resolver.deResolve(getReferenceResolverSwitch() == null ? null : getReferenceResolverSwitch().getHyTimedImplementationEnumLinkSignatureReferenceResolver().deResolve((eu.hyvar.dataValues.HyEnum) o, element, (EReference) element.eClass().getEStructuralFeature(eu.hyvar.mspl.manifest.ManifestPackage.HY_TIMED_IMPLEMENTATION_ENUM_LINK__SIGNATURE)), element.eClass().getEStructuralFeature(eu.hyvar.mspl.manifest.ManifestPackage.HY_TIMED_IMPLEMENTATION_ENUM_LINK__SIGNATURE), element));
+					out.print(" ");
+				}
+				printCountingMap.put("signature", count - 1);
+			}
+		}
+	}
+	
+	public void print_eu_hyvar_mspl_manifest_HyTimedImplementationEnumLink_3(eu.hyvar.mspl.manifest.HyTimedImplementationEnumLink element, String outertab, PrintWriter out, Map<String, Integer> printCountingMap) {
+		String localtab = outertab;
+		java.io.StringWriter sWriter = null;
+		PrintWriter out1 = null;
+		Map<String, Integer> printCountingMap1 = null;
+		// DEFINITION PART BEGINS (CsString)
+		out.print("{");
+		out.print(" ");
+		// DEFINITION PART BEGINS (CompoundDefinition)
+		sWriter = new StringWriter();
+		out1 = new PrintWriter(sWriter);
+		printCountingMap1 = new LinkedHashMap<String, Integer>(printCountingMap);
+		print_eu_hyvar_mspl_manifest_HyTimedImplementationEnumLink_3_0(element, localtab, out1, printCountingMap1);
+		if (printCountingMap.equals(printCountingMap1)) {
+			out1.close();
+		} else {
+			out1.flush();
+			out1.close();
+			out.print(sWriter.toString());
+			printCountingMap.putAll(printCountingMap1);
+		}
+		// DEFINITION PART BEGINS (CsString)
+		out.print("}");
+		out.print(" ");
+	}
+	
+	public void print_eu_hyvar_mspl_manifest_HyTimedImplementationEnumLink_3_0(eu.hyvar.mspl.manifest.HyTimedImplementationEnumLink element, String outertab, PrintWriter out, Map<String, Integer> printCountingMap) {
+		String localtab = outertab;
+		int count;
+		boolean iterate = true;
+		java.io.StringWriter sWriter = null;
+		PrintWriter out1 = null;
+		Map<String, Integer> printCountingMap1 = null;
+		// DEFINITION PART BEGINS (Containment)
+		count = printCountingMap.get("associations");
+		if (count > 0) {
+			Object o = element.eGet(element.eClass().getEStructuralFeature(eu.hyvar.mspl.manifest.ManifestPackage.HY_TIMED_IMPLEMENTATION_ENUM_LINK__ASSOCIATIONS));
+			List<?> list = (List<?>) o;
+			int index = list.size() - count;
+			if (index >= 0) {
+				o = list.get(index);
+			} else {
+				o = null;
+			}
+			if (o != null) {
+				doPrint((EObject) o, out, localtab);
+			}
+			printCountingMap.put("associations", count - 1);
+		}
+		// DEFINITION PART BEGINS (CompoundDefinition)
+		iterate = true;
+		while (iterate) {
+			sWriter = new StringWriter();
+			out1 = new PrintWriter(sWriter);
+			printCountingMap1 = new LinkedHashMap<String, Integer>(printCountingMap);
+			print_eu_hyvar_mspl_manifest_HyTimedImplementationEnumLink_3_0_0(element, localtab, out1, printCountingMap1);
+			if (printCountingMap.equals(printCountingMap1)) {
+				iterate = false;
+				out1.close();
+			} else {
+				out1.flush();
+				out1.close();
+				out.print(sWriter.toString());
+				printCountingMap.putAll(printCountingMap1);
+			}
+		}
+	}
+	
+	public void print_eu_hyvar_mspl_manifest_HyTimedImplementationEnumLink_3_0_0(eu.hyvar.mspl.manifest.HyTimedImplementationEnumLink element, String outertab, PrintWriter out, Map<String, Integer> printCountingMap) {
+		String localtab = outertab;
+		int count;
+		// DEFINITION PART BEGINS (CsString)
+		out.print(",");
+		out.print(" ");
+		// DEFINITION PART BEGINS (Containment)
+		count = printCountingMap.get("associations");
+		if (count > 0) {
+			Object o = element.eGet(element.eClass().getEStructuralFeature(eu.hyvar.mspl.manifest.ManifestPackage.HY_TIMED_IMPLEMENTATION_ENUM_LINK__ASSOCIATIONS));
+			List<?> list = (List<?>) o;
+			int index = list.size() - count;
+			if (index >= 0) {
+				o = list.get(index);
+			} else {
+				o = null;
+			}
+			if (o != null) {
+				doPrint((EObject) o, out, localtab);
+			}
+			printCountingMap.put("associations", count - 1);
+		}
+	}
+	
+	
+	public void print_eu_hyvar_mspl_manifest_HyTimedImplementationEnumLiteralLink(eu.hyvar.mspl.manifest.HyTimedImplementationEnumLiteralLink element, String outertab, PrintWriter out) {
+		String localtab = outertab;
+		// The printCountingMap contains a mapping from feature names to the number of
+		// remaining elements that still need to be printed. The map is initialized with
+		// the number of elements stored in each structural feature. For lists this is the
+		// list size. For non-multiple features it is either 1 (if the feature is set) or
+		// 0 (if the feature is null).
+		Map<String, Integer> printCountingMap = new LinkedHashMap<String, Integer>(5);
+		Object temp;
+		temp = element.eGet(element.eClass().getEStructuralFeature(eu.hyvar.mspl.manifest.ManifestPackage.HY_TIMED_IMPLEMENTATION_ENUM_LITERAL_LINK__VALID_SINCE));
+		printCountingMap.put("validSince", temp == null ? 0 : 1);
+		temp = element.eGet(element.eClass().getEStructuralFeature(eu.hyvar.mspl.manifest.ManifestPackage.HY_TIMED_IMPLEMENTATION_ENUM_LITERAL_LINK__VALID_UNTIL));
+		printCountingMap.put("validUntil", temp == null ? 0 : 1);
+		temp = element.eGet(element.eClass().getEStructuralFeature(eu.hyvar.mspl.manifest.ManifestPackage.HY_TIMED_IMPLEMENTATION_ENUM_LITERAL_LINK__LOCAL));
+		printCountingMap.put("local", temp == null ? 0 : 1);
+		temp = element.eGet(element.eClass().getEStructuralFeature(eu.hyvar.mspl.manifest.ManifestPackage.HY_TIMED_IMPLEMENTATION_ENUM_LITERAL_LINK__SIGNATURE));
+		printCountingMap.put("signature", temp == null ? 0 : 1);
+		// print collected hidden tokens
+		java.io.StringWriter sWriter = null;
+		PrintWriter out1 = null;
+		Map<String, Integer> printCountingMap1 = null;
+		// DEFINITION PART BEGINS (CompoundDefinition)
+		sWriter = new StringWriter();
+		out1 = new PrintWriter(sWriter);
+		printCountingMap1 = new LinkedHashMap<String, Integer>(printCountingMap);
+		print_eu_hyvar_mspl_manifest_HyTimedImplementationEnumLiteralLink_0(element, localtab, out1, printCountingMap1);
+		if (printCountingMap.equals(printCountingMap1)) {
+			out1.close();
+		} else {
+			out1.flush();
+			out1.close();
+			out.print(sWriter.toString());
+			printCountingMap.putAll(printCountingMap1);
+		}
+		// DEFINITION PART BEGINS (CompoundDefinition)
+		print_eu_hyvar_mspl_manifest_HyTimedImplementationEnumLiteralLink_1(element, localtab, out, printCountingMap);
+		// DEFINITION PART BEGINS (CsString)
+		out.print("->");
+		out.print(" ");
+		// DEFINITION PART BEGINS (CompoundDefinition)
+		print_eu_hyvar_mspl_manifest_HyTimedImplementationEnumLiteralLink_2(element, localtab, out, printCountingMap);
+	}
+	
+	public void print_eu_hyvar_mspl_manifest_HyTimedImplementationEnumLiteralLink_0(eu.hyvar.mspl.manifest.HyTimedImplementationEnumLiteralLink element, String outertab, PrintWriter out, Map<String, Integer> printCountingMap) {
+		String localtab = outertab;
+		// DEFINITION PART BEGINS (CsString)
+		out.print("[");
+		out.print(" ");
+		// DEFINITION PART BEGINS (CompoundDefinition)
+		print_eu_hyvar_mspl_manifest_HyTimedImplementationEnumLiteralLink_0_0(element, localtab, out, printCountingMap);
+		// DEFINITION PART BEGINS (CsString)
+		out.print("]");
+		out.print(" ");
+	}
+	
+	public void print_eu_hyvar_mspl_manifest_HyTimedImplementationEnumLiteralLink_0_0(eu.hyvar.mspl.manifest.HyTimedImplementationEnumLiteralLink element, String outertab, PrintWriter out, Map<String, Integer> printCountingMap) {
+		int count;
+		int alt = -1;
+		alt = 0;
+		int matches = 		matchCount(printCountingMap, Arrays.asList(		"validSince"		,
+		"validUntil"		));
+		int tempMatchCount;
+		tempMatchCount = 		matchCount(printCountingMap, Arrays.asList(		"validSince"		));
+		if (tempMatchCount > matches) {
+			alt = 1;
+			matches = tempMatchCount;
+		}
+		tempMatchCount = 		matchCount(printCountingMap, Arrays.asList(		"validUntil"		));
+		if (tempMatchCount > matches) {
+			alt = 2;
+			matches = tempMatchCount;
+		}
+		switch(alt) {
+			case 1:			{
+				// DEFINITION PART BEGINS (PlaceholderUsingSpecifiedToken)
+				count = printCountingMap.get("validSince");
+				if (count > 0) {
+					Object o = element.eGet(element.eClass().getEStructuralFeature(eu.hyvar.mspl.manifest.ManifestPackage.HY_TIMED_IMPLEMENTATION_ENUM_LITERAL_LINK__VALID_SINCE));
+					if (o != null) {
+						eu.hyvar.mspl.manifest.resource.hymanifest.IHymanifestTokenResolver resolver = tokenResolverFactory.createTokenResolver("DATE");
+						resolver.setOptions(getOptions());
+						out.print(resolver.deResolve((Object) o, element.eClass().getEStructuralFeature(eu.hyvar.mspl.manifest.ManifestPackage.HY_TIMED_IMPLEMENTATION_ENUM_LITERAL_LINK__VALID_SINCE), element));
+						out.print(" ");
+					}
+					printCountingMap.put("validSince", count - 1);
+				}
+				// DEFINITION PART BEGINS (CsString)
+				out.print("-");
+				out.print(" ");
+				// DEFINITION PART BEGINS (CsString)
+				out.print("eternity");
+				out.print(" ");
+			}
+			break;
+			case 2:			{
+				// DEFINITION PART BEGINS (CsString)
+				out.print("eternity");
+				out.print(" ");
+				// DEFINITION PART BEGINS (CsString)
+				out.print("-");
+				out.print(" ");
+				// DEFINITION PART BEGINS (PlaceholderUsingSpecifiedToken)
+				count = printCountingMap.get("validUntil");
+				if (count > 0) {
+					Object o = element.eGet(element.eClass().getEStructuralFeature(eu.hyvar.mspl.manifest.ManifestPackage.HY_TIMED_IMPLEMENTATION_ENUM_LITERAL_LINK__VALID_UNTIL));
+					if (o != null) {
+						eu.hyvar.mspl.manifest.resource.hymanifest.IHymanifestTokenResolver resolver = tokenResolverFactory.createTokenResolver("DATE");
+						resolver.setOptions(getOptions());
+						out.print(resolver.deResolve((Object) o, element.eClass().getEStructuralFeature(eu.hyvar.mspl.manifest.ManifestPackage.HY_TIMED_IMPLEMENTATION_ENUM_LITERAL_LINK__VALID_UNTIL), element));
+						out.print(" ");
+					}
+					printCountingMap.put("validUntil", count - 1);
+				}
+			}
+			break;
+			default:			// DEFINITION PART BEGINS (PlaceholderUsingSpecifiedToken)
+			count = printCountingMap.get("validSince");
+			if (count > 0) {
+				Object o = element.eGet(element.eClass().getEStructuralFeature(eu.hyvar.mspl.manifest.ManifestPackage.HY_TIMED_IMPLEMENTATION_ENUM_LITERAL_LINK__VALID_SINCE));
+				if (o != null) {
+					eu.hyvar.mspl.manifest.resource.hymanifest.IHymanifestTokenResolver resolver = tokenResolverFactory.createTokenResolver("DATE");
+					resolver.setOptions(getOptions());
+					out.print(resolver.deResolve((Object) o, element.eClass().getEStructuralFeature(eu.hyvar.mspl.manifest.ManifestPackage.HY_TIMED_IMPLEMENTATION_ENUM_LITERAL_LINK__VALID_SINCE), element));
+					out.print(" ");
+				}
+				printCountingMap.put("validSince", count - 1);
+			}
+			// DEFINITION PART BEGINS (CsString)
+			out.print("-");
+			out.print(" ");
+			// DEFINITION PART BEGINS (PlaceholderUsingSpecifiedToken)
+			count = printCountingMap.get("validUntil");
+			if (count > 0) {
+				Object o = element.eGet(element.eClass().getEStructuralFeature(eu.hyvar.mspl.manifest.ManifestPackage.HY_TIMED_IMPLEMENTATION_ENUM_LITERAL_LINK__VALID_UNTIL));
+				if (o != null) {
+					eu.hyvar.mspl.manifest.resource.hymanifest.IHymanifestTokenResolver resolver = tokenResolverFactory.createTokenResolver("DATE");
+					resolver.setOptions(getOptions());
+					out.print(resolver.deResolve((Object) o, element.eClass().getEStructuralFeature(eu.hyvar.mspl.manifest.ManifestPackage.HY_TIMED_IMPLEMENTATION_ENUM_LITERAL_LINK__VALID_UNTIL), element));
+					out.print(" ");
+				}
+				printCountingMap.put("validUntil", count - 1);
+			}
+		}
+	}
+	
+	public void print_eu_hyvar_mspl_manifest_HyTimedImplementationEnumLiteralLink_1(eu.hyvar.mspl.manifest.HyTimedImplementationEnumLiteralLink element, String outertab, PrintWriter out, Map<String, Integer> printCountingMap) {
+		int count;
+		int alt = -1;
+		alt = 0;
+		int matches = 		matchCount(printCountingMap, Arrays.asList(		"local"		));
+		int tempMatchCount;
+		tempMatchCount = 		matchCount(printCountingMap, Arrays.asList(		"local"		));
+		if (tempMatchCount > matches) {
+			alt = 1;
+			matches = tempMatchCount;
+		}
+		switch(alt) {
+			case 1:			{
+				// DEFINITION PART BEGINS (PlaceholderUsingDefaultToken)
+				count = printCountingMap.get("local");
+				if (count > 0) {
+					Object o = element.eGet(element.eClass().getEStructuralFeature(eu.hyvar.mspl.manifest.ManifestPackage.HY_TIMED_IMPLEMENTATION_ENUM_LITERAL_LINK__LOCAL));
+					if (o != null) {
+						eu.hyvar.mspl.manifest.resource.hymanifest.IHymanifestTokenResolver resolver = tokenResolverFactory.createTokenResolver("IDENTIFIER_TOKEN");
+						resolver.setOptions(getOptions());
+						out.print(resolver.deResolve(getReferenceResolverSwitch() == null ? null : getReferenceResolverSwitch().getHyTimedImplementationEnumLiteralLinkLocalReferenceResolver().deResolve((eu.hyvar.dataValues.HyEnumLiteral) o, element, (EReference) element.eClass().getEStructuralFeature(eu.hyvar.mspl.manifest.ManifestPackage.HY_TIMED_IMPLEMENTATION_ENUM_LITERAL_LINK__LOCAL)), element.eClass().getEStructuralFeature(eu.hyvar.mspl.manifest.ManifestPackage.HY_TIMED_IMPLEMENTATION_ENUM_LITERAL_LINK__LOCAL), element));
+						out.print(" ");
+					}
+					printCountingMap.put("local", count - 1);
+				}
+			}
+			break;
+			default:			// DEFINITION PART BEGINS (PlaceholderInQuotes)
+			count = printCountingMap.get("local");
+			if (count > 0) {
+				Object o = element.eGet(element.eClass().getEStructuralFeature(eu.hyvar.mspl.manifest.ManifestPackage.HY_TIMED_IMPLEMENTATION_ENUM_LITERAL_LINK__LOCAL));
+				if (o != null) {
+					eu.hyvar.mspl.manifest.resource.hymanifest.IHymanifestTokenResolver resolver = tokenResolverFactory.createTokenResolver("QUOTED_34_34");
+					resolver.setOptions(getOptions());
+					out.print(resolver.deResolve(getReferenceResolverSwitch() == null ? null : getReferenceResolverSwitch().getHyTimedImplementationEnumLiteralLinkLocalReferenceResolver().deResolve((eu.hyvar.dataValues.HyEnumLiteral) o, element, (EReference) element.eClass().getEStructuralFeature(eu.hyvar.mspl.manifest.ManifestPackage.HY_TIMED_IMPLEMENTATION_ENUM_LITERAL_LINK__LOCAL)), element.eClass().getEStructuralFeature(eu.hyvar.mspl.manifest.ManifestPackage.HY_TIMED_IMPLEMENTATION_ENUM_LITERAL_LINK__LOCAL), element));
+					out.print(" ");
+				}
+				printCountingMap.put("local", count - 1);
+			}
+		}
+	}
+	
+	public void print_eu_hyvar_mspl_manifest_HyTimedImplementationEnumLiteralLink_2(eu.hyvar.mspl.manifest.HyTimedImplementationEnumLiteralLink element, String outertab, PrintWriter out, Map<String, Integer> printCountingMap) {
+		int count;
+		int alt = -1;
+		alt = 0;
+		int matches = 		matchCount(printCountingMap, Arrays.asList(		"signature"		));
+		int tempMatchCount;
+		tempMatchCount = 		matchCount(printCountingMap, Arrays.asList(		"signature"		));
+		if (tempMatchCount > matches) {
+			alt = 1;
+			matches = tempMatchCount;
+		}
+		switch(alt) {
+			case 1:			{
+				// DEFINITION PART BEGINS (PlaceholderUsingDefaultToken)
+				count = printCountingMap.get("signature");
+				if (count > 0) {
+					Object o = element.eGet(element.eClass().getEStructuralFeature(eu.hyvar.mspl.manifest.ManifestPackage.HY_TIMED_IMPLEMENTATION_ENUM_LITERAL_LINK__SIGNATURE));
+					if (o != null) {
+						eu.hyvar.mspl.manifest.resource.hymanifest.IHymanifestTokenResolver resolver = tokenResolverFactory.createTokenResolver("IDENTIFIER_TOKEN");
+						resolver.setOptions(getOptions());
+						out.print(resolver.deResolve(getReferenceResolverSwitch() == null ? null : getReferenceResolverSwitch().getHyTimedImplementationEnumLiteralLinkSignatureReferenceResolver().deResolve((eu.hyvar.dataValues.HyEnumLiteral) o, element, (EReference) element.eClass().getEStructuralFeature(eu.hyvar.mspl.manifest.ManifestPackage.HY_TIMED_IMPLEMENTATION_ENUM_LITERAL_LINK__SIGNATURE)), element.eClass().getEStructuralFeature(eu.hyvar.mspl.manifest.ManifestPackage.HY_TIMED_IMPLEMENTATION_ENUM_LITERAL_LINK__SIGNATURE), element));
+						out.print(" ");
+					}
+					printCountingMap.put("signature", count - 1);
+				}
+			}
+			break;
+			default:			// DEFINITION PART BEGINS (PlaceholderInQuotes)
+			count = printCountingMap.get("signature");
+			if (count > 0) {
+				Object o = element.eGet(element.eClass().getEStructuralFeature(eu.hyvar.mspl.manifest.ManifestPackage.HY_TIMED_IMPLEMENTATION_ENUM_LITERAL_LINK__SIGNATURE));
+				if (o != null) {
+					eu.hyvar.mspl.manifest.resource.hymanifest.IHymanifestTokenResolver resolver = tokenResolverFactory.createTokenResolver("QUOTED_34_34");
+					resolver.setOptions(getOptions());
+					out.print(resolver.deResolve(getReferenceResolverSwitch() == null ? null : getReferenceResolverSwitch().getHyTimedImplementationEnumLiteralLinkSignatureReferenceResolver().deResolve((eu.hyvar.dataValues.HyEnumLiteral) o, element, (EReference) element.eClass().getEStructuralFeature(eu.hyvar.mspl.manifest.ManifestPackage.HY_TIMED_IMPLEMENTATION_ENUM_LITERAL_LINK__SIGNATURE)), element.eClass().getEStructuralFeature(eu.hyvar.mspl.manifest.ManifestPackage.HY_TIMED_IMPLEMENTATION_ENUM_LITERAL_LINK__SIGNATURE), element));
 					out.print(" ");
 				}
 				printCountingMap.put("signature", count - 1);
@@ -1074,6 +1997,7 @@ public class HymanifestPrinter implements eu.hyvar.mspl.manifest.resource.hymani
 	
 	
 	public void print_eu_hyvar_dataValues_HyEnumValue(eu.hyvar.dataValues.HyEnumValue element, String outertab, PrintWriter out) {
+		String localtab = outertab;
 		// The printCountingMap contains a mapping from feature names to the number of
 		// remaining elements that still need to be printed. The map is initialized with
 		// the number of elements stored in each structural feature. For lists this is the
@@ -1086,36 +2010,99 @@ public class HymanifestPrinter implements eu.hyvar.mspl.manifest.resource.hymani
 		temp = element.eGet(element.eClass().getEStructuralFeature(eu.hyvar.dataValues.HyDataValuesPackage.HY_ENUM_VALUE__ENUM));
 		printCountingMap.put("enum", temp == null ? 0 : 1);
 		// print collected hidden tokens
-		int count;
 		// DEFINITION PART BEGINS (CsString)
 		out.print("enum:");
 		out.print(" ");
-		// DEFINITION PART BEGINS (PlaceholderUsingSpecifiedToken)
-		count = printCountingMap.get("enum");
-		if (count > 0) {
-			Object o = element.eGet(element.eClass().getEStructuralFeature(eu.hyvar.dataValues.HyDataValuesPackage.HY_ENUM_VALUE__ENUM));
-			if (o != null) {
-				eu.hyvar.mspl.manifest.resource.hymanifest.IHymanifestTokenResolver resolver = tokenResolverFactory.createTokenResolver("IDENTIFIER_TOKEN");
-				resolver.setOptions(getOptions());
-				out.print(resolver.deResolve(getReferenceResolverSwitch() == null ? null : getReferenceResolverSwitch().getHyEnumValueEnumReferenceResolver().deResolve((eu.hyvar.dataValues.HyEnum) o, element, (EReference) element.eClass().getEStructuralFeature(eu.hyvar.dataValues.HyDataValuesPackage.HY_ENUM_VALUE__ENUM)), element.eClass().getEStructuralFeature(eu.hyvar.dataValues.HyDataValuesPackage.HY_ENUM_VALUE__ENUM), element));
-				out.print(" ");
-			}
-			printCountingMap.put("enum", count - 1);
-		}
+		// DEFINITION PART BEGINS (CompoundDefinition)
+		print_eu_hyvar_dataValues_HyEnumValue_0(element, localtab, out, printCountingMap);
 		// DEFINITION PART BEGINS (CsString)
 		out.print(".");
 		out.print(" ");
-		// DEFINITION PART BEGINS (PlaceholderUsingSpecifiedToken)
-		count = printCountingMap.get("enumLiteral");
-		if (count > 0) {
-			Object o = element.eGet(element.eClass().getEStructuralFeature(eu.hyvar.dataValues.HyDataValuesPackage.HY_ENUM_VALUE__ENUM_LITERAL));
-			if (o != null) {
-				eu.hyvar.mspl.manifest.resource.hymanifest.IHymanifestTokenResolver resolver = tokenResolverFactory.createTokenResolver("IDENTIFIER_TOKEN");
-				resolver.setOptions(getOptions());
-				out.print(resolver.deResolve(getReferenceResolverSwitch() == null ? null : getReferenceResolverSwitch().getHyEnumValueEnumLiteralReferenceResolver().deResolve((eu.hyvar.dataValues.HyEnumLiteral) o, element, (EReference) element.eClass().getEStructuralFeature(eu.hyvar.dataValues.HyDataValuesPackage.HY_ENUM_VALUE__ENUM_LITERAL)), element.eClass().getEStructuralFeature(eu.hyvar.dataValues.HyDataValuesPackage.HY_ENUM_VALUE__ENUM_LITERAL), element));
-				out.print(" ");
+		// DEFINITION PART BEGINS (CompoundDefinition)
+		print_eu_hyvar_dataValues_HyEnumValue_1(element, localtab, out, printCountingMap);
+	}
+	
+	public void print_eu_hyvar_dataValues_HyEnumValue_0(eu.hyvar.dataValues.HyEnumValue element, String outertab, PrintWriter out, Map<String, Integer> printCountingMap) {
+		int count;
+		int alt = -1;
+		alt = 0;
+		int matches = 		matchCount(printCountingMap, Arrays.asList(		"enum"		));
+		int tempMatchCount;
+		tempMatchCount = 		matchCount(printCountingMap, Arrays.asList(		"enum"		));
+		if (tempMatchCount > matches) {
+			alt = 1;
+			matches = tempMatchCount;
+		}
+		switch(alt) {
+			case 1:			{
+				// DEFINITION PART BEGINS (PlaceholderUsingDefaultToken)
+				count = printCountingMap.get("enum");
+				if (count > 0) {
+					Object o = element.eGet(element.eClass().getEStructuralFeature(eu.hyvar.dataValues.HyDataValuesPackage.HY_ENUM_VALUE__ENUM));
+					if (o != null) {
+						eu.hyvar.mspl.manifest.resource.hymanifest.IHymanifestTokenResolver resolver = tokenResolverFactory.createTokenResolver("IDENTIFIER_TOKEN");
+						resolver.setOptions(getOptions());
+						out.print(resolver.deResolve(getReferenceResolverSwitch() == null ? null : getReferenceResolverSwitch().getHyEnumValueEnumReferenceResolver().deResolve((eu.hyvar.dataValues.HyEnum) o, element, (EReference) element.eClass().getEStructuralFeature(eu.hyvar.dataValues.HyDataValuesPackage.HY_ENUM_VALUE__ENUM)), element.eClass().getEStructuralFeature(eu.hyvar.dataValues.HyDataValuesPackage.HY_ENUM_VALUE__ENUM), element));
+						out.print(" ");
+					}
+					printCountingMap.put("enum", count - 1);
+				}
 			}
-			printCountingMap.put("enumLiteral", count - 1);
+			break;
+			default:			// DEFINITION PART BEGINS (PlaceholderInQuotes)
+			count = printCountingMap.get("enum");
+			if (count > 0) {
+				Object o = element.eGet(element.eClass().getEStructuralFeature(eu.hyvar.dataValues.HyDataValuesPackage.HY_ENUM_VALUE__ENUM));
+				if (o != null) {
+					eu.hyvar.mspl.manifest.resource.hymanifest.IHymanifestTokenResolver resolver = tokenResolverFactory.createTokenResolver("QUOTED_34_34");
+					resolver.setOptions(getOptions());
+					out.print(resolver.deResolve(getReferenceResolverSwitch() == null ? null : getReferenceResolverSwitch().getHyEnumValueEnumReferenceResolver().deResolve((eu.hyvar.dataValues.HyEnum) o, element, (EReference) element.eClass().getEStructuralFeature(eu.hyvar.dataValues.HyDataValuesPackage.HY_ENUM_VALUE__ENUM)), element.eClass().getEStructuralFeature(eu.hyvar.dataValues.HyDataValuesPackage.HY_ENUM_VALUE__ENUM), element));
+					out.print(" ");
+				}
+				printCountingMap.put("enum", count - 1);
+			}
+		}
+	}
+	
+	public void print_eu_hyvar_dataValues_HyEnumValue_1(eu.hyvar.dataValues.HyEnumValue element, String outertab, PrintWriter out, Map<String, Integer> printCountingMap) {
+		int count;
+		int alt = -1;
+		alt = 0;
+		int matches = 		matchCount(printCountingMap, Arrays.asList(		"enumLiteral"		));
+		int tempMatchCount;
+		tempMatchCount = 		matchCount(printCountingMap, Arrays.asList(		"enumLiteral"		));
+		if (tempMatchCount > matches) {
+			alt = 1;
+			matches = tempMatchCount;
+		}
+		switch(alt) {
+			case 1:			{
+				// DEFINITION PART BEGINS (PlaceholderUsingDefaultToken)
+				count = printCountingMap.get("enumLiteral");
+				if (count > 0) {
+					Object o = element.eGet(element.eClass().getEStructuralFeature(eu.hyvar.dataValues.HyDataValuesPackage.HY_ENUM_VALUE__ENUM_LITERAL));
+					if (o != null) {
+						eu.hyvar.mspl.manifest.resource.hymanifest.IHymanifestTokenResolver resolver = tokenResolverFactory.createTokenResolver("IDENTIFIER_TOKEN");
+						resolver.setOptions(getOptions());
+						out.print(resolver.deResolve(getReferenceResolverSwitch() == null ? null : getReferenceResolverSwitch().getHyEnumValueEnumLiteralReferenceResolver().deResolve((eu.hyvar.dataValues.HyEnumLiteral) o, element, (EReference) element.eClass().getEStructuralFeature(eu.hyvar.dataValues.HyDataValuesPackage.HY_ENUM_VALUE__ENUM_LITERAL)), element.eClass().getEStructuralFeature(eu.hyvar.dataValues.HyDataValuesPackage.HY_ENUM_VALUE__ENUM_LITERAL), element));
+						out.print(" ");
+					}
+					printCountingMap.put("enumLiteral", count - 1);
+				}
+			}
+			break;
+			default:			// DEFINITION PART BEGINS (PlaceholderInQuotes)
+			count = printCountingMap.get("enumLiteral");
+			if (count > 0) {
+				Object o = element.eGet(element.eClass().getEStructuralFeature(eu.hyvar.dataValues.HyDataValuesPackage.HY_ENUM_VALUE__ENUM_LITERAL));
+				if (o != null) {
+					eu.hyvar.mspl.manifest.resource.hymanifest.IHymanifestTokenResolver resolver = tokenResolverFactory.createTokenResolver("QUOTED_34_34");
+					resolver.setOptions(getOptions());
+					out.print(resolver.deResolve(getReferenceResolverSwitch() == null ? null : getReferenceResolverSwitch().getHyEnumValueEnumLiteralReferenceResolver().deResolve((eu.hyvar.dataValues.HyEnumLiteral) o, element, (EReference) element.eClass().getEStructuralFeature(eu.hyvar.dataValues.HyDataValuesPackage.HY_ENUM_VALUE__ENUM_LITERAL)), element.eClass().getEStructuralFeature(eu.hyvar.dataValues.HyDataValuesPackage.HY_ENUM_VALUE__ENUM_LITERAL), element));
+					out.print(" ");
+				}
+				printCountingMap.put("enumLiteral", count - 1);
+			}
 		}
 	}
 	

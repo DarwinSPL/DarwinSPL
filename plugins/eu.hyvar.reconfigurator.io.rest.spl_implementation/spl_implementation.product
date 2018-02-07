@@ -13,6 +13,16 @@
 
    <windowImages/>
 
+   <launcher>
+      <solaris/>
+      <win useIco="false">
+         <bmp/>
+      </win>
+   </launcher>
+
+   <vm>
+   </vm>
+
    <plugins>
       <plugin id="com.google.gson"/>
       <plugin id="com.ibm.icu"/>
@@ -20,6 +30,8 @@
       <plugin id="de.christophseidl.util.ecore"/>
       <plugin id="de.christophseidl.util.java"/>
       <plugin id="de.darwinspl.common.analyses"/>
+      <plugin id="de.darwinspl.common.eclipse.util"/>
+      <plugin id="de.darwinspl.common.ecore"/>
       <plugin id="eu.hyvar.context.information"/>
       <plugin id="eu.hyvar.dataValues.resource.hydatavalue"/>
       <plugin id="eu.hyvar.evolution"/>

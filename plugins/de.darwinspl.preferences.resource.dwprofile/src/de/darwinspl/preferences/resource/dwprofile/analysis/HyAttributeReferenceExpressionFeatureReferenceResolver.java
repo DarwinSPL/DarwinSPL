@@ -18,8 +18,8 @@ public class HyAttributeReferenceExpressionFeatureReferenceResolver implements d
 	private eu.hyvar.feature.expression.resource.hyexpression.analysis.HyAttributeReferenceExpressionFeatureReferenceResolver delegate = new eu.hyvar.feature.expression.resource.hyexpression.analysis.HyAttributeReferenceExpressionFeatureReferenceResolver();
 	
 	public void resolve(String identifier, eu.hyvar.feature.expression.HyAttributeReferenceExpression container, EReference reference, int position, boolean resolveFuzzy, final de.darwinspl.preferences.resource.dwprofile.IDwprofileReferenceResolveResult<eu.hyvar.feature.HyFeature> result) {
-		if((identifier!=null)&&(identifier.contains(eu.hyvar.mspl.util.HyManifestResolverUtil.MANIFEST_SEPARATOR))) {
-			eu.hyvar.feature.HyFeature found = eu.hyvar.mspl.util.HyManifestResolverUtil.resolveMsplFeature(identifier, container);
+		if((identifier!=null)&&(identifier.contains(eu.hyvar.mspl.manifest.util.custom.HyManifestResolverUtil.MANIFEST_SEPARATOR))) {
+			eu.hyvar.feature.HyFeature found = eu.hyvar.mspl.manifest.util.custom.HyManifestResolverUtil.resolveMsplFeature(identifier, container);
 			if (found!=null) {
 				result.addMapping(identifier, found);
 			}

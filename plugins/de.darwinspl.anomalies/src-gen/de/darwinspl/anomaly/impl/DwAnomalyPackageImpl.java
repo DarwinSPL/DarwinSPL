@@ -10,6 +10,7 @@ import de.darwinspl.anomaly.DwFalseOptionalFeatureAnomaly;
 import de.darwinspl.anomaly.DwFeatureAnomaly;
 import de.darwinspl.anomaly.DwVoidFeatureModelAnomaly;
 
+import eu.hyvar.context.information.contextValue.ContextValuePackage;
 import eu.hyvar.evolution.HyEvolutionPackage;
 
 import eu.hyvar.feature.HyFeaturePackage;
@@ -109,6 +110,7 @@ public class DwAnomalyPackageImpl extends EPackageImpl implements DwAnomalyPacka
 		isInited = true;
 
 		// Initialize simple dependencies
+		ContextValuePackage.eINSTANCE.eClass();
 		HyFeaturePackage.eINSTANCE.eClass();
 
 		// Create package meta-data objects
@@ -151,6 +153,15 @@ public class DwAnomalyPackageImpl extends EPackageImpl implements DwAnomalyPacka
 	 */
 	public EReference getDwVoidFeatureModelAnomaly_FeatureModel() {
 		return (EReference)dwVoidFeatureModelAnomalyEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getDwVoidFeatureModelAnomaly_ContextValueModel() {
+		return (EReference)dwVoidFeatureModelAnomalyEClass.getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -221,6 +232,7 @@ public class DwAnomalyPackageImpl extends EPackageImpl implements DwAnomalyPacka
 
 		dwVoidFeatureModelAnomalyEClass = createEClass(DW_VOID_FEATURE_MODEL_ANOMALY);
 		createEReference(dwVoidFeatureModelAnomalyEClass, DW_VOID_FEATURE_MODEL_ANOMALY__FEATURE_MODEL);
+		createEReference(dwVoidFeatureModelAnomalyEClass, DW_VOID_FEATURE_MODEL_ANOMALY__CONTEXT_VALUE_MODEL);
 
 		dwFeatureAnomalyEClass = createEClass(DW_FEATURE_ANOMALY);
 		createEReference(dwFeatureAnomalyEClass, DW_FEATURE_ANOMALY__FEATURE);
@@ -256,6 +268,7 @@ public class DwAnomalyPackageImpl extends EPackageImpl implements DwAnomalyPacka
 		// Obtain other dependent packages
 		HyEvolutionPackage theHyEvolutionPackage = (HyEvolutionPackage)EPackage.Registry.INSTANCE.getEPackage(HyEvolutionPackage.eNS_URI);
 		HyFeaturePackage theHyFeaturePackage = (HyFeaturePackage)EPackage.Registry.INSTANCE.getEPackage(HyFeaturePackage.eNS_URI);
+		ContextValuePackage theContextValuePackage = (ContextValuePackage)EPackage.Registry.INSTANCE.getEPackage(ContextValuePackage.eNS_URI);
 
 		// Create type parameters
 
@@ -273,6 +286,7 @@ public class DwAnomalyPackageImpl extends EPackageImpl implements DwAnomalyPacka
 
 		initEClass(dwVoidFeatureModelAnomalyEClass, DwVoidFeatureModelAnomaly.class, "DwVoidFeatureModelAnomaly", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getDwVoidFeatureModelAnomaly_FeatureModel(), theHyFeaturePackage.getHyFeatureModel(), null, "featureModel", null, 1, 1, DwVoidFeatureModelAnomaly.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getDwVoidFeatureModelAnomaly_ContextValueModel(), theContextValuePackage.getHyContextValueModel(), null, "contextValueModel", null, 0, 1, DwVoidFeatureModelAnomaly.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(dwFeatureAnomalyEClass, DwFeatureAnomaly.class, "DwFeatureAnomaly", IS_ABSTRACT, IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getDwFeatureAnomaly_Feature(), theHyFeaturePackage.getHyFeature(), null, "feature", null, 1, 1, DwFeatureAnomaly.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

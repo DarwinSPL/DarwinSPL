@@ -2,6 +2,10 @@
  */
 package de.darwinspl.anomaly.provider;
 
+import eu.hyvar.context.information.contextValue.provider.ContextValueEditPlugin;
+
+import eu.hyvar.context.provider.ContextInformationEditPlugin;
+
 import eu.hyvar.dataValues.provider.DataValuesEditPlugin;
 
 import eu.hyvar.evolution.provider.EvolEditPlugin;
@@ -44,6 +48,8 @@ public final class AnomaliesEditPlugin extends EMFPlugin {
 	public AnomaliesEditPlugin() {
 		super
 		  (new ResourceLocator [] {
+		     ContextInformationEditPlugin.INSTANCE,
+		     ContextValueEditPlugin.INSTANCE,
 		     DataValuesEditPlugin.INSTANCE,
 		     EvolEditPlugin.INSTANCE,
 		     FeatureEditPlugin.INSTANCE,

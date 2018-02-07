@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ecore:EPackage xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="explanation" nsURI="http://darwinspl.de/anomaly/explanation/1.0"
+    nsPrefix="explanation">
+  <eClassifiers xsi:type="ecore:EClass" name="DwAnomalyExplanation">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="anomaly" lowerBound="1"
+        eType="ecore:EClass ../../de.darwinspl.anomalies/models/Anomalies.ecore#//DwAnomaly"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="explanations" upperBound="-1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="date" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDate"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="involvedElements" upperBound="-1"
+        eType="ecore:EClass http://www.eclipse.org/emf/2002/Ecore#//EObject"/>
+  </eClassifiers>
+</ecore:EPackage>

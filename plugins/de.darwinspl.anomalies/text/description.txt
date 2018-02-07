@@ -11,6 +11,7 @@ Package anomaly <http://darwinspl.de/anomaly/1.0>
 
   Class DwVoidFeatureModelAnomaly -> DwAnomaly
     Reference featureModel : HyFeatureModel<<1..1>>
+    Reference contextValueModel : HyContextValueModel
 
   Class DwFeatureAnomaly -> DwAnomaly
     Reference feature : HyFeature<<1..1>>
