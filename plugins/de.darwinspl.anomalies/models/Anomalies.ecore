@@ -6,6 +6,8 @@
   <eClassifiers xsi:type="ecore:EClass" name="DwVoidFeatureModelAnomaly" eSuperTypes="#//DwAnomaly">
     <eStructuralFeatures xsi:type="ecore:EReference" name="featureModel" lowerBound="1"
         eType="ecore:EClass ../../eu.hyvar.feature/model/Feature.ecore#//HyFeatureModel"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="contextValueModel" eType="ecore:EClass ../../eu.hyvar.context.information.value/model/ContextValue.ecore#//HyContextValueModel"
+        containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="DwFeatureAnomaly" abstract="true" interface="true"
       eSuperTypes="#//DwAnomaly">
