@@ -28,6 +28,7 @@ import eu.hyvar.context.information.contextValue.HyContextValueModel;
 import eu.hyvar.dataValues.HyEnum;
 import eu.hyvar.dataValues.HyEnumLiteral;
 import eu.hyvar.evolution.HyName;
+import eu.hyvar.evolution.HyTemporalElement;
 import eu.hyvar.feature.HyFeature;
 import eu.hyvar.feature.HyFeatureChild;
 import eu.hyvar.feature.HyFeatureModel;
@@ -268,32 +269,34 @@ public class DwEditorOperationAnalyzer {
 	
 	// PROOF OF CONCEPT
 	public void processDeadFeatureAnomaly(DwDeadFeatureAnomaly anomaly, List<HyFeature> deadFeatures, List<HyFeature> falseOptionalFeatures) {
-		
-		// Root != FeatureChild
-		if (anomaly.getFeature() instanceof HyFeatureChild) {
-			HyFeatureChild featureChild = (HyFeatureChild) anomaly.getFeature();
+		Date date = anomaly.getValidSince();
+		HyFeature parent = getFeatureParent(anomaly.getFeature(), date);
+		// Root would be null
+		if (parent != null) {
 			
-			// check whether the parent is already dead
-			HyFeature parent = featureChild.getParent();			
+			// check whether the parent is already dead		
 			if (deadFeatures.contains(parent)) {
 				// IGNORE as the parent is the one we have already handled or handle later
-				System.out.println("Feature " + featureChild.getId() + " is a dead feature, because of its already-dead parent!");
+				System.out.println("Feature " + anomaly.getFeature().getId() + " is a dead feature, because of its already-dead parent!");
 				return;
 			}
 			
 			// check whether it's the result of the false-optional group
-			HyGroup featureGroup = featureChild.getChildGroup();
+			HyGroup featureGroup = getFeatureGroup(anomaly.getFeature(), date);
 			for (HyGroupType groupType : featureGroup.getTypes()) {
-				// TODO: check whether this is the groupType of the anomaly
+				// check whether this is the groupType of the anomaly
+				if (!isElementValid(groupType, date)) {
+					continue;
+				}
 				
-				// assume for now that it is
 				if (groupType.getType() == HyGroupTypeEnum.ALTERNATIVE) {
 					
 					// iterate through the other alternate group members to check whether one is false optional
-					for (HyFeatureChild otherFeature : featureGroup.getChildOf()) {
+					
+					HyGroupComposition groupComp = getFeatureGroupComposition(featureGroup, date);
+					for (HyFeature otherFeature : groupComp.getFeatures()) {
 						if (falseOptionalFeatures.contains(otherFeature)) {
-							HyFeature falseOptionalFeature = falseOptionalFeatures.get(0); // TODO: getFalseOptionalFeature()
-							System.out.println("Feature " + featureChild.getId() + " is a dead feature, because it's in an ALTERNATIVE group with the false-optional feature " + falseOptionalFeature.getId());
+							System.out.println("Feature " + anomaly.getFeature().getId() + " is a dead feature, because it's in an ALTERNATIVE group with the false-optional feature " + otherFeature.getId());
 
 							// now we know that this feature is only considered a dead-feature because of the false-optional feature
 							// do we have an explanation here for the cause of _why_ it is false optional (which is the root of this)
@@ -309,6 +312,10 @@ public class DwEditorOperationAnalyzer {
 		// if not: it is caused by a constraint.
 		
 		// TODO: search the constraints for this cause		
+		
+		// always two possible cases:
+		// 1. Mandatory     impl !Feature
+		// 2. FalseOptional impl !Feature  => tell that the causing feature is actually itself an anomaly (possible that we need to fix that one rather than this)
 	}
 	
 	protected List<HyFeature> getDeadFeatures(List<DwAnomaly> anomalies) {
@@ -329,7 +336,52 @@ public class DwEditorOperationAnalyzer {
 			}
 		}
 		return falseOptionalFeatures;
-	}	
+	}
+	
+	
+	
+	// ------------- UTIL -------------
+	
+	public HyFeature getFeatureParent(HyFeature feature, Date date) {		
+		for (HyGroupComposition groupComp : feature.getGroupMembership()) {			
+			if (isElementValid(groupComp, date)) {				
+				for (HyFeatureChild featureChild : groupComp.getCompositionOf().getChildOf()) {					
+					if (isElementValid(featureChild, date)) {
+						return featureChild.getParent();
+					}
+				}
+			}
+		}		
+		return null;
+	}
+	
+	public HyGroup getFeatureGroup(HyFeature feature, Date date) {		
+		for (HyGroupComposition groupComp : feature.getGroupMembership()) {			
+			if (isElementValid(groupComp, date)) {
+				return groupComp.getCompositionOf();
+			}			
+		}		
+		return null;
+	}
+	
+	public HyGroupComposition getFeatureGroupComposition(HyGroup group, Date date) {
+		for (HyGroupComposition groupComp : group.getParentOf()) {			
+			if (isElementValid(groupComp, date)) {
+				return groupComp;
+			}			
+		}		
+		return null;
+	}
+	
+	public boolean isElementValid(HyTemporalElement element, Date date) {
+		if ((element.getValidSince() == null || element.getValidSince().compareTo(date) <= 0) &&
+			(element.getValidUntil() == null || element.getValidUntil().compareTo(date) > 0)) {
+			return true;
+		}
+		return false;
+	}
+	
+	// ------------ GET/SET ------------
 
 	public HyContextModel getContextModel() {
 		return contextModel;
