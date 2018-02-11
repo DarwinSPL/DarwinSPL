@@ -127,16 +127,6 @@ public class DwAnalysesClient {
 			HyFeatureModel featureModel, HyConstraintModel constraintModel, HyConfiguration oldConfiguration,
 			DwProfile preferenceModel, HyContextValueModel contextValues, Date date, Date evolutionContextValueDate) throws TimeoutException, InterruptedException, ExecutionException, UnresolvedAddressException {
 		
-		DwEditorOperationAnalyzer editorOperationAnalyzer = new DwEditorOperationAnalyzer(this);
-		editorOperationAnalyzer.setContextModel(contextModel);
-		editorOperationAnalyzer.setContextValidityModel(contextValidityModel);
-		editorOperationAnalyzer.setFeatureModel(featureModel);
-		editorOperationAnalyzer.setConstraintModel(constraintModel);
-		editorOperationAnalyzer.setContextValues(contextValues);
-		editorOperationAnalyzer.setDate(date);
-		editorOperationAnalyzer.setEvolutionContextValueDate(evolutionContextValueDate);
-		editorOperationAnalyzer.constructEditorOperations();
-
 		String messageForHyVarRec = createHyVarRecMessage(contextModel, contextValidityModel, featureModel, constraintModel, oldConfiguration, preferenceModel, contextValues, date, evolutionContextValueDate);
 		URI uri = createUriWithPath(uriString, VALIDATE_FM_URI);
 		
@@ -148,7 +138,7 @@ public class DwAnalysesClient {
 		if (hyVarRecAnswer.getResult().equals("sat")) {
 			return null;
 		} else if (hyVarRecAnswer.getResult().equals("unsat")) {
-			List<String> parsedConstraints = editorOperationAnalyzer.processVoidAnomaly(hyVarRecAnswer, exporter);
+			List<String> parsedConstraints = translateIdsBackToNames(hyVarRecAnswer.getConstraints(), date, exporter);;
 			
 			if(parsedConstraints == null) {
 				parsedConstraints = hyVarRecAnswer.getConstraints();
@@ -170,6 +160,7 @@ public class DwAnalysesClient {
 	 * @param oldConfiguration
 	 * @param preferenceModel
 	 * @param anomaly
+	 * @param editorOperationAnalyzer
 	 * @return
 	 * @throws TimeoutException
 	 * @throws InterruptedException
@@ -177,7 +168,7 @@ public class DwAnalysesClient {
 	 * @throws UnresolvedAddressException
 	 */
 	public DwAnomalyExplanation explainAnomaly(String uriString, HyContextModel contextModel, HyValidityModel contextValidityModel,
-			HyFeatureModel featureModel, HyConstraintModel constraintModel, DwAnomaly anomaly) throws TimeoutException, InterruptedException, ExecutionException, UnresolvedAddressException {
+			HyFeatureModel featureModel, HyConstraintModel constraintModel, DwAnomaly anomaly, DwEditorOperationAnalyzer editorOperationAnalyzer) throws TimeoutException, InterruptedException, ExecutionException, UnresolvedAddressException {
 		
 		HyContextValueModel contextValueModel = null;
 		String additionalAnomalyConstraint = null;
@@ -254,7 +245,23 @@ public class DwAnalysesClient {
 				parsedConstraints = hyVarRecAnswer.getConstraints();
 			}
 			
-			anomalyExplanation.getExplanations().addAll(parsedConstraints);
+			// use ids instead of names
+			anomalyExplanation.getExplanations().addAll(hyVarRecAnswer.getConstraints());
+			
+
+			// run EditorOperationAnalyzer
+			if (editorOperationAnalyzer == null) { // only override if not actually given.
+				editorOperationAnalyzer = new DwEditorOperationAnalyzer(this);
+			}
+			editorOperationAnalyzer.setContextModel(contextModel);
+			editorOperationAnalyzer.setContextValidityModel(contextValidityModel);
+			editorOperationAnalyzer.setFeatureModel(featureModel);
+			editorOperationAnalyzer.setConstraintModel(constraintModel);
+			editorOperationAnalyzer.setDate(date);
+			editorOperationAnalyzer.constructEditorOperations();
+			
+			editorOperationAnalyzer.explainAnomaly(anomalyExplanation);
+			
 			
 			return anomalyExplanation;
 		}
@@ -282,14 +289,6 @@ public class DwAnalysesClient {
 		String messageForHyVarRec = createHyVarRecMessage(contextModel, contextValidityModel, featureModel, constraintModel, null, null, contextValues, date, null);
 		System.err.println(messageForHyVarRec);
 
-		DwEditorOperationAnalyzer editorOperationAnalyzer = new DwEditorOperationAnalyzer(this);
-		editorOperationAnalyzer.setContextModel(contextModel);
-		editorOperationAnalyzer.setContextValidityModel(contextValidityModel);
-		editorOperationAnalyzer.setFeatureModel(featureModel);
-		editorOperationAnalyzer.setConstraintModel(constraintModel);
-		editorOperationAnalyzer.setContextValues(contextValues);
-		editorOperationAnalyzer.setDate(date);
-		editorOperationAnalyzer.constructEditorOperations();
 		
 		URI uri = createUriWithPath(uriString, CHECK_FEATURES_URI);
 		
@@ -299,7 +298,13 @@ public class DwAnalysesClient {
 		HyVarRecCheckFeaturesAnswer hyVarRecAnswer = gson.fromJson(hyvarrecAnswerString, HyVarRecCheckFeaturesAnswer.class);
 		
 		List<DwAnomaly> anomalies = DwAnomalyTranslation.translateAnomalies(hyVarRecAnswer, exporter.getFeatureReconfiguratorIdMapping(), exporter.getSortedDateList());
-		editorOperationAnalyzer.processFeatureAnomaly(anomalies);
+
+		DwEditorOperationAnalyzer editorOperationAnalyzer = new DwEditorOperationAnalyzer(this);
+		editorOperationAnalyzer.setFeatureAnomalies(anomalies);
+		
+		for (DwAnomaly anomaly : anomalies) {
+			DwAnomalyExplanation explanation = explainAnomaly(uriString, contextModel, contextValidityModel, featureModel, constraintModel, anomaly, editorOperationAnalyzer);
+		}
 		
 		return anomalies;
 	}

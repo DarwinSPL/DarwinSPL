@@ -8,6 +8,7 @@ import de.darwinspl.anomaly.DwAnomaly;
 import de.darwinspl.anomaly.DwDeadFeatureAnomaly;
 import de.darwinspl.anomaly.DwFalseOptionalFeatureAnomaly;
 import de.darwinspl.anomaly.DwVoidFeatureModelAnomaly;
+import de.darwinspl.anomaly.explanation.DwAnomalyExplanation;
 import de.darwinspl.feature.evolution.editoroperation.DwEditorOperation;
 import de.darwinspl.feature.evolution.editoroperation.DwEditorOperationConstraint;
 import de.darwinspl.feature.evolution.editoroperation.DwEditorOperationContext;
@@ -19,14 +20,14 @@ import de.darwinspl.feature.evolution.editoroperation.DwEditorOperationFeatureRe
 import de.darwinspl.feature.evolution.editoroperation.DwEditorOperationFeatureType;
 import de.darwinspl.feature.evolution.editoroperation.DwEditorOperationGroupType;
 import de.darwinspl.feature.evolution.editoroperation.EditoroperationFactory;
-import de.darwinspl.reconfigurator.client.hyvarrec.format.HyVarRecExplainAnswer;
 import eu.hyvar.context.HyContextModel;
 import eu.hyvar.context.HyContextualInformation;
 import eu.hyvar.context.contextValidity.HyValidityFormula;
 import eu.hyvar.context.contextValidity.HyValidityModel;
-import eu.hyvar.context.information.contextValue.HyContextValueModel;
+import eu.hyvar.dataValues.HyDataValuesFactory;
 import eu.hyvar.dataValues.HyEnum;
 import eu.hyvar.dataValues.HyEnumLiteral;
+import eu.hyvar.dataValues.HyNumberValue;
 import eu.hyvar.evolution.HyName;
 import eu.hyvar.evolution.HyTemporalElement;
 import eu.hyvar.feature.HyFeature;
@@ -40,6 +41,12 @@ import eu.hyvar.feature.HyGroupTypeEnum;
 import eu.hyvar.feature.HyVersion;
 import eu.hyvar.feature.constraint.HyConstraint;
 import eu.hyvar.feature.constraint.HyConstraintModel;
+import eu.hyvar.feature.expression.HyEqualExpression;
+import eu.hyvar.feature.expression.HyExpression;
+import eu.hyvar.feature.expression.HyExpressionFactory;
+import eu.hyvar.feature.expression.HyFeatureReferenceExpression;
+import eu.hyvar.feature.expression.HyImpliesExpression;
+import eu.hyvar.feature.expression.HyValueExpression;
 import eu.hyvar.reconfigurator.input.exporter.HyVarRecExporter;
 
 public class DwEditorOperationAnalyzer {
@@ -48,11 +55,14 @@ public class DwEditorOperationAnalyzer {
 	private HyValidityModel contextValidityModel;
 	private HyFeatureModel featureModel;
 	private HyConstraintModel constraintModel;
-	private HyContextValueModel contextValues;
+//	private HyContextValueModel contextValues;
 	private Date date;
-	private Date evolutionContextValueDate;
+//	private Date evolutionContextValueDate;
 	
 	List<DwEditorOperation> operationList;
+
+	List<HyFeature> deadFeatureList;
+	List<HyFeature> falseOptionalList;
 	
 	private DwAnalysesClient client;
 	
@@ -237,8 +247,20 @@ public class DwEditorOperationAnalyzer {
 			}
 		}
 	}
+
+	// TODO
+	public void explainAnomaly(DwAnomalyExplanation anomalyExplanation) {		
+		if (anomalyExplanation.getAnomaly() instanceof DwVoidFeatureModelAnomaly) {
+//			DwVoidFeatureModelAnomaly voidFeatureAnomaly = (DwVoidFeatureModelAnomaly) anomaly;
+		} else if (anomalyExplanation.getAnomaly() instanceof DwDeadFeatureAnomaly){
+			explainDeadFeatureAnomaly(anomalyExplanation);
+		} else if (anomalyExplanation.getAnomaly() instanceof DwFalseOptionalFeatureAnomaly) {
+//			DwFalseOptionalFeatureAnomaly falseOptionalFeatureAnomaly = (DwFalseOptionalFeatureAnomaly) anomaly;
+		}
+		
+	}
 	
-	public List<String> processVoidAnomaly(HyVarRecExplainAnswer hyVarRecAnswer, HyVarRecExporter exporter) {
+	public void explainVoidAnomaly(DwAnomalyExplanation anomalyExplanation) {
 		// TODO
 		
 		// Possible ideas:
@@ -246,36 +268,17 @@ public class DwEditorOperationAnalyzer {
 		//    - check whether such constraint occurs in the answer
 		//    - check whether certain conditions are fulfilled for a given anomaly
 		
-		return client.translateIdsBackToNames(hyVarRecAnswer.getConstraints(), date, exporter);
 	}
 
-	// TODO
-	public void processFeatureAnomaly(List<DwAnomaly> anomalies) {
-		List<HyFeature> deadFeatureList = getDeadFeatures(anomalies);
-		List<HyFeature> falseOptionalList = getFalseOptionalFeatures(anomalies);
-		
-		for (DwAnomaly anomaly : anomalies) {
-			if (anomaly instanceof DwVoidFeatureModelAnomaly) {
-				DwVoidFeatureModelAnomaly voidFeatureAnomaly = (DwVoidFeatureModelAnomaly) anomaly;
-			} else if (anomaly instanceof DwDeadFeatureAnomaly){
-				DwDeadFeatureAnomaly deadFeatureAnomaly = (DwDeadFeatureAnomaly) anomaly;
-				processDeadFeatureAnomaly(deadFeatureAnomaly, deadFeatureList, falseOptionalList);
-			} else if (anomaly instanceof DwFalseOptionalFeatureAnomaly) {
-				DwFalseOptionalFeatureAnomaly falseOptionalFeatureAnomaly = (DwFalseOptionalFeatureAnomaly) anomaly;
-			}
-		}
-		
-	}
-	
-	// PROOF OF CONCEPT
-	public void processDeadFeatureAnomaly(DwDeadFeatureAnomaly anomaly, List<HyFeature> deadFeatures, List<HyFeature> falseOptionalFeatures) {
+	public void explainDeadFeatureAnomaly(DwAnomalyExplanation anomalyExplanation) {
+		DwDeadFeatureAnomaly anomaly = (DwDeadFeatureAnomaly) anomalyExplanation.getAnomaly();
 		Date date = anomaly.getValidSince();
 		HyFeature parent = getFeatureParent(anomaly.getFeature(), date);
-		// Root would be null
+		// Root's parent would be null
 		if (parent != null) {
 			
 			// check whether the parent is already dead		
-			if (deadFeatures.contains(parent)) {
+			if (deadFeatureList.contains(parent)) {
 				// IGNORE as the parent is the one we have already handled or handle later
 				System.out.println("Feature " + anomaly.getFeature().getId() + " is a dead feature, because of its already-dead parent!");
 				return;
@@ -295,7 +298,7 @@ public class DwEditorOperationAnalyzer {
 					
 					HyGroupComposition groupComp = getFeatureGroupComposition(featureGroup, date);
 					for (HyFeature otherFeature : groupComp.getFeatures()) {
-						if (falseOptionalFeatures.contains(otherFeature)) {
+						if (falseOptionalList.contains(otherFeature)) {
 							System.out.println("Feature " + anomaly.getFeature().getId() + " is a dead feature, because it's in an ALTERNATIVE group with the false-optional feature " + otherFeature.getId());
 
 							// now we know that this feature is only considered a dead-feature because of the false-optional feature
@@ -313,9 +316,106 @@ public class DwEditorOperationAnalyzer {
 		
 		// TODO: search the constraints for this cause		
 		
-		// always two possible cases:
+		// possible cases:
 		// 1. Mandatory     impl !Feature
-		// 2. FalseOptional impl !Feature  => tell that the causing feature is actually itself an anomaly (possible that we need to fix that one rather than this)
+		// 2. FalseOptional impl !Feature  		=> tell that the causing feature is actually itself an anomaly (possible that we need to fix that one rather than this)
+		// 3. Feature		impl !Mandatory		=> would cause a VoidFeatureAnomaly, so the feature has to be dead
+		// 4. Feature		impl !FalseOptional => same as 3, explanations as 2
+				
+		for (String constraint : anomalyExplanation.getExplanations()) {
+			
+			System.out.println(constraint);
+			
+			
+			/*
+			 * 
+			    "feature[_03647428-60be-4985-b409-63e215b73b49] = 1",
+			    "feature[_a7da77ac-6c86-4d53-91f3-0f86ce0b59c3] = 1 impl feature[_03647428-60be-4985-b409-63e215b73b49] = 1",
+			    "((feature[_03647428-60be-4985-b409-63e215b73b49] = 1 impl feature[_a7da77ac-6c86-4d53-91f3-0f86ce0b59c3] = 0))",
+			    "feature[_a7da77ac-6c86-4d53-91f3-0f86ce0b59c3] = 1"
+			 * 
+			 * 
+			 */
+
+			// TODO: have a general translation of String => HyConstraints???
+			
+			HyExpression expression = getExpressionFromString(constraint);
+			
+			
+		}
+	}
+	protected HyExpression getExpressionFromString(String constraint) {
+		HyExpression expression = null;
+		StringBuilder stringBuilder = new StringBuilder(constraint);
+		while (stringBuilder.length() > 0) {
+			// TODO: figure out what to do with brackets
+//			if (stringBuilder.toString().startsWith(HyVarRecExporter.BRACKETS_OPEN)) {
+//				stringBuilder.delete(0, 1);
+//			}
+			if (stringBuilder.toString().startsWith(HyVarRecExporter.BRACKETS_CLOSING)) {
+				stringBuilder.delete(0, 1);
+			} else {
+				expression = resolveExpressionFromString(stringBuilder, expression);
+			}
+		}
+		return expression;
+	}
+	
+	protected HyExpression resolveExpressionFromString(StringBuilder constraint, HyExpression leftExpression) {
+
+		// TODO: check whether this is the right usage for brackets
+		if (constraint.toString().startsWith(HyVarRecExporter.BRACKETS_OPEN)) {
+			constraint.delete(0, 1);
+			leftExpression = resolveExpressionFromString(constraint, null);
+		}
+		if (constraint.toString().startsWith(HyVarRecExporter.BRACKETS_CLOSING)) {
+			constraint.delete(0, 1);
+		}
+
+		if (constraint.toString().startsWith(HyVarRecExporter.FEATURE_ATOM)) {
+			for (HyFeature feature : client.exporter.getFeatureReconfiguratorIdMapping().keySet()) {
+				String featureString = client.exporter.getFeatureReconfiguratorIdMapping().get(feature);
+				if (constraint.toString().startsWith(featureString)) {
+					HyFeatureReferenceExpression featureReference = HyExpressionFactory.eINSTANCE.createHyFeatureReferenceExpression();
+					featureReference.setFeature(feature);
+					constraint.delete(0, featureString.length());
+					return featureReference;
+				}
+			}
+		}
+		else if (constraint.toString().startsWith(HyVarRecExporter.EQUALS)) {
+			HyEqualExpression expression = HyExpressionFactory.eINSTANCE.createHyEqualExpression();
+			expression.setOperand1(leftExpression);
+			constraint.delete(0, HyVarRecExporter.EQUALS.length());
+			expression.setOperand2(resolveExpressionFromString(constraint, null));
+			return expression;
+		}
+		else if (constraint.toString().startsWith(HyVarRecExporter.IMPLICATION)) {
+			HyImpliesExpression expression = HyExpressionFactory.eINSTANCE.createHyImpliesExpression();
+			expression.setOperand1(leftExpression);
+			constraint.delete(0, HyVarRecExporter.IMPLICATION.length());
+			expression.setOperand2(resolveExpressionFromString(constraint, null));
+			return expression;
+		}
+		else if (constraint.toString().startsWith("0")) {
+			// TODO: FIX ME FML
+			HyNumberValue value = HyDataValuesFactory.eINSTANCE.createHyNumberValue();
+			value.setValue(Integer.valueOf("0"));
+			HyValueExpression valueExpression = HyExpressionFactory.eINSTANCE.createHyValueExpression();
+			valueExpression.setValue(value);
+			constraint.delete(0, 1);
+			return valueExpression;
+		}
+		else if (constraint.toString().startsWith("1")) {
+			// TODO: FIX ME FML
+			HyNumberValue value = HyDataValuesFactory.eINSTANCE.createHyNumberValue();
+			value.setValue(Integer.valueOf("1"));
+			HyValueExpression valueExpression = HyExpressionFactory.eINSTANCE.createHyValueExpression();
+			valueExpression.setValue(value);
+			constraint.delete(0, 1);
+			return valueExpression;
+		}
+		return null;
 	}
 	
 	protected List<HyFeature> getDeadFeatures(List<DwAnomaly> anomalies) {
@@ -415,13 +515,13 @@ public class DwEditorOperationAnalyzer {
 		this.constraintModel = constraintModel;
 	}
 
-	public HyContextValueModel getContextValues() {
-		return contextValues;
-	}
-
-	public void setContextValues(HyContextValueModel contextValues) {
-		this.contextValues = contextValues;
-	}
+//	public HyContextValueModel getContextValues() {
+//		return contextValues;
+//	}
+//
+//	public void setContextValues(HyContextValueModel contextValues) {
+//		this.contextValues = contextValues;
+//	}
 
 	public Date getDate() {
 		return date;
@@ -431,12 +531,17 @@ public class DwEditorOperationAnalyzer {
 		this.date = date;
 	}
 
-	public Date getEvolutionContextValueDate() {
-		return evolutionContextValueDate;
-	}
-
-	public void setEvolutionContextValueDate(Date evolutionContextValueDate) {
-		this.evolutionContextValueDate = evolutionContextValueDate;
+//	public Date getEvolutionContextValueDate() {
+//		return evolutionContextValueDate;
+//	}
+//
+//	public void setEvolutionContextValueDate(Date evolutionContextValueDate) {
+//		this.evolutionContextValueDate = evolutionContextValueDate;
+//	}
+	
+	public void setFeatureAnomalies(List<DwAnomaly> anomalies){
+		deadFeatureList = getDeadFeatures(anomalies);
+		falseOptionalList = getFalseOptionalFeatures(anomalies);
 	}
 
 }
