@@ -20,6 +20,7 @@ import org.eclipse.jetty.client.api.Request;
 import org.eclipse.jetty.client.util.StringContentProvider;
 import org.eclipse.jetty.http.HttpHeader;
 
+import com.google.gson.FieldNamingPolicy;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -218,27 +219,24 @@ public class DwAnalysesClient {
 		if(exporter == null){
 			exporter = new HyVarRecExporter();
 		}
-		
-		String messageForHyVarRec = createHyVarRecMessage(contextModel, contextValidityModel, featureModel, constraintModel, null, null, contextValueModel, date, null);
 
-// replaced by methodcall above 		
-//		InputForHyVarRec inputForHyVarRec = exporter.createInputForHyVarRec(contextModel, contextValidityModel, featureModel, constraintModel, null, null, contextValueModel, date, date);
-//		if(additionalAnomalyConstraint != null) {
-//		inputForHyVarRec.getConstraints().add(additionalAnomalyConstraint);
-//	}
-//	
-//	Gson gson = new GsonBuilder().disableHtmlEscaping().create();
-//	String messageForHyVarRec = gson.toJson(inputForHyVarRec);
-		
-		
+		InputForHyVarRec inputForHyVarRec = exporter.createInputForHyVarRec(contextModel, contextValidityModel,
+				featureModel, constraintModel, null, null, contextValueModel, date, date);
+		if (additionalAnomalyConstraint != null) {
+			inputForHyVarRec.getConstraints().add(additionalAnomalyConstraint);
+		}
+
+		GsonBuilder gsonBuilder = new GsonBuilder();
+		gsonBuilder.setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES);
+		Gson gson = gsonBuilder.disableHtmlEscaping().create();
+		String messageForHyVarRec = gson.toJson(inputForHyVarRec);
+
 		URI uri = createUriWithPath(uriString, VALIDATE_FM_URI);
-		
 
-		
 		String hyvarrecAnswerString = sendMessageToHyVarRec(messageForHyVarRec, uri);
-		
+
 		HyVarRecExplainAnswer hyVarRecAnswer = gson.fromJson(hyvarrecAnswerString, HyVarRecExplainAnswer.class);
-		
+
 		if(hyVarRecAnswer.getResult().equals("sat")) {
 			return null;
 		}else if(hyVarRecAnswer.getResult().equals("unsat")) {
