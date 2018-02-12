@@ -1,6 +1,5 @@
 package de.darwinspl.feature.graphical.configurator.editor.anomaly.views.tableviews;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -26,13 +25,11 @@ import de.darwinspl.anomaly.DwDeadFeatureAnomaly;
 import de.darwinspl.anomaly.DwFalseOptionalFeatureAnomaly;
 import de.darwinspl.anomaly.DwVoidFeatureModelAnomaly;
 import de.darwinspl.feature.graphical.configurator.editor.anomaly.views.DwAnomalyView;
-import de.darwinspl.feature.graphical.configurator.editor.anomaly.views.ExplainDialogResultDialog;
 import eu.hyvar.context.information.contextValue.HyContextValue;
 import eu.hyvar.dataValues.HyEnumValue;
 import eu.hyvar.dataValues.HyNumberValue;
 import eu.hyvar.dataValues.HyStringValue;
 import eu.hyvar.feature.HyFeature;
-import javafx.collections.ObservableList;
 
 public class AnomalyTableView<T extends DwAnomaly> extends TableViewer {
 	
