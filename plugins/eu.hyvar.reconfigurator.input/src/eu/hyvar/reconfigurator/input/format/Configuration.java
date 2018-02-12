@@ -22,7 +22,7 @@ public class Configuration {
      */
     @SerializedName("attribute_values")
     @Expose
-    private List<AttributeValue> attributeValues = null;
+    private List<AttributeValue> attribute_values = null;
     /**
      * 
      * (Required)
@@ -30,7 +30,7 @@ public class Configuration {
      */
     @SerializedName("context_values")
     @Expose
-    private List<ContextValue> contextValues = null;
+    private List<ContextValue> context_values = null;
 
     /**
      * 
@@ -56,7 +56,7 @@ public class Configuration {
      * 
      */
     public List<AttributeValue> getAttributeValues() {
-        return attributeValues;
+        return attribute_values;
     }
 
     /**
@@ -65,7 +65,7 @@ public class Configuration {
      * 
      */
     public void setAttributeValues(List<AttributeValue> attributeValues) {
-        this.attributeValues = attributeValues;
+        this.attribute_values = attributeValues;
     }
 
     /**
@@ -74,7 +74,7 @@ public class Configuration {
      * 
      */
     public List<ContextValue> getContextValues() {
-        return contextValues;
+        return context_values;
     }
 
     /**
@@ -83,7 +83,7 @@ public class Configuration {
      * 
      */
     public void setContextValues(List<ContextValue> contextValues) {
-        this.contextValues = contextValues;
+        this.context_values = contextValues;
     }
 
 }

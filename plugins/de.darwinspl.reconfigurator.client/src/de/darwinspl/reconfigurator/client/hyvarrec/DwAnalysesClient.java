@@ -23,6 +23,7 @@ import org.eclipse.jetty.client.util.StringContentProvider;
 import org.eclipse.jetty.http.HttpHeader;
 import org.eclipse.jetty.util.ssl.SslContextFactory;
 
+import com.google.gson.FieldNamingPolicy;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -78,23 +79,21 @@ public class DwAnalysesClient {
 	protected static final String VALIDATE_FM_URI = "explain";
 	protected static final String CHECK_FEATURES_URI = "check_features";
 	
-	protected HyVarRecExporter exporter;
-	
-	
 	protected static final String CONTEXT_VALID = "valid";
 	
-	HttpClient client;
-	URI uri;
+	protected HyVarRecExporter exporter;
+	
+	protected Gson gson;
+	
+	protected GsonBuilder gsonBuilder;
 
-	GsonBuilder builder = new GsonBuilder();
-	Gson gson = builder.create();
-
-	String json = "";
-
-	Request request;
-
-	ContentResponse response;
-	String answerString;
+	public DwAnalysesClient() {
+		gsonBuilder = new GsonBuilder();
+		gsonBuilder.setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES);
+		gson = gsonBuilder.disableHtmlEscaping().create();
+	}
+	
+	
 	
 	protected URI createUriWithPath(String originalUri, String processAddress) {
 		if(!originalUri.endsWith("/")) {
@@ -186,7 +185,6 @@ public class DwAnalysesClient {
 			inputForHyVarRec.getConstraints().add(additionalAnomalyConstraint);
 		}
 		
-		Gson gson = new GsonBuilder().disableHtmlEscaping().create();
 		String messageForHyVarRec = gson.toJson(inputForHyVarRec);
 		
 		String hyvarrecAnswerString = sendMessageToHyVarRec(messageForHyVarRec, uri, webserviceUsername, webservicePassword);
@@ -246,9 +244,9 @@ public class DwAnalysesClient {
 		List<DwAnomaly> anomalies = DwAnomalyTranslation.translateAnomalies(hyVarRecAnswer, exporter.getFeatureReconfiguratorIdMapping(), exporter.getSortedDateList());
 		
 		// Code to test anomaly explanation
-//		for(DwAnomaly anomaly: anomalies) {
-//			explainAnomaly(uriString, contextModel, contextValidityModel, featureModel, constraintModel, anomaly);
-//		}
+		for(DwAnomaly anomaly: anomalies) {
+			explainAnomaly(uriString, webserviceUsername, webservicePassword, contextModel, contextValidityModel, featureModel, constraintModel, anomaly);
+		}
 		
 		return anomalies;
 	}
