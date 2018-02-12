@@ -215,16 +215,25 @@ public class DwAnalysesClient {
 			}			
 		}
 		
-		
-		InputForHyVarRec inputForHyVarRec = exporter.createInputForHyVarRec(contextModel, contextValidityModel, featureModel, constraintModel, null, null, contextValueModel, date, date);
-		URI uri = createUriWithPath(uriString, VALIDATE_FM_URI);
-		
-		if(additionalAnomalyConstraint != null) {
-			inputForHyVarRec.getConstraints().add(additionalAnomalyConstraint);
+		if(exporter == null){
+			exporter = new HyVarRecExporter();
 		}
 		
-		Gson gson = new GsonBuilder().disableHtmlEscaping().create();
-		String messageForHyVarRec = gson.toJson(inputForHyVarRec);
+		String messageForHyVarRec = createHyVarRecMessage(contextModel, contextValidityModel, featureModel, constraintModel, null, null, contextValueModel, date, null);
+
+// replaced by methodcall above 		
+//		InputForHyVarRec inputForHyVarRec = exporter.createInputForHyVarRec(contextModel, contextValidityModel, featureModel, constraintModel, null, null, contextValueModel, date, date);
+//		if(additionalAnomalyConstraint != null) {
+//		inputForHyVarRec.getConstraints().add(additionalAnomalyConstraint);
+//	}
+//	
+//	Gson gson = new GsonBuilder().disableHtmlEscaping().create();
+//	String messageForHyVarRec = gson.toJson(inputForHyVarRec);
+		
+		
+		URI uri = createUriWithPath(uriString, VALIDATE_FM_URI);
+		
+
 		
 		String hyvarrecAnswerString = sendMessageToHyVarRec(messageForHyVarRec, uri);
 		
