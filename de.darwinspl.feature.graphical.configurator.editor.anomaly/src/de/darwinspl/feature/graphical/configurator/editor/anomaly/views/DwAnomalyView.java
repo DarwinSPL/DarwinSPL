@@ -4,7 +4,6 @@ package de.darwinspl.feature.graphical.configurator.editor.anomaly.views;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.io.InputStream;
-import java.net.URL;
 import java.nio.channels.UnresolvedAddressException;
 import java.util.ArrayList;
 import java.util.Date;
@@ -19,10 +18,16 @@ import org.eclipse.core.resources.IWorkspace;
 import org.eclipse.core.resources.IWorkspaceRoot;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.IPath;
+import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Path;
-import org.eclipse.core.runtime.Platform;
+import org.eclipse.core.runtime.Status;
 import org.eclipse.core.runtime.jobs.Job;
+import org.eclipse.emf.common.notify.Adapter;
+import org.eclipse.emf.common.notify.Notification;
+import org.eclipse.emf.common.notify.impl.AdapterImpl;
 import org.eclipse.emf.common.util.EList;
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.IToolBarManager;
 import org.eclipse.jface.dialogs.MessageDialog;
@@ -31,16 +36,15 @@ import org.eclipse.jface.viewers.ArrayContentProvider;
 import org.eclipse.jface.viewers.ColumnLabelProvider;
 import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.jface.viewers.TableViewerColumn;
+import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.jface.viewers.ViewerCell;
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.custom.TableEditor;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Display;
-import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.widgets.TableItem;
@@ -50,23 +54,21 @@ import org.eclipse.ui.IPartListener;
 import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.ide.ResourceUtil;
-import org.eclipse.ui.internal.util.BundleUtility;
 import org.eclipse.ui.part.FileEditorInput;
 import org.eclipse.ui.part.ViewPart;
-import org.osgi.framework.Bundle;
 
 import de.christophseidl.util.ecore.EcoreIOUtil;
 import de.darwinspl.anomaly.DwAnomaly;
-import de.darwinspl.anomaly.DwDeadFeatureAnomaly;
 import de.darwinspl.anomaly.DwFalseOptionalFeatureAnomaly;
 import de.darwinspl.anomaly.DwVoidFeatureModelAnomaly;
+import de.darwinspl.anomaly.explanation.DwAnomalyExplanation;
 import de.darwinspl.feature.graphical.base.model.DwFeatureModelWrapped;
+import de.darwinspl.feature.graphical.configurator.editor.anomaly.views.tableviews.AnomalyTableView;
 import de.darwinspl.feature.graphical.configurator.viewer.DwFeatureModelConfiguratorViewer;
 import de.darwinspl.feature.graphical.editor.editor.DwGraphicalFeatureModelEditor;
 import de.darwinspl.preferences.DwProfile;
 import de.darwinspl.preferences.util.custom.DwPreferenceModelUtil;
 import de.darwinspl.reconfigurator.client.hyvarrec.DwAnalysesClient;
-import de.darwinspl.reconfigurator.client.hyvarrec.DwAnalysesClient.DwContextValueEvolutionWrapper;
 import de.darwinspl.reconfigurator.client.hyvarrec.HyVarRecNoSolutionException;
 import eu.hyvar.context.HyContextInformationFactory;
 import eu.hyvar.context.HyContextModel;
@@ -76,11 +78,10 @@ import eu.hyvar.context.information.contextValue.ContextValueFactory;
 import eu.hyvar.context.information.contextValue.HyContextValue;
 import eu.hyvar.context.information.contextValue.HyContextValueModel;
 import eu.hyvar.context.information.util.HyContextInformationUtil;
-import eu.hyvar.dataValues.HyEnumValue;
-import eu.hyvar.dataValues.HyNumberValue;
-import eu.hyvar.dataValues.HyStringValue;
-import eu.hyvar.feature.HyFeature;
 import eu.hyvar.feature.constraint.HyConstraintModel;
+import eu.hyvar.feature.constraint.resource.hyconstraints.IHyconstraintsResourceProvider;
+import eu.hyvar.feature.constraint.resource.hyconstraints.IHyconstraintsTextResource;
+import eu.hyvar.feature.constraint.resource.hyconstraints.ui.HyconstraintsEditor;
 import eu.hyvar.feature.constraint.util.HyConstraintUtil;
 
 public class DwAnomalyView extends ViewPart {
@@ -92,58 +93,33 @@ public class DwAnomalyView extends ViewPart {
 
 
 		
-		private TableViewer viewerFalseOptionalAnomaly;
+		private AnomalyTableView<DwFalseOptionalFeatureAnomaly> viewerFalseOptionalAnomaly;
+		private AnomalyTableView<DwVoidFeatureModelAnomaly> viewerVoidAnomaly;
 		
-		private TableViewer viewerVoidAnomaly;
-		
-
 		private IEditorPart currentEditor;
+		public static final String DEFAULT_SERVER_URI = "http://localhost:9002/";
+		public String serverUri = null; 
+		private IResource currentInput = null;
 		
-		
-		
-		private IResource currentInput;
-		
-		private Label label;
 		
 		HyContextModel contextModel = null;
 		HyContextValueModel contextValueModel = null;
 		DwFeatureModelWrapped modelWrapped = null;
+		HyConstraintModel constraintModel = null;
+		HyValidityModel validityModel = null;
 		
 		DwVoidFeatureModelAnomaly voidFeatureAnomaly = null;
+
+		private Composite parentComposite = null;
 		
-		public static final String DEFAULT_SERVER_URI = "http://localhost:8081/";
-		
-		public String serverUri = null; 
-		
-	//
+	
 		public static final String SETTINGS_IMG = "icons/settings.png";
 //		public static final Image REFRESH_IMG = FMUIPlugin.getImage("refresh_tab.gif");
 
 		@Override
 		public void createPartControl(Composite parent) {
 		
-//			viewer = new TableViewer(parent);
-//			viewer.setContentProvider(new IContentProvider() {
-//				
-//				@Override
-//				public void inputChanged(Viewer viewer, Object oldInput, Object newInput) {
-//					// TODO Auto-generated method stub
-//					
-//				}
-//				
-//				@Override
-//				public void dispose() {
-//					// TODO Auto-generated method stub
-//					
-//				}
-//			});
-//			contentProvider = new ContentProvider(viewer);
-//			viewer.setContentProvider(contentProvider);
-//			viewer.setLabelProvider(new TreeLabelProvider());
-//			viewer.setInput(viewer);
-			
-//			viewer.addDoubleClickListener(new TreeClickListener(viewer));
-//			ColumnViewerToolTipSupport.enableFor(viewer);
+			this.parentComposite = parent;
 
 			getSite().getPage().addPartListener(editorListener);
 			setEditor(getSite().getPage().getActiveEditor());
@@ -156,321 +132,84 @@ public class DwAnomalyView extends ViewPart {
 //		        final Text searchText = new Text(parent, SWT.BORDER | SWT.SEARCH);
 //		        searchText.setLayoutData(new GridData(GridData.GRAB_HORIZONTAL | GridData.HORIZONTAL_ALIGN_FILL));
 		      
-			List<DwAnomaly> anomalies = getAnomalies();
-			List<DwFalseOptionalFeatureAnomaly> falseOptionalAnomalies = new ArrayList<DwFalseOptionalFeatureAnomaly>();
-			List<DwVoidFeatureModelAnomaly> voidAnomalies = new ArrayList<DwVoidFeatureModelAnomaly>();
+//			List<DwAnomaly> anomalies = getAnomalies();
+//			List<DwFalseOptionalFeatureAnomaly> falseOptionalAnomalies = new ArrayList<DwFalseOptionalFeatureAnomaly>();
+//			List<DwVoidFeatureModelAnomaly> voidAnomalies = new ArrayList<DwVoidFeatureModelAnomaly>();
+//			
+//			for(DwAnomaly anomaly: anomalies){
+//				if( anomaly instanceof DwFalseOptionalFeatureAnomaly){
+//					falseOptionalAnomalies.add((DwFalseOptionalFeatureAnomaly) anomaly);
+//				} else if ( anomaly instanceof DwVoidFeatureModelAnomaly){
+//					voidAnomalies.add((DwVoidFeatureModelAnomaly) anomaly);
+//				}
+//			}
 			
-			for(DwAnomaly anomaly: anomalies){
-				if( anomaly instanceof DwFalseOptionalFeatureAnomaly){
-					falseOptionalAnomalies.add((DwFalseOptionalFeatureAnomaly) anomaly);
-				} else if ( anomaly instanceof DwVoidFeatureModelAnomaly){
-					voidAnomalies.add((DwVoidFeatureModelAnomaly) anomaly);
-				}
-			}
 			
+		     
+			createViewerFalseOptionalAnomaly(parent,null);
 			
-			createViewerFalseOptionalAnomaly(parent, falseOptionalAnomalies);
-			
-			createViewerVoidAnomaly(parent, voidAnomalies);
+			createViewerVoidAnomaly(parent, null);
 		        
-		        
+		     setInputOfViewers(); 
 			
 			addButtons();
 		}
 		
 		
 		private void createViewerVoidAnomaly(Composite parent, List<DwVoidFeatureModelAnomaly> voidAnomalies) {
-	        viewerVoidAnomaly = new TableViewer(parent, SWT.MULTI | SWT.H_SCROLL | SWT.V_SCROLL | SWT.FULL_SELECTION | SWT.BORDER);
-	        createColumnsVoidAnomalies(viewerVoidAnomaly, parent);
-	        final Table table = viewerVoidAnomaly.getTable();
-	        table.setHeaderVisible(true);
-	        table.setLinesVisible(true);
+	        String[] titles = { "Type of Anomaly", "context values", "Date", "Explain", ""};
+			viewerVoidAnomaly = new AnomalyTableView<DwVoidFeatureModelAnomaly>(this, parent, SWT.MULTI | SWT.H_SCROLL | SWT.V_SCROLL | SWT.FULL_SELECTION | SWT.BORDER, voidAnomalies, titles);
 
-	        viewerVoidAnomaly.setContentProvider(new ArrayContentProvider());
-	        // get the content for the viewer, setInput will call getElements in the
-	        // contentProvider
-	        
-	        
-	        viewerVoidAnomaly.setInput(voidAnomalies);
-	        
-	      
 	        // make the selection available to other views
 	        getSite().setSelectionProvider(viewerVoidAnomaly);
-	        // set the sorter for the table
 
-	        // define layout for the viewer
-	        GridData gridData = new GridData();
-	        gridData.verticalAlignment = GridData.FILL;
-	        gridData.horizontalSpan = 2;
-	        gridData.grabExcessHorizontalSpace = true;
-	        gridData.grabExcessVerticalSpace = true;
-	        gridData.horizontalAlignment = GridData.FILL;
-	        viewerVoidAnomaly.getControl().setLayoutData(gridData);
 	    }
 		
 		private void createViewerFalseOptionalAnomaly(Composite parent, List<DwFalseOptionalFeatureAnomaly> falseOptionalAnomalies) {
-	        viewerFalseOptionalAnomaly = new TableViewer(parent, SWT.MULTI | SWT.H_SCROLL | SWT.V_SCROLL | SWT.FULL_SELECTION | SWT.BORDER);
-	        createColumnsFalseOptionalAnomalies(viewerFalseOptionalAnomaly, parent);
-	        final Table table = viewerFalseOptionalAnomaly.getTable();
-	        table.setHeaderVisible(true);
-	        table.setLinesVisible(true);
-
-	        viewerFalseOptionalAnomaly.setContentProvider(new ArrayContentProvider());
-	        // get the content for the viewer, setInput will call getElements in the
-	        // contentProvider
-	        
-	        viewerFalseOptionalAnomaly.setInput(falseOptionalAnomalies);
-	        
-	        
-	        
+			String[] titles = { "Type of Anomaly", "feature", "begin", "end", "Explain" };
+	        viewerFalseOptionalAnomaly = new AnomalyTableView<DwFalseOptionalFeatureAnomaly>(this, parent, SWT.MULTI | SWT.H_SCROLL | SWT.V_SCROLL | SWT.FULL_SELECTION | SWT.BORDER, falseOptionalAnomalies, titles);
 	        // make the selection available to other views
 	        getSite().setSelectionProvider(viewerFalseOptionalAnomaly);
-	        // set the sorter for the table
-
-	        // define layout for the viewer
-	        GridData gridData = new GridData();
-	        gridData.verticalAlignment = GridData.FILL;
-	        gridData.horizontalSpan = 2;
-	        gridData.grabExcessHorizontalSpace = true;
-	        gridData.grabExcessVerticalSpace = true;
-	        gridData.horizontalAlignment = GridData.FILL;
-	        viewerFalseOptionalAnomaly.getControl().setLayoutData(gridData);
 	    }
 		
-	    // create the columns for the table
-	    private void createColumnsFalseOptionalAnomalies(TableViewer tableViewer, final Composite parent) {
-	        String[] titles = { "Type of Anomaly", "feature", "begin", "end", "Explain" };
-	        int[] bounds = { 100, 100, 100, 100, 100};
-
-	        // first column is for the first name
-	        TableViewerColumn col = createTableViewerColumn(tableViewer, titles[0], bounds[0], 0);
-	        col.setLabelProvider(new ColumnLabelProvider() {
-	            @Override
-	            public String getText(Object element) {
-	                DwAnomaly p = (DwAnomaly) element;
-	                
-	                if(p instanceof DwFalseOptionalFeatureAnomaly){
-	                	return "False-Optional";
-	                }else if(p instanceof DwVoidFeatureModelAnomaly){
-	                	return "Void";
-	                } else if (p instanceof DwDeadFeatureAnomaly){
-	                	return "Dead";
-	                }
-	                return "";
-	                
-	               
-	            }
-	        });
-
-	        // second column is for the last name
-	        col = createTableViewerColumn(tableViewer, titles[1], bounds[1], 1);
-	        col.setLabelProvider(new ColumnLabelProvider() {
-	            @Override
-	            public String getText(Object element) {
-	            	DwAnomaly p = (DwAnomaly) element;
-	            	if(p instanceof DwFalseOptionalFeatureAnomaly){
-	            		HyFeature feature = ((DwFalseOptionalFeatureAnomaly) p).getFeature();
-	            		return feature.getNames().get(0).getName();
-	            	}
-	            	return "";
-	            }
-	            
-	        });
-	//
-	        // now the gender
-	        col = createTableViewerColumn(tableViewer, titles[2], bounds[2], 2);
-	        col.setLabelProvider(new ColumnLabelProvider() {
-	            @Override
-	            public String getText(Object element) {
-	            	DwAnomaly p = (DwAnomaly) element;
-	            	if(p instanceof DwFalseOptionalFeatureAnomaly){
-	            		Date date = ((DwFalseOptionalFeatureAnomaly) p).getValidSince();
-	            		if(date == null){
-	            			return "NULL";
-	            		}
-	            		
-	            		return date.toString();
-	            	}
-	            	return "";
-	            }
-	        });
-	//
-	        // now the status married
-	        col = createTableViewerColumn(tableViewer, titles[3], bounds[3], 3);
-	        col.setLabelProvider(new ColumnLabelProvider() {
-	            @Override
-	            public String getText(Object element) {
-	            	DwAnomaly p = (DwAnomaly) element;
-	            	if(p instanceof DwFalseOptionalFeatureAnomaly){
-	            		Date date = ((DwFalseOptionalFeatureAnomaly) p).getValidUntil();
-	            		if(date == null){
-	            			return "NULL";
-	            		}
-	            		return date.toString();
-	            	}
-	            	return "";
-	            }
-
-	           
-	        });
-	        
-	        col = createTableViewerColumn(tableViewer, titles[4], bounds[4], 4);
-	 	   
-	        col.setLabelProvider(new ColumnLabelProvider() {
-	        	
-	        	@Override
-	        	public void update(ViewerCell cell) {
-	        		TableItem item = (TableItem) cell.getItem();
-	                Button button = new Button((Composite) cell.getViewerRow().getControl(), SWT.NONE);
-	              
-	                button.setText("Explain");
-	                
-//	                button.
-	                
-//	                TableEditor editor = new TableEditor(item.getParent());
-//	                editor.grabHorizontal  = true;
-//	                editor.grabVertical = true;
-//	                editor.setEditor(button , item, cell.getColumnIndex());
-//	                editor.layout();
-	        	}
-	        	
-	        });
-
-	        
-//	        col = createTableViewerColumn(titles[4], bounds[4], 4);
-//	        col.setLabelProvider(new ColumnLabelProvider() {
-//	            @Override
-//	            public String getText(Object element) {
-//	            	DwAnomaly p = (DwAnomaly) element;
-//	            	if(p instanceof DwVoidFeatureModelAnomaly){
-//	            		Date date = ((DwVoidFeatureModelAnomaly) p)
-//	            		return date.toString();
-//	            	}
-//	            	return "";
-//	            }
-	//
-//	           
-//	        });
-
-
-	    }
 	    
-	 // create the columns for the table
-	    private void createColumnsVoidAnomalies(final TableViewer tableViewer, final Composite parent) {
-	        String[] titles = { "Type of Anomaly", "context values", "Date", "Explain", ""};
-	        int[] bounds = { 100, 100, 100, 100, 100 };
 
-	        // first column is for the first name
-	        TableViewerColumn col = createTableViewerColumn(tableViewer, titles[0], bounds[0], 0);
-	        col.setLabelProvider(new ColumnLabelProvider() {
-	            @Override
-	            public String getText(Object element) {
-	                return "Void";
-	               
-	                
-	               
-	            }
-	        });
+		public DwAnomalyExplanation explaingAnomaly(DwAnomaly anomaly){
+			
+			DwAnalysesClient analysesClient = new DwAnalysesClient();
+			DwAnomalyExplanation anomalyExplanation = null;
+			try {
+				anomalyExplanation = analysesClient.explainAnomaly(getURI(), contextModel, validityModel, modelWrapped.getModel(), constraintModel, anomaly);
+			} catch (UnresolvedAddressException e) {
+				
+				e.printStackTrace();
+			} catch (TimeoutException e) {
+				
+				e.printStackTrace();
+			} catch (InterruptedException e) {
+				
+				e.printStackTrace();
+			} catch (ExecutionException e) {
+				
+				e.printStackTrace();
+			}
+			
+			if(anomalyExplanation != null){
+				
+			}
+			
+			if(anomalyExplanation != null){
+				ExplainDialogResultDialog explainDialog = new ExplainDialogResultDialog(PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell(), anomalyExplanation);
+				explainDialog.open();
+				return anomalyExplanation;
+			}else {
+				return null;
+			}
+			
+		}
 
-	        // second column is for the last name
-	        col = createTableViewerColumn(tableViewer, titles[1], bounds[1], 1);
-	        col.setLabelProvider(new ColumnLabelProvider() {
-	            @Override
-	            public String getText(Object element) {
-	            	DwVoidFeatureModelAnomaly p = (DwVoidFeatureModelAnomaly) element;
-	            	
-	            	EList<HyContextValue> contextValues = p.getContextValueModel().getValues();
-	            	String result = "";
-	            	for(HyContextValue contextValue: contextValues){
-	            		
-	            		
-	            		result += contextValue.getContext().getName() + " = ";
-	            		
-	            		if(contextValue.getValue() instanceof HyNumberValue){
-	            			result += Integer.toString(((HyNumberValue) contextValue.getValue()).getValue()) + "\n";
-	            		} else if( contextValue.getValue() instanceof HyStringValue){
-	            			result += ((HyStringValue) contextValue.getValue()).getValue() + "\n";
-	            		} else if ( contextValue.getValue() instanceof HyEnumValue){
-	            			result += ((HyEnumValue) contextValue.getValue()).getEnumLiteral().getName() + "\n";
-	            		}
-	            		
-	            	}
-	            	return result;
-	            	
-	            }
-	            
-	        });
-	//
-	        // now the gender
-	        col = createTableViewerColumn(tableViewer, titles[2], bounds[2], 2);
-	        col.setLabelProvider(new ColumnLabelProvider() {
-	            @Override
-	            public String getText(Object element) {
-	            	DwAnomaly p = (DwAnomaly) element;
-	            	if(p instanceof DwFalseOptionalFeatureAnomaly){
-	            		Date date = ((DwFalseOptionalFeatureAnomaly) p).getValidSince();
-	            		if(date == null){
-	            			return "NULL";
-	            		}
-	            		
-	            		return date.toString();
-	            	}
-	            	return "";
-	            }
-	        });
-	//
-	        // now the status married
-	        col = createTableViewerColumn(tableViewer, titles[3], bounds[3], 3);
-	        col.setLabelProvider(new ColumnLabelProvider() {
-	            @Override
-	            public String getText(Object element) {
-	            	DwAnomaly p = (DwAnomaly) element;
-	            	if(p instanceof DwFalseOptionalFeatureAnomaly){
-	            		Date date = ((DwFalseOptionalFeatureAnomaly) p).getValidUntil();
-	            		if(date == null){
-	            			return "NULL";
-	            		}
-	            		return date.toString();
-	            	}
-	            	return "";
-	            }
-
-	           
-	        });
-	        
-	        col = createTableViewerColumn(tableViewer, titles[4], bounds[4], 4);
-	   
-	        col.setLabelProvider(new ColumnLabelProvider() {
-	        	
-	        	@Override
-	        	public void update(ViewerCell cell) {
-	        		TableItem item = (TableItem) cell.getItem();
-	                Button button = new Button((Composite) cell.getViewerRow().getControl(), SWT.NONE);
-	              
-	                button.setText("Explain");
-	                
-//	                TableEditor editor = new TableEditor(item.getParent());
-//	                editor.grabHorizontal  = true;
-//	                editor.grabVertical = true;
-//	                editor.setEditor(button , item, cell.getColumnIndex());
-//	                editor.layout();
-	        	}
-	        	
-	        });
-
-	        
-	    }
 	    
-	    private TableViewerColumn createTableViewerColumn(TableViewer parent, String title, int bound, final int colNumber) {
-	        final TableViewerColumn viewerColumn = new TableViewerColumn(parent, SWT.NONE);
-	        final TableColumn column = viewerColumn.getColumn();
-	        column.setText(title);
-	        column.setWidth(bound);
-	        column.setResizable(true);
-	        column.setMoveable(true);
-	        return viewerColumn;
-	    }
-	    
+ 
 	    
 
 	    public TableViewer getViewer() {
@@ -487,7 +226,6 @@ public class DwAnomalyView extends ViewPart {
 				public void run() {
 				
 					final DwRESTServerSelectDialog dialog = new DwRESTServerSelectDialog(viewerFalseOptionalAnomaly.getControl().getShell(), getURI());
-//					final CheckBoxTreeViewDialog dial = new CheckBoxTreeViewDialog(viewer.getControl().getShell(), contentProvider.godfather, viewer);
 					dialog.open();
 					setURI(dialog.getUri());
 				}
@@ -497,6 +235,7 @@ public class DwAnomalyView extends ViewPart {
 
 				@Override
 				public void run() {
+					System.out.println("whuhuhu iam refreshing");
 					DwAnomalyView.this.refresh(true);
 				}
 			};
@@ -536,6 +275,7 @@ public class DwAnomalyView extends ViewPart {
 
 			@Override
 			public void partBroughtToTop(IWorkbenchPart part) {
+				
 				if (part instanceof IEditorPart) {
 					setEditor((IEditorPart) part);
 				}
@@ -543,6 +283,7 @@ public class DwAnomalyView extends ViewPart {
 
 			@Override
 			public void partActivated(IWorkbenchPart part) {
+				
 				if (part instanceof IEditorPart) {
 					ResourceUtil.getResource(((IEditorPart) part).getEditorInput());
 					setEditor((IEditorPart) part);
@@ -552,7 +293,8 @@ public class DwAnomalyView extends ViewPart {
 
 		@Override
 		public void setFocus() {
-			viewerFalseOptionalAnomaly.getControl().setFocus();
+			viewerVoidAnomaly.getControl().setFocus();
+//			viewerFalseOptionalAnomaly.getControl().setFocus();
 		}
 
 		/**
@@ -567,25 +309,124 @@ public class DwAnomalyView extends ViewPart {
 				
 			}
 		};
-
 		
 
+		/**
+		 * Listener that refreshes the view every time the model has been edited.
+		 */
+		private final PropertyChangeListener vfModelListener = new PropertyChangeListener() {
+			
+			@Override
+			public void propertyChange(PropertyChangeEvent evt) {
+				
+				validityModel = (HyValidityModel) evt.getNewValue();
+				refresh(true);
+				
+			}
+		};
+		
+		
 
-		private Job job = null;
+		/**
+		 * Listener that refreshes the view every time the model has been edited.
+		 */
+		private final PropertyChangeListener ctcModelListener = new PropertyChangeListener() {
+			
+			@Override
+			public void propertyChange(PropertyChangeEvent evt) {
+				constraintModel = (HyConstraintModel) evt.getNewValue();
+				refresh(true);
+				
+				
+			}
+		};
+		
+
+		/**
+		 * Listener that refreshes the view every time the model has been edited.
+		 */
+		private final PropertyChangeListener contextModelListener = new PropertyChangeListener() {
+			
+			@Override
+			public void propertyChange(PropertyChangeEvent evt) {
+				contextModel = (HyContextModel) evt.getNewValue();
+				refresh(true);
+				
+			}
+		};
+
+
+
+		private void setInputOfViewers(){
+			
+			
+			
+			if(viewerFalseOptionalAnomaly != null){
+			List<DwAnomaly> anomalies = getAnomalies();
+			List<DwFalseOptionalFeatureAnomaly> falseOptionalAnomalies = new ArrayList<DwFalseOptionalFeatureAnomaly>();
+			List<DwVoidFeatureModelAnomaly> voidAnomalies = new ArrayList<DwVoidFeatureModelAnomaly>();
+		
+			voidAnomalies.removeAll(voidAnomalies);
+			
+			for(DwAnomaly anomaly: anomalies){
+				if( anomaly instanceof DwFalseOptionalFeatureAnomaly){
+					falseOptionalAnomalies.add((DwFalseOptionalFeatureAnomaly) anomaly);
+				} else if ( anomaly instanceof DwVoidFeatureModelAnomaly){
+					voidAnomalies.add((DwVoidFeatureModelAnomaly) anomaly);
+				}
+			}
+			
+			viewerVoidAnomaly.getTable().clearAll();
+//			viewerVoidAnomaly.getTable().removeAll();
+			viewerFalseOptionalAnomaly.getTable().clearAll();
+//			viewerVoidAnomaly.refresh();
+	
+//			viewerFalseOptionalAnomaly.refresh();
+			viewerFalseOptionalAnomaly.setInput(falseOptionalAnomalies);
+			
+			if(!voidAnomalies.isEmpty()){
+				System.out.println("not empfy");
+				viewerVoidAnomaly.setInput(voidAnomalies);
+			}else{
+				System.out.println("empty");
+			}
+			
+//			viewerVoidAnomaly.refresh();
+	
+
+//			viewerVoidAnomaly.setInput(voidAnomalies);
+
+//		viewerVoidAnomaly.refresh();
+		
+			
+			
+
+			}
+			
+		}
+		
 
 		/**
 		 * Refresh the view.
 		 */
 		private void refresh(final boolean force) {
-//			if (contentProvider.isCanceled()) {
+			
+			if(viewerFalseOptionalAnomaly != null || viewerVoidAnomaly != null){
+				   if (!viewerFalseOptionalAnomaly.getControl().isDisposed() && !viewerVoidAnomaly.getControl().isDisposed()) {
+				      setInputOfViewers();
+				   }
+			}
+			
+			
+//			if (contentProvider.) {
 //				return;
 //			}
-
-			/*
-			 * This job waits for the calculation job to finish and starts immediately a new one
-			 */
-//			final Job waiter = new Job(UPDATING_FEATURESTATISTICSVIEW) {
-	//
+//
+//			/*
+//			 * This job waits for the calculation job to finish and starts immediately a new one
+//			 */
+//			final Job waiter = new Job("Update") {h
+//	
 //				@Override
 //				protected IStatus run(IProgressMonitor monitor) {
 //					try {
@@ -598,11 +439,11 @@ public class DwAnomalyView extends ViewPart {
 //							contentProvider.setCanceled(false);
 //						}
 //					} catch (final InterruptedException e) {
-//						FMUIPlugin.getDefault().logError(e);
+//						e.printStackTrace();
 //					}
-	//
-//					job = new Job(UPDATING_FEATURESTATISTICSVIEW) {
-	//
+//	//
+//					job = new Job("update") {
+//	//
 //						@Override
 //						protected IStatus run(IProgressMonitor monitor) {
 //							if (currentEditor == null) {
@@ -610,7 +451,7 @@ public class DwAnomalyView extends ViewPart {
 //							} else {
 //								final IResource anyFile = ResourceUtil.getResource(currentEditor.getEditorInput());
 //								// TODO is refresh really necessary? -> true?
-	//
+//	//
 //								if (force || (currentInput == null) || !anyFile.getProject().equals(currentInput.getProject())) {
 //									contentProvider.calculateContent(anyFile, true);
 //									currentInput = anyFile;
@@ -631,12 +472,12 @@ public class DwAnomalyView extends ViewPart {
 //			cancelJobs();
 		}
 
-//		private void cancelJobs() {
+		private void cancelJobs() {
 //			final JobDoneListener jobListener = JobDoneListener.getInstance();
 //			if (jobListener != null) {
 //				jobListener.cancelAllRunningTreeJobs();
 //			}
-//		}
+		}
 
 
 
@@ -644,18 +485,20 @@ public class DwAnomalyView extends ViewPart {
 		 * Watches changes in the feature model if the selected editor is an instance of @{link FeatureModelEditor}
 		 */
 		private void setEditor(IEditorPart newEditor) {
-			if (currentEditor != null) {
-				if (currentEditor == newEditor) {
-					return;
-				}
-
-				if (currentEditor instanceof DwGraphicalFeatureModelEditor) {
-					((DwGraphicalFeatureModelEditor) currentEditor).getModelWrapped().removePropertyChangeListener(modelListener);
-//					getFeatureModel().removeListener(modelListener);
-				}  else if (newEditor instanceof DwFeatureModelConfiguratorViewer){
-					((DwFeatureModelConfiguratorViewer) currentEditor).getModelWrapped().removePropertyChangeListener(modelListener);
 			
-				}
+			if (currentEditor == newEditor) {
+				return;
+//				if (currentEditor == newEditor) {
+//					return;
+//				}
+//
+//				if (currentEditor instanceof DwGraphicalFeatureModelEditor) {
+//					((DwGraphicalFeatureModelEditor) currentEditor).getModelWrapped().removePropertyChangeListener(modelListener);
+////					getFeatureModel().removeListener(modelListener);
+//				}  else if (newEditor instanceof DwFeatureModelConfiguratorViewer){
+//					((DwFeatureModelConfiguratorViewer) currentEditor).getModelWrapped().removePropertyChangeListener(modelListener);
+//			
+//				}
 		   }
 			boolean force = true;
 			if ((newEditor != null) && (currentEditor != null)) {
@@ -679,8 +522,61 @@ public class DwAnomalyView extends ViewPart {
 			} else if (newEditor instanceof DwFeatureModelConfiguratorViewer){
 				((DwFeatureModelConfiguratorViewer) currentEditor).getModelWrapped().addPropertyChangeListener(modelListener);
 				modelWrapped = ((DwFeatureModelConfiguratorViewer) currentEditor).getModelWrapped();
-			} 
+			} else{
+				return;
+			}
+//			else if (newEditor instanceof HyconstraintsEditor){
+//				
+//				IHyconstraintsTextResource res = ((HyconstraintsEditor) currentEditor).getResource();
+//				List<EObject> contents = res.getContents();
+//				HyConstraintModel constraintModel = (HyConstraintModel) contents.get(0);
+//				modelWrapped = EcoreIOUtil.loadAccompanyingModel(constraintModel, "hyfeature");
+//				System.out.println(contents);
+//			}
+			setAccomanyingModels();
+			addModelListeners();
 			refresh(force);
+		}
+		
+		Adapter contextModelAdapter = new AdapterImpl(){
+			public void notifyChanged(Notification msg) {
+				
+				
+			};
+			
+			
+		};
+		
+		private void addModelListeners(){
+//			System.out.println("Added listner");
+//			constraintModel.eAdapters().add(contextModelAdapter);
+		}
+		
+		
+		private void setAccomanyingModels(){
+			
+			if(contextValueModel == null) {
+				contextValueModel = ContextValueFactory.eINSTANCE.createHyContextValueModel();
+			
+			}
+			
+	
+			if(modelFileExists(HyValidityModelUtil.getValidityModelFileExtensionForConcreteSyntax())){
+				validityModel = EcoreIOUtil.loadAccompanyingModel(modelWrapped.getModel(), HyValidityModelUtil.getValidityModelFileExtensionForConcreteSyntax());
+			}
+			else if(modelFileExists(HyValidityModelUtil.getValidityModelFileExtensionForXmi())) {
+				validityModel = EcoreIOUtil.loadAccompanyingModel(modelWrapped.getModel(), HyValidityModelUtil.getValidityModelFileExtensionForXmi());
+			}
+
+			
+			if(modelFileExists(HyConstraintUtil.getConstraintModelFileExtensionForConcreteSyntax())){
+				constraintModel = EcoreIOUtil.loadAccompanyingModel(modelWrapped.getModel(), HyConstraintUtil.getConstraintModelFileExtensionForConcreteSyntax());
+			}
+			else if(modelFileExists(HyConstraintUtil.getConstraintModelFileExtensionForXmi())){
+				constraintModel = EcoreIOUtil.loadAccompanyingModel(modelWrapped.getModel(), HyConstraintUtil.getConstraintModelFileExtensionForXmi());
+			}
+			
+			
 		}
 		public IFile getFile() {
 			IWorkspace workspace = ResourcesPlugin.getWorkspace();
@@ -745,7 +641,7 @@ public class DwAnomalyView extends ViewPart {
 				contextValueModel = ContextValueFactory.eINSTANCE.createHyContextValueModel();;
 			}
 			
-			HyValidityModel validityModel = null;
+	
 			if(modelFileExists(HyValidityModelUtil.getValidityModelFileExtensionForConcreteSyntax())){
 				validityModel = EcoreIOUtil.loadAccompanyingModel(modelWrapped.getModel(), HyValidityModelUtil.getValidityModelFileExtensionForConcreteSyntax());
 			}
@@ -753,7 +649,7 @@ public class DwAnomalyView extends ViewPart {
 				validityModel = EcoreIOUtil.loadAccompanyingModel(modelWrapped.getModel(), HyValidityModelUtil.getValidityModelFileExtensionForXmi());
 			}
 
-			HyConstraintModel constraintModel = null;
+			
 			if(modelFileExists(HyConstraintUtil.getConstraintModelFileExtensionForConcreteSyntax())){
 				constraintModel = EcoreIOUtil.loadAccompanyingModel(modelWrapped.getModel(), HyConstraintUtil.getConstraintModelFileExtensionForConcreteSyntax());
 			}
@@ -792,14 +688,13 @@ public class DwAnomalyView extends ViewPart {
 				
 				
 				
-				if(currentEditor instanceof DwFeatureModelConfiguratorViewer){
+//				if(currentEditor instanceof DwFeatureModelConfiguratorViewer){
 					
 					voidFeatureAnomaly = client.validateFeatureModelWithContext(uri, contextModel,
-							validityModel, modelWrapped.getModel(), constraintModel, ((DwFeatureModelConfiguratorViewer) currentEditor).getSelectedConfiguration(), profile,
+							validityModel, modelWrapped.getModel(), constraintModel, null, profile,
 							contextValueModel, modelWrapped.getSelectedDate());
-					System.out.println(voidFeatureAnomaly);
-
-					}
+				
+//					}
 
 					List<DwAnomaly> anomalies = client.checkFeatures(uri, contextModel, validityModel, modelWrapped.getModel(), constraintModel, null, null);
 					

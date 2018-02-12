@@ -20,5 +20,12 @@ Require-Bundle: org.eclipse.core.runtime,
  eu.hyvar.context.validity_formulas,
  de.christophseidl.util.eclipse,
  org.eclipse.ui.ide,
- eu.hyvar.feature.configuration
+ eu.hyvar.feature.configuration,
+ de.darwinspl.anomalies.explanations,
+ eu.hyvar.feature.constraint.resource.hyconstraints.ui,
+ org.eclipse.text,
+ eu.hyvar.feature.constraint.resource.hyconstraints,
+ org.eclipse.emf.common.ui;bundle-version="2.9.0",
+ org.eclipse.emf.edit;bundle-version="2.10.1",
+ org.eclipse.ui.editors;bundle-version="3.9.0"
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
