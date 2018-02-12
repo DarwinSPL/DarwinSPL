@@ -2,7 +2,9 @@ package de.darwinspl.reconfigurator.client.hyvarrec;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import de.darwinspl.anomaly.DwAnomaly;
 import de.darwinspl.anomaly.DwDeadFeatureAnomaly;
@@ -330,20 +332,64 @@ public class DwEditorOperationAnalyzer {
 			/*
 			 * 
 			    "feature[_03647428-60be-4985-b409-63e215b73b49] = 1",
-			    "feature[_a7da77ac-6c86-4d53-91f3-0f86ce0b59c3] = 1 impl feature[_03647428-60be-4985-b409-63e215b73b49] = 1",
-			    "((feature[_03647428-60be-4985-b409-63e215b73b49] = 1 impl feature[_a7da77ac-6c86-4d53-91f3-0f86ce0b59c3] = 0))",
+			    "(feature[_a7da77ac-6c86-4d53-91f3-0f86ce0b59c3] = 1) impl (feature[_03647428-60be-4985-b409-63e215b73b49] = 1)", // shouldn't be in an explanation as its not important
+			    "((feature[_03647428-60be-4985-b409-63e215b73b49] = 1) impl (feature[_a7da77ac-6c86-4d53-91f3-0f86ce0b59c3] = 0))",
 			    "feature[_a7da77ac-6c86-4d53-91f3-0f86ce0b59c3] = 1"
 			 * 
 			 * 
 			 */
 
-			// TODO: have a general translation of String => HyConstraints???
-			
+			// TODO: have a general translation of String => HyConstraints???			
 			HyExpression expression = getExpressionFromString(constraint);
 			
 			
+			
+			// detect the following:
+			// Mandatory implies !feature
+			
+			// TODO: REWORK / CONCEPT !!! ONLY
+			if (expression instanceof HyImpliesExpression) {
+				HyImpliesExpression implies = (HyImpliesExpression) expression;
+				HyFeature featureLeft = null;
+				Object[] c1 = evaluateEqualExpression(implies.getOperand1());
+				Object[] c2 = evaluateEqualExpression(implies.getOperand2());
+				
+				if (c1 != null && c1.length == 2) {
+					HyFeature f1 = (HyFeature) c1[0];
+					Boolean b1 = (Boolean) c1[1];
+					
+					if (c2 != null && c2.length == 2) {
+						HyFeature f2 = (HyFeature) c2[0];
+						Boolean b2 = (Boolean) c2[1];
+						
+						// evaluate
+						boolean e1 = (!f1.equals(anomaly.getFeature()) && b1); // left mandatory
+						boolean e2 = (!f1.equals(anomaly.getFeature()) && falseOptionalList.contains(f1)); // left false-optional
+						boolean e3 = (f2.equals(anomaly.getFeature()) && !b2); // right !feature
+					}
+				}
+			}
+			
 		}
 	}
+	
+	protected Object[] evaluateEqualExpression(HyExpression expression) {
+		if (expression instanceof HyEqualExpression) {
+			HyEqualExpression equalExpression = (HyEqualExpression) expression;
+			if (equalExpression.getOperand1() instanceof HyFeatureReferenceExpression && equalExpression.getOperand2() instanceof HyValueExpression) {
+				HyFeatureReferenceExpression featureExpression = (HyFeatureReferenceExpression) equalExpression.getOperand1();
+				HyValueExpression valueExpression = (HyValueExpression) equalExpression.getOperand2();
+				if (valueExpression.getValue() instanceof HyNumberValue) {
+					HyFeature foundFeature = featureExpression.getFeature();
+					int foundValue = ((HyNumberValue) valueExpression.getValue()).getValue();
+					boolean parsedValue = (foundValue == 1 ? true : (foundValue == 0 ? false : null));
+					return new Object[] { foundFeature, parsedValue };
+				}
+			}
+		}
+		return null;
+	}
+	
 	protected HyExpression getExpressionFromString(String constraint) {
 		HyExpression expression = null;
 		StringBuilder stringBuilder = new StringBuilder(constraint);
@@ -468,6 +514,15 @@ public class DwEditorOperationAnalyzer {
 		for (HyGroupComposition groupComp : group.getParentOf()) {			
 			if (isElementValid(groupComp, date)) {
 				return groupComp;
+			}			
+		}		
+		return null;
+	}
+	
+	public HyFeatureType getFeatureType(HyFeature feature, Date date) {		
+		for (HyFeatureType featureType : feature.getTypes()) {			
+			if (isElementValid(featureType, date)) {
+				return featureType;
 			}			
 		}		
 		return null;
