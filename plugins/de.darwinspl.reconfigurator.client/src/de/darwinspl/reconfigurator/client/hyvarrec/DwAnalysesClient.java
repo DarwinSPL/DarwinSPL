@@ -15,10 +15,13 @@ import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeoutException;
 
 import org.eclipse.jetty.client.HttpClient;
+import org.eclipse.jetty.client.api.AuthenticationStore;
 import org.eclipse.jetty.client.api.ContentResponse;
 import org.eclipse.jetty.client.api.Request;
+import org.eclipse.jetty.client.util.BasicAuthentication;
 import org.eclipse.jetty.client.util.StringContentProvider;
 import org.eclipse.jetty.http.HttpHeader;
+import org.eclipse.jetty.util.ssl.SslContextFactory;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -109,46 +112,6 @@ public class DwAnalysesClient {
 		return messageForHyVarRec;
 	}
 	
-	/**
-	 * 
-	 * @param uriString
-	 * @param contextModel
-	 * @param contextValidityModel
-	 * @param featureModel
-	 * @param constraintModel
-	 * @param oldConfiguration
-	 * @param preferenceModel
-	 * @param contextValues
-	 * @param date
-	 * @return A List of Constraints leading to an invalidity. Null if model is valid.
-	 * @deprecated
-	 */
-	public List<String> explainAnomaly(String uriString, HyContextModel contextModel, HyValidityModel contextValidityModel,
-			HyFeatureModel featureModel, HyConstraintModel constraintModel, HyConfiguration oldConfiguration,
-			DwProfile preferenceModel, HyContextValueModel contextValues, Date date, Date evolutionContextValueDate) throws TimeoutException, InterruptedException, ExecutionException, UnresolvedAddressException {
-		
-		String messageForHyVarRec = createHyVarRecMessage(contextModel, contextValidityModel, featureModel, constraintModel, oldConfiguration, preferenceModel, contextValues, date, evolutionContextValueDate);
-		URI uri = createUriWithPath(uriString, VALIDATE_FM_URI);
-		
-		String hyvarrecAnswerString = sendMessageToHyVarRec(messageForHyVarRec, uri);
-		
-		HyVarRecExplainAnswer hyVarRecAnswer = gson.fromJson(hyvarrecAnswerString, HyVarRecExplainAnswer.class);
-		// TODO do something with the answer
-		
-		if(hyVarRecAnswer.getResult().equals("sat")) {
-			return null;
-		}else if(hyVarRecAnswer.getResult().equals("unsat")) {
-			List<String> parsedConstraints = translateIdsBackToNames(hyVarRecAnswer.getConstraints(), date, exporter);
-			
-			if(parsedConstraints == null) {
-				parsedConstraints = hyVarRecAnswer.getConstraints();
-			}
-			
-			return parsedConstraints;
-		}
-		
-		return null;
-	}
 	
 	/**
 	 * 
@@ -166,7 +129,7 @@ public class DwAnalysesClient {
 	 * @throws ExecutionException
 	 * @throws UnresolvedAddressException
 	 */
-	public DwAnomalyExplanation explainAnomaly(String uriString, HyContextModel contextModel, HyValidityModel contextValidityModel,
+	public DwAnomalyExplanation explainAnomaly(String uriString, String webserviceUsername, String webservicePassword, HyContextModel contextModel, HyValidityModel contextValidityModel,
 			HyFeatureModel featureModel, HyConstraintModel constraintModel, DwAnomaly anomaly) throws TimeoutException, InterruptedException, ExecutionException, UnresolvedAddressException {
 		
 		HyContextValueModel contextValueModel = null;
@@ -226,7 +189,7 @@ public class DwAnalysesClient {
 		Gson gson = new GsonBuilder().disableHtmlEscaping().create();
 		String messageForHyVarRec = gson.toJson(inputForHyVarRec);
 		
-		String hyvarrecAnswerString = sendMessageToHyVarRec(messageForHyVarRec, uri);
+		String hyvarrecAnswerString = sendMessageToHyVarRec(messageForHyVarRec, uri, webserviceUsername, webservicePassword);
 		
 		HyVarRecExplainAnswer hyVarRecAnswer = gson.fromJson(hyvarrecAnswerString, HyVarRecExplainAnswer.class);
 		
@@ -267,7 +230,7 @@ public class DwAnalysesClient {
 	 * @throws ExecutionException
 	 * @throws UnresolvedAddressException
 	 */
-	public List<DwAnomaly> checkFeatures(String uriString, HyContextModel contextModel, HyValidityModel contextValidityModel,
+	public List<DwAnomaly> checkFeatures(String uriString, String webserviceUsername, String webservicePassword, HyContextModel contextModel, HyValidityModel contextValidityModel,
 			HyFeatureModel featureModel, HyConstraintModel constraintModel, HyContextValueModel contextValues, Date date) throws TimeoutException, InterruptedException, ExecutionException, UnresolvedAddressException {
 		String messageForHyVarRec = createHyVarRecMessage(contextModel, contextValidityModel, featureModel, constraintModel, null, null, contextValues, date, null);
 		System.err.println(messageForHyVarRec);
@@ -275,7 +238,7 @@ public class DwAnalysesClient {
 		
 		URI uri = createUriWithPath(uriString, CHECK_FEATURES_URI);
 		
-		String hyvarrecAnswerString = sendMessageToHyVarRec(messageForHyVarRec, uri);
+		String hyvarrecAnswerString = sendMessageToHyVarRec(messageForHyVarRec, uri, webserviceUsername, webservicePassword);
 		System.err.println(hyvarrecAnswerString);
 		
 		HyVarRecCheckFeaturesAnswer hyVarRecAnswer = gson.fromJson(hyvarrecAnswerString, HyVarRecCheckFeaturesAnswer.class);
@@ -399,14 +362,14 @@ public class DwAnalysesClient {
 	 * @param date
 	 * @return Void feature model anomaly with context values. Null if no anomaly
 	 */
-	public DwVoidFeatureModelAnomaly validateFeatureModelWithContext(String uriString, HyContextModel contextModel, HyValidityModel contextValidityModel,
+	public DwVoidFeatureModelAnomaly validateFeatureModelWithContext(String uriString, String webserviceUsername, String webservicePassword, HyContextModel contextModel, HyValidityModel contextValidityModel,
 			HyFeatureModel featureModel, HyConstraintModel constraintModel, HyConfiguration oldConfiguration,
 			DwProfile profile, HyContextValueModel contextValues, Date date) throws TimeoutException, InterruptedException, ExecutionException, UnresolvedAddressException, HyVarRecNoSolutionException {
 		
 		String messageForHyVarRec = createHyVarRecMessage(contextModel, contextValidityModel, featureModel, constraintModel, oldConfiguration, profile, contextValues, date, null);
 		URI uri = createUriWithPath(uriString, VALIDATE_CONTEXT_URI);
 		
-		String hyvarrecAnswerString = sendMessageToHyVarRec(messageForHyVarRec, uri);
+		String hyvarrecAnswerString = sendMessageToHyVarRec(messageForHyVarRec, uri, webserviceUsername, webservicePassword);
 		
 		if(hyvarrecAnswerString.startsWith("{\"no_solution")) {
 			throw new HyVarRecNoSolutionException("HyVarRec returned could not find any solution.\n Message for HyVarRec:\n"+messageForHyVarRec+"\n Answer from HyVarRec:\n"+hyvarrecAnswerString);
@@ -536,8 +499,15 @@ public class DwAnalysesClient {
 		return sortedDateList.get(valueForDateContext);
 	}
 	
-	protected String sendMessageToHyVarRec(String message, URI uri) throws UnresolvedAddressException, ExecutionException, InterruptedException, TimeoutException {
-		HttpClient hyvarrecClient = new HttpClient();
+	protected String sendMessageToHyVarRec(String message, URI uri, String username, String password) throws UnresolvedAddressException, ExecutionException, InterruptedException, TimeoutException {
+		
+		HttpClient hyvarrecClient = new HttpClient(new SslContextFactory(true));
+		
+		if(username != null && password != null) {
+			AuthenticationStore auth = hyvarrecClient.getAuthenticationStore();
+			auth.addAuthenticationResult(new BasicAuthentication.BasicResult(uri, username, password));			
+		}
+		
 		try {
 			hyvarrecClient.start();
 		} catch (Exception e) {
@@ -545,8 +515,8 @@ public class DwAnalysesClient {
 			e.printStackTrace();
 			return null;
 		}
-		URI hyvarrecUri = uri;
-		Request hyvarrecRequest = hyvarrecClient.POST(hyvarrecUri);
+		
+		Request hyvarrecRequest = hyvarrecClient.POST(uri);
 		hyvarrecRequest.header(HttpHeader.CONTENT_TYPE, "application/json");
 		hyvarrecRequest.content(new StringContentProvider(message), "application/json");
 		ContentResponse hyvarrecResponse;
@@ -573,7 +543,7 @@ public class DwAnalysesClient {
 	 * @param date
 	 * @return reconfigured configuration
 	 */
-	public HyConfiguration reconfigure(String uriString, HyContextModel contextModel, HyValidityModel contextValidityModel,
+	public HyConfiguration reconfigure(String uriString, String webserviceUsername, String webservicePassword, HyContextModel contextModel, HyValidityModel contextValidityModel,
 			HyFeatureModel featureModel, HyConstraintModel constraintModel, HyConfiguration oldConfiguration,
 			DwProfile preferenceModel, HyContextValueModel contextValues, Date date) throws TimeoutException, InterruptedException, ExecutionException, UnresolvedAddressException {
 		
@@ -581,7 +551,7 @@ public class DwAnalysesClient {
 		
 		URI uri = createUriWithPath(uriString, RECONFIGURATION_URI);
 		
-		String hyvarrecAnswerString = sendMessageToHyVarRec(messageForHyVarRec, uri);
+		String hyvarrecAnswerString = sendMessageToHyVarRec(messageForHyVarRec, uri, webserviceUsername, webservicePassword);
 		
 		OutputOfHyVarRec hyvarrecAnswer = gson.fromJson(hyvarrecAnswerString, OutputOfHyVarRec.class);
 		

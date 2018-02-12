@@ -21,11 +21,31 @@ import org.eclipse.swt.widgets.Text;
 
 public class DwRESTServerSelectDialog extends TitleAreaDialog{
 	private Text uriText;
+	private Text userNameText;
+	private Text passwordText;
 	private String uri;
-
+	private String userName;
+	private String password;
+	
 	public String getUri() {
 		return uri;
 	}
+	
+	
+
+
+	public String getUserName() {
+		return userName;
+	}
+
+
+
+
+	public String getPassword() {
+		return password;
+	}
+
+
 
 
 	public DwRESTServerSelectDialog(Shell parentShell, String uri) {
@@ -61,21 +81,33 @@ public class DwRESTServerSelectDialog extends TitleAreaDialog{
 		GridData dataURI = new GridData();
 		dataURI.grabExcessHorizontalSpace = true;
 		dataURI.horizontalAlignment = GridData.FILL;
-		
-		
-
 
 
 		uriText = new Text(container, SWT.BORDER);
 		uriText.setLayoutData(dataURI);
 		uriText.setText(uri.toString());
 		
+		Label usernameLabel = new Label(container, SWT.NONE);
+		usernameLabel.setText("Username:");
+		
+		userNameText = new Text(container, SWT.BORDER);
+		userNameText.setLayoutData(dataURI);
+		userNameText.setText("");
+		
+		Label passwordLabel = new Label(container, SWT.NONE);
+		passwordLabel.setText("Password:");
+		
+		passwordText = new Text(container, SWT.BORDER);
+		passwordText.setLayoutData(dataURI);
+		passwordText.setText("");
+		
+		
 		final ControlDecoration txtDecorator = new ControlDecoration(uriText, SWT.TOP|SWT.RIGHT|SWT.FILL);
 		FieldDecoration fieldDecoration = FieldDecorationRegistry.getDefault().getFieldDecoration(FieldDecorationRegistry .DEC_ERROR);
 		
 		Image img = fieldDecoration.getImage();
 		txtDecorator.setImage(img);
-		txtDecorator.setDescriptionText("Pls enter only numeric fields");
+		txtDecorator.setDescriptionText("Please enter only numeric fields");
 		// hiding it initially
 		txtDecorator.hide();	
 		
@@ -85,6 +117,34 @@ public class DwRESTServerSelectDialog extends TitleAreaDialog{
 			public void modifyText(ModifyEvent e) {
 				try{
 				uri = uriText.getText();
+				txtDecorator.hide();
+				}catch(Exception e1){
+					txtDecorator.show();
+				}
+			}
+			
+		});	
+		
+		passwordText.addModifyListener(new ModifyListener(){
+
+			@Override
+			public void modifyText(ModifyEvent e) {
+				try{
+				password = passwordText.getText();
+				txtDecorator.hide();
+				}catch(Exception e1){
+					txtDecorator.show();
+				}
+			}
+			
+		});	
+		
+		userNameText.addModifyListener(new ModifyListener(){
+
+			@Override
+			public void modifyText(ModifyEvent e) {
+				try{
+				userName = userNameText.getText();
 				txtDecorator.hide();
 				}catch(Exception e1){
 					txtDecorator.show();

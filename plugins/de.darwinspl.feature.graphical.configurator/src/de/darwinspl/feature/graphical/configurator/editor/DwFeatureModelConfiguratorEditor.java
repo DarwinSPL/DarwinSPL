@@ -49,6 +49,7 @@ import de.darwinspl.feature.graphical.configurator.dialogs.DwAnomalyExplanationD
 import de.darwinspl.feature.graphical.configurator.dialogs.DwContextInformationDialog;
 import de.darwinspl.feature.graphical.configurator.dialogs.DwInvalidContextInfoDialog;
 import de.darwinspl.feature.graphical.configurator.dialogs.DwRESTServerSelectDialog;
+import de.darwinspl.feature.graphical.configurator.dialogs.HyVarRecUriAndCredentials;
 import de.darwinspl.feature.graphical.configurator.editor.listeners.DwDeriveVariantListener;
 import de.darwinspl.feature.graphical.configurator.editor.listeners.DwLoadConfigurationListener;
 import de.darwinspl.feature.graphical.configurator.editor.listeners.DwSaveConfigurationListener;
@@ -252,17 +253,35 @@ public class DwFeatureModelConfiguratorEditor extends DwFeatureModelConfigurator
 		return configurationPanel;
 	}
 
-	private String getURI(){
+	private HyVarRecUriAndCredentials getHyVarRecUriAndCredentials() {
+
 		DwRESTServerSelectDialog dialog = new DwRESTServerSelectDialog(getEditorSite().getShell(), DEFAULT_HYVARREC_URI);
 		int result = dialog.open();
 		if(result == Dialog.OK){
-			return dialog.getUri();
+			HyVarRecUriAndCredentials hyVarRecUriAndCredentials = new HyVarRecUriAndCredentials();
+			hyVarRecUriAndCredentials.setUri(dialog.getUri());
+			
+			String username = dialog.getUserName();
+			if(username != null && !username.equals("")) {
+				hyVarRecUriAndCredentials.setUsername(username);
+			}
+			else {
+				hyVarRecUriAndCredentials.setUsername(null);
+			}
+			
+			String password = dialog.getPassword();
+			if(password != null && !password.equals("")) {
+				hyVarRecUriAndCredentials.setPassword(password);
+			}
+			else {
+				hyVarRecUriAndCredentials.setPassword(null);
+			}
+			
+			return hyVarRecUriAndCredentials;
 		}
 		else {
 			return null;
 		}
-
-//		return DEFAULT_HYVARREC_URI;
 	}
 
 	protected void registerListeners() {
@@ -505,12 +524,15 @@ public class DwFeatureModelConfiguratorEditor extends DwFeatureModelConfigurator
 			saveConfigurationIntoFeatureModelFolder();
 
 			// allow to change the server uri
-			String uri = getURI();
+			HyVarRecUriAndCredentials hyVarRecUriAndCredentials = getHyVarRecUriAndCredentials();
 			
-			if(uri == null) {
+			if(hyVarRecUriAndCredentials == null || hyVarRecUriAndCredentials.getUri() == null) {
 				return;
 			}
 
+			String uri = hyVarRecUriAndCredentials.getUri();
+			String username = hyVarRecUriAndCredentials.getUsername();
+			String password = hyVarRecUriAndCredentials.getPassword();
 
 			DwAnalysesClient client = new DwAnalysesClient();
 
@@ -519,7 +541,7 @@ public class DwFeatureModelConfiguratorEditor extends DwFeatureModelConfigurator
 			
 			try {
 				if (e.getSource() == validateContextButton) {
-					DwVoidFeatureModelAnomaly anomaly = client.validateFeatureModelWithContext(uri, contextModel,
+					DwVoidFeatureModelAnomaly anomaly = client.validateFeatureModelWithContext(uri, username, password, contextModel,
 							validityModel, modelWrapped.getModel(), constraintModel, selectedConfiguration, profile,
 							contextValueModel, modelWrapped.getSelectedDate());
 					
@@ -528,7 +550,7 @@ public class DwFeatureModelConfiguratorEditor extends DwFeatureModelConfigurator
 					contextInfoDialog.open();
 				} else if (e.getSource() == simulateButton) {
 					HyConfiguration configuration;
-					configuration = client.reconfigure(uri, contextModel, validityModel, modelWrapped.getModel(),
+					configuration = client.reconfigure(uri, username, password, contextModel, validityModel, modelWrapped.getModel(),
 							constraintModel, selectedConfiguration, profile, contextValueModel,
 							modelWrapped.getSelectedDate());
 					if (configuration != null) {
@@ -554,18 +576,18 @@ public class DwFeatureModelConfiguratorEditor extends DwFeatureModelConfigurator
 						openConfigurationViewer(name);
 					}
 
-				} else if (e.getSource() == explainButton) {
-					List<String> explainingConstraints = client.explainAnomaly(uri, contextModel, validityModel, modelWrapped.getModel(),
-							constraintModel, selectedConfiguration, profile, contextValueModel,
-							modelWrapped.getSelectedDate(), null);
-					
-					DwAnomalyExplanationDialog anomalyExplanationDialog = new DwAnomalyExplanationDialog(getEditorSite().getShell(), explainingConstraints);
-					anomalyExplanationDialog.open();
-					
+//				} else if (e.getSource() == explainButton) {
+//					List<String> explainingConstraints = client.explainAnomaly(uri, username, password, contextModel, validityModel, modelWrapped.getModel(),
+//							constraintModel, contextValueModel,
+//							modelWrapped.getSelectedDate(), null);
+//					
+//					DwAnomalyExplanationDialog anomalyExplanationDialog = new DwAnomalyExplanationDialog(getEditorSite().getShell(), explainingConstraints);
+//					anomalyExplanationDialog.open();
+//					
 				} else if (e.getSource() == validateWithEvolutionButton) {
 					// Show date
 					
-					DwVoidFeatureModelAnomaly voidFeatureModelAnomaly = client.validateFeatureModelWithContext(uri,
+					DwVoidFeatureModelAnomaly voidFeatureModelAnomaly = client.validateFeatureModelWithContext(uri, username, password,
 							contextModel, validityModel, modelWrapped.getModel(), constraintModel,
 							selectedConfiguration, profile, contextValueModel, null);
 					
@@ -574,20 +596,20 @@ public class DwFeatureModelConfiguratorEditor extends DwFeatureModelConfigurator
 					
 					contextInfoDialog.open();
 				}
-				else if(e.getSource() == explainWithEvolutionButton) {
-					
-					//TODO set context value for evolutoin to current selected date
-					
-					
-					List<String> explainingConstraints = client.explainAnomaly(uri, contextModel, validityModel, modelWrapped.getModel(),
-							constraintModel, selectedConfiguration, profile, contextValueModel,
-							null, modelWrapped.getSelectedDate());
-					
-					DwAnomalyExplanationDialog anomalyExplanationDialog = new DwAnomalyExplanationDialog(getEditorSite().getShell(), explainingConstraints);
-					anomalyExplanationDialog.open();
-				}
+//				else if(e.getSource() == explainWithEvolutionButton) {
+//					
+//					//TODO set context value for evolutoin to current selected date
+//					
+//					
+//					List<String> explainingConstraints = client.explainAnomaly(uri, username, password, contextModel, validityModel, modelWrapped.getModel(),
+//							constraintModel, selectedConfiguration, profile, contextValueModel,
+//							null, modelWrapped.getSelectedDate());
+//					
+//					DwAnomalyExplanationDialog anomalyExplanationDialog = new DwAnomalyExplanationDialog(getEditorSite().getShell(), explainingConstraints);
+//					anomalyExplanationDialog.open();
+//				}
 				else if(e.getSource() == detectFeatureAnomaliesButton) {
-					List<DwAnomaly> anomalies = client.checkFeatures(uri, contextModel, validityModel, modelWrapped.getModel(), constraintModel, null, null);
+					List<DwAnomaly> anomalies = client.checkFeatures(uri, username, password, contextModel, validityModel, modelWrapped.getModel(), constraintModel, null, null);
 					
 					// TODO show anomalies in an extra view and allow their explanation
 				}
