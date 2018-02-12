@@ -8,6 +8,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import org.eclipse.emf.ecore.EObject;
+
 import eu.hyvar.evolution.util.HyEvolutionUtil;
 import eu.hyvar.feature.HyBooleanAttribute;
 import eu.hyvar.feature.HyEnumAttribute;
@@ -35,11 +37,17 @@ public class DwFeatureModelExporter {
 	private Map<HyVersion, String> versionReconfiguratorIdMapping;
 	private Map<HyFeatureAttribute, String> attributeReconfiguratorIdMapping;
 	
-	public DwFeatureModelExporter(HyFeatureModel featureModel, Map<HyFeature, String> featureReconfiguratorIdMapping, Map<HyVersion, String> versionReconfiguratorIdMapping, Map<HyFeatureAttribute, String> attributeReconfiguratorIdMapping) {
+	private Map<EObject, List<String>> translationMapping;
+	
+	public DwFeatureModelExporter(HyFeatureModel featureModel, Map<HyFeature, String> featureReconfiguratorIdMapping,
+			Map<HyVersion, String> versionReconfiguratorIdMapping, Map<HyFeatureAttribute, String> attributeReconfiguratorIdMapping,
+			Map<EObject, List<String>> translationMapping) {
 		this.featureModel = featureModel;
 		this.featureReconfiguratorIdMapping = featureReconfiguratorIdMapping;
 		this.versionReconfiguratorIdMapping = versionReconfiguratorIdMapping;
 		this.attributeReconfiguratorIdMapping = attributeReconfiguratorIdMapping;
+		
+		this.translationMapping = translationMapping;
 	}
 	
 	public List<String> getFeatureModelConstraints(HyFeatureModel featureModel, Date date, Context dateContext, List<Date> sortedDateList) throws HyFeatureModelWellFormednessException {
@@ -55,6 +63,8 @@ public class DwFeatureModelExporter {
 			rootFeatureConstraint.append(1);
 
 			featureModelConstraints.add(rootFeatureConstraint.toString());
+			
+			putTranslationIntoMapping(rootFeature, rootFeatureConstraint.toString());
 
 //			featureModelConstraints.addAll(getFeatureConstraints(rootFeature.getFeature(), true, date));
 
@@ -69,12 +79,18 @@ public class DwFeatureModelExporter {
 				rootFeatureConstraint.append(1);
 				
 				featureModelConstraints.add(rootFeatureConstraint.toString());
+
+				putTranslationIntoMapping(rootFeature, rootFeatureConstraint.toString());
+				
 				rootFeatureConstraint = new StringBuilder();
 			}
 		}
 		
 		for(HyGroup group: featureModel.getGroups()) {
-			featureModelConstraints.addAll(getGroupConstraints(group, date, dateContext, sortedDateList));
+			List<String> constraints = getGroupConstraints(group, date, dateContext, sortedDateList);
+			featureModelConstraints.addAll(constraints);
+			
+			putTranslationIntoMapping(group, constraints);
 		}
 		
 		
@@ -263,6 +279,8 @@ public class DwFeatureModelExporter {
 					}
 					
 					versionConstraints.add(versionStringBuilder.toString());
+					
+					putTranslationIntoMapping(feature, versionStringBuilder.toString());
 				}
 			}
 		}
@@ -784,9 +802,27 @@ public class DwFeatureModelExporter {
 			stringBuilder.append(HyVarRecExporter.BRACKETS_CLOSING);
 			
 			evolutionFeatureRestrictionConstraints.add(stringBuilder.toString());
+			
+			for (HyFeature feature : invalidFeatures) {
+				putTranslationIntoMapping(feature, stringBuilder.toString());
+			}
 		}
 		
 		return evolutionFeatureRestrictionConstraints;
 		
+	}
+	
+	private void putTranslationIntoMapping(EObject obj, String string) {
+		if (!translationMapping.containsKey(obj)) {
+			translationMapping.put(obj, new ArrayList<String>());
+		}
+		translationMapping.get(obj).add(string);
+	}
+	
+	private void putTranslationIntoMapping(EObject obj, List<String> strings) {
+		if (!translationMapping.containsKey(obj)) {
+			translationMapping.put(obj, new ArrayList<String>());
+		}
+		translationMapping.get(obj).addAll(strings);
 	}
 }

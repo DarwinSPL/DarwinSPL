@@ -1,6 +1,7 @@
 package de.darwinspl.reconfigurator.client.hyvarrec;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -316,153 +317,14 @@ public class DwEditorOperationAnalyzer {
 		
 		// if not: it is caused by a constraint.
 		
-		// TODO: search the constraints for this cause		
+		System.out.println("TRANSLATION MAPPING:");
+		System.out.println(Arrays.toString(client.exporter.getTranslationMapping().entrySet().toArray()));
 		
-		// possible cases:
-		// 1. Mandatory     impl !Feature
-		// 2. FalseOptional impl !Feature  		=> tell that the causing feature is actually itself an anomaly (possible that we need to fix that one rather than this)
-		// 3. Feature		impl !Mandatory		=> would cause a VoidFeatureAnomaly, so the feature has to be dead
-		// 4. Feature		impl !FalseOptional => same as 3, explanations as 2
-				
 		for (String constraint : anomalyExplanation.getExplanations()) {
 			
-			System.out.println(constraint);
-			
-			
-			/*
-			 * 
-			    "feature[_03647428-60be-4985-b409-63e215b73b49] = 1",
-			    "(feature[_a7da77ac-6c86-4d53-91f3-0f86ce0b59c3] = 1) impl (feature[_03647428-60be-4985-b409-63e215b73b49] = 1)", // shouldn't be in an explanation as its not important
-			    "((feature[_03647428-60be-4985-b409-63e215b73b49] = 1) impl (feature[_a7da77ac-6c86-4d53-91f3-0f86ce0b59c3] = 0))",
-			    "feature[_a7da77ac-6c86-4d53-91f3-0f86ce0b59c3] = 1"
-			 * 
-			 * 
-			 */
-
-			// TODO: have a general translation of String => HyConstraints???			
-			HyExpression expression = getExpressionFromString(constraint);
-			
-			
-			
-			// detect the following:
-			// Mandatory implies !feature
-			
-			// TODO: REWORK / CONCEPT !!! ONLY
-			if (expression instanceof HyImpliesExpression) {
-				HyImpliesExpression implies = (HyImpliesExpression) expression;
-				HyFeature featureLeft = null;
-				Object[] c1 = evaluateEqualExpression(implies.getOperand1());
-				Object[] c2 = evaluateEqualExpression(implies.getOperand2());
-				
-				if (c1 != null && c1.length == 2) {
-					HyFeature f1 = (HyFeature) c1[0];
-					Boolean b1 = (Boolean) c1[1];
-					
-					if (c2 != null && c2.length == 2) {
-						HyFeature f2 = (HyFeature) c2[0];
-						Boolean b2 = (Boolean) c2[1];
-						
-						// evaluate
-						boolean e1 = (!f1.equals(anomaly.getFeature()) && b1); // left mandatory
-						boolean e2 = (!f1.equals(anomaly.getFeature()) && falseOptionalList.contains(f1)); // left false-optional
-						boolean e3 = (f2.equals(anomaly.getFeature()) && !b2); // right !feature
-					}
-				}
-			}
-			
 		}
 	}
 	
-	protected Object[] evaluateEqualExpression(HyExpression expression) {
-		if (expression instanceof HyEqualExpression) {
-			HyEqualExpression equalExpression = (HyEqualExpression) expression;
-			if (equalExpression.getOperand1() instanceof HyFeatureReferenceExpression && equalExpression.getOperand2() instanceof HyValueExpression) {
-				HyFeatureReferenceExpression featureExpression = (HyFeatureReferenceExpression) equalExpression.getOperand1();
-				HyValueExpression valueExpression = (HyValueExpression) equalExpression.getOperand2();
-				if (valueExpression.getValue() instanceof HyNumberValue) {
-					HyFeature foundFeature = featureExpression.getFeature();
-					int foundValue = ((HyNumberValue) valueExpression.getValue()).getValue();
-					boolean parsedValue = (foundValue == 1 ? true : (foundValue == 0 ? false : null));
-					return new Object[] { foundFeature, parsedValue };
-				}
-			}
-		}
-		return null;
-	}
-	
-	protected HyExpression getExpressionFromString(String constraint) {
-		HyExpression expression = null;
-		StringBuilder stringBuilder = new StringBuilder(constraint);
-		while (stringBuilder.length() > 0) {
-			// TODO: figure out what to do with brackets
-//			if (stringBuilder.toString().startsWith(HyVarRecExporter.BRACKETS_OPEN)) {
-//				stringBuilder.delete(0, 1);
-//			}
-			if (stringBuilder.toString().startsWith(HyVarRecExporter.BRACKETS_CLOSING)) {
-				stringBuilder.delete(0, 1);
-			} else {
-				expression = resolveExpressionFromString(stringBuilder, expression);
-			}
-		}
-		return expression;
-	}
-	
-	protected HyExpression resolveExpressionFromString(StringBuilder constraint, HyExpression leftExpression) {
-
-		// TODO: check whether this is the right usage for brackets
-		if (constraint.toString().startsWith(HyVarRecExporter.BRACKETS_OPEN)) {
-			constraint.delete(0, 1);
-			leftExpression = resolveExpressionFromString(constraint, null);
-		}
-		if (constraint.toString().startsWith(HyVarRecExporter.BRACKETS_CLOSING)) {
-			constraint.delete(0, 1);
-		}
-
-		if (constraint.toString().startsWith(HyVarRecExporter.FEATURE_ATOM)) {
-			for (HyFeature feature : client.exporter.getFeatureReconfiguratorIdMapping().keySet()) {
-				String featureString = client.exporter.getFeatureReconfiguratorIdMapping().get(feature);
-				if (constraint.toString().startsWith(featureString)) {
-					HyFeatureReferenceExpression featureReference = HyExpressionFactory.eINSTANCE.createHyFeatureReferenceExpression();
-					featureReference.setFeature(feature);
-					constraint.delete(0, featureString.length());
-					return featureReference;
-				}
-			}
-		}
-		else if (constraint.toString().startsWith(HyVarRecExporter.EQUALS)) {
-			HyEqualExpression expression = HyExpressionFactory.eINSTANCE.createHyEqualExpression();
-			expression.setOperand1(leftExpression);
-			constraint.delete(0, HyVarRecExporter.EQUALS.length());
-			expression.setOperand2(resolveExpressionFromString(constraint, null));
-			return expression;
-		}
-		else if (constraint.toString().startsWith(HyVarRecExporter.IMPLICATION)) {
-			HyImpliesExpression expression = HyExpressionFactory.eINSTANCE.createHyImpliesExpression();
-			expression.setOperand1(leftExpression);
-			constraint.delete(0, HyVarRecExporter.IMPLICATION.length());
-			expression.setOperand2(resolveExpressionFromString(constraint, null));
-			return expression;
-		}
-		else if (constraint.toString().startsWith("0")) {
-			// TODO: FIX ME FML
-			HyNumberValue value = HyDataValuesFactory.eINSTANCE.createHyNumberValue();
-			value.setValue(Integer.valueOf("0"));
-			HyValueExpression valueExpression = HyExpressionFactory.eINSTANCE.createHyValueExpression();
-			valueExpression.setValue(value);
-			constraint.delete(0, 1);
-			return valueExpression;
-		}
-		else if (constraint.toString().startsWith("1")) {
-			// TODO: FIX ME FML
-			HyNumberValue value = HyDataValuesFactory.eINSTANCE.createHyNumberValue();
-			value.setValue(Integer.valueOf("1"));
-			HyValueExpression valueExpression = HyExpressionFactory.eINSTANCE.createHyValueExpression();
-			valueExpression.setValue(value);
-			constraint.delete(0, 1);
-			return valueExpression;
-		}
-		return null;
-	}
 	
 	protected List<HyFeature> getDeadFeatures(List<DwAnomaly> anomalies) {
 		List<HyFeature> deadFeatures = new ArrayList<HyFeature>();

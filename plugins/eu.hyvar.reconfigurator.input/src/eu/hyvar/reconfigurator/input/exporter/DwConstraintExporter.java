@@ -3,6 +3,9 @@ package eu.hyvar.reconfigurator.input.exporter;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
+
+import org.eclipse.emf.ecore.EObject;
 
 import eu.hyvar.feature.constraint.HyConstraint;
 import eu.hyvar.feature.constraint.HyConstraintModel;
@@ -13,8 +16,12 @@ public class DwConstraintExporter {
 
 	private HyExpressionStringExporter expressionExporter;
 	
-	public DwConstraintExporter(HyExpressionStringExporter expressionExporter) {
+	private Map<EObject, List<String>> translationMapping;
+	
+	public DwConstraintExporter(HyExpressionStringExporter expressionExporter, Map<EObject, List<String>> translationMapping) {
 		this.expressionExporter = expressionExporter;
+		
+		this.translationMapping = translationMapping;
 	}
 	
 	public List<String> getConstraints(HyConstraintModel constraintModel, Date date, Context dateContext, List<Date> sortedDateList) {
@@ -30,6 +37,9 @@ public class DwConstraintExporter {
 			
 			if(exportedConstraint != null) {
 				constraints.add(exportedConstraint);
+				
+				translationMapping.put(constraint, new ArrayList<String>());
+				translationMapping.get(constraint).add(exportedConstraint);
 			}
 			
 		}

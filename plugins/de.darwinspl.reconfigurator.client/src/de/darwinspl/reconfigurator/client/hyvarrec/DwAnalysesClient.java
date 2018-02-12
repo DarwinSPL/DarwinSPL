@@ -168,7 +168,8 @@ public class DwAnalysesClient {
 	 * @throws UnresolvedAddressException
 	 */
 	public DwAnomalyExplanation explainAnomaly(String uriString, HyContextModel contextModel, HyValidityModel contextValidityModel,
-			HyFeatureModel featureModel, HyConstraintModel constraintModel, DwAnomaly anomaly, DwEditorOperationAnalyzer editorOperationAnalyzer) throws TimeoutException, InterruptedException, ExecutionException, UnresolvedAddressException {
+			HyFeatureModel featureModel, HyConstraintModel constraintModel, DwAnomaly anomaly, DwEditorOperationAnalyzer editorOperationAnalyzer)
+			throws TimeoutException, InterruptedException, ExecutionException, UnresolvedAddressException {
 		
 		HyContextValueModel contextValueModel = null;
 		String additionalAnomalyConstraint = null;

@@ -113,6 +113,8 @@ public class HyVarRecExporter {
 	private ReconfiguratorIdMapping reconfiguratorIdMapping;
 	
 	private List<Date> sortedDateList;
+	
+	private Map<EObject, List<String>> translationMapping;
 
 	public HyVarRecExporter() {
 		
@@ -176,6 +178,9 @@ public class HyVarRecExporter {
 			return null;
 		}
 
+		// initialize translationMapping
+		translationMapping = new HashMap<EObject, List<String>>();
+
 		// Create mappings from model elements to IDs
 		reconfiguratorIdMapping = new ReconfiguratorIdMapping(featureModels, contextModels);
 
@@ -187,7 +192,7 @@ public class HyVarRecExporter {
 		Map<HyFeatureModel, DwFeatureModelExporter> featureModelExporters = new HashMap<HyFeatureModel, DwFeatureModelExporter>(featureModels.size());
 		for(HyFeatureModel featureModel: featureModels) {
 			featureModelExporters.put(featureModel, new DwFeatureModelExporter(featureModel, featureReconfiguratorIdMapping,
-				versionReconfiguratorIdMapping, attributeReconfiguratorIdMapping));
+				versionReconfiguratorIdMapping, attributeReconfiguratorIdMapping, translationMapping));
 		}
 
 		DwConfigurationExporter configurationExporter = new DwConfigurationExporter(featureReconfiguratorIdMapping,
@@ -201,9 +206,9 @@ public class HyVarRecExporter {
 				reconfiguratorIdMapping.getContextIdMapping(), BooleanRepresentationOption.TRUEFALSE,
 				FeatureSelectionRepresentationOption.ONEZERO, VersionRepresentation.AS_ONEZERO_FEATURES, true, true);
 
-		DwConstraintExporter constraintExporter = new DwConstraintExporter(expressionExporter);
+		DwConstraintExporter constraintExporter = new DwConstraintExporter(expressionExporter, translationMapping);
 		DwPreferenceExporter preferenceExporter = new DwPreferenceExporter(expressionExporter);
-		DwValidityFormulaExporter validityFormulaExporter = new DwValidityFormulaExporter(expressionExporter);
+		DwValidityFormulaExporter validityFormulaExporter = new DwValidityFormulaExporter(expressionExporter, translationMapping);
 
 		InputForHyVarRec input = new InputForHyVarRec();
 		initializeEmptyHyVarRecInput(input);
@@ -292,10 +297,13 @@ public class HyVarRecExporter {
 			input.setOptionalFeatures(getOptionalFeatureMap(featureModels, sortedDateList));			
 		}
 		// -----
+		
 
 		try {
 			for(HyFeatureModel featureModel: featureModelExporters.keySet()) {
 				input.getConstraints().addAll(featureModelExporters.get(featureModel).getFeatureModelConstraints(featureModel, date, dateContext, sortedDateList));
+				
+				// TODO: track linking in Map<EObject, String>
 			}
 		} catch (HyFeatureModelWellFormednessException e) {
 			System.err.println("Could not create constraints of FM, as FM is not well-formed");
@@ -307,14 +315,15 @@ public class HyVarRecExporter {
 			for(HyConstraintModel constraintModel: constraintModels) {
 				input.getConstraints()
 				.addAll(constraintExporter.getConstraints(constraintModel, date, dateContext, sortedDateList));
-				
+				// TODO: track linking in Map<EObject, String>
 			}
 		}
 
 		if (contextValidityModels != null) {
 			for(HyValidityModel contextValidityModel: contextValidityModels) {
 				input.getConstraints().addAll(validityFormulaExporter.getContextValidityFormulas(contextValidityModel, date,
-						dateContext, sortedDateList));				
+						dateContext, sortedDateList));
+				// TODO: track linking in Map<EObject, String>
 			}
 		}
 
@@ -604,5 +613,8 @@ public class HyVarRecExporter {
 		return this.sortedDateList;
 	}
 	
+	public Map<EObject, List<String>>  getTranslationMapping() {
+		return translationMapping;
+	}
 
 }
