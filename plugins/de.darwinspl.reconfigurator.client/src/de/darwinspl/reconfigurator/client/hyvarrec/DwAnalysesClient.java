@@ -182,7 +182,7 @@ public class DwAnalysesClient {
 		URI uri = createUriWithPath(uriString, VALIDATE_FM_URI);
 		
 		if(additionalAnomalyConstraint != null) {
-			inputForHyVarRec.getConstraints().add(additionalAnomalyConstraint);
+//			inputForHyVarRec.getConstraints().add(additionalAnomalyConstraint);
 		}
 		
 		String messageForHyVarRec = gson.toJson(inputForHyVarRec);
@@ -244,9 +244,9 @@ public class DwAnalysesClient {
 		List<DwAnomaly> anomalies = DwAnomalyTranslation.translateAnomalies(hyVarRecAnswer, exporter.getFeatureReconfiguratorIdMapping(), exporter.getSortedDateList());
 		
 		// Code to test anomaly explanation
-		for(DwAnomaly anomaly: anomalies) {
-			explainAnomaly(uriString, webserviceUsername, webservicePassword, contextModel, contextValidityModel, featureModel, constraintModel, anomaly);
-		}
+//		for(DwAnomaly anomaly: anomalies) {
+//			explainAnomaly(uriString, webserviceUsername, webservicePassword, contextModel, contextValidityModel, featureModel, constraintModel, anomaly);
+//		}
 		
 		return anomalies;
 	}
