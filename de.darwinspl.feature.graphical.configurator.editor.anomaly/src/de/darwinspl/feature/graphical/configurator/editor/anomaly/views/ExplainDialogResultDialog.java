@@ -26,7 +26,6 @@ import eu.hyvar.context.information.contextValue.HyContextValue;
 import eu.hyvar.dataValues.HyEnumValue;
 import eu.hyvar.dataValues.HyNumberValue;
 import eu.hyvar.dataValues.HyStringValue;
-import eu.hyvar.feature.HyFeature;
 
 public class ExplainDialogResultDialog extends TitleAreaDialog{
 	

@@ -18,36 +18,21 @@ import org.eclipse.core.resources.IWorkspace;
 import org.eclipse.core.resources.IWorkspaceRoot;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.IPath;
-import org.eclipse.core.runtime.IProgressMonitor;
-import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Path;
-import org.eclipse.core.runtime.Status;
-import org.eclipse.core.runtime.jobs.Job;
 import org.eclipse.emf.common.notify.Adapter;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.impl.AdapterImpl;
-import org.eclipse.emf.common.util.EList;
-import org.eclipse.emf.ecore.EObject;
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.IToolBarManager;
-import org.eclipse.jface.dialogs.MessageDialog;
+import org.eclipse.jface.dialogs.Dialog;
 import org.eclipse.jface.resource.ImageDescriptor;
-import org.eclipse.jface.viewers.ArrayContentProvider;
-import org.eclipse.jface.viewers.ColumnLabelProvider;
 import org.eclipse.jface.viewers.TableViewer;
-import org.eclipse.jface.viewers.TableViewerColumn;
-import org.eclipse.jface.viewers.Viewer;
-import org.eclipse.jface.viewers.ViewerCell;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Image;
-import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
-import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Display;
-import org.eclipse.swt.widgets.Table;
-import org.eclipse.swt.widgets.TableColumn;
-import org.eclipse.swt.widgets.TableItem;
+import org.eclipse.swt.widgets.Label;
 import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.IPartListener;
@@ -59,6 +44,7 @@ import org.eclipse.ui.part.ViewPart;
 
 import de.christophseidl.util.ecore.EcoreIOUtil;
 import de.darwinspl.anomaly.DwAnomaly;
+import de.darwinspl.anomaly.DwDeadFeatureAnomaly;
 import de.darwinspl.anomaly.DwFalseOptionalFeatureAnomaly;
 import de.darwinspl.anomaly.DwVoidFeatureModelAnomaly;
 import de.darwinspl.anomaly.explanation.DwAnomalyExplanation;
@@ -75,13 +61,9 @@ import eu.hyvar.context.HyContextModel;
 import eu.hyvar.context.contextValidity.HyValidityModel;
 import eu.hyvar.context.contextValidity.util.HyValidityModelUtil;
 import eu.hyvar.context.information.contextValue.ContextValueFactory;
-import eu.hyvar.context.information.contextValue.HyContextValue;
 import eu.hyvar.context.information.contextValue.HyContextValueModel;
 import eu.hyvar.context.information.util.HyContextInformationUtil;
 import eu.hyvar.feature.constraint.HyConstraintModel;
-import eu.hyvar.feature.constraint.resource.hyconstraints.IHyconstraintsResourceProvider;
-import eu.hyvar.feature.constraint.resource.hyconstraints.IHyconstraintsTextResource;
-import eu.hyvar.feature.constraint.resource.hyconstraints.ui.HyconstraintsEditor;
 import eu.hyvar.feature.constraint.util.HyConstraintUtil;
 
 public class DwAnomalyView extends ViewPart {
@@ -98,9 +80,24 @@ public class DwAnomalyView extends ViewPart {
 		
 		private IEditorPart currentEditor;
 		public static final String DEFAULT_SERVER_URI = "http://localhost:9002/";
-		public String serverUri = null; 
+		public static String SAVED_SERVER_URI = "http://localhost:9002/";
+		public static String USERNAME = null;
+		public static String PASSWORD = null;
+		public static Boolean HTTT_AUTHENTICATION_ENABLED = false;
+		public static Boolean EVOLUTION_AWARE_ANALYSIS = false;
+		public static Date EVOLUTION_AWARE_ANALYSIS_START_DATE = null;
+		public static Date EVOLUTION_AWARE_ANALYSIS_END_DATE = null;
+		public static TypeOfEvolutionAwareAnalysis EVOLUTION_AWARE_ANALYSIS_TYPE = TypeOfEvolutionAwareAnalysis.COMPLETE_HISTORY;
+		
+		
+		public enum TypeOfEvolutionAwareAnalysis{
+			COMPLETE_HISTORY, TIME_SPAN
+		}
+		private static final String NO_FEATURE_MODEL_FOUND = "No Feature Model found. Open Feature Model with Feature Model Editor or Feature Model Configuration Editor";
+		
 		private IResource currentInput = null;
 		
+		Label errorMessage = null;
 		
 		HyContextModel contextModel = null;
 		HyContextValueModel contextValueModel = null;
@@ -144,13 +141,28 @@ public class DwAnomalyView extends ViewPart {
 //				}
 //			}
 			
+		    errorMessage = new Label(parent, SWT.NONE);
+		    errorMessage.setText(NO_FEATURE_MODEL_FOUND);
+		    	
+		    errorMessage.setForeground(errorMessage.getDisplay().getSystemColor(SWT.COLOR_RED));
+		    errorMessage.setVisible(false);
+		        
+		    if(currentEditor == null){
+				  
+
+		    errorMessage.setText(NO_FEATURE_MODEL_FOUND);
+		    errorMessage.setVisible(true);
+		    	 
+			}
 			
 		     
 			createViewerFalseOptionalAnomaly(parent,null);
 			
 			createViewerVoidAnomaly(parent, null);
 		        
+			if(currentEditor != null){
 		     setInputOfViewers(); 
+			}
 			
 			addButtons();
 		}
@@ -179,7 +191,7 @@ public class DwAnomalyView extends ViewPart {
 			DwAnalysesClient analysesClient = new DwAnalysesClient();
 			DwAnomalyExplanation anomalyExplanation = null;
 			try {
-				anomalyExplanation = analysesClient.explainAnomaly(getURI(), contextModel, validityModel, modelWrapped.getModel(), constraintModel, anomaly);
+				anomalyExplanation = analysesClient.explainAnomaly(getURI(), null, null, contextModel, validityModel, modelWrapped.getModel(), constraintModel, anomaly);
 			} catch (UnresolvedAddressException e) {
 				
 				e.printStackTrace();
@@ -214,28 +226,64 @@ public class DwAnomalyView extends ViewPart {
 
 	    public TableViewer getViewer() {
 	        return viewerFalseOptionalAnomaly;
-	    }
+	}
 
-		private void addButtons() {
+	private void addButtons() {
 
-			final IToolBarManager toolBarManager = getViewSite().getActionBars().getToolBarManager();
+		final IToolBarManager toolBarManager = getViewSite().getActionBars().getToolBarManager();
 
-			final Action checkBoxer = new Action() {
+		final Action checkBoxer = new Action() {
 
-				@Override
-				public void run() {
-				
-					final DwRESTServerSelectDialog dialog = new DwRESTServerSelectDialog(viewerFalseOptionalAnomaly.getControl().getShell(), getURI());
-					dialog.open();
-					setURI(dialog.getUri());
+			@Override
+			public void run() {
+
+				final DwRESTServerSelectExtendedDialog dialog = new DwRESTServerSelectExtendedDialog(
+						viewerFalseOptionalAnomaly.getControl().getShell(), getURI(), HTTT_AUTHENTICATION_ENABLED,
+						USERNAME, PASSWORD, EVOLUTION_AWARE_ANALYSIS, EVOLUTION_AWARE_ANALYSIS_START_DATE, EVOLUTION_AWARE_ANALYSIS_END_DATE, EVOLUTION_AWARE_ANALYSIS_TYPE);
+				int result = dialog.open();
+				if (result == Dialog.OK) {
+					{
+						setURI(dialog.getUri());
+						String password = dialog.getPassword();
+						String username = dialog.getUserName();
+						
+						if (dialog.getHttpAuthentificationEnabled() == true && password!="" && password != null
+								&& username != null && username != "") {
+							USERNAME = username;
+							PASSWORD = password;
+							
+							HTTT_AUTHENTICATION_ENABLED = true;
+						} else {
+							HTTT_AUTHENTICATION_ENABLED = false;
+						}
+						
+						if(dialog.isEvolutionAwareAnalysis()){
+							EVOLUTION_AWARE_ANALYSIS_TYPE = dialog.getEvolutionAwareAnalysisType();
+							
+							if(EVOLUTION_AWARE_ANALYSIS_TYPE.equals(TypeOfEvolutionAwareAnalysis.TIME_SPAN)){
+								Date startDate = dialog.getStartDate();
+								Date endDate = dialog.getEndDate();
+								if(startDate != null && endDate != null){
+									EVOLUTION_AWARE_ANALYSIS_START_DATE = startDate;
+									EVOLUTION_AWARE_ANALYSIS_END_DATE = endDate;
+								}
+								
+							}
+							
+						}
+					}
 				}
+				
+				refresh(true);
+
+			}
 			};
 
 			final Action refresher = new Action() {
 
 				@Override
 				public void run() {
-					System.out.println("whuhuhu iam refreshing");
+					
 					DwAnomalyView.this.refresh(true);
 				}
 			};
@@ -250,9 +298,7 @@ public class DwAnomalyView extends ViewPart {
 			InputStream imageSettings=  getClass().getResourceAsStream("/images/settings2.png");
 			Image image = new Image(display, imageSettings);
 			
-			ImageDescriptor descriptor = ImageDescriptor.createFromImage(image);
 			
-		
 			
 			checkBoxer.setImageDescriptor(ImageDescriptor.createFromImage(image));
 			checkBoxer.setToolTipText("Settings");
@@ -311,97 +357,43 @@ public class DwAnomalyView extends ViewPart {
 		};
 		
 
-		/**
-		 * Listener that refreshes the view every time the model has been edited.
-		 */
-		private final PropertyChangeListener vfModelListener = new PropertyChangeListener() {
-			
-			@Override
-			public void propertyChange(PropertyChangeEvent evt) {
-				
-				validityModel = (HyValidityModel) evt.getNewValue();
-				refresh(true);
-				
-			}
-		};
-		
-		
-
-		/**
-		 * Listener that refreshes the view every time the model has been edited.
-		 */
-		private final PropertyChangeListener ctcModelListener = new PropertyChangeListener() {
-			
-			@Override
-			public void propertyChange(PropertyChangeEvent evt) {
-				constraintModel = (HyConstraintModel) evt.getNewValue();
-				refresh(true);
-				
-				
-			}
-		};
-		
-
-		/**
-		 * Listener that refreshes the view every time the model has been edited.
-		 */
-		private final PropertyChangeListener contextModelListener = new PropertyChangeListener() {
-			
-			@Override
-			public void propertyChange(PropertyChangeEvent evt) {
-				contextModel = (HyContextModel) evt.getNewValue();
-				refresh(true);
-				
-			}
-		};
-
-
-
 		private void setInputOfViewers(){
 			
 			
 			
 			if(viewerFalseOptionalAnomaly != null){
 			List<DwAnomaly> anomalies = getAnomalies();
-			List<DwFalseOptionalFeatureAnomaly> falseOptionalAnomalies = new ArrayList<DwFalseOptionalFeatureAnomaly>();
+			List<DwAnomaly> falseOptionalAndDeadAnomalies = new ArrayList<DwAnomaly>();
 			List<DwVoidFeatureModelAnomaly> voidAnomalies = new ArrayList<DwVoidFeatureModelAnomaly>();
 		
+			
 			voidAnomalies.removeAll(voidAnomalies);
+			if(anomalies != null && !anomalies.isEmpty()){
 			
 			for(DwAnomaly anomaly: anomalies){
-				if( anomaly instanceof DwFalseOptionalFeatureAnomaly){
-					falseOptionalAnomalies.add((DwFalseOptionalFeatureAnomaly) anomaly);
-				} else if ( anomaly instanceof DwVoidFeatureModelAnomaly){
+				if( anomaly instanceof DwFalseOptionalFeatureAnomaly || anomaly instanceof DwDeadFeatureAnomaly){
+					falseOptionalAndDeadAnomalies.add(anomaly);
+				} 
+				else if ( anomaly instanceof DwVoidFeatureModelAnomaly){
 					voidAnomalies.add((DwVoidFeatureModelAnomaly) anomaly);
 				}
 			}
+			}
 			
 			viewerVoidAnomaly.getTable().clearAll();
-//			viewerVoidAnomaly.getTable().removeAll();
 			viewerFalseOptionalAnomaly.getTable().clearAll();
-//			viewerVoidAnomaly.refresh();
 	
-//			viewerFalseOptionalAnomaly.refresh();
-			viewerFalseOptionalAnomaly.setInput(falseOptionalAnomalies);
-			
+
+			if(!falseOptionalAndDeadAnomalies.isEmpty()){
+			    viewerFalseOptionalAnomaly.setInput(falseOptionalAndDeadAnomalies);
+			}
 			if(!voidAnomalies.isEmpty()){
-				System.out.println("not empfy");
+				
 				viewerVoidAnomaly.setInput(voidAnomalies);
-			}else{
-				System.out.println("empty");
+			}
 			}
 			
-//			viewerVoidAnomaly.refresh();
-	
-
-//			viewerVoidAnomaly.setInput(voidAnomalies);
-
-//		viewerVoidAnomaly.refresh();
-		
 			
-			
-
-			}
 			
 		}
 		
@@ -411,73 +403,21 @@ public class DwAnomalyView extends ViewPart {
 		 */
 		private void refresh(final boolean force) {
 			
+			if(currentEditor == null){
+				errorMessage.setText(NO_FEATURE_MODEL_FOUND);
+				errorMessage.setVisible(true);
+			}
+			
 			if(viewerFalseOptionalAnomaly != null || viewerVoidAnomaly != null){
 				   if (!viewerFalseOptionalAnomaly.getControl().isDisposed() && !viewerVoidAnomaly.getControl().isDisposed()) {
 				      setInputOfViewers();
 				   }
+
+			}
+			
 			}
 			
 			
-//			if (contentProvider.) {
-//				return;
-//			}
-//
-//			/*
-//			 * This job waits for the calculation job to finish and starts immediately a new one
-//			 */
-//			final Job waiter = new Job("Update") {h
-//	
-//				@Override
-//				protected IStatus run(IProgressMonitor monitor) {
-//					try {
-//						if (job != null) {
-//							if (contentProvider.isCanceled()) {
-//								return Status.OK_STATUS;
-//							}
-//							contentProvider.setCanceled(true);
-//							job.join();
-//							contentProvider.setCanceled(false);
-//						}
-//					} catch (final InterruptedException e) {
-//						e.printStackTrace();
-//					}
-//	//
-//					job = new Job("update") {
-//	//
-//						@Override
-//						protected IStatus run(IProgressMonitor monitor) {
-//							if (currentEditor == null) {
-//								contentProvider.defaultContent();
-//							} else {
-//								final IResource anyFile = ResourceUtil.getResource(currentEditor.getEditorInput());
-//								// TODO is refresh really necessary? -> true?
-//	//
-//								if (force || (currentInput == null) || !anyFile.getProject().equals(currentInput.getProject())) {
-//									contentProvider.calculateContent(anyFile, true);
-//									currentInput = anyFile;
-//								} else {
-//									contentProvider.calculateContent(anyFile, false);
-//								}
-//							}
-//							return Status.OK_STATUS;
-//						}
-//					};
-//					job.setPriority(Job.DECORATE);
-//					job.schedule();
-//					return Status.OK_STATUS;
-//				}
-//			};
-//			waiter.setPriority(Job.DECORATE);
-//			waiter.schedule();
-//			cancelJobs();
-		}
-
-		private void cancelJobs() {
-//			final JobDoneListener jobListener = JobDoneListener.getInstance();
-//			if (jobListener != null) {
-//				jobListener.cancelAllRunningTreeJobs();
-//			}
-		}
 
 
 
@@ -488,17 +428,17 @@ public class DwAnomalyView extends ViewPart {
 			
 			if (currentEditor == newEditor) {
 				return;
-//				if (currentEditor == newEditor) {
-//					return;
-//				}
-//
-//				if (currentEditor instanceof DwGraphicalFeatureModelEditor) {
-//					((DwGraphicalFeatureModelEditor) currentEditor).getModelWrapped().removePropertyChangeListener(modelListener);
-////					getFeatureModel().removeListener(modelListener);
-//				}  else if (newEditor instanceof DwFeatureModelConfiguratorViewer){
-//					((DwFeatureModelConfiguratorViewer) currentEditor).getModelWrapped().removePropertyChangeListener(modelListener);
-//			
-//				}
+			}
+				
+			if(currentEditor != newEditor && currentEditor != null && newEditor != null){
+
+				if (currentEditor instanceof DwGraphicalFeatureModelEditor) {
+					((DwGraphicalFeatureModelEditor) currentEditor).getModelWrapped().removePropertyChangeListener(modelListener);
+				}  
+				else if (currentEditor instanceof DwFeatureModelConfiguratorViewer){
+					((DwFeatureModelConfiguratorViewer) currentEditor).getModelWrapped().removePropertyChangeListener(modelListener);
+			
+				}
 		   }
 			boolean force = true;
 			if ((newEditor != null) && (currentEditor != null)) {
@@ -514,26 +454,22 @@ public class DwAnomalyView extends ViewPart {
 					}
 				}
 			}
-			currentEditor = newEditor;
+			
 			if (newEditor instanceof DwGraphicalFeatureModelEditor) {
+				currentEditor = newEditor;
 				((DwGraphicalFeatureModelEditor) currentEditor).getModelWrapped().addPropertyChangeListener(modelListener);
 				modelWrapped = ((DwGraphicalFeatureModelEditor) currentEditor).getModelWrapped();
 				
 			} else if (newEditor instanceof DwFeatureModelConfiguratorViewer){
+				currentEditor = newEditor;
 				((DwFeatureModelConfiguratorViewer) currentEditor).getModelWrapped().addPropertyChangeListener(modelListener);
 				modelWrapped = ((DwFeatureModelConfiguratorViewer) currentEditor).getModelWrapped();
 			} else{
 				return;
 			}
-//			else if (newEditor instanceof HyconstraintsEditor){
-//				
-//				IHyconstraintsTextResource res = ((HyconstraintsEditor) currentEditor).getResource();
-//				List<EObject> contents = res.getContents();
-//				HyConstraintModel constraintModel = (HyConstraintModel) contents.get(0);
-//				modelWrapped = EcoreIOUtil.loadAccompanyingModel(constraintModel, "hyfeature");
-//				System.out.println(contents);
-//			}
 			setAccomanyingModels();
+			
+			//TODO: implement listeners for
 			addModelListeners();
 			refresh(force);
 		}
@@ -547,9 +483,9 @@ public class DwAnomalyView extends ViewPart {
 			
 		};
 		
+		//TODO: Add Model Listeners to other models to implement auto refresh
 		private void addModelListeners(){
-//			System.out.println("Added listner");
-//			constraintModel.eAdapters().add(contextModelAdapter);
+
 		}
 		
 		
@@ -601,18 +537,13 @@ public class DwAnomalyView extends ViewPart {
 
 
 		private String getURI(){
-			
-			if(serverUri == null){
-				return DEFAULT_SERVER_URI;
-			}
-			
-			return serverUri;
+			return SAVED_SERVER_URI;
 
 		}
 		
 		private void setURI(String string){
 			
-			serverUri = string;
+			SAVED_SERVER_URI = string;
 			
 		}
 		
@@ -684,37 +615,54 @@ public class DwAnomalyView extends ViewPart {
 			
 
 			try {
-				
-				
-				
-				
-//				if(currentEditor instanceof DwFeatureModelConfiguratorViewer){
-					
-					voidFeatureAnomaly = client.validateFeatureModelWithContext(uri, contextModel,
-							validityModel, modelWrapped.getModel(), constraintModel, null, profile,
-							contextValueModel, modelWrapped.getSelectedDate());
-				
-//					}
+				String username = null;
+				String password = null;
+				if(HTTT_AUTHENTICATION_ENABLED){
+					username = USERNAME;
+					password = PASSWORD;
+				}
 
-					List<DwAnomaly> anomalies = client.checkFeatures(uri, contextModel, validityModel, modelWrapped.getModel(), constraintModel, null, null);
+				if(currentEditor instanceof DwFeatureModelConfiguratorViewer){
+					
+				
+					
+					voidFeatureAnomaly = client.validateFeatureModelWithContext(uri, username, password, contextModel,
+							validityModel, modelWrapped.getModel(), constraintModel, ((DwFeatureModelConfiguratorViewer)currentEditor).getConfiguration(), profile,
+							contextValueModel, modelWrapped.getSelectedDate());
+					
+				
+					}else{
+						voidFeatureAnomaly = client.validateFeatureModelWithContext(uri, username, password, contextModel,
+								validityModel, modelWrapped.getModel(), constraintModel, null, profile,
+								contextValueModel, modelWrapped.getSelectedDate());
+						
+					}
+
+					List<DwAnomaly> anomalies = client.checkFeatures(uri, username, password, contextModel, validityModel, modelWrapped.getModel(), constraintModel, null, null);
 					
 					if(voidFeatureAnomaly != null){
 						anomalies.add(voidFeatureAnomaly);
 					}
 					
+					errorMessage.setVisible(false);
+					
 					return anomalies;
 					
 					
 				
-			} catch (UnresolvedAddressException | TimeoutException | InterruptedException | ExecutionException | HyVarRecNoSolutionException e1) {
-				MessageDialog dialog = new MessageDialog(PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell(), "Unresolvable Server Adress", null,
-						"The adress '"+uri.toString()+"' could not be resolved or had a timeout. No configuration was generated.", MessageDialog.ERROR, new String[] { "Ok" }, 0);
-				dialog.open();
-			}
-//			catch (HyVarRecNoSolutionException e) {
+			} catch (UnresolvedAddressException | TimeoutException | InterruptedException | ExecutionException | HyVarRecNoSolutionException | NullPointerException e1 ) {
+				
+			
+				errorMessage.setVisible(true);
+				errorMessage.setText("Unresolvable Server Adress. \n" + e1);
 //				
-//				e.printStackTrace();
-//			}
+//				MessageDialog dialog = new MessageDialog(PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell(), "Unresolvable Server Adress", null,
+//						"The adress '"+uri.toString()+"' could not be resolved or had a timeout. No configuration was generated.", MessageDialog.ERROR, new String[] { "Ok" }, 0);
+//				dialog.open();
+				
+			}
+
+			
 			return null; 
 
 

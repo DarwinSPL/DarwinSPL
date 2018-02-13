@@ -284,6 +284,6 @@ public class DwRESTServerSelectDialog extends TitleAreaDialog{
 
 	@Override
 	protected Point getInitialSize() {
-		return new Point(480, 340);
+		return new Point(480, 400);
 	}
 }

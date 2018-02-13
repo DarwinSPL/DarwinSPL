@@ -122,6 +122,8 @@ public class AnomalyTableView<T extends DwAnomaly> extends TableViewer {
 	            		}
 	            		
 	            	}
+	            	
+	            	return result;
             		
             		
             	}
@@ -148,12 +150,13 @@ public class AnomalyTableView<T extends DwAnomaly> extends TableViewer {
 //
         // the effected date (until)
         col = createTableViewerColumn(titles[3], bounds[3], 3);
+        
         col.setLabelProvider(new ColumnLabelProvider() {
             @Override
             public String getText(Object element) {
             	
             	DwAnomaly p = (DwAnomaly) element;
-            		Date date = ((DwFalseOptionalFeatureAnomaly) p).getValidUntil();
+            		Date date = ((DwAnomaly) p).getValidUntil();
             		if(date == null){
             			return "NULL";
             		}
@@ -196,6 +199,17 @@ public class AnomalyTableView<T extends DwAnomaly> extends TableViewer {
 				});
                 
             	}
+            	else{
+            		DwAnomaly p = (DwAnomaly) cell.getItem().getData();
+            		
+            		Date date = p.getValidUntil();
+            		if(date == null){
+            			cell.setText("NULL");
+            		}else{
+            		cell.setText(date.toString());
+            		}
+            		
+            	}
               
                 
 
@@ -210,6 +224,7 @@ public class AnomalyTableView<T extends DwAnomaly> extends TableViewer {
         	
         	@Override
         	public void update(ViewerCell cell) {
+        		if(cell.getItem().getData() instanceof DwDeadFeatureAnomaly || cell.getItem().getData() instanceof DwFalseOptionalFeatureAnomaly){
         		TableItem item = (TableItem) cell.getItem();
                 Button button = new Button((Composite) cell.getViewerRow().getControl(), SWT.NONE);
                 button.setData(item);
@@ -241,9 +256,12 @@ public class AnomalyTableView<T extends DwAnomaly> extends TableViewer {
 						
 					}
 				});
+                
+             
               
                 
 
+        	}
         	}
         	
         });
