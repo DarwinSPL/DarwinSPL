@@ -2,10 +2,12 @@ package de.darwinspl.reconfigurator.client.hyvarrec;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import org.eclipse.emf.ecore.EObject;
 
 import de.darwinspl.anomaly.DwAnomaly;
 import de.darwinspl.anomaly.DwDeadFeatureAnomaly;
@@ -27,12 +29,11 @@ import eu.hyvar.context.HyContextModel;
 import eu.hyvar.context.HyContextualInformation;
 import eu.hyvar.context.contextValidity.HyValidityFormula;
 import eu.hyvar.context.contextValidity.HyValidityModel;
-import eu.hyvar.dataValues.HyDataValuesFactory;
 import eu.hyvar.dataValues.HyEnum;
 import eu.hyvar.dataValues.HyEnumLiteral;
-import eu.hyvar.dataValues.HyNumberValue;
 import eu.hyvar.evolution.HyName;
 import eu.hyvar.evolution.HyTemporalElement;
+import eu.hyvar.evolution.util.HyEvolutionUtil;
 import eu.hyvar.feature.HyFeature;
 import eu.hyvar.feature.HyFeatureChild;
 import eu.hyvar.feature.HyFeatureModel;
@@ -41,16 +42,10 @@ import eu.hyvar.feature.HyGroup;
 import eu.hyvar.feature.HyGroupComposition;
 import eu.hyvar.feature.HyGroupType;
 import eu.hyvar.feature.HyGroupTypeEnum;
+import eu.hyvar.feature.HyRootFeature;
 import eu.hyvar.feature.HyVersion;
 import eu.hyvar.feature.constraint.HyConstraint;
 import eu.hyvar.feature.constraint.HyConstraintModel;
-import eu.hyvar.feature.expression.HyEqualExpression;
-import eu.hyvar.feature.expression.HyExpression;
-import eu.hyvar.feature.expression.HyExpressionFactory;
-import eu.hyvar.feature.expression.HyFeatureReferenceExpression;
-import eu.hyvar.feature.expression.HyImpliesExpression;
-import eu.hyvar.feature.expression.HyValueExpression;
-import eu.hyvar.reconfigurator.input.exporter.HyVarRecExporter;
 
 public class DwEditorOperationAnalyzer {
 	
@@ -97,7 +92,7 @@ public class DwEditorOperationAnalyzer {
 						// => create EditorOperationFeatureRename
 						HyName predecessor = (HyName) name.getSupersededElement();
 						obj = EditoroperationFactory.eINSTANCE.createDwEditorOperationFeatureRename();
-						obj.setEvoStep(feature.getValidSince());
+						obj.setEvoStep(name.getValidSince());
 						((DwEditorOperationFeature) obj).setFeature(feature);
 						((DwEditorOperationFeatureRename) obj).setOldName(predecessor);
 						((DwEditorOperationFeatureRename) obj).setNewName(name);
@@ -110,7 +105,7 @@ public class DwEditorOperationAnalyzer {
 						HyFeatureType predecessor = (HyFeatureType) type.getSupersededElement();
 						// => create EditorOperationFeatureType
 						obj = EditoroperationFactory.eINSTANCE.createDwEditorOperationFeatureType();
-						obj.setEvoStep(feature.getValidSince());
+						obj.setEvoStep(type.getValidSince());
 						((DwEditorOperationFeature) obj).setFeature(feature);
 						((DwEditorOperationFeatureType) obj).setOldType(predecessor);
 						((DwEditorOperationFeatureType) obj).setNewType(type);
@@ -129,7 +124,7 @@ public class DwEditorOperationAnalyzer {
 						HyGroupComposition predecessor = (HyGroupComposition) group.getSupersededElement();
 						// => create editorOperationFeatureGroup
 						obj = EditoroperationFactory.eINSTANCE.createDwEditorOperationFeatureGroup();
-						obj.setEvoStep(feature.getValidSince());
+						obj.setEvoStep(group.getValidSince());
 						((DwEditorOperationFeature) obj).setFeature(feature);
 						((DwEditorOperationFeatureGroup) obj).setOldGroup(predecessor);
 						((DwEditorOperationFeatureGroup) obj).setNewGroup(group);
@@ -317,38 +312,171 @@ public class DwEditorOperationAnalyzer {
 		
 		// if not: it is caused by a constraint.
 		
-		System.out.println("TRANSLATION MAPPING:");
+		explainDeadFeatureConstraints(anomalyExplanation);
+		
+	}
+	
+	// TODO: make it more generic
+	protected void explainDeadFeatureConstraints(DwAnomalyExplanation anomalyExplanation) {
+
+		System.out.println(">TRANSLATION MAPPING:");
 		System.out.println(Arrays.toString(client.exporter.getTranslationMapping().entrySet().toArray()));
 		
-		for (String constraint : anomalyExplanation.getExplanations()) {
+		
+		/*
+		 * Possible EObjects in translationMapping:
+		 * feature: mandatory (aka parent=1 -> feature=1) // special case???
+		 * constraint: constraint
+		 * group: grouptype condition (parent=1 -> f1 alt/and/or f2 ... = 1)
+		 * validityformula: validityformula
+		 * groupcomposition: parent connection (f1 or f2 ... -> parent)
+		 * rootfeature: rootfeature = 1
+		 * 
+		 * what's missing: contradicting translation of "anomalyfeature = 1"
+		 * 
+		 */
+		Map<EObject, String> translationMapping = client.exporter.getTranslationMapping();
+
+		// use only those translationmappings that are actually explanations.
+		translationMapping.values().retainAll(anomalyExplanation.getExplanations());
+
+		System.out.println(Arrays.toString(client.exporter.getTranslationMapping().entrySet().toArray()));
+		
+		for (EObject obj : translationMapping.keySet()) {
+			// resolve ids to names
+			String explanation = resolveFeatureName(translationMapping.get(obj), anomalyExplanation.getDate());
+								
+			if (obj instanceof HyRootFeature) {
+				HyRootFeature rootFeature = (HyRootFeature) obj;
+				String rootFeatureName = HyEvolutionUtil.getValidTemporalElement(rootFeature.getFeature().getNames(), anomalyExplanation.getDate()).getName();
+				System.out.println(explanation + " -> " + rootFeatureName + " is root feature.");
+			}
+			else if (obj instanceof HyFeature) {
+				HyFeature feature = (HyFeature) obj;
+				String featureName = HyEvolutionUtil.getValidTemporalElement(feature.getNames(), anomalyExplanation.getDate()).getName();
+				System.out.println(explanation + " -> " + featureName + " is mandatory.");
+				// TODO: check whether this is related to changing the feature type
+			}
+			else if (obj instanceof HyConstraint) {
+				HyConstraint constraint = (HyConstraint) obj;
+				System.out.println(explanation + " -> constraint");
+				// TODO: check whether a constraint might have caused the anomaly
+			}
+			else if (obj instanceof HyValidityFormula) {
+				HyValidityFormula validityFormula = (HyValidityFormula) obj;
+				System.out.println(explanation + " -> validity formula");
+				// TODO: check whether a validityformula might have caused the anomaly
+			}
+			else if (obj instanceof HyGroup) {
+				HyGroup group = (HyGroup) obj;
+				System.out.println(explanation + " -> this is a group.");
+				
+//				HyGroupComposition groupComposition = HyEvolutionUtil.getValidTemporalElement(group.getParentOf(), anomalyExplanation.getDate());
+
+				// alternate-group: all displayed (exactly one feature)
+				// or-group: all displayed (at least one feature)
+				// and-group: only mandatory displayed (whatever features)
+				
+				// TODO: check whether this is related to moving a feature to the group, or changing the group type
+				
+				List<DwEditorOperation> opsList = getEditorOperationListForObject(group, anomalyExplanation.getDate());
+				
+				// check parent modifications
+				HyFeatureChild featureChild = HyEvolutionUtil.getValidTemporalElement(group.getChildOf(), anomalyExplanation.getDate());
+				opsList.addAll(getEditorOperationListForObject(featureChild.getParent(), anomalyExplanation.getDate()));
+//				System.out.println(Arrays.toString(opsList.toArray()));
+				
+				evaluateDeadFeatureEditorOperations(opsList);
+			}
+			else if (obj instanceof HyGroupComposition) {
+				HyGroupComposition groupComposition = (HyGroupComposition) obj;
+				System.out.println(explanation + " -> this is a group to parent relation.");
+				// TODO: check whether this is related to moving a feature to the group, or changing the group type
+				
+				HyGroup group = groupComposition.getCompositionOf();
+				List<DwEditorOperation> opsList = getEditorOperationListForObject(group, anomalyExplanation.getDate());
+//				System.out.println(Arrays.toString(opsList.toArray()));
+			}
 			
+			// TODO: figure out what happened to changes that are not related to these constraint!
+			// example: grouptype change mandatory->optional (won't give you a constraint, except the parent iirc)
+			// generally: check occurring anomalies cases.
 		}
 	}
 	
-	
-	protected List<HyFeature> getDeadFeatures(List<DwAnomaly> anomalies) {
-		List<HyFeature> deadFeatures = new ArrayList<HyFeature>();
-		for (DwAnomaly anomaly : anomalies) {
-			if (anomaly instanceof DwDeadFeatureAnomaly) {
-				deadFeatures.add(((DwDeadFeatureAnomaly) anomaly).getFeature());
+
+	protected void evaluateDeadFeatureEditorOperations(List<DwEditorOperation> opsList) {
+		/*
+		 * Relevant EditorOperations for Dead Feature Anomaly:
+		 * FeatureType
+		 * FeatureGroup
+		 * GroupType
+		 * AttributeMinMax
+		 * ConstraintCreate
+		 * ValidityFormulaCreate
+		 * 
+		 */
+		for (DwEditorOperation operation : opsList) {
+			if (operation instanceof DwEditorOperationFeatureType) {
+				DwEditorOperationFeatureType featureType = (DwEditorOperationFeatureType) operation;
+				String featureName = HyEvolutionUtil.getValidTemporalElement(featureType.getFeature().getNames(), operation.getEvoStep()).getName();
+				String oldName = featureType.getOldType().getType().getName();
+				String newName = featureType.getNewType().getType().getName();
+				System.out.println("-> FeatureType of " + featureName + " changed from " + oldName +  " to " + newName + " in " + operation.getEvoStep());
 			}
 		}
-		return deadFeatures;
 	}
-	
-	protected List<HyFeature> getFalseOptionalFeatures(List<DwAnomaly> anomalies) {
-		List<HyFeature> falseOptionalFeatures = new ArrayList<HyFeature>();
-		for (DwAnomaly anomaly : anomalies) {
-			if (anomaly instanceof DwFalseOptionalFeatureAnomaly) {
-				falseOptionalFeatures.add(((DwFalseOptionalFeatureAnomaly) anomaly).getFeature());
+
+	public List<DwEditorOperation> getEditorOperationListForObject(EObject object, Date date) {
+		List<DwEditorOperation> opsList = new ArrayList<DwEditorOperation>();
+		
+		HyFeature feature = null;
+		if (object instanceof HyFeature) {
+			feature = (HyFeature) object;
+		}
+		HyGroup group = null;
+		if (object instanceof HyGroup) {
+			group = (HyGroup) object;
+		}
+		
+		for (DwEditorOperation operation : operationList) {
+			if (operation.getEvoStep() == null || operation.getEvoStep().equals(date) || operation.getEvoStep().before(date)) {
+				if (feature != null) {
+					if (operation instanceof DwEditorOperationFeature) {
+						DwEditorOperationFeature  opFeature = (DwEditorOperationFeature) operation;
+						if (opFeature.getFeature() == feature) {
+							opsList.add(opFeature);
+						}
+					}
+				} else if (group != null) {
+					if (operation instanceof DwEditorOperationGroupType) {
+						DwEditorOperationGroupType opGroupType = (DwEditorOperationGroupType) operation;
+						if (opGroupType.getGroup().equals(group)) {
+							opsList.add(opGroupType);
+						}
+					} else if (operation instanceof DwEditorOperationFeatureGroup) {
+						DwEditorOperationFeatureGroup opFeatureGroup = (DwEditorOperationFeatureGroup) operation;
+						if (opFeatureGroup.getNewGroup().getCompositionOf().equals(group)) {
+							opsList.add(opFeatureGroup);
+						}
+					}
+				}
+				// TODO: needs to be expanded
 			}
 		}
-		return falseOptionalFeatures;
-	}
-	
+		
+		return opsList;
+	}	
 	
 	
 	// ------------- UTIL -------------
+	
+	public String resolveFeatureName(String encodedString, Date date) {
+		List<String> list = new ArrayList<String>();
+		list.add(encodedString);
+		list = client.translateIdsBackToNames(list, date, client.exporter);
+		return list.get(0);
+	}
 	
 	public HyFeature getFeatureParent(HyFeature feature, Date date) {		
 		for (HyGroupComposition groupComp : feature.getGroupMembership()) {			
@@ -397,6 +525,27 @@ public class DwEditorOperationAnalyzer {
 		}
 		return false;
 	}
+	
+	protected List<HyFeature> getDeadFeatures(List<DwAnomaly> anomalies) {
+		List<HyFeature> deadFeatures = new ArrayList<HyFeature>();
+		for (DwAnomaly anomaly : anomalies) {
+			if (anomaly instanceof DwDeadFeatureAnomaly) {
+				deadFeatures.add(((DwDeadFeatureAnomaly) anomaly).getFeature());
+			}
+		}
+		return deadFeatures;
+	}
+	
+	protected List<HyFeature> getFalseOptionalFeatures(List<DwAnomaly> anomalies) {
+		List<HyFeature> falseOptionalFeatures = new ArrayList<HyFeature>();
+		for (DwAnomaly anomaly : anomalies) {
+			if (anomaly instanceof DwFalseOptionalFeatureAnomaly) {
+				falseOptionalFeatures.add(((DwFalseOptionalFeatureAnomaly) anomaly).getFeature());
+			}
+		}
+		return falseOptionalFeatures;
+	}
+	
 	
 	// ------------ GET/SET ------------
 

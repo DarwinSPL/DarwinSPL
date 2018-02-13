@@ -114,7 +114,7 @@ public class HyVarRecExporter {
 	
 	private List<Date> sortedDateList;
 	
-	private Map<EObject, List<String>> translationMapping;
+	private Map<EObject, String> translationMapping;
 
 	public HyVarRecExporter() {
 		
@@ -179,7 +179,7 @@ public class HyVarRecExporter {
 		}
 
 		// initialize translationMapping
-		translationMapping = new HashMap<EObject, List<String>>();
+		translationMapping = new HashMap<EObject, String>();
 
 		// Create mappings from model elements to IDs
 		reconfiguratorIdMapping = new ReconfiguratorIdMapping(featureModels, contextModels);
@@ -302,8 +302,6 @@ public class HyVarRecExporter {
 		try {
 			for(HyFeatureModel featureModel: featureModelExporters.keySet()) {
 				input.getConstraints().addAll(featureModelExporters.get(featureModel).getFeatureModelConstraints(featureModel, date, dateContext, sortedDateList));
-				
-				// TODO: track linking in Map<EObject, String>
 			}
 		} catch (HyFeatureModelWellFormednessException e) {
 			System.err.println("Could not create constraints of FM, as FM is not well-formed");
@@ -315,7 +313,6 @@ public class HyVarRecExporter {
 			for(HyConstraintModel constraintModel: constraintModels) {
 				input.getConstraints()
 				.addAll(constraintExporter.getConstraints(constraintModel, date, dateContext, sortedDateList));
-				// TODO: track linking in Map<EObject, String>
 			}
 		}
 
@@ -323,7 +320,6 @@ public class HyVarRecExporter {
 			for(HyValidityModel contextValidityModel: contextValidityModels) {
 				input.getConstraints().addAll(validityFormulaExporter.getContextValidityFormulas(contextValidityModel, date,
 						dateContext, sortedDateList));
-				// TODO: track linking in Map<EObject, String>
 			}
 		}
 
@@ -613,7 +609,7 @@ public class HyVarRecExporter {
 		return this.sortedDateList;
 	}
 	
-	public Map<EObject, List<String>>  getTranslationMapping() {
+	public Map<EObject, String>  getTranslationMapping() {
 		return translationMapping;
 	}
 

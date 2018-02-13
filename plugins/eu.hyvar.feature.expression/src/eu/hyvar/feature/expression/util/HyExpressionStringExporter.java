@@ -380,7 +380,6 @@ public class HyExpressionStringExporter {
 
 			if (abstractFeatureReferenceExpression.getVersionRestriction() == null) {
 				
-				atomicString.append(BRACKETS_OPEN);
 				switch(featureSelectionRepresentationOption) {
 				case ONEZERO:
 					atomicString.append(featureId);
@@ -408,7 +407,6 @@ public class HyExpressionStringExporter {
 					atomicString.append(featureId);
 					break;				
 				}
-				atomicString.append(BRACKETS_CLOSING);
 				
 			} else {
 				HyVersionRestriction versionRestriction = abstractFeatureReferenceExpression.getVersionRestriction();

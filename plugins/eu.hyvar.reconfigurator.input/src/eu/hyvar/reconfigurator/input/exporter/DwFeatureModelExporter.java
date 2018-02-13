@@ -37,11 +37,11 @@ public class DwFeatureModelExporter {
 	private Map<HyVersion, String> versionReconfiguratorIdMapping;
 	private Map<HyFeatureAttribute, String> attributeReconfiguratorIdMapping;
 	
-	private Map<EObject, List<String>> translationMapping;
+	private Map<EObject, String> translationMapping;
 	
 	public DwFeatureModelExporter(HyFeatureModel featureModel, Map<HyFeature, String> featureReconfiguratorIdMapping,
 			Map<HyVersion, String> versionReconfiguratorIdMapping, Map<HyFeatureAttribute, String> attributeReconfiguratorIdMapping,
-			Map<EObject, List<String>> translationMapping) {
+			Map<EObject, String> translationMapping) {
 		this.featureModel = featureModel;
 		this.featureReconfiguratorIdMapping = featureReconfiguratorIdMapping;
 		this.versionReconfiguratorIdMapping = versionReconfiguratorIdMapping;
@@ -64,7 +64,7 @@ public class DwFeatureModelExporter {
 
 			featureModelConstraints.add(rootFeatureConstraint.toString());
 			
-			putTranslationIntoMapping(rootFeature, rootFeatureConstraint.toString());
+			translationMapping.put(rootFeature, rootFeatureConstraint.toString());
 
 //			featureModelConstraints.addAll(getFeatureConstraints(rootFeature.getFeature(), true, date));
 
@@ -80,17 +80,14 @@ public class DwFeatureModelExporter {
 				
 				featureModelConstraints.add(rootFeatureConstraint.toString());
 
-				putTranslationIntoMapping(rootFeature, rootFeatureConstraint.toString());
+				translationMapping.put(rootFeature, rootFeatureConstraint.toString());
 				
 				rootFeatureConstraint = new StringBuilder();
 			}
 		}
 		
 		for(HyGroup group: featureModel.getGroups()) {
-			List<String> constraints = getGroupConstraints(group, date, dateContext, sortedDateList);
-			featureModelConstraints.addAll(constraints);
-			
-			putTranslationIntoMapping(group, constraints);
+			featureModelConstraints.addAll(getGroupConstraints(group, date, dateContext, sortedDateList));
 		}
 		
 		
@@ -280,7 +277,7 @@ public class DwFeatureModelExporter {
 					
 					versionConstraints.add(versionStringBuilder.toString());
 					
-					putTranslationIntoMapping(feature, versionStringBuilder.toString());
+					translationMapping.put(feature, versionStringBuilder.toString());
 				}
 			}
 		}
@@ -421,6 +418,9 @@ public class DwFeatureModelExporter {
 				}
 				
 				featureModelConstraints.add(groupConstraintsStringBuilder.toString());
+				
+				translationMapping.put(groupComposition, groupConstraintsStringBuilder.toString());
+				
 				groupConstraintsStringBuilder = new StringBuilder();
 			}
 		}
@@ -604,6 +604,8 @@ public class DwFeatureModelExporter {
 					}
 					
 					featureModelConstraints.add(groupConstraintsStringBuilder.toString());
+
+					translationMapping.put(group, groupConstraintsStringBuilder.toString());
 				}
 			}
 			
@@ -630,6 +632,8 @@ public class DwFeatureModelExporter {
 					}
 					
 					featureModelConstraints.add(groupConstraintsStringBuilder.toString());
+
+					translationMapping.put(feature, groupConstraintsStringBuilder.toString());
 				}
 				
 			}
@@ -681,7 +685,9 @@ public class DwFeatureModelExporter {
 							optionalWithoutChildStringBuilder = timedGroupConstraintStringBuilder;
 						}
 						
-						featureModelConstraints.add(optionalWithoutChildStringBuilder.toString());							
+						featureModelConstraints.add(optionalWithoutChildStringBuilder.toString());
+						
+						translationMapping.put(groupComposition, optionalWithoutChildStringBuilder.toString());
 					}
 				}
 			}
@@ -804,25 +810,11 @@ public class DwFeatureModelExporter {
 			evolutionFeatureRestrictionConstraints.add(stringBuilder.toString());
 			
 			for (HyFeature feature : invalidFeatures) {
-				putTranslationIntoMapping(feature, stringBuilder.toString());
+				translationMapping.put(feature, stringBuilder.toString());
 			}
 		}
 		
 		return evolutionFeatureRestrictionConstraints;
 		
-	}
-	
-	private void putTranslationIntoMapping(EObject obj, String string) {
-		if (!translationMapping.containsKey(obj)) {
-			translationMapping.put(obj, new ArrayList<String>());
-		}
-		translationMapping.get(obj).add(string);
-	}
-	
-	private void putTranslationIntoMapping(EObject obj, List<String> strings) {
-		if (!translationMapping.containsKey(obj)) {
-			translationMapping.put(obj, new ArrayList<String>());
-		}
-		translationMapping.get(obj).addAll(strings);
 	}
 }

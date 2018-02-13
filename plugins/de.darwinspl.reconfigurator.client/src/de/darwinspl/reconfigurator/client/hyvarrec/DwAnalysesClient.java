@@ -184,10 +184,12 @@ public class DwAnalysesClient {
 		URI uri = createUriWithPath(uriString, VALIDATE_FM_URI);
 		
 		if(additionalAnomalyConstraint != null) {
-//			inputForHyVarRec.getConstraints().add(additionalAnomalyConstraint);
+			inputForHyVarRec.getConstraints().add(additionalAnomalyConstraint);
 		}
 		
 		String messageForHyVarRec = gson.toJson(inputForHyVarRec);
+		
+		System.err.println("MessageForHyVarRec: " + messageForHyVarRec);
 		
 		String hyvarrecAnswerString = sendMessageToHyVarRec(messageForHyVarRec, uri, webserviceUsername, webservicePassword);
 		
