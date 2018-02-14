@@ -21,6 +21,7 @@ import eu.hyvar.evolution.util.HyEvolutionUtil;
 import eu.hyvar.feature.HyFeature;
 import eu.hyvar.feature.HyFeatureAttribute;
 import eu.hyvar.feature.HyFeatureChild;
+import eu.hyvar.feature.HyFeatureFactory;
 import eu.hyvar.feature.HyFeatureModel;
 import eu.hyvar.feature.HyFeatureType;
 import eu.hyvar.feature.HyFeatureTypeEnum;
@@ -529,5 +530,25 @@ public class HyFeatureEvolutionUtil {
 		Collections.sort(dateList);
 		Date lastDate = dateList.get(dateList.size()-1);
 		return nameDateMap.get(lastDate);
+	}
+	
+	public static void removeFeatureFromGroup(HyFeature feature, Date date) {
+		HyGroupComposition groupComposition = HyEvolutionUtil.getValidTemporalElement(feature.getGroupMembership(), date);
+		
+		if(groupComposition.getFeatures().size() <= 1) {
+			// Complete Group has to be invalidated
+			HyGroup group = groupComposition.getCompositionOf();
+			group.setValidUntil(date);
+			HyEvolutionUtil.getValidTemporalElement(group.getChildOf(), date).setValidUntil(date);
+		}
+		else {
+			// remove feature from group and set validities of group compositions
+			HyGroupComposition newGroupComposition = HyFeatureFactory.eINSTANCE.createHyGroupComposition();
+			newGroupComposition.setValidSince(date);
+			newGroupComposition.setCompositionOf(groupComposition.getCompositionOf());
+			newGroupComposition.getFeatures().addAll(groupComposition.getFeatures());
+			newGroupComposition.getFeatures().remove(feature);
+		}
+		groupComposition.setValidUntil(date);
 	}
 }
