@@ -13,9 +13,14 @@ import org.eclipse.swt.widgets.Text;
 
 public class FileSelectionWizardPage extends WizardPage implements SelectionListener {
 
+	protected int getSelectionType() {
+		return SWT.SINGLE;
+	}
 	
 	protected String modelName;
 	protected Composite container;
+	
+	protected FileDialog fileDialog;
 	
 	/**
 	 * 
@@ -76,13 +81,14 @@ public class FileSelectionWizardPage extends WizardPage implements SelectionList
 	@Override
 	public void widgetSelected(SelectionEvent e) {
 		if (e.getSource() == selectFileButton) {
-			FileDialog sourceFileChooser = new FileDialog(getShell());
+			fileDialog = new FileDialog(getShell(), getSelectionType());
 			if(fileExtensionFilter != null && fileExtensionFilter.length > 0) {
-				sourceFileChooser.setFilterExtensions(fileExtensionFilter);				
+				fileDialog.setFilterExtensions(fileExtensionFilter);				
 			}
-			selectedSourceFile = sourceFileChooser.open();
-			sourceFilePathText.setText(selectedSourceFile);
-			setPageComplete(true);
+			if(fileDialog.open()!=null) {
+				setSelectedFileText();
+				setPageComplete(true);				
+			}
 		}
 	}
 
@@ -94,6 +100,10 @@ public class FileSelectionWizardPage extends WizardPage implements SelectionList
 
 	public String getSelectedFilePath() {
 		return selectedSourceFile;
+	}
+	
+	protected void setSelectedFileText() {
+		sourceFilePathText.setText(fileDialog.getFileName());
 	}
 
 }
