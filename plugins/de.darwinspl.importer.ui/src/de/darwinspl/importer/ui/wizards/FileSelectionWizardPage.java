@@ -50,7 +50,7 @@ public class FileSelectionWizardPage extends WizardPage implements SelectionList
 	}
 
 	protected Label selectedSourceFileLabel;
-	protected Text sourceFilePathText;
+//	protected Text sourceFilePathText;
 	protected Button selectFileButton;
 	protected String[] fileExtensionFilter;
 	private String selectedSourceFile;
@@ -61,13 +61,13 @@ public class FileSelectionWizardPage extends WizardPage implements SelectionList
 		container = new Composite(parent, SWT.NONE);
         GridLayout layout = new GridLayout();
         container.setLayout(layout);
-        layout.numColumns = 2;
+        layout.numColumns = 1;
 		
 		
 		selectedSourceFileLabel = new Label(container, SWT.LEFT);
-		selectedSourceFileLabel.setText(modelName+" Selected:");
+		selectedSourceFileLabel.setText(modelName+" selected: None");
 
-		sourceFilePathText = new Text(container, SWT.BORDER | SWT.SINGLE);
+//		sourceFilePathText = new Text(container, SWT.BORDER | SWT.SINGLE);
 
 		selectFileButton = new Button(container, SWT.PUSH);
 		selectFileButton.setText("Select File...");
@@ -76,6 +76,7 @@ public class FileSelectionWizardPage extends WizardPage implements SelectionList
 		setControl(container);
 		// required to avoid an error in the system
 		setPageComplete(false);
+		
 	}
 
 	@Override
@@ -103,7 +104,7 @@ public class FileSelectionWizardPage extends WizardPage implements SelectionList
 	}
 	
 	protected void setSelectedFileText() {
-		sourceFilePathText.setText(fileDialog.getFileName());
+		selectedSourceFileLabel.setText(modelName+ " selected: "+ fileDialog.getFileName());
 	}
 
 }

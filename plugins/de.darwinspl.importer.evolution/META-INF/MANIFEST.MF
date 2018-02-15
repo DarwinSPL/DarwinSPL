@@ -7,3 +7,4 @@ Bundle-RequiredExecutionEnvironment: JavaSE-1.7
 Require-Bundle: org.eclipse.core.resources,
  eu.hyvar.feature,
  org.eclipse.emf.ecore
+Export-Package: de.darwinspl.importer.evolution
