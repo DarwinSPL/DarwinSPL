@@ -49,14 +49,7 @@ public class DwValidityDialog extends DwSelectionDialog {
 						Date value = dialog.getValue();
 						validSince.setText(getDateFormatted(value, DATE_FORMATTING));
 						((HyTemporalElement) element).setValidSince(value);
-
-						//check all validities of this elements HyNames against the new feature validity
-						EList<HyName> namedElements = ((HyNamedElement) element).getNames();
-						for (int index = 0; index <= namedElements.size(); index++) {
-							if (value.after(namedElements.get(index).getValidSince())) {
-								namedElements.get(index).setValidSince(value);
-							}
-						}
+						checkValidityPropagation(getParentShell());
 					}
 				}
 			}
@@ -84,9 +77,7 @@ public class DwValidityDialog extends DwSelectionDialog {
 					dialog.open();
 					if (dialog.getReturnCode() == OK) {
 						Date value = dialog.getValue();
-
 						validUntil.setText(getDateFormatted(value, DATE_FORMATTING));
-						((HyTemporalElement) element).setValidUntil(value);
 					}
 				}
 			}
@@ -106,10 +97,47 @@ public class DwValidityDialog extends DwSelectionDialog {
 
 	@Override
 	protected void okPressed() {
-		HyTemporalElement temporalElement = (HyTemporalElement) element;
-		temporalElement.setValidSince(convertStringToDate(validSince.getText()));
-		temporalElement.setValidUntil(convertStringToDate(validUntil.getText()));
-		super.okPressed();
+		if (checkValidityPropagation(getParentShell())) {
+			HyTemporalElement temporalElement = (HyTemporalElement) element;
+			temporalElement.setValidSince(convertStringToDate(validSince.getText()));
+			temporalElement.setValidUntil(convertStringToDate(validUntil.getText()));
+			
+			super.okPressed();
+		}
+	}
+
+	/**
+	 * check all validities of this elements HyNames against the new feature
+	 * validity
+	 * 
+	 * @param value
+	 *            the since date to be checked against
+	 */
+	private boolean checkValidityPropagation(Shell parentShell) {
+		Date since = convertStringToDate(validSince.getText());
+		// Date until = convertStringToDate(validUntil.getText());
+		// TODO check for ending validity.
+		Boolean checkBool = true;
+		EList<HyName> namedElements = ((HyNamedElement) element).getNames();
+		for (HyName hyName : namedElements) {
+			if (hyName.getValidUntil() != null && since.compareTo(hyName.getValidUntil()) >= 0) {
+				DwObsoleteTimeframeDialog dialog = new DwObsoleteTimeframeDialog(parentShell, hyName.getName());
+				dialog.open();
+
+				if (dialog.getReturnCode() == OK) {
+					namedElements.remove(hyName);
+					continue;
+
+				} else {
+					checkBool = false;
+					break;
+				}
+
+			} else if (hyName.getValidSince() == null || since.compareTo(hyName.getValidSince()) > 0) {
+				hyName.setValidSince(since);
+			}
+		}
+		return checkBool;
 	}
 
 	@Override
