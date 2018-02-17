@@ -1,12 +1,7 @@
 package de.darwinspl.feature.graphical.editor.dialogs;
 
-import org.eclipse.jface.layout.GridLayoutFactory;
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.events.SelectionEvent;
-import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.layout.GridLayout;
-import org.eclipse.swt.layout.RowLayout;
-import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
@@ -22,7 +17,6 @@ public class DwObsoleteTimeframeDialog extends DwSelectionDialog {
 
 	@Override
 	protected void createWidgets(Composite parent) {
-
 		Composite superContainer = new Composite(parent, SWT.NONE);
 		GridLayout containerGrid = new GridLayout(1, false);
 		superContainer.setLayout(containerGrid);

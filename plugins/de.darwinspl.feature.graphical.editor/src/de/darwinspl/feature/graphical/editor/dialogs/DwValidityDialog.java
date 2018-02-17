@@ -48,8 +48,6 @@ public class DwValidityDialog extends DwSelectionDialog {
 					if (dialog.getReturnCode() == OK) {
 						Date value = dialog.getValue();
 						validSince.setText(getDateFormatted(value, DATE_FORMATTING));
-						((HyTemporalElement) element).setValidSince(value);
-						checkValidityPropagation(getParentShell());
 					}
 				}
 			}
@@ -101,43 +99,49 @@ public class DwValidityDialog extends DwSelectionDialog {
 			HyTemporalElement temporalElement = (HyTemporalElement) element;
 			temporalElement.setValidSince(convertStringToDate(validSince.getText()));
 			temporalElement.setValidUntil(convertStringToDate(validUntil.getText()));
-			
-			super.okPressed();
 		}
+		super.okPressed();
 	}
 
 	/**
 	 * check all validities of this elements HyNames against the new feature
-	 * validity
-	 * 
-	 * @param value
-	 *            the since date to be checked against
+	 * validity. This will open a dialog, if a name validity does not overlap with
+	 * the new feature validity.
 	 */
 	private boolean checkValidityPropagation(Shell parentShell) {
-		Date since = convertStringToDate(validSince.getText());
-		// Date until = convertStringToDate(validUntil.getText());
-		// TODO check for ending validity.
-		Boolean checkBool = true;
-		EList<HyName> namedElements = ((HyNamedElement) element).getNames();
-		for (HyName hyName : namedElements) {
-			if (hyName.getValidUntil() != null && since.compareTo(hyName.getValidUntil()) >= 0) {
-				DwObsoleteTimeframeDialog dialog = new DwObsoleteTimeframeDialog(parentShell, hyName.getName());
+
+		// TODO bug: when a name validity is stretched to fit a new (longer) feature
+		// validity, the editor does not create the necessary connections to parent
+		// feature.
+		Date newSince = convertStringToDate(validSince.getText());
+		Date newUntil = convertStringToDate(validUntil.getText());
+		EList<HyName> elementList = ((HyNamedElement) element).getNames();
+
+		for (HyName e : elementList) {
+
+			Date eSince = e.getValidSince(), eUntil = e.getValidUntil();
+
+			if ((newSince != null && eUntil.compareTo(newSince) <= 0)
+					|| (newSince != null && eSince.compareTo(newUntil) >= 0)) {
+				DwObsoleteTimeframeDialog dialog = new DwObsoleteTimeframeDialog(parentShell, e.getName());
 				dialog.open();
-
 				if (dialog.getReturnCode() == OK) {
-					namedElements.remove(hyName);
+					elementList.remove(e);
 					continue;
-
 				} else {
-					checkBool = false;
-					break;
+					return false;
 				}
-
-			} else if (hyName.getValidSince() == null || since.compareTo(hyName.getValidSince()) > 0) {
-				hyName.setValidSince(since);
+			}
+			if (eSince == null || eSince.before(newSince)
+					|| (e.getSupersededElement() == null && eSince.after(newSince))) {
+				e.setValidSince(newSince);
+			}
+			if (eUntil == null || eUntil.after(newUntil)
+					|| (e.getSupersedingElement() == null && eUntil.before(newUntil))) {
+				e.setValidUntil(newUntil);
 			}
 		}
-		return checkBool;
+		return true;
 	}
 
 	@Override
