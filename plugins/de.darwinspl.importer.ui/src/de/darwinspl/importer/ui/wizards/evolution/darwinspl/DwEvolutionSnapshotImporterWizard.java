@@ -64,7 +64,7 @@ public class DwEvolutionSnapshotImporterWizard extends Wizard implements IImport
 		ResourceSet rs = null;
 		
 		for(Entry<IFile, Date> fileDate : fileDateMap.entrySet()) {
-			if(fileDate.getKey() != null && fileDate.getValue() != null) {
+			if(fileDate.getKey() != null) {
 				EObject loadedObject = null;
 				if(rs == null) {
 					loadedObject = EcoreIOUtil.loadModel(fileDate.getKey());
