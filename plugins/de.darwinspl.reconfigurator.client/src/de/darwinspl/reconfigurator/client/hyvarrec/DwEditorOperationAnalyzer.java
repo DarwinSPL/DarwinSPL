@@ -59,6 +59,7 @@ import eu.hyvar.feature.HyRootFeature;
 import eu.hyvar.feature.HyVersion;
 import eu.hyvar.feature.constraint.HyConstraint;
 import eu.hyvar.feature.constraint.HyConstraintModel;
+import eu.hyvar.feature.util.HyFeatureEvolutionUtil;
 
 public class DwEditorOperationAnalyzer {
 	
@@ -292,30 +293,28 @@ public class DwEditorOperationAnalyzer {
 	}
 
 	// TODO
-	public void explainAnomaly(DwAnomalyExplanation anomalyExplanation) {		
+	public List<AnomalyConstraintExplanation> explainAnomaly(DwAnomalyExplanation anomalyExplanation) {		
 		if (anomalyExplanation.getAnomaly() instanceof DwVoidFeatureModelAnomaly) {
 //			DwVoidFeatureModelAnomaly voidFeatureAnomaly = (DwVoidFeatureModelAnomaly) anomaly;
 		} else if (anomalyExplanation.getAnomaly() instanceof DwDeadFeatureAnomaly){
-			explainDeadFeatureAnomaly(anomalyExplanation);
+			return explainDeadFeatureAnomaly(anomalyExplanation);
 		} else if (anomalyExplanation.getAnomaly() instanceof DwFalseOptionalFeatureAnomaly) {
 //			DwFalseOptionalFeatureAnomaly falseOptionalFeatureAnomaly = (DwFalseOptionalFeatureAnomaly) anomaly;
 		}
-		
+		return null;
 	}
 	
-	public void explainVoidAnomaly(DwAnomalyExplanation anomalyExplanation) {
+	public List<AnomalyConstraintExplanation> explainVoidAnomaly(DwAnomalyExplanation anomalyExplanation) {
 		// TODO
-		
-		// Possible ideas:
-		// 1. - do something like DwEditorOperation.getConstraint() with the affected constraints it might result in
-		//    - check whether such constraint occurs in the answer
-		//    - check whether certain conditions are fulfilled for a given anomaly
-		
+		return null;
 	}
 
-	public void explainDeadFeatureAnomaly(DwAnomalyExplanation anomalyExplanation) {
+	public List<AnomalyConstraintExplanation> explainDeadFeatureAnomaly(DwAnomalyExplanation anomalyExplanation) {
 		DwDeadFeatureAnomaly anomaly = (DwDeadFeatureAnomaly) anomalyExplanation.getAnomaly();
 		Date date = anomaly.getValidSince();
+		
+		List<AnomalyConstraintExplanation> constraintExplanationList = new ArrayList<AnomalyConstraintExplanation>();
+		
 		HyFeature parent = getFeatureParent(anomaly.getFeature(), date);
 		// Root's parent would be null
 		if (parent != null) {
@@ -323,8 +322,12 @@ public class DwEditorOperationAnalyzer {
 			// check whether the parent is already dead		
 			if (deadFeatureList.contains(parent)) {
 				// IGNORE as the parent is the one we have already handled or handle later
-				System.out.println("Feature " + anomaly.getFeature().getId() + " is a dead feature, because of its already-dead parent!");
-				return;
+				String explanation = "This is a dead feature, because of its already-dead parent " + HyFeatureEvolutionUtil.getName(parent.getNames(), date) + "!";
+				AnomalyConstraintExplanation simpleExplanation = new AnomalyConstraintExplanation();
+				simpleExplanation.setDate(date);
+				simpleExplanation.setStringReference(explanation);
+				constraintExplanationList.add(simpleExplanation);
+				return constraintExplanationList;
 			}
 			
 			// check whether it's the result of the false-optional group
@@ -342,13 +345,17 @@ public class DwEditorOperationAnalyzer {
 					HyGroupComposition groupComp = getFeatureGroupComposition(featureGroup, date);
 					for (HyFeature otherFeature : groupComp.getFeatures()) {
 						if (falseOptionalList.contains(otherFeature)) {
-							System.out.println("Feature " + anomaly.getFeature().getId() + " is a dead feature, because it's in an ALTERNATIVE group with the false-optional feature " + otherFeature.getId());
+							String explanation = "This is a dead feature, because it's in an ALTERNATIVE group with the false-optional feature " + HyFeatureEvolutionUtil.getName(otherFeature.getNames(), date);
 
 							// now we know that this feature is only considered a dead-feature because of the false-optional feature
 							// do we have an explanation here for the cause of _why_ it is false optional (which is the root of this)
-							// or do we simply wait/forward to the false-optional explanation?
-							
-							return;
+							// or do we simply wait/forward to the false-optional explanation?							
+
+							AnomalyConstraintExplanation simpleExplanation = new AnomalyConstraintExplanation();
+							simpleExplanation.setDate(date);
+							simpleExplanation.setStringReference(explanation);
+							constraintExplanationList.add(simpleExplanation);
+							return constraintExplanationList;
 						}
 					}
 				}
@@ -357,7 +364,7 @@ public class DwEditorOperationAnalyzer {
 		
 		// if not: it is caused by a constraint.
 		
-		List<AnomalyConstraintExplanation> constraintExplanationList = getRelatedEditorOperationsFromExplanation(anomalyExplanation);
+		constraintExplanationList = getRelatedEditorOperationsFromExplanation(anomalyExplanation);
 		
 		for (AnomalyConstraintExplanation explanation : constraintExplanationList) {
 			filterRelevantDeadFeatureEditorOperation(explanation);
@@ -367,23 +374,12 @@ public class DwEditorOperationAnalyzer {
 			System.out.println(explanationString);
 		}
 		
+		return constraintExplanationList;
+		
 	}
 	
-	// TODO: use Map<DwEditorOperation, EObject> for connection???
 	protected List<AnomalyConstraintExplanation> getRelatedEditorOperationsFromExplanation(DwAnomalyExplanation anomalyExplanation) {
 
-		/*
-		 * Possible EObjects in translationMapping:
-		 * feature: mandatory (aka parent=1 -> feature=1) // special case???
-		 * constraint: constraint
-		 * group: grouptype condition (parent=1 -> f1 alt/and/or f2 ... = 1)
-		 * validityformula: validityformula
-		 * groupcomposition: parent connection (f1 or f2 ... -> parent)
-		 * rootfeature: rootfeature = 1
-		 * 
-		 * what's missing: contradicting translation of "anomalyfeature = 1/0"
-		 * 
-		 */
 		Map<EObject, String> translationMapping = client.exporter.getTranslationMapping();
 
 		// use only those translationmappings that are actually explanations.

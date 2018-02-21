@@ -18,12 +18,12 @@ import eu.hyvar.feature.constraint.HyConstraint;
 import eu.hyvar.feature.util.HyFeatureEvolutionUtil;
 
 public class AnomalyConstraintExplanation {
-	
+
 	private EObject objReference; // TODO: rename properly
 	private String stringReference; // TODO: rename properly
 	private List<EditorOperationExplanation> editorOperationExplanations = new ArrayList<EditorOperationExplanation>();
 	private Date date;
-	
+
 	public String explain() {
 		String constraintStringExplanation = "";
 		if (objReference instanceof HyRootFeature) {
@@ -40,7 +40,7 @@ public class AnomalyConstraintExplanation {
 			constraintStringExplanation = explain(validityFormula);
 		} else if (objReference instanceof HyGroup) {
 			HyGroup group = (HyGroup) objReference;
-			constraintStringExplanation = explain(group);			
+			constraintStringExplanation = explain(group);
 		} else if (objReference instanceof HyGroupComposition) {
 			HyGroupComposition groupComposition = (HyGroupComposition) objReference;
 			constraintStringExplanation = explain(groupComposition);
@@ -56,42 +56,42 @@ public class AnomalyConstraintExplanation {
 			}
 			editorOperationExplanation = "\n>Editor Operations:\n" + editorOperationExplanation;
 		}
-		return stringReference + " -> " + constraintStringExplanation + editorOperationExplanation;
+		if (constraintStringExplanation.isEmpty()) {
+			return stringReference;
+		} else {
+			return stringReference + " -> " + constraintStringExplanation + editorOperationExplanation;
+		}
 	}
-	
 
 	/*
-	 * Possible objReferences:
-	 * feature: mandatory (aka parent=1 -> feature=1) // special case???
-	 * constraint: constraint
-	 * group: grouptype condition (parent=1 -> f1 alt/and/or f2 ... = 1)
-	 * validityformula: validityformula
-	 * groupcomposition: parent connection (f1 or f2 ... -> parent)
-	 * rootfeature: rootfeature = 1
+	 * Possible objReferences: feature: mandatory (aka parent=1 -> feature=1) //
+	 * special case??? constraint: constraint group: grouptype condition
+	 * (parent=1 -> f1 alt/and/or f2 ... = 1) validityformula: validityformula
+	 * groupcomposition: parent connection (f1 or f2 ... -> parent) rootfeature:
+	 * rootfeature = 1
 	 * 
 	 * what's missing: contradicting translation of "anomalyfeature = 1/0"
 	 * 
 	 */
-	
-	
+
 	private String explain(HyRootFeature rootFeature) {
 		String rootFeatureName = HyEvolutionUtil.getValidTemporalElement(rootFeature.getFeature().getNames(), date).getName();
 		return rootFeatureName + " is root feature.";
 	}
-	
+
 	private String explain(HyFeature feature) {
 		String featureName = HyEvolutionUtil.getValidTemporalElement(feature.getNames(), date).getName();
 		return featureName + " is mandatory.";
 	}
-	
+
 	private String explain(HyConstraint constraint) {
 		return "constraint";
 	}
-	
+
 	private String explain(HyValidityFormula validityFormula) {
 		return "validity formula";
 	}
-	
+
 	private String explain(HyGroup group) {
 		String featurenames = "";
 		List<HyFeature> featureList = HyFeatureEvolutionUtil.getChildsOfGroup(group, date);
@@ -101,18 +101,19 @@ public class AnomalyConstraintExplanation {
 			}
 			featurenames += HyFeatureEvolutionUtil.getName(feature.getNames(), date).getName();
 		}
-		
+
 		HyFeature parentFeature = HyFeatureEvolutionUtil.getParentOfGroup(group, date);
 		String parentName = HyFeatureEvolutionUtil.getName(parentFeature.getNames(), date).getName();
-		
+
 		String groupType = HyFeatureEvolutionUtil.getType(group, date).getType().getName();
-		
+
 		String beWord = (featureList.size() > 1) ? "are" : "is";
 		return featurenames + " " + beWord + " in an " + groupType + "-group under " + parentName;
 	}
-	
+
 	private String explain(HyGroupComposition groupComposition) {
-		// use explain(HyGroup) as this is just another group explanation, but in a different occasion (hence the different object)
+		// use explain(HyGroup) as this is just another group explanation, but
+		// in a different occasion (hence the different object)
 		return explain(groupComposition.getCompositionOf());
 	}
 
@@ -135,11 +136,11 @@ public class AnomalyConstraintExplanation {
 	public List<EditorOperationExplanation> getEditorOperationExplanations() {
 		return editorOperationExplanations;
 	}
-	
+
 	public void setDate(Date date) {
 		this.date = date;
 	}
-	
+
 	public Date getDate() {
 		return date;
 	}
