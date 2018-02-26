@@ -27,6 +27,7 @@ import com.google.gson.FieldNamingPolicy;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
+import de.darwinspl.anomalies.explanations.AnomalyConstraintExplanation;
 import de.darwinspl.anomaly.DwAnomaly;
 import de.darwinspl.anomaly.DwAnomalyFactory;
 import de.darwinspl.anomaly.DwDeadFeatureAnomaly;
@@ -129,7 +130,7 @@ public class DwAnalysesClient {
 	 * @throws ExecutionException
 	 * @throws UnresolvedAddressException
 	 */
-	public DwAnomalyExplanation explainAnomaly(String uriString, String webserviceUsername, String webservicePassword, HyContextModel contextModel, HyValidityModel contextValidityModel,
+	public List<AnomalyConstraintExplanation> explainAnomaly(String uriString, String webserviceUsername, String webservicePassword, HyContextModel contextModel, HyValidityModel contextValidityModel,
 			HyFeatureModel featureModel, HyConstraintModel constraintModel, DwAnomaly anomaly, DwEditorOperationAnalyzer editorOperationAnalyzer)
 			throws TimeoutException, InterruptedException, ExecutionException, UnresolvedAddressException {
 		
@@ -224,10 +225,10 @@ public class DwAnalysesClient {
 			editorOperationAnalyzer.setDate(date);
 			editorOperationAnalyzer.constructEditorOperations();
 			
-			editorOperationAnalyzer.explainAnomaly(anomalyExplanation);
+			List<AnomalyConstraintExplanation> anomalyExplanationList = editorOperationAnalyzer.explainAnomaly(anomalyExplanation);
 			
 			
-			return anomalyExplanation;
+			return anomalyExplanationList;
 		}
 		
 		return null;
@@ -248,7 +249,7 @@ public class DwAnalysesClient {
 	 * @throws ExecutionException
 	 * @throws UnresolvedAddressException
 	 */
-	public List<DwAnomaly> checkFeatures(String uriString, String webserviceUsername, String webservicePassword, HyContextModel contextModel, HyValidityModel contextValidityModel,
+	public Map<DwAnomaly, List<AnomalyConstraintExplanation>> checkFeatures(String uriString, String webserviceUsername, String webservicePassword, HyContextModel contextModel, HyValidityModel contextValidityModel,
 			HyFeatureModel featureModel, HyConstraintModel constraintModel, HyContextValueModel contextValues, Date date) throws TimeoutException, InterruptedException, ExecutionException, UnresolvedAddressException {
 		String messageForHyVarRec = createHyVarRecMessage(contextModel, contextValidityModel, featureModel, constraintModel, null, null, contextValues, date, null);
 		System.err.println(messageForHyVarRec);
@@ -266,12 +267,15 @@ public class DwAnalysesClient {
 		DwEditorOperationAnalyzer editorOperationAnalyzer = new DwEditorOperationAnalyzer(this);
 		editorOperationAnalyzer.setFeatureAnomalies(anomalies);
 		
+		Map<DwAnomaly, List<AnomalyConstraintExplanation>> anomalyMap;
+		anomalyMap = new HashMap<DwAnomaly, List<AnomalyConstraintExplanation>>();
 		// Code to test anomaly explanation
 		for(DwAnomaly anomaly: anomalies) {
-			DwAnomalyExplanation explanation = explainAnomaly(uriString, webserviceUsername, webservicePassword, contextModel, contextValidityModel, featureModel, constraintModel, anomaly, editorOperationAnalyzer);
+			List<AnomalyConstraintExplanation> explanation = explainAnomaly(uriString, webserviceUsername, webservicePassword, contextModel, contextValidityModel, featureModel, constraintModel, anomaly, editorOperationAnalyzer);
+			anomalyMap.put(anomaly, explanation);
 		}
 		
-		return anomalies;
+		return anomalyMap;
 	}
 	
 	protected List<String> translateIdsBackToNames(List<String> constraints, Date date, HyVarRecExporter hyVarRecExporter) {

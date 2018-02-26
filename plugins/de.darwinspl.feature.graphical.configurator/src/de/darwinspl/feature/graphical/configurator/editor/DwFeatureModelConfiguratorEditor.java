@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.nio.channels.UnresolvedAddressException;
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeoutException;
 
@@ -42,6 +43,7 @@ import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.part.FileEditorInput;
 
 import de.christophseidl.util.ecore.EcoreIOUtil;
+import de.darwinspl.anomalies.explanations.AnomalyConstraintExplanation;
 import de.darwinspl.anomaly.DwAnomaly;
 import de.darwinspl.anomaly.DwVoidFeatureModelAnomaly;
 import de.darwinspl.feature.graphical.configurator.composites.DwSelectedConfigurationComposite;
@@ -609,9 +611,14 @@ public class DwFeatureModelConfiguratorEditor extends DwFeatureModelConfigurator
 //					anomalyExplanationDialog.open();
 //				}
 				else if(e.getSource() == detectFeatureAnomaliesButton) {
-					List<DwAnomaly> anomalies = client.checkFeatures(uri, username, password, contextModel, validityModel, modelWrapped.getModel(), constraintModel, null, null);
+					Map<DwAnomaly, List<AnomalyConstraintExplanation>> anomalies = client.checkFeatures(uri, username, password, contextModel, validityModel, modelWrapped.getModel(), constraintModel, null, null);
 					
 					// TODO show anomalies in an extra view and allow their explanation
+					
+					for (DwAnomaly anomaly : anomalies.keySet()) {						
+						DwAnomalyExplanationDialog anomalyExplanationDialog = new DwAnomalyExplanationDialog(getEditorSite().getShell(), anomaly, anomalies.get(anomaly));
+						anomalyExplanationDialog.open();	
+					}
 				}
 				
 			} catch (UnresolvedAddressException | TimeoutException | InterruptedException | ExecutionException e1) {

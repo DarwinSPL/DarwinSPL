@@ -19,22 +19,31 @@ import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.widgets.TableItem;
 
+import de.darwinspl.anomalies.explanations.AnomalyConstraintExplanation;
+import de.darwinspl.anomaly.DwAnomaly;
+import de.darwinspl.anomaly.DwDeadFeatureAnomaly;
+import de.darwinspl.anomaly.DwFalseOptionalFeatureAnomaly;
+import de.darwinspl.anomaly.DwVoidFeatureModelAnomaly;
+import eu.hyvar.feature.util.HyFeatureEvolutionUtil;
+
 public class DwAnomalyExplanationDialog extends TitleAreaDialog {
 
-	private List<String> anomalyCausingConstraints;
+	private DwAnomaly anomaly;
+	private List<AnomalyConstraintExplanation> anomalyExplanation;
 	private static final String TITLE_NO_ANOMALY = "No anomaly detected. Model is valid.";
 	private String TITLE_ANOMALY_EXPLANATION = "Explanation for anomaly";
 	
 	private static final String MESSAGE_NO_ANOMALY = "HyVarRec could not find any anomaly. Thus, there is no explanation.";
 	private static final String MESSAGE_ANOMALY_EXPLANATION = "HyVarRec found an anomaly. The explanation is given as the list of anomaly causing constraints below.";
 	
-	public DwAnomalyExplanationDialog(Shell parentShell, List<String> anomalyCausingConstraints) {
+	public DwAnomalyExplanationDialog(Shell parentShell, DwAnomaly anomaly, List<AnomalyConstraintExplanation> anomalyExplanationList) {
 		super(parentShell);
 		
-		this.anomalyCausingConstraints = anomalyCausingConstraints;
+		this.anomaly = anomaly;
+		this.anomalyExplanation = anomalyExplanationList;
 	}
-	
-	
+
+
 	@Override
 	protected boolean isResizable() {
 		return true;
@@ -48,7 +57,7 @@ public class DwAnomalyExplanationDialog extends TitleAreaDialog {
 		String message;
 		int type;
 
-		if (anomalyCausingConstraints == null) {
+		if (anomaly == null) {
 			title = getTitleNoAnomaly();
 			message = getMessageNoAnomaly();
 			type = IMessageProvider.INFORMATION;
@@ -74,12 +83,22 @@ public class DwAnomalyExplanationDialog extends TitleAreaDialog {
 		container.setLayout(layout);
 
 
-		if (anomalyCausingConstraints == null) {
+		if (anomaly == null) {
 			return container;
 		}
 		
 		Label whitespaceLabel = new Label(parent, SWT.VERTICAL);
-		whitespaceLabel.setText("Anomaly Causing Constraints:");
+		String label = "Anomaly: ";
+		if (anomaly instanceof DwDeadFeatureAnomaly) {
+			String featureName = HyFeatureEvolutionUtil.getName(((DwDeadFeatureAnomaly) anomaly).getFeature().getNames(), anomaly.getValidSince()).getName();
+			label += "Dead Feature " + featureName;
+		} else if (anomaly instanceof DwFalseOptionalFeatureAnomaly) {
+			String featureName = HyFeatureEvolutionUtil.getName(((DwFalseOptionalFeatureAnomaly) anomaly).getFeature().getNames(), anomaly.getValidSince()).getName();
+			label += "False-Optional Feature " + featureName;
+		} else if (anomaly instanceof DwVoidFeatureModelAnomaly) {
+			label += "Void Feature Model";
+		}
+		whitespaceLabel.setText(label);
 		
 //		TableViewer viewer = new TableViewer(parent, SWT.H_SCROLL
 //	            | SWT.V_SCROLL | SWT.FULL_SELECTION | SWT.BORDER);
@@ -104,11 +123,15 @@ public class DwAnomalyExplanationDialog extends TitleAreaDialog {
 		tc1.setText("Constraint");
 		tc1.setWidth(360);
 		table.setHeaderVisible(true);
+		
+		if (anomalyExplanation != null) {
 
-		for (String constraintString : anomalyCausingConstraints) {
-			TableItem tableItem = new TableItem(table, SWT.NONE);			
-		    tableItem.setText(new String[] { constraintString});
-//			viewer.add(constraintString);
+			for (AnomalyConstraintExplanation constraintExplanation : anomalyExplanation) {
+				TableItem tableItem = new TableItem(table, SWT.NONE);			
+			    tableItem.setText(new String[] { constraintExplanation.explain() });
+	//			viewer.add(constraintString);
+			}
+			
 		}
 
 		tc1.pack();
@@ -128,8 +151,8 @@ public class DwAnomalyExplanationDialog extends TitleAreaDialog {
 		return new Point(480, 340);
 	}
 	
-	public List<String> getAnomalyCausingConstraints() {
-		return anomalyCausingConstraints;
+	public List<AnomalyConstraintExplanation> getAnomalyExplanation() {
+		return anomalyExplanation;
 	}
 
 
