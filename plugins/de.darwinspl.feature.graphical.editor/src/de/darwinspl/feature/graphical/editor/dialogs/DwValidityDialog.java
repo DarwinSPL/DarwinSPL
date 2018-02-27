@@ -1,8 +1,11 @@
 package de.darwinspl.feature.graphical.editor.dialogs;
 
+import java.util.ArrayList;
 import java.util.Date;
 
 import org.eclipse.emf.common.util.EList;
+import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
@@ -13,8 +16,8 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
 
 import de.darwinspl.common.eclipse.ui.dialogs.DwDateDialog;
-import eu.hyvar.evolution.HyName;
-import eu.hyvar.evolution.HyNamedElement;
+import de.darwinspl.feature.graphical.editor.commands.DwLinearTemporalElementCommand;
+import eu.hyvar.evolution.HyLinearTemporalElement;
 import eu.hyvar.evolution.HyTemporalElement;
 
 public class DwValidityDialog extends DwSelectionDialog {
@@ -95,10 +98,12 @@ public class DwValidityDialog extends DwSelectionDialog {
 
 	@Override
 	protected void okPressed() {
-		if (checkValidityPropagation(getParentShell())) {
+		if (doCheckValidityPropagation(getParentShell())) {
 			HyTemporalElement temporalElement = (HyTemporalElement) element;
 			temporalElement.setValidSince(convertStringToDate(validSince.getText()));
 			temporalElement.setValidUntil(convertStringToDate(validUntil.getText()));
+		} else {
+			super.cancelPressed();
 		}
 		super.okPressed();
 	}
@@ -108,38 +113,59 @@ public class DwValidityDialog extends DwSelectionDialog {
 	 * validity. This will open a dialog, if a name validity does not overlap with
 	 * the new feature validity.
 	 */
-	private boolean checkValidityPropagation(Shell parentShell) {
+	private boolean doCheckValidityPropagation(Shell parentShell) {
 
 		// TODO bug: when a name validity is stretched to fit a new (longer) feature
 		// validity, the editor does not create the necessary connections to parent
 		// feature.
 		Date newSince = convertStringToDate(validSince.getText());
 		Date newUntil = convertStringToDate(validUntil.getText());
-		EList<HyName> elementList = ((HyNamedElement) element).getNames();
+		EList<EObject> elementList = ((HyTemporalElement) element).eContents();
+		
+		for (EObject e : elementList) {
+			if (e instanceof HyLinearTemporalElement) {
+				HyLinearTemporalElement el = (HyLinearTemporalElement) e;
+				Date eSince = el.getValidSince(), eUntil = el.getValidUntil();
+				// check whether the feature starts later/earlier than this element ends/starts
+				// (obsolete) and delete after user approval, if that is the case.
 
-		for (HyName e : elementList) {
+//				System.out.println("newSince: " + newSince);
+//				System.out.println("newUntil: " + newUntil);
+//				System.out.println("eSince: " + eSince);
+//				System.out.println("eUntil: " + eUntil);
+//				System.out.println("preceding?: " + (el.getSupersededElement() == null ? "false" : "true"));
+//				System.out.println("superceding?: " + (el.getSupersedingElement() == null ? "false" : "true"));
 
-			Date eSince = e.getValidSince(), eUntil = e.getValidUntil();
+				if ((newSince != null && eUntil != null && eUntil.compareTo(newSince) <= 0)
+						|| (newUntil != null && eSince != null && eSince.compareTo(newUntil) >= 0)) {
 
-			if ((newSince != null && eUntil.compareTo(newSince) <= 0)
-					|| (newSince != null && eSince.compareTo(newUntil) >= 0)) {
-				DwObsoleteTimeframeDialog dialog = new DwObsoleteTimeframeDialog(parentShell, e.getName());
-				dialog.open();
-				if (dialog.getReturnCode() == OK) {
-					elementList.remove(e);
-					continue;
-				} else {
-					return false;
+					DwObsoleteTimeframeDialog dialog = new DwObsoleteTimeframeDialog(parentShell, el);
+					dialog.open();
+					if (dialog.getReturnCode() == OK) {
+						EcoreUtil.delete(e);
+						continue;
+					} else {
+						return false;
+					}
+				}
+
+				if (newSince != null) {
+					if (eSince == null || eSince.compareTo(newSince) <= 0 || (el.getSupersededElement() == null)) {
+						el.setValidSince(newSince);
+					}
+				} else if (newSince == null && el.getSupersededElement() == null) {
+					el.setValidSince(null);
+				}
+
+				if (newUntil != null) {
+					if (eUntil == null || eUntil.compareTo(newUntil) >= 0 || (el.getSupersedingElement() == null)) {
+						el.setValidUntil(newUntil);
+					}
+				} else if (newUntil == null && el.getSupersedingElement() == null) {
+					el.setValidUntil(null);
 				}
 			}
-			if (eSince == null || eSince.before(newSince)
-					|| (e.getSupersededElement() == null && eSince.after(newSince))) {
-				e.setValidSince(newSince);
-			}
-			if (eUntil == null || eUntil.after(newUntil)
-					|| (e.getSupersedingElement() == null && eUntil.before(newUntil))) {
-				e.setValidUntil(newUntil);
-			}
+
 		}
 		return true;
 	}
