@@ -48,10 +48,12 @@ public class FeatureIDEFeatureModelImporterWizard extends Wizard implements IImp
 		HyConstraintModel constraintModel = tuple.getConstraintModel();
 		
 		IFile featureModelFile = dwFeatureModelWizardImportedFilePage.getModelFile();
-		IFile constraintModelFile = ResourceUtil.deriveFile(featureModelFile, HyConstraintUtil.CONSTRAINT_MODEL_FILE_EXTENSION_FOR_CONCRETE_SYNTAX);
+		IFile constraintModelFile = ResourceUtil.deriveFile(featureModelFile, HyConstraintUtil.getConstraintModelFileExtensionForConcreteSyntax());
+		IFile constraintModelFileXmi = ResourceUtil.deriveFile(featureModelFile, HyConstraintUtil.getConstraintModelFileExtensionForXmi());
 		
 		EcoreIOUtil.saveModelAs(featureModel, featureModelFile);
 		EcoreIOUtil.saveModelAs(constraintModel, constraintModelFile);
+		EcoreIOUtil.saveModelAs(constraintModel, constraintModelFileXmi);
 		
 		
 		System.out.println("FeatureIDE File:"+featureIdeModelFileSelectionWizardPage.getSelectedFilePath());
