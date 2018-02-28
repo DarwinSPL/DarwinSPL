@@ -1,5 +1,7 @@
 package de.darwinspl.importer.ui.wizards;
 
+import java.io.File;
+
 import org.eclipse.jface.wizard.WizardPage;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionEvent;
@@ -88,6 +90,7 @@ public class FileSelectionWizardPage extends WizardPage implements SelectionList
 			}
 			if(fileDialog.open()!=null) {
 				setSelectedFileText();
+				this.selectedSourceFile = fileDialog.getFilterPath()+File.separator+fileDialog.getFileName();
 				setPageComplete(true);				
 			}
 		}

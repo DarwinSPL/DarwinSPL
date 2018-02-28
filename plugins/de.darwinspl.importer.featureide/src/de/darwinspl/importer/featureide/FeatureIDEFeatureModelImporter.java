@@ -2,6 +2,7 @@ package de.darwinspl.importer.featureide;
 
 import java.nio.file.Paths;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.eclipse.core.resources.IFile;
@@ -10,6 +11,7 @@ import de.darwinspl.importer.DarwinSPLFeatureModelImporter;
 import de.ovgu.featureide.fm.core.ExtensionManager.NoSuchExtensionException;
 import de.ovgu.featureide.fm.core.base.IFeature;
 import de.ovgu.featureide.fm.core.base.IFeatureModel;
+import de.ovgu.featureide.fm.core.base.IFeatureModelStructure;
 import de.ovgu.featureide.fm.core.base.IFeatureStructure;
 import de.ovgu.featureide.fm.core.base.impl.FMFactoryManager;
 import de.ovgu.featureide.fm.core.io.IFeatureModelFormat;
@@ -73,16 +75,16 @@ public class FeatureIDEFeatureModelImporter implements DarwinSPLFeatureModelImpo
 	}
 	
 	@Override
-	public HyFeatureModel importFeatureModel(IFeatureModel featureModel) {
-		this.featureIDEfeatureModel = featureModel;
+	public HyFeatureModel importFeatureModel(IFeatureModel featureModelToImport) {
+		this.featureIDEfeatureModel = featureModelToImport;
 		
-		if (featureModel == null) {
+		if (featureModelToImport == null) {
 			// TODO proper logging
 			System.err.println("Could not import FeatureIDE feature model as it was null");
 			return null;
 		}
 
-		if (featureModel.getStructure().getRoot() == null) {
+		if (featureModelToImport.getStructure().getRoot() == null) {
 			// TODO proper logging
 			System.err.println("Could not import FeatureIDE feature model as its root was null");
 			return null;
@@ -90,17 +92,84 @@ public class FeatureIDEFeatureModelImporter implements DarwinSPLFeatureModelImpo
 
 		featureMap = new HashMap<IFeature, HyFeature>();
 		
-		HyFeatureModel hyFeatureModel = featureFactory.createHyFeatureModel();
+		HyFeatureModel hyFeatureModel = featureFactory.createHyFeatureModel();		
 
-		IFeature rootFeature = featureModel.getStructure().getRoot().getFeature();
+		IFeature rootFeature = featureModelToImport.getStructure().getRoot().getFeature();
 		
-		HyFeature hyRootFeature = processRoot(hyFeatureModel, rootFeature);
+		processRoot(hyFeatureModel, rootFeature);
 		
-		processSubTree(hyFeatureModel, hyRootFeature, featureModel, rootFeature);
+//		processSubTree(hyFeatureModel, hyRootFeature, featureModel, rootFeature);
 		
 		this.darwinSPLfeatureModel = hyFeatureModel;
 		
 		return hyFeatureModel;
+	}
+	
+	private HyFeature doImportFeature(IFeature feature, HyFeatureModel dwFeatureModel) {
+		String name = feature.getName();
+		
+		HyFeature dwFeature = HyFeatureFactory.eINSTANCE.createHyFeature();
+		dwFeatureModel.getFeatures().add(dwFeature);
+		
+		HyName dwName = HyEvolutionFactory.eINSTANCE.createHyName();
+		dwName.setName(name);
+		dwFeature.getNames().add(dwName);
+		
+		IFeatureStructure featureStructure = feature.getStructure();
+		IFeatureStructure parentFeatureStructure = featureStructure.getParent();
+		IFeature parentFeature = parentFeatureStructure == null ? null : parentFeatureStructure.getFeature();
+		
+		//Variation type of feature
+		HyFeatureType featureType = HyFeatureFactory.eINSTANCE.createHyFeatureType();
+		if (parentFeature == null) {
+			//Root feature is always mandatory
+			featureType.setType(HyFeatureTypeEnum.MANDATORY);
+		} else if (parentFeatureStructure.isOr() || parentFeatureStructure.isAlternative()) {
+			//In dedicated groups, all features are perceived as being optional
+			featureType.setType(HyFeatureTypeEnum.OPTIONAL);
+		} else if (parentFeatureStructure.isMandatory()) {
+			featureType.setType(HyFeatureTypeEnum.MANDATORY);
+		} else {
+			//Can only be optional
+			featureType.setType(HyFeatureTypeEnum.OPTIONAL);
+		}
+		
+		
+		List<IFeatureStructure> childStructures = featureStructure.getChildren();
+		
+		if (!childStructures.isEmpty()) {
+			List<HyFeatureChild> dwFeatureChildren = dwFeature.getParentOf();
+			
+			HyFeatureChild featureChild = HyFeatureFactory.eINSTANCE.createHyFeatureChild();
+			dwFeatureChildren.add(featureChild);
+			
+			HyGroup dwGroup = HyFeatureFactory.eINSTANCE.createHyGroup();
+			dwGroup.getChildOf().add(featureChild);
+			dwFeatureModel.getGroups().add(dwGroup);
+			
+			List<HyGroupComposition> groupCompositions = dwGroup.getParentOf();
+			HyGroupComposition groupComposition = HyFeatureFactory.eINSTANCE.createHyGroupComposition();
+			groupCompositions.add(groupComposition);
+			
+			//Variation type of group
+			HyGroupType groupType = HyFeatureFactory.eINSTANCE.createHyGroupType();
+			if (featureStructure.isAlternative()) {
+				groupType.setType(HyGroupTypeEnum.ALTERNATIVE);
+			} else if (featureStructure.isOr()) {
+				groupType.setType(HyGroupTypeEnum.OR);
+			} else if (featureStructure.isAnd()) {
+				//Minimum is the number of mandatory child features
+				groupType.setType(HyGroupTypeEnum.AND);
+			}
+			
+			for (IFeatureStructure childStructure : childStructures) {
+				IFeature childFeature = childStructure.getFeature();
+				HyFeature dwChildFeature = doImportFeature(childFeature, dwFeatureModel);
+				groupComposition.getFeatures().add(dwChildFeature);
+			}
+		}
+		
+		return dwFeature;
 	}
 
 	/**
@@ -109,97 +178,17 @@ public class FeatureIDEFeatureModelImporter implements DarwinSPLFeatureModelImpo
 	 * @param rootFeature
 	 * @return
 	 */
-	private HyFeature processRoot(HyFeatureModel hyFeatureModel, IFeature rootFeature) {
+	private HyFeature processRoot(HyFeatureModel dwFeatureModel, IFeature rootFeature) {
+		HyFeature dwRootFeatureFeature = doImportFeature(rootFeature, dwFeatureModel);
+		
 		HyRootFeature hyRootFeature = featureFactory.createHyRootFeature();
-		hyFeatureModel.getRootFeature().add(hyRootFeature);
-		HyFeature hyRootFeatureFeature = featureFactory.createHyFeature();
+		dwFeatureModel.getRootFeature().add(hyRootFeature);
+		hyRootFeature.setFeature(dwRootFeatureFeature);
 		
-		HyName rootFeatureName = evolutionFactory.createHyName();
-		rootFeatureName.setName(rootFeature.getName());
-		hyRootFeatureFeature.getNames().add(rootFeatureName);
+		featureMap.put(rootFeature, dwRootFeatureFeature);
 		
-		HyFeatureType featureType = featureFactory.createHyFeatureType();
-		featureType.setType(HyFeatureTypeEnum.MANDATORY);
-		hyRootFeatureFeature.getTypes().add(featureType);
-		
-		hyRootFeature.setFeature(hyRootFeatureFeature);
-		hyFeatureModel.getFeatures().add(hyRootFeatureFeature);
-		
-		featureMap.put(rootFeature, hyRootFeatureFeature);
-		
-		return hyRootFeatureFeature;
+		return dwRootFeatureFeature;
 	}
-	
-	/**
-	 * 
-	 * @param hyFeatureModel New Feature Model
-	 * @param hyFeature Parent feature of this subtree
-	 * @param featureModel FeatureIDE feature model
-	 * @param feature FeatureIDE parent feature of this subtree
-	 */
-	private void processSubTree(HyFeatureModel hyFeatureModel, HyFeature hyFeature, IFeatureModel featureModel, IFeature feature) {
-		if(feature.getStructure().getChildren() == null || feature.getStructure().getChildren().isEmpty()) {
-			return;
-		}
-		
-		HyGroup group = featureFactory.createHyGroup();
-		hyFeatureModel.getGroups().add(group);
-		
-		HyFeatureChild featureChild = featureFactory.createHyFeatureChild();
-		featureChild.setChildGroup(group);
-		featureChild.setParent(hyFeature);
-		
-		HyGroupComposition groupComposition = featureFactory.createHyGroupComposition();
-		groupComposition.setCompositionOf(group);
-		
-		HyGroupType groupType = featureFactory.createHyGroupType();
-		group.getTypes().add(groupType);
-		
-		
-		boolean groupTypeSet = false;
-		
-		for(IFeatureStructure childFeatureStructure: feature.getStructure().getChildren()) {
-			
-			if(!groupTypeSet) {
-				
-				if(childFeatureStructure.isAnd()) {
-					groupType.setType(HyGroupTypeEnum.AND);
-				}
-				else if(childFeatureStructure.isAlternative()) {
-					groupType.setType(HyGroupTypeEnum.ALTERNATIVE);
-				}
-				else if(childFeatureStructure.isOr()) {
-					groupType.setType(HyGroupTypeEnum.OR);
-				}
-			}
-			
-			IFeature childFeature = childFeatureStructure.getFeature();
-			
-			HyFeature hyChildFeature = featureFactory.createHyFeature();
-			hyFeatureModel.getFeatures().add(hyChildFeature);
-			groupComposition.getFeatures().add(hyChildFeature);
-			
-			HyName childFeatureName = evolutionFactory.createHyName();
-			childFeatureName.setName(childFeature.getName());
-			hyChildFeature.getNames().add(childFeatureName);
-			
-			HyFeatureType featureType = featureFactory.createHyFeatureType();
-			
-			if(childFeatureStructure.isMandatory()) {
-				featureType.setType(HyFeatureTypeEnum.MANDATORY);				
-			}
-			else {
-				featureType.setType(HyFeatureTypeEnum.OPTIONAL);		
-			}
-			
-			hyChildFeature.getTypes().add(featureType);
-			
-			featureMap.put(childFeature, hyChildFeature);
-			
-			processSubTree(hyFeatureModel, hyChildFeature, featureModel, childFeature);
-		}
-	}
-
 	
 	
 	public Map<IFeature, HyFeature> getFeatureMap() {
