@@ -1,16 +1,20 @@
 package de.darwinspl.importer.ui.wizards.featureide;
 
+import org.eclipse.core.resources.IFile;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.wizard.Wizard;
 import org.eclipse.ui.IImportWizard;
 import org.eclipse.ui.IWorkbench;
 
+import de.christophseidl.util.eclipse.ResourceUtil;
 import de.christophseidl.util.ecore.EcoreIOUtil;
 import de.darwinspl.importer.FeatureModelConstraintsTuple;
 import de.darwinspl.importer.featureide.FeatureIDEFeatureModelAndConstraintsImporter;
 import de.darwinspl.importer.ui.wizards.DwFeatureModelWizardImportedFilePage;
 import de.darwinspl.importer.ui.wizards.FileSelectionWizardPage;
 import eu.hyvar.feature.HyFeatureModel;
+import eu.hyvar.feature.constraint.HyConstraintModel;
+import eu.hyvar.feature.constraint.util.HyConstraintUtil;
 
 public class FeatureIDEFeatureModelImporterWizard extends Wizard implements IImportWizard {
 
@@ -41,8 +45,14 @@ public class FeatureIDEFeatureModelImporterWizard extends Wizard implements IImp
 		
 		FeatureModelConstraintsTuple tuple = importer.importFeatureModel(featureIdeModelFileSelectionWizardPage.getSelectedFilePath());
 		HyFeatureModel featureModel = tuple.getFeatureModel();
+		HyConstraintModel constraintModel = tuple.getConstraintModel();
 		
-		EcoreIOUtil.saveModelAs(featureModel, dwFeatureModelWizardImportedFilePage.getModelFile());
+		IFile featureModelFile = dwFeatureModelWizardImportedFilePage.getModelFile();
+		IFile constraintModelFile = ResourceUtil.deriveFile(featureModelFile, HyConstraintUtil.CONSTRAINT_MODEL_FILE_EXTENSION_FOR_CONCRETE_SYNTAX);
+		
+		EcoreIOUtil.saveModelAs(featureModel, featureModelFile);
+		EcoreIOUtil.saveModelAs(constraintModel, constraintModelFile);
+		
 		
 		System.out.println("FeatureIDE File:"+featureIdeModelFileSelectionWizardPage.getSelectedFilePath());
 		System.out.println("DarwinSPL File:"+dwFeatureModelWizardImportedFilePage.getModelFile().getFullPath());

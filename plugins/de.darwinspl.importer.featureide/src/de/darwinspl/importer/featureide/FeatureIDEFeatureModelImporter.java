@@ -11,7 +11,6 @@ import de.darwinspl.importer.DarwinSPLFeatureModelImporter;
 import de.ovgu.featureide.fm.core.ExtensionManager.NoSuchExtensionException;
 import de.ovgu.featureide.fm.core.base.IFeature;
 import de.ovgu.featureide.fm.core.base.IFeatureModel;
-import de.ovgu.featureide.fm.core.base.IFeatureModelStructure;
 import de.ovgu.featureide.fm.core.base.IFeatureStructure;
 import de.ovgu.featureide.fm.core.base.impl.FMFactoryManager;
 import de.ovgu.featureide.fm.core.io.IFeatureModelFormat;
@@ -108,10 +107,12 @@ public class FeatureIDEFeatureModelImporter implements DarwinSPLFeatureModelImpo
 	private HyFeature doImportFeature(IFeature feature, HyFeatureModel dwFeatureModel) {
 		String name = feature.getName();
 		
-		HyFeature dwFeature = HyFeatureFactory.eINSTANCE.createHyFeature();
+		HyFeature dwFeature = featureFactory.createHyFeature();
 		dwFeatureModel.getFeatures().add(dwFeature);
+
+		featureMap.put(feature, dwFeature);
 		
-		HyName dwName = HyEvolutionFactory.eINSTANCE.createHyName();
+		HyName dwName = evolutionFactory.createHyName();
 		dwName.setName(name);
 		dwFeature.getNames().add(dwName);
 		
@@ -120,7 +121,7 @@ public class FeatureIDEFeatureModelImporter implements DarwinSPLFeatureModelImpo
 		IFeature parentFeature = parentFeatureStructure == null ? null : parentFeatureStructure.getFeature();
 		
 		//Variation type of feature
-		HyFeatureType featureType = HyFeatureFactory.eINSTANCE.createHyFeatureType();
+		HyFeatureType featureType = featureFactory.createHyFeatureType();
 		if (parentFeature == null) {
 			//Root feature is always mandatory
 			featureType.setType(HyFeatureTypeEnum.MANDATORY);
@@ -140,19 +141,19 @@ public class FeatureIDEFeatureModelImporter implements DarwinSPLFeatureModelImpo
 		if (!childStructures.isEmpty()) {
 			List<HyFeatureChild> dwFeatureChildren = dwFeature.getParentOf();
 			
-			HyFeatureChild featureChild = HyFeatureFactory.eINSTANCE.createHyFeatureChild();
+			HyFeatureChild featureChild = featureFactory.createHyFeatureChild();
 			dwFeatureChildren.add(featureChild);
 			
-			HyGroup dwGroup = HyFeatureFactory.eINSTANCE.createHyGroup();
+			HyGroup dwGroup = featureFactory.createHyGroup();
 			dwGroup.getChildOf().add(featureChild);
 			dwFeatureModel.getGroups().add(dwGroup);
 			
 			List<HyGroupComposition> groupCompositions = dwGroup.getParentOf();
-			HyGroupComposition groupComposition = HyFeatureFactory.eINSTANCE.createHyGroupComposition();
+			HyGroupComposition groupComposition = featureFactory.createHyGroupComposition();
 			groupCompositions.add(groupComposition);
 			
 			//Variation type of group
-			HyGroupType groupType = HyFeatureFactory.eINSTANCE.createHyGroupType();
+			HyGroupType groupType = featureFactory.createHyGroupType();
 			if (featureStructure.isAlternative()) {
 				groupType.setType(HyGroupTypeEnum.ALTERNATIVE);
 			} else if (featureStructure.isOr()) {
@@ -172,6 +173,8 @@ public class FeatureIDEFeatureModelImporter implements DarwinSPLFeatureModelImpo
 		return dwFeature;
 	}
 
+
+	
 	/**
 	 * 
 	 * @param hyFeatureModel
@@ -185,7 +188,6 @@ public class FeatureIDEFeatureModelImporter implements DarwinSPLFeatureModelImpo
 		dwFeatureModel.getRootFeature().add(hyRootFeature);
 		hyRootFeature.setFeature(dwRootFeatureFeature);
 		
-		featureMap.put(rootFeature, dwRootFeatureFeature);
 		
 		return dwRootFeatureFeature;
 	}
