@@ -17,12 +17,16 @@ import org.eclipse.ui.IWorkbench;
 
 import de.christophseidl.util.eclipse.ResourceUtil;
 import de.christophseidl.util.ecore.EcoreIOUtil;
-import de.darwinspl.importer.evolution.DwTemporalFeatureModelEvolutionImporter;
+import de.darwinspl.importer.FeatureModelConstraintsTuple;
+import de.darwinspl.importer.evolution.DwFeatureModelEvolutionImporter;
 import de.darwinspl.importer.ui.wizards.DwFeatureModelEvolutionStepWizardPage;
 import de.darwinspl.importer.ui.wizards.DwFeatureModelWizardImportedFilePage;
 import de.darwinspl.importer.ui.wizards.DwMultiFileSelectionWizardPage;
 import de.darwinspl.importer.ui.wizards.FileSelectionWizardPage;
 import eu.hyvar.feature.HyFeatureModel;
+import eu.hyvar.feature.constraint.HyConstraintModel;
+import eu.hyvar.feature.constraint.util.HyConstraintIOUtil;
+import eu.hyvar.feature.constraint.util.HyConstraintUtil;
 
 public class DwEvolutionSnapshotImporterWizard extends Wizard implements IImportWizard {
 	protected FileSelectionWizardPage tfmFileSelectionWizardPage;
@@ -57,7 +61,7 @@ public class DwEvolutionSnapshotImporterWizard extends Wizard implements IImport
 		System.out.println("Finish!");
 		
 		
-		Map<HyFeatureModel, Date> featureModelDateMap = new HashMap<HyFeatureModel, Date>();
+		Map<FeatureModelConstraintsTuple, Date> featureModelDateMap = new HashMap<FeatureModelConstraintsTuple, Date>();
 		
 		Map<IFile, Date> fileDateMap = featureModelEvolutionStepWizardPage.getFileDateMap();
 		
@@ -84,15 +88,27 @@ public class DwEvolutionSnapshotImporterWizard extends Wizard implements IImport
 					return false;
 				}
 				
-				featureModelDateMap.put((HyFeatureModel) loadedObject, fileDate.getValue());
+				HyFeatureModel loadedFeatureModel = (HyFeatureModel) loadedObject;
+				HyConstraintModel loadedConstraintModel = HyConstraintIOUtil.loadAccompanyingConstraintModel(loadedFeatureModel);
+				
+				FeatureModelConstraintsTuple tuple = new FeatureModelConstraintsTuple(loadedFeatureModel, loadedConstraintModel);
+				
+				featureModelDateMap.put(tuple, fileDate.getValue());
 			}
 		}
 
 		
-		DwTemporalFeatureModelEvolutionImporter featureModelEvolutionImporter = new DwTemporalFeatureModelEvolutionImporter();
+		DwFeatureModelEvolutionImporter featureModelEvolutionImporter = new DwFeatureModelEvolutionImporter();
 		try {
-			HyFeatureModel mergedModel = featureModelEvolutionImporter.importFeatureModels(featureModelDateMap);
-			EcoreIOUtil.saveModelAs(mergedModel, dwFeatureModelWizardImportedFilePage.getModelFile());
+			FeatureModelConstraintsTuple mergedTuple = featureModelEvolutionImporter.importFeatureModelEvolutionSnapshots(featureModelDateMap);
+			
+			IFile featureModelFile = dwFeatureModelWizardImportedFilePage.getModelFile();
+			IFile constraintFile = ResourceUtil.deriveFile(featureModelFile, HyConstraintUtil.getConstraintModelFileExtensionForXmi());
+			IFile constraintFileCS = ResourceUtil.deriveFile(featureModelFile, HyConstraintUtil.getConstraintModelFileExtensionForConcreteSyntax());
+				
+			EcoreIOUtil.saveModelAs(mergedTuple.getFeatureModel(), featureModelFile);
+			EcoreIOUtil.saveModelAs(mergedTuple.getConstraintModel(), constraintFile);
+			EcoreIOUtil.saveModelAs(mergedTuple.getConstraintModel(), constraintFileCS);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return false;

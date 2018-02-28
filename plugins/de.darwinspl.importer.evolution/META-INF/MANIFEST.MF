@@ -6,5 +6,8 @@ Bundle-Version: 1.0.0.qualifier
 Bundle-RequiredExecutionEnvironment: JavaSE-1.7
 Require-Bundle: org.eclipse.core.resources,
  eu.hyvar.feature,
- org.eclipse.emf.ecore
+ org.eclipse.emf.ecore,
+ eu.hyvar.feature.constraint,
+ de.darwinspl.importer,
+ eu.hyvar.feature.expression
 Export-Package: de.darwinspl.importer.evolution

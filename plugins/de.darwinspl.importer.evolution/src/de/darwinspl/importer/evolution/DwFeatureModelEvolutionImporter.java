@@ -10,8 +10,11 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 
+import org.eclipse.emf.common.util.TreeIterator;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.util.EcoreUtil;
 
+import de.darwinspl.importer.FeatureModelConstraintsTuple;
 import eu.hyvar.dataValues.HyEnum;
 import eu.hyvar.dataValues.HyEnumLiteral;
 import eu.hyvar.evolution.HyName;
@@ -32,9 +35,18 @@ import eu.hyvar.feature.HyGroupTypeEnum;
 import eu.hyvar.feature.HyNumberAttribute;
 import eu.hyvar.feature.HyRootFeature;
 import eu.hyvar.feature.HyStringAttribute;
+import eu.hyvar.feature.constraint.HyConstraint;
+import eu.hyvar.feature.constraint.HyConstraintFactory;
+import eu.hyvar.feature.constraint.HyConstraintModel;
+import eu.hyvar.feature.expression.HyAbstractFeatureReferenceExpression;
+import eu.hyvar.feature.expression.HyAtomicExpression;
+import eu.hyvar.feature.expression.HyBinaryExpression;
+import eu.hyvar.feature.expression.HyExpression;
+import eu.hyvar.feature.expression.HyFeatureReferenceExpression;
+import eu.hyvar.feature.expression.HyUnaryExpression;
 import eu.hyvar.feature.util.HyFeatureEvolutionUtil;
 
-public abstract class DwFeatureModelEvolutionImporter<T> {
+public class DwFeatureModelEvolutionImporter {
 
 	/**
 	 * Creates a new group if necessary.
@@ -162,31 +174,27 @@ public abstract class DwFeatureModelEvolutionImporter<T> {
 		return null;
 	}
 
-	protected abstract HyFeatureModel importFeatureModel(T featureModel);
-
 	/**
 	 * Merges multiple feature model evolution snapshots to one Temporal Feature
 	 * Model
 	 * 
-	 * @param featureModels
+	 * @param models
 	 *            Each feature model has to be associated to a date at which the
 	 *            changes have occured.
 	 * @return The whole feature model history merged into one TFM.
 	 * @throws Exception
 	 */
-	public HyFeatureModel importFeatureModels(Map<T, Date> featureModels) throws Exception {
-		Map<Date, HyFeatureModel> darwinSPLfeatureModels = new HashMap<Date, HyFeatureModel>();
+	public FeatureModelConstraintsTuple importFeatureModelEvolutionSnapshots(Map<FeatureModelConstraintsTuple, Date> models)
+			throws Exception {
+		Map<Date, FeatureModelConstraintsTuple> darwinSPLModels = new HashMap<Date, FeatureModelConstraintsTuple>();
 
-		for (T t : featureModels.keySet()) {
-			HyFeatureModel importedFeatureModel = importFeatureModel(t);
-			if (importedFeatureModel != null) {
-				darwinSPLfeatureModels.put(featureModels.get(t), importedFeatureModel);
-			}
+		for (Entry<FeatureModelConstraintsTuple, Date> entry : models.entrySet()) {
+			darwinSPLModels.put(entry.getValue(), entry.getKey());
 		}
 
-		HyFeatureModel mergedFeatureModel = mergeFeatureModels(darwinSPLfeatureModels);
+		FeatureModelConstraintsTuple mergedModels = mergeFeatureModels(darwinSPLModels);
 
-		return mergedFeatureModel;
+		return mergedModels;
 	}
 
 	protected void mergeEnumAttributes(HyEnumAttribute equivalentEnumAttribute,
@@ -302,30 +310,35 @@ public abstract class DwFeatureModelEvolutionImporter<T> {
 	/**
 	 * No evolution shall exist in the input models.
 	 * 
-	 * @param featureModels
+	 * @param models
 	 * @return
 	 * @throws Exception
 	 */
-	protected HyFeatureModel mergeFeatureModels(Map<Date, HyFeatureModel> featureModels) throws Exception {
+	protected FeatureModelConstraintsTuple mergeFeatureModels(Map<Date, FeatureModelConstraintsTuple> models)
+			throws Exception {
 		HyFeatureModel mergedFeatureModel = HyFeatureFactory.eINSTANCE.createHyFeatureModel();
+		HyConstraintModel mergedConstraintModel = HyConstraintFactory.eINSTANCE.createHyConstraintModel();
 
-		List<Date> sortedDateList = new ArrayList<Date>(featureModels.keySet());
+		List<Date> sortedDateList = new ArrayList<Date>(models.keySet());
 		sortedDateList.remove(null);
 		Collections.sort(sortedDateList);
 
-		if (featureModels.get(null) != null) {
-			mergeFeatureModel(featureModels, mergedFeatureModel, null);
+		if (models.get(null) != null) {
+			mergeModels(models.get(null), mergedFeatureModel, mergedConstraintModel, null);
 		}
 
 		for (Date date : sortedDateList) {
-			mergeFeatureModel(featureModels, mergedFeatureModel, date);
+			mergeModels(models.get(date), mergedFeatureModel, mergedConstraintModel, date);
 		}
 
-		return mergedFeatureModel;
+		FeatureModelConstraintsTuple mergedModels = new FeatureModelConstraintsTuple(mergedFeatureModel,
+				mergedConstraintModel);
+
+		return mergedModels;
 	}
 
-	protected void mergeFeatureModel(Map<Date, HyFeatureModel> featureModels, HyFeatureModel mergedFeatureModel,
-			Date date) throws Exception {
+	protected void mergeModels(FeatureModelConstraintsTuple modelsToBeMerged, HyFeatureModel mergedFeatureModel,
+			HyConstraintModel mergedConstraintModel, Date date) throws Exception {
 		// Key is the feature of the input model and value is the feature of the merged
 		// model.
 		Map<HyFeature, HyFeature> featureMap = new HashMap<HyFeature, HyFeature>();
@@ -336,21 +349,22 @@ public abstract class DwFeatureModelEvolutionImporter<T> {
 		// Step 1: Check that each feature / attribute exists. If not create it and set
 		// valid since. If a feature / attribute existed before, but not anymore, set
 		// valid until.
-		HyFeatureModel modelToBeMerged = featureModels.get(date);
+		HyFeatureModel featureModelToBeMerged = modelsToBeMerged.getFeatureModel();
 
 		List<HyFeature> featuresToBeAddedToMergedModel = new ArrayList<HyFeature>();
 
 		List<HyFeatureAttribute> addedFeatureAttributes = new ArrayList<HyFeatureAttribute>();
 
-		for(HyGroup groupToBeMerged: modelToBeMerged.getGroups()) {
-			HyGroup equivalentGroup = checkIfElementAlreadyExists(groupToBeMerged, HyEvolutionUtil.getValidTemporalElements(mergedFeatureModel.getGroups(), date), date);
-			
-			if(equivalentGroup != null) {
+		for (HyGroup groupToBeMerged : featureModelToBeMerged.getGroups()) {
+			HyGroup equivalentGroup = checkIfElementAlreadyExists(groupToBeMerged,
+					HyEvolutionUtil.getValidTemporalElements(mergedFeatureModel.getGroups(), date), date);
+
+			if (equivalentGroup != null) {
 				groupMap.put(groupToBeMerged, equivalentGroup);
 			}
 		}
-		
-		for (HyFeature featureToBeMerged : modelToBeMerged.getFeatures()) {
+
+		for (HyFeature featureToBeMerged : featureModelToBeMerged.getFeatures()) {
 
 			HyFeature equivalentFeature = checkIfElementAlreadyExists(featureToBeMerged,
 					HyEvolutionUtil.getValidTemporalElements(mergedFeatureModel.getFeatures(), date), date);
@@ -364,31 +378,33 @@ public abstract class DwFeatureModelEvolutionImporter<T> {
 				addedFeatureAttributes.addAll(mergeFeatureAttributes(featureToBeMerged, equivalentFeature, date));
 			}
 		}
-		
-		for(HyGroup groupToBeMerged: modelToBeMerged.getGroups()) {
-			for(HyGroup groupFromMergedModel : mergedFeatureModel.getGroups()) {
-				
+
+		for (HyGroup groupToBeMerged : featureModelToBeMerged.getGroups()) {
+			for (HyGroup groupFromMergedModel : mergedFeatureModel.getGroups()) {
+
 				int amountOfSimilarFeatures = 0;
-				
-				List<HyFeature> featuresOfMergedGroup = HyFeatureEvolutionUtil.getFeaturesOfGroup(groupFromMergedModel, date);
-				
-				for(HyFeature featureOfGroupToBeMerged: HyFeatureEvolutionUtil.getFeaturesOfGroup(groupToBeMerged, date)) {
-					if(featuresOfMergedGroup.contains(featureMap.get(featureOfGroupToBeMerged))) {
+
+				List<HyFeature> featuresOfMergedGroup = HyFeatureEvolutionUtil.getFeaturesOfGroup(groupFromMergedModel,
+						date);
+
+				for (HyFeature featureOfGroupToBeMerged : HyFeatureEvolutionUtil.getFeaturesOfGroup(groupToBeMerged,
+						date)) {
+					if (featuresOfMergedGroup.contains(featureMap.get(featureOfGroupToBeMerged))) {
 						amountOfSimilarFeatures++;
 					}
 				}
-					
-				double sameFeatureRatio = (double)amountOfSimilarFeatures / (double)featuresOfMergedGroup.size();
-				if(sameFeatureRatio >= 0.75) {
+
+				double sameFeatureRatio = (double) amountOfSimilarFeatures / (double) featuresOfMergedGroup.size();
+				if (sameFeatureRatio >= 0.75) {
 					groupMap.put(groupToBeMerged, groupFromMergedModel);
 				}
 			}
 		}
 
 		moveFeaturesIfTheyHaveBeenMovedInInputModel(mergedFeatureModel, featureMap, date);
-		
+
 		updateFeatureTypes(mergedFeatureModel, featureMap, date);
-		
+
 		updateGroupTypes(groupMap, date);
 
 		mergeFeatures(featuresToBeAddedToMergedModel, mergedFeatureModel, featureMap, date);
@@ -410,20 +426,129 @@ public abstract class DwFeatureModelEvolutionImporter<T> {
 			HyFeatureEvolutionUtil.removeFeatureFromGroup(featureToInvalidate, date);
 			featureToInvalidate.setValidUntil(date);
 		}
-		
-	}
-	
-	
 
+		// Merge constraint models
+		HyConstraintModel constraintModelToBeMerged = modelsToBeMerged.getConstraintModel();
+		if (constraintModelToBeMerged != null) {
+			mergeConstraintModel(constraintModelToBeMerged, mergedConstraintModel, featureMap, date);
+		}
+
+	}
+
+	protected void mergeConstraintModel(HyConstraintModel constraintModelToBeMerged,
+			HyConstraintModel mergedConstraintModel, Map<HyFeature, HyFeature> featureMap, Date date) {
+		// For each constraint in model to be merged:
+		// Create a map, in which constraints from the model to be merged are mapped to
+		// equal constraints from the merged model
+
+		// Key is the constraint from model to be merged and value is constraint from
+		// merged model
+		List<HyConstraint> constraintsToBeMergedWithoutMatchingPartner = new ArrayList<HyConstraint>(
+				constraintModelToBeMerged.getConstraints());
+		List<HyConstraint> remainingMatchingPartners = new ArrayList<HyConstraint>(
+				mergedConstraintModel.getConstraints());
+
+		for (HyConstraint constraintToBeMerged : constraintModelToBeMerged.getConstraints()) {
+			HyConstraint equalConstraint = findEqualConstraint(constraintToBeMerged, remainingMatchingPartners,
+					featureMap, date);
+			if (equalConstraint != null) {
+				remainingMatchingPartners.remove(equalConstraint);
+				constraintsToBeMergedWithoutMatchingPartner.remove(constraintToBeMerged);
+			}
+		}
+
+		// For each constraint of the model to be merged that does not have a mapping
+		// partner: add the constraint with valid since
+		for (HyConstraint constraintToBeMergedWithoutMatchingPartner : constraintsToBeMergedWithoutMatchingPartner) {
+			mergedConstraintModel.getConstraints()
+					.add(createConstraintInMergedModel(constraintToBeMergedWithoutMatchingPartner, featureMap, date));
+		}
+
+		// For each constraint of the merged model that does not have a mapping partner:
+		// set the valid until of the constraint
+		for (HyConstraint unmatchedConstraint : remainingMatchingPartners) {
+			unmatchedConstraint.setValidUntil(date);
+		}
+	}
+
+	protected HyConstraint findEqualConstraint(HyConstraint constraint, List<HyConstraint> potentialMatchingPartners,
+			Map<HyFeature, HyFeature> featureMap, Date date) {
+		for (HyConstraint potentialMatchingPartner : potentialMatchingPartners) {
+			if (areExpressionsEqual(constraint.getRootExpression(), potentialMatchingPartner.getRootExpression(),
+					featureMap, date)) {
+				return potentialMatchingPartner;
+			}
+		}
+
+		return null;
+	}
+
+	protected boolean areExpressionsEqual(HyExpression expressionOfConstraintToBeMerged,
+			HyExpression expressionOfMergedConstraint, Map<HyFeature, HyFeature> featureMap, Date date) {
+		if (expressionOfConstraintToBeMerged.getClass().toString()
+				.equals(expressionOfMergedConstraint.getClass().toString())) {
+			if (expressionOfConstraintToBeMerged instanceof HyBinaryExpression) {
+				HyBinaryExpression bin1 = (HyBinaryExpression) expressionOfConstraintToBeMerged;
+				HyBinaryExpression bin2 = (HyBinaryExpression) expressionOfMergedConstraint;
+
+				boolean operandsMatch = false;
+
+				operandsMatch = areExpressionsEqual(bin1.getOperand1(), bin2.getOperand1(), featureMap, date)
+						&& areExpressionsEqual(bin1.getOperand2(), bin2.getOperand2(), featureMap, date);
+
+				return operandsMatch;
+			} else if (expressionOfConstraintToBeMerged instanceof HyUnaryExpression) {
+				HyUnaryExpression unary1 = (HyUnaryExpression) expressionOfConstraintToBeMerged;
+				HyUnaryExpression unary2 = (HyUnaryExpression) expressionOfMergedConstraint;
+
+				return areExpressionsEqual(unary1.getOperand(), unary2.getOperand(), featureMap, date);
+			} else if (expressionOfConstraintToBeMerged instanceof HyAbstractFeatureReferenceExpression) {
+				HyAbstractFeatureReferenceExpression featureRef1 = (HyAbstractFeatureReferenceExpression) expressionOfConstraintToBeMerged;
+				HyAbstractFeatureReferenceExpression featureRef2 = (HyAbstractFeatureReferenceExpression) expressionOfMergedConstraint;	
+				
+				HyFeature equivalentFeatureFromMergedFeatureModel = featureMap.get(featureRef1.getFeature());
+				return equivalentFeatureFromMergedFeatureModel==featureRef2.getFeature();
+			} else {
+				System.err.println(
+						"Currently unsupported expressions have been compared in de.darwinspl.importer.evolution.DwFeatureModelEvolutionImporter.areExpressionsEqual(HyExpression, HyExpression, Map<HyFeature, HyFeature>, Date)");
+				return false;
+			}
+		} else {
+			return false;
+		}
+	}
+
+	protected HyConstraint createConstraintInMergedModel(HyConstraint constraintToBeMerged,
+			Map<HyFeature, HyFeature> featureMap, Date date) {
+		HyConstraint constraint = EcoreUtil.copy(constraintToBeMerged);
+		constraint.setValidSince(date);
+
+		TreeIterator<EObject> iterator = constraint.eAllContents();
+		while (iterator.hasNext()) {
+			EObject eObject = iterator.next();
+			if (eObject instanceof HyFeatureReferenceExpression) {
+				HyFeatureReferenceExpression featureReference = (HyFeatureReferenceExpression) eObject;
+				// no versions are supported
+				featureReference.setVersionRestriction(null);
+
+				HyFeature equivalentFeatureInMergedModel = featureMap.get(featureReference.getFeature());
+				if(equivalentFeatureInMergedModel != null) {
+					featureReference.setFeature(equivalentFeatureInMergedModel);					
+				}
+			}
+		}
+
+		return constraint;
+	}
 
 	protected void updateGroupTypes(Map<HyGroup, HyGroup> groupMap, Date date) {
-		for(Entry<HyGroup, HyGroup> entry : groupMap.entrySet()) {
+		for (Entry<HyGroup, HyGroup> entry : groupMap.entrySet()) {
 			HyGroupType groupTypeOfGroupToBeMerged = HyFeatureEvolutionUtil.getType(entry.getKey(), date);
 			HyGroupType groupTypeOfMergedGroup = HyFeatureEvolutionUtil.getType(entry.getValue(), date);
-			
-			if(!groupTypeOfGroupToBeMerged.getType().equals(groupTypeOfMergedGroup.getType())) {
+
+			if (!groupTypeOfGroupToBeMerged.getType().equals(groupTypeOfMergedGroup.getType())) {
 				groupTypeOfMergedGroup.setValidUntil(date);
-				
+
 				HyGroupType newGroupType = HyFeatureFactory.eINSTANCE.createHyGroupType();
 				newGroupType.setValidSince(date);
 				newGroupType.setType(groupTypeOfGroupToBeMerged.getType());
@@ -434,18 +559,18 @@ public abstract class DwFeatureModelEvolutionImporter<T> {
 
 	protected void updateFeatureTypes(HyFeatureModel mergedFeatureModel, Map<HyFeature, HyFeature> featureMap,
 			Date date) {
-		for(Entry<HyFeature, HyFeature> entry: featureMap.entrySet()) {
+		for (Entry<HyFeature, HyFeature> entry : featureMap.entrySet()) {
 			// key feature from input mode, value feature from merged model
 			HyFeatureType inputType = HyFeatureEvolutionUtil.getType(entry.getKey(), date);
 			HyFeatureType mergedType = HyFeatureEvolutionUtil.getType(entry.getValue(), date);
-			
-			if(!inputType.getType().equals(mergedType.getType())) {
+
+			if (!inputType.getType().equals(mergedType.getType())) {
 				mergedType.setValidUntil(date);
-				
+
 				HyFeatureType newFeatureType = HyFeatureFactory.eINSTANCE.createHyFeatureType();
 				newFeatureType.setValidSince(date);
 				newFeatureType.setType(inputType.getType());
-				
+
 				entry.getValue().getTypes().add(newFeatureType);
 			}
 		}
@@ -496,7 +621,7 @@ public abstract class DwFeatureModelEvolutionImporter<T> {
 				validGroupComposition.setValidUntil(null);
 				group.getParentOf().clear();
 				group.getParentOf().add(validGroupComposition);
-				
+
 				featureToBeAdded.getParentOf().add(featureChild);
 			}
 
@@ -576,7 +701,7 @@ public abstract class DwFeatureModelEvolutionImporter<T> {
 						.getValidTemporalElement(featureEntrySet.getKey().getGroupMembership(), date);
 				HyGroupTypeEnum groupTypeOfGroupOfFeatureFromInputModel = HyEvolutionUtil.getValidTemporalElement(
 						groupCompositionOfFeatureFromInputModel.getCompositionOf().getTypes(), date).getType();
-				
+
 				addFeatureToBestMatchingGroup(featureEntrySet.getValue(), groupCompositionOfFeatureFromInputModel,
 						equivalentToParentFromInputModel, groupTypeOfGroupOfFeatureFromInputModel, featureMap,
 						mergedFeatureModel, date);
