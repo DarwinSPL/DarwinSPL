@@ -355,7 +355,7 @@ public class DwFeatureModelEvolutionImporter {
 		Map<HyFeature, HyFeature> featureMap = new HashMap<HyFeature, HyFeature>();
 		Map<HyGroup, HyGroup> groupMap = new HashMap<HyGroup, HyGroup>();
 
-		List<HyFeature> featuresToInvalidate = new ArrayList<HyFeature>(mergedFeatureModel.getFeatures());
+		List<HyFeature> featuresToInvalidate = new ArrayList<HyFeature>(HyEvolutionUtil.getValidTemporalElements(mergedFeatureModel.getFeatures(), date));
 
 		// Step 1: Check that each feature / attribute exists. If not create it and set
 		// valid since. If a feature / attribute existed before, but not anymore, set
