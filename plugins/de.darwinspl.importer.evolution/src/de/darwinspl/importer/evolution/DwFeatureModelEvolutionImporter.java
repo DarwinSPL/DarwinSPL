@@ -1,11 +1,11 @@
 package de.darwinspl.importer.evolution;
 
+import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -323,7 +323,8 @@ public class DwFeatureModelEvolutionImporter {
 		sortedDateList.remove(null);
 		Collections.sort(sortedDateList);
 
-		System.out.println("Importing base model");
+		ZonedDateTime zdt = ZonedDateTime.now();
+		System.out.println(zdt.toString()+": Importing base model");
 		long start = System.currentTimeMillis();
 		if (models.get(null) != null) {
 			mergeModels(models.get(null), mergedFeatureModel, mergedConstraintModel, null);
@@ -332,7 +333,8 @@ public class DwFeatureModelEvolutionImporter {
 		System.out.println("Importing base model took "+(end-start)+" milliseconds.");
 
 		for (Date date : sortedDateList) {
-			System.out.println("Importing model at date "+date);
+			zdt = ZonedDateTime.now();
+			System.out.println(zdt.toString()+": Importing model at date "+date);
 			start = System.currentTimeMillis();
 			mergeModels(models.get(date), mergedFeatureModel, mergedConstraintModel, date);
 			end = System.currentTimeMillis();
@@ -378,7 +380,8 @@ public class DwFeatureModelEvolutionImporter {
 //			}
 //		}
 
-		System.out.println("Searching for matching features");
+		ZonedDateTime zdt = ZonedDateTime.now();
+		System.out.println(zdt.toString()+": Searching for matching features");
 		List<HyFeature> potentialFeatureMatchingPartners = new ArrayList<HyFeature>();
 		potentialFeatureMatchingPartners.addAll(HyEvolutionUtil.getValidTemporalElements(mergedFeatureModel.getFeatures(), date));
 		
@@ -398,8 +401,9 @@ public class DwFeatureModelEvolutionImporter {
 			}
 		}
 
-		System.out.println("Searching for matching groups");
-		
+
+		zdt = ZonedDateTime.now();
+		System.out.println(zdt.toString()+": Searching for matching groups");
 		List<HyGroup> potentialGroupMatchingPartners = new ArrayList<HyGroup>();
 		potentialGroupMatchingPartners.addAll(HyEvolutionUtil.getValidTemporalElements(mergedFeatureModel.getGroups(), date));
 		
@@ -433,14 +437,24 @@ public class DwFeatureModelEvolutionImporter {
 			}
 		}
 
+		zdt = ZonedDateTime.now();
+		System.out.println(zdt.toString()+": Checking whether features have to be moved");
 		moveFeaturesIfTheyHaveBeenMovedInInputModel(mergedFeatureModel, featureMap, date);
 
+		zdt = ZonedDateTime.now();
+		System.out.println(zdt.toString()+": Checking whether feature types need to be updated");
 		updateFeatureTypes(mergedFeatureModel, featureMap, date);
 
+		zdt = ZonedDateTime.now();
+		System.out.println(zdt.toString()+": Checking whether group types need to be updated");
 		updateGroupTypes(groupMap, date);
 
+		zdt = ZonedDateTime.now();
+		System.out.println(zdt.toString()+": Adding new features to merged model");
 		mergeFeatures(featuresToBeAddedToMergedModel, mergedFeatureModel, featureMap, date);
 
+		zdt = ZonedDateTime.now();
+		System.out.println(zdt.toString()+": Adding enums of feature attributes");
 		// handle enums. Only considered enums which are used by feature attributes.
 		Set<HyEnum> enums = new HashSet<HyEnum>();
 
@@ -453,6 +467,8 @@ public class DwFeatureModelEvolutionImporter {
 
 		mergedFeatureModel.getEnums().addAll(enums);
 
+		zdt = ZonedDateTime.now();
+		System.out.println(zdt.toString()+": Invalidating features");
 		// Invalidate features which do not exist anymore. Update group composition.
 		for (HyFeature featureToInvalidate : featuresToInvalidate) {
 			HyFeatureEvolutionUtil.removeFeatureFromGroup(featureToInvalidate, date);
@@ -462,6 +478,8 @@ public class DwFeatureModelEvolutionImporter {
 		// Merge constraint models
 		HyConstraintModel constraintModelToBeMerged = modelsToBeMerged.getConstraintModel();
 		if (constraintModelToBeMerged != null) {
+			zdt = ZonedDateTime.now();
+			System.out.println(zdt.toString()+": Merging constraint model");
 			mergeConstraintModel(constraintModelToBeMerged, mergedConstraintModel, featureMap, date);
 		}
 
@@ -652,18 +670,27 @@ public class DwFeatureModelEvolutionImporter {
 				constraintModelToBeMerged.getConstraints());
 		List<HyConstraint> remainingMatchingPartners = new ArrayList<HyConstraint>(
 				mergedConstraintModel.getConstraints());
-
+		
+		ZonedDateTime zdt = ZonedDateTime.now();
+		System.out.println(zdt.toString()+": Finding matching constraints");
 		for (HyConstraint constraintToBeMerged : constraintModelToBeMerged.getConstraints()) {
 			HyConstraint equalConstraint = findEqualConstraint(constraintToBeMerged, remainingMatchingPartners,
 					featureMap, date);
+			
 			if (equalConstraint != null) {
 				remainingMatchingPartners.remove(equalConstraint);
 				constraintsToBeMergedWithoutMatchingPartner.remove(constraintToBeMerged);
+				zdt = ZonedDateTime.now();
+				System.out.println(zdt.toString()+": Matched a constraint.");
+				continue;
 			}
 		}
 
 		// For each constraint of the model to be merged that does not have a mapping
 		// partner: add the constraint with valid since
+		
+		zdt = ZonedDateTime.now();
+		System.out.println(zdt.toString()+": Adding new constraints");
 		for (HyConstraint constraintToBeMergedWithoutMatchingPartner : constraintsToBeMergedWithoutMatchingPartner) {
 			mergedConstraintModel.getConstraints()
 					.add(createConstraintInMergedModel(constraintToBeMergedWithoutMatchingPartner, featureMap, date));
@@ -671,6 +698,9 @@ public class DwFeatureModelEvolutionImporter {
 
 		// For each constraint of the merged model that does not have a mapping partner:
 		// set the valid until of the constraint
+		
+		zdt = ZonedDateTime.now();
+		System.out.println(zdt.toString()+": Invalidate constraints");
 		for (HyConstraint unmatchedConstraint : remainingMatchingPartners) {
 			unmatchedConstraint.setValidUntil(date);
 		}
