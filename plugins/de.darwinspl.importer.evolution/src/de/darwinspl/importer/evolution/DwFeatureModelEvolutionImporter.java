@@ -682,7 +682,7 @@ public class DwFeatureModelEvolutionImporter {
 				remainingMatchingPartners.remove(equalConstraint);
 				constraintsToBeMergedWithoutMatchingPartner.remove(constraintToBeMerged);
 				zdt = ZonedDateTime.now();
-				System.err.println(zdt.toString()+": Matched a constraint.");
+//				System.err.println(zdt.toString()+": Matched a constraint.");
 				continue;
 			}
 		}
@@ -741,9 +741,6 @@ public class DwFeatureModelEvolutionImporter {
 			} else if (expressionOfConstraintToBeMerged instanceof HyAbstractFeatureReferenceExpression) {
 				HyAbstractFeatureReferenceExpression featureRef1 = (HyAbstractFeatureReferenceExpression) expressionOfConstraintToBeMerged;
 				HyAbstractFeatureReferenceExpression featureRef2 = (HyAbstractFeatureReferenceExpression) expressionOfMergedConstraint;	
-				
-				EcoreUtil.resolveAll(featureRef1);
-				EcoreUtil.resolveAll(featureRef2);
 				
 				HyFeature equivalentFeatureFromMergedFeatureModel = featureMap.get(featureRef1.getFeature());
 				boolean featuresMatch = equivalentFeatureFromMergedFeatureModel==featureRef2.getFeature();
