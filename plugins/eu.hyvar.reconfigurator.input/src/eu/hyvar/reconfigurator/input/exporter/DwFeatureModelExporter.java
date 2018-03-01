@@ -37,11 +37,11 @@ public class DwFeatureModelExporter {
 	private Map<HyVersion, String> versionReconfiguratorIdMapping;
 	private Map<HyFeatureAttribute, String> attributeReconfiguratorIdMapping;
 	
-	private Map<EObject, String> translationMapping;
+	private Map<String, EObject> translationMapping;
 	
 	public DwFeatureModelExporter(HyFeatureModel featureModel, Map<HyFeature, String> featureReconfiguratorIdMapping,
 			Map<HyVersion, String> versionReconfiguratorIdMapping, Map<HyFeatureAttribute, String> attributeReconfiguratorIdMapping,
-			Map<EObject, String> translationMapping) {
+			Map<String, EObject> translationMapping) {
 		this.featureModel = featureModel;
 		this.featureReconfiguratorIdMapping = featureReconfiguratorIdMapping;
 		this.versionReconfiguratorIdMapping = versionReconfiguratorIdMapping;
@@ -64,7 +64,7 @@ public class DwFeatureModelExporter {
 
 			featureModelConstraints.add(rootFeatureConstraint.toString());
 			
-			translationMapping.put(rootFeature, rootFeatureConstraint.toString());
+			translationMapping.put(rootFeatureConstraint.toString(), rootFeature);
 
 //			featureModelConstraints.addAll(getFeatureConstraints(rootFeature.getFeature(), true, date));
 
@@ -80,7 +80,7 @@ public class DwFeatureModelExporter {
 				
 				featureModelConstraints.add(rootFeatureConstraint.toString());
 
-				translationMapping.put(rootFeature, rootFeatureConstraint.toString());
+				translationMapping.put(rootFeatureConstraint.toString(), rootFeature);
 				
 				rootFeatureConstraint = new StringBuilder();
 			}
@@ -277,7 +277,7 @@ public class DwFeatureModelExporter {
 					
 					versionConstraints.add(versionStringBuilder.toString());
 					
-					translationMapping.put(feature, versionStringBuilder.toString());
+					translationMapping.put(versionStringBuilder.toString(), feature);
 				}
 			}
 		}
@@ -419,7 +419,7 @@ public class DwFeatureModelExporter {
 				
 				featureModelConstraints.add(groupConstraintsStringBuilder.toString());
 				
-				translationMapping.put(groupComposition, groupConstraintsStringBuilder.toString());
+				translationMapping.put(groupConstraintsStringBuilder.toString(), group);
 				
 				groupConstraintsStringBuilder = new StringBuilder();
 			}
@@ -605,7 +605,7 @@ public class DwFeatureModelExporter {
 					
 					featureModelConstraints.add(groupConstraintsStringBuilder.toString());
 
-					translationMapping.put(group, groupConstraintsStringBuilder.toString());
+					translationMapping.put(groupConstraintsStringBuilder.toString(), group);
 				}
 			}
 			
@@ -633,7 +633,7 @@ public class DwFeatureModelExporter {
 					
 					featureModelConstraints.add(groupConstraintsStringBuilder.toString());
 
-					translationMapping.put(feature, groupConstraintsStringBuilder.toString());
+					translationMapping.put(groupConstraintsStringBuilder.toString(), feature);
 				}
 				
 			}
@@ -687,7 +687,7 @@ public class DwFeatureModelExporter {
 						
 						featureModelConstraints.add(optionalWithoutChildStringBuilder.toString());
 						
-						translationMapping.put(groupComposition, optionalWithoutChildStringBuilder.toString());
+						translationMapping.put(optionalWithoutChildStringBuilder.toString(), group);
 					}
 				}
 			}
@@ -810,7 +810,7 @@ public class DwFeatureModelExporter {
 			evolutionFeatureRestrictionConstraints.add(stringBuilder.toString());
 			
 			for (HyFeature feature : invalidFeatures) {
-				translationMapping.put(feature, stringBuilder.toString());
+				translationMapping.put(stringBuilder.toString(), feature);
 			}
 		}
 		

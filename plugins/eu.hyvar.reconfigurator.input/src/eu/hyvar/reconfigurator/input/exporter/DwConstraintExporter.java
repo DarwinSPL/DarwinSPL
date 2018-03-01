@@ -16,9 +16,9 @@ public class DwConstraintExporter {
 
 	private HyExpressionStringExporter expressionExporter;
 	
-	private Map<EObject, String> translationMapping;
+	private Map<String, EObject> translationMapping;
 	
-	public DwConstraintExporter(HyExpressionStringExporter expressionExporter, Map<EObject, String> translationMapping) {
+	public DwConstraintExporter(HyExpressionStringExporter expressionExporter, Map<String, EObject> translationMapping) {
 		this.expressionExporter = expressionExporter;
 		
 		this.translationMapping = translationMapping;
@@ -38,7 +38,7 @@ public class DwConstraintExporter {
 			if(exportedConstraint != null) {
 				constraints.add(exportedConstraint);
 				
-				translationMapping.put(constraint, exportedConstraint);
+				translationMapping.put(exportedConstraint, constraint);
 			}
 			
 		}

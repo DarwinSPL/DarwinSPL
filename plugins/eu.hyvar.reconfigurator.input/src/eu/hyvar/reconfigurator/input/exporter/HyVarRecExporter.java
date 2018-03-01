@@ -114,7 +114,7 @@ public class HyVarRecExporter {
 	
 	private List<Date> sortedDateList;
 	
-	private Map<EObject, String> translationMapping;
+	private Map<String, EObject> translationMapping;
 
 	public HyVarRecExporter() {
 		
@@ -179,7 +179,7 @@ public class HyVarRecExporter {
 		}
 
 		// initialize translationMapping
-		translationMapping = new HashMap<EObject, String>();
+		translationMapping = new HashMap<String, EObject>();
 
 		// Create mappings from model elements to IDs
 		reconfiguratorIdMapping = new ReconfiguratorIdMapping(featureModels, contextModels);
@@ -609,7 +609,7 @@ public class HyVarRecExporter {
 		return this.sortedDateList;
 	}
 	
-	public Map<EObject, String>  getTranslationMapping() {
+	public Map<String, EObject>  getTranslationMapping() {
 		return translationMapping;
 	}
 

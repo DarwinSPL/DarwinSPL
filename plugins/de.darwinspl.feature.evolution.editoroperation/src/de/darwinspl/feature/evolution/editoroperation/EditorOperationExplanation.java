@@ -1,7 +1,5 @@
 package de.darwinspl.feature.evolution.editoroperation;
 
-import org.eclipse.emf.ecore.EObject;
-
 import eu.hyvar.evolution.util.HyEvolutionUtil;
 import eu.hyvar.feature.HyFeatureChild;
 

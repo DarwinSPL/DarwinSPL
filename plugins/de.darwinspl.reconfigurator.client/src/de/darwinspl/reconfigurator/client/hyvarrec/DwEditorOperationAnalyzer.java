@@ -2,10 +2,8 @@ package de.darwinspl.reconfigurator.client.hyvarrec;
 
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 import org.eclipse.emf.ecore.EObject;
 
@@ -55,7 +53,6 @@ import eu.hyvar.feature.HyGroupComposition;
 import eu.hyvar.feature.HyGroupType;
 import eu.hyvar.feature.HyGroupTypeEnum;
 import eu.hyvar.feature.HyNumberAttribute;
-import eu.hyvar.feature.HyRootFeature;
 import eu.hyvar.feature.HyVersion;
 import eu.hyvar.feature.constraint.HyConstraint;
 import eu.hyvar.feature.constraint.HyConstraintModel;
@@ -315,7 +312,7 @@ public class DwEditorOperationAnalyzer {
 		
 		List<AnomalyConstraintExplanation> constraintExplanationList = new ArrayList<AnomalyConstraintExplanation>();
 		
-		HyFeature parent = getFeatureParent(anomaly.getFeature(), date);
+		HyFeature parent = HyFeatureEvolutionUtil.getParentFeatureOfFeature(anomaly.getFeature(), date);
 		// Root's parent would be null
 		if (parent != null) {
 			
@@ -331,10 +328,10 @@ public class DwEditorOperationAnalyzer {
 			}
 			
 			// check whether it's the result of the false-optional group
-			HyGroup featureGroup = getFeatureGroup(anomaly.getFeature(), date);
+			HyGroup featureGroup = HyFeatureEvolutionUtil.getParentGroupOfFeature(anomaly.getFeature(), date);
 			for (HyGroupType groupType : featureGroup.getTypes()) {
 				// check whether this is the groupType of the anomaly
-				if (!isElementValid(groupType, date)) {
+				if (!HyEvolutionUtil.isValid(groupType, date)) {
 					continue;
 				}
 				
@@ -342,7 +339,7 @@ public class DwEditorOperationAnalyzer {
 					
 					// iterate through the other alternate group members to check whether one is false optional
 					
-					HyGroupComposition groupComp = getFeatureGroupComposition(featureGroup, date);
+					HyGroupComposition groupComp = HyFeatureEvolutionUtil.getGroupComposition(featureGroup, date);
 					for (HyFeature otherFeature : groupComp.getFeatures()) {
 						if (falseOptionalList.contains(otherFeature)) {
 							String explanation = "This is a dead feature, because it's in an ALTERNATIVE group with the false-optional feature " + HyFeatureEvolutionUtil.getName(otherFeature.getNames(), date);
@@ -380,23 +377,23 @@ public class DwEditorOperationAnalyzer {
 	
 	protected List<AnomalyConstraintExplanation> getRelatedEditorOperationsFromExplanation(DwAnomalyExplanation anomalyExplanation) {
 
-		Map<EObject, String> translationMapping = client.exporter.getTranslationMapping();
+		Map<String, EObject> translationMapping = client.exporter.getTranslationMapping();
 
 		// use only those translationmappings that are actually explanations.
-		translationMapping.values().retainAll(anomalyExplanation.getExplanations());
+		translationMapping.keySet().retainAll(anomalyExplanation.getExplanations());
 		
 
 		List<AnomalyConstraintExplanation> list = new ArrayList<AnomalyConstraintExplanation>();
 		
-		for (EObject obj : translationMapping.keySet()) {
+		for (String constraint : translationMapping.keySet()) {
 			// resolve ids to names
-			String constraintString = resolveFeatureName(translationMapping.get(obj), anomalyExplanation.getDate());
+			String constraintString = resolveFeatureName(constraint, anomalyExplanation.getDate());
 			
 			AnomalyConstraintExplanation explanation = new AnomalyConstraintExplanation();
-			explanation.setObjReference(obj);
+			explanation.setObjReference(translationMapping.get(constraint));
 			explanation.setStringReference(constraintString);
 			explanation.setDate(anomalyExplanation.getDate());
-			for (DwEditorOperation operation : getEditorOperationListForObject(obj, anomalyExplanation.getDate())) {
+			for (DwEditorOperation operation : getEditorOperationListForObject(translationMapping.get(constraint), anomalyExplanation.getDate())) {
 				EditorOperationExplanation opExplanation = new EditorOperationExplanation(operation);
 				explanation.getEditorOperationExplanations().add(opExplanation);
 			}
@@ -411,14 +408,6 @@ public class DwEditorOperationAnalyzer {
 		HyFeature feature = null;
 		if (object instanceof HyFeature) {
 			feature = (HyFeature) object;
-		}
-		
-		// TODO: mby set Group directly? (need to check parent + children then though
-		if (object instanceof HyGroupComposition) {
-			HyGroupComposition groupComposition = (HyGroupComposition) object;
-			
-			HyGroup group = groupComposition.getCompositionOf();
-			opsList.addAll(getEditorOperationListForObject(group, date));
 		}
 		
 		HyGroup group = null;
@@ -534,54 +523,6 @@ public class DwEditorOperationAnalyzer {
 		list.add(encodedString);
 		list = client.translateIdsBackToNames(list, date, client.exporter);
 		return list.get(0);
-	}
-	
-	public HyFeature getFeatureParent(HyFeature feature, Date date) {		
-		for (HyGroupComposition groupComp : feature.getGroupMembership()) {			
-			if (isElementValid(groupComp, date)) {				
-				for (HyFeatureChild featureChild : groupComp.getCompositionOf().getChildOf()) {					
-					if (isElementValid(featureChild, date)) {
-						return featureChild.getParent();
-					}
-				}
-			}
-		}		
-		return null;
-	}
-	
-	public HyGroup getFeatureGroup(HyFeature feature, Date date) {		
-		for (HyGroupComposition groupComp : feature.getGroupMembership()) {			
-			if (isElementValid(groupComp, date)) {
-				return groupComp.getCompositionOf();
-			}			
-		}		
-		return null;
-	}
-	
-	public HyGroupComposition getFeatureGroupComposition(HyGroup group, Date date) {
-		for (HyGroupComposition groupComp : group.getParentOf()) {			
-			if (isElementValid(groupComp, date)) {
-				return groupComp;
-			}			
-		}		
-		return null;
-	}
-	
-	public HyFeatureType getFeatureType(HyFeature feature, Date date) {		
-		for (HyFeatureType featureType : feature.getTypes()) {			
-			if (isElementValid(featureType, date)) {
-				return featureType;
-			}			
-		}		
-		return null;
-	}
-	
-	public boolean isElementValid(HyTemporalElement element, Date date) {
-		if ((element.getValidSince() == null || element.getValidSince().compareTo(date) <= 0) &&
-			(element.getValidUntil() == null || element.getValidUntil().compareTo(date) > 0)) {
-			return true;
-		}
-		return false;
 	}
 	
 	protected List<HyFeature> getDeadFeatures(List<DwAnomaly> anomalies) {

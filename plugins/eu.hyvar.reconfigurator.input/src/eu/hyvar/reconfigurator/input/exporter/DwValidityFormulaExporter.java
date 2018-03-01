@@ -23,9 +23,9 @@ public class DwValidityFormulaExporter {
 
 	private HyExpressionStringExporter expressionExporter;
 
-	private Map<EObject, String> translationMapping;
+	private Map<String, EObject> translationMapping;
 	
-	public DwValidityFormulaExporter(HyExpressionStringExporter expressionExporter, Map<EObject, String> translationMapping) {
+	public DwValidityFormulaExporter(HyExpressionStringExporter expressionExporter, Map<String, EObject> translationMapping) {
 		this.expressionExporter = expressionExporter;
 		
 		this.translationMapping = translationMapping;
@@ -45,7 +45,7 @@ public class DwValidityFormulaExporter {
 			if(validityFormulaConstraint != null) {
 				validityFormulas.add(validityFormulaConstraint);
 				
-				translationMapping.put(validityFormula, validityFormulaConstraint);
+				translationMapping.put(validityFormulaConstraint, validityFormula);
 			}
 			
 		}

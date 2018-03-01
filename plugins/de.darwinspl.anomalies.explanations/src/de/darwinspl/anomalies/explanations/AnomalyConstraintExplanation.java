@@ -6,7 +6,6 @@ import java.util.List;
 
 import org.eclipse.emf.ecore.EObject;
 
-import de.darwinspl.feature.evolution.editoroperation.DwEditorOperation;
 import de.darwinspl.feature.evolution.editoroperation.EditorOperationExplanation;
 import eu.hyvar.context.contextValidity.HyValidityFormula;
 import eu.hyvar.evolution.util.HyEvolutionUtil;
@@ -41,9 +40,6 @@ public class AnomalyConstraintExplanation {
 		} else if (objReference instanceof HyGroup) {
 			HyGroup group = (HyGroup) objReference;
 			constraintStringExplanation = explain(group);
-		} else if (objReference instanceof HyGroupComposition) {
-			HyGroupComposition groupComposition = (HyGroupComposition) objReference;
-			constraintStringExplanation = explain(groupComposition);
 		}
 
 		String editorOperationExplanation = "";
@@ -62,17 +58,6 @@ public class AnomalyConstraintExplanation {
 			return stringReference + " -> " + constraintStringExplanation + editorOperationExplanation;
 		}
 	}
-
-	/*
-	 * Possible objReferences: feature: mandatory (aka parent=1 -> feature=1) //
-	 * special case??? constraint: constraint group: grouptype condition
-	 * (parent=1 -> f1 alt/and/or f2 ... = 1) validityformula: validityformula
-	 * groupcomposition: parent connection (f1 or f2 ... -> parent) rootfeature:
-	 * rootfeature = 1
-	 * 
-	 * what's missing: contradicting translation of "anomalyfeature = 1/0"
-	 * 
-	 */
 
 	private String explain(HyRootFeature rootFeature) {
 		String rootFeatureName = HyEvolutionUtil.getValidTemporalElement(rootFeature.getFeature().getNames(), date).getName();
@@ -109,12 +94,6 @@ public class AnomalyConstraintExplanation {
 
 		String beWord = (featureList.size() > 1) ? "are" : "is";
 		return featurenames + " " + beWord + " in an " + groupType + "-group under " + parentName;
-	}
-
-	private String explain(HyGroupComposition groupComposition) {
-		// use explain(HyGroup) as this is just another group explanation, but
-		// in a different occasion (hence the different object)
-		return explain(groupComposition.getCompositionOf());
 	}
 
 	public EObject getObjReference() {
