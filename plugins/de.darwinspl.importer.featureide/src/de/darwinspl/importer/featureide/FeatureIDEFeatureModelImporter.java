@@ -122,6 +122,7 @@ public class FeatureIDEFeatureModelImporter implements DarwinSPLFeatureModelImpo
 		
 		//Variation type of feature
 		HyFeatureType featureType = featureFactory.createHyFeatureType();
+		dwFeature.getTypes().add(featureType);
 		if (parentFeature == null) {
 			//Root feature is always mandatory
 			featureType.setType(HyFeatureTypeEnum.MANDATORY);
@@ -135,7 +136,6 @@ public class FeatureIDEFeatureModelImporter implements DarwinSPLFeatureModelImpo
 			featureType.setType(HyFeatureTypeEnum.OPTIONAL);
 		}
 		
-		dwFeature.getTypes().add(featureType);
 		
 		
 		List<IFeatureStructure> childStructures = featureStructure.getChildren();
@@ -156,6 +156,7 @@ public class FeatureIDEFeatureModelImporter implements DarwinSPLFeatureModelImpo
 			
 			//Variation type of group
 			HyGroupType groupType = featureFactory.createHyGroupType();
+			dwGroup.getTypes().add(groupType);
 			if (featureStructure.isAlternative()) {
 				groupType.setType(HyGroupTypeEnum.ALTERNATIVE);
 			} else if (featureStructure.isOr()) {
@@ -164,6 +165,7 @@ public class FeatureIDEFeatureModelImporter implements DarwinSPLFeatureModelImpo
 				//Minimum is the number of mandatory child features
 				groupType.setType(HyGroupTypeEnum.AND);
 			}
+			
 			
 			for (IFeatureStructure childStructure : childStructures) {
 				IFeature childFeature = childStructure.getFeature();

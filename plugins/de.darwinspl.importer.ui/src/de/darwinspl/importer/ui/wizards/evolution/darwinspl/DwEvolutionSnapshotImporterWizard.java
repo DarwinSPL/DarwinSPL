@@ -77,6 +77,7 @@ public class DwEvolutionSnapshotImporterWizard extends Wizard implements IImport
 		for(Entry<IFile, Date> fileDate : fileDateMap.entrySet()) {
 			if(fileDate.getKey() != null) {
 				System.out.println("Loading Model "+fileDate.getKey().getName());
+				long start = System.currentTimeMillis();
 				EObject loadedObject = null;
 				if(rs == null) {
 					loadedObject = EcoreIOUtil.loadModel(fileDate.getKey());
@@ -99,6 +100,9 @@ public class DwEvolutionSnapshotImporterWizard extends Wizard implements IImport
 				HyFeatureModel loadedFeatureModel = (HyFeatureModel) loadedObject;
 				HyConstraintModel loadedConstraintModel = HyConstraintIOUtil.loadAccompanyingConstraintModel(loadedFeatureModel);
 				
+				long end = System.currentTimeMillis();
+				System.out.println("Loading Model took "+(end-start)+ " milliseconds.");
+				
 				FeatureModelConstraintsTuple tuple = new FeatureModelConstraintsTuple(loadedFeatureModel, loadedConstraintModel);
 				
 				featureModelDateMap.put(tuple, fileDate.getValue());
@@ -109,15 +113,29 @@ public class DwEvolutionSnapshotImporterWizard extends Wizard implements IImport
 		DwFeatureModelEvolutionImporter featureModelEvolutionImporter = new DwFeatureModelEvolutionImporter();
 		try {
 			System.out.println("Start Import!");
+			long start = System.currentTimeMillis();
+			
 			FeatureModelConstraintsTuple mergedTuple = featureModelEvolutionImporter.importFeatureModelEvolutionSnapshots(featureModelDateMap);
+			
+			long end = System.currentTimeMillis();
+			System.out.println("Importing evolution steps took "+(end-start)+" milliseconds.");
 			
 			IFile featureModelFile = dwFeatureModelWizardImportedFilePage.getModelFile();
 			IFile constraintFile = ResourceUtil.deriveFile(featureModelFile, HyConstraintUtil.getConstraintModelFileExtensionForXmi());
 			IFile constraintFileCS = ResourceUtil.deriveFile(featureModelFile, HyConstraintUtil.getConstraintModelFileExtensionForConcreteSyntax());
-				
+			
+			System.out.println("Start saving merged model");
+			
+			start = System.currentTimeMillis();
+			
 			EcoreIOUtil.saveModelAs(mergedTuple.getFeatureModel(), featureModelFile);
 			EcoreIOUtil.saveModelAs(mergedTuple.getConstraintModel(), constraintFile);
 			EcoreIOUtil.saveModelAs(mergedTuple.getConstraintModel(), constraintFileCS);
+			
+			end = System.currentTimeMillis();
+			
+			System.out.println("Saving merged model took "+(end-start)+" milliseconds.");
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 			return false;

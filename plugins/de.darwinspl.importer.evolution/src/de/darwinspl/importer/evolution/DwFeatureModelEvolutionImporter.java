@@ -39,7 +39,6 @@ import eu.hyvar.feature.constraint.HyConstraint;
 import eu.hyvar.feature.constraint.HyConstraintFactory;
 import eu.hyvar.feature.constraint.HyConstraintModel;
 import eu.hyvar.feature.expression.HyAbstractFeatureReferenceExpression;
-import eu.hyvar.feature.expression.HyAtomicExpression;
 import eu.hyvar.feature.expression.HyBinaryExpression;
 import eu.hyvar.feature.expression.HyExpression;
 import eu.hyvar.feature.expression.HyFeatureReferenceExpression;

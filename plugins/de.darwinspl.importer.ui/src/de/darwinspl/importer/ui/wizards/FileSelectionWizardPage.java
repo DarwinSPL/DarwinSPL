@@ -4,6 +4,7 @@ package de.darwinspl.importer.ui.wizards;
 import java.io.File;
 
 import org.eclipse.core.resources.IFile;
+import org.eclipse.core.resources.IResource;
 import org.eclipse.jface.wizard.WizardPage;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionEvent;
@@ -25,7 +26,7 @@ public class FileSelectionWizardPage extends WizardPage implements SelectionList
 	
 	protected FileDialog fileDialog;
 	
-	protected IFile selectedFile;
+	protected IResource selectedResource;
 	
 	/**
 	 * 
@@ -45,13 +46,13 @@ public class FileSelectionWizardPage extends WizardPage implements SelectionList
 	 *            bundles are treated as directories. When no filter extension
 	 *            is set, bundles are treated as files.
 	 */
-	public FileSelectionWizardPage(String pageName, String description, String[] fileExtensionFilter, String modelName, IFile file) {
+	public FileSelectionWizardPage(String pageName, String description, String[] fileExtensionFilter, String modelName, IResource selectedResource) {
 		super(pageName);
 		setDescription(description);
 		this.fileExtensionFilter = fileExtensionFilter;
 		
 		this.modelName = modelName;
-		this.selectedFile = file;
+		this.selectedResource = selectedResource;
 	}
 
 	protected Label selectedSourceFileLabel;
@@ -91,8 +92,16 @@ public class FileSelectionWizardPage extends WizardPage implements SelectionList
 			if(fileExtensionFilter != null && fileExtensionFilter.length > 0) {
 				fileDialog.setFilterExtensions(fileExtensionFilter);				
 			}
-			if(selectedFile != null) {
-				String selectedFilePath = selectedFile.getParent().getLocation().toString();
+			if(selectedResource != null) {
+				String selectedFilePath = "";
+				
+				if(selectedResource instanceof IFile) {
+					selectedFilePath = selectedResource.getParent().getLocation().toString();
+				}
+				else {
+					selectedFilePath = selectedResource.getLocation().toString();
+				}
+				
 				fileDialog.setFilterPath(selectedFilePath);
 			}
 			

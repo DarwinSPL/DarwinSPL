@@ -2,6 +2,7 @@ package de.darwinspl.importer.ui.wizards.featureide;
 
 
 import org.eclipse.core.resources.IFile;
+import org.eclipse.core.resources.IResource;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.wizard.Wizard;
 import org.eclipse.ui.IImportWizard;
@@ -35,14 +36,14 @@ public class FeatureIDEFeatureModelImporterWizard extends Wizard implements IImp
 		this.selection = selection;
 		
 		Object firstSelection = selection.getFirstElement();
-		IFile selectedFile = null;
-		if(firstSelection != null && firstSelection instanceof IFile) {
-			selectedFile = (IFile) firstSelection;
+		IResource selectedResource = null;
+		if(firstSelection != null && firstSelection instanceof IResource) {
+			selectedResource = (IResource) firstSelection;
 		}
 		
 		setWindowTitle("New Feature Model");
 		
-		featureIdeModelFileSelectionWizardPage = new FileSelectionWizardPage("FeatureIDE Feature Model Selection", "Please Select a FeatureIDE Feature Model for Import" , new String[] {"*.xml"}, "FeatureIDE Feature Model", selectedFile);
+		featureIdeModelFileSelectionWizardPage = new FileSelectionWizardPage("FeatureIDE Feature Model Selection", "Please Select a FeatureIDE Feature Model for Import" , new String[] {"*.xml"}, "FeatureIDE Feature Model", selectedResource);
 		dwFeatureModelWizardImportedFilePage = new DwFeatureModelWizardImportedFilePage("Select new File to store the imported Feature Model", selection);
 	}
 
