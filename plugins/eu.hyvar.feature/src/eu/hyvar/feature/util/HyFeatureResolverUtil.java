@@ -4,15 +4,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import org.deltaecore.util.DEIOUtil;
-import org.eclipse.core.resources.IContainer;
-import org.eclipse.core.resources.IFile;
-import org.eclipse.core.resources.IProject;
 import org.eclipse.emf.ecore.EObject;
 
-import de.christophseidl.util.eclipse.ResourceUtil;
-import de.christophseidl.util.ecore.EcoreIOUtil;
-import de.christophseidl.util.ecore.EcoreResolverUtil;
 import de.darwinspl.common.ecore.util.DwEcoreUtil;
 import eu.hyvar.dataValues.HyEnum;
 import eu.hyvar.evolution.HyName;
@@ -167,7 +160,11 @@ public class HyFeatureResolverUtil {
 
 	public static String deresolveFeature(HyFeature feature, Date date) {
 		// TODO incorporate evolution! For every element!
-		String identifier = HyFeatureEvolutionUtil.getName(feature.getNames(), date).getName();
+		HyName featureName = HyFeatureEvolutionUtil.getName(feature.getNames(), date);
+		if(featureName == null) {
+			System.out.println("Bad!");
+		}
+		String identifier = featureName.getName();
 
 		// Standard TEXT token regular expression
 		String textTokenRegularExpression = "[A-Za-z_][A-Za-z0-9_]*";
