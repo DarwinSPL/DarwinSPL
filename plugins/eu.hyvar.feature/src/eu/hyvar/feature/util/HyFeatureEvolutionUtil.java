@@ -535,6 +535,10 @@ public class HyFeatureEvolutionUtil {
 	public static void removeFeatureFromGroup(HyFeature feature, Date date) {
 		HyGroupComposition groupComposition = HyEvolutionUtil.getValidTemporalElement(feature.getGroupMembership(), date);
 		
+		if(groupComposition == null) {
+			return;
+		}
+		
 		if(groupComposition.getFeatures().size() <= 1) {
 			// Complete Group has to be invalidated
 			HyGroup group = groupComposition.getCompositionOf();
