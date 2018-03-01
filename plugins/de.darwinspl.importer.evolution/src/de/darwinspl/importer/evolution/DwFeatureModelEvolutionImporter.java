@@ -190,6 +190,7 @@ public class DwFeatureModelEvolutionImporter {
 
 		for (Entry<FeatureModelConstraintsTuple, Date> entry : models.entrySet()) {
 			darwinSPLModels.put(entry.getValue(), entry.getKey());
+			EcoreUtil.resolveAll(entry.getKey().getConstraintModel());
 		}
 
 		FeatureModelConstraintsTuple mergedModels = mergeFeatureModels(darwinSPLModels);
@@ -681,7 +682,7 @@ public class DwFeatureModelEvolutionImporter {
 				remainingMatchingPartners.remove(equalConstraint);
 				constraintsToBeMergedWithoutMatchingPartner.remove(constraintToBeMerged);
 				zdt = ZonedDateTime.now();
-				System.out.println(zdt.toString()+": Matched a constraint.");
+				System.err.println(zdt.toString()+": Matched a constraint.");
 				continue;
 			}
 		}
@@ -741,8 +742,12 @@ public class DwFeatureModelEvolutionImporter {
 				HyAbstractFeatureReferenceExpression featureRef1 = (HyAbstractFeatureReferenceExpression) expressionOfConstraintToBeMerged;
 				HyAbstractFeatureReferenceExpression featureRef2 = (HyAbstractFeatureReferenceExpression) expressionOfMergedConstraint;	
 				
+				EcoreUtil.resolveAll(featureRef1);
+				EcoreUtil.resolveAll(featureRef2);
+				
 				HyFeature equivalentFeatureFromMergedFeatureModel = featureMap.get(featureRef1.getFeature());
-				return equivalentFeatureFromMergedFeatureModel==featureRef2.getFeature();
+				boolean featuresMatch = equivalentFeatureFromMergedFeatureModel==featureRef2.getFeature();
+				return featuresMatch;
 			} else {
 				System.err.println(
 						"Currently unsupported expressions have been compared in de.darwinspl.importer.evolution.DwFeatureModelEvolutionImporter.areExpressionsEqual(HyExpression, HyExpression, Map<HyFeature, HyFeature>, Date)");
