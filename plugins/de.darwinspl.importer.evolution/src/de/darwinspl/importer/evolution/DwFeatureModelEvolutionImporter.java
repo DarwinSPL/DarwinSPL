@@ -592,6 +592,9 @@ public class DwFeatureModelEvolutionImporter {
 			featureToBeAdded.getNames().add(validName);
 
 			HyFeatureType validType = HyEvolutionUtil.getValidTemporalElement(featureToBeAdded.getTypes(), date);
+			if(validType ==null) {
+				System.out.println("ValidType is null");
+			}
 			validType.setValidSince(date);
 			validType.setValidUntil(null);
 			featureToBeAdded.getTypes().clear();

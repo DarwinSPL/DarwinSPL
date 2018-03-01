@@ -45,9 +45,15 @@ public class DwEvolutionSnapshotImporterWizard extends Wizard implements IImport
 		this.workbench = workbench;
 		this.selection = selection;
 		
+		Object firstSelection = selection.getFirstElement();
+		IFile selectedFile = null;
+		if(firstSelection instanceof IFile) {
+			selectedFile = (IFile) firstSelection;
+		}
+		
 		setWindowTitle("New Feature Model");
 		
-		tfmFileSelectionWizardPage = new DwMultiFileSelectionWizardPage("Evolution Snapshot Importer", "Please Select multiple Temporal Feature Models for Import" , new String[] {"*.hyfeature", "*.dwfeature"}, "Temporal Feature Model");
+		tfmFileSelectionWizardPage = new DwMultiFileSelectionWizardPage("Evolution Snapshot Importer", "Please Select multiple Temporal Feature Models for Import" , new String[] {"*.hyfeature", "*.dwfeature"}, "Temporal Feature Model", selectedFile);
 		
 		featureModelEvolutionStepWizardPage = new DwFeatureModelEvolutionStepWizardPage("Feature Model Evolution Step Association", null);
 		
@@ -67,8 +73,10 @@ public class DwEvolutionSnapshotImporterWizard extends Wizard implements IImport
 		
 		ResourceSet rs = null;
 		
+		System.out.println("Loading Models");
 		for(Entry<IFile, Date> fileDate : fileDateMap.entrySet()) {
 			if(fileDate.getKey() != null) {
+				System.out.println("Loading Model "+fileDate.getKey().getName());
 				EObject loadedObject = null;
 				if(rs == null) {
 					loadedObject = EcoreIOUtil.loadModel(fileDate.getKey());
@@ -100,6 +108,7 @@ public class DwEvolutionSnapshotImporterWizard extends Wizard implements IImport
 		
 		DwFeatureModelEvolutionImporter featureModelEvolutionImporter = new DwFeatureModelEvolutionImporter();
 		try {
+			System.out.println("Start Import!");
 			FeatureModelConstraintsTuple mergedTuple = featureModelEvolutionImporter.importFeatureModelEvolutionSnapshots(featureModelDateMap);
 			
 			IFile featureModelFile = dwFeatureModelWizardImportedFilePage.getModelFile();

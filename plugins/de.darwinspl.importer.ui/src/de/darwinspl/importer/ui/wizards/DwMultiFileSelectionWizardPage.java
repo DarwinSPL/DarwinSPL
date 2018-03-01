@@ -4,6 +4,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.eclipse.core.resources.IFile;
 import org.eclipse.jface.wizard.IWizard;
 import org.eclipse.swt.SWT;
 
@@ -17,8 +18,8 @@ public class DwMultiFileSelectionWizardPage extends FileSelectionWizardPage {
 	}
 	
 	public DwMultiFileSelectionWizardPage(String pageName, String description, String[] fileExtensionFilter,
-			String modelName) {
-		super(pageName, description, fileExtensionFilter, modelName);
+			String modelName, IFile selectedFile) {
+		super(pageName, description, fileExtensionFilter, modelName, selectedFile);
 	}
 	
 	@Override

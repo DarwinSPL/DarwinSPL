@@ -135,6 +135,8 @@ public class FeatureIDEFeatureModelImporter implements DarwinSPLFeatureModelImpo
 			featureType.setType(HyFeatureTypeEnum.OPTIONAL);
 		}
 		
+		dwFeature.getTypes().add(featureType);
+		
 		
 		List<IFeatureStructure> childStructures = featureStructure.getChildren();
 		
