@@ -296,7 +296,7 @@ public class DwEditorOperationAnalyzer {
 		} else if (anomalyExplanation.getAnomaly() instanceof DwDeadFeatureAnomaly){
 			return explainDeadFeatureAnomaly(anomalyExplanation);
 		} else if (anomalyExplanation.getAnomaly() instanceof DwFalseOptionalFeatureAnomaly) {
-//			DwFalseOptionalFeatureAnomaly falseOptionalFeatureAnomaly = (DwFalseOptionalFeatureAnomaly) anomaly;
+			return explainFalseOptionalFeatureAnomaly(anomalyExplanation);
 		}
 		return null;
 	}
@@ -365,6 +365,25 @@ public class DwEditorOperationAnalyzer {
 		
 		for (AnomalyConstraintExplanation explanation : constraintExplanationList) {
 			filterRelevantDeadFeatureEditorOperation(explanation);
+			
+			// now we can properly explain it:
+			String explanationString = explanation.explain();
+			System.out.println(explanationString);
+		}
+		
+		return constraintExplanationList;
+		
+	}
+	
+
+	public List<AnomalyConstraintExplanation> explainFalseOptionalFeatureAnomaly(DwAnomalyExplanation anomalyExplanation) {
+		DwFalseOptionalFeatureAnomaly anomaly = (DwFalseOptionalFeatureAnomaly) anomalyExplanation.getAnomaly();
+		Date date = anomaly.getValidSince();
+		
+		List<AnomalyConstraintExplanation> constraintExplanationList = getRelatedEditorOperationsFromExplanation(anomalyExplanation);
+		
+		for (AnomalyConstraintExplanation explanation : constraintExplanationList) {
+			filterRelevantFalseOptionalFeatureEditorOperation(explanation);
 			
 			// now we can properly explain it:
 			String explanationString = explanation.explain();
@@ -499,6 +518,24 @@ public class DwEditorOperationAnalyzer {
 	
 	
 	public void filterRelevantDeadFeatureEditorOperation(AnomalyConstraintExplanation constraintExplanation) {
+		List<EditorOperationExplanation> list = new ArrayList<EditorOperationExplanation>();
+		
+		for (EditorOperationExplanation opExplanation : constraintExplanation.getEditorOperationExplanations()) {
+			DwEditorOperation operation = opExplanation.getEditorOperation();
+			if (operation instanceof DwEditorOperationFeatureType
+					|| operation instanceof DwEditorOperationFeatureGroup
+					|| operation instanceof DwEditorOperationGroupType
+					|| operation instanceof DwEditorOperationAttributeMinMax // TODO: cannot detect
+					|| operation instanceof DwEditorOperationConstraintCreate
+					|| operation instanceof DwEditorOperationValidityFormulaCreate) {
+					list.add(opExplanation);
+				}
+		}
+		// Only keep relevant explanations
+		constraintExplanation.getEditorOperationExplanations().retainAll(list);
+	}
+	
+	public void filterRelevantFalseOptionalFeatureEditorOperation(AnomalyConstraintExplanation constraintExplanation) {
 		List<EditorOperationExplanation> list = new ArrayList<EditorOperationExplanation>();
 		
 		for (EditorOperationExplanation opExplanation : constraintExplanation.getEditorOperationExplanations()) {
