@@ -5,6 +5,7 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -322,12 +323,20 @@ public class DwFeatureModelEvolutionImporter {
 		sortedDateList.remove(null);
 		Collections.sort(sortedDateList);
 
+		System.out.println("Importing base model");
+		long start = System.currentTimeMillis();
 		if (models.get(null) != null) {
 			mergeModels(models.get(null), mergedFeatureModel, mergedConstraintModel, null);
 		}
+		long end = System.currentTimeMillis();
+		System.out.println("Importing base model took "+(end-start)+" milliseconds.");
 
 		for (Date date : sortedDateList) {
+			System.out.println("Importing model at date "+date);
+			start = System.currentTimeMillis();
 			mergeModels(models.get(date), mergedFeatureModel, mergedConstraintModel, date);
+			end = System.currentTimeMillis();
+			System.out.println("Importing model at date "+date+ " took "+(end-start)+" milliseconds");
 		}
 
 		FeatureModelConstraintsTuple mergedModels = new FeatureModelConstraintsTuple(mergedFeatureModel,
@@ -354,33 +363,55 @@ public class DwFeatureModelEvolutionImporter {
 
 		List<HyFeatureAttribute> addedFeatureAttributes = new ArrayList<HyFeatureAttribute>();
 
-		for (HyGroup groupToBeMerged : featureModelToBeMerged.getGroups()) {
-			HyGroup equivalentGroup = checkIfElementAlreadyExists(groupToBeMerged,
-					HyEvolutionUtil.getValidTemporalElements(mergedFeatureModel.getGroups(), date), date);
+		
+		
+//		List<HyGroup> potentialGroupMatchingPartners = new ArrayList<HyGroup>();
+//		potentialGroupMatchingPartners.addAll(HyEvolutionUtil.getValidTemporalElements(mergedFeatureModel.getGroups(), date));
+//		
+//		for (HyGroup groupToBeMerged : featureModelToBeMerged.getGroups()) {
+//			HyGroup equivalentGroup = checkIfElementAlreadyExists(groupToBeMerged,
+//					potentialGroupMatchingPartners, date);
+//
+//			if (equivalentGroup != null) {
+//				potentialGroupMatchingPartners.remove(equivalentGroup);
+//				groupMap.put(groupToBeMerged, equivalentGroup);
+//			}
+//		}
 
-			if (equivalentGroup != null) {
-				groupMap.put(groupToBeMerged, equivalentGroup);
-			}
-		}
-
+		System.out.println("Searching for matching features");
+		List<HyFeature> potentialFeatureMatchingPartners = new ArrayList<HyFeature>();
+		potentialFeatureMatchingPartners.addAll(HyEvolutionUtil.getValidTemporalElements(mergedFeatureModel.getFeatures(), date));
+		
 		for (HyFeature featureToBeMerged : featureModelToBeMerged.getFeatures()) {
 
 			HyFeature equivalentFeature = checkIfElementAlreadyExists(featureToBeMerged,
-					HyEvolutionUtil.getValidTemporalElements(mergedFeatureModel.getFeatures(), date), date);
+					potentialFeatureMatchingPartners, date);
 			boolean featureAlreadyExists = (equivalentFeature != null);
 
 			if (!featureAlreadyExists) {
 				featuresToBeAddedToMergedModel.add(featureToBeMerged);
 			} else {
+				potentialFeatureMatchingPartners.remove(equivalentFeature);
 				featuresToInvalidate.remove(equivalentFeature);
 				featureMap.put(featureToBeMerged, equivalentFeature);
 				addedFeatureAttributes.addAll(mergeFeatureAttributes(featureToBeMerged, equivalentFeature, date));
 			}
 		}
 
+		System.out.println("Searching for matching groups");
+		
+		List<HyGroup> potentialGroupMatchingPartners = new ArrayList<HyGroup>();
+		potentialGroupMatchingPartners.addAll(HyEvolutionUtil.getValidTemporalElements(mergedFeatureModel.getGroups(), date));
+		
+		List<HyGroup> matchedGroupMatchingPartners = new ArrayList<HyGroup>();
+		
+		groupsToBeMergedLoop:
 		for (HyGroup groupToBeMerged : featureModelToBeMerged.getGroups()) {
-			for (HyGroup groupFromMergedModel : mergedFeatureModel.getGroups()) {
-
+			// Only compare the group to be merged to groups which are valid at that point in time.
+			potentialGroupMatchingPartners.removeAll(matchedGroupMatchingPartners);
+			matchedGroupMatchingPartners = new ArrayList<HyGroup>();
+			
+			for(HyGroup groupFromMergedModel: potentialGroupMatchingPartners) {
 				int amountOfSimilarFeatures = 0;
 
 				List<HyFeature> featuresOfMergedGroup = HyFeatureEvolutionUtil.getFeaturesOfGroup(groupFromMergedModel,
@@ -396,6 +427,8 @@ public class DwFeatureModelEvolutionImporter {
 				double sameFeatureRatio = (double) amountOfSimilarFeatures / (double) featuresOfMergedGroup.size();
 				if (sameFeatureRatio >= 0.75) {
 					groupMap.put(groupToBeMerged, groupFromMergedModel);
+					matchedGroupMatchingPartners.add(groupFromMergedModel);
+					continue groupsToBeMergedLoop;
 				}
 			}
 		}
@@ -433,6 +466,179 @@ public class DwFeatureModelEvolutionImporter {
 		}
 
 	}
+
+	protected void updateGroupTypes(Map<HyGroup, HyGroup> groupMap, Date date) {
+		for (Entry<HyGroup, HyGroup> entry : groupMap.entrySet()) {
+			HyGroupType groupTypeOfGroupToBeMerged = HyFeatureEvolutionUtil.getType(entry.getKey(), date);
+			HyGroupType groupTypeOfMergedGroup = HyFeatureEvolutionUtil.getType(entry.getValue(), date);
+
+			if (!groupTypeOfGroupToBeMerged.getType().equals(groupTypeOfMergedGroup.getType())) {
+				groupTypeOfMergedGroup.setValidUntil(date);
+
+				HyGroupType newGroupType = HyFeatureFactory.eINSTANCE.createHyGroupType();
+				newGroupType.setValidSince(date);
+				newGroupType.setType(groupTypeOfGroupToBeMerged.getType());
+				entry.getValue().getTypes().add(newGroupType);
+			}
+		}
+	}
+
+	protected void updateFeatureTypes(HyFeatureModel mergedFeatureModel, Map<HyFeature, HyFeature> featureMap,
+			Date date) {
+		for (Entry<HyFeature, HyFeature> entry : featureMap.entrySet()) {
+			// key feature from input mode, value feature from merged model
+			HyFeatureType inputType = HyFeatureEvolutionUtil.getType(entry.getKey(), date);
+			HyFeatureType mergedType = HyFeatureEvolutionUtil.getType(entry.getValue(), date);
+
+			if (!inputType.getType().equals(mergedType.getType())) {
+				mergedType.setValidUntil(date);
+
+				HyFeatureType newFeatureType = HyFeatureFactory.eINSTANCE.createHyFeatureType();
+				newFeatureType.setValidSince(date);
+				newFeatureType.setType(inputType.getType());
+
+				entry.getValue().getTypes().add(newFeatureType);
+			}
+		}
+	}
+
+	protected void mergeFeatures(List<HyFeature> featuresToBeAddedToMergedModel, HyFeatureModel mergedFeatureModel,
+			Map<HyFeature, HyFeature> featureMap, Date date) throws Exception {
+		for (HyFeature featureToBeAdded : featuresToBeAddedToMergedModel) {
+			HyFeatureModel oldFeatureModel = featureToBeAdded.getFeatureModel();
+			mergedFeatureModel.getFeatures().add(featureToBeAdded);
+			featureToBeAdded.setValidSince(date);
+			featureToBeAdded.setValidUntil(null);
+
+			// clear everything from evolution.
+			HyName validName = HyEvolutionUtil.getValidTemporalElement(featureToBeAdded.getNames(), date);
+			validName.setValidSince(date);
+			validName.setValidUntil(null);
+			featureToBeAdded.getNames().clear();
+			featureToBeAdded.getNames().add(validName);
+
+			HyFeatureType validType = HyEvolutionUtil.getValidTemporalElement(featureToBeAdded.getTypes(), date);
+
+			validType.setValidSince(date);
+			validType.setValidUntil(null);
+			featureToBeAdded.getTypes().clear();
+			featureToBeAdded.getTypes().add(validType);
+
+			List<HyFeatureChild> validFeatureChildren = HyEvolutionUtil
+					.getValidTemporalElements(featureToBeAdded.getParentOf(), date);
+			featureToBeAdded.getParentOf().clear();
+			for (HyFeatureChild featureChild : validFeatureChildren) {
+				featureChild.setValidSince(date);
+				featureChild.setValidUntil(null);
+
+				HyGroup group = featureChild.getChildGroup();
+				mergedFeatureModel.getGroups().add(group);
+				group.setValidSince(date);
+				group.setValidUntil(null);
+
+				HyGroupType validGroupType = HyEvolutionUtil.getValidTemporalElement(group.getTypes(), date);
+				group.getTypes().clear();
+				validGroupType.setValidSince(date);
+				validGroupType.setValidUntil(null);
+				group.getTypes().add(validGroupType);
+
+				HyGroupComposition validGroupComposition = HyEvolutionUtil.getValidTemporalElement(group.getParentOf(),
+						date);
+				validGroupComposition.setValidSince(date);
+				validGroupComposition.setValidUntil(null);
+				group.getParentOf().clear();
+				group.getParentOf().add(validGroupComposition);
+
+				featureToBeAdded.getParentOf().add(featureChild);
+			}
+
+			// Put feature in correct group
+
+			HyGroupComposition groupComposition = HyEvolutionUtil
+					.getValidTemporalElement(featureToBeAdded.getGroupMembership(), date);
+
+			if (groupComposition != null) {
+				HyGroup group = groupComposition.getCompositionOf();
+				HyFeatureChild featureChildOfGroup = HyEvolutionUtil.getValidTemporalElement(group.getChildOf(), date);
+				HyFeature parentFeatureInInputModel = featureChildOfGroup.getParent();
+
+				if (featuresToBeAddedToMergedModel.contains(parentFeatureInInputModel)) {
+					// parent feature is also added to the new model. We are done.
+					continue;
+				}
+
+				HyFeature parentInMergedModel = featureMap.get(parentFeatureInInputModel);
+				if (parentInMergedModel != null) {
+					HyGroupType groupType = HyEvolutionUtil.getValidTemporalElement(group.getTypes(), date);
+
+					HyGroupTypeEnum groupTypeEnum = groupType.getType();
+					addFeatureToBestMatchingGroup(featureToBeAdded, groupComposition, parentInMergedModel,
+							groupTypeEnum, featureMap, mergedFeatureModel, date);
+				} else {
+					throw new Exception("We have a problem. The parent of the feature "
+							+ HyEvolutionUtil.getValidTemporalElement(featureToBeAdded.getNames(), date).getName()
+							+ " is neither newly added to the merged model nor is it already existent in it. Aborting whole merging process");
+				}
+			} 
+			else {
+				HyRootFeature oldFeatureModelRootFeature = HyEvolutionUtil
+						.getValidTemporalElement(oldFeatureModel.getRootFeature(), date);
+
+				if (oldFeatureModelRootFeature == null || oldFeatureModelRootFeature.getFeature() != featureToBeAdded) {
+					throw new Exception("Feature "
+							+ HyEvolutionUtil.getValidTemporalElement(featureToBeAdded.getNames(), date).getName()
+							+ " did not have a group but is no root feature. Aborted merge.");
+				}
+
+				HyRootFeature oldRootFeature = HyEvolutionUtil
+						.getValidTemporalElement(mergedFeatureModel.getRootFeature(), date);
+				if (oldRootFeature != null) {
+					oldRootFeature.setValidUntil(date);
+				}
+
+				HyRootFeature newRootFeature = HyFeatureFactory.eINSTANCE.createHyRootFeature();
+				newRootFeature.setValidSince(date);
+				newRootFeature.setFeature(featureToBeAdded);
+				mergedFeatureModel.getRootFeature().add(newRootFeature);
+			}
+		}
+	}
+
+	protected void moveFeaturesIfTheyHaveBeenMovedInInputModel(HyFeatureModel mergedFeatureModel,
+			Map<HyFeature, HyFeature> featureMap, Date date) {
+		for (Entry<HyFeature, HyFeature> featureEntrySet : featureMap.entrySet()) {
+			HyFeature parentOfMergedFeature = HyFeatureEvolutionUtil
+					.getParentFeatureOfFeature(featureEntrySet.getValue(), date);
+			HyFeature parentFeatureFromInputModel = HyFeatureEvolutionUtil
+					.getParentFeatureOfFeature(featureEntrySet.getKey(), date);
+
+			if (parentFeatureFromInputModel == null) {
+				// seems to be new root.
+				continue;
+			}
+
+			HyFeature equivalentToParentFromInputModel = featureMap.get(parentFeatureFromInputModel);
+
+			if (equivalentToParentFromInputModel == null) {
+				// parent will be added in the next step. Probably nothing to do.
+			} else if (equivalentToParentFromInputModel == parentOfMergedFeature) {
+				// parent stayed the same. Nothing to do.
+			} else {
+				// parents are different.
+				HyGroupComposition groupCompositionOfFeatureFromInputModel = HyEvolutionUtil
+						.getValidTemporalElement(featureEntrySet.getKey().getGroupMembership(), date);
+				HyGroupTypeEnum groupTypeOfGroupOfFeatureFromInputModel = HyEvolutionUtil.getValidTemporalElement(
+						groupCompositionOfFeatureFromInputModel.getCompositionOf().getTypes(), date).getType();
+
+				addFeatureToBestMatchingGroup(featureEntrySet.getValue(), groupCompositionOfFeatureFromInputModel,
+						equivalentToParentFromInputModel, groupTypeOfGroupOfFeatureFromInputModel, featureMap,
+						mergedFeatureModel, date);
+
+				HyFeatureEvolutionUtil.removeFeatureFromGroup(featureEntrySet.getValue(), date);
+			}
+		}
+	}
+
 
 	protected void mergeConstraintModel(HyConstraintModel constraintModelToBeMerged,
 			HyConstraintModel mergedConstraintModel, Map<HyFeature, HyFeature> featureMap, Date date) {
@@ -540,177 +746,5 @@ public class DwFeatureModelEvolutionImporter {
 		return constraint;
 	}
 
-	protected void updateGroupTypes(Map<HyGroup, HyGroup> groupMap, Date date) {
-		for (Entry<HyGroup, HyGroup> entry : groupMap.entrySet()) {
-			HyGroupType groupTypeOfGroupToBeMerged = HyFeatureEvolutionUtil.getType(entry.getKey(), date);
-			HyGroupType groupTypeOfMergedGroup = HyFeatureEvolutionUtil.getType(entry.getValue(), date);
-
-			if (!groupTypeOfGroupToBeMerged.getType().equals(groupTypeOfMergedGroup.getType())) {
-				groupTypeOfMergedGroup.setValidUntil(date);
-
-				HyGroupType newGroupType = HyFeatureFactory.eINSTANCE.createHyGroupType();
-				newGroupType.setValidSince(date);
-				newGroupType.setType(groupTypeOfGroupToBeMerged.getType());
-				entry.getValue().getTypes().add(newGroupType);
-			}
-		}
-	}
-
-	protected void updateFeatureTypes(HyFeatureModel mergedFeatureModel, Map<HyFeature, HyFeature> featureMap,
-			Date date) {
-		for (Entry<HyFeature, HyFeature> entry : featureMap.entrySet()) {
-			// key feature from input mode, value feature from merged model
-			HyFeatureType inputType = HyFeatureEvolutionUtil.getType(entry.getKey(), date);
-			HyFeatureType mergedType = HyFeatureEvolutionUtil.getType(entry.getValue(), date);
-
-			if (!inputType.getType().equals(mergedType.getType())) {
-				mergedType.setValidUntil(date);
-
-				HyFeatureType newFeatureType = HyFeatureFactory.eINSTANCE.createHyFeatureType();
-				newFeatureType.setValidSince(date);
-				newFeatureType.setType(inputType.getType());
-
-				entry.getValue().getTypes().add(newFeatureType);
-			}
-		}
-	}
-
-	protected void mergeFeatures(List<HyFeature> featuresToBeAddedToMergedModel, HyFeatureModel mergedFeatureModel,
-			Map<HyFeature, HyFeature> featureMap, Date date) throws Exception {
-		for (HyFeature featureToBeAdded : featuresToBeAddedToMergedModel) {
-			HyFeatureModel oldFeatureModel = featureToBeAdded.getFeatureModel();
-			mergedFeatureModel.getFeatures().add(featureToBeAdded);
-			featureToBeAdded.setValidSince(date);
-			featureToBeAdded.setValidUntil(null);
-
-			// clear everything from evolution.
-			HyName validName = HyEvolutionUtil.getValidTemporalElement(featureToBeAdded.getNames(), date);
-			validName.setValidSince(date);
-			validName.setValidUntil(null);
-			featureToBeAdded.getNames().clear();
-			featureToBeAdded.getNames().add(validName);
-
-			HyFeatureType validType = HyEvolutionUtil.getValidTemporalElement(featureToBeAdded.getTypes(), date);
-			if(validType ==null) {
-				System.out.println("ValidType is null");
-			}
-			validType.setValidSince(date);
-			validType.setValidUntil(null);
-			featureToBeAdded.getTypes().clear();
-			featureToBeAdded.getTypes().add(validType);
-
-			List<HyFeatureChild> validFeatureChildren = HyEvolutionUtil
-					.getValidTemporalElements(featureToBeAdded.getParentOf(), date);
-			featureToBeAdded.getParentOf().clear();
-			for (HyFeatureChild featureChild : validFeatureChildren) {
-				featureChild.setValidSince(date);
-				featureChild.setValidUntil(null);
-
-				HyGroup group = featureChild.getChildGroup();
-				mergedFeatureModel.getGroups().add(group);
-				group.setValidSince(date);
-				group.setValidUntil(null);
-
-				HyGroupType validGroupType = HyEvolutionUtil.getValidTemporalElement(group.getTypes(), date);
-				group.getTypes().clear();
-				validGroupType.setValidSince(date);
-				validGroupType.setValidUntil(null);
-				group.getTypes().add(validGroupType);
-
-				HyGroupComposition validGroupComposition = HyEvolutionUtil.getValidTemporalElement(group.getParentOf(),
-						date);
-				validGroupComposition.setValidSince(date);
-				validGroupComposition.setValidUntil(null);
-				group.getParentOf().clear();
-				group.getParentOf().add(validGroupComposition);
-
-				featureToBeAdded.getParentOf().add(featureChild);
-			}
-
-			// Put feature in correct group
-
-			HyGroupComposition groupComposition = HyEvolutionUtil
-					.getValidTemporalElement(featureToBeAdded.getGroupMembership(), date);
-
-			if (groupComposition != null) {
-				HyGroup group = groupComposition.getCompositionOf();
-				HyFeatureChild featureChildOfGroup = HyEvolutionUtil.getValidTemporalElement(group.getChildOf(), date);
-				HyFeature parentFeatureInInputModel = featureChildOfGroup.getParent();
-
-				if (featuresToBeAddedToMergedModel.contains(parentFeatureInInputModel)) {
-					// parent feature is also added to the new model. We are done.
-					continue;
-				}
-
-				HyFeature parentInMergedModel = featureMap.get(parentFeatureInInputModel);
-				if (parentInMergedModel != null) {
-					HyGroupType groupType = HyEvolutionUtil.getValidTemporalElement(group.getTypes(), date);
-
-					HyGroupTypeEnum groupTypeEnum = groupType.getType();
-					addFeatureToBestMatchingGroup(featureToBeAdded, groupComposition, parentInMergedModel,
-							groupTypeEnum, featureMap, mergedFeatureModel, date);
-				} else {
-					throw new Exception("We have a problem. The parent of the feature "
-							+ HyEvolutionUtil.getValidTemporalElement(featureToBeAdded.getNames(), date).getName()
-							+ " is neither newly added to the merged model nor is it already existent in it. Aborting whole merging process");
-				}
-			} else {
-				HyRootFeature oldFeatureModelRootFeature = HyEvolutionUtil
-						.getValidTemporalElement(oldFeatureModel.getRootFeature(), date);
-
-				if (oldFeatureModelRootFeature == null || oldFeatureModelRootFeature.getFeature() != featureToBeAdded) {
-					throw new Exception("Feature "
-							+ HyEvolutionUtil.getValidTemporalElement(featureToBeAdded.getNames(), date).getName()
-							+ " did not have a group but is no root feature. Aborted merge.");
-				}
-
-				HyRootFeature oldRootFeature = HyEvolutionUtil
-						.getValidTemporalElement(mergedFeatureModel.getRootFeature(), date);
-				if (oldRootFeature != null) {
-					oldRootFeature.setValidUntil(date);
-				}
-
-				HyRootFeature newRootFeature = HyFeatureFactory.eINSTANCE.createHyRootFeature();
-				newRootFeature.setValidSince(date);
-				newRootFeature.setFeature(featureToBeAdded);
-				mergedFeatureModel.getRootFeature().add(newRootFeature);
-			}
-		}
-	}
-
-	protected void moveFeaturesIfTheyHaveBeenMovedInInputModel(HyFeatureModel mergedFeatureModel,
-			Map<HyFeature, HyFeature> featureMap, Date date) {
-		for (Entry<HyFeature, HyFeature> featureEntrySet : featureMap.entrySet()) {
-			HyFeature parentOfMergedFeature = HyFeatureEvolutionUtil
-					.getParentFeatureOfFeature(featureEntrySet.getValue(), date);
-			HyFeature parentFeatureFromInputModel = HyFeatureEvolutionUtil
-					.getParentFeatureOfFeature(featureEntrySet.getKey(), date);
-
-			if (parentFeatureFromInputModel == null) {
-				// seems to be new root.
-				continue;
-			}
-
-			HyFeature equivalentToParentFromInputModel = featureMap.get(parentFeatureFromInputModel);
-
-			if (equivalentToParentFromInputModel == null) {
-				// parent will be added in the next step. Probably nothing to do.
-			} else if (equivalentToParentFromInputModel == parentOfMergedFeature) {
-				// parent stayed the same. Nothing to do.
-			} else {
-				// parents are different.
-				HyGroupComposition groupCompositionOfFeatureFromInputModel = HyEvolutionUtil
-						.getValidTemporalElement(featureEntrySet.getKey().getGroupMembership(), date);
-				HyGroupTypeEnum groupTypeOfGroupOfFeatureFromInputModel = HyEvolutionUtil.getValidTemporalElement(
-						groupCompositionOfFeatureFromInputModel.getCompositionOf().getTypes(), date).getType();
-
-				addFeatureToBestMatchingGroup(featureEntrySet.getValue(), groupCompositionOfFeatureFromInputModel,
-						equivalentToParentFromInputModel, groupTypeOfGroupOfFeatureFromInputModel, featureMap,
-						mergedFeatureModel, date);
-
-				HyFeatureEvolutionUtil.removeFeatureFromGroup(featureEntrySet.getValue(), date);
-			}
-		}
-	}
-
+	
 }
