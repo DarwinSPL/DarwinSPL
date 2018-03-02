@@ -24,10 +24,7 @@ import eu.hyvar.context.HyContextModel;
 import eu.hyvar.context.contextValidity.HyValidityModel;
 import eu.hyvar.context.contextValidity.util.HyValidityModelUtil;
 import eu.hyvar.context.information.util.ContextInformationResolverUtil;
-import eu.hyvar.feature.HyFeature;
 import eu.hyvar.feature.HyFeatureModel;
-import eu.hyvar.feature.HyGroup;
-import eu.hyvar.feature.HyGroupComposition;
 import eu.hyvar.feature.constraint.HyConstraintModel;
 import eu.hyvar.feature.constraint.util.HyConstraintIOUtil;
 
@@ -63,27 +60,6 @@ public class DwCheckFeatureAnomalyCommandHandler extends AbstractHandler {
 		
 		EcoreUtil.resolveAll(selectedFeatureModel);
 		
-		int defectousFeatures=0;
-		
-		for(HyFeature feature : selectedFeatureModel.getFeatures()) {
-			if(feature.getTypes() == null || feature.getTypes().size() == 0) {
-				defectousFeatures++;
-			}
-		}
-		
-		System.err.println("Defectous features: "+defectousFeatures);
-		
-		int defectGCs = 0;
-		
-		for(HyGroup group: selectedFeatureModel.getGroups()) {
-			for(HyGroupComposition groupComposition: group.getParentOf()) {
-				if(!selectedFeatureModel.getFeatures().containsAll(groupComposition.getFeatures())) {
-					defectGCs++;
-				}
-			}
-		}
-		
-		System.err.println("Defectous GCs: "+defectGCs);
 		
 		HyContextModel contextModel = ContextInformationResolverUtil.getAccompanyingContextModel(selectedFeatureModel);		
 		HyConstraintModel constraintModel = HyConstraintIOUtil.loadAccompanyingConstraintModel(selectedFeatureModel);
