@@ -20,6 +20,7 @@
             type="hyfeature"
             class="eu.hyvar.feature.impl.custom.HyFeatureResourceFactoryImplCustom"/>
    </extension>
+
    <extension
          point="org.eclipse.emf.ecore.factory_override">
       <factory

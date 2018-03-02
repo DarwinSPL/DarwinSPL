@@ -87,7 +87,7 @@ public class HyFeatureResolverUtil {
 			for(HyFeature feature: validFeatures) {
 				
 				if(HyEvolutionUtil.isValid(feature, date)) {
-					HyName name = HyFeatureEvolutionUtil.getName(feature.getNames(), date);
+					HyName name = HyFeatureEvolutionUtil.getName(feature, date);
 					if((name != null) && name.getName().equals(identifier)) {
 						validFeaturesWithEvolution.add(feature);
 					}					
@@ -160,7 +160,7 @@ public class HyFeatureResolverUtil {
 
 	public static String deresolveFeature(HyFeature feature, Date date) {
 		// TODO incorporate evolution! For every element!
-		HyName featureName = HyFeatureEvolutionUtil.getName(feature.getNames(), date);
+		HyName featureName = HyFeatureEvolutionUtil.getName(feature, date);
 		if(featureName == null) {
 			System.out.println("Bad!");
 		}
@@ -226,7 +226,7 @@ public class HyFeatureResolverUtil {
 			List<HyFeatureAttribute> validAttributesWithEvolution = new ArrayList<HyFeatureAttribute>(1);
 			for(HyFeatureAttribute attribute: validAttributes) {
 				if(HyEvolutionUtil.isValid(containingFeature, date) && HyEvolutionUtil.isValid(attribute, date)) {
-					HyName name = HyFeatureEvolutionUtil.getName(attribute.getNames(), date);
+					HyName name = HyFeatureEvolutionUtil.getName(attribute, date);
 					if((name != null) && name.getName().equals(identifier)) {
 						validAttributesWithEvolution.add(attribute);
 					}
@@ -304,9 +304,9 @@ public class HyFeatureResolverUtil {
 	public static String deresolveFeatureAttribute(HyFeatureAttribute attribute, Date date) {
 		String name = "";
 		HyFeature feature = attribute.getFeature();
-		name += HyFeatureEvolutionUtil.getName(feature.getNames(), date).getName();
+		name += HyFeatureEvolutionUtil.getName(feature, date).getName();
 		name += ".";
-		name += HyFeatureEvolutionUtil.getName(attribute.getNames(), date).getName();
+		name += HyFeatureEvolutionUtil.getName(attribute, date).getName();
 		return name;
 	}
 }

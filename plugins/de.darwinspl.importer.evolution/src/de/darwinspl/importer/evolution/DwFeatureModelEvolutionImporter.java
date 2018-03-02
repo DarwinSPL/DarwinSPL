@@ -473,7 +473,13 @@ public class DwFeatureModelEvolutionImporter {
 		// Invalidate features which do not exist anymore. Update group composition.
 		for (HyFeature featureToInvalidate : featuresToInvalidate) {
 			HyFeatureEvolutionUtil.removeFeatureFromGroup(featureToInvalidate, date);
+			HyFeatureEvolutionUtil.getName(featureToInvalidate, date).setValidUntil(date);
+			HyFeatureEvolutionUtil.getType(featureToInvalidate, date).setValidUntil(date);
+			for(HyFeatureAttribute attribute: HyEvolutionUtil.getValidTemporalElements(featureToInvalidate.getAttributes(), date)) {
+				attribute.setValidUntil(date);
+			}
 			featureToInvalidate.setValidUntil(date);
+			
 		}
 
 		// Merge constraint models

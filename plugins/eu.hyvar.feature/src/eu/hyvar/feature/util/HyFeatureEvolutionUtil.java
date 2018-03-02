@@ -66,8 +66,8 @@ public class HyFeatureEvolutionUtil {
 		return getGroupComposition(group, date).getFeatures();
 	}
 
-	public static HyName getName(EList<HyName> names, Date date) {
-		return (HyName) HyEvolutionUtil.getValidTemporalElement(names, date);
+	public static HyName getName(HyNamedElement namedElement, Date date) {
+		return (HyName) HyEvolutionUtil.getValidTemporalElement(namedElement.getNames(), date);
 	}
 
 	@SuppressWarnings("unchecked")
