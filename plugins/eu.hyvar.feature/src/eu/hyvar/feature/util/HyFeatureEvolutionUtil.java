@@ -8,8 +8,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
-import org.eclipse.emf.common.util.EList;
-
 import eu.hyvar.dataValues.HyEnum;
 import eu.hyvar.dataValues.HyEnumValue;
 import eu.hyvar.evolution.HyLinearTemporalElement;

@@ -534,7 +534,7 @@ public class DwFeatureModelExporter {
 
 					for (HyFeature feature : validFeaturesOfGroupComposition) {
 						// Constraints for mandatory features
-						if (HyFeatureUtil.isMandatory(feature, relevantDate)) {
+						if (HyFeatureEvolutionUtil.isMandatory(feature, relevantDate)) {
 							if (!firstChildAnd) {
 								groupConstraintsStringBuilder.append(HyVarRecExporter.AND);
 							} else {
@@ -592,7 +592,7 @@ public class DwFeatureModelExporter {
 			// if only one feature is available in the group composition:
 			else if(!validFeaturesOfGroupComposition.isEmpty()){
 				HyFeature feature = validFeaturesOfGroupComposition.get(0);
-				if (HyFeatureUtil.isMandatory(feature, relevantDate)) {
+				if (HyFeatureEvolutionUtil.isMandatory(feature, relevantDate)) {
 					// groupConstraintsStringBuilder.append(TABULATOR);
 					// Mandatory Constraint (Parent => Child)
 					groupConstraintsStringBuilder.append(parentFeatureId);
