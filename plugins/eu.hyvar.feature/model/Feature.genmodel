@@ -7,7 +7,7 @@
     complianceLevel="7.0" copyrightFields="false" usedGenPackages="../../eu.hyvar.feature.data/model/DataValues.genmodel#//dataValues ../../eu.hyvar.evolution/model/Evolution.genmodel#//evolution"
     operationReflection="true" importOrganizing="true">
   <foreignModel>Feature.ecore</foreignModel>
-  <genPackages prefix="HyFeature" basePackage="eu.hyvar" resource="XMI" disposableProviderFactory="true"
+  <genPackages prefix="HyFeature" basePackage="eu.hyvar" disposableProviderFactory="true"
       contentTypeIdentifier="" ecorePackage="Feature.ecore#/">
     <genEnums typeSafeEnumCompatible="false" ecoreEnum="Feature.ecore#//HyFeatureTypeEnum">
       <genEnumLiterals ecoreEnumLiteral="Feature.ecore#//HyFeatureTypeEnum/OPTIONAL"/>

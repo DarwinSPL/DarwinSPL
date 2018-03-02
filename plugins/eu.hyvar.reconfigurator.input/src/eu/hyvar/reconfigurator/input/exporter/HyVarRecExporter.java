@@ -219,7 +219,9 @@ public class HyVarRecExporter {
 		input.setContexts(new ArrayList<Context>());
 		if(contextModels != null) {
 			for(HyContextModel contextModel: contextModels) {
-				input.getContexts().addAll(contextExporter.getExportedContexts(contextModel, date));
+				if(contextModel != null) {
+					input.getContexts().addAll(contextExporter.getExportedContexts(contextModel, date));
+				}
 			}
 		}
 

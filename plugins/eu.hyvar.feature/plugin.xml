@@ -14,19 +14,19 @@
             genModel="model/Feature.genmodel"/>
    </extension>
 
-   <extension point="org.eclipse.emf.ecore.extension_parser">
-      <!-- @generated Feature -->
-      <parser
-            type="hyfeature"
-            class="eu.hyvar.feature.impl.custom.HyFeatureResourceFactoryImplCustom"/>
-   </extension>
-
    <extension
          point="org.eclipse.emf.ecore.factory_override">
       <factory
             class="eu.hyvar.feature.impl.custom.HyFeatureFactoryWithIds"
             uri="http://hyvar-project.eu/feature/1.0">
       </factory>
+   </extension>
+   <extension
+         point="org.eclipse.emf.ecore.extension_parser">
+      <parser
+            class="eu.hyvar.feature.impl.custom.DwFeatureResourceFactoryImplCustom"
+            type="hyfeature">
+      </parser>
    </extension>
 
 </plugin>
