@@ -63,6 +63,7 @@ public class DwFeatureModelEvolutionImporter {
 			HyGroupComposition groupCompositionOfFeatureToBeAdded, HyFeature parentInMergedModel,
 			HyGroupTypeEnum groupTypeEnum, Map<HyFeature, HyFeature> featureMap, HyFeatureModel mergedFeatureModel,
 			Date date) {
+		
 		HyGroup matchingGroup = null;
 		int maximumAmountOfMatchingSiblings = 0;
 
@@ -100,30 +101,29 @@ public class DwFeatureModelEvolutionImporter {
 			newGroupComposition.setValidSince(date);
 			matchingGroup.getParentOf().add(newGroupComposition);
 
-			for (HyFeature groupFeature : oldGroupComposition.getFeatures()) {
-				newGroupComposition.getFeatures().add(groupFeature);
-			}
+			newGroupComposition.getFeatures().addAll(oldGroupComposition.getFeatures());
+				
 			newGroupComposition.getFeatures().add(featureToBeAdded);
 		} else {
-			// create a new alternative group
-			HyGroup newAlternativeGroup = HyFeatureFactory.eINSTANCE.createHyGroup();
-			newAlternativeGroup.setValidSince(date);
-			mergedFeatureModel.getGroups().add(newAlternativeGroup);
+			// create a new group
+			HyGroup newGroup = HyFeatureFactory.eINSTANCE.createHyGroup();
+			newGroup.setValidSince(date);
+			mergedFeatureModel.getGroups().add(newGroup);
 
 			HyFeatureChild newFeatureChild = HyFeatureFactory.eINSTANCE.createHyFeatureChild();
 			newFeatureChild.setValidSince(date);
-			newFeatureChild.setChildGroup(newAlternativeGroup);
+			newFeatureChild.setChildGroup(newGroup);
 			newFeatureChild.setParent(parentInMergedModel);
 
 			HyGroupType newGroupType = HyFeatureFactory.eINSTANCE.createHyGroupType();
 			newGroupType.setValidSince(date);
 			newGroupType.setType(groupTypeEnum);
-			newAlternativeGroup.getTypes().add(newGroupType);
+			newGroup.getTypes().add(newGroupType);
 
 			HyGroupComposition newGroupComposition = HyFeatureFactory.eINSTANCE.createHyGroupComposition();
 			newGroupComposition.setValidSince(date);
 			newGroupComposition.getFeatures().add(featureToBeAdded);
-			newGroupComposition.setCompositionOf(newAlternativeGroup);
+			newGroupComposition.setCompositionOf(newGroup);
 		}
 
 		groupCompositionOfFeatureToBeAdded.getFeatures().remove(featureToBeAdded);
@@ -190,7 +190,11 @@ public class DwFeatureModelEvolutionImporter {
 
 		for (Entry<FeatureModelConstraintsTuple, Date> entry : models.entrySet()) {
 			darwinSPLModels.put(entry.getValue(), entry.getKey());
-			EcoreUtil.resolveAll(entry.getKey().getConstraintModel());
+			
+			HyConstraintModel constraintModel = entry.getKey().getConstraintModel();
+			if(constraintModel!=null) {
+				EcoreUtil.resolveAll(entry.getKey().getConstraintModel());				
+			}
 		}
 
 		FeatureModelConstraintsTuple mergedModels = mergeFeatureModels(darwinSPLModels);
@@ -438,21 +442,31 @@ public class DwFeatureModelEvolutionImporter {
 			}
 		}
 
+		consistencyCheck(mergedFeatureModel);
+		
 		zdt = ZonedDateTime.now();
 		System.out.println(zdt.toString()+": Checking whether features have to be moved");
 		moveFeaturesIfTheyHaveBeenMovedInInputModel(mergedFeatureModel, featureMap, date);
+		
+		consistencyCheck(mergedFeatureModel);
 
 		zdt = ZonedDateTime.now();
 		System.out.println(zdt.toString()+": Checking whether feature types need to be updated");
 		updateFeatureTypes(mergedFeatureModel, featureMap, date);
+		
+		consistencyCheck(mergedFeatureModel);
 
 		zdt = ZonedDateTime.now();
 		System.out.println(zdt.toString()+": Checking whether group types need to be updated");
 		updateGroupTypes(groupMap, date);
+		
+		consistencyCheck(mergedFeatureModel);
 
 		zdt = ZonedDateTime.now();
 		System.out.println(zdt.toString()+": Adding new features to merged model");
-		mergeFeatures(featuresToBeAddedToMergedModel, mergedFeatureModel, featureMap, date);
+		addNewFeatures(featuresToBeAddedToMergedModel, mergedFeatureModel, featureMap, date);
+		
+		consistencyCheck(mergedFeatureModel);
 
 		zdt = ZonedDateTime.now();
 		System.out.println(zdt.toString()+": Adding enums of feature attributes");
@@ -468,6 +482,8 @@ public class DwFeatureModelEvolutionImporter {
 
 		mergedFeatureModel.getEnums().addAll(enums);
 
+		consistencyCheck(mergedFeatureModel);
+		
 		zdt = ZonedDateTime.now();
 		System.out.println(zdt.toString()+": Invalidating features");
 		// Invalidate features which do not exist anymore. Update group composition.
@@ -482,6 +498,8 @@ public class DwFeatureModelEvolutionImporter {
 			
 		}
 
+		consistencyCheck(mergedFeatureModel);
+		
 		// Merge constraint models
 		HyConstraintModel constraintModelToBeMerged = modelsToBeMerged.getConstraintModel();
 		if (constraintModelToBeMerged != null) {
@@ -489,6 +507,8 @@ public class DwFeatureModelEvolutionImporter {
 			System.out.println(zdt.toString()+": Merging constraint model");
 			mergeConstraintModel(constraintModelToBeMerged, mergedConstraintModel, featureMap, date);
 		}
+		
+		consistencyCheck(mergedFeatureModel);
 
 	}
 
@@ -527,9 +547,12 @@ public class DwFeatureModelEvolutionImporter {
 		}
 	}
 
-	protected void mergeFeatures(List<HyFeature> featuresToBeAddedToMergedModel, HyFeatureModel mergedFeatureModel,
+	protected void addNewFeatures(List<HyFeature> featuresToBeAddedToMergedModel, HyFeatureModel mergedFeatureModel,
 			Map<HyFeature, HyFeature> featureMap, Date date) throws Exception {
+		
 		for (HyFeature featureToBeAdded : featuresToBeAddedToMergedModel) {
+			
+			// set validity of feature, its name and type to date
 			HyFeatureModel oldFeatureModel = featureToBeAdded.getFeatureModel();
 			mergedFeatureModel.getFeatures().add(featureToBeAdded);
 			featureToBeAdded.setValidSince(date);
@@ -549,10 +572,17 @@ public class DwFeatureModelEvolutionImporter {
 			featureToBeAdded.getTypes().clear();
 			featureToBeAdded.getTypes().add(validType);
 
+			
+			
 			List<HyFeatureChild> validFeatureChildren = HyEvolutionUtil
 					.getValidTemporalElements(featureToBeAdded.getParentOf(), date);
+			
 			featureToBeAdded.getParentOf().clear();
+			
 			for (HyFeatureChild featureChild : validFeatureChildren) {
+				
+				featureToBeAdded.getParentOf().add(featureChild);
+				
 				featureChild.setValidSince(date);
 				featureChild.setValidUntil(null);
 
@@ -573,8 +603,18 @@ public class DwFeatureModelEvolutionImporter {
 				validGroupComposition.setValidUntil(null);
 				group.getParentOf().clear();
 				group.getParentOf().add(validGroupComposition);
-
-				featureToBeAdded.getParentOf().add(featureChild);
+				
+				List<HyFeature> featuresOfGroupComposition = new ArrayList<HyFeature>();
+				featuresOfGroupComposition.addAll(validGroupComposition.getFeatures());
+				
+				for(HyFeature featureOfGroupComposition: featuresOfGroupComposition) {
+					HyFeature equivalentFeature = featureMap.get(featureOfGroupComposition);
+					if(equivalentFeature != null) {
+						validGroupComposition.getFeatures().remove(featureOfGroupComposition);
+						validGroupComposition.getFeatures().add(equivalentFeature);
+					}
+				}
+				
 			}
 
 			// Put feature in correct group
@@ -604,6 +644,8 @@ public class DwFeatureModelEvolutionImporter {
 							+ HyEvolutionUtil.getValidTemporalElement(featureToBeAdded.getNames(), date).getName()
 							+ " is neither newly added to the merged model nor is it already existent in it. Aborting whole merging process");
 				}
+				
+				
 			} 
 			else {
 				HyRootFeature oldFeatureModelRootFeature = HyEvolutionUtil
@@ -632,8 +674,10 @@ public class DwFeatureModelEvolutionImporter {
 	protected void moveFeaturesIfTheyHaveBeenMovedInInputModel(HyFeatureModel mergedFeatureModel,
 			Map<HyFeature, HyFeature> featureMap, Date date) {
 		for (Entry<HyFeature, HyFeature> featureEntrySet : featureMap.entrySet()) {
+			
 			HyFeature parentOfMergedFeature = HyFeatureEvolutionUtil
 					.getParentFeatureOfFeature(featureEntrySet.getValue(), date);
+			
 			HyFeature parentFeatureFromInputModel = HyFeatureEvolutionUtil
 					.getParentFeatureOfFeature(featureEntrySet.getKey(), date);
 
@@ -645,7 +689,10 @@ public class DwFeatureModelEvolutionImporter {
 			HyFeature equivalentToParentFromInputModel = featureMap.get(parentFeatureFromInputModel);
 
 			if (equivalentToParentFromInputModel == null) {
-				// parent will be added in the next step. Probably nothing to do.
+				// Parent will be added to the merged model.
+				// Has to be removed from its current group.
+				// When the new parent will be added to the model, this feature will be added to its group.
+				HyFeatureEvolutionUtil.removeFeatureFromGroup(featureEntrySet.getValue(), date);
 			} else if (equivalentToParentFromInputModel == parentOfMergedFeature) {
 				// parent stayed the same. Nothing to do.
 			} else {
@@ -784,5 +831,20 @@ public class DwFeatureModelEvolutionImporter {
 		return constraint;
 	}
 
+	/**
+	 * Only use this method if you have the feeling that something isn't imported correctly. 
+	 * @param mergedFeatureModel
+	 */
+	private void consistencyCheck(HyFeatureModel mergedFeatureModel) {
+		
+//		for(HyGroup group: mergedFeatureModel.getGroups()) {
+//			for(HyGroupComposition groupComposition: group.getParentOf()) {
+//				if(!mergedFeatureModel.getFeatures().containsAll(groupComposition.getFeatures())) {
+//					System.err.println("Non consistent!");
+//					return;
+//				}
+//			}
+//		}
+	}
 	
 }
