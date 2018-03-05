@@ -25,6 +25,7 @@ import de.darwinspl.feature.evolution.editoroperation.DwEditorOperationConstrain
 import de.darwinspl.feature.evolution.editoroperation.DwEditorOperationContext;
 import de.darwinspl.feature.evolution.editoroperation.DwEditorOperationEnum;
 import de.darwinspl.feature.evolution.editoroperation.DwEditorOperationEnumLiteral;
+import de.darwinspl.feature.evolution.editoroperation.DwEditorOperationEnumLiteralCreate;
 import de.darwinspl.feature.evolution.editoroperation.DwEditorOperationFeature;
 import de.darwinspl.feature.evolution.editoroperation.DwEditorOperationFeatureGroup;
 import de.darwinspl.feature.evolution.editoroperation.DwEditorOperationFeatureRename;
@@ -289,10 +290,9 @@ public class DwEditorOperationAnalyzer {
 		}
 	}
 
-	// TODO
 	public List<AnomalyConstraintExplanation> explainAnomaly(DwAnomalyExplanation anomalyExplanation) {		
 		if (anomalyExplanation.getAnomaly() instanceof DwVoidFeatureModelAnomaly) {
-//			DwVoidFeatureModelAnomaly voidFeatureAnomaly = (DwVoidFeatureModelAnomaly) anomaly;
+			return explainVoidAnomaly(anomalyExplanation);
 		} else if (anomalyExplanation.getAnomaly() instanceof DwDeadFeatureAnomaly){
 			return explainDeadFeatureAnomaly(anomalyExplanation);
 		} else if (anomalyExplanation.getAnomaly() instanceof DwFalseOptionalFeatureAnomaly) {
@@ -302,8 +302,20 @@ public class DwEditorOperationAnalyzer {
 	}
 	
 	public List<AnomalyConstraintExplanation> explainVoidAnomaly(DwAnomalyExplanation anomalyExplanation) {
-		// TODO
-		return null;
+		DwVoidFeatureModelAnomaly anomaly = (DwVoidFeatureModelAnomaly) anomalyExplanation.getAnomaly();
+		Date date = anomaly.getValidSince();
+		
+		List<AnomalyConstraintExplanation> constraintExplanationList = getRelatedEditorOperationsFromExplanation(anomalyExplanation);
+		
+		for (AnomalyConstraintExplanation explanation : constraintExplanationList) {
+			filterRelevantVoidFeatureModelEditorOperation(explanation);
+			
+			// now we can properly explain it:
+			String explanationString = explanation.explain();
+			System.out.println(explanationString);
+		}
+		
+		return constraintExplanationList;
 	}
 
 	public List<AnomalyConstraintExplanation> explainDeadFeatureAnomaly(DwAnomalyExplanation anomalyExplanation) {
@@ -406,7 +418,7 @@ public class DwEditorOperationAnalyzer {
 		
 		for (String constraint : translationMapping.keySet()) {
 			// resolve ids to names
-			String constraintString = resolveFeatureName(constraint, anomalyExplanation.getDate());
+			String constraintString = resolveFeatureNames(constraint, anomalyExplanation.getDate());
 			
 			AnomalyConstraintExplanation explanation = new AnomalyConstraintExplanation();
 			explanation.setObjReference(translationMapping.get(constraint));
@@ -553,9 +565,27 @@ public class DwEditorOperationAnalyzer {
 		constraintExplanation.getEditorOperationExplanations().retainAll(list);
 	}
 	
+	public void filterRelevantVoidFeatureModelEditorOperation(AnomalyConstraintExplanation constraintExplanation) {
+		List<EditorOperationExplanation> list = new ArrayList<EditorOperationExplanation>();
+		
+		for (EditorOperationExplanation opExplanation : constraintExplanation.getEditorOperationExplanations()) {
+			DwEditorOperation operation = opExplanation.getEditorOperation();
+			if (operation instanceof DwEditorOperationFeatureType
+					|| operation instanceof DwEditorOperationFeatureGroup
+					|| operation instanceof DwEditorOperationGroupType
+					|| operation instanceof DwEditorOperationConstraintCreate
+					|| operation instanceof DwEditorOperationValidityFormulaCreate
+					|| operation instanceof DwEditorOperationEnumLiteralCreate) {
+					list.add(opExplanation);
+				}
+		}
+		// Only keep relevant explanations
+		constraintExplanation.getEditorOperationExplanations().retainAll(list);
+	}
+	
 	// ------------- UTIL -------------
 	
-	public String resolveFeatureName(String encodedString, Date date) {
+	public String resolveFeatureNames(String encodedString, Date date) {
 		List<String> list = new ArrayList<String>();
 		list.add(encodedString);
 		list = client.translateIdsBackToNames(list, date, client.exporter);
