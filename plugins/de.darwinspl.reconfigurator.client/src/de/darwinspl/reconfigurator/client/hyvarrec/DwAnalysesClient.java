@@ -508,7 +508,6 @@ public class DwAnalysesClient {
 		
 		HttpClient hyvarrecClient = new HttpClient(new SslContextFactory(true));
 		
-		
 		if(username != null && password != null) {
 			AuthenticationStore auth = hyvarrecClient.getAuthenticationStore();
 			auth.addAuthenticationResult(new BasicAuthentication.BasicResult(uri, username, password));			

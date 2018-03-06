@@ -63,9 +63,8 @@ public class DwEvolutionSnapshotImporterWizard extends Wizard implements IImport
 
 	@Override
 	public boolean performFinish() {	
-		
-		System.out.println("Finish!");
-		
+		StringBuilder statisticsStringBuilder = new StringBuilder("Import statistics:");	
+		int fmNumber = 0;
 		
 		Map<FeatureModelConstraintsTuple, Date> featureModelDateMap = new HashMap<FeatureModelConstraintsTuple, Date>();
 		
@@ -75,6 +74,9 @@ public class DwEvolutionSnapshotImporterWizard extends Wizard implements IImport
 		
 		System.out.println("Loading Models");
 		for(Entry<IFile, Date> fileDate : fileDateMap.entrySet()) {
+			statisticsStringBuilder.append(System.lineSeparator());
+			statisticsStringBuilder.append("Model "+fmNumber+":");
+			
 			if(fileDate.getKey() != null) {
 				System.out.println("Loading Model "+fileDate.getKey().getName());
 				long start = System.currentTimeMillis();
@@ -103,10 +105,22 @@ public class DwEvolutionSnapshotImporterWizard extends Wizard implements IImport
 				long end = System.currentTimeMillis();
 				System.out.println("Loading Model took "+(end-start)+ " milliseconds.");
 				
+				statisticsStringBuilder.append(System.lineSeparator());
+				statisticsStringBuilder.append("#features: ");
+				statisticsStringBuilder.append(loadedFeatureModel.getFeatures().size());
+				
+				if(loadedConstraintModel!=null) {
+					statisticsStringBuilder.append(System.lineSeparator());
+					statisticsStringBuilder.append("#constraints: ");
+					statisticsStringBuilder.append(loadedConstraintModel.getConstraints().size());
+				}
+				
 				FeatureModelConstraintsTuple tuple = new FeatureModelConstraintsTuple(loadedFeatureModel, loadedConstraintModel);
 				
 				featureModelDateMap.put(tuple, fileDate.getValue());
 			}
+			
+			fmNumber++;
 		}
 
 		
@@ -135,6 +149,20 @@ public class DwEvolutionSnapshotImporterWizard extends Wizard implements IImport
 			end = System.currentTimeMillis();
 			
 			System.out.println("Saving merged model took "+(end-start)+" milliseconds.");
+			
+			statisticsStringBuilder.append(System.lineSeparator());
+			statisticsStringBuilder.append("Merged models:");
+			statisticsStringBuilder.append(System.lineSeparator());
+			statisticsStringBuilder.append("#features: ");
+			statisticsStringBuilder.append(mergedTuple.getFeatureModel().getFeatures().size());
+			
+			if(mergedTuple.getConstraintModel()!=null) {
+				statisticsStringBuilder.append(System.lineSeparator());
+				statisticsStringBuilder.append("#constraints: ");
+				statisticsStringBuilder.append(mergedTuple.getConstraintModel().getConstraints().size());
+			}
+			
+			System.out.println(statisticsStringBuilder.toString());
 			
 		} catch (Exception e) {
 			e.printStackTrace();

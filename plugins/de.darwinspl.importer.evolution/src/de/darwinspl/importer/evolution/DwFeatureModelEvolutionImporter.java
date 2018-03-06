@@ -198,7 +198,7 @@ public class DwFeatureModelEvolutionImporter {
 		}
 
 		FeatureModelConstraintsTuple mergedModels = mergeFeatureModels(darwinSPLModels);
-
+		
 		return mergedModels;
 	}
 
