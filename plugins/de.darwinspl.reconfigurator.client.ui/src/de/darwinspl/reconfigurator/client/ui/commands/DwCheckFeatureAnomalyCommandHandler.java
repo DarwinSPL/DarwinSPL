@@ -6,6 +6,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.eclipse.core.commands.AbstractHandler;
@@ -24,6 +25,7 @@ import eu.hyvar.context.HyContextModel;
 import eu.hyvar.context.contextValidity.HyValidityModel;
 import eu.hyvar.context.contextValidity.util.HyValidityModelUtil;
 import eu.hyvar.context.information.util.ContextInformationResolverUtil;
+import eu.hyvar.evolution.util.HyEvolutionUtil;
 import eu.hyvar.feature.HyFeatureModel;
 import eu.hyvar.feature.constraint.HyConstraintModel;
 import eu.hyvar.feature.constraint.util.HyConstraintIOUtil;
@@ -65,9 +67,35 @@ public class DwCheckFeatureAnomalyCommandHandler extends AbstractHandler {
 		HyConstraintModel constraintModel = HyConstraintIOUtil.loadAccompanyingConstraintModel(selectedFeatureModel);
 		HyValidityModel validityModel = HyValidityModelUtil.getAccompanyingValidityModel(selectedFeatureModel);
 		
-
+		List<Date> dates = new ArrayList<Date>();
+		
+		if(contextModel!=null) {
+			dates.addAll(HyEvolutionUtil.collectDates(contextModel));
+		}
+		if(constraintModel != null) {
+			dates.addAll(HyEvolutionUtil.collectDates(constraintModel));			
+		}
+		if(validityModel != null) {
+			dates.addAll(HyEvolutionUtil.collectDates(validityModel));				
+		}
+		
+		dates.addAll(HyEvolutionUtil.collectDates(selectedFeatureModel));		
+		
+		
+		
+		Date date = null;
+		
+		if(dates.size() == 0) {
+			date = new Date();
+		}
+		
+		
+//		DwSolver dwSolver = new DwSolver(selectedFeatureModel, contextModel, date);
+//		dwSolver.setConstraintModel(constraintModel, date);
+//		System.err.println("Solver sat: "+dwSolver.isSatisfiable());
+		
 		DwAnalysesClient analysesClient = new DwAnalysesClient();
-		String hyVarRecMessage = analysesClient.createHyVarRecMessage(contextModel, validityModel, selectedFeatureModel, constraintModel, null, null, null, null, null);
+		String hyVarRecMessage = analysesClient.createHyVarRecMessage(contextModel, validityModel, selectedFeatureModel, constraintModel, null, null, null, date, null);
 		
 		List<String> lines = new ArrayList<String>();
 		lines.add(hyVarRecMessage);

@@ -79,6 +79,8 @@ public class DwAnalysesClient {
 	protected static final String VALIDATE_FM_URI = "explain";
 	protected static final String CHECK_FEATURES_URI = "check_features";
 	
+	public static final String DEFAULT_URI = "https://www.isf.cs.tu-bs.de/hyvarrec/";
+	
 	protected static final String CONTEXT_VALID = "valid";
 	
 	protected HyVarRecExporter exporter;
@@ -488,10 +490,15 @@ public class DwAnalysesClient {
 		List<Date> sortedDateList = HyVarRecExporter.getSortedListOfDatesOfDateContext(featureModels, constraintModels, contextModels, validityModels, profiles);
 		
 		if(valueForDateContext == -1) {
-			Calendar cal = new GregorianCalendar();
-			cal.setTime(sortedDateList.get(0));
-			cal.add(Calendar.DAY_OF_MONTH, -1);
-			return cal.getTime();
+			if(sortedDateList.isEmpty()) {
+				return null;
+			}
+			else {
+				Calendar cal = new GregorianCalendar();
+				cal.setTime(sortedDateList.get(0));
+				cal.add(Calendar.DAY_OF_MONTH, -1);
+				return cal.getTime();				
+			}
 		}
 		
 		return sortedDateList.get(valueForDateContext);
@@ -500,6 +507,7 @@ public class DwAnalysesClient {
 	protected String sendMessageToHyVarRec(String message, URI uri, String username, String password) throws UnresolvedAddressException, ExecutionException, InterruptedException, TimeoutException {
 		
 		HttpClient hyvarrecClient = new HttpClient(new SslContextFactory(true));
+		
 		
 		if(username != null && password != null) {
 			AuthenticationStore auth = hyvarrecClient.getAuthenticationStore();
