@@ -129,7 +129,7 @@ public class FeatureIDEFeatureModelImporter implements DarwinSPLFeatureModelImpo
 		} else if (parentFeatureStructure.isOr() || parentFeatureStructure.isAlternative()) {
 			//In dedicated groups, all features are perceived as being optional
 			featureType.setType(HyFeatureTypeEnum.OPTIONAL);
-		} else if (parentFeatureStructure.isMandatory()) {
+		} else if (featureStructure.isMandatory()) {
 			featureType.setType(HyFeatureTypeEnum.MANDATORY);
 		} else {
 			//Can only be optional

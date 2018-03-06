@@ -55,13 +55,12 @@ public class FeatureIDEConstraintsImporter {
 	private HyExpression createExpression(Node node) {
 		HyExpression expression = null;
 		
-		
 		if(node instanceof Not) {
-			HyNotExpression notExpression = expressionFactory.createHyNotExpression();
-			
-			notExpression.setOperand(createExpression(node.getChildren()[0]));
-			
-			expression = notExpression;
+				HyNotExpression notExpression = expressionFactory.createHyNotExpression();
+				
+				notExpression.setOperand(createExpression(node.getChildren()[0]));
+				
+				expression = notExpression;	
 		}
 		else if(node instanceof Literal) {
 			Literal literal = (Literal) node;
@@ -70,6 +69,11 @@ public class FeatureIDEConstraintsImporter {
 			if(literal.var instanceof String) {
 				HyFeatureReferenceExpression featureReferenceExpression = expressionFactory.createHyFeatureReferenceExpression();
 				HyFeature feature = getFeature((String)literal.var);
+				
+				if(feature == null) {
+					System.err.println("Could not find referenced feature of "+(String)literal.var);
+				}
+				
 				featureReferenceExpression.setFeature(feature);
 				
 				expression = featureReferenceExpression;
@@ -78,6 +82,18 @@ public class FeatureIDEConstraintsImporter {
 				System.err.println("Could not find referenced feature of literal: "+literal);
 				// TODO proper error handling
 			}
+			
+			// strange possible behavior of Nodes
+			if(!literal.positive) {
+				HyNotExpression notExpression = expressionFactory.createHyNotExpression();
+				
+				notExpression.setOperand(expression);
+				
+				expression = notExpression;
+				System.out.println("Strange Behavior");
+			}
+			
+			
 			
 		}
 		else {
@@ -94,11 +110,15 @@ public class FeatureIDEConstraintsImporter {
 			else if(node instanceof Equals) {
 				binaryExpression = expressionFactory.createHyEquivalenceExpression();
 			}
+			else {
+				System.err.println("Unknown node type!");
+			}
 			
 			HyExpression operand1 = createExpression(node.getChildren()[0]);
 			HyExpression operand2 = createExpression(node.getChildren()[1]);
 			
 			if(operand1 == null || operand2 == null) {
+				System.err.println("Operands were null!");
 				return null;
 			}
 			
