@@ -109,6 +109,10 @@ public class DwEvolutionSnapshotImporterWizard extends Wizard implements IImport
 				statisticsStringBuilder.append("#features: ");
 				statisticsStringBuilder.append(loadedFeatureModel.getFeatures().size());
 				
+				statisticsStringBuilder.append(System.lineSeparator());
+				statisticsStringBuilder.append("#groups: ");
+				statisticsStringBuilder.append(loadedFeatureModel.getGroups().size());
+				
 				if(loadedConstraintModel!=null) {
 					statisticsStringBuilder.append(System.lineSeparator());
 					statisticsStringBuilder.append("#constraints: ");
@@ -155,6 +159,10 @@ public class DwEvolutionSnapshotImporterWizard extends Wizard implements IImport
 			statisticsStringBuilder.append(System.lineSeparator());
 			statisticsStringBuilder.append("#features: ");
 			statisticsStringBuilder.append(mergedTuple.getFeatureModel().getFeatures().size());
+
+			statisticsStringBuilder.append(System.lineSeparator());
+			statisticsStringBuilder.append("#groups: ");
+			statisticsStringBuilder.append(mergedTuple.getFeatureModel().getGroups().size());
 			
 			if(mergedTuple.getConstraintModel()!=null) {
 				statisticsStringBuilder.append(System.lineSeparator());
