@@ -558,7 +558,7 @@ public class HyVarRecExporter {
 						int validUntilId;
 						
 						if(featureType.getValidUntil() != null) {
-							validUntilId = getDateContextValueForDate(sortedDateList, featureType.getValidUntil());
+							validUntilId = getDateContextValueForDate(sortedDateList, featureType.getValidUntil()) - 1;
 						}
 						else {
 //							validUntilId = getDateContextValueForDate(sortedDateList, sortedDateList.get(sortedDateList.size()-1));
