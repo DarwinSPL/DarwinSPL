@@ -58,7 +58,6 @@ public class DwFeatureModelExporter {
 
 //			featureModelConstraints.addAll(getFeatureConstraints(rootFeature.getFeature(), true, date));
 
-			featureModelConstraints.addAll(getFeatureModelVersionConstraints(featureModel, date, dateContext, sortedDateList));
 		}
 		else {
 			for(HyRootFeature rootFeature: featureModel.getRootFeature()) {
@@ -72,6 +71,9 @@ public class DwFeatureModelExporter {
 				rootFeatureConstraint = new StringBuilder();
 			}
 		}
+
+		// TODO 
+		featureModelConstraints.addAll(getFeatureModelVersionConstraints(featureModel, date, dateContext, sortedDateList));
 		
 		for(HyGroup group: featureModel.getGroups()) {
 			featureModelConstraints.addAll(getGroupConstraints(group, date, dateContext, sortedDateList));
@@ -133,8 +135,8 @@ public class DwFeatureModelExporter {
 		
 		if(date == null) {
 			featureModelConstraints.addAll(getEvolutionFeatureAndVersionRestrictionConstraints(featureModel.getFeatures(), dateContext));
-		}
-
+		}	
+		
 		return featureModelConstraints;
 	}
 	

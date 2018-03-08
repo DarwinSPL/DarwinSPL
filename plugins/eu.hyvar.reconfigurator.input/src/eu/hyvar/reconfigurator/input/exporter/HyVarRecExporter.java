@@ -325,6 +325,12 @@ public class HyVarRecExporter {
 				input.setPreferences(preferenceExporter.getPreferences(profile, date, dateContext, sortedDateList));				
 			}
 		}
+//		
+//		for(String con: input.getConstraints()) {
+//			if(con.contains("null")) {
+//				System.err.println("null in there");
+//			}
+//		}
 		
 		return input;
 	}

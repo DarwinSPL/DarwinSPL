@@ -749,32 +749,34 @@ public class DwFeatureModelEvolutionImporter {
 				// When the new parent will be added to the model, this feature will be added to its group.
 				HyFeatureEvolutionUtil.removeFeatureFromGroup(featureEntrySet.getValue(), date);
 			} else if (equivalentToParentFromInputModel == parentOfMergedFeature) {
-				HyFeature inputFeature = featureEntrySet.getKey();
-				HyFeature equivalentFeature = featureEntrySet.getValue();
-				
-				HyGroup groupOfInputFeature = HyEvolutionUtil.getValidTemporalElement(inputFeature.getGroupMembership(), date).getCompositionOf();
-				HyGroupType groupTypeOfInputGroup = HyEvolutionUtil.getValidTemporalElement(groupOfInputFeature.getTypes(), date);
-				HyGroupComposition groupCompositionOfInputFeature = HyEvolutionUtil.getValidTemporalElement(inputFeature.getGroupMembership(), date);
-				
-				HyGroup groupOfEquivalentFeature = HyEvolutionUtil.getValidTemporalElement(equivalentFeature.getGroupMembership(), date).getCompositionOf();
-				
-				HyGroup equivalentGroup = groupMap.get(groupOfInputFeature);
-				
-				if(equivalentGroup != null && equivalentGroup == groupOfEquivalentFeature) {
-					// groups also stayed the same. done
-					continue;
-				}
-				
-				System.out.println("New Feature Move method");
-				// Group didn't stay the same.
-				HyGroup bestMatchingGroupOfMergedModel = getBestMatchingGroup(inputFeature, groupCompositionOfInputFeature, equivalentToParentFromInputModel, groupTypeOfInputGroup.getType(), featureMap, date);
-				if(bestMatchingGroupOfMergedModel != null) {
-					if(bestMatchingGroupOfMergedModel == groupOfEquivalentFeature) {
-						// done. best matching group is still the same as before.
-						continue;
-					}
-				}
-				addFeatureToGroup(inputFeature, groupCompositionOfInputFeature, bestMatchingGroupOfMergedModel, equivalentToParentFromInputModel, groupTypeOfInputGroup.getType(), mergedFeatureModel, date);
+				continue;
+				// TODO may be wrong if the group changed for the same parent
+//				HyFeature inputFeature = featureEntrySet.getKey();
+//				HyFeature equivalentFeature = featureEntrySet.getValue();
+//				
+//				HyGroup groupOfInputFeature = HyEvolutionUtil.getValidTemporalElement(inputFeature.getGroupMembership(), date).getCompositionOf();
+//				HyGroupType groupTypeOfInputGroup = HyEvolutionUtil.getValidTemporalElement(groupOfInputFeature.getTypes(), date);
+//				HyGroupComposition groupCompositionOfInputFeature = HyEvolutionUtil.getValidTemporalElement(inputFeature.getGroupMembership(), date);
+//				
+//				HyGroup groupOfEquivalentFeature = HyEvolutionUtil.getValidTemporalElement(equivalentFeature.getGroupMembership(), date).getCompositionOf();
+//				
+//				HyGroup equivalentGroup = groupMap.get(groupOfInputFeature);
+//				
+//				if(equivalentGroup != null && equivalentGroup == groupOfEquivalentFeature) {
+//					// groups also stayed the same. done
+//					continue;
+//				}
+//				
+//				System.out.println("New Feature Move method");
+//				// Group didn't stay the same.
+//				HyGroup bestMatchingGroupOfMergedModel = getBestMatchingGroup(inputFeature, groupCompositionOfInputFeature, equivalentToParentFromInputModel, groupTypeOfInputGroup.getType(), featureMap, date);
+//				if(bestMatchingGroupOfMergedModel != null) {
+//					if(bestMatchingGroupOfMergedModel == groupOfEquivalentFeature) {
+//						// done. best matching group is still the same as before.
+//						continue;
+//					}
+//				}
+//				addFeatureToGroup(inputFeature, groupCompositionOfInputFeature, bestMatchingGroupOfMergedModel, equivalentToParentFromInputModel, groupTypeOfInputGroup.getType(), mergedFeatureModel, date);
 			} else {
 				// parents are different.
 				HyGroupComposition groupCompositionOfFeatureFromInputModel = HyEvolutionUtil
