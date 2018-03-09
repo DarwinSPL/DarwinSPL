@@ -38,7 +38,7 @@ public class ExtractFeature extends ComplexOperation {
 		}
 		
 		if(extractedFeatureName == null) {
-			HyName sourceFeatureName = HyFeatureEvolutionUtil.getName(sourceFeature.getNames(), timestamp);
+			HyName sourceFeatureName = HyFeatureEvolutionUtil.getName(sourceFeature, timestamp);
 			extractedFeatureName = sourceFeatureName.getName()+"_extracted";
 		}
 		

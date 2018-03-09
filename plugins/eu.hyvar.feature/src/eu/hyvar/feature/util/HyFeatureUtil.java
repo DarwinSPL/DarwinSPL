@@ -143,21 +143,6 @@ public class HyFeatureUtil {
 		return (groupType.getType().equals(HyGroupTypeEnum.ALTERNATIVE));
 	}
 	
-	/**
-	 * Only for FMs valid at one point in time!
-	 * @param feature
-	 * @return
-	 * @throws HyFeatureModelWellFormednessException
-	 */
-	public static boolean isMandatory(HyFeature feature, Date date) throws HyFeatureModelWellFormednessException {
-		if(feature == null) {
-			System.err.println("Something bad happened. Feature was null during isMandatory check");
-			return false;
-		}
-		
-		HyFeatureType featureType = HyEvolutionUtil.getValidTemporalElement(feature.getTypes(), date);
-		return (featureType.getType().equals(HyFeatureTypeEnum.MANDATORY));
-	}
 	
 	/**
 	 * Only for FMs valid at one point in time!

@@ -219,7 +219,9 @@ public class HyVarRecExporter {
 		input.setContexts(new ArrayList<Context>());
 		if(contextModels != null) {
 			for(HyContextModel contextModel: contextModels) {
-				input.getContexts().addAll(contextExporter.getExportedContexts(contextModel, date));
+				if(contextModel != null) {
+					input.getContexts().addAll(contextExporter.getExportedContexts(contextModel, date));
+				}
 			}
 		}
 
@@ -289,9 +291,9 @@ public class HyVarRecExporter {
 			
 			input.getConfiguration().getContextValues().add(initDateContext);
 			
-			input.setOptionalFeatures(getOptionalFeatureMap(featureModels, sortedDateList));			
 		}
 		// -----
+		input.setOptionalFeatures(getOptionalFeatureMap(featureModels, sortedDateList));			
 
 		try {
 			for(HyFeatureModel featureModel: featureModelExporters.keySet()) {
@@ -323,6 +325,12 @@ public class HyVarRecExporter {
 				input.setPreferences(preferenceExporter.getPreferences(profile, date, dateContext, sortedDateList));				
 			}
 		}
+//		
+//		for(String con: input.getConstraints()) {
+//			if(con.contains("null")) {
+//				System.err.println("null in there");
+//			}
+//		}
 		
 		return input;
 	}
@@ -529,6 +537,12 @@ public class HyVarRecExporter {
 		return -1;
 	}
 	
+	/**
+	 * 
+	 * @param featureModels
+	 * @param sortedDateList
+	 * @return Key: Feature ID, Value: List of Intervals (second list) at which a feature is optional.
+	 */
 	public Map<String, List<List<Integer>>> getOptionalFeatureMap(List<HyFeatureModel> featureModels, List<Date> sortedDateList) {
 		Map<String, List<List<Integer>>> optionalFeatureMap = new HashMap<String, List<List<Integer>>>();
 		
@@ -537,39 +551,46 @@ public class HyVarRecExporter {
 				
 				List<List<Integer>> optionalIntervalList = null;
 				
-				for(HyFeatureType featureType: feature.getTypes()) {
-					if(featureType.getType().equals(HyFeatureTypeEnum.OPTIONAL)) {
-						if(optionalIntervalList == null) {
-							optionalIntervalList = new ArrayList<List<Integer>>();
+				if(sortedDateList == null) {
+					// no evolution considered.
+					optionalIntervalList = new ArrayList<List<Integer>>();
+				}
+				else {
+					for(HyFeatureType featureType: feature.getTypes()) {
+						if(featureType.getType().equals(HyFeatureTypeEnum.OPTIONAL)) {
+							if(optionalIntervalList == null) {
+								optionalIntervalList = new ArrayList<List<Integer>>();
+							}
+							
+							int validSinceId;
+							
+							if(featureType.getValidSince() != null) {
+								validSinceId = getDateContextValueForDate(sortedDateList, featureType.getValidSince());
+							}
+							else {
+								validSinceId = -1;
+							}
+							
+							
+							int validUntilId;
+							
+							if(featureType.getValidUntil() != null) {
+								validUntilId = getDateContextValueForDate(sortedDateList, featureType.getValidUntil()) - 1;
+							}
+							else {
+//								validUntilId = getDateContextValueForDate(sortedDateList, sortedDateList.get(sortedDateList.size()-1));
+								validUntilId = sortedDateList.size()-1;
+							}
+							
+							List<Integer> optionalInterval = new ArrayList<Integer>(2);
+							optionalInterval.add(validSinceId);
+							optionalInterval.add(validUntilId);
+							
+							optionalIntervalList.add(optionalInterval);
 						}
-						
-						int validSinceId;
-						
-						if(featureType.getValidSince() != null) {
-							validSinceId = getDateContextValueForDate(sortedDateList, featureType.getValidSince());
-						}
-						else {
-							validSinceId = -1;
-						}
-						
-						
-						int validUntilId;
-						
-						if(featureType.getValidUntil() != null) {
-							validUntilId = getDateContextValueForDate(sortedDateList, featureType.getValidUntil()) - 1;
-						}
-						else {
-//							validUntilId = getDateContextValueForDate(sortedDateList, sortedDateList.get(sortedDateList.size()-1));
-							validUntilId = sortedDateList.size()-1;
-						}
-						
-						List<Integer> optionalInterval = new ArrayList<Integer>(2);
-						optionalInterval.add(validSinceId);
-						optionalInterval.add(validUntilId);
-						
-						optionalIntervalList.add(optionalInterval);
 					}
 				}
+				
 				
 				if(optionalIntervalList != null) {
 					optionalFeatureMap.put(feature.getId(), optionalIntervalList);

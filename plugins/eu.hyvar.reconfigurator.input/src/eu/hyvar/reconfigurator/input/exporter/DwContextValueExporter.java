@@ -37,7 +37,9 @@ public class DwContextValueExporter {
 		List<HyContextualInformation> contextsWithoutValues = new ArrayList<HyContextualInformation>();
 		if (contextModels != null) {
 			for (HyContextModel contextModel : contextModels) {
-				contextsWithoutValues.addAll(contextModel.getContextualInformations());
+				if(contextModel != null) {
+					contextsWithoutValues.addAll(contextModel.getContextualInformations());					
+				}
 			}
 		}
 

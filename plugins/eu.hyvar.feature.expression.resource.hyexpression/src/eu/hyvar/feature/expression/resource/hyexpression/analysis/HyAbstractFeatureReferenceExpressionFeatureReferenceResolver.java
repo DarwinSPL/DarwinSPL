@@ -6,10 +6,12 @@
  */
 package eu.hyvar.feature.expression.resource.hyexpression.analysis;
 
-import java.util.Date;
 import java.util.Map;
+
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
 
+import eu.hyvar.evolution.HyTemporalElement;
 import eu.hyvar.feature.HyFeature;
 import eu.hyvar.feature.expression.util.HyExpressionResolverUtil;
 import eu.hyvar.feature.util.HyFeatureResolverUtil;
@@ -27,8 +29,21 @@ public class HyAbstractFeatureReferenceExpressionFeatureReferenceResolver implem
 	}
 	
 	public String deResolve(eu.hyvar.feature.HyFeature element, eu.hyvar.feature.expression.HyAbstractFeatureReferenceExpression container, EReference reference) {
-		// TODO incorporate evolution!
-		return HyFeatureResolverUtil.deresolveFeature(element, new Date());
+		EObject eContainer = container.eContainer();
+		while(! (eContainer instanceof HyTemporalElement)) {
+			eContainer = eContainer.eContainer();
+			if(eContainer == null) {
+				break;
+			}
+		}
+		
+		if(eContainer == null) {
+			return "Could not find containing constraint for timestamp";
+		}
+		
+		HyTemporalElement constraint = (HyTemporalElement) eContainer;
+		
+		return HyFeatureResolverUtil.deresolveFeature(element, constraint.getValidSince());
 	}
 	
 	public void setOptions(Map<?,?> options) {

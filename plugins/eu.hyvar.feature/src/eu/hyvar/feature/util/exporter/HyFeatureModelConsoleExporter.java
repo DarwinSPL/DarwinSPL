@@ -16,6 +16,7 @@ import eu.hyvar.feature.HyGroupType;
 import eu.hyvar.feature.HyNumberAttribute;
 import eu.hyvar.feature.HyStringAttribute;
 import eu.hyvar.feature.HyVersion;
+import eu.hyvar.feature.util.HyFeatureEvolutionUtil;
 import eu.hyvar.feature.util.HyFeatureModelWellFormednessException;
 import eu.hyvar.feature.util.HyFeatureUtil;
 
@@ -39,7 +40,7 @@ public class HyFeatureModelConsoleExporter extends HyFeatureExporter<String> {
 			output.append(" ");
 			if(HyFeatureUtil.isOptional(feature, date)) {
 				output.append("(optional) ");
-			} else if(HyFeatureUtil.isMandatory(feature, date)) {
+			} else if(HyFeatureEvolutionUtil.isMandatory(feature, date)) {
 				output.append("(mandatory) ");
 			}
 		}
