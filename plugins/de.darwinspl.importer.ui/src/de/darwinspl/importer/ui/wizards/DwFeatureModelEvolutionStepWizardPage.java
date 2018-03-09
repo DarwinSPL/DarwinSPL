@@ -11,9 +11,13 @@ import org.eclipse.jface.wizard.WizardPage;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
+import org.eclipse.swt.graphics.Color;
+import org.eclipse.swt.graphics.Device;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Display;
+import org.eclipse.swt.widgets.Label;
 
 import de.darwinspl.importer.ui.wizards.dialogs.DwEvolutionStepAssignmentDialog;
 
@@ -25,6 +29,8 @@ public class DwFeatureModelEvolutionStepWizardPage extends WizardPage implements
 	protected Map<IFile, Date> fileDateMap;
 	
 	protected Button setDatesButton;
+	
+	protected Label warningLabel;
 
 	public void setFiles(List<IFile> files) {
 		this.files = files;
@@ -47,6 +53,12 @@ public class DwFeatureModelEvolutionStepWizardPage extends WizardPage implements
 
 		setFiles(files);
 
+		warningLabel = new Label(container, SWT.CENTER);
+		Device device = Display.getCurrent ();
+		Color red = new Color (device, 255, 0, 0);
+		warningLabel.setBackground(red);
+		warningLabel.setText("Currently only works for feature models with maximum 1 child group per features (e.g., as in FeatureIDE)");
+		
 		setDatesButton = new Button(container, SWT.PUSH);
 		setDatesButton.setText("Select dates for evolution steps...");
 		setDatesButton.addSelectionListener(this);

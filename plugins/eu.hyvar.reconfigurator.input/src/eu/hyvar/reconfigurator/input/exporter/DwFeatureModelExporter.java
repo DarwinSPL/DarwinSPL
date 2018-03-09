@@ -56,6 +56,7 @@ public class DwFeatureModelExporter {
 
 			featureModelConstraints.add(rootFeatureConstraint.toString());
 
+			featureModelConstraints.addAll(getFeatureModelVersionConstraints(featureModel, date, dateContext, sortedDateList));
 //			featureModelConstraints.addAll(getFeatureConstraints(rootFeature.getFeature(), true, date));
 
 		}
@@ -73,7 +74,6 @@ public class DwFeatureModelExporter {
 		}
 
 		// TODO 
-		featureModelConstraints.addAll(getFeatureModelVersionConstraints(featureModel, date, dateContext, sortedDateList));
 		
 		for(HyGroup group: featureModel.getGroups()) {
 			featureModelConstraints.addAll(getGroupConstraints(group, date, dateContext, sortedDateList));

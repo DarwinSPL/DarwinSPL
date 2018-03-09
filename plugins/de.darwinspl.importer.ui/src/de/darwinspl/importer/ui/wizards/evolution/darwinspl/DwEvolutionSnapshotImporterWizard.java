@@ -64,7 +64,6 @@ public class DwEvolutionSnapshotImporterWizard extends Wizard implements IImport
 	@Override
 	public boolean performFinish() {	
 		StringBuilder statisticsStringBuilder = new StringBuilder("Import statistics:");	
-		int fmNumber = 0;
 		
 		Map<FeatureModelConstraintsTuple, Date> featureModelDateMap = new HashMap<FeatureModelConstraintsTuple, Date>();
 		
@@ -75,7 +74,7 @@ public class DwEvolutionSnapshotImporterWizard extends Wizard implements IImport
 		System.out.println("Loading Models");
 		for(Entry<IFile, Date> fileDate : fileDateMap.entrySet()) {
 			statisticsStringBuilder.append(System.lineSeparator());
-			statisticsStringBuilder.append("Model "+fmNumber+":");
+			statisticsStringBuilder.append("Model at date "+fileDate.getValue()+":");
 			
 			if(fileDate.getKey() != null) {
 				System.out.println("Loading Model "+fileDate.getKey().getName());
@@ -124,7 +123,6 @@ public class DwEvolutionSnapshotImporterWizard extends Wizard implements IImport
 				featureModelDateMap.put(tuple, fileDate.getValue());
 			}
 			
-			fmNumber++;
 		}
 
 		

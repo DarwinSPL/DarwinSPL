@@ -2,6 +2,7 @@ package eu.hyvar.feature.analyses;
 
 import java.util.Date;
 import java.util.HashSet;
+import java.util.List;
 
 import org.eclipse.emf.common.util.EList;
 
@@ -9,6 +10,7 @@ import eu.hyvar.dataValues.HyEnum;
 import eu.hyvar.dataValues.HyEnumLiteral;
 import eu.hyvar.evolution.HyName;
 import eu.hyvar.evolution.HyTemporalElement;
+import eu.hyvar.evolution.util.HyEvolutionUtil;
 import eu.hyvar.feature.HyFeature;
 import eu.hyvar.feature.HyFeatureChild;
 import eu.hyvar.feature.HyFeatureModel;
@@ -372,6 +374,56 @@ public class HyFeatureModelWellFormednessAnalysis {
 		
 		return true;
 	}
+	
+	
+	// TODO integrate
+//	List<Date> dates = HyEvolutionUtil.collectDates(mergedFeatureModel);
+//	
+//	for(Date date: dates) {
+//		for(HyFeature feature: mergedFeatureModel.getFeatures()) {
+//			if(HyEvolutionUtil.isValid(feature, date)) {
+//				List<HyGroupComposition> groupMemberships = HyEvolutionUtil.getValidTemporalElements(feature.getGroupMembership(), date) ;
+//				
+//				if(groupMemberships == null || groupMemberships.size() == 0) {
+//					System.err.println("Feature "+HyEvolutionUtil.getValidTemporalElement(feature.getNames(), date).getName()+ " has no group membership at date "+date);
+//				}
+//				else if(groupMemberships.size() > 1) {
+//					System.err.println("Feature "+HyEvolutionUtil.getValidTemporalElement(feature.getNames(), date).getName()+ " has multiple group membership at date "+date);
+//				}
+//			}
+//		}
+//		
+//		for(HyGroup group: mergedFeatureModel.getGroups()) {
+//			if(HyEvolutionUtil.isValid(group, date)) {
+//				List<HyFeatureChild> featureChildrenParent = HyEvolutionUtil.getValidTemporalElements(group.getChildOf(), date);
+//				List<HyGroupComposition> groupCompositions = HyEvolutionUtil.getValidTemporalElements(group.getParentOf(), date);
+//				
+//				if(featureChildrenParent == null || featureChildrenParent.size() == 0) {
+//					System.err.println("Group has no group parent feature at date "+date);
+//				}
+//				else if(featureChildrenParent.size() > 1) {
+//					System.err.println("Group has multiple group parent feature at date "+date);
+//				}
+//				
+//				if(groupCompositions == null || groupCompositions.size() == 0) {
+//					System.err.println("Group has no composition at date "+date);
+//				}
+//				else if(groupCompositions.size() > 1) {
+//					System.err.println("Group has multiple compositions at date "+date);
+//				}
+//			}
+//		}
+//	}
+//	
+//	
+////	for(HyGroup group: mergedFeatureModel.getGroups()) {
+////		for(HyGroupComposition groupComposition: group.getParentOf()) {
+////			if(!mergedFeatureModel.getFeatures().containsAll(groupComposition.getFeatures())) {
+////				System.err.println("Non consistent!");
+////				return;
+////			}
+////		}
+////	}
 	
 	
 }
