@@ -553,7 +553,9 @@ public class HyVarRecExporter {
 				
 				if(sortedDateList == null) {
 					// no evolution considered.
-					optionalIntervalList = new ArrayList<List<Integer>>();
+					if(HyEvolutionUtil.getValidTemporalElement(feature.getTypes(), new Date()).getType().equals(HyFeatureTypeEnum.OPTIONAL)) {
+						optionalIntervalList = new ArrayList<List<Integer>>();						
+					}
 				}
 				else {
 					for(HyFeatureType featureType: feature.getTypes()) {
