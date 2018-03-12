@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   <extension
+         point="org.eclipse.ui.menus">
+      <menuContribution
+            allPopups="false"
+            locationURI="popup:de.darwinspl.eclipse.ui.menu">
+         <menu
+               label="Analyze with HyVarRec">
+            <visibleWhen
+                  checkEnabled="true">
+               <with
+                     variable="selection">
+                  <iterate
+                        ifEmpty="false"
+                        operator="or">
+                     <test
+                           property="org.eclipse.core.resources.extension"
+                           value="hyfeature">
+                     </test>
+                  </iterate>
+               </with>
+            </visibleWhen>
+            <command
+                  commandId="de.darwinspl.reconfigurator.client.ui.create_hyarrec_message"
+                  label="Create JSON output for HyVarRec check"
+                  style="push">
+            </command>
+         </menu>
+      </menuContribution>
+   </extension>
+   <extension
+         point="org.eclipse.ui.commands">
+      <command
+            defaultHandler="de.darwinspl.reconfigurator.client.ui.commands.DwCheckFeatureAnomalyCommandHandler"
+            id="de.darwinspl.reconfigurator.client.ui.create_hyarrec_message"
+            name="Create JSON output for HyVarRec check">
+      </command>
+   </extension>
+
+</plugin>

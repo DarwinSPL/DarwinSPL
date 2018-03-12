@@ -16,5 +16,6 @@ Require-Bundle: org.eclipse.core.runtime,
  eu.hyvar.context.information.value;visibility:=reexport,
  eu.hyvar.feature.data;visibility:=reexport,
  eu.hyvar.evolution;visibility:=reexport,
- eu.hyvar.feature;visibility:=reexport
+ eu.hyvar.feature;visibility:=reexport,
+ eu.hyvar.feature.constraint
 Bundle-ActivationPolicy: lazy

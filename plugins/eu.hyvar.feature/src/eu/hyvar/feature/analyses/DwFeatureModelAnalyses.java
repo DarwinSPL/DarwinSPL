@@ -119,11 +119,11 @@ public class DwFeatureModelAnalyses {
 	}
 	
 	private static void collectNames(HyNamedElement namedElement, Map<String, List<EObject>> nameMap, List<String> doubledNames, Date date) {
-		if(namedElement == null || namedElement.getNames() == null || HyFeatureEvolutionUtil.getName(namedElement.getNames(), date) == null) {
+		if(namedElement == null || namedElement.getNames() == null || HyFeatureEvolutionUtil.getName(namedElement, date) == null) {
 			return;
 		}
 		
-		String name = HyFeatureEvolutionUtil.getName(namedElement.getNames(), date).getName();
+		String name = HyFeatureEvolutionUtil.getName(namedElement, date).getName();
 		if(nameMap.containsKey(name)) {
 			nameMap.get(name).add(namedElement);
 			doubledNames.add(name);
