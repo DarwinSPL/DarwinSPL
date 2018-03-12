@@ -110,7 +110,7 @@ public class DwAnomalyView extends ViewPart {
 		private Composite parentComposite = null;
 		
 	
-		public static final String SETTINGS_IMG = "icons/settings.png";
+		public static final String SETTINGS_IMG = "/images/settings.png";
 //		public static final Image REFRESH_IMG = FMUIPlugin.getImage("refresh_tab.gif");
 
 		@Override

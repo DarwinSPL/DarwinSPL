@@ -93,6 +93,7 @@ public class DwAnalysesClient {
 		gsonBuilder = new GsonBuilder();
 		gsonBuilder.setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES);
 		gson = gsonBuilder.disableHtmlEscaping().create();
+		exporter = new HyVarRecExporter();
 	}
 	
 	
@@ -108,7 +109,7 @@ public class DwAnalysesClient {
 	}
 	
 	public String createHyVarRecMessage(HyContextModel contextModel, HyValidityModel contextValidityModel, HyFeatureModel featureModel, HyConstraintModel constraintModel, HyConfiguration oldConfiguration, DwProfile preferenceModel, HyContextValueModel contextValues, Date date, Date evolutionContextValueDate) {
-		exporter = new HyVarRecExporter();
+		
 		String messageForHyVarRec = exporter.exportSPL(contextModel, contextValidityModel, featureModel, constraintModel, oldConfiguration, preferenceModel, contextValues, date, evolutionContextValueDate);
 		return messageForHyVarRec;
 	}
