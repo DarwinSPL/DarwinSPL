@@ -14,15 +14,14 @@ import eu.hyvar.feature.expression.HyExpression;
 import eu.hyvar.feature.expression.HyExpressionFactory;
 import eu.hyvar.feature.expression.HyFeatureReferenceExpression;
 import eu.hyvar.feature.expression.HyImpliesExpression;
-import eu.hyvar.feature.expression.util.HyExpressionStringExporter;
 import eu.hyvar.reconfigurator.input.format.Context;
 
 public class DwValidityFormulaExporter {
 
-	private HyExpressionStringExporter expressionExporter;
+	private DwExpressionExporter expressionExporter;
 
 	
-	public DwValidityFormulaExporter(HyExpressionStringExporter expressionExporter) {
+	public DwValidityFormulaExporter(DwExpressionExporter expressionExporter) {
 		this.expressionExporter = expressionExporter;
 	}
 	

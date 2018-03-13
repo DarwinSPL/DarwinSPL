@@ -6,14 +6,13 @@ import java.util.List;
 
 import eu.hyvar.feature.constraint.HyConstraint;
 import eu.hyvar.feature.constraint.HyConstraintModel;
-import eu.hyvar.feature.expression.util.HyExpressionStringExporter;
 import eu.hyvar.reconfigurator.input.format.Context;
 
 public class DwConstraintExporter {
 
-	private HyExpressionStringExporter expressionExporter;
+	private DwExpressionExporter expressionExporter;
 	
-	public DwConstraintExporter(HyExpressionStringExporter expressionExporter) {
+	public DwConstraintExporter(DwExpressionExporter expressionExporter) {
 		this.expressionExporter = expressionExporter;
 	}
 	

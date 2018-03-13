@@ -64,6 +64,7 @@ import eu.hyvar.feature.HyVersion;
 import eu.hyvar.feature.configuration.HyConfiguration;
 import eu.hyvar.feature.constraint.HyConstraintModel;
 import eu.hyvar.reconfigurator.input.exporter.HyVarRecExporter;
+import eu.hyvar.reconfigurator.input.exporter.HyVarRecExporter.FeatureEncoding;
 import eu.hyvar.reconfigurator.input.format.InputForHyVarRec;
 import eu.hyvar.reconfigurator.output.translation.HyVarRecOutputTranslator;
 import eu.hyvar.reconfigurator.output.translation.format.OutputOfHyVarRec;
@@ -93,7 +94,7 @@ public class DwAnalysesClient {
 		gsonBuilder = new GsonBuilder();
 		gsonBuilder.setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES);
 		gson = gsonBuilder.disableHtmlEscaping().create();
-		exporter = new HyVarRecExporter();
+		exporter = new HyVarRecExporter(FeatureEncoding.BOOLEAN);
 	}
 	
 	

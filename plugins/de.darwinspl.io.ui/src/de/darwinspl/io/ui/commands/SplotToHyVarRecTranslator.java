@@ -21,6 +21,7 @@ import de.christophseidl.util.eclipse.ui.SelectionUtil;
 import de.darwinspl.importer.FeatureModelConstraintsTuple;
 import de.darwinspl.importer.splot.SplotFeatureModelAndConstraintsImporter;
 import eu.hyvar.reconfigurator.input.exporter.HyVarRecExporter;
+import eu.hyvar.reconfigurator.input.exporter.HyVarRecExporter.FeatureEncoding;
 
 public class SplotToHyVarRecTranslator extends AbstractHandler {
 
@@ -61,7 +62,7 @@ public class SplotToHyVarRecTranslator extends AbstractHandler {
 					SplotFeatureModelAndConstraintsImporter importer = new SplotFeatureModelAndConstraintsImporter();
 					FeatureModelConstraintsTuple tuple = importer.importFeatureModel(ifile);
 					
-					HyVarRecExporter hyvarrecExporter = new HyVarRecExporter();
+					HyVarRecExporter hyvarrecExporter = new HyVarRecExporter(FeatureEncoding.BOOLEAN);
 
 //					Display display = Display.getDefault();
 //				    Shell shell = display.getActiveShell();

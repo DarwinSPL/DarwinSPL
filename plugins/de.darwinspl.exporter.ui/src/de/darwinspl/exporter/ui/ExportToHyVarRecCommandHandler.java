@@ -36,6 +36,7 @@ import eu.hyvar.feature.util.HyFeatureUtil;
 import de.darwinspl.common.eclipse.ui.dialogs.DwDateDialog;
 import de.darwinspl.preferences.DwProfile;
 import eu.hyvar.reconfigurator.input.exporter.HyVarRecExporter;
+import eu.hyvar.reconfigurator.input.exporter.HyVarRecExporter.FeatureEncoding;
 
 public class ExportToHyVarRecCommandHandler extends AbstractHandler {
 
@@ -187,7 +188,7 @@ public class ExportToHyVarRecCommandHandler extends AbstractHandler {
 			}
 		}
 
-		HyVarRecExporter hyvarrecExporter = new HyVarRecExporter();
+		HyVarRecExporter hyvarrecExporter = new HyVarRecExporter(FeatureEncoding.BOOLEAN);
 
 		Display display = Display.getDefault();
 	    Shell shell = display.getActiveShell();

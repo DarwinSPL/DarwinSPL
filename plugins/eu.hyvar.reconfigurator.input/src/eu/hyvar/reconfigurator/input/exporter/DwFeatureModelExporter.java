@@ -27,8 +27,15 @@ import eu.hyvar.feature.util.HyFeatureModelWellFormednessException;
 import eu.hyvar.feature.util.HyFeatureUtil;
 import eu.hyvar.reconfigurator.input.format.Context;
 
-public class DwFeatureModelExporter {
+public abstract class DwFeatureModelExporter {
 
+	protected DwFeatureEncoding featureEndocing;
+	
+//	protected abstract String getFeatureSelected(String featureId);
+	protected abstract String getOrRelation(String parentId, List<String> childrenIds);
+	protected abstract String getAlternativeRelation(String parentId, List<String> childrenIds);
+//	protected abstract String getFeatureDeselected(String featureId);
+	
 	private HyFeatureModel featureModel;
 	
 	private Map<HyFeature, String> featureReconfiguratorIdMapping;
@@ -50,88 +57,26 @@ public class DwFeatureModelExporter {
 		if(date != null || featureModel.getRootFeature().size() == 1) {
 			// Root feature has to be selected
 			HyRootFeature rootFeature = HyEvolutionUtil.getValidTemporalElement(featureModel.getRootFeature(), date);
-			rootFeatureConstraint.append(featureReconfiguratorIdMapping.get(rootFeature.getFeature()));
-			rootFeatureConstraint.append(HyVarRecExporter.EQUALS);
-			rootFeatureConstraint.append(1);
-
+			rootFeatureConstraint.append(featureEndocing.getFeatureSelected(featureReconfiguratorIdMapping.get(rootFeature.getFeature())));
 			featureModelConstraints.add(rootFeatureConstraint.toString());
 
 			featureModelConstraints.addAll(getFeatureModelVersionConstraints(featureModel, date, dateContext, sortedDateList));
-//			featureModelConstraints.addAll(getFeatureConstraints(rootFeature.getFeature(), true, date));
 
 		}
 		else {
 			for(HyRootFeature rootFeature: featureModel.getRootFeature()) {
 				rootFeatureConstraint.append(HyVarRecExporter.timedConstraint(rootFeature, dateContext, sortedDateList));
 				
-				rootFeatureConstraint.append(featureReconfiguratorIdMapping.get(rootFeature.getFeature()));
-				rootFeatureConstraint.append(HyVarRecExporter.EQUALS);
-				rootFeatureConstraint.append(1);
+				rootFeatureConstraint.append(featureEndocing.getFeatureSelected(featureReconfiguratorIdMapping.get(rootFeature.getFeature())));
 				
 				featureModelConstraints.add(rootFeatureConstraint.toString());
 				rootFeatureConstraint = new StringBuilder();
 			}
 		}
 
-		// TODO 
-		
 		for(HyGroup group: featureModel.getGroups()) {
 			featureModelConstraints.addAll(getGroupConstraints(group, date, dateContext, sortedDateList));
 		}
-		
-		
-//		// Set value of each feature and version to 0 if it is not valid at that moment
-//		if(date == null) {
-//			for(Date dateToCheck: sortedDateList) {
-//				
-//				StringBuilder featureInvalidStringBuilder = new StringBuilder();
-//
-//				
-//				boolean atLeastOneFeature = false;
-//				
-//				for(HyFeature feature: featureModel.getFeatures()) {
-//					
-//					if(!HyEvolutionUtil.isValid(feature, dateToCheck)) {
-//						if(!atLeastOneFeature) {
-//							atLeastOneFeature = true;
-//							
-//							featureInvalidStringBuilder.append(HyVarRecExporter.timedConstraint(dateToCheck, dateContext, sortedDateList));
-//							featureInvalidStringBuilder.append(HyVarRecExporter.BRACKETS_OPEN);
-//						}
-//						else {
-//							featureInvalidStringBuilder.append(HyVarRecExporter.AND);
-//						}
-//						
-//						featureInvalidStringBuilder.append(featureReconfiguratorIdMapping.get(feature));
-//						featureInvalidStringBuilder.append(HyVarRecExporter.EQUALS);
-//						featureInvalidStringBuilder.append(0);						
-//					}
-//					
-//					for(HyVersion version: feature.getVersions()) {
-//						if(!HyEvolutionUtil.isValid(version, dateToCheck)) {
-//							if(!atLeastOneFeature) {
-//								atLeastOneFeature = true;
-//								
-//								featureInvalidStringBuilder.append(HyVarRecExporter.timedConstraint(dateToCheck, dateContext, sortedDateList));
-//								featureInvalidStringBuilder.append(HyVarRecExporter.BRACKETS_OPEN);
-//							}
-//							else {
-//								featureInvalidStringBuilder.append(HyVarRecExporter.AND);
-//							}
-//							
-//							featureInvalidStringBuilder.append(versionReconfiguratorIdMapping.get(version));
-//							featureInvalidStringBuilder.append(HyVarRecExporter.EQUALS);
-//							featureInvalidStringBuilder.append(0);		
-//						}
-//					}
-//				}
-//								
-//				if(atLeastOneFeature) {
-//					featureInvalidStringBuilder.append(HyVarRecExporter.BRACKETS_CLOSING);
-//					featureModelConstraints.add(featureInvalidStringBuilder.toString());
-//				}
-//			}
-//		}
 		
 		if(date == null) {
 			featureModelConstraints.addAll(getEvolutionFeatureAndVersionRestrictionConstraints(featureModel.getFeatures(), dateContext));
@@ -179,8 +124,6 @@ public class DwFeatureModelExporter {
 	private List<String> getFeatureModelVersionConstraints(HyFeatureModel featureModel, Date date, Context dateContext, List<Date> sortedDateList) {
 		List<String> versionConstraints = new ArrayList<String>();
 
-		
-		
 		// f feature, f_1 - f_n feature versions
 		// f = (f_1 + ... + f_n)
 		for (HyFeature feature : HyEvolutionUtil.getValidTemporalElements(featureModel.getFeatures(), date)) {
@@ -244,21 +187,12 @@ public class DwFeatureModelExporter {
 						
 					}
 					
-					versionStringBuilder.append(featureReconfiguratorIdMapping.get(feature));
-					versionStringBuilder.append(HyVarRecExporter.EQUALS);
-					versionStringBuilder.append(HyVarRecExporter.BRACKETS_OPEN);
-
-					boolean first = true;
+					List<String> versionIds = new ArrayList<String>(validVersions.size());
 					for (HyVersion version : validVersions) {
-						if (!first) {
-							versionStringBuilder.append(HyVarRecExporter.ADDITION);
-						} else {
-							first = false;
-						}
-
-						versionStringBuilder.append(versionReconfiguratorIdMapping.get(version));
+						versionIds.add(versionReconfiguratorIdMapping.get(version));
 					}
-					versionStringBuilder.append(HyVarRecExporter.BRACKETS_CLOSING);
+					
+					versionStringBuilder.append(getAlternativeRelation(featureReconfiguratorIdMapping.get(feature), versionIds));						
 					
 					if(timedConstraint != null) {
 						versionStringBuilder.append(HyVarRecExporter.BRACKETS_CLOSING);
@@ -271,21 +205,6 @@ public class DwFeatureModelExporter {
 
 		return versionConstraints;
 	}
-	
-	
-
-	// TODO obsolete?
-//	private List<String> getFeatureConstraints(HyFeature feature, boolean isRoot, Date date) throws HyFeatureModelWellFormednessException {
-//		List<String> featureModelConstraints = new ArrayList<String>();
-//
-//		List<HyFeatureChild> featureChildren = HyEvolutionUtil.getValidTemporalElements(feature.getParentOf(), date);
-//		for (HyFeatureChild featureChild : featureChildren) {
-//			featureModelConstraints.addAll(getGroupConstraints(featureChild.getChildGroup(),
-//					featureReconfiguratorIdMapping.get(feature), isRoot, date));
-//		}
-//
-//		return featureModelConstraints;
-//	}
 
 	private List<String> getGroupConstraints(HyGroup group, Date date, Context dateContext, List<Date> sortedDateList) throws HyFeatureModelWellFormednessException {
 		List<String> featureModelConstraints = new ArrayList<String>();
@@ -389,16 +308,13 @@ public class DwFeatureModelExporter {
 						first = false;
 					}
 
-					groupConstraintsStringBuilder.append(featureReconfiguratorIdMapping.get(feature));
-					groupConstraintsStringBuilder.append(HyVarRecExporter.EQUALS);
-					groupConstraintsStringBuilder.append(1);
+					groupConstraintsStringBuilder.append(featureEndocing.getFeatureSelected(featureReconfiguratorIdMapping.get(feature)));
 				}
 				groupConstraintsStringBuilder.append(HyVarRecExporter.BRACKETS_CLOSING);
 
 				groupConstraintsStringBuilder.append(HyVarRecExporter.IMPLICATION);
-				groupConstraintsStringBuilder.append(parentFeatureId);
-				groupConstraintsStringBuilder.append(HyVarRecExporter.EQUALS);
-				groupConstraintsStringBuilder.append(1);
+				
+				groupConstraintsStringBuilder.append(featureEndocing.getFeatureSelected(parentFeatureId));
 
 				if(timedConstraint != null) {
 					groupConstraintsStringBuilder.append(HyVarRecExporter.BRACKETS_CLOSING);
@@ -493,32 +409,17 @@ public class DwFeatureModelExporter {
 
 			// check if more than one element in group
 			if (validFeaturesOfGroupComposition.size() > 1) {
+				
+				List<String> childrenIds = new ArrayList<String>(validFeaturesOfGroupComposition.size());
+				for (HyFeature childFeature : validFeaturesOfGroupComposition) {
+					childrenIds.add(featureReconfiguratorIdMapping.get(childFeature));
+				}
+				
 				switch(groupType.getType()) {
 				case ALTERNATIVE:
-					groupConstraintsStringBuilder.append(parentFeatureId);
-					groupConstraintsStringBuilder.append(HyVarRecExporter.EQUALS);
-					groupConstraintsStringBuilder.append(1);
-					groupConstraintsStringBuilder.append(HyVarRecExporter.IMPLICATION);
-					groupConstraintsStringBuilder.append(HyVarRecExporter.BRACKETS_OPEN);
-
-					// The sum of all children
-					boolean first = true;
-					for (HyFeature childFeature : validFeaturesOfGroupComposition) {
-						if (!first) {
-							groupConstraintsStringBuilder.append(HyVarRecExporter.ADDITION);
-						} else {
-							first = false;
-						}
-
-						groupConstraintsStringBuilder.append(featureReconfiguratorIdMapping.get(childFeature));
-					}
-
-					// is equal to 1
-					groupConstraintsStringBuilder.append(HyVarRecExporter.EQUALS);
-					groupConstraintsStringBuilder.append(1);
-					groupConstraintsStringBuilder.append(HyVarRecExporter.BRACKETS_CLOSING);
-					
+					groupConstraintsStringBuilder.append(getAlternativeRelation(parentFeatureId, childrenIds));					
 					break;
+					
 				case AND:
 					
 					// Check if only optional features are in groups -> no constraint necessary
@@ -526,10 +427,11 @@ public class DwFeatureModelExporter {
 						break;
 					}
 					
-					groupConstraintsStringBuilder.append(parentFeatureId);
-					groupConstraintsStringBuilder.append(HyVarRecExporter.EQUALS);
-					groupConstraintsStringBuilder.append(1);
+
+					groupConstraintsStringBuilder.append(featureEndocing.getFeatureSelected(parentFeatureId));
+					
 					groupConstraintsStringBuilder.append(HyVarRecExporter.IMPLICATION);
+					
 					groupConstraintsStringBuilder.append(HyVarRecExporter.BRACKETS_OPEN);
 
 					boolean firstChildAnd = true;
@@ -543,9 +445,7 @@ public class DwFeatureModelExporter {
 								firstChildAnd = false;
 							}
 
-							groupConstraintsStringBuilder.append(featureReconfiguratorIdMapping.get(feature));
-							groupConstraintsStringBuilder.append(HyVarRecExporter.EQUALS);
-							groupConstraintsStringBuilder.append(1);
+							groupConstraintsStringBuilder.append(featureEndocing.getFeatureSelected(featureReconfiguratorIdMapping.get(feature)));
 						}
 					}
 					
@@ -553,27 +453,7 @@ public class DwFeatureModelExporter {
 					break;
 				case OR:
 					
-					groupConstraintsStringBuilder.append(parentFeatureId);
-					groupConstraintsStringBuilder.append(HyVarRecExporter.EQUALS);
-					groupConstraintsStringBuilder.append(1);
-					groupConstraintsStringBuilder.append(HyVarRecExporter.IMPLICATION);
-					groupConstraintsStringBuilder.append(HyVarRecExporter.BRACKETS_OPEN);
-
-					boolean firstChildOr = true;
-
-					for (HyFeature feature : validFeaturesOfGroupComposition) {
-						if (!firstChildOr) {
-							groupConstraintsStringBuilder.append(HyVarRecExporter.OR);
-						} else {
-							firstChildOr = false;
-						}
-
-						groupConstraintsStringBuilder.append(featureReconfiguratorIdMapping.get(feature));
-						groupConstraintsStringBuilder.append(HyVarRecExporter.EQUALS);
-						groupConstraintsStringBuilder.append(1);
-					}
-
-					groupConstraintsStringBuilder.append(HyVarRecExporter.BRACKETS_CLOSING);
+					groupConstraintsStringBuilder.append(getOrRelation(parentFeatureId, childrenIds));
 					break;
 				
 				}
@@ -594,16 +474,16 @@ public class DwFeatureModelExporter {
 			// if only one feature is available in the group composition:
 			else if(!validFeaturesOfGroupComposition.isEmpty()){
 				HyFeature feature = validFeaturesOfGroupComposition.get(0);
+				
 				if (HyFeatureEvolutionUtil.isMandatory(feature, relevantDate)) {
 					// groupConstraintsStringBuilder.append(TABULATOR);
 					// Mandatory Constraint (Parent => Child)
-					groupConstraintsStringBuilder.append(parentFeatureId);
-					groupConstraintsStringBuilder.append(HyVarRecExporter.EQUALS);
-					groupConstraintsStringBuilder.append(1);
+					
+					groupConstraintsStringBuilder.append(featureEndocing.getFeatureSelected(parentFeatureId));
+
 					groupConstraintsStringBuilder.append(HyVarRecExporter.IMPLICATION);
-					groupConstraintsStringBuilder.append(featureReconfiguratorIdMapping.get(feature));
-					groupConstraintsStringBuilder.append(HyVarRecExporter.EQUALS);
-					groupConstraintsStringBuilder.append(1);
+					
+					groupConstraintsStringBuilder.append(featureEndocing.getFeatureSelected(featureReconfiguratorIdMapping.get(feature)));
 
 					if(timedConstraint != null) {
 						StringBuilder timedGroupConstraintStringBuilder = new StringBuilder(timedConstraint);
@@ -649,13 +529,12 @@ public class DwFeatureModelExporter {
 					
 					if(setRootOptionalConstraint) {
 						StringBuilder optionalWithoutChildStringBuilder = new StringBuilder();
-						optionalWithoutChildStringBuilder.append(featureReconfiguratorIdMapping.get(feature));
-						optionalWithoutChildStringBuilder.append(HyVarRecExporter.EQUALS);
-						optionalWithoutChildStringBuilder.append(1);
+						
+						optionalWithoutChildStringBuilder.append(featureEndocing.getFeatureSelected(featureReconfiguratorIdMapping.get(feature)));
+
 						optionalWithoutChildStringBuilder.append(HyVarRecExporter.IMPLICATION);
-						optionalWithoutChildStringBuilder.append(parentFeatureId);
-						optionalWithoutChildStringBuilder.append(HyVarRecExporter.EQUALS);
-						optionalWithoutChildStringBuilder.append(1);
+
+						optionalWithoutChildStringBuilder.append(featureEndocing.getFeatureSelected(parentFeatureId));
 
 						if(timedConstraint != null) {
 							StringBuilder timedGroupConstraintStringBuilder = new StringBuilder(timedConstraint);
@@ -723,23 +602,6 @@ public class DwFeatureModelExporter {
 			if(invalidFeatures.size() == 0 && invalidVersionsOfValidFeatures.size() == 0) {
 				continue;
 			}
-//			
-//			stringBuilder.append(HyVarRecExporter.BRACKETS_OPEN);
-//			
-//			if(i==-1) {
-//				since = null;
-//				until = relevantDates.get(i+1);
-//			}
-//			else if(i == relevantDates.size()-1) {
-//				until = null;
-//			}
-//			else {
-//				until = relevantDates.get(i+1);
-//			}
-//			
-//			stringBuilder.append(HyVarRecExporter.BRACKETS_CLOSING);
-			
-			
 			
 			if(i==-1) {
 				since = null;
@@ -765,9 +627,7 @@ public class DwFeatureModelExporter {
 					first = false;
 				}
 				
-				stringBuilder.append(featureReconfiguratorIdMapping.get(feature));
-				stringBuilder.append(HyVarRecExporter.EQUALS);
-				stringBuilder.append(0);
+				stringBuilder.append(featureEndocing.getFeatureDeselected(featureReconfiguratorIdMapping.get(feature)));
 			}
 			
 			for(HyVersion version: invalidVersionsOfValidFeatures) {
@@ -777,9 +637,7 @@ public class DwFeatureModelExporter {
 					first = false;
 				}
 				
-				stringBuilder.append(versionReconfiguratorIdMapping.get(version));
-				stringBuilder.append(HyVarRecExporter.EQUALS);
-				stringBuilder.append(0);
+				stringBuilder.append(featureEndocing.getFeatureDeselected(versionReconfiguratorIdMapping.get(version)));
 			}
 			
 
