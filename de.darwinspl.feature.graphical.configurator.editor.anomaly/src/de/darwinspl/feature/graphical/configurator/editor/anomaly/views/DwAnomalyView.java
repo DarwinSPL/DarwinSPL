@@ -78,6 +78,8 @@ public class DwAnomalyView extends ViewPart {
 		private AnomalyTableView<DwFalseOptionalFeatureAnomaly> viewerFalseOptionalAnomaly;
 		private AnomalyTableView<DwVoidFeatureModelAnomaly> viewerVoidAnomaly;
 		
+//		public static final Image REFRESH_IMAGE = 
+		
 		private IEditorPart currentEditor;
 		public static final String DEFAULT_SERVER_URI = "http://localhost:9002/";
 		public static String SAVED_SERVER_URI = "http://localhost:9002/";
@@ -191,7 +193,7 @@ public class DwAnomalyView extends ViewPart {
 			DwAnalysesClient analysesClient = new DwAnalysesClient();
 			DwAnomalyExplanation anomalyExplanation = null;
 			try {
-				anomalyExplanation = analysesClient.explainAnomaly(getURI(), null, null, contextModel, validityModel, modelWrapped.getModel(), constraintModel, anomaly);
+				anomalyExplanation = analysesClient.explainAnomaly(getURI(), USERNAME, PASSWORD, contextModel, validityModel, modelWrapped.getModel(), constraintModel, anomaly);
 			} catch (UnresolvedAddressException e) {
 				
 				e.printStackTrace();
@@ -289,12 +291,17 @@ public class DwAnomalyView extends ViewPart {
 			};
 
 			toolBarManager.add(refresher);
-//			refresher.setImageDescriptor(ImageDescriptor.createFromImage(REFRESH_IMG));
-//			refresher.setToolTipText(REFRESH_VIEW);
+			Display display = Display.getCurrent();
+			
+			
+			InputStream imageSettings2=  getClass().getResourceAsStream("/images/refresh.gif");
+			Image image2 = new Image(display, imageSettings2);
+			refresher.setImageDescriptor(ImageDescriptor.createFromImage(image2));
+			refresher.setToolTipText("Refresh");
 
 			toolBarManager.add(checkBoxer);
 		
-			Display display = Display.getCurrent();
+			
 			InputStream imageSettings=  getClass().getResourceAsStream("/images/settings2.png");
 			Image image = new Image(display, imageSettings);
 			

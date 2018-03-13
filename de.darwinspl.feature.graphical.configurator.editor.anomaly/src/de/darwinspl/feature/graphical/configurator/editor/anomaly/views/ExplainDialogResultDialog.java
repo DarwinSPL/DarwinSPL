@@ -210,11 +210,6 @@ public class ExplainDialogResultDialog extends TitleAreaDialog{
 		return container;
 	}
 	
-	private void createAnomalyInformationControlParts(Composite container){
-		
-		
-		
-	}
 
 	@Override
 	protected void createButtonsForButtonBar(Composite parent) {
