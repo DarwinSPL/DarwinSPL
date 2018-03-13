@@ -20,6 +20,9 @@ Require-Bundle: org.eclipse.ui,
  org.eclipse.core.expressions,
  de.christophseidl.util.eclipse.ui,
  de.darwinspl.importer.deltaecore,
- org.deltaecore.feature
+ org.deltaecore.feature,
+ de.darwinspl.common.eclipse.ui,
+ de.darwinspl.importer.evolution,
+ org.eclipse.emf.ecore
 Bundle-ClassPath: .,
  libs/de.ovgu.featureide.lib.fm.jar

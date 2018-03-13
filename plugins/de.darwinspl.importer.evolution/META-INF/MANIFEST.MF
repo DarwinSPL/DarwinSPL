@@ -1,0 +1,13 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: DarwinSPL Feature Model Importer Evolution
+Bundle-SymbolicName: de.darwinspl.importer.evolution
+Bundle-Version: 1.0.0.qualifier
+Bundle-RequiredExecutionEnvironment: JavaSE-1.7
+Require-Bundle: org.eclipse.core.resources,
+ eu.hyvar.feature,
+ org.eclipse.emf.ecore,
+ eu.hyvar.feature.constraint,
+ de.darwinspl.importer,
+ eu.hyvar.feature.expression
+Export-Package: de.darwinspl.importer.evolution

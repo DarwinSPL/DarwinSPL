@@ -4,15 +4,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import org.deltaecore.util.DEIOUtil;
-import org.eclipse.core.resources.IContainer;
-import org.eclipse.core.resources.IFile;
-import org.eclipse.core.resources.IProject;
 import org.eclipse.emf.ecore.EObject;
 
-import de.christophseidl.util.eclipse.ResourceUtil;
-import de.christophseidl.util.ecore.EcoreIOUtil;
-import de.christophseidl.util.ecore.EcoreResolverUtil;
 import de.darwinspl.common.ecore.util.DwEcoreUtil;
 import eu.hyvar.dataValues.HyEnum;
 import eu.hyvar.evolution.HyName;
@@ -94,7 +87,7 @@ public class HyFeatureResolverUtil {
 			for(HyFeature feature: validFeatures) {
 				
 				if(HyEvolutionUtil.isValid(feature, date)) {
-					HyName name = HyFeatureEvolutionUtil.getName(feature.getNames(), date);
+					HyName name = HyFeatureEvolutionUtil.getName(feature, date);
 					if((name != null) && name.getName().equals(identifier)) {
 						validFeaturesWithEvolution.add(feature);
 					}					
@@ -167,7 +160,11 @@ public class HyFeatureResolverUtil {
 
 	public static String deresolveFeature(HyFeature feature, Date date) {
 		// TODO incorporate evolution! For every element!
-		String identifier = HyFeatureEvolutionUtil.getName(feature.getNames(), date).getName();
+		HyName featureName = HyFeatureEvolutionUtil.getName(feature, date);
+		if(featureName == null) {
+			System.out.println("Bad!");
+		}
+		String identifier = featureName.getName();
 
 		// Standard TEXT token regular expression
 		String textTokenRegularExpression = "[A-Za-z_][A-Za-z0-9_]*";
@@ -229,7 +226,7 @@ public class HyFeatureResolverUtil {
 			List<HyFeatureAttribute> validAttributesWithEvolution = new ArrayList<HyFeatureAttribute>(1);
 			for(HyFeatureAttribute attribute: validAttributes) {
 				if(HyEvolutionUtil.isValid(containingFeature, date) && HyEvolutionUtil.isValid(attribute, date)) {
-					HyName name = HyFeatureEvolutionUtil.getName(attribute.getNames(), date);
+					HyName name = HyFeatureEvolutionUtil.getName(attribute, date);
 					if((name != null) && name.getName().equals(identifier)) {
 						validAttributesWithEvolution.add(attribute);
 					}
@@ -307,9 +304,9 @@ public class HyFeatureResolverUtil {
 	public static String deresolveFeatureAttribute(HyFeatureAttribute attribute, Date date) {
 		String name = "";
 		HyFeature feature = attribute.getFeature();
-		name += HyFeatureEvolutionUtil.getName(feature.getNames(), date).getName();
+		name += HyFeatureEvolutionUtil.getName(feature, date).getName();
 		name += ".";
-		name += HyFeatureEvolutionUtil.getName(attribute.getNames(), date).getName();
+		name += HyFeatureEvolutionUtil.getName(attribute, date).getName();
 		return name;
 	}
 }
