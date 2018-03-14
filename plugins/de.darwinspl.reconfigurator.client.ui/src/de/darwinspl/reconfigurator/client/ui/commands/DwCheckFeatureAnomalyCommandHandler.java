@@ -122,7 +122,9 @@ public class DwCheckFeatureAnomalyCommandHandler extends AbstractHandler {
 		if(dates.isEmpty()) {
 			System.out.println("#Features "+HyEvolutionUtil.getValidTemporalElements(selectedFeatureModel.getFeatures(), null).size());
 			System.out.println("#Groups  "+HyEvolutionUtil.getValidTemporalElements(selectedFeatureModel.getGroups(),null).size());
-			System.out.println("#Constraints "+HyEvolutionUtil.getValidTemporalElements(constraintModel.getConstraints(), null).size());
+			if(constraintModel != null) {
+				System.out.println("#Constraints "+HyEvolutionUtil.getValidTemporalElements(constraintModel.getConstraints(), null).size());				
+			}
 		}
 		
 		if(dates.size() != 0) {

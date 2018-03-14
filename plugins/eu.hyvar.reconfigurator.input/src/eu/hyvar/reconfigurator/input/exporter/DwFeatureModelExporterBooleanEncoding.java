@@ -46,6 +46,7 @@ public class DwFeatureModelExporterBooleanEncoding extends DwFeatureModelExporte
 
 	@Override
 	protected String getAlternativeRelation(String parentId, List<String> childrenIds) {
+		System.out.println("Alternative Relation with "+childrenIds.size()+" children.");
 		StringBuilder alternativeStringBuilder = new StringBuilder(parentId);
 		
 		alternativeStringBuilder.append(HyVarRecExporter.IMPLICATION);
@@ -53,8 +54,13 @@ public class DwFeatureModelExporterBooleanEncoding extends DwFeatureModelExporte
 		alternativeStringBuilder.append(HyVarRecExporter.BRACKETS_OPEN);
 		
 		for(int i = 0; i < childrenIds.size(); i++) {
+						
 			if(i != 0) {
 				alternativeStringBuilder.append(HyVarRecExporter.OR);
+			}
+			
+			if(childrenIds.size() > 1) {
+				alternativeStringBuilder.append(HyVarRecExporter.BRACKETS_OPEN);
 			}
 			
 			alternativeStringBuilder.append(childrenIds.get(i));
@@ -66,6 +72,10 @@ public class DwFeatureModelExporterBooleanEncoding extends DwFeatureModelExporte
 				alternativeStringBuilder.append(HyVarRecExporter.AND);
 				
 				alternativeStringBuilder.append(featureEndocing.getFeatureDeselected(childrenIds.get(j)));
+			}
+			
+			if(childrenIds.size() > 1) {
+				alternativeStringBuilder.append(HyVarRecExporter.BRACKETS_CLOSING);
 			}
 		}
 		

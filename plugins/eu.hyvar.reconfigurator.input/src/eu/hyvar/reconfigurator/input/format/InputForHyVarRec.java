@@ -73,6 +73,14 @@ public class InputForHyVarRec {
     @SerializedName("time_context")
     @Expose
     private String timeContext;
+    
+    /**
+     * Optional filed used to set options for hyvarrec.
+     * 
+     */
+    @SerializedName("hyvar_options")
+    @Expose
+    private String hyvar_options;
 
     /**
      * 
@@ -220,4 +228,21 @@ public class InputForHyVarRec {
         this.timeContext = timeContext;
     }
 
+    /**
+     * Optional filed used to set options for hyvarrec.
+     * 
+     */
+	public String getHyvar_options() {
+		return hyvar_options;
+	}
+
+    /**
+     * Optional filed used to set options for hyvarrec.
+     * 
+     */
+	public void setHyvar_options(String hyvar_options) {
+		this.hyvar_options = hyvar_options;
+	}
+
+    
 }

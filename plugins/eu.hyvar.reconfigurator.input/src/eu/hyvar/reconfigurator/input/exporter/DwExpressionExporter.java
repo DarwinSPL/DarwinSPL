@@ -68,13 +68,13 @@ public class DwExpressionExporter {
 	}
 
 	public String exportExpressionToString(HyExpression expression) {
-		return handleExpression(expression);
+		return handleExpression(expression, true);
 	}
 
-	private String handleExpression(HyExpression expression) {
+	private String handleExpression(HyExpression expression, boolean isRootExpression) {
 
 		if (expression instanceof HyBinaryExpression) {
-			return handleBinaryExpression((HyBinaryExpression) expression);
+			return handleBinaryExpression((HyBinaryExpression) expression, true);
 		} else if (expression instanceof HyUnaryExpression) {
 			return handleUnaryExpression((HyUnaryExpression) expression);
 		} else if (expression instanceof HyAtomicExpression) {
@@ -112,7 +112,7 @@ public class DwExpressionExporter {
 		// return setString.toString();
 	}
 
-	private String handleBinaryExpression(HyBinaryExpression binaryExpression) {
+	private String handleBinaryExpression(HyBinaryExpression binaryExpression, boolean isRootExpression) {
 		StringBuilder binaryString = new StringBuilder();
 
 		// TODO sensible?
@@ -144,7 +144,9 @@ public class DwExpressionExporter {
 		// return binaryString.toString();
 		// }
 
-		binaryString.append(HyVarRecExporter.BRACKETS_OPEN);
+		if(!isRootExpression) {
+			binaryString.append(HyVarRecExporter.BRACKETS_OPEN);			
+		}
 
 		// Simone: patch for n-ary AND and OR
 		if (binaryExpression instanceof HyAndExpression) {
@@ -165,7 +167,7 @@ public class DwExpressionExporter {
 						binaryString.append(HyVarRecExporter.AND);
 					}
 					flag = true;
-					binaryString.append(handleExpression(expr));
+					binaryString.append(handleExpression(expr, false));
 				}
 			}
 		} 
@@ -187,13 +189,13 @@ public class DwExpressionExporter {
 						binaryString.append(HyVarRecExporter.OR);
 					}
 					flag = true;
-					binaryString.append(handleExpression(expr));
+					binaryString.append(handleExpression(expr, false));
 				}
 			}
 		} else {
 			// Simone: end
 
-			binaryString.append(handleExpression(binaryExpression.getOperand1()));
+			binaryString.append(handleExpression(binaryExpression.getOperand1(), false));
 
 			// binaryString.append(" ");
 			// if (binaryExpression instanceof HyAndExpression) {
@@ -234,12 +236,14 @@ public class DwExpressionExporter {
 			}
 			// binaryString.append(" ");
 
-			binaryString.append(handleExpression(binaryExpression.getOperand2()));
+			binaryString.append(handleExpression(binaryExpression.getOperand2(), false));
 
 			// Simone: patch for n-ary AND and OR
 		}
 		// Simone: end
-		binaryString.append(HyVarRecExporter.BRACKETS_CLOSING);
+		if(!isRootExpression) {
+			binaryString.append(HyVarRecExporter.BRACKETS_CLOSING);			
+		}
 
 		return binaryString.toString();
 	}
@@ -277,7 +281,7 @@ public class DwExpressionExporter {
 		// unaryString.append(" ");
 
 		if (!notFeature) {
-			unaryString.append(handleExpression(unaryExpression.getOperand()));
+			unaryString.append(handleExpression(unaryExpression.getOperand(), false));
 		}
 
 		if (maxOrMin || nested) {

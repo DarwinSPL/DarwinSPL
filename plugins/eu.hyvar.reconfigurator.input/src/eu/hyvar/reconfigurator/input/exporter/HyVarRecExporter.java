@@ -96,6 +96,10 @@ public class HyVarRecExporter {
 	
 	public static final String EVOLUTION_CONTEXT_ID_WITHOUT_CONTEXT_WRAPPER = "_evolution-context";
 	public static final String EVOLUTION_CONTEXT_ID = "context["+EVOLUTION_CONTEXT_ID_WITHOUT_CONTEXT_WRAPPER+"]";
+	
+	// HyVarRec options
+	public static final String FEATURES_AS_BOOLEANS_OPTION = "--features-as-boolean";
+	public static final String NON_INCREMENTAL_SOLVER_OPTION = "--non-incremental-solver";
 
 //	private HyExpressionStringExporter expressionExporter;
 
@@ -119,11 +123,35 @@ public class HyVarRecExporter {
 		this.featureEncoding = encoding;
 	}
 
-	private static void initializeEmptyHyVarRecInput(InputForHyVarRec input) {
+	private void initializeEmptyHyVarRecInput(InputForHyVarRec input) {
 		if (input == null) {
 			return;
 		}
 
+		if(featureEncoding != null && featureEncoding==FeatureEncoding.BOOLEAN) {
+			String options;
+			if(input.getHyvar_options() != null) {
+				options = input.getHyvar_options() + " ";
+			}
+			else {
+				options = "";
+			}
+			
+			options = options + FEATURES_AS_BOOLEANS_OPTION;
+			input.setHyvar_options(options);
+		}
+		
+		// TODO optimization: few contexts -> --non-incremental-solver, more contexts without --non-incremental-solver
+		String options;
+		if(input.getHyvar_options() != null) {
+			options = input.getHyvar_options() + " ";
+		}
+		else {
+			options = "";
+		}
+		options = options + NON_INCREMENTAL_SOLVER_OPTION;
+		input.setHyvar_options(options);
+		
 		input.setAttributes(new ArrayList<Attribute>());
 
 		Configuration emptyConfig = new Configuration();
@@ -327,7 +355,7 @@ public class HyVarRecExporter {
 			
 		}
 		// -----
-		input.setOptionalFeatures(getOptionalFeatureMap(featureModels, sortedDateList));			
+		input.setOptionalFeatures(getOptionalFeatureMap(featureModels, sortedDateList, date));			
 
 		try {
 			for(HyFeatureModel featureModel: featureModelExporters.keySet()) {
@@ -577,17 +605,26 @@ public class HyVarRecExporter {
 	 * @param sortedDateList
 	 * @return Key: Feature ID, Value: List of Intervals (second list) at which a feature is optional.
 	 */
-	public Map<String, List<List<Integer>>> getOptionalFeatureMap(List<HyFeatureModel> featureModels, List<Date> sortedDateList) {
+	public Map<String, List<List<Integer>>> getOptionalFeatureMap(List<HyFeatureModel> featureModels, List<Date> sortedDateList, Date date) {
 		Map<String, List<List<Integer>>> optionalFeatureMap = new HashMap<String, List<List<Integer>>>();
 		
 		for(HyFeatureModel featureModel: featureModels) {
-			for(HyFeature feature: featureModel.getFeatures()) {
+			
+			List<HyFeature> featureListToIterate;
+			if(date == null) {
+				featureListToIterate = featureModel.getFeatures();
+			}
+			else {
+				featureListToIterate = HyEvolutionUtil.getValidTemporalElements(featureModel.getFeatures(), date);
+			}
+			
+			for(HyFeature feature: featureListToIterate) {
 				
 				List<List<Integer>> optionalIntervalList = null;
 				
 				if(sortedDateList == null) {
 					// no evolution considered.
-					if(HyEvolutionUtil.getValidTemporalElement(feature.getTypes(), new Date()).getType().equals(HyFeatureTypeEnum.OPTIONAL)) {
+					if(HyEvolutionUtil.getValidTemporalElement(feature.getTypes(), date).getType().equals(HyFeatureTypeEnum.OPTIONAL)) {
 						optionalIntervalList = new ArrayList<List<Integer>>();						
 					}
 				}
