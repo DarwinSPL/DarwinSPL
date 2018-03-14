@@ -15,6 +15,8 @@ public class DwFeatureModelExporterIntegerEncoding extends DwFeatureModelExporte
 			Map<HyVersion, String> versionReconfiguratorIdMapping,
 			Map<HyFeatureAttribute, String> attributeReconfiguratorIdMapping) {
 		super(featureModel, featureReconfiguratorIdMapping, versionReconfiguratorIdMapping, attributeReconfiguratorIdMapping);
+		
+		this.featureEndocing = new DwFeatureEncodingInteger();
 	}
 
 	@Override
