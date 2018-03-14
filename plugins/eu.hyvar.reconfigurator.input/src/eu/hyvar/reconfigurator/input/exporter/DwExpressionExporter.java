@@ -68,7 +68,8 @@ public class DwExpressionExporter {
 	}
 
 	public String exportExpressionToString(HyExpression expression) {
-		return handleExpression(expression, true);
+		String expressionString = handleExpression(expression, true);
+		return expressionString;
 	}
 
 	private String handleExpression(HyExpression expression, boolean isRootExpression) {
@@ -262,6 +263,8 @@ public class DwExpressionExporter {
 						(HyAbstractFeatureReferenceExpression) unaryExpression.getOperand(), notFeature));
 			} else {
 				unaryString.append(HyVarRecExporter.NOT);
+				unaryString.append(HyVarRecExporter.BRACKETS_OPEN);
+				nested = true;
 			}
 		} else if (unaryExpression instanceof HyNestedExpression) {
 			unaryString.append(HyVarRecExporter.BRACKETS_OPEN);

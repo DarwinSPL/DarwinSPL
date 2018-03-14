@@ -46,41 +46,47 @@ public class DwFeatureModelExporterBooleanEncoding extends DwFeatureModelExporte
 
 	@Override
 	protected String getAlternativeRelation(String parentId, List<String> childrenIds) {
-		System.out.println("Alternative Relation with "+childrenIds.size()+" children.");
 		StringBuilder alternativeStringBuilder = new StringBuilder(parentId);
 		
 		alternativeStringBuilder.append(HyVarRecExporter.IMPLICATION);
 		
-		alternativeStringBuilder.append(HyVarRecExporter.BRACKETS_OPEN);
+		alternativeStringBuilder.append(HyVarRecExporter.ONE_ONLY);
 		
 		for(int i = 0; i < childrenIds.size(); i++) {
-						
 			if(i != 0) {
-				alternativeStringBuilder.append(HyVarRecExporter.OR);
-			}
-			
-			if(childrenIds.size() > 1) {
-				alternativeStringBuilder.append(HyVarRecExporter.BRACKETS_OPEN);
+				alternativeStringBuilder.append(", ");
 			}
 			
 			alternativeStringBuilder.append(childrenIds.get(i));
-			
-			for(int j = 0; j < childrenIds.size(); j++) {
-				if(j==i) {
-					continue;
-				}
-				alternativeStringBuilder.append(HyVarRecExporter.AND);
-				
-				alternativeStringBuilder.append(featureEndocing.getFeatureDeselected(childrenIds.get(j)));
-			}
-			
-			if(childrenIds.size() > 1) {
-				alternativeStringBuilder.append(HyVarRecExporter.BRACKETS_CLOSING);
-			}
 		}
+//		for(int i = 0; i < childrenIds.size(); i++) {
+//						
+//			if(i != 0) {
+//				alternativeStringBuilder.append(HyVarRecExporter.OR);
+//			}
+//			
+//			if(childrenIds.size() > 1) {
+//				alternativeStringBuilder.append(HyVarRecExporter.BRACKETS_OPEN);
+//			}
+//			
+//			alternativeStringBuilder.append(childrenIds.get(i));
+//			
+//			for(int j = 0; j < childrenIds.size(); j++) {
+//				if(j==i) {
+//					continue;
+//				}
+//				alternativeStringBuilder.append(HyVarRecExporter.AND);
+//				
+//				alternativeStringBuilder.append(featureEndocing.getFeatureDeselected(childrenIds.get(j)));
+//			}
+//			
+//			if(childrenIds.size() > 1) {
+//				alternativeStringBuilder.append(HyVarRecExporter.BRACKETS_CLOSING);
+//			}
+//		}
 		
-
-		alternativeStringBuilder.append(HyVarRecExporter.BRACKETS_CLOSING);
+		alternativeStringBuilder.append(HyVarRecExporter.WHITESPACE);
+		alternativeStringBuilder.append(HyVarRecExporter.ARRAY_BRACKETS_CLOSING);
 		
 		return alternativeStringBuilder.toString();
 	}

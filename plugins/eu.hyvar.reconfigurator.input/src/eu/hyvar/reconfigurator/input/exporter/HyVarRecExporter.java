@@ -88,6 +88,8 @@ public class HyVarRecExporter {
 
 	public static final String ARRAY_BRACKETS_OPEN = "[";
 	public static final String ARRAY_BRACKETS_CLOSING = "]";
+	
+	public static final String ONE_ONLY = "oneonly [ ";
 
 	public static final String BRACKETS_OPEN = "(";
 	public static final String BRACKETS_CLOSING = ")";
