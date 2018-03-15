@@ -377,6 +377,12 @@ public class DwAnalysesClient {
 			throw new HyVarRecNoSolutionException("HyVarRec returned could not find any solution.\n Message for HyVarRec:\n"+messageForHyVarRec+"\n Answer from HyVarRec:\n"+hyvarrecAnswerString);
 		}
 		
+		if(hyvarrecAnswerString.startsWith("{\"error")) {
+			System.err.println("HyVarRec encountered an error:");
+			System.err.println(hyvarrecAnswerString);
+			return null;
+		}
+		
 		HyVarRecValidateAnswer hyVarRecAnswer = gson.fromJson(hyvarrecAnswerString, HyVarRecValidateAnswer.class);
 		
 		
