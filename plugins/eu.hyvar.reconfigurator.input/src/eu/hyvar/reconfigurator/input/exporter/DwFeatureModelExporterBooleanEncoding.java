@@ -20,35 +20,35 @@ public class DwFeatureModelExporterBooleanEncoding extends DwFeatureModelExporte
 	}
 
 
-	@Override
-	protected String getOrRelation(String parentId, List<String> childrenIds) {
-		StringBuilder orStringBuilder = new StringBuilder(parentId);
-		
-		orStringBuilder.append(HyVarRecExporter.IMPLICATION);
-		
-		orStringBuilder.append(HyVarRecExporter.BRACKETS_OPEN);
-		
-		boolean first = true;
-		for(String childId: childrenIds) {
-			if(first) {
-				first = false;
-			}
-			else {
-				orStringBuilder.append(HyVarRecExporter.OR);
-			}
-			
-			orStringBuilder.append(childId);
-		}
-		
-		orStringBuilder.append(HyVarRecExporter.BRACKETS_CLOSING);
-		return orStringBuilder.toString();
-	}
+//	@Override
+//	protected String getOrRelation(String parentId, List<String> childrenIds) {
+//		StringBuilder orStringBuilder = new StringBuilder(parentId);
+//		
+//		orStringBuilder.append(HyVarRecExporter.EQUIVALENCE);
+//		
+//		orStringBuilder.append(HyVarRecExporter.BRACKETS_OPEN);
+//		
+//		boolean first = true;
+//		for(String childId: childrenIds) {
+//			if(first) {
+//				first = false;
+//			}
+//			else {
+//				orStringBuilder.append(HyVarRecExporter.OR);
+//			}
+//			
+//			orStringBuilder.append(childId);
+//		}
+//		
+//		orStringBuilder.append(HyVarRecExporter.BRACKETS_CLOSING);
+//		return orStringBuilder.toString();
+//	}
 
 	@Override
 	protected String getAlternativeRelation(String parentId, List<String> childrenIds) {
 		StringBuilder alternativeStringBuilder = new StringBuilder(parentId);
 		
-		alternativeStringBuilder.append(HyVarRecExporter.IMPLICATION);
+		alternativeStringBuilder.append(HyVarRecExporter.EQUIVALENCE);
 		
 		alternativeStringBuilder.append(HyVarRecExporter.ONE_ONLY);
 		
@@ -59,31 +59,6 @@ public class DwFeatureModelExporterBooleanEncoding extends DwFeatureModelExporte
 			
 			alternativeStringBuilder.append(childrenIds.get(i));
 		}
-//		for(int i = 0; i < childrenIds.size(); i++) {
-//						
-//			if(i != 0) {
-//				alternativeStringBuilder.append(HyVarRecExporter.OR);
-//			}
-//			
-//			if(childrenIds.size() > 1) {
-//				alternativeStringBuilder.append(HyVarRecExporter.BRACKETS_OPEN);
-//			}
-//			
-//			alternativeStringBuilder.append(childrenIds.get(i));
-//			
-//			for(int j = 0; j < childrenIds.size(); j++) {
-//				if(j==i) {
-//					continue;
-//				}
-//				alternativeStringBuilder.append(HyVarRecExporter.AND);
-//				
-//				alternativeStringBuilder.append(featureEndocing.getFeatureDeselected(childrenIds.get(j)));
-//			}
-//			
-//			if(childrenIds.size() > 1) {
-//				alternativeStringBuilder.append(HyVarRecExporter.BRACKETS_CLOSING);
-//			}
-//		}
 		
 		alternativeStringBuilder.append(HyVarRecExporter.WHITESPACE);
 		alternativeStringBuilder.append(HyVarRecExporter.ARRAY_BRACKETS_CLOSING);

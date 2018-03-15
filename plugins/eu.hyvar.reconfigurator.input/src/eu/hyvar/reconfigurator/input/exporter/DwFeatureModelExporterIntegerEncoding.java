@@ -19,35 +19,35 @@ public class DwFeatureModelExporterIntegerEncoding extends DwFeatureModelExporte
 		this.featureEndocing = new DwFeatureEncodingInteger();
 	}
 
-	@Override
-	protected String getOrRelation(String parentId, List<String> childrenIds) {
-		StringBuilder orStringBuilder = new StringBuilder(featureEndocing.getFeatureSelected(parentId));
-
-		orStringBuilder.append(HyVarRecExporter.IMPLICATION);
-		orStringBuilder.append(HyVarRecExporter.BRACKETS_OPEN);
-
-		boolean firstChildOr = true;
-
-		for (String childId : childrenIds) {
-			if (!firstChildOr) {
-				orStringBuilder.append(HyVarRecExporter.OR);
-			} else {
-				firstChildOr = false;
-			}
-
-			featureEndocing.getFeatureSelected(childId);
-		}
-
-		orStringBuilder.append(HyVarRecExporter.BRACKETS_CLOSING);
-		
-		return orStringBuilder.toString();
-	}
+//	@Override
+//	protected String getOrRelation(String parentId, List<String> childrenIds) {
+//		StringBuilder orStringBuilder = new StringBuilder(featureEndocing.getFeatureSelected(parentId));
+//
+//		orStringBuilder.append(HyVarRecExporter.IMPLICATION);
+//		orStringBuilder.append(HyVarRecExporter.BRACKETS_OPEN);
+//
+//		boolean firstChildOr = true;
+//
+//		for (String childId : childrenIds) {
+//			if (!firstChildOr) {
+//				orStringBuilder.append(HyVarRecExporter.OR);
+//			} else {
+//				firstChildOr = false;
+//			}
+//
+//			featureEndocing.getFeatureSelected(childId);
+//		}
+//
+//		orStringBuilder.append(HyVarRecExporter.BRACKETS_CLOSING);
+//		
+//		return orStringBuilder.toString();
+//	}
 
 	@Override
 	protected String getAlternativeRelation(String parentId, List<String> childrenIds) {
 		StringBuilder alternativeStringBuilder = new StringBuilder(featureEndocing.getFeatureSelected(parentId));
 
-		alternativeStringBuilder.append(HyVarRecExporter.IMPLICATION);
+		alternativeStringBuilder.append(HyVarRecExporter.EQUIVALENCE);
 		alternativeStringBuilder.append(HyVarRecExporter.BRACKETS_OPEN);
 
 		// The sum of all children

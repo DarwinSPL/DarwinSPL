@@ -75,7 +75,7 @@ public class DwExpressionExporter {
 	private String handleExpression(HyExpression expression, boolean isRootExpression) {
 
 		if (expression instanceof HyBinaryExpression) {
-			return handleBinaryExpression((HyBinaryExpression) expression, true);
+			return handleBinaryExpression((HyBinaryExpression) expression, isRootExpression);
 		} else if (expression instanceof HyUnaryExpression) {
 			return handleUnaryExpression((HyUnaryExpression) expression);
 		} else if (expression instanceof HyAtomicExpression) {
@@ -367,9 +367,9 @@ public class DwExpressionExporter {
 			valueString.append(((HyNumberValue) value).getValue());
 		} else if (value instanceof HyBooleanValue) {
 			if (((HyBooleanValue) value).isValue()) {
-				valueString.append(1);
+				valueString.append(HyVarRecExporter.TRUE);
 			} else {
-				valueString.append(0);
+				valueString.append(HyVarRecExporter.FALSE);
 			}
 		} else if (value instanceof HyEnumValue) {
 			String enumValueString = "";
