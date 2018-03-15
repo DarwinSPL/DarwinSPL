@@ -146,22 +146,24 @@ public class DwCheckFeatureAnomalyCommandHandler extends AbstractHandler {
 			Collections.sort(dates);
 		}
 		
-		for(int i=0;i<dates.size();i++) {			
-			System.out.println("#Features at "+dates.get(i)+": "+HyEvolutionUtil.getValidTemporalElements(selectedFeatureModel.getFeatures(), dates.get(i)).size());
-			System.out.println("#Groups at "+dates.get(i)+": "+HyEvolutionUtil.getValidTemporalElements(selectedFeatureModel.getGroups(), dates.get(i)).size());
-			System.out.println("#Constraints at "+dates.get(i)+": "+HyEvolutionUtil.getValidTemporalElements(constraintModel.getConstraints(), dates.get(i)).size());
-			hyVarRecMessage = analysesClient.createHyVarRecMessage(contextModel, validityModel, selectedFeatureModel, constraintModel, null, null, null, dates.get(i), null);
-			
-			System.out.println("Writing file");
-			lines = new ArrayList<String>();
-			lines.add(hyVarRecMessage);
-			file = Paths.get(jsonFilePath+"t_"+i);
-			try {
-				Files.write(file, lines, Charset.forName("UTF-8"));
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		}
+//		for(int i=0;i<dates.size();i++) {			
+//			System.out.println("#Features at "+dates.get(i)+": "+HyEvolutionUtil.getValidTemporalElements(selectedFeatureModel.getFeatures(), dates.get(i)).size());
+//			System.out.println("#Groups at "+dates.get(i)+": "+HyEvolutionUtil.getValidTemporalElements(selectedFeatureModel.getGroups(), dates.get(i)).size());
+//			if(constraintModel != null) {
+//				System.out.println("#Constraints at "+dates.get(i)+": "+HyEvolutionUtil.getValidTemporalElements(constraintModel.getConstraints(), dates.get(i)).size());				
+//			}
+//			hyVarRecMessage = analysesClient.createHyVarRecMessage(contextModel, validityModel, selectedFeatureModel, constraintModel, null, null, null, dates.get(i), null);
+//			
+//			System.out.println("Writing file");
+//			lines = new ArrayList<String>();
+//			lines.add(hyVarRecMessage);
+//			file = Paths.get(jsonFilePath+"t_"+i);
+//			try {
+//				Files.write(file, lines, Charset.forName("UTF-8"));
+//			} catch (IOException e) {
+//				e.printStackTrace();
+//			}
+//		}
 		
 //		try {
 //			System.out.println("validating");
