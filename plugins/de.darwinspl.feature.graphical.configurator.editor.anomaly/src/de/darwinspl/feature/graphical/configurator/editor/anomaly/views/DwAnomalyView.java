@@ -42,7 +42,7 @@ import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.ide.ResourceUtil;
 import org.eclipse.ui.part.FileEditorInput;
 import org.eclipse.ui.part.ViewPart;
-
+import com.google.gson.JsonSyntaxException;
 import de.christophseidl.util.ecore.EcoreIOUtil;
 import de.darwinspl.anomaly.DwAnomaly;
 import de.darwinspl.anomaly.DwDeadFeatureAnomaly;
@@ -172,7 +172,7 @@ public class DwAnomalyView extends ViewPart {
 		
 		
 		private void createViewerVoidAnomaly(Composite parent, List<DwVoidFeatureModelAnomaly> voidAnomalies) {
-	        String[] titles = { "Type of Anomaly", "context values", "Date", "Explain", ""};
+	        String[] titles = { "Type of Anomaly", "Context Values", "Date", "Explain", ""};
 			viewerVoidAnomaly = new AnomalyTableView<DwVoidFeatureModelAnomaly>(this, parent, SWT.MULTI | SWT.H_SCROLL | SWT.V_SCROLL | SWT.FULL_SELECTION | SWT.BORDER, voidAnomalies, titles);
 
 	        // make the selection available to other views
@@ -181,7 +181,7 @@ public class DwAnomalyView extends ViewPart {
 	    }
 		
 		private void createViewerFalseOptionalAnomaly(Composite parent, List<DwFalseOptionalFeatureAnomaly> falseOptionalAnomalies) {
-			String[] titles = { "Type of Anomaly", "feature", "begin", "end", "Explain" };
+			String[] titles = { "Type of Anomaly", "Feature", "Begin", "End", "Explain" };
 	        viewerFalseOptionalAnomaly = new AnomalyTableView<DwFalseOptionalFeatureAnomaly>(this, parent, SWT.MULTI | SWT.H_SCROLL | SWT.V_SCROLL | SWT.FULL_SELECTION | SWT.BORDER, falseOptionalAnomalies, titles);
 	        // make the selection available to other views
 	        getSite().setSelectionProvider(viewerFalseOptionalAnomaly);
@@ -360,9 +360,10 @@ public class DwAnomalyView extends ViewPart {
 			
 			@Override
 			public void propertyChange(PropertyChangeEvent evt) {
+				if(evt.getNewValue() instanceof DwFeatureModelWrapped) {
 				modelWrapped = (DwFeatureModelWrapped) evt.getNewValue();
 				refresh(true);
-				
+				}
 			}
 		};
 		
@@ -563,7 +564,17 @@ public class DwAnomalyView extends ViewPart {
 			IWorkspace workspace = ResourcesPlugin.getWorkspace();
 			IWorkspaceRoot workspaceRoot = workspace.getRoot();
 
-			return workspaceRoot.getFile(new Path(modelWrapped.getModel().eResource().getURI().toPlatformString(true)));
+			IFile file = null;
+			try {
+				
+			file = workspaceRoot.getFile(new Path(modelWrapped.getModel().eResource().getURI().toPlatformString(true)));
+			errorMessage.setVisible(false);
+			
+			} catch(Exception e) {
+			 errorMessage.setVisible(true);
+			 errorMessage.setText("No Feature Model found.");
+			}
+			return file;
 		}
 		private HyContextModel loadContextInformationModel(){
 			return (HyContextModel) EcoreIOUtil.loadAccompanyingModel(modelWrapped.getModel(), HyContextInformationUtil.getContextModelFileExtensionForXmi());
@@ -695,10 +706,11 @@ public class DwAnomalyView extends ViewPart {
 					
 					
 				
-			} catch (UnresolvedAddressException | TimeoutException | InterruptedException | ExecutionException | HyVarRecNoSolutionException | NullPointerException e1 ) {
+			} catch (UnresolvedAddressException | JsonSyntaxException | TimeoutException | InterruptedException | ExecutionException | HyVarRecNoSolutionException | NullPointerException  e1 ) {
 				
 			
 				errorMessage.setVisible(true);
+			
 				errorMessage.setText("Unresolvable Server Adress. \n" + e1);
 				
 			}
