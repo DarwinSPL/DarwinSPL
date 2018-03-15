@@ -29,14 +29,13 @@ public abstract class DwFeatureModelExporter {
 
 	private Map<HyFeatureAttribute, String> attributeReconfiguratorIdMapping;
 
-
-
 	protected DwFeatureEncoding featureEndocing;
 
 	private HyFeatureModel featureModel;
 
 	private Map<HyFeature, String> featureReconfiguratorIdMapping;
 	private Map<HyVersion, String> versionReconfiguratorIdMapping;
+
 	public DwFeatureModelExporter(HyFeatureModel featureModel, Map<HyFeature, String> featureReconfiguratorIdMapping,
 			Map<HyVersion, String> versionReconfiguratorIdMapping,
 			Map<HyFeatureAttribute, String> attributeReconfiguratorIdMapping) {
@@ -46,8 +45,8 @@ public abstract class DwFeatureModelExporter {
 		this.attributeReconfiguratorIdMapping = attributeReconfiguratorIdMapping;
 	}
 
-	protected abstract String getAlternativeRelation(String parentId, List<String> childrenIds);
-	
+	protected abstract List<String> getAlternativeRelation(String parentId, List<String> childrenIds);
+
 	/**
 	 * Set features and versions to 0 if they are not valid at certain points in
 	 * time.
@@ -420,7 +419,24 @@ public abstract class DwFeatureModelExporter {
 
 			switch (groupType.getType()) {
 			case ALTERNATIVE:
-				groupConstraintsStringBuilder.append(getAlternativeRelation(parentFeatureId, childrenIds));
+
+				List<String> alternativeConstraints = getAlternativeRelation(parentFeatureId, childrenIds);
+
+				for (String alternativeConstraint : alternativeConstraints) {
+					groupConstraintsStringBuilder.append(alternativeConstraint);
+					
+					if (timedConstraint != null) {
+						StringBuilder timedGroupConstraintStringBuilder = new StringBuilder(timedConstraint);
+						timedGroupConstraintStringBuilder.append(HyVarRecExporter.BRACKETS_OPEN);
+						timedGroupConstraintStringBuilder.append(groupConstraintsStringBuilder);
+						timedGroupConstraintStringBuilder.append(HyVarRecExporter.BRACKETS_CLOSING);
+						groupConstraintsStringBuilder = timedGroupConstraintStringBuilder;
+					}
+
+					featureModelConstraints.add(groupConstraintsStringBuilder.toString());
+					
+					groupConstraintsStringBuilder = new StringBuilder();
+				}
 				break;
 
 			case AND:
@@ -516,11 +532,6 @@ public abstract class DwFeatureModelExporter {
 			case OR:
 
 				groupConstraintsStringBuilder.append(getOrRelation(parentFeatureId, childrenIds));
-				break;
-
-			}
-
-			if (!groupConstraintsStringBuilder.toString().equals("")) {
 				if (timedConstraint != null) {
 					StringBuilder timedGroupConstraintStringBuilder = new StringBuilder(timedConstraint);
 					timedGroupConstraintStringBuilder.append(HyVarRecExporter.BRACKETS_OPEN);
@@ -530,6 +541,8 @@ public abstract class DwFeatureModelExporter {
 				}
 
 				featureModelConstraints.add(groupConstraintsStringBuilder.toString());
+				break;
+
 			}
 
 		}

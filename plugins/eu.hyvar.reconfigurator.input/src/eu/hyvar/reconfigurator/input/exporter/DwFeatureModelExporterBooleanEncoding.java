@@ -1,5 +1,6 @@
 package eu.hyvar.reconfigurator.input.exporter;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -45,25 +46,43 @@ public class DwFeatureModelExporterBooleanEncoding extends DwFeatureModelExporte
 //	}
 
 	@Override
-	protected String getAlternativeRelation(String parentId, List<String> childrenIds) {
-		StringBuilder alternativeStringBuilder = new StringBuilder(parentId);
+	protected List<String> getAlternativeRelation(String parentId, List<String> childrenIds) {
+		List<String> alternativeConstraints = new ArrayList<String>(2);
 		
-		alternativeStringBuilder.append(HyVarRecExporter.EQUIVALENCE);
+		// Constraint: (child_0 or ... or child_n) impl parent
+		StringBuilder alternativeChildrenRequireParent = new StringBuilder();
 		
-		alternativeStringBuilder.append(HyVarRecExporter.ONE_ONLY);
+		// Constraint: parent iff onlyone[child_0,...,child_n]
+		StringBuilder alternativeOnlyOneStringBuilder = new StringBuilder(parentId);
+		
+		alternativeOnlyOneStringBuilder.append(HyVarRecExporter.EQUIVALENCE);
+		
+		alternativeOnlyOneStringBuilder.append(HyVarRecExporter.ONE_ONLY);
 		
 		for(int i = 0; i < childrenIds.size(); i++) {
 			if(i != 0) {
-				alternativeStringBuilder.append(", ");
+				alternativeOnlyOneStringBuilder.append(", ");
+				alternativeChildrenRequireParent.append(HyVarRecExporter.OR);
+			} 
+			else if(childrenIds.size() > 1) {
+				alternativeChildrenRequireParent.append(HyVarRecExporter.BRACKETS_OPEN);
 			}
 			
-			alternativeStringBuilder.append(childrenIds.get(i));
+			alternativeOnlyOneStringBuilder.append(childrenIds.get(i));
+			alternativeChildrenRequireParent.append(childrenIds.get(i));
 		}
 		
-		alternativeStringBuilder.append(HyVarRecExporter.WHITESPACE);
-		alternativeStringBuilder.append(HyVarRecExporter.ARRAY_BRACKETS_CLOSING);
+		alternativeOnlyOneStringBuilder.append(HyVarRecExporter.WHITESPACE);
+		alternativeOnlyOneStringBuilder.append(HyVarRecExporter.ARRAY_BRACKETS_CLOSING);
+		alternativeConstraints.add(alternativeOnlyOneStringBuilder.toString());
 		
-		return alternativeStringBuilder.toString();
+		alternativeChildrenRequireParent.append(HyVarRecExporter.BRACKETS_CLOSING);
+		alternativeChildrenRequireParent.append(HyVarRecExporter.IMPLICATION);
+		alternativeChildrenRequireParent.append(parentId);
+		alternativeConstraints.add(alternativeChildrenRequireParent.toString());
+		
+		
+		return alternativeConstraints;
 	}
 
 

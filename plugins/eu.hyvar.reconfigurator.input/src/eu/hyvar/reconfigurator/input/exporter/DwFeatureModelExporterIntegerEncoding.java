@@ -1,5 +1,6 @@
 package eu.hyvar.reconfigurator.input.exporter;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -44,10 +45,10 @@ public class DwFeatureModelExporterIntegerEncoding extends DwFeatureModelExporte
 //	}
 
 	@Override
-	protected String getAlternativeRelation(String parentId, List<String> childrenIds) {
+	protected List<String> getAlternativeRelation(String parentId, List<String> childrenIds) {
 		StringBuilder alternativeStringBuilder = new StringBuilder(featureEndocing.getFeatureSelected(parentId));
 
-		alternativeStringBuilder.append(HyVarRecExporter.EQUIVALENCE);
+		alternativeStringBuilder.append(HyVarRecExporter.EQUALS);
 		alternativeStringBuilder.append(HyVarRecExporter.BRACKETS_OPEN);
 
 		// The sum of all children
@@ -63,11 +64,13 @@ public class DwFeatureModelExporterIntegerEncoding extends DwFeatureModelExporte
 		}
 
 		// is equal to 1
-		alternativeStringBuilder.append(HyVarRecExporter.EQUALS);
-		alternativeStringBuilder.append(1);
+//		alternativeStringBuilder.append(HyVarRecExporter.EQUALS);
+//		alternativeStringBuilder.append(1);
 		alternativeStringBuilder.append(HyVarRecExporter.BRACKETS_CLOSING);
 		
-		return alternativeStringBuilder.toString();
+		List<String> alternativeConstraints = new ArrayList<String>(1);
+		alternativeConstraints.add(alternativeStringBuilder.toString());
+		return alternativeConstraints;
 	}
 
 
