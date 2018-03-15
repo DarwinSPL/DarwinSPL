@@ -128,12 +128,12 @@ public class DwRESTServerSelectExtendedDialog extends DwRESTServerSelectDialog{
 	    Text validSince = new Text(buttonContainer, SWT.READ_ONLY);
 		if(startDate!= null){
 			
-			validSince.setText(getDateFormatted(startDate, "yyy-MM-dd"));
+			validSince.setText(getDateFormatted(startDate, "yyyy-MM-dd"));
 		}else{
 		validSince.setText("Select Date");
 		}
 	    
-	    //buttonSince.setLayoutData(new RowData(100, 35));
+	
 	    buttonSince.addSelectionListener(new SelectionListener(){
 
 			@Override
@@ -143,7 +143,7 @@ public class DwRESTServerSelectExtendedDialog extends DwRESTServerSelectDialog{
 					if(dialog.getReturnCode() == OK){
 						Date value = dialog.getValue();
 						
-						validSince.setText(getDateFormatted(value, "yyy-MM-dd"));
+						validSince.setText(getDateFormatted(value, "yyyy-MM-dd"));
 						startDate = value;
 					}
 				
@@ -165,7 +165,7 @@ public class DwRESTServerSelectExtendedDialog extends DwRESTServerSelectDialog{
 	    
 	    Text validUntil = new Text(buttonContainer, SWT.READ_ONLY);
 	    if(endDate!= null){
-			validUntil.setText(getDateFormatted(endDate, "yyy-MM-dd"));
+			validUntil.setText(getDateFormatted(endDate, "yyyy-MM-dd"));
 		}else{
 		validUntil.setText("Select Date");
 		}
@@ -181,7 +181,7 @@ public class DwRESTServerSelectExtendedDialog extends DwRESTServerSelectDialog{
 					if(dialog.getReturnCode() == OK){
 						Date value = dialog.getValue();
 						
-						validUntil.setText(getDateFormatted(value, "yyy-MM-dd"));
+						validUntil.setText(getDateFormatted(value, "yyyy-MM-dd"));
 						endDate = value;
 					}
 				}
@@ -215,6 +215,7 @@ evolutionAwareCheckBox.addSelectionListener(new SelectionListener() {
 				Boolean selection = source.getSelection();
 				b1.setEnabled(selection);
 				b2.setEnabled(selection);
+				isEvolutionAwareAnalysis = selection;
 				
 				if(selection){
 					buttonSince.setEnabled(b2.getSelection());
@@ -289,7 +290,7 @@ b1.addSelectionListener(new SelectionListener() {
 protected Date convertStringToDate(String text) {
 	if(text == null || text.isEmpty() || text.equals("Read Only")) return null;
 	
-    DateFormat dateFormat = new SimpleDateFormat("yyy-MM-dd", Locale.ENGLISH);
+    DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH);
     try{
     	return dateFormat.parse(text);
     }catch(ParseException ex){

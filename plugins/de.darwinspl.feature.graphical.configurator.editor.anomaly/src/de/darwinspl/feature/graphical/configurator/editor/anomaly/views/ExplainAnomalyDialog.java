@@ -27,13 +27,13 @@ import eu.hyvar.dataValues.HyEnumValue;
 import eu.hyvar.dataValues.HyNumberValue;
 import eu.hyvar.dataValues.HyStringValue;
 
-public class ExplainDialogResultDialog extends TitleAreaDialog{
+public class ExplainAnomalyDialog extends TitleAreaDialog{
 	
 	Text uriText;
 	
 	private final DwAnomalyExplanation anomalyExplanation;
 
-	public ExplainDialogResultDialog(Shell parentShell, DwAnomalyExplanation anomalyExplanation) {
+	public ExplainAnomalyDialog(Shell parentShell, DwAnomalyExplanation anomalyExplanation) {
 		super(parentShell);
 		this.anomalyExplanation = anomalyExplanation;
 	}

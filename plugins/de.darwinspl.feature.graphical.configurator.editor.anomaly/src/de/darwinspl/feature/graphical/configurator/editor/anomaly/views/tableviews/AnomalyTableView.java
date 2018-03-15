@@ -11,6 +11,8 @@ import org.eclipse.jface.viewers.TableViewerColumn;
 import org.eclipse.jface.viewers.ViewerCell;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.TableEditor;
+import org.eclipse.swt.events.DisposeEvent;
+import org.eclipse.swt.events.DisposeListener;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.layout.GridData;
@@ -34,6 +36,39 @@ import eu.hyvar.feature.HyFeature;
 public class AnomalyTableView<T extends DwAnomaly> extends TableViewer {
 	
 	private final DwAnomalyView anomalyView;
+	
+    private SelectionListener sortListener = new SelectionListener() {
+		
+		@Override
+		public void widgetSelected(SelectionEvent e) {
+			
+			//TODO: Need to add own Comparator to viewer for each element
+//			TableColumn column = (TableColumn) e.widget;
+//			
+//			if(getTable().getSortColumn()!= null && getTable().getSortColumn().equals(column)) {
+//				
+//				if(getTable().getSortDirection()== SWT.DOWN) {
+//					getTable().setSortDirection(SWT.UP);
+//				}else {
+//					getTable().setSortDirection(SWT.DOWN);
+//				}
+//				
+//			}
+//			
+//			getTable().setSortColumn(column);
+//			getTable().setSortDirection(SWT.DOWN);
+			
+			
+			
+		}
+		
+		@Override
+		public void widgetDefaultSelected(SelectionEvent e) {
+			// TODO Auto-generated method stub
+			
+		}
+	};
+
 
 	public AnomalyTableView(DwAnomalyView anomalyView, Composite parent, int style, List<T> falseOptionalAnomalies, String[] titles) {
 		super(parent, style);
@@ -43,9 +78,12 @@ public class AnomalyTableView<T extends DwAnomaly> extends TableViewer {
 
 		createColumnsFalseOptionalAnomalies(parent, titles);
         final Table table = this.getTable();
+        
         table.setHeaderVisible(true);
         table.setLinesVisible(true);
-
+       
+        
+  
         
         setContentProvider(new ArrayContentProvider());
         if(falseOptionalAnomalies != null){
@@ -74,8 +112,10 @@ public class AnomalyTableView<T extends DwAnomaly> extends TableViewer {
 
         
         // first column is for the type of the anomaly
-        TableViewerColumn col = createTableViewerColumn(titles[0], bounds[0], 0);
-        col.setLabelProvider(new ColumnLabelProvider() {
+        TableViewerColumn typeColumn = createTableViewerColumn(titles[0], bounds[0], 0);
+        typeColumn.getColumn().addSelectionListener(sortListener);
+        
+        typeColumn.setLabelProvider(new ColumnLabelProvider() {
             @Override
             public String getText(Object element) {
                 
@@ -93,8 +133,9 @@ public class AnomalyTableView<T extends DwAnomaly> extends TableViewer {
         });
 
         // second column is for the name of the effected features or the contextual information values
-        col = createTableViewerColumn(titles[1], bounds[1], 1);
-        col.setLabelProvider(new ColumnLabelProvider() {
+        TableViewerColumn affectedElementsColumn = createTableViewerColumn(titles[1], bounds[1], 1);
+        affectedElementsColumn.getColumn().addSelectionListener(sortListener);
+        affectedElementsColumn.setLabelProvider(new ColumnLabelProvider() {
             @Override
             public String getText(Object element) {
             	if(element instanceof DwFalseOptionalFeatureAnomaly){
@@ -133,8 +174,9 @@ public class AnomalyTableView<T extends DwAnomaly> extends TableViewer {
         });
 //
         // the effected date (since)
-        col = createTableViewerColumn(titles[2], bounds[2], 2);
-        col.setLabelProvider(new ColumnLabelProvider() {
+        TableViewerColumn dateSinceColumn = createTableViewerColumn(titles[2], bounds[2], 2);
+        dateSinceColumn.getColumn().addSelectionListener(sortListener);
+        dateSinceColumn.setLabelProvider(new ColumnLabelProvider() {
             @Override
             public String getText(Object element) {
             	DwAnomaly p = (DwAnomaly) element;
@@ -149,9 +191,10 @@ public class AnomalyTableView<T extends DwAnomaly> extends TableViewer {
         });
 //
         // the effected date (until)
-        col = createTableViewerColumn(titles[3], bounds[3], 3);
+        TableViewerColumn dateUntilColumn = createTableViewerColumn(titles[3], bounds[3], 3);
         
-        col.setLabelProvider(new ColumnLabelProvider() {
+        dateUntilColumn.getColumn().addSelectionListener(sortListener);
+        dateUntilColumn.setLabelProvider(new ColumnLabelProvider() {
             @Override
             public String getText(Object element) {
             	
@@ -169,6 +212,8 @@ public class AnomalyTableView<T extends DwAnomaly> extends TableViewer {
         	public void update(ViewerCell cell) {
             	if(cell.getItem().getData() instanceof DwVoidFeatureModelAnomaly){
         		TableItem item = (TableItem) cell.getItem();
+        		
+        		
                 Button button = new Button((Composite) cell.getViewerRow().getControl(), SWT.NONE);
                 button.setData(item);
               
@@ -178,6 +223,19 @@ public class AnomalyTableView<T extends DwAnomaly> extends TableViewer {
                 editor.grabVertical = true;
                 editor.setEditor(button , item, cell.getColumnIndex());
                 editor.layout();
+                
+              
+                
+                item.addDisposeListener(new DisposeListener() {
+					
+					@Override
+					public void widgetDisposed(DisposeEvent e) {
+						
+						editor.dispose();
+						button.dispose();
+						
+					}
+				});
                 
                 button.addSelectionListener(new SelectionListener() {
 					
@@ -204,7 +262,7 @@ public class AnomalyTableView<T extends DwAnomaly> extends TableViewer {
             		
             		Date date = p.getValidUntil();
             		if(date == null){
-            			cell.setText("NULL");
+            			cell.setText("Eternity");
             		}else{
             		cell.setText(date.toString());
             		}
@@ -218,9 +276,9 @@ public class AnomalyTableView<T extends DwAnomaly> extends TableViewer {
            
         });
         
-        col = createTableViewerColumn(titles[4], bounds[4], 4);
+        TableViewerColumn explainColumn = createTableViewerColumn(titles[4], bounds[4], 4);
  	   
-        col.setLabelProvider(new ColumnLabelProvider() {
+        explainColumn.setLabelProvider(new ColumnLabelProvider() {
         	
         	@Override
         	public void update(ViewerCell cell) {
@@ -235,6 +293,17 @@ public class AnomalyTableView<T extends DwAnomaly> extends TableViewer {
                 editor.grabVertical = true;
                 editor.setEditor(button , item, cell.getColumnIndex());
                 editor.layout();
+                
+item.addDisposeListener(new DisposeListener() {
+					
+					@Override
+					public void widgetDisposed(DisposeEvent e) {
+						
+						editor.dispose();
+						button.dispose();
+						
+					}
+				});
                 
                 button.addSelectionListener(new SelectionListener() {
 					

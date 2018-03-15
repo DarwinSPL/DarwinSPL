@@ -4,6 +4,7 @@ import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.gef.Request;
 import org.eclipse.gef.ui.actions.SelectionAction;
+import org.eclipse.jface.dialogs.Dialog;
 import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.IWorkbenchPart;
@@ -47,7 +48,14 @@ public class DwFeatureEditNamesAction extends SelectionAction{
 
 		dialog.setElement(model.getWrappedModelElement());
 		dialog.setItems((EList<EObject>)(EList<?>)names);
-		dialog.open();
+		
+		if(dialog.open() == Dialog.OK) {
+		
+			part.refresh();
+			
+		}
+		
+		
 	}
 
 	@Override
