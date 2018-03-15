@@ -118,6 +118,7 @@ public class DwAnomalyView extends ViewPart {
 
 		@Override
 		public void createPartControl(Composite parent) {
+			errorMessage = new Label(parent, SWT.NONE);
 		
 			this.parentComposite = parent;
 
@@ -144,7 +145,6 @@ public class DwAnomalyView extends ViewPart {
 //				}
 //			}
 			
-		    errorMessage = new Label(parent, SWT.NONE);
 		    errorMessage.setText(NO_FEATURE_MODEL_FOUND);
 		    	
 		    errorMessage.setForeground(errorMessage.getDisplay().getSystemColor(SWT.COLOR_RED));
@@ -571,6 +571,7 @@ public class DwAnomalyView extends ViewPart {
 			errorMessage.setVisible(false);
 			
 			} catch(Exception e) {
+				e.printStackTrace();
 			 errorMessage.setVisible(true);
 			 errorMessage.setText("No Feature Model found.");
 			}
@@ -706,7 +707,7 @@ public class DwAnomalyView extends ViewPart {
 					
 					
 				
-			} catch (UnresolvedAddressException | JsonSyntaxException | TimeoutException | InterruptedException | ExecutionException | HyVarRecNoSolutionException | NullPointerException  e1 ) {
+			} catch (UnresolvedAddressException | JsonSyntaxException | TimeoutException | InterruptedException | ExecutionException | HyVarRecNoSolutionException e1 ) {
 				
 			
 				errorMessage.setVisible(true);
