@@ -64,7 +64,7 @@ public class DwFeatureModelExporterBooleanEncoding extends DwFeatureModelExporte
 				alternativeOnlyOneStringBuilder.append(", ");
 				alternativeChildrenRequireParent.append(HyVarRecExporter.OR);
 			} 
-			else if(childrenIds.size() > 1) {
+			else if(i==0 && childrenIds.size() > 1) {
 				alternativeChildrenRequireParent.append(HyVarRecExporter.BRACKETS_OPEN);
 			}
 			

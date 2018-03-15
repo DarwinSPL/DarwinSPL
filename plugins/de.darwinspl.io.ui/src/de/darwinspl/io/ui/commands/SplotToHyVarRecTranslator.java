@@ -16,6 +16,9 @@ import org.eclipse.core.runtime.CoreException;
 //import org.eclipse.swt.widgets.Display;
 //import org.eclipse.swt.widgets.Shell;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
 import de.christophseidl.util.eclipse.ResourceUtil;
 import de.christophseidl.util.eclipse.ui.SelectionUtil;
 import de.darwinspl.importer.FeatureModelConstraintsTuple;
@@ -67,8 +70,10 @@ public class SplotToHyVarRecTranslator extends AbstractHandler {
 //					Display display = Display.getDefault();
 //				    Shell shell = display.getActiveShell();
 					
-					String hyVarRecString = hyvarrecExporter.exportSPL(null, null, tuple.getFeatureModel(),
-							tuple.getConstraintModel(), null, null, null, new Date(), null);
+					Gson gson = new GsonBuilder().disableHtmlEscaping().create();
+					
+					String hyVarRecString = gson.toJson(hyvarrecExporter.exportSPL(null, null, tuple.getFeatureModel(),
+							tuple.getConstraintModel(), null, null, null, new Date(), null));
 
 					String baseFileName = ResourceUtil.getBaseFilename(ifile) + "_HyVarRecOutput";
 					

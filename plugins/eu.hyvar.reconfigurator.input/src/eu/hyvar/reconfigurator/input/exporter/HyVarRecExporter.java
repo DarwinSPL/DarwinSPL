@@ -42,7 +42,7 @@ import eu.hyvar.reconfigurator.input.format.InputForHyVarRec;
 
 public class HyVarRecExporter {
 
-	private Gson gson;
+//	private Gson gson;
 
 	// private static final String NEW_LINE ="\n";
 	// private static final String TABULATOR = "\t";
@@ -131,28 +131,22 @@ public class HyVarRecExporter {
 		}
 
 		if(featureEncoding != null && featureEncoding==FeatureEncoding.BOOLEAN) {
-			String options;
-			if(input.getHyvar_options() != null) {
-				options = input.getHyvar_options() + " ";
-			}
-			else {
-				options = "";
+			List<String> options = input.getHyvar_options();
+			if(options == null) {
+				options = new ArrayList<String>();
+				input.setHyvar_options(options);
 			}
 			
-			options = options + FEATURES_AS_BOOLEANS_OPTION;
-			input.setHyvar_options(options);
+			options.add(FEATURES_AS_BOOLEANS_OPTION);
 		}
 		
 		// TODO optimization: few contexts -> --non-incremental-solver, more contexts without --non-incremental-solver
-		String options;
-		if(input.getHyvar_options() != null) {
-			options = input.getHyvar_options() + " ";
+		List<String> options = input.getHyvar_options();
+		if(options == null) {
+			options = new ArrayList<String>();
+			input.setHyvar_options(options);
 		}
-		else {
-			options = "";
-		}
-		options = options + NON_INCREMENTAL_SOLVER_OPTION;
-		input.setHyvar_options(options);
+		options.add(NON_INCREMENTAL_SOLVER_OPTION);
 		
 		input.setAttributes(new ArrayList<Attribute>());
 
@@ -400,13 +394,13 @@ public class HyVarRecExporter {
 	}
 			
 	
-	public String exportSPL(HyContextModel contextModel, HyValidityModel contextValidityModel,
+	public InputForHyVarRec exportSPL(HyContextModel contextModel, HyValidityModel contextValidityModel,
 			HyFeatureModel featureModel, HyConstraintModel constraintModel, HyConfiguration oldConfiguration,
 			DwProfile profileModel, HyContextValueModel contextValue, Date date, Date evolutionContextValueDate) {
 		return exportSPL(contextModel, contextValidityModel, featureModel, constraintModel, oldConfiguration, null, profileModel, contextValue, date, evolutionContextValueDate);
 	}
 	
-	public String exportSPL(HyContextModel contextModel, HyValidityModel contextValidityModel,
+	public InputForHyVarRec exportSPL(HyContextModel contextModel, HyValidityModel contextValidityModel,
 			HyFeatureModel featureModel, HyConstraintModel constraintModel, HyConfiguration oldConfiguration, HyConfiguration partialConfiguration,
 			DwProfile profileModel, HyContextValueModel contextValue, Date date, Date evolutionContextValueDate) {
 		
@@ -433,15 +427,11 @@ public class HyVarRecExporter {
 		return exportSPL(contextModels, contextValidityModels, featureModels, constraintModels, oldConfiguration, partialConfiguration, profileModels, contextValues, date, evolutionContextValueDate);
 	}
 	
-	public String exportSPL(List<HyContextModel> contextModels, List<HyValidityModel> contextValidityModels,
+	public InputForHyVarRec exportSPL(List<HyContextModel> contextModels, List<HyValidityModel> contextValidityModels,
 			List<HyFeatureModel> featureModels, List<HyConstraintModel> constraintModels, HyConfiguration oldConfiguration, HyConfiguration partialConfiguration,
 			List<DwProfile> profileModels, List<HyContextValueModel> contextValues, Date date, Date evolutionContextValueDate) {
 		
-		gson = new GsonBuilder().disableHtmlEscaping().create();
-		
-		InputForHyVarRec input = createInputForHyVarRec(contextModels, contextValidityModels, featureModels, constraintModels, oldConfiguration, partialConfiguration, profileModels, contextValues, date, evolutionContextValueDate);
-
-		return gson.toJson(input);
+		return createInputForHyVarRec(contextModels, contextValidityModels, featureModels, constraintModels, oldConfiguration, partialConfiguration, profileModels, contextValues, date, evolutionContextValueDate);
 	}
 	
 	public static List<Date> getSortedListOfDatesOfDateContext(List<HyFeatureModel> featureModels, List <HyConstraintModel> constraintModels, List<HyContextModel> contextModels, List<HyValidityModel> validityModels, List<DwProfile> profiles) {

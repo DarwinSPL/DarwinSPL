@@ -80,7 +80,7 @@ public class InputForHyVarRec {
      */
     @SerializedName("hyvar_options")
     @Expose
-    private String hyvar_options;
+    private List<String> hyvar_options;
 
     /**
      * 
@@ -232,7 +232,7 @@ public class InputForHyVarRec {
      * Optional filed used to set options for hyvarrec.
      * 
      */
-	public String getHyvar_options() {
+	public List<String> getHyvar_options() {
 		return hyvar_options;
 	}
 
@@ -240,7 +240,7 @@ public class InputForHyVarRec {
      * Optional filed used to set options for hyvarrec.
      * 
      */
-	public void setHyvar_options(String hyvar_options) {
+	public void setHyvar_options(List<String> hyvar_options) {
 		this.hyvar_options = hyvar_options;
 	}
 

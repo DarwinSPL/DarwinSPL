@@ -297,13 +297,6 @@ public class DwExpressionExporter {
 	private String handleAtomicExpression(HyAtomicExpression atomicExpression, boolean negated) {
 		StringBuilder atomicString = new StringBuilder();
 
-		// if (atomicExpression instanceof HyBooleanValueExpression) {
-		// if (((HyBooleanValueExpression) atomicExpression).isValue()) {
-		// atomicString.append(TRUE);
-		// } else {
-		// atomicString.append(FALSE);
-		// }
-		// } else
 		if (atomicExpression instanceof HyAbstractFeatureReferenceExpression) {
 			HyAbstractFeatureReferenceExpression abstractFeatureReferenceExpression = (HyAbstractFeatureReferenceExpression) atomicExpression;
 			String featureId = featureIdMapping.get(abstractFeatureReferenceExpression.getFeature());

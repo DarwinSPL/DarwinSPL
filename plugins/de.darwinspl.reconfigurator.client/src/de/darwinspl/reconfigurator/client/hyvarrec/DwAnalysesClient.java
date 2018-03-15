@@ -75,6 +75,7 @@ public class DwAnalysesClient {
 //
 //	private static final String MSG_TYPE_HYVARREC_CONFIG_2_HYCONFIG = "hyvarrec_config_plus_fm";
 
+	protected static final String PROCESS_URI = "process";
 	protected static final String RECONFIGURATION_URI = "process";
 	protected static final String VALIDATE_CONTEXT_URI = "validate";
 	protected static final String VALIDATE_FM_URI = "explain";
@@ -83,6 +84,13 @@ public class DwAnalysesClient {
 	public static final String DEFAULT_URI = "https://www.isf.cs.tu-bs.de/hyvarrec/";
 	
 	protected static final String CONTEXT_VALID = "valid";
+	
+	//Modalities
+	public static final String VALIDATE_MODALITY = "--validate";
+	public static final String CHECK_FEATURES_MODALITY = "--check-features";
+	public static final String RECONFIGURATION_MODALITY = "--no-default-preferences";
+	public static final String EXPLAIN_MODALITY = "--explain";
+	
 	
 	protected HyVarRecExporter exporter;
 	
@@ -104,14 +112,27 @@ public class DwAnalysesClient {
 			originalUri = originalUri + "/";
 		}
 		
-		originalUri = originalUri + processAddress;
+//		originalUri = originalUri + processAddress;
+		originalUri = originalUri + PROCESS_URI;
 		
 		return URI.create(originalUri);
 	}
 	
-	public String createHyVarRecMessage(HyContextModel contextModel, HyValidityModel contextValidityModel, HyFeatureModel featureModel, HyConstraintModel constraintModel, HyConfiguration oldConfiguration, DwProfile preferenceModel, HyContextValueModel contextValues, Date date, Date evolutionContextValueDate) {
+	public String createHyVarRecMessage(HyContextModel contextModel, HyValidityModel contextValidityModel, HyFeatureModel featureModel, HyConstraintModel constraintModel, HyConfiguration oldConfiguration, DwProfile preferenceModel, HyContextValueModel contextValues, Date date, Date evolutionContextValueDate, String modalityOption) {
+//		
+		InputForHyVarRec inputForHyVarRec = exporter.exportSPL(contextModel, contextValidityModel, featureModel, constraintModel, oldConfiguration, preferenceModel, contextValues, date, evolutionContextValueDate);
 		
-		String messageForHyVarRec = exporter.exportSPL(contextModel, contextValidityModel, featureModel, constraintModel, oldConfiguration, preferenceModel, contextValues, date, evolutionContextValueDate);
+		if(modalityOption != null) {
+			List<String> options = inputForHyVarRec.getHyvar_options();
+			if(options == null) {
+				options = new ArrayList<String>(1);
+				inputForHyVarRec.setHyvar_options(options);
+			}
+			options.add(modalityOption);			
+		}
+		
+//		Gson gson = new GsonBuilder().disableHtmlEscaping().create();
+		String messageForHyVarRec = gson.toJson(inputForHyVarRec); 
 		return messageForHyVarRec;
 	}
 	
@@ -182,14 +203,15 @@ public class DwAnalysesClient {
 		}
 		
 		
-		InputForHyVarRec inputForHyVarRec = exporter.createInputForHyVarRec(contextModel, contextValidityModel, featureModel, constraintModel, null, null, contextValueModel, date, date);
+//		InputForHyVarRec inputForHyVarRec = exporter.createInputForHyVarRec(contextModel, contextValidityModel, featureModel, constraintModel, null, null, contextValueModel, date, date);
+		String messageForHyVarRec = createHyVarRecMessage(contextModel, contextValidityModel, featureModel, constraintModel, null, null, contextValueModel, date, date, EXPLAIN_MODALITY);
 		URI uri = createUriWithPath(uriString, VALIDATE_FM_URI);
 		
 		if(additionalAnomalyConstraint != null) {
 //			inputForHyVarRec.getConstraints().add(additionalAnomalyConstraint);
 		}
 		
-		String messageForHyVarRec = gson.toJson(inputForHyVarRec);
+//		String messageForHyVarRec = gson.toJson(inputForHyVarRec);
 		
 		String hyvarrecAnswerString = sendMessageToHyVarRec(messageForHyVarRec, uri, webserviceUsername, webservicePassword);
 		
@@ -234,7 +256,7 @@ public class DwAnalysesClient {
 	 */
 	public List<DwAnomaly> checkFeatures(String uriString, String webserviceUsername, String webservicePassword, HyContextModel contextModel, HyValidityModel contextValidityModel,
 			HyFeatureModel featureModel, HyConstraintModel constraintModel, HyContextValueModel contextValues, Date date) throws TimeoutException, InterruptedException, ExecutionException, UnresolvedAddressException {
-		String messageForHyVarRec = createHyVarRecMessage(contextModel, contextValidityModel, featureModel, constraintModel, null, null, contextValues, date, null);
+		String messageForHyVarRec = createHyVarRecMessage(contextModel, contextValidityModel, featureModel, constraintModel, null, null, contextValues, date, null, CHECK_FEATURES_MODALITY);
 		System.err.println(messageForHyVarRec);
 		
 		
@@ -368,7 +390,8 @@ public class DwAnalysesClient {
 			HyFeatureModel featureModel, HyConstraintModel constraintModel, HyConfiguration oldConfiguration,
 			DwProfile profile, HyContextValueModel contextValues, Date date) throws TimeoutException, InterruptedException, ExecutionException, UnresolvedAddressException, HyVarRecNoSolutionException {
 		
-		String messageForHyVarRec = createHyVarRecMessage(contextModel, contextValidityModel, featureModel, constraintModel, oldConfiguration, profile, contextValues, date, null);
+		String messageForHyVarRec = createHyVarRecMessage(contextModel, contextValidityModel, featureModel, constraintModel, oldConfiguration, profile, contextValues, date, null, VALIDATE_MODALITY);
+		
 		URI uri = createUriWithPath(uriString, VALIDATE_CONTEXT_URI);
 		
 		String hyvarrecAnswerString = sendMessageToHyVarRec(messageForHyVarRec, uri, webserviceUsername, webservicePassword);
@@ -560,7 +583,7 @@ public class DwAnalysesClient {
 			HyFeatureModel featureModel, HyConstraintModel constraintModel, HyConfiguration oldConfiguration,
 			DwProfile preferenceModel, HyContextValueModel contextValues, Date date) throws TimeoutException, InterruptedException, ExecutionException, UnresolvedAddressException {
 		
-		String messageForHyVarRec = createHyVarRecMessage(contextModel, contextValidityModel, featureModel, constraintModel, oldConfiguration, preferenceModel, contextValues, date, null);
+		String messageForHyVarRec = createHyVarRecMessage(contextModel, contextValidityModel, featureModel, constraintModel, oldConfiguration, preferenceModel, contextValues, date, null, RECONFIGURATION_MODALITY);
 		
 		URI uri = createUriWithPath(uriString, RECONFIGURATION_URI);
 		
