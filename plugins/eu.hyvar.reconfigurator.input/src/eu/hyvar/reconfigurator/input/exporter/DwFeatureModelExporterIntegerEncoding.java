@@ -46,7 +46,11 @@ public class DwFeatureModelExporterIntegerEncoding extends DwFeatureModelExporte
 
 	@Override
 	protected List<String> getAlternativeRelation(String parentId, List<String> childrenIds) {
-		StringBuilder alternativeStringBuilder = new StringBuilder(featureEndocing.getFeatureSelected(parentId));
+
+		
+		StringBuilder alternativeStringBuilder = new StringBuilder(HyVarRecExporter.BRACKETS_OPEN);
+		alternativeStringBuilder.append(featureEndocing.getFeatureSelected(parentId));
+		alternativeStringBuilder.append(HyVarRecExporter.BRACKETS_CLOSING);
 
 		alternativeStringBuilder.append(HyVarRecExporter.EQUALS);
 		alternativeStringBuilder.append(HyVarRecExporter.BRACKETS_OPEN);
