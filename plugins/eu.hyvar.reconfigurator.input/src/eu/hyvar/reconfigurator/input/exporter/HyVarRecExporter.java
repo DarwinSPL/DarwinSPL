@@ -138,12 +138,12 @@ public class HyVarRecExporter {
 		}
 		
 		// TODO optimization: few contexts -> --non-incremental-solver, more contexts without --non-incremental-solver
-		List<String> options = input.getHyvar_options();
-		if(options == null) {
-			options = new ArrayList<String>();
-			input.setHyvar_options(options);
-		}
-		options.add(NON_INCREMENTAL_SOLVER_OPTION);
+//		List<String> options = input.getHyvar_options();
+//		if(options == null) {
+//			options = new ArrayList<String>();
+//			input.setHyvar_options(options);
+//		}
+//		options.add(NON_INCREMENTAL_SOLVER_OPTION);
 		
 		input.setAttributes(new ArrayList<Attribute>());
 

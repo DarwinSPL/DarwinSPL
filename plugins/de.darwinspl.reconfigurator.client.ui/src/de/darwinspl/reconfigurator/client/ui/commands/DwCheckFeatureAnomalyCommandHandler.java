@@ -1,6 +1,7 @@
 package de.darwinspl.reconfigurator.client.ui.commands;
 
 import java.io.IOException;
+import java.nio.channels.UnresolvedAddressException;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -13,6 +14,7 @@ import java.util.GregorianCalendar;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.concurrent.TimeoutException;
 
 import org.eclipse.core.commands.AbstractHandler;
 import org.eclipse.core.commands.ExecutionEvent;
@@ -24,6 +26,7 @@ import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.FileDialog;
 
 import de.christophseidl.util.eclipse.ui.SelectionUtil;
+import de.darwinspl.anomaly.DwAnomaly;
 import de.darwinspl.eclipse.ui.DwModelSelection;
 import de.darwinspl.reconfigurator.client.hyvarrec.DwAnalysesClient;
 import eu.hyvar.context.HyContextModel;
@@ -116,10 +119,13 @@ public class DwCheckFeatureAnomalyCommandHandler extends AbstractHandler {
 //		String hyVarRecMessage_integer = gson.toJson(inputForHyVarRec);
 		
 		
-//		try {
+		try {
 ////			DwVoidFeatureModelAnomaly voidFM = analysesClient.validateFeatureModelWithContext("http://localhost:9001", null, null, contextModel, validityModel, selectedFeatureModel, constraintModel, null, null, null, date);
 ////			System.err.println(voidFM);
-//			List<DwAnomaly> featureAnomalies = analysesClient.checkFeatures("http://localhost:9001", null, null, contextModel, validityModel, selectedFeatureModel, constraintModel, null, date);
+			List<DwAnomaly> featureAnomalies = analysesClient.checkFeatures("http://localhost:9001", null, null, contextModel, validityModel, selectedFeatureModel, constraintModel, null, date);
+			if(featureAnomalies != null) {
+				System.err.println(featureAnomalies.size());				
+			}
 //			if(featureAnomalies != null) {
 //				int fo = 0;
 //				int dead = 0;
@@ -138,11 +144,11 @@ public class DwCheckFeatureAnomalyCommandHandler extends AbstractHandler {
 //			else {
 //				System.err.println("No anomalies");
 //			}
-//		} catch (UnresolvedAddressException | TimeoutException | InterruptedException
-//				| java.util.concurrent.ExecutionException e1) {
-//			// TODO Auto-generated catch block
-//			e1.printStackTrace();
-//		}
+		} catch (UnresolvedAddressException | TimeoutException | InterruptedException
+				| java.util.concurrent.ExecutionException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 		
 		System.out.println("Writing file");
 		List<String> lines = new ArrayList<String>();
