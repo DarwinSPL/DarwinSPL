@@ -1,7 +1,6 @@
 package de.darwinspl.reconfigurator.client.ui.commands;
 
 import java.io.IOException;
-import java.nio.channels.UnresolvedAddressException;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -14,7 +13,6 @@ import java.util.GregorianCalendar;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import java.util.concurrent.TimeoutException;
 
 import org.eclipse.core.commands.AbstractHandler;
 import org.eclipse.core.commands.ExecutionEvent;
@@ -25,8 +23,11 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.FileDialog;
 
+import com.google.gson.FieldNamingPolicy;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
 import de.christophseidl.util.eclipse.ui.SelectionUtil;
-import de.darwinspl.anomaly.DwAnomaly;
 import de.darwinspl.eclipse.ui.DwModelSelection;
 import de.darwinspl.reconfigurator.client.hyvarrec.DwAnalysesClient;
 import eu.hyvar.context.HyContextModel;
@@ -37,6 +38,9 @@ import eu.hyvar.evolution.util.HyEvolutionUtil;
 import eu.hyvar.feature.HyFeatureModel;
 import eu.hyvar.feature.constraint.HyConstraintModel;
 import eu.hyvar.feature.constraint.util.HyConstraintIOUtil;
+import eu.hyvar.reconfigurator.input.exporter.HyVarRecExporter;
+import eu.hyvar.reconfigurator.input.exporter.HyVarRecExporter.FeatureEncoding;
+import eu.hyvar.reconfigurator.input.format.InputForHyVarRec;
 
 public class DwCheckFeatureAnomalyCommandHandler extends AbstractHandler {
 
@@ -110,58 +114,58 @@ public class DwCheckFeatureAnomalyCommandHandler extends AbstractHandler {
 		
 		String hyVarRecMessage = analysesClient.createHyVarRecMessage(contextModel, validityModel, selectedFeatureModel, constraintModel, null, null, null, date, null, DwAnalysesClient.VALIDATE_MODALITY);
 		
-//		HyVarRecExporter integerExporter = new HyVarRecExporter(FeatureEncoding.INTEGER);
-//		InputForHyVarRec inputForHyVarRec = integerExporter.exportSPL(contextModel, validityModel, selectedFeatureModel, constraintModel, null, null, null, date, date);
-//		
-//		GsonBuilder gsonBuilder = new GsonBuilder();
-//		gsonBuilder.setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES);
-//		Gson gson = gsonBuilder.disableHtmlEscaping().create();
-//		String hyVarRecMessage_integer = gson.toJson(inputForHyVarRec);
+		HyVarRecExporter integerExporter = new HyVarRecExporter(FeatureEncoding.INTEGER);
+		InputForHyVarRec inputForHyVarRec = integerExporter.exportSPL(contextModel, validityModel, selectedFeatureModel, constraintModel, null, null, null, date, date);
+		
+		GsonBuilder gsonBuilder = new GsonBuilder();
+		gsonBuilder.setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES);
+		Gson gson = gsonBuilder.disableHtmlEscaping().create();
+		String hyVarRecMessage_integer = gson.toJson(inputForHyVarRec);
 		
 		
-		try {
-////			DwVoidFeatureModelAnomaly voidFM = analysesClient.validateFeatureModelWithContext("http://localhost:9001", null, null, contextModel, validityModel, selectedFeatureModel, constraintModel, null, null, null, date);
-////			System.err.println(voidFM);
-			List<DwAnomaly> featureAnomalies = analysesClient.checkFeatures("http://localhost:9001", null, null, contextModel, validityModel, selectedFeatureModel, constraintModel, null, date);
-			if(featureAnomalies != null) {
-				System.err.println(featureAnomalies.size());				
-			}
+//		try {
+//////			DwVoidFeatureModelAnomaly voidFM = analysesClient.validateFeatureModelWithContext("http://localhost:9001", null, null, contextModel, validityModel, selectedFeatureModel, constraintModel, null, null, null, date);
+//////			System.err.println(voidFM);
+//			List<DwAnomaly> featureAnomalies = analysesClient.checkFeatures("http://localhost:9001", null, null, contextModel, validityModel, selectedFeatureModel, constraintModel, null, date);
 //			if(featureAnomalies != null) {
-//				int fo = 0;
-//				int dead = 0;
-//				for(DwAnomaly anomaly: featureAnomalies) {
-//					if(anomaly instanceof DwFalseOptionalFeatureAnomaly) {
-//						fo++;
-//					}
-//					else if(anomaly instanceof DwDeadFeatureAnomaly) {
-//						dead++;
-//					}
-//				}	
-//				
-//				System.err.println("Dead features: "+dead);
-//				System.err.println("FOs: "+fo);
+//				System.err.println(featureAnomalies.size());				
 //			}
-//			else {
-//				System.err.println("No anomalies");
-//			}
-		} catch (UnresolvedAddressException | TimeoutException | InterruptedException
-				| java.util.concurrent.ExecutionException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
+////			if(featureAnomalies != null) {
+////				int fo = 0;
+////				int dead = 0;
+////				for(DwAnomaly anomaly: featureAnomalies) {
+////					if(anomaly instanceof DwFalseOptionalFeatureAnomaly) {
+////						fo++;
+////					}
+////					else if(anomaly instanceof DwDeadFeatureAnomaly) {
+////						dead++;
+////					}
+////				}	
+////				
+////				System.err.println("Dead features: "+dead);
+////				System.err.println("FOs: "+fo);
+////			}
+////			else {
+////				System.err.println("No anomalies");
+////			}
+//		} catch (UnresolvedAddressException | TimeoutException | InterruptedException
+//				| java.util.concurrent.ExecutionException e1) {
+//			// TODO Auto-generated catch block
+//			e1.printStackTrace();
+//		}
 		
 		System.out.println("Writing file");
 		List<String> lines = new ArrayList<String>();
 		lines.add(hyVarRecMessage);
 		
-//		List<String> lines_integer = new ArrayList<String>(1);
-//		lines_integer.add(hyVarRecMessage_integer);
+		List<String> lines_integer = new ArrayList<String>(1);
+		lines_integer.add(hyVarRecMessage_integer);
 		
 		Path file = Paths.get(jsonFilePath);
-//		Path file_integer = Paths.get(jsonFilePath+"_integer");
+		Path file_integer = Paths.get(jsonFilePath+"_integer");
 		try {
 			Files.write(file, lines, Charset.forName("UTF-8"));
-//			Files.write(file_integer, lines_integer, Charset.forName("UTF-8"));
+			Files.write(file_integer, lines_integer, Charset.forName("UTF-8"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
