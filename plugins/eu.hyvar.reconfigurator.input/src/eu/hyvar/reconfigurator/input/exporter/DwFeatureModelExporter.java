@@ -432,7 +432,7 @@ public abstract class DwFeatureModelExporter {
 						timedGroupConstraintStringBuilder.append(HyVarRecExporter.BRACKETS_CLOSING);
 						groupConstraintsStringBuilder = timedGroupConstraintStringBuilder;
 					}
-
+					
 					featureModelConstraints.add(groupConstraintsStringBuilder.toString());
 					
 					groupConstraintsStringBuilder = new StringBuilder();
@@ -483,6 +483,10 @@ public abstract class DwFeatureModelExporter {
 					}
 
 					featureModelConstraints.add(groupConstraintsStringBuilder.toString());
+					
+					if(groupConstraintsStringBuilder.toString().startsWith("feature[_b8ad13a0-942d-4b5e-b342-ce532c45d595]) impl feature[_9f51cd08-3c94-4e5d-a212-2c2e6a6fa5b3]")) {
+						System.err.println("Here is the bug!");
+					}
 
 					groupConstraintsStringBuilder = new StringBuilder();
 				}
@@ -541,6 +545,9 @@ public abstract class DwFeatureModelExporter {
 				}
 
 				featureModelConstraints.add(groupConstraintsStringBuilder.toString());
+				
+				groupConstraintsStringBuilder = new StringBuilder();
+				
 				break;
 
 			}

@@ -11,9 +11,6 @@ import java.util.Set;
 
 import org.eclipse.emf.ecore.EObject;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-
 import de.darwinspl.preferences.DwProfile;
 import eu.hyvar.context.HyContextModel;
 import eu.hyvar.context.HyContextualInformation;
