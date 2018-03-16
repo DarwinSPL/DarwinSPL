@@ -49,7 +49,14 @@ public class DwFeatureModelExporterIntegerEncoding extends DwFeatureModelExporte
 
 		
 		StringBuilder alternativeStringBuilder = new StringBuilder(HyVarRecExporter.BRACKETS_OPEN);
-		alternativeStringBuilder.append(featureEndocing.getFeatureSelected(parentId));
+		
+		if(childrenIds.size() > 1) {			
+			alternativeStringBuilder.append(featureEndocing.getFeatureSelected(parentId));
+		}
+		else {
+			alternativeStringBuilder.append(parentId);
+		}
+		
 		alternativeStringBuilder.append(HyVarRecExporter.BRACKETS_CLOSING);
 
 		alternativeStringBuilder.append(HyVarRecExporter.EQUALS);
