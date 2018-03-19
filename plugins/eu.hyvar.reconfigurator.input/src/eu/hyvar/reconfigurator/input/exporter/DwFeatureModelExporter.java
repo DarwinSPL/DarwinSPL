@@ -15,12 +15,14 @@ import eu.hyvar.feature.HyFeature;
 import eu.hyvar.feature.HyFeatureAttribute;
 import eu.hyvar.feature.HyFeatureChild;
 import eu.hyvar.feature.HyFeatureModel;
+import eu.hyvar.feature.HyFeatureTypeEnum;
 import eu.hyvar.feature.HyGroup;
 import eu.hyvar.feature.HyGroupComposition;
 import eu.hyvar.feature.HyGroupType;
 import eu.hyvar.feature.HyNumberAttribute;
 import eu.hyvar.feature.HyRootFeature;
 import eu.hyvar.feature.HyVersion;
+import eu.hyvar.feature.util.HyFeatureEvolutionUtil;
 import eu.hyvar.feature.util.HyFeatureModelWellFormednessException;
 import eu.hyvar.feature.util.HyFeatureUtil;
 import eu.hyvar.reconfigurator.input.exporter.HyVarRecExporter.FeatureEncoding;
@@ -449,16 +451,14 @@ public abstract class DwFeatureModelExporter {
 
 			case AND:
 
-				List<List<HyFeature>> splittedFeatures = HyFeatureUtil
-						.splitFeaturesIntoMandatoryAndOptional(validFeaturesOfGroupComposition, relevantDate);
-				List<HyFeature> mandatoryFeatures = splittedFeatures.get(0);
-				List<HyFeature> optionalFeatures = splittedFeatures.get(1);
+				List<HyFeature> mandatoryFeatures = HyFeatureUtil.filterFeatures(validFeaturesOfGroupComposition, HyFeatureTypeEnum.MANDATORY, relevantDate);
+//				List<HyFeature> optionalFeatures = splittedFeatures.get(1);
 
-				// for all mandaotry feautres say: parent <-> (mand1 and mand2 ...)
+				// for all mandaotry feautres say: parent -> (mand1 and mand2 ...)
 				if (!mandatoryFeatures.isEmpty()) {
 					groupConstraintsStringBuilder.append(featureEndocing.getFeatureSelected(parentFeatureId));
 
-					groupConstraintsStringBuilder.append(HyVarRecExporter.EQUIVALENCE);
+					groupConstraintsStringBuilder.append(HyVarRecExporter.IMPLICATION);
 
 					if (mandatoryFeatures.size() > 1) {
 						groupConstraintsStringBuilder.append(HyVarRecExporter.BRACKETS_OPEN);
@@ -499,15 +499,15 @@ public abstract class DwFeatureModelExporter {
 					groupConstraintsStringBuilder = new StringBuilder();
 				}
 
-				// For all optional features, say (opt1 or opt2...) -> parent
-				if (!optionalFeatures.isEmpty()) {
+				// For all features, say (opt1 or opt2...) -> parent
+				if (!validFeaturesOfGroupComposition.isEmpty()) {
 
-					if (optionalFeatures.size() > 1) {
+					if (validFeaturesOfGroupComposition.size() > 1) {
 						groupConstraintsStringBuilder.append(HyVarRecExporter.BRACKETS_OPEN);
 					}
 
 					boolean firstChildAnd = true;
-					for (HyFeature optionalFeature : optionalFeatures) {
+					for (HyFeature childFeature : validFeaturesOfGroupComposition) {
 						// Constraints for mandatory features
 						if (!firstChildAnd) {
 							groupConstraintsStringBuilder.append(HyVarRecExporter.OR);
@@ -516,10 +516,10 @@ public abstract class DwFeatureModelExporter {
 						}
 
 						groupConstraintsStringBuilder.append(featureEndocing
-								.getFeatureSelected(featureReconfiguratorIdMapping.get(optionalFeature)));
+								.getFeatureSelected(featureReconfiguratorIdMapping.get(childFeature)));
 					}
 
-					if (optionalFeatures.size() > 1) {
+					if (validFeaturesOfGroupComposition.size() > 1) {
 						groupConstraintsStringBuilder.append(HyVarRecExporter.BRACKETS_CLOSING);
 					}
 
