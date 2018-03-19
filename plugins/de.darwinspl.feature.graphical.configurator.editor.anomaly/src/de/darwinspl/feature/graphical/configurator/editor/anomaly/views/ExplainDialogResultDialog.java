@@ -151,7 +151,7 @@ public class ExplainDialogResultDialog extends TitleAreaDialog {
 			if (anomaly.getValidUntil() != null) {
 				dates += " - " + anomaly.getValidUntil().toString();
 			} else {
-				dates += " - enternity";
+				dates += " - eternity";
 			}
 
 		} else {
@@ -184,6 +184,9 @@ public class ExplainDialogResultDialog extends TitleAreaDialog {
 		uriText.setLayoutData(seperatorGridData);
 		List<String> explanations = new ArrayList<String>();
 		for (AnomalyConstraintExplanation explanation : anomalyExplanation) {
+			if (explanations.size() > 0) {
+				explanations.add("-----"); // TODO temp separator
+			}
 			explanations.add(explanation.explain());
 		}
 		String resultString = "";

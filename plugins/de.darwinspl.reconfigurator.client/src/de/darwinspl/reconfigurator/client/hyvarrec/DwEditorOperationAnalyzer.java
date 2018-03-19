@@ -30,6 +30,8 @@ import de.darwinspl.feature.evolution.editoroperation.DwEditorOperationFeature;
 import de.darwinspl.feature.evolution.editoroperation.DwEditorOperationFeatureGroup;
 import de.darwinspl.feature.evolution.editoroperation.DwEditorOperationFeatureRename;
 import de.darwinspl.feature.evolution.editoroperation.DwEditorOperationFeatureType;
+import de.darwinspl.feature.evolution.editoroperation.DwEditorOperationFeatureVersion;
+import de.darwinspl.feature.evolution.editoroperation.DwEditorOperationFeatureVersionCreate;
 import de.darwinspl.feature.evolution.editoroperation.DwEditorOperationGroupType;
 import de.darwinspl.feature.evolution.editoroperation.DwEditorOperationValidityFormulaCreate;
 import de.darwinspl.feature.evolution.editoroperation.DwEditorOperationValidityFormulaDelete;
@@ -42,8 +44,8 @@ import eu.hyvar.context.contextValidity.HyValidityModel;
 import eu.hyvar.dataValues.HyEnum;
 import eu.hyvar.dataValues.HyEnumLiteral;
 import eu.hyvar.evolution.HyName;
-import eu.hyvar.evolution.HyTemporalElement;
 import eu.hyvar.evolution.util.HyEvolutionUtil;
+import eu.hyvar.feature.HyEnumAttribute;
 import eu.hyvar.feature.HyFeature;
 import eu.hyvar.feature.HyFeatureAttribute;
 import eu.hyvar.feature.HyFeatureChild;
@@ -65,9 +67,7 @@ public class DwEditorOperationAnalyzer {
 	private HyValidityModel contextValidityModel;
 	private HyFeatureModel featureModel;
 	private HyConstraintModel constraintModel;
-//	private HyContextValueModel contextValues;
 	private Date date;
-//	private Date evolutionContextValueDate;
 	
 	List<DwEditorOperation> operationList;
 
@@ -80,29 +80,29 @@ public class DwEditorOperationAnalyzer {
 		this.client = client;
 	}
 	
-	// TODO: attribute changes missing
 	public void constructEditorOperations() {
 		operationList = new ArrayList<DwEditorOperation>();
 		DwEditorOperation obj = null;
 		if (getFeatureModel() != null) {
+			
 			for(HyFeature feature : getFeatureModel().getFeatures()) {
-				// => create EditorOperationFeatureCreate
+				// FEATURE CREATE
 				obj = EditoroperationFactory.eINSTANCE.createDwEditorOperationFeatureCreate();
 				obj.setEvoStep(feature.getValidSince());
 				((DwEditorOperationFeature) obj).setFeature(feature);
 				operationList.add(obj);
 				
+				// FEATURE DELETE
 				if (feature.getValidUntil() != null) {
-					// => create EditorOperationFeatureDelete
 					obj = EditoroperationFactory.eINSTANCE.createDwEditorOperationFeatureDelete();
 					obj.setEvoStep(feature.getValidUntil());
 					((DwEditorOperationFeature) obj).setFeature(feature);
 					operationList.add(obj);
 				}
 				
+				// FEATURE NAME
 				for (HyName name : feature.getNames()) {
 					if (name.getValidSince() != feature.getValidSince()) { // don't interpret default as change
-						// => create EditorOperationFeatureRename
 						HyName predecessor = (HyName) name.getSupersededElement();
 						obj = EditoroperationFactory.eINSTANCE.createDwEditorOperationFeatureRename();
 						obj.setEvoStep(name.getValidSince());
@@ -113,10 +113,10 @@ public class DwEditorOperationAnalyzer {
 					}
 				}
 				
+				// FEATURE TYPE
 				for (HyFeatureType type : feature.getTypes()) {
 					if (type.getValidSince() != feature.getValidSince()) { // don't interpret default as change
 						HyFeatureType predecessor = (HyFeatureType) type.getSupersededElement();
-						// => create EditorOperationFeatureType
 						obj = EditoroperationFactory.eINSTANCE.createDwEditorOperationFeatureType();
 						obj.setEvoStep(type.getValidSince());
 						((DwEditorOperationFeature) obj).setFeature(feature);
@@ -127,11 +127,26 @@ public class DwEditorOperationAnalyzer {
 				}
 				
 				for (HyVersion version : feature.getVersions()) {
-					// => create editorOperationFeatureVersionCreate
-					// => create editorOperationFeatureVersionDelete
-					// => create editorOperationFeatureVersionRename
+					// FEATURE CREATE
+					obj = EditoroperationFactory.eINSTANCE.createDwEditorOperationFeatureVersionCreate();
+					obj.setEvoStep(feature.getValidSince());
+					((DwEditorOperationFeatureVersion) obj).setFeature(feature);
+					((DwEditorOperationFeatureVersion) obj).setVersion(version);
+					operationList.add(obj);
+
+					// FEATURE CREATE
+					if (version.getValidUntil() != null) {
+						obj = EditoroperationFactory.eINSTANCE.createDwEditorOperationFeatureVersionDelete();
+						obj.setEvoStep(feature.getValidSince());
+						((DwEditorOperationFeatureVersion) obj).setFeature(feature);
+						((DwEditorOperationFeatureVersion) obj).setVersion(version);
+						operationList.add(obj);
+					}
+
+					// TODO editorOperationFeatureVersionRename DOESNT EXIST
 				}
 				
+				// FEATURE GROUP
 				for (HyGroupComposition group : feature.getGroupMembership()) {
 					if (group.getValidSince() != feature.getValidSince()) { // don't interpret default as change
 						HyGroupComposition predecessor = (HyGroupComposition) group.getSupersededElement();
@@ -144,20 +159,25 @@ public class DwEditorOperationAnalyzer {
 						operationList.add(obj);
 					}
 				}
+				
+				
 				for (HyFeatureAttribute attribute : feature.getAttributes()) {
-
+					
+					// ATTRIBUTE CREATE
 					obj = EditoroperationFactory.eINSTANCE.createDwEditorOperationAttributeCreate();
 					obj.setEvoStep(attribute.getValidSince());
-					((DwEditorOperationAttributeCreate) obj).setAttribute(attribute);
+					((DwEditorOperationAttribute) obj).setAttribute(attribute);
 					operationList.add(obj);
-					
+
+					// ATTRIBUTE DELETE
 					if (attribute.getValidUntil() != null) {
 						obj = EditoroperationFactory.eINSTANCE.createDwEditorOperationAttributeDelete();
 						obj.setEvoStep(attribute.getValidSince());
-						((DwEditorOperationAttributeDelete) obj).setAttribute(attribute);
+						((DwEditorOperationAttribute) obj).setAttribute(attribute);
 						operationList.add(obj);
 					}
 
+					// ATTRIBUTE RENAME
 					for (HyName name : attribute.getNames()) {
 						if (name.getValidSince() != attribute.getValidSince()) { // don't interpret default as change
 							HyName predecessor = (HyName) name.getSupersededElement();
@@ -169,20 +189,17 @@ public class DwEditorOperationAnalyzer {
 							operationList.add(obj);
 						}
 					}
-					
-					if (attribute instanceof HyNumberAttribute) {
-						HyNumberAttribute numberAttribute = (HyNumberAttribute) attribute;
-						// TODO: can't detect min/max change.
-					}
+					// TODO editorOperationAttributeEnum DOESNT EXIST
+					// TODO editorOperationAttributeMinMax DOESNT EXIST
 				}
 			}
 			
-			// lookup group type changes
-			for (HyGroup group : getFeatureModel().getGroups()) {				
+			for (HyGroup group : getFeatureModel().getGroups()) {		
 				for (HyGroupType type : group.getTypes()) {
+										
+					// GROUP TYPE
 					if (type.getValidSince() != group.getValidSince()) { // don't interpret default as change
 						HyGroupType predecessor = (HyGroupType) type.getSupersededElement();
-						// => create editorOperationGroup type change
 						obj = EditoroperationFactory.eINSTANCE.createDwEditorOperationGroupType();
 						obj.setEvoStep(type.getValidSince());
 						((DwEditorOperationGroupType) obj).setGroup(group);
@@ -194,7 +211,6 @@ public class DwEditorOperationAnalyzer {
 			}
 		}
 		
-		// TODO: cannot detect name changes for enums
 		List<HyEnum> enumList = new ArrayList<HyEnum>();
 		if (getContextModel() != null) {
 			enumList.addAll(getContextModel().getEnums());
@@ -203,11 +219,14 @@ public class DwEditorOperationAnalyzer {
 			enumList.addAll(getFeatureModel().getEnums());
 		}
 		for (HyEnum hyEnum : enumList) {
+			
+			// ENUM CREATE
 			obj = EditoroperationFactory.eINSTANCE.createDwEditorOperationEnumCreate();
 			obj.setEvoStep(hyEnum.getValidSince());
 			((DwEditorOperationEnum) obj).setEnum(hyEnum);
 			operationList.add(obj);
 			
+			// ENUM DELETE
 			if (hyEnum.getValidUntil() != null) {
 				// => create EditorOperationFeatureDelete
 				obj = EditoroperationFactory.eINSTANCE.createDwEditorOperationEnumDelete();
@@ -215,35 +234,39 @@ public class DwEditorOperationAnalyzer {
 				((DwEditorOperationEnum) obj).setEnum(hyEnum);
 				operationList.add(obj);
 			}
+			// TODO editorOperationEnumRename DOESNT EXIST
 						
 			for (HyEnumLiteral literal : hyEnum.getLiterals()) {
+				// ENUM LITERAL CREATE
 				obj = EditoroperationFactory.eINSTANCE.createDwEditorOperationEnumLiteralCreate();
 				obj.setEvoStep(literal.getValidSince());
 				((DwEditorOperationEnumLiteral) obj).setEnum(hyEnum);
 				((DwEditorOperationEnumLiteral) obj).setLiteral(literal);
 				operationList.add(obj);
-				
+
+				// ENUM LITERAL DELETE
 				if (literal.getValidUntil() != null) {
-					// => create EditorOperationFeatureDelete
 					obj = EditoroperationFactory.eINSTANCE.createDwEditorOperationEnumLiteralDelete();
 					obj.setEvoStep(literal.getValidUntil());
 					((DwEditorOperationEnumLiteral) obj).setEnum(hyEnum);
 					((DwEditorOperationEnumLiteral) obj).setLiteral(literal);
 					operationList.add(obj);
 				}
+				// TODO editorOperationEnumLiteralRename DOESNT EXIST
 			}
 		}
 
 		if (getContextModel() != null) {
 			for (HyContextualInformation context : getContextModel().getContextualInformations()) {
-				// => create editorOperationContextCreate
+				
+				// CONTEXT CREATE
 				obj = EditoroperationFactory.eINSTANCE.createDwEditorOperationContextCreate();
 				obj.setEvoStep(context.getValidSince());
 				((DwEditorOperationContext) obj).setContext(context);
 				operationList.add(obj);
-				
+
+				// CONTEXT DELETE
 				if (context.getValidUntil() != null) {
-					// => create editorOperationContextDelete
 					obj = EditoroperationFactory.eINSTANCE.createDwEditorOperationContextDelete();
 					obj.setEvoStep(context.getValidUntil());
 					((DwEditorOperationContext) obj).setContext(context);
@@ -255,14 +278,15 @@ public class DwEditorOperationAnalyzer {
 		// TODO: incompatible validityFormula in metamodel
 		if (getContextValidityModel() != null) {
 			for (HyValidityFormula validityFormula : getContextValidityModel().getValidityFormulas()) {
-				// => create editorOperationValidityFormulaCreate
+				
+				// VALIDITY FORMULA CREATE
 				obj = EditoroperationFactory.eINSTANCE.createDwEditorOperationValidityFormulaCreate();
 				obj.setEvoStep(validityFormula.getValidSince());
 	//			((DwEditorOperationValidityFormula) obj).setValidityFormula(validityFormula);
 				operationList.add(obj);
-				
+
+				// VALIDITY FORMULA DELETE
 				if (validityFormula.getValidUntil() != null) {
-					// => create editorOperationValidityFormulaDelete
 					obj = EditoroperationFactory.eINSTANCE.createDwEditorOperationValidityFormulaDelete();
 					obj.setEvoStep(validityFormula.getValidUntil());
 	//				((DwEditorOperationValidityFormula) obj).setValidityFormula(validityFormula);
@@ -273,12 +297,14 @@ public class DwEditorOperationAnalyzer {
 
 		if (getConstraintModel() != null) {
 			for (HyConstraint constraint : getConstraintModel().getConstraints()) {
-				// => create editorOperationConstraintCreate
+
+				// CONSTRAINT CREATE
 				obj = EditoroperationFactory.eINSTANCE.createDwEditorOperationConstraintCreate();
 				obj.setEvoStep(constraint.getValidSince());
 				((DwEditorOperationConstraint) obj).setConstraint(constraint);
 				operationList.add(obj);
-				
+
+				// CONSTRAINT DELETE
 				if (constraint.getValidUntil() != null) {
 					// => create editorOperationConstraintDelete
 					obj = EditoroperationFactory.eINSTANCE.createDwEditorOperationConstraintDelete();
@@ -301,10 +327,7 @@ public class DwEditorOperationAnalyzer {
 		return null;
 	}
 	
-	public List<AnomalyConstraintExplanation> explainVoidAnomaly(DwAnomalyExplanation anomalyExplanation) {
-		DwVoidFeatureModelAnomaly anomaly = (DwVoidFeatureModelAnomaly) anomalyExplanation.getAnomaly();
-		Date date = anomaly.getValidSince();
-		
+	public List<AnomalyConstraintExplanation> explainVoidAnomaly(DwAnomalyExplanation anomalyExplanation) {		
 		List<AnomalyConstraintExplanation> constraintExplanationList = getRelatedEditorOperationsFromExplanation(anomalyExplanation);
 		
 		for (AnomalyConstraintExplanation explanation : constraintExplanationList) {
@@ -388,10 +411,7 @@ public class DwEditorOperationAnalyzer {
 	}
 	
 
-	public List<AnomalyConstraintExplanation> explainFalseOptionalFeatureAnomaly(DwAnomalyExplanation anomalyExplanation) {
-		DwFalseOptionalFeatureAnomaly anomaly = (DwFalseOptionalFeatureAnomaly) anomalyExplanation.getAnomaly();
-		Date date = anomaly.getValidSince();
-		
+	public List<AnomalyConstraintExplanation> explainFalseOptionalFeatureAnomaly(DwAnomalyExplanation anomalyExplanation) {		
 		List<AnomalyConstraintExplanation> constraintExplanationList = getRelatedEditorOperationsFromExplanation(anomalyExplanation);
 		
 		for (AnomalyConstraintExplanation explanation : constraintExplanationList) {
@@ -461,6 +481,7 @@ public class DwEditorOperationAnalyzer {
 			constraint = (HyConstraint) object;
 			
 			// TODO: get involved features + groups and out of it
+			// Do i have to? because those features will be represented in other constraints as well, won't they?
 		}
 		
 		HyValidityFormula validityFormula = null;
@@ -468,6 +489,7 @@ public class DwEditorOperationAnalyzer {
 			validityFormula = (HyValidityFormula) object;
 			
 			// TODO: get involved features + groups and out of it
+			// Do i have to? because those features will be represented in other constraints as well, won't they?
 		}
 		
 		for (DwEditorOperation operation : operationList) {
@@ -537,7 +559,6 @@ public class DwEditorOperationAnalyzer {
 			if (operation instanceof DwEditorOperationFeatureType
 					|| operation instanceof DwEditorOperationFeatureGroup
 					|| operation instanceof DwEditorOperationGroupType
-					|| operation instanceof DwEditorOperationAttributeMinMax // TODO: cannot detect
 					|| operation instanceof DwEditorOperationConstraintCreate
 					|| operation instanceof DwEditorOperationValidityFormulaCreate) {
 				constraintExplanation.addCausingEditorOperations(opExplanation);
@@ -555,7 +576,6 @@ public class DwEditorOperationAnalyzer {
 			if (operation instanceof DwEditorOperationFeatureType
 					|| operation instanceof DwEditorOperationFeatureGroup
 					|| operation instanceof DwEditorOperationGroupType
-					|| operation instanceof DwEditorOperationAttributeMinMax // TODO: cannot detect
 					|| operation instanceof DwEditorOperationConstraintCreate
 					|| operation instanceof DwEditorOperationValidityFormulaCreate) {
 				constraintExplanation.addCausingEditorOperations(opExplanation);
@@ -563,7 +583,7 @@ public class DwEditorOperationAnalyzer {
 			}
 		}
 		// Only keep relevant explanations
-		constraintExplanation.getEvolutionEditorOperations().retainAll(list);
+		constraintExplanation.getEvolutionEditorOperations().removeAll(list);
 	}
 	
 	public void filterRelevantVoidFeatureModelEditorOperation(AnomalyConstraintExplanation constraintExplanation) {
@@ -582,7 +602,7 @@ public class DwEditorOperationAnalyzer {
 			}
 		}
 		// Only keep relevant explanations
-		constraintExplanation.getEvolutionEditorOperations().retainAll(list);
+		constraintExplanation.getEvolutionEditorOperations().removeAll(list);
 	}
 	
 	// ------------- UTIL -------------
@@ -649,14 +669,6 @@ public class DwEditorOperationAnalyzer {
 		this.constraintModel = constraintModel;
 	}
 
-//	public HyContextValueModel getContextValues() {
-//		return contextValues;
-//	}
-//
-//	public void setContextValues(HyContextValueModel contextValues) {
-//		this.contextValues = contextValues;
-//	}
-
 	public Date getDate() {
 		return date;
 	}
@@ -664,14 +676,6 @@ public class DwEditorOperationAnalyzer {
 	public void setDate(Date date) {
 		this.date = date;
 	}
-
-//	public Date getEvolutionContextValueDate() {
-//		return evolutionContextValueDate;
-//	}
-//
-//	public void setEvolutionContextValueDate(Date evolutionContextValueDate) {
-//		this.evolutionContextValueDate = evolutionContextValueDate;
-//	}
 	
 	public void setFeatureAnomalies(List<DwAnomaly> anomalies){
 		deadFeatureList = getDeadFeatures(anomalies);
