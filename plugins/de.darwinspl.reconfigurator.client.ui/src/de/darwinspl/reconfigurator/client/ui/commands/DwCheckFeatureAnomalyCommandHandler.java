@@ -119,16 +119,16 @@ public class DwCheckFeatureAnomalyCommandHandler extends AbstractHandler {
 		
 		String hyVarRecMessage = analysesClient.createHyVarRecMessage(contextModel, validityModel, selectedFeatureModel, constraintModel, null, null, null, date, null, DwAnalysesClient.VALIDATE_MODALITY);
 		
-//		HyVarRecExporter integerExporter = new HyVarRecExporter(FeatureEncoding.INTEGER);
-//		InputForHyVarRec inputForHyVarRec = integerExporter.exportSPL(contextModel, validityModel, selectedFeatureModel, constraintModel, null, null, null, date, date);
-//		
-//		GsonBuilder gsonBuilder = new GsonBuilder();
-//		gsonBuilder.setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES);
-//		Gson gson = gsonBuilder.disableHtmlEscaping().create();
-//		String hyVarRecMessage_integer = gson.toJson(inputForHyVarRec);
+		HyVarRecExporter integerExporter = new HyVarRecExporter(FeatureEncoding.INTEGER);
+		InputForHyVarRec inputForHyVarRec = integerExporter.exportSPL(contextModel, validityModel, selectedFeatureModel, constraintModel, null, null, null, date, date);
+		
+		GsonBuilder gsonBuilder = new GsonBuilder();
+		gsonBuilder.setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES);
+		Gson gson = gsonBuilder.disableHtmlEscaping().create();
+		String hyVarRecMessage_integer = gson.toJson(inputForHyVarRec);
 		
 		
-		try {
+//		try {
 //			System.err.println("Retrieving first explanation");
 //			DwAnomalyExplanation firstExplanation = analysesClient.explainFeatureAnomaly("http://localhost:9001", null, null, contextModel, validityModel, selectedFeatureModel, constraintModel, "_b8ad13a0-942d-4b5e-b342-ce532c45d595", false, null);
 //			System.err.println("First explanation:");
@@ -140,10 +140,10 @@ public class DwCheckFeatureAnomalyCommandHandler extends AbstractHandler {
 ////			DwVoidFeatureModelAnomaly voidFM = analysesClient.validateFeatureModelWithContext("http://localhost:9001", null, null, contextModel, validityModel, selectedFeatureModel, constraintModel, null, null, null, date);
 ////			System.err.println(voidFM);
 //			System.err.println("Checking features");
-			List<DwAnomaly> featureAnomalies = analysesClient.checkFeatures("http://localhost:9001", null, null, contextModel, validityModel, selectedFeatureModel, constraintModel, null, date);
-			for(DwAnomaly anomaly: featureAnomalies) {
-				System.err.println(anomaly);
-			}
+//			List<DwAnomaly> featureAnomalies = analysesClient.checkFeatures("http://localhost:9001", null, null, contextModel, validityModel, selectedFeatureModel, constraintModel, null, date);
+//			for(DwAnomaly anomaly: featureAnomalies) {
+//				System.err.println(anomaly);
+//			}
 //			if(featureAnomalies != null) {
 //				for(DwAnomaly anomaly: featureAnomalies) {
 //					if(anomaly instanceof DwFalseOptionalFeatureAnomaly) {
@@ -174,24 +174,24 @@ public class DwCheckFeatureAnomalyCommandHandler extends AbstractHandler {
 //			else {
 //				System.err.println("No anomalies");
 //			}
-		} catch (UnresolvedAddressException | TimeoutException | InterruptedException
-				| java.util.concurrent.ExecutionException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
+//		} catch (UnresolvedAddressException | TimeoutException | InterruptedException
+//				| java.util.concurrent.ExecutionException e1) {
+//			// TODO Auto-generated catch block
+//			e1.printStackTrace();
+//		}
 		
 		System.out.println("Writing file");
 		List<String> lines = new ArrayList<String>();
 		lines.add(hyVarRecMessage);
 		
-//		List<String> lines_integer = new ArrayList<String>(1);
-//		lines_integer.add(hyVarRecMessage_integer);
+		List<String> lines_integer = new ArrayList<String>(1);
+		lines_integer.add(hyVarRecMessage_integer);
 		
 		Path file = Paths.get(jsonFilePath);
-//		Path file_integer = Paths.get(jsonFilePath+"_integer");
+		Path file_integer = Paths.get(jsonFilePath+"_integer");
 		try {
 			Files.write(file, lines, Charset.forName("UTF-8"));
-//			Files.write(file_integer, lines_integer, Charset.forName("UTF-8"));
+			Files.write(file_integer, lines_integer, Charset.forName("UTF-8"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

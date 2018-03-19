@@ -310,12 +310,6 @@ public abstract class DwFeatureModelExporter {
 	private List<String> getGroupConstraints(HyGroup group, Date date, Context dateContext, List<Date> sortedDateList)
 			throws HyFeatureModelWellFormednessException {
 		
-		// TODO debugging code
-		if(featureEndocing instanceof DwFeatureEncodingInteger)
-		if(group.getId().equals("_79bac950-394a-4c75-9737-0b3fc7628d87") || group.getId().equals("_95c90063-9f66-4785-a0ad-574e2659b0b5") || group.getId().equals("_c66b60ea-4aa6-4422-bf38-292bfa921b30") || group.getId().equals("_07fed24a-c6fc-41b3-8aca-ad553767b0e0")) {
-			System.out.println("Culprit group!");
-		}
-		
 		List<String> featureModelConstraints = new ArrayList<String>();
 
 		StringBuilder groupConstraintsStringBuilder = new StringBuilder();
