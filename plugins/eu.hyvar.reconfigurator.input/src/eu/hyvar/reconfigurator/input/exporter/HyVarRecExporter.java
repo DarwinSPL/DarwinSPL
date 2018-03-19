@@ -609,6 +609,11 @@ public class HyVarRecExporter {
 			
 			for(HyFeature feature: featureListToIterate) {
 				
+				// TODO debug code
+				if(feature.getId().equals("_ed98f129-dbef-4edb-b76d-4f437d70b4f2")) {
+					System.out.println("Culprit");
+				}
+				
 				List<List<Integer>> optionalIntervalList = null;
 				
 				if(sortedDateList == null) {

@@ -328,6 +328,27 @@ public class HyFeatureEvolutionUtil {
 	public static List<HyFeature> getFeatures(HyFeatureModel featureModel, Date date) {
 		return HyEvolutionUtil.getValidTemporalElements(featureModel.getFeatures(), date);
 	}
+	
+	public static List<HyFeature> getFeatures(HyFeatureModel featureModel, Date date, HyFeatureTypeEnum type) {
+		List<HyFeature> validFeatures = getFeatures(featureModel, date);
+		
+		if(validFeatures == null || type == null) {
+			return validFeatures;
+		}
+		
+		List<HyFeature> featuresWithCorrectType = new ArrayList<HyFeature>();
+		
+		for(HyFeature feature: validFeatures) {
+			HyFeatureType featureType = getType(feature, date);
+			if(featureType != null) {
+				if(featureType.getType().equals(type)) {
+					featuresWithCorrectType.add(feature);
+				}
+			}
+		}
+		
+		return featuresWithCorrectType;
+	}
 
 	public static List<HyGroup> getGroups(HyFeatureModel featureModel, Date date) {
 		return HyEvolutionUtil.getValidTemporalElements(featureModel.getGroups(), date);
