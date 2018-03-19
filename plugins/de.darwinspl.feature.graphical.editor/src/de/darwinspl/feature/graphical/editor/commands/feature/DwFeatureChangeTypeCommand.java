@@ -72,7 +72,7 @@ public class DwFeatureChangeTypeCommand extends Command {
 
 		newType.setValidSince(date);
 
-		if (type.getValidSince() == date || type.getValidSince().equals(date)) {
+		if (type.getValidSince() == date || (type.getValidSince() != null && type.getValidSince().equals(date))) {
 			feature.getTypes().remove(type);
 		} else {
 			type.setValidUntil(date);
