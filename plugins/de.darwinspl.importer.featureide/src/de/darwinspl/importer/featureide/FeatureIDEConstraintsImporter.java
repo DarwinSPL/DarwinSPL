@@ -19,15 +19,11 @@ import eu.hyvar.feature.HyFeatureModel;
 import eu.hyvar.feature.constraint.HyConstraint;
 import eu.hyvar.feature.constraint.HyConstraintFactory;
 import eu.hyvar.feature.constraint.HyConstraintModel;
-import eu.hyvar.feature.expression.HyAndExpression;
 import eu.hyvar.feature.expression.HyBinaryExpression;
-import eu.hyvar.feature.expression.HyEquivalenceExpression;
 import eu.hyvar.feature.expression.HyExpression;
 import eu.hyvar.feature.expression.HyExpressionFactory;
 import eu.hyvar.feature.expression.HyFeatureReferenceExpression;
-import eu.hyvar.feature.expression.HyImpliesExpression;
 import eu.hyvar.feature.expression.HyNotExpression;
-import eu.hyvar.feature.expression.HyOrExpression;
 
 public class FeatureIDEConstraintsImporter {
 
@@ -59,41 +55,12 @@ public class FeatureIDEConstraintsImporter {
 	private HyExpression createExpression(Node node) {
 		HyExpression expression = null;
 		
-		
-		if(node instanceof And) {
-			HyAndExpression andExpression = expressionFactory.createHyAndExpression();
-			
-			getChildrenOfBinaryExpression(andExpression, node);
-			
-			expression = andExpression;
-		} 
-		else if(node instanceof Or) {
-			HyOrExpression orExpression = expressionFactory.createHyOrExpression();
-			
-			getChildrenOfBinaryExpression(orExpression, node);
-			
-			expression = orExpression;
-		}
-		else if(node instanceof Implies) {
-			HyImpliesExpression impliesExpression = expressionFactory.createHyImpliesExpression();
-			
-			getChildrenOfBinaryExpression(impliesExpression, node);
-			
-			expression = impliesExpression;
-		}
-		else if(node instanceof Equals) {
-			HyEquivalenceExpression equivalenceExpression = expressionFactory.createHyEquivalenceExpression();
-			
-			getChildrenOfBinaryExpression(equivalenceExpression, node);
-			
-			expression = equivalenceExpression;
-		}
-		else if(node instanceof Not) {
-			HyNotExpression notExpression = expressionFactory.createHyNotExpression();
-			
-			notExpression.setOperand(createExpression(node.getChildren()[0]));
-			
-			expression = notExpression;
+		if(node instanceof Not) {
+				HyNotExpression notExpression = expressionFactory.createHyNotExpression();
+				
+				notExpression.setOperand(createExpression(node.getChildren()[0]));
+				
+				expression = notExpression;	
 		}
 		else if(node instanceof Literal) {
 			Literal literal = (Literal) node;
@@ -102,6 +69,11 @@ public class FeatureIDEConstraintsImporter {
 			if(literal.var instanceof String) {
 				HyFeatureReferenceExpression featureReferenceExpression = expressionFactory.createHyFeatureReferenceExpression();
 				HyFeature feature = getFeature((String)literal.var);
+				
+				if(feature == null) {
+					System.err.println("Could not find referenced feature of "+(String)literal.var);
+				}
+				
 				featureReferenceExpression.setFeature(feature);
 				
 				expression = featureReferenceExpression;
@@ -111,14 +83,54 @@ public class FeatureIDEConstraintsImporter {
 				// TODO proper error handling
 			}
 			
+			// strange possible behavior of Nodes
+			if(!literal.positive) {
+				HyNotExpression notExpression = expressionFactory.createHyNotExpression();
+				
+				notExpression.setOperand(expression);
+				
+				expression = notExpression;
+				System.out.println("Strange Behavior");
+			}
+			
+			
+			
+		}
+		else {
+			HyBinaryExpression binaryExpression = null;
+			if(node instanceof And) {
+				binaryExpression = expressionFactory.createHyAndExpression();
+			} 
+			else if(node instanceof Or) {
+				binaryExpression = expressionFactory.createHyOrExpression();
+			}
+			else if(node instanceof Implies) {
+				binaryExpression = expressionFactory.createHyImpliesExpression();
+			}
+			else if(node instanceof Equals) {
+				binaryExpression = expressionFactory.createHyEquivalenceExpression();
+			}
+			else {
+				System.err.println("Unknown node type!");
+			}
+			
+			HyExpression operand1 = createExpression(node.getChildren()[0]);
+			HyExpression operand2 = createExpression(node.getChildren()[1]);
+			
+			if(operand1 == null || operand2 == null) {
+				System.err.println("Operands were null!");
+				return null;
+			}
+			
+			binaryExpression.setOperand1(operand1);
+			binaryExpression.setOperand2(operand2);
+			
+			expression = binaryExpression;
 		}
 		
+		
+		
 		return expression;
-	}
-	
-	private void getChildrenOfBinaryExpression(HyBinaryExpression binaryExpression, Node node) {
-		binaryExpression.setOperand1(createExpression(node.getChildren()[0]));
-		binaryExpression.setOperand2(createExpression(node.getChildren()[1]));
 	}
 	
 	private HyFeature getFeature(String featureName) {

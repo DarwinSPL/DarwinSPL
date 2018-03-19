@@ -1,5 +1,10 @@
 package de.darwinspl.importer.ui.wizards;
 
+
+import java.io.File;
+
+import org.eclipse.core.resources.IFile;
+import org.eclipse.core.resources.IResource;
 import org.eclipse.jface.wizard.WizardPage;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionEvent;
@@ -9,13 +14,19 @@ import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.FileDialog;
 import org.eclipse.swt.widgets.Label;
-import org.eclipse.swt.widgets.Text;
 
 public class FileSelectionWizardPage extends WizardPage implements SelectionListener {
 
+	protected int getSelectionType() {
+		return SWT.SINGLE;
+	}
 	
 	protected String modelName;
 	protected Composite container;
+	
+	protected FileDialog fileDialog;
+	
+	protected IResource selectedResource;
 	
 	/**
 	 * 
@@ -35,17 +46,17 @@ public class FileSelectionWizardPage extends WizardPage implements SelectionList
 	 *            bundles are treated as directories. When no filter extension
 	 *            is set, bundles are treated as files.
 	 */
-	public FileSelectionWizardPage(String pageName, String description, String[] fileExtensionFilter, String modelName) {
+	public FileSelectionWizardPage(String pageName, String description, String[] fileExtensionFilter, String modelName, IResource selectedResource) {
 		super(pageName);
 		setDescription(description);
 		this.fileExtensionFilter = fileExtensionFilter;
 		
 		this.modelName = modelName;
-		// TODO Auto-generated constructor stub
+		this.selectedResource = selectedResource;
 	}
 
 	protected Label selectedSourceFileLabel;
-	protected Text sourceFilePathText;
+//	protected Text sourceFilePathText;
 	protected Button selectFileButton;
 	protected String[] fileExtensionFilter;
 	private String selectedSourceFile;
@@ -56,13 +67,13 @@ public class FileSelectionWizardPage extends WizardPage implements SelectionList
 		container = new Composite(parent, SWT.NONE);
         GridLayout layout = new GridLayout();
         container.setLayout(layout);
-        layout.numColumns = 2;
+        layout.numColumns = 1;
 		
 		
 		selectedSourceFileLabel = new Label(container, SWT.LEFT);
-		selectedSourceFileLabel.setText(modelName+" Selected:");
+		selectedSourceFileLabel.setText(modelName+" selected: None");
 
-		sourceFilePathText = new Text(container, SWT.BORDER | SWT.SINGLE);
+//		sourceFilePathText = new Text(container, SWT.BORDER | SWT.SINGLE);
 
 		selectFileButton = new Button(container, SWT.PUSH);
 		selectFileButton.setText("Select File...");
@@ -71,18 +82,34 @@ public class FileSelectionWizardPage extends WizardPage implements SelectionList
 		setControl(container);
 		// required to avoid an error in the system
 		setPageComplete(false);
+		
 	}
 
 	@Override
 	public void widgetSelected(SelectionEvent e) {
 		if (e.getSource() == selectFileButton) {
-			FileDialog sourceFileChooser = new FileDialog(getShell());
+			fileDialog = new FileDialog(getShell(), getSelectionType());
 			if(fileExtensionFilter != null && fileExtensionFilter.length > 0) {
-				sourceFileChooser.setFilterExtensions(fileExtensionFilter);				
+				fileDialog.setFilterExtensions(fileExtensionFilter);				
 			}
-			selectedSourceFile = sourceFileChooser.open();
-			sourceFilePathText.setText(selectedSourceFile);
-			setPageComplete(true);
+			if(selectedResource != null) {
+				String selectedFilePath = "";
+				
+				if(selectedResource instanceof IFile) {
+					selectedFilePath = selectedResource.getParent().getLocation().toString();
+				}
+				else {
+					selectedFilePath = selectedResource.getLocation().toString();
+				}
+				
+				fileDialog.setFilterPath(selectedFilePath);
+			}
+			
+			if(fileDialog.open()!=null) {
+				setSelectedFileText();
+				this.selectedSourceFile = fileDialog.getFilterPath()+File.separator+fileDialog.getFileName();
+				setPageComplete(true);				
+			}
 		}
 	}
 
@@ -94,6 +121,10 @@ public class FileSelectionWizardPage extends WizardPage implements SelectionList
 
 	public String getSelectedFilePath() {
 		return selectedSourceFile;
+	}
+	
+	protected void setSelectedFileText() {
+		selectedSourceFileLabel.setText(modelName+ " selected: "+ fileDialog.getFileName());
 	}
 
 }

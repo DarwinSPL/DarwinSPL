@@ -24,6 +24,7 @@ import de.darwinspl.anomaly.DwAnomaly;
 import de.darwinspl.anomaly.DwDeadFeatureAnomaly;
 import de.darwinspl.anomaly.DwFalseOptionalFeatureAnomaly;
 import de.darwinspl.anomaly.DwVoidFeatureModelAnomaly;
+import eu.hyvar.evolution.util.HyEvolutionUtil;
 import eu.hyvar.feature.util.HyFeatureEvolutionUtil;
 
 public class DwAnomalyExplanationDialog extends TitleAreaDialog {
@@ -90,10 +91,10 @@ public class DwAnomalyExplanationDialog extends TitleAreaDialog {
 		Label whitespaceLabel = new Label(parent, SWT.VERTICAL);
 		String label = "Anomaly: ";
 		if (anomaly instanceof DwDeadFeatureAnomaly) {
-			String featureName = HyFeatureEvolutionUtil.getName(((DwDeadFeatureAnomaly) anomaly).getFeature().getNames(), anomaly.getValidSince()).getName();
+			String featureName = HyEvolutionUtil.getValidTemporalElement(((DwDeadFeatureAnomaly) anomaly).getFeature().getNames(), anomaly.getValidSince()).getName();
 			label += "Dead Feature " + featureName;
 		} else if (anomaly instanceof DwFalseOptionalFeatureAnomaly) {
-			String featureName = HyFeatureEvolutionUtil.getName(((DwFalseOptionalFeatureAnomaly) anomaly).getFeature().getNames(), anomaly.getValidSince()).getName();
+			String featureName = HyEvolutionUtil.getValidTemporalElement(((DwFalseOptionalFeatureAnomaly) anomaly).getFeature().getNames(), anomaly.getValidSince()).getName();
 			label += "False-Optional Feature " + featureName;
 		} else if (anomaly instanceof DwVoidFeatureModelAnomaly) {
 			label += "Void Feature Model";

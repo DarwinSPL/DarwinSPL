@@ -31,9 +31,15 @@ public class SplotFeatureModelImporterWizard extends Wizard implements IImportWi
 		this.workbench = workbench;
 		this.selection = selection;
 		
+		Object firstSelection = selection.getFirstElement();
+		IFile selectedFile = null;
+		if(firstSelection != null && firstSelection instanceof IFile) {
+			selectedFile = (IFile) firstSelection;
+		}
+		
 		setWindowTitle("New Feature Model");
 		
-		splotModelFileSelectionWizardPage = new FileSelectionWizardPage("SPLOT Feature Model Selection", "Please Select a SPLOT Feature Model for Import" , new String[] {"*.xml"}, "SPLOT Feature Model");
+		splotModelFileSelectionWizardPage = new FileSelectionWizardPage("SPLOT Feature Model Selection", "Please Select a SPLOT Feature Model for Import" , new String[] {"*.xml"}, "SPLOT Feature Model", selectedFile);
 		dwFeatureModelWizardImportedFilePage = new DwFeatureModelWizardImportedFilePage("Select new File to store the imported Feature Model", selection);
 	}
 

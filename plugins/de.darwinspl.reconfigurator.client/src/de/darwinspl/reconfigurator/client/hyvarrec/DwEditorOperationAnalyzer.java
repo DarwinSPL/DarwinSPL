@@ -71,8 +71,8 @@ public class DwEditorOperationAnalyzer {
 	
 	List<DwEditorOperation> operationList;
 
-	List<HyFeature> deadFeatureList;
-	List<HyFeature> falseOptionalList;
+	List<HyFeature> deadFeatureList = new ArrayList<HyFeature>();
+	List<HyFeature> falseOptionalList = new ArrayList<HyFeature>();
 	
 	private DwAnalysesClient client;
 	
@@ -331,7 +331,7 @@ public class DwEditorOperationAnalyzer {
 			// check whether the parent is already dead		
 			if (deadFeatureList.contains(parent)) {
 				// IGNORE as the parent is the one we have already handled or handle later
-				String explanation = "This is a dead feature, because of its already-dead parent " + HyFeatureEvolutionUtil.getName(parent.getNames(), date) + "!";
+				String explanation = "This is a dead feature, because of its already-dead parent " + HyEvolutionUtil.getValidTemporalElement(parent.getNames(), date).getName() + "!";
 				AnomalyConstraintExplanation simpleExplanation = new AnomalyConstraintExplanation();
 				simpleExplanation.setDate(date);
 				simpleExplanation.setStringReference(explanation);
@@ -354,7 +354,7 @@ public class DwEditorOperationAnalyzer {
 					HyGroupComposition groupComp = HyFeatureEvolutionUtil.getGroupComposition(featureGroup, date);
 					for (HyFeature otherFeature : groupComp.getFeatures()) {
 						if (falseOptionalList.contains(otherFeature)) {
-							String explanation = "This is a dead feature, because it's in an ALTERNATIVE group with the false-optional feature " + HyFeatureEvolutionUtil.getName(otherFeature.getNames(), date);
+							String explanation = "This is a dead feature, because it's in an ALTERNATIVE group with the false-optional feature " + HyEvolutionUtil.getValidTemporalElement(otherFeature.getNames(), date).getName();
 
 							// now we know that this feature is only considered a dead-feature because of the false-optional feature
 							// do we have an explanation here for the cause of _why_ it is false optional (which is the root of this)

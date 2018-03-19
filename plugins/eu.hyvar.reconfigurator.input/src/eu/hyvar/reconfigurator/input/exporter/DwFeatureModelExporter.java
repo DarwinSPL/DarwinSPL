@@ -66,9 +66,9 @@ public class DwFeatureModelExporter {
 			
 			translationMapping.put(rootFeatureConstraint.toString(), rootFeature);
 
+			featureModelConstraints.addAll(getFeatureModelVersionConstraints(featureModel, date, dateContext, sortedDateList));
 //			featureModelConstraints.addAll(getFeatureConstraints(rootFeature.getFeature(), true, date));
 
-			featureModelConstraints.addAll(getFeatureModelVersionConstraints(featureModel, date, dateContext, sortedDateList));
 		}
 		else {
 			for(HyRootFeature rootFeature: featureModel.getRootFeature()) {
@@ -85,6 +85,8 @@ public class DwFeatureModelExporter {
 				rootFeatureConstraint = new StringBuilder();
 			}
 		}
+
+		// TODO 
 		
 		for(HyGroup group: featureModel.getGroups()) {
 			featureModelConstraints.addAll(getGroupConstraints(group, date, dateContext, sortedDateList));
@@ -146,8 +148,8 @@ public class DwFeatureModelExporter {
 		
 		if(date == null) {
 			featureModelConstraints.addAll(getEvolutionFeatureAndVersionRestrictionConstraints(featureModel.getFeatures(), dateContext));
-		}
-
+		}	
+		
 		return featureModelConstraints;
 	}
 	
@@ -552,7 +554,7 @@ public class DwFeatureModelExporter {
 
 					for (HyFeature feature : validFeaturesOfGroupComposition) {
 						// Constraints for mandatory features
-						if (HyFeatureUtil.isMandatory(feature, relevantDate)) {
+						if (HyFeatureEvolutionUtil.isMandatory(feature, relevantDate)) {
 							if (!firstChildAnd) {
 								groupConstraintsStringBuilder.append(HyVarRecExporter.AND);
 							} else {
@@ -612,7 +614,7 @@ public class DwFeatureModelExporter {
 			// if only one feature is available in the group composition:
 			else if(!validFeaturesOfGroupComposition.isEmpty()){
 				HyFeature feature = validFeaturesOfGroupComposition.get(0);
-				if (HyFeatureUtil.isMandatory(feature, relevantDate)) {
+				if (HyFeatureEvolutionUtil.isMandatory(feature, relevantDate)) {
 					// groupConstraintsStringBuilder.append(TABULATOR);
 					// Mandatory Constraint (Parent => Child)
 					groupConstraintsStringBuilder.append(parentFeatureId);

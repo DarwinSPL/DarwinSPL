@@ -86,11 +86,11 @@ public class AnomalyConstraintExplanation {
 			if (!featurenames.isEmpty()) {
 				featurenames += ", ";
 			}
-			featurenames += HyFeatureEvolutionUtil.getName(feature.getNames(), date).getName();
+			featurenames += HyEvolutionUtil.getValidTemporalElement(feature.getNames(), date).getName();
 		}
 
 		HyFeature parentFeature = HyFeatureEvolutionUtil.getParentOfGroup(group, date);
-		String parentName = HyFeatureEvolutionUtil.getName(parentFeature.getNames(), date).getName();
+		String parentName = HyEvolutionUtil.getValidTemporalElement(parentFeature.getNames(), date).getName();
 
 		String groupType = HyFeatureEvolutionUtil.getType(group, date).getType().getName();
 

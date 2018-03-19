@@ -57,5 +57,6 @@ Bundle-ActivationPolicy: lazy
 Bundle-Vendor: www.darwinspl.de
 Bundle-ClassPath: .,
  lib/org.eclipse.jetty.client_9.3.9.v20160517.jar
-Export-Package: de.darwinspl.feature.graphical.configurator.editor,
+Export-Package: de.darwinspl.feature.graphical.configurator.dialogs,
+ de.darwinspl.feature.graphical.configurator.editor,
  de.darwinspl.feature.graphical.configurator.editor.listeners

@@ -99,6 +99,10 @@ public class DwFeatureModelConfiguratorEditor extends DwFeatureModelConfigurator
 	protected HyConfiguration suggestedConfiguration;
 	
 	private static final String DEFAULT_HYVARREC_URI = "https://www.isf.cs.tu-bs.de/hyvarrec/";
+	public static String SAVED_SERVER_URI = "https://www.isf.cs.tu-bs.de/hyvarrec/";
+	public static String USERNAME = null;
+	public static String PASSWORD = null;
+	public static Boolean HTTT_AUTHENTICATION_ENABLED = null;
 
 	@Override
 	public void init(IEditorSite site, IEditorInput input) throws PartInitException {
@@ -257,23 +261,30 @@ public class DwFeatureModelConfiguratorEditor extends DwFeatureModelConfigurator
 
 	private HyVarRecUriAndCredentials getHyVarRecUriAndCredentials() {
 
-		DwRESTServerSelectDialog dialog = new DwRESTServerSelectDialog(getEditorSite().getShell(), DEFAULT_HYVARREC_URI);
+		DwRESTServerSelectDialog dialog = new DwRESTServerSelectDialog(getEditorSite().getShell(), SAVED_SERVER_URI, HTTT_AUTHENTICATION_ENABLED, USERNAME, PASSWORD);
 		int result = dialog.open();
 		if(result == Dialog.OK){
 			HyVarRecUriAndCredentials hyVarRecUriAndCredentials = new HyVarRecUriAndCredentials();
 			hyVarRecUriAndCredentials.setUri(dialog.getUri());
 			
+			SAVED_SERVER_URI =dialog.getUri();
+			
 			String username = dialog.getUserName();
-			if(username != null && !username.equals("")) {
+			Boolean httpAuthEnabled = dialog.getHttpAuthentificationEnabled();
+			HTTT_AUTHENTICATION_ENABLED = httpAuthEnabled;
+			if(username != null && !username.equals("") && httpAuthEnabled) {
 				hyVarRecUriAndCredentials.setUsername(username);
+				USERNAME = username;
+				
 			}
 			else {
 				hyVarRecUriAndCredentials.setUsername(null);
 			}
 			
 			String password = dialog.getPassword();
-			if(password != null && !password.equals("")) {
+			if(password != null && !password.equals("") && httpAuthEnabled) {
 				hyVarRecUriAndCredentials.setPassword(password);
+				PASSWORD = password;
 			}
 			else {
 				hyVarRecUriAndCredentials.setPassword(null);

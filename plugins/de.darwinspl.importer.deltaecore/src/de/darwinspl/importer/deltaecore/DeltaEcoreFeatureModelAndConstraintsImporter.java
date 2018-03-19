@@ -64,25 +64,23 @@ public class DeltaEcoreFeatureModelAndConstraintsImporter implements DarwinSPLFe
 			return null;
 		}
 		
-		FeatureModelConstraintsTuple tuple = new FeatureModelConstraintsTuple();
 		
 		DeltaEcoreFeatureModelImporter fmImporter = new DeltaEcoreFeatureModelImporter();
 		
 		HyFeatureModel dwFeatureModel = fmImporter.importFeatureModel(featureModel);
-		tuple.setFeatureModel(dwFeatureModel);
 		
+		HyConstraintModel dwConstraintModel = null;
 		if(constraintModel != null) {
 			DeltaEcoreConstraintsImporter constraintImporter = new DeltaEcoreConstraintsImporter(fmImporter.getVersionMap());
 			
 			List<DEConstraintModel> constraintModels = new ArrayList<DEConstraintModel>(1);
 			constraintModels.add(constraintModel);
 			
-			HyConstraintModel dwConstraintModel = constraintImporter.importConstraints(dwFeatureModel, fmImporter.getFeatureMap(), featureModel, constraintModels);
+			dwConstraintModel = constraintImporter.importConstraints(dwFeatureModel, fmImporter.getFeatureMap(), featureModel, constraintModels);
 			
-			tuple.setConstraintModel(dwConstraintModel);
 		}
 		
-		
+		FeatureModelConstraintsTuple tuple = new FeatureModelConstraintsTuple(dwFeatureModel, dwConstraintModel);
 		
 		return tuple;
 	}

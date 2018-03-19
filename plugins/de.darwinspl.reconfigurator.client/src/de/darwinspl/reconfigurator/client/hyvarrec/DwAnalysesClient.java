@@ -80,6 +80,8 @@ public class DwAnalysesClient {
 	protected static final String VALIDATE_FM_URI = "explain";
 	protected static final String CHECK_FEATURES_URI = "check_features";
 	
+	public static final String DEFAULT_URI = "https://www.isf.cs.tu-bs.de/hyvarrec/";
+	
 	protected static final String CONTEXT_VALID = "valid";
 	
 	protected HyVarRecExporter exporter;
@@ -92,6 +94,7 @@ public class DwAnalysesClient {
 		gsonBuilder = new GsonBuilder();
 		gsonBuilder.setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES);
 		gson = gsonBuilder.disableHtmlEscaping().create();
+		exporter = new HyVarRecExporter();
 	}
 	
 	
@@ -106,8 +109,8 @@ public class DwAnalysesClient {
 		return URI.create(originalUri);
 	}
 	
-	protected String createHyVarRecMessage(HyContextModel contextModel, HyValidityModel contextValidityModel, HyFeatureModel featureModel, HyConstraintModel constraintModel, HyConfiguration oldConfiguration, DwProfile preferenceModel, HyContextValueModel contextValues, Date date, Date evolutionContextValueDate) {
-		exporter = new HyVarRecExporter();
+	public String createHyVarRecMessage(HyContextModel contextModel, HyValidityModel contextValidityModel, HyFeatureModel featureModel, HyConstraintModel constraintModel, HyConfiguration oldConfiguration, DwProfile preferenceModel, HyContextValueModel contextValues, Date date, Date evolutionContextValueDate) {
+		
 		String messageForHyVarRec = exporter.exportSPL(contextModel, contextValidityModel, featureModel, constraintModel, oldConfiguration, preferenceModel, contextValues, date, evolutionContextValueDate);
 		return messageForHyVarRec;
 	}
@@ -515,10 +518,15 @@ public class DwAnalysesClient {
 		List<Date> sortedDateList = HyVarRecExporter.getSortedListOfDatesOfDateContext(featureModels, constraintModels, contextModels, validityModels, profiles);
 		
 		if(valueForDateContext == -1) {
-			Calendar cal = new GregorianCalendar();
-			cal.setTime(sortedDateList.get(0));
-			cal.add(Calendar.DAY_OF_MONTH, -1);
-			return cal.getTime();
+			if(sortedDateList.isEmpty()) {
+				return null;
+			}
+			else {
+				Calendar cal = new GregorianCalendar();
+				cal.setTime(sortedDateList.get(0));
+				cal.add(Calendar.DAY_OF_MONTH, -1);
+				return cal.getTime();				
+			}
 		}
 		
 		return sortedDateList.get(valueForDateContext);
