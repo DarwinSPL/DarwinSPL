@@ -426,7 +426,7 @@ public class DwEditorOperationAnalyzer {
 			explanation.setDate(anomalyExplanation.getDate());
 			for (DwEditorOperation operation : getEditorOperationListForObject(translationMapping.get(constraint), anomalyExplanation.getDate())) {
 				EditorOperationExplanation opExplanation = new EditorOperationExplanation(operation);
-				explanation.getEditorOperationExplanations().add(opExplanation);
+				explanation.addEvolutionEditorOperations(opExplanation);
 			}
 			list.add(explanation);
 		}
@@ -532,7 +532,7 @@ public class DwEditorOperationAnalyzer {
 	public void filterRelevantDeadFeatureEditorOperation(AnomalyConstraintExplanation constraintExplanation) {
 		List<EditorOperationExplanation> list = new ArrayList<EditorOperationExplanation>();
 		
-		for (EditorOperationExplanation opExplanation : constraintExplanation.getEditorOperationExplanations()) {
+		for (EditorOperationExplanation opExplanation : constraintExplanation.getEvolutionEditorOperations()) {
 			DwEditorOperation operation = opExplanation.getEditorOperation();
 			if (operation instanceof DwEditorOperationFeatureType
 					|| operation instanceof DwEditorOperationFeatureGroup
@@ -540,17 +540,17 @@ public class DwEditorOperationAnalyzer {
 					|| operation instanceof DwEditorOperationAttributeMinMax // TODO: cannot detect
 					|| operation instanceof DwEditorOperationConstraintCreate
 					|| operation instanceof DwEditorOperationValidityFormulaCreate) {
-					list.add(opExplanation);
-				}
+				constraintExplanation.addCausingEditorOperations(opExplanation);
+				list.add(opExplanation);
+			}
 		}
-		// Only keep relevant explanations
-		constraintExplanation.getEditorOperationExplanations().retainAll(list);
+		constraintExplanation.getEvolutionEditorOperations().removeAll(list);
 	}
 	
 	public void filterRelevantFalseOptionalFeatureEditorOperation(AnomalyConstraintExplanation constraintExplanation) {
 		List<EditorOperationExplanation> list = new ArrayList<EditorOperationExplanation>();
 		
-		for (EditorOperationExplanation opExplanation : constraintExplanation.getEditorOperationExplanations()) {
+		for (EditorOperationExplanation opExplanation : constraintExplanation.getEvolutionEditorOperations()) {
 			DwEditorOperation operation = opExplanation.getEditorOperation();
 			if (operation instanceof DwEditorOperationFeatureType
 					|| operation instanceof DwEditorOperationFeatureGroup
@@ -558,17 +558,18 @@ public class DwEditorOperationAnalyzer {
 					|| operation instanceof DwEditorOperationAttributeMinMax // TODO: cannot detect
 					|| operation instanceof DwEditorOperationConstraintCreate
 					|| operation instanceof DwEditorOperationValidityFormulaCreate) {
-					list.add(opExplanation);
-				}
+				constraintExplanation.addCausingEditorOperations(opExplanation);
+				list.add(opExplanation);
+			}
 		}
 		// Only keep relevant explanations
-		constraintExplanation.getEditorOperationExplanations().retainAll(list);
+		constraintExplanation.getEvolutionEditorOperations().retainAll(list);
 	}
 	
 	public void filterRelevantVoidFeatureModelEditorOperation(AnomalyConstraintExplanation constraintExplanation) {
 		List<EditorOperationExplanation> list = new ArrayList<EditorOperationExplanation>();
 		
-		for (EditorOperationExplanation opExplanation : constraintExplanation.getEditorOperationExplanations()) {
+		for (EditorOperationExplanation opExplanation : constraintExplanation.getEvolutionEditorOperations()) {
 			DwEditorOperation operation = opExplanation.getEditorOperation();
 			if (operation instanceof DwEditorOperationFeatureType
 					|| operation instanceof DwEditorOperationFeatureGroup
@@ -576,11 +577,12 @@ public class DwEditorOperationAnalyzer {
 					|| operation instanceof DwEditorOperationConstraintCreate
 					|| operation instanceof DwEditorOperationValidityFormulaCreate
 					|| operation instanceof DwEditorOperationEnumLiteralCreate) {
-					list.add(opExplanation);
-				}
+				constraintExplanation.addCausingEditorOperations(opExplanation);
+				list.add(opExplanation);
+			}
 		}
 		// Only keep relevant explanations
-		constraintExplanation.getEditorOperationExplanations().retainAll(list);
+		constraintExplanation.getEvolutionEditorOperations().retainAll(list);
 	}
 	
 	// ------------- UTIL -------------

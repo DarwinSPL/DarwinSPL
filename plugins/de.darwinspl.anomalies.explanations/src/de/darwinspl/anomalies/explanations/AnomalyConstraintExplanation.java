@@ -2,7 +2,9 @@ package de.darwinspl.anomalies.explanations;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.eclipse.emf.ecore.EObject;
 
@@ -17,10 +19,15 @@ import eu.hyvar.feature.constraint.HyConstraint;
 import eu.hyvar.feature.util.HyFeatureEvolutionUtil;
 
 public class AnomalyConstraintExplanation {
+	
+	private enum EditorOperationType {
+		EVOLUTION,
+		CAUSING
+	}
 
 	private EObject objReference; // TODO: rename properly
 	private String stringReference; // TODO: rename properly
-	private List<EditorOperationExplanation> editorOperationExplanations = new ArrayList<EditorOperationExplanation>();
+	private Map<EditorOperationType, List<EditorOperationExplanation>> editorOperationExplanations = new HashMap<EditorOperationType, List<EditorOperationExplanation>>();
 	private Date date;
 
 	public String explain() {
@@ -44,11 +51,13 @@ public class AnomalyConstraintExplanation {
 
 		String editorOperationExplanation = "";
 		if (editorOperationExplanations.size() > 0) {
-			for (EditorOperationExplanation opExplanation : editorOperationExplanations) {
-				if (!editorOperationExplanation.isEmpty()) {
-					editorOperationExplanation += "\n";
+			for (EditorOperationType type : editorOperationExplanations.keySet()) {
+				for (EditorOperationExplanation opExplanation : editorOperationExplanations.get(type)) {
+					if (!editorOperationExplanation.isEmpty()) {
+						editorOperationExplanation += "\n";
+					}
+					editorOperationExplanation += type.name() + " - " + opExplanation.explain();
 				}
-				editorOperationExplanation += opExplanation.explain();
 			}
 			editorOperationExplanation = "\n>Editor Operations:\n" + editorOperationExplanation;
 		}
@@ -113,9 +122,33 @@ public class AnomalyConstraintExplanation {
 	public void setStringReference(String stringReference) {
 		this.stringReference = stringReference;
 	}
-
-	public List<EditorOperationExplanation> getEditorOperationExplanations() {
-		return editorOperationExplanations;
+	
+	public void addEvolutionEditorOperations(EditorOperationExplanation editorOperation) {
+		if (!editorOperationExplanations.containsKey(EditorOperationType.EVOLUTION)) {
+			editorOperationExplanations.put(EditorOperationType.EVOLUTION, new ArrayList<EditorOperationExplanation>());
+		}
+		editorOperationExplanations.get(EditorOperationType.EVOLUTION).add(editorOperation);
+	}
+	
+	public void addCausingEditorOperations(EditorOperationExplanation editorOperation) {
+		if (!editorOperationExplanations.containsKey(EditorOperationType.CAUSING)) {
+			editorOperationExplanations.put(EditorOperationType.CAUSING, new ArrayList<EditorOperationExplanation>());
+		}
+		editorOperationExplanations.get(EditorOperationType.CAUSING).add(editorOperation);
+	}
+	
+	public List<EditorOperationExplanation> getEvolutionEditorOperations() {
+		if (editorOperationExplanations.containsKey(EditorOperationType.EVOLUTION)) {
+			return editorOperationExplanations.get(EditorOperationType.EVOLUTION);
+		}
+		return new ArrayList<EditorOperationExplanation>();
+	}
+	
+	public List<EditorOperationExplanation> getCausingEditorOperations() {
+		if (editorOperationExplanations.containsKey(EditorOperationType.CAUSING)) {
+			return editorOperationExplanations.get(EditorOperationType.CAUSING);
+		}
+		return new ArrayList<EditorOperationExplanation>();
 	}
 
 	public void setDate(Date date) {

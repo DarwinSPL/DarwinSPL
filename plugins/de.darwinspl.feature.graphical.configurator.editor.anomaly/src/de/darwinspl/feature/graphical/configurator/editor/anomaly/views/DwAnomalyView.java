@@ -187,7 +187,7 @@ public class DwAnomalyView extends ViewPart {
 		getSite().setSelectionProvider(viewerFalseOptionalAnomaly);
 	}
 
-	public List<AnomalyConstraintExplanation> explaingAnomaly(DwAnomaly anomaly) {
+	public List<AnomalyConstraintExplanation> explainAnomaly(DwAnomaly anomaly) {
 
 		DwAnalysesClient analysesClient = new DwAnalysesClient();
 		List<AnomalyConstraintExplanation> anomalyExplanation = null;
@@ -206,10 +206,6 @@ public class DwAnomalyView extends ViewPart {
 		} catch (ExecutionException e) {
 
 			e.printStackTrace();
-		}
-
-		if (anomalyExplanation != null) {
-
 		}
 
 		if (anomalyExplanation != null) {
@@ -554,7 +550,6 @@ public class DwAnomalyView extends ViewPart {
 
 		if (contextValueModel == null) {
 			contextValueModel = ContextValueFactory.eINSTANCE.createHyContextValueModel();
-			;
 		}
 
 		if (modelFileExists(HyValidityModelUtil.getValidityModelFileExtensionForConcreteSyntax())) {
@@ -623,7 +618,10 @@ public class DwAnomalyView extends ViewPart {
 					contextModel, validityModel, modelWrapped.getModel(), constraintModel, null, null);
 
 			if (voidFeatureAnomaly != null) {
-				anomalies.put(voidFeatureAnomaly, new ArrayList<AnomalyConstraintExplanation>());
+				// TODO: does this have to be called here?
+				List<AnomalyConstraintExplanation> voidFeatureExplanation = client.explainAnomaly(uri, username, password,
+						contextModel, validityModel, modelWrapped.getModel(), constraintModel, voidFeatureAnomaly, null);
+				anomalies.put(voidFeatureAnomaly, voidFeatureExplanation);
 			}
 
 			errorMessage.setVisible(false);
@@ -634,7 +632,7 @@ public class DwAnomalyView extends ViewPart {
 				| HyVarRecNoSolutionException | NullPointerException e1) {
 
 			errorMessage.setVisible(true);
-			errorMessage.setText("Unresolvable Server Adress. \n" + e1);
+			errorMessage.setText("Unresolvable Server Address. \n" + e1);
 			//
 			// MessageDialog dialog = new
 			// MessageDialog(PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell(),
