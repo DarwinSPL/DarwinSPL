@@ -1,5 +1,7 @@
 package de.darwinspl.feature.evolution.editoroperation;
 
+import java.util.Date;
+
 import eu.hyvar.evolution.util.HyEvolutionUtil;
 import eu.hyvar.feature.HyFeatureChild;
 
@@ -133,8 +135,8 @@ public class EditorOperationExplanation {
 	
 	private String explain(DwEditorOperationFeatureGroup featureGroupOperation) {
 		String featureName = HyEvolutionUtil.getValidTemporalElement(featureGroupOperation.getFeature().getNames(), featureGroupOperation.getEvoStep()).getName();
-		HyFeatureChild oldParentFeatureChild = HyEvolutionUtil.getValidTemporalElement(featureGroupOperation.getOldGroup().getCompositionOf().getChildOf(), featureGroupOperation.getEvoStep());
-		String oldParentFeatureName = HyEvolutionUtil.getValidTemporalElement(oldParentFeatureChild.getParent().getNames(), featureGroupOperation.getEvoStep()).getName();
+		HyFeatureChild oldParentFeatureChild = HyEvolutionUtil.getValidTemporalElement(featureGroupOperation.getOldGroup().getCompositionOf().getChildOf(), new Date(featureGroupOperation.getEvoStep().getTime() -1L));
+		String oldParentFeatureName = HyEvolutionUtil.getValidTemporalElement(oldParentFeatureChild.getParent().getNames(), new Date(featureGroupOperation.getEvoStep().getTime() -1L)).getName();
 		HyFeatureChild newParentFeatureChild = HyEvolutionUtil.getValidTemporalElement(featureGroupOperation.getNewGroup().getCompositionOf().getChildOf(), featureGroupOperation.getEvoStep());
 		String newParentFeatureName = HyEvolutionUtil.getValidTemporalElement(newParentFeatureChild.getParent().getNames(), featureGroupOperation.getEvoStep()).getName();
 		return "Feature " + featureName + " moved from parent " + oldParentFeatureName + " to " + newParentFeatureName + " in " + featureGroupOperation.getEvoStep();

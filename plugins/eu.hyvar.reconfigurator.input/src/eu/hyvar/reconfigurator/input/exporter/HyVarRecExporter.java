@@ -36,6 +36,7 @@ import eu.hyvar.feature.expression.util.HyExpressionStringExporter;
 import eu.hyvar.feature.expression.util.HyExpressionStringExporter.BooleanRepresentationOption;
 import eu.hyvar.feature.expression.util.HyExpressionStringExporter.FeatureSelectionRepresentationOption;
 import eu.hyvar.feature.expression.util.HyExpressionStringExporter.VersionRepresentation;
+import eu.hyvar.feature.util.HyFeatureEvolutionUtil;
 import eu.hyvar.feature.util.HyFeatureModelWellFormednessException;
 import eu.hyvar.reconfigurator.input.format.Attribute;
 import eu.hyvar.reconfigurator.input.format.AttributeValue;
@@ -557,7 +558,7 @@ public class HyVarRecExporter {
 				
 				if(sortedDateList == null) {
 					// no evolution considered.
-					if(HyEvolutionUtil.getValidTemporalElement(feature.getTypes(), new Date()).getType().equals(HyFeatureTypeEnum.OPTIONAL)) {
+					if(!HyFeatureEvolutionUtil.isRootFeature(featureModel, feature, new Date()) && HyEvolutionUtil.getValidTemporalElement(feature.getTypes(), new Date()).getType().equals(HyFeatureTypeEnum.OPTIONAL)) {
 						optionalIntervalList = new ArrayList<List<Integer>>();						
 					}
 				}

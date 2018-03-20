@@ -15,9 +15,6 @@ import de.darwinspl.anomaly.DwVoidFeatureModelAnomaly;
 import de.darwinspl.anomaly.explanation.DwAnomalyExplanation;
 import de.darwinspl.feature.evolution.editoroperation.DwEditorOperation;
 import de.darwinspl.feature.evolution.editoroperation.DwEditorOperationAttribute;
-import de.darwinspl.feature.evolution.editoroperation.DwEditorOperationAttributeCreate;
-import de.darwinspl.feature.evolution.editoroperation.DwEditorOperationAttributeDelete;
-import de.darwinspl.feature.evolution.editoroperation.DwEditorOperationAttributeMinMax;
 import de.darwinspl.feature.evolution.editoroperation.DwEditorOperationAttributeRename;
 import de.darwinspl.feature.evolution.editoroperation.DwEditorOperationConstraint;
 import de.darwinspl.feature.evolution.editoroperation.DwEditorOperationConstraintCreate;
@@ -31,7 +28,6 @@ import de.darwinspl.feature.evolution.editoroperation.DwEditorOperationFeatureGr
 import de.darwinspl.feature.evolution.editoroperation.DwEditorOperationFeatureRename;
 import de.darwinspl.feature.evolution.editoroperation.DwEditorOperationFeatureType;
 import de.darwinspl.feature.evolution.editoroperation.DwEditorOperationFeatureVersion;
-import de.darwinspl.feature.evolution.editoroperation.DwEditorOperationFeatureVersionCreate;
 import de.darwinspl.feature.evolution.editoroperation.DwEditorOperationGroupType;
 import de.darwinspl.feature.evolution.editoroperation.DwEditorOperationValidityFormulaCreate;
 import de.darwinspl.feature.evolution.editoroperation.DwEditorOperationValidityFormulaDelete;
@@ -45,7 +41,6 @@ import eu.hyvar.dataValues.HyEnum;
 import eu.hyvar.dataValues.HyEnumLiteral;
 import eu.hyvar.evolution.HyName;
 import eu.hyvar.evolution.util.HyEvolutionUtil;
-import eu.hyvar.feature.HyEnumAttribute;
 import eu.hyvar.feature.HyFeature;
 import eu.hyvar.feature.HyFeatureAttribute;
 import eu.hyvar.feature.HyFeatureChild;
@@ -55,7 +50,6 @@ import eu.hyvar.feature.HyGroup;
 import eu.hyvar.feature.HyGroupComposition;
 import eu.hyvar.feature.HyGroupType;
 import eu.hyvar.feature.HyGroupTypeEnum;
-import eu.hyvar.feature.HyNumberAttribute;
 import eu.hyvar.feature.HyVersion;
 import eu.hyvar.feature.constraint.HyConstraint;
 import eu.hyvar.feature.constraint.HyConstraintModel;
@@ -102,8 +96,8 @@ public class DwEditorOperationAnalyzer {
 				
 				// FEATURE NAME
 				for (HyName name : feature.getNames()) {
-					if (name.getValidSince() != feature.getValidSince()) { // don't interpret default as change
-						HyName predecessor = (HyName) name.getSupersededElement();
+					if (name.getValidSince() != null && !name.getValidSince().equals(feature.getValidSince())) { // don't interpret default as change
+						HyName predecessor = HyEvolutionUtil.getValidTemporalElement(feature.getNames(), new Date(name.getValidSince().getTime() -1L));
 						obj = EditoroperationFactory.eINSTANCE.createDwEditorOperationFeatureRename();
 						obj.setEvoStep(name.getValidSince());
 						((DwEditorOperationFeature) obj).setFeature(feature);
@@ -115,8 +109,8 @@ public class DwEditorOperationAnalyzer {
 				
 				// FEATURE TYPE
 				for (HyFeatureType type : feature.getTypes()) {
-					if (type.getValidSince() != feature.getValidSince()) { // don't interpret default as change
-						HyFeatureType predecessor = (HyFeatureType) type.getSupersededElement();
+					if (type.getValidSince() != null && !type.getValidSince().equals(feature.getValidSince())) { // don't interpret default as change
+						HyFeatureType predecessor = HyEvolutionUtil.getValidTemporalElement(feature.getTypes(), new Date(type.getValidSince().getTime() -1L));
 						obj = EditoroperationFactory.eINSTANCE.createDwEditorOperationFeatureType();
 						obj.setEvoStep(type.getValidSince());
 						((DwEditorOperationFeature) obj).setFeature(feature);
@@ -148,15 +142,17 @@ public class DwEditorOperationAnalyzer {
 				
 				// FEATURE GROUP
 				for (HyGroupComposition group : feature.getGroupMembership()) {
-					if (group.getValidSince() != feature.getValidSince()) { // don't interpret default as change
-						HyGroupComposition predecessor = (HyGroupComposition) group.getSupersededElement();
-						// => create editorOperationFeatureGroup
-						obj = EditoroperationFactory.eINSTANCE.createDwEditorOperationFeatureGroup();
-						obj.setEvoStep(group.getValidSince());
-						((DwEditorOperationFeature) obj).setFeature(feature);
-						((DwEditorOperationFeatureGroup) obj).setOldGroup(predecessor);
-						((DwEditorOperationFeatureGroup) obj).setNewGroup(group);
-						operationList.add(obj);
+					if (group.getValidSince() != null && !group.getValidSince().equals(feature.getValidSince())) { // don't interpret default as change
+						HyGroupComposition predecessor = HyEvolutionUtil.getValidTemporalElement(feature.getGroupMembership(), new Date(group.getValidSince().getTime() -1L));
+						if (!group.getCompositionOf().equals(predecessor.getCompositionOf())) {
+							// TODO: only recognize group changes or group composition changes too?
+							obj = EditoroperationFactory.eINSTANCE.createDwEditorOperationFeatureGroup();
+							obj.setEvoStep(group.getValidSince());
+							((DwEditorOperationFeature) obj).setFeature(feature);
+							((DwEditorOperationFeatureGroup) obj).setOldGroup(predecessor);
+							((DwEditorOperationFeatureGroup) obj).setNewGroup(group);
+							operationList.add(obj);
+						}
 					}
 				}
 				
@@ -179,8 +175,8 @@ public class DwEditorOperationAnalyzer {
 
 					// ATTRIBUTE RENAME
 					for (HyName name : attribute.getNames()) {
-						if (name.getValidSince() != attribute.getValidSince()) { // don't interpret default as change
-							HyName predecessor = (HyName) name.getSupersededElement();
+						if (name.getValidSince() != null && !name.getValidSince().equals(attribute.getValidSince())) { // don't interpret default as change
+							HyName predecessor = HyEvolutionUtil.getValidTemporalElement(attribute.getNames(), new Date(name.getValidSince().getTime() -1L));
 							obj = EditoroperationFactory.eINSTANCE.createDwEditorOperationAttributeRename();
 							obj.setEvoStep(name.getValidSince());
 							((DwEditorOperationAttribute) obj).setAttribute(attribute);
@@ -198,8 +194,8 @@ public class DwEditorOperationAnalyzer {
 				for (HyGroupType type : group.getTypes()) {
 										
 					// GROUP TYPE
-					if (type.getValidSince() != group.getValidSince()) { // don't interpret default as change
-						HyGroupType predecessor = (HyGroupType) type.getSupersededElement();
+					if (type.getValidSince() != null && !type.getValidSince().equals(group.getValidSince())) { // don't interpret default as change
+						HyGroupType predecessor = HyEvolutionUtil.getValidTemporalElement(group.getTypes(), new Date(type.getValidSince().getTime() -1L));
 						obj = EditoroperationFactory.eINSTANCE.createDwEditorOperationGroupType();
 						obj.setEvoStep(type.getValidSince());
 						((DwEditorOperationGroupType) obj).setGroup(group);
@@ -275,7 +271,7 @@ public class DwEditorOperationAnalyzer {
 			}
 		}
 		
-		// TODO: incompatible validityFormula in metamodel
+		// TODO: incompatible validityFormula in metamodel -> !MESSAGE Both 'de.darwinspl.feature.evolution.editoroperation' and 'eu.hyvar.context.validity_formulas' register a package for 'http://hyvar-project.eu/context/validity/1.0'
 		if (getContextValidityModel() != null) {
 			for (HyValidityFormula validityFormula : getContextValidityModel().getValidityFormulas()) {
 				
@@ -561,8 +557,11 @@ public class DwEditorOperationAnalyzer {
 					|| operation instanceof DwEditorOperationGroupType
 					|| operation instanceof DwEditorOperationConstraintCreate
 					|| operation instanceof DwEditorOperationValidityFormulaCreate) {
-				constraintExplanation.addCausingEditorOperations(opExplanation);
-				list.add(opExplanation);
+				if (opExplanation.getEditorOperation().getEvoStep() != null
+						&& opExplanation.getEditorOperation().getEvoStep().equals(constraintExplanation.getDate())) {
+							constraintExplanation.addCausingEditorOperations(opExplanation);
+							list.add(opExplanation);
+					}
 			}
 		}
 		constraintExplanation.getEvolutionEditorOperations().removeAll(list);
@@ -578,8 +577,11 @@ public class DwEditorOperationAnalyzer {
 					|| operation instanceof DwEditorOperationGroupType
 					|| operation instanceof DwEditorOperationConstraintCreate
 					|| operation instanceof DwEditorOperationValidityFormulaCreate) {
-				constraintExplanation.addCausingEditorOperations(opExplanation);
-				list.add(opExplanation);
+				if (opExplanation.getEditorOperation().getEvoStep() != null
+					&& opExplanation.getEditorOperation().getEvoStep().equals(constraintExplanation.getDate())) {
+						constraintExplanation.addCausingEditorOperations(opExplanation);
+						list.add(opExplanation);
+				}
 			}
 		}
 		// Only keep relevant explanations
