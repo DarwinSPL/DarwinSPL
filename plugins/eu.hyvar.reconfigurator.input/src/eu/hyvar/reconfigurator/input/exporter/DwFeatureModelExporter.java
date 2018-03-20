@@ -538,6 +538,7 @@ public abstract class DwFeatureModelExporter {
 			case OR:
 
 				groupConstraintsStringBuilder.append(getOrRelation(parentFeatureId, childrenIds));
+				
 				if (timedConstraint != null) {
 					StringBuilder timedGroupConstraintStringBuilder = new StringBuilder(timedConstraint);
 					timedGroupConstraintStringBuilder.append(HyVarRecExporter.BRACKETS_OPEN);
@@ -560,7 +561,7 @@ public abstract class DwFeatureModelExporter {
 	}
 
 	protected String getOrRelation(String parentId, List<String> childrenIds) {
-		StringBuilder orStringBuilder = new StringBuilder(parentId);
+		StringBuilder orStringBuilder = new StringBuilder(featureEndocing.getFeatureSelected(parentId));
 
 		orStringBuilder.append(HyVarRecExporter.EQUIVALENCE);
 
@@ -574,7 +575,7 @@ public abstract class DwFeatureModelExporter {
 				orStringBuilder.append(HyVarRecExporter.OR);
 			}
 
-			orStringBuilder.append(childId);
+			orStringBuilder.append(featureEndocing.getFeatureSelected(childId));
 		}
 
 		orStringBuilder.append(HyVarRecExporter.BRACKETS_CLOSING);

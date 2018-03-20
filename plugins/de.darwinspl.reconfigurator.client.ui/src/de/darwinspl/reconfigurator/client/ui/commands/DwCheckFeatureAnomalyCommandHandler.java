@@ -128,7 +128,7 @@ public class DwCheckFeatureAnomalyCommandHandler extends AbstractHandler {
 		String hyVarRecMessage_integer = gson.toJson(inputForHyVarRec);
 		
 		
-		try {
+//		try {
 			
 //			
 //			
@@ -137,10 +137,10 @@ public class DwCheckFeatureAnomalyCommandHandler extends AbstractHandler {
 ////			DwVoidFeatureModelAnomaly voidFM = analysesClient.validateFeatureModelWithContext("http://localhost:9001", null, null, contextModel, validityModel, selectedFeatureModel, constraintModel, null, null, null, date);
 ////			System.err.println(voidFM);
 //			System.err.println("Checking features");
-			List<DwAnomaly> featureAnomalies = analysesClient.checkFeatures("http://localhost:9001", null, null, contextModel, validityModel, selectedFeatureModel, constraintModel, null, date);
-			for(DwAnomaly anomaly: featureAnomalies) {
-				System.err.println(anomaly);
-			}
+//			List<DwAnomaly> featureAnomalies = analysesClient.checkFeatures("http://localhost:9001", null, null, contextModel, validityModel, selectedFeatureModel, constraintModel, null, date);
+//			for(DwAnomaly anomaly: featureAnomalies) {
+//				System.err.println(anomaly);
+//			}
 //			if(featureAnomalies != null) {
 //				for(DwAnomaly anomaly: featureAnomalies) {
 //					if(anomaly instanceof DwFalseOptionalFeatureAnomaly) {
@@ -171,11 +171,11 @@ public class DwCheckFeatureAnomalyCommandHandler extends AbstractHandler {
 //			else {
 //				System.err.println("No anomalies");
 //			}
-		} catch (UnresolvedAddressException | TimeoutException | InterruptedException
-				| java.util.concurrent.ExecutionException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
+//		} catch (UnresolvedAddressException | TimeoutException | InterruptedException
+//				| java.util.concurrent.ExecutionException e1) {
+//			// TODO Auto-generated catch block
+//			e1.printStackTrace();
+//		}
 		
 		System.out.println("Writing file");
 		List<String> lines = new ArrayList<String>();
