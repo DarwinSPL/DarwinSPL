@@ -47,17 +47,17 @@ public class DwFeatureModelExporterIntegerEncoding extends DwFeatureModelExporte
 	@Override
 	protected List<String> getAlternativeRelation(String parentId, List<String> childrenIds) {
 
+		StringBuilder alternativeStringBuilder = new StringBuilder();
 		
-		StringBuilder alternativeStringBuilder = new StringBuilder(HyVarRecExporter.BRACKETS_OPEN);
+//		if(childrenIds.size() > 1) {			
+//			alternativeStringBuilder.append(HyVarRecExporter.BRACKETS_OPEN);
+//			alternativeStringBuilder.append(featureEndocing.getFeatureSelected(parentId));
+//			alternativeStringBuilder.append(HyVarRecExporter.BRACKETS_CLOSING);
+//		}
+//		else {
+		alternativeStringBuilder.append(parentId);
+//		}
 		
-		if(childrenIds.size() > 1) {			
-			alternativeStringBuilder.append(featureEndocing.getFeatureSelected(parentId));
-		}
-		else {
-			alternativeStringBuilder.append(parentId);
-		}
-		
-		alternativeStringBuilder.append(HyVarRecExporter.BRACKETS_CLOSING);
 
 		alternativeStringBuilder.append(HyVarRecExporter.EQUALS);
 		alternativeStringBuilder.append(HyVarRecExporter.BRACKETS_OPEN);
@@ -70,8 +70,8 @@ public class DwFeatureModelExporterIntegerEncoding extends DwFeatureModelExporte
 			} else {
 				first = false;
 			}
-
-			alternativeStringBuilder.append(childFeatureId);
+			
+			alternativeStringBuilder.append(childFeatureId);				
 		}
 
 		// is equal to 1
