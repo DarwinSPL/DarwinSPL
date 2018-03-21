@@ -144,7 +144,11 @@ public class DwFeatureModelWizard extends Wizard implements INewWizard {
 	
 
 
-	protected void openFileInEditor(IFile file, IWorkbenchWindow workbenchWindow, IWorkbenchPage page) throws PartInitException{
+	protected void openFileInEditor(IFile file, IWorkbenchWindow workbenchWindow, IWorkbenchPage page) throws PartInitException {
+		if(file == null) {
+			return;
+		}
+		
 		IEditorRegistry editorRegistry = workbench.getEditorRegistry();
 		FileEditorInput fileEditorInput = new FileEditorInput(file);
 		

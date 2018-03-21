@@ -568,6 +568,11 @@ public class DwAnomalyView extends ViewPart {
 			try {
 				
 			file = workspaceRoot.getFile(new Path(modelWrapped.getModel().eResource().getURI().toPlatformString(true)));
+			
+			if(errorMessage.isDisposed()) {
+				return null;
+			}
+			 
 			errorMessage.setVisible(false);
 			
 			} catch(Exception e) {
