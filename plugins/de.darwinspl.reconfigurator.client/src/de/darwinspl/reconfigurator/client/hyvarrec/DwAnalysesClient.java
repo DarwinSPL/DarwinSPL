@@ -1,12 +1,7 @@
 package de.darwinspl.reconfigurator.client.hyvarrec;
 
-import java.io.IOException;
 import java.net.URI;
 import java.nio.channels.UnresolvedAddressException;
-import java.nio.charset.Charset;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;

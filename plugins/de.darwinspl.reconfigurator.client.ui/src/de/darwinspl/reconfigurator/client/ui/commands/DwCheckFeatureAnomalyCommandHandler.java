@@ -31,7 +31,7 @@ import com.google.gson.GsonBuilder;
 
 import de.christophseidl.util.eclipse.ui.SelectionUtil;
 import de.darwinspl.anomaly.DwAnomaly;
-import de.darwinspl.anomaly.DwFalseOptionalFeatureAnomaly;
+import de.darwinspl.anomaly.DwFeatureAnomaly;
 import de.darwinspl.anomaly.explanation.DwAnomalyExplanation;
 import de.darwinspl.eclipse.ui.DwModelSelection;
 import de.darwinspl.reconfigurator.client.hyvarrec.DwAnalysesClient;
@@ -128,7 +128,7 @@ public class DwCheckFeatureAnomalyCommandHandler extends AbstractHandler {
 		String hyVarRecMessage_integer = gson.toJson(inputForHyVarRec);
 		
 		
-//		try {
+		try {
 			
 //			
 //			
@@ -137,22 +137,23 @@ public class DwCheckFeatureAnomalyCommandHandler extends AbstractHandler {
 ////			DwVoidFeatureModelAnomaly voidFM = analysesClient.validateFeatureModelWithContext("http://localhost:9001", null, null, contextModel, validityModel, selectedFeatureModel, constraintModel, null, null, null, date);
 ////			System.err.println(voidFM);
 //			System.err.println("Checking features");
-//			List<DwAnomaly> featureAnomalies = analysesClient.checkFeatures("http://localhost:9001", null, null, contextModel, validityModel, selectedFeatureModel, constraintModel, null, date);
-//			for(DwAnomaly anomaly: featureAnomalies) {
-//				System.err.println(anomaly);
-//			}
-//			if(featureAnomalies != null) {
-//				for(DwAnomaly anomaly: featureAnomalies) {
-//					if(anomaly instanceof DwFalseOptionalFeatureAnomaly) {
-//						System.err.println("Getting explanation");
-//						DwFalseOptionalFeatureAnomaly fo = (DwFalseOptionalFeatureAnomaly) anomaly;
-//						DwAnomalyExplanation anomalyExplanation = analysesClient.explainAnomaly("http://localhost:9001", null, null, contextModel, validityModel, selectedFeatureModel, constraintModel, anomaly);
-//						System.err.println("Explanation for false optional "+fo.getFeature().getId());
-//						System.err.println(anomalyExplanation.getExplanations().toString());
-//					}
-//				}
-//				System.err.println(featureAnomalies.size());				
-//			}
+			List<DwAnomaly> featureAnomalies = analysesClient.checkFeatures("http://localhost:9001", null, null, contextModel, validityModel, selectedFeatureModel, constraintModel, null, date);
+			for(DwAnomaly anomaly: featureAnomalies) {
+				System.err.println(anomaly);
+			}
+			if(featureAnomalies != null) {
+				for(DwAnomaly anomaly: featureAnomalies) {
+					if(anomaly instanceof DwFeatureAnomaly) {
+						System.err.println("Getting explanation");
+						DwFeatureAnomaly fo = (DwFeatureAnomaly) anomaly;
+						DwAnomalyExplanation anomalyExplanation = analysesClient.explainAnomaly("http://localhost:9001", null, null, contextModel, validityModel, selectedFeatureModel, constraintModel, anomaly);
+						System.err.println("Explanation for "+fo);
+						System.err.println(anomalyExplanation.getExplanations().toString());
+					}
+
+				}
+				System.err.println(featureAnomalies.size());				
+			}
 //			if(featureAnomalies != null) {
 //				int fo = 0;
 //				int dead = 0;
@@ -171,11 +172,11 @@ public class DwCheckFeatureAnomalyCommandHandler extends AbstractHandler {
 //			else {
 //				System.err.println("No anomalies");
 //			}
-//		} catch (UnresolvedAddressException | TimeoutException | InterruptedException
-//				| java.util.concurrent.ExecutionException e1) {
-//			// TODO Auto-generated catch block
-//			e1.printStackTrace();
-//		}
+		} catch (UnresolvedAddressException | TimeoutException | InterruptedException
+				| java.util.concurrent.ExecutionException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 		
 		System.out.println("Writing file");
 		List<String> lines = new ArrayList<String>();
