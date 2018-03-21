@@ -60,6 +60,7 @@ import de.darwinspl.feature.graphical.configurator.viewer.DwFeatureModelConfigur
 import de.darwinspl.preferences.DwProfile;
 import de.darwinspl.preferences.util.custom.DwPreferenceModelUtil;
 import de.darwinspl.reconfigurator.client.hyvarrec.DwAnalysesClient;
+import de.darwinspl.reconfigurator.client.hyvarrec.DwEditorOperationAnalyzer;
 import de.darwinspl.reconfigurator.client.hyvarrec.DwAnalysesClient.DwContextValueEvolutionWrapper;
 import de.darwinspl.reconfigurator.client.hyvarrec.HyVarRecNoSolutionException;
 import de.darwinspl.solver.DwSolver;
@@ -622,12 +623,16 @@ public class DwFeatureModelConfiguratorEditor extends DwFeatureModelConfigurator
 //					anomalyExplanationDialog.open();
 //				}
 				else if(e.getSource() == detectFeatureAnomaliesButton) {
-					Map<DwAnomaly, List<AnomalyConstraintExplanation>> anomalies = client.checkFeatures(uri, username, password, contextModel, validityModel, modelWrapped.getModel(), constraintModel, null, null);
+					List<DwAnomaly> anomalies = client.checkFeatures(uri, username, password, contextModel, validityModel, modelWrapped.getModel(), constraintModel, null, null);
 					
 					// TODO show anomalies in an extra view and allow their explanation
+
+					DwEditorOperationAnalyzer editorOperationAnalyzer = new DwEditorOperationAnalyzer(client);
+					editorOperationAnalyzer.setFeatureAnomalies(anomalies);
 					
-					for (DwAnomaly anomaly : anomalies.keySet()) {						
-						DwAnomalyExplanationDialog anomalyExplanationDialog = new DwAnomalyExplanationDialog(getEditorSite().getShell(), anomaly, anomalies.get(anomaly));
+					for (DwAnomaly anomaly : anomalies) {
+						List<AnomalyConstraintExplanation> explanation = client.explainAnomaly(uri, username, password, contextModel, validityModel, modelWrapped.getModel(), constraintModel, anomaly, editorOperationAnalyzer);
+						DwAnomalyExplanationDialog anomalyExplanationDialog = new DwAnomalyExplanationDialog(getEditorSite().getShell(), anomaly, explanation);
 						anomalyExplanationDialog.open();	
 					}
 				}

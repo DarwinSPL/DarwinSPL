@@ -111,14 +111,12 @@ public class ExplainDialogResultDialog extends TitleAreaDialog {
 			typeOfAnomaly = "Dead Feature";
 			typeOfEffectedElements = "Affected Feature:";
 
-			affectedElements += ((DwDeadFeatureAnomaly) anomaly).getFeature().getNames().get(0)
-					.getName();
+			affectedElements += ((DwDeadFeatureAnomaly) anomaly).getFeature().getNames().get(0).getName();
 		} else if (anomaly instanceof DwFalseOptionalFeatureAnomaly) {
 			typeOfAnomaly = "False-Optional Feature";
 			typeOfEffectedElements = "Affected Feature:";
 
-			affectedElements += ((DwFalseOptionalFeatureAnomaly) anomaly).getFeature()
-					.getNames().get(0).getName();
+			affectedElements += ((DwFalseOptionalFeatureAnomaly) anomaly).getFeature().getNames().get(0).getName();
 
 		}
 

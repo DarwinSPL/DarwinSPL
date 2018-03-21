@@ -56,6 +56,7 @@ import de.darwinspl.feature.graphical.editor.editor.DwGraphicalFeatureModelEdito
 import de.darwinspl.preferences.DwProfile;
 import de.darwinspl.preferences.util.custom.DwPreferenceModelUtil;
 import de.darwinspl.reconfigurator.client.hyvarrec.DwAnalysesClient;
+import de.darwinspl.reconfigurator.client.hyvarrec.DwEditorOperationAnalyzer;
 import de.darwinspl.reconfigurator.client.hyvarrec.HyVarRecNoSolutionException;
 import eu.hyvar.context.HyContextInformationFactory;
 import eu.hyvar.context.HyContextModel;
@@ -79,7 +80,7 @@ public class DwAnomalyView extends ViewPart {
 
 	private IEditorPart currentEditor;
 	public static final String DEFAULT_SERVER_URI = "http://localhost:9002/";
-	public static String SAVED_SERVER_URI = "http://localhost:9002/";
+	public static String SAVED_SERVER_URI = "http://192.168.99.100:9001";
 	public static String USERNAME = null;
 	public static String PASSWORD = null;
 	public static Boolean HTTT_AUTHENTICATION_ENABLED = false;
@@ -192,8 +193,21 @@ public class DwAnomalyView extends ViewPart {
 		DwAnalysesClient analysesClient = new DwAnalysesClient();
 		List<AnomalyConstraintExplanation> anomalyExplanation = null;
 		try {
-			anomalyExplanation = analysesClient.explainAnomaly(getURI(), null, null, contextModel, validityModel,
-					modelWrapped.getModel(), constraintModel, anomaly, null);
+
+			String username = null;
+			String password = null;
+			if (HTTT_AUTHENTICATION_ENABLED) {
+				username = USERNAME;
+				password = PASSWORD;
+			}
+
+			List<DwAnomaly> anomalies = analysesClient.checkFeatures(getURI(), username, password, contextModel, validityModel, modelWrapped.getModel(), constraintModel, null, null);
+			
+			DwEditorOperationAnalyzer editorOperationAnalyzer = new DwEditorOperationAnalyzer(analysesClient);
+			editorOperationAnalyzer.setFeatureAnomalies(anomalies);
+			
+			anomalyExplanation = analysesClient.explainAnomaly(getURI(), username, password, contextModel, validityModel,
+					modelWrapped.getModel(), constraintModel, anomaly, editorOperationAnalyzer);
 		} catch (UnresolvedAddressException e) {
 
 			e.printStackTrace();
@@ -355,14 +369,14 @@ public class DwAnomalyView extends ViewPart {
 	private void setInputOfViewers() {
 
 		if (viewerFalseOptionalAnomaly != null) {
-			Map<DwAnomaly, List<AnomalyConstraintExplanation>> anomalies = getAnomalies();
+			List<DwAnomaly> anomalies = getAnomalies();
 			List<DwAnomaly> falseOptionalAndDeadAnomalies = new ArrayList<DwAnomaly>();
 			List<DwVoidFeatureModelAnomaly> voidAnomalies = new ArrayList<DwVoidFeatureModelAnomaly>();
 
 			voidAnomalies.removeAll(voidAnomalies);
 			if (anomalies != null && !anomalies.isEmpty()) {
 
-				for (DwAnomaly anomaly : anomalies.keySet()) {
+				for (DwAnomaly anomaly : anomalies) {
 					if (anomaly instanceof DwFalseOptionalFeatureAnomaly || anomaly instanceof DwDeadFeatureAnomaly) {
 						falseOptionalAndDeadAnomalies.add(anomaly);
 					} else if (anomaly instanceof DwVoidFeatureModelAnomaly) {
@@ -530,7 +544,7 @@ public class DwAnomalyView extends ViewPart {
 
 	}
 
-	private Map<DwAnomaly, List<AnomalyConstraintExplanation>> getAnomalies() {
+	private List<DwAnomaly> getAnomalies() {
 
 		if (modelFileExists(HyContextInformationUtil.getContextModelFileExtensionForXmi())) {
 			contextModel = loadContextInformationModel();
@@ -614,14 +628,13 @@ public class DwAnomalyView extends ViewPart {
 
 			}
 
-			Map<DwAnomaly, List<AnomalyConstraintExplanation>> anomalies = client.checkFeatures(uri, username, password,
-					contextModel, validityModel, modelWrapped.getModel(), constraintModel, null, null);
+			List<DwAnomaly> anomalies = client.checkFeatures(uri, username, password,contextModel, validityModel, modelWrapped.getModel(), constraintModel, null, null);
 
 			if (voidFeatureAnomaly != null) {
 				// TODO: does this have to be called here?
 				List<AnomalyConstraintExplanation> voidFeatureExplanation = client.explainAnomaly(uri, username, password,
 						contextModel, validityModel, modelWrapped.getModel(), constraintModel, voidFeatureAnomaly, null);
-				anomalies.put(voidFeatureAnomaly, voidFeatureExplanation);
+				anomalies.add(voidFeatureAnomaly);
 			}
 
 			errorMessage.setVisible(false);

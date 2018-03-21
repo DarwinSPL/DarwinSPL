@@ -347,7 +347,7 @@ public class DwEditorOperationAnalyzer {
 		// Root's parent would be null
 		if (parent != null) {
 			
-			// check whether the parent is already dead		
+			// check whether the parent is already dead
 			if (deadFeatureList.contains(parent)) {
 				// IGNORE as the parent is the one we have already handled or handle later
 				String explanation = "This is a dead feature, because of its already-dead parent " + HyEvolutionUtil.getValidTemporalElement(parent.getNames(), date).getName() + "!";
@@ -356,37 +356,6 @@ public class DwEditorOperationAnalyzer {
 				simpleExplanation.setStringReference(explanation);
 				constraintExplanationList.add(simpleExplanation);
 				return constraintExplanationList;
-			}
-			
-			// check whether it's the result of the false-optional group
-			HyGroup featureGroup = HyFeatureEvolutionUtil.getParentGroupOfFeature(anomaly.getFeature(), date);
-			for (HyGroupType groupType : featureGroup.getTypes()) {
-				// check whether this is the groupType of the anomaly
-				if (!HyEvolutionUtil.isValid(groupType, date)) {
-					continue;
-				}
-				
-				if (groupType.getType() == HyGroupTypeEnum.ALTERNATIVE) {
-					
-					// iterate through the other alternate group members to check whether one is false optional
-					
-					HyGroupComposition groupComp = HyFeatureEvolutionUtil.getGroupComposition(featureGroup, date);
-					for (HyFeature otherFeature : groupComp.getFeatures()) {
-						if (falseOptionalList.contains(otherFeature)) {
-							String explanation = "This is a dead feature, because it's in an ALTERNATIVE group with the false-optional feature " + HyEvolutionUtil.getValidTemporalElement(otherFeature.getNames(), date).getName();
-
-							// now we know that this feature is only considered a dead-feature because of the false-optional feature
-							// do we have an explanation here for the cause of _why_ it is false optional (which is the root of this)
-							// or do we simply wait/forward to the false-optional explanation?							
-
-							AnomalyConstraintExplanation simpleExplanation = new AnomalyConstraintExplanation();
-							simpleExplanation.setDate(date);
-							simpleExplanation.setStringReference(explanation);
-							constraintExplanationList.add(simpleExplanation);
-							return constraintExplanationList;
-						}
-					}
-				}
 			}
 		}
 		
@@ -442,7 +411,7 @@ public class DwEditorOperationAnalyzer {
 			explanation.setDate(anomalyExplanation.getDate());
 			for (DwEditorOperation operation : getEditorOperationListForObject(translationMapping.get(constraint), anomalyExplanation.getDate())) {
 				EditorOperationExplanation opExplanation = new EditorOperationExplanation(operation);
-				explanation.addEvolutionEditorOperations(opExplanation);
+				explanation.getEditorOperations().add(opExplanation);
 			}
 			list.add(explanation);
 		}
@@ -475,17 +444,11 @@ public class DwEditorOperationAnalyzer {
 		HyConstraint constraint = null;
 		if (object instanceof HyConstraint) {
 			constraint = (HyConstraint) object;
-			
-			// TODO: get involved features + groups and out of it
-			// Do i have to? because those features will be represented in other constraints as well, won't they?
 		}
 		
 		HyValidityFormula validityFormula = null;
 		if (object instanceof HyValidityFormula) {
 			validityFormula = (HyValidityFormula) object;
-			
-			// TODO: get involved features + groups and out of it
-			// Do i have to? because those features will be represented in other constraints as well, won't they?
 		}
 		
 		for (DwEditorOperation operation : operationList) {
@@ -549,49 +512,44 @@ public class DwEditorOperationAnalyzer {
 	
 	public void filterRelevantDeadFeatureEditorOperation(AnomalyConstraintExplanation constraintExplanation) {
 		List<EditorOperationExplanation> list = new ArrayList<EditorOperationExplanation>();
+		list.addAll(constraintExplanation.getEditorOperations());
+		constraintExplanation.getEditorOperations().clear();
 		
-		for (EditorOperationExplanation opExplanation : constraintExplanation.getEvolutionEditorOperations()) {
+		for (EditorOperationExplanation opExplanation : list) {
 			DwEditorOperation operation = opExplanation.getEditorOperation();
 			if (operation instanceof DwEditorOperationFeatureType
 					|| operation instanceof DwEditorOperationFeatureGroup
 					|| operation instanceof DwEditorOperationGroupType
 					|| operation instanceof DwEditorOperationConstraintCreate
 					|| operation instanceof DwEditorOperationValidityFormulaCreate) {
-				if (opExplanation.getEditorOperation().getEvoStep() != null
-						&& opExplanation.getEditorOperation().getEvoStep().equals(constraintExplanation.getDate())) {
-							constraintExplanation.addCausingEditorOperations(opExplanation);
-							list.add(opExplanation);
-					}
+				constraintExplanation.getEditorOperations().add(opExplanation);
 			}
 		}
-		constraintExplanation.getEvolutionEditorOperations().removeAll(list);
 	}
 	
 	public void filterRelevantFalseOptionalFeatureEditorOperation(AnomalyConstraintExplanation constraintExplanation) {
 		List<EditorOperationExplanation> list = new ArrayList<EditorOperationExplanation>();
+		list.addAll(constraintExplanation.getEditorOperations());
+		constraintExplanation.getEditorOperations().clear();
 		
-		for (EditorOperationExplanation opExplanation : constraintExplanation.getEvolutionEditorOperations()) {
+		for (EditorOperationExplanation opExplanation : list) {
 			DwEditorOperation operation = opExplanation.getEditorOperation();
 			if (operation instanceof DwEditorOperationFeatureType
 					|| operation instanceof DwEditorOperationFeatureGroup
 					|| operation instanceof DwEditorOperationGroupType
 					|| operation instanceof DwEditorOperationConstraintCreate
 					|| operation instanceof DwEditorOperationValidityFormulaCreate) {
-				if (opExplanation.getEditorOperation().getEvoStep() != null
-					&& opExplanation.getEditorOperation().getEvoStep().equals(constraintExplanation.getDate())) {
-						constraintExplanation.addCausingEditorOperations(opExplanation);
-						list.add(opExplanation);
-				}
+				constraintExplanation.getEditorOperations().add(opExplanation);
 			}
 		}
-		// Only keep relevant explanations
-		constraintExplanation.getEvolutionEditorOperations().removeAll(list);
 	}
 	
 	public void filterRelevantVoidFeatureModelEditorOperation(AnomalyConstraintExplanation constraintExplanation) {
 		List<EditorOperationExplanation> list = new ArrayList<EditorOperationExplanation>();
+		list.addAll(constraintExplanation.getEditorOperations());
+		constraintExplanation.getEditorOperations().clear();
 		
-		for (EditorOperationExplanation opExplanation : constraintExplanation.getEvolutionEditorOperations()) {
+		for (EditorOperationExplanation opExplanation : list) {
 			DwEditorOperation operation = opExplanation.getEditorOperation();
 			if (operation instanceof DwEditorOperationFeatureType
 					|| operation instanceof DwEditorOperationFeatureGroup
@@ -599,12 +557,9 @@ public class DwEditorOperationAnalyzer {
 					|| operation instanceof DwEditorOperationConstraintCreate
 					|| operation instanceof DwEditorOperationValidityFormulaCreate
 					|| operation instanceof DwEditorOperationEnumLiteralCreate) {
-				constraintExplanation.addCausingEditorOperations(opExplanation);
-				list.add(opExplanation);
+				constraintExplanation.getEditorOperations().add(opExplanation);
 			}
 		}
-		// Only keep relevant explanations
-		constraintExplanation.getEvolutionEditorOperations().removeAll(list);
 	}
 	
 	// ------------- UTIL -------------

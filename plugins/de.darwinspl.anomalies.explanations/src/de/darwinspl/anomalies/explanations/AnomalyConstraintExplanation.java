@@ -27,7 +27,7 @@ public class AnomalyConstraintExplanation {
 
 	private EObject objReference; // TODO: rename properly
 	private String stringReference; // TODO: rename properly
-	private Map<EditorOperationType, List<EditorOperationExplanation>> editorOperationExplanations = new HashMap<EditorOperationType, List<EditorOperationExplanation>>();
+	private List<EditorOperationExplanation> editorOperationExplanations = new ArrayList<EditorOperationExplanation>();
 	private Date date;
 
 	public String explain() {
@@ -51,20 +51,23 @@ public class AnomalyConstraintExplanation {
 
 		String editorOperationExplanation = "";
 		if (editorOperationExplanations.size() > 0) {
-			for (EditorOperationType type : editorOperationExplanations.keySet()) {
-				for (EditorOperationExplanation opExplanation : editorOperationExplanations.get(type)) {
-					if (!editorOperationExplanation.isEmpty()) {
-						editorOperationExplanation += "\n";
-					}
-					editorOperationExplanation += type.name() + " - " + opExplanation.explain();
+			for (EditorOperationExplanation opExplanation : editorOperationExplanations) {
+				if (!editorOperationExplanation.isEmpty()) {
+					editorOperationExplanation += "\n";
 				}
+				String type = "EVOLUTION";
+				if ((opExplanation.getEditorOperation().getEvoStep() == null && opExplanation.getEditorOperation().getEvoStep() == date)
+						|| (opExplanation.getEditorOperation().getEvoStep() != null && opExplanation.getEditorOperation().getEvoStep().equals(date))) {
+					type = "CAUSING";
+				}
+				editorOperationExplanation += type + " - " + opExplanation.explain();
 			}
-			editorOperationExplanation = "\n>Editor Operations:\n" + editorOperationExplanation;
+			editorOperationExplanation = "\n>Evolution Operations:\n" + editorOperationExplanation;
 		}
 		if (constraintStringExplanation.isEmpty()) {
 			return stringReference;
 		} else {
-			return stringReference + " -> " + constraintStringExplanation + editorOperationExplanation;
+			return stringReference + "\n-> " + constraintStringExplanation + editorOperationExplanation;
 		}
 	}
 
@@ -123,32 +126,8 @@ public class AnomalyConstraintExplanation {
 		this.stringReference = stringReference;
 	}
 	
-	public void addEvolutionEditorOperations(EditorOperationExplanation editorOperation) {
-		if (!editorOperationExplanations.containsKey(EditorOperationType.EVOLUTION)) {
-			editorOperationExplanations.put(EditorOperationType.EVOLUTION, new ArrayList<EditorOperationExplanation>());
-		}
-		editorOperationExplanations.get(EditorOperationType.EVOLUTION).add(editorOperation);
-	}
-	
-	public void addCausingEditorOperations(EditorOperationExplanation editorOperation) {
-		if (!editorOperationExplanations.containsKey(EditorOperationType.CAUSING)) {
-			editorOperationExplanations.put(EditorOperationType.CAUSING, new ArrayList<EditorOperationExplanation>());
-		}
-		editorOperationExplanations.get(EditorOperationType.CAUSING).add(editorOperation);
-	}
-	
-	public List<EditorOperationExplanation> getEvolutionEditorOperations() {
-		if (editorOperationExplanations.containsKey(EditorOperationType.EVOLUTION)) {
-			return editorOperationExplanations.get(EditorOperationType.EVOLUTION);
-		}
-		return new ArrayList<EditorOperationExplanation>();
-	}
-	
-	public List<EditorOperationExplanation> getCausingEditorOperations() {
-		if (editorOperationExplanations.containsKey(EditorOperationType.CAUSING)) {
-			return editorOperationExplanations.get(EditorOperationType.CAUSING);
-		}
-		return new ArrayList<EditorOperationExplanation>();
+	public List<EditorOperationExplanation> getEditorOperations() {
+		return editorOperationExplanations;
 	}
 
 	public void setDate(Date date) {

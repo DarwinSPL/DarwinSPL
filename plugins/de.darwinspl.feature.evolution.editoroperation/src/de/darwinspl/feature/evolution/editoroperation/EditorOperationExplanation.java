@@ -112,25 +112,25 @@ public class EditorOperationExplanation {
 	private String explain(DwEditorOperationFeatureCreate featureOperation) {
 		String featureName = HyEvolutionUtil.getValidTemporalElement(featureOperation.getFeature().getNames(), featureOperation.getEvoStep()).getName();
 		String date = featureOperation.getEvoStep() == null ? "eternity" : featureOperation.getEvoStep().toString();
-		return "Feature " + featureName + " was created in " + date;
+		return "Feature " + featureName + " was created on " + date;
 	}
 
 	private String explain(DwEditorOperationFeatureDelete featureOperation) {
 		String featureName = HyEvolutionUtil.getValidTemporalElement(featureOperation.getFeature().getNames(), featureOperation.getEvoStep()).getName();
-		return "Feature " + featureName + " was deleted in " + featureOperation.getEvoStep().toString();
+		return "Feature " + featureName + " was deleted on " + featureOperation.getEvoStep().toString();
 	}
 
 	private String explain(DwEditorOperationFeatureRename featureOperation) {
 		String oldName = featureOperation.getOldName().getName();
 		String newName = featureOperation.getNewName().getName();
-		return "Feature " + oldName + " was renamed to " +  newName + " in " + featureOperation.getEvoStep();
+		return "Feature " + oldName + " was renamed to " +  newName + " on " + featureOperation.getEvoStep();
 	}
 
 	private String explain(DwEditorOperationFeatureType featureTypeOperation) {
 		String featureName = HyEvolutionUtil.getValidTemporalElement(featureTypeOperation.getFeature().getNames(), featureTypeOperation.getEvoStep()).getName();
 		String oldName = featureTypeOperation.getOldType().getType().getName();
 		String newName = featureTypeOperation.getNewType().getType().getName();
-		return "FeatureType of " + featureName + " changed from " + oldName +  " to " + newName + " in " + featureTypeOperation.getEvoStep();
+		return "FeatureType of " + featureName + " changed from " + oldName +  " to " + newName + " on " + featureTypeOperation.getEvoStep();
 	}
 	
 	private String explain(DwEditorOperationFeatureGroup featureGroupOperation) {
@@ -139,20 +139,20 @@ public class EditorOperationExplanation {
 		String oldParentFeatureName = HyEvolutionUtil.getValidTemporalElement(oldParentFeatureChild.getParent().getNames(), new Date(featureGroupOperation.getEvoStep().getTime() -1L)).getName();
 		HyFeatureChild newParentFeatureChild = HyEvolutionUtil.getValidTemporalElement(featureGroupOperation.getNewGroup().getCompositionOf().getChildOf(), featureGroupOperation.getEvoStep());
 		String newParentFeatureName = HyEvolutionUtil.getValidTemporalElement(newParentFeatureChild.getParent().getNames(), featureGroupOperation.getEvoStep()).getName();
-		return "Feature " + featureName + " moved from parent " + oldParentFeatureName + " to " + newParentFeatureName + " in " + featureGroupOperation.getEvoStep();
+		return "Feature " + featureName + " moved from parent " + oldParentFeatureName + " to " + newParentFeatureName + " on " + featureGroupOperation.getEvoStep();
 	}
 
 	private String explain(DwEditorOperationFeatureVersionCreate featureOperation) {
 		String featureName = HyEvolutionUtil.getValidTemporalElement(featureOperation.getFeature().getNames(), featureOperation.getEvoStep()).getName();
 		String versionNumber = featureOperation.getVersion().getNumber();
 		String date = featureOperation.getEvoStep() == null ? "eternity" : featureOperation.getEvoStep().toString();
-		return "Version " + versionNumber + " of " + featureName + " was created in " + date;
+		return "Version " + versionNumber + " of " + featureName + " was created on " + date;
 	}
 
 	private String explain(DwEditorOperationFeatureVersionDelete featureOperation) {
 		String featureName = HyEvolutionUtil.getValidTemporalElement(featureOperation.getFeature().getNames(), featureOperation.getEvoStep()).getName();
 		String versionNumber = featureOperation.getVersion().getNumber();
-		return "Version " + versionNumber + " of " + featureName + " was deleted in " + featureOperation.getEvoStep();
+		return "Version " + versionNumber + " of " + featureName + " was deleted on " + featureOperation.getEvoStep();
 	}
 	
 	private String explain(DwEditorOperationGroupType groupTypeOperation) {
@@ -160,94 +160,94 @@ public class EditorOperationExplanation {
 		String parentFeatureName = HyEvolutionUtil.getValidTemporalElement(groupChild.getParent().getNames(), groupTypeOperation.getEvoStep()).getName();
 		String oldGroupType = groupTypeOperation.getOldType().getType().getName();
 		String newGroupType = groupTypeOperation.getNewType().getType().getName();
-		return "GroupType beneath parent " + parentFeatureName + " changed from " + oldGroupType + " to " + newGroupType + " in " + groupTypeOperation.getEvoStep();
+		return "GroupType beneath parent " + parentFeatureName + " changed from " + oldGroupType + " to " + newGroupType + " on " + groupTypeOperation.getEvoStep();
 	}
 	
 	private String explain(DwEditorOperationAttributeCreate attributeOperation) {
 		String attributeName = HyEvolutionUtil.getValidTemporalElement(attributeOperation.getAttribute().getNames(), attributeOperation.getEvoStep()).getName();
 		String date = attributeOperation.getEvoStep() == null ? "eternity" : attributeOperation.getEvoStep().toString();
-		return "Attribute " + attributeName + " was created in " + date;
+		return "Attribute " + attributeName + " was created on " + date;
 	}
 	
 	private String explain(DwEditorOperationAttributeDelete attributeOperation) {
 		String attributeName = HyEvolutionUtil.getValidTemporalElement(attributeOperation.getAttribute().getNames(), attributeOperation.getEvoStep()).getName();
-		return "Attribute " + attributeName + " was deleted in " + attributeOperation.getEvoStep();
+		return "Attribute " + attributeName + " was deleted on " + attributeOperation.getEvoStep();
 	}
 	
 	private String explain(DwEditorOperationAttributeRename attributeOperation) {
 		String oldName = attributeOperation.getOldName().getName();
 		String newName = attributeOperation.getNewName().getName();
-		return "Attribute " + oldName + " renamed to " + newName + " in " + attributeOperation.getEvoStep();
+		return "Attribute " + oldName + " renamed to " + newName + " on " + attributeOperation.getEvoStep();
 	}
 	
 	private String explain(DwEditorOperationAttributeMinMax attributeMinMaxOperation) {
 		String attributeName = HyEvolutionUtil.getValidTemporalElement(attributeMinMaxOperation.getAttribute().getNames(), attributeMinMaxOperation.getEvoStep()).getName();
-		return "Attribute " + attributeName + " changed " + attributeMinMaxOperation.getType().getName() + " from " + attributeMinMaxOperation.getOldMinMax() + " to " + attributeMinMaxOperation.getNewMinMax() + " in " + attributeMinMaxOperation.getEvoStep();
+		return "Attribute " + attributeName + " changed " + attributeMinMaxOperation.getType().getName() + " from " + attributeMinMaxOperation.getOldMinMax() + " to " + attributeMinMaxOperation.getNewMinMax() + " on " + attributeMinMaxOperation.getEvoStep();
 	}
 	
 	private String explain(DwEditorOperationAttributeEnum attributeOperation) {
 		String attributeName = HyEvolutionUtil.getValidTemporalElement(attributeOperation.getAttribute().getNames(), attributeOperation.getEvoStep()).getName();
 		String oldEnumName = attributeOperation.getOldEnum().getName();
 		String newEnumName = attributeOperation.getNewEnum().getName();
-		return "Attribute " + attributeName + " changed the enum from " + oldEnumName + " to " + newEnumName +  " in " + attributeOperation.getEvoStep();
+		return "Attribute " + attributeName + " changed the enum from " + oldEnumName + " to " + newEnumName +  " on " + attributeOperation.getEvoStep();
 	}
 	
 	private String explain(DwEditorOperationEnumCreate enumOperation) {
 		String enumName = enumOperation.getEnum().getName();
 		String date = enumOperation.getEvoStep() == null ? "eternity" : enumOperation.getEvoStep().toString();
-		return "Enum " + enumName + " was created in " + date;
+		return "Enum " + enumName + " was created on " + date;
 	}
 	
 	private String explain(DwEditorOperationEnumDelete enumOperation) {
 		String enumName = enumOperation.getEnum().getName();
 		String date = enumOperation.getEvoStep() == null ? "eternity" : enumOperation.getEvoStep().toString();
-		return "Enum " + enumName + " was deleted in " + date;
+		return "Enum " + enumName + " was deleted on " + date;
 	}
 	
 	private String explain(DwEditorOperationEnumLiteralCreate enumOperation) {
 		String enumName = enumOperation.getEnum().getName();
 		String literalName = enumOperation.getLiteral().getName();
 		String date = enumOperation.getEvoStep() == null ? "eternity" : enumOperation.getEvoStep().toString();
-		return "EnumLiteral " + literalName + " was created for Enum " + enumName + " in " + date;
+		return "EnumLiteral " + literalName + " was created for Enum " + enumName + " on " + date;
 	}
 	
 	private String explain(DwEditorOperationEnumLiteralDelete enumOperation) {
 		String enumName = enumOperation.getEnum().getName();
 		String literalName = enumOperation.getLiteral().getName();
 		String date = enumOperation.getEvoStep() == null ? "eternity" : enumOperation.getEvoStep().toString();
-		return "EnumLiteral " + literalName + " of Enum " + enumName + " was deleted in " + date;
+		return "EnumLiteral " + literalName + " of Enum " + enumName + " was deleted on " + date;
 	}
 	
 	private String explain(DwEditorOperationConstraintCreate constraintOperation) {
 		String date = constraintOperation.getEvoStep() == null ? "eternity" : constraintOperation.getEvoStep().toString();
-		return "Constraint created in " + date;
+		return "Constraint created on " + date;
 	}
 	
 	private String explain(DwEditorOperationConstraintDelete constraintOperation) {
 		String date = constraintOperation.getEvoStep() == null ? "eternity" : constraintOperation.getEvoStep().toString();
-		return "Constraint deleted in " + date;
+		return "Constraint deleted on " + date;
 	}
 	
 	private String explain(DwEditorOperationContextCreate contextOperation) {
 		String contextName = contextOperation.getContext().getName();
 		String date = contextOperation.getEvoStep() == null ? "eternity" : contextOperation.getEvoStep().toString();
-		return "Context " + contextName + " was created in " + date;
+		return "Context " + contextName + " was created on " + date;
 	}
 	
 	private String explain(DwEditorOperationContextDelete contextOperation) {
 		String contextName = contextOperation.getContext().getName();
 		String date = contextOperation.getEvoStep() == null ? "eternity" : contextOperation.getEvoStep().toString();
-		return "Context " + contextName + " was deleted in " + date;
+		return "Context " + contextName + " was deleted on " + date;
 	}
 	
 	private String explain(DwEditorOperationValidityFormulaCreate validityFormulaOperation) {
 		String date = validityFormulaOperation.getEvoStep() == null ? "eternity" : validityFormulaOperation.getEvoStep().toString();
-		return "ValidityFormula created in " + date;
+		return "ValidityFormula created on " + date;
 	}
 	
 	private String explain(DwEditorOperationValidityFormulaDelete validityFormulaOperation) {
 		String date = validityFormulaOperation.getEvoStep() == null ? "eternity" : validityFormulaOperation.getEvoStep().toString();
-		return "ValidityFormula deleted in " + date;
+		return "ValidityFormula deleted on " + date;
 	}
 	
 	public DwEditorOperation getEditorOperation() {

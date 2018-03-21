@@ -252,7 +252,7 @@ public class DwAnalysesClient {
 	 * @throws ExecutionException
 	 * @throws UnresolvedAddressException
 	 */
-	public Map<DwAnomaly, List<AnomalyConstraintExplanation>> checkFeatures(String uriString, String webserviceUsername, String webservicePassword, HyContextModel contextModel, HyValidityModel contextValidityModel,
+	public List<DwAnomaly> checkFeatures(String uriString, String webserviceUsername, String webservicePassword, HyContextModel contextModel, HyValidityModel contextValidityModel,
 			HyFeatureModel featureModel, HyConstraintModel constraintModel, HyContextValueModel contextValues, Date date) throws TimeoutException, InterruptedException, ExecutionException, UnresolvedAddressException {
 		String messageForHyVarRec = createHyVarRecMessage(contextModel, contextValidityModel, featureModel, constraintModel, null, null, contextValues, date, null);
 		System.err.println(messageForHyVarRec);
@@ -266,19 +266,8 @@ public class DwAnalysesClient {
 		HyVarRecCheckFeaturesAnswer hyVarRecAnswer = gson.fromJson(hyvarrecAnswerString, HyVarRecCheckFeaturesAnswer.class);
 		
 		List<DwAnomaly> anomalies = DwAnomalyTranslation.translateAnomalies(hyVarRecAnswer, exporter.getFeatureReconfiguratorIdMapping(), exporter.getSortedDateList());
-
-		DwEditorOperationAnalyzer editorOperationAnalyzer = new DwEditorOperationAnalyzer(this);
-		editorOperationAnalyzer.setFeatureAnomalies(anomalies);
 		
-		Map<DwAnomaly, List<AnomalyConstraintExplanation>> anomalyMap;
-		anomalyMap = new HashMap<DwAnomaly, List<AnomalyConstraintExplanation>>();
-		// Code to test anomaly explanation
-		for(DwAnomaly anomaly: anomalies) {
-			List<AnomalyConstraintExplanation> explanation = explainAnomaly(uriString, webserviceUsername, webservicePassword, contextModel, contextValidityModel, featureModel, constraintModel, anomaly, editorOperationAnalyzer);
-			anomalyMap.put(anomaly, explanation);
-		}
-		
-		return anomalyMap;
+		return anomalies;
 	}
 	
 	protected List<String> translateIdsBackToNames(List<String> constraints, Date date, HyVarRecExporter hyVarRecExporter) {
