@@ -308,11 +308,17 @@ public class DwAnalysesClient {
 			
 			}
 			
-			if(anomaly instanceof DwFalseOptionalFeatureAnomaly) {
-				additionalAnomalyConstraint = dwFeatureEncoding.getFeatureDeselected(((DwFeatureAnomaly)anomaly).getFeature().getId());
-			}
-			else if(anomaly instanceof DwDeadFeatureAnomaly) {
-				additionalAnomalyConstraint = dwFeatureEncoding.getFeatureSelected(((DwFeatureAnomaly)anomaly).getFeature().getId());
+			if(anomaly instanceof DwFeatureAnomaly) {
+				String featureId = "feature[";
+				featureId = featureId+(((DwFeatureAnomaly)anomaly).getFeature().getId());
+				featureId = featureId+"]";
+				
+				if(anomaly instanceof DwFalseOptionalFeatureAnomaly) {
+					additionalAnomalyConstraint = dwFeatureEncoding.getFeatureDeselected(featureId);
+				}
+				else if(anomaly instanceof DwDeadFeatureAnomaly) {
+					additionalAnomalyConstraint = dwFeatureEncoding.getFeatureSelected(featureId);
+				}				
 			}
 		}
 		
@@ -343,15 +349,25 @@ public class DwAnalysesClient {
 		}
 		
 		
-//		InputForHyVarRec inputForHyVarRec = exporter.createInputForHyVarRec(contextModel, contextValidityModel, featureModel, constraintModel, null, null, contextValueModel, date, date);
-		String messageForHyVarRec = createHyVarRecMessage(contextModel, contextValidityModel, featureModel, constraintModel, null, null, contextValueModel, date, date, EXPLAIN_MODALITY);
+		InputForHyVarRec inputForHyVarRec = exporter.createInputForHyVarRec(contextModel, contextValidityModel, featureModel, constraintModel, null, null, contextValueModel, date, date);
+//		String messageForHyVarRec2 = createHyVarRecMessage(contextModel, contextValidityModel, featureModel, constraintModel, null, null, contextValueModel, date, date, EXPLAIN_MODALITY);
 		URI uri = createUriWithPath(uriString, EXPLAIN_ANOMALY_URI);
 		
 		if(additionalAnomalyConstraint != null) {
-//			inputForHyVarRec.getConstraints().add(additionalAnomalyConstraint);
+			inputForHyVarRec.getConstraints().add(additionalAnomalyConstraint);
 		}
 		
-//		String messageForHyVarRec = gson.toJson(inputForHyVarRec);
+		List<String> options = inputForHyVarRec.getHyvar_options();
+		
+		if(options == null) {
+			options = new ArrayList<String>(1);
+			inputForHyVarRec.setHyvar_options(options);
+		}
+		
+		options.add(EXPLAIN_MODALITY);
+		
+		
+		String messageForHyVarRec = gson.toJson(inputForHyVarRec);
 		
 		String hyvarrecAnswerString = sendMessageToHyVarRec(messageForHyVarRec, uri, webserviceUsername, webservicePassword);
 		
