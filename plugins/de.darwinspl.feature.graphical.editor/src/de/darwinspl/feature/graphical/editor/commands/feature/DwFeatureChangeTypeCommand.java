@@ -9,12 +9,15 @@ import org.eclipse.gef.commands.Command;
 
 import de.darwinspl.feature.graphical.base.editor.DwGraphicalFeatureModelViewer;
 import de.darwinspl.feature.graphical.editor.util.DwElementEditorUtil;
-import eu.hyvar.evolution.util.HyEvolutionUtil;
 import eu.hyvar.evolution.HyLinearTemporalElement;
+import eu.hyvar.evolution.util.HyEvolutionUtil;
 import eu.hyvar.feature.HyFeature;
 import eu.hyvar.feature.HyFeatureFactory;
 import eu.hyvar.feature.HyFeatureType;
 import eu.hyvar.feature.HyFeatureTypeEnum;
+import eu.hyvar.feature.HyGroupComposition;
+import eu.hyvar.feature.HyGroupType;
+import eu.hyvar.feature.util.HyFeatureEvolutionUtil;
 
 public class DwFeatureChangeTypeCommand extends Command {
 	private HyFeature feature;
@@ -93,6 +96,37 @@ public class DwFeatureChangeTypeCommand extends Command {
 
 	@Override
 	public boolean canExecute() {
-		return editor.isLastDateSelected();
+		boolean executable = true;
+		
+		if(!editor.isLastDateSelected()) {
+			executable = false;
+		} else {
+			Date date = editor.getCurrentSelectedDate();
+			HyGroupComposition groupComposition = HyEvolutionUtil.getValidTemporalElement(feature.getGroupMembership(), date);
+			if(groupComposition != null) {
+				HyGroupType groupType = HyFeatureEvolutionUtil.getType(groupComposition.getCompositionOf(), date);
+				if(groupType != null) {
+					switch(groupType.getType()) {
+					case ALTERNATIVE:
+						if(newFeatureTypeEnum.equals(HyFeatureTypeEnum.MANDATORY)) {
+							executable = false;
+						}
+						break;
+					case AND:
+						executable = true;
+						break;
+					case OR:
+						if(newFeatureTypeEnum.equals(HyFeatureTypeEnum.MANDATORY)) {
+							executable = false;
+						}
+						break;
+					}
+				}
+			}
+		}
+		
+		
+		
+		return executable;
 	}
 }

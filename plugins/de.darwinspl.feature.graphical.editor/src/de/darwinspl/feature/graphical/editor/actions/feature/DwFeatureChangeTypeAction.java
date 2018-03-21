@@ -11,6 +11,9 @@ import de.darwinspl.feature.graphical.editor.commands.feature.DwFeatureChangeTyp
 import eu.hyvar.evolution.util.HyEvolutionUtil;
 import eu.hyvar.feature.HyFeatureType;
 import eu.hyvar.feature.HyFeatureTypeEnum;
+import eu.hyvar.feature.HyGroupComposition;
+import eu.hyvar.feature.HyGroupType;
+import eu.hyvar.feature.util.HyFeatureEvolutionUtil;
 
 public class DwFeatureChangeTypeAction extends DwFeatureSelectionAction {
 	public static final String FEATURE_CHANGE_TYPE = "ChangeFeatureType";
@@ -35,4 +38,47 @@ public class DwFeatureChangeTypeAction extends DwFeatureSelectionAction {
 		DwFeatureChangeTypeCommand command = new DwFeatureChangeTypeCommand(selectedFeature.getWrappedModelElement(), newTypeEnum, editor);
 		return command;
 	}	
+	
+	@Override
+	protected boolean calculateEnabled() {
+		boolean executable = true;
+		
+		if(!editor.isLastDateSelected()) {
+			executable = false;
+		} else {
+			DwFeatureWrapped selectedFeature = getSelectedFeature();
+			
+			Date date = editor.getCurrentSelectedDate();
+			HyGroupComposition groupComposition = HyEvolutionUtil.getValidTemporalElement(selectedFeature.getWrappedModelElement().getGroupMembership(), date);
+			
+			if(groupComposition != null) {
+				HyGroupType groupType = HyFeatureEvolutionUtil.getType(groupComposition.getCompositionOf(), date);
+				if(groupType != null) {
+					
+					HyFeatureType type = HyEvolutionUtil.getValidTemporalElement(selectedFeature.getWrappedModelElement().getTypes(), date);
+					HyFeatureTypeEnum newFeatureTypeEnum = type.getType() == HyFeatureTypeEnum.MANDATORY ? HyFeatureTypeEnum.OPTIONAL : HyFeatureTypeEnum.MANDATORY;
+					
+					switch(groupType.getType()) {
+					case ALTERNATIVE:
+						if(newFeatureTypeEnum.equals(HyFeatureTypeEnum.MANDATORY)) {
+							executable = false;
+						}
+						break;
+					case AND:
+						executable = true;
+						break;
+					case OR:
+						if(newFeatureTypeEnum.equals(HyFeatureTypeEnum.MANDATORY)) {
+							executable = false;
+						}
+						break;
+					}
+				}
+			}
+		}
+		
+		
+		
+		return executable;
+	}
 }
