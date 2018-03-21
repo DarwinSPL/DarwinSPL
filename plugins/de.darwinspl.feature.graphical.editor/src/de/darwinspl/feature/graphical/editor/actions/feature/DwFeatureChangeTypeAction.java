@@ -44,9 +44,18 @@ public class DwFeatureChangeTypeAction extends DwFeatureSelectionAction {
 		boolean executable = true;
 		
 		if(!editor.isLastDateSelected()) {
-			executable = false;
+			return false;
 		} else {
 			DwFeatureWrapped selectedFeature = getSelectedFeature();
+			if(selectedFeature == null) {
+				return false;
+			}
+			else if(selectedFeature.getWrappedModelElement() == null) {
+				return false;
+			}
+			else if(selectedFeature.getWrappedModelElement().getGroupMembership() == null || selectedFeature.getWrappedModelElement().getGroupMembership().isEmpty()) {
+				return false;
+			}
 			
 			Date date = editor.getCurrentSelectedDate();
 			HyGroupComposition groupComposition = HyEvolutionUtil.getValidTemporalElement(selectedFeature.getWrappedModelElement().getGroupMembership(), date);
