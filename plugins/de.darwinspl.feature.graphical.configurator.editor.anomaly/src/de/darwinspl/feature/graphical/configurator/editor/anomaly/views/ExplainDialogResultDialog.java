@@ -1,6 +1,5 @@
 package de.darwinspl.feature.graphical.configurator.editor.anomaly.views;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.emf.common.util.EList;
@@ -15,9 +14,13 @@ import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
+import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Label;
+import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
+import org.eclipse.swt.widgets.Tree;
+import org.eclipse.swt.widgets.TreeItem;
 
 import de.darwinspl.anomalies.explanations.AnomalyConstraintExplanation;
 import de.darwinspl.anomaly.DwAnomaly;
@@ -176,24 +179,60 @@ public class ExplainDialogResultDialog extends TitleAreaDialog {
 
 		explanationsLabel.setFont(boldFont);
 
-		uriText = new Text(container, SWT.MULTI | SWT.BORDER | SWT.WRAP | SWT.V_SCROLL | SWT.READ_ONLY);
-		// uriText.setLayoutData(new GridData(GridData.FILL_BOTH));
-		seperatorGridData = new GridData(SWT.FILL, SWT.TOP, true, false, 2, 1);
-		uriText.setLayoutData(seperatorGridData);
-		List<String> explanations = new ArrayList<String>();
+//		uriText = new Text(container, SWT.MULTI | SWT.BORDER | SWT.WRAP | SWT.V_SCROLL | SWT.READ_ONLY);
+//		// uriText.setLayoutData(new GridData(GridData.FILL_BOTH));
+//		seperatorGridData = new GridData(SWT.FILL, SWT.TOP, true, false, 2, 1);
+//		uriText.setLayoutData(seperatorGridData);
+//		List<String> explanations = new ArrayList<String>();
+//		for (AnomalyConstraintExplanation explanation : anomalyExplanation) {
+//			if (explanations.size() > 0) {
+//				explanations.add("-----"); // TODO temp separator
+//			}
+//			explanations.add(explanation.explain());
+//		}
+//		String resultString = "";
+//
+//		for (String e : explanations) {
+//			resultString += e + "\n";
+//		}
+//
+//		uriText.setText(resultString);
+		
+		final Tree tree = new Tree(container, SWT.MULTI | SWT.BORDER| SWT.V_SCROLL | SWT.H_SCROLL);
+		seperatorGridData = new GridData(SWT.LEFT, SWT.TOP, true, false, 2, 1);
+		tree.setLayoutData(seperatorGridData);
+		
 		for (AnomalyConstraintExplanation explanation : anomalyExplanation) {
-			if (explanations.size() > 0) {
-				explanations.add("-----"); // TODO temp separator
+			// special case: dead parent is the reason.
+			if (explanation.getObjReference() == null) {
+				TreeItem itemRoot = new TreeItem(tree, 0);
+				itemRoot.setText(explanation.getStringReference());
+				break;
 			}
-			explanations.add(explanation.explain());
+			
+			TreeItem itemRoot = new TreeItem(tree, 0);
+			itemRoot.setText(explanation.explainConstraintString());
+			
+			TreeItem constraint = new TreeItem(itemRoot, 0);
+			constraint.setText("StringReference");			
+			TreeItem strRef = new TreeItem(constraint, 0);
+			strRef.setText(explanation.getStringReference());
+			
+			TreeItem causingOps = new TreeItem(itemRoot, 0);
+			causingOps.setText("Causing Operations");
+			for (String opString : explanation.explainCausingOperations()) {
+				TreeItem causingOpsItem = new TreeItem(causingOps, 0);
+				causingOpsItem.setText(opString);
+			}
+			
+			TreeItem evolutionOps = new TreeItem(itemRoot, 0);
+			evolutionOps.setText("Evolution Operations");
+			for (String opString : explanation.explainEvolutionOperations()) {
+				TreeItem evolutionOpsItem = new TreeItem(evolutionOps, 0);
+				evolutionOpsItem.setText(opString);
+			}
 		}
-		String resultString = "";
-
-		for (String e : explanations) {
-			resultString += e + "\n";
-		}
-
-		uriText.setText(resultString);
+		
 
 		return container;
 	}
@@ -210,6 +249,6 @@ public class ExplainDialogResultDialog extends TitleAreaDialog {
 
 	@Override
 	protected Point getInitialSize() {
-		return new Point(480, 340);
+		return new Point(480, 420);
 	}
 }

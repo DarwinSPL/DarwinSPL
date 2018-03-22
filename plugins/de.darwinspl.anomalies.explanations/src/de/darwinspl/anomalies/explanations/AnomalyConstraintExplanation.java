@@ -29,45 +29,69 @@ public class AnomalyConstraintExplanation {
 	private String stringReference; // TODO: rename properly
 	private List<EditorOperationExplanation> editorOperationExplanations = new ArrayList<EditorOperationExplanation>();
 	private Date date;
-
-	public String explain() {
-		String constraintStringExplanation = "";
+	
+	
+	public String explainConstraintString() {
 		if (objReference instanceof HyRootFeature) {
 			HyRootFeature rootFeature = (HyRootFeature) objReference;
-			constraintStringExplanation = explain(rootFeature);
+			return explain(rootFeature);
 		} else if (objReference instanceof HyFeature) {
 			HyFeature feature = (HyFeature) objReference;
-			constraintStringExplanation = explain(feature);
+			return explain(feature);
 		} else if (objReference instanceof HyConstraint) {
 			HyConstraint constraint = (HyConstraint) objReference;
-			constraintStringExplanation = explain(constraint);
+			return explain(constraint);
 		} else if (objReference instanceof HyValidityFormula) {
 			HyValidityFormula validityFormula = (HyValidityFormula) objReference;
-			constraintStringExplanation = explain(validityFormula);
+			return explain(validityFormula);
 		} else if (objReference instanceof HyGroup) {
 			HyGroup group = (HyGroup) objReference;
-			constraintStringExplanation = explain(group);
+			return explain(group);
 		}
+		return "";
+	}
+	
+	public List<String> explainCausingOperations() {
+		List<String> list = new ArrayList<String>();
+		for (EditorOperationExplanation opExplanation : editorOperationExplanations) {
+			if ((opExplanation.getEditorOperation().getEvoStep() == null && opExplanation.getEditorOperation().getEvoStep() == date)
+					|| (opExplanation.getEditorOperation().getEvoStep() != null && opExplanation.getEditorOperation().getEvoStep().equals(date))) {
+				list.add(opExplanation.explain());
+			}
+		}
+		return list;
+	}
+	
+	public List<String> explainEvolutionOperations() {
+		List<String> list = new ArrayList<String>();
+		for (EditorOperationExplanation opExplanation : editorOperationExplanations) {
+			if ((opExplanation.getEditorOperation().getEvoStep() == null && opExplanation.getEditorOperation().getEvoStep() == date)
+					|| (opExplanation.getEditorOperation().getEvoStep() != null && opExplanation.getEditorOperation().getEvoStep().equals(date))) {
+				
+			} else {
+				list.add(opExplanation.explain());
+			}
+		}
+		return list;
+	}
+
+	public String explain() {
+		String constraintStringExplanation = explainConstraintString();
 
 		String editorOperationExplanation = "";
 		if (editorOperationExplanations.size() > 0) {
-			for (EditorOperationExplanation opExplanation : editorOperationExplanations) {
-				if (!editorOperationExplanation.isEmpty()) {
-					editorOperationExplanation += "\n";
-				}
-				String type = "EVOLUTION";
-				if ((opExplanation.getEditorOperation().getEvoStep() == null && opExplanation.getEditorOperation().getEvoStep() == date)
-						|| (opExplanation.getEditorOperation().getEvoStep() != null && opExplanation.getEditorOperation().getEvoStep().equals(date))) {
-					type = "CAUSING";
-				}
-				editorOperationExplanation += type + " - " + opExplanation.explain();
-			}
 			editorOperationExplanation = "\n>Evolution Operations:\n" + editorOperationExplanation;
+			for (String s : explainCausingOperations()) {
+				editorOperationExplanation += "CAUSING - " + s;
+			}
+			for (String s : explainEvolutionOperations()) {
+				editorOperationExplanation += "EVOLUTION - " + s;
+			}
 		}
 		if (constraintStringExplanation.isEmpty()) {
 			return stringReference;
 		} else {
-			return stringReference + "\n-> " + constraintStringExplanation + editorOperationExplanation;
+			return constraintStringExplanation + "\n-> " + stringReference + editorOperationExplanation;
 		}
 	}
 
