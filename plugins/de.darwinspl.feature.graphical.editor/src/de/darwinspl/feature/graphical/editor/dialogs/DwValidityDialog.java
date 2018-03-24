@@ -6,6 +6,7 @@ import java.util.Date;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.util.EcoreUtil;
+import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
@@ -14,11 +15,24 @@ import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
+import org.eclipse.ui.internal.Workbench;
 
 import de.darwinspl.common.eclipse.ui.dialogs.DwDateDialog;
+import de.darwinspl.feature.graphical.base.editor.DwGraphicalFeatureModelViewer;
+import de.darwinspl.feature.graphical.base.model.DwFeatureModelWrapped;
+import de.darwinspl.feature.graphical.base.model.DwFeatureWrapped;
+import de.darwinspl.feature.graphical.base.model.DwParentChildConnection;
 import de.darwinspl.feature.graphical.editor.commands.DwLinearTemporalElementCommand;
 import eu.hyvar.evolution.HyLinearTemporalElement;
 import eu.hyvar.evolution.HyTemporalElement;
+import eu.hyvar.evolution.util.HyEvolutionUtil;
+import eu.hyvar.feature.HyFeature;
+import eu.hyvar.feature.HyFeatureChild;
+import eu.hyvar.feature.HyFeatureConnection;
+import eu.hyvar.feature.HyGroupComposition;
+import eu.hyvar.feature.impl.HyFeatureChildImpl;
+import eu.hyvar.feature.impl.HyFeatureImpl;
+import eu.hyvar.feature.impl.custom.HyFeatureImplCustom;
 
 public class DwValidityDialog extends DwSelectionDialog {
 	Text validSince;
@@ -88,7 +102,6 @@ public class DwValidityDialog extends DwSelectionDialog {
 				// TODO Auto-generated method stub
 
 			}
-
 		});
 
 		HyTemporalElement temporalElement = (HyTemporalElement) element;
@@ -115,12 +128,21 @@ public class DwValidityDialog extends DwSelectionDialog {
 	 */
 	private boolean doCheckValidityPropagation(Shell parentShell) {
 
-		// TODO bug: when a name validity is stretched to fit a new (longer) feature
+		// TODO anomaly: when a name validity is stretched to fit a new (longer) feature
 		// validity, the editor does not create the necessary connections to parent
 		// feature.
+		// TODO bug: when a feature becomes obsolete in a certain time frame, its
+		// children lose their validity. Connections have to be checked and validity
+		// change disabled. (Thesis material?)
 		Date newSince = convertStringToDate(validSince.getText());
 		Date newUntil = convertStringToDate(validUntil.getText());
 		EList<EObject> elementList = ((HyTemporalElement) element).eContents();
+
+		return propagate(elementList, newSince, newUntil);
+	}
+
+	private boolean propagate(EList<EObject> elementList, Date newSince, Date newUntil) {
+
 		
 		for (EObject e : elementList) {
 			if (e instanceof HyLinearTemporalElement) {
@@ -129,23 +151,20 @@ public class DwValidityDialog extends DwSelectionDialog {
 				// check whether the feature starts later/earlier than this element ends/starts
 				// (obsolete) and delete after user approval, if that is the case.
 
-//				System.out.println("newSince: " + newSince);
-//				System.out.println("newUntil: " + newUntil);
-//				System.out.println("eSince: " + eSince);
-//				System.out.println("eUntil: " + eUntil);
-//				System.out.println("preceding?: " + (el.getSupersededElement() == null ? "false" : "true"));
-//				System.out.println("superceding?: " + (el.getSupersedingElement() == null ? "false" : "true"));
-
 				if ((newSince != null && eUntil != null && eUntil.compareTo(newSince) <= 0)
 						|| (newUntil != null && eSince != null && eSince.compareTo(newUntil) >= 0)) {
 
-					DwObsoleteTimeframeDialog dialog = new DwObsoleteTimeframeDialog(parentShell, el);
+					DwObsoleteTimeframeDialog dialog = new DwObsoleteTimeframeDialog(getParentShell(), el);
 					dialog.open();
 					if (dialog.getReturnCode() == OK) {
-						EcoreUtil.delete(e);
-						continue;
-					} else {
-						return false;
+						if (((HyFeature) element).getParentOf().isEmpty()) {
+							EcoreUtil.delete(e);
+							continue;
+						} else {
+							MessageDialog.openError(getShell(), "Error",
+									"The changed feature has children. Deleting this parent would orphan its children.");
+							return false;
+						}
 					}
 				}
 
@@ -165,9 +184,22 @@ public class DwValidityDialog extends DwSelectionDialog {
 					el.setValidUntil(null);
 				}
 			}
-
 		}
 		return true;
+	}
+
+	/**
+	 * Handles changes to a given elements temporal validity.
+	 * 
+	 */
+	protected void changeValidities(HyLinearTemporalElement el, Date newSince, Date newUntil) {
+		el.setValidSince(newSince);
+		el.setValidUntil(newUntil);
+		if (!((HyFeature) el).getParentOf().isEmpty()) {
+			for (HyLinearTemporalElement child : ((HyFeature) el).getParentOf()) {
+				changeValidities(child, newSince, newUntil);
+			}
+		}
 	}
 
 	@Override
