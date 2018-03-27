@@ -121,8 +121,8 @@ public class DwGroupEditPart extends DwAbstractEditPart{
 		HyGroupType type = HyEvolutionUtil.getValidTemporalElement(group.getTypes(), date);
 
 		StringBuffer buffer = new StringBuffer();
-		buffer.append("ID: "+ group.getId() + ", \n");
-		buffer.append("Type: "+ type.getType());
+		if(group != null) buffer.append("ID: "+ group.getId() + ", \n");
+		if(type != null) buffer.append("Type: "+ type.getType());
 		
 		
 		return buffer.toString();
