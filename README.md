@@ -14,7 +14,7 @@ It strongly depends on DeltaEcore (www.deltaecore.org) which is necessary to run
 
 # Installation:
 
-https://youtu.be/rcVte42bmYI
+https://youtu.be/BcIHb8PzvjA
 (together with required plug-ins and DeltaEcore. You will need an SVN Team Provider for Eclipse when following the tutorial, such as subversive. Subversive can be installed using the Eclipse Marketplace)
 
 1. Add the DarwinSPL Git repository to eclipse (In the top bar in eclipse -> Windows -> Perspective -> Open Perspective -> Other -> Git -> Add an existing local Git repository (in your case, as you already cloned it) or Clone a Git repository.
