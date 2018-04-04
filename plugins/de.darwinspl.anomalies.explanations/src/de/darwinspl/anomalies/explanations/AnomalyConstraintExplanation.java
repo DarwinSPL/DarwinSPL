@@ -1,9 +1,10 @@
 package de.darwinspl.anomalies.explanations;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.eclipse.emf.ecore.EObject;
 
@@ -141,6 +142,15 @@ public class AnomalyConstraintExplanation  {
 
 	public void setTranslatedConstraint(String translatedConstraint) {
 		this.translatedConstraint = translatedConstraint;
+	}
+	
+	public void addEditorOperationExplanation(EditorOperationExplanation editorOperationExplanation) {
+		for (EditorOperationExplanation existing : editorOperationExplanations) {
+			if (existing.getEditorOperation() == editorOperationExplanation.getEditorOperation()) {
+				return;
+			}
+		}
+		editorOperationExplanations.add(editorOperationExplanation);
 	}
 	
 	public List<EditorOperationExplanation> getEditorOperations() {

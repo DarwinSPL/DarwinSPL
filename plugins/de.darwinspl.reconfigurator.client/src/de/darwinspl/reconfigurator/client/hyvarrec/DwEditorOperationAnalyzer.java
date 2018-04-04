@@ -404,7 +404,7 @@ public class DwEditorOperationAnalyzer {
 			explanation.setDate(anomalyExplanation.getDate());
 			for (DwEditorOperation operation : getEditorOperationListForObject(translationMapping.get(constraint), anomalyExplanation.getDate())) {
 				EditorOperationExplanation opExplanation = new EditorOperationExplanation(operation);
-				explanation.getEditorOperations().add(opExplanation);
+				explanation.addEditorOperationExplanation(opExplanation);
 			}
 			list.add(explanation);
 		}
@@ -519,7 +519,7 @@ public class DwEditorOperationAnalyzer {
 					|| operation instanceof DwEditorOperationGroupType
 					|| operation instanceof DwEditorOperationConstraintCreate
 					|| operation instanceof DwEditorOperationValidityFormulaCreate) {
-				constraintExplanation.getEditorOperations().add(opExplanation);
+				constraintExplanation.addEditorOperationExplanation(opExplanation);
 			}
 		}
 	}
@@ -536,7 +536,7 @@ public class DwEditorOperationAnalyzer {
 					|| operation instanceof DwEditorOperationGroupType
 					|| operation instanceof DwEditorOperationConstraintCreate
 					|| operation instanceof DwEditorOperationValidityFormulaCreate) {
-				constraintExplanation.getEditorOperations().add(opExplanation);
+				constraintExplanation.addEditorOperationExplanation(opExplanation);
 			}
 		}
 	}
@@ -554,7 +554,7 @@ public class DwEditorOperationAnalyzer {
 					|| operation instanceof DwEditorOperationConstraintCreate
 					|| operation instanceof DwEditorOperationValidityFormulaCreate
 					|| operation instanceof DwEditorOperationEnumLiteralCreate) {
-				constraintExplanation.getEditorOperations().add(opExplanation);
+				constraintExplanation.addEditorOperationExplanation(opExplanation);
 			}
 		}
 	}
