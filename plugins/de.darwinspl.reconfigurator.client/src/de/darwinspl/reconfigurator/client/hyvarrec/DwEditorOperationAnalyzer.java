@@ -53,6 +53,10 @@ import eu.hyvar.feature.HyGroupType;
 import eu.hyvar.feature.HyVersion;
 import eu.hyvar.feature.constraint.HyConstraint;
 import eu.hyvar.feature.constraint.HyConstraintModel;
+import eu.hyvar.feature.expression.HyAbstractFeatureReferenceExpression;
+import eu.hyvar.feature.expression.HyBinaryExpression;
+import eu.hyvar.feature.expression.HyExpression;
+import eu.hyvar.feature.expression.HyUnaryExpression;
 import eu.hyvar.feature.util.HyFeatureEvolutionUtil;
 
 public class DwEditorOperationAnalyzer {
@@ -438,14 +442,20 @@ public class DwEditorOperationAnalyzer {
 		if (object instanceof HyConstraint) {
 			constraint = (HyConstraint) object;
 			
-			// TODO also check referenced features
+			List<HyFeature> featureList = getFeaturesFromExpression(constraint.getRootExpression());
+			for (HyFeature f : featureList) {
+				opsList.addAll(getEditorOperationListForObject(f, date));
+			}
 		}
 		
 		HyValidityFormula validityFormula = null;
 		if (object instanceof HyValidityFormula) {
 			validityFormula = (HyValidityFormula) object;
-			
-			// TODO also check referenced features
+
+			List<HyFeature> featureList = getFeaturesFromExpression(validityFormula.getValidityFormula());
+			for (HyFeature f : featureList) {
+				opsList.addAll(getEditorOperationListForObject(f, date));
+			}
 		}
 		
 		for (DwEditorOperation operation : operationList) {
@@ -566,6 +576,20 @@ public class DwEditorOperationAnalyzer {
 		list.add(encodedString);
 		list = client.translateIdsBackToNames(list, date, client.exporter);
 		return list.get(0);
+	}
+	
+	
+	public List<HyFeature> getFeaturesFromExpression(HyExpression expression) {
+		List<HyFeature> list = new ArrayList<HyFeature>();
+		if (expression instanceof HyAbstractFeatureReferenceExpression) {
+			list.add(((HyAbstractFeatureReferenceExpression) expression).getFeature());
+		} else if (expression instanceof HyUnaryExpression){
+			list.addAll(getFeaturesFromExpression(((HyUnaryExpression) expression).getOperand()));
+		} else if (expression instanceof HyBinaryExpression){
+			list.addAll(getFeaturesFromExpression(((HyBinaryExpression) expression).getOperand1()));
+			list.addAll(getFeaturesFromExpression(((HyBinaryExpression) expression).getOperand2()));
+		}
+		return list;
 	}
 	
 	protected List<HyFeature> getDeadFeatures(List<DwAnomaly> anomalies) {
