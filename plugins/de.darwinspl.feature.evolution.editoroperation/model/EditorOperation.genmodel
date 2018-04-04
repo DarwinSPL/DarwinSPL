@@ -5,7 +5,7 @@
     modelPluginID="de.darwinspl.feature.evolution.editoroperation" modelName="EditorOperation"
     rootExtendsClass="org.eclipse.emf.ecore.impl.MinimalEObjectImpl$Container" testsDirectory="/de.darwinspl.feature.evolution.editoroperation.tests/src-gen"
     importerID="org.eclipse.emf.importer.ecore" complianceLevel="8.0" copyrightFields="false"
-    usedGenPackages="../../eu.hyvar.feature.constraint/model/Constraint.genmodel#//constraint ../../eu.hyvar.context.information/model/ContextInformation.genmodel#//context ../../eu.hyvar.feature.data/model/DataValues.genmodel#//dataValues ../../eu.hyvar.evolution/model/Evolution.genmodel#//evolution ../../eu.hyvar.feature.expression/model/Expression.genmodel#//expression ../../eu.hyvar.feature/model/Feature.genmodel#//feature"
+    usedGenPackages="../../eu.hyvar.feature.constraint/model/Constraint.genmodel#//constraint ../../eu.hyvar.context.information/model/ContextInformation.genmodel#//context ../../eu.hyvar.context.validity_formulas/model/ContextValidity.genmodel#//contextValidity ../../eu.hyvar.feature.data/model/DataValues.genmodel#//dataValues ../../eu.hyvar.evolution/model/Evolution.genmodel#//evolution ../../eu.hyvar.feature.expression/model/Expression.genmodel#//expression ../../eu.hyvar.feature/model/Feature.genmodel#//feature"
     operationReflection="true" importOrganizing="true">
   <foreignModel>EditorOperation.ecore</foreignModel>
   <genPackages prefix="Editoroperation" basePackage="de.darwinspl.feature.evolution"
@@ -95,5 +95,10 @@
     </genClasses>
     <genClasses ecoreClass="EditorOperation.ecore#//DwEditorOperationContextCreate"/>
     <genClasses ecoreClass="EditorOperation.ecore#//DwEditorOperationContextDelete"/>
+    <genClasses image="false" ecoreClass="EditorOperation.ecore#//DwEditorOperationValidityFormula">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference EditorOperation.ecore#//DwEditorOperationValidityFormula/validityFormula"/>
+    </genClasses>
+    <genClasses ecoreClass="EditorOperation.ecore#//DwEditorOperationValidityFormulaCreate"/>
+    <genClasses ecoreClass="EditorOperation.ecore#//DwEditorOperationValidityFormulaDelete"/>
   </genPackages>
 </genmodel:GenModel>

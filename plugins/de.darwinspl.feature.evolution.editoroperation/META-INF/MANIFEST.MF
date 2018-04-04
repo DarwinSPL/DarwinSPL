@@ -7,16 +7,14 @@ Bundle-ClassPath: .
 Bundle-Vendor: %providerName
 Bundle-Localization: plugin
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
-Export-Package: contextValidity,
- contextValidity.impl,
- contextValidity.util,
- de.darwinspl.feature.evolution.editoroperation,
+Export-Package: de.darwinspl.feature.evolution.editoroperation,
  de.darwinspl.feature.evolution.editoroperation.impl,
  de.darwinspl.feature.evolution.editoroperation.util
 Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.emf.ecore;visibility:=reexport,
  eu.hyvar.feature.constraint;visibility:=reexport,
  eu.hyvar.context.information;visibility:=reexport,
+ eu.hyvar.context.validity_formulas;visibility:=reexport,
  eu.hyvar.feature.data;visibility:=reexport,
  eu.hyvar.evolution;visibility:=reexport,
  eu.hyvar.feature.expression;visibility:=reexport,

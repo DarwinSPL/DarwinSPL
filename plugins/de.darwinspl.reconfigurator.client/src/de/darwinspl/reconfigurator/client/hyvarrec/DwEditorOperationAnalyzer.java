@@ -29,6 +29,7 @@ import de.darwinspl.feature.evolution.editoroperation.DwEditorOperationFeatureRe
 import de.darwinspl.feature.evolution.editoroperation.DwEditorOperationFeatureType;
 import de.darwinspl.feature.evolution.editoroperation.DwEditorOperationFeatureVersion;
 import de.darwinspl.feature.evolution.editoroperation.DwEditorOperationGroupType;
+import de.darwinspl.feature.evolution.editoroperation.DwEditorOperationValidityFormula;
 import de.darwinspl.feature.evolution.editoroperation.DwEditorOperationValidityFormulaCreate;
 import de.darwinspl.feature.evolution.editoroperation.DwEditorOperationValidityFormulaDelete;
 import de.darwinspl.feature.evolution.editoroperation.EditorOperationExplanation;
@@ -49,7 +50,6 @@ import eu.hyvar.feature.HyFeatureType;
 import eu.hyvar.feature.HyGroup;
 import eu.hyvar.feature.HyGroupComposition;
 import eu.hyvar.feature.HyGroupType;
-import eu.hyvar.feature.HyGroupTypeEnum;
 import eu.hyvar.feature.HyVersion;
 import eu.hyvar.feature.constraint.HyConstraint;
 import eu.hyvar.feature.constraint.HyConstraintModel;
@@ -265,21 +265,20 @@ public class DwEditorOperationAnalyzer {
 			}
 		}
 		
-		// TODO: incompatible validityFormula in metamodel -> !MESSAGE Both 'de.darwinspl.feature.evolution.editoroperation' and 'eu.hyvar.context.validity_formulas' register a package for 'http://hyvar-project.eu/context/validity/1.0'
 		if (getContextValidityModel() != null) {
 			for (HyValidityFormula validityFormula : getContextValidityModel().getValidityFormulas()) {
 				
 				// VALIDITY FORMULA CREATE
 				obj = EditoroperationFactory.eINSTANCE.createDwEditorOperationValidityFormulaCreate();
 				obj.setEvoStep(validityFormula.getValidSince());
-	//			((DwEditorOperationValidityFormula) obj).setValidityFormula(validityFormula);
+				((DwEditorOperationValidityFormula) obj).setValidityFormula(validityFormula);
 				operationList.add(obj);
 
 				// VALIDITY FORMULA DELETE
 				if (validityFormula.getValidUntil() != null) {
 					obj = EditoroperationFactory.eINSTANCE.createDwEditorOperationValidityFormulaDelete();
 					obj.setEvoStep(validityFormula.getValidUntil());
-	//				((DwEditorOperationValidityFormula) obj).setValidityFormula(validityFormula);
+					((DwEditorOperationValidityFormula) obj).setValidityFormula(validityFormula);
 					operationList.add(obj);
 				}
 			}
