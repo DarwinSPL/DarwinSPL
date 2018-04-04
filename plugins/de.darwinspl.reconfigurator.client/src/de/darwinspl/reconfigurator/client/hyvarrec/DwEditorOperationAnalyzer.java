@@ -100,8 +100,11 @@ public class DwEditorOperationAnalyzer {
 				
 				// FEATURE NAME
 				for (HyName name : feature.getNames()) {
-					if (name.getValidSince() != null && !name.getValidSince().equals(feature.getValidSince())) { // don't interpret default as change
-						HyName predecessor = HyEvolutionUtil.getValidTemporalElement(feature.getNames(), new Date(name.getValidSince().getTime() -1L));
+					if (name.getValidSince() != null && !name.getValidSince().equals(feature.getValidSince())) { // don't interpret default as change						
+						HyName predecessor = (HyName) name.getSupersededElement();
+						if (predecessor == null) {
+							predecessor = HyEvolutionUtil.getValidTemporalElement(feature.getNames(), new Date(name.getValidSince().getTime() -1L));
+						}
 						obj = EditoroperationFactory.eINSTANCE.createDwEditorOperationFeatureRename();
 						obj.setEvoStep(name.getValidSince());
 						((DwEditorOperationFeature) obj).setFeature(feature);
@@ -114,7 +117,10 @@ public class DwEditorOperationAnalyzer {
 				// FEATURE TYPE
 				for (HyFeatureType type : feature.getTypes()) {
 					if (type.getValidSince() != null && !type.getValidSince().equals(feature.getValidSince())) { // don't interpret default as change
-						HyFeatureType predecessor = HyEvolutionUtil.getValidTemporalElement(feature.getTypes(), new Date(type.getValidSince().getTime() -1L));
+						HyFeatureType predecessor = (HyFeatureType) type.getSupersededElement();
+						if (predecessor == null) {
+							predecessor = HyEvolutionUtil.getValidTemporalElement(feature.getTypes(), new Date(type.getValidSince().getTime() -1L));
+						}
 						obj = EditoroperationFactory.eINSTANCE.createDwEditorOperationFeatureType();
 						obj.setEvoStep(type.getValidSince());
 						((DwEditorOperationFeature) obj).setFeature(feature);
@@ -145,7 +151,10 @@ public class DwEditorOperationAnalyzer {
 				// FEATURE GROUP
 				for (HyGroupComposition group : feature.getGroupMembership()) {
 					if (group.getValidSince() != null && !group.getValidSince().equals(feature.getValidSince())) { // don't interpret default as change
-						HyGroupComposition predecessor = HyEvolutionUtil.getValidTemporalElement(feature.getGroupMembership(), new Date(group.getValidSince().getTime() -1L));
+						HyGroupComposition predecessor = (HyGroupComposition) group.getSupersededElement();
+						if (predecessor == null) {
+							predecessor = HyEvolutionUtil.getValidTemporalElement(feature.getGroupMembership(), new Date(group.getValidSince().getTime() -1L));
+						}
 						if (!group.getCompositionOf().equals(predecessor.getCompositionOf())) {
 							// TODO: only recognize group changes or group composition changes too?
 							obj = EditoroperationFactory.eINSTANCE.createDwEditorOperationFeatureGroup();
@@ -178,7 +187,10 @@ public class DwEditorOperationAnalyzer {
 					// ATTRIBUTE RENAME
 					for (HyName name : attribute.getNames()) {
 						if (name.getValidSince() != null && !name.getValidSince().equals(attribute.getValidSince())) { // don't interpret default as change
-							HyName predecessor = HyEvolutionUtil.getValidTemporalElement(attribute.getNames(), new Date(name.getValidSince().getTime() -1L));
+							HyName predecessor = (HyName) name.getSupersededElement();
+							if (predecessor == null) {
+								predecessor = HyEvolutionUtil.getValidTemporalElement(attribute.getNames(), new Date(name.getValidSince().getTime() -1L));
+							}
 							obj = EditoroperationFactory.eINSTANCE.createDwEditorOperationAttributeRename();
 							obj.setEvoStep(name.getValidSince());
 							((DwEditorOperationAttribute) obj).setAttribute(attribute);
@@ -195,7 +207,10 @@ public class DwEditorOperationAnalyzer {
 										
 					// GROUP TYPE
 					if (type.getValidSince() != null && !type.getValidSince().equals(group.getValidSince())) { // don't interpret default as change
-						HyGroupType predecessor = HyEvolutionUtil.getValidTemporalElement(group.getTypes(), new Date(type.getValidSince().getTime() -1L));
+						HyGroupType predecessor = (HyGroupType) type.getSupersededElement();
+						if (predecessor == null) {
+							predecessor = HyEvolutionUtil.getValidTemporalElement(group.getTypes(), new Date(type.getValidSince().getTime() -1L));
+						}
 						obj = EditoroperationFactory.eINSTANCE.createDwEditorOperationGroupType();
 						obj.setEvoStep(type.getValidSince());
 						((DwEditorOperationGroupType) obj).setGroup(group);
