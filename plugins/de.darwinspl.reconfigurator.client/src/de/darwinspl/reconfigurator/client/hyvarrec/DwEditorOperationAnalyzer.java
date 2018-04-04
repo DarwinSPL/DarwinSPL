@@ -136,8 +136,6 @@ public class DwEditorOperationAnalyzer {
 						((DwEditorOperationFeatureVersion) obj).setVersion(version);
 						operationList.add(obj);
 					}
-
-					// TODO editorOperationFeatureVersionRename DOESNT EXIST
 				}
 				
 				// FEATURE GROUP
@@ -185,8 +183,6 @@ public class DwEditorOperationAnalyzer {
 							operationList.add(obj);
 						}
 					}
-					// TODO editorOperationAttributeEnum DOESNT EXIST
-					// TODO editorOperationAttributeMinMax DOESNT EXIST
 				}
 			}
 			
@@ -230,7 +226,6 @@ public class DwEditorOperationAnalyzer {
 				((DwEditorOperationEnum) obj).setEnum(hyEnum);
 				operationList.add(obj);
 			}
-			// TODO editorOperationEnumRename DOESNT EXIST
 						
 			for (HyEnumLiteral literal : hyEnum.getLiterals()) {
 				// ENUM LITERAL CREATE
@@ -248,7 +243,6 @@ public class DwEditorOperationAnalyzer {
 					((DwEditorOperationEnumLiteral) obj).setLiteral(literal);
 					operationList.add(obj);
 				}
-				// TODO editorOperationEnumLiteralRename DOESNT EXIST
 			}
 		}
 
@@ -353,7 +347,7 @@ public class DwEditorOperationAnalyzer {
 				String explanation = "This is a dead feature, because of its already-dead parent " + HyEvolutionUtil.getValidTemporalElement(parent.getNames(), date).getName() + "!";
 				AnomalyConstraintExplanation simpleExplanation = new AnomalyConstraintExplanation();
 				simpleExplanation.setDate(date);
-				simpleExplanation.setStringReference(explanation);
+				simpleExplanation.setTranslatedConstraint(explanation);
 				constraintExplanationList.add(simpleExplanation);
 				return constraintExplanationList;
 			}
@@ -406,8 +400,8 @@ public class DwEditorOperationAnalyzer {
 			String constraintString = resolveFeatureNames(constraint, anomalyExplanation.getDate());
 			
 			AnomalyConstraintExplanation explanation = new AnomalyConstraintExplanation();
-			explanation.setObjReference(translationMapping.get(constraint));
-			explanation.setStringReference(constraintString);
+			explanation.setAffectedObject(translationMapping.get(constraint));
+			explanation.setTranslatedConstraint(constraintString);
 			explanation.setDate(anomalyExplanation.getDate());
 			for (DwEditorOperation operation : getEditorOperationListForObject(translationMapping.get(constraint), anomalyExplanation.getDate())) {
 				EditorOperationExplanation opExplanation = new EditorOperationExplanation(operation);
@@ -444,11 +438,15 @@ public class DwEditorOperationAnalyzer {
 		HyConstraint constraint = null;
 		if (object instanceof HyConstraint) {
 			constraint = (HyConstraint) object;
+			
+			// TODO also check referenced features
 		}
 		
 		HyValidityFormula validityFormula = null;
 		if (object instanceof HyValidityFormula) {
 			validityFormula = (HyValidityFormula) object;
+			
+			// TODO also check referenced features
 		}
 		
 		for (DwEditorOperation operation : operationList) {

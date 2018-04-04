@@ -1,5 +1,7 @@
 package de.darwinspl.feature.graphical.configurator.editor.anomaly.views;
 
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import org.eclipse.emf.common.util.EList;
@@ -27,10 +29,13 @@ import de.darwinspl.anomaly.DwAnomaly;
 import de.darwinspl.anomaly.DwDeadFeatureAnomaly;
 import de.darwinspl.anomaly.DwFalseOptionalFeatureAnomaly;
 import de.darwinspl.anomaly.DwVoidFeatureModelAnomaly;
+import eu.hyvar.context.contextValidity.HyValidityFormula;
 import eu.hyvar.context.information.contextValue.HyContextValue;
 import eu.hyvar.dataValues.HyEnumValue;
 import eu.hyvar.dataValues.HyNumberValue;
 import eu.hyvar.dataValues.HyStringValue;
+import eu.hyvar.feature.HyRootFeature;
+import eu.hyvar.feature.constraint.HyConstraint;
 
 public class ExplainDialogResultDialog extends TitleAreaDialog {
 
@@ -186,7 +191,7 @@ public class ExplainDialogResultDialog extends TitleAreaDialog {
 //		List<String> explanations = new ArrayList<String>();
 //		for (AnomalyConstraintExplanation explanation : anomalyExplanation) {
 //			if (explanations.size() > 0) {
-//				explanations.add("-----"); // TODO temp separator
+//				explanations.add("-----");
 //			}
 //			explanations.add(explanation.explain());
 //		}
@@ -202,39 +207,88 @@ public class ExplainDialogResultDialog extends TitleAreaDialog {
 		seperatorGridData = new GridData(SWT.LEFT, SWT.TOP, true, false, 2, 1);
 		tree.setLayoutData(seperatorGridData);
 		
+		Collections.sort(anomalyExplanation, new Comparator<AnomalyConstraintExplanation>() {
+			@Override
+			public int compare(AnomalyConstraintExplanation obj, AnomalyConstraintExplanation other) {
+				// sort Root > Everything > HyConstraint > HyValidityFormula
+				
+				if (obj.getAffectedObject() instanceof HyRootFeature) {
+					return -1;
+				}
+				if (other.getAffectedObject() instanceof HyRootFeature) {
+					return 1;
+				}
+				
+				if (obj.getAffectedObject() instanceof HyConstraint) {
+					if (other.getAffectedObject() instanceof HyValidityFormula) {
+						return -1;
+					}
+					return 1;
+				}
+				if (other.getAffectedObject() instanceof HyConstraint) {
+					if (obj.getAffectedObject() instanceof HyValidityFormula) {
+						return 1;
+					}
+					return -1;
+				}
+				
+				if (obj.getAffectedObject() instanceof HyValidityFormula) {
+					return 1;
+				}
+				if (other.getAffectedObject() instanceof HyValidityFormula) {
+					return -1;
+				}
+				return 0;
+			}			
+		});
+		
 		for (AnomalyConstraintExplanation explanation : anomalyExplanation) {
 			// special case: dead parent is the reason.
-			if (explanation.getObjReference() == null) {
+			if (explanation.getAffectedObject() == null) {
 				TreeItem itemRoot = new TreeItem(tree, 0);
-				itemRoot.setText(explanation.getStringReference());
+				itemRoot.setText(explanation.getTranslatedConstraint());
 				break;
 			}
 			
 			TreeItem itemRoot = new TreeItem(tree, 0);
 			itemRoot.setText(explanation.explainConstraintString());
 			
-			TreeItem constraint = new TreeItem(itemRoot, 0);
-			constraint.setText("StringReference");			
-			TreeItem strRef = new TreeItem(constraint, 0);
-			strRef.setText(explanation.getStringReference());
+			TreeItem translatedConstraintText = new TreeItem(itemRoot, 0);
+			translatedConstraintText.setText("Translated Constraint");
+			TreeItem translatedConstraint = new TreeItem(translatedConstraintText, 0);
+			translatedConstraint.setText(explanation.getTranslatedConstraint());
 			
-			TreeItem causingOps = new TreeItem(itemRoot, 0);
-			causingOps.setText("Causing Operations");
-			for (String opString : explanation.explainCausingOperations()) {
-				TreeItem causingOpsItem = new TreeItem(causingOps, 0);
-				causingOpsItem.setText(opString);
+			List<String> causingStrings = explanation.explainCausingOperations();
+			if (causingStrings.size() > 0) {
+				TreeItem causingOps = new TreeItem(itemRoot, 0);
+				causingOps.setText("Causing Evolution Operations");
+				for (String opString : causingStrings) {
+					TreeItem causingOpsItem = new TreeItem(causingOps, 0);
+					causingOpsItem.setText(opString);
+				}
 			}
 			
-			TreeItem evolutionOps = new TreeItem(itemRoot, 0);
-			evolutionOps.setText("Evolution Operations");
-			for (String opString : explanation.explainEvolutionOperations()) {
-				TreeItem evolutionOpsItem = new TreeItem(evolutionOps, 0);
-				evolutionOpsItem.setText(opString);
+			List<String> involvedStrings = explanation.explainInvolvedPastEvolutionOperations();
+			if (involvedStrings.size() > 0) {
+				TreeItem involvedOps = new TreeItem(itemRoot, 0);
+				involvedOps.setText("Involved Past Evolution Operations");
+				for (String opString : involvedStrings) {
+					TreeItem involvedOpsItem = new TreeItem(involvedOps, 0);
+					involvedOpsItem.setText(opString);
+				}
 			}
 		}
 		
+		expandAll(tree.getItems(), true);
 
 		return container;
+	}
+	
+	private void expandAll(TreeItem[] items, boolean expand) {
+		for (TreeItem item : items) {
+			item.setExpanded(expand);
+			expandAll(item.getItems(), expand);
+		}
 	}
 
 	private void createAnomalyInformationControlParts(Composite container) {
@@ -249,6 +303,7 @@ public class ExplainDialogResultDialog extends TitleAreaDialog {
 
 	@Override
 	protected Point getInitialSize() {
-		return new Point(480, 420);
+		return new Point(600, 420);
+//		return new Point(480, 420);
 	}
 }
