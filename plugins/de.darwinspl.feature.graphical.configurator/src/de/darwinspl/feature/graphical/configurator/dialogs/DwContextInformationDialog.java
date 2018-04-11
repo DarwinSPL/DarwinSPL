@@ -150,10 +150,12 @@ public class DwContextInformationDialog extends Dialog implements Listener, Modi
 	    		
 	    		editor = new TableEditor(table);
 	    	    CCombo combo = new CCombo(table, SWT.NONE);
-	    	    combo.setText(enumContext.getEnumType().getLiterals().get(0).getName());
-	    		for(HyEnumLiteral literal : enumContext.getEnumType().getLiterals()){
-	    			combo.add(literal.getName());
-	    		}
+	    	    if(!enumContext.getEnumType().getLiterals().isEmpty()) {
+	    	    	combo.setText(enumContext.getEnumType().getLiterals().get(0).getName());
+	    	    	for(HyEnumLiteral literal : enumContext.getEnumType().getLiterals()){
+	    	    		combo.add(literal.getName());
+	    	    	}	    	    	
+	    	    }
 	    		
 	    		enumComboMap.put(enumContext, combo);
 	    		

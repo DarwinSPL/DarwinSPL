@@ -91,7 +91,7 @@ public class DwAnalysesClient {
 	//Modalities
 	public static final String VALIDATE_MODALITY = "--validate";
 	public static final String CHECK_FEATURES_MODALITY = "--check-features";
-	public static final String RECONFIGURATION_MODALITY = "--no-default-preferences";
+//	public static final String RECONFIGURATION_MODALITY = "--no-default-preferences"; // This is wrong!
 	public static final String EXPLAIN_MODALITY = "--explain";
 	
 	protected final FeatureEncoding featureEncoding;
@@ -735,7 +735,7 @@ public class DwAnalysesClient {
 			HyFeatureModel featureModel, HyConstraintModel constraintModel, HyConfiguration oldConfiguration,
 			DwProfile preferenceModel, HyContextValueModel contextValues, Date date) throws TimeoutException, InterruptedException, ExecutionException, UnresolvedAddressException {
 		
-		String messageForHyVarRec = createHyVarRecMessage(contextModel, contextValidityModel, featureModel, constraintModel, oldConfiguration, preferenceModel, contextValues, date, null, RECONFIGURATION_MODALITY);
+		String messageForHyVarRec = createHyVarRecMessage(contextModel, contextValidityModel, featureModel, constraintModel, oldConfiguration, preferenceModel, contextValues, date, null, null);
 		
 		URI uri = createUriWithPath(uriString, RECONFIGURATION_URI);
 		
