@@ -56,7 +56,7 @@ import de.darwinspl.feature.graphical.editor.editor.DwGraphicalFeatureModelEdito
 import de.darwinspl.preferences.DwProfile;
 import de.darwinspl.preferences.util.custom.DwPreferenceModelUtil;
 import de.darwinspl.reconfigurator.client.hyvarrec.DwAnalysesClient;
-import de.darwinspl.reconfigurator.client.hyvarrec.DwEditorOperationAnalyzer;
+import de.darwinspl.reconfigurator.client.hyvarrec.DwEvolutionOperationAnalyzer;
 import de.darwinspl.reconfigurator.client.hyvarrec.HyVarRecNoSolutionException;
 import eu.hyvar.context.HyContextInformationFactory;
 import eu.hyvar.context.HyContextModel;
@@ -203,11 +203,11 @@ public class DwAnomalyView extends ViewPart {
 
 			List<DwAnomaly> anomalies = analysesClient.checkFeatures(getURI(), username, password, contextModel, validityModel, modelWrapped.getModel(), constraintModel, null, null);
 			
-			DwEditorOperationAnalyzer editorOperationAnalyzer = new DwEditorOperationAnalyzer(analysesClient);
-			editorOperationAnalyzer.setFeatureAnomalies(anomalies);
+			DwEvolutionOperationAnalyzer evolutionOperationAnalyzer = new DwEvolutionOperationAnalyzer(analysesClient);
+			evolutionOperationAnalyzer.setFeatureAnomalies(anomalies);
 			
 			anomalyExplanation = analysesClient.explainAnomaly(getURI(), username, password, contextModel, validityModel,
-					modelWrapped.getModel(), constraintModel, anomaly, editorOperationAnalyzer);
+					modelWrapped.getModel(), constraintModel, anomaly, evolutionOperationAnalyzer);
 		} catch (UnresolvedAddressException e) {
 
 			e.printStackTrace();

@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
+import org.eclipse.emf.common.util.TreeIterator;
 import org.eclipse.emf.ecore.EObject;
 
 import de.darwinspl.anomalies.explanations.AnomalyConstraintExplanation;
@@ -13,27 +14,27 @@ import de.darwinspl.anomaly.DwDeadFeatureAnomaly;
 import de.darwinspl.anomaly.DwFalseOptionalFeatureAnomaly;
 import de.darwinspl.anomaly.DwVoidFeatureModelAnomaly;
 import de.darwinspl.anomaly.explanation.DwAnomalyExplanation;
-import de.darwinspl.feature.evolution.editoroperation.DwEditorOperation;
-import de.darwinspl.feature.evolution.editoroperation.DwEditorOperationAttribute;
-import de.darwinspl.feature.evolution.editoroperation.DwEditorOperationAttributeRename;
-import de.darwinspl.feature.evolution.editoroperation.DwEditorOperationConstraint;
-import de.darwinspl.feature.evolution.editoroperation.DwEditorOperationConstraintCreate;
-import de.darwinspl.feature.evolution.editoroperation.DwEditorOperationConstraintDelete;
-import de.darwinspl.feature.evolution.editoroperation.DwEditorOperationContext;
-import de.darwinspl.feature.evolution.editoroperation.DwEditorOperationEnum;
-import de.darwinspl.feature.evolution.editoroperation.DwEditorOperationEnumLiteral;
-import de.darwinspl.feature.evolution.editoroperation.DwEditorOperationEnumLiteralCreate;
-import de.darwinspl.feature.evolution.editoroperation.DwEditorOperationFeature;
-import de.darwinspl.feature.evolution.editoroperation.DwEditorOperationFeatureGroup;
-import de.darwinspl.feature.evolution.editoroperation.DwEditorOperationFeatureRename;
-import de.darwinspl.feature.evolution.editoroperation.DwEditorOperationFeatureType;
-import de.darwinspl.feature.evolution.editoroperation.DwEditorOperationFeatureVersion;
-import de.darwinspl.feature.evolution.editoroperation.DwEditorOperationGroupType;
-import de.darwinspl.feature.evolution.editoroperation.DwEditorOperationValidityFormula;
-import de.darwinspl.feature.evolution.editoroperation.DwEditorOperationValidityFormulaCreate;
-import de.darwinspl.feature.evolution.editoroperation.DwEditorOperationValidityFormulaDelete;
-import de.darwinspl.feature.evolution.editoroperation.EditorOperationExplanation;
-import de.darwinspl.feature.evolution.editoroperation.EditoroperationFactory;
+import de.darwinspl.feature.evolution.evolutionoperation.DwEvolutionOperation;
+import de.darwinspl.feature.evolution.evolutionoperation.DwEvolutionOperationAttribute;
+import de.darwinspl.feature.evolution.evolutionoperation.DwEvolutionOperationAttributeRename;
+import de.darwinspl.feature.evolution.evolutionoperation.DwEvolutionOperationConstraint;
+import de.darwinspl.feature.evolution.evolutionoperation.DwEvolutionOperationConstraintCreate;
+import de.darwinspl.feature.evolution.evolutionoperation.DwEvolutionOperationConstraintDelete;
+import de.darwinspl.feature.evolution.evolutionoperation.DwEvolutionOperationContext;
+import de.darwinspl.feature.evolution.evolutionoperation.DwEvolutionOperationEnum;
+import de.darwinspl.feature.evolution.evolutionoperation.DwEvolutionOperationEnumLiteral;
+import de.darwinspl.feature.evolution.evolutionoperation.DwEvolutionOperationEnumLiteralCreate;
+import de.darwinspl.feature.evolution.evolutionoperation.DwEvolutionOperationFeature;
+import de.darwinspl.feature.evolution.evolutionoperation.DwEvolutionOperationFeatureGroup;
+import de.darwinspl.feature.evolution.evolutionoperation.DwEvolutionOperationFeatureRename;
+import de.darwinspl.feature.evolution.evolutionoperation.DwEvolutionOperationFeatureType;
+import de.darwinspl.feature.evolution.evolutionoperation.DwEvolutionOperationFeatureVersion;
+import de.darwinspl.feature.evolution.evolutionoperation.DwEvolutionOperationGroupType;
+import de.darwinspl.feature.evolution.evolutionoperation.DwEvolutionOperationValidityFormula;
+import de.darwinspl.feature.evolution.evolutionoperation.DwEvolutionOperationValidityFormulaCreate;
+import de.darwinspl.feature.evolution.evolutionoperation.DwEvolutionOperationValidityFormulaDelete;
+import de.darwinspl.feature.evolution.evolutionoperation.EvolutionOperationExplanation;
+import de.darwinspl.feature.evolution.evolutionoperation.EvolutionoperationFactory;
 import eu.hyvar.context.HyContextModel;
 import eu.hyvar.context.HyContextualInformation;
 import eu.hyvar.context.contextValidity.HyValidityFormula;
@@ -54,47 +55,44 @@ import eu.hyvar.feature.HyVersion;
 import eu.hyvar.feature.constraint.HyConstraint;
 import eu.hyvar.feature.constraint.HyConstraintModel;
 import eu.hyvar.feature.expression.HyAbstractFeatureReferenceExpression;
-import eu.hyvar.feature.expression.HyBinaryExpression;
 import eu.hyvar.feature.expression.HyExpression;
-import eu.hyvar.feature.expression.HyUnaryExpression;
 import eu.hyvar.feature.util.HyFeatureEvolutionUtil;
 
-public class DwEditorOperationAnalyzer {
+public class DwEvolutionOperationAnalyzer {
 	
 	private HyContextModel contextModel;
 	private HyValidityModel contextValidityModel;
 	private HyFeatureModel featureModel;
 	private HyConstraintModel constraintModel;
-	private Date date;
 	
-	List<DwEditorOperation> operationList;
+	List<DwEvolutionOperation> operationList;
 
 	List<HyFeature> deadFeatureList = new ArrayList<HyFeature>();
 	List<HyFeature> falseOptionalList = new ArrayList<HyFeature>();
 	
 	private DwAnalysesClient client;
 	
-	public DwEditorOperationAnalyzer(DwAnalysesClient client) {
+	public DwEvolutionOperationAnalyzer(DwAnalysesClient client) {
 		this.client = client;
 	}
 	
-	public void constructEditorOperations() {
-		operationList = new ArrayList<DwEditorOperation>();
-		DwEditorOperation obj = null;
+	public void constructEvolutionOperations() {
+		operationList = new ArrayList<DwEvolutionOperation>();
+		DwEvolutionOperation obj = null;
 		if (getFeatureModel() != null) {
 			
 			for(HyFeature feature : getFeatureModel().getFeatures()) {
 				// FEATURE CREATE
-				obj = EditoroperationFactory.eINSTANCE.createDwEditorOperationFeatureCreate();
+				obj = EvolutionoperationFactory.eINSTANCE.createDwEvolutionOperationFeatureCreate();
 				obj.setEvoStep(feature.getValidSince());
-				((DwEditorOperationFeature) obj).setFeature(feature);
+				((DwEvolutionOperationFeature) obj).setFeature(feature);
 				operationList.add(obj);
 				
 				// FEATURE DELETE
 				if (feature.getValidUntil() != null) {
-					obj = EditoroperationFactory.eINSTANCE.createDwEditorOperationFeatureDelete();
+					obj = EvolutionoperationFactory.eINSTANCE.createDwEvolutionOperationFeatureDelete();
 					obj.setEvoStep(feature.getValidUntil());
-					((DwEditorOperationFeature) obj).setFeature(feature);
+					((DwEvolutionOperationFeature) obj).setFeature(feature);
 					operationList.add(obj);
 				}
 				
@@ -105,11 +103,11 @@ public class DwEditorOperationAnalyzer {
 						if (predecessor == null) {
 							predecessor = HyEvolutionUtil.getValidTemporalElement(feature.getNames(), new Date(name.getValidSince().getTime() -1L));
 						}
-						obj = EditoroperationFactory.eINSTANCE.createDwEditorOperationFeatureRename();
+						obj = EvolutionoperationFactory.eINSTANCE.createDwEvolutionOperationFeatureRename();
 						obj.setEvoStep(name.getValidSince());
-						((DwEditorOperationFeature) obj).setFeature(feature);
-						((DwEditorOperationFeatureRename) obj).setOldName(predecessor);
-						((DwEditorOperationFeatureRename) obj).setNewName(name);
+						((DwEvolutionOperationFeature) obj).setFeature(feature);
+						((DwEvolutionOperationFeatureRename) obj).setOldName(predecessor);
+						((DwEvolutionOperationFeatureRename) obj).setNewName(name);
 						operationList.add(obj);
 					}
 				}
@@ -121,29 +119,29 @@ public class DwEditorOperationAnalyzer {
 						if (predecessor == null) {
 							predecessor = HyEvolutionUtil.getValidTemporalElement(feature.getTypes(), new Date(type.getValidSince().getTime() -1L));
 						}
-						obj = EditoroperationFactory.eINSTANCE.createDwEditorOperationFeatureType();
+						obj = EvolutionoperationFactory.eINSTANCE.createDwEvolutionOperationFeatureType();
 						obj.setEvoStep(type.getValidSince());
-						((DwEditorOperationFeature) obj).setFeature(feature);
-						((DwEditorOperationFeatureType) obj).setOldType(predecessor);
-						((DwEditorOperationFeatureType) obj).setNewType(type);
+						((DwEvolutionOperationFeature) obj).setFeature(feature);
+						((DwEvolutionOperationFeatureType) obj).setOldType(predecessor);
+						((DwEvolutionOperationFeatureType) obj).setNewType(type);
 						operationList.add(obj);
 					}
 				}
 				
 				for (HyVersion version : feature.getVersions()) {
-					// FEATURE CREATE
-					obj = EditoroperationFactory.eINSTANCE.createDwEditorOperationFeatureVersionCreate();
+					// FEATURE VERSION CREATE
+					obj = EvolutionoperationFactory.eINSTANCE.createDwEvolutionOperationFeatureVersionCreate();
 					obj.setEvoStep(feature.getValidSince());
-					((DwEditorOperationFeatureVersion) obj).setFeature(feature);
-					((DwEditorOperationFeatureVersion) obj).setVersion(version);
+					((DwEvolutionOperationFeatureVersion) obj).setFeature(feature);
+					((DwEvolutionOperationFeatureVersion) obj).setVersion(version);
 					operationList.add(obj);
 
-					// FEATURE CREATE
+					// FEATURE VERSION DELETE
 					if (version.getValidUntil() != null) {
-						obj = EditoroperationFactory.eINSTANCE.createDwEditorOperationFeatureVersionDelete();
+						obj = EvolutionoperationFactory.eINSTANCE.createDwEvolutionOperationFeatureVersionDelete();
 						obj.setEvoStep(feature.getValidSince());
-						((DwEditorOperationFeatureVersion) obj).setFeature(feature);
-						((DwEditorOperationFeatureVersion) obj).setVersion(version);
+						((DwEvolutionOperationFeatureVersion) obj).setFeature(feature);
+						((DwEvolutionOperationFeatureVersion) obj).setVersion(version);
 						operationList.add(obj);
 					}
 				}
@@ -156,12 +154,11 @@ public class DwEditorOperationAnalyzer {
 							predecessor = HyEvolutionUtil.getValidTemporalElement(feature.getGroupMembership(), new Date(group.getValidSince().getTime() -1L));
 						}
 						if (!group.getCompositionOf().equals(predecessor.getCompositionOf())) {
-							// TODO: only recognize group changes or group composition changes too?
-							obj = EditoroperationFactory.eINSTANCE.createDwEditorOperationFeatureGroup();
+							obj = EvolutionoperationFactory.eINSTANCE.createDwEvolutionOperationFeatureGroup();
 							obj.setEvoStep(group.getValidSince());
-							((DwEditorOperationFeature) obj).setFeature(feature);
-							((DwEditorOperationFeatureGroup) obj).setOldGroup(predecessor);
-							((DwEditorOperationFeatureGroup) obj).setNewGroup(group);
+							((DwEvolutionOperationFeature) obj).setFeature(feature);
+							((DwEvolutionOperationFeatureGroup) obj).setOldGroup(predecessor);
+							((DwEvolutionOperationFeatureGroup) obj).setNewGroup(group);
 							operationList.add(obj);
 						}
 					}
@@ -171,16 +168,16 @@ public class DwEditorOperationAnalyzer {
 				for (HyFeatureAttribute attribute : feature.getAttributes()) {
 					
 					// ATTRIBUTE CREATE
-					obj = EditoroperationFactory.eINSTANCE.createDwEditorOperationAttributeCreate();
+					obj = EvolutionoperationFactory.eINSTANCE.createDwEvolutionOperationAttributeCreate();
 					obj.setEvoStep(attribute.getValidSince());
-					((DwEditorOperationAttribute) obj).setAttribute(attribute);
+					((DwEvolutionOperationAttribute) obj).setAttribute(attribute);
 					operationList.add(obj);
 
 					// ATTRIBUTE DELETE
 					if (attribute.getValidUntil() != null) {
-						obj = EditoroperationFactory.eINSTANCE.createDwEditorOperationAttributeDelete();
+						obj = EvolutionoperationFactory.eINSTANCE.createDwEvolutionOperationAttributeDelete();
 						obj.setEvoStep(attribute.getValidSince());
-						((DwEditorOperationAttribute) obj).setAttribute(attribute);
+						((DwEvolutionOperationAttribute) obj).setAttribute(attribute);
 						operationList.add(obj);
 					}
 
@@ -191,11 +188,11 @@ public class DwEditorOperationAnalyzer {
 							if (predecessor == null) {
 								predecessor = HyEvolutionUtil.getValidTemporalElement(attribute.getNames(), new Date(name.getValidSince().getTime() -1L));
 							}
-							obj = EditoroperationFactory.eINSTANCE.createDwEditorOperationAttributeRename();
+							obj = EvolutionoperationFactory.eINSTANCE.createDwEvolutionOperationAttributeRename();
 							obj.setEvoStep(name.getValidSince());
-							((DwEditorOperationAttribute) obj).setAttribute(attribute);
-							((DwEditorOperationAttributeRename) obj).setOldName(predecessor);
-							((DwEditorOperationAttributeRename) obj).setNewName(name);
+							((DwEvolutionOperationAttribute) obj).setAttribute(attribute);
+							((DwEvolutionOperationAttributeRename) obj).setOldName(predecessor);
+							((DwEvolutionOperationAttributeRename) obj).setNewName(name);
 							operationList.add(obj);
 						}
 					}
@@ -211,11 +208,11 @@ public class DwEditorOperationAnalyzer {
 						if (predecessor == null) {
 							predecessor = HyEvolutionUtil.getValidTemporalElement(group.getTypes(), new Date(type.getValidSince().getTime() -1L));
 						}
-						obj = EditoroperationFactory.eINSTANCE.createDwEditorOperationGroupType();
+						obj = EvolutionoperationFactory.eINSTANCE.createDwEvolutionOperationGroupType();
 						obj.setEvoStep(type.getValidSince());
-						((DwEditorOperationGroupType) obj).setGroup(group);
-						((DwEditorOperationGroupType) obj).setOldType(predecessor);
-						((DwEditorOperationGroupType) obj).setNewType(type);
+						((DwEvolutionOperationGroupType) obj).setGroup(group);
+						((DwEvolutionOperationGroupType) obj).setOldType(predecessor);
+						((DwEvolutionOperationGroupType) obj).setNewType(type);
 						operationList.add(obj);
 					}
 				}
@@ -232,34 +229,33 @@ public class DwEditorOperationAnalyzer {
 		for (HyEnum hyEnum : enumList) {
 			
 			// ENUM CREATE
-			obj = EditoroperationFactory.eINSTANCE.createDwEditorOperationEnumCreate();
+			obj = EvolutionoperationFactory.eINSTANCE.createDwEvolutionOperationEnumCreate();
 			obj.setEvoStep(hyEnum.getValidSince());
-			((DwEditorOperationEnum) obj).setEnum(hyEnum);
+			((DwEvolutionOperationEnum) obj).setEnum(hyEnum);
 			operationList.add(obj);
 			
 			// ENUM DELETE
 			if (hyEnum.getValidUntil() != null) {
-				// => create EditorOperationFeatureDelete
-				obj = EditoroperationFactory.eINSTANCE.createDwEditorOperationEnumDelete();
+				obj = EvolutionoperationFactory.eINSTANCE.createDwEvolutionOperationEnumDelete();
 				obj.setEvoStep(hyEnum.getValidUntil());
-				((DwEditorOperationEnum) obj).setEnum(hyEnum);
+				((DwEvolutionOperationEnum) obj).setEnum(hyEnum);
 				operationList.add(obj);
 			}
 						
 			for (HyEnumLiteral literal : hyEnum.getLiterals()) {
 				// ENUM LITERAL CREATE
-				obj = EditoroperationFactory.eINSTANCE.createDwEditorOperationEnumLiteralCreate();
+				obj = EvolutionoperationFactory.eINSTANCE.createDwEvolutionOperationEnumLiteralCreate();
 				obj.setEvoStep(literal.getValidSince());
-				((DwEditorOperationEnumLiteral) obj).setEnum(hyEnum);
-				((DwEditorOperationEnumLiteral) obj).setLiteral(literal);
+				((DwEvolutionOperationEnumLiteral) obj).setEnum(hyEnum);
+				((DwEvolutionOperationEnumLiteral) obj).setLiteral(literal);
 				operationList.add(obj);
 
 				// ENUM LITERAL DELETE
 				if (literal.getValidUntil() != null) {
-					obj = EditoroperationFactory.eINSTANCE.createDwEditorOperationEnumLiteralDelete();
+					obj = EvolutionoperationFactory.eINSTANCE.createDwEvolutionOperationEnumLiteralDelete();
 					obj.setEvoStep(literal.getValidUntil());
-					((DwEditorOperationEnumLiteral) obj).setEnum(hyEnum);
-					((DwEditorOperationEnumLiteral) obj).setLiteral(literal);
+					((DwEvolutionOperationEnumLiteral) obj).setEnum(hyEnum);
+					((DwEvolutionOperationEnumLiteral) obj).setLiteral(literal);
 					operationList.add(obj);
 				}
 			}
@@ -269,16 +265,16 @@ public class DwEditorOperationAnalyzer {
 			for (HyContextualInformation context : getContextModel().getContextualInformations()) {
 				
 				// CONTEXT CREATE
-				obj = EditoroperationFactory.eINSTANCE.createDwEditorOperationContextCreate();
+				obj = EvolutionoperationFactory.eINSTANCE.createDwEvolutionOperationContextCreate();
 				obj.setEvoStep(context.getValidSince());
-				((DwEditorOperationContext) obj).setContext(context);
+				((DwEvolutionOperationContext) obj).setContext(context);
 				operationList.add(obj);
 
 				// CONTEXT DELETE
 				if (context.getValidUntil() != null) {
-					obj = EditoroperationFactory.eINSTANCE.createDwEditorOperationContextDelete();
+					obj = EvolutionoperationFactory.eINSTANCE.createDwEvolutionOperationContextDelete();
 					obj.setEvoStep(context.getValidUntil());
-					((DwEditorOperationContext) obj).setContext(context);
+					((DwEvolutionOperationContext) obj).setContext(context);
 					operationList.add(obj);
 				}
 			}
@@ -288,16 +284,16 @@ public class DwEditorOperationAnalyzer {
 			for (HyValidityFormula validityFormula : getContextValidityModel().getValidityFormulas()) {
 				
 				// VALIDITY FORMULA CREATE
-				obj = EditoroperationFactory.eINSTANCE.createDwEditorOperationValidityFormulaCreate();
+				obj = EvolutionoperationFactory.eINSTANCE.createDwEvolutionOperationValidityFormulaCreate();
 				obj.setEvoStep(validityFormula.getValidSince());
-				((DwEditorOperationValidityFormula) obj).setValidityFormula(validityFormula);
+				((DwEvolutionOperationValidityFormula) obj).setValidityFormula(validityFormula);
 				operationList.add(obj);
 
 				// VALIDITY FORMULA DELETE
 				if (validityFormula.getValidUntil() != null) {
-					obj = EditoroperationFactory.eINSTANCE.createDwEditorOperationValidityFormulaDelete();
+					obj = EvolutionoperationFactory.eINSTANCE.createDwEvolutionOperationValidityFormulaDelete();
 					obj.setEvoStep(validityFormula.getValidUntil());
-					((DwEditorOperationValidityFormula) obj).setValidityFormula(validityFormula);
+					((DwEvolutionOperationValidityFormula) obj).setValidityFormula(validityFormula);
 					operationList.add(obj);
 				}
 			}
@@ -307,17 +303,16 @@ public class DwEditorOperationAnalyzer {
 			for (HyConstraint constraint : getConstraintModel().getConstraints()) {
 
 				// CONSTRAINT CREATE
-				obj = EditoroperationFactory.eINSTANCE.createDwEditorOperationConstraintCreate();
+				obj = EvolutionoperationFactory.eINSTANCE.createDwEvolutionOperationConstraintCreate();
 				obj.setEvoStep(constraint.getValidSince());
-				((DwEditorOperationConstraint) obj).setConstraint(constraint);
+				((DwEvolutionOperationConstraint) obj).setConstraint(constraint);
 				operationList.add(obj);
 
 				// CONSTRAINT DELETE
 				if (constraint.getValidUntil() != null) {
-					// => create editorOperationConstraintDelete
-					obj = EditoroperationFactory.eINSTANCE.createDwEditorOperationConstraintDelete();
+					obj = EvolutionoperationFactory.eINSTANCE.createDwEvolutionOperationConstraintDelete();
 					obj.setEvoStep(constraint.getValidUntil());
-					((DwEditorOperationConstraint) obj).setConstraint(constraint);
+					((DwEvolutionOperationConstraint) obj).setConstraint(constraint);
 					operationList.add(obj);
 				}
 			}
@@ -336,10 +331,10 @@ public class DwEditorOperationAnalyzer {
 	}
 	
 	public List<AnomalyConstraintExplanation> explainVoidAnomaly(DwAnomalyExplanation anomalyExplanation) {		
-		List<AnomalyConstraintExplanation> constraintExplanationList = getRelatedEditorOperationsFromExplanation(anomalyExplanation);
+		List<AnomalyConstraintExplanation> constraintExplanationList = getRelatedEvolutionOperationsFromExplanation(anomalyExplanation);
 		
 		for (AnomalyConstraintExplanation explanation : constraintExplanationList) {
-			filterRelevantVoidFeatureModelEditorOperation(explanation);
+			filterRelevantVoidFeatureModelEvolutionOperation(explanation);
 			
 			// now we can properly explain it:
 			String explanationString = explanation.explain();
@@ -373,14 +368,10 @@ public class DwEditorOperationAnalyzer {
 		
 		// if not: it is caused by a constraint.
 		
-		constraintExplanationList = getRelatedEditorOperationsFromExplanation(anomalyExplanation);
+		constraintExplanationList = getRelatedEvolutionOperationsFromExplanation(anomalyExplanation);
 		
 		for (AnomalyConstraintExplanation explanation : constraintExplanationList) {
-			filterRelevantDeadFeatureEditorOperation(explanation);
-			
-			// now we can properly explain it:
-			String explanationString = explanation.explain();
-			System.out.println(explanationString);
+			filterRelevantDeadFeatureEvolutionOperation(explanation);
 		}
 		
 		return constraintExplanationList;
@@ -389,21 +380,17 @@ public class DwEditorOperationAnalyzer {
 	
 
 	public List<AnomalyConstraintExplanation> explainFalseOptionalFeatureAnomaly(DwAnomalyExplanation anomalyExplanation) {		
-		List<AnomalyConstraintExplanation> constraintExplanationList = getRelatedEditorOperationsFromExplanation(anomalyExplanation);
+		List<AnomalyConstraintExplanation> constraintExplanationList = getRelatedEvolutionOperationsFromExplanation(anomalyExplanation);
 		
 		for (AnomalyConstraintExplanation explanation : constraintExplanationList) {
-			filterRelevantFalseOptionalFeatureEditorOperation(explanation);
-			
-			// now we can properly explain it:
-			String explanationString = explanation.explain();
-			System.out.println(explanationString);
+			filterRelevantFalseOptionalFeatureEvolutionOperation(explanation);
 		}
 		
 		return constraintExplanationList;
 		
 	}
 	
-	protected List<AnomalyConstraintExplanation> getRelatedEditorOperationsFromExplanation(DwAnomalyExplanation anomalyExplanation) {
+	protected List<AnomalyConstraintExplanation> getRelatedEvolutionOperationsFromExplanation(DwAnomalyExplanation anomalyExplanation) {
 
 		Map<String, EObject> translationMapping = client.exporter.getTranslationMapping();
 
@@ -421,17 +408,17 @@ public class DwEditorOperationAnalyzer {
 			explanation.setAffectedObject(translationMapping.get(constraint));
 			explanation.setTranslatedConstraint(constraintString);
 			explanation.setDate(anomalyExplanation.getDate());
-			for (DwEditorOperation operation : getEditorOperationListForObject(translationMapping.get(constraint), anomalyExplanation.getDate())) {
-				EditorOperationExplanation opExplanation = new EditorOperationExplanation(operation);
-				explanation.addEditorOperationExplanation(opExplanation);
+			for (DwEvolutionOperation operation : getEvolutionOperationListForObject(translationMapping.get(constraint), anomalyExplanation.getDate())) {
+				EvolutionOperationExplanation opExplanation = new EvolutionOperationExplanation(operation);
+				explanation.addEvolutionOperationExplanation(opExplanation);
 			}
 			list.add(explanation);
 		}
 		return list;
 	}
 	
-	public List<DwEditorOperation> getEditorOperationListForObject(EObject object, Date date) {
-		List<DwEditorOperation> opsList = new ArrayList<DwEditorOperation>();
+	public List<DwEvolutionOperation> getEvolutionOperationListForObject(EObject object, Date date) {
+		List<DwEvolutionOperation> opsList = new ArrayList<DwEvolutionOperation>();
 		
 		HyFeature feature = null;
 		if (object instanceof HyFeature) {
@@ -445,12 +432,12 @@ public class DwEditorOperationAnalyzer {
 			// check involved features
 			HyGroupComposition groupComposition = HyEvolutionUtil.getValidTemporalElement(group.getParentOf(), date);
 			for (HyFeature f : groupComposition.getFeatures()) {
-				opsList.addAll(getEditorOperationListForObject(f, date));
+				opsList.addAll(getEvolutionOperationListForObject(f, date));
 			}
 			
 			// check parent
 			HyFeatureChild featureChild = HyEvolutionUtil.getValidTemporalElement(group.getChildOf(), date);
-			opsList.addAll(getEditorOperationListForObject(featureChild.getParent(), date));
+			opsList.addAll(getEvolutionOperationListForObject(featureChild.getParent(), date));
 		}
 		
 		HyConstraint constraint = null;
@@ -459,7 +446,7 @@ public class DwEditorOperationAnalyzer {
 			
 			List<HyFeature> featureList = getFeaturesFromExpression(constraint.getRootExpression());
 			for (HyFeature f : featureList) {
-				opsList.addAll(getEditorOperationListForObject(f, date));
+				opsList.addAll(getEvolutionOperationListForObject(f, date));
 			}
 		}
 		
@@ -469,57 +456,57 @@ public class DwEditorOperationAnalyzer {
 
 			List<HyFeature> featureList = getFeaturesFromExpression(validityFormula.getValidityFormula());
 			for (HyFeature f : featureList) {
-				opsList.addAll(getEditorOperationListForObject(f, date));
+				opsList.addAll(getEvolutionOperationListForObject(f, date));
 			}
 		}
 		
-		for (DwEditorOperation operation : operationList) {
+		for (DwEvolutionOperation operation : operationList) {
 			if (operation.getEvoStep() == null || operation.getEvoStep().equals(date) || operation.getEvoStep().before(date)) {
 				if (feature != null) {
-					if (operation instanceof DwEditorOperationFeature) {
-						DwEditorOperationFeature opFeature = (DwEditorOperationFeature) operation;
+					if (operation instanceof DwEvolutionOperationFeature) {
+						DwEvolutionOperationFeature opFeature = (DwEvolutionOperationFeature) operation;
 						if (opFeature.getFeature() == feature) {
 							opsList.add(opFeature);
 						}
 					}
-					else if (operation instanceof DwEditorOperationAttribute) {
-						DwEditorOperationAttribute opAttribute = (DwEditorOperationAttribute) operation;
+					else if (operation instanceof DwEvolutionOperationAttribute) {
+						DwEvolutionOperationAttribute opAttribute = (DwEvolutionOperationAttribute) operation;
 						if (opAttribute.getAttribute().getFeature().equals(feature)) {
 							opsList.add(opAttribute);
 						}
 					}
 				} else if (group != null) {
-					if (operation instanceof DwEditorOperationGroupType) {
-						DwEditorOperationGroupType opGroupType = (DwEditorOperationGroupType) operation;
+					if (operation instanceof DwEvolutionOperationGroupType) {
+						DwEvolutionOperationGroupType opGroupType = (DwEvolutionOperationGroupType) operation;
 						if (opGroupType.getGroup().equals(group)) {
 							opsList.add(opGroupType);
 						}
-					} else if (operation instanceof DwEditorOperationFeatureGroup) {
-						DwEditorOperationFeatureGroup opFeatureGroup = (DwEditorOperationFeatureGroup) operation;
+					} else if (operation instanceof DwEvolutionOperationFeatureGroup) {
+						DwEvolutionOperationFeatureGroup opFeatureGroup = (DwEvolutionOperationFeatureGroup) operation;
 						if (opFeatureGroup.getNewGroup().getCompositionOf().equals(group)) {
 							opsList.add(opFeatureGroup);
 						}
 					}
 				} else if (constraint != null) {
-					if (operation instanceof DwEditorOperationConstraintCreate) {
-						DwEditorOperationConstraintCreate opConstraintCreate = (DwEditorOperationConstraintCreate) operation;
+					if (operation instanceof DwEvolutionOperationConstraintCreate) {
+						DwEvolutionOperationConstraintCreate opConstraintCreate = (DwEvolutionOperationConstraintCreate) operation;
 						if (opConstraintCreate.getConstraint().equals(constraint)) {
 							opsList.add(opConstraintCreate);
 						}
-					} else if (operation instanceof DwEditorOperationConstraintDelete) {
-						DwEditorOperationConstraintDelete opConstraintDelete = (DwEditorOperationConstraintDelete) operation;
+					} else if (operation instanceof DwEvolutionOperationConstraintDelete) {
+						DwEvolutionOperationConstraintDelete opConstraintDelete = (DwEvolutionOperationConstraintDelete) operation;
 						if (opConstraintDelete.getConstraint().equals(constraint)) {
 							opsList.add(opConstraintDelete);
 						}
 					}
 				} else if (validityFormula != null) {
-					if (operation instanceof DwEditorOperationValidityFormulaCreate) {
-						DwEditorOperationValidityFormulaCreate opValidityFormulaCreate = (DwEditorOperationValidityFormulaCreate) operation;
+					if (operation instanceof DwEvolutionOperationValidityFormulaCreate) {
+						DwEvolutionOperationValidityFormulaCreate opValidityFormulaCreate = (DwEvolutionOperationValidityFormulaCreate) operation;
 						if (opValidityFormulaCreate.getValidityFormula().equals(validityFormula)) {
 							opsList.add(opValidityFormulaCreate);
 						}
-					} else if (operation instanceof DwEditorOperationValidityFormulaDelete) {
-						DwEditorOperationValidityFormulaDelete opValidityFormulaDelete = (DwEditorOperationValidityFormulaDelete) operation;
+					} else if (operation instanceof DwEvolutionOperationValidityFormulaDelete) {
+						DwEvolutionOperationValidityFormulaDelete opValidityFormulaDelete = (DwEvolutionOperationValidityFormulaDelete) operation;
 						if (opValidityFormulaDelete.getValidityFormula().equals(validityFormula)) {
 							opsList.add(opValidityFormulaDelete);
 						}
@@ -532,54 +519,54 @@ public class DwEditorOperationAnalyzer {
 	}
 	
 	
-	public void filterRelevantDeadFeatureEditorOperation(AnomalyConstraintExplanation constraintExplanation) {
-		List<EditorOperationExplanation> list = new ArrayList<EditorOperationExplanation>();
-		list.addAll(constraintExplanation.getEditorOperations());
-		constraintExplanation.getEditorOperations().clear();
+	public void filterRelevantDeadFeatureEvolutionOperation(AnomalyConstraintExplanation constraintExplanation) {
+		List<EvolutionOperationExplanation> list = new ArrayList<EvolutionOperationExplanation>();
+		list.addAll(constraintExplanation.getEvolutionOperations());
+		constraintExplanation.getEvolutionOperations().clear();
 		
-		for (EditorOperationExplanation opExplanation : list) {
-			DwEditorOperation operation = opExplanation.getEditorOperation();
-			if (operation instanceof DwEditorOperationFeatureType
-					|| operation instanceof DwEditorOperationFeatureGroup
-					|| operation instanceof DwEditorOperationGroupType
-					|| operation instanceof DwEditorOperationConstraintCreate
-					|| operation instanceof DwEditorOperationValidityFormulaCreate) {
-				constraintExplanation.addEditorOperationExplanation(opExplanation);
+		for (EvolutionOperationExplanation opExplanation : list) {
+			DwEvolutionOperation operation = opExplanation.getEvolutionOperation();
+			if (operation instanceof DwEvolutionOperationFeatureType
+					|| operation instanceof DwEvolutionOperationFeatureGroup
+					|| operation instanceof DwEvolutionOperationGroupType
+					|| operation instanceof DwEvolutionOperationConstraintCreate
+					|| operation instanceof DwEvolutionOperationValidityFormulaCreate) {
+				constraintExplanation.addEvolutionOperationExplanation(opExplanation);
 			}
 		}
 	}
 	
-	public void filterRelevantFalseOptionalFeatureEditorOperation(AnomalyConstraintExplanation constraintExplanation) {
-		List<EditorOperationExplanation> list = new ArrayList<EditorOperationExplanation>();
-		list.addAll(constraintExplanation.getEditorOperations());
-		constraintExplanation.getEditorOperations().clear();
+	public void filterRelevantFalseOptionalFeatureEvolutionOperation(AnomalyConstraintExplanation constraintExplanation) {
+		List<EvolutionOperationExplanation> list = new ArrayList<EvolutionOperationExplanation>();
+		list.addAll(constraintExplanation.getEvolutionOperations());
+		constraintExplanation.getEvolutionOperations().clear();
 		
-		for (EditorOperationExplanation opExplanation : list) {
-			DwEditorOperation operation = opExplanation.getEditorOperation();
-			if (operation instanceof DwEditorOperationFeatureType
-					|| operation instanceof DwEditorOperationFeatureGroup
-					|| operation instanceof DwEditorOperationGroupType
-					|| operation instanceof DwEditorOperationConstraintCreate
-					|| operation instanceof DwEditorOperationValidityFormulaCreate) {
-				constraintExplanation.addEditorOperationExplanation(opExplanation);
+		for (EvolutionOperationExplanation opExplanation : list) {
+			DwEvolutionOperation operation = opExplanation.getEvolutionOperation();
+			if (operation instanceof DwEvolutionOperationFeatureType
+					|| operation instanceof DwEvolutionOperationFeatureGroup
+					|| operation instanceof DwEvolutionOperationGroupType
+					|| operation instanceof DwEvolutionOperationConstraintCreate
+					|| operation instanceof DwEvolutionOperationValidityFormulaCreate) {
+				constraintExplanation.addEvolutionOperationExplanation(opExplanation);
 			}
 		}
 	}
 	
-	public void filterRelevantVoidFeatureModelEditorOperation(AnomalyConstraintExplanation constraintExplanation) {
-		List<EditorOperationExplanation> list = new ArrayList<EditorOperationExplanation>();
-		list.addAll(constraintExplanation.getEditorOperations());
-		constraintExplanation.getEditorOperations().clear();
+	public void filterRelevantVoidFeatureModelEvolutionOperation(AnomalyConstraintExplanation constraintExplanation) {
+		List<EvolutionOperationExplanation> list = new ArrayList<EvolutionOperationExplanation>();
+		list.addAll(constraintExplanation.getEvolutionOperations());
+		constraintExplanation.getEvolutionOperations().clear();
 		
-		for (EditorOperationExplanation opExplanation : list) {
-			DwEditorOperation operation = opExplanation.getEditorOperation();
-			if (operation instanceof DwEditorOperationFeatureType
-					|| operation instanceof DwEditorOperationFeatureGroup
-					|| operation instanceof DwEditorOperationGroupType
-					|| operation instanceof DwEditorOperationConstraintCreate
-					|| operation instanceof DwEditorOperationValidityFormulaCreate
-					|| operation instanceof DwEditorOperationEnumLiteralCreate) {
-				constraintExplanation.addEditorOperationExplanation(opExplanation);
+		for (EvolutionOperationExplanation opExplanation : list) {
+			DwEvolutionOperation operation = opExplanation.getEvolutionOperation();
+			if (operation instanceof DwEvolutionOperationFeatureType
+					|| operation instanceof DwEvolutionOperationFeatureGroup
+					|| operation instanceof DwEvolutionOperationGroupType
+					|| operation instanceof DwEvolutionOperationConstraintCreate
+					|| operation instanceof DwEvolutionOperationValidityFormulaCreate
+					|| operation instanceof DwEvolutionOperationEnumLiteralCreate) {
+				constraintExplanation.addEvolutionOperationExplanation(opExplanation);
 			}
 		}
 	}
@@ -596,13 +583,12 @@ public class DwEditorOperationAnalyzer {
 	
 	public List<HyFeature> getFeaturesFromExpression(HyExpression expression) {
 		List<HyFeature> list = new ArrayList<HyFeature>();
-		if (expression instanceof HyAbstractFeatureReferenceExpression) {
-			list.add(((HyAbstractFeatureReferenceExpression) expression).getFeature());
-		} else if (expression instanceof HyUnaryExpression){
-			list.addAll(getFeaturesFromExpression(((HyUnaryExpression) expression).getOperand()));
-		} else if (expression instanceof HyBinaryExpression){
-			list.addAll(getFeaturesFromExpression(((HyBinaryExpression) expression).getOperand1()));
-			list.addAll(getFeaturesFromExpression(((HyBinaryExpression) expression).getOperand2()));
+		TreeIterator<EObject> it = expression.eAllContents();
+		while(it.hasNext()) {
+			EObject obj = it.next();
+			if (obj instanceof HyAbstractFeatureReferenceExpression) {
+				list.add(((HyAbstractFeatureReferenceExpression) obj).getFeature());
+			}
 		}
 		return list;
 	}
@@ -660,14 +646,6 @@ public class DwEditorOperationAnalyzer {
 
 	public void setConstraintModel(HyConstraintModel constraintModel) {
 		this.constraintModel = constraintModel;
-	}
-
-	public Date getDate() {
-		return date;
-	}
-
-	public void setDate(Date date) {
-		this.date = date;
 	}
 	
 	public void setFeatureAnomalies(List<DwAnomaly> anomalies){

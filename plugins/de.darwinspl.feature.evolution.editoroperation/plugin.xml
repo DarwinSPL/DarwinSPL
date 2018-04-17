@@ -5,13 +5,12 @@
 -->
 
 <plugin>
-
    <extension point="org.eclipse.emf.ecore.generated_package">
-      <!-- @generated EditorOperation -->
+      <!-- @generated EvolutionOperation -->
       <package
-            uri="http://hyvar-project.eu/evolution/editoroperation/1.0"
-            class="de.darwinspl.feature.evolution.editoroperation.EditoroperationPackage"
-            genModel="model/EditorOperation.genmodel"/>
+            uri="http://hyvar-project.eu/evolution/evolutionoperation/1.0"
+            class="de.darwinspl.feature.evolution.evolutionoperation.EvolutionoperationPackage"
+            genModel="model/EvolutionOperation.genmodel"/>
    </extension>
 
 </plugin>

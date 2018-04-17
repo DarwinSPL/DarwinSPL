@@ -60,7 +60,7 @@ import de.darwinspl.feature.graphical.configurator.viewer.DwFeatureModelConfigur
 import de.darwinspl.preferences.DwProfile;
 import de.darwinspl.preferences.util.custom.DwPreferenceModelUtil;
 import de.darwinspl.reconfigurator.client.hyvarrec.DwAnalysesClient;
-import de.darwinspl.reconfigurator.client.hyvarrec.DwEditorOperationAnalyzer;
+import de.darwinspl.reconfigurator.client.hyvarrec.DwEvolutionOperationAnalyzer;
 import de.darwinspl.reconfigurator.client.hyvarrec.DwAnalysesClient.DwContextValueEvolutionWrapper;
 import de.darwinspl.reconfigurator.client.hyvarrec.HyVarRecNoSolutionException;
 import de.darwinspl.solver.DwSolver;
@@ -627,11 +627,11 @@ public class DwFeatureModelConfiguratorEditor extends DwFeatureModelConfigurator
 					
 					// TODO show anomalies in an extra view and allow their explanation
 
-					DwEditorOperationAnalyzer editorOperationAnalyzer = new DwEditorOperationAnalyzer(client);
-					editorOperationAnalyzer.setFeatureAnomalies(anomalies);
+					DwEvolutionOperationAnalyzer evolutionOperationAnalyzer = new DwEvolutionOperationAnalyzer(client);
+					evolutionOperationAnalyzer.setFeatureAnomalies(anomalies);
 					
 					for (DwAnomaly anomaly : anomalies) {
-						List<AnomalyConstraintExplanation> explanation = client.explainAnomaly(uri, username, password, contextModel, validityModel, modelWrapped.getModel(), constraintModel, anomaly, editorOperationAnalyzer);
+						List<AnomalyConstraintExplanation> explanation = client.explainAnomaly(uri, username, password, contextModel, validityModel, modelWrapped.getModel(), constraintModel, anomaly, evolutionOperationAnalyzer);
 						DwAnomalyExplanationDialog anomalyExplanationDialog = new DwAnomalyExplanationDialog(getEditorSite().getShell(), anomaly, explanation);
 						anomalyExplanationDialog.open();	
 					}

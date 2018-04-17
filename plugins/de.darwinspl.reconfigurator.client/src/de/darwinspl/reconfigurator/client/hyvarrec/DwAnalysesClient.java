@@ -126,7 +126,7 @@ public class DwAnalysesClient {
 	 * @param oldConfiguration
 	 * @param preferenceModel
 	 * @param anomaly
-	 * @param editorOperationAnalyzer
+	 * @param evolutionOperationAnalyzer
 	 * @return
 	 * @throws TimeoutException
 	 * @throws InterruptedException
@@ -134,7 +134,7 @@ public class DwAnalysesClient {
 	 * @throws UnresolvedAddressException
 	 */
 	public List<AnomalyConstraintExplanation> explainAnomaly(String uriString, String webserviceUsername, String webservicePassword, HyContextModel contextModel, HyValidityModel contextValidityModel,
-			HyFeatureModel featureModel, HyConstraintModel constraintModel, DwAnomaly anomaly, DwEditorOperationAnalyzer editorOperationAnalyzer)
+			HyFeatureModel featureModel, HyConstraintModel constraintModel, DwAnomaly anomaly, DwEvolutionOperationAnalyzer evolutionOperationAnalyzer)
 			throws TimeoutException, InterruptedException, ExecutionException, UnresolvedAddressException {
 		
 		HyContextValueModel contextValueModel = null;
@@ -217,18 +217,17 @@ public class DwAnalysesClient {
 			anomalyExplanation.getExplanations().addAll(hyVarRecAnswer.getConstraints());
 			
 
-			// run EditorOperationAnalyzer
-			if (editorOperationAnalyzer == null) { // only override if not actually given.
-				editorOperationAnalyzer = new DwEditorOperationAnalyzer(this);
+			// run EvolutionOperationAnalyzer
+			if (evolutionOperationAnalyzer == null) { // only override if not actually given.
+				evolutionOperationAnalyzer = new DwEvolutionOperationAnalyzer(this);
 			}
-			editorOperationAnalyzer.setContextModel(contextModel);
-			editorOperationAnalyzer.setContextValidityModel(contextValidityModel);
-			editorOperationAnalyzer.setFeatureModel(featureModel);
-			editorOperationAnalyzer.setConstraintModel(constraintModel);
-			editorOperationAnalyzer.setDate(date);
-			editorOperationAnalyzer.constructEditorOperations();
+			evolutionOperationAnalyzer.setContextModel(contextModel);
+			evolutionOperationAnalyzer.setContextValidityModel(contextValidityModel);
+			evolutionOperationAnalyzer.setFeatureModel(featureModel);
+			evolutionOperationAnalyzer.setConstraintModel(constraintModel);
+			evolutionOperationAnalyzer.constructEvolutionOperations();
 			
-			List<AnomalyConstraintExplanation> anomalyExplanationList = editorOperationAnalyzer.explainAnomaly(anomalyExplanation);
+			List<AnomalyConstraintExplanation> anomalyExplanationList = evolutionOperationAnalyzer.explainAnomaly(anomalyExplanation);
 			
 			
 			return anomalyExplanationList;

@@ -25,7 +25,7 @@ import de.darwinspl.anomaly.DwDeadFeatureAnomaly;
 import de.darwinspl.anomaly.DwFalseOptionalFeatureAnomaly;
 import de.darwinspl.anomaly.DwVoidFeatureModelAnomaly;
 import de.darwinspl.feature.graphical.configurator.editor.anomaly.views.DwAnomalyView;
-import de.darwinspl.reconfigurator.client.hyvarrec.DwEditorOperationAnalyzer;
+import de.darwinspl.reconfigurator.client.hyvarrec.DwEvolutionOperationAnalyzer;
 import eu.hyvar.context.information.contextValue.HyContextValue;
 import eu.hyvar.dataValues.HyEnumValue;
 import eu.hyvar.dataValues.HyNumberValue;

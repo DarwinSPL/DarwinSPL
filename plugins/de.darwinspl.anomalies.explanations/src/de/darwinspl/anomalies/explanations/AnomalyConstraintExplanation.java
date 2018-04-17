@@ -2,13 +2,11 @@ package de.darwinspl.anomalies.explanations;
 
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import org.eclipse.emf.ecore.EObject;
 
-import de.darwinspl.feature.evolution.editoroperation.EditorOperationExplanation;
+import de.darwinspl.feature.evolution.evolutionoperation.EvolutionOperationExplanation;
 import eu.hyvar.context.contextValidity.HyValidityFormula;
 import eu.hyvar.evolution.util.HyEvolutionUtil;
 import eu.hyvar.feature.HyFeature;
@@ -21,7 +19,7 @@ public class AnomalyConstraintExplanation  {
 	
 	private EObject affectedObject;
 	private String translatedConstraint;
-	private List<EditorOperationExplanation> editorOperationExplanations = new ArrayList<EditorOperationExplanation>();
+	private List<EvolutionOperationExplanation> evolutionOperationExplanations = new ArrayList<EvolutionOperationExplanation>();
 	private Date date;
 	
 	
@@ -47,9 +45,9 @@ public class AnomalyConstraintExplanation  {
 	
 	public List<String> explainCausingOperations() {
 		List<String> list = new ArrayList<String>();
-		for (EditorOperationExplanation opExplanation : editorOperationExplanations) {
-			if ((opExplanation.getEditorOperation().getEvoStep() == null && opExplanation.getEditorOperation().getEvoStep() == date)
-					|| (opExplanation.getEditorOperation().getEvoStep() != null && opExplanation.getEditorOperation().getEvoStep().equals(date))) {
+		for (EvolutionOperationExplanation opExplanation : evolutionOperationExplanations) {
+			if ((opExplanation.getEvolutionOperation().getEvoStep() == null && opExplanation.getEvolutionOperation().getEvoStep() == date)
+					|| (opExplanation.getEvolutionOperation().getEvoStep() != null && opExplanation.getEvolutionOperation().getEvoStep().equals(date))) {
 				list.add(opExplanation.explain());
 			}
 		}
@@ -58,9 +56,9 @@ public class AnomalyConstraintExplanation  {
 	
 	public List<String> explainInvolvedPastEvolutionOperations() {
 		List<String> list = new ArrayList<String>();
-		for (EditorOperationExplanation opExplanation : editorOperationExplanations) {
-			if ((opExplanation.getEditorOperation().getEvoStep() == null && opExplanation.getEditorOperation().getEvoStep() == date)
-					|| (opExplanation.getEditorOperation().getEvoStep() != null && opExplanation.getEditorOperation().getEvoStep().equals(date))) {
+		for (EvolutionOperationExplanation opExplanation : evolutionOperationExplanations) {
+			if ((opExplanation.getEvolutionOperation().getEvoStep() == null && opExplanation.getEvolutionOperation().getEvoStep() == date)
+					|| (opExplanation.getEvolutionOperation().getEvoStep() != null && opExplanation.getEvolutionOperation().getEvoStep().equals(date))) {
 				
 			} else {
 				list.add(opExplanation.explain());
@@ -72,20 +70,20 @@ public class AnomalyConstraintExplanation  {
 	public String explain() {
 		String constraintStringExplanation = explainConstraintString();
 
-		String editorOperationExplanation = "";
-		if (editorOperationExplanations.size() > 0) {
-			editorOperationExplanation = "\n>Evolution Operations:\n" + editorOperationExplanation;
+		String evoOperationExplanation = "";
+		if (evolutionOperationExplanations.size() > 0) {
+			evoOperationExplanation = "\n>Evolution Operations:\n" + evoOperationExplanation;
 			for (String s : explainCausingOperations()) {
-				editorOperationExplanation += "CAUSING - " + s;
+				evoOperationExplanation += "CAUSING - " + s;
 			}
 			for (String s : explainInvolvedPastEvolutionOperations()) {
-				editorOperationExplanation += "INVOLVED PAST - " + s;
+				evoOperationExplanation += "INVOLVED PAST - " + s;
 			}
 		}
 		if (constraintStringExplanation.isEmpty()) {
 			return translatedConstraint;
 		} else {
-			return constraintStringExplanation + "\n-> " + translatedConstraint + editorOperationExplanation;
+			return constraintStringExplanation + "\n-> " + translatedConstraint + evoOperationExplanation;
 		}
 	}
 
@@ -144,17 +142,17 @@ public class AnomalyConstraintExplanation  {
 		this.translatedConstraint = translatedConstraint;
 	}
 	
-	public void addEditorOperationExplanation(EditorOperationExplanation editorOperationExplanation) {
-		for (EditorOperationExplanation existing : editorOperationExplanations) {
-			if (existing.getEditorOperation() == editorOperationExplanation.getEditorOperation()) {
+	public void addEvolutionOperationExplanation(EvolutionOperationExplanation evolutionOperationExplanation) {
+		for (EvolutionOperationExplanation existing : evolutionOperationExplanations) {
+			if (existing.getEvolutionOperation() == evolutionOperationExplanation.getEvolutionOperation()) {
 				return;
 			}
 		}
-		editorOperationExplanations.add(editorOperationExplanation);
+		evolutionOperationExplanations.add(evolutionOperationExplanation);
 	}
 	
-	public List<EditorOperationExplanation> getEditorOperations() {
-		return editorOperationExplanations;
+	public List<EvolutionOperationExplanation> getEvolutionOperations() {
+		return evolutionOperationExplanations;
 	}
 
 	public void setDate(Date date) {

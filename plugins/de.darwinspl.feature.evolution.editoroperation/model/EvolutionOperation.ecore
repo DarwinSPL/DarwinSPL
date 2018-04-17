@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ecore:EPackage xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="evolutionoperation" nsURI="http://hyvar-project.eu/evolution/evolutionoperation/1.0"
+    nsPrefix="evolutionoperation">
+  <eClassifiers xsi:type="ecore:EClass" name="DwEvolutionOperation" abstract="true">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="evoStep" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDate"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="DwEvolutionOperationFeature" abstract="true"
+      eSuperTypes="#//DwEvolutionOperation">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="feature" lowerBound="1"
+        eType="ecore:EClass ../../eu.hyvar.feature/model/Feature.ecore#//HyFeature"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="DwEvolutionOperationFeatureCreate" eSuperTypes="#//DwEvolutionOperationFeature"/>
+  <eClassifiers xsi:type="ecore:EClass" name="DwEvolutionOperationFeatureDelete" eSuperTypes="#//DwEvolutionOperationFeature"/>
+  <eClassifiers xsi:type="ecore:EClass" name="DwEvolutionOperationFeatureRename" eSuperTypes="#//DwEvolutionOperationFeature">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="oldName" eType="ecore:EClass ../../eu.hyvar.evolution/model/Evolution.ecore#//HyName"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="newName" lowerBound="1"
+        eType="ecore:EClass ../../eu.hyvar.evolution/model/Evolution.ecore#//HyName"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="DwEvolutionOperationFeatureType" eSuperTypes="#//DwEvolutionOperationFeature">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="oldType" eType="ecore:EClass ../../eu.hyvar.feature/model/Feature.ecore#//HyFeatureType"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="newType" lowerBound="1"
+        eType="ecore:EClass ../../eu.hyvar.feature/model/Feature.ecore#//HyFeatureType"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="DwEvolutionOperationFeatureGroup" eSuperTypes="#//DwEvolutionOperationFeature">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="oldGroup" eType="ecore:EClass ../../eu.hyvar.feature/model/Feature.ecore#//HyGroupComposition"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="newGroup" lowerBound="1"
+        eType="ecore:EClass ../../eu.hyvar.feature/model/Feature.ecore#//HyGroupComposition"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="DwEvolutionOperationFeatureVersion"
+      abstract="true" eSuperTypes="#//DwEvolutionOperationFeature">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="version" lowerBound="1"
+        eType="ecore:EClass ../../eu.hyvar.feature/model/Feature.ecore#//HyVersion"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="DwEvolutionOperationFeatureVersionCreate"
+      eSuperTypes="#//DwEvolutionOperationFeatureVersion"/>
+  <eClassifiers xsi:type="ecore:EClass" name="DwEvolutionOperationFeatureVersionDelete"
+      eSuperTypes="#//DwEvolutionOperationFeatureVersion"/>
+  <eClassifiers xsi:type="ecore:EClass" name="DwEvolutionOperationGroupType" eSuperTypes="#//DwEvolutionOperation">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="group" lowerBound="1" eType="ecore:EClass ../../eu.hyvar.feature/model/Feature.ecore#//HyGroup"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="oldType" eType="ecore:EClass ../../eu.hyvar.feature/model/Feature.ecore#//HyGroupType"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="newType" lowerBound="1"
+        eType="ecore:EClass ../../eu.hyvar.feature/model/Feature.ecore#//HyGroupType"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="DwEvolutionOperationAttribute" abstract="true"
+      eSuperTypes="#//DwEvolutionOperation">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="attribute" lowerBound="1"
+        eType="ecore:EClass ../../eu.hyvar.feature/model/Feature.ecore#//HyFeatureAttribute"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="DwEvolutionOperationAttributeCreate"
+      eSuperTypes="#//DwEvolutionOperationAttribute"/>
+  <eClassifiers xsi:type="ecore:EClass" name="DwEvolutionOperationAttributeDelete"
+      eSuperTypes="#//DwEvolutionOperationAttribute"/>
+  <eClassifiers xsi:type="ecore:EClass" name="DwEvolutionOperationAttributeRename"
+      eSuperTypes="#//DwEvolutionOperationAttribute">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="oldName" eType="ecore:EClass ../../eu.hyvar.evolution/model/Evolution.ecore#//HyName"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="newName" lowerBound="1"
+        eType="ecore:EClass ../../eu.hyvar.evolution/model/Evolution.ecore#//HyName"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="DwEvolutionOperationEnum" abstract="true"
+      eSuperTypes="#//DwEvolutionOperation">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="enum" lowerBound="1" eType="ecore:EClass ../../eu.hyvar.feature.data/model/DataValues.ecore#//HyEnum"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="DwEvolutionOperationEnumCreate" eSuperTypes="#//DwEvolutionOperationEnum"/>
+  <eClassifiers xsi:type="ecore:EClass" name="DwEvolutionOperationEnumDelete" eSuperTypes="#//DwEvolutionOperationEnum"/>
+  <eClassifiers xsi:type="ecore:EClass" name="DwEvolutionOperationEnumLiteral" abstract="true"
+      eSuperTypes="#//DwEvolutionOperationEnum">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="literal" lowerBound="1"
+        eType="ecore:EClass ../../eu.hyvar.feature.data/model/DataValues.ecore#//HyEnumLiteral"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="DwEvolutionOperationEnumLiteralCreate"
+      eSuperTypes="#//DwEvolutionOperationEnumLiteral"/>
+  <eClassifiers xsi:type="ecore:EClass" name="DwEvolutionOperationEnumLiteralDelete"
+      eSuperTypes="#//DwEvolutionOperationEnumLiteral"/>
+  <eClassifiers xsi:type="ecore:EClass" name="DwEvolutionOperationConstraint" abstract="true"
+      eSuperTypes="#//DwEvolutionOperation">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="constraint" lowerBound="1"
+        eType="ecore:EClass ../../eu.hyvar.feature.constraint/model/Constraint.ecore#//HyConstraint"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="DwEvolutionOperationConstraintCreate"
+      eSuperTypes="#//DwEvolutionOperationConstraint"/>
+  <eClassifiers xsi:type="ecore:EClass" name="DwEvolutionOperationConstraintDelete"
+      eSuperTypes="#//DwEvolutionOperationConstraint"/>
+  <eClassifiers xsi:type="ecore:EClass" name="DwEvolutionOperationContext" abstract="true"
+      eSuperTypes="#//DwEvolutionOperation">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="context" lowerBound="1"
+        eType="ecore:EClass ../../eu.hyvar.context.information/model/ContextInformation.ecore#//HyContextualInformation"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="DwEvolutionOperationContextCreate" eSuperTypes="#//DwEvolutionOperationContext"/>
+  <eClassifiers xsi:type="ecore:EClass" name="DwEvolutionOperationContextDelete" eSuperTypes="#//DwEvolutionOperationContext"/>
+  <eClassifiers xsi:type="ecore:EClass" name="DwEvolutionOperationValidityFormula"
+      abstract="true" eSuperTypes="#//DwEvolutionOperation">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="validityFormula" lowerBound="1"
+        eType="ecore:EClass ../../eu.hyvar.context.validity_formulas/model/ContextValidity.ecore#//HyValidityFormula"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="DwEvolutionOperationValidityFormulaCreate"
+      eSuperTypes="#//DwEvolutionOperationValidityFormula"/>
+  <eClassifiers xsi:type="ecore:EClass" name="DwEvolutionOperationValidityFormulaDelete"
+      eSuperTypes="#//DwEvolutionOperationValidityFormula"/>
+</ecore:EPackage>
