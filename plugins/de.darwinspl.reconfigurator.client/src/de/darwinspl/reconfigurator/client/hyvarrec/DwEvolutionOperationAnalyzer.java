@@ -48,9 +48,11 @@ import eu.hyvar.feature.HyFeatureAttribute;
 import eu.hyvar.feature.HyFeatureChild;
 import eu.hyvar.feature.HyFeatureModel;
 import eu.hyvar.feature.HyFeatureType;
+import eu.hyvar.feature.HyFeatureTypeEnum;
 import eu.hyvar.feature.HyGroup;
 import eu.hyvar.feature.HyGroupComposition;
 import eu.hyvar.feature.HyGroupType;
+import eu.hyvar.feature.HyGroupTypeEnum;
 import eu.hyvar.feature.HyVersion;
 import eu.hyvar.feature.constraint.HyConstraint;
 import eu.hyvar.feature.constraint.HyConstraintModel;
@@ -430,8 +432,21 @@ public class DwEvolutionOperationAnalyzer {
 			group = (HyGroup) object;
 			
 			// check involved features
-			HyGroupComposition groupComposition = HyEvolutionUtil.getValidTemporalElement(group.getParentOf(), date);
-			for (HyFeature f : groupComposition.getFeatures()) {
+			HyGroupComposition oldGroupComposition = HyEvolutionUtil.getValidTemporalElement(group.getParentOf(), new Date(date.getTime() -1L));
+			HyGroupComposition newGroupComposition = HyEvolutionUtil.getValidTemporalElement(group.getParentOf(), date);
+			List<HyFeature> featureList = newGroupComposition.getFeatures();
+			
+			// get the symmetrical difference to see the group's changes
+			if (oldGroupComposition != null) {
+				for (HyFeature f : oldGroupComposition.getFeatures()) {
+					if (featureList.contains(f)) {
+						continue;
+					}
+					featureList.add(f);
+				}
+			}
+			
+			for (HyFeature f : featureList) {
 				opsList.addAll(getEvolutionOperationListForObject(f, date));
 			}
 			
@@ -550,6 +565,35 @@ public class DwEvolutionOperationAnalyzer {
 					|| operation instanceof DwEvolutionOperationValidityFormulaCreate) {
 				constraintExplanation.addEvolutionOperationExplanation(opExplanation);
 			}
+			
+//			if (operation instanceof DwEvolutionOperationFeatureType) {
+//				DwEvolutionOperationFeatureType evoOp = (DwEvolutionOperationFeatureType) operation;
+//				if (evoOp.getOldType().getType() == HyFeatureTypeEnum.OPTIONAL
+//					&& evoOp.getNewType().getType() == HyFeatureTypeEnum.MANDATORY) {
+//					constraintExplanation.addEvolutionOperationExplanation(opExplanation);
+//				}
+//			}
+//			if (operation instanceof DwEvolutionOperationFeatureGroup) {
+//				DwEvolutionOperationFeatureGroup evoOp = (DwEvolutionOperationFeatureGroup) operation;
+//				HyGroupTypeEnum oldGroupType = HyEvolutionUtil.getValidTemporalElement(evoOp.getOldGroup().getCompositionOf().getTypes(), new Date(evoOp.getEvoStep().getTime() -1L)).getType();
+//				HyGroupTypeEnum newGroupType = HyEvolutionUtil.getValidTemporalElement(evoOp.getNewGroup().getCompositionOf().getTypes(), evoOp.getEvoStep()).getType();
+//				if ((oldGroupType == HyGroupTypeEnum.AND && newGroupType == HyGroupTypeEnum.ALTERNATIVE)
+//					|| (oldGroupType == HyGroupTypeEnum.AND && newGroupType == HyGroupTypeEnum.OR)) {
+//					constraintExplanation.addEvolutionOperationExplanation(opExplanation);
+//				}
+//			}
+//			if (operation instanceof DwEvolutionOperationGroupType) {
+//				DwEvolutionOperationGroupType evoOp = (DwEvolutionOperationGroupType) operation;
+//				HyGroupTypeEnum oldGroupType = evoOp.getOldType().getType();
+//				HyGroupTypeEnum newGroupType = evoOp.getNewType().getType();
+//				if ((oldGroupType == HyGroupTypeEnum.AND && newGroupType == HyGroupTypeEnum.ALTERNATIVE)
+//					|| (oldGroupType == HyGroupTypeEnum.AND && newGroupType == HyGroupTypeEnum.OR)) {
+//					constraintExplanation.addEvolutionOperationExplanation(opExplanation);
+//				}
+//			}
+//			if (operation instanceof DwEvolutionOperationConstraintCreate || operation instanceof DwEvolutionOperationValidityFormulaCreate) {
+//				constraintExplanation.addEvolutionOperationExplanation(opExplanation);
+//			}
 		}
 	}
 	
