@@ -318,7 +318,7 @@ public class HyVarRecExporter {
 //			id += EVOLUTION_CONTEXT_ID;
 //			id += ARRAY_BRACKETS_CLOSING;
 			dateContext.setId(EVOLUTION_CONTEXT_ID);
-			input.setTimeContext(EVOLUTION_CONTEXT_ID_WITHOUT_CONTEXT_WRAPPER);
+			input.setTime_context(EVOLUTION_CONTEXT_ID_WITHOUT_CONTEXT_WRAPPER);
 			dateContext.setMin(-1);
 			dateContext.setMax(sortedDateList.size()-1);
 
@@ -348,7 +348,7 @@ public class HyVarRecExporter {
 			
 		}
 		// -----
-		input.setOptionalFeatures(getOptionalFeatureMap(featureModels, sortedDateList, date));			
+		input.setOptional_features(getOptionalFeatureMap(featureModels, sortedDateList, date));			
 
 		try {
 			for(HyFeatureModel featureModel: featureModelExporters.keySet()) {

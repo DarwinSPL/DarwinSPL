@@ -106,7 +106,8 @@ public class DwAnalysesClient {
 	public DwAnalysesClient() {
 		featureEncoding = FeatureEncoding.BOOLEAN;
 		gsonBuilder = new GsonBuilder();
-		gsonBuilder.setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES);
+//		gsonBuilder.setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES);
+//		gsonBuilder.ser
 		gson = gsonBuilder.disableHtmlEscaping().create();
 		exporter = new HyVarRecExporter(featureEncoding);
 	}

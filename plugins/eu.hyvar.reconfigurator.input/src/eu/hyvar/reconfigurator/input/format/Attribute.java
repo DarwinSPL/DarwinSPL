@@ -1,7 +1,6 @@
 
 package eu.hyvar.reconfigurator.input.format;
 
-import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 public class Attribute {
@@ -12,7 +11,6 @@ public class Attribute {
      * 
      */
     @SerializedName("id")
-    @Expose
     private String id;
     /**
      * 
@@ -20,7 +18,6 @@ public class Attribute {
      * 
      */
     @SerializedName("min")
-    @Expose
     private Integer min;
     /**
      * 
@@ -28,7 +25,6 @@ public class Attribute {
      * 
      */
     @SerializedName("max")
-    @Expose
     private Integer max;
     /**
      * 
@@ -36,7 +32,6 @@ public class Attribute {
      * 
      */
     @SerializedName("featureId")
-    @Expose
     private String featureId;
 
     /**
