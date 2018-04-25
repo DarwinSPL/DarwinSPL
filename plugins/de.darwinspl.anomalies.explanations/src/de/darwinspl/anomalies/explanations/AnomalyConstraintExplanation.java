@@ -15,6 +15,12 @@ import eu.hyvar.feature.HyRootFeature;
 import eu.hyvar.feature.constraint.HyConstraint;
 import eu.hyvar.feature.util.HyFeatureEvolutionUtil;
 
+/**
+ * Stores and explains all related evolution operations
+ * concerning a translated constraint and its affected object
+ * 
+ * @author Felix Franzke
+ */
 public class AnomalyConstraintExplanation  {
 	
 	private EObject affectedObject;
@@ -93,7 +99,7 @@ public class AnomalyConstraintExplanation  {
 	}
 
 	private String explain(HyFeature feature) {
-		// TODO HyFeature may stand for: version constraints, parent -> mandatory, feature = 0 if invalidFeature or invalidVersionOfValidFeature
+		// HyFeature may stand for: version constraints, parent -> mandatory, feature = 0 if invalidFeature or invalidVersionOfValidFeature
 		String featureName = HyEvolutionUtil.getValidTemporalElement(feature.getNames(), date).getName();
 		return featureName + " is mandatory";
 	}
@@ -107,7 +113,7 @@ public class AnomalyConstraintExplanation  {
 	}
 
 	private String explain(HyGroup group) {
-		// TODO HyGroup may mean: f1 or f2 ... -> parent, parent -> f1 alt/and/or f2 ... , feature that is optional+hasnochild -> parent
+		// HyGroup may mean: f1 or f2 ... -> parent, parent -> f1 alt/and/or f2 ... , feature that is optional+hasnochild -> parent
 		String featurenames = "";
 		List<HyFeature> featureList = HyFeatureEvolutionUtil.getChildsOfGroup(group, date);
 		for (HyFeature feature : featureList) {

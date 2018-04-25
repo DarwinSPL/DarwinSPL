@@ -3,7 +3,6 @@
     xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="evolutionoperation" nsURI="http://hyvar-project.eu/evolution/evolutionoperation/1.0"
     nsPrefix="evolutionoperation">
   <eClassifiers xsi:type="ecore:EClass" name="DwEvolutionOperation" abstract="true">
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="evoStep" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDate"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="DwEvolutionOperationFeature" abstract="true"

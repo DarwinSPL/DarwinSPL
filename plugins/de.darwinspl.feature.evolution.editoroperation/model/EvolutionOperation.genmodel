@@ -12,7 +12,6 @@
   <genPackages prefix="Evolutionoperation" basePackage="de.darwinspl.feature.evolution"
       disposableProviderFactory="true" ecorePackage="EvolutionOperation.ecore#/">
     <genClasses image="false" ecoreClass="EvolutionOperation.ecore#//DwEvolutionOperation">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute EvolutionOperation.ecore#//DwEvolutionOperation/name"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute EvolutionOperation.ecore#//DwEvolutionOperation/evoStep"/>
     </genClasses>
     <genClasses image="false" ecoreClass="EvolutionOperation.ecore#//DwEvolutionOperationFeature">

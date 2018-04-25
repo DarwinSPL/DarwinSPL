@@ -22,6 +22,7 @@ import de.darwinspl.feature.evolution.evolutionoperation.DwEvolutionOperationCon
 import de.darwinspl.feature.evolution.evolutionoperation.DwEvolutionOperationConstraintDelete;
 import de.darwinspl.feature.evolution.evolutionoperation.DwEvolutionOperationContext;
 import de.darwinspl.feature.evolution.evolutionoperation.DwEvolutionOperationEnum;
+import de.darwinspl.feature.evolution.evolutionoperation.DwEvolutionOperationEnumCreate;
 import de.darwinspl.feature.evolution.evolutionoperation.DwEvolutionOperationEnumLiteral;
 import de.darwinspl.feature.evolution.evolutionoperation.DwEvolutionOperationEnumLiteralCreate;
 import de.darwinspl.feature.evolution.evolutionoperation.DwEvolutionOperationFeature;
@@ -37,10 +38,12 @@ import de.darwinspl.feature.evolution.evolutionoperation.EvolutionOperationExpla
 import de.darwinspl.feature.evolution.evolutionoperation.EvolutionoperationFactory;
 import eu.hyvar.context.HyContextModel;
 import eu.hyvar.context.HyContextualInformation;
+import eu.hyvar.context.HyContextualInformationEnum;
 import eu.hyvar.context.contextValidity.HyValidityFormula;
 import eu.hyvar.context.contextValidity.HyValidityModel;
 import eu.hyvar.dataValues.HyEnum;
 import eu.hyvar.dataValues.HyEnumLiteral;
+import eu.hyvar.dataValues.HyEnumValue;
 import eu.hyvar.evolution.HyName;
 import eu.hyvar.evolution.util.HyEvolutionUtil;
 import eu.hyvar.feature.HyFeature;
@@ -57,9 +60,15 @@ import eu.hyvar.feature.HyVersion;
 import eu.hyvar.feature.constraint.HyConstraint;
 import eu.hyvar.feature.constraint.HyConstraintModel;
 import eu.hyvar.feature.expression.HyAbstractFeatureReferenceExpression;
+import eu.hyvar.feature.expression.HyAttributeReferenceExpression;
+import eu.hyvar.feature.expression.HyContextInformationReferenceExpression;
 import eu.hyvar.feature.expression.HyExpression;
+import eu.hyvar.feature.expression.HyValueExpression;
 import eu.hyvar.feature.util.HyFeatureEvolutionUtil;
 
+/**
+ * @author Felix Franzke
+ */
 public class DwEvolutionOperationAnalyzer {
 	
 	private HyContextModel contextModel;
@@ -415,6 +424,27 @@ public class DwEvolutionOperationAnalyzer {
 			feature = (HyFeature) object;
 		}
 		
+		HyFeatureAttribute attribute = null;
+		if (object instanceof HyFeatureAttribute) {
+			attribute = (HyFeatureAttribute) object;
+		}
+		
+		HyContextualInformation context = null;
+		if (object instanceof HyContextualInformation) {
+			context = (HyContextualInformation) object;
+			
+			// get evolution operations from the context enum
+			if (context instanceof HyContextualInformationEnum) {
+				List<DwEvolutionOperation> enumOpsList = getEvolutionOperationListForObject(((HyContextualInformationEnum) context).getEnumType(), date);
+				opsList.addAll(enumOpsList);
+			}
+		}
+		
+		HyEnum hyEnum = null;
+		if (object instanceof HyEnum) {
+			hyEnum = (HyEnum) object;
+		}
+		
 		HyGroup group = null;
 		if (object instanceof HyGroup) {
 			group = (HyGroup) object;
@@ -447,8 +477,8 @@ public class DwEvolutionOperationAnalyzer {
 		if (object instanceof HyConstraint) {
 			constraint = (HyConstraint) object;
 			
-			List<HyFeature> featureList = getFeaturesFromExpression(constraint.getRootExpression());
-			for (HyFeature f : featureList) {
+			List<EObject> objectList = getObjectsFromExpression(constraint.getRootExpression());
+			for (EObject f : objectList) {
 				opsList.addAll(getEvolutionOperationListForObject(f, date));
 			}
 		}
@@ -457,8 +487,8 @@ public class DwEvolutionOperationAnalyzer {
 		if (object instanceof HyValidityFormula) {
 			validityFormula = (HyValidityFormula) object;
 
-			List<HyFeature> featureList = getFeaturesFromExpression(validityFormula.getValidityFormula());
-			for (HyFeature f : featureList) {
+			List<EObject> objectList = getObjectsFromExpression(validityFormula.getValidityFormula());
+			for (EObject f : objectList) {
 				opsList.addAll(getEvolutionOperationListForObject(f, date));
 			}
 		}
@@ -491,27 +521,38 @@ public class DwEvolutionOperationAnalyzer {
 						}
 					}
 				} else if (constraint != null) {
-					if (operation instanceof DwEvolutionOperationConstraintCreate) {
-						DwEvolutionOperationConstraintCreate opConstraintCreate = (DwEvolutionOperationConstraintCreate) operation;
-						if (opConstraintCreate.getConstraint().equals(constraint)) {
-							opsList.add(opConstraintCreate);
-						}
-					} else if (operation instanceof DwEvolutionOperationConstraintDelete) {
-						DwEvolutionOperationConstraintDelete opConstraintDelete = (DwEvolutionOperationConstraintDelete) operation;
-						if (opConstraintDelete.getConstraint().equals(constraint)) {
-							opsList.add(opConstraintDelete);
+					if (operation instanceof DwEvolutionOperationConstraint) {
+						DwEvolutionOperationConstraint opConstraint = (DwEvolutionOperationConstraint) operation;
+						if (opConstraint.getConstraint().equals(constraint)) {
+							opsList.add(opConstraint);
 						}
 					}
 				} else if (validityFormula != null) {
-					if (operation instanceof DwEvolutionOperationValidityFormulaCreate) {
-						DwEvolutionOperationValidityFormulaCreate opValidityFormulaCreate = (DwEvolutionOperationValidityFormulaCreate) operation;
-						if (opValidityFormulaCreate.getValidityFormula().equals(validityFormula)) {
-							opsList.add(opValidityFormulaCreate);
+					if (operation instanceof DwEvolutionOperationValidityFormula) {
+						DwEvolutionOperationValidityFormula opValidityFormula = (DwEvolutionOperationValidityFormula) operation;
+						if (opValidityFormula.getValidityFormula().equals(validityFormula)) {
+							opsList.add(opValidityFormula);
 						}
-					} else if (operation instanceof DwEvolutionOperationValidityFormulaDelete) {
-						DwEvolutionOperationValidityFormulaDelete opValidityFormulaDelete = (DwEvolutionOperationValidityFormulaDelete) operation;
-						if (opValidityFormulaDelete.getValidityFormula().equals(validityFormula)) {
-							opsList.add(opValidityFormulaDelete);
+					}
+				} else if (hyEnum != null) {
+					if (operation instanceof DwEvolutionOperationEnum) {
+						DwEvolutionOperationEnum opEnum = (DwEvolutionOperationEnum) operation;
+						if (opEnum.getEnum().equals(hyEnum)) {
+							opsList.add(opEnum);
+						}
+					}
+				} else if (attribute != null) {
+					if (operation instanceof DwEvolutionOperationAttribute) {
+						DwEvolutionOperationAttribute opAttribute = (DwEvolutionOperationAttribute) operation;
+						if (opAttribute.getAttribute().equals(attribute)) {
+							opsList.add(opAttribute);
+						}
+					}
+				} else if (context != null) {
+					if (operation instanceof DwEvolutionOperationContext) {
+						DwEvolutionOperationContext opContext = (DwEvolutionOperationContext) operation;
+						if (opContext.getContext().equals(context)) {
+							opsList.add(opContext);
 						}
 					}
 				}
@@ -613,13 +654,25 @@ public class DwEvolutionOperationAnalyzer {
 	}
 	
 	
-	public List<HyFeature> getFeaturesFromExpression(HyExpression expression) {
-		List<HyFeature> list = new ArrayList<HyFeature>();
+	public List<EObject> getObjectsFromExpression(HyExpression expression) {
+		List<EObject> list = new ArrayList<EObject>();
 		TreeIterator<EObject> it = expression.eAllContents();
 		while(it.hasNext()) {
 			EObject obj = it.next();
 			if (obj instanceof HyAbstractFeatureReferenceExpression) {
 				list.add(((HyAbstractFeatureReferenceExpression) obj).getFeature());
+			}
+			if (obj instanceof HyAttributeReferenceExpression) {
+				list.add(((HyAttributeReferenceExpression) obj).getAttribute());
+			}
+			if (obj instanceof HyContextInformationReferenceExpression) {
+				list.add(((HyContextInformationReferenceExpression) obj).getContextInformation());
+			}
+			if (obj instanceof HyValueExpression) {
+				HyValueExpression valueExpression = (HyValueExpression) obj;
+				if (valueExpression.getValue() instanceof HyEnumValue) {
+					list.add(((HyEnumValue) valueExpression.getValue()).getEnum());
+				}
 			}
 		}
 		return list;
