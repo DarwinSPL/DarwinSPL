@@ -17,9 +17,9 @@ import eu.hyvar.feature.HyNumberAttribute;
 import eu.hyvar.feature.HyStringAttribute;
 
 public class DwAttributeFigure extends DwErrorMarkerFigure{
-	private HyFeatureAttribute attribute;
+	protected HyFeatureAttribute attribute;
 	
-	private Label valueLabel;
+	public Label valueLabel;
 	
 	public DwAttributeFigure(DwGraphicalFeatureModelViewer editor, HyFeatureAttribute attribute) {
 		super(editor);
@@ -35,7 +35,7 @@ public class DwAttributeFigure extends DwErrorMarkerFigure{
 		valueLabel.setText(valueText);
 	}
 
-	private String getType(){
+	public String getType(){
 		if(attribute == null)
 			return "No Attribute specified";
 		else{
@@ -85,7 +85,10 @@ public class DwAttributeFigure extends DwErrorMarkerFigure{
 		valueLabel.setSize(new Dimension(valueLabel.getTextBounds().width, height));
 		valueLabel.setLocation(new Point(label.getTextBounds().width+36, 0));
 		
+
 		updateIconFigure();
+		
+		((DwFeatureFigure) getParent()).update();
 	}
 	
 	@Override

@@ -18,9 +18,15 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 
+import com.google.gson.FieldNamingPolicy;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
 import de.christophseidl.util.eclipse.ResourceUtil;
 import de.christophseidl.util.eclipse.ui.SelectionUtil;
 import de.christophseidl.util.ecore.EcoreIOUtil;
+import de.darwinspl.common.eclipse.ui.dialogs.DwDateDialog;
+import de.darwinspl.preferences.DwProfile;
 import de.darwinspl.preferences.util.custom.DwPreferenceModelUtil;
 import eu.hyvar.context.HyContextModel;
 import eu.hyvar.context.contextValidity.HyValidityModel;
@@ -33,9 +39,8 @@ import eu.hyvar.feature.configuration.util.HyConfigurationUtil;
 import eu.hyvar.feature.constraint.HyConstraintModel;
 import eu.hyvar.feature.constraint.util.HyConstraintUtil;
 import eu.hyvar.feature.util.HyFeatureUtil;
-import de.darwinspl.common.eclipse.ui.dialogs.DwDateDialog;
-import de.darwinspl.preferences.DwProfile;
 import eu.hyvar.reconfigurator.input.exporter.HyVarRecExporter;
+import eu.hyvar.reconfigurator.input.exporter.HyVarRecExporter.FeatureEncoding;
 
 public class ExportToHyVarRecCommandHandler extends AbstractHandler {
 
@@ -187,7 +192,7 @@ public class ExportToHyVarRecCommandHandler extends AbstractHandler {
 			}
 		}
 
-		HyVarRecExporter hyvarrecExporter = new HyVarRecExporter();
+		HyVarRecExporter hyvarrecExporter = new HyVarRecExporter(FeatureEncoding.BOOLEAN);
 
 		Display display = Display.getDefault();
 	    Shell shell = display.getActiveShell();
@@ -195,8 +200,12 @@ public class ExportToHyVarRecCommandHandler extends AbstractHandler {
 		DwDateDialog datePicker = new DwDateDialog(shell, new Date());
 		datePicker.open();
 		
-		String hyVarRecString = hyvarrecExporter.exportSPL(contextModel, validityModel, featureModel,
-				constraintModel, configuration, preferenceModel, contextValueModel, datePicker.getValue(), null);
+		GsonBuilder gsonBuilder = new GsonBuilder();
+		gsonBuilder.setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES);
+		Gson gson = gsonBuilder.disableHtmlEscaping().create();
+		String hyVarRecString = gson.toJson(hyvarrecExporter.exportSPL(contextModel, validityModel, featureModel,
+				constraintModel, configuration, preferenceModel, contextValueModel, datePicker.getValue(), null));
+		
 
 		String baseFileName = ResourceUtil.getBaseFilename(featureModelFile) + "_HyVarRecOutput";
 		

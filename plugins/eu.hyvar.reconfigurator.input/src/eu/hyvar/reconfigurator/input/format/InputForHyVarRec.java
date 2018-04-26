@@ -1,13 +1,11 @@
 
 package eu.hyvar.reconfigurator.input.format;
 
-import java.util.ArrayList;
 import java.util.List;
-//import javax.annotation.Generated;
-import com.google.gson.annotations.Expose;
+import java.util.Map;
+
 import com.google.gson.annotations.SerializedName;
 
-//@Generated("org.jsonschema2pojo")
 public class InputForHyVarRec {
 
     /**
@@ -16,23 +14,20 @@ public class InputForHyVarRec {
      * 
      */
     @SerializedName("attributes")
-    @Expose
-    private List<Attribute> attributes = new ArrayList<Attribute>();
+    private List<Attribute> attributes = null;
     /**
      * 
      * (Required)
      * 
      */
     @SerializedName("contexts")
-    @Expose
-    private List<Context> contexts = new ArrayList<Context>();
+    private List<Context> contexts = null;
     /**
      * 
      * (Required)
      * 
      */
     @SerializedName("configuration")
-    @Expose
     private Configuration configuration;
     /**
      * 
@@ -40,23 +35,47 @@ public class InputForHyVarRec {
      * 
      */
     @SerializedName("constraints")
-    @Expose
-    private List<String> constraints = new ArrayList<String>();
+    private List<String> constraints = null;
     /**
-     * 
+     * list of expression to minimize
      * (Required)
      * 
      */
     @SerializedName("preferences")
-    @Expose
-    private List<String> preferences = new ArrayList<String>();
+    private List<String> preferences = null;
+//    /**
+//     * constraints given in smt format (faster to parse)
+//     * 
+//     */
+//    @SerializedName("smt_constraints")
+//    @Expose
+//    private SmtConstraints smtConstraints;
+    @SerializedName("context_constraints")
+    private List<String> context_constraints = null;
+    /**
+     * Map or the optional feature ids with a list representing their time validity if there is evolution, empty list otherwise.
+     * 
+     */
+    @SerializedName("optional_features")
+    private Map<String, List<List<Integer>>> optional_features;
+    /**
+     * Optional filed used to indicate in case there is evolution which context id represent the time.
+     * 
+     */
+    @SerializedName("time_context")
+    private String time_context;
+    
+    /**
+     * Optional filed used to set options for hyvarrec.
+     * 
+     */
+    @SerializedName("hyvar_options")
+    private List<String> hyvar_options;
 
     /**
      * 
      * (Required)
      * 
-     * @return
-     *     The attributes
      */
     public List<Attribute> getAttributes() {
         return attributes;
@@ -66,8 +85,6 @@ public class InputForHyVarRec {
      * 
      * (Required)
      * 
-     * @param attributes
-     *     The attributes
      */
     public void setAttributes(List<Attribute> attributes) {
         this.attributes = attributes;
@@ -77,8 +94,6 @@ public class InputForHyVarRec {
      * 
      * (Required)
      * 
-     * @return
-     *     The contexts
      */
     public List<Context> getContexts() {
         return contexts;
@@ -88,8 +103,6 @@ public class InputForHyVarRec {
      * 
      * (Required)
      * 
-     * @param contexts
-     *     The contexts
      */
     public void setContexts(List<Context> contexts) {
         this.contexts = contexts;
@@ -99,8 +112,6 @@ public class InputForHyVarRec {
      * 
      * (Required)
      * 
-     * @return
-     *     The configuration
      */
     public Configuration getConfiguration() {
         return configuration;
@@ -110,8 +121,6 @@ public class InputForHyVarRec {
      * 
      * (Required)
      * 
-     * @param configuration
-     *     The configuration
      */
     public void setConfiguration(Configuration configuration) {
         this.configuration = configuration;
@@ -121,8 +130,6 @@ public class InputForHyVarRec {
      * 
      * (Required)
      * 
-     * @return
-     *     The constraints
      */
     public List<String> getConstraints() {
         return constraints;
@@ -132,33 +139,100 @@ public class InputForHyVarRec {
      * 
      * (Required)
      * 
-     * @param constraints
-     *     The constraints
      */
     public void setConstraints(List<String> constraints) {
         this.constraints = constraints;
     }
 
     /**
-     * 
+     * list of expression to minimize
      * (Required)
      * 
-     * @return
-     *     The preferences
      */
     public List<String> getPreferences() {
         return preferences;
     }
 
     /**
-     * 
+     * list of expression to minimize
      * (Required)
      * 
-     * @param preferences
-     *     The preferences
      */
     public void setPreferences(List<String> preferences) {
         this.preferences = preferences;
     }
 
+//    /**
+//     * constraints given in smt format (faster to parse)
+//     * 
+//     */
+//    public SmtConstraints getSmtConstraints() {
+//        return smtConstraints;
+//    }
+//
+//    /**
+//     * constraints given in smt format (faster to parse)
+//     * 
+//     */
+//    public void setSmtConstraints(SmtConstraints smtConstraints) {
+//        this.smtConstraints = smtConstraints;
+//    }
+
+    public List<String> getContext_constraints() {
+        return context_constraints;
+    }
+
+    public void setContext_constraints(List<String> context_constraints) {
+        this.context_constraints = context_constraints;
+    }
+
+    /**
+     * Map or the optional feature ids with a list representing their time validity if there is evolution, empty list otherwise.
+     * 
+     */
+    public Map<String, List<List<Integer>>> getOptional_features() {
+        return optional_features;
+    }
+
+    /**
+     * Map or the optional feature ids with a list representing their time validity if there is evolution, empty list otherwise.
+     * 
+     */
+    public void setOptional_features(Map<String, List<List<Integer>>> optional_features) {
+        this.optional_features = optional_features;
+    }
+
+    /**
+     * Optional filed used to indicate in case there is evolution which context id represent the time.
+     * 
+     */
+    public String getTime_context() {
+        return time_context;
+    }
+
+    /**
+     * Optional filed used to indicate in case there is evolution which context id represent the time.
+     * 
+     */
+    public void setTime_context(String time_context) {
+        this.time_context = time_context;
+    }
+
+    /**
+     * Optional filed used to set options for hyvarrec.
+     * 
+     */
+	public List<String> getHyvar_options() {
+		return hyvar_options;
+	}
+
+    /**
+     * Optional filed used to set options for hyvarrec.
+     * 
+     */
+	public void setHyvar_options(List<String> hyvar_options) {
+		this.hyvar_options = hyvar_options;
+	}
+
+    
 }

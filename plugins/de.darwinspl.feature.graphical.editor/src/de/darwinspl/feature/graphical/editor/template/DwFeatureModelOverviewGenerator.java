@@ -104,7 +104,7 @@ public class DwFeatureModelOverviewGenerator {
 				boolean featureAdded = false;
 				
 				
-				HyName hyName = HyFeatureEvolutionUtil.getName(feature.getNames(), date);
+				HyName hyName = HyFeatureEvolutionUtil.getName(feature, date);
 				
 				if(hyName == null) {
 					hyName = HyFeatureEvolutionUtil.getLastValidName(feature);

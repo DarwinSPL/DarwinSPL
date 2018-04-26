@@ -19,6 +19,12 @@
             id="de.darwinspl.importer.ui.splotwizard"
             name="Import SPLOT Feature Model">
       </wizard>
+      <wizard
+            category="de.darwinspl.importer.ui.category"
+            class="de.darwinspl.importer.ui.wizards.evolution.darwinspl.DwEvolutionSnapshotImporterWizard"
+            id="de.darwinspl.importer.ui.evolution.tfms"
+            name="Import Evolution Snapshots of TFMs">
+      </wizard>
    </extension>
    <extension
          point="org.eclipse.ui.commands">

@@ -1,5 +1,6 @@
 package de.darwinspl.feature.graphical.configurator.editparts;
 
+import org.eclipse.draw2d.IFigure;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.gef.Request;
 import org.eclipse.gef.RequestConstants;
@@ -12,6 +13,7 @@ import de.darwinspl.feature.graphical.base.editparts.DwAttributeEditPart;
 import de.darwinspl.feature.graphical.base.model.DwFeatureModelWrapped;
 import de.darwinspl.feature.graphical.configurator.dialogs.DwChoiceBoxAttributeAssignmentDialog;
 import de.darwinspl.feature.graphical.configurator.editor.DwFeatureModelConfiguratorEditor;
+import de.darwinspl.feature.graphical.configurator.figures.DwConfiguratorAttributeFigure;
 import de.darwinspl.feature.graphical.configurator.util.DwConfiguratorEditorUtil;
 import eu.hyvar.dataValues.HyBooleanValue;
 import eu.hyvar.dataValues.HyDataValuesFactory;
@@ -31,7 +33,7 @@ import eu.hyvar.feature.configuration.HyConfiguration;
 import eu.hyvar.feature.configuration.HyConfigurationElement;
 import eu.hyvar.feature.configuration.HyFeatureSelected;
 
-public class DwConfiguratorEditorAttributeEditPart extends DwAttributeEditPart {
+public class DwConfiguratorEditorAttributeEditPart extends DwConfiguratorAttributeEditPart {
 	HyValue attributeValue = null;
 
 	IInputValidator numberValidator = new IInputValidator() {
@@ -98,6 +100,7 @@ public class DwConfiguratorEditorAttributeEditPart extends DwAttributeEditPart {
 			String initialValue= "";
 			EList<HyEnumLiteral> literals = null;
 
+			
 
 			if (attribute instanceof HyNumberAttribute) {
 				HyAttributeValueAssignment assignment = DwConfiguratorEditorUtil.getValueAssignmentForFeatureAttribute(configuration, attribute);
@@ -149,6 +152,8 @@ public class DwConfiguratorEditorAttributeEditPart extends DwAttributeEditPart {
 
 			
 			if ((dialog.open() == Dialog.OK)) {
+				
+				String newValue;
 
 				String dialogValue = null;
 				if(dialog instanceof InputDialog){
@@ -162,16 +167,20 @@ public class DwConfiguratorEditorAttributeEditPart extends DwAttributeEditPart {
 					attributeValue = HyDataValuesFactory.eINSTANCE.createHyBooleanValue();
 					if (dialogValue.equals("false")) {
 						((HyBooleanValue) attributeValue).setValue(false);
+						newValue = "false";
 					} else {
 						((HyBooleanValue) attributeValue).setValue(true);
+						newValue= "true";
 					}
 				} else if (attribute instanceof HyNumberAttribute) {
 					attributeValue = HyDataValuesFactory.eINSTANCE.createHyNumberValue();
 					int intValue = Integer.parseInt(dialogValue);
 					((HyNumberValue) attributeValue).setValue(intValue);
+					newValue = Integer.toString(intValue);
 				} else if (attribute instanceof HyStringAttribute) {
 					attributeValue = HyDataValuesFactory.eINSTANCE.createHyStringValue();
 					((HyStringValue) attributeValue).setValue(dialogValue);
+					newValue = dialogValue;
 				} else if (attribute instanceof HyEnumAttribute){
 				   attributeValue = HyDataValuesFactory.eINSTANCE.createHyEnumValue();
 				   if(literals!=null){
@@ -180,6 +189,7 @@ public class DwConfiguratorEditorAttributeEditPart extends DwAttributeEditPart {
 						   if(l.getName().equals(dialogValue)){
 							   ((HyEnumValue) attributeValue).setEnum(l.getEnum());
 							   ((HyEnumValue) attributeValue).setEnumLiteral(l);
+							   newValue = dialogValue;
 							   break;
 						   }
 					   }
@@ -190,6 +200,8 @@ public class DwConfiguratorEditorAttributeEditPart extends DwAttributeEditPart {
 				if (attributeValue != null) {
 					DwConfiguratorEditorUtil.changeValueAssignmentOfAttribute(configuration, attribute, attributeValue);
 
+					((DwConfiguratorAttributeFigure) getFigure()).setValueAssignment(dialogValue);
+					
 				}
 			
 
@@ -197,4 +209,8 @@ public class DwConfiguratorEditorAttributeEditPart extends DwAttributeEditPart {
 			}
 		}
 	}
+	
+	
+	
+	
 }

@@ -13,20 +13,26 @@ import de.darwinspl.feature.graphical.base.model.DwGroupWrapped;
 import de.darwinspl.feature.graphical.base.model.DwParentChildConnection;
 import de.darwinspl.feature.graphical.base.model.DwRepaintNotification;
 import de.darwinspl.feature.graphical.editor.commands.DwLinearTemporalElementCommand;
+import de.darwinspl.feature.graphical.editor.commands.feature.DwFeatureChangeTypeCommand;
 import de.darwinspl.feature.graphical.editor.util.DwEcoreUtil;
 import de.darwinspl.feature.graphical.editor.util.DwElementEditorUtil;
 import eu.hyvar.evolution.util.HyEvolutionUtil;
 import eu.hyvar.feature.HyFeature;
 import eu.hyvar.feature.HyFeatureFactory;
+import eu.hyvar.feature.HyFeatureType;
+import eu.hyvar.feature.HyFeatureTypeEnum;
 import eu.hyvar.feature.HyGroup;
 import eu.hyvar.feature.HyGroupComposition;
 import eu.hyvar.feature.HyGroupType;
 import eu.hyvar.feature.HyGroupTypeEnum;
+import eu.hyvar.feature.util.HyFeatureEvolutionUtil;
 
 public class DwGroupChangeGroupTypeCommand extends DwLinearTemporalElementCommand{
 	private HyGroup group;
 	private HyGroupTypeEnum newGroupTypeEnum;
 	private DwGraphicalFeatureModelViewer editor;
+	
+	private List<DwFeatureChangeTypeCommand> featureTypesChanged;
 
 	HyGroupType newType;
 	HyGroupType oldType;
@@ -40,6 +46,7 @@ public class DwGroupChangeGroupTypeCommand extends DwLinearTemporalElementComman
 		this.group = group;
 		this.newGroupTypeEnum = newGroupTypeEnum;
 		this.editor = editor;
+		this.featureTypesChanged = new ArrayList<DwFeatureChangeTypeCommand>();
 	}
 
 	@Override
@@ -110,8 +117,9 @@ public class DwGroupChangeGroupTypeCommand extends DwLinearTemporalElementComman
 		}
 
 
-
-
+		for(DwFeatureChangeTypeCommand changeFeatureTypeCommand: featureTypesChanged) {
+			changeFeatureTypeCommand.undo();
+		}
 	}
 
 	@Override
@@ -130,6 +138,7 @@ public class DwGroupChangeGroupTypeCommand extends DwLinearTemporalElementComman
 		HyGroupComposition composition = HyEvolutionUtil.getValidTemporalElement(group.getParentOf(), executionDate);
 		if(composition.getSupersedingElement() != null) {
 			HyGroupComposition supersedingComposition = ((HyGroupComposition)composition.getSupersedingElement());
+			
 			if(supersedingComposition.getFeatures().size() == 1 && newGroupTypeEnum != HyGroupTypeEnum.AND) {
 				HyGroupType supersedingType = HyFeatureFactory.eINSTANCE.createHyGroupType();
 				supersedingType.setType(HyGroupTypeEnum.AND);
@@ -157,6 +166,19 @@ public class DwGroupChangeGroupTypeCommand extends DwLinearTemporalElementComman
 		}
 
 		DwElementEditorUtil.cleanGroupTypes(group);
+		
+
+		// Types of mandatory child features need to be changed to optional
+		List<HyFeature> featuresOfGroup = HyFeatureEvolutionUtil.getFeaturesOfGroup(group, executionDate);
+		for(HyFeature feature: featuresOfGroup) {
+			HyFeatureType featureType = HyFeatureEvolutionUtil.getType(feature, executionDate);
+			if(featureType.getType().equals(HyFeatureTypeEnum.MANDATORY)) {
+				DwFeatureChangeTypeCommand changeFeatureTypeCommand = new DwFeatureChangeTypeCommand(feature, HyFeatureTypeEnum.OPTIONAL, editor);
+				featureTypesChanged.add(changeFeatureTypeCommand);
+				changeFeatureTypeCommand.execute();
+			}
+		}
+		
 		
 		for(HyFeature feature : composition.getFeatures()) {
 			feature.eNotify(new DwRepaintNotification((InternalEObject)group, -1, group.eContainingFeature(), false, true));

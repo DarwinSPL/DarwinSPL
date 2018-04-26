@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+
+<!--
+-->
+
+<plugin>
+
+   <extension point="org.eclipse.emf.ecore.generated_package">
+      <!-- @generated Anomalies -->
+      <package
+            uri="http://darwinspl.de/anomaly/1.0"
+            class="de.darwinspl.anomaly.DwAnomalyPackage"
+            genModel="models/Anomalies.genmodel"/>
+   </extension>
+   <extension
+         point="org.eclipse.emf.ecore.factory_override">
+      <factory
+            class="de.darwinspl.anomaly.impl.custom.DwAnomalyFactoryWithIds"
+            uri="http://darwinspl.de/anomaly/1.0">
+      </factory>
+   </extension>
+
+</plugin>

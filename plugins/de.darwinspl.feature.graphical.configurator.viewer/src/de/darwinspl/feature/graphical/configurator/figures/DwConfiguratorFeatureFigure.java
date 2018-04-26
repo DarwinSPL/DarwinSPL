@@ -56,9 +56,28 @@ public class DwConfiguratorFeatureFigure extends DwFeatureFigure{
 			for(HyConfigurationElement element : selectedConfiguration.getElements()){
 				if(element instanceof HyAttributeValueAssignment){
 					if(EcoreUtil.equals(((HyAttributeValueAssignment)element).getAttribute(), attribute)){
-						DEDrawingUtil.drawSelection(graphics, attributeMarkRectangle, this, false);
+						
+						
+						boolean setVisibe;
+						if(HyConfigurationUtil.configurationSelects(selectedConfiguration, feature)){
+							setVisibe = true;
+						}else{
+							setVisibe = false;
+						}
+						
+						for(Object o: this.getChildren() ){
+							if(o instanceof DwConfiguratorAttributeFigure){
+								DwConfiguratorAttributeFigure fig = (DwConfiguratorAttributeFigure) o;
+								fig.setValueAssignmentVisibility(setVisibe);
+								((DwConfiguratorAttributeFigure) o).update();
+							}
+						}
+						
+						//Only needed if background color of attribute label wants to be set to orange on selection of the attribute
+//						DEDrawingUtil.drawSelection(graphics, attributeMarkRectangle, this, false);
 					}
 				}
+				
 			}
 		}
 		
