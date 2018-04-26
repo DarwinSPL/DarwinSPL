@@ -48,8 +48,8 @@ https://github.com/DarwinSPL/DarwinSPL/wiki
 # Publications:
 http://dl.acm.org/citation.cfm?id=3023962
 
-# Demo video:
-https://www.youtube.com/watch?v=qE-ep0FoguI
+# Demo videos:
+https://www.youtube.com/playlist?list=PLJZIl9YOWBqWvSW-BPbFmcesHmdx7IfYC
 
 # Troubleshooting:
 https://github.com/DarwinSPL/DarwinSPL/wiki/Troubleshooting
