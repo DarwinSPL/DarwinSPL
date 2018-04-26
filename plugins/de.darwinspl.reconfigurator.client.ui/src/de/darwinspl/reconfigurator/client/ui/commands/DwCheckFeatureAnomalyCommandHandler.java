@@ -137,23 +137,23 @@ public class DwCheckFeatureAnomalyCommandHandler extends AbstractHandler {
 ////			DwVoidFeatureModelAnomaly voidFM = analysesClient.validateFeatureModelWithContext("http://localhost:9001", null, null, contextModel, validityModel, selectedFeatureModel, constraintModel, null, null, null, date);
 ////			System.err.println(voidFM);
 //			System.err.println("Checking features");
-			List<DwAnomaly> featureAnomalies = analysesClient.checkFeatures("http://localhost:9001", null, null, contextModel, validityModel, selectedFeatureModel, constraintModel, null, date);
+			List<DwAnomaly> featureAnomalies = analysesClient.checkFeatures("https://www.isf.cs.tu-bs.de/hyvarrec/", "hyvar", "rXF0IDPN", contextModel, validityModel, selectedFeatureModel, constraintModel, null, date);
 			for(DwAnomaly anomaly: featureAnomalies) {
 				System.err.println(anomaly);
 			}
-			if(featureAnomalies != null) {
-				for(DwAnomaly anomaly: featureAnomalies) {
-					if(anomaly instanceof DwFeatureAnomaly) {
-						System.err.println("Getting explanation");
-						DwFeatureAnomaly fo = (DwFeatureAnomaly) anomaly;
-						DwAnomalyExplanation anomalyExplanation = analysesClient.explainAnomaly("http://localhost:9001", null, null, contextModel, validityModel, selectedFeatureModel, constraintModel, anomaly);
-						System.err.println("Explanation for "+fo);
-						System.err.println(anomalyExplanation.getExplanations().toString());
-					}
-
-				}
-				System.err.println(featureAnomalies.size());				
-			}
+//			if(featureAnomalies != null) {
+//				for(DwAnomaly anomaly: featureAnomalies) {
+//					if(anomaly instanceof DwFeatureAnomaly) {
+//						System.err.println("Getting explanation");
+//						DwFeatureAnomaly fo = (DwFeatureAnomaly) anomaly;
+//						DwAnomalyExplanation anomalyExplanation = analysesClient.explainAnomaly("http://localhost:9001", null, null, contextModel, validityModel, selectedFeatureModel, constraintModel, anomaly);
+//						System.err.println("Explanation for "+fo);
+//						System.err.println(anomalyExplanation.getExplanations().toString());
+//					}
+//
+//				}
+//				System.err.println(featureAnomalies.size());				
+//			}
 //			if(featureAnomalies != null) {
 //				int fo = 0;
 //				int dead = 0;
