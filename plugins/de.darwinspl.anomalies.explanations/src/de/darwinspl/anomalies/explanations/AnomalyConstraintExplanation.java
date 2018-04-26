@@ -16,10 +16,9 @@ import eu.hyvar.feature.constraint.HyConstraint;
 import eu.hyvar.feature.util.HyFeatureEvolutionUtil;
 
 /**
- * Stores and explains all related evolution operations
- * concerning a translated constraint and its affected object
  * 
  * @author Felix Franzke
+ * 
  */
 public class AnomalyConstraintExplanation  {
 	

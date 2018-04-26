@@ -45,6 +45,11 @@ import eu.hyvar.reconfigurator.input.format.Context;
 import eu.hyvar.reconfigurator.input.format.ContextValue;
 import eu.hyvar.reconfigurator.input.format.InputForHyVarRec;
 
+/**
+ * 
+ * @author Felix Franzke
+ *
+ */
 public class HyVarRecExporter {
 
 	private Gson gson;

@@ -19,6 +19,11 @@ import eu.hyvar.feature.expression.HyImpliesExpression;
 import eu.hyvar.feature.expression.util.HyExpressionStringExporter;
 import eu.hyvar.reconfigurator.input.format.Context;
 
+/**
+ * 
+ * @author Felix Franzke
+ *
+ */
 public class DwValidityFormulaExporter {
 
 	private HyExpressionStringExporter expressionExporter;

@@ -27,6 +27,11 @@ import de.darwinspl.anomaly.DwVoidFeatureModelAnomaly;
 import eu.hyvar.evolution.util.HyEvolutionUtil;
 import eu.hyvar.feature.util.HyFeatureEvolutionUtil;
 
+/**
+ * 
+ * @author Felix Franzke
+ *
+ */
 public class DwAnomalyExplanationDialog extends TitleAreaDialog {
 
 	private DwAnomaly anomaly;

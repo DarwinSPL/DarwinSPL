@@ -68,6 +68,11 @@ import eu.hyvar.context.information.util.HyContextInformationUtil;
 import eu.hyvar.feature.constraint.HyConstraintModel;
 import eu.hyvar.feature.constraint.util.HyConstraintUtil;
 
+/**
+ * 
+ * @author Felix Franzke
+ *
+ */
 public class DwAnomalyView extends ViewPart {
 
 	/**

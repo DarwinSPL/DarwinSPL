@@ -77,6 +77,11 @@ import eu.hyvar.feature.configuration.util.HyConfigurationUtil;
 import eu.hyvar.feature.constraint.HyConstraintModel;
 import eu.hyvar.feature.constraint.util.HyConstraintUtil;
 
+/**
+ * 
+ * @author Felix Franzke
+ *
+ */
 public class DwFeatureModelConfiguratorEditor extends DwFeatureModelConfiguratorViewer {
 	
 	private Button validateWithEvolutionButton;

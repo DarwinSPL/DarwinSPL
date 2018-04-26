@@ -29,6 +29,11 @@ import eu.hyvar.feature.util.HyFeatureModelWellFormednessException;
 import eu.hyvar.feature.util.HyFeatureUtil;
 import eu.hyvar.reconfigurator.input.format.Context;
 
+/**
+ * 
+ * @author Felix Franzke
+ *
+ */
 public class DwFeatureModelExporter {
 
 	private HyFeatureModel featureModel;

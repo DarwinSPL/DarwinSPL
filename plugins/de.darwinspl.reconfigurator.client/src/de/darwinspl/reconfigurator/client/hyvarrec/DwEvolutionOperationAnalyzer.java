@@ -594,35 +594,6 @@ public class DwEvolutionOperationAnalyzer {
 					|| operation instanceof DwEvolutionOperationValidityFormulaCreate) {
 				constraintExplanation.addEvolutionOperationExplanation(opExplanation);
 			}
-			
-//			if (operation instanceof DwEvolutionOperationFeatureType) {
-//				DwEvolutionOperationFeatureType evoOp = (DwEvolutionOperationFeatureType) operation;
-//				if (evoOp.getOldType().getType() == HyFeatureTypeEnum.OPTIONAL
-//					&& evoOp.getNewType().getType() == HyFeatureTypeEnum.MANDATORY) {
-//					constraintExplanation.addEvolutionOperationExplanation(opExplanation);
-//				}
-//			}
-//			if (operation instanceof DwEvolutionOperationFeatureGroup) {
-//				DwEvolutionOperationFeatureGroup evoOp = (DwEvolutionOperationFeatureGroup) operation;
-//				HyGroupTypeEnum oldGroupType = HyEvolutionUtil.getValidTemporalElement(evoOp.getOldGroup().getCompositionOf().getTypes(), new Date(evoOp.getEvoStep().getTime() -1L)).getType();
-//				HyGroupTypeEnum newGroupType = HyEvolutionUtil.getValidTemporalElement(evoOp.getNewGroup().getCompositionOf().getTypes(), evoOp.getEvoStep()).getType();
-//				if ((oldGroupType == HyGroupTypeEnum.AND && newGroupType == HyGroupTypeEnum.ALTERNATIVE)
-//					|| (oldGroupType == HyGroupTypeEnum.AND && newGroupType == HyGroupTypeEnum.OR)) {
-//					constraintExplanation.addEvolutionOperationExplanation(opExplanation);
-//				}
-//			}
-//			if (operation instanceof DwEvolutionOperationGroupType) {
-//				DwEvolutionOperationGroupType evoOp = (DwEvolutionOperationGroupType) operation;
-//				HyGroupTypeEnum oldGroupType = evoOp.getOldType().getType();
-//				HyGroupTypeEnum newGroupType = evoOp.getNewType().getType();
-//				if ((oldGroupType == HyGroupTypeEnum.AND && newGroupType == HyGroupTypeEnum.ALTERNATIVE)
-//					|| (oldGroupType == HyGroupTypeEnum.AND && newGroupType == HyGroupTypeEnum.OR)) {
-//					constraintExplanation.addEvolutionOperationExplanation(opExplanation);
-//				}
-//			}
-//			if (operation instanceof DwEvolutionOperationConstraintCreate || operation instanceof DwEvolutionOperationValidityFormulaCreate) {
-//				constraintExplanation.addEvolutionOperationExplanation(opExplanation);
-//			}
 		}
 	}
 	

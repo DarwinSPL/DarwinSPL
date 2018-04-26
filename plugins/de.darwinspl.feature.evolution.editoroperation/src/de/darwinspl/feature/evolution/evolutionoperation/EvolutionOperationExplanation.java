@@ -28,7 +28,6 @@ import eu.hyvar.evolution.util.HyEvolutionUtil;
 import eu.hyvar.feature.HyFeatureChild;
 
 /**
- * Explaining evolution operations
  * 
  * @author Felix Franzke
  */

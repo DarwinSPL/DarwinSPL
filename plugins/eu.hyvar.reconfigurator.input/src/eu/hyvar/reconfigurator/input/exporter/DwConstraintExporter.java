@@ -12,6 +12,11 @@ import eu.hyvar.feature.constraint.HyConstraintModel;
 import eu.hyvar.feature.expression.util.HyExpressionStringExporter;
 import eu.hyvar.reconfigurator.input.format.Context;
 
+/**
+ * 
+ * @author Felix Franzke
+ *
+ */
 public class DwConstraintExporter {
 
 	private HyExpressionStringExporter expressionExporter;

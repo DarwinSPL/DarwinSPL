@@ -69,6 +69,11 @@ import eu.hyvar.reconfigurator.input.format.InputForHyVarRec;
 import eu.hyvar.reconfigurator.output.translation.HyVarRecOutputTranslator;
 import eu.hyvar.reconfigurator.output.translation.format.OutputOfHyVarRec;
 
+/**
+ * 
+ * @author Felix Franzke
+ *
+ */
 public class DwAnalysesClient {
 
 //	private static final String MSG_TYPE_RAW_HYVARREC = "raw_hyvarrec_input";
