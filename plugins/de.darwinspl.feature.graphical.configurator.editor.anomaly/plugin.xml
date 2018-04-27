@@ -10,7 +10,7 @@
       </category>
       <view
             name="Anomaly View"
-            icon="icons/sample.gif"
+            icon="icons/icon_anomaly_view.png"
             category="de.darwinspl.feature.graphical.configurator.editor.anomaly"
             class="de.darwinspl.feature.graphical.configurator.editor.anomaly.views.DwAnomalyView"
             id="de.darwinspl.feature.graphical.configurator.editor.anomaly.views.AnomalyView">
