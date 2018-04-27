@@ -20,6 +20,7 @@ public class DwContextExporter {
 		this.contextReconfiguratorIdMapping = contextReconfiguratorIdMapping;
 	}
 	
+	
 	public List<eu.hyvar.reconfigurator.input.format.Context> getExportedContexts(HyContextModel contextModel,
 			Date date) {
 		List<eu.hyvar.reconfigurator.input.format.Context> exportedContexts = new ArrayList<eu.hyvar.reconfigurator.input.format.Context>();

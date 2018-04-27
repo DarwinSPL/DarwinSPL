@@ -37,7 +37,7 @@ public class ReconfiguratorIdMapping {
 		featureIdMapping = new HashMap<HyFeature, String>();
 		versionIdMapping = new HashMap<HyVersion, String>();
 		attributeIdMapping = new HashMap<HyFeatureAttribute, String>();
-		contextIdMapping = new HashMap<HyContextualInformation, String>();			
+		contextIdMapping = new HashMap<HyContextualInformation, String>();
 		initialized = true;
 	}
 	

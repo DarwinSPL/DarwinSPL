@@ -1,11 +1,8 @@
 
 package eu.hyvar.reconfigurator.input.format;
 
-//import javax.annotation.Generated;
-import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-//@Generated("org.jsonschema2pojo")
 public class AttributeValue {
 
     /**
@@ -14,7 +11,6 @@ public class AttributeValue {
      * 
      */
     @SerializedName("id")
-    @Expose
     private String id;
     /**
      * 
@@ -22,15 +18,12 @@ public class AttributeValue {
      * 
      */
     @SerializedName("value")
-    @Expose
     private Integer value;
 
     /**
      * 
      * (Required)
      * 
-     * @return
-     *     The id
      */
     public String getId() {
         return id;
@@ -40,8 +33,6 @@ public class AttributeValue {
      * 
      * (Required)
      * 
-     * @param id
-     *     The id
      */
     public void setId(String id) {
         this.id = id;
@@ -51,8 +42,6 @@ public class AttributeValue {
      * 
      * (Required)
      * 
-     * @return
-     *     The value
      */
     public Integer getValue() {
         return value;
@@ -62,8 +51,6 @@ public class AttributeValue {
      * 
      * (Required)
      * 
-     * @param value
-     *     The value
      */
     public void setValue(Integer value) {
         this.value = value;

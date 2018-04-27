@@ -4,6 +4,7 @@ import java.net.URI;
 import java.nio.channels.UnresolvedAddressException;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.HashMap;
@@ -14,15 +15,29 @@ import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeoutException;
 
 import org.eclipse.jetty.client.HttpClient;
+import org.eclipse.jetty.client.api.AuthenticationStore;
 import org.eclipse.jetty.client.api.ContentResponse;
 import org.eclipse.jetty.client.api.Request;
+import org.eclipse.jetty.client.util.BasicAuthentication;
 import org.eclipse.jetty.client.util.StringContentProvider;
 import org.eclipse.jetty.http.HttpHeader;
+import org.eclipse.jetty.util.ssl.SslContextFactory;
 
+import com.google.gson.FieldNamingPolicy;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
+import de.darwinspl.anomaly.DwAnomaly;
+import de.darwinspl.anomaly.DwAnomalyFactory;
+import de.darwinspl.anomaly.DwDeadFeatureAnomaly;
+import de.darwinspl.anomaly.DwFalseOptionalFeatureAnomaly;
+import de.darwinspl.anomaly.DwFeatureAnomaly;
+import de.darwinspl.anomaly.DwVoidFeatureModelAnomaly;
+import de.darwinspl.anomaly.explanation.DwAnomalyExplanation;
+import de.darwinspl.anomaly.explanation.DwAnomalyExplanationFactory;
+import de.darwinspl.preferences.DwProfile;
 import de.darwinspl.reconfigurator.client.hyvarrec.format.HyVarRecExplainAnswer;
+import de.darwinspl.reconfigurator.client.hyvarrec.format.check_features.HyVarRecCheckFeaturesAnswer;
 import de.darwinspl.reconfigurator.client.hyvarrec.format.context.HyVarRecValidateAnswer;
 import eu.hyvar.context.HyContextModel;
 import eu.hyvar.context.HyContextualInformation;
@@ -48,8 +63,12 @@ import eu.hyvar.feature.HyFeatureModel;
 import eu.hyvar.feature.HyVersion;
 import eu.hyvar.feature.configuration.HyConfiguration;
 import eu.hyvar.feature.constraint.HyConstraintModel;
-import de.darwinspl.preferences.DwProfile;
+import eu.hyvar.reconfigurator.input.exporter.DwFeatureEncoding;
+import eu.hyvar.reconfigurator.input.exporter.DwFeatureEncodingBoolean;
+import eu.hyvar.reconfigurator.input.exporter.DwFeatureEncodingInteger;
 import eu.hyvar.reconfigurator.input.exporter.HyVarRecExporter;
+import eu.hyvar.reconfigurator.input.exporter.HyVarRecExporter.FeatureEncoding;
+import eu.hyvar.reconfigurator.input.format.InputForHyVarRec;
 import eu.hyvar.reconfigurator.output.translation.HyVarRecOutputTranslator;
 import eu.hyvar.reconfigurator.output.translation.format.OutputOfHyVarRec;
 
@@ -59,42 +78,187 @@ public class DwAnalysesClient {
 //
 //	private static final String MSG_TYPE_HYVARREC_CONFIG_2_HYCONFIG = "hyvarrec_config_plus_fm";
 
+	protected static final String PROCESS_URI = "process";
 	protected static final String RECONFIGURATION_URI = "process";
 	protected static final String VALIDATE_CONTEXT_URI = "validate";
-	protected static final String VALIDATE_FM_URI = "explain";
+	protected static final String EXPLAIN_ANOMALY_URI = "explain";
+	protected static final String CHECK_FEATURES_URI = "check_features";
 	
-	protected HyVarRecExporter exporter;
-	
+	public static final String DEFAULT_URI = "https://www.isf.cs.tu-bs.de/hyvarrec/";
 	
 	protected static final String CONTEXT_VALID = "valid";
 	
-	HttpClient client;
-	URI uri;
+	//Modalities
+	public static final String VALIDATE_MODALITY = "--validate";
+	public static final String CHECK_FEATURES_MODALITY = "--check-features";
+//	public static final String RECONFIGURATION_MODALITY = "--no-default-preferences"; // This is wrong!
+	public static final String EXPLAIN_MODALITY = "--explain";
+	
+	protected final FeatureEncoding featureEncoding;
+	
+	
+	protected HyVarRecExporter exporter;
+	
+	protected Gson gson;
+	
+	protected GsonBuilder gsonBuilder;
 
-	GsonBuilder builder = new GsonBuilder();
-	Gson gson = builder.create();
-
-	String json = "";
-
-	Request request;
-
-	ContentResponse response;
-	String answerString;
+	public DwAnalysesClient() {
+		featureEncoding = FeatureEncoding.BOOLEAN;
+		gsonBuilder = new GsonBuilder();
+//		gsonBuilder.setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES);
+//		gsonBuilder.ser
+		gson = gsonBuilder.disableHtmlEscaping().create();
+		exporter = new HyVarRecExporter(featureEncoding);
+	}
+	
+	
 	
 	protected URI createUriWithPath(String originalUri, String processAddress) {
 		if(!originalUri.endsWith("/")) {
 			originalUri = originalUri + "/";
 		}
 		
-		originalUri = originalUri + processAddress;
+//		originalUri = originalUri + processAddress;
+		originalUri = originalUri + PROCESS_URI;
 		
 		return URI.create(originalUri);
 	}
 	
-	protected String createHyVarRecMessage(HyContextModel contextModel, HyValidityModel contextValidityModel, HyFeatureModel featureModel, HyConstraintModel constraintModel, HyConfiguration oldConfiguration, DwProfile preferenceModel, HyContextValueModel contextValues, Date date, Date evolutionContextValueDate) {
-		exporter = new HyVarRecExporter();
-		String messageForHyVarRec = exporter.exportSPL(contextModel, contextValidityModel, featureModel, constraintModel, oldConfiguration, preferenceModel, contextValues, date, evolutionContextValueDate);
+	public String createHyVarRecMessage(HyContextModel contextModel, HyValidityModel contextValidityModel, HyFeatureModel featureModel, HyConstraintModel constraintModel, HyConfiguration oldConfiguration, DwProfile preferenceModel, HyContextValueModel contextValues, Date date, Date evolutionContextValueDate, String modalityOption) {
+//		
+		InputForHyVarRec inputForHyVarRec = exporter.exportSPL(contextModel, contextValidityModel, featureModel, constraintModel, oldConfiguration, preferenceModel, contextValues, date, evolutionContextValueDate);
+		
+		if(modalityOption != null) {
+			List<String> options = inputForHyVarRec.getHyvar_options();
+			if(options == null) {
+				options = new ArrayList<String>(1);
+				inputForHyVarRec.setHyvar_options(options);
+			}
+			options.add(modalityOption);			
+		}
+		
+//		Gson gson = new GsonBuilder().disableHtmlEscaping().create();
+		String messageForHyVarRec = gson.toJson(inputForHyVarRec); 
 		return messageForHyVarRec;
+	}
+	
+	// TODO only for testing purposes
+	public DwAnomalyExplanation explainFeatureAnomaly(String uriString, String webserviceUsername, String webservicePassword, HyContextModel contextModel, HyValidityModel contextValidityModel,
+			HyFeatureModel featureModel, HyConstraintModel constraintModel, String featureId, boolean isDead, Date date) throws TimeoutException, InterruptedException, ExecutionException, UnresolvedAddressException {
+		String additionalAnomalyConstraint = null;
+		
+			// Create constraint enforcing the anomaly to cause a void feature model anomaly -> unsatisfiable constraints are the explanation for anomaly.
+			
+			DwFeatureEncoding dwFeatureEncoding;
+			
+			switch(featureEncoding) {
+			case BOOLEAN:
+				dwFeatureEncoding = new DwFeatureEncodingBoolean();
+				break;
+			case INTEGER:
+				dwFeatureEncoding = new DwFeatureEncodingInteger();
+				break;
+			default:
+				dwFeatureEncoding = new DwFeatureEncodingBoolean();
+				break;
+			
+			}
+			
+			featureId = "feature["+featureId;
+			featureId = featureId+"]";
+			
+			if(!isDead) {
+				additionalAnomalyConstraint = dwFeatureEncoding.getFeatureDeselected(featureId);
+			}
+			else if(isDead) {
+				additionalAnomalyConstraint = dwFeatureEncoding.getFeatureSelected(featureId);
+			}
+		
+		
+		// If the anomaly.getValidSince == null, we cannot use the null date as parameter. Otherwise, evolution-aware analysis is triggered which isn't working for explain service
+		if(date == null) {
+			List<Date> dates = HyEvolutionUtil.collectDates(featureModel);
+			if(contextModel != null) {
+				dates.addAll(HyEvolutionUtil.collectDates(contextModel));				
+			}
+			if(contextValidityModel != null) {
+				dates.addAll(HyEvolutionUtil.collectDates(contextValidityModel));				
+			}
+			if(constraintModel != null) {
+				dates.addAll(HyEvolutionUtil.collectDates(constraintModel));
+			}
+			// If dates is empty, null can be used, as the exporter won't use evolution-encoding since no evolution exists.
+			if(!dates.isEmpty()) {
+				Collections.sort(dates);
+				// select a date before the first evolution step, as there is the cause.
+				date = dates.get(0);
+				Calendar calendar = Calendar.getInstance();
+				calendar.setTime(date);
+				calendar.add(Calendar.DAY_OF_MONTH, -1);
+				date = calendar.getTime();
+			}
+			else {
+				date = new Date();
+			}
+		}
+		
+		
+		InputForHyVarRec inputForHyVarRec = exporter.createInputForHyVarRec(contextModel, contextValidityModel, featureModel, constraintModel, null, null, null, date, date);
+//		String messageForHyVarRec = createHyVarRecMessage(contextModel, contextValidityModel, featureModel, constraintModel, null, null, null, date, date, EXPLAIN_MODALITY);
+		URI uri = createUriWithPath(uriString, EXPLAIN_ANOMALY_URI);
+		
+		if(additionalAnomalyConstraint != null) {
+			inputForHyVarRec.getConstraints().add(additionalAnomalyConstraint);
+		}
+		
+		List<String> hyVarRecOptions = inputForHyVarRec.getHyvar_options();
+		if(hyVarRecOptions == null) {
+			hyVarRecOptions = new ArrayList<String>(1);
+			inputForHyVarRec.setHyvar_options(hyVarRecOptions);
+		}
+		
+		hyVarRecOptions.add(EXPLAIN_MODALITY);
+		
+		String messageForHyVarRec = gson.toJson(inputForHyVarRec);
+		
+		String hyvarrecAnswerString = sendMessageToHyVarRec(messageForHyVarRec, uri, webserviceUsername, webservicePassword);
+		
+//		List<String> lines = new ArrayList<String>(1);
+//		lines.add(messageForHyVarRec);
+//		Path file = Paths.get("C:\\Users\\windo\\Desktop\\explain.json");
+////		Path file_integer = Paths.get(jsonFilePath+"_integer");
+//		try {
+//			Files.write(file, lines, Charset.forName("UTF-8"));
+////			Files.write(file_integer, lines_integer, Charset.forName("UTF-8"));
+//		} catch (IOException e) {
+//			e.printStackTrace();
+//		}
+		
+		HyVarRecExplainAnswer hyVarRecAnswer = gson.fromJson(hyvarrecAnswerString, HyVarRecExplainAnswer.class);
+		
+		
+		if(hyVarRecAnswer.getResult().equals("sat")) {
+			return null;
+		}
+		else if(hyVarRecAnswer.getResult().equals("unsat")) {
+			// TODO here a more sophisticated explanation engine could be possible.
+			DwAnomalyExplanation anomalyExplanation = DwAnomalyExplanationFactory.eINSTANCE.createDwAnomalyExplanation();
+			anomalyExplanation.setAnomaly(null);
+			anomalyExplanation.setDate(date);
+			
+			List<String> parsedConstraints = translateIdsBackToNames(hyVarRecAnswer.getConstraints(), date, exporter);
+			
+			if(parsedConstraints == null) {
+				parsedConstraints = hyVarRecAnswer.getConstraints();
+			}
+			
+			anomalyExplanation.getExplanations().addAll(parsedConstraints);
+			
+			return anomalyExplanation;
+		}
+		
+		return null;
 	}
 	
 	/**
@@ -106,35 +270,164 @@ public class DwAnalysesClient {
 	 * @param constraintModel
 	 * @param oldConfiguration
 	 * @param preferenceModel
-	 * @param contextValues
-	 * @param date
-	 * @return A List of Constraints leading to an invalidity. Null if model is valid.
+	 * @param anomaly
+	 * @return
+	 * @throws TimeoutException
+	 * @throws InterruptedException
+	 * @throws ExecutionException
+	 * @throws UnresolvedAddressException
 	 */
-	public List<String> explainAnomaly(String uriString, HyContextModel contextModel, HyValidityModel contextValidityModel,
-			HyFeatureModel featureModel, HyConstraintModel constraintModel, HyConfiguration oldConfiguration,
-			DwProfile preferenceModel, HyContextValueModel contextValues, Date date, Date evolutionContextValueDate) throws TimeoutException, InterruptedException, ExecutionException, UnresolvedAddressException {
+	public DwAnomalyExplanation explainAnomaly(String uriString, String webserviceUsername, String webservicePassword, HyContextModel contextModel, HyValidityModel contextValidityModel,
+			HyFeatureModel featureModel, HyConstraintModel constraintModel, DwAnomaly anomaly) throws TimeoutException, InterruptedException, ExecutionException, UnresolvedAddressException {
 		
-		String messageForHyVarRec = createHyVarRecMessage(contextModel, contextValidityModel, featureModel, constraintModel, oldConfiguration, preferenceModel, contextValues, date, evolutionContextValueDate);
-		URI uri = createUriWithPath(uriString, VALIDATE_FM_URI);
+		HyContextValueModel contextValueModel = null;
+		String additionalAnomalyConstraint = null;
 		
-		String hyvarrecAnswerString = sendMessageToHyVarRec(messageForHyVarRec, uri);
+		if(anomaly instanceof DwVoidFeatureModelAnomaly) {
+			contextValueModel = ((DwVoidFeatureModelAnomaly) anomaly).getContextValueModel();
+		}
+		else {
+			// Create constraint enforcing the anomaly to cause a void feature model anomaly -> unsatisfiable constraints are the explanation for anomaly.
+			
+			DwFeatureEncoding dwFeatureEncoding;
+			
+			switch(featureEncoding) {
+			case BOOLEAN:
+				dwFeatureEncoding = new DwFeatureEncodingBoolean();
+				break;
+			case INTEGER:
+				dwFeatureEncoding = new DwFeatureEncodingInteger();
+				break;
+			default:
+				dwFeatureEncoding = new DwFeatureEncodingBoolean();
+				break;
+			
+			}
+			
+			if(anomaly instanceof DwFeatureAnomaly) {
+				String featureId = "feature[";
+				featureId = featureId+(((DwFeatureAnomaly)anomaly).getFeature().getId());
+				featureId = featureId+"]";
+				
+				if(anomaly instanceof DwFalseOptionalFeatureAnomaly) {
+					additionalAnomalyConstraint = dwFeatureEncoding.getFeatureDeselected(featureId);
+				}
+				else if(anomaly instanceof DwDeadFeatureAnomaly) {
+					additionalAnomalyConstraint = dwFeatureEncoding.getFeatureSelected(featureId);
+				}				
+			}
+		}
+		
+		
+		// If the anomaly.getValidSince == null, we cannot use the null date as parameter. Otherwise, evolution-aware analysis is triggered which isn't working for explain service
+		Date date = anomaly.getValidSince();
+		if(date == null) {
+			List<Date> dates = HyEvolutionUtil.collectDates(featureModel);
+			if(contextModel != null) {
+				dates.addAll(HyEvolutionUtil.collectDates(contextModel));				
+			}
+			if(contextValidityModel != null) {
+				dates.addAll(HyEvolutionUtil.collectDates(contextValidityModel));				
+			}
+			if(constraintModel != null) {
+				dates.addAll(HyEvolutionUtil.collectDates(constraintModel));
+			}
+			// If dates is empty, null can be used, as the exporter won't use evolution-encoding since no evolution exists.
+			if(!dates.isEmpty()) {
+				Collections.sort(dates);
+				// select a date before the first evolution step, as there is the cause.
+				date = dates.get(0);
+				Calendar calendar = Calendar.getInstance();
+				calendar.setTime(date);
+				calendar.add(Calendar.DAY_OF_MONTH, -1);
+				date = calendar.getTime();
+			}			
+		}
+		
+		
+		InputForHyVarRec inputForHyVarRec = exporter.createInputForHyVarRec(contextModel, contextValidityModel, featureModel, constraintModel, null, null, contextValueModel, date, date);
+//		String messageForHyVarRec2 = createHyVarRecMessage(contextModel, contextValidityModel, featureModel, constraintModel, null, null, contextValueModel, date, date, EXPLAIN_MODALITY);
+		URI uri = createUriWithPath(uriString, EXPLAIN_ANOMALY_URI);
+		
+		if(additionalAnomalyConstraint != null) {
+			inputForHyVarRec.getConstraints().add(additionalAnomalyConstraint);
+		}
+		
+		List<String> options = inputForHyVarRec.getHyvar_options();
+		
+		if(options == null) {
+			options = new ArrayList<String>(1);
+			inputForHyVarRec.setHyvar_options(options);
+		}
+		
+		options.add(EXPLAIN_MODALITY);
+		
+		
+		String messageForHyVarRec = gson.toJson(inputForHyVarRec);
+		
+		String hyvarrecAnswerString = sendMessageToHyVarRec(messageForHyVarRec, uri, webserviceUsername, webservicePassword);
 		
 		HyVarRecExplainAnswer hyVarRecAnswer = gson.fromJson(hyvarrecAnswerString, HyVarRecExplainAnswer.class);
-		// TODO do something with the answer
 		
 		if(hyVarRecAnswer.getResult().equals("sat")) {
 			return null;
-		}else if(hyVarRecAnswer.getResult().equals("unsat")) {
-			List<String> parsedConstraints = translateIdsBackToNames(hyVarRecAnswer.getConstraints(), date, exporter);
+		}
+		else if(hyVarRecAnswer.getResult().equals("unsat")) {
+			// TODO here a more sophisticated explanation engine could be possible.
+			DwAnomalyExplanation anomalyExplanation = DwAnomalyExplanationFactory.eINSTANCE.createDwAnomalyExplanation();
+			anomalyExplanation.setAnomaly(anomaly);
+			anomalyExplanation.setDate(anomaly.getValidSince());
+			
+			List<String> parsedConstraints = translateIdsBackToNames(hyVarRecAnswer.getConstraints(), anomaly.getValidSince(), exporter);
 			
 			if(parsedConstraints == null) {
 				parsedConstraints = hyVarRecAnswer.getConstraints();
 			}
 			
-			return parsedConstraints;
+			anomalyExplanation.getExplanations().addAll(parsedConstraints);
+			
+			return anomalyExplanation;
 		}
 		
 		return null;
+	}
+	
+	/**
+	 * False optional and dead features
+	 * @param uriString
+	 * @param contextModel
+	 * @param contextValidityModel
+	 * @param featureModel
+	 * @param constraintModel
+	 * @param contextValues
+	 * @param date
+	 * @return
+	 * @throws TimeoutException
+	 * @throws InterruptedException
+	 * @throws ExecutionException
+	 * @throws UnresolvedAddressException
+	 */
+	public List<DwAnomaly> checkFeatures(String uriString, String webserviceUsername, String webservicePassword, HyContextModel contextModel, HyValidityModel contextValidityModel,
+			HyFeatureModel featureModel, HyConstraintModel constraintModel, HyContextValueModel contextValues, Date date) throws TimeoutException, InterruptedException, ExecutionException, UnresolvedAddressException {
+		String messageForHyVarRec = createHyVarRecMessage(contextModel, contextValidityModel, featureModel, constraintModel, null, null, contextValues, date, null, CHECK_FEATURES_MODALITY);
+		System.err.println(messageForHyVarRec);
+		
+		
+		URI uri = createUriWithPath(uriString, CHECK_FEATURES_URI);
+		
+		String hyvarrecAnswerString = sendMessageToHyVarRec(messageForHyVarRec, uri, webserviceUsername, webservicePassword);
+		System.err.println(hyvarrecAnswerString);
+		
+		HyVarRecCheckFeaturesAnswer hyVarRecAnswer = gson.fromJson(hyvarrecAnswerString, HyVarRecCheckFeaturesAnswer.class);
+		
+		List<DwAnomaly> anomalies = DwAnomalyTranslation.translateAnomalies(hyVarRecAnswer, exporter.getFeatureReconfiguratorIdMapping(), exporter.getSortedDateList());
+		
+		// Code to test anomaly explanation
+//		for(DwAnomaly anomaly: anomalies) {
+//			explainAnomaly(uriString, webserviceUsername, webservicePassword, contextModel, contextValidityModel, featureModel, constraintModel, anomaly);
+//		}
+		
+		return anomalies;
 	}
 	
 	protected List<String> translateIdsBackToNames(List<String> constraints, Date date, HyVarRecExporter hyVarRecExporter) {
@@ -244,19 +537,26 @@ public class DwAnalysesClient {
 	 * @param profile
 	 * @param contextValues
 	 * @param date
-	 * @return Context values for which the model is not satisfiable. Null if satisfiable
+	 * @return Void feature model anomaly with context values. Null if no anomaly
 	 */
-	public DwContextValueEvolutionWrapper validateFeatureModelWithContext(String uriString, HyContextModel contextModel, HyValidityModel contextValidityModel,
+	public DwVoidFeatureModelAnomaly validateFeatureModelWithContext(String uriString, String webserviceUsername, String webservicePassword, HyContextModel contextModel, HyValidityModel contextValidityModel,
 			HyFeatureModel featureModel, HyConstraintModel constraintModel, HyConfiguration oldConfiguration,
 			DwProfile profile, HyContextValueModel contextValues, Date date) throws TimeoutException, InterruptedException, ExecutionException, UnresolvedAddressException, HyVarRecNoSolutionException {
 		
-		String messageForHyVarRec = createHyVarRecMessage(contextModel, contextValidityModel, featureModel, constraintModel, oldConfiguration, profile, contextValues, date, null);
+		String messageForHyVarRec = createHyVarRecMessage(contextModel, contextValidityModel, featureModel, constraintModel, oldConfiguration, profile, contextValues, date, null, VALIDATE_MODALITY);
+		
 		URI uri = createUriWithPath(uriString, VALIDATE_CONTEXT_URI);
 		
-		String hyvarrecAnswerString = sendMessageToHyVarRec(messageForHyVarRec, uri);
+		String hyvarrecAnswerString = sendMessageToHyVarRec(messageForHyVarRec, uri, webserviceUsername, webservicePassword);
 		
 		if(hyvarrecAnswerString.startsWith("{\"no_solution")) {
 			throw new HyVarRecNoSolutionException("HyVarRec returned could not find any solution.\n Message for HyVarRec:\n"+messageForHyVarRec+"\n Answer from HyVarRec:\n"+hyvarrecAnswerString);
+		}
+		
+		if(hyvarrecAnswerString.startsWith("{\"error")) {
+			System.err.println("HyVarRec encountered an error:");
+			System.err.println(hyvarrecAnswerString);
+			return null;
 		}
 		
 		HyVarRecValidateAnswer hyVarRecAnswer = gson.fromJson(hyvarrecAnswerString, HyVarRecValidateAnswer.class);
@@ -267,10 +567,13 @@ public class DwAnalysesClient {
 			return null;
 		}
 		
-		DwContextValueEvolutionWrapper contextValueEvolutionWrapper = new DwContextValueEvolutionWrapper();
+		
+		DwVoidFeatureModelAnomaly voidFeatureAnomaly = DwAnomalyFactory.eINSTANCE.createDwVoidFeatureModelAnomaly();
+		
+		
 		
 		HyContextValueModel contextValueModel = ContextValueFactory.eINSTANCE.createHyContextValueModel();
-		contextValueEvolutionWrapper.setContextValueModel(contextValueModel);
+		voidFeatureAnomaly.setContextValueModel(contextValueModel);
 		
 		if(hyVarRecAnswer.getContexts() != null) {
 			// TODO inconsistency. In the requests for HyVarRec it's always written context[id] and in the answer its just id
@@ -289,7 +592,8 @@ public class DwAnalysesClient {
 				
 				
 				if(contextId.equals(evolutionId)) {
-					contextValueEvolutionWrapper.setDate(getDateOutOfEvolutionContext(context, value, contextModel, contextValidityModel, featureModel, constraintModel, profile));										
+					Date anomalyDate = getDateOutOfEvolutionContext(context, value, contextModel, contextValidityModel, featureModel, constraintModel, profile);
+					voidFeatureAnomaly.setValidSince(anomalyDate);
 					continue;
 				}
 				
@@ -347,7 +651,7 @@ public class DwAnalysesClient {
 			}
 		}
 		
-		return contextValueEvolutionWrapper;
+		return voidFeatureAnomaly;
 	}
 	
 	private Date getDateOutOfEvolutionContext(de.darwinspl.reconfigurator.client.hyvarrec.format.context.Context dateContext, int valueForDateContext, HyContextModel contextModel, HyValidityModel contextValidityModel,
@@ -370,17 +674,29 @@ public class DwAnalysesClient {
 		List<Date> sortedDateList = HyVarRecExporter.getSortedListOfDatesOfDateContext(featureModels, constraintModels, contextModels, validityModels, profiles);
 		
 		if(valueForDateContext == -1) {
-			Calendar cal = new GregorianCalendar();
-			cal.setTime(sortedDateList.get(0));
-			cal.add(Calendar.DAY_OF_MONTH, -1);
-			return cal.getTime();
+			if(sortedDateList.isEmpty()) {
+				return null;
+			}
+			else {
+				Calendar cal = new GregorianCalendar();
+				cal.setTime(sortedDateList.get(0));
+				cal.add(Calendar.DAY_OF_MONTH, -1);
+				return cal.getTime();				
+			}
 		}
 		
 		return sortedDateList.get(valueForDateContext);
 	}
 	
-	protected String sendMessageToHyVarRec(String message, URI uri) throws UnresolvedAddressException, ExecutionException, InterruptedException, TimeoutException {
-		HttpClient hyvarrecClient = new HttpClient();
+	public String sendMessageToHyVarRec(String message, URI uri, String username, String password) throws UnresolvedAddressException, ExecutionException, InterruptedException, TimeoutException {
+		
+		HttpClient hyvarrecClient = new HttpClient(new SslContextFactory(true));
+		
+		if(username != null && password != null) {
+			AuthenticationStore auth = hyvarrecClient.getAuthenticationStore();
+			auth.addAuthenticationResult(new BasicAuthentication.BasicResult(uri, username, password));			
+		}
+		
 		try {
 			hyvarrecClient.start();
 		} catch (Exception e) {
@@ -388,8 +704,8 @@ public class DwAnalysesClient {
 			e.printStackTrace();
 			return null;
 		}
-		URI hyvarrecUri = uri;
-		Request hyvarrecRequest = hyvarrecClient.POST(hyvarrecUri);
+		
+		Request hyvarrecRequest = hyvarrecClient.POST(uri);
 		hyvarrecRequest.header(HttpHeader.CONTENT_TYPE, "application/json");
 		hyvarrecRequest.content(new StringContentProvider(message), "application/json");
 		ContentResponse hyvarrecResponse;
@@ -416,15 +732,15 @@ public class DwAnalysesClient {
 	 * @param date
 	 * @return reconfigured configuration
 	 */
-	public HyConfiguration reconfigure(String uriString, HyContextModel contextModel, HyValidityModel contextValidityModel,
+	public HyConfiguration reconfigure(String uriString, String webserviceUsername, String webservicePassword, HyContextModel contextModel, HyValidityModel contextValidityModel,
 			HyFeatureModel featureModel, HyConstraintModel constraintModel, HyConfiguration oldConfiguration,
 			DwProfile preferenceModel, HyContextValueModel contextValues, Date date) throws TimeoutException, InterruptedException, ExecutionException, UnresolvedAddressException {
 		
-		String messageForHyVarRec = createHyVarRecMessage(contextModel, contextValidityModel, featureModel, constraintModel, oldConfiguration, preferenceModel, contextValues, date, null);
+		String messageForHyVarRec = createHyVarRecMessage(contextModel, contextValidityModel, featureModel, constraintModel, oldConfiguration, preferenceModel, contextValues, date, null, null);
 		
 		URI uri = createUriWithPath(uriString, RECONFIGURATION_URI);
 		
-		String hyvarrecAnswerString = sendMessageToHyVarRec(messageForHyVarRec, uri);
+		String hyvarrecAnswerString = sendMessageToHyVarRec(messageForHyVarRec, uri, webserviceUsername, webservicePassword);
 		
 		OutputOfHyVarRec hyvarrecAnswer = gson.fromJson(hyvarrecAnswerString, OutputOfHyVarRec.class);
 		

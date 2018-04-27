@@ -19,7 +19,7 @@ import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.widgets.TableItem;
 import org.eclipse.swt.widgets.Text;
 
-import de.darwinspl.reconfigurator.client.hyvarrec.DwAnalysesClient.DwContextValueEvolutionWrapper;
+import de.darwinspl.anomaly.DwVoidFeatureModelAnomaly;
 import eu.hyvar.context.information.contextValue.HyContextValue;
 import eu.hyvar.context.information.contextValue.HyContextValueModel;
 import eu.hyvar.dataValues.HyBooleanValue;
@@ -45,12 +45,12 @@ public class DwInvalidContextInfoDialog extends TitleAreaDialog {
 	}
 	
 	
-	public DwInvalidContextInfoDialog(Shell parentShell, DwContextValueEvolutionWrapper contextValueEvolutionWrapper) {
+	public DwInvalidContextInfoDialog(Shell parentShell, DwVoidFeatureModelAnomaly voidFeatureModelAnomaly) {
 		super(parentShell);
 
-		if(contextValueEvolutionWrapper!=null) {
-			this.invalidContextValues = contextValueEvolutionWrapper.getContextValueModel();
-			this.invalidDate = contextValueEvolutionWrapper.getDate();			
+		if(voidFeatureModelAnomaly!=null) {
+			this.invalidContextValues = voidFeatureModelAnomaly.getContextValueModel();
+			this.invalidDate = voidFeatureModelAnomaly.getValidSince();			
 		}
 	}
 

@@ -7,6 +7,7 @@ import java.util.Date;
 
 public class HyEvolutionResolverUtil {
 
+	private static final String NULL_VALUE_STRING = "eternity";
 	
 	public static Date resolveDate(String dateString) {
 		if(dateString == null || dateString.equals("")) {
@@ -46,6 +47,8 @@ public class HyEvolutionResolverUtil {
 			DateFormat formater = new SimpleDateFormat("yyyy/MM/dd'T'HH:mm:ss");
 			return formater.format(date);
 		}
-		return null;
+		else {
+			return NULL_VALUE_STRING;
+		}
 	}
 }

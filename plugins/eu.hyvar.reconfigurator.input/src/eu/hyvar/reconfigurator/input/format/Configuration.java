@@ -1,13 +1,10 @@
 
 package eu.hyvar.reconfigurator.input.format;
 
-import java.util.ArrayList;
 import java.util.List;
-//import javax.annotation.Generated;
-import com.google.gson.annotations.Expose;
+
 import com.google.gson.annotations.SerializedName;
 
-//@Generated("org.jsonschema2pojo")
 public class Configuration {
 
     /**
@@ -16,31 +13,26 @@ public class Configuration {
      * 
      */
     @SerializedName("selectedFeatures")
-    @Expose
-    private List<String> selectedFeatures = new ArrayList<String>();
+    private List<String> selectedFeatures = null;
     /**
      * 
      * (Required)
      * 
      */
     @SerializedName("attribute_values")
-    @Expose
-    private List<AttributeValue> attributeValues = new ArrayList<AttributeValue>();
+    private List<AttributeValue> attribute_values = null;
     /**
      * 
      * (Required)
      * 
      */
     @SerializedName("context_values")
-    @Expose
-    private List<ContextValue> contextValues = new ArrayList<ContextValue>();
+    private List<ContextValue> context_values = null;
 
     /**
      * 
      * (Required)
      * 
-     * @return
-     *     The selectedFeatures
      */
     public List<String> getSelectedFeatures() {
         return selectedFeatures;
@@ -50,8 +42,6 @@ public class Configuration {
      * 
      * (Required)
      * 
-     * @param selectedFeatures
-     *     The selectedFeatures
      */
     public void setSelectedFeatures(List<String> selectedFeatures) {
         this.selectedFeatures = selectedFeatures;
@@ -61,44 +51,36 @@ public class Configuration {
      * 
      * (Required)
      * 
-     * @return
-     *     The attributeValues
      */
     public List<AttributeValue> getAttributeValues() {
-        return attributeValues;
+        return attribute_values;
     }
 
     /**
      * 
      * (Required)
      * 
-     * @param attributeValues
-     *     The attribute_values
      */
     public void setAttributeValues(List<AttributeValue> attributeValues) {
-        this.attributeValues = attributeValues;
+        this.attribute_values = attributeValues;
     }
 
     /**
      * 
      * (Required)
      * 
-     * @return
-     *     The contextValues
      */
     public List<ContextValue> getContextValues() {
-        return contextValues;
+        return context_values;
     }
 
     /**
      * 
      * (Required)
      * 
-     * @param contextValues
-     *     The context_values
      */
     public void setContextValues(List<ContextValue> contextValues) {
-        this.contextValues = contextValues;
+        this.context_values = contextValues;
     }
 
 }

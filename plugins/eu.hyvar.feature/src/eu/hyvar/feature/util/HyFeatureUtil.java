@@ -94,6 +94,56 @@ public class HyFeatureUtil {
 		return numberOfMandatoryFeatures;
 	}
 	
+	public static List<HyFeature> getFeaturesOfGroup(HyGroup group, HyFeatureTypeEnum featureType, Date date) {
+		List<HyFeature> childFeatures = HyFeatureEvolutionUtil.getChildsOfGroup(group, date);
+		return filterFeatures(childFeatures, featureType, date);
+	}
+	
+	public static List<HyFeature> filterFeatures(List<HyFeature> features, HyFeatureTypeEnum featureType, Date date) {
+		List<HyFeature> filteredFeatures = new ArrayList<HyFeature>();
+		
+		if(featureType == null) {
+			filteredFeatures.addAll(features);
+		}
+		else {
+			for(HyFeature feature: features) {
+				HyFeatureType featureTypeOfFeature = HyFeatureEvolutionUtil.getType(feature, date);
+				if(featureTypeOfFeature != null) {
+					if(featureTypeOfFeature.getType().equals(featureType)) {
+						filteredFeatures.add(feature);
+					}
+				}
+			}
+		}
+		
+		return filteredFeatures;
+	}
+	
+	/**
+	 * 
+	 * @param features
+	 * @param date
+	 * @return First list is mandatory list, second list is optional list
+	 */
+	public static List<List<HyFeature>> splitFeaturesIntoMandatoryAndOptional(List<HyFeature> features, Date date) {
+		List<HyFeature> mandatoryFeatures = new ArrayList<HyFeature>();
+		List<HyFeature> optionalFeatures = new ArrayList<HyFeature>();
+		List<List<HyFeature>> splittedFeatures = new ArrayList<List<HyFeature>>(2);
+		splittedFeatures.add(mandatoryFeatures);
+		splittedFeatures.add(optionalFeatures);
+		
+		for(HyFeature feature: features) {
+			if(HyFeatureEvolutionUtil.isMandatory(feature, date)) {
+				mandatoryFeatures.add(feature);
+			}
+			else {
+				optionalFeatures.add(feature);
+			}
+		}
+		
+		return splittedFeatures;
+	}
+	
 	
 	/**
 	 * Only for FMs valid at one point in time!
@@ -143,21 +193,6 @@ public class HyFeatureUtil {
 		return (groupType.getType().equals(HyGroupTypeEnum.ALTERNATIVE));
 	}
 	
-	/**
-	 * Only for FMs valid at one point in time!
-	 * @param feature
-	 * @return
-	 * @throws HyFeatureModelWellFormednessException
-	 */
-	public static boolean isMandatory(HyFeature feature, Date date) throws HyFeatureModelWellFormednessException {
-		if(feature == null) {
-			System.err.println("Something bad happened. Feature was null during isMandatory check");
-			return false;
-		}
-		
-		HyFeatureType featureType = HyEvolutionUtil.getValidTemporalElement(feature.getTypes(), date);
-		return (featureType.getType().equals(HyFeatureTypeEnum.MANDATORY));
-	}
 	
 	/**
 	 * Only for FMs valid at one point in time!

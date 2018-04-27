@@ -1,2 +1,6 @@
 *.class
 *.settings
+
+plugins/de\.darwinspl\.anomalies/src-gen/de/
+
+plugins/de\.darwinspl\.anomalies\.explanations/src-gen/de/
