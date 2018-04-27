@@ -259,7 +259,7 @@ public class DwFeatureModelConfiguratorEditor extends DwFeatureModelConfigurator
 
 	private HyVarRecUriAndCredentials getHyVarRecUriAndCredentials() {
 
-		DwRESTServerSelectDialog dialog = new DwRESTServerSelectDialog(getEditorSite().getShell(), SAVED_SERVER_URI, HTTT_AUTHENTICATION_ENABLED, USERNAME, PASSWORD);
+		DwRESTServerSelectDialog dialog = new DwRESTServerSelectDialog(getEditorSite().getShell());
 		int result = dialog.open();
 		if(result == Dialog.OK){
 			HyVarRecUriAndCredentials hyVarRecUriAndCredentials = new HyVarRecUriAndCredentials();

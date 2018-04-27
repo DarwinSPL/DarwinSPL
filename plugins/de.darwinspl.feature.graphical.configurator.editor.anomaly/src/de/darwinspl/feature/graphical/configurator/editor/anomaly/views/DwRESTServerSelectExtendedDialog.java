@@ -51,8 +51,8 @@ public class DwRESTServerSelectExtendedDialog extends DwRESTServerSelectDialog{
 	private Date endDate = null;
 	private TypeOfEvolutionAwareAnalysis evolutionAwareAnalysisType = TypeOfEvolutionAwareAnalysis.COMPLETE_HISTORY;
 	
-	public DwRESTServerSelectExtendedDialog(Shell parentShell, String uri, Boolean isHttpAuthEnabled, String username, String password, Boolean isEvolutionAware, Date startDate, Date endDate, TypeOfEvolutionAwareAnalysis evolutionAwareAnalysisType) {
-		super(parentShell, uri, isHttpAuthEnabled, username, password);
+	public DwRESTServerSelectExtendedDialog(Shell parentShell, Boolean isEvolutionAware, Date startDate, Date endDate, TypeOfEvolutionAwareAnalysis evolutionAwareAnalysisType) {
+		super(parentShell);
 		
 		this.isEvolutionAwareAnalysis = isEvolutionAware;
 		this.startDate = startDate;

@@ -238,8 +238,7 @@ public class DwAnomalyView extends ViewPart {
 			public void run() {
 
 				final DwRESTServerSelectExtendedDialog dialog = new DwRESTServerSelectExtendedDialog(
-						viewerFalseOptionalAnomaly.getControl().getShell(), getURI(), HTTT_AUTHENTICATION_ENABLED,
-						USERNAME, PASSWORD, EVOLUTION_AWARE_ANALYSIS, EVOLUTION_AWARE_ANALYSIS_START_DATE,
+						viewerFalseOptionalAnomaly.getControl().getShell(), EVOLUTION_AWARE_ANALYSIS, EVOLUTION_AWARE_ANALYSIS_START_DATE,
 						EVOLUTION_AWARE_ANALYSIS_END_DATE, EVOLUTION_AWARE_ANALYSIS_TYPE);
 				int result = dialog.open();
 				if (result == Dialog.OK) {

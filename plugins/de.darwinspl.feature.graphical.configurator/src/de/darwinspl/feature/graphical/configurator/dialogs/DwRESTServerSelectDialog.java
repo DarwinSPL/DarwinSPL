@@ -1,6 +1,7 @@
 package de.darwinspl.feature.graphical.configurator.dialogs;
 
 
+import org.eclipse.core.runtime.preferences.InstanceScope;
 import org.eclipse.jface.dialogs.IDialogConstants;
 import org.eclipse.jface.dialogs.IMessageProvider;
 import org.eclipse.jface.dialogs.TitleAreaDialog;
@@ -22,6 +23,8 @@ import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
+import org.osgi.service.prefs.BackingStoreException;
+import org.osgi.service.prefs.Preferences;
 
 public class DwRESTServerSelectDialog extends TitleAreaDialog{
 	
@@ -52,37 +55,29 @@ public class DwRESTServerSelectDialog extends TitleAreaDialog{
 		return uri;
 	}
 	
-	
-
-
 	public String getUserName() {
 		return userName;
 	}
-
-
-
 
 	public String getPassword() {
 		return password;
 	}
 
-
-
-
-	public DwRESTServerSelectDialog(Shell parentShell, String uri, Boolean isHttpAuthEnabled, String username, String password) {
+	public DwRESTServerSelectDialog(Shell parentShell) {
 		super(parentShell);
 		
-		this.uri = uri;
-		if(username != null){
-			this.userName = username;
-		}
-		if(password != null){
-			this.password = password;
-		} 
-		if(isHttpAuthEnabled != null){
-			this.httpAuthentificationEnabled = isHttpAuthEnabled;
-		}
+		loadPluginSettings();
 		
+//		this.uri = uri;
+//		if(username != null){
+//			this.userName = username;
+//		}
+//		if(password != null){
+//			this.password = password;
+//		} 
+//		if(isHttpAuthEnabled != null){
+//			this.httpAuthentificationEnabled = isHttpAuthEnabled;
+//		}	
 	}
 
 
@@ -285,5 +280,41 @@ public class DwRESTServerSelectDialog extends TitleAreaDialog{
 	@Override
 	protected Point getInitialSize() {
 		return new Point(480, 400);
+	}
+	
+	@Override
+	protected void okPressed() {
+		savePluginSettings();
+		super.okPressed();
+	}
+	
+	private void savePluginSettings() {
+		Preferences preferences = InstanceScope.INSTANCE.getNode("de.darwinspl.feature.graphical.configurator.editor");
+		Preferences cred = preferences.node("credentials");
+		Preferences pref = preferences.node("preferences");
+		
+		cred.put("id", userName);
+		cred.put("pw", password);
+		
+		pref.put("uri", uri);
+		pref.putBoolean("httpAuth", httpAuthentificationEnabled);
+		
+		try {
+			preferences.flush();
+		}catch (BackingStoreException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	private void loadPluginSettings() {
+		Preferences preferences = InstanceScope.INSTANCE.getNode("de.darwinspl.feature.graphical.configurator.editor");
+		Preferences cred = preferences.node("credentials");
+		Preferences pref = preferences.node("preferences");
+		
+		this.userName = cred.get("id", "");
+		this.password = cred.get("pw", "");
+		
+		this.httpAuthentificationEnabled = pref.getBoolean("httpAuth", false);
+		this.uri = pref.get("uri", "default");
 	}
 }
