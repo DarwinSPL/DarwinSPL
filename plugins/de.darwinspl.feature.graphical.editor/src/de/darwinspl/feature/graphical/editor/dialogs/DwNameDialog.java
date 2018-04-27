@@ -165,6 +165,8 @@ public class DwNameDialog extends DwTableDialog{
 		}else{			
 			TableItem[] selection = table.getSelection();
 			for(int i=0; i<selection.length; i++){
+				int index = table.indexOf(selection[i]);
+				((HyNamedElement)element).getNames().remove(index);
 				table.remove(table.indexOf(selection[i]));
 			}
 		}

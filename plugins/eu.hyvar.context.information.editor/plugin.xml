@@ -12,9 +12,9 @@
             id="org.eclipse.emf.ecore.Wizard.category.ID"
             name="%_UI_Wizard_category"/>
       <wizard
-            id="eu.hyvar.context.presentation.HyContextInformationModelWizardID"
+            id="eu.hyvar.context.presentation.HyCustomizedContextInformationModelWizardID"
             name="DarwinSPL Context Information (*.dwcontextinformation)"
-            class="eu.hyvar.context.presentation.HyContextInformationModelWizard"
+            class="eu.hyvar.context.presentation.DwCustomizedContextInformationModelWizard"
             category="de.darwinspl.wizards"
             icon="icons/icon_context.png">
          <description>%_UI_HyContextInformationModelWizard_description</description>
