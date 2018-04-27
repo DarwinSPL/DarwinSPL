@@ -10,7 +10,9 @@ import de.darwinspl.anomaly.DwFalseOptionalFeatureAnomaly;
 import de.darwinspl.anomaly.DwFeatureAnomaly;
 import de.darwinspl.anomaly.DwVoidFeatureModelAnomaly;
 
+import eu.hyvar.context.HyContextInformationPackage;
 import eu.hyvar.context.information.contextValue.ContextValuePackage;
+import eu.hyvar.dataValues.HyDataValuesPackage;
 import eu.hyvar.evolution.HyEvolutionPackage;
 
 import eu.hyvar.feature.HyFeaturePackage;
@@ -110,7 +112,10 @@ public class DwAnomalyPackageImpl extends EPackageImpl implements DwAnomalyPacka
 		isInited = true;
 
 		// Initialize simple dependencies
+		HyContextInformationPackage.eINSTANCE.eClass();
 		ContextValuePackage.eINSTANCE.eClass();
+		HyDataValuesPackage.eINSTANCE.eClass();
+		HyEvolutionPackage.eINSTANCE.eClass();
 		HyFeaturePackage.eINSTANCE.eClass();
 
 		// Create package meta-data objects

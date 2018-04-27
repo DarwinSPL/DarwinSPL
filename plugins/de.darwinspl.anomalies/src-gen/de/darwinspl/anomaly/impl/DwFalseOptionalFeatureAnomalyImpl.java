@@ -27,13 +27,13 @@ import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link de.darwinspl.anomaly.impl.DwFalseOptionalFeatureAnomalyImpl#getValidSince <em>Valid Since</em>}</li>
  *   <li>{@link de.darwinspl.anomaly.impl.DwFalseOptionalFeatureAnomalyImpl#getValidUntil <em>Valid Until</em>}</li>
  *   <li>{@link de.darwinspl.anomaly.impl.DwFalseOptionalFeatureAnomalyImpl#getId <em>Id</em>}</li>
  *   <li>{@link de.darwinspl.anomaly.impl.DwFalseOptionalFeatureAnomalyImpl#getFeature <em>Feature</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

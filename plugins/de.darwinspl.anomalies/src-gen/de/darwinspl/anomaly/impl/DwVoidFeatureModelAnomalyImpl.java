@@ -29,6 +29,7 @@ import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link de.darwinspl.anomaly.impl.DwVoidFeatureModelAnomalyImpl#getValidSince <em>Valid Since</em>}</li>
  *   <li>{@link de.darwinspl.anomaly.impl.DwVoidFeatureModelAnomalyImpl#getValidUntil <em>Valid Until</em>}</li>
@@ -36,7 +37,6 @@ import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
  *   <li>{@link de.darwinspl.anomaly.impl.DwVoidFeatureModelAnomalyImpl#getFeatureModel <em>Feature Model</em>}</li>
  *   <li>{@link de.darwinspl.anomaly.impl.DwVoidFeatureModelAnomalyImpl#getContextValueModel <em>Context Value Model</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

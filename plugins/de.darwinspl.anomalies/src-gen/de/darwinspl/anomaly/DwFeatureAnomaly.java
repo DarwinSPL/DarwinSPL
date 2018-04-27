@@ -11,10 +11,10 @@ import eu.hyvar.feature.HyFeature;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link de.darwinspl.anomaly.DwFeatureAnomaly#getFeature <em>Feature</em>}</li>
  * </ul>
- * </p>
  *
  * @see de.darwinspl.anomaly.DwAnomalyPackage#getDwFeatureAnomaly()
  * @model interface="true" abstract="true"

@@ -12,11 +12,11 @@ import eu.hyvar.feature.HyFeatureModel;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link de.darwinspl.anomaly.DwVoidFeatureModelAnomaly#getFeatureModel <em>Feature Model</em>}</li>
  *   <li>{@link de.darwinspl.anomaly.DwVoidFeatureModelAnomaly#getContextValueModel <em>Context Value Model</em>}</li>
  * </ul>
- * </p>
  *
  * @see de.darwinspl.anomaly.DwAnomalyPackage#getDwVoidFeatureModelAnomaly()
  * @model
