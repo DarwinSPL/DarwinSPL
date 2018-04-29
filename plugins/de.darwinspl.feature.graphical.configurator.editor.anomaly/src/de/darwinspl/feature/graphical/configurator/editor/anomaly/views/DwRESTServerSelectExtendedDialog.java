@@ -48,7 +48,7 @@ public class DwRESTServerSelectExtendedDialog extends DwRESTServerSelectDialog {
 	private Date endDate = null;
 	private TypeOfEvolutionAwareAnalysis evolutionAwareAnalysisType = TypeOfEvolutionAwareAnalysis.COMPLETE_HISTORY;
 
-	public DwRESTServerSelectExtendedDialog(Shell parentShell, TypeOfEvolutionAwareAnalysis evolutionAwareAnalysisType) {
+	public DwRESTServerSelectExtendedDialog(Shell parentShell) {
 		
 		super(parentShell);
 		loadPluginSettings();
