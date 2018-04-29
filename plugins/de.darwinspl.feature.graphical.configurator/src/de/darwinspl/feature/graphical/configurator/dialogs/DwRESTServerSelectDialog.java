@@ -288,7 +288,12 @@ public class DwRESTServerSelectDialog extends TitleAreaDialog{
 		super.okPressed();
 	}
 	
-	private void savePluginSettings() {
+	/**
+	 * Saves dialog settings and credentials to the eclipse workspace preferences file.
+	 * This method is called automatically on OK pressed.
+	 * Currently saved info: Credentials(ID, password), Preferences(Service URI, httpAuth enabled)
+	 */
+	protected void savePluginSettings() {
 		Preferences preferences = InstanceScope.INSTANCE.getNode("de.darwinspl.feature.graphical.configurator.editor");
 		Preferences cred = preferences.node("credentials");
 		Preferences pref = preferences.node("preferences");
@@ -306,7 +311,11 @@ public class DwRESTServerSelectDialog extends TitleAreaDialog{
 		}
 	}
 	
-	private void loadPluginSettings() {
+	/**
+	 * This loads the plugin node's preferences and sets the dialog items accordingly.
+	 * This meethod is called automatically on dialog creation.
+	 */
+	protected void loadPluginSettings() {
 		Preferences preferences = InstanceScope.INSTANCE.getNode("de.darwinspl.feature.graphical.configurator.editor");
 		Preferences cred = preferences.node("credentials");
 		Preferences pref = preferences.node("preferences");

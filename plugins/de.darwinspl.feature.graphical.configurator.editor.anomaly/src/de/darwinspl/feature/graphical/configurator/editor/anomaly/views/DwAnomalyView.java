@@ -83,7 +83,7 @@ public class DwAnomalyView extends ViewPart {
 	public static String SAVED_SERVER_URI = "https://www.isf.cs.tu-bs.de/hyvarrec/";
 	public static String USERNAME = null;
 	public static String PASSWORD = null;
-	public static Boolean HTTT_AUTHENTICATION_ENABLED = false;
+	public static Boolean HTTP_AUTHENTICATION_ENABLED = false;
 	public static Boolean EVOLUTION_AWARE_ANALYSIS = false;
 	public static Date EVOLUTION_AWARE_ANALYSIS_START_DATE = null;
 	public static Date EVOLUTION_AWARE_ANALYSIS_END_DATE = null;
@@ -238,8 +238,7 @@ public class DwAnomalyView extends ViewPart {
 			public void run() {
 
 				final DwRESTServerSelectExtendedDialog dialog = new DwRESTServerSelectExtendedDialog(
-						viewerFalseOptionalAnomaly.getControl().getShell(), EVOLUTION_AWARE_ANALYSIS, EVOLUTION_AWARE_ANALYSIS_START_DATE,
-						EVOLUTION_AWARE_ANALYSIS_END_DATE, EVOLUTION_AWARE_ANALYSIS_TYPE);
+						viewerFalseOptionalAnomaly.getControl().getShell(), EVOLUTION_AWARE_ANALYSIS_TYPE);
 				int result = dialog.open();
 				if (result == Dialog.OK) {
 					{
@@ -252,9 +251,9 @@ public class DwAnomalyView extends ViewPart {
 							USERNAME = username;
 							PASSWORD = password;
 
-							HTTT_AUTHENTICATION_ENABLED = true;
+							HTTP_AUTHENTICATION_ENABLED = true;
 						} else {
-							HTTT_AUTHENTICATION_ENABLED = false;
+							HTTP_AUTHENTICATION_ENABLED = false;
 						}
 
 						if (dialog.isEvolutionAwareAnalysis()) {
@@ -656,7 +655,7 @@ public class DwAnomalyView extends ViewPart {
 		try {
 			String username = null;
 			String password = null;
-			if (HTTT_AUTHENTICATION_ENABLED) {
+			if (HTTP_AUTHENTICATION_ENABLED) {
 				username = USERNAME;
 				password = PASSWORD;
 			}
