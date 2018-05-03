@@ -17,22 +17,24 @@
       <genEnumLiterals ecoreEnumLiteral="Expression.ecore#//HyRelativeVersionRestrictionOperator/greaterThanOrEqual"/>
       <genEnumLiterals ecoreEnumLiteral="Expression.ecore#//HyRelativeVersionRestrictionOperator/greaterThan"/>
     </genEnums>
-    <genClasses ecoreClass="Expression.ecore#//HyAndExpression"/>
-    <genClasses ecoreClass="Expression.ecore#//HyOrExpression"/>
-    <genClasses ecoreClass="Expression.ecore#//HyNotExpression"/>
-    <genClasses ecoreClass="Expression.ecore#//HyEquivalenceExpression"/>
-    <genClasses ecoreClass="Expression.ecore#//HyImpliesExpression"/>
     <genClasses image="false" ecoreClass="Expression.ecore#//HyExpression"/>
+    <genClasses image="false" ecoreClass="Expression.ecore#//HyAtomicExpression"/>
+    <genClasses image="false" ecoreClass="Expression.ecore#//HyUnaryExpression">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Expression.ecore#//HyUnaryExpression/operand"/>
+    </genClasses>
     <genClasses image="false" ecoreClass="Expression.ecore#//HyBinaryExpression">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Expression.ecore#//HyBinaryExpression/operand1"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Expression.ecore#//HyBinaryExpression/operand2"/>
     </genClasses>
-    <genClasses image="false" ecoreClass="Expression.ecore#//HyUnaryExpression">
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Expression.ecore#//HyUnaryExpression/operand"/>
+    <genClasses image="false" ecoreClass="Expression.ecore#//HySetExpression">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Expression.ecore#//HySetExpression/operands"/>
     </genClasses>
-    <genClasses image="false" ecoreClass="Expression.ecore#//HyAtomicExpression"/>
-    <genClasses ecoreClass="Expression.ecore#//HyNestedExpression"/>
+    <genClasses image="false" ecoreClass="Expression.ecore#//HyAbstractFeatureReferenceExpression">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Expression.ecore#//HyAbstractFeatureReferenceExpression/versionRestriction"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Expression.ecore#//HyAbstractFeatureReferenceExpression/feature"/>
+    </genClasses>
     <genClasses ecoreClass="Expression.ecore#//HyFeatureReferenceExpression"/>
+    <genClasses ecoreClass="Expression.ecore#//HyConditionalFeatureReferenceExpression"/>
     <genClasses image="false" ecoreClass="Expression.ecore#//HyVersionRestriction">
       <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference Expression.ecore#//HyVersionRestriction/restrictedFeatureReferenceExpression"/>
     </genClasses>
@@ -49,38 +51,50 @@
     <genClasses ecoreClass="Expression.ecore#//HyBooleanValueExpression">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Expression.ecore#//HyBooleanValueExpression/value"/>
     </genClasses>
-    <genClasses ecoreClass="Expression.ecore#//HyConditionalFeatureReferenceExpression"/>
-    <genClasses image="false" ecoreClass="Expression.ecore#//HyAbstractFeatureReferenceExpression">
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Expression.ecore#//HyAbstractFeatureReferenceExpression/versionRestriction"/>
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Expression.ecore#//HyAbstractFeatureReferenceExpression/feature"/>
-    </genClasses>
-    <genClasses ecoreClass="Expression.ecore#//HyValueExpression">
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Expression.ecore#//HyValueExpression/value"/>
-    </genClasses>
-    <genClasses ecoreClass="Expression.ecore#//HyAttributeReferenceExpression">
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Expression.ecore#//HyAttributeReferenceExpression/attribute"/>
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Expression.ecore#//HyAttributeReferenceExpression/feature"/>
+    <genClasses ecoreClass="Expression.ecore#//HyNestedExpression"/>
+    <genClasses ecoreClass="Expression.ecore#//HyNotExpression"/>
+    <genClasses ecoreClass="Expression.ecore#//HyMinimumExpression"/>
+    <genClasses ecoreClass="Expression.ecore#//HyMaximumExpression"/>
+    <genClasses ecoreClass="Expression.ecore#//HyAndExpression"/>
+    <genClasses ecoreClass="Expression.ecore#//HyOrExpression"/>
+    <genClasses ecoreClass="Expression.ecore#//HyEquivalenceExpression"/>
+    <genClasses ecoreClass="Expression.ecore#//HyImpliesExpression"/>
+    <genClasses ecoreClass="Expression.ecore#//HyIfPossibleExpression"/>
+    <genClasses image="false" ecoreClass="Expression.ecore#//HyArithmeticalComparisonExpression"/>
+    <genClasses image="false" ecoreClass="Expression.ecore#//HyBinaryArithmeticalComparisonExpression">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Expression.ecore#//HyBinaryArithmeticalComparisonExpression/operand1"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Expression.ecore#//HyBinaryArithmeticalComparisonExpression/operand2"/>
     </genClasses>
     <genClasses ecoreClass="Expression.ecore#//HyGreaterExpression"/>
     <genClasses ecoreClass="Expression.ecore#//HyLessExpression"/>
-    <genClasses ecoreClass="Expression.ecore#//HyLessOrEqualExpression"/>
     <genClasses ecoreClass="Expression.ecore#//HyGreaterOrEqualExpression"/>
+    <genClasses ecoreClass="Expression.ecore#//HyLessOrEqualExpression"/>
     <genClasses ecoreClass="Expression.ecore#//HyEqualExpression"/>
     <genClasses ecoreClass="Expression.ecore#//HyNotEqualExpression"/>
+    <genClasses image="false" ecoreClass="Expression.ecore#//HyArithmeticalValueExpression"/>
+    <genClasses image="false" ecoreClass="Expression.ecore#//HyArithmeticalValueBinaryOperationExpression">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Expression.ecore#//HyArithmeticalValueBinaryOperationExpression/operand1"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Expression.ecore#//HyArithmeticalValueBinaryOperationExpression/operand2"/>
+    </genClasses>
     <genClasses ecoreClass="Expression.ecore#//HyAdditionExpression"/>
     <genClasses ecoreClass="Expression.ecore#//HySubtractionExpression"/>
     <genClasses ecoreClass="Expression.ecore#//HyMultiplicationExpression"/>
     <genClasses ecoreClass="Expression.ecore#//HyDivisionExpression"/>
     <genClasses ecoreClass="Expression.ecore#//HyModuloExpression"/>
+    <genClasses image="false" ecoreClass="Expression.ecore#//HyArithmeticalValueUnaryOperationExpression">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Expression.ecore#//HyArithmeticalValueUnaryOperationExpression/operand"/>
+    </genClasses>
     <genClasses ecoreClass="Expression.ecore#//HyNegationExpression"/>
+    <genClasses image="false" ecoreClass="Expression.ecore#//HyArithmeticalValueAtomicExpression"/>
     <genClasses ecoreClass="Expression.ecore#//HyContextInformationReferenceExpression">
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Expression.ecore#//HyContextInformationReferenceExpression/contextInformation"/>
     </genClasses>
-    <genClasses ecoreClass="Expression.ecore#//HyMaximumExpression"/>
-    <genClasses ecoreClass="Expression.ecore#//HyMinimumExpression"/>
-    <genClasses ecoreClass="Expression.ecore#//HyIfPossibleExpression"/>
-    <genClasses image="false" ecoreClass="Expression.ecore#//HySetExpression">
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Expression.ecore#//HySetExpression/operands"/>
+    <genClasses ecoreClass="Expression.ecore#//HyAttributeReferenceExpression">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Expression.ecore#//HyAttributeReferenceExpression/attribute"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Expression.ecore#//HyAttributeReferenceExpression/feature"/>
+    </genClasses>
+    <genClasses ecoreClass="Expression.ecore#//HyValueExpression">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Expression.ecore#//HyValueExpression/value"/>
     </genClasses>
   </genPackages>
 </genmodel:GenModel>

@@ -757,7 +757,8 @@ public class IsolaExample extends HyFMExample {
 			// max(maxSpeed)
 			DwPreference maxMaxSpeedPreference2 = preferenceFactory.createDwPreference();
 			HyMaximumExpression maxMaxSpeed2 = expressionFactory.createHyMaximumExpression();
-			maxMaxSpeed2.setOperand(EcoreUtil.copy(maxSpeedReference));
+			//TODO needs to be adapted to new metamodel
+//			maxMaxSpeed2.setOperand(EcoreUtil.copy(maxSpeedReference));
 			maxMaxSpeedPreference2.setRootExpression(maxMaxSpeed2);
 			preferenceModel.getPreferences().add(maxMaxSpeedPreference2);
 

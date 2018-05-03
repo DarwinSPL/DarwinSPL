@@ -28,13 +28,13 @@ public class DwAnalyses {
 	private static final String ERROR_MESSAGE_REFERENCE_VALIDITY_CONSISTENCY_ATTRIBUTE = "Element validity is exceeding referenced attribute validity";
 	private static final String ERROR_MESSAGE_REFERENCE_VALIDITY_CONSISTENCY_ELEMENT = "Element validity is exceeding referenced element validity";
 	
-	public static DwAnalysesMarker checkReferenceValidityConsistencyForReferencedElement(HyTemporalElement referencedElement, HyExpression affectedExpression, HyTemporalElement containingElement) {
+	public static DwAnalysesMarker checkReferenceValidityConsistencyForReferencedElement(HyTemporalElement referencedElement, EObject affectedExpression, HyTemporalElement containingElement) {
 		if(referencedElement == null) {
 			return null;
 		}
 		
 		if(!HyEvolutionUtil.isWithinValidityOf(containingElement, referencedElement)) {
-			List<HyExpression> affectedExpressions = new ArrayList<HyExpression>(1);
+			List<EObject> affectedExpressions = new ArrayList<EObject>(1);
 			if(affectedExpression != null) {
 				affectedExpressions.add(affectedExpression);				
 			}
@@ -114,6 +114,7 @@ public class DwAnalyses {
 					}
 				}
 			}
+			// TODO needs to be adapted to new metamodel
 			else if(expression instanceof HyAttributeReferenceExpression) {
 				HyAttributeReferenceExpression attributeReference = (HyAttributeReferenceExpression) expression;
 				

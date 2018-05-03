@@ -4,15 +4,13 @@ import java.util.List;
 
 import org.eclipse.emf.ecore.EObject;
 
-import eu.hyvar.feature.expression.HyExpression;
-
 public class DwAnalysesMarker {
-	private List<HyExpression> affectedExpressions;
+	private List<EObject> affectedExpressions;
 	private List<EObject> affectedObjects;
 	private String message;
 	private MarkerTypeEnum markerType;
 
-	public DwAnalysesMarker(List<HyExpression> affectedExpressions, List<EObject> affectedObjects, String message, MarkerTypeEnum markerType) {
+	public DwAnalysesMarker(List<EObject> affectedExpressions, List<EObject> affectedObjects, String message, MarkerTypeEnum markerType) {
 		this.affectedObjects = affectedObjects;
 		this.affectedExpressions = affectedExpressions;
 		this.message = message;
@@ -23,7 +21,7 @@ public class DwAnalysesMarker {
 		WARNING, ERROR
 	}
 
-	public List<HyExpression> getAffectedExpressions() {
+	public List<EObject> getAffectedExpressions() {
 		return affectedExpressions;
 	}
 
