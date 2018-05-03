@@ -31,11 +31,17 @@ public class DwVersionEditPart extends DwAbstractEditPart{
 				for(Adapter adapter : version.getFeature().eAdapters()){
 					adapter.notifyChanged(notification);
 				}
+
 			
 			if(notification.getEventType() != Notification.SET && notification.getPosition() != -1 &&
 			   notification.getEventType() != Notification.REMOVE &&
 			   notification.getEventType() != Notification.REMOVING_ADAPTER)
 				refreshVisuals();
+			
+			else if ( notification.getEventType() == Notification.SET){
+				refreshVisuals();
+				
+			}
 			
 			
 		}

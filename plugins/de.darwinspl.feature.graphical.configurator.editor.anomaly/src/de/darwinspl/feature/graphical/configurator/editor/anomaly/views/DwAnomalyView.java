@@ -33,6 +33,7 @@ import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Label;
+import org.eclipse.swt.widgets.TableItem;
 import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.IPartListener;
@@ -42,6 +43,7 @@ import org.eclipse.ui.ide.ResourceUtil;
 import org.eclipse.ui.part.FileEditorInput;
 import org.eclipse.ui.part.ViewPart;
 
+import com.google.gson.JsonSyntaxException;
 import de.christophseidl.util.ecore.EcoreIOUtil;
 import de.darwinspl.anomaly.DwAnomaly;
 import de.darwinspl.anomaly.DwDeadFeatureAnomaly;
@@ -81,8 +83,8 @@ public class DwAnomalyView extends ViewPart {
 //		public static final Image REFRESH_IMAGE = 
 		
 		private IEditorPart currentEditor;
-		public static final String DEFAULT_SERVER_URI = "http://localhost:9002/";
-		public static String SAVED_SERVER_URI = "http://localhost:9002/";
+		public static final String DEFAULT_SERVER_URI = "https://www.isf.cs.tu-bs.de/hyvarrec/";
+		public static String SAVED_SERVER_URI = "https://www.isf.cs.tu-bs.de/hyvarrec/";
 		public static String USERNAME = null;
 		public static String PASSWORD = null;
 		public static Boolean HTTT_AUTHENTICATION_ENABLED = false;
@@ -113,7 +115,7 @@ public class DwAnomalyView extends ViewPart {
 		
 	
 		public static final String SETTINGS_IMG = "icons/settings.png";
-//		public static final Image REFRESH_IMG = FMUIPlugin.getImage("refresh_tab.gif");
+
 
 		@Override
 		public void createPartControl(Composite parent) {
@@ -126,23 +128,7 @@ public class DwAnomalyView extends ViewPart {
 
 			 GridLayout layout = new GridLayout(2, false);
 		        parent.setLayout(layout);
-//		        Label searchLabel = new Label(parent, SWT.NONE);
-//		        searchLabel.setText("Search: ");
-//		        final Text searchText = new Text(parent, SWT.BORDER | SWT.SEARCH);
-//		        searchText.setLayoutData(new GridData(GridData.GRAB_HORIZONTAL | GridData.HORIZONTAL_ALIGN_FILL));
-		      
-//			List<DwAnomaly> anomalies = getAnomalies();
-//			List<DwFalseOptionalFeatureAnomaly> falseOptionalAnomalies = new ArrayList<DwFalseOptionalFeatureAnomaly>();
-//			List<DwVoidFeatureModelAnomaly> voidAnomalies = new ArrayList<DwVoidFeatureModelAnomaly>();
-//			
-//			for(DwAnomaly anomaly: anomalies){
-//				if( anomaly instanceof DwFalseOptionalFeatureAnomaly){
-//					falseOptionalAnomalies.add((DwFalseOptionalFeatureAnomaly) anomaly);
-//				} else if ( anomaly instanceof DwVoidFeatureModelAnomaly){
-//					voidAnomalies.add((DwVoidFeatureModelAnomaly) anomaly);
-//				}
-//			}
-			
+		
 		    errorMessage = new Label(parent, SWT.NONE);
 		    errorMessage.setText(NO_FEATURE_MODEL_FOUND);
 		    	
@@ -171,7 +157,7 @@ public class DwAnomalyView extends ViewPart {
 		
 		
 		private void createViewerVoidAnomaly(Composite parent, List<DwVoidFeatureModelAnomaly> voidAnomalies) {
-	        String[] titles = { "Type of Anomaly", "context values", "Date", "Explain", ""};
+	        String[] titles = { "Type of Anomaly", "Context Values", "Date", "Explain", ""};
 			viewerVoidAnomaly = new AnomalyTableView<DwVoidFeatureModelAnomaly>(this, parent, SWT.MULTI | SWT.H_SCROLL | SWT.V_SCROLL | SWT.FULL_SELECTION | SWT.BORDER, voidAnomalies, titles);
 
 	        // make the selection available to other views
@@ -180,7 +166,7 @@ public class DwAnomalyView extends ViewPart {
 	    }
 		
 		private void createViewerFalseOptionalAnomaly(Composite parent, List<DwFalseOptionalFeatureAnomaly> falseOptionalAnomalies) {
-			String[] titles = { "Type of Anomaly", "feature", "begin", "end", "Explain" };
+			String[] titles = { "Type of Anomaly", "Feature", "Begin", "End", "Explain" };
 	        viewerFalseOptionalAnomaly = new AnomalyTableView<DwFalseOptionalFeatureAnomaly>(this, parent, SWT.MULTI | SWT.H_SCROLL | SWT.V_SCROLL | SWT.FULL_SELECTION | SWT.BORDER, falseOptionalAnomalies, titles);
 	        // make the selection available to other views
 	        getSite().setSelectionProvider(viewerFalseOptionalAnomaly);
@@ -208,12 +194,10 @@ public class DwAnomalyView extends ViewPart {
 				e.printStackTrace();
 			}
 			
-			if(anomalyExplanation != null){
-				
-			}
+			
 			
 			if(anomalyExplanation != null){
-				ExplainDialogResultDialog explainDialog = new ExplainDialogResultDialog(PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell(), anomalyExplanation);
+				ExplainAnomalyDialog explainDialog = new ExplainAnomalyDialog(PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell(), anomalyExplanation);
 				explainDialog.open();
 				return anomalyExplanation;
 			}else {
@@ -244,7 +228,7 @@ public class DwAnomalyView extends ViewPart {
 						USERNAME, PASSWORD, EVOLUTION_AWARE_ANALYSIS, EVOLUTION_AWARE_ANALYSIS_START_DATE, EVOLUTION_AWARE_ANALYSIS_END_DATE, EVOLUTION_AWARE_ANALYSIS_TYPE);
 				int result = dialog.open();
 				if (result == Dialog.OK) {
-					{
+					
 						setURI(dialog.getUri());
 						String password = dialog.getPassword();
 						String username = dialog.getUserName();
@@ -260,6 +244,8 @@ public class DwAnomalyView extends ViewPart {
 						}
 						
 						if(dialog.isEvolutionAwareAnalysis()){
+							EVOLUTION_AWARE_ANALYSIS = dialog.isEvolutionAwareAnalysis();
+							
 							EVOLUTION_AWARE_ANALYSIS_TYPE = dialog.getEvolutionAwareAnalysisType();
 							
 							if(EVOLUTION_AWARE_ANALYSIS_TYPE.equals(TypeOfEvolutionAwareAnalysis.TIME_SPAN)){
@@ -273,10 +259,21 @@ public class DwAnomalyView extends ViewPart {
 							}
 							
 						}
-					}
+						
+						
+						IEditorPart activeEditor = getSite().getPage().getActiveEditor();
+						if(!(activeEditor instanceof DwGraphicalFeatureModelEditor) && !(activeEditor instanceof DwFeatureModelConfiguratorViewer)) {
+							modelWrapped = null;
+						}
+						
+						setEditor(activeEditor);
+						refresh(true);
+						
+						
+					
 				}
 				
-				refresh(true);
+				
 
 			}
 			};
@@ -294,20 +291,20 @@ public class DwAnomalyView extends ViewPart {
 			Display display = Display.getCurrent();
 			
 			
-			InputStream imageSettings2=  getClass().getResourceAsStream("/images/refresh.gif");
-			Image image2 = new Image(display, imageSettings2);
-			refresher.setImageDescriptor(ImageDescriptor.createFromImage(image2));
+			InputStream refreshImageStream=  getClass().getResourceAsStream("/images/refresh.gif");
+			Image refreshImage = new Image(display, refreshImageStream);
+			refresher.setImageDescriptor(ImageDescriptor.createFromImage(refreshImage));
 			refresher.setToolTipText("Refresh");
 
 			toolBarManager.add(checkBoxer);
 		
 			
-			InputStream imageSettings=  getClass().getResourceAsStream("/images/settings2.png");
-			Image image = new Image(display, imageSettings);
+			InputStream settingsImageStream=  getClass().getResourceAsStream("/images/settings2.png");
+			Image settingsImage = new Image(display, settingsImageStream);
 			
 			
 			
-			checkBoxer.setImageDescriptor(ImageDescriptor.createFromImage(image));
+			checkBoxer.setImageDescriptor(ImageDescriptor.createFromImage(settingsImage));
 			checkBoxer.setToolTipText("Settings");
 		}
 
@@ -357,9 +354,10 @@ public class DwAnomalyView extends ViewPart {
 			
 			@Override
 			public void propertyChange(PropertyChangeEvent evt) {
+				if(evt.getNewValue() instanceof DwFeatureModelWrapped) {
 				modelWrapped = (DwFeatureModelWrapped) evt.getNewValue();
 				refresh(true);
-				
+				}
 			}
 		};
 		
@@ -369,13 +367,26 @@ public class DwAnomalyView extends ViewPart {
 			
 			
 			if(viewerFalseOptionalAnomaly != null){
+				
+			errorMessage.setVisible(true);
+			errorMessage.setForeground(errorMessage.getDisplay().getSystemColor(SWT.COLOR_DARK_GREEN));
+			errorMessage.setText("Analyzation in process..");
+			
 			List<DwAnomaly> anomalies = getAnomalies();
+			
 			List<DwAnomaly> falseOptionalAndDeadAnomalies = new ArrayList<DwAnomaly>();
 			List<DwVoidFeatureModelAnomaly> voidAnomalies = new ArrayList<DwVoidFeatureModelAnomaly>();
 		
 			
 			voidAnomalies.removeAll(voidAnomalies);
 			if(anomalies != null && !anomalies.isEmpty()){
+				viewerFalseOptionalAnomaly.getTable().setVisible(true);
+				viewerVoidAnomaly.getTable().setVisible(true);
+				
+				if(errorMessage.getText().equals("No Anomaly found")) {
+					errorMessage.setVisible(false);
+					errorMessage.setForeground(errorMessage.getDisplay().getSystemColor(SWT.COLOR_RED));
+				}
 			
 			for(DwAnomaly anomaly: anomalies){
 				if( anomaly instanceof DwFalseOptionalFeatureAnomaly || anomaly instanceof DwDeadFeatureAnomaly){
@@ -387,9 +398,31 @@ public class DwAnomalyView extends ViewPart {
 			}
 			}
 			
-			viewerVoidAnomaly.getTable().clearAll();
-			viewerFalseOptionalAnomaly.getTable().clearAll();
+			if(anomalies != null && anomalies.isEmpty()) {
+				
+				errorMessage.setVisible(true);
+				errorMessage.setForeground(errorMessage.getDisplay().getSystemColor(SWT.COLOR_DARK_GREEN));
+				errorMessage.setText("No Anomaly found.");
+				
+				viewerFalseOptionalAnomaly.getTable().setVisible(false);
+				viewerVoidAnomaly.getTable().setVisible(false);
+			}
+			
+
+			
+			
+			//Needed to dispose old Items from the table viewer including the explain buttons
+			TableItem[] voidItems = viewerVoidAnomaly.getTable().getItems();
+			for(TableItem i: voidItems) {
+				i.dispose();
+			}
+			
+			TableItem[] falseOptionalItems = viewerFalseOptionalAnomaly.getTable().getItems();
+			for(TableItem i: falseOptionalItems) {
+				i.dispose();
+			}
 	
+			
 
 			if(!falseOptionalAndDeadAnomalies.isEmpty()){
 			    viewerFalseOptionalAnomaly.setInput(falseOptionalAndDeadAnomalies);
@@ -472,6 +505,7 @@ public class DwAnomalyView extends ViewPart {
 				((DwFeatureModelConfiguratorViewer) currentEditor).getModelWrapped().addPropertyChangeListener(modelListener);
 				modelWrapped = ((DwFeatureModelConfiguratorViewer) currentEditor).getModelWrapped();
 			} else{
+				currentEditor = newEditor;
 				return;
 			}
 			setAccomanyingModels();
@@ -530,16 +564,37 @@ public class DwAnomalyView extends ViewPart {
 		private HyContextModel loadContextInformationModel(){
 			return (HyContextModel) EcoreIOUtil.loadAccompanyingModel(modelWrapped.getModel(), HyContextInformationUtil.getContextModelFileExtensionForXmi());
 		}
+		
+		
+		
+		private void setInfoMessageAndVisibilityOfViewerTables(boolean messageVisibility, boolean tableVisibility, String message, int messsageColor) {
+			
+			errorMessage.setVisible(messageVisibility);
+			errorMessage.setForeground(errorMessage.getDisplay().getSystemColor(messsageColor));
+			errorMessage.setText(message);
+			
+			viewerFalseOptionalAnomaly.getTable().setVisible(tableVisibility);
+			viewerVoidAnomaly.getTable().setVisible(tableVisibility);
+			
+			
+			
+		}
 
 		
 		private boolean modelFileExists(String extension){
+			try {
 			IPath path = ((IPath)getFile().getFullPath().clone()).removeFileExtension().addFileExtension(extension);
 
 			IWorkspaceRoot workspaceRoot = ResourcesPlugin.getWorkspace().getRoot();
 
 			IFile file = workspaceRoot.getFile(path);
+			return file.exists();	
+			} catch (Exception e) {
+				return false;
+				
+			}
 			
-			return file.exists();		
+				
 		}
 
 
@@ -657,15 +712,19 @@ public class DwAnomalyView extends ViewPart {
 					
 					
 				
-			} catch (UnresolvedAddressException | TimeoutException | InterruptedException | ExecutionException | HyVarRecNoSolutionException | NullPointerException e1 ) {
+			} catch (UnresolvedAddressException | JsonSyntaxException | TimeoutException | InterruptedException | ExecutionException | HyVarRecNoSolutionException | NullPointerException  e1 ) {
 				
+				
+				if(modelWrapped == null) {
+					setInfoMessageAndVisibilityOfViewerTables(true, false, "No Feature Model found.", SWT.COLOR_RED);
+					
+				}else {
+					setInfoMessageAndVisibilityOfViewerTables(true, false, "Unresolvable Server Adress. \n" + e1, SWT.COLOR_RED);
+				}
 			
 				errorMessage.setVisible(true);
 				errorMessage.setText("Unresolvable Server Adress. \n" + e1);
-//				
-//				MessageDialog dialog = new MessageDialog(PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell(), "Unresolvable Server Adress", null,
-//						"The adress '"+uri.toString()+"' could not be resolved or had a timeout. No configuration was generated.", MessageDialog.ERROR, new String[] { "Ok" }, 0);
-//				dialog.open();
+
 				
 			}
 
