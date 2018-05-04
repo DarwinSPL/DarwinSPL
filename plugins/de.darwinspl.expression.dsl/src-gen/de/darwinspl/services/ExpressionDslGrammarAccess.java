@@ -29,84 +29,14 @@ public class ExpressionDslGrammarAccess extends AbstractGrammarElementFinder {
 	
 	public class HyExpressionElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "de.darwinspl.ExpressionDsl.HyExpression");
-		private final RuleCall cHyAndExpressionParserRuleCall = (RuleCall)rule.eContents().get(1);
+		private final RuleCall cHyImpliesExpressionParserRuleCall = (RuleCall)rule.eContents().get(1);
 		
 		//HyExpression:
-		//	HyAndExpression;
+		//	HyImpliesExpression;
 		@Override public ParserRule getRule() { return rule; }
-		
-		//HyAndExpression
-		public RuleCall getHyAndExpressionParserRuleCall() { return cHyAndExpressionParserRuleCall; }
-	}
-	public class HyAndExpressionElements extends AbstractParserRuleElementFinder {
-		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "de.darwinspl.ExpressionDsl.HyAndExpression");
-		private final Group cGroup = (Group)rule.eContents().get(1);
-		private final RuleCall cHyOrExpressionParserRuleCall_0 = (RuleCall)cGroup.eContents().get(0);
-		private final Group cGroup_1 = (Group)cGroup.eContents().get(1);
-		private final Action cHyAndExpressionOperand1Action_1_0 = (Action)cGroup_1.eContents().get(0);
-		private final Keyword cAmpersandAmpersandKeyword_1_1 = (Keyword)cGroup_1.eContents().get(1);
-		private final Assignment cOperand2Assignment_1_2 = (Assignment)cGroup_1.eContents().get(2);
-		private final RuleCall cOperand2HyOrExpressionParserRuleCall_1_2_0 = (RuleCall)cOperand2Assignment_1_2.eContents().get(0);
-		
-		//HyAndExpression HyExpression:
-		//	HyOrExpression ({HyAndExpression.operand1=current} '&&' operand2=HyOrExpression)*;
-		@Override public ParserRule getRule() { return rule; }
-		
-		//HyOrExpression ({HyAndExpression.operand1=current} '&&' operand2=HyOrExpression)*
-		public Group getGroup() { return cGroup; }
-		
-		//HyOrExpression
-		public RuleCall getHyOrExpressionParserRuleCall_0() { return cHyOrExpressionParserRuleCall_0; }
-		
-		//({HyAndExpression.operand1=current} '&&' operand2=HyOrExpression)*
-		public Group getGroup_1() { return cGroup_1; }
-		
-		//{HyAndExpression.operand1=current}
-		public Action getHyAndExpressionOperand1Action_1_0() { return cHyAndExpressionOperand1Action_1_0; }
-		
-		//'&&'
-		public Keyword getAmpersandAmpersandKeyword_1_1() { return cAmpersandAmpersandKeyword_1_1; }
-		
-		//operand2=HyOrExpression
-		public Assignment getOperand2Assignment_1_2() { return cOperand2Assignment_1_2; }
-		
-		//HyOrExpression
-		public RuleCall getOperand2HyOrExpressionParserRuleCall_1_2_0() { return cOperand2HyOrExpressionParserRuleCall_1_2_0; }
-	}
-	public class HyOrExpressionElements extends AbstractParserRuleElementFinder {
-		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "de.darwinspl.ExpressionDsl.HyOrExpression");
-		private final Group cGroup = (Group)rule.eContents().get(1);
-		private final RuleCall cHyImpliesExpressionParserRuleCall_0 = (RuleCall)cGroup.eContents().get(0);
-		private final Group cGroup_1 = (Group)cGroup.eContents().get(1);
-		private final Action cHyOrExpressionOperand1Action_1_0 = (Action)cGroup_1.eContents().get(0);
-		private final Keyword cVerticalLineVerticalLineKeyword_1_1 = (Keyword)cGroup_1.eContents().get(1);
-		private final Assignment cOperand2Assignment_1_2 = (Assignment)cGroup_1.eContents().get(2);
-		private final RuleCall cOperand2HyImpliesExpressionParserRuleCall_1_2_0 = (RuleCall)cOperand2Assignment_1_2.eContents().get(0);
-		
-		//HyOrExpression HyExpression:
-		//	HyImpliesExpression ({HyOrExpression.operand1=current} '||' operand2=HyImpliesExpression)*;
-		@Override public ParserRule getRule() { return rule; }
-		
-		//HyImpliesExpression ({HyOrExpression.operand1=current} '||' operand2=HyImpliesExpression)*
-		public Group getGroup() { return cGroup; }
 		
 		//HyImpliesExpression
-		public RuleCall getHyImpliesExpressionParserRuleCall_0() { return cHyImpliesExpressionParserRuleCall_0; }
-		
-		//({HyOrExpression.operand1=current} '||' operand2=HyImpliesExpression)*
-		public Group getGroup_1() { return cGroup_1; }
-		
-		//{HyOrExpression.operand1=current}
-		public Action getHyOrExpressionOperand1Action_1_0() { return cHyOrExpressionOperand1Action_1_0; }
-		
-		//'||'
-		public Keyword getVerticalLineVerticalLineKeyword_1_1() { return cVerticalLineVerticalLineKeyword_1_1; }
-		
-		//operand2=HyImpliesExpression
-		public Assignment getOperand2Assignment_1_2() { return cOperand2Assignment_1_2; }
-		
-		//HyImpliesExpression
-		public RuleCall getOperand2HyImpliesExpressionParserRuleCall_1_2_0() { return cOperand2HyImpliesExpressionParserRuleCall_1_2_0; }
+		public RuleCall getHyImpliesExpressionParserRuleCall() { return cHyImpliesExpressionParserRuleCall; }
 	}
 	public class HyImpliesExpressionElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "de.darwinspl.ExpressionDsl.HyImpliesExpression");
@@ -146,24 +76,24 @@ public class ExpressionDslGrammarAccess extends AbstractGrammarElementFinder {
 	public class HyEquivalenceExpressionElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "de.darwinspl.ExpressionDsl.HyEquivalenceExpression");
 		private final Group cGroup = (Group)rule.eContents().get(1);
-		private final RuleCall cTerminalExpressionParserRuleCall_0 = (RuleCall)cGroup.eContents().get(0);
+		private final RuleCall cHyAndExpressionParserRuleCall_0 = (RuleCall)cGroup.eContents().get(0);
 		private final Group cGroup_1 = (Group)cGroup.eContents().get(1);
 		private final Action cHyEquivalenceExpressionOperand1Action_1_0 = (Action)cGroup_1.eContents().get(0);
 		private final Keyword cLessThanSignHyphenMinusGreaterThanSignKeyword_1_1 = (Keyword)cGroup_1.eContents().get(1);
 		private final Assignment cOperand2Assignment_1_2 = (Assignment)cGroup_1.eContents().get(2);
-		private final RuleCall cOperand2TerminalExpressionParserRuleCall_1_2_0 = (RuleCall)cOperand2Assignment_1_2.eContents().get(0);
+		private final RuleCall cOperand2HyAndExpressionParserRuleCall_1_2_0 = (RuleCall)cOperand2Assignment_1_2.eContents().get(0);
 		
 		//HyEquivalenceExpression HyExpression:
-		//	TerminalExpression ({HyEquivalenceExpression.operand1=current} '<->' operand2=TerminalExpression)*;
+		//	HyAndExpression ({HyEquivalenceExpression.operand1=current} '<->' operand2=HyAndExpression)*;
 		@Override public ParserRule getRule() { return rule; }
 		
-		//TerminalExpression ({HyEquivalenceExpression.operand1=current} '<->' operand2=TerminalExpression)*
+		//HyAndExpression ({HyEquivalenceExpression.operand1=current} '<->' operand2=HyAndExpression)*
 		public Group getGroup() { return cGroup; }
 		
-		//TerminalExpression
-		public RuleCall getTerminalExpressionParserRuleCall_0() { return cTerminalExpressionParserRuleCall_0; }
+		//HyAndExpression
+		public RuleCall getHyAndExpressionParserRuleCall_0() { return cHyAndExpressionParserRuleCall_0; }
 		
-		//({HyEquivalenceExpression.operand1=current} '<->' operand2=TerminalExpression)*
+		//({HyEquivalenceExpression.operand1=current} '<->' operand2=HyAndExpression)*
 		public Group getGroup_1() { return cGroup_1; }
 		
 		//{HyEquivalenceExpression.operand1=current}
@@ -171,6 +101,76 @@ public class ExpressionDslGrammarAccess extends AbstractGrammarElementFinder {
 		
 		//'<->'
 		public Keyword getLessThanSignHyphenMinusGreaterThanSignKeyword_1_1() { return cLessThanSignHyphenMinusGreaterThanSignKeyword_1_1; }
+		
+		//operand2=HyAndExpression
+		public Assignment getOperand2Assignment_1_2() { return cOperand2Assignment_1_2; }
+		
+		//HyAndExpression
+		public RuleCall getOperand2HyAndExpressionParserRuleCall_1_2_0() { return cOperand2HyAndExpressionParserRuleCall_1_2_0; }
+	}
+	public class HyAndExpressionElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "de.darwinspl.ExpressionDsl.HyAndExpression");
+		private final Group cGroup = (Group)rule.eContents().get(1);
+		private final RuleCall cHyOrExpressionParserRuleCall_0 = (RuleCall)cGroup.eContents().get(0);
+		private final Group cGroup_1 = (Group)cGroup.eContents().get(1);
+		private final Action cHyAndExpressionOperand1Action_1_0 = (Action)cGroup_1.eContents().get(0);
+		private final Keyword cAmpersandAmpersandKeyword_1_1 = (Keyword)cGroup_1.eContents().get(1);
+		private final Assignment cOperand2Assignment_1_2 = (Assignment)cGroup_1.eContents().get(2);
+		private final RuleCall cOperand2HyOrExpressionParserRuleCall_1_2_0 = (RuleCall)cOperand2Assignment_1_2.eContents().get(0);
+		
+		//HyAndExpression HyExpression:
+		//	HyOrExpression ({HyAndExpression.operand1=current} '&&' operand2=HyOrExpression)*;
+		@Override public ParserRule getRule() { return rule; }
+		
+		//HyOrExpression ({HyAndExpression.operand1=current} '&&' operand2=HyOrExpression)*
+		public Group getGroup() { return cGroup; }
+		
+		//HyOrExpression
+		public RuleCall getHyOrExpressionParserRuleCall_0() { return cHyOrExpressionParserRuleCall_0; }
+		
+		//({HyAndExpression.operand1=current} '&&' operand2=HyOrExpression)*
+		public Group getGroup_1() { return cGroup_1; }
+		
+		//{HyAndExpression.operand1=current}
+		public Action getHyAndExpressionOperand1Action_1_0() { return cHyAndExpressionOperand1Action_1_0; }
+		
+		//'&&'
+		public Keyword getAmpersandAmpersandKeyword_1_1() { return cAmpersandAmpersandKeyword_1_1; }
+		
+		//operand2=HyOrExpression
+		public Assignment getOperand2Assignment_1_2() { return cOperand2Assignment_1_2; }
+		
+		//HyOrExpression
+		public RuleCall getOperand2HyOrExpressionParserRuleCall_1_2_0() { return cOperand2HyOrExpressionParserRuleCall_1_2_0; }
+	}
+	public class HyOrExpressionElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "de.darwinspl.ExpressionDsl.HyOrExpression");
+		private final Group cGroup = (Group)rule.eContents().get(1);
+		private final RuleCall cTerminalExpressionParserRuleCall_0 = (RuleCall)cGroup.eContents().get(0);
+		private final Group cGroup_1 = (Group)cGroup.eContents().get(1);
+		private final Action cHyOrExpressionOperand1Action_1_0 = (Action)cGroup_1.eContents().get(0);
+		private final Keyword cVerticalLineVerticalLineKeyword_1_1 = (Keyword)cGroup_1.eContents().get(1);
+		private final Assignment cOperand2Assignment_1_2 = (Assignment)cGroup_1.eContents().get(2);
+		private final RuleCall cOperand2TerminalExpressionParserRuleCall_1_2_0 = (RuleCall)cOperand2Assignment_1_2.eContents().get(0);
+		
+		//HyOrExpression HyExpression:
+		//	TerminalExpression ({HyOrExpression.operand1=current} '||' operand2=TerminalExpression)*;
+		@Override public ParserRule getRule() { return rule; }
+		
+		//TerminalExpression ({HyOrExpression.operand1=current} '||' operand2=TerminalExpression)*
+		public Group getGroup() { return cGroup; }
+		
+		//TerminalExpression
+		public RuleCall getTerminalExpressionParserRuleCall_0() { return cTerminalExpressionParserRuleCall_0; }
+		
+		//({HyOrExpression.operand1=current} '||' operand2=TerminalExpression)*
+		public Group getGroup_1() { return cGroup_1; }
+		
+		//{HyOrExpression.operand1=current}
+		public Action getHyOrExpressionOperand1Action_1_0() { return cHyOrExpressionOperand1Action_1_0; }
+		
+		//'||'
+		public Keyword getVerticalLineVerticalLineKeyword_1_1() { return cVerticalLineVerticalLineKeyword_1_1; }
 		
 		//operand2=TerminalExpression
 		public Assignment getOperand2Assignment_1_2() { return cOperand2Assignment_1_2; }
@@ -1242,10 +1242,10 @@ public class ExpressionDslGrammarAccess extends AbstractGrammarElementFinder {
 	}
 	
 	private final HyExpressionElements pHyExpression;
-	private final HyAndExpressionElements pHyAndExpression;
-	private final HyOrExpressionElements pHyOrExpression;
 	private final HyImpliesExpressionElements pHyImpliesExpression;
 	private final HyEquivalenceExpressionElements pHyEquivalenceExpression;
+	private final HyAndExpressionElements pHyAndExpression;
+	private final HyOrExpressionElements pHyOrExpression;
 	private final TerminalExpressionElements pTerminalExpression;
 	private final HyNestedExpressionElements pHyNestedExpression;
 	private final HyNotExpressionElements pHyNotExpression;
@@ -1291,10 +1291,10 @@ public class ExpressionDslGrammarAccess extends AbstractGrammarElementFinder {
 		this.grammar = internalFindGrammar(grammarProvider);
 		this.gaTerminals = gaTerminals;
 		this.pHyExpression = new HyExpressionElements();
-		this.pHyAndExpression = new HyAndExpressionElements();
-		this.pHyOrExpression = new HyOrExpressionElements();
 		this.pHyImpliesExpression = new HyImpliesExpressionElements();
 		this.pHyEquivalenceExpression = new HyEquivalenceExpressionElements();
+		this.pHyAndExpression = new HyAndExpressionElements();
+		this.pHyOrExpression = new HyOrExpressionElements();
 		this.pTerminalExpression = new TerminalExpressionElements();
 		this.pHyNestedExpression = new HyNestedExpressionElements();
 		this.pHyNotExpression = new HyNotExpressionElements();
@@ -1359,33 +1359,13 @@ public class ExpressionDslGrammarAccess extends AbstractGrammarElementFinder {
 
 	
 	//HyExpression:
-	//	HyAndExpression;
+	//	HyImpliesExpression;
 	public HyExpressionElements getHyExpressionAccess() {
 		return pHyExpression;
 	}
 	
 	public ParserRule getHyExpressionRule() {
 		return getHyExpressionAccess().getRule();
-	}
-	
-	//HyAndExpression HyExpression:
-	//	HyOrExpression ({HyAndExpression.operand1=current} '&&' operand2=HyOrExpression)*;
-	public HyAndExpressionElements getHyAndExpressionAccess() {
-		return pHyAndExpression;
-	}
-	
-	public ParserRule getHyAndExpressionRule() {
-		return getHyAndExpressionAccess().getRule();
-	}
-	
-	//HyOrExpression HyExpression:
-	//	HyImpliesExpression ({HyOrExpression.operand1=current} '||' operand2=HyImpliesExpression)*;
-	public HyOrExpressionElements getHyOrExpressionAccess() {
-		return pHyOrExpression;
-	}
-	
-	public ParserRule getHyOrExpressionRule() {
-		return getHyOrExpressionAccess().getRule();
 	}
 	
 	//HyImpliesExpression HyExpression:
@@ -1399,13 +1379,33 @@ public class ExpressionDslGrammarAccess extends AbstractGrammarElementFinder {
 	}
 	
 	//HyEquivalenceExpression HyExpression:
-	//	TerminalExpression ({HyEquivalenceExpression.operand1=current} '<->' operand2=TerminalExpression)*;
+	//	HyAndExpression ({HyEquivalenceExpression.operand1=current} '<->' operand2=HyAndExpression)*;
 	public HyEquivalenceExpressionElements getHyEquivalenceExpressionAccess() {
 		return pHyEquivalenceExpression;
 	}
 	
 	public ParserRule getHyEquivalenceExpressionRule() {
 		return getHyEquivalenceExpressionAccess().getRule();
+	}
+	
+	//HyAndExpression HyExpression:
+	//	HyOrExpression ({HyAndExpression.operand1=current} '&&' operand2=HyOrExpression)*;
+	public HyAndExpressionElements getHyAndExpressionAccess() {
+		return pHyAndExpression;
+	}
+	
+	public ParserRule getHyAndExpressionRule() {
+		return getHyAndExpressionAccess().getRule();
+	}
+	
+	//HyOrExpression HyExpression:
+	//	TerminalExpression ({HyOrExpression.operand1=current} '||' operand2=TerminalExpression)*;
+	public HyOrExpressionElements getHyOrExpressionAccess() {
+		return pHyOrExpression;
+	}
+	
+	public ParserRule getHyOrExpressionRule() {
+		return getHyOrExpressionAccess().getRule();
 	}
 	
 	//TerminalExpression HyExpression:

@@ -82,14 +82,14 @@ public class ExpressionDslSemanticSequencer extends AbstractDelegatingSemanticSe
 				return; 
 			case HyExpressionPackage.HY_BINARY_ARITHMETICAL_COMPARISON_EXPRESSION:
 				if (rule == grammarAccess.getHyExpressionRule()
-						|| rule == grammarAccess.getHyAndExpressionRule()
-						|| action == grammarAccess.getHyAndExpressionAccess().getHyAndExpressionOperand1Action_1_0()
-						|| rule == grammarAccess.getHyOrExpressionRule()
-						|| action == grammarAccess.getHyOrExpressionAccess().getHyOrExpressionOperand1Action_1_0()
 						|| rule == grammarAccess.getHyImpliesExpressionRule()
 						|| action == grammarAccess.getHyImpliesExpressionAccess().getHyImpliesExpressionOperand1Action_1_0()
 						|| rule == grammarAccess.getHyEquivalenceExpressionRule()
 						|| action == grammarAccess.getHyEquivalenceExpressionAccess().getHyEquivalenceExpressionOperand1Action_1_0()
+						|| rule == grammarAccess.getHyAndExpressionRule()
+						|| action == grammarAccess.getHyAndExpressionAccess().getHyAndExpressionOperand1Action_1_0()
+						|| rule == grammarAccess.getHyOrExpressionRule()
+						|| action == grammarAccess.getHyOrExpressionAccess().getHyOrExpressionOperand1Action_1_0()
 						|| rule == grammarAccess.getTerminalExpressionRule()
 						|| rule == grammarAccess.getHyArithmeticalComparisonExpressionRule()
 						|| rule == grammarAccess.getHyBinaryArithmeticalComparisonExpressionRule()
@@ -197,6 +197,10 @@ public class ExpressionDslSemanticSequencer extends AbstractDelegatingSemanticSe
 	/**
 	 * Contexts:
 	 *     HyExpression returns HyAndExpression
+	 *     HyImpliesExpression returns HyAndExpression
+	 *     HyImpliesExpression.HyImpliesExpression_1_0 returns HyAndExpression
+	 *     HyEquivalenceExpression returns HyAndExpression
+	 *     HyEquivalenceExpression.HyEquivalenceExpression_1_0 returns HyAndExpression
 	 *     HyAndExpression returns HyAndExpression
 	 *     HyAndExpression.HyAndExpression_1_0 returns HyAndExpression
 	 *
@@ -251,14 +255,14 @@ public class ExpressionDslSemanticSequencer extends AbstractDelegatingSemanticSe
 	/**
 	 * Contexts:
 	 *     HyExpression returns HyBooleanValueExpression
-	 *     HyAndExpression returns HyBooleanValueExpression
-	 *     HyAndExpression.HyAndExpression_1_0 returns HyBooleanValueExpression
-	 *     HyOrExpression returns HyBooleanValueExpression
-	 *     HyOrExpression.HyOrExpression_1_0 returns HyBooleanValueExpression
 	 *     HyImpliesExpression returns HyBooleanValueExpression
 	 *     HyImpliesExpression.HyImpliesExpression_1_0 returns HyBooleanValueExpression
 	 *     HyEquivalenceExpression returns HyBooleanValueExpression
 	 *     HyEquivalenceExpression.HyEquivalenceExpression_1_0 returns HyBooleanValueExpression
+	 *     HyAndExpression returns HyBooleanValueExpression
+	 *     HyAndExpression.HyAndExpression_1_0 returns HyBooleanValueExpression
+	 *     HyOrExpression returns HyBooleanValueExpression
+	 *     HyOrExpression.HyOrExpression_1_0 returns HyBooleanValueExpression
 	 *     TerminalExpression returns HyBooleanValueExpression
 	 *     HyBooleanValueExpression returns HyBooleanValueExpression
 	 *
@@ -286,14 +290,14 @@ public class ExpressionDslSemanticSequencer extends AbstractDelegatingSemanticSe
 	/**
 	 * Contexts:
 	 *     HyExpression returns HyConditionalFeatureReferenceExpression
-	 *     HyAndExpression returns HyConditionalFeatureReferenceExpression
-	 *     HyAndExpression.HyAndExpression_1_0 returns HyConditionalFeatureReferenceExpression
-	 *     HyOrExpression returns HyConditionalFeatureReferenceExpression
-	 *     HyOrExpression.HyOrExpression_1_0 returns HyConditionalFeatureReferenceExpression
 	 *     HyImpliesExpression returns HyConditionalFeatureReferenceExpression
 	 *     HyImpliesExpression.HyImpliesExpression_1_0 returns HyConditionalFeatureReferenceExpression
 	 *     HyEquivalenceExpression returns HyConditionalFeatureReferenceExpression
 	 *     HyEquivalenceExpression.HyEquivalenceExpression_1_0 returns HyConditionalFeatureReferenceExpression
+	 *     HyAndExpression returns HyConditionalFeatureReferenceExpression
+	 *     HyAndExpression.HyAndExpression_1_0 returns HyConditionalFeatureReferenceExpression
+	 *     HyOrExpression returns HyConditionalFeatureReferenceExpression
+	 *     HyOrExpression.HyOrExpression_1_0 returns HyConditionalFeatureReferenceExpression
 	 *     TerminalExpression returns HyConditionalFeatureReferenceExpression
 	 *     HyConditionalFeatureReferenceExpression returns HyConditionalFeatureReferenceExpression
 	 *
@@ -387,14 +391,14 @@ public class ExpressionDslSemanticSequencer extends AbstractDelegatingSemanticSe
 	/**
 	 * Contexts:
 	 *     HyExpression returns HyBinaryArithmeticalComparisonExpression
-	 *     HyAndExpression returns HyBinaryArithmeticalComparisonExpression
-	 *     HyAndExpression.HyAndExpression_1_0 returns HyBinaryArithmeticalComparisonExpression
-	 *     HyOrExpression returns HyBinaryArithmeticalComparisonExpression
-	 *     HyOrExpression.HyOrExpression_1_0 returns HyBinaryArithmeticalComparisonExpression
 	 *     HyImpliesExpression returns HyBinaryArithmeticalComparisonExpression
 	 *     HyImpliesExpression.HyImpliesExpression_1_0 returns HyBinaryArithmeticalComparisonExpression
 	 *     HyEquivalenceExpression returns HyBinaryArithmeticalComparisonExpression
 	 *     HyEquivalenceExpression.HyEquivalenceExpression_1_0 returns HyBinaryArithmeticalComparisonExpression
+	 *     HyAndExpression returns HyBinaryArithmeticalComparisonExpression
+	 *     HyAndExpression.HyAndExpression_1_0 returns HyBinaryArithmeticalComparisonExpression
+	 *     HyOrExpression returns HyBinaryArithmeticalComparisonExpression
+	 *     HyOrExpression.HyOrExpression_1_0 returns HyBinaryArithmeticalComparisonExpression
 	 *     TerminalExpression returns HyBinaryArithmeticalComparisonExpression
 	 *     HyArithmeticalComparisonExpression returns HyBinaryArithmeticalComparisonExpression
 	 *     HyBinaryArithmeticalComparisonExpression returns HyBinaryArithmeticalComparisonExpression
@@ -484,17 +488,13 @@ public class ExpressionDslSemanticSequencer extends AbstractDelegatingSemanticSe
 	/**
 	 * Contexts:
 	 *     HyExpression returns HyEquivalenceExpression
-	 *     HyAndExpression returns HyEquivalenceExpression
-	 *     HyAndExpression.HyAndExpression_1_0 returns HyEquivalenceExpression
-	 *     HyOrExpression returns HyEquivalenceExpression
-	 *     HyOrExpression.HyOrExpression_1_0 returns HyEquivalenceExpression
 	 *     HyImpliesExpression returns HyEquivalenceExpression
 	 *     HyImpliesExpression.HyImpliesExpression_1_0 returns HyEquivalenceExpression
 	 *     HyEquivalenceExpression returns HyEquivalenceExpression
 	 *     HyEquivalenceExpression.HyEquivalenceExpression_1_0 returns HyEquivalenceExpression
 	 *
 	 * Constraint:
-	 *     (operand1=HyEquivalenceExpression_HyEquivalenceExpression_1_0 operand2=TerminalExpression)
+	 *     (operand1=HyEquivalenceExpression_HyEquivalenceExpression_1_0 operand2=HyAndExpression)
 	 */
 	protected void sequence_HyEquivalenceExpression(ISerializationContext context, HyEquivalenceExpression semanticObject) {
 		if (errorAcceptor != null) {
@@ -505,7 +505,7 @@ public class ExpressionDslSemanticSequencer extends AbstractDelegatingSemanticSe
 		}
 		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
 		feeder.accept(grammarAccess.getHyEquivalenceExpressionAccess().getHyEquivalenceExpressionOperand1Action_1_0(), semanticObject.getOperand1());
-		feeder.accept(grammarAccess.getHyEquivalenceExpressionAccess().getOperand2TerminalExpressionParserRuleCall_1_2_0(), semanticObject.getOperand2());
+		feeder.accept(grammarAccess.getHyEquivalenceExpressionAccess().getOperand2HyAndExpressionParserRuleCall_1_2_0(), semanticObject.getOperand2());
 		feeder.finish();
 	}
 	
@@ -513,14 +513,14 @@ public class ExpressionDslSemanticSequencer extends AbstractDelegatingSemanticSe
 	/**
 	 * Contexts:
 	 *     HyExpression returns HyFeatureReferenceExpression
-	 *     HyAndExpression returns HyFeatureReferenceExpression
-	 *     HyAndExpression.HyAndExpression_1_0 returns HyFeatureReferenceExpression
-	 *     HyOrExpression returns HyFeatureReferenceExpression
-	 *     HyOrExpression.HyOrExpression_1_0 returns HyFeatureReferenceExpression
 	 *     HyImpliesExpression returns HyFeatureReferenceExpression
 	 *     HyImpliesExpression.HyImpliesExpression_1_0 returns HyFeatureReferenceExpression
 	 *     HyEquivalenceExpression returns HyFeatureReferenceExpression
 	 *     HyEquivalenceExpression.HyEquivalenceExpression_1_0 returns HyFeatureReferenceExpression
+	 *     HyAndExpression returns HyFeatureReferenceExpression
+	 *     HyAndExpression.HyAndExpression_1_0 returns HyFeatureReferenceExpression
+	 *     HyOrExpression returns HyFeatureReferenceExpression
+	 *     HyOrExpression.HyOrExpression_1_0 returns HyFeatureReferenceExpression
 	 *     TerminalExpression returns HyFeatureReferenceExpression
 	 *     HyFeatureReferenceExpression returns HyFeatureReferenceExpression
 	 *
@@ -535,10 +535,6 @@ public class ExpressionDslSemanticSequencer extends AbstractDelegatingSemanticSe
 	/**
 	 * Contexts:
 	 *     HyExpression returns HyImpliesExpression
-	 *     HyAndExpression returns HyImpliesExpression
-	 *     HyAndExpression.HyAndExpression_1_0 returns HyImpliesExpression
-	 *     HyOrExpression returns HyImpliesExpression
-	 *     HyOrExpression.HyOrExpression_1_0 returns HyImpliesExpression
 	 *     HyImpliesExpression returns HyImpliesExpression
 	 *     HyImpliesExpression.HyImpliesExpression_1_0 returns HyImpliesExpression
 	 *
@@ -617,14 +613,14 @@ public class ExpressionDslSemanticSequencer extends AbstractDelegatingSemanticSe
 	/**
 	 * Contexts:
 	 *     HyExpression returns HyNestedExpression
-	 *     HyAndExpression returns HyNestedExpression
-	 *     HyAndExpression.HyAndExpression_1_0 returns HyNestedExpression
-	 *     HyOrExpression returns HyNestedExpression
-	 *     HyOrExpression.HyOrExpression_1_0 returns HyNestedExpression
 	 *     HyImpliesExpression returns HyNestedExpression
 	 *     HyImpliesExpression.HyImpliesExpression_1_0 returns HyNestedExpression
 	 *     HyEquivalenceExpression returns HyNestedExpression
 	 *     HyEquivalenceExpression.HyEquivalenceExpression_1_0 returns HyNestedExpression
+	 *     HyAndExpression returns HyNestedExpression
+	 *     HyAndExpression.HyAndExpression_1_0 returns HyNestedExpression
+	 *     HyOrExpression returns HyNestedExpression
+	 *     HyOrExpression.HyOrExpression_1_0 returns HyNestedExpression
 	 *     TerminalExpression returns HyNestedExpression
 	 *     HyNestedExpression returns HyNestedExpression
 	 *
@@ -666,14 +662,14 @@ public class ExpressionDslSemanticSequencer extends AbstractDelegatingSemanticSe
 	/**
 	 * Contexts:
 	 *     HyExpression returns HyNotExpression
-	 *     HyAndExpression returns HyNotExpression
-	 *     HyAndExpression.HyAndExpression_1_0 returns HyNotExpression
-	 *     HyOrExpression returns HyNotExpression
-	 *     HyOrExpression.HyOrExpression_1_0 returns HyNotExpression
 	 *     HyImpliesExpression returns HyNotExpression
 	 *     HyImpliesExpression.HyImpliesExpression_1_0 returns HyNotExpression
 	 *     HyEquivalenceExpression returns HyNotExpression
 	 *     HyEquivalenceExpression.HyEquivalenceExpression_1_0 returns HyNotExpression
+	 *     HyAndExpression returns HyNotExpression
+	 *     HyAndExpression.HyAndExpression_1_0 returns HyNotExpression
+	 *     HyOrExpression returns HyNotExpression
+	 *     HyOrExpression.HyOrExpression_1_0 returns HyNotExpression
 	 *     TerminalExpression returns HyNotExpression
 	 *     HyNotExpression returns HyNotExpression
 	 *
@@ -713,13 +709,17 @@ public class ExpressionDslSemanticSequencer extends AbstractDelegatingSemanticSe
 	/**
 	 * Contexts:
 	 *     HyExpression returns HyOrExpression
+	 *     HyImpliesExpression returns HyOrExpression
+	 *     HyImpliesExpression.HyImpliesExpression_1_0 returns HyOrExpression
+	 *     HyEquivalenceExpression returns HyOrExpression
+	 *     HyEquivalenceExpression.HyEquivalenceExpression_1_0 returns HyOrExpression
 	 *     HyAndExpression returns HyOrExpression
 	 *     HyAndExpression.HyAndExpression_1_0 returns HyOrExpression
 	 *     HyOrExpression returns HyOrExpression
 	 *     HyOrExpression.HyOrExpression_1_0 returns HyOrExpression
 	 *
 	 * Constraint:
-	 *     (operand1=HyOrExpression_HyOrExpression_1_0 operand2=HyImpliesExpression)
+	 *     (operand1=HyOrExpression_HyOrExpression_1_0 operand2=TerminalExpression)
 	 */
 	protected void sequence_HyOrExpression(ISerializationContext context, HyOrExpression semanticObject) {
 		if (errorAcceptor != null) {
@@ -730,7 +730,7 @@ public class ExpressionDslSemanticSequencer extends AbstractDelegatingSemanticSe
 		}
 		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
 		feeder.accept(grammarAccess.getHyOrExpressionAccess().getHyOrExpressionOperand1Action_1_0(), semanticObject.getOperand1());
-		feeder.accept(grammarAccess.getHyOrExpressionAccess().getOperand2HyImpliesExpressionParserRuleCall_1_2_0(), semanticObject.getOperand2());
+		feeder.accept(grammarAccess.getHyOrExpressionAccess().getOperand2TerminalExpressionParserRuleCall_1_2_0(), semanticObject.getOperand2());
 		feeder.finish();
 	}
 	

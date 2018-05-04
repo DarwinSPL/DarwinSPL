@@ -43,93 +43,91 @@ TOKENSTYLES  {
 
 RULES {
 	// Operator priorities: http://stackoverflow.com/questions/3114107/modulo-in-order-of-operation
-	@Operator(type="binary_left_associative",  weight="0", superclass="HyExpression")
+	@Operator(type="binary_left_associative",  weight="10", superclass="HyExpression")
 	HyEquivalenceExpression ::= operand1 "<->" operand2;
 	
-	@Operator(type="binary_left_associative", weight="1", superclass="HyExpression")
+	@Operator(type="binary_left_associative", weight="9", superclass="HyExpression")
 	HyImpliesExpression ::= operand1 "->" operand2;
 	
-	@Operator(type="binary_left_associative", weight="4", superclass="HyExpression")
+	@Operator(type="binary_left_associative", weight="7", superclass="HyExpression")
 	HyOrExpression ::= operand1 "||" operand2;
 	
-	@Operator(type="binary_left_associative", weight="5", superclass="HyExpression")
+	@Operator(type="binary_left_associative", weight="8", superclass="HyExpression")
 	HyAndExpression ::= operand1 "&&" operand2;
 	
-	@Operator(type="unary_prefix", weight="14", superclass="HyExpression")
+	@Operator(type="unary_prefix", weight="11", superclass="HyExpression")
 	HyNotExpression ::= "!" operand;
-	
-	@Operator(type="unary_prefix", weight="14", superclass="HyExpression")
-	HyNegationExpression ::= "-" operand;
 	
 	@Operator(type="primitive", weight="15", superclass="HyExpression")
 	HyNestedExpression ::= "(" operand ")";
 	
 	
 	@SuppressWarnings(explicitSyntaxChoice)
-	@Operator(type="primitive", weight="15", superclass="HyExpression")
+	@Operator(type="primitive", weight="13", superclass="HyExpression")
 	HyFeatureReferenceExpression ::= (feature['"', '"'] | feature[]) (versionRestriction)?;
 	
 	@SuppressWarnings(explicitSyntaxChoice)
 	@SuppressWarnings(minOccurenceMismatch)
-	@Operator(type="primitive", weight="15", superclass="HyExpression")
+	@Operator(type="primitive", weight="12", superclass="HyExpression")
 	HyConditionalFeatureReferenceExpression ::= "?" (feature['"', '"'] | feature[]) versionRestriction;	
-
+	
+	@Operator(type="primitive", weight="14", superclass="HyExpression")
+	HyBooleanValueExpression ::= value["true" : "false"];
+	
+//	@Operator(type="primitive", weight="15", superclass="HyExpression")
+//	HyMinimumExpression ::= "min(" operand ")";
+//	
+//	@Operator(type="primitive", weight="15", superclass="HyExpression")
+//	HyMaximumExpression ::= "max(" operand ")";
+//	
+//	@Operator(type="primitive", weight="15", superclass="HyExpression")
+//	HyIfPossibleExpression ::= "ifPossible(" operands ("," operands)* ")";
+	
+	
+	HyLessExpression ::= operand1 "<" operand2;
+	
+	HyLessOrEqualExpression ::= operand1 "<=" operand2;
+	
+	HyGreaterExpression ::= operand1 ">" operand2;
+	
+	HyGreaterOrEqualExpression ::= operand1 ">=" operand2;
+	
+	HyEqualExpression ::= operand1 "=" operand2;
+	
+	HyNotEqualExpression ::= operand1 "!=" operand2;
+	
+	@Operator(type="binary_left_associative", weight="4", superclass="HyArithmeticalValueExpression")
+	HySubtractionExpression ::= operand1 "-" operand2;
+	
+	@Operator(type="binary_left_associative", weight="5", superclass="HyArithmeticalValueExpression")
+	HyAdditionExpression ::= operand1 "+" operand2;
+	
+	@Operator(type="binary_left_associative", weight="1", superclass="HyArithmeticalValueExpression")
+	HyModuloExpression ::= operand1 "%" operand2;
+	
+	@Operator(type="binary_left_associative", weight="3", superclass="HyArithmeticalValueExpression")
+	HyMultiplicationExpression ::= operand1 "*" operand2;
+	
+	@Operator(type="binary_left_associative", weight="2", superclass="HyArithmeticalValueExpression")
+	HyDivisionExpression ::= operand1 "/" operand2;
+	
+	@Operator(type="unary_prefix", weight="6", superclass="HyArithmeticalValueExpression")
+	HyNegationExpression ::= "-" operand;
+	
+	@Operator(type="primitive", weight="15", superclass="HyArithmeticalValueExpression")
+	HyNestedArithmeticalValueExpression ::= "(" operand ")";
+	
 	@SuppressWarnings(explicitSyntaxChoice)
-	@Operator(type="primitive", weight="15", superclass="HyExpression")
+	@Operator(type="primitive", weight="13", superclass="HyArithmeticalValueExpression")
 	HyContextInformationReferenceExpression ::= "context:" (contextInformation['"', '"'] | contextInformation[]);
 
 	@SuppressWarnings(explicitSyntaxChoice)
 	@SuppressWarnings(minOccurenceMismatch)
-	@Operator(type="primitive", weight="15", superclass="HyExpression")
+	@Operator(type="primitive", weight="12", superclass="HyArithmeticalValueExpression")
 	HyAttributeReferenceExpression ::= (feature['"', '"'] | feature[]) "." attribute[];
 	
-	@Operator(type="primitive", weight="15", superclass="HyExpression")
+	@Operator(type="primitive", weight="14", superclass="HyArithmeticalValueExpression")
 	HyValueExpression ::= value;
-	
-	@Operator(type="primitive", weight="15", superclass="HyExpression")
-	HyBooleanValueExpression ::= value["true" : "false"];
-	
-	@Operator(type="primitive", weight="15", superclass="HyExpression")
-	HyMinimumExpression ::= "min(" operand ")";
-	
-	@Operator(type="primitive", weight="15", superclass="HyExpression")
-	HyMaximumExpression ::= "max(" operand ")";
-	
-	@Operator(type="primitive", weight="15", superclass="HyExpression")
-	HyIfPossibleExpression ::= "ifPossible(" operands ("," operands)* ")";
-	
-	@Operator(type="binary_left_associative", weight="9", superclass="HyExpression")
-	HyLessExpression ::= operand1 "<" operand2;
-	
-	@Operator(type="binary_left_associative", weight="9", superclass="HyExpression")
-	HyLessOrEqualExpression ::= operand1 "<=" operand2;
-	
-	@Operator(type="binary_left_associative", weight="9", superclass="HyExpression")
-	HyGreaterExpression ::= operand1 ">" operand2;
-	
-	@Operator(type="binary_left_associative", weight="9", superclass="HyExpression")
-	HyGreaterOrEqualExpression ::= operand1 ">=" operand2;
-	
-	@Operator(type="binary_left_associative", weight="12", superclass="HyExpression")
-	HySubtractionExpression ::= operand1 "-" operand2;
-	
-	@Operator(type="binary_left_associative", weight="12", superclass="HyExpression")
-	HyAdditionExpression ::= operand1 "+" operand2;
-	
-	@Operator(type="binary_left_associative", weight="13", superclass="HyExpression")
-	HyModuloExpression ::= operand1 "%" operand2;
-	
-	@Operator(type="binary_left_associative", weight="13", superclass="HyExpression")
-	HyMultiplicationExpression ::= operand1 "*" operand2;
-	
-	@Operator(type="binary_left_associative", weight="13", superclass="HyExpression")
-	HyDivisionExpression ::= operand1 "/" operand2;
-	
-	@Operator(type="binary_left_associative", weight="9", superclass="HyExpression")
-	HyEqualExpression ::= operand1 "=" operand2;
-	
-	@Operator(type="binary_left_associative", weight="9", superclass="HyExpression")
-	HyNotEqualExpression ::= operand1 "!=" operand2;
 	
 	
 	HyRelativeVersionRestriction ::= "[" operator[lessThan : "<", lessThanOrEqual : "<=", equal : "=", implicitEqual : "", greaterThanOrEqual : ">=", greaterThan : ">"] version['"','"'] "]";

@@ -16,6 +16,8 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="enums" upperBound="-1"
         eType="ecore:EClass ../../eu.hyvar.feature.data/model/DataValues.ecore#//HyEnum"
         containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="contexts" upperBound="-1"
+        eType="ecore:EClass ../../eu.hyvar.context.information/model/ContextInformation.ecore#//HyContextModel"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="HyFeature" eSuperTypes="../../eu.hyvar.evolution/model/Evolution.ecore#//HyTemporalElement ../../eu.hyvar.evolution/model/Evolution.ecore#//HyNamedElement">
     <eOperations name="isOptional" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean">

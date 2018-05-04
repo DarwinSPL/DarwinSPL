@@ -8,6 +8,8 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="enums" upperBound="-1"
         eType="ecore:EClass ../../eu.hyvar.feature.data/model/DataValues.ecore#//HyEnum"
         containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="extends" upperBound="-1"
+        eType="#//HyContextModel"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="HyContextualInformationEnum" eSuperTypes="#//HyContextualInformation">
     <eStructuralFeatures xsi:type="ecore:EReference" name="enumType" lowerBound="1"

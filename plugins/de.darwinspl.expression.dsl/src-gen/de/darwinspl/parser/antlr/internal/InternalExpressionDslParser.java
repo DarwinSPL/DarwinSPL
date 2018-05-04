@@ -23,7 +23,7 @@ import java.util.HashMap;
 @SuppressWarnings("all")
 public class InternalExpressionDslParser extends AbstractInternalAntlrParser {
     public static final String[] tokenNames = new String[] {
-        "<invalid>", "<EOR>", "<DOWN>", "<UP>", "RULE_STRING", "RULE_ID", "RULE_INT", "RULE_ML_COMMENT", "RULE_SL_COMMENT", "RULE_WS", "RULE_ANY_OTHER", "'&&'", "'||'", "'->'", "'<->'", "'('", "')'", "'!'", "'?'", "'['", "']'", "'true'", "'false'", "'-'", "'>'", "'<'", "'>='", "'<='", "'='", "'!='", "'+'", "'*'", "'/'", "'.'"
+        "<invalid>", "<EOR>", "<DOWN>", "<UP>", "RULE_STRING", "RULE_ID", "RULE_INT", "RULE_ML_COMMENT", "RULE_SL_COMMENT", "RULE_WS", "RULE_ANY_OTHER", "'->'", "'<->'", "'&&'", "'||'", "'('", "')'", "'!'", "'?'", "'['", "']'", "'true'", "'false'", "'-'", "'>'", "'<'", "'>='", "'<='", "'='", "'!='", "'+'", "'*'", "'/'", "'.'"
     };
     public static final int RULE_STRING=4;
     public static final int RULE_SL_COMMENT=8;
@@ -137,33 +137,33 @@ public class InternalExpressionDslParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleHyExpression"
-    // InternalExpressionDsl.g:72:1: ruleHyExpression returns [EObject current=null] : this_HyAndExpression_0= ruleHyAndExpression ;
+    // InternalExpressionDsl.g:72:1: ruleHyExpression returns [EObject current=null] : this_HyImpliesExpression_0= ruleHyImpliesExpression ;
     public final EObject ruleHyExpression() throws RecognitionException {
         EObject current = null;
 
-        EObject this_HyAndExpression_0 = null;
+        EObject this_HyImpliesExpression_0 = null;
 
 
 
         	enterRule();
 
         try {
-            // InternalExpressionDsl.g:78:2: (this_HyAndExpression_0= ruleHyAndExpression )
-            // InternalExpressionDsl.g:79:2: this_HyAndExpression_0= ruleHyAndExpression
+            // InternalExpressionDsl.g:78:2: (this_HyImpliesExpression_0= ruleHyImpliesExpression )
+            // InternalExpressionDsl.g:79:2: this_HyImpliesExpression_0= ruleHyImpliesExpression
             {
             if ( state.backtracking==0 ) {
 
-              		newCompositeNode(grammarAccess.getHyExpressionAccess().getHyAndExpressionParserRuleCall());
+              		newCompositeNode(grammarAccess.getHyExpressionAccess().getHyImpliesExpressionParserRuleCall());
               	
             }
             pushFollow(FOLLOW_2);
-            this_HyAndExpression_0=ruleHyAndExpression();
+            this_HyImpliesExpression_0=ruleHyImpliesExpression();
 
             state._fsp--;
             if (state.failed) return current;
             if ( state.backtracking==0 ) {
 
-              		current = this_HyAndExpression_0;
+              		current = this_HyImpliesExpression_0;
               		afterParserOrEnumRuleCall();
               	
             }
@@ -188,28 +188,28 @@ public class InternalExpressionDslParser extends AbstractInternalAntlrParser {
     // $ANTLR end "ruleHyExpression"
 
 
-    // $ANTLR start "entryRuleHyAndExpression"
-    // InternalExpressionDsl.g:90:1: entryRuleHyAndExpression returns [EObject current=null] : iv_ruleHyAndExpression= ruleHyAndExpression EOF ;
-    public final EObject entryRuleHyAndExpression() throws RecognitionException {
+    // $ANTLR start "entryRuleHyImpliesExpression"
+    // InternalExpressionDsl.g:90:1: entryRuleHyImpliesExpression returns [EObject current=null] : iv_ruleHyImpliesExpression= ruleHyImpliesExpression EOF ;
+    public final EObject entryRuleHyImpliesExpression() throws RecognitionException {
         EObject current = null;
 
-        EObject iv_ruleHyAndExpression = null;
+        EObject iv_ruleHyImpliesExpression = null;
 
 
         try {
-            // InternalExpressionDsl.g:90:56: (iv_ruleHyAndExpression= ruleHyAndExpression EOF )
-            // InternalExpressionDsl.g:91:2: iv_ruleHyAndExpression= ruleHyAndExpression EOF
+            // InternalExpressionDsl.g:90:60: (iv_ruleHyImpliesExpression= ruleHyImpliesExpression EOF )
+            // InternalExpressionDsl.g:91:2: iv_ruleHyImpliesExpression= ruleHyImpliesExpression EOF
             {
             if ( state.backtracking==0 ) {
-               newCompositeNode(grammarAccess.getHyAndExpressionRule()); 
+               newCompositeNode(grammarAccess.getHyImpliesExpressionRule()); 
             }
             pushFollow(FOLLOW_1);
-            iv_ruleHyAndExpression=ruleHyAndExpression();
+            iv_ruleHyImpliesExpression=ruleHyImpliesExpression();
 
             state._fsp--;
             if (state.failed) return current;
             if ( state.backtracking==0 ) {
-               current =iv_ruleHyAndExpression; 
+               current =iv_ruleHyImpliesExpression; 
             }
             match(input,EOF,FOLLOW_2); if (state.failed) return current;
 
@@ -225,16 +225,16 @@ public class InternalExpressionDslParser extends AbstractInternalAntlrParser {
         }
         return current;
     }
-    // $ANTLR end "entryRuleHyAndExpression"
+    // $ANTLR end "entryRuleHyImpliesExpression"
 
 
-    // $ANTLR start "ruleHyAndExpression"
-    // InternalExpressionDsl.g:97:1: ruleHyAndExpression returns [EObject current=null] : (this_HyOrExpression_0= ruleHyOrExpression ( () otherlv_2= '&&' ( (lv_operand2_3_0= ruleHyOrExpression ) ) )* ) ;
-    public final EObject ruleHyAndExpression() throws RecognitionException {
+    // $ANTLR start "ruleHyImpliesExpression"
+    // InternalExpressionDsl.g:97:1: ruleHyImpliesExpression returns [EObject current=null] : (this_HyEquivalenceExpression_0= ruleHyEquivalenceExpression ( () otherlv_2= '->' ( (lv_operand2_3_0= ruleHyEquivalenceExpression ) ) )* ) ;
+    public final EObject ruleHyImpliesExpression() throws RecognitionException {
         EObject current = null;
 
         Token otherlv_2=null;
-        EObject this_HyOrExpression_0 = null;
+        EObject this_HyEquivalenceExpression_0 = null;
 
         EObject lv_operand2_3_0 = null;
 
@@ -243,29 +243,29 @@ public class InternalExpressionDslParser extends AbstractInternalAntlrParser {
         	enterRule();
 
         try {
-            // InternalExpressionDsl.g:103:2: ( (this_HyOrExpression_0= ruleHyOrExpression ( () otherlv_2= '&&' ( (lv_operand2_3_0= ruleHyOrExpression ) ) )* ) )
-            // InternalExpressionDsl.g:104:2: (this_HyOrExpression_0= ruleHyOrExpression ( () otherlv_2= '&&' ( (lv_operand2_3_0= ruleHyOrExpression ) ) )* )
+            // InternalExpressionDsl.g:103:2: ( (this_HyEquivalenceExpression_0= ruleHyEquivalenceExpression ( () otherlv_2= '->' ( (lv_operand2_3_0= ruleHyEquivalenceExpression ) ) )* ) )
+            // InternalExpressionDsl.g:104:2: (this_HyEquivalenceExpression_0= ruleHyEquivalenceExpression ( () otherlv_2= '->' ( (lv_operand2_3_0= ruleHyEquivalenceExpression ) ) )* )
             {
-            // InternalExpressionDsl.g:104:2: (this_HyOrExpression_0= ruleHyOrExpression ( () otherlv_2= '&&' ( (lv_operand2_3_0= ruleHyOrExpression ) ) )* )
-            // InternalExpressionDsl.g:105:3: this_HyOrExpression_0= ruleHyOrExpression ( () otherlv_2= '&&' ( (lv_operand2_3_0= ruleHyOrExpression ) ) )*
+            // InternalExpressionDsl.g:104:2: (this_HyEquivalenceExpression_0= ruleHyEquivalenceExpression ( () otherlv_2= '->' ( (lv_operand2_3_0= ruleHyEquivalenceExpression ) ) )* )
+            // InternalExpressionDsl.g:105:3: this_HyEquivalenceExpression_0= ruleHyEquivalenceExpression ( () otherlv_2= '->' ( (lv_operand2_3_0= ruleHyEquivalenceExpression ) ) )*
             {
             if ( state.backtracking==0 ) {
 
-              			newCompositeNode(grammarAccess.getHyAndExpressionAccess().getHyOrExpressionParserRuleCall_0());
+              			newCompositeNode(grammarAccess.getHyImpliesExpressionAccess().getHyEquivalenceExpressionParserRuleCall_0());
               		
             }
             pushFollow(FOLLOW_3);
-            this_HyOrExpression_0=ruleHyOrExpression();
+            this_HyEquivalenceExpression_0=ruleHyEquivalenceExpression();
 
             state._fsp--;
             if (state.failed) return current;
             if ( state.backtracking==0 ) {
 
-              			current = this_HyOrExpression_0;
+              			current = this_HyEquivalenceExpression_0;
               			afterParserOrEnumRuleCall();
               		
             }
-            // InternalExpressionDsl.g:113:3: ( () otherlv_2= '&&' ( (lv_operand2_3_0= ruleHyOrExpression ) ) )*
+            // InternalExpressionDsl.g:113:3: ( () otherlv_2= '->' ( (lv_operand2_3_0= ruleHyEquivalenceExpression ) ) )*
             loop1:
             do {
                 int alt1=2;
@@ -278,7 +278,7 @@ public class InternalExpressionDslParser extends AbstractInternalAntlrParser {
 
                 switch (alt1) {
             	case 1 :
-            	    // InternalExpressionDsl.g:114:4: () otherlv_2= '&&' ( (lv_operand2_3_0= ruleHyOrExpression ) )
+            	    // InternalExpressionDsl.g:114:4: () otherlv_2= '->' ( (lv_operand2_3_0= ruleHyEquivalenceExpression ) )
             	    {
             	    // InternalExpressionDsl.g:114:4: ()
             	    // InternalExpressionDsl.g:115:5: 
@@ -286,7 +286,7 @@ public class InternalExpressionDslParser extends AbstractInternalAntlrParser {
             	    if ( state.backtracking==0 ) {
 
             	      					current = forceCreateModelElementAndSet(
-            	      						grammarAccess.getHyAndExpressionAccess().getHyAndExpressionOperand1Action_1_0(),
+            	      						grammarAccess.getHyImpliesExpressionAccess().getHyImpliesExpressionOperand1Action_1_0(),
             	      						current);
             	      				
             	    }
@@ -296,35 +296,35 @@ public class InternalExpressionDslParser extends AbstractInternalAntlrParser {
             	    otherlv_2=(Token)match(input,11,FOLLOW_4); if (state.failed) return current;
             	    if ( state.backtracking==0 ) {
 
-            	      				newLeafNode(otherlv_2, grammarAccess.getHyAndExpressionAccess().getAmpersandAmpersandKeyword_1_1());
+            	      				newLeafNode(otherlv_2, grammarAccess.getHyImpliesExpressionAccess().getHyphenMinusGreaterThanSignKeyword_1_1());
             	      			
             	    }
-            	    // InternalExpressionDsl.g:125:4: ( (lv_operand2_3_0= ruleHyOrExpression ) )
-            	    // InternalExpressionDsl.g:126:5: (lv_operand2_3_0= ruleHyOrExpression )
+            	    // InternalExpressionDsl.g:125:4: ( (lv_operand2_3_0= ruleHyEquivalenceExpression ) )
+            	    // InternalExpressionDsl.g:126:5: (lv_operand2_3_0= ruleHyEquivalenceExpression )
             	    {
-            	    // InternalExpressionDsl.g:126:5: (lv_operand2_3_0= ruleHyOrExpression )
-            	    // InternalExpressionDsl.g:127:6: lv_operand2_3_0= ruleHyOrExpression
+            	    // InternalExpressionDsl.g:126:5: (lv_operand2_3_0= ruleHyEquivalenceExpression )
+            	    // InternalExpressionDsl.g:127:6: lv_operand2_3_0= ruleHyEquivalenceExpression
             	    {
             	    if ( state.backtracking==0 ) {
 
-            	      						newCompositeNode(grammarAccess.getHyAndExpressionAccess().getOperand2HyOrExpressionParserRuleCall_1_2_0());
+            	      						newCompositeNode(grammarAccess.getHyImpliesExpressionAccess().getOperand2HyEquivalenceExpressionParserRuleCall_1_2_0());
             	      					
             	    }
             	    pushFollow(FOLLOW_3);
-            	    lv_operand2_3_0=ruleHyOrExpression();
+            	    lv_operand2_3_0=ruleHyEquivalenceExpression();
 
             	    state._fsp--;
             	    if (state.failed) return current;
             	    if ( state.backtracking==0 ) {
 
             	      						if (current==null) {
-            	      							current = createModelElementForParent(grammarAccess.getHyAndExpressionRule());
+            	      							current = createModelElementForParent(grammarAccess.getHyImpliesExpressionRule());
             	      						}
             	      						set(
             	      							current,
             	      							"operand2",
             	      							lv_operand2_3_0,
-            	      							"de.darwinspl.ExpressionDsl.HyOrExpression");
+            	      							"de.darwinspl.ExpressionDsl.HyEquivalenceExpression");
             	      						afterParserOrEnumRuleCall();
             	      					
             	    }
@@ -364,31 +364,31 @@ public class InternalExpressionDslParser extends AbstractInternalAntlrParser {
         }
         return current;
     }
-    // $ANTLR end "ruleHyAndExpression"
+    // $ANTLR end "ruleHyImpliesExpression"
 
 
-    // $ANTLR start "entryRuleHyOrExpression"
-    // InternalExpressionDsl.g:149:1: entryRuleHyOrExpression returns [EObject current=null] : iv_ruleHyOrExpression= ruleHyOrExpression EOF ;
-    public final EObject entryRuleHyOrExpression() throws RecognitionException {
+    // $ANTLR start "entryRuleHyEquivalenceExpression"
+    // InternalExpressionDsl.g:149:1: entryRuleHyEquivalenceExpression returns [EObject current=null] : iv_ruleHyEquivalenceExpression= ruleHyEquivalenceExpression EOF ;
+    public final EObject entryRuleHyEquivalenceExpression() throws RecognitionException {
         EObject current = null;
 
-        EObject iv_ruleHyOrExpression = null;
+        EObject iv_ruleHyEquivalenceExpression = null;
 
 
         try {
-            // InternalExpressionDsl.g:149:55: (iv_ruleHyOrExpression= ruleHyOrExpression EOF )
-            // InternalExpressionDsl.g:150:2: iv_ruleHyOrExpression= ruleHyOrExpression EOF
+            // InternalExpressionDsl.g:149:64: (iv_ruleHyEquivalenceExpression= ruleHyEquivalenceExpression EOF )
+            // InternalExpressionDsl.g:150:2: iv_ruleHyEquivalenceExpression= ruleHyEquivalenceExpression EOF
             {
             if ( state.backtracking==0 ) {
-               newCompositeNode(grammarAccess.getHyOrExpressionRule()); 
+               newCompositeNode(grammarAccess.getHyEquivalenceExpressionRule()); 
             }
             pushFollow(FOLLOW_1);
-            iv_ruleHyOrExpression=ruleHyOrExpression();
+            iv_ruleHyEquivalenceExpression=ruleHyEquivalenceExpression();
 
             state._fsp--;
             if (state.failed) return current;
             if ( state.backtracking==0 ) {
-               current =iv_ruleHyOrExpression; 
+               current =iv_ruleHyEquivalenceExpression; 
             }
             match(input,EOF,FOLLOW_2); if (state.failed) return current;
 
@@ -404,16 +404,16 @@ public class InternalExpressionDslParser extends AbstractInternalAntlrParser {
         }
         return current;
     }
-    // $ANTLR end "entryRuleHyOrExpression"
+    // $ANTLR end "entryRuleHyEquivalenceExpression"
 
 
-    // $ANTLR start "ruleHyOrExpression"
-    // InternalExpressionDsl.g:156:1: ruleHyOrExpression returns [EObject current=null] : (this_HyImpliesExpression_0= ruleHyImpliesExpression ( () otherlv_2= '||' ( (lv_operand2_3_0= ruleHyImpliesExpression ) ) )* ) ;
-    public final EObject ruleHyOrExpression() throws RecognitionException {
+    // $ANTLR start "ruleHyEquivalenceExpression"
+    // InternalExpressionDsl.g:156:1: ruleHyEquivalenceExpression returns [EObject current=null] : (this_HyAndExpression_0= ruleHyAndExpression ( () otherlv_2= '<->' ( (lv_operand2_3_0= ruleHyAndExpression ) ) )* ) ;
+    public final EObject ruleHyEquivalenceExpression() throws RecognitionException {
         EObject current = null;
 
         Token otherlv_2=null;
-        EObject this_HyImpliesExpression_0 = null;
+        EObject this_HyAndExpression_0 = null;
 
         EObject lv_operand2_3_0 = null;
 
@@ -422,29 +422,29 @@ public class InternalExpressionDslParser extends AbstractInternalAntlrParser {
         	enterRule();
 
         try {
-            // InternalExpressionDsl.g:162:2: ( (this_HyImpliesExpression_0= ruleHyImpliesExpression ( () otherlv_2= '||' ( (lv_operand2_3_0= ruleHyImpliesExpression ) ) )* ) )
-            // InternalExpressionDsl.g:163:2: (this_HyImpliesExpression_0= ruleHyImpliesExpression ( () otherlv_2= '||' ( (lv_operand2_3_0= ruleHyImpliesExpression ) ) )* )
+            // InternalExpressionDsl.g:162:2: ( (this_HyAndExpression_0= ruleHyAndExpression ( () otherlv_2= '<->' ( (lv_operand2_3_0= ruleHyAndExpression ) ) )* ) )
+            // InternalExpressionDsl.g:163:2: (this_HyAndExpression_0= ruleHyAndExpression ( () otherlv_2= '<->' ( (lv_operand2_3_0= ruleHyAndExpression ) ) )* )
             {
-            // InternalExpressionDsl.g:163:2: (this_HyImpliesExpression_0= ruleHyImpliesExpression ( () otherlv_2= '||' ( (lv_operand2_3_0= ruleHyImpliesExpression ) ) )* )
-            // InternalExpressionDsl.g:164:3: this_HyImpliesExpression_0= ruleHyImpliesExpression ( () otherlv_2= '||' ( (lv_operand2_3_0= ruleHyImpliesExpression ) ) )*
+            // InternalExpressionDsl.g:163:2: (this_HyAndExpression_0= ruleHyAndExpression ( () otherlv_2= '<->' ( (lv_operand2_3_0= ruleHyAndExpression ) ) )* )
+            // InternalExpressionDsl.g:164:3: this_HyAndExpression_0= ruleHyAndExpression ( () otherlv_2= '<->' ( (lv_operand2_3_0= ruleHyAndExpression ) ) )*
             {
             if ( state.backtracking==0 ) {
 
-              			newCompositeNode(grammarAccess.getHyOrExpressionAccess().getHyImpliesExpressionParserRuleCall_0());
+              			newCompositeNode(grammarAccess.getHyEquivalenceExpressionAccess().getHyAndExpressionParserRuleCall_0());
               		
             }
             pushFollow(FOLLOW_5);
-            this_HyImpliesExpression_0=ruleHyImpliesExpression();
+            this_HyAndExpression_0=ruleHyAndExpression();
 
             state._fsp--;
             if (state.failed) return current;
             if ( state.backtracking==0 ) {
 
-              			current = this_HyImpliesExpression_0;
+              			current = this_HyAndExpression_0;
               			afterParserOrEnumRuleCall();
               		
             }
-            // InternalExpressionDsl.g:172:3: ( () otherlv_2= '||' ( (lv_operand2_3_0= ruleHyImpliesExpression ) ) )*
+            // InternalExpressionDsl.g:172:3: ( () otherlv_2= '<->' ( (lv_operand2_3_0= ruleHyAndExpression ) ) )*
             loop2:
             do {
                 int alt2=2;
@@ -457,7 +457,7 @@ public class InternalExpressionDslParser extends AbstractInternalAntlrParser {
 
                 switch (alt2) {
             	case 1 :
-            	    // InternalExpressionDsl.g:173:4: () otherlv_2= '||' ( (lv_operand2_3_0= ruleHyImpliesExpression ) )
+            	    // InternalExpressionDsl.g:173:4: () otherlv_2= '<->' ( (lv_operand2_3_0= ruleHyAndExpression ) )
             	    {
             	    // InternalExpressionDsl.g:173:4: ()
             	    // InternalExpressionDsl.g:174:5: 
@@ -465,7 +465,7 @@ public class InternalExpressionDslParser extends AbstractInternalAntlrParser {
             	    if ( state.backtracking==0 ) {
 
             	      					current = forceCreateModelElementAndSet(
-            	      						grammarAccess.getHyOrExpressionAccess().getHyOrExpressionOperand1Action_1_0(),
+            	      						grammarAccess.getHyEquivalenceExpressionAccess().getHyEquivalenceExpressionOperand1Action_1_0(),
             	      						current);
             	      				
             	    }
@@ -475,35 +475,35 @@ public class InternalExpressionDslParser extends AbstractInternalAntlrParser {
             	    otherlv_2=(Token)match(input,12,FOLLOW_4); if (state.failed) return current;
             	    if ( state.backtracking==0 ) {
 
-            	      				newLeafNode(otherlv_2, grammarAccess.getHyOrExpressionAccess().getVerticalLineVerticalLineKeyword_1_1());
+            	      				newLeafNode(otherlv_2, grammarAccess.getHyEquivalenceExpressionAccess().getLessThanSignHyphenMinusGreaterThanSignKeyword_1_1());
             	      			
             	    }
-            	    // InternalExpressionDsl.g:184:4: ( (lv_operand2_3_0= ruleHyImpliesExpression ) )
-            	    // InternalExpressionDsl.g:185:5: (lv_operand2_3_0= ruleHyImpliesExpression )
+            	    // InternalExpressionDsl.g:184:4: ( (lv_operand2_3_0= ruleHyAndExpression ) )
+            	    // InternalExpressionDsl.g:185:5: (lv_operand2_3_0= ruleHyAndExpression )
             	    {
-            	    // InternalExpressionDsl.g:185:5: (lv_operand2_3_0= ruleHyImpliesExpression )
-            	    // InternalExpressionDsl.g:186:6: lv_operand2_3_0= ruleHyImpliesExpression
+            	    // InternalExpressionDsl.g:185:5: (lv_operand2_3_0= ruleHyAndExpression )
+            	    // InternalExpressionDsl.g:186:6: lv_operand2_3_0= ruleHyAndExpression
             	    {
             	    if ( state.backtracking==0 ) {
 
-            	      						newCompositeNode(grammarAccess.getHyOrExpressionAccess().getOperand2HyImpliesExpressionParserRuleCall_1_2_0());
+            	      						newCompositeNode(grammarAccess.getHyEquivalenceExpressionAccess().getOperand2HyAndExpressionParserRuleCall_1_2_0());
             	      					
             	    }
             	    pushFollow(FOLLOW_5);
-            	    lv_operand2_3_0=ruleHyImpliesExpression();
+            	    lv_operand2_3_0=ruleHyAndExpression();
 
             	    state._fsp--;
             	    if (state.failed) return current;
             	    if ( state.backtracking==0 ) {
 
             	      						if (current==null) {
-            	      							current = createModelElementForParent(grammarAccess.getHyOrExpressionRule());
+            	      							current = createModelElementForParent(grammarAccess.getHyEquivalenceExpressionRule());
             	      						}
             	      						set(
             	      							current,
             	      							"operand2",
             	      							lv_operand2_3_0,
-            	      							"de.darwinspl.ExpressionDsl.HyImpliesExpression");
+            	      							"de.darwinspl.ExpressionDsl.HyAndExpression");
             	      						afterParserOrEnumRuleCall();
             	      					
             	    }
@@ -543,31 +543,31 @@ public class InternalExpressionDslParser extends AbstractInternalAntlrParser {
         }
         return current;
     }
-    // $ANTLR end "ruleHyOrExpression"
+    // $ANTLR end "ruleHyEquivalenceExpression"
 
 
-    // $ANTLR start "entryRuleHyImpliesExpression"
-    // InternalExpressionDsl.g:208:1: entryRuleHyImpliesExpression returns [EObject current=null] : iv_ruleHyImpliesExpression= ruleHyImpliesExpression EOF ;
-    public final EObject entryRuleHyImpliesExpression() throws RecognitionException {
+    // $ANTLR start "entryRuleHyAndExpression"
+    // InternalExpressionDsl.g:208:1: entryRuleHyAndExpression returns [EObject current=null] : iv_ruleHyAndExpression= ruleHyAndExpression EOF ;
+    public final EObject entryRuleHyAndExpression() throws RecognitionException {
         EObject current = null;
 
-        EObject iv_ruleHyImpliesExpression = null;
+        EObject iv_ruleHyAndExpression = null;
 
 
         try {
-            // InternalExpressionDsl.g:208:60: (iv_ruleHyImpliesExpression= ruleHyImpliesExpression EOF )
-            // InternalExpressionDsl.g:209:2: iv_ruleHyImpliesExpression= ruleHyImpliesExpression EOF
+            // InternalExpressionDsl.g:208:56: (iv_ruleHyAndExpression= ruleHyAndExpression EOF )
+            // InternalExpressionDsl.g:209:2: iv_ruleHyAndExpression= ruleHyAndExpression EOF
             {
             if ( state.backtracking==0 ) {
-               newCompositeNode(grammarAccess.getHyImpliesExpressionRule()); 
+               newCompositeNode(grammarAccess.getHyAndExpressionRule()); 
             }
             pushFollow(FOLLOW_1);
-            iv_ruleHyImpliesExpression=ruleHyImpliesExpression();
+            iv_ruleHyAndExpression=ruleHyAndExpression();
 
             state._fsp--;
             if (state.failed) return current;
             if ( state.backtracking==0 ) {
-               current =iv_ruleHyImpliesExpression; 
+               current =iv_ruleHyAndExpression; 
             }
             match(input,EOF,FOLLOW_2); if (state.failed) return current;
 
@@ -583,16 +583,16 @@ public class InternalExpressionDslParser extends AbstractInternalAntlrParser {
         }
         return current;
     }
-    // $ANTLR end "entryRuleHyImpliesExpression"
+    // $ANTLR end "entryRuleHyAndExpression"
 
 
-    // $ANTLR start "ruleHyImpliesExpression"
-    // InternalExpressionDsl.g:215:1: ruleHyImpliesExpression returns [EObject current=null] : (this_HyEquivalenceExpression_0= ruleHyEquivalenceExpression ( () otherlv_2= '->' ( (lv_operand2_3_0= ruleHyEquivalenceExpression ) ) )* ) ;
-    public final EObject ruleHyImpliesExpression() throws RecognitionException {
+    // $ANTLR start "ruleHyAndExpression"
+    // InternalExpressionDsl.g:215:1: ruleHyAndExpression returns [EObject current=null] : (this_HyOrExpression_0= ruleHyOrExpression ( () otherlv_2= '&&' ( (lv_operand2_3_0= ruleHyOrExpression ) ) )* ) ;
+    public final EObject ruleHyAndExpression() throws RecognitionException {
         EObject current = null;
 
         Token otherlv_2=null;
-        EObject this_HyEquivalenceExpression_0 = null;
+        EObject this_HyOrExpression_0 = null;
 
         EObject lv_operand2_3_0 = null;
 
@@ -601,29 +601,29 @@ public class InternalExpressionDslParser extends AbstractInternalAntlrParser {
         	enterRule();
 
         try {
-            // InternalExpressionDsl.g:221:2: ( (this_HyEquivalenceExpression_0= ruleHyEquivalenceExpression ( () otherlv_2= '->' ( (lv_operand2_3_0= ruleHyEquivalenceExpression ) ) )* ) )
-            // InternalExpressionDsl.g:222:2: (this_HyEquivalenceExpression_0= ruleHyEquivalenceExpression ( () otherlv_2= '->' ( (lv_operand2_3_0= ruleHyEquivalenceExpression ) ) )* )
+            // InternalExpressionDsl.g:221:2: ( (this_HyOrExpression_0= ruleHyOrExpression ( () otherlv_2= '&&' ( (lv_operand2_3_0= ruleHyOrExpression ) ) )* ) )
+            // InternalExpressionDsl.g:222:2: (this_HyOrExpression_0= ruleHyOrExpression ( () otherlv_2= '&&' ( (lv_operand2_3_0= ruleHyOrExpression ) ) )* )
             {
-            // InternalExpressionDsl.g:222:2: (this_HyEquivalenceExpression_0= ruleHyEquivalenceExpression ( () otherlv_2= '->' ( (lv_operand2_3_0= ruleHyEquivalenceExpression ) ) )* )
-            // InternalExpressionDsl.g:223:3: this_HyEquivalenceExpression_0= ruleHyEquivalenceExpression ( () otherlv_2= '->' ( (lv_operand2_3_0= ruleHyEquivalenceExpression ) ) )*
+            // InternalExpressionDsl.g:222:2: (this_HyOrExpression_0= ruleHyOrExpression ( () otherlv_2= '&&' ( (lv_operand2_3_0= ruleHyOrExpression ) ) )* )
+            // InternalExpressionDsl.g:223:3: this_HyOrExpression_0= ruleHyOrExpression ( () otherlv_2= '&&' ( (lv_operand2_3_0= ruleHyOrExpression ) ) )*
             {
             if ( state.backtracking==0 ) {
 
-              			newCompositeNode(grammarAccess.getHyImpliesExpressionAccess().getHyEquivalenceExpressionParserRuleCall_0());
+              			newCompositeNode(grammarAccess.getHyAndExpressionAccess().getHyOrExpressionParserRuleCall_0());
               		
             }
             pushFollow(FOLLOW_6);
-            this_HyEquivalenceExpression_0=ruleHyEquivalenceExpression();
+            this_HyOrExpression_0=ruleHyOrExpression();
 
             state._fsp--;
             if (state.failed) return current;
             if ( state.backtracking==0 ) {
 
-              			current = this_HyEquivalenceExpression_0;
+              			current = this_HyOrExpression_0;
               			afterParserOrEnumRuleCall();
               		
             }
-            // InternalExpressionDsl.g:231:3: ( () otherlv_2= '->' ( (lv_operand2_3_0= ruleHyEquivalenceExpression ) ) )*
+            // InternalExpressionDsl.g:231:3: ( () otherlv_2= '&&' ( (lv_operand2_3_0= ruleHyOrExpression ) ) )*
             loop3:
             do {
                 int alt3=2;
@@ -636,7 +636,7 @@ public class InternalExpressionDslParser extends AbstractInternalAntlrParser {
 
                 switch (alt3) {
             	case 1 :
-            	    // InternalExpressionDsl.g:232:4: () otherlv_2= '->' ( (lv_operand2_3_0= ruleHyEquivalenceExpression ) )
+            	    // InternalExpressionDsl.g:232:4: () otherlv_2= '&&' ( (lv_operand2_3_0= ruleHyOrExpression ) )
             	    {
             	    // InternalExpressionDsl.g:232:4: ()
             	    // InternalExpressionDsl.g:233:5: 
@@ -644,7 +644,7 @@ public class InternalExpressionDslParser extends AbstractInternalAntlrParser {
             	    if ( state.backtracking==0 ) {
 
             	      					current = forceCreateModelElementAndSet(
-            	      						grammarAccess.getHyImpliesExpressionAccess().getHyImpliesExpressionOperand1Action_1_0(),
+            	      						grammarAccess.getHyAndExpressionAccess().getHyAndExpressionOperand1Action_1_0(),
             	      						current);
             	      				
             	    }
@@ -654,35 +654,35 @@ public class InternalExpressionDslParser extends AbstractInternalAntlrParser {
             	    otherlv_2=(Token)match(input,13,FOLLOW_4); if (state.failed) return current;
             	    if ( state.backtracking==0 ) {
 
-            	      				newLeafNode(otherlv_2, grammarAccess.getHyImpliesExpressionAccess().getHyphenMinusGreaterThanSignKeyword_1_1());
+            	      				newLeafNode(otherlv_2, grammarAccess.getHyAndExpressionAccess().getAmpersandAmpersandKeyword_1_1());
             	      			
             	    }
-            	    // InternalExpressionDsl.g:243:4: ( (lv_operand2_3_0= ruleHyEquivalenceExpression ) )
-            	    // InternalExpressionDsl.g:244:5: (lv_operand2_3_0= ruleHyEquivalenceExpression )
+            	    // InternalExpressionDsl.g:243:4: ( (lv_operand2_3_0= ruleHyOrExpression ) )
+            	    // InternalExpressionDsl.g:244:5: (lv_operand2_3_0= ruleHyOrExpression )
             	    {
-            	    // InternalExpressionDsl.g:244:5: (lv_operand2_3_0= ruleHyEquivalenceExpression )
-            	    // InternalExpressionDsl.g:245:6: lv_operand2_3_0= ruleHyEquivalenceExpression
+            	    // InternalExpressionDsl.g:244:5: (lv_operand2_3_0= ruleHyOrExpression )
+            	    // InternalExpressionDsl.g:245:6: lv_operand2_3_0= ruleHyOrExpression
             	    {
             	    if ( state.backtracking==0 ) {
 
-            	      						newCompositeNode(grammarAccess.getHyImpliesExpressionAccess().getOperand2HyEquivalenceExpressionParserRuleCall_1_2_0());
+            	      						newCompositeNode(grammarAccess.getHyAndExpressionAccess().getOperand2HyOrExpressionParserRuleCall_1_2_0());
             	      					
             	    }
             	    pushFollow(FOLLOW_6);
-            	    lv_operand2_3_0=ruleHyEquivalenceExpression();
+            	    lv_operand2_3_0=ruleHyOrExpression();
 
             	    state._fsp--;
             	    if (state.failed) return current;
             	    if ( state.backtracking==0 ) {
 
             	      						if (current==null) {
-            	      							current = createModelElementForParent(grammarAccess.getHyImpliesExpressionRule());
+            	      							current = createModelElementForParent(grammarAccess.getHyAndExpressionRule());
             	      						}
             	      						set(
             	      							current,
             	      							"operand2",
             	      							lv_operand2_3_0,
-            	      							"de.darwinspl.ExpressionDsl.HyEquivalenceExpression");
+            	      							"de.darwinspl.ExpressionDsl.HyOrExpression");
             	      						afterParserOrEnumRuleCall();
             	      					
             	    }
@@ -722,31 +722,31 @@ public class InternalExpressionDslParser extends AbstractInternalAntlrParser {
         }
         return current;
     }
-    // $ANTLR end "ruleHyImpliesExpression"
+    // $ANTLR end "ruleHyAndExpression"
 
 
-    // $ANTLR start "entryRuleHyEquivalenceExpression"
-    // InternalExpressionDsl.g:267:1: entryRuleHyEquivalenceExpression returns [EObject current=null] : iv_ruleHyEquivalenceExpression= ruleHyEquivalenceExpression EOF ;
-    public final EObject entryRuleHyEquivalenceExpression() throws RecognitionException {
+    // $ANTLR start "entryRuleHyOrExpression"
+    // InternalExpressionDsl.g:267:1: entryRuleHyOrExpression returns [EObject current=null] : iv_ruleHyOrExpression= ruleHyOrExpression EOF ;
+    public final EObject entryRuleHyOrExpression() throws RecognitionException {
         EObject current = null;
 
-        EObject iv_ruleHyEquivalenceExpression = null;
+        EObject iv_ruleHyOrExpression = null;
 
 
         try {
-            // InternalExpressionDsl.g:267:64: (iv_ruleHyEquivalenceExpression= ruleHyEquivalenceExpression EOF )
-            // InternalExpressionDsl.g:268:2: iv_ruleHyEquivalenceExpression= ruleHyEquivalenceExpression EOF
+            // InternalExpressionDsl.g:267:55: (iv_ruleHyOrExpression= ruleHyOrExpression EOF )
+            // InternalExpressionDsl.g:268:2: iv_ruleHyOrExpression= ruleHyOrExpression EOF
             {
             if ( state.backtracking==0 ) {
-               newCompositeNode(grammarAccess.getHyEquivalenceExpressionRule()); 
+               newCompositeNode(grammarAccess.getHyOrExpressionRule()); 
             }
             pushFollow(FOLLOW_1);
-            iv_ruleHyEquivalenceExpression=ruleHyEquivalenceExpression();
+            iv_ruleHyOrExpression=ruleHyOrExpression();
 
             state._fsp--;
             if (state.failed) return current;
             if ( state.backtracking==0 ) {
-               current =iv_ruleHyEquivalenceExpression; 
+               current =iv_ruleHyOrExpression; 
             }
             match(input,EOF,FOLLOW_2); if (state.failed) return current;
 
@@ -762,12 +762,12 @@ public class InternalExpressionDslParser extends AbstractInternalAntlrParser {
         }
         return current;
     }
-    // $ANTLR end "entryRuleHyEquivalenceExpression"
+    // $ANTLR end "entryRuleHyOrExpression"
 
 
-    // $ANTLR start "ruleHyEquivalenceExpression"
-    // InternalExpressionDsl.g:274:1: ruleHyEquivalenceExpression returns [EObject current=null] : (this_TerminalExpression_0= ruleTerminalExpression ( () otherlv_2= '<->' ( (lv_operand2_3_0= ruleTerminalExpression ) ) )* ) ;
-    public final EObject ruleHyEquivalenceExpression() throws RecognitionException {
+    // $ANTLR start "ruleHyOrExpression"
+    // InternalExpressionDsl.g:274:1: ruleHyOrExpression returns [EObject current=null] : (this_TerminalExpression_0= ruleTerminalExpression ( () otherlv_2= '||' ( (lv_operand2_3_0= ruleTerminalExpression ) ) )* ) ;
+    public final EObject ruleHyOrExpression() throws RecognitionException {
         EObject current = null;
 
         Token otherlv_2=null;
@@ -780,15 +780,15 @@ public class InternalExpressionDslParser extends AbstractInternalAntlrParser {
         	enterRule();
 
         try {
-            // InternalExpressionDsl.g:280:2: ( (this_TerminalExpression_0= ruleTerminalExpression ( () otherlv_2= '<->' ( (lv_operand2_3_0= ruleTerminalExpression ) ) )* ) )
-            // InternalExpressionDsl.g:281:2: (this_TerminalExpression_0= ruleTerminalExpression ( () otherlv_2= '<->' ( (lv_operand2_3_0= ruleTerminalExpression ) ) )* )
+            // InternalExpressionDsl.g:280:2: ( (this_TerminalExpression_0= ruleTerminalExpression ( () otherlv_2= '||' ( (lv_operand2_3_0= ruleTerminalExpression ) ) )* ) )
+            // InternalExpressionDsl.g:281:2: (this_TerminalExpression_0= ruleTerminalExpression ( () otherlv_2= '||' ( (lv_operand2_3_0= ruleTerminalExpression ) ) )* )
             {
-            // InternalExpressionDsl.g:281:2: (this_TerminalExpression_0= ruleTerminalExpression ( () otherlv_2= '<->' ( (lv_operand2_3_0= ruleTerminalExpression ) ) )* )
-            // InternalExpressionDsl.g:282:3: this_TerminalExpression_0= ruleTerminalExpression ( () otherlv_2= '<->' ( (lv_operand2_3_0= ruleTerminalExpression ) ) )*
+            // InternalExpressionDsl.g:281:2: (this_TerminalExpression_0= ruleTerminalExpression ( () otherlv_2= '||' ( (lv_operand2_3_0= ruleTerminalExpression ) ) )* )
+            // InternalExpressionDsl.g:282:3: this_TerminalExpression_0= ruleTerminalExpression ( () otherlv_2= '||' ( (lv_operand2_3_0= ruleTerminalExpression ) ) )*
             {
             if ( state.backtracking==0 ) {
 
-              			newCompositeNode(grammarAccess.getHyEquivalenceExpressionAccess().getTerminalExpressionParserRuleCall_0());
+              			newCompositeNode(grammarAccess.getHyOrExpressionAccess().getTerminalExpressionParserRuleCall_0());
               		
             }
             pushFollow(FOLLOW_7);
@@ -802,7 +802,7 @@ public class InternalExpressionDslParser extends AbstractInternalAntlrParser {
               			afterParserOrEnumRuleCall();
               		
             }
-            // InternalExpressionDsl.g:290:3: ( () otherlv_2= '<->' ( (lv_operand2_3_0= ruleTerminalExpression ) ) )*
+            // InternalExpressionDsl.g:290:3: ( () otherlv_2= '||' ( (lv_operand2_3_0= ruleTerminalExpression ) ) )*
             loop4:
             do {
                 int alt4=2;
@@ -815,7 +815,7 @@ public class InternalExpressionDslParser extends AbstractInternalAntlrParser {
 
                 switch (alt4) {
             	case 1 :
-            	    // InternalExpressionDsl.g:291:4: () otherlv_2= '<->' ( (lv_operand2_3_0= ruleTerminalExpression ) )
+            	    // InternalExpressionDsl.g:291:4: () otherlv_2= '||' ( (lv_operand2_3_0= ruleTerminalExpression ) )
             	    {
             	    // InternalExpressionDsl.g:291:4: ()
             	    // InternalExpressionDsl.g:292:5: 
@@ -823,7 +823,7 @@ public class InternalExpressionDslParser extends AbstractInternalAntlrParser {
             	    if ( state.backtracking==0 ) {
 
             	      					current = forceCreateModelElementAndSet(
-            	      						grammarAccess.getHyEquivalenceExpressionAccess().getHyEquivalenceExpressionOperand1Action_1_0(),
+            	      						grammarAccess.getHyOrExpressionAccess().getHyOrExpressionOperand1Action_1_0(),
             	      						current);
             	      				
             	    }
@@ -833,7 +833,7 @@ public class InternalExpressionDslParser extends AbstractInternalAntlrParser {
             	    otherlv_2=(Token)match(input,14,FOLLOW_4); if (state.failed) return current;
             	    if ( state.backtracking==0 ) {
 
-            	      				newLeafNode(otherlv_2, grammarAccess.getHyEquivalenceExpressionAccess().getLessThanSignHyphenMinusGreaterThanSignKeyword_1_1());
+            	      				newLeafNode(otherlv_2, grammarAccess.getHyOrExpressionAccess().getVerticalLineVerticalLineKeyword_1_1());
             	      			
             	    }
             	    // InternalExpressionDsl.g:302:4: ( (lv_operand2_3_0= ruleTerminalExpression ) )
@@ -844,7 +844,7 @@ public class InternalExpressionDslParser extends AbstractInternalAntlrParser {
             	    {
             	    if ( state.backtracking==0 ) {
 
-            	      						newCompositeNode(grammarAccess.getHyEquivalenceExpressionAccess().getOperand2TerminalExpressionParserRuleCall_1_2_0());
+            	      						newCompositeNode(grammarAccess.getHyOrExpressionAccess().getOperand2TerminalExpressionParserRuleCall_1_2_0());
             	      					
             	    }
             	    pushFollow(FOLLOW_7);
@@ -855,7 +855,7 @@ public class InternalExpressionDslParser extends AbstractInternalAntlrParser {
             	    if ( state.backtracking==0 ) {
 
             	      						if (current==null) {
-            	      							current = createModelElementForParent(grammarAccess.getHyEquivalenceExpressionRule());
+            	      							current = createModelElementForParent(grammarAccess.getHyOrExpressionRule());
             	      						}
             	      						set(
             	      							current,
@@ -901,7 +901,7 @@ public class InternalExpressionDslParser extends AbstractInternalAntlrParser {
         }
         return current;
     }
-    // $ANTLR end "ruleHyEquivalenceExpression"
+    // $ANTLR end "ruleHyOrExpression"
 
 
     // $ANTLR start "entryRuleTerminalExpression"

@@ -10,7 +10,6 @@ import eu.hyvar.dataValues.HyDataValuesFactory;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Collection;
 import java.util.List;
@@ -22,6 +21,7 @@ import org.eclipse.emf.common.util.ResourceLocator;
 
 import org.eclipse.emf.ecore.EStructuralFeature;
 
+import org.eclipse.emf.edit.provider.ComposeableAdapterFactory;
 import org.eclipse.emf.edit.provider.IEditingDomainItemProvider;
 import org.eclipse.emf.edit.provider.IItemLabelProvider;
 import org.eclipse.emf.edit.provider.IItemPropertyDescriptor;
@@ -32,10 +32,9 @@ import org.eclipse.emf.edit.provider.ItemProviderAdapter;
 import org.eclipse.emf.edit.provider.ViewerNotification;
 
 /**
- * This is the item provider adapter for a
- * {@link eu.hyvar.context.HyContextModel} object. <!-- begin-user-doc --> <!--
+ * This is the item provider adapter for a {@link eu.hyvar.context.HyContextModel} object.
+ * <!-- begin-user-doc --> <!--
  * end-user-doc -->
- * 
  * @generated
  */
 public class HyContextModelItemProvider extends ItemProviderAdapter implements IEditingDomainItemProvider,
@@ -61,18 +60,38 @@ public class HyContextModelItemProvider extends ItemProviderAdapter implements I
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
 
+			addExtendsPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
 
 	/**
-	 * This specifies how to implement {@link #getChildren} and is used to
-	 * deduce an appropriate feature for an
-	 * {@link org.eclipse.emf.edit.command.AddCommand},
-	 * {@link org.eclipse.emf.edit.command.RemoveCommand} or
-	 * {@link org.eclipse.emf.edit.command.MoveCommand} in
-	 * {@link #createCommand}. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 * This adds a property descriptor for the Extends feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addExtendsPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_HyContextModel_extends_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_HyContextModel_extends_feature", "_UI_HyContextModel_type"),
+				 HyContextInformationPackage.Literals.HY_CONTEXT_MODEL__EXTENDS,
+				 true,
+				 false,
+				 true,
+				 null,
+				 null,
+				 null));
+	}
+
+	/**
+	 * This specifies how to implement {@link #getChildren} and is used to deduce an appropriate feature for an
+	 * {@link org.eclipse.emf.edit.command.AddCommand}, {@link org.eclipse.emf.edit.command.RemoveCommand} or
+	 * {@link org.eclipse.emf.edit.command.MoveCommand} in {@link #createCommand}.
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
@@ -87,13 +106,11 @@ public class HyContextModelItemProvider extends ItemProviderAdapter implements I
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	@Override
 	protected EStructuralFeature getChildFeature(Object object, Object child) {
-		// Check the type of the specified child object and return the proper
-		// feature to use for
+		// Check the type of the specified child object and return the proper feature to use for
 		// adding (see {@link AddCommand}) it as a child.
 
 		return super.getChildFeature(object, child);
@@ -136,11 +153,10 @@ public class HyContextModelItemProvider extends ItemProviderAdapter implements I
 	}
 
 	/**
-	 * This handles model notifications by calling {@link #updateChildren} to
-	 * update any cached children and by creating a viewer notification, which
-	 * it passes to {@link #fireNotifyChanged}. <!-- begin-user-doc --> <!--
+	 * This handles model notifications by calling {@link #updateChildren} to update any cached
+	 * children and by creating a viewer notification, which it passes to {@link #fireNotifyChanged}.
+	 * <!-- begin-user-doc --> <!--
 	 * end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	@Override
@@ -148,10 +164,10 @@ public class HyContextModelItemProvider extends ItemProviderAdapter implements I
 		updateChildren(notification);
 
 		switch (notification.getFeatureID(HyContextModel.class)) {
-		case HyContextInformationPackage.HY_CONTEXT_MODEL__CONTEXTUAL_INFORMATIONS:
-		case HyContextInformationPackage.HY_CONTEXT_MODEL__ENUMS:
-			fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
-			return;
+			case HyContextInformationPackage.HY_CONTEXT_MODEL__CONTEXTUAL_INFORMATIONS:
+			case HyContextInformationPackage.HY_CONTEXT_MODEL__ENUMS:
+				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
+				return;
 		}
 		super.notifyChanged(notification);
 	}
@@ -167,20 +183,25 @@ public class HyContextModelItemProvider extends ItemProviderAdapter implements I
 	protected void collectNewChildDescriptors(Collection<Object> newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
 
-		newChildDescriptors.add(
-				createChildParameter(HyContextInformationPackage.Literals.HY_CONTEXT_MODEL__CONTEXTUAL_INFORMATIONS,
-						HyContextInformationFactory.eINSTANCE.createHyContextualInformationEnum()));
+		newChildDescriptors.add
+			(createChildParameter
+				(HyContextInformationPackage.Literals.HY_CONTEXT_MODEL__CONTEXTUAL_INFORMATIONS,
+				 HyContextInformationFactory.eINSTANCE.createHyContextualInformationEnum()));
 
-		newChildDescriptors.add(
-				createChildParameter(HyContextInformationPackage.Literals.HY_CONTEXT_MODEL__CONTEXTUAL_INFORMATIONS,
-						HyContextInformationFactory.eINSTANCE.createHyContextualInformationNumber()));
+		newChildDescriptors.add
+			(createChildParameter
+				(HyContextInformationPackage.Literals.HY_CONTEXT_MODEL__CONTEXTUAL_INFORMATIONS,
+				 HyContextInformationFactory.eINSTANCE.createHyContextualInformationNumber()));
 
-		newChildDescriptors.add(
-				createChildParameter(HyContextInformationPackage.Literals.HY_CONTEXT_MODEL__CONTEXTUAL_INFORMATIONS,
-						HyContextInformationFactory.eINSTANCE.createHyContextualInformationBoolean()));
+		newChildDescriptors.add
+			(createChildParameter
+				(HyContextInformationPackage.Literals.HY_CONTEXT_MODEL__CONTEXTUAL_INFORMATIONS,
+				 HyContextInformationFactory.eINSTANCE.createHyContextualInformationBoolean()));
 
-		newChildDescriptors.add(createChildParameter(HyContextInformationPackage.Literals.HY_CONTEXT_MODEL__ENUMS,
-				HyDataValuesFactory.eINSTANCE.createHyEnum()));
+		newChildDescriptors.add
+			(createChildParameter
+				(HyContextInformationPackage.Literals.HY_CONTEXT_MODEL__ENUMS,
+				 HyDataValuesFactory.eINSTANCE.createHyEnum()));
 	}
 
 	/**

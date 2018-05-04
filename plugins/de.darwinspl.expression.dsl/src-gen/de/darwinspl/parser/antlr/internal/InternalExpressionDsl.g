@@ -77,131 +77,13 @@ ruleHyExpression returns [EObject current=null]
 	leaveRule();
 }:
 	{
-		newCompositeNode(grammarAccess.getHyExpressionAccess().getHyAndExpressionParserRuleCall());
+		newCompositeNode(grammarAccess.getHyExpressionAccess().getHyImpliesExpressionParserRuleCall());
 	}
-	this_HyAndExpression_0=ruleHyAndExpression
+	this_HyImpliesExpression_0=ruleHyImpliesExpression
 	{
-		$current = $this_HyAndExpression_0.current;
+		$current = $this_HyImpliesExpression_0.current;
 		afterParserOrEnumRuleCall();
 	}
-;
-
-// Entry rule entryRuleHyAndExpression
-entryRuleHyAndExpression returns [EObject current=null]:
-	{ newCompositeNode(grammarAccess.getHyAndExpressionRule()); }
-	iv_ruleHyAndExpression=ruleHyAndExpression
-	{ $current=$iv_ruleHyAndExpression.current; }
-	EOF;
-
-// Rule HyAndExpression
-ruleHyAndExpression returns [EObject current=null]
-@init {
-	enterRule();
-}
-@after {
-	leaveRule();
-}:
-	(
-		{
-			newCompositeNode(grammarAccess.getHyAndExpressionAccess().getHyOrExpressionParserRuleCall_0());
-		}
-		this_HyOrExpression_0=ruleHyOrExpression
-		{
-			$current = $this_HyOrExpression_0.current;
-			afterParserOrEnumRuleCall();
-		}
-		(
-			(
-				{
-					$current = forceCreateModelElementAndSet(
-						grammarAccess.getHyAndExpressionAccess().getHyAndExpressionOperand1Action_1_0(),
-						$current);
-				}
-			)
-			otherlv_2='&&'
-			{
-				newLeafNode(otherlv_2, grammarAccess.getHyAndExpressionAccess().getAmpersandAmpersandKeyword_1_1());
-			}
-			(
-				(
-					{
-						newCompositeNode(grammarAccess.getHyAndExpressionAccess().getOperand2HyOrExpressionParserRuleCall_1_2_0());
-					}
-					lv_operand2_3_0=ruleHyOrExpression
-					{
-						if ($current==null) {
-							$current = createModelElementForParent(grammarAccess.getHyAndExpressionRule());
-						}
-						set(
-							$current,
-							"operand2",
-							lv_operand2_3_0,
-							"de.darwinspl.ExpressionDsl.HyOrExpression");
-						afterParserOrEnumRuleCall();
-					}
-				)
-			)
-		)*
-	)
-;
-
-// Entry rule entryRuleHyOrExpression
-entryRuleHyOrExpression returns [EObject current=null]:
-	{ newCompositeNode(grammarAccess.getHyOrExpressionRule()); }
-	iv_ruleHyOrExpression=ruleHyOrExpression
-	{ $current=$iv_ruleHyOrExpression.current; }
-	EOF;
-
-// Rule HyOrExpression
-ruleHyOrExpression returns [EObject current=null]
-@init {
-	enterRule();
-}
-@after {
-	leaveRule();
-}:
-	(
-		{
-			newCompositeNode(grammarAccess.getHyOrExpressionAccess().getHyImpliesExpressionParserRuleCall_0());
-		}
-		this_HyImpliesExpression_0=ruleHyImpliesExpression
-		{
-			$current = $this_HyImpliesExpression_0.current;
-			afterParserOrEnumRuleCall();
-		}
-		(
-			(
-				{
-					$current = forceCreateModelElementAndSet(
-						grammarAccess.getHyOrExpressionAccess().getHyOrExpressionOperand1Action_1_0(),
-						$current);
-				}
-			)
-			otherlv_2='||'
-			{
-				newLeafNode(otherlv_2, grammarAccess.getHyOrExpressionAccess().getVerticalLineVerticalLineKeyword_1_1());
-			}
-			(
-				(
-					{
-						newCompositeNode(grammarAccess.getHyOrExpressionAccess().getOperand2HyImpliesExpressionParserRuleCall_1_2_0());
-					}
-					lv_operand2_3_0=ruleHyImpliesExpression
-					{
-						if ($current==null) {
-							$current = createModelElementForParent(grammarAccess.getHyOrExpressionRule());
-						}
-						set(
-							$current,
-							"operand2",
-							lv_operand2_3_0,
-							"de.darwinspl.ExpressionDsl.HyImpliesExpression");
-						afterParserOrEnumRuleCall();
-					}
-				)
-			)
-		)*
-	)
 ;
 
 // Entry rule entryRuleHyImpliesExpression
@@ -280,11 +162,11 @@ ruleHyEquivalenceExpression returns [EObject current=null]
 }:
 	(
 		{
-			newCompositeNode(grammarAccess.getHyEquivalenceExpressionAccess().getTerminalExpressionParserRuleCall_0());
+			newCompositeNode(grammarAccess.getHyEquivalenceExpressionAccess().getHyAndExpressionParserRuleCall_0());
 		}
-		this_TerminalExpression_0=ruleTerminalExpression
+		this_HyAndExpression_0=ruleHyAndExpression
 		{
-			$current = $this_TerminalExpression_0.current;
+			$current = $this_HyAndExpression_0.current;
 			afterParserOrEnumRuleCall();
 		}
 		(
@@ -302,12 +184,130 @@ ruleHyEquivalenceExpression returns [EObject current=null]
 			(
 				(
 					{
-						newCompositeNode(grammarAccess.getHyEquivalenceExpressionAccess().getOperand2TerminalExpressionParserRuleCall_1_2_0());
+						newCompositeNode(grammarAccess.getHyEquivalenceExpressionAccess().getOperand2HyAndExpressionParserRuleCall_1_2_0());
+					}
+					lv_operand2_3_0=ruleHyAndExpression
+					{
+						if ($current==null) {
+							$current = createModelElementForParent(grammarAccess.getHyEquivalenceExpressionRule());
+						}
+						set(
+							$current,
+							"operand2",
+							lv_operand2_3_0,
+							"de.darwinspl.ExpressionDsl.HyAndExpression");
+						afterParserOrEnumRuleCall();
+					}
+				)
+			)
+		)*
+	)
+;
+
+// Entry rule entryRuleHyAndExpression
+entryRuleHyAndExpression returns [EObject current=null]:
+	{ newCompositeNode(grammarAccess.getHyAndExpressionRule()); }
+	iv_ruleHyAndExpression=ruleHyAndExpression
+	{ $current=$iv_ruleHyAndExpression.current; }
+	EOF;
+
+// Rule HyAndExpression
+ruleHyAndExpression returns [EObject current=null]
+@init {
+	enterRule();
+}
+@after {
+	leaveRule();
+}:
+	(
+		{
+			newCompositeNode(grammarAccess.getHyAndExpressionAccess().getHyOrExpressionParserRuleCall_0());
+		}
+		this_HyOrExpression_0=ruleHyOrExpression
+		{
+			$current = $this_HyOrExpression_0.current;
+			afterParserOrEnumRuleCall();
+		}
+		(
+			(
+				{
+					$current = forceCreateModelElementAndSet(
+						grammarAccess.getHyAndExpressionAccess().getHyAndExpressionOperand1Action_1_0(),
+						$current);
+				}
+			)
+			otherlv_2='&&'
+			{
+				newLeafNode(otherlv_2, grammarAccess.getHyAndExpressionAccess().getAmpersandAmpersandKeyword_1_1());
+			}
+			(
+				(
+					{
+						newCompositeNode(grammarAccess.getHyAndExpressionAccess().getOperand2HyOrExpressionParserRuleCall_1_2_0());
+					}
+					lv_operand2_3_0=ruleHyOrExpression
+					{
+						if ($current==null) {
+							$current = createModelElementForParent(grammarAccess.getHyAndExpressionRule());
+						}
+						set(
+							$current,
+							"operand2",
+							lv_operand2_3_0,
+							"de.darwinspl.ExpressionDsl.HyOrExpression");
+						afterParserOrEnumRuleCall();
+					}
+				)
+			)
+		)*
+	)
+;
+
+// Entry rule entryRuleHyOrExpression
+entryRuleHyOrExpression returns [EObject current=null]:
+	{ newCompositeNode(grammarAccess.getHyOrExpressionRule()); }
+	iv_ruleHyOrExpression=ruleHyOrExpression
+	{ $current=$iv_ruleHyOrExpression.current; }
+	EOF;
+
+// Rule HyOrExpression
+ruleHyOrExpression returns [EObject current=null]
+@init {
+	enterRule();
+}
+@after {
+	leaveRule();
+}:
+	(
+		{
+			newCompositeNode(grammarAccess.getHyOrExpressionAccess().getTerminalExpressionParserRuleCall_0());
+		}
+		this_TerminalExpression_0=ruleTerminalExpression
+		{
+			$current = $this_TerminalExpression_0.current;
+			afterParserOrEnumRuleCall();
+		}
+		(
+			(
+				{
+					$current = forceCreateModelElementAndSet(
+						grammarAccess.getHyOrExpressionAccess().getHyOrExpressionOperand1Action_1_0(),
+						$current);
+				}
+			)
+			otherlv_2='||'
+			{
+				newLeafNode(otherlv_2, grammarAccess.getHyOrExpressionAccess().getVerticalLineVerticalLineKeyword_1_1());
+			}
+			(
+				(
+					{
+						newCompositeNode(grammarAccess.getHyOrExpressionAccess().getOperand2TerminalExpressionParserRuleCall_1_2_0());
 					}
 					lv_operand2_3_0=ruleTerminalExpression
 					{
 						if ($current==null) {
-							$current = createModelElementForParent(grammarAccess.getHyEquivalenceExpressionRule());
+							$current = createModelElementForParent(grammarAccess.getHyOrExpressionRule());
 						}
 						set(
 							$current,

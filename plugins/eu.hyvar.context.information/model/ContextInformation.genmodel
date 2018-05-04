@@ -12,6 +12,7 @@
     <genClasses ecoreClass="ContextInformation.ecore#//HyContextModel">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ContextInformation.ecore#//HyContextModel/contextualInformations"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ContextInformation.ecore#//HyContextModel/enums"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ContextInformation.ecore#//HyContextModel/extends"/>
     </genClasses>
     <genClasses ecoreClass="ContextInformation.ecore#//HyContextualInformationEnum">
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ContextInformation.ecore#//HyContextualInformationEnum/enumType"/>

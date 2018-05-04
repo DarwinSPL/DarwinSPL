@@ -11,15 +11,7 @@ import "http://hyvar-project.eu/feature/dataValues/1.0" as dataValues
 
 
 HyExpression returns HyExpression:
-	HyAndExpression;
-	
-	
-HyAndExpression returns HyExpression:
-	HyOrExpression({HyAndExpression.operand1=current} ('&&') operand2=HyOrExpression)*;
-
-
-HyOrExpression returns HyExpression:
-	HyImpliesExpression({HyOrExpression.operand1=current} ('||') operand2=HyImpliesExpression)*;
+	HyImpliesExpression;
 	
 	
 HyImpliesExpression returns HyExpression:
@@ -27,7 +19,15 @@ HyImpliesExpression returns HyExpression:
 	
 	
 HyEquivalenceExpression returns HyExpression:
-	TerminalExpression ({HyEquivalenceExpression.operand1=current} ('<->') operand2=TerminalExpression)*;
+	HyAndExpression ({HyEquivalenceExpression.operand1=current} ('<->') operand2=HyAndExpression)*;
+	
+	
+HyAndExpression returns HyExpression:
+	HyOrExpression({HyAndExpression.operand1=current} ('&&') operand2=HyOrExpression)*;
+
+
+HyOrExpression returns HyExpression:
+	TerminalExpression({HyOrExpression.operand1=current} ('||') operand2=TerminalExpression)*;
 
 TerminalExpression returns HyExpression:	
 	HyFeatureReferenceExpression |
