@@ -673,7 +673,8 @@ public class IsolaExample {
 			// max(maxSpeed)
 			DwPreference maxMaxSpeedPreference = preferenceFactory.createDwPreference();
 			HyMaximumExpression maxMaxSpeed = expressionFactory.createHyMaximumExpression();
-			maxMaxSpeed.setOperand(EcoreUtil.copy(maxSpeedReference));
+			// TODO removed due to changed expression language
+//			maxMaxSpeed.setOperand(EcoreUtil.copy(maxSpeedReference));
 			maxMaxSpeedPreference.setRootExpression(maxMaxSpeed);
 			preferenceModel.getPreferences().add(maxMaxSpeedPreference);
 			
@@ -768,7 +769,8 @@ public class IsolaExample {
 			// max(maxSpeed)
 			DwPreference maxMaxSpeedPreference2 = preferenceFactory.createDwPreference();
 			HyMaximumExpression maxMaxSpeed2 = expressionFactory.createHyMaximumExpression();
-			maxMaxSpeed2.setOperand(EcoreUtil.copy(maxSpeedReference));
+			// TODO removed due to changed expression language
+//			maxMaxSpeed2.setOperand(EcoreUtil.copy(maxSpeedReference));
 			maxMaxSpeedPreference2.setRootExpression(maxMaxSpeed2);
 			preferenceModel.getPreferences().add(maxMaxSpeedPreference2);
 

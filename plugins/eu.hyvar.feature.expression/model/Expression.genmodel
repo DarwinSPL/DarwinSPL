@@ -38,6 +38,9 @@
     <genClasses image="false" ecoreClass="Expression.ecore#//HyVersionRestriction">
       <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference Expression.ecore#//HyVersionRestriction/restrictedFeatureReferenceExpression"/>
     </genClasses>
+    <genClasses ecoreClass="Expression.ecore#//HyBooleanValueExpression">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Expression.ecore#//HyBooleanValueExpression/value"/>
+    </genClasses>
     <genClasses ecoreClass="Expression.ecore#//HyVersionRangeRestriction">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Expression.ecore#//HyVersionRangeRestriction/lowerIncluded"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Expression.ecore#//HyVersionRangeRestriction/upperIncluded"/>
@@ -47,9 +50,6 @@
     <genClasses ecoreClass="Expression.ecore#//HyRelativeVersionRestriction">
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Expression.ecore#//HyRelativeVersionRestriction/version"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Expression.ecore#//HyRelativeVersionRestriction/operator"/>
-    </genClasses>
-    <genClasses ecoreClass="Expression.ecore#//HyBooleanValueExpression">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Expression.ecore#//HyBooleanValueExpression/value"/>
     </genClasses>
     <genClasses ecoreClass="Expression.ecore#//HyNestedExpression"/>
     <genClasses ecoreClass="Expression.ecore#//HyNotExpression"/>
@@ -85,6 +85,7 @@
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Expression.ecore#//HyArithmeticalValueUnaryOperationExpression/operand"/>
     </genClasses>
     <genClasses ecoreClass="Expression.ecore#//HyNegationExpression"/>
+    <genClasses ecoreClass="Expression.ecore#//HyNestedArithmeticalValueExpression"/>
     <genClasses image="false" ecoreClass="Expression.ecore#//HyArithmeticalValueAtomicExpression"/>
     <genClasses ecoreClass="Expression.ecore#//HyContextInformationReferenceExpression">
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Expression.ecore#//HyContextInformationReferenceExpression/contextInformation"/>

@@ -104,6 +104,8 @@
         eType="#//HyArithmeticalValueExpression" containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="HyNegationExpression" eSuperTypes="#//HyArithmeticalValueUnaryOperationExpression"/>
+  <eClassifiers xsi:type="ecore:EClass" name="HyNestedArithmeticalValueExpression"
+      eSuperTypes="#//HyArithmeticalValueUnaryOperationExpression"/>
   <eClassifiers xsi:type="ecore:EClass" name="HyArithmeticalValueAtomicExpression"
       abstract="true" eSuperTypes="#//HyArithmeticalValueExpression"/>
   <eClassifiers xsi:type="ecore:EClass" name="HyContextInformationReferenceExpression"
