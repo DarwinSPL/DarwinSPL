@@ -2,13 +2,21 @@ package de.darwinspl.reconfigurator.z3;
 
 
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
+
 import org.antlr.v4.runtime.ANTLRInputStream;
 import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.CommonTokenStream;
+import org.antlr.v4.runtime.misc.TestRig;
 import org.antlr.v4.runtime.tree.ParseTree;
 
+import com.microsoft.z3.BoolExpr;
 import com.microsoft.z3.Context;
 import com.microsoft.z3.Expr;
+import com.microsoft.z3.Solver;
+import com.microsoft.z3.Status;
 
 
 /**
@@ -19,39 +27,36 @@ import com.microsoft.z3.Expr;
  *
  */
 public class DwZ3ParserClient  {
-
-	public static void main(String[] args) {
-		
+	
+	
+	
+	private List<String> features = new ArrayList<String>();
+	
 
 	
-		CharStream stream = new ANTLRInputStream("feature[abbb] > 10");
-		SpecificationGrammarLexer lexer = new SpecificationGrammarLexer(stream);
-	
-		CommonTokenStream tokenStream = new CommonTokenStream(lexer);
 		
-		SpecificationGrammarParser parser = new SpecificationGrammarParser(tokenStream);
 		
-		ParseTree tree = parser.constraint();
-		Context ctx = new Context();
-		
-		DwZ3TreeVisitor visitor = new DwZ3TreeVisitor(ctx);
-		
-		DwZ3TreeVisitorValue dwZ3TreeVisitorValue = visitor.visit(tree);
-		Expr[] expressions = dwZ3TreeVisitorValue.getExpr().getArgs();
-		for(Expr e: expressions) {
-			System.out.println(e.toString());
-			
-		}
-		System.out.println(expressions.toString());
-		System.out.println(dwZ3TreeVisitorValue.getExpr().toString());
 
-		
-	}
 	
 	
  
+	public Expr[] parseConstraints(List<String> constraints, Context context) {
+		
+		Expr[] expr = new BoolExpr[constraints.size()];
+		
+		int i = 0;
+		for(String c: constraints) {
+			expr[i] = parseConstraint(c, context).getExpr();
+			
+			i++;
+		}
+		
+		return expr;
+
+	}
 	
-	public DwZ3TreeVisitorValue parseConstraint(String constraint) {
+	
+	public DwZ3TreeVisitorValue parseConstraint(String constraint, Context context) {
 		
 		CharStream stream = new ANTLRInputStream(constraint);
 		SpecificationGrammarLexer lexer = new SpecificationGrammarLexer(stream);
@@ -61,15 +66,43 @@ public class DwZ3ParserClient  {
 		SpecificationGrammarParser parser = new SpecificationGrammarParser(tokenStream);
 		
 		ParseTree tree = parser.constraint();
-		Context ctx = new Context();
+	
 		
-		DwZ3TreeVisitor visitor = new DwZ3TreeVisitor(ctx);
+		DwZ3TreeVisitor visitor = new DwZ3TreeVisitor(context);
+		
+
 		
 		DwZ3TreeVisitorValue dwZ3TreeVisitorValue = visitor.visit(tree);
+		
+		updateFeatures(visitor.getFeatures());
+		
+
+	
+		
+		
+		
 		
 		return dwZ3TreeVisitorValue;
 		
 		
 	}
+	
+	
+	public List<String> getFeatures(){
+		return this.features;
+	}
+	
+	public void updateFeatures(List<String> features) {
+		for(String newF: features) {
+			
+			if(!this.features.contains(newF)) {
+				this.features.add(newF);
+			}
+			
+		}
+	}
+	
+	
+	
 	
 }

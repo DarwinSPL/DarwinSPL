@@ -12,6 +12,8 @@ import com.microsoft.z3.Context;
 import com.microsoft.z3.Expr;
 import com.microsoft.z3.IntExpr;
 
+import de.darwinspl.reconfigurator.z3.SpecificationGrammarParser.TermBracketsContext;
+
 
 
 public class DwZ3TreeVisitor extends SpecificationGrammarBaseVisitor<DwZ3TreeVisitorValue>{
@@ -22,18 +24,52 @@ public class DwZ3TreeVisitor extends SpecificationGrammarBaseVisitor<DwZ3TreeVis
 
 	List<String> contexts = new ArrayList<String>();
 	List<String> features = new ArrayList<String>();
+	public boolean isFeatureAsBoolean() {
+		return featureAsBoolean;
+	}
+
+	public void setFeatureAsBoolean(boolean featureAsBoolean) {
+		this.featureAsBoolean = featureAsBoolean;
+	}
+
+	public List<String> getContexts() {
+		return contexts;
+	}
+
+	public void setContexts(List<String> contexts) {
+		this.contexts = contexts;
+	}
+
+	public List<String> getFeatures() {
+		return features;
+	}
+
+	public void setFeatures(List<String> features) {
+		this.features = features;
+	}
+
+	public List<String> getAttributes() {
+		return attributes;
+	}
+
+	public void setAttributes(List<String> attributes) {
+		this.attributes = attributes;
+	}
+
 	List<String> attributes = new ArrayList<String>();
 	
 	public DwZ3TreeVisitor(Context context) {
 		this.context = context;
 		
 	}
-//	
-//	@Override
-//	protected Str defaultResult() {
-//		
-//		return "";
-//	}
+	
+	@Override
+	protected DwZ3TreeVisitorValue defaultResult() {
+		
+		DwZ3TreeVisitorValue v = new DwZ3TreeVisitorValue("");
+		
+		return v;
+	}
 	
 	@Override
 	public DwZ3TreeVisitorValue visitTerminal(TerminalNode node) {
@@ -52,6 +88,7 @@ public class DwZ3TreeVisitor extends SpecificationGrammarBaseVisitor<DwZ3TreeVis
 	public DwZ3TreeVisitorValue visitErrorNode(ErrorNode node) {
 		Token token = node.getSymbol();
 		System.err.println("Erroneous Node " + token.getText());
+		System.out.println("eerrrr");
 		return null;
 		
 	}
@@ -113,7 +150,7 @@ public class DwZ3TreeVisitor extends SpecificationGrammarBaseVisitor<DwZ3TreeVis
 	public DwZ3TreeVisitorValue visitB_expr(SpecificationGrammarParser.B_exprContext ctx) {
 		DwZ3TreeVisitorValue formula =  ctx.getChild(0).accept(this);
 		
-		for(int i=1; i < ctx.getChildCount(); i = i++) {
+		for(int i=1; i < ctx.getChildCount(); i = i+2) {
 			DwZ3TreeVisitorValue op =  ctx.getChild(i).accept(this);
 			DwZ3TreeVisitorValue f =  ctx.getChild(i+1).accept(this);
 			
@@ -210,14 +247,15 @@ public class DwZ3TreeVisitor extends SpecificationGrammarBaseVisitor<DwZ3TreeVis
 			if(op.getTokenString().equals("<=")) {
 				
 				Expr expr = context.mkLe((ArithExpr)formula.getExpr(),(ArithExpr) f.getExpr());
-				formula.setExpr((ArithExpr) expr.simplify());
+				formula.setExpr(expr.simplify());
 				
 				
 			}
 			// =
 			else if(op.getTokenString().equals("=")) {
-				Expr expr = context.mkEq((ArithExpr)formula.getExpr(),(ArithExpr) f.getExpr());
-				formula.setExpr((ArithExpr) expr.simplify());
+				
+				Expr expr = context.mkEq(formula.getExpr(), f.getExpr());
+				formula.setExpr(expr.simplify());
 			}
 			// >=
 			else if(op.getTokenString().equals(">=")) {
@@ -246,6 +284,7 @@ public class DwZ3TreeVisitor extends SpecificationGrammarBaseVisitor<DwZ3TreeVis
 			}
 			else {
 				//TODO: throw Exception
+				System.out.println("nooooothing possible");
 			}
 			
 				
@@ -316,7 +355,11 @@ public class DwZ3TreeVisitor extends SpecificationGrammarBaseVisitor<DwZ3TreeVis
 	public DwZ3TreeVisitorValue visitTermFeature(SpecificationGrammarParser.TermFeatureContext ctx) {
 		String id = ctx.getChild(1).accept(this).getTokenString();
 		
+	
+		if(!features.contains(id)) {
+
 		features.add(id);
+		}
 		DwZ3TreeVisitorValue v = new DwZ3TreeVisitorValue(id);
 		
 		if(featureAsBoolean) {
@@ -353,6 +396,18 @@ public class DwZ3TreeVisitor extends SpecificationGrammarBaseVisitor<DwZ3TreeVis
 		v.setExpr(context.mkBool(false).simplify());
 		return v;
 	}
+	
+	
+	@Override
+	public DwZ3TreeVisitorValue visitTermBrackets(TermBracketsContext ctx) {
+		
+		DwZ3TreeVisitorValue v = ctx.getChild(1).accept(this);
+		return v;
+	
+		
+	}
+	
+	
 	
 	
 	
