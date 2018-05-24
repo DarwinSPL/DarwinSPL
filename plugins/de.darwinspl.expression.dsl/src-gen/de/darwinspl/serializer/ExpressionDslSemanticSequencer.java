@@ -13,18 +13,23 @@ import eu.hyvar.dataValues.HyStringValue;
 import eu.hyvar.feature.expression.HyAdditionExpression;
 import eu.hyvar.feature.expression.HyAndExpression;
 import eu.hyvar.feature.expression.HyAttributeReferenceExpression;
-import eu.hyvar.feature.expression.HyBinaryArithmeticalComparisonExpression;
 import eu.hyvar.feature.expression.HyBooleanValueExpression;
 import eu.hyvar.feature.expression.HyConditionalFeatureReferenceExpression;
 import eu.hyvar.feature.expression.HyContextInformationReferenceExpression;
 import eu.hyvar.feature.expression.HyDivisionExpression;
+import eu.hyvar.feature.expression.HyEqualExpression;
 import eu.hyvar.feature.expression.HyEquivalenceExpression;
 import eu.hyvar.feature.expression.HyExpressionPackage;
 import eu.hyvar.feature.expression.HyFeatureReferenceExpression;
+import eu.hyvar.feature.expression.HyGreaterExpression;
+import eu.hyvar.feature.expression.HyGreaterOrEqualExpression;
 import eu.hyvar.feature.expression.HyImpliesExpression;
+import eu.hyvar.feature.expression.HyLessExpression;
+import eu.hyvar.feature.expression.HyLessOrEqualExpression;
 import eu.hyvar.feature.expression.HyMultiplicationExpression;
 import eu.hyvar.feature.expression.HyNestedArithmeticalValueExpression;
 import eu.hyvar.feature.expression.HyNestedExpression;
+import eu.hyvar.feature.expression.HyNotEqualExpression;
 import eu.hyvar.feature.expression.HyNotExpression;
 import eu.hyvar.feature.expression.HyOrExpression;
 import eu.hyvar.feature.expression.HyRelativeVersionRestriction;
@@ -80,44 +85,6 @@ public class ExpressionDslSemanticSequencer extends AbstractDelegatingSemanticSe
 			case HyExpressionPackage.HY_ATTRIBUTE_REFERENCE_EXPRESSION:
 				sequence_HyAttributeReferenceExpression(context, (HyAttributeReferenceExpression) semanticObject); 
 				return; 
-			case HyExpressionPackage.HY_BINARY_ARITHMETICAL_COMPARISON_EXPRESSION:
-				if (rule == grammarAccess.getHyExpressionRule()
-						|| rule == grammarAccess.getHyImpliesExpressionRule()
-						|| action == grammarAccess.getHyImpliesExpressionAccess().getHyImpliesExpressionOperand1Action_1_0()
-						|| rule == grammarAccess.getHyEquivalenceExpressionRule()
-						|| action == grammarAccess.getHyEquivalenceExpressionAccess().getHyEquivalenceExpressionOperand1Action_1_0()
-						|| rule == grammarAccess.getHyAndExpressionRule()
-						|| action == grammarAccess.getHyAndExpressionAccess().getHyAndExpressionOperand1Action_1_0()
-						|| rule == grammarAccess.getHyOrExpressionRule()
-						|| action == grammarAccess.getHyOrExpressionAccess().getHyOrExpressionOperand1Action_1_0()
-						|| rule == grammarAccess.getTerminalExpressionRule()
-						|| rule == grammarAccess.getHyArithmeticalComparisonExpressionRule()
-						|| rule == grammarAccess.getHyBinaryArithmeticalComparisonExpressionRule()
-						|| rule == grammarAccess.getHyGreaterExpressionRule()) {
-					sequence_HyEqualExpression_HyGreaterExpression_HyGreaterOrEqualExpression_HyLessExpression_HyLessOrEqualExpression_HyNotEqualExpression(context, (HyBinaryArithmeticalComparisonExpression) semanticObject); 
-					return; 
-				}
-				else if (rule == grammarAccess.getHyLessExpressionRule()) {
-					sequence_HyEqualExpression_HyGreaterOrEqualExpression_HyLessExpression_HyLessOrEqualExpression_HyNotEqualExpression(context, (HyBinaryArithmeticalComparisonExpression) semanticObject); 
-					return; 
-				}
-				else if (rule == grammarAccess.getHyGreaterOrEqualExpressionRule()) {
-					sequence_HyEqualExpression_HyGreaterOrEqualExpression_HyLessOrEqualExpression_HyNotEqualExpression(context, (HyBinaryArithmeticalComparisonExpression) semanticObject); 
-					return; 
-				}
-				else if (rule == grammarAccess.getHyLessOrEqualExpressionRule()) {
-					sequence_HyEqualExpression_HyLessOrEqualExpression_HyNotEqualExpression(context, (HyBinaryArithmeticalComparisonExpression) semanticObject); 
-					return; 
-				}
-				else if (rule == grammarAccess.getHyEqualExpressionRule()) {
-					sequence_HyEqualExpression_HyNotEqualExpression(context, (HyBinaryArithmeticalComparisonExpression) semanticObject); 
-					return; 
-				}
-				else if (rule == grammarAccess.getHyNotEqualExpressionRule()) {
-					sequence_HyNotEqualExpression(context, (HyBinaryArithmeticalComparisonExpression) semanticObject); 
-					return; 
-				}
-				else break;
 			case HyExpressionPackage.HY_BOOLEAN_VALUE_EXPRESSION:
 				sequence_HyBooleanValueExpression(context, (HyBooleanValueExpression) semanticObject); 
 				return; 
@@ -130,14 +97,29 @@ public class ExpressionDslSemanticSequencer extends AbstractDelegatingSemanticSe
 			case HyExpressionPackage.HY_DIVISION_EXPRESSION:
 				sequence_HyDivisionExpression(context, (HyDivisionExpression) semanticObject); 
 				return; 
+			case HyExpressionPackage.HY_EQUAL_EXPRESSION:
+				sequence_HyEqualExpression(context, (HyEqualExpression) semanticObject); 
+				return; 
 			case HyExpressionPackage.HY_EQUIVALENCE_EXPRESSION:
 				sequence_HyEquivalenceExpression(context, (HyEquivalenceExpression) semanticObject); 
 				return; 
 			case HyExpressionPackage.HY_FEATURE_REFERENCE_EXPRESSION:
 				sequence_HyFeatureReferenceExpression(context, (HyFeatureReferenceExpression) semanticObject); 
 				return; 
+			case HyExpressionPackage.HY_GREATER_EXPRESSION:
+				sequence_HyGreaterExpression(context, (HyGreaterExpression) semanticObject); 
+				return; 
+			case HyExpressionPackage.HY_GREATER_OR_EQUAL_EXPRESSION:
+				sequence_HyGreaterOrEqualExpression(context, (HyGreaterOrEqualExpression) semanticObject); 
+				return; 
 			case HyExpressionPackage.HY_IMPLIES_EXPRESSION:
 				sequence_HyImpliesExpression(context, (HyImpliesExpression) semanticObject); 
+				return; 
+			case HyExpressionPackage.HY_LESS_EXPRESSION:
+				sequence_HyLessExpression(context, (HyLessExpression) semanticObject); 
+				return; 
+			case HyExpressionPackage.HY_LESS_OR_EQUAL_EXPRESSION:
+				sequence_HyLessOrEqualExpression(context, (HyLessOrEqualExpression) semanticObject); 
 				return; 
 			case HyExpressionPackage.HY_MULTIPLICATION_EXPRESSION:
 				sequence_HyMultiplicationExpression(context, (HyMultiplicationExpression) semanticObject); 
@@ -147,6 +129,9 @@ public class ExpressionDslSemanticSequencer extends AbstractDelegatingSemanticSe
 				return; 
 			case HyExpressionPackage.HY_NESTED_EXPRESSION:
 				sequence_HyNestedExpression(context, (HyNestedExpression) semanticObject); 
+				return; 
+			case HyExpressionPackage.HY_NOT_EQUAL_EXPRESSION:
+				sequence_HyNotEqualExpression(context, (HyNotEqualExpression) semanticObject); 
 				return; 
 			case HyExpressionPackage.HY_NOT_EXPRESSION:
 				sequence_HyNotExpression(context, (HyNotExpression) semanticObject); 
@@ -173,7 +158,6 @@ public class ExpressionDslSemanticSequencer extends AbstractDelegatingSemanticSe
 	
 	/**
 	 * Contexts:
-	 *     HyArithmeticalValueExpression returns HyAdditionExpression
 	 *     HyAdditionExpression returns HyAdditionExpression
 	 *     HyAdditionExpression.HyAdditionExpression_1_0 returns HyAdditionExpression
 	 *
@@ -223,7 +207,6 @@ public class ExpressionDslSemanticSequencer extends AbstractDelegatingSemanticSe
 	
 	/**
 	 * Contexts:
-	 *     HyArithmeticalValueExpression returns HyAttributeReferenceExpression
 	 *     HyAdditionExpression returns HyAttributeReferenceExpression
 	 *     HyAdditionExpression.HyAdditionExpression_1_0 returns HyAttributeReferenceExpression
 	 *     HySubtractionExpression returns HyAttributeReferenceExpression
@@ -311,7 +294,6 @@ public class ExpressionDslSemanticSequencer extends AbstractDelegatingSemanticSe
 	
 	/**
 	 * Contexts:
-	 *     HyArithmeticalValueExpression returns HyContextInformationReferenceExpression
 	 *     HyAdditionExpression returns HyContextInformationReferenceExpression
 	 *     HyAdditionExpression.HyAdditionExpression_1_0 returns HyContextInformationReferenceExpression
 	 *     HySubtractionExpression returns HyContextInformationReferenceExpression
@@ -339,7 +321,6 @@ public class ExpressionDslSemanticSequencer extends AbstractDelegatingSemanticSe
 	
 	/**
 	 * Contexts:
-	 *     HyArithmeticalValueExpression returns HyDivisionExpression
 	 *     HyAdditionExpression returns HyDivisionExpression
 	 *     HyAdditionExpression.HyAdditionExpression_1_0 returns HyDivisionExpression
 	 *     HySubtractionExpression returns HyDivisionExpression
@@ -390,98 +371,34 @@ public class ExpressionDslSemanticSequencer extends AbstractDelegatingSemanticSe
 	
 	/**
 	 * Contexts:
-	 *     HyExpression returns HyBinaryArithmeticalComparisonExpression
-	 *     HyImpliesExpression returns HyBinaryArithmeticalComparisonExpression
-	 *     HyImpliesExpression.HyImpliesExpression_1_0 returns HyBinaryArithmeticalComparisonExpression
-	 *     HyEquivalenceExpression returns HyBinaryArithmeticalComparisonExpression
-	 *     HyEquivalenceExpression.HyEquivalenceExpression_1_0 returns HyBinaryArithmeticalComparisonExpression
-	 *     HyAndExpression returns HyBinaryArithmeticalComparisonExpression
-	 *     HyAndExpression.HyAndExpression_1_0 returns HyBinaryArithmeticalComparisonExpression
-	 *     HyOrExpression returns HyBinaryArithmeticalComparisonExpression
-	 *     HyOrExpression.HyOrExpression_1_0 returns HyBinaryArithmeticalComparisonExpression
-	 *     TerminalExpression returns HyBinaryArithmeticalComparisonExpression
-	 *     HyArithmeticalComparisonExpression returns HyBinaryArithmeticalComparisonExpression
-	 *     HyBinaryArithmeticalComparisonExpression returns HyBinaryArithmeticalComparisonExpression
-	 *     HyGreaterExpression returns HyBinaryArithmeticalComparisonExpression
+	 *     HyExpression returns HyEqualExpression
+	 *     HyImpliesExpression returns HyEqualExpression
+	 *     HyImpliesExpression.HyImpliesExpression_1_0 returns HyEqualExpression
+	 *     HyEquivalenceExpression returns HyEqualExpression
+	 *     HyEquivalenceExpression.HyEquivalenceExpression_1_0 returns HyEqualExpression
+	 *     HyAndExpression returns HyEqualExpression
+	 *     HyAndExpression.HyAndExpression_1_0 returns HyEqualExpression
+	 *     HyOrExpression returns HyEqualExpression
+	 *     HyOrExpression.HyOrExpression_1_0 returns HyEqualExpression
+	 *     TerminalExpression returns HyEqualExpression
+	 *     HyArithmeticalComparisonExpression returns HyEqualExpression
+	 *     HyBinaryArithmeticalComparisonExpression returns HyEqualExpression
+	 *     HyEqualExpression returns HyEqualExpression
 	 *
 	 * Constraint:
-	 *     (
-	 *         (operand1=HyArithmeticalValueExpression operand2=HyArithmeticalValueExpression) | 
-	 *         (operand1=HyArithmeticalValueExpression operand2=HyArithmeticalValueExpression) | 
-	 *         (operand1=HyArithmeticalValueExpression operand2=HyArithmeticalValueExpression) | 
-	 *         (operand1=HyArithmeticalValueExpression operand2=HyArithmeticalValueExpression) | 
-	 *         (operand1=HyArithmeticalValueExpression operand2=HyArithmeticalValueExpression) | 
-	 *         (operand1=HyArithmeticalValueExpression operand2=HyArithmeticalValueExpression)
-	 *     )
+	 *     (operand1=HyArithmeticalValueExpression operand2=HyArithmeticalValueExpression)
 	 */
-	protected void sequence_HyEqualExpression_HyGreaterExpression_HyGreaterOrEqualExpression_HyLessExpression_HyLessOrEqualExpression_HyNotEqualExpression(ISerializationContext context, HyBinaryArithmeticalComparisonExpression semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
-	}
-	
-	
-	/**
-	 * Contexts:
-	 *     HyLessExpression returns HyBinaryArithmeticalComparisonExpression
-	 *
-	 * Constraint:
-	 *     (
-	 *         (operand1=HyArithmeticalValueExpression operand2=HyArithmeticalValueExpression) | 
-	 *         (operand1=HyArithmeticalValueExpression operand2=HyArithmeticalValueExpression) | 
-	 *         (operand1=HyArithmeticalValueExpression operand2=HyArithmeticalValueExpression) | 
-	 *         (operand1=HyArithmeticalValueExpression operand2=HyArithmeticalValueExpression) | 
-	 *         (operand1=HyArithmeticalValueExpression operand2=HyArithmeticalValueExpression)
-	 *     )
-	 */
-	protected void sequence_HyEqualExpression_HyGreaterOrEqualExpression_HyLessExpression_HyLessOrEqualExpression_HyNotEqualExpression(ISerializationContext context, HyBinaryArithmeticalComparisonExpression semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
-	}
-	
-	
-	/**
-	 * Contexts:
-	 *     HyGreaterOrEqualExpression returns HyBinaryArithmeticalComparisonExpression
-	 *
-	 * Constraint:
-	 *     (
-	 *         (operand1=HyArithmeticalValueExpression operand2=HyArithmeticalValueExpression) | 
-	 *         (operand1=HyArithmeticalValueExpression operand2=HyArithmeticalValueExpression) | 
-	 *         (operand1=HyArithmeticalValueExpression operand2=HyArithmeticalValueExpression) | 
-	 *         (operand1=HyArithmeticalValueExpression operand2=HyArithmeticalValueExpression)
-	 *     )
-	 */
-	protected void sequence_HyEqualExpression_HyGreaterOrEqualExpression_HyLessOrEqualExpression_HyNotEqualExpression(ISerializationContext context, HyBinaryArithmeticalComparisonExpression semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
-	}
-	
-	
-	/**
-	 * Contexts:
-	 *     HyLessOrEqualExpression returns HyBinaryArithmeticalComparisonExpression
-	 *
-	 * Constraint:
-	 *     (
-	 *         (operand1=HyArithmeticalValueExpression operand2=HyArithmeticalValueExpression) | 
-	 *         (operand1=HyArithmeticalValueExpression operand2=HyArithmeticalValueExpression) | 
-	 *         (operand1=HyArithmeticalValueExpression operand2=HyArithmeticalValueExpression)
-	 *     )
-	 */
-	protected void sequence_HyEqualExpression_HyLessOrEqualExpression_HyNotEqualExpression(ISerializationContext context, HyBinaryArithmeticalComparisonExpression semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
-	}
-	
-	
-	/**
-	 * Contexts:
-	 *     HyEqualExpression returns HyBinaryArithmeticalComparisonExpression
-	 *
-	 * Constraint:
-	 *     (
-	 *         (operand1=HyArithmeticalValueExpression operand2=HyArithmeticalValueExpression) | 
-	 *         (operand1=HyArithmeticalValueExpression operand2=HyArithmeticalValueExpression)
-	 *     )
-	 */
-	protected void sequence_HyEqualExpression_HyNotEqualExpression(ISerializationContext context, HyBinaryArithmeticalComparisonExpression semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
+	protected void sequence_HyEqualExpression(ISerializationContext context, HyEqualExpression semanticObject) {
+		if (errorAcceptor != null) {
+			if (transientValues.isValueTransient(semanticObject, HyExpressionPackage.Literals.HY_BINARY_ARITHMETICAL_COMPARISON_EXPRESSION__OPERAND1) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, HyExpressionPackage.Literals.HY_BINARY_ARITHMETICAL_COMPARISON_EXPRESSION__OPERAND1));
+			if (transientValues.isValueTransient(semanticObject, HyExpressionPackage.Literals.HY_BINARY_ARITHMETICAL_COMPARISON_EXPRESSION__OPERAND2) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, HyExpressionPackage.Literals.HY_BINARY_ARITHMETICAL_COMPARISON_EXPRESSION__OPERAND2));
+		}
+		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
+		feeder.accept(grammarAccess.getHyEqualExpressionAccess().getOperand1HyArithmeticalValueExpressionParserRuleCall_0_0(), semanticObject.getOperand1());
+		feeder.accept(grammarAccess.getHyEqualExpressionAccess().getOperand2HyArithmeticalValueExpressionParserRuleCall_2_0(), semanticObject.getOperand2());
+		feeder.finish();
 	}
 	
 	
@@ -534,6 +451,72 @@ public class ExpressionDslSemanticSequencer extends AbstractDelegatingSemanticSe
 	
 	/**
 	 * Contexts:
+	 *     HyExpression returns HyGreaterExpression
+	 *     HyImpliesExpression returns HyGreaterExpression
+	 *     HyImpliesExpression.HyImpliesExpression_1_0 returns HyGreaterExpression
+	 *     HyEquivalenceExpression returns HyGreaterExpression
+	 *     HyEquivalenceExpression.HyEquivalenceExpression_1_0 returns HyGreaterExpression
+	 *     HyAndExpression returns HyGreaterExpression
+	 *     HyAndExpression.HyAndExpression_1_0 returns HyGreaterExpression
+	 *     HyOrExpression returns HyGreaterExpression
+	 *     HyOrExpression.HyOrExpression_1_0 returns HyGreaterExpression
+	 *     TerminalExpression returns HyGreaterExpression
+	 *     HyArithmeticalComparisonExpression returns HyGreaterExpression
+	 *     HyBinaryArithmeticalComparisonExpression returns HyGreaterExpression
+	 *     HyGreaterExpression returns HyGreaterExpression
+	 *
+	 * Constraint:
+	 *     (operand1=HyArithmeticalValueExpression operand2=HyArithmeticalValueExpression)
+	 */
+	protected void sequence_HyGreaterExpression(ISerializationContext context, HyGreaterExpression semanticObject) {
+		if (errorAcceptor != null) {
+			if (transientValues.isValueTransient(semanticObject, HyExpressionPackage.Literals.HY_BINARY_ARITHMETICAL_COMPARISON_EXPRESSION__OPERAND1) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, HyExpressionPackage.Literals.HY_BINARY_ARITHMETICAL_COMPARISON_EXPRESSION__OPERAND1));
+			if (transientValues.isValueTransient(semanticObject, HyExpressionPackage.Literals.HY_BINARY_ARITHMETICAL_COMPARISON_EXPRESSION__OPERAND2) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, HyExpressionPackage.Literals.HY_BINARY_ARITHMETICAL_COMPARISON_EXPRESSION__OPERAND2));
+		}
+		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
+		feeder.accept(grammarAccess.getHyGreaterExpressionAccess().getOperand1HyArithmeticalValueExpressionParserRuleCall_0_0(), semanticObject.getOperand1());
+		feeder.accept(grammarAccess.getHyGreaterExpressionAccess().getOperand2HyArithmeticalValueExpressionParserRuleCall_2_0(), semanticObject.getOperand2());
+		feeder.finish();
+	}
+	
+	
+	/**
+	 * Contexts:
+	 *     HyExpression returns HyGreaterOrEqualExpression
+	 *     HyImpliesExpression returns HyGreaterOrEqualExpression
+	 *     HyImpliesExpression.HyImpliesExpression_1_0 returns HyGreaterOrEqualExpression
+	 *     HyEquivalenceExpression returns HyGreaterOrEqualExpression
+	 *     HyEquivalenceExpression.HyEquivalenceExpression_1_0 returns HyGreaterOrEqualExpression
+	 *     HyAndExpression returns HyGreaterOrEqualExpression
+	 *     HyAndExpression.HyAndExpression_1_0 returns HyGreaterOrEqualExpression
+	 *     HyOrExpression returns HyGreaterOrEqualExpression
+	 *     HyOrExpression.HyOrExpression_1_0 returns HyGreaterOrEqualExpression
+	 *     TerminalExpression returns HyGreaterOrEqualExpression
+	 *     HyArithmeticalComparisonExpression returns HyGreaterOrEqualExpression
+	 *     HyBinaryArithmeticalComparisonExpression returns HyGreaterOrEqualExpression
+	 *     HyGreaterOrEqualExpression returns HyGreaterOrEqualExpression
+	 *
+	 * Constraint:
+	 *     (operand1=HyArithmeticalValueExpression operand2=HyArithmeticalValueExpression)
+	 */
+	protected void sequence_HyGreaterOrEqualExpression(ISerializationContext context, HyGreaterOrEqualExpression semanticObject) {
+		if (errorAcceptor != null) {
+			if (transientValues.isValueTransient(semanticObject, HyExpressionPackage.Literals.HY_BINARY_ARITHMETICAL_COMPARISON_EXPRESSION__OPERAND1) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, HyExpressionPackage.Literals.HY_BINARY_ARITHMETICAL_COMPARISON_EXPRESSION__OPERAND1));
+			if (transientValues.isValueTransient(semanticObject, HyExpressionPackage.Literals.HY_BINARY_ARITHMETICAL_COMPARISON_EXPRESSION__OPERAND2) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, HyExpressionPackage.Literals.HY_BINARY_ARITHMETICAL_COMPARISON_EXPRESSION__OPERAND2));
+		}
+		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
+		feeder.accept(grammarAccess.getHyGreaterOrEqualExpressionAccess().getOperand1HyArithmeticalValueExpressionParserRuleCall_0_0(), semanticObject.getOperand1());
+		feeder.accept(grammarAccess.getHyGreaterOrEqualExpressionAccess().getOperand2HyArithmeticalValueExpressionParserRuleCall_2_0(), semanticObject.getOperand2());
+		feeder.finish();
+	}
+	
+	
+	/**
+	 * Contexts:
 	 *     HyExpression returns HyImpliesExpression
 	 *     HyImpliesExpression returns HyImpliesExpression
 	 *     HyImpliesExpression.HyImpliesExpression_1_0 returns HyImpliesExpression
@@ -557,7 +540,72 @@ public class ExpressionDslSemanticSequencer extends AbstractDelegatingSemanticSe
 	
 	/**
 	 * Contexts:
-	 *     HyArithmeticalValueExpression returns HyMultiplicationExpression
+	 *     HyExpression returns HyLessExpression
+	 *     HyImpliesExpression returns HyLessExpression
+	 *     HyImpliesExpression.HyImpliesExpression_1_0 returns HyLessExpression
+	 *     HyEquivalenceExpression returns HyLessExpression
+	 *     HyEquivalenceExpression.HyEquivalenceExpression_1_0 returns HyLessExpression
+	 *     HyAndExpression returns HyLessExpression
+	 *     HyAndExpression.HyAndExpression_1_0 returns HyLessExpression
+	 *     HyOrExpression returns HyLessExpression
+	 *     HyOrExpression.HyOrExpression_1_0 returns HyLessExpression
+	 *     TerminalExpression returns HyLessExpression
+	 *     HyArithmeticalComparisonExpression returns HyLessExpression
+	 *     HyBinaryArithmeticalComparisonExpression returns HyLessExpression
+	 *     HyLessExpression returns HyLessExpression
+	 *
+	 * Constraint:
+	 *     (operand1=HyArithmeticalValueExpression operand2=HyArithmeticalValueExpression)
+	 */
+	protected void sequence_HyLessExpression(ISerializationContext context, HyLessExpression semanticObject) {
+		if (errorAcceptor != null) {
+			if (transientValues.isValueTransient(semanticObject, HyExpressionPackage.Literals.HY_BINARY_ARITHMETICAL_COMPARISON_EXPRESSION__OPERAND1) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, HyExpressionPackage.Literals.HY_BINARY_ARITHMETICAL_COMPARISON_EXPRESSION__OPERAND1));
+			if (transientValues.isValueTransient(semanticObject, HyExpressionPackage.Literals.HY_BINARY_ARITHMETICAL_COMPARISON_EXPRESSION__OPERAND2) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, HyExpressionPackage.Literals.HY_BINARY_ARITHMETICAL_COMPARISON_EXPRESSION__OPERAND2));
+		}
+		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
+		feeder.accept(grammarAccess.getHyLessExpressionAccess().getOperand1HyArithmeticalValueExpressionParserRuleCall_0_0(), semanticObject.getOperand1());
+		feeder.accept(grammarAccess.getHyLessExpressionAccess().getOperand2HyArithmeticalValueExpressionParserRuleCall_2_0(), semanticObject.getOperand2());
+		feeder.finish();
+	}
+	
+	
+	/**
+	 * Contexts:
+	 *     HyExpression returns HyLessOrEqualExpression
+	 *     HyImpliesExpression returns HyLessOrEqualExpression
+	 *     HyImpliesExpression.HyImpliesExpression_1_0 returns HyLessOrEqualExpression
+	 *     HyEquivalenceExpression returns HyLessOrEqualExpression
+	 *     HyEquivalenceExpression.HyEquivalenceExpression_1_0 returns HyLessOrEqualExpression
+	 *     HyAndExpression returns HyLessOrEqualExpression
+	 *     HyAndExpression.HyAndExpression_1_0 returns HyLessOrEqualExpression
+	 *     HyOrExpression returns HyLessOrEqualExpression
+	 *     HyOrExpression.HyOrExpression_1_0 returns HyLessOrEqualExpression
+	 *     TerminalExpression returns HyLessOrEqualExpression
+	 *     HyArithmeticalComparisonExpression returns HyLessOrEqualExpression
+	 *     HyBinaryArithmeticalComparisonExpression returns HyLessOrEqualExpression
+	 *     HyLessOrEqualExpression returns HyLessOrEqualExpression
+	 *
+	 * Constraint:
+	 *     (operand1=HyArithmeticalValueExpression operand2=HyArithmeticalValueExpression)
+	 */
+	protected void sequence_HyLessOrEqualExpression(ISerializationContext context, HyLessOrEqualExpression semanticObject) {
+		if (errorAcceptor != null) {
+			if (transientValues.isValueTransient(semanticObject, HyExpressionPackage.Literals.HY_BINARY_ARITHMETICAL_COMPARISON_EXPRESSION__OPERAND1) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, HyExpressionPackage.Literals.HY_BINARY_ARITHMETICAL_COMPARISON_EXPRESSION__OPERAND1));
+			if (transientValues.isValueTransient(semanticObject, HyExpressionPackage.Literals.HY_BINARY_ARITHMETICAL_COMPARISON_EXPRESSION__OPERAND2) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, HyExpressionPackage.Literals.HY_BINARY_ARITHMETICAL_COMPARISON_EXPRESSION__OPERAND2));
+		}
+		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
+		feeder.accept(grammarAccess.getHyLessOrEqualExpressionAccess().getOperand1HyArithmeticalValueExpressionParserRuleCall_0_0(), semanticObject.getOperand1());
+		feeder.accept(grammarAccess.getHyLessOrEqualExpressionAccess().getOperand2HyArithmeticalValueExpressionParserRuleCall_2_0(), semanticObject.getOperand2());
+		feeder.finish();
+	}
+	
+	
+	/**
+	 * Contexts:
 	 *     HyAdditionExpression returns HyMultiplicationExpression
 	 *     HyAdditionExpression.HyAdditionExpression_1_0 returns HyMultiplicationExpression
 	 *     HySubtractionExpression returns HyMultiplicationExpression
@@ -584,7 +632,6 @@ public class ExpressionDslSemanticSequencer extends AbstractDelegatingSemanticSe
 	
 	/**
 	 * Contexts:
-	 *     HyArithmeticalValueExpression returns HyNestedArithmeticalValueExpression
 	 *     HyAdditionExpression returns HyNestedArithmeticalValueExpression
 	 *     HyAdditionExpression.HyAdditionExpression_1_0 returns HyNestedArithmeticalValueExpression
 	 *     HySubtractionExpression returns HyNestedArithmeticalValueExpression
@@ -640,12 +687,24 @@ public class ExpressionDslSemanticSequencer extends AbstractDelegatingSemanticSe
 	
 	/**
 	 * Contexts:
-	 *     HyNotEqualExpression returns HyBinaryArithmeticalComparisonExpression
+	 *     HyExpression returns HyNotEqualExpression
+	 *     HyImpliesExpression returns HyNotEqualExpression
+	 *     HyImpliesExpression.HyImpliesExpression_1_0 returns HyNotEqualExpression
+	 *     HyEquivalenceExpression returns HyNotEqualExpression
+	 *     HyEquivalenceExpression.HyEquivalenceExpression_1_0 returns HyNotEqualExpression
+	 *     HyAndExpression returns HyNotEqualExpression
+	 *     HyAndExpression.HyAndExpression_1_0 returns HyNotEqualExpression
+	 *     HyOrExpression returns HyNotEqualExpression
+	 *     HyOrExpression.HyOrExpression_1_0 returns HyNotEqualExpression
+	 *     TerminalExpression returns HyNotEqualExpression
+	 *     HyArithmeticalComparisonExpression returns HyNotEqualExpression
+	 *     HyBinaryArithmeticalComparisonExpression returns HyNotEqualExpression
+	 *     HyNotEqualExpression returns HyNotEqualExpression
 	 *
 	 * Constraint:
 	 *     (operand1=HyArithmeticalValueExpression operand2=HyArithmeticalValueExpression)
 	 */
-	protected void sequence_HyNotEqualExpression(ISerializationContext context, HyBinaryArithmeticalComparisonExpression semanticObject) {
+	protected void sequence_HyNotEqualExpression(ISerializationContext context, HyNotEqualExpression semanticObject) {
 		if (errorAcceptor != null) {
 			if (transientValues.isValueTransient(semanticObject, HyExpressionPackage.Literals.HY_BINARY_ARITHMETICAL_COMPARISON_EXPRESSION__OPERAND1) == ValueTransient.YES)
 				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, HyExpressionPackage.Literals.HY_BINARY_ARITHMETICAL_COMPARISON_EXPRESSION__OPERAND1));
@@ -778,7 +837,6 @@ public class ExpressionDslSemanticSequencer extends AbstractDelegatingSemanticSe
 	
 	/**
 	 * Contexts:
-	 *     HyArithmeticalValueExpression returns HySubtractionExpression
 	 *     HyAdditionExpression returns HySubtractionExpression
 	 *     HyAdditionExpression.HyAdditionExpression_1_0 returns HySubtractionExpression
 	 *     HySubtractionExpression returns HySubtractionExpression

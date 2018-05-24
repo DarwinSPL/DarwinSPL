@@ -23,7 +23,7 @@ import java.util.HashMap;
 @SuppressWarnings("all")
 public class InternalExpressionDslParser extends AbstractInternalContentAssistParser {
     public static final String[] tokenNames = new String[] {
-        "<invalid>", "<EOR>", "<DOWN>", "<UP>", "RULE_INT", "RULE_STRING", "RULE_ID", "RULE_ML_COMMENT", "RULE_SL_COMMENT", "RULE_WS", "RULE_ANY_OTHER", "'false'", "'<'", "'<='", "'='", "'>='", "'>'", "'->'", "'<->'", "'&&'", "'||'", "'('", "')'", "'!'", "'?'", "'['", "']'", "'-'", "'!='", "'+'", "'*'", "'/'", "'.'", "'true'"
+        "<invalid>", "<EOR>", "<DOWN>", "<UP>", "RULE_INT", "RULE_STRING", "RULE_ID", "RULE_ML_COMMENT", "RULE_SL_COMMENT", "RULE_WS", "RULE_ANY_OTHER", "'false'", "'<'", "'<='", "'='", "'>='", "'>'", "'->'", "'<->'", "'&&'", "'||'", "'('", "')'", "'!'", "'?'", "'['", "']'", "'-'", "'!='", "'*'", "'/'", "'.'", "'true'"
     };
     public static final int RULE_STRING=5;
     public static final int RULE_SL_COMMENT=8;
@@ -33,7 +33,6 @@ public class InternalExpressionDslParser extends AbstractInternalContentAssistPa
     public static final int T__17=17;
     public static final int T__18=18;
     public static final int T__11=11;
-    public static final int T__33=33;
     public static final int T__12=12;
     public static final int T__13=13;
     public static final int T__14=14;
@@ -1276,91 +1275,12 @@ public class InternalExpressionDslParser extends AbstractInternalContentAssistPa
     // $ANTLR end "ruleHyBooleanValueExpression"
 
 
-    // $ANTLR start "entryRuleHyArithmeticalComparisonExpression"
-    // InternalExpressionDsl.g:404:1: entryRuleHyArithmeticalComparisonExpression : ruleHyArithmeticalComparisonExpression EOF ;
-    public final void entryRuleHyArithmeticalComparisonExpression() throws RecognitionException {
-        try {
-            // InternalExpressionDsl.g:405:1: ( ruleHyArithmeticalComparisonExpression EOF )
-            // InternalExpressionDsl.g:406:1: ruleHyArithmeticalComparisonExpression EOF
-            {
-            if ( state.backtracking==0 ) {
-               before(grammarAccess.getHyArithmeticalComparisonExpressionRule()); 
-            }
-            pushFollow(FOLLOW_1);
-            ruleHyArithmeticalComparisonExpression();
-
-            state._fsp--;
-            if (state.failed) return ;
-            if ( state.backtracking==0 ) {
-               after(grammarAccess.getHyArithmeticalComparisonExpressionRule()); 
-            }
-            match(input,EOF,FOLLOW_2); if (state.failed) return ;
-
-            }
-
-        }
-        catch (RecognitionException re) {
-            reportError(re);
-            recover(input,re);
-        }
-        finally {
-        }
-        return ;
-    }
-    // $ANTLR end "entryRuleHyArithmeticalComparisonExpression"
-
-
-    // $ANTLR start "ruleHyArithmeticalComparisonExpression"
-    // InternalExpressionDsl.g:413:1: ruleHyArithmeticalComparisonExpression : ( ruleHyBinaryArithmeticalComparisonExpression ) ;
-    public final void ruleHyArithmeticalComparisonExpression() throws RecognitionException {
-
-        		int stackSize = keepStackSize();
-        	
-        try {
-            // InternalExpressionDsl.g:417:2: ( ( ruleHyBinaryArithmeticalComparisonExpression ) )
-            // InternalExpressionDsl.g:418:2: ( ruleHyBinaryArithmeticalComparisonExpression )
-            {
-            // InternalExpressionDsl.g:418:2: ( ruleHyBinaryArithmeticalComparisonExpression )
-            // InternalExpressionDsl.g:419:3: ruleHyBinaryArithmeticalComparisonExpression
-            {
-            if ( state.backtracking==0 ) {
-               before(grammarAccess.getHyArithmeticalComparisonExpressionAccess().getHyBinaryArithmeticalComparisonExpressionParserRuleCall()); 
-            }
-            pushFollow(FOLLOW_2);
-            ruleHyBinaryArithmeticalComparisonExpression();
-
-            state._fsp--;
-            if (state.failed) return ;
-            if ( state.backtracking==0 ) {
-               after(grammarAccess.getHyArithmeticalComparisonExpressionAccess().getHyBinaryArithmeticalComparisonExpressionParserRuleCall()); 
-            }
-
-            }
-
-
-            }
-
-        }
-        catch (RecognitionException re) {
-            reportError(re);
-            recover(input,re);
-        }
-        finally {
-
-            	restoreStackSize(stackSize);
-
-        }
-        return ;
-    }
-    // $ANTLR end "ruleHyArithmeticalComparisonExpression"
-
-
     // $ANTLR start "entryRuleHyBinaryArithmeticalComparisonExpression"
-    // InternalExpressionDsl.g:429:1: entryRuleHyBinaryArithmeticalComparisonExpression : ruleHyBinaryArithmeticalComparisonExpression EOF ;
+    // InternalExpressionDsl.g:404:1: entryRuleHyBinaryArithmeticalComparisonExpression : ruleHyBinaryArithmeticalComparisonExpression EOF ;
     public final void entryRuleHyBinaryArithmeticalComparisonExpression() throws RecognitionException {
         try {
-            // InternalExpressionDsl.g:430:1: ( ruleHyBinaryArithmeticalComparisonExpression EOF )
-            // InternalExpressionDsl.g:431:1: ruleHyBinaryArithmeticalComparisonExpression EOF
+            // InternalExpressionDsl.g:405:1: ( ruleHyBinaryArithmeticalComparisonExpression EOF )
+            // InternalExpressionDsl.g:406:1: ruleHyBinaryArithmeticalComparisonExpression EOF
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getHyBinaryArithmeticalComparisonExpressionRule()); 
@@ -1390,28 +1310,34 @@ public class InternalExpressionDslParser extends AbstractInternalContentAssistPa
 
 
     // $ANTLR start "ruleHyBinaryArithmeticalComparisonExpression"
-    // InternalExpressionDsl.g:438:1: ruleHyBinaryArithmeticalComparisonExpression : ( ruleHyGreaterExpression ) ;
+    // InternalExpressionDsl.g:413:1: ruleHyBinaryArithmeticalComparisonExpression : ( ( rule__HyBinaryArithmeticalComparisonExpression__Alternatives ) ) ;
     public final void ruleHyBinaryArithmeticalComparisonExpression() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalExpressionDsl.g:442:2: ( ( ruleHyGreaterExpression ) )
-            // InternalExpressionDsl.g:443:2: ( ruleHyGreaterExpression )
+            // InternalExpressionDsl.g:417:2: ( ( ( rule__HyBinaryArithmeticalComparisonExpression__Alternatives ) ) )
+            // InternalExpressionDsl.g:418:2: ( ( rule__HyBinaryArithmeticalComparisonExpression__Alternatives ) )
             {
-            // InternalExpressionDsl.g:443:2: ( ruleHyGreaterExpression )
-            // InternalExpressionDsl.g:444:3: ruleHyGreaterExpression
+            // InternalExpressionDsl.g:418:2: ( ( rule__HyBinaryArithmeticalComparisonExpression__Alternatives ) )
+            // InternalExpressionDsl.g:419:3: ( rule__HyBinaryArithmeticalComparisonExpression__Alternatives )
             {
             if ( state.backtracking==0 ) {
-               before(grammarAccess.getHyBinaryArithmeticalComparisonExpressionAccess().getHyGreaterExpressionParserRuleCall()); 
+               before(grammarAccess.getHyBinaryArithmeticalComparisonExpressionAccess().getAlternatives()); 
             }
+            // InternalExpressionDsl.g:420:3: ( rule__HyBinaryArithmeticalComparisonExpression__Alternatives )
+            // InternalExpressionDsl.g:420:4: rule__HyBinaryArithmeticalComparisonExpression__Alternatives
+            {
             pushFollow(FOLLOW_2);
-            ruleHyGreaterExpression();
+            rule__HyBinaryArithmeticalComparisonExpression__Alternatives();
 
             state._fsp--;
             if (state.failed) return ;
+
+            }
+
             if ( state.backtracking==0 ) {
-               after(grammarAccess.getHyBinaryArithmeticalComparisonExpressionAccess().getHyGreaterExpressionParserRuleCall()); 
+               after(grammarAccess.getHyBinaryArithmeticalComparisonExpressionAccess().getAlternatives()); 
             }
 
             }
@@ -1435,11 +1361,11 @@ public class InternalExpressionDslParser extends AbstractInternalContentAssistPa
 
 
     // $ANTLR start "entryRuleHyGreaterExpression"
-    // InternalExpressionDsl.g:454:1: entryRuleHyGreaterExpression : ruleHyGreaterExpression EOF ;
+    // InternalExpressionDsl.g:429:1: entryRuleHyGreaterExpression : ruleHyGreaterExpression EOF ;
     public final void entryRuleHyGreaterExpression() throws RecognitionException {
         try {
-            // InternalExpressionDsl.g:455:1: ( ruleHyGreaterExpression EOF )
-            // InternalExpressionDsl.g:456:1: ruleHyGreaterExpression EOF
+            // InternalExpressionDsl.g:430:1: ( ruleHyGreaterExpression EOF )
+            // InternalExpressionDsl.g:431:1: ruleHyGreaterExpression EOF
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getHyGreaterExpressionRule()); 
@@ -1469,26 +1395,26 @@ public class InternalExpressionDslParser extends AbstractInternalContentAssistPa
 
 
     // $ANTLR start "ruleHyGreaterExpression"
-    // InternalExpressionDsl.g:463:1: ruleHyGreaterExpression : ( ( rule__HyGreaterExpression__Alternatives ) ) ;
+    // InternalExpressionDsl.g:438:1: ruleHyGreaterExpression : ( ( rule__HyGreaterExpression__Group__0 ) ) ;
     public final void ruleHyGreaterExpression() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalExpressionDsl.g:467:2: ( ( ( rule__HyGreaterExpression__Alternatives ) ) )
-            // InternalExpressionDsl.g:468:2: ( ( rule__HyGreaterExpression__Alternatives ) )
+            // InternalExpressionDsl.g:442:2: ( ( ( rule__HyGreaterExpression__Group__0 ) ) )
+            // InternalExpressionDsl.g:443:2: ( ( rule__HyGreaterExpression__Group__0 ) )
             {
-            // InternalExpressionDsl.g:468:2: ( ( rule__HyGreaterExpression__Alternatives ) )
-            // InternalExpressionDsl.g:469:3: ( rule__HyGreaterExpression__Alternatives )
+            // InternalExpressionDsl.g:443:2: ( ( rule__HyGreaterExpression__Group__0 ) )
+            // InternalExpressionDsl.g:444:3: ( rule__HyGreaterExpression__Group__0 )
             {
             if ( state.backtracking==0 ) {
-               before(grammarAccess.getHyGreaterExpressionAccess().getAlternatives()); 
+               before(grammarAccess.getHyGreaterExpressionAccess().getGroup()); 
             }
-            // InternalExpressionDsl.g:470:3: ( rule__HyGreaterExpression__Alternatives )
-            // InternalExpressionDsl.g:470:4: rule__HyGreaterExpression__Alternatives
+            // InternalExpressionDsl.g:445:3: ( rule__HyGreaterExpression__Group__0 )
+            // InternalExpressionDsl.g:445:4: rule__HyGreaterExpression__Group__0
             {
             pushFollow(FOLLOW_2);
-            rule__HyGreaterExpression__Alternatives();
+            rule__HyGreaterExpression__Group__0();
 
             state._fsp--;
             if (state.failed) return ;
@@ -1496,7 +1422,7 @@ public class InternalExpressionDslParser extends AbstractInternalContentAssistPa
             }
 
             if ( state.backtracking==0 ) {
-               after(grammarAccess.getHyGreaterExpressionAccess().getAlternatives()); 
+               after(grammarAccess.getHyGreaterExpressionAccess().getGroup()); 
             }
 
             }
@@ -1520,11 +1446,11 @@ public class InternalExpressionDslParser extends AbstractInternalContentAssistPa
 
 
     // $ANTLR start "entryRuleHyLessExpression"
-    // InternalExpressionDsl.g:479:1: entryRuleHyLessExpression : ruleHyLessExpression EOF ;
+    // InternalExpressionDsl.g:454:1: entryRuleHyLessExpression : ruleHyLessExpression EOF ;
     public final void entryRuleHyLessExpression() throws RecognitionException {
         try {
-            // InternalExpressionDsl.g:480:1: ( ruleHyLessExpression EOF )
-            // InternalExpressionDsl.g:481:1: ruleHyLessExpression EOF
+            // InternalExpressionDsl.g:455:1: ( ruleHyLessExpression EOF )
+            // InternalExpressionDsl.g:456:1: ruleHyLessExpression EOF
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getHyLessExpressionRule()); 
@@ -1554,26 +1480,26 @@ public class InternalExpressionDslParser extends AbstractInternalContentAssistPa
 
 
     // $ANTLR start "ruleHyLessExpression"
-    // InternalExpressionDsl.g:488:1: ruleHyLessExpression : ( ( rule__HyLessExpression__Alternatives ) ) ;
+    // InternalExpressionDsl.g:463:1: ruleHyLessExpression : ( ( rule__HyLessExpression__Group__0 ) ) ;
     public final void ruleHyLessExpression() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalExpressionDsl.g:492:2: ( ( ( rule__HyLessExpression__Alternatives ) ) )
-            // InternalExpressionDsl.g:493:2: ( ( rule__HyLessExpression__Alternatives ) )
+            // InternalExpressionDsl.g:467:2: ( ( ( rule__HyLessExpression__Group__0 ) ) )
+            // InternalExpressionDsl.g:468:2: ( ( rule__HyLessExpression__Group__0 ) )
             {
-            // InternalExpressionDsl.g:493:2: ( ( rule__HyLessExpression__Alternatives ) )
-            // InternalExpressionDsl.g:494:3: ( rule__HyLessExpression__Alternatives )
+            // InternalExpressionDsl.g:468:2: ( ( rule__HyLessExpression__Group__0 ) )
+            // InternalExpressionDsl.g:469:3: ( rule__HyLessExpression__Group__0 )
             {
             if ( state.backtracking==0 ) {
-               before(grammarAccess.getHyLessExpressionAccess().getAlternatives()); 
+               before(grammarAccess.getHyLessExpressionAccess().getGroup()); 
             }
-            // InternalExpressionDsl.g:495:3: ( rule__HyLessExpression__Alternatives )
-            // InternalExpressionDsl.g:495:4: rule__HyLessExpression__Alternatives
+            // InternalExpressionDsl.g:470:3: ( rule__HyLessExpression__Group__0 )
+            // InternalExpressionDsl.g:470:4: rule__HyLessExpression__Group__0
             {
             pushFollow(FOLLOW_2);
-            rule__HyLessExpression__Alternatives();
+            rule__HyLessExpression__Group__0();
 
             state._fsp--;
             if (state.failed) return ;
@@ -1581,7 +1507,7 @@ public class InternalExpressionDslParser extends AbstractInternalContentAssistPa
             }
 
             if ( state.backtracking==0 ) {
-               after(grammarAccess.getHyLessExpressionAccess().getAlternatives()); 
+               after(grammarAccess.getHyLessExpressionAccess().getGroup()); 
             }
 
             }
@@ -1605,11 +1531,11 @@ public class InternalExpressionDslParser extends AbstractInternalContentAssistPa
 
 
     // $ANTLR start "entryRuleHyGreaterOrEqualExpression"
-    // InternalExpressionDsl.g:504:1: entryRuleHyGreaterOrEqualExpression : ruleHyGreaterOrEqualExpression EOF ;
+    // InternalExpressionDsl.g:479:1: entryRuleHyGreaterOrEqualExpression : ruleHyGreaterOrEqualExpression EOF ;
     public final void entryRuleHyGreaterOrEqualExpression() throws RecognitionException {
         try {
-            // InternalExpressionDsl.g:505:1: ( ruleHyGreaterOrEqualExpression EOF )
-            // InternalExpressionDsl.g:506:1: ruleHyGreaterOrEqualExpression EOF
+            // InternalExpressionDsl.g:480:1: ( ruleHyGreaterOrEqualExpression EOF )
+            // InternalExpressionDsl.g:481:1: ruleHyGreaterOrEqualExpression EOF
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getHyGreaterOrEqualExpressionRule()); 
@@ -1639,26 +1565,26 @@ public class InternalExpressionDslParser extends AbstractInternalContentAssistPa
 
 
     // $ANTLR start "ruleHyGreaterOrEqualExpression"
-    // InternalExpressionDsl.g:513:1: ruleHyGreaterOrEqualExpression : ( ( rule__HyGreaterOrEqualExpression__Alternatives ) ) ;
+    // InternalExpressionDsl.g:488:1: ruleHyGreaterOrEqualExpression : ( ( rule__HyGreaterOrEqualExpression__Group__0 ) ) ;
     public final void ruleHyGreaterOrEqualExpression() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalExpressionDsl.g:517:2: ( ( ( rule__HyGreaterOrEqualExpression__Alternatives ) ) )
-            // InternalExpressionDsl.g:518:2: ( ( rule__HyGreaterOrEqualExpression__Alternatives ) )
+            // InternalExpressionDsl.g:492:2: ( ( ( rule__HyGreaterOrEqualExpression__Group__0 ) ) )
+            // InternalExpressionDsl.g:493:2: ( ( rule__HyGreaterOrEqualExpression__Group__0 ) )
             {
-            // InternalExpressionDsl.g:518:2: ( ( rule__HyGreaterOrEqualExpression__Alternatives ) )
-            // InternalExpressionDsl.g:519:3: ( rule__HyGreaterOrEqualExpression__Alternatives )
+            // InternalExpressionDsl.g:493:2: ( ( rule__HyGreaterOrEqualExpression__Group__0 ) )
+            // InternalExpressionDsl.g:494:3: ( rule__HyGreaterOrEqualExpression__Group__0 )
             {
             if ( state.backtracking==0 ) {
-               before(grammarAccess.getHyGreaterOrEqualExpressionAccess().getAlternatives()); 
+               before(grammarAccess.getHyGreaterOrEqualExpressionAccess().getGroup()); 
             }
-            // InternalExpressionDsl.g:520:3: ( rule__HyGreaterOrEqualExpression__Alternatives )
-            // InternalExpressionDsl.g:520:4: rule__HyGreaterOrEqualExpression__Alternatives
+            // InternalExpressionDsl.g:495:3: ( rule__HyGreaterOrEqualExpression__Group__0 )
+            // InternalExpressionDsl.g:495:4: rule__HyGreaterOrEqualExpression__Group__0
             {
             pushFollow(FOLLOW_2);
-            rule__HyGreaterOrEqualExpression__Alternatives();
+            rule__HyGreaterOrEqualExpression__Group__0();
 
             state._fsp--;
             if (state.failed) return ;
@@ -1666,7 +1592,7 @@ public class InternalExpressionDslParser extends AbstractInternalContentAssistPa
             }
 
             if ( state.backtracking==0 ) {
-               after(grammarAccess.getHyGreaterOrEqualExpressionAccess().getAlternatives()); 
+               after(grammarAccess.getHyGreaterOrEqualExpressionAccess().getGroup()); 
             }
 
             }
@@ -1690,11 +1616,11 @@ public class InternalExpressionDslParser extends AbstractInternalContentAssistPa
 
 
     // $ANTLR start "entryRuleHyLessOrEqualExpression"
-    // InternalExpressionDsl.g:529:1: entryRuleHyLessOrEqualExpression : ruleHyLessOrEqualExpression EOF ;
+    // InternalExpressionDsl.g:504:1: entryRuleHyLessOrEqualExpression : ruleHyLessOrEqualExpression EOF ;
     public final void entryRuleHyLessOrEqualExpression() throws RecognitionException {
         try {
-            // InternalExpressionDsl.g:530:1: ( ruleHyLessOrEqualExpression EOF )
-            // InternalExpressionDsl.g:531:1: ruleHyLessOrEqualExpression EOF
+            // InternalExpressionDsl.g:505:1: ( ruleHyLessOrEqualExpression EOF )
+            // InternalExpressionDsl.g:506:1: ruleHyLessOrEqualExpression EOF
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getHyLessOrEqualExpressionRule()); 
@@ -1724,26 +1650,26 @@ public class InternalExpressionDslParser extends AbstractInternalContentAssistPa
 
 
     // $ANTLR start "ruleHyLessOrEqualExpression"
-    // InternalExpressionDsl.g:538:1: ruleHyLessOrEqualExpression : ( ( rule__HyLessOrEqualExpression__Alternatives ) ) ;
+    // InternalExpressionDsl.g:513:1: ruleHyLessOrEqualExpression : ( ( rule__HyLessOrEqualExpression__Group__0 ) ) ;
     public final void ruleHyLessOrEqualExpression() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalExpressionDsl.g:542:2: ( ( ( rule__HyLessOrEqualExpression__Alternatives ) ) )
-            // InternalExpressionDsl.g:543:2: ( ( rule__HyLessOrEqualExpression__Alternatives ) )
+            // InternalExpressionDsl.g:517:2: ( ( ( rule__HyLessOrEqualExpression__Group__0 ) ) )
+            // InternalExpressionDsl.g:518:2: ( ( rule__HyLessOrEqualExpression__Group__0 ) )
             {
-            // InternalExpressionDsl.g:543:2: ( ( rule__HyLessOrEqualExpression__Alternatives ) )
-            // InternalExpressionDsl.g:544:3: ( rule__HyLessOrEqualExpression__Alternatives )
+            // InternalExpressionDsl.g:518:2: ( ( rule__HyLessOrEqualExpression__Group__0 ) )
+            // InternalExpressionDsl.g:519:3: ( rule__HyLessOrEqualExpression__Group__0 )
             {
             if ( state.backtracking==0 ) {
-               before(grammarAccess.getHyLessOrEqualExpressionAccess().getAlternatives()); 
+               before(grammarAccess.getHyLessOrEqualExpressionAccess().getGroup()); 
             }
-            // InternalExpressionDsl.g:545:3: ( rule__HyLessOrEqualExpression__Alternatives )
-            // InternalExpressionDsl.g:545:4: rule__HyLessOrEqualExpression__Alternatives
+            // InternalExpressionDsl.g:520:3: ( rule__HyLessOrEqualExpression__Group__0 )
+            // InternalExpressionDsl.g:520:4: rule__HyLessOrEqualExpression__Group__0
             {
             pushFollow(FOLLOW_2);
-            rule__HyLessOrEqualExpression__Alternatives();
+            rule__HyLessOrEqualExpression__Group__0();
 
             state._fsp--;
             if (state.failed) return ;
@@ -1751,7 +1677,7 @@ public class InternalExpressionDslParser extends AbstractInternalContentAssistPa
             }
 
             if ( state.backtracking==0 ) {
-               after(grammarAccess.getHyLessOrEqualExpressionAccess().getAlternatives()); 
+               after(grammarAccess.getHyLessOrEqualExpressionAccess().getGroup()); 
             }
 
             }
@@ -1775,11 +1701,11 @@ public class InternalExpressionDslParser extends AbstractInternalContentAssistPa
 
 
     // $ANTLR start "entryRuleHyEqualExpression"
-    // InternalExpressionDsl.g:554:1: entryRuleHyEqualExpression : ruleHyEqualExpression EOF ;
+    // InternalExpressionDsl.g:529:1: entryRuleHyEqualExpression : ruleHyEqualExpression EOF ;
     public final void entryRuleHyEqualExpression() throws RecognitionException {
         try {
-            // InternalExpressionDsl.g:555:1: ( ruleHyEqualExpression EOF )
-            // InternalExpressionDsl.g:556:1: ruleHyEqualExpression EOF
+            // InternalExpressionDsl.g:530:1: ( ruleHyEqualExpression EOF )
+            // InternalExpressionDsl.g:531:1: ruleHyEqualExpression EOF
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getHyEqualExpressionRule()); 
@@ -1809,26 +1735,26 @@ public class InternalExpressionDslParser extends AbstractInternalContentAssistPa
 
 
     // $ANTLR start "ruleHyEqualExpression"
-    // InternalExpressionDsl.g:563:1: ruleHyEqualExpression : ( ( rule__HyEqualExpression__Alternatives ) ) ;
+    // InternalExpressionDsl.g:538:1: ruleHyEqualExpression : ( ( rule__HyEqualExpression__Group__0 ) ) ;
     public final void ruleHyEqualExpression() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalExpressionDsl.g:567:2: ( ( ( rule__HyEqualExpression__Alternatives ) ) )
-            // InternalExpressionDsl.g:568:2: ( ( rule__HyEqualExpression__Alternatives ) )
+            // InternalExpressionDsl.g:542:2: ( ( ( rule__HyEqualExpression__Group__0 ) ) )
+            // InternalExpressionDsl.g:543:2: ( ( rule__HyEqualExpression__Group__0 ) )
             {
-            // InternalExpressionDsl.g:568:2: ( ( rule__HyEqualExpression__Alternatives ) )
-            // InternalExpressionDsl.g:569:3: ( rule__HyEqualExpression__Alternatives )
+            // InternalExpressionDsl.g:543:2: ( ( rule__HyEqualExpression__Group__0 ) )
+            // InternalExpressionDsl.g:544:3: ( rule__HyEqualExpression__Group__0 )
             {
             if ( state.backtracking==0 ) {
-               before(grammarAccess.getHyEqualExpressionAccess().getAlternatives()); 
+               before(grammarAccess.getHyEqualExpressionAccess().getGroup()); 
             }
-            // InternalExpressionDsl.g:570:3: ( rule__HyEqualExpression__Alternatives )
-            // InternalExpressionDsl.g:570:4: rule__HyEqualExpression__Alternatives
+            // InternalExpressionDsl.g:545:3: ( rule__HyEqualExpression__Group__0 )
+            // InternalExpressionDsl.g:545:4: rule__HyEqualExpression__Group__0
             {
             pushFollow(FOLLOW_2);
-            rule__HyEqualExpression__Alternatives();
+            rule__HyEqualExpression__Group__0();
 
             state._fsp--;
             if (state.failed) return ;
@@ -1836,7 +1762,7 @@ public class InternalExpressionDslParser extends AbstractInternalContentAssistPa
             }
 
             if ( state.backtracking==0 ) {
-               after(grammarAccess.getHyEqualExpressionAccess().getAlternatives()); 
+               after(grammarAccess.getHyEqualExpressionAccess().getGroup()); 
             }
 
             }
@@ -1860,11 +1786,11 @@ public class InternalExpressionDslParser extends AbstractInternalContentAssistPa
 
 
     // $ANTLR start "entryRuleHyNotEqualExpression"
-    // InternalExpressionDsl.g:579:1: entryRuleHyNotEqualExpression : ruleHyNotEqualExpression EOF ;
+    // InternalExpressionDsl.g:554:1: entryRuleHyNotEqualExpression : ruleHyNotEqualExpression EOF ;
     public final void entryRuleHyNotEqualExpression() throws RecognitionException {
         try {
-            // InternalExpressionDsl.g:580:1: ( ruleHyNotEqualExpression EOF )
-            // InternalExpressionDsl.g:581:1: ruleHyNotEqualExpression EOF
+            // InternalExpressionDsl.g:555:1: ( ruleHyNotEqualExpression EOF )
+            // InternalExpressionDsl.g:556:1: ruleHyNotEqualExpression EOF
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getHyNotEqualExpressionRule()); 
@@ -1894,23 +1820,23 @@ public class InternalExpressionDslParser extends AbstractInternalContentAssistPa
 
 
     // $ANTLR start "ruleHyNotEqualExpression"
-    // InternalExpressionDsl.g:588:1: ruleHyNotEqualExpression : ( ( rule__HyNotEqualExpression__Group__0 ) ) ;
+    // InternalExpressionDsl.g:563:1: ruleHyNotEqualExpression : ( ( rule__HyNotEqualExpression__Group__0 ) ) ;
     public final void ruleHyNotEqualExpression() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalExpressionDsl.g:592:2: ( ( ( rule__HyNotEqualExpression__Group__0 ) ) )
-            // InternalExpressionDsl.g:593:2: ( ( rule__HyNotEqualExpression__Group__0 ) )
+            // InternalExpressionDsl.g:567:2: ( ( ( rule__HyNotEqualExpression__Group__0 ) ) )
+            // InternalExpressionDsl.g:568:2: ( ( rule__HyNotEqualExpression__Group__0 ) )
             {
-            // InternalExpressionDsl.g:593:2: ( ( rule__HyNotEqualExpression__Group__0 ) )
-            // InternalExpressionDsl.g:594:3: ( rule__HyNotEqualExpression__Group__0 )
+            // InternalExpressionDsl.g:568:2: ( ( rule__HyNotEqualExpression__Group__0 ) )
+            // InternalExpressionDsl.g:569:3: ( rule__HyNotEqualExpression__Group__0 )
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getHyNotEqualExpressionAccess().getGroup()); 
             }
-            // InternalExpressionDsl.g:595:3: ( rule__HyNotEqualExpression__Group__0 )
-            // InternalExpressionDsl.g:595:4: rule__HyNotEqualExpression__Group__0
+            // InternalExpressionDsl.g:570:3: ( rule__HyNotEqualExpression__Group__0 )
+            // InternalExpressionDsl.g:570:4: rule__HyNotEqualExpression__Group__0
             {
             pushFollow(FOLLOW_2);
             rule__HyNotEqualExpression__Group__0();
@@ -1945,11 +1871,11 @@ public class InternalExpressionDslParser extends AbstractInternalContentAssistPa
 
 
     // $ANTLR start "entryRuleHyArithmeticalValueExpression"
-    // InternalExpressionDsl.g:604:1: entryRuleHyArithmeticalValueExpression : ruleHyArithmeticalValueExpression EOF ;
+    // InternalExpressionDsl.g:579:1: entryRuleHyArithmeticalValueExpression : ruleHyArithmeticalValueExpression EOF ;
     public final void entryRuleHyArithmeticalValueExpression() throws RecognitionException {
         try {
-            // InternalExpressionDsl.g:605:1: ( ruleHyArithmeticalValueExpression EOF )
-            // InternalExpressionDsl.g:606:1: ruleHyArithmeticalValueExpression EOF
+            // InternalExpressionDsl.g:580:1: ( ruleHyArithmeticalValueExpression EOF )
+            // InternalExpressionDsl.g:581:1: ruleHyArithmeticalValueExpression EOF
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getHyArithmeticalValueExpressionRule()); 
@@ -1979,28 +1905,28 @@ public class InternalExpressionDslParser extends AbstractInternalContentAssistPa
 
 
     // $ANTLR start "ruleHyArithmeticalValueExpression"
-    // InternalExpressionDsl.g:613:1: ruleHyArithmeticalValueExpression : ( ruleHyAdditionExpression ) ;
+    // InternalExpressionDsl.g:588:1: ruleHyArithmeticalValueExpression : ( ruleHyValueExpression ) ;
     public final void ruleHyArithmeticalValueExpression() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalExpressionDsl.g:617:2: ( ( ruleHyAdditionExpression ) )
-            // InternalExpressionDsl.g:618:2: ( ruleHyAdditionExpression )
+            // InternalExpressionDsl.g:592:2: ( ( ruleHyValueExpression ) )
+            // InternalExpressionDsl.g:593:2: ( ruleHyValueExpression )
             {
-            // InternalExpressionDsl.g:618:2: ( ruleHyAdditionExpression )
-            // InternalExpressionDsl.g:619:3: ruleHyAdditionExpression
+            // InternalExpressionDsl.g:593:2: ( ruleHyValueExpression )
+            // InternalExpressionDsl.g:594:3: ruleHyValueExpression
             {
             if ( state.backtracking==0 ) {
-               before(grammarAccess.getHyArithmeticalValueExpressionAccess().getHyAdditionExpressionParserRuleCall()); 
+               before(grammarAccess.getHyArithmeticalValueExpressionAccess().getHyValueExpressionParserRuleCall()); 
             }
             pushFollow(FOLLOW_2);
-            ruleHyAdditionExpression();
+            ruleHyValueExpression();
 
             state._fsp--;
             if (state.failed) return ;
             if ( state.backtracking==0 ) {
-               after(grammarAccess.getHyArithmeticalValueExpressionAccess().getHyAdditionExpressionParserRuleCall()); 
+               after(grammarAccess.getHyArithmeticalValueExpressionAccess().getHyValueExpressionParserRuleCall()); 
             }
 
             }
@@ -2023,97 +1949,12 @@ public class InternalExpressionDslParser extends AbstractInternalContentAssistPa
     // $ANTLR end "ruleHyArithmeticalValueExpression"
 
 
-    // $ANTLR start "entryRuleHyAdditionExpression"
-    // InternalExpressionDsl.g:629:1: entryRuleHyAdditionExpression : ruleHyAdditionExpression EOF ;
-    public final void entryRuleHyAdditionExpression() throws RecognitionException {
-        try {
-            // InternalExpressionDsl.g:630:1: ( ruleHyAdditionExpression EOF )
-            // InternalExpressionDsl.g:631:1: ruleHyAdditionExpression EOF
-            {
-            if ( state.backtracking==0 ) {
-               before(grammarAccess.getHyAdditionExpressionRule()); 
-            }
-            pushFollow(FOLLOW_1);
-            ruleHyAdditionExpression();
-
-            state._fsp--;
-            if (state.failed) return ;
-            if ( state.backtracking==0 ) {
-               after(grammarAccess.getHyAdditionExpressionRule()); 
-            }
-            match(input,EOF,FOLLOW_2); if (state.failed) return ;
-
-            }
-
-        }
-        catch (RecognitionException re) {
-            reportError(re);
-            recover(input,re);
-        }
-        finally {
-        }
-        return ;
-    }
-    // $ANTLR end "entryRuleHyAdditionExpression"
-
-
-    // $ANTLR start "ruleHyAdditionExpression"
-    // InternalExpressionDsl.g:638:1: ruleHyAdditionExpression : ( ( rule__HyAdditionExpression__Group__0 ) ) ;
-    public final void ruleHyAdditionExpression() throws RecognitionException {
-
-        		int stackSize = keepStackSize();
-        	
-        try {
-            // InternalExpressionDsl.g:642:2: ( ( ( rule__HyAdditionExpression__Group__0 ) ) )
-            // InternalExpressionDsl.g:643:2: ( ( rule__HyAdditionExpression__Group__0 ) )
-            {
-            // InternalExpressionDsl.g:643:2: ( ( rule__HyAdditionExpression__Group__0 ) )
-            // InternalExpressionDsl.g:644:3: ( rule__HyAdditionExpression__Group__0 )
-            {
-            if ( state.backtracking==0 ) {
-               before(grammarAccess.getHyAdditionExpressionAccess().getGroup()); 
-            }
-            // InternalExpressionDsl.g:645:3: ( rule__HyAdditionExpression__Group__0 )
-            // InternalExpressionDsl.g:645:4: rule__HyAdditionExpression__Group__0
-            {
-            pushFollow(FOLLOW_2);
-            rule__HyAdditionExpression__Group__0();
-
-            state._fsp--;
-            if (state.failed) return ;
-
-            }
-
-            if ( state.backtracking==0 ) {
-               after(grammarAccess.getHyAdditionExpressionAccess().getGroup()); 
-            }
-
-            }
-
-
-            }
-
-        }
-        catch (RecognitionException re) {
-            reportError(re);
-            recover(input,re);
-        }
-        finally {
-
-            	restoreStackSize(stackSize);
-
-        }
-        return ;
-    }
-    // $ANTLR end "ruleHyAdditionExpression"
-
-
     // $ANTLR start "entryRuleHySubtractionExpression"
-    // InternalExpressionDsl.g:654:1: entryRuleHySubtractionExpression : ruleHySubtractionExpression EOF ;
+    // InternalExpressionDsl.g:604:1: entryRuleHySubtractionExpression : ruleHySubtractionExpression EOF ;
     public final void entryRuleHySubtractionExpression() throws RecognitionException {
         try {
-            // InternalExpressionDsl.g:655:1: ( ruleHySubtractionExpression EOF )
-            // InternalExpressionDsl.g:656:1: ruleHySubtractionExpression EOF
+            // InternalExpressionDsl.g:605:1: ( ruleHySubtractionExpression EOF )
+            // InternalExpressionDsl.g:606:1: ruleHySubtractionExpression EOF
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getHySubtractionExpressionRule()); 
@@ -2143,23 +1984,23 @@ public class InternalExpressionDslParser extends AbstractInternalContentAssistPa
 
 
     // $ANTLR start "ruleHySubtractionExpression"
-    // InternalExpressionDsl.g:663:1: ruleHySubtractionExpression : ( ( rule__HySubtractionExpression__Group__0 ) ) ;
+    // InternalExpressionDsl.g:613:1: ruleHySubtractionExpression : ( ( rule__HySubtractionExpression__Group__0 ) ) ;
     public final void ruleHySubtractionExpression() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalExpressionDsl.g:667:2: ( ( ( rule__HySubtractionExpression__Group__0 ) ) )
-            // InternalExpressionDsl.g:668:2: ( ( rule__HySubtractionExpression__Group__0 ) )
+            // InternalExpressionDsl.g:617:2: ( ( ( rule__HySubtractionExpression__Group__0 ) ) )
+            // InternalExpressionDsl.g:618:2: ( ( rule__HySubtractionExpression__Group__0 ) )
             {
-            // InternalExpressionDsl.g:668:2: ( ( rule__HySubtractionExpression__Group__0 ) )
-            // InternalExpressionDsl.g:669:3: ( rule__HySubtractionExpression__Group__0 )
+            // InternalExpressionDsl.g:618:2: ( ( rule__HySubtractionExpression__Group__0 ) )
+            // InternalExpressionDsl.g:619:3: ( rule__HySubtractionExpression__Group__0 )
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getHySubtractionExpressionAccess().getGroup()); 
             }
-            // InternalExpressionDsl.g:670:3: ( rule__HySubtractionExpression__Group__0 )
-            // InternalExpressionDsl.g:670:4: rule__HySubtractionExpression__Group__0
+            // InternalExpressionDsl.g:620:3: ( rule__HySubtractionExpression__Group__0 )
+            // InternalExpressionDsl.g:620:4: rule__HySubtractionExpression__Group__0
             {
             pushFollow(FOLLOW_2);
             rule__HySubtractionExpression__Group__0();
@@ -2194,11 +2035,11 @@ public class InternalExpressionDslParser extends AbstractInternalContentAssistPa
 
 
     // $ANTLR start "entryRuleHyMultiplicationExpression"
-    // InternalExpressionDsl.g:679:1: entryRuleHyMultiplicationExpression : ruleHyMultiplicationExpression EOF ;
+    // InternalExpressionDsl.g:629:1: entryRuleHyMultiplicationExpression : ruleHyMultiplicationExpression EOF ;
     public final void entryRuleHyMultiplicationExpression() throws RecognitionException {
         try {
-            // InternalExpressionDsl.g:680:1: ( ruleHyMultiplicationExpression EOF )
-            // InternalExpressionDsl.g:681:1: ruleHyMultiplicationExpression EOF
+            // InternalExpressionDsl.g:630:1: ( ruleHyMultiplicationExpression EOF )
+            // InternalExpressionDsl.g:631:1: ruleHyMultiplicationExpression EOF
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getHyMultiplicationExpressionRule()); 
@@ -2228,23 +2069,23 @@ public class InternalExpressionDslParser extends AbstractInternalContentAssistPa
 
 
     // $ANTLR start "ruleHyMultiplicationExpression"
-    // InternalExpressionDsl.g:688:1: ruleHyMultiplicationExpression : ( ( rule__HyMultiplicationExpression__Group__0 ) ) ;
+    // InternalExpressionDsl.g:638:1: ruleHyMultiplicationExpression : ( ( rule__HyMultiplicationExpression__Group__0 ) ) ;
     public final void ruleHyMultiplicationExpression() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalExpressionDsl.g:692:2: ( ( ( rule__HyMultiplicationExpression__Group__0 ) ) )
-            // InternalExpressionDsl.g:693:2: ( ( rule__HyMultiplicationExpression__Group__0 ) )
+            // InternalExpressionDsl.g:642:2: ( ( ( rule__HyMultiplicationExpression__Group__0 ) ) )
+            // InternalExpressionDsl.g:643:2: ( ( rule__HyMultiplicationExpression__Group__0 ) )
             {
-            // InternalExpressionDsl.g:693:2: ( ( rule__HyMultiplicationExpression__Group__0 ) )
-            // InternalExpressionDsl.g:694:3: ( rule__HyMultiplicationExpression__Group__0 )
+            // InternalExpressionDsl.g:643:2: ( ( rule__HyMultiplicationExpression__Group__0 ) )
+            // InternalExpressionDsl.g:644:3: ( rule__HyMultiplicationExpression__Group__0 )
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getHyMultiplicationExpressionAccess().getGroup()); 
             }
-            // InternalExpressionDsl.g:695:3: ( rule__HyMultiplicationExpression__Group__0 )
-            // InternalExpressionDsl.g:695:4: rule__HyMultiplicationExpression__Group__0
+            // InternalExpressionDsl.g:645:3: ( rule__HyMultiplicationExpression__Group__0 )
+            // InternalExpressionDsl.g:645:4: rule__HyMultiplicationExpression__Group__0
             {
             pushFollow(FOLLOW_2);
             rule__HyMultiplicationExpression__Group__0();
@@ -2279,11 +2120,11 @@ public class InternalExpressionDslParser extends AbstractInternalContentAssistPa
 
 
     // $ANTLR start "entryRuleHyDivisionExpression"
-    // InternalExpressionDsl.g:704:1: entryRuleHyDivisionExpression : ruleHyDivisionExpression EOF ;
+    // InternalExpressionDsl.g:654:1: entryRuleHyDivisionExpression : ruleHyDivisionExpression EOF ;
     public final void entryRuleHyDivisionExpression() throws RecognitionException {
         try {
-            // InternalExpressionDsl.g:705:1: ( ruleHyDivisionExpression EOF )
-            // InternalExpressionDsl.g:706:1: ruleHyDivisionExpression EOF
+            // InternalExpressionDsl.g:655:1: ( ruleHyDivisionExpression EOF )
+            // InternalExpressionDsl.g:656:1: ruleHyDivisionExpression EOF
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getHyDivisionExpressionRule()); 
@@ -2313,23 +2154,23 @@ public class InternalExpressionDslParser extends AbstractInternalContentAssistPa
 
 
     // $ANTLR start "ruleHyDivisionExpression"
-    // InternalExpressionDsl.g:713:1: ruleHyDivisionExpression : ( ( rule__HyDivisionExpression__Group__0 ) ) ;
+    // InternalExpressionDsl.g:663:1: ruleHyDivisionExpression : ( ( rule__HyDivisionExpression__Group__0 ) ) ;
     public final void ruleHyDivisionExpression() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalExpressionDsl.g:717:2: ( ( ( rule__HyDivisionExpression__Group__0 ) ) )
-            // InternalExpressionDsl.g:718:2: ( ( rule__HyDivisionExpression__Group__0 ) )
+            // InternalExpressionDsl.g:667:2: ( ( ( rule__HyDivisionExpression__Group__0 ) ) )
+            // InternalExpressionDsl.g:668:2: ( ( rule__HyDivisionExpression__Group__0 ) )
             {
-            // InternalExpressionDsl.g:718:2: ( ( rule__HyDivisionExpression__Group__0 ) )
-            // InternalExpressionDsl.g:719:3: ( rule__HyDivisionExpression__Group__0 )
+            // InternalExpressionDsl.g:668:2: ( ( rule__HyDivisionExpression__Group__0 ) )
+            // InternalExpressionDsl.g:669:3: ( rule__HyDivisionExpression__Group__0 )
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getHyDivisionExpressionAccess().getGroup()); 
             }
-            // InternalExpressionDsl.g:720:3: ( rule__HyDivisionExpression__Group__0 )
-            // InternalExpressionDsl.g:720:4: rule__HyDivisionExpression__Group__0
+            // InternalExpressionDsl.g:670:3: ( rule__HyDivisionExpression__Group__0 )
+            // InternalExpressionDsl.g:670:4: rule__HyDivisionExpression__Group__0
             {
             pushFollow(FOLLOW_2);
             rule__HyDivisionExpression__Group__0();
@@ -2364,11 +2205,11 @@ public class InternalExpressionDslParser extends AbstractInternalContentAssistPa
 
 
     // $ANTLR start "entryRuleTerminalArithmeticalExpression"
-    // InternalExpressionDsl.g:729:1: entryRuleTerminalArithmeticalExpression : ruleTerminalArithmeticalExpression EOF ;
+    // InternalExpressionDsl.g:679:1: entryRuleTerminalArithmeticalExpression : ruleTerminalArithmeticalExpression EOF ;
     public final void entryRuleTerminalArithmeticalExpression() throws RecognitionException {
         try {
-            // InternalExpressionDsl.g:730:1: ( ruleTerminalArithmeticalExpression EOF )
-            // InternalExpressionDsl.g:731:1: ruleTerminalArithmeticalExpression EOF
+            // InternalExpressionDsl.g:680:1: ( ruleTerminalArithmeticalExpression EOF )
+            // InternalExpressionDsl.g:681:1: ruleTerminalArithmeticalExpression EOF
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getTerminalArithmeticalExpressionRule()); 
@@ -2398,23 +2239,23 @@ public class InternalExpressionDslParser extends AbstractInternalContentAssistPa
 
 
     // $ANTLR start "ruleTerminalArithmeticalExpression"
-    // InternalExpressionDsl.g:738:1: ruleTerminalArithmeticalExpression : ( ( rule__TerminalArithmeticalExpression__Alternatives ) ) ;
+    // InternalExpressionDsl.g:688:1: ruleTerminalArithmeticalExpression : ( ( rule__TerminalArithmeticalExpression__Alternatives ) ) ;
     public final void ruleTerminalArithmeticalExpression() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalExpressionDsl.g:742:2: ( ( ( rule__TerminalArithmeticalExpression__Alternatives ) ) )
-            // InternalExpressionDsl.g:743:2: ( ( rule__TerminalArithmeticalExpression__Alternatives ) )
+            // InternalExpressionDsl.g:692:2: ( ( ( rule__TerminalArithmeticalExpression__Alternatives ) ) )
+            // InternalExpressionDsl.g:693:2: ( ( rule__TerminalArithmeticalExpression__Alternatives ) )
             {
-            // InternalExpressionDsl.g:743:2: ( ( rule__TerminalArithmeticalExpression__Alternatives ) )
-            // InternalExpressionDsl.g:744:3: ( rule__TerminalArithmeticalExpression__Alternatives )
+            // InternalExpressionDsl.g:693:2: ( ( rule__TerminalArithmeticalExpression__Alternatives ) )
+            // InternalExpressionDsl.g:694:3: ( rule__TerminalArithmeticalExpression__Alternatives )
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getTerminalArithmeticalExpressionAccess().getAlternatives()); 
             }
-            // InternalExpressionDsl.g:745:3: ( rule__TerminalArithmeticalExpression__Alternatives )
-            // InternalExpressionDsl.g:745:4: rule__TerminalArithmeticalExpression__Alternatives
+            // InternalExpressionDsl.g:695:3: ( rule__TerminalArithmeticalExpression__Alternatives )
+            // InternalExpressionDsl.g:695:4: rule__TerminalArithmeticalExpression__Alternatives
             {
             pushFollow(FOLLOW_2);
             rule__TerminalArithmeticalExpression__Alternatives();
@@ -2449,11 +2290,11 @@ public class InternalExpressionDslParser extends AbstractInternalContentAssistPa
 
 
     // $ANTLR start "entryRuleHyValueExpression"
-    // InternalExpressionDsl.g:754:1: entryRuleHyValueExpression : ruleHyValueExpression EOF ;
+    // InternalExpressionDsl.g:704:1: entryRuleHyValueExpression : ruleHyValueExpression EOF ;
     public final void entryRuleHyValueExpression() throws RecognitionException {
         try {
-            // InternalExpressionDsl.g:755:1: ( ruleHyValueExpression EOF )
-            // InternalExpressionDsl.g:756:1: ruleHyValueExpression EOF
+            // InternalExpressionDsl.g:705:1: ( ruleHyValueExpression EOF )
+            // InternalExpressionDsl.g:706:1: ruleHyValueExpression EOF
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getHyValueExpressionRule()); 
@@ -2483,23 +2324,23 @@ public class InternalExpressionDslParser extends AbstractInternalContentAssistPa
 
 
     // $ANTLR start "ruleHyValueExpression"
-    // InternalExpressionDsl.g:763:1: ruleHyValueExpression : ( ( rule__HyValueExpression__ValueAssignment ) ) ;
+    // InternalExpressionDsl.g:713:1: ruleHyValueExpression : ( ( rule__HyValueExpression__ValueAssignment ) ) ;
     public final void ruleHyValueExpression() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalExpressionDsl.g:767:2: ( ( ( rule__HyValueExpression__ValueAssignment ) ) )
-            // InternalExpressionDsl.g:768:2: ( ( rule__HyValueExpression__ValueAssignment ) )
+            // InternalExpressionDsl.g:717:2: ( ( ( rule__HyValueExpression__ValueAssignment ) ) )
+            // InternalExpressionDsl.g:718:2: ( ( rule__HyValueExpression__ValueAssignment ) )
             {
-            // InternalExpressionDsl.g:768:2: ( ( rule__HyValueExpression__ValueAssignment ) )
-            // InternalExpressionDsl.g:769:3: ( rule__HyValueExpression__ValueAssignment )
+            // InternalExpressionDsl.g:718:2: ( ( rule__HyValueExpression__ValueAssignment ) )
+            // InternalExpressionDsl.g:719:3: ( rule__HyValueExpression__ValueAssignment )
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getHyValueExpressionAccess().getValueAssignment()); 
             }
-            // InternalExpressionDsl.g:770:3: ( rule__HyValueExpression__ValueAssignment )
-            // InternalExpressionDsl.g:770:4: rule__HyValueExpression__ValueAssignment
+            // InternalExpressionDsl.g:720:3: ( rule__HyValueExpression__ValueAssignment )
+            // InternalExpressionDsl.g:720:4: rule__HyValueExpression__ValueAssignment
             {
             pushFollow(FOLLOW_2);
             rule__HyValueExpression__ValueAssignment();
@@ -2534,11 +2375,11 @@ public class InternalExpressionDslParser extends AbstractInternalContentAssistPa
 
 
     // $ANTLR start "entryRuleHyValue"
-    // InternalExpressionDsl.g:779:1: entryRuleHyValue : ruleHyValue EOF ;
+    // InternalExpressionDsl.g:729:1: entryRuleHyValue : ruleHyValue EOF ;
     public final void entryRuleHyValue() throws RecognitionException {
         try {
-            // InternalExpressionDsl.g:780:1: ( ruleHyValue EOF )
-            // InternalExpressionDsl.g:781:1: ruleHyValue EOF
+            // InternalExpressionDsl.g:730:1: ( ruleHyValue EOF )
+            // InternalExpressionDsl.g:731:1: ruleHyValue EOF
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getHyValueRule()); 
@@ -2568,23 +2409,23 @@ public class InternalExpressionDslParser extends AbstractInternalContentAssistPa
 
 
     // $ANTLR start "ruleHyValue"
-    // InternalExpressionDsl.g:788:1: ruleHyValue : ( ( rule__HyValue__Alternatives ) ) ;
+    // InternalExpressionDsl.g:738:1: ruleHyValue : ( ( rule__HyValue__Alternatives ) ) ;
     public final void ruleHyValue() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalExpressionDsl.g:792:2: ( ( ( rule__HyValue__Alternatives ) ) )
-            // InternalExpressionDsl.g:793:2: ( ( rule__HyValue__Alternatives ) )
+            // InternalExpressionDsl.g:742:2: ( ( ( rule__HyValue__Alternatives ) ) )
+            // InternalExpressionDsl.g:743:2: ( ( rule__HyValue__Alternatives ) )
             {
-            // InternalExpressionDsl.g:793:2: ( ( rule__HyValue__Alternatives ) )
-            // InternalExpressionDsl.g:794:3: ( rule__HyValue__Alternatives )
+            // InternalExpressionDsl.g:743:2: ( ( rule__HyValue__Alternatives ) )
+            // InternalExpressionDsl.g:744:3: ( rule__HyValue__Alternatives )
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getHyValueAccess().getAlternatives()); 
             }
-            // InternalExpressionDsl.g:795:3: ( rule__HyValue__Alternatives )
-            // InternalExpressionDsl.g:795:4: rule__HyValue__Alternatives
+            // InternalExpressionDsl.g:745:3: ( rule__HyValue__Alternatives )
+            // InternalExpressionDsl.g:745:4: rule__HyValue__Alternatives
             {
             pushFollow(FOLLOW_2);
             rule__HyValue__Alternatives();
@@ -2619,11 +2460,11 @@ public class InternalExpressionDslParser extends AbstractInternalContentAssistPa
 
 
     // $ANTLR start "entryRuleHyNumberValue"
-    // InternalExpressionDsl.g:804:1: entryRuleHyNumberValue : ruleHyNumberValue EOF ;
+    // InternalExpressionDsl.g:754:1: entryRuleHyNumberValue : ruleHyNumberValue EOF ;
     public final void entryRuleHyNumberValue() throws RecognitionException {
         try {
-            // InternalExpressionDsl.g:805:1: ( ruleHyNumberValue EOF )
-            // InternalExpressionDsl.g:806:1: ruleHyNumberValue EOF
+            // InternalExpressionDsl.g:755:1: ( ruleHyNumberValue EOF )
+            // InternalExpressionDsl.g:756:1: ruleHyNumberValue EOF
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getHyNumberValueRule()); 
@@ -2653,23 +2494,23 @@ public class InternalExpressionDslParser extends AbstractInternalContentAssistPa
 
 
     // $ANTLR start "ruleHyNumberValue"
-    // InternalExpressionDsl.g:813:1: ruleHyNumberValue : ( ( rule__HyNumberValue__ValueAssignment ) ) ;
+    // InternalExpressionDsl.g:763:1: ruleHyNumberValue : ( ( rule__HyNumberValue__ValueAssignment ) ) ;
     public final void ruleHyNumberValue() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalExpressionDsl.g:817:2: ( ( ( rule__HyNumberValue__ValueAssignment ) ) )
-            // InternalExpressionDsl.g:818:2: ( ( rule__HyNumberValue__ValueAssignment ) )
+            // InternalExpressionDsl.g:767:2: ( ( ( rule__HyNumberValue__ValueAssignment ) ) )
+            // InternalExpressionDsl.g:768:2: ( ( rule__HyNumberValue__ValueAssignment ) )
             {
-            // InternalExpressionDsl.g:818:2: ( ( rule__HyNumberValue__ValueAssignment ) )
-            // InternalExpressionDsl.g:819:3: ( rule__HyNumberValue__ValueAssignment )
+            // InternalExpressionDsl.g:768:2: ( ( rule__HyNumberValue__ValueAssignment ) )
+            // InternalExpressionDsl.g:769:3: ( rule__HyNumberValue__ValueAssignment )
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getHyNumberValueAccess().getValueAssignment()); 
             }
-            // InternalExpressionDsl.g:820:3: ( rule__HyNumberValue__ValueAssignment )
-            // InternalExpressionDsl.g:820:4: rule__HyNumberValue__ValueAssignment
+            // InternalExpressionDsl.g:770:3: ( rule__HyNumberValue__ValueAssignment )
+            // InternalExpressionDsl.g:770:4: rule__HyNumberValue__ValueAssignment
             {
             pushFollow(FOLLOW_2);
             rule__HyNumberValue__ValueAssignment();
@@ -2704,11 +2545,11 @@ public class InternalExpressionDslParser extends AbstractInternalContentAssistPa
 
 
     // $ANTLR start "entryRuleHyStringValue"
-    // InternalExpressionDsl.g:829:1: entryRuleHyStringValue : ruleHyStringValue EOF ;
+    // InternalExpressionDsl.g:779:1: entryRuleHyStringValue : ruleHyStringValue EOF ;
     public final void entryRuleHyStringValue() throws RecognitionException {
         try {
-            // InternalExpressionDsl.g:830:1: ( ruleHyStringValue EOF )
-            // InternalExpressionDsl.g:831:1: ruleHyStringValue EOF
+            // InternalExpressionDsl.g:780:1: ( ruleHyStringValue EOF )
+            // InternalExpressionDsl.g:781:1: ruleHyStringValue EOF
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getHyStringValueRule()); 
@@ -2738,23 +2579,23 @@ public class InternalExpressionDslParser extends AbstractInternalContentAssistPa
 
 
     // $ANTLR start "ruleHyStringValue"
-    // InternalExpressionDsl.g:838:1: ruleHyStringValue : ( ( rule__HyStringValue__ValueAssignment ) ) ;
+    // InternalExpressionDsl.g:788:1: ruleHyStringValue : ( ( rule__HyStringValue__ValueAssignment ) ) ;
     public final void ruleHyStringValue() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalExpressionDsl.g:842:2: ( ( ( rule__HyStringValue__ValueAssignment ) ) )
-            // InternalExpressionDsl.g:843:2: ( ( rule__HyStringValue__ValueAssignment ) )
+            // InternalExpressionDsl.g:792:2: ( ( ( rule__HyStringValue__ValueAssignment ) ) )
+            // InternalExpressionDsl.g:793:2: ( ( rule__HyStringValue__ValueAssignment ) )
             {
-            // InternalExpressionDsl.g:843:2: ( ( rule__HyStringValue__ValueAssignment ) )
-            // InternalExpressionDsl.g:844:3: ( rule__HyStringValue__ValueAssignment )
+            // InternalExpressionDsl.g:793:2: ( ( rule__HyStringValue__ValueAssignment ) )
+            // InternalExpressionDsl.g:794:3: ( rule__HyStringValue__ValueAssignment )
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getHyStringValueAccess().getValueAssignment()); 
             }
-            // InternalExpressionDsl.g:845:3: ( rule__HyStringValue__ValueAssignment )
-            // InternalExpressionDsl.g:845:4: rule__HyStringValue__ValueAssignment
+            // InternalExpressionDsl.g:795:3: ( rule__HyStringValue__ValueAssignment )
+            // InternalExpressionDsl.g:795:4: rule__HyStringValue__ValueAssignment
             {
             pushFollow(FOLLOW_2);
             rule__HyStringValue__ValueAssignment();
@@ -2789,11 +2630,11 @@ public class InternalExpressionDslParser extends AbstractInternalContentAssistPa
 
 
     // $ANTLR start "entryRuleHyBooleanValue"
-    // InternalExpressionDsl.g:854:1: entryRuleHyBooleanValue : ruleHyBooleanValue EOF ;
+    // InternalExpressionDsl.g:804:1: entryRuleHyBooleanValue : ruleHyBooleanValue EOF ;
     public final void entryRuleHyBooleanValue() throws RecognitionException {
         try {
-            // InternalExpressionDsl.g:855:1: ( ruleHyBooleanValue EOF )
-            // InternalExpressionDsl.g:856:1: ruleHyBooleanValue EOF
+            // InternalExpressionDsl.g:805:1: ( ruleHyBooleanValue EOF )
+            // InternalExpressionDsl.g:806:1: ruleHyBooleanValue EOF
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getHyBooleanValueRule()); 
@@ -2823,23 +2664,23 @@ public class InternalExpressionDslParser extends AbstractInternalContentAssistPa
 
 
     // $ANTLR start "ruleHyBooleanValue"
-    // InternalExpressionDsl.g:863:1: ruleHyBooleanValue : ( ( rule__HyBooleanValue__Group__0 ) ) ;
+    // InternalExpressionDsl.g:813:1: ruleHyBooleanValue : ( ( rule__HyBooleanValue__Group__0 ) ) ;
     public final void ruleHyBooleanValue() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalExpressionDsl.g:867:2: ( ( ( rule__HyBooleanValue__Group__0 ) ) )
-            // InternalExpressionDsl.g:868:2: ( ( rule__HyBooleanValue__Group__0 ) )
+            // InternalExpressionDsl.g:817:2: ( ( ( rule__HyBooleanValue__Group__0 ) ) )
+            // InternalExpressionDsl.g:818:2: ( ( rule__HyBooleanValue__Group__0 ) )
             {
-            // InternalExpressionDsl.g:868:2: ( ( rule__HyBooleanValue__Group__0 ) )
-            // InternalExpressionDsl.g:869:3: ( rule__HyBooleanValue__Group__0 )
+            // InternalExpressionDsl.g:818:2: ( ( rule__HyBooleanValue__Group__0 ) )
+            // InternalExpressionDsl.g:819:3: ( rule__HyBooleanValue__Group__0 )
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getHyBooleanValueAccess().getGroup()); 
             }
-            // InternalExpressionDsl.g:870:3: ( rule__HyBooleanValue__Group__0 )
-            // InternalExpressionDsl.g:870:4: rule__HyBooleanValue__Group__0
+            // InternalExpressionDsl.g:820:3: ( rule__HyBooleanValue__Group__0 )
+            // InternalExpressionDsl.g:820:4: rule__HyBooleanValue__Group__0
             {
             pushFollow(FOLLOW_2);
             rule__HyBooleanValue__Group__0();
@@ -2874,11 +2715,11 @@ public class InternalExpressionDslParser extends AbstractInternalContentAssistPa
 
 
     // $ANTLR start "entryRuleHyEnumValue"
-    // InternalExpressionDsl.g:879:1: entryRuleHyEnumValue : ruleHyEnumValue EOF ;
+    // InternalExpressionDsl.g:829:1: entryRuleHyEnumValue : ruleHyEnumValue EOF ;
     public final void entryRuleHyEnumValue() throws RecognitionException {
         try {
-            // InternalExpressionDsl.g:880:1: ( ruleHyEnumValue EOF )
-            // InternalExpressionDsl.g:881:1: ruleHyEnumValue EOF
+            // InternalExpressionDsl.g:830:1: ( ruleHyEnumValue EOF )
+            // InternalExpressionDsl.g:831:1: ruleHyEnumValue EOF
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getHyEnumValueRule()); 
@@ -2908,23 +2749,23 @@ public class InternalExpressionDslParser extends AbstractInternalContentAssistPa
 
 
     // $ANTLR start "ruleHyEnumValue"
-    // InternalExpressionDsl.g:888:1: ruleHyEnumValue : ( ( rule__HyEnumValue__Group__0 ) ) ;
+    // InternalExpressionDsl.g:838:1: ruleHyEnumValue : ( ( rule__HyEnumValue__Group__0 ) ) ;
     public final void ruleHyEnumValue() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalExpressionDsl.g:892:2: ( ( ( rule__HyEnumValue__Group__0 ) ) )
-            // InternalExpressionDsl.g:893:2: ( ( rule__HyEnumValue__Group__0 ) )
+            // InternalExpressionDsl.g:842:2: ( ( ( rule__HyEnumValue__Group__0 ) ) )
+            // InternalExpressionDsl.g:843:2: ( ( rule__HyEnumValue__Group__0 ) )
             {
-            // InternalExpressionDsl.g:893:2: ( ( rule__HyEnumValue__Group__0 ) )
-            // InternalExpressionDsl.g:894:3: ( rule__HyEnumValue__Group__0 )
+            // InternalExpressionDsl.g:843:2: ( ( rule__HyEnumValue__Group__0 ) )
+            // InternalExpressionDsl.g:844:3: ( rule__HyEnumValue__Group__0 )
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getHyEnumValueAccess().getGroup()); 
             }
-            // InternalExpressionDsl.g:895:3: ( rule__HyEnumValue__Group__0 )
-            // InternalExpressionDsl.g:895:4: rule__HyEnumValue__Group__0
+            // InternalExpressionDsl.g:845:3: ( rule__HyEnumValue__Group__0 )
+            // InternalExpressionDsl.g:845:4: rule__HyEnumValue__Group__0
             {
             pushFollow(FOLLOW_2);
             rule__HyEnumValue__Group__0();
@@ -2959,11 +2800,11 @@ public class InternalExpressionDslParser extends AbstractInternalContentAssistPa
 
 
     // $ANTLR start "entryRuleHyNestedArithmeticalValueExpression"
-    // InternalExpressionDsl.g:904:1: entryRuleHyNestedArithmeticalValueExpression : ruleHyNestedArithmeticalValueExpression EOF ;
+    // InternalExpressionDsl.g:854:1: entryRuleHyNestedArithmeticalValueExpression : ruleHyNestedArithmeticalValueExpression EOF ;
     public final void entryRuleHyNestedArithmeticalValueExpression() throws RecognitionException {
         try {
-            // InternalExpressionDsl.g:905:1: ( ruleHyNestedArithmeticalValueExpression EOF )
-            // InternalExpressionDsl.g:906:1: ruleHyNestedArithmeticalValueExpression EOF
+            // InternalExpressionDsl.g:855:1: ( ruleHyNestedArithmeticalValueExpression EOF )
+            // InternalExpressionDsl.g:856:1: ruleHyNestedArithmeticalValueExpression EOF
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getHyNestedArithmeticalValueExpressionRule()); 
@@ -2993,23 +2834,23 @@ public class InternalExpressionDslParser extends AbstractInternalContentAssistPa
 
 
     // $ANTLR start "ruleHyNestedArithmeticalValueExpression"
-    // InternalExpressionDsl.g:913:1: ruleHyNestedArithmeticalValueExpression : ( ( rule__HyNestedArithmeticalValueExpression__Group__0 ) ) ;
+    // InternalExpressionDsl.g:863:1: ruleHyNestedArithmeticalValueExpression : ( ( rule__HyNestedArithmeticalValueExpression__Group__0 ) ) ;
     public final void ruleHyNestedArithmeticalValueExpression() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalExpressionDsl.g:917:2: ( ( ( rule__HyNestedArithmeticalValueExpression__Group__0 ) ) )
-            // InternalExpressionDsl.g:918:2: ( ( rule__HyNestedArithmeticalValueExpression__Group__0 ) )
+            // InternalExpressionDsl.g:867:2: ( ( ( rule__HyNestedArithmeticalValueExpression__Group__0 ) ) )
+            // InternalExpressionDsl.g:868:2: ( ( rule__HyNestedArithmeticalValueExpression__Group__0 ) )
             {
-            // InternalExpressionDsl.g:918:2: ( ( rule__HyNestedArithmeticalValueExpression__Group__0 ) )
-            // InternalExpressionDsl.g:919:3: ( rule__HyNestedArithmeticalValueExpression__Group__0 )
+            // InternalExpressionDsl.g:868:2: ( ( rule__HyNestedArithmeticalValueExpression__Group__0 ) )
+            // InternalExpressionDsl.g:869:3: ( rule__HyNestedArithmeticalValueExpression__Group__0 )
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getHyNestedArithmeticalValueExpressionAccess().getGroup()); 
             }
-            // InternalExpressionDsl.g:920:3: ( rule__HyNestedArithmeticalValueExpression__Group__0 )
-            // InternalExpressionDsl.g:920:4: rule__HyNestedArithmeticalValueExpression__Group__0
+            // InternalExpressionDsl.g:870:3: ( rule__HyNestedArithmeticalValueExpression__Group__0 )
+            // InternalExpressionDsl.g:870:4: rule__HyNestedArithmeticalValueExpression__Group__0
             {
             pushFollow(FOLLOW_2);
             rule__HyNestedArithmeticalValueExpression__Group__0();
@@ -3044,11 +2885,11 @@ public class InternalExpressionDslParser extends AbstractInternalContentAssistPa
 
 
     // $ANTLR start "entryRuleHyContextInformationReferenceExpression"
-    // InternalExpressionDsl.g:929:1: entryRuleHyContextInformationReferenceExpression : ruleHyContextInformationReferenceExpression EOF ;
+    // InternalExpressionDsl.g:879:1: entryRuleHyContextInformationReferenceExpression : ruleHyContextInformationReferenceExpression EOF ;
     public final void entryRuleHyContextInformationReferenceExpression() throws RecognitionException {
         try {
-            // InternalExpressionDsl.g:930:1: ( ruleHyContextInformationReferenceExpression EOF )
-            // InternalExpressionDsl.g:931:1: ruleHyContextInformationReferenceExpression EOF
+            // InternalExpressionDsl.g:880:1: ( ruleHyContextInformationReferenceExpression EOF )
+            // InternalExpressionDsl.g:881:1: ruleHyContextInformationReferenceExpression EOF
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getHyContextInformationReferenceExpressionRule()); 
@@ -3078,23 +2919,23 @@ public class InternalExpressionDslParser extends AbstractInternalContentAssistPa
 
 
     // $ANTLR start "ruleHyContextInformationReferenceExpression"
-    // InternalExpressionDsl.g:938:1: ruleHyContextInformationReferenceExpression : ( ( rule__HyContextInformationReferenceExpression__ContextInformationAssignment ) ) ;
+    // InternalExpressionDsl.g:888:1: ruleHyContextInformationReferenceExpression : ( ( rule__HyContextInformationReferenceExpression__ContextInformationAssignment ) ) ;
     public final void ruleHyContextInformationReferenceExpression() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalExpressionDsl.g:942:2: ( ( ( rule__HyContextInformationReferenceExpression__ContextInformationAssignment ) ) )
-            // InternalExpressionDsl.g:943:2: ( ( rule__HyContextInformationReferenceExpression__ContextInformationAssignment ) )
+            // InternalExpressionDsl.g:892:2: ( ( ( rule__HyContextInformationReferenceExpression__ContextInformationAssignment ) ) )
+            // InternalExpressionDsl.g:893:2: ( ( rule__HyContextInformationReferenceExpression__ContextInformationAssignment ) )
             {
-            // InternalExpressionDsl.g:943:2: ( ( rule__HyContextInformationReferenceExpression__ContextInformationAssignment ) )
-            // InternalExpressionDsl.g:944:3: ( rule__HyContextInformationReferenceExpression__ContextInformationAssignment )
+            // InternalExpressionDsl.g:893:2: ( ( rule__HyContextInformationReferenceExpression__ContextInformationAssignment ) )
+            // InternalExpressionDsl.g:894:3: ( rule__HyContextInformationReferenceExpression__ContextInformationAssignment )
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getHyContextInformationReferenceExpressionAccess().getContextInformationAssignment()); 
             }
-            // InternalExpressionDsl.g:945:3: ( rule__HyContextInformationReferenceExpression__ContextInformationAssignment )
-            // InternalExpressionDsl.g:945:4: rule__HyContextInformationReferenceExpression__ContextInformationAssignment
+            // InternalExpressionDsl.g:895:3: ( rule__HyContextInformationReferenceExpression__ContextInformationAssignment )
+            // InternalExpressionDsl.g:895:4: rule__HyContextInformationReferenceExpression__ContextInformationAssignment
             {
             pushFollow(FOLLOW_2);
             rule__HyContextInformationReferenceExpression__ContextInformationAssignment();
@@ -3129,11 +2970,11 @@ public class InternalExpressionDslParser extends AbstractInternalContentAssistPa
 
 
     // $ANTLR start "entryRuleHyAttributeReferenceExpression"
-    // InternalExpressionDsl.g:954:1: entryRuleHyAttributeReferenceExpression : ruleHyAttributeReferenceExpression EOF ;
+    // InternalExpressionDsl.g:904:1: entryRuleHyAttributeReferenceExpression : ruleHyAttributeReferenceExpression EOF ;
     public final void entryRuleHyAttributeReferenceExpression() throws RecognitionException {
         try {
-            // InternalExpressionDsl.g:955:1: ( ruleHyAttributeReferenceExpression EOF )
-            // InternalExpressionDsl.g:956:1: ruleHyAttributeReferenceExpression EOF
+            // InternalExpressionDsl.g:905:1: ( ruleHyAttributeReferenceExpression EOF )
+            // InternalExpressionDsl.g:906:1: ruleHyAttributeReferenceExpression EOF
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getHyAttributeReferenceExpressionRule()); 
@@ -3163,23 +3004,23 @@ public class InternalExpressionDslParser extends AbstractInternalContentAssistPa
 
 
     // $ANTLR start "ruleHyAttributeReferenceExpression"
-    // InternalExpressionDsl.g:963:1: ruleHyAttributeReferenceExpression : ( ( rule__HyAttributeReferenceExpression__Group__0 ) ) ;
+    // InternalExpressionDsl.g:913:1: ruleHyAttributeReferenceExpression : ( ( rule__HyAttributeReferenceExpression__Group__0 ) ) ;
     public final void ruleHyAttributeReferenceExpression() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalExpressionDsl.g:967:2: ( ( ( rule__HyAttributeReferenceExpression__Group__0 ) ) )
-            // InternalExpressionDsl.g:968:2: ( ( rule__HyAttributeReferenceExpression__Group__0 ) )
+            // InternalExpressionDsl.g:917:2: ( ( ( rule__HyAttributeReferenceExpression__Group__0 ) ) )
+            // InternalExpressionDsl.g:918:2: ( ( rule__HyAttributeReferenceExpression__Group__0 ) )
             {
-            // InternalExpressionDsl.g:968:2: ( ( rule__HyAttributeReferenceExpression__Group__0 ) )
-            // InternalExpressionDsl.g:969:3: ( rule__HyAttributeReferenceExpression__Group__0 )
+            // InternalExpressionDsl.g:918:2: ( ( rule__HyAttributeReferenceExpression__Group__0 ) )
+            // InternalExpressionDsl.g:919:3: ( rule__HyAttributeReferenceExpression__Group__0 )
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getHyAttributeReferenceExpressionAccess().getGroup()); 
             }
-            // InternalExpressionDsl.g:970:3: ( rule__HyAttributeReferenceExpression__Group__0 )
-            // InternalExpressionDsl.g:970:4: rule__HyAttributeReferenceExpression__Group__0
+            // InternalExpressionDsl.g:920:3: ( rule__HyAttributeReferenceExpression__Group__0 )
+            // InternalExpressionDsl.g:920:4: rule__HyAttributeReferenceExpression__Group__0
             {
             pushFollow(FOLLOW_2);
             rule__HyAttributeReferenceExpression__Group__0();
@@ -3214,11 +3055,11 @@ public class InternalExpressionDslParser extends AbstractInternalContentAssistPa
 
 
     // $ANTLR start "entryRuleEInt"
-    // InternalExpressionDsl.g:979:1: entryRuleEInt : ruleEInt EOF ;
+    // InternalExpressionDsl.g:929:1: entryRuleEInt : ruleEInt EOF ;
     public final void entryRuleEInt() throws RecognitionException {
         try {
-            // InternalExpressionDsl.g:980:1: ( ruleEInt EOF )
-            // InternalExpressionDsl.g:981:1: ruleEInt EOF
+            // InternalExpressionDsl.g:930:1: ( ruleEInt EOF )
+            // InternalExpressionDsl.g:931:1: ruleEInt EOF
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getEIntRule()); 
@@ -3248,23 +3089,23 @@ public class InternalExpressionDslParser extends AbstractInternalContentAssistPa
 
 
     // $ANTLR start "ruleEInt"
-    // InternalExpressionDsl.g:988:1: ruleEInt : ( ( rule__EInt__Group__0 ) ) ;
+    // InternalExpressionDsl.g:938:1: ruleEInt : ( ( rule__EInt__Group__0 ) ) ;
     public final void ruleEInt() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalExpressionDsl.g:992:2: ( ( ( rule__EInt__Group__0 ) ) )
-            // InternalExpressionDsl.g:993:2: ( ( rule__EInt__Group__0 ) )
+            // InternalExpressionDsl.g:942:2: ( ( ( rule__EInt__Group__0 ) ) )
+            // InternalExpressionDsl.g:943:2: ( ( rule__EInt__Group__0 ) )
             {
-            // InternalExpressionDsl.g:993:2: ( ( rule__EInt__Group__0 ) )
-            // InternalExpressionDsl.g:994:3: ( rule__EInt__Group__0 )
+            // InternalExpressionDsl.g:943:2: ( ( rule__EInt__Group__0 ) )
+            // InternalExpressionDsl.g:944:3: ( rule__EInt__Group__0 )
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getEIntAccess().getGroup()); 
             }
-            // InternalExpressionDsl.g:995:3: ( rule__EInt__Group__0 )
-            // InternalExpressionDsl.g:995:4: rule__EInt__Group__0
+            // InternalExpressionDsl.g:945:3: ( rule__EInt__Group__0 )
+            // InternalExpressionDsl.g:945:4: rule__EInt__Group__0
             {
             pushFollow(FOLLOW_2);
             rule__EInt__Group__0();
@@ -3299,23 +3140,23 @@ public class InternalExpressionDslParser extends AbstractInternalContentAssistPa
 
 
     // $ANTLR start "ruleHyRelativeVersionRestrictionOperator"
-    // InternalExpressionDsl.g:1004:1: ruleHyRelativeVersionRestrictionOperator : ( ( rule__HyRelativeVersionRestrictionOperator__Alternatives ) ) ;
+    // InternalExpressionDsl.g:954:1: ruleHyRelativeVersionRestrictionOperator : ( ( rule__HyRelativeVersionRestrictionOperator__Alternatives ) ) ;
     public final void ruleHyRelativeVersionRestrictionOperator() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalExpressionDsl.g:1008:1: ( ( ( rule__HyRelativeVersionRestrictionOperator__Alternatives ) ) )
-            // InternalExpressionDsl.g:1009:2: ( ( rule__HyRelativeVersionRestrictionOperator__Alternatives ) )
+            // InternalExpressionDsl.g:958:1: ( ( ( rule__HyRelativeVersionRestrictionOperator__Alternatives ) ) )
+            // InternalExpressionDsl.g:959:2: ( ( rule__HyRelativeVersionRestrictionOperator__Alternatives ) )
             {
-            // InternalExpressionDsl.g:1009:2: ( ( rule__HyRelativeVersionRestrictionOperator__Alternatives ) )
-            // InternalExpressionDsl.g:1010:3: ( rule__HyRelativeVersionRestrictionOperator__Alternatives )
+            // InternalExpressionDsl.g:959:2: ( ( rule__HyRelativeVersionRestrictionOperator__Alternatives ) )
+            // InternalExpressionDsl.g:960:3: ( rule__HyRelativeVersionRestrictionOperator__Alternatives )
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getHyRelativeVersionRestrictionOperatorAccess().getAlternatives()); 
             }
-            // InternalExpressionDsl.g:1011:3: ( rule__HyRelativeVersionRestrictionOperator__Alternatives )
-            // InternalExpressionDsl.g:1011:4: rule__HyRelativeVersionRestrictionOperator__Alternatives
+            // InternalExpressionDsl.g:961:3: ( rule__HyRelativeVersionRestrictionOperator__Alternatives )
+            // InternalExpressionDsl.g:961:4: rule__HyRelativeVersionRestrictionOperator__Alternatives
             {
             pushFollow(FOLLOW_2);
             rule__HyRelativeVersionRestrictionOperator__Alternatives();
@@ -3350,32 +3191,38 @@ public class InternalExpressionDslParser extends AbstractInternalContentAssistPa
 
 
     // $ANTLR start "rule__TerminalExpression__Alternatives"
-    // InternalExpressionDsl.g:1019:1: rule__TerminalExpression__Alternatives : ( ( ruleHyFeatureReferenceExpression ) | ( ruleHyNestedExpression ) | ( ruleHyConditionalFeatureReferenceExpression ) | ( ruleHyNotExpression ) | ( ruleHyBooleanValueExpression ) | ( ( ruleHyArithmeticalComparisonExpression ) ) );
+    // InternalExpressionDsl.g:969:1: rule__TerminalExpression__Alternatives : ( ( ( ruleHyBinaryArithmeticalComparisonExpression ) ) | ( ruleHyFeatureReferenceExpression ) | ( ruleHyNestedExpression ) | ( ruleHyConditionalFeatureReferenceExpression ) | ( ruleHyNotExpression ) | ( ruleHyBooleanValueExpression ) );
     public final void rule__TerminalExpression__Alternatives() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalExpressionDsl.g:1023:1: ( ( ruleHyFeatureReferenceExpression ) | ( ruleHyNestedExpression ) | ( ruleHyConditionalFeatureReferenceExpression ) | ( ruleHyNotExpression ) | ( ruleHyBooleanValueExpression ) | ( ( ruleHyArithmeticalComparisonExpression ) ) )
+            // InternalExpressionDsl.g:973:1: ( ( ( ruleHyBinaryArithmeticalComparisonExpression ) ) | ( ruleHyFeatureReferenceExpression ) | ( ruleHyNestedExpression ) | ( ruleHyConditionalFeatureReferenceExpression ) | ( ruleHyNotExpression ) | ( ruleHyBooleanValueExpression ) )
             int alt1=6;
             alt1 = dfa1.predict(input);
             switch (alt1) {
                 case 1 :
-                    // InternalExpressionDsl.g:1024:2: ( ruleHyFeatureReferenceExpression )
+                    // InternalExpressionDsl.g:974:2: ( ( ruleHyBinaryArithmeticalComparisonExpression ) )
                     {
-                    // InternalExpressionDsl.g:1024:2: ( ruleHyFeatureReferenceExpression )
-                    // InternalExpressionDsl.g:1025:3: ruleHyFeatureReferenceExpression
+                    // InternalExpressionDsl.g:974:2: ( ( ruleHyBinaryArithmeticalComparisonExpression ) )
+                    // InternalExpressionDsl.g:975:3: ( ruleHyBinaryArithmeticalComparisonExpression )
                     {
                     if ( state.backtracking==0 ) {
-                       before(grammarAccess.getTerminalExpressionAccess().getHyFeatureReferenceExpressionParserRuleCall_0()); 
+                       before(grammarAccess.getTerminalExpressionAccess().getHyBinaryArithmeticalComparisonExpressionParserRuleCall_0()); 
                     }
+                    // InternalExpressionDsl.g:976:3: ( ruleHyBinaryArithmeticalComparisonExpression )
+                    // InternalExpressionDsl.g:976:4: ruleHyBinaryArithmeticalComparisonExpression
+                    {
                     pushFollow(FOLLOW_2);
-                    ruleHyFeatureReferenceExpression();
+                    ruleHyBinaryArithmeticalComparisonExpression();
 
                     state._fsp--;
                     if (state.failed) return ;
+
+                    }
+
                     if ( state.backtracking==0 ) {
-                       after(grammarAccess.getTerminalExpressionAccess().getHyFeatureReferenceExpressionParserRuleCall_0()); 
+                       after(grammarAccess.getTerminalExpressionAccess().getHyBinaryArithmeticalComparisonExpressionParserRuleCall_0()); 
                     }
 
                     }
@@ -3384,21 +3231,21 @@ public class InternalExpressionDslParser extends AbstractInternalContentAssistPa
                     }
                     break;
                 case 2 :
-                    // InternalExpressionDsl.g:1030:2: ( ruleHyNestedExpression )
+                    // InternalExpressionDsl.g:980:2: ( ruleHyFeatureReferenceExpression )
                     {
-                    // InternalExpressionDsl.g:1030:2: ( ruleHyNestedExpression )
-                    // InternalExpressionDsl.g:1031:3: ruleHyNestedExpression
+                    // InternalExpressionDsl.g:980:2: ( ruleHyFeatureReferenceExpression )
+                    // InternalExpressionDsl.g:981:3: ruleHyFeatureReferenceExpression
                     {
                     if ( state.backtracking==0 ) {
-                       before(grammarAccess.getTerminalExpressionAccess().getHyNestedExpressionParserRuleCall_1()); 
+                       before(grammarAccess.getTerminalExpressionAccess().getHyFeatureReferenceExpressionParserRuleCall_1()); 
                     }
                     pushFollow(FOLLOW_2);
-                    ruleHyNestedExpression();
+                    ruleHyFeatureReferenceExpression();
 
                     state._fsp--;
                     if (state.failed) return ;
                     if ( state.backtracking==0 ) {
-                       after(grammarAccess.getTerminalExpressionAccess().getHyNestedExpressionParserRuleCall_1()); 
+                       after(grammarAccess.getTerminalExpressionAccess().getHyFeatureReferenceExpressionParserRuleCall_1()); 
                     }
 
                     }
@@ -3407,21 +3254,21 @@ public class InternalExpressionDslParser extends AbstractInternalContentAssistPa
                     }
                     break;
                 case 3 :
-                    // InternalExpressionDsl.g:1036:2: ( ruleHyConditionalFeatureReferenceExpression )
+                    // InternalExpressionDsl.g:986:2: ( ruleHyNestedExpression )
                     {
-                    // InternalExpressionDsl.g:1036:2: ( ruleHyConditionalFeatureReferenceExpression )
-                    // InternalExpressionDsl.g:1037:3: ruleHyConditionalFeatureReferenceExpression
+                    // InternalExpressionDsl.g:986:2: ( ruleHyNestedExpression )
+                    // InternalExpressionDsl.g:987:3: ruleHyNestedExpression
                     {
                     if ( state.backtracking==0 ) {
-                       before(grammarAccess.getTerminalExpressionAccess().getHyConditionalFeatureReferenceExpressionParserRuleCall_2()); 
+                       before(grammarAccess.getTerminalExpressionAccess().getHyNestedExpressionParserRuleCall_2()); 
                     }
                     pushFollow(FOLLOW_2);
-                    ruleHyConditionalFeatureReferenceExpression();
+                    ruleHyNestedExpression();
 
                     state._fsp--;
                     if (state.failed) return ;
                     if ( state.backtracking==0 ) {
-                       after(grammarAccess.getTerminalExpressionAccess().getHyConditionalFeatureReferenceExpressionParserRuleCall_2()); 
+                       after(grammarAccess.getTerminalExpressionAccess().getHyNestedExpressionParserRuleCall_2()); 
                     }
 
                     }
@@ -3430,21 +3277,21 @@ public class InternalExpressionDslParser extends AbstractInternalContentAssistPa
                     }
                     break;
                 case 4 :
-                    // InternalExpressionDsl.g:1042:2: ( ruleHyNotExpression )
+                    // InternalExpressionDsl.g:992:2: ( ruleHyConditionalFeatureReferenceExpression )
                     {
-                    // InternalExpressionDsl.g:1042:2: ( ruleHyNotExpression )
-                    // InternalExpressionDsl.g:1043:3: ruleHyNotExpression
+                    // InternalExpressionDsl.g:992:2: ( ruleHyConditionalFeatureReferenceExpression )
+                    // InternalExpressionDsl.g:993:3: ruleHyConditionalFeatureReferenceExpression
                     {
                     if ( state.backtracking==0 ) {
-                       before(grammarAccess.getTerminalExpressionAccess().getHyNotExpressionParserRuleCall_3()); 
+                       before(grammarAccess.getTerminalExpressionAccess().getHyConditionalFeatureReferenceExpressionParserRuleCall_3()); 
                     }
                     pushFollow(FOLLOW_2);
-                    ruleHyNotExpression();
+                    ruleHyConditionalFeatureReferenceExpression();
 
                     state._fsp--;
                     if (state.failed) return ;
                     if ( state.backtracking==0 ) {
-                       after(grammarAccess.getTerminalExpressionAccess().getHyNotExpressionParserRuleCall_3()); 
+                       after(grammarAccess.getTerminalExpressionAccess().getHyConditionalFeatureReferenceExpressionParserRuleCall_3()); 
                     }
 
                     }
@@ -3453,21 +3300,21 @@ public class InternalExpressionDslParser extends AbstractInternalContentAssistPa
                     }
                     break;
                 case 5 :
-                    // InternalExpressionDsl.g:1048:2: ( ruleHyBooleanValueExpression )
+                    // InternalExpressionDsl.g:998:2: ( ruleHyNotExpression )
                     {
-                    // InternalExpressionDsl.g:1048:2: ( ruleHyBooleanValueExpression )
-                    // InternalExpressionDsl.g:1049:3: ruleHyBooleanValueExpression
+                    // InternalExpressionDsl.g:998:2: ( ruleHyNotExpression )
+                    // InternalExpressionDsl.g:999:3: ruleHyNotExpression
                     {
                     if ( state.backtracking==0 ) {
-                       before(grammarAccess.getTerminalExpressionAccess().getHyBooleanValueExpressionParserRuleCall_4()); 
+                       before(grammarAccess.getTerminalExpressionAccess().getHyNotExpressionParserRuleCall_4()); 
                     }
                     pushFollow(FOLLOW_2);
-                    ruleHyBooleanValueExpression();
+                    ruleHyNotExpression();
 
                     state._fsp--;
                     if (state.failed) return ;
                     if ( state.backtracking==0 ) {
-                       after(grammarAccess.getTerminalExpressionAccess().getHyBooleanValueExpressionParserRuleCall_4()); 
+                       after(grammarAccess.getTerminalExpressionAccess().getHyNotExpressionParserRuleCall_4()); 
                     }
 
                     }
@@ -3476,27 +3323,21 @@ public class InternalExpressionDslParser extends AbstractInternalContentAssistPa
                     }
                     break;
                 case 6 :
-                    // InternalExpressionDsl.g:1054:2: ( ( ruleHyArithmeticalComparisonExpression ) )
+                    // InternalExpressionDsl.g:1004:2: ( ruleHyBooleanValueExpression )
                     {
-                    // InternalExpressionDsl.g:1054:2: ( ( ruleHyArithmeticalComparisonExpression ) )
-                    // InternalExpressionDsl.g:1055:3: ( ruleHyArithmeticalComparisonExpression )
+                    // InternalExpressionDsl.g:1004:2: ( ruleHyBooleanValueExpression )
+                    // InternalExpressionDsl.g:1005:3: ruleHyBooleanValueExpression
                     {
                     if ( state.backtracking==0 ) {
-                       before(grammarAccess.getTerminalExpressionAccess().getHyArithmeticalComparisonExpressionParserRuleCall_5()); 
+                       before(grammarAccess.getTerminalExpressionAccess().getHyBooleanValueExpressionParserRuleCall_5()); 
                     }
-                    // InternalExpressionDsl.g:1056:3: ( ruleHyArithmeticalComparisonExpression )
-                    // InternalExpressionDsl.g:1056:4: ruleHyArithmeticalComparisonExpression
-                    {
                     pushFollow(FOLLOW_2);
-                    ruleHyArithmeticalComparisonExpression();
+                    ruleHyBooleanValueExpression();
 
                     state._fsp--;
                     if (state.failed) return ;
-
-                    }
-
                     if ( state.backtracking==0 ) {
-                       after(grammarAccess.getTerminalExpressionAccess().getHyArithmeticalComparisonExpressionParserRuleCall_5()); 
+                       after(grammarAccess.getTerminalExpressionAccess().getHyBooleanValueExpressionParserRuleCall_5()); 
                     }
 
                     }
@@ -3522,24 +3363,24 @@ public class InternalExpressionDslParser extends AbstractInternalContentAssistPa
 
 
     // $ANTLR start "rule__HyVersionRestriction__Alternatives"
-    // InternalExpressionDsl.g:1064:1: rule__HyVersionRestriction__Alternatives : ( ( ruleHyRelativeVersionRestriction ) | ( ruleHyVersionRangeRestriction ) );
+    // InternalExpressionDsl.g:1014:1: rule__HyVersionRestriction__Alternatives : ( ( ruleHyRelativeVersionRestriction ) | ( ruleHyVersionRangeRestriction ) );
     public final void rule__HyVersionRestriction__Alternatives() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalExpressionDsl.g:1068:1: ( ( ruleHyRelativeVersionRestriction ) | ( ruleHyVersionRangeRestriction ) )
+            // InternalExpressionDsl.g:1018:1: ( ( ruleHyRelativeVersionRestriction ) | ( ruleHyVersionRangeRestriction ) )
             int alt2=2;
             int LA2_0 = input.LA(1);
 
             if ( (LA2_0==25) ) {
                 int LA2_1 = input.LA(2);
 
-                if ( (LA2_1==33) ) {
-                    alt2=2;
-                }
-                else if ( ((LA2_1>=12 && LA2_1<=16)) ) {
+                if ( ((LA2_1>=12 && LA2_1<=16)) ) {
                     alt2=1;
+                }
+                else if ( (LA2_1==32) ) {
+                    alt2=2;
                 }
                 else {
                     if (state.backtracking>0) {state.failed=true; return ;}
@@ -3561,10 +3402,10 @@ public class InternalExpressionDslParser extends AbstractInternalContentAssistPa
             }
             switch (alt2) {
                 case 1 :
-                    // InternalExpressionDsl.g:1069:2: ( ruleHyRelativeVersionRestriction )
+                    // InternalExpressionDsl.g:1019:2: ( ruleHyRelativeVersionRestriction )
                     {
-                    // InternalExpressionDsl.g:1069:2: ( ruleHyRelativeVersionRestriction )
-                    // InternalExpressionDsl.g:1070:3: ruleHyRelativeVersionRestriction
+                    // InternalExpressionDsl.g:1019:2: ( ruleHyRelativeVersionRestriction )
+                    // InternalExpressionDsl.g:1020:3: ruleHyRelativeVersionRestriction
                     {
                     if ( state.backtracking==0 ) {
                        before(grammarAccess.getHyVersionRestrictionAccess().getHyRelativeVersionRestrictionParserRuleCall_0()); 
@@ -3584,10 +3425,10 @@ public class InternalExpressionDslParser extends AbstractInternalContentAssistPa
                     }
                     break;
                 case 2 :
-                    // InternalExpressionDsl.g:1075:2: ( ruleHyVersionRangeRestriction )
+                    // InternalExpressionDsl.g:1025:2: ( ruleHyVersionRangeRestriction )
                     {
-                    // InternalExpressionDsl.g:1075:2: ( ruleHyVersionRangeRestriction )
-                    // InternalExpressionDsl.g:1076:3: ruleHyVersionRangeRestriction
+                    // InternalExpressionDsl.g:1025:2: ( ruleHyVersionRangeRestriction )
+                    // InternalExpressionDsl.g:1026:3: ruleHyVersionRangeRestriction
                     {
                     if ( state.backtracking==0 ) {
                        before(grammarAccess.getHyVersionRestrictionAccess().getHyVersionRangeRestrictionParserRuleCall_1()); 
@@ -3624,13 +3465,13 @@ public class InternalExpressionDslParser extends AbstractInternalContentAssistPa
 
 
     // $ANTLR start "rule__HyVersionRangeRestriction__Alternatives"
-    // InternalExpressionDsl.g:1085:1: rule__HyVersionRangeRestriction__Alternatives : ( ( ( rule__HyVersionRangeRestriction__Group_0__0 ) ) | ( ( rule__HyVersionRangeRestriction__Group_1__0 ) ) | ( ( rule__HyVersionRangeRestriction__Group_2__0 ) ) );
+    // InternalExpressionDsl.g:1035:1: rule__HyVersionRangeRestriction__Alternatives : ( ( ( rule__HyVersionRangeRestriction__Group_0__0 ) ) | ( ( rule__HyVersionRangeRestriction__Group_1__0 ) ) | ( ( rule__HyVersionRangeRestriction__Group_2__0 ) ) );
     public final void rule__HyVersionRangeRestriction__Alternatives() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalExpressionDsl.g:1089:1: ( ( ( rule__HyVersionRangeRestriction__Group_0__0 ) ) | ( ( rule__HyVersionRangeRestriction__Group_1__0 ) ) | ( ( rule__HyVersionRangeRestriction__Group_2__0 ) ) )
+            // InternalExpressionDsl.g:1039:1: ( ( ( rule__HyVersionRangeRestriction__Group_0__0 ) ) | ( ( rule__HyVersionRangeRestriction__Group_1__0 ) ) | ( ( rule__HyVersionRangeRestriction__Group_2__0 ) ) )
             int alt3=3;
             int LA3_0 = input.LA(1);
 
@@ -3674,16 +3515,16 @@ public class InternalExpressionDslParser extends AbstractInternalContentAssistPa
             }
             switch (alt3) {
                 case 1 :
-                    // InternalExpressionDsl.g:1090:2: ( ( rule__HyVersionRangeRestriction__Group_0__0 ) )
+                    // InternalExpressionDsl.g:1040:2: ( ( rule__HyVersionRangeRestriction__Group_0__0 ) )
                     {
-                    // InternalExpressionDsl.g:1090:2: ( ( rule__HyVersionRangeRestriction__Group_0__0 ) )
-                    // InternalExpressionDsl.g:1091:3: ( rule__HyVersionRangeRestriction__Group_0__0 )
+                    // InternalExpressionDsl.g:1040:2: ( ( rule__HyVersionRangeRestriction__Group_0__0 ) )
+                    // InternalExpressionDsl.g:1041:3: ( rule__HyVersionRangeRestriction__Group_0__0 )
                     {
                     if ( state.backtracking==0 ) {
                        before(grammarAccess.getHyVersionRangeRestrictionAccess().getGroup_0()); 
                     }
-                    // InternalExpressionDsl.g:1092:3: ( rule__HyVersionRangeRestriction__Group_0__0 )
-                    // InternalExpressionDsl.g:1092:4: rule__HyVersionRangeRestriction__Group_0__0
+                    // InternalExpressionDsl.g:1042:3: ( rule__HyVersionRangeRestriction__Group_0__0 )
+                    // InternalExpressionDsl.g:1042:4: rule__HyVersionRangeRestriction__Group_0__0
                     {
                     pushFollow(FOLLOW_2);
                     rule__HyVersionRangeRestriction__Group_0__0();
@@ -3703,16 +3544,16 @@ public class InternalExpressionDslParser extends AbstractInternalContentAssistPa
                     }
                     break;
                 case 2 :
-                    // InternalExpressionDsl.g:1096:2: ( ( rule__HyVersionRangeRestriction__Group_1__0 ) )
+                    // InternalExpressionDsl.g:1046:2: ( ( rule__HyVersionRangeRestriction__Group_1__0 ) )
                     {
-                    // InternalExpressionDsl.g:1096:2: ( ( rule__HyVersionRangeRestriction__Group_1__0 ) )
-                    // InternalExpressionDsl.g:1097:3: ( rule__HyVersionRangeRestriction__Group_1__0 )
+                    // InternalExpressionDsl.g:1046:2: ( ( rule__HyVersionRangeRestriction__Group_1__0 ) )
+                    // InternalExpressionDsl.g:1047:3: ( rule__HyVersionRangeRestriction__Group_1__0 )
                     {
                     if ( state.backtracking==0 ) {
                        before(grammarAccess.getHyVersionRangeRestrictionAccess().getGroup_1()); 
                     }
-                    // InternalExpressionDsl.g:1098:3: ( rule__HyVersionRangeRestriction__Group_1__0 )
-                    // InternalExpressionDsl.g:1098:4: rule__HyVersionRangeRestriction__Group_1__0
+                    // InternalExpressionDsl.g:1048:3: ( rule__HyVersionRangeRestriction__Group_1__0 )
+                    // InternalExpressionDsl.g:1048:4: rule__HyVersionRangeRestriction__Group_1__0
                     {
                     pushFollow(FOLLOW_2);
                     rule__HyVersionRangeRestriction__Group_1__0();
@@ -3732,16 +3573,16 @@ public class InternalExpressionDslParser extends AbstractInternalContentAssistPa
                     }
                     break;
                 case 3 :
-                    // InternalExpressionDsl.g:1102:2: ( ( rule__HyVersionRangeRestriction__Group_2__0 ) )
+                    // InternalExpressionDsl.g:1052:2: ( ( rule__HyVersionRangeRestriction__Group_2__0 ) )
                     {
-                    // InternalExpressionDsl.g:1102:2: ( ( rule__HyVersionRangeRestriction__Group_2__0 ) )
-                    // InternalExpressionDsl.g:1103:3: ( rule__HyVersionRangeRestriction__Group_2__0 )
+                    // InternalExpressionDsl.g:1052:2: ( ( rule__HyVersionRangeRestriction__Group_2__0 ) )
+                    // InternalExpressionDsl.g:1053:3: ( rule__HyVersionRangeRestriction__Group_2__0 )
                     {
                     if ( state.backtracking==0 ) {
                        before(grammarAccess.getHyVersionRangeRestrictionAccess().getGroup_2()); 
                     }
-                    // InternalExpressionDsl.g:1104:3: ( rule__HyVersionRangeRestriction__Group_2__0 )
-                    // InternalExpressionDsl.g:1104:4: rule__HyVersionRangeRestriction__Group_2__0
+                    // InternalExpressionDsl.g:1054:3: ( rule__HyVersionRangeRestriction__Group_2__0 )
+                    // InternalExpressionDsl.g:1054:4: rule__HyVersionRangeRestriction__Group_2__0
                     {
                     pushFollow(FOLLOW_2);
                     rule__HyVersionRangeRestriction__Group_2__0();
@@ -3778,17 +3619,17 @@ public class InternalExpressionDslParser extends AbstractInternalContentAssistPa
 
 
     // $ANTLR start "rule__HyBooleanValueExpression__Alternatives_1"
-    // InternalExpressionDsl.g:1112:1: rule__HyBooleanValueExpression__Alternatives_1 : ( ( ( rule__HyBooleanValueExpression__ValueAssignment_1_0 ) ) | ( 'false' ) );
+    // InternalExpressionDsl.g:1062:1: rule__HyBooleanValueExpression__Alternatives_1 : ( ( ( rule__HyBooleanValueExpression__ValueAssignment_1_0 ) ) | ( 'false' ) );
     public final void rule__HyBooleanValueExpression__Alternatives_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalExpressionDsl.g:1116:1: ( ( ( rule__HyBooleanValueExpression__ValueAssignment_1_0 ) ) | ( 'false' ) )
+            // InternalExpressionDsl.g:1066:1: ( ( ( rule__HyBooleanValueExpression__ValueAssignment_1_0 ) ) | ( 'false' ) )
             int alt4=2;
             int LA4_0 = input.LA(1);
 
-            if ( (LA4_0==33) ) {
+            if ( (LA4_0==32) ) {
                 alt4=1;
             }
             else if ( (LA4_0==11) ) {
@@ -3803,16 +3644,16 @@ public class InternalExpressionDslParser extends AbstractInternalContentAssistPa
             }
             switch (alt4) {
                 case 1 :
-                    // InternalExpressionDsl.g:1117:2: ( ( rule__HyBooleanValueExpression__ValueAssignment_1_0 ) )
+                    // InternalExpressionDsl.g:1067:2: ( ( rule__HyBooleanValueExpression__ValueAssignment_1_0 ) )
                     {
-                    // InternalExpressionDsl.g:1117:2: ( ( rule__HyBooleanValueExpression__ValueAssignment_1_0 ) )
-                    // InternalExpressionDsl.g:1118:3: ( rule__HyBooleanValueExpression__ValueAssignment_1_0 )
+                    // InternalExpressionDsl.g:1067:2: ( ( rule__HyBooleanValueExpression__ValueAssignment_1_0 ) )
+                    // InternalExpressionDsl.g:1068:3: ( rule__HyBooleanValueExpression__ValueAssignment_1_0 )
                     {
                     if ( state.backtracking==0 ) {
                        before(grammarAccess.getHyBooleanValueExpressionAccess().getValueAssignment_1_0()); 
                     }
-                    // InternalExpressionDsl.g:1119:3: ( rule__HyBooleanValueExpression__ValueAssignment_1_0 )
-                    // InternalExpressionDsl.g:1119:4: rule__HyBooleanValueExpression__ValueAssignment_1_0
+                    // InternalExpressionDsl.g:1069:3: ( rule__HyBooleanValueExpression__ValueAssignment_1_0 )
+                    // InternalExpressionDsl.g:1069:4: rule__HyBooleanValueExpression__ValueAssignment_1_0
                     {
                     pushFollow(FOLLOW_2);
                     rule__HyBooleanValueExpression__ValueAssignment_1_0();
@@ -3832,10 +3673,10 @@ public class InternalExpressionDslParser extends AbstractInternalContentAssistPa
                     }
                     break;
                 case 2 :
-                    // InternalExpressionDsl.g:1123:2: ( 'false' )
+                    // InternalExpressionDsl.g:1073:2: ( 'false' )
                     {
-                    // InternalExpressionDsl.g:1123:2: ( 'false' )
-                    // InternalExpressionDsl.g:1124:3: 'false'
+                    // InternalExpressionDsl.g:1073:2: ( 'false' )
+                    // InternalExpressionDsl.g:1074:3: 'false'
                     {
                     if ( state.backtracking==0 ) {
                        before(grammarAccess.getHyBooleanValueExpressionAccess().getFalseKeyword_1_1()); 
@@ -3867,161 +3708,33 @@ public class InternalExpressionDslParser extends AbstractInternalContentAssistPa
     // $ANTLR end "rule__HyBooleanValueExpression__Alternatives_1"
 
 
-    // $ANTLR start "rule__HyGreaterExpression__Alternatives"
-    // InternalExpressionDsl.g:1133:1: rule__HyGreaterExpression__Alternatives : ( ( ( rule__HyGreaterExpression__Group_0__0 ) ) | ( ruleHyLessExpression ) );
-    public final void rule__HyGreaterExpression__Alternatives() throws RecognitionException {
+    // $ANTLR start "rule__HyBinaryArithmeticalComparisonExpression__Alternatives"
+    // InternalExpressionDsl.g:1083:1: rule__HyBinaryArithmeticalComparisonExpression__Alternatives : ( ( ruleHyGreaterOrEqualExpression ) | ( ruleHyGreaterExpression ) | ( ruleHyLessOrEqualExpression ) | ( ruleHyLessExpression ) | ( ruleHyNotEqualExpression ) | ( ruleHyEqualExpression ) );
+    public final void rule__HyBinaryArithmeticalComparisonExpression__Alternatives() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalExpressionDsl.g:1137:1: ( ( ( rule__HyGreaterExpression__Group_0__0 ) ) | ( ruleHyLessExpression ) )
-            int alt5=2;
-            switch ( input.LA(1) ) {
-            case 27:
-                {
-                int LA5_1 = input.LA(2);
-
-                if ( (synpred10_InternalExpressionDsl()) ) {
-                    alt5=1;
-                }
-                else if ( (true) ) {
-                    alt5=2;
-                }
-                else {
-                    if (state.backtracking>0) {state.failed=true; return ;}
-                    NoViableAltException nvae =
-                        new NoViableAltException("", 5, 1, input);
-
-                    throw nvae;
-                }
-                }
-                break;
-            case RULE_INT:
-                {
-                int LA5_2 = input.LA(2);
-
-                if ( (synpred10_InternalExpressionDsl()) ) {
-                    alt5=1;
-                }
-                else if ( (true) ) {
-                    alt5=2;
-                }
-                else {
-                    if (state.backtracking>0) {state.failed=true; return ;}
-                    NoViableAltException nvae =
-                        new NoViableAltException("", 5, 2, input);
-
-                    throw nvae;
-                }
-                }
-                break;
-            case RULE_STRING:
-                {
-                int LA5_3 = input.LA(2);
-
-                if ( (synpred10_InternalExpressionDsl()) ) {
-                    alt5=1;
-                }
-                else if ( (true) ) {
-                    alt5=2;
-                }
-                else {
-                    if (state.backtracking>0) {state.failed=true; return ;}
-                    NoViableAltException nvae =
-                        new NoViableAltException("", 5, 3, input);
-
-                    throw nvae;
-                }
-                }
-                break;
-            case 33:
-                {
-                int LA5_4 = input.LA(2);
-
-                if ( (synpred10_InternalExpressionDsl()) ) {
-                    alt5=1;
-                }
-                else if ( (true) ) {
-                    alt5=2;
-                }
-                else {
-                    if (state.backtracking>0) {state.failed=true; return ;}
-                    NoViableAltException nvae =
-                        new NoViableAltException("", 5, 4, input);
-
-                    throw nvae;
-                }
-                }
-                break;
-            case 11:
-                {
-                int LA5_5 = input.LA(2);
-
-                if ( (synpred10_InternalExpressionDsl()) ) {
-                    alt5=1;
-                }
-                else if ( (true) ) {
-                    alt5=2;
-                }
-                else {
-                    if (state.backtracking>0) {state.failed=true; return ;}
-                    NoViableAltException nvae =
-                        new NoViableAltException("", 5, 5, input);
-
-                    throw nvae;
-                }
-                }
-                break;
-            case 21:
-                {
-                int LA5_6 = input.LA(2);
-
-                if ( (synpred10_InternalExpressionDsl()) ) {
-                    alt5=1;
-                }
-                else if ( (true) ) {
-                    alt5=2;
-                }
-                else {
-                    if (state.backtracking>0) {state.failed=true; return ;}
-                    NoViableAltException nvae =
-                        new NoViableAltException("", 5, 6, input);
-
-                    throw nvae;
-                }
-                }
-                break;
-            default:
-                if (state.backtracking>0) {state.failed=true; return ;}
-                NoViableAltException nvae =
-                    new NoViableAltException("", 5, 0, input);
-
-                throw nvae;
-            }
-
+            // InternalExpressionDsl.g:1087:1: ( ( ruleHyGreaterOrEqualExpression ) | ( ruleHyGreaterExpression ) | ( ruleHyLessOrEqualExpression ) | ( ruleHyLessExpression ) | ( ruleHyNotEqualExpression ) | ( ruleHyEqualExpression ) )
+            int alt5=6;
+            alt5 = dfa5.predict(input);
             switch (alt5) {
                 case 1 :
-                    // InternalExpressionDsl.g:1138:2: ( ( rule__HyGreaterExpression__Group_0__0 ) )
+                    // InternalExpressionDsl.g:1088:2: ( ruleHyGreaterOrEqualExpression )
                     {
-                    // InternalExpressionDsl.g:1138:2: ( ( rule__HyGreaterExpression__Group_0__0 ) )
-                    // InternalExpressionDsl.g:1139:3: ( rule__HyGreaterExpression__Group_0__0 )
+                    // InternalExpressionDsl.g:1088:2: ( ruleHyGreaterOrEqualExpression )
+                    // InternalExpressionDsl.g:1089:3: ruleHyGreaterOrEqualExpression
                     {
                     if ( state.backtracking==0 ) {
-                       before(grammarAccess.getHyGreaterExpressionAccess().getGroup_0()); 
+                       before(grammarAccess.getHyBinaryArithmeticalComparisonExpressionAccess().getHyGreaterOrEqualExpressionParserRuleCall_0()); 
                     }
-                    // InternalExpressionDsl.g:1140:3: ( rule__HyGreaterExpression__Group_0__0 )
-                    // InternalExpressionDsl.g:1140:4: rule__HyGreaterExpression__Group_0__0
-                    {
                     pushFollow(FOLLOW_2);
-                    rule__HyGreaterExpression__Group_0__0();
+                    ruleHyGreaterOrEqualExpression();
 
                     state._fsp--;
                     if (state.failed) return ;
-
-                    }
-
                     if ( state.backtracking==0 ) {
-                       after(grammarAccess.getHyGreaterExpressionAccess().getGroup_0()); 
+                       after(grammarAccess.getHyBinaryArithmeticalComparisonExpressionAccess().getHyGreaterOrEqualExpressionParserRuleCall_0()); 
                     }
 
                     }
@@ -4030,13 +3743,59 @@ public class InternalExpressionDslParser extends AbstractInternalContentAssistPa
                     }
                     break;
                 case 2 :
-                    // InternalExpressionDsl.g:1144:2: ( ruleHyLessExpression )
+                    // InternalExpressionDsl.g:1094:2: ( ruleHyGreaterExpression )
                     {
-                    // InternalExpressionDsl.g:1144:2: ( ruleHyLessExpression )
-                    // InternalExpressionDsl.g:1145:3: ruleHyLessExpression
+                    // InternalExpressionDsl.g:1094:2: ( ruleHyGreaterExpression )
+                    // InternalExpressionDsl.g:1095:3: ruleHyGreaterExpression
                     {
                     if ( state.backtracking==0 ) {
-                       before(grammarAccess.getHyGreaterExpressionAccess().getHyLessExpressionParserRuleCall_1()); 
+                       before(grammarAccess.getHyBinaryArithmeticalComparisonExpressionAccess().getHyGreaterExpressionParserRuleCall_1()); 
+                    }
+                    pushFollow(FOLLOW_2);
+                    ruleHyGreaterExpression();
+
+                    state._fsp--;
+                    if (state.failed) return ;
+                    if ( state.backtracking==0 ) {
+                       after(grammarAccess.getHyBinaryArithmeticalComparisonExpressionAccess().getHyGreaterExpressionParserRuleCall_1()); 
+                    }
+
+                    }
+
+
+                    }
+                    break;
+                case 3 :
+                    // InternalExpressionDsl.g:1100:2: ( ruleHyLessOrEqualExpression )
+                    {
+                    // InternalExpressionDsl.g:1100:2: ( ruleHyLessOrEqualExpression )
+                    // InternalExpressionDsl.g:1101:3: ruleHyLessOrEqualExpression
+                    {
+                    if ( state.backtracking==0 ) {
+                       before(grammarAccess.getHyBinaryArithmeticalComparisonExpressionAccess().getHyLessOrEqualExpressionParserRuleCall_2()); 
+                    }
+                    pushFollow(FOLLOW_2);
+                    ruleHyLessOrEqualExpression();
+
+                    state._fsp--;
+                    if (state.failed) return ;
+                    if ( state.backtracking==0 ) {
+                       after(grammarAccess.getHyBinaryArithmeticalComparisonExpressionAccess().getHyLessOrEqualExpressionParserRuleCall_2()); 
+                    }
+
+                    }
+
+
+                    }
+                    break;
+                case 4 :
+                    // InternalExpressionDsl.g:1106:2: ( ruleHyLessExpression )
+                    {
+                    // InternalExpressionDsl.g:1106:2: ( ruleHyLessExpression )
+                    // InternalExpressionDsl.g:1107:3: ruleHyLessExpression
+                    {
+                    if ( state.backtracking==0 ) {
+                       before(grammarAccess.getHyBinaryArithmeticalComparisonExpressionAccess().getHyLessExpressionParserRuleCall_3()); 
                     }
                     pushFollow(FOLLOW_2);
                     ruleHyLessExpression();
@@ -4044,7 +3803,53 @@ public class InternalExpressionDslParser extends AbstractInternalContentAssistPa
                     state._fsp--;
                     if (state.failed) return ;
                     if ( state.backtracking==0 ) {
-                       after(grammarAccess.getHyGreaterExpressionAccess().getHyLessExpressionParserRuleCall_1()); 
+                       after(grammarAccess.getHyBinaryArithmeticalComparisonExpressionAccess().getHyLessExpressionParserRuleCall_3()); 
+                    }
+
+                    }
+
+
+                    }
+                    break;
+                case 5 :
+                    // InternalExpressionDsl.g:1112:2: ( ruleHyNotEqualExpression )
+                    {
+                    // InternalExpressionDsl.g:1112:2: ( ruleHyNotEqualExpression )
+                    // InternalExpressionDsl.g:1113:3: ruleHyNotEqualExpression
+                    {
+                    if ( state.backtracking==0 ) {
+                       before(grammarAccess.getHyBinaryArithmeticalComparisonExpressionAccess().getHyNotEqualExpressionParserRuleCall_4()); 
+                    }
+                    pushFollow(FOLLOW_2);
+                    ruleHyNotEqualExpression();
+
+                    state._fsp--;
+                    if (state.failed) return ;
+                    if ( state.backtracking==0 ) {
+                       after(grammarAccess.getHyBinaryArithmeticalComparisonExpressionAccess().getHyNotEqualExpressionParserRuleCall_4()); 
+                    }
+
+                    }
+
+
+                    }
+                    break;
+                case 6 :
+                    // InternalExpressionDsl.g:1118:2: ( ruleHyEqualExpression )
+                    {
+                    // InternalExpressionDsl.g:1118:2: ( ruleHyEqualExpression )
+                    // InternalExpressionDsl.g:1119:3: ruleHyEqualExpression
+                    {
+                    if ( state.backtracking==0 ) {
+                       before(grammarAccess.getHyBinaryArithmeticalComparisonExpressionAccess().getHyEqualExpressionParserRuleCall_5()); 
+                    }
+                    pushFollow(FOLLOW_2);
+                    ruleHyEqualExpression();
+
+                    state._fsp--;
+                    if (state.failed) return ;
+                    if ( state.backtracking==0 ) {
+                       after(grammarAccess.getHyBinaryArithmeticalComparisonExpressionAccess().getHyEqualExpressionParserRuleCall_5()); 
                     }
 
                     }
@@ -4066,47 +3871,39 @@ public class InternalExpressionDslParser extends AbstractInternalContentAssistPa
         }
         return ;
     }
-    // $ANTLR end "rule__HyGreaterExpression__Alternatives"
+    // $ANTLR end "rule__HyBinaryArithmeticalComparisonExpression__Alternatives"
 
 
-    // $ANTLR start "rule__HyLessExpression__Alternatives"
-    // InternalExpressionDsl.g:1154:1: rule__HyLessExpression__Alternatives : ( ( ( rule__HyLessExpression__Group_0__0 ) ) | ( ruleHyGreaterOrEqualExpression ) );
-    public final void rule__HyLessExpression__Alternatives() throws RecognitionException {
+    // $ANTLR start "rule__TerminalArithmeticalExpression__Alternatives"
+    // InternalExpressionDsl.g:1128:1: rule__TerminalArithmeticalExpression__Alternatives : ( ( ruleHyValueExpression ) | ( ruleHyNestedArithmeticalValueExpression ) | ( ( ruleHyContextInformationReferenceExpression ) ) | ( ruleHyAttributeReferenceExpression ) );
+    public final void rule__TerminalArithmeticalExpression__Alternatives() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalExpressionDsl.g:1158:1: ( ( ( rule__HyLessExpression__Group_0__0 ) ) | ( ruleHyGreaterOrEqualExpression ) )
-            int alt6=2;
+            // InternalExpressionDsl.g:1132:1: ( ( ruleHyValueExpression ) | ( ruleHyNestedArithmeticalValueExpression ) | ( ( ruleHyContextInformationReferenceExpression ) ) | ( ruleHyAttributeReferenceExpression ) )
+            int alt6=4;
             switch ( input.LA(1) ) {
+            case RULE_INT:
+            case 11:
             case 27:
+            case 32:
                 {
-                int LA6_1 = input.LA(2);
-
-                if ( (synpred11_InternalExpressionDsl()) ) {
-                    alt6=1;
-                }
-                else if ( (true) ) {
-                    alt6=2;
-                }
-                else {
-                    if (state.backtracking>0) {state.failed=true; return ;}
-                    NoViableAltException nvae =
-                        new NoViableAltException("", 6, 1, input);
-
-                    throw nvae;
-                }
+                alt6=1;
                 }
                 break;
-            case RULE_INT:
+            case RULE_STRING:
                 {
                 int LA6_2 = input.LA(2);
 
-                if ( (synpred11_InternalExpressionDsl()) ) {
+                if ( (LA6_2==31) ) {
+                    alt6=4;
+                }
+                else if ( (synpred15_InternalExpressionDsl()) ) {
                     alt6=1;
                 }
-                else if ( (true) ) {
-                    alt6=2;
+                else if ( (synpred17_InternalExpressionDsl()) ) {
+                    alt6=3;
                 }
                 else {
                     if (state.backtracking>0) {state.failed=true; return ;}
@@ -4117,80 +3914,9 @@ public class InternalExpressionDslParser extends AbstractInternalContentAssistPa
                 }
                 }
                 break;
-            case RULE_STRING:
-                {
-                int LA6_3 = input.LA(2);
-
-                if ( (synpred11_InternalExpressionDsl()) ) {
-                    alt6=1;
-                }
-                else if ( (true) ) {
-                    alt6=2;
-                }
-                else {
-                    if (state.backtracking>0) {state.failed=true; return ;}
-                    NoViableAltException nvae =
-                        new NoViableAltException("", 6, 3, input);
-
-                    throw nvae;
-                }
-                }
-                break;
-            case 33:
-                {
-                int LA6_4 = input.LA(2);
-
-                if ( (synpred11_InternalExpressionDsl()) ) {
-                    alt6=1;
-                }
-                else if ( (true) ) {
-                    alt6=2;
-                }
-                else {
-                    if (state.backtracking>0) {state.failed=true; return ;}
-                    NoViableAltException nvae =
-                        new NoViableAltException("", 6, 4, input);
-
-                    throw nvae;
-                }
-                }
-                break;
-            case 11:
-                {
-                int LA6_5 = input.LA(2);
-
-                if ( (synpred11_InternalExpressionDsl()) ) {
-                    alt6=1;
-                }
-                else if ( (true) ) {
-                    alt6=2;
-                }
-                else {
-                    if (state.backtracking>0) {state.failed=true; return ;}
-                    NoViableAltException nvae =
-                        new NoViableAltException("", 6, 5, input);
-
-                    throw nvae;
-                }
-                }
-                break;
             case 21:
                 {
-                int LA6_6 = input.LA(2);
-
-                if ( (synpred11_InternalExpressionDsl()) ) {
-                    alt6=1;
-                }
-                else if ( (true) ) {
-                    alt6=2;
-                }
-                else {
-                    if (state.backtracking>0) {state.failed=true; return ;}
-                    NoViableAltException nvae =
-                        new NoViableAltException("", 6, 6, input);
-
-                    throw nvae;
-                }
+                alt6=2;
                 }
                 break;
             default:
@@ -4203,739 +3929,10 @@ public class InternalExpressionDslParser extends AbstractInternalContentAssistPa
 
             switch (alt6) {
                 case 1 :
-                    // InternalExpressionDsl.g:1159:2: ( ( rule__HyLessExpression__Group_0__0 ) )
+                    // InternalExpressionDsl.g:1133:2: ( ruleHyValueExpression )
                     {
-                    // InternalExpressionDsl.g:1159:2: ( ( rule__HyLessExpression__Group_0__0 ) )
-                    // InternalExpressionDsl.g:1160:3: ( rule__HyLessExpression__Group_0__0 )
-                    {
-                    if ( state.backtracking==0 ) {
-                       before(grammarAccess.getHyLessExpressionAccess().getGroup_0()); 
-                    }
-                    // InternalExpressionDsl.g:1161:3: ( rule__HyLessExpression__Group_0__0 )
-                    // InternalExpressionDsl.g:1161:4: rule__HyLessExpression__Group_0__0
-                    {
-                    pushFollow(FOLLOW_2);
-                    rule__HyLessExpression__Group_0__0();
-
-                    state._fsp--;
-                    if (state.failed) return ;
-
-                    }
-
-                    if ( state.backtracking==0 ) {
-                       after(grammarAccess.getHyLessExpressionAccess().getGroup_0()); 
-                    }
-
-                    }
-
-
-                    }
-                    break;
-                case 2 :
-                    // InternalExpressionDsl.g:1165:2: ( ruleHyGreaterOrEqualExpression )
-                    {
-                    // InternalExpressionDsl.g:1165:2: ( ruleHyGreaterOrEqualExpression )
-                    // InternalExpressionDsl.g:1166:3: ruleHyGreaterOrEqualExpression
-                    {
-                    if ( state.backtracking==0 ) {
-                       before(grammarAccess.getHyLessExpressionAccess().getHyGreaterOrEqualExpressionParserRuleCall_1()); 
-                    }
-                    pushFollow(FOLLOW_2);
-                    ruleHyGreaterOrEqualExpression();
-
-                    state._fsp--;
-                    if (state.failed) return ;
-                    if ( state.backtracking==0 ) {
-                       after(grammarAccess.getHyLessExpressionAccess().getHyGreaterOrEqualExpressionParserRuleCall_1()); 
-                    }
-
-                    }
-
-
-                    }
-                    break;
-
-            }
-        }
-        catch (RecognitionException re) {
-            reportError(re);
-            recover(input,re);
-        }
-        finally {
-
-            	restoreStackSize(stackSize);
-
-        }
-        return ;
-    }
-    // $ANTLR end "rule__HyLessExpression__Alternatives"
-
-
-    // $ANTLR start "rule__HyGreaterOrEqualExpression__Alternatives"
-    // InternalExpressionDsl.g:1175:1: rule__HyGreaterOrEqualExpression__Alternatives : ( ( ( rule__HyGreaterOrEqualExpression__Group_0__0 ) ) | ( ruleHyLessOrEqualExpression ) );
-    public final void rule__HyGreaterOrEqualExpression__Alternatives() throws RecognitionException {
-
-        		int stackSize = keepStackSize();
-        	
-        try {
-            // InternalExpressionDsl.g:1179:1: ( ( ( rule__HyGreaterOrEqualExpression__Group_0__0 ) ) | ( ruleHyLessOrEqualExpression ) )
-            int alt7=2;
-            switch ( input.LA(1) ) {
-            case 27:
-                {
-                int LA7_1 = input.LA(2);
-
-                if ( (synpred12_InternalExpressionDsl()) ) {
-                    alt7=1;
-                }
-                else if ( (true) ) {
-                    alt7=2;
-                }
-                else {
-                    if (state.backtracking>0) {state.failed=true; return ;}
-                    NoViableAltException nvae =
-                        new NoViableAltException("", 7, 1, input);
-
-                    throw nvae;
-                }
-                }
-                break;
-            case RULE_INT:
-                {
-                int LA7_2 = input.LA(2);
-
-                if ( (synpred12_InternalExpressionDsl()) ) {
-                    alt7=1;
-                }
-                else if ( (true) ) {
-                    alt7=2;
-                }
-                else {
-                    if (state.backtracking>0) {state.failed=true; return ;}
-                    NoViableAltException nvae =
-                        new NoViableAltException("", 7, 2, input);
-
-                    throw nvae;
-                }
-                }
-                break;
-            case RULE_STRING:
-                {
-                int LA7_3 = input.LA(2);
-
-                if ( (synpred12_InternalExpressionDsl()) ) {
-                    alt7=1;
-                }
-                else if ( (true) ) {
-                    alt7=2;
-                }
-                else {
-                    if (state.backtracking>0) {state.failed=true; return ;}
-                    NoViableAltException nvae =
-                        new NoViableAltException("", 7, 3, input);
-
-                    throw nvae;
-                }
-                }
-                break;
-            case 33:
-                {
-                int LA7_4 = input.LA(2);
-
-                if ( (synpred12_InternalExpressionDsl()) ) {
-                    alt7=1;
-                }
-                else if ( (true) ) {
-                    alt7=2;
-                }
-                else {
-                    if (state.backtracking>0) {state.failed=true; return ;}
-                    NoViableAltException nvae =
-                        new NoViableAltException("", 7, 4, input);
-
-                    throw nvae;
-                }
-                }
-                break;
-            case 11:
-                {
-                int LA7_5 = input.LA(2);
-
-                if ( (synpred12_InternalExpressionDsl()) ) {
-                    alt7=1;
-                }
-                else if ( (true) ) {
-                    alt7=2;
-                }
-                else {
-                    if (state.backtracking>0) {state.failed=true; return ;}
-                    NoViableAltException nvae =
-                        new NoViableAltException("", 7, 5, input);
-
-                    throw nvae;
-                }
-                }
-                break;
-            case 21:
-                {
-                int LA7_6 = input.LA(2);
-
-                if ( (synpred12_InternalExpressionDsl()) ) {
-                    alt7=1;
-                }
-                else if ( (true) ) {
-                    alt7=2;
-                }
-                else {
-                    if (state.backtracking>0) {state.failed=true; return ;}
-                    NoViableAltException nvae =
-                        new NoViableAltException("", 7, 6, input);
-
-                    throw nvae;
-                }
-                }
-                break;
-            default:
-                if (state.backtracking>0) {state.failed=true; return ;}
-                NoViableAltException nvae =
-                    new NoViableAltException("", 7, 0, input);
-
-                throw nvae;
-            }
-
-            switch (alt7) {
-                case 1 :
-                    // InternalExpressionDsl.g:1180:2: ( ( rule__HyGreaterOrEqualExpression__Group_0__0 ) )
-                    {
-                    // InternalExpressionDsl.g:1180:2: ( ( rule__HyGreaterOrEqualExpression__Group_0__0 ) )
-                    // InternalExpressionDsl.g:1181:3: ( rule__HyGreaterOrEqualExpression__Group_0__0 )
-                    {
-                    if ( state.backtracking==0 ) {
-                       before(grammarAccess.getHyGreaterOrEqualExpressionAccess().getGroup_0()); 
-                    }
-                    // InternalExpressionDsl.g:1182:3: ( rule__HyGreaterOrEqualExpression__Group_0__0 )
-                    // InternalExpressionDsl.g:1182:4: rule__HyGreaterOrEqualExpression__Group_0__0
-                    {
-                    pushFollow(FOLLOW_2);
-                    rule__HyGreaterOrEqualExpression__Group_0__0();
-
-                    state._fsp--;
-                    if (state.failed) return ;
-
-                    }
-
-                    if ( state.backtracking==0 ) {
-                       after(grammarAccess.getHyGreaterOrEqualExpressionAccess().getGroup_0()); 
-                    }
-
-                    }
-
-
-                    }
-                    break;
-                case 2 :
-                    // InternalExpressionDsl.g:1186:2: ( ruleHyLessOrEqualExpression )
-                    {
-                    // InternalExpressionDsl.g:1186:2: ( ruleHyLessOrEqualExpression )
-                    // InternalExpressionDsl.g:1187:3: ruleHyLessOrEqualExpression
-                    {
-                    if ( state.backtracking==0 ) {
-                       before(grammarAccess.getHyGreaterOrEqualExpressionAccess().getHyLessOrEqualExpressionParserRuleCall_1()); 
-                    }
-                    pushFollow(FOLLOW_2);
-                    ruleHyLessOrEqualExpression();
-
-                    state._fsp--;
-                    if (state.failed) return ;
-                    if ( state.backtracking==0 ) {
-                       after(grammarAccess.getHyGreaterOrEqualExpressionAccess().getHyLessOrEqualExpressionParserRuleCall_1()); 
-                    }
-
-                    }
-
-
-                    }
-                    break;
-
-            }
-        }
-        catch (RecognitionException re) {
-            reportError(re);
-            recover(input,re);
-        }
-        finally {
-
-            	restoreStackSize(stackSize);
-
-        }
-        return ;
-    }
-    // $ANTLR end "rule__HyGreaterOrEqualExpression__Alternatives"
-
-
-    // $ANTLR start "rule__HyLessOrEqualExpression__Alternatives"
-    // InternalExpressionDsl.g:1196:1: rule__HyLessOrEqualExpression__Alternatives : ( ( ( rule__HyLessOrEqualExpression__Group_0__0 ) ) | ( ruleHyEqualExpression ) );
-    public final void rule__HyLessOrEqualExpression__Alternatives() throws RecognitionException {
-
-        		int stackSize = keepStackSize();
-        	
-        try {
-            // InternalExpressionDsl.g:1200:1: ( ( ( rule__HyLessOrEqualExpression__Group_0__0 ) ) | ( ruleHyEqualExpression ) )
-            int alt8=2;
-            switch ( input.LA(1) ) {
-            case 27:
-                {
-                int LA8_1 = input.LA(2);
-
-                if ( (synpred13_InternalExpressionDsl()) ) {
-                    alt8=1;
-                }
-                else if ( (true) ) {
-                    alt8=2;
-                }
-                else {
-                    if (state.backtracking>0) {state.failed=true; return ;}
-                    NoViableAltException nvae =
-                        new NoViableAltException("", 8, 1, input);
-
-                    throw nvae;
-                }
-                }
-                break;
-            case RULE_INT:
-                {
-                int LA8_2 = input.LA(2);
-
-                if ( (synpred13_InternalExpressionDsl()) ) {
-                    alt8=1;
-                }
-                else if ( (true) ) {
-                    alt8=2;
-                }
-                else {
-                    if (state.backtracking>0) {state.failed=true; return ;}
-                    NoViableAltException nvae =
-                        new NoViableAltException("", 8, 2, input);
-
-                    throw nvae;
-                }
-                }
-                break;
-            case RULE_STRING:
-                {
-                int LA8_3 = input.LA(2);
-
-                if ( (synpred13_InternalExpressionDsl()) ) {
-                    alt8=1;
-                }
-                else if ( (true) ) {
-                    alt8=2;
-                }
-                else {
-                    if (state.backtracking>0) {state.failed=true; return ;}
-                    NoViableAltException nvae =
-                        new NoViableAltException("", 8, 3, input);
-
-                    throw nvae;
-                }
-                }
-                break;
-            case 33:
-                {
-                int LA8_4 = input.LA(2);
-
-                if ( (synpred13_InternalExpressionDsl()) ) {
-                    alt8=1;
-                }
-                else if ( (true) ) {
-                    alt8=2;
-                }
-                else {
-                    if (state.backtracking>0) {state.failed=true; return ;}
-                    NoViableAltException nvae =
-                        new NoViableAltException("", 8, 4, input);
-
-                    throw nvae;
-                }
-                }
-                break;
-            case 11:
-                {
-                int LA8_5 = input.LA(2);
-
-                if ( (synpred13_InternalExpressionDsl()) ) {
-                    alt8=1;
-                }
-                else if ( (true) ) {
-                    alt8=2;
-                }
-                else {
-                    if (state.backtracking>0) {state.failed=true; return ;}
-                    NoViableAltException nvae =
-                        new NoViableAltException("", 8, 5, input);
-
-                    throw nvae;
-                }
-                }
-                break;
-            case 21:
-                {
-                int LA8_6 = input.LA(2);
-
-                if ( (synpred13_InternalExpressionDsl()) ) {
-                    alt8=1;
-                }
-                else if ( (true) ) {
-                    alt8=2;
-                }
-                else {
-                    if (state.backtracking>0) {state.failed=true; return ;}
-                    NoViableAltException nvae =
-                        new NoViableAltException("", 8, 6, input);
-
-                    throw nvae;
-                }
-                }
-                break;
-            default:
-                if (state.backtracking>0) {state.failed=true; return ;}
-                NoViableAltException nvae =
-                    new NoViableAltException("", 8, 0, input);
-
-                throw nvae;
-            }
-
-            switch (alt8) {
-                case 1 :
-                    // InternalExpressionDsl.g:1201:2: ( ( rule__HyLessOrEqualExpression__Group_0__0 ) )
-                    {
-                    // InternalExpressionDsl.g:1201:2: ( ( rule__HyLessOrEqualExpression__Group_0__0 ) )
-                    // InternalExpressionDsl.g:1202:3: ( rule__HyLessOrEqualExpression__Group_0__0 )
-                    {
-                    if ( state.backtracking==0 ) {
-                       before(grammarAccess.getHyLessOrEqualExpressionAccess().getGroup_0()); 
-                    }
-                    // InternalExpressionDsl.g:1203:3: ( rule__HyLessOrEqualExpression__Group_0__0 )
-                    // InternalExpressionDsl.g:1203:4: rule__HyLessOrEqualExpression__Group_0__0
-                    {
-                    pushFollow(FOLLOW_2);
-                    rule__HyLessOrEqualExpression__Group_0__0();
-
-                    state._fsp--;
-                    if (state.failed) return ;
-
-                    }
-
-                    if ( state.backtracking==0 ) {
-                       after(grammarAccess.getHyLessOrEqualExpressionAccess().getGroup_0()); 
-                    }
-
-                    }
-
-
-                    }
-                    break;
-                case 2 :
-                    // InternalExpressionDsl.g:1207:2: ( ruleHyEqualExpression )
-                    {
-                    // InternalExpressionDsl.g:1207:2: ( ruleHyEqualExpression )
-                    // InternalExpressionDsl.g:1208:3: ruleHyEqualExpression
-                    {
-                    if ( state.backtracking==0 ) {
-                       before(grammarAccess.getHyLessOrEqualExpressionAccess().getHyEqualExpressionParserRuleCall_1()); 
-                    }
-                    pushFollow(FOLLOW_2);
-                    ruleHyEqualExpression();
-
-                    state._fsp--;
-                    if (state.failed) return ;
-                    if ( state.backtracking==0 ) {
-                       after(grammarAccess.getHyLessOrEqualExpressionAccess().getHyEqualExpressionParserRuleCall_1()); 
-                    }
-
-                    }
-
-
-                    }
-                    break;
-
-            }
-        }
-        catch (RecognitionException re) {
-            reportError(re);
-            recover(input,re);
-        }
-        finally {
-
-            	restoreStackSize(stackSize);
-
-        }
-        return ;
-    }
-    // $ANTLR end "rule__HyLessOrEqualExpression__Alternatives"
-
-
-    // $ANTLR start "rule__HyEqualExpression__Alternatives"
-    // InternalExpressionDsl.g:1217:1: rule__HyEqualExpression__Alternatives : ( ( ( rule__HyEqualExpression__Group_0__0 ) ) | ( ruleHyNotEqualExpression ) );
-    public final void rule__HyEqualExpression__Alternatives() throws RecognitionException {
-
-        		int stackSize = keepStackSize();
-        	
-        try {
-            // InternalExpressionDsl.g:1221:1: ( ( ( rule__HyEqualExpression__Group_0__0 ) ) | ( ruleHyNotEqualExpression ) )
-            int alt9=2;
-            switch ( input.LA(1) ) {
-            case 27:
-                {
-                int LA9_1 = input.LA(2);
-
-                if ( (synpred14_InternalExpressionDsl()) ) {
-                    alt9=1;
-                }
-                else if ( (true) ) {
-                    alt9=2;
-                }
-                else {
-                    if (state.backtracking>0) {state.failed=true; return ;}
-                    NoViableAltException nvae =
-                        new NoViableAltException("", 9, 1, input);
-
-                    throw nvae;
-                }
-                }
-                break;
-            case RULE_INT:
-                {
-                int LA9_2 = input.LA(2);
-
-                if ( (synpred14_InternalExpressionDsl()) ) {
-                    alt9=1;
-                }
-                else if ( (true) ) {
-                    alt9=2;
-                }
-                else {
-                    if (state.backtracking>0) {state.failed=true; return ;}
-                    NoViableAltException nvae =
-                        new NoViableAltException("", 9, 2, input);
-
-                    throw nvae;
-                }
-                }
-                break;
-            case RULE_STRING:
-                {
-                int LA9_3 = input.LA(2);
-
-                if ( (synpred14_InternalExpressionDsl()) ) {
-                    alt9=1;
-                }
-                else if ( (true) ) {
-                    alt9=2;
-                }
-                else {
-                    if (state.backtracking>0) {state.failed=true; return ;}
-                    NoViableAltException nvae =
-                        new NoViableAltException("", 9, 3, input);
-
-                    throw nvae;
-                }
-                }
-                break;
-            case 33:
-                {
-                int LA9_4 = input.LA(2);
-
-                if ( (synpred14_InternalExpressionDsl()) ) {
-                    alt9=1;
-                }
-                else if ( (true) ) {
-                    alt9=2;
-                }
-                else {
-                    if (state.backtracking>0) {state.failed=true; return ;}
-                    NoViableAltException nvae =
-                        new NoViableAltException("", 9, 4, input);
-
-                    throw nvae;
-                }
-                }
-                break;
-            case 11:
-                {
-                int LA9_5 = input.LA(2);
-
-                if ( (synpred14_InternalExpressionDsl()) ) {
-                    alt9=1;
-                }
-                else if ( (true) ) {
-                    alt9=2;
-                }
-                else {
-                    if (state.backtracking>0) {state.failed=true; return ;}
-                    NoViableAltException nvae =
-                        new NoViableAltException("", 9, 5, input);
-
-                    throw nvae;
-                }
-                }
-                break;
-            case 21:
-                {
-                int LA9_6 = input.LA(2);
-
-                if ( (synpred14_InternalExpressionDsl()) ) {
-                    alt9=1;
-                }
-                else if ( (true) ) {
-                    alt9=2;
-                }
-                else {
-                    if (state.backtracking>0) {state.failed=true; return ;}
-                    NoViableAltException nvae =
-                        new NoViableAltException("", 9, 6, input);
-
-                    throw nvae;
-                }
-                }
-                break;
-            default:
-                if (state.backtracking>0) {state.failed=true; return ;}
-                NoViableAltException nvae =
-                    new NoViableAltException("", 9, 0, input);
-
-                throw nvae;
-            }
-
-            switch (alt9) {
-                case 1 :
-                    // InternalExpressionDsl.g:1222:2: ( ( rule__HyEqualExpression__Group_0__0 ) )
-                    {
-                    // InternalExpressionDsl.g:1222:2: ( ( rule__HyEqualExpression__Group_0__0 ) )
-                    // InternalExpressionDsl.g:1223:3: ( rule__HyEqualExpression__Group_0__0 )
-                    {
-                    if ( state.backtracking==0 ) {
-                       before(grammarAccess.getHyEqualExpressionAccess().getGroup_0()); 
-                    }
-                    // InternalExpressionDsl.g:1224:3: ( rule__HyEqualExpression__Group_0__0 )
-                    // InternalExpressionDsl.g:1224:4: rule__HyEqualExpression__Group_0__0
-                    {
-                    pushFollow(FOLLOW_2);
-                    rule__HyEqualExpression__Group_0__0();
-
-                    state._fsp--;
-                    if (state.failed) return ;
-
-                    }
-
-                    if ( state.backtracking==0 ) {
-                       after(grammarAccess.getHyEqualExpressionAccess().getGroup_0()); 
-                    }
-
-                    }
-
-
-                    }
-                    break;
-                case 2 :
-                    // InternalExpressionDsl.g:1228:2: ( ruleHyNotEqualExpression )
-                    {
-                    // InternalExpressionDsl.g:1228:2: ( ruleHyNotEqualExpression )
-                    // InternalExpressionDsl.g:1229:3: ruleHyNotEqualExpression
-                    {
-                    if ( state.backtracking==0 ) {
-                       before(grammarAccess.getHyEqualExpressionAccess().getHyNotEqualExpressionParserRuleCall_1()); 
-                    }
-                    pushFollow(FOLLOW_2);
-                    ruleHyNotEqualExpression();
-
-                    state._fsp--;
-                    if (state.failed) return ;
-                    if ( state.backtracking==0 ) {
-                       after(grammarAccess.getHyEqualExpressionAccess().getHyNotEqualExpressionParserRuleCall_1()); 
-                    }
-
-                    }
-
-
-                    }
-                    break;
-
-            }
-        }
-        catch (RecognitionException re) {
-            reportError(re);
-            recover(input,re);
-        }
-        finally {
-
-            	restoreStackSize(stackSize);
-
-        }
-        return ;
-    }
-    // $ANTLR end "rule__HyEqualExpression__Alternatives"
-
-
-    // $ANTLR start "rule__TerminalArithmeticalExpression__Alternatives"
-    // InternalExpressionDsl.g:1238:1: rule__TerminalArithmeticalExpression__Alternatives : ( ( ruleHyValueExpression ) | ( ruleHyNestedArithmeticalValueExpression ) | ( ( ruleHyContextInformationReferenceExpression ) ) | ( ruleHyAttributeReferenceExpression ) );
-    public final void rule__TerminalArithmeticalExpression__Alternatives() throws RecognitionException {
-
-        		int stackSize = keepStackSize();
-        	
-        try {
-            // InternalExpressionDsl.g:1242:1: ( ( ruleHyValueExpression ) | ( ruleHyNestedArithmeticalValueExpression ) | ( ( ruleHyContextInformationReferenceExpression ) ) | ( ruleHyAttributeReferenceExpression ) )
-            int alt10=4;
-            switch ( input.LA(1) ) {
-            case RULE_INT:
-            case 11:
-            case 27:
-            case 33:
-                {
-                alt10=1;
-                }
-                break;
-            case RULE_STRING:
-                {
-                int LA10_2 = input.LA(2);
-
-                if ( (LA10_2==32) ) {
-                    alt10=4;
-                }
-                else if ( (synpred15_InternalExpressionDsl()) ) {
-                    alt10=1;
-                }
-                else if ( (synpred17_InternalExpressionDsl()) ) {
-                    alt10=3;
-                }
-                else {
-                    if (state.backtracking>0) {state.failed=true; return ;}
-                    NoViableAltException nvae =
-                        new NoViableAltException("", 10, 2, input);
-
-                    throw nvae;
-                }
-                }
-                break;
-            case 21:
-                {
-                alt10=2;
-                }
-                break;
-            default:
-                if (state.backtracking>0) {state.failed=true; return ;}
-                NoViableAltException nvae =
-                    new NoViableAltException("", 10, 0, input);
-
-                throw nvae;
-            }
-
-            switch (alt10) {
-                case 1 :
-                    // InternalExpressionDsl.g:1243:2: ( ruleHyValueExpression )
-                    {
-                    // InternalExpressionDsl.g:1243:2: ( ruleHyValueExpression )
-                    // InternalExpressionDsl.g:1244:3: ruleHyValueExpression
+                    // InternalExpressionDsl.g:1133:2: ( ruleHyValueExpression )
+                    // InternalExpressionDsl.g:1134:3: ruleHyValueExpression
                     {
                     if ( state.backtracking==0 ) {
                        before(grammarAccess.getTerminalArithmeticalExpressionAccess().getHyValueExpressionParserRuleCall_0()); 
@@ -4955,10 +3952,10 @@ public class InternalExpressionDslParser extends AbstractInternalContentAssistPa
                     }
                     break;
                 case 2 :
-                    // InternalExpressionDsl.g:1249:2: ( ruleHyNestedArithmeticalValueExpression )
+                    // InternalExpressionDsl.g:1139:2: ( ruleHyNestedArithmeticalValueExpression )
                     {
-                    // InternalExpressionDsl.g:1249:2: ( ruleHyNestedArithmeticalValueExpression )
-                    // InternalExpressionDsl.g:1250:3: ruleHyNestedArithmeticalValueExpression
+                    // InternalExpressionDsl.g:1139:2: ( ruleHyNestedArithmeticalValueExpression )
+                    // InternalExpressionDsl.g:1140:3: ruleHyNestedArithmeticalValueExpression
                     {
                     if ( state.backtracking==0 ) {
                        before(grammarAccess.getTerminalArithmeticalExpressionAccess().getHyNestedArithmeticalValueExpressionParserRuleCall_1()); 
@@ -4978,16 +3975,16 @@ public class InternalExpressionDslParser extends AbstractInternalContentAssistPa
                     }
                     break;
                 case 3 :
-                    // InternalExpressionDsl.g:1255:2: ( ( ruleHyContextInformationReferenceExpression ) )
+                    // InternalExpressionDsl.g:1145:2: ( ( ruleHyContextInformationReferenceExpression ) )
                     {
-                    // InternalExpressionDsl.g:1255:2: ( ( ruleHyContextInformationReferenceExpression ) )
-                    // InternalExpressionDsl.g:1256:3: ( ruleHyContextInformationReferenceExpression )
+                    // InternalExpressionDsl.g:1145:2: ( ( ruleHyContextInformationReferenceExpression ) )
+                    // InternalExpressionDsl.g:1146:3: ( ruleHyContextInformationReferenceExpression )
                     {
                     if ( state.backtracking==0 ) {
                        before(grammarAccess.getTerminalArithmeticalExpressionAccess().getHyContextInformationReferenceExpressionParserRuleCall_2()); 
                     }
-                    // InternalExpressionDsl.g:1257:3: ( ruleHyContextInformationReferenceExpression )
-                    // InternalExpressionDsl.g:1257:4: ruleHyContextInformationReferenceExpression
+                    // InternalExpressionDsl.g:1147:3: ( ruleHyContextInformationReferenceExpression )
+                    // InternalExpressionDsl.g:1147:4: ruleHyContextInformationReferenceExpression
                     {
                     pushFollow(FOLLOW_2);
                     ruleHyContextInformationReferenceExpression();
@@ -5007,10 +4004,10 @@ public class InternalExpressionDslParser extends AbstractInternalContentAssistPa
                     }
                     break;
                 case 4 :
-                    // InternalExpressionDsl.g:1261:2: ( ruleHyAttributeReferenceExpression )
+                    // InternalExpressionDsl.g:1151:2: ( ruleHyAttributeReferenceExpression )
                     {
-                    // InternalExpressionDsl.g:1261:2: ( ruleHyAttributeReferenceExpression )
-                    // InternalExpressionDsl.g:1262:3: ruleHyAttributeReferenceExpression
+                    // InternalExpressionDsl.g:1151:2: ( ruleHyAttributeReferenceExpression )
+                    // InternalExpressionDsl.g:1152:3: ruleHyAttributeReferenceExpression
                     {
                     if ( state.backtracking==0 ) {
                        before(grammarAccess.getTerminalArithmeticalExpressionAccess().getHyAttributeReferenceExpressionParserRuleCall_3()); 
@@ -5047,60 +4044,60 @@ public class InternalExpressionDslParser extends AbstractInternalContentAssistPa
 
 
     // $ANTLR start "rule__HyValue__Alternatives"
-    // InternalExpressionDsl.g:1271:1: rule__HyValue__Alternatives : ( ( ruleHyNumberValue ) | ( ruleHyStringValue ) | ( ruleHyBooleanValue ) | ( ruleHyEnumValue ) );
+    // InternalExpressionDsl.g:1161:1: rule__HyValue__Alternatives : ( ( ruleHyNumberValue ) | ( ruleHyStringValue ) | ( ruleHyBooleanValue ) | ( ruleHyEnumValue ) );
     public final void rule__HyValue__Alternatives() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalExpressionDsl.g:1275:1: ( ( ruleHyNumberValue ) | ( ruleHyStringValue ) | ( ruleHyBooleanValue ) | ( ruleHyEnumValue ) )
-            int alt11=4;
+            // InternalExpressionDsl.g:1165:1: ( ( ruleHyNumberValue ) | ( ruleHyStringValue ) | ( ruleHyBooleanValue ) | ( ruleHyEnumValue ) )
+            int alt7=4;
             switch ( input.LA(1) ) {
             case RULE_INT:
             case 27:
                 {
-                alt11=1;
+                alt7=1;
                 }
                 break;
             case RULE_STRING:
                 {
-                int LA11_2 = input.LA(2);
+                int LA7_2 = input.LA(2);
 
-                if ( (LA11_2==EOF||(LA11_2>=12 && LA11_2<=20)||LA11_2==22||(LA11_2>=27 && LA11_2<=31)) ) {
-                    alt11=2;
+                if ( (LA7_2==EOF||(LA7_2>=12 && LA7_2<=20)||LA7_2==22||(LA7_2>=27 && LA7_2<=30)) ) {
+                    alt7=2;
                 }
-                else if ( (LA11_2==32) ) {
-                    alt11=4;
+                else if ( (LA7_2==31) ) {
+                    alt7=4;
                 }
                 else {
                     if (state.backtracking>0) {state.failed=true; return ;}
                     NoViableAltException nvae =
-                        new NoViableAltException("", 11, 2, input);
+                        new NoViableAltException("", 7, 2, input);
 
                     throw nvae;
                 }
                 }
                 break;
             case 11:
-            case 33:
+            case 32:
                 {
-                alt11=3;
+                alt7=3;
                 }
                 break;
             default:
                 if (state.backtracking>0) {state.failed=true; return ;}
                 NoViableAltException nvae =
-                    new NoViableAltException("", 11, 0, input);
+                    new NoViableAltException("", 7, 0, input);
 
                 throw nvae;
             }
 
-            switch (alt11) {
+            switch (alt7) {
                 case 1 :
-                    // InternalExpressionDsl.g:1276:2: ( ruleHyNumberValue )
+                    // InternalExpressionDsl.g:1166:2: ( ruleHyNumberValue )
                     {
-                    // InternalExpressionDsl.g:1276:2: ( ruleHyNumberValue )
-                    // InternalExpressionDsl.g:1277:3: ruleHyNumberValue
+                    // InternalExpressionDsl.g:1166:2: ( ruleHyNumberValue )
+                    // InternalExpressionDsl.g:1167:3: ruleHyNumberValue
                     {
                     if ( state.backtracking==0 ) {
                        before(grammarAccess.getHyValueAccess().getHyNumberValueParserRuleCall_0()); 
@@ -5120,10 +4117,10 @@ public class InternalExpressionDslParser extends AbstractInternalContentAssistPa
                     }
                     break;
                 case 2 :
-                    // InternalExpressionDsl.g:1282:2: ( ruleHyStringValue )
+                    // InternalExpressionDsl.g:1172:2: ( ruleHyStringValue )
                     {
-                    // InternalExpressionDsl.g:1282:2: ( ruleHyStringValue )
-                    // InternalExpressionDsl.g:1283:3: ruleHyStringValue
+                    // InternalExpressionDsl.g:1172:2: ( ruleHyStringValue )
+                    // InternalExpressionDsl.g:1173:3: ruleHyStringValue
                     {
                     if ( state.backtracking==0 ) {
                        before(grammarAccess.getHyValueAccess().getHyStringValueParserRuleCall_1()); 
@@ -5143,10 +4140,10 @@ public class InternalExpressionDslParser extends AbstractInternalContentAssistPa
                     }
                     break;
                 case 3 :
-                    // InternalExpressionDsl.g:1288:2: ( ruleHyBooleanValue )
+                    // InternalExpressionDsl.g:1178:2: ( ruleHyBooleanValue )
                     {
-                    // InternalExpressionDsl.g:1288:2: ( ruleHyBooleanValue )
-                    // InternalExpressionDsl.g:1289:3: ruleHyBooleanValue
+                    // InternalExpressionDsl.g:1178:2: ( ruleHyBooleanValue )
+                    // InternalExpressionDsl.g:1179:3: ruleHyBooleanValue
                     {
                     if ( state.backtracking==0 ) {
                        before(grammarAccess.getHyValueAccess().getHyBooleanValueParserRuleCall_2()); 
@@ -5166,10 +4163,10 @@ public class InternalExpressionDslParser extends AbstractInternalContentAssistPa
                     }
                     break;
                 case 4 :
-                    // InternalExpressionDsl.g:1294:2: ( ruleHyEnumValue )
+                    // InternalExpressionDsl.g:1184:2: ( ruleHyEnumValue )
                     {
-                    // InternalExpressionDsl.g:1294:2: ( ruleHyEnumValue )
-                    // InternalExpressionDsl.g:1295:3: ruleHyEnumValue
+                    // InternalExpressionDsl.g:1184:2: ( ruleHyEnumValue )
+                    // InternalExpressionDsl.g:1185:3: ruleHyEnumValue
                     {
                     if ( state.backtracking==0 ) {
                        before(grammarAccess.getHyValueAccess().getHyEnumValueParserRuleCall_3()); 
@@ -5206,41 +4203,41 @@ public class InternalExpressionDslParser extends AbstractInternalContentAssistPa
 
 
     // $ANTLR start "rule__HyBooleanValue__Alternatives_1"
-    // InternalExpressionDsl.g:1304:1: rule__HyBooleanValue__Alternatives_1 : ( ( ( rule__HyBooleanValue__ValueAssignment_1_0 ) ) | ( 'false' ) );
+    // InternalExpressionDsl.g:1194:1: rule__HyBooleanValue__Alternatives_1 : ( ( ( rule__HyBooleanValue__ValueAssignment_1_0 ) ) | ( 'false' ) );
     public final void rule__HyBooleanValue__Alternatives_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalExpressionDsl.g:1308:1: ( ( ( rule__HyBooleanValue__ValueAssignment_1_0 ) ) | ( 'false' ) )
-            int alt12=2;
-            int LA12_0 = input.LA(1);
+            // InternalExpressionDsl.g:1198:1: ( ( ( rule__HyBooleanValue__ValueAssignment_1_0 ) ) | ( 'false' ) )
+            int alt8=2;
+            int LA8_0 = input.LA(1);
 
-            if ( (LA12_0==33) ) {
-                alt12=1;
+            if ( (LA8_0==32) ) {
+                alt8=1;
             }
-            else if ( (LA12_0==11) ) {
-                alt12=2;
+            else if ( (LA8_0==11) ) {
+                alt8=2;
             }
             else {
                 if (state.backtracking>0) {state.failed=true; return ;}
                 NoViableAltException nvae =
-                    new NoViableAltException("", 12, 0, input);
+                    new NoViableAltException("", 8, 0, input);
 
                 throw nvae;
             }
-            switch (alt12) {
+            switch (alt8) {
                 case 1 :
-                    // InternalExpressionDsl.g:1309:2: ( ( rule__HyBooleanValue__ValueAssignment_1_0 ) )
+                    // InternalExpressionDsl.g:1199:2: ( ( rule__HyBooleanValue__ValueAssignment_1_0 ) )
                     {
-                    // InternalExpressionDsl.g:1309:2: ( ( rule__HyBooleanValue__ValueAssignment_1_0 ) )
-                    // InternalExpressionDsl.g:1310:3: ( rule__HyBooleanValue__ValueAssignment_1_0 )
+                    // InternalExpressionDsl.g:1199:2: ( ( rule__HyBooleanValue__ValueAssignment_1_0 ) )
+                    // InternalExpressionDsl.g:1200:3: ( rule__HyBooleanValue__ValueAssignment_1_0 )
                     {
                     if ( state.backtracking==0 ) {
                        before(grammarAccess.getHyBooleanValueAccess().getValueAssignment_1_0()); 
                     }
-                    // InternalExpressionDsl.g:1311:3: ( rule__HyBooleanValue__ValueAssignment_1_0 )
-                    // InternalExpressionDsl.g:1311:4: rule__HyBooleanValue__ValueAssignment_1_0
+                    // InternalExpressionDsl.g:1201:3: ( rule__HyBooleanValue__ValueAssignment_1_0 )
+                    // InternalExpressionDsl.g:1201:4: rule__HyBooleanValue__ValueAssignment_1_0
                     {
                     pushFollow(FOLLOW_2);
                     rule__HyBooleanValue__ValueAssignment_1_0();
@@ -5260,10 +4257,10 @@ public class InternalExpressionDslParser extends AbstractInternalContentAssistPa
                     }
                     break;
                 case 2 :
-                    // InternalExpressionDsl.g:1315:2: ( 'false' )
+                    // InternalExpressionDsl.g:1205:2: ( 'false' )
                     {
-                    // InternalExpressionDsl.g:1315:2: ( 'false' )
-                    // InternalExpressionDsl.g:1316:3: 'false'
+                    // InternalExpressionDsl.g:1205:2: ( 'false' )
+                    // InternalExpressionDsl.g:1206:3: 'false'
                     {
                     if ( state.backtracking==0 ) {
                        before(grammarAccess.getHyBooleanValueAccess().getFalseKeyword_1_1()); 
@@ -5296,60 +4293,60 @@ public class InternalExpressionDslParser extends AbstractInternalContentAssistPa
 
 
     // $ANTLR start "rule__HyRelativeVersionRestrictionOperator__Alternatives"
-    // InternalExpressionDsl.g:1325:1: rule__HyRelativeVersionRestrictionOperator__Alternatives : ( ( ( '<' ) ) | ( ( '<=' ) ) | ( ( '=' ) ) | ( ( '>=' ) ) | ( ( '>' ) ) );
+    // InternalExpressionDsl.g:1215:1: rule__HyRelativeVersionRestrictionOperator__Alternatives : ( ( ( '<' ) ) | ( ( '<=' ) ) | ( ( '=' ) ) | ( ( '>=' ) ) | ( ( '>' ) ) );
     public final void rule__HyRelativeVersionRestrictionOperator__Alternatives() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalExpressionDsl.g:1329:1: ( ( ( '<' ) ) | ( ( '<=' ) ) | ( ( '=' ) ) | ( ( '>=' ) ) | ( ( '>' ) ) )
-            int alt13=5;
+            // InternalExpressionDsl.g:1219:1: ( ( ( '<' ) ) | ( ( '<=' ) ) | ( ( '=' ) ) | ( ( '>=' ) ) | ( ( '>' ) ) )
+            int alt9=5;
             switch ( input.LA(1) ) {
             case 12:
                 {
-                alt13=1;
+                alt9=1;
                 }
                 break;
             case 13:
                 {
-                alt13=2;
+                alt9=2;
                 }
                 break;
             case 14:
                 {
-                alt13=3;
+                alt9=3;
                 }
                 break;
             case 15:
                 {
-                alt13=4;
+                alt9=4;
                 }
                 break;
             case 16:
                 {
-                alt13=5;
+                alt9=5;
                 }
                 break;
             default:
                 if (state.backtracking>0) {state.failed=true; return ;}
                 NoViableAltException nvae =
-                    new NoViableAltException("", 13, 0, input);
+                    new NoViableAltException("", 9, 0, input);
 
                 throw nvae;
             }
 
-            switch (alt13) {
+            switch (alt9) {
                 case 1 :
-                    // InternalExpressionDsl.g:1330:2: ( ( '<' ) )
+                    // InternalExpressionDsl.g:1220:2: ( ( '<' ) )
                     {
-                    // InternalExpressionDsl.g:1330:2: ( ( '<' ) )
-                    // InternalExpressionDsl.g:1331:3: ( '<' )
+                    // InternalExpressionDsl.g:1220:2: ( ( '<' ) )
+                    // InternalExpressionDsl.g:1221:3: ( '<' )
                     {
                     if ( state.backtracking==0 ) {
                        before(grammarAccess.getHyRelativeVersionRestrictionOperatorAccess().getLessThanEnumLiteralDeclaration_0()); 
                     }
-                    // InternalExpressionDsl.g:1332:3: ( '<' )
-                    // InternalExpressionDsl.g:1332:4: '<'
+                    // InternalExpressionDsl.g:1222:3: ( '<' )
+                    // InternalExpressionDsl.g:1222:4: '<'
                     {
                     match(input,12,FOLLOW_2); if (state.failed) return ;
 
@@ -5365,16 +4362,16 @@ public class InternalExpressionDslParser extends AbstractInternalContentAssistPa
                     }
                     break;
                 case 2 :
-                    // InternalExpressionDsl.g:1336:2: ( ( '<=' ) )
+                    // InternalExpressionDsl.g:1226:2: ( ( '<=' ) )
                     {
-                    // InternalExpressionDsl.g:1336:2: ( ( '<=' ) )
-                    // InternalExpressionDsl.g:1337:3: ( '<=' )
+                    // InternalExpressionDsl.g:1226:2: ( ( '<=' ) )
+                    // InternalExpressionDsl.g:1227:3: ( '<=' )
                     {
                     if ( state.backtracking==0 ) {
                        before(grammarAccess.getHyRelativeVersionRestrictionOperatorAccess().getLessThanOrEqualEnumLiteralDeclaration_1()); 
                     }
-                    // InternalExpressionDsl.g:1338:3: ( '<=' )
-                    // InternalExpressionDsl.g:1338:4: '<='
+                    // InternalExpressionDsl.g:1228:3: ( '<=' )
+                    // InternalExpressionDsl.g:1228:4: '<='
                     {
                     match(input,13,FOLLOW_2); if (state.failed) return ;
 
@@ -5390,16 +4387,16 @@ public class InternalExpressionDslParser extends AbstractInternalContentAssistPa
                     }
                     break;
                 case 3 :
-                    // InternalExpressionDsl.g:1342:2: ( ( '=' ) )
+                    // InternalExpressionDsl.g:1232:2: ( ( '=' ) )
                     {
-                    // InternalExpressionDsl.g:1342:2: ( ( '=' ) )
-                    // InternalExpressionDsl.g:1343:3: ( '=' )
+                    // InternalExpressionDsl.g:1232:2: ( ( '=' ) )
+                    // InternalExpressionDsl.g:1233:3: ( '=' )
                     {
                     if ( state.backtracking==0 ) {
                        before(grammarAccess.getHyRelativeVersionRestrictionOperatorAccess().getEqualEnumLiteralDeclaration_2()); 
                     }
-                    // InternalExpressionDsl.g:1344:3: ( '=' )
-                    // InternalExpressionDsl.g:1344:4: '='
+                    // InternalExpressionDsl.g:1234:3: ( '=' )
+                    // InternalExpressionDsl.g:1234:4: '='
                     {
                     match(input,14,FOLLOW_2); if (state.failed) return ;
 
@@ -5415,16 +4412,16 @@ public class InternalExpressionDslParser extends AbstractInternalContentAssistPa
                     }
                     break;
                 case 4 :
-                    // InternalExpressionDsl.g:1348:2: ( ( '>=' ) )
+                    // InternalExpressionDsl.g:1238:2: ( ( '>=' ) )
                     {
-                    // InternalExpressionDsl.g:1348:2: ( ( '>=' ) )
-                    // InternalExpressionDsl.g:1349:3: ( '>=' )
+                    // InternalExpressionDsl.g:1238:2: ( ( '>=' ) )
+                    // InternalExpressionDsl.g:1239:3: ( '>=' )
                     {
                     if ( state.backtracking==0 ) {
                        before(grammarAccess.getHyRelativeVersionRestrictionOperatorAccess().getGreaterThanOrEqualEnumLiteralDeclaration_3()); 
                     }
-                    // InternalExpressionDsl.g:1350:3: ( '>=' )
-                    // InternalExpressionDsl.g:1350:4: '>='
+                    // InternalExpressionDsl.g:1240:3: ( '>=' )
+                    // InternalExpressionDsl.g:1240:4: '>='
                     {
                     match(input,15,FOLLOW_2); if (state.failed) return ;
 
@@ -5440,16 +4437,16 @@ public class InternalExpressionDslParser extends AbstractInternalContentAssistPa
                     }
                     break;
                 case 5 :
-                    // InternalExpressionDsl.g:1354:2: ( ( '>' ) )
+                    // InternalExpressionDsl.g:1244:2: ( ( '>' ) )
                     {
-                    // InternalExpressionDsl.g:1354:2: ( ( '>' ) )
-                    // InternalExpressionDsl.g:1355:3: ( '>' )
+                    // InternalExpressionDsl.g:1244:2: ( ( '>' ) )
+                    // InternalExpressionDsl.g:1245:3: ( '>' )
                     {
                     if ( state.backtracking==0 ) {
                        before(grammarAccess.getHyRelativeVersionRestrictionOperatorAccess().getGreaterThanEnumLiteralDeclaration_4()); 
                     }
-                    // InternalExpressionDsl.g:1356:3: ( '>' )
-                    // InternalExpressionDsl.g:1356:4: '>'
+                    // InternalExpressionDsl.g:1246:3: ( '>' )
+                    // InternalExpressionDsl.g:1246:4: '>'
                     {
                     match(input,16,FOLLOW_2); if (state.failed) return ;
 
@@ -5482,14 +4479,14 @@ public class InternalExpressionDslParser extends AbstractInternalContentAssistPa
 
 
     // $ANTLR start "rule__HyImpliesExpression__Group__0"
-    // InternalExpressionDsl.g:1364:1: rule__HyImpliesExpression__Group__0 : rule__HyImpliesExpression__Group__0__Impl rule__HyImpliesExpression__Group__1 ;
+    // InternalExpressionDsl.g:1254:1: rule__HyImpliesExpression__Group__0 : rule__HyImpliesExpression__Group__0__Impl rule__HyImpliesExpression__Group__1 ;
     public final void rule__HyImpliesExpression__Group__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalExpressionDsl.g:1368:1: ( rule__HyImpliesExpression__Group__0__Impl rule__HyImpliesExpression__Group__1 )
-            // InternalExpressionDsl.g:1369:2: rule__HyImpliesExpression__Group__0__Impl rule__HyImpliesExpression__Group__1
+            // InternalExpressionDsl.g:1258:1: ( rule__HyImpliesExpression__Group__0__Impl rule__HyImpliesExpression__Group__1 )
+            // InternalExpressionDsl.g:1259:2: rule__HyImpliesExpression__Group__0__Impl rule__HyImpliesExpression__Group__1
             {
             pushFollow(FOLLOW_3);
             rule__HyImpliesExpression__Group__0__Impl();
@@ -5520,17 +4517,17 @@ public class InternalExpressionDslParser extends AbstractInternalContentAssistPa
 
 
     // $ANTLR start "rule__HyImpliesExpression__Group__0__Impl"
-    // InternalExpressionDsl.g:1376:1: rule__HyImpliesExpression__Group__0__Impl : ( ruleHyEquivalenceExpression ) ;
+    // InternalExpressionDsl.g:1266:1: rule__HyImpliesExpression__Group__0__Impl : ( ruleHyEquivalenceExpression ) ;
     public final void rule__HyImpliesExpression__Group__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalExpressionDsl.g:1380:1: ( ( ruleHyEquivalenceExpression ) )
-            // InternalExpressionDsl.g:1381:1: ( ruleHyEquivalenceExpression )
+            // InternalExpressionDsl.g:1270:1: ( ( ruleHyEquivalenceExpression ) )
+            // InternalExpressionDsl.g:1271:1: ( ruleHyEquivalenceExpression )
             {
-            // InternalExpressionDsl.g:1381:1: ( ruleHyEquivalenceExpression )
-            // InternalExpressionDsl.g:1382:2: ruleHyEquivalenceExpression
+            // InternalExpressionDsl.g:1271:1: ( ruleHyEquivalenceExpression )
+            // InternalExpressionDsl.g:1272:2: ruleHyEquivalenceExpression
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getHyImpliesExpressionAccess().getHyEquivalenceExpressionParserRuleCall_0()); 
@@ -5565,14 +4562,14 @@ public class InternalExpressionDslParser extends AbstractInternalContentAssistPa
 
 
     // $ANTLR start "rule__HyImpliesExpression__Group__1"
-    // InternalExpressionDsl.g:1391:1: rule__HyImpliesExpression__Group__1 : rule__HyImpliesExpression__Group__1__Impl ;
+    // InternalExpressionDsl.g:1281:1: rule__HyImpliesExpression__Group__1 : rule__HyImpliesExpression__Group__1__Impl ;
     public final void rule__HyImpliesExpression__Group__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalExpressionDsl.g:1395:1: ( rule__HyImpliesExpression__Group__1__Impl )
-            // InternalExpressionDsl.g:1396:2: rule__HyImpliesExpression__Group__1__Impl
+            // InternalExpressionDsl.g:1285:1: ( rule__HyImpliesExpression__Group__1__Impl )
+            // InternalExpressionDsl.g:1286:2: rule__HyImpliesExpression__Group__1__Impl
             {
             pushFollow(FOLLOW_2);
             rule__HyImpliesExpression__Group__1__Impl();
@@ -5598,35 +4595,35 @@ public class InternalExpressionDslParser extends AbstractInternalContentAssistPa
 
 
     // $ANTLR start "rule__HyImpliesExpression__Group__1__Impl"
-    // InternalExpressionDsl.g:1402:1: rule__HyImpliesExpression__Group__1__Impl : ( ( rule__HyImpliesExpression__Group_1__0 )* ) ;
+    // InternalExpressionDsl.g:1292:1: rule__HyImpliesExpression__Group__1__Impl : ( ( rule__HyImpliesExpression__Group_1__0 )* ) ;
     public final void rule__HyImpliesExpression__Group__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalExpressionDsl.g:1406:1: ( ( ( rule__HyImpliesExpression__Group_1__0 )* ) )
-            // InternalExpressionDsl.g:1407:1: ( ( rule__HyImpliesExpression__Group_1__0 )* )
+            // InternalExpressionDsl.g:1296:1: ( ( ( rule__HyImpliesExpression__Group_1__0 )* ) )
+            // InternalExpressionDsl.g:1297:1: ( ( rule__HyImpliesExpression__Group_1__0 )* )
             {
-            // InternalExpressionDsl.g:1407:1: ( ( rule__HyImpliesExpression__Group_1__0 )* )
-            // InternalExpressionDsl.g:1408:2: ( rule__HyImpliesExpression__Group_1__0 )*
+            // InternalExpressionDsl.g:1297:1: ( ( rule__HyImpliesExpression__Group_1__0 )* )
+            // InternalExpressionDsl.g:1298:2: ( rule__HyImpliesExpression__Group_1__0 )*
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getHyImpliesExpressionAccess().getGroup_1()); 
             }
-            // InternalExpressionDsl.g:1409:2: ( rule__HyImpliesExpression__Group_1__0 )*
-            loop14:
+            // InternalExpressionDsl.g:1299:2: ( rule__HyImpliesExpression__Group_1__0 )*
+            loop10:
             do {
-                int alt14=2;
-                int LA14_0 = input.LA(1);
+                int alt10=2;
+                int LA10_0 = input.LA(1);
 
-                if ( (LA14_0==17) ) {
-                    alt14=1;
+                if ( (LA10_0==17) ) {
+                    alt10=1;
                 }
 
 
-                switch (alt14) {
+                switch (alt10) {
             	case 1 :
-            	    // InternalExpressionDsl.g:1409:3: rule__HyImpliesExpression__Group_1__0
+            	    // InternalExpressionDsl.g:1299:3: rule__HyImpliesExpression__Group_1__0
             	    {
             	    pushFollow(FOLLOW_4);
             	    rule__HyImpliesExpression__Group_1__0();
@@ -5638,7 +4635,7 @@ public class InternalExpressionDslParser extends AbstractInternalContentAssistPa
             	    break;
 
             	default :
-            	    break loop14;
+            	    break loop10;
                 }
             } while (true);
 
@@ -5667,14 +4664,14 @@ public class InternalExpressionDslParser extends AbstractInternalContentAssistPa
 
 
     // $ANTLR start "rule__HyImpliesExpression__Group_1__0"
-    // InternalExpressionDsl.g:1418:1: rule__HyImpliesExpression__Group_1__0 : rule__HyImpliesExpression__Group_1__0__Impl rule__HyImpliesExpression__Group_1__1 ;
+    // InternalExpressionDsl.g:1308:1: rule__HyImpliesExpression__Group_1__0 : rule__HyImpliesExpression__Group_1__0__Impl rule__HyImpliesExpression__Group_1__1 ;
     public final void rule__HyImpliesExpression__Group_1__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalExpressionDsl.g:1422:1: ( rule__HyImpliesExpression__Group_1__0__Impl rule__HyImpliesExpression__Group_1__1 )
-            // InternalExpressionDsl.g:1423:2: rule__HyImpliesExpression__Group_1__0__Impl rule__HyImpliesExpression__Group_1__1
+            // InternalExpressionDsl.g:1312:1: ( rule__HyImpliesExpression__Group_1__0__Impl rule__HyImpliesExpression__Group_1__1 )
+            // InternalExpressionDsl.g:1313:2: rule__HyImpliesExpression__Group_1__0__Impl rule__HyImpliesExpression__Group_1__1
             {
             pushFollow(FOLLOW_3);
             rule__HyImpliesExpression__Group_1__0__Impl();
@@ -5705,23 +4702,23 @@ public class InternalExpressionDslParser extends AbstractInternalContentAssistPa
 
 
     // $ANTLR start "rule__HyImpliesExpression__Group_1__0__Impl"
-    // InternalExpressionDsl.g:1430:1: rule__HyImpliesExpression__Group_1__0__Impl : ( () ) ;
+    // InternalExpressionDsl.g:1320:1: rule__HyImpliesExpression__Group_1__0__Impl : ( () ) ;
     public final void rule__HyImpliesExpression__Group_1__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalExpressionDsl.g:1434:1: ( ( () ) )
-            // InternalExpressionDsl.g:1435:1: ( () )
+            // InternalExpressionDsl.g:1324:1: ( ( () ) )
+            // InternalExpressionDsl.g:1325:1: ( () )
             {
-            // InternalExpressionDsl.g:1435:1: ( () )
-            // InternalExpressionDsl.g:1436:2: ()
+            // InternalExpressionDsl.g:1325:1: ( () )
+            // InternalExpressionDsl.g:1326:2: ()
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getHyImpliesExpressionAccess().getHyImpliesExpressionOperand1Action_1_0()); 
             }
-            // InternalExpressionDsl.g:1437:2: ()
-            // InternalExpressionDsl.g:1437:3: 
+            // InternalExpressionDsl.g:1327:2: ()
+            // InternalExpressionDsl.g:1327:3: 
             {
             }
 
@@ -5746,14 +4743,14 @@ public class InternalExpressionDslParser extends AbstractInternalContentAssistPa
 
 
     // $ANTLR start "rule__HyImpliesExpression__Group_1__1"
-    // InternalExpressionDsl.g:1445:1: rule__HyImpliesExpression__Group_1__1 : rule__HyImpliesExpression__Group_1__1__Impl rule__HyImpliesExpression__Group_1__2 ;
+    // InternalExpressionDsl.g:1335:1: rule__HyImpliesExpression__Group_1__1 : rule__HyImpliesExpression__Group_1__1__Impl rule__HyImpliesExpression__Group_1__2 ;
     public final void rule__HyImpliesExpression__Group_1__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalExpressionDsl.g:1449:1: ( rule__HyImpliesExpression__Group_1__1__Impl rule__HyImpliesExpression__Group_1__2 )
-            // InternalExpressionDsl.g:1450:2: rule__HyImpliesExpression__Group_1__1__Impl rule__HyImpliesExpression__Group_1__2
+            // InternalExpressionDsl.g:1339:1: ( rule__HyImpliesExpression__Group_1__1__Impl rule__HyImpliesExpression__Group_1__2 )
+            // InternalExpressionDsl.g:1340:2: rule__HyImpliesExpression__Group_1__1__Impl rule__HyImpliesExpression__Group_1__2
             {
             pushFollow(FOLLOW_5);
             rule__HyImpliesExpression__Group_1__1__Impl();
@@ -5784,17 +4781,17 @@ public class InternalExpressionDslParser extends AbstractInternalContentAssistPa
 
 
     // $ANTLR start "rule__HyImpliesExpression__Group_1__1__Impl"
-    // InternalExpressionDsl.g:1457:1: rule__HyImpliesExpression__Group_1__1__Impl : ( '->' ) ;
+    // InternalExpressionDsl.g:1347:1: rule__HyImpliesExpression__Group_1__1__Impl : ( '->' ) ;
     public final void rule__HyImpliesExpression__Group_1__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalExpressionDsl.g:1461:1: ( ( '->' ) )
-            // InternalExpressionDsl.g:1462:1: ( '->' )
+            // InternalExpressionDsl.g:1351:1: ( ( '->' ) )
+            // InternalExpressionDsl.g:1352:1: ( '->' )
             {
-            // InternalExpressionDsl.g:1462:1: ( '->' )
-            // InternalExpressionDsl.g:1463:2: '->'
+            // InternalExpressionDsl.g:1352:1: ( '->' )
+            // InternalExpressionDsl.g:1353:2: '->'
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getHyImpliesExpressionAccess().getHyphenMinusGreaterThanSignKeyword_1_1()); 
@@ -5825,14 +4822,14 @@ public class InternalExpressionDslParser extends AbstractInternalContentAssistPa
 
 
     // $ANTLR start "rule__HyImpliesExpression__Group_1__2"
-    // InternalExpressionDsl.g:1472:1: rule__HyImpliesExpression__Group_1__2 : rule__HyImpliesExpression__Group_1__2__Impl ;
+    // InternalExpressionDsl.g:1362:1: rule__HyImpliesExpression__Group_1__2 : rule__HyImpliesExpression__Group_1__2__Impl ;
     public final void rule__HyImpliesExpression__Group_1__2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalExpressionDsl.g:1476:1: ( rule__HyImpliesExpression__Group_1__2__Impl )
-            // InternalExpressionDsl.g:1477:2: rule__HyImpliesExpression__Group_1__2__Impl
+            // InternalExpressionDsl.g:1366:1: ( rule__HyImpliesExpression__Group_1__2__Impl )
+            // InternalExpressionDsl.g:1367:2: rule__HyImpliesExpression__Group_1__2__Impl
             {
             pushFollow(FOLLOW_2);
             rule__HyImpliesExpression__Group_1__2__Impl();
@@ -5858,23 +4855,23 @@ public class InternalExpressionDslParser extends AbstractInternalContentAssistPa
 
 
     // $ANTLR start "rule__HyImpliesExpression__Group_1__2__Impl"
-    // InternalExpressionDsl.g:1483:1: rule__HyImpliesExpression__Group_1__2__Impl : ( ( rule__HyImpliesExpression__Operand2Assignment_1_2 ) ) ;
+    // InternalExpressionDsl.g:1373:1: rule__HyImpliesExpression__Group_1__2__Impl : ( ( rule__HyImpliesExpression__Operand2Assignment_1_2 ) ) ;
     public final void rule__HyImpliesExpression__Group_1__2__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalExpressionDsl.g:1487:1: ( ( ( rule__HyImpliesExpression__Operand2Assignment_1_2 ) ) )
-            // InternalExpressionDsl.g:1488:1: ( ( rule__HyImpliesExpression__Operand2Assignment_1_2 ) )
+            // InternalExpressionDsl.g:1377:1: ( ( ( rule__HyImpliesExpression__Operand2Assignment_1_2 ) ) )
+            // InternalExpressionDsl.g:1378:1: ( ( rule__HyImpliesExpression__Operand2Assignment_1_2 ) )
             {
-            // InternalExpressionDsl.g:1488:1: ( ( rule__HyImpliesExpression__Operand2Assignment_1_2 ) )
-            // InternalExpressionDsl.g:1489:2: ( rule__HyImpliesExpression__Operand2Assignment_1_2 )
+            // InternalExpressionDsl.g:1378:1: ( ( rule__HyImpliesExpression__Operand2Assignment_1_2 ) )
+            // InternalExpressionDsl.g:1379:2: ( rule__HyImpliesExpression__Operand2Assignment_1_2 )
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getHyImpliesExpressionAccess().getOperand2Assignment_1_2()); 
             }
-            // InternalExpressionDsl.g:1490:2: ( rule__HyImpliesExpression__Operand2Assignment_1_2 )
-            // InternalExpressionDsl.g:1490:3: rule__HyImpliesExpression__Operand2Assignment_1_2
+            // InternalExpressionDsl.g:1380:2: ( rule__HyImpliesExpression__Operand2Assignment_1_2 )
+            // InternalExpressionDsl.g:1380:3: rule__HyImpliesExpression__Operand2Assignment_1_2
             {
             pushFollow(FOLLOW_2);
             rule__HyImpliesExpression__Operand2Assignment_1_2();
@@ -5909,14 +4906,14 @@ public class InternalExpressionDslParser extends AbstractInternalContentAssistPa
 
 
     // $ANTLR start "rule__HyEquivalenceExpression__Group__0"
-    // InternalExpressionDsl.g:1499:1: rule__HyEquivalenceExpression__Group__0 : rule__HyEquivalenceExpression__Group__0__Impl rule__HyEquivalenceExpression__Group__1 ;
+    // InternalExpressionDsl.g:1389:1: rule__HyEquivalenceExpression__Group__0 : rule__HyEquivalenceExpression__Group__0__Impl rule__HyEquivalenceExpression__Group__1 ;
     public final void rule__HyEquivalenceExpression__Group__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalExpressionDsl.g:1503:1: ( rule__HyEquivalenceExpression__Group__0__Impl rule__HyEquivalenceExpression__Group__1 )
-            // InternalExpressionDsl.g:1504:2: rule__HyEquivalenceExpression__Group__0__Impl rule__HyEquivalenceExpression__Group__1
+            // InternalExpressionDsl.g:1393:1: ( rule__HyEquivalenceExpression__Group__0__Impl rule__HyEquivalenceExpression__Group__1 )
+            // InternalExpressionDsl.g:1394:2: rule__HyEquivalenceExpression__Group__0__Impl rule__HyEquivalenceExpression__Group__1
             {
             pushFollow(FOLLOW_6);
             rule__HyEquivalenceExpression__Group__0__Impl();
@@ -5947,17 +4944,17 @@ public class InternalExpressionDslParser extends AbstractInternalContentAssistPa
 
 
     // $ANTLR start "rule__HyEquivalenceExpression__Group__0__Impl"
-    // InternalExpressionDsl.g:1511:1: rule__HyEquivalenceExpression__Group__0__Impl : ( ruleHyAndExpression ) ;
+    // InternalExpressionDsl.g:1401:1: rule__HyEquivalenceExpression__Group__0__Impl : ( ruleHyAndExpression ) ;
     public final void rule__HyEquivalenceExpression__Group__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalExpressionDsl.g:1515:1: ( ( ruleHyAndExpression ) )
-            // InternalExpressionDsl.g:1516:1: ( ruleHyAndExpression )
+            // InternalExpressionDsl.g:1405:1: ( ( ruleHyAndExpression ) )
+            // InternalExpressionDsl.g:1406:1: ( ruleHyAndExpression )
             {
-            // InternalExpressionDsl.g:1516:1: ( ruleHyAndExpression )
-            // InternalExpressionDsl.g:1517:2: ruleHyAndExpression
+            // InternalExpressionDsl.g:1406:1: ( ruleHyAndExpression )
+            // InternalExpressionDsl.g:1407:2: ruleHyAndExpression
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getHyEquivalenceExpressionAccess().getHyAndExpressionParserRuleCall_0()); 
@@ -5992,14 +4989,14 @@ public class InternalExpressionDslParser extends AbstractInternalContentAssistPa
 
 
     // $ANTLR start "rule__HyEquivalenceExpression__Group__1"
-    // InternalExpressionDsl.g:1526:1: rule__HyEquivalenceExpression__Group__1 : rule__HyEquivalenceExpression__Group__1__Impl ;
+    // InternalExpressionDsl.g:1416:1: rule__HyEquivalenceExpression__Group__1 : rule__HyEquivalenceExpression__Group__1__Impl ;
     public final void rule__HyEquivalenceExpression__Group__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalExpressionDsl.g:1530:1: ( rule__HyEquivalenceExpression__Group__1__Impl )
-            // InternalExpressionDsl.g:1531:2: rule__HyEquivalenceExpression__Group__1__Impl
+            // InternalExpressionDsl.g:1420:1: ( rule__HyEquivalenceExpression__Group__1__Impl )
+            // InternalExpressionDsl.g:1421:2: rule__HyEquivalenceExpression__Group__1__Impl
             {
             pushFollow(FOLLOW_2);
             rule__HyEquivalenceExpression__Group__1__Impl();
@@ -6025,35 +5022,35 @@ public class InternalExpressionDslParser extends AbstractInternalContentAssistPa
 
 
     // $ANTLR start "rule__HyEquivalenceExpression__Group__1__Impl"
-    // InternalExpressionDsl.g:1537:1: rule__HyEquivalenceExpression__Group__1__Impl : ( ( rule__HyEquivalenceExpression__Group_1__0 )* ) ;
+    // InternalExpressionDsl.g:1427:1: rule__HyEquivalenceExpression__Group__1__Impl : ( ( rule__HyEquivalenceExpression__Group_1__0 )* ) ;
     public final void rule__HyEquivalenceExpression__Group__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalExpressionDsl.g:1541:1: ( ( ( rule__HyEquivalenceExpression__Group_1__0 )* ) )
-            // InternalExpressionDsl.g:1542:1: ( ( rule__HyEquivalenceExpression__Group_1__0 )* )
+            // InternalExpressionDsl.g:1431:1: ( ( ( rule__HyEquivalenceExpression__Group_1__0 )* ) )
+            // InternalExpressionDsl.g:1432:1: ( ( rule__HyEquivalenceExpression__Group_1__0 )* )
             {
-            // InternalExpressionDsl.g:1542:1: ( ( rule__HyEquivalenceExpression__Group_1__0 )* )
-            // InternalExpressionDsl.g:1543:2: ( rule__HyEquivalenceExpression__Group_1__0 )*
+            // InternalExpressionDsl.g:1432:1: ( ( rule__HyEquivalenceExpression__Group_1__0 )* )
+            // InternalExpressionDsl.g:1433:2: ( rule__HyEquivalenceExpression__Group_1__0 )*
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getHyEquivalenceExpressionAccess().getGroup_1()); 
             }
-            // InternalExpressionDsl.g:1544:2: ( rule__HyEquivalenceExpression__Group_1__0 )*
-            loop15:
+            // InternalExpressionDsl.g:1434:2: ( rule__HyEquivalenceExpression__Group_1__0 )*
+            loop11:
             do {
-                int alt15=2;
-                int LA15_0 = input.LA(1);
+                int alt11=2;
+                int LA11_0 = input.LA(1);
 
-                if ( (LA15_0==18) ) {
-                    alt15=1;
+                if ( (LA11_0==18) ) {
+                    alt11=1;
                 }
 
 
-                switch (alt15) {
+                switch (alt11) {
             	case 1 :
-            	    // InternalExpressionDsl.g:1544:3: rule__HyEquivalenceExpression__Group_1__0
+            	    // InternalExpressionDsl.g:1434:3: rule__HyEquivalenceExpression__Group_1__0
             	    {
             	    pushFollow(FOLLOW_7);
             	    rule__HyEquivalenceExpression__Group_1__0();
@@ -6065,7 +5062,7 @@ public class InternalExpressionDslParser extends AbstractInternalContentAssistPa
             	    break;
 
             	default :
-            	    break loop15;
+            	    break loop11;
                 }
             } while (true);
 
@@ -6094,14 +5091,14 @@ public class InternalExpressionDslParser extends AbstractInternalContentAssistPa
 
 
     // $ANTLR start "rule__HyEquivalenceExpression__Group_1__0"
-    // InternalExpressionDsl.g:1553:1: rule__HyEquivalenceExpression__Group_1__0 : rule__HyEquivalenceExpression__Group_1__0__Impl rule__HyEquivalenceExpression__Group_1__1 ;
+    // InternalExpressionDsl.g:1443:1: rule__HyEquivalenceExpression__Group_1__0 : rule__HyEquivalenceExpression__Group_1__0__Impl rule__HyEquivalenceExpression__Group_1__1 ;
     public final void rule__HyEquivalenceExpression__Group_1__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalExpressionDsl.g:1557:1: ( rule__HyEquivalenceExpression__Group_1__0__Impl rule__HyEquivalenceExpression__Group_1__1 )
-            // InternalExpressionDsl.g:1558:2: rule__HyEquivalenceExpression__Group_1__0__Impl rule__HyEquivalenceExpression__Group_1__1
+            // InternalExpressionDsl.g:1447:1: ( rule__HyEquivalenceExpression__Group_1__0__Impl rule__HyEquivalenceExpression__Group_1__1 )
+            // InternalExpressionDsl.g:1448:2: rule__HyEquivalenceExpression__Group_1__0__Impl rule__HyEquivalenceExpression__Group_1__1
             {
             pushFollow(FOLLOW_6);
             rule__HyEquivalenceExpression__Group_1__0__Impl();
@@ -6132,23 +5129,23 @@ public class InternalExpressionDslParser extends AbstractInternalContentAssistPa
 
 
     // $ANTLR start "rule__HyEquivalenceExpression__Group_1__0__Impl"
-    // InternalExpressionDsl.g:1565:1: rule__HyEquivalenceExpression__Group_1__0__Impl : ( () ) ;
+    // InternalExpressionDsl.g:1455:1: rule__HyEquivalenceExpression__Group_1__0__Impl : ( () ) ;
     public final void rule__HyEquivalenceExpression__Group_1__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalExpressionDsl.g:1569:1: ( ( () ) )
-            // InternalExpressionDsl.g:1570:1: ( () )
+            // InternalExpressionDsl.g:1459:1: ( ( () ) )
+            // InternalExpressionDsl.g:1460:1: ( () )
             {
-            // InternalExpressionDsl.g:1570:1: ( () )
-            // InternalExpressionDsl.g:1571:2: ()
+            // InternalExpressionDsl.g:1460:1: ( () )
+            // InternalExpressionDsl.g:1461:2: ()
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getHyEquivalenceExpressionAccess().getHyEquivalenceExpressionOperand1Action_1_0()); 
             }
-            // InternalExpressionDsl.g:1572:2: ()
-            // InternalExpressionDsl.g:1572:3: 
+            // InternalExpressionDsl.g:1462:2: ()
+            // InternalExpressionDsl.g:1462:3: 
             {
             }
 
@@ -6173,14 +5170,14 @@ public class InternalExpressionDslParser extends AbstractInternalContentAssistPa
 
 
     // $ANTLR start "rule__HyEquivalenceExpression__Group_1__1"
-    // InternalExpressionDsl.g:1580:1: rule__HyEquivalenceExpression__Group_1__1 : rule__HyEquivalenceExpression__Group_1__1__Impl rule__HyEquivalenceExpression__Group_1__2 ;
+    // InternalExpressionDsl.g:1470:1: rule__HyEquivalenceExpression__Group_1__1 : rule__HyEquivalenceExpression__Group_1__1__Impl rule__HyEquivalenceExpression__Group_1__2 ;
     public final void rule__HyEquivalenceExpression__Group_1__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalExpressionDsl.g:1584:1: ( rule__HyEquivalenceExpression__Group_1__1__Impl rule__HyEquivalenceExpression__Group_1__2 )
-            // InternalExpressionDsl.g:1585:2: rule__HyEquivalenceExpression__Group_1__1__Impl rule__HyEquivalenceExpression__Group_1__2
+            // InternalExpressionDsl.g:1474:1: ( rule__HyEquivalenceExpression__Group_1__1__Impl rule__HyEquivalenceExpression__Group_1__2 )
+            // InternalExpressionDsl.g:1475:2: rule__HyEquivalenceExpression__Group_1__1__Impl rule__HyEquivalenceExpression__Group_1__2
             {
             pushFollow(FOLLOW_5);
             rule__HyEquivalenceExpression__Group_1__1__Impl();
@@ -6211,17 +5208,17 @@ public class InternalExpressionDslParser extends AbstractInternalContentAssistPa
 
 
     // $ANTLR start "rule__HyEquivalenceExpression__Group_1__1__Impl"
-    // InternalExpressionDsl.g:1592:1: rule__HyEquivalenceExpression__Group_1__1__Impl : ( '<->' ) ;
+    // InternalExpressionDsl.g:1482:1: rule__HyEquivalenceExpression__Group_1__1__Impl : ( '<->' ) ;
     public final void rule__HyEquivalenceExpression__Group_1__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalExpressionDsl.g:1596:1: ( ( '<->' ) )
-            // InternalExpressionDsl.g:1597:1: ( '<->' )
+            // InternalExpressionDsl.g:1486:1: ( ( '<->' ) )
+            // InternalExpressionDsl.g:1487:1: ( '<->' )
             {
-            // InternalExpressionDsl.g:1597:1: ( '<->' )
-            // InternalExpressionDsl.g:1598:2: '<->'
+            // InternalExpressionDsl.g:1487:1: ( '<->' )
+            // InternalExpressionDsl.g:1488:2: '<->'
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getHyEquivalenceExpressionAccess().getLessThanSignHyphenMinusGreaterThanSignKeyword_1_1()); 
@@ -6252,14 +5249,14 @@ public class InternalExpressionDslParser extends AbstractInternalContentAssistPa
 
 
     // $ANTLR start "rule__HyEquivalenceExpression__Group_1__2"
-    // InternalExpressionDsl.g:1607:1: rule__HyEquivalenceExpression__Group_1__2 : rule__HyEquivalenceExpression__Group_1__2__Impl ;
+    // InternalExpressionDsl.g:1497:1: rule__HyEquivalenceExpression__Group_1__2 : rule__HyEquivalenceExpression__Group_1__2__Impl ;
     public final void rule__HyEquivalenceExpression__Group_1__2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalExpressionDsl.g:1611:1: ( rule__HyEquivalenceExpression__Group_1__2__Impl )
-            // InternalExpressionDsl.g:1612:2: rule__HyEquivalenceExpression__Group_1__2__Impl
+            // InternalExpressionDsl.g:1501:1: ( rule__HyEquivalenceExpression__Group_1__2__Impl )
+            // InternalExpressionDsl.g:1502:2: rule__HyEquivalenceExpression__Group_1__2__Impl
             {
             pushFollow(FOLLOW_2);
             rule__HyEquivalenceExpression__Group_1__2__Impl();
@@ -6285,23 +5282,23 @@ public class InternalExpressionDslParser extends AbstractInternalContentAssistPa
 
 
     // $ANTLR start "rule__HyEquivalenceExpression__Group_1__2__Impl"
-    // InternalExpressionDsl.g:1618:1: rule__HyEquivalenceExpression__Group_1__2__Impl : ( ( rule__HyEquivalenceExpression__Operand2Assignment_1_2 ) ) ;
+    // InternalExpressionDsl.g:1508:1: rule__HyEquivalenceExpression__Group_1__2__Impl : ( ( rule__HyEquivalenceExpression__Operand2Assignment_1_2 ) ) ;
     public final void rule__HyEquivalenceExpression__Group_1__2__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalExpressionDsl.g:1622:1: ( ( ( rule__HyEquivalenceExpression__Operand2Assignment_1_2 ) ) )
-            // InternalExpressionDsl.g:1623:1: ( ( rule__HyEquivalenceExpression__Operand2Assignment_1_2 ) )
+            // InternalExpressionDsl.g:1512:1: ( ( ( rule__HyEquivalenceExpression__Operand2Assignment_1_2 ) ) )
+            // InternalExpressionDsl.g:1513:1: ( ( rule__HyEquivalenceExpression__Operand2Assignment_1_2 ) )
             {
-            // InternalExpressionDsl.g:1623:1: ( ( rule__HyEquivalenceExpression__Operand2Assignment_1_2 ) )
-            // InternalExpressionDsl.g:1624:2: ( rule__HyEquivalenceExpression__Operand2Assignment_1_2 )
+            // InternalExpressionDsl.g:1513:1: ( ( rule__HyEquivalenceExpression__Operand2Assignment_1_2 ) )
+            // InternalExpressionDsl.g:1514:2: ( rule__HyEquivalenceExpression__Operand2Assignment_1_2 )
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getHyEquivalenceExpressionAccess().getOperand2Assignment_1_2()); 
             }
-            // InternalExpressionDsl.g:1625:2: ( rule__HyEquivalenceExpression__Operand2Assignment_1_2 )
-            // InternalExpressionDsl.g:1625:3: rule__HyEquivalenceExpression__Operand2Assignment_1_2
+            // InternalExpressionDsl.g:1515:2: ( rule__HyEquivalenceExpression__Operand2Assignment_1_2 )
+            // InternalExpressionDsl.g:1515:3: rule__HyEquivalenceExpression__Operand2Assignment_1_2
             {
             pushFollow(FOLLOW_2);
             rule__HyEquivalenceExpression__Operand2Assignment_1_2();
@@ -6336,14 +5333,14 @@ public class InternalExpressionDslParser extends AbstractInternalContentAssistPa
 
 
     // $ANTLR start "rule__HyAndExpression__Group__0"
-    // InternalExpressionDsl.g:1634:1: rule__HyAndExpression__Group__0 : rule__HyAndExpression__Group__0__Impl rule__HyAndExpression__Group__1 ;
+    // InternalExpressionDsl.g:1524:1: rule__HyAndExpression__Group__0 : rule__HyAndExpression__Group__0__Impl rule__HyAndExpression__Group__1 ;
     public final void rule__HyAndExpression__Group__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalExpressionDsl.g:1638:1: ( rule__HyAndExpression__Group__0__Impl rule__HyAndExpression__Group__1 )
-            // InternalExpressionDsl.g:1639:2: rule__HyAndExpression__Group__0__Impl rule__HyAndExpression__Group__1
+            // InternalExpressionDsl.g:1528:1: ( rule__HyAndExpression__Group__0__Impl rule__HyAndExpression__Group__1 )
+            // InternalExpressionDsl.g:1529:2: rule__HyAndExpression__Group__0__Impl rule__HyAndExpression__Group__1
             {
             pushFollow(FOLLOW_8);
             rule__HyAndExpression__Group__0__Impl();
@@ -6374,17 +5371,17 @@ public class InternalExpressionDslParser extends AbstractInternalContentAssistPa
 
 
     // $ANTLR start "rule__HyAndExpression__Group__0__Impl"
-    // InternalExpressionDsl.g:1646:1: rule__HyAndExpression__Group__0__Impl : ( ruleHyOrExpression ) ;
+    // InternalExpressionDsl.g:1536:1: rule__HyAndExpression__Group__0__Impl : ( ruleHyOrExpression ) ;
     public final void rule__HyAndExpression__Group__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalExpressionDsl.g:1650:1: ( ( ruleHyOrExpression ) )
-            // InternalExpressionDsl.g:1651:1: ( ruleHyOrExpression )
+            // InternalExpressionDsl.g:1540:1: ( ( ruleHyOrExpression ) )
+            // InternalExpressionDsl.g:1541:1: ( ruleHyOrExpression )
             {
-            // InternalExpressionDsl.g:1651:1: ( ruleHyOrExpression )
-            // InternalExpressionDsl.g:1652:2: ruleHyOrExpression
+            // InternalExpressionDsl.g:1541:1: ( ruleHyOrExpression )
+            // InternalExpressionDsl.g:1542:2: ruleHyOrExpression
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getHyAndExpressionAccess().getHyOrExpressionParserRuleCall_0()); 
@@ -6419,14 +5416,14 @@ public class InternalExpressionDslParser extends AbstractInternalContentAssistPa
 
 
     // $ANTLR start "rule__HyAndExpression__Group__1"
-    // InternalExpressionDsl.g:1661:1: rule__HyAndExpression__Group__1 : rule__HyAndExpression__Group__1__Impl ;
+    // InternalExpressionDsl.g:1551:1: rule__HyAndExpression__Group__1 : rule__HyAndExpression__Group__1__Impl ;
     public final void rule__HyAndExpression__Group__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalExpressionDsl.g:1665:1: ( rule__HyAndExpression__Group__1__Impl )
-            // InternalExpressionDsl.g:1666:2: rule__HyAndExpression__Group__1__Impl
+            // InternalExpressionDsl.g:1555:1: ( rule__HyAndExpression__Group__1__Impl )
+            // InternalExpressionDsl.g:1556:2: rule__HyAndExpression__Group__1__Impl
             {
             pushFollow(FOLLOW_2);
             rule__HyAndExpression__Group__1__Impl();
@@ -6452,35 +5449,35 @@ public class InternalExpressionDslParser extends AbstractInternalContentAssistPa
 
 
     // $ANTLR start "rule__HyAndExpression__Group__1__Impl"
-    // InternalExpressionDsl.g:1672:1: rule__HyAndExpression__Group__1__Impl : ( ( rule__HyAndExpression__Group_1__0 )* ) ;
+    // InternalExpressionDsl.g:1562:1: rule__HyAndExpression__Group__1__Impl : ( ( rule__HyAndExpression__Group_1__0 )* ) ;
     public final void rule__HyAndExpression__Group__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalExpressionDsl.g:1676:1: ( ( ( rule__HyAndExpression__Group_1__0 )* ) )
-            // InternalExpressionDsl.g:1677:1: ( ( rule__HyAndExpression__Group_1__0 )* )
+            // InternalExpressionDsl.g:1566:1: ( ( ( rule__HyAndExpression__Group_1__0 )* ) )
+            // InternalExpressionDsl.g:1567:1: ( ( rule__HyAndExpression__Group_1__0 )* )
             {
-            // InternalExpressionDsl.g:1677:1: ( ( rule__HyAndExpression__Group_1__0 )* )
-            // InternalExpressionDsl.g:1678:2: ( rule__HyAndExpression__Group_1__0 )*
+            // InternalExpressionDsl.g:1567:1: ( ( rule__HyAndExpression__Group_1__0 )* )
+            // InternalExpressionDsl.g:1568:2: ( rule__HyAndExpression__Group_1__0 )*
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getHyAndExpressionAccess().getGroup_1()); 
             }
-            // InternalExpressionDsl.g:1679:2: ( rule__HyAndExpression__Group_1__0 )*
-            loop16:
+            // InternalExpressionDsl.g:1569:2: ( rule__HyAndExpression__Group_1__0 )*
+            loop12:
             do {
-                int alt16=2;
-                int LA16_0 = input.LA(1);
+                int alt12=2;
+                int LA12_0 = input.LA(1);
 
-                if ( (LA16_0==19) ) {
-                    alt16=1;
+                if ( (LA12_0==19) ) {
+                    alt12=1;
                 }
 
 
-                switch (alt16) {
+                switch (alt12) {
             	case 1 :
-            	    // InternalExpressionDsl.g:1679:3: rule__HyAndExpression__Group_1__0
+            	    // InternalExpressionDsl.g:1569:3: rule__HyAndExpression__Group_1__0
             	    {
             	    pushFollow(FOLLOW_9);
             	    rule__HyAndExpression__Group_1__0();
@@ -6492,7 +5489,7 @@ public class InternalExpressionDslParser extends AbstractInternalContentAssistPa
             	    break;
 
             	default :
-            	    break loop16;
+            	    break loop12;
                 }
             } while (true);
 
@@ -6521,14 +5518,14 @@ public class InternalExpressionDslParser extends AbstractInternalContentAssistPa
 
 
     // $ANTLR start "rule__HyAndExpression__Group_1__0"
-    // InternalExpressionDsl.g:1688:1: rule__HyAndExpression__Group_1__0 : rule__HyAndExpression__Group_1__0__Impl rule__HyAndExpression__Group_1__1 ;
+    // InternalExpressionDsl.g:1578:1: rule__HyAndExpression__Group_1__0 : rule__HyAndExpression__Group_1__0__Impl rule__HyAndExpression__Group_1__1 ;
     public final void rule__HyAndExpression__Group_1__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalExpressionDsl.g:1692:1: ( rule__HyAndExpression__Group_1__0__Impl rule__HyAndExpression__Group_1__1 )
-            // InternalExpressionDsl.g:1693:2: rule__HyAndExpression__Group_1__0__Impl rule__HyAndExpression__Group_1__1
+            // InternalExpressionDsl.g:1582:1: ( rule__HyAndExpression__Group_1__0__Impl rule__HyAndExpression__Group_1__1 )
+            // InternalExpressionDsl.g:1583:2: rule__HyAndExpression__Group_1__0__Impl rule__HyAndExpression__Group_1__1
             {
             pushFollow(FOLLOW_8);
             rule__HyAndExpression__Group_1__0__Impl();
@@ -6559,23 +5556,23 @@ public class InternalExpressionDslParser extends AbstractInternalContentAssistPa
 
 
     // $ANTLR start "rule__HyAndExpression__Group_1__0__Impl"
-    // InternalExpressionDsl.g:1700:1: rule__HyAndExpression__Group_1__0__Impl : ( () ) ;
+    // InternalExpressionDsl.g:1590:1: rule__HyAndExpression__Group_1__0__Impl : ( () ) ;
     public final void rule__HyAndExpression__Group_1__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalExpressionDsl.g:1704:1: ( ( () ) )
-            // InternalExpressionDsl.g:1705:1: ( () )
+            // InternalExpressionDsl.g:1594:1: ( ( () ) )
+            // InternalExpressionDsl.g:1595:1: ( () )
             {
-            // InternalExpressionDsl.g:1705:1: ( () )
-            // InternalExpressionDsl.g:1706:2: ()
+            // InternalExpressionDsl.g:1595:1: ( () )
+            // InternalExpressionDsl.g:1596:2: ()
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getHyAndExpressionAccess().getHyAndExpressionOperand1Action_1_0()); 
             }
-            // InternalExpressionDsl.g:1707:2: ()
-            // InternalExpressionDsl.g:1707:3: 
+            // InternalExpressionDsl.g:1597:2: ()
+            // InternalExpressionDsl.g:1597:3: 
             {
             }
 
@@ -6600,14 +5597,14 @@ public class InternalExpressionDslParser extends AbstractInternalContentAssistPa
 
 
     // $ANTLR start "rule__HyAndExpression__Group_1__1"
-    // InternalExpressionDsl.g:1715:1: rule__HyAndExpression__Group_1__1 : rule__HyAndExpression__Group_1__1__Impl rule__HyAndExpression__Group_1__2 ;
+    // InternalExpressionDsl.g:1605:1: rule__HyAndExpression__Group_1__1 : rule__HyAndExpression__Group_1__1__Impl rule__HyAndExpression__Group_1__2 ;
     public final void rule__HyAndExpression__Group_1__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalExpressionDsl.g:1719:1: ( rule__HyAndExpression__Group_1__1__Impl rule__HyAndExpression__Group_1__2 )
-            // InternalExpressionDsl.g:1720:2: rule__HyAndExpression__Group_1__1__Impl rule__HyAndExpression__Group_1__2
+            // InternalExpressionDsl.g:1609:1: ( rule__HyAndExpression__Group_1__1__Impl rule__HyAndExpression__Group_1__2 )
+            // InternalExpressionDsl.g:1610:2: rule__HyAndExpression__Group_1__1__Impl rule__HyAndExpression__Group_1__2
             {
             pushFollow(FOLLOW_5);
             rule__HyAndExpression__Group_1__1__Impl();
@@ -6638,17 +5635,17 @@ public class InternalExpressionDslParser extends AbstractInternalContentAssistPa
 
 
     // $ANTLR start "rule__HyAndExpression__Group_1__1__Impl"
-    // InternalExpressionDsl.g:1727:1: rule__HyAndExpression__Group_1__1__Impl : ( '&&' ) ;
+    // InternalExpressionDsl.g:1617:1: rule__HyAndExpression__Group_1__1__Impl : ( '&&' ) ;
     public final void rule__HyAndExpression__Group_1__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalExpressionDsl.g:1731:1: ( ( '&&' ) )
-            // InternalExpressionDsl.g:1732:1: ( '&&' )
+            // InternalExpressionDsl.g:1621:1: ( ( '&&' ) )
+            // InternalExpressionDsl.g:1622:1: ( '&&' )
             {
-            // InternalExpressionDsl.g:1732:1: ( '&&' )
-            // InternalExpressionDsl.g:1733:2: '&&'
+            // InternalExpressionDsl.g:1622:1: ( '&&' )
+            // InternalExpressionDsl.g:1623:2: '&&'
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getHyAndExpressionAccess().getAmpersandAmpersandKeyword_1_1()); 
@@ -6679,14 +5676,14 @@ public class InternalExpressionDslParser extends AbstractInternalContentAssistPa
 
 
     // $ANTLR start "rule__HyAndExpression__Group_1__2"
-    // InternalExpressionDsl.g:1742:1: rule__HyAndExpression__Group_1__2 : rule__HyAndExpression__Group_1__2__Impl ;
+    // InternalExpressionDsl.g:1632:1: rule__HyAndExpression__Group_1__2 : rule__HyAndExpression__Group_1__2__Impl ;
     public final void rule__HyAndExpression__Group_1__2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalExpressionDsl.g:1746:1: ( rule__HyAndExpression__Group_1__2__Impl )
-            // InternalExpressionDsl.g:1747:2: rule__HyAndExpression__Group_1__2__Impl
+            // InternalExpressionDsl.g:1636:1: ( rule__HyAndExpression__Group_1__2__Impl )
+            // InternalExpressionDsl.g:1637:2: rule__HyAndExpression__Group_1__2__Impl
             {
             pushFollow(FOLLOW_2);
             rule__HyAndExpression__Group_1__2__Impl();
@@ -6712,23 +5709,23 @@ public class InternalExpressionDslParser extends AbstractInternalContentAssistPa
 
 
     // $ANTLR start "rule__HyAndExpression__Group_1__2__Impl"
-    // InternalExpressionDsl.g:1753:1: rule__HyAndExpression__Group_1__2__Impl : ( ( rule__HyAndExpression__Operand2Assignment_1_2 ) ) ;
+    // InternalExpressionDsl.g:1643:1: rule__HyAndExpression__Group_1__2__Impl : ( ( rule__HyAndExpression__Operand2Assignment_1_2 ) ) ;
     public final void rule__HyAndExpression__Group_1__2__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalExpressionDsl.g:1757:1: ( ( ( rule__HyAndExpression__Operand2Assignment_1_2 ) ) )
-            // InternalExpressionDsl.g:1758:1: ( ( rule__HyAndExpression__Operand2Assignment_1_2 ) )
+            // InternalExpressionDsl.g:1647:1: ( ( ( rule__HyAndExpression__Operand2Assignment_1_2 ) ) )
+            // InternalExpressionDsl.g:1648:1: ( ( rule__HyAndExpression__Operand2Assignment_1_2 ) )
             {
-            // InternalExpressionDsl.g:1758:1: ( ( rule__HyAndExpression__Operand2Assignment_1_2 ) )
-            // InternalExpressionDsl.g:1759:2: ( rule__HyAndExpression__Operand2Assignment_1_2 )
+            // InternalExpressionDsl.g:1648:1: ( ( rule__HyAndExpression__Operand2Assignment_1_2 ) )
+            // InternalExpressionDsl.g:1649:2: ( rule__HyAndExpression__Operand2Assignment_1_2 )
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getHyAndExpressionAccess().getOperand2Assignment_1_2()); 
             }
-            // InternalExpressionDsl.g:1760:2: ( rule__HyAndExpression__Operand2Assignment_1_2 )
-            // InternalExpressionDsl.g:1760:3: rule__HyAndExpression__Operand2Assignment_1_2
+            // InternalExpressionDsl.g:1650:2: ( rule__HyAndExpression__Operand2Assignment_1_2 )
+            // InternalExpressionDsl.g:1650:3: rule__HyAndExpression__Operand2Assignment_1_2
             {
             pushFollow(FOLLOW_2);
             rule__HyAndExpression__Operand2Assignment_1_2();
@@ -6763,14 +5760,14 @@ public class InternalExpressionDslParser extends AbstractInternalContentAssistPa
 
 
     // $ANTLR start "rule__HyOrExpression__Group__0"
-    // InternalExpressionDsl.g:1769:1: rule__HyOrExpression__Group__0 : rule__HyOrExpression__Group__0__Impl rule__HyOrExpression__Group__1 ;
+    // InternalExpressionDsl.g:1659:1: rule__HyOrExpression__Group__0 : rule__HyOrExpression__Group__0__Impl rule__HyOrExpression__Group__1 ;
     public final void rule__HyOrExpression__Group__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalExpressionDsl.g:1773:1: ( rule__HyOrExpression__Group__0__Impl rule__HyOrExpression__Group__1 )
-            // InternalExpressionDsl.g:1774:2: rule__HyOrExpression__Group__0__Impl rule__HyOrExpression__Group__1
+            // InternalExpressionDsl.g:1663:1: ( rule__HyOrExpression__Group__0__Impl rule__HyOrExpression__Group__1 )
+            // InternalExpressionDsl.g:1664:2: rule__HyOrExpression__Group__0__Impl rule__HyOrExpression__Group__1
             {
             pushFollow(FOLLOW_10);
             rule__HyOrExpression__Group__0__Impl();
@@ -6801,17 +5798,17 @@ public class InternalExpressionDslParser extends AbstractInternalContentAssistPa
 
 
     // $ANTLR start "rule__HyOrExpression__Group__0__Impl"
-    // InternalExpressionDsl.g:1781:1: rule__HyOrExpression__Group__0__Impl : ( ruleTerminalExpression ) ;
+    // InternalExpressionDsl.g:1671:1: rule__HyOrExpression__Group__0__Impl : ( ruleTerminalExpression ) ;
     public final void rule__HyOrExpression__Group__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalExpressionDsl.g:1785:1: ( ( ruleTerminalExpression ) )
-            // InternalExpressionDsl.g:1786:1: ( ruleTerminalExpression )
+            // InternalExpressionDsl.g:1675:1: ( ( ruleTerminalExpression ) )
+            // InternalExpressionDsl.g:1676:1: ( ruleTerminalExpression )
             {
-            // InternalExpressionDsl.g:1786:1: ( ruleTerminalExpression )
-            // InternalExpressionDsl.g:1787:2: ruleTerminalExpression
+            // InternalExpressionDsl.g:1676:1: ( ruleTerminalExpression )
+            // InternalExpressionDsl.g:1677:2: ruleTerminalExpression
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getHyOrExpressionAccess().getTerminalExpressionParserRuleCall_0()); 
@@ -6846,14 +5843,14 @@ public class InternalExpressionDslParser extends AbstractInternalContentAssistPa
 
 
     // $ANTLR start "rule__HyOrExpression__Group__1"
-    // InternalExpressionDsl.g:1796:1: rule__HyOrExpression__Group__1 : rule__HyOrExpression__Group__1__Impl ;
+    // InternalExpressionDsl.g:1686:1: rule__HyOrExpression__Group__1 : rule__HyOrExpression__Group__1__Impl ;
     public final void rule__HyOrExpression__Group__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalExpressionDsl.g:1800:1: ( rule__HyOrExpression__Group__1__Impl )
-            // InternalExpressionDsl.g:1801:2: rule__HyOrExpression__Group__1__Impl
+            // InternalExpressionDsl.g:1690:1: ( rule__HyOrExpression__Group__1__Impl )
+            // InternalExpressionDsl.g:1691:2: rule__HyOrExpression__Group__1__Impl
             {
             pushFollow(FOLLOW_2);
             rule__HyOrExpression__Group__1__Impl();
@@ -6879,35 +5876,35 @@ public class InternalExpressionDslParser extends AbstractInternalContentAssistPa
 
 
     // $ANTLR start "rule__HyOrExpression__Group__1__Impl"
-    // InternalExpressionDsl.g:1807:1: rule__HyOrExpression__Group__1__Impl : ( ( rule__HyOrExpression__Group_1__0 )* ) ;
+    // InternalExpressionDsl.g:1697:1: rule__HyOrExpression__Group__1__Impl : ( ( rule__HyOrExpression__Group_1__0 )* ) ;
     public final void rule__HyOrExpression__Group__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalExpressionDsl.g:1811:1: ( ( ( rule__HyOrExpression__Group_1__0 )* ) )
-            // InternalExpressionDsl.g:1812:1: ( ( rule__HyOrExpression__Group_1__0 )* )
+            // InternalExpressionDsl.g:1701:1: ( ( ( rule__HyOrExpression__Group_1__0 )* ) )
+            // InternalExpressionDsl.g:1702:1: ( ( rule__HyOrExpression__Group_1__0 )* )
             {
-            // InternalExpressionDsl.g:1812:1: ( ( rule__HyOrExpression__Group_1__0 )* )
-            // InternalExpressionDsl.g:1813:2: ( rule__HyOrExpression__Group_1__0 )*
+            // InternalExpressionDsl.g:1702:1: ( ( rule__HyOrExpression__Group_1__0 )* )
+            // InternalExpressionDsl.g:1703:2: ( rule__HyOrExpression__Group_1__0 )*
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getHyOrExpressionAccess().getGroup_1()); 
             }
-            // InternalExpressionDsl.g:1814:2: ( rule__HyOrExpression__Group_1__0 )*
-            loop17:
+            // InternalExpressionDsl.g:1704:2: ( rule__HyOrExpression__Group_1__0 )*
+            loop13:
             do {
-                int alt17=2;
-                int LA17_0 = input.LA(1);
+                int alt13=2;
+                int LA13_0 = input.LA(1);
 
-                if ( (LA17_0==20) ) {
-                    alt17=1;
+                if ( (LA13_0==20) ) {
+                    alt13=1;
                 }
 
 
-                switch (alt17) {
+                switch (alt13) {
             	case 1 :
-            	    // InternalExpressionDsl.g:1814:3: rule__HyOrExpression__Group_1__0
+            	    // InternalExpressionDsl.g:1704:3: rule__HyOrExpression__Group_1__0
             	    {
             	    pushFollow(FOLLOW_11);
             	    rule__HyOrExpression__Group_1__0();
@@ -6919,7 +5916,7 @@ public class InternalExpressionDslParser extends AbstractInternalContentAssistPa
             	    break;
 
             	default :
-            	    break loop17;
+            	    break loop13;
                 }
             } while (true);
 
@@ -6948,14 +5945,14 @@ public class InternalExpressionDslParser extends AbstractInternalContentAssistPa
 
 
     // $ANTLR start "rule__HyOrExpression__Group_1__0"
-    // InternalExpressionDsl.g:1823:1: rule__HyOrExpression__Group_1__0 : rule__HyOrExpression__Group_1__0__Impl rule__HyOrExpression__Group_1__1 ;
+    // InternalExpressionDsl.g:1713:1: rule__HyOrExpression__Group_1__0 : rule__HyOrExpression__Group_1__0__Impl rule__HyOrExpression__Group_1__1 ;
     public final void rule__HyOrExpression__Group_1__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalExpressionDsl.g:1827:1: ( rule__HyOrExpression__Group_1__0__Impl rule__HyOrExpression__Group_1__1 )
-            // InternalExpressionDsl.g:1828:2: rule__HyOrExpression__Group_1__0__Impl rule__HyOrExpression__Group_1__1
+            // InternalExpressionDsl.g:1717:1: ( rule__HyOrExpression__Group_1__0__Impl rule__HyOrExpression__Group_1__1 )
+            // InternalExpressionDsl.g:1718:2: rule__HyOrExpression__Group_1__0__Impl rule__HyOrExpression__Group_1__1
             {
             pushFollow(FOLLOW_10);
             rule__HyOrExpression__Group_1__0__Impl();
@@ -6986,23 +5983,23 @@ public class InternalExpressionDslParser extends AbstractInternalContentAssistPa
 
 
     // $ANTLR start "rule__HyOrExpression__Group_1__0__Impl"
-    // InternalExpressionDsl.g:1835:1: rule__HyOrExpression__Group_1__0__Impl : ( () ) ;
+    // InternalExpressionDsl.g:1725:1: rule__HyOrExpression__Group_1__0__Impl : ( () ) ;
     public final void rule__HyOrExpression__Group_1__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalExpressionDsl.g:1839:1: ( ( () ) )
-            // InternalExpressionDsl.g:1840:1: ( () )
+            // InternalExpressionDsl.g:1729:1: ( ( () ) )
+            // InternalExpressionDsl.g:1730:1: ( () )
             {
-            // InternalExpressionDsl.g:1840:1: ( () )
-            // InternalExpressionDsl.g:1841:2: ()
+            // InternalExpressionDsl.g:1730:1: ( () )
+            // InternalExpressionDsl.g:1731:2: ()
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getHyOrExpressionAccess().getHyOrExpressionOperand1Action_1_0()); 
             }
-            // InternalExpressionDsl.g:1842:2: ()
-            // InternalExpressionDsl.g:1842:3: 
+            // InternalExpressionDsl.g:1732:2: ()
+            // InternalExpressionDsl.g:1732:3: 
             {
             }
 
@@ -7027,14 +6024,14 @@ public class InternalExpressionDslParser extends AbstractInternalContentAssistPa
 
 
     // $ANTLR start "rule__HyOrExpression__Group_1__1"
-    // InternalExpressionDsl.g:1850:1: rule__HyOrExpression__Group_1__1 : rule__HyOrExpression__Group_1__1__Impl rule__HyOrExpression__Group_1__2 ;
+    // InternalExpressionDsl.g:1740:1: rule__HyOrExpression__Group_1__1 : rule__HyOrExpression__Group_1__1__Impl rule__HyOrExpression__Group_1__2 ;
     public final void rule__HyOrExpression__Group_1__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalExpressionDsl.g:1854:1: ( rule__HyOrExpression__Group_1__1__Impl rule__HyOrExpression__Group_1__2 )
-            // InternalExpressionDsl.g:1855:2: rule__HyOrExpression__Group_1__1__Impl rule__HyOrExpression__Group_1__2
+            // InternalExpressionDsl.g:1744:1: ( rule__HyOrExpression__Group_1__1__Impl rule__HyOrExpression__Group_1__2 )
+            // InternalExpressionDsl.g:1745:2: rule__HyOrExpression__Group_1__1__Impl rule__HyOrExpression__Group_1__2
             {
             pushFollow(FOLLOW_5);
             rule__HyOrExpression__Group_1__1__Impl();
@@ -7065,17 +6062,17 @@ public class InternalExpressionDslParser extends AbstractInternalContentAssistPa
 
 
     // $ANTLR start "rule__HyOrExpression__Group_1__1__Impl"
-    // InternalExpressionDsl.g:1862:1: rule__HyOrExpression__Group_1__1__Impl : ( '||' ) ;
+    // InternalExpressionDsl.g:1752:1: rule__HyOrExpression__Group_1__1__Impl : ( '||' ) ;
     public final void rule__HyOrExpression__Group_1__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalExpressionDsl.g:1866:1: ( ( '||' ) )
-            // InternalExpressionDsl.g:1867:1: ( '||' )
+            // InternalExpressionDsl.g:1756:1: ( ( '||' ) )
+            // InternalExpressionDsl.g:1757:1: ( '||' )
             {
-            // InternalExpressionDsl.g:1867:1: ( '||' )
-            // InternalExpressionDsl.g:1868:2: '||'
+            // InternalExpressionDsl.g:1757:1: ( '||' )
+            // InternalExpressionDsl.g:1758:2: '||'
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getHyOrExpressionAccess().getVerticalLineVerticalLineKeyword_1_1()); 
@@ -7106,14 +6103,14 @@ public class InternalExpressionDslParser extends AbstractInternalContentAssistPa
 
 
     // $ANTLR start "rule__HyOrExpression__Group_1__2"
-    // InternalExpressionDsl.g:1877:1: rule__HyOrExpression__Group_1__2 : rule__HyOrExpression__Group_1__2__Impl ;
+    // InternalExpressionDsl.g:1767:1: rule__HyOrExpression__Group_1__2 : rule__HyOrExpression__Group_1__2__Impl ;
     public final void rule__HyOrExpression__Group_1__2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalExpressionDsl.g:1881:1: ( rule__HyOrExpression__Group_1__2__Impl )
-            // InternalExpressionDsl.g:1882:2: rule__HyOrExpression__Group_1__2__Impl
+            // InternalExpressionDsl.g:1771:1: ( rule__HyOrExpression__Group_1__2__Impl )
+            // InternalExpressionDsl.g:1772:2: rule__HyOrExpression__Group_1__2__Impl
             {
             pushFollow(FOLLOW_2);
             rule__HyOrExpression__Group_1__2__Impl();
@@ -7139,23 +6136,23 @@ public class InternalExpressionDslParser extends AbstractInternalContentAssistPa
 
 
     // $ANTLR start "rule__HyOrExpression__Group_1__2__Impl"
-    // InternalExpressionDsl.g:1888:1: rule__HyOrExpression__Group_1__2__Impl : ( ( rule__HyOrExpression__Operand2Assignment_1_2 ) ) ;
+    // InternalExpressionDsl.g:1778:1: rule__HyOrExpression__Group_1__2__Impl : ( ( rule__HyOrExpression__Operand2Assignment_1_2 ) ) ;
     public final void rule__HyOrExpression__Group_1__2__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalExpressionDsl.g:1892:1: ( ( ( rule__HyOrExpression__Operand2Assignment_1_2 ) ) )
-            // InternalExpressionDsl.g:1893:1: ( ( rule__HyOrExpression__Operand2Assignment_1_2 ) )
+            // InternalExpressionDsl.g:1782:1: ( ( ( rule__HyOrExpression__Operand2Assignment_1_2 ) ) )
+            // InternalExpressionDsl.g:1783:1: ( ( rule__HyOrExpression__Operand2Assignment_1_2 ) )
             {
-            // InternalExpressionDsl.g:1893:1: ( ( rule__HyOrExpression__Operand2Assignment_1_2 ) )
-            // InternalExpressionDsl.g:1894:2: ( rule__HyOrExpression__Operand2Assignment_1_2 )
+            // InternalExpressionDsl.g:1783:1: ( ( rule__HyOrExpression__Operand2Assignment_1_2 ) )
+            // InternalExpressionDsl.g:1784:2: ( rule__HyOrExpression__Operand2Assignment_1_2 )
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getHyOrExpressionAccess().getOperand2Assignment_1_2()); 
             }
-            // InternalExpressionDsl.g:1895:2: ( rule__HyOrExpression__Operand2Assignment_1_2 )
-            // InternalExpressionDsl.g:1895:3: rule__HyOrExpression__Operand2Assignment_1_2
+            // InternalExpressionDsl.g:1785:2: ( rule__HyOrExpression__Operand2Assignment_1_2 )
+            // InternalExpressionDsl.g:1785:3: rule__HyOrExpression__Operand2Assignment_1_2
             {
             pushFollow(FOLLOW_2);
             rule__HyOrExpression__Operand2Assignment_1_2();
@@ -7190,14 +6187,14 @@ public class InternalExpressionDslParser extends AbstractInternalContentAssistPa
 
 
     // $ANTLR start "rule__HyNestedExpression__Group__0"
-    // InternalExpressionDsl.g:1904:1: rule__HyNestedExpression__Group__0 : rule__HyNestedExpression__Group__0__Impl rule__HyNestedExpression__Group__1 ;
+    // InternalExpressionDsl.g:1794:1: rule__HyNestedExpression__Group__0 : rule__HyNestedExpression__Group__0__Impl rule__HyNestedExpression__Group__1 ;
     public final void rule__HyNestedExpression__Group__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalExpressionDsl.g:1908:1: ( rule__HyNestedExpression__Group__0__Impl rule__HyNestedExpression__Group__1 )
-            // InternalExpressionDsl.g:1909:2: rule__HyNestedExpression__Group__0__Impl rule__HyNestedExpression__Group__1
+            // InternalExpressionDsl.g:1798:1: ( rule__HyNestedExpression__Group__0__Impl rule__HyNestedExpression__Group__1 )
+            // InternalExpressionDsl.g:1799:2: rule__HyNestedExpression__Group__0__Impl rule__HyNestedExpression__Group__1
             {
             pushFollow(FOLLOW_5);
             rule__HyNestedExpression__Group__0__Impl();
@@ -7228,17 +6225,17 @@ public class InternalExpressionDslParser extends AbstractInternalContentAssistPa
 
 
     // $ANTLR start "rule__HyNestedExpression__Group__0__Impl"
-    // InternalExpressionDsl.g:1916:1: rule__HyNestedExpression__Group__0__Impl : ( '(' ) ;
+    // InternalExpressionDsl.g:1806:1: rule__HyNestedExpression__Group__0__Impl : ( '(' ) ;
     public final void rule__HyNestedExpression__Group__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalExpressionDsl.g:1920:1: ( ( '(' ) )
-            // InternalExpressionDsl.g:1921:1: ( '(' )
+            // InternalExpressionDsl.g:1810:1: ( ( '(' ) )
+            // InternalExpressionDsl.g:1811:1: ( '(' )
             {
-            // InternalExpressionDsl.g:1921:1: ( '(' )
-            // InternalExpressionDsl.g:1922:2: '('
+            // InternalExpressionDsl.g:1811:1: ( '(' )
+            // InternalExpressionDsl.g:1812:2: '('
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getHyNestedExpressionAccess().getLeftParenthesisKeyword_0()); 
@@ -7269,14 +6266,14 @@ public class InternalExpressionDslParser extends AbstractInternalContentAssistPa
 
 
     // $ANTLR start "rule__HyNestedExpression__Group__1"
-    // InternalExpressionDsl.g:1931:1: rule__HyNestedExpression__Group__1 : rule__HyNestedExpression__Group__1__Impl rule__HyNestedExpression__Group__2 ;
+    // InternalExpressionDsl.g:1821:1: rule__HyNestedExpression__Group__1 : rule__HyNestedExpression__Group__1__Impl rule__HyNestedExpression__Group__2 ;
     public final void rule__HyNestedExpression__Group__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalExpressionDsl.g:1935:1: ( rule__HyNestedExpression__Group__1__Impl rule__HyNestedExpression__Group__2 )
-            // InternalExpressionDsl.g:1936:2: rule__HyNestedExpression__Group__1__Impl rule__HyNestedExpression__Group__2
+            // InternalExpressionDsl.g:1825:1: ( rule__HyNestedExpression__Group__1__Impl rule__HyNestedExpression__Group__2 )
+            // InternalExpressionDsl.g:1826:2: rule__HyNestedExpression__Group__1__Impl rule__HyNestedExpression__Group__2
             {
             pushFollow(FOLLOW_12);
             rule__HyNestedExpression__Group__1__Impl();
@@ -7307,23 +6304,23 @@ public class InternalExpressionDslParser extends AbstractInternalContentAssistPa
 
 
     // $ANTLR start "rule__HyNestedExpression__Group__1__Impl"
-    // InternalExpressionDsl.g:1943:1: rule__HyNestedExpression__Group__1__Impl : ( ( rule__HyNestedExpression__OperandAssignment_1 ) ) ;
+    // InternalExpressionDsl.g:1833:1: rule__HyNestedExpression__Group__1__Impl : ( ( rule__HyNestedExpression__OperandAssignment_1 ) ) ;
     public final void rule__HyNestedExpression__Group__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalExpressionDsl.g:1947:1: ( ( ( rule__HyNestedExpression__OperandAssignment_1 ) ) )
-            // InternalExpressionDsl.g:1948:1: ( ( rule__HyNestedExpression__OperandAssignment_1 ) )
+            // InternalExpressionDsl.g:1837:1: ( ( ( rule__HyNestedExpression__OperandAssignment_1 ) ) )
+            // InternalExpressionDsl.g:1838:1: ( ( rule__HyNestedExpression__OperandAssignment_1 ) )
             {
-            // InternalExpressionDsl.g:1948:1: ( ( rule__HyNestedExpression__OperandAssignment_1 ) )
-            // InternalExpressionDsl.g:1949:2: ( rule__HyNestedExpression__OperandAssignment_1 )
+            // InternalExpressionDsl.g:1838:1: ( ( rule__HyNestedExpression__OperandAssignment_1 ) )
+            // InternalExpressionDsl.g:1839:2: ( rule__HyNestedExpression__OperandAssignment_1 )
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getHyNestedExpressionAccess().getOperandAssignment_1()); 
             }
-            // InternalExpressionDsl.g:1950:2: ( rule__HyNestedExpression__OperandAssignment_1 )
-            // InternalExpressionDsl.g:1950:3: rule__HyNestedExpression__OperandAssignment_1
+            // InternalExpressionDsl.g:1840:2: ( rule__HyNestedExpression__OperandAssignment_1 )
+            // InternalExpressionDsl.g:1840:3: rule__HyNestedExpression__OperandAssignment_1
             {
             pushFollow(FOLLOW_2);
             rule__HyNestedExpression__OperandAssignment_1();
@@ -7358,14 +6355,14 @@ public class InternalExpressionDslParser extends AbstractInternalContentAssistPa
 
 
     // $ANTLR start "rule__HyNestedExpression__Group__2"
-    // InternalExpressionDsl.g:1958:1: rule__HyNestedExpression__Group__2 : rule__HyNestedExpression__Group__2__Impl ;
+    // InternalExpressionDsl.g:1848:1: rule__HyNestedExpression__Group__2 : rule__HyNestedExpression__Group__2__Impl ;
     public final void rule__HyNestedExpression__Group__2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalExpressionDsl.g:1962:1: ( rule__HyNestedExpression__Group__2__Impl )
-            // InternalExpressionDsl.g:1963:2: rule__HyNestedExpression__Group__2__Impl
+            // InternalExpressionDsl.g:1852:1: ( rule__HyNestedExpression__Group__2__Impl )
+            // InternalExpressionDsl.g:1853:2: rule__HyNestedExpression__Group__2__Impl
             {
             pushFollow(FOLLOW_2);
             rule__HyNestedExpression__Group__2__Impl();
@@ -7391,17 +6388,17 @@ public class InternalExpressionDslParser extends AbstractInternalContentAssistPa
 
 
     // $ANTLR start "rule__HyNestedExpression__Group__2__Impl"
-    // InternalExpressionDsl.g:1969:1: rule__HyNestedExpression__Group__2__Impl : ( ')' ) ;
+    // InternalExpressionDsl.g:1859:1: rule__HyNestedExpression__Group__2__Impl : ( ')' ) ;
     public final void rule__HyNestedExpression__Group__2__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalExpressionDsl.g:1973:1: ( ( ')' ) )
-            // InternalExpressionDsl.g:1974:1: ( ')' )
+            // InternalExpressionDsl.g:1863:1: ( ( ')' ) )
+            // InternalExpressionDsl.g:1864:1: ( ')' )
             {
-            // InternalExpressionDsl.g:1974:1: ( ')' )
-            // InternalExpressionDsl.g:1975:2: ')'
+            // InternalExpressionDsl.g:1864:1: ( ')' )
+            // InternalExpressionDsl.g:1865:2: ')'
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getHyNestedExpressionAccess().getRightParenthesisKeyword_2()); 
@@ -7432,14 +6429,14 @@ public class InternalExpressionDslParser extends AbstractInternalContentAssistPa
 
 
     // $ANTLR start "rule__HyNotExpression__Group__0"
-    // InternalExpressionDsl.g:1985:1: rule__HyNotExpression__Group__0 : rule__HyNotExpression__Group__0__Impl rule__HyNotExpression__Group__1 ;
+    // InternalExpressionDsl.g:1875:1: rule__HyNotExpression__Group__0 : rule__HyNotExpression__Group__0__Impl rule__HyNotExpression__Group__1 ;
     public final void rule__HyNotExpression__Group__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalExpressionDsl.g:1989:1: ( rule__HyNotExpression__Group__0__Impl rule__HyNotExpression__Group__1 )
-            // InternalExpressionDsl.g:1990:2: rule__HyNotExpression__Group__0__Impl rule__HyNotExpression__Group__1
+            // InternalExpressionDsl.g:1879:1: ( rule__HyNotExpression__Group__0__Impl rule__HyNotExpression__Group__1 )
+            // InternalExpressionDsl.g:1880:2: rule__HyNotExpression__Group__0__Impl rule__HyNotExpression__Group__1
             {
             pushFollow(FOLLOW_5);
             rule__HyNotExpression__Group__0__Impl();
@@ -7470,17 +6467,17 @@ public class InternalExpressionDslParser extends AbstractInternalContentAssistPa
 
 
     // $ANTLR start "rule__HyNotExpression__Group__0__Impl"
-    // InternalExpressionDsl.g:1997:1: rule__HyNotExpression__Group__0__Impl : ( '!' ) ;
+    // InternalExpressionDsl.g:1887:1: rule__HyNotExpression__Group__0__Impl : ( '!' ) ;
     public final void rule__HyNotExpression__Group__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalExpressionDsl.g:2001:1: ( ( '!' ) )
-            // InternalExpressionDsl.g:2002:1: ( '!' )
+            // InternalExpressionDsl.g:1891:1: ( ( '!' ) )
+            // InternalExpressionDsl.g:1892:1: ( '!' )
             {
-            // InternalExpressionDsl.g:2002:1: ( '!' )
-            // InternalExpressionDsl.g:2003:2: '!'
+            // InternalExpressionDsl.g:1892:1: ( '!' )
+            // InternalExpressionDsl.g:1893:2: '!'
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getHyNotExpressionAccess().getExclamationMarkKeyword_0()); 
@@ -7511,14 +6508,14 @@ public class InternalExpressionDslParser extends AbstractInternalContentAssistPa
 
 
     // $ANTLR start "rule__HyNotExpression__Group__1"
-    // InternalExpressionDsl.g:2012:1: rule__HyNotExpression__Group__1 : rule__HyNotExpression__Group__1__Impl ;
+    // InternalExpressionDsl.g:1902:1: rule__HyNotExpression__Group__1 : rule__HyNotExpression__Group__1__Impl ;
     public final void rule__HyNotExpression__Group__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalExpressionDsl.g:2016:1: ( rule__HyNotExpression__Group__1__Impl )
-            // InternalExpressionDsl.g:2017:2: rule__HyNotExpression__Group__1__Impl
+            // InternalExpressionDsl.g:1906:1: ( rule__HyNotExpression__Group__1__Impl )
+            // InternalExpressionDsl.g:1907:2: rule__HyNotExpression__Group__1__Impl
             {
             pushFollow(FOLLOW_2);
             rule__HyNotExpression__Group__1__Impl();
@@ -7544,23 +6541,23 @@ public class InternalExpressionDslParser extends AbstractInternalContentAssistPa
 
 
     // $ANTLR start "rule__HyNotExpression__Group__1__Impl"
-    // InternalExpressionDsl.g:2023:1: rule__HyNotExpression__Group__1__Impl : ( ( rule__HyNotExpression__OperandAssignment_1 ) ) ;
+    // InternalExpressionDsl.g:1913:1: rule__HyNotExpression__Group__1__Impl : ( ( rule__HyNotExpression__OperandAssignment_1 ) ) ;
     public final void rule__HyNotExpression__Group__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalExpressionDsl.g:2027:1: ( ( ( rule__HyNotExpression__OperandAssignment_1 ) ) )
-            // InternalExpressionDsl.g:2028:1: ( ( rule__HyNotExpression__OperandAssignment_1 ) )
+            // InternalExpressionDsl.g:1917:1: ( ( ( rule__HyNotExpression__OperandAssignment_1 ) ) )
+            // InternalExpressionDsl.g:1918:1: ( ( rule__HyNotExpression__OperandAssignment_1 ) )
             {
-            // InternalExpressionDsl.g:2028:1: ( ( rule__HyNotExpression__OperandAssignment_1 ) )
-            // InternalExpressionDsl.g:2029:2: ( rule__HyNotExpression__OperandAssignment_1 )
+            // InternalExpressionDsl.g:1918:1: ( ( rule__HyNotExpression__OperandAssignment_1 ) )
+            // InternalExpressionDsl.g:1919:2: ( rule__HyNotExpression__OperandAssignment_1 )
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getHyNotExpressionAccess().getOperandAssignment_1()); 
             }
-            // InternalExpressionDsl.g:2030:2: ( rule__HyNotExpression__OperandAssignment_1 )
-            // InternalExpressionDsl.g:2030:3: rule__HyNotExpression__OperandAssignment_1
+            // InternalExpressionDsl.g:1920:2: ( rule__HyNotExpression__OperandAssignment_1 )
+            // InternalExpressionDsl.g:1920:3: rule__HyNotExpression__OperandAssignment_1
             {
             pushFollow(FOLLOW_2);
             rule__HyNotExpression__OperandAssignment_1();
@@ -7595,14 +6592,14 @@ public class InternalExpressionDslParser extends AbstractInternalContentAssistPa
 
 
     // $ANTLR start "rule__HyFeatureReferenceExpression__Group__0"
-    // InternalExpressionDsl.g:2039:1: rule__HyFeatureReferenceExpression__Group__0 : rule__HyFeatureReferenceExpression__Group__0__Impl rule__HyFeatureReferenceExpression__Group__1 ;
+    // InternalExpressionDsl.g:1929:1: rule__HyFeatureReferenceExpression__Group__0 : rule__HyFeatureReferenceExpression__Group__0__Impl rule__HyFeatureReferenceExpression__Group__1 ;
     public final void rule__HyFeatureReferenceExpression__Group__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalExpressionDsl.g:2043:1: ( rule__HyFeatureReferenceExpression__Group__0__Impl rule__HyFeatureReferenceExpression__Group__1 )
-            // InternalExpressionDsl.g:2044:2: rule__HyFeatureReferenceExpression__Group__0__Impl rule__HyFeatureReferenceExpression__Group__1
+            // InternalExpressionDsl.g:1933:1: ( rule__HyFeatureReferenceExpression__Group__0__Impl rule__HyFeatureReferenceExpression__Group__1 )
+            // InternalExpressionDsl.g:1934:2: rule__HyFeatureReferenceExpression__Group__0__Impl rule__HyFeatureReferenceExpression__Group__1
             {
             pushFollow(FOLLOW_13);
             rule__HyFeatureReferenceExpression__Group__0__Impl();
@@ -7633,23 +6630,23 @@ public class InternalExpressionDslParser extends AbstractInternalContentAssistPa
 
 
     // $ANTLR start "rule__HyFeatureReferenceExpression__Group__0__Impl"
-    // InternalExpressionDsl.g:2051:1: rule__HyFeatureReferenceExpression__Group__0__Impl : ( ( rule__HyFeatureReferenceExpression__FeatureAssignment_0 ) ) ;
+    // InternalExpressionDsl.g:1941:1: rule__HyFeatureReferenceExpression__Group__0__Impl : ( ( rule__HyFeatureReferenceExpression__FeatureAssignment_0 ) ) ;
     public final void rule__HyFeatureReferenceExpression__Group__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalExpressionDsl.g:2055:1: ( ( ( rule__HyFeatureReferenceExpression__FeatureAssignment_0 ) ) )
-            // InternalExpressionDsl.g:2056:1: ( ( rule__HyFeatureReferenceExpression__FeatureAssignment_0 ) )
+            // InternalExpressionDsl.g:1945:1: ( ( ( rule__HyFeatureReferenceExpression__FeatureAssignment_0 ) ) )
+            // InternalExpressionDsl.g:1946:1: ( ( rule__HyFeatureReferenceExpression__FeatureAssignment_0 ) )
             {
-            // InternalExpressionDsl.g:2056:1: ( ( rule__HyFeatureReferenceExpression__FeatureAssignment_0 ) )
-            // InternalExpressionDsl.g:2057:2: ( rule__HyFeatureReferenceExpression__FeatureAssignment_0 )
+            // InternalExpressionDsl.g:1946:1: ( ( rule__HyFeatureReferenceExpression__FeatureAssignment_0 ) )
+            // InternalExpressionDsl.g:1947:2: ( rule__HyFeatureReferenceExpression__FeatureAssignment_0 )
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getHyFeatureReferenceExpressionAccess().getFeatureAssignment_0()); 
             }
-            // InternalExpressionDsl.g:2058:2: ( rule__HyFeatureReferenceExpression__FeatureAssignment_0 )
-            // InternalExpressionDsl.g:2058:3: rule__HyFeatureReferenceExpression__FeatureAssignment_0
+            // InternalExpressionDsl.g:1948:2: ( rule__HyFeatureReferenceExpression__FeatureAssignment_0 )
+            // InternalExpressionDsl.g:1948:3: rule__HyFeatureReferenceExpression__FeatureAssignment_0
             {
             pushFollow(FOLLOW_2);
             rule__HyFeatureReferenceExpression__FeatureAssignment_0();
@@ -7684,14 +6681,14 @@ public class InternalExpressionDslParser extends AbstractInternalContentAssistPa
 
 
     // $ANTLR start "rule__HyFeatureReferenceExpression__Group__1"
-    // InternalExpressionDsl.g:2066:1: rule__HyFeatureReferenceExpression__Group__1 : rule__HyFeatureReferenceExpression__Group__1__Impl ;
+    // InternalExpressionDsl.g:1956:1: rule__HyFeatureReferenceExpression__Group__1 : rule__HyFeatureReferenceExpression__Group__1__Impl ;
     public final void rule__HyFeatureReferenceExpression__Group__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalExpressionDsl.g:2070:1: ( rule__HyFeatureReferenceExpression__Group__1__Impl )
-            // InternalExpressionDsl.g:2071:2: rule__HyFeatureReferenceExpression__Group__1__Impl
+            // InternalExpressionDsl.g:1960:1: ( rule__HyFeatureReferenceExpression__Group__1__Impl )
+            // InternalExpressionDsl.g:1961:2: rule__HyFeatureReferenceExpression__Group__1__Impl
             {
             pushFollow(FOLLOW_2);
             rule__HyFeatureReferenceExpression__Group__1__Impl();
@@ -7717,31 +6714,31 @@ public class InternalExpressionDslParser extends AbstractInternalContentAssistPa
 
 
     // $ANTLR start "rule__HyFeatureReferenceExpression__Group__1__Impl"
-    // InternalExpressionDsl.g:2077:1: rule__HyFeatureReferenceExpression__Group__1__Impl : ( ( rule__HyFeatureReferenceExpression__VersionRestrictionAssignment_1 )? ) ;
+    // InternalExpressionDsl.g:1967:1: rule__HyFeatureReferenceExpression__Group__1__Impl : ( ( rule__HyFeatureReferenceExpression__VersionRestrictionAssignment_1 )? ) ;
     public final void rule__HyFeatureReferenceExpression__Group__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalExpressionDsl.g:2081:1: ( ( ( rule__HyFeatureReferenceExpression__VersionRestrictionAssignment_1 )? ) )
-            // InternalExpressionDsl.g:2082:1: ( ( rule__HyFeatureReferenceExpression__VersionRestrictionAssignment_1 )? )
+            // InternalExpressionDsl.g:1971:1: ( ( ( rule__HyFeatureReferenceExpression__VersionRestrictionAssignment_1 )? ) )
+            // InternalExpressionDsl.g:1972:1: ( ( rule__HyFeatureReferenceExpression__VersionRestrictionAssignment_1 )? )
             {
-            // InternalExpressionDsl.g:2082:1: ( ( rule__HyFeatureReferenceExpression__VersionRestrictionAssignment_1 )? )
-            // InternalExpressionDsl.g:2083:2: ( rule__HyFeatureReferenceExpression__VersionRestrictionAssignment_1 )?
+            // InternalExpressionDsl.g:1972:1: ( ( rule__HyFeatureReferenceExpression__VersionRestrictionAssignment_1 )? )
+            // InternalExpressionDsl.g:1973:2: ( rule__HyFeatureReferenceExpression__VersionRestrictionAssignment_1 )?
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getHyFeatureReferenceExpressionAccess().getVersionRestrictionAssignment_1()); 
             }
-            // InternalExpressionDsl.g:2084:2: ( rule__HyFeatureReferenceExpression__VersionRestrictionAssignment_1 )?
-            int alt18=2;
-            int LA18_0 = input.LA(1);
+            // InternalExpressionDsl.g:1974:2: ( rule__HyFeatureReferenceExpression__VersionRestrictionAssignment_1 )?
+            int alt14=2;
+            int LA14_0 = input.LA(1);
 
-            if ( (LA18_0==11||LA18_0==25) ) {
-                alt18=1;
+            if ( (LA14_0==11||LA14_0==25) ) {
+                alt14=1;
             }
-            switch (alt18) {
+            switch (alt14) {
                 case 1 :
-                    // InternalExpressionDsl.g:2084:3: rule__HyFeatureReferenceExpression__VersionRestrictionAssignment_1
+                    // InternalExpressionDsl.g:1974:3: rule__HyFeatureReferenceExpression__VersionRestrictionAssignment_1
                     {
                     pushFollow(FOLLOW_2);
                     rule__HyFeatureReferenceExpression__VersionRestrictionAssignment_1();
@@ -7779,14 +6776,14 @@ public class InternalExpressionDslParser extends AbstractInternalContentAssistPa
 
 
     // $ANTLR start "rule__HyConditionalFeatureReferenceExpression__Group__0"
-    // InternalExpressionDsl.g:2093:1: rule__HyConditionalFeatureReferenceExpression__Group__0 : rule__HyConditionalFeatureReferenceExpression__Group__0__Impl rule__HyConditionalFeatureReferenceExpression__Group__1 ;
+    // InternalExpressionDsl.g:1983:1: rule__HyConditionalFeatureReferenceExpression__Group__0 : rule__HyConditionalFeatureReferenceExpression__Group__0__Impl rule__HyConditionalFeatureReferenceExpression__Group__1 ;
     public final void rule__HyConditionalFeatureReferenceExpression__Group__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalExpressionDsl.g:2097:1: ( rule__HyConditionalFeatureReferenceExpression__Group__0__Impl rule__HyConditionalFeatureReferenceExpression__Group__1 )
-            // InternalExpressionDsl.g:2098:2: rule__HyConditionalFeatureReferenceExpression__Group__0__Impl rule__HyConditionalFeatureReferenceExpression__Group__1
+            // InternalExpressionDsl.g:1987:1: ( rule__HyConditionalFeatureReferenceExpression__Group__0__Impl rule__HyConditionalFeatureReferenceExpression__Group__1 )
+            // InternalExpressionDsl.g:1988:2: rule__HyConditionalFeatureReferenceExpression__Group__0__Impl rule__HyConditionalFeatureReferenceExpression__Group__1
             {
             pushFollow(FOLLOW_14);
             rule__HyConditionalFeatureReferenceExpression__Group__0__Impl();
@@ -7817,17 +6814,17 @@ public class InternalExpressionDslParser extends AbstractInternalContentAssistPa
 
 
     // $ANTLR start "rule__HyConditionalFeatureReferenceExpression__Group__0__Impl"
-    // InternalExpressionDsl.g:2105:1: rule__HyConditionalFeatureReferenceExpression__Group__0__Impl : ( '?' ) ;
+    // InternalExpressionDsl.g:1995:1: rule__HyConditionalFeatureReferenceExpression__Group__0__Impl : ( '?' ) ;
     public final void rule__HyConditionalFeatureReferenceExpression__Group__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalExpressionDsl.g:2109:1: ( ( '?' ) )
-            // InternalExpressionDsl.g:2110:1: ( '?' )
+            // InternalExpressionDsl.g:1999:1: ( ( '?' ) )
+            // InternalExpressionDsl.g:2000:1: ( '?' )
             {
-            // InternalExpressionDsl.g:2110:1: ( '?' )
-            // InternalExpressionDsl.g:2111:2: '?'
+            // InternalExpressionDsl.g:2000:1: ( '?' )
+            // InternalExpressionDsl.g:2001:2: '?'
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getHyConditionalFeatureReferenceExpressionAccess().getQuestionMarkKeyword_0()); 
@@ -7858,14 +6855,14 @@ public class InternalExpressionDslParser extends AbstractInternalContentAssistPa
 
 
     // $ANTLR start "rule__HyConditionalFeatureReferenceExpression__Group__1"
-    // InternalExpressionDsl.g:2120:1: rule__HyConditionalFeatureReferenceExpression__Group__1 : rule__HyConditionalFeatureReferenceExpression__Group__1__Impl rule__HyConditionalFeatureReferenceExpression__Group__2 ;
+    // InternalExpressionDsl.g:2010:1: rule__HyConditionalFeatureReferenceExpression__Group__1 : rule__HyConditionalFeatureReferenceExpression__Group__1__Impl rule__HyConditionalFeatureReferenceExpression__Group__2 ;
     public final void rule__HyConditionalFeatureReferenceExpression__Group__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalExpressionDsl.g:2124:1: ( rule__HyConditionalFeatureReferenceExpression__Group__1__Impl rule__HyConditionalFeatureReferenceExpression__Group__2 )
-            // InternalExpressionDsl.g:2125:2: rule__HyConditionalFeatureReferenceExpression__Group__1__Impl rule__HyConditionalFeatureReferenceExpression__Group__2
+            // InternalExpressionDsl.g:2014:1: ( rule__HyConditionalFeatureReferenceExpression__Group__1__Impl rule__HyConditionalFeatureReferenceExpression__Group__2 )
+            // InternalExpressionDsl.g:2015:2: rule__HyConditionalFeatureReferenceExpression__Group__1__Impl rule__HyConditionalFeatureReferenceExpression__Group__2
             {
             pushFollow(FOLLOW_13);
             rule__HyConditionalFeatureReferenceExpression__Group__1__Impl();
@@ -7896,23 +6893,23 @@ public class InternalExpressionDslParser extends AbstractInternalContentAssistPa
 
 
     // $ANTLR start "rule__HyConditionalFeatureReferenceExpression__Group__1__Impl"
-    // InternalExpressionDsl.g:2132:1: rule__HyConditionalFeatureReferenceExpression__Group__1__Impl : ( ( rule__HyConditionalFeatureReferenceExpression__FeatureAssignment_1 ) ) ;
+    // InternalExpressionDsl.g:2022:1: rule__HyConditionalFeatureReferenceExpression__Group__1__Impl : ( ( rule__HyConditionalFeatureReferenceExpression__FeatureAssignment_1 ) ) ;
     public final void rule__HyConditionalFeatureReferenceExpression__Group__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalExpressionDsl.g:2136:1: ( ( ( rule__HyConditionalFeatureReferenceExpression__FeatureAssignment_1 ) ) )
-            // InternalExpressionDsl.g:2137:1: ( ( rule__HyConditionalFeatureReferenceExpression__FeatureAssignment_1 ) )
+            // InternalExpressionDsl.g:2026:1: ( ( ( rule__HyConditionalFeatureReferenceExpression__FeatureAssignment_1 ) ) )
+            // InternalExpressionDsl.g:2027:1: ( ( rule__HyConditionalFeatureReferenceExpression__FeatureAssignment_1 ) )
             {
-            // InternalExpressionDsl.g:2137:1: ( ( rule__HyConditionalFeatureReferenceExpression__FeatureAssignment_1 ) )
-            // InternalExpressionDsl.g:2138:2: ( rule__HyConditionalFeatureReferenceExpression__FeatureAssignment_1 )
+            // InternalExpressionDsl.g:2027:1: ( ( rule__HyConditionalFeatureReferenceExpression__FeatureAssignment_1 ) )
+            // InternalExpressionDsl.g:2028:2: ( rule__HyConditionalFeatureReferenceExpression__FeatureAssignment_1 )
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getHyConditionalFeatureReferenceExpressionAccess().getFeatureAssignment_1()); 
             }
-            // InternalExpressionDsl.g:2139:2: ( rule__HyConditionalFeatureReferenceExpression__FeatureAssignment_1 )
-            // InternalExpressionDsl.g:2139:3: rule__HyConditionalFeatureReferenceExpression__FeatureAssignment_1
+            // InternalExpressionDsl.g:2029:2: ( rule__HyConditionalFeatureReferenceExpression__FeatureAssignment_1 )
+            // InternalExpressionDsl.g:2029:3: rule__HyConditionalFeatureReferenceExpression__FeatureAssignment_1
             {
             pushFollow(FOLLOW_2);
             rule__HyConditionalFeatureReferenceExpression__FeatureAssignment_1();
@@ -7947,14 +6944,14 @@ public class InternalExpressionDslParser extends AbstractInternalContentAssistPa
 
 
     // $ANTLR start "rule__HyConditionalFeatureReferenceExpression__Group__2"
-    // InternalExpressionDsl.g:2147:1: rule__HyConditionalFeatureReferenceExpression__Group__2 : rule__HyConditionalFeatureReferenceExpression__Group__2__Impl ;
+    // InternalExpressionDsl.g:2037:1: rule__HyConditionalFeatureReferenceExpression__Group__2 : rule__HyConditionalFeatureReferenceExpression__Group__2__Impl ;
     public final void rule__HyConditionalFeatureReferenceExpression__Group__2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalExpressionDsl.g:2151:1: ( rule__HyConditionalFeatureReferenceExpression__Group__2__Impl )
-            // InternalExpressionDsl.g:2152:2: rule__HyConditionalFeatureReferenceExpression__Group__2__Impl
+            // InternalExpressionDsl.g:2041:1: ( rule__HyConditionalFeatureReferenceExpression__Group__2__Impl )
+            // InternalExpressionDsl.g:2042:2: rule__HyConditionalFeatureReferenceExpression__Group__2__Impl
             {
             pushFollow(FOLLOW_2);
             rule__HyConditionalFeatureReferenceExpression__Group__2__Impl();
@@ -7980,31 +6977,31 @@ public class InternalExpressionDslParser extends AbstractInternalContentAssistPa
 
 
     // $ANTLR start "rule__HyConditionalFeatureReferenceExpression__Group__2__Impl"
-    // InternalExpressionDsl.g:2158:1: rule__HyConditionalFeatureReferenceExpression__Group__2__Impl : ( ( rule__HyConditionalFeatureReferenceExpression__VersionRestrictionAssignment_2 )? ) ;
+    // InternalExpressionDsl.g:2048:1: rule__HyConditionalFeatureReferenceExpression__Group__2__Impl : ( ( rule__HyConditionalFeatureReferenceExpression__VersionRestrictionAssignment_2 )? ) ;
     public final void rule__HyConditionalFeatureReferenceExpression__Group__2__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalExpressionDsl.g:2162:1: ( ( ( rule__HyConditionalFeatureReferenceExpression__VersionRestrictionAssignment_2 )? ) )
-            // InternalExpressionDsl.g:2163:1: ( ( rule__HyConditionalFeatureReferenceExpression__VersionRestrictionAssignment_2 )? )
+            // InternalExpressionDsl.g:2052:1: ( ( ( rule__HyConditionalFeatureReferenceExpression__VersionRestrictionAssignment_2 )? ) )
+            // InternalExpressionDsl.g:2053:1: ( ( rule__HyConditionalFeatureReferenceExpression__VersionRestrictionAssignment_2 )? )
             {
-            // InternalExpressionDsl.g:2163:1: ( ( rule__HyConditionalFeatureReferenceExpression__VersionRestrictionAssignment_2 )? )
-            // InternalExpressionDsl.g:2164:2: ( rule__HyConditionalFeatureReferenceExpression__VersionRestrictionAssignment_2 )?
+            // InternalExpressionDsl.g:2053:1: ( ( rule__HyConditionalFeatureReferenceExpression__VersionRestrictionAssignment_2 )? )
+            // InternalExpressionDsl.g:2054:2: ( rule__HyConditionalFeatureReferenceExpression__VersionRestrictionAssignment_2 )?
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getHyConditionalFeatureReferenceExpressionAccess().getVersionRestrictionAssignment_2()); 
             }
-            // InternalExpressionDsl.g:2165:2: ( rule__HyConditionalFeatureReferenceExpression__VersionRestrictionAssignment_2 )?
-            int alt19=2;
-            int LA19_0 = input.LA(1);
+            // InternalExpressionDsl.g:2055:2: ( rule__HyConditionalFeatureReferenceExpression__VersionRestrictionAssignment_2 )?
+            int alt15=2;
+            int LA15_0 = input.LA(1);
 
-            if ( (LA19_0==11||LA19_0==25) ) {
-                alt19=1;
+            if ( (LA15_0==11||LA15_0==25) ) {
+                alt15=1;
             }
-            switch (alt19) {
+            switch (alt15) {
                 case 1 :
-                    // InternalExpressionDsl.g:2165:3: rule__HyConditionalFeatureReferenceExpression__VersionRestrictionAssignment_2
+                    // InternalExpressionDsl.g:2055:3: rule__HyConditionalFeatureReferenceExpression__VersionRestrictionAssignment_2
                     {
                     pushFollow(FOLLOW_2);
                     rule__HyConditionalFeatureReferenceExpression__VersionRestrictionAssignment_2();
@@ -8042,14 +7039,14 @@ public class InternalExpressionDslParser extends AbstractInternalContentAssistPa
 
 
     // $ANTLR start "rule__HyRelativeVersionRestriction__Group__0"
-    // InternalExpressionDsl.g:2174:1: rule__HyRelativeVersionRestriction__Group__0 : rule__HyRelativeVersionRestriction__Group__0__Impl rule__HyRelativeVersionRestriction__Group__1 ;
+    // InternalExpressionDsl.g:2064:1: rule__HyRelativeVersionRestriction__Group__0 : rule__HyRelativeVersionRestriction__Group__0__Impl rule__HyRelativeVersionRestriction__Group__1 ;
     public final void rule__HyRelativeVersionRestriction__Group__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalExpressionDsl.g:2178:1: ( rule__HyRelativeVersionRestriction__Group__0__Impl rule__HyRelativeVersionRestriction__Group__1 )
-            // InternalExpressionDsl.g:2179:2: rule__HyRelativeVersionRestriction__Group__0__Impl rule__HyRelativeVersionRestriction__Group__1
+            // InternalExpressionDsl.g:2068:1: ( rule__HyRelativeVersionRestriction__Group__0__Impl rule__HyRelativeVersionRestriction__Group__1 )
+            // InternalExpressionDsl.g:2069:2: rule__HyRelativeVersionRestriction__Group__0__Impl rule__HyRelativeVersionRestriction__Group__1
             {
             pushFollow(FOLLOW_15);
             rule__HyRelativeVersionRestriction__Group__0__Impl();
@@ -8080,17 +7077,17 @@ public class InternalExpressionDslParser extends AbstractInternalContentAssistPa
 
 
     // $ANTLR start "rule__HyRelativeVersionRestriction__Group__0__Impl"
-    // InternalExpressionDsl.g:2186:1: rule__HyRelativeVersionRestriction__Group__0__Impl : ( '[' ) ;
+    // InternalExpressionDsl.g:2076:1: rule__HyRelativeVersionRestriction__Group__0__Impl : ( '[' ) ;
     public final void rule__HyRelativeVersionRestriction__Group__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalExpressionDsl.g:2190:1: ( ( '[' ) )
-            // InternalExpressionDsl.g:2191:1: ( '[' )
+            // InternalExpressionDsl.g:2080:1: ( ( '[' ) )
+            // InternalExpressionDsl.g:2081:1: ( '[' )
             {
-            // InternalExpressionDsl.g:2191:1: ( '[' )
-            // InternalExpressionDsl.g:2192:2: '['
+            // InternalExpressionDsl.g:2081:1: ( '[' )
+            // InternalExpressionDsl.g:2082:2: '['
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getHyRelativeVersionRestrictionAccess().getLeftSquareBracketKeyword_0()); 
@@ -8121,14 +7118,14 @@ public class InternalExpressionDslParser extends AbstractInternalContentAssistPa
 
 
     // $ANTLR start "rule__HyRelativeVersionRestriction__Group__1"
-    // InternalExpressionDsl.g:2201:1: rule__HyRelativeVersionRestriction__Group__1 : rule__HyRelativeVersionRestriction__Group__1__Impl rule__HyRelativeVersionRestriction__Group__2 ;
+    // InternalExpressionDsl.g:2091:1: rule__HyRelativeVersionRestriction__Group__1 : rule__HyRelativeVersionRestriction__Group__1__Impl rule__HyRelativeVersionRestriction__Group__2 ;
     public final void rule__HyRelativeVersionRestriction__Group__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalExpressionDsl.g:2205:1: ( rule__HyRelativeVersionRestriction__Group__1__Impl rule__HyRelativeVersionRestriction__Group__2 )
-            // InternalExpressionDsl.g:2206:2: rule__HyRelativeVersionRestriction__Group__1__Impl rule__HyRelativeVersionRestriction__Group__2
+            // InternalExpressionDsl.g:2095:1: ( rule__HyRelativeVersionRestriction__Group__1__Impl rule__HyRelativeVersionRestriction__Group__2 )
+            // InternalExpressionDsl.g:2096:2: rule__HyRelativeVersionRestriction__Group__1__Impl rule__HyRelativeVersionRestriction__Group__2
             {
             pushFollow(FOLLOW_16);
             rule__HyRelativeVersionRestriction__Group__1__Impl();
@@ -8159,23 +7156,23 @@ public class InternalExpressionDslParser extends AbstractInternalContentAssistPa
 
 
     // $ANTLR start "rule__HyRelativeVersionRestriction__Group__1__Impl"
-    // InternalExpressionDsl.g:2213:1: rule__HyRelativeVersionRestriction__Group__1__Impl : ( ( rule__HyRelativeVersionRestriction__OperatorAssignment_1 ) ) ;
+    // InternalExpressionDsl.g:2103:1: rule__HyRelativeVersionRestriction__Group__1__Impl : ( ( rule__HyRelativeVersionRestriction__OperatorAssignment_1 ) ) ;
     public final void rule__HyRelativeVersionRestriction__Group__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalExpressionDsl.g:2217:1: ( ( ( rule__HyRelativeVersionRestriction__OperatorAssignment_1 ) ) )
-            // InternalExpressionDsl.g:2218:1: ( ( rule__HyRelativeVersionRestriction__OperatorAssignment_1 ) )
+            // InternalExpressionDsl.g:2107:1: ( ( ( rule__HyRelativeVersionRestriction__OperatorAssignment_1 ) ) )
+            // InternalExpressionDsl.g:2108:1: ( ( rule__HyRelativeVersionRestriction__OperatorAssignment_1 ) )
             {
-            // InternalExpressionDsl.g:2218:1: ( ( rule__HyRelativeVersionRestriction__OperatorAssignment_1 ) )
-            // InternalExpressionDsl.g:2219:2: ( rule__HyRelativeVersionRestriction__OperatorAssignment_1 )
+            // InternalExpressionDsl.g:2108:1: ( ( rule__HyRelativeVersionRestriction__OperatorAssignment_1 ) )
+            // InternalExpressionDsl.g:2109:2: ( rule__HyRelativeVersionRestriction__OperatorAssignment_1 )
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getHyRelativeVersionRestrictionAccess().getOperatorAssignment_1()); 
             }
-            // InternalExpressionDsl.g:2220:2: ( rule__HyRelativeVersionRestriction__OperatorAssignment_1 )
-            // InternalExpressionDsl.g:2220:3: rule__HyRelativeVersionRestriction__OperatorAssignment_1
+            // InternalExpressionDsl.g:2110:2: ( rule__HyRelativeVersionRestriction__OperatorAssignment_1 )
+            // InternalExpressionDsl.g:2110:3: rule__HyRelativeVersionRestriction__OperatorAssignment_1
             {
             pushFollow(FOLLOW_2);
             rule__HyRelativeVersionRestriction__OperatorAssignment_1();
@@ -8210,14 +7207,14 @@ public class InternalExpressionDslParser extends AbstractInternalContentAssistPa
 
 
     // $ANTLR start "rule__HyRelativeVersionRestriction__Group__2"
-    // InternalExpressionDsl.g:2228:1: rule__HyRelativeVersionRestriction__Group__2 : rule__HyRelativeVersionRestriction__Group__2__Impl rule__HyRelativeVersionRestriction__Group__3 ;
+    // InternalExpressionDsl.g:2118:1: rule__HyRelativeVersionRestriction__Group__2 : rule__HyRelativeVersionRestriction__Group__2__Impl rule__HyRelativeVersionRestriction__Group__3 ;
     public final void rule__HyRelativeVersionRestriction__Group__2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalExpressionDsl.g:2232:1: ( rule__HyRelativeVersionRestriction__Group__2__Impl rule__HyRelativeVersionRestriction__Group__3 )
-            // InternalExpressionDsl.g:2233:2: rule__HyRelativeVersionRestriction__Group__2__Impl rule__HyRelativeVersionRestriction__Group__3
+            // InternalExpressionDsl.g:2122:1: ( rule__HyRelativeVersionRestriction__Group__2__Impl rule__HyRelativeVersionRestriction__Group__3 )
+            // InternalExpressionDsl.g:2123:2: rule__HyRelativeVersionRestriction__Group__2__Impl rule__HyRelativeVersionRestriction__Group__3
             {
             pushFollow(FOLLOW_17);
             rule__HyRelativeVersionRestriction__Group__2__Impl();
@@ -8248,23 +7245,23 @@ public class InternalExpressionDslParser extends AbstractInternalContentAssistPa
 
 
     // $ANTLR start "rule__HyRelativeVersionRestriction__Group__2__Impl"
-    // InternalExpressionDsl.g:2240:1: rule__HyRelativeVersionRestriction__Group__2__Impl : ( ( rule__HyRelativeVersionRestriction__VersionAssignment_2 ) ) ;
+    // InternalExpressionDsl.g:2130:1: rule__HyRelativeVersionRestriction__Group__2__Impl : ( ( rule__HyRelativeVersionRestriction__VersionAssignment_2 ) ) ;
     public final void rule__HyRelativeVersionRestriction__Group__2__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalExpressionDsl.g:2244:1: ( ( ( rule__HyRelativeVersionRestriction__VersionAssignment_2 ) ) )
-            // InternalExpressionDsl.g:2245:1: ( ( rule__HyRelativeVersionRestriction__VersionAssignment_2 ) )
+            // InternalExpressionDsl.g:2134:1: ( ( ( rule__HyRelativeVersionRestriction__VersionAssignment_2 ) ) )
+            // InternalExpressionDsl.g:2135:1: ( ( rule__HyRelativeVersionRestriction__VersionAssignment_2 ) )
             {
-            // InternalExpressionDsl.g:2245:1: ( ( rule__HyRelativeVersionRestriction__VersionAssignment_2 ) )
-            // InternalExpressionDsl.g:2246:2: ( rule__HyRelativeVersionRestriction__VersionAssignment_2 )
+            // InternalExpressionDsl.g:2135:1: ( ( rule__HyRelativeVersionRestriction__VersionAssignment_2 ) )
+            // InternalExpressionDsl.g:2136:2: ( rule__HyRelativeVersionRestriction__VersionAssignment_2 )
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getHyRelativeVersionRestrictionAccess().getVersionAssignment_2()); 
             }
-            // InternalExpressionDsl.g:2247:2: ( rule__HyRelativeVersionRestriction__VersionAssignment_2 )
-            // InternalExpressionDsl.g:2247:3: rule__HyRelativeVersionRestriction__VersionAssignment_2
+            // InternalExpressionDsl.g:2137:2: ( rule__HyRelativeVersionRestriction__VersionAssignment_2 )
+            // InternalExpressionDsl.g:2137:3: rule__HyRelativeVersionRestriction__VersionAssignment_2
             {
             pushFollow(FOLLOW_2);
             rule__HyRelativeVersionRestriction__VersionAssignment_2();
@@ -8299,14 +7296,14 @@ public class InternalExpressionDslParser extends AbstractInternalContentAssistPa
 
 
     // $ANTLR start "rule__HyRelativeVersionRestriction__Group__3"
-    // InternalExpressionDsl.g:2255:1: rule__HyRelativeVersionRestriction__Group__3 : rule__HyRelativeVersionRestriction__Group__3__Impl ;
+    // InternalExpressionDsl.g:2145:1: rule__HyRelativeVersionRestriction__Group__3 : rule__HyRelativeVersionRestriction__Group__3__Impl ;
     public final void rule__HyRelativeVersionRestriction__Group__3() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalExpressionDsl.g:2259:1: ( rule__HyRelativeVersionRestriction__Group__3__Impl )
-            // InternalExpressionDsl.g:2260:2: rule__HyRelativeVersionRestriction__Group__3__Impl
+            // InternalExpressionDsl.g:2149:1: ( rule__HyRelativeVersionRestriction__Group__3__Impl )
+            // InternalExpressionDsl.g:2150:2: rule__HyRelativeVersionRestriction__Group__3__Impl
             {
             pushFollow(FOLLOW_2);
             rule__HyRelativeVersionRestriction__Group__3__Impl();
@@ -8332,17 +7329,17 @@ public class InternalExpressionDslParser extends AbstractInternalContentAssistPa
 
 
     // $ANTLR start "rule__HyRelativeVersionRestriction__Group__3__Impl"
-    // InternalExpressionDsl.g:2266:1: rule__HyRelativeVersionRestriction__Group__3__Impl : ( ']' ) ;
+    // InternalExpressionDsl.g:2156:1: rule__HyRelativeVersionRestriction__Group__3__Impl : ( ']' ) ;
     public final void rule__HyRelativeVersionRestriction__Group__3__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalExpressionDsl.g:2270:1: ( ( ']' ) )
-            // InternalExpressionDsl.g:2271:1: ( ']' )
+            // InternalExpressionDsl.g:2160:1: ( ( ']' ) )
+            // InternalExpressionDsl.g:2161:1: ( ']' )
             {
-            // InternalExpressionDsl.g:2271:1: ( ']' )
-            // InternalExpressionDsl.g:2272:2: ']'
+            // InternalExpressionDsl.g:2161:1: ( ']' )
+            // InternalExpressionDsl.g:2162:2: ']'
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getHyRelativeVersionRestrictionAccess().getRightSquareBracketKeyword_3()); 
@@ -8373,14 +7370,14 @@ public class InternalExpressionDslParser extends AbstractInternalContentAssistPa
 
 
     // $ANTLR start "rule__HyVersionRangeRestriction__Group_0__0"
-    // InternalExpressionDsl.g:2282:1: rule__HyVersionRangeRestriction__Group_0__0 : rule__HyVersionRangeRestriction__Group_0__0__Impl rule__HyVersionRangeRestriction__Group_0__1 ;
+    // InternalExpressionDsl.g:2172:1: rule__HyVersionRangeRestriction__Group_0__0 : rule__HyVersionRangeRestriction__Group_0__0__Impl rule__HyVersionRangeRestriction__Group_0__1 ;
     public final void rule__HyVersionRangeRestriction__Group_0__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalExpressionDsl.g:2286:1: ( rule__HyVersionRangeRestriction__Group_0__0__Impl rule__HyVersionRangeRestriction__Group_0__1 )
-            // InternalExpressionDsl.g:2287:2: rule__HyVersionRangeRestriction__Group_0__0__Impl rule__HyVersionRangeRestriction__Group_0__1
+            // InternalExpressionDsl.g:2176:1: ( rule__HyVersionRangeRestriction__Group_0__0__Impl rule__HyVersionRangeRestriction__Group_0__1 )
+            // InternalExpressionDsl.g:2177:2: rule__HyVersionRangeRestriction__Group_0__0__Impl rule__HyVersionRangeRestriction__Group_0__1
             {
             pushFollow(FOLLOW_18);
             rule__HyVersionRangeRestriction__Group_0__0__Impl();
@@ -8411,17 +7408,17 @@ public class InternalExpressionDslParser extends AbstractInternalContentAssistPa
 
 
     // $ANTLR start "rule__HyVersionRangeRestriction__Group_0__0__Impl"
-    // InternalExpressionDsl.g:2294:1: rule__HyVersionRangeRestriction__Group_0__0__Impl : ( '[' ) ;
+    // InternalExpressionDsl.g:2184:1: rule__HyVersionRangeRestriction__Group_0__0__Impl : ( '[' ) ;
     public final void rule__HyVersionRangeRestriction__Group_0__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalExpressionDsl.g:2298:1: ( ( '[' ) )
-            // InternalExpressionDsl.g:2299:1: ( '[' )
+            // InternalExpressionDsl.g:2188:1: ( ( '[' ) )
+            // InternalExpressionDsl.g:2189:1: ( '[' )
             {
-            // InternalExpressionDsl.g:2299:1: ( '[' )
-            // InternalExpressionDsl.g:2300:2: '['
+            // InternalExpressionDsl.g:2189:1: ( '[' )
+            // InternalExpressionDsl.g:2190:2: '['
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getHyVersionRangeRestrictionAccess().getLeftSquareBracketKeyword_0_0()); 
@@ -8452,14 +7449,14 @@ public class InternalExpressionDslParser extends AbstractInternalContentAssistPa
 
 
     // $ANTLR start "rule__HyVersionRangeRestriction__Group_0__1"
-    // InternalExpressionDsl.g:2309:1: rule__HyVersionRangeRestriction__Group_0__1 : rule__HyVersionRangeRestriction__Group_0__1__Impl ;
+    // InternalExpressionDsl.g:2199:1: rule__HyVersionRangeRestriction__Group_0__1 : rule__HyVersionRangeRestriction__Group_0__1__Impl ;
     public final void rule__HyVersionRangeRestriction__Group_0__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalExpressionDsl.g:2313:1: ( rule__HyVersionRangeRestriction__Group_0__1__Impl )
-            // InternalExpressionDsl.g:2314:2: rule__HyVersionRangeRestriction__Group_0__1__Impl
+            // InternalExpressionDsl.g:2203:1: ( rule__HyVersionRangeRestriction__Group_0__1__Impl )
+            // InternalExpressionDsl.g:2204:2: rule__HyVersionRangeRestriction__Group_0__1__Impl
             {
             pushFollow(FOLLOW_2);
             rule__HyVersionRangeRestriction__Group_0__1__Impl();
@@ -8485,23 +7482,23 @@ public class InternalExpressionDslParser extends AbstractInternalContentAssistPa
 
 
     // $ANTLR start "rule__HyVersionRangeRestriction__Group_0__1__Impl"
-    // InternalExpressionDsl.g:2320:1: rule__HyVersionRangeRestriction__Group_0__1__Impl : ( ( rule__HyVersionRangeRestriction__LowerIncludedAssignment_0_1 ) ) ;
+    // InternalExpressionDsl.g:2210:1: rule__HyVersionRangeRestriction__Group_0__1__Impl : ( ( rule__HyVersionRangeRestriction__LowerIncludedAssignment_0_1 ) ) ;
     public final void rule__HyVersionRangeRestriction__Group_0__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalExpressionDsl.g:2324:1: ( ( ( rule__HyVersionRangeRestriction__LowerIncludedAssignment_0_1 ) ) )
-            // InternalExpressionDsl.g:2325:1: ( ( rule__HyVersionRangeRestriction__LowerIncludedAssignment_0_1 ) )
+            // InternalExpressionDsl.g:2214:1: ( ( ( rule__HyVersionRangeRestriction__LowerIncludedAssignment_0_1 ) ) )
+            // InternalExpressionDsl.g:2215:1: ( ( rule__HyVersionRangeRestriction__LowerIncludedAssignment_0_1 ) )
             {
-            // InternalExpressionDsl.g:2325:1: ( ( rule__HyVersionRangeRestriction__LowerIncludedAssignment_0_1 ) )
-            // InternalExpressionDsl.g:2326:2: ( rule__HyVersionRangeRestriction__LowerIncludedAssignment_0_1 )
+            // InternalExpressionDsl.g:2215:1: ( ( rule__HyVersionRangeRestriction__LowerIncludedAssignment_0_1 ) )
+            // InternalExpressionDsl.g:2216:2: ( rule__HyVersionRangeRestriction__LowerIncludedAssignment_0_1 )
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getHyVersionRangeRestrictionAccess().getLowerIncludedAssignment_0_1()); 
             }
-            // InternalExpressionDsl.g:2327:2: ( rule__HyVersionRangeRestriction__LowerIncludedAssignment_0_1 )
-            // InternalExpressionDsl.g:2327:3: rule__HyVersionRangeRestriction__LowerIncludedAssignment_0_1
+            // InternalExpressionDsl.g:2217:2: ( rule__HyVersionRangeRestriction__LowerIncludedAssignment_0_1 )
+            // InternalExpressionDsl.g:2217:3: rule__HyVersionRangeRestriction__LowerIncludedAssignment_0_1
             {
             pushFollow(FOLLOW_2);
             rule__HyVersionRangeRestriction__LowerIncludedAssignment_0_1();
@@ -8536,14 +7533,14 @@ public class InternalExpressionDslParser extends AbstractInternalContentAssistPa
 
 
     // $ANTLR start "rule__HyVersionRangeRestriction__Group_1__0"
-    // InternalExpressionDsl.g:2336:1: rule__HyVersionRangeRestriction__Group_1__0 : rule__HyVersionRangeRestriction__Group_1__0__Impl rule__HyVersionRangeRestriction__Group_1__1 ;
+    // InternalExpressionDsl.g:2226:1: rule__HyVersionRangeRestriction__Group_1__0 : rule__HyVersionRangeRestriction__Group_1__0__Impl rule__HyVersionRangeRestriction__Group_1__1 ;
     public final void rule__HyVersionRangeRestriction__Group_1__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalExpressionDsl.g:2340:1: ( rule__HyVersionRangeRestriction__Group_1__0__Impl rule__HyVersionRangeRestriction__Group_1__1 )
-            // InternalExpressionDsl.g:2341:2: rule__HyVersionRangeRestriction__Group_1__0__Impl rule__HyVersionRangeRestriction__Group_1__1
+            // InternalExpressionDsl.g:2230:1: ( rule__HyVersionRangeRestriction__Group_1__0__Impl rule__HyVersionRangeRestriction__Group_1__1 )
+            // InternalExpressionDsl.g:2231:2: rule__HyVersionRangeRestriction__Group_1__0__Impl rule__HyVersionRangeRestriction__Group_1__1
             {
             pushFollow(FOLLOW_14);
             rule__HyVersionRangeRestriction__Group_1__0__Impl();
@@ -8574,17 +7571,17 @@ public class InternalExpressionDslParser extends AbstractInternalContentAssistPa
 
 
     // $ANTLR start "rule__HyVersionRangeRestriction__Group_1__0__Impl"
-    // InternalExpressionDsl.g:2348:1: rule__HyVersionRangeRestriction__Group_1__0__Impl : ( 'false' ) ;
+    // InternalExpressionDsl.g:2238:1: rule__HyVersionRangeRestriction__Group_1__0__Impl : ( 'false' ) ;
     public final void rule__HyVersionRangeRestriction__Group_1__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalExpressionDsl.g:2352:1: ( ( 'false' ) )
-            // InternalExpressionDsl.g:2353:1: ( 'false' )
+            // InternalExpressionDsl.g:2242:1: ( ( 'false' ) )
+            // InternalExpressionDsl.g:2243:1: ( 'false' )
             {
-            // InternalExpressionDsl.g:2353:1: ( 'false' )
-            // InternalExpressionDsl.g:2354:2: 'false'
+            // InternalExpressionDsl.g:2243:1: ( 'false' )
+            // InternalExpressionDsl.g:2244:2: 'false'
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getHyVersionRangeRestrictionAccess().getFalseKeyword_1_0()); 
@@ -8615,14 +7612,14 @@ public class InternalExpressionDslParser extends AbstractInternalContentAssistPa
 
 
     // $ANTLR start "rule__HyVersionRangeRestriction__Group_1__1"
-    // InternalExpressionDsl.g:2363:1: rule__HyVersionRangeRestriction__Group_1__1 : rule__HyVersionRangeRestriction__Group_1__1__Impl rule__HyVersionRangeRestriction__Group_1__2 ;
+    // InternalExpressionDsl.g:2253:1: rule__HyVersionRangeRestriction__Group_1__1 : rule__HyVersionRangeRestriction__Group_1__1__Impl rule__HyVersionRangeRestriction__Group_1__2 ;
     public final void rule__HyVersionRangeRestriction__Group_1__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalExpressionDsl.g:2367:1: ( rule__HyVersionRangeRestriction__Group_1__1__Impl rule__HyVersionRangeRestriction__Group_1__2 )
-            // InternalExpressionDsl.g:2368:2: rule__HyVersionRangeRestriction__Group_1__1__Impl rule__HyVersionRangeRestriction__Group_1__2
+            // InternalExpressionDsl.g:2257:1: ( rule__HyVersionRangeRestriction__Group_1__1__Impl rule__HyVersionRangeRestriction__Group_1__2 )
+            // InternalExpressionDsl.g:2258:2: rule__HyVersionRangeRestriction__Group_1__1__Impl rule__HyVersionRangeRestriction__Group_1__2
             {
             pushFollow(FOLLOW_19);
             rule__HyVersionRangeRestriction__Group_1__1__Impl();
@@ -8653,23 +7650,23 @@ public class InternalExpressionDslParser extends AbstractInternalContentAssistPa
 
 
     // $ANTLR start "rule__HyVersionRangeRestriction__Group_1__1__Impl"
-    // InternalExpressionDsl.g:2375:1: rule__HyVersionRangeRestriction__Group_1__1__Impl : ( ( rule__HyVersionRangeRestriction__LowerVersionAssignment_1_1 ) ) ;
+    // InternalExpressionDsl.g:2265:1: rule__HyVersionRangeRestriction__Group_1__1__Impl : ( ( rule__HyVersionRangeRestriction__LowerVersionAssignment_1_1 ) ) ;
     public final void rule__HyVersionRangeRestriction__Group_1__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalExpressionDsl.g:2379:1: ( ( ( rule__HyVersionRangeRestriction__LowerVersionAssignment_1_1 ) ) )
-            // InternalExpressionDsl.g:2380:1: ( ( rule__HyVersionRangeRestriction__LowerVersionAssignment_1_1 ) )
+            // InternalExpressionDsl.g:2269:1: ( ( ( rule__HyVersionRangeRestriction__LowerVersionAssignment_1_1 ) ) )
+            // InternalExpressionDsl.g:2270:1: ( ( rule__HyVersionRangeRestriction__LowerVersionAssignment_1_1 ) )
             {
-            // InternalExpressionDsl.g:2380:1: ( ( rule__HyVersionRangeRestriction__LowerVersionAssignment_1_1 ) )
-            // InternalExpressionDsl.g:2381:2: ( rule__HyVersionRangeRestriction__LowerVersionAssignment_1_1 )
+            // InternalExpressionDsl.g:2270:1: ( ( rule__HyVersionRangeRestriction__LowerVersionAssignment_1_1 ) )
+            // InternalExpressionDsl.g:2271:2: ( rule__HyVersionRangeRestriction__LowerVersionAssignment_1_1 )
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getHyVersionRangeRestrictionAccess().getLowerVersionAssignment_1_1()); 
             }
-            // InternalExpressionDsl.g:2382:2: ( rule__HyVersionRangeRestriction__LowerVersionAssignment_1_1 )
-            // InternalExpressionDsl.g:2382:3: rule__HyVersionRangeRestriction__LowerVersionAssignment_1_1
+            // InternalExpressionDsl.g:2272:2: ( rule__HyVersionRangeRestriction__LowerVersionAssignment_1_1 )
+            // InternalExpressionDsl.g:2272:3: rule__HyVersionRangeRestriction__LowerVersionAssignment_1_1
             {
             pushFollow(FOLLOW_2);
             rule__HyVersionRangeRestriction__LowerVersionAssignment_1_1();
@@ -8704,14 +7701,14 @@ public class InternalExpressionDslParser extends AbstractInternalContentAssistPa
 
 
     // $ANTLR start "rule__HyVersionRangeRestriction__Group_1__2"
-    // InternalExpressionDsl.g:2390:1: rule__HyVersionRangeRestriction__Group_1__2 : rule__HyVersionRangeRestriction__Group_1__2__Impl rule__HyVersionRangeRestriction__Group_1__3 ;
+    // InternalExpressionDsl.g:2280:1: rule__HyVersionRangeRestriction__Group_1__2 : rule__HyVersionRangeRestriction__Group_1__2__Impl rule__HyVersionRangeRestriction__Group_1__3 ;
     public final void rule__HyVersionRangeRestriction__Group_1__2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalExpressionDsl.g:2394:1: ( rule__HyVersionRangeRestriction__Group_1__2__Impl rule__HyVersionRangeRestriction__Group_1__3 )
-            // InternalExpressionDsl.g:2395:2: rule__HyVersionRangeRestriction__Group_1__2__Impl rule__HyVersionRangeRestriction__Group_1__3
+            // InternalExpressionDsl.g:2284:1: ( rule__HyVersionRangeRestriction__Group_1__2__Impl rule__HyVersionRangeRestriction__Group_1__3 )
+            // InternalExpressionDsl.g:2285:2: rule__HyVersionRangeRestriction__Group_1__2__Impl rule__HyVersionRangeRestriction__Group_1__3
             {
             pushFollow(FOLLOW_18);
             rule__HyVersionRangeRestriction__Group_1__2__Impl();
@@ -8742,17 +7739,17 @@ public class InternalExpressionDslParser extends AbstractInternalContentAssistPa
 
 
     // $ANTLR start "rule__HyVersionRangeRestriction__Group_1__2__Impl"
-    // InternalExpressionDsl.g:2402:1: rule__HyVersionRangeRestriction__Group_1__2__Impl : ( '-' ) ;
+    // InternalExpressionDsl.g:2292:1: rule__HyVersionRangeRestriction__Group_1__2__Impl : ( '-' ) ;
     public final void rule__HyVersionRangeRestriction__Group_1__2__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalExpressionDsl.g:2406:1: ( ( '-' ) )
-            // InternalExpressionDsl.g:2407:1: ( '-' )
+            // InternalExpressionDsl.g:2296:1: ( ( '-' ) )
+            // InternalExpressionDsl.g:2297:1: ( '-' )
             {
-            // InternalExpressionDsl.g:2407:1: ( '-' )
-            // InternalExpressionDsl.g:2408:2: '-'
+            // InternalExpressionDsl.g:2297:1: ( '-' )
+            // InternalExpressionDsl.g:2298:2: '-'
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getHyVersionRangeRestrictionAccess().getHyphenMinusKeyword_1_2()); 
@@ -8783,14 +7780,14 @@ public class InternalExpressionDslParser extends AbstractInternalContentAssistPa
 
 
     // $ANTLR start "rule__HyVersionRangeRestriction__Group_1__3"
-    // InternalExpressionDsl.g:2417:1: rule__HyVersionRangeRestriction__Group_1__3 : rule__HyVersionRangeRestriction__Group_1__3__Impl ;
+    // InternalExpressionDsl.g:2307:1: rule__HyVersionRangeRestriction__Group_1__3 : rule__HyVersionRangeRestriction__Group_1__3__Impl ;
     public final void rule__HyVersionRangeRestriction__Group_1__3() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalExpressionDsl.g:2421:1: ( rule__HyVersionRangeRestriction__Group_1__3__Impl )
-            // InternalExpressionDsl.g:2422:2: rule__HyVersionRangeRestriction__Group_1__3__Impl
+            // InternalExpressionDsl.g:2311:1: ( rule__HyVersionRangeRestriction__Group_1__3__Impl )
+            // InternalExpressionDsl.g:2312:2: rule__HyVersionRangeRestriction__Group_1__3__Impl
             {
             pushFollow(FOLLOW_2);
             rule__HyVersionRangeRestriction__Group_1__3__Impl();
@@ -8816,23 +7813,23 @@ public class InternalExpressionDslParser extends AbstractInternalContentAssistPa
 
 
     // $ANTLR start "rule__HyVersionRangeRestriction__Group_1__3__Impl"
-    // InternalExpressionDsl.g:2428:1: rule__HyVersionRangeRestriction__Group_1__3__Impl : ( ( rule__HyVersionRangeRestriction__UpperIncludedAssignment_1_3 ) ) ;
+    // InternalExpressionDsl.g:2318:1: rule__HyVersionRangeRestriction__Group_1__3__Impl : ( ( rule__HyVersionRangeRestriction__UpperIncludedAssignment_1_3 ) ) ;
     public final void rule__HyVersionRangeRestriction__Group_1__3__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalExpressionDsl.g:2432:1: ( ( ( rule__HyVersionRangeRestriction__UpperIncludedAssignment_1_3 ) ) )
-            // InternalExpressionDsl.g:2433:1: ( ( rule__HyVersionRangeRestriction__UpperIncludedAssignment_1_3 ) )
+            // InternalExpressionDsl.g:2322:1: ( ( ( rule__HyVersionRangeRestriction__UpperIncludedAssignment_1_3 ) ) )
+            // InternalExpressionDsl.g:2323:1: ( ( rule__HyVersionRangeRestriction__UpperIncludedAssignment_1_3 ) )
             {
-            // InternalExpressionDsl.g:2433:1: ( ( rule__HyVersionRangeRestriction__UpperIncludedAssignment_1_3 ) )
-            // InternalExpressionDsl.g:2434:2: ( rule__HyVersionRangeRestriction__UpperIncludedAssignment_1_3 )
+            // InternalExpressionDsl.g:2323:1: ( ( rule__HyVersionRangeRestriction__UpperIncludedAssignment_1_3 ) )
+            // InternalExpressionDsl.g:2324:2: ( rule__HyVersionRangeRestriction__UpperIncludedAssignment_1_3 )
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getHyVersionRangeRestrictionAccess().getUpperIncludedAssignment_1_3()); 
             }
-            // InternalExpressionDsl.g:2435:2: ( rule__HyVersionRangeRestriction__UpperIncludedAssignment_1_3 )
-            // InternalExpressionDsl.g:2435:3: rule__HyVersionRangeRestriction__UpperIncludedAssignment_1_3
+            // InternalExpressionDsl.g:2325:2: ( rule__HyVersionRangeRestriction__UpperIncludedAssignment_1_3 )
+            // InternalExpressionDsl.g:2325:3: rule__HyVersionRangeRestriction__UpperIncludedAssignment_1_3
             {
             pushFollow(FOLLOW_2);
             rule__HyVersionRangeRestriction__UpperIncludedAssignment_1_3();
@@ -8867,14 +7864,14 @@ public class InternalExpressionDslParser extends AbstractInternalContentAssistPa
 
 
     // $ANTLR start "rule__HyVersionRangeRestriction__Group_2__0"
-    // InternalExpressionDsl.g:2444:1: rule__HyVersionRangeRestriction__Group_2__0 : rule__HyVersionRangeRestriction__Group_2__0__Impl rule__HyVersionRangeRestriction__Group_2__1 ;
+    // InternalExpressionDsl.g:2334:1: rule__HyVersionRangeRestriction__Group_2__0 : rule__HyVersionRangeRestriction__Group_2__0__Impl rule__HyVersionRangeRestriction__Group_2__1 ;
     public final void rule__HyVersionRangeRestriction__Group_2__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalExpressionDsl.g:2448:1: ( rule__HyVersionRangeRestriction__Group_2__0__Impl rule__HyVersionRangeRestriction__Group_2__1 )
-            // InternalExpressionDsl.g:2449:2: rule__HyVersionRangeRestriction__Group_2__0__Impl rule__HyVersionRangeRestriction__Group_2__1
+            // InternalExpressionDsl.g:2338:1: ( rule__HyVersionRangeRestriction__Group_2__0__Impl rule__HyVersionRangeRestriction__Group_2__1 )
+            // InternalExpressionDsl.g:2339:2: rule__HyVersionRangeRestriction__Group_2__0__Impl rule__HyVersionRangeRestriction__Group_2__1
             {
             pushFollow(FOLLOW_14);
             rule__HyVersionRangeRestriction__Group_2__0__Impl();
@@ -8905,17 +7902,17 @@ public class InternalExpressionDslParser extends AbstractInternalContentAssistPa
 
 
     // $ANTLR start "rule__HyVersionRangeRestriction__Group_2__0__Impl"
-    // InternalExpressionDsl.g:2456:1: rule__HyVersionRangeRestriction__Group_2__0__Impl : ( 'false' ) ;
+    // InternalExpressionDsl.g:2346:1: rule__HyVersionRangeRestriction__Group_2__0__Impl : ( 'false' ) ;
     public final void rule__HyVersionRangeRestriction__Group_2__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalExpressionDsl.g:2460:1: ( ( 'false' ) )
-            // InternalExpressionDsl.g:2461:1: ( 'false' )
+            // InternalExpressionDsl.g:2350:1: ( ( 'false' ) )
+            // InternalExpressionDsl.g:2351:1: ( 'false' )
             {
-            // InternalExpressionDsl.g:2461:1: ( 'false' )
-            // InternalExpressionDsl.g:2462:2: 'false'
+            // InternalExpressionDsl.g:2351:1: ( 'false' )
+            // InternalExpressionDsl.g:2352:2: 'false'
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getHyVersionRangeRestrictionAccess().getFalseKeyword_2_0()); 
@@ -8946,14 +7943,14 @@ public class InternalExpressionDslParser extends AbstractInternalContentAssistPa
 
 
     // $ANTLR start "rule__HyVersionRangeRestriction__Group_2__1"
-    // InternalExpressionDsl.g:2471:1: rule__HyVersionRangeRestriction__Group_2__1 : rule__HyVersionRangeRestriction__Group_2__1__Impl rule__HyVersionRangeRestriction__Group_2__2 ;
+    // InternalExpressionDsl.g:2361:1: rule__HyVersionRangeRestriction__Group_2__1 : rule__HyVersionRangeRestriction__Group_2__1__Impl rule__HyVersionRangeRestriction__Group_2__2 ;
     public final void rule__HyVersionRangeRestriction__Group_2__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalExpressionDsl.g:2475:1: ( rule__HyVersionRangeRestriction__Group_2__1__Impl rule__HyVersionRangeRestriction__Group_2__2 )
-            // InternalExpressionDsl.g:2476:2: rule__HyVersionRangeRestriction__Group_2__1__Impl rule__HyVersionRangeRestriction__Group_2__2
+            // InternalExpressionDsl.g:2365:1: ( rule__HyVersionRangeRestriction__Group_2__1__Impl rule__HyVersionRangeRestriction__Group_2__2 )
+            // InternalExpressionDsl.g:2366:2: rule__HyVersionRangeRestriction__Group_2__1__Impl rule__HyVersionRangeRestriction__Group_2__2
             {
             pushFollow(FOLLOW_17);
             rule__HyVersionRangeRestriction__Group_2__1__Impl();
@@ -8984,23 +7981,23 @@ public class InternalExpressionDslParser extends AbstractInternalContentAssistPa
 
 
     // $ANTLR start "rule__HyVersionRangeRestriction__Group_2__1__Impl"
-    // InternalExpressionDsl.g:2483:1: rule__HyVersionRangeRestriction__Group_2__1__Impl : ( ( rule__HyVersionRangeRestriction__UpperVersionAssignment_2_1 ) ) ;
+    // InternalExpressionDsl.g:2373:1: rule__HyVersionRangeRestriction__Group_2__1__Impl : ( ( rule__HyVersionRangeRestriction__UpperVersionAssignment_2_1 ) ) ;
     public final void rule__HyVersionRangeRestriction__Group_2__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalExpressionDsl.g:2487:1: ( ( ( rule__HyVersionRangeRestriction__UpperVersionAssignment_2_1 ) ) )
-            // InternalExpressionDsl.g:2488:1: ( ( rule__HyVersionRangeRestriction__UpperVersionAssignment_2_1 ) )
+            // InternalExpressionDsl.g:2377:1: ( ( ( rule__HyVersionRangeRestriction__UpperVersionAssignment_2_1 ) ) )
+            // InternalExpressionDsl.g:2378:1: ( ( rule__HyVersionRangeRestriction__UpperVersionAssignment_2_1 ) )
             {
-            // InternalExpressionDsl.g:2488:1: ( ( rule__HyVersionRangeRestriction__UpperVersionAssignment_2_1 ) )
-            // InternalExpressionDsl.g:2489:2: ( rule__HyVersionRangeRestriction__UpperVersionAssignment_2_1 )
+            // InternalExpressionDsl.g:2378:1: ( ( rule__HyVersionRangeRestriction__UpperVersionAssignment_2_1 ) )
+            // InternalExpressionDsl.g:2379:2: ( rule__HyVersionRangeRestriction__UpperVersionAssignment_2_1 )
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getHyVersionRangeRestrictionAccess().getUpperVersionAssignment_2_1()); 
             }
-            // InternalExpressionDsl.g:2490:2: ( rule__HyVersionRangeRestriction__UpperVersionAssignment_2_1 )
-            // InternalExpressionDsl.g:2490:3: rule__HyVersionRangeRestriction__UpperVersionAssignment_2_1
+            // InternalExpressionDsl.g:2380:2: ( rule__HyVersionRangeRestriction__UpperVersionAssignment_2_1 )
+            // InternalExpressionDsl.g:2380:3: rule__HyVersionRangeRestriction__UpperVersionAssignment_2_1
             {
             pushFollow(FOLLOW_2);
             rule__HyVersionRangeRestriction__UpperVersionAssignment_2_1();
@@ -9035,14 +8032,14 @@ public class InternalExpressionDslParser extends AbstractInternalContentAssistPa
 
 
     // $ANTLR start "rule__HyVersionRangeRestriction__Group_2__2"
-    // InternalExpressionDsl.g:2498:1: rule__HyVersionRangeRestriction__Group_2__2 : rule__HyVersionRangeRestriction__Group_2__2__Impl ;
+    // InternalExpressionDsl.g:2388:1: rule__HyVersionRangeRestriction__Group_2__2 : rule__HyVersionRangeRestriction__Group_2__2__Impl ;
     public final void rule__HyVersionRangeRestriction__Group_2__2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalExpressionDsl.g:2502:1: ( rule__HyVersionRangeRestriction__Group_2__2__Impl )
-            // InternalExpressionDsl.g:2503:2: rule__HyVersionRangeRestriction__Group_2__2__Impl
+            // InternalExpressionDsl.g:2392:1: ( rule__HyVersionRangeRestriction__Group_2__2__Impl )
+            // InternalExpressionDsl.g:2393:2: rule__HyVersionRangeRestriction__Group_2__2__Impl
             {
             pushFollow(FOLLOW_2);
             rule__HyVersionRangeRestriction__Group_2__2__Impl();
@@ -9068,17 +8065,17 @@ public class InternalExpressionDslParser extends AbstractInternalContentAssistPa
 
 
     // $ANTLR start "rule__HyVersionRangeRestriction__Group_2__2__Impl"
-    // InternalExpressionDsl.g:2509:1: rule__HyVersionRangeRestriction__Group_2__2__Impl : ( ']' ) ;
+    // InternalExpressionDsl.g:2399:1: rule__HyVersionRangeRestriction__Group_2__2__Impl : ( ']' ) ;
     public final void rule__HyVersionRangeRestriction__Group_2__2__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalExpressionDsl.g:2513:1: ( ( ']' ) )
-            // InternalExpressionDsl.g:2514:1: ( ']' )
+            // InternalExpressionDsl.g:2403:1: ( ( ']' ) )
+            // InternalExpressionDsl.g:2404:1: ( ']' )
             {
-            // InternalExpressionDsl.g:2514:1: ( ']' )
-            // InternalExpressionDsl.g:2515:2: ']'
+            // InternalExpressionDsl.g:2404:1: ( ']' )
+            // InternalExpressionDsl.g:2405:2: ']'
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getHyVersionRangeRestrictionAccess().getRightSquareBracketKeyword_2_2()); 
@@ -9109,16 +8106,16 @@ public class InternalExpressionDslParser extends AbstractInternalContentAssistPa
 
 
     // $ANTLR start "rule__HyBooleanValueExpression__Group__0"
-    // InternalExpressionDsl.g:2525:1: rule__HyBooleanValueExpression__Group__0 : rule__HyBooleanValueExpression__Group__0__Impl rule__HyBooleanValueExpression__Group__1 ;
+    // InternalExpressionDsl.g:2415:1: rule__HyBooleanValueExpression__Group__0 : rule__HyBooleanValueExpression__Group__0__Impl rule__HyBooleanValueExpression__Group__1 ;
     public final void rule__HyBooleanValueExpression__Group__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalExpressionDsl.g:2529:1: ( rule__HyBooleanValueExpression__Group__0__Impl rule__HyBooleanValueExpression__Group__1 )
-            // InternalExpressionDsl.g:2530:2: rule__HyBooleanValueExpression__Group__0__Impl rule__HyBooleanValueExpression__Group__1
+            // InternalExpressionDsl.g:2419:1: ( rule__HyBooleanValueExpression__Group__0__Impl rule__HyBooleanValueExpression__Group__1 )
+            // InternalExpressionDsl.g:2420:2: rule__HyBooleanValueExpression__Group__0__Impl rule__HyBooleanValueExpression__Group__1
             {
-            pushFollow(FOLLOW_20);
+            pushFollow(FOLLOW_5);
             rule__HyBooleanValueExpression__Group__0__Impl();
 
             state._fsp--;
@@ -9147,23 +8144,23 @@ public class InternalExpressionDslParser extends AbstractInternalContentAssistPa
 
 
     // $ANTLR start "rule__HyBooleanValueExpression__Group__0__Impl"
-    // InternalExpressionDsl.g:2537:1: rule__HyBooleanValueExpression__Group__0__Impl : ( () ) ;
+    // InternalExpressionDsl.g:2427:1: rule__HyBooleanValueExpression__Group__0__Impl : ( () ) ;
     public final void rule__HyBooleanValueExpression__Group__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalExpressionDsl.g:2541:1: ( ( () ) )
-            // InternalExpressionDsl.g:2542:1: ( () )
+            // InternalExpressionDsl.g:2431:1: ( ( () ) )
+            // InternalExpressionDsl.g:2432:1: ( () )
             {
-            // InternalExpressionDsl.g:2542:1: ( () )
-            // InternalExpressionDsl.g:2543:2: ()
+            // InternalExpressionDsl.g:2432:1: ( () )
+            // InternalExpressionDsl.g:2433:2: ()
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getHyBooleanValueExpressionAccess().getHyBooleanValueExpressionAction_0()); 
             }
-            // InternalExpressionDsl.g:2544:2: ()
-            // InternalExpressionDsl.g:2544:3: 
+            // InternalExpressionDsl.g:2434:2: ()
+            // InternalExpressionDsl.g:2434:3: 
             {
             }
 
@@ -9188,14 +8185,14 @@ public class InternalExpressionDslParser extends AbstractInternalContentAssistPa
 
 
     // $ANTLR start "rule__HyBooleanValueExpression__Group__1"
-    // InternalExpressionDsl.g:2552:1: rule__HyBooleanValueExpression__Group__1 : rule__HyBooleanValueExpression__Group__1__Impl ;
+    // InternalExpressionDsl.g:2442:1: rule__HyBooleanValueExpression__Group__1 : rule__HyBooleanValueExpression__Group__1__Impl ;
     public final void rule__HyBooleanValueExpression__Group__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalExpressionDsl.g:2556:1: ( rule__HyBooleanValueExpression__Group__1__Impl )
-            // InternalExpressionDsl.g:2557:2: rule__HyBooleanValueExpression__Group__1__Impl
+            // InternalExpressionDsl.g:2446:1: ( rule__HyBooleanValueExpression__Group__1__Impl )
+            // InternalExpressionDsl.g:2447:2: rule__HyBooleanValueExpression__Group__1__Impl
             {
             pushFollow(FOLLOW_2);
             rule__HyBooleanValueExpression__Group__1__Impl();
@@ -9221,23 +8218,23 @@ public class InternalExpressionDslParser extends AbstractInternalContentAssistPa
 
 
     // $ANTLR start "rule__HyBooleanValueExpression__Group__1__Impl"
-    // InternalExpressionDsl.g:2563:1: rule__HyBooleanValueExpression__Group__1__Impl : ( ( rule__HyBooleanValueExpression__Alternatives_1 ) ) ;
+    // InternalExpressionDsl.g:2453:1: rule__HyBooleanValueExpression__Group__1__Impl : ( ( rule__HyBooleanValueExpression__Alternatives_1 ) ) ;
     public final void rule__HyBooleanValueExpression__Group__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalExpressionDsl.g:2567:1: ( ( ( rule__HyBooleanValueExpression__Alternatives_1 ) ) )
-            // InternalExpressionDsl.g:2568:1: ( ( rule__HyBooleanValueExpression__Alternatives_1 ) )
+            // InternalExpressionDsl.g:2457:1: ( ( ( rule__HyBooleanValueExpression__Alternatives_1 ) ) )
+            // InternalExpressionDsl.g:2458:1: ( ( rule__HyBooleanValueExpression__Alternatives_1 ) )
             {
-            // InternalExpressionDsl.g:2568:1: ( ( rule__HyBooleanValueExpression__Alternatives_1 ) )
-            // InternalExpressionDsl.g:2569:2: ( rule__HyBooleanValueExpression__Alternatives_1 )
+            // InternalExpressionDsl.g:2458:1: ( ( rule__HyBooleanValueExpression__Alternatives_1 ) )
+            // InternalExpressionDsl.g:2459:2: ( rule__HyBooleanValueExpression__Alternatives_1 )
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getHyBooleanValueExpressionAccess().getAlternatives_1()); 
             }
-            // InternalExpressionDsl.g:2570:2: ( rule__HyBooleanValueExpression__Alternatives_1 )
-            // InternalExpressionDsl.g:2570:3: rule__HyBooleanValueExpression__Alternatives_1
+            // InternalExpressionDsl.g:2460:2: ( rule__HyBooleanValueExpression__Alternatives_1 )
+            // InternalExpressionDsl.g:2460:3: rule__HyBooleanValueExpression__Alternatives_1
             {
             pushFollow(FOLLOW_2);
             rule__HyBooleanValueExpression__Alternatives_1();
@@ -9271,23 +8268,112 @@ public class InternalExpressionDslParser extends AbstractInternalContentAssistPa
     // $ANTLR end "rule__HyBooleanValueExpression__Group__1__Impl"
 
 
-    // $ANTLR start "rule__HyGreaterExpression__Group_0__0"
-    // InternalExpressionDsl.g:2579:1: rule__HyGreaterExpression__Group_0__0 : rule__HyGreaterExpression__Group_0__0__Impl rule__HyGreaterExpression__Group_0__1 ;
-    public final void rule__HyGreaterExpression__Group_0__0() throws RecognitionException {
+    // $ANTLR start "rule__HyGreaterExpression__Group__0"
+    // InternalExpressionDsl.g:2469:1: rule__HyGreaterExpression__Group__0 : rule__HyGreaterExpression__Group__0__Impl rule__HyGreaterExpression__Group__1 ;
+    public final void rule__HyGreaterExpression__Group__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalExpressionDsl.g:2583:1: ( rule__HyGreaterExpression__Group_0__0__Impl rule__HyGreaterExpression__Group_0__1 )
-            // InternalExpressionDsl.g:2584:2: rule__HyGreaterExpression__Group_0__0__Impl rule__HyGreaterExpression__Group_0__1
+            // InternalExpressionDsl.g:2473:1: ( rule__HyGreaterExpression__Group__0__Impl rule__HyGreaterExpression__Group__1 )
+            // InternalExpressionDsl.g:2474:2: rule__HyGreaterExpression__Group__0__Impl rule__HyGreaterExpression__Group__1
+            {
+            pushFollow(FOLLOW_20);
+            rule__HyGreaterExpression__Group__0__Impl();
+
+            state._fsp--;
+            if (state.failed) return ;
+            pushFollow(FOLLOW_2);
+            rule__HyGreaterExpression__Group__1();
+
+            state._fsp--;
+            if (state.failed) return ;
+
+            }
+
+        }
+        catch (RecognitionException re) {
+            reportError(re);
+            recover(input,re);
+        }
+        finally {
+
+            	restoreStackSize(stackSize);
+
+        }
+        return ;
+    }
+    // $ANTLR end "rule__HyGreaterExpression__Group__0"
+
+
+    // $ANTLR start "rule__HyGreaterExpression__Group__0__Impl"
+    // InternalExpressionDsl.g:2481:1: rule__HyGreaterExpression__Group__0__Impl : ( ( rule__HyGreaterExpression__Operand1Assignment_0 ) ) ;
+    public final void rule__HyGreaterExpression__Group__0__Impl() throws RecognitionException {
+
+        		int stackSize = keepStackSize();
+        	
+        try {
+            // InternalExpressionDsl.g:2485:1: ( ( ( rule__HyGreaterExpression__Operand1Assignment_0 ) ) )
+            // InternalExpressionDsl.g:2486:1: ( ( rule__HyGreaterExpression__Operand1Assignment_0 ) )
+            {
+            // InternalExpressionDsl.g:2486:1: ( ( rule__HyGreaterExpression__Operand1Assignment_0 ) )
+            // InternalExpressionDsl.g:2487:2: ( rule__HyGreaterExpression__Operand1Assignment_0 )
+            {
+            if ( state.backtracking==0 ) {
+               before(grammarAccess.getHyGreaterExpressionAccess().getOperand1Assignment_0()); 
+            }
+            // InternalExpressionDsl.g:2488:2: ( rule__HyGreaterExpression__Operand1Assignment_0 )
+            // InternalExpressionDsl.g:2488:3: rule__HyGreaterExpression__Operand1Assignment_0
+            {
+            pushFollow(FOLLOW_2);
+            rule__HyGreaterExpression__Operand1Assignment_0();
+
+            state._fsp--;
+            if (state.failed) return ;
+
+            }
+
+            if ( state.backtracking==0 ) {
+               after(grammarAccess.getHyGreaterExpressionAccess().getOperand1Assignment_0()); 
+            }
+
+            }
+
+
+            }
+
+        }
+        catch (RecognitionException re) {
+            reportError(re);
+            recover(input,re);
+        }
+        finally {
+
+            	restoreStackSize(stackSize);
+
+        }
+        return ;
+    }
+    // $ANTLR end "rule__HyGreaterExpression__Group__0__Impl"
+
+
+    // $ANTLR start "rule__HyGreaterExpression__Group__1"
+    // InternalExpressionDsl.g:2496:1: rule__HyGreaterExpression__Group__1 : rule__HyGreaterExpression__Group__1__Impl rule__HyGreaterExpression__Group__2 ;
+    public final void rule__HyGreaterExpression__Group__1() throws RecognitionException {
+
+        		int stackSize = keepStackSize();
+        	
+        try {
+            // InternalExpressionDsl.g:2500:1: ( rule__HyGreaterExpression__Group__1__Impl rule__HyGreaterExpression__Group__2 )
+            // InternalExpressionDsl.g:2501:2: rule__HyGreaterExpression__Group__1__Impl rule__HyGreaterExpression__Group__2
             {
             pushFollow(FOLLOW_21);
-            rule__HyGreaterExpression__Group_0__0__Impl();
+            rule__HyGreaterExpression__Group__1__Impl();
 
             state._fsp--;
             if (state.failed) return ;
             pushFollow(FOLLOW_2);
-            rule__HyGreaterExpression__Group_0__1();
+            rule__HyGreaterExpression__Group__2();
 
             state._fsp--;
             if (state.failed) return ;
@@ -9306,117 +8392,28 @@ public class InternalExpressionDslParser extends AbstractInternalContentAssistPa
         }
         return ;
     }
-    // $ANTLR end "rule__HyGreaterExpression__Group_0__0"
+    // $ANTLR end "rule__HyGreaterExpression__Group__1"
 
 
-    // $ANTLR start "rule__HyGreaterExpression__Group_0__0__Impl"
-    // InternalExpressionDsl.g:2591:1: rule__HyGreaterExpression__Group_0__0__Impl : ( ( rule__HyGreaterExpression__Operand1Assignment_0_0 ) ) ;
-    public final void rule__HyGreaterExpression__Group_0__0__Impl() throws RecognitionException {
-
-        		int stackSize = keepStackSize();
-        	
-        try {
-            // InternalExpressionDsl.g:2595:1: ( ( ( rule__HyGreaterExpression__Operand1Assignment_0_0 ) ) )
-            // InternalExpressionDsl.g:2596:1: ( ( rule__HyGreaterExpression__Operand1Assignment_0_0 ) )
-            {
-            // InternalExpressionDsl.g:2596:1: ( ( rule__HyGreaterExpression__Operand1Assignment_0_0 ) )
-            // InternalExpressionDsl.g:2597:2: ( rule__HyGreaterExpression__Operand1Assignment_0_0 )
-            {
-            if ( state.backtracking==0 ) {
-               before(grammarAccess.getHyGreaterExpressionAccess().getOperand1Assignment_0_0()); 
-            }
-            // InternalExpressionDsl.g:2598:2: ( rule__HyGreaterExpression__Operand1Assignment_0_0 )
-            // InternalExpressionDsl.g:2598:3: rule__HyGreaterExpression__Operand1Assignment_0_0
-            {
-            pushFollow(FOLLOW_2);
-            rule__HyGreaterExpression__Operand1Assignment_0_0();
-
-            state._fsp--;
-            if (state.failed) return ;
-
-            }
-
-            if ( state.backtracking==0 ) {
-               after(grammarAccess.getHyGreaterExpressionAccess().getOperand1Assignment_0_0()); 
-            }
-
-            }
-
-
-            }
-
-        }
-        catch (RecognitionException re) {
-            reportError(re);
-            recover(input,re);
-        }
-        finally {
-
-            	restoreStackSize(stackSize);
-
-        }
-        return ;
-    }
-    // $ANTLR end "rule__HyGreaterExpression__Group_0__0__Impl"
-
-
-    // $ANTLR start "rule__HyGreaterExpression__Group_0__1"
-    // InternalExpressionDsl.g:2606:1: rule__HyGreaterExpression__Group_0__1 : rule__HyGreaterExpression__Group_0__1__Impl rule__HyGreaterExpression__Group_0__2 ;
-    public final void rule__HyGreaterExpression__Group_0__1() throws RecognitionException {
+    // $ANTLR start "rule__HyGreaterExpression__Group__1__Impl"
+    // InternalExpressionDsl.g:2508:1: rule__HyGreaterExpression__Group__1__Impl : ( '>' ) ;
+    public final void rule__HyGreaterExpression__Group__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalExpressionDsl.g:2610:1: ( rule__HyGreaterExpression__Group_0__1__Impl rule__HyGreaterExpression__Group_0__2 )
-            // InternalExpressionDsl.g:2611:2: rule__HyGreaterExpression__Group_0__1__Impl rule__HyGreaterExpression__Group_0__2
+            // InternalExpressionDsl.g:2512:1: ( ( '>' ) )
+            // InternalExpressionDsl.g:2513:1: ( '>' )
             {
-            pushFollow(FOLLOW_22);
-            rule__HyGreaterExpression__Group_0__1__Impl();
-
-            state._fsp--;
-            if (state.failed) return ;
-            pushFollow(FOLLOW_2);
-            rule__HyGreaterExpression__Group_0__2();
-
-            state._fsp--;
-            if (state.failed) return ;
-
-            }
-
-        }
-        catch (RecognitionException re) {
-            reportError(re);
-            recover(input,re);
-        }
-        finally {
-
-            	restoreStackSize(stackSize);
-
-        }
-        return ;
-    }
-    // $ANTLR end "rule__HyGreaterExpression__Group_0__1"
-
-
-    // $ANTLR start "rule__HyGreaterExpression__Group_0__1__Impl"
-    // InternalExpressionDsl.g:2618:1: rule__HyGreaterExpression__Group_0__1__Impl : ( '>' ) ;
-    public final void rule__HyGreaterExpression__Group_0__1__Impl() throws RecognitionException {
-
-        		int stackSize = keepStackSize();
-        	
-        try {
-            // InternalExpressionDsl.g:2622:1: ( ( '>' ) )
-            // InternalExpressionDsl.g:2623:1: ( '>' )
-            {
-            // InternalExpressionDsl.g:2623:1: ( '>' )
-            // InternalExpressionDsl.g:2624:2: '>'
+            // InternalExpressionDsl.g:2513:1: ( '>' )
+            // InternalExpressionDsl.g:2514:2: '>'
             {
             if ( state.backtracking==0 ) {
-               before(grammarAccess.getHyGreaterExpressionAccess().getGreaterThanSignKeyword_0_1()); 
+               before(grammarAccess.getHyGreaterExpressionAccess().getGreaterThanSignKeyword_1()); 
             }
             match(input,16,FOLLOW_2); if (state.failed) return ;
             if ( state.backtracking==0 ) {
-               after(grammarAccess.getHyGreaterExpressionAccess().getGreaterThanSignKeyword_0_1()); 
+               after(grammarAccess.getHyGreaterExpressionAccess().getGreaterThanSignKeyword_1()); 
             }
 
             }
@@ -9436,21 +8433,21 @@ public class InternalExpressionDslParser extends AbstractInternalContentAssistPa
         }
         return ;
     }
-    // $ANTLR end "rule__HyGreaterExpression__Group_0__1__Impl"
+    // $ANTLR end "rule__HyGreaterExpression__Group__1__Impl"
 
 
-    // $ANTLR start "rule__HyGreaterExpression__Group_0__2"
-    // InternalExpressionDsl.g:2633:1: rule__HyGreaterExpression__Group_0__2 : rule__HyGreaterExpression__Group_0__2__Impl ;
-    public final void rule__HyGreaterExpression__Group_0__2() throws RecognitionException {
+    // $ANTLR start "rule__HyGreaterExpression__Group__2"
+    // InternalExpressionDsl.g:2523:1: rule__HyGreaterExpression__Group__2 : rule__HyGreaterExpression__Group__2__Impl ;
+    public final void rule__HyGreaterExpression__Group__2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalExpressionDsl.g:2637:1: ( rule__HyGreaterExpression__Group_0__2__Impl )
-            // InternalExpressionDsl.g:2638:2: rule__HyGreaterExpression__Group_0__2__Impl
+            // InternalExpressionDsl.g:2527:1: ( rule__HyGreaterExpression__Group__2__Impl )
+            // InternalExpressionDsl.g:2528:2: rule__HyGreaterExpression__Group__2__Impl
             {
             pushFollow(FOLLOW_2);
-            rule__HyGreaterExpression__Group_0__2__Impl();
+            rule__HyGreaterExpression__Group__2__Impl();
 
             state._fsp--;
             if (state.failed) return ;
@@ -9469,119 +8466,30 @@ public class InternalExpressionDslParser extends AbstractInternalContentAssistPa
         }
         return ;
     }
-    // $ANTLR end "rule__HyGreaterExpression__Group_0__2"
+    // $ANTLR end "rule__HyGreaterExpression__Group__2"
 
 
-    // $ANTLR start "rule__HyGreaterExpression__Group_0__2__Impl"
-    // InternalExpressionDsl.g:2644:1: rule__HyGreaterExpression__Group_0__2__Impl : ( ( rule__HyGreaterExpression__Operand2Assignment_0_2 ) ) ;
-    public final void rule__HyGreaterExpression__Group_0__2__Impl() throws RecognitionException {
+    // $ANTLR start "rule__HyGreaterExpression__Group__2__Impl"
+    // InternalExpressionDsl.g:2534:1: rule__HyGreaterExpression__Group__2__Impl : ( ( rule__HyGreaterExpression__Operand2Assignment_2 ) ) ;
+    public final void rule__HyGreaterExpression__Group__2__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalExpressionDsl.g:2648:1: ( ( ( rule__HyGreaterExpression__Operand2Assignment_0_2 ) ) )
-            // InternalExpressionDsl.g:2649:1: ( ( rule__HyGreaterExpression__Operand2Assignment_0_2 ) )
+            // InternalExpressionDsl.g:2538:1: ( ( ( rule__HyGreaterExpression__Operand2Assignment_2 ) ) )
+            // InternalExpressionDsl.g:2539:1: ( ( rule__HyGreaterExpression__Operand2Assignment_2 ) )
             {
-            // InternalExpressionDsl.g:2649:1: ( ( rule__HyGreaterExpression__Operand2Assignment_0_2 ) )
-            // InternalExpressionDsl.g:2650:2: ( rule__HyGreaterExpression__Operand2Assignment_0_2 )
+            // InternalExpressionDsl.g:2539:1: ( ( rule__HyGreaterExpression__Operand2Assignment_2 ) )
+            // InternalExpressionDsl.g:2540:2: ( rule__HyGreaterExpression__Operand2Assignment_2 )
             {
             if ( state.backtracking==0 ) {
-               before(grammarAccess.getHyGreaterExpressionAccess().getOperand2Assignment_0_2()); 
+               before(grammarAccess.getHyGreaterExpressionAccess().getOperand2Assignment_2()); 
             }
-            // InternalExpressionDsl.g:2651:2: ( rule__HyGreaterExpression__Operand2Assignment_0_2 )
-            // InternalExpressionDsl.g:2651:3: rule__HyGreaterExpression__Operand2Assignment_0_2
+            // InternalExpressionDsl.g:2541:2: ( rule__HyGreaterExpression__Operand2Assignment_2 )
+            // InternalExpressionDsl.g:2541:3: rule__HyGreaterExpression__Operand2Assignment_2
             {
             pushFollow(FOLLOW_2);
-            rule__HyGreaterExpression__Operand2Assignment_0_2();
-
-            state._fsp--;
-            if (state.failed) return ;
-
-            }
-
-            if ( state.backtracking==0 ) {
-               after(grammarAccess.getHyGreaterExpressionAccess().getOperand2Assignment_0_2()); 
-            }
-
-            }
-
-
-            }
-
-        }
-        catch (RecognitionException re) {
-            reportError(re);
-            recover(input,re);
-        }
-        finally {
-
-            	restoreStackSize(stackSize);
-
-        }
-        return ;
-    }
-    // $ANTLR end "rule__HyGreaterExpression__Group_0__2__Impl"
-
-
-    // $ANTLR start "rule__HyLessExpression__Group_0__0"
-    // InternalExpressionDsl.g:2660:1: rule__HyLessExpression__Group_0__0 : rule__HyLessExpression__Group_0__0__Impl rule__HyLessExpression__Group_0__1 ;
-    public final void rule__HyLessExpression__Group_0__0() throws RecognitionException {
-
-        		int stackSize = keepStackSize();
-        	
-        try {
-            // InternalExpressionDsl.g:2664:1: ( rule__HyLessExpression__Group_0__0__Impl rule__HyLessExpression__Group_0__1 )
-            // InternalExpressionDsl.g:2665:2: rule__HyLessExpression__Group_0__0__Impl rule__HyLessExpression__Group_0__1
-            {
-            pushFollow(FOLLOW_23);
-            rule__HyLessExpression__Group_0__0__Impl();
-
-            state._fsp--;
-            if (state.failed) return ;
-            pushFollow(FOLLOW_2);
-            rule__HyLessExpression__Group_0__1();
-
-            state._fsp--;
-            if (state.failed) return ;
-
-            }
-
-        }
-        catch (RecognitionException re) {
-            reportError(re);
-            recover(input,re);
-        }
-        finally {
-
-            	restoreStackSize(stackSize);
-
-        }
-        return ;
-    }
-    // $ANTLR end "rule__HyLessExpression__Group_0__0"
-
-
-    // $ANTLR start "rule__HyLessExpression__Group_0__0__Impl"
-    // InternalExpressionDsl.g:2672:1: rule__HyLessExpression__Group_0__0__Impl : ( ( rule__HyLessExpression__Operand1Assignment_0_0 ) ) ;
-    public final void rule__HyLessExpression__Group_0__0__Impl() throws RecognitionException {
-
-        		int stackSize = keepStackSize();
-        	
-        try {
-            // InternalExpressionDsl.g:2676:1: ( ( ( rule__HyLessExpression__Operand1Assignment_0_0 ) ) )
-            // InternalExpressionDsl.g:2677:1: ( ( rule__HyLessExpression__Operand1Assignment_0_0 ) )
-            {
-            // InternalExpressionDsl.g:2677:1: ( ( rule__HyLessExpression__Operand1Assignment_0_0 ) )
-            // InternalExpressionDsl.g:2678:2: ( rule__HyLessExpression__Operand1Assignment_0_0 )
-            {
-            if ( state.backtracking==0 ) {
-               before(grammarAccess.getHyLessExpressionAccess().getOperand1Assignment_0_0()); 
-            }
-            // InternalExpressionDsl.g:2679:2: ( rule__HyLessExpression__Operand1Assignment_0_0 )
-            // InternalExpressionDsl.g:2679:3: rule__HyLessExpression__Operand1Assignment_0_0
-            {
-            pushFollow(FOLLOW_2);
-            rule__HyLessExpression__Operand1Assignment_0_0();
+            rule__HyGreaterExpression__Operand2Assignment_2();
 
             state._fsp--;
             if (state.failed) return ;
@@ -9589,7 +8497,7 @@ public class InternalExpressionDslParser extends AbstractInternalContentAssistPa
             }
 
             if ( state.backtracking==0 ) {
-               after(grammarAccess.getHyLessExpressionAccess().getOperand1Assignment_0_0()); 
+               after(grammarAccess.getHyGreaterExpressionAccess().getOperand2Assignment_2()); 
             }
 
             }
@@ -9609,26 +8517,26 @@ public class InternalExpressionDslParser extends AbstractInternalContentAssistPa
         }
         return ;
     }
-    // $ANTLR end "rule__HyLessExpression__Group_0__0__Impl"
+    // $ANTLR end "rule__HyGreaterExpression__Group__2__Impl"
 
 
-    // $ANTLR start "rule__HyLessExpression__Group_0__1"
-    // InternalExpressionDsl.g:2687:1: rule__HyLessExpression__Group_0__1 : rule__HyLessExpression__Group_0__1__Impl rule__HyLessExpression__Group_0__2 ;
-    public final void rule__HyLessExpression__Group_0__1() throws RecognitionException {
+    // $ANTLR start "rule__HyLessExpression__Group__0"
+    // InternalExpressionDsl.g:2550:1: rule__HyLessExpression__Group__0 : rule__HyLessExpression__Group__0__Impl rule__HyLessExpression__Group__1 ;
+    public final void rule__HyLessExpression__Group__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalExpressionDsl.g:2691:1: ( rule__HyLessExpression__Group_0__1__Impl rule__HyLessExpression__Group_0__2 )
-            // InternalExpressionDsl.g:2692:2: rule__HyLessExpression__Group_0__1__Impl rule__HyLessExpression__Group_0__2
+            // InternalExpressionDsl.g:2554:1: ( rule__HyLessExpression__Group__0__Impl rule__HyLessExpression__Group__1 )
+            // InternalExpressionDsl.g:2555:2: rule__HyLessExpression__Group__0__Impl rule__HyLessExpression__Group__1
             {
             pushFollow(FOLLOW_22);
-            rule__HyLessExpression__Group_0__1__Impl();
+            rule__HyLessExpression__Group__0__Impl();
 
             state._fsp--;
             if (state.failed) return ;
             pushFollow(FOLLOW_2);
-            rule__HyLessExpression__Group_0__2();
+            rule__HyLessExpression__Group__1();
 
             state._fsp--;
             if (state.failed) return ;
@@ -9647,28 +8555,117 @@ public class InternalExpressionDslParser extends AbstractInternalContentAssistPa
         }
         return ;
     }
-    // $ANTLR end "rule__HyLessExpression__Group_0__1"
+    // $ANTLR end "rule__HyLessExpression__Group__0"
 
 
-    // $ANTLR start "rule__HyLessExpression__Group_0__1__Impl"
-    // InternalExpressionDsl.g:2699:1: rule__HyLessExpression__Group_0__1__Impl : ( '<' ) ;
-    public final void rule__HyLessExpression__Group_0__1__Impl() throws RecognitionException {
+    // $ANTLR start "rule__HyLessExpression__Group__0__Impl"
+    // InternalExpressionDsl.g:2562:1: rule__HyLessExpression__Group__0__Impl : ( ( rule__HyLessExpression__Operand1Assignment_0 ) ) ;
+    public final void rule__HyLessExpression__Group__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalExpressionDsl.g:2703:1: ( ( '<' ) )
-            // InternalExpressionDsl.g:2704:1: ( '<' )
+            // InternalExpressionDsl.g:2566:1: ( ( ( rule__HyLessExpression__Operand1Assignment_0 ) ) )
+            // InternalExpressionDsl.g:2567:1: ( ( rule__HyLessExpression__Operand1Assignment_0 ) )
             {
-            // InternalExpressionDsl.g:2704:1: ( '<' )
-            // InternalExpressionDsl.g:2705:2: '<'
+            // InternalExpressionDsl.g:2567:1: ( ( rule__HyLessExpression__Operand1Assignment_0 ) )
+            // InternalExpressionDsl.g:2568:2: ( rule__HyLessExpression__Operand1Assignment_0 )
             {
             if ( state.backtracking==0 ) {
-               before(grammarAccess.getHyLessExpressionAccess().getLessThanSignKeyword_0_1()); 
+               before(grammarAccess.getHyLessExpressionAccess().getOperand1Assignment_0()); 
+            }
+            // InternalExpressionDsl.g:2569:2: ( rule__HyLessExpression__Operand1Assignment_0 )
+            // InternalExpressionDsl.g:2569:3: rule__HyLessExpression__Operand1Assignment_0
+            {
+            pushFollow(FOLLOW_2);
+            rule__HyLessExpression__Operand1Assignment_0();
+
+            state._fsp--;
+            if (state.failed) return ;
+
+            }
+
+            if ( state.backtracking==0 ) {
+               after(grammarAccess.getHyLessExpressionAccess().getOperand1Assignment_0()); 
+            }
+
+            }
+
+
+            }
+
+        }
+        catch (RecognitionException re) {
+            reportError(re);
+            recover(input,re);
+        }
+        finally {
+
+            	restoreStackSize(stackSize);
+
+        }
+        return ;
+    }
+    // $ANTLR end "rule__HyLessExpression__Group__0__Impl"
+
+
+    // $ANTLR start "rule__HyLessExpression__Group__1"
+    // InternalExpressionDsl.g:2577:1: rule__HyLessExpression__Group__1 : rule__HyLessExpression__Group__1__Impl rule__HyLessExpression__Group__2 ;
+    public final void rule__HyLessExpression__Group__1() throws RecognitionException {
+
+        		int stackSize = keepStackSize();
+        	
+        try {
+            // InternalExpressionDsl.g:2581:1: ( rule__HyLessExpression__Group__1__Impl rule__HyLessExpression__Group__2 )
+            // InternalExpressionDsl.g:2582:2: rule__HyLessExpression__Group__1__Impl rule__HyLessExpression__Group__2
+            {
+            pushFollow(FOLLOW_21);
+            rule__HyLessExpression__Group__1__Impl();
+
+            state._fsp--;
+            if (state.failed) return ;
+            pushFollow(FOLLOW_2);
+            rule__HyLessExpression__Group__2();
+
+            state._fsp--;
+            if (state.failed) return ;
+
+            }
+
+        }
+        catch (RecognitionException re) {
+            reportError(re);
+            recover(input,re);
+        }
+        finally {
+
+            	restoreStackSize(stackSize);
+
+        }
+        return ;
+    }
+    // $ANTLR end "rule__HyLessExpression__Group__1"
+
+
+    // $ANTLR start "rule__HyLessExpression__Group__1__Impl"
+    // InternalExpressionDsl.g:2589:1: rule__HyLessExpression__Group__1__Impl : ( '<' ) ;
+    public final void rule__HyLessExpression__Group__1__Impl() throws RecognitionException {
+
+        		int stackSize = keepStackSize();
+        	
+        try {
+            // InternalExpressionDsl.g:2593:1: ( ( '<' ) )
+            // InternalExpressionDsl.g:2594:1: ( '<' )
+            {
+            // InternalExpressionDsl.g:2594:1: ( '<' )
+            // InternalExpressionDsl.g:2595:2: '<'
+            {
+            if ( state.backtracking==0 ) {
+               before(grammarAccess.getHyLessExpressionAccess().getLessThanSignKeyword_1()); 
             }
             match(input,12,FOLLOW_2); if (state.failed) return ;
             if ( state.backtracking==0 ) {
-               after(grammarAccess.getHyLessExpressionAccess().getLessThanSignKeyword_0_1()); 
+               after(grammarAccess.getHyLessExpressionAccess().getLessThanSignKeyword_1()); 
             }
 
             }
@@ -9688,21 +8685,21 @@ public class InternalExpressionDslParser extends AbstractInternalContentAssistPa
         }
         return ;
     }
-    // $ANTLR end "rule__HyLessExpression__Group_0__1__Impl"
+    // $ANTLR end "rule__HyLessExpression__Group__1__Impl"
 
 
-    // $ANTLR start "rule__HyLessExpression__Group_0__2"
-    // InternalExpressionDsl.g:2714:1: rule__HyLessExpression__Group_0__2 : rule__HyLessExpression__Group_0__2__Impl ;
-    public final void rule__HyLessExpression__Group_0__2() throws RecognitionException {
+    // $ANTLR start "rule__HyLessExpression__Group__2"
+    // InternalExpressionDsl.g:2604:1: rule__HyLessExpression__Group__2 : rule__HyLessExpression__Group__2__Impl ;
+    public final void rule__HyLessExpression__Group__2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalExpressionDsl.g:2718:1: ( rule__HyLessExpression__Group_0__2__Impl )
-            // InternalExpressionDsl.g:2719:2: rule__HyLessExpression__Group_0__2__Impl
+            // InternalExpressionDsl.g:2608:1: ( rule__HyLessExpression__Group__2__Impl )
+            // InternalExpressionDsl.g:2609:2: rule__HyLessExpression__Group__2__Impl
             {
             pushFollow(FOLLOW_2);
-            rule__HyLessExpression__Group_0__2__Impl();
+            rule__HyLessExpression__Group__2__Impl();
 
             state._fsp--;
             if (state.failed) return ;
@@ -9721,119 +8718,30 @@ public class InternalExpressionDslParser extends AbstractInternalContentAssistPa
         }
         return ;
     }
-    // $ANTLR end "rule__HyLessExpression__Group_0__2"
+    // $ANTLR end "rule__HyLessExpression__Group__2"
 
 
-    // $ANTLR start "rule__HyLessExpression__Group_0__2__Impl"
-    // InternalExpressionDsl.g:2725:1: rule__HyLessExpression__Group_0__2__Impl : ( ( rule__HyLessExpression__Operand2Assignment_0_2 ) ) ;
-    public final void rule__HyLessExpression__Group_0__2__Impl() throws RecognitionException {
+    // $ANTLR start "rule__HyLessExpression__Group__2__Impl"
+    // InternalExpressionDsl.g:2615:1: rule__HyLessExpression__Group__2__Impl : ( ( rule__HyLessExpression__Operand2Assignment_2 ) ) ;
+    public final void rule__HyLessExpression__Group__2__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalExpressionDsl.g:2729:1: ( ( ( rule__HyLessExpression__Operand2Assignment_0_2 ) ) )
-            // InternalExpressionDsl.g:2730:1: ( ( rule__HyLessExpression__Operand2Assignment_0_2 ) )
+            // InternalExpressionDsl.g:2619:1: ( ( ( rule__HyLessExpression__Operand2Assignment_2 ) ) )
+            // InternalExpressionDsl.g:2620:1: ( ( rule__HyLessExpression__Operand2Assignment_2 ) )
             {
-            // InternalExpressionDsl.g:2730:1: ( ( rule__HyLessExpression__Operand2Assignment_0_2 ) )
-            // InternalExpressionDsl.g:2731:2: ( rule__HyLessExpression__Operand2Assignment_0_2 )
+            // InternalExpressionDsl.g:2620:1: ( ( rule__HyLessExpression__Operand2Assignment_2 ) )
+            // InternalExpressionDsl.g:2621:2: ( rule__HyLessExpression__Operand2Assignment_2 )
             {
             if ( state.backtracking==0 ) {
-               before(grammarAccess.getHyLessExpressionAccess().getOperand2Assignment_0_2()); 
+               before(grammarAccess.getHyLessExpressionAccess().getOperand2Assignment_2()); 
             }
-            // InternalExpressionDsl.g:2732:2: ( rule__HyLessExpression__Operand2Assignment_0_2 )
-            // InternalExpressionDsl.g:2732:3: rule__HyLessExpression__Operand2Assignment_0_2
+            // InternalExpressionDsl.g:2622:2: ( rule__HyLessExpression__Operand2Assignment_2 )
+            // InternalExpressionDsl.g:2622:3: rule__HyLessExpression__Operand2Assignment_2
             {
             pushFollow(FOLLOW_2);
-            rule__HyLessExpression__Operand2Assignment_0_2();
-
-            state._fsp--;
-            if (state.failed) return ;
-
-            }
-
-            if ( state.backtracking==0 ) {
-               after(grammarAccess.getHyLessExpressionAccess().getOperand2Assignment_0_2()); 
-            }
-
-            }
-
-
-            }
-
-        }
-        catch (RecognitionException re) {
-            reportError(re);
-            recover(input,re);
-        }
-        finally {
-
-            	restoreStackSize(stackSize);
-
-        }
-        return ;
-    }
-    // $ANTLR end "rule__HyLessExpression__Group_0__2__Impl"
-
-
-    // $ANTLR start "rule__HyGreaterOrEqualExpression__Group_0__0"
-    // InternalExpressionDsl.g:2741:1: rule__HyGreaterOrEqualExpression__Group_0__0 : rule__HyGreaterOrEqualExpression__Group_0__0__Impl rule__HyGreaterOrEqualExpression__Group_0__1 ;
-    public final void rule__HyGreaterOrEqualExpression__Group_0__0() throws RecognitionException {
-
-        		int stackSize = keepStackSize();
-        	
-        try {
-            // InternalExpressionDsl.g:2745:1: ( rule__HyGreaterOrEqualExpression__Group_0__0__Impl rule__HyGreaterOrEqualExpression__Group_0__1 )
-            // InternalExpressionDsl.g:2746:2: rule__HyGreaterOrEqualExpression__Group_0__0__Impl rule__HyGreaterOrEqualExpression__Group_0__1
-            {
-            pushFollow(FOLLOW_24);
-            rule__HyGreaterOrEqualExpression__Group_0__0__Impl();
-
-            state._fsp--;
-            if (state.failed) return ;
-            pushFollow(FOLLOW_2);
-            rule__HyGreaterOrEqualExpression__Group_0__1();
-
-            state._fsp--;
-            if (state.failed) return ;
-
-            }
-
-        }
-        catch (RecognitionException re) {
-            reportError(re);
-            recover(input,re);
-        }
-        finally {
-
-            	restoreStackSize(stackSize);
-
-        }
-        return ;
-    }
-    // $ANTLR end "rule__HyGreaterOrEqualExpression__Group_0__0"
-
-
-    // $ANTLR start "rule__HyGreaterOrEqualExpression__Group_0__0__Impl"
-    // InternalExpressionDsl.g:2753:1: rule__HyGreaterOrEqualExpression__Group_0__0__Impl : ( ( rule__HyGreaterOrEqualExpression__Operand1Assignment_0_0 ) ) ;
-    public final void rule__HyGreaterOrEqualExpression__Group_0__0__Impl() throws RecognitionException {
-
-        		int stackSize = keepStackSize();
-        	
-        try {
-            // InternalExpressionDsl.g:2757:1: ( ( ( rule__HyGreaterOrEqualExpression__Operand1Assignment_0_0 ) ) )
-            // InternalExpressionDsl.g:2758:1: ( ( rule__HyGreaterOrEqualExpression__Operand1Assignment_0_0 ) )
-            {
-            // InternalExpressionDsl.g:2758:1: ( ( rule__HyGreaterOrEqualExpression__Operand1Assignment_0_0 ) )
-            // InternalExpressionDsl.g:2759:2: ( rule__HyGreaterOrEqualExpression__Operand1Assignment_0_0 )
-            {
-            if ( state.backtracking==0 ) {
-               before(grammarAccess.getHyGreaterOrEqualExpressionAccess().getOperand1Assignment_0_0()); 
-            }
-            // InternalExpressionDsl.g:2760:2: ( rule__HyGreaterOrEqualExpression__Operand1Assignment_0_0 )
-            // InternalExpressionDsl.g:2760:3: rule__HyGreaterOrEqualExpression__Operand1Assignment_0_0
-            {
-            pushFollow(FOLLOW_2);
-            rule__HyGreaterOrEqualExpression__Operand1Assignment_0_0();
+            rule__HyLessExpression__Operand2Assignment_2();
 
             state._fsp--;
             if (state.failed) return ;
@@ -9841,7 +8749,7 @@ public class InternalExpressionDslParser extends AbstractInternalContentAssistPa
             }
 
             if ( state.backtracking==0 ) {
-               after(grammarAccess.getHyGreaterOrEqualExpressionAccess().getOperand1Assignment_0_0()); 
+               after(grammarAccess.getHyLessExpressionAccess().getOperand2Assignment_2()); 
             }
 
             }
@@ -9861,26 +8769,26 @@ public class InternalExpressionDslParser extends AbstractInternalContentAssistPa
         }
         return ;
     }
-    // $ANTLR end "rule__HyGreaterOrEqualExpression__Group_0__0__Impl"
+    // $ANTLR end "rule__HyLessExpression__Group__2__Impl"
 
 
-    // $ANTLR start "rule__HyGreaterOrEqualExpression__Group_0__1"
-    // InternalExpressionDsl.g:2768:1: rule__HyGreaterOrEqualExpression__Group_0__1 : rule__HyGreaterOrEqualExpression__Group_0__1__Impl rule__HyGreaterOrEqualExpression__Group_0__2 ;
-    public final void rule__HyGreaterOrEqualExpression__Group_0__1() throws RecognitionException {
+    // $ANTLR start "rule__HyGreaterOrEqualExpression__Group__0"
+    // InternalExpressionDsl.g:2631:1: rule__HyGreaterOrEqualExpression__Group__0 : rule__HyGreaterOrEqualExpression__Group__0__Impl rule__HyGreaterOrEqualExpression__Group__1 ;
+    public final void rule__HyGreaterOrEqualExpression__Group__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalExpressionDsl.g:2772:1: ( rule__HyGreaterOrEqualExpression__Group_0__1__Impl rule__HyGreaterOrEqualExpression__Group_0__2 )
-            // InternalExpressionDsl.g:2773:2: rule__HyGreaterOrEqualExpression__Group_0__1__Impl rule__HyGreaterOrEqualExpression__Group_0__2
+            // InternalExpressionDsl.g:2635:1: ( rule__HyGreaterOrEqualExpression__Group__0__Impl rule__HyGreaterOrEqualExpression__Group__1 )
+            // InternalExpressionDsl.g:2636:2: rule__HyGreaterOrEqualExpression__Group__0__Impl rule__HyGreaterOrEqualExpression__Group__1
             {
-            pushFollow(FOLLOW_22);
-            rule__HyGreaterOrEqualExpression__Group_0__1__Impl();
+            pushFollow(FOLLOW_23);
+            rule__HyGreaterOrEqualExpression__Group__0__Impl();
 
             state._fsp--;
             if (state.failed) return ;
             pushFollow(FOLLOW_2);
-            rule__HyGreaterOrEqualExpression__Group_0__2();
+            rule__HyGreaterOrEqualExpression__Group__1();
 
             state._fsp--;
             if (state.failed) return ;
@@ -9899,28 +8807,117 @@ public class InternalExpressionDslParser extends AbstractInternalContentAssistPa
         }
         return ;
     }
-    // $ANTLR end "rule__HyGreaterOrEqualExpression__Group_0__1"
+    // $ANTLR end "rule__HyGreaterOrEqualExpression__Group__0"
 
 
-    // $ANTLR start "rule__HyGreaterOrEqualExpression__Group_0__1__Impl"
-    // InternalExpressionDsl.g:2780:1: rule__HyGreaterOrEqualExpression__Group_0__1__Impl : ( '>=' ) ;
-    public final void rule__HyGreaterOrEqualExpression__Group_0__1__Impl() throws RecognitionException {
+    // $ANTLR start "rule__HyGreaterOrEqualExpression__Group__0__Impl"
+    // InternalExpressionDsl.g:2643:1: rule__HyGreaterOrEqualExpression__Group__0__Impl : ( ( rule__HyGreaterOrEqualExpression__Operand1Assignment_0 ) ) ;
+    public final void rule__HyGreaterOrEqualExpression__Group__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalExpressionDsl.g:2784:1: ( ( '>=' ) )
-            // InternalExpressionDsl.g:2785:1: ( '>=' )
+            // InternalExpressionDsl.g:2647:1: ( ( ( rule__HyGreaterOrEqualExpression__Operand1Assignment_0 ) ) )
+            // InternalExpressionDsl.g:2648:1: ( ( rule__HyGreaterOrEqualExpression__Operand1Assignment_0 ) )
             {
-            // InternalExpressionDsl.g:2785:1: ( '>=' )
-            // InternalExpressionDsl.g:2786:2: '>='
+            // InternalExpressionDsl.g:2648:1: ( ( rule__HyGreaterOrEqualExpression__Operand1Assignment_0 ) )
+            // InternalExpressionDsl.g:2649:2: ( rule__HyGreaterOrEqualExpression__Operand1Assignment_0 )
             {
             if ( state.backtracking==0 ) {
-               before(grammarAccess.getHyGreaterOrEqualExpressionAccess().getGreaterThanSignEqualsSignKeyword_0_1()); 
+               before(grammarAccess.getHyGreaterOrEqualExpressionAccess().getOperand1Assignment_0()); 
+            }
+            // InternalExpressionDsl.g:2650:2: ( rule__HyGreaterOrEqualExpression__Operand1Assignment_0 )
+            // InternalExpressionDsl.g:2650:3: rule__HyGreaterOrEqualExpression__Operand1Assignment_0
+            {
+            pushFollow(FOLLOW_2);
+            rule__HyGreaterOrEqualExpression__Operand1Assignment_0();
+
+            state._fsp--;
+            if (state.failed) return ;
+
+            }
+
+            if ( state.backtracking==0 ) {
+               after(grammarAccess.getHyGreaterOrEqualExpressionAccess().getOperand1Assignment_0()); 
+            }
+
+            }
+
+
+            }
+
+        }
+        catch (RecognitionException re) {
+            reportError(re);
+            recover(input,re);
+        }
+        finally {
+
+            	restoreStackSize(stackSize);
+
+        }
+        return ;
+    }
+    // $ANTLR end "rule__HyGreaterOrEqualExpression__Group__0__Impl"
+
+
+    // $ANTLR start "rule__HyGreaterOrEqualExpression__Group__1"
+    // InternalExpressionDsl.g:2658:1: rule__HyGreaterOrEqualExpression__Group__1 : rule__HyGreaterOrEqualExpression__Group__1__Impl rule__HyGreaterOrEqualExpression__Group__2 ;
+    public final void rule__HyGreaterOrEqualExpression__Group__1() throws RecognitionException {
+
+        		int stackSize = keepStackSize();
+        	
+        try {
+            // InternalExpressionDsl.g:2662:1: ( rule__HyGreaterOrEqualExpression__Group__1__Impl rule__HyGreaterOrEqualExpression__Group__2 )
+            // InternalExpressionDsl.g:2663:2: rule__HyGreaterOrEqualExpression__Group__1__Impl rule__HyGreaterOrEqualExpression__Group__2
+            {
+            pushFollow(FOLLOW_21);
+            rule__HyGreaterOrEqualExpression__Group__1__Impl();
+
+            state._fsp--;
+            if (state.failed) return ;
+            pushFollow(FOLLOW_2);
+            rule__HyGreaterOrEqualExpression__Group__2();
+
+            state._fsp--;
+            if (state.failed) return ;
+
+            }
+
+        }
+        catch (RecognitionException re) {
+            reportError(re);
+            recover(input,re);
+        }
+        finally {
+
+            	restoreStackSize(stackSize);
+
+        }
+        return ;
+    }
+    // $ANTLR end "rule__HyGreaterOrEqualExpression__Group__1"
+
+
+    // $ANTLR start "rule__HyGreaterOrEqualExpression__Group__1__Impl"
+    // InternalExpressionDsl.g:2670:1: rule__HyGreaterOrEqualExpression__Group__1__Impl : ( '>=' ) ;
+    public final void rule__HyGreaterOrEqualExpression__Group__1__Impl() throws RecognitionException {
+
+        		int stackSize = keepStackSize();
+        	
+        try {
+            // InternalExpressionDsl.g:2674:1: ( ( '>=' ) )
+            // InternalExpressionDsl.g:2675:1: ( '>=' )
+            {
+            // InternalExpressionDsl.g:2675:1: ( '>=' )
+            // InternalExpressionDsl.g:2676:2: '>='
+            {
+            if ( state.backtracking==0 ) {
+               before(grammarAccess.getHyGreaterOrEqualExpressionAccess().getGreaterThanSignEqualsSignKeyword_1()); 
             }
             match(input,15,FOLLOW_2); if (state.failed) return ;
             if ( state.backtracking==0 ) {
-               after(grammarAccess.getHyGreaterOrEqualExpressionAccess().getGreaterThanSignEqualsSignKeyword_0_1()); 
+               after(grammarAccess.getHyGreaterOrEqualExpressionAccess().getGreaterThanSignEqualsSignKeyword_1()); 
             }
 
             }
@@ -9940,21 +8937,21 @@ public class InternalExpressionDslParser extends AbstractInternalContentAssistPa
         }
         return ;
     }
-    // $ANTLR end "rule__HyGreaterOrEqualExpression__Group_0__1__Impl"
+    // $ANTLR end "rule__HyGreaterOrEqualExpression__Group__1__Impl"
 
 
-    // $ANTLR start "rule__HyGreaterOrEqualExpression__Group_0__2"
-    // InternalExpressionDsl.g:2795:1: rule__HyGreaterOrEqualExpression__Group_0__2 : rule__HyGreaterOrEqualExpression__Group_0__2__Impl ;
-    public final void rule__HyGreaterOrEqualExpression__Group_0__2() throws RecognitionException {
+    // $ANTLR start "rule__HyGreaterOrEqualExpression__Group__2"
+    // InternalExpressionDsl.g:2685:1: rule__HyGreaterOrEqualExpression__Group__2 : rule__HyGreaterOrEqualExpression__Group__2__Impl ;
+    public final void rule__HyGreaterOrEqualExpression__Group__2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalExpressionDsl.g:2799:1: ( rule__HyGreaterOrEqualExpression__Group_0__2__Impl )
-            // InternalExpressionDsl.g:2800:2: rule__HyGreaterOrEqualExpression__Group_0__2__Impl
+            // InternalExpressionDsl.g:2689:1: ( rule__HyGreaterOrEqualExpression__Group__2__Impl )
+            // InternalExpressionDsl.g:2690:2: rule__HyGreaterOrEqualExpression__Group__2__Impl
             {
             pushFollow(FOLLOW_2);
-            rule__HyGreaterOrEqualExpression__Group_0__2__Impl();
+            rule__HyGreaterOrEqualExpression__Group__2__Impl();
 
             state._fsp--;
             if (state.failed) return ;
@@ -9973,119 +8970,30 @@ public class InternalExpressionDslParser extends AbstractInternalContentAssistPa
         }
         return ;
     }
-    // $ANTLR end "rule__HyGreaterOrEqualExpression__Group_0__2"
+    // $ANTLR end "rule__HyGreaterOrEqualExpression__Group__2"
 
 
-    // $ANTLR start "rule__HyGreaterOrEqualExpression__Group_0__2__Impl"
-    // InternalExpressionDsl.g:2806:1: rule__HyGreaterOrEqualExpression__Group_0__2__Impl : ( ( rule__HyGreaterOrEqualExpression__Operand2Assignment_0_2 ) ) ;
-    public final void rule__HyGreaterOrEqualExpression__Group_0__2__Impl() throws RecognitionException {
+    // $ANTLR start "rule__HyGreaterOrEqualExpression__Group__2__Impl"
+    // InternalExpressionDsl.g:2696:1: rule__HyGreaterOrEqualExpression__Group__2__Impl : ( ( rule__HyGreaterOrEqualExpression__Operand2Assignment_2 ) ) ;
+    public final void rule__HyGreaterOrEqualExpression__Group__2__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalExpressionDsl.g:2810:1: ( ( ( rule__HyGreaterOrEqualExpression__Operand2Assignment_0_2 ) ) )
-            // InternalExpressionDsl.g:2811:1: ( ( rule__HyGreaterOrEqualExpression__Operand2Assignment_0_2 ) )
+            // InternalExpressionDsl.g:2700:1: ( ( ( rule__HyGreaterOrEqualExpression__Operand2Assignment_2 ) ) )
+            // InternalExpressionDsl.g:2701:1: ( ( rule__HyGreaterOrEqualExpression__Operand2Assignment_2 ) )
             {
-            // InternalExpressionDsl.g:2811:1: ( ( rule__HyGreaterOrEqualExpression__Operand2Assignment_0_2 ) )
-            // InternalExpressionDsl.g:2812:2: ( rule__HyGreaterOrEqualExpression__Operand2Assignment_0_2 )
+            // InternalExpressionDsl.g:2701:1: ( ( rule__HyGreaterOrEqualExpression__Operand2Assignment_2 ) )
+            // InternalExpressionDsl.g:2702:2: ( rule__HyGreaterOrEqualExpression__Operand2Assignment_2 )
             {
             if ( state.backtracking==0 ) {
-               before(grammarAccess.getHyGreaterOrEqualExpressionAccess().getOperand2Assignment_0_2()); 
+               before(grammarAccess.getHyGreaterOrEqualExpressionAccess().getOperand2Assignment_2()); 
             }
-            // InternalExpressionDsl.g:2813:2: ( rule__HyGreaterOrEqualExpression__Operand2Assignment_0_2 )
-            // InternalExpressionDsl.g:2813:3: rule__HyGreaterOrEqualExpression__Operand2Assignment_0_2
+            // InternalExpressionDsl.g:2703:2: ( rule__HyGreaterOrEqualExpression__Operand2Assignment_2 )
+            // InternalExpressionDsl.g:2703:3: rule__HyGreaterOrEqualExpression__Operand2Assignment_2
             {
             pushFollow(FOLLOW_2);
-            rule__HyGreaterOrEqualExpression__Operand2Assignment_0_2();
-
-            state._fsp--;
-            if (state.failed) return ;
-
-            }
-
-            if ( state.backtracking==0 ) {
-               after(grammarAccess.getHyGreaterOrEqualExpressionAccess().getOperand2Assignment_0_2()); 
-            }
-
-            }
-
-
-            }
-
-        }
-        catch (RecognitionException re) {
-            reportError(re);
-            recover(input,re);
-        }
-        finally {
-
-            	restoreStackSize(stackSize);
-
-        }
-        return ;
-    }
-    // $ANTLR end "rule__HyGreaterOrEqualExpression__Group_0__2__Impl"
-
-
-    // $ANTLR start "rule__HyLessOrEqualExpression__Group_0__0"
-    // InternalExpressionDsl.g:2822:1: rule__HyLessOrEqualExpression__Group_0__0 : rule__HyLessOrEqualExpression__Group_0__0__Impl rule__HyLessOrEqualExpression__Group_0__1 ;
-    public final void rule__HyLessOrEqualExpression__Group_0__0() throws RecognitionException {
-
-        		int stackSize = keepStackSize();
-        	
-        try {
-            // InternalExpressionDsl.g:2826:1: ( rule__HyLessOrEqualExpression__Group_0__0__Impl rule__HyLessOrEqualExpression__Group_0__1 )
-            // InternalExpressionDsl.g:2827:2: rule__HyLessOrEqualExpression__Group_0__0__Impl rule__HyLessOrEqualExpression__Group_0__1
-            {
-            pushFollow(FOLLOW_25);
-            rule__HyLessOrEqualExpression__Group_0__0__Impl();
-
-            state._fsp--;
-            if (state.failed) return ;
-            pushFollow(FOLLOW_2);
-            rule__HyLessOrEqualExpression__Group_0__1();
-
-            state._fsp--;
-            if (state.failed) return ;
-
-            }
-
-        }
-        catch (RecognitionException re) {
-            reportError(re);
-            recover(input,re);
-        }
-        finally {
-
-            	restoreStackSize(stackSize);
-
-        }
-        return ;
-    }
-    // $ANTLR end "rule__HyLessOrEqualExpression__Group_0__0"
-
-
-    // $ANTLR start "rule__HyLessOrEqualExpression__Group_0__0__Impl"
-    // InternalExpressionDsl.g:2834:1: rule__HyLessOrEqualExpression__Group_0__0__Impl : ( ( rule__HyLessOrEqualExpression__Operand1Assignment_0_0 ) ) ;
-    public final void rule__HyLessOrEqualExpression__Group_0__0__Impl() throws RecognitionException {
-
-        		int stackSize = keepStackSize();
-        	
-        try {
-            // InternalExpressionDsl.g:2838:1: ( ( ( rule__HyLessOrEqualExpression__Operand1Assignment_0_0 ) ) )
-            // InternalExpressionDsl.g:2839:1: ( ( rule__HyLessOrEqualExpression__Operand1Assignment_0_0 ) )
-            {
-            // InternalExpressionDsl.g:2839:1: ( ( rule__HyLessOrEqualExpression__Operand1Assignment_0_0 ) )
-            // InternalExpressionDsl.g:2840:2: ( rule__HyLessOrEqualExpression__Operand1Assignment_0_0 )
-            {
-            if ( state.backtracking==0 ) {
-               before(grammarAccess.getHyLessOrEqualExpressionAccess().getOperand1Assignment_0_0()); 
-            }
-            // InternalExpressionDsl.g:2841:2: ( rule__HyLessOrEqualExpression__Operand1Assignment_0_0 )
-            // InternalExpressionDsl.g:2841:3: rule__HyLessOrEqualExpression__Operand1Assignment_0_0
-            {
-            pushFollow(FOLLOW_2);
-            rule__HyLessOrEqualExpression__Operand1Assignment_0_0();
+            rule__HyGreaterOrEqualExpression__Operand2Assignment_2();
 
             state._fsp--;
             if (state.failed) return ;
@@ -10093,7 +9001,7 @@ public class InternalExpressionDslParser extends AbstractInternalContentAssistPa
             }
 
             if ( state.backtracking==0 ) {
-               after(grammarAccess.getHyLessOrEqualExpressionAccess().getOperand1Assignment_0_0()); 
+               after(grammarAccess.getHyGreaterOrEqualExpressionAccess().getOperand2Assignment_2()); 
             }
 
             }
@@ -10113,26 +9021,26 @@ public class InternalExpressionDslParser extends AbstractInternalContentAssistPa
         }
         return ;
     }
-    // $ANTLR end "rule__HyLessOrEqualExpression__Group_0__0__Impl"
+    // $ANTLR end "rule__HyGreaterOrEqualExpression__Group__2__Impl"
 
 
-    // $ANTLR start "rule__HyLessOrEqualExpression__Group_0__1"
-    // InternalExpressionDsl.g:2849:1: rule__HyLessOrEqualExpression__Group_0__1 : rule__HyLessOrEqualExpression__Group_0__1__Impl rule__HyLessOrEqualExpression__Group_0__2 ;
-    public final void rule__HyLessOrEqualExpression__Group_0__1() throws RecognitionException {
+    // $ANTLR start "rule__HyLessOrEqualExpression__Group__0"
+    // InternalExpressionDsl.g:2712:1: rule__HyLessOrEqualExpression__Group__0 : rule__HyLessOrEqualExpression__Group__0__Impl rule__HyLessOrEqualExpression__Group__1 ;
+    public final void rule__HyLessOrEqualExpression__Group__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalExpressionDsl.g:2853:1: ( rule__HyLessOrEqualExpression__Group_0__1__Impl rule__HyLessOrEqualExpression__Group_0__2 )
-            // InternalExpressionDsl.g:2854:2: rule__HyLessOrEqualExpression__Group_0__1__Impl rule__HyLessOrEqualExpression__Group_0__2
+            // InternalExpressionDsl.g:2716:1: ( rule__HyLessOrEqualExpression__Group__0__Impl rule__HyLessOrEqualExpression__Group__1 )
+            // InternalExpressionDsl.g:2717:2: rule__HyLessOrEqualExpression__Group__0__Impl rule__HyLessOrEqualExpression__Group__1
             {
-            pushFollow(FOLLOW_22);
-            rule__HyLessOrEqualExpression__Group_0__1__Impl();
+            pushFollow(FOLLOW_24);
+            rule__HyLessOrEqualExpression__Group__0__Impl();
 
             state._fsp--;
             if (state.failed) return ;
             pushFollow(FOLLOW_2);
-            rule__HyLessOrEqualExpression__Group_0__2();
+            rule__HyLessOrEqualExpression__Group__1();
 
             state._fsp--;
             if (state.failed) return ;
@@ -10151,28 +9059,117 @@ public class InternalExpressionDslParser extends AbstractInternalContentAssistPa
         }
         return ;
     }
-    // $ANTLR end "rule__HyLessOrEqualExpression__Group_0__1"
+    // $ANTLR end "rule__HyLessOrEqualExpression__Group__0"
 
 
-    // $ANTLR start "rule__HyLessOrEqualExpression__Group_0__1__Impl"
-    // InternalExpressionDsl.g:2861:1: rule__HyLessOrEqualExpression__Group_0__1__Impl : ( '<=' ) ;
-    public final void rule__HyLessOrEqualExpression__Group_0__1__Impl() throws RecognitionException {
+    // $ANTLR start "rule__HyLessOrEqualExpression__Group__0__Impl"
+    // InternalExpressionDsl.g:2724:1: rule__HyLessOrEqualExpression__Group__0__Impl : ( ( rule__HyLessOrEqualExpression__Operand1Assignment_0 ) ) ;
+    public final void rule__HyLessOrEqualExpression__Group__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalExpressionDsl.g:2865:1: ( ( '<=' ) )
-            // InternalExpressionDsl.g:2866:1: ( '<=' )
+            // InternalExpressionDsl.g:2728:1: ( ( ( rule__HyLessOrEqualExpression__Operand1Assignment_0 ) ) )
+            // InternalExpressionDsl.g:2729:1: ( ( rule__HyLessOrEqualExpression__Operand1Assignment_0 ) )
             {
-            // InternalExpressionDsl.g:2866:1: ( '<=' )
-            // InternalExpressionDsl.g:2867:2: '<='
+            // InternalExpressionDsl.g:2729:1: ( ( rule__HyLessOrEqualExpression__Operand1Assignment_0 ) )
+            // InternalExpressionDsl.g:2730:2: ( rule__HyLessOrEqualExpression__Operand1Assignment_0 )
             {
             if ( state.backtracking==0 ) {
-               before(grammarAccess.getHyLessOrEqualExpressionAccess().getLessThanSignEqualsSignKeyword_0_1()); 
+               before(grammarAccess.getHyLessOrEqualExpressionAccess().getOperand1Assignment_0()); 
+            }
+            // InternalExpressionDsl.g:2731:2: ( rule__HyLessOrEqualExpression__Operand1Assignment_0 )
+            // InternalExpressionDsl.g:2731:3: rule__HyLessOrEqualExpression__Operand1Assignment_0
+            {
+            pushFollow(FOLLOW_2);
+            rule__HyLessOrEqualExpression__Operand1Assignment_0();
+
+            state._fsp--;
+            if (state.failed) return ;
+
+            }
+
+            if ( state.backtracking==0 ) {
+               after(grammarAccess.getHyLessOrEqualExpressionAccess().getOperand1Assignment_0()); 
+            }
+
+            }
+
+
+            }
+
+        }
+        catch (RecognitionException re) {
+            reportError(re);
+            recover(input,re);
+        }
+        finally {
+
+            	restoreStackSize(stackSize);
+
+        }
+        return ;
+    }
+    // $ANTLR end "rule__HyLessOrEqualExpression__Group__0__Impl"
+
+
+    // $ANTLR start "rule__HyLessOrEqualExpression__Group__1"
+    // InternalExpressionDsl.g:2739:1: rule__HyLessOrEqualExpression__Group__1 : rule__HyLessOrEqualExpression__Group__1__Impl rule__HyLessOrEqualExpression__Group__2 ;
+    public final void rule__HyLessOrEqualExpression__Group__1() throws RecognitionException {
+
+        		int stackSize = keepStackSize();
+        	
+        try {
+            // InternalExpressionDsl.g:2743:1: ( rule__HyLessOrEqualExpression__Group__1__Impl rule__HyLessOrEqualExpression__Group__2 )
+            // InternalExpressionDsl.g:2744:2: rule__HyLessOrEqualExpression__Group__1__Impl rule__HyLessOrEqualExpression__Group__2
+            {
+            pushFollow(FOLLOW_21);
+            rule__HyLessOrEqualExpression__Group__1__Impl();
+
+            state._fsp--;
+            if (state.failed) return ;
+            pushFollow(FOLLOW_2);
+            rule__HyLessOrEqualExpression__Group__2();
+
+            state._fsp--;
+            if (state.failed) return ;
+
+            }
+
+        }
+        catch (RecognitionException re) {
+            reportError(re);
+            recover(input,re);
+        }
+        finally {
+
+            	restoreStackSize(stackSize);
+
+        }
+        return ;
+    }
+    // $ANTLR end "rule__HyLessOrEqualExpression__Group__1"
+
+
+    // $ANTLR start "rule__HyLessOrEqualExpression__Group__1__Impl"
+    // InternalExpressionDsl.g:2751:1: rule__HyLessOrEqualExpression__Group__1__Impl : ( '<=' ) ;
+    public final void rule__HyLessOrEqualExpression__Group__1__Impl() throws RecognitionException {
+
+        		int stackSize = keepStackSize();
+        	
+        try {
+            // InternalExpressionDsl.g:2755:1: ( ( '<=' ) )
+            // InternalExpressionDsl.g:2756:1: ( '<=' )
+            {
+            // InternalExpressionDsl.g:2756:1: ( '<=' )
+            // InternalExpressionDsl.g:2757:2: '<='
+            {
+            if ( state.backtracking==0 ) {
+               before(grammarAccess.getHyLessOrEqualExpressionAccess().getLessThanSignEqualsSignKeyword_1()); 
             }
             match(input,13,FOLLOW_2); if (state.failed) return ;
             if ( state.backtracking==0 ) {
-               after(grammarAccess.getHyLessOrEqualExpressionAccess().getLessThanSignEqualsSignKeyword_0_1()); 
+               after(grammarAccess.getHyLessOrEqualExpressionAccess().getLessThanSignEqualsSignKeyword_1()); 
             }
 
             }
@@ -10192,21 +9189,21 @@ public class InternalExpressionDslParser extends AbstractInternalContentAssistPa
         }
         return ;
     }
-    // $ANTLR end "rule__HyLessOrEqualExpression__Group_0__1__Impl"
+    // $ANTLR end "rule__HyLessOrEqualExpression__Group__1__Impl"
 
 
-    // $ANTLR start "rule__HyLessOrEqualExpression__Group_0__2"
-    // InternalExpressionDsl.g:2876:1: rule__HyLessOrEqualExpression__Group_0__2 : rule__HyLessOrEqualExpression__Group_0__2__Impl ;
-    public final void rule__HyLessOrEqualExpression__Group_0__2() throws RecognitionException {
+    // $ANTLR start "rule__HyLessOrEqualExpression__Group__2"
+    // InternalExpressionDsl.g:2766:1: rule__HyLessOrEqualExpression__Group__2 : rule__HyLessOrEqualExpression__Group__2__Impl ;
+    public final void rule__HyLessOrEqualExpression__Group__2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalExpressionDsl.g:2880:1: ( rule__HyLessOrEqualExpression__Group_0__2__Impl )
-            // InternalExpressionDsl.g:2881:2: rule__HyLessOrEqualExpression__Group_0__2__Impl
+            // InternalExpressionDsl.g:2770:1: ( rule__HyLessOrEqualExpression__Group__2__Impl )
+            // InternalExpressionDsl.g:2771:2: rule__HyLessOrEqualExpression__Group__2__Impl
             {
             pushFollow(FOLLOW_2);
-            rule__HyLessOrEqualExpression__Group_0__2__Impl();
+            rule__HyLessOrEqualExpression__Group__2__Impl();
 
             state._fsp--;
             if (state.failed) return ;
@@ -10225,119 +9222,30 @@ public class InternalExpressionDslParser extends AbstractInternalContentAssistPa
         }
         return ;
     }
-    // $ANTLR end "rule__HyLessOrEqualExpression__Group_0__2"
+    // $ANTLR end "rule__HyLessOrEqualExpression__Group__2"
 
 
-    // $ANTLR start "rule__HyLessOrEqualExpression__Group_0__2__Impl"
-    // InternalExpressionDsl.g:2887:1: rule__HyLessOrEqualExpression__Group_0__2__Impl : ( ( rule__HyLessOrEqualExpression__Operand2Assignment_0_2 ) ) ;
-    public final void rule__HyLessOrEqualExpression__Group_0__2__Impl() throws RecognitionException {
+    // $ANTLR start "rule__HyLessOrEqualExpression__Group__2__Impl"
+    // InternalExpressionDsl.g:2777:1: rule__HyLessOrEqualExpression__Group__2__Impl : ( ( rule__HyLessOrEqualExpression__Operand2Assignment_2 ) ) ;
+    public final void rule__HyLessOrEqualExpression__Group__2__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalExpressionDsl.g:2891:1: ( ( ( rule__HyLessOrEqualExpression__Operand2Assignment_0_2 ) ) )
-            // InternalExpressionDsl.g:2892:1: ( ( rule__HyLessOrEqualExpression__Operand2Assignment_0_2 ) )
+            // InternalExpressionDsl.g:2781:1: ( ( ( rule__HyLessOrEqualExpression__Operand2Assignment_2 ) ) )
+            // InternalExpressionDsl.g:2782:1: ( ( rule__HyLessOrEqualExpression__Operand2Assignment_2 ) )
             {
-            // InternalExpressionDsl.g:2892:1: ( ( rule__HyLessOrEqualExpression__Operand2Assignment_0_2 ) )
-            // InternalExpressionDsl.g:2893:2: ( rule__HyLessOrEqualExpression__Operand2Assignment_0_2 )
+            // InternalExpressionDsl.g:2782:1: ( ( rule__HyLessOrEqualExpression__Operand2Assignment_2 ) )
+            // InternalExpressionDsl.g:2783:2: ( rule__HyLessOrEqualExpression__Operand2Assignment_2 )
             {
             if ( state.backtracking==0 ) {
-               before(grammarAccess.getHyLessOrEqualExpressionAccess().getOperand2Assignment_0_2()); 
+               before(grammarAccess.getHyLessOrEqualExpressionAccess().getOperand2Assignment_2()); 
             }
-            // InternalExpressionDsl.g:2894:2: ( rule__HyLessOrEqualExpression__Operand2Assignment_0_2 )
-            // InternalExpressionDsl.g:2894:3: rule__HyLessOrEqualExpression__Operand2Assignment_0_2
+            // InternalExpressionDsl.g:2784:2: ( rule__HyLessOrEqualExpression__Operand2Assignment_2 )
+            // InternalExpressionDsl.g:2784:3: rule__HyLessOrEqualExpression__Operand2Assignment_2
             {
             pushFollow(FOLLOW_2);
-            rule__HyLessOrEqualExpression__Operand2Assignment_0_2();
-
-            state._fsp--;
-            if (state.failed) return ;
-
-            }
-
-            if ( state.backtracking==0 ) {
-               after(grammarAccess.getHyLessOrEqualExpressionAccess().getOperand2Assignment_0_2()); 
-            }
-
-            }
-
-
-            }
-
-        }
-        catch (RecognitionException re) {
-            reportError(re);
-            recover(input,re);
-        }
-        finally {
-
-            	restoreStackSize(stackSize);
-
-        }
-        return ;
-    }
-    // $ANTLR end "rule__HyLessOrEqualExpression__Group_0__2__Impl"
-
-
-    // $ANTLR start "rule__HyEqualExpression__Group_0__0"
-    // InternalExpressionDsl.g:2903:1: rule__HyEqualExpression__Group_0__0 : rule__HyEqualExpression__Group_0__0__Impl rule__HyEqualExpression__Group_0__1 ;
-    public final void rule__HyEqualExpression__Group_0__0() throws RecognitionException {
-
-        		int stackSize = keepStackSize();
-        	
-        try {
-            // InternalExpressionDsl.g:2907:1: ( rule__HyEqualExpression__Group_0__0__Impl rule__HyEqualExpression__Group_0__1 )
-            // InternalExpressionDsl.g:2908:2: rule__HyEqualExpression__Group_0__0__Impl rule__HyEqualExpression__Group_0__1
-            {
-            pushFollow(FOLLOW_26);
-            rule__HyEqualExpression__Group_0__0__Impl();
-
-            state._fsp--;
-            if (state.failed) return ;
-            pushFollow(FOLLOW_2);
-            rule__HyEqualExpression__Group_0__1();
-
-            state._fsp--;
-            if (state.failed) return ;
-
-            }
-
-        }
-        catch (RecognitionException re) {
-            reportError(re);
-            recover(input,re);
-        }
-        finally {
-
-            	restoreStackSize(stackSize);
-
-        }
-        return ;
-    }
-    // $ANTLR end "rule__HyEqualExpression__Group_0__0"
-
-
-    // $ANTLR start "rule__HyEqualExpression__Group_0__0__Impl"
-    // InternalExpressionDsl.g:2915:1: rule__HyEqualExpression__Group_0__0__Impl : ( ( rule__HyEqualExpression__Operand1Assignment_0_0 ) ) ;
-    public final void rule__HyEqualExpression__Group_0__0__Impl() throws RecognitionException {
-
-        		int stackSize = keepStackSize();
-        	
-        try {
-            // InternalExpressionDsl.g:2919:1: ( ( ( rule__HyEqualExpression__Operand1Assignment_0_0 ) ) )
-            // InternalExpressionDsl.g:2920:1: ( ( rule__HyEqualExpression__Operand1Assignment_0_0 ) )
-            {
-            // InternalExpressionDsl.g:2920:1: ( ( rule__HyEqualExpression__Operand1Assignment_0_0 ) )
-            // InternalExpressionDsl.g:2921:2: ( rule__HyEqualExpression__Operand1Assignment_0_0 )
-            {
-            if ( state.backtracking==0 ) {
-               before(grammarAccess.getHyEqualExpressionAccess().getOperand1Assignment_0_0()); 
-            }
-            // InternalExpressionDsl.g:2922:2: ( rule__HyEqualExpression__Operand1Assignment_0_0 )
-            // InternalExpressionDsl.g:2922:3: rule__HyEqualExpression__Operand1Assignment_0_0
-            {
-            pushFollow(FOLLOW_2);
-            rule__HyEqualExpression__Operand1Assignment_0_0();
+            rule__HyLessOrEqualExpression__Operand2Assignment_2();
 
             state._fsp--;
             if (state.failed) return ;
@@ -10345,7 +9253,7 @@ public class InternalExpressionDslParser extends AbstractInternalContentAssistPa
             }
 
             if ( state.backtracking==0 ) {
-               after(grammarAccess.getHyEqualExpressionAccess().getOperand1Assignment_0_0()); 
+               after(grammarAccess.getHyLessOrEqualExpressionAccess().getOperand2Assignment_2()); 
             }
 
             }
@@ -10365,26 +9273,26 @@ public class InternalExpressionDslParser extends AbstractInternalContentAssistPa
         }
         return ;
     }
-    // $ANTLR end "rule__HyEqualExpression__Group_0__0__Impl"
+    // $ANTLR end "rule__HyLessOrEqualExpression__Group__2__Impl"
 
 
-    // $ANTLR start "rule__HyEqualExpression__Group_0__1"
-    // InternalExpressionDsl.g:2930:1: rule__HyEqualExpression__Group_0__1 : rule__HyEqualExpression__Group_0__1__Impl rule__HyEqualExpression__Group_0__2 ;
-    public final void rule__HyEqualExpression__Group_0__1() throws RecognitionException {
+    // $ANTLR start "rule__HyEqualExpression__Group__0"
+    // InternalExpressionDsl.g:2793:1: rule__HyEqualExpression__Group__0 : rule__HyEqualExpression__Group__0__Impl rule__HyEqualExpression__Group__1 ;
+    public final void rule__HyEqualExpression__Group__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalExpressionDsl.g:2934:1: ( rule__HyEqualExpression__Group_0__1__Impl rule__HyEqualExpression__Group_0__2 )
-            // InternalExpressionDsl.g:2935:2: rule__HyEqualExpression__Group_0__1__Impl rule__HyEqualExpression__Group_0__2
+            // InternalExpressionDsl.g:2797:1: ( rule__HyEqualExpression__Group__0__Impl rule__HyEqualExpression__Group__1 )
+            // InternalExpressionDsl.g:2798:2: rule__HyEqualExpression__Group__0__Impl rule__HyEqualExpression__Group__1
             {
-            pushFollow(FOLLOW_22);
-            rule__HyEqualExpression__Group_0__1__Impl();
+            pushFollow(FOLLOW_25);
+            rule__HyEqualExpression__Group__0__Impl();
 
             state._fsp--;
             if (state.failed) return ;
             pushFollow(FOLLOW_2);
-            rule__HyEqualExpression__Group_0__2();
+            rule__HyEqualExpression__Group__1();
 
             state._fsp--;
             if (state.failed) return ;
@@ -10403,28 +9311,117 @@ public class InternalExpressionDslParser extends AbstractInternalContentAssistPa
         }
         return ;
     }
-    // $ANTLR end "rule__HyEqualExpression__Group_0__1"
+    // $ANTLR end "rule__HyEqualExpression__Group__0"
 
 
-    // $ANTLR start "rule__HyEqualExpression__Group_0__1__Impl"
-    // InternalExpressionDsl.g:2942:1: rule__HyEqualExpression__Group_0__1__Impl : ( '=' ) ;
-    public final void rule__HyEqualExpression__Group_0__1__Impl() throws RecognitionException {
+    // $ANTLR start "rule__HyEqualExpression__Group__0__Impl"
+    // InternalExpressionDsl.g:2805:1: rule__HyEqualExpression__Group__0__Impl : ( ( rule__HyEqualExpression__Operand1Assignment_0 ) ) ;
+    public final void rule__HyEqualExpression__Group__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalExpressionDsl.g:2946:1: ( ( '=' ) )
-            // InternalExpressionDsl.g:2947:1: ( '=' )
+            // InternalExpressionDsl.g:2809:1: ( ( ( rule__HyEqualExpression__Operand1Assignment_0 ) ) )
+            // InternalExpressionDsl.g:2810:1: ( ( rule__HyEqualExpression__Operand1Assignment_0 ) )
             {
-            // InternalExpressionDsl.g:2947:1: ( '=' )
-            // InternalExpressionDsl.g:2948:2: '='
+            // InternalExpressionDsl.g:2810:1: ( ( rule__HyEqualExpression__Operand1Assignment_0 ) )
+            // InternalExpressionDsl.g:2811:2: ( rule__HyEqualExpression__Operand1Assignment_0 )
             {
             if ( state.backtracking==0 ) {
-               before(grammarAccess.getHyEqualExpressionAccess().getEqualsSignKeyword_0_1()); 
+               before(grammarAccess.getHyEqualExpressionAccess().getOperand1Assignment_0()); 
+            }
+            // InternalExpressionDsl.g:2812:2: ( rule__HyEqualExpression__Operand1Assignment_0 )
+            // InternalExpressionDsl.g:2812:3: rule__HyEqualExpression__Operand1Assignment_0
+            {
+            pushFollow(FOLLOW_2);
+            rule__HyEqualExpression__Operand1Assignment_0();
+
+            state._fsp--;
+            if (state.failed) return ;
+
+            }
+
+            if ( state.backtracking==0 ) {
+               after(grammarAccess.getHyEqualExpressionAccess().getOperand1Assignment_0()); 
+            }
+
+            }
+
+
+            }
+
+        }
+        catch (RecognitionException re) {
+            reportError(re);
+            recover(input,re);
+        }
+        finally {
+
+            	restoreStackSize(stackSize);
+
+        }
+        return ;
+    }
+    // $ANTLR end "rule__HyEqualExpression__Group__0__Impl"
+
+
+    // $ANTLR start "rule__HyEqualExpression__Group__1"
+    // InternalExpressionDsl.g:2820:1: rule__HyEqualExpression__Group__1 : rule__HyEqualExpression__Group__1__Impl rule__HyEqualExpression__Group__2 ;
+    public final void rule__HyEqualExpression__Group__1() throws RecognitionException {
+
+        		int stackSize = keepStackSize();
+        	
+        try {
+            // InternalExpressionDsl.g:2824:1: ( rule__HyEqualExpression__Group__1__Impl rule__HyEqualExpression__Group__2 )
+            // InternalExpressionDsl.g:2825:2: rule__HyEqualExpression__Group__1__Impl rule__HyEqualExpression__Group__2
+            {
+            pushFollow(FOLLOW_21);
+            rule__HyEqualExpression__Group__1__Impl();
+
+            state._fsp--;
+            if (state.failed) return ;
+            pushFollow(FOLLOW_2);
+            rule__HyEqualExpression__Group__2();
+
+            state._fsp--;
+            if (state.failed) return ;
+
+            }
+
+        }
+        catch (RecognitionException re) {
+            reportError(re);
+            recover(input,re);
+        }
+        finally {
+
+            	restoreStackSize(stackSize);
+
+        }
+        return ;
+    }
+    // $ANTLR end "rule__HyEqualExpression__Group__1"
+
+
+    // $ANTLR start "rule__HyEqualExpression__Group__1__Impl"
+    // InternalExpressionDsl.g:2832:1: rule__HyEqualExpression__Group__1__Impl : ( '=' ) ;
+    public final void rule__HyEqualExpression__Group__1__Impl() throws RecognitionException {
+
+        		int stackSize = keepStackSize();
+        	
+        try {
+            // InternalExpressionDsl.g:2836:1: ( ( '=' ) )
+            // InternalExpressionDsl.g:2837:1: ( '=' )
+            {
+            // InternalExpressionDsl.g:2837:1: ( '=' )
+            // InternalExpressionDsl.g:2838:2: '='
+            {
+            if ( state.backtracking==0 ) {
+               before(grammarAccess.getHyEqualExpressionAccess().getEqualsSignKeyword_1()); 
             }
             match(input,14,FOLLOW_2); if (state.failed) return ;
             if ( state.backtracking==0 ) {
-               after(grammarAccess.getHyEqualExpressionAccess().getEqualsSignKeyword_0_1()); 
+               after(grammarAccess.getHyEqualExpressionAccess().getEqualsSignKeyword_1()); 
             }
 
             }
@@ -10444,21 +9441,21 @@ public class InternalExpressionDslParser extends AbstractInternalContentAssistPa
         }
         return ;
     }
-    // $ANTLR end "rule__HyEqualExpression__Group_0__1__Impl"
+    // $ANTLR end "rule__HyEqualExpression__Group__1__Impl"
 
 
-    // $ANTLR start "rule__HyEqualExpression__Group_0__2"
-    // InternalExpressionDsl.g:2957:1: rule__HyEqualExpression__Group_0__2 : rule__HyEqualExpression__Group_0__2__Impl ;
-    public final void rule__HyEqualExpression__Group_0__2() throws RecognitionException {
+    // $ANTLR start "rule__HyEqualExpression__Group__2"
+    // InternalExpressionDsl.g:2847:1: rule__HyEqualExpression__Group__2 : rule__HyEqualExpression__Group__2__Impl ;
+    public final void rule__HyEqualExpression__Group__2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalExpressionDsl.g:2961:1: ( rule__HyEqualExpression__Group_0__2__Impl )
-            // InternalExpressionDsl.g:2962:2: rule__HyEqualExpression__Group_0__2__Impl
+            // InternalExpressionDsl.g:2851:1: ( rule__HyEqualExpression__Group__2__Impl )
+            // InternalExpressionDsl.g:2852:2: rule__HyEqualExpression__Group__2__Impl
             {
             pushFollow(FOLLOW_2);
-            rule__HyEqualExpression__Group_0__2__Impl();
+            rule__HyEqualExpression__Group__2__Impl();
 
             state._fsp--;
             if (state.failed) return ;
@@ -10477,30 +9474,30 @@ public class InternalExpressionDslParser extends AbstractInternalContentAssistPa
         }
         return ;
     }
-    // $ANTLR end "rule__HyEqualExpression__Group_0__2"
+    // $ANTLR end "rule__HyEqualExpression__Group__2"
 
 
-    // $ANTLR start "rule__HyEqualExpression__Group_0__2__Impl"
-    // InternalExpressionDsl.g:2968:1: rule__HyEqualExpression__Group_0__2__Impl : ( ( rule__HyEqualExpression__Operand2Assignment_0_2 ) ) ;
-    public final void rule__HyEqualExpression__Group_0__2__Impl() throws RecognitionException {
+    // $ANTLR start "rule__HyEqualExpression__Group__2__Impl"
+    // InternalExpressionDsl.g:2858:1: rule__HyEqualExpression__Group__2__Impl : ( ( rule__HyEqualExpression__Operand2Assignment_2 ) ) ;
+    public final void rule__HyEqualExpression__Group__2__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalExpressionDsl.g:2972:1: ( ( ( rule__HyEqualExpression__Operand2Assignment_0_2 ) ) )
-            // InternalExpressionDsl.g:2973:1: ( ( rule__HyEqualExpression__Operand2Assignment_0_2 ) )
+            // InternalExpressionDsl.g:2862:1: ( ( ( rule__HyEqualExpression__Operand2Assignment_2 ) ) )
+            // InternalExpressionDsl.g:2863:1: ( ( rule__HyEqualExpression__Operand2Assignment_2 ) )
             {
-            // InternalExpressionDsl.g:2973:1: ( ( rule__HyEqualExpression__Operand2Assignment_0_2 ) )
-            // InternalExpressionDsl.g:2974:2: ( rule__HyEqualExpression__Operand2Assignment_0_2 )
+            // InternalExpressionDsl.g:2863:1: ( ( rule__HyEqualExpression__Operand2Assignment_2 ) )
+            // InternalExpressionDsl.g:2864:2: ( rule__HyEqualExpression__Operand2Assignment_2 )
             {
             if ( state.backtracking==0 ) {
-               before(grammarAccess.getHyEqualExpressionAccess().getOperand2Assignment_0_2()); 
+               before(grammarAccess.getHyEqualExpressionAccess().getOperand2Assignment_2()); 
             }
-            // InternalExpressionDsl.g:2975:2: ( rule__HyEqualExpression__Operand2Assignment_0_2 )
-            // InternalExpressionDsl.g:2975:3: rule__HyEqualExpression__Operand2Assignment_0_2
+            // InternalExpressionDsl.g:2865:2: ( rule__HyEqualExpression__Operand2Assignment_2 )
+            // InternalExpressionDsl.g:2865:3: rule__HyEqualExpression__Operand2Assignment_2
             {
             pushFollow(FOLLOW_2);
-            rule__HyEqualExpression__Operand2Assignment_0_2();
+            rule__HyEqualExpression__Operand2Assignment_2();
 
             state._fsp--;
             if (state.failed) return ;
@@ -10508,7 +9505,7 @@ public class InternalExpressionDslParser extends AbstractInternalContentAssistPa
             }
 
             if ( state.backtracking==0 ) {
-               after(grammarAccess.getHyEqualExpressionAccess().getOperand2Assignment_0_2()); 
+               after(grammarAccess.getHyEqualExpressionAccess().getOperand2Assignment_2()); 
             }
 
             }
@@ -10528,20 +9525,20 @@ public class InternalExpressionDslParser extends AbstractInternalContentAssistPa
         }
         return ;
     }
-    // $ANTLR end "rule__HyEqualExpression__Group_0__2__Impl"
+    // $ANTLR end "rule__HyEqualExpression__Group__2__Impl"
 
 
     // $ANTLR start "rule__HyNotEqualExpression__Group__0"
-    // InternalExpressionDsl.g:2984:1: rule__HyNotEqualExpression__Group__0 : rule__HyNotEqualExpression__Group__0__Impl rule__HyNotEqualExpression__Group__1 ;
+    // InternalExpressionDsl.g:2874:1: rule__HyNotEqualExpression__Group__0 : rule__HyNotEqualExpression__Group__0__Impl rule__HyNotEqualExpression__Group__1 ;
     public final void rule__HyNotEqualExpression__Group__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalExpressionDsl.g:2988:1: ( rule__HyNotEqualExpression__Group__0__Impl rule__HyNotEqualExpression__Group__1 )
-            // InternalExpressionDsl.g:2989:2: rule__HyNotEqualExpression__Group__0__Impl rule__HyNotEqualExpression__Group__1
+            // InternalExpressionDsl.g:2878:1: ( rule__HyNotEqualExpression__Group__0__Impl rule__HyNotEqualExpression__Group__1 )
+            // InternalExpressionDsl.g:2879:2: rule__HyNotEqualExpression__Group__0__Impl rule__HyNotEqualExpression__Group__1
             {
-            pushFollow(FOLLOW_27);
+            pushFollow(FOLLOW_26);
             rule__HyNotEqualExpression__Group__0__Impl();
 
             state._fsp--;
@@ -10570,23 +9567,23 @@ public class InternalExpressionDslParser extends AbstractInternalContentAssistPa
 
 
     // $ANTLR start "rule__HyNotEqualExpression__Group__0__Impl"
-    // InternalExpressionDsl.g:2996:1: rule__HyNotEqualExpression__Group__0__Impl : ( ( rule__HyNotEqualExpression__Operand1Assignment_0 ) ) ;
+    // InternalExpressionDsl.g:2886:1: rule__HyNotEqualExpression__Group__0__Impl : ( ( rule__HyNotEqualExpression__Operand1Assignment_0 ) ) ;
     public final void rule__HyNotEqualExpression__Group__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalExpressionDsl.g:3000:1: ( ( ( rule__HyNotEqualExpression__Operand1Assignment_0 ) ) )
-            // InternalExpressionDsl.g:3001:1: ( ( rule__HyNotEqualExpression__Operand1Assignment_0 ) )
+            // InternalExpressionDsl.g:2890:1: ( ( ( rule__HyNotEqualExpression__Operand1Assignment_0 ) ) )
+            // InternalExpressionDsl.g:2891:1: ( ( rule__HyNotEqualExpression__Operand1Assignment_0 ) )
             {
-            // InternalExpressionDsl.g:3001:1: ( ( rule__HyNotEqualExpression__Operand1Assignment_0 ) )
-            // InternalExpressionDsl.g:3002:2: ( rule__HyNotEqualExpression__Operand1Assignment_0 )
+            // InternalExpressionDsl.g:2891:1: ( ( rule__HyNotEqualExpression__Operand1Assignment_0 ) )
+            // InternalExpressionDsl.g:2892:2: ( rule__HyNotEqualExpression__Operand1Assignment_0 )
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getHyNotEqualExpressionAccess().getOperand1Assignment_0()); 
             }
-            // InternalExpressionDsl.g:3003:2: ( rule__HyNotEqualExpression__Operand1Assignment_0 )
-            // InternalExpressionDsl.g:3003:3: rule__HyNotEqualExpression__Operand1Assignment_0
+            // InternalExpressionDsl.g:2893:2: ( rule__HyNotEqualExpression__Operand1Assignment_0 )
+            // InternalExpressionDsl.g:2893:3: rule__HyNotEqualExpression__Operand1Assignment_0
             {
             pushFollow(FOLLOW_2);
             rule__HyNotEqualExpression__Operand1Assignment_0();
@@ -10621,16 +9618,16 @@ public class InternalExpressionDslParser extends AbstractInternalContentAssistPa
 
 
     // $ANTLR start "rule__HyNotEqualExpression__Group__1"
-    // InternalExpressionDsl.g:3011:1: rule__HyNotEqualExpression__Group__1 : rule__HyNotEqualExpression__Group__1__Impl rule__HyNotEqualExpression__Group__2 ;
+    // InternalExpressionDsl.g:2901:1: rule__HyNotEqualExpression__Group__1 : rule__HyNotEqualExpression__Group__1__Impl rule__HyNotEqualExpression__Group__2 ;
     public final void rule__HyNotEqualExpression__Group__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalExpressionDsl.g:3015:1: ( rule__HyNotEqualExpression__Group__1__Impl rule__HyNotEqualExpression__Group__2 )
-            // InternalExpressionDsl.g:3016:2: rule__HyNotEqualExpression__Group__1__Impl rule__HyNotEqualExpression__Group__2
+            // InternalExpressionDsl.g:2905:1: ( rule__HyNotEqualExpression__Group__1__Impl rule__HyNotEqualExpression__Group__2 )
+            // InternalExpressionDsl.g:2906:2: rule__HyNotEqualExpression__Group__1__Impl rule__HyNotEqualExpression__Group__2
             {
-            pushFollow(FOLLOW_22);
+            pushFollow(FOLLOW_21);
             rule__HyNotEqualExpression__Group__1__Impl();
 
             state._fsp--;
@@ -10659,17 +9656,17 @@ public class InternalExpressionDslParser extends AbstractInternalContentAssistPa
 
 
     // $ANTLR start "rule__HyNotEqualExpression__Group__1__Impl"
-    // InternalExpressionDsl.g:3023:1: rule__HyNotEqualExpression__Group__1__Impl : ( '!=' ) ;
+    // InternalExpressionDsl.g:2913:1: rule__HyNotEqualExpression__Group__1__Impl : ( '!=' ) ;
     public final void rule__HyNotEqualExpression__Group__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalExpressionDsl.g:3027:1: ( ( '!=' ) )
-            // InternalExpressionDsl.g:3028:1: ( '!=' )
+            // InternalExpressionDsl.g:2917:1: ( ( '!=' ) )
+            // InternalExpressionDsl.g:2918:1: ( '!=' )
             {
-            // InternalExpressionDsl.g:3028:1: ( '!=' )
-            // InternalExpressionDsl.g:3029:2: '!='
+            // InternalExpressionDsl.g:2918:1: ( '!=' )
+            // InternalExpressionDsl.g:2919:2: '!='
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getHyNotEqualExpressionAccess().getExclamationMarkEqualsSignKeyword_1()); 
@@ -10700,14 +9697,14 @@ public class InternalExpressionDslParser extends AbstractInternalContentAssistPa
 
 
     // $ANTLR start "rule__HyNotEqualExpression__Group__2"
-    // InternalExpressionDsl.g:3038:1: rule__HyNotEqualExpression__Group__2 : rule__HyNotEqualExpression__Group__2__Impl ;
+    // InternalExpressionDsl.g:2928:1: rule__HyNotEqualExpression__Group__2 : rule__HyNotEqualExpression__Group__2__Impl ;
     public final void rule__HyNotEqualExpression__Group__2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalExpressionDsl.g:3042:1: ( rule__HyNotEqualExpression__Group__2__Impl )
-            // InternalExpressionDsl.g:3043:2: rule__HyNotEqualExpression__Group__2__Impl
+            // InternalExpressionDsl.g:2932:1: ( rule__HyNotEqualExpression__Group__2__Impl )
+            // InternalExpressionDsl.g:2933:2: rule__HyNotEqualExpression__Group__2__Impl
             {
             pushFollow(FOLLOW_2);
             rule__HyNotEqualExpression__Group__2__Impl();
@@ -10733,23 +9730,23 @@ public class InternalExpressionDslParser extends AbstractInternalContentAssistPa
 
 
     // $ANTLR start "rule__HyNotEqualExpression__Group__2__Impl"
-    // InternalExpressionDsl.g:3049:1: rule__HyNotEqualExpression__Group__2__Impl : ( ( rule__HyNotEqualExpression__Operand2Assignment_2 ) ) ;
+    // InternalExpressionDsl.g:2939:1: rule__HyNotEqualExpression__Group__2__Impl : ( ( rule__HyNotEqualExpression__Operand2Assignment_2 ) ) ;
     public final void rule__HyNotEqualExpression__Group__2__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalExpressionDsl.g:3053:1: ( ( ( rule__HyNotEqualExpression__Operand2Assignment_2 ) ) )
-            // InternalExpressionDsl.g:3054:1: ( ( rule__HyNotEqualExpression__Operand2Assignment_2 ) )
+            // InternalExpressionDsl.g:2943:1: ( ( ( rule__HyNotEqualExpression__Operand2Assignment_2 ) ) )
+            // InternalExpressionDsl.g:2944:1: ( ( rule__HyNotEqualExpression__Operand2Assignment_2 ) )
             {
-            // InternalExpressionDsl.g:3054:1: ( ( rule__HyNotEqualExpression__Operand2Assignment_2 ) )
-            // InternalExpressionDsl.g:3055:2: ( rule__HyNotEqualExpression__Operand2Assignment_2 )
+            // InternalExpressionDsl.g:2944:1: ( ( rule__HyNotEqualExpression__Operand2Assignment_2 ) )
+            // InternalExpressionDsl.g:2945:2: ( rule__HyNotEqualExpression__Operand2Assignment_2 )
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getHyNotEqualExpressionAccess().getOperand2Assignment_2()); 
             }
-            // InternalExpressionDsl.g:3056:2: ( rule__HyNotEqualExpression__Operand2Assignment_2 )
-            // InternalExpressionDsl.g:3056:3: rule__HyNotEqualExpression__Operand2Assignment_2
+            // InternalExpressionDsl.g:2946:2: ( rule__HyNotEqualExpression__Operand2Assignment_2 )
+            // InternalExpressionDsl.g:2946:3: rule__HyNotEqualExpression__Operand2Assignment_2
             {
             pushFollow(FOLLOW_2);
             rule__HyNotEqualExpression__Operand2Assignment_2();
@@ -10783,442 +9780,15 @@ public class InternalExpressionDslParser extends AbstractInternalContentAssistPa
     // $ANTLR end "rule__HyNotEqualExpression__Group__2__Impl"
 
 
-    // $ANTLR start "rule__HyAdditionExpression__Group__0"
-    // InternalExpressionDsl.g:3065:1: rule__HyAdditionExpression__Group__0 : rule__HyAdditionExpression__Group__0__Impl rule__HyAdditionExpression__Group__1 ;
-    public final void rule__HyAdditionExpression__Group__0() throws RecognitionException {
-
-        		int stackSize = keepStackSize();
-        	
-        try {
-            // InternalExpressionDsl.g:3069:1: ( rule__HyAdditionExpression__Group__0__Impl rule__HyAdditionExpression__Group__1 )
-            // InternalExpressionDsl.g:3070:2: rule__HyAdditionExpression__Group__0__Impl rule__HyAdditionExpression__Group__1
-            {
-            pushFollow(FOLLOW_28);
-            rule__HyAdditionExpression__Group__0__Impl();
-
-            state._fsp--;
-            if (state.failed) return ;
-            pushFollow(FOLLOW_2);
-            rule__HyAdditionExpression__Group__1();
-
-            state._fsp--;
-            if (state.failed) return ;
-
-            }
-
-        }
-        catch (RecognitionException re) {
-            reportError(re);
-            recover(input,re);
-        }
-        finally {
-
-            	restoreStackSize(stackSize);
-
-        }
-        return ;
-    }
-    // $ANTLR end "rule__HyAdditionExpression__Group__0"
-
-
-    // $ANTLR start "rule__HyAdditionExpression__Group__0__Impl"
-    // InternalExpressionDsl.g:3077:1: rule__HyAdditionExpression__Group__0__Impl : ( ruleHySubtractionExpression ) ;
-    public final void rule__HyAdditionExpression__Group__0__Impl() throws RecognitionException {
-
-        		int stackSize = keepStackSize();
-        	
-        try {
-            // InternalExpressionDsl.g:3081:1: ( ( ruleHySubtractionExpression ) )
-            // InternalExpressionDsl.g:3082:1: ( ruleHySubtractionExpression )
-            {
-            // InternalExpressionDsl.g:3082:1: ( ruleHySubtractionExpression )
-            // InternalExpressionDsl.g:3083:2: ruleHySubtractionExpression
-            {
-            if ( state.backtracking==0 ) {
-               before(grammarAccess.getHyAdditionExpressionAccess().getHySubtractionExpressionParserRuleCall_0()); 
-            }
-            pushFollow(FOLLOW_2);
-            ruleHySubtractionExpression();
-
-            state._fsp--;
-            if (state.failed) return ;
-            if ( state.backtracking==0 ) {
-               after(grammarAccess.getHyAdditionExpressionAccess().getHySubtractionExpressionParserRuleCall_0()); 
-            }
-
-            }
-
-
-            }
-
-        }
-        catch (RecognitionException re) {
-            reportError(re);
-            recover(input,re);
-        }
-        finally {
-
-            	restoreStackSize(stackSize);
-
-        }
-        return ;
-    }
-    // $ANTLR end "rule__HyAdditionExpression__Group__0__Impl"
-
-
-    // $ANTLR start "rule__HyAdditionExpression__Group__1"
-    // InternalExpressionDsl.g:3092:1: rule__HyAdditionExpression__Group__1 : rule__HyAdditionExpression__Group__1__Impl ;
-    public final void rule__HyAdditionExpression__Group__1() throws RecognitionException {
-
-        		int stackSize = keepStackSize();
-        	
-        try {
-            // InternalExpressionDsl.g:3096:1: ( rule__HyAdditionExpression__Group__1__Impl )
-            // InternalExpressionDsl.g:3097:2: rule__HyAdditionExpression__Group__1__Impl
-            {
-            pushFollow(FOLLOW_2);
-            rule__HyAdditionExpression__Group__1__Impl();
-
-            state._fsp--;
-            if (state.failed) return ;
-
-            }
-
-        }
-        catch (RecognitionException re) {
-            reportError(re);
-            recover(input,re);
-        }
-        finally {
-
-            	restoreStackSize(stackSize);
-
-        }
-        return ;
-    }
-    // $ANTLR end "rule__HyAdditionExpression__Group__1"
-
-
-    // $ANTLR start "rule__HyAdditionExpression__Group__1__Impl"
-    // InternalExpressionDsl.g:3103:1: rule__HyAdditionExpression__Group__1__Impl : ( ( rule__HyAdditionExpression__Group_1__0 )* ) ;
-    public final void rule__HyAdditionExpression__Group__1__Impl() throws RecognitionException {
-
-        		int stackSize = keepStackSize();
-        	
-        try {
-            // InternalExpressionDsl.g:3107:1: ( ( ( rule__HyAdditionExpression__Group_1__0 )* ) )
-            // InternalExpressionDsl.g:3108:1: ( ( rule__HyAdditionExpression__Group_1__0 )* )
-            {
-            // InternalExpressionDsl.g:3108:1: ( ( rule__HyAdditionExpression__Group_1__0 )* )
-            // InternalExpressionDsl.g:3109:2: ( rule__HyAdditionExpression__Group_1__0 )*
-            {
-            if ( state.backtracking==0 ) {
-               before(grammarAccess.getHyAdditionExpressionAccess().getGroup_1()); 
-            }
-            // InternalExpressionDsl.g:3110:2: ( rule__HyAdditionExpression__Group_1__0 )*
-            loop20:
-            do {
-                int alt20=2;
-                int LA20_0 = input.LA(1);
-
-                if ( (LA20_0==29) ) {
-                    alt20=1;
-                }
-
-
-                switch (alt20) {
-            	case 1 :
-            	    // InternalExpressionDsl.g:3110:3: rule__HyAdditionExpression__Group_1__0
-            	    {
-            	    pushFollow(FOLLOW_29);
-            	    rule__HyAdditionExpression__Group_1__0();
-
-            	    state._fsp--;
-            	    if (state.failed) return ;
-
-            	    }
-            	    break;
-
-            	default :
-            	    break loop20;
-                }
-            } while (true);
-
-            if ( state.backtracking==0 ) {
-               after(grammarAccess.getHyAdditionExpressionAccess().getGroup_1()); 
-            }
-
-            }
-
-
-            }
-
-        }
-        catch (RecognitionException re) {
-            reportError(re);
-            recover(input,re);
-        }
-        finally {
-
-            	restoreStackSize(stackSize);
-
-        }
-        return ;
-    }
-    // $ANTLR end "rule__HyAdditionExpression__Group__1__Impl"
-
-
-    // $ANTLR start "rule__HyAdditionExpression__Group_1__0"
-    // InternalExpressionDsl.g:3119:1: rule__HyAdditionExpression__Group_1__0 : rule__HyAdditionExpression__Group_1__0__Impl rule__HyAdditionExpression__Group_1__1 ;
-    public final void rule__HyAdditionExpression__Group_1__0() throws RecognitionException {
-
-        		int stackSize = keepStackSize();
-        	
-        try {
-            // InternalExpressionDsl.g:3123:1: ( rule__HyAdditionExpression__Group_1__0__Impl rule__HyAdditionExpression__Group_1__1 )
-            // InternalExpressionDsl.g:3124:2: rule__HyAdditionExpression__Group_1__0__Impl rule__HyAdditionExpression__Group_1__1
-            {
-            pushFollow(FOLLOW_28);
-            rule__HyAdditionExpression__Group_1__0__Impl();
-
-            state._fsp--;
-            if (state.failed) return ;
-            pushFollow(FOLLOW_2);
-            rule__HyAdditionExpression__Group_1__1();
-
-            state._fsp--;
-            if (state.failed) return ;
-
-            }
-
-        }
-        catch (RecognitionException re) {
-            reportError(re);
-            recover(input,re);
-        }
-        finally {
-
-            	restoreStackSize(stackSize);
-
-        }
-        return ;
-    }
-    // $ANTLR end "rule__HyAdditionExpression__Group_1__0"
-
-
-    // $ANTLR start "rule__HyAdditionExpression__Group_1__0__Impl"
-    // InternalExpressionDsl.g:3131:1: rule__HyAdditionExpression__Group_1__0__Impl : ( () ) ;
-    public final void rule__HyAdditionExpression__Group_1__0__Impl() throws RecognitionException {
-
-        		int stackSize = keepStackSize();
-        	
-        try {
-            // InternalExpressionDsl.g:3135:1: ( ( () ) )
-            // InternalExpressionDsl.g:3136:1: ( () )
-            {
-            // InternalExpressionDsl.g:3136:1: ( () )
-            // InternalExpressionDsl.g:3137:2: ()
-            {
-            if ( state.backtracking==0 ) {
-               before(grammarAccess.getHyAdditionExpressionAccess().getHyAdditionExpressionOperand1Action_1_0()); 
-            }
-            // InternalExpressionDsl.g:3138:2: ()
-            // InternalExpressionDsl.g:3138:3: 
-            {
-            }
-
-            if ( state.backtracking==0 ) {
-               after(grammarAccess.getHyAdditionExpressionAccess().getHyAdditionExpressionOperand1Action_1_0()); 
-            }
-
-            }
-
-
-            }
-
-        }
-        finally {
-
-            	restoreStackSize(stackSize);
-
-        }
-        return ;
-    }
-    // $ANTLR end "rule__HyAdditionExpression__Group_1__0__Impl"
-
-
-    // $ANTLR start "rule__HyAdditionExpression__Group_1__1"
-    // InternalExpressionDsl.g:3146:1: rule__HyAdditionExpression__Group_1__1 : rule__HyAdditionExpression__Group_1__1__Impl rule__HyAdditionExpression__Group_1__2 ;
-    public final void rule__HyAdditionExpression__Group_1__1() throws RecognitionException {
-
-        		int stackSize = keepStackSize();
-        	
-        try {
-            // InternalExpressionDsl.g:3150:1: ( rule__HyAdditionExpression__Group_1__1__Impl rule__HyAdditionExpression__Group_1__2 )
-            // InternalExpressionDsl.g:3151:2: rule__HyAdditionExpression__Group_1__1__Impl rule__HyAdditionExpression__Group_1__2
-            {
-            pushFollow(FOLLOW_22);
-            rule__HyAdditionExpression__Group_1__1__Impl();
-
-            state._fsp--;
-            if (state.failed) return ;
-            pushFollow(FOLLOW_2);
-            rule__HyAdditionExpression__Group_1__2();
-
-            state._fsp--;
-            if (state.failed) return ;
-
-            }
-
-        }
-        catch (RecognitionException re) {
-            reportError(re);
-            recover(input,re);
-        }
-        finally {
-
-            	restoreStackSize(stackSize);
-
-        }
-        return ;
-    }
-    // $ANTLR end "rule__HyAdditionExpression__Group_1__1"
-
-
-    // $ANTLR start "rule__HyAdditionExpression__Group_1__1__Impl"
-    // InternalExpressionDsl.g:3158:1: rule__HyAdditionExpression__Group_1__1__Impl : ( '+' ) ;
-    public final void rule__HyAdditionExpression__Group_1__1__Impl() throws RecognitionException {
-
-        		int stackSize = keepStackSize();
-        	
-        try {
-            // InternalExpressionDsl.g:3162:1: ( ( '+' ) )
-            // InternalExpressionDsl.g:3163:1: ( '+' )
-            {
-            // InternalExpressionDsl.g:3163:1: ( '+' )
-            // InternalExpressionDsl.g:3164:2: '+'
-            {
-            if ( state.backtracking==0 ) {
-               before(grammarAccess.getHyAdditionExpressionAccess().getPlusSignKeyword_1_1()); 
-            }
-            match(input,29,FOLLOW_2); if (state.failed) return ;
-            if ( state.backtracking==0 ) {
-               after(grammarAccess.getHyAdditionExpressionAccess().getPlusSignKeyword_1_1()); 
-            }
-
-            }
-
-
-            }
-
-        }
-        catch (RecognitionException re) {
-            reportError(re);
-            recover(input,re);
-        }
-        finally {
-
-            	restoreStackSize(stackSize);
-
-        }
-        return ;
-    }
-    // $ANTLR end "rule__HyAdditionExpression__Group_1__1__Impl"
-
-
-    // $ANTLR start "rule__HyAdditionExpression__Group_1__2"
-    // InternalExpressionDsl.g:3173:1: rule__HyAdditionExpression__Group_1__2 : rule__HyAdditionExpression__Group_1__2__Impl ;
-    public final void rule__HyAdditionExpression__Group_1__2() throws RecognitionException {
-
-        		int stackSize = keepStackSize();
-        	
-        try {
-            // InternalExpressionDsl.g:3177:1: ( rule__HyAdditionExpression__Group_1__2__Impl )
-            // InternalExpressionDsl.g:3178:2: rule__HyAdditionExpression__Group_1__2__Impl
-            {
-            pushFollow(FOLLOW_2);
-            rule__HyAdditionExpression__Group_1__2__Impl();
-
-            state._fsp--;
-            if (state.failed) return ;
-
-            }
-
-        }
-        catch (RecognitionException re) {
-            reportError(re);
-            recover(input,re);
-        }
-        finally {
-
-            	restoreStackSize(stackSize);
-
-        }
-        return ;
-    }
-    // $ANTLR end "rule__HyAdditionExpression__Group_1__2"
-
-
-    // $ANTLR start "rule__HyAdditionExpression__Group_1__2__Impl"
-    // InternalExpressionDsl.g:3184:1: rule__HyAdditionExpression__Group_1__2__Impl : ( ( rule__HyAdditionExpression__Operand2Assignment_1_2 ) ) ;
-    public final void rule__HyAdditionExpression__Group_1__2__Impl() throws RecognitionException {
-
-        		int stackSize = keepStackSize();
-        	
-        try {
-            // InternalExpressionDsl.g:3188:1: ( ( ( rule__HyAdditionExpression__Operand2Assignment_1_2 ) ) )
-            // InternalExpressionDsl.g:3189:1: ( ( rule__HyAdditionExpression__Operand2Assignment_1_2 ) )
-            {
-            // InternalExpressionDsl.g:3189:1: ( ( rule__HyAdditionExpression__Operand2Assignment_1_2 ) )
-            // InternalExpressionDsl.g:3190:2: ( rule__HyAdditionExpression__Operand2Assignment_1_2 )
-            {
-            if ( state.backtracking==0 ) {
-               before(grammarAccess.getHyAdditionExpressionAccess().getOperand2Assignment_1_2()); 
-            }
-            // InternalExpressionDsl.g:3191:2: ( rule__HyAdditionExpression__Operand2Assignment_1_2 )
-            // InternalExpressionDsl.g:3191:3: rule__HyAdditionExpression__Operand2Assignment_1_2
-            {
-            pushFollow(FOLLOW_2);
-            rule__HyAdditionExpression__Operand2Assignment_1_2();
-
-            state._fsp--;
-            if (state.failed) return ;
-
-            }
-
-            if ( state.backtracking==0 ) {
-               after(grammarAccess.getHyAdditionExpressionAccess().getOperand2Assignment_1_2()); 
-            }
-
-            }
-
-
-            }
-
-        }
-        catch (RecognitionException re) {
-            reportError(re);
-            recover(input,re);
-        }
-        finally {
-
-            	restoreStackSize(stackSize);
-
-        }
-        return ;
-    }
-    // $ANTLR end "rule__HyAdditionExpression__Group_1__2__Impl"
-
-
     // $ANTLR start "rule__HySubtractionExpression__Group__0"
-    // InternalExpressionDsl.g:3200:1: rule__HySubtractionExpression__Group__0 : rule__HySubtractionExpression__Group__0__Impl rule__HySubtractionExpression__Group__1 ;
+    // InternalExpressionDsl.g:2955:1: rule__HySubtractionExpression__Group__0 : rule__HySubtractionExpression__Group__0__Impl rule__HySubtractionExpression__Group__1 ;
     public final void rule__HySubtractionExpression__Group__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalExpressionDsl.g:3204:1: ( rule__HySubtractionExpression__Group__0__Impl rule__HySubtractionExpression__Group__1 )
-            // InternalExpressionDsl.g:3205:2: rule__HySubtractionExpression__Group__0__Impl rule__HySubtractionExpression__Group__1
+            // InternalExpressionDsl.g:2959:1: ( rule__HySubtractionExpression__Group__0__Impl rule__HySubtractionExpression__Group__1 )
+            // InternalExpressionDsl.g:2960:2: rule__HySubtractionExpression__Group__0__Impl rule__HySubtractionExpression__Group__1
             {
             pushFollow(FOLLOW_19);
             rule__HySubtractionExpression__Group__0__Impl();
@@ -11249,17 +9819,17 @@ public class InternalExpressionDslParser extends AbstractInternalContentAssistPa
 
 
     // $ANTLR start "rule__HySubtractionExpression__Group__0__Impl"
-    // InternalExpressionDsl.g:3212:1: rule__HySubtractionExpression__Group__0__Impl : ( ruleHyMultiplicationExpression ) ;
+    // InternalExpressionDsl.g:2967:1: rule__HySubtractionExpression__Group__0__Impl : ( ruleHyMultiplicationExpression ) ;
     public final void rule__HySubtractionExpression__Group__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalExpressionDsl.g:3216:1: ( ( ruleHyMultiplicationExpression ) )
-            // InternalExpressionDsl.g:3217:1: ( ruleHyMultiplicationExpression )
+            // InternalExpressionDsl.g:2971:1: ( ( ruleHyMultiplicationExpression ) )
+            // InternalExpressionDsl.g:2972:1: ( ruleHyMultiplicationExpression )
             {
-            // InternalExpressionDsl.g:3217:1: ( ruleHyMultiplicationExpression )
-            // InternalExpressionDsl.g:3218:2: ruleHyMultiplicationExpression
+            // InternalExpressionDsl.g:2972:1: ( ruleHyMultiplicationExpression )
+            // InternalExpressionDsl.g:2973:2: ruleHyMultiplicationExpression
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getHySubtractionExpressionAccess().getHyMultiplicationExpressionParserRuleCall_0()); 
@@ -11294,14 +9864,14 @@ public class InternalExpressionDslParser extends AbstractInternalContentAssistPa
 
 
     // $ANTLR start "rule__HySubtractionExpression__Group__1"
-    // InternalExpressionDsl.g:3227:1: rule__HySubtractionExpression__Group__1 : rule__HySubtractionExpression__Group__1__Impl ;
+    // InternalExpressionDsl.g:2982:1: rule__HySubtractionExpression__Group__1 : rule__HySubtractionExpression__Group__1__Impl ;
     public final void rule__HySubtractionExpression__Group__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalExpressionDsl.g:3231:1: ( rule__HySubtractionExpression__Group__1__Impl )
-            // InternalExpressionDsl.g:3232:2: rule__HySubtractionExpression__Group__1__Impl
+            // InternalExpressionDsl.g:2986:1: ( rule__HySubtractionExpression__Group__1__Impl )
+            // InternalExpressionDsl.g:2987:2: rule__HySubtractionExpression__Group__1__Impl
             {
             pushFollow(FOLLOW_2);
             rule__HySubtractionExpression__Group__1__Impl();
@@ -11327,37 +9897,37 @@ public class InternalExpressionDslParser extends AbstractInternalContentAssistPa
 
 
     // $ANTLR start "rule__HySubtractionExpression__Group__1__Impl"
-    // InternalExpressionDsl.g:3238:1: rule__HySubtractionExpression__Group__1__Impl : ( ( rule__HySubtractionExpression__Group_1__0 )* ) ;
+    // InternalExpressionDsl.g:2993:1: rule__HySubtractionExpression__Group__1__Impl : ( ( rule__HySubtractionExpression__Group_1__0 )* ) ;
     public final void rule__HySubtractionExpression__Group__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalExpressionDsl.g:3242:1: ( ( ( rule__HySubtractionExpression__Group_1__0 )* ) )
-            // InternalExpressionDsl.g:3243:1: ( ( rule__HySubtractionExpression__Group_1__0 )* )
+            // InternalExpressionDsl.g:2997:1: ( ( ( rule__HySubtractionExpression__Group_1__0 )* ) )
+            // InternalExpressionDsl.g:2998:1: ( ( rule__HySubtractionExpression__Group_1__0 )* )
             {
-            // InternalExpressionDsl.g:3243:1: ( ( rule__HySubtractionExpression__Group_1__0 )* )
-            // InternalExpressionDsl.g:3244:2: ( rule__HySubtractionExpression__Group_1__0 )*
+            // InternalExpressionDsl.g:2998:1: ( ( rule__HySubtractionExpression__Group_1__0 )* )
+            // InternalExpressionDsl.g:2999:2: ( rule__HySubtractionExpression__Group_1__0 )*
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getHySubtractionExpressionAccess().getGroup_1()); 
             }
-            // InternalExpressionDsl.g:3245:2: ( rule__HySubtractionExpression__Group_1__0 )*
-            loop21:
+            // InternalExpressionDsl.g:3000:2: ( rule__HySubtractionExpression__Group_1__0 )*
+            loop16:
             do {
-                int alt21=2;
-                int LA21_0 = input.LA(1);
+                int alt16=2;
+                int LA16_0 = input.LA(1);
 
-                if ( (LA21_0==27) ) {
-                    alt21=1;
+                if ( (LA16_0==27) ) {
+                    alt16=1;
                 }
 
 
-                switch (alt21) {
+                switch (alt16) {
             	case 1 :
-            	    // InternalExpressionDsl.g:3245:3: rule__HySubtractionExpression__Group_1__0
+            	    // InternalExpressionDsl.g:3000:3: rule__HySubtractionExpression__Group_1__0
             	    {
-            	    pushFollow(FOLLOW_30);
+            	    pushFollow(FOLLOW_27);
             	    rule__HySubtractionExpression__Group_1__0();
 
             	    state._fsp--;
@@ -11367,7 +9937,7 @@ public class InternalExpressionDslParser extends AbstractInternalContentAssistPa
             	    break;
 
             	default :
-            	    break loop21;
+            	    break loop16;
                 }
             } while (true);
 
@@ -11396,14 +9966,14 @@ public class InternalExpressionDslParser extends AbstractInternalContentAssistPa
 
 
     // $ANTLR start "rule__HySubtractionExpression__Group_1__0"
-    // InternalExpressionDsl.g:3254:1: rule__HySubtractionExpression__Group_1__0 : rule__HySubtractionExpression__Group_1__0__Impl rule__HySubtractionExpression__Group_1__1 ;
+    // InternalExpressionDsl.g:3009:1: rule__HySubtractionExpression__Group_1__0 : rule__HySubtractionExpression__Group_1__0__Impl rule__HySubtractionExpression__Group_1__1 ;
     public final void rule__HySubtractionExpression__Group_1__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalExpressionDsl.g:3258:1: ( rule__HySubtractionExpression__Group_1__0__Impl rule__HySubtractionExpression__Group_1__1 )
-            // InternalExpressionDsl.g:3259:2: rule__HySubtractionExpression__Group_1__0__Impl rule__HySubtractionExpression__Group_1__1
+            // InternalExpressionDsl.g:3013:1: ( rule__HySubtractionExpression__Group_1__0__Impl rule__HySubtractionExpression__Group_1__1 )
+            // InternalExpressionDsl.g:3014:2: rule__HySubtractionExpression__Group_1__0__Impl rule__HySubtractionExpression__Group_1__1
             {
             pushFollow(FOLLOW_19);
             rule__HySubtractionExpression__Group_1__0__Impl();
@@ -11434,23 +10004,23 @@ public class InternalExpressionDslParser extends AbstractInternalContentAssistPa
 
 
     // $ANTLR start "rule__HySubtractionExpression__Group_1__0__Impl"
-    // InternalExpressionDsl.g:3266:1: rule__HySubtractionExpression__Group_1__0__Impl : ( () ) ;
+    // InternalExpressionDsl.g:3021:1: rule__HySubtractionExpression__Group_1__0__Impl : ( () ) ;
     public final void rule__HySubtractionExpression__Group_1__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalExpressionDsl.g:3270:1: ( ( () ) )
-            // InternalExpressionDsl.g:3271:1: ( () )
+            // InternalExpressionDsl.g:3025:1: ( ( () ) )
+            // InternalExpressionDsl.g:3026:1: ( () )
             {
-            // InternalExpressionDsl.g:3271:1: ( () )
-            // InternalExpressionDsl.g:3272:2: ()
+            // InternalExpressionDsl.g:3026:1: ( () )
+            // InternalExpressionDsl.g:3027:2: ()
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getHySubtractionExpressionAccess().getHySubtractionExpressionOperand1Action_1_0()); 
             }
-            // InternalExpressionDsl.g:3273:2: ()
-            // InternalExpressionDsl.g:3273:3: 
+            // InternalExpressionDsl.g:3028:2: ()
+            // InternalExpressionDsl.g:3028:3: 
             {
             }
 
@@ -11475,16 +10045,16 @@ public class InternalExpressionDslParser extends AbstractInternalContentAssistPa
 
 
     // $ANTLR start "rule__HySubtractionExpression__Group_1__1"
-    // InternalExpressionDsl.g:3281:1: rule__HySubtractionExpression__Group_1__1 : rule__HySubtractionExpression__Group_1__1__Impl rule__HySubtractionExpression__Group_1__2 ;
+    // InternalExpressionDsl.g:3036:1: rule__HySubtractionExpression__Group_1__1 : rule__HySubtractionExpression__Group_1__1__Impl rule__HySubtractionExpression__Group_1__2 ;
     public final void rule__HySubtractionExpression__Group_1__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalExpressionDsl.g:3285:1: ( rule__HySubtractionExpression__Group_1__1__Impl rule__HySubtractionExpression__Group_1__2 )
-            // InternalExpressionDsl.g:3286:2: rule__HySubtractionExpression__Group_1__1__Impl rule__HySubtractionExpression__Group_1__2
+            // InternalExpressionDsl.g:3040:1: ( rule__HySubtractionExpression__Group_1__1__Impl rule__HySubtractionExpression__Group_1__2 )
+            // InternalExpressionDsl.g:3041:2: rule__HySubtractionExpression__Group_1__1__Impl rule__HySubtractionExpression__Group_1__2
             {
-            pushFollow(FOLLOW_22);
+            pushFollow(FOLLOW_28);
             rule__HySubtractionExpression__Group_1__1__Impl();
 
             state._fsp--;
@@ -11513,17 +10083,17 @@ public class InternalExpressionDslParser extends AbstractInternalContentAssistPa
 
 
     // $ANTLR start "rule__HySubtractionExpression__Group_1__1__Impl"
-    // InternalExpressionDsl.g:3293:1: rule__HySubtractionExpression__Group_1__1__Impl : ( '-' ) ;
+    // InternalExpressionDsl.g:3048:1: rule__HySubtractionExpression__Group_1__1__Impl : ( '-' ) ;
     public final void rule__HySubtractionExpression__Group_1__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalExpressionDsl.g:3297:1: ( ( '-' ) )
-            // InternalExpressionDsl.g:3298:1: ( '-' )
+            // InternalExpressionDsl.g:3052:1: ( ( '-' ) )
+            // InternalExpressionDsl.g:3053:1: ( '-' )
             {
-            // InternalExpressionDsl.g:3298:1: ( '-' )
-            // InternalExpressionDsl.g:3299:2: '-'
+            // InternalExpressionDsl.g:3053:1: ( '-' )
+            // InternalExpressionDsl.g:3054:2: '-'
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getHySubtractionExpressionAccess().getHyphenMinusKeyword_1_1()); 
@@ -11554,14 +10124,14 @@ public class InternalExpressionDslParser extends AbstractInternalContentAssistPa
 
 
     // $ANTLR start "rule__HySubtractionExpression__Group_1__2"
-    // InternalExpressionDsl.g:3308:1: rule__HySubtractionExpression__Group_1__2 : rule__HySubtractionExpression__Group_1__2__Impl ;
+    // InternalExpressionDsl.g:3063:1: rule__HySubtractionExpression__Group_1__2 : rule__HySubtractionExpression__Group_1__2__Impl ;
     public final void rule__HySubtractionExpression__Group_1__2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalExpressionDsl.g:3312:1: ( rule__HySubtractionExpression__Group_1__2__Impl )
-            // InternalExpressionDsl.g:3313:2: rule__HySubtractionExpression__Group_1__2__Impl
+            // InternalExpressionDsl.g:3067:1: ( rule__HySubtractionExpression__Group_1__2__Impl )
+            // InternalExpressionDsl.g:3068:2: rule__HySubtractionExpression__Group_1__2__Impl
             {
             pushFollow(FOLLOW_2);
             rule__HySubtractionExpression__Group_1__2__Impl();
@@ -11587,23 +10157,23 @@ public class InternalExpressionDslParser extends AbstractInternalContentAssistPa
 
 
     // $ANTLR start "rule__HySubtractionExpression__Group_1__2__Impl"
-    // InternalExpressionDsl.g:3319:1: rule__HySubtractionExpression__Group_1__2__Impl : ( ( rule__HySubtractionExpression__Operand2Assignment_1_2 ) ) ;
+    // InternalExpressionDsl.g:3074:1: rule__HySubtractionExpression__Group_1__2__Impl : ( ( rule__HySubtractionExpression__Operand2Assignment_1_2 ) ) ;
     public final void rule__HySubtractionExpression__Group_1__2__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalExpressionDsl.g:3323:1: ( ( ( rule__HySubtractionExpression__Operand2Assignment_1_2 ) ) )
-            // InternalExpressionDsl.g:3324:1: ( ( rule__HySubtractionExpression__Operand2Assignment_1_2 ) )
+            // InternalExpressionDsl.g:3078:1: ( ( ( rule__HySubtractionExpression__Operand2Assignment_1_2 ) ) )
+            // InternalExpressionDsl.g:3079:1: ( ( rule__HySubtractionExpression__Operand2Assignment_1_2 ) )
             {
-            // InternalExpressionDsl.g:3324:1: ( ( rule__HySubtractionExpression__Operand2Assignment_1_2 ) )
-            // InternalExpressionDsl.g:3325:2: ( rule__HySubtractionExpression__Operand2Assignment_1_2 )
+            // InternalExpressionDsl.g:3079:1: ( ( rule__HySubtractionExpression__Operand2Assignment_1_2 ) )
+            // InternalExpressionDsl.g:3080:2: ( rule__HySubtractionExpression__Operand2Assignment_1_2 )
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getHySubtractionExpressionAccess().getOperand2Assignment_1_2()); 
             }
-            // InternalExpressionDsl.g:3326:2: ( rule__HySubtractionExpression__Operand2Assignment_1_2 )
-            // InternalExpressionDsl.g:3326:3: rule__HySubtractionExpression__Operand2Assignment_1_2
+            // InternalExpressionDsl.g:3081:2: ( rule__HySubtractionExpression__Operand2Assignment_1_2 )
+            // InternalExpressionDsl.g:3081:3: rule__HySubtractionExpression__Operand2Assignment_1_2
             {
             pushFollow(FOLLOW_2);
             rule__HySubtractionExpression__Operand2Assignment_1_2();
@@ -11638,16 +10208,16 @@ public class InternalExpressionDslParser extends AbstractInternalContentAssistPa
 
 
     // $ANTLR start "rule__HyMultiplicationExpression__Group__0"
-    // InternalExpressionDsl.g:3335:1: rule__HyMultiplicationExpression__Group__0 : rule__HyMultiplicationExpression__Group__0__Impl rule__HyMultiplicationExpression__Group__1 ;
+    // InternalExpressionDsl.g:3090:1: rule__HyMultiplicationExpression__Group__0 : rule__HyMultiplicationExpression__Group__0__Impl rule__HyMultiplicationExpression__Group__1 ;
     public final void rule__HyMultiplicationExpression__Group__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalExpressionDsl.g:3339:1: ( rule__HyMultiplicationExpression__Group__0__Impl rule__HyMultiplicationExpression__Group__1 )
-            // InternalExpressionDsl.g:3340:2: rule__HyMultiplicationExpression__Group__0__Impl rule__HyMultiplicationExpression__Group__1
+            // InternalExpressionDsl.g:3094:1: ( rule__HyMultiplicationExpression__Group__0__Impl rule__HyMultiplicationExpression__Group__1 )
+            // InternalExpressionDsl.g:3095:2: rule__HyMultiplicationExpression__Group__0__Impl rule__HyMultiplicationExpression__Group__1
             {
-            pushFollow(FOLLOW_31);
+            pushFollow(FOLLOW_29);
             rule__HyMultiplicationExpression__Group__0__Impl();
 
             state._fsp--;
@@ -11676,17 +10246,17 @@ public class InternalExpressionDslParser extends AbstractInternalContentAssistPa
 
 
     // $ANTLR start "rule__HyMultiplicationExpression__Group__0__Impl"
-    // InternalExpressionDsl.g:3347:1: rule__HyMultiplicationExpression__Group__0__Impl : ( ruleHyDivisionExpression ) ;
+    // InternalExpressionDsl.g:3102:1: rule__HyMultiplicationExpression__Group__0__Impl : ( ruleHyDivisionExpression ) ;
     public final void rule__HyMultiplicationExpression__Group__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalExpressionDsl.g:3351:1: ( ( ruleHyDivisionExpression ) )
-            // InternalExpressionDsl.g:3352:1: ( ruleHyDivisionExpression )
+            // InternalExpressionDsl.g:3106:1: ( ( ruleHyDivisionExpression ) )
+            // InternalExpressionDsl.g:3107:1: ( ruleHyDivisionExpression )
             {
-            // InternalExpressionDsl.g:3352:1: ( ruleHyDivisionExpression )
-            // InternalExpressionDsl.g:3353:2: ruleHyDivisionExpression
+            // InternalExpressionDsl.g:3107:1: ( ruleHyDivisionExpression )
+            // InternalExpressionDsl.g:3108:2: ruleHyDivisionExpression
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getHyMultiplicationExpressionAccess().getHyDivisionExpressionParserRuleCall_0()); 
@@ -11721,14 +10291,14 @@ public class InternalExpressionDslParser extends AbstractInternalContentAssistPa
 
 
     // $ANTLR start "rule__HyMultiplicationExpression__Group__1"
-    // InternalExpressionDsl.g:3362:1: rule__HyMultiplicationExpression__Group__1 : rule__HyMultiplicationExpression__Group__1__Impl ;
+    // InternalExpressionDsl.g:3117:1: rule__HyMultiplicationExpression__Group__1 : rule__HyMultiplicationExpression__Group__1__Impl ;
     public final void rule__HyMultiplicationExpression__Group__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalExpressionDsl.g:3366:1: ( rule__HyMultiplicationExpression__Group__1__Impl )
-            // InternalExpressionDsl.g:3367:2: rule__HyMultiplicationExpression__Group__1__Impl
+            // InternalExpressionDsl.g:3121:1: ( rule__HyMultiplicationExpression__Group__1__Impl )
+            // InternalExpressionDsl.g:3122:2: rule__HyMultiplicationExpression__Group__1__Impl
             {
             pushFollow(FOLLOW_2);
             rule__HyMultiplicationExpression__Group__1__Impl();
@@ -11754,37 +10324,37 @@ public class InternalExpressionDslParser extends AbstractInternalContentAssistPa
 
 
     // $ANTLR start "rule__HyMultiplicationExpression__Group__1__Impl"
-    // InternalExpressionDsl.g:3373:1: rule__HyMultiplicationExpression__Group__1__Impl : ( ( rule__HyMultiplicationExpression__Group_1__0 )* ) ;
+    // InternalExpressionDsl.g:3128:1: rule__HyMultiplicationExpression__Group__1__Impl : ( ( rule__HyMultiplicationExpression__Group_1__0 )* ) ;
     public final void rule__HyMultiplicationExpression__Group__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalExpressionDsl.g:3377:1: ( ( ( rule__HyMultiplicationExpression__Group_1__0 )* ) )
-            // InternalExpressionDsl.g:3378:1: ( ( rule__HyMultiplicationExpression__Group_1__0 )* )
+            // InternalExpressionDsl.g:3132:1: ( ( ( rule__HyMultiplicationExpression__Group_1__0 )* ) )
+            // InternalExpressionDsl.g:3133:1: ( ( rule__HyMultiplicationExpression__Group_1__0 )* )
             {
-            // InternalExpressionDsl.g:3378:1: ( ( rule__HyMultiplicationExpression__Group_1__0 )* )
-            // InternalExpressionDsl.g:3379:2: ( rule__HyMultiplicationExpression__Group_1__0 )*
+            // InternalExpressionDsl.g:3133:1: ( ( rule__HyMultiplicationExpression__Group_1__0 )* )
+            // InternalExpressionDsl.g:3134:2: ( rule__HyMultiplicationExpression__Group_1__0 )*
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getHyMultiplicationExpressionAccess().getGroup_1()); 
             }
-            // InternalExpressionDsl.g:3380:2: ( rule__HyMultiplicationExpression__Group_1__0 )*
-            loop22:
+            // InternalExpressionDsl.g:3135:2: ( rule__HyMultiplicationExpression__Group_1__0 )*
+            loop17:
             do {
-                int alt22=2;
-                int LA22_0 = input.LA(1);
+                int alt17=2;
+                int LA17_0 = input.LA(1);
 
-                if ( (LA22_0==30) ) {
-                    alt22=1;
+                if ( (LA17_0==29) ) {
+                    alt17=1;
                 }
 
 
-                switch (alt22) {
+                switch (alt17) {
             	case 1 :
-            	    // InternalExpressionDsl.g:3380:3: rule__HyMultiplicationExpression__Group_1__0
+            	    // InternalExpressionDsl.g:3135:3: rule__HyMultiplicationExpression__Group_1__0
             	    {
-            	    pushFollow(FOLLOW_32);
+            	    pushFollow(FOLLOW_30);
             	    rule__HyMultiplicationExpression__Group_1__0();
 
             	    state._fsp--;
@@ -11794,7 +10364,7 @@ public class InternalExpressionDslParser extends AbstractInternalContentAssistPa
             	    break;
 
             	default :
-            	    break loop22;
+            	    break loop17;
                 }
             } while (true);
 
@@ -11823,16 +10393,16 @@ public class InternalExpressionDslParser extends AbstractInternalContentAssistPa
 
 
     // $ANTLR start "rule__HyMultiplicationExpression__Group_1__0"
-    // InternalExpressionDsl.g:3389:1: rule__HyMultiplicationExpression__Group_1__0 : rule__HyMultiplicationExpression__Group_1__0__Impl rule__HyMultiplicationExpression__Group_1__1 ;
+    // InternalExpressionDsl.g:3144:1: rule__HyMultiplicationExpression__Group_1__0 : rule__HyMultiplicationExpression__Group_1__0__Impl rule__HyMultiplicationExpression__Group_1__1 ;
     public final void rule__HyMultiplicationExpression__Group_1__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalExpressionDsl.g:3393:1: ( rule__HyMultiplicationExpression__Group_1__0__Impl rule__HyMultiplicationExpression__Group_1__1 )
-            // InternalExpressionDsl.g:3394:2: rule__HyMultiplicationExpression__Group_1__0__Impl rule__HyMultiplicationExpression__Group_1__1
+            // InternalExpressionDsl.g:3148:1: ( rule__HyMultiplicationExpression__Group_1__0__Impl rule__HyMultiplicationExpression__Group_1__1 )
+            // InternalExpressionDsl.g:3149:2: rule__HyMultiplicationExpression__Group_1__0__Impl rule__HyMultiplicationExpression__Group_1__1
             {
-            pushFollow(FOLLOW_31);
+            pushFollow(FOLLOW_29);
             rule__HyMultiplicationExpression__Group_1__0__Impl();
 
             state._fsp--;
@@ -11861,23 +10431,23 @@ public class InternalExpressionDslParser extends AbstractInternalContentAssistPa
 
 
     // $ANTLR start "rule__HyMultiplicationExpression__Group_1__0__Impl"
-    // InternalExpressionDsl.g:3401:1: rule__HyMultiplicationExpression__Group_1__0__Impl : ( () ) ;
+    // InternalExpressionDsl.g:3156:1: rule__HyMultiplicationExpression__Group_1__0__Impl : ( () ) ;
     public final void rule__HyMultiplicationExpression__Group_1__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalExpressionDsl.g:3405:1: ( ( () ) )
-            // InternalExpressionDsl.g:3406:1: ( () )
+            // InternalExpressionDsl.g:3160:1: ( ( () ) )
+            // InternalExpressionDsl.g:3161:1: ( () )
             {
-            // InternalExpressionDsl.g:3406:1: ( () )
-            // InternalExpressionDsl.g:3407:2: ()
+            // InternalExpressionDsl.g:3161:1: ( () )
+            // InternalExpressionDsl.g:3162:2: ()
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getHyMultiplicationExpressionAccess().getHyMultiplicationExpressionOperand1Action_1_0()); 
             }
-            // InternalExpressionDsl.g:3408:2: ()
-            // InternalExpressionDsl.g:3408:3: 
+            // InternalExpressionDsl.g:3163:2: ()
+            // InternalExpressionDsl.g:3163:3: 
             {
             }
 
@@ -11902,16 +10472,16 @@ public class InternalExpressionDslParser extends AbstractInternalContentAssistPa
 
 
     // $ANTLR start "rule__HyMultiplicationExpression__Group_1__1"
-    // InternalExpressionDsl.g:3416:1: rule__HyMultiplicationExpression__Group_1__1 : rule__HyMultiplicationExpression__Group_1__1__Impl rule__HyMultiplicationExpression__Group_1__2 ;
+    // InternalExpressionDsl.g:3171:1: rule__HyMultiplicationExpression__Group_1__1 : rule__HyMultiplicationExpression__Group_1__1__Impl rule__HyMultiplicationExpression__Group_1__2 ;
     public final void rule__HyMultiplicationExpression__Group_1__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalExpressionDsl.g:3420:1: ( rule__HyMultiplicationExpression__Group_1__1__Impl rule__HyMultiplicationExpression__Group_1__2 )
-            // InternalExpressionDsl.g:3421:2: rule__HyMultiplicationExpression__Group_1__1__Impl rule__HyMultiplicationExpression__Group_1__2
+            // InternalExpressionDsl.g:3175:1: ( rule__HyMultiplicationExpression__Group_1__1__Impl rule__HyMultiplicationExpression__Group_1__2 )
+            // InternalExpressionDsl.g:3176:2: rule__HyMultiplicationExpression__Group_1__1__Impl rule__HyMultiplicationExpression__Group_1__2
             {
-            pushFollow(FOLLOW_22);
+            pushFollow(FOLLOW_28);
             rule__HyMultiplicationExpression__Group_1__1__Impl();
 
             state._fsp--;
@@ -11940,22 +10510,22 @@ public class InternalExpressionDslParser extends AbstractInternalContentAssistPa
 
 
     // $ANTLR start "rule__HyMultiplicationExpression__Group_1__1__Impl"
-    // InternalExpressionDsl.g:3428:1: rule__HyMultiplicationExpression__Group_1__1__Impl : ( '*' ) ;
+    // InternalExpressionDsl.g:3183:1: rule__HyMultiplicationExpression__Group_1__1__Impl : ( '*' ) ;
     public final void rule__HyMultiplicationExpression__Group_1__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalExpressionDsl.g:3432:1: ( ( '*' ) )
-            // InternalExpressionDsl.g:3433:1: ( '*' )
+            // InternalExpressionDsl.g:3187:1: ( ( '*' ) )
+            // InternalExpressionDsl.g:3188:1: ( '*' )
             {
-            // InternalExpressionDsl.g:3433:1: ( '*' )
-            // InternalExpressionDsl.g:3434:2: '*'
+            // InternalExpressionDsl.g:3188:1: ( '*' )
+            // InternalExpressionDsl.g:3189:2: '*'
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getHyMultiplicationExpressionAccess().getAsteriskKeyword_1_1()); 
             }
-            match(input,30,FOLLOW_2); if (state.failed) return ;
+            match(input,29,FOLLOW_2); if (state.failed) return ;
             if ( state.backtracking==0 ) {
                after(grammarAccess.getHyMultiplicationExpressionAccess().getAsteriskKeyword_1_1()); 
             }
@@ -11981,14 +10551,14 @@ public class InternalExpressionDslParser extends AbstractInternalContentAssistPa
 
 
     // $ANTLR start "rule__HyMultiplicationExpression__Group_1__2"
-    // InternalExpressionDsl.g:3443:1: rule__HyMultiplicationExpression__Group_1__2 : rule__HyMultiplicationExpression__Group_1__2__Impl ;
+    // InternalExpressionDsl.g:3198:1: rule__HyMultiplicationExpression__Group_1__2 : rule__HyMultiplicationExpression__Group_1__2__Impl ;
     public final void rule__HyMultiplicationExpression__Group_1__2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalExpressionDsl.g:3447:1: ( rule__HyMultiplicationExpression__Group_1__2__Impl )
-            // InternalExpressionDsl.g:3448:2: rule__HyMultiplicationExpression__Group_1__2__Impl
+            // InternalExpressionDsl.g:3202:1: ( rule__HyMultiplicationExpression__Group_1__2__Impl )
+            // InternalExpressionDsl.g:3203:2: rule__HyMultiplicationExpression__Group_1__2__Impl
             {
             pushFollow(FOLLOW_2);
             rule__HyMultiplicationExpression__Group_1__2__Impl();
@@ -12014,23 +10584,23 @@ public class InternalExpressionDslParser extends AbstractInternalContentAssistPa
 
 
     // $ANTLR start "rule__HyMultiplicationExpression__Group_1__2__Impl"
-    // InternalExpressionDsl.g:3454:1: rule__HyMultiplicationExpression__Group_1__2__Impl : ( ( rule__HyMultiplicationExpression__Operand2Assignment_1_2 ) ) ;
+    // InternalExpressionDsl.g:3209:1: rule__HyMultiplicationExpression__Group_1__2__Impl : ( ( rule__HyMultiplicationExpression__Operand2Assignment_1_2 ) ) ;
     public final void rule__HyMultiplicationExpression__Group_1__2__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalExpressionDsl.g:3458:1: ( ( ( rule__HyMultiplicationExpression__Operand2Assignment_1_2 ) ) )
-            // InternalExpressionDsl.g:3459:1: ( ( rule__HyMultiplicationExpression__Operand2Assignment_1_2 ) )
+            // InternalExpressionDsl.g:3213:1: ( ( ( rule__HyMultiplicationExpression__Operand2Assignment_1_2 ) ) )
+            // InternalExpressionDsl.g:3214:1: ( ( rule__HyMultiplicationExpression__Operand2Assignment_1_2 ) )
             {
-            // InternalExpressionDsl.g:3459:1: ( ( rule__HyMultiplicationExpression__Operand2Assignment_1_2 ) )
-            // InternalExpressionDsl.g:3460:2: ( rule__HyMultiplicationExpression__Operand2Assignment_1_2 )
+            // InternalExpressionDsl.g:3214:1: ( ( rule__HyMultiplicationExpression__Operand2Assignment_1_2 ) )
+            // InternalExpressionDsl.g:3215:2: ( rule__HyMultiplicationExpression__Operand2Assignment_1_2 )
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getHyMultiplicationExpressionAccess().getOperand2Assignment_1_2()); 
             }
-            // InternalExpressionDsl.g:3461:2: ( rule__HyMultiplicationExpression__Operand2Assignment_1_2 )
-            // InternalExpressionDsl.g:3461:3: rule__HyMultiplicationExpression__Operand2Assignment_1_2
+            // InternalExpressionDsl.g:3216:2: ( rule__HyMultiplicationExpression__Operand2Assignment_1_2 )
+            // InternalExpressionDsl.g:3216:3: rule__HyMultiplicationExpression__Operand2Assignment_1_2
             {
             pushFollow(FOLLOW_2);
             rule__HyMultiplicationExpression__Operand2Assignment_1_2();
@@ -12065,16 +10635,16 @@ public class InternalExpressionDslParser extends AbstractInternalContentAssistPa
 
 
     // $ANTLR start "rule__HyDivisionExpression__Group__0"
-    // InternalExpressionDsl.g:3470:1: rule__HyDivisionExpression__Group__0 : rule__HyDivisionExpression__Group__0__Impl rule__HyDivisionExpression__Group__1 ;
+    // InternalExpressionDsl.g:3225:1: rule__HyDivisionExpression__Group__0 : rule__HyDivisionExpression__Group__0__Impl rule__HyDivisionExpression__Group__1 ;
     public final void rule__HyDivisionExpression__Group__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalExpressionDsl.g:3474:1: ( rule__HyDivisionExpression__Group__0__Impl rule__HyDivisionExpression__Group__1 )
-            // InternalExpressionDsl.g:3475:2: rule__HyDivisionExpression__Group__0__Impl rule__HyDivisionExpression__Group__1
+            // InternalExpressionDsl.g:3229:1: ( rule__HyDivisionExpression__Group__0__Impl rule__HyDivisionExpression__Group__1 )
+            // InternalExpressionDsl.g:3230:2: rule__HyDivisionExpression__Group__0__Impl rule__HyDivisionExpression__Group__1
             {
-            pushFollow(FOLLOW_33);
+            pushFollow(FOLLOW_31);
             rule__HyDivisionExpression__Group__0__Impl();
 
             state._fsp--;
@@ -12103,17 +10673,17 @@ public class InternalExpressionDslParser extends AbstractInternalContentAssistPa
 
 
     // $ANTLR start "rule__HyDivisionExpression__Group__0__Impl"
-    // InternalExpressionDsl.g:3482:1: rule__HyDivisionExpression__Group__0__Impl : ( ruleTerminalArithmeticalExpression ) ;
+    // InternalExpressionDsl.g:3237:1: rule__HyDivisionExpression__Group__0__Impl : ( ruleTerminalArithmeticalExpression ) ;
     public final void rule__HyDivisionExpression__Group__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalExpressionDsl.g:3486:1: ( ( ruleTerminalArithmeticalExpression ) )
-            // InternalExpressionDsl.g:3487:1: ( ruleTerminalArithmeticalExpression )
+            // InternalExpressionDsl.g:3241:1: ( ( ruleTerminalArithmeticalExpression ) )
+            // InternalExpressionDsl.g:3242:1: ( ruleTerminalArithmeticalExpression )
             {
-            // InternalExpressionDsl.g:3487:1: ( ruleTerminalArithmeticalExpression )
-            // InternalExpressionDsl.g:3488:2: ruleTerminalArithmeticalExpression
+            // InternalExpressionDsl.g:3242:1: ( ruleTerminalArithmeticalExpression )
+            // InternalExpressionDsl.g:3243:2: ruleTerminalArithmeticalExpression
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getHyDivisionExpressionAccess().getTerminalArithmeticalExpressionParserRuleCall_0()); 
@@ -12148,14 +10718,14 @@ public class InternalExpressionDslParser extends AbstractInternalContentAssistPa
 
 
     // $ANTLR start "rule__HyDivisionExpression__Group__1"
-    // InternalExpressionDsl.g:3497:1: rule__HyDivisionExpression__Group__1 : rule__HyDivisionExpression__Group__1__Impl ;
+    // InternalExpressionDsl.g:3252:1: rule__HyDivisionExpression__Group__1 : rule__HyDivisionExpression__Group__1__Impl ;
     public final void rule__HyDivisionExpression__Group__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalExpressionDsl.g:3501:1: ( rule__HyDivisionExpression__Group__1__Impl )
-            // InternalExpressionDsl.g:3502:2: rule__HyDivisionExpression__Group__1__Impl
+            // InternalExpressionDsl.g:3256:1: ( rule__HyDivisionExpression__Group__1__Impl )
+            // InternalExpressionDsl.g:3257:2: rule__HyDivisionExpression__Group__1__Impl
             {
             pushFollow(FOLLOW_2);
             rule__HyDivisionExpression__Group__1__Impl();
@@ -12181,37 +10751,37 @@ public class InternalExpressionDslParser extends AbstractInternalContentAssistPa
 
 
     // $ANTLR start "rule__HyDivisionExpression__Group__1__Impl"
-    // InternalExpressionDsl.g:3508:1: rule__HyDivisionExpression__Group__1__Impl : ( ( rule__HyDivisionExpression__Group_1__0 )* ) ;
+    // InternalExpressionDsl.g:3263:1: rule__HyDivisionExpression__Group__1__Impl : ( ( rule__HyDivisionExpression__Group_1__0 )* ) ;
     public final void rule__HyDivisionExpression__Group__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalExpressionDsl.g:3512:1: ( ( ( rule__HyDivisionExpression__Group_1__0 )* ) )
-            // InternalExpressionDsl.g:3513:1: ( ( rule__HyDivisionExpression__Group_1__0 )* )
+            // InternalExpressionDsl.g:3267:1: ( ( ( rule__HyDivisionExpression__Group_1__0 )* ) )
+            // InternalExpressionDsl.g:3268:1: ( ( rule__HyDivisionExpression__Group_1__0 )* )
             {
-            // InternalExpressionDsl.g:3513:1: ( ( rule__HyDivisionExpression__Group_1__0 )* )
-            // InternalExpressionDsl.g:3514:2: ( rule__HyDivisionExpression__Group_1__0 )*
+            // InternalExpressionDsl.g:3268:1: ( ( rule__HyDivisionExpression__Group_1__0 )* )
+            // InternalExpressionDsl.g:3269:2: ( rule__HyDivisionExpression__Group_1__0 )*
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getHyDivisionExpressionAccess().getGroup_1()); 
             }
-            // InternalExpressionDsl.g:3515:2: ( rule__HyDivisionExpression__Group_1__0 )*
-            loop23:
+            // InternalExpressionDsl.g:3270:2: ( rule__HyDivisionExpression__Group_1__0 )*
+            loop18:
             do {
-                int alt23=2;
-                int LA23_0 = input.LA(1);
+                int alt18=2;
+                int LA18_0 = input.LA(1);
 
-                if ( (LA23_0==31) ) {
-                    alt23=1;
+                if ( (LA18_0==30) ) {
+                    alt18=1;
                 }
 
 
-                switch (alt23) {
+                switch (alt18) {
             	case 1 :
-            	    // InternalExpressionDsl.g:3515:3: rule__HyDivisionExpression__Group_1__0
+            	    // InternalExpressionDsl.g:3270:3: rule__HyDivisionExpression__Group_1__0
             	    {
-            	    pushFollow(FOLLOW_34);
+            	    pushFollow(FOLLOW_32);
             	    rule__HyDivisionExpression__Group_1__0();
 
             	    state._fsp--;
@@ -12221,7 +10791,7 @@ public class InternalExpressionDslParser extends AbstractInternalContentAssistPa
             	    break;
 
             	default :
-            	    break loop23;
+            	    break loop18;
                 }
             } while (true);
 
@@ -12250,16 +10820,16 @@ public class InternalExpressionDslParser extends AbstractInternalContentAssistPa
 
 
     // $ANTLR start "rule__HyDivisionExpression__Group_1__0"
-    // InternalExpressionDsl.g:3524:1: rule__HyDivisionExpression__Group_1__0 : rule__HyDivisionExpression__Group_1__0__Impl rule__HyDivisionExpression__Group_1__1 ;
+    // InternalExpressionDsl.g:3279:1: rule__HyDivisionExpression__Group_1__0 : rule__HyDivisionExpression__Group_1__0__Impl rule__HyDivisionExpression__Group_1__1 ;
     public final void rule__HyDivisionExpression__Group_1__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalExpressionDsl.g:3528:1: ( rule__HyDivisionExpression__Group_1__0__Impl rule__HyDivisionExpression__Group_1__1 )
-            // InternalExpressionDsl.g:3529:2: rule__HyDivisionExpression__Group_1__0__Impl rule__HyDivisionExpression__Group_1__1
+            // InternalExpressionDsl.g:3283:1: ( rule__HyDivisionExpression__Group_1__0__Impl rule__HyDivisionExpression__Group_1__1 )
+            // InternalExpressionDsl.g:3284:2: rule__HyDivisionExpression__Group_1__0__Impl rule__HyDivisionExpression__Group_1__1
             {
-            pushFollow(FOLLOW_33);
+            pushFollow(FOLLOW_31);
             rule__HyDivisionExpression__Group_1__0__Impl();
 
             state._fsp--;
@@ -12288,23 +10858,23 @@ public class InternalExpressionDslParser extends AbstractInternalContentAssistPa
 
 
     // $ANTLR start "rule__HyDivisionExpression__Group_1__0__Impl"
-    // InternalExpressionDsl.g:3536:1: rule__HyDivisionExpression__Group_1__0__Impl : ( () ) ;
+    // InternalExpressionDsl.g:3291:1: rule__HyDivisionExpression__Group_1__0__Impl : ( () ) ;
     public final void rule__HyDivisionExpression__Group_1__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalExpressionDsl.g:3540:1: ( ( () ) )
-            // InternalExpressionDsl.g:3541:1: ( () )
+            // InternalExpressionDsl.g:3295:1: ( ( () ) )
+            // InternalExpressionDsl.g:3296:1: ( () )
             {
-            // InternalExpressionDsl.g:3541:1: ( () )
-            // InternalExpressionDsl.g:3542:2: ()
+            // InternalExpressionDsl.g:3296:1: ( () )
+            // InternalExpressionDsl.g:3297:2: ()
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getHyDivisionExpressionAccess().getHyDivisionExpressionOperand1Action_1_0()); 
             }
-            // InternalExpressionDsl.g:3543:2: ()
-            // InternalExpressionDsl.g:3543:3: 
+            // InternalExpressionDsl.g:3298:2: ()
+            // InternalExpressionDsl.g:3298:3: 
             {
             }
 
@@ -12329,16 +10899,16 @@ public class InternalExpressionDslParser extends AbstractInternalContentAssistPa
 
 
     // $ANTLR start "rule__HyDivisionExpression__Group_1__1"
-    // InternalExpressionDsl.g:3551:1: rule__HyDivisionExpression__Group_1__1 : rule__HyDivisionExpression__Group_1__1__Impl rule__HyDivisionExpression__Group_1__2 ;
+    // InternalExpressionDsl.g:3306:1: rule__HyDivisionExpression__Group_1__1 : rule__HyDivisionExpression__Group_1__1__Impl rule__HyDivisionExpression__Group_1__2 ;
     public final void rule__HyDivisionExpression__Group_1__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalExpressionDsl.g:3555:1: ( rule__HyDivisionExpression__Group_1__1__Impl rule__HyDivisionExpression__Group_1__2 )
-            // InternalExpressionDsl.g:3556:2: rule__HyDivisionExpression__Group_1__1__Impl rule__HyDivisionExpression__Group_1__2
+            // InternalExpressionDsl.g:3310:1: ( rule__HyDivisionExpression__Group_1__1__Impl rule__HyDivisionExpression__Group_1__2 )
+            // InternalExpressionDsl.g:3311:2: rule__HyDivisionExpression__Group_1__1__Impl rule__HyDivisionExpression__Group_1__2
             {
-            pushFollow(FOLLOW_22);
+            pushFollow(FOLLOW_28);
             rule__HyDivisionExpression__Group_1__1__Impl();
 
             state._fsp--;
@@ -12367,22 +10937,22 @@ public class InternalExpressionDslParser extends AbstractInternalContentAssistPa
 
 
     // $ANTLR start "rule__HyDivisionExpression__Group_1__1__Impl"
-    // InternalExpressionDsl.g:3563:1: rule__HyDivisionExpression__Group_1__1__Impl : ( '/' ) ;
+    // InternalExpressionDsl.g:3318:1: rule__HyDivisionExpression__Group_1__1__Impl : ( '/' ) ;
     public final void rule__HyDivisionExpression__Group_1__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalExpressionDsl.g:3567:1: ( ( '/' ) )
-            // InternalExpressionDsl.g:3568:1: ( '/' )
+            // InternalExpressionDsl.g:3322:1: ( ( '/' ) )
+            // InternalExpressionDsl.g:3323:1: ( '/' )
             {
-            // InternalExpressionDsl.g:3568:1: ( '/' )
-            // InternalExpressionDsl.g:3569:2: '/'
+            // InternalExpressionDsl.g:3323:1: ( '/' )
+            // InternalExpressionDsl.g:3324:2: '/'
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getHyDivisionExpressionAccess().getSolidusKeyword_1_1()); 
             }
-            match(input,31,FOLLOW_2); if (state.failed) return ;
+            match(input,30,FOLLOW_2); if (state.failed) return ;
             if ( state.backtracking==0 ) {
                after(grammarAccess.getHyDivisionExpressionAccess().getSolidusKeyword_1_1()); 
             }
@@ -12408,14 +10978,14 @@ public class InternalExpressionDslParser extends AbstractInternalContentAssistPa
 
 
     // $ANTLR start "rule__HyDivisionExpression__Group_1__2"
-    // InternalExpressionDsl.g:3578:1: rule__HyDivisionExpression__Group_1__2 : rule__HyDivisionExpression__Group_1__2__Impl ;
+    // InternalExpressionDsl.g:3333:1: rule__HyDivisionExpression__Group_1__2 : rule__HyDivisionExpression__Group_1__2__Impl ;
     public final void rule__HyDivisionExpression__Group_1__2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalExpressionDsl.g:3582:1: ( rule__HyDivisionExpression__Group_1__2__Impl )
-            // InternalExpressionDsl.g:3583:2: rule__HyDivisionExpression__Group_1__2__Impl
+            // InternalExpressionDsl.g:3337:1: ( rule__HyDivisionExpression__Group_1__2__Impl )
+            // InternalExpressionDsl.g:3338:2: rule__HyDivisionExpression__Group_1__2__Impl
             {
             pushFollow(FOLLOW_2);
             rule__HyDivisionExpression__Group_1__2__Impl();
@@ -12441,23 +11011,23 @@ public class InternalExpressionDslParser extends AbstractInternalContentAssistPa
 
 
     // $ANTLR start "rule__HyDivisionExpression__Group_1__2__Impl"
-    // InternalExpressionDsl.g:3589:1: rule__HyDivisionExpression__Group_1__2__Impl : ( ( rule__HyDivisionExpression__Operand2Assignment_1_2 ) ) ;
+    // InternalExpressionDsl.g:3344:1: rule__HyDivisionExpression__Group_1__2__Impl : ( ( rule__HyDivisionExpression__Operand2Assignment_1_2 ) ) ;
     public final void rule__HyDivisionExpression__Group_1__2__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalExpressionDsl.g:3593:1: ( ( ( rule__HyDivisionExpression__Operand2Assignment_1_2 ) ) )
-            // InternalExpressionDsl.g:3594:1: ( ( rule__HyDivisionExpression__Operand2Assignment_1_2 ) )
+            // InternalExpressionDsl.g:3348:1: ( ( ( rule__HyDivisionExpression__Operand2Assignment_1_2 ) ) )
+            // InternalExpressionDsl.g:3349:1: ( ( rule__HyDivisionExpression__Operand2Assignment_1_2 ) )
             {
-            // InternalExpressionDsl.g:3594:1: ( ( rule__HyDivisionExpression__Operand2Assignment_1_2 ) )
-            // InternalExpressionDsl.g:3595:2: ( rule__HyDivisionExpression__Operand2Assignment_1_2 )
+            // InternalExpressionDsl.g:3349:1: ( ( rule__HyDivisionExpression__Operand2Assignment_1_2 ) )
+            // InternalExpressionDsl.g:3350:2: ( rule__HyDivisionExpression__Operand2Assignment_1_2 )
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getHyDivisionExpressionAccess().getOperand2Assignment_1_2()); 
             }
-            // InternalExpressionDsl.g:3596:2: ( rule__HyDivisionExpression__Operand2Assignment_1_2 )
-            // InternalExpressionDsl.g:3596:3: rule__HyDivisionExpression__Operand2Assignment_1_2
+            // InternalExpressionDsl.g:3351:2: ( rule__HyDivisionExpression__Operand2Assignment_1_2 )
+            // InternalExpressionDsl.g:3351:3: rule__HyDivisionExpression__Operand2Assignment_1_2
             {
             pushFollow(FOLLOW_2);
             rule__HyDivisionExpression__Operand2Assignment_1_2();
@@ -12492,16 +11062,16 @@ public class InternalExpressionDslParser extends AbstractInternalContentAssistPa
 
 
     // $ANTLR start "rule__HyBooleanValue__Group__0"
-    // InternalExpressionDsl.g:3605:1: rule__HyBooleanValue__Group__0 : rule__HyBooleanValue__Group__0__Impl rule__HyBooleanValue__Group__1 ;
+    // InternalExpressionDsl.g:3360:1: rule__HyBooleanValue__Group__0 : rule__HyBooleanValue__Group__0__Impl rule__HyBooleanValue__Group__1 ;
     public final void rule__HyBooleanValue__Group__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalExpressionDsl.g:3609:1: ( rule__HyBooleanValue__Group__0__Impl rule__HyBooleanValue__Group__1 )
-            // InternalExpressionDsl.g:3610:2: rule__HyBooleanValue__Group__0__Impl rule__HyBooleanValue__Group__1
+            // InternalExpressionDsl.g:3364:1: ( rule__HyBooleanValue__Group__0__Impl rule__HyBooleanValue__Group__1 )
+            // InternalExpressionDsl.g:3365:2: rule__HyBooleanValue__Group__0__Impl rule__HyBooleanValue__Group__1
             {
-            pushFollow(FOLLOW_20);
+            pushFollow(FOLLOW_33);
             rule__HyBooleanValue__Group__0__Impl();
 
             state._fsp--;
@@ -12530,23 +11100,23 @@ public class InternalExpressionDslParser extends AbstractInternalContentAssistPa
 
 
     // $ANTLR start "rule__HyBooleanValue__Group__0__Impl"
-    // InternalExpressionDsl.g:3617:1: rule__HyBooleanValue__Group__0__Impl : ( () ) ;
+    // InternalExpressionDsl.g:3372:1: rule__HyBooleanValue__Group__0__Impl : ( () ) ;
     public final void rule__HyBooleanValue__Group__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalExpressionDsl.g:3621:1: ( ( () ) )
-            // InternalExpressionDsl.g:3622:1: ( () )
+            // InternalExpressionDsl.g:3376:1: ( ( () ) )
+            // InternalExpressionDsl.g:3377:1: ( () )
             {
-            // InternalExpressionDsl.g:3622:1: ( () )
-            // InternalExpressionDsl.g:3623:2: ()
+            // InternalExpressionDsl.g:3377:1: ( () )
+            // InternalExpressionDsl.g:3378:2: ()
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getHyBooleanValueAccess().getHyBooleanValueAction_0()); 
             }
-            // InternalExpressionDsl.g:3624:2: ()
-            // InternalExpressionDsl.g:3624:3: 
+            // InternalExpressionDsl.g:3379:2: ()
+            // InternalExpressionDsl.g:3379:3: 
             {
             }
 
@@ -12571,14 +11141,14 @@ public class InternalExpressionDslParser extends AbstractInternalContentAssistPa
 
 
     // $ANTLR start "rule__HyBooleanValue__Group__1"
-    // InternalExpressionDsl.g:3632:1: rule__HyBooleanValue__Group__1 : rule__HyBooleanValue__Group__1__Impl ;
+    // InternalExpressionDsl.g:3387:1: rule__HyBooleanValue__Group__1 : rule__HyBooleanValue__Group__1__Impl ;
     public final void rule__HyBooleanValue__Group__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalExpressionDsl.g:3636:1: ( rule__HyBooleanValue__Group__1__Impl )
-            // InternalExpressionDsl.g:3637:2: rule__HyBooleanValue__Group__1__Impl
+            // InternalExpressionDsl.g:3391:1: ( rule__HyBooleanValue__Group__1__Impl )
+            // InternalExpressionDsl.g:3392:2: rule__HyBooleanValue__Group__1__Impl
             {
             pushFollow(FOLLOW_2);
             rule__HyBooleanValue__Group__1__Impl();
@@ -12604,23 +11174,23 @@ public class InternalExpressionDslParser extends AbstractInternalContentAssistPa
 
 
     // $ANTLR start "rule__HyBooleanValue__Group__1__Impl"
-    // InternalExpressionDsl.g:3643:1: rule__HyBooleanValue__Group__1__Impl : ( ( rule__HyBooleanValue__Alternatives_1 ) ) ;
+    // InternalExpressionDsl.g:3398:1: rule__HyBooleanValue__Group__1__Impl : ( ( rule__HyBooleanValue__Alternatives_1 ) ) ;
     public final void rule__HyBooleanValue__Group__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalExpressionDsl.g:3647:1: ( ( ( rule__HyBooleanValue__Alternatives_1 ) ) )
-            // InternalExpressionDsl.g:3648:1: ( ( rule__HyBooleanValue__Alternatives_1 ) )
+            // InternalExpressionDsl.g:3402:1: ( ( ( rule__HyBooleanValue__Alternatives_1 ) ) )
+            // InternalExpressionDsl.g:3403:1: ( ( rule__HyBooleanValue__Alternatives_1 ) )
             {
-            // InternalExpressionDsl.g:3648:1: ( ( rule__HyBooleanValue__Alternatives_1 ) )
-            // InternalExpressionDsl.g:3649:2: ( rule__HyBooleanValue__Alternatives_1 )
+            // InternalExpressionDsl.g:3403:1: ( ( rule__HyBooleanValue__Alternatives_1 ) )
+            // InternalExpressionDsl.g:3404:2: ( rule__HyBooleanValue__Alternatives_1 )
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getHyBooleanValueAccess().getAlternatives_1()); 
             }
-            // InternalExpressionDsl.g:3650:2: ( rule__HyBooleanValue__Alternatives_1 )
-            // InternalExpressionDsl.g:3650:3: rule__HyBooleanValue__Alternatives_1
+            // InternalExpressionDsl.g:3405:2: ( rule__HyBooleanValue__Alternatives_1 )
+            // InternalExpressionDsl.g:3405:3: rule__HyBooleanValue__Alternatives_1
             {
             pushFollow(FOLLOW_2);
             rule__HyBooleanValue__Alternatives_1();
@@ -12655,16 +11225,16 @@ public class InternalExpressionDslParser extends AbstractInternalContentAssistPa
 
 
     // $ANTLR start "rule__HyEnumValue__Group__0"
-    // InternalExpressionDsl.g:3659:1: rule__HyEnumValue__Group__0 : rule__HyEnumValue__Group__0__Impl rule__HyEnumValue__Group__1 ;
+    // InternalExpressionDsl.g:3414:1: rule__HyEnumValue__Group__0 : rule__HyEnumValue__Group__0__Impl rule__HyEnumValue__Group__1 ;
     public final void rule__HyEnumValue__Group__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalExpressionDsl.g:3663:1: ( rule__HyEnumValue__Group__0__Impl rule__HyEnumValue__Group__1 )
-            // InternalExpressionDsl.g:3664:2: rule__HyEnumValue__Group__0__Impl rule__HyEnumValue__Group__1
+            // InternalExpressionDsl.g:3418:1: ( rule__HyEnumValue__Group__0__Impl rule__HyEnumValue__Group__1 )
+            // InternalExpressionDsl.g:3419:2: rule__HyEnumValue__Group__0__Impl rule__HyEnumValue__Group__1
             {
-            pushFollow(FOLLOW_35);
+            pushFollow(FOLLOW_34);
             rule__HyEnumValue__Group__0__Impl();
 
             state._fsp--;
@@ -12693,23 +11263,23 @@ public class InternalExpressionDslParser extends AbstractInternalContentAssistPa
 
 
     // $ANTLR start "rule__HyEnumValue__Group__0__Impl"
-    // InternalExpressionDsl.g:3671:1: rule__HyEnumValue__Group__0__Impl : ( ( rule__HyEnumValue__EnumAssignment_0 ) ) ;
+    // InternalExpressionDsl.g:3426:1: rule__HyEnumValue__Group__0__Impl : ( ( rule__HyEnumValue__EnumAssignment_0 ) ) ;
     public final void rule__HyEnumValue__Group__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalExpressionDsl.g:3675:1: ( ( ( rule__HyEnumValue__EnumAssignment_0 ) ) )
-            // InternalExpressionDsl.g:3676:1: ( ( rule__HyEnumValue__EnumAssignment_0 ) )
+            // InternalExpressionDsl.g:3430:1: ( ( ( rule__HyEnumValue__EnumAssignment_0 ) ) )
+            // InternalExpressionDsl.g:3431:1: ( ( rule__HyEnumValue__EnumAssignment_0 ) )
             {
-            // InternalExpressionDsl.g:3676:1: ( ( rule__HyEnumValue__EnumAssignment_0 ) )
-            // InternalExpressionDsl.g:3677:2: ( rule__HyEnumValue__EnumAssignment_0 )
+            // InternalExpressionDsl.g:3431:1: ( ( rule__HyEnumValue__EnumAssignment_0 ) )
+            // InternalExpressionDsl.g:3432:2: ( rule__HyEnumValue__EnumAssignment_0 )
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getHyEnumValueAccess().getEnumAssignment_0()); 
             }
-            // InternalExpressionDsl.g:3678:2: ( rule__HyEnumValue__EnumAssignment_0 )
-            // InternalExpressionDsl.g:3678:3: rule__HyEnumValue__EnumAssignment_0
+            // InternalExpressionDsl.g:3433:2: ( rule__HyEnumValue__EnumAssignment_0 )
+            // InternalExpressionDsl.g:3433:3: rule__HyEnumValue__EnumAssignment_0
             {
             pushFollow(FOLLOW_2);
             rule__HyEnumValue__EnumAssignment_0();
@@ -12744,14 +11314,14 @@ public class InternalExpressionDslParser extends AbstractInternalContentAssistPa
 
 
     // $ANTLR start "rule__HyEnumValue__Group__1"
-    // InternalExpressionDsl.g:3686:1: rule__HyEnumValue__Group__1 : rule__HyEnumValue__Group__1__Impl rule__HyEnumValue__Group__2 ;
+    // InternalExpressionDsl.g:3441:1: rule__HyEnumValue__Group__1 : rule__HyEnumValue__Group__1__Impl rule__HyEnumValue__Group__2 ;
     public final void rule__HyEnumValue__Group__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalExpressionDsl.g:3690:1: ( rule__HyEnumValue__Group__1__Impl rule__HyEnumValue__Group__2 )
-            // InternalExpressionDsl.g:3691:2: rule__HyEnumValue__Group__1__Impl rule__HyEnumValue__Group__2
+            // InternalExpressionDsl.g:3445:1: ( rule__HyEnumValue__Group__1__Impl rule__HyEnumValue__Group__2 )
+            // InternalExpressionDsl.g:3446:2: rule__HyEnumValue__Group__1__Impl rule__HyEnumValue__Group__2
             {
             pushFollow(FOLLOW_14);
             rule__HyEnumValue__Group__1__Impl();
@@ -12782,22 +11352,22 @@ public class InternalExpressionDslParser extends AbstractInternalContentAssistPa
 
 
     // $ANTLR start "rule__HyEnumValue__Group__1__Impl"
-    // InternalExpressionDsl.g:3698:1: rule__HyEnumValue__Group__1__Impl : ( '.' ) ;
+    // InternalExpressionDsl.g:3453:1: rule__HyEnumValue__Group__1__Impl : ( '.' ) ;
     public final void rule__HyEnumValue__Group__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalExpressionDsl.g:3702:1: ( ( '.' ) )
-            // InternalExpressionDsl.g:3703:1: ( '.' )
+            // InternalExpressionDsl.g:3457:1: ( ( '.' ) )
+            // InternalExpressionDsl.g:3458:1: ( '.' )
             {
-            // InternalExpressionDsl.g:3703:1: ( '.' )
-            // InternalExpressionDsl.g:3704:2: '.'
+            // InternalExpressionDsl.g:3458:1: ( '.' )
+            // InternalExpressionDsl.g:3459:2: '.'
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getHyEnumValueAccess().getFullStopKeyword_1()); 
             }
-            match(input,32,FOLLOW_2); if (state.failed) return ;
+            match(input,31,FOLLOW_2); if (state.failed) return ;
             if ( state.backtracking==0 ) {
                after(grammarAccess.getHyEnumValueAccess().getFullStopKeyword_1()); 
             }
@@ -12823,14 +11393,14 @@ public class InternalExpressionDslParser extends AbstractInternalContentAssistPa
 
 
     // $ANTLR start "rule__HyEnumValue__Group__2"
-    // InternalExpressionDsl.g:3713:1: rule__HyEnumValue__Group__2 : rule__HyEnumValue__Group__2__Impl ;
+    // InternalExpressionDsl.g:3468:1: rule__HyEnumValue__Group__2 : rule__HyEnumValue__Group__2__Impl ;
     public final void rule__HyEnumValue__Group__2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalExpressionDsl.g:3717:1: ( rule__HyEnumValue__Group__2__Impl )
-            // InternalExpressionDsl.g:3718:2: rule__HyEnumValue__Group__2__Impl
+            // InternalExpressionDsl.g:3472:1: ( rule__HyEnumValue__Group__2__Impl )
+            // InternalExpressionDsl.g:3473:2: rule__HyEnumValue__Group__2__Impl
             {
             pushFollow(FOLLOW_2);
             rule__HyEnumValue__Group__2__Impl();
@@ -12856,23 +11426,23 @@ public class InternalExpressionDslParser extends AbstractInternalContentAssistPa
 
 
     // $ANTLR start "rule__HyEnumValue__Group__2__Impl"
-    // InternalExpressionDsl.g:3724:1: rule__HyEnumValue__Group__2__Impl : ( ( rule__HyEnumValue__EnumLiteralAssignment_2 ) ) ;
+    // InternalExpressionDsl.g:3479:1: rule__HyEnumValue__Group__2__Impl : ( ( rule__HyEnumValue__EnumLiteralAssignment_2 ) ) ;
     public final void rule__HyEnumValue__Group__2__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalExpressionDsl.g:3728:1: ( ( ( rule__HyEnumValue__EnumLiteralAssignment_2 ) ) )
-            // InternalExpressionDsl.g:3729:1: ( ( rule__HyEnumValue__EnumLiteralAssignment_2 ) )
+            // InternalExpressionDsl.g:3483:1: ( ( ( rule__HyEnumValue__EnumLiteralAssignment_2 ) ) )
+            // InternalExpressionDsl.g:3484:1: ( ( rule__HyEnumValue__EnumLiteralAssignment_2 ) )
             {
-            // InternalExpressionDsl.g:3729:1: ( ( rule__HyEnumValue__EnumLiteralAssignment_2 ) )
-            // InternalExpressionDsl.g:3730:2: ( rule__HyEnumValue__EnumLiteralAssignment_2 )
+            // InternalExpressionDsl.g:3484:1: ( ( rule__HyEnumValue__EnumLiteralAssignment_2 ) )
+            // InternalExpressionDsl.g:3485:2: ( rule__HyEnumValue__EnumLiteralAssignment_2 )
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getHyEnumValueAccess().getEnumLiteralAssignment_2()); 
             }
-            // InternalExpressionDsl.g:3731:2: ( rule__HyEnumValue__EnumLiteralAssignment_2 )
-            // InternalExpressionDsl.g:3731:3: rule__HyEnumValue__EnumLiteralAssignment_2
+            // InternalExpressionDsl.g:3486:2: ( rule__HyEnumValue__EnumLiteralAssignment_2 )
+            // InternalExpressionDsl.g:3486:3: rule__HyEnumValue__EnumLiteralAssignment_2
             {
             pushFollow(FOLLOW_2);
             rule__HyEnumValue__EnumLiteralAssignment_2();
@@ -12907,16 +11477,16 @@ public class InternalExpressionDslParser extends AbstractInternalContentAssistPa
 
 
     // $ANTLR start "rule__HyNestedArithmeticalValueExpression__Group__0"
-    // InternalExpressionDsl.g:3740:1: rule__HyNestedArithmeticalValueExpression__Group__0 : rule__HyNestedArithmeticalValueExpression__Group__0__Impl rule__HyNestedArithmeticalValueExpression__Group__1 ;
+    // InternalExpressionDsl.g:3495:1: rule__HyNestedArithmeticalValueExpression__Group__0 : rule__HyNestedArithmeticalValueExpression__Group__0__Impl rule__HyNestedArithmeticalValueExpression__Group__1 ;
     public final void rule__HyNestedArithmeticalValueExpression__Group__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalExpressionDsl.g:3744:1: ( rule__HyNestedArithmeticalValueExpression__Group__0__Impl rule__HyNestedArithmeticalValueExpression__Group__1 )
-            // InternalExpressionDsl.g:3745:2: rule__HyNestedArithmeticalValueExpression__Group__0__Impl rule__HyNestedArithmeticalValueExpression__Group__1
+            // InternalExpressionDsl.g:3499:1: ( rule__HyNestedArithmeticalValueExpression__Group__0__Impl rule__HyNestedArithmeticalValueExpression__Group__1 )
+            // InternalExpressionDsl.g:3500:2: rule__HyNestedArithmeticalValueExpression__Group__0__Impl rule__HyNestedArithmeticalValueExpression__Group__1
             {
-            pushFollow(FOLLOW_22);
+            pushFollow(FOLLOW_21);
             rule__HyNestedArithmeticalValueExpression__Group__0__Impl();
 
             state._fsp--;
@@ -12945,17 +11515,17 @@ public class InternalExpressionDslParser extends AbstractInternalContentAssistPa
 
 
     // $ANTLR start "rule__HyNestedArithmeticalValueExpression__Group__0__Impl"
-    // InternalExpressionDsl.g:3752:1: rule__HyNestedArithmeticalValueExpression__Group__0__Impl : ( '(' ) ;
+    // InternalExpressionDsl.g:3507:1: rule__HyNestedArithmeticalValueExpression__Group__0__Impl : ( '(' ) ;
     public final void rule__HyNestedArithmeticalValueExpression__Group__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalExpressionDsl.g:3756:1: ( ( '(' ) )
-            // InternalExpressionDsl.g:3757:1: ( '(' )
+            // InternalExpressionDsl.g:3511:1: ( ( '(' ) )
+            // InternalExpressionDsl.g:3512:1: ( '(' )
             {
-            // InternalExpressionDsl.g:3757:1: ( '(' )
-            // InternalExpressionDsl.g:3758:2: '('
+            // InternalExpressionDsl.g:3512:1: ( '(' )
+            // InternalExpressionDsl.g:3513:2: '('
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getHyNestedArithmeticalValueExpressionAccess().getLeftParenthesisKeyword_0()); 
@@ -12986,14 +11556,14 @@ public class InternalExpressionDslParser extends AbstractInternalContentAssistPa
 
 
     // $ANTLR start "rule__HyNestedArithmeticalValueExpression__Group__1"
-    // InternalExpressionDsl.g:3767:1: rule__HyNestedArithmeticalValueExpression__Group__1 : rule__HyNestedArithmeticalValueExpression__Group__1__Impl rule__HyNestedArithmeticalValueExpression__Group__2 ;
+    // InternalExpressionDsl.g:3522:1: rule__HyNestedArithmeticalValueExpression__Group__1 : rule__HyNestedArithmeticalValueExpression__Group__1__Impl rule__HyNestedArithmeticalValueExpression__Group__2 ;
     public final void rule__HyNestedArithmeticalValueExpression__Group__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalExpressionDsl.g:3771:1: ( rule__HyNestedArithmeticalValueExpression__Group__1__Impl rule__HyNestedArithmeticalValueExpression__Group__2 )
-            // InternalExpressionDsl.g:3772:2: rule__HyNestedArithmeticalValueExpression__Group__1__Impl rule__HyNestedArithmeticalValueExpression__Group__2
+            // InternalExpressionDsl.g:3526:1: ( rule__HyNestedArithmeticalValueExpression__Group__1__Impl rule__HyNestedArithmeticalValueExpression__Group__2 )
+            // InternalExpressionDsl.g:3527:2: rule__HyNestedArithmeticalValueExpression__Group__1__Impl rule__HyNestedArithmeticalValueExpression__Group__2
             {
             pushFollow(FOLLOW_12);
             rule__HyNestedArithmeticalValueExpression__Group__1__Impl();
@@ -13024,23 +11594,23 @@ public class InternalExpressionDslParser extends AbstractInternalContentAssistPa
 
 
     // $ANTLR start "rule__HyNestedArithmeticalValueExpression__Group__1__Impl"
-    // InternalExpressionDsl.g:3779:1: rule__HyNestedArithmeticalValueExpression__Group__1__Impl : ( ( rule__HyNestedArithmeticalValueExpression__OperandAssignment_1 ) ) ;
+    // InternalExpressionDsl.g:3534:1: rule__HyNestedArithmeticalValueExpression__Group__1__Impl : ( ( rule__HyNestedArithmeticalValueExpression__OperandAssignment_1 ) ) ;
     public final void rule__HyNestedArithmeticalValueExpression__Group__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalExpressionDsl.g:3783:1: ( ( ( rule__HyNestedArithmeticalValueExpression__OperandAssignment_1 ) ) )
-            // InternalExpressionDsl.g:3784:1: ( ( rule__HyNestedArithmeticalValueExpression__OperandAssignment_1 ) )
+            // InternalExpressionDsl.g:3538:1: ( ( ( rule__HyNestedArithmeticalValueExpression__OperandAssignment_1 ) ) )
+            // InternalExpressionDsl.g:3539:1: ( ( rule__HyNestedArithmeticalValueExpression__OperandAssignment_1 ) )
             {
-            // InternalExpressionDsl.g:3784:1: ( ( rule__HyNestedArithmeticalValueExpression__OperandAssignment_1 ) )
-            // InternalExpressionDsl.g:3785:2: ( rule__HyNestedArithmeticalValueExpression__OperandAssignment_1 )
+            // InternalExpressionDsl.g:3539:1: ( ( rule__HyNestedArithmeticalValueExpression__OperandAssignment_1 ) )
+            // InternalExpressionDsl.g:3540:2: ( rule__HyNestedArithmeticalValueExpression__OperandAssignment_1 )
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getHyNestedArithmeticalValueExpressionAccess().getOperandAssignment_1()); 
             }
-            // InternalExpressionDsl.g:3786:2: ( rule__HyNestedArithmeticalValueExpression__OperandAssignment_1 )
-            // InternalExpressionDsl.g:3786:3: rule__HyNestedArithmeticalValueExpression__OperandAssignment_1
+            // InternalExpressionDsl.g:3541:2: ( rule__HyNestedArithmeticalValueExpression__OperandAssignment_1 )
+            // InternalExpressionDsl.g:3541:3: rule__HyNestedArithmeticalValueExpression__OperandAssignment_1
             {
             pushFollow(FOLLOW_2);
             rule__HyNestedArithmeticalValueExpression__OperandAssignment_1();
@@ -13075,14 +11645,14 @@ public class InternalExpressionDslParser extends AbstractInternalContentAssistPa
 
 
     // $ANTLR start "rule__HyNestedArithmeticalValueExpression__Group__2"
-    // InternalExpressionDsl.g:3794:1: rule__HyNestedArithmeticalValueExpression__Group__2 : rule__HyNestedArithmeticalValueExpression__Group__2__Impl ;
+    // InternalExpressionDsl.g:3549:1: rule__HyNestedArithmeticalValueExpression__Group__2 : rule__HyNestedArithmeticalValueExpression__Group__2__Impl ;
     public final void rule__HyNestedArithmeticalValueExpression__Group__2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalExpressionDsl.g:3798:1: ( rule__HyNestedArithmeticalValueExpression__Group__2__Impl )
-            // InternalExpressionDsl.g:3799:2: rule__HyNestedArithmeticalValueExpression__Group__2__Impl
+            // InternalExpressionDsl.g:3553:1: ( rule__HyNestedArithmeticalValueExpression__Group__2__Impl )
+            // InternalExpressionDsl.g:3554:2: rule__HyNestedArithmeticalValueExpression__Group__2__Impl
             {
             pushFollow(FOLLOW_2);
             rule__HyNestedArithmeticalValueExpression__Group__2__Impl();
@@ -13108,17 +11678,17 @@ public class InternalExpressionDslParser extends AbstractInternalContentAssistPa
 
 
     // $ANTLR start "rule__HyNestedArithmeticalValueExpression__Group__2__Impl"
-    // InternalExpressionDsl.g:3805:1: rule__HyNestedArithmeticalValueExpression__Group__2__Impl : ( ')' ) ;
+    // InternalExpressionDsl.g:3560:1: rule__HyNestedArithmeticalValueExpression__Group__2__Impl : ( ')' ) ;
     public final void rule__HyNestedArithmeticalValueExpression__Group__2__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalExpressionDsl.g:3809:1: ( ( ')' ) )
-            // InternalExpressionDsl.g:3810:1: ( ')' )
+            // InternalExpressionDsl.g:3564:1: ( ( ')' ) )
+            // InternalExpressionDsl.g:3565:1: ( ')' )
             {
-            // InternalExpressionDsl.g:3810:1: ( ')' )
-            // InternalExpressionDsl.g:3811:2: ')'
+            // InternalExpressionDsl.g:3565:1: ( ')' )
+            // InternalExpressionDsl.g:3566:2: ')'
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getHyNestedArithmeticalValueExpressionAccess().getRightParenthesisKeyword_2()); 
@@ -13149,16 +11719,16 @@ public class InternalExpressionDslParser extends AbstractInternalContentAssistPa
 
 
     // $ANTLR start "rule__HyAttributeReferenceExpression__Group__0"
-    // InternalExpressionDsl.g:3821:1: rule__HyAttributeReferenceExpression__Group__0 : rule__HyAttributeReferenceExpression__Group__0__Impl rule__HyAttributeReferenceExpression__Group__1 ;
+    // InternalExpressionDsl.g:3576:1: rule__HyAttributeReferenceExpression__Group__0 : rule__HyAttributeReferenceExpression__Group__0__Impl rule__HyAttributeReferenceExpression__Group__1 ;
     public final void rule__HyAttributeReferenceExpression__Group__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalExpressionDsl.g:3825:1: ( rule__HyAttributeReferenceExpression__Group__0__Impl rule__HyAttributeReferenceExpression__Group__1 )
-            // InternalExpressionDsl.g:3826:2: rule__HyAttributeReferenceExpression__Group__0__Impl rule__HyAttributeReferenceExpression__Group__1
+            // InternalExpressionDsl.g:3580:1: ( rule__HyAttributeReferenceExpression__Group__0__Impl rule__HyAttributeReferenceExpression__Group__1 )
+            // InternalExpressionDsl.g:3581:2: rule__HyAttributeReferenceExpression__Group__0__Impl rule__HyAttributeReferenceExpression__Group__1
             {
-            pushFollow(FOLLOW_35);
+            pushFollow(FOLLOW_34);
             rule__HyAttributeReferenceExpression__Group__0__Impl();
 
             state._fsp--;
@@ -13187,23 +11757,23 @@ public class InternalExpressionDslParser extends AbstractInternalContentAssistPa
 
 
     // $ANTLR start "rule__HyAttributeReferenceExpression__Group__0__Impl"
-    // InternalExpressionDsl.g:3833:1: rule__HyAttributeReferenceExpression__Group__0__Impl : ( ( rule__HyAttributeReferenceExpression__FeatureAssignment_0 ) ) ;
+    // InternalExpressionDsl.g:3588:1: rule__HyAttributeReferenceExpression__Group__0__Impl : ( ( rule__HyAttributeReferenceExpression__FeatureAssignment_0 ) ) ;
     public final void rule__HyAttributeReferenceExpression__Group__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalExpressionDsl.g:3837:1: ( ( ( rule__HyAttributeReferenceExpression__FeatureAssignment_0 ) ) )
-            // InternalExpressionDsl.g:3838:1: ( ( rule__HyAttributeReferenceExpression__FeatureAssignment_0 ) )
+            // InternalExpressionDsl.g:3592:1: ( ( ( rule__HyAttributeReferenceExpression__FeatureAssignment_0 ) ) )
+            // InternalExpressionDsl.g:3593:1: ( ( rule__HyAttributeReferenceExpression__FeatureAssignment_0 ) )
             {
-            // InternalExpressionDsl.g:3838:1: ( ( rule__HyAttributeReferenceExpression__FeatureAssignment_0 ) )
-            // InternalExpressionDsl.g:3839:2: ( rule__HyAttributeReferenceExpression__FeatureAssignment_0 )
+            // InternalExpressionDsl.g:3593:1: ( ( rule__HyAttributeReferenceExpression__FeatureAssignment_0 ) )
+            // InternalExpressionDsl.g:3594:2: ( rule__HyAttributeReferenceExpression__FeatureAssignment_0 )
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getHyAttributeReferenceExpressionAccess().getFeatureAssignment_0()); 
             }
-            // InternalExpressionDsl.g:3840:2: ( rule__HyAttributeReferenceExpression__FeatureAssignment_0 )
-            // InternalExpressionDsl.g:3840:3: rule__HyAttributeReferenceExpression__FeatureAssignment_0
+            // InternalExpressionDsl.g:3595:2: ( rule__HyAttributeReferenceExpression__FeatureAssignment_0 )
+            // InternalExpressionDsl.g:3595:3: rule__HyAttributeReferenceExpression__FeatureAssignment_0
             {
             pushFollow(FOLLOW_2);
             rule__HyAttributeReferenceExpression__FeatureAssignment_0();
@@ -13238,14 +11808,14 @@ public class InternalExpressionDslParser extends AbstractInternalContentAssistPa
 
 
     // $ANTLR start "rule__HyAttributeReferenceExpression__Group__1"
-    // InternalExpressionDsl.g:3848:1: rule__HyAttributeReferenceExpression__Group__1 : rule__HyAttributeReferenceExpression__Group__1__Impl rule__HyAttributeReferenceExpression__Group__2 ;
+    // InternalExpressionDsl.g:3603:1: rule__HyAttributeReferenceExpression__Group__1 : rule__HyAttributeReferenceExpression__Group__1__Impl rule__HyAttributeReferenceExpression__Group__2 ;
     public final void rule__HyAttributeReferenceExpression__Group__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalExpressionDsl.g:3852:1: ( rule__HyAttributeReferenceExpression__Group__1__Impl rule__HyAttributeReferenceExpression__Group__2 )
-            // InternalExpressionDsl.g:3853:2: rule__HyAttributeReferenceExpression__Group__1__Impl rule__HyAttributeReferenceExpression__Group__2
+            // InternalExpressionDsl.g:3607:1: ( rule__HyAttributeReferenceExpression__Group__1__Impl rule__HyAttributeReferenceExpression__Group__2 )
+            // InternalExpressionDsl.g:3608:2: rule__HyAttributeReferenceExpression__Group__1__Impl rule__HyAttributeReferenceExpression__Group__2
             {
             pushFollow(FOLLOW_14);
             rule__HyAttributeReferenceExpression__Group__1__Impl();
@@ -13276,22 +11846,22 @@ public class InternalExpressionDslParser extends AbstractInternalContentAssistPa
 
 
     // $ANTLR start "rule__HyAttributeReferenceExpression__Group__1__Impl"
-    // InternalExpressionDsl.g:3860:1: rule__HyAttributeReferenceExpression__Group__1__Impl : ( '.' ) ;
+    // InternalExpressionDsl.g:3615:1: rule__HyAttributeReferenceExpression__Group__1__Impl : ( '.' ) ;
     public final void rule__HyAttributeReferenceExpression__Group__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalExpressionDsl.g:3864:1: ( ( '.' ) )
-            // InternalExpressionDsl.g:3865:1: ( '.' )
+            // InternalExpressionDsl.g:3619:1: ( ( '.' ) )
+            // InternalExpressionDsl.g:3620:1: ( '.' )
             {
-            // InternalExpressionDsl.g:3865:1: ( '.' )
-            // InternalExpressionDsl.g:3866:2: '.'
+            // InternalExpressionDsl.g:3620:1: ( '.' )
+            // InternalExpressionDsl.g:3621:2: '.'
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getHyAttributeReferenceExpressionAccess().getFullStopKeyword_1()); 
             }
-            match(input,32,FOLLOW_2); if (state.failed) return ;
+            match(input,31,FOLLOW_2); if (state.failed) return ;
             if ( state.backtracking==0 ) {
                after(grammarAccess.getHyAttributeReferenceExpressionAccess().getFullStopKeyword_1()); 
             }
@@ -13317,14 +11887,14 @@ public class InternalExpressionDslParser extends AbstractInternalContentAssistPa
 
 
     // $ANTLR start "rule__HyAttributeReferenceExpression__Group__2"
-    // InternalExpressionDsl.g:3875:1: rule__HyAttributeReferenceExpression__Group__2 : rule__HyAttributeReferenceExpression__Group__2__Impl ;
+    // InternalExpressionDsl.g:3630:1: rule__HyAttributeReferenceExpression__Group__2 : rule__HyAttributeReferenceExpression__Group__2__Impl ;
     public final void rule__HyAttributeReferenceExpression__Group__2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalExpressionDsl.g:3879:1: ( rule__HyAttributeReferenceExpression__Group__2__Impl )
-            // InternalExpressionDsl.g:3880:2: rule__HyAttributeReferenceExpression__Group__2__Impl
+            // InternalExpressionDsl.g:3634:1: ( rule__HyAttributeReferenceExpression__Group__2__Impl )
+            // InternalExpressionDsl.g:3635:2: rule__HyAttributeReferenceExpression__Group__2__Impl
             {
             pushFollow(FOLLOW_2);
             rule__HyAttributeReferenceExpression__Group__2__Impl();
@@ -13350,23 +11920,23 @@ public class InternalExpressionDslParser extends AbstractInternalContentAssistPa
 
 
     // $ANTLR start "rule__HyAttributeReferenceExpression__Group__2__Impl"
-    // InternalExpressionDsl.g:3886:1: rule__HyAttributeReferenceExpression__Group__2__Impl : ( ( rule__HyAttributeReferenceExpression__AttributeAssignment_2 ) ) ;
+    // InternalExpressionDsl.g:3641:1: rule__HyAttributeReferenceExpression__Group__2__Impl : ( ( rule__HyAttributeReferenceExpression__AttributeAssignment_2 ) ) ;
     public final void rule__HyAttributeReferenceExpression__Group__2__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalExpressionDsl.g:3890:1: ( ( ( rule__HyAttributeReferenceExpression__AttributeAssignment_2 ) ) )
-            // InternalExpressionDsl.g:3891:1: ( ( rule__HyAttributeReferenceExpression__AttributeAssignment_2 ) )
+            // InternalExpressionDsl.g:3645:1: ( ( ( rule__HyAttributeReferenceExpression__AttributeAssignment_2 ) ) )
+            // InternalExpressionDsl.g:3646:1: ( ( rule__HyAttributeReferenceExpression__AttributeAssignment_2 ) )
             {
-            // InternalExpressionDsl.g:3891:1: ( ( rule__HyAttributeReferenceExpression__AttributeAssignment_2 ) )
-            // InternalExpressionDsl.g:3892:2: ( rule__HyAttributeReferenceExpression__AttributeAssignment_2 )
+            // InternalExpressionDsl.g:3646:1: ( ( rule__HyAttributeReferenceExpression__AttributeAssignment_2 ) )
+            // InternalExpressionDsl.g:3647:2: ( rule__HyAttributeReferenceExpression__AttributeAssignment_2 )
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getHyAttributeReferenceExpressionAccess().getAttributeAssignment_2()); 
             }
-            // InternalExpressionDsl.g:3893:2: ( rule__HyAttributeReferenceExpression__AttributeAssignment_2 )
-            // InternalExpressionDsl.g:3893:3: rule__HyAttributeReferenceExpression__AttributeAssignment_2
+            // InternalExpressionDsl.g:3648:2: ( rule__HyAttributeReferenceExpression__AttributeAssignment_2 )
+            // InternalExpressionDsl.g:3648:3: rule__HyAttributeReferenceExpression__AttributeAssignment_2
             {
             pushFollow(FOLLOW_2);
             rule__HyAttributeReferenceExpression__AttributeAssignment_2();
@@ -13401,16 +11971,16 @@ public class InternalExpressionDslParser extends AbstractInternalContentAssistPa
 
 
     // $ANTLR start "rule__EInt__Group__0"
-    // InternalExpressionDsl.g:3902:1: rule__EInt__Group__0 : rule__EInt__Group__0__Impl rule__EInt__Group__1 ;
+    // InternalExpressionDsl.g:3657:1: rule__EInt__Group__0 : rule__EInt__Group__0__Impl rule__EInt__Group__1 ;
     public final void rule__EInt__Group__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalExpressionDsl.g:3906:1: ( rule__EInt__Group__0__Impl rule__EInt__Group__1 )
-            // InternalExpressionDsl.g:3907:2: rule__EInt__Group__0__Impl rule__EInt__Group__1
+            // InternalExpressionDsl.g:3661:1: ( rule__EInt__Group__0__Impl rule__EInt__Group__1 )
+            // InternalExpressionDsl.g:3662:2: rule__EInt__Group__0__Impl rule__EInt__Group__1
             {
-            pushFollow(FOLLOW_36);
+            pushFollow(FOLLOW_35);
             rule__EInt__Group__0__Impl();
 
             state._fsp--;
@@ -13439,31 +12009,31 @@ public class InternalExpressionDslParser extends AbstractInternalContentAssistPa
 
 
     // $ANTLR start "rule__EInt__Group__0__Impl"
-    // InternalExpressionDsl.g:3914:1: rule__EInt__Group__0__Impl : ( ( '-' )? ) ;
+    // InternalExpressionDsl.g:3669:1: rule__EInt__Group__0__Impl : ( ( '-' )? ) ;
     public final void rule__EInt__Group__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalExpressionDsl.g:3918:1: ( ( ( '-' )? ) )
-            // InternalExpressionDsl.g:3919:1: ( ( '-' )? )
+            // InternalExpressionDsl.g:3673:1: ( ( ( '-' )? ) )
+            // InternalExpressionDsl.g:3674:1: ( ( '-' )? )
             {
-            // InternalExpressionDsl.g:3919:1: ( ( '-' )? )
-            // InternalExpressionDsl.g:3920:2: ( '-' )?
+            // InternalExpressionDsl.g:3674:1: ( ( '-' )? )
+            // InternalExpressionDsl.g:3675:2: ( '-' )?
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getEIntAccess().getHyphenMinusKeyword_0()); 
             }
-            // InternalExpressionDsl.g:3921:2: ( '-' )?
-            int alt24=2;
-            int LA24_0 = input.LA(1);
+            // InternalExpressionDsl.g:3676:2: ( '-' )?
+            int alt19=2;
+            int LA19_0 = input.LA(1);
 
-            if ( (LA24_0==27) ) {
-                alt24=1;
+            if ( (LA19_0==27) ) {
+                alt19=1;
             }
-            switch (alt24) {
+            switch (alt19) {
                 case 1 :
-                    // InternalExpressionDsl.g:3921:3: '-'
+                    // InternalExpressionDsl.g:3676:3: '-'
                     {
                     match(input,27,FOLLOW_2); if (state.failed) return ;
 
@@ -13497,14 +12067,14 @@ public class InternalExpressionDslParser extends AbstractInternalContentAssistPa
 
 
     // $ANTLR start "rule__EInt__Group__1"
-    // InternalExpressionDsl.g:3929:1: rule__EInt__Group__1 : rule__EInt__Group__1__Impl ;
+    // InternalExpressionDsl.g:3684:1: rule__EInt__Group__1 : rule__EInt__Group__1__Impl ;
     public final void rule__EInt__Group__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalExpressionDsl.g:3933:1: ( rule__EInt__Group__1__Impl )
-            // InternalExpressionDsl.g:3934:2: rule__EInt__Group__1__Impl
+            // InternalExpressionDsl.g:3688:1: ( rule__EInt__Group__1__Impl )
+            // InternalExpressionDsl.g:3689:2: rule__EInt__Group__1__Impl
             {
             pushFollow(FOLLOW_2);
             rule__EInt__Group__1__Impl();
@@ -13530,17 +12100,17 @@ public class InternalExpressionDslParser extends AbstractInternalContentAssistPa
 
 
     // $ANTLR start "rule__EInt__Group__1__Impl"
-    // InternalExpressionDsl.g:3940:1: rule__EInt__Group__1__Impl : ( RULE_INT ) ;
+    // InternalExpressionDsl.g:3695:1: rule__EInt__Group__1__Impl : ( RULE_INT ) ;
     public final void rule__EInt__Group__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalExpressionDsl.g:3944:1: ( ( RULE_INT ) )
-            // InternalExpressionDsl.g:3945:1: ( RULE_INT )
+            // InternalExpressionDsl.g:3699:1: ( ( RULE_INT ) )
+            // InternalExpressionDsl.g:3700:1: ( RULE_INT )
             {
-            // InternalExpressionDsl.g:3945:1: ( RULE_INT )
-            // InternalExpressionDsl.g:3946:2: RULE_INT
+            // InternalExpressionDsl.g:3700:1: ( RULE_INT )
+            // InternalExpressionDsl.g:3701:2: RULE_INT
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getEIntAccess().getINTTerminalRuleCall_1()); 
@@ -13571,17 +12141,17 @@ public class InternalExpressionDslParser extends AbstractInternalContentAssistPa
 
 
     // $ANTLR start "rule__HyImpliesExpression__Operand2Assignment_1_2"
-    // InternalExpressionDsl.g:3956:1: rule__HyImpliesExpression__Operand2Assignment_1_2 : ( ruleHyEquivalenceExpression ) ;
+    // InternalExpressionDsl.g:3711:1: rule__HyImpliesExpression__Operand2Assignment_1_2 : ( ruleHyEquivalenceExpression ) ;
     public final void rule__HyImpliesExpression__Operand2Assignment_1_2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalExpressionDsl.g:3960:1: ( ( ruleHyEquivalenceExpression ) )
-            // InternalExpressionDsl.g:3961:2: ( ruleHyEquivalenceExpression )
+            // InternalExpressionDsl.g:3715:1: ( ( ruleHyEquivalenceExpression ) )
+            // InternalExpressionDsl.g:3716:2: ( ruleHyEquivalenceExpression )
             {
-            // InternalExpressionDsl.g:3961:2: ( ruleHyEquivalenceExpression )
-            // InternalExpressionDsl.g:3962:3: ruleHyEquivalenceExpression
+            // InternalExpressionDsl.g:3716:2: ( ruleHyEquivalenceExpression )
+            // InternalExpressionDsl.g:3717:3: ruleHyEquivalenceExpression
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getHyImpliesExpressionAccess().getOperand2HyEquivalenceExpressionParserRuleCall_1_2_0()); 
@@ -13616,17 +12186,17 @@ public class InternalExpressionDslParser extends AbstractInternalContentAssistPa
 
 
     // $ANTLR start "rule__HyEquivalenceExpression__Operand2Assignment_1_2"
-    // InternalExpressionDsl.g:3971:1: rule__HyEquivalenceExpression__Operand2Assignment_1_2 : ( ruleHyAndExpression ) ;
+    // InternalExpressionDsl.g:3726:1: rule__HyEquivalenceExpression__Operand2Assignment_1_2 : ( ruleHyAndExpression ) ;
     public final void rule__HyEquivalenceExpression__Operand2Assignment_1_2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalExpressionDsl.g:3975:1: ( ( ruleHyAndExpression ) )
-            // InternalExpressionDsl.g:3976:2: ( ruleHyAndExpression )
+            // InternalExpressionDsl.g:3730:1: ( ( ruleHyAndExpression ) )
+            // InternalExpressionDsl.g:3731:2: ( ruleHyAndExpression )
             {
-            // InternalExpressionDsl.g:3976:2: ( ruleHyAndExpression )
-            // InternalExpressionDsl.g:3977:3: ruleHyAndExpression
+            // InternalExpressionDsl.g:3731:2: ( ruleHyAndExpression )
+            // InternalExpressionDsl.g:3732:3: ruleHyAndExpression
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getHyEquivalenceExpressionAccess().getOperand2HyAndExpressionParserRuleCall_1_2_0()); 
@@ -13661,17 +12231,17 @@ public class InternalExpressionDslParser extends AbstractInternalContentAssistPa
 
 
     // $ANTLR start "rule__HyAndExpression__Operand2Assignment_1_2"
-    // InternalExpressionDsl.g:3986:1: rule__HyAndExpression__Operand2Assignment_1_2 : ( ruleHyOrExpression ) ;
+    // InternalExpressionDsl.g:3741:1: rule__HyAndExpression__Operand2Assignment_1_2 : ( ruleHyOrExpression ) ;
     public final void rule__HyAndExpression__Operand2Assignment_1_2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalExpressionDsl.g:3990:1: ( ( ruleHyOrExpression ) )
-            // InternalExpressionDsl.g:3991:2: ( ruleHyOrExpression )
+            // InternalExpressionDsl.g:3745:1: ( ( ruleHyOrExpression ) )
+            // InternalExpressionDsl.g:3746:2: ( ruleHyOrExpression )
             {
-            // InternalExpressionDsl.g:3991:2: ( ruleHyOrExpression )
-            // InternalExpressionDsl.g:3992:3: ruleHyOrExpression
+            // InternalExpressionDsl.g:3746:2: ( ruleHyOrExpression )
+            // InternalExpressionDsl.g:3747:3: ruleHyOrExpression
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getHyAndExpressionAccess().getOperand2HyOrExpressionParserRuleCall_1_2_0()); 
@@ -13706,17 +12276,17 @@ public class InternalExpressionDslParser extends AbstractInternalContentAssistPa
 
 
     // $ANTLR start "rule__HyOrExpression__Operand2Assignment_1_2"
-    // InternalExpressionDsl.g:4001:1: rule__HyOrExpression__Operand2Assignment_1_2 : ( ruleTerminalExpression ) ;
+    // InternalExpressionDsl.g:3756:1: rule__HyOrExpression__Operand2Assignment_1_2 : ( ruleTerminalExpression ) ;
     public final void rule__HyOrExpression__Operand2Assignment_1_2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalExpressionDsl.g:4005:1: ( ( ruleTerminalExpression ) )
-            // InternalExpressionDsl.g:4006:2: ( ruleTerminalExpression )
+            // InternalExpressionDsl.g:3760:1: ( ( ruleTerminalExpression ) )
+            // InternalExpressionDsl.g:3761:2: ( ruleTerminalExpression )
             {
-            // InternalExpressionDsl.g:4006:2: ( ruleTerminalExpression )
-            // InternalExpressionDsl.g:4007:3: ruleTerminalExpression
+            // InternalExpressionDsl.g:3761:2: ( ruleTerminalExpression )
+            // InternalExpressionDsl.g:3762:3: ruleTerminalExpression
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getHyOrExpressionAccess().getOperand2TerminalExpressionParserRuleCall_1_2_0()); 
@@ -13751,17 +12321,17 @@ public class InternalExpressionDslParser extends AbstractInternalContentAssistPa
 
 
     // $ANTLR start "rule__HyNestedExpression__OperandAssignment_1"
-    // InternalExpressionDsl.g:4016:1: rule__HyNestedExpression__OperandAssignment_1 : ( ruleHyExpression ) ;
+    // InternalExpressionDsl.g:3771:1: rule__HyNestedExpression__OperandAssignment_1 : ( ruleHyExpression ) ;
     public final void rule__HyNestedExpression__OperandAssignment_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalExpressionDsl.g:4020:1: ( ( ruleHyExpression ) )
-            // InternalExpressionDsl.g:4021:2: ( ruleHyExpression )
+            // InternalExpressionDsl.g:3775:1: ( ( ruleHyExpression ) )
+            // InternalExpressionDsl.g:3776:2: ( ruleHyExpression )
             {
-            // InternalExpressionDsl.g:4021:2: ( ruleHyExpression )
-            // InternalExpressionDsl.g:4022:3: ruleHyExpression
+            // InternalExpressionDsl.g:3776:2: ( ruleHyExpression )
+            // InternalExpressionDsl.g:3777:3: ruleHyExpression
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getHyNestedExpressionAccess().getOperandHyExpressionParserRuleCall_1_0()); 
@@ -13796,17 +12366,17 @@ public class InternalExpressionDslParser extends AbstractInternalContentAssistPa
 
 
     // $ANTLR start "rule__HyNotExpression__OperandAssignment_1"
-    // InternalExpressionDsl.g:4031:1: rule__HyNotExpression__OperandAssignment_1 : ( ruleTerminalExpression ) ;
+    // InternalExpressionDsl.g:3786:1: rule__HyNotExpression__OperandAssignment_1 : ( ruleTerminalExpression ) ;
     public final void rule__HyNotExpression__OperandAssignment_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalExpressionDsl.g:4035:1: ( ( ruleTerminalExpression ) )
-            // InternalExpressionDsl.g:4036:2: ( ruleTerminalExpression )
+            // InternalExpressionDsl.g:3790:1: ( ( ruleTerminalExpression ) )
+            // InternalExpressionDsl.g:3791:2: ( ruleTerminalExpression )
             {
-            // InternalExpressionDsl.g:4036:2: ( ruleTerminalExpression )
-            // InternalExpressionDsl.g:4037:3: ruleTerminalExpression
+            // InternalExpressionDsl.g:3791:2: ( ruleTerminalExpression )
+            // InternalExpressionDsl.g:3792:3: ruleTerminalExpression
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getHyNotExpressionAccess().getOperandTerminalExpressionParserRuleCall_1_0()); 
@@ -13841,23 +12411,23 @@ public class InternalExpressionDslParser extends AbstractInternalContentAssistPa
 
 
     // $ANTLR start "rule__HyFeatureReferenceExpression__FeatureAssignment_0"
-    // InternalExpressionDsl.g:4046:1: rule__HyFeatureReferenceExpression__FeatureAssignment_0 : ( ( RULE_STRING ) ) ;
+    // InternalExpressionDsl.g:3801:1: rule__HyFeatureReferenceExpression__FeatureAssignment_0 : ( ( RULE_STRING ) ) ;
     public final void rule__HyFeatureReferenceExpression__FeatureAssignment_0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalExpressionDsl.g:4050:1: ( ( ( RULE_STRING ) ) )
-            // InternalExpressionDsl.g:4051:2: ( ( RULE_STRING ) )
+            // InternalExpressionDsl.g:3805:1: ( ( ( RULE_STRING ) ) )
+            // InternalExpressionDsl.g:3806:2: ( ( RULE_STRING ) )
             {
-            // InternalExpressionDsl.g:4051:2: ( ( RULE_STRING ) )
-            // InternalExpressionDsl.g:4052:3: ( RULE_STRING )
+            // InternalExpressionDsl.g:3806:2: ( ( RULE_STRING ) )
+            // InternalExpressionDsl.g:3807:3: ( RULE_STRING )
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getHyFeatureReferenceExpressionAccess().getFeatureHyFeatureCrossReference_0_0()); 
             }
-            // InternalExpressionDsl.g:4053:3: ( RULE_STRING )
-            // InternalExpressionDsl.g:4054:4: RULE_STRING
+            // InternalExpressionDsl.g:3808:3: ( RULE_STRING )
+            // InternalExpressionDsl.g:3809:4: RULE_STRING
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getHyFeatureReferenceExpressionAccess().getFeatureHyFeatureSTRINGTerminalRuleCall_0_0_1()); 
@@ -13894,17 +12464,17 @@ public class InternalExpressionDslParser extends AbstractInternalContentAssistPa
 
 
     // $ANTLR start "rule__HyFeatureReferenceExpression__VersionRestrictionAssignment_1"
-    // InternalExpressionDsl.g:4065:1: rule__HyFeatureReferenceExpression__VersionRestrictionAssignment_1 : ( ruleHyVersionRestriction ) ;
+    // InternalExpressionDsl.g:3820:1: rule__HyFeatureReferenceExpression__VersionRestrictionAssignment_1 : ( ruleHyVersionRestriction ) ;
     public final void rule__HyFeatureReferenceExpression__VersionRestrictionAssignment_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalExpressionDsl.g:4069:1: ( ( ruleHyVersionRestriction ) )
-            // InternalExpressionDsl.g:4070:2: ( ruleHyVersionRestriction )
+            // InternalExpressionDsl.g:3824:1: ( ( ruleHyVersionRestriction ) )
+            // InternalExpressionDsl.g:3825:2: ( ruleHyVersionRestriction )
             {
-            // InternalExpressionDsl.g:4070:2: ( ruleHyVersionRestriction )
-            // InternalExpressionDsl.g:4071:3: ruleHyVersionRestriction
+            // InternalExpressionDsl.g:3825:2: ( ruleHyVersionRestriction )
+            // InternalExpressionDsl.g:3826:3: ruleHyVersionRestriction
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getHyFeatureReferenceExpressionAccess().getVersionRestrictionHyVersionRestrictionParserRuleCall_1_0()); 
@@ -13939,23 +12509,23 @@ public class InternalExpressionDslParser extends AbstractInternalContentAssistPa
 
 
     // $ANTLR start "rule__HyConditionalFeatureReferenceExpression__FeatureAssignment_1"
-    // InternalExpressionDsl.g:4080:1: rule__HyConditionalFeatureReferenceExpression__FeatureAssignment_1 : ( ( RULE_STRING ) ) ;
+    // InternalExpressionDsl.g:3835:1: rule__HyConditionalFeatureReferenceExpression__FeatureAssignment_1 : ( ( RULE_STRING ) ) ;
     public final void rule__HyConditionalFeatureReferenceExpression__FeatureAssignment_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalExpressionDsl.g:4084:1: ( ( ( RULE_STRING ) ) )
-            // InternalExpressionDsl.g:4085:2: ( ( RULE_STRING ) )
+            // InternalExpressionDsl.g:3839:1: ( ( ( RULE_STRING ) ) )
+            // InternalExpressionDsl.g:3840:2: ( ( RULE_STRING ) )
             {
-            // InternalExpressionDsl.g:4085:2: ( ( RULE_STRING ) )
-            // InternalExpressionDsl.g:4086:3: ( RULE_STRING )
+            // InternalExpressionDsl.g:3840:2: ( ( RULE_STRING ) )
+            // InternalExpressionDsl.g:3841:3: ( RULE_STRING )
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getHyConditionalFeatureReferenceExpressionAccess().getFeatureHyFeatureCrossReference_1_0()); 
             }
-            // InternalExpressionDsl.g:4087:3: ( RULE_STRING )
-            // InternalExpressionDsl.g:4088:4: RULE_STRING
+            // InternalExpressionDsl.g:3842:3: ( RULE_STRING )
+            // InternalExpressionDsl.g:3843:4: RULE_STRING
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getHyConditionalFeatureReferenceExpressionAccess().getFeatureHyFeatureSTRINGTerminalRuleCall_1_0_1()); 
@@ -13992,17 +12562,17 @@ public class InternalExpressionDslParser extends AbstractInternalContentAssistPa
 
 
     // $ANTLR start "rule__HyConditionalFeatureReferenceExpression__VersionRestrictionAssignment_2"
-    // InternalExpressionDsl.g:4099:1: rule__HyConditionalFeatureReferenceExpression__VersionRestrictionAssignment_2 : ( ruleHyVersionRestriction ) ;
+    // InternalExpressionDsl.g:3854:1: rule__HyConditionalFeatureReferenceExpression__VersionRestrictionAssignment_2 : ( ruleHyVersionRestriction ) ;
     public final void rule__HyConditionalFeatureReferenceExpression__VersionRestrictionAssignment_2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalExpressionDsl.g:4103:1: ( ( ruleHyVersionRestriction ) )
-            // InternalExpressionDsl.g:4104:2: ( ruleHyVersionRestriction )
+            // InternalExpressionDsl.g:3858:1: ( ( ruleHyVersionRestriction ) )
+            // InternalExpressionDsl.g:3859:2: ( ruleHyVersionRestriction )
             {
-            // InternalExpressionDsl.g:4104:2: ( ruleHyVersionRestriction )
-            // InternalExpressionDsl.g:4105:3: ruleHyVersionRestriction
+            // InternalExpressionDsl.g:3859:2: ( ruleHyVersionRestriction )
+            // InternalExpressionDsl.g:3860:3: ruleHyVersionRestriction
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getHyConditionalFeatureReferenceExpressionAccess().getVersionRestrictionHyVersionRestrictionParserRuleCall_2_0()); 
@@ -14037,17 +12607,17 @@ public class InternalExpressionDslParser extends AbstractInternalContentAssistPa
 
 
     // $ANTLR start "rule__HyRelativeVersionRestriction__OperatorAssignment_1"
-    // InternalExpressionDsl.g:4114:1: rule__HyRelativeVersionRestriction__OperatorAssignment_1 : ( ruleHyRelativeVersionRestrictionOperator ) ;
+    // InternalExpressionDsl.g:3869:1: rule__HyRelativeVersionRestriction__OperatorAssignment_1 : ( ruleHyRelativeVersionRestrictionOperator ) ;
     public final void rule__HyRelativeVersionRestriction__OperatorAssignment_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalExpressionDsl.g:4118:1: ( ( ruleHyRelativeVersionRestrictionOperator ) )
-            // InternalExpressionDsl.g:4119:2: ( ruleHyRelativeVersionRestrictionOperator )
+            // InternalExpressionDsl.g:3873:1: ( ( ruleHyRelativeVersionRestrictionOperator ) )
+            // InternalExpressionDsl.g:3874:2: ( ruleHyRelativeVersionRestrictionOperator )
             {
-            // InternalExpressionDsl.g:4119:2: ( ruleHyRelativeVersionRestrictionOperator )
-            // InternalExpressionDsl.g:4120:3: ruleHyRelativeVersionRestrictionOperator
+            // InternalExpressionDsl.g:3874:2: ( ruleHyRelativeVersionRestrictionOperator )
+            // InternalExpressionDsl.g:3875:3: ruleHyRelativeVersionRestrictionOperator
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getHyRelativeVersionRestrictionAccess().getOperatorHyRelativeVersionRestrictionOperatorEnumRuleCall_1_0()); 
@@ -14082,23 +12652,23 @@ public class InternalExpressionDslParser extends AbstractInternalContentAssistPa
 
 
     // $ANTLR start "rule__HyRelativeVersionRestriction__VersionAssignment_2"
-    // InternalExpressionDsl.g:4129:1: rule__HyRelativeVersionRestriction__VersionAssignment_2 : ( ( RULE_ID ) ) ;
+    // InternalExpressionDsl.g:3884:1: rule__HyRelativeVersionRestriction__VersionAssignment_2 : ( ( RULE_ID ) ) ;
     public final void rule__HyRelativeVersionRestriction__VersionAssignment_2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalExpressionDsl.g:4133:1: ( ( ( RULE_ID ) ) )
-            // InternalExpressionDsl.g:4134:2: ( ( RULE_ID ) )
+            // InternalExpressionDsl.g:3888:1: ( ( ( RULE_ID ) ) )
+            // InternalExpressionDsl.g:3889:2: ( ( RULE_ID ) )
             {
-            // InternalExpressionDsl.g:4134:2: ( ( RULE_ID ) )
-            // InternalExpressionDsl.g:4135:3: ( RULE_ID )
+            // InternalExpressionDsl.g:3889:2: ( ( RULE_ID ) )
+            // InternalExpressionDsl.g:3890:3: ( RULE_ID )
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getHyRelativeVersionRestrictionAccess().getVersionHyVersionCrossReference_2_0()); 
             }
-            // InternalExpressionDsl.g:4136:3: ( RULE_ID )
-            // InternalExpressionDsl.g:4137:4: RULE_ID
+            // InternalExpressionDsl.g:3891:3: ( RULE_ID )
+            // InternalExpressionDsl.g:3892:4: RULE_ID
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getHyRelativeVersionRestrictionAccess().getVersionHyVersionIDTerminalRuleCall_2_0_1()); 
@@ -14135,28 +12705,28 @@ public class InternalExpressionDslParser extends AbstractInternalContentAssistPa
 
 
     // $ANTLR start "rule__HyVersionRangeRestriction__LowerIncludedAssignment_0_1"
-    // InternalExpressionDsl.g:4148:1: rule__HyVersionRangeRestriction__LowerIncludedAssignment_0_1 : ( ( 'true' ) ) ;
+    // InternalExpressionDsl.g:3903:1: rule__HyVersionRangeRestriction__LowerIncludedAssignment_0_1 : ( ( 'true' ) ) ;
     public final void rule__HyVersionRangeRestriction__LowerIncludedAssignment_0_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalExpressionDsl.g:4152:1: ( ( ( 'true' ) ) )
-            // InternalExpressionDsl.g:4153:2: ( ( 'true' ) )
+            // InternalExpressionDsl.g:3907:1: ( ( ( 'true' ) ) )
+            // InternalExpressionDsl.g:3908:2: ( ( 'true' ) )
             {
-            // InternalExpressionDsl.g:4153:2: ( ( 'true' ) )
-            // InternalExpressionDsl.g:4154:3: ( 'true' )
-            {
-            if ( state.backtracking==0 ) {
-               before(grammarAccess.getHyVersionRangeRestrictionAccess().getLowerIncludedTrueKeyword_0_1_0()); 
-            }
-            // InternalExpressionDsl.g:4155:3: ( 'true' )
-            // InternalExpressionDsl.g:4156:4: 'true'
+            // InternalExpressionDsl.g:3908:2: ( ( 'true' ) )
+            // InternalExpressionDsl.g:3909:3: ( 'true' )
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getHyVersionRangeRestrictionAccess().getLowerIncludedTrueKeyword_0_1_0()); 
             }
-            match(input,33,FOLLOW_2); if (state.failed) return ;
+            // InternalExpressionDsl.g:3910:3: ( 'true' )
+            // InternalExpressionDsl.g:3911:4: 'true'
+            {
+            if ( state.backtracking==0 ) {
+               before(grammarAccess.getHyVersionRangeRestrictionAccess().getLowerIncludedTrueKeyword_0_1_0()); 
+            }
+            match(input,32,FOLLOW_2); if (state.failed) return ;
             if ( state.backtracking==0 ) {
                after(grammarAccess.getHyVersionRangeRestrictionAccess().getLowerIncludedTrueKeyword_0_1_0()); 
             }
@@ -14188,23 +12758,23 @@ public class InternalExpressionDslParser extends AbstractInternalContentAssistPa
 
 
     // $ANTLR start "rule__HyVersionRangeRestriction__LowerVersionAssignment_1_1"
-    // InternalExpressionDsl.g:4167:1: rule__HyVersionRangeRestriction__LowerVersionAssignment_1_1 : ( ( RULE_STRING ) ) ;
+    // InternalExpressionDsl.g:3922:1: rule__HyVersionRangeRestriction__LowerVersionAssignment_1_1 : ( ( RULE_STRING ) ) ;
     public final void rule__HyVersionRangeRestriction__LowerVersionAssignment_1_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalExpressionDsl.g:4171:1: ( ( ( RULE_STRING ) ) )
-            // InternalExpressionDsl.g:4172:2: ( ( RULE_STRING ) )
+            // InternalExpressionDsl.g:3926:1: ( ( ( RULE_STRING ) ) )
+            // InternalExpressionDsl.g:3927:2: ( ( RULE_STRING ) )
             {
-            // InternalExpressionDsl.g:4172:2: ( ( RULE_STRING ) )
-            // InternalExpressionDsl.g:4173:3: ( RULE_STRING )
+            // InternalExpressionDsl.g:3927:2: ( ( RULE_STRING ) )
+            // InternalExpressionDsl.g:3928:3: ( RULE_STRING )
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getHyVersionRangeRestrictionAccess().getLowerVersionHyVersionCrossReference_1_1_0()); 
             }
-            // InternalExpressionDsl.g:4174:3: ( RULE_STRING )
-            // InternalExpressionDsl.g:4175:4: RULE_STRING
+            // InternalExpressionDsl.g:3929:3: ( RULE_STRING )
+            // InternalExpressionDsl.g:3930:4: RULE_STRING
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getHyVersionRangeRestrictionAccess().getLowerVersionHyVersionSTRINGTerminalRuleCall_1_1_0_1()); 
@@ -14241,28 +12811,28 @@ public class InternalExpressionDslParser extends AbstractInternalContentAssistPa
 
 
     // $ANTLR start "rule__HyVersionRangeRestriction__UpperIncludedAssignment_1_3"
-    // InternalExpressionDsl.g:4186:1: rule__HyVersionRangeRestriction__UpperIncludedAssignment_1_3 : ( ( 'true' ) ) ;
+    // InternalExpressionDsl.g:3941:1: rule__HyVersionRangeRestriction__UpperIncludedAssignment_1_3 : ( ( 'true' ) ) ;
     public final void rule__HyVersionRangeRestriction__UpperIncludedAssignment_1_3() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalExpressionDsl.g:4190:1: ( ( ( 'true' ) ) )
-            // InternalExpressionDsl.g:4191:2: ( ( 'true' ) )
+            // InternalExpressionDsl.g:3945:1: ( ( ( 'true' ) ) )
+            // InternalExpressionDsl.g:3946:2: ( ( 'true' ) )
             {
-            // InternalExpressionDsl.g:4191:2: ( ( 'true' ) )
-            // InternalExpressionDsl.g:4192:3: ( 'true' )
-            {
-            if ( state.backtracking==0 ) {
-               before(grammarAccess.getHyVersionRangeRestrictionAccess().getUpperIncludedTrueKeyword_1_3_0()); 
-            }
-            // InternalExpressionDsl.g:4193:3: ( 'true' )
-            // InternalExpressionDsl.g:4194:4: 'true'
+            // InternalExpressionDsl.g:3946:2: ( ( 'true' ) )
+            // InternalExpressionDsl.g:3947:3: ( 'true' )
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getHyVersionRangeRestrictionAccess().getUpperIncludedTrueKeyword_1_3_0()); 
             }
-            match(input,33,FOLLOW_2); if (state.failed) return ;
+            // InternalExpressionDsl.g:3948:3: ( 'true' )
+            // InternalExpressionDsl.g:3949:4: 'true'
+            {
+            if ( state.backtracking==0 ) {
+               before(grammarAccess.getHyVersionRangeRestrictionAccess().getUpperIncludedTrueKeyword_1_3_0()); 
+            }
+            match(input,32,FOLLOW_2); if (state.failed) return ;
             if ( state.backtracking==0 ) {
                after(grammarAccess.getHyVersionRangeRestrictionAccess().getUpperIncludedTrueKeyword_1_3_0()); 
             }
@@ -14294,23 +12864,23 @@ public class InternalExpressionDslParser extends AbstractInternalContentAssistPa
 
 
     // $ANTLR start "rule__HyVersionRangeRestriction__UpperVersionAssignment_2_1"
-    // InternalExpressionDsl.g:4205:1: rule__HyVersionRangeRestriction__UpperVersionAssignment_2_1 : ( ( RULE_STRING ) ) ;
+    // InternalExpressionDsl.g:3960:1: rule__HyVersionRangeRestriction__UpperVersionAssignment_2_1 : ( ( RULE_STRING ) ) ;
     public final void rule__HyVersionRangeRestriction__UpperVersionAssignment_2_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalExpressionDsl.g:4209:1: ( ( ( RULE_STRING ) ) )
-            // InternalExpressionDsl.g:4210:2: ( ( RULE_STRING ) )
+            // InternalExpressionDsl.g:3964:1: ( ( ( RULE_STRING ) ) )
+            // InternalExpressionDsl.g:3965:2: ( ( RULE_STRING ) )
             {
-            // InternalExpressionDsl.g:4210:2: ( ( RULE_STRING ) )
-            // InternalExpressionDsl.g:4211:3: ( RULE_STRING )
+            // InternalExpressionDsl.g:3965:2: ( ( RULE_STRING ) )
+            // InternalExpressionDsl.g:3966:3: ( RULE_STRING )
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getHyVersionRangeRestrictionAccess().getUpperVersionHyVersionCrossReference_2_1_0()); 
             }
-            // InternalExpressionDsl.g:4212:3: ( RULE_STRING )
-            // InternalExpressionDsl.g:4213:4: RULE_STRING
+            // InternalExpressionDsl.g:3967:3: ( RULE_STRING )
+            // InternalExpressionDsl.g:3968:4: RULE_STRING
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getHyVersionRangeRestrictionAccess().getUpperVersionHyVersionSTRINGTerminalRuleCall_2_1_0_1()); 
@@ -14347,28 +12917,28 @@ public class InternalExpressionDslParser extends AbstractInternalContentAssistPa
 
 
     // $ANTLR start "rule__HyBooleanValueExpression__ValueAssignment_1_0"
-    // InternalExpressionDsl.g:4224:1: rule__HyBooleanValueExpression__ValueAssignment_1_0 : ( ( 'true' ) ) ;
+    // InternalExpressionDsl.g:3979:1: rule__HyBooleanValueExpression__ValueAssignment_1_0 : ( ( 'true' ) ) ;
     public final void rule__HyBooleanValueExpression__ValueAssignment_1_0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalExpressionDsl.g:4228:1: ( ( ( 'true' ) ) )
-            // InternalExpressionDsl.g:4229:2: ( ( 'true' ) )
+            // InternalExpressionDsl.g:3983:1: ( ( ( 'true' ) ) )
+            // InternalExpressionDsl.g:3984:2: ( ( 'true' ) )
             {
-            // InternalExpressionDsl.g:4229:2: ( ( 'true' ) )
-            // InternalExpressionDsl.g:4230:3: ( 'true' )
-            {
-            if ( state.backtracking==0 ) {
-               before(grammarAccess.getHyBooleanValueExpressionAccess().getValueTrueKeyword_1_0_0()); 
-            }
-            // InternalExpressionDsl.g:4231:3: ( 'true' )
-            // InternalExpressionDsl.g:4232:4: 'true'
+            // InternalExpressionDsl.g:3984:2: ( ( 'true' ) )
+            // InternalExpressionDsl.g:3985:3: ( 'true' )
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getHyBooleanValueExpressionAccess().getValueTrueKeyword_1_0_0()); 
             }
-            match(input,33,FOLLOW_2); if (state.failed) return ;
+            // InternalExpressionDsl.g:3986:3: ( 'true' )
+            // InternalExpressionDsl.g:3987:4: 'true'
+            {
+            if ( state.backtracking==0 ) {
+               before(grammarAccess.getHyBooleanValueExpressionAccess().getValueTrueKeyword_1_0_0()); 
+            }
+            match(input,32,FOLLOW_2); if (state.failed) return ;
             if ( state.backtracking==0 ) {
                after(grammarAccess.getHyBooleanValueExpressionAccess().getValueTrueKeyword_1_0_0()); 
             }
@@ -14399,21 +12969,21 @@ public class InternalExpressionDslParser extends AbstractInternalContentAssistPa
     // $ANTLR end "rule__HyBooleanValueExpression__ValueAssignment_1_0"
 
 
-    // $ANTLR start "rule__HyGreaterExpression__Operand1Assignment_0_0"
-    // InternalExpressionDsl.g:4243:1: rule__HyGreaterExpression__Operand1Assignment_0_0 : ( ruleHyArithmeticalValueExpression ) ;
-    public final void rule__HyGreaterExpression__Operand1Assignment_0_0() throws RecognitionException {
+    // $ANTLR start "rule__HyGreaterExpression__Operand1Assignment_0"
+    // InternalExpressionDsl.g:3998:1: rule__HyGreaterExpression__Operand1Assignment_0 : ( ruleHyArithmeticalValueExpression ) ;
+    public final void rule__HyGreaterExpression__Operand1Assignment_0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalExpressionDsl.g:4247:1: ( ( ruleHyArithmeticalValueExpression ) )
-            // InternalExpressionDsl.g:4248:2: ( ruleHyArithmeticalValueExpression )
+            // InternalExpressionDsl.g:4002:1: ( ( ruleHyArithmeticalValueExpression ) )
+            // InternalExpressionDsl.g:4003:2: ( ruleHyArithmeticalValueExpression )
             {
-            // InternalExpressionDsl.g:4248:2: ( ruleHyArithmeticalValueExpression )
-            // InternalExpressionDsl.g:4249:3: ruleHyArithmeticalValueExpression
+            // InternalExpressionDsl.g:4003:2: ( ruleHyArithmeticalValueExpression )
+            // InternalExpressionDsl.g:4004:3: ruleHyArithmeticalValueExpression
             {
             if ( state.backtracking==0 ) {
-               before(grammarAccess.getHyGreaterExpressionAccess().getOperand1HyArithmeticalValueExpressionParserRuleCall_0_0_0()); 
+               before(grammarAccess.getHyGreaterExpressionAccess().getOperand1HyArithmeticalValueExpressionParserRuleCall_0_0()); 
             }
             pushFollow(FOLLOW_2);
             ruleHyArithmeticalValueExpression();
@@ -14421,7 +12991,7 @@ public class InternalExpressionDslParser extends AbstractInternalContentAssistPa
             state._fsp--;
             if (state.failed) return ;
             if ( state.backtracking==0 ) {
-               after(grammarAccess.getHyGreaterExpressionAccess().getOperand1HyArithmeticalValueExpressionParserRuleCall_0_0_0()); 
+               after(grammarAccess.getHyGreaterExpressionAccess().getOperand1HyArithmeticalValueExpressionParserRuleCall_0_0()); 
             }
 
             }
@@ -14441,24 +13011,24 @@ public class InternalExpressionDslParser extends AbstractInternalContentAssistPa
         }
         return ;
     }
-    // $ANTLR end "rule__HyGreaterExpression__Operand1Assignment_0_0"
+    // $ANTLR end "rule__HyGreaterExpression__Operand1Assignment_0"
 
 
-    // $ANTLR start "rule__HyGreaterExpression__Operand2Assignment_0_2"
-    // InternalExpressionDsl.g:4258:1: rule__HyGreaterExpression__Operand2Assignment_0_2 : ( ruleHyArithmeticalValueExpression ) ;
-    public final void rule__HyGreaterExpression__Operand2Assignment_0_2() throws RecognitionException {
+    // $ANTLR start "rule__HyGreaterExpression__Operand2Assignment_2"
+    // InternalExpressionDsl.g:4013:1: rule__HyGreaterExpression__Operand2Assignment_2 : ( ruleHyArithmeticalValueExpression ) ;
+    public final void rule__HyGreaterExpression__Operand2Assignment_2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalExpressionDsl.g:4262:1: ( ( ruleHyArithmeticalValueExpression ) )
-            // InternalExpressionDsl.g:4263:2: ( ruleHyArithmeticalValueExpression )
+            // InternalExpressionDsl.g:4017:1: ( ( ruleHyArithmeticalValueExpression ) )
+            // InternalExpressionDsl.g:4018:2: ( ruleHyArithmeticalValueExpression )
             {
-            // InternalExpressionDsl.g:4263:2: ( ruleHyArithmeticalValueExpression )
-            // InternalExpressionDsl.g:4264:3: ruleHyArithmeticalValueExpression
+            // InternalExpressionDsl.g:4018:2: ( ruleHyArithmeticalValueExpression )
+            // InternalExpressionDsl.g:4019:3: ruleHyArithmeticalValueExpression
             {
             if ( state.backtracking==0 ) {
-               before(grammarAccess.getHyGreaterExpressionAccess().getOperand2HyArithmeticalValueExpressionParserRuleCall_0_2_0()); 
+               before(grammarAccess.getHyGreaterExpressionAccess().getOperand2HyArithmeticalValueExpressionParserRuleCall_2_0()); 
             }
             pushFollow(FOLLOW_2);
             ruleHyArithmeticalValueExpression();
@@ -14466,7 +13036,7 @@ public class InternalExpressionDslParser extends AbstractInternalContentAssistPa
             state._fsp--;
             if (state.failed) return ;
             if ( state.backtracking==0 ) {
-               after(grammarAccess.getHyGreaterExpressionAccess().getOperand2HyArithmeticalValueExpressionParserRuleCall_0_2_0()); 
+               after(grammarAccess.getHyGreaterExpressionAccess().getOperand2HyArithmeticalValueExpressionParserRuleCall_2_0()); 
             }
 
             }
@@ -14486,24 +13056,24 @@ public class InternalExpressionDslParser extends AbstractInternalContentAssistPa
         }
         return ;
     }
-    // $ANTLR end "rule__HyGreaterExpression__Operand2Assignment_0_2"
+    // $ANTLR end "rule__HyGreaterExpression__Operand2Assignment_2"
 
 
-    // $ANTLR start "rule__HyLessExpression__Operand1Assignment_0_0"
-    // InternalExpressionDsl.g:4273:1: rule__HyLessExpression__Operand1Assignment_0_0 : ( ruleHyArithmeticalValueExpression ) ;
-    public final void rule__HyLessExpression__Operand1Assignment_0_0() throws RecognitionException {
+    // $ANTLR start "rule__HyLessExpression__Operand1Assignment_0"
+    // InternalExpressionDsl.g:4028:1: rule__HyLessExpression__Operand1Assignment_0 : ( ruleHyArithmeticalValueExpression ) ;
+    public final void rule__HyLessExpression__Operand1Assignment_0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalExpressionDsl.g:4277:1: ( ( ruleHyArithmeticalValueExpression ) )
-            // InternalExpressionDsl.g:4278:2: ( ruleHyArithmeticalValueExpression )
+            // InternalExpressionDsl.g:4032:1: ( ( ruleHyArithmeticalValueExpression ) )
+            // InternalExpressionDsl.g:4033:2: ( ruleHyArithmeticalValueExpression )
             {
-            // InternalExpressionDsl.g:4278:2: ( ruleHyArithmeticalValueExpression )
-            // InternalExpressionDsl.g:4279:3: ruleHyArithmeticalValueExpression
+            // InternalExpressionDsl.g:4033:2: ( ruleHyArithmeticalValueExpression )
+            // InternalExpressionDsl.g:4034:3: ruleHyArithmeticalValueExpression
             {
             if ( state.backtracking==0 ) {
-               before(grammarAccess.getHyLessExpressionAccess().getOperand1HyArithmeticalValueExpressionParserRuleCall_0_0_0()); 
+               before(grammarAccess.getHyLessExpressionAccess().getOperand1HyArithmeticalValueExpressionParserRuleCall_0_0()); 
             }
             pushFollow(FOLLOW_2);
             ruleHyArithmeticalValueExpression();
@@ -14511,7 +13081,7 @@ public class InternalExpressionDslParser extends AbstractInternalContentAssistPa
             state._fsp--;
             if (state.failed) return ;
             if ( state.backtracking==0 ) {
-               after(grammarAccess.getHyLessExpressionAccess().getOperand1HyArithmeticalValueExpressionParserRuleCall_0_0_0()); 
+               after(grammarAccess.getHyLessExpressionAccess().getOperand1HyArithmeticalValueExpressionParserRuleCall_0_0()); 
             }
 
             }
@@ -14531,24 +13101,24 @@ public class InternalExpressionDslParser extends AbstractInternalContentAssistPa
         }
         return ;
     }
-    // $ANTLR end "rule__HyLessExpression__Operand1Assignment_0_0"
+    // $ANTLR end "rule__HyLessExpression__Operand1Assignment_0"
 
 
-    // $ANTLR start "rule__HyLessExpression__Operand2Assignment_0_2"
-    // InternalExpressionDsl.g:4288:1: rule__HyLessExpression__Operand2Assignment_0_2 : ( ruleHyArithmeticalValueExpression ) ;
-    public final void rule__HyLessExpression__Operand2Assignment_0_2() throws RecognitionException {
+    // $ANTLR start "rule__HyLessExpression__Operand2Assignment_2"
+    // InternalExpressionDsl.g:4043:1: rule__HyLessExpression__Operand2Assignment_2 : ( ruleHyArithmeticalValueExpression ) ;
+    public final void rule__HyLessExpression__Operand2Assignment_2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalExpressionDsl.g:4292:1: ( ( ruleHyArithmeticalValueExpression ) )
-            // InternalExpressionDsl.g:4293:2: ( ruleHyArithmeticalValueExpression )
+            // InternalExpressionDsl.g:4047:1: ( ( ruleHyArithmeticalValueExpression ) )
+            // InternalExpressionDsl.g:4048:2: ( ruleHyArithmeticalValueExpression )
             {
-            // InternalExpressionDsl.g:4293:2: ( ruleHyArithmeticalValueExpression )
-            // InternalExpressionDsl.g:4294:3: ruleHyArithmeticalValueExpression
+            // InternalExpressionDsl.g:4048:2: ( ruleHyArithmeticalValueExpression )
+            // InternalExpressionDsl.g:4049:3: ruleHyArithmeticalValueExpression
             {
             if ( state.backtracking==0 ) {
-               before(grammarAccess.getHyLessExpressionAccess().getOperand2HyArithmeticalValueExpressionParserRuleCall_0_2_0()); 
+               before(grammarAccess.getHyLessExpressionAccess().getOperand2HyArithmeticalValueExpressionParserRuleCall_2_0()); 
             }
             pushFollow(FOLLOW_2);
             ruleHyArithmeticalValueExpression();
@@ -14556,7 +13126,7 @@ public class InternalExpressionDslParser extends AbstractInternalContentAssistPa
             state._fsp--;
             if (state.failed) return ;
             if ( state.backtracking==0 ) {
-               after(grammarAccess.getHyLessExpressionAccess().getOperand2HyArithmeticalValueExpressionParserRuleCall_0_2_0()); 
+               after(grammarAccess.getHyLessExpressionAccess().getOperand2HyArithmeticalValueExpressionParserRuleCall_2_0()); 
             }
 
             }
@@ -14576,24 +13146,24 @@ public class InternalExpressionDslParser extends AbstractInternalContentAssistPa
         }
         return ;
     }
-    // $ANTLR end "rule__HyLessExpression__Operand2Assignment_0_2"
+    // $ANTLR end "rule__HyLessExpression__Operand2Assignment_2"
 
 
-    // $ANTLR start "rule__HyGreaterOrEqualExpression__Operand1Assignment_0_0"
-    // InternalExpressionDsl.g:4303:1: rule__HyGreaterOrEqualExpression__Operand1Assignment_0_0 : ( ruleHyArithmeticalValueExpression ) ;
-    public final void rule__HyGreaterOrEqualExpression__Operand1Assignment_0_0() throws RecognitionException {
+    // $ANTLR start "rule__HyGreaterOrEqualExpression__Operand1Assignment_0"
+    // InternalExpressionDsl.g:4058:1: rule__HyGreaterOrEqualExpression__Operand1Assignment_0 : ( ruleHyArithmeticalValueExpression ) ;
+    public final void rule__HyGreaterOrEqualExpression__Operand1Assignment_0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalExpressionDsl.g:4307:1: ( ( ruleHyArithmeticalValueExpression ) )
-            // InternalExpressionDsl.g:4308:2: ( ruleHyArithmeticalValueExpression )
+            // InternalExpressionDsl.g:4062:1: ( ( ruleHyArithmeticalValueExpression ) )
+            // InternalExpressionDsl.g:4063:2: ( ruleHyArithmeticalValueExpression )
             {
-            // InternalExpressionDsl.g:4308:2: ( ruleHyArithmeticalValueExpression )
-            // InternalExpressionDsl.g:4309:3: ruleHyArithmeticalValueExpression
+            // InternalExpressionDsl.g:4063:2: ( ruleHyArithmeticalValueExpression )
+            // InternalExpressionDsl.g:4064:3: ruleHyArithmeticalValueExpression
             {
             if ( state.backtracking==0 ) {
-               before(grammarAccess.getHyGreaterOrEqualExpressionAccess().getOperand1HyArithmeticalValueExpressionParserRuleCall_0_0_0()); 
+               before(grammarAccess.getHyGreaterOrEqualExpressionAccess().getOperand1HyArithmeticalValueExpressionParserRuleCall_0_0()); 
             }
             pushFollow(FOLLOW_2);
             ruleHyArithmeticalValueExpression();
@@ -14601,7 +13171,7 @@ public class InternalExpressionDslParser extends AbstractInternalContentAssistPa
             state._fsp--;
             if (state.failed) return ;
             if ( state.backtracking==0 ) {
-               after(grammarAccess.getHyGreaterOrEqualExpressionAccess().getOperand1HyArithmeticalValueExpressionParserRuleCall_0_0_0()); 
+               after(grammarAccess.getHyGreaterOrEqualExpressionAccess().getOperand1HyArithmeticalValueExpressionParserRuleCall_0_0()); 
             }
 
             }
@@ -14621,24 +13191,24 @@ public class InternalExpressionDslParser extends AbstractInternalContentAssistPa
         }
         return ;
     }
-    // $ANTLR end "rule__HyGreaterOrEqualExpression__Operand1Assignment_0_0"
+    // $ANTLR end "rule__HyGreaterOrEqualExpression__Operand1Assignment_0"
 
 
-    // $ANTLR start "rule__HyGreaterOrEqualExpression__Operand2Assignment_0_2"
-    // InternalExpressionDsl.g:4318:1: rule__HyGreaterOrEqualExpression__Operand2Assignment_0_2 : ( ruleHyArithmeticalValueExpression ) ;
-    public final void rule__HyGreaterOrEqualExpression__Operand2Assignment_0_2() throws RecognitionException {
+    // $ANTLR start "rule__HyGreaterOrEqualExpression__Operand2Assignment_2"
+    // InternalExpressionDsl.g:4073:1: rule__HyGreaterOrEqualExpression__Operand2Assignment_2 : ( ruleHyArithmeticalValueExpression ) ;
+    public final void rule__HyGreaterOrEqualExpression__Operand2Assignment_2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalExpressionDsl.g:4322:1: ( ( ruleHyArithmeticalValueExpression ) )
-            // InternalExpressionDsl.g:4323:2: ( ruleHyArithmeticalValueExpression )
+            // InternalExpressionDsl.g:4077:1: ( ( ruleHyArithmeticalValueExpression ) )
+            // InternalExpressionDsl.g:4078:2: ( ruleHyArithmeticalValueExpression )
             {
-            // InternalExpressionDsl.g:4323:2: ( ruleHyArithmeticalValueExpression )
-            // InternalExpressionDsl.g:4324:3: ruleHyArithmeticalValueExpression
+            // InternalExpressionDsl.g:4078:2: ( ruleHyArithmeticalValueExpression )
+            // InternalExpressionDsl.g:4079:3: ruleHyArithmeticalValueExpression
             {
             if ( state.backtracking==0 ) {
-               before(grammarAccess.getHyGreaterOrEqualExpressionAccess().getOperand2HyArithmeticalValueExpressionParserRuleCall_0_2_0()); 
+               before(grammarAccess.getHyGreaterOrEqualExpressionAccess().getOperand2HyArithmeticalValueExpressionParserRuleCall_2_0()); 
             }
             pushFollow(FOLLOW_2);
             ruleHyArithmeticalValueExpression();
@@ -14646,7 +13216,7 @@ public class InternalExpressionDslParser extends AbstractInternalContentAssistPa
             state._fsp--;
             if (state.failed) return ;
             if ( state.backtracking==0 ) {
-               after(grammarAccess.getHyGreaterOrEqualExpressionAccess().getOperand2HyArithmeticalValueExpressionParserRuleCall_0_2_0()); 
+               after(grammarAccess.getHyGreaterOrEqualExpressionAccess().getOperand2HyArithmeticalValueExpressionParserRuleCall_2_0()); 
             }
 
             }
@@ -14666,24 +13236,24 @@ public class InternalExpressionDslParser extends AbstractInternalContentAssistPa
         }
         return ;
     }
-    // $ANTLR end "rule__HyGreaterOrEqualExpression__Operand2Assignment_0_2"
+    // $ANTLR end "rule__HyGreaterOrEqualExpression__Operand2Assignment_2"
 
 
-    // $ANTLR start "rule__HyLessOrEqualExpression__Operand1Assignment_0_0"
-    // InternalExpressionDsl.g:4333:1: rule__HyLessOrEqualExpression__Operand1Assignment_0_0 : ( ruleHyArithmeticalValueExpression ) ;
-    public final void rule__HyLessOrEqualExpression__Operand1Assignment_0_0() throws RecognitionException {
+    // $ANTLR start "rule__HyLessOrEqualExpression__Operand1Assignment_0"
+    // InternalExpressionDsl.g:4088:1: rule__HyLessOrEqualExpression__Operand1Assignment_0 : ( ruleHyArithmeticalValueExpression ) ;
+    public final void rule__HyLessOrEqualExpression__Operand1Assignment_0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalExpressionDsl.g:4337:1: ( ( ruleHyArithmeticalValueExpression ) )
-            // InternalExpressionDsl.g:4338:2: ( ruleHyArithmeticalValueExpression )
+            // InternalExpressionDsl.g:4092:1: ( ( ruleHyArithmeticalValueExpression ) )
+            // InternalExpressionDsl.g:4093:2: ( ruleHyArithmeticalValueExpression )
             {
-            // InternalExpressionDsl.g:4338:2: ( ruleHyArithmeticalValueExpression )
-            // InternalExpressionDsl.g:4339:3: ruleHyArithmeticalValueExpression
+            // InternalExpressionDsl.g:4093:2: ( ruleHyArithmeticalValueExpression )
+            // InternalExpressionDsl.g:4094:3: ruleHyArithmeticalValueExpression
             {
             if ( state.backtracking==0 ) {
-               before(grammarAccess.getHyLessOrEqualExpressionAccess().getOperand1HyArithmeticalValueExpressionParserRuleCall_0_0_0()); 
+               before(grammarAccess.getHyLessOrEqualExpressionAccess().getOperand1HyArithmeticalValueExpressionParserRuleCall_0_0()); 
             }
             pushFollow(FOLLOW_2);
             ruleHyArithmeticalValueExpression();
@@ -14691,7 +13261,7 @@ public class InternalExpressionDslParser extends AbstractInternalContentAssistPa
             state._fsp--;
             if (state.failed) return ;
             if ( state.backtracking==0 ) {
-               after(grammarAccess.getHyLessOrEqualExpressionAccess().getOperand1HyArithmeticalValueExpressionParserRuleCall_0_0_0()); 
+               after(grammarAccess.getHyLessOrEqualExpressionAccess().getOperand1HyArithmeticalValueExpressionParserRuleCall_0_0()); 
             }
 
             }
@@ -14711,24 +13281,24 @@ public class InternalExpressionDslParser extends AbstractInternalContentAssistPa
         }
         return ;
     }
-    // $ANTLR end "rule__HyLessOrEqualExpression__Operand1Assignment_0_0"
+    // $ANTLR end "rule__HyLessOrEqualExpression__Operand1Assignment_0"
 
 
-    // $ANTLR start "rule__HyLessOrEqualExpression__Operand2Assignment_0_2"
-    // InternalExpressionDsl.g:4348:1: rule__HyLessOrEqualExpression__Operand2Assignment_0_2 : ( ruleHyArithmeticalValueExpression ) ;
-    public final void rule__HyLessOrEqualExpression__Operand2Assignment_0_2() throws RecognitionException {
+    // $ANTLR start "rule__HyLessOrEqualExpression__Operand2Assignment_2"
+    // InternalExpressionDsl.g:4103:1: rule__HyLessOrEqualExpression__Operand2Assignment_2 : ( ruleHyArithmeticalValueExpression ) ;
+    public final void rule__HyLessOrEqualExpression__Operand2Assignment_2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalExpressionDsl.g:4352:1: ( ( ruleHyArithmeticalValueExpression ) )
-            // InternalExpressionDsl.g:4353:2: ( ruleHyArithmeticalValueExpression )
+            // InternalExpressionDsl.g:4107:1: ( ( ruleHyArithmeticalValueExpression ) )
+            // InternalExpressionDsl.g:4108:2: ( ruleHyArithmeticalValueExpression )
             {
-            // InternalExpressionDsl.g:4353:2: ( ruleHyArithmeticalValueExpression )
-            // InternalExpressionDsl.g:4354:3: ruleHyArithmeticalValueExpression
+            // InternalExpressionDsl.g:4108:2: ( ruleHyArithmeticalValueExpression )
+            // InternalExpressionDsl.g:4109:3: ruleHyArithmeticalValueExpression
             {
             if ( state.backtracking==0 ) {
-               before(grammarAccess.getHyLessOrEqualExpressionAccess().getOperand2HyArithmeticalValueExpressionParserRuleCall_0_2_0()); 
+               before(grammarAccess.getHyLessOrEqualExpressionAccess().getOperand2HyArithmeticalValueExpressionParserRuleCall_2_0()); 
             }
             pushFollow(FOLLOW_2);
             ruleHyArithmeticalValueExpression();
@@ -14736,7 +13306,7 @@ public class InternalExpressionDslParser extends AbstractInternalContentAssistPa
             state._fsp--;
             if (state.failed) return ;
             if ( state.backtracking==0 ) {
-               after(grammarAccess.getHyLessOrEqualExpressionAccess().getOperand2HyArithmeticalValueExpressionParserRuleCall_0_2_0()); 
+               after(grammarAccess.getHyLessOrEqualExpressionAccess().getOperand2HyArithmeticalValueExpressionParserRuleCall_2_0()); 
             }
 
             }
@@ -14756,24 +13326,24 @@ public class InternalExpressionDslParser extends AbstractInternalContentAssistPa
         }
         return ;
     }
-    // $ANTLR end "rule__HyLessOrEqualExpression__Operand2Assignment_0_2"
+    // $ANTLR end "rule__HyLessOrEqualExpression__Operand2Assignment_2"
 
 
-    // $ANTLR start "rule__HyEqualExpression__Operand1Assignment_0_0"
-    // InternalExpressionDsl.g:4363:1: rule__HyEqualExpression__Operand1Assignment_0_0 : ( ruleHyArithmeticalValueExpression ) ;
-    public final void rule__HyEqualExpression__Operand1Assignment_0_0() throws RecognitionException {
+    // $ANTLR start "rule__HyEqualExpression__Operand1Assignment_0"
+    // InternalExpressionDsl.g:4118:1: rule__HyEqualExpression__Operand1Assignment_0 : ( ruleHyArithmeticalValueExpression ) ;
+    public final void rule__HyEqualExpression__Operand1Assignment_0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalExpressionDsl.g:4367:1: ( ( ruleHyArithmeticalValueExpression ) )
-            // InternalExpressionDsl.g:4368:2: ( ruleHyArithmeticalValueExpression )
+            // InternalExpressionDsl.g:4122:1: ( ( ruleHyArithmeticalValueExpression ) )
+            // InternalExpressionDsl.g:4123:2: ( ruleHyArithmeticalValueExpression )
             {
-            // InternalExpressionDsl.g:4368:2: ( ruleHyArithmeticalValueExpression )
-            // InternalExpressionDsl.g:4369:3: ruleHyArithmeticalValueExpression
+            // InternalExpressionDsl.g:4123:2: ( ruleHyArithmeticalValueExpression )
+            // InternalExpressionDsl.g:4124:3: ruleHyArithmeticalValueExpression
             {
             if ( state.backtracking==0 ) {
-               before(grammarAccess.getHyEqualExpressionAccess().getOperand1HyArithmeticalValueExpressionParserRuleCall_0_0_0()); 
+               before(grammarAccess.getHyEqualExpressionAccess().getOperand1HyArithmeticalValueExpressionParserRuleCall_0_0()); 
             }
             pushFollow(FOLLOW_2);
             ruleHyArithmeticalValueExpression();
@@ -14781,7 +13351,7 @@ public class InternalExpressionDslParser extends AbstractInternalContentAssistPa
             state._fsp--;
             if (state.failed) return ;
             if ( state.backtracking==0 ) {
-               after(grammarAccess.getHyEqualExpressionAccess().getOperand1HyArithmeticalValueExpressionParserRuleCall_0_0_0()); 
+               after(grammarAccess.getHyEqualExpressionAccess().getOperand1HyArithmeticalValueExpressionParserRuleCall_0_0()); 
             }
 
             }
@@ -14801,24 +13371,24 @@ public class InternalExpressionDslParser extends AbstractInternalContentAssistPa
         }
         return ;
     }
-    // $ANTLR end "rule__HyEqualExpression__Operand1Assignment_0_0"
+    // $ANTLR end "rule__HyEqualExpression__Operand1Assignment_0"
 
 
-    // $ANTLR start "rule__HyEqualExpression__Operand2Assignment_0_2"
-    // InternalExpressionDsl.g:4378:1: rule__HyEqualExpression__Operand2Assignment_0_2 : ( ruleHyArithmeticalValueExpression ) ;
-    public final void rule__HyEqualExpression__Operand2Assignment_0_2() throws RecognitionException {
+    // $ANTLR start "rule__HyEqualExpression__Operand2Assignment_2"
+    // InternalExpressionDsl.g:4133:1: rule__HyEqualExpression__Operand2Assignment_2 : ( ruleHyArithmeticalValueExpression ) ;
+    public final void rule__HyEqualExpression__Operand2Assignment_2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalExpressionDsl.g:4382:1: ( ( ruleHyArithmeticalValueExpression ) )
-            // InternalExpressionDsl.g:4383:2: ( ruleHyArithmeticalValueExpression )
+            // InternalExpressionDsl.g:4137:1: ( ( ruleHyArithmeticalValueExpression ) )
+            // InternalExpressionDsl.g:4138:2: ( ruleHyArithmeticalValueExpression )
             {
-            // InternalExpressionDsl.g:4383:2: ( ruleHyArithmeticalValueExpression )
-            // InternalExpressionDsl.g:4384:3: ruleHyArithmeticalValueExpression
+            // InternalExpressionDsl.g:4138:2: ( ruleHyArithmeticalValueExpression )
+            // InternalExpressionDsl.g:4139:3: ruleHyArithmeticalValueExpression
             {
             if ( state.backtracking==0 ) {
-               before(grammarAccess.getHyEqualExpressionAccess().getOperand2HyArithmeticalValueExpressionParserRuleCall_0_2_0()); 
+               before(grammarAccess.getHyEqualExpressionAccess().getOperand2HyArithmeticalValueExpressionParserRuleCall_2_0()); 
             }
             pushFollow(FOLLOW_2);
             ruleHyArithmeticalValueExpression();
@@ -14826,7 +13396,7 @@ public class InternalExpressionDslParser extends AbstractInternalContentAssistPa
             state._fsp--;
             if (state.failed) return ;
             if ( state.backtracking==0 ) {
-               after(grammarAccess.getHyEqualExpressionAccess().getOperand2HyArithmeticalValueExpressionParserRuleCall_0_2_0()); 
+               after(grammarAccess.getHyEqualExpressionAccess().getOperand2HyArithmeticalValueExpressionParserRuleCall_2_0()); 
             }
 
             }
@@ -14846,21 +13416,21 @@ public class InternalExpressionDslParser extends AbstractInternalContentAssistPa
         }
         return ;
     }
-    // $ANTLR end "rule__HyEqualExpression__Operand2Assignment_0_2"
+    // $ANTLR end "rule__HyEqualExpression__Operand2Assignment_2"
 
 
     // $ANTLR start "rule__HyNotEqualExpression__Operand1Assignment_0"
-    // InternalExpressionDsl.g:4393:1: rule__HyNotEqualExpression__Operand1Assignment_0 : ( ruleHyArithmeticalValueExpression ) ;
+    // InternalExpressionDsl.g:4148:1: rule__HyNotEqualExpression__Operand1Assignment_0 : ( ruleHyArithmeticalValueExpression ) ;
     public final void rule__HyNotEqualExpression__Operand1Assignment_0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalExpressionDsl.g:4397:1: ( ( ruleHyArithmeticalValueExpression ) )
-            // InternalExpressionDsl.g:4398:2: ( ruleHyArithmeticalValueExpression )
+            // InternalExpressionDsl.g:4152:1: ( ( ruleHyArithmeticalValueExpression ) )
+            // InternalExpressionDsl.g:4153:2: ( ruleHyArithmeticalValueExpression )
             {
-            // InternalExpressionDsl.g:4398:2: ( ruleHyArithmeticalValueExpression )
-            // InternalExpressionDsl.g:4399:3: ruleHyArithmeticalValueExpression
+            // InternalExpressionDsl.g:4153:2: ( ruleHyArithmeticalValueExpression )
+            // InternalExpressionDsl.g:4154:3: ruleHyArithmeticalValueExpression
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getHyNotEqualExpressionAccess().getOperand1HyArithmeticalValueExpressionParserRuleCall_0_0()); 
@@ -14895,17 +13465,17 @@ public class InternalExpressionDslParser extends AbstractInternalContentAssistPa
 
 
     // $ANTLR start "rule__HyNotEqualExpression__Operand2Assignment_2"
-    // InternalExpressionDsl.g:4408:1: rule__HyNotEqualExpression__Operand2Assignment_2 : ( ruleHyArithmeticalValueExpression ) ;
+    // InternalExpressionDsl.g:4163:1: rule__HyNotEqualExpression__Operand2Assignment_2 : ( ruleHyArithmeticalValueExpression ) ;
     public final void rule__HyNotEqualExpression__Operand2Assignment_2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalExpressionDsl.g:4412:1: ( ( ruleHyArithmeticalValueExpression ) )
-            // InternalExpressionDsl.g:4413:2: ( ruleHyArithmeticalValueExpression )
+            // InternalExpressionDsl.g:4167:1: ( ( ruleHyArithmeticalValueExpression ) )
+            // InternalExpressionDsl.g:4168:2: ( ruleHyArithmeticalValueExpression )
             {
-            // InternalExpressionDsl.g:4413:2: ( ruleHyArithmeticalValueExpression )
-            // InternalExpressionDsl.g:4414:3: ruleHyArithmeticalValueExpression
+            // InternalExpressionDsl.g:4168:2: ( ruleHyArithmeticalValueExpression )
+            // InternalExpressionDsl.g:4169:3: ruleHyArithmeticalValueExpression
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getHyNotEqualExpressionAccess().getOperand2HyArithmeticalValueExpressionParserRuleCall_2_0()); 
@@ -14939,63 +13509,18 @@ public class InternalExpressionDslParser extends AbstractInternalContentAssistPa
     // $ANTLR end "rule__HyNotEqualExpression__Operand2Assignment_2"
 
 
-    // $ANTLR start "rule__HyAdditionExpression__Operand2Assignment_1_2"
-    // InternalExpressionDsl.g:4423:1: rule__HyAdditionExpression__Operand2Assignment_1_2 : ( ruleHySubtractionExpression ) ;
-    public final void rule__HyAdditionExpression__Operand2Assignment_1_2() throws RecognitionException {
-
-        		int stackSize = keepStackSize();
-        	
-        try {
-            // InternalExpressionDsl.g:4427:1: ( ( ruleHySubtractionExpression ) )
-            // InternalExpressionDsl.g:4428:2: ( ruleHySubtractionExpression )
-            {
-            // InternalExpressionDsl.g:4428:2: ( ruleHySubtractionExpression )
-            // InternalExpressionDsl.g:4429:3: ruleHySubtractionExpression
-            {
-            if ( state.backtracking==0 ) {
-               before(grammarAccess.getHyAdditionExpressionAccess().getOperand2HySubtractionExpressionParserRuleCall_1_2_0()); 
-            }
-            pushFollow(FOLLOW_2);
-            ruleHySubtractionExpression();
-
-            state._fsp--;
-            if (state.failed) return ;
-            if ( state.backtracking==0 ) {
-               after(grammarAccess.getHyAdditionExpressionAccess().getOperand2HySubtractionExpressionParserRuleCall_1_2_0()); 
-            }
-
-            }
-
-
-            }
-
-        }
-        catch (RecognitionException re) {
-            reportError(re);
-            recover(input,re);
-        }
-        finally {
-
-            	restoreStackSize(stackSize);
-
-        }
-        return ;
-    }
-    // $ANTLR end "rule__HyAdditionExpression__Operand2Assignment_1_2"
-
-
     // $ANTLR start "rule__HySubtractionExpression__Operand2Assignment_1_2"
-    // InternalExpressionDsl.g:4438:1: rule__HySubtractionExpression__Operand2Assignment_1_2 : ( ruleHyMultiplicationExpression ) ;
+    // InternalExpressionDsl.g:4178:1: rule__HySubtractionExpression__Operand2Assignment_1_2 : ( ruleHyMultiplicationExpression ) ;
     public final void rule__HySubtractionExpression__Operand2Assignment_1_2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalExpressionDsl.g:4442:1: ( ( ruleHyMultiplicationExpression ) )
-            // InternalExpressionDsl.g:4443:2: ( ruleHyMultiplicationExpression )
+            // InternalExpressionDsl.g:4182:1: ( ( ruleHyMultiplicationExpression ) )
+            // InternalExpressionDsl.g:4183:2: ( ruleHyMultiplicationExpression )
             {
-            // InternalExpressionDsl.g:4443:2: ( ruleHyMultiplicationExpression )
-            // InternalExpressionDsl.g:4444:3: ruleHyMultiplicationExpression
+            // InternalExpressionDsl.g:4183:2: ( ruleHyMultiplicationExpression )
+            // InternalExpressionDsl.g:4184:3: ruleHyMultiplicationExpression
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getHySubtractionExpressionAccess().getOperand2HyMultiplicationExpressionParserRuleCall_1_2_0()); 
@@ -15030,17 +13555,17 @@ public class InternalExpressionDslParser extends AbstractInternalContentAssistPa
 
 
     // $ANTLR start "rule__HyMultiplicationExpression__Operand2Assignment_1_2"
-    // InternalExpressionDsl.g:4453:1: rule__HyMultiplicationExpression__Operand2Assignment_1_2 : ( ruleHyDivisionExpression ) ;
+    // InternalExpressionDsl.g:4193:1: rule__HyMultiplicationExpression__Operand2Assignment_1_2 : ( ruleHyDivisionExpression ) ;
     public final void rule__HyMultiplicationExpression__Operand2Assignment_1_2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalExpressionDsl.g:4457:1: ( ( ruleHyDivisionExpression ) )
-            // InternalExpressionDsl.g:4458:2: ( ruleHyDivisionExpression )
+            // InternalExpressionDsl.g:4197:1: ( ( ruleHyDivisionExpression ) )
+            // InternalExpressionDsl.g:4198:2: ( ruleHyDivisionExpression )
             {
-            // InternalExpressionDsl.g:4458:2: ( ruleHyDivisionExpression )
-            // InternalExpressionDsl.g:4459:3: ruleHyDivisionExpression
+            // InternalExpressionDsl.g:4198:2: ( ruleHyDivisionExpression )
+            // InternalExpressionDsl.g:4199:3: ruleHyDivisionExpression
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getHyMultiplicationExpressionAccess().getOperand2HyDivisionExpressionParserRuleCall_1_2_0()); 
@@ -15075,17 +13600,17 @@ public class InternalExpressionDslParser extends AbstractInternalContentAssistPa
 
 
     // $ANTLR start "rule__HyDivisionExpression__Operand2Assignment_1_2"
-    // InternalExpressionDsl.g:4468:1: rule__HyDivisionExpression__Operand2Assignment_1_2 : ( ruleTerminalArithmeticalExpression ) ;
+    // InternalExpressionDsl.g:4208:1: rule__HyDivisionExpression__Operand2Assignment_1_2 : ( ruleTerminalArithmeticalExpression ) ;
     public final void rule__HyDivisionExpression__Operand2Assignment_1_2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalExpressionDsl.g:4472:1: ( ( ruleTerminalArithmeticalExpression ) )
-            // InternalExpressionDsl.g:4473:2: ( ruleTerminalArithmeticalExpression )
+            // InternalExpressionDsl.g:4212:1: ( ( ruleTerminalArithmeticalExpression ) )
+            // InternalExpressionDsl.g:4213:2: ( ruleTerminalArithmeticalExpression )
             {
-            // InternalExpressionDsl.g:4473:2: ( ruleTerminalArithmeticalExpression )
-            // InternalExpressionDsl.g:4474:3: ruleTerminalArithmeticalExpression
+            // InternalExpressionDsl.g:4213:2: ( ruleTerminalArithmeticalExpression )
+            // InternalExpressionDsl.g:4214:3: ruleTerminalArithmeticalExpression
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getHyDivisionExpressionAccess().getOperand2TerminalArithmeticalExpressionParserRuleCall_1_2_0()); 
@@ -15120,17 +13645,17 @@ public class InternalExpressionDslParser extends AbstractInternalContentAssistPa
 
 
     // $ANTLR start "rule__HyValueExpression__ValueAssignment"
-    // InternalExpressionDsl.g:4483:1: rule__HyValueExpression__ValueAssignment : ( ruleHyValue ) ;
+    // InternalExpressionDsl.g:4223:1: rule__HyValueExpression__ValueAssignment : ( ruleHyValue ) ;
     public final void rule__HyValueExpression__ValueAssignment() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalExpressionDsl.g:4487:1: ( ( ruleHyValue ) )
-            // InternalExpressionDsl.g:4488:2: ( ruleHyValue )
+            // InternalExpressionDsl.g:4227:1: ( ( ruleHyValue ) )
+            // InternalExpressionDsl.g:4228:2: ( ruleHyValue )
             {
-            // InternalExpressionDsl.g:4488:2: ( ruleHyValue )
-            // InternalExpressionDsl.g:4489:3: ruleHyValue
+            // InternalExpressionDsl.g:4228:2: ( ruleHyValue )
+            // InternalExpressionDsl.g:4229:3: ruleHyValue
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getHyValueExpressionAccess().getValueHyValueParserRuleCall_0()); 
@@ -15165,17 +13690,17 @@ public class InternalExpressionDslParser extends AbstractInternalContentAssistPa
 
 
     // $ANTLR start "rule__HyNumberValue__ValueAssignment"
-    // InternalExpressionDsl.g:4498:1: rule__HyNumberValue__ValueAssignment : ( ruleEInt ) ;
+    // InternalExpressionDsl.g:4238:1: rule__HyNumberValue__ValueAssignment : ( ruleEInt ) ;
     public final void rule__HyNumberValue__ValueAssignment() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalExpressionDsl.g:4502:1: ( ( ruleEInt ) )
-            // InternalExpressionDsl.g:4503:2: ( ruleEInt )
+            // InternalExpressionDsl.g:4242:1: ( ( ruleEInt ) )
+            // InternalExpressionDsl.g:4243:2: ( ruleEInt )
             {
-            // InternalExpressionDsl.g:4503:2: ( ruleEInt )
-            // InternalExpressionDsl.g:4504:3: ruleEInt
+            // InternalExpressionDsl.g:4243:2: ( ruleEInt )
+            // InternalExpressionDsl.g:4244:3: ruleEInt
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getHyNumberValueAccess().getValueEIntParserRuleCall_0()); 
@@ -15210,17 +13735,17 @@ public class InternalExpressionDslParser extends AbstractInternalContentAssistPa
 
 
     // $ANTLR start "rule__HyStringValue__ValueAssignment"
-    // InternalExpressionDsl.g:4513:1: rule__HyStringValue__ValueAssignment : ( RULE_STRING ) ;
+    // InternalExpressionDsl.g:4253:1: rule__HyStringValue__ValueAssignment : ( RULE_STRING ) ;
     public final void rule__HyStringValue__ValueAssignment() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalExpressionDsl.g:4517:1: ( ( RULE_STRING ) )
-            // InternalExpressionDsl.g:4518:2: ( RULE_STRING )
+            // InternalExpressionDsl.g:4257:1: ( ( RULE_STRING ) )
+            // InternalExpressionDsl.g:4258:2: ( RULE_STRING )
             {
-            // InternalExpressionDsl.g:4518:2: ( RULE_STRING )
-            // InternalExpressionDsl.g:4519:3: RULE_STRING
+            // InternalExpressionDsl.g:4258:2: ( RULE_STRING )
+            // InternalExpressionDsl.g:4259:3: RULE_STRING
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getHyStringValueAccess().getValueSTRINGTerminalRuleCall_0()); 
@@ -15251,28 +13776,28 @@ public class InternalExpressionDslParser extends AbstractInternalContentAssistPa
 
 
     // $ANTLR start "rule__HyBooleanValue__ValueAssignment_1_0"
-    // InternalExpressionDsl.g:4528:1: rule__HyBooleanValue__ValueAssignment_1_0 : ( ( 'true' ) ) ;
+    // InternalExpressionDsl.g:4268:1: rule__HyBooleanValue__ValueAssignment_1_0 : ( ( 'true' ) ) ;
     public final void rule__HyBooleanValue__ValueAssignment_1_0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalExpressionDsl.g:4532:1: ( ( ( 'true' ) ) )
-            // InternalExpressionDsl.g:4533:2: ( ( 'true' ) )
+            // InternalExpressionDsl.g:4272:1: ( ( ( 'true' ) ) )
+            // InternalExpressionDsl.g:4273:2: ( ( 'true' ) )
             {
-            // InternalExpressionDsl.g:4533:2: ( ( 'true' ) )
-            // InternalExpressionDsl.g:4534:3: ( 'true' )
-            {
-            if ( state.backtracking==0 ) {
-               before(grammarAccess.getHyBooleanValueAccess().getValueTrueKeyword_1_0_0()); 
-            }
-            // InternalExpressionDsl.g:4535:3: ( 'true' )
-            // InternalExpressionDsl.g:4536:4: 'true'
+            // InternalExpressionDsl.g:4273:2: ( ( 'true' ) )
+            // InternalExpressionDsl.g:4274:3: ( 'true' )
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getHyBooleanValueAccess().getValueTrueKeyword_1_0_0()); 
             }
-            match(input,33,FOLLOW_2); if (state.failed) return ;
+            // InternalExpressionDsl.g:4275:3: ( 'true' )
+            // InternalExpressionDsl.g:4276:4: 'true'
+            {
+            if ( state.backtracking==0 ) {
+               before(grammarAccess.getHyBooleanValueAccess().getValueTrueKeyword_1_0_0()); 
+            }
+            match(input,32,FOLLOW_2); if (state.failed) return ;
             if ( state.backtracking==0 ) {
                after(grammarAccess.getHyBooleanValueAccess().getValueTrueKeyword_1_0_0()); 
             }
@@ -15304,23 +13829,23 @@ public class InternalExpressionDslParser extends AbstractInternalContentAssistPa
 
 
     // $ANTLR start "rule__HyEnumValue__EnumAssignment_0"
-    // InternalExpressionDsl.g:4547:1: rule__HyEnumValue__EnumAssignment_0 : ( ( RULE_STRING ) ) ;
+    // InternalExpressionDsl.g:4287:1: rule__HyEnumValue__EnumAssignment_0 : ( ( RULE_STRING ) ) ;
     public final void rule__HyEnumValue__EnumAssignment_0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalExpressionDsl.g:4551:1: ( ( ( RULE_STRING ) ) )
-            // InternalExpressionDsl.g:4552:2: ( ( RULE_STRING ) )
+            // InternalExpressionDsl.g:4291:1: ( ( ( RULE_STRING ) ) )
+            // InternalExpressionDsl.g:4292:2: ( ( RULE_STRING ) )
             {
-            // InternalExpressionDsl.g:4552:2: ( ( RULE_STRING ) )
-            // InternalExpressionDsl.g:4553:3: ( RULE_STRING )
+            // InternalExpressionDsl.g:4292:2: ( ( RULE_STRING ) )
+            // InternalExpressionDsl.g:4293:3: ( RULE_STRING )
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getHyEnumValueAccess().getEnumHyEnumCrossReference_0_0()); 
             }
-            // InternalExpressionDsl.g:4554:3: ( RULE_STRING )
-            // InternalExpressionDsl.g:4555:4: RULE_STRING
+            // InternalExpressionDsl.g:4294:3: ( RULE_STRING )
+            // InternalExpressionDsl.g:4295:4: RULE_STRING
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getHyEnumValueAccess().getEnumHyEnumSTRINGTerminalRuleCall_0_0_1()); 
@@ -15357,23 +13882,23 @@ public class InternalExpressionDslParser extends AbstractInternalContentAssistPa
 
 
     // $ANTLR start "rule__HyEnumValue__EnumLiteralAssignment_2"
-    // InternalExpressionDsl.g:4566:1: rule__HyEnumValue__EnumLiteralAssignment_2 : ( ( RULE_STRING ) ) ;
+    // InternalExpressionDsl.g:4306:1: rule__HyEnumValue__EnumLiteralAssignment_2 : ( ( RULE_STRING ) ) ;
     public final void rule__HyEnumValue__EnumLiteralAssignment_2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalExpressionDsl.g:4570:1: ( ( ( RULE_STRING ) ) )
-            // InternalExpressionDsl.g:4571:2: ( ( RULE_STRING ) )
+            // InternalExpressionDsl.g:4310:1: ( ( ( RULE_STRING ) ) )
+            // InternalExpressionDsl.g:4311:2: ( ( RULE_STRING ) )
             {
-            // InternalExpressionDsl.g:4571:2: ( ( RULE_STRING ) )
-            // InternalExpressionDsl.g:4572:3: ( RULE_STRING )
+            // InternalExpressionDsl.g:4311:2: ( ( RULE_STRING ) )
+            // InternalExpressionDsl.g:4312:3: ( RULE_STRING )
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getHyEnumValueAccess().getEnumLiteralHyEnumLiteralCrossReference_2_0()); 
             }
-            // InternalExpressionDsl.g:4573:3: ( RULE_STRING )
-            // InternalExpressionDsl.g:4574:4: RULE_STRING
+            // InternalExpressionDsl.g:4313:3: ( RULE_STRING )
+            // InternalExpressionDsl.g:4314:4: RULE_STRING
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getHyEnumValueAccess().getEnumLiteralHyEnumLiteralSTRINGTerminalRuleCall_2_0_1()); 
@@ -15410,17 +13935,17 @@ public class InternalExpressionDslParser extends AbstractInternalContentAssistPa
 
 
     // $ANTLR start "rule__HyNestedArithmeticalValueExpression__OperandAssignment_1"
-    // InternalExpressionDsl.g:4585:1: rule__HyNestedArithmeticalValueExpression__OperandAssignment_1 : ( ruleHyArithmeticalValueExpression ) ;
+    // InternalExpressionDsl.g:4325:1: rule__HyNestedArithmeticalValueExpression__OperandAssignment_1 : ( ruleHyArithmeticalValueExpression ) ;
     public final void rule__HyNestedArithmeticalValueExpression__OperandAssignment_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalExpressionDsl.g:4589:1: ( ( ruleHyArithmeticalValueExpression ) )
-            // InternalExpressionDsl.g:4590:2: ( ruleHyArithmeticalValueExpression )
+            // InternalExpressionDsl.g:4329:1: ( ( ruleHyArithmeticalValueExpression ) )
+            // InternalExpressionDsl.g:4330:2: ( ruleHyArithmeticalValueExpression )
             {
-            // InternalExpressionDsl.g:4590:2: ( ruleHyArithmeticalValueExpression )
-            // InternalExpressionDsl.g:4591:3: ruleHyArithmeticalValueExpression
+            // InternalExpressionDsl.g:4330:2: ( ruleHyArithmeticalValueExpression )
+            // InternalExpressionDsl.g:4331:3: ruleHyArithmeticalValueExpression
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getHyNestedArithmeticalValueExpressionAccess().getOperandHyArithmeticalValueExpressionParserRuleCall_1_0()); 
@@ -15455,23 +13980,23 @@ public class InternalExpressionDslParser extends AbstractInternalContentAssistPa
 
 
     // $ANTLR start "rule__HyContextInformationReferenceExpression__ContextInformationAssignment"
-    // InternalExpressionDsl.g:4600:1: rule__HyContextInformationReferenceExpression__ContextInformationAssignment : ( ( RULE_STRING ) ) ;
+    // InternalExpressionDsl.g:4340:1: rule__HyContextInformationReferenceExpression__ContextInformationAssignment : ( ( RULE_STRING ) ) ;
     public final void rule__HyContextInformationReferenceExpression__ContextInformationAssignment() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalExpressionDsl.g:4604:1: ( ( ( RULE_STRING ) ) )
-            // InternalExpressionDsl.g:4605:2: ( ( RULE_STRING ) )
+            // InternalExpressionDsl.g:4344:1: ( ( ( RULE_STRING ) ) )
+            // InternalExpressionDsl.g:4345:2: ( ( RULE_STRING ) )
             {
-            // InternalExpressionDsl.g:4605:2: ( ( RULE_STRING ) )
-            // InternalExpressionDsl.g:4606:3: ( RULE_STRING )
+            // InternalExpressionDsl.g:4345:2: ( ( RULE_STRING ) )
+            // InternalExpressionDsl.g:4346:3: ( RULE_STRING )
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getHyContextInformationReferenceExpressionAccess().getContextInformationHyContextualInformationCrossReference_0()); 
             }
-            // InternalExpressionDsl.g:4607:3: ( RULE_STRING )
-            // InternalExpressionDsl.g:4608:4: RULE_STRING
+            // InternalExpressionDsl.g:4347:3: ( RULE_STRING )
+            // InternalExpressionDsl.g:4348:4: RULE_STRING
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getHyContextInformationReferenceExpressionAccess().getContextInformationHyContextualInformationSTRINGTerminalRuleCall_0_1()); 
@@ -15508,23 +14033,23 @@ public class InternalExpressionDslParser extends AbstractInternalContentAssistPa
 
 
     // $ANTLR start "rule__HyAttributeReferenceExpression__FeatureAssignment_0"
-    // InternalExpressionDsl.g:4619:1: rule__HyAttributeReferenceExpression__FeatureAssignment_0 : ( ( RULE_STRING ) ) ;
+    // InternalExpressionDsl.g:4359:1: rule__HyAttributeReferenceExpression__FeatureAssignment_0 : ( ( RULE_STRING ) ) ;
     public final void rule__HyAttributeReferenceExpression__FeatureAssignment_0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalExpressionDsl.g:4623:1: ( ( ( RULE_STRING ) ) )
-            // InternalExpressionDsl.g:4624:2: ( ( RULE_STRING ) )
+            // InternalExpressionDsl.g:4363:1: ( ( ( RULE_STRING ) ) )
+            // InternalExpressionDsl.g:4364:2: ( ( RULE_STRING ) )
             {
-            // InternalExpressionDsl.g:4624:2: ( ( RULE_STRING ) )
-            // InternalExpressionDsl.g:4625:3: ( RULE_STRING )
+            // InternalExpressionDsl.g:4364:2: ( ( RULE_STRING ) )
+            // InternalExpressionDsl.g:4365:3: ( RULE_STRING )
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getHyAttributeReferenceExpressionAccess().getFeatureHyFeatureCrossReference_0_0()); 
             }
-            // InternalExpressionDsl.g:4626:3: ( RULE_STRING )
-            // InternalExpressionDsl.g:4627:4: RULE_STRING
+            // InternalExpressionDsl.g:4366:3: ( RULE_STRING )
+            // InternalExpressionDsl.g:4367:4: RULE_STRING
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getHyAttributeReferenceExpressionAccess().getFeatureHyFeatureSTRINGTerminalRuleCall_0_0_1()); 
@@ -15561,23 +14086,23 @@ public class InternalExpressionDslParser extends AbstractInternalContentAssistPa
 
 
     // $ANTLR start "rule__HyAttributeReferenceExpression__AttributeAssignment_2"
-    // InternalExpressionDsl.g:4638:1: rule__HyAttributeReferenceExpression__AttributeAssignment_2 : ( ( RULE_STRING ) ) ;
+    // InternalExpressionDsl.g:4378:1: rule__HyAttributeReferenceExpression__AttributeAssignment_2 : ( ( RULE_STRING ) ) ;
     public final void rule__HyAttributeReferenceExpression__AttributeAssignment_2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalExpressionDsl.g:4642:1: ( ( ( RULE_STRING ) ) )
-            // InternalExpressionDsl.g:4643:2: ( ( RULE_STRING ) )
+            // InternalExpressionDsl.g:4382:1: ( ( ( RULE_STRING ) ) )
+            // InternalExpressionDsl.g:4383:2: ( ( RULE_STRING ) )
             {
-            // InternalExpressionDsl.g:4643:2: ( ( RULE_STRING ) )
-            // InternalExpressionDsl.g:4644:3: ( RULE_STRING )
+            // InternalExpressionDsl.g:4383:2: ( ( RULE_STRING ) )
+            // InternalExpressionDsl.g:4384:3: ( RULE_STRING )
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getHyAttributeReferenceExpressionAccess().getAttributeHyFeatureAttributeCrossReference_2_0()); 
             }
-            // InternalExpressionDsl.g:4645:3: ( RULE_STRING )
-            // InternalExpressionDsl.g:4646:4: RULE_STRING
+            // InternalExpressionDsl.g:4385:3: ( RULE_STRING )
+            // InternalExpressionDsl.g:4386:4: RULE_STRING
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getHyAttributeReferenceExpressionAccess().getAttributeHyFeatureAttributeSTRINGTerminalRuleCall_2_0_1()); 
@@ -15612,235 +14137,13 @@ public class InternalExpressionDslParser extends AbstractInternalContentAssistPa
     }
     // $ANTLR end "rule__HyAttributeReferenceExpression__AttributeAssignment_2"
 
-    // $ANTLR start synpred1_InternalExpressionDsl
-    public final void synpred1_InternalExpressionDsl_fragment() throws RecognitionException {   
-        // InternalExpressionDsl.g:1024:2: ( ( ruleHyFeatureReferenceExpression ) )
-        // InternalExpressionDsl.g:1024:2: ( ruleHyFeatureReferenceExpression )
-        {
-        // InternalExpressionDsl.g:1024:2: ( ruleHyFeatureReferenceExpression )
-        // InternalExpressionDsl.g:1025:3: ruleHyFeatureReferenceExpression
-        {
-        if ( state.backtracking==0 ) {
-           before(grammarAccess.getTerminalExpressionAccess().getHyFeatureReferenceExpressionParserRuleCall_0()); 
-        }
-        pushFollow(FOLLOW_2);
-        ruleHyFeatureReferenceExpression();
-
-        state._fsp--;
-        if (state.failed) return ;
-
-        }
-
-
-        }
-    }
-    // $ANTLR end synpred1_InternalExpressionDsl
-
-    // $ANTLR start synpred2_InternalExpressionDsl
-    public final void synpred2_InternalExpressionDsl_fragment() throws RecognitionException {   
-        // InternalExpressionDsl.g:1030:2: ( ( ruleHyNestedExpression ) )
-        // InternalExpressionDsl.g:1030:2: ( ruleHyNestedExpression )
-        {
-        // InternalExpressionDsl.g:1030:2: ( ruleHyNestedExpression )
-        // InternalExpressionDsl.g:1031:3: ruleHyNestedExpression
-        {
-        if ( state.backtracking==0 ) {
-           before(grammarAccess.getTerminalExpressionAccess().getHyNestedExpressionParserRuleCall_1()); 
-        }
-        pushFollow(FOLLOW_2);
-        ruleHyNestedExpression();
-
-        state._fsp--;
-        if (state.failed) return ;
-
-        }
-
-
-        }
-    }
-    // $ANTLR end synpred2_InternalExpressionDsl
-
-    // $ANTLR start synpred5_InternalExpressionDsl
-    public final void synpred5_InternalExpressionDsl_fragment() throws RecognitionException {   
-        // InternalExpressionDsl.g:1048:2: ( ( ruleHyBooleanValueExpression ) )
-        // InternalExpressionDsl.g:1048:2: ( ruleHyBooleanValueExpression )
-        {
-        // InternalExpressionDsl.g:1048:2: ( ruleHyBooleanValueExpression )
-        // InternalExpressionDsl.g:1049:3: ruleHyBooleanValueExpression
-        {
-        if ( state.backtracking==0 ) {
-           before(grammarAccess.getTerminalExpressionAccess().getHyBooleanValueExpressionParserRuleCall_4()); 
-        }
-        pushFollow(FOLLOW_2);
-        ruleHyBooleanValueExpression();
-
-        state._fsp--;
-        if (state.failed) return ;
-
-        }
-
-
-        }
-    }
-    // $ANTLR end synpred5_InternalExpressionDsl
-
-    // $ANTLR start synpred10_InternalExpressionDsl
-    public final void synpred10_InternalExpressionDsl_fragment() throws RecognitionException {   
-        // InternalExpressionDsl.g:1138:2: ( ( ( rule__HyGreaterExpression__Group_0__0 ) ) )
-        // InternalExpressionDsl.g:1138:2: ( ( rule__HyGreaterExpression__Group_0__0 ) )
-        {
-        // InternalExpressionDsl.g:1138:2: ( ( rule__HyGreaterExpression__Group_0__0 ) )
-        // InternalExpressionDsl.g:1139:3: ( rule__HyGreaterExpression__Group_0__0 )
-        {
-        if ( state.backtracking==0 ) {
-           before(grammarAccess.getHyGreaterExpressionAccess().getGroup_0()); 
-        }
-        // InternalExpressionDsl.g:1140:3: ( rule__HyGreaterExpression__Group_0__0 )
-        // InternalExpressionDsl.g:1140:4: rule__HyGreaterExpression__Group_0__0
-        {
-        pushFollow(FOLLOW_2);
-        rule__HyGreaterExpression__Group_0__0();
-
-        state._fsp--;
-        if (state.failed) return ;
-
-        }
-
-
-        }
-
-
-        }
-    }
-    // $ANTLR end synpred10_InternalExpressionDsl
-
-    // $ANTLR start synpred11_InternalExpressionDsl
-    public final void synpred11_InternalExpressionDsl_fragment() throws RecognitionException {   
-        // InternalExpressionDsl.g:1159:2: ( ( ( rule__HyLessExpression__Group_0__0 ) ) )
-        // InternalExpressionDsl.g:1159:2: ( ( rule__HyLessExpression__Group_0__0 ) )
-        {
-        // InternalExpressionDsl.g:1159:2: ( ( rule__HyLessExpression__Group_0__0 ) )
-        // InternalExpressionDsl.g:1160:3: ( rule__HyLessExpression__Group_0__0 )
-        {
-        if ( state.backtracking==0 ) {
-           before(grammarAccess.getHyLessExpressionAccess().getGroup_0()); 
-        }
-        // InternalExpressionDsl.g:1161:3: ( rule__HyLessExpression__Group_0__0 )
-        // InternalExpressionDsl.g:1161:4: rule__HyLessExpression__Group_0__0
-        {
-        pushFollow(FOLLOW_2);
-        rule__HyLessExpression__Group_0__0();
-
-        state._fsp--;
-        if (state.failed) return ;
-
-        }
-
-
-        }
-
-
-        }
-    }
-    // $ANTLR end synpred11_InternalExpressionDsl
-
-    // $ANTLR start synpred12_InternalExpressionDsl
-    public final void synpred12_InternalExpressionDsl_fragment() throws RecognitionException {   
-        // InternalExpressionDsl.g:1180:2: ( ( ( rule__HyGreaterOrEqualExpression__Group_0__0 ) ) )
-        // InternalExpressionDsl.g:1180:2: ( ( rule__HyGreaterOrEqualExpression__Group_0__0 ) )
-        {
-        // InternalExpressionDsl.g:1180:2: ( ( rule__HyGreaterOrEqualExpression__Group_0__0 ) )
-        // InternalExpressionDsl.g:1181:3: ( rule__HyGreaterOrEqualExpression__Group_0__0 )
-        {
-        if ( state.backtracking==0 ) {
-           before(grammarAccess.getHyGreaterOrEqualExpressionAccess().getGroup_0()); 
-        }
-        // InternalExpressionDsl.g:1182:3: ( rule__HyGreaterOrEqualExpression__Group_0__0 )
-        // InternalExpressionDsl.g:1182:4: rule__HyGreaterOrEqualExpression__Group_0__0
-        {
-        pushFollow(FOLLOW_2);
-        rule__HyGreaterOrEqualExpression__Group_0__0();
-
-        state._fsp--;
-        if (state.failed) return ;
-
-        }
-
-
-        }
-
-
-        }
-    }
-    // $ANTLR end synpred12_InternalExpressionDsl
-
-    // $ANTLR start synpred13_InternalExpressionDsl
-    public final void synpred13_InternalExpressionDsl_fragment() throws RecognitionException {   
-        // InternalExpressionDsl.g:1201:2: ( ( ( rule__HyLessOrEqualExpression__Group_0__0 ) ) )
-        // InternalExpressionDsl.g:1201:2: ( ( rule__HyLessOrEqualExpression__Group_0__0 ) )
-        {
-        // InternalExpressionDsl.g:1201:2: ( ( rule__HyLessOrEqualExpression__Group_0__0 ) )
-        // InternalExpressionDsl.g:1202:3: ( rule__HyLessOrEqualExpression__Group_0__0 )
-        {
-        if ( state.backtracking==0 ) {
-           before(grammarAccess.getHyLessOrEqualExpressionAccess().getGroup_0()); 
-        }
-        // InternalExpressionDsl.g:1203:3: ( rule__HyLessOrEqualExpression__Group_0__0 )
-        // InternalExpressionDsl.g:1203:4: rule__HyLessOrEqualExpression__Group_0__0
-        {
-        pushFollow(FOLLOW_2);
-        rule__HyLessOrEqualExpression__Group_0__0();
-
-        state._fsp--;
-        if (state.failed) return ;
-
-        }
-
-
-        }
-
-
-        }
-    }
-    // $ANTLR end synpred13_InternalExpressionDsl
-
-    // $ANTLR start synpred14_InternalExpressionDsl
-    public final void synpred14_InternalExpressionDsl_fragment() throws RecognitionException {   
-        // InternalExpressionDsl.g:1222:2: ( ( ( rule__HyEqualExpression__Group_0__0 ) ) )
-        // InternalExpressionDsl.g:1222:2: ( ( rule__HyEqualExpression__Group_0__0 ) )
-        {
-        // InternalExpressionDsl.g:1222:2: ( ( rule__HyEqualExpression__Group_0__0 ) )
-        // InternalExpressionDsl.g:1223:3: ( rule__HyEqualExpression__Group_0__0 )
-        {
-        if ( state.backtracking==0 ) {
-           before(grammarAccess.getHyEqualExpressionAccess().getGroup_0()); 
-        }
-        // InternalExpressionDsl.g:1224:3: ( rule__HyEqualExpression__Group_0__0 )
-        // InternalExpressionDsl.g:1224:4: rule__HyEqualExpression__Group_0__0
-        {
-        pushFollow(FOLLOW_2);
-        rule__HyEqualExpression__Group_0__0();
-
-        state._fsp--;
-        if (state.failed) return ;
-
-        }
-
-
-        }
-
-
-        }
-    }
-    // $ANTLR end synpred14_InternalExpressionDsl
-
     // $ANTLR start synpred15_InternalExpressionDsl
     public final void synpred15_InternalExpressionDsl_fragment() throws RecognitionException {   
-        // InternalExpressionDsl.g:1243:2: ( ( ruleHyValueExpression ) )
-        // InternalExpressionDsl.g:1243:2: ( ruleHyValueExpression )
+        // InternalExpressionDsl.g:1133:2: ( ( ruleHyValueExpression ) )
+        // InternalExpressionDsl.g:1133:2: ( ruleHyValueExpression )
         {
-        // InternalExpressionDsl.g:1243:2: ( ruleHyValueExpression )
-        // InternalExpressionDsl.g:1244:3: ruleHyValueExpression
+        // InternalExpressionDsl.g:1133:2: ( ruleHyValueExpression )
+        // InternalExpressionDsl.g:1134:3: ruleHyValueExpression
         {
         if ( state.backtracking==0 ) {
            before(grammarAccess.getTerminalArithmeticalExpressionAccess().getHyValueExpressionParserRuleCall_0()); 
@@ -15860,17 +14163,17 @@ public class InternalExpressionDslParser extends AbstractInternalContentAssistPa
 
     // $ANTLR start synpred17_InternalExpressionDsl
     public final void synpred17_InternalExpressionDsl_fragment() throws RecognitionException {   
-        // InternalExpressionDsl.g:1255:2: ( ( ( ruleHyContextInformationReferenceExpression ) ) )
-        // InternalExpressionDsl.g:1255:2: ( ( ruleHyContextInformationReferenceExpression ) )
+        // InternalExpressionDsl.g:1145:2: ( ( ( ruleHyContextInformationReferenceExpression ) ) )
+        // InternalExpressionDsl.g:1145:2: ( ( ruleHyContextInformationReferenceExpression ) )
         {
-        // InternalExpressionDsl.g:1255:2: ( ( ruleHyContextInformationReferenceExpression ) )
-        // InternalExpressionDsl.g:1256:3: ( ruleHyContextInformationReferenceExpression )
+        // InternalExpressionDsl.g:1145:2: ( ( ruleHyContextInformationReferenceExpression ) )
+        // InternalExpressionDsl.g:1146:3: ( ruleHyContextInformationReferenceExpression )
         {
         if ( state.backtracking==0 ) {
            before(grammarAccess.getTerminalArithmeticalExpressionAccess().getHyContextInformationReferenceExpressionParserRuleCall_2()); 
         }
-        // InternalExpressionDsl.g:1257:3: ( ruleHyContextInformationReferenceExpression )
-        // InternalExpressionDsl.g:1257:4: ruleHyContextInformationReferenceExpression
+        // InternalExpressionDsl.g:1147:3: ( ruleHyContextInformationReferenceExpression )
+        // InternalExpressionDsl.g:1147:4: ruleHyContextInformationReferenceExpression
         {
         pushFollow(FOLLOW_2);
         ruleHyContextInformationReferenceExpression();
@@ -15890,53 +14193,11 @@ public class InternalExpressionDslParser extends AbstractInternalContentAssistPa
 
     // Delegated rules
 
-    public final boolean synpred14_InternalExpressionDsl() {
-        state.backtracking++;
-        int start = input.mark();
-        try {
-            synpred14_InternalExpressionDsl_fragment(); // can never throw exception
-        } catch (RecognitionException re) {
-            System.err.println("impossible: "+re);
-        }
-        boolean success = !state.failed;
-        input.rewind(start);
-        state.backtracking--;
-        state.failed=false;
-        return success;
-    }
     public final boolean synpred15_InternalExpressionDsl() {
         state.backtracking++;
         int start = input.mark();
         try {
             synpred15_InternalExpressionDsl_fragment(); // can never throw exception
-        } catch (RecognitionException re) {
-            System.err.println("impossible: "+re);
-        }
-        boolean success = !state.failed;
-        input.rewind(start);
-        state.backtracking--;
-        state.failed=false;
-        return success;
-    }
-    public final boolean synpred12_InternalExpressionDsl() {
-        state.backtracking++;
-        int start = input.mark();
-        try {
-            synpred12_InternalExpressionDsl_fragment(); // can never throw exception
-        } catch (RecognitionException re) {
-            System.err.println("impossible: "+re);
-        }
-        boolean success = !state.failed;
-        input.rewind(start);
-        state.backtracking--;
-        state.failed=false;
-        return success;
-    }
-    public final boolean synpred11_InternalExpressionDsl() {
-        state.backtracking++;
-        int start = input.mark();
-        try {
-            synpred11_InternalExpressionDsl_fragment(); // can never throw exception
         } catch (RecognitionException re) {
             System.err.println("impossible: "+re);
         }
@@ -15960,92 +14221,22 @@ public class InternalExpressionDslParser extends AbstractInternalContentAssistPa
         state.failed=false;
         return success;
     }
-    public final boolean synpred2_InternalExpressionDsl() {
-        state.backtracking++;
-        int start = input.mark();
-        try {
-            synpred2_InternalExpressionDsl_fragment(); // can never throw exception
-        } catch (RecognitionException re) {
-            System.err.println("impossible: "+re);
-        }
-        boolean success = !state.failed;
-        input.rewind(start);
-        state.backtracking--;
-        state.failed=false;
-        return success;
-    }
-    public final boolean synpred1_InternalExpressionDsl() {
-        state.backtracking++;
-        int start = input.mark();
-        try {
-            synpred1_InternalExpressionDsl_fragment(); // can never throw exception
-        } catch (RecognitionException re) {
-            System.err.println("impossible: "+re);
-        }
-        boolean success = !state.failed;
-        input.rewind(start);
-        state.backtracking--;
-        state.failed=false;
-        return success;
-    }
-    public final boolean synpred13_InternalExpressionDsl() {
-        state.backtracking++;
-        int start = input.mark();
-        try {
-            synpred13_InternalExpressionDsl_fragment(); // can never throw exception
-        } catch (RecognitionException re) {
-            System.err.println("impossible: "+re);
-        }
-        boolean success = !state.failed;
-        input.rewind(start);
-        state.backtracking--;
-        state.failed=false;
-        return success;
-    }
-    public final boolean synpred5_InternalExpressionDsl() {
-        state.backtracking++;
-        int start = input.mark();
-        try {
-            synpred5_InternalExpressionDsl_fragment(); // can never throw exception
-        } catch (RecognitionException re) {
-            System.err.println("impossible: "+re);
-        }
-        boolean success = !state.failed;
-        input.rewind(start);
-        state.backtracking--;
-        state.failed=false;
-        return success;
-    }
-    public final boolean synpred10_InternalExpressionDsl() {
-        state.backtracking++;
-        int start = input.mark();
-        try {
-            synpred10_InternalExpressionDsl_fragment(); // can never throw exception
-        } catch (RecognitionException re) {
-            System.err.println("impossible: "+re);
-        }
-        boolean success = !state.failed;
-        input.rewind(start);
-        state.backtracking--;
-        state.failed=false;
-        return success;
-    }
 
 
     protected DFA1 dfa1 = new DFA1(this);
-    static final String dfa_1s = "\14\uffff";
-    static final String dfa_2s = "\1\4\2\0\2\uffff\2\0\5\uffff";
-    static final String dfa_3s = "\1\41\2\0\2\uffff\2\0\5\uffff";
-    static final String dfa_4s = "\3\uffff\1\3\1\4\2\uffff\1\6\1\uffff\1\1\1\2\1\5";
-    static final String dfa_5s = "\1\uffff\1\0\1\1\2\uffff\1\2\1\3\5\uffff}>";
-    static final String[] dfa_6s = {
-            "\1\7\1\1\5\uffff\1\6\11\uffff\1\2\1\uffff\1\4\1\3\2\uffff\1\7\5\uffff\1\5",
-            "\1\uffff",
-            "\1\uffff",
+    protected DFA5 dfa5 = new DFA5(this);
+    static final String dfa_1s = "\12\uffff";
+    static final String dfa_2s = "\2\uffff\1\10\2\11\5\uffff";
+    static final String dfa_3s = "\1\4\1\uffff\1\13\2\14\5\uffff";
+    static final String dfa_4s = "\1\40\1\uffff\1\37\2\34\5\uffff";
+    static final String dfa_5s = "\1\uffff\1\1\3\uffff\1\3\1\4\1\5\1\2\1\6";
+    static final String dfa_6s = "\12\uffff}>";
+    static final String[] dfa_7s = {
+            "\1\1\1\2\5\uffff\1\4\11\uffff\1\5\1\uffff\1\7\1\6\2\uffff\1\1\4\uffff\1\3",
             "",
-            "",
-            "\1\uffff",
-            "\1\uffff",
+            "\1\10\5\1\4\10\1\uffff\1\10\2\uffff\1\10\2\uffff\1\1\2\uffff\1\1",
+            "\5\1\4\11\1\uffff\1\11\5\uffff\1\1",
+            "\5\1\4\11\1\uffff\1\11\5\uffff\1\1",
             "",
             "",
             "",
@@ -16054,11 +14245,12 @@ public class InternalExpressionDslParser extends AbstractInternalContentAssistPa
     };
 
     static final short[] dfa_1 = DFA.unpackEncodedString(dfa_1s);
-    static final char[] dfa_2 = DFA.unpackEncodedStringToUnsignedChars(dfa_2s);
+    static final short[] dfa_2 = DFA.unpackEncodedString(dfa_2s);
     static final char[] dfa_3 = DFA.unpackEncodedStringToUnsignedChars(dfa_3s);
-    static final short[] dfa_4 = DFA.unpackEncodedString(dfa_4s);
+    static final char[] dfa_4 = DFA.unpackEncodedStringToUnsignedChars(dfa_4s);
     static final short[] dfa_5 = DFA.unpackEncodedString(dfa_5s);
-    static final short[][] dfa_6 = unpackEncodedStringArray(dfa_6s);
+    static final short[] dfa_6 = DFA.unpackEncodedString(dfa_6s);
+    static final short[][] dfa_7 = unpackEncodedStringArray(dfa_7s);
 
     class DFA1 extends DFA {
 
@@ -16066,86 +14258,61 @@ public class InternalExpressionDslParser extends AbstractInternalContentAssistPa
             this.recognizer = recognizer;
             this.decisionNumber = 1;
             this.eot = dfa_1;
-            this.eof = dfa_1;
-            this.min = dfa_2;
-            this.max = dfa_3;
-            this.accept = dfa_4;
-            this.special = dfa_5;
-            this.transition = dfa_6;
+            this.eof = dfa_2;
+            this.min = dfa_3;
+            this.max = dfa_4;
+            this.accept = dfa_5;
+            this.special = dfa_6;
+            this.transition = dfa_7;
         }
         public String getDescription() {
-            return "1019:1: rule__TerminalExpression__Alternatives : ( ( ruleHyFeatureReferenceExpression ) | ( ruleHyNestedExpression ) | ( ruleHyConditionalFeatureReferenceExpression ) | ( ruleHyNotExpression ) | ( ruleHyBooleanValueExpression ) | ( ( ruleHyArithmeticalComparisonExpression ) ) );";
+            return "969:1: rule__TerminalExpression__Alternatives : ( ( ( ruleHyBinaryArithmeticalComparisonExpression ) ) | ( ruleHyFeatureReferenceExpression ) | ( ruleHyNestedExpression ) | ( ruleHyConditionalFeatureReferenceExpression ) | ( ruleHyNotExpression ) | ( ruleHyBooleanValueExpression ) );";
         }
-        public int specialStateTransition(int s, IntStream _input) throws NoViableAltException {
-            TokenStream input = (TokenStream)_input;
-        	int _s = s;
-            switch ( s ) {
-                    case 0 : 
-                        int LA1_1 = input.LA(1);
+    }
+    static final String dfa_8s = "\16\uffff";
+    static final String dfa_9s = "\2\4\4\14\6\uffff\1\5\1\14";
+    static final String dfa_10s = "\1\40\1\4\1\34\1\37\2\34\6\uffff\1\5\1\34";
+    static final String dfa_11s = "\6\uffff\1\2\1\3\1\6\1\4\1\1\1\5\2\uffff";
+    static final String dfa_12s = "\16\uffff}>";
+    static final String[] dfa_13s = {
+            "\1\2\1\3\5\uffff\1\5\17\uffff\1\1\4\uffff\1\4",
+            "\1\2",
+            "\1\11\1\7\1\10\1\12\1\6\13\uffff\1\13",
+            "\1\11\1\7\1\10\1\12\1\6\13\uffff\1\13\2\uffff\1\14",
+            "\1\11\1\7\1\10\1\12\1\6\13\uffff\1\13",
+            "\1\11\1\7\1\10\1\12\1\6\13\uffff\1\13",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "\1\15",
+            "\1\11\1\7\1\10\1\12\1\6\13\uffff\1\13"
+    };
 
-                         
-                        int index1_1 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred1_InternalExpressionDsl()) ) {s = 9;}
+    static final short[] dfa_8 = DFA.unpackEncodedString(dfa_8s);
+    static final char[] dfa_9 = DFA.unpackEncodedStringToUnsignedChars(dfa_9s);
+    static final char[] dfa_10 = DFA.unpackEncodedStringToUnsignedChars(dfa_10s);
+    static final short[] dfa_11 = DFA.unpackEncodedString(dfa_11s);
+    static final short[] dfa_12 = DFA.unpackEncodedString(dfa_12s);
+    static final short[][] dfa_13 = unpackEncodedStringArray(dfa_13s);
 
-                        else if ( (true) ) {s = 7;}
+    class DFA5 extends DFA {
 
-                         
-                        input.seek(index1_1);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 1 : 
-                        int LA1_2 = input.LA(1);
-
-                         
-                        int index1_2 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred2_InternalExpressionDsl()) ) {s = 10;}
-
-                        else if ( (true) ) {s = 7;}
-
-                         
-                        input.seek(index1_2);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 2 : 
-                        int LA1_5 = input.LA(1);
-
-                         
-                        int index1_5 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred5_InternalExpressionDsl()) ) {s = 11;}
-
-                        else if ( (true) ) {s = 7;}
-
-                         
-                        input.seek(index1_5);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 3 : 
-                        int LA1_6 = input.LA(1);
-
-                         
-                        int index1_6 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred5_InternalExpressionDsl()) ) {s = 11;}
-
-                        else if ( (true) ) {s = 7;}
-
-                         
-                        input.seek(index1_6);
-                        if ( s>=0 ) return s;
-                        break;
-            }
-            if (state.backtracking>0) {state.failed=true; return -1;}
-            NoViableAltException nvae =
-                new NoViableAltException(getDescription(), 1, _s, input);
-            error(nvae);
-            throw nvae;
+        public DFA5(BaseRecognizer recognizer) {
+            this.recognizer = recognizer;
+            this.decisionNumber = 5;
+            this.eot = dfa_8;
+            this.eof = dfa_8;
+            this.min = dfa_9;
+            this.max = dfa_10;
+            this.accept = dfa_11;
+            this.special = dfa_12;
+            this.transition = dfa_13;
+        }
+        public String getDescription() {
+            return "1083:1: rule__HyBinaryArithmeticalComparisonExpression__Alternatives : ( ( ruleHyGreaterOrEqualExpression ) | ( ruleHyGreaterExpression ) | ( ruleHyLessOrEqualExpression ) | ( ruleHyLessExpression ) | ( ruleHyNotEqualExpression ) | ( ruleHyEqualExpression ) );";
         }
     }
  
@@ -16154,7 +14321,7 @@ public class InternalExpressionDslParser extends AbstractInternalContentAssistPa
     public static final BitSet FOLLOW_2 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_3 = new BitSet(new long[]{0x0000000000020000L});
     public static final BitSet FOLLOW_4 = new BitSet(new long[]{0x0000000000020002L});
-    public static final BitSet FOLLOW_5 = new BitSet(new long[]{0x0000000209A00830L});
+    public static final BitSet FOLLOW_5 = new BitSet(new long[]{0x0000000109A00830L});
     public static final BitSet FOLLOW_6 = new BitSet(new long[]{0x0000000000040000L});
     public static final BitSet FOLLOW_7 = new BitSet(new long[]{0x0000000000040002L});
     public static final BitSet FOLLOW_8 = new BitSet(new long[]{0x0000000000080000L});
@@ -16167,24 +14334,23 @@ public class InternalExpressionDslParser extends AbstractInternalContentAssistPa
     public static final BitSet FOLLOW_15 = new BitSet(new long[]{0x000000000001F000L});
     public static final BitSet FOLLOW_16 = new BitSet(new long[]{0x0000000000000040L});
     public static final BitSet FOLLOW_17 = new BitSet(new long[]{0x0000000004000000L});
-    public static final BitSet FOLLOW_18 = new BitSet(new long[]{0x0000000200000000L});
+    public static final BitSet FOLLOW_18 = new BitSet(new long[]{0x0000000100000000L});
     public static final BitSet FOLLOW_19 = new BitSet(new long[]{0x0000000008000000L});
-    public static final BitSet FOLLOW_20 = new BitSet(new long[]{0x0000000200000800L});
-    public static final BitSet FOLLOW_21 = new BitSet(new long[]{0x0000000000010000L});
-    public static final BitSet FOLLOW_22 = new BitSet(new long[]{0x0000000208200830L});
-    public static final BitSet FOLLOW_23 = new BitSet(new long[]{0x0000000000001000L});
-    public static final BitSet FOLLOW_24 = new BitSet(new long[]{0x0000000000008000L});
-    public static final BitSet FOLLOW_25 = new BitSet(new long[]{0x0000000000002000L});
-    public static final BitSet FOLLOW_26 = new BitSet(new long[]{0x0000000000004000L});
-    public static final BitSet FOLLOW_27 = new BitSet(new long[]{0x0000000010000000L});
-    public static final BitSet FOLLOW_28 = new BitSet(new long[]{0x0000000020000000L});
-    public static final BitSet FOLLOW_29 = new BitSet(new long[]{0x0000000020000002L});
-    public static final BitSet FOLLOW_30 = new BitSet(new long[]{0x0000000008000002L});
+    public static final BitSet FOLLOW_20 = new BitSet(new long[]{0x0000000000010000L});
+    public static final BitSet FOLLOW_21 = new BitSet(new long[]{0x0000000108000830L});
+    public static final BitSet FOLLOW_22 = new BitSet(new long[]{0x0000000000001000L});
+    public static final BitSet FOLLOW_23 = new BitSet(new long[]{0x0000000000008000L});
+    public static final BitSet FOLLOW_24 = new BitSet(new long[]{0x0000000000002000L});
+    public static final BitSet FOLLOW_25 = new BitSet(new long[]{0x0000000000004000L});
+    public static final BitSet FOLLOW_26 = new BitSet(new long[]{0x0000000010000000L});
+    public static final BitSet FOLLOW_27 = new BitSet(new long[]{0x0000000008000002L});
+    public static final BitSet FOLLOW_28 = new BitSet(new long[]{0x0000000108200830L});
+    public static final BitSet FOLLOW_29 = new BitSet(new long[]{0x0000000020000000L});
+    public static final BitSet FOLLOW_30 = new BitSet(new long[]{0x0000000020000002L});
     public static final BitSet FOLLOW_31 = new BitSet(new long[]{0x0000000040000000L});
     public static final BitSet FOLLOW_32 = new BitSet(new long[]{0x0000000040000002L});
-    public static final BitSet FOLLOW_33 = new BitSet(new long[]{0x0000000080000000L});
-    public static final BitSet FOLLOW_34 = new BitSet(new long[]{0x0000000080000002L});
-    public static final BitSet FOLLOW_35 = new BitSet(new long[]{0x0000000100000000L});
-    public static final BitSet FOLLOW_36 = new BitSet(new long[]{0x0000000008000010L});
+    public static final BitSet FOLLOW_33 = new BitSet(new long[]{0x0000000100000800L});
+    public static final BitSet FOLLOW_34 = new BitSet(new long[]{0x0000000080000000L});
+    public static final BitSet FOLLOW_35 = new BitSet(new long[]{0x0000000008000010L});
 
 }
