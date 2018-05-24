@@ -1573,14 +1573,37 @@ ruleTerminalArithmeticalExpression returns [EObject current=null]
 @after {
 	leaveRule();
 }:
-	{
-		newCompositeNode(grammarAccess.getTerminalArithmeticalExpressionAccess().getHyValueExpressionParserRuleCall());
-	}
-	this_HyValueExpression_0=ruleHyValueExpression
-	{
-		$current = $this_HyValueExpression_0.current;
-		afterParserOrEnumRuleCall();
-	}
+	(
+		{
+			newCompositeNode(grammarAccess.getTerminalArithmeticalExpressionAccess().getHyValueExpressionParserRuleCall_0());
+		}
+		this_HyValueExpression_0=ruleHyValueExpression
+		{
+			$current = $this_HyValueExpression_0.current;
+			afterParserOrEnumRuleCall();
+		}
+		    |
+		(
+			(ruleHyContextInformationReferenceExpression)=>
+			{
+				newCompositeNode(grammarAccess.getTerminalArithmeticalExpressionAccess().getHyContextInformationReferenceExpressionParserRuleCall_1());
+			}
+			this_HyContextInformationReferenceExpression_1=ruleHyContextInformationReferenceExpression
+			{
+				$current = $this_HyContextInformationReferenceExpression_1.current;
+				afterParserOrEnumRuleCall();
+			}
+		)
+		    |
+		{
+			newCompositeNode(grammarAccess.getTerminalArithmeticalExpressionAccess().getHyAttributeReferenceExpressionParserRuleCall_2());
+		}
+		this_HyAttributeReferenceExpression_2=ruleHyAttributeReferenceExpression
+		{
+			$current = $this_HyAttributeReferenceExpression_2.current;
+			afterParserOrEnumRuleCall();
+		}
+	)
 ;
 
 // Entry rule entryRuleHyValueExpression
@@ -1834,6 +1857,85 @@ ruleHyEnumValue returns [EObject current=null]
 				otherlv_2=RULE_STRING
 				{
 					newLeafNode(otherlv_2, grammarAccess.getHyEnumValueAccess().getEnumLiteralHyEnumLiteralCrossReference_2_0());
+				}
+			)
+		)
+	)
+;
+
+// Entry rule entryRuleHyContextInformationReferenceExpression
+entryRuleHyContextInformationReferenceExpression returns [EObject current=null]:
+	{ newCompositeNode(grammarAccess.getHyContextInformationReferenceExpressionRule()); }
+	iv_ruleHyContextInformationReferenceExpression=ruleHyContextInformationReferenceExpression
+	{ $current=$iv_ruleHyContextInformationReferenceExpression.current; }
+	EOF;
+
+// Rule HyContextInformationReferenceExpression
+ruleHyContextInformationReferenceExpression returns [EObject current=null]
+@init {
+	enterRule();
+}
+@after {
+	leaveRule();
+}:
+	(
+		(
+			{
+				if ($current==null) {
+					$current = createModelElement(grammarAccess.getHyContextInformationReferenceExpressionRule());
+				}
+			}
+			otherlv_0=RULE_STRING
+			{
+				newLeafNode(otherlv_0, grammarAccess.getHyContextInformationReferenceExpressionAccess().getContextInformationHyContextualInformationCrossReference_0());
+			}
+		)
+	)
+;
+
+// Entry rule entryRuleHyAttributeReferenceExpression
+entryRuleHyAttributeReferenceExpression returns [EObject current=null]:
+	{ newCompositeNode(grammarAccess.getHyAttributeReferenceExpressionRule()); }
+	iv_ruleHyAttributeReferenceExpression=ruleHyAttributeReferenceExpression
+	{ $current=$iv_ruleHyAttributeReferenceExpression.current; }
+	EOF;
+
+// Rule HyAttributeReferenceExpression
+ruleHyAttributeReferenceExpression returns [EObject current=null]
+@init {
+	enterRule();
+}
+@after {
+	leaveRule();
+}:
+	(
+		(
+			(
+				{
+					if ($current==null) {
+						$current = createModelElement(grammarAccess.getHyAttributeReferenceExpressionRule());
+					}
+				}
+				otherlv_0=RULE_STRING
+				{
+					newLeafNode(otherlv_0, grammarAccess.getHyAttributeReferenceExpressionAccess().getFeatureHyFeatureCrossReference_0_0());
+				}
+			)
+		)
+		otherlv_1='.'
+		{
+			newLeafNode(otherlv_1, grammarAccess.getHyAttributeReferenceExpressionAccess().getFullStopKeyword_1());
+		}
+		(
+			(
+				{
+					if ($current==null) {
+						$current = createModelElement(grammarAccess.getHyAttributeReferenceExpressionRule());
+					}
+				}
+				otherlv_2=RULE_STRING
+				{
+					newLeafNode(otherlv_2, grammarAccess.getHyAttributeReferenceExpressionAccess().getAttributeHyFeatureAttributeCrossReference_2_0());
 				}
 			)
 		)

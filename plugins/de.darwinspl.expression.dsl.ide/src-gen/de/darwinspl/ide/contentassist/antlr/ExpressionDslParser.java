@@ -36,6 +36,7 @@ public class ExpressionDslParser extends AbstractContentAssistParser {
 					put(grammarAccess.getHyVersionRangeRestrictionAccess().getAlternatives(), "rule__HyVersionRangeRestriction__Alternatives");
 					put(grammarAccess.getHyBooleanValueExpressionAccess().getAlternatives_1(), "rule__HyBooleanValueExpression__Alternatives_1");
 					put(grammarAccess.getHyBinaryArithmeticalComparisonExpressionAccess().getAlternatives(), "rule__HyBinaryArithmeticalComparisonExpression__Alternatives");
+					put(grammarAccess.getTerminalArithmeticalExpressionAccess().getAlternatives(), "rule__TerminalArithmeticalExpression__Alternatives");
 					put(grammarAccess.getHyValueAccess().getAlternatives(), "rule__HyValue__Alternatives");
 					put(grammarAccess.getHyBooleanValueAccess().getAlternatives_1(), "rule__HyBooleanValue__Alternatives_1");
 					put(grammarAccess.getHyRelativeVersionRestrictionOperatorAccess().getAlternatives(), "rule__HyRelativeVersionRestrictionOperator__Alternatives");

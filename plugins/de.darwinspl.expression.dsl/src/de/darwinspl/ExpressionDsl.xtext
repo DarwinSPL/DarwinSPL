@@ -119,11 +119,11 @@ HyDivisionExpression returns expr::HyArithmeticalValueExpression:
 	TerminalArithmeticalExpression ({expr::HyDivisionExpression.operand1=current} ('/') operand2=TerminalArithmeticalExpression)*;
 	
 TerminalArithmeticalExpression returns expr::HyArithmeticalValueExpression:
-	HyValueExpression ;
-//	| HyNestedArithmeticalValueExpression
+	HyValueExpression 
+//	| HyNestedArithmeticalValueExpression // TODO here is the problem!
 //	/*| HyNegationExpression*/
-//	| (=> HyContextInformationReferenceExpression) 
-//	| HyAttributeReferenceExpression;
+	| (=> HyContextInformationReferenceExpression) 
+	| HyAttributeReferenceExpression;
 
 HyValueExpression returns expr::HyValueExpression:
 	value=HyValue;
