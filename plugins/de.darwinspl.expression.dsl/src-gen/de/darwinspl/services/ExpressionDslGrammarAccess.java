@@ -181,7 +181,7 @@ public class ExpressionDslGrammarAccess extends AbstractGrammarElementFinder {
 	public class TerminalExpressionElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "de.darwinspl.ExpressionDsl.TerminalExpression");
 		private final Alternatives cAlternatives = (Alternatives)rule.eContents().get(1);
-		private final RuleCall cHyBinaryArithmeticalComparisonExpressionParserRuleCall_0 = (RuleCall)cAlternatives.eContents().get(0);
+		private final RuleCall cHyArithmeticalComparisonExpressionParserRuleCall_0 = (RuleCall)cAlternatives.eContents().get(0);
 		private final RuleCall cHyFeatureReferenceExpressionParserRuleCall_1 = (RuleCall)cAlternatives.eContents().get(1);
 		private final RuleCall cHyNestedExpressionParserRuleCall_2 = (RuleCall)cAlternatives.eContents().get(2);
 		private final RuleCall cHyConditionalFeatureReferenceExpressionParserRuleCall_3 = (RuleCall)cAlternatives.eContents().get(3);
@@ -189,16 +189,16 @@ public class ExpressionDslGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cHyBooleanValueExpressionParserRuleCall_5 = (RuleCall)cAlternatives.eContents().get(5);
 		
 		//TerminalExpression expr::HyExpression:
-		//	=> HyBinaryArithmeticalComparisonExpression | HyFeatureReferenceExpression | HyNestedExpression |
+		//	=> HyArithmeticalComparisonExpression | HyFeatureReferenceExpression | HyNestedExpression |
 		//	HyConditionalFeatureReferenceExpression | HyNotExpression | HyBooleanValueExpression;
 		@Override public ParserRule getRule() { return rule; }
 		
-		//=> HyBinaryArithmeticalComparisonExpression | HyFeatureReferenceExpression | HyNestedExpression |
+		//=> HyArithmeticalComparisonExpression | HyFeatureReferenceExpression | HyNestedExpression |
 		//HyConditionalFeatureReferenceExpression | HyNotExpression | HyBooleanValueExpression
 		public Alternatives getAlternatives() { return cAlternatives; }
 		
-		//=> HyBinaryArithmeticalComparisonExpression
-		public RuleCall getHyBinaryArithmeticalComparisonExpressionParserRuleCall_0() { return cHyBinaryArithmeticalComparisonExpressionParserRuleCall_0; }
+		//=> HyArithmeticalComparisonExpression
+		public RuleCall getHyArithmeticalComparisonExpressionParserRuleCall_0() { return cHyArithmeticalComparisonExpressionParserRuleCall_0; }
 		
 		//HyFeatureReferenceExpression
 		public RuleCall getHyFeatureReferenceExpressionParserRuleCall_1() { return cHyFeatureReferenceExpressionParserRuleCall_1; }
@@ -562,7 +562,6 @@ public class ExpressionDslGrammarAccess extends AbstractGrammarElementFinder {
 		private final Assignment cOperand2Assignment_2 = (Assignment)cGroup.eContents().get(2);
 		private final RuleCall cOperand2HyArithmeticalValueExpressionParserRuleCall_2_0 = (RuleCall)cOperand2Assignment_2.eContents().get(0);
 		
-		//// Used syntactic predicates as operand1 can be nested arbitrarily and therefore, the ANTLR does not know which operator to take
 		//HyGreaterExpression expr::HyGreaterExpression:
 		//	operand1=HyArithmeticalValueExpression '>' operand2=HyArithmeticalValueExpression;
 		@Override public ParserRule getRule() { return rule; }
@@ -742,31 +741,14 @@ public class ExpressionDslGrammarAccess extends AbstractGrammarElementFinder {
 	}
 	public class HyArithmeticalValueExpressionElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "de.darwinspl.ExpressionDsl.HyArithmeticalValueExpression");
-		private final RuleCall cHyValueExpressionParserRuleCall = (RuleCall)rule.eContents().get(1);
+		private final RuleCall cHyAdditionExpressionParserRuleCall = (RuleCall)rule.eContents().get(1);
 		
-		////HyGreaterExpression returns expr::HyGreaterExpression:
-		////	(=> operand1=HyArithmeticalValueExpression '>' operand2=HyArithmeticalValueExpression) | HyLessExpression;
-		////	
-		////HyLessExpression returns expr::HyLessExpression:
-		////	(=> operand1=HyArithmeticalValueExpression '<' operand2=HyArithmeticalValueExpression) | HyGreaterOrEqualExpression;
-		////
-		////HyGreaterOrEqualExpression returns expr::HyGreaterOrEqualExpression:
-		////	(=> operand1=HyArithmeticalValueExpression '>=' operand2=HyArithmeticalValueExpression) | HyLessOrEqualExpression;
-		////
-		////HyLessOrEqualExpression returns expr::HyLessOrEqualExpression:
-		////	(=> operand1=HyArithmeticalValueExpression '<=' operand2=HyArithmeticalValueExpression) | HyEqualExpression;
-		////
-		////HyEqualExpression returns expr::HyEqualExpression:
-		////	(=> operand1=HyArithmeticalValueExpression '=' operand2=HyArithmeticalValueExpression) | HyNotEqualExpression;
-		////
-		////HyNotEqualExpression returns expr::HyNotEqualExpression:
-		////	operand1=HyArithmeticalValueExpression '!=' operand2=HyArithmeticalValueExpression;
 		//HyArithmeticalValueExpression expr::HyArithmeticalValueExpression:
-		//	HyValueExpression;
+		//	HyAdditionExpression;
 		@Override public ParserRule getRule() { return rule; }
 		
-		//HyValueExpression
-		public RuleCall getHyValueExpressionParserRuleCall() { return cHyValueExpressionParserRuleCall; }
+		//HyAdditionExpression
+		public RuleCall getHyAdditionExpressionParserRuleCall() { return cHyAdditionExpressionParserRuleCall; }
 	}
 	public class HyAdditionExpressionElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "de.darwinspl.ExpressionDsl.HyAdditionExpression");
@@ -913,40 +895,24 @@ public class ExpressionDslGrammarAccess extends AbstractGrammarElementFinder {
 	}
 	public class TerminalArithmeticalExpressionElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "de.darwinspl.ExpressionDsl.TerminalArithmeticalExpression");
-		private final Alternatives cAlternatives = (Alternatives)rule.eContents().get(1);
-		private final RuleCall cHyValueExpressionParserRuleCall_0 = (RuleCall)cAlternatives.eContents().get(0);
-		private final RuleCall cHyNestedArithmeticalValueExpressionParserRuleCall_1 = (RuleCall)cAlternatives.eContents().get(1);
-		private final RuleCall cHyContextInformationReferenceExpressionParserRuleCall_2 = (RuleCall)cAlternatives.eContents().get(2);
-		private final RuleCall cHyAttributeReferenceExpressionParserRuleCall_3 = (RuleCall)cAlternatives.eContents().get(3);
+		private final RuleCall cHyValueExpressionParserRuleCall = (RuleCall)rule.eContents().get(1);
 		
 		//TerminalArithmeticalExpression expr::HyArithmeticalValueExpression:
-		//	HyValueExpression
-		//	| HyNestedArithmeticalValueExpression
-		//	/*| HyNegationExpression*/
-		//	| => HyContextInformationReferenceExpression | HyAttributeReferenceExpression;
+		//	HyValueExpression;
 		@Override public ParserRule getRule() { return rule; }
 		
-		//HyValueExpression | HyNestedArithmeticalValueExpression /*| HyNegationExpression*/ | =>
-		//HyContextInformationReferenceExpression | HyAttributeReferenceExpression
-		public Alternatives getAlternatives() { return cAlternatives; }
-		
 		//HyValueExpression
-		public RuleCall getHyValueExpressionParserRuleCall_0() { return cHyValueExpressionParserRuleCall_0; }
-		
-		//HyNestedArithmeticalValueExpression
-		public RuleCall getHyNestedArithmeticalValueExpressionParserRuleCall_1() { return cHyNestedArithmeticalValueExpressionParserRuleCall_1; }
-		
-		//=> HyContextInformationReferenceExpression
-		public RuleCall getHyContextInformationReferenceExpressionParserRuleCall_2() { return cHyContextInformationReferenceExpressionParserRuleCall_2; }
-		
-		//HyAttributeReferenceExpression
-		public RuleCall getHyAttributeReferenceExpressionParserRuleCall_3() { return cHyAttributeReferenceExpressionParserRuleCall_3; }
+		public RuleCall getHyValueExpressionParserRuleCall() { return cHyValueExpressionParserRuleCall; }
 	}
 	public class HyValueExpressionElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "de.darwinspl.ExpressionDsl.HyValueExpression");
 		private final Assignment cValueAssignment = (Assignment)rule.eContents().get(1);
 		private final RuleCall cValueHyValueParserRuleCall_0 = (RuleCall)cValueAssignment.eContents().get(0);
 		
+		////	| HyNestedArithmeticalValueExpression
+		////	/*| HyNegationExpression*/
+		////	| (=> HyContextInformationReferenceExpression) 
+		////	| HyAttributeReferenceExpression;
 		//HyValueExpression expr::HyValueExpression:
 		//	value=HyValue;
 		@Override public ParserRule getRule() { return rule; }
@@ -1414,7 +1380,7 @@ public class ExpressionDslGrammarAccess extends AbstractGrammarElementFinder {
 	}
 	
 	//TerminalExpression expr::HyExpression:
-	//	=> HyBinaryArithmeticalComparisonExpression | HyFeatureReferenceExpression | HyNestedExpression |
+	//	=> HyArithmeticalComparisonExpression | HyFeatureReferenceExpression | HyNestedExpression |
 	//	HyConditionalFeatureReferenceExpression | HyNotExpression | HyBooleanValueExpression;
 	public TerminalExpressionElements getTerminalExpressionAccess() {
 		return pTerminalExpression;
@@ -1536,7 +1502,6 @@ public class ExpressionDslGrammarAccess extends AbstractGrammarElementFinder {
 		return getHyBinaryArithmeticalComparisonExpressionAccess().getRule();
 	}
 	
-	//// Used syntactic predicates as operand1 can be nested arbitrarily and therefore, the ANTLR does not know which operator to take
 	//HyGreaterExpression expr::HyGreaterExpression:
 	//	operand1=HyArithmeticalValueExpression '>' operand2=HyArithmeticalValueExpression;
 	public HyGreaterExpressionElements getHyGreaterExpressionAccess() {
@@ -1597,25 +1562,8 @@ public class ExpressionDslGrammarAccess extends AbstractGrammarElementFinder {
 		return getHyNotEqualExpressionAccess().getRule();
 	}
 	
-	////HyGreaterExpression returns expr::HyGreaterExpression:
-	////	(=> operand1=HyArithmeticalValueExpression '>' operand2=HyArithmeticalValueExpression) | HyLessExpression;
-	////	
-	////HyLessExpression returns expr::HyLessExpression:
-	////	(=> operand1=HyArithmeticalValueExpression '<' operand2=HyArithmeticalValueExpression) | HyGreaterOrEqualExpression;
-	////
-	////HyGreaterOrEqualExpression returns expr::HyGreaterOrEqualExpression:
-	////	(=> operand1=HyArithmeticalValueExpression '>=' operand2=HyArithmeticalValueExpression) | HyLessOrEqualExpression;
-	////
-	////HyLessOrEqualExpression returns expr::HyLessOrEqualExpression:
-	////	(=> operand1=HyArithmeticalValueExpression '<=' operand2=HyArithmeticalValueExpression) | HyEqualExpression;
-	////
-	////HyEqualExpression returns expr::HyEqualExpression:
-	////	(=> operand1=HyArithmeticalValueExpression '=' operand2=HyArithmeticalValueExpression) | HyNotEqualExpression;
-	////
-	////HyNotEqualExpression returns expr::HyNotEqualExpression:
-	////	operand1=HyArithmeticalValueExpression '!=' operand2=HyArithmeticalValueExpression;
 	//HyArithmeticalValueExpression expr::HyArithmeticalValueExpression:
-	//	HyValueExpression;
+	//	HyAdditionExpression;
 	public HyArithmeticalValueExpressionElements getHyArithmeticalValueExpressionAccess() {
 		return pHyArithmeticalValueExpression;
 	}
@@ -1667,10 +1615,7 @@ public class ExpressionDslGrammarAccess extends AbstractGrammarElementFinder {
 	}
 	
 	//TerminalArithmeticalExpression expr::HyArithmeticalValueExpression:
-	//	HyValueExpression
-	//	| HyNestedArithmeticalValueExpression
-	//	/*| HyNegationExpression*/
-	//	| => HyContextInformationReferenceExpression | HyAttributeReferenceExpression;
+	//	HyValueExpression;
 	public TerminalArithmeticalExpressionElements getTerminalArithmeticalExpressionAccess() {
 		return pTerminalArithmeticalExpression;
 	}
@@ -1679,6 +1624,10 @@ public class ExpressionDslGrammarAccess extends AbstractGrammarElementFinder {
 		return getTerminalArithmeticalExpressionAccess().getRule();
 	}
 	
+	////	| HyNestedArithmeticalValueExpression
+	////	/*| HyNegationExpression*/
+	////	| (=> HyContextInformationReferenceExpression) 
+	////	| HyAttributeReferenceExpression;
 	//HyValueExpression expr::HyValueExpression:
 	//	value=HyValue;
 	public HyValueExpressionElements getHyValueExpressionAccess() {
