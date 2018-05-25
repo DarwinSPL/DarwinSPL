@@ -3,6 +3,9 @@
  */
 package de.darwinspl.scoping
 
+import eu.hyvar.feature.expression.HyExpressionPackage
+import org.eclipse.emf.ecore.EObject
+import org.eclipse.emf.ecore.EReference
 
 /**
  * This class contains custom scoping description.
@@ -11,5 +14,15 @@ package de.darwinspl.scoping
  * on how and when to use it.
  */
 class ExpressionDslScopeProvider extends AbstractExpressionDslScopeProvider {
+
+override getScope(EObject ctx, EReference ref) {
+   if (ref == HyExpressionPackage.Literals.HY_ABSTRACT_FEATURE_REFERENCE_EXPRESSION__FEATURE) {
+      return new DwFeatureScope(ctx)
+   }
+}
+
+//	def IScope scope_HyFeatureReferenceExpression_feature(HyFeatureReferenceExpression call) {get
+//        return new DwFeatureScope(call);
+//    }
 
 }
