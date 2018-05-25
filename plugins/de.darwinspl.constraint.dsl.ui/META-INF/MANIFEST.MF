@@ -1,0 +1,27 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: de.darwinspl.constraint.dsl.ui
+Bundle-Vendor: www.darwinspl.de
+Bundle-Version: 1.0.0.qualifier
+Bundle-SymbolicName: de.darwinspl.constraint.dsl.ui; singleton:=true
+Bundle-ActivationPolicy: lazy
+Require-Bundle: de.darwinspl.constraint.dsl,
+ de.darwinspl.constraint.dsl.ide,
+ eu.hyvar.feature.constraint,
+ org.eclipse.xtext.ui,
+ org.eclipse.xtext.ui.shared,
+ org.eclipse.xtext.ui.codetemplates.ui,
+ org.eclipse.ui.editors;bundle-version="3.5.0",
+ org.eclipse.ui.ide;bundle-version="3.5.0",
+ de.darwinspl.expression.dsl.ui,
+ org.eclipse.ui,
+ org.eclipse.compare,
+ org.eclipse.xtext.builder,
+ org.eclipse.xtend.lib;resolution:=optional,
+ org.eclipse.xtext.xbase.lib
+Import-Package: org.apache.log4j
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Export-Package: de.darwinspl.constraint.dsl.ui.internal,
+ de.darwinspl.constraint.dsl.ui.contentassist,
+ de.darwinspl.constraint.dsl.ui.quickfix
+Bundle-Activator: de.darwinspl.constraint.dsl.ui.internal.DslActivator
