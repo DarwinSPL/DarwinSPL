@@ -159,11 +159,17 @@ public class ExpressionDslSemanticSequencer extends AbstractDelegatingSemanticSe
 	/**
 	 * Contexts:
 	 *     HyArithmeticalValueExpression returns HyAdditionExpression
+	 *     HyDivisionExpression returns HyAdditionExpression
+	 *     HyDivisionExpression.HyDivisionExpression_1_0 returns HyAdditionExpression
+	 *     HyMultiplicationExpression returns HyAdditionExpression
+	 *     HyMultiplicationExpression.HyMultiplicationExpression_1_0 returns HyAdditionExpression
+	 *     HySubtractionExpression returns HyAdditionExpression
+	 *     HySubtractionExpression.HySubtractionExpression_1_0 returns HyAdditionExpression
 	 *     HyAdditionExpression returns HyAdditionExpression
 	 *     HyAdditionExpression.HyAdditionExpression_1_0 returns HyAdditionExpression
 	 *
 	 * Constraint:
-	 *     (operand1=HyAdditionExpression_HyAdditionExpression_1_0 operand2=HySubtractionExpression)
+	 *     (operand1=HyAdditionExpression_HyAdditionExpression_1_0 operand2=TerminalArithmeticalExpression)
 	 */
 	protected void sequence_HyAdditionExpression(ISerializationContext context, HyAdditionExpression semanticObject) {
 		if (errorAcceptor != null) {
@@ -174,7 +180,7 @@ public class ExpressionDslSemanticSequencer extends AbstractDelegatingSemanticSe
 		}
 		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
 		feeder.accept(grammarAccess.getHyAdditionExpressionAccess().getHyAdditionExpressionOperand1Action_1_0(), semanticObject.getOperand1());
-		feeder.accept(grammarAccess.getHyAdditionExpressionAccess().getOperand2HySubtractionExpressionParserRuleCall_1_2_0(), semanticObject.getOperand2());
+		feeder.accept(grammarAccess.getHyAdditionExpressionAccess().getOperand2TerminalArithmeticalExpressionParserRuleCall_1_2_0(), semanticObject.getOperand2());
 		feeder.finish();
 	}
 	
@@ -209,14 +215,14 @@ public class ExpressionDslSemanticSequencer extends AbstractDelegatingSemanticSe
 	/**
 	 * Contexts:
 	 *     HyArithmeticalValueExpression returns HyAttributeReferenceExpression
-	 *     HyAdditionExpression returns HyAttributeReferenceExpression
-	 *     HyAdditionExpression.HyAdditionExpression_1_0 returns HyAttributeReferenceExpression
-	 *     HySubtractionExpression returns HyAttributeReferenceExpression
-	 *     HySubtractionExpression.HySubtractionExpression_1_0 returns HyAttributeReferenceExpression
-	 *     HyMultiplicationExpression returns HyAttributeReferenceExpression
-	 *     HyMultiplicationExpression.HyMultiplicationExpression_1_0 returns HyAttributeReferenceExpression
 	 *     HyDivisionExpression returns HyAttributeReferenceExpression
 	 *     HyDivisionExpression.HyDivisionExpression_1_0 returns HyAttributeReferenceExpression
+	 *     HyMultiplicationExpression returns HyAttributeReferenceExpression
+	 *     HyMultiplicationExpression.HyMultiplicationExpression_1_0 returns HyAttributeReferenceExpression
+	 *     HySubtractionExpression returns HyAttributeReferenceExpression
+	 *     HySubtractionExpression.HySubtractionExpression_1_0 returns HyAttributeReferenceExpression
+	 *     HyAdditionExpression returns HyAttributeReferenceExpression
+	 *     HyAdditionExpression.HyAdditionExpression_1_0 returns HyAttributeReferenceExpression
 	 *     TerminalArithmeticalExpression returns HyAttributeReferenceExpression
 	 *     HyAttributeReferenceExpression returns HyAttributeReferenceExpression
 	 *
@@ -297,14 +303,14 @@ public class ExpressionDslSemanticSequencer extends AbstractDelegatingSemanticSe
 	/**
 	 * Contexts:
 	 *     HyArithmeticalValueExpression returns HyContextInformationReferenceExpression
-	 *     HyAdditionExpression returns HyContextInformationReferenceExpression
-	 *     HyAdditionExpression.HyAdditionExpression_1_0 returns HyContextInformationReferenceExpression
-	 *     HySubtractionExpression returns HyContextInformationReferenceExpression
-	 *     HySubtractionExpression.HySubtractionExpression_1_0 returns HyContextInformationReferenceExpression
-	 *     HyMultiplicationExpression returns HyContextInformationReferenceExpression
-	 *     HyMultiplicationExpression.HyMultiplicationExpression_1_0 returns HyContextInformationReferenceExpression
 	 *     HyDivisionExpression returns HyContextInformationReferenceExpression
 	 *     HyDivisionExpression.HyDivisionExpression_1_0 returns HyContextInformationReferenceExpression
+	 *     HyMultiplicationExpression returns HyContextInformationReferenceExpression
+	 *     HyMultiplicationExpression.HyMultiplicationExpression_1_0 returns HyContextInformationReferenceExpression
+	 *     HySubtractionExpression returns HyContextInformationReferenceExpression
+	 *     HySubtractionExpression.HySubtractionExpression_1_0 returns HyContextInformationReferenceExpression
+	 *     HyAdditionExpression returns HyContextInformationReferenceExpression
+	 *     HyAdditionExpression.HyAdditionExpression_1_0 returns HyContextInformationReferenceExpression
 	 *     TerminalArithmeticalExpression returns HyContextInformationReferenceExpression
 	 *     HyContextInformationReferenceExpression returns HyContextInformationReferenceExpression
 	 *
@@ -325,17 +331,11 @@ public class ExpressionDslSemanticSequencer extends AbstractDelegatingSemanticSe
 	/**
 	 * Contexts:
 	 *     HyArithmeticalValueExpression returns HyDivisionExpression
-	 *     HyAdditionExpression returns HyDivisionExpression
-	 *     HyAdditionExpression.HyAdditionExpression_1_0 returns HyDivisionExpression
-	 *     HySubtractionExpression returns HyDivisionExpression
-	 *     HySubtractionExpression.HySubtractionExpression_1_0 returns HyDivisionExpression
-	 *     HyMultiplicationExpression returns HyDivisionExpression
-	 *     HyMultiplicationExpression.HyMultiplicationExpression_1_0 returns HyDivisionExpression
 	 *     HyDivisionExpression returns HyDivisionExpression
 	 *     HyDivisionExpression.HyDivisionExpression_1_0 returns HyDivisionExpression
 	 *
 	 * Constraint:
-	 *     (operand1=HyDivisionExpression_HyDivisionExpression_1_0 operand2=TerminalArithmeticalExpression)
+	 *     (operand1=HyDivisionExpression_HyDivisionExpression_1_0 operand2=HyMultiplicationExpression)
 	 */
 	protected void sequence_HyDivisionExpression(ISerializationContext context, HyDivisionExpression semanticObject) {
 		if (errorAcceptor != null) {
@@ -346,7 +346,7 @@ public class ExpressionDslSemanticSequencer extends AbstractDelegatingSemanticSe
 		}
 		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
 		feeder.accept(grammarAccess.getHyDivisionExpressionAccess().getHyDivisionExpressionOperand1Action_1_0(), semanticObject.getOperand1());
-		feeder.accept(grammarAccess.getHyDivisionExpressionAccess().getOperand2TerminalArithmeticalExpressionParserRuleCall_1_2_0(), semanticObject.getOperand2());
+		feeder.accept(grammarAccess.getHyDivisionExpressionAccess().getOperand2HyMultiplicationExpressionParserRuleCall_1_2_0(), semanticObject.getOperand2());
 		feeder.finish();
 	}
 	
@@ -611,15 +611,13 @@ public class ExpressionDslSemanticSequencer extends AbstractDelegatingSemanticSe
 	/**
 	 * Contexts:
 	 *     HyArithmeticalValueExpression returns HyMultiplicationExpression
-	 *     HyAdditionExpression returns HyMultiplicationExpression
-	 *     HyAdditionExpression.HyAdditionExpression_1_0 returns HyMultiplicationExpression
-	 *     HySubtractionExpression returns HyMultiplicationExpression
-	 *     HySubtractionExpression.HySubtractionExpression_1_0 returns HyMultiplicationExpression
+	 *     HyDivisionExpression returns HyMultiplicationExpression
+	 *     HyDivisionExpression.HyDivisionExpression_1_0 returns HyMultiplicationExpression
 	 *     HyMultiplicationExpression returns HyMultiplicationExpression
 	 *     HyMultiplicationExpression.HyMultiplicationExpression_1_0 returns HyMultiplicationExpression
 	 *
 	 * Constraint:
-	 *     (operand1=HyMultiplicationExpression_HyMultiplicationExpression_1_0 operand2=HyDivisionExpression)
+	 *     (operand1=HyMultiplicationExpression_HyMultiplicationExpression_1_0 operand2=HySubtractionExpression)
 	 */
 	protected void sequence_HyMultiplicationExpression(ISerializationContext context, HyMultiplicationExpression semanticObject) {
 		if (errorAcceptor != null) {
@@ -630,7 +628,7 @@ public class ExpressionDslSemanticSequencer extends AbstractDelegatingSemanticSe
 		}
 		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
 		feeder.accept(grammarAccess.getHyMultiplicationExpressionAccess().getHyMultiplicationExpressionOperand1Action_1_0(), semanticObject.getOperand1());
-		feeder.accept(grammarAccess.getHyMultiplicationExpressionAccess().getOperand2HyDivisionExpressionParserRuleCall_1_2_0(), semanticObject.getOperand2());
+		feeder.accept(grammarAccess.getHyMultiplicationExpressionAccess().getOperand2HySubtractionExpressionParserRuleCall_1_2_0(), semanticObject.getOperand2());
 		feeder.finish();
 	}
 	
@@ -640,7 +638,7 @@ public class ExpressionDslSemanticSequencer extends AbstractDelegatingSemanticSe
 	 *     HyNestedArithmeticalValueExpression returns HyNestedArithmeticalValueExpression
 	 *
 	 * Constraint:
-	 *     operand=HyArithmeticalValueExpression
+	 *     operand=HyAdditionExpression
 	 */
 	protected void sequence_HyNestedArithmeticalValueExpression(ISerializationContext context, HyNestedArithmeticalValueExpression semanticObject) {
 		if (errorAcceptor != null) {
@@ -648,7 +646,7 @@ public class ExpressionDslSemanticSequencer extends AbstractDelegatingSemanticSe
 				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, HyExpressionPackage.Literals.HY_ARITHMETICAL_VALUE_UNARY_OPERATION_EXPRESSION__OPERAND));
 		}
 		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
-		feeder.accept(grammarAccess.getHyNestedArithmeticalValueExpressionAccess().getOperandHyArithmeticalValueExpressionParserRuleCall_1_0(), semanticObject.getOperand());
+		feeder.accept(grammarAccess.getHyNestedArithmeticalValueExpressionAccess().getOperandHyAdditionExpressionParserRuleCall_1_0(), semanticObject.getOperand());
 		feeder.finish();
 	}
 	
@@ -834,13 +832,15 @@ public class ExpressionDslSemanticSequencer extends AbstractDelegatingSemanticSe
 	/**
 	 * Contexts:
 	 *     HyArithmeticalValueExpression returns HySubtractionExpression
-	 *     HyAdditionExpression returns HySubtractionExpression
-	 *     HyAdditionExpression.HyAdditionExpression_1_0 returns HySubtractionExpression
+	 *     HyDivisionExpression returns HySubtractionExpression
+	 *     HyDivisionExpression.HyDivisionExpression_1_0 returns HySubtractionExpression
+	 *     HyMultiplicationExpression returns HySubtractionExpression
+	 *     HyMultiplicationExpression.HyMultiplicationExpression_1_0 returns HySubtractionExpression
 	 *     HySubtractionExpression returns HySubtractionExpression
 	 *     HySubtractionExpression.HySubtractionExpression_1_0 returns HySubtractionExpression
 	 *
 	 * Constraint:
-	 *     (operand1=HySubtractionExpression_HySubtractionExpression_1_0 operand2=HyMultiplicationExpression)
+	 *     (operand1=HySubtractionExpression_HySubtractionExpression_1_0 operand2=HyAdditionExpression)
 	 */
 	protected void sequence_HySubtractionExpression(ISerializationContext context, HySubtractionExpression semanticObject) {
 		if (errorAcceptor != null) {
@@ -851,7 +851,7 @@ public class ExpressionDslSemanticSequencer extends AbstractDelegatingSemanticSe
 		}
 		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
 		feeder.accept(grammarAccess.getHySubtractionExpressionAccess().getHySubtractionExpressionOperand1Action_1_0(), semanticObject.getOperand1());
-		feeder.accept(grammarAccess.getHySubtractionExpressionAccess().getOperand2HyMultiplicationExpressionParserRuleCall_1_2_0(), semanticObject.getOperand2());
+		feeder.accept(grammarAccess.getHySubtractionExpressionAccess().getOperand2HyAdditionExpressionParserRuleCall_1_2_0(), semanticObject.getOperand2());
 		feeder.finish();
 	}
 	
@@ -859,14 +859,14 @@ public class ExpressionDslSemanticSequencer extends AbstractDelegatingSemanticSe
 	/**
 	 * Contexts:
 	 *     HyArithmeticalValueExpression returns HyValueExpression
-	 *     HyAdditionExpression returns HyValueExpression
-	 *     HyAdditionExpression.HyAdditionExpression_1_0 returns HyValueExpression
-	 *     HySubtractionExpression returns HyValueExpression
-	 *     HySubtractionExpression.HySubtractionExpression_1_0 returns HyValueExpression
-	 *     HyMultiplicationExpression returns HyValueExpression
-	 *     HyMultiplicationExpression.HyMultiplicationExpression_1_0 returns HyValueExpression
 	 *     HyDivisionExpression returns HyValueExpression
 	 *     HyDivisionExpression.HyDivisionExpression_1_0 returns HyValueExpression
+	 *     HyMultiplicationExpression returns HyValueExpression
+	 *     HyMultiplicationExpression.HyMultiplicationExpression_1_0 returns HyValueExpression
+	 *     HySubtractionExpression returns HyValueExpression
+	 *     HySubtractionExpression.HySubtractionExpression_1_0 returns HyValueExpression
+	 *     HyAdditionExpression returns HyValueExpression
+	 *     HyAdditionExpression.HyAdditionExpression_1_0 returns HyValueExpression
 	 *     TerminalArithmeticalExpression returns HyValueExpression
 	 *     HyValueExpression returns HyValueExpression
 	 *

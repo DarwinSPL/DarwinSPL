@@ -451,10 +451,10 @@ public class InternalExpressionDslLexer extends Lexer {
         try {
             int _type = T__30;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // InternalExpressionDsl.g:30:7: ( '+' )
-            // InternalExpressionDsl.g:30:9: '+'
+            // InternalExpressionDsl.g:30:7: ( '/' )
+            // InternalExpressionDsl.g:30:9: '/'
             {
-            match('+'); 
+            match('/'); 
 
             }
 
@@ -491,10 +491,10 @@ public class InternalExpressionDslLexer extends Lexer {
         try {
             int _type = T__32;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // InternalExpressionDsl.g:32:7: ( '/' )
-            // InternalExpressionDsl.g:32:9: '/'
+            // InternalExpressionDsl.g:32:7: ( '+' )
+            // InternalExpressionDsl.g:32:9: '+'
             {
-            match('/'); 
+            match('+'); 
 
             }
 
@@ -1247,19 +1247,19 @@ public class InternalExpressionDslLexer extends Lexer {
 
     protected DFA12 dfa12 = new DFA12(this);
     static final String DFA12_eotS =
-        "\1\uffff\1\33\1\36\2\31\2\uffff\1\44\3\uffff\2\51\1\54\3\uffff\1\62\1\uffff\1\31\2\uffff\2\31\20\uffff\1\51\1\uffff\1\51\14\uffff\2\51\1\73\1\51\1\uffff\1\75\1\uffff";
+        "\1\uffff\1\33\1\36\2\31\2\uffff\1\44\3\uffff\2\51\1\54\1\uffff\1\60\3\uffff\1\31\2\uffff\2\31\20\uffff\1\51\1\uffff\1\51\14\uffff\2\51\1\73\1\51\1\uffff\1\75\1\uffff";
     static final String DFA12_eofS =
         "\76\uffff";
     static final String DFA12_minS =
-        "\1\0\1\76\1\55\1\46\1\174\2\uffff\1\75\3\uffff\1\162\1\141\1\75\3\uffff\1\52\1\uffff\1\101\2\uffff\2\0\20\uffff\1\165\1\uffff\1\154\14\uffff\1\145\1\163\1\60\1\145\1\uffff\1\60\1\uffff";
+        "\1\0\1\76\1\55\1\46\1\174\2\uffff\1\75\3\uffff\1\162\1\141\1\75\1\uffff\1\52\3\uffff\1\101\2\uffff\2\0\20\uffff\1\165\1\uffff\1\154\14\uffff\1\145\1\163\1\60\1\145\1\uffff\1\60\1\uffff";
     static final String DFA12_maxS =
-        "\1\uffff\1\76\1\75\1\46\1\174\2\uffff\1\75\3\uffff\1\162\1\141\1\75\3\uffff\1\57\1\uffff\1\172\2\uffff\2\uffff\20\uffff\1\165\1\uffff\1\154\14\uffff\1\145\1\163\1\172\1\145\1\uffff\1\172\1\uffff";
+        "\1\uffff\1\76\1\75\1\46\1\174\2\uffff\1\75\3\uffff\1\162\1\141\1\75\1\uffff\1\57\3\uffff\1\172\2\uffff\2\uffff\20\uffff\1\165\1\uffff\1\154\14\uffff\1\145\1\163\1\172\1\145\1\uffff\1\172\1\uffff";
     static final String DFA12_acceptS =
-        "\5\uffff\1\5\1\6\1\uffff\1\10\1\11\1\12\3\uffff\1\22\1\24\1\25\1\uffff\1\27\1\uffff\1\30\1\31\2\uffff\1\35\1\36\1\1\1\15\1\2\1\21\1\17\1\3\1\4\1\5\1\6\1\23\1\7\1\10\1\11\1\12\1\uffff\1\30\1\uffff\1\20\1\16\1\22\1\24\1\25\1\33\1\34\1\26\1\27\1\31\1\32\1\35\4\uffff\1\13\1\uffff\1\14";
+        "\5\uffff\1\5\1\6\1\uffff\1\10\1\11\1\12\3\uffff\1\22\1\uffff\1\25\1\26\1\27\1\uffff\1\30\1\31\2\uffff\1\35\1\36\1\1\1\15\1\2\1\21\1\17\1\3\1\4\1\5\1\6\1\23\1\7\1\10\1\11\1\12\1\uffff\1\30\1\uffff\1\20\1\16\1\22\1\33\1\34\1\24\1\25\1\26\1\27\1\31\1\32\1\35\4\uffff\1\13\1\uffff\1\14";
     static final String DFA12_specialS =
         "\1\0\25\uffff\1\1\1\2\46\uffff}>";
     static final String[] DFA12_transitionS = {
-            "\11\31\2\30\2\31\1\30\22\31\1\30\1\7\1\26\3\31\1\3\1\27\1\5\1\6\1\20\1\17\1\31\1\1\1\22\1\21\12\25\2\31\1\2\1\16\1\15\1\10\1\31\32\24\1\11\1\31\1\12\1\23\1\24\1\31\5\24\1\14\15\24\1\13\6\24\1\31\1\4\uff83\31",
+            "\11\31\2\30\2\31\1\30\22\31\1\30\1\7\1\26\3\31\1\3\1\27\1\5\1\6\1\20\1\21\1\31\1\1\1\22\1\17\12\25\2\31\1\2\1\16\1\15\1\10\1\31\32\24\1\11\1\31\1\12\1\23\1\24\1\31\5\24\1\14\15\24\1\13\6\24\1\31\1\4\uff83\31",
             "\1\32",
             "\1\34\17\uffff\1\35",
             "\1\37",
@@ -1274,9 +1274,9 @@ public class InternalExpressionDslLexer extends Lexer {
             "\1\52",
             "\1\53",
             "",
+            "\1\56\4\uffff\1\57",
             "",
             "",
-            "\1\60\4\uffff\1\61",
             "",
             "\32\51\4\uffff\1\51\1\uffff\32\51",
             "",
@@ -1391,11 +1391,11 @@ public class InternalExpressionDslLexer extends Lexer {
 
                         else if ( (LA12_0=='=') ) {s = 14;}
 
-                        else if ( (LA12_0=='+') ) {s = 15;}
+                        else if ( (LA12_0=='/') ) {s = 15;}
 
                         else if ( (LA12_0=='*') ) {s = 16;}
 
-                        else if ( (LA12_0=='/') ) {s = 17;}
+                        else if ( (LA12_0=='+') ) {s = 17;}
 
                         else if ( (LA12_0=='.') ) {s = 18;}
 

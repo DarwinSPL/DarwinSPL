@@ -741,79 +741,44 @@ public class ExpressionDslGrammarAccess extends AbstractGrammarElementFinder {
 	}
 	public class HyArithmeticalValueExpressionElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "de.darwinspl.ExpressionDsl.HyArithmeticalValueExpression");
-		private final RuleCall cHyAdditionExpressionParserRuleCall = (RuleCall)rule.eContents().get(1);
+		private final RuleCall cHyDivisionExpressionParserRuleCall = (RuleCall)rule.eContents().get(1);
 		
 		//HyArithmeticalValueExpression expr::HyArithmeticalValueExpression:
-		//	HyAdditionExpression;
+		//	HyDivisionExpression;
 		@Override public ParserRule getRule() { return rule; }
 		
-		//HyAdditionExpression
-		public RuleCall getHyAdditionExpressionParserRuleCall() { return cHyAdditionExpressionParserRuleCall; }
+		//HyDivisionExpression
+		public RuleCall getHyDivisionExpressionParserRuleCall() { return cHyDivisionExpressionParserRuleCall; }
 	}
-	public class HyAdditionExpressionElements extends AbstractParserRuleElementFinder {
-		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "de.darwinspl.ExpressionDsl.HyAdditionExpression");
-		private final Group cGroup = (Group)rule.eContents().get(1);
-		private final RuleCall cHySubtractionExpressionParserRuleCall_0 = (RuleCall)cGroup.eContents().get(0);
-		private final Group cGroup_1 = (Group)cGroup.eContents().get(1);
-		private final Action cHyAdditionExpressionOperand1Action_1_0 = (Action)cGroup_1.eContents().get(0);
-		private final Keyword cPlusSignKeyword_1_1 = (Keyword)cGroup_1.eContents().get(1);
-		private final Assignment cOperand2Assignment_1_2 = (Assignment)cGroup_1.eContents().get(2);
-		private final RuleCall cOperand2HySubtractionExpressionParserRuleCall_1_2_0 = (RuleCall)cOperand2Assignment_1_2.eContents().get(0);
-		
-		//HyAdditionExpression expr::HyArithmeticalValueExpression:
-		//	HySubtractionExpression ({expr::HyAdditionExpression.operand1=current} '+' operand2=HySubtractionExpression)*;
-		@Override public ParserRule getRule() { return rule; }
-		
-		//HySubtractionExpression ({expr::HyAdditionExpression.operand1=current} '+' operand2=HySubtractionExpression)*
-		public Group getGroup() { return cGroup; }
-		
-		//HySubtractionExpression
-		public RuleCall getHySubtractionExpressionParserRuleCall_0() { return cHySubtractionExpressionParserRuleCall_0; }
-		
-		//({expr::HyAdditionExpression.operand1=current} '+' operand2=HySubtractionExpression)*
-		public Group getGroup_1() { return cGroup_1; }
-		
-		//{expr::HyAdditionExpression.operand1=current}
-		public Action getHyAdditionExpressionOperand1Action_1_0() { return cHyAdditionExpressionOperand1Action_1_0; }
-		
-		//'+'
-		public Keyword getPlusSignKeyword_1_1() { return cPlusSignKeyword_1_1; }
-		
-		//operand2=HySubtractionExpression
-		public Assignment getOperand2Assignment_1_2() { return cOperand2Assignment_1_2; }
-		
-		//HySubtractionExpression
-		public RuleCall getOperand2HySubtractionExpressionParserRuleCall_1_2_0() { return cOperand2HySubtractionExpressionParserRuleCall_1_2_0; }
-	}
-	public class HySubtractionExpressionElements extends AbstractParserRuleElementFinder {
-		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "de.darwinspl.ExpressionDsl.HySubtractionExpression");
+	public class HyDivisionExpressionElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "de.darwinspl.ExpressionDsl.HyDivisionExpression");
 		private final Group cGroup = (Group)rule.eContents().get(1);
 		private final RuleCall cHyMultiplicationExpressionParserRuleCall_0 = (RuleCall)cGroup.eContents().get(0);
 		private final Group cGroup_1 = (Group)cGroup.eContents().get(1);
-		private final Action cHySubtractionExpressionOperand1Action_1_0 = (Action)cGroup_1.eContents().get(0);
-		private final Keyword cHyphenMinusKeyword_1_1 = (Keyword)cGroup_1.eContents().get(1);
+		private final Action cHyDivisionExpressionOperand1Action_1_0 = (Action)cGroup_1.eContents().get(0);
+		private final Keyword cSolidusKeyword_1_1 = (Keyword)cGroup_1.eContents().get(1);
 		private final Assignment cOperand2Assignment_1_2 = (Assignment)cGroup_1.eContents().get(2);
 		private final RuleCall cOperand2HyMultiplicationExpressionParserRuleCall_1_2_0 = (RuleCall)cOperand2Assignment_1_2.eContents().get(0);
 		
-		//HySubtractionExpression expr::HyArithmeticalValueExpression:
-		//	HyMultiplicationExpression ({expr::HySubtractionExpression.operand1=current} '-'
-		//	operand2=HyMultiplicationExpression)*;
+		//// TODO order them correctly!
+		//HyDivisionExpression expr::HyArithmeticalValueExpression:
+		//	HyMultiplicationExpression ({expr::HyDivisionExpression.operand1=current} '/' operand2=HyMultiplicationExpression)*;
 		@Override public ParserRule getRule() { return rule; }
 		
-		//HyMultiplicationExpression ({expr::HySubtractionExpression.operand1=current} '-' operand2=HyMultiplicationExpression)*
+		//HyMultiplicationExpression ({expr::HyDivisionExpression.operand1=current} '/' operand2=HyMultiplicationExpression)*
 		public Group getGroup() { return cGroup; }
 		
 		//HyMultiplicationExpression
 		public RuleCall getHyMultiplicationExpressionParserRuleCall_0() { return cHyMultiplicationExpressionParserRuleCall_0; }
 		
-		//({expr::HySubtractionExpression.operand1=current} '-' operand2=HyMultiplicationExpression)*
+		//({expr::HyDivisionExpression.operand1=current} '/' operand2=HyMultiplicationExpression)*
 		public Group getGroup_1() { return cGroup_1; }
 		
-		//{expr::HySubtractionExpression.operand1=current}
-		public Action getHySubtractionExpressionOperand1Action_1_0() { return cHySubtractionExpressionOperand1Action_1_0; }
+		//{expr::HyDivisionExpression.operand1=current}
+		public Action getHyDivisionExpressionOperand1Action_1_0() { return cHyDivisionExpressionOperand1Action_1_0; }
 		
-		//'-'
-		public Keyword getHyphenMinusKeyword_1_1() { return cHyphenMinusKeyword_1_1; }
+		//'/'
+		public Keyword getSolidusKeyword_1_1() { return cSolidusKeyword_1_1; }
 		
 		//operand2=HyMultiplicationExpression
 		public Assignment getOperand2Assignment_1_2() { return cOperand2Assignment_1_2; }
@@ -824,24 +789,24 @@ public class ExpressionDslGrammarAccess extends AbstractGrammarElementFinder {
 	public class HyMultiplicationExpressionElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "de.darwinspl.ExpressionDsl.HyMultiplicationExpression");
 		private final Group cGroup = (Group)rule.eContents().get(1);
-		private final RuleCall cHyDivisionExpressionParserRuleCall_0 = (RuleCall)cGroup.eContents().get(0);
+		private final RuleCall cHySubtractionExpressionParserRuleCall_0 = (RuleCall)cGroup.eContents().get(0);
 		private final Group cGroup_1 = (Group)cGroup.eContents().get(1);
 		private final Action cHyMultiplicationExpressionOperand1Action_1_0 = (Action)cGroup_1.eContents().get(0);
 		private final Keyword cAsteriskKeyword_1_1 = (Keyword)cGroup_1.eContents().get(1);
 		private final Assignment cOperand2Assignment_1_2 = (Assignment)cGroup_1.eContents().get(2);
-		private final RuleCall cOperand2HyDivisionExpressionParserRuleCall_1_2_0 = (RuleCall)cOperand2Assignment_1_2.eContents().get(0);
+		private final RuleCall cOperand2HySubtractionExpressionParserRuleCall_1_2_0 = (RuleCall)cOperand2Assignment_1_2.eContents().get(0);
 		
 		//HyMultiplicationExpression expr::HyArithmeticalValueExpression:
-		//	HyDivisionExpression ({expr::HyMultiplicationExpression.operand1=current} '*' operand2=HyDivisionExpression)*;
+		//	HySubtractionExpression ({expr::HyMultiplicationExpression.operand1=current} '*' operand2=HySubtractionExpression)*;
 		@Override public ParserRule getRule() { return rule; }
 		
-		//HyDivisionExpression ({expr::HyMultiplicationExpression.operand1=current} '*' operand2=HyDivisionExpression)*
+		//HySubtractionExpression ({expr::HyMultiplicationExpression.operand1=current} '*' operand2=HySubtractionExpression)*
 		public Group getGroup() { return cGroup; }
 		
-		//HyDivisionExpression
-		public RuleCall getHyDivisionExpressionParserRuleCall_0() { return cHyDivisionExpressionParserRuleCall_0; }
+		//HySubtractionExpression
+		public RuleCall getHySubtractionExpressionParserRuleCall_0() { return cHySubtractionExpressionParserRuleCall_0; }
 		
-		//({expr::HyMultiplicationExpression.operand1=current} '*' operand2=HyDivisionExpression)*
+		//({expr::HyMultiplicationExpression.operand1=current} '*' operand2=HySubtractionExpression)*
 		public Group getGroup_1() { return cGroup_1; }
 		
 		//{expr::HyMultiplicationExpression.operand1=current}
@@ -850,42 +815,77 @@ public class ExpressionDslGrammarAccess extends AbstractGrammarElementFinder {
 		//'*'
 		public Keyword getAsteriskKeyword_1_1() { return cAsteriskKeyword_1_1; }
 		
-		//operand2=HyDivisionExpression
+		//operand2=HySubtractionExpression
 		public Assignment getOperand2Assignment_1_2() { return cOperand2Assignment_1_2; }
 		
-		//HyDivisionExpression
-		public RuleCall getOperand2HyDivisionExpressionParserRuleCall_1_2_0() { return cOperand2HyDivisionExpressionParserRuleCall_1_2_0; }
+		//HySubtractionExpression
+		public RuleCall getOperand2HySubtractionExpressionParserRuleCall_1_2_0() { return cOperand2HySubtractionExpressionParserRuleCall_1_2_0; }
 	}
-	public class HyDivisionExpressionElements extends AbstractParserRuleElementFinder {
-		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "de.darwinspl.ExpressionDsl.HyDivisionExpression");
+	public class HySubtractionExpressionElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "de.darwinspl.ExpressionDsl.HySubtractionExpression");
+		private final Group cGroup = (Group)rule.eContents().get(1);
+		private final RuleCall cHyAdditionExpressionParserRuleCall_0 = (RuleCall)cGroup.eContents().get(0);
+		private final Group cGroup_1 = (Group)cGroup.eContents().get(1);
+		private final Action cHySubtractionExpressionOperand1Action_1_0 = (Action)cGroup_1.eContents().get(0);
+		private final Keyword cHyphenMinusKeyword_1_1 = (Keyword)cGroup_1.eContents().get(1);
+		private final Assignment cOperand2Assignment_1_2 = (Assignment)cGroup_1.eContents().get(2);
+		private final RuleCall cOperand2HyAdditionExpressionParserRuleCall_1_2_0 = (RuleCall)cOperand2Assignment_1_2.eContents().get(0);
+		
+		//HySubtractionExpression expr::HyArithmeticalValueExpression:
+		//	HyAdditionExpression ({expr::HySubtractionExpression.operand1=current} '-' operand2=HyAdditionExpression)*;
+		@Override public ParserRule getRule() { return rule; }
+		
+		//HyAdditionExpression ({expr::HySubtractionExpression.operand1=current} '-' operand2=HyAdditionExpression)*
+		public Group getGroup() { return cGroup; }
+		
+		//HyAdditionExpression
+		public RuleCall getHyAdditionExpressionParserRuleCall_0() { return cHyAdditionExpressionParserRuleCall_0; }
+		
+		//({expr::HySubtractionExpression.operand1=current} '-' operand2=HyAdditionExpression)*
+		public Group getGroup_1() { return cGroup_1; }
+		
+		//{expr::HySubtractionExpression.operand1=current}
+		public Action getHySubtractionExpressionOperand1Action_1_0() { return cHySubtractionExpressionOperand1Action_1_0; }
+		
+		//'-'
+		public Keyword getHyphenMinusKeyword_1_1() { return cHyphenMinusKeyword_1_1; }
+		
+		//operand2=HyAdditionExpression
+		public Assignment getOperand2Assignment_1_2() { return cOperand2Assignment_1_2; }
+		
+		//HyAdditionExpression
+		public RuleCall getOperand2HyAdditionExpressionParserRuleCall_1_2_0() { return cOperand2HyAdditionExpressionParserRuleCall_1_2_0; }
+	}
+	public class HyAdditionExpressionElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "de.darwinspl.ExpressionDsl.HyAdditionExpression");
 		private final Group cGroup = (Group)rule.eContents().get(1);
 		private final RuleCall cTerminalArithmeticalExpressionParserRuleCall_0 = (RuleCall)cGroup.eContents().get(0);
 		private final Group cGroup_1 = (Group)cGroup.eContents().get(1);
-		private final Action cHyDivisionExpressionOperand1Action_1_0 = (Action)cGroup_1.eContents().get(0);
-		private final Keyword cSolidusKeyword_1_1 = (Keyword)cGroup_1.eContents().get(1);
+		private final Action cHyAdditionExpressionOperand1Action_1_0 = (Action)cGroup_1.eContents().get(0);
+		private final Keyword cPlusSignKeyword_1_1 = (Keyword)cGroup_1.eContents().get(1);
 		private final Assignment cOperand2Assignment_1_2 = (Assignment)cGroup_1.eContents().get(2);
 		private final RuleCall cOperand2TerminalArithmeticalExpressionParserRuleCall_1_2_0 = (RuleCall)cOperand2Assignment_1_2.eContents().get(0);
 		
-		//HyDivisionExpression expr::HyArithmeticalValueExpression:
-		//	TerminalArithmeticalExpression ({expr::HyDivisionExpression.operand1=current} '/'
+		//HyAdditionExpression expr::HyArithmeticalValueExpression:
+		//	TerminalArithmeticalExpression ({expr::HyAdditionExpression.operand1=current} '+'
 		//	operand2=TerminalArithmeticalExpression)*;
 		@Override public ParserRule getRule() { return rule; }
 		
-		//TerminalArithmeticalExpression ({expr::HyDivisionExpression.operand1=current} '/'
+		//TerminalArithmeticalExpression ({expr::HyAdditionExpression.operand1=current} '+'
 		//operand2=TerminalArithmeticalExpression)*
 		public Group getGroup() { return cGroup; }
 		
 		//TerminalArithmeticalExpression
 		public RuleCall getTerminalArithmeticalExpressionParserRuleCall_0() { return cTerminalArithmeticalExpressionParserRuleCall_0; }
 		
-		//({expr::HyDivisionExpression.operand1=current} '/' operand2=TerminalArithmeticalExpression)*
+		//({expr::HyAdditionExpression.operand1=current} '+' operand2=TerminalArithmeticalExpression)*
 		public Group getGroup_1() { return cGroup_1; }
 		
-		//{expr::HyDivisionExpression.operand1=current}
-		public Action getHyDivisionExpressionOperand1Action_1_0() { return cHyDivisionExpressionOperand1Action_1_0; }
+		//{expr::HyAdditionExpression.operand1=current}
+		public Action getHyAdditionExpressionOperand1Action_1_0() { return cHyAdditionExpressionOperand1Action_1_0; }
 		
-		//'/'
-		public Keyword getSolidusKeyword_1_1() { return cSolidusKeyword_1_1; }
+		//'+'
+		public Keyword getPlusSignKeyword_1_1() { return cPlusSignKeyword_1_1; }
 		
 		//operand2=TerminalArithmeticalExpression
 		public Assignment getOperand2Assignment_1_2() { return cOperand2Assignment_1_2; }
@@ -902,12 +902,12 @@ public class ExpressionDslGrammarAccess extends AbstractGrammarElementFinder {
 		
 		//TerminalArithmeticalExpression expr::HyArithmeticalValueExpression:
 		//	HyValueExpression
-		//	//	| HyNestedArithmeticalValueExpression
+		//	//	| HyNestedArithmeticalValueExpression // TODO here is the problem! I don't know why :(
 		//	//	/*| HyNegationExpression*/
 		//	| => HyContextInformationReferenceExpression | HyAttributeReferenceExpression;
 		@Override public ParserRule getRule() { return rule; }
 		
-		//HyValueExpression //	| HyNestedArithmeticalValueExpression
+		//HyValueExpression //	| HyNestedArithmeticalValueExpression // TODO here is the problem! I don't know why :(
 		////	/*| HyNegationExpression*/
 		//| => HyContextInformationReferenceExpression | HyAttributeReferenceExpression
 		public Alternatives getAlternatives() { return cAlternatives; }
@@ -1066,29 +1066,29 @@ public class ExpressionDslGrammarAccess extends AbstractGrammarElementFinder {
 	public class HyNestedArithmeticalValueExpressionElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "de.darwinspl.ExpressionDsl.HyNestedArithmeticalValueExpression");
 		private final Group cGroup = (Group)rule.eContents().get(1);
-		private final Keyword cLeftParenthesisKeyword_0 = (Keyword)cGroup.eContents().get(0);
+		private final Keyword cLeftCurlyBracketKeyword_0 = (Keyword)cGroup.eContents().get(0);
 		private final Assignment cOperandAssignment_1 = (Assignment)cGroup.eContents().get(1);
-		private final RuleCall cOperandHyArithmeticalValueExpressionParserRuleCall_1_0 = (RuleCall)cOperandAssignment_1.eContents().get(0);
-		private final Keyword cRightParenthesisKeyword_2 = (Keyword)cGroup.eContents().get(2);
+		private final RuleCall cOperandHyAdditionExpressionParserRuleCall_1_0 = (RuleCall)cOperandAssignment_1.eContents().get(0);
+		private final Keyword cRightCurlyBracketKeyword_2 = (Keyword)cGroup.eContents().get(2);
 		
 		//HyNestedArithmeticalValueExpression expr::HyNestedArithmeticalValueExpression:
-		//	'(' operand=HyArithmeticalValueExpression ')';
+		//	'{' operand=HyAdditionExpression '}';
 		@Override public ParserRule getRule() { return rule; }
 		
-		//'(' operand=HyArithmeticalValueExpression ')'
+		//'{' operand=HyAdditionExpression '}'
 		public Group getGroup() { return cGroup; }
 		
-		//'('
-		public Keyword getLeftParenthesisKeyword_0() { return cLeftParenthesisKeyword_0; }
+		//'{'
+		public Keyword getLeftCurlyBracketKeyword_0() { return cLeftCurlyBracketKeyword_0; }
 		
-		//operand=HyArithmeticalValueExpression
+		//operand=HyAdditionExpression
 		public Assignment getOperandAssignment_1() { return cOperandAssignment_1; }
 		
-		//HyArithmeticalValueExpression
-		public RuleCall getOperandHyArithmeticalValueExpressionParserRuleCall_1_0() { return cOperandHyArithmeticalValueExpressionParserRuleCall_1_0; }
+		//HyAdditionExpression
+		public RuleCall getOperandHyAdditionExpressionParserRuleCall_1_0() { return cOperandHyAdditionExpressionParserRuleCall_1_0; }
 		
-		//')'
-		public Keyword getRightParenthesisKeyword_2() { return cRightParenthesisKeyword_2; }
+		//'}'
+		public Keyword getRightCurlyBracketKeyword_2() { return cRightCurlyBracketKeyword_2; }
 	}
 	public class HyContextInformationReferenceExpressionElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "de.darwinspl.ExpressionDsl.HyContextInformationReferenceExpression");
@@ -1249,10 +1249,10 @@ public class ExpressionDslGrammarAccess extends AbstractGrammarElementFinder {
 	private final HyEqualExpressionElements pHyEqualExpression;
 	private final HyNotEqualExpressionElements pHyNotEqualExpression;
 	private final HyArithmeticalValueExpressionElements pHyArithmeticalValueExpression;
-	private final HyAdditionExpressionElements pHyAdditionExpression;
-	private final HySubtractionExpressionElements pHySubtractionExpression;
-	private final HyMultiplicationExpressionElements pHyMultiplicationExpression;
 	private final HyDivisionExpressionElements pHyDivisionExpression;
+	private final HyMultiplicationExpressionElements pHyMultiplicationExpression;
+	private final HySubtractionExpressionElements pHySubtractionExpression;
+	private final HyAdditionExpressionElements pHyAdditionExpression;
 	private final TerminalArithmeticalExpressionElements pTerminalArithmeticalExpression;
 	private final HyValueExpressionElements pHyValueExpression;
 	private final HyValueElements pHyValue;
@@ -1298,10 +1298,10 @@ public class ExpressionDslGrammarAccess extends AbstractGrammarElementFinder {
 		this.pHyEqualExpression = new HyEqualExpressionElements();
 		this.pHyNotEqualExpression = new HyNotEqualExpressionElements();
 		this.pHyArithmeticalValueExpression = new HyArithmeticalValueExpressionElements();
-		this.pHyAdditionExpression = new HyAdditionExpressionElements();
-		this.pHySubtractionExpression = new HySubtractionExpressionElements();
-		this.pHyMultiplicationExpression = new HyMultiplicationExpressionElements();
 		this.pHyDivisionExpression = new HyDivisionExpressionElements();
+		this.pHyMultiplicationExpression = new HyMultiplicationExpressionElements();
+		this.pHySubtractionExpression = new HySubtractionExpressionElements();
+		this.pHyAdditionExpression = new HyAdditionExpressionElements();
 		this.pTerminalArithmeticalExpression = new TerminalArithmeticalExpressionElements();
 		this.pHyValueExpression = new HyValueExpressionElements();
 		this.pHyValue = new HyValueElements();
@@ -1576,7 +1576,7 @@ public class ExpressionDslGrammarAccess extends AbstractGrammarElementFinder {
 	}
 	
 	//HyArithmeticalValueExpression expr::HyArithmeticalValueExpression:
-	//	HyAdditionExpression;
+	//	HyDivisionExpression;
 	public HyArithmeticalValueExpressionElements getHyArithmeticalValueExpressionAccess() {
 		return pHyArithmeticalValueExpression;
 	}
@@ -1585,40 +1585,9 @@ public class ExpressionDslGrammarAccess extends AbstractGrammarElementFinder {
 		return getHyArithmeticalValueExpressionAccess().getRule();
 	}
 	
-	//HyAdditionExpression expr::HyArithmeticalValueExpression:
-	//	HySubtractionExpression ({expr::HyAdditionExpression.operand1=current} '+' operand2=HySubtractionExpression)*;
-	public HyAdditionExpressionElements getHyAdditionExpressionAccess() {
-		return pHyAdditionExpression;
-	}
-	
-	public ParserRule getHyAdditionExpressionRule() {
-		return getHyAdditionExpressionAccess().getRule();
-	}
-	
-	//HySubtractionExpression expr::HyArithmeticalValueExpression:
-	//	HyMultiplicationExpression ({expr::HySubtractionExpression.operand1=current} '-'
-	//	operand2=HyMultiplicationExpression)*;
-	public HySubtractionExpressionElements getHySubtractionExpressionAccess() {
-		return pHySubtractionExpression;
-	}
-	
-	public ParserRule getHySubtractionExpressionRule() {
-		return getHySubtractionExpressionAccess().getRule();
-	}
-	
-	//HyMultiplicationExpression expr::HyArithmeticalValueExpression:
-	//	HyDivisionExpression ({expr::HyMultiplicationExpression.operand1=current} '*' operand2=HyDivisionExpression)*;
-	public HyMultiplicationExpressionElements getHyMultiplicationExpressionAccess() {
-		return pHyMultiplicationExpression;
-	}
-	
-	public ParserRule getHyMultiplicationExpressionRule() {
-		return getHyMultiplicationExpressionAccess().getRule();
-	}
-	
+	//// TODO order them correctly!
 	//HyDivisionExpression expr::HyArithmeticalValueExpression:
-	//	TerminalArithmeticalExpression ({expr::HyDivisionExpression.operand1=current} '/'
-	//	operand2=TerminalArithmeticalExpression)*;
+	//	HyMultiplicationExpression ({expr::HyDivisionExpression.operand1=current} '/' operand2=HyMultiplicationExpression)*;
 	public HyDivisionExpressionElements getHyDivisionExpressionAccess() {
 		return pHyDivisionExpression;
 	}
@@ -1627,9 +1596,40 @@ public class ExpressionDslGrammarAccess extends AbstractGrammarElementFinder {
 		return getHyDivisionExpressionAccess().getRule();
 	}
 	
+	//HyMultiplicationExpression expr::HyArithmeticalValueExpression:
+	//	HySubtractionExpression ({expr::HyMultiplicationExpression.operand1=current} '*' operand2=HySubtractionExpression)*;
+	public HyMultiplicationExpressionElements getHyMultiplicationExpressionAccess() {
+		return pHyMultiplicationExpression;
+	}
+	
+	public ParserRule getHyMultiplicationExpressionRule() {
+		return getHyMultiplicationExpressionAccess().getRule();
+	}
+	
+	//HySubtractionExpression expr::HyArithmeticalValueExpression:
+	//	HyAdditionExpression ({expr::HySubtractionExpression.operand1=current} '-' operand2=HyAdditionExpression)*;
+	public HySubtractionExpressionElements getHySubtractionExpressionAccess() {
+		return pHySubtractionExpression;
+	}
+	
+	public ParserRule getHySubtractionExpressionRule() {
+		return getHySubtractionExpressionAccess().getRule();
+	}
+	
+	//HyAdditionExpression expr::HyArithmeticalValueExpression:
+	//	TerminalArithmeticalExpression ({expr::HyAdditionExpression.operand1=current} '+'
+	//	operand2=TerminalArithmeticalExpression)*;
+	public HyAdditionExpressionElements getHyAdditionExpressionAccess() {
+		return pHyAdditionExpression;
+	}
+	
+	public ParserRule getHyAdditionExpressionRule() {
+		return getHyAdditionExpressionAccess().getRule();
+	}
+	
 	//TerminalArithmeticalExpression expr::HyArithmeticalValueExpression:
 	//	HyValueExpression
-	//	//	| HyNestedArithmeticalValueExpression
+	//	//	| HyNestedArithmeticalValueExpression // TODO here is the problem! I don't know why :(
 	//	//	/*| HyNegationExpression*/
 	//	| => HyContextInformationReferenceExpression | HyAttributeReferenceExpression;
 	public TerminalArithmeticalExpressionElements getTerminalArithmeticalExpressionAccess() {
@@ -1701,7 +1701,7 @@ public class ExpressionDslGrammarAccess extends AbstractGrammarElementFinder {
 	}
 	
 	//HyNestedArithmeticalValueExpression expr::HyNestedArithmeticalValueExpression:
-	//	'(' operand=HyArithmeticalValueExpression ')';
+	//	'{' operand=HyAdditionExpression '}';
 	public HyNestedArithmeticalValueExpressionElements getHyNestedArithmeticalValueExpressionAccess() {
 		return pHyNestedArithmeticalValueExpression;
 	}
