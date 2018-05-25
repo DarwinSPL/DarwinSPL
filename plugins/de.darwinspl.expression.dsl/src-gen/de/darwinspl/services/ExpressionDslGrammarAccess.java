@@ -760,7 +760,6 @@ public class ExpressionDslGrammarAccess extends AbstractGrammarElementFinder {
 		private final Assignment cOperand2Assignment_1_2 = (Assignment)cGroup_1.eContents().get(2);
 		private final RuleCall cOperand2HyMultiplicationExpressionParserRuleCall_1_2_0 = (RuleCall)cOperand2Assignment_1_2.eContents().get(0);
 		
-		//// TODO order them correctly!
 		//HyDivisionExpression expr::HyArithmeticalValueExpression:
 		//	HyMultiplicationExpression ({expr::HyDivisionExpression.operand1=current} '/' operand2=HyMultiplicationExpression)*;
 		@Override public ParserRule getRule() { return rule; }
@@ -897,17 +896,18 @@ public class ExpressionDslGrammarAccess extends AbstractGrammarElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "de.darwinspl.ExpressionDsl.TerminalArithmeticalExpression");
 		private final Alternatives cAlternatives = (Alternatives)rule.eContents().get(1);
 		private final RuleCall cHyValueExpressionParserRuleCall_0 = (RuleCall)cAlternatives.eContents().get(0);
-		private final RuleCall cHyContextInformationReferenceExpressionParserRuleCall_1 = (RuleCall)cAlternatives.eContents().get(1);
-		private final RuleCall cHyAttributeReferenceExpressionParserRuleCall_2 = (RuleCall)cAlternatives.eContents().get(2);
+		private final RuleCall cHyNestedArithmeticalValueExpressionParserRuleCall_1 = (RuleCall)cAlternatives.eContents().get(1);
+		private final RuleCall cHyContextInformationReferenceExpressionParserRuleCall_2 = (RuleCall)cAlternatives.eContents().get(2);
+		private final RuleCall cHyAttributeReferenceExpressionParserRuleCall_3 = (RuleCall)cAlternatives.eContents().get(3);
 		
 		//TerminalArithmeticalExpression expr::HyArithmeticalValueExpression:
 		//	HyValueExpression
-		//	//	| HyNestedArithmeticalValueExpression // TODO here is the problem! I don't know why :(
+		//	| HyNestedArithmeticalValueExpression // TODO here is the problem! I don't know why :( I set backtracking to true in the mwe2 file. Supposed to have disadvantages: less performance, ANTLR reports no warnings about unreachable alternatives, “magic”, etc
 		//	//	/*| HyNegationExpression*/
 		//	| => HyContextInformationReferenceExpression | HyAttributeReferenceExpression;
 		@Override public ParserRule getRule() { return rule; }
 		
-		//HyValueExpression //	| HyNestedArithmeticalValueExpression // TODO here is the problem! I don't know why :(
+		//HyValueExpression | HyNestedArithmeticalValueExpression // TODO here is the problem! I don't know why :( I set backtracking to true in the mwe2 file. Supposed to have disadvantages: less performance, ANTLR reports no warnings about unreachable alternatives, “magic”, etc
 		////	/*| HyNegationExpression*/
 		//| => HyContextInformationReferenceExpression | HyAttributeReferenceExpression
 		public Alternatives getAlternatives() { return cAlternatives; }
@@ -915,11 +915,14 @@ public class ExpressionDslGrammarAccess extends AbstractGrammarElementFinder {
 		//HyValueExpression
 		public RuleCall getHyValueExpressionParserRuleCall_0() { return cHyValueExpressionParserRuleCall_0; }
 		
+		//HyNestedArithmeticalValueExpression
+		public RuleCall getHyNestedArithmeticalValueExpressionParserRuleCall_1() { return cHyNestedArithmeticalValueExpressionParserRuleCall_1; }
+		
 		//=> HyContextInformationReferenceExpression
-		public RuleCall getHyContextInformationReferenceExpressionParserRuleCall_1() { return cHyContextInformationReferenceExpressionParserRuleCall_1; }
+		public RuleCall getHyContextInformationReferenceExpressionParserRuleCall_2() { return cHyContextInformationReferenceExpressionParserRuleCall_2; }
 		
 		//HyAttributeReferenceExpression
-		public RuleCall getHyAttributeReferenceExpressionParserRuleCall_2() { return cHyAttributeReferenceExpressionParserRuleCall_2; }
+		public RuleCall getHyAttributeReferenceExpressionParserRuleCall_3() { return cHyAttributeReferenceExpressionParserRuleCall_3; }
 	}
 	public class HyValueExpressionElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "de.darwinspl.ExpressionDsl.HyValueExpression");
@@ -1066,29 +1069,29 @@ public class ExpressionDslGrammarAccess extends AbstractGrammarElementFinder {
 	public class HyNestedArithmeticalValueExpressionElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "de.darwinspl.ExpressionDsl.HyNestedArithmeticalValueExpression");
 		private final Group cGroup = (Group)rule.eContents().get(1);
-		private final Keyword cLeftCurlyBracketKeyword_0 = (Keyword)cGroup.eContents().get(0);
+		private final Keyword cLeftParenthesisKeyword_0 = (Keyword)cGroup.eContents().get(0);
 		private final Assignment cOperandAssignment_1 = (Assignment)cGroup.eContents().get(1);
-		private final RuleCall cOperandHyAdditionExpressionParserRuleCall_1_0 = (RuleCall)cOperandAssignment_1.eContents().get(0);
-		private final Keyword cRightCurlyBracketKeyword_2 = (Keyword)cGroup.eContents().get(2);
+		private final RuleCall cOperandHyDivisionExpressionParserRuleCall_1_0 = (RuleCall)cOperandAssignment_1.eContents().get(0);
+		private final Keyword cRightParenthesisKeyword_2 = (Keyword)cGroup.eContents().get(2);
 		
 		//HyNestedArithmeticalValueExpression expr::HyNestedArithmeticalValueExpression:
-		//	'{' operand=HyAdditionExpression '}';
+		//	'(' operand=HyDivisionExpression ')';
 		@Override public ParserRule getRule() { return rule; }
 		
-		//'{' operand=HyAdditionExpression '}'
+		//'(' operand=HyDivisionExpression ')'
 		public Group getGroup() { return cGroup; }
 		
-		//'{'
-		public Keyword getLeftCurlyBracketKeyword_0() { return cLeftCurlyBracketKeyword_0; }
+		//'('
+		public Keyword getLeftParenthesisKeyword_0() { return cLeftParenthesisKeyword_0; }
 		
-		//operand=HyAdditionExpression
+		//operand=HyDivisionExpression
 		public Assignment getOperandAssignment_1() { return cOperandAssignment_1; }
 		
-		//HyAdditionExpression
-		public RuleCall getOperandHyAdditionExpressionParserRuleCall_1_0() { return cOperandHyAdditionExpressionParserRuleCall_1_0; }
+		//HyDivisionExpression
+		public RuleCall getOperandHyDivisionExpressionParserRuleCall_1_0() { return cOperandHyDivisionExpressionParserRuleCall_1_0; }
 		
-		//'}'
-		public Keyword getRightCurlyBracketKeyword_2() { return cRightCurlyBracketKeyword_2; }
+		//')'
+		public Keyword getRightParenthesisKeyword_2() { return cRightParenthesisKeyword_2; }
 	}
 	public class HyContextInformationReferenceExpressionElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "de.darwinspl.ExpressionDsl.HyContextInformationReferenceExpression");
@@ -1585,7 +1588,6 @@ public class ExpressionDslGrammarAccess extends AbstractGrammarElementFinder {
 		return getHyArithmeticalValueExpressionAccess().getRule();
 	}
 	
-	//// TODO order them correctly!
 	//HyDivisionExpression expr::HyArithmeticalValueExpression:
 	//	HyMultiplicationExpression ({expr::HyDivisionExpression.operand1=current} '/' operand2=HyMultiplicationExpression)*;
 	public HyDivisionExpressionElements getHyDivisionExpressionAccess() {
@@ -1629,7 +1631,7 @@ public class ExpressionDslGrammarAccess extends AbstractGrammarElementFinder {
 	
 	//TerminalArithmeticalExpression expr::HyArithmeticalValueExpression:
 	//	HyValueExpression
-	//	//	| HyNestedArithmeticalValueExpression // TODO here is the problem! I don't know why :(
+	//	| HyNestedArithmeticalValueExpression // TODO here is the problem! I don't know why :( I set backtracking to true in the mwe2 file. Supposed to have disadvantages: less performance, ANTLR reports no warnings about unreachable alternatives, “magic”, etc
 	//	//	/*| HyNegationExpression*/
 	//	| => HyContextInformationReferenceExpression | HyAttributeReferenceExpression;
 	public TerminalArithmeticalExpressionElements getTerminalArithmeticalExpressionAccess() {
@@ -1701,7 +1703,7 @@ public class ExpressionDslGrammarAccess extends AbstractGrammarElementFinder {
 	}
 	
 	//HyNestedArithmeticalValueExpression expr::HyNestedArithmeticalValueExpression:
-	//	'{' operand=HyAdditionExpression '}';
+	//	'(' operand=HyDivisionExpression ')';
 	public HyNestedArithmeticalValueExpressionElements getHyNestedArithmeticalValueExpressionAccess() {
 		return pHyNestedArithmeticalValueExpression;
 	}

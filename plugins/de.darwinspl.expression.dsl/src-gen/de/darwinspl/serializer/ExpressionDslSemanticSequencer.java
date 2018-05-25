@@ -635,10 +635,20 @@ public class ExpressionDslSemanticSequencer extends AbstractDelegatingSemanticSe
 	
 	/**
 	 * Contexts:
+	 *     HyArithmeticalValueExpression returns HyNestedArithmeticalValueExpression
+	 *     HyDivisionExpression returns HyNestedArithmeticalValueExpression
+	 *     HyDivisionExpression.HyDivisionExpression_1_0 returns HyNestedArithmeticalValueExpression
+	 *     HyMultiplicationExpression returns HyNestedArithmeticalValueExpression
+	 *     HyMultiplicationExpression.HyMultiplicationExpression_1_0 returns HyNestedArithmeticalValueExpression
+	 *     HySubtractionExpression returns HyNestedArithmeticalValueExpression
+	 *     HySubtractionExpression.HySubtractionExpression_1_0 returns HyNestedArithmeticalValueExpression
+	 *     HyAdditionExpression returns HyNestedArithmeticalValueExpression
+	 *     HyAdditionExpression.HyAdditionExpression_1_0 returns HyNestedArithmeticalValueExpression
+	 *     TerminalArithmeticalExpression returns HyNestedArithmeticalValueExpression
 	 *     HyNestedArithmeticalValueExpression returns HyNestedArithmeticalValueExpression
 	 *
 	 * Constraint:
-	 *     operand=HyAdditionExpression
+	 *     operand=HyDivisionExpression
 	 */
 	protected void sequence_HyNestedArithmeticalValueExpression(ISerializationContext context, HyNestedArithmeticalValueExpression semanticObject) {
 		if (errorAcceptor != null) {
@@ -646,7 +656,7 @@ public class ExpressionDslSemanticSequencer extends AbstractDelegatingSemanticSe
 				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, HyExpressionPackage.Literals.HY_ARITHMETICAL_VALUE_UNARY_OPERATION_EXPRESSION__OPERAND));
 		}
 		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
-		feeder.accept(grammarAccess.getHyNestedArithmeticalValueExpressionAccess().getOperandHyAdditionExpressionParserRuleCall_1_0(), semanticObject.getOperand());
+		feeder.accept(grammarAccess.getHyNestedArithmeticalValueExpressionAccess().getOperandHyDivisionExpressionParserRuleCall_1_0(), semanticObject.getOperand());
 		feeder.finish();
 	}
 	

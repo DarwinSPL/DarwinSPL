@@ -5,6 +5,7 @@ grammar InternalExpressionDsl;
 
 options {
 	superClass=AbstractInternalAntlrParser;
+	backtrack=true;
 }
 
 @lexer::header {
@@ -33,6 +34,11 @@ import de.darwinspl.services.ExpressionDslGrammarAccess;
 }
 
 @parser::members {
+
+/*
+  This grammar contains a lot of empty actions to work around a bug in ANTLR.
+  Otherwise the ANTLR tool will create synpreds that cannot be compiled in some rare cases.
+*/
 
  	private ExpressionDslGrammarAccess grammarAccess;
 
@@ -77,6 +83,9 @@ ruleHyExpression returns [EObject current=null]
 	leaveRule();
 }:
 	{
+		/* */
+	}
+	{
 		newCompositeNode(grammarAccess.getHyExpressionAccess().getHyImpliesExpressionParserRuleCall());
 	}
 	this_HyImpliesExpression_0=ruleHyImpliesExpression
@@ -103,6 +112,9 @@ ruleHyImpliesExpression returns [EObject current=null]
 }:
 	(
 		{
+			/* */
+		}
+		{
 			newCompositeNode(grammarAccess.getHyImpliesExpressionAccess().getHyEquivalenceExpressionParserRuleCall_0());
 		}
 		this_HyEquivalenceExpression_0=ruleHyEquivalenceExpression
@@ -112,6 +124,9 @@ ruleHyImpliesExpression returns [EObject current=null]
 		}
 		(
 			(
+				{
+					/* */
+				}
 				{
 					$current = forceCreateModelElementAndSet(
 						grammarAccess.getHyImpliesExpressionAccess().getHyImpliesExpressionOperand1Action_1_0(),
@@ -162,6 +177,9 @@ ruleHyEquivalenceExpression returns [EObject current=null]
 }:
 	(
 		{
+			/* */
+		}
+		{
 			newCompositeNode(grammarAccess.getHyEquivalenceExpressionAccess().getHyAndExpressionParserRuleCall_0());
 		}
 		this_HyAndExpression_0=ruleHyAndExpression
@@ -171,6 +189,9 @@ ruleHyEquivalenceExpression returns [EObject current=null]
 		}
 		(
 			(
+				{
+					/* */
+				}
 				{
 					$current = forceCreateModelElementAndSet(
 						grammarAccess.getHyEquivalenceExpressionAccess().getHyEquivalenceExpressionOperand1Action_1_0(),
@@ -221,6 +242,9 @@ ruleHyAndExpression returns [EObject current=null]
 }:
 	(
 		{
+			/* */
+		}
+		{
 			newCompositeNode(grammarAccess.getHyAndExpressionAccess().getHyOrExpressionParserRuleCall_0());
 		}
 		this_HyOrExpression_0=ruleHyOrExpression
@@ -230,6 +254,9 @@ ruleHyAndExpression returns [EObject current=null]
 		}
 		(
 			(
+				{
+					/* */
+				}
 				{
 					$current = forceCreateModelElementAndSet(
 						grammarAccess.getHyAndExpressionAccess().getHyAndExpressionOperand1Action_1_0(),
@@ -280,6 +307,9 @@ ruleHyOrExpression returns [EObject current=null]
 }:
 	(
 		{
+			/* */
+		}
+		{
 			newCompositeNode(grammarAccess.getHyOrExpressionAccess().getTerminalExpressionParserRuleCall_0());
 		}
 		this_TerminalExpression_0=ruleTerminalExpression
@@ -289,6 +319,9 @@ ruleHyOrExpression returns [EObject current=null]
 		}
 		(
 			(
+				{
+					/* */
+				}
 				{
 					$current = forceCreateModelElementAndSet(
 						grammarAccess.getHyOrExpressionAccess().getHyOrExpressionOperand1Action_1_0(),
@@ -341,6 +374,9 @@ ruleTerminalExpression returns [EObject current=null]
 		(
 			(ruleHyArithmeticalComparisonExpression)=>
 			{
+				/* */
+			}
+			{
 				newCompositeNode(grammarAccess.getTerminalExpressionAccess().getHyArithmeticalComparisonExpressionParserRuleCall_0());
 			}
 			this_HyArithmeticalComparisonExpression_0=ruleHyArithmeticalComparisonExpression
@@ -351,6 +387,9 @@ ruleTerminalExpression returns [EObject current=null]
 		)
 		    |
 		{
+			/* */
+		}
+		{
 			newCompositeNode(grammarAccess.getTerminalExpressionAccess().getHyFeatureReferenceExpressionParserRuleCall_1());
 		}
 		this_HyFeatureReferenceExpression_1=ruleHyFeatureReferenceExpression
@@ -359,6 +398,9 @@ ruleTerminalExpression returns [EObject current=null]
 			afterParserOrEnumRuleCall();
 		}
 		    |
+		{
+			/* */
+		}
 		{
 			newCompositeNode(grammarAccess.getTerminalExpressionAccess().getHyNestedExpressionParserRuleCall_2());
 		}
@@ -369,6 +411,9 @@ ruleTerminalExpression returns [EObject current=null]
 		}
 		    |
 		{
+			/* */
+		}
+		{
 			newCompositeNode(grammarAccess.getTerminalExpressionAccess().getHyConditionalFeatureReferenceExpressionParserRuleCall_3());
 		}
 		this_HyConditionalFeatureReferenceExpression_3=ruleHyConditionalFeatureReferenceExpression
@@ -378,6 +423,9 @@ ruleTerminalExpression returns [EObject current=null]
 		}
 		    |
 		{
+			/* */
+		}
+		{
 			newCompositeNode(grammarAccess.getTerminalExpressionAccess().getHyNotExpressionParserRuleCall_4());
 		}
 		this_HyNotExpression_4=ruleHyNotExpression
@@ -386,6 +434,9 @@ ruleTerminalExpression returns [EObject current=null]
 			afterParserOrEnumRuleCall();
 		}
 		    |
+		{
+			/* */
+		}
 		{
 			newCompositeNode(grammarAccess.getTerminalExpressionAccess().getHyBooleanValueExpressionParserRuleCall_5());
 		}
@@ -504,6 +555,9 @@ ruleHyFeatureReferenceExpression returns [EObject current=null]
 		(
 			(
 				{
+					/* */
+				}
+				{
 					if ($current==null) {
 						$current = createModelElement(grammarAccess.getHyFeatureReferenceExpressionRule());
 					}
@@ -559,6 +613,9 @@ ruleHyConditionalFeatureReferenceExpression returns [EObject current=null]
 		(
 			(
 				{
+					/* */
+				}
+				{
 					if ($current==null) {
 						$current = createModelElement(grammarAccess.getHyConditionalFeatureReferenceExpressionRule());
 					}
@@ -608,6 +665,9 @@ ruleHyVersionRestriction returns [EObject current=null]
 }:
 	(
 		{
+			/* */
+		}
+		{
 			newCompositeNode(grammarAccess.getHyVersionRestrictionAccess().getHyRelativeVersionRestrictionParserRuleCall_0());
 		}
 		this_HyRelativeVersionRestriction_0=ruleHyRelativeVersionRestriction
@@ -616,6 +676,9 @@ ruleHyVersionRestriction returns [EObject current=null]
 			afterParserOrEnumRuleCall();
 		}
 		    |
+		{
+			/* */
+		}
 		{
 			newCompositeNode(grammarAccess.getHyVersionRestrictionAccess().getHyVersionRangeRestrictionParserRuleCall_1());
 		}
@@ -668,6 +731,9 @@ ruleHyRelativeVersionRestriction returns [EObject current=null]
 		)
 		(
 			(
+				{
+					/* */
+				}
 				{
 					if ($current==null) {
 						$current = createModelElement(grammarAccess.getHyRelativeVersionRestrictionRule());
@@ -731,6 +797,9 @@ ruleHyVersionRangeRestriction returns [EObject current=null]
 			(
 				(
 					{
+						/* */
+					}
+					{
 						if ($current==null) {
 							$current = createModelElement(grammarAccess.getHyVersionRangeRestrictionRule());
 						}
@@ -769,6 +838,9 @@ ruleHyVersionRangeRestriction returns [EObject current=null]
 			(
 				(
 					{
+						/* */
+					}
+					{
 						if ($current==null) {
 							$current = createModelElement(grammarAccess.getHyVersionRangeRestrictionRule());
 						}
@@ -804,6 +876,9 @@ ruleHyBooleanValueExpression returns [EObject current=null]
 }:
 	(
 		(
+			{
+				/* */
+			}
 			{
 				$current = forceCreateModelElement(
 					grammarAccess.getHyBooleanValueExpressionAccess().getHyBooleanValueExpressionAction_0(),
@@ -850,6 +925,9 @@ ruleHyArithmeticalComparisonExpression returns [EObject current=null]
 	leaveRule();
 }:
 	{
+		/* */
+	}
+	{
 		newCompositeNode(grammarAccess.getHyArithmeticalComparisonExpressionAccess().getHyBinaryArithmeticalComparisonExpressionParserRuleCall());
 	}
 	this_HyBinaryArithmeticalComparisonExpression_0=ruleHyBinaryArithmeticalComparisonExpression
@@ -876,6 +954,9 @@ ruleHyBinaryArithmeticalComparisonExpression returns [EObject current=null]
 }:
 	(
 		{
+			/* */
+		}
+		{
 			newCompositeNode(grammarAccess.getHyBinaryArithmeticalComparisonExpressionAccess().getHyGreaterOrEqualExpressionParserRuleCall_0());
 		}
 		this_HyGreaterOrEqualExpression_0=ruleHyGreaterOrEqualExpression
@@ -884,6 +965,9 @@ ruleHyBinaryArithmeticalComparisonExpression returns [EObject current=null]
 			afterParserOrEnumRuleCall();
 		}
 		    |
+		{
+			/* */
+		}
 		{
 			newCompositeNode(grammarAccess.getHyBinaryArithmeticalComparisonExpressionAccess().getHyGreaterExpressionParserRuleCall_1());
 		}
@@ -894,6 +978,9 @@ ruleHyBinaryArithmeticalComparisonExpression returns [EObject current=null]
 		}
 		    |
 		{
+			/* */
+		}
+		{
 			newCompositeNode(grammarAccess.getHyBinaryArithmeticalComparisonExpressionAccess().getHyLessOrEqualExpressionParserRuleCall_2());
 		}
 		this_HyLessOrEqualExpression_2=ruleHyLessOrEqualExpression
@@ -902,6 +989,9 @@ ruleHyBinaryArithmeticalComparisonExpression returns [EObject current=null]
 			afterParserOrEnumRuleCall();
 		}
 		    |
+		{
+			/* */
+		}
 		{
 			newCompositeNode(grammarAccess.getHyBinaryArithmeticalComparisonExpressionAccess().getHyLessExpressionParserRuleCall_3());
 		}
@@ -912,6 +1002,9 @@ ruleHyBinaryArithmeticalComparisonExpression returns [EObject current=null]
 		}
 		    |
 		{
+			/* */
+		}
+		{
 			newCompositeNode(grammarAccess.getHyBinaryArithmeticalComparisonExpressionAccess().getHyNotEqualExpressionParserRuleCall_4());
 		}
 		this_HyNotEqualExpression_4=ruleHyNotEqualExpression
@@ -920,6 +1013,9 @@ ruleHyBinaryArithmeticalComparisonExpression returns [EObject current=null]
 			afterParserOrEnumRuleCall();
 		}
 		    |
+		{
+			/* */
+		}
 		{
 			newCompositeNode(grammarAccess.getHyBinaryArithmeticalComparisonExpressionAccess().getHyEqualExpressionParserRuleCall_5());
 		}
@@ -1313,6 +1409,9 @@ ruleHyArithmeticalValueExpression returns [EObject current=null]
 	leaveRule();
 }:
 	{
+		/* */
+	}
+	{
 		newCompositeNode(grammarAccess.getHyArithmeticalValueExpressionAccess().getHyDivisionExpressionParserRuleCall());
 	}
 	this_HyDivisionExpression_0=ruleHyDivisionExpression
@@ -1339,6 +1438,9 @@ ruleHyDivisionExpression returns [EObject current=null]
 }:
 	(
 		{
+			/* */
+		}
+		{
 			newCompositeNode(grammarAccess.getHyDivisionExpressionAccess().getHyMultiplicationExpressionParserRuleCall_0());
 		}
 		this_HyMultiplicationExpression_0=ruleHyMultiplicationExpression
@@ -1348,6 +1450,9 @@ ruleHyDivisionExpression returns [EObject current=null]
 		}
 		(
 			(
+				{
+					/* */
+				}
 				{
 					$current = forceCreateModelElementAndSet(
 						grammarAccess.getHyDivisionExpressionAccess().getHyDivisionExpressionOperand1Action_1_0(),
@@ -1398,6 +1503,9 @@ ruleHyMultiplicationExpression returns [EObject current=null]
 }:
 	(
 		{
+			/* */
+		}
+		{
 			newCompositeNode(grammarAccess.getHyMultiplicationExpressionAccess().getHySubtractionExpressionParserRuleCall_0());
 		}
 		this_HySubtractionExpression_0=ruleHySubtractionExpression
@@ -1407,6 +1515,9 @@ ruleHyMultiplicationExpression returns [EObject current=null]
 		}
 		(
 			(
+				{
+					/* */
+				}
 				{
 					$current = forceCreateModelElementAndSet(
 						grammarAccess.getHyMultiplicationExpressionAccess().getHyMultiplicationExpressionOperand1Action_1_0(),
@@ -1457,6 +1568,9 @@ ruleHySubtractionExpression returns [EObject current=null]
 }:
 	(
 		{
+			/* */
+		}
+		{
 			newCompositeNode(grammarAccess.getHySubtractionExpressionAccess().getHyAdditionExpressionParserRuleCall_0());
 		}
 		this_HyAdditionExpression_0=ruleHyAdditionExpression
@@ -1466,6 +1580,9 @@ ruleHySubtractionExpression returns [EObject current=null]
 		}
 		(
 			(
+				{
+					/* */
+				}
 				{
 					$current = forceCreateModelElementAndSet(
 						grammarAccess.getHySubtractionExpressionAccess().getHySubtractionExpressionOperand1Action_1_0(),
@@ -1516,6 +1633,9 @@ ruleHyAdditionExpression returns [EObject current=null]
 }:
 	(
 		{
+			/* */
+		}
+		{
 			newCompositeNode(grammarAccess.getHyAdditionExpressionAccess().getTerminalArithmeticalExpressionParserRuleCall_0());
 		}
 		this_TerminalArithmeticalExpression_0=ruleTerminalArithmeticalExpression
@@ -1525,6 +1645,9 @@ ruleHyAdditionExpression returns [EObject current=null]
 		}
 		(
 			(
+				{
+					/* */
+				}
 				{
 					$current = forceCreateModelElementAndSet(
 						grammarAccess.getHyAdditionExpressionAccess().getHyAdditionExpressionOperand1Action_1_0(),
@@ -1575,6 +1698,9 @@ ruleTerminalArithmeticalExpression returns [EObject current=null]
 }:
 	(
 		{
+			/* */
+		}
+		{
 			newCompositeNode(grammarAccess.getTerminalArithmeticalExpressionAccess().getHyValueExpressionParserRuleCall_0());
 		}
 		this_HyValueExpression_0=ruleHyValueExpression
@@ -1583,24 +1709,42 @@ ruleTerminalArithmeticalExpression returns [EObject current=null]
 			afterParserOrEnumRuleCall();
 		}
 		    |
+		{
+			/* */
+		}
+		{
+			newCompositeNode(grammarAccess.getTerminalArithmeticalExpressionAccess().getHyNestedArithmeticalValueExpressionParserRuleCall_1());
+		}
+		this_HyNestedArithmeticalValueExpression_1=ruleHyNestedArithmeticalValueExpression
+		{
+			$current = $this_HyNestedArithmeticalValueExpression_1.current;
+			afterParserOrEnumRuleCall();
+		}
+		    |
 		(
 			(ruleHyContextInformationReferenceExpression)=>
 			{
-				newCompositeNode(grammarAccess.getTerminalArithmeticalExpressionAccess().getHyContextInformationReferenceExpressionParserRuleCall_1());
+				/* */
 			}
-			this_HyContextInformationReferenceExpression_1=ruleHyContextInformationReferenceExpression
 			{
-				$current = $this_HyContextInformationReferenceExpression_1.current;
+				newCompositeNode(grammarAccess.getTerminalArithmeticalExpressionAccess().getHyContextInformationReferenceExpressionParserRuleCall_2());
+			}
+			this_HyContextInformationReferenceExpression_2=ruleHyContextInformationReferenceExpression
+			{
+				$current = $this_HyContextInformationReferenceExpression_2.current;
 				afterParserOrEnumRuleCall();
 			}
 		)
 		    |
 		{
-			newCompositeNode(grammarAccess.getTerminalArithmeticalExpressionAccess().getHyAttributeReferenceExpressionParserRuleCall_2());
+			/* */
 		}
-		this_HyAttributeReferenceExpression_2=ruleHyAttributeReferenceExpression
 		{
-			$current = $this_HyAttributeReferenceExpression_2.current;
+			newCompositeNode(grammarAccess.getTerminalArithmeticalExpressionAccess().getHyAttributeReferenceExpressionParserRuleCall_3());
+		}
+		this_HyAttributeReferenceExpression_3=ruleHyAttributeReferenceExpression
+		{
+			$current = $this_HyAttributeReferenceExpression_3.current;
 			afterParserOrEnumRuleCall();
 		}
 	)
@@ -1659,6 +1803,9 @@ ruleHyValue returns [EObject current=null]
 }:
 	(
 		{
+			/* */
+		}
+		{
 			newCompositeNode(grammarAccess.getHyValueAccess().getHyNumberValueParserRuleCall_0());
 		}
 		this_HyNumberValue_0=ruleHyNumberValue
@@ -1667,6 +1814,9 @@ ruleHyValue returns [EObject current=null]
 			afterParserOrEnumRuleCall();
 		}
 		    |
+		{
+			/* */
+		}
 		{
 			newCompositeNode(grammarAccess.getHyValueAccess().getHyStringValueParserRuleCall_1());
 		}
@@ -1677,6 +1827,9 @@ ruleHyValue returns [EObject current=null]
 		}
 		    |
 		{
+			/* */
+		}
+		{
 			newCompositeNode(grammarAccess.getHyValueAccess().getHyBooleanValueParserRuleCall_2());
 		}
 		this_HyBooleanValue_2=ruleHyBooleanValue
@@ -1685,6 +1838,9 @@ ruleHyValue returns [EObject current=null]
 			afterParserOrEnumRuleCall();
 		}
 		    |
+		{
+			/* */
+		}
 		{
 			newCompositeNode(grammarAccess.getHyValueAccess().getHyEnumValueParserRuleCall_3());
 		}
@@ -1785,6 +1941,9 @@ ruleHyBooleanValue returns [EObject current=null]
 	(
 		(
 			{
+				/* */
+			}
+			{
 				$current = forceCreateModelElement(
 					grammarAccess.getHyBooleanValueAccess().getHyBooleanValueAction_0(),
 					$current);
@@ -1833,6 +1992,9 @@ ruleHyEnumValue returns [EObject current=null]
 		(
 			(
 				{
+					/* */
+				}
+				{
 					if ($current==null) {
 						$current = createModelElement(grammarAccess.getHyEnumValueRule());
 					}
@@ -1850,6 +2012,9 @@ ruleHyEnumValue returns [EObject current=null]
 		(
 			(
 				{
+					/* */
+				}
+				{
 					if ($current==null) {
 						$current = createModelElement(grammarAccess.getHyEnumValueRule());
 					}
@@ -1860,6 +2025,52 @@ ruleHyEnumValue returns [EObject current=null]
 				}
 			)
 		)
+	)
+;
+
+// Entry rule entryRuleHyNestedArithmeticalValueExpression
+entryRuleHyNestedArithmeticalValueExpression returns [EObject current=null]:
+	{ newCompositeNode(grammarAccess.getHyNestedArithmeticalValueExpressionRule()); }
+	iv_ruleHyNestedArithmeticalValueExpression=ruleHyNestedArithmeticalValueExpression
+	{ $current=$iv_ruleHyNestedArithmeticalValueExpression.current; }
+	EOF;
+
+// Rule HyNestedArithmeticalValueExpression
+ruleHyNestedArithmeticalValueExpression returns [EObject current=null]
+@init {
+	enterRule();
+}
+@after {
+	leaveRule();
+}:
+	(
+		otherlv_0='('
+		{
+			newLeafNode(otherlv_0, grammarAccess.getHyNestedArithmeticalValueExpressionAccess().getLeftParenthesisKeyword_0());
+		}
+		(
+			(
+				{
+					newCompositeNode(grammarAccess.getHyNestedArithmeticalValueExpressionAccess().getOperandHyDivisionExpressionParserRuleCall_1_0());
+				}
+				lv_operand_1_0=ruleHyDivisionExpression
+				{
+					if ($current==null) {
+						$current = createModelElementForParent(grammarAccess.getHyNestedArithmeticalValueExpressionRule());
+					}
+					set(
+						$current,
+						"operand",
+						lv_operand_1_0,
+						"de.darwinspl.ExpressionDsl.HyDivisionExpression");
+					afterParserOrEnumRuleCall();
+				}
+			)
+		)
+		otherlv_2=')'
+		{
+			newLeafNode(otherlv_2, grammarAccess.getHyNestedArithmeticalValueExpressionAccess().getRightParenthesisKeyword_2());
+		}
 	)
 ;
 
@@ -1880,6 +2091,9 @@ ruleHyContextInformationReferenceExpression returns [EObject current=null]
 }:
 	(
 		(
+			{
+				/* */
+			}
 			{
 				if ($current==null) {
 					$current = createModelElement(grammarAccess.getHyContextInformationReferenceExpressionRule());
@@ -1912,6 +2126,9 @@ ruleHyAttributeReferenceExpression returns [EObject current=null]
 		(
 			(
 				{
+					/* */
+				}
+				{
 					if ($current==null) {
 						$current = createModelElement(grammarAccess.getHyAttributeReferenceExpressionRule());
 					}
@@ -1928,6 +2145,9 @@ ruleHyAttributeReferenceExpression returns [EObject current=null]
 		}
 		(
 			(
+				{
+					/* */
+				}
 				{
 					if ($current==null) {
 						$current = createModelElement(grammarAccess.getHyAttributeReferenceExpressionRule());
