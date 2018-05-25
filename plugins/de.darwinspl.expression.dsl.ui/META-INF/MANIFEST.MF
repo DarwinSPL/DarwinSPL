@@ -21,6 +21,7 @@ Require-Bundle: de.darwinspl.expression.dsl,
 Import-Package: org.apache.log4j
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Export-Package: de.darwinspl.expression.dsl.ui.internal,
- de.darwinspl.ui.quickfix,
- de.darwinspl.ui.contentassist
+ de.darwinspl.ui.contentassist,
+ de.darwinspl.ui.labeling,
+ de.darwinspl.ui.quickfix
 Bundle-Activator: de.darwinspl.expression.dsl.ui.internal.DslActivator

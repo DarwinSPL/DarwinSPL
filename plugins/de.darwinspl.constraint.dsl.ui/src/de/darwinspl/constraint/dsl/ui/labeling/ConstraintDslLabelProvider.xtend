@@ -4,19 +4,34 @@
 package de.darwinspl.constraint.dsl.ui.labeling
 
 import com.google.inject.Inject
+import de.darwinspl.ui.labeling.ExpressionDslLabelProvider
+import eu.hyvar.feature.constraint.HyConstraint
+import eu.hyvar.feature.constraint.HyConstraintModel
 import org.eclipse.emf.edit.ui.provider.AdapterFactoryLabelProvider
-import org.eclipse.xtext.ui.label.DefaultEObjectLabelProvider
 
 /**
  * Provides labels for EObjects.
  * 
  * See https://www.eclipse.org/Xtext/documentation/304_ide_concepts.html#label-provider
  */
-class ConstraintDslLabelProvider extends DefaultEObjectLabelProvider {
+class ConstraintDslLabelProvider extends ExpressionDslLabelProvider {
 
 	@Inject
 	new(AdapterFactoryLabelProvider delegate) {
 		super(delegate);
+	}
+	
+	def text(HyConstraintModel constraintModel) {
+		return "Constraint Model ("+ super.text(constraintModel) +")"
+	}
+	
+	def text(HyConstraint constraint) {
+		var label = "Constraint (ID: "
+		if(constraint !== null) {
+			label += constraint.id;			
+		}
+		label += ")"
+		return label;
 	}
 
 	// Labels and icons can be computed like this:

@@ -7,7 +7,7 @@ import org.eclipse.xtext.scoping.IScope;
 
 public class DwFeatureScope implements IScope {
 
-	public DwFeatureScope(EObject referencingObject) {
+	public DwFeatureScope(EObject context) {
 		System.out.println("Test Scope");
 	}
 	
