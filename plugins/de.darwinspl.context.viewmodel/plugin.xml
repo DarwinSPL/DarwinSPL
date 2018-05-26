@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   <extension point="org.eclipse.emf.ecp.view.model.provider.xmi.file">
+		<file filePath="viewmodels/HyContextModel.view"/>
+		
+		<file filePath="viewmodels/HyContextualInformationEnum.view"/>
+		
+		<file filePath="viewmodels/HyContextualInformationBoolean.view"/>
+		
+		<file filePath="viewmodels/HyContextualInformationNumber.view">
+			<filter key="proxyId" value="context_information_number"/>
+		</file>
+
+   </extension>
+   
+   <extension point="org.eclipse.ui.editors">
+		
+</plugin>

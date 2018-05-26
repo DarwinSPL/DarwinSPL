@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="ASCII"?>
+<org.eclipse.emf.ecp.view.model:View xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:org.eclipse.emf.ecp.view.group.model="http://org/eclipse/emf/ecp/view/group/model" xmlns:org.eclipse.emf.ecp.view.model="http://org/eclipse/emf/ecp/view/model/170" xmlns:org.eclipse.emf.ecp.view.table.model="http://org/eclipse/emf/ecp/view/table/model/150" xmlns:org.eclipse.emf.ecp.view.vertical.model="http://org/eclipse/emf/ecp/view/vertical/model" xmi:id="_zgXx4F89Eei3NKe7byjGYw" name="HyContextModel" ecorePath="/eu.hyvar.context.information/model/ContextInformation.ecore">
+  <rootEClass href="http://hyvar-project.eu/feature/context/1.0#//HyContextModel"/>
+  <children xsi:type="org.eclipse.emf.ecp.view.vertical.model:VerticalLayout" xmi:id="_WyvogGDtEeiHhvDgu3y1jg">
+    <children xsi:type="org.eclipse.emf.ecp.view.group.model:Group" xmi:id="_BilBEGDuEeiHhvDgu3y1jg" name="Enum Contexts">
+      <children xsi:type="org.eclipse.emf.ecp.view.table.model:TableControl" xmi:id="_H1dUYGDuEeiHhvDgu3y1jg" labelAlignment="None" detailEditing="WithDialog">
+        <domainModelReference xsi:type="org.eclipse.emf.ecp.view.table.model:TableDomainModelReference" xmi:id="_KjBt4GDuEeiHhvDgu3y1jg">
+          <columnDomainModelReferences xsi:type="org.eclipse.emf.ecp.view.model:FeaturePathDomainModelReference" xmi:id="_QI04wGDuEeiHhvDgu3y1jg">
+            <domainModelEFeature xsi:type="ecore:EAttribute" href="http://hyvar-project.eu/feature/context/1.0#//HyContextualInformation/name"/>
+          </columnDomainModelReferences>
+          <columnDomainModelReferences xsi:type="org.eclipse.emf.ecp.view.model:FeaturePathDomainModelReference" xmi:id="_SFJbgGDuEeiHhvDgu3y1jg">
+            <domainModelEFeature xsi:type="ecore:EReference" href="http://hyvar-project.eu/feature/context/1.0#//HyContextualInformationEnum/enumType"/>
+          </columnDomainModelReferences>
+          <columnDomainModelReferences xsi:type="org.eclipse.emf.ecp.view.model:FeaturePathDomainModelReference" xmi:id="_tEwckGDuEeiHhvDgu3y1jg">
+            <domainModelEFeature xsi:type="ecore:EAttribute" href="http://hyvar-project.eu/evolution/1.0#//HyTemporalElement/validSince"/>
+          </columnDomainModelReferences>
+          <columnDomainModelReferences xsi:type="org.eclipse.emf.ecp.view.model:FeaturePathDomainModelReference" xmi:id="_uikeYGDuEeiHhvDgu3y1jg">
+            <domainModelEFeature xsi:type="ecore:EAttribute" href="http://hyvar-project.eu/evolution/1.0#//HyTemporalElement/validUntil"/>
+          </columnDomainModelReferences>
+          <domainModelReference xsi:type="org.eclipse.emf.ecp.view.table.model:TableDomainModelReference" xmi:id="_KjBt4WDuEeiHhvDgu3y1jg">
+            <domainModelReference xsi:type="org.eclipse.emf.ecp.view.model:FeaturePathDomainModelReference" xmi:id="_KjBt4mDuEeiHhvDgu3y1jg">
+              <domainModelEFeature xsi:type="ecore:EReference" href="http://hyvar-project.eu/feature/context/1.0#//HyContextModel/contextualInformations"/>
+            </domainModelReference>
+          </domainModelReference>
+        </domainModelReference>
+        <detailView xmi:id="_0BwD4GDuEeiHhvDgu3y1jg" name="Edit Enum Context">
+          <rootEClass href="http://hyvar-project.eu/feature/context/1.0#//HyContextualInformation"/>
+        </detailView>
+      </children>
+    </children>
+    <children xsi:type="org.eclipse.emf.ecp.view.group.model:Group" xmi:id="_8PjoQGDtEeiHhvDgu3y1jg" name="Number Contexts">
+      <children xsi:type="org.eclipse.emf.ecp.view.table.model:TableControl" xmi:id="_rnVuQGDsEeiHhvDgu3y1jg" name="Number Contexts" labelAlignment="None" detailEditing="WithDialog">
+        <domainModelReference xsi:type="org.eclipse.emf.ecp.view.table.model:TableDomainModelReference" xmi:id="_uGnNEGDsEeiHhvDgu3y1jg">
+          <columnDomainModelReferences xsi:type="org.eclipse.emf.ecp.view.model:FeaturePathDomainModelReference" xmi:id="_yP7L0GDsEeiHhvDgu3y1jg">
+            <domainModelEFeature xsi:type="ecore:EAttribute" href="http://hyvar-project.eu/feature/context/1.0#//HyContextualInformation/name"/>
+          </columnDomainModelReferences>
+          <columnDomainModelReferences xsi:type="org.eclipse.emf.ecp.view.model:FeaturePathDomainModelReference" xmi:id="_2S-KgGDsEeiHhvDgu3y1jg">
+            <domainModelEFeature xsi:type="ecore:EAttribute" href="http://hyvar-project.eu/feature/context/1.0#//HyContextualInformationNumber/max"/>
+          </columnDomainModelReferences>
+          <columnDomainModelReferences xsi:type="org.eclipse.emf.ecp.view.model:FeaturePathDomainModelReference" xmi:id="_1dmBsGDsEeiHhvDgu3y1jg">
+            <domainModelEFeature xsi:type="ecore:EAttribute" href="http://hyvar-project.eu/feature/context/1.0#//HyContextualInformationNumber/min"/>
+          </columnDomainModelReferences>
+          <columnDomainModelReferences xsi:type="org.eclipse.emf.ecp.view.model:FeaturePathDomainModelReference" xmi:id="_5nLGMGDsEeiHhvDgu3y1jg">
+            <domainModelEFeature xsi:type="ecore:EAttribute" href="http://hyvar-project.eu/evolution/1.0#//HyTemporalElement/validSince"/>
+          </columnDomainModelReferences>
+          <columnDomainModelReferences xsi:type="org.eclipse.emf.ecp.view.model:FeaturePathDomainModelReference" xmi:id="_6aahAGDsEeiHhvDgu3y1jg">
+            <domainModelEFeature xsi:type="ecore:EAttribute" href="http://hyvar-project.eu/evolution/1.0#//HyTemporalElement/validUntil"/>
+          </columnDomainModelReferences>
+          <domainModelReference xsi:type="org.eclipse.emf.ecp.view.table.model:TableDomainModelReference" xmi:id="_uGnNEWDsEeiHhvDgu3y1jg">
+            <domainModelReference xsi:type="org.eclipse.emf.ecp.view.model:FeaturePathDomainModelReference" xmi:id="_uGnNEmDsEeiHhvDgu3y1jg">
+              <domainModelEFeature xsi:type="ecore:EReference" href="http://hyvar-project.eu/feature/context/1.0#//HyContextModel/contextualInformations"/>
+            </domainModelReference>
+          </domainModelReference>
+        </domainModelReference>
+        <detailView xmi:id="_oHyBsGDtEeiHhvDgu3y1jg" name="Edit Number Context">
+          <rootEClass href="http://hyvar-project.eu/feature/context/1.0#//HyContextualInformation"/>
+        </detailView>
+      </children>
+    </children>
+    <children xsi:type="org.eclipse.emf.ecp.view.group.model:Group" xmi:id="_-gz5MGDtEeiHhvDgu3y1jg" name="Boolean Contexts">
+      <children xsi:type="org.eclipse.emf.ecp.view.table.model:TableControl" xmi:id="_ODq_kGDtEeiHhvDgu3y1jg" name="Boolean Contexts" labelAlignment="None" detailEditing="WithDialog">
+        <domainModelReference xsi:type="org.eclipse.emf.ecp.view.table.model:TableDomainModelReference" xmi:id="_RMqJwGDtEeiHhvDgu3y1jg">
+          <columnDomainModelReferences xsi:type="org.eclipse.emf.ecp.view.model:FeaturePathDomainModelReference" xmi:id="_dW7uQGDtEeiHhvDgu3y1jg">
+            <domainModelEFeature xsi:type="ecore:EAttribute" href="http://hyvar-project.eu/feature/context/1.0#//HyContextualInformation/name"/>
+          </columnDomainModelReferences>
+          <columnDomainModelReferences xsi:type="org.eclipse.emf.ecp.view.model:FeaturePathDomainModelReference" xmi:id="_ervlEGDtEeiHhvDgu3y1jg">
+            <domainModelEFeature xsi:type="ecore:EAttribute" href="http://hyvar-project.eu/evolution/1.0#//HyTemporalElement/validSince"/>
+          </columnDomainModelReferences>
+          <columnDomainModelReferences xsi:type="org.eclipse.emf.ecp.view.model:FeaturePathDomainModelReference" xmi:id="_f4fsEGDtEeiHhvDgu3y1jg">
+            <domainModelEFeature xsi:type="ecore:EAttribute" href="http://hyvar-project.eu/evolution/1.0#//HyTemporalElement/validUntil"/>
+          </columnDomainModelReferences>
+          <domainModelReference xsi:type="org.eclipse.emf.ecp.view.model:FeaturePathDomainModelReference" xmi:id="_RMqJwWDtEeiHhvDgu3y1jg">
+            <domainModelEFeature xsi:type="ecore:EReference" href="http://hyvar-project.eu/feature/context/1.0#//HyContextModel/contextualInformations"/>
+          </domainModelReference>
+        </domainModelReference>
+        <detailView xmi:id="_sYGnYGDtEeiHhvDgu3y1jg" name="Edit Boolean Context">
+          <rootEClass href="http://hyvar-project.eu/feature/context/1.0#//HyContextualInformation"/>
+        </detailView>
+      </children>
+    </children>
+  </children>
+</org.eclipse.emf.ecp.view.model:View>

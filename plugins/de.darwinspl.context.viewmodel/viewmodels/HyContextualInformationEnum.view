@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="ASCII"?>
+<org.eclipse.emf.ecp.view.model:View xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:org.eclipse.emf.ecp.view.group.model="http://org/eclipse/emf/ecp/view/group/model" xmlns:org.eclipse.emf.ecp.view.model="http://org/eclipse/emf/ecp/view/model/170" xmi:id="_EyWh8F88Eei3NKe7byjGYw" name="HyContextualInformationEnum" ecorePath="/eu.hyvar.context.information/model/ContextInformation.ecore">
+  <rootEClass href="http://hyvar-project.eu/feature/context/1.0#//HyContextualInformationEnum"/>
+  <children xsi:type="org.eclipse.emf.ecp.view.group.model:Group" xmi:id="_OoBxIF89Eei3NKe7byjGYw" name="Info">
+    <children xsi:type="org.eclipse.emf.ecp.view.model:Control" xmi:id="_EyqD9F88Eei3NKe7byjGYw" name="Control id" readonly="true">
+      <domainModelReference xsi:type="org.eclipse.emf.ecp.view.model:FeaturePathDomainModelReference" xmi:id="_EyqD9V88Eei3NKe7byjGYw">
+        <domainModelEFeature xsi:type="ecore:EAttribute" href="http://hyvar-project.eu/evolution/1.0#//HyTemporalElement/id"/>
+      </domainModelReference>
+    </children>
+    <children xsi:type="org.eclipse.emf.ecp.view.model:Control" xmi:id="_EyqD9l88Eei3NKe7byjGYw" name="Control name">
+      <domainModelReference xsi:type="org.eclipse.emf.ecp.view.model:FeaturePathDomainModelReference" xmi:id="_EyqD9188Eei3NKe7byjGYw">
+        <domainModelEFeature xsi:type="ecore:EAttribute" href="http://hyvar-project.eu/feature/context/1.0#//HyContextualInformation/name"/>
+      </domainModelReference>
+    </children>
+  </children>
+  <children xsi:type="org.eclipse.emf.ecp.view.group.model:Group" xmi:id="_L4iFAF89Eei3NKe7byjGYw" name="Validity">
+    <children xsi:type="org.eclipse.emf.ecp.view.model:Control" xmi:id="_EyqD8F88Eei3NKe7byjGYw" name="Control validSince">
+      <domainModelReference xsi:type="org.eclipse.emf.ecp.view.model:FeaturePathDomainModelReference" xmi:id="_EyqD8V88Eei3NKe7byjGYw">
+        <domainModelEFeature xsi:type="ecore:EAttribute" href="http://hyvar-project.eu/evolution/1.0#//HyTemporalElement/validSince"/>
+      </domainModelReference>
+    </children>
+    <children xsi:type="org.eclipse.emf.ecp.view.model:Control" xmi:id="_EyqD8l88Eei3NKe7byjGYw" name="Control validUntil">
+      <domainModelReference xsi:type="org.eclipse.emf.ecp.view.model:FeaturePathDomainModelReference" xmi:id="_EyqD8188Eei3NKe7byjGYw">
+        <domainModelEFeature xsi:type="ecore:EAttribute" href="http://hyvar-project.eu/evolution/1.0#//HyTemporalElement/validUntil"/>
+      </domainModelReference>
+    </children>
+  </children>
+  <children xsi:type="org.eclipse.emf.ecp.view.model:Control" xmi:id="_EyqD-F88Eei3NKe7byjGYw" name="Control enumType">
+    <domainModelReference xsi:type="org.eclipse.emf.ecp.view.model:FeaturePathDomainModelReference" xmi:id="_lhdnAF89Eei3NKe7byjGYw">
+      <domainModelEFeature xsi:type="ecore:EReference" href="http://hyvar-project.eu/feature/context/1.0#//HyContextualInformationEnum/enumType"/>
+    </domainModelReference>
+  </children>
+</org.eclipse.emf.ecp.view.model:View>
