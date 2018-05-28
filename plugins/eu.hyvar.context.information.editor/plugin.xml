@@ -12,11 +12,11 @@
             id="org.eclipse.emf.ecore.Wizard.category.ID"
             name="%_UI_Wizard_category"/>
       <wizard
+            category="de.darwinspl.wizards"
+            class="eu.hyvar.context.presentation.DwCustomizedContextInformationModelWizard"
+            icon="icons/full/obj16/HyContextInformationModelFile.gif"
             id="eu.hyvar.context.presentation.HyContextInformationModelWizardID"
-            name="%_UI_HyContextInformationModelWizard_label"
-            class="eu.hyvar.context.presentation.HyContextInformationModelWizard"
-            category="org.eclipse.emf.ecore.Wizard.category.ID"
-            icon="icons/full/obj16/HyContextInformationModelFile.gif">
+            name="%_UI_HyContextInformationModelWizard_label">
          <description>%_UI_HyContextInformationModelWizard_description</description>
          <selection class="org.eclipse.core.resources.IResource"/>
       </wizard>
