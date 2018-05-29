@@ -901,15 +901,18 @@ public class ExpressionDslGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cHyAttributeReferenceExpressionParserRuleCall_3 = (RuleCall)cAlternatives.eContents().get(3);
 		
 		//TerminalArithmeticalExpression expr::HyArithmeticalValueExpression:
-		//	HyValueExpression
-		//	| HyNestedArithmeticalValueExpression // TODO here is the problem! I don't know why :( I set backtracking to true in the mwe2 file. Supposed to have disadvantages: less performance, ANTLR reports no warnings about unreachable alternatives, “magic”, etc
+		//	HyValueExpression | HyNestedArithmeticalValueExpression
+		//	// TODO here is the problem! I don't know why :( I set backtracking to true in the mwe2 file. Supposed to have disadvantages: less performance, ANTLR reports no warnings about unreachable alternatives, “magic”, etc
+		//
 		//	//	/*| HyNegationExpression*/
-		//	| => HyContextInformationReferenceExpression | HyAttributeReferenceExpression;
+		// | => HyContextInformationReferenceExpression | HyAttributeReferenceExpression;
 		@Override public ParserRule getRule() { return rule; }
 		
-		//HyValueExpression | HyNestedArithmeticalValueExpression // TODO here is the problem! I don't know why :( I set backtracking to true in the mwe2 file. Supposed to have disadvantages: less performance, ANTLR reports no warnings about unreachable alternatives, “magic”, etc
+		//HyValueExpression | HyNestedArithmeticalValueExpression
+		//// TODO here is the problem! I don't know why :( I set backtracking to true in the mwe2 file. Supposed to have disadvantages: less performance, ANTLR reports no warnings about unreachable alternatives, “magic”, etc
+		//
 		////	/*| HyNegationExpression*/
-		//| => HyContextInformationReferenceExpression | HyAttributeReferenceExpression
+		// | => HyContextInformationReferenceExpression | HyAttributeReferenceExpression
 		public Alternatives getAlternatives() { return cAlternatives; }
 		
 		//HyValueExpression
@@ -1158,11 +1161,13 @@ public class ExpressionDslGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cINTTerminalRuleCall_1 = (RuleCall)cGroup.eContents().get(1);
 		
 		//// Not working right now. Necessary?
-		////HyNegationExpression returns HyNegationExpression:
+		// //HyNegationExpression returns HyNegationExpression:
+		//
 		////	'-' operand=HyArithmeticalValueExpression;
-		////QualifiedName returns ecore::EString:
-		////ID ("." ID)*;
-		//EInt ecore::EInt:
+		// //QualifiedName returns ecore::EString:
+		// //ID ("." ID)*;
+		// EInt
+		//ecore::EInt:
 		//	'-'? INT;
 		@Override public ParserRule getRule() { return rule; }
 		
@@ -1630,10 +1635,11 @@ public class ExpressionDslGrammarAccess extends AbstractGrammarElementFinder {
 	}
 	
 	//TerminalArithmeticalExpression expr::HyArithmeticalValueExpression:
-	//	HyValueExpression
-	//	| HyNestedArithmeticalValueExpression // TODO here is the problem! I don't know why :( I set backtracking to true in the mwe2 file. Supposed to have disadvantages: less performance, ANTLR reports no warnings about unreachable alternatives, “magic”, etc
+	//	HyValueExpression | HyNestedArithmeticalValueExpression
+	//	// TODO here is the problem! I don't know why :( I set backtracking to true in the mwe2 file. Supposed to have disadvantages: less performance, ANTLR reports no warnings about unreachable alternatives, “magic”, etc
+	//
 	//	//	/*| HyNegationExpression*/
-	//	| => HyContextInformationReferenceExpression | HyAttributeReferenceExpression;
+	// | => HyContextInformationReferenceExpression | HyAttributeReferenceExpression;
 	public TerminalArithmeticalExpressionElements getTerminalArithmeticalExpressionAccess() {
 		return pTerminalArithmeticalExpression;
 	}
@@ -1733,11 +1739,13 @@ public class ExpressionDslGrammarAccess extends AbstractGrammarElementFinder {
 	}
 	
 	//// Not working right now. Necessary?
-	////HyNegationExpression returns HyNegationExpression:
+	// //HyNegationExpression returns HyNegationExpression:
+	//
 	////	'-' operand=HyArithmeticalValueExpression;
-	////QualifiedName returns ecore::EString:
-	////ID ("." ID)*;
-	//EInt ecore::EInt:
+	// //QualifiedName returns ecore::EString:
+	// //ID ("." ID)*;
+	// EInt
+	//ecore::EInt:
 	//	'-'? INT;
 	public EIntElements getEIntAccess() {
 		return pEInt;
