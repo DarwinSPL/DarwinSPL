@@ -3,7 +3,13 @@
  */
 package de.darwinspl.scoping;
 
+import com.google.common.base.Objects;
 import de.darwinspl.scoping.AbstractExpressionDslScopeProvider;
+import de.darwinspl.scoping.DwFeatureScope;
+import eu.hyvar.feature.expression.HyExpressionPackage;
+import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.EReference;
+import org.eclipse.xtext.scoping.IScope;
 
 /**
  * This class contains custom scoping description.
@@ -13,4 +19,12 @@ import de.darwinspl.scoping.AbstractExpressionDslScopeProvider;
  */
 @SuppressWarnings("all")
 public class ExpressionDslScopeProvider extends AbstractExpressionDslScopeProvider {
+  @Override
+  public IScope getScope(final EObject ctx, final EReference ref) {
+    boolean _equals = Objects.equal(ref, HyExpressionPackage.Literals.HY_ABSTRACT_FEATURE_REFERENCE_EXPRESSION__FEATURE);
+    if (_equals) {
+      return new DwFeatureScope(ctx);
+    }
+    return null;
+  }
 }
