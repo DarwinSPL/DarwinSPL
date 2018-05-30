@@ -11,9 +11,7 @@
 		<file filePath="viewmodels/HyContextualInformationNumber.view">
 			<filter key="proxyId" value="context_information_number"/>
 		</file>
-
-   </extension>
-   
-   <extension point="org.eclipse.ui.editors">
 		
+	</extension>
+
 </plugin>
