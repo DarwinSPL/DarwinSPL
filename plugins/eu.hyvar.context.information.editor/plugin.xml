@@ -30,8 +30,7 @@
             name="%_UI_HyContextInformationEditor_label"
             icon="icons/full/obj16/HyContextInformationModelFile.gif"
             extensions="dwcontextinformation"
-            class="eu.hyvar.context.presentation.HyContextInformationEditor"
-            contributorClass="eu.hyvar.context.presentation.HyContextInformationActionBarContributor">
+            class="eu.hyvar.context.presentation.DwCustomizedContextInformationEditor">
       </editor>
    </extension>
 
