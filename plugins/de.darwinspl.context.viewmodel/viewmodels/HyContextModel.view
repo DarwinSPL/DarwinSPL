@@ -1,19 +1,21 @@
 <?xml version="1.0" encoding="ASCII"?>
-<org.eclipse.emf.ecp.view.model:View xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:org.eclipse.emf.ecp.view.model="http://org/eclipse/emf/ecp/view/model/170" xmlns:org.eclipse.emf.ecp.view.vertical.model="http://org/eclipse/emf/ecp/view/vertical/model" xmi:id="_zgXx4F89Eei3NKe7byjGYw" name="HyContextModel" ecorePath="/eu.hyvar.context.information/model/ContextInformation.ecore">
+<org.eclipse.emf.ecp.view.model:View xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:org.eclipse.emf.ecp.view.horizontal.model="http://org/eclipse/emf/ecp/view/horizontal/model" xmlns:org.eclipse.emf.ecp.view.model="http://org/eclipse/emf/ecp/view/model/170" xmlns:org.eclipse.emf.ecp.view.vertical.model="http://org/eclipse/emf/ecp/view/vertical/model" xmi:id="_zgXx4F89Eei3NKe7byjGYw" name="HyContextModel" ecorePath="/eu.hyvar.context.information/model/ContextInformation.ecore">
   <rootEClass href="http://hyvar-project.eu/feature/context/1.0#//HyContextModel"/>
   <children xsi:type="org.eclipse.emf.ecp.view.vertical.model:VerticalLayout" xmi:id="_WyvogGDtEeiHhvDgu3y1jg">
-    <children xsi:type="org.eclipse.emf.ecp.view.model:Control" xmi:id="_rjM_oGQiEeiYqpKivcXb8g">
-      <domainModelReference xsi:type="org.eclipse.emf.ecp.view.model:FeaturePathDomainModelReference" xmi:id="_tH00EGQiEeiYqpKivcXb8g">
-        <domainModelEFeature xsi:type="ecore:EReference" href="http://hyvar-project.eu/feature/context/1.0#//HyContextModel/contextualInformations"/>
-      </domainModelReference>
+    <children xsi:type="org.eclipse.emf.ecp.view.horizontal.model:HorizontalLayout" xmi:id="_vV2GoGQpEeiYqpKivcXb8g">
+      <children xsi:type="org.eclipse.emf.ecp.view.model:Control" xmi:id="_o6aCUGQrEeiYqpKivcXb8g">
+        <domainModelReference xsi:type="org.eclipse.emf.ecp.view.model:FeaturePathDomainModelReference" xmi:id="_qUHAMGQrEeiYqpKivcXb8g">
+          <domainModelEFeature xsi:type="ecore:EReference" href="http://hyvar-project.eu/feature/context/1.0#//HyContextModel/contextualInformations"/>
+        </domainModelReference>
+      </children>
+      <children xsi:type="org.eclipse.emf.ecp.view.model:Control" xmi:id="_r8DgUGQpEeiYqpKivcXb8g">
+        <domainModelReference xsi:type="org.eclipse.emf.ecp.view.model:FeaturePathDomainModelReference" xmi:id="_tt6fgGQpEeiYqpKivcXb8g">
+          <domainModelEFeature xsi:type="ecore:EReference" href="http://hyvar-project.eu/feature/context/1.0#//HyContextModel/enums"/>
+        </domainModelReference>
+      </children>
     </children>
-    <children xsi:type="org.eclipse.emf.ecp.view.model:Control" xmi:id="_t8l44GQiEeiYqpKivcXb8g">
-      <domainModelReference xsi:type="org.eclipse.emf.ecp.view.model:FeaturePathDomainModelReference" xmi:id="_vMc-QGQiEeiYqpKivcXb8g">
-        <domainModelEFeature xsi:type="ecore:EReference" href="http://hyvar-project.eu/feature/context/1.0#//HyContextModel/enums"/>
-      </domainModelReference>
-    </children>
-    <children xsi:type="org.eclipse.emf.ecp.view.model:Control" xmi:id="_vfnK0GQiEeiYqpKivcXb8g">
-      <domainModelReference xsi:type="org.eclipse.emf.ecp.view.model:FeaturePathDomainModelReference" xmi:id="_wadCcGQiEeiYqpKivcXb8g">
+    <children xsi:type="org.eclipse.emf.ecp.view.model:Control" xmi:id="_sLPy4GQpEeiYqpKivcXb8g">
+      <domainModelReference xsi:type="org.eclipse.emf.ecp.view.model:FeaturePathDomainModelReference" xmi:id="_1-ZH8GQpEeiYqpKivcXb8g">
         <domainModelEFeature xsi:type="ecore:EReference" href="http://hyvar-project.eu/feature/context/1.0#//HyContextModel/extends"/>
       </domainModelReference>
     </children>

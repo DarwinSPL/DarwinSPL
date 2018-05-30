@@ -1,6 +1,8 @@
 package eu.hyvar.context.presentation;
 
 import java.io.IOException;
+import java.util.EventObject;
+import java.util.Iterator;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.ResourcesPlugin;
@@ -11,6 +13,7 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.ui.IActionBars;
 import org.eclipse.ui.IEditorInput;
+import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.IEditorSite;
 import org.eclipse.ui.IFileEditorInput;
 import org.eclipse.ui.PartInitException;
@@ -21,6 +24,7 @@ import org.eclipse.ui.part.FileEditorInput;
 import eu.hyvar.context.util.HyContextInformationAdapterFactory;
 
 import org.eclipse.emf.common.command.BasicCommandStack;
+import org.eclipse.emf.common.command.CommandStackListener;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
@@ -46,6 +50,8 @@ public class DwCustomizedContextInformationEditor extends EditorPart {
 	public void doSave(IProgressMonitor monitor) {
 		try {
 			resource.save(null);
+			((BasicCommandStack)editingDomain.getCommandStack()).saveIsDone();
+			firePropertyChange(IEditorPart.PROP_DIRTY);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -80,7 +86,7 @@ public class DwCustomizedContextInformationEditor extends EditorPart {
 		setSite(site);
 		setInput(input);
 		setPartName(input.getName());
-		if(input instanceof IFileEditorInput) {
+		if (input instanceof IFileEditorInput) {
 			IFileEditorInput fileInput = (IFileEditorInput) input;
 			IFile file = fileInput.getFile();
 			try {
@@ -90,11 +96,20 @@ public class DwCustomizedContextInformationEditor extends EditorPart {
 			}
 		}
 
+		editingDomain.getCommandStack().addCommandStackListener(new CommandStackListener() {
+			public void commandStackChanged(final EventObject event) {
+				getSite().getShell().getDisplay().asyncExec(new Runnable() {
+					public void run() {
+						firePropertyChange(IEditorPart.PROP_DIRTY);
+					}
+				});
+			}
+		});
 	}
 
 	@Override
 	public boolean isDirty() {
-		return ((BasicCommandStack)editingDomain.getCommandStack()).isSaveNeeded();
+		return ((BasicCommandStack) editingDomain.getCommandStack()).isSaveNeeded();
 	}
 
 	@Override
@@ -111,6 +126,7 @@ public class DwCustomizedContextInformationEditor extends EditorPart {
 			content.setLayoutData(GridDataFactory.fillDefaults().create());
 			EObject eObject = resource.getContents().get(0);
 			ECPSWTViewRenderer.INSTANCE.render(content, eObject);
+
 		} catch (ECPRendererException e) {
 			e.printStackTrace();
 		}
@@ -119,11 +135,11 @@ public class DwCustomizedContextInformationEditor extends EditorPart {
 	}
 
 	protected void loadContent(IFile file) throws IOException {
-		editingDomain = new AdapterFactoryEditingDomain(new HyContextInformationAdapterFactory(), new BasicCommandStack());
+		editingDomain = new AdapterFactoryEditingDomain(new HyContextInformationAdapterFactory(),
+				new BasicCommandStack());
 		resource = editingDomain.createResource(file.getFullPath().toString());
 		resource.load(null);
 	}
-
 
 	@Override
 	public void setFocus() {
@@ -136,7 +152,7 @@ public class DwCustomizedContextInformationEditor extends EditorPart {
 	}
 
 	public EditingDomainActionBarContributor getActionBarContributor() {
-		return (EditingDomainActionBarContributor)getEditorSite().getActionBarContributor();
+		return (EditingDomainActionBarContributor) getEditorSite().getActionBarContributor();
 	}
 
 }
