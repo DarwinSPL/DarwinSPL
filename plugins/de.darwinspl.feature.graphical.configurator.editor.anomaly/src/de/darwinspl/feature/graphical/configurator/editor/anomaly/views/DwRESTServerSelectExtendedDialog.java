@@ -112,160 +112,195 @@ public class DwRESTServerSelectExtendedDialog extends DwRESTServerSelectDialog {
 		Text validSince = new Text(buttonContainer, SWT.READ_ONLY);
 		if (startDate != null) {
 
-			validSince.setText(getDateFormatted(startDate, "yyy-MM-dd"));
+			validSince.setText(getDateFormatted(startDate, "yyyy-MM-dd"));
 		} else {
 			validSince.setText("Select Date");
+
+			buttonSince.addSelectionListener(new SelectionListener() {
+
+				@Override
+				public void widgetSelected(SelectionEvent e) {
+					DwDateDialog dialog = new DwDateDialog(getShell(), convertStringToDate(validSince.getText()));
+					dialog.open();
+					if (dialog.getReturnCode() == OK) {
+						Date value = dialog.getValue();
+
+						validSince.setText(getDateFormatted(value, "yyyy-MM-dd"));
+						startDate = value;
+					}
+
+				}
+
+				@Override
+				public void widgetDefaultSelected(SelectionEvent e) {
+					// TODO Auto-generated method stub
+
+				}
+
+			});
+
+			Button buttonUntil = new Button(buttonContainer, SWT.PUSH);
+			buttonUntil.setText("To: ");
+			buttonUntil.setEnabled(b2.getSelection());
+
+			Text validUntil = new Text(buttonContainer, SWT.READ_ONLY);
+			if (endDate != null) {
+				validUntil.setText(getDateFormatted(endDate, "yyyy-MM-dd"));
+			} else {
+				validUntil.setText("Select Date");
+			}
+
+			// buttonUntil.setLayoutData(new RowData(100, 35));
+			buttonUntil.addSelectionListener(new SelectionListener() {
+
+				@Override
+				public void widgetSelected(SelectionEvent e) {
+
+					DwDateDialog dialog = new DwDateDialog(getShell(), convertStringToDate(validUntil.getText()));
+					dialog.open();
+					if (dialog.getReturnCode() == OK) {
+						Date value = dialog.getValue();
+
+						validUntil.setText(getDateFormatted(value, "yyyy-MM-dd"));
+						endDate = value;
+					}
+				}
+
+				@Override
+				public void widgetDefaultSelected(SelectionEvent e) {
+					// TODO Auto-generated method stub
+
+				}
+
+			});
+
+			// Button buttonUntil = new Button(buttonContainer, SWT.PUSH);
+			// buttonUntil.setText("To: ");
+			// buttonUntil.setEnabled(b2.getSelection());
+			//
+			// Text validUntil = new Text(buttonContainer, SWT.READ_ONLY);
+			// if (endDate != null) {
+			// validUntil.setText(getDateFormatted(endDate, "yyy-MM-dd"));
+			// } else {
+			// validUntil.setText("Select Date");
+			// }
+
+			// buttonUntil.setLayoutData(new RowData(100, 35));
+			buttonUntil.addSelectionListener(new SelectionListener() {
+
+				@Override
+				public void widgetSelected(SelectionEvent e) {
+
+					DwDateDialog dialog = new DwDateDialog(getShell(), convertStringToDate(validUntil.getText()));
+					dialog.open();
+					if (dialog.getReturnCode() == OK) {
+						Date value = dialog.getValue();
+
+						validUntil.setText(getDateFormatted(value, "yyy-MM-dd"));
+						endDate = value;
+					}
+				}
+
+				@Override
+				public void widgetDefaultSelected(SelectionEvent e) {
+					// TODO Auto-generated method stub
+
+				}
+
+			});
+
+			if (evolutionAwareAnalysisType.equals(TypeOfEvolutionAwareAnalysis.COMPLETE_HISTORY)) {
+				b1.setSelection(true);
+				b2.setSelection(false);
+
+			} else {
+				b1.setSelection(false);
+				b2.setSelection(true);
+				buttonSince.setEnabled(true);
+				buttonUntil.setEnabled(true);
+
+			}
+
+			evolutionAwareCheckBox.addSelectionListener(new SelectionListener() {
+
+				@Override
+				public void widgetSelected(SelectionEvent e) {
+					Button source = (Button) e.getSource();
+					Boolean selection = source.getSelection();
+					b1.setEnabled(selection);
+					b2.setEnabled(selection);
+					isEvolutionAwareAnalysis = selection;
+
+					if (selection) {
+						buttonSince.setEnabled(b2.getSelection());
+						buttonUntil.setEnabled(b2.getSelection());
+
+					} else {
+						buttonSince.setEnabled(false);
+						buttonUntil.setEnabled(false);
+					}
+
+				}
+
+				@Override
+				public void widgetDefaultSelected(SelectionEvent e) {
+
+				}
+			});
+
+			b1.addSelectionListener(new SelectionListener() {
+
+				@Override
+				public void widgetSelected(SelectionEvent e) {
+					Button source = (Button) e.getSource();
+					if (source.getSelection()) {
+						evolutionAwareAnalysisType = TypeOfEvolutionAwareAnalysis.COMPLETE_HISTORY;
+
+						buttonSince.setEnabled(false);
+						buttonUntil.setEnabled(false);
+					}
+
+				}
+
+				@Override
+				public void widgetDefaultSelected(SelectionEvent e) {
+					// TODO Auto-generated method stub
+
+				}
+			});
+
+			b2.addSelectionListener(new SelectionListener() {
+
+				@Override
+				public void widgetSelected(SelectionEvent e) {
+					Button source = (Button) e.getSource();
+					if (source.getSelection()) {
+						evolutionAwareAnalysisType = TypeOfEvolutionAwareAnalysis.TIME_SPAN;
+
+						buttonSince.setEnabled(true);
+						buttonUntil.setEnabled(true);
+
+					}
+
+				}
+
+				@Override
+				public void widgetDefaultSelected(SelectionEvent e) {
+					// TODO Auto-generated method stub
+
+				}
+			});
+
 		}
-
-		// buttonSince.setLayoutData(new RowData(100, 35));
-		buttonSince.addSelectionListener(new SelectionListener() {
-
-			@Override
-			public void widgetSelected(SelectionEvent e) {
-				DwDateDialog dialog = new DwDateDialog(getShell(), convertStringToDate(validSince.getText()));
-				dialog.open();
-				if (dialog.getReturnCode() == OK) {
-					Date value = dialog.getValue();
-
-					validSince.setText(getDateFormatted(value, "yyy-MM-dd"));
-					startDate = value;
-				}
-
-			}
-
-			@Override
-			public void widgetDefaultSelected(SelectionEvent e) {
-				// TODO Auto-generated method stub
-
-			}
-
-		});
-
-		Button buttonUntil = new Button(buttonContainer, SWT.PUSH);
-		buttonUntil.setText("To: ");
-		buttonUntil.setEnabled(b2.getSelection());
-
-		Text validUntil = new Text(buttonContainer, SWT.READ_ONLY);
-		if (endDate != null) {
-			validUntil.setText(getDateFormatted(endDate, "yyy-MM-dd"));
-		} else {
-			validUntil.setText("Select Date");
-		}
-
-		// buttonUntil.setLayoutData(new RowData(100, 35));
-		buttonUntil.addSelectionListener(new SelectionListener() {
-
-			@Override
-			public void widgetSelected(SelectionEvent e) {
-
-				DwDateDialog dialog = new DwDateDialog(getShell(), convertStringToDate(validUntil.getText()));
-				dialog.open();
-				if (dialog.getReturnCode() == OK) {
-					Date value = dialog.getValue();
-
-					validUntil.setText(getDateFormatted(value, "yyy-MM-dd"));
-					endDate = value;
-				}
-			}
-
-			@Override
-			public void widgetDefaultSelected(SelectionEvent e) {
-				// TODO Auto-generated method stub
-
-			}
-
-		});
-
-		if (evolutionAwareAnalysisType.equals(TypeOfEvolutionAwareAnalysis.COMPLETE_HISTORY)) {
-			b1.setSelection(true);
-			b2.setSelection(false);
-
-		} else {
-			b1.setSelection(false);
-			b2.setSelection(true);
-			buttonSince.setEnabled(true);
-			buttonUntil.setEnabled(true);
-
-		}
-
-		evolutionAwareCheckBox.addSelectionListener(new SelectionListener() {
-
-			@Override
-			public void widgetSelected(SelectionEvent e) {
-				Button source = (Button) e.getSource();
-				Boolean selection = source.getSelection();
-				b1.setEnabled(selection);
-				b2.setEnabled(selection);
-
-				if (selection) {
-					buttonSince.setEnabled(b2.getSelection());
-					buttonUntil.setEnabled(b2.getSelection());
-
-				} else {
-					buttonSince.setEnabled(false);
-					buttonUntil.setEnabled(false);
-				}
-
-			}
-
-			@Override
-			public void widgetDefaultSelected(SelectionEvent e) {
-
-			}
-		});
-
-		b1.addSelectionListener(new SelectionListener() {
-
-			@Override
-			public void widgetSelected(SelectionEvent e) {
-				Button source = (Button) e.getSource();
-				if (source.getSelection()) {
-					evolutionAwareAnalysisType = TypeOfEvolutionAwareAnalysis.COMPLETE_HISTORY;
-
-					buttonSince.setEnabled(false);
-					buttonUntil.setEnabled(false);
-				}
-
-			}
-
-			@Override
-			public void widgetDefaultSelected(SelectionEvent e) {
-				// TODO Auto-generated method stub
-
-			}
-		});
-
-		b2.addSelectionListener(new SelectionListener() {
-
-			@Override
-			public void widgetSelected(SelectionEvent e) {
-				Button source = (Button) e.getSource();
-				if (source.getSelection()) {
-					evolutionAwareAnalysisType = TypeOfEvolutionAwareAnalysis.TIME_SPAN;
-
-					buttonSince.setEnabled(true);
-					buttonUntil.setEnabled(true);
-
-				}
-
-			}
-
-			@Override
-			public void widgetDefaultSelected(SelectionEvent e) {
-				// TODO Auto-generated method stub
-
-			}
-		});
 
 		return container;
-
 	}
 
 	protected Date convertStringToDate(String text) {
 		if (text == null || text.isEmpty() || text.equals("Read Only"))
 			return null;
 
-		DateFormat dateFormat = new SimpleDateFormat("yyy-MM-dd", Locale.ENGLISH);
+		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH);
 		try {
 			return dateFormat.parse(text);
 		} catch (ParseException ex) {

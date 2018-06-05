@@ -9,21 +9,20 @@ import org.eclipse.emf.ecore.EObject;
 
 import eu.hyvar.feature.constraint.HyConstraint;
 import eu.hyvar.feature.constraint.HyConstraintModel;
-import eu.hyvar.feature.expression.util.HyExpressionStringExporter;
 import eu.hyvar.reconfigurator.input.format.Context;
 
 /**
  * 
- * @author Felix Franzke
+ * @author Michael Nieke, Felix Franzke
  *
  */
 public class DwConstraintExporter {
 
-	private HyExpressionStringExporter expressionExporter;
+	private DwExpressionExporter expressionExporter;
 	
 	private Map<String, EObject> translationMapping;
 	
-	public DwConstraintExporter(HyExpressionStringExporter expressionExporter, Map<String, EObject> translationMapping) {
+	public DwConstraintExporter(DwExpressionExporter expressionExporter, Map<String, EObject> translationMapping) {
 		this.expressionExporter = expressionExporter;
 		
 		this.translationMapping = translationMapping;

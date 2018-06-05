@@ -15,8 +15,9 @@ public class DwVersionDirectEditPolicy extends DirectEditPolicy {
 	@Override
 	protected Command getDirectEditCommand(DirectEditRequest request) {
 		DwVersionEditPart editPart = (DwVersionEditPart)getHost();
-		DwVersionRenameCommand command = new DwVersionRenameCommand((HyVersion)editPart.getModel(), (DwGraphicalFeatureModelViewer)editPart.getModel());
+		DwVersionRenameCommand command = new DwVersionRenameCommand((HyVersion)editPart.getModel(), (DwGraphicalFeatureModelViewer)editPart.getEditor());
 		command.setNewNumber((String)request.getCellEditor().getValue());
+		
 		
 		return command;
 	}
@@ -27,4 +28,5 @@ public class DwVersionDirectEditPolicy extends DirectEditPolicy {
 		DwVersionFigure figure = (DwVersionFigure)getHostFigure();
 		figure.getLabel().setText(value);
 	}
+	
 }
