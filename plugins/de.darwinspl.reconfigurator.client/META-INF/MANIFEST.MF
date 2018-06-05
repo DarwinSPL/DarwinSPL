@@ -24,4 +24,5 @@ Require-Bundle: com.google.gson,
  eu.hyvar.feature
 Bundle-ClassPath: .,
  libs/jetty-client-9.4.8.v20171121.jar
-Export-Package: de.darwinspl.reconfigurator.client.hyvarrec
+Export-Package: de.darwinspl.reconfigurator.client.hyvarrec,
+ de.darwinspl.reconfigurator.client.hyvarrec.format

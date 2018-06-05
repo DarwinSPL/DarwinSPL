@@ -103,7 +103,7 @@ public class DwAnalysesClient {
 	
 	
 	
-	protected URI createUriWithPath(String originalUri, String processAddress) {
+	public static URI createUriWithPath(String originalUri, String processAddress) {
 		if(!originalUri.endsWith("/")) {
 			originalUri = originalUri + "/";
 		}
@@ -528,7 +528,7 @@ public class DwAnalysesClient {
 		return sortedDateList.get(valueForDateContext);
 	}
 	
-	protected String sendMessageToHyVarRec(String message, URI uri, String username, String password) throws UnresolvedAddressException, ExecutionException, InterruptedException, TimeoutException {
+	public String sendMessageToHyVarRec(String message, URI uri, String username, String password) throws UnresolvedAddressException, ExecutionException, InterruptedException, TimeoutException {
 		
 		HttpClient hyvarrecClient = new HttpClient(new SslContextFactory(true));
 		
