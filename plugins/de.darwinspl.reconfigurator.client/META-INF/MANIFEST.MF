@@ -23,5 +23,5 @@ Require-Bundle: com.google.gson,
  org.eclipse.emf.ecore,
  eu.hyvar.feature
 Bundle-ClassPath: .,
- libs/org.eclipse.jetty.client_9.3.9.v20160517.jar
+ libs/jetty-client-9.4.8.v20171121.jar
 Export-Package: de.darwinspl.reconfigurator.client.hyvarrec

@@ -4,7 +4,6 @@ import java.net.URI;
 import java.nio.channels.UnresolvedAddressException;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Collections;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.HashMap;
@@ -178,13 +177,14 @@ public class DwAnalysesClient {
 			}
 			// If dates is empty, null can be used, as the exporter won't use evolution-encoding since no evolution exists.
 			if(!dates.isEmpty()) {
-				Collections.sort(dates);
+//				Collections.sort(dates);
 				// select a date before the first evolution step, as there is the cause.
-				date = dates.get(0);
-				Calendar calendar = Calendar.getInstance();
-				calendar.setTime(date);
-				calendar.add(Calendar.DAY_OF_MONTH, -1);
-				date = calendar.getTime();
+//				date = dates.get(0);
+//				Calendar calendar = Calendar.getInstance();
+//				calendar.setTime(date);
+//				calendar.add(Calendar.DAY_OF_MONTH, -1);
+//				date = calendar.getTime();
+				date = anomaly.getValidSince();
 			}			
 		}
 		
@@ -224,7 +224,7 @@ public class DwAnalysesClient {
 
 			// run EvolutionOperationAnalyzer
 			if (evolutionOperationAnalyzer == null) { // only override if not actually given.
-				evolutionOperationAnalyzer = new DwEvolutionOperationAnalyzer(this);
+				evolutionOperationAnalyzer = new DwEvolutionOperationAnalyzer(exporter);
 			}
 			evolutionOperationAnalyzer.setContextModel(contextModel);
 			evolutionOperationAnalyzer.setContextValidityModel(contextValidityModel);
@@ -274,7 +274,7 @@ public class DwAnalysesClient {
 		return anomalies;
 	}
 	
-	protected List<String> translateIdsBackToNames(List<String> constraints, Date date, HyVarRecExporter hyVarRecExporter) {
+	public static List<String> translateIdsBackToNames(List<String> constraints, Date date, HyVarRecExporter hyVarRecExporter) {
 		if(hyVarRecExporter == null || constraints == null) {
 			return null;
 		}
@@ -617,5 +617,9 @@ public class DwAnalysesClient {
 		}
 		
 		
+	}
+	
+	public HyVarRecExporter getExporter () {
+		return exporter;
 	}
 }

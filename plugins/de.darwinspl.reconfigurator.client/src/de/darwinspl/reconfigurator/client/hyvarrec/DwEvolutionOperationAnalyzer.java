@@ -19,10 +19,8 @@ import de.darwinspl.feature.evolution.evolutionoperation.DwEvolutionOperationAtt
 import de.darwinspl.feature.evolution.evolutionoperation.DwEvolutionOperationAttributeRename;
 import de.darwinspl.feature.evolution.evolutionoperation.DwEvolutionOperationConstraint;
 import de.darwinspl.feature.evolution.evolutionoperation.DwEvolutionOperationConstraintCreate;
-import de.darwinspl.feature.evolution.evolutionoperation.DwEvolutionOperationConstraintDelete;
 import de.darwinspl.feature.evolution.evolutionoperation.DwEvolutionOperationContext;
 import de.darwinspl.feature.evolution.evolutionoperation.DwEvolutionOperationEnum;
-import de.darwinspl.feature.evolution.evolutionoperation.DwEvolutionOperationEnumCreate;
 import de.darwinspl.feature.evolution.evolutionoperation.DwEvolutionOperationEnumLiteral;
 import de.darwinspl.feature.evolution.evolutionoperation.DwEvolutionOperationEnumLiteralCreate;
 import de.darwinspl.feature.evolution.evolutionoperation.DwEvolutionOperationFeature;
@@ -33,7 +31,6 @@ import de.darwinspl.feature.evolution.evolutionoperation.DwEvolutionOperationFea
 import de.darwinspl.feature.evolution.evolutionoperation.DwEvolutionOperationGroupType;
 import de.darwinspl.feature.evolution.evolutionoperation.DwEvolutionOperationValidityFormula;
 import de.darwinspl.feature.evolution.evolutionoperation.DwEvolutionOperationValidityFormulaCreate;
-import de.darwinspl.feature.evolution.evolutionoperation.DwEvolutionOperationValidityFormulaDelete;
 import de.darwinspl.feature.evolution.evolutionoperation.EvolutionOperationExplanation;
 import de.darwinspl.feature.evolution.evolutionoperation.EvolutionoperationFactory;
 import eu.hyvar.context.HyContextModel;
@@ -51,11 +48,9 @@ import eu.hyvar.feature.HyFeatureAttribute;
 import eu.hyvar.feature.HyFeatureChild;
 import eu.hyvar.feature.HyFeatureModel;
 import eu.hyvar.feature.HyFeatureType;
-import eu.hyvar.feature.HyFeatureTypeEnum;
 import eu.hyvar.feature.HyGroup;
 import eu.hyvar.feature.HyGroupComposition;
 import eu.hyvar.feature.HyGroupType;
-import eu.hyvar.feature.HyGroupTypeEnum;
 import eu.hyvar.feature.HyVersion;
 import eu.hyvar.feature.constraint.HyConstraint;
 import eu.hyvar.feature.constraint.HyConstraintModel;
@@ -65,6 +60,7 @@ import eu.hyvar.feature.expression.HyContextInformationReferenceExpression;
 import eu.hyvar.feature.expression.HyExpression;
 import eu.hyvar.feature.expression.HyValueExpression;
 import eu.hyvar.feature.util.HyFeatureEvolutionUtil;
+import eu.hyvar.reconfigurator.input.exporter.HyVarRecExporter;
 
 /**
  * @author Felix Franzke
@@ -81,10 +77,10 @@ public class DwEvolutionOperationAnalyzer {
 	List<HyFeature> deadFeatureList = new ArrayList<HyFeature>();
 	List<HyFeature> falseOptionalList = new ArrayList<HyFeature>();
 	
-	private DwAnalysesClient client;
+	protected HyVarRecExporter exporter;	
 	
-	public DwEvolutionOperationAnalyzer(DwAnalysesClient client) {
-		this.client = client;
+	public DwEvolutionOperationAnalyzer(HyVarRecExporter usedExporter) {
+		this.exporter = usedExporter;
 	}
 	
 	public void constructEvolutionOperations() {
@@ -391,7 +387,7 @@ public class DwEvolutionOperationAnalyzer {
 	
 	protected List<AnomalyConstraintExplanation> getRelatedEvolutionOperationsFromExplanation(DwAnomalyExplanation anomalyExplanation) {
 
-		Map<String, EObject> translationMapping = client.exporter.getTranslationMapping();
+		Map<String, EObject> translationMapping = exporter.getTranslationMapping();
 
 		// use only those translationmappings that are actually explanations.
 		translationMapping.keySet().retainAll(anomalyExplanation.getExplanations());
@@ -620,7 +616,7 @@ public class DwEvolutionOperationAnalyzer {
 	public String resolveFeatureNames(String encodedString, Date date) {
 		List<String> list = new ArrayList<String>();
 		list.add(encodedString);
-		list = client.translateIdsBackToNames(list, date, client.exporter);
+		list = DwAnalysesClient.translateIdsBackToNames(list, date, exporter);
 		return list.get(0);
 	}
 	
