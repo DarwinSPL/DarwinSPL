@@ -632,7 +632,7 @@ public class DwFeatureModelConfiguratorEditor extends DwFeatureModelConfigurator
 					
 					// TODO show anomalies in an extra view and allow their explanation
 
-					DwEvolutionOperationAnalyzer evolutionOperationAnalyzer = new DwEvolutionOperationAnalyzer(client);
+					DwEvolutionOperationAnalyzer evolutionOperationAnalyzer = new DwEvolutionOperationAnalyzer(client.getExporter());
 					evolutionOperationAnalyzer.setFeatureAnomalies(anomalies);
 					
 					for (DwAnomaly anomaly : anomalies) {

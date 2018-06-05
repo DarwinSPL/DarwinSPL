@@ -79,8 +79,16 @@ public class DwEvolutionOperationAnalyzer {
 	
 	protected HyVarRecExporter exporter;	
 	
+	public void setExporter(HyVarRecExporter exporter) {
+		this.exporter = exporter;
+	}
+	
+	public HyVarRecExporter getExporter() {
+		return exporter;
+	}
+	
 	public DwEvolutionOperationAnalyzer(HyVarRecExporter usedExporter) {
-		this.exporter = usedExporter;
+		setExporter(usedExporter);
 	}
 	
 	public void constructEvolutionOperations() {

@@ -212,7 +212,7 @@ public class DwAnalysesClient {
 			anomalyExplanation.setAnomaly(anomaly);
 			anomalyExplanation.setDate(anomaly.getValidSince());
 			
-			List<String> parsedConstraints = translateIdsBackToNames(hyVarRecAnswer.getConstraints(), anomaly.getValidSince(), exporter);
+			List<String> parsedConstraints = translateIdsBackToNames(hyVarRecAnswer.getConstraints(), anomaly.getValidSince(), getExporter());
 			
 			if(parsedConstraints == null) {
 				parsedConstraints = hyVarRecAnswer.getConstraints();
@@ -224,7 +224,10 @@ public class DwAnalysesClient {
 
 			// run EvolutionOperationAnalyzer
 			if (evolutionOperationAnalyzer == null) { // only override if not actually given.
-				evolutionOperationAnalyzer = new DwEvolutionOperationAnalyzer(exporter);
+				evolutionOperationAnalyzer = new DwEvolutionOperationAnalyzer(getExporter());
+			}
+			else {
+				evolutionOperationAnalyzer.setExporter(getExporter());
 			}
 			evolutionOperationAnalyzer.setContextModel(contextModel);
 			evolutionOperationAnalyzer.setContextValidityModel(contextValidityModel);

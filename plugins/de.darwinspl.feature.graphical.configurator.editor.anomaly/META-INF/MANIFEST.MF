@@ -29,5 +29,6 @@ Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.emf.edit;bundle-version="2.10.1",
  org.eclipse.ui.editors;bundle-version="3.9.0",
  de.darwinspl.feature.graphical.configurator.editor,
- de.darwinspl.common.eclipse.ui
+ de.darwinspl.common.eclipse.ui,
+ eu.hyvar.reconfigurator.input
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8

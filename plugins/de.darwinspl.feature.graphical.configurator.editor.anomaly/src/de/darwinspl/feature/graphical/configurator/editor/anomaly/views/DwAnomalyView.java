@@ -67,6 +67,7 @@ import eu.hyvar.context.information.contextValue.HyContextValueModel;
 import eu.hyvar.context.information.util.HyContextInformationUtil;
 import eu.hyvar.feature.constraint.HyConstraintModel;
 import eu.hyvar.feature.constraint.util.HyConstraintUtil;
+import eu.hyvar.reconfigurator.input.exporter.HyVarRecExporter;
 
 /**
  * 
@@ -208,7 +209,7 @@ public class DwAnomalyView extends ViewPart {
 
 			List<DwAnomaly> anomalies = analysesClient.checkFeatures(getURI(), username, password, contextModel, validityModel, modelWrapped.getModel(), constraintModel, null, null);
 			
-			DwEvolutionOperationAnalyzer evolutionOperationAnalyzer = new DwEvolutionOperationAnalyzer(analysesClient);
+			DwEvolutionOperationAnalyzer evolutionOperationAnalyzer = new DwEvolutionOperationAnalyzer(analysesClient.getExporter());
 			evolutionOperationAnalyzer.setFeatureAnomalies(anomalies);
 			
 			anomalyExplanation = analysesClient.explainAnomaly(getURI(), username, password, contextModel, validityModel,
