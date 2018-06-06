@@ -105,15 +105,27 @@ public class DwFeatureModelEvolutionImporter {
 	protected void addFeatureToGroup(HyFeature featureToBeAdded, HyGroupComposition oldGroupComposition, HyGroup targetGroup, HyFeature newParentFeature, HyGroupTypeEnum groupTypeEnum, HyFeatureModel mergedFeatureModel, Date date) {
 		if (targetGroup != null) {
 			// Add feature to best matching alternative group
+			HyGroupComposition newGroupComposition;
+			
+			
 			HyGroupComposition oldGroupCompositionOfTargetGroup = HyEvolutionUtil
 					.getValidTemporalElement(targetGroup.getParentOf(), date);
-			oldGroupCompositionOfTargetGroup.setValidUntil(date);
-
-			HyGroupComposition newGroupComposition = HyFeatureFactory.eINSTANCE.createHyGroupComposition();
-			newGroupComposition.setValidSince(date);
-			targetGroup.getParentOf().add(newGroupComposition);
-
-			newGroupComposition.getFeatures().addAll(oldGroupCompositionOfTargetGroup.getFeatures());
+			
+			// Prevents the creation of a new group composition for each new feature that is added.
+			if(oldGroupCompositionOfTargetGroup.getValidSince().equals(date)) {
+				newGroupComposition = oldGroupCompositionOfTargetGroup;
+			}
+			else {
+				oldGroupCompositionOfTargetGroup.setValidUntil(date);
+				
+				
+				newGroupComposition = HyFeatureFactory.eINSTANCE.createHyGroupComposition();
+				newGroupComposition.setValidSince(date);
+				targetGroup.getParentOf().add(newGroupComposition);
+				
+				newGroupComposition.getFeatures().addAll(oldGroupCompositionOfTargetGroup.getFeatures());				
+			}
+				
 				
 			newGroupComposition.getFeatures().add(featureToBeAdded);
 		} else {
