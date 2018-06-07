@@ -1,6 +1,7 @@
 package de.darwinspl.feature.graphical.configurator.dialogs;
 
 import java.util.List;
+import java.util.Set;
 
 import org.eclipse.jface.dialogs.IDialogConstants;
 import org.eclipse.jface.dialogs.IMessageProvider;
@@ -25,7 +26,6 @@ import de.darwinspl.anomaly.DwDeadFeatureAnomaly;
 import de.darwinspl.anomaly.DwFalseOptionalFeatureAnomaly;
 import de.darwinspl.anomaly.DwVoidFeatureModelAnomaly;
 import eu.hyvar.evolution.util.HyEvolutionUtil;
-import eu.hyvar.feature.util.HyFeatureEvolutionUtil;
 
 /**
  * 
@@ -35,18 +35,18 @@ import eu.hyvar.feature.util.HyFeatureEvolutionUtil;
 public class DwAnomalyExplanationDialog extends TitleAreaDialog {
 
 	private DwAnomaly anomaly;
-	private List<AnomalyConstraintExplanation> anomalyExplanation;
+	private Set<AnomalyConstraintExplanation> anomalyExplanation;
 	private static final String TITLE_NO_ANOMALY = "No anomaly detected. Model is valid.";
 	private String TITLE_ANOMALY_EXPLANATION = "Explanation for anomaly";
 	
 	private static final String MESSAGE_NO_ANOMALY = "HyVarRec could not find any anomaly. Thus, there is no explanation.";
 	private static final String MESSAGE_ANOMALY_EXPLANATION = "HyVarRec found an anomaly. The explanation is given as the list of anomaly causing constraints below.";
 	
-	public DwAnomalyExplanationDialog(Shell parentShell, DwAnomaly anomaly, List<AnomalyConstraintExplanation> anomalyExplanationList) {
+	public DwAnomalyExplanationDialog(Shell parentShell, DwAnomaly anomaly, Set<AnomalyConstraintExplanation> anomalyExplanationSet) {
 		super(parentShell);
 		
 		this.anomaly = anomaly;
-		this.anomalyExplanation = anomalyExplanationList;
+		this.anomalyExplanation = anomalyExplanationSet;
 	}
 
 
@@ -157,7 +157,7 @@ public class DwAnomalyExplanationDialog extends TitleAreaDialog {
 		return new Point(480, 340);
 	}
 	
-	public List<AnomalyConstraintExplanation> getAnomalyExplanation() {
+	public Set<AnomalyConstraintExplanation> getAnomalyExplanation() {
 		return anomalyExplanation;
 	}
 

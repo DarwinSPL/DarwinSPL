@@ -61,6 +61,9 @@ public class DwFeatureModelExporterBooleanEncoding extends DwFeatureModelExporte
 		
 		alternativeOnlyOneStringBuilder.append(HyVarRecExporter.ONE_ONLY);
 		
+		if(childrenIds.size() <= 1) {
+			System.err.println("Debug bad!");
+		}
 		for(int i = 0; i < childrenIds.size(); i++) {
 			if(i != 0) {
 				alternativeOnlyOneStringBuilder.append(", ");

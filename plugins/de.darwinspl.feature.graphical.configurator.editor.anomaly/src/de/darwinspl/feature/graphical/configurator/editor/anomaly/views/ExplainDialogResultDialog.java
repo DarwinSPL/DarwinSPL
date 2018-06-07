@@ -1,8 +1,10 @@
 package de.darwinspl.feature.graphical.configurator.editor.anomaly.views;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Set;
 
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.jface.dialogs.IDialogConstants;
@@ -16,9 +18,7 @@ import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
-import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Label;
-import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.widgets.Tree;
@@ -42,10 +42,10 @@ public class ExplainDialogResultDialog extends TitleAreaDialog {
 	Text uriText;
 
 	private final DwAnomaly anomaly;
-	private final List<AnomalyConstraintExplanation> anomalyExplanation;
+	private final Set<AnomalyConstraintExplanation> anomalyExplanation;
 
 	public ExplainDialogResultDialog(Shell parentShell, DwAnomaly anomaly,
-			List<AnomalyConstraintExplanation> anomalyExplanation) {
+			Set<AnomalyConstraintExplanation> anomalyExplanation) {
 		super(parentShell);
 		this.anomaly = anomaly;
 		this.anomalyExplanation = anomalyExplanation;
@@ -207,7 +207,10 @@ public class ExplainDialogResultDialog extends TitleAreaDialog {
 		seperatorGridData = new GridData(SWT.LEFT, SWT.TOP, true, false, 2, 1);
 		tree.setLayoutData(seperatorGridData);
 		
-		Collections.sort(anomalyExplanation, new Comparator<AnomalyConstraintExplanation>() {
+		List<AnomalyConstraintExplanation> sortedExplanationList = new ArrayList<AnomalyConstraintExplanation>(anomalyExplanation.size());
+		sortedExplanationList.addAll(anomalyExplanation);
+		
+		Collections.sort(sortedExplanationList, new Comparator<AnomalyConstraintExplanation>() {
 			@Override
 			public int compare(AnomalyConstraintExplanation obj, AnomalyConstraintExplanation other) {
 				// sort Root > Everything > HyConstraint > HyValidityFormula
@@ -242,7 +245,7 @@ public class ExplainDialogResultDialog extends TitleAreaDialog {
 			}			
 		});
 		
-		for (AnomalyConstraintExplanation explanation : anomalyExplanation) {
+		for (AnomalyConstraintExplanation explanation : sortedExplanationList) {
 			// special case: dead parent is the reason.
 			if (explanation.getAffectedObject() == null) {
 				TreeItem itemRoot = new TreeItem(tree, 0);

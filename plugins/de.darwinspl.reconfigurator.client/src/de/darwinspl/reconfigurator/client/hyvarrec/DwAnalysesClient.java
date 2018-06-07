@@ -11,6 +11,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Set;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeoutException;
 
@@ -23,7 +24,6 @@ import org.eclipse.jetty.client.util.StringContentProvider;
 import org.eclipse.jetty.http.HttpHeader;
 import org.eclipse.jetty.util.ssl.SslContextFactory;
 
-import com.google.gson.FieldNamingPolicy;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonSyntaxException;
@@ -285,7 +285,7 @@ public class DwAnalysesClient {
 	 * @throws ExecutionException
 	 * @throws UnresolvedAddressException
 	 */
-	public List<AnomalyConstraintExplanation> explainAnomaly(String uriString, String webserviceUsername, String webservicePassword, HyContextModel contextModel, HyValidityModel contextValidityModel,
+	public Set<AnomalyConstraintExplanation> explainAnomaly(String uriString, String webserviceUsername, String webservicePassword, HyContextModel contextModel, HyValidityModel contextValidityModel,
 			HyFeatureModel featureModel, HyConstraintModel constraintModel, DwAnomaly anomaly, DwEvolutionOperationAnalyzer evolutionOperationAnalyzer)
 			throws TimeoutException, InterruptedException, ExecutionException, UnresolvedAddressException {
 		
@@ -413,7 +413,7 @@ public class DwAnalysesClient {
 			evolutionOperationAnalyzer.setConstraintModel(constraintModel);
 			evolutionOperationAnalyzer.constructEvolutionOperations();
 			
-			List<AnomalyConstraintExplanation> anomalyExplanationList = evolutionOperationAnalyzer.explainAnomaly(anomalyExplanation);
+			Set<AnomalyConstraintExplanation> anomalyExplanationList = evolutionOperationAnalyzer.explainAnomaly(anomalyExplanation);
 			
 			
 			return anomalyExplanationList;

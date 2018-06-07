@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.nio.channels.UnresolvedAddressException;
 import java.util.Collections;
 import java.util.List;
-import java.util.Map;
+import java.util.Set;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeoutException;
 
@@ -61,7 +61,6 @@ import de.darwinspl.preferences.DwProfile;
 import de.darwinspl.preferences.util.custom.DwPreferenceModelUtil;
 import de.darwinspl.reconfigurator.client.hyvarrec.DwAnalysesClient;
 import de.darwinspl.reconfigurator.client.hyvarrec.DwEvolutionOperationAnalyzer;
-import de.darwinspl.reconfigurator.client.hyvarrec.DwAnalysesClient.DwContextValueEvolutionWrapper;
 import de.darwinspl.reconfigurator.client.hyvarrec.HyVarRecNoSolutionException;
 import de.darwinspl.solver.DwSolver;
 import de.darwinspl.solver.exception.DwAttributeValueOfSelectedFeatureNotSetException;
@@ -636,7 +635,7 @@ public class DwFeatureModelConfiguratorEditor extends DwFeatureModelConfigurator
 					evolutionOperationAnalyzer.setFeatureAnomalies(anomalies);
 					
 					for (DwAnomaly anomaly : anomalies) {
-						List<AnomalyConstraintExplanation> explanation = client.explainAnomaly(uri, username, password, contextModel, validityModel, modelWrapped.getModel(), constraintModel, anomaly, evolutionOperationAnalyzer);
+						Set<AnomalyConstraintExplanation> explanation = client.explainAnomaly(uri, username, password, contextModel, validityModel, modelWrapped.getModel(), constraintModel, anomaly, evolutionOperationAnalyzer);
 						DwAnomalyExplanationDialog anomalyExplanationDialog = new DwAnomalyExplanationDialog(getEditorSite().getShell(), anomaly, explanation);
 						anomalyExplanationDialog.open();	
 					}

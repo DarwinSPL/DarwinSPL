@@ -3,8 +3,10 @@ package de.darwinspl.reconfigurator.client.hyvarrec;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.eclipse.emf.common.util.TreeIterator;
 import org.eclipse.emf.ecore.EObject;
@@ -16,7 +18,6 @@ import de.darwinspl.anomaly.DwFalseOptionalFeatureAnomaly;
 import de.darwinspl.anomaly.DwVoidFeatureModelAnomaly;
 import de.darwinspl.anomaly.explanation.DwAnomalyExplanation;
 import de.darwinspl.feature.evolution.evolutionoperation.DwEvolutionOperation;
-import de.darwinspl.feature.evolution.evolutionoperation.DwEvolutionOperationAttribute;
 import de.darwinspl.feature.evolution.evolutionoperation.DwEvolutionOperationConstraint;
 import de.darwinspl.feature.evolution.evolutionoperation.DwEvolutionOperationConstraintCreate;
 import de.darwinspl.feature.evolution.evolutionoperation.DwEvolutionOperationContext;
@@ -639,7 +640,7 @@ public class DwEvolutionOperationAnalyzer {
 //		}
 	}
 
-	public List<AnomalyConstraintExplanation> explainAnomaly(DwAnomalyExplanation anomalyExplanation) {		
+	public Set<AnomalyConstraintExplanation> explainAnomaly(DwAnomalyExplanation anomalyExplanation) {		
 		if (anomalyExplanation.getAnomaly() instanceof DwVoidFeatureModelAnomaly) {
 			return explainVoidAnomaly(anomalyExplanation);
 		} else if (anomalyExplanation.getAnomaly() instanceof DwDeadFeatureAnomaly){
@@ -650,8 +651,8 @@ public class DwEvolutionOperationAnalyzer {
 		return null;
 	}
 	
-	public List<AnomalyConstraintExplanation> explainVoidAnomaly(DwAnomalyExplanation anomalyExplanation) {		
-		List<AnomalyConstraintExplanation> constraintExplanationList = getRelatedEvolutionOperationsFromExplanation(anomalyExplanation);
+	public Set<AnomalyConstraintExplanation> explainVoidAnomaly(DwAnomalyExplanation anomalyExplanation) {		
+		Set<AnomalyConstraintExplanation> constraintExplanationList = getRelatedEvolutionOperationsFromExplanation(anomalyExplanation);
 		
 		for (AnomalyConstraintExplanation explanation : constraintExplanationList) {
 			filterRelevantVoidFeatureModelEvolutionOperation(explanation);
@@ -664,11 +665,11 @@ public class DwEvolutionOperationAnalyzer {
 		return constraintExplanationList;
 	}
 
-	public List<AnomalyConstraintExplanation> explainDeadFeatureAnomaly(DwAnomalyExplanation anomalyExplanation) {
+	public Set<AnomalyConstraintExplanation> explainDeadFeatureAnomaly(DwAnomalyExplanation anomalyExplanation) {
 		DwDeadFeatureAnomaly anomaly = (DwDeadFeatureAnomaly) anomalyExplanation.getAnomaly();
 		Date date = anomaly.getValidSince();
 		
-		List<AnomalyConstraintExplanation> constraintExplanationList = new ArrayList<AnomalyConstraintExplanation>();
+		Set<AnomalyConstraintExplanation> constraintExplanationList = new HashSet<AnomalyConstraintExplanation>();
 		
 		HyFeature parent = HyFeatureEvolutionUtil.getParentFeatureOfFeature(anomaly.getFeature(), date);
 		// Root's parent would be null
@@ -699,8 +700,8 @@ public class DwEvolutionOperationAnalyzer {
 	}
 	
 
-	public List<AnomalyConstraintExplanation> explainFalseOptionalFeatureAnomaly(DwAnomalyExplanation anomalyExplanation) {		
-		List<AnomalyConstraintExplanation> constraintExplanationList = getRelatedEvolutionOperationsFromExplanation(anomalyExplanation);
+	public Set<AnomalyConstraintExplanation> explainFalseOptionalFeatureAnomaly(DwAnomalyExplanation anomalyExplanation) {		
+		Set<AnomalyConstraintExplanation> constraintExplanationList = getRelatedEvolutionOperationsFromExplanation(anomalyExplanation);
 		
 		for (AnomalyConstraintExplanation explanation : constraintExplanationList) {
 			filterRelevantFalseOptionalFeatureEvolutionOperation(explanation);
@@ -710,7 +711,7 @@ public class DwEvolutionOperationAnalyzer {
 		
 	}
 	
-	protected List<AnomalyConstraintExplanation> getRelatedEvolutionOperationsFromExplanation(DwAnomalyExplanation anomalyExplanation) {
+	protected Set<AnomalyConstraintExplanation> getRelatedEvolutionOperationsFromExplanation(DwAnomalyExplanation anomalyExplanation) {
 
 		Map<String, EObject> translationMapping = exporter.getTranslationMapping();
 
@@ -718,7 +719,7 @@ public class DwEvolutionOperationAnalyzer {
 		translationMapping.keySet().retainAll(anomalyExplanation.getExplanations());
 		
 
-		List<AnomalyConstraintExplanation> list = new ArrayList<AnomalyConstraintExplanation>();
+		Set<AnomalyConstraintExplanation> list = new HashSet<AnomalyConstraintExplanation>();
 		
 		for (String constraint : translationMapping.keySet()) {
 			// resolve ids to names

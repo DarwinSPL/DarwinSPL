@@ -8,6 +8,7 @@ import java.nio.channels.UnresolvedAddressException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeoutException;
 
@@ -49,7 +50,6 @@ import de.darwinspl.anomaly.DwAnomaly;
 import de.darwinspl.anomaly.DwDeadFeatureAnomaly;
 import de.darwinspl.anomaly.DwFalseOptionalFeatureAnomaly;
 import de.darwinspl.anomaly.DwVoidFeatureModelAnomaly;
-import de.darwinspl.anomaly.explanation.DwAnomalyExplanation;
 import de.darwinspl.feature.graphical.base.model.DwFeatureModelWrapped;
 import de.darwinspl.feature.graphical.configurator.editor.anomaly.views.tableviews.AnomalyTableView;
 import de.darwinspl.feature.graphical.configurator.viewer.DwFeatureModelConfiguratorViewer;
@@ -741,10 +741,10 @@ public class DwAnomalyView extends ViewPart {
 			
 		}
 		
-		public List<AnomalyConstraintExplanation> explainAnomaly(DwAnomaly anomaly) {
+		public Set<AnomalyConstraintExplanation> explainAnomaly(DwAnomaly anomaly) {
 
 			DwAnalysesClient analysesClient = new DwAnalysesClient();
-			List<AnomalyConstraintExplanation> anomalyExplanation = null;
+			Set<AnomalyConstraintExplanation> anomalyExplanation = null;
 			try {
 
 				String username = null;
