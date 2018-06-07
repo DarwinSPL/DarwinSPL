@@ -18,6 +18,7 @@ import java.util.UUID;
 import com.microsoft.z3.BoolExpr;
 import com.microsoft.z3.Context;
 import com.microsoft.z3.Expr;
+import com.microsoft.z3.FuncDecl;
 import com.microsoft.z3.IntExpr;
 import com.microsoft.z3.Model;
 import com.microsoft.z3.Solver;
@@ -53,149 +54,7 @@ public class DwZ3AnalysisClient {
 	
 	private Solver solver;
 	
-	
-	public static void main(String[] args) {
-		HashMap<String, String> cfg = new HashMap<String, String>();
-	       
-//		cfg.put("combined_solver.solver2_timeout", "true");
-//		cfg.put("timeout", "1");
-//		cfg.put("proof", "true");
-//        cfg.put("auto-config", "false");
-//		
-		Context context = new Context(cfg);
-		Solver solver = context.mkSolver();
 		
-
-		String freshVariable = "ab";
-		
-		List<String> constraints = new ArrayList<String>();
-		
-		constraints.add("feature[R] = 1 impl feature[B] = 1");
-		constraints.add("feature[C] = 1 impl feature[B] = 1");
-		constraints.add("feature[R] = 1 impl feature[C] = 0");
-		constraints.add("feature[B] = 1 impl feature[R] = 1");
-		
-		
-		DwZ3ParserClient dwZ3ParserClient = new DwZ3ParserClient();
-		
-		
-		
-		Expr[] formulas = dwZ3ParserClient.parseConstraints(constraints, context);
-		
-		for(String f: dwZ3ParserClient.getFeatures()) {
-			System.out.println(f);
-		}
-		
-		
-		
-		List<String> optionalFeaturesKey = new ArrayList<String>();
-		optionalFeaturesKey.add("B");
-		optionalFeaturesKey.add("C");
-		
-
-		Expr[] features = new Expr[3];
-		features[0] = context.mkIntConst("R");
-		features[1] = context.mkIntConst("B");
-		features[2] = context.mkIntConst("C");
-	
-		
-	
-		
-		BoolExpr[] pbEqBooleans = new BoolExpr[2];
-		int[] pbEqInts = new int[2];
-		
-		pbEqInts[0] = 1;
-		pbEqInts[1] = 1;
-
-		
-		pbEqBooleans[0] = context.mkBoolConst(optionalFeaturesKey.get(0) + freshVariable);
-		pbEqBooleans[1] = context.mkBoolConst(optionalFeaturesKey.get(1) + freshVariable);
-		
-		
-		solver.add(context.mkPBEq(pbEqInts, pbEqBooleans, 1));
-		
-		solver.push();
-		
-		
-		BoolExpr[] impliesExpressions = new BoolExpr[optionalFeaturesKey.size()];
-		
-		BoolExpr eq = null;
-		
-		int i= 0;
-		for(String optF: optionalFeaturesKey) {
-			BoolExpr bc = context.mkBoolConst(optF + freshVariable);
-			
-			eq = context.mkEq(context.mkIntConst(optF), context.mkInt(1));
-			impliesExpressions[i] = context.mkImplies(bc, eq);
-			
-			i++;		
-		}
-		
-		
-		BoolExpr and = context.mkAnd(impliesExpressions);
-		BoolExpr not = context.mkNot(context.mkAnd((BoolExpr[]) formulas));
-		
-		Expr b1 = context.mkImplies(and,  not );
-		
-		
-	
-		solver.add(context.mkForall(features, b1, 1,  null, null, null, null));
-		
-		
-		Status s2 = solver.check();
-		
-	
-		while(s2 == Status.SATISFIABLE) {
-			
-			Model m  = solver.getModel();
-			
-			for(String opF:optionalFeaturesKey) {
-				
-
-				
-				if(m.eval(context.mkBoolConst(opF + freshVariable), true).getBoolValue()== Z3_lbool.Z3_L_TRUE) {
-					System.out.println("Found dead feature" + opF);
-				}
-				
-			}
-			System.out.println(m.toString());
-			return;
-			
-		}
-		
-		
-//		System.out.println(s2.toString());
-		
-		
-//		solver.pop();
-//		
-//
-//		
-//		
-//		BoolExpr[] impliesExpressions2  = new BoolExpr[3];
-//		
-//	    i= 0;
-//		for(String optF: optionalFeaturesKey) {
-//			impliesExpressions2[i] = context.mkImplies(context.mkBoolConst(optF + freshVariable), context.mkEq(context.mkIntConst(optF), context.mkInt(0)));
-//			i++;		
-//		}
-//		
-//		
-//		Expr b2 = context.mkImplies(context.mkAnd(impliesExpressions2),  context.mkNot(context.mkAnd((BoolExpr[]) formulas)));
-//		solver.add(context.mkForall(features, b2, 1, null, null, null, null));
-////		
-//		
-//		
-//		System.out.println(s2.toString());
-//		
-
-		
-	
-	
-	}
-	
-	
-	
 	
 	public void checkFeatures(HyContextModel contextModel, HyValidityModel contextValidityModel,
 			HyFeatureModel featureModel, HyConstraintModel constraintModel, HyConfiguration oldConfiguration, HyConfiguration partialConfiguration,
@@ -203,10 +62,10 @@ public class DwZ3AnalysisClient {
 
 		HashMap<String, String> cfg = new HashMap<String, String>();
 
-		// cfg.put("combined_solver.solver2_timeout", "true");
+//		cfg.put("combined_solver.solver2_timeout", "true");
 		// cfg.put("timeout", "1");
-		// cfg.put("proof", "true");
-		// cfg.put("auto-config", "false");
+//		cfg.put("proof", "true");
+		cfg.put("auto-config", "true");
 		//
 		context = new Context(cfg);
 		solver = context.mkSolver();
@@ -220,33 +79,39 @@ public class DwZ3AnalysisClient {
 
 		DwZ3ParserClient dwZ3ParserClient = new DwZ3ParserClient();
 		
-		System.out.println("constrint: "+ inputForHyVarRec.getConstraints());
 
-		Expr[] z3Constraints = dwZ3ParserClient.parseConstraints(inputForHyVarRec.getConstraints(), context);
 
-		List<String> featureIds = dwZ3ParserClient.getFeatures();
-
-		// TODO: in einzelne methode auslagern
-		String timeContext = inputForHyVarRec.getTimeContext();
-
-		if (timeContext == null || timeContext == "") {
-
-			timeContext = "_" + UUID.randomUUID().toString();
-
-			List<Integer> l = new ArrayList<Integer>();
-			l.add(0);
-			l.add(0);
-
-			for (Entry<String, List<List<Integer>>> entry : inputForHyVarRec.getOptionalFeatures().entrySet()) {
-
-				entry.getValue().add(l);
-
-			}
+		List<String> featureIds = null;
+		
+		//Processing Constraints
+		Expr[] z3Constraints = null;
+		
+		if(!(inputForHyVarRec.getConstraints() == null) && !(inputForHyVarRec.getConstraints().isEmpty())) {
+            z3Constraints = dwZ3ParserClient.parseConstraints(inputForHyVarRec.getConstraints(), context);
+		featureIds = dwZ3ParserClient.getFeatures();
 		}
 		
+		
+		//Processing Context Constraints
+		
+		Expr[] z3ContextConstraints = null;
+	
+		if(!(inputForHyVarRec.getContextConstraints() == null) && !(inputForHyVarRec.getContextConstraints().isEmpty())) {
+			
+			z3ContextConstraints =dwZ3ParserClient.parseConstraints(inputForHyVarRec.getContextConstraints(), context);
+			System.out.println(inputForHyVarRec.getContextConstraints().toString());
+			featureIds = dwZ3ParserClient.getFeatures();
+			
+		}
+		
+		
+		
 
+		//
+		String timeContext = getTimeContext(inputForHyVarRec);
 		
-		
+
+		//add time variable to Context if not present
 		if(!inputForHyVarRec.getContexts().contains(timeContext)) {
 			
 			eu.hyvar.reconfigurator.input.format.Context contextTime = new eu.hyvar.reconfigurator.input.format.Context();
@@ -271,17 +136,18 @@ public class DwZ3AnalysisClient {
 		List<Expr> basicFormulas = getBasicFormulaList(featureIds, inputForHyVarRec.getAttributes(), inputForHyVarRec.getContexts(), z3Constraints, false);
 		
 		
-		
-		String freshVariable = UUID.randomUUID().toString();
+		//fresh variables representing the selected features namefresh_var
+		String freshVariable = "_" + UUID.randomUUID().toString();
 		
 		Set<String> optionalFeaturesKeys = inputForHyVarRec.getOptionalFeatures().keySet();
 		
+		
+		
+		
 		if(optionalFeaturesKeys.isEmpty()) {
 			System.out.println("nothing to check, no optional features");
-			
-		}
-		
-		
+			return;
+		}	
 		else if(optionalFeaturesKeys.size() == 1) {
 			
 			for(Entry<String, List<List<Integer>>> oF: inputForHyVarRec.getOptionalFeatures().entrySet()) {
@@ -310,16 +176,23 @@ public class DwZ3AnalysisClient {
 	
 		}
 		
-		
-		//TODO: noch umsetzten
-//		for i in opt_features_ls:
-//	        ls = []
-//	        for k in optional_features[i]:
-//	            ls.append(z3.Int(time_context) >= k[0])
-//	            ls.append(z3.Int(time_context) <= k[1])
-//	        solver.add(z3.Implies(z3.Bool(i + fresh_var),z3.And(ls)))
+//		//Adding constraint limiting time context based on the optional features to check
+		for(String optionalFeature: optionalFeaturesKeys) {
+			BoolExpr[] ls = new BoolExpr[2];
+			int i = 0;
+			for(List<Integer> evolutionBoundaries: inputForHyVarRec.getOptionalFeatures().get(optionalFeature)) {
+				ls[i] = context.mkGe(context.mkIntConst(timeContext), context.mkInt(evolutionBoundaries.get(0)));
+				i++;
+				ls[i] = context.mkLe(context.mkIntConst(timeContext), context.mkInt(evolutionBoundaries.get(1)));
+				i++;
+			}
+			solver.add(context.mkImplies(context.mkBoolConst(optionalFeature + freshVariable) , context.mkAnd(ls)));
+			
+			
+		}
 
-		solver.push();
+
+       solver.push();
 		
 		
 		IntExpr[] z3Features = new IntExpr[featureIds.size()];
@@ -330,23 +203,69 @@ public class DwZ3AnalysisClient {
 			i++;
 		}
 		
+//		IntExpr[] z3Attributes = new IntExpr[inputForHyVarRec.getAttributes().size()];
+//		
+//		i = 0;
+//		for(i = 0; i<z3Attributes.length; i++) {
+//			
+//			z3Attributes[i] = context.mkIntConst(inputForHyVarRec.getAttributes().get(i).getId());
+//			
+//		}
+		
+	   List<IntExpr> z3ContextsList = new ArrayList<IntExpr>();
+		
+		i = 0;
+		for(i = 0; i<inputForHyVarRec.getContexts().size(); i++) {
+			
+			eu.hyvar.reconfigurator.input.format.Context c = inputForHyVarRec.getContexts().get(i);
+			if(!c.getId().equals(timeContext)){
+				
+				z3ContextsList.add(context.mkIntConst(c.getId()));
+			}
+	
+		}
+		
+//
+//		List<Attribute> attributes = inputForHyVarRec.getAttributes();
+//		if(attributes == null) {
+//			attributes = new ArrayList<Attribute>();
+//		}
+//		
+//		IntExpr[] z3Objects = new IntExpr[featureIds.size() + inputForHyVarRec.getAttributes().size() + z3ContextsList.size()];
+//		
+//		for(i=0; i<featureIds.size(); i++) {
+//			z3Objects[i] = context.mkIntConst(featureIds.get(i));
+//			
+//		}
+//		for(i=featureIds.size()-1; i<inputForHyVarRec.getAttributes().size(); i++) {
+//			z3Objects[i] = context.mkIntConst(attributes.get(i).getId());
+//		}
+//		for(i = (featureIds.size()+attributes.size()-1); i < z3Objects.length; i++) {
+//			z3Objects[i] = z3ContextsList.get(i);
+//		}
+		
+	
+		
+		
 		
 		System.out.println("Searching for dead features");
 		
 		
         BoolExpr[] impliesExpressions = new BoolExpr[optionalFeaturesKeys.size()];
 		
-		BoolExpr eq = null;
+		
 		
 		i= 0;
 		for(String optF: optionalFeaturesKeys) {
 			BoolExpr bc = context.mkBoolConst(optF + freshVariable);
 			
-			eq = context.mkEq(context.mkIntConst(optF), context.mkInt(1));
+			BoolExpr eq = context.mkEq(context.mkIntConst(optF), context.mkInt(1));
 			impliesExpressions[i] = context.mkImplies(bc, eq);
 
 			i++;
 		}
+		BoolExpr and = context.mkAnd(impliesExpressions);
+		
 
 		BoolExpr[] formulas = new BoolExpr[basicFormulas.size()];
 
@@ -356,12 +275,19 @@ public class DwZ3AnalysisClient {
 			i++;
 		}
 
-		BoolExpr and = context.mkAnd(impliesExpressions);
+	
 		BoolExpr not = context.mkNot(context.mkAnd(formulas));
 
 		Expr b1 = context.mkImplies(and, not);
+		
+		BoolExpr forAll = context.mkForall(z3Features, b1, 1
+				, null, null, context.mkSymbol("Q2"), context.mkSymbol("skid2"));
 
-		solver.add(context.mkForall(z3Features, b1, 1, null, null, null, null));
+		System.out.println(forAll.toString());
+		
+		solver.add(forAll);
+		
+		
 		
 		
 		Map<String, List<Expr>> deadFeatureIds = new HashMap<String, List<Expr>>();
@@ -377,11 +303,15 @@ public class DwZ3AnalysisClient {
 
 				String foundFeature = "";
 
-				for (String opF : featureIds) {
+				for (String opF : optionalFeaturesKeys) {
 
 					
-				
-					if (m.eval(context.mkBoolConst(opF + freshVariable), true).getBoolValue() == Z3_lbool.Z3_L_TRUE) {
+					for(FuncDecl fd: m.getFuncDecls()) {
+						System.out.println(fd.toString());
+					}
+					
+					System.out.println(m.eval(context.mkBoolConst(opF + freshVariable), true));
+						if (m.getConstInterp(context.mkBoolConst(opF +freshVariable)).getBoolValue() == Z3_lbool.Z3_L_TRUE) {
 						System.out.println("Found dead feature" + opF);
 
 						for (HyFeature feature : featureModel.getFeatures()) {
@@ -397,6 +327,7 @@ public class DwZ3AnalysisClient {
 						
 						
 						Expr found_context = m.getConstInterp(context.mkIntConst(timeContext));
+						System.out.println(found_context);
 						
 						if(deadFeatureIds.containsKey(foundFeature)) {
 							deadFeatureIds.get(foundFeature).add(found_context);
@@ -406,7 +337,7 @@ public class DwZ3AnalysisClient {
 							deadFeatureIds.put(foundFeature, foundContexts);
 						}
 
-						solver.add(context.mkNot(context.mkAnd(context.mkBoolConst(opF + freshVariable),
+						solver.add(context.mkNot(context.mkAnd(context.mkBoolConst(foundFeature + freshVariable),
 								context.mkEq(context.mkIntConst(timeContext), found_context))));
 
 					}
@@ -428,7 +359,7 @@ public class DwZ3AnalysisClient {
 		for(String optF: optionalFeaturesKeys) {
 			BoolExpr bc = context.mkBoolConst(optF + freshVariable);
 			
-			eq = context.mkEq(context.mkIntConst(optF), context.mkInt(0));
+			BoolExpr eq = context.mkEq(context.mkIntConst(optF), context.mkInt(0));
 			impliesExpressions[i] = context.mkImplies(bc, eq);
 
 			i++;
@@ -443,22 +374,21 @@ public class DwZ3AnalysisClient {
 		solver.add(context.mkForall(z3Features, b1, 1, null, null, null, null));
 		
 		
-		for(Entry<String, List<Expr>> deadFeature:deadFeatureIds.entrySet()) {
-			for(Expr c: deadFeature.getValue()) {
+//		for(Entry<String, List<Expr>> deadFeature:deadFeatureIds.entrySet()) {
+//			for(Expr c: deadFeature.getValue()) {
+//			
+//			solver.add(context.mkNot(context.mkAnd(context.mkBoolConst(deadFeature.getKey() + freshVariable), context.mkEq(context.mkIntConst(timeContext), c))));
+//		
+//			}
+//		}
+//		
 			
-			solver.add(context.mkNot(context.mkAnd(context.mkBoolConst(deadFeature.getKey() + freshVariable), context.mkEq(context.mkIntConst(timeContext), c))));
-		
-			}
-		}
-		
-		
-		
 		
 		while(true) {
 			
 			
 			Status result = solver.check();
-			
+			System.out.println(result.toString());
 			if (result == Status.SATISFIABLE) {
 
 				Model m = solver.getModel();
@@ -467,11 +397,13 @@ public class DwZ3AnalysisClient {
 
 				String foundFeature = "";
 
-				for (String opF : featureIds) {
+				for (String opF : optionalFeaturesKeys) {
 
 					
 				
-					if (m.eval(context.mkBoolConst(opF + freshVariable), true).getBoolValue() == Z3_lbool.Z3_L_TRUE) {
+					System.out.println(m.getConstDecls().toString());
+					
+					if (m.getConstInterp(context.mkBoolConst(opF +freshVariable)).getBoolValue() == Z3_lbool.Z3_L_TRUE) {
 						System.out.println("False optional" + opF);
 
 						for (HyFeature feature : featureModel.getFeatures()) {
@@ -504,15 +436,41 @@ public class DwZ3AnalysisClient {
 				}
 			}
 			else if(result == Status.UNSATISFIABLE) {
-				System.out.println("No dead features more");
+				System.out.println("No false optional");
 				break;
 			}
 			
 		}
 
 	}
+
+
+
+
+	private String getTimeContext(InputForHyVarRec inputForHyVarRec) {
+		String timeContext = inputForHyVarRec.getTimeContext();
+
+		if (timeContext == null || timeContext == "") {
+
+			timeContext = "_" + UUID.randomUUID().toString();
+
+			List<Integer> l = new ArrayList<Integer>();
+			l.add(0);
+			l.add(0);
+
+			for (Entry<String, List<List<Integer>>> entry : inputForHyVarRec.getOptionalFeatures().entrySet()) {
+
+				entry.getValue().add(l);
+
+			}
+		}
+		return timeContext;
+	}
 	
-	 private List<Expr> getBasicFormulaList(List<String> featureIds, List<Attribute> attributes,
+	
+	
+	
+	private List<Expr> getBasicFormulaList(List<String> featureIds, List<Attribute> attributes,
 			List<eu.hyvar.reconfigurator.input.format.Context> contexts, Expr[] z3Constraints, boolean featuresAsBoolean) {
 		
 			List<Expr> formulas = new ArrayList<Expr>();
@@ -578,6 +536,10 @@ public class DwZ3AnalysisClient {
 //		
 //		}
 //	}
+	 
+	 
+	 
+
 	
 	
 }

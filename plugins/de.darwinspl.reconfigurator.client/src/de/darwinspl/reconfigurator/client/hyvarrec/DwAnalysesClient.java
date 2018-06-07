@@ -26,6 +26,7 @@ import org.eclipse.jetty.util.ssl.SslContextFactory;
 import com.google.gson.FieldNamingPolicy;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.JsonSyntaxException;
 
 import de.darwinspl.anomaly.DwAnomaly;
 import de.darwinspl.anomaly.DwAnomalyFactory;
@@ -39,6 +40,7 @@ import de.darwinspl.preferences.DwProfile;
 import de.darwinspl.reconfigurator.client.hyvarrec.format.HyVarRecExplainAnswer;
 import de.darwinspl.reconfigurator.client.hyvarrec.format.check_features.HyVarRecCheckFeaturesAnswer;
 import de.darwinspl.reconfigurator.client.hyvarrec.format.context.HyVarRecValidateAnswer;
+import de.darwinspl.reconfigurator.z3.client.DwZ3AnalysisClient;
 import eu.hyvar.context.HyContextModel;
 import eu.hyvar.context.HyContextualInformation;
 import eu.hyvar.context.HyContextualInformationBoolean;
@@ -110,7 +112,15 @@ public class DwAnalysesClient {
 	
 	public String createHyVarRecMessage(HyContextModel contextModel, HyValidityModel contextValidityModel, HyFeatureModel featureModel, HyConstraintModel constraintModel, HyConfiguration oldConfiguration, DwProfile preferenceModel, HyContextValueModel contextValues, Date date, Date evolutionContextValueDate) {
 		
+		
+		DwZ3AnalysisClient z3Client = new DwZ3AnalysisClient();
+		
+		
+		z3Client.checkFeatures(contextModel, contextValidityModel, featureModel, constraintModel, oldConfiguration, oldConfiguration, preferenceModel, contextValues, date, evolutionContextValueDate);
+		
+		
 		String messageForHyVarRec = exporter.exportSPL(contextModel, contextValidityModel, featureModel, constraintModel, oldConfiguration, preferenceModel, contextValues, date, evolutionContextValueDate);
+		System.out.println(messageForHyVarRec);
 		return messageForHyVarRec;
 	}
 	
@@ -376,7 +386,12 @@ public class DwAnalysesClient {
 			throw new HyVarRecNoSolutionException("HyVarRec returned could not find any solution.\n Message for HyVarRec:\n"+messageForHyVarRec+"\n Answer from HyVarRec:\n"+hyvarrecAnswerString);
 		}
 		
-		HyVarRecValidateAnswer hyVarRecAnswer = gson.fromJson(hyvarrecAnswerString, HyVarRecValidateAnswer.class);
+		HyVarRecValidateAnswer hyVarRecAnswer = null;
+		
+		
+		
+		hyVarRecAnswer = gson.fromJson(hyvarrecAnswerString, HyVarRecValidateAnswer.class);
+		
 		
 		
 		
