@@ -19,5 +19,8 @@ Require-Bundle: org.eclipse.core.runtime,
  eu.hyvar.evolution.edit;visibility:=reexport,
  de.darwinspl.common.eclipse.ui,
  org.eclipse.emf.ecp.ui.view.swt,
- org.eclipse.emf.ecore
+ org.eclipse.emf.ecore,
+ eu.hyvar.feature,
+ de.christophseidl.util.ecore;bundle-version="1.0.0"
 Bundle-ActivationPolicy: lazy
+Import-Package: de.darwinspl.feature.graphical.base.model
