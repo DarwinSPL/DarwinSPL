@@ -1,5 +1,7 @@
 package de.darwinspl.scoping.descriptions;
 
+import eu.hyvar.context.HyContextualInformation;
+
 import java.util.Date;
 
 import org.eclipse.emf.common.util.URI;
@@ -8,25 +10,17 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.xtext.naming.QualifiedName;
 import org.eclipse.xtext.resource.IEObjectDescription;
 
-import eu.hyvar.evolution.HyName;
-import eu.hyvar.evolution.util.HyEvolutionUtil;
-import eu.hyvar.feature.HyFeature;
+public class DwContextObjectDescription implements IEObjectDescription {
 
-public class DwFeatureObjectDescription implements IEObjectDescription {
-
-	protected HyFeature feature;
+	protected HyContextualInformation context;
 	protected Date date;
 	protected QualifiedName name;
 	
-	public DwFeatureObjectDescription(HyFeature feature, Date date) {
-		this.feature = feature;
-		this.date = date;
-		
-		if(feature != null) {
-			HyName hyName = HyEvolutionUtil.getValidTemporalElement(feature.getNames(), date);
-			if(hyName != null) {
-				name = QualifiedName.create(hyName.getName());
-			}
+	public DwContextObjectDescription(HyContextualInformation context) {
+		this.context = context;
+
+		if(context != null) {
+			QualifiedName.create(context.getName());
 		}
 	}
 	
@@ -42,17 +36,17 @@ public class DwFeatureObjectDescription implements IEObjectDescription {
 
 	@Override
 	public EObject getEObjectOrProxy() {
-		return feature;
+		return context;
 	}
 
 	@Override
 	public URI getEObjectURI() {
-		return feature.eResource().getURI();
+		return context.eResource().getURI();
 	}
 
 	@Override
 	public EClass getEClass() {
-		return feature.eClass();
+		return context.eClass();
 	}
 
 	@Override
@@ -66,5 +60,6 @@ public class DwFeatureObjectDescription implements IEObjectDescription {
 		// TODO Auto-generated method stub
 		return null;
 	}
+	
 
 }

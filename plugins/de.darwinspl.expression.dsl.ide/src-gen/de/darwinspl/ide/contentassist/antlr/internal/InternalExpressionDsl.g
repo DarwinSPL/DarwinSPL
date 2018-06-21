@@ -1181,21 +1181,21 @@ rule__TerminalArithmeticalExpression__Alternatives
 	}
 :
 	(
-		{ before(grammarAccess.getTerminalArithmeticalExpressionAccess().getHyValueExpressionParserRuleCall_0()); }
-		ruleHyValueExpression
-		{ after(grammarAccess.getTerminalArithmeticalExpressionAccess().getHyValueExpressionParserRuleCall_0()); }
-	)
-	|
-	(
-		{ before(grammarAccess.getTerminalArithmeticalExpressionAccess().getHyNestedArithmeticalValueExpressionParserRuleCall_1()); }
-		ruleHyNestedArithmeticalValueExpression
-		{ after(grammarAccess.getTerminalArithmeticalExpressionAccess().getHyNestedArithmeticalValueExpressionParserRuleCall_1()); }
-	)
-	|
-	(
-		{ before(grammarAccess.getTerminalArithmeticalExpressionAccess().getHyContextInformationReferenceExpressionParserRuleCall_2()); }
+		{ before(grammarAccess.getTerminalArithmeticalExpressionAccess().getHyContextInformationReferenceExpressionParserRuleCall_0()); }
 		(ruleHyContextInformationReferenceExpression)
-		{ after(grammarAccess.getTerminalArithmeticalExpressionAccess().getHyContextInformationReferenceExpressionParserRuleCall_2()); }
+		{ after(grammarAccess.getTerminalArithmeticalExpressionAccess().getHyContextInformationReferenceExpressionParserRuleCall_0()); }
+	)
+	|
+	(
+		{ before(grammarAccess.getTerminalArithmeticalExpressionAccess().getHyValueExpressionParserRuleCall_1()); }
+		ruleHyValueExpression
+		{ after(grammarAccess.getTerminalArithmeticalExpressionAccess().getHyValueExpressionParserRuleCall_1()); }
+	)
+	|
+	(
+		{ before(grammarAccess.getTerminalArithmeticalExpressionAccess().getHyNestedArithmeticalValueExpressionParserRuleCall_2()); }
+		ruleHyNestedArithmeticalValueExpression
+		{ after(grammarAccess.getTerminalArithmeticalExpressionAccess().getHyNestedArithmeticalValueExpressionParserRuleCall_2()); }
 	)
 	|
 	(

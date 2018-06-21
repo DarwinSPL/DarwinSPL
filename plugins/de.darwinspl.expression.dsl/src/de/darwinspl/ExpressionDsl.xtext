@@ -116,10 +116,9 @@ HyAdditionExpression returns expr::HyArithmeticalValueExpression:
 	
 	
 TerminalArithmeticalExpression returns expr::HyArithmeticalValueExpression:
-	HyValueExpression 
-	| HyNestedArithmeticalValueExpression // TODO here is the problem! I don't know why :( I set backtracking to true in the mwe2 file. Supposed to have disadvantages: less performance, ANTLR reports no warnings about unreachable alternatives, “magic”, etc
+	(=> HyContextInformationReferenceExpression)  | HyValueExpression 
+	| HyNestedArithmeticalValueExpression // TODO here is the problem! I don't know why :( I set backtracking to true in the mwe2 file. Supposed to have disadvantages: less performance, ANTLR reports no warnings about unreachable alternatives, â€œmagicâ€�, etc
 //	/*| HyNegationExpression*/
-	| (=> HyContextInformationReferenceExpression) 
 	| HyAttributeReferenceExpression;
 
 HyValueExpression returns expr::HyValueExpression:

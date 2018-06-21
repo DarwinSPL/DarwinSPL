@@ -4808,15 +4808,15 @@ public class InternalExpressionDslParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleTerminalArithmeticalExpression"
-    // InternalExpressionDsl.g:1692:1: ruleTerminalArithmeticalExpression returns [EObject current=null] : (this_HyValueExpression_0= ruleHyValueExpression | this_HyNestedArithmeticalValueExpression_1= ruleHyNestedArithmeticalValueExpression | ( ( ruleHyContextInformationReferenceExpression )=>this_HyContextInformationReferenceExpression_2= ruleHyContextInformationReferenceExpression ) | this_HyAttributeReferenceExpression_3= ruleHyAttributeReferenceExpression ) ;
+    // InternalExpressionDsl.g:1692:1: ruleTerminalArithmeticalExpression returns [EObject current=null] : ( ( ( ruleHyContextInformationReferenceExpression )=>this_HyContextInformationReferenceExpression_0= ruleHyContextInformationReferenceExpression ) | this_HyValueExpression_1= ruleHyValueExpression | this_HyNestedArithmeticalValueExpression_2= ruleHyNestedArithmeticalValueExpression | this_HyAttributeReferenceExpression_3= ruleHyAttributeReferenceExpression ) ;
     public final EObject ruleTerminalArithmeticalExpression() throws RecognitionException {
         EObject current = null;
 
-        EObject this_HyValueExpression_0 = null;
+        EObject this_HyContextInformationReferenceExpression_0 = null;
 
-        EObject this_HyNestedArithmeticalValueExpression_1 = null;
+        EObject this_HyValueExpression_1 = null;
 
-        EObject this_HyContextInformationReferenceExpression_2 = null;
+        EObject this_HyNestedArithmeticalValueExpression_2 = null;
 
         EObject this_HyAttributeReferenceExpression_3 = null;
 
@@ -4825,45 +4825,45 @@ public class InternalExpressionDslParser extends AbstractInternalAntlrParser {
         	enterRule();
 
         try {
-            // InternalExpressionDsl.g:1698:2: ( (this_HyValueExpression_0= ruleHyValueExpression | this_HyNestedArithmeticalValueExpression_1= ruleHyNestedArithmeticalValueExpression | ( ( ruleHyContextInformationReferenceExpression )=>this_HyContextInformationReferenceExpression_2= ruleHyContextInformationReferenceExpression ) | this_HyAttributeReferenceExpression_3= ruleHyAttributeReferenceExpression ) )
-            // InternalExpressionDsl.g:1699:2: (this_HyValueExpression_0= ruleHyValueExpression | this_HyNestedArithmeticalValueExpression_1= ruleHyNestedArithmeticalValueExpression | ( ( ruleHyContextInformationReferenceExpression )=>this_HyContextInformationReferenceExpression_2= ruleHyContextInformationReferenceExpression ) | this_HyAttributeReferenceExpression_3= ruleHyAttributeReferenceExpression )
+            // InternalExpressionDsl.g:1698:2: ( ( ( ( ruleHyContextInformationReferenceExpression )=>this_HyContextInformationReferenceExpression_0= ruleHyContextInformationReferenceExpression ) | this_HyValueExpression_1= ruleHyValueExpression | this_HyNestedArithmeticalValueExpression_2= ruleHyNestedArithmeticalValueExpression | this_HyAttributeReferenceExpression_3= ruleHyAttributeReferenceExpression ) )
+            // InternalExpressionDsl.g:1699:2: ( ( ( ruleHyContextInformationReferenceExpression )=>this_HyContextInformationReferenceExpression_0= ruleHyContextInformationReferenceExpression ) | this_HyValueExpression_1= ruleHyValueExpression | this_HyNestedArithmeticalValueExpression_2= ruleHyNestedArithmeticalValueExpression | this_HyAttributeReferenceExpression_3= ruleHyAttributeReferenceExpression )
             {
-            // InternalExpressionDsl.g:1699:2: (this_HyValueExpression_0= ruleHyValueExpression | this_HyNestedArithmeticalValueExpression_1= ruleHyNestedArithmeticalValueExpression | ( ( ruleHyContextInformationReferenceExpression )=>this_HyContextInformationReferenceExpression_2= ruleHyContextInformationReferenceExpression ) | this_HyAttributeReferenceExpression_3= ruleHyAttributeReferenceExpression )
+            // InternalExpressionDsl.g:1699:2: ( ( ( ruleHyContextInformationReferenceExpression )=>this_HyContextInformationReferenceExpression_0= ruleHyContextInformationReferenceExpression ) | this_HyValueExpression_1= ruleHyValueExpression | this_HyNestedArithmeticalValueExpression_2= ruleHyNestedArithmeticalValueExpression | this_HyAttributeReferenceExpression_3= ruleHyAttributeReferenceExpression )
             int alt16=4;
             switch ( input.LA(1) ) {
-            case RULE_INT:
-            case 21:
-            case 22:
-            case 23:
-                {
-                alt16=1;
-                }
-                break;
             case RULE_STRING:
                 {
-                int LA16_2 = input.LA(2);
+                int LA16_1 = input.LA(2);
 
-                if ( (LA16_2==33) ) {
+                if ( (LA16_1==33) ) {
                     alt16=4;
                 }
-                else if ( (synpred26_InternalExpressionDsl()) ) {
+                else if ( (synpred27_InternalExpressionDsl()) ) {
                     alt16=1;
                 }
-                else if ( (synpred29_InternalExpressionDsl()) ) {
-                    alt16=3;
+                else if ( (synpred28_InternalExpressionDsl()) ) {
+                    alt16=2;
                 }
                 else {
                     if (state.backtracking>0) {state.failed=true; return current;}
                     NoViableAltException nvae =
-                        new NoViableAltException("", 16, 2, input);
+                        new NoViableAltException("", 16, 1, input);
 
                     throw nvae;
                 }
                 }
                 break;
-            case 15:
+            case RULE_INT:
+            case 21:
+            case 22:
+            case 23:
                 {
                 alt16=2;
+                }
+                break;
+            case 15:
+                {
+                alt16=3;
                 }
                 break;
             default:
@@ -4876,64 +4876,10 @@ public class InternalExpressionDslParser extends AbstractInternalAntlrParser {
 
             switch (alt16) {
                 case 1 :
-                    // InternalExpressionDsl.g:1700:3: this_HyValueExpression_0= ruleHyValueExpression
+                    // InternalExpressionDsl.g:1700:3: ( ( ruleHyContextInformationReferenceExpression )=>this_HyContextInformationReferenceExpression_0= ruleHyContextInformationReferenceExpression )
                     {
-                    if ( state.backtracking==0 ) {
-
-                      			/* */
-                      		
-                    }
-                    if ( state.backtracking==0 ) {
-
-                      			newCompositeNode(grammarAccess.getTerminalArithmeticalExpressionAccess().getHyValueExpressionParserRuleCall_0());
-                      		
-                    }
-                    pushFollow(FOLLOW_2);
-                    this_HyValueExpression_0=ruleHyValueExpression();
-
-                    state._fsp--;
-                    if (state.failed) return current;
-                    if ( state.backtracking==0 ) {
-
-                      			current = this_HyValueExpression_0;
-                      			afterParserOrEnumRuleCall();
-                      		
-                    }
-
-                    }
-                    break;
-                case 2 :
-                    // InternalExpressionDsl.g:1712:3: this_HyNestedArithmeticalValueExpression_1= ruleHyNestedArithmeticalValueExpression
-                    {
-                    if ( state.backtracking==0 ) {
-
-                      			/* */
-                      		
-                    }
-                    if ( state.backtracking==0 ) {
-
-                      			newCompositeNode(grammarAccess.getTerminalArithmeticalExpressionAccess().getHyNestedArithmeticalValueExpressionParserRuleCall_1());
-                      		
-                    }
-                    pushFollow(FOLLOW_2);
-                    this_HyNestedArithmeticalValueExpression_1=ruleHyNestedArithmeticalValueExpression();
-
-                    state._fsp--;
-                    if (state.failed) return current;
-                    if ( state.backtracking==0 ) {
-
-                      			current = this_HyNestedArithmeticalValueExpression_1;
-                      			afterParserOrEnumRuleCall();
-                      		
-                    }
-
-                    }
-                    break;
-                case 3 :
-                    // InternalExpressionDsl.g:1724:3: ( ( ruleHyContextInformationReferenceExpression )=>this_HyContextInformationReferenceExpression_2= ruleHyContextInformationReferenceExpression )
-                    {
-                    // InternalExpressionDsl.g:1724:3: ( ( ruleHyContextInformationReferenceExpression )=>this_HyContextInformationReferenceExpression_2= ruleHyContextInformationReferenceExpression )
-                    // InternalExpressionDsl.g:1725:4: ( ruleHyContextInformationReferenceExpression )=>this_HyContextInformationReferenceExpression_2= ruleHyContextInformationReferenceExpression
+                    // InternalExpressionDsl.g:1700:3: ( ( ruleHyContextInformationReferenceExpression )=>this_HyContextInformationReferenceExpression_0= ruleHyContextInformationReferenceExpression )
+                    // InternalExpressionDsl.g:1701:4: ( ruleHyContextInformationReferenceExpression )=>this_HyContextInformationReferenceExpression_0= ruleHyContextInformationReferenceExpression
                     {
                     if ( state.backtracking==0 ) {
 
@@ -4942,23 +4888,77 @@ public class InternalExpressionDslParser extends AbstractInternalAntlrParser {
                     }
                     if ( state.backtracking==0 ) {
 
-                      				newCompositeNode(grammarAccess.getTerminalArithmeticalExpressionAccess().getHyContextInformationReferenceExpressionParserRuleCall_2());
+                      				newCompositeNode(grammarAccess.getTerminalArithmeticalExpressionAccess().getHyContextInformationReferenceExpressionParserRuleCall_0());
                       			
                     }
                     pushFollow(FOLLOW_2);
-                    this_HyContextInformationReferenceExpression_2=ruleHyContextInformationReferenceExpression();
+                    this_HyContextInformationReferenceExpression_0=ruleHyContextInformationReferenceExpression();
 
                     state._fsp--;
                     if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
-                      				current = this_HyContextInformationReferenceExpression_2;
+                      				current = this_HyContextInformationReferenceExpression_0;
                       				afterParserOrEnumRuleCall();
                       			
                     }
 
                     }
 
+
+                    }
+                    break;
+                case 2 :
+                    // InternalExpressionDsl.g:1715:3: this_HyValueExpression_1= ruleHyValueExpression
+                    {
+                    if ( state.backtracking==0 ) {
+
+                      			/* */
+                      		
+                    }
+                    if ( state.backtracking==0 ) {
+
+                      			newCompositeNode(grammarAccess.getTerminalArithmeticalExpressionAccess().getHyValueExpressionParserRuleCall_1());
+                      		
+                    }
+                    pushFollow(FOLLOW_2);
+                    this_HyValueExpression_1=ruleHyValueExpression();
+
+                    state._fsp--;
+                    if (state.failed) return current;
+                    if ( state.backtracking==0 ) {
+
+                      			current = this_HyValueExpression_1;
+                      			afterParserOrEnumRuleCall();
+                      		
+                    }
+
+                    }
+                    break;
+                case 3 :
+                    // InternalExpressionDsl.g:1727:3: this_HyNestedArithmeticalValueExpression_2= ruleHyNestedArithmeticalValueExpression
+                    {
+                    if ( state.backtracking==0 ) {
+
+                      			/* */
+                      		
+                    }
+                    if ( state.backtracking==0 ) {
+
+                      			newCompositeNode(grammarAccess.getTerminalArithmeticalExpressionAccess().getHyNestedArithmeticalValueExpressionParserRuleCall_2());
+                      		
+                    }
+                    pushFollow(FOLLOW_2);
+                    this_HyNestedArithmeticalValueExpression_2=ruleHyNestedArithmeticalValueExpression();
+
+                    state._fsp--;
+                    if (state.failed) return current;
+                    if ( state.backtracking==0 ) {
+
+                      			current = this_HyNestedArithmeticalValueExpression_2;
+                      			afterParserOrEnumRuleCall();
+                      		
+                    }
 
                     }
                     break;
@@ -6750,13 +6750,37 @@ public class InternalExpressionDslParser extends AbstractInternalAntlrParser {
     }
     // $ANTLR end synpred21_InternalExpressionDsl
 
-    // $ANTLR start synpred26_InternalExpressionDsl
-    public final void synpred26_InternalExpressionDsl_fragment() throws RecognitionException {   
-        EObject this_HyValueExpression_0 = null;
+    // $ANTLR start synpred27_InternalExpressionDsl
+    public final void synpred27_InternalExpressionDsl_fragment() throws RecognitionException {   
+        EObject this_HyContextInformationReferenceExpression_0 = null;
 
 
-        // InternalExpressionDsl.g:1700:3: (this_HyValueExpression_0= ruleHyValueExpression )
-        // InternalExpressionDsl.g:1700:3: this_HyValueExpression_0= ruleHyValueExpression
+        // InternalExpressionDsl.g:1700:3: ( ( ( ruleHyContextInformationReferenceExpression )=>this_HyContextInformationReferenceExpression_0= ruleHyContextInformationReferenceExpression ) )
+        // InternalExpressionDsl.g:1700:3: ( ( ruleHyContextInformationReferenceExpression )=>this_HyContextInformationReferenceExpression_0= ruleHyContextInformationReferenceExpression )
+        {
+        // InternalExpressionDsl.g:1700:3: ( ( ruleHyContextInformationReferenceExpression )=>this_HyContextInformationReferenceExpression_0= ruleHyContextInformationReferenceExpression )
+        // InternalExpressionDsl.g:1701:4: ( ruleHyContextInformationReferenceExpression )=>this_HyContextInformationReferenceExpression_0= ruleHyContextInformationReferenceExpression
+        {
+        pushFollow(FOLLOW_2);
+        this_HyContextInformationReferenceExpression_0=ruleHyContextInformationReferenceExpression();
+
+        state._fsp--;
+        if (state.failed) return ;
+
+        }
+
+
+        }
+    }
+    // $ANTLR end synpred27_InternalExpressionDsl
+
+    // $ANTLR start synpred28_InternalExpressionDsl
+    public final void synpred28_InternalExpressionDsl_fragment() throws RecognitionException {   
+        EObject this_HyValueExpression_1 = null;
+
+
+        // InternalExpressionDsl.g:1715:3: (this_HyValueExpression_1= ruleHyValueExpression )
+        // InternalExpressionDsl.g:1715:3: this_HyValueExpression_1= ruleHyValueExpression
         {
         if ( state.backtracking==0 ) {
 
@@ -6764,38 +6788,14 @@ public class InternalExpressionDslParser extends AbstractInternalAntlrParser {
           		
         }
         pushFollow(FOLLOW_2);
-        this_HyValueExpression_0=ruleHyValueExpression();
+        this_HyValueExpression_1=ruleHyValueExpression();
 
         state._fsp--;
         if (state.failed) return ;
 
         }
     }
-    // $ANTLR end synpred26_InternalExpressionDsl
-
-    // $ANTLR start synpred29_InternalExpressionDsl
-    public final void synpred29_InternalExpressionDsl_fragment() throws RecognitionException {   
-        EObject this_HyContextInformationReferenceExpression_2 = null;
-
-
-        // InternalExpressionDsl.g:1724:3: ( ( ( ruleHyContextInformationReferenceExpression )=>this_HyContextInformationReferenceExpression_2= ruleHyContextInformationReferenceExpression ) )
-        // InternalExpressionDsl.g:1724:3: ( ( ruleHyContextInformationReferenceExpression )=>this_HyContextInformationReferenceExpression_2= ruleHyContextInformationReferenceExpression )
-        {
-        // InternalExpressionDsl.g:1724:3: ( ( ruleHyContextInformationReferenceExpression )=>this_HyContextInformationReferenceExpression_2= ruleHyContextInformationReferenceExpression )
-        // InternalExpressionDsl.g:1725:4: ( ruleHyContextInformationReferenceExpression )=>this_HyContextInformationReferenceExpression_2= ruleHyContextInformationReferenceExpression
-        {
-        pushFollow(FOLLOW_2);
-        this_HyContextInformationReferenceExpression_2=ruleHyContextInformationReferenceExpression();
-
-        state._fsp--;
-        if (state.failed) return ;
-
-        }
-
-
-        }
-    }
-    // $ANTLR end synpred29_InternalExpressionDsl
+    // $ANTLR end synpred28_InternalExpressionDsl
 
     // Delegated rules
 
@@ -6855,11 +6855,11 @@ public class InternalExpressionDslParser extends AbstractInternalAntlrParser {
         state.failed=false;
         return success;
     }
-    public final boolean synpred19_InternalExpressionDsl() {
+    public final boolean synpred28_InternalExpressionDsl() {
         state.backtracking++;
         int start = input.mark();
         try {
-            synpred19_InternalExpressionDsl_fragment(); // can never throw exception
+            synpred28_InternalExpressionDsl_fragment(); // can never throw exception
         } catch (RecognitionException re) {
             System.err.println("impossible: "+re);
         }
@@ -6869,11 +6869,11 @@ public class InternalExpressionDslParser extends AbstractInternalAntlrParser {
         state.failed=false;
         return success;
     }
-    public final boolean synpred29_InternalExpressionDsl() {
+    public final boolean synpred19_InternalExpressionDsl() {
         state.backtracking++;
         int start = input.mark();
         try {
-            synpred29_InternalExpressionDsl_fragment(); // can never throw exception
+            synpred19_InternalExpressionDsl_fragment(); // can never throw exception
         } catch (RecognitionException re) {
             System.err.println("impossible: "+re);
         }
@@ -6925,11 +6925,11 @@ public class InternalExpressionDslParser extends AbstractInternalAntlrParser {
         state.failed=false;
         return success;
     }
-    public final boolean synpred26_InternalExpressionDsl() {
+    public final boolean synpred27_InternalExpressionDsl() {
         state.backtracking++;
         int start = input.mark();
         try {
-            synpred26_InternalExpressionDsl_fragment(); // can never throw exception
+            synpred27_InternalExpressionDsl_fragment(); // can never throw exception
         } catch (RecognitionException re) {
             System.err.println("impossible: "+re);
         }
@@ -6944,15 +6944,15 @@ public class InternalExpressionDslParser extends AbstractInternalAntlrParser {
     protected DFA5 dfa5 = new DFA5(this);
     protected DFA11 dfa11 = new DFA11(this);
     static final String dfa_1s = "\14\uffff";
-    static final String dfa_2s = "\1\4\2\uffff\4\0\5\uffff";
-    static final String dfa_3s = "\1\27\2\uffff\4\0\5\uffff";
-    static final String dfa_4s = "\1\uffff\1\1\5\uffff\1\4\1\5\1\2\1\6\1\3";
-    static final String dfa_5s = "\3\uffff\1\0\1\1\1\2\1\3\5\uffff}>";
+    static final String dfa_2s = "\1\4\1\0\2\uffff\3\0\5\uffff";
+    static final String dfa_3s = "\1\27\1\0\2\uffff\3\0\5\uffff";
+    static final String dfa_4s = "\2\uffff\1\1\4\uffff\1\4\1\5\1\2\1\6\1\3";
+    static final String dfa_5s = "\1\uffff\1\0\2\uffff\1\1\1\2\1\3\5\uffff}>";
     static final String[] dfa_6s = {
-            "\1\3\1\uffff\1\1\10\uffff\1\6\1\uffff\1\10\1\7\2\uffff\1\4\1\5\1\1",
-            "",
-            "",
+            "\1\1\1\uffff\1\2\10\uffff\1\6\1\uffff\1\10\1\7\2\uffff\1\4\1\5\1\2",
             "\1\uffff",
+            "",
+            "",
             "\1\uffff",
             "\1\uffff",
             "\1\uffff",
@@ -6991,18 +6991,18 @@ public class InternalExpressionDslParser extends AbstractInternalAntlrParser {
         	int _s = s;
             switch ( s ) {
                     case 0 : 
-                        int LA5_3 = input.LA(1);
+                        int LA5_1 = input.LA(1);
 
                          
-                        int index5_3 = input.index();
+                        int index5_1 = input.index();
                         input.rewind();
                         s = -1;
-                        if ( (synpred6_InternalExpressionDsl()) ) {s = 1;}
+                        if ( (synpred6_InternalExpressionDsl()) ) {s = 2;}
 
                         else if ( (synpred7_InternalExpressionDsl()) ) {s = 9;}
 
                          
-                        input.seek(index5_3);
+                        input.seek(index5_1);
                         if ( s>=0 ) return s;
                         break;
                     case 1 : 
@@ -7012,7 +7012,7 @@ public class InternalExpressionDslParser extends AbstractInternalAntlrParser {
                         int index5_4 = input.index();
                         input.rewind();
                         s = -1;
-                        if ( (synpred6_InternalExpressionDsl()) ) {s = 1;}
+                        if ( (synpred6_InternalExpressionDsl()) ) {s = 2;}
 
                         else if ( (true) ) {s = 10;}
 
@@ -7027,7 +7027,7 @@ public class InternalExpressionDslParser extends AbstractInternalAntlrParser {
                         int index5_5 = input.index();
                         input.rewind();
                         s = -1;
-                        if ( (synpred6_InternalExpressionDsl()) ) {s = 1;}
+                        if ( (synpred6_InternalExpressionDsl()) ) {s = 2;}
 
                         else if ( (true) ) {s = 10;}
 
@@ -7042,7 +7042,7 @@ public class InternalExpressionDslParser extends AbstractInternalAntlrParser {
                         int index5_6 = input.index();
                         input.rewind();
                         s = -1;
-                        if ( (synpred6_InternalExpressionDsl()) ) {s = 1;}
+                        if ( (synpred6_InternalExpressionDsl()) ) {s = 2;}
 
                         else if ( (synpred8_InternalExpressionDsl()) ) {s = 11;}
 
@@ -7064,7 +7064,7 @@ public class InternalExpressionDslParser extends AbstractInternalAntlrParser {
     static final String dfa_10s = "\7\uffff\1\1\1\2\1\3\1\4\1\5\1\6";
     static final String dfa_11s = "\1\uffff\1\0\1\1\1\2\1\3\1\4\1\5\6\uffff}>";
     static final String[] dfa_12s = {
-            "\1\3\1\uffff\1\2\10\uffff\1\6\5\uffff\1\4\1\5\1\1",
+            "\1\1\1\uffff\1\3\10\uffff\1\6\5\uffff\1\4\1\5\1\2",
             "\1\uffff",
             "\1\uffff",
             "\1\uffff",

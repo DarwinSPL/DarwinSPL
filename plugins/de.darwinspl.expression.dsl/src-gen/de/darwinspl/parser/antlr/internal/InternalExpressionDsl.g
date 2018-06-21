@@ -1697,44 +1697,44 @@ ruleTerminalArithmeticalExpression returns [EObject current=null]
 	leaveRule();
 }:
 	(
-		{
-			/* */
-		}
-		{
-			newCompositeNode(grammarAccess.getTerminalArithmeticalExpressionAccess().getHyValueExpressionParserRuleCall_0());
-		}
-		this_HyValueExpression_0=ruleHyValueExpression
-		{
-			$current = $this_HyValueExpression_0.current;
-			afterParserOrEnumRuleCall();
-		}
-		    |
-		{
-			/* */
-		}
-		{
-			newCompositeNode(grammarAccess.getTerminalArithmeticalExpressionAccess().getHyNestedArithmeticalValueExpressionParserRuleCall_1());
-		}
-		this_HyNestedArithmeticalValueExpression_1=ruleHyNestedArithmeticalValueExpression
-		{
-			$current = $this_HyNestedArithmeticalValueExpression_1.current;
-			afterParserOrEnumRuleCall();
-		}
-		    |
 		(
 			(ruleHyContextInformationReferenceExpression)=>
 			{
 				/* */
 			}
 			{
-				newCompositeNode(grammarAccess.getTerminalArithmeticalExpressionAccess().getHyContextInformationReferenceExpressionParserRuleCall_2());
+				newCompositeNode(grammarAccess.getTerminalArithmeticalExpressionAccess().getHyContextInformationReferenceExpressionParserRuleCall_0());
 			}
-			this_HyContextInformationReferenceExpression_2=ruleHyContextInformationReferenceExpression
+			this_HyContextInformationReferenceExpression_0=ruleHyContextInformationReferenceExpression
 			{
-				$current = $this_HyContextInformationReferenceExpression_2.current;
+				$current = $this_HyContextInformationReferenceExpression_0.current;
 				afterParserOrEnumRuleCall();
 			}
 		)
+		    |
+		{
+			/* */
+		}
+		{
+			newCompositeNode(grammarAccess.getTerminalArithmeticalExpressionAccess().getHyValueExpressionParserRuleCall_1());
+		}
+		this_HyValueExpression_1=ruleHyValueExpression
+		{
+			$current = $this_HyValueExpression_1.current;
+			afterParserOrEnumRuleCall();
+		}
+		    |
+		{
+			/* */
+		}
+		{
+			newCompositeNode(grammarAccess.getTerminalArithmeticalExpressionAccess().getHyNestedArithmeticalValueExpressionParserRuleCall_2());
+		}
+		this_HyNestedArithmeticalValueExpression_2=ruleHyNestedArithmeticalValueExpression
+		{
+			$current = $this_HyNestedArithmeticalValueExpression_2.current;
+			afterParserOrEnumRuleCall();
+		}
 		    |
 		{
 			/* */

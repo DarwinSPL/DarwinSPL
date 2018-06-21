@@ -895,31 +895,31 @@ public class ExpressionDslGrammarAccess extends AbstractGrammarElementFinder {
 	public class TerminalArithmeticalExpressionElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "de.darwinspl.ExpressionDsl.TerminalArithmeticalExpression");
 		private final Alternatives cAlternatives = (Alternatives)rule.eContents().get(1);
-		private final RuleCall cHyValueExpressionParserRuleCall_0 = (RuleCall)cAlternatives.eContents().get(0);
-		private final RuleCall cHyNestedArithmeticalValueExpressionParserRuleCall_1 = (RuleCall)cAlternatives.eContents().get(1);
-		private final RuleCall cHyContextInformationReferenceExpressionParserRuleCall_2 = (RuleCall)cAlternatives.eContents().get(2);
+		private final RuleCall cHyContextInformationReferenceExpressionParserRuleCall_0 = (RuleCall)cAlternatives.eContents().get(0);
+		private final RuleCall cHyValueExpressionParserRuleCall_1 = (RuleCall)cAlternatives.eContents().get(1);
+		private final RuleCall cHyNestedArithmeticalValueExpressionParserRuleCall_2 = (RuleCall)cAlternatives.eContents().get(2);
 		private final RuleCall cHyAttributeReferenceExpressionParserRuleCall_3 = (RuleCall)cAlternatives.eContents().get(3);
 		
 		//TerminalArithmeticalExpression expr::HyArithmeticalValueExpression:
-		//	HyValueExpression
-		//	| HyNestedArithmeticalValueExpression // TODO here is the problem! I don't know why :( I set backtracking to true in the mwe2 file. Supposed to have disadvantages: less performance, ANTLR reports no warnings about unreachable alternatives, “magic”, etc
+		//	=> HyContextInformationReferenceExpression | HyValueExpression
+		//	| HyNestedArithmeticalValueExpression // TODO here is the problem! I don't know why :( I set backtracking to true in the mwe2 file. Supposed to have disadvantages: less performance, ANTLR reports no warnings about unreachable alternatives, â€œmagicâ€�, etc
 		//	//	/*| HyNegationExpression*/
-		//	| => HyContextInformationReferenceExpression | HyAttributeReferenceExpression;
+		//	| HyAttributeReferenceExpression;
 		@Override public ParserRule getRule() { return rule; }
 		
-		//HyValueExpression | HyNestedArithmeticalValueExpression // TODO here is the problem! I don't know why :( I set backtracking to true in the mwe2 file. Supposed to have disadvantages: less performance, ANTLR reports no warnings about unreachable alternatives, “magic”, etc
+		//=> HyContextInformationReferenceExpression | HyValueExpression | HyNestedArithmeticalValueExpression // TODO here is the problem! I don't know why :( I set backtracking to true in the mwe2 file. Supposed to have disadvantages: less performance, ANTLR reports no warnings about unreachable alternatives, â€œmagicâ€�, etc
 		////	/*| HyNegationExpression*/
-		//| => HyContextInformationReferenceExpression | HyAttributeReferenceExpression
+		//| HyAttributeReferenceExpression
 		public Alternatives getAlternatives() { return cAlternatives; }
 		
+		//=> HyContextInformationReferenceExpression
+		public RuleCall getHyContextInformationReferenceExpressionParserRuleCall_0() { return cHyContextInformationReferenceExpressionParserRuleCall_0; }
+		
 		//HyValueExpression
-		public RuleCall getHyValueExpressionParserRuleCall_0() { return cHyValueExpressionParserRuleCall_0; }
+		public RuleCall getHyValueExpressionParserRuleCall_1() { return cHyValueExpressionParserRuleCall_1; }
 		
 		//HyNestedArithmeticalValueExpression
-		public RuleCall getHyNestedArithmeticalValueExpressionParserRuleCall_1() { return cHyNestedArithmeticalValueExpressionParserRuleCall_1; }
-		
-		//=> HyContextInformationReferenceExpression
-		public RuleCall getHyContextInformationReferenceExpressionParserRuleCall_2() { return cHyContextInformationReferenceExpressionParserRuleCall_2; }
+		public RuleCall getHyNestedArithmeticalValueExpressionParserRuleCall_2() { return cHyNestedArithmeticalValueExpressionParserRuleCall_2; }
 		
 		//HyAttributeReferenceExpression
 		public RuleCall getHyAttributeReferenceExpressionParserRuleCall_3() { return cHyAttributeReferenceExpressionParserRuleCall_3; }
@@ -1630,10 +1630,10 @@ public class ExpressionDslGrammarAccess extends AbstractGrammarElementFinder {
 	}
 	
 	//TerminalArithmeticalExpression expr::HyArithmeticalValueExpression:
-	//	HyValueExpression
-	//	| HyNestedArithmeticalValueExpression // TODO here is the problem! I don't know why :( I set backtracking to true in the mwe2 file. Supposed to have disadvantages: less performance, ANTLR reports no warnings about unreachable alternatives, “magic”, etc
+	//	=> HyContextInformationReferenceExpression | HyValueExpression
+	//	| HyNestedArithmeticalValueExpression // TODO here is the problem! I don't know why :( I set backtracking to true in the mwe2 file. Supposed to have disadvantages: less performance, ANTLR reports no warnings about unreachable alternatives, â€œmagicâ€�, etc
 	//	//	/*| HyNegationExpression*/
-	//	| => HyContextInformationReferenceExpression | HyAttributeReferenceExpression;
+	//	| HyAttributeReferenceExpression;
 	public TerminalArithmeticalExpressionElements getTerminalArithmeticalExpressionAccess() {
 		return pTerminalArithmeticalExpression;
 	}

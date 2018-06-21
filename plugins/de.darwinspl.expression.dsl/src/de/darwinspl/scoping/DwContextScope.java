@@ -7,18 +7,17 @@ import org.eclipse.xtext.naming.QualifiedName;
 import org.eclipse.xtext.resource.IEObjectDescription;
 import org.eclipse.xtext.scoping.IScope;
 
-import de.darwinspl.scoping.descriptions.DwFeatureObjectDescription;
-import eu.hyvar.evolution.HyTemporalElement;
-import eu.hyvar.feature.HyFeature;
+import eu.hyvar.context.HyContextualInformation;
 import eu.hyvar.feature.HyFeatureModel;
-import eu.hyvar.feature.util.HyFeatureModelWellFormednessException;
+import eu.hyvar.feature.util.DwContextFeatureModelResolverUtil;
 import eu.hyvar.feature.util.HyFeatureResolverUtil;
 
-public class DwFeatureScope implements IScope {
+public class DwContextScope implements IScope {
+
 
 	private EObject context;
 	
-	public DwFeatureScope(EObject context) {
+	public DwContextScope(EObject context) {
 		this.context = context;
 	}
 	
@@ -35,20 +34,13 @@ public class DwFeatureScope implements IScope {
 		
 		String identifier = name.getFirstSegment();
 		
-		// TODO unresolved: what to do if multiple features have the same name?!
-		Date date = null;
-		if(context != null && context instanceof HyTemporalElement) {
-			date = ((HyTemporalElement) context).getValidSince(); 
-		}
+		// TODO check that contexts temporal validity lies within the temporal validity of the container (e.g. constraint or validity formula). 
+		Date date = new Date();
 		
-		try {
-			HyFeature feature = HyFeatureResolverUtil.resolveFeature(identifier, featureModel, date);
-			DwFeatureObjectDescription objectDescription = new DwFeatureObjectDescription(feature, date);
-			return objectDescription;
-		} catch (HyFeatureModelWellFormednessException e) {
-			e.printStackTrace();
-			return null;
-		}
+		HyContextualInformation resolvedContext = DwContextFeatureModelResolverUtil.resolveContext(identifier, featureModel, date);
+		
+		
+		return null;
 	}
 
 	@Override
