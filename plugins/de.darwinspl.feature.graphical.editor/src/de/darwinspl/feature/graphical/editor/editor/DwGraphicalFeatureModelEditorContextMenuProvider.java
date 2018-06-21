@@ -113,10 +113,6 @@ public class DwGraphicalFeatureModelEditorContextMenuProvider extends ContextMen
         menu.appendToGroup(GEFActionConstants.GROUP_EDIT, new Separator());
         action = getActionRegistry().getAction(DwLinearTemporalElementChangeValidityAction.FEATURE_CHANGE_VALIDITY);
         addToMenuIfEnabled(menu, GEFActionConstants.GROUP_EDIT, action);
-        
-        menu.appendToGroup(GEFActionConstants.GROUP_EDIT, new Separator());
-        action = getActionRegistry().getAction(DwSetFeatureLinkAction.ID);
-        addToMenuIfEnabled(menu, GEFActionConstants.GROUP_EDIT, action);
 	}
 	
 	public ActionRegistry getActionRegistry() {
