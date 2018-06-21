@@ -22,7 +22,10 @@ Require-Bundle: org.eclipse.ui,
  eu.hyvar.feature.data,
  eu.hyvar.mspl.manifest,
  eu.hyvar.evolution,
- de.darwinspl.common.eclipse.ui
+ de.darwinspl.common.eclipse.ui,
+ eu.hyvar.context.information,
+ org.eclipse.jface,
+ org.eclipse.emf.ecore
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Bundle-ActivationPolicy: lazy
 Bundle-ClassPath: .,

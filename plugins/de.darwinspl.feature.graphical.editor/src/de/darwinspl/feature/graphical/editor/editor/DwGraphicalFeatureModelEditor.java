@@ -49,6 +49,7 @@ import de.darwinspl.feature.graphical.editor.actions.attribute.DwAttributeCreate
 import de.darwinspl.feature.graphical.editor.actions.attribute.DwAttributeCreateStringAction;
 import de.darwinspl.feature.graphical.editor.actions.attribute.DwAttributeRenameAction;
 import de.darwinspl.feature.graphical.editor.actions.attribute.DwNumberAttributeSetNumberRangeAction;
+import de.darwinspl.feature.graphical.editor.actions.context.DwContextReferenceAction;
 import de.darwinspl.feature.graphical.editor.actions.enumeration.DwFeatureAttributeEnumCreateEnumAction;
 import de.darwinspl.feature.graphical.editor.actions.enumeration.DwFeatureAttributeEnumCreateLiteralAction;
 import de.darwinspl.feature.graphical.editor.actions.feature.DwFeatureChangeTypeAction;
@@ -232,9 +233,9 @@ public class DwGraphicalFeatureModelEditor extends DwGraphicalFeatureModelViewer
 		getActionRegistry().registerAction(deleteFeaturePermanentlyAction);
 		getSelectionActions().add(deleteFeaturePermanentlyAction.getId());
 
-		DwSetFeatureLinkAction setFeatureLinkAction = new DwSetFeatureLinkAction(this);
-		getActionRegistry().registerAction(setFeatureLinkAction);
-		getSelectionActions().add(setFeatureLinkAction.getId());
+		DwContextReferenceAction contextReferenceAction = new DwContextReferenceAction(this);
+		getActionRegistry().registerAction(contextReferenceAction);
+		getSelectionActions().add(contextReferenceAction.getId());
 		
 		createGroupActions();
 		createEnumActions();

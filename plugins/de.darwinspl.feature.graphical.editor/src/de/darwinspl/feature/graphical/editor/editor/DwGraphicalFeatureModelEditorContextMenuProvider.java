@@ -16,6 +16,7 @@ import de.darwinspl.feature.graphical.editor.actions.attribute.DwAttributeCreate
 import de.darwinspl.feature.graphical.editor.actions.attribute.DwAttributeCreateStringAction;
 import de.darwinspl.feature.graphical.editor.actions.attribute.DwAttributeRenameAction;
 import de.darwinspl.feature.graphical.editor.actions.attribute.DwNumberAttributeSetNumberRangeAction;
+import de.darwinspl.feature.graphical.editor.actions.context.DwContextReferenceAction;
 import de.darwinspl.feature.graphical.editor.actions.enumeration.DwFeatureAttributeEnumCreateEnumAction;
 import de.darwinspl.feature.graphical.editor.actions.enumeration.DwFeatureAttributeEnumCreateLiteralAction;
 import de.darwinspl.feature.graphical.editor.actions.feature.DwFeatureChangeTypeAction;
@@ -112,6 +113,10 @@ public class DwGraphicalFeatureModelEditorContextMenuProvider extends ContextMen
         
         menu.appendToGroup(GEFActionConstants.GROUP_EDIT, new Separator());
         action = getActionRegistry().getAction(DwLinearTemporalElementChangeValidityAction.FEATURE_CHANGE_VALIDITY);
+        addToMenuIfEnabled(menu, GEFActionConstants.GROUP_EDIT, action);
+        
+        menu.appendToGroup(GEFActionConstants.GROUP_EDIT, new Separator());
+        action = getActionRegistry().getAction(DwContextReferenceAction.ID_CONTEXT_REFERENCE);
         addToMenuIfEnabled(menu, GEFActionConstants.GROUP_EDIT, action);
 	}
 	
