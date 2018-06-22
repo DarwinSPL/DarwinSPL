@@ -20,6 +20,8 @@ import org.eclipse.jface.viewers.TreeViewerColumn;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
+import org.eclipse.swt.graphics.Point;
+import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
@@ -49,13 +51,14 @@ public class DwContextReferenceDialog extends Dialog {
 	
 	private Button removeContextModelButton;
 	
+	protected static final int MIN_HEIGHT = 100;
+	
 	public DwContextReferenceDialog(Shell parentShell, HyFeatureModel featureModel) {
 		super(parentShell);
 		
 		this.featureModel = featureModel;
 		this.selectedContextModels = new ArrayList<HyContextModel>();
 		selectedContextModels.addAll(featureModel.getContexts());
-		
 		
 		// Create some kind of table view. Each row is one context model. Represented by it's path. Then add and delete buttons.
 		// If model is added, try to load it and verify that it is a valid context model.
@@ -90,6 +93,11 @@ public class DwContextReferenceDialog extends Dialog {
         domainColumn.getColumn().setAlignment(SWT.RIGHT);
         domainColumn.setLabelProvider(new DelegatingStyledCellLabelProvider(new DomainLabelProvider()));
         
+        GridData gd = new GridData(GridData.FILL_BOTH);
+        gd.widthHint = 500;
+        gd.heightHint = 100;
+        treeViewer.getControl().setLayoutData(gd);
+        
         treeViewer.setInput(selectedContextModels);
         
 //        createButton(container, IDialogConstants.OK_ID, IDialogConstants.OK_LABEL, true);
@@ -105,6 +113,22 @@ public class DwContextReferenceDialog extends Dialog {
         
         return container;
 	}
+	
+	protected void updateTreeViewAndLayout() {
+		treeViewer.refresh();
+		
+		final Point newSize = getShell().computeSize(SWT.DEFAULT, SWT.DEFAULT, true); 
+		
+		getShell().setSize(newSize);
+	}
+	
+	// overriding this methods allows you to set the
+    // title of the custom dialog
+    @Override
+    protected void configureShell(Shell newShell) {
+        super.configureShell(newShell);
+        newShell.setText("Set Context Model References");
+    }
 	
 	class RemoveContextButtonListener implements SelectionListener {
 		
@@ -126,7 +150,7 @@ public class DwContextReferenceDialog extends Dialog {
 						}
 					}
 					selectedContextModels.removeAll(contextModelsToRemove);
-					treeViewer.refresh();
+					updateTreeViewAndLayout();					
 				}
 			}
 		}
@@ -159,12 +183,9 @@ public class DwContextReferenceDialog extends Dialog {
 					IFile selectedContextModelIFile = ResourceUtil.fileToFile(selectedContextModelFile);
 					if(selectedContextModelIFile != null) {
 						EObject loadedModel = EcoreIOUtil.loadModel(selectedContextModelIFile);
-//						EObject loadedModel = EcoreIOUtil.loadModel(selectedContextModelIFile, featureModel.eResource().getResourceSet());
 						if(loadedModel instanceof HyContextModel) {
 							selectedContextModels.add((HyContextModel) loadedModel);
-							treeViewer.refresh();
-//							treeViewer.setInput(selectedContextModels);
-//							treeViewer.u
+							updateTreeViewAndLayout();
 						}
 					}
 				}
@@ -316,7 +337,7 @@ public class DwContextReferenceDialog extends Dialog {
 					}
 					enumDomainStringBuilder.append(")");
 				}
-				styledText = new StyledString("Enum Context");
+				styledText = new StyledString(enumDomainStringBuilder.toString());
 			}
 			else {
 				styledText = new StyledString("");
