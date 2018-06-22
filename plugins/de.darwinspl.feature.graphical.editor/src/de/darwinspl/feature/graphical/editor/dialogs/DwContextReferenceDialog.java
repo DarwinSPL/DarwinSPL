@@ -2,17 +2,19 @@ package de.darwinspl.feature.graphical.editor.dialogs;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.jface.dialogs.Dialog;
-import org.eclipse.jface.dialogs.IDialogConstants;
 import org.eclipse.jface.viewers.DelegatingStyledCellLabelProvider;
 import org.eclipse.jface.viewers.DelegatingStyledCellLabelProvider.IStyledLabelProvider;
+import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.ITreeContentProvider;
 import org.eclipse.jface.viewers.LabelProvider;
 import org.eclipse.jface.viewers.StyledString;
+import org.eclipse.jface.viewers.TreeSelection;
 import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.jface.viewers.TreeViewerColumn;
 import org.eclipse.swt.SWT;
@@ -23,8 +25,6 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.FileDialog;
 import org.eclipse.swt.widgets.Shell;
-import org.eclipse.swt.widgets.Table;
-import org.eclipse.swt.widgets.TableColumn;
 
 import de.christophseidl.util.eclipse.ResourceUtil;
 import de.christophseidl.util.ecore.EcoreIOUtil;
@@ -43,11 +43,11 @@ public class DwContextReferenceDialog extends Dialog {
 	protected List<HyContextModel> selectedContextModels;
 	protected HyFeatureModel featureModel;
 	
-	private Table contextTable;
-	
 	private TreeViewer treeViewer;
 	
 	private Button addContextModelButton;
+	
+	private Button removeContextModelButton;
 	
 	public DwContextReferenceDialog(Shell parentShell, HyFeatureModel featureModel) {
 		super(parentShell);
@@ -98,15 +98,52 @@ public class DwContextReferenceDialog extends Dialog {
         addContextModelButton = new Button(container, SWT.NONE);
         addContextModelButton.setText("Add Context Model");
         addContextModelButton.addSelectionListener(new AddContextFileButtonListener(getShell()));
+	    
+        removeContextModelButton = new Button(container, SWT.NONE);
+        removeContextModelButton.setText("Remove Context Model");
+        removeContextModelButton.addSelectionListener(new RemoveContextButtonListener());
         
         return container;
+	}
+	
+	class RemoveContextButtonListener implements SelectionListener {
+		
+
+		@Override
+		public void widgetSelected(SelectionEvent e) {
+			ISelection selectedTreeItem = treeViewer.getSelection();
+			
+			if(selectedTreeItem != null && selectedTreeItem instanceof TreeSelection) {				
+				@SuppressWarnings("rawtypes")
+				Iterator iterator = ((TreeSelection) selectedTreeItem).iterator();
+				if(iterator != null) {
+					List<HyContextModel> contextModelsToRemove = new ArrayList<HyContextModel>();
+					
+					while(iterator.hasNext()) {
+						Object selectedObject = iterator.next();
+						if(selectedObject instanceof HyContextModel) {
+							contextModelsToRemove.add((HyContextModel) selectedObject);
+						}
+					}
+					selectedContextModels.removeAll(contextModelsToRemove);
+					treeViewer.refresh();
+				}
+			}
+		}
+
+		@Override
+		public void widgetDefaultSelected(SelectionEvent e) {
+			// TODO Auto-generated method stub
+			
+		}
+		
 	}
 	
 	class AddContextFileButtonListener implements SelectionListener {
 
 		private Shell parentShell;
 		
-		public AddContextFileButtonListener(Shell parent) {
+		private AddContextFileButtonListener(Shell parent) {
 			this.parentShell = parent;
 		}
 		
@@ -121,7 +158,8 @@ public class DwContextReferenceDialog extends Dialog {
 				if(selectedContextModelFile != null && selectedContextModelFile.exists()) {
 					IFile selectedContextModelIFile = ResourceUtil.fileToFile(selectedContextModelFile);
 					if(selectedContextModelIFile != null) {
-						EObject loadedModel = EcoreIOUtil.loadModel(selectedContextModelIFile, featureModel.eResource().getResourceSet());
+						EObject loadedModel = EcoreIOUtil.loadModel(selectedContextModelIFile);
+//						EObject loadedModel = EcoreIOUtil.loadModel(selectedContextModelIFile, featureModel.eResource().getResourceSet());
 						if(loadedModel instanceof HyContextModel) {
 							selectedContextModels.add((HyContextModel) loadedModel);
 							treeViewer.refresh();

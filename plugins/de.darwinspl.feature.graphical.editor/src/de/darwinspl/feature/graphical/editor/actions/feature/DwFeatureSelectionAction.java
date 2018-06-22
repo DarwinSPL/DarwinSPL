@@ -20,6 +20,10 @@ public abstract class DwFeatureSelectionAction extends DwCommandAction {
 	protected DwFeatureWrapped getSelectedFeature(){
 		StructuredSelection selection = (StructuredSelection)this.getSelection();
 		
+		if(selection == null) {
+			return null;
+		}
+		
 		if(selection.getFirstElement() instanceof DwFeatureEditPart){
 			DwFeatureEditPart part = (DwFeatureEditPart)selection.getFirstElement();
 			return (DwFeatureWrapped)part.getModel();		
