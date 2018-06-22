@@ -72,6 +72,10 @@ import eu.hyvar.feature.constraint.util.HyConstraintUtil;
 public class DwGraphicalFeatureModelEditor extends DwGraphicalFeatureModelViewer{
 	List<IPath> relatedEditorFiles = new ArrayList<IPath>();
 
+	public void setDirty() {
+		firePropertyChange(IEditorPart.PROP_DIRTY);
+	}
+	
 	@Override
 	public void commandStackChanged(EventObject event) {
 		firePropertyChange(IEditorPart.PROP_DIRTY);

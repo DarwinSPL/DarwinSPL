@@ -19,7 +19,10 @@ public abstract class DwCommandAction extends SelectionAction {
 	@Override
 	public void run(){
 		StructuredSelection selection = (StructuredSelection)this.getSelection();
-		if(selection.getFirstElement() instanceof AbstractGraphicalEditPart){
+		if(selection == null) {
+			execute(null);
+		}
+		else if(selection.getFirstElement() instanceof AbstractGraphicalEditPart){
 			AbstractGraphicalEditPart part = (AbstractGraphicalEditPart)selection.getFirstElement();
 			execute(part.getModel());	
 		}		
