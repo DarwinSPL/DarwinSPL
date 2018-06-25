@@ -19,7 +19,10 @@ public class DwContextFeatureModelResolverUtil {
 		List<HyContextualInformation> resolvedContexts = new ArrayList<HyContextualInformation>();
 		
 		for(HyContextModel contextModel: featureModel.getContexts()) {
-			resolvedContexts.add(ContextInformationResolverUtil.resolveContextualInformation(identifier, contextModel, date));
+			HyContextualInformation resolvedContext = ContextInformationResolverUtil.resolveContextualInformation(identifier, contextModel, date);
+			if(resolvedContext != null) {
+				resolvedContexts.add(resolvedContext);
+			}
 		}
 		
 		if(resolvedContexts.isEmpty() || resolvedContexts.size() > 1) {

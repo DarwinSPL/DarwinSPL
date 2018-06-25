@@ -7,6 +7,7 @@ import org.eclipse.xtext.naming.QualifiedName;
 import org.eclipse.xtext.resource.IEObjectDescription;
 import org.eclipse.xtext.scoping.IScope;
 
+import de.darwinspl.scoping.descriptions.DwContextObjectDescription;
 import eu.hyvar.context.HyContextualInformation;
 import eu.hyvar.feature.HyFeatureModel;
 import eu.hyvar.feature.util.DwContextFeatureModelResolverUtil;
@@ -39,8 +40,13 @@ public class DwContextScope implements IScope {
 		
 		HyContextualInformation resolvedContext = DwContextFeatureModelResolverUtil.resolveContext(identifier, featureModel, date);
 		
+		if(resolvedContext == null) {
+			return null;
+		}
 		
-		return null;
+		DwContextObjectDescription contextObjectDescription = new DwContextObjectDescription(resolvedContext);
+		
+		return contextObjectDescription;
 	}
 
 	@Override
