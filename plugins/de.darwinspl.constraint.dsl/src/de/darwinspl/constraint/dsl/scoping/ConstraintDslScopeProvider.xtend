@@ -3,6 +3,9 @@
  */
 package de.darwinspl.constraint.dsl.scoping
 
+import org.eclipse.emf.ecore.EObject
+import org.eclipse.emf.ecore.EReference
+import de.darwinspl.scoping.ExpressionDslScopeProvider
 
 /**
  * This class contains custom scoping description.
@@ -11,5 +14,15 @@ package de.darwinspl.constraint.dsl.scoping
  * on how and when to use it.
  */
 class ConstraintDslScopeProvider extends AbstractConstraintDslScopeProvider {
+
+	new () {
+		super();
+		var expressionScope = new ExpressionDslScopeProvider();
+		delegate = expressionScope;
+	}
+
+//	override getScope(EObject ctx, EReference ref) { 
+//		return expressionScope.getScope(ctx, ref);
+//	}
 
 }
