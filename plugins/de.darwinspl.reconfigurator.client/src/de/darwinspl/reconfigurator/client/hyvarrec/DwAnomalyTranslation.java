@@ -117,7 +117,7 @@ public class DwAnomalyTranslation {
 		}
 		anomaly.setFeature(anomalyFeature);
 
-		if (intervalStart == -1) {
+		if (intervalStart == -1 || sortedEvolutionStepDateList == null) {
 			anomaly.setValidSince(null);
 		} else {
 			anomaly.setValidSince(sortedEvolutionStepDateList.get(intervalStart));
@@ -126,10 +126,11 @@ public class DwAnomalyTranslation {
 		// Interval End means that the anomaly is valid at that point in time. As valid
 		// Until implies that the anomaly isn't valid at that anymore, this has to be
 		// transferred
-		if (sortedEvolutionStepDateList.size() > intervalEnd + 1) {
-			anomaly.setValidUntil(sortedEvolutionStepDateList.get(intervalEnd + 1));
-		} else {
+		if(sortedEvolutionStepDateList == null || sortedEvolutionStepDateList.size() <= intervalEnd + 1) {
 			anomaly.setValidUntil(null);
+		}
+		else {
+			anomaly.setValidUntil(sortedEvolutionStepDateList.get(intervalEnd + 1));
 		}
 		
 		return anomaly;

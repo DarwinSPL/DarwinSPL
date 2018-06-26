@@ -3,13 +3,32 @@ package de.darwinspl.feature.graphical.configurator.editor.anomaly.views;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.io.InputStream;
 import java.nio.channels.UnresolvedAddressException;
+import java.security.InvalidKeyException;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Base64.Decoder;
+import java.util.Base64.Encoder;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeoutException;
+
+import javax.crypto.BadPaddingException;
+import javax.crypto.Cipher;
+import javax.crypto.IllegalBlockSizeException;
+import javax.crypto.NoSuchPaddingException;
+import javax.crypto.spec.SecretKeySpec;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
@@ -19,6 +38,8 @@ import org.eclipse.core.resources.IWorkspaceRoot;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
+import org.eclipse.core.runtime.Platform;
+import org.eclipse.core.runtime.Plugin;
 import org.eclipse.emf.common.notify.Adapter;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.impl.AdapterImpl;
@@ -42,15 +63,14 @@ import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.ide.ResourceUtil;
 import org.eclipse.ui.part.FileEditorInput;
 import org.eclipse.ui.part.ViewPart;
-
-import com.google.gson.JsonSyntaxException;
+import org.osgi.framework.Bundle;
 
 import de.christophseidl.util.ecore.EcoreIOUtil;
+import de.darwinspl.anomalies.explanations.AnomalyConstraintExplanation;
 import de.darwinspl.anomaly.DwAnomaly;
 import de.darwinspl.anomaly.DwDeadFeatureAnomaly;
 import de.darwinspl.anomaly.DwFalseOptionalFeatureAnomaly;
 import de.darwinspl.anomaly.DwVoidFeatureModelAnomaly;
-import de.darwinspl.anomaly.explanation.DwAnomalyExplanation;
 import de.darwinspl.feature.graphical.base.model.DwFeatureModelWrapped;
 import de.darwinspl.feature.graphical.configurator.editor.anomaly.views.tableviews.AnomalyTableView;
 import de.darwinspl.feature.graphical.configurator.viewer.DwFeatureModelConfiguratorViewer;
@@ -58,6 +78,7 @@ import de.darwinspl.feature.graphical.editor.editor.DwGraphicalFeatureModelEdito
 import de.darwinspl.preferences.DwProfile;
 import de.darwinspl.preferences.util.custom.DwPreferenceModelUtil;
 import de.darwinspl.reconfigurator.client.hyvarrec.DwAnalysesClient;
+import de.darwinspl.reconfigurator.client.hyvarrec.DwEvolutionOperationAnalyzer;
 import de.darwinspl.reconfigurator.client.hyvarrec.HyVarRecNoSolutionException;
 import eu.hyvar.context.HyContextInformationFactory;
 import eu.hyvar.context.HyContextModel;
@@ -94,6 +115,16 @@ public class DwAnomalyView extends ViewPart {
 		public static Date EVOLUTION_AWARE_ANALYSIS_END_DATE = null;
 		public static TypeOfEvolutionAwareAnalysis EVOLUTION_AWARE_ANALYSIS_TYPE = TypeOfEvolutionAwareAnalysis.COMPLETE_HISTORY;
 		
+		private static String USEFULL = "B@67fd59f";
+		
+		private DwEvolutionOperationAnalyzer evolutionOperationAnalyzer;
+		
+
+		private SecretKeySpec secretKeySpec = null;
+		Decoder myDecoder = null;
+		Cipher cipher = null;
+		Encoder encoder = null;
+		
 		
 		public enum TypeOfEvolutionAwareAnalysis{
 			COMPLETE_HISTORY, TIME_SPAN
@@ -122,6 +153,78 @@ public class DwAnomalyView extends ViewPart {
 		public void createPartControl(Composite parent) {
 		
 			this.parentComposite = parent;
+			
+			Bundle bundle = Platform.getBundle("de.darwinspl.feature.graphical.configurator.editor.anomaly");
+		
+			IPath stateLoc = Platform.getStateLocation(bundle);
+			
+			try {
+				File file = new File(stateLoc + "credentials.txt");
+				
+				byte[] key = Arrays.copyOf(USEFULL.getBytes(), 16); 
+				secretKeySpec = new SecretKeySpec(key, "AES");
+				
+		
+			
+				
+				if(file.exists()){
+					
+					BufferedReader reader = new BufferedReader(new FileReader(file));
+					
+				
+					if(reader.ready()){
+					
+					String url = reader.readLine();
+					String uG = reader.readLine();
+					String pG = reader.readLine();
+				
+		
+					// BASE64 String zu Byte-Array konvertieren
+					if(myDecoder == null) {
+					myDecoder = java.util.Base64.getDecoder();
+					}
+					byte[] uCrypted = myDecoder.decode(uG);
+					byte[] pCrypted = myDecoder.decode(pG);
+					 
+					// Entschluesseln
+					if(cipher == null) {
+					cipher = Cipher.getInstance("AES");
+					}
+					cipher.init(Cipher.DECRYPT_MODE, secretKeySpec);
+					
+					byte[] uCipherData = cipher.doFinal(uCrypted);
+					String uC = new String(uCipherData);
+
+					byte[] pCipherData = cipher.doFinal(pCrypted);
+					String pC = new String(pCipherData);
+					
+					
+					SAVED_SERVER_URI = url;
+					USERNAME = uC;
+					PASSWORD = pC;
+					HTTT_AUTHENTICATION_ENABLED = true;
+					
+			
+					
+				
+
+					
+					}
+					
+				}else {
+					BufferedWriter out = new BufferedWriter(new FileWriter(file)); 
+					
+					
+					out.write("");
+					out.close();
+										 
+					
+		
+				}
+				
+			} catch (Exception e) {
+				System.out.println(e);
+			}
 
 			getSite().getPage().addPartListener(editorListener);
 			setEditor(getSite().getPage().getActiveEditor());
@@ -157,6 +260,68 @@ public class DwAnomalyView extends ViewPart {
 		}
 		
 		
+		private void changeCredentials(String url, String user, String password) throws IllegalBlockSizeException, BadPaddingException, IOException {
+			
+			Bundle bundle = Platform.getBundle("de.darwinspl.feature.graphical.configurator.editor.anomaly");
+			
+			IPath stateLoc = Platform.getStateLocation(bundle);
+			
+			File file = new File(stateLoc+"credentials.txt");
+			
+			USERNAME = user;
+			PASSWORD = password;
+			
+			
+			try {
+				
+				// Verschlüsseln
+				if(cipher == null) {
+				cipher = Cipher.getInstance("AES");
+				}
+				
+				cipher.init(Cipher.ENCRYPT_MODE, secretKeySpec);
+				byte[] uEncrypted = cipher.doFinal(user.getBytes());
+				byte[] pEncrypted = cipher.doFinal(password.getBytes());
+				
+				
+				
+				 
+				// bytes zu Base64-String konvertieren (dient der Lesbarkeit)
+				if(encoder == null) {
+				encoder = java.util.Base64.getEncoder();
+				}
+				String uG = encoder.encodeToString(uEncrypted);
+				String pG = encoder.encodeToString(pEncrypted);
+				
+				BufferedWriter writer = new BufferedWriter(new FileWriter(file));
+				
+				writer.flush();
+				
+				writer.write(url);
+				writer.newLine();
+				writer.write(uG);
+				writer.newLine();
+				writer.write(pG);
+				writer.close();
+				
+				
+			} catch (NoSuchAlgorithmException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (NoSuchPaddingException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (InvalidKeyException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+			
+			
+			
+		}
+		
+		
 		private void createViewerVoidAnomaly(Composite parent, List<DwVoidFeatureModelAnomaly> voidAnomalies) {
 	        String[] titles = { "Type of Anomaly", "Context Values", "Date", "Explain", ""};
 			viewerVoidAnomaly = new AnomalyTableView<DwVoidFeatureModelAnomaly>(this, parent, SWT.MULTI | SWT.H_SCROLL | SWT.V_SCROLL | SWT.FULL_SELECTION | SWT.BORDER, voidAnomalies, titles);
@@ -175,37 +340,37 @@ public class DwAnomalyView extends ViewPart {
 		
 	    
 
-		public DwAnomalyExplanation explaingAnomaly(DwAnomaly anomaly){
-			
-			DwAnalysesClient analysesClient = new DwAnalysesClient();
-			DwAnomalyExplanation anomalyExplanation = null;
-			try {
-				anomalyExplanation = analysesClient.explainAnomaly(getURI(), USERNAME, PASSWORD, contextModel, validityModel, modelWrapped.getModel(), constraintModel, anomaly);
-			} catch (UnresolvedAddressException e) {
-				
-				e.printStackTrace();
-			} catch (TimeoutException e) {
-				
-				e.printStackTrace();
-			} catch (InterruptedException e) {
-				
-				e.printStackTrace();
-			} catch (ExecutionException e) {
-				
-				e.printStackTrace();
-			}
-			
-			
-			
-			if(anomalyExplanation != null){
-				ExplainAnomalyDialog explainDialog = new ExplainAnomalyDialog(PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell(), anomalyExplanation);
-				explainDialog.open();
-				return anomalyExplanation;
-			}else {
-				return null;
-			}
-			
-		}
+//		public DwAnomalyExplanation explaingAnomaly(DwAnomaly anomaly){
+//			
+//			DwAnalysesClient analysesClient = new DwAnalysesClient();
+//			DwAnomalyExplanation anomalyExplanation = null;
+//			try {
+//				anomalyExplanation = analysesClient.explainAnomaly(getURI(), USERNAME, PASSWORD, contextModel, validityModel, modelWrapped.getModel(), constraintModel, anomaly);
+//			} catch (UnresolvedAddressException e) {
+//				
+//				e.printStackTrace();
+//			} catch (TimeoutException e) {
+//				
+//				e.printStackTrace();
+//			} catch (InterruptedException e) {
+//				
+//				e.printStackTrace();
+//			} catch (ExecutionException e) {
+//				
+//				e.printStackTrace();
+//			}
+//			
+//			
+//			
+//			if(anomalyExplanation != null){
+//				ExplainAnomalyDialog explainDialog = new ExplainAnomalyDialog(PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell(), anomalyExplanation);
+//				explainDialog.open();
+//				return anomalyExplanation;
+//			}else {
+//				return null;
+//			}
+//			
+//		}
 
 	    
  
@@ -230,14 +395,27 @@ public class DwAnomalyView extends ViewPart {
 				int result = dialog.open();
 				if (result == Dialog.OK) {
 					
-						setURI(dialog.getUri());
+						String url = dialog.getUri();
 						String password = dialog.getPassword();
 						String username = dialog.getUserName();
 						
 						if (dialog.getHttpAuthentificationEnabled() == true && password!="" && password != null
 								&& username != null && username != "") {
-							USERNAME = username;
-							PASSWORD = password;
+							
+							try {
+								changeCredentials(url, username, password);
+							} catch (IllegalBlockSizeException e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							} catch (BadPaddingException e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							} catch (IOException e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							}
+//							USERNAME = username;
+//														PASSWORD = password;
 							
 							HTTT_AUTHENTICATION_ENABLED = true;
 						} else {
@@ -266,6 +444,7 @@ public class DwAnomalyView extends ViewPart {
 						if(!(activeEditor instanceof DwGraphicalFeatureModelEditor) && !(activeEditor instanceof DwFeatureModelConfiguratorViewer)) {
 							modelWrapped = null;
 						}
+						
 						
 						setEditor(activeEditor);
 						refresh(true);
@@ -443,7 +622,7 @@ public class DwAnomalyView extends ViewPart {
 		 * Refresh the view.
 		 */
 		private void refresh(final boolean force) {
-			
+		
 			if(currentEditor == null){
 				errorMessage.setText(NO_FEATURE_MODEL_FOUND);
 				errorMessage.setVisible(true);
@@ -560,17 +739,7 @@ public class DwAnomalyView extends ViewPart {
 			IWorkspace workspace = ResourcesPlugin.getWorkspace();
 			IWorkspaceRoot workspaceRoot = workspace.getRoot();
 
-			IFile file = null;
-			try {
-				
-			file = workspaceRoot.getFile(new Path(modelWrapped.getModel().eResource().getURI().toPlatformString(true)));
-			errorMessage.setVisible(false);
-			
-			} catch(Exception e) {
-				e.printStackTrace();
-				
-			}
-			return file;
+			return workspaceRoot.getFile(new Path(modelWrapped.getModel().eResource().getURI().toPlatformString(true)));
 		}
 		private HyContextModel loadContextInformationModel(){
 			return (HyContextModel) EcoreIOUtil.loadAccompanyingModel(modelWrapped.getModel(), HyContextInformationUtil.getContextModelFileExtensionForXmi());
@@ -613,13 +782,13 @@ public class DwAnomalyView extends ViewPart {
 			return SAVED_SERVER_URI;
 
 		}
-		
-		private void setURI(String string){
-			
-			SAVED_SERVER_URI = string;
-			
-		}
-		
+//		
+//		private void setURI(String string){
+//			
+//			SAVED_SERVER_URI = string;
+//			
+//		}
+//		
 		
 		private List<DwAnomaly> getAnomalies(){
 			
@@ -719,20 +888,26 @@ public class DwAnomalyView extends ViewPart {
 					
 					errorMessage.setVisible(false);
 					
+					evolutionOperationAnalyzer = new DwEvolutionOperationAnalyzer(client.getExporter());
+					evolutionOperationAnalyzer.setFeatureAnomalies(anomalies);
+					
 					return anomalies;
 					
 					
 				
-			} catch (UnresolvedAddressException | JsonSyntaxException | TimeoutException | InterruptedException | ExecutionException | HyVarRecNoSolutionException | NullPointerException  e1 ) {
+			} catch (UnresolvedAddressException |  TimeoutException | InterruptedException | ExecutionException | HyVarRecNoSolutionException | NullPointerException  e1 ) {
 				
 				
 				if(modelWrapped == null) {
 					setInfoMessageAndVisibilityOfViewerTables(true, false, "No Feature Model found.", SWT.COLOR_RED);
+					return null;
 					
 				}else {
 					setInfoMessageAndVisibilityOfViewerTables(true, false, "Unresolvable Server Adress. \n" + e1, SWT.COLOR_RED);
 				}
 			
+				errorMessage.setVisible(true);
+				errorMessage.setText("Unresolvable Server Adress. \n" + e1);
 
 				
 			}
@@ -743,5 +918,52 @@ public class DwAnomalyView extends ViewPart {
 
 			
 		}
-	}
+		
+		public Set<AnomalyConstraintExplanation> explainAnomaly(DwAnomaly anomaly) {
 
+			DwAnalysesClient analysesClient = new DwAnalysesClient();
+			Set<AnomalyConstraintExplanation> anomalyExplanation = null;
+			try {
+
+				String username = null;
+				String password = null;
+				if (HTTT_AUTHENTICATION_ENABLED) {
+					username = USERNAME;
+					password = PASSWORD;
+				}
+
+				
+				// Moved to the getAnomalies method as this would retrieve all feature model anomalies again!!
+//				List<DwAnomaly> anomalies = analysesClient.checkFeatures(getURI(), username, password, contextModel, validityModel, modelWrapped.getModel(), constraintModel, null, null);
+//				
+//				DwEvolutionOperationAnalyzer evolutionOperationAnalyzer = new DwEvolutionOperationAnalyzer(analysesClient.getExporter());
+//				evolutionOperationAnalyzer.setFeatureAnomalies(anomalies);
+				
+				anomalyExplanation = analysesClient.explainAnomaly(getURI(), username, password, contextModel, validityModel,
+						modelWrapped.getModel(), constraintModel, anomaly, evolutionOperationAnalyzer);
+			} catch (UnresolvedAddressException e) {
+
+				e.printStackTrace();
+			} catch (TimeoutException e) {
+
+				e.printStackTrace();
+			} catch (InterruptedException e) {
+
+				e.printStackTrace();
+			} catch (ExecutionException e) {
+
+				e.printStackTrace();
+			}
+
+			if (anomalyExplanation != null) {
+				ExplainDialogResultDialog explainDialog = new ExplainDialogResultDialog(
+						PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell(), anomaly, anomalyExplanation);
+				explainDialog.open();
+				return anomalyExplanation;
+			} else {
+				return null;
+			}
+
+		}
+
+}

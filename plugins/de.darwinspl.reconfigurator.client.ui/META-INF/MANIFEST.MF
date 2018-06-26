@@ -19,4 +19,6 @@ Require-Bundle: org.eclipse.ui,
  eu.hyvar.feature.configuration,
  de.darwinspl.anomalies,
  de.darwinspl.anomalies.explanations,
- de.darwinspl.solver
+ de.darwinspl.solver,
+ com.google.gson,
+ eu.hyvar.reconfigurator.input
