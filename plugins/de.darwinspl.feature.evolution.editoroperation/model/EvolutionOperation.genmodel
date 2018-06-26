@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<genmodel:GenModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore"
+    xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" modelDirectory="/de.darwinspl.feature.evolution.evolutionoperation/src-gen"
+    editDirectory="/de.darwinspl.feature.evolution.evolutionoperation.edit/src-gen"
+    editorDirectory="/de.darwinspl.feature.evolution.evolutionoperation.editor/src-gen"
+    modelPluginID="de.darwinspl.feature.evolution.evolutionoperation" modelName="EvolutionOperation"
+    rootExtendsClass="org.eclipse.emf.ecore.impl.MinimalEObjectImpl$Container" testsDirectory="/de.darwinspl.feature.evolution.evolutionoperation.tests/src-gen"
+    importerID="org.eclipse.emf.importer.ecore" complianceLevel="8.0" copyrightFields="false"
+    usedGenPackages="../../eu.hyvar.feature.constraint/model/Constraint.genmodel#//constraint ../../eu.hyvar.context.information/model/ContextInformation.genmodel#//context ../../eu.hyvar.context.validity_formulas/model/ContextValidity.genmodel#//contextValidity ../../eu.hyvar.feature.data/model/DataValues.genmodel#//dataValues ../../eu.hyvar.evolution/model/Evolution.genmodel#//evolution ../../eu.hyvar.feature.expression/model/Expression.genmodel#//expression ../../eu.hyvar.feature/model/Feature.genmodel#//feature"
+    operationReflection="true" importOrganizing="true">
+  <foreignModel>EvolutionOperation.ecore</foreignModel>
+  <genPackages prefix="Evolutionoperation" basePackage="de.darwinspl.feature.evolution"
+      disposableProviderFactory="true" ecorePackage="EvolutionOperation.ecore#/">
+    <genClasses image="false" ecoreClass="EvolutionOperation.ecore#//DwEvolutionOperation">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute EvolutionOperation.ecore#//DwEvolutionOperation/evoStep"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="EvolutionOperation.ecore#//DwEvolutionOperationFeature">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference EvolutionOperation.ecore#//DwEvolutionOperationFeature/feature"/>
+    </genClasses>
+    <genClasses ecoreClass="EvolutionOperation.ecore#//DwEvolutionOperationFeatureCreate"/>
+    <genClasses ecoreClass="EvolutionOperation.ecore#//DwEvolutionOperationFeatureDelete"/>
+    <genClasses ecoreClass="EvolutionOperation.ecore#//DwEvolutionOperationFeatureRename">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference EvolutionOperation.ecore#//DwEvolutionOperationFeatureRename/oldName"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference EvolutionOperation.ecore#//DwEvolutionOperationFeatureRename/newName"/>
+    </genClasses>
+    <genClasses ecoreClass="EvolutionOperation.ecore#//DwEvolutionOperationFeatureType">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference EvolutionOperation.ecore#//DwEvolutionOperationFeatureType/oldType"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference EvolutionOperation.ecore#//DwEvolutionOperationFeatureType/newType"/>
+    </genClasses>
+    <genClasses ecoreClass="EvolutionOperation.ecore#//DwEvolutionOperationFeatureGroup">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference EvolutionOperation.ecore#//DwEvolutionOperationFeatureGroup/oldGroup"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference EvolutionOperation.ecore#//DwEvolutionOperationFeatureGroup/newGroup"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="EvolutionOperation.ecore#//DwEvolutionOperationFeatureVersion">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference EvolutionOperation.ecore#//DwEvolutionOperationFeatureVersion/version"/>
+    </genClasses>
+    <genClasses ecoreClass="EvolutionOperation.ecore#//DwEvolutionOperationFeatureVersionCreate"/>
+    <genClasses ecoreClass="EvolutionOperation.ecore#//DwEvolutionOperationFeatureVersionDelete"/>
+    <genClasses ecoreClass="EvolutionOperation.ecore#//DwEvolutionOperationGroupType">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference EvolutionOperation.ecore#//DwEvolutionOperationGroupType/group"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference EvolutionOperation.ecore#//DwEvolutionOperationGroupType/oldType"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference EvolutionOperation.ecore#//DwEvolutionOperationGroupType/newType"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="EvolutionOperation.ecore#//DwEvolutionOperationAttribute">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference EvolutionOperation.ecore#//DwEvolutionOperationAttribute/attribute"/>
+    </genClasses>
+    <genClasses ecoreClass="EvolutionOperation.ecore#//DwEvolutionOperationAttributeCreate"/>
+    <genClasses ecoreClass="EvolutionOperation.ecore#//DwEvolutionOperationAttributeDelete"/>
+    <genClasses ecoreClass="EvolutionOperation.ecore#//DwEvolutionOperationAttributeRename">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference EvolutionOperation.ecore#//DwEvolutionOperationAttributeRename/oldName"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference EvolutionOperation.ecore#//DwEvolutionOperationAttributeRename/newName"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="EvolutionOperation.ecore#//DwEvolutionOperationEnum">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference EvolutionOperation.ecore#//DwEvolutionOperationEnum/enum"/>
+    </genClasses>
+    <genClasses ecoreClass="EvolutionOperation.ecore#//DwEvolutionOperationEnumCreate"/>
+    <genClasses ecoreClass="EvolutionOperation.ecore#//DwEvolutionOperationEnumDelete"/>
+    <genClasses image="false" ecoreClass="EvolutionOperation.ecore#//DwEvolutionOperationEnumLiteral">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference EvolutionOperation.ecore#//DwEvolutionOperationEnumLiteral/literal"/>
+    </genClasses>
+    <genClasses ecoreClass="EvolutionOperation.ecore#//DwEvolutionOperationEnumLiteralCreate"/>
+    <genClasses ecoreClass="EvolutionOperation.ecore#//DwEvolutionOperationEnumLiteralDelete"/>
+    <genClasses image="false" ecoreClass="EvolutionOperation.ecore#//DwEvolutionOperationConstraint">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference EvolutionOperation.ecore#//DwEvolutionOperationConstraint/constraint"/>
+    </genClasses>
+    <genClasses ecoreClass="EvolutionOperation.ecore#//DwEvolutionOperationConstraintCreate"/>
+    <genClasses ecoreClass="EvolutionOperation.ecore#//DwEvolutionOperationConstraintDelete"/>
+    <genClasses image="false" ecoreClass="EvolutionOperation.ecore#//DwEvolutionOperationContext">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference EvolutionOperation.ecore#//DwEvolutionOperationContext/context"/>
+    </genClasses>
+    <genClasses ecoreClass="EvolutionOperation.ecore#//DwEvolutionOperationContextCreate"/>
+    <genClasses ecoreClass="EvolutionOperation.ecore#//DwEvolutionOperationContextDelete"/>
+    <genClasses image="false" ecoreClass="EvolutionOperation.ecore#//DwEvolutionOperationValidityFormula">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference EvolutionOperation.ecore#//DwEvolutionOperationValidityFormula/validityFormula"/>
+    </genClasses>
+    <genClasses ecoreClass="EvolutionOperation.ecore#//DwEvolutionOperationValidityFormulaCreate"/>
+    <genClasses ecoreClass="EvolutionOperation.ecore#//DwEvolutionOperationValidityFormulaDelete"/>
+  </genPackages>
+</genmodel:GenModel>

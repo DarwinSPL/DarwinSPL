@@ -14,13 +14,13 @@ public class DwAnomalyFactoryWithIds extends DwAnomalyFactoryImpl {
 	}
 
 	public DwFalseOptionalFeatureAnomaly createDwFalseOptionalFeatureAnomaly() {
-		DwFalseOptionalFeatureAnomaly dwFalseOptionalFeatureAnomaly = super.createDwFalseOptionalFeatureAnomaly();
+		DwFalseOptionalFeatureAnomalyCustom dwFalseOptionalFeatureAnomaly = new DwFalseOptionalFeatureAnomalyCustom();
 		dwFalseOptionalFeatureAnomaly.createId();
 		return dwFalseOptionalFeatureAnomaly;
 	}
 	
 	public DwDeadFeatureAnomaly createDwDeadFeatureAnomaly() {
-		DwDeadFeatureAnomaly dwDeadFeatureAnomaly = super.createDwDeadFeatureAnomaly();
+		DwDeadFeatureAnomalyCustom dwDeadFeatureAnomaly = new DwDeadFeatureAnomalyCustom();
 		dwDeadFeatureAnomaly.createId();
 		return dwDeadFeatureAnomaly;
 	}

@@ -128,7 +128,14 @@ public class FeatureIDEFeatureModelImporter implements DarwinSPLFeatureModelImpo
 			featureType.setType(HyFeatureTypeEnum.MANDATORY);
 		} else if (parentFeatureStructure.isOr() || parentFeatureStructure.isAlternative()) {
 			//In dedicated groups, all features are perceived as being optional
-			featureType.setType(HyFeatureTypeEnum.OPTIONAL);
+			
+			// If the feature's group is alternative or or but only one feature exists in this group, it has to be mandatory.
+			if(parentFeatureStructure.getChildren().size() > 1) {
+				featureType.setType(HyFeatureTypeEnum.OPTIONAL);				
+			}
+			else {
+				featureType.setType(HyFeatureTypeEnum.MANDATORY);
+			}
 		} else if (featureStructure.isMandatory()) {
 			featureType.setType(HyFeatureTypeEnum.MANDATORY);
 		} else {
@@ -157,15 +164,21 @@ public class FeatureIDEFeatureModelImporter implements DarwinSPLFeatureModelImpo
 			//Variation type of group
 			HyGroupType groupType = featureFactory.createHyGroupType();
 			dwGroup.getTypes().add(groupType);
-			if (featureStructure.isAlternative()) {
-				groupType.setType(HyGroupTypeEnum.ALTERNATIVE);
-			} else if (featureStructure.isOr()) {
-				groupType.setType(HyGroupTypeEnum.OR);
-			} else if (featureStructure.isAnd()) {
-				//Minimum is the number of mandatory child features
+			
+			// can only be alternative or or if more than one feature.
+			if (childStructures.size() > 1) {
+				if (featureStructure.isAlternative()) {
+					groupType.setType(HyGroupTypeEnum.ALTERNATIVE);
+				} else if (featureStructure.isOr()) {
+					groupType.setType(HyGroupTypeEnum.OR);
+				} else if (featureStructure.isAnd()) {
+					// Minimum is the number of mandatory child features
+					groupType.setType(HyGroupTypeEnum.AND);
+				}
+			}
+			else {
 				groupType.setType(HyGroupTypeEnum.AND);
 			}
-			
 			
 			for (IFeatureStructure childStructure : childStructures) {
 				IFeature childFeature = childStructure.getFeature();

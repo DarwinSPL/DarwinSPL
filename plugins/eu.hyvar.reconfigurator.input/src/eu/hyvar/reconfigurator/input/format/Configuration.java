@@ -2,7 +2,7 @@
 package eu.hyvar.reconfigurator.input.format;
 
 import java.util.List;
-import com.google.gson.annotations.Expose;
+
 import com.google.gson.annotations.SerializedName;
 
 public class Configuration {
@@ -13,7 +13,6 @@ public class Configuration {
      * 
      */
     @SerializedName("selectedFeatures")
-    @Expose
     private List<String> selectedFeatures = null;
     /**
      * 
@@ -21,7 +20,6 @@ public class Configuration {
      * 
      */
     @SerializedName("attribute_values")
-    @Expose
     private List<AttributeValue> attribute_values = null;
     /**
      * 
@@ -29,7 +27,6 @@ public class Configuration {
      * 
      */
     @SerializedName("context_values")
-    @Expose
     private List<ContextValue> context_values = null;
 
     /**

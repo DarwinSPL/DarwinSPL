@@ -4,6 +4,8 @@ import org.eclipse.gef.Request;
 import org.eclipse.gef.ui.actions.SelectionAction;
 import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.swt.widgets.Shell;
+import org.eclipse.ui.IEditorPart;
+import org.eclipse.ui.IPropertyListener;
 import org.eclipse.ui.IWorkbenchPart;
 
 import de.darwinspl.feature.graphical.base.editparts.DwAttributeEditPart;

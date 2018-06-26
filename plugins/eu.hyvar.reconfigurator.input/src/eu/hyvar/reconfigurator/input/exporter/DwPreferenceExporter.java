@@ -4,16 +4,15 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import eu.hyvar.feature.expression.util.HyExpressionStringExporter;
 import de.darwinspl.preferences.DwPreference;
 import de.darwinspl.preferences.DwProfile;
 import eu.hyvar.reconfigurator.input.format.Context;
 
 public class DwPreferenceExporter {
 
-	private HyExpressionStringExporter expressionExporter;
+	private DwExpressionExporter expressionExporter;
 
-	public DwPreferenceExporter(HyExpressionStringExporter expressionExporter) {
+	public DwPreferenceExporter(DwExpressionExporter expressionExporter) {
 		this.expressionExporter = expressionExporter;
 	}
 	

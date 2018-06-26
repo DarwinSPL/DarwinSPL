@@ -3,7 +3,9 @@ package eu.hyvar.reconfigurator.input.exporter;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 
 import eu.hyvar.context.contextValidity.HyAttributeValidityFormula;
@@ -14,16 +16,23 @@ import eu.hyvar.feature.expression.HyExpression;
 import eu.hyvar.feature.expression.HyExpressionFactory;
 import eu.hyvar.feature.expression.HyFeatureReferenceExpression;
 import eu.hyvar.feature.expression.HyImpliesExpression;
-import eu.hyvar.feature.expression.util.HyExpressionStringExporter;
 import eu.hyvar.reconfigurator.input.format.Context;
 
+/**
+ * 
+ * @author Felix Franzke
+ *
+ */
 public class DwValidityFormulaExporter {
 
-	private HyExpressionStringExporter expressionExporter;
+	private DwExpressionExporter expressionExporter;
 
+	private Map<String, EObject> translationMapping;
 	
-	public DwValidityFormulaExporter(HyExpressionStringExporter expressionExporter) {
+	public DwValidityFormulaExporter(DwExpressionExporter expressionExporter, Map<String, EObject> translationMapping) {
 		this.expressionExporter = expressionExporter;
+		
+		this.translationMapping = translationMapping;
 	}
 	
 	public List<String> getContextValidityFormulas(HyValidityModel validityModel, Date date, Context dateContext, List<Date> sortedDateList) {
@@ -38,7 +47,9 @@ public class DwValidityFormulaExporter {
 			String validityFormulaConstraint = getValidityFormulaAsConstraint(validityFormula, date, dateContext, sortedDateList);
 			
 			if(validityFormulaConstraint != null) {
-				validityFormulas.add(validityFormulaConstraint);				
+				validityFormulas.add(validityFormulaConstraint);
+				
+				translationMapping.put(validityFormulaConstraint, validityFormula);
 			}
 			
 		}

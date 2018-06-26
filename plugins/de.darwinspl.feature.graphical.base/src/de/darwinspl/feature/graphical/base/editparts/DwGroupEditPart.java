@@ -122,8 +122,8 @@ public class DwGroupEditPart extends DwAbstractEditPart{
 
 		if(type != null) {
 		StringBuffer buffer = new StringBuffer();
-		buffer.append("ID: "+ group.getId() + ", \n");
-		buffer.append("Type: "+ type.getType());
+		if(group != null) buffer.append("ID: "+ group.getId() + ", \n");
+		if(type != null) buffer.append("Type: "+ type.getType());
 		
 		
 		return buffer.toString();

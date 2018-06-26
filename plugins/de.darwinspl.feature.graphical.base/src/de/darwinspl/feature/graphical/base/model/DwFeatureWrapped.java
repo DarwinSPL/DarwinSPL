@@ -196,6 +196,9 @@ public class DwFeatureWrapped extends DwEditorChangeableElement{
 
 		if(composition != null){
 			HyGroupType type = HyEvolutionUtil.getValidTemporalElement(composition.getCompositionOf().getTypes(), date);
+			if(type == null) {
+				return true;
+			}
 			return type.getType() == HyGroupTypeEnum.AND;
 		}
 

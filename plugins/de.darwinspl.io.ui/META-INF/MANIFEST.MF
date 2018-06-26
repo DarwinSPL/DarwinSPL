@@ -13,4 +13,5 @@ Require-Bundle: de.darwinspl.importer.ui;bundle-version="1.0.0",
  de.darwinspl.importer,
  eu.hyvar.reconfigurator.input,
  eu.hyvar.feature,
- eu.hyvar.feature.constraint
+ eu.hyvar.feature.constraint,
+ com.google.gson
