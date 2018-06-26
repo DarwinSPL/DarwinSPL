@@ -10,4 +10,5 @@ HyConstraintModel returns HyConstraintModel:
 
 
 HyConstraint returns HyConstraint:
-	rootExpression=HyExpression;
+	rootExpression=HyExpression ('{' validSince=Validity '-' validUntil=Validity '}')?;
+	
