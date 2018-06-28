@@ -36,11 +36,18 @@
     </genClasses>
     <genClasses ecoreClass="EvolutionOperation.ecore#//DwEvolutionOperationFeatureVersionCreate"/>
     <genClasses ecoreClass="EvolutionOperation.ecore#//DwEvolutionOperationFeatureVersionDelete"/>
+    <genClasses ecoreClass="EvolutionOperation.ecore#//DwEvolutionOperationGroup">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference EvolutionOperation.ecore#//DwEvolutionOperationGroup/group"/>
+    </genClasses>
     <genClasses ecoreClass="EvolutionOperation.ecore#//DwEvolutionOperationGroupType">
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference EvolutionOperation.ecore#//DwEvolutionOperationGroupType/group"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference EvolutionOperation.ecore#//DwEvolutionOperationGroupType/oldType"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference EvolutionOperation.ecore#//DwEvolutionOperationGroupType/newType"/>
     </genClasses>
+    <genClasses ecoreClass="EvolutionOperation.ecore#//DwEvolutionOperationGroupFeatures">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference EvolutionOperation.ecore#//DwEvolutionOperationGroupFeatures/affectedFeatures"/>
+    </genClasses>
+    <genClasses ecoreClass="EvolutionOperation.ecore#//DwEvolutionOperationGroupFeaturesAdded"/>
+    <genClasses ecoreClass="EvolutionOperation.ecore#//DwEvolutionOperationGroupFeaturesRemoved"/>
     <genClasses image="false" ecoreClass="EvolutionOperation.ecore#//DwEvolutionOperationAttribute">
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference EvolutionOperation.ecore#//DwEvolutionOperationAttribute/attribute"/>
     </genClasses>

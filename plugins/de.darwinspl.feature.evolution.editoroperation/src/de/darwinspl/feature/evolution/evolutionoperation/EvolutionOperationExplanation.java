@@ -2,30 +2,11 @@ package de.darwinspl.feature.evolution.evolutionoperation;
 
 import java.util.Date;
 
-import de.darwinspl.feature.evolution.evolutionoperation.DwEvolutionOperation;
-import de.darwinspl.feature.evolution.evolutionoperation.DwEvolutionOperationAttributeCreate;
-import de.darwinspl.feature.evolution.evolutionoperation.DwEvolutionOperationAttributeDelete;
-import de.darwinspl.feature.evolution.evolutionoperation.DwEvolutionOperationAttributeRename;
-import de.darwinspl.feature.evolution.evolutionoperation.DwEvolutionOperationConstraintCreate;
-import de.darwinspl.feature.evolution.evolutionoperation.DwEvolutionOperationConstraintDelete;
-import de.darwinspl.feature.evolution.evolutionoperation.DwEvolutionOperationContextCreate;
-import de.darwinspl.feature.evolution.evolutionoperation.DwEvolutionOperationContextDelete;
-import de.darwinspl.feature.evolution.evolutionoperation.DwEvolutionOperationEnumCreate;
-import de.darwinspl.feature.evolution.evolutionoperation.DwEvolutionOperationEnumDelete;
-import de.darwinspl.feature.evolution.evolutionoperation.DwEvolutionOperationEnumLiteralCreate;
-import de.darwinspl.feature.evolution.evolutionoperation.DwEvolutionOperationEnumLiteralDelete;
-import de.darwinspl.feature.evolution.evolutionoperation.DwEvolutionOperationFeatureCreate;
-import de.darwinspl.feature.evolution.evolutionoperation.DwEvolutionOperationFeatureDelete;
-import de.darwinspl.feature.evolution.evolutionoperation.DwEvolutionOperationFeatureGroup;
-import de.darwinspl.feature.evolution.evolutionoperation.DwEvolutionOperationFeatureRename;
-import de.darwinspl.feature.evolution.evolutionoperation.DwEvolutionOperationFeatureType;
-import de.darwinspl.feature.evolution.evolutionoperation.DwEvolutionOperationFeatureVersionCreate;
-import de.darwinspl.feature.evolution.evolutionoperation.DwEvolutionOperationFeatureVersionDelete;
-import de.darwinspl.feature.evolution.evolutionoperation.DwEvolutionOperationGroupType;
-import de.darwinspl.feature.evolution.evolutionoperation.DwEvolutionOperationValidityFormulaCreate;
-import de.darwinspl.feature.evolution.evolutionoperation.DwEvolutionOperationValidityFormulaDelete;
+import eu.hyvar.evolution.HyName;
 import eu.hyvar.evolution.util.HyEvolutionUtil;
+import eu.hyvar.feature.HyFeature;
 import eu.hyvar.feature.HyFeatureChild;
+import eu.hyvar.feature.HyGroupType;
 
 /**
  * 
@@ -67,6 +48,10 @@ public class EvolutionOperationExplanation {
 		else if (evolutionOperation instanceof DwEvolutionOperationFeatureVersionDelete) {
 			DwEvolutionOperationFeatureVersionDelete featureOperation = (DwEvolutionOperationFeatureVersionDelete) evolutionOperation;
 			return explain(featureOperation);
+		}
+		else if(evolutionOperation instanceof DwEvolutionOperationGroupFeaturesAdded) {
+			DwEvolutionOperationGroupFeaturesAdded operation = (DwEvolutionOperationGroupFeaturesAdded) evolutionOperation;
+			return explain(operation);
 		}
 		else if (evolutionOperation instanceof DwEvolutionOperationGroupType) {
 			DwEvolutionOperationGroupType groupType = (DwEvolutionOperationGroupType) evolutionOperation;
@@ -171,6 +156,55 @@ public class EvolutionOperationExplanation {
 		String featureName = HyEvolutionUtil.getValidTemporalElement(featureOperation.getFeature().getNames(), featureOperation.getEvoStep()).getName();
 		String versionNumber = featureOperation.getVersion().getNumber();
 		return "Version " + versionNumber + " of " + featureName + " was deleted on " + featureOperation.getEvoStep();
+	}
+	
+	private String explain(DwEvolutionOperationGroupFeatures operation) {
+		StringBuilder explanationBuilder = new StringBuilder("Features ");
+		boolean first = true;
+		for(HyFeature feature : operation.getAffectedFeatures()) {
+			if(!first) {
+				explanationBuilder.append(", ");
+			}
+			else {
+				first = false;
+			}
+			HyName featureName = HyEvolutionUtil.getValidTemporalElement(feature.getNames(), operation.getEvoStep());
+			explanationBuilder.append(featureName.getName());
+		}
+		
+		explanationBuilder.append(" were ");
+		
+		if(operation instanceof DwEvolutionOperationGroupFeaturesAdded) {
+			explanationBuilder.append("added into ");
+		}
+		else if(operation instanceof DwEvolutionOperationGroupFeaturesRemoved) {
+			explanationBuilder.append("removed from ");
+		}
+		
+		HyGroupType groupType = HyEvolutionUtil.getValidTemporalElement(operation.getGroup().getTypes(), operation.getEvoStep());
+		switch(groupType.getType()) {
+		case ALTERNATIVE:
+			explanationBuilder.append("ALTERNATIVE");
+			break;
+		case AND:
+			explanationBuilder.append("AND");
+			break;
+		case OR:
+			explanationBuilder.append("OR");
+			break;
+		default:
+			explanationBuilder.append("undef");
+			break;
+		}
+		
+		explanationBuilder.append(" group under feature ");
+		
+		HyFeatureChild featureChild = HyEvolutionUtil.getValidTemporalElement(operation.getGroup().getChildOf(), operation.getEvoStep());
+		HyName parentName = HyEvolutionUtil.getValidTemporalElement(featureChild.getParent().getNames(), operation.getEvoStep());
+		
+		explanationBuilder.append(parentName.getName());
+		
+		return explanationBuilder.toString();
 	}
 	
 	private String explain(DwEvolutionOperationGroupType groupTypeOperation) {

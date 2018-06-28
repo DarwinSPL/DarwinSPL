@@ -112,7 +112,7 @@ public class DwFeatureModelEvolutionImporter {
 					.getValidTemporalElement(targetGroup.getParentOf(), date);
 			
 			// Prevents the creation of a new group composition for each new feature that is added.
-			if(oldGroupCompositionOfTargetGroup.getValidSince().equals(date)) {
+			if(oldGroupCompositionOfTargetGroup.getValidSince() != null && oldGroupCompositionOfTargetGroup.getValidSince().equals(date)) {
 				newGroupComposition = oldGroupCompositionOfTargetGroup;
 			}
 			else {
@@ -243,6 +243,18 @@ public class DwFeatureModelEvolutionImporter {
 		}
 
 		FeatureModelConstraintsTuple mergedModels = mergeFeatureModels(darwinSPLModels);
+		
+		// TODO remove -> debug code.
+		List<Date> dates = HyEvolutionUtil.collectDates(mergedModels.getFeatureModel());
+		for(HyFeature feature: mergedModels.getFeatureModel().getFeatures()) {
+			if(feature.getGroupMembership().size() > 1) {
+				for(Date date: dates) {
+					if(HyEvolutionUtil.getValidTemporalElements(feature.getGroupMembership(), date).size() > 1) {
+						System.out.println("Culprit!");
+					}
+				}
+			}
+		}
 		
 		return mergedModels;
 	}

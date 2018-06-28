@@ -261,7 +261,7 @@ public class ExplainDialogResultDialog extends TitleAreaDialog {
 			TreeItem translatedConstraint = new TreeItem(translatedConstraintText, 0);
 			translatedConstraint.setText(explanation.getTranslatedConstraint());
 			
-			List<String> causingStrings = explanation.explainCausingOperations();
+			Set<String> causingStrings = explanation.explainCausingOperations();
 			if (causingStrings.size() > 0) {
 				TreeItem causingOps = new TreeItem(itemRoot, 0);
 				causingOps.setText("Causing Evolution Operations");

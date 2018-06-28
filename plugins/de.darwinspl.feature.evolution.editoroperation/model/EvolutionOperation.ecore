@@ -36,12 +36,22 @@
       eSuperTypes="#//DwEvolutionOperationFeatureVersion"/>
   <eClassifiers xsi:type="ecore:EClass" name="DwEvolutionOperationFeatureVersionDelete"
       eSuperTypes="#//DwEvolutionOperationFeatureVersion"/>
-  <eClassifiers xsi:type="ecore:EClass" name="DwEvolutionOperationGroupType" eSuperTypes="#//DwEvolutionOperation">
+  <eClassifiers xsi:type="ecore:EClass" name="DwEvolutionOperationGroup" eSuperTypes="#//DwEvolutionOperation">
     <eStructuralFeatures xsi:type="ecore:EReference" name="group" lowerBound="1" eType="ecore:EClass ../../eu.hyvar.feature/model/Feature.ecore#//HyGroup"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="DwEvolutionOperationGroupType" eSuperTypes="#//DwEvolutionOperationGroup">
     <eStructuralFeatures xsi:type="ecore:EReference" name="oldType" eType="ecore:EClass ../../eu.hyvar.feature/model/Feature.ecore#//HyGroupType"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="newType" lowerBound="1"
         eType="ecore:EClass ../../eu.hyvar.feature/model/Feature.ecore#//HyGroupType"/>
   </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="DwEvolutionOperationGroupFeatures" eSuperTypes="#//DwEvolutionOperationGroup">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="affectedFeatures" upperBound="-1"
+        eType="ecore:EClass ../../eu.hyvar.feature/model/Feature.ecore#//HyFeature"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="DwEvolutionOperationGroupFeaturesAdded"
+      eSuperTypes="#//DwEvolutionOperationGroupFeatures"/>
+  <eClassifiers xsi:type="ecore:EClass" name="DwEvolutionOperationGroupFeaturesRemoved"
+      eSuperTypes="#//DwEvolutionOperationGroupFeatures"/>
   <eClassifiers xsi:type="ecore:EClass" name="DwEvolutionOperationAttribute" abstract="true"
       eSuperTypes="#//DwEvolutionOperation">
     <eStructuralFeatures xsi:type="ecore:EReference" name="attribute" lowerBound="1"

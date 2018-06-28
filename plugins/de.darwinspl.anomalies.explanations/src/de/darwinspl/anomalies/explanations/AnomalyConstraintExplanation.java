@@ -2,7 +2,9 @@ package de.darwinspl.anomalies.explanations;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.eclipse.emf.ecore.EObject;
 
@@ -24,7 +26,7 @@ public class AnomalyConstraintExplanation  {
 	
 	private EObject affectedObject;
 	private String translatedConstraint;
-	private List<EvolutionOperationExplanation> evolutionOperationExplanations = new ArrayList<EvolutionOperationExplanation>();
+	private Set<EvolutionOperationExplanation> evolutionOperationExplanations = new HashSet<EvolutionOperationExplanation>();
 	private Date date;
 	
 	
@@ -48,8 +50,8 @@ public class AnomalyConstraintExplanation  {
 		return "";
 	}
 	
-	public List<String> explainCausingOperations() {
-		List<String> list = new ArrayList<String>();
+	public Set<String> explainCausingOperations() {
+		Set<String> list = new HashSet<String>();
 		for (EvolutionOperationExplanation opExplanation : evolutionOperationExplanations) {
 			if ((opExplanation.getEvolutionOperation().getEvoStep() == null && opExplanation.getEvolutionOperation().getEvoStep() == date)
 					|| (opExplanation.getEvolutionOperation().getEvoStep() != null && opExplanation.getEvolutionOperation().getEvoStep().equals(date))) {
@@ -156,7 +158,7 @@ public class AnomalyConstraintExplanation  {
 		evolutionOperationExplanations.add(evolutionOperationExplanation);
 	}
 	
-	public List<EvolutionOperationExplanation> getEvolutionOperations() {
+	public Set<EvolutionOperationExplanation> getEvolutionOperations() {
 		return evolutionOperationExplanations;
 	}
 

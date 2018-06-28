@@ -25,9 +25,13 @@ import de.darwinspl.feature.evolution.evolutionoperation.DwEvolutionOperationEnu
 import de.darwinspl.feature.evolution.evolutionoperation.DwEvolutionOperationEnumLiteral;
 import de.darwinspl.feature.evolution.evolutionoperation.DwEvolutionOperationEnumLiteralCreate;
 import de.darwinspl.feature.evolution.evolutionoperation.DwEvolutionOperationFeature;
+import de.darwinspl.feature.evolution.evolutionoperation.DwEvolutionOperationFeatureCreate;
 import de.darwinspl.feature.evolution.evolutionoperation.DwEvolutionOperationFeatureGroup;
 import de.darwinspl.feature.evolution.evolutionoperation.DwEvolutionOperationFeatureType;
 import de.darwinspl.feature.evolution.evolutionoperation.DwEvolutionOperationFeatureVersion;
+import de.darwinspl.feature.evolution.evolutionoperation.DwEvolutionOperationGroupFeatures;
+import de.darwinspl.feature.evolution.evolutionoperation.DwEvolutionOperationGroupFeaturesAdded;
+import de.darwinspl.feature.evolution.evolutionoperation.DwEvolutionOperationGroupFeaturesRemoved;
 import de.darwinspl.feature.evolution.evolutionoperation.DwEvolutionOperationGroupType;
 import de.darwinspl.feature.evolution.evolutionoperation.DwEvolutionOperationValidityFormula;
 import de.darwinspl.feature.evolution.evolutionoperation.DwEvolutionOperationValidityFormulaCreate;
@@ -50,6 +54,7 @@ import eu.hyvar.feature.HyFeatureType;
 import eu.hyvar.feature.HyGroup;
 import eu.hyvar.feature.HyGroupComposition;
 import eu.hyvar.feature.HyGroupType;
+import eu.hyvar.feature.HyGroupTypeEnum;
 import eu.hyvar.feature.HyVersion;
 import eu.hyvar.feature.constraint.HyConstraint;
 import eu.hyvar.feature.constraint.HyConstraintModel;
@@ -262,6 +267,48 @@ public class DwEvolutionOperationAnalyzer {
 			}
 		}
 		
+		for (HyGroupComposition groupComposition : group.getParentOf()) {
+			if(groupComposition.getValidSince() == null) {
+				continue;
+			}
+			HyGroupComposition predecessor = HyEvolutionUtil.getValidTemporalElement(group.getParentOf(), new Date(groupComposition.getValidSince().getTime() -1L));
+			
+			if (predecessor != null && groupComposition.getCompositionOf().equals(predecessor.getCompositionOf())) {
+				DwEvolutionOperationGroupFeaturesAdded evolutionOperation = EvolutionoperationFactory.eINSTANCE.createDwEvolutionOperationGroupFeaturesAdded();
+				
+				for(HyFeature feature: groupComposition.getFeatures()) {
+					// only relevant for features that are newly added directly into this group composition
+					if(feature.getValidSince() != null && feature.getValidSince().equals(groupComposition.getValidSince())) {
+						evolutionOperation.getAffectedFeatures().add(feature);
+					}
+				}
+				
+				DwEvolutionOperationGroupFeaturesRemoved evolutionOperationRemoved = EvolutionoperationFactory.eINSTANCE.createDwEvolutionOperationGroupFeaturesRemoved();
+				for(HyFeature feature: predecessor.getFeatures()) {
+					// only relevant for features that are removed at that date
+					if(feature.getValidUntil() != null && feature.getValidUntil().equals(groupComposition.getValidSince())) {
+						evolutionOperationRemoved.getAffectedFeatures().add(feature);
+					}
+				}
+				
+				if(!evolutionOperation.getAffectedFeatures().isEmpty()) {
+					evolutionOperation.setEvoStep(groupComposition.getValidSince());
+					evolutionOperation.setGroup(group);
+					
+					evolutionOperations.add(evolutionOperation);
+					
+				}
+				
+				if(!evolutionOperationRemoved.getAffectedFeatures().isEmpty()) {
+					evolutionOperationRemoved.setEvoStep(groupComposition.getValidSince());
+					evolutionOperationRemoved.setGroup(group);
+					
+					evolutionOperations.add(evolutionOperationRemoved);
+				}
+			}
+		}
+		
+		
 //		for (HyGroupComposition groupComposition : group.getParentOf()) {
 //				HyGroupComposition predecessor = HyEvolutionUtil.getValidTemporalElement(group.getParentOf(), new Date(group.getValidSince().getTime() -1L));
 //				
@@ -287,19 +334,21 @@ public class DwEvolutionOperationAnalyzer {
 	protected List<DwEvolutionOperation> constructFeatureEvolutionOperations(HyFeature feature) {
 		List<DwEvolutionOperation> evolutionOperations = new ArrayList<DwEvolutionOperation>();
 		
-		// FEATURE CREATE
-		DwEvolutionOperation featureCreateOperation = EvolutionoperationFactory.eINSTANCE.createDwEvolutionOperationFeatureCreate();
-		featureCreateOperation.setEvoStep(feature.getValidSince());
-		((DwEvolutionOperationFeature) featureCreateOperation).setFeature(feature);
-		evolutionOperations.add(featureCreateOperation);
-		
-		// FEATURE DELETE
-		if (feature.getValidUntil() != null) {
-			DwEvolutionOperation featureDeleteOperation = EvolutionoperationFactory.eINSTANCE.createDwEvolutionOperationFeatureDelete();
-			featureDeleteOperation.setEvoStep(feature.getValidUntil());
-			((DwEvolutionOperationFeature) featureDeleteOperation).setFeature(feature);
-			evolutionOperations.add(featureDeleteOperation);
-		}
+//		// FEATURE CREATE
+//		if (feature.getValidSince() != null) {
+//			DwEvolutionOperation featureCreateOperation = EvolutionoperationFactory.eINSTANCE.createDwEvolutionOperationFeatureCreate();
+//			featureCreateOperation.setEvoStep(feature.getValidSince());
+//			((DwEvolutionOperationFeature) featureCreateOperation).setFeature(feature);
+//			evolutionOperations.add(featureCreateOperation);			
+//		}
+//		
+//		// FEATURE DELETE
+//		if (feature.getValidUntil() != null) {
+//			DwEvolutionOperation featureDeleteOperation = EvolutionoperationFactory.eINSTANCE.createDwEvolutionOperationFeatureDelete();
+//			featureDeleteOperation.setEvoStep(feature.getValidUntil());
+//			((DwEvolutionOperationFeature) featureDeleteOperation).setFeature(feature);
+//			evolutionOperations.add(featureDeleteOperation);
+//		}
 		
 		// commented out as it seems to be irrelevant
 //		// FEATURE NAME
@@ -348,7 +397,7 @@ public class DwEvolutionOperationAnalyzer {
 			}
 		}
 		
-		// FEATURE GROUP
+		// FEATURE MOVED FROM ONE GROUP TO ANOHTER
 		for (HyGroupComposition group : feature.getGroupMembership()) {
 			if (group.getValidSince() != null && !group.getValidSince().equals(feature.getValidSince())) { // don't interpret default as change
 				HyGroupComposition predecessor = HyEvolutionUtil.getValidTemporalElement(feature.getGroupMembership(), new Date(group.getValidSince().getTime() -1L));
@@ -396,6 +445,285 @@ public class DwEvolutionOperationAnalyzer {
 //		}
 		return evolutionOperations;
 	
+	}
+	
+	public List<DwEvolutionOperation> createAllEvolutionOperations() {
+		// TODO refactor! That's way to ineffecient. Should be calculated on demand if those elements appear in explanations. Saved in a map that serves as cache.
+		List<DwEvolutionOperation> operationList = new ArrayList<DwEvolutionOperation>();
+		DwEvolutionOperation obj = null;
+		if (getFeatureModel() != null) {
+			
+			for (HyFeature feature : getFeatureModel().getFeatures()) {
+//				// FEATURE CREATE
+//				if(feature.getValidSince() != null) {
+//					obj = EvolutionoperationFactory.eINSTANCE.createDwEvolutionOperationFeatureCreate();
+//					obj.setEvoStep(feature.getValidSince());
+//					((DwEvolutionOperationFeature) obj).setFeature(feature);
+//					operationList.add(obj);
+//				}
+//				
+//				// FEATURE DELETE
+//				if (feature.getValidUntil() != null) {
+//					obj = EvolutionoperationFactory.eINSTANCE.createDwEvolutionOperationFeatureDelete();
+//					obj.setEvoStep(feature.getValidUntil());
+//					((DwEvolutionOperationFeature) obj).setFeature(feature);
+//					operationList.add(obj);
+//				}
+				
+				// commented out as it seems to be irrelevant
+//				// FEATURE NAME
+//				for (HyName name : feature.getNames()) {
+//					if (name.getValidSince() != null && !name.getValidSince().equals(feature.getValidSince())) { // don't interpret default as change						
+//						HyName predecessor = HyEvolutionUtil.getValidTemporalElement(feature.getNames(), new Date(name.getValidSince().getTime() -1L));
+//						obj = EvolutionoperationFactory.eINSTANCE.createDwEvolutionOperationFeatureRename();
+//						obj.setEvoStep(name.getValidSince());
+//						((DwEvolutionOperationFeature) obj).setFeature(feature);
+//						((DwEvolutionOperationFeatureRename) obj).setOldName(predecessor);
+//						((DwEvolutionOperationFeatureRename) obj).setNewName(name);
+//						operationList.add(obj);
+//					}
+//				}
+				
+				// FEATURE TYPE
+				for (HyFeatureType type : feature.getTypes()) {
+					if (type.getValidSince() != null && !type.getValidSince().equals(feature.getValidSince())) { // don't interpret default as change
+						HyFeatureType predecessor = HyEvolutionUtil.getValidTemporalElement(feature.getTypes(), new Date(type.getValidSince().getTime() -1L));
+						if (predecessor.getType() != type.getType()) {
+							obj = EvolutionoperationFactory.eINSTANCE.createDwEvolutionOperationFeatureType();
+							obj.setEvoStep(type.getValidSince());
+							((DwEvolutionOperationFeature) obj).setFeature(feature);
+							((DwEvolutionOperationFeatureType) obj).setOldType(predecessor);
+							((DwEvolutionOperationFeatureType) obj).setNewType(type);
+							operationList.add(obj);
+						}
+					}
+				}
+				
+				for (HyVersion version : feature.getVersions()) {
+					// FEATURE VERSION CREATE
+					obj = EvolutionoperationFactory.eINSTANCE.createDwEvolutionOperationFeatureVersionCreate();
+					obj.setEvoStep(version.getValidSince());
+					((DwEvolutionOperationFeatureVersion) obj).setFeature(feature);
+					((DwEvolutionOperationFeatureVersion) obj).setVersion(version);
+					operationList.add(obj);
+
+					// FEATURE VERSION DELETE
+					if (version.getValidUntil() != null) {
+						obj = EvolutionoperationFactory.eINSTANCE.createDwEvolutionOperationFeatureVersionDelete();
+						obj.setEvoStep(version.getValidUntil());
+						((DwEvolutionOperationFeatureVersion) obj).setFeature(feature);
+						((DwEvolutionOperationFeatureVersion) obj).setVersion(version);
+						operationList.add(obj);
+					}
+				}
+				
+				// FEATURE MOVED FROM ONE GROUP TO ANOHTER
+				for (HyGroupComposition group : feature.getGroupMembership()) {
+					if (group.getValidSince() != null && !group.getValidSince().equals(feature.getValidSince())) { // don't interpret default as change
+						HyGroupComposition predecessor = HyEvolutionUtil.getValidTemporalElement(feature.getGroupMembership(), new Date(group.getValidSince().getTime() -1L));
+						
+						if (predecessor != null && !group.getCompositionOf().equals(predecessor.getCompositionOf())) {
+							DwEvolutionOperation featureGroupOperation = EvolutionoperationFactory.eINSTANCE.createDwEvolutionOperationFeatureGroup();
+							featureGroupOperation.setEvoStep(group.getValidSince());
+							((DwEvolutionOperationFeature) featureGroupOperation).setFeature(feature);
+							((DwEvolutionOperationFeatureGroup) featureGroupOperation).setOldGroup(predecessor);
+							((DwEvolutionOperationFeatureGroup) featureGroupOperation).setNewGroup(group);
+							operationList.add(featureGroupOperation);
+						}
+					}
+				}
+				
+//				for (HyFeatureAttribute attribute : feature.getAttributes()) {
+//					
+//					// ATTRIBUTE CREATE
+//					obj = EvolutionoperationFactory.eINSTANCE.createDwEvolutionOperationAttributeCreate();
+//					obj.setEvoStep(attribute.getValidSince());
+//					((DwEvolutionOperationAttribute) obj).setAttribute(attribute);
+//					operationList.add(obj);
+//
+//					// ATTRIBUTE DELETE
+//					if (attribute.getValidUntil() != null) {
+//						obj = EvolutionoperationFactory.eINSTANCE.createDwEvolutionOperationAttributeDelete();
+//						obj.setEvoStep(attribute.getValidSince());
+//						((DwEvolutionOperationAttribute) obj).setAttribute(attribute);
+//						operationList.add(obj);
+//					}
+//
+//				// commented out as it seems to be irrelevant
+////					// ATTRIBUTE RENAME 
+////					for (HyName name : attribute.getNames()) {
+////						if (name.getValidSince() != null && !name.getValidSince().equals(attribute.getValidSince())) { // don't interpret default as change
+////							HyName predecessor = HyEvolutionUtil.getValidTemporalElement(attribute.getNames(), new Date(name.getValidSince().getTime() -1L));
+////							obj = EvolutionoperationFactory.eINSTANCE.createDwEvolutionOperationAttributeRename();
+////							obj.setEvoStep(name.getValidSince());
+////							((DwEvolutionOperationAttribute) obj).setAttribute(attribute);
+////							((DwEvolutionOperationAttributeRename) obj).setOldName(predecessor);
+////							((DwEvolutionOperationAttributeRename) obj).setNewName(name);
+////							operationList.add(obj);
+////						}
+////					}
+//				}
+			}
+			
+			for (HyGroup group : getFeatureModel().getGroups()) {		
+				for (HyGroupType type : group.getTypes()) {
+										
+					// GROUP TYPE
+					if (type.getValidSince() != null && !type.getValidSince().equals(group.getValidSince())) { // don't interpret default as change
+						HyGroupType predecessor = HyEvolutionUtil.getValidTemporalElement(group.getTypes(), new Date(type.getValidSince().getTime() -1L));
+						obj = EvolutionoperationFactory.eINSTANCE.createDwEvolutionOperationGroupType();
+						obj.setEvoStep(type.getValidSince());
+						((DwEvolutionOperationGroupType) obj).setGroup(group);
+						((DwEvolutionOperationGroupType) obj).setOldType(predecessor);
+						((DwEvolutionOperationGroupType) obj).setNewType(type);
+						operationList.add(obj);
+					}
+				}
+
+				
+				for (HyGroupComposition groupComposition : group.getParentOf()) {
+					if(groupComposition.getValidSince() == null) {
+						continue;
+					}
+					HyGroupComposition predecessor = HyEvolutionUtil.getValidTemporalElement(group.getParentOf(), new Date(groupComposition.getValidSince().getTime() -1L));
+					
+					if (predecessor != null && groupComposition.getCompositionOf().equals(predecessor.getCompositionOf())) {
+						DwEvolutionOperationGroupFeaturesAdded evolutionOperation = EvolutionoperationFactory.eINSTANCE.createDwEvolutionOperationGroupFeaturesAdded();
+						
+						for(HyFeature feature: groupComposition.getFeatures()) {
+							// only relevant for features that are newly added directly into this group composition
+							if(feature.getValidSince() != null && feature.getValidSince().equals(groupComposition.getValidSince())) {
+								evolutionOperation.getAffectedFeatures().add(feature);
+							}
+						}
+						
+						DwEvolutionOperationGroupFeaturesRemoved evolutionOperationRemoved = EvolutionoperationFactory.eINSTANCE.createDwEvolutionOperationGroupFeaturesRemoved();
+						for(HyFeature feature: predecessor.getFeatures()) {
+							// only relevant for features that are removed at that date
+							if(feature.getValidUntil() != null && feature.getValidUntil().equals(groupComposition.getValidSince())) {
+								evolutionOperationRemoved.getAffectedFeatures().add(feature);
+							}
+						}
+						
+						if(!evolutionOperation.getAffectedFeatures().isEmpty()) {
+							evolutionOperation.setEvoStep(groupComposition.getValidSince());
+							evolutionOperation.setGroup(group);
+							
+							operationList.add(evolutionOperation);
+							
+						}
+						
+						if(!evolutionOperationRemoved.getAffectedFeatures().isEmpty()) {
+							evolutionOperationRemoved.setEvoStep(groupComposition.getValidSince());
+							evolutionOperationRemoved.setGroup(group);
+							
+							operationList.add(evolutionOperationRemoved);
+						}
+					}
+				}
+			}
+		}
+		
+//		List<HyEnum> enumList = new ArrayList<HyEnum>();
+//		if (getContextModel() != null) {
+//			enumList.addAll(getContextModel().getEnums());
+//		}
+//		if (getFeatureModel() != null) {
+//			enumList.addAll(getFeatureModel().getEnums());
+//		}
+//		for (HyEnum hyEnum : enumList) {
+//			
+//			// ENUM CREATE
+//			obj = EvolutionoperationFactory.eINSTANCE.createDwEvolutionOperationEnumCreate();
+//			obj.setEvoStep(hyEnum.getValidSince());
+//			((DwEvolutionOperationEnum) obj).setEnum(hyEnum);
+//			operationList.add(obj);
+//			
+//			// ENUM DELETE
+//			if (hyEnum.getValidUntil() != null) {
+//				obj = EvolutionoperationFactory.eINSTANCE.createDwEvolutionOperationEnumDelete();
+//				obj.setEvoStep(hyEnum.getValidUntil());
+//				((DwEvolutionOperationEnum) obj).setEnum(hyEnum);
+//				operationList.add(obj);
+//			}
+//						
+//			for (HyEnumLiteral literal : hyEnum.getLiterals()) {
+//				// ENUM LITERAL CREATE
+//				obj = EvolutionoperationFactory.eINSTANCE.createDwEvolutionOperationEnumLiteralCreate();
+//				obj.setEvoStep(literal.getValidSince());
+//				((DwEvolutionOperationEnumLiteral) obj).setEnum(hyEnum);
+//				((DwEvolutionOperationEnumLiteral) obj).setLiteral(literal);
+//				operationList.add(obj);
+//
+//				// ENUM LITERAL DELETE
+//				if (literal.getValidUntil() != null) {
+//					obj = EvolutionoperationFactory.eINSTANCE.createDwEvolutionOperationEnumLiteralDelete();
+//					obj.setEvoStep(literal.getValidUntil());
+//					((DwEvolutionOperationEnumLiteral) obj).setEnum(hyEnum);
+//					((DwEvolutionOperationEnumLiteral) obj).setLiteral(literal);
+//					operationList.add(obj);
+//				}
+//			}
+//		}
+
+//		if (getContextModel() != null) {
+//			for (HyContextualInformation context : getContextModel().getContextualInformations()) {
+//				
+//				// CONTEXT CREATE
+//				obj = EvolutionoperationFactory.eINSTANCE.createDwEvolutionOperationContextCreate();
+//				obj.setEvoStep(context.getValidSince());
+//				((DwEvolutionOperationContext) obj).setContext(context);
+//				operationList.add(obj);
+//
+//				// CONTEXT DELETE
+//				if (context.getValidUntil() != null) {
+//					obj = EvolutionoperationFactory.eINSTANCE.createDwEvolutionOperationContextDelete();
+//					obj.setEvoStep(context.getValidUntil());
+//					((DwEvolutionOperationContext) obj).setContext(context);
+//					operationList.add(obj);
+//				}
+//			}
+//		}
+//		
+//		if (getContextValidityModel() != null) {
+//			for (HyValidityFormula validityFormula : getContextValidityModel().getValidityFormulas()) {
+//				
+//				// VALIDITY FORMULA CREATE
+//				obj = EvolutionoperationFactory.eINSTANCE.createDwEvolutionOperationValidityFormulaCreate();
+//				obj.setEvoStep(validityFormula.getValidSince());
+//				((DwEvolutionOperationValidityFormula) obj).setValidityFormula(validityFormula);
+//				operationList.add(obj);
+//
+//				// VALIDITY FORMULA DELETE
+//				if (validityFormula.getValidUntil() != null) {
+//					obj = EvolutionoperationFactory.eINSTANCE.createDwEvolutionOperationValidityFormulaDelete();
+//					obj.setEvoStep(validityFormula.getValidUntil());
+//					((DwEvolutionOperationValidityFormula) obj).setValidityFormula(validityFormula);
+//					operationList.add(obj);
+//				}
+//			}
+//		}
+//
+		if (getConstraintModel() != null) {
+			for (HyConstraint constraint : getConstraintModel().getConstraints()) {
+
+				// CONSTRAINT CREATE
+				obj = EvolutionoperationFactory.eINSTANCE.createDwEvolutionOperationConstraintCreate();
+				obj.setEvoStep(constraint.getValidSince());
+				((DwEvolutionOperationConstraint) obj).setConstraint(constraint);
+				operationList.add(obj);
+
+				// CONSTRAINT DELETE
+				if (constraint.getValidUntil() != null) {
+					obj = EvolutionoperationFactory.eINSTANCE.createDwEvolutionOperationConstraintDelete();
+					obj.setEvoStep(constraint.getValidUntil());
+					((DwEvolutionOperationConstraint) obj).setConstraint(constraint);
+					operationList.add(obj);
+				}
+			}
+		}
+		
+		return operationList;
 	}
 	
 	public void constructEvolutionOperations() {
@@ -715,9 +1043,8 @@ public class DwEvolutionOperationAnalyzer {
 
 		Map<String, EObject> translationMapping = exporter.getTranslationMapping();
 
-		// use only those translationmappings that are actually explanations.
+		// use only those translation mappings that are actually explanations.
 		translationMapping.keySet().retainAll(anomalyExplanation.getExplanations());
-		
 
 		Set<AnomalyConstraintExplanation> list = new HashSet<AnomalyConstraintExplanation>();
 		
@@ -778,7 +1105,7 @@ public class DwEvolutionOperationAnalyzer {
 			List<HyFeature> featureList = newGroupComposition.getFeatures();
 			
 			// get the symmetrical difference to see the group's changes
-			if (oldGroupComposition != null) {
+			if (oldGroupComposition != null && oldGroupComposition != newGroupComposition) {
 				for (HyFeature f : oldGroupComposition.getFeatures()) {
 					if (featureList.contains(f)) {
 						continue;
@@ -974,6 +1301,14 @@ public class DwEvolutionOperationAnalyzer {
 					|| operation instanceof DwEvolutionOperationValidityFormulaCreate) {
 				constraintExplanation.addEvolutionOperationExplanation(opExplanation);
 			}
+			else if(operation instanceof DwEvolutionOperationGroupFeatures) {
+				// only relevant if group is ALTERNATIVE
+				DwEvolutionOperationGroupFeatures groupFeaturesAdded = (DwEvolutionOperationGroupFeatures) operation;
+				
+				if(HyFeatureEvolutionUtil.getType(groupFeaturesAdded.getGroup(), groupFeaturesAdded.getEvoStep()).getType().equals(HyGroupTypeEnum.ALTERNATIVE)) {
+					constraintExplanation.addEvolutionOperationExplanation(opExplanation);
+				}
+			}
 		}
 	}
 	
@@ -990,6 +1325,14 @@ public class DwEvolutionOperationAnalyzer {
 					|| operation instanceof DwEvolutionOperationConstraintCreate
 					|| operation instanceof DwEvolutionOperationValidityFormulaCreate) {
 				constraintExplanation.addEvolutionOperationExplanation(opExplanation);
+			}
+			else if(operation instanceof DwEvolutionOperationGroupFeatures) {
+				// only relevant if group is ALTERNATIVE
+				DwEvolutionOperationGroupFeatures groupFeaturesAdded = (DwEvolutionOperationGroupFeatures) operation;
+				
+				if(HyFeatureEvolutionUtil.getType(groupFeaturesAdded.getGroup(), groupFeaturesAdded.getEvoStep()).getType().equals(HyGroupTypeEnum.ALTERNATIVE)) {
+					constraintExplanation.addEvolutionOperationExplanation(opExplanation);
+				}
 			}
 		}
 	}
@@ -1008,6 +1351,14 @@ public class DwEvolutionOperationAnalyzer {
 					|| operation instanceof DwEvolutionOperationValidityFormulaCreate
 					|| operation instanceof DwEvolutionOperationEnumLiteralCreate) {
 				constraintExplanation.addEvolutionOperationExplanation(opExplanation);
+			}
+			else if(operation instanceof DwEvolutionOperationGroupFeatures) {
+				// only relevant if group is ALTERNATIVE
+				DwEvolutionOperationGroupFeatures groupFeaturesAdded = (DwEvolutionOperationGroupFeatures) operation;
+				
+				if(HyFeatureEvolutionUtil.getType(groupFeaturesAdded.getGroup(), groupFeaturesAdded.getEvoStep()).getType().equals(HyGroupTypeEnum.ALTERNATIVE)) {
+					constraintExplanation.addEvolutionOperationExplanation(opExplanation);
+				}
 			}
 		}
 	}
