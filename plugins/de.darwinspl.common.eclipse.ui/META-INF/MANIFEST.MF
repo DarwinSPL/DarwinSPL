@@ -4,6 +4,11 @@ Bundle-Name: DarwinSPL Common Eclipse UI PlugIn
 Bundle-SymbolicName: de.darwinspl.common.eclipse.ui;singleton:=true
 Bundle-Version: 1.0.0
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
-Require-Bundle: org.eclipse.ui;bundle-version="3.107.0"
+Require-Bundle: org.eclipse.ui;bundle-version="3.107.0",
+ org.eclipse.emf.ecore,
+ de.darwinspl.feature.graphical.base,
+ eu.hyvar.evolution
 Bundle-Vendor: www.darwinspl.de
-Export-Package: de.darwinspl.common.eclipse.ui.dialogs
+Export-Package: de.darwinspl.common.eclipse.ui.dialogs,
+ de.darwinspl.common.eclipse.ui.elements
+Import-Package: eu.hyvar.feature

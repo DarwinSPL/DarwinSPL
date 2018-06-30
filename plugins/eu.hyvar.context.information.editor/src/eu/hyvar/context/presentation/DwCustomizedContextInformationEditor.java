@@ -33,6 +33,7 @@ import org.eclipse.ui.dialogs.SaveAsDialog;
 import org.eclipse.ui.part.EditorPart;
 import org.eclipse.ui.part.FileEditorInput;
 
+import de.darwinspl.common.eclipse.ui.elements.DwGraphicalModelDateScale;
 import eu.hyvar.context.util.HyContextInformationAdapterFactory;
 import eu.hyvar.evolution.util.HyEvolutionUtil;
 
@@ -51,7 +52,7 @@ import org.eclipse.emf.edit.ui.action.EditingDomainActionBarContributor;
 import org.eclipse.jface.layout.GridDataFactory;
 import org.eclipse.jface.layout.GridLayoutFactory;
 
-public class DwCustomizedContextInformationEditor extends EditorPart implements Listener {
+public class DwCustomizedContextInformationEditor extends EditorPart {
 
 	protected AdapterFactoryEditingDomain editingDomain;
 	protected ComposedAdapterFactory adapterFactory;
@@ -64,7 +65,7 @@ public class DwCustomizedContextInformationEditor extends EditorPart implements 
 	// UI Elements
 	Composite buttonGroup;
 	Button currentDateButton;
-	Scale scale;
+	DwGraphicalModelDateScale scale;
 	private ECPSWTView renderedComposite;
 
 	public DwCustomizedContextInformationEditor() {
@@ -77,9 +78,9 @@ public class DwCustomizedContextInformationEditor extends EditorPart implements 
 			contextResource.save(null);
 			((BasicCommandStack) editingDomain.getCommandStack()).saveIsDone();
 			firePropertyChange(IEditorPart.PROP_DIRTY);
-			
-			//this forces a new date list to be fetched
-			refreshDatesList();
+
+			// this forces a refresh of the date list
+			scale.refreshDatesList(scale.getModel());
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -157,74 +158,13 @@ public class DwCustomizedContextInformationEditor extends EditorPart implements 
 			EObject contextObject = contextResource.getContents().get(0);
 			renderedComposite = ECPSWTViewRenderer.INSTANCE.render(content, contextObject);
 
-			createSliderControl(content);
-			registerControlListeners();
-
+			scale = new DwGraphicalModelDateScale(content, SWT.BORDER_DASH, contextObject);
+			content.layout();
 		} catch (ECPRendererException e) {
 			e.printStackTrace();
 		}
 		parent.layout();
 
-	}
-
-	private void createSliderControl(Composite parent) {
-		refreshDatesList();
-
-		int size = dates.size();
-
-		buttonGroup = new Composite(parent, SWT.NONE);
-		RowLayout rowLayout = new RowLayout(SWT.HORIZONTAL);
-		rowLayout.justify = true;
-		rowLayout.pack = true;
-		buttonGroup.setLayout(rowLayout);
-
-		currentDateButton = new Button(buttonGroup, SWT.PUSH);
-
-		scale = new Scale(buttonGroup, SWT.FILL);
-		scale.setMinimum(0);
-		scale.setMaximum(size - 1);
-		scale.setLayoutData(new RowData(300, SWT.DEFAULT));
-		scale.setEnabled(size > 1);
-		scale.setSelection(dates.indexOf(currentSelectedDate));
-
-		setCurrentSelectedDate(currentSelectedDate);
-		buttonGroup.pack();
-
-		/**
-		 * register control listener for visualization bug if a side editor was added
-		 */
-		parent.addControlListener(new ControlListener() {
-
-			@Override
-			public void controlMoved(ControlEvent e) {
-			}
-
-			@Override
-			public void controlResized(ControlEvent e) {
-				parent.update();
-			}
-
-		});
-
-	}
-
-	private void setCurrentSelectedDate(Date date) {
-		// is the date in the list?
-		if (dates.contains(date)) {
-			this.currentSelectedDate = date;
-
-			// is it since forever?
-			if (currentSelectedDate.getTime() == Long.MIN_VALUE) {
-				if (dates.size() > 1)
-					currentDateButton.setText("before " + dates.get(1).toString());
-				// is it until forever?
-			} else if (currentSelectedDate.getTime() == Long.MAX_VALUE) {
-				currentDateButton.setText("after " + dates.get(dates.size() - 2).toString());
-			} else {
-				currentDateButton.setText(currentSelectedDate.toString());
-			}
-			scale.setSelection(dates.indexOf(currentSelectedDate));
-		}
 	}
 
 	protected void loadContent(IFile file) throws IOException {
@@ -250,58 +190,5 @@ public class DwCustomizedContextInformationEditor extends EditorPart implements 
 		return (EditingDomainActionBarContributor) getEditorSite().getActionBarContributor();
 	}
 
-	public void registerControlListeners() {
-		// Left button to select an individual date
-		currentDateButton.addListener(SWT.Selection, new Listener() {
-			public void handleEvent(Event event) {
-				Object[] datePick = dates.toArray();
-				Object value = JOptionPane.showInputDialog(null, "Choose a date", "Date", JOptionPane.QUESTION_MESSAGE,
-						null, datePick, datePick[0]);
-				int index = dates.indexOf(value);
-				setCurrentSelectedDate(dates.get(index));
-
-				int size = dates.size();
-				scale.setMaximum(size - 1);
-				scale.setEnabled(size > 1);
-			}
-		});
-
-		// Slider to select a given date
-		scale.addListener(SWT.Selection, this);
-	}
-
-	@Override
-	public void handleEvent(Event event) {
-		if (event.widget.equals(scale)) {
-			int index = scale.getSelection();
-			currentSelectedDate = dates.get(scale.getSelection());
-			setCurrentSelectedDate(currentSelectedDate);
-
-			if (index == dates.size() - 1)
-				lastDateSelected = true;
-		}
-	}
-
-	private void refreshDatesList() {
-		EList<EObject> contents = contextResource.getContents();
-		dates = HyEvolutionUtil.collectDates(contents.get(0));
-
-		if (dates.isEmpty()) {
-			dates.add(new Date(0));
-			dates.add(new Date());
-			dates.add(new Date(Long.MAX_VALUE));
-		} else if (dates.get(0).getTime() != Long.MIN_VALUE) {
-			dates.add(0, new Date(0));
-		} else if (dates.get(dates.size() - 1).getTime() != Long.MAX_VALUE) {
-			dates.add(new Date(Long.MAX_VALUE));
-		}
-
-		if (scale != null) {
-			int size = dates.size();
-			scale.setMaximum(size - 1);
-			scale.setEnabled(size > 1);
-			scale.getParent().pack();
-		}
-	}
 
 }
