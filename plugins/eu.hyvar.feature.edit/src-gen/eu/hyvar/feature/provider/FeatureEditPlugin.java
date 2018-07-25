@@ -2,6 +2,7 @@
  */
 package eu.hyvar.feature.provider;
 
+import eu.hyvar.context.provider.ContextInformationEditPlugin;
 import eu.hyvar.dataValues.provider.DataValuesEditPlugin;
 
 import eu.hyvar.evolution.provider.EvolEditPlugin;
@@ -42,6 +43,7 @@ public final class FeatureEditPlugin extends EMFPlugin {
 	public FeatureEditPlugin() {
 		super
 		  (new ResourceLocator [] {
+		     ContextInformationEditPlugin.INSTANCE,
 		     DataValuesEditPlugin.INSTANCE,
 		     EvolEditPlugin.INSTANCE,
 		   });

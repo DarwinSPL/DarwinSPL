@@ -12,6 +12,8 @@ Export-Package: eu.hyvar.feature.provider
 Require-Bundle: org.eclipse.core.runtime,
  eu.hyvar.feature;visibility:=reexport,
  org.eclipse.emf.edit;visibility:=reexport,
+ eu.hyvar.context.information;visibility:=reexport,
+ eu.hyvar.context.information.edit;visibility:=reexport,
  eu.hyvar.feature.data;visibility:=reexport,
  eu.hyvar.feature.data.edit;visibility:=reexport,
  eu.hyvar.evolution;visibility:=reexport,
