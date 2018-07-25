@@ -157,7 +157,7 @@ public class DwDateDialog extends Dialog implements Listener{
 	}
 	
 	public static boolean is24HourLocale() {
-	    String output = SimpleDateFormat.getTimeInstance(DateFormat.SHORT).format(new Date());
+	    String output = DateFormat.getTimeInstance(DateFormat.SHORT).format(new Date());
 	    if (output.contains(" AM") || output.contains(" PM")) {
 	        return false;
 	    } else {

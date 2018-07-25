@@ -4,19 +4,18 @@ Bundle-Name: DarwinSPL Common Graphical Editor
 Bundle-SymbolicName: de.darwinspl.feature.graphical.base
 Bundle-Version: 1.0.0
 Bundle-Activator: de.darwinspl.feature.graphical.base.Activator
-Require-Bundle: org.eclipse.ui,
- org.eclipse.core.runtime,
+Require-Bundle: org.eclipse.core.runtime,
  org.deltaecore.feature.graphical.base,
  eu.hyvar.evolution,
  eu.hyvar.feature,
  org.eclipse.e4.ui.model.workbench,
  eu.hyvar.feature.expression,
  org.eclipse.e4.ui.workbench,
- org.eclipse.draw2d,
- de.darwinspl.common.eclipse.ui
+ org.eclipse.draw2d
 Bundle-RequiredExecutionEnvironment: JavaSE-1.7
 Bundle-ActivationPolicy: lazy
-Export-Package: de.darwinspl.feature.graphical.base.anchors,
+Export-Package: de.darwinspl.feature.graphical.base,
+ de.darwinspl.feature.graphical.base.anchors,
  de.darwinspl.feature.graphical.base.deltaecore.wrapper,
  de.darwinspl.feature.graphical.base.deltaecore.wrapper.layouter.feature,
  de.darwinspl.feature.graphical.base.deltaecore.wrapper.layouter.version,
@@ -27,3 +26,4 @@ Export-Package: de.darwinspl.feature.graphical.base.anchors,
  de.darwinspl.feature.graphical.base.model,
  de.darwinspl.feature.graphical.base.util
 Bundle-Vendor: www.darwinspl.de
+Import-Package: de.darwinspl.common.eclipse.ui.dialogs

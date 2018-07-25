@@ -1,11 +1,8 @@
-package de.darwinspl.common.eclipse.ui.elements;
+package de.darwinspl.feature.graphical.base;
 
 import de.darwinspl.common.eclipse.ui.dialogs.DwDateDialog;
 import de.darwinspl.feature.graphical.base.model.DwFeatureModelWrapped;
-import de.darwinspl.feature.graphical.base.util.DwFeatureModelLayoutFileUtil;
 import eu.hyvar.evolution.util.HyEvolutionUtil;
-import eu.hyvar.feature.HyFeatureModel;
-import java.awt.GridLayout;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -13,7 +10,6 @@ import java.util.List;
 
 import javax.swing.JOptionPane;
 
-import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.RowData;
@@ -61,7 +57,7 @@ public class DwGraphicalModelDateScale extends Composite {
 		rowLayout.justify = true;
 		rowLayout.pack = true;
 		this.setLayout(rowLayout);
-		
+
 		refreshDatesList(model);
 
 		// the Button displaying the current scale Date selection.
@@ -71,13 +67,12 @@ public class DwGraphicalModelDateScale extends Composite {
 			// the add date Button
 			addDate = new Button(this, SWT.PUSH);
 		}
-		
+
 		// the scale
 		scale = new Scale(this, SWT.FILL);
 		scale.setLayoutData(new RowData(300, SWT.DEFAULT));
 		int size = dates.size();
 		scale.setEnabled(size > 1);
-		
 
 	}
 
@@ -114,12 +109,7 @@ public class DwGraphicalModelDateScale extends Composite {
 	 */
 	public void refreshDatesList(EObject model) {
 		checkWidget();
-		EObject contents = model.eContents().get(0);
-		if (model instanceof DwFeatureModelWrapped) {
-			dates = ((DwFeatureModelWrapped) model).getDates();
-
-		}
-		dates = HyEvolutionUtil.collectDates(contents);
+		dates = HyEvolutionUtil.collectDates(model);
 
 		if (dates.isEmpty()) {
 			dates.add(new Date(0));
@@ -195,10 +185,9 @@ public class DwGraphicalModelDateScale extends Composite {
 					}
 				}
 			});
-			
-			
+
 			// TODO: What does reset dates even do???
-			
+
 			// resetDates.addListener(SWT.Selection, new Listener() {
 			//
 			// @Override
@@ -241,11 +230,11 @@ public class DwGraphicalModelDateScale extends Composite {
 
 		currentSelectedDate = closestDate;
 	}
-	
+
 	public EObject getModel() {
 		return this.model;
 	}
-	
+
 	public Date getCurrentSelectedDate() {
 		return this.currentSelectedDate;
 	}
