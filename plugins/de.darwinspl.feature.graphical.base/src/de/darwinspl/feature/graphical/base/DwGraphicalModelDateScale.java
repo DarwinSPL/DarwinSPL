@@ -3,6 +3,8 @@ package de.darwinspl.feature.graphical.base;
 import de.darwinspl.common.eclipse.ui.dialogs.DwDateDialog;
 import de.darwinspl.feature.graphical.base.model.DwFeatureModelWrapped;
 import eu.hyvar.evolution.util.HyEvolutionUtil;
+
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -34,7 +36,7 @@ public class DwGraphicalModelDateScale extends Composite {
 
 	private Button currentDateButton;
 	private Button addDate;
-	private Button resetDates;
+	// private Button resetDates;
 	private Scale scale;
 	private List<Date> dates;
 
@@ -51,12 +53,17 @@ public class DwGraphicalModelDateScale extends Composite {
 		super(parent, style);
 
 		this.model = model;
+		this.dates = new ArrayList<Date>();
 
 		// the layout for this composite
 		RowLayout rowLayout = new RowLayout(SWT.HORIZONTAL);
 		rowLayout.justify = true;
 		rowLayout.pack = true;
 		this.setLayout(rowLayout);
+
+		// the scale
+		scale = new Scale(this, SWT.FILL);
+		scale.setLayoutData(new RowData(300, SWT.DEFAULT));
 
 		refreshDatesList(model);
 
@@ -68,9 +75,7 @@ public class DwGraphicalModelDateScale extends Composite {
 			addDate = new Button(this, SWT.PUSH);
 		}
 
-		// the scale
-		scale = new Scale(this, SWT.FILL);
-		scale.setLayoutData(new RowData(300, SWT.DEFAULT));
+		registerControlListeners();
 		int size = dates.size();
 		scale.setEnabled(size > 1);
 
@@ -83,22 +88,18 @@ public class DwGraphicalModelDateScale extends Composite {
 	 */
 	private void setCurrentSelectedDate(Date date) {
 		checkWidget();
-		// is the date in the list?
-		if (dates.contains(date)) {
-			this.currentSelectedDate = date;
+		this.currentSelectedDate = date;
 
-			// is it since forever?
-			if (currentSelectedDate.getTime() == Long.MIN_VALUE) {
-				if (dates.size() > 1)
-					currentDateButton.setText("before " + dates.get(1).toString());
-				// is it until forever?
-			} else if (currentSelectedDate.getTime() == Long.MAX_VALUE) {
-				currentDateButton.setText("after " + dates.get(dates.size() - 2).toString());
-			} else {
-				currentDateButton.setText(currentSelectedDate.toString());
-			}
-			scale.setSelection(dates.indexOf(currentSelectedDate));
+		if (currentSelectedDate.getTime() == Long.MIN_VALUE) {
+			if (dates.size() > 1)
+				currentDateButton.setText("before " + dates.get(1).toString());
+
+		} else if (currentSelectedDate.getTime() == Long.MAX_VALUE) {
+			currentDateButton.setText("after " + dates.get(dates.size() - 2).toString());
+		} else {
+			currentDateButton.setText(currentSelectedDate.toString());
 		}
+		scale.setSelection(dates.indexOf(currentSelectedDate));
 	}
 
 	/**
@@ -109,17 +110,7 @@ public class DwGraphicalModelDateScale extends Composite {
 	 */
 	public void refreshDatesList(EObject model) {
 		checkWidget();
-		dates = HyEvolutionUtil.collectDates(model);
-
-		if (dates.isEmpty()) {
-			dates.add(new Date(0));
-			dates.add(new Date());
-			dates.add(new Date(Long.MAX_VALUE));
-		} else if (dates.get(0).getTime() != Long.MIN_VALUE) {
-			dates.add(0, new Date(0));
-		} else if (dates.get(dates.size() - 1).getTime() != Long.MAX_VALUE) {
-			dates.add(new Date(Long.MAX_VALUE));
-		}
+		this.dates = HyEvolutionUtil.collectDates(model);
 
 		if (scale != null) {
 			int size = dates.size();
@@ -141,11 +132,17 @@ public class DwGraphicalModelDateScale extends Composite {
 				Object value = JOptionPane.showInputDialog(null, "Choose a date", "Date", JOptionPane.QUESTION_MESSAGE,
 						null, datePick, datePick[0]);
 				int index = dates.indexOf(value);
-				setCurrentSelectedDate(dates.get(index));
+				setCurrentSelectedDateToClosestActualDate(dates.get(index));
 
 				int size = dates.size();
 				scale.setMaximum(size - 1);
 				scale.setEnabled(size > 1);
+
+				if (dates.size() > 0)
+					currentDateButton.setText(dates.get(0).toString());
+				else {
+					currentDateButton.setText((new Date()).toString());
+				}
 			}
 		});
 
@@ -213,22 +210,22 @@ public class DwGraphicalModelDateScale extends Composite {
 	}
 
 	/**
-	 * Changes the date to the most actual date from now. Does not cause a
-	 * rerendering of the feature model.
+	 * Changes the date to the most actual existing date from the selected date.
+	 * Does not cause a rerendering of the model.
 	 */
-	protected void setCurrentSelectedDateToMostActualDate() {
+	protected void setCurrentSelectedDateToClosestActualDate(Date currentSelectedDate) {
 		checkWidget();
-		List<Date> dates = HyEvolutionUtil.collectDates(((DwFeatureModelWrapped) model).getModel());
-		Date currentDate = new Date();
+		List<Date> dates = HyEvolutionUtil.collectDates(this.getModel());
+
 		Date closestDate = new Date(Long.MIN_VALUE);
 		for (Date date : dates) {
-			if (date.before(currentDate)) {
-				if (date.after(closestDate))
-					closestDate = date;
+			if (date.before(currentSelectedDate)) {
+				closestDate = date;
+			} else {
+				break;
 			}
 		}
-
-		currentSelectedDate = closestDate;
+		setCurrentSelectedDate(closestDate);
 	}
 
 	public EObject getModel() {

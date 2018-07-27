@@ -148,6 +148,7 @@ public class DwCustomizedContextInformationEditor extends EditorPart {
 			renderedComposite = ECPSWTViewRenderer.INSTANCE.render(content, contextObject);
 
 			scale = new DwGraphicalModelDateScale(content, SWT.BORDER_DASH, contextObject);
+
 			content.layout();
 		} catch (ECPRendererException e) {
 			e.printStackTrace();
