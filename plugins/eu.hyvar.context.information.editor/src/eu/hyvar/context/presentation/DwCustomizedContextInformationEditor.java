@@ -69,7 +69,7 @@ public class DwCustomizedContextInformationEditor extends EditorPart {
 			firePropertyChange(IEditorPart.PROP_DIRTY);
 
 			// this forces a refresh of the date list
-			scale.refreshDatesList(scale.getModel());
+			scale.doUpdate();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

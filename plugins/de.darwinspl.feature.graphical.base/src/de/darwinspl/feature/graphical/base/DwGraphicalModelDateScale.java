@@ -127,6 +127,11 @@ public class DwGraphicalModelDateScale extends Composite {
 			scale.getParent().pack();
 		}
 	}
+	
+	public void doUpdate() {
+		refreshDatesList(model);
+		updateScale();
+	}
 
 	/**
 	 * registers listeners for the scale and the buttons
