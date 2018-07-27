@@ -55,34 +55,35 @@ public class DwGraphicalModelDateScale extends Composite {
 		this.model = model;
 		this.dates = new ArrayList<Date>();
 
+		// initializes the date list content.
+		refreshDatesList(model);
+
 		// the layout for this composite
 		RowLayout rowLayout = new RowLayout(SWT.HORIZONTAL);
-		rowLayout.justify = true;
 		rowLayout.pack = true;
 		this.setLayout(rowLayout);
+
+		// the Button displaying the current scale Date selection.
+		currentDateButton = new Button(this, SWT.PUSH);
 
 		// the scale
 		scale = new Scale(this, SWT.FILL);
 		scale.setLayoutData(new RowData(300, SWT.DEFAULT));
 
-		refreshDatesList(model);
+		setCurrentSelectedDateToClosestActualDate(new Date());
 
-		// the Button displaying the current scale Date selection.
-		currentDateButton = new Button(this, SWT.PUSH);
-
+		// the add date Button
 		if (model instanceof DwFeatureModelWrapped) {
-			// the add date Button
 			addDate = new Button(this, SWT.PUSH);
 		}
 
 		registerControlListeners();
-		int size = dates.size();
-		scale.setEnabled(size > 1);
+		updateScale();
 
 	}
 
 	/**
-	 * Sets the current scale Date to this Date. Updates the scale texts.
+	 * Sets the current scale Date to this Date. Updates the button texts and scale, if possible.
 	 * 
 	 * @param date
 	 */
@@ -99,7 +100,8 @@ public class DwGraphicalModelDateScale extends Composite {
 		} else {
 			currentDateButton.setText(currentSelectedDate.toString());
 		}
-		scale.setSelection(dates.indexOf(currentSelectedDate));
+		if (scale != null)
+			scale.setSelection(dates.indexOf(currentSelectedDate));
 	}
 
 	/**
@@ -108,9 +110,15 @@ public class DwGraphicalModelDateScale extends Composite {
 	 * 
 	 * @param model
 	 */
-	public void refreshDatesList(EObject model) {
+	private void refreshDatesList(EObject model) {
 		checkWidget();
 		this.dates = HyEvolutionUtil.collectDates(model);
+	}
+
+	/**
+	 * Updates the scale bounds.
+	 */
+	private void updateScale() {
 
 		if (scale != null) {
 			int size = dates.size();
@@ -123,16 +131,26 @@ public class DwGraphicalModelDateScale extends Composite {
 	/**
 	 * registers listeners for the scale and the buttons
 	 */
-	public void registerControlListeners() {
+	private void registerControlListeners() {
 		checkWidget();
 		// Left button to select an individual date
 		currentDateButton.addListener(SWT.Selection, new Listener() {
 			public void handleEvent(Event event) {
-				Object[] datePick = dates.toArray();
-				Object value = JOptionPane.showInputDialog(null, "Choose a date", "Date", JOptionPane.QUESTION_MESSAGE,
-						null, datePick, datePick[0]);
-				int index = dates.indexOf(value);
-				setCurrentSelectedDateToClosestActualDate(dates.get(index));
+
+				// date picker option:
+				// Object[] datePick = dates.toArray();
+				// Object value = JOptionPane.showInputDialog(null, "Choose a date", "Date",
+				// JOptionPane.QUESTION_MESSAGE,
+				// null, datePick, datePick[0]);
+				// int index = dates.indexOf(value);
+				// setCurrentSelectedDateToClosestActualDate(dates.get(index));
+
+				DwDateDialog dialog = new DwDateDialog(null, getCurrentSelectedDate());
+				dialog.open();
+				if (dialog.getReturnCode() == 0) {
+					Date newDate = dialog.getValue();
+					setCurrentSelectedDateToClosestActualDate(newDate);
+				}
 
 				int size = dates.size();
 				scale.setMaximum(size - 1);
@@ -213,10 +231,8 @@ public class DwGraphicalModelDateScale extends Composite {
 	 * Changes the date to the most actual existing date from the selected date.
 	 * Does not cause a rerendering of the model.
 	 */
-	protected void setCurrentSelectedDateToClosestActualDate(Date currentSelectedDate) {
+	private void setCurrentSelectedDateToClosestActualDate(Date currentSelectedDate) {
 		checkWidget();
-		List<Date> dates = HyEvolutionUtil.collectDates(this.getModel());
-
 		Date closestDate = new Date(Long.MIN_VALUE);
 		for (Date date : dates) {
 			if (date.before(currentSelectedDate)) {
@@ -228,10 +244,19 @@ public class DwGraphicalModelDateScale extends Composite {
 		setCurrentSelectedDate(closestDate);
 	}
 
+	/**
+	 * Returns the underlying model EObject.
+	 * 
+	 * @return EObject
+	 */
 	public EObject getModel() {
 		return this.model;
 	}
 
+	/**
+	 * Returns the date this scale is currently set to.
+	 * @return Date
+	 */
 	public Date getCurrentSelectedDate() {
 		return this.currentSelectedDate;
 	}
