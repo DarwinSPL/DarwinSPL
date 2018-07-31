@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="ASCII"?>
+<org.eclipse.emf.ecp.view.model:View xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:org.eclipse.emf.ecp.view.horizontal.model="http://org/eclipse/emf/ecp/view/horizontal/model" xmlns:org.eclipse.emf.ecp.view.model="http://org/eclipse/emf/ecp/view/model/170" xmlns:org.eclipse.emf.ecp.view.vertical.model="http://org/eclipse/emf/ecp/view/vertical/model" xmi:id="__kjncJG8EeiI-5hw-ZsbFw" name="HyContextualInformationNumber" ecorePath="/eu.hyvar.context.information/model/ContextInformation.ecore">
+  <rootEClass href="http://hyvar-project.eu/feature/context/1.0#//HyContextualInformationNumber"/>
+  <children xsi:type="org.eclipse.emf.ecp.view.horizontal.model:HorizontalLayout" xmi:id="_A9FgoJG9EeiI-5hw-ZsbFw">
+    <children xsi:type="org.eclipse.emf.ecp.view.model:Control" xmi:id="__kn45pG8EeiI-5hw-ZsbFw" name="Control name">
+      <domainModelReference xsi:type="org.eclipse.emf.ecp.view.model:FeaturePathDomainModelReference" xmi:id="__kn455G8EeiI-5hw-ZsbFw">
+        <domainModelEFeature xsi:type="ecore:EAttribute" href="http://hyvar-project.eu/feature/context/1.0#//HyContextualInformation/name"/>
+      </domainModelReference>
+    </children>
+    <children xsi:type="org.eclipse.emf.ecp.view.vertical.model:VerticalLayout" xmi:id="_DCkmcJG9EeiI-5hw-ZsbFw">
+      <children xsi:type="org.eclipse.emf.ecp.view.model:Control" xmi:id="__kn46JG8EeiI-5hw-ZsbFw" name="Control min">
+        <domainModelReference xsi:type="org.eclipse.emf.ecp.view.model:FeaturePathDomainModelReference" xmi:id="__kn46ZG8EeiI-5hw-ZsbFw">
+          <domainModelEFeature xsi:type="ecore:EAttribute" href="http://hyvar-project.eu/feature/context/1.0#//HyContextualInformationNumber/min"/>
+        </domainModelReference>
+      </children>
+      <children xsi:type="org.eclipse.emf.ecp.view.model:Control" xmi:id="__kn46pG8EeiI-5hw-ZsbFw" name="Control max">
+        <domainModelReference xsi:type="org.eclipse.emf.ecp.view.model:FeaturePathDomainModelReference" xmi:id="__kn465G8EeiI-5hw-ZsbFw">
+          <domainModelEFeature xsi:type="ecore:EAttribute" href="http://hyvar-project.eu/feature/context/1.0#//HyContextualInformationNumber/max"/>
+        </domainModelReference>
+      </children>
+    </children>
+  </children>
+  <children xsi:type="org.eclipse.emf.ecp.view.horizontal.model:HorizontalLayout" xmi:id="_BXKNgJG9EeiI-5hw-ZsbFw">
+    <children xsi:type="org.eclipse.emf.ecp.view.model:Control" xmi:id="__kn44JG8EeiI-5hw-ZsbFw" name="Control validSince">
+      <domainModelReference xsi:type="org.eclipse.emf.ecp.view.model:FeaturePathDomainModelReference" xmi:id="__kn44ZG8EeiI-5hw-ZsbFw">
+        <domainModelEFeature xsi:type="ecore:EAttribute" href="http://hyvar-project.eu/evolution/1.0#//HyTemporalElement/validSince"/>
+      </domainModelReference>
+    </children>
+    <children xsi:type="org.eclipse.emf.ecp.view.model:Control" xmi:id="__kn44pG8EeiI-5hw-ZsbFw" name="Control validUntil">
+      <domainModelReference xsi:type="org.eclipse.emf.ecp.view.model:FeaturePathDomainModelReference" xmi:id="__kn445G8EeiI-5hw-ZsbFw">
+        <domainModelEFeature xsi:type="ecore:EAttribute" href="http://hyvar-project.eu/evolution/1.0#//HyTemporalElement/validUntil"/>
+      </domainModelReference>
+    </children>
+  </children>
+</org.eclipse.emf.ecp.view.model:View>

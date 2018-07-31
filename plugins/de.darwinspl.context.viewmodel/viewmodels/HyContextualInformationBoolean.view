@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="ASCII"?>
+<org.eclipse.emf.ecp.view.model:View xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:org.eclipse.emf.ecp.view.horizontal.model="http://org/eclipse/emf/ecp/view/horizontal/model" xmlns:org.eclipse.emf.ecp.view.model="http://org/eclipse/emf/ecp/view/model/170" xmi:id="_G6U7IJG9EeiI-5hw-ZsbFw" name="HyContextualInformationBoolean" ecorePath="/eu.hyvar.context.information/model/ContextInformation.ecore">
+  <rootEClass href="http://hyvar-project.eu/feature/context/1.0#//HyContextualInformationBoolean"/>
+  <children xsi:type="org.eclipse.emf.ecp.view.model:Control" xmi:id="_G6aatpG9EeiI-5hw-ZsbFw" name="Control name">
+    <domainModelReference xsi:type="org.eclipse.emf.ecp.view.model:FeaturePathDomainModelReference" xmi:id="_G6aat5G9EeiI-5hw-ZsbFw">
+      <domainModelEFeature xsi:type="ecore:EAttribute" href="http://hyvar-project.eu/feature/context/1.0#//HyContextualInformation/name"/>
+    </domainModelReference>
+  </children>
+  <children xsi:type="org.eclipse.emf.ecp.view.horizontal.model:HorizontalLayout" xmi:id="_IikEQJG9EeiI-5hw-ZsbFw">
+    <children xsi:type="org.eclipse.emf.ecp.view.model:Control" xmi:id="_G6aasJG9EeiI-5hw-ZsbFw" name="Control validSince">
+      <domainModelReference xsi:type="org.eclipse.emf.ecp.view.model:FeaturePathDomainModelReference" xmi:id="_G6aasZG9EeiI-5hw-ZsbFw">
+        <domainModelEFeature xsi:type="ecore:EAttribute" href="http://hyvar-project.eu/evolution/1.0#//HyTemporalElement/validSince"/>
+      </domainModelReference>
+    </children>
+    <children xsi:type="org.eclipse.emf.ecp.view.model:Control" xmi:id="_G6aaspG9EeiI-5hw-ZsbFw" name="Control validUntil">
+      <domainModelReference xsi:type="org.eclipse.emf.ecp.view.model:FeaturePathDomainModelReference" xmi:id="_G6aas5G9EeiI-5hw-ZsbFw">
+        <domainModelEFeature xsi:type="ecore:EAttribute" href="http://hyvar-project.eu/evolution/1.0#//HyTemporalElement/validUntil"/>
+      </domainModelReference>
+    </children>
+  </children>
+</org.eclipse.emf.ecp.view.model:View>
