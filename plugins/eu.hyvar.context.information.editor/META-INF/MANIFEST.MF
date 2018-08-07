@@ -24,4 +24,5 @@ Require-Bundle: org.eclipse.core.runtime,
  de.christophseidl.util.ecore;bundle-version="1.0.0"
 Bundle-ActivationPolicy: lazy
 Import-Package: de.darwinspl.feature.graphical.base,
- de.darwinspl.feature.graphical.base.model
+ de.darwinspl.feature.graphical.base.model,
+ org.eclipse.emfforms.spi.swt.treemasterdetail;version="1.18.0"

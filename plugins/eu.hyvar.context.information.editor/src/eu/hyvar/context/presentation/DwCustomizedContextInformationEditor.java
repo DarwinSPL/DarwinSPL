@@ -38,8 +38,13 @@ import org.eclipse.emf.ecp.ui.view.swt.ECPSWTViewRenderer;
 import org.eclipse.emf.edit.domain.AdapterFactoryEditingDomain;
 import org.eclipse.emf.edit.provider.ComposedAdapterFactory;
 import org.eclipse.emf.edit.ui.action.EditingDomainActionBarContributor;
+import org.eclipse.emf.edit.ui.provider.AdapterFactoryContentProvider;
+import org.eclipse.emf.edit.ui.provider.AdapterFactoryLabelProvider;
+import org.eclipse.emfforms.spi.swt.treemasterdetail.TreeViewerSWTFactory;
 import org.eclipse.jface.layout.GridDataFactory;
 import org.eclipse.jface.layout.GridLayoutFactory;
+import org.eclipse.jface.viewers.TreeViewer;
+import org.eclipse.jface.viewers.ViewerFilter;
 
 public class DwCustomizedContextInformationEditor extends EditorPart {
 
@@ -56,6 +61,7 @@ public class DwCustomizedContextInformationEditor extends EditorPart {
 	Button currentDateButton;
 	DwGraphicalModelDateScale scale;
 	private ECPSWTView renderedComposite;
+	private ComposedAdapterFactory composedAdapterFactory;
 
 	public DwCustomizedContextInformationEditor() {
 		super();
@@ -139,20 +145,33 @@ public class DwCustomizedContextInformationEditor extends EditorPart {
 
 	@Override
 	public void createPartControl(Composite parent) {
-		try {
+//		try {
 			final Composite content = new Composite(parent, SWT.NONE);
 			content.setBackground(parent.getDisplay().getSystemColor(SWT.COLOR_WHITE));
 			content.setLayout(GridLayoutFactory.fillDefaults().margins(10, 10).create());
 			content.setLayoutData(GridDataFactory.fillDefaults().create());
 			EObject contextObject = contextResource.getContents().get(0);
-			renderedComposite = ECPSWTViewRenderer.INSTANCE.render(content, contextObject);
+//			renderedComposite = ECPSWTViewRenderer.INSTANCE.render(content, contextObject);
+			
+			TreeViewerSWTFactory.createTreeViewer(content, contextObject);
+//			ViewerFilter[] filters = null;
+//			filters[1] = null;
+//			TreeViewerSWTFactory.fillDefaults(content, contextObject).customizeViewerFilters(filters);
+//			
+			
+			
+//		    TreeViewer viewer = new TreeViewer(content, SWT.NONE);
+//		    composedAdapterFactory = new ComposedAdapterFactory(ComposedAdapterFactory.Descriptor.Registry.INSTANCE);
+//		        viewer.setContentProvider(new AdapterFactoryContentProvider(composedAdapterFactory));
+//		        viewer.setLabelProvider(new AdapterFactoryLabelProvider(composedAdapterFactory));
+//		    viewer.setInput(contextObject);
 
 			scale = new DwGraphicalModelDateScale(content, SWT.BORDER_DASH, contextObject);
 
 			content.layout();
-		} catch (ECPRendererException e) {
-			e.printStackTrace();
-		}
+//		} catch (ECPRendererException e) {
+//			e.printStackTrace();
+//		}
 		parent.layout();
 
 	}

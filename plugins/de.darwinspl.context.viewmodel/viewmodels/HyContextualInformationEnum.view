@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="ASCII"?>
-<org.eclipse.emf.ecp.view.model:View xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:org.eclipse.emf.ecp.view.horizontal.model="http://org/eclipse/emf/ecp/view/horizontal/model" xmlns:org.eclipse.emf.ecp.view.model="http://org/eclipse/emf/ecp/view/model/170" xmlns:org.eclipse.emf.ecp.view.vertical.model="http://org/eclipse/emf/ecp/view/vertical/model" xmi:id="_sZIUYJG8EeiI-5hw-ZsbFw" name="HyContextualInformationEnum" ecorePath="/eu.hyvar.context.information/model/ContextInformation.ecore">
+<org.eclipse.emf.ecp.view.model:View xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:org.eclipse.emf.ecp.view.horizontal.model="http://org/eclipse/emf/ecp/view/horizontal/model" xmlns:org.eclipse.emf.ecp.view.model="http://org/eclipse/emf/ecp/view/model/1170" xmlns:org.eclipse.emf.ecp.view.vertical.model="http://org/eclipse/emf/ecp/view/vertical/model" xmi:id="_sZIUYJG8EeiI-5hw-ZsbFw" name="HyContextualInformationEnum">
   <rootEClass href="http://hyvar-project.eu/feature/context/1.0#//HyContextualInformationEnum"/>
+  <ecorePaths>/eu.hyvar.context.information/model/ContextInformation.ecore</ecorePaths>
   <children xsi:type="org.eclipse.emf.ecp.view.horizontal.model:HorizontalLayout" xmi:id="_6Kd9UJG8EeiI-5hw-ZsbFw">
     <children xsi:type="org.eclipse.emf.ecp.view.model:Control" xmi:id="_sZObBZG8EeiI-5hw-ZsbFw" name="Control name">
       <domainModelReference xsi:type="org.eclipse.emf.ecp.view.model:FeaturePathDomainModelReference" xmi:id="_sZObBpG8EeiI-5hw-ZsbFw">
