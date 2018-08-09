@@ -20,16 +20,16 @@ public class DwZ3TreeVisitor extends SpecificationGrammarBaseVisitor<DwZ3TreeVis
 	
 	private Context context;
 	
-	private boolean featureAsBoolean;
+	private boolean featuresAsBoolean = true;
 
 	List<String> contexts = new ArrayList<String>();
 	List<String> features = new ArrayList<String>();
 	public boolean isFeatureAsBoolean() {
-		return featureAsBoolean;
+		return featuresAsBoolean;
 	}
 
 	public void setFeatureAsBoolean(boolean featureAsBoolean) {
-		this.featureAsBoolean = featureAsBoolean;
+		this.featuresAsBoolean = featureAsBoolean;
 	}
 
 	public List<String> getContexts() {
@@ -58,8 +58,9 @@ public class DwZ3TreeVisitor extends SpecificationGrammarBaseVisitor<DwZ3TreeVis
 
 	List<String> attributes = new ArrayList<String>();
 	
-	public DwZ3TreeVisitor(Context context) {
+	public DwZ3TreeVisitor(Context context, Boolean featuresAsBoolean) {
 		this.context = context;
+		this.featuresAsBoolean = featuresAsBoolean;
 		
 	}
 	
@@ -88,7 +89,7 @@ public class DwZ3TreeVisitor extends SpecificationGrammarBaseVisitor<DwZ3TreeVis
 	public DwZ3TreeVisitorValue visitErrorNode(ErrorNode node) {
 		Token token = node.getSymbol();
 		System.err.println("Erroneous Node " + token.getText());
-		System.out.println("eerrrr");
+		
 		return null;
 		
 	}
@@ -165,6 +166,7 @@ public class DwZ3TreeVisitor extends SpecificationGrammarBaseVisitor<DwZ3TreeVis
 				
 			} 
 			else if(op.getTokenString().equals("iff")) {
+				
 				BoolExpr expr = context.mkAnd(context.mkImplies((BoolExpr)formula.getExpr(), (BoolExpr) f.getExpr()), context.mkImplies( (BoolExpr) f.getExpr(),  (BoolExpr) formula.getExpr()));
 				formula.setExpr(expr.simplify());
 			} else if (op.getTokenString().equals("xor")) {
@@ -284,7 +286,7 @@ public class DwZ3TreeVisitor extends SpecificationGrammarBaseVisitor<DwZ3TreeVis
 			}
 			else {
 				//TODO: throw Exception
-				System.out.println("nooooothing possible");
+				
 			}
 			
 				
@@ -297,7 +299,7 @@ public class DwZ3TreeVisitor extends SpecificationGrammarBaseVisitor<DwZ3TreeVis
 		DwZ3TreeVisitorValue formula = ctx.getChild(0).accept(this);
 		int num = ctx.getChildCount();
 		
-		if(num == 1 && featureAsBoolean) {
+		if(num == 1 && featuresAsBoolean) {
 			return formula;
 			
 		}
@@ -362,7 +364,7 @@ public class DwZ3TreeVisitor extends SpecificationGrammarBaseVisitor<DwZ3TreeVis
 		}
 		DwZ3TreeVisitorValue v = new DwZ3TreeVisitorValue(id);
 		
-		if(featureAsBoolean) {
+		if(featuresAsBoolean) {
 			v.setExpr(context.mkBoolConst(id));
 			return v;
 		}

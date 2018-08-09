@@ -40,15 +40,22 @@ public class DwZ3ParserClient  {
 	
 	
  
-	public Expr[] parseConstraints(List<String> constraints, Context context) {
+	public Expr[] parseConstraints(List<String> constraints, Context context, Boolean featuresAsBoolean) {
 		
 		Expr[] expr = new BoolExpr[constraints.size()];
 		
 		int i = 0;
 		for(String c: constraints) {
-			expr[i] = parseConstraint(c, context).getExpr();
+			try {
+				
+				
+			expr[i] = parseConstraint(c, context, featuresAsBoolean).getExpr();
 			
 			i++;
+			} catch (ArrayStoreException e) {
+				e.printStackTrace();
+				
+			}
 		}
 		
 		return expr;
@@ -56,7 +63,7 @@ public class DwZ3ParserClient  {
 	}
 	
 	
-	public DwZ3TreeVisitorValue parseConstraint(String constraint, Context context) {
+	public DwZ3TreeVisitorValue parseConstraint(String constraint, Context context, Boolean featuresAsBoolean) {
 		
 		CharStream stream = new ANTLRInputStream(constraint);
 		SpecificationGrammarLexer lexer = new SpecificationGrammarLexer(stream);
@@ -68,7 +75,7 @@ public class DwZ3ParserClient  {
 		ParseTree tree = parser.constraint();
 	
 		
-		DwZ3TreeVisitor visitor = new DwZ3TreeVisitor(context);
+		DwZ3TreeVisitor visitor = new DwZ3TreeVisitor(context, featuresAsBoolean);
 		
 
 		
@@ -93,6 +100,7 @@ public class DwZ3ParserClient  {
 	}
 	
 	public void updateFeatures(List<String> features) {
+		//TODO: Z3 - Does this really nead to be done for each feature?
 		for(String newF: features) {
 			
 			if(!this.features.contains(newF)) {
