@@ -52,7 +52,23 @@ public class HyexpressionContainmentTrace {
 	}
 	
 	public String toString() {
-		return (startClass == null ? "null" : startClass.getName()) + "->" + eu.hyvar.feature.expression.resource.hyexpression.util.HyexpressionStringUtil.explode(path, "->");
+		return (startClass == null ? "null" : startClass.getName()) + "." + eu.hyvar.feature.expression.resource.hyexpression.util.HyexpressionStringUtil.explode(path, "->");
+	}
+	
+	public boolean contains(eu.hyvar.feature.expression.resource.hyexpression.grammar.HyexpressionRule rule) {
+		if (path == null) {
+			return false;
+		}
+		
+		EClass ruleMetaclass = rule.getMetaclass();
+		for (eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionContainedFeature pathElement : path) {
+			EClass containerClass = pathElement.getContainerClass();
+			if (containerClass == ruleMetaclass) {
+				return true;
+			}
+		}
+		
+		return startClass == ruleMetaclass;
 	}
 	
 }

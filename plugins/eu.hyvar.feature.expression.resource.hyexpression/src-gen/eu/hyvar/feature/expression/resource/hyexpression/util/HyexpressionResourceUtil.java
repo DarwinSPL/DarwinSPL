@@ -224,7 +224,7 @@ public class HyexpressionResourceUtil {
 			return null;
 		}
 		EObject root = contents.get(0);
-		return (eu.hyvar.feature.expression.HyExpression) root;
+		return root;
 	}
 	
 	public static void saveResource(File file, Resource resource) throws IOException {

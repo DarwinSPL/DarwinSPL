@@ -52,7 +52,23 @@ public class HyconstraintsContainmentTrace {
 	}
 	
 	public String toString() {
-		return (startClass == null ? "null" : startClass.getName()) + "->" + eu.hyvar.feature.constraint.resource.hyconstraints.util.HyconstraintsStringUtil.explode(path, "->");
+		return (startClass == null ? "null" : startClass.getName()) + "." + eu.hyvar.feature.constraint.resource.hyconstraints.util.HyconstraintsStringUtil.explode(path, "->");
+	}
+	
+	public boolean contains(eu.hyvar.feature.constraint.resource.hyconstraints.grammar.HyconstraintsRule rule) {
+		if (path == null) {
+			return false;
+		}
+		
+		EClass ruleMetaclass = rule.getMetaclass();
+		for (eu.hyvar.feature.constraint.resource.hyconstraints.mopp.HyconstraintsContainedFeature pathElement : path) {
+			EClass containerClass = pathElement.getContainerClass();
+			if (containerClass == ruleMetaclass) {
+				return true;
+			}
+		}
+		
+		return startClass == ruleMetaclass;
 	}
 	
 }

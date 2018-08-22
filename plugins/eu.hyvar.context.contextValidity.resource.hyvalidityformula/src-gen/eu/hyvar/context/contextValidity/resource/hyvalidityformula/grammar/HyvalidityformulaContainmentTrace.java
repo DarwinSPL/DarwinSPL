@@ -52,7 +52,23 @@ public class HyvalidityformulaContainmentTrace {
 	}
 	
 	public String toString() {
-		return (startClass == null ? "null" : startClass.getName()) + "->" + eu.hyvar.context.contextValidity.resource.hyvalidityformula.util.HyvalidityformulaStringUtil.explode(path, "->");
+		return (startClass == null ? "null" : startClass.getName()) + "." + eu.hyvar.context.contextValidity.resource.hyvalidityformula.util.HyvalidityformulaStringUtil.explode(path, "->");
+	}
+	
+	public boolean contains(eu.hyvar.context.contextValidity.resource.hyvalidityformula.grammar.HyvalidityformulaRule rule) {
+		if (path == null) {
+			return false;
+		}
+		
+		EClass ruleMetaclass = rule.getMetaclass();
+		for (eu.hyvar.context.contextValidity.resource.hyvalidityformula.mopp.HyvalidityformulaContainedFeature pathElement : path) {
+			EClass containerClass = pathElement.getContainerClass();
+			if (containerClass == ruleMetaclass) {
+				return true;
+			}
+		}
+		
+		return startClass == ruleMetaclass;
 	}
 	
 }

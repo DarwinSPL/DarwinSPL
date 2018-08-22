@@ -44,7 +44,7 @@ public class HyexpressionExpectedEnumerationTerminal extends eu.hyvar.feature.ex
 	/**
 	 * Returns the expected enumeration terminal.
 	 */
-	public eu.hyvar.feature.expression.resource.hyexpression.grammar.HyexpressionSyntaxElement getSymtaxElement() {
+	public eu.hyvar.feature.expression.resource.hyexpression.grammar.HyexpressionSyntaxElement getSyntaxElement() {
 		return enumerationTerminal;
 	}
 	

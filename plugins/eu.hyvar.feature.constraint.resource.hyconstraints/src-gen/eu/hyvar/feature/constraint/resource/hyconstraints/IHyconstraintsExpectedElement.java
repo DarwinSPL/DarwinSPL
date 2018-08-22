@@ -28,7 +28,7 @@ public interface IHyconstraintsExpectedElement {
 	/**
 	 * Returns the syntax element that is expected.
 	 */
-	public eu.hyvar.feature.constraint.resource.hyconstraints.grammar.HyconstraintsSyntaxElement getSymtaxElement();
+	public eu.hyvar.feature.constraint.resource.hyconstraints.grammar.HyconstraintsSyntaxElement getSyntaxElement();
 	
 	/**
 	 * Adds an element that is a valid follower for this element.

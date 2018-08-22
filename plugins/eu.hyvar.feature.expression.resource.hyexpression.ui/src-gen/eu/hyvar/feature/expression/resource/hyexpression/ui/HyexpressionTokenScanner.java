@@ -37,21 +37,33 @@ public class HyexpressionTokenScanner implements eu.hyvar.feature.expression.res
 	
 	/**
 	 * <p>
-	 * Creates a new HyexpressionTokenScanner.
+	 * Creates a new HyexpressionTokenScanner. Uses the preference store belonging to
+	 * the corresponding
+	 * eu.hyvar.feature.expression.resource.hyexpression.ui.HyexpressionUIPlugin.
 	 * </p>
 	 * 
 	 * @param resource The resource to scan
 	 * @param colorManager A manager to obtain color objects
 	 */
 	public HyexpressionTokenScanner(eu.hyvar.feature.expression.resource.hyexpression.IHyexpressionTextResource resource, eu.hyvar.feature.expression.resource.hyexpression.ui.HyexpressionColorManager colorManager) {
+		this(resource, colorManager, (eu.hyvar.feature.expression.resource.hyexpression.ui.HyexpressionUIPlugin.getDefault() == null ? null : eu.hyvar.feature.expression.resource.hyexpression.ui.HyexpressionUIPlugin.getDefault().getPreferenceStore()));
+	}
+	
+	/**
+	 * <p>
+	 * Creates a new HyexpressionTokenScanner.
+	 * </p>
+	 * 
+	 * @param resource The resource to scan
+	 * @param colorManager A manager to obtain color objects
+	 * @param preferenceStore The preference store to retrieve the defined token colors
+	 */
+	public HyexpressionTokenScanner(eu.hyvar.feature.expression.resource.hyexpression.IHyexpressionTextResource resource, eu.hyvar.feature.expression.resource.hyexpression.ui.HyexpressionColorManager colorManager, IPreferenceStore preferenceStore) {
 		this.resource = resource;
 		this.colorManager = colorManager;
 		this.lexer = new eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionMetaInformation().createLexer();
 		this.languageId = new eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionMetaInformation().getSyntaxName();
-		eu.hyvar.feature.expression.resource.hyexpression.ui.HyexpressionUIPlugin plugin = eu.hyvar.feature.expression.resource.hyexpression.ui.HyexpressionUIPlugin.getDefault();
-		if (plugin != null) {
-			this.store = plugin.getPreferenceStore();
-		}
+		this.store = preferenceStore;
 		this.nextTokens = new ArrayList<eu.hyvar.feature.expression.resource.hyexpression.IHyexpressionTextToken>();
 	}
 	

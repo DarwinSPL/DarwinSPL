@@ -30,7 +30,7 @@ public class HydatavalueExpectedBooleanTerminal extends eu.hyvar.dataValues.reso
 	/**
 	 * Returns the expected boolean terminal.
 	 */
-	public eu.hyvar.dataValues.resource.hydatavalue.grammar.HydatavalueSyntaxElement getSymtaxElement() {
+	public eu.hyvar.dataValues.resource.hydatavalue.grammar.HydatavalueSyntaxElement getSyntaxElement() {
 		return booleanTerminal;
 	}
 	

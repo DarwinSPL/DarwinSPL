@@ -24,7 +24,7 @@ public class HyexpressionKeyword extends eu.hyvar.feature.expression.resource.hy
 	}
 	
 	public String toString() {
-		return value;
+		return "\"" + value + "\"";
 	}
 	
 }

@@ -44,7 +44,7 @@ public class HyconstraintsExpectedEnumerationTerminal extends eu.hyvar.feature.c
 	/**
 	 * Returns the expected enumeration terminal.
 	 */
-	public eu.hyvar.feature.constraint.resource.hyconstraints.grammar.HyconstraintsSyntaxElement getSymtaxElement() {
+	public eu.hyvar.feature.constraint.resource.hyconstraints.grammar.HyconstraintsSyntaxElement getSyntaxElement() {
 		return enumerationTerminal;
 	}
 	

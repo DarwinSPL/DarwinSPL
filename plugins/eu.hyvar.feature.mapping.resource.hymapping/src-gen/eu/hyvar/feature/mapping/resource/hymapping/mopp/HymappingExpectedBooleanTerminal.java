@@ -30,7 +30,7 @@ public class HymappingExpectedBooleanTerminal extends eu.hyvar.feature.mapping.r
 	/**
 	 * Returns the expected boolean terminal.
 	 */
-	public eu.hyvar.feature.mapping.resource.hymapping.grammar.HymappingSyntaxElement getSymtaxElement() {
+	public eu.hyvar.feature.mapping.resource.hymapping.grammar.HymappingSyntaxElement getSyntaxElement() {
 		return booleanTerminal;
 	}
 	

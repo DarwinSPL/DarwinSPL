@@ -44,7 +44,7 @@ public class HyvalidityformulaExpectedEnumerationTerminal extends eu.hyvar.conte
 	/**
 	 * Returns the expected enumeration terminal.
 	 */
-	public eu.hyvar.context.contextValidity.resource.hyvalidityformula.grammar.HyvalidityformulaSyntaxElement getSymtaxElement() {
+	public eu.hyvar.context.contextValidity.resource.hyvalidityformula.grammar.HyvalidityformulaSyntaxElement getSyntaxElement() {
 		return enumerationTerminal;
 	}
 	

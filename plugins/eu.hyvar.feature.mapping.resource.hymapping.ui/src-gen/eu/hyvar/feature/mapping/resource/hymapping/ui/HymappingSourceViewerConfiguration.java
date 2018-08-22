@@ -20,7 +20,6 @@ import org.eclipse.jface.text.quickassist.IQuickAssistAssistant;
 import org.eclipse.jface.text.reconciler.IReconciler;
 import org.eclipse.jface.text.reconciler.IReconcilingStrategy;
 import org.eclipse.jface.text.reconciler.MonoReconciler;
-import org.eclipse.jface.text.rules.DefaultDamagerRepairer;
 import org.eclipse.jface.text.rules.ITokenScanner;
 import org.eclipse.jface.text.source.DefaultAnnotationHover;
 import org.eclipse.jface.text.source.IAnnotationHover;
@@ -101,9 +100,9 @@ public class HymappingSourceViewerConfiguration extends TextSourceViewerConfigur
 	public IPresentationReconciler getPresentationReconciler(ISourceViewer sourceViewer) {
 		
 		PresentationReconciler reconciler = new PresentationReconciler();
-		DefaultDamagerRepairer repairer = new DefaultDamagerRepairer(getScanner());
-		reconciler.setDamager(repairer, IDocument.DEFAULT_CONTENT_TYPE);
-		reconciler.setRepairer(repairer, IDocument.DEFAULT_CONTENT_TYPE);
+		eu.hyvar.feature.mapping.resource.hymapping.ui.HymappingDamagerRepairer damagerRepairer = new eu.hyvar.feature.mapping.resource.hymapping.ui.HymappingDamagerRepairer(getScanner(), resourceProvider);
+		reconciler.setDamager(damagerRepairer, IDocument.DEFAULT_CONTENT_TYPE);
+		reconciler.setRepairer(damagerRepairer, IDocument.DEFAULT_CONTENT_TYPE);
 		
 		return reconciler;
 	}

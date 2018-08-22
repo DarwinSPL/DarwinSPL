@@ -24,7 +24,7 @@ public class HymappingKeyword extends eu.hyvar.feature.mapping.resource.hymappin
 	}
 	
 	public String toString() {
-		return value;
+		return "\"" + value + "\"";
 	}
 	
 }

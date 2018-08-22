@@ -30,7 +30,7 @@ public class HyvalidityformulaExpectedStructuralFeature extends eu.hyvar.context
 	/**
 	 * Returns the expected placeholder.
 	 */
-	public eu.hyvar.context.contextValidity.resource.hyvalidityformula.grammar.HyvalidityformulaSyntaxElement getSymtaxElement() {
+	public eu.hyvar.context.contextValidity.resource.hyvalidityformula.grammar.HyvalidityformulaSyntaxElement getSyntaxElement() {
 		return placeholder;
 	}
 	

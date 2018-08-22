@@ -45,6 +45,17 @@ public abstract class HydatavalueSyntaxElement {
 		return parent;
 	}
 	
+	/**
+	 * Returns the rule of this syntax element. The rule is determined by the
+	 * containment hierarchy in the CS model.
+	 */
+	public eu.hyvar.dataValues.resource.hydatavalue.grammar.HydatavalueRule getRule() {
+		if (this instanceof eu.hyvar.dataValues.resource.hydatavalue.grammar.HydatavalueRule) {
+			return (eu.hyvar.dataValues.resource.hydatavalue.grammar.HydatavalueRule) this;
+		}
+		return parent.getRule();
+	}
+	
 	public HydatavalueSyntaxElement[] getChildren() {
 		if (children == null) {
 			return new HydatavalueSyntaxElement[0];
@@ -58,6 +69,16 @@ public abstract class HydatavalueSyntaxElement {
 	
 	public eu.hyvar.dataValues.resource.hydatavalue.grammar.HydatavalueCardinality getCardinality() {
 		return cardinality;
+	}
+	
+	public boolean hasContainment(EClass metaclass) {
+		eu.hyvar.dataValues.resource.hydatavalue.grammar.HydatavalueSyntaxElement[] children = getChildren();
+		for (eu.hyvar.dataValues.resource.hydatavalue.grammar.HydatavalueSyntaxElement child : children) {
+			if (child.hasContainment(metaclass)) {
+				return true;
+			}
+		}
+		return false;
 	}
 	
 }

@@ -28,5 +28,10 @@ public class HydatavalueRule extends eu.hyvar.dataValues.resource.hydatavalue.gr
 		return (eu.hyvar.dataValues.resource.hydatavalue.grammar.HydatavalueChoice) getChildren()[0];
 	}
 	
+	@Deprecated
+	public String toString() {
+		return metaclass == null ? "null" : metaclass.getName() + " ::= " + getDefinition().toString();
+	}
+	
 }
 

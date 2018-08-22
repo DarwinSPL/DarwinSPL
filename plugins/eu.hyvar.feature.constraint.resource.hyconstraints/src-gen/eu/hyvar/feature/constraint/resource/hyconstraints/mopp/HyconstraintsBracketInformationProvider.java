@@ -19,6 +19,7 @@ public class HyconstraintsBracketInformationProvider {
 		Collection<eu.hyvar.feature.constraint.resource.hyconstraints.IHyconstraintsBracketPair> result = new ArrayList<eu.hyvar.feature.constraint.resource.hyconstraints.IHyconstraintsBracketPair>();
 		result.add(new eu.hyvar.feature.constraint.resource.hyconstraints.mopp.HyconstraintsBracketPair("[", "]", true, false));
 		result.add(new eu.hyvar.feature.constraint.resource.hyconstraints.mopp.HyconstraintsBracketPair("(", ")", true, false));
+		result.add(new eu.hyvar.feature.constraint.resource.hyconstraints.mopp.HyconstraintsBracketPair("{", "}", true, true));
 		result.add(new eu.hyvar.feature.constraint.resource.hyconstraints.mopp.HyconstraintsBracketPair("\"", "\"", false, false));
 		return result;
 	}

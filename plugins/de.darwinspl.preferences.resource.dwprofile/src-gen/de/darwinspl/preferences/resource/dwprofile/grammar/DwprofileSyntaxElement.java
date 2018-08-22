@@ -45,6 +45,17 @@ public abstract class DwprofileSyntaxElement {
 		return parent;
 	}
 	
+	/**
+	 * Returns the rule of this syntax element. The rule is determined by the
+	 * containment hierarchy in the CS model.
+	 */
+	public de.darwinspl.preferences.resource.dwprofile.grammar.DwprofileRule getRule() {
+		if (this instanceof de.darwinspl.preferences.resource.dwprofile.grammar.DwprofileRule) {
+			return (de.darwinspl.preferences.resource.dwprofile.grammar.DwprofileRule) this;
+		}
+		return parent.getRule();
+	}
+	
 	public DwprofileSyntaxElement[] getChildren() {
 		if (children == null) {
 			return new DwprofileSyntaxElement[0];
@@ -58,6 +69,16 @@ public abstract class DwprofileSyntaxElement {
 	
 	public de.darwinspl.preferences.resource.dwprofile.grammar.DwprofileCardinality getCardinality() {
 		return cardinality;
+	}
+	
+	public boolean hasContainment(EClass metaclass) {
+		de.darwinspl.preferences.resource.dwprofile.grammar.DwprofileSyntaxElement[] children = getChildren();
+		for (de.darwinspl.preferences.resource.dwprofile.grammar.DwprofileSyntaxElement child : children) {
+			if (child.hasContainment(metaclass)) {
+				return true;
+			}
+		}
+		return false;
 	}
 	
 }

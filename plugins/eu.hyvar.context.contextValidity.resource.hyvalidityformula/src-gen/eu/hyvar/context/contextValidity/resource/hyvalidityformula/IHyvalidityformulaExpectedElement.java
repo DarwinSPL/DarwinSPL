@@ -28,7 +28,7 @@ public interface IHyvalidityformulaExpectedElement {
 	/**
 	 * Returns the syntax element that is expected.
 	 */
-	public eu.hyvar.context.contextValidity.resource.hyvalidityformula.grammar.HyvalidityformulaSyntaxElement getSymtaxElement();
+	public eu.hyvar.context.contextValidity.resource.hyvalidityformula.grammar.HyvalidityformulaSyntaxElement getSyntaxElement();
 	
 	/**
 	 * Adds an element that is a valid follower for this element.

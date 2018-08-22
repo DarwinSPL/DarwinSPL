@@ -22,9 +22,9 @@ public class HymappingReferenceResolverSwitch implements eu.hyvar.feature.mappin
 	
 	protected eu.hyvar.feature.mapping.resource.hymapping.analysis.DEDeltaInvokationDeltaReferenceResolver dEDeltaInvokationDeltaReferenceResolver = new eu.hyvar.feature.mapping.resource.hymapping.analysis.DEDeltaInvokationDeltaReferenceResolver();
 	protected eu.hyvar.feature.mapping.resource.hymapping.analysis.HyAbstractFeatureReferenceExpressionFeatureReferenceResolver hyAbstractFeatureReferenceExpressionFeatureReferenceResolver = new eu.hyvar.feature.mapping.resource.hymapping.analysis.HyAbstractFeatureReferenceExpressionFeatureReferenceResolver();
-	protected eu.hyvar.feature.mapping.resource.hymapping.analysis.HyContextInformationReferenceExpressionContextInformationReferenceResolver hyContextInformationReferenceExpressionContextInformationReferenceResolver = new eu.hyvar.feature.mapping.resource.hymapping.analysis.HyContextInformationReferenceExpressionContextInformationReferenceResolver();
 	protected eu.hyvar.feature.mapping.resource.hymapping.analysis.HyAttributeReferenceExpressionFeatureReferenceResolver hyAttributeReferenceExpressionFeatureReferenceResolver = new eu.hyvar.feature.mapping.resource.hymapping.analysis.HyAttributeReferenceExpressionFeatureReferenceResolver();
 	protected eu.hyvar.feature.mapping.resource.hymapping.analysis.HyAttributeReferenceExpressionAttributeReferenceResolver hyAttributeReferenceExpressionAttributeReferenceResolver = new eu.hyvar.feature.mapping.resource.hymapping.analysis.HyAttributeReferenceExpressionAttributeReferenceResolver();
+	protected eu.hyvar.feature.mapping.resource.hymapping.analysis.HyContextInformationReferenceExpressionContextInformationReferenceResolver hyContextInformationReferenceExpressionContextInformationReferenceResolver = new eu.hyvar.feature.mapping.resource.hymapping.analysis.HyContextInformationReferenceExpressionContextInformationReferenceResolver();
 	protected eu.hyvar.feature.mapping.resource.hymapping.analysis.HyRelativeVersionRestrictionVersionReferenceResolver hyRelativeVersionRestrictionVersionReferenceResolver = new eu.hyvar.feature.mapping.resource.hymapping.analysis.HyRelativeVersionRestrictionVersionReferenceResolver();
 	protected eu.hyvar.feature.mapping.resource.hymapping.analysis.HyVersionRangeRestrictionLowerVersionReferenceResolver hyVersionRangeRestrictionLowerVersionReferenceResolver = new eu.hyvar.feature.mapping.resource.hymapping.analysis.HyVersionRangeRestrictionLowerVersionReferenceResolver();
 	protected eu.hyvar.feature.mapping.resource.hymapping.analysis.HyVersionRangeRestrictionUpperVersionReferenceResolver hyVersionRangeRestrictionUpperVersionReferenceResolver = new eu.hyvar.feature.mapping.resource.hymapping.analysis.HyVersionRangeRestrictionUpperVersionReferenceResolver();
@@ -39,16 +39,16 @@ public class HymappingReferenceResolverSwitch implements eu.hyvar.feature.mappin
 		return getResolverChain(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyAbstractFeatureReferenceExpression_Feature(), hyAbstractFeatureReferenceExpressionFeatureReferenceResolver);
 	}
 	
-	public eu.hyvar.feature.mapping.resource.hymapping.IHymappingReferenceResolver<eu.hyvar.feature.expression.HyContextInformationReferenceExpression, eu.hyvar.context.HyContextualInformation> getHyContextInformationReferenceExpressionContextInformationReferenceResolver() {
-		return getResolverChain(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyContextInformationReferenceExpression_ContextInformation(), hyContextInformationReferenceExpressionContextInformationReferenceResolver);
-	}
-	
 	public eu.hyvar.feature.mapping.resource.hymapping.IHymappingReferenceResolver<eu.hyvar.feature.expression.HyAttributeReferenceExpression, eu.hyvar.feature.HyFeature> getHyAttributeReferenceExpressionFeatureReferenceResolver() {
 		return getResolverChain(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyAttributeReferenceExpression_Feature(), hyAttributeReferenceExpressionFeatureReferenceResolver);
 	}
 	
 	public eu.hyvar.feature.mapping.resource.hymapping.IHymappingReferenceResolver<eu.hyvar.feature.expression.HyAttributeReferenceExpression, eu.hyvar.feature.HyFeatureAttribute> getHyAttributeReferenceExpressionAttributeReferenceResolver() {
 		return getResolverChain(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyAttributeReferenceExpression_Attribute(), hyAttributeReferenceExpressionAttributeReferenceResolver);
+	}
+	
+	public eu.hyvar.feature.mapping.resource.hymapping.IHymappingReferenceResolver<eu.hyvar.feature.expression.HyContextInformationReferenceExpression, eu.hyvar.context.HyContextualInformation> getHyContextInformationReferenceExpressionContextInformationReferenceResolver() {
+		return getResolverChain(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyContextInformationReferenceExpression_ContextInformation(), hyContextInformationReferenceExpressionContextInformationReferenceResolver);
 	}
 	
 	public eu.hyvar.feature.mapping.resource.hymapping.IHymappingReferenceResolver<eu.hyvar.feature.expression.HyRelativeVersionRestriction, eu.hyvar.feature.HyVersion> getHyRelativeVersionRestrictionVersionReferenceResolver() {
@@ -78,9 +78,9 @@ public class HymappingReferenceResolverSwitch implements eu.hyvar.feature.mappin
 		}
 		dEDeltaInvokationDeltaReferenceResolver.setOptions(options);
 		hyAbstractFeatureReferenceExpressionFeatureReferenceResolver.setOptions(options);
-		hyContextInformationReferenceExpressionContextInformationReferenceResolver.setOptions(options);
 		hyAttributeReferenceExpressionFeatureReferenceResolver.setOptions(options);
 		hyAttributeReferenceExpressionAttributeReferenceResolver.setOptions(options);
+		hyContextInformationReferenceExpressionContextInformationReferenceResolver.setOptions(options);
 		hyRelativeVersionRestrictionVersionReferenceResolver.setOptions(options);
 		hyVersionRangeRestrictionLowerVersionReferenceResolver.setOptions(options);
 		hyVersionRangeRestrictionUpperVersionReferenceResolver.setOptions(options);
@@ -108,14 +108,6 @@ public class HymappingReferenceResolverSwitch implements eu.hyvar.feature.mappin
 				hyAbstractFeatureReferenceExpressionFeatureReferenceResolver.resolve(identifier, (eu.hyvar.feature.expression.HyAbstractFeatureReferenceExpression) container, (EReference) feature, position, true, frr);
 			}
 		}
-		if (eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyContextInformationReferenceExpression().isInstance(container)) {
-			HymappingFuzzyResolveResult<eu.hyvar.context.HyContextualInformation> frr = new HymappingFuzzyResolveResult<eu.hyvar.context.HyContextualInformation>(result);
-			String referenceName = reference.getName();
-			EStructuralFeature feature = container.eClass().getEStructuralFeature(referenceName);
-			if (feature != null && feature instanceof EReference && referenceName != null && referenceName.equals("contextInformation")) {
-				hyContextInformationReferenceExpressionContextInformationReferenceResolver.resolve(identifier, (eu.hyvar.feature.expression.HyContextInformationReferenceExpression) container, (EReference) feature, position, true, frr);
-			}
-		}
 		if (eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyAttributeReferenceExpression().isInstance(container)) {
 			HymappingFuzzyResolveResult<eu.hyvar.feature.HyFeature> frr = new HymappingFuzzyResolveResult<eu.hyvar.feature.HyFeature>(result);
 			String referenceName = reference.getName();
@@ -130,6 +122,14 @@ public class HymappingReferenceResolverSwitch implements eu.hyvar.feature.mappin
 			EStructuralFeature feature = container.eClass().getEStructuralFeature(referenceName);
 			if (feature != null && feature instanceof EReference && referenceName != null && referenceName.equals("attribute")) {
 				hyAttributeReferenceExpressionAttributeReferenceResolver.resolve(identifier, (eu.hyvar.feature.expression.HyAttributeReferenceExpression) container, (EReference) feature, position, true, frr);
+			}
+		}
+		if (eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyContextInformationReferenceExpression().isInstance(container)) {
+			HymappingFuzzyResolveResult<eu.hyvar.context.HyContextualInformation> frr = new HymappingFuzzyResolveResult<eu.hyvar.context.HyContextualInformation>(result);
+			String referenceName = reference.getName();
+			EStructuralFeature feature = container.eClass().getEStructuralFeature(referenceName);
+			if (feature != null && feature instanceof EReference && referenceName != null && referenceName.equals("contextInformation")) {
+				hyContextInformationReferenceExpressionContextInformationReferenceResolver.resolve(identifier, (eu.hyvar.feature.expression.HyContextInformationReferenceExpression) container, (EReference) feature, position, true, frr);
 			}
 		}
 		if (eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyRelativeVersionRestriction().isInstance(container)) {
@@ -181,14 +181,14 @@ public class HymappingReferenceResolverSwitch implements eu.hyvar.feature.mappin
 		if (reference == eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyAbstractFeatureReferenceExpression_Feature()) {
 			return getResolverChain(reference, hyAbstractFeatureReferenceExpressionFeatureReferenceResolver);
 		}
-		if (reference == eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyContextInformationReferenceExpression_ContextInformation()) {
-			return getResolverChain(reference, hyContextInformationReferenceExpressionContextInformationReferenceResolver);
-		}
 		if (reference == eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyAttributeReferenceExpression_Feature()) {
 			return getResolverChain(reference, hyAttributeReferenceExpressionFeatureReferenceResolver);
 		}
 		if (reference == eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyAttributeReferenceExpression_Attribute()) {
 			return getResolverChain(reference, hyAttributeReferenceExpressionAttributeReferenceResolver);
+		}
+		if (reference == eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyContextInformationReferenceExpression_ContextInformation()) {
+			return getResolverChain(reference, hyContextInformationReferenceExpressionContextInformationReferenceResolver);
 		}
 		if (reference == eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyRelativeVersionRestriction_Version()) {
 			return getResolverChain(reference, hyRelativeVersionRestrictionVersionReferenceResolver);

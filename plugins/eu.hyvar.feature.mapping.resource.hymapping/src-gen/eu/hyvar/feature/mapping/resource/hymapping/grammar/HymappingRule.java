@@ -28,5 +28,10 @@ public class HymappingRule extends eu.hyvar.feature.mapping.resource.hymapping.g
 		return (eu.hyvar.feature.mapping.resource.hymapping.grammar.HymappingChoice) getChildren()[0];
 	}
 	
+	@Deprecated
+	public String toString() {
+		return metaclass == null ? "null" : metaclass.getName() + " ::= " + getDefinition().toString();
+	}
+	
 }
 

@@ -45,6 +45,17 @@ public abstract class HymappingSyntaxElement {
 		return parent;
 	}
 	
+	/**
+	 * Returns the rule of this syntax element. The rule is determined by the
+	 * containment hierarchy in the CS model.
+	 */
+	public eu.hyvar.feature.mapping.resource.hymapping.grammar.HymappingRule getRule() {
+		if (this instanceof eu.hyvar.feature.mapping.resource.hymapping.grammar.HymappingRule) {
+			return (eu.hyvar.feature.mapping.resource.hymapping.grammar.HymappingRule) this;
+		}
+		return parent.getRule();
+	}
+	
 	public HymappingSyntaxElement[] getChildren() {
 		if (children == null) {
 			return new HymappingSyntaxElement[0];
@@ -58,6 +69,16 @@ public abstract class HymappingSyntaxElement {
 	
 	public eu.hyvar.feature.mapping.resource.hymapping.grammar.HymappingCardinality getCardinality() {
 		return cardinality;
+	}
+	
+	public boolean hasContainment(EClass metaclass) {
+		eu.hyvar.feature.mapping.resource.hymapping.grammar.HymappingSyntaxElement[] children = getChildren();
+		for (eu.hyvar.feature.mapping.resource.hymapping.grammar.HymappingSyntaxElement child : children) {
+			if (child.hasContainment(metaclass)) {
+				return true;
+			}
+		}
+		return false;
 	}
 	
 }

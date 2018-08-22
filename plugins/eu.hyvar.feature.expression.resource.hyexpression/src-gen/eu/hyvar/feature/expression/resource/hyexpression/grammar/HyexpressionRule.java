@@ -28,5 +28,10 @@ public class HyexpressionRule extends eu.hyvar.feature.expression.resource.hyexp
 		return (eu.hyvar.feature.expression.resource.hyexpression.grammar.HyexpressionChoice) getChildren()[0];
 	}
 	
+	@Deprecated
+	public String toString() {
+		return metaclass == null ? "null" : metaclass.getName() + " ::= " + getDefinition().toString();
+	}
+	
 }
 

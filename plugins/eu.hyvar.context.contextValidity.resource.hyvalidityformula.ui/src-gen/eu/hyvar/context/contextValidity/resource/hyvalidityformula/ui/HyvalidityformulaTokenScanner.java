@@ -37,21 +37,34 @@ public class HyvalidityformulaTokenScanner implements eu.hyvar.context.contextVa
 	
 	/**
 	 * <p>
-	 * Creates a new HyvalidityformulaTokenScanner.
+	 * Creates a new HyvalidityformulaTokenScanner. Uses the preference store
+	 * belonging to the corresponding
+	 * eu.hyvar.context.contextValidity.resource.hyvalidityformula.ui.Hyvalidityformula
+	 * UIPlugin.
 	 * </p>
 	 * 
 	 * @param resource The resource to scan
 	 * @param colorManager A manager to obtain color objects
 	 */
 	public HyvalidityformulaTokenScanner(eu.hyvar.context.contextValidity.resource.hyvalidityformula.IHyvalidityformulaTextResource resource, eu.hyvar.context.contextValidity.resource.hyvalidityformula.ui.HyvalidityformulaColorManager colorManager) {
+		this(resource, colorManager, (eu.hyvar.context.contextValidity.resource.hyvalidityformula.ui.HyvalidityformulaUIPlugin.getDefault() == null ? null : eu.hyvar.context.contextValidity.resource.hyvalidityformula.ui.HyvalidityformulaUIPlugin.getDefault().getPreferenceStore()));
+	}
+	
+	/**
+	 * <p>
+	 * Creates a new HyvalidityformulaTokenScanner.
+	 * </p>
+	 * 
+	 * @param resource The resource to scan
+	 * @param colorManager A manager to obtain color objects
+	 * @param preferenceStore The preference store to retrieve the defined token colors
+	 */
+	public HyvalidityformulaTokenScanner(eu.hyvar.context.contextValidity.resource.hyvalidityformula.IHyvalidityformulaTextResource resource, eu.hyvar.context.contextValidity.resource.hyvalidityformula.ui.HyvalidityformulaColorManager colorManager, IPreferenceStore preferenceStore) {
 		this.resource = resource;
 		this.colorManager = colorManager;
 		this.lexer = new eu.hyvar.context.contextValidity.resource.hyvalidityformula.mopp.HyvalidityformulaMetaInformation().createLexer();
 		this.languageId = new eu.hyvar.context.contextValidity.resource.hyvalidityformula.mopp.HyvalidityformulaMetaInformation().getSyntaxName();
-		eu.hyvar.context.contextValidity.resource.hyvalidityformula.ui.HyvalidityformulaUIPlugin plugin = eu.hyvar.context.contextValidity.resource.hyvalidityformula.ui.HyvalidityformulaUIPlugin.getDefault();
-		if (plugin != null) {
-			this.store = plugin.getPreferenceStore();
-		}
+		this.store = preferenceStore;
 		this.nextTokens = new ArrayList<eu.hyvar.context.contextValidity.resource.hyvalidityformula.IHyvalidityformulaTextToken>();
 	}
 	

@@ -224,7 +224,7 @@ public class DwprofileResourceUtil {
 			return null;
 		}
 		EObject root = contents.get(0);
-		return (de.darwinspl.preferences.DwProfile) root;
+		return root;
 	}
 	
 	public static void saveResource(File file, Resource resource) throws IOException {

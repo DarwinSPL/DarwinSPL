@@ -19,6 +19,7 @@ public class HyvalidityformulaBracketInformationProvider {
 		Collection<eu.hyvar.context.contextValidity.resource.hyvalidityformula.IHyvalidityformulaBracketPair> result = new ArrayList<eu.hyvar.context.contextValidity.resource.hyvalidityformula.IHyvalidityformulaBracketPair>();
 		result.add(new eu.hyvar.context.contextValidity.resource.hyvalidityformula.mopp.HyvalidityformulaBracketPair("[", "]", true, false));
 		result.add(new eu.hyvar.context.contextValidity.resource.hyvalidityformula.mopp.HyvalidityformulaBracketPair("(", ")", true, false));
+		result.add(new eu.hyvar.context.contextValidity.resource.hyvalidityformula.mopp.HyvalidityformulaBracketPair("{", "}", true, true));
 		result.add(new eu.hyvar.context.contextValidity.resource.hyvalidityformula.mopp.HyvalidityformulaBracketPair("\"", "\"", false, false));
 		return result;
 	}

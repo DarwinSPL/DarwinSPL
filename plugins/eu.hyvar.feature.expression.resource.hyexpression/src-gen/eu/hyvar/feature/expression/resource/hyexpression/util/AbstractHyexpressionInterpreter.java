@@ -16,6 +16,11 @@ import eu.hyvar.dataValues.HyValue;
 import eu.hyvar.feature.expression.HyAbstractFeatureReferenceExpression;
 import eu.hyvar.feature.expression.HyAdditionExpression;
 import eu.hyvar.feature.expression.HyAndExpression;
+import eu.hyvar.feature.expression.HyArithmeticalComparisonExpression;
+import eu.hyvar.feature.expression.HyArithmeticalValueAtomicExpression;
+import eu.hyvar.feature.expression.HyArithmeticalValueBinaryOperationExpression;
+import eu.hyvar.feature.expression.HyArithmeticalValueExpression;
+import eu.hyvar.feature.expression.HyArithmeticalValueUnaryOperationExpression;
 import eu.hyvar.feature.expression.HyAtomicExpression;
 import eu.hyvar.feature.expression.HyAttributeReferenceExpression;
 import eu.hyvar.feature.expression.HyBinaryExpression;
@@ -23,23 +28,18 @@ import eu.hyvar.feature.expression.HyBooleanValueExpression;
 import eu.hyvar.feature.expression.HyConditionalFeatureReferenceExpression;
 import eu.hyvar.feature.expression.HyContextInformationReferenceExpression;
 import eu.hyvar.feature.expression.HyDivisionExpression;
-import eu.hyvar.feature.expression.HyEqualExpression;
 import eu.hyvar.feature.expression.HyEquivalenceExpression;
 import eu.hyvar.feature.expression.HyExpression;
 import eu.hyvar.feature.expression.HyFeatureReferenceExpression;
-import eu.hyvar.feature.expression.HyGreaterExpression;
-import eu.hyvar.feature.expression.HyGreaterOrEqualExpression;
 import eu.hyvar.feature.expression.HyIfPossibleExpression;
 import eu.hyvar.feature.expression.HyImpliesExpression;
-import eu.hyvar.feature.expression.HyLessExpression;
-import eu.hyvar.feature.expression.HyLessOrEqualExpression;
 import eu.hyvar.feature.expression.HyMaximumExpression;
 import eu.hyvar.feature.expression.HyMinimumExpression;
 import eu.hyvar.feature.expression.HyModuloExpression;
 import eu.hyvar.feature.expression.HyMultiplicationExpression;
 import eu.hyvar.feature.expression.HyNegationExpression;
+import eu.hyvar.feature.expression.HyNestedArithmeticalValueExpression;
 import eu.hyvar.feature.expression.HyNestedExpression;
-import eu.hyvar.feature.expression.HyNotEqualExpression;
 import eu.hyvar.feature.expression.HyNotExpression;
 import eu.hyvar.feature.expression.HyOrExpression;
 import eu.hyvar.feature.expression.HyRelativeVersionRestriction;
@@ -110,38 +110,8 @@ public class AbstractHyexpressionInterpreter<ResultType, ContextType> {
 	
 	public ResultType interprete(EObject object, ContextType context) {
 		ResultType result = null;
-		if (object instanceof eu.hyvar.feature.expression.HyAndExpression) {
-			result = interprete_eu_hyvar_feature_expression_HyAndExpression((eu.hyvar.feature.expression.HyAndExpression) object, context);
-		}
-		if (result != null) {
-			return result;
-		}
-		if (object instanceof eu.hyvar.feature.expression.HyOrExpression) {
-			result = interprete_eu_hyvar_feature_expression_HyOrExpression((eu.hyvar.feature.expression.HyOrExpression) object, context);
-		}
-		if (result != null) {
-			return result;
-		}
-		if (object instanceof eu.hyvar.feature.expression.HyNotExpression) {
-			result = interprete_eu_hyvar_feature_expression_HyNotExpression((eu.hyvar.feature.expression.HyNotExpression) object, context);
-		}
-		if (result != null) {
-			return result;
-		}
-		if (object instanceof eu.hyvar.feature.expression.HyEquivalenceExpression) {
-			result = interprete_eu_hyvar_feature_expression_HyEquivalenceExpression((eu.hyvar.feature.expression.HyEquivalenceExpression) object, context);
-		}
-		if (result != null) {
-			return result;
-		}
-		if (object instanceof eu.hyvar.feature.expression.HyImpliesExpression) {
-			result = interprete_eu_hyvar_feature_expression_HyImpliesExpression((eu.hyvar.feature.expression.HyImpliesExpression) object, context);
-		}
-		if (result != null) {
-			return result;
-		}
-		if (object instanceof eu.hyvar.feature.expression.HyBinaryExpression) {
-			result = interprete_eu_hyvar_feature_expression_HyBinaryExpression((eu.hyvar.feature.expression.HyBinaryExpression) object, context);
+		if (object instanceof eu.hyvar.feature.expression.HyAtomicExpression) {
+			result = interprete_eu_hyvar_feature_expression_HyAtomicExpression((eu.hyvar.feature.expression.HyAtomicExpression) object, context);
 		}
 		if (result != null) {
 			return result;
@@ -152,32 +122,14 @@ public class AbstractHyexpressionInterpreter<ResultType, ContextType> {
 		if (result != null) {
 			return result;
 		}
-		if (object instanceof eu.hyvar.feature.expression.HyBooleanValueExpression) {
-			result = interprete_eu_hyvar_feature_expression_HyBooleanValueExpression((eu.hyvar.feature.expression.HyBooleanValueExpression) object, context);
+		if (object instanceof eu.hyvar.feature.expression.HyBinaryExpression) {
+			result = interprete_eu_hyvar_feature_expression_HyBinaryExpression((eu.hyvar.feature.expression.HyBinaryExpression) object, context);
 		}
 		if (result != null) {
 			return result;
 		}
-		if (object instanceof eu.hyvar.feature.expression.HyAbstractFeatureReferenceExpression) {
-			result = interprete_eu_hyvar_feature_expression_HyAbstractFeatureReferenceExpression((eu.hyvar.feature.expression.HyAbstractFeatureReferenceExpression) object, context);
-		}
-		if (result != null) {
-			return result;
-		}
-		if (object instanceof eu.hyvar.feature.expression.HyAttributeReferenceExpression) {
-			result = interprete_eu_hyvar_feature_expression_HyAttributeReferenceExpression((eu.hyvar.feature.expression.HyAttributeReferenceExpression) object, context);
-		}
-		if (result != null) {
-			return result;
-		}
-		if (object instanceof eu.hyvar.feature.expression.HyAtomicExpression) {
-			result = interprete_eu_hyvar_feature_expression_HyAtomicExpression((eu.hyvar.feature.expression.HyAtomicExpression) object, context);
-		}
-		if (result != null) {
-			return result;
-		}
-		if (object instanceof eu.hyvar.feature.expression.HyNestedExpression) {
-			result = interprete_eu_hyvar_feature_expression_HyNestedExpression((eu.hyvar.feature.expression.HyNestedExpression) object, context);
+		if (object instanceof eu.hyvar.feature.expression.HySetExpression) {
+			result = interprete_eu_hyvar_feature_expression_HySetExpression((eu.hyvar.feature.expression.HySetExpression) object, context);
 		}
 		if (result != null) {
 			return result;
@@ -194,20 +146,32 @@ public class AbstractHyexpressionInterpreter<ResultType, ContextType> {
 		if (result != null) {
 			return result;
 		}
-		if (object instanceof eu.hyvar.feature.expression.HyValueExpression) {
-			result = interprete_eu_hyvar_feature_expression_HyValueExpression((eu.hyvar.feature.expression.HyValueExpression) object, context);
+		if (object instanceof eu.hyvar.feature.expression.HyAbstractFeatureReferenceExpression) {
+			result = interprete_eu_hyvar_feature_expression_HyAbstractFeatureReferenceExpression((eu.hyvar.feature.expression.HyAbstractFeatureReferenceExpression) object, context);
 		}
 		if (result != null) {
 			return result;
 		}
-		if (object instanceof eu.hyvar.feature.expression.HyLessExpression) {
-			result = interprete_eu_hyvar_feature_expression_HyLessExpression((eu.hyvar.feature.expression.HyLessExpression) object, context);
+		if (object instanceof eu.hyvar.feature.expression.HyBooleanValueExpression) {
+			result = interprete_eu_hyvar_feature_expression_HyBooleanValueExpression((eu.hyvar.feature.expression.HyBooleanValueExpression) object, context);
 		}
 		if (result != null) {
 			return result;
 		}
-		if (object instanceof eu.hyvar.feature.expression.HyLessOrEqualExpression) {
-			result = interprete_eu_hyvar_feature_expression_HyLessOrEqualExpression((eu.hyvar.feature.expression.HyLessOrEqualExpression) object, context);
+		if (object instanceof eu.hyvar.feature.expression.HyAndExpression) {
+			result = interprete_eu_hyvar_feature_expression_HyAndExpression((eu.hyvar.feature.expression.HyAndExpression) object, context);
+		}
+		if (result != null) {
+			return result;
+		}
+		if (object instanceof eu.hyvar.feature.expression.HyEquivalenceExpression) {
+			result = interprete_eu_hyvar_feature_expression_HyEquivalenceExpression((eu.hyvar.feature.expression.HyEquivalenceExpression) object, context);
+		}
+		if (result != null) {
+			return result;
+		}
+		if (object instanceof eu.hyvar.feature.expression.HyIfPossibleExpression) {
+			result = interprete_eu_hyvar_feature_expression_HyIfPossibleExpression((eu.hyvar.feature.expression.HyIfPossibleExpression) object, context);
 		}
 		if (result != null) {
 			return result;
@@ -236,26 +200,44 @@ public class AbstractHyexpressionInterpreter<ResultType, ContextType> {
 		if (result != null) {
 			return result;
 		}
-		if (object instanceof eu.hyvar.feature.expression.HyGreaterExpression) {
-			result = interprete_eu_hyvar_feature_expression_HyGreaterExpression((eu.hyvar.feature.expression.HyGreaterExpression) object, context);
+		if (object instanceof eu.hyvar.feature.expression.HyNestedExpression) {
+			result = interprete_eu_hyvar_feature_expression_HyNestedExpression((eu.hyvar.feature.expression.HyNestedExpression) object, context);
 		}
 		if (result != null) {
 			return result;
 		}
-		if (object instanceof eu.hyvar.feature.expression.HyGreaterOrEqualExpression) {
-			result = interprete_eu_hyvar_feature_expression_HyGreaterOrEqualExpression((eu.hyvar.feature.expression.HyGreaterOrEqualExpression) object, context);
+		if (object instanceof eu.hyvar.feature.expression.HyNotExpression) {
+			result = interprete_eu_hyvar_feature_expression_HyNotExpression((eu.hyvar.feature.expression.HyNotExpression) object, context);
 		}
 		if (result != null) {
 			return result;
 		}
-		if (object instanceof eu.hyvar.feature.expression.HyEqualExpression) {
-			result = interprete_eu_hyvar_feature_expression_HyEqualExpression((eu.hyvar.feature.expression.HyEqualExpression) object, context);
+		if (object instanceof eu.hyvar.feature.expression.HyMinimumExpression) {
+			result = interprete_eu_hyvar_feature_expression_HyMinimumExpression((eu.hyvar.feature.expression.HyMinimumExpression) object, context);
 		}
 		if (result != null) {
 			return result;
 		}
-		if (object instanceof eu.hyvar.feature.expression.HyNotEqualExpression) {
-			result = interprete_eu_hyvar_feature_expression_HyNotEqualExpression((eu.hyvar.feature.expression.HyNotEqualExpression) object, context);
+		if (object instanceof eu.hyvar.feature.expression.HyMaximumExpression) {
+			result = interprete_eu_hyvar_feature_expression_HyMaximumExpression((eu.hyvar.feature.expression.HyMaximumExpression) object, context);
+		}
+		if (result != null) {
+			return result;
+		}
+		if (object instanceof eu.hyvar.feature.expression.HyOrExpression) {
+			result = interprete_eu_hyvar_feature_expression_HyOrExpression((eu.hyvar.feature.expression.HyOrExpression) object, context);
+		}
+		if (result != null) {
+			return result;
+		}
+		if (object instanceof eu.hyvar.feature.expression.HyImpliesExpression) {
+			result = interprete_eu_hyvar_feature_expression_HyImpliesExpression((eu.hyvar.feature.expression.HyImpliesExpression) object, context);
+		}
+		if (result != null) {
+			return result;
+		}
+		if (object instanceof eu.hyvar.feature.expression.HyArithmeticalComparisonExpression) {
+			result = interprete_eu_hyvar_feature_expression_HyArithmeticalComparisonExpression((eu.hyvar.feature.expression.HyArithmeticalComparisonExpression) object, context);
 		}
 		if (result != null) {
 			return result;
@@ -290,8 +272,26 @@ public class AbstractHyexpressionInterpreter<ResultType, ContextType> {
 		if (result != null) {
 			return result;
 		}
+		if (object instanceof eu.hyvar.feature.expression.HyArithmeticalValueBinaryOperationExpression) {
+			result = interprete_eu_hyvar_feature_expression_HyArithmeticalValueBinaryOperationExpression((eu.hyvar.feature.expression.HyArithmeticalValueBinaryOperationExpression) object, context);
+		}
+		if (result != null) {
+			return result;
+		}
 		if (object instanceof eu.hyvar.feature.expression.HyNegationExpression) {
 			result = interprete_eu_hyvar_feature_expression_HyNegationExpression((eu.hyvar.feature.expression.HyNegationExpression) object, context);
+		}
+		if (result != null) {
+			return result;
+		}
+		if (object instanceof eu.hyvar.feature.expression.HyNestedArithmeticalValueExpression) {
+			result = interprete_eu_hyvar_feature_expression_HyNestedArithmeticalValueExpression((eu.hyvar.feature.expression.HyNestedArithmeticalValueExpression) object, context);
+		}
+		if (result != null) {
+			return result;
+		}
+		if (object instanceof eu.hyvar.feature.expression.HyArithmeticalValueUnaryOperationExpression) {
+			result = interprete_eu_hyvar_feature_expression_HyArithmeticalValueUnaryOperationExpression((eu.hyvar.feature.expression.HyArithmeticalValueUnaryOperationExpression) object, context);
 		}
 		if (result != null) {
 			return result;
@@ -302,26 +302,26 @@ public class AbstractHyexpressionInterpreter<ResultType, ContextType> {
 		if (result != null) {
 			return result;
 		}
-		if (object instanceof eu.hyvar.feature.expression.HyMaximumExpression) {
-			result = interprete_eu_hyvar_feature_expression_HyMaximumExpression((eu.hyvar.feature.expression.HyMaximumExpression) object, context);
+		if (object instanceof eu.hyvar.feature.expression.HyAttributeReferenceExpression) {
+			result = interprete_eu_hyvar_feature_expression_HyAttributeReferenceExpression((eu.hyvar.feature.expression.HyAttributeReferenceExpression) object, context);
 		}
 		if (result != null) {
 			return result;
 		}
-		if (object instanceof eu.hyvar.feature.expression.HyMinimumExpression) {
-			result = interprete_eu_hyvar_feature_expression_HyMinimumExpression((eu.hyvar.feature.expression.HyMinimumExpression) object, context);
+		if (object instanceof eu.hyvar.feature.expression.HyValueExpression) {
+			result = interprete_eu_hyvar_feature_expression_HyValueExpression((eu.hyvar.feature.expression.HyValueExpression) object, context);
 		}
 		if (result != null) {
 			return result;
 		}
-		if (object instanceof eu.hyvar.feature.expression.HyIfPossibleExpression) {
-			result = interprete_eu_hyvar_feature_expression_HyIfPossibleExpression((eu.hyvar.feature.expression.HyIfPossibleExpression) object, context);
+		if (object instanceof eu.hyvar.feature.expression.HyArithmeticalValueAtomicExpression) {
+			result = interprete_eu_hyvar_feature_expression_HyArithmeticalValueAtomicExpression((eu.hyvar.feature.expression.HyArithmeticalValueAtomicExpression) object, context);
 		}
 		if (result != null) {
 			return result;
 		}
-		if (object instanceof eu.hyvar.feature.expression.HySetExpression) {
-			result = interprete_eu_hyvar_feature_expression_HySetExpression((eu.hyvar.feature.expression.HySetExpression) object, context);
+		if (object instanceof eu.hyvar.feature.expression.HyArithmeticalValueExpression) {
+			result = interprete_eu_hyvar_feature_expression_HyArithmeticalValueExpression((eu.hyvar.feature.expression.HyArithmeticalValueExpression) object, context);
 		}
 		if (result != null) {
 			return result;
@@ -371,35 +371,7 @@ public class AbstractHyexpressionInterpreter<ResultType, ContextType> {
 		return result;
 	}
 	
-	public ResultType interprete_eu_hyvar_feature_expression_HyAndExpression(HyAndExpression hyAndExpression, ContextType context) {
-		return null;
-	}
-	
-	public ResultType interprete_eu_hyvar_feature_expression_HyOrExpression(HyOrExpression hyOrExpression, ContextType context) {
-		return null;
-	}
-	
-	public ResultType interprete_eu_hyvar_feature_expression_HyNotExpression(HyNotExpression hyNotExpression, ContextType context) {
-		return null;
-	}
-	
-	public ResultType interprete_eu_hyvar_feature_expression_HyEquivalenceExpression(HyEquivalenceExpression hyEquivalenceExpression, ContextType context) {
-		return null;
-	}
-	
-	public ResultType interprete_eu_hyvar_feature_expression_HyImpliesExpression(HyImpliesExpression hyImpliesExpression, ContextType context) {
-		return null;
-	}
-	
 	public ResultType interprete_eu_hyvar_feature_expression_HyExpression(HyExpression hyExpression, ContextType context) {
-		return null;
-	}
-	
-	public ResultType interprete_eu_hyvar_feature_expression_HyBinaryExpression(HyBinaryExpression hyBinaryExpression, ContextType context) {
-		return null;
-	}
-	
-	public ResultType interprete_eu_hyvar_feature_expression_HyUnaryExpression(HyUnaryExpression hyUnaryExpression, ContextType context) {
 		return null;
 	}
 	
@@ -407,7 +379,19 @@ public class AbstractHyexpressionInterpreter<ResultType, ContextType> {
 		return null;
 	}
 	
-	public ResultType interprete_eu_hyvar_feature_expression_HyNestedExpression(HyNestedExpression hyNestedExpression, ContextType context) {
+	public ResultType interprete_eu_hyvar_feature_expression_HyUnaryExpression(HyUnaryExpression hyUnaryExpression, ContextType context) {
+		return null;
+	}
+	
+	public ResultType interprete_eu_hyvar_feature_expression_HyBinaryExpression(HyBinaryExpression hyBinaryExpression, ContextType context) {
+		return null;
+	}
+	
+	public ResultType interprete_eu_hyvar_feature_expression_HySetExpression(HySetExpression hySetExpression, ContextType context) {
+		return null;
+	}
+	
+	public ResultType interprete_eu_hyvar_feature_expression_HyAbstractFeatureReferenceExpression(HyAbstractFeatureReferenceExpression hyAbstractFeatureReferenceExpression, ContextType context) {
 		return null;
 	}
 	
@@ -415,7 +399,15 @@ public class AbstractHyexpressionInterpreter<ResultType, ContextType> {
 		return null;
 	}
 	
+	public ResultType interprete_eu_hyvar_feature_expression_HyConditionalFeatureReferenceExpression(HyConditionalFeatureReferenceExpression hyConditionalFeatureReferenceExpression, ContextType context) {
+		return null;
+	}
+	
 	public ResultType interprete_eu_hyvar_feature_expression_HyVersionRestriction(HyVersionRestriction hyVersionRestriction, ContextType context) {
+		return null;
+	}
+	
+	public ResultType interprete_eu_hyvar_feature_expression_HyBooleanValueExpression(HyBooleanValueExpression hyBooleanValueExpression, ContextType context) {
 		return null;
 	}
 	
@@ -427,47 +419,51 @@ public class AbstractHyexpressionInterpreter<ResultType, ContextType> {
 		return null;
 	}
 	
-	public ResultType interprete_eu_hyvar_feature_expression_HyBooleanValueExpression(HyBooleanValueExpression hyBooleanValueExpression, ContextType context) {
+	public ResultType interprete_eu_hyvar_feature_expression_HyNestedExpression(HyNestedExpression hyNestedExpression, ContextType context) {
 		return null;
 	}
 	
-	public ResultType interprete_eu_hyvar_feature_expression_HyConditionalFeatureReferenceExpression(HyConditionalFeatureReferenceExpression hyConditionalFeatureReferenceExpression, ContextType context) {
+	public ResultType interprete_eu_hyvar_feature_expression_HyNotExpression(HyNotExpression hyNotExpression, ContextType context) {
 		return null;
 	}
 	
-	public ResultType interprete_eu_hyvar_feature_expression_HyAbstractFeatureReferenceExpression(HyAbstractFeatureReferenceExpression hyAbstractFeatureReferenceExpression, ContextType context) {
+	public ResultType interprete_eu_hyvar_feature_expression_HyMinimumExpression(HyMinimumExpression hyMinimumExpression, ContextType context) {
 		return null;
 	}
 	
-	public ResultType interprete_eu_hyvar_feature_expression_HyValueExpression(HyValueExpression hyValueExpression, ContextType context) {
+	public ResultType interprete_eu_hyvar_feature_expression_HyMaximumExpression(HyMaximumExpression hyMaximumExpression, ContextType context) {
 		return null;
 	}
 	
-	public ResultType interprete_eu_hyvar_feature_expression_HyAttributeReferenceExpression(HyAttributeReferenceExpression hyAttributeReferenceExpression, ContextType context) {
+	public ResultType interprete_eu_hyvar_feature_expression_HyAndExpression(HyAndExpression hyAndExpression, ContextType context) {
 		return null;
 	}
 	
-	public ResultType interprete_eu_hyvar_feature_expression_HyGreaterExpression(HyGreaterExpression hyGreaterExpression, ContextType context) {
+	public ResultType interprete_eu_hyvar_feature_expression_HyOrExpression(HyOrExpression hyOrExpression, ContextType context) {
 		return null;
 	}
 	
-	public ResultType interprete_eu_hyvar_feature_expression_HyLessExpression(HyLessExpression hyLessExpression, ContextType context) {
+	public ResultType interprete_eu_hyvar_feature_expression_HyEquivalenceExpression(HyEquivalenceExpression hyEquivalenceExpression, ContextType context) {
 		return null;
 	}
 	
-	public ResultType interprete_eu_hyvar_feature_expression_HyLessOrEqualExpression(HyLessOrEqualExpression hyLessOrEqualExpression, ContextType context) {
+	public ResultType interprete_eu_hyvar_feature_expression_HyImpliesExpression(HyImpliesExpression hyImpliesExpression, ContextType context) {
 		return null;
 	}
 	
-	public ResultType interprete_eu_hyvar_feature_expression_HyGreaterOrEqualExpression(HyGreaterOrEqualExpression hyGreaterOrEqualExpression, ContextType context) {
+	public ResultType interprete_eu_hyvar_feature_expression_HyIfPossibleExpression(HyIfPossibleExpression hyIfPossibleExpression, ContextType context) {
 		return null;
 	}
 	
-	public ResultType interprete_eu_hyvar_feature_expression_HyEqualExpression(HyEqualExpression hyEqualExpression, ContextType context) {
+	public ResultType interprete_eu_hyvar_feature_expression_HyArithmeticalComparisonExpression(HyArithmeticalComparisonExpression hyArithmeticalComparisonExpression, ContextType context) {
 		return null;
 	}
 	
-	public ResultType interprete_eu_hyvar_feature_expression_HyNotEqualExpression(HyNotEqualExpression hyNotEqualExpression, ContextType context) {
+	public ResultType interprete_eu_hyvar_feature_expression_HyArithmeticalValueExpression(HyArithmeticalValueExpression hyArithmeticalValueExpression, ContextType context) {
+		return null;
+	}
+	
+	public ResultType interprete_eu_hyvar_feature_expression_HyArithmeticalValueBinaryOperationExpression(HyArithmeticalValueBinaryOperationExpression hyArithmeticalValueBinaryOperationExpression, ContextType context) {
 		return null;
 	}
 	
@@ -491,7 +487,19 @@ public class AbstractHyexpressionInterpreter<ResultType, ContextType> {
 		return null;
 	}
 	
+	public ResultType interprete_eu_hyvar_feature_expression_HyArithmeticalValueUnaryOperationExpression(HyArithmeticalValueUnaryOperationExpression hyArithmeticalValueUnaryOperationExpression, ContextType context) {
+		return null;
+	}
+	
 	public ResultType interprete_eu_hyvar_feature_expression_HyNegationExpression(HyNegationExpression hyNegationExpression, ContextType context) {
+		return null;
+	}
+	
+	public ResultType interprete_eu_hyvar_feature_expression_HyNestedArithmeticalValueExpression(HyNestedArithmeticalValueExpression hyNestedArithmeticalValueExpression, ContextType context) {
+		return null;
+	}
+	
+	public ResultType interprete_eu_hyvar_feature_expression_HyArithmeticalValueAtomicExpression(HyArithmeticalValueAtomicExpression hyArithmeticalValueAtomicExpression, ContextType context) {
 		return null;
 	}
 	
@@ -499,19 +507,11 @@ public class AbstractHyexpressionInterpreter<ResultType, ContextType> {
 		return null;
 	}
 	
-	public ResultType interprete_eu_hyvar_feature_expression_HyMaximumExpression(HyMaximumExpression hyMaximumExpression, ContextType context) {
+	public ResultType interprete_eu_hyvar_feature_expression_HyAttributeReferenceExpression(HyAttributeReferenceExpression hyAttributeReferenceExpression, ContextType context) {
 		return null;
 	}
 	
-	public ResultType interprete_eu_hyvar_feature_expression_HyMinimumExpression(HyMinimumExpression hyMinimumExpression, ContextType context) {
-		return null;
-	}
-	
-	public ResultType interprete_eu_hyvar_feature_expression_HyIfPossibleExpression(HyIfPossibleExpression hyIfPossibleExpression, ContextType context) {
-		return null;
-	}
-	
-	public ResultType interprete_eu_hyvar_feature_expression_HySetExpression(HySetExpression hySetExpression, ContextType context) {
+	public ResultType interprete_eu_hyvar_feature_expression_HyValueExpression(HyValueExpression hyValueExpression, ContextType context) {
 		return null;
 	}
 	

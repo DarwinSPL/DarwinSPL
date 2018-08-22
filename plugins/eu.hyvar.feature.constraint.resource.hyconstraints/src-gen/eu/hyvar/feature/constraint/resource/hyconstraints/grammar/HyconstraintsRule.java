@@ -28,5 +28,10 @@ public class HyconstraintsRule extends eu.hyvar.feature.constraint.resource.hyco
 		return (eu.hyvar.feature.constraint.resource.hyconstraints.grammar.HyconstraintsChoice) getChildren()[0];
 	}
 	
+	@Deprecated
+	public String toString() {
+		return metaclass == null ? "null" : metaclass.getName() + " ::= " + getDefinition().toString();
+	}
+	
 }
 

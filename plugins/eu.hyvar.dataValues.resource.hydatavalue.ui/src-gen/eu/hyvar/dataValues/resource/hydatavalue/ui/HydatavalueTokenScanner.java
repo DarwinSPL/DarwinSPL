@@ -37,21 +37,33 @@ public class HydatavalueTokenScanner implements eu.hyvar.dataValues.resource.hyd
 	
 	/**
 	 * <p>
-	 * Creates a new HydatavalueTokenScanner.
+	 * Creates a new HydatavalueTokenScanner. Uses the preference store belonging to
+	 * the corresponding
+	 * eu.hyvar.dataValues.resource.hydatavalue.ui.HydatavalueUIPlugin.
 	 * </p>
 	 * 
 	 * @param resource The resource to scan
 	 * @param colorManager A manager to obtain color objects
 	 */
 	public HydatavalueTokenScanner(eu.hyvar.dataValues.resource.hydatavalue.IHydatavalueTextResource resource, eu.hyvar.dataValues.resource.hydatavalue.ui.HydatavalueColorManager colorManager) {
+		this(resource, colorManager, (eu.hyvar.dataValues.resource.hydatavalue.ui.HydatavalueUIPlugin.getDefault() == null ? null : eu.hyvar.dataValues.resource.hydatavalue.ui.HydatavalueUIPlugin.getDefault().getPreferenceStore()));
+	}
+	
+	/**
+	 * <p>
+	 * Creates a new HydatavalueTokenScanner.
+	 * </p>
+	 * 
+	 * @param resource The resource to scan
+	 * @param colorManager A manager to obtain color objects
+	 * @param preferenceStore The preference store to retrieve the defined token colors
+	 */
+	public HydatavalueTokenScanner(eu.hyvar.dataValues.resource.hydatavalue.IHydatavalueTextResource resource, eu.hyvar.dataValues.resource.hydatavalue.ui.HydatavalueColorManager colorManager, IPreferenceStore preferenceStore) {
 		this.resource = resource;
 		this.colorManager = colorManager;
 		this.lexer = new eu.hyvar.dataValues.resource.hydatavalue.mopp.HydatavalueMetaInformation().createLexer();
 		this.languageId = new eu.hyvar.dataValues.resource.hydatavalue.mopp.HydatavalueMetaInformation().getSyntaxName();
-		eu.hyvar.dataValues.resource.hydatavalue.ui.HydatavalueUIPlugin plugin = eu.hyvar.dataValues.resource.hydatavalue.ui.HydatavalueUIPlugin.getDefault();
-		if (plugin != null) {
-			this.store = plugin.getPreferenceStore();
-		}
+		this.store = preferenceStore;
 		this.nextTokens = new ArrayList<eu.hyvar.dataValues.resource.hydatavalue.IHydatavalueTextToken>();
 	}
 	

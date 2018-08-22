@@ -21,9 +21,9 @@ public class HyexpressionReferenceResolverSwitch implements eu.hyvar.feature.exp
 	private Map<Object, Object> options;
 	
 	protected eu.hyvar.feature.expression.resource.hyexpression.analysis.HyAbstractFeatureReferenceExpressionFeatureReferenceResolver hyAbstractFeatureReferenceExpressionFeatureReferenceResolver = new eu.hyvar.feature.expression.resource.hyexpression.analysis.HyAbstractFeatureReferenceExpressionFeatureReferenceResolver();
-	protected eu.hyvar.feature.expression.resource.hyexpression.analysis.HyContextInformationReferenceExpressionContextInformationReferenceResolver hyContextInformationReferenceExpressionContextInformationReferenceResolver = new eu.hyvar.feature.expression.resource.hyexpression.analysis.HyContextInformationReferenceExpressionContextInformationReferenceResolver();
 	protected eu.hyvar.feature.expression.resource.hyexpression.analysis.HyAttributeReferenceExpressionFeatureReferenceResolver hyAttributeReferenceExpressionFeatureReferenceResolver = new eu.hyvar.feature.expression.resource.hyexpression.analysis.HyAttributeReferenceExpressionFeatureReferenceResolver();
 	protected eu.hyvar.feature.expression.resource.hyexpression.analysis.HyAttributeReferenceExpressionAttributeReferenceResolver hyAttributeReferenceExpressionAttributeReferenceResolver = new eu.hyvar.feature.expression.resource.hyexpression.analysis.HyAttributeReferenceExpressionAttributeReferenceResolver();
+	protected eu.hyvar.feature.expression.resource.hyexpression.analysis.HyContextInformationReferenceExpressionContextInformationReferenceResolver hyContextInformationReferenceExpressionContextInformationReferenceResolver = new eu.hyvar.feature.expression.resource.hyexpression.analysis.HyContextInformationReferenceExpressionContextInformationReferenceResolver();
 	protected eu.hyvar.feature.expression.resource.hyexpression.analysis.HyRelativeVersionRestrictionVersionReferenceResolver hyRelativeVersionRestrictionVersionReferenceResolver = new eu.hyvar.feature.expression.resource.hyexpression.analysis.HyRelativeVersionRestrictionVersionReferenceResolver();
 	protected eu.hyvar.feature.expression.resource.hyexpression.analysis.HyVersionRangeRestrictionLowerVersionReferenceResolver hyVersionRangeRestrictionLowerVersionReferenceResolver = new eu.hyvar.feature.expression.resource.hyexpression.analysis.HyVersionRangeRestrictionLowerVersionReferenceResolver();
 	protected eu.hyvar.feature.expression.resource.hyexpression.analysis.HyVersionRangeRestrictionUpperVersionReferenceResolver hyVersionRangeRestrictionUpperVersionReferenceResolver = new eu.hyvar.feature.expression.resource.hyexpression.analysis.HyVersionRangeRestrictionUpperVersionReferenceResolver();
@@ -34,16 +34,16 @@ public class HyexpressionReferenceResolverSwitch implements eu.hyvar.feature.exp
 		return getResolverChain(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyAbstractFeatureReferenceExpression_Feature(), hyAbstractFeatureReferenceExpressionFeatureReferenceResolver);
 	}
 	
-	public eu.hyvar.feature.expression.resource.hyexpression.IHyexpressionReferenceResolver<eu.hyvar.feature.expression.HyContextInformationReferenceExpression, eu.hyvar.context.HyContextualInformation> getHyContextInformationReferenceExpressionContextInformationReferenceResolver() {
-		return getResolverChain(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyContextInformationReferenceExpression_ContextInformation(), hyContextInformationReferenceExpressionContextInformationReferenceResolver);
-	}
-	
 	public eu.hyvar.feature.expression.resource.hyexpression.IHyexpressionReferenceResolver<eu.hyvar.feature.expression.HyAttributeReferenceExpression, eu.hyvar.feature.HyFeature> getHyAttributeReferenceExpressionFeatureReferenceResolver() {
 		return getResolverChain(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyAttributeReferenceExpression_Feature(), hyAttributeReferenceExpressionFeatureReferenceResolver);
 	}
 	
 	public eu.hyvar.feature.expression.resource.hyexpression.IHyexpressionReferenceResolver<eu.hyvar.feature.expression.HyAttributeReferenceExpression, eu.hyvar.feature.HyFeatureAttribute> getHyAttributeReferenceExpressionAttributeReferenceResolver() {
 		return getResolverChain(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyAttributeReferenceExpression_Attribute(), hyAttributeReferenceExpressionAttributeReferenceResolver);
+	}
+	
+	public eu.hyvar.feature.expression.resource.hyexpression.IHyexpressionReferenceResolver<eu.hyvar.feature.expression.HyContextInformationReferenceExpression, eu.hyvar.context.HyContextualInformation> getHyContextInformationReferenceExpressionContextInformationReferenceResolver() {
+		return getResolverChain(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyContextInformationReferenceExpression_ContextInformation(), hyContextInformationReferenceExpressionContextInformationReferenceResolver);
 	}
 	
 	public eu.hyvar.feature.expression.resource.hyexpression.IHyexpressionReferenceResolver<eu.hyvar.feature.expression.HyRelativeVersionRestriction, eu.hyvar.feature.HyVersion> getHyRelativeVersionRestrictionVersionReferenceResolver() {
@@ -72,9 +72,9 @@ public class HyexpressionReferenceResolverSwitch implements eu.hyvar.feature.exp
 			this.options.putAll(options);
 		}
 		hyAbstractFeatureReferenceExpressionFeatureReferenceResolver.setOptions(options);
-		hyContextInformationReferenceExpressionContextInformationReferenceResolver.setOptions(options);
 		hyAttributeReferenceExpressionFeatureReferenceResolver.setOptions(options);
 		hyAttributeReferenceExpressionAttributeReferenceResolver.setOptions(options);
+		hyContextInformationReferenceExpressionContextInformationReferenceResolver.setOptions(options);
 		hyRelativeVersionRestrictionVersionReferenceResolver.setOptions(options);
 		hyVersionRangeRestrictionLowerVersionReferenceResolver.setOptions(options);
 		hyVersionRangeRestrictionUpperVersionReferenceResolver.setOptions(options);
@@ -94,14 +94,6 @@ public class HyexpressionReferenceResolverSwitch implements eu.hyvar.feature.exp
 				hyAbstractFeatureReferenceExpressionFeatureReferenceResolver.resolve(identifier, (eu.hyvar.feature.expression.HyAbstractFeatureReferenceExpression) container, (EReference) feature, position, true, frr);
 			}
 		}
-		if (eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyContextInformationReferenceExpression().isInstance(container)) {
-			HyexpressionFuzzyResolveResult<eu.hyvar.context.HyContextualInformation> frr = new HyexpressionFuzzyResolveResult<eu.hyvar.context.HyContextualInformation>(result);
-			String referenceName = reference.getName();
-			EStructuralFeature feature = container.eClass().getEStructuralFeature(referenceName);
-			if (feature != null && feature instanceof EReference && referenceName != null && referenceName.equals("contextInformation")) {
-				hyContextInformationReferenceExpressionContextInformationReferenceResolver.resolve(identifier, (eu.hyvar.feature.expression.HyContextInformationReferenceExpression) container, (EReference) feature, position, true, frr);
-			}
-		}
 		if (eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyAttributeReferenceExpression().isInstance(container)) {
 			HyexpressionFuzzyResolveResult<eu.hyvar.feature.HyFeature> frr = new HyexpressionFuzzyResolveResult<eu.hyvar.feature.HyFeature>(result);
 			String referenceName = reference.getName();
@@ -116,6 +108,14 @@ public class HyexpressionReferenceResolverSwitch implements eu.hyvar.feature.exp
 			EStructuralFeature feature = container.eClass().getEStructuralFeature(referenceName);
 			if (feature != null && feature instanceof EReference && referenceName != null && referenceName.equals("attribute")) {
 				hyAttributeReferenceExpressionAttributeReferenceResolver.resolve(identifier, (eu.hyvar.feature.expression.HyAttributeReferenceExpression) container, (EReference) feature, position, true, frr);
+			}
+		}
+		if (eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyContextInformationReferenceExpression().isInstance(container)) {
+			HyexpressionFuzzyResolveResult<eu.hyvar.context.HyContextualInformation> frr = new HyexpressionFuzzyResolveResult<eu.hyvar.context.HyContextualInformation>(result);
+			String referenceName = reference.getName();
+			EStructuralFeature feature = container.eClass().getEStructuralFeature(referenceName);
+			if (feature != null && feature instanceof EReference && referenceName != null && referenceName.equals("contextInformation")) {
+				hyContextInformationReferenceExpressionContextInformationReferenceResolver.resolve(identifier, (eu.hyvar.feature.expression.HyContextInformationReferenceExpression) container, (EReference) feature, position, true, frr);
 			}
 		}
 		if (eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyRelativeVersionRestriction().isInstance(container)) {
@@ -164,14 +164,14 @@ public class HyexpressionReferenceResolverSwitch implements eu.hyvar.feature.exp
 		if (reference == eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyAbstractFeatureReferenceExpression_Feature()) {
 			return getResolverChain(reference, hyAbstractFeatureReferenceExpressionFeatureReferenceResolver);
 		}
-		if (reference == eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyContextInformationReferenceExpression_ContextInformation()) {
-			return getResolverChain(reference, hyContextInformationReferenceExpressionContextInformationReferenceResolver);
-		}
 		if (reference == eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyAttributeReferenceExpression_Feature()) {
 			return getResolverChain(reference, hyAttributeReferenceExpressionFeatureReferenceResolver);
 		}
 		if (reference == eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyAttributeReferenceExpression_Attribute()) {
 			return getResolverChain(reference, hyAttributeReferenceExpressionAttributeReferenceResolver);
+		}
+		if (reference == eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyContextInformationReferenceExpression_ContextInformation()) {
+			return getResolverChain(reference, hyContextInformationReferenceExpressionContextInformationReferenceResolver);
 		}
 		if (reference == eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyRelativeVersionRestriction_Version()) {
 			return getResolverChain(reference, hyRelativeVersionRestrictionVersionReferenceResolver);

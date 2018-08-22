@@ -44,7 +44,7 @@ public class HymappingExpectedEnumerationTerminal extends eu.hyvar.feature.mappi
 	/**
 	 * Returns the expected enumeration terminal.
 	 */
-	public eu.hyvar.feature.mapping.resource.hymapping.grammar.HymappingSyntaxElement getSymtaxElement() {
+	public eu.hyvar.feature.mapping.resource.hymapping.grammar.HymappingSyntaxElement getSyntaxElement() {
 		return enumerationTerminal;
 	}
 	

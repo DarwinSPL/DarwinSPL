@@ -21,9 +21,9 @@ public class DwprofileReferenceResolverSwitch implements de.darwinspl.preference
 	private Map<Object, Object> options;
 	
 	protected de.darwinspl.preferences.resource.dwprofile.analysis.HyAbstractFeatureReferenceExpressionFeatureReferenceResolver hyAbstractFeatureReferenceExpressionFeatureReferenceResolver = new de.darwinspl.preferences.resource.dwprofile.analysis.HyAbstractFeatureReferenceExpressionFeatureReferenceResolver();
-	protected de.darwinspl.preferences.resource.dwprofile.analysis.HyContextInformationReferenceExpressionContextInformationReferenceResolver hyContextInformationReferenceExpressionContextInformationReferenceResolver = new de.darwinspl.preferences.resource.dwprofile.analysis.HyContextInformationReferenceExpressionContextInformationReferenceResolver();
 	protected de.darwinspl.preferences.resource.dwprofile.analysis.HyAttributeReferenceExpressionFeatureReferenceResolver hyAttributeReferenceExpressionFeatureReferenceResolver = new de.darwinspl.preferences.resource.dwprofile.analysis.HyAttributeReferenceExpressionFeatureReferenceResolver();
 	protected de.darwinspl.preferences.resource.dwprofile.analysis.HyAttributeReferenceExpressionAttributeReferenceResolver hyAttributeReferenceExpressionAttributeReferenceResolver = new de.darwinspl.preferences.resource.dwprofile.analysis.HyAttributeReferenceExpressionAttributeReferenceResolver();
+	protected de.darwinspl.preferences.resource.dwprofile.analysis.HyContextInformationReferenceExpressionContextInformationReferenceResolver hyContextInformationReferenceExpressionContextInformationReferenceResolver = new de.darwinspl.preferences.resource.dwprofile.analysis.HyContextInformationReferenceExpressionContextInformationReferenceResolver();
 	protected de.darwinspl.preferences.resource.dwprofile.analysis.HyRelativeVersionRestrictionVersionReferenceResolver hyRelativeVersionRestrictionVersionReferenceResolver = new de.darwinspl.preferences.resource.dwprofile.analysis.HyRelativeVersionRestrictionVersionReferenceResolver();
 	protected de.darwinspl.preferences.resource.dwprofile.analysis.HyVersionRangeRestrictionLowerVersionReferenceResolver hyVersionRangeRestrictionLowerVersionReferenceResolver = new de.darwinspl.preferences.resource.dwprofile.analysis.HyVersionRangeRestrictionLowerVersionReferenceResolver();
 	protected de.darwinspl.preferences.resource.dwprofile.analysis.HyVersionRangeRestrictionUpperVersionReferenceResolver hyVersionRangeRestrictionUpperVersionReferenceResolver = new de.darwinspl.preferences.resource.dwprofile.analysis.HyVersionRangeRestrictionUpperVersionReferenceResolver();
@@ -34,16 +34,16 @@ public class DwprofileReferenceResolverSwitch implements de.darwinspl.preference
 		return getResolverChain(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyAbstractFeatureReferenceExpression_Feature(), hyAbstractFeatureReferenceExpressionFeatureReferenceResolver);
 	}
 	
-	public de.darwinspl.preferences.resource.dwprofile.IDwprofileReferenceResolver<eu.hyvar.feature.expression.HyContextInformationReferenceExpression, eu.hyvar.context.HyContextualInformation> getHyContextInformationReferenceExpressionContextInformationReferenceResolver() {
-		return getResolverChain(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyContextInformationReferenceExpression_ContextInformation(), hyContextInformationReferenceExpressionContextInformationReferenceResolver);
-	}
-	
 	public de.darwinspl.preferences.resource.dwprofile.IDwprofileReferenceResolver<eu.hyvar.feature.expression.HyAttributeReferenceExpression, eu.hyvar.feature.HyFeature> getHyAttributeReferenceExpressionFeatureReferenceResolver() {
 		return getResolverChain(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyAttributeReferenceExpression_Feature(), hyAttributeReferenceExpressionFeatureReferenceResolver);
 	}
 	
 	public de.darwinspl.preferences.resource.dwprofile.IDwprofileReferenceResolver<eu.hyvar.feature.expression.HyAttributeReferenceExpression, eu.hyvar.feature.HyFeatureAttribute> getHyAttributeReferenceExpressionAttributeReferenceResolver() {
 		return getResolverChain(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyAttributeReferenceExpression_Attribute(), hyAttributeReferenceExpressionAttributeReferenceResolver);
+	}
+	
+	public de.darwinspl.preferences.resource.dwprofile.IDwprofileReferenceResolver<eu.hyvar.feature.expression.HyContextInformationReferenceExpression, eu.hyvar.context.HyContextualInformation> getHyContextInformationReferenceExpressionContextInformationReferenceResolver() {
+		return getResolverChain(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyContextInformationReferenceExpression_ContextInformation(), hyContextInformationReferenceExpressionContextInformationReferenceResolver);
 	}
 	
 	public de.darwinspl.preferences.resource.dwprofile.IDwprofileReferenceResolver<eu.hyvar.feature.expression.HyRelativeVersionRestriction, eu.hyvar.feature.HyVersion> getHyRelativeVersionRestrictionVersionReferenceResolver() {
@@ -72,9 +72,9 @@ public class DwprofileReferenceResolverSwitch implements de.darwinspl.preference
 			this.options.putAll(options);
 		}
 		hyAbstractFeatureReferenceExpressionFeatureReferenceResolver.setOptions(options);
-		hyContextInformationReferenceExpressionContextInformationReferenceResolver.setOptions(options);
 		hyAttributeReferenceExpressionFeatureReferenceResolver.setOptions(options);
 		hyAttributeReferenceExpressionAttributeReferenceResolver.setOptions(options);
+		hyContextInformationReferenceExpressionContextInformationReferenceResolver.setOptions(options);
 		hyRelativeVersionRestrictionVersionReferenceResolver.setOptions(options);
 		hyVersionRangeRestrictionLowerVersionReferenceResolver.setOptions(options);
 		hyVersionRangeRestrictionUpperVersionReferenceResolver.setOptions(options);
@@ -94,14 +94,6 @@ public class DwprofileReferenceResolverSwitch implements de.darwinspl.preference
 				hyAbstractFeatureReferenceExpressionFeatureReferenceResolver.resolve(identifier, (eu.hyvar.feature.expression.HyAbstractFeatureReferenceExpression) container, (EReference) feature, position, true, frr);
 			}
 		}
-		if (eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyContextInformationReferenceExpression().isInstance(container)) {
-			DwprofileFuzzyResolveResult<eu.hyvar.context.HyContextualInformation> frr = new DwprofileFuzzyResolveResult<eu.hyvar.context.HyContextualInformation>(result);
-			String referenceName = reference.getName();
-			EStructuralFeature feature = container.eClass().getEStructuralFeature(referenceName);
-			if (feature != null && feature instanceof EReference && referenceName != null && referenceName.equals("contextInformation")) {
-				hyContextInformationReferenceExpressionContextInformationReferenceResolver.resolve(identifier, (eu.hyvar.feature.expression.HyContextInformationReferenceExpression) container, (EReference) feature, position, true, frr);
-			}
-		}
 		if (eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyAttributeReferenceExpression().isInstance(container)) {
 			DwprofileFuzzyResolveResult<eu.hyvar.feature.HyFeature> frr = new DwprofileFuzzyResolveResult<eu.hyvar.feature.HyFeature>(result);
 			String referenceName = reference.getName();
@@ -116,6 +108,14 @@ public class DwprofileReferenceResolverSwitch implements de.darwinspl.preference
 			EStructuralFeature feature = container.eClass().getEStructuralFeature(referenceName);
 			if (feature != null && feature instanceof EReference && referenceName != null && referenceName.equals("attribute")) {
 				hyAttributeReferenceExpressionAttributeReferenceResolver.resolve(identifier, (eu.hyvar.feature.expression.HyAttributeReferenceExpression) container, (EReference) feature, position, true, frr);
+			}
+		}
+		if (eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyContextInformationReferenceExpression().isInstance(container)) {
+			DwprofileFuzzyResolveResult<eu.hyvar.context.HyContextualInformation> frr = new DwprofileFuzzyResolveResult<eu.hyvar.context.HyContextualInformation>(result);
+			String referenceName = reference.getName();
+			EStructuralFeature feature = container.eClass().getEStructuralFeature(referenceName);
+			if (feature != null && feature instanceof EReference && referenceName != null && referenceName.equals("contextInformation")) {
+				hyContextInformationReferenceExpressionContextInformationReferenceResolver.resolve(identifier, (eu.hyvar.feature.expression.HyContextInformationReferenceExpression) container, (EReference) feature, position, true, frr);
 			}
 		}
 		if (eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyRelativeVersionRestriction().isInstance(container)) {
@@ -164,14 +164,14 @@ public class DwprofileReferenceResolverSwitch implements de.darwinspl.preference
 		if (reference == eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyAbstractFeatureReferenceExpression_Feature()) {
 			return getResolverChain(reference, hyAbstractFeatureReferenceExpressionFeatureReferenceResolver);
 		}
-		if (reference == eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyContextInformationReferenceExpression_ContextInformation()) {
-			return getResolverChain(reference, hyContextInformationReferenceExpressionContextInformationReferenceResolver);
-		}
 		if (reference == eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyAttributeReferenceExpression_Feature()) {
 			return getResolverChain(reference, hyAttributeReferenceExpressionFeatureReferenceResolver);
 		}
 		if (reference == eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyAttributeReferenceExpression_Attribute()) {
 			return getResolverChain(reference, hyAttributeReferenceExpressionAttributeReferenceResolver);
+		}
+		if (reference == eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyContextInformationReferenceExpression_ContextInformation()) {
+			return getResolverChain(reference, hyContextInformationReferenceExpressionContextInformationReferenceResolver);
 		}
 		if (reference == eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyRelativeVersionRestriction_Version()) {
 			return getResolverChain(reference, hyRelativeVersionRestrictionVersionReferenceResolver);

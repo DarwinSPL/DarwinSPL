@@ -37,21 +37,33 @@ public class HyconstraintsTokenScanner implements eu.hyvar.feature.constraint.re
 	
 	/**
 	 * <p>
-	 * Creates a new HyconstraintsTokenScanner.
+	 * Creates a new HyconstraintsTokenScanner. Uses the preference store belonging to
+	 * the corresponding
+	 * eu.hyvar.feature.constraint.resource.hyconstraints.ui.HyconstraintsUIPlugin.
 	 * </p>
 	 * 
 	 * @param resource The resource to scan
 	 * @param colorManager A manager to obtain color objects
 	 */
 	public HyconstraintsTokenScanner(eu.hyvar.feature.constraint.resource.hyconstraints.IHyconstraintsTextResource resource, eu.hyvar.feature.constraint.resource.hyconstraints.ui.HyconstraintsColorManager colorManager) {
+		this(resource, colorManager, (eu.hyvar.feature.constraint.resource.hyconstraints.ui.HyconstraintsUIPlugin.getDefault() == null ? null : eu.hyvar.feature.constraint.resource.hyconstraints.ui.HyconstraintsUIPlugin.getDefault().getPreferenceStore()));
+	}
+	
+	/**
+	 * <p>
+	 * Creates a new HyconstraintsTokenScanner.
+	 * </p>
+	 * 
+	 * @param resource The resource to scan
+	 * @param colorManager A manager to obtain color objects
+	 * @param preferenceStore The preference store to retrieve the defined token colors
+	 */
+	public HyconstraintsTokenScanner(eu.hyvar.feature.constraint.resource.hyconstraints.IHyconstraintsTextResource resource, eu.hyvar.feature.constraint.resource.hyconstraints.ui.HyconstraintsColorManager colorManager, IPreferenceStore preferenceStore) {
 		this.resource = resource;
 		this.colorManager = colorManager;
 		this.lexer = new eu.hyvar.feature.constraint.resource.hyconstraints.mopp.HyconstraintsMetaInformation().createLexer();
 		this.languageId = new eu.hyvar.feature.constraint.resource.hyconstraints.mopp.HyconstraintsMetaInformation().getSyntaxName();
-		eu.hyvar.feature.constraint.resource.hyconstraints.ui.HyconstraintsUIPlugin plugin = eu.hyvar.feature.constraint.resource.hyconstraints.ui.HyconstraintsUIPlugin.getDefault();
-		if (plugin != null) {
-			this.store = plugin.getPreferenceStore();
-		}
+		this.store = preferenceStore;
 		this.nextTokens = new ArrayList<eu.hyvar.feature.constraint.resource.hyconstraints.IHyconstraintsTextToken>();
 	}
 	

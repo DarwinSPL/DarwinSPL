@@ -49,8 +49,6 @@ public class HyvalidityformulaLexer extends Lexer {
     public static final int T__42=42;
     public static final int T__43=43;
     public static final int T__44=44;
-    public static final int T__45=45;
-    public static final int T__46=46;
     public static final int DATE=4;
     public static final int IDENTIFIER_TOKEN=5;
     public static final int INTEGER_LITERAL=6;
@@ -651,10 +649,10 @@ public class HyvalidityformulaLexer extends Lexer {
         try {
             int _type = T__38;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // Hyvalidityformula.g:46:7: ( 'context:' )
-            // Hyvalidityformula.g:46:9: 'context:'
+            // Hyvalidityformula.g:46:7: ( 'enum:' )
+            // Hyvalidityformula.g:46:9: 'enum:'
             {
-            match("context:"); 
+            match("enum:"); 
 
 
 
@@ -674,10 +672,10 @@ public class HyvalidityformulaLexer extends Lexer {
         try {
             int _type = T__39;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // Hyvalidityformula.g:47:7: ( 'enum:' )
-            // Hyvalidityformula.g:47:9: 'enum:'
+            // Hyvalidityformula.g:47:7: ( 'eternity' )
+            // Hyvalidityformula.g:47:9: 'eternity'
             {
-            match("enum:"); 
+            match("eternity"); 
 
 
 
@@ -697,10 +695,10 @@ public class HyvalidityformulaLexer extends Lexer {
         try {
             int _type = T__40;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // Hyvalidityformula.g:48:7: ( 'eternity' )
-            // Hyvalidityformula.g:48:9: 'eternity'
+            // Hyvalidityformula.g:48:7: ( 'false' )
+            // Hyvalidityformula.g:48:9: 'false'
             {
-            match("eternity"); 
+            match("false"); 
 
 
 
@@ -720,10 +718,10 @@ public class HyvalidityformulaLexer extends Lexer {
         try {
             int _type = T__41;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // Hyvalidityformula.g:49:7: ( 'false' )
-            // Hyvalidityformula.g:49:9: 'false'
+            // Hyvalidityformula.g:49:7: ( 'true' )
+            // Hyvalidityformula.g:49:9: 'true'
             {
-            match("false"); 
+            match("true"); 
 
 
 
@@ -743,12 +741,10 @@ public class HyvalidityformulaLexer extends Lexer {
         try {
             int _type = T__42;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // Hyvalidityformula.g:50:7: ( 'ifPossible(' )
-            // Hyvalidityformula.g:50:9: 'ifPossible('
+            // Hyvalidityformula.g:50:7: ( '{' )
+            // Hyvalidityformula.g:50:9: '{'
             {
-            match("ifPossible("); 
-
-
+            match('{'); 
 
             }
 
@@ -766,10 +762,10 @@ public class HyvalidityformulaLexer extends Lexer {
         try {
             int _type = T__43;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // Hyvalidityformula.g:51:7: ( 'max(' )
-            // Hyvalidityformula.g:51:9: 'max('
+            // Hyvalidityformula.g:51:7: ( '||' )
+            // Hyvalidityformula.g:51:9: '||'
             {
-            match("max("); 
+            match("||"); 
 
 
 
@@ -789,12 +785,10 @@ public class HyvalidityformulaLexer extends Lexer {
         try {
             int _type = T__44;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // Hyvalidityformula.g:52:7: ( 'min(' )
-            // Hyvalidityformula.g:52:9: 'min('
+            // Hyvalidityformula.g:52:7: ( '}' )
+            // Hyvalidityformula.g:52:9: '}'
             {
-            match("min("); 
-
-
+            match('}'); 
 
             }
 
@@ -807,72 +801,26 @@ public class HyvalidityformulaLexer extends Lexer {
     }
     // $ANTLR end "T__44"
 
-    // $ANTLR start "T__45"
-    public final void mT__45() throws RecognitionException {
-        try {
-            int _type = T__45;
-            int _channel = DEFAULT_TOKEN_CHANNEL;
-            // Hyvalidityformula.g:53:7: ( 'true' )
-            // Hyvalidityformula.g:53:9: 'true'
-            {
-            match("true"); 
-
-
-
-            }
-
-            state.type = _type;
-            state.channel = _channel;
-        }
-        finally {
-        	// do for sure before leaving
-        }
-    }
-    // $ANTLR end "T__45"
-
-    // $ANTLR start "T__46"
-    public final void mT__46() throws RecognitionException {
-        try {
-            int _type = T__46;
-            int _channel = DEFAULT_TOKEN_CHANNEL;
-            // Hyvalidityformula.g:54:7: ( '||' )
-            // Hyvalidityformula.g:54:9: '||'
-            {
-            match("||"); 
-
-
-
-            }
-
-            state.type = _type;
-            state.channel = _channel;
-        }
-        finally {
-        	// do for sure before leaving
-        }
-    }
-    // $ANTLR end "T__46"
-
     // $ANTLR start "QUOTED_34_34"
     public final void mQUOTED_34_34() throws RecognitionException {
         try {
             int _type = QUOTED_34_34;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // Hyvalidityformula.g:5794:13: ( ( ( '\"' ) (~ ( '\"' ) )* ( '\"' ) ) )
-            // Hyvalidityformula.g:5795:2: ( ( '\"' ) (~ ( '\"' ) )* ( '\"' ) )
+            // Hyvalidityformula.g:4617:13: ( ( ( '\"' ) (~ ( '\"' ) )* ( '\"' ) ) )
+            // Hyvalidityformula.g:4618:2: ( ( '\"' ) (~ ( '\"' ) )* ( '\"' ) )
             {
-            // Hyvalidityformula.g:5795:2: ( ( '\"' ) (~ ( '\"' ) )* ( '\"' ) )
-            // Hyvalidityformula.g:5795:2: ( '\"' ) (~ ( '\"' ) )* ( '\"' )
+            // Hyvalidityformula.g:4618:2: ( ( '\"' ) (~ ( '\"' ) )* ( '\"' ) )
+            // Hyvalidityformula.g:4618:2: ( '\"' ) (~ ( '\"' ) )* ( '\"' )
             {
-            // Hyvalidityformula.g:5795:2: ( '\"' )
-            // Hyvalidityformula.g:5795:3: '\"'
+            // Hyvalidityformula.g:4618:2: ( '\"' )
+            // Hyvalidityformula.g:4618:3: '\"'
             {
             match('\"'); 
 
             }
 
 
-            // Hyvalidityformula.g:5795:7: (~ ( '\"' ) )*
+            // Hyvalidityformula.g:4618:7: (~ ( '\"' ) )*
             loop1:
             do {
                 int alt1=2;
@@ -906,8 +854,8 @@ public class HyvalidityformulaLexer extends Lexer {
             } while (true);
 
 
-            // Hyvalidityformula.g:5795:16: ( '\"' )
-            // Hyvalidityformula.g:5795:17: '\"'
+            // Hyvalidityformula.g:4618:16: ( '\"' )
+            // Hyvalidityformula.g:4618:17: '\"'
             {
             match('\"'); 
 
@@ -933,11 +881,11 @@ public class HyvalidityformulaLexer extends Lexer {
         try {
             int _type = IDENTIFIER_TOKEN;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // Hyvalidityformula.g:5797:17: ( ( ( 'A' .. 'Z' | 'a' .. 'z' | '_' ) ( 'A' .. 'Z' | 'a' .. 'z' | '_' | '0' .. '9' )* ( '@' ( ( '-' )? ( '0' .. '9' )+ '/' ( '-' )? ( '0' .. '9' )+ '/' ( '-' )? ( '0' .. '9' )+ ( 'T' ( '-' )? ( '0' .. '9' )+ ':' ( '-' )? ( '0' .. '9' )+ ( ':' ( '-' )? ( '0' .. '9' )+ )? )? ) )? ) )
-            // Hyvalidityformula.g:5798:2: ( ( 'A' .. 'Z' | 'a' .. 'z' | '_' ) ( 'A' .. 'Z' | 'a' .. 'z' | '_' | '0' .. '9' )* ( '@' ( ( '-' )? ( '0' .. '9' )+ '/' ( '-' )? ( '0' .. '9' )+ '/' ( '-' )? ( '0' .. '9' )+ ( 'T' ( '-' )? ( '0' .. '9' )+ ':' ( '-' )? ( '0' .. '9' )+ ( ':' ( '-' )? ( '0' .. '9' )+ )? )? ) )? )
+            // Hyvalidityformula.g:4620:17: ( ( ( 'A' .. 'Z' | 'a' .. 'z' | '_' ) ( 'A' .. 'Z' | 'a' .. 'z' | '_' | '0' .. '9' )* ( '@' ( ( '-' )? ( '0' .. '9' )+ '/' ( '-' )? ( '0' .. '9' )+ '/' ( '-' )? ( '0' .. '9' )+ ( 'T' ( '-' )? ( '0' .. '9' )+ ':' ( '-' )? ( '0' .. '9' )+ ( ':' ( '-' )? ( '0' .. '9' )+ )? )? ) )? ) )
+            // Hyvalidityformula.g:4621:2: ( ( 'A' .. 'Z' | 'a' .. 'z' | '_' ) ( 'A' .. 'Z' | 'a' .. 'z' | '_' | '0' .. '9' )* ( '@' ( ( '-' )? ( '0' .. '9' )+ '/' ( '-' )? ( '0' .. '9' )+ '/' ( '-' )? ( '0' .. '9' )+ ( 'T' ( '-' )? ( '0' .. '9' )+ ':' ( '-' )? ( '0' .. '9' )+ ( ':' ( '-' )? ( '0' .. '9' )+ )? )? ) )? )
             {
-            // Hyvalidityformula.g:5798:2: ( ( 'A' .. 'Z' | 'a' .. 'z' | '_' ) ( 'A' .. 'Z' | 'a' .. 'z' | '_' | '0' .. '9' )* ( '@' ( ( '-' )? ( '0' .. '9' )+ '/' ( '-' )? ( '0' .. '9' )+ '/' ( '-' )? ( '0' .. '9' )+ ( 'T' ( '-' )? ( '0' .. '9' )+ ':' ( '-' )? ( '0' .. '9' )+ ( ':' ( '-' )? ( '0' .. '9' )+ )? )? ) )? )
-            // Hyvalidityformula.g:5798:2: ( 'A' .. 'Z' | 'a' .. 'z' | '_' ) ( 'A' .. 'Z' | 'a' .. 'z' | '_' | '0' .. '9' )* ( '@' ( ( '-' )? ( '0' .. '9' )+ '/' ( '-' )? ( '0' .. '9' )+ '/' ( '-' )? ( '0' .. '9' )+ ( 'T' ( '-' )? ( '0' .. '9' )+ ':' ( '-' )? ( '0' .. '9' )+ ( ':' ( '-' )? ( '0' .. '9' )+ )? )? ) )?
+            // Hyvalidityformula.g:4621:2: ( ( 'A' .. 'Z' | 'a' .. 'z' | '_' ) ( 'A' .. 'Z' | 'a' .. 'z' | '_' | '0' .. '9' )* ( '@' ( ( '-' )? ( '0' .. '9' )+ '/' ( '-' )? ( '0' .. '9' )+ '/' ( '-' )? ( '0' .. '9' )+ ( 'T' ( '-' )? ( '0' .. '9' )+ ':' ( '-' )? ( '0' .. '9' )+ ( ':' ( '-' )? ( '0' .. '9' )+ )? )? ) )? )
+            // Hyvalidityformula.g:4621:2: ( 'A' .. 'Z' | 'a' .. 'z' | '_' ) ( 'A' .. 'Z' | 'a' .. 'z' | '_' | '0' .. '9' )* ( '@' ( ( '-' )? ( '0' .. '9' )+ '/' ( '-' )? ( '0' .. '9' )+ '/' ( '-' )? ( '0' .. '9' )+ ( 'T' ( '-' )? ( '0' .. '9' )+ ':' ( '-' )? ( '0' .. '9' )+ ( ':' ( '-' )? ( '0' .. '9' )+ )? )? ) )?
             {
             if ( (input.LA(1) >= 'A' && input.LA(1) <= 'Z')||input.LA(1)=='_'||(input.LA(1) >= 'a' && input.LA(1) <= 'z') ) {
                 input.consume();
@@ -949,7 +897,7 @@ public class HyvalidityformulaLexer extends Lexer {
             }
 
 
-            // Hyvalidityformula.g:5798:25: ( 'A' .. 'Z' | 'a' .. 'z' | '_' | '0' .. '9' )*
+            // Hyvalidityformula.g:4621:25: ( 'A' .. 'Z' | 'a' .. 'z' | '_' | '0' .. '9' )*
             loop2:
             do {
                 int alt2=2;
@@ -983,7 +931,7 @@ public class HyvalidityformulaLexer extends Lexer {
             } while (true);
 
 
-            // Hyvalidityformula.g:5798:59: ( '@' ( ( '-' )? ( '0' .. '9' )+ '/' ( '-' )? ( '0' .. '9' )+ '/' ( '-' )? ( '0' .. '9' )+ ( 'T' ( '-' )? ( '0' .. '9' )+ ':' ( '-' )? ( '0' .. '9' )+ ( ':' ( '-' )? ( '0' .. '9' )+ )? )? ) )?
+            // Hyvalidityformula.g:4621:59: ( '@' ( ( '-' )? ( '0' .. '9' )+ '/' ( '-' )? ( '0' .. '9' )+ '/' ( '-' )? ( '0' .. '9' )+ ( 'T' ( '-' )? ( '0' .. '9' )+ ':' ( '-' )? ( '0' .. '9' )+ ( ':' ( '-' )? ( '0' .. '9' )+ )? )? ) )?
             int alt17=2;
             int LA17_0 = input.LA(1);
 
@@ -992,14 +940,14 @@ public class HyvalidityformulaLexer extends Lexer {
             }
             switch (alt17) {
                 case 1 :
-                    // Hyvalidityformula.g:5798:60: '@' ( ( '-' )? ( '0' .. '9' )+ '/' ( '-' )? ( '0' .. '9' )+ '/' ( '-' )? ( '0' .. '9' )+ ( 'T' ( '-' )? ( '0' .. '9' )+ ':' ( '-' )? ( '0' .. '9' )+ ( ':' ( '-' )? ( '0' .. '9' )+ )? )? )
+                    // Hyvalidityformula.g:4621:60: '@' ( ( '-' )? ( '0' .. '9' )+ '/' ( '-' )? ( '0' .. '9' )+ '/' ( '-' )? ( '0' .. '9' )+ ( 'T' ( '-' )? ( '0' .. '9' )+ ':' ( '-' )? ( '0' .. '9' )+ ( ':' ( '-' )? ( '0' .. '9' )+ )? )? )
                     {
                     match('@'); 
 
-                    // Hyvalidityformula.g:5798:63: ( ( '-' )? ( '0' .. '9' )+ '/' ( '-' )? ( '0' .. '9' )+ '/' ( '-' )? ( '0' .. '9' )+ ( 'T' ( '-' )? ( '0' .. '9' )+ ':' ( '-' )? ( '0' .. '9' )+ ( ':' ( '-' )? ( '0' .. '9' )+ )? )? )
-                    // Hyvalidityformula.g:5798:64: ( '-' )? ( '0' .. '9' )+ '/' ( '-' )? ( '0' .. '9' )+ '/' ( '-' )? ( '0' .. '9' )+ ( 'T' ( '-' )? ( '0' .. '9' )+ ':' ( '-' )? ( '0' .. '9' )+ ( ':' ( '-' )? ( '0' .. '9' )+ )? )?
+                    // Hyvalidityformula.g:4621:63: ( ( '-' )? ( '0' .. '9' )+ '/' ( '-' )? ( '0' .. '9' )+ '/' ( '-' )? ( '0' .. '9' )+ ( 'T' ( '-' )? ( '0' .. '9' )+ ':' ( '-' )? ( '0' .. '9' )+ ( ':' ( '-' )? ( '0' .. '9' )+ )? )? )
+                    // Hyvalidityformula.g:4621:64: ( '-' )? ( '0' .. '9' )+ '/' ( '-' )? ( '0' .. '9' )+ '/' ( '-' )? ( '0' .. '9' )+ ( 'T' ( '-' )? ( '0' .. '9' )+ ':' ( '-' )? ( '0' .. '9' )+ ( ':' ( '-' )? ( '0' .. '9' )+ )? )?
                     {
-                    // Hyvalidityformula.g:5798:64: ( '-' )?
+                    // Hyvalidityformula.g:4621:64: ( '-' )?
                     int alt3=2;
                     int LA3_0 = input.LA(1);
 
@@ -1008,7 +956,7 @@ public class HyvalidityformulaLexer extends Lexer {
                     }
                     switch (alt3) {
                         case 1 :
-                            // Hyvalidityformula.g:5798:65: '-'
+                            // Hyvalidityformula.g:4621:65: '-'
                             {
                             match('-'); 
 
@@ -1018,7 +966,7 @@ public class HyvalidityformulaLexer extends Lexer {
                     }
 
 
-                    // Hyvalidityformula.g:5798:71: ( '0' .. '9' )+
+                    // Hyvalidityformula.g:4621:71: ( '0' .. '9' )+
                     int cnt4=0;
                     loop4:
                     do {
@@ -1059,7 +1007,7 @@ public class HyvalidityformulaLexer extends Lexer {
 
                     match('/'); 
 
-                    // Hyvalidityformula.g:5798:86: ( '-' )?
+                    // Hyvalidityformula.g:4621:86: ( '-' )?
                     int alt5=2;
                     int LA5_0 = input.LA(1);
 
@@ -1068,7 +1016,7 @@ public class HyvalidityformulaLexer extends Lexer {
                     }
                     switch (alt5) {
                         case 1 :
-                            // Hyvalidityformula.g:5798:87: '-'
+                            // Hyvalidityformula.g:4621:87: '-'
                             {
                             match('-'); 
 
@@ -1078,7 +1026,7 @@ public class HyvalidityformulaLexer extends Lexer {
                     }
 
 
-                    // Hyvalidityformula.g:5798:93: ( '0' .. '9' )+
+                    // Hyvalidityformula.g:4621:93: ( '0' .. '9' )+
                     int cnt6=0;
                     loop6:
                     do {
@@ -1119,7 +1067,7 @@ public class HyvalidityformulaLexer extends Lexer {
 
                     match('/'); 
 
-                    // Hyvalidityformula.g:5798:108: ( '-' )?
+                    // Hyvalidityformula.g:4621:108: ( '-' )?
                     int alt7=2;
                     int LA7_0 = input.LA(1);
 
@@ -1128,7 +1076,7 @@ public class HyvalidityformulaLexer extends Lexer {
                     }
                     switch (alt7) {
                         case 1 :
-                            // Hyvalidityformula.g:5798:109: '-'
+                            // Hyvalidityformula.g:4621:109: '-'
                             {
                             match('-'); 
 
@@ -1138,7 +1086,7 @@ public class HyvalidityformulaLexer extends Lexer {
                     }
 
 
-                    // Hyvalidityformula.g:5798:115: ( '0' .. '9' )+
+                    // Hyvalidityformula.g:4621:115: ( '0' .. '9' )+
                     int cnt8=0;
                     loop8:
                     do {
@@ -1177,7 +1125,7 @@ public class HyvalidityformulaLexer extends Lexer {
                     } while (true);
 
 
-                    // Hyvalidityformula.g:5798:127: ( 'T' ( '-' )? ( '0' .. '9' )+ ':' ( '-' )? ( '0' .. '9' )+ ( ':' ( '-' )? ( '0' .. '9' )+ )? )?
+                    // Hyvalidityformula.g:4621:127: ( 'T' ( '-' )? ( '0' .. '9' )+ ':' ( '-' )? ( '0' .. '9' )+ ( ':' ( '-' )? ( '0' .. '9' )+ )? )?
                     int alt16=2;
                     int LA16_0 = input.LA(1);
 
@@ -1186,11 +1134,11 @@ public class HyvalidityformulaLexer extends Lexer {
                     }
                     switch (alt16) {
                         case 1 :
-                            // Hyvalidityformula.g:5798:129: 'T' ( '-' )? ( '0' .. '9' )+ ':' ( '-' )? ( '0' .. '9' )+ ( ':' ( '-' )? ( '0' .. '9' )+ )?
+                            // Hyvalidityformula.g:4621:129: 'T' ( '-' )? ( '0' .. '9' )+ ':' ( '-' )? ( '0' .. '9' )+ ( ':' ( '-' )? ( '0' .. '9' )+ )?
                             {
                             match('T'); 
 
-                            // Hyvalidityformula.g:5798:132: ( '-' )?
+                            // Hyvalidityformula.g:4621:132: ( '-' )?
                             int alt9=2;
                             int LA9_0 = input.LA(1);
 
@@ -1199,7 +1147,7 @@ public class HyvalidityformulaLexer extends Lexer {
                             }
                             switch (alt9) {
                                 case 1 :
-                                    // Hyvalidityformula.g:5798:133: '-'
+                                    // Hyvalidityformula.g:4621:133: '-'
                                     {
                                     match('-'); 
 
@@ -1209,7 +1157,7 @@ public class HyvalidityformulaLexer extends Lexer {
                             }
 
 
-                            // Hyvalidityformula.g:5798:139: ( '0' .. '9' )+
+                            // Hyvalidityformula.g:4621:139: ( '0' .. '9' )+
                             int cnt10=0;
                             loop10:
                             do {
@@ -1250,7 +1198,7 @@ public class HyvalidityformulaLexer extends Lexer {
 
                             match(':'); 
 
-                            // Hyvalidityformula.g:5798:154: ( '-' )?
+                            // Hyvalidityformula.g:4621:154: ( '-' )?
                             int alt11=2;
                             int LA11_0 = input.LA(1);
 
@@ -1259,7 +1207,7 @@ public class HyvalidityformulaLexer extends Lexer {
                             }
                             switch (alt11) {
                                 case 1 :
-                                    // Hyvalidityformula.g:5798:155: '-'
+                                    // Hyvalidityformula.g:4621:155: '-'
                                     {
                                     match('-'); 
 
@@ -1269,7 +1217,7 @@ public class HyvalidityformulaLexer extends Lexer {
                             }
 
 
-                            // Hyvalidityformula.g:5798:161: ( '0' .. '9' )+
+                            // Hyvalidityformula.g:4621:161: ( '0' .. '9' )+
                             int cnt12=0;
                             loop12:
                             do {
@@ -1308,7 +1256,7 @@ public class HyvalidityformulaLexer extends Lexer {
                             } while (true);
 
 
-                            // Hyvalidityformula.g:5798:173: ( ':' ( '-' )? ( '0' .. '9' )+ )?
+                            // Hyvalidityformula.g:4621:173: ( ':' ( '-' )? ( '0' .. '9' )+ )?
                             int alt15=2;
                             int LA15_0 = input.LA(1);
 
@@ -1317,11 +1265,11 @@ public class HyvalidityformulaLexer extends Lexer {
                             }
                             switch (alt15) {
                                 case 1 :
-                                    // Hyvalidityformula.g:5798:174: ':' ( '-' )? ( '0' .. '9' )+
+                                    // Hyvalidityformula.g:4621:174: ':' ( '-' )? ( '0' .. '9' )+
                                     {
                                     match(':'); 
 
-                                    // Hyvalidityformula.g:5798:178: ( '-' )?
+                                    // Hyvalidityformula.g:4621:178: ( '-' )?
                                     int alt13=2;
                                     int LA13_0 = input.LA(1);
 
@@ -1330,7 +1278,7 @@ public class HyvalidityformulaLexer extends Lexer {
                                     }
                                     switch (alt13) {
                                         case 1 :
-                                            // Hyvalidityformula.g:5798:179: '-'
+                                            // Hyvalidityformula.g:4621:179: '-'
                                             {
                                             match('-'); 
 
@@ -1340,7 +1288,7 @@ public class HyvalidityformulaLexer extends Lexer {
                                     }
 
 
-                                    // Hyvalidityformula.g:5798:185: ( '0' .. '9' )+
+                                    // Hyvalidityformula.g:4621:185: ( '0' .. '9' )+
                                     int cnt14=0;
                                     loop14:
                                     do {
@@ -1419,16 +1367,16 @@ public class HyvalidityformulaLexer extends Lexer {
         try {
             int _type = DATE;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // Hyvalidityformula.g:5800:5: ( ( ( ( '-' )? ( '0' .. '9' )+ '/' ( '-' )? ( '0' .. '9' )+ '/' ( '-' )? ( '0' .. '9' )+ ( 'T' ( '-' )? ( '0' .. '9' )+ ':' ( '-' )? ( '0' .. '9' )+ ( ':' ( '-' )? ( '0' .. '9' )+ )? )? ) ) )
-            // Hyvalidityformula.g:5801:2: ( ( ( '-' )? ( '0' .. '9' )+ '/' ( '-' )? ( '0' .. '9' )+ '/' ( '-' )? ( '0' .. '9' )+ ( 'T' ( '-' )? ( '0' .. '9' )+ ':' ( '-' )? ( '0' .. '9' )+ ( ':' ( '-' )? ( '0' .. '9' )+ )? )? ) )
+            // Hyvalidityformula.g:4623:5: ( ( ( ( '-' )? ( '0' .. '9' )+ '/' ( '-' )? ( '0' .. '9' )+ '/' ( '-' )? ( '0' .. '9' )+ ( 'T' ( '-' )? ( '0' .. '9' )+ ':' ( '-' )? ( '0' .. '9' )+ ( ':' ( '-' )? ( '0' .. '9' )+ )? )? ) ) )
+            // Hyvalidityformula.g:4624:2: ( ( ( '-' )? ( '0' .. '9' )+ '/' ( '-' )? ( '0' .. '9' )+ '/' ( '-' )? ( '0' .. '9' )+ ( 'T' ( '-' )? ( '0' .. '9' )+ ':' ( '-' )? ( '0' .. '9' )+ ( ':' ( '-' )? ( '0' .. '9' )+ )? )? ) )
             {
-            // Hyvalidityformula.g:5801:2: ( ( ( '-' )? ( '0' .. '9' )+ '/' ( '-' )? ( '0' .. '9' )+ '/' ( '-' )? ( '0' .. '9' )+ ( 'T' ( '-' )? ( '0' .. '9' )+ ':' ( '-' )? ( '0' .. '9' )+ ( ':' ( '-' )? ( '0' .. '9' )+ )? )? ) )
-            // Hyvalidityformula.g:5801:2: ( ( '-' )? ( '0' .. '9' )+ '/' ( '-' )? ( '0' .. '9' )+ '/' ( '-' )? ( '0' .. '9' )+ ( 'T' ( '-' )? ( '0' .. '9' )+ ':' ( '-' )? ( '0' .. '9' )+ ( ':' ( '-' )? ( '0' .. '9' )+ )? )? )
+            // Hyvalidityformula.g:4624:2: ( ( ( '-' )? ( '0' .. '9' )+ '/' ( '-' )? ( '0' .. '9' )+ '/' ( '-' )? ( '0' .. '9' )+ ( 'T' ( '-' )? ( '0' .. '9' )+ ':' ( '-' )? ( '0' .. '9' )+ ( ':' ( '-' )? ( '0' .. '9' )+ )? )? ) )
+            // Hyvalidityformula.g:4624:2: ( ( '-' )? ( '0' .. '9' )+ '/' ( '-' )? ( '0' .. '9' )+ '/' ( '-' )? ( '0' .. '9' )+ ( 'T' ( '-' )? ( '0' .. '9' )+ ':' ( '-' )? ( '0' .. '9' )+ ( ':' ( '-' )? ( '0' .. '9' )+ )? )? )
             {
-            // Hyvalidityformula.g:5801:2: ( ( '-' )? ( '0' .. '9' )+ '/' ( '-' )? ( '0' .. '9' )+ '/' ( '-' )? ( '0' .. '9' )+ ( 'T' ( '-' )? ( '0' .. '9' )+ ':' ( '-' )? ( '0' .. '9' )+ ( ':' ( '-' )? ( '0' .. '9' )+ )? )? )
-            // Hyvalidityformula.g:5801:3: ( '-' )? ( '0' .. '9' )+ '/' ( '-' )? ( '0' .. '9' )+ '/' ( '-' )? ( '0' .. '9' )+ ( 'T' ( '-' )? ( '0' .. '9' )+ ':' ( '-' )? ( '0' .. '9' )+ ( ':' ( '-' )? ( '0' .. '9' )+ )? )?
+            // Hyvalidityformula.g:4624:2: ( ( '-' )? ( '0' .. '9' )+ '/' ( '-' )? ( '0' .. '9' )+ '/' ( '-' )? ( '0' .. '9' )+ ( 'T' ( '-' )? ( '0' .. '9' )+ ':' ( '-' )? ( '0' .. '9' )+ ( ':' ( '-' )? ( '0' .. '9' )+ )? )? )
+            // Hyvalidityformula.g:4624:3: ( '-' )? ( '0' .. '9' )+ '/' ( '-' )? ( '0' .. '9' )+ '/' ( '-' )? ( '0' .. '9' )+ ( 'T' ( '-' )? ( '0' .. '9' )+ ':' ( '-' )? ( '0' .. '9' )+ ( ':' ( '-' )? ( '0' .. '9' )+ )? )?
             {
-            // Hyvalidityformula.g:5801:3: ( '-' )?
+            // Hyvalidityformula.g:4624:3: ( '-' )?
             int alt18=2;
             int LA18_0 = input.LA(1);
 
@@ -1437,7 +1385,7 @@ public class HyvalidityformulaLexer extends Lexer {
             }
             switch (alt18) {
                 case 1 :
-                    // Hyvalidityformula.g:5801:4: '-'
+                    // Hyvalidityformula.g:4624:4: '-'
                     {
                     match('-'); 
 
@@ -1447,7 +1395,7 @@ public class HyvalidityformulaLexer extends Lexer {
             }
 
 
-            // Hyvalidityformula.g:5801:10: ( '0' .. '9' )+
+            // Hyvalidityformula.g:4624:10: ( '0' .. '9' )+
             int cnt19=0;
             loop19:
             do {
@@ -1488,7 +1436,7 @@ public class HyvalidityformulaLexer extends Lexer {
 
             match('/'); 
 
-            // Hyvalidityformula.g:5801:25: ( '-' )?
+            // Hyvalidityformula.g:4624:25: ( '-' )?
             int alt20=2;
             int LA20_0 = input.LA(1);
 
@@ -1497,7 +1445,7 @@ public class HyvalidityformulaLexer extends Lexer {
             }
             switch (alt20) {
                 case 1 :
-                    // Hyvalidityformula.g:5801:26: '-'
+                    // Hyvalidityformula.g:4624:26: '-'
                     {
                     match('-'); 
 
@@ -1507,7 +1455,7 @@ public class HyvalidityformulaLexer extends Lexer {
             }
 
 
-            // Hyvalidityformula.g:5801:32: ( '0' .. '9' )+
+            // Hyvalidityformula.g:4624:32: ( '0' .. '9' )+
             int cnt21=0;
             loop21:
             do {
@@ -1548,7 +1496,7 @@ public class HyvalidityformulaLexer extends Lexer {
 
             match('/'); 
 
-            // Hyvalidityformula.g:5801:47: ( '-' )?
+            // Hyvalidityformula.g:4624:47: ( '-' )?
             int alt22=2;
             int LA22_0 = input.LA(1);
 
@@ -1557,7 +1505,7 @@ public class HyvalidityformulaLexer extends Lexer {
             }
             switch (alt22) {
                 case 1 :
-                    // Hyvalidityformula.g:5801:48: '-'
+                    // Hyvalidityformula.g:4624:48: '-'
                     {
                     match('-'); 
 
@@ -1567,7 +1515,7 @@ public class HyvalidityformulaLexer extends Lexer {
             }
 
 
-            // Hyvalidityformula.g:5801:54: ( '0' .. '9' )+
+            // Hyvalidityformula.g:4624:54: ( '0' .. '9' )+
             int cnt23=0;
             loop23:
             do {
@@ -1606,7 +1554,7 @@ public class HyvalidityformulaLexer extends Lexer {
             } while (true);
 
 
-            // Hyvalidityformula.g:5801:66: ( 'T' ( '-' )? ( '0' .. '9' )+ ':' ( '-' )? ( '0' .. '9' )+ ( ':' ( '-' )? ( '0' .. '9' )+ )? )?
+            // Hyvalidityformula.g:4624:66: ( 'T' ( '-' )? ( '0' .. '9' )+ ':' ( '-' )? ( '0' .. '9' )+ ( ':' ( '-' )? ( '0' .. '9' )+ )? )?
             int alt31=2;
             int LA31_0 = input.LA(1);
 
@@ -1615,11 +1563,11 @@ public class HyvalidityformulaLexer extends Lexer {
             }
             switch (alt31) {
                 case 1 :
-                    // Hyvalidityformula.g:5801:68: 'T' ( '-' )? ( '0' .. '9' )+ ':' ( '-' )? ( '0' .. '9' )+ ( ':' ( '-' )? ( '0' .. '9' )+ )?
+                    // Hyvalidityformula.g:4624:68: 'T' ( '-' )? ( '0' .. '9' )+ ':' ( '-' )? ( '0' .. '9' )+ ( ':' ( '-' )? ( '0' .. '9' )+ )?
                     {
                     match('T'); 
 
-                    // Hyvalidityformula.g:5801:71: ( '-' )?
+                    // Hyvalidityformula.g:4624:71: ( '-' )?
                     int alt24=2;
                     int LA24_0 = input.LA(1);
 
@@ -1628,7 +1576,7 @@ public class HyvalidityformulaLexer extends Lexer {
                     }
                     switch (alt24) {
                         case 1 :
-                            // Hyvalidityformula.g:5801:72: '-'
+                            // Hyvalidityformula.g:4624:72: '-'
                             {
                             match('-'); 
 
@@ -1638,7 +1586,7 @@ public class HyvalidityformulaLexer extends Lexer {
                     }
 
 
-                    // Hyvalidityformula.g:5801:78: ( '0' .. '9' )+
+                    // Hyvalidityformula.g:4624:78: ( '0' .. '9' )+
                     int cnt25=0;
                     loop25:
                     do {
@@ -1679,7 +1627,7 @@ public class HyvalidityformulaLexer extends Lexer {
 
                     match(':'); 
 
-                    // Hyvalidityformula.g:5801:93: ( '-' )?
+                    // Hyvalidityformula.g:4624:93: ( '-' )?
                     int alt26=2;
                     int LA26_0 = input.LA(1);
 
@@ -1688,7 +1636,7 @@ public class HyvalidityformulaLexer extends Lexer {
                     }
                     switch (alt26) {
                         case 1 :
-                            // Hyvalidityformula.g:5801:94: '-'
+                            // Hyvalidityformula.g:4624:94: '-'
                             {
                             match('-'); 
 
@@ -1698,7 +1646,7 @@ public class HyvalidityformulaLexer extends Lexer {
                     }
 
 
-                    // Hyvalidityformula.g:5801:100: ( '0' .. '9' )+
+                    // Hyvalidityformula.g:4624:100: ( '0' .. '9' )+
                     int cnt27=0;
                     loop27:
                     do {
@@ -1737,7 +1685,7 @@ public class HyvalidityformulaLexer extends Lexer {
                     } while (true);
 
 
-                    // Hyvalidityformula.g:5801:112: ( ':' ( '-' )? ( '0' .. '9' )+ )?
+                    // Hyvalidityformula.g:4624:112: ( ':' ( '-' )? ( '0' .. '9' )+ )?
                     int alt30=2;
                     int LA30_0 = input.LA(1);
 
@@ -1746,11 +1694,11 @@ public class HyvalidityformulaLexer extends Lexer {
                     }
                     switch (alt30) {
                         case 1 :
-                            // Hyvalidityformula.g:5801:113: ':' ( '-' )? ( '0' .. '9' )+
+                            // Hyvalidityformula.g:4624:113: ':' ( '-' )? ( '0' .. '9' )+
                             {
                             match(':'); 
 
-                            // Hyvalidityformula.g:5801:117: ( '-' )?
+                            // Hyvalidityformula.g:4624:117: ( '-' )?
                             int alt28=2;
                             int LA28_0 = input.LA(1);
 
@@ -1759,7 +1707,7 @@ public class HyvalidityformulaLexer extends Lexer {
                             }
                             switch (alt28) {
                                 case 1 :
-                                    // Hyvalidityformula.g:5801:118: '-'
+                                    // Hyvalidityformula.g:4624:118: '-'
                                     {
                                     match('-'); 
 
@@ -1769,7 +1717,7 @@ public class HyvalidityformulaLexer extends Lexer {
                             }
 
 
-                            // Hyvalidityformula.g:5801:124: ( '0' .. '9' )+
+                            // Hyvalidityformula.g:4624:124: ( '0' .. '9' )+
                             int cnt29=0;
                             loop29:
                             do {
@@ -1842,13 +1790,13 @@ public class HyvalidityformulaLexer extends Lexer {
         try {
             int _type = INTEGER_LITERAL;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // Hyvalidityformula.g:5803:16: ( ( ( '-' )? ( '0' .. '9' )+ ) )
-            // Hyvalidityformula.g:5804:2: ( ( '-' )? ( '0' .. '9' )+ )
+            // Hyvalidityformula.g:4626:16: ( ( ( '-' )? ( '0' .. '9' )+ ) )
+            // Hyvalidityformula.g:4627:2: ( ( '-' )? ( '0' .. '9' )+ )
             {
-            // Hyvalidityformula.g:5804:2: ( ( '-' )? ( '0' .. '9' )+ )
-            // Hyvalidityformula.g:5804:2: ( '-' )? ( '0' .. '9' )+
+            // Hyvalidityformula.g:4627:2: ( ( '-' )? ( '0' .. '9' )+ )
+            // Hyvalidityformula.g:4627:2: ( '-' )? ( '0' .. '9' )+
             {
-            // Hyvalidityformula.g:5804:2: ( '-' )?
+            // Hyvalidityformula.g:4627:2: ( '-' )?
             int alt32=2;
             int LA32_0 = input.LA(1);
 
@@ -1857,7 +1805,7 @@ public class HyvalidityformulaLexer extends Lexer {
             }
             switch (alt32) {
                 case 1 :
-                    // Hyvalidityformula.g:5804:3: '-'
+                    // Hyvalidityformula.g:4627:3: '-'
                     {
                     match('-'); 
 
@@ -1867,7 +1815,7 @@ public class HyvalidityformulaLexer extends Lexer {
             }
 
 
-            // Hyvalidityformula.g:5804:9: ( '0' .. '9' )+
+            // Hyvalidityformula.g:4627:9: ( '0' .. '9' )+
             int cnt33=0;
             loop33:
             do {
@@ -1925,17 +1873,17 @@ public class HyvalidityformulaLexer extends Lexer {
         try {
             int _type = SL_COMMENT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // Hyvalidityformula.g:5806:11: ( ( '//' (~ ( '\\n' | '\\r' | '\\uffff' ) )* ) )
-            // Hyvalidityformula.g:5807:2: ( '//' (~ ( '\\n' | '\\r' | '\\uffff' ) )* )
+            // Hyvalidityformula.g:4629:11: ( ( '//' (~ ( '\\n' | '\\r' | '\\uffff' ) )* ) )
+            // Hyvalidityformula.g:4630:2: ( '//' (~ ( '\\n' | '\\r' | '\\uffff' ) )* )
             {
-            // Hyvalidityformula.g:5807:2: ( '//' (~ ( '\\n' | '\\r' | '\\uffff' ) )* )
-            // Hyvalidityformula.g:5807:2: '//' (~ ( '\\n' | '\\r' | '\\uffff' ) )*
+            // Hyvalidityformula.g:4630:2: ( '//' (~ ( '\\n' | '\\r' | '\\uffff' ) )* )
+            // Hyvalidityformula.g:4630:2: '//' (~ ( '\\n' | '\\r' | '\\uffff' ) )*
             {
             match("//"); 
 
 
 
-            // Hyvalidityformula.g:5807:6: (~ ( '\\n' | '\\r' | '\\uffff' ) )*
+            // Hyvalidityformula.g:4630:6: (~ ( '\\n' | '\\r' | '\\uffff' ) )*
             loop34:
             do {
                 int alt34=2;
@@ -1990,17 +1938,17 @@ public class HyvalidityformulaLexer extends Lexer {
         try {
             int _type = ML_COMMENT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // Hyvalidityformula.g:5810:11: ( ( '/*' ( . )* '*/' ) )
-            // Hyvalidityformula.g:5811:2: ( '/*' ( . )* '*/' )
+            // Hyvalidityformula.g:4633:11: ( ( '/*' ( . )* '*/' ) )
+            // Hyvalidityformula.g:4634:2: ( '/*' ( . )* '*/' )
             {
-            // Hyvalidityformula.g:5811:2: ( '/*' ( . )* '*/' )
-            // Hyvalidityformula.g:5811:2: '/*' ( . )* '*/'
+            // Hyvalidityformula.g:4634:2: ( '/*' ( . )* '*/' )
+            // Hyvalidityformula.g:4634:2: '/*' ( . )* '*/'
             {
             match("/*"); 
 
 
 
-            // Hyvalidityformula.g:5811:6: ( . )*
+            // Hyvalidityformula.g:4634:6: ( . )*
             loop35:
             do {
                 int alt35=2;
@@ -2025,7 +1973,7 @@ public class HyvalidityformulaLexer extends Lexer {
 
                 switch (alt35) {
             	case 1 :
-            	    // Hyvalidityformula.g:5811:6: .
+            	    // Hyvalidityformula.g:4634:6: .
             	    {
             	    matchAny(); 
 
@@ -2063,13 +2011,13 @@ public class HyvalidityformulaLexer extends Lexer {
         try {
             int _type = LINEBREAK;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // Hyvalidityformula.g:5814:10: ( ( ( '\\r\\n' | '\\r' | '\\n' ) ) )
-            // Hyvalidityformula.g:5815:2: ( ( '\\r\\n' | '\\r' | '\\n' ) )
+            // Hyvalidityformula.g:4637:10: ( ( ( '\\r\\n' | '\\r' | '\\n' ) ) )
+            // Hyvalidityformula.g:4638:2: ( ( '\\r\\n' | '\\r' | '\\n' ) )
             {
-            // Hyvalidityformula.g:5815:2: ( ( '\\r\\n' | '\\r' | '\\n' ) )
-            // Hyvalidityformula.g:5815:2: ( '\\r\\n' | '\\r' | '\\n' )
+            // Hyvalidityformula.g:4638:2: ( ( '\\r\\n' | '\\r' | '\\n' ) )
+            // Hyvalidityformula.g:4638:2: ( '\\r\\n' | '\\r' | '\\n' )
             {
-            // Hyvalidityformula.g:5815:2: ( '\\r\\n' | '\\r' | '\\n' )
+            // Hyvalidityformula.g:4638:2: ( '\\r\\n' | '\\r' | '\\n' )
             int alt36=3;
             int LA36_0 = input.LA(1);
 
@@ -2095,7 +2043,7 @@ public class HyvalidityformulaLexer extends Lexer {
             }
             switch (alt36) {
                 case 1 :
-                    // Hyvalidityformula.g:5815:3: '\\r\\n'
+                    // Hyvalidityformula.g:4638:3: '\\r\\n'
                     {
                     match("\r\n"); 
 
@@ -2104,14 +2052,14 @@ public class HyvalidityformulaLexer extends Lexer {
                     }
                     break;
                 case 2 :
-                    // Hyvalidityformula.g:5815:10: '\\r'
+                    // Hyvalidityformula.g:4638:10: '\\r'
                     {
                     match('\r'); 
 
                     }
                     break;
                 case 3 :
-                    // Hyvalidityformula.g:5815:15: '\\n'
+                    // Hyvalidityformula.g:4638:15: '\\n'
                     {
                     match('\n'); 
 
@@ -2142,8 +2090,8 @@ public class HyvalidityformulaLexer extends Lexer {
         try {
             int _type = WHITESPACE;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // Hyvalidityformula.g:5818:11: ( ( ( ' ' | '\\t' | '\\f' ) ) )
-            // Hyvalidityformula.g:5819:2: ( ( ' ' | '\\t' | '\\f' ) )
+            // Hyvalidityformula.g:4641:11: ( ( ( ' ' | '\\t' | '\\f' ) ) )
+            // Hyvalidityformula.g:4642:2: ( ( ' ' | '\\t' | '\\f' ) )
             {
             if ( input.LA(1)=='\t'||input.LA(1)=='\f'||input.LA(1)==' ' ) {
                 input.consume();
@@ -2169,8 +2117,8 @@ public class HyvalidityformulaLexer extends Lexer {
     // $ANTLR end "WHITESPACE"
 
     public void mTokens() throws RecognitionException {
-        // Hyvalidityformula.g:1:8: ( T__12 | T__13 | T__14 | T__15 | T__16 | T__17 | T__18 | T__19 | T__20 | T__21 | T__22 | T__23 | T__24 | T__25 | T__26 | T__27 | T__28 | T__29 | T__30 | T__31 | T__32 | T__33 | T__34 | T__35 | T__36 | T__37 | T__38 | T__39 | T__40 | T__41 | T__42 | T__43 | T__44 | T__45 | T__46 | QUOTED_34_34 | IDENTIFIER_TOKEN | DATE | INTEGER_LITERAL | SL_COMMENT | ML_COMMENT | LINEBREAK | WHITESPACE )
-        int alt37=43;
+        // Hyvalidityformula.g:1:8: ( T__12 | T__13 | T__14 | T__15 | T__16 | T__17 | T__18 | T__19 | T__20 | T__21 | T__22 | T__23 | T__24 | T__25 | T__26 | T__27 | T__28 | T__29 | T__30 | T__31 | T__32 | T__33 | T__34 | T__35 | T__36 | T__37 | T__38 | T__39 | T__40 | T__41 | T__42 | T__43 | T__44 | QUOTED_34_34 | IDENTIFIER_TOKEN | DATE | INTEGER_LITERAL | SL_COMMENT | ML_COMMENT | LINEBREAK | WHITESPACE )
+        int alt37=41;
         alt37 = dfa37.predict(input);
         switch (alt37) {
             case 1 :
@@ -2438,79 +2386,63 @@ public class HyvalidityformulaLexer extends Lexer {
                 }
                 break;
             case 34 :
-                // Hyvalidityformula.g:1:208: T__45
-                {
-                mT__45(); 
-
-
-                }
-                break;
-            case 35 :
-                // Hyvalidityformula.g:1:214: T__46
-                {
-                mT__46(); 
-
-
-                }
-                break;
-            case 36 :
-                // Hyvalidityformula.g:1:220: QUOTED_34_34
+                // Hyvalidityformula.g:1:208: QUOTED_34_34
                 {
                 mQUOTED_34_34(); 
 
 
                 }
                 break;
-            case 37 :
-                // Hyvalidityformula.g:1:233: IDENTIFIER_TOKEN
+            case 35 :
+                // Hyvalidityformula.g:1:221: IDENTIFIER_TOKEN
                 {
                 mIDENTIFIER_TOKEN(); 
 
 
                 }
                 break;
-            case 38 :
-                // Hyvalidityformula.g:1:250: DATE
+            case 36 :
+                // Hyvalidityformula.g:1:238: DATE
                 {
                 mDATE(); 
 
 
                 }
                 break;
-            case 39 :
-                // Hyvalidityformula.g:1:255: INTEGER_LITERAL
+            case 37 :
+                // Hyvalidityformula.g:1:243: INTEGER_LITERAL
                 {
                 mINTEGER_LITERAL(); 
 
 
                 }
                 break;
-            case 40 :
-                // Hyvalidityformula.g:1:271: SL_COMMENT
+            case 38 :
+                // Hyvalidityformula.g:1:259: SL_COMMENT
                 {
                 mSL_COMMENT(); 
 
 
                 }
                 break;
-            case 41 :
-                // Hyvalidityformula.g:1:282: ML_COMMENT
+            case 39 :
+                // Hyvalidityformula.g:1:270: ML_COMMENT
                 {
                 mML_COMMENT(); 
 
 
                 }
                 break;
-            case 42 :
-                // Hyvalidityformula.g:1:293: LINEBREAK
+            case 40 :
+                // Hyvalidityformula.g:1:281: LINEBREAK
                 {
                 mLINEBREAK(); 
 
 
                 }
                 break;
-            case 43 :
-                // Hyvalidityformula.g:1:303: WHITESPACE
+            case 41 :
+                // Hyvalidityformula.g:1:291: WHITESPACE
                 {
                 mWHITESPACE(); 
 
@@ -2525,87 +2457,86 @@ public class HyvalidityformulaLexer extends Lexer {
 
     protected DFA37 dfa37 = new DFA37(this);
     static final String DFA37_eotS =
-        "\1\uffff\1\42\6\uffff\1\44\1\uffff\1\47\1\uffff\1\52\1\uffff\1\54"+
-        "\1\uffff\1\35\4\uffff\6\35\3\uffff\1\67\16\uffff\11\35\2\uffff\17"+
-        "\35\2\uffff\1\121\1\uffff\2\35\1\uffff\1\35\1\125\1\35\1\uffff\3"+
-        "\35\1\uffff\6\35\1\uffff\1\140\2\35\1\uffff\4\35\2\uffff";
+        "\1\uffff\1\41\6\uffff\1\43\1\uffff\1\46\1\uffff\1\51\1\uffff\1\53"+
+        "\1\uffff\1\34\4\uffff\3\34\5\uffff\1\62\16\uffff\5\34\2\uffff\11"+
+        "\34\1\102\1\uffff\1\34\1\uffff\1\34\1\105\1\uffff\2\34\1\uffff\3"+
+        "\34\1\113\1\34\1\uffff\2\34\1\uffff";
     static final String DFA37_eofS =
-        "\147\uffff";
+        "\117\uffff";
     static final String DFA37_minS =
         "\1\11\1\75\6\uffff\1\60\1\uffff\1\52\1\uffff\1\55\1\uffff\1\75\1"+
-        "\uffff\1\156\4\uffff\1\157\1\156\1\141\1\146\1\141\1\162\3\uffff"+
-        "\1\57\16\uffff\1\165\1\156\1\165\1\145\1\154\1\120\1\170\1\156\1"+
-        "\165\2\uffff\1\155\1\164\1\155\1\162\1\163\1\157\2\50\1\145\1\50"+
-        "\1\145\1\72\1\156\1\145\1\163\2\uffff\1\60\1\uffff\1\151\1\170\1"+
-        "\uffff\1\151\1\60\1\163\1\uffff\3\164\1\uffff\1\151\1\145\1\72\1"+
-        "\171\1\142\1\162\1\uffff\1\60\1\154\1\141\1\uffff\1\145\1\154\2"+
-        "\50\2\uffff";
+        "\uffff\1\156\4\uffff\1\156\1\141\1\162\5\uffff\1\57\16\uffff\2\165"+
+        "\1\145\1\154\1\165\2\uffff\2\155\1\162\1\163\1\145\1\50\1\72\1\156"+
+        "\1\145\1\60\1\uffff\1\151\1\uffff\1\151\1\60\1\uffff\2\164\1\uffff"+
+        "\1\145\1\171\1\162\1\60\1\141\1\uffff\1\154\1\50\1\uffff";
     static final String DFA37_maxS =
-        "\1\174\1\75\6\uffff\1\76\1\uffff\1\57\1\uffff\1\75\1\uffff\1\75"+
-        "\1\uffff\1\156\4\uffff\1\157\1\164\1\141\1\146\1\151\1\162\3\uffff"+
-        "\1\71\16\uffff\1\165\1\156\1\165\1\145\1\154\1\120\1\170\1\156\1"+
-        "\165\2\uffff\1\155\1\164\1\155\1\162\1\163\1\157\2\50\1\145\1\114"+
-        "\1\145\1\72\1\156\1\145\1\163\2\uffff\1\172\1\uffff\1\151\1\170"+
-        "\1\uffff\1\151\1\172\1\163\1\uffff\3\164\1\uffff\1\151\1\145\1\72"+
-        "\1\171\1\142\1\162\1\uffff\1\172\1\154\1\141\1\uffff\1\145\1\154"+
-        "\2\50\2\uffff";
+        "\1\175\1\75\6\uffff\1\76\1\uffff\1\57\1\uffff\1\75\1\uffff\1\75"+
+        "\1\uffff\1\156\4\uffff\1\164\1\141\1\162\5\uffff\1\71\16\uffff\2"+
+        "\165\1\145\1\154\1\165\2\uffff\2\155\1\162\1\163\1\145\1\114\1\72"+
+        "\1\156\1\145\1\172\1\uffff\1\151\1\uffff\1\151\1\172\1\uffff\2\164"+
+        "\1\uffff\1\145\1\171\1\162\1\172\1\141\1\uffff\1\154\1\50\1\uffff";
     static final String DFA37_acceptS =
         "\2\uffff\1\3\1\4\1\5\1\6\1\7\1\10\1\uffff\1\13\1\uffff\1\15\1\uffff"+
-        "\1\21\1\uffff\1\24\1\uffff\1\27\1\30\1\31\1\32\6\uffff\1\43\1\44"+
-        "\1\45\1\uffff\1\52\1\53\1\2\1\1\1\12\1\11\1\50\1\51\1\14\1\17\1"+
-        "\20\1\16\1\23\1\22\11\uffff\1\46\1\47\17\uffff\1\40\1\41\1\uffff"+
-        "\1\25\2\uffff\1\34\3\uffff\1\42\3\uffff\1\36\6\uffff\1\33\3\uffff"+
-        "\1\35\4\uffff\1\37\1\26";
+        "\1\21\1\uffff\1\24\1\uffff\1\27\1\30\1\31\1\32\3\uffff\1\37\1\40"+
+        "\1\41\1\42\1\43\1\uffff\1\50\1\51\1\2\1\1\1\12\1\11\1\46\1\47\1"+
+        "\14\1\17\1\20\1\16\1\23\1\22\5\uffff\1\44\1\45\12\uffff\1\25\1\uffff"+
+        "\1\33\2\uffff\1\36\2\uffff\1\35\5\uffff\1\34\2\uffff\1\26";
     static final String DFA37_specialS =
-        "\147\uffff}>";
+        "\117\uffff}>";
     static final String[] DFA37_transitionS = {
-            "\1\40\1\37\1\uffff\1\40\1\37\22\uffff\1\40\1\1\1\34\2\uffff"+
-            "\1\22\1\2\1\uffff\1\3\1\4\1\5\1\6\1\7\1\10\1\11\1\12\12\36\1"+
-            "\13\1\uffff\1\14\1\15\1\16\1\17\1\uffff\4\35\1\20\25\35\1\21"+
-            "\1\uffff\1\23\1\24\1\35\1\uffff\2\35\1\25\1\35\1\26\1\27\2\35"+
-            "\1\30\3\35\1\31\6\35\1\32\6\35\1\uffff\1\33",
-            "\1\41",
+            "\1\37\1\36\1\uffff\1\37\1\36\22\uffff\1\37\1\1\1\33\2\uffff"+
+            "\1\22\1\2\1\uffff\1\3\1\4\1\5\1\6\1\7\1\10\1\11\1\12\12\35\1"+
+            "\13\1\uffff\1\14\1\15\1\16\1\17\1\uffff\4\34\1\20\25\34\1\21"+
+            "\1\uffff\1\23\1\24\1\34\1\uffff\4\34\1\25\1\26\15\34\1\27\6"+
+            "\34\1\30\1\31\1\32",
+            "\1\40",
             "",
             "",
             "",
             "",
             "",
             "",
-            "\12\36\4\uffff\1\43",
+            "\12\35\4\uffff\1\42",
             "",
-            "\1\46\4\uffff\1\45",
+            "\1\45\4\uffff\1\44",
             "",
-            "\1\50\17\uffff\1\51",
+            "\1\47\17\uffff\1\50",
             "",
-            "\1\53",
+            "\1\52",
             "",
-            "\1\55",
-            "",
-            "",
+            "\1\54",
             "",
             "",
-            "\1\56",
-            "\1\57\5\uffff\1\60",
-            "\1\61",
-            "\1\62",
-            "\1\63\7\uffff\1\64",
+            "",
+            "",
+            "\1\55\5\uffff\1\56",
+            "\1\57",
+            "\1\60",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "\1\61\12\35",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "\1\63",
+            "\1\64",
             "\1\65",
-            "",
-            "",
-            "",
-            "\1\66\12\36",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
+            "\1\66",
+            "\1\67",
             "",
             "",
             "\1\70",
@@ -2613,58 +2544,28 @@ public class HyvalidityformulaLexer extends Lexer {
             "\1\72",
             "\1\73",
             "\1\74",
-            "\1\75",
-            "\1\76",
+            "\1\75\43\uffff\1\76",
             "\1\77",
             "\1\100",
-            "",
-            "",
             "\1\101",
-            "\1\102",
+            "\12\34\6\uffff\33\34\4\uffff\1\34\1\uffff\32\34",
+            "",
             "\1\103",
+            "",
             "\1\104",
-            "\1\105",
+            "\12\34\6\uffff\33\34\4\uffff\1\34\1\uffff\32\34",
+            "",
             "\1\106",
             "\1\107",
+            "",
             "\1\110",
             "\1\111",
-            "\1\112\43\uffff\1\113",
+            "\1\112",
+            "\12\34\6\uffff\33\34\4\uffff\1\34\1\uffff\32\34",
             "\1\114",
+            "",
             "\1\115",
             "\1\116",
-            "\1\117",
-            "\1\120",
-            "",
-            "",
-            "\12\35\6\uffff\33\35\4\uffff\1\35\1\uffff\32\35",
-            "",
-            "\1\122",
-            "\1\123",
-            "",
-            "\1\124",
-            "\12\35\6\uffff\33\35\4\uffff\1\35\1\uffff\32\35",
-            "\1\126",
-            "",
-            "\1\127",
-            "\1\130",
-            "\1\131",
-            "",
-            "\1\132",
-            "\1\133",
-            "\1\134",
-            "\1\135",
-            "\1\136",
-            "\1\137",
-            "",
-            "\12\35\6\uffff\33\35\4\uffff\1\35\1\uffff\32\35",
-            "\1\141",
-            "\1\142",
-            "",
-            "\1\143",
-            "\1\144",
-            "\1\145",
-            "\1\146",
-            "",
             ""
     };
 
@@ -2698,7 +2599,7 @@ public class HyvalidityformulaLexer extends Lexer {
             this.transition = DFA37_transition;
         }
         public String getDescription() {
-            return "1:1: Tokens : ( T__12 | T__13 | T__14 | T__15 | T__16 | T__17 | T__18 | T__19 | T__20 | T__21 | T__22 | T__23 | T__24 | T__25 | T__26 | T__27 | T__28 | T__29 | T__30 | T__31 | T__32 | T__33 | T__34 | T__35 | T__36 | T__37 | T__38 | T__39 | T__40 | T__41 | T__42 | T__43 | T__44 | T__45 | T__46 | QUOTED_34_34 | IDENTIFIER_TOKEN | DATE | INTEGER_LITERAL | SL_COMMENT | ML_COMMENT | LINEBREAK | WHITESPACE );";
+            return "1:1: Tokens : ( T__12 | T__13 | T__14 | T__15 | T__16 | T__17 | T__18 | T__19 | T__20 | T__21 | T__22 | T__23 | T__24 | T__25 | T__26 | T__27 | T__28 | T__29 | T__30 | T__31 | T__32 | T__33 | T__34 | T__35 | T__36 | T__37 | T__38 | T__39 | T__40 | T__41 | T__42 | T__43 | T__44 | QUOTED_34_34 | IDENTIFIER_TOKEN | DATE | INTEGER_LITERAL | SL_COMMENT | ML_COMMENT | LINEBREAK | WHITESPACE );";
         }
     }
  

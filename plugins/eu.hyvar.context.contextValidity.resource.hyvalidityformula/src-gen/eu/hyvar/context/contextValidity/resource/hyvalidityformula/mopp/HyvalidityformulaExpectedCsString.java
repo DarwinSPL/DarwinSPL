@@ -29,7 +29,7 @@ public class HyvalidityformulaExpectedCsString extends eu.hyvar.context.contextV
 	/**
 	 * Returns the expected keyword.
 	 */
-	public eu.hyvar.context.contextValidity.resource.hyvalidityformula.grammar.HyvalidityformulaSyntaxElement getSymtaxElement() {
+	public eu.hyvar.context.contextValidity.resource.hyvalidityformula.grammar.HyvalidityformulaSyntaxElement getSyntaxElement() {
 		return keyword;
 	}
 	

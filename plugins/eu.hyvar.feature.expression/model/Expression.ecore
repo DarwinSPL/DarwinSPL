@@ -21,7 +21,7 @@
         upperBound="-1" eType="#//HyExpression" containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="HyAbstractFeatureReferenceExpression"
-      abstract="true" eSuperTypes="#//HyAtomicExpression #//HyArithmeticalValueAtomicExpression">
+      abstract="true" eSuperTypes="#//HyAtomicExpression">
     <eStructuralFeatures xsi:type="ecore:EReference" name="versionRestriction" eType="#//HyVersionRestriction"
         containment="true" eOpposite="#//HyVersionRestriction/restrictedFeatureReferenceExpression"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="feature" lowerBound="1"
@@ -71,20 +71,22 @@
   <eClassifiers xsi:type="ecore:EClass" name="HyImpliesExpression" eSuperTypes="#//HyBinaryExpression"/>
   <eClassifiers xsi:type="ecore:EClass" name="HyIfPossibleExpression" eSuperTypes="#//HySetExpression"/>
   <eClassifiers xsi:type="ecore:EClass" name="HyArithmeticalComparisonExpression"
-      abstract="true" eSuperTypes="#//HyAtomicExpression"/>
-  <eClassifiers xsi:type="ecore:EClass" name="HyBinaryArithmeticalComparisonExpression"
-      abstract="true" eSuperTypes="#//HyArithmeticalComparisonExpression">
+      eSuperTypes="#//HyAtomicExpression">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="operator" lowerBound="1"
+        eType="#//HyArithmeticalComparisonOperator"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="operand1" lowerBound="1"
         eType="#//HyArithmeticalValueExpression" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="operand2" lowerBound="1"
         eType="#//HyArithmeticalValueExpression" containment="true"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="HyGreaterExpression" eSuperTypes="#//HyBinaryArithmeticalComparisonExpression"/>
-  <eClassifiers xsi:type="ecore:EClass" name="HyLessExpression" eSuperTypes="#//HyBinaryArithmeticalComparisonExpression"/>
-  <eClassifiers xsi:type="ecore:EClass" name="HyGreaterOrEqualExpression" eSuperTypes="#//HyBinaryArithmeticalComparisonExpression"/>
-  <eClassifiers xsi:type="ecore:EClass" name="HyLessOrEqualExpression" eSuperTypes="#//HyBinaryArithmeticalComparisonExpression"/>
-  <eClassifiers xsi:type="ecore:EClass" name="HyEqualExpression" eSuperTypes="#//HyBinaryArithmeticalComparisonExpression"/>
-  <eClassifiers xsi:type="ecore:EClass" name="HyNotEqualExpression" eSuperTypes="#//HyBinaryArithmeticalComparisonExpression"/>
+  <eClassifiers xsi:type="ecore:EEnum" name="HyArithmeticalComparisonOperator">
+    <eLiterals name="HyEqualOperator"/>
+    <eLiterals name="HyNotEqualOperator" value="1"/>
+    <eLiterals name="HyGreaterOperator" value="2" literal="HyGreaterOperator"/>
+    <eLiterals name="HyGreaterOrEqualOperator" value="3"/>
+    <eLiterals name="HyLessOperator" value="4"/>
+    <eLiterals name="HyLessOrEqualOperator" value="5"/>
+  </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="HyArithmeticalValueExpression" abstract="true"/>
   <eClassifiers xsi:type="ecore:EClass" name="HyArithmeticalValueBinaryOperationExpression"
       abstract="true" eSuperTypes="#//HyArithmeticalValueExpression">

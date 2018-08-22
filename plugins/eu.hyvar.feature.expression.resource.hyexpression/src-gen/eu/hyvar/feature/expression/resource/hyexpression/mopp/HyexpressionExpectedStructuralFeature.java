@@ -30,7 +30,7 @@ public class HyexpressionExpectedStructuralFeature extends eu.hyvar.feature.expr
 	/**
 	 * Returns the expected placeholder.
 	 */
-	public eu.hyvar.feature.expression.resource.hyexpression.grammar.HyexpressionSyntaxElement getSymtaxElement() {
+	public eu.hyvar.feature.expression.resource.hyexpression.grammar.HyexpressionSyntaxElement getSyntaxElement() {
 		return placeholder;
 	}
 	

@@ -18,27 +18,27 @@ import eu.hyvar.feature.HyVersion;
 import eu.hyvar.feature.expression.HyAbstractFeatureReferenceExpression;
 import eu.hyvar.feature.expression.HyAdditionExpression;
 import eu.hyvar.feature.expression.HyAndExpression;
+import eu.hyvar.feature.expression.HyArithmeticalComparisonExpression;
+import eu.hyvar.feature.expression.HyArithmeticalValueAtomicExpression;
+import eu.hyvar.feature.expression.HyArithmeticalValueBinaryOperationExpression;
+import eu.hyvar.feature.expression.HyArithmeticalValueExpression;
+import eu.hyvar.feature.expression.HyArithmeticalValueUnaryOperationExpression;
 import eu.hyvar.feature.expression.HyAtomicExpression;
 import eu.hyvar.feature.expression.HyAttributeReferenceExpression;
 import eu.hyvar.feature.expression.HyBinaryExpression;
 import eu.hyvar.feature.expression.HyConditionalFeatureReferenceExpression;
 import eu.hyvar.feature.expression.HyContextInformationReferenceExpression;
 import eu.hyvar.feature.expression.HyDivisionExpression;
-import eu.hyvar.feature.expression.HyEqualExpression;
 import eu.hyvar.feature.expression.HyEquivalenceExpression;
 import eu.hyvar.feature.expression.HyExpression;
-import eu.hyvar.feature.expression.HyGreaterExpression;
-import eu.hyvar.feature.expression.HyGreaterOrEqualExpression;
 import eu.hyvar.feature.expression.HyImpliesExpression;
-import eu.hyvar.feature.expression.HyLessExpression;
-import eu.hyvar.feature.expression.HyLessOrEqualExpression;
 import eu.hyvar.feature.expression.HyMaximumExpression;
 import eu.hyvar.feature.expression.HyMinimumExpression;
 import eu.hyvar.feature.expression.HyModuloExpression;
 import eu.hyvar.feature.expression.HyMultiplicationExpression;
 import eu.hyvar.feature.expression.HyNegationExpression;
+import eu.hyvar.feature.expression.HyNestedArithmeticalValueExpression;
 import eu.hyvar.feature.expression.HyNestedExpression;
-import eu.hyvar.feature.expression.HyNotEqualExpression;
 import eu.hyvar.feature.expression.HyNotExpression;
 import eu.hyvar.feature.expression.HyOrExpression;
 import eu.hyvar.feature.expression.HyRelativeVersionRestriction;
@@ -208,33 +208,7 @@ public class DwExpressionExporter {
 				binaryString.append(HyVarRecExporter.EQUIVALENCE);
 			} else if (binaryExpression instanceof HyImpliesExpression) {
 				binaryString.append(HyVarRecExporter.IMPLICATION);
-			} else if (binaryExpression instanceof HyGreaterExpression) {
-				binaryString.append(HyVarRecExporter.GREATER);
-			} else if (binaryExpression instanceof HyLessExpression) {
-				binaryString.append(HyVarRecExporter.LESS);
-			} else if (binaryExpression instanceof HyLessOrEqualExpression) {
-				binaryString.append(HyVarRecExporter.LEQ);
-			} else if (binaryExpression instanceof HyGreaterOrEqualExpression) {
-				binaryString.append(HyVarRecExporter.GEQ);
-			} else if (binaryExpression instanceof HyEqualExpression) {
-				binaryString.append(HyVarRecExporter.EQUALS);
-			} else if (binaryExpression instanceof HyNotEqualExpression) {
-				binaryString.append(HyVarRecExporter.NOT_EQUALS);
-			} else if (binaryExpression instanceof HyAdditionExpression) {
-				binaryString.append(HyVarRecExporter.ADDITION);
-			} else if (binaryExpression instanceof HySubtractionExpression) {
-				binaryString.append(HyVarRecExporter.SUBTRACTION);
-			} else if (binaryExpression instanceof HyMultiplicationExpression) {
-				binaryString.append(HyVarRecExporter.MULTIPLICATION);
-			} else if (binaryExpression instanceof HyDivisionExpression) {
-				binaryString.append(HyVarRecExporter.WHITESPACE);
-				binaryString.append("Division is not yet supported!");
-				binaryString.append(HyVarRecExporter.WHITESPACE);
-			} else if (binaryExpression instanceof HyModuloExpression) {
-				binaryString.append(HyVarRecExporter.WHITESPACE);
-				binaryString.append("Modulo is not yet supported!");
-				binaryString.append(HyVarRecExporter.WHITESPACE);
-			}
+			} 
 			// binaryString.append(" ");
 
 			binaryString.append(handleExpression(binaryExpression.getOperand2(), false));
@@ -269,8 +243,6 @@ public class DwExpressionExporter {
 		} else if (unaryExpression instanceof HyNestedExpression) {
 			unaryString.append(HyVarRecExporter.BRACKETS_OPEN);
 			nested = true;
-		} else if (unaryExpression instanceof HyNegationExpression) {
-			unaryString.append(HyVarRecExporter.NEGATION);
 		} else if (unaryExpression instanceof HyMaximumExpression) {
 			maxOrMin = true;
 			unaryString.append(HyVarRecExporter.MAX);
@@ -279,7 +251,7 @@ public class DwExpressionExporter {
 			maxOrMin = true;
 			unaryString.append(HyVarRecExporter.MIN);
 			unaryString.append(HyVarRecExporter.BRACKETS_OPEN);
-		}
+		} 
 
 		// unaryString.append(" ");
 
@@ -331,21 +303,33 @@ public class DwExpressionExporter {
 				}
 			}
 
-		} else if (atomicExpression instanceof HyValueExpression) {
-			atomicString.append(handleValueExpression((HyValueExpression) atomicExpression));
-		} else if (atomicExpression instanceof HyAttributeReferenceExpression) {
-			HyAttributeReferenceExpression attributeReferenceExpression = (HyAttributeReferenceExpression) atomicExpression;
-			HyFeatureAttribute attribute = attributeReferenceExpression.getAttribute();
-			// HyFeature feature = attribute.getFeature();
+		}  else if (atomicExpression instanceof HyArithmeticalComparisonExpression) {
+			HyArithmeticalComparisonExpression arithmeticalComparisonExpression = (HyArithmeticalComparisonExpression) atomicExpression;
 
-			String attributeId = attributeIdMapping.get(attribute);
+			atomicString.append(handleArithmeticalValueExpression(arithmeticalComparisonExpression.getOperand1()));
 
-			atomicString.append(attributeId);
+			switch (arithmeticalComparisonExpression.getOperator()) {
+			case HY_EQUAL_OPERATOR:
+				atomicString.append(HyVarRecExporter.EQUALS);
+				break;
+			case HY_GREATER_OPERATOR:
+				atomicString.append(HyVarRecExporter.GREATER);
+				break;
+			case HY_GREATER_OR_EQUAL_OPERATOR:
+				atomicString.append(HyVarRecExporter.GEQ);
+				break;
+			case HY_LESS_OPERATOR:
+				atomicString.append(HyVarRecExporter.LESS);
+				break;
+			case HY_LESS_OR_EQUAL_OPERATOR:
+				atomicString.append(HyVarRecExporter.LEQ);
+				break;
+			case HY_NOT_EQUAL_OPERATOR:
+				atomicString.append(HyVarRecExporter.NOT_EQUALS);
+				break;
+			}
 
-		} else if (atomicExpression instanceof HyContextInformationReferenceExpression) {
-			String contextId = contextIdMapping
-					.get(((HyContextInformationReferenceExpression) atomicExpression).getContextInformation());
-			atomicString.append(contextId);
+			atomicString.append(handleArithmeticalValueExpression(arithmeticalComparisonExpression.getOperand2()));
 		}
 
 		return atomicString.toString();
@@ -489,5 +473,95 @@ public class DwExpressionExporter {
 		return versionRestrictionString.toString();
 	}
 
+
+
+	private String handleArithmeticalValueExpression(HyArithmeticalValueExpression arithmeticalValueExpression) {
+		StringBuilder arithmeticalString = new StringBuilder();
+		
+		if(arithmeticalValueExpression instanceof HyArithmeticalValueUnaryOperationExpression) {
+			arithmeticalString.append(handleArithmeticalValueUnaryOperationExpression((HyArithmeticalValueUnaryOperationExpression) arithmeticalValueExpression));
+		}
+		else if(arithmeticalValueExpression instanceof HyArithmeticalValueAtomicExpression) {
+			arithmeticalString.append(handleArithmeticalValueAtomicExpression((HyArithmeticalValueAtomicExpression) arithmeticalValueExpression));
+		}
+		else if(arithmeticalValueExpression instanceof HyArithmeticalValueBinaryOperationExpression) {
+			arithmeticalString.append(handleArithmeticalValueBinaryOperationExpression((HyArithmeticalValueBinaryOperationExpression) arithmeticalValueExpression));
+		}
+		
+		return arithmeticalString.toString();
+	}
+	
+	private String handleArithmeticalValueAtomicExpression(HyArithmeticalValueAtomicExpression arithmeticalAtomicExpression) {
+
+		StringBuilder arithmeticalString = new StringBuilder();
+		
+		if (arithmeticalAtomicExpression instanceof HyValueExpression) {
+			arithmeticalString.append(handleValueExpression((HyValueExpression) arithmeticalAtomicExpression));
+		} else if (arithmeticalAtomicExpression instanceof HyAttributeReferenceExpression) {
+			HyAttributeReferenceExpression attributeReferenceExpression = (HyAttributeReferenceExpression) arithmeticalAtomicExpression;
+			HyFeatureAttribute attribute = attributeReferenceExpression.getAttribute();
+			// HyFeature feature = attribute.getFeature();
+
+			String attributeId = attributeIdMapping.get(attribute);
+
+			arithmeticalString.append(attributeId);
+
+		} else if (arithmeticalAtomicExpression instanceof HyContextInformationReferenceExpression) {
+			String contextId = contextIdMapping
+					.get(((HyContextInformationReferenceExpression) arithmeticalAtomicExpression).getContextInformation());
+			arithmeticalString.append(contextId);
+		}
+		
+		return arithmeticalString.toString();
+	}
+	
+	private String handleArithmeticalValueUnaryOperationExpression(HyArithmeticalValueUnaryOperationExpression unaryArithmeticalOperation) {
+
+		StringBuilder arithmeticalString = new StringBuilder();
+		
+		if(unaryArithmeticalOperation instanceof HyNegationExpression) {
+			arithmeticalString.append(HyVarRecExporter.NEGATION);
+			arithmeticalString.append(HyVarRecExporter.BRACKETS_OPEN);
+			
+			arithmeticalString.append(handleArithmeticalValueExpression(unaryArithmeticalOperation.getOperand()));
+
+			arithmeticalString.append(HyVarRecExporter.BRACKETS_CLOSING);
+		}
+		else if(unaryArithmeticalOperation instanceof HyNestedArithmeticalValueExpression) {
+			arithmeticalString.append(HyVarRecExporter.BRACKETS_OPEN);
+			
+			arithmeticalString.append(handleArithmeticalValueExpression(unaryArithmeticalOperation.getOperand()));
+
+			arithmeticalString.append(HyVarRecExporter.BRACKETS_CLOSING);
+		}
+		
+		return arithmeticalString.toString();
+	}
+	
+	private String handleArithmeticalValueBinaryOperationExpression(HyArithmeticalValueBinaryOperationExpression arithmeticalValueBinaryOperationExpression) {
+		StringBuilder binaryString = new StringBuilder();
+		
+		binaryString.append(handleArithmeticalValueExpression(arithmeticalValueBinaryOperationExpression.getOperand1()));
+		
+		if (arithmeticalValueBinaryOperationExpression instanceof HyAdditionExpression) {
+			binaryString.append(HyVarRecExporter.ADDITION);
+		} else if (arithmeticalValueBinaryOperationExpression instanceof HySubtractionExpression) {
+			binaryString.append(HyVarRecExporter.SUBTRACTION);
+		} else if (arithmeticalValueBinaryOperationExpression instanceof HyMultiplicationExpression) {
+			binaryString.append(HyVarRecExporter.MULTIPLICATION);
+		} else if (arithmeticalValueBinaryOperationExpression instanceof HyDivisionExpression) {
+			binaryString.append(HyVarRecExporter.WHITESPACE);
+			binaryString.append("Division is not yet supported!");
+			binaryString.append(HyVarRecExporter.WHITESPACE);
+		} else if (arithmeticalValueBinaryOperationExpression instanceof HyModuloExpression) {
+			binaryString.append(HyVarRecExporter.WHITESPACE);
+			binaryString.append("Modulo is not yet supported!");
+			binaryString.append(HyVarRecExporter.WHITESPACE);
+		}
+		
+		binaryString.append(handleArithmeticalValueExpression(arithmeticalValueBinaryOperationExpression.getOperand2()));
+		
+		return binaryString.toString();
+	}
 	
 }

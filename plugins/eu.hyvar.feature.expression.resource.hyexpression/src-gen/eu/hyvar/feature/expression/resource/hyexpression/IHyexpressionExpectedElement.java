@@ -28,7 +28,7 @@ public interface IHyexpressionExpectedElement {
 	/**
 	 * Returns the syntax element that is expected.
 	 */
-	public eu.hyvar.feature.expression.resource.hyexpression.grammar.HyexpressionSyntaxElement getSymtaxElement();
+	public eu.hyvar.feature.expression.resource.hyexpression.grammar.HyexpressionSyntaxElement getSyntaxElement();
 	
 	/**
 	 * Adds an element that is a valid follower for this element.

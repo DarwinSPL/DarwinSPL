@@ -45,6 +45,17 @@ public abstract class HyconstraintsSyntaxElement {
 		return parent;
 	}
 	
+	/**
+	 * Returns the rule of this syntax element. The rule is determined by the
+	 * containment hierarchy in the CS model.
+	 */
+	public eu.hyvar.feature.constraint.resource.hyconstraints.grammar.HyconstraintsRule getRule() {
+		if (this instanceof eu.hyvar.feature.constraint.resource.hyconstraints.grammar.HyconstraintsRule) {
+			return (eu.hyvar.feature.constraint.resource.hyconstraints.grammar.HyconstraintsRule) this;
+		}
+		return parent.getRule();
+	}
+	
 	public HyconstraintsSyntaxElement[] getChildren() {
 		if (children == null) {
 			return new HyconstraintsSyntaxElement[0];
@@ -58,6 +69,16 @@ public abstract class HyconstraintsSyntaxElement {
 	
 	public eu.hyvar.feature.constraint.resource.hyconstraints.grammar.HyconstraintsCardinality getCardinality() {
 		return cardinality;
+	}
+	
+	public boolean hasContainment(EClass metaclass) {
+		eu.hyvar.feature.constraint.resource.hyconstraints.grammar.HyconstraintsSyntaxElement[] children = getChildren();
+		for (eu.hyvar.feature.constraint.resource.hyconstraints.grammar.HyconstraintsSyntaxElement child : children) {
+			if (child.hasContainment(metaclass)) {
+				return true;
+			}
+		}
+		return false;
 	}
 	
 }

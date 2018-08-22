@@ -28,7 +28,7 @@ public interface IHydatavalueExpectedElement {
 	/**
 	 * Returns the syntax element that is expected.
 	 */
-	public eu.hyvar.dataValues.resource.hydatavalue.grammar.HydatavalueSyntaxElement getSymtaxElement();
+	public eu.hyvar.dataValues.resource.hydatavalue.grammar.HydatavalueSyntaxElement getSyntaxElement();
 	
 	/**
 	 * Adds an element that is a valid follower for this element.

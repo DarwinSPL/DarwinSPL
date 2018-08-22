@@ -29,7 +29,7 @@ public class DwprofileExpectedCsString extends de.darwinspl.preferences.resource
 	/**
 	 * Returns the expected keyword.
 	 */
-	public de.darwinspl.preferences.resource.dwprofile.grammar.DwprofileSyntaxElement getSymtaxElement() {
+	public de.darwinspl.preferences.resource.dwprofile.grammar.DwprofileSyntaxElement getSyntaxElement() {
 		return keyword;
 	}
 	

@@ -24,7 +24,7 @@ public class HyconstraintsKeyword extends eu.hyvar.feature.constraint.resource.h
 	}
 	
 	public String toString() {
-		return value;
+		return "\"" + value + "\"";
 	}
 	
 }

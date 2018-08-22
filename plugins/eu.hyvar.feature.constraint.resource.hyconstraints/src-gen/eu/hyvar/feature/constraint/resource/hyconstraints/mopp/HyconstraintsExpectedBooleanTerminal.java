@@ -30,7 +30,7 @@ public class HyconstraintsExpectedBooleanTerminal extends eu.hyvar.feature.const
 	/**
 	 * Returns the expected boolean terminal.
 	 */
-	public eu.hyvar.feature.constraint.resource.hyconstraints.grammar.HyconstraintsSyntaxElement getSymtaxElement() {
+	public eu.hyvar.feature.constraint.resource.hyconstraints.grammar.HyconstraintsSyntaxElement getSyntaxElement() {
 		return booleanTerminal;
 	}
 	

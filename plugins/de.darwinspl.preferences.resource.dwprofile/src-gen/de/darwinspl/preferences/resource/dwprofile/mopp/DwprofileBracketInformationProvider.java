@@ -19,6 +19,7 @@ public class DwprofileBracketInformationProvider {
 		Collection<de.darwinspl.preferences.resource.dwprofile.IDwprofileBracketPair> result = new ArrayList<de.darwinspl.preferences.resource.dwprofile.IDwprofileBracketPair>();
 		result.add(new de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileBracketPair("[", "]", true, false));
 		result.add(new de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileBracketPair("(", ")", true, false));
+		result.add(new de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileBracketPair("{", "}", true, true));
 		result.add(new de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileBracketPair("\"", "\"", false, false));
 		return result;
 	}

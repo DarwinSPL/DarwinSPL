@@ -37,21 +37,32 @@ public class HymappingTokenScanner implements eu.hyvar.feature.mapping.resource.
 	
 	/**
 	 * <p>
-	 * Creates a new HymappingTokenScanner.
+	 * Creates a new HymappingTokenScanner. Uses the preference store belonging to the
+	 * corresponding eu.hyvar.feature.mapping.resource.hymapping.ui.HymappingUIPlugin.
 	 * </p>
 	 * 
 	 * @param resource The resource to scan
 	 * @param colorManager A manager to obtain color objects
 	 */
 	public HymappingTokenScanner(eu.hyvar.feature.mapping.resource.hymapping.IHymappingTextResource resource, eu.hyvar.feature.mapping.resource.hymapping.ui.HymappingColorManager colorManager) {
+		this(resource, colorManager, (eu.hyvar.feature.mapping.resource.hymapping.ui.HymappingUIPlugin.getDefault() == null ? null : eu.hyvar.feature.mapping.resource.hymapping.ui.HymappingUIPlugin.getDefault().getPreferenceStore()));
+	}
+	
+	/**
+	 * <p>
+	 * Creates a new HymappingTokenScanner.
+	 * </p>
+	 * 
+	 * @param resource The resource to scan
+	 * @param colorManager A manager to obtain color objects
+	 * @param preferenceStore The preference store to retrieve the defined token colors
+	 */
+	public HymappingTokenScanner(eu.hyvar.feature.mapping.resource.hymapping.IHymappingTextResource resource, eu.hyvar.feature.mapping.resource.hymapping.ui.HymappingColorManager colorManager, IPreferenceStore preferenceStore) {
 		this.resource = resource;
 		this.colorManager = colorManager;
 		this.lexer = new eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingMetaInformation().createLexer();
 		this.languageId = new eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingMetaInformation().getSyntaxName();
-		eu.hyvar.feature.mapping.resource.hymapping.ui.HymappingUIPlugin plugin = eu.hyvar.feature.mapping.resource.hymapping.ui.HymappingUIPlugin.getDefault();
-		if (plugin != null) {
-			this.store = plugin.getPreferenceStore();
-		}
+		this.store = preferenceStore;
 		this.nextTokens = new ArrayList<eu.hyvar.feature.mapping.resource.hymapping.IHymappingTextToken>();
 	}
 	

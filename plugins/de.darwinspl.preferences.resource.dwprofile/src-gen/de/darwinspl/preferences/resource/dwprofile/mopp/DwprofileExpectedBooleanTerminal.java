@@ -30,7 +30,7 @@ public class DwprofileExpectedBooleanTerminal extends de.darwinspl.preferences.r
 	/**
 	 * Returns the expected boolean terminal.
 	 */
-	public de.darwinspl.preferences.resource.dwprofile.grammar.DwprofileSyntaxElement getSymtaxElement() {
+	public de.darwinspl.preferences.resource.dwprofile.grammar.DwprofileSyntaxElement getSyntaxElement() {
 		return booleanTerminal;
 	}
 	

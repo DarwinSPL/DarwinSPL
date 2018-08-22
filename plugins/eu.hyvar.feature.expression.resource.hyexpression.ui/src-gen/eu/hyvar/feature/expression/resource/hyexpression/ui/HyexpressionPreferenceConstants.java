@@ -32,6 +32,6 @@ public interface HyexpressionPreferenceConstants {
 	// and their defaults
 	public static final boolean EDITOR_CONTENT_ASSIST_ENABLED_DEFAULT	= true;
 	public static final int EDITOR_CONTENT_ASSIST_DELAY_DEFAULT			= 200;
-	public static final String EDITOR_CONTENT_ASSIST_TRIGGERS_DEFAULT 	= "!-?.+%*/=";
+	public static final String EDITOR_CONTENT_ASSIST_TRIGGERS_DEFAULT 	= "!?+-%*/.";
 	
 }

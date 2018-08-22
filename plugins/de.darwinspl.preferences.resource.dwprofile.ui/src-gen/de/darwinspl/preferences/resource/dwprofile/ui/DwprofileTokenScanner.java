@@ -37,21 +37,32 @@ public class DwprofileTokenScanner implements de.darwinspl.preferences.resource.
 	
 	/**
 	 * <p>
-	 * Creates a new DwprofileTokenScanner.
+	 * Creates a new DwprofileTokenScanner. Uses the preference store belonging to the
+	 * corresponding de.darwinspl.preferences.resource.dwprofile.ui.DwprofileUIPlugin.
 	 * </p>
 	 * 
 	 * @param resource The resource to scan
 	 * @param colorManager A manager to obtain color objects
 	 */
 	public DwprofileTokenScanner(de.darwinspl.preferences.resource.dwprofile.IDwprofileTextResource resource, de.darwinspl.preferences.resource.dwprofile.ui.DwprofileColorManager colorManager) {
+		this(resource, colorManager, (de.darwinspl.preferences.resource.dwprofile.ui.DwprofileUIPlugin.getDefault() == null ? null : de.darwinspl.preferences.resource.dwprofile.ui.DwprofileUIPlugin.getDefault().getPreferenceStore()));
+	}
+	
+	/**
+	 * <p>
+	 * Creates a new DwprofileTokenScanner.
+	 * </p>
+	 * 
+	 * @param resource The resource to scan
+	 * @param colorManager A manager to obtain color objects
+	 * @param preferenceStore The preference store to retrieve the defined token colors
+	 */
+	public DwprofileTokenScanner(de.darwinspl.preferences.resource.dwprofile.IDwprofileTextResource resource, de.darwinspl.preferences.resource.dwprofile.ui.DwprofileColorManager colorManager, IPreferenceStore preferenceStore) {
 		this.resource = resource;
 		this.colorManager = colorManager;
 		this.lexer = new de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileMetaInformation().createLexer();
 		this.languageId = new de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileMetaInformation().getSyntaxName();
-		de.darwinspl.preferences.resource.dwprofile.ui.DwprofileUIPlugin plugin = de.darwinspl.preferences.resource.dwprofile.ui.DwprofileUIPlugin.getDefault();
-		if (plugin != null) {
-			this.store = plugin.getPreferenceStore();
-		}
+		this.store = preferenceStore;
 		this.nextTokens = new ArrayList<de.darwinspl.preferences.resource.dwprofile.IDwprofileTextToken>();
 	}
 	

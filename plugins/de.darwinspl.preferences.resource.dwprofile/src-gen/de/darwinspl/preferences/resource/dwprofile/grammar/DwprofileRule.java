@@ -28,5 +28,10 @@ public class DwprofileRule extends de.darwinspl.preferences.resource.dwprofile.g
 		return (de.darwinspl.preferences.resource.dwprofile.grammar.DwprofileChoice) getChildren()[0];
 	}
 	
+	@Deprecated
+	public String toString() {
+		return metaclass == null ? "null" : metaclass.getName() + " ::= " + getDefinition().toString();
+	}
+	
 }
 

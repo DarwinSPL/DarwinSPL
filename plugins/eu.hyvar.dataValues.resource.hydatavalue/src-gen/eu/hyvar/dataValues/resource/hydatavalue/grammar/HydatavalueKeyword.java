@@ -24,7 +24,7 @@ public class HydatavalueKeyword extends eu.hyvar.dataValues.resource.hydatavalue
 	}
 	
 	public String toString() {
-		return value;
+		return "\"" + value + "\"";
 	}
 	
 }

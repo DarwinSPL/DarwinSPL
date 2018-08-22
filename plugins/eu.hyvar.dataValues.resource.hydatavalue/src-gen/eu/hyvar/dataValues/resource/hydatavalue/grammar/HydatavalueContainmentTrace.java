@@ -52,7 +52,23 @@ public class HydatavalueContainmentTrace {
 	}
 	
 	public String toString() {
-		return (startClass == null ? "null" : startClass.getName()) + "->" + eu.hyvar.dataValues.resource.hydatavalue.util.HydatavalueStringUtil.explode(path, "->");
+		return (startClass == null ? "null" : startClass.getName()) + "." + eu.hyvar.dataValues.resource.hydatavalue.util.HydatavalueStringUtil.explode(path, "->");
+	}
+	
+	public boolean contains(eu.hyvar.dataValues.resource.hydatavalue.grammar.HydatavalueRule rule) {
+		if (path == null) {
+			return false;
+		}
+		
+		EClass ruleMetaclass = rule.getMetaclass();
+		for (eu.hyvar.dataValues.resource.hydatavalue.mopp.HydatavalueContainedFeature pathElement : path) {
+			EClass containerClass = pathElement.getContainerClass();
+			if (containerClass == ruleMetaclass) {
+				return true;
+			}
+		}
+		
+		return startClass == ruleMetaclass;
 	}
 	
 }

@@ -30,7 +30,7 @@ public class HymappingExpectedStructuralFeature extends eu.hyvar.feature.mapping
 	/**
 	 * Returns the expected placeholder.
 	 */
-	public eu.hyvar.feature.mapping.resource.hymapping.grammar.HymappingSyntaxElement getSymtaxElement() {
+	public eu.hyvar.feature.mapping.resource.hymapping.grammar.HymappingSyntaxElement getSyntaxElement() {
 		return placeholder;
 	}
 	

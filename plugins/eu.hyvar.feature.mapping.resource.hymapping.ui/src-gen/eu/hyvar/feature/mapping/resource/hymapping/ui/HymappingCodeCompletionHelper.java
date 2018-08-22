@@ -174,7 +174,14 @@ public class HymappingCodeCompletionHelper {
 			eu.hyvar.feature.mapping.resource.hymapping.IHymappingExpectedElement terminal = elementAtIndex.getTerminal();
 			for (int j = i + 1; j < size;) {
 				eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectedTerminal elementAtNext = expectedElements.get(j);
-				if (terminal.equals(elementAtNext.getTerminal())) {
+				EClass metaClass = elementAtIndex.getContainmentTrace().getStartClass();
+				EClass nextMetaClass = elementAtNext.getContainmentTrace().getStartClass();
+				eu.hyvar.feature.mapping.resource.hymapping.IHymappingExpectedElement nextTerminal = elementAtNext.getTerminal();
+				// Terminals that have a different root meta class in the containment trace must
+				// be kept because they can the decision whether an expected terminals is valid or
+				// not depends on the root of the containment trace.
+				boolean differentMetaclass = metaClass != nextMetaClass;
+				if (terminal.equals(nextTerminal) && !differentMetaclass) {
 					expectedElements.remove(j);
 					size--;
 				} else {
@@ -185,25 +192,73 @@ public class HymappingCodeCompletionHelper {
 	}
 	
 	protected void removeInvalidEntriesAtEnd(List<eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectedTerminal> expectedElements) {
-		for (int i = 0; i < expectedElements.size() - 1;) {
-			eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectedTerminal elementAtIndex = expectedElements.get(i);
-			eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectedTerminal elementAtNext = expectedElements.get(i + 1);
-			
-			// If the two expected elements have a different parent in the syntax definition,
-			// we must not discard the second element, because it probably stems from a parent
-			// rule.
-			eu.hyvar.feature.mapping.resource.hymapping.grammar.HymappingSyntaxElement symtaxElementOfThis = elementAtIndex.getTerminal().getSymtaxElement();
-			eu.hyvar.feature.mapping.resource.hymapping.grammar.HymappingSyntaxElement symtaxElementOfNext = elementAtNext.getTerminal().getSymtaxElement();
-			boolean differentParent = symtaxElementOfNext.getParent() != symtaxElementOfThis.getParent();
-			
-			boolean sameStartExcludingHiddenTokens = elementAtIndex.getStartExcludingHiddenTokens() == elementAtNext.getStartExcludingHiddenTokens();
-			boolean differentFollowSet = elementAtIndex.getFollowSetID() != elementAtNext.getFollowSetID();
-			if (sameStartExcludingHiddenTokens && differentFollowSet && !differentParent) {
-				expectedElements.remove(i + 1);
-			} else {
-				i++;
+		eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingFollowSetGroupList followSetGroupList = new eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingFollowSetGroupList(expectedElements);
+		List<eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingFollowSetGroup> followSetGroups = followSetGroupList.getFollowSetGroups();
+		int lastStartExcludingHiddenTokens = -1;
+		for (eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingFollowSetGroup followSetGroup : followSetGroups) {
+			boolean sameStartExcludingHiddenTokens = followSetGroup.hasSameStartExcludingHiddenTokens(lastStartExcludingHiddenTokens);
+			lastStartExcludingHiddenTokens = followSetGroup.getStartExcludingHiddenTokens();
+			EObject container = followSetGroup.getContainer();
+			EClass currentRule = null;
+			if (container != null) {
+				currentRule = container.eClass();
+			}
+			List<eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectedTerminal> expectedTerminals = followSetGroup.getExpectedTerminals();
+			for (eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectedTerminal expectedTerminal : expectedTerminals) {
+				eu.hyvar.feature.mapping.resource.hymapping.IHymappingExpectedElement terminalAtIndex = expectedTerminal.getTerminal();
+				EClass ruleMetaclass = terminalAtIndex.getRuleMetaclass();
+				boolean differentRule = currentRule != ruleMetaclass;
+				// If the two expected elements have a different parent in the syntax definition,
+				// we must not discard the second element, because it probably stems from a parent
+				// rule.
+				eu.hyvar.feature.mapping.resource.hymapping.grammar.HymappingContainmentTrace containmentTrace = expectedTerminal.getContainmentTrace();
+				boolean fitsAtCurrentPosition = fitsAtCurrentPosition(container, containmentTrace);
+				boolean inContainmentTrace = pathToRootContains(container, expectedTerminal.getTerminal().getRuleMetaclass());
+				boolean keepElement = true;
+				if (differentRule && !inContainmentTrace) {
+					if (!fitsAtCurrentPosition) {
+						keepElement = false;
+					}
+				}
+				if (sameStartExcludingHiddenTokens) {
+					keepElement = false;
+				}
+				
+				if (keepElement) {
+				} else {
+					// We must not call expectedElements.remove(expectedTerminal) because the
+					// hashCode() method of ExpectedTerminal does not consider the start positions and
+					// remove the wrong elements.
+					for (int i = 0; i < expectedElements.size(); i++) {
+						eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingExpectedTerminal next = expectedElements.get(i);
+						if (next == expectedTerminal) {
+							expectedElements.remove(i);
+							break;
+						}
+					}
+				}
 			}
 		}
+	}
+	
+	private boolean fitsAtCurrentPosition(EObject container, eu.hyvar.feature.mapping.resource.hymapping.grammar.HymappingContainmentTrace containmentTrace) {
+		if (container == null) {
+			// If no container is available, there is no model yet because we're before the
+			// first token. In this case we assume that everything fits here.
+			return true;
+		}
+		return containmentTrace.getStartClass() == container.eClass();
+	}
+	
+	private boolean pathToRootContains(EObject leafObject, EClass metaclass) {
+		EObject current = leafObject;
+		while (current != null) {
+			if (current.eClass() == metaclass) {
+				return true;
+			}
+			current = current.eContainer();
+		}
+		return false;
 	}
 	
 	/**

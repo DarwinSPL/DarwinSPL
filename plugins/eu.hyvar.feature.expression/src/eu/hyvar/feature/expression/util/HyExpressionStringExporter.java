@@ -20,29 +20,29 @@ import eu.hyvar.feature.HyVersion;
 import eu.hyvar.feature.expression.HyAbstractFeatureReferenceExpression;
 import eu.hyvar.feature.expression.HyAdditionExpression;
 import eu.hyvar.feature.expression.HyAndExpression;
+import eu.hyvar.feature.expression.HyArithmeticalComparisonExpression;
+import eu.hyvar.feature.expression.HyArithmeticalValueAtomicExpression;
+import eu.hyvar.feature.expression.HyArithmeticalValueBinaryOperationExpression;
+import eu.hyvar.feature.expression.HyArithmeticalValueExpression;
+import eu.hyvar.feature.expression.HyArithmeticalValueUnaryOperationExpression;
 import eu.hyvar.feature.expression.HyAtomicExpression;
 import eu.hyvar.feature.expression.HyAttributeReferenceExpression;
 import eu.hyvar.feature.expression.HyBinaryExpression;
 import eu.hyvar.feature.expression.HyConditionalFeatureReferenceExpression;
 import eu.hyvar.feature.expression.HyContextInformationReferenceExpression;
 import eu.hyvar.feature.expression.HyDivisionExpression;
-import eu.hyvar.feature.expression.HyEqualExpression;
 import eu.hyvar.feature.expression.HyEquivalenceExpression;
 import eu.hyvar.feature.expression.HyExpression;
 import eu.hyvar.feature.expression.HyExpressionFactory;
-import eu.hyvar.feature.expression.HyGreaterExpression;
-import eu.hyvar.feature.expression.HyGreaterOrEqualExpression;
 import eu.hyvar.feature.expression.HyIfPossibleExpression;
 import eu.hyvar.feature.expression.HyImpliesExpression;
-import eu.hyvar.feature.expression.HyLessExpression;
-import eu.hyvar.feature.expression.HyLessOrEqualExpression;
 import eu.hyvar.feature.expression.HyMaximumExpression;
 import eu.hyvar.feature.expression.HyMinimumExpression;
 import eu.hyvar.feature.expression.HyModuloExpression;
 import eu.hyvar.feature.expression.HyMultiplicationExpression;
 import eu.hyvar.feature.expression.HyNegationExpression;
+import eu.hyvar.feature.expression.HyNestedArithmeticalValueExpression;
 import eu.hyvar.feature.expression.HyNestedExpression;
-import eu.hyvar.feature.expression.HyNotEqualExpression;
 import eu.hyvar.feature.expression.HyNotExpression;
 import eu.hyvar.feature.expression.HyOrExpression;
 import eu.hyvar.feature.expression.HyRelativeVersionRestriction;
@@ -55,9 +55,9 @@ import eu.hyvar.feature.expression.HyVersionRestriction;
 
 public class HyExpressionStringExporter {
 
-//	private static final String FEATURE_ATOM = "feature[";
-//	private static final String ATTRIBUTE_ATOM = "attribute[";
-//	private static final String CONTEXT_ATOM = "context[";
+	// private static final String FEATURE_ATOM = "feature[";
+	// private static final String ATTRIBUTE_ATOM = "attribute[";
+	// private static final String CONTEXT_ATOM = "context[";
 
 	private static final String EQUALS = " = ";
 	private static final String NOT_EQUALS = " != ";
@@ -69,7 +69,7 @@ public class HyExpressionStringExporter {
 	private static final String IMPLICATION = " impl ";
 	private static final String EQUIVALENCE = " iff ";
 	private static final String OR = " or ";
-//	private static final String XOR = " xor ";
+	// private static final String XOR = " xor ";
 	private static final String AND = " and ";
 	private static final String NOT = " not ";
 
@@ -84,53 +84,57 @@ public class HyExpressionStringExporter {
 	private String TRUE = "true";
 	private String FALSE = "false";
 
-//	private static final String ARRAY_BRACKETS_OPEN = "[";
-//	private static final String ARRAY_BRACKETS_CLOSING = "]";
+	// private static final String ARRAY_BRACKETS_OPEN = "[";
+	// private static final String ARRAY_BRACKETS_CLOSING = "]";
 
 	private static final String BRACKETS_OPEN = "(";
 	private static final String BRACKETS_CLOSING = ")";
 
 	private static final String WHITESPACE = " ";
-	
+
 	private Map<HyFeature, String> featureIdMapping;
 	private Map<HyVersion, String> versionIdMapping;
 	private Map<HyFeatureAttribute, String> attributeIdMapping;
 	private Map<HyContextualInformation, String> contextIdMapping;
-	
+
 	// TODO default ids and values
-	
+
 	public enum BooleanRepresentationOption {
 		TRUEFALSE, ONEZERO
 	}
-	
+
 	public enum FeatureSelectionRepresentationOption {
 		PLAIN_BOOLEAN, ONEZERO
 	}
-	
+
 	private FeatureSelectionRepresentationOption featureSelectionRepresentationOption;
-	
+
 	public enum VersionRepresentation {
 		AS_ONEZERO_FEATURES, PLAIN
 	}
-	
+
 	private VersionRepresentation versionRepresentation;
-	
+
 	private boolean resolveSetExpression;
 	private boolean enumsAsIntValues;
-	
-	public HyExpressionStringExporter(Map<HyFeature, String> featureIdMapping, Map<HyVersion, String> versionIdMapping, Map<HyFeatureAttribute, String> attributeIdMapping, Map<HyContextualInformation, String> contextIdMapping, BooleanRepresentationOption booleanRepresentationOption, FeatureSelectionRepresentationOption featureSelectionRepresentationOption, VersionRepresentation versionRepresentation, boolean resolveSetExpression, boolean enumsAsIntValues) {
+
+	public HyExpressionStringExporter(Map<HyFeature, String> featureIdMapping, Map<HyVersion, String> versionIdMapping,
+			Map<HyFeatureAttribute, String> attributeIdMapping, Map<HyContextualInformation, String> contextIdMapping,
+			BooleanRepresentationOption booleanRepresentationOption,
+			FeatureSelectionRepresentationOption featureSelectionRepresentationOption,
+			VersionRepresentation versionRepresentation, boolean resolveSetExpression, boolean enumsAsIntValues) {
 		this.featureIdMapping = featureIdMapping;
 		this.versionIdMapping = versionIdMapping;
 		this.attributeIdMapping = attributeIdMapping;
 		this.contextIdMapping = contextIdMapping;
-		
+
 		this.featureSelectionRepresentationOption = featureSelectionRepresentationOption;
 		this.versionRepresentation = versionRepresentation;
 		this.enumsAsIntValues = enumsAsIntValues;
-		
+
 		this.resolveSetExpression = resolveSetExpression;
-		
-		switch(booleanRepresentationOption) {
+
+		switch (booleanRepresentationOption) {
 		case TRUEFALSE:
 			TRUE = "true";
 			FALSE = "false";
@@ -145,9 +149,8 @@ public class HyExpressionStringExporter {
 			break;
 		}
 	}
-	
-	
-	public String exportExpressionToString(HyExpression expression) {		
+
+	public String exportExpressionToString(HyExpression expression) {
 		return handleExpression(expression);
 	}
 
@@ -165,7 +168,7 @@ public class HyExpressionStringExporter {
 
 		return "";
 	}
-	
+
 	private String handleSetExpression(HySetExpression setExpression) {
 
 		StringBuilder setString = new StringBuilder("");
@@ -189,7 +192,6 @@ public class HyExpressionStringExporter {
 
 		return setString.toString();
 	}
-	
 
 	private String handleBinaryExpression(HyBinaryExpression binaryExpression) {
 		StringBuilder binaryString = new StringBuilder();
@@ -208,7 +210,7 @@ public class HyExpressionStringExporter {
 				} else {
 					first = false;
 				}
-				
+
 				HyImpliesExpression operandImplies = HyExpressionFactory.eINSTANCE.createHyImpliesExpression();
 				operandImplies.setOperand1(EcoreUtil.copy(binaryExpression.getOperand1()));
 				operandImplies.setOperand2(EcoreUtil.copy(ifPossibleOperand));
@@ -223,26 +225,25 @@ public class HyExpressionStringExporter {
 
 		binaryString.append(BRACKETS_OPEN);
 
-		
 		// Simone: patch for n-ary AND and OR
 		if (binaryExpression instanceof HyAndExpression) {
 			HyExpression expr;
 			HyAndExpression andExpr;
 			boolean flag = false;
-			Stack<HyExpression> elements = new Stack<HyExpression> ();
+			Stack<HyExpression> elements = new Stack<HyExpression>();
 			elements.push(binaryExpression.getOperand1());
 			elements.push(binaryExpression.getOperand2());
 			while (!elements.empty()) {
 				expr = elements.pop();
 				if (expr instanceof HyAndExpression) {
-					andExpr = (HyAndExpression)expr;
+					andExpr = (HyAndExpression) expr;
 					elements.push(andExpr.getOperand1());
 					elements.push(andExpr.getOperand2());
 				} else {
 					if (flag) {
 						binaryString.append(AND);
 					}
-					flag=true;
+					flag = true;
 					binaryString.append(handleExpression(expr));
 				}
 			}
@@ -250,74 +251,48 @@ public class HyExpressionStringExporter {
 			HyExpression expr;
 			HyOrExpression orExpr;
 			boolean flag = false;
-			Stack<HyExpression> elements = new Stack<HyExpression> ();
+			Stack<HyExpression> elements = new Stack<HyExpression>();
 			elements.push(binaryExpression.getOperand1());
 			elements.push(binaryExpression.getOperand2());
 			while (!elements.empty()) {
 				expr = elements.pop();
 				if (expr instanceof HyOrExpression) {
-					orExpr = (HyOrExpression)expr;
+					orExpr = (HyOrExpression) expr;
 					elements.push(orExpr.getOperand1());
 					elements.push(orExpr.getOperand2());
 				} else {
 					if (flag) {
 						binaryString.append(OR);
 					}
-					flag=true;
+					flag = true;
 					binaryString.append(handleExpression(expr));
 				}
 			}
 		} else {
-		// Simone: end
-		
-		binaryString.append(handleExpression(binaryExpression.getOperand1()));
+			// Simone: end
 
-		// binaryString.append(" ");
-//		if (binaryExpression instanceof HyAndExpression) {
-//			binaryString.append(AND);
-//		} else if (binaryExpression instanceof HyOrExpression) {
-//			binaryString.append(OR);
-//		} else if (binaryExpression instanceof HyEquivalenceExpression) {
-		if (binaryExpression instanceof HyEquivalenceExpression) {
-			binaryString.append(EQUIVALENCE);
-		} else if (binaryExpression instanceof HyImpliesExpression) {
-			binaryString.append(IMPLICATION);
-		} else if (binaryExpression instanceof HyGreaterExpression) {
-			binaryString.append(GREATER);
-		} else if (binaryExpression instanceof HyLessExpression) {
-			binaryString.append(LESS);
-		} else if (binaryExpression instanceof HyLessOrEqualExpression) {
-			binaryString.append(LEQ);
-		} else if (binaryExpression instanceof HyGreaterOrEqualExpression) {
-			binaryString.append(GEQ);
-		} else if (binaryExpression instanceof HyEqualExpression) {
-			binaryString.append(EQUALS);
-		} else if (binaryExpression instanceof HyNotEqualExpression) {
-			binaryString.append(NOT_EQUALS);
-		} else if (binaryExpression instanceof HyAdditionExpression) {
-			binaryString.append(ADDITION);
-		} else if (binaryExpression instanceof HySubtractionExpression) {
-			binaryString.append(SUBTRACTION);
-		} else if (binaryExpression instanceof HyMultiplicationExpression) {
-			binaryString.append(MULTIPLICATION);
-		} else if (binaryExpression instanceof HyDivisionExpression) {
-			binaryString.append(WHITESPACE);
-			binaryString.append("Division is not yet supported!");
-			binaryString.append(WHITESPACE);
-		} else if (binaryExpression instanceof HyModuloExpression) {
-			binaryString.append(WHITESPACE);
-			binaryString.append("Modulo is not yet supported!");
-			binaryString.append(WHITESPACE);
-		}
-		// binaryString.append(" ");
+			binaryString.append(handleExpression(binaryExpression.getOperand1()));
 
-		binaryString.append(handleExpression(binaryExpression.getOperand2()));
-		
-		// Simone: patch for n-ary AND and OR 
+			// binaryString.append(" ");
+			// if (binaryExpression instanceof HyAndExpression) {
+			// binaryString.append(AND);
+			// } else if (binaryExpression instanceof HyOrExpression) {
+			// binaryString.append(OR);
+			// } else if (binaryExpression instanceof HyEquivalenceExpression) {
+			if (binaryExpression instanceof HyEquivalenceExpression) {
+				binaryString.append(EQUIVALENCE);
+			} else if (binaryExpression instanceof HyImpliesExpression) {
+				binaryString.append(IMPLICATION);
+			} 
+			// binaryString.append(" ");
+
+			binaryString.append(handleExpression(binaryExpression.getOperand2()));
+
+			// Simone: patch for n-ary AND and OR
 		}
 		// Simone: end
 		binaryString.append(BRACKETS_CLOSING);
-		
+
 		return binaryString.toString();
 	}
 
@@ -349,7 +324,7 @@ public class HyExpressionStringExporter {
 			maxOrMin = true;
 			unaryString.append(MIN);
 			unaryString.append(BRACKETS_OPEN);
-		}
+		} 
 
 		// unaryString.append(" ");
 
@@ -363,24 +338,117 @@ public class HyExpressionStringExporter {
 
 		return unaryString.toString();
 	}
+
+
+
+
+
+	private String handleArithmeticalValueExpression(HyArithmeticalValueExpression arithmeticalValueExpression) {
+		StringBuilder arithmeticalString = new StringBuilder();
+		
+		if(arithmeticalValueExpression instanceof HyArithmeticalValueUnaryOperationExpression) {
+			arithmeticalString.append(handleArithmeticalValueUnaryOperationExpression((HyArithmeticalValueUnaryOperationExpression) arithmeticalValueExpression));
+		}
+		else if(arithmeticalValueExpression instanceof HyArithmeticalValueAtomicExpression) {
+			arithmeticalString.append(handleArithmeticalValueAtomicExpression((HyArithmeticalValueAtomicExpression) arithmeticalValueExpression));
+		}
+		else if(arithmeticalValueExpression instanceof HyArithmeticalValueBinaryOperationExpression) {
+			arithmeticalString.append(handleArithmeticalValueBinaryOperationExpression((HyArithmeticalValueBinaryOperationExpression) arithmeticalValueExpression));
+		}
+		
+		return arithmeticalString.toString();
+	}
 	
+	private String handleArithmeticalValueAtomicExpression(HyArithmeticalValueAtomicExpression arithmeticalAtomicExpression) {
+
+		StringBuilder arithmeticalString = new StringBuilder();
+		
+		if (arithmeticalAtomicExpression instanceof HyValueExpression) {
+			arithmeticalString.append(handleValueExpression((HyValueExpression) arithmeticalAtomicExpression));
+		} else if (arithmeticalAtomicExpression instanceof HyAttributeReferenceExpression) {
+			HyAttributeReferenceExpression attributeReferenceExpression = (HyAttributeReferenceExpression) arithmeticalAtomicExpression;
+			HyFeatureAttribute attribute = attributeReferenceExpression.getAttribute();
+			// HyFeature feature = attribute.getFeature();
+
+			String attributeId = attributeIdMapping.get(attribute);
+
+			arithmeticalString.append(attributeId);
+
+		} else if (arithmeticalAtomicExpression instanceof HyContextInformationReferenceExpression) {
+			String contextId = contextIdMapping
+					.get(((HyContextInformationReferenceExpression) arithmeticalAtomicExpression).getContextInformation());
+			arithmeticalString.append(contextId);
+		}
+		
+		return arithmeticalString.toString();
+	}
+	
+	private String handleArithmeticalValueUnaryOperationExpression(HyArithmeticalValueUnaryOperationExpression unaryArithmeticalOperation) {
+
+		StringBuilder arithmeticalString = new StringBuilder();
+		
+		if(unaryArithmeticalOperation instanceof HyNegationExpression) {
+			arithmeticalString.append(NEGATION);
+			arithmeticalString.append(BRACKETS_OPEN);
+			
+			arithmeticalString.append(handleArithmeticalValueExpression(unaryArithmeticalOperation.getOperand()));
+
+			arithmeticalString.append(BRACKETS_CLOSING);
+		}
+		else if(unaryArithmeticalOperation instanceof HyNestedArithmeticalValueExpression) {
+			arithmeticalString.append(BRACKETS_OPEN);
+			
+			arithmeticalString.append(handleArithmeticalValueExpression(unaryArithmeticalOperation.getOperand()));
+
+			arithmeticalString.append(BRACKETS_CLOSING);
+		}
+		
+		return arithmeticalString.toString();
+	}
+	
+	private String handleArithmeticalValueBinaryOperationExpression(HyArithmeticalValueBinaryOperationExpression arithmeticalValueBinaryOperationExpression) {
+		StringBuilder binaryString = new StringBuilder();
+		
+		binaryString.append(handleArithmeticalValueExpression(arithmeticalValueBinaryOperationExpression.getOperand1()));
+		
+		if (arithmeticalValueBinaryOperationExpression instanceof HyAdditionExpression) {
+			binaryString.append(ADDITION);
+		} else if (arithmeticalValueBinaryOperationExpression instanceof HySubtractionExpression) {
+			binaryString.append(SUBTRACTION);
+		} else if (arithmeticalValueBinaryOperationExpression instanceof HyMultiplicationExpression) {
+			binaryString.append(MULTIPLICATION);
+		} else if (arithmeticalValueBinaryOperationExpression instanceof HyDivisionExpression) {
+			binaryString.append(WHITESPACE);
+			binaryString.append("Division is not yet supported!");
+			binaryString.append(WHITESPACE);
+		} else if (arithmeticalValueBinaryOperationExpression instanceof HyModuloExpression) {
+			binaryString.append(WHITESPACE);
+			binaryString.append("Modulo is not yet supported!");
+			binaryString.append(WHITESPACE);
+		}
+		
+		binaryString.append(handleArithmeticalValueExpression(arithmeticalValueBinaryOperationExpression.getOperand2()));
+		
+		return binaryString.toString();
+	}
+
 	private String handleAtomicExpression(HyAtomicExpression atomicExpression, boolean negated) {
 		StringBuilder atomicString = new StringBuilder();
 
-//		if (atomicExpression instanceof HyBooleanValueExpression) {
-//			if (((HyBooleanValueExpression) atomicExpression).isValue()) {
-//				atomicString.append(TRUE);
-//			} else {
-//				atomicString.append(FALSE);
-//			}
-//		} else
-			if (atomicExpression instanceof HyAbstractFeatureReferenceExpression) {
+		// if (atomicExpression instanceof HyBooleanValueExpression) {
+		// if (((HyBooleanValueExpression) atomicExpression).isValue()) {
+		// atomicString.append(TRUE);
+		// } else {
+		// atomicString.append(FALSE);
+		// }
+		// } else
+		if (atomicExpression instanceof HyAbstractFeatureReferenceExpression) {
 			HyAbstractFeatureReferenceExpression abstractFeatureReferenceExpression = (HyAbstractFeatureReferenceExpression) atomicExpression;
 			String featureId = featureIdMapping.get(abstractFeatureReferenceExpression.getFeature());
 
 			if (abstractFeatureReferenceExpression.getVersionRestriction() == null) {
-				
-				switch(featureSelectionRepresentationOption) {
+
+				switch (featureSelectionRepresentationOption) {
 				case ONEZERO:
 					atomicString.append(featureId);
 					atomicString.append(EQUALS);
@@ -395,7 +463,7 @@ public class HyExpressionStringExporter {
 						atomicString.append(WHITESPACE);
 						atomicString.append(NOT);
 						atomicString.append(WHITESPACE);
-					} 
+					}
 					atomicString.append(featureId);
 					break;
 				default:
@@ -403,16 +471,16 @@ public class HyExpressionStringExporter {
 						atomicString.append(WHITESPACE);
 						atomicString.append(NOT);
 						atomicString.append(WHITESPACE);
-					} 
+					}
 					atomicString.append(featureId);
-					break;				
+					break;
 				}
-				
+
 			} else {
 				HyVersionRestriction versionRestriction = abstractFeatureReferenceExpression.getVersionRestriction();
 
 				if (abstractFeatureReferenceExpression instanceof HyConditionalFeatureReferenceExpression) {
-					switch(featureSelectionRepresentationOption) {
+					switch (featureSelectionRepresentationOption) {
 					case ONEZERO:
 						atomicString.append(BRACKETS_OPEN);
 						atomicString.append(featureId);
@@ -440,7 +508,7 @@ public class HyExpressionStringExporter {
 						break;
 					}
 				} else {
-					switch(versionRepresentation) {
+					switch (versionRepresentation) {
 					case AS_ONEZERO_FEATURES:
 						break;
 					case PLAIN:
@@ -454,20 +522,34 @@ public class HyExpressionStringExporter {
 				}
 			}
 
-		} else if (atomicExpression instanceof HyValueExpression) {
-			atomicString.append(handleValueExpression((HyValueExpression) atomicExpression));
-		} else if (atomicExpression instanceof HyAttributeReferenceExpression) {
-			HyAttributeReferenceExpression attributeReferenceExpression = (HyAttributeReferenceExpression) atomicExpression;
-			HyFeatureAttribute attribute = attributeReferenceExpression.getAttribute();
-//			HyFeature feature = attribute.getFeature();
+		}
+		else if (atomicExpression instanceof HyArithmeticalComparisonExpression) {
+			HyArithmeticalComparisonExpression arithmeticalComparisonExpression = (HyArithmeticalComparisonExpression) atomicExpression;
 
-			String attributeId = attributeIdMapping.get(attribute);
+			atomicString.append(handleArithmeticalValueExpression(arithmeticalComparisonExpression.getOperand1()));
 
-			atomicString.append(attributeId);
+			switch (arithmeticalComparisonExpression.getOperator()) {
+			case HY_EQUAL_OPERATOR:
+				atomicString.append(EQUALS);
+				break;
+			case HY_GREATER_OPERATOR:
+				atomicString.append(GREATER);
+				break;
+			case HY_GREATER_OR_EQUAL_OPERATOR:
+				atomicString.append(GEQ);
+				break;
+			case HY_LESS_OPERATOR:
+				atomicString.append(LESS);
+				break;
+			case HY_LESS_OR_EQUAL_OPERATOR:
+				atomicString.append(LEQ);
+				break;
+			case HY_NOT_EQUAL_OPERATOR:
+				atomicString.append(NOT_EQUALS);
+				break;
+			}
 
-		} else if (atomicExpression instanceof HyContextInformationReferenceExpression) {
-			String contextId = contextIdMapping.get(((HyContextInformationReferenceExpression) atomicExpression).getContextInformation());
-			atomicString.append(contextId);
+			atomicString.append(handleArithmeticalValueExpression(arithmeticalComparisonExpression.getOperand2()));
 		}
 
 		return atomicString.toString();
@@ -489,12 +571,12 @@ public class HyExpressionStringExporter {
 		} else if (value instanceof HyEnumValue) {
 			String enumValueString = "";
 			HyEnumLiteral literal = ((HyEnumValue) value).getEnumLiteral();
-			if(enumsAsIntValues) {
-				enumValueString = ""+literal.getValue();
+			if (enumsAsIntValues) {
+				enumValueString = "" + literal.getValue();
 			} else {
 				enumValueString = literal.getName();
 			}
-			valueString.append(enumValueString);				
+			valueString.append(enumValueString);
 		} else if (value instanceof HyStringValue) {
 			valueString.append("String values not supported!");
 		}
@@ -503,7 +585,7 @@ public class HyExpressionStringExporter {
 
 		return valueString.toString();
 	}
-	
+
 	private List<HyVersion> iterateVersionsDownUntil(HyVersion version, HyVersion until) {
 		List<HyVersion> validVersions = new ArrayList<HyVersion>();
 
@@ -542,7 +624,7 @@ public class HyExpressionStringExporter {
 	private String handleVersionRangeRestriction(HyVersionRestriction versionRestriction) {
 		StringBuilder versionRestrictionString = new StringBuilder();
 
-		switch(versionRepresentation) {
+		switch (versionRepresentation) {
 		case AS_ONEZERO_FEATURES:
 			versionRestrictionString.append(handleVersionRestrictionAsOneZeroFeatures(versionRestriction));
 			break;
@@ -554,28 +636,27 @@ public class HyExpressionStringExporter {
 			break;
 		}
 
-
 		return versionRestrictionString.toString();
 	}
-	
+
 	private String handleVersionRestrictionPlain(HyVersionRestriction versionRestriction) {
 		StringBuilder versionRestrictionString = new StringBuilder();
 		versionRestrictionString.append("[");
 		if (versionRestriction instanceof HyVersionRangeRestriction) {
 			HyVersionRangeRestriction versionRangeRestriction = (HyVersionRangeRestriction) versionRestriction;
-			
+
 			String versionIdLower = versionIdMapping.get(versionRangeRestriction.getLowerVersion());
 			String versionIdUpper = versionIdMapping.get(versionRangeRestriction.getUpperVersion());
-			
+
 			versionRestrictionString.append(versionIdLower);
 			versionRestrictionString.append(" - ");
 			versionRestrictionString.append(versionIdUpper);
-			
+
 		} else if (versionRestriction instanceof HyRelativeVersionRestriction) {
 			HyRelativeVersionRestriction relativeVersionRestriction = (HyRelativeVersionRestriction) versionRestriction;
-			
+
 			String versionId = versionIdMapping.get(relativeVersionRestriction.getVersion());
-			
+
 			switch (relativeVersionRestriction.getOperator()) {
 			case EQUAL:
 				break;
@@ -597,17 +678,17 @@ public class HyExpressionStringExporter {
 			default:
 				break;
 			}
-			
+
 			versionRestrictionString.append(versionId);
 		}
-		
+
 		versionRestrictionString.append("]");
 		return versionRestrictionString.toString();
 	}
-	
+
 	private String handleVersionRestrictionAsOneZeroFeatures(HyVersionRestriction versionRestriction) {
-		StringBuilder versionRestrictionString = new StringBuilder();		
-		
+		StringBuilder versionRestrictionString = new StringBuilder();
+
 		// Assumed addition of versions is possible
 
 		List<HyVersion> validVersions = null;
@@ -659,8 +740,8 @@ public class HyExpressionStringExporter {
 			boolean first = true;
 			for (HyVersion version : validVersions) {
 				if (!first) {
-					 versionRestrictionString.append(ADDITION);
-//					atomicString.append(OR);
+					versionRestrictionString.append(ADDITION);
+					// atomicString.append(OR);
 				} else {
 					first = false;
 				}

@@ -30,7 +30,7 @@ public class HyexpressionExpectedBooleanTerminal extends eu.hyvar.feature.expres
 	/**
 	 * Returns the expected boolean terminal.
 	 */
-	public eu.hyvar.feature.expression.resource.hyexpression.grammar.HyexpressionSyntaxElement getSymtaxElement() {
+	public eu.hyvar.feature.expression.resource.hyexpression.grammar.HyexpressionSyntaxElement getSyntaxElement() {
 		return booleanTerminal;
 	}
 	

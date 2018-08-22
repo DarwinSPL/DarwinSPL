@@ -24,7 +24,7 @@ public class HyvalidityformulaKeyword extends eu.hyvar.context.contextValidity.r
 	}
 	
 	public String toString() {
-		return value;
+		return "\"" + value + "\"";
 	}
 	
 }

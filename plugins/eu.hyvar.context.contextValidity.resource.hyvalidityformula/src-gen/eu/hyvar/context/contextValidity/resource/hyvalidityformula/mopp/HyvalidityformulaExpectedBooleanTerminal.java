@@ -30,7 +30,7 @@ public class HyvalidityformulaExpectedBooleanTerminal extends eu.hyvar.context.c
 	/**
 	 * Returns the expected boolean terminal.
 	 */
-	public eu.hyvar.context.contextValidity.resource.hyvalidityformula.grammar.HyvalidityformulaSyntaxElement getSymtaxElement() {
+	public eu.hyvar.context.contextValidity.resource.hyvalidityformula.grammar.HyvalidityformulaSyntaxElement getSyntaxElement() {
 		return booleanTerminal;
 	}
 	

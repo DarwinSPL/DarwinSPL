@@ -17,6 +17,14 @@
       <genEnumLiterals ecoreEnumLiteral="Expression.ecore#//HyRelativeVersionRestrictionOperator/greaterThanOrEqual"/>
       <genEnumLiterals ecoreEnumLiteral="Expression.ecore#//HyRelativeVersionRestrictionOperator/greaterThan"/>
     </genEnums>
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="Expression.ecore#//HyArithmeticalComparisonOperator">
+      <genEnumLiterals ecoreEnumLiteral="Expression.ecore#//HyArithmeticalComparisonOperator/HyEqualOperator"/>
+      <genEnumLiterals ecoreEnumLiteral="Expression.ecore#//HyArithmeticalComparisonOperator/HyNotEqualOperator"/>
+      <genEnumLiterals ecoreEnumLiteral="Expression.ecore#//HyArithmeticalComparisonOperator/HyGreaterOperator"/>
+      <genEnumLiterals ecoreEnumLiteral="Expression.ecore#//HyArithmeticalComparisonOperator/HyGreaterOrEqualOperator"/>
+      <genEnumLiterals ecoreEnumLiteral="Expression.ecore#//HyArithmeticalComparisonOperator/HyLessOperator"/>
+      <genEnumLiterals ecoreEnumLiteral="Expression.ecore#//HyArithmeticalComparisonOperator/HyLessOrEqualOperator"/>
+    </genEnums>
     <genClasses image="false" ecoreClass="Expression.ecore#//HyExpression"/>
     <genClasses image="false" ecoreClass="Expression.ecore#//HyAtomicExpression"/>
     <genClasses image="false" ecoreClass="Expression.ecore#//HyUnaryExpression">
@@ -60,17 +68,11 @@
     <genClasses ecoreClass="Expression.ecore#//HyEquivalenceExpression"/>
     <genClasses ecoreClass="Expression.ecore#//HyImpliesExpression"/>
     <genClasses ecoreClass="Expression.ecore#//HyIfPossibleExpression"/>
-    <genClasses image="false" ecoreClass="Expression.ecore#//HyArithmeticalComparisonExpression"/>
-    <genClasses image="false" ecoreClass="Expression.ecore#//HyBinaryArithmeticalComparisonExpression">
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Expression.ecore#//HyBinaryArithmeticalComparisonExpression/operand1"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Expression.ecore#//HyBinaryArithmeticalComparisonExpression/operand2"/>
+    <genClasses image="false" ecoreClass="Expression.ecore#//HyArithmeticalComparisonExpression">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Expression.ecore#//HyArithmeticalComparisonExpression/operator"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Expression.ecore#//HyArithmeticalComparisonExpression/operand1"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Expression.ecore#//HyArithmeticalComparisonExpression/operand2"/>
     </genClasses>
-    <genClasses ecoreClass="Expression.ecore#//HyGreaterExpression"/>
-    <genClasses ecoreClass="Expression.ecore#//HyLessExpression"/>
-    <genClasses ecoreClass="Expression.ecore#//HyGreaterOrEqualExpression"/>
-    <genClasses ecoreClass="Expression.ecore#//HyLessOrEqualExpression"/>
-    <genClasses ecoreClass="Expression.ecore#//HyEqualExpression"/>
-    <genClasses ecoreClass="Expression.ecore#//HyNotEqualExpression"/>
     <genClasses image="false" ecoreClass="Expression.ecore#//HyArithmeticalValueExpression"/>
     <genClasses image="false" ecoreClass="Expression.ecore#//HyArithmeticalValueBinaryOperationExpression">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Expression.ecore#//HyArithmeticalValueBinaryOperationExpression/operand1"/>

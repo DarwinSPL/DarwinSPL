@@ -52,7 +52,23 @@ public class DwprofileContainmentTrace {
 	}
 	
 	public String toString() {
-		return (startClass == null ? "null" : startClass.getName()) + "->" + de.darwinspl.preferences.resource.dwprofile.util.DwprofileStringUtil.explode(path, "->");
+		return (startClass == null ? "null" : startClass.getName()) + "." + de.darwinspl.preferences.resource.dwprofile.util.DwprofileStringUtil.explode(path, "->");
+	}
+	
+	public boolean contains(de.darwinspl.preferences.resource.dwprofile.grammar.DwprofileRule rule) {
+		if (path == null) {
+			return false;
+		}
+		
+		EClass ruleMetaclass = rule.getMetaclass();
+		for (de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileContainedFeature pathElement : path) {
+			EClass containerClass = pathElement.getContainerClass();
+			if (containerClass == ruleMetaclass) {
+				return true;
+			}
+		}
+		
+		return startClass == ruleMetaclass;
 	}
 	
 }

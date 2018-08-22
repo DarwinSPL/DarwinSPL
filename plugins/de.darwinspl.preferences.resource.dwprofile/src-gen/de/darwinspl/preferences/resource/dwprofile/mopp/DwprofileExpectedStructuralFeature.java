@@ -30,7 +30,7 @@ public class DwprofileExpectedStructuralFeature extends de.darwinspl.preferences
 	/**
 	 * Returns the expected placeholder.
 	 */
-	public de.darwinspl.preferences.resource.dwprofile.grammar.DwprofileSyntaxElement getSymtaxElement() {
+	public de.darwinspl.preferences.resource.dwprofile.grammar.DwprofileSyntaxElement getSyntaxElement() {
 		return placeholder;
 	}
 	

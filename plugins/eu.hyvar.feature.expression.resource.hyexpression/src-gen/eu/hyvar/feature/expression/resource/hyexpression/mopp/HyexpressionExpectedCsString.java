@@ -29,7 +29,7 @@ public class HyexpressionExpectedCsString extends eu.hyvar.feature.expression.re
 	/**
 	 * Returns the expected keyword.
 	 */
-	public eu.hyvar.feature.expression.resource.hyexpression.grammar.HyexpressionSyntaxElement getSymtaxElement() {
+	public eu.hyvar.feature.expression.resource.hyexpression.grammar.HyexpressionSyntaxElement getSyntaxElement() {
 		return keyword;
 	}
 	

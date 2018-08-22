@@ -44,7 +44,7 @@ public class DwprofileExpectedEnumerationTerminal extends de.darwinspl.preferenc
 	/**
 	 * Returns the expected enumeration terminal.
 	 */
-	public de.darwinspl.preferences.resource.dwprofile.grammar.DwprofileSyntaxElement getSymtaxElement() {
+	public de.darwinspl.preferences.resource.dwprofile.grammar.DwprofileSyntaxElement getSyntaxElement() {
 		return enumerationTerminal;
 	}
 	

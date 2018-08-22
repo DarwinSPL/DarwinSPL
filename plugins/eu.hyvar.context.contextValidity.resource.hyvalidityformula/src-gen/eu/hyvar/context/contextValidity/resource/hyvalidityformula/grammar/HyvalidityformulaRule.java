@@ -28,5 +28,10 @@ public class HyvalidityformulaRule extends eu.hyvar.context.contextValidity.reso
 		return (eu.hyvar.context.contextValidity.resource.hyvalidityformula.grammar.HyvalidityformulaChoice) getChildren()[0];
 	}
 	
+	@Deprecated
+	public String toString() {
+		return metaclass == null ? "null" : metaclass.getName() + " ::= " + getDefinition().toString();
+	}
+	
 }
 

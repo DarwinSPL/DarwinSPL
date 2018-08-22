@@ -96,9 +96,6 @@ public class HymappingTokenStyleInformationProvider {
 		if ("TASK_ITEM".equals(tokenName)) {
 			return new eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingTokenStyle(new int[] {0x7F, 0x9F, 0xBF}, null, true, false, false, false);
 		}
-		if ("context:".equals(tokenName)) {
-			return new eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingTokenStyle(new int[] {0x80, 0x00, 0x55}, null, true, false, false, false);
-		}
 		if ("QUOTED_6060_6262".equals(tokenName)) {
 			return new eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingTokenStyle(new int[] {0x2A, 0x00, 0xFF}, null, false, false, false, false);
 		}

@@ -20,6 +20,14 @@ import java.util.Map;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
 
+/**
+ * This class provides an implementation of the
+ * de.darwinspl.preferences.resource.dwprofile.IDwprofileTextDiagnostic interface.
+ * However, it is recommended to use the
+ * de.darwinspl.preferences.resource.dwprofile.mopp.DwprofilePrinter2 instead,
+ * because it provides advanced printing features. There are even some features
+ * (e.g., printing enumeration terminals) which are only supported by that class.
+ */
 public class DwprofilePrinter implements de.darwinspl.preferences.resource.dwprofile.IDwprofileTextPrinter {
 	
 	protected de.darwinspl.preferences.resource.dwprofile.IDwprofileTokenResolverFactory tokenResolverFactory = new de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileTokenResolverFactory();
@@ -94,10 +102,6 @@ public class DwprofilePrinter implements de.darwinspl.preferences.resource.dwpro
 			print_eu_hyvar_feature_expression_HyNotExpression((eu.hyvar.feature.expression.HyNotExpression) element, globaltab, out);
 			return;
 		}
-		if (element instanceof eu.hyvar.feature.expression.HyNegationExpression) {
-			print_eu_hyvar_feature_expression_HyNegationExpression((eu.hyvar.feature.expression.HyNegationExpression) element, globaltab, out);
-			return;
-		}
 		if (element instanceof eu.hyvar.feature.expression.HyNestedExpression) {
 			print_eu_hyvar_feature_expression_HyNestedExpression((eu.hyvar.feature.expression.HyNestedExpression) element, globaltab, out);
 			return;
@@ -110,56 +114,20 @@ public class DwprofilePrinter implements de.darwinspl.preferences.resource.dwpro
 			print_eu_hyvar_feature_expression_HyConditionalFeatureReferenceExpression((eu.hyvar.feature.expression.HyConditionalFeatureReferenceExpression) element, globaltab, out);
 			return;
 		}
-		if (element instanceof eu.hyvar.feature.expression.HyContextInformationReferenceExpression) {
-			print_eu_hyvar_feature_expression_HyContextInformationReferenceExpression((eu.hyvar.feature.expression.HyContextInformationReferenceExpression) element, globaltab, out);
-			return;
-		}
-		if (element instanceof eu.hyvar.feature.expression.HyAttributeReferenceExpression) {
-			print_eu_hyvar_feature_expression_HyAttributeReferenceExpression((eu.hyvar.feature.expression.HyAttributeReferenceExpression) element, globaltab, out);
-			return;
-		}
-		if (element instanceof eu.hyvar.feature.expression.HyValueExpression) {
-			print_eu_hyvar_feature_expression_HyValueExpression((eu.hyvar.feature.expression.HyValueExpression) element, globaltab, out);
-			return;
-		}
 		if (element instanceof eu.hyvar.feature.expression.HyBooleanValueExpression) {
 			print_eu_hyvar_feature_expression_HyBooleanValueExpression((eu.hyvar.feature.expression.HyBooleanValueExpression) element, globaltab, out);
 			return;
 		}
-		if (element instanceof eu.hyvar.feature.expression.HyMinimumExpression) {
-			print_eu_hyvar_feature_expression_HyMinimumExpression((eu.hyvar.feature.expression.HyMinimumExpression) element, globaltab, out);
-			return;
-		}
-		if (element instanceof eu.hyvar.feature.expression.HyMaximumExpression) {
-			print_eu_hyvar_feature_expression_HyMaximumExpression((eu.hyvar.feature.expression.HyMaximumExpression) element, globaltab, out);
-			return;
-		}
-		if (element instanceof eu.hyvar.feature.expression.HyIfPossibleExpression) {
-			print_eu_hyvar_feature_expression_HyIfPossibleExpression((eu.hyvar.feature.expression.HyIfPossibleExpression) element, globaltab, out);
-			return;
-		}
-		if (element instanceof eu.hyvar.feature.expression.HyLessExpression) {
-			print_eu_hyvar_feature_expression_HyLessExpression((eu.hyvar.feature.expression.HyLessExpression) element, globaltab, out);
-			return;
-		}
-		if (element instanceof eu.hyvar.feature.expression.HyLessOrEqualExpression) {
-			print_eu_hyvar_feature_expression_HyLessOrEqualExpression((eu.hyvar.feature.expression.HyLessOrEqualExpression) element, globaltab, out);
-			return;
-		}
-		if (element instanceof eu.hyvar.feature.expression.HyGreaterExpression) {
-			print_eu_hyvar_feature_expression_HyGreaterExpression((eu.hyvar.feature.expression.HyGreaterExpression) element, globaltab, out);
-			return;
-		}
-		if (element instanceof eu.hyvar.feature.expression.HyGreaterOrEqualExpression) {
-			print_eu_hyvar_feature_expression_HyGreaterOrEqualExpression((eu.hyvar.feature.expression.HyGreaterOrEqualExpression) element, globaltab, out);
-			return;
-		}
-		if (element instanceof eu.hyvar.feature.expression.HySubtractionExpression) {
-			print_eu_hyvar_feature_expression_HySubtractionExpression((eu.hyvar.feature.expression.HySubtractionExpression) element, globaltab, out);
+		if (element instanceof eu.hyvar.feature.expression.HyArithmeticalComparisonExpression) {
+			print_eu_hyvar_feature_expression_HyArithmeticalComparisonExpression((eu.hyvar.feature.expression.HyArithmeticalComparisonExpression) element, globaltab, out);
 			return;
 		}
 		if (element instanceof eu.hyvar.feature.expression.HyAdditionExpression) {
 			print_eu_hyvar_feature_expression_HyAdditionExpression((eu.hyvar.feature.expression.HyAdditionExpression) element, globaltab, out);
+			return;
+		}
+		if (element instanceof eu.hyvar.feature.expression.HySubtractionExpression) {
+			print_eu_hyvar_feature_expression_HySubtractionExpression((eu.hyvar.feature.expression.HySubtractionExpression) element, globaltab, out);
 			return;
 		}
 		if (element instanceof eu.hyvar.feature.expression.HyModuloExpression) {
@@ -174,12 +142,24 @@ public class DwprofilePrinter implements de.darwinspl.preferences.resource.dwpro
 			print_eu_hyvar_feature_expression_HyDivisionExpression((eu.hyvar.feature.expression.HyDivisionExpression) element, globaltab, out);
 			return;
 		}
-		if (element instanceof eu.hyvar.feature.expression.HyEqualExpression) {
-			print_eu_hyvar_feature_expression_HyEqualExpression((eu.hyvar.feature.expression.HyEqualExpression) element, globaltab, out);
+		if (element instanceof eu.hyvar.feature.expression.HyNegationExpression) {
+			print_eu_hyvar_feature_expression_HyNegationExpression((eu.hyvar.feature.expression.HyNegationExpression) element, globaltab, out);
 			return;
 		}
-		if (element instanceof eu.hyvar.feature.expression.HyNotEqualExpression) {
-			print_eu_hyvar_feature_expression_HyNotEqualExpression((eu.hyvar.feature.expression.HyNotEqualExpression) element, globaltab, out);
+		if (element instanceof eu.hyvar.feature.expression.HyNestedArithmeticalValueExpression) {
+			print_eu_hyvar_feature_expression_HyNestedArithmeticalValueExpression((eu.hyvar.feature.expression.HyNestedArithmeticalValueExpression) element, globaltab, out);
+			return;
+		}
+		if (element instanceof eu.hyvar.feature.expression.HyAttributeReferenceExpression) {
+			print_eu_hyvar_feature_expression_HyAttributeReferenceExpression((eu.hyvar.feature.expression.HyAttributeReferenceExpression) element, globaltab, out);
+			return;
+		}
+		if (element instanceof eu.hyvar.feature.expression.HyContextInformationReferenceExpression) {
+			print_eu_hyvar_feature_expression_HyContextInformationReferenceExpression((eu.hyvar.feature.expression.HyContextInformationReferenceExpression) element, globaltab, out);
+			return;
+		}
+		if (element instanceof eu.hyvar.feature.expression.HyValueExpression) {
+			print_eu_hyvar_feature_expression_HyValueExpression((eu.hyvar.feature.expression.HyValueExpression) element, globaltab, out);
 			return;
 		}
 		if (element instanceof eu.hyvar.feature.expression.HyRelativeVersionRestriction) {
@@ -625,34 +605,6 @@ public class DwprofilePrinter implements de.darwinspl.preferences.resource.dwpro
 	}
 	
 	
-	public void print_eu_hyvar_feature_expression_HyNegationExpression(eu.hyvar.feature.expression.HyNegationExpression element, String outertab, PrintWriter out) {
-		String localtab = outertab;
-		// The printCountingMap contains a mapping from feature names to the number of
-		// remaining elements that still need to be printed. The map is initialized with
-		// the number of elements stored in each structural feature. For lists this is the
-		// list size. For non-multiple features it is either 1 (if the feature is set) or
-		// 0 (if the feature is null).
-		Map<String, Integer> printCountingMap = new LinkedHashMap<String, Integer>(1);
-		Object temp;
-		temp = element.eGet(element.eClass().getEStructuralFeature(eu.hyvar.feature.expression.HyExpressionPackage.HY_NEGATION_EXPRESSION__OPERAND));
-		printCountingMap.put("operand", temp == null ? 0 : 1);
-		// print collected hidden tokens
-		int count;
-		// DEFINITION PART BEGINS (CsString)
-		out.print("-");
-		out.print(" ");
-		// DEFINITION PART BEGINS (Containment)
-		count = printCountingMap.get("operand");
-		if (count > 0) {
-			Object o = element.eGet(element.eClass().getEStructuralFeature(eu.hyvar.feature.expression.HyExpressionPackage.HY_NEGATION_EXPRESSION__OPERAND));
-			if (o != null) {
-				doPrint((EObject) o, out, localtab);
-			}
-			printCountingMap.put("operand", count - 1);
-		}
-	}
-	
-	
 	public void print_eu_hyvar_feature_expression_HyNestedExpression(eu.hyvar.feature.expression.HyNestedExpression element, String outertab, PrintWriter out) {
 		String localtab = outertab;
 		// The printCountingMap contains a mapping from feature names to the number of
@@ -849,170 +801,6 @@ public class DwprofilePrinter implements de.darwinspl.preferences.resource.dwpro
 	}
 	
 	
-	public void print_eu_hyvar_feature_expression_HyContextInformationReferenceExpression(eu.hyvar.feature.expression.HyContextInformationReferenceExpression element, String outertab, PrintWriter out) {
-		String localtab = outertab;
-		// The printCountingMap contains a mapping from feature names to the number of
-		// remaining elements that still need to be printed. The map is initialized with
-		// the number of elements stored in each structural feature. For lists this is the
-		// list size. For non-multiple features it is either 1 (if the feature is set) or
-		// 0 (if the feature is null).
-		Map<String, Integer> printCountingMap = new LinkedHashMap<String, Integer>(1);
-		Object temp;
-		temp = element.eGet(element.eClass().getEStructuralFeature(eu.hyvar.feature.expression.HyExpressionPackage.HY_CONTEXT_INFORMATION_REFERENCE_EXPRESSION__CONTEXT_INFORMATION));
-		printCountingMap.put("contextInformation", temp == null ? 0 : 1);
-		// print collected hidden tokens
-		// DEFINITION PART BEGINS (CsString)
-		out.print("context:");
-		out.print(" ");
-		// DEFINITION PART BEGINS (CompoundDefinition)
-		print_eu_hyvar_feature_expression_HyContextInformationReferenceExpression_0(element, localtab, out, printCountingMap);
-	}
-	
-	public void print_eu_hyvar_feature_expression_HyContextInformationReferenceExpression_0(eu.hyvar.feature.expression.HyContextInformationReferenceExpression element, String outertab, PrintWriter out, Map<String, Integer> printCountingMap) {
-		int count;
-		int alt = -1;
-		alt = 0;
-		int matches = 		matchCount(printCountingMap, Arrays.asList(		"contextInformation"		));
-		int tempMatchCount;
-		tempMatchCount = 		matchCount(printCountingMap, Arrays.asList(		"contextInformation"		));
-		if (tempMatchCount > matches) {
-			alt = 1;
-			matches = tempMatchCount;
-		}
-		switch(alt) {
-			case 1:			{
-				// DEFINITION PART BEGINS (PlaceholderUsingDefaultToken)
-				count = printCountingMap.get("contextInformation");
-				if (count > 0) {
-					Object o = element.eGet(element.eClass().getEStructuralFeature(eu.hyvar.feature.expression.HyExpressionPackage.HY_CONTEXT_INFORMATION_REFERENCE_EXPRESSION__CONTEXT_INFORMATION));
-					if (o != null) {
-						de.darwinspl.preferences.resource.dwprofile.IDwprofileTokenResolver resolver = tokenResolverFactory.createTokenResolver("IDENTIFIER_TOKEN");
-						resolver.setOptions(getOptions());
-						out.print(resolver.deResolve(getReferenceResolverSwitch() == null ? null : getReferenceResolverSwitch().getHyContextInformationReferenceExpressionContextInformationReferenceResolver().deResolve((eu.hyvar.context.HyContextualInformation) o, element, (EReference) element.eClass().getEStructuralFeature(eu.hyvar.feature.expression.HyExpressionPackage.HY_CONTEXT_INFORMATION_REFERENCE_EXPRESSION__CONTEXT_INFORMATION)), element.eClass().getEStructuralFeature(eu.hyvar.feature.expression.HyExpressionPackage.HY_CONTEXT_INFORMATION_REFERENCE_EXPRESSION__CONTEXT_INFORMATION), element));
-						out.print(" ");
-					}
-					printCountingMap.put("contextInformation", count - 1);
-				}
-			}
-			break;
-			default:			// DEFINITION PART BEGINS (PlaceholderInQuotes)
-			count = printCountingMap.get("contextInformation");
-			if (count > 0) {
-				Object o = element.eGet(element.eClass().getEStructuralFeature(eu.hyvar.feature.expression.HyExpressionPackage.HY_CONTEXT_INFORMATION_REFERENCE_EXPRESSION__CONTEXT_INFORMATION));
-				if (o != null) {
-					de.darwinspl.preferences.resource.dwprofile.IDwprofileTokenResolver resolver = tokenResolverFactory.createTokenResolver("QUOTED_34_34");
-					resolver.setOptions(getOptions());
-					out.print(resolver.deResolve(getReferenceResolverSwitch() == null ? null : getReferenceResolverSwitch().getHyContextInformationReferenceExpressionContextInformationReferenceResolver().deResolve((eu.hyvar.context.HyContextualInformation) o, element, (EReference) element.eClass().getEStructuralFeature(eu.hyvar.feature.expression.HyExpressionPackage.HY_CONTEXT_INFORMATION_REFERENCE_EXPRESSION__CONTEXT_INFORMATION)), element.eClass().getEStructuralFeature(eu.hyvar.feature.expression.HyExpressionPackage.HY_CONTEXT_INFORMATION_REFERENCE_EXPRESSION__CONTEXT_INFORMATION), element));
-					out.print(" ");
-				}
-				printCountingMap.put("contextInformation", count - 1);
-			}
-		}
-	}
-	
-	
-	public void print_eu_hyvar_feature_expression_HyAttributeReferenceExpression(eu.hyvar.feature.expression.HyAttributeReferenceExpression element, String outertab, PrintWriter out) {
-		String localtab = outertab;
-		// The printCountingMap contains a mapping from feature names to the number of
-		// remaining elements that still need to be printed. The map is initialized with
-		// the number of elements stored in each structural feature. For lists this is the
-		// list size. For non-multiple features it is either 1 (if the feature is set) or
-		// 0 (if the feature is null).
-		Map<String, Integer> printCountingMap = new LinkedHashMap<String, Integer>(2);
-		Object temp;
-		temp = element.eGet(element.eClass().getEStructuralFeature(eu.hyvar.feature.expression.HyExpressionPackage.HY_ATTRIBUTE_REFERENCE_EXPRESSION__ATTRIBUTE));
-		printCountingMap.put("attribute", temp == null ? 0 : 1);
-		temp = element.eGet(element.eClass().getEStructuralFeature(eu.hyvar.feature.expression.HyExpressionPackage.HY_ATTRIBUTE_REFERENCE_EXPRESSION__FEATURE));
-		printCountingMap.put("feature", temp == null ? 0 : 1);
-		// print collected hidden tokens
-		int count;
-		// DEFINITION PART BEGINS (CompoundDefinition)
-		print_eu_hyvar_feature_expression_HyAttributeReferenceExpression_0(element, localtab, out, printCountingMap);
-		// DEFINITION PART BEGINS (CsString)
-		out.print(".");
-		out.print(" ");
-		// DEFINITION PART BEGINS (PlaceholderUsingDefaultToken)
-		count = printCountingMap.get("attribute");
-		if (count > 0) {
-			Object o = element.eGet(element.eClass().getEStructuralFeature(eu.hyvar.feature.expression.HyExpressionPackage.HY_ATTRIBUTE_REFERENCE_EXPRESSION__ATTRIBUTE));
-			if (o != null) {
-				de.darwinspl.preferences.resource.dwprofile.IDwprofileTokenResolver resolver = tokenResolverFactory.createTokenResolver("IDENTIFIER_TOKEN");
-				resolver.setOptions(getOptions());
-				out.print(resolver.deResolve(getReferenceResolverSwitch() == null ? null : getReferenceResolverSwitch().getHyAttributeReferenceExpressionAttributeReferenceResolver().deResolve((eu.hyvar.feature.HyFeatureAttribute) o, element, (EReference) element.eClass().getEStructuralFeature(eu.hyvar.feature.expression.HyExpressionPackage.HY_ATTRIBUTE_REFERENCE_EXPRESSION__ATTRIBUTE)), element.eClass().getEStructuralFeature(eu.hyvar.feature.expression.HyExpressionPackage.HY_ATTRIBUTE_REFERENCE_EXPRESSION__ATTRIBUTE), element));
-				out.print(" ");
-			}
-			printCountingMap.put("attribute", count - 1);
-		}
-	}
-	
-	public void print_eu_hyvar_feature_expression_HyAttributeReferenceExpression_0(eu.hyvar.feature.expression.HyAttributeReferenceExpression element, String outertab, PrintWriter out, Map<String, Integer> printCountingMap) {
-		int count;
-		int alt = -1;
-		alt = 0;
-		int matches = 		matchCount(printCountingMap, Arrays.asList(		"feature"		));
-		int tempMatchCount;
-		tempMatchCount = 		matchCount(printCountingMap, Arrays.asList(		"feature"		));
-		if (tempMatchCount > matches) {
-			alt = 1;
-			matches = tempMatchCount;
-		}
-		switch(alt) {
-			case 1:			{
-				// DEFINITION PART BEGINS (PlaceholderUsingDefaultToken)
-				count = printCountingMap.get("feature");
-				if (count > 0) {
-					Object o = element.eGet(element.eClass().getEStructuralFeature(eu.hyvar.feature.expression.HyExpressionPackage.HY_ATTRIBUTE_REFERENCE_EXPRESSION__FEATURE));
-					if (o != null) {
-						de.darwinspl.preferences.resource.dwprofile.IDwprofileTokenResolver resolver = tokenResolverFactory.createTokenResolver("IDENTIFIER_TOKEN");
-						resolver.setOptions(getOptions());
-						out.print(resolver.deResolve(getReferenceResolverSwitch() == null ? null : getReferenceResolverSwitch().getHyAttributeReferenceExpressionFeatureReferenceResolver().deResolve((eu.hyvar.feature.HyFeature) o, element, (EReference) element.eClass().getEStructuralFeature(eu.hyvar.feature.expression.HyExpressionPackage.HY_ATTRIBUTE_REFERENCE_EXPRESSION__FEATURE)), element.eClass().getEStructuralFeature(eu.hyvar.feature.expression.HyExpressionPackage.HY_ATTRIBUTE_REFERENCE_EXPRESSION__FEATURE), element));
-						out.print(" ");
-					}
-					printCountingMap.put("feature", count - 1);
-				}
-			}
-			break;
-			default:			// DEFINITION PART BEGINS (PlaceholderInQuotes)
-			count = printCountingMap.get("feature");
-			if (count > 0) {
-				Object o = element.eGet(element.eClass().getEStructuralFeature(eu.hyvar.feature.expression.HyExpressionPackage.HY_ATTRIBUTE_REFERENCE_EXPRESSION__FEATURE));
-				if (o != null) {
-					de.darwinspl.preferences.resource.dwprofile.IDwprofileTokenResolver resolver = tokenResolverFactory.createTokenResolver("QUOTED_34_34");
-					resolver.setOptions(getOptions());
-					out.print(resolver.deResolve(getReferenceResolverSwitch() == null ? null : getReferenceResolverSwitch().getHyAttributeReferenceExpressionFeatureReferenceResolver().deResolve((eu.hyvar.feature.HyFeature) o, element, (EReference) element.eClass().getEStructuralFeature(eu.hyvar.feature.expression.HyExpressionPackage.HY_ATTRIBUTE_REFERENCE_EXPRESSION__FEATURE)), element.eClass().getEStructuralFeature(eu.hyvar.feature.expression.HyExpressionPackage.HY_ATTRIBUTE_REFERENCE_EXPRESSION__FEATURE), element));
-					out.print(" ");
-				}
-				printCountingMap.put("feature", count - 1);
-			}
-		}
-	}
-	
-	
-	public void print_eu_hyvar_feature_expression_HyValueExpression(eu.hyvar.feature.expression.HyValueExpression element, String outertab, PrintWriter out) {
-		String localtab = outertab;
-		// The printCountingMap contains a mapping from feature names to the number of
-		// remaining elements that still need to be printed. The map is initialized with
-		// the number of elements stored in each structural feature. For lists this is the
-		// list size. For non-multiple features it is either 1 (if the feature is set) or
-		// 0 (if the feature is null).
-		Map<String, Integer> printCountingMap = new LinkedHashMap<String, Integer>(1);
-		Object temp;
-		temp = element.eGet(element.eClass().getEStructuralFeature(eu.hyvar.feature.expression.HyExpressionPackage.HY_VALUE_EXPRESSION__VALUE));
-		printCountingMap.put("value", temp == null ? 0 : 1);
-		// print collected hidden tokens
-		int count;
-		// DEFINITION PART BEGINS (Containment)
-		count = printCountingMap.get("value");
-		if (count > 0) {
-			Object o = element.eGet(element.eClass().getEStructuralFeature(eu.hyvar.feature.expression.HyExpressionPackage.HY_VALUE_EXPRESSION__VALUE));
-			if (o != null) {
-				doPrint((EObject) o, out, localtab);
-			}
-			printCountingMap.put("value", count - 1);
-		}
-	}
-	
-	
 	public void print_eu_hyvar_feature_expression_HyBooleanValueExpression(eu.hyvar.feature.expression.HyBooleanValueExpression element, String outertab, PrintWriter out) {
 		// The printCountingMap contains a mapping from feature names to the number of
 		// remaining elements that still need to be printed. The map is initialized with
@@ -1036,191 +824,59 @@ public class DwprofilePrinter implements de.darwinspl.preferences.resource.dwpro
 	}
 	
 	
-	public void print_eu_hyvar_feature_expression_HyMinimumExpression(eu.hyvar.feature.expression.HyMinimumExpression element, String outertab, PrintWriter out) {
+	public void print_eu_hyvar_feature_expression_HyArithmeticalComparisonExpression(eu.hyvar.feature.expression.HyArithmeticalComparisonExpression element, String outertab, PrintWriter out) {
 		String localtab = outertab;
 		// The printCountingMap contains a mapping from feature names to the number of
 		// remaining elements that still need to be printed. The map is initialized with
 		// the number of elements stored in each structural feature. For lists this is the
 		// list size. For non-multiple features it is either 1 (if the feature is set) or
 		// 0 (if the feature is null).
-		Map<String, Integer> printCountingMap = new LinkedHashMap<String, Integer>(1);
+		Map<String, Integer> printCountingMap = new LinkedHashMap<String, Integer>(3);
 		Object temp;
-		temp = element.eGet(element.eClass().getEStructuralFeature(eu.hyvar.feature.expression.HyExpressionPackage.HY_MINIMUM_EXPRESSION__OPERAND));
-		printCountingMap.put("operand", temp == null ? 0 : 1);
-		// print collected hidden tokens
-		int count;
-		// DEFINITION PART BEGINS (CsString)
-		out.print("min(");
-		out.print(" ");
-		// DEFINITION PART BEGINS (Containment)
-		count = printCountingMap.get("operand");
-		if (count > 0) {
-			Object o = element.eGet(element.eClass().getEStructuralFeature(eu.hyvar.feature.expression.HyExpressionPackage.HY_MINIMUM_EXPRESSION__OPERAND));
-			if (o != null) {
-				doPrint((EObject) o, out, localtab);
-			}
-			printCountingMap.put("operand", count - 1);
-		}
-		// DEFINITION PART BEGINS (CsString)
-		out.print(")");
-		out.print(" ");
-	}
-	
-	
-	public void print_eu_hyvar_feature_expression_HyMaximumExpression(eu.hyvar.feature.expression.HyMaximumExpression element, String outertab, PrintWriter out) {
-		String localtab = outertab;
-		// The printCountingMap contains a mapping from feature names to the number of
-		// remaining elements that still need to be printed. The map is initialized with
-		// the number of elements stored in each structural feature. For lists this is the
-		// list size. For non-multiple features it is either 1 (if the feature is set) or
-		// 0 (if the feature is null).
-		Map<String, Integer> printCountingMap = new LinkedHashMap<String, Integer>(1);
-		Object temp;
-		temp = element.eGet(element.eClass().getEStructuralFeature(eu.hyvar.feature.expression.HyExpressionPackage.HY_MAXIMUM_EXPRESSION__OPERAND));
-		printCountingMap.put("operand", temp == null ? 0 : 1);
-		// print collected hidden tokens
-		int count;
-		// DEFINITION PART BEGINS (CsString)
-		out.print("max(");
-		out.print(" ");
-		// DEFINITION PART BEGINS (Containment)
-		count = printCountingMap.get("operand");
-		if (count > 0) {
-			Object o = element.eGet(element.eClass().getEStructuralFeature(eu.hyvar.feature.expression.HyExpressionPackage.HY_MAXIMUM_EXPRESSION__OPERAND));
-			if (o != null) {
-				doPrint((EObject) o, out, localtab);
-			}
-			printCountingMap.put("operand", count - 1);
-		}
-		// DEFINITION PART BEGINS (CsString)
-		out.print(")");
-		out.print(" ");
-	}
-	
-	
-	public void print_eu_hyvar_feature_expression_HyIfPossibleExpression(eu.hyvar.feature.expression.HyIfPossibleExpression element, String outertab, PrintWriter out) {
-		String localtab = outertab;
-		// The printCountingMap contains a mapping from feature names to the number of
-		// remaining elements that still need to be printed. The map is initialized with
-		// the number of elements stored in each structural feature. For lists this is the
-		// list size. For non-multiple features it is either 1 (if the feature is set) or
-		// 0 (if the feature is null).
-		Map<String, Integer> printCountingMap = new LinkedHashMap<String, Integer>(1);
-		Object temp;
-		temp = element.eGet(element.eClass().getEStructuralFeature(eu.hyvar.feature.expression.HyExpressionPackage.HY_IF_POSSIBLE_EXPRESSION__OPERANDS));
-		printCountingMap.put("operands", temp == null ? 0 : ((Collection<?>) temp).size());
-		// print collected hidden tokens
-		int count;
-		boolean iterate = true;
-		java.io.StringWriter sWriter = null;
-		PrintWriter out1 = null;
-		Map<String, Integer> printCountingMap1 = null;
-		// DEFINITION PART BEGINS (CsString)
-		out.print("ifPossible(");
-		out.print(" ");
-		// DEFINITION PART BEGINS (Containment)
-		count = printCountingMap.get("operands");
-		if (count > 0) {
-			Object o = element.eGet(element.eClass().getEStructuralFeature(eu.hyvar.feature.expression.HyExpressionPackage.HY_IF_POSSIBLE_EXPRESSION__OPERANDS));
-			List<?> list = (List<?>) o;
-			int index = list.size() - count;
-			if (index >= 0) {
-				o = list.get(index);
-			} else {
-				o = null;
-			}
-			if (o != null) {
-				doPrint((EObject) o, out, localtab);
-			}
-			printCountingMap.put("operands", count - 1);
-		}
-		// DEFINITION PART BEGINS (CompoundDefinition)
-		iterate = true;
-		while (iterate) {
-			sWriter = new StringWriter();
-			out1 = new PrintWriter(sWriter);
-			printCountingMap1 = new LinkedHashMap<String, Integer>(printCountingMap);
-			print_eu_hyvar_feature_expression_HyIfPossibleExpression_0(element, localtab, out1, printCountingMap1);
-			if (printCountingMap.equals(printCountingMap1)) {
-				iterate = false;
-				out1.close();
-			} else {
-				out1.flush();
-				out1.close();
-				out.print(sWriter.toString());
-				printCountingMap.putAll(printCountingMap1);
-			}
-		}
-		// DEFINITION PART BEGINS (CsString)
-		out.print(")");
-		out.print(" ");
-	}
-	
-	public void print_eu_hyvar_feature_expression_HyIfPossibleExpression_0(eu.hyvar.feature.expression.HyIfPossibleExpression element, String outertab, PrintWriter out, Map<String, Integer> printCountingMap) {
-		String localtab = outertab;
-		int count;
-		// DEFINITION PART BEGINS (CsString)
-		out.print(",");
-		out.print(" ");
-		// DEFINITION PART BEGINS (Containment)
-		count = printCountingMap.get("operands");
-		if (count > 0) {
-			Object o = element.eGet(element.eClass().getEStructuralFeature(eu.hyvar.feature.expression.HyExpressionPackage.HY_IF_POSSIBLE_EXPRESSION__OPERANDS));
-			List<?> list = (List<?>) o;
-			int index = list.size() - count;
-			if (index >= 0) {
-				o = list.get(index);
-			} else {
-				o = null;
-			}
-			if (o != null) {
-				doPrint((EObject) o, out, localtab);
-			}
-			printCountingMap.put("operands", count - 1);
-		}
-	}
-	
-	
-	public void print_eu_hyvar_feature_expression_HyLessExpression(eu.hyvar.feature.expression.HyLessExpression element, String outertab, PrintWriter out) {
-		String localtab = outertab;
-		// The printCountingMap contains a mapping from feature names to the number of
-		// remaining elements that still need to be printed. The map is initialized with
-		// the number of elements stored in each structural feature. For lists this is the
-		// list size. For non-multiple features it is either 1 (if the feature is set) or
-		// 0 (if the feature is null).
-		Map<String, Integer> printCountingMap = new LinkedHashMap<String, Integer>(2);
-		Object temp;
-		temp = element.eGet(element.eClass().getEStructuralFeature(eu.hyvar.feature.expression.HyExpressionPackage.HY_LESS_EXPRESSION__OPERAND1));
+		temp = element.eGet(element.eClass().getEStructuralFeature(eu.hyvar.feature.expression.HyExpressionPackage.HY_ARITHMETICAL_COMPARISON_EXPRESSION__OPERATOR));
+		printCountingMap.put("operator", temp == null ? 0 : 1);
+		temp = element.eGet(element.eClass().getEStructuralFeature(eu.hyvar.feature.expression.HyExpressionPackage.HY_ARITHMETICAL_COMPARISON_EXPRESSION__OPERAND1));
 		printCountingMap.put("operand1", temp == null ? 0 : 1);
-		temp = element.eGet(element.eClass().getEStructuralFeature(eu.hyvar.feature.expression.HyExpressionPackage.HY_LESS_EXPRESSION__OPERAND2));
+		temp = element.eGet(element.eClass().getEStructuralFeature(eu.hyvar.feature.expression.HyExpressionPackage.HY_ARITHMETICAL_COMPARISON_EXPRESSION__OPERAND2));
 		printCountingMap.put("operand2", temp == null ? 0 : 1);
 		// print collected hidden tokens
 		int count;
+		// DEFINITION PART BEGINS (CsString)
+		out.print("{");
+		out.print(" ");
 		// DEFINITION PART BEGINS (Containment)
 		count = printCountingMap.get("operand1");
 		if (count > 0) {
-			Object o = element.eGet(element.eClass().getEStructuralFeature(eu.hyvar.feature.expression.HyExpressionPackage.HY_LESS_EXPRESSION__OPERAND1));
+			Object o = element.eGet(element.eClass().getEStructuralFeature(eu.hyvar.feature.expression.HyExpressionPackage.HY_ARITHMETICAL_COMPARISON_EXPRESSION__OPERAND1));
 			if (o != null) {
 				doPrint((EObject) o, out, localtab);
 			}
 			printCountingMap.put("operand1", count - 1);
 		}
-		// DEFINITION PART BEGINS (CsString)
-		out.print("<");
-		out.print(" ");
+		// DEFINITION PART BEGINS (EnumTerminal)
+		count = printCountingMap.get("operator");
+		if (count > 0) {
+			Object o = element.eGet(element.eClass().getEStructuralFeature(eu.hyvar.feature.expression.HyExpressionPackage.HY_ARITHMETICAL_COMPARISON_EXPRESSION__OPERATOR));
+			if (o != null) {
+			}
+			printCountingMap.put("operator", count - 1);
+		}
 		// DEFINITION PART BEGINS (Containment)
 		count = printCountingMap.get("operand2");
 		if (count > 0) {
-			Object o = element.eGet(element.eClass().getEStructuralFeature(eu.hyvar.feature.expression.HyExpressionPackage.HY_LESS_EXPRESSION__OPERAND2));
+			Object o = element.eGet(element.eClass().getEStructuralFeature(eu.hyvar.feature.expression.HyExpressionPackage.HY_ARITHMETICAL_COMPARISON_EXPRESSION__OPERAND2));
 			if (o != null) {
 				doPrint((EObject) o, out, localtab);
 			}
 			printCountingMap.put("operand2", count - 1);
 		}
+		// DEFINITION PART BEGINS (CsString)
+		out.print("}");
+		out.print(" ");
 	}
 	
 	
-	public void print_eu_hyvar_feature_expression_HyLessOrEqualExpression(eu.hyvar.feature.expression.HyLessOrEqualExpression element, String outertab, PrintWriter out) {
+	public void print_eu_hyvar_feature_expression_HyAdditionExpression(eu.hyvar.feature.expression.HyAdditionExpression element, String outertab, PrintWriter out) {
 		String localtab = outertab;
 		// The printCountingMap contains a mapping from feature names to the number of
 		// remaining elements that still need to be printed. The map is initialized with
@@ -1229,106 +885,28 @@ public class DwprofilePrinter implements de.darwinspl.preferences.resource.dwpro
 		// 0 (if the feature is null).
 		Map<String, Integer> printCountingMap = new LinkedHashMap<String, Integer>(2);
 		Object temp;
-		temp = element.eGet(element.eClass().getEStructuralFeature(eu.hyvar.feature.expression.HyExpressionPackage.HY_LESS_OR_EQUAL_EXPRESSION__OPERAND1));
+		temp = element.eGet(element.eClass().getEStructuralFeature(eu.hyvar.feature.expression.HyExpressionPackage.HY_ADDITION_EXPRESSION__OPERAND1));
 		printCountingMap.put("operand1", temp == null ? 0 : 1);
-		temp = element.eGet(element.eClass().getEStructuralFeature(eu.hyvar.feature.expression.HyExpressionPackage.HY_LESS_OR_EQUAL_EXPRESSION__OPERAND2));
+		temp = element.eGet(element.eClass().getEStructuralFeature(eu.hyvar.feature.expression.HyExpressionPackage.HY_ADDITION_EXPRESSION__OPERAND2));
 		printCountingMap.put("operand2", temp == null ? 0 : 1);
 		// print collected hidden tokens
 		int count;
 		// DEFINITION PART BEGINS (Containment)
 		count = printCountingMap.get("operand1");
 		if (count > 0) {
-			Object o = element.eGet(element.eClass().getEStructuralFeature(eu.hyvar.feature.expression.HyExpressionPackage.HY_LESS_OR_EQUAL_EXPRESSION__OPERAND1));
+			Object o = element.eGet(element.eClass().getEStructuralFeature(eu.hyvar.feature.expression.HyExpressionPackage.HY_ADDITION_EXPRESSION__OPERAND1));
 			if (o != null) {
 				doPrint((EObject) o, out, localtab);
 			}
 			printCountingMap.put("operand1", count - 1);
 		}
 		// DEFINITION PART BEGINS (CsString)
-		out.print("<=");
+		out.print("+");
 		out.print(" ");
 		// DEFINITION PART BEGINS (Containment)
 		count = printCountingMap.get("operand2");
 		if (count > 0) {
-			Object o = element.eGet(element.eClass().getEStructuralFeature(eu.hyvar.feature.expression.HyExpressionPackage.HY_LESS_OR_EQUAL_EXPRESSION__OPERAND2));
-			if (o != null) {
-				doPrint((EObject) o, out, localtab);
-			}
-			printCountingMap.put("operand2", count - 1);
-		}
-	}
-	
-	
-	public void print_eu_hyvar_feature_expression_HyGreaterExpression(eu.hyvar.feature.expression.HyGreaterExpression element, String outertab, PrintWriter out) {
-		String localtab = outertab;
-		// The printCountingMap contains a mapping from feature names to the number of
-		// remaining elements that still need to be printed. The map is initialized with
-		// the number of elements stored in each structural feature. For lists this is the
-		// list size. For non-multiple features it is either 1 (if the feature is set) or
-		// 0 (if the feature is null).
-		Map<String, Integer> printCountingMap = new LinkedHashMap<String, Integer>(2);
-		Object temp;
-		temp = element.eGet(element.eClass().getEStructuralFeature(eu.hyvar.feature.expression.HyExpressionPackage.HY_GREATER_EXPRESSION__OPERAND1));
-		printCountingMap.put("operand1", temp == null ? 0 : 1);
-		temp = element.eGet(element.eClass().getEStructuralFeature(eu.hyvar.feature.expression.HyExpressionPackage.HY_GREATER_EXPRESSION__OPERAND2));
-		printCountingMap.put("operand2", temp == null ? 0 : 1);
-		// print collected hidden tokens
-		int count;
-		// DEFINITION PART BEGINS (Containment)
-		count = printCountingMap.get("operand1");
-		if (count > 0) {
-			Object o = element.eGet(element.eClass().getEStructuralFeature(eu.hyvar.feature.expression.HyExpressionPackage.HY_GREATER_EXPRESSION__OPERAND1));
-			if (o != null) {
-				doPrint((EObject) o, out, localtab);
-			}
-			printCountingMap.put("operand1", count - 1);
-		}
-		// DEFINITION PART BEGINS (CsString)
-		out.print(">");
-		out.print(" ");
-		// DEFINITION PART BEGINS (Containment)
-		count = printCountingMap.get("operand2");
-		if (count > 0) {
-			Object o = element.eGet(element.eClass().getEStructuralFeature(eu.hyvar.feature.expression.HyExpressionPackage.HY_GREATER_EXPRESSION__OPERAND2));
-			if (o != null) {
-				doPrint((EObject) o, out, localtab);
-			}
-			printCountingMap.put("operand2", count - 1);
-		}
-	}
-	
-	
-	public void print_eu_hyvar_feature_expression_HyGreaterOrEqualExpression(eu.hyvar.feature.expression.HyGreaterOrEqualExpression element, String outertab, PrintWriter out) {
-		String localtab = outertab;
-		// The printCountingMap contains a mapping from feature names to the number of
-		// remaining elements that still need to be printed. The map is initialized with
-		// the number of elements stored in each structural feature. For lists this is the
-		// list size. For non-multiple features it is either 1 (if the feature is set) or
-		// 0 (if the feature is null).
-		Map<String, Integer> printCountingMap = new LinkedHashMap<String, Integer>(2);
-		Object temp;
-		temp = element.eGet(element.eClass().getEStructuralFeature(eu.hyvar.feature.expression.HyExpressionPackage.HY_GREATER_OR_EQUAL_EXPRESSION__OPERAND1));
-		printCountingMap.put("operand1", temp == null ? 0 : 1);
-		temp = element.eGet(element.eClass().getEStructuralFeature(eu.hyvar.feature.expression.HyExpressionPackage.HY_GREATER_OR_EQUAL_EXPRESSION__OPERAND2));
-		printCountingMap.put("operand2", temp == null ? 0 : 1);
-		// print collected hidden tokens
-		int count;
-		// DEFINITION PART BEGINS (Containment)
-		count = printCountingMap.get("operand1");
-		if (count > 0) {
-			Object o = element.eGet(element.eClass().getEStructuralFeature(eu.hyvar.feature.expression.HyExpressionPackage.HY_GREATER_OR_EQUAL_EXPRESSION__OPERAND1));
-			if (o != null) {
-				doPrint((EObject) o, out, localtab);
-			}
-			printCountingMap.put("operand1", count - 1);
-		}
-		// DEFINITION PART BEGINS (CsString)
-		out.print(">=");
-		out.print(" ");
-		// DEFINITION PART BEGINS (Containment)
-		count = printCountingMap.get("operand2");
-		if (count > 0) {
-			Object o = element.eGet(element.eClass().getEStructuralFeature(eu.hyvar.feature.expression.HyExpressionPackage.HY_GREATER_OR_EQUAL_EXPRESSION__OPERAND2));
+			Object o = element.eGet(element.eClass().getEStructuralFeature(eu.hyvar.feature.expression.HyExpressionPackage.HY_ADDITION_EXPRESSION__OPERAND2));
 			if (o != null) {
 				doPrint((EObject) o, out, localtab);
 			}
@@ -1368,45 +946,6 @@ public class DwprofilePrinter implements de.darwinspl.preferences.resource.dwpro
 		count = printCountingMap.get("operand2");
 		if (count > 0) {
 			Object o = element.eGet(element.eClass().getEStructuralFeature(eu.hyvar.feature.expression.HyExpressionPackage.HY_SUBTRACTION_EXPRESSION__OPERAND2));
-			if (o != null) {
-				doPrint((EObject) o, out, localtab);
-			}
-			printCountingMap.put("operand2", count - 1);
-		}
-	}
-	
-	
-	public void print_eu_hyvar_feature_expression_HyAdditionExpression(eu.hyvar.feature.expression.HyAdditionExpression element, String outertab, PrintWriter out) {
-		String localtab = outertab;
-		// The printCountingMap contains a mapping from feature names to the number of
-		// remaining elements that still need to be printed. The map is initialized with
-		// the number of elements stored in each structural feature. For lists this is the
-		// list size. For non-multiple features it is either 1 (if the feature is set) or
-		// 0 (if the feature is null).
-		Map<String, Integer> printCountingMap = new LinkedHashMap<String, Integer>(2);
-		Object temp;
-		temp = element.eGet(element.eClass().getEStructuralFeature(eu.hyvar.feature.expression.HyExpressionPackage.HY_ADDITION_EXPRESSION__OPERAND1));
-		printCountingMap.put("operand1", temp == null ? 0 : 1);
-		temp = element.eGet(element.eClass().getEStructuralFeature(eu.hyvar.feature.expression.HyExpressionPackage.HY_ADDITION_EXPRESSION__OPERAND2));
-		printCountingMap.put("operand2", temp == null ? 0 : 1);
-		// print collected hidden tokens
-		int count;
-		// DEFINITION PART BEGINS (Containment)
-		count = printCountingMap.get("operand1");
-		if (count > 0) {
-			Object o = element.eGet(element.eClass().getEStructuralFeature(eu.hyvar.feature.expression.HyExpressionPackage.HY_ADDITION_EXPRESSION__OPERAND1));
-			if (o != null) {
-				doPrint((EObject) o, out, localtab);
-			}
-			printCountingMap.put("operand1", count - 1);
-		}
-		// DEFINITION PART BEGINS (CsString)
-		out.print("+");
-		out.print(" ");
-		// DEFINITION PART BEGINS (Containment)
-		count = printCountingMap.get("operand2");
-		if (count > 0) {
-			Object o = element.eGet(element.eClass().getEStructuralFeature(eu.hyvar.feature.expression.HyExpressionPackage.HY_ADDITION_EXPRESSION__OPERAND2));
 			if (o != null) {
 				doPrint((EObject) o, out, localtab);
 			}
@@ -1532,46 +1071,66 @@ public class DwprofilePrinter implements de.darwinspl.preferences.resource.dwpro
 	}
 	
 	
-	public void print_eu_hyvar_feature_expression_HyEqualExpression(eu.hyvar.feature.expression.HyEqualExpression element, String outertab, PrintWriter out) {
+	public void print_eu_hyvar_feature_expression_HyNegationExpression(eu.hyvar.feature.expression.HyNegationExpression element, String outertab, PrintWriter out) {
 		String localtab = outertab;
 		// The printCountingMap contains a mapping from feature names to the number of
 		// remaining elements that still need to be printed. The map is initialized with
 		// the number of elements stored in each structural feature. For lists this is the
 		// list size. For non-multiple features it is either 1 (if the feature is set) or
 		// 0 (if the feature is null).
-		Map<String, Integer> printCountingMap = new LinkedHashMap<String, Integer>(2);
+		Map<String, Integer> printCountingMap = new LinkedHashMap<String, Integer>(1);
 		Object temp;
-		temp = element.eGet(element.eClass().getEStructuralFeature(eu.hyvar.feature.expression.HyExpressionPackage.HY_EQUAL_EXPRESSION__OPERAND1));
-		printCountingMap.put("operand1", temp == null ? 0 : 1);
-		temp = element.eGet(element.eClass().getEStructuralFeature(eu.hyvar.feature.expression.HyExpressionPackage.HY_EQUAL_EXPRESSION__OPERAND2));
-		printCountingMap.put("operand2", temp == null ? 0 : 1);
+		temp = element.eGet(element.eClass().getEStructuralFeature(eu.hyvar.feature.expression.HyExpressionPackage.HY_NEGATION_EXPRESSION__OPERAND));
+		printCountingMap.put("operand", temp == null ? 0 : 1);
 		// print collected hidden tokens
 		int count;
-		// DEFINITION PART BEGINS (Containment)
-		count = printCountingMap.get("operand1");
-		if (count > 0) {
-			Object o = element.eGet(element.eClass().getEStructuralFeature(eu.hyvar.feature.expression.HyExpressionPackage.HY_EQUAL_EXPRESSION__OPERAND1));
-			if (o != null) {
-				doPrint((EObject) o, out, localtab);
-			}
-			printCountingMap.put("operand1", count - 1);
-		}
 		// DEFINITION PART BEGINS (CsString)
-		out.print("=");
+		out.print("-");
 		out.print(" ");
 		// DEFINITION PART BEGINS (Containment)
-		count = printCountingMap.get("operand2");
+		count = printCountingMap.get("operand");
 		if (count > 0) {
-			Object o = element.eGet(element.eClass().getEStructuralFeature(eu.hyvar.feature.expression.HyExpressionPackage.HY_EQUAL_EXPRESSION__OPERAND2));
+			Object o = element.eGet(element.eClass().getEStructuralFeature(eu.hyvar.feature.expression.HyExpressionPackage.HY_NEGATION_EXPRESSION__OPERAND));
 			if (o != null) {
 				doPrint((EObject) o, out, localtab);
 			}
-			printCountingMap.put("operand2", count - 1);
+			printCountingMap.put("operand", count - 1);
 		}
 	}
 	
 	
-	public void print_eu_hyvar_feature_expression_HyNotEqualExpression(eu.hyvar.feature.expression.HyNotEqualExpression element, String outertab, PrintWriter out) {
+	public void print_eu_hyvar_feature_expression_HyNestedArithmeticalValueExpression(eu.hyvar.feature.expression.HyNestedArithmeticalValueExpression element, String outertab, PrintWriter out) {
+		String localtab = outertab;
+		// The printCountingMap contains a mapping from feature names to the number of
+		// remaining elements that still need to be printed. The map is initialized with
+		// the number of elements stored in each structural feature. For lists this is the
+		// list size. For non-multiple features it is either 1 (if the feature is set) or
+		// 0 (if the feature is null).
+		Map<String, Integer> printCountingMap = new LinkedHashMap<String, Integer>(1);
+		Object temp;
+		temp = element.eGet(element.eClass().getEStructuralFeature(eu.hyvar.feature.expression.HyExpressionPackage.HY_NESTED_ARITHMETICAL_VALUE_EXPRESSION__OPERAND));
+		printCountingMap.put("operand", temp == null ? 0 : 1);
+		// print collected hidden tokens
+		int count;
+		// DEFINITION PART BEGINS (CsString)
+		out.print("(");
+		out.print(" ");
+		// DEFINITION PART BEGINS (Containment)
+		count = printCountingMap.get("operand");
+		if (count > 0) {
+			Object o = element.eGet(element.eClass().getEStructuralFeature(eu.hyvar.feature.expression.HyExpressionPackage.HY_NESTED_ARITHMETICAL_VALUE_EXPRESSION__OPERAND));
+			if (o != null) {
+				doPrint((EObject) o, out, localtab);
+			}
+			printCountingMap.put("operand", count - 1);
+		}
+		// DEFINITION PART BEGINS (CsString)
+		out.print(")");
+		out.print(" ");
+	}
+	
+	
+	public void print_eu_hyvar_feature_expression_HyAttributeReferenceExpression(eu.hyvar.feature.expression.HyAttributeReferenceExpression element, String outertab, PrintWriter out) {
 		String localtab = outertab;
 		// The printCountingMap contains a mapping from feature names to the number of
 		// remaining elements that still need to be printed. The map is initialized with
@@ -1580,32 +1139,154 @@ public class DwprofilePrinter implements de.darwinspl.preferences.resource.dwpro
 		// 0 (if the feature is null).
 		Map<String, Integer> printCountingMap = new LinkedHashMap<String, Integer>(2);
 		Object temp;
-		temp = element.eGet(element.eClass().getEStructuralFeature(eu.hyvar.feature.expression.HyExpressionPackage.HY_NOT_EQUAL_EXPRESSION__OPERAND1));
-		printCountingMap.put("operand1", temp == null ? 0 : 1);
-		temp = element.eGet(element.eClass().getEStructuralFeature(eu.hyvar.feature.expression.HyExpressionPackage.HY_NOT_EQUAL_EXPRESSION__OPERAND2));
-		printCountingMap.put("operand2", temp == null ? 0 : 1);
+		temp = element.eGet(element.eClass().getEStructuralFeature(eu.hyvar.feature.expression.HyExpressionPackage.HY_ATTRIBUTE_REFERENCE_EXPRESSION__ATTRIBUTE));
+		printCountingMap.put("attribute", temp == null ? 0 : 1);
+		temp = element.eGet(element.eClass().getEStructuralFeature(eu.hyvar.feature.expression.HyExpressionPackage.HY_ATTRIBUTE_REFERENCE_EXPRESSION__FEATURE));
+		printCountingMap.put("feature", temp == null ? 0 : 1);
+		// print collected hidden tokens
+		int count;
+		// DEFINITION PART BEGINS (CompoundDefinition)
+		print_eu_hyvar_feature_expression_HyAttributeReferenceExpression_0(element, localtab, out, printCountingMap);
+		// DEFINITION PART BEGINS (CsString)
+		out.print(".");
+		out.print(" ");
+		// DEFINITION PART BEGINS (PlaceholderUsingDefaultToken)
+		count = printCountingMap.get("attribute");
+		if (count > 0) {
+			Object o = element.eGet(element.eClass().getEStructuralFeature(eu.hyvar.feature.expression.HyExpressionPackage.HY_ATTRIBUTE_REFERENCE_EXPRESSION__ATTRIBUTE));
+			if (o != null) {
+				de.darwinspl.preferences.resource.dwprofile.IDwprofileTokenResolver resolver = tokenResolverFactory.createTokenResolver("IDENTIFIER_TOKEN");
+				resolver.setOptions(getOptions());
+				out.print(resolver.deResolve(getReferenceResolverSwitch() == null ? null : getReferenceResolverSwitch().getHyAttributeReferenceExpressionAttributeReferenceResolver().deResolve((eu.hyvar.feature.HyFeatureAttribute) o, element, (EReference) element.eClass().getEStructuralFeature(eu.hyvar.feature.expression.HyExpressionPackage.HY_ATTRIBUTE_REFERENCE_EXPRESSION__ATTRIBUTE)), element.eClass().getEStructuralFeature(eu.hyvar.feature.expression.HyExpressionPackage.HY_ATTRIBUTE_REFERENCE_EXPRESSION__ATTRIBUTE), element));
+				out.print(" ");
+			}
+			printCountingMap.put("attribute", count - 1);
+		}
+	}
+	
+	public void print_eu_hyvar_feature_expression_HyAttributeReferenceExpression_0(eu.hyvar.feature.expression.HyAttributeReferenceExpression element, String outertab, PrintWriter out, Map<String, Integer> printCountingMap) {
+		int count;
+		int alt = -1;
+		alt = 0;
+		int matches = 		matchCount(printCountingMap, Arrays.asList(		"feature"		));
+		int tempMatchCount;
+		tempMatchCount = 		matchCount(printCountingMap, Arrays.asList(		"feature"		));
+		if (tempMatchCount > matches) {
+			alt = 1;
+			matches = tempMatchCount;
+		}
+		switch(alt) {
+			case 1:			{
+				// DEFINITION PART BEGINS (PlaceholderUsingDefaultToken)
+				count = printCountingMap.get("feature");
+				if (count > 0) {
+					Object o = element.eGet(element.eClass().getEStructuralFeature(eu.hyvar.feature.expression.HyExpressionPackage.HY_ATTRIBUTE_REFERENCE_EXPRESSION__FEATURE));
+					if (o != null) {
+						de.darwinspl.preferences.resource.dwprofile.IDwprofileTokenResolver resolver = tokenResolverFactory.createTokenResolver("IDENTIFIER_TOKEN");
+						resolver.setOptions(getOptions());
+						out.print(resolver.deResolve(getReferenceResolverSwitch() == null ? null : getReferenceResolverSwitch().getHyAttributeReferenceExpressionFeatureReferenceResolver().deResolve((eu.hyvar.feature.HyFeature) o, element, (EReference) element.eClass().getEStructuralFeature(eu.hyvar.feature.expression.HyExpressionPackage.HY_ATTRIBUTE_REFERENCE_EXPRESSION__FEATURE)), element.eClass().getEStructuralFeature(eu.hyvar.feature.expression.HyExpressionPackage.HY_ATTRIBUTE_REFERENCE_EXPRESSION__FEATURE), element));
+						out.print(" ");
+					}
+					printCountingMap.put("feature", count - 1);
+				}
+			}
+			break;
+			default:			// DEFINITION PART BEGINS (PlaceholderInQuotes)
+			count = printCountingMap.get("feature");
+			if (count > 0) {
+				Object o = element.eGet(element.eClass().getEStructuralFeature(eu.hyvar.feature.expression.HyExpressionPackage.HY_ATTRIBUTE_REFERENCE_EXPRESSION__FEATURE));
+				if (o != null) {
+					de.darwinspl.preferences.resource.dwprofile.IDwprofileTokenResolver resolver = tokenResolverFactory.createTokenResolver("QUOTED_34_34");
+					resolver.setOptions(getOptions());
+					out.print(resolver.deResolve(getReferenceResolverSwitch() == null ? null : getReferenceResolverSwitch().getHyAttributeReferenceExpressionFeatureReferenceResolver().deResolve((eu.hyvar.feature.HyFeature) o, element, (EReference) element.eClass().getEStructuralFeature(eu.hyvar.feature.expression.HyExpressionPackage.HY_ATTRIBUTE_REFERENCE_EXPRESSION__FEATURE)), element.eClass().getEStructuralFeature(eu.hyvar.feature.expression.HyExpressionPackage.HY_ATTRIBUTE_REFERENCE_EXPRESSION__FEATURE), element));
+					out.print(" ");
+				}
+				printCountingMap.put("feature", count - 1);
+			}
+		}
+	}
+	
+	
+	public void print_eu_hyvar_feature_expression_HyContextInformationReferenceExpression(eu.hyvar.feature.expression.HyContextInformationReferenceExpression element, String outertab, PrintWriter out) {
+		String localtab = outertab;
+		// The printCountingMap contains a mapping from feature names to the number of
+		// remaining elements that still need to be printed. The map is initialized with
+		// the number of elements stored in each structural feature. For lists this is the
+		// list size. For non-multiple features it is either 1 (if the feature is set) or
+		// 0 (if the feature is null).
+		Map<String, Integer> printCountingMap = new LinkedHashMap<String, Integer>(1);
+		Object temp;
+		temp = element.eGet(element.eClass().getEStructuralFeature(eu.hyvar.feature.expression.HyExpressionPackage.HY_CONTEXT_INFORMATION_REFERENCE_EXPRESSION__CONTEXT_INFORMATION));
+		printCountingMap.put("contextInformation", temp == null ? 0 : 1);
+		// print collected hidden tokens
+		// DEFINITION PART BEGINS (CompoundDefinition)
+		print_eu_hyvar_feature_expression_HyContextInformationReferenceExpression_0(element, localtab, out, printCountingMap);
+	}
+	
+	public void print_eu_hyvar_feature_expression_HyContextInformationReferenceExpression_0(eu.hyvar.feature.expression.HyContextInformationReferenceExpression element, String outertab, PrintWriter out, Map<String, Integer> printCountingMap) {
+		int count;
+		int alt = -1;
+		alt = 0;
+		int matches = 		matchCount(printCountingMap, Arrays.asList(		"contextInformation"		));
+		int tempMatchCount;
+		tempMatchCount = 		matchCount(printCountingMap, Arrays.asList(		"contextInformation"		));
+		if (tempMatchCount > matches) {
+			alt = 1;
+			matches = tempMatchCount;
+		}
+		switch(alt) {
+			case 1:			{
+				// DEFINITION PART BEGINS (PlaceholderUsingDefaultToken)
+				count = printCountingMap.get("contextInformation");
+				if (count > 0) {
+					Object o = element.eGet(element.eClass().getEStructuralFeature(eu.hyvar.feature.expression.HyExpressionPackage.HY_CONTEXT_INFORMATION_REFERENCE_EXPRESSION__CONTEXT_INFORMATION));
+					if (o != null) {
+						de.darwinspl.preferences.resource.dwprofile.IDwprofileTokenResolver resolver = tokenResolverFactory.createTokenResolver("IDENTIFIER_TOKEN");
+						resolver.setOptions(getOptions());
+						out.print(resolver.deResolve(getReferenceResolverSwitch() == null ? null : getReferenceResolverSwitch().getHyContextInformationReferenceExpressionContextInformationReferenceResolver().deResolve((eu.hyvar.context.HyContextualInformation) o, element, (EReference) element.eClass().getEStructuralFeature(eu.hyvar.feature.expression.HyExpressionPackage.HY_CONTEXT_INFORMATION_REFERENCE_EXPRESSION__CONTEXT_INFORMATION)), element.eClass().getEStructuralFeature(eu.hyvar.feature.expression.HyExpressionPackage.HY_CONTEXT_INFORMATION_REFERENCE_EXPRESSION__CONTEXT_INFORMATION), element));
+						out.print(" ");
+					}
+					printCountingMap.put("contextInformation", count - 1);
+				}
+			}
+			break;
+			default:			// DEFINITION PART BEGINS (PlaceholderInQuotes)
+			count = printCountingMap.get("contextInformation");
+			if (count > 0) {
+				Object o = element.eGet(element.eClass().getEStructuralFeature(eu.hyvar.feature.expression.HyExpressionPackage.HY_CONTEXT_INFORMATION_REFERENCE_EXPRESSION__CONTEXT_INFORMATION));
+				if (o != null) {
+					de.darwinspl.preferences.resource.dwprofile.IDwprofileTokenResolver resolver = tokenResolverFactory.createTokenResolver("QUOTED_34_34");
+					resolver.setOptions(getOptions());
+					out.print(resolver.deResolve(getReferenceResolverSwitch() == null ? null : getReferenceResolverSwitch().getHyContextInformationReferenceExpressionContextInformationReferenceResolver().deResolve((eu.hyvar.context.HyContextualInformation) o, element, (EReference) element.eClass().getEStructuralFeature(eu.hyvar.feature.expression.HyExpressionPackage.HY_CONTEXT_INFORMATION_REFERENCE_EXPRESSION__CONTEXT_INFORMATION)), element.eClass().getEStructuralFeature(eu.hyvar.feature.expression.HyExpressionPackage.HY_CONTEXT_INFORMATION_REFERENCE_EXPRESSION__CONTEXT_INFORMATION), element));
+					out.print(" ");
+				}
+				printCountingMap.put("contextInformation", count - 1);
+			}
+		}
+	}
+	
+	
+	public void print_eu_hyvar_feature_expression_HyValueExpression(eu.hyvar.feature.expression.HyValueExpression element, String outertab, PrintWriter out) {
+		String localtab = outertab;
+		// The printCountingMap contains a mapping from feature names to the number of
+		// remaining elements that still need to be printed. The map is initialized with
+		// the number of elements stored in each structural feature. For lists this is the
+		// list size. For non-multiple features it is either 1 (if the feature is set) or
+		// 0 (if the feature is null).
+		Map<String, Integer> printCountingMap = new LinkedHashMap<String, Integer>(1);
+		Object temp;
+		temp = element.eGet(element.eClass().getEStructuralFeature(eu.hyvar.feature.expression.HyExpressionPackage.HY_VALUE_EXPRESSION__VALUE));
+		printCountingMap.put("value", temp == null ? 0 : 1);
 		// print collected hidden tokens
 		int count;
 		// DEFINITION PART BEGINS (Containment)
-		count = printCountingMap.get("operand1");
+		count = printCountingMap.get("value");
 		if (count > 0) {
-			Object o = element.eGet(element.eClass().getEStructuralFeature(eu.hyvar.feature.expression.HyExpressionPackage.HY_NOT_EQUAL_EXPRESSION__OPERAND1));
+			Object o = element.eGet(element.eClass().getEStructuralFeature(eu.hyvar.feature.expression.HyExpressionPackage.HY_VALUE_EXPRESSION__VALUE));
 			if (o != null) {
 				doPrint((EObject) o, out, localtab);
 			}
-			printCountingMap.put("operand1", count - 1);
-		}
-		// DEFINITION PART BEGINS (CsString)
-		out.print("!=");
-		out.print(" ");
-		// DEFINITION PART BEGINS (Containment)
-		count = printCountingMap.get("operand2");
-		if (count > 0) {
-			Object o = element.eGet(element.eClass().getEStructuralFeature(eu.hyvar.feature.expression.HyExpressionPackage.HY_NOT_EQUAL_EXPRESSION__OPERAND2));
-			if (o != null) {
-				doPrint((EObject) o, out, localtab);
-			}
-			printCountingMap.put("operand2", count - 1);
+			printCountingMap.put("value", count - 1);
 		}
 	}
 	

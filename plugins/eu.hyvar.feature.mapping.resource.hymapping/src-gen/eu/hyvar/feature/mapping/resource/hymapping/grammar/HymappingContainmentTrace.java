@@ -52,7 +52,23 @@ public class HymappingContainmentTrace {
 	}
 	
 	public String toString() {
-		return (startClass == null ? "null" : startClass.getName()) + "->" + eu.hyvar.feature.mapping.resource.hymapping.util.HymappingStringUtil.explode(path, "->");
+		return (startClass == null ? "null" : startClass.getName()) + "." + eu.hyvar.feature.mapping.resource.hymapping.util.HymappingStringUtil.explode(path, "->");
+	}
+	
+	public boolean contains(eu.hyvar.feature.mapping.resource.hymapping.grammar.HymappingRule rule) {
+		if (path == null) {
+			return false;
+		}
+		
+		EClass ruleMetaclass = rule.getMetaclass();
+		for (eu.hyvar.feature.mapping.resource.hymapping.mopp.HymappingContainedFeature pathElement : path) {
+			EClass containerClass = pathElement.getContainerClass();
+			if (containerClass == ruleMetaclass) {
+				return true;
+			}
+		}
+		
+		return startClass == ruleMetaclass;
 	}
 	
 }

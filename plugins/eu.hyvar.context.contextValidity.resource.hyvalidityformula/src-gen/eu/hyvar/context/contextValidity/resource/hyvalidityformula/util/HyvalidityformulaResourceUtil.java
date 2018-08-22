@@ -224,7 +224,7 @@ public class HyvalidityformulaResourceUtil {
 			return null;
 		}
 		EObject root = contents.get(0);
-		return (eu.hyvar.context.contextValidity.HyValidityModel) root;
+		return root;
 	}
 	
 	public static void saveResource(File file, Resource resource) throws IOException {

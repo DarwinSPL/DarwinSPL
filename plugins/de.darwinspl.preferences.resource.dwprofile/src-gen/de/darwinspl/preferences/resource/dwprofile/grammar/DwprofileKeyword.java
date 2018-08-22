@@ -24,7 +24,7 @@ public class DwprofileKeyword extends de.darwinspl.preferences.resource.dwprofil
 	}
 	
 	public String toString() {
-		return value;
+		return "\"" + value + "\"";
 	}
 	
 }

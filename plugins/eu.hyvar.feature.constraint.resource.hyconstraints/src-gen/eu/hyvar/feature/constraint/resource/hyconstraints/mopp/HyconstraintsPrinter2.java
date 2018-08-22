@@ -241,100 +241,72 @@ public class HyconstraintsPrinter2 implements eu.hyvar.feature.constraint.resour
 			printInternal(element, eu.hyvar.feature.constraint.resource.hyconstraints.grammar.HyconstraintsGrammarInformationProvider.HYEXPRESSION_4, foundFormattingElements);
 			return;
 		}
-		if (element instanceof eu.hyvar.feature.expression.HyNegationExpression) {
+		if (element instanceof eu.hyvar.feature.expression.HyNestedExpression) {
 			printInternal(element, eu.hyvar.feature.constraint.resource.hyconstraints.grammar.HyconstraintsGrammarInformationProvider.HYEXPRESSION_5, foundFormattingElements);
 			return;
 		}
-		if (element instanceof eu.hyvar.feature.expression.HyNestedExpression) {
+		if (element instanceof eu.hyvar.feature.expression.HyFeatureReferenceExpression) {
 			printInternal(element, eu.hyvar.feature.constraint.resource.hyconstraints.grammar.HyconstraintsGrammarInformationProvider.HYEXPRESSION_6, foundFormattingElements);
 			return;
 		}
-		if (element instanceof eu.hyvar.feature.expression.HyFeatureReferenceExpression) {
+		if (element instanceof eu.hyvar.feature.expression.HyConditionalFeatureReferenceExpression) {
 			printInternal(element, eu.hyvar.feature.constraint.resource.hyconstraints.grammar.HyconstraintsGrammarInformationProvider.HYEXPRESSION_7, foundFormattingElements);
 			return;
 		}
-		if (element instanceof eu.hyvar.feature.expression.HyConditionalFeatureReferenceExpression) {
+		if (element instanceof eu.hyvar.feature.expression.HyBooleanValueExpression) {
 			printInternal(element, eu.hyvar.feature.constraint.resource.hyconstraints.grammar.HyconstraintsGrammarInformationProvider.HYEXPRESSION_8, foundFormattingElements);
 			return;
 		}
-		if (element instanceof eu.hyvar.feature.expression.HyContextInformationReferenceExpression) {
+		if (element instanceof eu.hyvar.feature.expression.HyArithmeticalComparisonExpression) {
 			printInternal(element, eu.hyvar.feature.constraint.resource.hyconstraints.grammar.HyconstraintsGrammarInformationProvider.HYEXPRESSION_9, foundFormattingElements);
 			return;
 		}
-		if (element instanceof eu.hyvar.feature.expression.HyAttributeReferenceExpression) {
+		if (element instanceof eu.hyvar.feature.expression.HyAdditionExpression) {
 			printInternal(element, eu.hyvar.feature.constraint.resource.hyconstraints.grammar.HyconstraintsGrammarInformationProvider.HYEXPRESSION_10, foundFormattingElements);
 			return;
 		}
-		if (element instanceof eu.hyvar.feature.expression.HyValueExpression) {
+		if (element instanceof eu.hyvar.feature.expression.HySubtractionExpression) {
 			printInternal(element, eu.hyvar.feature.constraint.resource.hyconstraints.grammar.HyconstraintsGrammarInformationProvider.HYEXPRESSION_11, foundFormattingElements);
 			return;
 		}
-		if (element instanceof eu.hyvar.feature.expression.HyBooleanValueExpression) {
+		if (element instanceof eu.hyvar.feature.expression.HyModuloExpression) {
 			printInternal(element, eu.hyvar.feature.constraint.resource.hyconstraints.grammar.HyconstraintsGrammarInformationProvider.HYEXPRESSION_12, foundFormattingElements);
 			return;
 		}
-		if (element instanceof eu.hyvar.feature.expression.HyMinimumExpression) {
+		if (element instanceof eu.hyvar.feature.expression.HyMultiplicationExpression) {
 			printInternal(element, eu.hyvar.feature.constraint.resource.hyconstraints.grammar.HyconstraintsGrammarInformationProvider.HYEXPRESSION_13, foundFormattingElements);
 			return;
 		}
-		if (element instanceof eu.hyvar.feature.expression.HyMaximumExpression) {
+		if (element instanceof eu.hyvar.feature.expression.HyDivisionExpression) {
 			printInternal(element, eu.hyvar.feature.constraint.resource.hyconstraints.grammar.HyconstraintsGrammarInformationProvider.HYEXPRESSION_14, foundFormattingElements);
 			return;
 		}
-		if (element instanceof eu.hyvar.feature.expression.HyIfPossibleExpression) {
+		if (element instanceof eu.hyvar.feature.expression.HyNegationExpression) {
 			printInternal(element, eu.hyvar.feature.constraint.resource.hyconstraints.grammar.HyconstraintsGrammarInformationProvider.HYEXPRESSION_15, foundFormattingElements);
 			return;
 		}
-		if (element instanceof eu.hyvar.feature.expression.HyLessExpression) {
+		if (element instanceof eu.hyvar.feature.expression.HyNestedArithmeticalValueExpression) {
 			printInternal(element, eu.hyvar.feature.constraint.resource.hyconstraints.grammar.HyconstraintsGrammarInformationProvider.HYEXPRESSION_16, foundFormattingElements);
 			return;
 		}
-		if (element instanceof eu.hyvar.feature.expression.HyLessOrEqualExpression) {
+		if (element instanceof eu.hyvar.feature.expression.HyAttributeReferenceExpression) {
 			printInternal(element, eu.hyvar.feature.constraint.resource.hyconstraints.grammar.HyconstraintsGrammarInformationProvider.HYEXPRESSION_17, foundFormattingElements);
 			return;
 		}
-		if (element instanceof eu.hyvar.feature.expression.HyGreaterExpression) {
+		if (element instanceof eu.hyvar.feature.expression.HyContextInformationReferenceExpression) {
 			printInternal(element, eu.hyvar.feature.constraint.resource.hyconstraints.grammar.HyconstraintsGrammarInformationProvider.HYEXPRESSION_18, foundFormattingElements);
 			return;
 		}
-		if (element instanceof eu.hyvar.feature.expression.HyGreaterOrEqualExpression) {
+		if (element instanceof eu.hyvar.feature.expression.HyValueExpression) {
 			printInternal(element, eu.hyvar.feature.constraint.resource.hyconstraints.grammar.HyconstraintsGrammarInformationProvider.HYEXPRESSION_19, foundFormattingElements);
 			return;
 		}
-		if (element instanceof eu.hyvar.feature.expression.HySubtractionExpression) {
+		if (element instanceof eu.hyvar.feature.expression.HyRelativeVersionRestriction) {
 			printInternal(element, eu.hyvar.feature.constraint.resource.hyconstraints.grammar.HyconstraintsGrammarInformationProvider.HYEXPRESSION_20, foundFormattingElements);
 			return;
 		}
-		if (element instanceof eu.hyvar.feature.expression.HyAdditionExpression) {
-			printInternal(element, eu.hyvar.feature.constraint.resource.hyconstraints.grammar.HyconstraintsGrammarInformationProvider.HYEXPRESSION_21, foundFormattingElements);
-			return;
-		}
-		if (element instanceof eu.hyvar.feature.expression.HyModuloExpression) {
-			printInternal(element, eu.hyvar.feature.constraint.resource.hyconstraints.grammar.HyconstraintsGrammarInformationProvider.HYEXPRESSION_22, foundFormattingElements);
-			return;
-		}
-		if (element instanceof eu.hyvar.feature.expression.HyMultiplicationExpression) {
-			printInternal(element, eu.hyvar.feature.constraint.resource.hyconstraints.grammar.HyconstraintsGrammarInformationProvider.HYEXPRESSION_23, foundFormattingElements);
-			return;
-		}
-		if (element instanceof eu.hyvar.feature.expression.HyDivisionExpression) {
-			printInternal(element, eu.hyvar.feature.constraint.resource.hyconstraints.grammar.HyconstraintsGrammarInformationProvider.HYEXPRESSION_24, foundFormattingElements);
-			return;
-		}
-		if (element instanceof eu.hyvar.feature.expression.HyEqualExpression) {
-			printInternal(element, eu.hyvar.feature.constraint.resource.hyconstraints.grammar.HyconstraintsGrammarInformationProvider.HYEXPRESSION_25, foundFormattingElements);
-			return;
-		}
-		if (element instanceof eu.hyvar.feature.expression.HyNotEqualExpression) {
-			printInternal(element, eu.hyvar.feature.constraint.resource.hyconstraints.grammar.HyconstraintsGrammarInformationProvider.HYEXPRESSION_26, foundFormattingElements);
-			return;
-		}
-		if (element instanceof eu.hyvar.feature.expression.HyRelativeVersionRestriction) {
-			printInternal(element, eu.hyvar.feature.constraint.resource.hyconstraints.grammar.HyconstraintsGrammarInformationProvider.HYEXPRESSION_27, foundFormattingElements);
-			return;
-		}
 		if (element instanceof eu.hyvar.feature.expression.HyVersionRangeRestriction) {
-			printInternal(element, eu.hyvar.feature.constraint.resource.hyconstraints.grammar.HyconstraintsGrammarInformationProvider.HYEXPRESSION_28, foundFormattingElements);
+			printInternal(element, eu.hyvar.feature.constraint.resource.hyconstraints.grammar.HyconstraintsGrammarInformationProvider.HYEXPRESSION_21, foundFormattingElements);
 			return;
 		}
 		if (element instanceof eu.hyvar.dataValues.HyNumberValue) {

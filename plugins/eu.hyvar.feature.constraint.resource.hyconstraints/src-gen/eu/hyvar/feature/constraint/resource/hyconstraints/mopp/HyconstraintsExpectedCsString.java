@@ -29,7 +29,7 @@ public class HyconstraintsExpectedCsString extends eu.hyvar.feature.constraint.r
 	/**
 	 * Returns the expected keyword.
 	 */
-	public eu.hyvar.feature.constraint.resource.hyconstraints.grammar.HyconstraintsSyntaxElement getSymtaxElement() {
+	public eu.hyvar.feature.constraint.resource.hyconstraints.grammar.HyconstraintsSyntaxElement getSyntaxElement() {
 		return keyword;
 	}
 	

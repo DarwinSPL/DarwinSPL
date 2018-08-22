@@ -30,7 +30,7 @@ public class HyconstraintsExpectedStructuralFeature extends eu.hyvar.feature.con
 	/**
 	 * Returns the expected placeholder.
 	 */
-	public eu.hyvar.feature.constraint.resource.hyconstraints.grammar.HyconstraintsSyntaxElement getSymtaxElement() {
+	public eu.hyvar.feature.constraint.resource.hyconstraints.grammar.HyconstraintsSyntaxElement getSyntaxElement() {
 		return placeholder;
 	}
 	

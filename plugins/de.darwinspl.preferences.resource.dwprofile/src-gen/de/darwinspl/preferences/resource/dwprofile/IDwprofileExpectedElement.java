@@ -28,7 +28,7 @@ public interface IDwprofileExpectedElement {
 	/**
 	 * Returns the syntax element that is expected.
 	 */
-	public de.darwinspl.preferences.resource.dwprofile.grammar.DwprofileSyntaxElement getSymtaxElement();
+	public de.darwinspl.preferences.resource.dwprofile.grammar.DwprofileSyntaxElement getSyntaxElement();
 	
 	/**
 	 * Adds an element that is a valid follower for this element.

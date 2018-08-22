@@ -29,7 +29,7 @@ public class HymappingExpectedCsString extends eu.hyvar.feature.mapping.resource
 	/**
 	 * Returns the expected keyword.
 	 */
-	public eu.hyvar.feature.mapping.resource.hymapping.grammar.HymappingSyntaxElement getSymtaxElement() {
+	public eu.hyvar.feature.mapping.resource.hymapping.grammar.HymappingSyntaxElement getSyntaxElement() {
 		return keyword;
 	}
 	
