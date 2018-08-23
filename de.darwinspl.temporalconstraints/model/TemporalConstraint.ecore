@@ -2,6 +2,10 @@
 <ecore:EPackage xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="temporalConstraint" nsURI="http://darwinspl.de/constraint/temporalconstraint/1.0"
     nsPrefix="temporalConstraint">
+  <eClassifiers xsi:type="ecore:EClass" name="TemporalConstraintModel">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="temporalConstraints" upperBound="-1"
+        eType="#//TemporalConstraint"/>
+  </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="TemporalConstraint" abstract="true"
       interface="true">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="validSince" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDate"/>
@@ -25,5 +29,10 @@
     <eLiterals name="greaterThan" literal="greaterThan"/>
     <eLiterals name="lessThan" value="1" literal="lessThan"/>
     <eLiterals name="equals" value="2" literal="equals"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="TemporalInconsistency">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="violatedConstraint" lowerBound="1"
+        eType="#//TemporalConstraint"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="violatedAt" eType="ecore:EDataType ../../org.eclipse.emf.ecore/model/Ecore.ecore#//EDate"/>
   </eClassifiers>
 </ecore:EPackage>
