@@ -16,7 +16,10 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="TemporalReferenceConstraint" eSuperTypes="#//TemporalConstraint">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="constraintType" eType="#//ConstraintTypeEnum"
-        defaultValueLiteral="0"/>
+        defaultValueLiteral="greaterThan"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="target" upperBound="-1"
+        eType="ecore:EClass ../../org.eclipse.emf.ecore/model/Ecore.ecore#//EReference"
+        containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EEnum" name="ConstraintTypeEnum">
     <eLiterals name="greaterThan" literal="greaterThan"/>

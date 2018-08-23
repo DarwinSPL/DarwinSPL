@@ -1,22 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <genmodel:GenModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore"
-    xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" modelDirectory="/de.darwinspl.constraint.temporalconstraint/src"
-    modelPluginID="de.darwinspl.constraint.temporalconstraint" modelName="TemporalConstraint"
-    rootExtendsClass="org.eclipse.emf.ecore.impl.MinimalEObjectImpl$Container" importerID="org.eclipse.emf.importer.ecore"
-    complianceLevel="7.0" copyrightFields="false" usedGenPackages="../../org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore"
-    operationReflection="true" importOrganizing="true">
+    xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" modelDirectory="/de.darwinspl.temporalconstraints/src-gen" editDirectory="/de.darwinspl.temporalconstraints.edit/src-gen"
+    editorDirectory="/de.darwinspl.temporalconstraints.editor/src-gen" modelPluginID="de.darwinspl.temporalconstraints"
+    modelName="TemporalConstraint" rootExtendsClass="org.eclipse.emf.ecore.impl.MinimalEObjectImpl$Container"
+    importerID="org.eclipse.emf.importer.ecore" complianceLevel="7.0" copyrightFields="false"
+    editPluginID="de.darwinspl.temporalconstraints.edit" editorPluginID="de.darwinspl.temporalconstraints.editor"
+    usedGenPackages="../../org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore" operationReflection="true"
+    importOrganizing="true">
   <foreignModel>TemporalConstraint.ecore</foreignModel>
   <genPackages prefix="TemporalConstraint" disposableProviderFactory="true" ecorePackage="TemporalConstraint.ecore#/">
     <genEnums typeSafeEnumCompatible="false" ecoreEnum="TemporalConstraint.ecore#//ConstraintTypeEnum">
-      <genEnumLiterals ecoreEnumLiteral="TemporalConstraint.ecore#//ConstraintTypeEnum/greaterThen"/>
-      <genEnumLiterals ecoreEnumLiteral="TemporalConstraint.ecore#//ConstraintTypeEnum/lessThen"/>
+      <genEnumLiterals ecoreEnumLiteral="TemporalConstraint.ecore#//ConstraintTypeEnum/greaterThan"/>
+      <genEnumLiterals ecoreEnumLiteral="TemporalConstraint.ecore#//ConstraintTypeEnum/lessThan"/>
       <genEnumLiterals ecoreEnumLiteral="TemporalConstraint.ecore#//ConstraintTypeEnum/equals"/>
     </genEnums>
-    <genClasses ecoreClass="TemporalConstraint.ecore#//TemporalConstraint"/>
+    <genClasses ecoreClass="TemporalConstraint.ecore#//TemporalConstraint">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute TemporalConstraint.ecore#//TemporalConstraint/validSince"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute TemporalConstraint.ecore#//TemporalConstraint/validUntil"/>
+    </genClasses>
     <genClasses ecoreClass="TemporalConstraint.ecore#//TemporalCardinalityConstraint">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute TemporalConstraint.ecore#//TemporalCardinalityConstraint/expression"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute TemporalConstraint.ecore#//TemporalCardinalityConstraint/lowerBound"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute TemporalConstraint.ecore#//TemporalCardinalityConstraint/upperBound"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference TemporalConstraint.ecore#//TemporalCardinalityConstraint/target"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute TemporalConstraint.ecore#//TemporalCardinalityConstraint/contraintType"/>
+    </genClasses>
+    <genClasses ecoreClass="TemporalConstraint.ecore#//TemporalReferenceConstraint">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute TemporalConstraint.ecore#//TemporalReferenceConstraint/constraintType"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference TemporalConstraint.ecore#//TemporalReferenceConstraint/target"/>
     </genClasses>
   </genPackages>
 </genmodel:GenModel>
