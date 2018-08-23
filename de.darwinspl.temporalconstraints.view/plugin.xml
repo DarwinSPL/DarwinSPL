@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   <extension
+         point="org.eclipse.ui.views">
+      <view
+            category="de.darwinspl.feature.graphical.configurator.editor.anomaly"
+            class="de.darwinspl.temporalconstraints.view.DwInconsistencyView"
+            icon="icons/icon_anomaly_view.png"
+            id="de.darwinspl.temporalconstraints.view"
+            name="Temporal Inconsistencies"
+            restorable="true">
+      </view>
+   </extension>
+
+</plugin>
