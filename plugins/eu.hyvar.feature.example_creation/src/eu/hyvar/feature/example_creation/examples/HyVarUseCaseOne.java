@@ -33,8 +33,10 @@ import eu.hyvar.feature.constraint.HyConstraint;
 import eu.hyvar.feature.constraint.HyConstraintFactory;
 import eu.hyvar.feature.constraint.HyConstraintModel;
 import eu.hyvar.feature.expression.HyAndExpression;
+import eu.hyvar.feature.expression.HyArithmeticalComparisonExpression;
+import eu.hyvar.feature.expression.HyArithmeticalComparisonOperator;
 import eu.hyvar.feature.expression.HyContextInformationReferenceExpression;
-import eu.hyvar.feature.expression.HyEqualExpression;
+import eu.hyvar.feature.expression.HyArithmeticalValueExpression;
 import eu.hyvar.feature.expression.HyEquivalenceExpression;
 import eu.hyvar.feature.expression.HyExpressionFactory;
 import eu.hyvar.feature.expression.HyFeatureReferenceExpression;
@@ -336,7 +338,9 @@ public class HyVarUseCaseOne extends HyFMExample {
 		
 		HyFeatureValidityFormula eCallInEurope = HyContextValidityFactory.eINSTANCE.createHyFeatureValidityFormula();
 		eCallInEurope.setFeature(eCallFeature);
-		HyEqualExpression locationEqualsEurope = HyExpressionFactory.eINSTANCE.createHyEqualExpression();
+		HyArithmeticalComparisonExpression locationEqualsEurope = HyExpressionFactory.eINSTANCE.createHyArithmeticalComparisonExpression();
+		locationEqualsEurope.setOperator(HyArithmeticalComparisonOperator.HY_EQUAL_OPERATOR);
+//		HyEqualExpression locationEqualsEurope = HyExpressionFactory.eINSTANCE.createHyEqualExpression();
 		HyContextInformationReferenceExpression locationReference = HyExpressionFactory.eINSTANCE.createHyContextInformationReferenceExpression();
 		locationReference.setContextInformation(locationContext);
 		HyEnumValue gpsEuropeValue = HyDataValuesFactory.eINSTANCE.createHyEnumValue();

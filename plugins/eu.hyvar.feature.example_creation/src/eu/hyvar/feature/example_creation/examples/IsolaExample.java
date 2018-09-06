@@ -39,16 +39,14 @@ import eu.hyvar.feature.configuration.HyVersionSelected;
 import eu.hyvar.feature.constraint.HyConstraint;
 import eu.hyvar.feature.constraint.HyConstraintFactory;
 import eu.hyvar.feature.constraint.HyConstraintModel;
+import eu.hyvar.feature.expression.HyArithmeticalComparisonExpression;
+import eu.hyvar.feature.expression.HyArithmeticalComparisonOperator;
 import eu.hyvar.feature.expression.HyAttributeReferenceExpression;
 import eu.hyvar.feature.expression.HyContextInformationReferenceExpression;
-import eu.hyvar.feature.expression.HyEqualExpression;
 import eu.hyvar.feature.expression.HyExpressionFactory;
 import eu.hyvar.feature.expression.HyFeatureReferenceExpression;
-import eu.hyvar.feature.expression.HyGreaterOrEqualExpression;
 import eu.hyvar.feature.expression.HyIfPossibleExpression;
 import eu.hyvar.feature.expression.HyImpliesExpression;
-import eu.hyvar.feature.expression.HyLessExpression;
-import eu.hyvar.feature.expression.HyLessOrEqualExpression;
 import eu.hyvar.feature.expression.HyMaximumExpression;
 import eu.hyvar.feature.expression.HyNestedExpression;
 import eu.hyvar.feature.expression.HyRelativeVersionRestriction;
@@ -426,7 +424,8 @@ public class IsolaExample extends HyFMExample {
 		// Rainy -> maxSpeed <= 80
 		HyAttributeValidityFormula rainyMaxSpeed = contextMappingFactory.createHyAttributeValidityFormula();
 
-		HyLessOrEqualExpression maxSpeedLEQ80Expression = expressionFactory.createHyLessOrEqualExpression();
+		HyArithmeticalComparisonExpression maxSpeedLEQ80Expression = expressionFactory.createHyArithmeticalComparisonExpression();
+		maxSpeedLEQ80Expression.setOperator(HyArithmeticalComparisonOperator.HY_LESS_OR_EQUAL_OPERATOR);
 		HyValueExpression value80Expression = expressionFactory.createHyValueExpression();
 		HyNumberValue value80 = valueFactory.createHyNumberValue();
 		value80.setValue(80);
@@ -436,7 +435,8 @@ public class IsolaExample extends HyFMExample {
 		maxSpeedLEQ80Expression.setOperand1(maxSpeedReference);
 		maxSpeedLEQ80Expression.setOperand2(value80Expression);
 
-		HyEqualExpression weatherRainyExpression = expressionFactory.createHyEqualExpression();
+		HyArithmeticalComparisonExpression weatherRainyExpression = expressionFactory.createHyArithmeticalComparisonExpression();
+		weatherRainyExpression.setOperator(HyArithmeticalComparisonOperator.HY_EQUAL_OPERATOR);
 		HyContextInformationReferenceExpression weatherReferenceExpression = expressionFactory
 				.createHyContextInformationReferenceExpression();
 		weatherReferenceExpression.setContextInformation(weather);
@@ -470,7 +470,8 @@ public class IsolaExample extends HyFMExample {
 		// (Neutral, Progressive, White, Red, Manual)
 
 		// Pollution < 50
-		HyLessExpression pollutionLess50Expression = expressionFactory.createHyLessExpression();
+		HyArithmeticalComparisonExpression pollutionLess50Expression = expressionFactory.createHyArithmeticalComparisonExpression();
+		pollutionLess50Expression.setOperator(HyArithmeticalComparisonOperator.HY_LESS_OPERATOR);
 		HyContextInformationReferenceExpression pollutionReference = expressionFactory
 				.createHyContextInformationReferenceExpression();
 		pollutionReference.setContextInformation(pollutionLevel);
@@ -552,11 +553,13 @@ public class IsolaExample extends HyFMExample {
 		HyNumberValue value18 = valueFactory.createHyNumberValue();
 		value18.setValue(18);
 		value18Expression.setValue(value18);
-		HyGreaterOrEqualExpression hourOfTheDayGEQ18Expression = expressionFactory.createHyGreaterOrEqualExpression();
+		HyArithmeticalComparisonExpression hourOfTheDayGEQ18Expression = expressionFactory.createHyArithmeticalComparisonExpression();
+		hourOfTheDayGEQ18Expression.setOperator(HyArithmeticalComparisonOperator.HY_GREATER_OR_EQUAL_OPERATOR);
 		hourOfTheDayGEQ18Expression.setOperand1(hourOfTheDayReference);
 		hourOfTheDayGEQ18Expression.setOperand2(value18Expression);
-		
-		HyEqualExpression nightModeTrueExpression = expressionFactory.createHyEqualExpression();
+
+		HyArithmeticalComparisonExpression nightModeTrueExpression = expressionFactory.createHyArithmeticalComparisonExpression();
+		nightModeTrueExpression.setOperator(HyArithmeticalComparisonOperator.HY_EQUAL_OPERATOR);
 		HyValueExpression valueTrueExpression = expressionFactory.createHyValueExpression();
 		HyBooleanValue valueTrue = valueFactory.createHyBooleanValue();
 		valueTrue.setValue(true);
@@ -693,7 +696,8 @@ public class IsolaExample extends HyFMExample {
 			HyNumberValue value16 = valueFactory.createHyNumberValue();
 			value16.setValue(16);
 			value16Expression.setValue(value16);
-			HyGreaterOrEqualExpression hourOfTheDayGEQ16Expression = expressionFactory.createHyGreaterOrEqualExpression();
+			HyArithmeticalComparisonExpression hourOfTheDayGEQ16Expression = expressionFactory.createHyArithmeticalComparisonExpression();
+			hourOfTheDayGEQ16Expression.setOperator(HyArithmeticalComparisonOperator.HY_GREATER_OR_EQUAL_OPERATOR);
 			hourOfTheDayGEQ16Expression.setOperand1(EcoreUtil.copy(hourOfTheDayReference));
 			hourOfTheDayGEQ16Expression.setOperand2(value16Expression);
 						

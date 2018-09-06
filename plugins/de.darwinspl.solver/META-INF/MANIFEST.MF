@@ -10,6 +10,7 @@ Require-Bundle: eu.hyvar.feature,
  eu.hyvar.feature.constraint,
  eu.hyvar.context.information,
  eu.hyvar.feature.configuration,
- eu.hyvar.context.information.value
+ eu.hyvar.context.information.value,
+ eu.hyvar.feature.expression
 Export-Package: de.darwinspl.solver,
  de.darwinspl.solver.exception

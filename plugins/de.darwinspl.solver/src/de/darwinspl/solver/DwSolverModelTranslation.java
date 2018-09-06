@@ -51,24 +51,26 @@ import eu.hyvar.feature.expression.HyAndExpression;
 import eu.hyvar.feature.expression.HyAtomicExpression;
 import eu.hyvar.feature.expression.HyAttributeReferenceExpression;
 import eu.hyvar.feature.expression.HyBinaryExpression;
+import eu.hyvar.feature.expression.HyBooleanValueExpression;
 import eu.hyvar.feature.expression.HyConditionalFeatureReferenceExpression;
 import eu.hyvar.feature.expression.HyContextInformationReferenceExpression;
 import eu.hyvar.feature.expression.HyDivisionExpression;
-import eu.hyvar.feature.expression.HyEqualExpression;
+import eu.hyvar.feature.expression.HyArithmeticalComparisonExpression;
+import eu.hyvar.feature.expression.HyArithmeticalComparisonOperator;
+import eu.hyvar.feature.expression.HyArithmeticalValueAtomicExpression;
+import eu.hyvar.feature.expression.HyArithmeticalValueBinaryOperationExpression;
+import eu.hyvar.feature.expression.HyArithmeticalValueExpression;
+import eu.hyvar.feature.expression.HyArithmeticalValueUnaryOperationExpression;
 import eu.hyvar.feature.expression.HyEquivalenceExpression;
 import eu.hyvar.feature.expression.HyExpression;
-import eu.hyvar.feature.expression.HyGreaterExpression;
-import eu.hyvar.feature.expression.HyGreaterOrEqualExpression;
 import eu.hyvar.feature.expression.HyImpliesExpression;
-import eu.hyvar.feature.expression.HyLessExpression;
-import eu.hyvar.feature.expression.HyLessOrEqualExpression;
 import eu.hyvar.feature.expression.HyMaximumExpression;
 import eu.hyvar.feature.expression.HyMinimumExpression;
 import eu.hyvar.feature.expression.HyModuloExpression;
 import eu.hyvar.feature.expression.HyMultiplicationExpression;
 import eu.hyvar.feature.expression.HyNegationExpression;
+import eu.hyvar.feature.expression.HyNestedArithmeticalValueExpression;
 import eu.hyvar.feature.expression.HyNestedExpression;
-import eu.hyvar.feature.expression.HyNotEqualExpression;
 import eu.hyvar.feature.expression.HyNotExpression;
 import eu.hyvar.feature.expression.HyOrExpression;
 import eu.hyvar.feature.expression.HyRelativeVersionRestriction;
@@ -390,52 +392,6 @@ public class DwSolverModelTranslation {
 		}
 		// Constraints using arithmetic operations. Right and left-hand side can
 		// only be atomic expressions!
-		else if (binaryExpression instanceof HyGreaterExpression) {
-			constraint = chocoModel.arithm(
-					getOperandOfArithmeticalOperation(binaryExpression.getOperand1(), chocoModel, featureModelMapping),
-					">",
-					getOperandOfArithmeticalOperation(binaryExpression.getOperand2(), chocoModel, featureModelMapping));
-		} else if (binaryExpression instanceof HyLessExpression) {
-			constraint = chocoModel.arithm(
-					getOperandOfArithmeticalOperation(binaryExpression.getOperand1(), chocoModel, featureModelMapping),
-					"<",
-					getOperandOfArithmeticalOperation(binaryExpression.getOperand2(), chocoModel, featureModelMapping));
-		} else if (binaryExpression instanceof HyLessOrEqualExpression) {
-			constraint = chocoModel.arithm(
-					getOperandOfArithmeticalOperation(binaryExpression.getOperand1(), chocoModel, featureModelMapping),
-					"<=",
-					getOperandOfArithmeticalOperation(binaryExpression.getOperand2(), chocoModel, featureModelMapping));
-		} else if (binaryExpression instanceof HyGreaterOrEqualExpression) {
-			constraint = chocoModel.arithm(
-					getOperandOfArithmeticalOperation(binaryExpression.getOperand1(), chocoModel, featureModelMapping),
-					">=",
-					getOperandOfArithmeticalOperation(binaryExpression.getOperand2(), chocoModel, featureModelMapping));
-		} else if (binaryExpression instanceof HyEqualExpression) {
-			constraint = chocoModel.arithm(
-					getOperandOfArithmeticalOperation(binaryExpression.getOperand1(), chocoModel, featureModelMapping),
-					"=",
-					getOperandOfArithmeticalOperation(binaryExpression.getOperand2(), chocoModel, featureModelMapping));
-		} else if (binaryExpression instanceof HyNotEqualExpression) {
-			constraint = chocoModel.arithm(
-					getOperandOfArithmeticalOperation(binaryExpression.getOperand1(), chocoModel, featureModelMapping),
-					"!=",
-					getOperandOfArithmeticalOperation(binaryExpression.getOperand2(), chocoModel, featureModelMapping));
-		} else if (binaryExpression instanceof HyAdditionExpression) {
-			throw new UnsupportedOperationException(
-					"Addition currently not supported. Check your constraints. ");
-		} else if (binaryExpression instanceof HySubtractionExpression) {
-			throw new UnsupportedOperationException(
-					"Subtraction currently not supported. Check your constraints. ");
-		} else if (binaryExpression instanceof HyMultiplicationExpression) {
-			throw new UnsupportedOperationException(
-					"Multiplication currently not supported. Check your constraints. ");
-		} else if (binaryExpression instanceof HyDivisionExpression) {
-			throw new UnsupportedOperationException(
-					"Division currently not supported. Check your constraints. ");
-		} else if (binaryExpression instanceof HyModuloExpression) {
-			throw new UnsupportedOperationException(
-					"Modulo currently not supported. Check your constraints. ");
-		}
 		else {
 			throw new UnsupportedOperationException(
 					"Unkown subclass of HyBinaryExpression. Check solver implementation");
@@ -444,23 +400,57 @@ public class DwSolverModelTranslation {
 		return constraint;
 	}
 
-	protected static IntVar getOperandOfArithmeticalOperation(HyExpression expression, Model chocoModel,
+	protected static IntVar getArithmeticalValue(HyArithmeticalValueExpression arithmeticalValueExpression, Model chocoModel,
 			DwSolverModelVariableMapping featureModelMapping) {
-		if (expression instanceof HyAtomicExpression) {
-			return handleAtomicExpressionOfArithmeticOperation((HyAtomicExpression) expression, chocoModel,
-					featureModelMapping);
-		} else {
-			// exception after arithmetic operations only values or other atomic
-			// expressions are allowed
-			throw new UnsupportedOperationException(
-					"After an arithmetic operator, a ValueExpression or AtomicExpression need to follow. Check your constraints. ");
+		if(arithmeticalValueExpression instanceof HyArithmeticalValueBinaryOperationExpression) {
+			return handleArithmeticalValueBinaryOperationExpression((HyArithmeticalValueBinaryOperationExpression) arithmeticalValueExpression, chocoModel, featureModelMapping);
 		}
+		else if(arithmeticalValueExpression instanceof HyArithmeticalValueAtomicExpression) {
+			return handleAtomicExpressionOfArithmeticOperation((HyArithmeticalValueAtomicExpression) arithmeticalValueExpression, chocoModel, featureModelMapping);
+		}
+		else if(arithmeticalValueExpression instanceof HyArithmeticalValueUnaryOperationExpression) {
+			if(arithmeticalValueExpression instanceof HyNegationExpression) {
+				throw new UnsupportedOperationException(
+						"Negation currently not supported. Check your constraints. ");
+			}
+			else if(arithmeticalValueExpression instanceof HyNestedArithmeticalValueExpression) {
+				HyNestedArithmeticalValueExpression nestedExpression = (HyNestedArithmeticalValueExpression) arithmeticalValueExpression;
+				return getArithmeticalValue(nestedExpression.getOperand(), chocoModel, featureModelMapping);
+			}
+		}
+		
+
+		throw new UnsupportedOperationException(
+				"Unspoorted arithmetical value expression. "+arithmeticalValueExpression.toString());
+	}
+	
+	protected static IntVar handleArithmeticalValueBinaryOperationExpression(HyArithmeticalValueBinaryOperationExpression expression, Model chocoModel,
+			DwSolverModelVariableMapping featureModelMapping) {
+		if (expression instanceof HyAdditionExpression) {
+			throw new UnsupportedOperationException(
+					"Addition currently not supported. Check your constraints. ");
+		} else if (expression instanceof HySubtractionExpression) {
+			throw new UnsupportedOperationException(
+					"Subtraction currently not supported. Check your constraints. ");
+		} else if (expression instanceof HyMultiplicationExpression) {
+			throw new UnsupportedOperationException(
+					"Multiplication currently not supported. Check your constraints. ");
+		} else if (expression instanceof HyDivisionExpression) {
+			throw new UnsupportedOperationException(
+					"Division currently not supported. Check your constraints. ");
+		} else if (expression instanceof HyModuloExpression) {
+			throw new UnsupportedOperationException(
+					"Modulo currently not supported. Check your constraints. ");
+		}
+		
+		throw new UnsupportedOperationException(
+				"No Arithmetical Binary Operations currently supported!");
 	}
 
-	protected static IntVar handleAtomicExpressionOfArithmeticOperation(HyAtomicExpression atomicExpression, Model chocoModel,
+	protected static IntVar handleAtomicExpressionOfArithmeticOperation(HyArithmeticalValueAtomicExpression artihmeticalValueAtomicExpression, Model chocoModel,
 			DwSolverModelVariableMapping featureModelMapping) {
-		if (atomicExpression instanceof HyValueExpression) {
-			HyValue value = ((HyValueExpression) atomicExpression).getValue();
+		if (artihmeticalValueAtomicExpression instanceof HyValueExpression) {
+			HyValue value = ((HyValueExpression) artihmeticalValueAtomicExpression).getValue();
 
 			if (value instanceof HyNumberValue) {
 				int intValue = ((HyNumberValue) value).getValue();
@@ -482,13 +472,13 @@ public class DwSolverModelTranslation {
 						"Unsupported subclass of HyValueExpression. Check your constraints. ");
 			}
 		} 
-		else if(atomicExpression instanceof HyAttributeReferenceExpression) {
-			return featureModelMapping.getAttributeVariableMapping().get(((HyAttributeReferenceExpression)atomicExpression).getAttribute());
+		else if(artihmeticalValueAtomicExpression instanceof HyAttributeReferenceExpression) {
+			return featureModelMapping.getAttributeVariableMapping().get(((HyAttributeReferenceExpression)artihmeticalValueAtomicExpression).getAttribute());
 		}
-		else if(atomicExpression instanceof HyContextInformationReferenceExpression) {
-			return featureModelMapping.getContextVariableMapping().get(((HyContextInformationReferenceExpression)atomicExpression).getContextInformation());
+		else if(artihmeticalValueAtomicExpression instanceof HyContextInformationReferenceExpression) {
+			return featureModelMapping.getContextVariableMapping().get(((HyContextInformationReferenceExpression)artihmeticalValueAtomicExpression).getContextInformation());
 		}
-		else if (atomicExpression instanceof HyAbstractFeatureReferenceExpression) {
+		else if (artihmeticalValueAtomicExpression instanceof HyAbstractFeatureReferenceExpression) {
 			throw new UnsupportedOperationException(
 					"Feature references are not allowed in arithmetic operations. Check your constraints. ");
 			
@@ -533,8 +523,6 @@ public class DwSolverModelTranslation {
 		} else if (unaryExpression instanceof HyNestedExpression) {
 			HyNestedExpression nestedExpression = (HyNestedExpression) unaryExpression;
 			return createExpressionConstraint(nestedExpression.getOperand(), chocoModel, featureModelMapping, date);
-		} else if (unaryExpression instanceof HyNegationExpression) {
-			throw new UnsupportedOperationException("Negation Expression currently not supported. Check your constraints.");
 		} else if (unaryExpression instanceof HyMaximumExpression) {
 			throw new UnsupportedOperationException("Maximum Expression currently not supported. Check your constraints.");
 		} else if (unaryExpression instanceof HyMinimumExpression) {
@@ -567,13 +555,50 @@ public class DwSolverModelTranslation {
 				}
 			}
 
-		} else if (atomicExpression instanceof HyValueExpression) {
-			throw new UnsupportedOperationException("Value Expressions only in arithmetic operations allowed. Check your constraints.");
-		} else if (atomicExpression instanceof HyAttributeReferenceExpression) {
-			throw new UnsupportedOperationException("Attribute Reference Expressions only in arithmetic operations allowed. Check your constraints.");
+		} if(atomicExpression instanceof HyArithmeticalComparisonExpression) {
+			return createArithmeticalComparisonExpression((HyArithmeticalComparisonExpression) atomicExpression, chocoModel, featureModelMapping, date);
+		} else if(atomicExpression instanceof HyBooleanValueExpression) {
+			HyBooleanValueExpression booleanValueExpression = (HyBooleanValueExpression) atomicExpression;
+			if (booleanValueExpression.isValue()) {
+				return chocoModel.trueConstraint();
+			} else {
+				return chocoModel.falseConstraint();
+			}
 		}
 		
 		return null;
+	}
+	
+	private static Constraint createArithmeticalComparisonExpression(HyArithmeticalComparisonExpression expression, Model chocoModel, DwSolverModelVariableMapping featureModelMapping, Date date) {
+		HyArithmeticalComparisonOperator comparisonOperator = expression.getOperator();
+		
+		String chocoOperator;
+		
+		switch(comparisonOperator)  {
+		case HY_EQUAL_OPERATOR:
+			chocoOperator = "=";
+			break;
+		case HY_GREATER_OPERATOR:
+			chocoOperator = ">";
+			break;
+		case HY_GREATER_OR_EQUAL_OPERATOR:
+			chocoOperator = ">=";
+			break;
+		case HY_LESS_OPERATOR:
+			chocoOperator = "<";
+			break;
+		case HY_LESS_OR_EQUAL_OPERATOR:
+			chocoOperator = "<=";
+			break;
+		case HY_NOT_EQUAL_OPERATOR:
+			chocoOperator = "!=";
+			break;	
+		default: chocoOperator = "=";
+		}
+		
+		Constraint constraint = chocoModel.arithm(getArithmeticalValue(expression.getOperand1(), chocoModel, featureModelMapping), chocoOperator, getArithmeticalValue(expression.getOperand2(), chocoModel, featureModelMapping));
+		
+		return constraint;
 	}
 	
 	private static Constraint createVersionRangeConstraint(HyVersionRestriction versionRestriction, Model chocoModel, DwSolverModelVariableMapping featureModelMapping, Date date) {
