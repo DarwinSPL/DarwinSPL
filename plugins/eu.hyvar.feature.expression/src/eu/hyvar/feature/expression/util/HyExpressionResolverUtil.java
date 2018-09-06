@@ -169,6 +169,7 @@ public class HyExpressionResolverUtil {
 			return null;
 		}
 
+		// TODO here fix context resolving!
 		HyContextModel contextModel = ContextInformationResolverUtil
 				.getAccompanyingContextModel(elementFromAccompanyingResource);
 

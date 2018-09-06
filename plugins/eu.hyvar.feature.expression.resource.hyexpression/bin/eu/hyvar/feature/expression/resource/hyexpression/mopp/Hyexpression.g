@@ -280,9 +280,6 @@ import org.eclipse.emf.ecore.EReference;
 			return start();
 		} else if (typeObject instanceof EClass) {
 			EClass type = (EClass) typeObject;
-			if (type.getInstanceClass() == eu.hyvar.feature.expression.HyArithmeticalComparisonExpression.class) {
-				return parse_eu_hyvar_feature_expression_HyArithmeticalComparisonExpression();
-			}
 			if (type.getInstanceClass() == eu.hyvar.feature.expression.HyRelativeVersionRestriction.class) {
 				return parse_eu_hyvar_feature_expression_HyRelativeVersionRestriction();
 			}
@@ -511,182 +508,6 @@ start returns [ EObject element = null]
 	
 ;
 
-parse_eu_hyvar_feature_expression_HyArithmeticalComparisonExpression returns [eu.hyvar.feature.expression.HyArithmeticalComparisonExpression element = null]
-@init{
-}
-:
-	a0 = '{' {
-		if (element == null) {
-			element = eu.hyvar.feature.expression.HyExpressionFactory.eINSTANCE.createHyArithmeticalComparisonExpression();
-			startIncompleteElement(element);
-		}
-		collectHiddenTokens(element);
-		retrieveLayoutInformation(element, eu.hyvar.feature.expression.resource.hyexpression.grammar.HyexpressionGrammarInformationProvider.HYEXPRESSION_9_0_0_0, null, true);
-		copyLocalizationInfos((CommonToken)a0, element);
-	}
-	{
-		// expected elements (follow set)
-		addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyArithmeticalComparisonExpression(), 1827, 4760);
-	}
-	
-	(
-		a1_0 = parse_eu_hyvar_feature_expression_HyArithmeticalValueExpression		{
-			if (terminateParsing) {
-				throw new eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionTerminateParsingException();
-			}
-			if (element == null) {
-				element = eu.hyvar.feature.expression.HyExpressionFactory.eINSTANCE.createHyArithmeticalComparisonExpression();
-				startIncompleteElement(element);
-			}
-			if (a1_0 != null) {
-				if (a1_0 != null) {
-					Object value = a1_0;
-					element.eSet(element.eClass().getEStructuralFeature(eu.hyvar.feature.expression.HyExpressionPackage.HY_ARITHMETICAL_COMPARISON_EXPRESSION__OPERAND1), value);
-					completedElement(value, true);
-				}
-				collectHiddenTokens(element);
-				retrieveLayoutInformation(element, eu.hyvar.feature.expression.resource.hyexpression.grammar.HyexpressionGrammarInformationProvider.HYEXPRESSION_9_0_0_1, a1_0, true);
-				copyLocalizationInfos(a1_0, element);
-			}
-		}
-	)
-	{
-		// expected elements (follow set)
-		addExpectedElement(null, 4761);
-	}
-	
-	(
-		(
-			a2 = '<' {
-				if (element == null) {
-					element = eu.hyvar.feature.expression.HyExpressionFactory.eINSTANCE.createHyArithmeticalComparisonExpression();
-					startIncompleteElement(element);
-				}
-				collectHiddenTokens(element);
-				retrieveLayoutInformation(element, eu.hyvar.feature.expression.resource.hyexpression.grammar.HyexpressionGrammarInformationProvider.HYEXPRESSION_9_0_0_2, null, true);
-				copyLocalizationInfos((CommonToken)a2, element);
-				// set value of enumeration attribute
-				Object value = eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyArithmeticalComparisonOperator().getEEnumLiteral(eu.hyvar.feature.expression.HyArithmeticalComparisonOperator.HY_LESS_OPERATOR_VALUE).getInstance();
-				element.eSet(element.eClass().getEStructuralFeature(eu.hyvar.feature.expression.HyExpressionPackage.HY_ARITHMETICAL_COMPARISON_EXPRESSION__OPERATOR), value);
-				completedElement(value, false);
-			}
-			|			a3 = '<=' {
-				if (element == null) {
-					element = eu.hyvar.feature.expression.HyExpressionFactory.eINSTANCE.createHyArithmeticalComparisonExpression();
-					startIncompleteElement(element);
-				}
-				collectHiddenTokens(element);
-				retrieveLayoutInformation(element, eu.hyvar.feature.expression.resource.hyexpression.grammar.HyexpressionGrammarInformationProvider.HYEXPRESSION_9_0_0_2, null, true);
-				copyLocalizationInfos((CommonToken)a3, element);
-				// set value of enumeration attribute
-				Object value = eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyArithmeticalComparisonOperator().getEEnumLiteral(eu.hyvar.feature.expression.HyArithmeticalComparisonOperator.HY_LESS_OR_EQUAL_OPERATOR_VALUE).getInstance();
-				element.eSet(element.eClass().getEStructuralFeature(eu.hyvar.feature.expression.HyExpressionPackage.HY_ARITHMETICAL_COMPARISON_EXPRESSION__OPERATOR), value);
-				completedElement(value, false);
-			}
-			|			a4 = '=' {
-				if (element == null) {
-					element = eu.hyvar.feature.expression.HyExpressionFactory.eINSTANCE.createHyArithmeticalComparisonExpression();
-					startIncompleteElement(element);
-				}
-				collectHiddenTokens(element);
-				retrieveLayoutInformation(element, eu.hyvar.feature.expression.resource.hyexpression.grammar.HyexpressionGrammarInformationProvider.HYEXPRESSION_9_0_0_2, null, true);
-				copyLocalizationInfos((CommonToken)a4, element);
-				// set value of enumeration attribute
-				Object value = eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyArithmeticalComparisonOperator().getEEnumLiteral(eu.hyvar.feature.expression.HyArithmeticalComparisonOperator.HY_EQUAL_OPERATOR_VALUE).getInstance();
-				element.eSet(element.eClass().getEStructuralFeature(eu.hyvar.feature.expression.HyExpressionPackage.HY_ARITHMETICAL_COMPARISON_EXPRESSION__OPERATOR), value);
-				completedElement(value, false);
-			}
-			|			a5 = '!=' {
-				if (element == null) {
-					element = eu.hyvar.feature.expression.HyExpressionFactory.eINSTANCE.createHyArithmeticalComparisonExpression();
-					startIncompleteElement(element);
-				}
-				collectHiddenTokens(element);
-				retrieveLayoutInformation(element, eu.hyvar.feature.expression.resource.hyexpression.grammar.HyexpressionGrammarInformationProvider.HYEXPRESSION_9_0_0_2, null, true);
-				copyLocalizationInfos((CommonToken)a5, element);
-				// set value of enumeration attribute
-				Object value = eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyArithmeticalComparisonOperator().getEEnumLiteral(eu.hyvar.feature.expression.HyArithmeticalComparisonOperator.HY_NOT_EQUAL_OPERATOR_VALUE).getInstance();
-				element.eSet(element.eClass().getEStructuralFeature(eu.hyvar.feature.expression.HyExpressionPackage.HY_ARITHMETICAL_COMPARISON_EXPRESSION__OPERATOR), value);
-				completedElement(value, false);
-			}
-			|			a6 = '>=' {
-				if (element == null) {
-					element = eu.hyvar.feature.expression.HyExpressionFactory.eINSTANCE.createHyArithmeticalComparisonExpression();
-					startIncompleteElement(element);
-				}
-				collectHiddenTokens(element);
-				retrieveLayoutInformation(element, eu.hyvar.feature.expression.resource.hyexpression.grammar.HyexpressionGrammarInformationProvider.HYEXPRESSION_9_0_0_2, null, true);
-				copyLocalizationInfos((CommonToken)a6, element);
-				// set value of enumeration attribute
-				Object value = eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyArithmeticalComparisonOperator().getEEnumLiteral(eu.hyvar.feature.expression.HyArithmeticalComparisonOperator.HY_GREATER_OR_EQUAL_OPERATOR_VALUE).getInstance();
-				element.eSet(element.eClass().getEStructuralFeature(eu.hyvar.feature.expression.HyExpressionPackage.HY_ARITHMETICAL_COMPARISON_EXPRESSION__OPERATOR), value);
-				completedElement(value, false);
-			}
-			|			a7 = '>' {
-				if (element == null) {
-					element = eu.hyvar.feature.expression.HyExpressionFactory.eINSTANCE.createHyArithmeticalComparisonExpression();
-					startIncompleteElement(element);
-				}
-				collectHiddenTokens(element);
-				retrieveLayoutInformation(element, eu.hyvar.feature.expression.resource.hyexpression.grammar.HyexpressionGrammarInformationProvider.HYEXPRESSION_9_0_0_2, null, true);
-				copyLocalizationInfos((CommonToken)a7, element);
-				// set value of enumeration attribute
-				Object value = eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyArithmeticalComparisonOperator().getEEnumLiteral(eu.hyvar.feature.expression.HyArithmeticalComparisonOperator.HY_GREATER_OPERATOR_VALUE).getInstance();
-				element.eSet(element.eClass().getEStructuralFeature(eu.hyvar.feature.expression.HyExpressionPackage.HY_ARITHMETICAL_COMPARISON_EXPRESSION__OPERATOR), value);
-				completedElement(value, false);
-			}
-		)
-	)
-	{
-		// expected elements (follow set)
-		addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyArithmeticalComparisonExpression(), 4762, 7695);
-	}
-	
-	(
-		a10_0 = parse_eu_hyvar_feature_expression_HyArithmeticalValueExpression		{
-			if (terminateParsing) {
-				throw new eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionTerminateParsingException();
-			}
-			if (element == null) {
-				element = eu.hyvar.feature.expression.HyExpressionFactory.eINSTANCE.createHyArithmeticalComparisonExpression();
-				startIncompleteElement(element);
-			}
-			if (a10_0 != null) {
-				if (a10_0 != null) {
-					Object value = a10_0;
-					element.eSet(element.eClass().getEStructuralFeature(eu.hyvar.feature.expression.HyExpressionPackage.HY_ARITHMETICAL_COMPARISON_EXPRESSION__OPERAND2), value);
-					completedElement(value, true);
-				}
-				collectHiddenTokens(element);
-				retrieveLayoutInformation(element, eu.hyvar.feature.expression.resource.hyexpression.grammar.HyexpressionGrammarInformationProvider.HYEXPRESSION_9_0_0_3, a10_0, true);
-				copyLocalizationInfos(a10_0, element);
-			}
-		}
-	)
-	{
-		// expected elements (follow set)
-		addExpectedElement(null, 7696);
-	}
-	
-	a11 = '}' {
-		if (element == null) {
-			element = eu.hyvar.feature.expression.HyExpressionFactory.eINSTANCE.createHyArithmeticalComparisonExpression();
-			startIncompleteElement(element);
-		}
-		collectHiddenTokens(element);
-		retrieveLayoutInformation(element, eu.hyvar.feature.expression.resource.hyexpression.grammar.HyexpressionGrammarInformationProvider.HYEXPRESSION_9_0_0_4, null, true);
-		copyLocalizationInfos((CommonToken)a11, element);
-	}
-	{
-		// expected elements (follow set)
-		// We've found the last token for this rule. The constructed EObject is now
-		// complete.
-		completedElement(element, true);
-		addExpectedElement(null, 7697, 7701);
-	}
-	
-;
-
 parse_eu_hyvar_feature_expression_HyRelativeVersionRestriction returns [eu.hyvar.feature.expression.HyRelativeVersionRestriction element = null]
 @init{
 }
@@ -705,7 +526,7 @@ parse_eu_hyvar_feature_expression_HyRelativeVersionRestriction returns [eu.hyvar
 	}
 	{
 		// expected elements (follow set)
-		addExpectedElement(null, 7702, 7703);
+		addExpectedElement(null, 1827, 1828);
 	}
 	
 	(
@@ -793,7 +614,7 @@ parse_eu_hyvar_feature_expression_HyRelativeVersionRestriction returns [eu.hyvar
 		)?	)
 	{
 		// expected elements (follow set)
-		addExpectedElement(null, 7704);
+		addExpectedElement(null, 1829);
 	}
 	
 	(
@@ -836,7 +657,7 @@ parse_eu_hyvar_feature_expression_HyRelativeVersionRestriction returns [eu.hyvar
 	)
 	{
 		// expected elements (follow set)
-		addExpectedElement(null, 7705);
+		addExpectedElement(null, 1830);
 	}
 	
 	a9 = ']' {
@@ -856,7 +677,7 @@ parse_eu_hyvar_feature_expression_HyRelativeVersionRestriction returns [eu.hyvar
 		// We've found the last token for this rule. The constructed EObject is now
 		// complete.
 		completedElement(element, true);
-		addExpectedElement(null, 7706, 7710);
+		addExpectedElement(null, 1831, 1835);
 	}
 	
 ;
@@ -886,7 +707,7 @@ parse_eu_hyvar_feature_expression_HyVersionRangeRestriction returns [eu.hyvar.fe
 	}
 	{
 		// expected elements (follow set)
-		addExpectedElement(null, 7711, 7712);
+		addExpectedElement(null, 1836, 1837);
 	}
 	
 	(
@@ -917,7 +738,7 @@ parse_eu_hyvar_feature_expression_HyVersionRangeRestriction returns [eu.hyvar.fe
 		)?	)
 	{
 		// expected elements (follow set)
-		addExpectedElement(null, 7713);
+		addExpectedElement(null, 1838);
 	}
 	
 	(
@@ -967,7 +788,7 @@ parse_eu_hyvar_feature_expression_HyVersionRangeRestriction returns [eu.hyvar.fe
 	)
 	{
 		// expected elements (follow set)
-		addExpectedElement(null, 7714);
+		addExpectedElement(null, 1839);
 	}
 	
 	a4 = '-' {
@@ -991,7 +812,7 @@ parse_eu_hyvar_feature_expression_HyVersionRangeRestriction returns [eu.hyvar.fe
 	}
 	{
 		// expected elements (follow set)
-		addExpectedElement(null, 7715, 7716);
+		addExpectedElement(null, 1840, 1841);
 	}
 	
 	(
@@ -1022,7 +843,7 @@ parse_eu_hyvar_feature_expression_HyVersionRangeRestriction returns [eu.hyvar.fe
 		)?	)
 	{
 		// expected elements (follow set)
-		addExpectedElement(null, 7717);
+		addExpectedElement(null, 1842);
 	}
 	
 	(
@@ -1072,7 +893,7 @@ parse_eu_hyvar_feature_expression_HyVersionRangeRestriction returns [eu.hyvar.fe
 	)
 	{
 		// expected elements (follow set)
-		addExpectedElement(null, 7718);
+		addExpectedElement(null, 1843);
 	}
 	
 	a8 = ']' {
@@ -1099,7 +920,7 @@ parse_eu_hyvar_feature_expression_HyVersionRangeRestriction returns [eu.hyvar.fe
 		// We've found the last token for this rule. The constructed EObject is now
 		// complete.
 		completedElement(element, true);
-		addExpectedElement(null, 7719, 7723);
+		addExpectedElement(null, 1844, 1848);
 	}
 	
 ;
@@ -1119,7 +940,7 @@ parse_eu_hyvar_dataValues_HyEnum returns [eu.hyvar.dataValues.HyEnum element = n
 	}
 	{
 		// expected elements (follow set)
-		addExpectedElement(null, 7724);
+		addExpectedElement(null, 1849);
 	}
 	
 	(
@@ -1155,7 +976,7 @@ parse_eu_hyvar_dataValues_HyEnum returns [eu.hyvar.dataValues.HyEnum element = n
 	)
 	{
 		// expected elements (follow set)
-		addExpectedElement(null, 7725);
+		addExpectedElement(null, 1850);
 	}
 	
 	a2 = ',' {
@@ -1169,8 +990,8 @@ parse_eu_hyvar_dataValues_HyEnum returns [eu.hyvar.dataValues.HyEnum element = n
 	}
 	{
 		// expected elements (follow set)
-		addExpectedElement(eu.hyvar.dataValues.HyDataValuesPackage.eINSTANCE.getHyEnum(), 7726);
-		addExpectedElement(null, 7727);
+		addExpectedElement(eu.hyvar.dataValues.HyDataValuesPackage.eINSTANCE.getHyEnum(), 1851);
+		addExpectedElement(null, 1852);
 	}
 	
 	(
@@ -1198,7 +1019,7 @@ parse_eu_hyvar_dataValues_HyEnum returns [eu.hyvar.dataValues.HyEnum element = n
 			)
 			{
 				// expected elements (follow set)
-				addExpectedElement(null, 7728, 7729);
+				addExpectedElement(null, 1853, 1854);
 			}
 			
 			(
@@ -1214,7 +1035,7 @@ parse_eu_hyvar_dataValues_HyEnum returns [eu.hyvar.dataValues.HyEnum element = n
 					}
 					{
 						// expected elements (follow set)
-						addExpectedElement(eu.hyvar.dataValues.HyDataValuesPackage.eINSTANCE.getHyEnum(), 7730);
+						addExpectedElement(eu.hyvar.dataValues.HyDataValuesPackage.eINSTANCE.getHyEnum(), 1855);
 					}
 					
 					(
@@ -1240,21 +1061,21 @@ parse_eu_hyvar_dataValues_HyEnum returns [eu.hyvar.dataValues.HyEnum element = n
 					)
 					{
 						// expected elements (follow set)
-						addExpectedElement(null, 7731, 7732);
+						addExpectedElement(null, 1856, 1857);
 					}
 					
 				)
 				
 			)*			{
 				// expected elements (follow set)
-				addExpectedElement(null, 7733, 7734);
+				addExpectedElement(null, 1858, 1859);
 			}
 			
 		)
 		
 	)?	{
 		// expected elements (follow set)
-		addExpectedElement(null, 7735);
+		addExpectedElement(null, 1860);
 	}
 	
 	a6 = ')' {
@@ -1268,7 +1089,7 @@ parse_eu_hyvar_dataValues_HyEnum returns [eu.hyvar.dataValues.HyEnum element = n
 	}
 	{
 		// expected elements (follow set)
-		addExpectedElement(null, 7736);
+		addExpectedElement(null, 1861);
 	}
 	
 	(
@@ -1284,7 +1105,7 @@ parse_eu_hyvar_dataValues_HyEnum returns [eu.hyvar.dataValues.HyEnum element = n
 			}
 			{
 				// expected elements (follow set)
-				addExpectedElement(null, 7737, 7739);
+				addExpectedElement(null, 1862, 1864);
 			}
 			
 			(
@@ -1321,7 +1142,7 @@ parse_eu_hyvar_dataValues_HyEnum returns [eu.hyvar.dataValues.HyEnum element = n
 				)
 				{
 					// expected elements (follow set)
-					addExpectedElement(null, 7740);
+					addExpectedElement(null, 1865);
 				}
 				
 				a9 = '-' {
@@ -1335,7 +1156,7 @@ parse_eu_hyvar_dataValues_HyEnum returns [eu.hyvar.dataValues.HyEnum element = n
 				}
 				{
 					// expected elements (follow set)
-					addExpectedElement(null, 7741);
+					addExpectedElement(null, 1866);
 				}
 				
 				(
@@ -1371,7 +1192,7 @@ parse_eu_hyvar_dataValues_HyEnum returns [eu.hyvar.dataValues.HyEnum element = n
 				)
 				{
 					// expected elements (follow set)
-					addExpectedElement(null, 7742);
+					addExpectedElement(null, 1867);
 				}
 				
 				
@@ -1408,7 +1229,7 @@ parse_eu_hyvar_dataValues_HyEnum returns [eu.hyvar.dataValues.HyEnum element = n
 				)
 				{
 					// expected elements (follow set)
-					addExpectedElement(null, 7743);
+					addExpectedElement(null, 1868);
 				}
 				
 				a12 = '-' {
@@ -1422,7 +1243,7 @@ parse_eu_hyvar_dataValues_HyEnum returns [eu.hyvar.dataValues.HyEnum element = n
 				}
 				{
 					// expected elements (follow set)
-					addExpectedElement(null, 7744);
+					addExpectedElement(null, 1869);
 				}
 				
 				
@@ -1437,7 +1258,7 @@ parse_eu_hyvar_dataValues_HyEnum returns [eu.hyvar.dataValues.HyEnum element = n
 				}
 				{
 					// expected elements (follow set)
-					addExpectedElement(null, 7745);
+					addExpectedElement(null, 1870);
 				}
 				
 				a14 = '-' {
@@ -1451,7 +1272,7 @@ parse_eu_hyvar_dataValues_HyEnum returns [eu.hyvar.dataValues.HyEnum element = n
 				}
 				{
 					// expected elements (follow set)
-					addExpectedElement(null, 7746);
+					addExpectedElement(null, 1871);
 				}
 				
 				(
@@ -1487,13 +1308,13 @@ parse_eu_hyvar_dataValues_HyEnum returns [eu.hyvar.dataValues.HyEnum element = n
 				)
 				{
 					// expected elements (follow set)
-					addExpectedElement(null, 7747);
+					addExpectedElement(null, 1872);
 				}
 				
 			)
 			{
 				// expected elements (follow set)
-				addExpectedElement(null, 7748);
+				addExpectedElement(null, 1873);
 			}
 			
 			a16 = ']' {
@@ -1538,7 +1359,7 @@ parse_eu_hyvar_dataValues_HyEnumLiteral returns [eu.hyvar.dataValues.HyEnumLiter
 	}
 	{
 		// expected elements (follow set)
-		addExpectedElement(null, 7749);
+		addExpectedElement(null, 1874);
 	}
 	
 	(
@@ -1574,7 +1395,7 @@ parse_eu_hyvar_dataValues_HyEnumLiteral returns [eu.hyvar.dataValues.HyEnumLiter
 	)
 	{
 		// expected elements (follow set)
-		addExpectedElement(null, 7750);
+		addExpectedElement(null, 1875);
 	}
 	
 	a2 = ',' {
@@ -1588,7 +1409,7 @@ parse_eu_hyvar_dataValues_HyEnumLiteral returns [eu.hyvar.dataValues.HyEnumLiter
 	}
 	{
 		// expected elements (follow set)
-		addExpectedElement(null, 7751);
+		addExpectedElement(null, 1876);
 	}
 	
 	(
@@ -1624,7 +1445,7 @@ parse_eu_hyvar_dataValues_HyEnumLiteral returns [eu.hyvar.dataValues.HyEnumLiter
 	)
 	{
 		// expected elements (follow set)
-		addExpectedElement(null, 7752);
+		addExpectedElement(null, 1877);
 	}
 	
 	a4 = ')' {
@@ -1638,7 +1459,7 @@ parse_eu_hyvar_dataValues_HyEnumLiteral returns [eu.hyvar.dataValues.HyEnumLiter
 	}
 	{
 		// expected elements (follow set)
-		addExpectedElement(null, 7753, 7755);
+		addExpectedElement(null, 1878, 1880);
 	}
 	
 	(
@@ -1654,7 +1475,7 @@ parse_eu_hyvar_dataValues_HyEnumLiteral returns [eu.hyvar.dataValues.HyEnumLiter
 			}
 			{
 				// expected elements (follow set)
-				addExpectedElement(null, 7756, 7758);
+				addExpectedElement(null, 1881, 1883);
 			}
 			
 			(
@@ -1691,7 +1512,7 @@ parse_eu_hyvar_dataValues_HyEnumLiteral returns [eu.hyvar.dataValues.HyEnumLiter
 				)
 				{
 					// expected elements (follow set)
-					addExpectedElement(null, 7759);
+					addExpectedElement(null, 1884);
 				}
 				
 				a7 = '-' {
@@ -1705,7 +1526,7 @@ parse_eu_hyvar_dataValues_HyEnumLiteral returns [eu.hyvar.dataValues.HyEnumLiter
 				}
 				{
 					// expected elements (follow set)
-					addExpectedElement(null, 7760);
+					addExpectedElement(null, 1885);
 				}
 				
 				(
@@ -1741,7 +1562,7 @@ parse_eu_hyvar_dataValues_HyEnumLiteral returns [eu.hyvar.dataValues.HyEnumLiter
 				)
 				{
 					// expected elements (follow set)
-					addExpectedElement(null, 7761);
+					addExpectedElement(null, 1886);
 				}
 				
 				
@@ -1778,7 +1599,7 @@ parse_eu_hyvar_dataValues_HyEnumLiteral returns [eu.hyvar.dataValues.HyEnumLiter
 				)
 				{
 					// expected elements (follow set)
-					addExpectedElement(null, 7762);
+					addExpectedElement(null, 1887);
 				}
 				
 				a10 = '-' {
@@ -1792,7 +1613,7 @@ parse_eu_hyvar_dataValues_HyEnumLiteral returns [eu.hyvar.dataValues.HyEnumLiter
 				}
 				{
 					// expected elements (follow set)
-					addExpectedElement(null, 7763);
+					addExpectedElement(null, 1888);
 				}
 				
 				a11 = 'eternity' {
@@ -1806,7 +1627,7 @@ parse_eu_hyvar_dataValues_HyEnumLiteral returns [eu.hyvar.dataValues.HyEnumLiter
 				}
 				{
 					// expected elements (follow set)
-					addExpectedElement(null, 7764);
+					addExpectedElement(null, 1889);
 				}
 				
 				
@@ -1821,7 +1642,7 @@ parse_eu_hyvar_dataValues_HyEnumLiteral returns [eu.hyvar.dataValues.HyEnumLiter
 				}
 				{
 					// expected elements (follow set)
-					addExpectedElement(null, 7765);
+					addExpectedElement(null, 1890);
 				}
 				
 				a13 = '-' {
@@ -1835,7 +1656,7 @@ parse_eu_hyvar_dataValues_HyEnumLiteral returns [eu.hyvar.dataValues.HyEnumLiter
 				}
 				{
 					// expected elements (follow set)
-					addExpectedElement(null, 7766);
+					addExpectedElement(null, 1891);
 				}
 				
 				(
@@ -1871,13 +1692,13 @@ parse_eu_hyvar_dataValues_HyEnumLiteral returns [eu.hyvar.dataValues.HyEnumLiter
 				)
 				{
 					// expected elements (follow set)
-					addExpectedElement(null, 7767);
+					addExpectedElement(null, 1892);
 				}
 				
 			)
 			{
 				// expected elements (follow set)
-				addExpectedElement(null, 7768);
+				addExpectedElement(null, 1893);
 			}
 			
 			a15 = ']' {
@@ -1894,7 +1715,7 @@ parse_eu_hyvar_dataValues_HyEnumLiteral returns [eu.hyvar.dataValues.HyEnumLiter
 				// We've found the last token for this rule. The constructed EObject is now
 				// complete.
 				completedElement(element, true);
-				addExpectedElement(null, 7769, 7770);
+				addExpectedElement(null, 1894, 1895);
 			}
 			
 		)
@@ -1904,7 +1725,7 @@ parse_eu_hyvar_dataValues_HyEnumLiteral returns [eu.hyvar.dataValues.HyEnumLiter
 		// We've found the last token for this rule. The constructed EObject is now
 		// complete.
 		completedElement(element, true);
-		addExpectedElement(null, 7771, 7772);
+		addExpectedElement(null, 1896, 1897);
 	}
 	
 ;
@@ -1927,7 +1748,7 @@ parseop_HyExpression_level_0 returns [eu.hyvar.feature.expression.HyExpression e
 		}
 		{
 			// expected elements (follow set)
-			addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyEquivalenceExpression(), 7773, 8227);
+			addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyEquivalenceExpression(), 1898, 2352);
 		}
 		
 		rightArg = parseop_HyExpression_level_1		{
@@ -1992,7 +1813,7 @@ leftArg = parseop_HyExpression_level_2((
 	}
 	{
 		// expected elements (follow set)
-		addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyImpliesExpression(), 8228, 8682);
+		addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyImpliesExpression(), 2353, 2807);
 	}
 	
 	rightArg = parseop_HyExpression_level_2	{
@@ -2057,7 +1878,7 @@ a0 = '||' {
 }
 {
 	// expected elements (follow set)
-	addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyOrExpression(), 8683, 9137);
+	addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyOrExpression(), 2808, 3262);
 }
 
 rightArg = parseop_HyExpression_level_3{
@@ -2122,7 +1943,7 @@ copyLocalizationInfos((CommonToken)a0, element);
 }
 {
 // expected elements (follow set)
-addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyAndExpression(), 9138, 9592);
+addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyAndExpression(), 3263, 3717);
 }
 
 rightArg = parseop_HyExpression_level_14{
@@ -2184,7 +2005,7 @@ copyLocalizationInfos((CommonToken)a0, element);
 }
 {
 // expected elements (follow set)
-addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyNotExpression(), 9593, 10047);
+addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyNotExpression(), 3718, 4172);
 }
 
 arg = parseop_HyExpression_level_15{
@@ -2219,6 +2040,7 @@ c0 = parse_eu_hyvar_feature_expression_HyNestedExpression{ element = c0; /* this
 |c1 = parse_eu_hyvar_feature_expression_HyFeatureReferenceExpression{ element = c1; /* this is a subclass or primitive expression choice */ }
 |c2 = parse_eu_hyvar_feature_expression_HyConditionalFeatureReferenceExpression{ element = c2; /* this is a subclass or primitive expression choice */ }
 |c3 = parse_eu_hyvar_feature_expression_HyBooleanValueExpression{ element = c3; /* this is a subclass or primitive expression choice */ }
+|c4 = parse_eu_hyvar_feature_expression_HyArithmeticalComparisonExpression{ element = c4; /* this is a subclass or primitive expression choice */ }
 ;
 
 parse_eu_hyvar_feature_expression_HyNestedExpression returns [eu.hyvar.feature.expression.HyNestedExpression element = null]
@@ -2236,7 +2058,7 @@ copyLocalizationInfos((CommonToken)a0, element);
 }
 {
 // expected elements (follow set)
-addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyNestedExpression(), 10048, 10502);
+addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyNestedExpression(), 4173, 4627);
 }
 
 (
@@ -2262,7 +2084,7 @@ copyLocalizationInfos(a1_0, element);
 )
 {
 // expected elements (follow set)
-addExpectedElement(null, 10503);
+addExpectedElement(null, 4628);
 }
 
 a2 = ')' {
@@ -2279,7 +2101,7 @@ copyLocalizationInfos((CommonToken)a2, element);
 // We've found the last token for this rule. The constructed EObject is now
 // complete.
 completedElement(element, true);
-addExpectedElement(null, 10504, 10508);
+addExpectedElement(null, 4629, 4633);
 }
 
 ;
@@ -2326,8 +2148,8 @@ if (a0 != null) {
 )
 {
 // expected elements (follow set)
-addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyFeatureReferenceExpression(), 10509, 10510);
-addExpectedElement(null, 10511, 10515);
+addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyFeatureReferenceExpression(), 4634, 4635);
+addExpectedElement(null, 4636, 4640);
 }
 
 
@@ -2368,15 +2190,15 @@ if (a1 != null) {
 )
 {
 // expected elements (follow set)
-addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyFeatureReferenceExpression(), 10516, 10517);
-addExpectedElement(null, 10518, 10522);
+addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyFeatureReferenceExpression(), 4641, 4642);
+addExpectedElement(null, 4643, 4647);
 }
 
 )
 {
 // expected elements (follow set)
-addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyFeatureReferenceExpression(), 10523, 10524);
-addExpectedElement(null, 10525, 10529);
+addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyFeatureReferenceExpression(), 4648, 4649);
+addExpectedElement(null, 4650, 4654);
 }
 
 (
@@ -2407,7 +2229,7 @@ a2_0 = parse_eu_hyvar_feature_expression_HyVersionRestriction{
 // We've found the last token for this rule. The constructed EObject is now
 // complete.
 completedElement(element, true);
-addExpectedElement(null, 10530, 10534);
+addExpectedElement(null, 4655, 4659);
 }
 
 )
@@ -2417,7 +2239,7 @@ addExpectedElement(null, 10530, 10534);
 // We've found the last token for this rule. The constructed EObject is now
 // complete.
 completedElement(element, true);
-addExpectedElement(null, 10535, 10539);
+addExpectedElement(null, 4660, 4664);
 }
 
 ;
@@ -2437,7 +2259,7 @@ copyLocalizationInfos((CommonToken)a0, element);
 }
 {
 // expected elements (follow set)
-addExpectedElement(null, 10540, 10541);
+addExpectedElement(null, 4665, 4666);
 }
 
 (
@@ -2478,7 +2300,7 @@ if (a1 != null) {
 )
 {
 // expected elements (follow set)
-addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyConditionalFeatureReferenceExpression(), 10542, 10543);
+addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyConditionalFeatureReferenceExpression(), 4667, 4668);
 }
 
 
@@ -2519,13 +2341,13 @@ if (a2 != null) {
 )
 {
 // expected elements (follow set)
-addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyConditionalFeatureReferenceExpression(), 10544, 10545);
+addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyConditionalFeatureReferenceExpression(), 4669, 4670);
 }
 
 )
 {
 // expected elements (follow set)
-addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyConditionalFeatureReferenceExpression(), 10546, 10547);
+addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyConditionalFeatureReferenceExpression(), 4671, 4672);
 }
 
 (
@@ -2554,7 +2376,7 @@ copyLocalizationInfos(a3_0, element);
 // We've found the last token for this rule. The constructed EObject is now
 // complete.
 completedElement(element, true);
-addExpectedElement(null, 10548, 10552);
+addExpectedElement(null, 4673, 4677);
 }
 
 ;
@@ -2593,6 +2415,182 @@ completedElement(value, false);
 }
 )
 )
+{
+// expected elements (follow set)
+// We've found the last token for this rule. The constructed EObject is now
+// complete.
+completedElement(element, true);
+addExpectedElement(null, 4678, 4682);
+}
+
+;
+
+parse_eu_hyvar_feature_expression_HyArithmeticalComparisonExpression returns [eu.hyvar.feature.expression.HyArithmeticalComparisonExpression element = null]
+@init{
+}
+:
+a0 = '{' {
+if (element == null) {
+element = eu.hyvar.feature.expression.HyExpressionFactory.eINSTANCE.createHyArithmeticalComparisonExpression();
+startIncompleteElement(element);
+}
+collectHiddenTokens(element);
+retrieveLayoutInformation(element, eu.hyvar.feature.expression.resource.hyexpression.grammar.HyexpressionGrammarInformationProvider.HYEXPRESSION_9_0_0_0, null, true);
+copyLocalizationInfos((CommonToken)a0, element);
+}
+{
+// expected elements (follow set)
+addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyArithmeticalComparisonExpression(), 4683, 7616);
+}
+
+(
+a1_0 = parse_eu_hyvar_feature_expression_HyArithmeticalValueExpression{
+if (terminateParsing) {
+throw new eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionTerminateParsingException();
+}
+if (element == null) {
+element = eu.hyvar.feature.expression.HyExpressionFactory.eINSTANCE.createHyArithmeticalComparisonExpression();
+startIncompleteElement(element);
+}
+if (a1_0 != null) {
+if (a1_0 != null) {
+	Object value = a1_0;
+	element.eSet(element.eClass().getEStructuralFeature(eu.hyvar.feature.expression.HyExpressionPackage.HY_ARITHMETICAL_COMPARISON_EXPRESSION__OPERAND1), value);
+	completedElement(value, true);
+}
+collectHiddenTokens(element);
+retrieveLayoutInformation(element, eu.hyvar.feature.expression.resource.hyexpression.grammar.HyexpressionGrammarInformationProvider.HYEXPRESSION_9_0_0_1, a1_0, true);
+copyLocalizationInfos(a1_0, element);
+}
+}
+)
+{
+// expected elements (follow set)
+addExpectedElement(null, 7617);
+}
+
+(
+(
+a2 = '<' {
+if (element == null) {
+	element = eu.hyvar.feature.expression.HyExpressionFactory.eINSTANCE.createHyArithmeticalComparisonExpression();
+	startIncompleteElement(element);
+}
+collectHiddenTokens(element);
+retrieveLayoutInformation(element, eu.hyvar.feature.expression.resource.hyexpression.grammar.HyexpressionGrammarInformationProvider.HYEXPRESSION_9_0_0_2, null, true);
+copyLocalizationInfos((CommonToken)a2, element);
+// set value of enumeration attribute
+Object value = eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyArithmeticalComparisonOperator().getEEnumLiteral(eu.hyvar.feature.expression.HyArithmeticalComparisonOperator.HY_LESS_OPERATOR_VALUE).getInstance();
+element.eSet(element.eClass().getEStructuralFeature(eu.hyvar.feature.expression.HyExpressionPackage.HY_ARITHMETICAL_COMPARISON_EXPRESSION__OPERATOR), value);
+completedElement(value, false);
+}
+|a3 = '<=' {
+if (element == null) {
+	element = eu.hyvar.feature.expression.HyExpressionFactory.eINSTANCE.createHyArithmeticalComparisonExpression();
+	startIncompleteElement(element);
+}
+collectHiddenTokens(element);
+retrieveLayoutInformation(element, eu.hyvar.feature.expression.resource.hyexpression.grammar.HyexpressionGrammarInformationProvider.HYEXPRESSION_9_0_0_2, null, true);
+copyLocalizationInfos((CommonToken)a3, element);
+// set value of enumeration attribute
+Object value = eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyArithmeticalComparisonOperator().getEEnumLiteral(eu.hyvar.feature.expression.HyArithmeticalComparisonOperator.HY_LESS_OR_EQUAL_OPERATOR_VALUE).getInstance();
+element.eSet(element.eClass().getEStructuralFeature(eu.hyvar.feature.expression.HyExpressionPackage.HY_ARITHMETICAL_COMPARISON_EXPRESSION__OPERATOR), value);
+completedElement(value, false);
+}
+|a4 = '=' {
+if (element == null) {
+	element = eu.hyvar.feature.expression.HyExpressionFactory.eINSTANCE.createHyArithmeticalComparisonExpression();
+	startIncompleteElement(element);
+}
+collectHiddenTokens(element);
+retrieveLayoutInformation(element, eu.hyvar.feature.expression.resource.hyexpression.grammar.HyexpressionGrammarInformationProvider.HYEXPRESSION_9_0_0_2, null, true);
+copyLocalizationInfos((CommonToken)a4, element);
+// set value of enumeration attribute
+Object value = eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyArithmeticalComparisonOperator().getEEnumLiteral(eu.hyvar.feature.expression.HyArithmeticalComparisonOperator.HY_EQUAL_OPERATOR_VALUE).getInstance();
+element.eSet(element.eClass().getEStructuralFeature(eu.hyvar.feature.expression.HyExpressionPackage.HY_ARITHMETICAL_COMPARISON_EXPRESSION__OPERATOR), value);
+completedElement(value, false);
+}
+|a5 = '!=' {
+if (element == null) {
+	element = eu.hyvar.feature.expression.HyExpressionFactory.eINSTANCE.createHyArithmeticalComparisonExpression();
+	startIncompleteElement(element);
+}
+collectHiddenTokens(element);
+retrieveLayoutInformation(element, eu.hyvar.feature.expression.resource.hyexpression.grammar.HyexpressionGrammarInformationProvider.HYEXPRESSION_9_0_0_2, null, true);
+copyLocalizationInfos((CommonToken)a5, element);
+// set value of enumeration attribute
+Object value = eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyArithmeticalComparisonOperator().getEEnumLiteral(eu.hyvar.feature.expression.HyArithmeticalComparisonOperator.HY_NOT_EQUAL_OPERATOR_VALUE).getInstance();
+element.eSet(element.eClass().getEStructuralFeature(eu.hyvar.feature.expression.HyExpressionPackage.HY_ARITHMETICAL_COMPARISON_EXPRESSION__OPERATOR), value);
+completedElement(value, false);
+}
+|a6 = '>=' {
+if (element == null) {
+	element = eu.hyvar.feature.expression.HyExpressionFactory.eINSTANCE.createHyArithmeticalComparisonExpression();
+	startIncompleteElement(element);
+}
+collectHiddenTokens(element);
+retrieveLayoutInformation(element, eu.hyvar.feature.expression.resource.hyexpression.grammar.HyexpressionGrammarInformationProvider.HYEXPRESSION_9_0_0_2, null, true);
+copyLocalizationInfos((CommonToken)a6, element);
+// set value of enumeration attribute
+Object value = eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyArithmeticalComparisonOperator().getEEnumLiteral(eu.hyvar.feature.expression.HyArithmeticalComparisonOperator.HY_GREATER_OR_EQUAL_OPERATOR_VALUE).getInstance();
+element.eSet(element.eClass().getEStructuralFeature(eu.hyvar.feature.expression.HyExpressionPackage.HY_ARITHMETICAL_COMPARISON_EXPRESSION__OPERATOR), value);
+completedElement(value, false);
+}
+|a7 = '>' {
+if (element == null) {
+	element = eu.hyvar.feature.expression.HyExpressionFactory.eINSTANCE.createHyArithmeticalComparisonExpression();
+	startIncompleteElement(element);
+}
+collectHiddenTokens(element);
+retrieveLayoutInformation(element, eu.hyvar.feature.expression.resource.hyexpression.grammar.HyexpressionGrammarInformationProvider.HYEXPRESSION_9_0_0_2, null, true);
+copyLocalizationInfos((CommonToken)a7, element);
+// set value of enumeration attribute
+Object value = eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyArithmeticalComparisonOperator().getEEnumLiteral(eu.hyvar.feature.expression.HyArithmeticalComparisonOperator.HY_GREATER_OPERATOR_VALUE).getInstance();
+element.eSet(element.eClass().getEStructuralFeature(eu.hyvar.feature.expression.HyExpressionPackage.HY_ARITHMETICAL_COMPARISON_EXPRESSION__OPERATOR), value);
+completedElement(value, false);
+}
+)
+)
+{
+// expected elements (follow set)
+addExpectedElement(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyArithmeticalComparisonExpression(), 7618, 10551);
+}
+
+(
+a10_0 = parse_eu_hyvar_feature_expression_HyArithmeticalValueExpression{
+if (terminateParsing) {
+throw new eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionTerminateParsingException();
+}
+if (element == null) {
+element = eu.hyvar.feature.expression.HyExpressionFactory.eINSTANCE.createHyArithmeticalComparisonExpression();
+startIncompleteElement(element);
+}
+if (a10_0 != null) {
+if (a10_0 != null) {
+	Object value = a10_0;
+	element.eSet(element.eClass().getEStructuralFeature(eu.hyvar.feature.expression.HyExpressionPackage.HY_ARITHMETICAL_COMPARISON_EXPRESSION__OPERAND2), value);
+	completedElement(value, true);
+}
+collectHiddenTokens(element);
+retrieveLayoutInformation(element, eu.hyvar.feature.expression.resource.hyexpression.grammar.HyexpressionGrammarInformationProvider.HYEXPRESSION_9_0_0_3, a10_0, true);
+copyLocalizationInfos(a10_0, element);
+}
+}
+)
+{
+// expected elements (follow set)
+addExpectedElement(null, 10552);
+}
+
+a11 = '}' {
+if (element == null) {
+element = eu.hyvar.feature.expression.HyExpressionFactory.eINSTANCE.createHyArithmeticalComparisonExpression();
+startIncompleteElement(element);
+}
+collectHiddenTokens(element);
+retrieveLayoutInformation(element, eu.hyvar.feature.expression.resource.hyexpression.grammar.HyexpressionGrammarInformationProvider.HYEXPRESSION_9_0_0_4, null, true);
+copyLocalizationInfos((CommonToken)a11, element);
+}
 {
 // expected elements (follow set)
 // We've found the last token for this rule. The constructed EObject is now
@@ -3661,12 +3659,6 @@ addExpectedElement(null, 31178, 31184);
 
 ;
 
-parse_eu_hyvar_feature_expression_HyArithmeticalValueExpression returns [eu.hyvar.feature.expression.HyArithmeticalValueExpression element = null]
-:
-c = parseop_HyArithmeticalValueExpression_level_4{ element = c; /* this rule is an expression root */ }
-
-;
-
 parse_eu_hyvar_feature_expression_HyExpression returns [eu.hyvar.feature.expression.HyExpression element = null]
 :
 c = parseop_HyExpression_level_0{ element = c; /* this rule is an expression root */ }
@@ -3677,6 +3669,12 @@ parse_eu_hyvar_feature_expression_HyVersionRestriction returns [eu.hyvar.feature
 :
 c0 = parse_eu_hyvar_feature_expression_HyRelativeVersionRestriction{ element = c0; /* this is a subclass or primitive expression choice */ }
 |c1 = parse_eu_hyvar_feature_expression_HyVersionRangeRestriction{ element = c1; /* this is a subclass or primitive expression choice */ }
+
+;
+
+parse_eu_hyvar_feature_expression_HyArithmeticalValueExpression returns [eu.hyvar.feature.expression.HyArithmeticalValueExpression element = null]
+:
+c = parseop_HyArithmeticalValueExpression_level_4{ element = c; /* this rule is an expression root */ }
 
 ;
 

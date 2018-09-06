@@ -81,6 +81,8 @@ RULES {
 //	@Operator(type="primitive", weight="15", superclass="HyExpression")
 //	HyIfPossibleExpression ::= "ifPossible(" operands ("," operands)* ")";
 	
+	@SuppressWarnings(explicitSyntaxChoice)
+	@Operator(type="primitive", weight="15", superclass="HyExpression")
 	HyArithmeticalComparisonExpression ::= "{" operand1 operator[HyLessOperator : "<", HyLessOrEqualOperator : "<=", HyEqualOperator : "=", HyNotEqualOperator : "!=", HyGreaterOrEqualOperator : ">=", HyGreaterOperator : ">"] operand2 "}";
 	
 	
