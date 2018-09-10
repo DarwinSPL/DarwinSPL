@@ -41,6 +41,7 @@ import de.darwinspl.preferences.DwProfile;
 import de.darwinspl.reconfigurator.client.hyvarrec.format.HyVarRecExplainAnswer;
 import de.darwinspl.reconfigurator.client.hyvarrec.format.check_features.HyVarRecCheckFeaturesAnswer;
 import de.darwinspl.reconfigurator.client.hyvarrec.format.context.HyVarRecValidateAnswer;
+import de.darwinspl.reconfigurator.z3.client.DwZ3AnalysisClient;
 import eu.hyvar.context.HyContextModel;
 import eu.hyvar.context.HyContextualInformation;
 import eu.hyvar.context.HyContextualInformationBoolean;
@@ -135,6 +136,14 @@ public class DwAnalysesClient {
 	public String createHyVarRecMessage(HyContextModel contextModel, HyValidityModel contextValidityModel, HyFeatureModel featureModel, HyConstraintModel constraintModel, HyConfiguration oldConfiguration, DwProfile preferenceModel, HyContextValueModel contextValues, Date date, Date evolutionContextValueDate, String modalityOption) {
 //		
 		InputForHyVarRec inputForHyVarRec = exporter.exportSPL(contextModel, contextValidityModel, featureModel, constraintModel, oldConfiguration, preferenceModel, contextValues, date, evolutionContextValueDate);
+		
+		InputForHyVarRec inputForHyVarRec2 = exporter.exportSPL(contextModel, contextValidityModel, featureModel, constraintModel, oldConfiguration, preferenceModel, contextValues, date, evolutionContextValueDate);
+		
+		
+		if(!modalityOption.equals("--validate")) {
+		DwZ3AnalysisClient z3Client = new DwZ3AnalysisClient();
+		z3Client.checkFeatures(inputForHyVarRec2, featureModel, true);
+		}
 		
 		if(modalityOption != null) {
 			List<String> options = inputForHyVarRec.getHyvar_options();
@@ -441,6 +450,8 @@ public class DwAnalysesClient {
 			HyFeatureModel featureModel, HyConstraintModel constraintModel, HyContextValueModel contextValues, Date date) throws TimeoutException, InterruptedException, ExecutionException, UnresolvedAddressException {
 		String messageForHyVarRec = createHyVarRecMessage(contextModel, contextValidityModel, featureModel, constraintModel, null, null, contextValues, date, null, CHECK_FEATURES_MODALITY);
 		System.err.println(messageForHyVarRec);
+		
+		
 
 		
 		URI uri = createUriWithPath(uriString, CHECK_FEATURES_URI);

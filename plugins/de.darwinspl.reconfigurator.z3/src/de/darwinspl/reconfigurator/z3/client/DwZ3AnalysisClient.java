@@ -176,11 +176,11 @@ public class DwZ3AnalysisClient {
 			
 			
 			solver.add(ctx.mkLe(ctx.mkInt(timeContextInContexts.getMin()), ctx.mkIntConst(name)));
-			solver.add(ctx.mkGe(ctx.mkIntConst(name), ctx.mkInt(timeContextInContexts.getMax())));
+			solver.add(ctx.mkLe(ctx.mkIntConst(name), ctx.mkInt(timeContextInContexts.getMax())));
 		
 		}else {
-			solver.add(ctx.mkLe(ctx.mkInt(0), ctx.mkIntConst(timeContext)));
-			solver.add(ctx.mkGe(ctx.mkIntConst(timeContext), ctx.mkInt(0)));
+			solver.add(ctx.mkLe(ctx.mkInt(-1), ctx.mkIntConst(timeContext)));
+			solver.add(ctx.mkLe(ctx.mkIntConst(timeContext), ctx.mkInt(0)));
 		}
 
 
@@ -256,10 +256,35 @@ public class DwZ3AnalysisClient {
 		solver.add(ctx.mkAtMost(optionalFeatures, 1));
 
 		System.out.println(solver.check());
+		
+		
+		for(Entry<String, List<List<Integer>>> entry :inputForHyVarRec.getOptional_features().entrySet()) {
+			 
+			BoolExpr[] ls = new BoolExpr[entry.getValue().size()*2];
+			
+			int g = 0;
+			
+			for(List<Integer> k: entry.getValue()) {
+				ls[g] = ctx.mkGe(ctx.mkIntConst(timeContext), ctx.mkInt(k.get(0)));
+				g++;
+				ls[g] = ctx.mkLe(ctx.mkIntConst(timeContext), ctx.mkInt(k.get(1)));
+				g++;
+			}
+			
+			solver.add(ctx.mkImplies(ctx.mkBoolConst(entry.getKey()+"_v"), ctx.mkAnd(ls)));
+			
+			
+		}
+		
+		
+		
 
 		solver.push();
+		
+		
+		
 
-		List<String> deadFeatures = searchForDeadFeaturesEvolution(ctx, solver, testFor,
+		List<DwZ3DeadFeature> deadFeatures = searchForDeadFeaturesEvolution(ctx, solver, testFor,
 				optionalFeaturesWithoutNameChange, formulas, optionalFeaturesWithoutNameChange, timeContext);
 
 		solver.pop();
@@ -345,17 +370,20 @@ public class DwZ3AnalysisClient {
 		return testFor;
 	}
 
-	private List<String> searchForDeadFeaturesEvolution(Context ctx, Solver solver, Expr[] testFor,
+	private List<DwZ3DeadFeature> searchForDeadFeaturesEvolution(Context ctx, Solver solver, Expr[] testFor,
 			BoolExpr[] optionalFeaturesWithoutNameChange, BoolExpr[] constraints, BoolExpr[] optionalFeatures,
 			String timeContext) {
 
-		List<String> deadFeatures = new ArrayList<String>();
+		List<DwZ3DeadFeature> deadFeatures = new ArrayList<DwZ3DeadFeature>();
 
 		BoolExpr forAll = buildForAllFormula(ctx, constraints, testFor, optionalFeaturesWithoutNameChange);
 
 		System.out.println(forAll.toString());
 
 		solver.add(forAll);
+		
+		
+
 
 		while (true) {
 			Status status = solver.check();
@@ -363,24 +391,53 @@ public class DwZ3AnalysisClient {
 			if (status.equals(Status.SATISFIABLE)) {
 
 				Model model = solver.getModel();
+				
+				
 
 				for (BoolExpr feature : optionalFeatures) {
 
 					if (model.eval(ctx.mkBoolConst(feature + "_v"), true).getBoolValue().equals(Z3_lbool.Z3_L_TRUE)) {
 						System.out.println("Found dead Feature: " + feature);
+						
+						
 
 						IntExpr foundContext = (IntExpr) model.getConstInterp(ctx.mkIntConst(timeContext));
 
-												
-//						System.out.println(foundContextValue);
-						System.err.println(foundContext);
+				
+						
+						System.err.println("Found dead Feature: " + feature + " for time: " + foundContext);
 
-//						deadFeatures.add(feature.getSExpr());
+						int fou = (int) Integer.valueOf(foundContext.toString());
+						
+						
+						boolean containedInDeadFeatureList = false;
+						
+				
+						
+						for(DwZ3DeadFeature deadFeature: deadFeatures) {
+							 
+							if(deadFeature.getId().equals(feature.getSExpr())) {
+								deadFeature.addContext(fou);
+								containedInDeadFeatureList = true;
+							}
+							
+						}
+						if(!containedInDeadFeatureList) {
+							
+							DwZ3DeadFeature foundFeature = new DwZ3DeadFeature(feature.getSExpr());
+							foundFeature.addContext(fou);
+							deadFeatures.add(foundFeature);
+							
+						}
 
-						// solver.add(ctx.mkNot(ctx.mkAnd(ctx.mkBoolConst(feature + "_v"),
-						// ctx.mkEq(ctx.mkIntConst(timeContext), ctx.mkInt(foundContextValue)))));
+						 BoolExpr f = ctx.mkNot(ctx.mkAnd(ctx.mkBoolConst(feature + "_v"),
+						 ctx.mkEq(ctx.mkIntConst(timeContext), ctx.mkInt(fou))));
+						 
+						 System.out.println(f);
+						 
+						 solver.add(f);
 
-						solver.add(ctx.mkNot(ctx.mkBoolConst(feature + "_v")));
+
 						break;
 					}
 				}
@@ -400,6 +457,8 @@ public class DwZ3AnalysisClient {
 		return deadFeatures;
 
 	}
+	
+	
 
 	private void startZ3FeatureAnalysis(List<String> list, List<String> stringOptionals) {
 		HashMap<String, String> cfg = new HashMap<String, String>();
