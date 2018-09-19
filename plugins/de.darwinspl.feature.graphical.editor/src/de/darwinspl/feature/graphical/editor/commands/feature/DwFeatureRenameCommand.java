@@ -64,8 +64,17 @@ public class DwFeatureRenameCommand extends DwLinearTemporalElementCommand {
 		}
 		
 		changeVisibilities(oldName, newName, changeDate);
-		oldName.setSupersedingElement(newName);
-		newName.setSupersededElement(oldName);
+		
+		
+		if(oldName.getValidSince() != null && oldName.getValidUntil() != null && oldName.getValidSince().equals(oldName.getValidUntil())) {
+			newName.setSupersedingElement(oldName.getSupersededElement());
+			EcoreUtil.delete(oldName);
+		}
+		else if(changeDate != null) {
+			oldName.setSupersededElement(newName);
+			newName.setSupersedingElement(oldName);			
+		}
+			
 		feature.getWrappedModelElement().getNames().add(newName);
 		
 		DwElementEditorUtil.cleanNames(feature.getWrappedModelElement());

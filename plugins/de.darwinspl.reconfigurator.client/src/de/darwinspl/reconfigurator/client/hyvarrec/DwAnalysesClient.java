@@ -11,6 +11,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Set;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeoutException;
 
@@ -23,10 +24,11 @@ import org.eclipse.jetty.client.util.StringContentProvider;
 import org.eclipse.jetty.http.HttpHeader;
 import org.eclipse.jetty.util.ssl.SslContextFactory;
 
-import com.google.gson.FieldNamingPolicy;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.JsonSyntaxException;
 
+import de.darwinspl.anomalies.explanations.AnomalyConstraintExplanation;
 import de.darwinspl.anomaly.DwAnomaly;
 import de.darwinspl.anomaly.DwAnomalyFactory;
 import de.darwinspl.anomaly.DwDeadFeatureAnomaly;
@@ -72,6 +74,11 @@ import eu.hyvar.reconfigurator.input.format.InputForHyVarRec;
 import eu.hyvar.reconfigurator.output.translation.HyVarRecOutputTranslator;
 import eu.hyvar.reconfigurator.output.translation.format.OutputOfHyVarRec;
 
+/**
+ * 
+ * @author Felix Franzke
+ *
+ */
 public class DwAnalysesClient {
 
 //	private static final String MSG_TYPE_RAW_HYVARREC = "raw_hyvarrec_input";
@@ -114,7 +121,7 @@ public class DwAnalysesClient {
 	
 	
 	
-	protected URI createUriWithPath(String originalUri, String processAddress) {
+	public static URI createUriWithPath(String originalUri, String processAddress) {
 		if(!originalUri.endsWith("/")) {
 			originalUri = originalUri + "/";
 		}
@@ -271,14 +278,16 @@ public class DwAnalysesClient {
 	 * @param oldConfiguration
 	 * @param preferenceModel
 	 * @param anomaly
+	 * @param evolutionOperationAnalyzer
 	 * @return
 	 * @throws TimeoutException
 	 * @throws InterruptedException
 	 * @throws ExecutionException
 	 * @throws UnresolvedAddressException
 	 */
-	public DwAnomalyExplanation explainAnomaly(String uriString, String webserviceUsername, String webservicePassword, HyContextModel contextModel, HyValidityModel contextValidityModel,
-			HyFeatureModel featureModel, HyConstraintModel constraintModel, DwAnomaly anomaly) throws TimeoutException, InterruptedException, ExecutionException, UnresolvedAddressException {
+	public Set<AnomalyConstraintExplanation> explainAnomaly(String uriString, String webserviceUsername, String webservicePassword, HyContextModel contextModel, HyValidityModel contextValidityModel,
+			HyFeatureModel featureModel, HyConstraintModel constraintModel, DwAnomaly anomaly, DwEvolutionOperationAnalyzer evolutionOperationAnalyzer)
+			throws TimeoutException, InterruptedException, ExecutionException, UnresolvedAddressException {
 		
 		HyContextValueModel contextValueModel = null;
 		String additionalAnomalyConstraint = null;
@@ -334,13 +343,14 @@ public class DwAnalysesClient {
 			}
 			// If dates is empty, null can be used, as the exporter won't use evolution-encoding since no evolution exists.
 			if(!dates.isEmpty()) {
-				Collections.sort(dates);
+//				Collections.sort(dates);
 				// select a date before the first evolution step, as there is the cause.
-				date = dates.get(0);
-				Calendar calendar = Calendar.getInstance();
-				calendar.setTime(date);
-				calendar.add(Calendar.DAY_OF_MONTH, -1);
-				date = calendar.getTime();
+//				date = dates.get(0);
+//				Calendar calendar = Calendar.getInstance();
+//				calendar.setTime(date);
+//				calendar.add(Calendar.DAY_OF_MONTH, -1);
+//				date = calendar.getTime();
+				date = anomaly.getValidSince();
 			}			
 		}
 		
@@ -365,6 +375,8 @@ public class DwAnalysesClient {
 		
 		String messageForHyVarRec = gson.toJson(inputForHyVarRec);
 		
+		System.err.println("MessageForHyVarRec: " + messageForHyVarRec);
+		
 		String hyvarrecAnswerString = sendMessageToHyVarRec(messageForHyVarRec, uri, webserviceUsername, webservicePassword);
 		
 		HyVarRecExplainAnswer hyVarRecAnswer = gson.fromJson(hyvarrecAnswerString, HyVarRecExplainAnswer.class);
@@ -378,15 +390,33 @@ public class DwAnalysesClient {
 			anomalyExplanation.setAnomaly(anomaly);
 			anomalyExplanation.setDate(anomaly.getValidSince());
 			
-			List<String> parsedConstraints = translateIdsBackToNames(hyVarRecAnswer.getConstraints(), anomaly.getValidSince(), exporter);
+			List<String> parsedConstraints = translateIdsBackToNames(hyVarRecAnswer.getConstraints(), anomaly.getValidSince(), getExporter());
 			
 			if(parsedConstraints == null) {
 				parsedConstraints = hyVarRecAnswer.getConstraints();
 			}
 			
-			anomalyExplanation.getExplanations().addAll(parsedConstraints);
+			// use ids instead of names
+			anomalyExplanation.getExplanations().addAll(hyVarRecAnswer.getConstraints());
 			
-			return anomalyExplanation;
+
+			// run EvolutionOperationAnalyzer
+			if (evolutionOperationAnalyzer == null) { // only override if not actually given.
+				evolutionOperationAnalyzer = new DwEvolutionOperationAnalyzer(getExporter());
+			}
+			else {
+				evolutionOperationAnalyzer.setExporter(getExporter());
+			}
+			evolutionOperationAnalyzer.setContextModel(contextModel);
+			evolutionOperationAnalyzer.setContextValidityModel(contextValidityModel);
+			evolutionOperationAnalyzer.setFeatureModel(featureModel);
+			evolutionOperationAnalyzer.setConstraintModel(constraintModel);
+			evolutionOperationAnalyzer.constructEvolutionOperations();
+			
+			Set<AnomalyConstraintExplanation> anomalyExplanationList = evolutionOperationAnalyzer.explainAnomaly(anomalyExplanation);
+			
+			
+			return anomalyExplanationList;
 		}
 		
 		return null;
@@ -411,7 +441,7 @@ public class DwAnalysesClient {
 			HyFeatureModel featureModel, HyConstraintModel constraintModel, HyContextValueModel contextValues, Date date) throws TimeoutException, InterruptedException, ExecutionException, UnresolvedAddressException {
 		String messageForHyVarRec = createHyVarRecMessage(contextModel, contextValidityModel, featureModel, constraintModel, null, null, contextValues, date, null, CHECK_FEATURES_MODALITY);
 		System.err.println(messageForHyVarRec);
-		
+
 		
 		URI uri = createUriWithPath(uriString, CHECK_FEATURES_URI);
 		
@@ -422,15 +452,10 @@ public class DwAnalysesClient {
 		
 		List<DwAnomaly> anomalies = DwAnomalyTranslation.translateAnomalies(hyVarRecAnswer, exporter.getFeatureReconfiguratorIdMapping(), exporter.getSortedDateList());
 		
-		// Code to test anomaly explanation
-//		for(DwAnomaly anomaly: anomalies) {
-//			explainAnomaly(uriString, webserviceUsername, webservicePassword, contextModel, contextValidityModel, featureModel, constraintModel, anomaly);
-//		}
-		
 		return anomalies;
 	}
 	
-	protected List<String> translateIdsBackToNames(List<String> constraints, Date date, HyVarRecExporter hyVarRecExporter) {
+	public static List<String> translateIdsBackToNames(List<String> constraints, Date date, HyVarRecExporter hyVarRecExporter) {
 		if(hyVarRecExporter == null || constraints == null) {
 			return null;
 		}
@@ -559,7 +584,14 @@ public class DwAnalysesClient {
 			return null;
 		}
 		
-		HyVarRecValidateAnswer hyVarRecAnswer = gson.fromJson(hyvarrecAnswerString, HyVarRecValidateAnswer.class);
+		HyVarRecValidateAnswer hyVarRecAnswer;
+		try {
+			hyVarRecAnswer = gson.fromJson(hyvarrecAnswerString, HyVarRecValidateAnswer.class);			
+		}
+		catch(JsonSyntaxException e) {
+			e.printStackTrace();
+			return null;
+		}
 		
 		
 		
@@ -780,5 +812,9 @@ public class DwAnalysesClient {
 		}
 		
 		
+	}
+	
+	public HyVarRecExporter getExporter () {
+		return exporter;
 	}
 }

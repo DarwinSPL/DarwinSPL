@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import org.eclipse.emf.ecore.EObject;
+
 import eu.hyvar.feature.HyFeature;
 import eu.hyvar.feature.HyFeatureAttribute;
 import eu.hyvar.feature.HyFeatureModel;
@@ -14,8 +16,8 @@ public class DwFeatureModelExporterBooleanEncoding extends DwFeatureModelExporte
 	public DwFeatureModelExporterBooleanEncoding(HyFeatureModel featureModel,
 			Map<HyFeature, String> featureReconfiguratorIdMapping,
 			Map<HyVersion, String> versionReconfiguratorIdMapping,
-			Map<HyFeatureAttribute, String> attributeReconfiguratorIdMapping) {
-		super(featureModel, featureReconfiguratorIdMapping, versionReconfiguratorIdMapping, attributeReconfiguratorIdMapping);
+			Map<HyFeatureAttribute, String> attributeReconfiguratorIdMapping, Map<String, EObject> translationMapping) {
+		super(featureModel, featureReconfiguratorIdMapping, versionReconfiguratorIdMapping, attributeReconfiguratorIdMapping, translationMapping);
 		
 		this.featureEndocing = new DwFeatureEncodingBoolean();
 	}
@@ -59,6 +61,9 @@ public class DwFeatureModelExporterBooleanEncoding extends DwFeatureModelExporte
 		
 		alternativeOnlyOneStringBuilder.append(HyVarRecExporter.ONE_ONLY);
 		
+		if(childrenIds.size() <= 1) {
+			System.err.println("Debug bad!");
+		}
 		for(int i = 0; i < childrenIds.size(); i++) {
 			if(i != 0) {
 				alternativeOnlyOneStringBuilder.append(", ");

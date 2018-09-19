@@ -50,7 +50,8 @@ Require-Bundle: org.eclipse.ui,
  eu.hyvar.context.information,
  de.darwinspl.variant_generation,
  de.darwinspl.anomalies,
- de.darwinspl.anomalies.explanations
+ de.darwinspl.anomalies.explanations,
+ de.darwinspl.feature.evolution.evolutionoperation;bundle-version="0.1.0"
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Bundle-ActivationPolicy: lazy
 Bundle-Vendor: www.darwinspl.de

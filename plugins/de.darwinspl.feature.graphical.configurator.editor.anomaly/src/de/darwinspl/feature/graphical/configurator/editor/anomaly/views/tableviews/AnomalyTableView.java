@@ -245,7 +245,7 @@ public class AnomalyTableView<T extends DwAnomaly> extends TableViewer {
 						
 					
 						
-						anomalyView.explaingAnomaly((DwAnomaly) item.getData());
+						anomalyView.explainAnomaly((DwAnomaly) item.getData());
 						
 					}
 					
@@ -313,7 +313,7 @@ item.addDisposeListener(new DisposeListener() {
 						
 					
 						
-						anomalyView.explaingAnomaly((DwAnomaly) item.getData());
+						anomalyView.explainAnomaly((DwAnomaly) item.getData());
 						
 						
 						

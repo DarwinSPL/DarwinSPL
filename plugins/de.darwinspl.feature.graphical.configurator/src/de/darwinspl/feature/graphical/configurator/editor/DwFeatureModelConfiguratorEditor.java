@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.nio.channels.UnresolvedAddressException;
 import java.util.Collections;
 import java.util.List;
+import java.util.Set;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeoutException;
 
@@ -42,6 +43,7 @@ import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.part.FileEditorInput;
 
 import de.christophseidl.util.ecore.EcoreIOUtil;
+import de.darwinspl.anomalies.explanations.AnomalyConstraintExplanation;
 import de.darwinspl.anomaly.DwAnomaly;
 import de.darwinspl.anomaly.DwVoidFeatureModelAnomaly;
 import de.darwinspl.feature.graphical.configurator.composites.DwSelectedConfigurationComposite;
@@ -58,7 +60,7 @@ import de.darwinspl.feature.graphical.configurator.viewer.DwFeatureModelConfigur
 import de.darwinspl.preferences.DwProfile;
 import de.darwinspl.preferences.util.custom.DwPreferenceModelUtil;
 import de.darwinspl.reconfigurator.client.hyvarrec.DwAnalysesClient;
-import de.darwinspl.reconfigurator.client.hyvarrec.DwAnalysesClient.DwContextValueEvolutionWrapper;
+import de.darwinspl.reconfigurator.client.hyvarrec.DwEvolutionOperationAnalyzer;
 import de.darwinspl.reconfigurator.client.hyvarrec.HyVarRecNoSolutionException;
 import de.darwinspl.solver.DwSolver;
 import de.darwinspl.solver.exception.DwAttributeValueOfSelectedFeatureNotSetException;
@@ -74,6 +76,11 @@ import eu.hyvar.feature.configuration.util.HyConfigurationUtil;
 import eu.hyvar.feature.constraint.HyConstraintModel;
 import eu.hyvar.feature.constraint.util.HyConstraintUtil;
 
+/**
+ * 
+ * @author Felix Franzke
+ *
+ */
 public class DwFeatureModelConfiguratorEditor extends DwFeatureModelConfiguratorViewer {
 	
 	private Button validateWithEvolutionButton;
@@ -623,6 +630,15 @@ public class DwFeatureModelConfiguratorEditor extends DwFeatureModelConfigurator
 					List<DwAnomaly> anomalies = client.checkFeatures(uri, username, password, contextModel, validityModel, modelWrapped.getModel(), constraintModel, null, null);
 					
 					// TODO show anomalies in an extra view and allow their explanation
+
+					DwEvolutionOperationAnalyzer evolutionOperationAnalyzer = new DwEvolutionOperationAnalyzer(client.getExporter());
+					evolutionOperationAnalyzer.setFeatureAnomalies(anomalies);
+					
+					for (DwAnomaly anomaly : anomalies) {
+						Set<AnomalyConstraintExplanation> explanation = client.explainAnomaly(uri, username, password, contextModel, validityModel, modelWrapped.getModel(), constraintModel, anomaly, evolutionOperationAnalyzer);
+						DwAnomalyExplanationDialog anomalyExplanationDialog = new DwAnomalyExplanationDialog(getEditorSite().getShell(), anomaly, explanation);
+						anomalyExplanationDialog.open();	
+					}
 				}
 				
 			} catch (UnresolvedAddressException | TimeoutException | InterruptedException | ExecutionException e1) {
