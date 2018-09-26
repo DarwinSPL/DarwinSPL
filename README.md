@@ -50,9 +50,7 @@ http://dl.acm.org/citation.cfm?id=3023962
 
 # Demo videos:
 https://www.youtube.com/playlist?list=PLJZIl9YOWBqWvSW-BPbFmcesHmdx7IfYC
-
-# Troubleshooting:
-https://github.com/DarwinSPL/DarwinSPL/wiki/Troubleshooting
+(important: syntax for expressions has changed since 2018/09/26. Arithmetical Comparison now do not work anymore with features and have to be put in curly brackets "{...}")
 
 If you encounter any other issues, please contact me:
 nieke ((at)) isf.cs.tu-bs.de
