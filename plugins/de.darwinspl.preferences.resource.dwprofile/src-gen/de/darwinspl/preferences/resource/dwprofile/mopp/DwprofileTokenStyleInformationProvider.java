@@ -96,6 +96,9 @@ public class DwprofileTokenStyleInformationProvider {
 		if ("TASK_ITEM".equals(tokenName)) {
 			return new de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileTokenStyle(new int[] {0x7F, 0x9F, 0xBF}, null, true, false, false, false);
 		}
+		if ("context:".equals(tokenName)) {
+			return new de.darwinspl.preferences.resource.dwprofile.mopp.DwprofileTokenStyle(new int[] {0x80, 0x00, 0x55}, null, true, false, false, false);
+		}
 		return null;
 	}
 	

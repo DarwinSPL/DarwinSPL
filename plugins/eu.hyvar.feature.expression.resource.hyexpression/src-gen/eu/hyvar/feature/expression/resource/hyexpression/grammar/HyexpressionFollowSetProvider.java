@@ -15,7 +15,7 @@ import org.eclipse.emf.ecore.EStructuralFeature;
 public class HyexpressionFollowSetProvider {
 	
 	public static int terminalsIndex;
-	public final static eu.hyvar.feature.expression.resource.hyexpression.IHyexpressionExpectedElement TERMINALS[] = new eu.hyvar.feature.expression.resource.hyexpression.IHyexpressionExpectedElement[80];
+	public final static eu.hyvar.feature.expression.resource.hyexpression.IHyexpressionExpectedElement TERMINALS[] = new eu.hyvar.feature.expression.resource.hyexpression.IHyexpressionExpectedElement[81];
 	
 	public static int featureIndex;
 	public final static EStructuralFeature[] FEATURES = new EStructuralFeature[11];
@@ -86,8 +86,7 @@ public class HyexpressionFollowSetProvider {
 		TERMINALS[terminalsIndex++] = new eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectedCsString(eu.hyvar.feature.expression.resource.hyexpression.grammar.HyexpressionGrammarInformationProvider.HYEXPRESSION_16_0_0_0);
 		TERMINALS[terminalsIndex++] = new eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectedStructuralFeature(eu.hyvar.feature.expression.resource.hyexpression.grammar.HyexpressionGrammarInformationProvider.HYEXPRESSION_17_0_0_0_0_0_0);
 		TERMINALS[terminalsIndex++] = new eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectedStructuralFeature(eu.hyvar.feature.expression.resource.hyexpression.grammar.HyexpressionGrammarInformationProvider.HYEXPRESSION_17_0_0_0_0_1_0);
-		TERMINALS[terminalsIndex++] = new eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectedStructuralFeature(eu.hyvar.feature.expression.resource.hyexpression.grammar.HyexpressionGrammarInformationProvider.HYEXPRESSION_18_0_0_0_0_0_0);
-		TERMINALS[terminalsIndex++] = new eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectedStructuralFeature(eu.hyvar.feature.expression.resource.hyexpression.grammar.HyexpressionGrammarInformationProvider.HYEXPRESSION_18_0_0_0_0_1_0);
+		TERMINALS[terminalsIndex++] = new eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectedCsString(eu.hyvar.feature.expression.resource.hyexpression.grammar.HyexpressionGrammarInformationProvider.HYEXPRESSION_18_0_0_0);
 		TERMINALS[terminalsIndex++] = new eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectedStructuralFeature(eu.hyvar.feature.expression.resource.hyexpression.grammar.HyexpressionGrammarInformationProvider.HYDATAVALUE_0_0_0_0);
 		TERMINALS[terminalsIndex++] = new eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectedBooleanTerminal(eu.hyvar.feature.expression.resource.hyexpression.grammar.HyexpressionGrammarInformationProvider.HYDATAVALUE_1_0_0_0);
 		TERMINALS[terminalsIndex++] = new eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectedCsString(eu.hyvar.feature.expression.resource.hyexpression.grammar.HyexpressionGrammarInformationProvider.HYDATAVALUE_2_0_0_0);
@@ -101,6 +100,8 @@ public class HyexpressionFollowSetProvider {
 		TERMINALS[terminalsIndex++] = new eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectedCsString(eu.hyvar.feature.expression.resource.hyexpression.grammar.HyexpressionGrammarInformationProvider.HYEXPRESSION_17_0_0_1);
 		TERMINALS[terminalsIndex++] = new eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectedStructuralFeature(eu.hyvar.feature.expression.resource.hyexpression.grammar.HyexpressionGrammarInformationProvider.HYEXPRESSION_17_0_0_2);
 		TERMINALS[terminalsIndex++] = new eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectedCsString(eu.hyvar.feature.expression.resource.hyexpression.grammar.HyexpressionGrammarInformationProvider.HYEXPRESSION_16_0_0_2);
+		TERMINALS[terminalsIndex++] = new eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectedStructuralFeature(eu.hyvar.feature.expression.resource.hyexpression.grammar.HyexpressionGrammarInformationProvider.HYEXPRESSION_18_0_0_1_0_0_0);
+		TERMINALS[terminalsIndex++] = new eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectedStructuralFeature(eu.hyvar.feature.expression.resource.hyexpression.grammar.HyexpressionGrammarInformationProvider.HYEXPRESSION_18_0_0_1_0_1_0);
 		TERMINALS[terminalsIndex++] = new eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectedStructuralFeature(eu.hyvar.feature.expression.resource.hyexpression.grammar.HyexpressionGrammarInformationProvider.HYDATAVALUE_2_0_0_1_0_0_0);
 		TERMINALS[terminalsIndex++] = new eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectedStructuralFeature(eu.hyvar.feature.expression.resource.hyexpression.grammar.HyexpressionGrammarInformationProvider.HYDATAVALUE_2_0_0_1_0_1_0);
 		TERMINALS[terminalsIndex++] = new eu.hyvar.feature.expression.resource.hyexpression.mopp.HyexpressionExpectedCsString(eu.hyvar.feature.expression.resource.hyexpression.grammar.HyexpressionGrammarInformationProvider.HYDATAVALUE_2_0_0_2);

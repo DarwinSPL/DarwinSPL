@@ -711,39 +711,44 @@ public class HyexpressionGrammarInformationProvider {
 		return new eu.hyvar.feature.expression.resource.hyexpression.grammar.HyexpressionRule(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyAttributeReferenceExpression(), HYEXPRESSION_17_0, eu.hyvar.feature.expression.resource.hyexpression.grammar.HyexpressionCardinality.ONE);
 	}
 	
-	public final static eu.hyvar.feature.expression.resource.hyexpression.grammar.HyexpressionPlaceholder HYEXPRESSION_18_0_0_0_0_0_0 = INSTANCE.getHYEXPRESSION_18_0_0_0_0_0_0();
-	private eu.hyvar.feature.expression.resource.hyexpression.grammar.HyexpressionPlaceholder getHYEXPRESSION_18_0_0_0_0_0_0() {
+	public final static eu.hyvar.feature.expression.resource.hyexpression.grammar.HyexpressionKeyword HYEXPRESSION_18_0_0_0 = INSTANCE.getHYEXPRESSION_18_0_0_0();
+	private eu.hyvar.feature.expression.resource.hyexpression.grammar.HyexpressionKeyword getHYEXPRESSION_18_0_0_0() {
+		return new eu.hyvar.feature.expression.resource.hyexpression.grammar.HyexpressionKeyword("context:", eu.hyvar.feature.expression.resource.hyexpression.grammar.HyexpressionCardinality.ONE);
+	}
+	
+	public final static eu.hyvar.feature.expression.resource.hyexpression.grammar.HyexpressionPlaceholder HYEXPRESSION_18_0_0_1_0_0_0 = INSTANCE.getHYEXPRESSION_18_0_0_1_0_0_0();
+	private eu.hyvar.feature.expression.resource.hyexpression.grammar.HyexpressionPlaceholder getHYEXPRESSION_18_0_0_1_0_0_0() {
 		return new eu.hyvar.feature.expression.resource.hyexpression.grammar.HyexpressionPlaceholder(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyContextInformationReferenceExpression().getEStructuralFeature(eu.hyvar.feature.expression.HyExpressionPackage.HY_CONTEXT_INFORMATION_REFERENCE_EXPRESSION__CONTEXT_INFORMATION), "QUOTED_34_34", eu.hyvar.feature.expression.resource.hyexpression.grammar.HyexpressionCardinality.ONE, 0);
 	}
 	
-	public final static eu.hyvar.feature.expression.resource.hyexpression.grammar.HyexpressionSequence HYEXPRESSION_18_0_0_0_0_0 = INSTANCE.getHYEXPRESSION_18_0_0_0_0_0();
-	private eu.hyvar.feature.expression.resource.hyexpression.grammar.HyexpressionSequence getHYEXPRESSION_18_0_0_0_0_0() {
-		return new eu.hyvar.feature.expression.resource.hyexpression.grammar.HyexpressionSequence(eu.hyvar.feature.expression.resource.hyexpression.grammar.HyexpressionCardinality.ONE, HYEXPRESSION_18_0_0_0_0_0_0);
+	public final static eu.hyvar.feature.expression.resource.hyexpression.grammar.HyexpressionSequence HYEXPRESSION_18_0_0_1_0_0 = INSTANCE.getHYEXPRESSION_18_0_0_1_0_0();
+	private eu.hyvar.feature.expression.resource.hyexpression.grammar.HyexpressionSequence getHYEXPRESSION_18_0_0_1_0_0() {
+		return new eu.hyvar.feature.expression.resource.hyexpression.grammar.HyexpressionSequence(eu.hyvar.feature.expression.resource.hyexpression.grammar.HyexpressionCardinality.ONE, HYEXPRESSION_18_0_0_1_0_0_0);
 	}
 	
-	public final static eu.hyvar.feature.expression.resource.hyexpression.grammar.HyexpressionPlaceholder HYEXPRESSION_18_0_0_0_0_1_0 = INSTANCE.getHYEXPRESSION_18_0_0_0_0_1_0();
-	private eu.hyvar.feature.expression.resource.hyexpression.grammar.HyexpressionPlaceholder getHYEXPRESSION_18_0_0_0_0_1_0() {
+	public final static eu.hyvar.feature.expression.resource.hyexpression.grammar.HyexpressionPlaceholder HYEXPRESSION_18_0_0_1_0_1_0 = INSTANCE.getHYEXPRESSION_18_0_0_1_0_1_0();
+	private eu.hyvar.feature.expression.resource.hyexpression.grammar.HyexpressionPlaceholder getHYEXPRESSION_18_0_0_1_0_1_0() {
 		return new eu.hyvar.feature.expression.resource.hyexpression.grammar.HyexpressionPlaceholder(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyContextInformationReferenceExpression().getEStructuralFeature(eu.hyvar.feature.expression.HyExpressionPackage.HY_CONTEXT_INFORMATION_REFERENCE_EXPRESSION__CONTEXT_INFORMATION), "IDENTIFIER_TOKEN", eu.hyvar.feature.expression.resource.hyexpression.grammar.HyexpressionCardinality.ONE, 0);
 	}
 	
-	public final static eu.hyvar.feature.expression.resource.hyexpression.grammar.HyexpressionSequence HYEXPRESSION_18_0_0_0_0_1 = INSTANCE.getHYEXPRESSION_18_0_0_0_0_1();
-	private eu.hyvar.feature.expression.resource.hyexpression.grammar.HyexpressionSequence getHYEXPRESSION_18_0_0_0_0_1() {
-		return new eu.hyvar.feature.expression.resource.hyexpression.grammar.HyexpressionSequence(eu.hyvar.feature.expression.resource.hyexpression.grammar.HyexpressionCardinality.ONE, HYEXPRESSION_18_0_0_0_0_1_0);
+	public final static eu.hyvar.feature.expression.resource.hyexpression.grammar.HyexpressionSequence HYEXPRESSION_18_0_0_1_0_1 = INSTANCE.getHYEXPRESSION_18_0_0_1_0_1();
+	private eu.hyvar.feature.expression.resource.hyexpression.grammar.HyexpressionSequence getHYEXPRESSION_18_0_0_1_0_1() {
+		return new eu.hyvar.feature.expression.resource.hyexpression.grammar.HyexpressionSequence(eu.hyvar.feature.expression.resource.hyexpression.grammar.HyexpressionCardinality.ONE, HYEXPRESSION_18_0_0_1_0_1_0);
 	}
 	
-	public final static eu.hyvar.feature.expression.resource.hyexpression.grammar.HyexpressionChoice HYEXPRESSION_18_0_0_0_0 = INSTANCE.getHYEXPRESSION_18_0_0_0_0();
-	private eu.hyvar.feature.expression.resource.hyexpression.grammar.HyexpressionChoice getHYEXPRESSION_18_0_0_0_0() {
-		return new eu.hyvar.feature.expression.resource.hyexpression.grammar.HyexpressionChoice(eu.hyvar.feature.expression.resource.hyexpression.grammar.HyexpressionCardinality.ONE, HYEXPRESSION_18_0_0_0_0_0, HYEXPRESSION_18_0_0_0_0_1);
+	public final static eu.hyvar.feature.expression.resource.hyexpression.grammar.HyexpressionChoice HYEXPRESSION_18_0_0_1_0 = INSTANCE.getHYEXPRESSION_18_0_0_1_0();
+	private eu.hyvar.feature.expression.resource.hyexpression.grammar.HyexpressionChoice getHYEXPRESSION_18_0_0_1_0() {
+		return new eu.hyvar.feature.expression.resource.hyexpression.grammar.HyexpressionChoice(eu.hyvar.feature.expression.resource.hyexpression.grammar.HyexpressionCardinality.ONE, HYEXPRESSION_18_0_0_1_0_0, HYEXPRESSION_18_0_0_1_0_1);
 	}
 	
-	public final static eu.hyvar.feature.expression.resource.hyexpression.grammar.HyexpressionCompound HYEXPRESSION_18_0_0_0 = INSTANCE.getHYEXPRESSION_18_0_0_0();
-	private eu.hyvar.feature.expression.resource.hyexpression.grammar.HyexpressionCompound getHYEXPRESSION_18_0_0_0() {
-		return new eu.hyvar.feature.expression.resource.hyexpression.grammar.HyexpressionCompound(HYEXPRESSION_18_0_0_0_0, eu.hyvar.feature.expression.resource.hyexpression.grammar.HyexpressionCardinality.ONE);
+	public final static eu.hyvar.feature.expression.resource.hyexpression.grammar.HyexpressionCompound HYEXPRESSION_18_0_0_1 = INSTANCE.getHYEXPRESSION_18_0_0_1();
+	private eu.hyvar.feature.expression.resource.hyexpression.grammar.HyexpressionCompound getHYEXPRESSION_18_0_0_1() {
+		return new eu.hyvar.feature.expression.resource.hyexpression.grammar.HyexpressionCompound(HYEXPRESSION_18_0_0_1_0, eu.hyvar.feature.expression.resource.hyexpression.grammar.HyexpressionCardinality.ONE);
 	}
 	
 	public final static eu.hyvar.feature.expression.resource.hyexpression.grammar.HyexpressionSequence HYEXPRESSION_18_0_0 = INSTANCE.getHYEXPRESSION_18_0_0();
 	private eu.hyvar.feature.expression.resource.hyexpression.grammar.HyexpressionSequence getHYEXPRESSION_18_0_0() {
-		return new eu.hyvar.feature.expression.resource.hyexpression.grammar.HyexpressionSequence(eu.hyvar.feature.expression.resource.hyexpression.grammar.HyexpressionCardinality.ONE, HYEXPRESSION_18_0_0_0);
+		return new eu.hyvar.feature.expression.resource.hyexpression.grammar.HyexpressionSequence(eu.hyvar.feature.expression.resource.hyexpression.grammar.HyexpressionCardinality.ONE, HYEXPRESSION_18_0_0_0, HYEXPRESSION_18_0_0_1);
 	}
 	
 	public final static eu.hyvar.feature.expression.resource.hyexpression.grammar.HyexpressionChoice HYEXPRESSION_18_0 = INSTANCE.getHYEXPRESSION_18_0();

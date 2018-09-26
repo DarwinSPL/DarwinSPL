@@ -4,7 +4,7 @@
     editorDirectory="/eu.hyvar.mspl.manifest.editor/src-gen" modelPluginID="eu.hyvar.mspl.manifest"
     modelName="Manifest" rootExtendsClass="org.eclipse.emf.ecore.impl.MinimalEObjectImpl$Container"
     testsDirectory="/eu.hyvar.mspl.manifest.tests/src-gen" importerID="org.eclipse.emf.importer.ecore"
-    complianceLevel="8.0" copyrightFields="false" usedGenPackages="../../eu.hyvar.feature.data/model/DataValues.genmodel#//dataValues ../../eu.hyvar.evolution/model/Evolution.genmodel#//evolution ../../eu.hyvar.feature/model/Feature.genmodel#//feature"
+    complianceLevel="8.0" copyrightFields="false" usedGenPackages="../../eu.hyvar.feature.data/model/DataValues.genmodel#//dataValues ../../eu.hyvar.evolution/model/Evolution.genmodel#//evolution ../../eu.hyvar.feature/model/Feature.genmodel#//feature ../../eu.hyvar.context.information/model/ContextInformation.genmodel#//context"
     operationReflection="true" importOrganizing="true">
   <foreignModel>Manifest.ecore</foreignModel>
   <genPackages prefix="Manifest" basePackage="eu.hyvar.mspl" disposableProviderFactory="true"

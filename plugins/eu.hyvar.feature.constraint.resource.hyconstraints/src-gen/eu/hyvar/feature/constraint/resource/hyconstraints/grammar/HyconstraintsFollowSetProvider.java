@@ -15,7 +15,7 @@ import org.eclipse.emf.ecore.EStructuralFeature;
 public class HyconstraintsFollowSetProvider {
 	
 	public static int terminalsIndex;
-	public final static eu.hyvar.feature.constraint.resource.hyconstraints.IHyconstraintsExpectedElement TERMINALS[] = new eu.hyvar.feature.constraint.resource.hyconstraints.IHyconstraintsExpectedElement[91];
+	public final static eu.hyvar.feature.constraint.resource.hyconstraints.IHyconstraintsExpectedElement TERMINALS[] = new eu.hyvar.feature.constraint.resource.hyconstraints.IHyconstraintsExpectedElement[92];
 	
 	public static int featureIndex;
 	public final static EStructuralFeature[] FEATURES = new EStructuralFeature[13];
@@ -97,8 +97,7 @@ public class HyconstraintsFollowSetProvider {
 		TERMINALS[terminalsIndex++] = new eu.hyvar.feature.constraint.resource.hyconstraints.mopp.HyconstraintsExpectedCsString(eu.hyvar.feature.constraint.resource.hyconstraints.grammar.HyconstraintsGrammarInformationProvider.HYEXPRESSION_16_0_0_0);
 		TERMINALS[terminalsIndex++] = new eu.hyvar.feature.constraint.resource.hyconstraints.mopp.HyconstraintsExpectedStructuralFeature(eu.hyvar.feature.constraint.resource.hyconstraints.grammar.HyconstraintsGrammarInformationProvider.HYEXPRESSION_17_0_0_0_0_0_0);
 		TERMINALS[terminalsIndex++] = new eu.hyvar.feature.constraint.resource.hyconstraints.mopp.HyconstraintsExpectedStructuralFeature(eu.hyvar.feature.constraint.resource.hyconstraints.grammar.HyconstraintsGrammarInformationProvider.HYEXPRESSION_17_0_0_0_0_1_0);
-		TERMINALS[terminalsIndex++] = new eu.hyvar.feature.constraint.resource.hyconstraints.mopp.HyconstraintsExpectedStructuralFeature(eu.hyvar.feature.constraint.resource.hyconstraints.grammar.HyconstraintsGrammarInformationProvider.HYEXPRESSION_18_0_0_0_0_0_0);
-		TERMINALS[terminalsIndex++] = new eu.hyvar.feature.constraint.resource.hyconstraints.mopp.HyconstraintsExpectedStructuralFeature(eu.hyvar.feature.constraint.resource.hyconstraints.grammar.HyconstraintsGrammarInformationProvider.HYEXPRESSION_18_0_0_0_0_1_0);
+		TERMINALS[terminalsIndex++] = new eu.hyvar.feature.constraint.resource.hyconstraints.mopp.HyconstraintsExpectedCsString(eu.hyvar.feature.constraint.resource.hyconstraints.grammar.HyconstraintsGrammarInformationProvider.HYEXPRESSION_18_0_0_0);
 		TERMINALS[terminalsIndex++] = new eu.hyvar.feature.constraint.resource.hyconstraints.mopp.HyconstraintsExpectedStructuralFeature(eu.hyvar.feature.constraint.resource.hyconstraints.grammar.HyconstraintsGrammarInformationProvider.HYDATAVALUE_0_0_0_0);
 		TERMINALS[terminalsIndex++] = new eu.hyvar.feature.constraint.resource.hyconstraints.mopp.HyconstraintsExpectedBooleanTerminal(eu.hyvar.feature.constraint.resource.hyconstraints.grammar.HyconstraintsGrammarInformationProvider.HYDATAVALUE_1_0_0_0);
 		TERMINALS[terminalsIndex++] = new eu.hyvar.feature.constraint.resource.hyconstraints.mopp.HyconstraintsExpectedCsString(eu.hyvar.feature.constraint.resource.hyconstraints.grammar.HyconstraintsGrammarInformationProvider.HYDATAVALUE_2_0_0_0);
@@ -112,6 +111,8 @@ public class HyconstraintsFollowSetProvider {
 		TERMINALS[terminalsIndex++] = new eu.hyvar.feature.constraint.resource.hyconstraints.mopp.HyconstraintsExpectedCsString(eu.hyvar.feature.constraint.resource.hyconstraints.grammar.HyconstraintsGrammarInformationProvider.HYEXPRESSION_17_0_0_1);
 		TERMINALS[terminalsIndex++] = new eu.hyvar.feature.constraint.resource.hyconstraints.mopp.HyconstraintsExpectedStructuralFeature(eu.hyvar.feature.constraint.resource.hyconstraints.grammar.HyconstraintsGrammarInformationProvider.HYEXPRESSION_17_0_0_2);
 		TERMINALS[terminalsIndex++] = new eu.hyvar.feature.constraint.resource.hyconstraints.mopp.HyconstraintsExpectedCsString(eu.hyvar.feature.constraint.resource.hyconstraints.grammar.HyconstraintsGrammarInformationProvider.HYEXPRESSION_16_0_0_2);
+		TERMINALS[terminalsIndex++] = new eu.hyvar.feature.constraint.resource.hyconstraints.mopp.HyconstraintsExpectedStructuralFeature(eu.hyvar.feature.constraint.resource.hyconstraints.grammar.HyconstraintsGrammarInformationProvider.HYEXPRESSION_18_0_0_1_0_0_0);
+		TERMINALS[terminalsIndex++] = new eu.hyvar.feature.constraint.resource.hyconstraints.mopp.HyconstraintsExpectedStructuralFeature(eu.hyvar.feature.constraint.resource.hyconstraints.grammar.HyconstraintsGrammarInformationProvider.HYEXPRESSION_18_0_0_1_0_1_0);
 		TERMINALS[terminalsIndex++] = new eu.hyvar.feature.constraint.resource.hyconstraints.mopp.HyconstraintsExpectedStructuralFeature(eu.hyvar.feature.constraint.resource.hyconstraints.grammar.HyconstraintsGrammarInformationProvider.HYDATAVALUE_2_0_0_1_0_0_0);
 		TERMINALS[terminalsIndex++] = new eu.hyvar.feature.constraint.resource.hyconstraints.mopp.HyconstraintsExpectedStructuralFeature(eu.hyvar.feature.constraint.resource.hyconstraints.grammar.HyconstraintsGrammarInformationProvider.HYDATAVALUE_2_0_0_1_0_1_0);
 		TERMINALS[terminalsIndex++] = new eu.hyvar.feature.constraint.resource.hyconstraints.mopp.HyconstraintsExpectedCsString(eu.hyvar.feature.constraint.resource.hyconstraints.grammar.HyconstraintsGrammarInformationProvider.HYDATAVALUE_2_0_0_2);

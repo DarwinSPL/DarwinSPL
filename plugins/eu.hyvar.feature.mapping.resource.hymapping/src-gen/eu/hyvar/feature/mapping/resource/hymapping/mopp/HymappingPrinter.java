@@ -1386,6 +1386,9 @@ public class HymappingPrinter implements eu.hyvar.feature.mapping.resource.hymap
 		temp = element.eGet(element.eClass().getEStructuralFeature(eu.hyvar.feature.expression.HyExpressionPackage.HY_CONTEXT_INFORMATION_REFERENCE_EXPRESSION__CONTEXT_INFORMATION));
 		printCountingMap.put("contextInformation", temp == null ? 0 : 1);
 		// print collected hidden tokens
+		// DEFINITION PART BEGINS (CsString)
+		out.print("context:");
+		out.print(" ");
 		// DEFINITION PART BEGINS (CompoundDefinition)
 		print_eu_hyvar_feature_expression_HyContextInformationReferenceExpression_0(element, localtab, out, printCountingMap);
 	}

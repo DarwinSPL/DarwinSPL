@@ -853,39 +853,44 @@ public class HyconstraintsGrammarInformationProvider {
 		return new eu.hyvar.feature.constraint.resource.hyconstraints.grammar.HyconstraintsRule(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyAttributeReferenceExpression(), HYEXPRESSION_17_0, eu.hyvar.feature.constraint.resource.hyconstraints.grammar.HyconstraintsCardinality.ONE);
 	}
 	
-	public final static eu.hyvar.feature.constraint.resource.hyconstraints.grammar.HyconstraintsPlaceholder HYEXPRESSION_18_0_0_0_0_0_0 = INSTANCE.getHYEXPRESSION_18_0_0_0_0_0_0();
-	private eu.hyvar.feature.constraint.resource.hyconstraints.grammar.HyconstraintsPlaceholder getHYEXPRESSION_18_0_0_0_0_0_0() {
+	public final static eu.hyvar.feature.constraint.resource.hyconstraints.grammar.HyconstraintsKeyword HYEXPRESSION_18_0_0_0 = INSTANCE.getHYEXPRESSION_18_0_0_0();
+	private eu.hyvar.feature.constraint.resource.hyconstraints.grammar.HyconstraintsKeyword getHYEXPRESSION_18_0_0_0() {
+		return new eu.hyvar.feature.constraint.resource.hyconstraints.grammar.HyconstraintsKeyword("context:", eu.hyvar.feature.constraint.resource.hyconstraints.grammar.HyconstraintsCardinality.ONE);
+	}
+	
+	public final static eu.hyvar.feature.constraint.resource.hyconstraints.grammar.HyconstraintsPlaceholder HYEXPRESSION_18_0_0_1_0_0_0 = INSTANCE.getHYEXPRESSION_18_0_0_1_0_0_0();
+	private eu.hyvar.feature.constraint.resource.hyconstraints.grammar.HyconstraintsPlaceholder getHYEXPRESSION_18_0_0_1_0_0_0() {
 		return new eu.hyvar.feature.constraint.resource.hyconstraints.grammar.HyconstraintsPlaceholder(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyContextInformationReferenceExpression().getEStructuralFeature(eu.hyvar.feature.expression.HyExpressionPackage.HY_CONTEXT_INFORMATION_REFERENCE_EXPRESSION__CONTEXT_INFORMATION), "QUOTED_34_34", eu.hyvar.feature.constraint.resource.hyconstraints.grammar.HyconstraintsCardinality.ONE, 0);
 	}
 	
-	public final static eu.hyvar.feature.constraint.resource.hyconstraints.grammar.HyconstraintsSequence HYEXPRESSION_18_0_0_0_0_0 = INSTANCE.getHYEXPRESSION_18_0_0_0_0_0();
-	private eu.hyvar.feature.constraint.resource.hyconstraints.grammar.HyconstraintsSequence getHYEXPRESSION_18_0_0_0_0_0() {
-		return new eu.hyvar.feature.constraint.resource.hyconstraints.grammar.HyconstraintsSequence(eu.hyvar.feature.constraint.resource.hyconstraints.grammar.HyconstraintsCardinality.ONE, HYEXPRESSION_18_0_0_0_0_0_0);
+	public final static eu.hyvar.feature.constraint.resource.hyconstraints.grammar.HyconstraintsSequence HYEXPRESSION_18_0_0_1_0_0 = INSTANCE.getHYEXPRESSION_18_0_0_1_0_0();
+	private eu.hyvar.feature.constraint.resource.hyconstraints.grammar.HyconstraintsSequence getHYEXPRESSION_18_0_0_1_0_0() {
+		return new eu.hyvar.feature.constraint.resource.hyconstraints.grammar.HyconstraintsSequence(eu.hyvar.feature.constraint.resource.hyconstraints.grammar.HyconstraintsCardinality.ONE, HYEXPRESSION_18_0_0_1_0_0_0);
 	}
 	
-	public final static eu.hyvar.feature.constraint.resource.hyconstraints.grammar.HyconstraintsPlaceholder HYEXPRESSION_18_0_0_0_0_1_0 = INSTANCE.getHYEXPRESSION_18_0_0_0_0_1_0();
-	private eu.hyvar.feature.constraint.resource.hyconstraints.grammar.HyconstraintsPlaceholder getHYEXPRESSION_18_0_0_0_0_1_0() {
+	public final static eu.hyvar.feature.constraint.resource.hyconstraints.grammar.HyconstraintsPlaceholder HYEXPRESSION_18_0_0_1_0_1_0 = INSTANCE.getHYEXPRESSION_18_0_0_1_0_1_0();
+	private eu.hyvar.feature.constraint.resource.hyconstraints.grammar.HyconstraintsPlaceholder getHYEXPRESSION_18_0_0_1_0_1_0() {
 		return new eu.hyvar.feature.constraint.resource.hyconstraints.grammar.HyconstraintsPlaceholder(eu.hyvar.feature.expression.HyExpressionPackage.eINSTANCE.getHyContextInformationReferenceExpression().getEStructuralFeature(eu.hyvar.feature.expression.HyExpressionPackage.HY_CONTEXT_INFORMATION_REFERENCE_EXPRESSION__CONTEXT_INFORMATION), "IDENTIFIER_TOKEN", eu.hyvar.feature.constraint.resource.hyconstraints.grammar.HyconstraintsCardinality.ONE, 0);
 	}
 	
-	public final static eu.hyvar.feature.constraint.resource.hyconstraints.grammar.HyconstraintsSequence HYEXPRESSION_18_0_0_0_0_1 = INSTANCE.getHYEXPRESSION_18_0_0_0_0_1();
-	private eu.hyvar.feature.constraint.resource.hyconstraints.grammar.HyconstraintsSequence getHYEXPRESSION_18_0_0_0_0_1() {
-		return new eu.hyvar.feature.constraint.resource.hyconstraints.grammar.HyconstraintsSequence(eu.hyvar.feature.constraint.resource.hyconstraints.grammar.HyconstraintsCardinality.ONE, HYEXPRESSION_18_0_0_0_0_1_0);
+	public final static eu.hyvar.feature.constraint.resource.hyconstraints.grammar.HyconstraintsSequence HYEXPRESSION_18_0_0_1_0_1 = INSTANCE.getHYEXPRESSION_18_0_0_1_0_1();
+	private eu.hyvar.feature.constraint.resource.hyconstraints.grammar.HyconstraintsSequence getHYEXPRESSION_18_0_0_1_0_1() {
+		return new eu.hyvar.feature.constraint.resource.hyconstraints.grammar.HyconstraintsSequence(eu.hyvar.feature.constraint.resource.hyconstraints.grammar.HyconstraintsCardinality.ONE, HYEXPRESSION_18_0_0_1_0_1_0);
 	}
 	
-	public final static eu.hyvar.feature.constraint.resource.hyconstraints.grammar.HyconstraintsChoice HYEXPRESSION_18_0_0_0_0 = INSTANCE.getHYEXPRESSION_18_0_0_0_0();
-	private eu.hyvar.feature.constraint.resource.hyconstraints.grammar.HyconstraintsChoice getHYEXPRESSION_18_0_0_0_0() {
-		return new eu.hyvar.feature.constraint.resource.hyconstraints.grammar.HyconstraintsChoice(eu.hyvar.feature.constraint.resource.hyconstraints.grammar.HyconstraintsCardinality.ONE, HYEXPRESSION_18_0_0_0_0_0, HYEXPRESSION_18_0_0_0_0_1);
+	public final static eu.hyvar.feature.constraint.resource.hyconstraints.grammar.HyconstraintsChoice HYEXPRESSION_18_0_0_1_0 = INSTANCE.getHYEXPRESSION_18_0_0_1_0();
+	private eu.hyvar.feature.constraint.resource.hyconstraints.grammar.HyconstraintsChoice getHYEXPRESSION_18_0_0_1_0() {
+		return new eu.hyvar.feature.constraint.resource.hyconstraints.grammar.HyconstraintsChoice(eu.hyvar.feature.constraint.resource.hyconstraints.grammar.HyconstraintsCardinality.ONE, HYEXPRESSION_18_0_0_1_0_0, HYEXPRESSION_18_0_0_1_0_1);
 	}
 	
-	public final static eu.hyvar.feature.constraint.resource.hyconstraints.grammar.HyconstraintsCompound HYEXPRESSION_18_0_0_0 = INSTANCE.getHYEXPRESSION_18_0_0_0();
-	private eu.hyvar.feature.constraint.resource.hyconstraints.grammar.HyconstraintsCompound getHYEXPRESSION_18_0_0_0() {
-		return new eu.hyvar.feature.constraint.resource.hyconstraints.grammar.HyconstraintsCompound(HYEXPRESSION_18_0_0_0_0, eu.hyvar.feature.constraint.resource.hyconstraints.grammar.HyconstraintsCardinality.ONE);
+	public final static eu.hyvar.feature.constraint.resource.hyconstraints.grammar.HyconstraintsCompound HYEXPRESSION_18_0_0_1 = INSTANCE.getHYEXPRESSION_18_0_0_1();
+	private eu.hyvar.feature.constraint.resource.hyconstraints.grammar.HyconstraintsCompound getHYEXPRESSION_18_0_0_1() {
+		return new eu.hyvar.feature.constraint.resource.hyconstraints.grammar.HyconstraintsCompound(HYEXPRESSION_18_0_0_1_0, eu.hyvar.feature.constraint.resource.hyconstraints.grammar.HyconstraintsCardinality.ONE);
 	}
 	
 	public final static eu.hyvar.feature.constraint.resource.hyconstraints.grammar.HyconstraintsSequence HYEXPRESSION_18_0_0 = INSTANCE.getHYEXPRESSION_18_0_0();
 	private eu.hyvar.feature.constraint.resource.hyconstraints.grammar.HyconstraintsSequence getHYEXPRESSION_18_0_0() {
-		return new eu.hyvar.feature.constraint.resource.hyconstraints.grammar.HyconstraintsSequence(eu.hyvar.feature.constraint.resource.hyconstraints.grammar.HyconstraintsCardinality.ONE, HYEXPRESSION_18_0_0_0);
+		return new eu.hyvar.feature.constraint.resource.hyconstraints.grammar.HyconstraintsSequence(eu.hyvar.feature.constraint.resource.hyconstraints.grammar.HyconstraintsCardinality.ONE, HYEXPRESSION_18_0_0_0, HYEXPRESSION_18_0_0_1);
 	}
 	
 	public final static eu.hyvar.feature.constraint.resource.hyconstraints.grammar.HyconstraintsChoice HYEXPRESSION_18_0 = INSTANCE.getHYEXPRESSION_18_0();

@@ -113,10 +113,10 @@ RULES {
 	HyAttributeReferenceExpression ::= (feature['"', '"'] | feature[]) "." attribute[];
 	
 	@SuppressWarnings(explicitSyntaxChoice)
-	@Operator(type="primitive", weight="12", superclass="HyArithmeticalValueExpression")
-	HyContextInformationReferenceExpression ::= (contextInformation['"', '"'] | contextInformation[]);
+	@Operator(type="primitive", weight="11", superclass="HyArithmeticalValueExpression")
+	HyContextInformationReferenceExpression ::= "context:" (contextInformation['"', '"'] | contextInformation[]);
 	
-	@Operator(type="primitive", weight="13", superclass="HyArithmeticalValueExpression")
+	@Operator(type="primitive", weight="11", superclass="HyArithmeticalValueExpression")
 	HyValueExpression ::= value;
 	
 	HyRelativeVersionRestriction ::= "[" operator[lessThan : "<", lessThanOrEqual : "<=", equal : "=", implicitEqual : "", greaterThanOrEqual : ">=", greaterThan : ">"] version['"','"'] "]";
