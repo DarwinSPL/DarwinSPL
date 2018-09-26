@@ -18,6 +18,8 @@ OPTIONS {
 	disableBuilder = "true";
 	disableLaunchSupport = "true";
 	disableDebugSupport = "true";
+	
+	overrideUIManifest = "false";
 }
 
 RULES {

@@ -18,6 +18,8 @@ OPTIONS {
 	disableDebugSupport = "true";
 	disableBuilder = "true";
 	disableNewProjectWizard = "true";
+	
+	overrideUIManifest = "false";
 }
 
 RULES {

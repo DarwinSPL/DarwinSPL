@@ -3,7 +3,6 @@ Bundle-ManifestVersion: 2
 Bundle-Name: EMFText UI Plugin: dwprofile
 Bundle-SymbolicName: de.darwinspl.preferences.resource.dwprofile.ui;singleton:=true
 Bundle-Version: 1.0.0
-Bundle-Vendor: Software Technology Group - TU Dresden Germany
 Require-Bundle: org.eclipse.core.runtime,
   org.eclipse.core.resources,
   org.emftext.access;resolution:=optional,

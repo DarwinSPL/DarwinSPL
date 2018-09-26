@@ -19,6 +19,8 @@ OPTIONS {
 	editorName = "Validity Formula Editor (HyVar)";
 	newFileWizardCategory = "eu.hyvar.newwizards.Category";
 	newFileWizardName = "HyVar Validity Formulas (*.hyvalidityformula)";
+	
+	overrideUIManifest = "false";
 }
 
 RULES {
