@@ -37,6 +37,11 @@ import eu.hyvar.reconfigurator.input.format.Context;
 import eu.hyvar.reconfigurator.input.format.ContextValue;
 import eu.hyvar.reconfigurator.input.format.InputForHyVarRec;
 
+/**
+ * 
+ * @author Felix Franzke
+ *
+ */
 public class HyVarRecExporter {
 
 //	private Gson gson;
@@ -113,6 +118,8 @@ public class HyVarRecExporter {
 	private ReconfiguratorIdMapping reconfiguratorIdMapping;
 	
 	private List<Date> sortedDateList;
+	
+	private Map<String, EObject> translationMapping;
 
 	public enum FeatureEncoding {INTEGER, BOOLEAN}
 	
@@ -198,6 +205,9 @@ public class HyVarRecExporter {
 			return null;
 		}
 
+		// initialize translationMapping
+		translationMapping = new HashMap<String, EObject>();
+
 		// Create mappings from model elements to IDs
 		reconfiguratorIdMapping = new ReconfiguratorIdMapping(featureModels, contextModels);
 
@@ -214,13 +224,13 @@ public class HyVarRecExporter {
 			DwFeatureModelExporter featureModelExporter = null;
 			switch(featureEncoding) {
 			case BOOLEAN:
-				featureModelExporter = new DwFeatureModelExporterBooleanEncoding(featureModel, featureReconfiguratorIdMapping, versionReconfiguratorIdMapping, attributeReconfiguratorIdMapping);
+				featureModelExporter = new DwFeatureModelExporterBooleanEncoding(featureModel, featureReconfiguratorIdMapping, versionReconfiguratorIdMapping, attributeReconfiguratorIdMapping, translationMapping);
 				break;
 			case INTEGER:
-				featureModelExporter = new DwFeatureModelExporterIntegerEncoding(featureModel, featureReconfiguratorIdMapping, versionReconfiguratorIdMapping, attributeReconfiguratorIdMapping);
+				featureModelExporter = new DwFeatureModelExporterIntegerEncoding(featureModel, featureReconfiguratorIdMapping, versionReconfiguratorIdMapping, attributeReconfiguratorIdMapping, translationMapping);
 				break;
 			default:
-				featureModelExporter = new DwFeatureModelExporterIntegerEncoding(featureModel, featureReconfiguratorIdMapping, versionReconfiguratorIdMapping, attributeReconfiguratorIdMapping);
+				featureModelExporter = new DwFeatureModelExporterIntegerEncoding(featureModel, featureReconfiguratorIdMapping, versionReconfiguratorIdMapping, attributeReconfiguratorIdMapping, translationMapping);
 				break;
 			}
 			featureModelExporters.put(featureModel, featureModelExporter);
@@ -256,9 +266,9 @@ public class HyVarRecExporter {
 //				reconfiguratorIdMapping.getContextIdMapping(), BooleanRepresentationOption.TRUEFALSE,
 //				FeatureSelectionRepresentationOption.ONEZERO, VersionRepresentation.AS_ONEZERO_FEATURES, true, true);
 
-		DwConstraintExporter constraintExporter = new DwConstraintExporter(expressionExporter);
+		DwConstraintExporter constraintExporter = new DwConstraintExporter(expressionExporter, translationMapping);
 		DwPreferenceExporter preferenceExporter = new DwPreferenceExporter(expressionExporter);
-		DwValidityFormulaExporter validityFormulaExporter = new DwValidityFormulaExporter(expressionExporter);
+		DwValidityFormulaExporter validityFormulaExporter = new DwValidityFormulaExporter(expressionExporter, translationMapping);
 
 		InputForHyVarRec input = new InputForHyVarRec();
 		initializeEmptyHyVarRecInput(input);
@@ -364,14 +374,13 @@ public class HyVarRecExporter {
 			for(HyConstraintModel constraintModel: constraintModels) {
 				input.getConstraints()
 				.addAll(constraintExporter.getConstraints(constraintModel, date, dateContext, sortedDateList));
-				
 			}
 		}
 
 		if (contextValidityModels != null) {
 			for(HyValidityModel contextValidityModel: contextValidityModels) {
 				input.getConstraints().addAll(validityFormulaExporter.getContextValidityFormulas(contextValidityModel, date,
-						dateContext, sortedDateList));				
+						dateContext, sortedDateList));
 			}
 		}
 
@@ -692,5 +701,8 @@ public class HyVarRecExporter {
 		return this.sortedDateList;
 	}
 	
+	public Map<String, EObject>  getTranslationMapping() {
+		return translationMapping;
+	}
 
 }

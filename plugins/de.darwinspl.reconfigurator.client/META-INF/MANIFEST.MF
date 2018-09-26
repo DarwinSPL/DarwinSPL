@@ -15,8 +15,14 @@ Require-Bundle: com.google.gson,
  eu.hyvar.reconfigurator.output.translation,
  org.eclipse.jetty.io,
  org.eclipse.jetty.util,
+ de.darwinspl.anomalies.explanations,
  de.darwinspl.anomalies,
- de.darwinspl.anomalies.explanations
+ de.darwinspl.feature.evolution.evolutionoperation;bundle-version="0.1.0",
+ eu.hyvar.feature.expression,
+ eu.hyvar.feature.data,
+ org.eclipse.emf.ecore,
+ eu.hyvar.feature
 Bundle-ClassPath: .,
- libs/org.eclipse.jetty.client_9.4.5.v20170502.jar
-Export-Package: de.darwinspl.reconfigurator.client.hyvarrec
+ libs/jetty-client-9.4.8.v20171121.jar
+Export-Package: de.darwinspl.reconfigurator.client.hyvarrec,
+ de.darwinspl.reconfigurator.client.hyvarrec.format

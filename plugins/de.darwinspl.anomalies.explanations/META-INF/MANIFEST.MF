@@ -7,7 +7,8 @@ Bundle-ClassPath: .
 Bundle-Vendor: %providerName
 Bundle-Localization: plugin
 Bundle-RequiredExecutionEnvironment: JavaSE-1.7
-Export-Package: de.darwinspl.anomaly.explanation,
+Export-Package: de.darwinspl.anomalies.explanations,
+ de.darwinspl.anomaly.explanation,
  de.darwinspl.anomaly.explanation.impl,
  de.darwinspl.anomaly.explanation.util
 Require-Bundle: org.eclipse.core.runtime,
@@ -17,5 +18,9 @@ Require-Bundle: org.eclipse.core.runtime,
  eu.hyvar.evolution;visibility:=reexport,
  eu.hyvar.feature;visibility:=reexport,
  eu.hyvar.context.information.value;visibility:=reexport,
- eu.hyvar.context.information;visibility:=reexport
+ eu.hyvar.context.information;visibility:=reexport,
+ de.darwinspl.feature.evolution.evolutionoperation
 Bundle-ActivationPolicy: lazy
+Import-Package: de.darwinspl.feature.evolution.evolutionoperation,
+ eu.hyvar.context.contextValidity,
+ eu.hyvar.feature.constraint

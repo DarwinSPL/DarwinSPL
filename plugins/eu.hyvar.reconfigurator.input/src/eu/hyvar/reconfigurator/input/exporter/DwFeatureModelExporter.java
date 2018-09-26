@@ -8,6 +8,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import org.eclipse.emf.ecore.EObject;
+
 import eu.hyvar.evolution.util.HyEvolutionUtil;
 import eu.hyvar.feature.HyBooleanAttribute;
 import eu.hyvar.feature.HyEnumAttribute;
@@ -28,6 +30,7 @@ import eu.hyvar.feature.util.HyFeatureUtil;
 import eu.hyvar.reconfigurator.input.exporter.HyVarRecExporter.FeatureEncoding;
 import eu.hyvar.reconfigurator.input.format.Context;
 
+
 public abstract class DwFeatureModelExporter {
 
 	private Map<HyFeatureAttribute, String> attributeReconfiguratorIdMapping;
@@ -38,14 +41,19 @@ public abstract class DwFeatureModelExporter {
 
 	private Map<HyFeature, String> featureReconfiguratorIdMapping;
 	private Map<HyVersion, String> versionReconfiguratorIdMapping;
+	
+	
+	private Map<String, EObject> translationMapping;
 
 	public DwFeatureModelExporter(HyFeatureModel featureModel, Map<HyFeature, String> featureReconfiguratorIdMapping,
 			Map<HyVersion, String> versionReconfiguratorIdMapping,
-			Map<HyFeatureAttribute, String> attributeReconfiguratorIdMapping) {
+			Map<HyFeatureAttribute, String> attributeReconfiguratorIdMapping, Map<String, EObject> translationMapping) {
 		this.featureModel = featureModel;
 		this.featureReconfiguratorIdMapping = featureReconfiguratorIdMapping;
 		this.versionReconfiguratorIdMapping = versionReconfiguratorIdMapping;
 		this.attributeReconfiguratorIdMapping = attributeReconfiguratorIdMapping;
+		
+		this.translationMapping = translationMapping;
 	}
 
 	protected abstract List<String> getAlternativeRelation(String parentId, List<String> childrenIds);
@@ -195,6 +203,8 @@ public abstract class DwFeatureModelExporter {
 					featureEndocing.getFeatureSelected(featureReconfiguratorIdMapping.get(rootFeature.getFeature())));
 			featureModelConstraints.add(rootFeatureConstraint.toString());
 
+			translationMapping.put(rootFeatureConstraint.toString(), rootFeature);
+			
 			featureModelConstraints
 					.addAll(getFeatureModelVersionConstraints(featureModel, date, dateContext, sortedDateList));
 
@@ -207,6 +217,9 @@ public abstract class DwFeatureModelExporter {
 						.getFeatureSelected(featureReconfiguratorIdMapping.get(rootFeature.getFeature())));
 
 				featureModelConstraints.add(rootFeatureConstraint.toString());
+				
+				translationMapping.put(rootFeatureConstraint.toString(), rootFeature);
+				
 				rootFeatureConstraint = new StringBuilder();
 			}
 		}
@@ -300,6 +313,8 @@ public abstract class DwFeatureModelExporter {
 					}
 
 					versionConstraints.add(versionStringBuilder.toString());
+					
+					translationMapping.put(versionStringBuilder.toString(), feature);
 				}
 			}
 		}
@@ -341,7 +356,6 @@ public abstract class DwFeatureModelExporter {
 		// For each date at which something changes, create seperate constraints.
 		List<Date> relevantDates = new ArrayList<Date>(relevantDatesSet);
 		Collections.sort(relevantDates);
-
 		// --------- add constraints for AND, OR, ALTERNATIVE groups
 
 		// For group type constraints, group type dates and feature type dates are
@@ -439,6 +453,8 @@ public abstract class DwFeatureModelExporter {
 					
 					featureModelConstraints.add(groupConstraintsStringBuilder.toString());
 					
+					translationMapping.put(groupConstraintsStringBuilder.toString(), group);
+					
 					groupConstraintsStringBuilder = new StringBuilder();
 				}
 				break;
@@ -485,6 +501,8 @@ public abstract class DwFeatureModelExporter {
 					}
 
 					featureModelConstraints.add(groupConstraintsStringBuilder.toString());
+
+					translationMapping.put(groupConstraintsStringBuilder.toString(), group);
 					
 					if(groupConstraintsStringBuilder.toString().startsWith("feature[_b8ad13a0-942d-4b5e-b342-ce532c45d595]) impl feature[_9f51cd08-3c94-4e5d-a212-2c2e6a6fa5b3]")) {
 						System.err.println("Here is the bug!");
@@ -516,7 +534,7 @@ public abstract class DwFeatureModelExporter {
 					if (validFeaturesOfGroupComposition.size() > 1) {
 						groupConstraintsStringBuilder.append(HyVarRecExporter.BRACKETS_CLOSING);
 					}
-
+					
 					groupConstraintsStringBuilder.append(HyVarRecExporter.IMPLICATION);
 
 					groupConstraintsStringBuilder.append(featureEndocing.getFeatureSelected(parentFeatureId));
@@ -531,6 +549,8 @@ public abstract class DwFeatureModelExporter {
 
 					featureModelConstraints.add(groupConstraintsStringBuilder.toString());
 
+					translationMapping.put(groupConstraintsStringBuilder.toString(), group);
+					
 					groupConstraintsStringBuilder = new StringBuilder();
 				}
 
@@ -548,6 +568,8 @@ public abstract class DwFeatureModelExporter {
 				}
 
 				featureModelConstraints.add(groupConstraintsStringBuilder.toString());
+				
+				translationMapping.put(groupConstraintsStringBuilder.toString(), group);
 				
 				groupConstraintsStringBuilder = new StringBuilder();
 				

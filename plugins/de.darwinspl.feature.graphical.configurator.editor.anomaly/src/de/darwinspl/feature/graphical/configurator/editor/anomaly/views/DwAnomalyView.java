@@ -8,6 +8,7 @@ import java.nio.channels.UnresolvedAddressException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeoutException;
 
@@ -43,13 +44,12 @@ import org.eclipse.ui.ide.ResourceUtil;
 import org.eclipse.ui.part.FileEditorInput;
 import org.eclipse.ui.part.ViewPart;
 
-import com.google.gson.JsonSyntaxException;
 import de.christophseidl.util.ecore.EcoreIOUtil;
+import de.darwinspl.anomalies.explanations.AnomalyConstraintExplanation;
 import de.darwinspl.anomaly.DwAnomaly;
 import de.darwinspl.anomaly.DwDeadFeatureAnomaly;
 import de.darwinspl.anomaly.DwFalseOptionalFeatureAnomaly;
 import de.darwinspl.anomaly.DwVoidFeatureModelAnomaly;
-import de.darwinspl.anomaly.explanation.DwAnomalyExplanation;
 import de.darwinspl.feature.graphical.base.model.DwFeatureModelWrapped;
 import de.darwinspl.feature.graphical.configurator.editor.anomaly.views.tableviews.AnomalyTableView;
 import de.darwinspl.feature.graphical.configurator.viewer.DwFeatureModelConfiguratorViewer;
@@ -57,6 +57,7 @@ import de.darwinspl.feature.graphical.editor.editor.DwGraphicalFeatureModelEdito
 import de.darwinspl.preferences.DwProfile;
 import de.darwinspl.preferences.util.custom.DwPreferenceModelUtil;
 import de.darwinspl.reconfigurator.client.hyvarrec.DwAnalysesClient;
+import de.darwinspl.reconfigurator.client.hyvarrec.DwEvolutionOperationAnalyzer;
 import de.darwinspl.reconfigurator.client.hyvarrec.HyVarRecNoSolutionException;
 import eu.hyvar.context.HyContextInformationFactory;
 import eu.hyvar.context.HyContextModel;
@@ -92,6 +93,8 @@ public class DwAnomalyView extends ViewPart {
 		public static Date EVOLUTION_AWARE_ANALYSIS_START_DATE = null;
 		public static Date EVOLUTION_AWARE_ANALYSIS_END_DATE = null;
 		public static TypeOfEvolutionAwareAnalysis EVOLUTION_AWARE_ANALYSIS_TYPE = TypeOfEvolutionAwareAnalysis.COMPLETE_HISTORY;
+		
+		private DwEvolutionOperationAnalyzer evolutionOperationAnalyzer;
 		
 		
 		public enum TypeOfEvolutionAwareAnalysis{
@@ -174,37 +177,37 @@ public class DwAnomalyView extends ViewPart {
 		
 	    
 
-		public DwAnomalyExplanation explaingAnomaly(DwAnomaly anomaly){
-			
-			DwAnalysesClient analysesClient = new DwAnalysesClient();
-			DwAnomalyExplanation anomalyExplanation = null;
-			try {
-				anomalyExplanation = analysesClient.explainAnomaly(getURI(), USERNAME, PASSWORD, contextModel, validityModel, modelWrapped.getModel(), constraintModel, anomaly);
-			} catch (UnresolvedAddressException e) {
-				
-				e.printStackTrace();
-			} catch (TimeoutException e) {
-				
-				e.printStackTrace();
-			} catch (InterruptedException e) {
-				
-				e.printStackTrace();
-			} catch (ExecutionException e) {
-				
-				e.printStackTrace();
-			}
-			
-			
-			
-			if(anomalyExplanation != null){
-				ExplainAnomalyDialog explainDialog = new ExplainAnomalyDialog(PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell(), anomalyExplanation);
-				explainDialog.open();
-				return anomalyExplanation;
-			}else {
-				return null;
-			}
-			
-		}
+//		public DwAnomalyExplanation explaingAnomaly(DwAnomaly anomaly){
+//			
+//			DwAnalysesClient analysesClient = new DwAnalysesClient();
+//			DwAnomalyExplanation anomalyExplanation = null;
+//			try {
+//				anomalyExplanation = analysesClient.explainAnomaly(getURI(), USERNAME, PASSWORD, contextModel, validityModel, modelWrapped.getModel(), constraintModel, anomaly);
+//			} catch (UnresolvedAddressException e) {
+//				
+//				e.printStackTrace();
+//			} catch (TimeoutException e) {
+//				
+//				e.printStackTrace();
+//			} catch (InterruptedException e) {
+//				
+//				e.printStackTrace();
+//			} catch (ExecutionException e) {
+//				
+//				e.printStackTrace();
+//			}
+//			
+//			
+//			
+//			if(anomalyExplanation != null){
+//				ExplainAnomalyDialog explainDialog = new ExplainAnomalyDialog(PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell(), anomalyExplanation);
+//				explainDialog.open();
+//				return anomalyExplanation;
+//			}else {
+//				return null;
+//			}
+//			
+//		}
 
 	    
  
@@ -708,11 +711,14 @@ public class DwAnomalyView extends ViewPart {
 					
 					errorMessage.setVisible(false);
 					
+					evolutionOperationAnalyzer = new DwEvolutionOperationAnalyzer(client.getExporter());
+					evolutionOperationAnalyzer.setFeatureAnomalies(anomalies);
+					
 					return anomalies;
 					
 					
 				
-			} catch (UnresolvedAddressException | JsonSyntaxException | TimeoutException | InterruptedException | ExecutionException | HyVarRecNoSolutionException | NullPointerException  e1 ) {
+			} catch (UnresolvedAddressException |  TimeoutException | InterruptedException | ExecutionException | HyVarRecNoSolutionException | NullPointerException  e1 ) {
 				
 				
 				if(modelWrapped == null) {
@@ -734,4 +740,52 @@ public class DwAnomalyView extends ViewPart {
 
 			
 		}
-	}
+		
+		public Set<AnomalyConstraintExplanation> explainAnomaly(DwAnomaly anomaly) {
+
+			DwAnalysesClient analysesClient = new DwAnalysesClient();
+			Set<AnomalyConstraintExplanation> anomalyExplanation = null;
+			try {
+
+				String username = null;
+				String password = null;
+				if (HTTT_AUTHENTICATION_ENABLED) {
+					username = USERNAME;
+					password = PASSWORD;
+				}
+
+				
+				// Moved to the getAnomalies method as this would retrieve all feature model anomalies again!!
+//				List<DwAnomaly> anomalies = analysesClient.checkFeatures(getURI(), username, password, contextModel, validityModel, modelWrapped.getModel(), constraintModel, null, null);
+//				
+//				DwEvolutionOperationAnalyzer evolutionOperationAnalyzer = new DwEvolutionOperationAnalyzer(analysesClient.getExporter());
+//				evolutionOperationAnalyzer.setFeatureAnomalies(anomalies);
+				
+				anomalyExplanation = analysesClient.explainAnomaly(getURI(), username, password, contextModel, validityModel,
+						modelWrapped.getModel(), constraintModel, anomaly, evolutionOperationAnalyzer);
+			} catch (UnresolvedAddressException e) {
+
+				e.printStackTrace();
+			} catch (TimeoutException e) {
+
+				e.printStackTrace();
+			} catch (InterruptedException e) {
+
+				e.printStackTrace();
+			} catch (ExecutionException e) {
+
+				e.printStackTrace();
+			}
+
+			if (anomalyExplanation != null) {
+				ExplainDialogResultDialog explainDialog = new ExplainDialogResultDialog(
+						PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell(), anomaly, anomalyExplanation);
+				explainDialog.open();
+				return anomalyExplanation;
+			} else {
+				return null;
+			}
+
+		}
+
+}
