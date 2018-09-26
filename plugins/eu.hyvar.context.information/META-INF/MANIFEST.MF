@@ -11,10 +11,7 @@ Export-Package: eu.hyvar.context,
  eu.hyvar.context.impl,
  eu.hyvar.context.information.util,
  eu.hyvar.context.util
-Require-Bundle: org.eclipse.core.runtime,
- org.eclipse.emf.ecore;visibility:=reexport,
- eu.hyvar.feature.data;visibility:=reexport,
- eu.hyvar.evolution;visibility:=reexport,
+Require-Bundle: eu.hyvar.feature.data;visibility:=reexport,
  org.deltaecore.common,
  de.christophseidl.util.ecore,
  de.darwinspl.common.ecore

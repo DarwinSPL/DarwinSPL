@@ -13,14 +13,7 @@ Export-Package: eu.hyvar.feature,
  eu.hyvar.feature.impl.custom,
  eu.hyvar.feature.util,
  eu.hyvar.feature.util.exporter
-Require-Bundle: org.eclipse.core.runtime,
- org.eclipse.emf.ecore;visibility:=reexport,
- eu.hyvar.context.information;visibility:=reexport,
- org.eclipse.emf.ecore.xmi;visibility:=reexport,
- eu.hyvar.feature.data;visibility:=reexport,
- eu.hyvar.evolution;visibility:=reexport,
- org.deltaecore.common,
+Require-Bundle: eu.hyvar.context.information;visibility:=reexport,
  de.christophseidl.util.ecore,
- de.christophseidl.util.eclipse,
  de.darwinspl.common.ecore
 Bundle-ActivationPolicy: lazy
